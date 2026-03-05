@@ -1,0 +1,2485 @@
+近场通信（NFC）项目2024/12/21
+近场通信（NFC）技术的概述。
+若要开发近场通信（NFC），需要以下标头：
+nfccx.h
+nfcradiodev.h nfcsedev.h nfpdev.h winsmcrd.h
+有关编程指南，请参阅 近场通信（NFC）。
+IOCTLs  
+IOCTL_NFCRM_QUERY_RADIO_STATE
+告知我们有关下载 PDF 体验的信息。
+ﾉ
+无线电管理应用程序或服务使用此 IOCTL 来查询邻近设备的当前无线电电源状态。 IOCTL_NFCRM_SET_RADIO_STATE
+无线电管理应用程序或服务使用此 IOCTL 来设置邻近设备的无线电电源状态。 IOCTL_NFCSE_ENUM_ENDPOINTS
+返回有关附加到 NFC 控制器的所有安全元素的列表的信息。 IOCTL_NFCSE_GET_NEXT_EVENT
+展开表
+IOCTL_NFCSE_GET_NEXT_EVENT控制代码返回缓冲区中可用的下一个事件，或者如果没有其他缓冲
+事件仍挂起，直到安全元素事件可用为止。 然后，必须将事件详细信息返回到调用方。 IOCTL_NFCSE_GET_NFCC_CAPABILITIES
+IOCTL_NFCSE_GET_NFCC_CAPABILITIES控制代码返回有关当前 NFC 控制器功能的信息，包括最大侦听模式路由表大小（在 NFC 控制器接口 （NCI） 技术规范版本 1.1 的第 4.2 节中定义）和支持的路由模式。
+IOCTL_NFCSE_GET_ROUTING_TABLE
+ 
+返回有关侦听模式路由表的当前配置的信息。 IOCTL_NFCSE_HCE_REMOTE_RECV
+返回可用的下一个数据缓冲区，或者如果没有更多的缓冲数据，请求应保持挂起状态，直到 APDU 缓冲区可供读取。
+IOCTL_NFCSE_HCE_REMOTE_SEND
+将响应 APDU 从 DeviceHost NFCEE 传输到远程设备。 调用方必须确保响应 APDU 符合 ISO-IEC 7816-4。
+IOCTL_NFCSE_SET_CARD_EMULATION_MODE
+IOCTL_NFCSE_SET_CARD_EMULATION_MODE控制代码设置指定的安全元素是否在卡片仿真模式下公开。
+IOCTL_NFCSE_SET_ROUTING_TABLE 配置 NFC 控制器侦听模式路由表。 IOCTL_NFCSE_SUBSCRIBE_FOR_EVENT
+客户端发出IOCTL_NFCSE_SUBSCRIBE_FOR_EVENT控制代码以订阅特定事件。 IOCTL_NFCSERM_QUERY_RADIO_STATE
+SE 无线电管理应用程序或服务使用IOCTL_NFCSERM_QUERY_RADIO_STATE来查询邻近设备的当前无线电电源状态。
+IOCTL_NFCSERM_SET_RADIO_STATE
+SE 无线电管理应用程序或服务使用IOCTL_NFCSERM_SET_RADIO_STATE来设置邻近设备的当前无线电电源状态。
+IOCTL_NFP_DISABLE
+客户端发送IOCTL_NFP_DISABLE请求以暂时禁用订阅、发布和状态事件。 IOCTL_NFP_ENABLE
+客户端发送IOCTL_NFP_ENABLE请求以重新启用以前禁用的订阅、发布和状态事件。 IOCTL_NFP_GET_KILO_BYTES_PER_SECOND
+客户端将IOCTL_NFP_GET_KILO_BYTES_PER_SECOND请求发送到提供程序设备的任何泛型句柄（即未发布和非订阅的句柄）。
+IOCTL_NFP_GET_MAX_MESSAGE_BYTES
+ 
+客户端将IOCTL_NFP_GET_MAX_MESSAGE_BYTES请求发送到提供程序设备，以确定支持的最大消息大小，即非发布和非订阅的泛型句柄。
+IOCTL_NFP_GET_NEXT_SUBSCRIBED_MESSAGE
+客户端将IOCTL_NFP_GET_NEXT_SUBSCRIBED_MESSAGE请求反复发送到订阅句柄，以便在消息到达时接收订阅的消息。
+IOCTL_NFP_GET_NEXT_TRANSMITTED_MESSAGE
+想要接收消息已传输的通知的客户端会将IOCTL_NFP_GET_NEXT_TRANSMITTED_MESSAGE请求发送到邻近驱动程序。
+IOCTL_NFP_SET_PAYLOAD
+客户端应用程序发送消息数据，并使用IOCTL_NFP_SET_PAYLOAD请求确认发布。 IOCTL_SMARTCARD_GET_ATTRIBUTE
+IOCTL_SMARTCARD_GET_ATTRIBUTE控制代码查询智能卡属性。 IOCTL_SMARTCARD_GET_STATE
+IOCTL_SMARTCARD_GET_STATE控制代码获取智能卡的当前状态。 IOCTL_SMARTCARD_IS_ABSENT
+如果当前未检测到智能卡，IOCTL_SMARTCARD_IS_ABSENT控制代码会立即返回 STATUS_SUCCESS。
+IOCTL_SMARTCARD_IS_PRESENT
+IOCTL_SMARTCARD_IS_PRESENT控制代码可检测智能卡当前是否检测到。 IOCTL_SMARTCARD_POWER
+Windows 可能需要驱动程序将此 IOCTL 设置为 NOP 并返回成功。 IOCTL_SMARTCARD_SET_ATTRIBUTE
+IOCTL_SMARTCARD_SET_ATTRIBUTE控件代码设置属性，并在SCARD_ATTR_DEVICE_IN_USE上返回
+STATUS_SUCCESS;否则，它将返回STATUS_NOT_SUPPORTED。 IOCTL_SMARTCARD_SET_PROTOCOL
+设置驱动程序在检测到卡后与智能卡通信的 procotol。 IOCTL_SMARTCARD_TRANSMIT
+ 
+在符合 ISO7816-4 的 APDU 中，将数据从客户端传输到检测到的智能卡。
+枚举  
+NFC_CX_CE_MODE_CONFIG 此枚举指定 CE 侦听模式标志。
+NFC_CX_DEVICE_MODE 指定设备模式标志。 NFC_CX_DRIVER_FLAGS
+指定运行时驱动程序标志。 NFC_CX_HOST_ACTION
+NFC_CX_HOST_ACTION枚举指定主机操作。 NFC_CX_NFCIP_MODE_CONFIG
+NFC_CX_NFCIP_MODE_CONFIG枚举指定 NFC-IP 发起程序模式。 NFC_CX_NFCIP_TGT_MODE_CONFIG
+NFC_CX_NFCIP_TGT_MODE_CONFIG枚举指定 NFC-IP 目标模式。 NFC_CX_POLL_BAILOUT_CONFIG
+NFC_CX_POLL_BAILOUT_CONFIG枚举指定轮询模式救助。 NFC_CX_POLL_MODE_CONFIG
+NFC_CX_POLL_MODE_CONFIG枚举指定轮询模式。 NFC_CX_SEQUENCE
+NFC_CX_SEQUENCE枚举指定序列。 NFC_CX_TRANSPORT_TYPE
+NFC_CX_TRANSPORT_TYPE枚举指定传输类型。
+ﾉ
+展开表
+ 
+SECURE_ELEMENT_CARD_EMULATION_MODE 此枚举指示安全元素的卡片仿真模式。
+SECURE_ELEMENT_EVENT_TYPE 指示安全元素事件的类型。
+SECURE_ELEMENT_ROUTING_TYPE
+SECURE_ELEMENT_ROUTING_TYPE是SECURE_ELEMENT_ROUTING_TABLE_ENTRY的成员。
+SECURE_ELEMENT_TYPE 指示安全元素的类型。
+功能
+ﾉ
+ 
+EVT_NFC_CX_DEVICE_IO_CONTROL
+NFC CX 调用，将未经处理的 IOCTL 发送到客户端驱动程序。 EVT_NFC_CX_SEQUENCE_HANDLER
+NFC CX 调用以通知客户端驱动程序处理特定的已注册序列。 EVT_NFC_CX_WRITE_NCI_PACKET
+NFC CX 调用以将写入数据包发送到客户端驱动程序。 NFC_CX_CLIENT_CONFIG_INIT
+NFC_CX_CLIENT_CONFIG_INIT函数初始化NFC_CX_CLIENT_CONFIG结构。 NFC_CX_LLCP_CONFIG_INIT
+NFC_CX_LLCP_CONFIG_INIT函数初始化NFC_CX_LLCP_CONFIG结构。 NFC_CX_RF_DISCOVERY_CONFIG_INIT
+NFC_CX_RF_DISCOVERY_CONFIG_INIT函数初始化NFC_CX_RF_DISCOVERY_CONFIG结构。
+展开表
+ 
+NfcCxDeviceDeinitialize
+NfcCxDeviceDeinitialize 函数 （nfccx.h） deinitialize 在 AddDevice 例程中创建的 WDF 设备。 NfcCxDeviceInitConfig
+客户端驱动程序在其 AddDevice 例程期间调用以执行 DeviceInit 函数。 在此过程中，还会交换以
+下 I/O 回调函数。 NfcCxDeviceInitialize
+NfcCxDeviceInitialize 函数 （nfccx.h） 初始化在 AddDevice 例程期间创建的 WDF 设备。 NfcCxHardwareEvent
+当发生硬件事件（如 D0Entry 和 D0Exit 回调）以启动或停止设备时，由客户端驱动程序调用。 对于在初始化或启动时需要固件下载的驱动程序，建议将此调用移动到单独的工作项。 但是，客户端
+驱动程序负责以下事项。 NfcCxNciReadNotification
+当读取数据包可用时，由客户端驱动程序调用。 NfcCxRegisterSequenceHandler
+在初始化期间由客户端驱动程序调用以注册以处理特定序列。 NfcCxSetLlcpConfig
+由客户端驱动程序调用以配置 LLCP 参数。 NfcCxSetRfDiscoveryConfig
+由客户端驱动程序调用以配置 RF 发现参数。 NfcCxUnregisterSequenceHandler
+在设备关闭期间由客户端驱动程序调用，以取消注册以前注册的序列处理程序回调。结构
+ﾉ
+ 
+NFC_CX_CLIENT_CONFIG
+展开表
+ 
+NFC_CX_CLIENT_CONFIG结构是 NfcCxDeviceInitConfig 的输入参数。 NFC_CX_HARDWARE_EVENT
+NFC_CX_HARDWARE_EVENT结构是 NfcCxHardwareEvent 的输入参数。 NFC_CX_LLCP_CONFIG
+NFC_CX_LLCP_CONFIG结构是 NfcCxSetLlcpConfig 的输入参数。 NFC_CX_RF_DISCOVERY_CONFIG
+NFC_CX_RF_DISCOVERY_CONFIG结构包含 RF 发现配置设置。 调用 NfcDxDeviceInitialize 后，应在
+初始化期间完成发现配置，否则将返回错误。 NFCCX_DRIVER_GLOBALS
+_NFCCX_DRIVER_GLOBALS结构包含近场通信 （NFC） CX 驱动程序的全局值。 NFCRM_RADIO_STATE
+此结构用于指示无线电状态。 NFCRM_SET_RADIO_STATE
+此结构用于设置无线电状态。 在飞行模式的情况下，驱动程序必须保留无线电状态，并在禁用飞行模式时还原它。
+SCARD_IO_REQUEST
+此结构用于标识智能卡 I/O 请求。
+SECURE_ELEMENT_AID_ROUTING_INFO
+SECURE_ELEMENT_AID_ROUTING_INFO是SECURE_ELEMENT_ROUTING_TABLE_ENTRY的成员。 SECURE_ELEMENT_ENDPOINT_INFO
+SECURE_ELEMENT_ENDPOINT_INFO是SECURE_ELEMENT_ENDPOINT_LIST的成员。 SECURE_ELEMENT_ENDPOINT_LIST
+IOCTL_NFCSE_ENUM_ENDPOINTS的输出参数。 SECURE_ELEMENT_EVENT_INFO
+此结构提供有关安全元素事件的信息。
+SECURE_ELEMENT_EVENT_SUBSCRIPTION_INFO
+ 
+SECURE_ELEMENT_EVENT_SUBSCRIPTION_INFO结构是用于IOCTL_NFCSE_SUBSCRIBE_FOR_EVENT 的输入参数。
+SECURE_ELEMENT_HCE_ACTIVATION_PAYLOAD
+_SECURE_ELEMENT_HCE_ACTIVATION_PAYLOAD结构包含唯一的连接标识符和 NFC 论坛 RF 技术和协议类型。
+SECURE_ELEMENT_HCE_DATA_PACKET
+SECURE_ELEMENT_HCE_DATA_PACKET是用于IOCTL_NFCSE_HCE_REMOTE_RECV的
+IOCTL_NFCSE_HCE_REMOTE_SEND和输出缓冲区的输入缓冲区。 SECURE_ELEMENT_NFCC_CAPABILITIES
+SECURE_ELEMENT_NFCC_CAPABILITIES包含 NFC 控制器功能。 SECURE_ELEMENT_PROTO_ROUTING_INFO
+SECURE_ELEMENT_PROTO_ROUTING_INFO是SECURE_ELEMENT_ROUTING_TABLE_ENTRY的成员。 SECURE_ELEMENT_ROUTING_TABLE
+SECURE_ELEMENT_ROUTING_TABLE是IOCTL_NFCSE_SET_ROUTING_TABLE的输入参数。 SECURE_ELEMENT_ROUTING_TABLE_ENTRY
+SECURE_ELEMENT_ROUTING_TABLE_ENTRY是SECURE_ELEMENT_ROUTING_TABLE的成员。
+SECURE_ELEMENT_SET_CARD_EMULATION_MODE_INFO SECURE_ELEMENT_SET_CARD_EMULATION_MODE_INFO是 IOCTL_NFCSE_SET_CARD_EMULATION_MODE的输入参数。 SECURE_ELEMENT_TECH_ROUTING_INFO
+SECURE_ELEMENT_TECH_ROUTING_INFO是SECURE_ELEMENT_ROUTING_TABLE_ENTRY的成员。反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+nfccx.h 标头项目2024/12/21
+nfpdrivers 使用此标头。 有关详细信息，请参阅：
+近场通信（NFC）
+nfccx.h 包含以下编程接口：
+功能  
+NFC_CX_CLIENT_CONFIG_INIT
+NFC_CX_CLIENT_CONFIG_INIT函数初始化NFC_CX_CLIENT_CONFIG结构。 NFC_CX_LLCP_CONFIG_INIT
+NFC_CX_LLCP_CONFIG_INIT函数初始化NFC_CX_LLCP_CONFIG结构。 NFC_CX_RF_DISCOVERY_CONFIG_INIT
+ﾉ
+NFC_CX_RF_DISCOVERY_CONFIG_INIT函数初始化NFC_CX_RF_DISCOVERY_CONFIG结构。 NfcCxDeviceDeinitialize
+展开表
+NfcCxDeviceDeinitialize 函数 （nfccx.h） deinitialize 在 AddDevice 例程中创建的 WDF 设备。 NfcCxDeviceInitConfig
+客户端驱动程序在其 AddDevice 例程期间调用以执行 DeviceInit 函数。 在此过程中，还会交换以
+下 I/O 回调函数。 NfcCxDeviceInitialize
+NfcCxDeviceInitialize 函数 （nfccx.h） 初始化在 AddDevice 例程期间创建的 WDF 设备。 NfcCxHardwareEvent
+当发生硬件事件（如 D0Entry 和 D0Exit 回调）以启动或停止设备时，由客户端驱动程序调用。 对于在初始化或启动时需要固件下载的驱动程序，建议将此调用移动到单独的工作项。 但是，客户端驱动程序负责以下事项。
+ 
+NfcCxNciReadNotification
+当读取数据包可用时，由客户端驱动程序调用。 NfcCxRegisterSequenceHandler
+在初始化期间由客户端驱动程序调用以注册以处理特定序列。 NfcCxSetLlcpConfig
+由客户端驱动程序调用以配置 LLCP 参数。 NfcCxSetRfDiscoveryConfig
+由客户端驱动程序调用以配置 RF 发现参数。 NfcCxUnregisterSequenceHandler
+在设备关闭期间由客户端驱动程序调用，以取消注册以前注册的序列处理程序回调。
+回调函数  
+EVT_NFC_CX_DEVICE_IO_CONTROL
+NFC CX 调用，将未经处理的 IOCTL 发送到客户端驱动程序。 EVT_NFC_CX_SEQUENCE_HANDLER
+NFC CX 调用以通知客户端驱动程序处理特定的已注册序列。 EVT_NFC_CX_WRITE_NCI_PACKET
+NFC CX 调用以将写入数据包发送到客户端驱动程序。结构
+ﾉﾉ
+展开表展开表
+ 
+NFC_CX_CLIENT_CONFIG
+NFC_CX_CLIENT_CONFIG结构是 NfcCxDeviceInitConfig 的输入参数。 NFC_CX_HARDWARE_EVENT
+NFC_CX_HARDWARE_EVENT结构是 NfcCxHardwareEvent 的输入参数。 NFC_CX_LLCP_CONFIG
+NFC_CX_LLCP_CONFIG结构是 NfcCxSetLlcpConfig 的输入参数。 NFC_CX_RF_DISCOVERY_CONFIG
+NFC_CX_RF_DISCOVERY_CONFIG结构包含 RF 发现配置设置。 调用 NfcDxDeviceInitialize 后，应在
+初始化期间完成发现配置，否则将返回错误。 NFCCX_DRIVER_GLOBALS
+_NFCCX_DRIVER_GLOBALS结构包含近场通信 （NFC） CX 驱动程序的全局值。枚举
+ﾉ
+ 
+NFC_CX_CE_MODE_CONFIG 此枚举指定 CE 侦听模式标志。
+NFC_CX_DEVICE_MODE 指定设备模式标志。 NFC_CX_DRIVER_FLAGS
+指定运行时驱动程序标志。 NFC_CX_HOST_ACTION
+NFC_CX_HOST_ACTION枚举指定主机操作。 NFC_CX_NFCIP_MODE_CONFIG
+NFC_CX_NFCIP_MODE_CONFIG枚举指定 NFC-IP 发起程序模式。
+展开表
+ 
+NFC_CX_NFCIP_TGT_MODE_CONFIG
+NFC_CX_NFCIP_TGT_MODE_CONFIG枚举指定 NFC-IP 目标模式。 NFC_CX_POLL_BAILOUT_CONFIG
+NFC_CX_POLL_BAILOUT_CONFIG枚举指定轮询模式救助。 NFC_CX_POLL_MODE_CONFIG
+NFC_CX_POLL_MODE_CONFIG枚举指定轮询模式。 NFC_CX_SEQUENCE
+NFC_CX_SEQUENCE枚举指定序列。 NFC_CX_TRANSPORT_TYPE
+NFC_CX_TRANSPORT_TYPE枚举指定传输类型。反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+EVT_NFC_CX_DEVICE_IO_CONTROL回调函
+数 （nfccx.h）项目2024/12/21
+NFC CX 调用，将未经处理的 IOCTL 发送到客户端驱动程序。
+语法 C++
+EVT_NFC_CX_DEVICE_IO_CONTROL EvtNfcCxDeviceIoControl; void EvtNfcCxDeviceIoControl(
+  [in] WDFDEVICE Device,   [in] WDFREQUEST Request,
+  [in] size_t OutputBufferLength,   [in] size_t InputBufferLength,
+  [in] ULONG IoControlCode)
+{...}
+参数[in] Device
+框架设备对象的句柄。[in] Request
+框架请求对象的句柄。[in] OutputBufferLength
+如果输出缓冲区可用，则请求的输出缓冲区的长度（以字节为单位）。[in] InputBufferLength
+如果输入缓冲区可用，则请求的输入缓冲区的长度（以字节为单位）。[in] IoControlCode
+与请求关联的驱动程序定义或系统定义的 I/O 控制代码（IOCTL）。
+返回值没有
+言论
+客户端可以同步或异步完成请求。 如果客户端返回STATUS_PENDING以外的状态代码，NFC CX 将完成请求。 为防止请求双重完成，客户端不应完成 WDFREQUEST（即调用
+WdfRequestComplete 或 WdfRequestCompleteWithInformation）（如果返回STATUS_SUCCESS
+或失败状态代码）。要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器目标平台
+标头 IRQL
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南
+价值
+Windows 10
+不支持桌面
+nfccx.h （包括 Ncidef.h）需要相同
+展开表
+EVT_NFC_CX_SEQUENCE_HANDLER回调函
+数 （nfccx.h）项目2024/12/20
+NFC CX 调用以通知客户端驱动程序处理特定的已注册序列。
+语法 C++
+EVT_NFC_CX_SEQUENCE_HANDLER EvtNfcCxSequenceHandler; void EvtNfcCxSequenceHandler(
+  [in]           WDFDEVICE Device,
+  [in]           NFC_CX_SEQUENCE Sequence,
+  [in]           PFN_NFC_CX_SEQUENCE_COMPLETION_ROUTINE CompletionRoutine,
+  [in, optional] WDFCONTEXT CompletionContext)
+{...}
+参数[in] Device
+框架设备对象的句柄。[in] Sequence
+NFC_CX_SEQUENCE 枚举。[in] CompletionRoutine
+指向 CompletionRoutine 回调函数的指针。[in, optional] CompletionContext
+驱动程序定义的上下文信息，驱动程序在注册 EvtNfcCxSequenceHandler 时指定的 回调函数。
+返回值没有
+言论
+完成处理序列后，客户端驱动程序通过序列完成回调通知 NFC CX。 与 EvtNfcCxWriteNciPacket 类似，客户端在处理此函数调用时不得进行任何阻塞调用。 必须在单独的线程或工作项上处理任何 I/O 处理。 但是，在处理此调用时，客户端驱动程序可以使用状态标志调用完成例程。
+要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器
+目标平台标头
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南
+价值
+Windows 10
+不支持桌面
+nfccx.h （包括 Ncidef.h）
+展开表
+EVT_NFC_CX_WRITE_NCI_PACKET回调函
+数 （nfccx.h）项目2024/12/20
+NFC CX 调用以将写入数据包发送到客户端驱动程序。 请求代码必须与 IOCTL_NFCCX_WRITE_PACKET匹配。
+语法 C++
+EVT_NFC_CX_WRITE_NCI_PACKET EvtNfcCxWriteNciPacket; void EvtNfcCxWriteNciPacket(
+  [in] WDFDEVICE Device,   [in] WDFREQUEST Request)
+{...}
+参数[in] Device
+框架设备对象的句柄。[in] Request
+框架请求对象的句柄。
+返回值没有
+言论
+处理此函数调用时，客户端驱动程序不应进行任何阻塞调用。 任何 I/O 处理都必须在单独的线程或工作项上进行处理（也就是说，客户端驱动程序应立即返回STATUS_PENDING 并在完成时调用完成处理程序）。
+要求要求
+最低支持的客户端支持的最低服务器目标平台
+标头 IRQL
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+Windows 10
+不支持桌面
+nfccx.h （包括 Ncidef.h）需要相同
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+NFC_CX_CE_MODE_CONFIG枚举
+（nfccx.h）项目2024/12/20
+此枚举指定 CE 侦听模式标志。
+语法 C++
+typedef enum _NFC_CX_CE_MODE_CONFIG {
+  NFC_CX_CE_NFC_A,   NFC_CX_CE_NFC_B,   NFC_CX_CE_NFC_F,   NFC_CX_CE_DEFAULT
+} NFC_CX_CE_MODE_CONFIG, *PNFC_CX_CE_MODE_CONFIG;
+常数  
+NFC_CX_CE_NFC_A
+指定 NFC-A 侦听模式。 NFC_CX_CE_NFC_B
+指定 NFC-B 侦听模式。 NFC_CX_CE_NFC_F
+指定 NFC-F 侦听模式。 NFC_CX_CE_DEFAULT
+指定 NFC-A、NFC-B 和 NFC-F 侦听模式。要求
+ﾉﾉ
+展开表展开表
+要求
+最低支持的客户端支持的最低服务器标头
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+Windows 10 不支持
+nfccx.h （包括 Ncidef.h）
+| 在 Microsoft Q&A 获取帮助
+NFC_CX_CLIENT_CONFIG结构（nfccx.h）项目2024/12/21
+NFC_CX_CLIENT_CONFIG结构是 NfcCxDeviceInitConfig的输入参数。
+语法 C++
+typedef struct _NFC_CX_CLIENT_CONFIG {
+  ULONG                              Size;
+  WDF_TRI_STATE                      IsPowerPolicyOwner;   ULONG                              PowerIdleTimeout;
+  WDF_POWER_POLICY_IDLE_TIMEOUT_TYPE PowerIdleType;   NFC_CX_TRANSPORT_TYPE              BusType;
+  ULONG                              DriverFlags;   NFC_CX_DEVICE_MODE                 DeviceMode;
+  PFN_NFC_CX_WRITE_NCI_PACKET        EvtNfcCxWriteNciPacket;   PFN_NFC_CX_DEVICE_IO_CONTROL       EvtNfcCxDeviceIoControl;} NFC_CX_CLIENT_CONFIG, *PNFC_CX_CLIENT_CONFIG;
+成员 Size
+此结构的大小（以字节为单位）。 IsPowerPolicyOwner
+WDF_TRI_STATE类型枚举器。 PowerIdleTimeout
+IdleTimeout 值（以毫秒为单位）。 默认值为 1 秒。 PowerIdleType
+WDF_POWER_POLICY_IDLE_TIMEOUT_TYPE类型化枚举器。 BusType
+NFC_CX_TRANSPORT_TYPE类型枚举器。 DriverFlags
+NFC_CX_DRIVER_FLAGS 值的组合。
+DeviceMode 设备模式。
+EvtNfcCxWriteNciPacket
+指向 EvtNfcCxWriteNciPacket 回调的指针。 EvtNfcCxDeviceIoControl
+指向 EvtNfcCxDeviceIoControl 回调的指针。要求
+要求
+最低支持的客户端支持的最低服务器标头
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南
+价值
+Windows 10 不支持
+nfccx.h （包括 Ncidef.h）
+ﾉ
+展开表
+NFC_CX_CLIENT_CONFIG_INIT函数
+（nfccx.h）项目2024/12/21
+NFC_CX_CLIENT_CONFIG_INIT 函数初始化 NFC_CX_CLIENT_CONFIG 结构。
+语法 C++
+void NFC_CX_CLIENT_CONFIG_INIT(
+  [out] PNFC_CX_CLIENT_CONFIG Config,   [in]  NFC_CX_TRANSPORT_TYPE BusType);
+参数[out] Config
+指向 NFC_CX_CLIENT_CONFIG 结构的指针。[in] BusType
+NFC_CX_TRANSPORT_TYPE 枚举。
+返回值没有
+要求
+要求
+目标平台
+标头库
+价值桌面
+nfccx.h （包括 Ncidef.h） Nfccxstub.lib
+ﾉ
+展开表
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+NFC_CX_DEVICE_MODE枚举 （nfccx.h）项目2024/12/21
+指定设备模式标志。
+语法 C++
+typedef enum _NFC_CX_DEVICE_MODE {
+  NFC_CX_DEVICE_MODE_NCI,   NFC_CX_DEVICE_MODE_DTA,   NFC_CX_DEVICE_MODE_RAW
+} NFC_CX_DEVICE_MODE, *PNFC_CX_DEVICE_MODE; 常数
+ﾉ
+ 
+NFC_CX_DEVICE_MODE_NCI 启用 NCI 模式。
+NFC_CX_DEVICE_MODE_DTA 启用 DTA 模式。
+NFC_CX_DEVICE_MODE_RAW
+启用 RAW 模式。要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器标头
+价值
+Windows 10 不支持
+nfccx.h （包括 Ncidef.h）
+展开表展开表
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南
+NFC_CX_DRIVER_FLAGS枚举 （nfccx.h）项目2024/12/21
+指定运行时驱动程序标志。
+语法 C++
+typedef enum _NFC_CX_DRIVER_FLAGS {   NFC_CX_DRIVER_DISABLE_WTD_TIMER,
+  NFC_CX_DRIVER_DISABLE_NFCEE_DISCOVERY,   NFC_CX_DRIVER_DISABLE_RECOVERY_MODE,
+  NFC_CX_DRIVER_DISABLE_HOST_CARD_EMULATION,   NFC_CX_DRIVER_HCI_NETWORK_PER_NFCEE,
+  NFC_CX_DRIVER_DISABLE_NFCEE_ACTION_NTF,
+  NFC_CX_DRIVER_ENABLE_EEPROM_WRITE_PROTECTION,
+  NFC_CX_DRIVER_ISODEP_RNAK_PRESENCE_CHK_SUPPORTED,
+  NFC_CX_DRIVER_RF_ROUTING_POWER_SUB_STATES_SUPPORTED,   NFC_CX_DRIVER_SKIP_DEVICE_STOP_IDLE,
+  NFC_CX_DRIVER_POWER_AND_LINK_CONTROL_SUPPORTED} NFC_CX_DRIVER_FLAGS, *PNFC_CX_DRIVER_FLAGS;
+常数
+ﾉ
+ 
+NFC_CX_DRIVER_DISABLE_WTD_TIMER 在 CX 中禁用监视器计时器。
+NFC_CX_DRIVER_DISABLE_NFCEE_DISCOVERY 禁用 NFCEE 发现。
+NFC_CX_DRIVER_DISABLE_RECOVERY_MODE 在 CX 中禁用 NCI 恢复机制。
+NFC_CX_DRIVER_DISABLE_HOST_CARD_EMULATION 禁用主机卡仿真功能。
+NFC_CX_DRIVER_HCI_NETWORK_PER_NFCEE
+NFCC 为每个 NFCEE 实现单独的 HCI 网络。 NFC_CX_DRIVER_DISABLE_NFCEE_ACTION_NTF
+展开表
+ 
+禁用 NFCEE 操作通知。
+NFC_CX_DRIVER_ENABLE_EEPROM_WRITE_PROTECTION 启用仅在配置更改时选择过度写入。
+NFC_CX_DRIVER_ISODEP_RNAK_PRESENCE_CHK_SUPPORTED 用于 ISO-DEP 的 R-NAK 命令将用于状态检查。
+NFC_CX_DRIVER_RF_ROUTING_POWER_SUB_STATES_SUPPORTED
+指示对打开电源子状态的 RF 路由的支持。 NFC_CX_DRIVER_SKIP_DEVICE_STOP_IDLE
+NFC CX 不会调用 WdfDeviceStopIdle 或 WdfDeviceResumeIdle。 NFC_CX_DRIVER_POWER_AND_LINK_CONTROL_SUPPORTED
+指示 NCI 1.x 协议支持 NFCEE_POWER_AND_LINK_CTRL 作为扩展。言论
+NFC CX 允许 NFC 客户端驱动程序提供一些驱动程序标志，这些标志可用于配置类扩展的运行时实现。 这些标志使 NFC CX 可以略有不同地实现一些标准 NCI 操作，以支持不
+同的固件实现，因为 NCI 规范中存在歧义。要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器标头
+另请参阅
+NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+价值
+Windows 10 不支持
+nfccx.h （包括 Ncidef.h）
+展开表
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+NFC_CX_HARDWARE_EVENT结构
+（nfccx.h）项目2024/12/21
+NFC_CX_HARDWARE_EVENT结构是用于 NfcCxHardwareEvent 的输入参数。
+语法 C++
+typedef struct _NFC_CX_HARDWARE_EVENT {
+  NTSTATUS           HardwareStatus;   NFC_CX_HOST_ACTION HostAction;
+} NFC_CX_HARDWARE_EVENT, *PNFC_CX_HARDWARE_EVENT; 成员
+HardwareStatus NTSTATUS 值。 HostAction
+NFC_CX_HOST_ACTION类型化枚举器。要求
+要求
+最低支持的客户端支持的最低服务器标头
+另请参阅 NFC 类扩展设计指南
+价值
+Windows 10 不支持
+nfccx.h （包括 Ncidef.h）
+ﾉ
+展开表
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+NFC_CX_HOST_ACTION枚举 （nfccx.h）项目2024/12/20
+NFC_CX_HOST_ACTION枚举指定主机操作。
+语法 C++
+typedef enum _NFC_CX_HOST_ACTION {
+  HostActionStart,   HostActionStop,
+  HostActionRestart,   HostActionUnload
+} NFC_CX_HOST_ACTION, *PNFC_CX_HOST_ACTION; 常数
+ﾉ
+ 
+HostActionStart 指定完全初始化。
+HostActionStop 指定取消初始化。 HostActionRestart
+指定完全驱动程序重启。
+HostActionUnload 指定卸载驱动程序。要求
+ﾉ
+要求
+最低支持的客户端
+价值
+Windows 10
+展开表展开表
+要求
+支持的最低服务器标头
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+价值不支持 nfccx.h
+NFC_CX_LLCP_CONFIG结构（nfccx.h）项目2024/12/20
+NFC_CX_LLCP_CONFIG结构是用于 NfcCxSetLlcpConfig 的输入参数。
+语法 C++
+typedef struct _NFC_CX_LLCP_CONFIG {
+  ULONG  Size;   USHORT Miu;
+  UCHAR  LinkTimeout;
+  UCHAR  RecvWindowSize;
+} NFC_CX_LLCP_CONFIG, *PNFC_CX_LLCP_CONFIG;
+成员 Size
+此结构的大小（以字节为单位）。 Miu
+最大信息单位（以字节为单位）。 默认值为 1024。 LinkTimeout
+LTO 超时（以 10 毫秒为单位）。 默认值为 100（1 秒）。 RecvWindowSize
+每个 LLCP 规范的接收窗口大小。默认值为 5。要求
+ﾉ
+要求
+最低支持的客户端
+价值
+Windows 10
+展开表
+要求
+支持的最低服务器标头
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值不支持
+nfccx.h （包括 Ncidef.h）
+| 在 Microsoft Q&A 获取帮助
+NFC_CX_LLCP_CONFIG_INIT函数
+（nfccx.h）项目2024/12/21
+NFC_CX_LLCP_CONFIG_INIT 函数初始化 NFC_CX_LLCP_CONFIG 结构。
+语法 C++
+void NFC_CX_LLCP_CONFIG_INIT(
+  [out] PNFC_CX_LLCP_CONFIG Config);
+参数[out] Config
+指向函数将初始化的 NFC_CX_LLCP_CONFIG 结构的指针。
+返回值没有
+要求
+要求
+最低支持的客户端支持的最低服务器目标平台
+标头库
+价值
+Windows 10
+不支持桌面
+nfccx.h （包括 Ncidef.h） Nfccxstub.lib
+ﾉ
+展开表
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+NFC_CX_NFCIP_MODE_CONFIG枚举
+（nfccx.h）项目2024/12/21
+NFC_CX_NFCIP_MODE_CONFIG枚举指定 NFC-IP 发起程序模式。
+语法 C++
+typedef enum _NFC_CX_NFCIP_MODE_CONFIG {   NFC_CX_NFCIP_NFC_A,
+  NFC_CX_NFCIP_NFC_F_212,   NFC_CX_NFCIP_NFC_F_424,   NFC_CX_NFCIP_NFC_ACTIVE,   NFC_CX_NFCIP_NFC_ACTIVE_A,
+  NFC_CX_NFCIP_NFC_ACTIVE_F_212,   NFC_CX_NFCIP_NFC_ACTIVE_F_424,   NFC_CX_NFCIP_DEFAULT
+} NFC_CX_NFCIP_MODE_CONFIG, *PNFC_CX_NFCIP_MODE_CONFIG; 常数
+ﾉ
+ 
+NFC_CX_NFCIP_NFC_A
+NFC_CX_NFCIP_NFC_F_212 NFC_CX_NFCIP_NFC_F_424 NFC_CX_NFCIP_NFC_ACTIVE NFC_CX_NFCIP_NFC_ACTIVE_A
+NFC_CX_NFCIP_NFC_ACTIVE_F_212 NFC_CX_NFCIP_NFC_ACTIVE_F_424 NFC_CX_NFCIP_DEFAULT
+展开表
+要求要求
+最低支持的客户端支持的最低服务器标头
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+Windows 10 不支持
+nfccx.h （包括 Ncidef.h）
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+NFC_CX_NFCIP_TGT_MODE_CONFIG枚举
+（nfccx.h）项目2024/12/21
+NFC_CX_NFCIP_TGT_MODE_CONFIG枚举指定 NFC-IP 目标模式。
+语法 C++
+typedef enum _NFC_CX_NFCIP_TGT_MODE_CONFIG {
+  NFC_CX_NFCIP_TGT_NFC_A,   NFC_CX_NFCIP_TGT_NFC_F,
+  NFC_CX_NFCIP_TGT_NFC_ACTIVE_A,   NFC_CX_NFCIP_TGT_NFC_ACTIVE_F,   NFC_CX_NFCIP_TGT_DEFAULT
+} NFC_CX_NFCIP_TGT_MODE_CONFIG, *PNFC_CX_NFCIP_TGT_MODE_CONFIG; 常数
+ﾉ
+ 
+NFC_CX_NFCIP_TGT_NFC_A NFC_CX_NFCIP_TGT_NFC_F
+NFC_CX_NFCIP_TGT_NFC_ACTIVE_A NFC_CX_NFCIP_TGT_NFC_ACTIVE_F
+NFC_CX_NFCIP_TGT_DEFAULT 要求
+ﾉ
+要求
+最低支持的客户端
+价值
+Windows 10
+展开表展开表
+要求
+支持的最低服务器标头
+另请参阅
+NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值不支持
+nfccx.h （包括 Ncidef.h）
+| 在 Microsoft Q&A 获取帮助
+NFC_CX_POLL_BAILOUT_CONFIG枚举
+（nfccx.h）项目2024/12/21
+NFC_CX_POLL_BAILOUT_CONFIG枚举指定轮询模式救助。
+语法 C++
+typedef enum _NFC_CX_POLL_BAILOUT_CONFIG {
+  NFC_CX_POLL_BAILOUT_DEFAULT,   NFC_CX_POLL_BAILOUT_NFC_A,   NFC_CX_POLL_BAILOUT_NFC_B
+} NFC_CX_POLL_BAILOUT_CONFIG, *PNFC_CX_POLL_BAILOUT_CONFIG; 常数
+ﾉ
+ 
+NFC_CX_POLL_BAILOUT_DEFAULT NFC_CX_POLL_BAILOUT_NFC_A NFC_CX_POLL_BAILOUT_NFC_B
+要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器标头
+价值
+Windows 10 不支持
+nfccx.h （包括 Ncidef.h）
+展开表展开表
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+NFC_CX_POLL_MODE_CONFIG枚举
+（nfccx.h）项目2024/12/21
+NFC_CX_POLL_MODE_CONFIG枚举指定轮询模式。
+语法 C++
+typedef enum _NFC_CX_POLL_MODE_CONFIG {
+  NFC_CX_POLL_NFC_A,   NFC_CX_POLL_NFC_B,
+  NFC_CX_POLL_NFC_F_212,   NFC_CX_POLL_NFC_F_424,   NFC_CX_POLL_NFC_15693,   NFC_CX_POLL_NFC_ACTIVE,   NFC_CX_POLL_NFC_A_KOVIO,   NFC_CX_POLL_DEFAULT
+} NFC_CX_POLL_MODE_CONFIG, *PNFC_CX_POLL_MODE_CONFIG;
+常数  
+NFC_CX_POLL_NFC_A NFC_CX_POLL_NFC_B
+NFC_CX_POLL_NFC_F_212
+NFC-F 轮询模式（212 kbps） NFC_CX_POLL_NFC_F_424
+NFC-F 轮询模式（424 kbps）
+NFC_CX_POLL_NFC_15693 NFC_CX_POLL_NFC_ACTIVE NFC_CX_POLL_NFC_A_KOVIO NFC_CX_POLL_DEFAULT
+ﾉ
+展开表
+要求要求
+最低支持的客户端支持的最低服务器标头
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+价值
+Windows 10
+Windows Server 2016 nfccx.h
+ﾉ
+展开表
+NFC_CX_RF_DISCOVERY_CONFIG结构
+（nfccx.h）项目2024/12/21
+NFC_CX_RF_DISCOVERY_CONFIG 结构包含 RF 发现配置设置。 调用 NfcDxDeviceInitialize后，应在初始化期间完成发现配置，否则将返回错误。
+语法 C++
+typedef struct _NFC_CX_RF_DISCOVERY_CONFIG {   ULONG  Size;
+  USHORT TotalDuration;
+  ULONG  PollConfig;   UCHAR  NfcIPMode;
+  UCHAR  NfcIPTgtMode;   UCHAR  NfcCEMode;
+  UCHAR  BailoutConfig;
+} NFC_CX_RF_DISCOVERY_CONFIG, *PNFC_CX_RF_DISCOVERY_CONFIG;
+成员 Size
+此结构的大小（以字节为单位）。 TotalDuration
+单个发现周期的总持续时间（以毫秒为单位）。 默认值为 300 毫秒。
+此成员对应于 NCI 规范中指定的TOTAL_DURATION。 值可以介于 0 到 0xFFFF 之间。 使用适当
+的值来考虑发现延迟和能耗。 PollConfig
+NFC_CX_POLL_MODE_CONFIG 值的组合。
+此成员启用轮询模式设置的配置。 默认值允许被动轮询 NFC-A、被动轮询 NFC-B 和被动轮询
+NFC-F（212 和 424k）。 建议 NFC 客户端配置其他活动模式（如果受支持）。 NfcIPMode
+NFC_CX_NFCIP_MODE_CONFIG 值的组合。
+此成员启用 NFC-IP 发起程序模式设置的配置。 该值对应于NFC_CX_NFCIP_MODE_CONFIG枚举
+的组合。 默认值为被动轮询 NFC-A 和被动轮询 NFC-F（212 和 424k）阶段启用轮询。 NfcIPTgtMode
+NFC_CX_NFCIP_TGT_MODE_CONFIG 值的组合。
+此成员启用 NFC-IP 目标模式设置的配置。 默认值启用被动侦听 NFC-A 和被动侦听 NFC-F 阶段。
+NfcCEMode
+NFC_CX_CE_MODE_CONFIG 值的组合。
+此成员启用 NFC-CE 模式设置的配置。 默认值启用被动侦听 NFC-A、被动侦听 NFC-B 和被动侦
+听 NFC-F 阶段。 BailoutConfig
+NFC_CX_POLL_BAILOUT_CONFIG 值的组合。 默认值处于禁用状态。此成员支持配置PA_BAIL_OUT和PB_BAIL_OUT，如 NCI 规范中所述。
+要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器标头
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南
+价值
+Windows 10 不支持
+nfccx.h （包括 Ncidef.h）
+展开表
+NFC_CX_RF_DISCOVERY_CONFIG_INIT函数
+（nfccx.h）项目2024/12/21
+NFC_CX_RF_DISCOVERY_CONFIG_INIT函数初始化 NFC_CX_RF_DISCOVERY_CONFIG 结构。
+语法 C++
+void NFC_CX_RF_DISCOVERY_CONFIG_INIT(
+  [out] PNFC_CX_RF_DISCOVERY_CONFIG Config);
+参数[out] Config
+指向函数初始化的NFC_CX_RF_DISCOVERY_CONFIG结构的指针。
+返回值没有
+要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器目标平台
+标头库
+价值
+Windows 10
+Windows Server 2016 桌面
+nfccx.h （包括 Ncidef.h） Nfccxstub.lib
+展开表
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南
+NFC_CX_SEQUENCE枚举 （nfccx.h）项目2024/12/21
+NFC_CX_SEQUENCE枚举指定序列。
+语法 C++
+typedef enum _NFC_CX_SEQUENCE {   SequencePreInit,
+  SequenceInitComplete,   SequencePreRfDiscStart,
+  SequenceRfDiscStartComplete,   SequencePreRfDiscStop,
+  SequenceRfDiscStopComplete,   SequencePreNfceeDisc,
+  SequenceNfceeDiscComplete,   SequencePreShutdown,
+  SequenceShutdownComplete,   SequencePreRecovery,
+  SequenceRecoveryComplete,   SequenceMaximum
+} NFC_CX_SEQUENCE, *PNFC_CX_SEQUENCE; 常数
+ﾉ
+ 
+SequencePreInit
+展开表
+在空闲到初始化状态转换期间，CX 会调用此序列，即 NFC CX 开始初始化之前。 没有 NCI 命令（包括 CORE_RESET_CMD）已由 NFC CX 发送到 NFC 控制器。 在此序列中，客户端可以调用任何非 NCI 命令。 不应将 NCI 命令发送到控制器，因为CORE_RESET_CMD也没有CORE_INIT_CMD发送到控制器。
+SequenceInitComplete
+在空闲到初始化状态转换期间，CX 会调用此序列，即 NFC CX 开始初始化之前。 没有 NCI 命令（包括 CORE_RESET_CMD）已由 NFC CX 发送到 NFC 控制器。 在此序列中，客户端可以调用任何非 NCI 命令。 NCI 命令不应发送到控制器，因为CORE_RESET_CMD也没有CORE_INIT_CMD发送到控制器。
+SequencePreRfDiscStart
+在开始 RF 发现之前，CX 会调用此序列，即通过RF_DISCOVER_CMD。 客户端驱动程序可以使用此
+ 
+机会执行任何相关的 RF 配置，包括发现循环的任何优化。 SequenceRfDiscStartComplete
+RF 发现开始后，CX 会立即调用此序列。 可以通过此扩展点支持任何配置发现后启动。 SequencePreRfDiscStop
+在停止 RF 发现循环之前，CX 会调用此序列。 SequenceRfDiscStopComplete
+此序列在发现循环停止后立即调用。 客户端驱动程序可以使用此扩展点来启用任何备用模式配置。 SequencePreNfceeDisc
+在 NFCEE 发现开始之前，CX 会调用此序列。 NFCEE 发现在停用发现循环时发生。 客户端驱动程
+序可以使用此序列启用任何内部 NFC-NFCEE 接口，这些接口可能在初始化后禁用电源优化。 SequenceNfceeDiscComplete
+此序列在 NFCEE 发现操作后立即调用。 SequencePreShutdown
+在关闭开始之前调用此序列。 SequenceShutdownComplete
+关闭序列完成后，CX 将调用此序列。 客户端驱动程序可以清理维护的任何 NCI 状态。 SequencePreRecovery
+如果由于致命故障，CX 需要执行恢复序列，则此序列由 CX 调用。 客户端驱动程序可以使用此序
+列捕获 RAM 转储以进行诊断。 SequenceRecoveryComplete
+此序列在恢复序列完成后以及驱动程序返回到工作状态后由 CX 调用。
+SequenceMaximum 要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器标头
+另请参阅
+价值
+Windows 10 不支持
+nfccx.h （包括 Ncidef.h）
+展开表
+NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+NFC_CX_TRANSPORT_TYPE枚举 （nfccx.h）项目2024/12/21
+NFC_CX_TRANSPORT_TYPE枚举指定传输类型。
+语法 C++
+typedef enum _NFC_CX_TRANSPORT_TYPE {
+  NFC_CX_TRANSPORT_I2C,   NFC_CX_TRANSPORT_SPI,   NFC_CX_TRANSPORT_UART,   NFC_CX_TRANSPORT_CUSTOM
+} NFC_CX_TRANSPORT_TYPE, *PNFC_CX_TRANSPORT_TYPE; 常数
+ﾉ
+ 
+NFC_CX_TRANSPORT_I2C
+指定 Inter-Integrated 线路（I2C）总线。 NFC_CX_TRANSPORT_SPI
+指定串行外围设备接口 （SPI）。 NFC_CX_TRANSPORT_UART
+指定通用异步接收器/发射机（UART）。
+NFC_CX_TRANSPORT_CUSTOM 指定自定义传输类型。
+要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器
+价值
+Windows 10 不支持
+展开表展开表
+要求标头
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南
+价值
+nfccx.h （包括 Ncidef.h）
+NFCCX_DRIVER_GLOBALS结构（nfccx.h）项目2024/12/21
+语法 C++
+typedef struct _NFCCX_DRIVER_GLOBALS {   ULONG Reserved;
+} NFCCX_DRIVER_GLOBALS, *PNFCCX_DRIVER_GLOBALS;
+成员 Reserved 要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器标头
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南
+价值
+Windows 10 不支持
+nfccx.h （包括 Ncidef.h）
+展开表
+NfcCxDeviceDeinitialize 函数 （nfccx.h）项目2024/12/20
+在 AddDevice 例程中创建 WDF 设备后由客户端驱动程序调用。
+语法 C++
+NTSTATUS NfcCxDeviceDeinitialize(
+  WDFDEVICE Device);
+参数 Device
+框架设备对象的句柄。返回值
+如果操作成功，该函数将返回STATUS_SUCCESS。要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器目标平台
+标头库 DLL
+另请参阅
+价值
+Windows 10
+不支持窗户
+nfccx.h （包括 Ncidef.h）
+Nfccsstub.lib NfcCx.dll
+展开表
+NFC 类扩展设计指南
+近场通信（NFC）设计指南
+NfcCxDeviceInitConfig 函数 （nfccx.h）项目2024/12/21
+客户端驱动程序在其 AddDevice 例程期间调用以执行 DeviceInit 函数。 在此过程中，还将交换以下 I/O 回调函数：
+EvtNfcCxWriteNciPacket EvtNfcCxDeviceIoControl
+语法 C++
+NTSTATUS NfcCxDeviceInitConfig(
+  [in, out] PWDFDEVICE_INIT       DeviceInit,
+  [in]      PNFC_CX_CLIENT_CONFIG Config);
+参数
+[in, out] DeviceInit
+指向 WDFDEVICE_INIT 结构的指针。[in] Config
+指向 NFC_CX_CLIENT_CONFIG 结构的指针。返回值
+如果操作成功，该函数将返回STATUS_SUCCESS。要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器
+价值
+Windows 10 不支持
+展开表
+要求
+目标平台
+标头库 DLL
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值窗户
+nfccx.h （包括 Ncidef.h）
+Nfccxstub.lib NfcCx.dll
+| 在 Microsoft Q&A 获取帮助
+NfcCxDeviceInitialize 函数 （nfccx.h）项目2024/12/21
+在 AddDevice 例程中创建 WDF 设备后由客户端驱动程序调用。
+语法 C++
+NTSTATUS NfcCxDeviceInitialize(
+  WDFDEVICE Device);
+参数 Device
+框架设备对象的句柄。返回值
+如果操作成功，该函数将返回STATUS_SUCCESS。要求
+要求
+最低支持的客户端支持的最低服务器目标平台
+标头库 DLL
+另请参阅
+价值
+Windows 10
+不支持窗户
+nfccx.h （包括 Ncidef.h）
+Nfccxstub.lib NfcCx.dll
+ﾉ
+展开表
+NFC 类扩展设计指南
+近场通信（NFC）设计指南
+NfcCxHardwareEvent 函数 （nfccx.h）项目2024/12/21
+当发生硬件事件（如 D0Entry 和 D0Exit 回调）以启动或停止设备时，由客户端驱动程序调用。 对于在初始化或启动时需要固件下载的驱动程序，建议将此调用移动到单独的工作项。 但是，客户端驱动程序负责以下事项：
+在对工作项进行排队之前，客户端驱动程序应获取空闲电源引用。 在工作项完成时，需要删除引用。 这可确保空闲电源管理不会导致驱动程序在工作项运行时进入 D3。
+客户端驱动程序应将工作项与其他设备回调同步。 这通常是通过
+WDF_WORKITEM_CONFIG 中的 AutomaticSerialization 选项实现的，并且
+WDFWORKITEM 的父级是 WDFDEVICE，或者让工作项回调显式获取设备锁，即 WdfObjectAcquireLock WDFDEVICE。
+如果硬件事件调用从工作项失败，客户端驱动程序应重启或解锁驱动程序，以防止其处于错误状态。 这可以使用“重启”或“卸载”选项来实现。
+语法 C++
+NTSTATUS NfcCxHardwareEvent(
+  WDFDEVICE              Device,
+  PNFC_CX_HARDWARE_EVENT HardwareEvent);
+参数 Device
+框架设备对象的句柄。 HardwareEvent
+指向 NFC_CX_HARDWARE_EVENT 结构的指针。返回值
+如果操作成功，该函数将返回STATUS_SUCCESS。
+要求要求
+最低支持的客户端支持的最低服务器目标平台
+标头库 DLL
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+Windows 10
+不支持窗户
+nfccx.h （包括 Ncidef.h）
+Nfccxstub.lib NfcCx.dll
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+NfcCxNciReadNotification 函数
+（nfccx.h）项目2024/12/21
+当读取数据包可用时，由客户端驱动程序调用。 完成调用后，客户端驱动程序可以解除分配 WDFMEMORY。 虽然 NFC CX 实现将快速处理此调用，但预计客户端驱动程序不会从 ISR 的上下文中进行此调用。 建议客户端驱动程序从 ISR 工作项发出此调用。
+语法 C++
+NTSTATUS NfcCxNciReadNotification(
+  WDFDEVICE Device,   WDFMEMORY Memory);
+参数 Device
+框架设备对象的句柄。 Memory
+框架内存对象的句柄。返回值
+如果操作成功，该函数将返回STATUS_SUCCESS。要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器
+价值
+Windows 10 不支持
+展开表
+要求
+目标平台
+标头库 DLL
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值窗户
+nfccx.h （包括 Ncidef.h）
+Nfccxstub.lib NfcCx.dll
+| 在 Microsoft Q&A 获取帮助
+NfcCxRegisterSequenceHandler 函数
+（nfccx.h）项目2024/12/20
+在初始化期间由客户端驱动程序调用以注册以处理特定序列。
+语法 C++
+NTSTATUS NfcCxRegisterSequenceHandler(   WDFDEVICE                   Device,   NFC_CX_SEQUENCE             Sequence,
+  PFN_NFC_CX_SEQUENCE_HANDLER EvtNfcCxSequenceHandler);
+参数 Device
+框架设备对象的句柄。 Sequence
+NFC_CX_SEQUENCE类型化枚举器。 EvtNfcCxSequenceHandler
+指向 EvtNfcCxSequenceHandler 回调函数的指针。返回值
+如果操作成功，该函数将返回STATUS_SUCCESS。要求
+ﾉ
+展开表
+要求
+最低支持的客户端支持的最低服务器目标平台
+标头库 DLL
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+Windows 10
+不支持窗户
+nfccx.h （包括 Ncidef.h）
+Nfccxstub.lib NfcCx.dll
+| 在 Microsoft Q&A 获取帮助
+NfcCxSetLlcpConfig 函数 （nfccx.h）项目2024/12/21
+由客户端驱动程序调用以配置 LLCP 参数。
+语法 C++
+NTSTATUS NfcCxSetLlcpConfig(   WDFDEVICE            Device,   PCNFC_CX_LLCP_CONFIG Config);
+参数 Device
+框架设备对象的句柄。 Config
+指向 NFC_CX_LLCP_CONFIG 结构的指针。返回值
+如果操作成功，该函数将返回STATUS_SUCCESS。要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器
+目标平台标头
+价值
+Windows 10
+Windows Server 2016 窗户
+nfccx.h （包括 Ncidef.h）
+展开表
+要求库 DLL
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+Nfccxstub.lib NfcCx.dll
+| 在 Microsoft Q&A 获取帮助
+NfcCxSetRfDiscoveryConfig 函数
+（nfccx.h）项目2024/12/21
+由客户端驱动程序调用以配置 RF 发现参数。
+语法 C++
+NTSTATUS NfcCxSetRfDiscoveryConfig(
+  WDFDEVICE                    Device,   PCNFC_CX_RF_DISCOVERY_CONFIG Config);
+参数 Device
+框架设备对象的句柄。 Config
+指向 NFC_CX_RF_DISCOVERY_CONFIG 结构的指针。返回值
+如果操作成功，该函数将返回STATUS_SUCCESS。要求
+要求
+最低支持的客户端支持的最低服务器目标平台
+价值
+Windows 10
+不支持窗户
+ﾉ
+展开表
+要求标头库 DLL
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南
+价值
+nfccx.h （包括 Ncidef.h）
+Nfccxstub.lib NfcCx.dll
+NfcCxUnregisterSequenceHandler 函数
+（nfccx.h）项目2024/12/20
+在设备关闭期间由客户端驱动程序调用，以取消注册以前注册的序列处理程序回调。
+语法 C++
+NTSTATUS NfcCxUnregisterSequenceHandler(
+  WDFDEVICE       Device,   NFC_CX_SEQUENCE Sequence);
+参数 Device
+框架设备对象的句柄。 Sequence
+NFC_CX_SEQUENCE类型化枚举器。返回值
+如果操作成功，该函数将返回STATUS_SUCCESS。要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器目标平台
+价值
+Windows 10
+不支持窗户
+展开表
+要求标头库 DLL
+另请参阅 NFC 类扩展设计指南
+近场通信（NFC）设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+nfccx.h （包括 Ncidef.h）
+Nfccxstub.lib NfcCx.dll
+| 在 Microsoft Q&A 获取帮助
+nfcradiodev.h 标头项目2025/03/22
+nfpdrivers 使用此标头。 有关详细信息，请参阅：
+近场通信（NFC）
+nfcradiodev.h 包含以下编程接口：
+IOCTLs  
+IOCTL_NFCRM_QUERY_RADIO_STATE
+无线电管理应用程序或服务使用此 IOCTL 来查询邻近设备的当前无线电电源状态。 IOCTL_NFCRM_SET_RADIO_STATE
+无线电管理应用程序或服务使用此 IOCTL 来设置邻近设备的无线电电源状态。 IOCTL_NFCSERM_QUERY_RADIO_STATE
+ﾉ
+展开表
+SE 无线电管理应用程序或服务使用IOCTL_NFCSERM_QUERY_RADIO_STATE来查询邻近设备的当前无线电电源状态。
+IOCTL_NFCSERM_SET_RADIO_STATE
+SE 无线电管理应用程序或服务使用IOCTL_NFCSERM_SET_RADIO_STATE来设置邻近设备的当前无线
+电电源状态。结构
+ﾉ
+ 
+NFCRM_RADIO_STATE
+此结构用于指示无线电状态。 NFCRM_SET_RADIO_STATE
+展开表
+ 
+此结构用于设置无线电状态。 在飞行模式的情况下，驱动程序必须保留无线电状态，并在禁用飞行
+模式时还原它。反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IOCTL_NFCRM_QUERY_RADIO_STATE
+IOCTL （nfcradiodev.h）项目2025/02/07
+无线电管理应用程序或服务使用此 IOCTL 来查询邻近设备的当前无线电电源状态。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有
+输入缓冲区长度没有
+输出缓冲区
+NFCRM_RADIO_STATE 结构输出缓冲区长度
+sizeof（NFCRM_RADIO_STATE）状态块
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。言论
+不再需要 STATUS_INVALID_PARAMETER 返回代码。 Windows 10 内部版本 10240 中发现了一个 bug，Windows 会使用此 IOCTL 发送非 null 输入参数。 此 bug 已在更高版本的 Windows 中修复。 为了简化代码，驱动程序可以忽略所有版本的 Windows 10 中的输入参数。
+要求要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+nfcradiodev.h 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IOCTL_NFCRM_SET_RADIO_STATE IOCTL
+（nfcradiodev.h）项目2025/02/07
+无线电管理应用程序或服务使用此 IOCTL 来设置邻近设备的无线电电源状态。
+MediaRadioOn 字段用于指示请求电源状态。 禁用邻近无线电电源状态时，驱动程序应禁用邻近设备接口（GUID_DEVINTERFACE_NFP和
+GUID_DEVINTERFACE_SMARTCARD_READER接口），并禁用设备的 P2P 和读取器/写入器模式。 如果启用了邻近无线电电源状态，驱动程序应启用邻近设备接口，并启用控制器的 P2P 和读取器/编写器模式。 有关优化此设备上的电源模式的详细信息，请参阅 NFC
+电源管理。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+NFCRM_SET_RADIO_STATE 结构输入缓冲区长度
+sizeof（NFCRM_SET_RADIO_STATE）
+输出缓冲区没有
+输出缓冲区长度没有
+状态块
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括：
+ﾉ
+展开表
+返回代码
+STATUS_INVALID_DEVICE_STATE 言论
+描述
+当设备已处于客户端设置的邻近无线电电源状态时，将返回此代码。
+不再需要 STATUS_INVALID_PARAMETER 返回代码。 Windows 10 内部版本 10240 中发现了一个 bug，Windows 会使用此 IOCTL 发送非 null 输出参数。 此 bug 已在更高版本的 Windows 中修复。 为了简化代码，驱动程序可以忽略所有版本的 Windows 10 中的输
+出参数。要求
+ﾉ
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+nfcradiodev.h 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IOCTL_NFCSERM_QUERY_RADIO_STATE
+IOCTL （nfcradiodev.h）项目2025/02/07
+SE 无线电管理应用程序或服务使用此 IOCTL 来查询邻近设备的当前无线电电源状态。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有
+输入缓冲区长度没有
+输出缓冲区
+NFCRM_RADIO_STATE 结构输出缓冲区长度
+sizeof（NFCRM_RADIO_STATE）状态块
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括：
+ﾉ
+返回代码
+STATUS_INVALID_PARAMETER 要求
+描述
+当输入缓冲区为非零时，将返回此代码。
+ﾉ
+展开表展开表
+要求标头
+价值
+nfcradiodev.h
+IOCTL_NFCSERM_SET_RADIO_STATE
+IOCTL （nfcradiodev.h）项目2025/02/07
+SE 无线电管理应用程序或服务使用此 IOCTL 设置邻近设备的当前无线电电源状态。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+NFCRM_SET_RADIO_STATE 结构输入缓冲区长度
+sizeof（NFCRM_SET_RADIO_STATE）
+输出缓冲区没有
+输出缓冲区长度没有
+状态块
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括：
+ﾉ
+返回代码
+STATUS_INVALID_DEVICE_STATE STATUS_INVALID_PARAMETER
+描述
+展开表
+当设备已处于客户端设置的邻近无线电电源状态时，将返回此代码。
+当输出缓冲区为非零时，将返回此代码。
+要求要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+nfcradiodev.h 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+NFCRM_RADIO_STATE结构
+（nfcradiodev.h）项目2025/02/07
+此结构用于指示无线电状态。
+语法 C++
+typedef struct _NFCRM_RADIO_STATE {   BOOLEAN MediaRadioOn;
+} NFCRM_RADIO_STATE, *PNFCRM_RADIO_STATE;
+成员 MediaRadioOn
+这是一个布尔标志，指示媒体电台是否处于打开。要求
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+nfcradiodev.h 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+NFCRM_SET_RADIO_STATE结构
+（nfcradiodev.h）项目2025/02/07
+此结构用于设置无线电状态。 在飞行模式的情况下，驱动程序必须保留无线电状态，并在禁用飞行模式时还原它。
+语法 C++
+typedef struct _NFCRM_SET_RADIO_STATE {
+  BOOLEAN SystemStateUpdate;   BOOLEAN MediaRadioOn;
+} NFCRM_SET_RADIO_STATE, *PNFCRM_SET_RADIO_STATE; 成员
+SystemStateUpdate
+SystemStateUpdate。 如果为 true，则表示IOCTL_NFCRM_SET_RADIO_STATE是由飞行模式触发的。
+MediaRadioOn
+MediaRadioOn 标志要么启用系统触发器（如果 SystemStateUpdate 为 true），要么禁用它。言论
+如果 systemStateUpdate 为 true 且MediaRadioOn 为 false，则飞行模式状态为 ON。如果 systemStateUpdate 为 true 且 MediaRadioOn 为 true，则飞行模式状态为 OFF。如果 SystemStateUpdate 为 false，并且 MediaRadioOn 为 true，NFC 状态为 ON。如果 SystemStateUpdate 为 false，并且 MediaRadioOn 为 false，NFC 状态为 OFF。
+要求
+ﾉ
+展开表
+要求标头
+价值
+nfcradiodev.h
+nfcsedev.h 标头项目2025/03/22
+nfpdrivers 使用此标头。 有关详细信息，请参阅：
+近场通信（NFC）
+nfcsedev.h 包含以下编程接口：
+IOCTLs  
+IOCTL_NFCSE_ENUM_ENDPOINTS
+返回有关附加到 NFC 控制器的所有安全元素的列表的信息。 IOCTL_NFCSE_GET_NEXT_EVENT
+ﾉ
+展开表
+IOCTL_NFCSE_GET_NEXT_EVENT控制代码返回缓冲区中可用的下一个事件，或者如果没有其他缓冲事件仍
+挂起，直到安全元素事件可用为止。 然后，必须将事件详细信息返回到调用方。 IOCTL_NFCSE_GET_NFCC_CAPABILITIES
+IOCTL_NFCSE_GET_NFCC_CAPABILITIES控制代码返回有关当前 NFC 控制器功能的信息，包括最大侦听模式
+路由表大小（在 NFC 控制器接口 （NCI） 技术规范版本 1.1 的第 4.2 节中定义）和支持的路由模式。 IOCTL_NFCSE_GET_ROUTING_TABLE
+返回有关侦听模式路由表的当前配置的信息。 IOCTL_NFCSE_HCE_REMOTE_RECV
+返回可用的下一个数据缓冲区，或者如果没有更多的缓冲数据，请求应保持挂起状态，直到 APDU 缓冲区可供读取。
+IOCTL_NFCSE_HCE_REMOTE_SEND
+将响应 APDU 从 DeviceHost NFCEE 传输到远程设备。 调用方必须确保响应 APDU 符合 ISO-IEC 7816-4。 IOCTL_NFCSE_SET_CARD_EMULATION_MODE
+IOCTL_NFCSE_SET_CARD_EMULATION_MODE控制代码设置指定的安全元素是否在卡片仿真模式下公开。 IOCTL_NFCSE_SET_ROUTING_TABLE
+ 
+配置 NFC 控制器侦听模式路由表。 IOCTL_NFCSE_SUBSCRIBE_FOR_EVENT
+客户端发出IOCTL_NFCSE_SUBSCRIBE_FOR_EVENT控制代码以订阅特定事件。
+结构  
+SECURE_ELEMENT_AID_ROUTING_INFO
+SECURE_ELEMENT_AID_ROUTING_INFO是SECURE_ELEMENT_ROUTING_TABLE_ENTRY的成员。 SECURE_ELEMENT_ENDPOINT_INFO
+SECURE_ELEMENT_ENDPOINT_INFO是SECURE_ELEMENT_ENDPOINT_LIST的成员。 SECURE_ELEMENT_ENDPOINT_LIST
+IOCTL_NFCSE_ENUM_ENDPOINTS的输出参数。 SECURE_ELEMENT_EVENT_INFO
+此结构提供有关安全元素事件的信息。
+SECURE_ELEMENT_EVENT_SUBSCRIPTION_INFO
+ﾉ
+展开表
+SECURE_ELEMENT_EVENT_SUBSCRIPTION_INFO结构是用于IOCTL_NFCSE_SUBSCRIBE_FOR_EVENT的输入参数。
+SECURE_ELEMENT_HCE_ACTIVATION_PAYLOAD
+_SECURE_ELEMENT_HCE_ACTIVATION_PAYLOAD结构包含唯一的连接标识符和 NFC 论坛 RF 技术和协议类型。
+SECURE_ELEMENT_HCE_DATA_PACKET
+SECURE_ELEMENT_HCE_DATA_PACKET是用于IOCTL_NFCSE_HCE_REMOTE_RECV的
+IOCTL_NFCSE_HCE_REMOTE_SEND和输出缓冲区的输入缓冲区。 SECURE_ELEMENT_NFCC_CAPABILITIES
+SECURE_ELEMENT_NFCC_CAPABILITIES包含 NFC 控制器功能。
+ 
+SECURE_ELEMENT_PROTO_ROUTING_INFO
+SECURE_ELEMENT_PROTO_ROUTING_INFO是SECURE_ELEMENT_ROUTING_TABLE_ENTRY的成员。 SECURE_ELEMENT_ROUTING_TABLE
+SECURE_ELEMENT_ROUTING_TABLE是IOCTL_NFCSE_SET_ROUTING_TABLE的输入参数。 SECURE_ELEMENT_ROUTING_TABLE_ENTRY
+SECURE_ELEMENT_ROUTING_TABLE_ENTRY是SECURE_ELEMENT_ROUTING_TABLE的成员。 SECURE_ELEMENT_SET_CARD_EMULATION_MODE_INFO
+SECURE_ELEMENT_SET_CARD_EMULATION_MODE_INFO是IOCTL_NFCSE_SET_CARD_EMULATION_MODE 的输入参数。
+SECURE_ELEMENT_TECH_ROUTING_INFO
+SECURE_ELEMENT_TECH_ROUTING_INFO是SECURE_ELEMENT_ROUTING_TABLE_ENTRY的成员。枚举
+ﾉ
+ 
+SECURE_ELEMENT_CARD_EMULATION_MODE 此枚举指示安全元素的卡片仿真模式。
+SECURE_ELEMENT_EVENT_TYPE 指示安全元素事件的类型。
+SECURE_ELEMENT_ROUTING_TYPE
+SECURE_ELEMENT_ROUTING_TYPE是SECURE_ELEMENT_ROUTING_TABLE_ENTRY的成员。
+SECURE_ELEMENT_TYPE 指示安全元素的类型。
+展开表
+IOCTL_NFCSE_ENUM_ENDPOINTS IOCTL
+（nfcsedev.h）项目2025/02/07
+返回有关附加到 NFC 控制器的所有安全元素的列表的信息。 请注意，调用方必须分配足够大的输出缓冲区，以便保存驱动程序枚举的所有安全元素（即 SE 终结点信息的 SEs 枚举 x 大小总数）的信息，否则驱动程序应向客户端返回包含枚举安全元素数的
+NumberOfEndpoints 字段的STATUS_BUFFER_OVERFLOW错误代码。 标识可能用于引用
+特定安全元素的安全元素的 GUID。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有
+输入缓冲区长度没有
+输出缓冲区
+枚举的每个设备的 SECURE_ELEMENT_ENDPOINT_LIST。状态块
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括：
+ﾉ
+返回代码
+STATUS_INVALID_PARAMETER STATUS_BUFFER_OVERFLOW
+描述
+当输出缓冲区为非零时，将返回此代码。提供的缓冲区太小，无法接收路由表配置。
+展开表
+言论
+以下是驱动程序必须遵循的要求。
+对于集成的安全元素，GUID 应是派生自安全元素的序列号和/或其他唯一标识的唯一标识符。
+对于外部安全元素，GUID 可能是固定常量，并且仅标识安全元素连接到的“套接字”。
+对于设备主机安全元素，仅当驱动程序支持主机卡仿真时，驱动程序才会将其枚举为 SE 终结点。 用于 DH 的 GUID 可能是驱动程序定义的固定常量。
+调用方需要分配足够大的输出缓冲区，以便保存驱动程序枚举的所有安全元素的相关信息。 缓冲区必须与驱动程序枚举的 SE 总数相等，并乘以 SE 终结点信息的大小。 如果未分配适当的缓冲区，驱动程序会将STATUS_BUFFER_OVERFLOW错误代码返回到客户端，其中包含枚举的安全元素数的 NumberOfEndpoints 字段。
+要求
+ﾉ
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+nfcsedev.h 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IOCTL_NFCSE_GET_NEXT_EVENT IOCTL
+（nfcsedev.h）项目2025/02/07
+IOCTL_NFCSE_GET_NEXT_EVENT 控制代码返回缓冲区中可用的下一个事件，或者如果没有更多缓冲事件在安全元素事件可用之前保持挂起状态。 然后，必须将事件详细信息返
+回到调用方。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有
+输入缓冲区长度没有
+输出缓冲区
+DWORD，指示 SECURE_ELEMENT_EVENT_INFO 结构的大小及其有效负载，紧接着是
+SECURE_ELEMENT_EVENT_INFO 结构本身。状态块
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括：
+ﾉ
+返回代码
+STATUS_INVALID_DEVICE_STATE STATUS_INVALID_PARAMETER
+描述
+展开表
+当此 IOCTL 在具有除 SEEvents 以外的文件名的设备句柄上调用时，或者已经有另一个尚未完成的请求时，将返回此代码。
+当输出缓冲区为非零或安全元素的 GUID 与任何枚举 ID 不匹配时，将返回此代码。
+言论
+以下是驱动程序必须遵循的要求。
+必须在具有 SEEvents 相对文件名的句柄上调用此 IOCTL;否则，驱动程序返回 STATUS_INVALID_DEVICE_STATE
+此驱动程序必须支持此挂起的 IOCTL 的 CancelIO。
+此驱动程序必须维护与订阅类型匹配的已接收安全元素事件的接收队列。在驱动程序中收到此 IOCTL 时，必须满足以下条件：
+如果收到的队列为空，则驱动程序必须笔下 IOCTL 才能在以后完成。
+如果收到的队列为非空，则驱动程序必须取消对一个事件进行排队，将消息缓冲
+区复制到 IOCTL 的输出缓冲区，并立即完成 IOCTL STATUS_SUCCESS。如果驱动程序使用 STATUS_SUCCESS 完成此 IOCTL，则输出缓冲区的第一个
+DWORD [4 字节] 必须包含SECURE_ELEMENT_EVENT_INFO结构的大小及其有效负载。
+如果收到的安全元素事件信息太大，无法复制到此 IOCTL 的缓冲区中，驱动程序必须将所需的缓冲区大小复制到输出缓冲区的前 4 个字节中，将 IOCTL 的信息字段设置为 sizeof（DWORD），并使用 STATUS_BUFFER_OVERFLOW完成 IOCTL。 然后，事件必须保留在接收的队列中。
+要求
+ﾉ
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+nfcsedev.h 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IOCTL_NFCSE_GET_NFCC_CAPABILITIES
+IOCTL （nfcsedev.h）项目2025/02/07
+IOCTL_NFCSE_GET_NFCC_CAPABILITIES 控制代码返回有关当前 NFC 控制器功能的信息，包括最大侦听模式路由表大小（在 NFC 控制器接口 （NCI） 技术规范版本 1.1 的第
+4.2 节中定义）和支持的路由模式。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有
+输入缓冲区长度没有
+输出缓冲区
+包含 NFC 控制器功能的 SECURE_ELEMENT_NFCC_CAPABILITIES。输出缓冲区长度
+sizeof（SECURE_ELEMENT_NFCC_CAPABILITIES）状态块
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括：
+ﾉ
+返回代码
+STATUS_BUFFER_OVERFLOW
+描述
+提供的缓冲区太小，无法
+SECURE_ELEMENT_NFCC_CAPABILITIES结构。
+展开表
+STATUS_INVALID_PARAMETER STATUS_INVALID_DEVICE_STATE
+要求要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+如果输入缓冲区为非零。
+如果 IOCTL 是在具有相对名称“SEManage”的句柄上发送的。
+ﾉ
+价值
+nfcsedev.h
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IOCTL_NFCSE_GET_ROUTING_TABLE
+IOCTL （nfcsedev.h）项目2025/02/07
+返回有关侦听模式路由表的当前配置的信息。 请注意，调用方必须分配足够大的输出缓冲区，以便保存当前侦听模式路由表中存在的所有条目的信息，即路由表条目的总数 x 大小路由表条目，否则驱动程序应向客户端返回包含配置路由表条目数的
+NumberOfEntries 字段的STATUS_BUFFER_OVERFLOW错误代码。 路由表项的类型为
+SECURE_ELEMENT_ROUTING_TABLE_ENTRY。 注意：驱动程序不应将条目路由 NFC-DEP 作为输出缓冲区中返回的路由表的一部分返回到 DH，即使该条目存在于 NFCC 路由表中。
+主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有
+输入缓冲区长度没有
+输出缓冲区
+SECURE_ELEMENT_ROUTING_TABLE 包含当前配置的所有路由条目。输出缓冲区长度
+sizeof（SECURE_ELEMENT_ROUTING_TABLE）状态块
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括：
+ﾉ
+展开表
+返回代码
+STATUS_BUFFER_OVERFLOW
+STATUS_FEATURE_NOT_SUPPORTED
+STATUS_INVALID_PARAMETER STATUS_INVALID_DEVICE_STATE
+要求
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+描述
+提供的缓冲区太小，无法接收路由表配置。 NFCC 不支持侦听模式路由配置。
+如果输入缓冲区为非零，则返回此代码。
+如果在具有相对名称“SEManage”的句柄上发送 IOCTL，则返回此代码。
+ﾉ
+价值
+nfcsedev.h 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IOCTL_NFCSE_HCE_REMOTE_RECV IOCTL
+（nfcsedev.h）项目2025/02/07
+返回可用的下一个数据缓冲区，或者如果没有更多的缓冲数据，请求应保持挂起状态，直到 APDU 缓冲区可供读取。 然后，数据缓冲区应返回到调用方。 请注意，调用方必须分配足够大
+的输出缓冲区，以容纳已接收的最大 APDU + 4 字节开销。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有
+输入缓冲区长度没有
+输出缓冲区
+DWORD 指示 SECURE_ELEMENT_HCE_DATA_PACKET 结构的大小及其有效负载，紧接着是
+SECURE_ELEMENT_HCE_DATA_PACKET 结构本身。状态块
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括：
+ﾉ
+返回代码
+STATUS_BUFFER_OVERFLOW STATUS_INVALID_PARAMETER STATUS_INVALID_DEVICE_STATE
+描述
+展开表
+提供的缓冲区太小，无法接收通知，第一个 DWORD 将包含预期的缓冲区大小。
+如果输入缓冲区为非零。
+如果 IOCTL 是在具有相对名称“SEManage”的句柄上发送的。
+言论
+以下是驱动程序必须遵循的要求。
+触发 HCE 激活事件后，此 IOCTL 将在现有连接上发送。驱动程序必须支持此笔化 IOCTL 上的 CancelIo。
+驱动程序必须维护当前连接的已接收 APDU 的“已接收”队列。在驱动程序中收到此 IOCTL 时：
+如果“已接收”队列为空，则驱动程序必须为 IOCTL 笔，以便稍后完成。
+如果“已接收”队列为非空，则驱动程序必须取消对一个 APDU 进行排队，将 APDU 缓冲区复制到 IOCTL 的输出缓冲区，并立即完成 IOCTL STATUS_SUCCESS。
+如果驱动程序使用 STATUS_SUCCESS 完成此 IOCTL，则输出缓冲区的第一个 DWORD [4 字节] 必须包含SECURE_ELEMENT_HCE_DATA_PACKET结构的大小及其有效负载。
+如果收到的 APDU 数据太大而无法复制到此 IOCTL 的输出缓冲区中，驱动程序必须将所需
+的缓冲区大小复制到输出缓冲区的前 4 个字节中，将 IOCTL 的信息字段设置为 sizeof（DWORD），并使用 STATUS_BUFFER_OVERFLOW完成 IOCTL。 APDU 数据必须保留在“接收”队列中。
+要求
+ﾉ
+要求标头
+价值
+nfcsedev.h
+展开表
+IOCTL_NFCSE_HCE_REMOTE_SEND
+IOCTL （nfcsedev.h）项目2025/02/07
+将响应 APDU 从 DeviceHost NFCEE 传输到远程设备。 调用方必须确保响应 APDU 符合
+ISO-IEC 7816-4。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+指向包含 SECURE_ELEMENT_HCE_DATA_PACKET 结构的缓冲区的指针。输入缓冲区长度
+sizeof（SECURE_ELEMENT_HCE_DATA_PACKET）
+输出缓冲区没有
+输出缓冲区长度没有
+状态块
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括：
+ﾉ
+返回代码
+STATUS_INVALID_PARAMETER STATUS_INVALID_DEVICE_STATE
+描述
+展开表
+如果输入连接 ID 与当前连接 ID 不匹配，则返回此代码。
+如果在具有相对名称“SEManage”的句柄上发送 IOCTL，则返回此代码。
+要求要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+nfcsedev.h 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IOCTL_NFCSE_SET_CARD_EMULATION_
+MODE IOCTL （nfcsedev.h）项目2025/02/07
+IOCTL_NFCSE_SET_CARD_EMULATION_MODE 控制代码设置指定的安全元素是否在卡片仿真模式下公开。 当安全元素“公开”作为卡仿真时，这意味着当设备被带到外部读取器时，安全元素可由读取器访问。 IOCTL 是在使用相对文件名“SEManage”打开的文件句柄上发出的。 驱动程序必须授予对客户端的独占访问权限以管理卡仿真模式，也就是说，使用相对文件名“SEManage”打开文件句柄的后续调用将失败并
+STATUS_ACCESS_DENIED，直到具有独占访问权限的客户端关闭其文件句柄。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+SECURE_ELEMENT_SET_CARD_EMULATION_MODE_INFO 结构。
+输出缓冲区没有
+状态块
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括：
+ﾉ
+返回代码
+STATUS_INVALID_PARAMETER STATUS_INVALID_DEVICE_STATE
+言论
+描述
+如果安全元素 GUID 无效或输出缓冲区为非零。
+展开表
+如果 IOCTL 是在具有相对名称“SEManage”的句柄上发送的。
+以下是驱动程序必须遵循的要求。
+必须在具有 SEEvents 相对文件名的句柄上调用此 IOCTL;否则，驱动程序将返回 STATUS_INVALID_DEVICE_STATE。
+如果卡仿真模式设置为附加到 NFC 控制器的所有安全元素的仿真Off，则必须禁用轮询循环的仿真模式。 如果邻近感应功能也处于禁用状态，驱动程序应转换为低功率模式。
+如果卡仿真模式设置为除 EmulationOff 以外的值，则驱动程序必须继续处于 D0 状态，并且应启用轮询循环的仿真模式（可检测到外部读取器）。
+关闭 SEManage 打开的文件句柄时，驱动程序必须将所有安全元素的卡片仿真模式设置设置为 EmulationOff，除非上次设置的卡仿真模式状态为
+EmulationOnPowerIndependent。 如果最后一个设置的卡仿真模式状态为
+EmulationOnPowerIndependent，则驱动程序必须与特定安全元素的 PbF 选项一起将卡仿真模式设置为 On。
+驱动程序必须授予对客户端的独占访问权限才能管理卡仿真模式。 使用相对文件名 SEManage 打开文件句柄的后续调用将失败并STATUS_ACCESS_DENIED，直到具有独占访问权限的客户端关闭其文件句柄。
+要求
+ﾉ
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+nfcsedev.h 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IOCTL_NFCSE_SET_ROUTING_TABLE
+IOCTL （nfcsedev.h）项目2025/02/07
+配置 NFC 控制器侦听模式路由表。 请注意，调用方必须发送单个呼叫中的完整侦听模式路由信息。 调用方应确保路由表小于 4.2.5.1 中定义的 cbMaxRoutingTableSize 值。 总大小根据 NFC NCI 标准秒 6.3.2 计算，等于基于 AID 的路由数 x 4 + cbAid + 基于技术的路由数 x 5 + 基于协议的路由 x 5。 调用方应确保基于技术和协议的路由的值符合 NCI NFC
+规范秒 6.3.2。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+SECURE_ELEMENT_ROUTING_TABLE 包含当前配置的所有路由条目。
+输出缓冲区没有
+状态块
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括：
+ﾉ
+返回代码
+STATUS_INVALID_BUFFER_SIZE
+STATUS_FEATURE_NOT_SUPPORTED
+STATUS_INVALID_PARAMETER STATUS_INVALID_DEVICE_STATE
+描述
+提供的缓冲区大于 NFC 控制器 MAX_ROUTING_TABLE_SIZE。
+NFCC 不支持侦听模式路由配置。
+展开表
+如果输出缓冲区为非零，或者用于技术或协议的值符合 NFC NCI 规范秒 6.3.2，或者使用重复的 AID，或者使用当前 NFC 控制器功能不支持的路由模式时，将返回此状态。
+如果在具有相对名称“SEManage”的句柄上发送 IOCTL，则
+言论
+以下是驱动程序必须遵循的要求。
+返回此代码。
+此 IOCTL 在具有“SEManage”相对文件名的句柄上发送，否则驱动程序必须使用 STATUS_INVALID_DEVICE_STATE完成它。
+驱动程序应具有初始的默认侦听模式路由表条目，这些条目将 RF 技术 A、B 和 F 和/或 ISO-DEP 协议路由到 UICC SE（如果存在）。 这些路由条目稍后可能会被设备主机启动的新侦听模式路由表配置重写。
+驱动程序应确保协议 NFC-DEP 随时映射到设备主机。 即使调用方未指定此规则，驱动程序也需要隐式添加此规则。
+如果 NFCC 处于 RF 发现状态时发出此 IOCTL，驱动程序需要将 NFCC 置于 RF 空闲状态、配置路由表并重启 RF 发现。
+要求
+ﾉ
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+nfcsedev.h 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IOCTL_NFCSE_SUBSCRIBE_FOR_EVENT
+IOCTL （nfcsedev.h）项目2025/02/07
+IOCTL_NFCSE_SUBSCRIBE_FOR_EVENT 控制代码由客户端发出，用于订阅特定事件。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+SECURE_ELEMENT_EVENT_SUBSCRIPTION_INFO 结构。
+输出缓冲区没有
+状态块
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括：
+ﾉ
+返回代码
+STATUS_INVALID_DEVICE_STATE
+STATUS_FEATURE_NOT_SUPPORTED 言论
+以下是驱动程序必须遵循的要求。
+描述
+展开表
+当此 IOCTL 在具有除 SEEvents以外的文件名的设备句柄上调用此 IOCTL 时返回，或者已经有另一个尚未完成的挂起请求。
+当输出为非零或安全元素的 GUID 与任何枚举 ID 不匹配时，将返回此代码。
+必须在具有 SEEvents 文件名的句柄上调用此 IOCTL;否则，驱动程序将返回 STATUS_INVALID_DEVICE_STATE。
+客户端可以将 GUID_NULL 指定为通配符，以便从所有枚举的安全元素订阅特定事件。
+要求要求标头
+价值
+nfcsedev.h
+ﾉ
+展开表
+SECURE_ELEMENT_AID_ROUTING_INFO
+结构（nfcsedev.h）项目2025/02/07
+SECURE_ELEMENT_AID_ROUTING_INFO是 SECURE_ELEMENT_ROUTING_TABLE_ENTRY的
+成员。语法 C++
+typedef struct _SECURE_ELEMENT_AID_ROUTING_INFO {
+  GUID  guidSecureElementId;   DWORD cbAid;
+  BYTE  pbAid[ISO_7816_MAXIMUM_AID_LENGTH];
+} SECURE_ELEMENT_AID_ROUTING_INFO, *PSECURE_ELEMENT_AID_ROUTING_INFO; 成员
+guidSecureElementId
+枚举 DDI 返回的安全元素唯一标识符。 cbAid
+小程序 ID 缓冲区的长度。
+pbAid[ISO_7816_MAXIMUM_AID_LENGTH]
+保存 ISO 7816 AID 的缓冲区。 see-also
+SECURE_ELEMENT_ROUTING_TABLE_ENTRY 要求
+ﾉ
+展开表
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+nfcsedev.h 否
+| 在 Microsoft Q&A 获取帮助
+SECURE_ELEMENT_CARD_EMULATION_MO
+DE枚举 （nfcsedev.h）项目2025/02/07
+此枚举指示安全元素的卡片仿真模式。
+语法 C++
+typedef enum _SECURE_ELEMENT_CARD_EMULATION_MODE {   EmulationOff,
+  EmulationOnPowerIndependent,   EmulationOnPowerDependent,   EmulationStealthListen
+} SECURE_ELEMENT_CARD_EMULATION_MODE, *PSECURE_ELEMENT_CARD_EMULATION_MODE; 常数
+ﾉ
+ 
+EmulationOff
+未公开安全元素。
+EmulationOnPowerIndependent
+展开表
+无论设备/电池的电源状态如何，eSE 安全元素都会公开，并且是唯一公开的安全元素。 如果删除了电池，
+设备将关闭电源，否则电源不可用。 安全元素必须保持向外部读取器公开。 EmulationOnPowerDependent
+只要设备已打开，安全元素才会公开，并且是公开的唯一安全元素。 如果电池已移除，设备已关闭，或者
+电源不可用，则安全元素不得再向外部读取器公开。 EmulationStealthListen
+指示安全元素模拟隐形侦听模式。要求
+ﾉ
+展开表
+要求标头
+价值
+nfcsedev.h
+SECURE_ELEMENT_ENDPOINT_INFO结构
+（nfcsedev.h）项目2025/02/07
+SECURE_ELEMENT_ENDPOINT_INFO是 SECURE_ELEMENT_ENDPOINT_LIST的成员。
+语法 C++
+typedef struct _SECURE_ELEMENT_ENDPOINT_INFO {
+  GUID                guidSecureElementId;   SECURE_ELEMENT_TYPE eSecureElementType;
+} SECURE_ELEMENT_ENDPOINT_INFO, *PSECURE_ELEMENT_ENDPOINT_INFO; 成员
+guidSecureElementId
+这是安全元素的唯一标识符。 eSecureElementType
+安全元素终结点的类型（NFCEE）。要求
+ﾉ
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+nfcsedev.h 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+SECURE_ELEMENT_ENDPOINT_LIST结构
+（nfcsedev.h）项目2025/02/07
+IOCTL_NFCSE_ENUM_ENDPOINTS的输出参数。
+语法 C++
+typedef struct _SECURE_ELEMENT_ENDPOINT_LIST {
+  DWORD                        NumberOfEndpoints;
+  SECURE_ELEMENT_ENDPOINT_INFO EndpointList[ANYSIZE_ARRAY];
+} SECURE_ELEMENT_ENDPOINT_LIST, *PSECURE_ELEMENT_ENDPOINT_LIST; 成员
+NumberOfEndpoints
+NFC 控制器上的枚举终结点数。 EndpointList[ANYSIZE_ARRAY]
+SECURE_ELEMENT_ENDPOINT_INFO 结构的数组。要求
+ﾉ
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+nfcsedev.h 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+SECURE_ELEMENT_EVENT_INFO结构
+（nfcsedev.h）项目2025/02/07
+此结构提供有关安全元素事件的信息。
+语法 C++
+typedef struct _SECURE_ELEMENT_EVENT_INFO {
+  GUID                      guidSecureElementId;
+  SECURE_ELEMENT_EVENT_TYPE eEventType;   DWORD                     cbEventData;
+  BYTE                      pbEventData[ANYSIZE_ARRAY];} SECURE_ELEMENT_EVENT_INFO, *PSECURE_ELEMENT_EVENT_INFO;
+成员
+guidSecureElementId
+这是安全元素的唯一标识符。 eEventType
+这是一种事件类型。 有关类型的详细信息，请参阅 SECURE_ELEMENT_EVENT_TYPE 枚举主题。
+cbEventData
+这是 pbEventData 数组的字节量。 pbEventData[ANYSIZE_ARRAY]
+这是事件数据缓冲区。 当 eEventTypeHceActivated 或 HceDeactivated时，此成员包含指向 SECURE_ELEMENT_HCE_ACTIVATION_PAYLOAD 结构的指针。 该结构中的
+bConnectionId 成员与 SECURE_ELEMENT_HCE_DATA_PACKET 用于发送和接收具有
+IOCTL_NFCSE_HCE_REMOTE_SEND 和 IOCTL_NFCSE_HCE_REMOTE_RECV的 HCE 数据包的 id 值相同。
+当 eEventTypeExternalReaderArrival 或 ExternalReaderDeparture时，pbEventData 为空，cbEventData 为 0。
+当 eEventTypeTransaction时，pbEventData 包含 BER-TLV 字段中编码的参数列表。 此
+事件映射到EVT_TRANSACTION。要求
+ﾉ
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+nfcsedev.h 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+SECURE_ELEMENT_EVENT_SUBSCRIPTIO
+N_INFO结构（nfcsedev.h）项目2025/02/07
+SECURE_ELEMENT_EVENT_SUBSCRIPTION_INFO结构是用于 IOCTL_NFCSE_SUBSCRIBE_FOR_EVENT的输入参数。
+语法 C++
+typedef struct _SECURE_ELEMENT_EVENT_SUBSCRIPTION_INFO {
+  GUID                      guidSecureElementId;   SECURE_ELEMENT_EVENT_TYPE eEventType;
+} SECURE_ELEMENT_EVENT_SUBSCRIPTION_INFO, *PSECURE_ELEMENT_EVENT_SUBSCRIPTION_INFO;
+成员
+guidSecureElementId eEventType
+安全元素事件类型。 当触发外部读取器离开、事务、HCE 激活或 HCE 停用事件时，服务
+可以订阅和接收通知。要求
+ﾉ
+要求标头
+反馈
+此页面是否有帮助？
+是
+价值
+nfcsedev.h 否
+展开表
+提供产品反馈 
+| 在 Microsoft Q&A 获取帮助
+SECURE_ELEMENT_EVENT_TYPE枚举
+（nfcsedev.h）项目2025/02/07
+指示安全元素事件的类型。
+语法 C++
+typedef enum _SECURE_ELEMENT_EVENT_TYPE {
+  ExternalReaderArrival,   ExternalReaderDeparture,   ApplicationSelected,
+  Transaction,   HceActivated,   HceDeactivated,
+  ExternalFieldEnter,   ExternalFieldExit
+} SECURE_ELEMENT_EVENT_TYPE, *PSECURE_ELEMENT_EVENT_TYPE; 常数
+ﾉ
+ 
+ExternalReaderArrival
+展开表
+当外部读取器与指示的安全元素建立连接时，将触发此事件。 没有为此事件提供其他参数。 ExternalReaderDeparture
+当外部读取器终止与所指示的安全元素的连接时，将触发此事件。 没有为此事件提供其他参数。 ApplicationSelected
+当外部读取器发出“SELECT”命令以选择指定安全元素上的应用程序时，将触发此事件。 此外，事件通知还包括所选应用程序的应用程序 ID（AID）。 并非所有类型的安全元素都支持引发此事件的能力。
+Transaction
+当在安全元素中作的应用程序通知控制器发生某种形式的作时，将触发此事件。 此事件发送 BER-
+TLV 字段中编码的参数列表。 此事件映射到EVT_TRANSACTION。 HceActivated
+当侦听模式接口激活到设备主机时，将触发此事件。 此事件发送当前连接 ID、激活的 RF 协议和技
+ 
+术。
+HceDeactivated
+终止当前活动 HCE 会话时，将触发此事件。 此事件发送当前终止的连接 ID。 ExternalFieldEnter
+此事件在输入外部字段时触发。 ExternalFieldExit
+退出外部字段时会触发此事件。要求
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+nfcsedev.h 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+SECURE_ELEMENT_HCE_ACTIVATION_PA
+YLOAD结构（nfcsedev.h）项目2025/02/07
+语法 C++
+typedef struct _SECURE_ELEMENT_HCE_ACTIVATION_PAYLOAD {
+  USHORT bConnectionId;   BYTE   eRfTechType;
+  BYTE   eRfProtocolType;
+} SECURE_ELEMENT_HCE_ACTIVATION_PAYLOAD, *PSECURE_ELEMENT_HCE_ACTIVATION_PAYLOAD;
+成员 bConnectionId
+当前连接的唯一标识符。 eRfTechType
+NFC 论坛 RF 技术类型。 eRfProtocolType
+NFC 论坛 RF 协议类型。要求
+ﾉ
+要求标头
+反馈
+价值
+nfcsedev.h
+展开表
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+SECURE_ELEMENT_HCE_DATA_PACKET结
+构（nfcsedev.h）项目2025/02/07
+SECURE_ELEMENT_HCE_DATA_PACKET 是用于 IOCTL_NFCSE_HCE_REMOTE_RECV的 IOCTL_NFCSE_HCE_REMOTE_SEND 和输出缓冲区的输入缓冲区。
+语法 C++
+typedef struct _SECURE_ELEMENT_HCE_DATA_PACKET {
+  USHORT bConnectionId;   USHORT cbPayload;
+  BYTE   pbPayload[ANYSIZE_ARRAY];
+} SECURE_ELEMENT_HCE_DATA_PACKET, *PSECURE_ELEMENT_HCE_DATA_PACKET;
+成员 bConnectionId
+在设备与智能卡读卡器之间建立的连接 ID，用于发送和接收 HCE 数据包。 当事件类型
+（SECURE_ELEMENT_EVENT_TYPE）HceActivated 或 HceDeactivated时，也会从 IOCTL_NFCSE_GET_NEXT_EVENT 接收此 ID。 然后，返回
+SECURE_ELEMENT_EVENT_INFO 结构的 pbEventData 字段是一个
+SECURE_ELEMENT_HCE_ACTIVATION_PAYLOAD 结构，其中包含 bConnectionId 成员。 cbPayload
+ISO 7816-4 APDU 缓冲区的长度。 pbPayload[ANYSIZE_ARRAY]
+保存 ISO 7816-4 APDU 的缓冲区。要求
+ﾉ
+展开表
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+nfcsedev.h 否
+| 在 Microsoft Q&A 获取帮助
+SECURE_ELEMENT_NFCC_CAPABILITIES
+结构（nfcsedev.h）项目2025/02/07
+SECURE_ELEMENT_NFCC_CAPABILITIES包含 NFC 控制器功能。
+语法 C++
+typedef struct _SECURE_ELEMENT_NFCC_CAPABILITIES {
+  USHORT  cbMaxRoutingTableSize;   BOOLEAN IsAidRoutingSupported;
+  BOOLEAN IsProtocolRoutingSupported;   BOOLEAN IsTechRoutingSupported;
+} SECURE_ELEMENT_NFCC_CAPABILITIES, *PSECURE_ELEMENT_NFCC_CAPABILITIES; 成员
+cbMaxRoutingTableSize
+NFCC 最大侦听模式路由表大小。 IsAidRoutingSupported
+指定 NFCC 是否支持基于 AID 的路由。 IsProtocolRoutingSupported
+指定 NFCC 是否支持基于协议的路由。 IsTechRoutingSupported
+指定 NFCC 是否支持基于技术的路由。要求
+ﾉ
+展开表
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+nfcsedev.h 否
+| 在 Microsoft Q&A 获取帮助
+SECURE_ELEMENT_PROTO_ROUTING_IN
+FO结构（nfcsedev.h）项目2025/02/07
+SECURE_ELEMENT_PROTO_ROUTING_INFO是
+SECURE_ELEMENT_ROUTING_TABLE_ENTRY的成员。
+语法 C++
+typedef struct _SECURE_ELEMENT_PROTO_ROUTING_INFO {
+  GUID guidSecureElementId;   BYTE eRfProtocolType;
+} SECURE_ELEMENT_PROTO_ROUTING_INFO, *PSECURE_ELEMENT_PROTO_ROUTING_INFO; 成员
+guidSecureElementId
+枚举 DDI 返回的安全元素唯一标识符。
+eRfProtocolType NFC 论坛 RF 协议。要求
+ﾉ
+要求标头
+反馈
+此页面是否有帮助？
+是
+价值
+nfcsedev.h 否
+展开表
+提供产品反馈 
+| 在 Microsoft Q&A 获取帮助
+SECURE_ELEMENT_ROUTING_TABLE结构
+（nfcsedev.h）项目2025/02/07
+SECURE_ELEMENT_ROUTING_TABLE是 IOCTL_NFCSE_SET_ROUTING_TABLE的输入参数。
+语法 C++
+typedef struct _SECURE_ELEMENT_ROUTING_TABLE {
+  DWORD                              NumberOfEntries;
+  SECURE_ELEMENT_ROUTING_TABLE_ENTRY TableEntries[ANYSIZE_ARRAY];} SECURE_ELEMENT_ROUTING_TABLE, *PSECURE_ELEMENT_ROUTING_TABLE;
+成员
+NumberOfEntries 路由表条目数。
+TableEntries[ANYSIZE_ARRAY]
+侦听模式路由表。要求
+ﾉ
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+nfcsedev.h 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+SECURE_ELEMENT_ROUTING_TABLE_ENTRY
+结构（nfcsedev.h）项目2025/02/07
+SECURE_ELEMENT_ROUTING_TABLE_ENTRY是 SECURE_ELEMENT_ROUTING_TABLE的成员。
+语法 C++
+typedef struct _SECURE_ELEMENT_ROUTING_TABLE_ENTRY {
+  SECURE_ELEMENT_ROUTING_TYPE eRoutingType;   union {
+    SECURE_ELEMENT_TECH_ROUTING_INFO  TechRoutingInfo;     SECURE_ELEMENT_PROTO_ROUTING_INFO ProtoRoutingInfo;     SECURE_ELEMENT_AID_ROUTING_INFO   AidRoutingInfo;   };
+} SECURE_ELEMENT_ROUTING_TABLE_ENTRY, *PSECURE_ELEMENT_ROUTING_TABLE_ENTRY;
+成员 eRoutingType
+NFC 论坛侦听模式路由表条目类型。 TechRoutingInfo
+RF 技术路由表条目信息。 ProtoRoutingInfo
+RF 协议路由表条目信息。 AidRoutingInfo
+AID 路由表控制信息。要求
+ﾉ
+展开表
+要求标头
+价值
+nfcsedev.h
+SECURE_ELEMENT_ROUTING_TYPE枚举
+（nfcsedev.h）项目2025/02/07
+SECURE_ELEMENT_ROUTING_TYPE是 SECURE_ELEMENT_ROUTING_TABLE_ENTRY的成员。
+语法 C++
+typedef enum _SECURE_ELEMENT_ROUTING_TYPE {   RoutingTypeTech,
+  RoutingTypeProtocol,   RoutingTypeAid
+} SECURE_ELEMENT_ROUTING_TYPE, *PSECURE_ELEMENT_ROUTING_TYPE; 常数
+ﾉ
+ 
+RoutingTypeTech
+NFC 论坛基于技术的路由类型。 RoutingTypeProtocol
+基于 NFC 论坛协议的路由类型。 RoutingTypeAid
+基于 NFC 论坛 AID 的路由类型。要求
+ﾉ
+要求标头
+价值
+nfcsedev.h
+展开表展开表
+SECURE_ELEMENT_SET_CARD_EMULATION_
+MODE_INFO结构（nfcsedev.h）项目2025/02/07
+SECURE_ELEMENT_SET_CARD_EMULATION_MODE_INFO是 IOCTL_NFCSE_SET_CARD_EMULATION_MODE的输入参数。
+语法 C++
+typedef struct _SECURE_ELEMENT_SET_CARD_EMULATION_MODE_INFO {
+  GUID                               guidSecureElementId;   SECURE_ELEMENT_CARD_EMULATION_MODE eMode;
+} SECURE_ELEMENT_SET_CARD_EMULATION_MODE_INFO, *PSECURE_ELEMENT_SET_CARD_EMULATION_MODE_INFO;
+成员
+guidSecureElementId
+这是安全元素的唯一标识符。 eMode
+卡仿真模式：关闭、依赖电源或与电源无关。要求
+ﾉ
+要求标头
+价值
+nfcsedev.h
+展开表
+SECURE_ELEMENT_TECH_ROUTING_INF
+O结构（nfcsedev.h）项目2025/02/07
+SECURE_ELEMENT_TECH_ROUTING_INFO是 SECURE_ELEMENT_ROUTING_TABLE_ENTRY
+的成员。语法 C++
+typedef struct _SECURE_ELEMENT_TECH_ROUTING_INFO {
+  GUID guidSecureElementId;   BYTE eRfTechType;
+} SECURE_ELEMENT_TECH_ROUTING_INFO, *PSECURE_ELEMENT_TECH_ROUTING_INFO; 成员
+guidSecureElementId
+枚举 DDI 返回的安全元素唯一标识符。 eRfTechType
+NFC 论坛 RF 技术类型。要求
+ﾉ
+要求标头
+反馈
+此页面是否有帮助？
+是
+价值
+nfcsedev.h 否
+展开表
+提供产品反馈 
+| 在 Microsoft Q&A 获取帮助
+SECURE_ELEMENT_TYPE枚举
+（nfcsedev.h）项目2025/02/07
+指示安全元素的类型。
+语法 C++
+typedef enum _SECURE_ELEMENT_TYPE {
+  Integrated,   External,   DeviceHost
+} SECURE_ELEMENT_TYPE, *PSECURE_ELEMENT_TYPE;
+常数  
+Integrated
+集成的安全元素。 External
+分隔基于 UICC 的安全元素。 DeviceHost
+分隔基于 HCE 的安全元素。要求
+要求标头
+价值
+nfcsedev.h
+ﾉﾉ
+展开表展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+nfpdev.h 标头项目2024/11/08
+nfpdrivers 使用此标头。 有关详细信息，请参阅：
+近场通信（NFC）
+nfpdev.h 包含以下编程接口：
+IOCTLs  
+IOCTL_NFP_DISABLE
+客户端发送IOCTL_NFP_DISABLE请求以暂时禁用订阅、发布和状态事件。 IOCTL_NFP_ENABLE
+客户端发送IOCTL_NFP_ENABLE请求以重新启用以前禁用的订阅、发布和状态事件。 IOCTL_NFP_GET_KILO_BYTES_PER_SECOND
+ﾉ
+展开表
+客户端将IOCTL_NFP_GET_KILO_BYTES_PER_SECOND请求发送到提供程序设备的任何泛型句柄（即未发布和非订阅的句柄）。
+IOCTL_NFP_GET_MAX_MESSAGE_BYTES
+客户端将IOCTL_NFP_GET_MAX_MESSAGE_BYTES请求发送到提供程序设备，以确定支持的最大消息大小，即非发布和非订阅的泛型句柄。
+IOCTL_NFP_GET_NEXT_SUBSCRIBED_MESSAGE
+客户端将IOCTL_NFP_GET_NEXT_SUBSCRIBED_MESSAGE请求反复发送到订阅句柄，以便在消息到达时接收订阅的消息。
+IOCTL_NFP_GET_NEXT_TRANSMITTED_MESSAGE
+想要接收消息已传输的通知的客户端会将IOCTL_NFP_GET_NEXT_TRANSMITTED_MESSAGE请求发送到邻近驱动程序。
+IOCTL_NFP_SET_PAYLOAD
+客户端应用程序发送消息数据，并使用IOCTL_NFP_SET_PAYLOAD请求确认发布。
+IOCTL_NFP_DISABLE IOCTL （nfpdev.h）项目2025/02/07
+客户端发送 IOCTL_NFP_DISABLE 请求以暂时禁用订阅、发布和状态事件。 当客户端想要禁用
+邻近功能时，这会很有用，但在需要时保留分配的资源以快速重新启用它们。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有
+输出缓冲区没有
+状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。否则，状态为相应的错误条件作为 NTSTATUS 代码。
+有关详细信息，请参阅 NTSTATUS 值。言论
+使用此 IOCTL 时，需要执行以下作：
+收到此 IOCTL 时，驱动程序必须将文件句柄标记为“Disabled”。
+如果订阅句柄更改为“已禁用”，提供程序必须从该文件句柄的“已接收”队列中删除所有消息。
+如果订阅句柄为“Disabled”：
+驱动程序必须保持该句柄的“接收”队列长度为零，方法是清除队列中的现有消息，并在收到新消息后立即从队列中删除新消息。
+驱动程序必须使用 STATUS_CANCELLED 完成该句柄上的所有笔 IOCTL_NFP_GET_NEXT_SUBSCRIBED_MESSAGE 请求。
+如果发布句柄为“Disabled”，则提供程序不得传输发布的消息，并且它必须通过 STATUS_CANCELLED完成该句柄上的所有笔
+IOCTL_NFP_GET_NEXT_TRANSMITTED_MESSAGE 请求
+要求要求
+最低支持的客户端标头
+另请参阅 IOCTL_NFP_ENABLE
+近场通信（NFC）整体设计指南
+价值
+Windows 8 nfpdev.h
+近场邻近感应设计指南（点击和执行、NFP 提供程序模型、驱动程序要求）
+ﾉ
+展开表
+IOCTL_NFP_ENABLE IOCTL （nfpdev.h）项目2025/02/07
+客户端发送 IOCTL_NFP_ENABLE 请求以重新启用以前禁用的订阅、发布和状态事件。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有
+输出缓冲区没有
+状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。否则，状态为相应的错误条件作为 NTSTATUS 代码。
+有关详细信息，请参阅 NTSTATUS 值。言论
+使用此 IOCTL 时，需要执行以下作：
+收到此 IOCTL 时，驱动程序必须将文件句柄标记为“已启用”。
+如果文件句柄已标记为“已启用”，驱动程序必须通过STATUS_INVALID_DEVICE_STATE完成 IOCTL。
+如果此 IOCTL 成功完成时设备当前处于代理状态，则必须将消息数据（及其类型）传输（仅一次）传输到代理设备。
+要求
+ﾉ
+展开表
+要求
+最低支持的客户端标头
+另请参阅 IOCTL_NFP_DISABLE
+近场通信（NFC）整体设计指南
+价值
+Windows 8 nfpdev.h
+近场邻近感应设计指南（点击和执行、NFP 提供程序模型、驱动程序要求）
+IOCTL_NFP_GET_KILO_BYTES_PER_SECO
+ND IOCTL （nfpdev.h）项目2025/02/07
+客户端将 IOCTL_NFP_GET_KILO_BYTES_PER_SECOND 请求发送到提供程序设备的任何泛型句柄（即未发布和非订阅的句柄）。 发送请求以确定提供商或其基础 RF 技术支持的近似最佳情况传输速度。 这用于区分传输速率到另一个数量级的差。
+注意 典型的 NFC 实现应提供大约 50 的值。  
+主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有
+输出缓冲区
+一个 INT32 值，该值定义提供商或其基础技术支持的近似传输速度。状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。否则，状态为相应的错误条件作为 NTSTATUS 代码。
+有关详细信息，请参阅 NTSTATUS 值。言论
+每个提供程序实现都可以指定近似传输速率。 典型的 NFC 实现应提供大约每秒 50 KB 的值。
+使用此 IOCTL 时，需要执行以下作：
+驱动程序必须支持不超过每秒 16 KB 的近似传输速率。
+收到此 IOCTL 后，驱动程序必须将近似传输速度复制到输出缓冲区中，并使用 STATUS_SUCCESS完成该传输速度。
+要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+近场通信（NFC）整体设计指南
+价值
+Windows 8 nfpdev.h
+近场邻近感应设计指南（点击和执行、NFP 提供程序模型、驱动程序要求）反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IOCTL_NFP_GET_MAX_MESSAGE_BYTES
+IOCTL （nfpdev.h）项目2025/02/07
+客户端将 IOCTL_NFP_GET_MAX_MESSAGE_BYTES 请求发送到提供程序设备，以确定支
+持的最大消息大小，即非发布和非订阅的泛型句柄。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有
+输出缓冲区
+一个 INT32 值，该值定义提供支持的最大消息大小。状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。否则，状态为相应的错误条件作为 NTSTATUS 代码。
+有关详细信息，请参阅 NTSTATUS 值。言论
+每个提供程序实现可以指定发布和订阅的最大消息大小。 Windows 要求此最大提供
+程序支持的消息大小不超过 10 KB。使用此 ioctl 时，需要执行以下作：
+驱动程序必须支持不超过 10 KB 的最大消息大小。
+收到此 IOCTL 时，驱动程序必须将最大消息大小复制到输出缓冲区中，并使用 STATUS_SUCCESS完成它。
+要求
+要求
+最低支持的客户端标头
+另请参阅
+近场通信（NFC）整体设计指南
+价值
+Windows 8 nfpdev.h
+近场邻近感应设计指南（点击和执行、NFP 提供程序模型、驱动程序要求）反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IOCTL_NFP_GET_NEXT_SUBSCRIBED_MESS
+AGE IOCTL （nfpdev.h）项目2025/02/07
+客户端将 IOCTL_NFP_GET_NEXT_SUBSCRIBED_MESSAGE 请求反复发送到订阅句柄，以便在消息到达时接收订阅的消息。 通常，此 IOCTL 将笔在订阅句柄中，直到与订阅类型匹配的消息实
+际到达为止。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有
+输出缓冲区
+当消息数据到达时，需要一个有效的缓冲区。 此缓冲区的第一个 DWORD 保留给客户端的提示，以便返回缓冲区的下一个大小。 此缓冲区通常为 255 字节，但驱动程序可以通过仅提供提
+示并完成具有STATUS_BUFFER_OVERFLOW的 IOCTL 来请求客户端发送更大的缓冲区。状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。否则，状态为相应的错误条件作为 NTSTATUS 代码。
+有关详细信息，请参阅 NTSTATUS 值。言论
+客户端应在每次完成笔触 IOCTL 时发送另一个 IOCTL。 驱动程序必须使用适当的锁，以确
+保此 IOCTL 成功完成次数等同于订阅类型的成功消息接收数。使用此 IOCTL 时，需要执行以下作：
+如果在以前未在“Subs\”设备命名空间中打开的句柄上收到此 IOCTL，驱动程序必须使用 STATUS_INVALID_DEVICE_STATE完成它。
+驱动程序必须维护与订阅文件句柄中的订阅类型匹配的已接收消息的“已接收”队列。在驱动程序中收到此 IOCTL 时：
+如果“已接收”队列为空，则驱动程序必须为 IOCTL 笔，以便稍后完成。
+要求要求
+如果“接收”队列为非空，则驱动程序必须取消对一个消息缓冲区进行排队，将消息缓冲区复制到 IOCTL 的输出缓冲区，并立即完成 IOCTL STATUS_SUCCESS。
+如果收到与类型匹配的消息，并且当前未写入任何 IOCTL，驱动程序必须将消息缓冲区添加到“Received”队列。
+如果收到与类型匹配的消息，并且有一个可用的触控 IOCTL（“接收”队列为空），驱动程序必须将消息缓冲区复制到 IOCTL 的输出缓冲区，并使用STATUS_SUCCESS完成笔式 IRP。 完成笔接的 IRP 后，“已接收”队列必须继续为空。
+如果驱动程序用STATUS_SUCCESS完成此 IOCTL，则输出缓冲区的第一个 DWORD [4 字节] 必须包含下一个客户端缓冲区大小的提示，而 IOCTL 的信息字段必须包含此消息的大小加上 大小（DWORD） （4 字节）。
+如果 IOCTL 包含输入缓冲区，驱动程序必须使用STATUS_INVALID_PARAMETER完成 IOCTL。
+如果收到的消息具有零长度的有效负载，驱动程序应忽略该消息。 这是性能优化，因为 Windows WILL 会删除包含零长度有效负载的消息。
+如果收到的消息太大而无法复制到此 IOCTL 的缓冲区中，驱动程序必须将所需的缓冲区大小复制到输出缓冲区的前 4 个字节中，将 IOCTL 的“信息”字段设置为 sizeof
+（DWORD）（“4”），并使用STATUS_BUFFER_OVERFLOW完成 IOCTL。 消息缓冲区必须保留在“接收”队列中。
+如果在订阅句柄中当前插入另一个 IOCTL 时收到此 IOCTL，则必须使用 STATUS_INVALID_DEVICE_STATE完成第二个 （或更高版本） 一个 IOCTL。驱动程序必须支持触控 IOCTL 的 CancelIo。
+ﾉ
+价值
+最低支持的客户端标头
+另请参阅
+近场通信（NFC）整体设计指南
+Windows 8 nfpdev.h
+近场邻近感应设计指南（点击和执行、NFP 提供程序模型、驱动程序要求）
+展开表
+IOCTL_NFP_GET_NEXT_TRANSMITTED_
+MESSAGE IOCTL （nfpdev.h）项目2025/02/07
+想要接收已传输消息的通知的客户端会将
+IOCTL_NFP_GET_NEXT_TRANSMITTED_MESSAGE 请求发送到邻近驱动程序。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有
+输出缓冲区没有
+状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。否则，状态为相应的错误条件作为 NTSTATUS 代码。
+有关详细信息，请参阅 NTSTATUS 值。言论
+客户端应用程序将在控制循环中将此 IOCTL 发送到发布句柄。 同一消息的两个单独的传输将导致触发两个事件。
+客户端应在每次完成笔触 IOCTL 时发送另一个 IOCTL。 驱动程序必须使用适当的
+锁，以确保此 IOCTL 成功完成次数等同于发布传输的次数。使用此 IOCTL 时，需要执行以下作：
+如果在以前未成功 IOCTL_NFP_SET_PAYLOAD的句柄上收到此 IOCTL，驱动程序必须用STATUS_INVALID_DEVICE_STATE完成它。
+驱动程序必须在发布文件句柄中维护“CompleteEventImmediately”计数器（ULONG 或更大）。
+在驱动程序中收到此 IOCTL 时：
+要求要求
+如果计数器为零，则驱动程序必须笔下 IOCTL 以供以后完成。
+如果计数器大于零，则驱动程序必须一个递减计数器，并立即完成 IOCTL STATUS_SUCCESS。
+如果发布已传输且当前未插入任何 IOCTL，则驱动程序必须逐个递增“CompleteEventImmediately”计数器。
+如果发布在有可用的笔形 IOCTL 时传输，驱动程序必须用 STATUS_SUCCESS 完成已插入的 IRP，并且不会递增“CompleteEventImmediately”计数器。
+如果 IOCTL 包含输入或输出缓冲区，驱动程序必须使用 STATUS_INVALID_PARAMETER 完成 IOCTL。
+如果在出版物句柄中当前插入另一个 IOCTL 时收到此 IOCTL，则必须使用
+STATUS_INVALID_DEVICE_STATE完成第二个 IOCTL（或更高版本）。驱动程序必须支持触控 IOCTL 的 CancelIo。
+ﾉ
+价值
+最低支持的客户端标头
+另请参阅
+近场通信（NFC）整体设计指南
+Windows 8 nfpdev.h
+近场邻近感应设计指南（点击和执行、NFP 提供程序模型、驱动程序要求）反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IOCTL_NFP_SET_PAYLOAD IOCTL
+（nfpdev.h）项目2025/02/07
+客户端应用程序发送消息数据，并使用 IOCTL_NFP_SET_PAYLOAD 请求确认发布。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+输入缓冲区包含要传输的消息数据。输出缓冲区
+没有。状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。否则，状态为相应的错误条件作为 NTSTATUS 代码。
+有关详细信息，请参阅 NTSTATUS 值。言论
+使用此 IOCTL 时，需要执行以下作：
+如果在以前未在“Pubs\...” 上打开的句柄上发送此 IOCTL文件名，驱动程序必须使用 STATUS_INVALID_DEVICE_STATE完成它。
+消息数据是写入一次。 如果此 IOCTL 成功一次，则必须使用
+STATUS_INVALID_DEVICE_STATE完成在同一句柄上收到的任何后续 IOCTL_NFP_SET_PAYLOAD。
+如果 IOCTL 包含输出缓冲区，驱动程序必须通过STATUS_INVALID_PARAMETER完成 IOCTL。
+如果输入缓冲区大于驱动程序的最大消息大小，驱动程序必须用 STATUS_INVALID_BUFFER_SIZE完成 IOCTL。
+如果此 IOCTL 成功后任何设备成为代理设备，并在句柄关闭之前，则消息数据（及其类型）必须仅传输到代理设备一次。
+如果在关闭句柄之前，相同（或不同）设备再次成为代理设备，则必须再次传输消息。
+如果此 IOCTL 成功完成时设备当前处于代理状态，则必须将消息数据（及其类型）传输（仅一次）传输到代理设备。 即使句柄立即关闭，也是如此。
+要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+近场通信（NFC）整体设计指南
+价值
+Windows 8 nfpdev.h
+近场邻近感应设计指南（点击和执行、NFP 提供程序模型、驱动程序要求）反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+winsmcrd.h 标头项目2025/03/22
+nfpdrivers 使用此标头。 有关详细信息，请参阅：
+近场通信（NFC）
+winsmcrd.h 包含以下编程接口：
+IOCTLs  
+IOCTL_SMARTCARD_EJECT
+IOCTL_SMARTCARD_EJECT请求从智能卡读取器中弹出当前插入的智能卡。 IOCTL_SMARTCARD_GET_ATTRIBUTE
+IOCTL_SMARTCARD_GET_ATTRIBUTE控制代码查询智能卡属性。 IOCTL_SMARTCARD_GET_LAST_ERROR
+ﾉ
+展开表
+IOCTL_SMARTCARD_GET_LAST_ERROR请求检索上一作的错误代码，因为在完成重叠作后，无法立即返回错误代码。
+IOCTL_SMARTCARD_GET_STATE
+IOCTL_SMARTCARD_GET_STATE控制代码获取智能卡的当前状态。 IOCTL_SMARTCARD_IS_ABSENT
+如果当前未检测到智能卡，IOCTL_SMARTCARD_IS_ABSENT控制代码会立即返回 STATUS_SUCCESS。
+IOCTL_SMARTCARD_IS_PRESENT
+IOCTL_SMARTCARD_IS_PRESENT控制代码可检测智能卡当前是否检测到。 IOCTL_SMARTCARD_POWER
+Windows 可能需要驱动程序将此 IOCTL 设置为 NOP 并返回成功。 IOCTL_SMARTCARD_SET_ATTRIBUTE
+ 
+IOCTL_SMARTCARD_SET_ATTRIBUTE控件代码设置属性，并在SCARD_ATTR_DEVICE_IN_USE上返回
+STATUS_SUCCESS;否则，它将返回STATUS_NOT_SUPPORTED。 IOCTL_SMARTCARD_SET_PROTOCOL
+设置驱动程序在检测到卡后与智能卡通信的 procotol。 IOCTL_SMARTCARD_SWALLOW
+IOCTL_SMARTCARD_SWALLOW请求会导致智能卡读卡器吞下卡。 IOCTL_SMARTCARD_TRANSMIT
+在符合 ISO7816-4 的 APDU 中，将数据从客户端传输到检测到的智能卡。结构
+ﾉ
+ 
+SCARD_IO_REQUEST
+此结构用于标识智能卡 I/O 请求。反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IOCTL_SMARTCARD_GET_ATTRIBUTE
+IOCTL （winsmcrd.h）项目2025/02/07
+IOCTL_SMARTCARD_GET_ATTRIBUTE 控制代码查询智能卡属性。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+（DWORD） 包含属性标记。输出缓冲区
+（DWORD） 包含属性标记。状态块
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括：
+ﾉ
+返回代码
+STATUS_NOT_SUPPORTED
+STATUS_INVALID_PARAMETER STATUS_BUFFER_TOO_SMALL STATUS_INVALID_DEVICE_STATE STATUS_DEVICE_POWERED_OFF
+言论
+描述
+如果属性不受支持，则返回此代码。
+如果输入或输出缓冲区无效，则返回此代码。
+展开表
+如果输出缓冲区太小而返回返回数据，则返回此代码。如果设备无法接受请求，则返回此代码。
+如果在调用时关闭邻近无线电控件，则返回此代码。
+使用此 IOCTL 时，需要执行以下作：
+驱动程序必须支持此笔化 IOCTL 上的 CancelIo。
+如果 NFCC 处于 RF 发现状态时发出此 IOCTL，驱动程序需要将 NFCC 置于 RF 空闲状态、配置路由表并重启 RF 发现。
+要求
+ﾉ
+要求标头
+另请参阅
+近场通信（NFC）设计指南
+智能卡设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+winsmcrd.h 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IOCTL_SMARTCARD_GET_STATE IOCTL
+（winsmcrd.h）项目2025/02/07
+IOCTL_SMARTCARD_GET_STATE 控制代码获取智能卡的当前状态。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有。
+输出缓冲区
+（DWORD） 以下状态之一：
+ﾉ
+州
+SCARD_UNKNOWN SCARD_ABSENT
+SCARD_SWALLOWED
+SCARD_SPECIFIC 状态块
+描述
+未知状态
+未检测到卡片
+卡片存在，但未供电。 设置SCARD_POWER_DOWN时。卡片存在并且已建立通信协议。
+展开表
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括：
+ﾉ
+返回代码
+STATUS_INVALID_PARAMETER STATUS_BUFFER_TOO_SMALL
+描述
+当输入或输出缓冲区无效时，将返回此代码。
+展开表
+如果输出缓冲区太小而返回返回数据，则返回此代码。
+STATUS_DEVICE_POWERED_OFF
+要求要求标头
+另请参阅
+近场通信（NFC）设计指南
+智能卡设计指南反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+如果邻近无线电控制处于关闭状态，则返回此代码。
+ﾉ
+价值
+winsmcrd.h 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IOCTL_SMARTCARD_IS_ABSENT IOCTL
+（winsmcrd.h）项目2025/02/07
+如果当前未检测到智能卡，IOCTL_SMARTCARD_IS_ABSENT 控制代码会立即返回
+STATUS_SUCCESS。 如果检测到智能卡，则 IOCTL 需要由驱动程序笔写，并且需要在卡离开时
+完成请求。 关闭文件句柄会自动取消订阅事件。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有。
+输出缓冲区
+没有。状态块
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括：
+ﾉ
+返回代码
+STATUS_PENDING
+STATUS_DEVICE_BUSY
+STATUS_INVALID_DEVICE_STATE STATUS_INVALID_PARAMETER STATUS_DEVICE_POWERED_OFF
+言论
+描述
+当属性 ID SCARD_ATTR_DEVICE_IN_USE时，将返回此代码。
+如果作已在等待不存在事件，则返回此代码。如果设备无法接受请求，则返回此代码。
+当输入或输出缓冲区无效时，将返回此代码。当邻近无线电控制关闭时，将返回此代码。
+使用此 IOCTL 时，需要执行以下作：
+展开表
+驱动程序必须支持此笔化 IOCTL 上的 CancelIo。
+这是一个电源管理的请求。 笔形 IOCTL 将使驱动程序保持 D0 电源状态。要求
+要求标头
+另请参阅
+近场通信（NFC）设计指南智能卡设计指南
+价值
+winsmcrd.h
+ﾉ
+展开表
+IOCTL_SMARTCARD_IS_PRESENT IOCTL
+（winsmcrd.h）项目2025/02/07
+IOCTL_SMARTCARD_IS_PRESENT 控制代码可检测智能卡当前是否检测到。 如果存在卡片，它将立即返回STATUS_SUCCESS。 如果未检测到智能卡，它将订阅智能卡到达事件，并保持挂起状
+态。 关闭文件句柄将取消订阅事件。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有。
+输出缓冲区
+没有。状态块
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括：
+ﾉ
+返回代码
+STATUS_PENDING
+STATUS_DEVICE_BUSY
+STATUS_INVALID_DEVICE_STATE STATUS_INVALID_PARAMETER STATUS_DEVICE_POWERED_OFF
+言论
+描述
+如果作正在等待智能卡进入无线电字段，则返回此代码。
+如果作已等待当前事件，则返回此代码。如果设备无法接受请求，则返回此代码。
+当输入或输出缓冲区无效时，将返回此代码。当邻近无线电控制关闭时，将返回此代码。
+使用此 IOCTL 时，需要执行以下作：
+展开表
+驱动程序必须支持此笔化 IOCTL 上的 CancelIo。
+这是一个电源管理的请求。 插入的 IOCTL 将使驱动程序保持 D0 电源状态。驱动程序必须仅针对受支持的类型返回STATUS_SUCCESS。
+要求
+要求标头
+另请参阅
+近场通信（NFC）设计指南智能卡设计指南
+价值
+winsmcrd.h
+ﾉ
+展开表
+IOCTL_SMARTCARD_POWER IOCTL
+（winsmcrd.h）项目2025/02/07
+Windows 可能需要驱动程序将此 IOCTL 设置为 NOP 并返回成功。
+IOCTL_SMARTCARD_POWER 控制代码将智能卡置于以下电源模式之一：
+电源模式设置
+SCARD_COLD_RESET SCARD_WARM_RESET
+主要代码
+描述
+ﾉ
+展开表
+设置仅影响IOCTL_SMARTCARD_GET_STATE的虚拟电源。 对实际读取器电源状态
+没有影响。 如果卡片存在，则返回IOCTL_SMARTCARD_GET_STATE中的 SCARD_SPECIFIC。
+设置仅影响IOCTL_SMARTCARD_GET_STATE的虚拟电源。 对实际读取器电源状态
+没有影响。 如果卡片存在，则返回IOCTL_SMARTCARD_GET_STATE中的 SCARD_SPECIFIC。
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+包含要设置的电源状态的 （DWORD）。输出缓冲区
+没有。状态块
+Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括：
+ﾉ
+返回代码
+STATUS_NO_MEDIA
+STATUS_INVALID_PARAMETER
+描述
+如果未检测到智能卡，则返回此代码。
+如果输入或输出缓冲区无效，则返回此代码。
+展开表
+STATUS_DEVICE_POWERED_OFF 言论
+如果邻近无线电控制处于关闭状态，则返回此代码。
+对于COLD_RESET和WARM_RESET，虚拟电源设置为 TRUE;否则，虚拟电源设置为 FALSE。要求
+ﾉ
+要求标头
+另请参阅
+近场通信（NFC）设计指南智能卡设计指南
+价值
+winsmcrd.h
+展开表
+IOCTL_SMARTCARD_SET_ATTRIBUTE IOCTL
+（winsmcrd.h）项目2025/02/07
+IOCTL_SMARTCARD_SET_ATTRIBUTE 控制代码在智能卡读卡器驱动程序中设置各种属性，并在 SCARD_ATTR_DEVICE_IN_USE上返回STATUS_SUCCESS;否则，它将返回
+STATUS_NOT_SUPPORTED。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+（DWORD） 包含属性标识符。
+Irp->AssociatedIrp.SystemBuffer 包含要设置的标记和值。
+Parameters.DeviceIoControl.InputBufferLength 包含标记长度值 （TLV） 结构的长度。输出缓冲区
+没有。状态块
+Irp->IoStatus.Information 必须设置为 sizeof（ULONG）。 Irp->IoStatus.Status 设置为以下值之一。
+ﾉ
+价值
+STATUS_SUCCESS
+STATUS_NOT_SUPPORTED
+STATUS_INVALID_PARAMETER STATUS_DEVICE_POWERED_OFF
+意义
+已成功设置属性。不支持该属性。
+要设置的属性的格式不正确。邻近无线电控制已关闭。
+展开表
+要求要求标头
+另请参阅
+近场通信（NFC）设计指南智能卡设计指南
+价值
+winsmcrd.h
+ﾉ
+展开表
+IOCTL_SMARTCARD_SET_PROTOCOL IOCTL
+（winsmcrd.h）项目2025/02/07
+IOCTL_SMARTCARD_SET_PROTOCOL 请求设置驱动程序在检测到卡后用于与智能卡通信的协议
+（插入）。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+Irp->AssociatedIrp.SystemBuffer 包含以下传输可接受的协议掩码。 掩码可以是以下值的按位 OR：
+SCARD_PROTOCOL_RAW SCARD_PROTOCOL_T0 SCARD_PROTOCOL_T1
+SCARD_PROTOCOL_DEFAULT SCARD_PROTOCOL_OPTIMAL
+最后两个值是额外的位定义，指示驱动程序必须显式执行协议类型选择（PTS），并具有最佳通信参数（SCARD_PROTOCOL_OPTIMAL）或使用卡的隐式协议
+（SCARD_PROTOCOL_DEFAULT）。 如果卡仅支持一个具有一组通信参数的协议，则忽略位。
+Parameters.DeviceIoControl.InputBufferLength 必须设置为 sizeof（ULONG）。 驱动程序决定掩码中要与插入卡片一起使用的协议。
+输出缓冲区
+Irp->AssociatedIrp.SystemBuffer 驱动程序在此处存储所选协议（例如， SCARD_PROTOCOL_T1）。 只能设置一位出掩码。
+输出缓冲区长度
+Parameters.DeviceIoControl.OutputBufferLength 必须为 sizeof（ULONG）。状态块
+Irp->IoStatus.Information 必须设置为 sizeof（ULONG）。 Irp->IoStatus.Status 设置为以下值之一。
+价值
+STATUS_SUCCESS STATUS_NO_MEDIA STATUS_IO_TIMEOUT
+STATUS_NOT_SUPPORTED
+STATUS_INVALID_DEVICE_REQUEST
+有关详细信息，请参阅 NTSTATUS 值。要求
+要求标头
+另请参阅
+近场通信（NFC）设计指南智能卡设计指南
+价值
+winsmcrd.h
+意义
+已成功选择协议。
+读取器中未检测到智能卡。作超时。
+智能卡不支持任何请求的协议。掩码不包含已知的协议。
+ﾉﾉ
+展开表展开表
+IOCTL_SMARTCARD_TRANSMIT IOCTL
+（winsmcrd.h）项目2025/02/07
+IOCTL_SMARTCARD_TRANSMIT 请求将数据传输到插入的智能卡，并从中接收数据。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+Irp->AssociatedIrp.SystemBuffer 指向 SCARD_IO_REQUEST 结构的指针，后跟要传输到插入的智能卡的数据。
+输入缓冲区长度
+Parameters.DeviceIoControl.InputBufferLength 包含结构的大小加上尾随数据字节的长度（如果有）。 dwProtocol 成员必须设置为之前选择的协议，并且 cbPciLength 成员必须设置为 SCARD_IO_REQUEST 结构本身（通常为 8 个字节）的大小。 该结构用于将来的协议。 将传输到卡的数据必须紧跟此结构。
+输出缓冲区
+字节缓冲区包含传输结果。 缓冲区指向SCARD_IO_REQUEST结构，紧跟接收的数据。
+Irp->AssociatedIrp.SystemBuffer 接收传输结果。 此缓冲区还必须以
+SCARD_IO_REQUEST 结构开头。 从卡接收的任何数据都必须在结构后立即存储。输出缓冲区长度
+Parameters.DeviceIoControl.OutputBufferLength 包含输出缓冲区的长度。状态块
+Irp->IoStatus.Status 设置为以下值之一。
+ﾉ
+展开表
+价值
+STATUS_SUCCESS STATUS_NO_MEDIA STATUS_IO_TIMEOUT
+STATUS_INVALID_DEVICE_STATE STATUS_BUFFER_TOO_SMALL STATUS_DEVICE_POWERED_OFF
+言论
+意义
+传输成功。
+读取器中未检测到智能卡。作超时。
+头文件中的协议与之前选择的智能卡协议不匹配。
+输出缓冲区对于返回数据来说太小。邻近无线电控制已关闭。
+IOCTL_SMARTCARD_TRANSMIT 将数据从客户端传输到符合 ISO7816-4 的 APDU 中检测到的智能卡。 这些 APDU 针对 PC/SC 规范进行了解释（第 4.3.7 节对不同 NFC 无接触标记格式的支持有更详细的要求）。 由于 NFP 功能与智能卡共享相同的驱动程序，因此该卡应在发现后立即连接，因此不需要“传输”显式连接。
+由于输入缓冲区和输出缓冲区指向相同的内存区域，因此驱动程序必须避免覆盖输入数据。 使
+用智能卡驱动程序库确保不会覆盖输入数据。要求
+ﾉ
+要求标头
+另请参阅
+近场通信（NFC）设计指南智能卡设计指南
+价值
+winsmcrd.h
+展开表
+SCARD_IO_REQUEST结构
+（winsmcrd.h）项目2025/02/07
+此结构用于标识智能卡 I/O 请求。
+语法 C++
+typedef struct _SCARD_IO_REQUEST {
+  DWORD dwProtocol;   DWORD cbPciLength;
+} SCARD_IO_REQUEST, *PSCARD_IO_REQUEST, *LPSCARD_IO_REQUEST;
+成员 dwProtocol
+指定协议 ID。 cbPciLength
+指定协议控制信息长度。要求
+要求标头
+另请参阅
+近场通信（NFC）设计指南智能卡设计指南
+价值
+winsmcrd.h
+ﾉ
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助

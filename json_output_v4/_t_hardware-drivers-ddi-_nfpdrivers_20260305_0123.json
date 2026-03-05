@@ -1,0 +1,2131 @@
+{
+  "_schema": "windows_api_kg_v4.0",
+  "_generated_at": "2026-03-05T08:06:50Z",
+  "_content_hash": "60f1b71a5294",
+  "document": {
+    "document_id": "hardware-drivers-ddi::nfpdrivers",
+    "title": "近场通信（NFC）",
+    "domain": "hardware-drivers-ddi",
+    "topic": "nfpdrivers",
+    "source_file": "[OCR]_windows-hardware-drivers-ddi-_nfpdrivers_20260305_0123.txt",
+    "ocr_timestamp": "2026-03-05T01:23:00",
+    "headers_referenced": [
+      "nfccx.h",
+      "nfcradiodev.h",
+      "nfcsedev.h",
+      "nfpdev.h",
+      "winsmcrd.h"
+    ],
+    "total_entities": 146
+  },
+  "entities": [
+    {
+      "id": "windows::IOCTL_NFCRM_QUERY_RADIO_STATE",
+      "name": "IOCTL_NFCRM_QUERY_RADIO_STATE",
+      "entity_type": "ioctl",
+      "description": "无线电管理应用程序或服务使用此 IOCTL 来查询邻近设备的当前无线电电源状态。 IOCTL_NFCRM_SET_RADIO_STATE 无线电管理应用程序或服务使用此 IOCTL 来设置邻近设备的无线电电源状态。 IOCTL_NFCSERM_QUERY_RADIO_STATE SE 无线电管理应用程序或服务使用IOCTL_NFCSERM_QUERY_RADIO_STATE来查询邻近设备的当前无线电电源状态。",
+      "header": "nfcradiodev.h",
+      "deprecated": false,
+      "cross_references": [
+        "IOCTL_NFCRM_SET_RADIO_STATE",
+        "IOCTL_NFCSERM_QUERY_RADIO_STATE"
+      ],
+      "confidence": 0.75,
+      "_source_line": 11
+    },
+    {
+      "id": "windows::IOCTL_NFCSE_GET_NEXT_EVENT",
+      "name": "IOCTL_NFCSE_GET_NEXT_EVENT",
+      "entity_type": "ioctl",
+      "description": "控制代码返回缓冲区中可用的下一个事件，或者如果没有更多缓冲事件在安全元素事件可用之前保持挂起状态。 然后，必须将事件详细信息返 回到调用方。",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 18
+    },
+    {
+      "id": "windows::IOCTL_NFCSE_GET_NFCC_CAPABILITIES",
+      "name": "IOCTL_NFCSE_GET_NFCC_CAPABILITIES",
+      "entity_type": "ioctl",
+      "description": "控制代码返回有关当前 NFC 控制器功能的信息，包括最大侦听模式 路由表大小（在 NFC 控制器接口 （NCI） 技术规范版本 1.1 的第 4.2 节中定义）和支持的路由模式。 IOCTL_NFCSE_GET_ROUTING_TABLE 返回有关侦听模式路由表的当前配置的信息。 IOCTL_NFCSE_HCE_REMOTE_RECV 返回可用的下一个数据缓冲区，或者如果没有更多的缓冲数据，请求应保持挂起状态，直到 APDU 缓冲区可供读取。",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [
+        "IOCTL_NFCSE_GET_ROUTING_TABLE",
+        "IOCTL_NFCSE_HCE_REMOTE_RECV"
+      ],
+      "confidence": 0.75,
+      "_source_line": 20
+    },
+    {
+      "id": "windows::IOCTL_NFCSE_GET_ROUTING_TABLE",
+      "name": "IOCTL_NFCSE_GET_ROUTING_TABLE",
+      "entity_type": "ioctl",
+      "description": "返回有关侦听模式路由表的当前配置的信息。 请注意，调用方必须分配足够大的输出缓冲区，以便保存当前侦听模式路由表中存在的所有条目的信息，即路由表条目的总数 x 大小路由表条目，否则驱动程序应向客户端返回包含配置路由表条目数的",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 21
+    },
+    {
+      "id": "windows::IOCTL_NFCSE_HCE_REMOTE_SEND",
+      "name": "IOCTL_NFCSE_HCE_REMOTE_SEND",
+      "entity_type": "ioctl",
+      "description": "和 IOCTL_NFCSE_HCE_REMOTE_RECV的 HCE 数据包的 id 值相同。 当 eEventTypeExternalReaderArrival 或 ExternalReaderDeparture时，pbEventData 为空，cbEventData 为 0。 当 eEventTypeTransaction时，pbEventData 包含 BER-TLV 字段中编码的参数列表。 此 事件映射到EVT_TRANSACTION。",
+      "requirements": {
+        "header": "nfcsedev.h"
+      },
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 27
+    },
+    {
+      "id": "windows::IOCTL_NFCSE_SET_CARD_EMULATION_MODE",
+      "name": "IOCTL_NFCSE_SET_CARD_EMULATION_MODE",
+      "entity_type": "ioctl",
+      "description": "控制代码设置指定的安全元素是否在卡片仿真模式下公开。 当安全元素“公开”作为卡仿真时，这意味着当设备被带到外部读取器时，安全元素可由读取器访问。 IOCTL 是在使用相对文件名“SEManage”打开的文件句柄上发出的。 驱动程序必须授予对客户端的独占访问权限以管理卡仿真模式，也就是说，使用相对文件名“SEManage”打开文件句柄的后续调用将失败并",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 29
+    },
+    {
+      "id": "windows::IOCTL_NFCSE_SET_ROUTING_TABLE",
+      "name": "IOCTL_NFCSE_SET_ROUTING_TABLE",
+      "entity_type": "ioctl",
+      "description": "配置 NFC 控制器侦听模式路由表。 请注意，调用方必须发送单个呼叫中的完整侦听模式路由信息。 调用方应确保路由表小于 4.2.5.1 中定义的 cbMaxRoutingTableSize 值。 总大小根据 NFC NCI 标准秒 6.3.2 计算，等于基于 AID 的路由数 x 4 + cbAid + 基于技术的路由数 x 5 + 基于协议的路由 x 5。 调用方应确保基于技术和协议的路由的值符合 NCI NFC 规范秒 6.3.2。",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 31
+    },
+    {
+      "id": "windows::IOCTL_NFCSE_SUBSCRIBE_FOR_EVENT",
+      "name": "IOCTL_NFCSE_SUBSCRIBE_FOR_EVENT",
+      "entity_type": "ioctl",
+      "description": "客户端发出IOCTL_NFCSE_SUBSCRIBE_FOR_EVENT控制代码以订阅特定事件。 IOCTL_NFCSERM_QUERY_RADIO_STATE SE 无线电管理应用程序或服务使用IOCTL_NFCSERM_QUERY_RADIO_STATE来查询邻近设备的当前无线电电源状态。",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [
+        "IOCTL_NFCSERM_QUERY_RADIO_STATE"
+      ],
+      "confidence": 0.75,
+      "_source_line": 31
+    },
+    {
+      "id": "windows::IOCTL_NFCSERM_SET_RADIO_STATE",
+      "name": "IOCTL_NFCSERM_SET_RADIO_STATE",
+      "entity_type": "ioctl",
+      "description": "SE 无线电管理应用程序或服务使用IOCTL_NFCSERM_SET_RADIO_STATE来设置邻近设备的当前无线 电电源状态。结构",
+      "header": "nfcradiodev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 34
+    },
+    {
+      "id": "windows::IOCTL_NFP_DISABLE",
+      "name": "IOCTL_NFP_DISABLE",
+      "entity_type": "ioctl",
+      "description": "客户端发送IOCTL_NFP_DISABLE请求以暂时禁用订阅、发布和状态事件。 IOCTL_NFP_ENABLE 客户端发送IOCTL_NFP_ENABLE请求以重新启用以前禁用的订阅、发布和状态事件。 IOCTL_NFP_GET_KILO_BYTES_PER_SECOND 客户端将IOCTL_NFP_GET_KILO_BYTES_PER_SECOND请求发送到提供程序设备的任何泛型句柄（即未发布和非订阅的句柄）。",
+      "header": "nfpdev.h",
+      "deprecated": false,
+      "cross_references": [
+        "IOCTL_NFP_ENABLE"
+      ],
+      "confidence": 0.75,
+      "_source_line": 36
+    },
+    {
+      "id": "windows::IOCTL_NFP_GET_MAX_MESSAGE_BYTES",
+      "name": "IOCTL_NFP_GET_MAX_MESSAGE_BYTES",
+      "entity_type": "ioctl",
+      "description": "客户端将 IOCTL_NFP_GET_MAX_MESSAGE_BYTES 请求发送到提供程序设备，以确定支 持的最大消息大小，即非发布和非订阅的泛型句柄。",
+      "header": "nfpdev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 40
+    },
+    {
+      "id": "windows::IOCTL_NFP_GET_NEXT_SUBSCRIBED_MESSAGE",
+      "name": "IOCTL_NFP_GET_NEXT_SUBSCRIBED_MESSAGE",
+      "entity_type": "ioctl",
+      "description": "客户端将IOCTL_NFP_GET_NEXT_SUBSCRIBED_MESSAGE请求反复发送到订阅句柄，以便在消息到达时接收订阅的消息。",
+      "header": "nfpdev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 45
+    },
+    {
+      "id": "windows::IOCTL_NFP_GET_NEXT_TRANSMITTED_MESSAGE",
+      "name": "IOCTL_NFP_GET_NEXT_TRANSMITTED_MESSAGE",
+      "entity_type": "ioctl",
+      "description": "想要接收消息已传输的通知的客户端会将IOCTL_NFP_GET_NEXT_TRANSMITTED_MESSAGE请求发送到邻近驱动程序。",
+      "header": "nfpdev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 47
+    },
+    {
+      "id": "windows::IOCTL_NFP_SET_PAYLOAD",
+      "name": "IOCTL_NFP_SET_PAYLOAD",
+      "entity_type": "ioctl",
+      "description": "IOCTL 客户端应用程序发送消息数据，并使用 IOCTL_NFP_SET_PAYLOAD 请求确认发布。",
+      "header": "nfpdev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 49
+    },
+    {
+      "id": "windows::IOCTL_SMARTCARD_GET_ATTRIBUTE",
+      "name": "IOCTL_SMARTCARD_GET_ATTRIBUTE",
+      "entity_type": "ioctl",
+      "description": "控制代码查询智能卡属性。",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 51
+    },
+    {
+      "id": "windows::IOCTL_SMARTCARD_GET_STATE",
+      "name": "IOCTL_SMARTCARD_GET_STATE",
+      "entity_type": "ioctl",
+      "description": "控制代码获取智能卡的当前状态。",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 51
+    },
+    {
+      "id": "windows::IOCTL_SMARTCARD_IS_ABSENT",
+      "name": "IOCTL_SMARTCARD_IS_ABSENT",
+      "entity_type": "ioctl",
+      "description": "如果当前未检测到智能卡，IOCTL_SMARTCARD_IS_ABSENT控制代码会立即返回 STATUS_SUCCESS。",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [
+        "STATUS_SUCCESS"
+      ],
+      "confidence": 0.75,
+      "_source_line": 52
+    },
+    {
+      "id": "windows::IOCTL_SMARTCARD_IS_PRESENT",
+      "name": "IOCTL_SMARTCARD_IS_PRESENT",
+      "entity_type": "ioctl",
+      "description": "控制代码可检测智能卡当前是否检测到。 如果存在卡片，它将立即返回STATUS_SUCCESS。 如果未检测到智能卡，它将订阅智能卡到达事件，并保持挂起状 态。 关闭文件句柄将取消订阅事件。",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 54
+    },
+    {
+      "id": "windows::IOCTL_SMARTCARD_POWER",
+      "name": "IOCTL_SMARTCARD_POWER",
+      "entity_type": "ioctl",
+      "description": "IOCTL Windows 可能需要驱动程序将此 IOCTL 设置为 NOP 并返回成功。",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 55
+    },
+    {
+      "id": "windows::IOCTL_SMARTCARD_SET_ATTRIBUTE",
+      "name": "IOCTL_SMARTCARD_SET_ATTRIBUTE",
+      "entity_type": "ioctl",
+      "description": "控制代码在智能卡读卡器驱动程序中设置各种属性，并在 SCARD_ATTR_DEVICE_IN_USE上返回STATUS_SUCCESS;否则，它将返回",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 57
+    },
+    {
+      "id": "windows::STATUS_SUCCESS",
+      "name": "STATUS_SUCCESS",
+      "entity_type": "ioctl",
+      "description": "。 如果检测到智能卡，则 IOCTL 需要由驱动程序笔写，并且需要在卡离开时 完成请求。 关闭文件句柄会自动取消订阅事件。",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 58
+    },
+    {
+      "id": "windows::IOCTL_SMARTCARD_SET_PROTOCOL",
+      "name": "IOCTL_SMARTCARD_SET_PROTOCOL",
+      "entity_type": "ioctl",
+      "description": "设置驱动程序在检测到卡后与智能卡通信的 procotol。 IOCTL_SMARTCARD_TRANSMIT 在符合 ISO7816-4 的 APDU 中，将数据从客户端传输到检测到的智能卡。",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [
+        "IOCTL_SMARTCARD_TRANSMIT"
+      ],
+      "confidence": 0.75,
+      "_source_line": 58
+    },
+    {
+      "id": "windows::NFC_CX_CE_MODE_CONFIG",
+      "name": "NFC_CX_CE_MODE_CONFIG",
+      "entity_type": "enum",
+      "description": "值的组合。 此成员启用 NFC-CE 模式设置的配置。 默认值启用被动侦听 NFC-A、被动侦听 NFC-B 和被动侦 听 NFC-F 阶段。 BailoutConfig",
+      "syntax": "typedef enum _NFC_CX_CE_MODE_CONFIG {",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 65
+    },
+    {
+      "id": "windows::NFC_CX_DEVICE_MODE",
+      "name": "NFC_CX_DEVICE_MODE",
+      "entity_type": "enum",
+      "description": "指定设备模式标志。",
+      "syntax": "typedef enum _NFC_CX_DEVICE_MODE {",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 66
+    },
+    {
+      "id": "windows::NFC_CX_DRIVER_FLAGS",
+      "name": "NFC_CX_DRIVER_FLAGS",
+      "entity_type": "enum",
+      "description": "指定运行时驱动程序标志。",
+      "syntax": "typedef enum _NFC_CX_DRIVER_FLAGS {   NFC_CX_DRIVER_DISABLE_WTD_TIMER,",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 66
+    },
+    {
+      "id": "windows::NFC_CX_HOST_ACTION",
+      "name": "NFC_CX_HOST_ACTION",
+      "entity_type": "enum",
+      "description": "枚举指定主机操作。",
+      "syntax": "typedef enum _NFC_CX_HOST_ACTION {\nHostActionStart,   HostActionStop,\nHostActionRestart,   HostActionUnload\n} NFC_CX_HOST_ACTION, *PNFC_CX_HOST_ACTION; 常数",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 68
+    },
+    {
+      "id": "windows::NFC_CX_NFCIP_MODE_CONFIG",
+      "name": "NFC_CX_NFCIP_MODE_CONFIG",
+      "entity_type": "enum",
+      "description": "值的组合。 此成员启用 NFC-IP 发起程序模式设置的配置。 该值对应于NFC_CX_NFCIP_MODE_CONFIG枚举 的组合。 默认值为被动轮询 NFC-A 和被动轮询 NFC-F（212 和 424k）阶段启用轮询。 NfcIPTgtMode",
+      "syntax": "typedef enum _NFC_CX_NFCIP_MODE_CONFIG {   NFC_CX_NFCIP_NFC_A,",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 68
+    },
+    {
+      "id": "windows::NFC_CX_NFCIP_TGT_MODE_CONFIG",
+      "name": "NFC_CX_NFCIP_TGT_MODE_CONFIG",
+      "entity_type": "enum",
+      "description": "值的组合。 此成员启用 NFC-IP 目标模式设置的配置。 默认值启用被动侦听 NFC-A 和被动侦听 NFC-F 阶段。",
+      "syntax": "typedef enum _NFC_CX_NFCIP_TGT_MODE_CONFIG {",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 69
+    },
+    {
+      "id": "windows::NFC_CX_POLL_BAILOUT_CONFIG",
+      "name": "NFC_CX_POLL_BAILOUT_CONFIG",
+      "entity_type": "enum",
+      "description": "值的组合。 默认值处于禁用状态。此成员支持配置PA_BAIL_OUT和PB_BAIL_OUT，如 NCI 规范中所述。",
+      "syntax": "typedef enum _NFC_CX_POLL_BAILOUT_CONFIG {",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 70
+    },
+    {
+      "id": "windows::NFC_CX_POLL_MODE_CONFIG",
+      "name": "NFC_CX_POLL_MODE_CONFIG",
+      "entity_type": "enum",
+      "description": "值的组合。 此成员启用轮询模式设置的配置。 默认值允许被动轮询 NFC-A、被动轮询 NFC-B 和被动轮询 NFC-F（212 和 424k）。 建议 NFC 客户端配置其他活动模式（如果受支持）。 NfcIPMode",
+      "syntax": "typedef enum _NFC_CX_POLL_MODE_CONFIG {",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 71
+    },
+    {
+      "id": "windows::NFC_CX_SEQUENCE",
+      "name": "NFC_CX_SEQUENCE",
+      "entity_type": "enum",
+      "description": "枚举。[in] CompletionRoutine 指向 CompletionRoutine 回调函数的指针。[in, optional] CompletionContext 驱动程序定义的上下文信息，驱动程序在注册 EvtNfcCxSequenceHandler 时指定的 回调函数。",
+      "syntax": "typedef enum _NFC_CX_SEQUENCE {   SequencePreInit,\nSequenceInitComplete,   SequencePreRfDiscStart,\nSequenceRfDiscStartComplete,   SequencePreRfDiscStop,\nSequenceRfDiscStopComplete,   SequencePreNfceeDisc,\nSequenceNfceeDiscComplete,   SequencePreShutdown,\nSequenceShutdownComplete,   SequencePreRecovery,\nSequenceRecoveryComplete,   SequenceMaximum\n} NFC_CX_SEQUENCE, *PNFC_CX_SEQUENCE; 常数",
+      "return_value": {
+        "description": "没有"
+      },
+      "remarks": "完成处理序列后，客户端驱动程序通过序列完成回调通知 NFC CX。 与 EvtNfcCxWriteNciPacket 类似，客户端在处理此函数调用时不得进行任何阻塞调用。 必须在单独的线程或工作项上处理任何 I/O 处理。 但是，在处理此调用时，客户端驱动程序可以使用状态标志调用完成例程。",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtNfcCxWriteNciPacket"
+      ],
+      "confidence": 0.9,
+      "_source_line": 72
+    },
+    {
+      "id": "windows::NFC_CX_TRANSPORT_TYPE",
+      "name": "NFC_CX_TRANSPORT_TYPE",
+      "entity_type": "enum",
+      "description": "类型枚举器。 DriverFlags",
+      "syntax": "typedef enum _NFC_CX_TRANSPORT_TYPE {",
+      "return_value": {
+        "description": "没有"
+      },
+      "requirements": {
+        "header": "nfccx.h",
+        "library": "Nfccxstub.lib"
+      },
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 73
+    },
+    {
+      "id": "windows::SECURE_ELEMENT_CARD_EMULATION_MODE",
+      "name": "SECURE_ELEMENT_CARD_EMULATION_MODE",
+      "entity_type": "enum",
+      "description": "此枚举指示安全元素的卡片仿真模式。",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 80
+    },
+    {
+      "id": "windows::SECURE_ELEMENT_EVENT_TYPE",
+      "name": "SECURE_ELEMENT_EVENT_TYPE",
+      "entity_type": "enum",
+      "description": "eEventType; DWORD cbEventData; BYTE pbEventData[ANYSIZE_ARRAY];} SECURE_ELEMENT_EVENT_INFO, *PSECURE_ELEMENT_EVENT_INFO;",
+      "syntax": "typedef enum _SECURE_ELEMENT_EVENT_TYPE {\nExternalReaderArrival,   ExternalReaderDeparture,   ApplicationSelected,\nTransaction,   HceActivated,   HceDeactivated,\nExternalFieldEnter,   ExternalFieldExit\n} SECURE_ELEMENT_EVENT_TYPE, *PSECURE_ELEMENT_EVENT_TYPE; 常数",
+      "members": [
+        {
+          "name": "guidSecureElementId",
+          "description": "这是安全元素的唯一标识符。 eEventType 这是一种事件类型。 有关类型的详细信息，请参阅 SECURE_ELEMENT_EVENT_TYPE 枚举主题。"
+        },
+        {
+          "name": "cbEventData",
+          "description": "这是 pbEventData 数组的字节量。 pbEventData[ANYSIZE_ARRAY] 这是事件数据缓冲区。 当 eEventTypeHceActivated 或 HceDeactivated时，此成员包含指向 SECURE_ELEMENT_HCE_ACTIVATION_PAYLOAD 结构的指针。 该结构中的 bConnectionId 成员与 SECURE_ELEMENT_HCE_DATA_PACKET 用于发送和接收具有"
+        }
+      ],
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [
+        "SECURE_ELEMENT_EVENT_INFO"
+      ],
+      "confidence": 0.95,
+      "_source_line": 81
+    },
+    {
+      "id": "windows::SECURE_ELEMENT_ROUTING_TYPE",
+      "name": "SECURE_ELEMENT_ROUTING_TYPE",
+      "entity_type": "enum",
+      "description": "是 SECURE_ELEMENT_ROUTING_TABLE_ENTRY的成员。",
+      "syntax": "typedef enum _SECURE_ELEMENT_ROUTING_TYPE {   RoutingTypeTech,\nRoutingTypeProtocol,   RoutingTypeAid\n} SECURE_ELEMENT_ROUTING_TYPE, *PSECURE_ELEMENT_ROUTING_TYPE; 常数",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 82
+    },
+    {
+      "id": "windows::SECURE_ELEMENT_TYPE",
+      "name": "SECURE_ELEMENT_TYPE",
+      "entity_type": "enum",
+      "description": "指示安全元素的类型。 功能",
+      "syntax": "typedef enum _SECURE_ELEMENT_TYPE {\nIntegrated,   External,   DeviceHost\n} SECURE_ELEMENT_TYPE, *PSECURE_ELEMENT_TYPE;\n常数",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 84
+    },
+    {
+      "id": "windows::EVT_NFC_CX_DEVICE_IO_CONTROL",
+      "name": "EVT_NFC_CX_DEVICE_IO_CONTROL",
+      "entity_type": "enum",
+      "description": "EvtNfcCxDeviceIoControl; void EvtNfcCxDeviceIoControl( [in] WDFDEVICE Device, [in] WDFREQUEST Request, [in] size_t OutputBufferLength, [in] size_t InputBufferLength, [in] ULONG IoControlCode) {...}",
+      "parameters": [
+        {
+          "name": "Device",
+          "direction": "in",
+          "description": "框架设备对象的句柄。[in] Request 框架请求对象的句柄。[in] OutputBufferLength 如果输出缓冲区可用，则请求的输出缓冲区的长度（以字节为单位）。[in] InputBufferLength 如果输入缓冲区可用，则请求的输入缓冲区的长度（以字节为单位）。[in] IoControlCode 与请求关联的驱动程序定义或系统定义的 I/O 控制代码（IOCTL）。"
+        }
+      ],
+      "return_value": {
+        "description": "没有"
+      },
+      "remarks": "客户端可以同步或异步完成请求。 如果客户端返回STATUS_PENDING以外的状态代码，NFC CX 将完成请求。 为防止请求双重完成，客户端不应完成 WDFREQUEST（即调用",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "InputBufferLength",
+        "IoControlCode",
+        "OutputBufferLength"
+      ],
+      "confidence": 0.9,
+      "_source_line": 88
+    },
+    {
+      "id": "windows::NFC_CX_CLIENT_CONFIG_INIT",
+      "name": "NFC_CX_CLIENT_CONFIG_INIT",
+      "entity_type": "enum",
+      "description": "函数初始化 NFC_CX_CLIENT_CONFIG 结构。",
+      "syntax": "void NFC_CX_CLIENT_CONFIG_INIT(\n[out] PNFC_CX_CLIENT_CONFIG Config,   [in]  NFC_CX_TRANSPORT_TYPE BusType);",
+      "parameters": [
+        {
+          "name": "Config",
+          "direction": "out",
+          "description": "指向 NFC_CX_CLIENT_CONFIG 结构的指针。[in] BusType"
+        }
+      ],
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NFC_CX_CLIENT_CONFIG"
+      ],
+      "confidence": 0.85,
+      "_source_line": 92
+    },
+    {
+      "id": "windows::NFC_CX_LLCP_CONFIG_INIT",
+      "name": "NFC_CX_LLCP_CONFIG_INIT",
+      "entity_type": "enum",
+      "description": "函数初始化 NFC_CX_LLCP_CONFIG 结构。",
+      "syntax": "void NFC_CX_LLCP_CONFIG_INIT(\n[out] PNFC_CX_LLCP_CONFIG Config);",
+      "parameters": [
+        {
+          "name": "Config",
+          "direction": "out",
+          "description": "指向函数将初始化的 NFC_CX_LLCP_CONFIG 结构的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "没有"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "nfccx.h",
+        "library": "Nfccxstub.lib",
+        "min_client": "Windows 10"
+      },
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NFC_CX_LLCP_CONFIG"
+      ],
+      "confidence": 0.9,
+      "_source_line": 92
+    },
+    {
+      "id": "windows::NFC_CX_RF_DISCOVERY_CONFIG_INIT",
+      "name": "NFC_CX_RF_DISCOVERY_CONFIG_INIT",
+      "entity_type": "enum",
+      "description": "函数初始化NFC_CX_RF_DISCOVERY_CONFIG结构。 NfcCxDeviceDeinitialize",
+      "syntax": "void NFC_CX_RF_DISCOVERY_CONFIG_INIT(\n[out] PNFC_CX_RF_DISCOVERY_CONFIG Config);",
+      "parameters": [
+        {
+          "name": "Config",
+          "direction": "out",
+          "description": "指向函数初始化的NFC_CX_RF_DISCOVERY_CONFIG结构的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "没有"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "nfccx.h",
+        "library": "Nfccxstub.lib",
+        "min_client": "Windows 10",
+        "min_server": "Windows Server 2016"
+      },
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NfcCxDeviceDeinitialize"
+      ],
+      "confidence": 1.0,
+      "_source_line": 93
+    },
+    {
+      "id": "windows::NfcCxDeviceDeinitialize",
+      "name": "NfcCxDeviceDeinitialize",
+      "entity_type": "enum",
+      "description": "函数 （nfccx.h） deinitialize 在 AddDevice 例程中创建的 WDF 设备。 NfcCxDeviceInitConfig 客户端驱动程序在其 AddDevice 例程期间调用以执行 DeviceInit 函数。 在此过程中，还会交换以 下 I/O 回调函数。 NfcCxDeviceInitialize",
+      "syntax": "NTSTATUS NfcCxDeviceDeinitialize(\nWDFDEVICE Device);",
+      "parameters": [
+        {
+          "name": "Device",
+          "description": "框架设备对象的句柄。"
+        }
+      ],
+      "return_value": {
+        "description": "如果操作成功，该函数将返回STATUS_SUCCESS。"
+      },
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "AddDevice",
+        "DeviceInit",
+        "NfcCxDeviceInitConfig",
+        "NfcCxDeviceInitialize"
+      ],
+      "confidence": 0.85,
+      "_source_line": 99
+    },
+    {
+      "id": "windows::NfcCxDeviceInitialize",
+      "name": "NfcCxDeviceInitialize",
+      "entity_type": "enum",
+      "description": "函数 （nfccx.h） 初始化在 AddDevice 例程期间创建的 WDF 设备。 NfcCxHardwareEvent 当发生硬件事件（如 D0Entry 和 D0Exit 回调）以启动或停止设备时，由客户端驱动程序调用。 对于在初始化或启动时需要固件下载的驱动程序，建议将此调用移动到单独的工作项。 但是，客户端 驱动程序负责以下事项。 NfcCxNciReadNotification 当读取数据包可用时，由客户端驱动程序调用。 NfcCxRegisterSequenceHandler 在初始化期间由客户端驱动程序调用以注册以处理特定序列。 NfcCxSetLlcpConfig 由客户端驱动程序调用以配置 LLCP 参数。 NfcCxSetRfDiscoveryConfig 由客户端驱动程序调用以配置 RF 发现参数。 NfcCxUnregisterSequenceHandler 在设备关闭期间由客户端驱动程序调用，以取消注册以前注册的序列处理程序回调。结构",
+      "syntax": "NTSTATUS NfcCxDeviceInitialize(\nWDFDEVICE Device);",
+      "parameters": [
+        {
+          "name": "Device",
+          "description": "框架设备对象的句柄。"
+        }
+      ],
+      "return_value": {
+        "description": "如果操作成功，该函数将返回STATUS_SUCCESS。"
+      },
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "AddDevice",
+        "NfcCxHardwareEvent",
+        "NfcCxNciReadNotification",
+        "NfcCxRegisterSequenceHandler",
+        "NfcCxSetLlcpConfig",
+        "NfcCxSetRfDiscoveryConfig",
+        "NfcCxUnregisterSequenceHandler"
+      ],
+      "confidence": 0.85,
+      "_source_line": 103
+    },
+    {
+      "id": "windows::NFC_CX_CLIENT_CONFIG",
+      "name": "NFC_CX_CLIENT_CONFIG",
+      "entity_type": "enum",
+      "description": "结构是 NfcCxDeviceInitConfig 的输入参数。",
+      "syntax": "typedef struct _NFC_CX_CLIENT_CONFIG {\nULONG                              Size;",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NfcCxDeviceInitConfig"
+      ],
+      "confidence": 0.75,
+      "_source_line": 113
+    },
+    {
+      "id": "windows::NFC_CX_HARDWARE_EVENT",
+      "name": "NFC_CX_HARDWARE_EVENT",
+      "entity_type": "enum",
+      "description": "结构是用于 NfcCxHardwareEvent 的输入参数。",
+      "syntax": "typedef struct _NFC_CX_HARDWARE_EVENT {\nNTSTATUS           HardwareStatus;   NFC_CX_HOST_ACTION HostAction;\n} NFC_CX_HARDWARE_EVENT, *PNFC_CX_HARDWARE_EVENT; 成员",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NfcCxHardwareEvent"
+      ],
+      "confidence": 0.75,
+      "_source_line": 118
+    },
+    {
+      "id": "windows::NFC_CX_LLCP_CONFIG",
+      "name": "NFC_CX_LLCP_CONFIG",
+      "entity_type": "enum",
+      "description": "结构是用于 NfcCxSetLlcpConfig 的输入参数。",
+      "syntax": "typedef struct _NFC_CX_LLCP_CONFIG {\nULONG  Size;   USHORT Miu;\nUCHAR  LinkTimeout;\nUCHAR  RecvWindowSize;\n} NFC_CX_LLCP_CONFIG, *PNFC_CX_LLCP_CONFIG;",
+      "members": [
+        {
+          "name": "Size",
+          "description": "此结构的大小（以字节为单位）。 Miu 最大信息单位（以字节为单位）。 默认值为 1024。 LinkTimeout LTO 超时（以 10 毫秒为单位）。 默认值为 100（1 秒）。 RecvWindowSize 每个 LLCP 规范的接收窗口大小。默认值为 5。"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 10"
+      },
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NfcCxSetLlcpConfig"
+      ],
+      "confidence": 0.85,
+      "_source_line": 119
+    },
+    {
+      "id": "windows::NFC_CX_RF_DISCOVERY_CONFIG",
+      "name": "NFC_CX_RF_DISCOVERY_CONFIG",
+      "entity_type": "enum",
+      "description": "结构包含 RF 发现配置设置。 调用 NfcDxDeviceInitialize 后，应在 初始化期间完成发现配置，否则将返回错误。 NFCCX_DRIVER_GLOBALS _NFCCX_DRIVER_GLOBALS结构包含近场通信 （NFC） CX 驱动程序的全局值。 NFCRM_RADIO_STATE 此结构用于指示无线电状态。 NFCRM_SET_RADIO_STATE 此结构用于设置无线电状态。 在飞行模式的情况下，驱动程序必须保留无线电状态，并在禁用飞行模式时还原它。",
+      "syntax": "typedef struct _NFC_CX_RF_DISCOVERY_CONFIG {   ULONG  Size;\nUSHORT TotalDuration;\nULONG  PollConfig;   UCHAR  NfcIPMode;\nUCHAR  NfcIPTgtMode;   UCHAR  NfcCEMode;\nUCHAR  BailoutConfig;\n} NFC_CX_RF_DISCOVERY_CONFIG, *PNFC_CX_RF_DISCOVERY_CONFIG;",
+      "members": [
+        {
+          "name": "Size",
+          "description": "此结构的大小（以字节为单位）。 TotalDuration 单个发现周期的总持续时间（以毫秒为单位）。 默认值为 300 毫秒。 此成员对应于 NCI 规范中指定的TOTAL_DURATION。 值可以介于 0 到 0xFFFF 之间。 使用适当 的值来考虑发现延迟和能耗。 PollConfig"
+        }
+      ],
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NFCCX_DRIVER_GLOBALS",
+        "NFCRM_RADIO_STATE",
+        "NFCRM_SET_RADIO_STATE"
+      ],
+      "confidence": 0.95,
+      "_source_line": 120
+    },
+    {
+      "id": "windows::SCARD_IO_REQUEST",
+      "name": "SCARD_IO_REQUEST",
+      "entity_type": "enum",
+      "description": "结构开头。 从卡接收的任何数据都必须在结构后立即存储。输出缓冲区长度 Parameters.DeviceIoControl.OutputBufferLength 包含输出缓冲区的长度。状态块 Irp->IoStatus.Status 设置为以下值之一。 价值",
+      "syntax": "typedef struct _SCARD_IO_REQUEST {\nDWORD dwProtocol;   DWORD cbPciLength;\n} SCARD_IO_REQUEST, *PSCARD_IO_REQUEST, *LPSCARD_IO_REQUEST;\n成员 dwProtocol\n指定协议 ID。 cbPciLength\n指定协议控制信息长度。",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [
+        "DeviceIoControl",
+        "OutputBufferLength"
+      ],
+      "confidence": 0.85,
+      "_source_line": 126
+    },
+    {
+      "id": "windows::SECURE_ELEMENT_AID_ROUTING_INFO",
+      "name": "SECURE_ELEMENT_AID_ROUTING_INFO",
+      "entity_type": "enum",
+      "description": "是 SECURE_ELEMENT_ROUTING_TABLE_ENTRY的 成员。",
+      "syntax": "typedef struct _SECURE_ELEMENT_AID_ROUTING_INFO {\nGUID  guidSecureElementId;   DWORD cbAid;\nBYTE  pbAid[ISO_7816_MAXIMUM_AID_LENGTH];\n} SECURE_ELEMENT_AID_ROUTING_INFO, *PSECURE_ELEMENT_AID_ROUTING_INFO; 成员\nguidSecureElementId\n枚举 DDI 返回的安全元素唯一标识符。 cbAid\n小程序 ID 缓冲区的长度。\npbAid[ISO_7816_MAXIMUM_AID_LENGTH]\n保存 ISO 7816 AID 的缓冲区。 see-also",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 128
+    },
+    {
+      "id": "windows::SECURE_ELEMENT_ENDPOINT_INFO",
+      "name": "SECURE_ELEMENT_ENDPOINT_INFO",
+      "entity_type": "enum",
+      "description": "EndpointList[ANYSIZE_ARRAY]; } SECURE_ELEMENT_ENDPOINT_LIST, *PSECURE_ELEMENT_ENDPOINT_LIST; 成员",
+      "syntax": "typedef struct _SECURE_ELEMENT_ENDPOINT_INFO {\nGUID                guidSecureElementId;   SECURE_ELEMENT_TYPE eSecureElementType;\n} SECURE_ELEMENT_ENDPOINT_INFO, *PSECURE_ELEMENT_ENDPOINT_INFO; 成员\nguidSecureElementId\n这是安全元素的唯一标识符。 eSecureElementType\n安全元素终结点的类型（NFCEE）。",
+      "requirements": {
+        "header": "nfcsedev.h"
+      },
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [
+        "SECURE_ELEMENT_ENDPOINT_LIST"
+      ],
+      "confidence": 0.85,
+      "_source_line": 129
+    },
+    {
+      "id": "windows::IOCTL_NFCSE_ENUM_ENDPOINTS",
+      "name": "IOCTL_NFCSE_ENUM_ENDPOINTS",
+      "entity_type": "enum",
+      "description": "IOCTL 返回有关附加到 NFC 控制器的所有安全元素的列表的信息。 请注意，调用方必须分配足够大的输出缓冲区，以便保存驱动程序枚举的所有安全元素（即 SE 终结点信息的 SEs 枚举 x 大小总数）的信息，否则驱动程序应向客户端返回包含枚举安全元素数的",
+      "syntax": "typedef struct _SECURE_ELEMENT_ENDPOINT_LIST {\nDWORD                        NumberOfEndpoints;",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 131
+    },
+    {
+      "id": "windows::SECURE_ELEMENT_EVENT_INFO",
+      "name": "SECURE_ELEMENT_EVENT_INFO",
+      "entity_type": "enum",
+      "description": "结构本身。状态块 Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括： 返回代码",
+      "syntax": "typedef struct _SECURE_ELEMENT_EVENT_INFO {\nGUID                      guidSecureElementId;",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [
+        "STATUS_SUCCESS"
+      ],
+      "confidence": 0.85,
+      "_source_line": 131
+    },
+    {
+      "id": "windows::SECURE_ELEMENT_EVENT_SUBSCRIPTION_INFO",
+      "name": "SECURE_ELEMENT_EVENT_SUBSCRIPTION_INFO",
+      "entity_type": "enum",
+      "description": "结构。 输出缓冲区没有 状态块 Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括： 返回代码",
+      "syntax": "typedef struct _SECURE_ELEMENT_EVENT_SUBSCRIPTION_INFO {\nGUID                      guidSecureElementId;   SECURE_ELEMENT_EVENT_TYPE eEventType;\n} SECURE_ELEMENT_EVENT_SUBSCRIPTION_INFO, *PSECURE_ELEMENT_EVENT_SUBSCRIPTION_INFO;",
+      "requirements": {
+        "header": "nfcsedev.h"
+      },
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [
+        "STATUS_SUCCESS"
+      ],
+      "confidence": 0.85,
+      "_source_line": 133
+    },
+    {
+      "id": "windows::SECURE_ELEMENT_HCE_ACTIVATION_PAYLOAD",
+      "name": "SECURE_ELEMENT_HCE_ACTIVATION_PAYLOAD",
+      "entity_type": "enum",
+      "description": "结构，其中包含 bConnectionId 成员。 cbPayload ISO 7816-4 APDU 缓冲区的长度。 pbPayload[ANYSIZE_ARRAY] 保存 ISO 7816-4 APDU 的缓冲区。",
+      "requirements": {
+        "header": "nfcsedev.h"
+      },
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 138
+    },
+    {
+      "id": "windows::SECURE_ELEMENT_HCE_DATA_PACKET",
+      "name": "SECURE_ELEMENT_HCE_DATA_PACKET",
+      "entity_type": "enum",
+      "description": "是用于 IOCTL_NFCSE_HCE_REMOTE_RECV的 IOCTL_NFCSE_HCE_REMOTE_SEND 和输出缓冲区的输入缓冲区。",
+      "syntax": "typedef struct _SECURE_ELEMENT_HCE_DATA_PACKET {\nUSHORT bConnectionId;   USHORT cbPayload;\nBYTE   pbPayload[ANYSIZE_ARRAY];\n} SECURE_ELEMENT_HCE_DATA_PACKET, *PSECURE_ELEMENT_HCE_DATA_PACKET;\n成员 bConnectionId\n在设备与智能卡读卡器之间建立的连接 ID，用于发送和接收 HCE 数据包。 当事件类型\n（SECURE_ELEMENT_EVENT_TYPE）HceActivated 或 HceDeactivated时，也会从 IOCTL_NFCSE_GET_NEXT_EVENT 接收此 ID。 然后，返回",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [
+        "IOCTL_NFCSE_HCE_REMOTE_SEND"
+      ],
+      "confidence": 0.85,
+      "_source_line": 140
+    },
+    {
+      "id": "windows::SECURE_ELEMENT_NFCC_CAPABILITIES",
+      "name": "SECURE_ELEMENT_NFCC_CAPABILITIES",
+      "entity_type": "enum",
+      "description": "包含 NFC 控制器功能。",
+      "syntax": "typedef struct _SECURE_ELEMENT_NFCC_CAPABILITIES {\nUSHORT  cbMaxRoutingTableSize;   BOOLEAN IsAidRoutingSupported;\nBOOLEAN IsProtocolRoutingSupported;   BOOLEAN IsTechRoutingSupported;\n} SECURE_ELEMENT_NFCC_CAPABILITIES, *PSECURE_ELEMENT_NFCC_CAPABILITIES; 成员\ncbMaxRoutingTableSize\nNFCC 最大侦听模式路由表大小。 IsAidRoutingSupported\n指定 NFCC 是否支持基于 AID 的路由。 IsProtocolRoutingSupported\n指定 NFCC 是否支持基于协议的路由。 IsTechRoutingSupported\n指定 NFCC 是否支持基于技术的路由。",
+      "requirements": {
+        "header": "nfcsedev.h"
+      },
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 142
+    },
+    {
+      "id": "windows::SECURE_ELEMENT_PROTO_ROUTING_INFO",
+      "name": "SECURE_ELEMENT_PROTO_ROUTING_INFO",
+      "entity_type": "enum",
+      "description": "是SECURE_ELEMENT_ROUTING_TABLE_ENTRY的成员。",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 143
+    },
+    {
+      "id": "windows::SECURE_ELEMENT_ROUTING_TABLE",
+      "name": "SECURE_ELEMENT_ROUTING_TABLE",
+      "entity_type": "enum",
+      "description": "包含当前配置的所有路由条目。 输出缓冲区没有 状态块 Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括： 返回代码",
+      "syntax": "typedef struct _SECURE_ELEMENT_ROUTING_TABLE {\nDWORD                              NumberOfEntries;",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [
+        "STATUS_SUCCESS"
+      ],
+      "confidence": 0.85,
+      "_source_line": 144
+    },
+    {
+      "id": "windows::SECURE_ELEMENT_ROUTING_TABLE_ENTRY",
+      "name": "SECURE_ELEMENT_ROUTING_TABLE_ENTRY",
+      "entity_type": "enum",
+      "description": "TableEntries[ANYSIZE_ARRAY];} SECURE_ELEMENT_ROUTING_TABLE, *PSECURE_ELEMENT_ROUTING_TABLE;",
+      "syntax": "typedef struct _SECURE_ELEMENT_PROTO_ROUTING_INFO {\nGUID guidSecureElementId;   BYTE eRfProtocolType;\n} SECURE_ELEMENT_PROTO_ROUTING_INFO, *PSECURE_ELEMENT_PROTO_ROUTING_INFO; 成员\nguidSecureElementId\n枚举 DDI 返回的安全元素唯一标识符。\neRfProtocolType NFC 论坛 RF 协议。",
+      "requirements": {
+        "header": "nfcsedev.h"
+      },
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [
+        "SECURE_ELEMENT_ROUTING_TABLE"
+      ],
+      "confidence": 0.85,
+      "_source_line": 145
+    },
+    {
+      "id": "windows::SECURE_ELEMENT_SET_CARD_EMULATION_MODE_INFO",
+      "name": "SECURE_ELEMENT_SET_CARD_EMULATION_MODE_INFO",
+      "entity_type": "enum",
+      "description": "结构。 输出缓冲区没有 状态块 Irp->IoStatus.Status 设置为 STATUS_SUCCESS（如果请求成功）。 可能的错误代码包括： 返回代码",
+      "syntax": "typedef struct _SECURE_ELEMENT_SET_CARD_EMULATION_MODE_INFO {\nGUID                               guidSecureElementId;   SECURE_ELEMENT_CARD_EMULATION_MODE eMode;\n} SECURE_ELEMENT_SET_CARD_EMULATION_MODE_INFO, *PSECURE_ELEMENT_SET_CARD_EMULATION_MODE_INFO;",
+      "members": [
+        {
+          "name": "guidSecureElementId",
+          "description": "这是安全元素的唯一标识符。 eMode 卡仿真模式：关闭、依赖电源或与电源无关。"
+        }
+      ],
+      "requirements": {
+        "header": "nfcsedev.h"
+      },
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [
+        "STATUS_SUCCESS"
+      ],
+      "confidence": 0.95,
+      "_source_line": 147
+    },
+    {
+      "id": "windows::SECURE_ELEMENT_TECH_ROUTING_INFO",
+      "name": "SECURE_ELEMENT_TECH_ROUTING_INFO",
+      "entity_type": "enum",
+      "description": "TechRoutingInfo; SECURE_ELEMENT_PROTO_ROUTING_INFO ProtoRoutingInfo; SECURE_ELEMENT_AID_ROUTING_INFO AidRoutingInfo; }; } SECURE_ELEMENT_ROUTING_TABLE_ENTRY, *PSECURE_ELEMENT_ROUTING_TABLE_ENTRY; 成员 eRoutingType NFC 论坛侦听模式路由表条目类型。 TechRoutingInfo RF 技术路由表条目信息。 ProtoRoutingInfo RF 协议路由表条目信息。 AidRoutingInfo AID 路由表控制信息。",
+      "syntax": "typedef struct _SECURE_ELEMENT_TECH_ROUTING_INFO {\nGUID guidSecureElementId;   BYTE eRfTechType;\n} SECURE_ELEMENT_TECH_ROUTING_INFO, *PSECURE_ELEMENT_TECH_ROUTING_INFO; 成员\nguidSecureElementId\n枚举 DDI 返回的安全元素唯一标识符。 eRfTechType\nNFC 论坛 RF 技术类型。",
+      "requirements": {
+        "header": "nfcsedev.h"
+      },
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [
+        "SECURE_ELEMENT_AID_ROUTING_INFO",
+        "SECURE_ELEMENT_PROTO_ROUTING_INFO",
+        "SECURE_ELEMENT_ROUTING_TABLE_ENTRY"
+      ],
+      "confidence": 0.85,
+      "_source_line": 147
+    },
+    {
+      "id": "windows::NfcCxNciReadNotification",
+      "name": "NfcCxNciReadNotification",
+      "entity_type": "callback",
+      "description": "当读取数据包可用时，由客户端驱动程序调用。 NfcCxRegisterSequenceHandler 在初始化期间由客户端驱动程序调用以注册以处理特定序列。 NfcCxSetLlcpConfig 由客户端驱动程序调用以配置 LLCP 参数。 NfcCxSetRfDiscoveryConfig 由客户端驱动程序调用以配置 RF 发现参数。 NfcCxUnregisterSequenceHandler 在设备关闭期间由客户端驱动程序调用，以取消注册以前注册的序列处理程序回调。",
+      "syntax": "NTSTATUS NfcCxNciReadNotification(\nWDFDEVICE Device,   WDFMEMORY Memory);",
+      "parameters": [
+        {
+          "name": "Device",
+          "description": "框架设备对象的句柄。 Memory 框架内存对象的句柄。"
+        }
+      ],
+      "return_value": {
+        "description": "如果操作成功，该函数将返回STATUS_SUCCESS。"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 10"
+      },
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NfcCxRegisterSequenceHandler",
+        "NfcCxSetLlcpConfig",
+        "NfcCxSetRfDiscoveryConfig",
+        "NfcCxUnregisterSequenceHandler"
+      ],
+      "confidence": 0.85,
+      "_source_line": 175
+    },
+    {
+      "id": "windows::WdfRequestComplete",
+      "name": "WdfRequestComplete",
+      "entity_type": "callback",
+      "description": "或 WdfRequestCompleteWithInformation）（如果返回STATUS_SUCCESS 或失败状态代码）。",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "WdfRequestCompleteWithInformation"
+      ],
+      "confidence": 0.6,
+      "_source_line": 242
+    },
+    {
+      "id": "windows::EVT_NFC_CX_SEQUENCE_HANDLER",
+      "name": "EVT_NFC_CX_SEQUENCE_HANDLER",
+      "entity_type": "callback",
+      "description": "EvtNfcCxSequenceHandler; void EvtNfcCxSequenceHandler( [in] WDFDEVICE Device, [in] NFC_CX_SEQUENCE Sequence, [in] PFN_NFC_CX_SEQUENCE_COMPLETION_ROUTINE CompletionRoutine, [in, optional] WDFCONTEXT CompletionContext) {...}",
+      "parameters": [
+        {
+          "name": "Device",
+          "direction": "in",
+          "description": "框架设备对象的句柄。[in] Sequence"
+        }
+      ],
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NFC_CX_SEQUENCE",
+        "Sequence"
+      ],
+      "confidence": 0.85,
+      "_source_line": 257
+    },
+    {
+      "id": "windows::EVT_NFC_CX_WRITE_NCI_PACKET",
+      "name": "EVT_NFC_CX_WRITE_NCI_PACKET",
+      "entity_type": "callback",
+      "description": "EvtNfcCxWriteNciPacket; void EvtNfcCxWriteNciPacket( [in] WDFDEVICE Device, [in] WDFREQUEST Request) {...}",
+      "parameters": [
+        {
+          "name": "Device",
+          "direction": "in",
+          "description": "框架设备对象的句柄。[in] Request 框架请求对象的句柄。"
+        }
+      ],
+      "return_value": {
+        "description": "没有"
+      },
+      "remarks": "处理此函数调用时，客户端驱动程序不应进行任何阻塞调用。 任何 I/O 处理都必须在单独的线程或工作项上进行处理（也就是说，客户端驱动程序应立即返回STATUS_PENDING 并在完成时调用完成处理程序）。 要求",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtNfcCxWriteNciPacket"
+      ],
+      "confidence": 0.9,
+      "_source_line": 291
+    },
+    {
+      "id": "windows::NFC_CX_CE_NFC_A",
+      "name": "NFC_CX_CE_NFC_A",
+      "entity_type": "callback",
+      "description": "指定 NFC-A 侦听模式。 NFC_CX_CE_NFC_B 指定 NFC-B 侦听模式。 NFC_CX_CE_NFC_F 指定 NFC-F 侦听模式。 NFC_CX_CE_DEFAULT 指定 NFC-A、NFC-B 和 NFC-F 侦听模式。",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 329
+    },
+    {
+      "id": "windows::WDF_TRI_STATE",
+      "name": "WDF_TRI_STATE",
+      "entity_type": "callback",
+      "description": "IsPowerPolicyOwner; ULONG PowerIdleTimeout;",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 360
+    },
+    {
+      "id": "windows::WDF_POWER_POLICY_IDLE_TIMEOUT_TYPE",
+      "name": "WDF_POWER_POLICY_IDLE_TIMEOUT_TYPE",
+      "entity_type": "callback",
+      "description": "PowerIdleType; NFC_CX_TRANSPORT_TYPE BusType; ULONG DriverFlags;",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NFC_CX_TRANSPORT_TYPE"
+      ],
+      "confidence": 0.75,
+      "_source_line": 361
+    },
+    {
+      "id": "windows::PFN_NFC_CX_WRITE_NCI_PACKET",
+      "name": "PFN_NFC_CX_WRITE_NCI_PACKET",
+      "entity_type": "callback",
+      "description": "EvtNfcCxWriteNciPacket; PFN_NFC_CX_DEVICE_IO_CONTROL EvtNfcCxDeviceIoControl;}",
+      "members": [
+        {
+          "name": "Size",
+          "description": "此结构的大小（以字节为单位）。 IsPowerPolicyOwner"
+        }
+      ],
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtNfcCxWriteNciPacket"
+      ],
+      "confidence": 0.85,
+      "_source_line": 363
+    },
+    {
+      "id": "windows::IdleTimeout",
+      "name": "IdleTimeout",
+      "entity_type": "callback",
+      "description": "值（以毫秒为单位）。 默认值为 1 秒。 PowerIdleType",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 367
+    },
+    {
+      "id": "windows::EvtNfcCxWriteNciPacket",
+      "name": "EvtNfcCxWriteNciPacket",
+      "entity_type": "callback",
+      "description": "指向 EvtNfcCxWriteNciPacket 回调的指针。 EvtNfcCxDeviceIoControl 指向 EvtNfcCxDeviceIoControl 回调的指针。",
+      "syntax": "NTSTATUS NfcCxDeviceInitConfig(\n[in, out] PWDFDEVICE_INIT       DeviceInit,\n[in]      PNFC_CX_CLIENT_CONFIG Config);",
+      "parameters": [
+        {
+          "name": "DeviceInit",
+          "direction": "in, out",
+          "description": "指向 WDFDEVICE_INIT 结构的指针。[in] Config 指向 NFC_CX_CLIENT_CONFIG 结构的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "如果操作成功，该函数将返回STATUS_SUCCESS。"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 10"
+      },
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 374
+    },
+    {
+      "id": "windows::NFC_CX_DEVICE_MODE_NCI",
+      "name": "NFC_CX_DEVICE_MODE_NCI",
+      "entity_type": "callback",
+      "description": ", NFC_CX_DEVICE_MODE_DTA, NFC_CX_DEVICE_MODE_RAW } NFC_CX_DEVICE_MODE, *PNFC_CX_DEVICE_MODE; 常数",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NFC_CX_DEVICE_MODE",
+        "NFC_CX_DEVICE_MODE_DTA",
+        "NFC_CX_DEVICE_MODE_RAW"
+      ],
+      "confidence": 0.75,
+      "_source_line": 421
+    },
+    {
+      "id": "windows::NFC_CX_DEVICE_MODE_DTA",
+      "name": "NFC_CX_DEVICE_MODE_DTA",
+      "entity_type": "callback",
+      "description": "启用 DTA 模式。",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 426
+    },
+    {
+      "id": "windows::NFC_CX_DEVICE_MODE_RAW",
+      "name": "NFC_CX_DEVICE_MODE_RAW",
+      "entity_type": "callback",
+      "description": "启用 RAW 模式。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "nfccx.h",
+        "min_client": "Windows 10"
+      },
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 427
+    },
+    {
+      "id": "windows::NFC_CX_DRIVER_DISABLE_NFCEE_DISCOVERY",
+      "name": "NFC_CX_DRIVER_DISABLE_NFCEE_DISCOVERY",
+      "entity_type": "callback",
+      "description": ", NFC_CX_DRIVER_DISABLE_RECOVERY_MODE,",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NFC_CX_DRIVER_DISABLE_RECOVERY_MODE"
+      ],
+      "confidence": 0.65,
+      "_source_line": 446
+    },
+    {
+      "id": "windows::NFC_CX_DRIVER_DISABLE_HOST_CARD_EMULATION",
+      "name": "NFC_CX_DRIVER_DISABLE_HOST_CARD_EMULATION",
+      "entity_type": "callback",
+      "description": ", NFC_CX_DRIVER_HCI_NETWORK_PER_NFCEE,",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NFC_CX_DRIVER_HCI_NETWORK_PER_NFCEE"
+      ],
+      "confidence": 0.65,
+      "_source_line": 447
+    },
+    {
+      "id": "windows::NFC_CX_DRIVER_ENABLE_EEPROM_WRITE_PROTECTION",
+      "name": "NFC_CX_DRIVER_ENABLE_EEPROM_WRITE_PROTECTION",
+      "entity_type": "callback",
+      "description": "启用仅在配置更改时选择过度写入。",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 449
+    },
+    {
+      "id": "windows::NFC_CX_DRIVER_ISODEP_RNAK_PRESENCE_CHK_SUPPORTED",
+      "name": "NFC_CX_DRIVER_ISODEP_RNAK_PRESENCE_CHK_SUPPORTED",
+      "entity_type": "callback",
+      "description": "用于 ISO-DEP 的 R-NAK 命令将用于状态检查。",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 450
+    },
+    {
+      "id": "windows::NFC_CX_DRIVER_RF_ROUTING_POWER_SUB_STATES_SUPPORTED",
+      "name": "NFC_CX_DRIVER_RF_ROUTING_POWER_SUB_STATES_SUPPORTED",
+      "entity_type": "callback",
+      "description": "指示对打开电源子状态的 RF 路由的支持。 NFC_CX_DRIVER_SKIP_DEVICE_STOP_IDLE NFC CX 不会调用 WdfDeviceStopIdle 或 WdfDeviceResumeIdle。 NFC_CX_DRIVER_POWER_AND_LINK_CONTROL_SUPPORTED 指示 NCI 1.x 协议支持 NFCEE_POWER_AND_LINK_CTRL 作为扩展。",
+      "remarks": "NFC CX 允许 NFC 客户端驱动程序提供一些驱动程序标志，这些标志可用于配置类扩展的运行时实现。 这些标志使 NFC CX 可以略有不同地实现一些标准 NCI 操作，以支持不 同的固件实现，因为 NCI 规范中存在歧义。",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NFC_CX_DRIVER_POWER_AND_LINK_CONTROL_SUPPORTED",
+        "WdfDeviceResumeIdle"
+      ],
+      "confidence": 0.75,
+      "_source_line": 451
+    },
+    {
+      "id": "windows::NFC_CX_DRIVER_POWER_AND_LINK_CONTROL_SUPPORTED",
+      "name": "NFC_CX_DRIVER_POWER_AND_LINK_CONTROL_SUPPORTED",
+      "entity_type": "callback",
+      "description": "} NFC_CX_DRIVER_FLAGS, *PNFC_CX_DRIVER_FLAGS; 常数",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NFC_CX_DRIVER_FLAGS"
+      ],
+      "confidence": 0.65,
+      "_source_line": 452
+    },
+    {
+      "id": "windows::NFC_CX_DRIVER_DISABLE_WTD_TIMER",
+      "name": "NFC_CX_DRIVER_DISABLE_WTD_TIMER",
+      "entity_type": "callback",
+      "description": "在 CX 中禁用监视器计时器。",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 456
+    },
+    {
+      "id": "windows::NFC_CX_DRIVER_DISABLE_RECOVERY_MODE",
+      "name": "NFC_CX_DRIVER_DISABLE_RECOVERY_MODE",
+      "entity_type": "callback",
+      "description": "在 CX 中禁用 NCI 恢复机制。",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 458
+    },
+    {
+      "id": "windows::NFC_CX_DRIVER_HCI_NETWORK_PER_NFCEE",
+      "name": "NFC_CX_DRIVER_HCI_NETWORK_PER_NFCEE",
+      "entity_type": "callback",
+      "description": "NFCC 为每个 NFCEE 实现单独的 HCI 网络。 NFC_CX_DRIVER_DISABLE_NFCEE_ACTION_NTF 禁用 NFCEE 操作通知。",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NFC_CX_DRIVER_DISABLE_NFCEE_ACTION_NTF"
+      ],
+      "confidence": 0.75,
+      "_source_line": 460
+    },
+    {
+      "id": "windows::HardwareStatus",
+      "name": "HardwareStatus",
+      "entity_type": "callback",
+      "description": "NTSTATUS 值。 HostAction NFC_CX_HOST_ACTION类型化枚举器。",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 501
+    },
+    {
+      "id": "windows::HostActionStart",
+      "name": "HostActionStart",
+      "entity_type": "callback",
+      "description": "指定完全初始化。",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 530
+    },
+    {
+      "id": "windows::HostActionStop",
+      "name": "HostActionStop",
+      "entity_type": "callback",
+      "description": "指定取消初始化。 HostActionRestart 指定完全驱动程序重启。 HostActionUnload 指定卸载驱动程序。",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 10"
+      },
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "HostActionUnload"
+      ],
+      "confidence": 0.6,
+      "_source_line": 531
+    },
+    {
+      "id": "windows::NFC_CX_NFCIP_NFC_F_212",
+      "name": "NFC_CX_NFCIP_NFC_F_212",
+      "entity_type": "callback",
+      "description": ", NFC_CX_NFCIP_NFC_F_424, NFC_CX_NFCIP_NFC_ACTIVE, NFC_CX_NFCIP_NFC_ACTIVE_A,",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 623
+    },
+    {
+      "id": "windows::NFC_CX_NFCIP_NFC_ACTIVE_F_212",
+      "name": "NFC_CX_NFCIP_NFC_ACTIVE_F_212",
+      "entity_type": "callback",
+      "description": ", NFC_CX_NFCIP_NFC_ACTIVE_F_424, NFC_CX_NFCIP_DEFAULT } NFC_CX_NFCIP_MODE_CONFIG, *PNFC_CX_NFCIP_MODE_CONFIG; 常数",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NFC_CX_NFCIP_MODE_CONFIG"
+      ],
+      "confidence": 0.75,
+      "_source_line": 624
+    },
+    {
+      "id": "windows::NFC_CX_NFCIP_TGT_NFC_A",
+      "name": "NFC_CX_NFCIP_TGT_NFC_A",
+      "entity_type": "callback",
+      "description": ", NFC_CX_NFCIP_TGT_NFC_F,",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 655
+    },
+    {
+      "id": "windows::NFC_CX_NFCIP_TGT_NFC_ACTIVE_A",
+      "name": "NFC_CX_NFCIP_TGT_NFC_ACTIVE_A",
+      "entity_type": "callback",
+      "description": ", NFC_CX_NFCIP_TGT_NFC_ACTIVE_F, NFC_CX_NFCIP_TGT_DEFAULT } NFC_CX_NFCIP_TGT_MODE_CONFIG, *PNFC_CX_NFCIP_TGT_MODE_CONFIG; 常数",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NFC_CX_NFCIP_TGT_DEFAULT",
+        "NFC_CX_NFCIP_TGT_MODE_CONFIG"
+      ],
+      "confidence": 0.75,
+      "_source_line": 656
+    },
+    {
+      "id": "windows::NFC_CX_POLL_BAILOUT_DEFAULT",
+      "name": "NFC_CX_POLL_BAILOUT_DEFAULT",
+      "entity_type": "callback",
+      "description": ", NFC_CX_POLL_BAILOUT_NFC_A, NFC_CX_POLL_BAILOUT_NFC_B } NFC_CX_POLL_BAILOUT_CONFIG, *PNFC_CX_POLL_BAILOUT_CONFIG; 常数",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "nfccx.h",
+        "min_client": "Windows 10"
+      },
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NFC_CX_POLL_BAILOUT_CONFIG"
+      ],
+      "confidence": 0.75,
+      "_source_line": 690
+    },
+    {
+      "id": "windows::NFC_CX_POLL_NFC_A",
+      "name": "NFC_CX_POLL_NFC_A",
+      "entity_type": "callback",
+      "description": ", NFC_CX_POLL_NFC_B,",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 719
+    },
+    {
+      "id": "windows::NFC_CX_POLL_NFC_F_212",
+      "name": "NFC_CX_POLL_NFC_F_212",
+      "entity_type": "callback",
+      "description": ", NFC_CX_POLL_NFC_F_424, NFC_CX_POLL_NFC_15693, NFC_CX_POLL_NFC_ACTIVE, NFC_CX_POLL_NFC_A_KOVIO, NFC_CX_POLL_DEFAULT }",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NFC_CX_POLL_NFC_15693"
+      ],
+      "confidence": 0.75,
+      "_source_line": 720
+    },
+    {
+      "id": "windows::NFC_CX_POLL_NFC_15693",
+      "name": "NFC_CX_POLL_NFC_15693",
+      "entity_type": "callback",
+      "description": "NFC_CX_POLL_NFC_ACTIVE NFC_CX_POLL_NFC_A_KOVIO NFC_CX_POLL_DEFAULT 要求",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 727
+    },
+    {
+      "id": "windows::SequencePreInit",
+      "name": "SequencePreInit",
+      "entity_type": "callback",
+      "description": "在空闲到初始化状态转换期间，CX 会调用此序列，即 NFC CX 开始初始化之前。 没有 NCI 命令（包括 CORE_RESET_CMD）已由 NFC CX 发送到 NFC 控制器。 在此序列中，客户端可以调用任何非 NCI 命令。 不应将 NCI 命令发送到控制器，因为CORE_RESET_CMD也没有CORE_INIT_CMD发送到控制器。",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 828
+    },
+    {
+      "id": "windows::SequenceInitComplete",
+      "name": "SequenceInitComplete",
+      "entity_type": "callback",
+      "description": "在空闲到初始化状态转换期间，CX 会调用此序列，即 NFC CX 开始初始化之前。 没有 NCI 命令（包括 CORE_RESET_CMD）已由 NFC CX 发送到 NFC 控制器。 在此序列中，客户端可以调用任何非 NCI 命令。 NCI 命令不应发送到控制器，因为CORE_RESET_CMD也没有CORE_INIT_CMD发送到控制器。",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 831
+    },
+    {
+      "id": "windows::SequencePreRfDiscStart",
+      "name": "SequencePreRfDiscStart",
+      "entity_type": "callback",
+      "description": "在开始 RF 发现之前，CX 会调用此序列，即通过RF_DISCOVER_CMD。 客户端驱动程序可以使用此 机会执行任何相关的 RF 配置，包括发现循环的任何优化。 SequenceRfDiscStartComplete RF 发现开始后，CX 会立即调用此序列。 可以通过此扩展点支持任何配置发现后启动。 SequencePreRfDiscStop 在停止 RF 发现循环之前，CX 会调用此序列。 SequenceRfDiscStopComplete 此序列在发现循环停止后立即调用。 客户端驱动程序可以使用此扩展点来启用任何备用模式配置。 SequencePreNfceeDisc 在 NFCEE 发现开始之前，CX 会调用此序列。 NFCEE 发现在停用发现循环时发生。 客户端驱动程 序可以使用此序列启用任何内部 NFC-NFCEE 接口，这些接口可能在初始化后禁用电源优化。 SequenceNfceeDiscComplete 此序列在 NFCEE 发现操作后立即调用。 SequencePreShutdown 在关闭开始之前调用此序列。 SequenceShutdownComplete 关闭序列完成后，CX 将调用此序列。 客户端驱动程序可以清理维护的任何 NCI 状态。 SequencePreRecovery 如果由于致命故障，CX 需要执行恢复序列，则此序列由 CX 调用。 客户端驱动程序可以使用此序 列捕获 RAM 转储以进行诊断。 SequenceRecoveryComplete 此序列在恢复序列完成后以及驱动程序返回到工作状态后由 CX 调用。",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 833
+    },
+    {
+      "id": "windows::NFC_CX_TRANSPORT_I2C",
+      "name": "NFC_CX_TRANSPORT_I2C",
+      "entity_type": "callback",
+      "description": ", NFC_CX_TRANSPORT_SPI, NFC_CX_TRANSPORT_UART, NFC_CX_TRANSPORT_CUSTOM } NFC_CX_TRANSPORT_TYPE, *PNFC_CX_TRANSPORT_TYPE; 常数",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NFC_CX_TRANSPORT_CUSTOM",
+        "NFC_CX_TRANSPORT_TYPE"
+      ],
+      "confidence": 0.75,
+      "_source_line": 874
+    },
+    {
+      "id": "windows::NFC_CX_TRANSPORT_CUSTOM",
+      "name": "NFC_CX_TRANSPORT_CUSTOM",
+      "entity_type": "callback",
+      "description": "指定自定义传输类型。",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 10"
+      },
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 882
+    },
+    {
+      "id": "windows::NfcCxDeviceInitConfig",
+      "name": "NfcCxDeviceInitConfig",
+      "entity_type": "callback",
+      "description": "客户端驱动程序在其 AddDevice 例程期间调用以执行 DeviceInit 函数。 在此过程中，还将交换以下 I/O 回调函数：",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [
+        "AddDevice",
+        "DeviceInit"
+      ],
+      "confidence": 0.6,
+      "_source_line": 940
+    },
+    {
+      "id": "windows::NfcCxHardwareEvent",
+      "name": "NfcCxHardwareEvent",
+      "entity_type": "callback",
+      "description": "当发生硬件事件（如 D0Entry 和 D0Exit 回调）以启动或停止设备时，由客户端驱动程序调用。 对于在初始化或启动时需要固件下载的驱动程序，建议将此调用移动到单独的工作项。 但是，客户端驱动程序负责以下事项： 在对工作项进行排队之前，客户端驱动程序应获取空闲电源引用。 在工作项完成时，需要删除引用。 这可确保空闲电源管理不会导致驱动程序在工作项运行时进入 D3。 客户端驱动程序应将工作项与其他设备回调同步。 这通常是通过",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1000
+    },
+    {
+      "id": "windows::WDF_WORKITEM_CONFIG",
+      "name": "WDF_WORKITEM_CONFIG",
+      "entity_type": "callback",
+      "description": "中的 AutomaticSerialization 选项实现的，并且 WDFWORKITEM 的父级是 WDFDEVICE，或者让工作项回调显式获取设备锁，即 WdfObjectAcquireLock WDFDEVICE。 如果硬件事件调用从工作项失败，客户端驱动程序应重启或解锁驱动程序，以防止其处于错误状态。 这可以使用“重启”或“卸载”选项来实现。",
+      "syntax": "NTSTATUS NfcCxHardwareEvent(\nWDFDEVICE              Device,",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 1004
+    },
+    {
+      "id": "windows::PNFC_CX_HARDWARE_EVENT",
+      "name": "PNFC_CX_HARDWARE_EVENT",
+      "entity_type": "callback",
+      "description": "HardwareEvent);",
+      "parameters": [
+        {
+          "name": "Device",
+          "description": "框架设备对象的句柄。 HardwareEvent 指向 NFC_CX_HARDWARE_EVENT 结构的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "如果操作成功，该函数将返回STATUS_SUCCESS。"
+      },
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 1010
+    },
+    {
+      "id": "windows::NfcCxRegisterSequenceHandler",
+      "name": "NfcCxRegisterSequenceHandler",
+      "entity_type": "callback",
+      "description": "函数 在初始化期间由客户端驱动程序调用以注册以处理特定序列。",
+      "syntax": "NTSTATUS NfcCxRegisterSequenceHandler(   WDFDEVICE                   Device,   NFC_CX_SEQUENCE             Sequence,",
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1069
+    },
+    {
+      "id": "windows::PFN_NFC_CX_SEQUENCE_HANDLER",
+      "name": "PFN_NFC_CX_SEQUENCE_HANDLER",
+      "entity_type": "callback",
+      "description": "EvtNfcCxSequenceHandler);",
+      "parameters": [
+        {
+          "name": "Device",
+          "description": "框架设备对象的句柄。 Sequence"
+        }
+      ],
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1074
+    },
+    {
+      "id": "windows::NfcCxSetLlcpConfig",
+      "name": "NfcCxSetLlcpConfig",
+      "entity_type": "callback",
+      "description": "由客户端驱动程序调用以配置 LLCP 参数。",
+      "syntax": "NTSTATUS NfcCxSetLlcpConfig(   WDFDEVICE            Device,   PCNFC_CX_LLCP_CONFIG Config);",
+      "parameters": [
+        {
+          "name": "Device",
+          "description": "框架设备对象的句柄。 Config 指向 NFC_CX_LLCP_CONFIG 结构的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "如果操作成功，该函数将返回STATUS_SUCCESS。"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "nfccx.h",
+        "min_client": "Windows 10",
+        "min_server": "Windows Server 2016"
+      },
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1101
+    },
+    {
+      "id": "windows::NfcCxSetRfDiscoveryConfig",
+      "name": "NfcCxSetRfDiscoveryConfig",
+      "entity_type": "callback",
+      "description": "函数 由客户端驱动程序调用以配置 RF 发现参数。",
+      "syntax": "NTSTATUS NfcCxSetRfDiscoveryConfig(\nWDFDEVICE                    Device,   PCNFC_CX_RF_DISCOVERY_CONFIG Config);",
+      "parameters": [
+        {
+          "name": "Device",
+          "description": "框架设备对象的句柄。 Config 指向 NFC_CX_RF_DISCOVERY_CONFIG 结构的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "如果操作成功，该函数将返回STATUS_SUCCESS。"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 10"
+      },
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1132
+    },
+    {
+      "id": "windows::NfcCxUnregisterSequenceHandler",
+      "name": "NfcCxUnregisterSequenceHandler",
+      "entity_type": "callback",
+      "description": "函数 在设备关闭期间由客户端驱动程序调用，以取消注册以前注册的序列处理程序回调。",
+      "syntax": "NTSTATUS NfcCxUnregisterSequenceHandler(\nWDFDEVICE       Device,   NFC_CX_SEQUENCE Sequence);",
+      "parameters": [
+        {
+          "name": "Device",
+          "description": "框架设备对象的句柄。 Sequence NFC_CX_SEQUENCE类型化枚举器。"
+        }
+      ],
+      "return_value": {
+        "description": "如果操作成功，该函数将返回STATUS_SUCCESS。"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 10"
+      },
+      "header": "nfccx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1159
+    },
+    {
+      "id": "windows::NFCRM_RADIO_STATE",
+      "name": "NFCRM_RADIO_STATE",
+      "entity_type": "ioctl",
+      "description": "此结构用于指示无线电状态。 NFCRM_SET_RADIO_STATE 此结构用于设置无线电状态。 在飞行模式的情况下，驱动程序必须保留无线电状态，并在禁用飞行 模式时还原它。反馈 是 否",
+      "syntax": "typedef struct _NFCRM_RADIO_STATE {   BOOLEAN MediaRadioOn;\n} NFCRM_RADIO_STATE, *PNFCRM_RADIO_STATE;",
+      "remarks": "不再需要 STATUS_INVALID_PARAMETER 返回代码。 Windows 10 内部版本 10240 中发现了一个 bug，Windows 会使用此 IOCTL 发送非 null 输入参数。 此 bug 已在更高版本的 Windows 中修复。 为了简化代码，驱动程序可以忽略所有版本的 Windows 10 中的输入参数。 要求要求标头 是 价值 nfcradiodev.h 否",
+      "members": [
+        {
+          "name": "MediaRadioOn",
+          "description": "这是一个布尔标志，指示媒体电台是否处于打开。"
+        }
+      ],
+      "requirements": {
+        "header": "nfcradiodev.h"
+      },
+      "header": "nfcradiodev.h",
+      "deprecated": false,
+      "cross_references": [
+        "NFCRM_SET_RADIO_STATE",
+        "STATUS_INVALID_PARAMETER"
+      ],
+      "confidence": 0.95,
+      "_source_line": 1207
+    },
+    {
+      "id": "windows::IRP_MJ_DEVICE_CONTROL",
+      "name": "IRP_MJ_DEVICE_CONTROL",
+      "entity_type": "ioctl",
+      "description": "输入缓冲区 Irp->AssociatedIrp.SystemBuffer 指向 SCARD_IO_REQUEST 结构的指针，后跟要传输到插入的智能卡的数据。 输入缓冲区长度 Parameters.DeviceIoControl.InputBufferLength 包含结构的大小加上尾随数据字节的长度（如果有）。 dwProtocol 成员必须设置为之前选择的协议，并且 cbPciLength 成员必须设置为 SCARD_IO_REQUEST 结构本身（通常为 8 个字节）的大小。 该结构用于将来的协议。 将传输到卡的数据必须紧跟此结构。 输出缓冲区 字节缓冲区包含传输结果。 缓冲区指向SCARD_IO_REQUEST结构，紧跟接收的数据。 Irp->AssociatedIrp.SystemBuffer 接收传输结果。 此缓冲区还必须以",
+      "remarks": "客户端应在每次完成笔触 IOCTL 时发送另一个 IOCTL。 驱动程序必须使用适当的锁，以确 保此 IOCTL 成功完成次数等同于订阅类型的成功消息接收数。使用此 IOCTL 时，需要执行以下作： 如果在以前未在“Subs\\”设备命名空间中打开的句柄上收到此 IOCTL，驱动程序必须使用 STATUS_INVALID_DEVICE_STATE完成它。 驱动程序必须维护与订阅文件句柄中的订阅类型匹配的已接收消息的“已接收”队列。在驱动程序中收到此 IOCTL 时： 如果“已接收”队列为空，则驱动程序必须为 IOCTL 笔，以便稍后完成。 要求要求 如果“接收”队列为非空，则驱动程序必须取消对一个消息缓冲区进行排队，将消息缓冲区复制到 IOCTL 的输出缓冲区，并立即完成 IOCTL STATUS_SUCCESS。 如果收到与类型匹配的消息，并且当前未写入任何 IOCTL，驱动程序必须将消息缓冲区添加到“Received”队列。 如果收到与类型匹配的消息，并且有一个可用的触控 IOCTL（“接收”队列为空），驱动程序必须将消息缓冲区复制到 IOCTL 的输出缓冲区，并使用STATUS_SUCCESS完成笔式 IRP。 完成笔接的 IRP 后，“已接收”队列必须继续为空。 如果驱动程序用STATUS_SUCCESS完成此 IOCTL，则输出缓冲区的第一个 DWORD [4 字节] 必须包含下一个客户端缓冲区大小的提示，而 IOCTL 的信息字段必须包含此消息的大小加上 大小（DWORD） （4 字节）。 如果 IOCTL 包含输入缓冲区，驱动程序必须使用STATUS_INVALID_PARAMETER完成 IOCTL。 如果收到的消息具有零长度的有效负载，驱动程序应忽略该消息。 这是性能优化，因为 Windows WILL 会删除包含零长度有效负载的消息。 如果收到的消息太大而无法复制到此 IOCTL 的缓冲区中，驱动程序必须将所需的缓冲区大小复制到输出缓冲区的前 4 个字节中，将 IOCTL 的“信息”字段设置为 sizeof （DWORD）（“4”），并使用STATUS_BUFFER_OVERFLOW完成 IOCTL。 消息缓冲区必须保留在“接收”队列中。 如果在订阅句柄中当前插入另一个 IOCTL 时收到此 IOCTL，则必须使用 STATUS_INVALID_DEVICE_STATE完成第二个 （或更高版本） 一个 IOCTL。驱动程序必须支持触控 IOCTL 的 CancelIo。 价值 最低支持的客户端标头",
+      "header": "nfcradiodev.h",
+      "deprecated": false,
+      "cross_references": [
+        "DeviceIoControl",
+        "InputBufferLength",
+        "SCARD_IO_REQUEST",
+        "STATUS_SUCCESS"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1225
+    },
+    {
+      "id": "windows::IOCTL_NFCRM_SET_RADIO_STATE",
+      "name": "IOCTL_NFCRM_SET_RADIO_STATE",
+      "entity_type": "ioctl",
+      "description": "IOCTL 无线电管理应用程序或服务使用此 IOCTL 来设置邻近设备的无线电电源状态。",
+      "header": "nfcradiodev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1247
+    },
+    {
+      "id": "windows::MediaRadioOn",
+      "name": "MediaRadioOn",
+      "entity_type": "ioctl",
+      "description": "字段用于指示请求电源状态。 禁用邻近无线电电源状态时，驱动程序应禁用邻近设备接口（GUID_DEVINTERFACE_NFP和",
+      "remarks": "如果 systemStateUpdate 为 true 且MediaRadioOn 为 false，则飞行模式状态为 ON。如果 systemStateUpdate 为 true 且 MediaRadioOn 为 true，则飞行模式状态为 OFF。如果 SystemStateUpdate 为 false，并且 MediaRadioOn 为 true，NFC 状态为 ON。如果 SystemStateUpdate 为 false，并且 MediaRadioOn 为 false，NFC 状态为 OFF。",
+      "requirements": {
+        "header": "nfcradiodev.h"
+      },
+      "header": "nfcradiodev.h",
+      "deprecated": false,
+      "cross_references": [
+        "SystemStateUpdate"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1250
+    },
+    {
+      "id": "windows::GUID_DEVINTERFACE_SMARTCARD_READER",
+      "name": "GUID_DEVINTERFACE_SMARTCARD_READER",
+      "entity_type": "ioctl",
+      "description": "接口），并禁用设备的 P2P 和读取器/写入器模式。 如果启用了邻近无线电电源状态，驱动程序应启用邻近设备接口，并启用控制器的 P2P 和读取器/编写器模式。 有关优化此设备上的电源模式的详细信息，请参阅 NFC 电源管理。",
+      "header": "nfcradiodev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1251
+    },
+    {
+      "id": "windows::NFCRM_SET_RADIO_STATE",
+      "name": "NFCRM_SET_RADIO_STATE",
+      "entity_type": "ioctl",
+      "description": "结构输入缓冲区长度 sizeof（NFCRM_SET_RADIO_STATE） 输出缓冲区没有 输出缓冲区长度没有 状态块 Irp->IoStatus.Status 设置为",
+      "syntax": "typedef struct _NFCRM_SET_RADIO_STATE {\nBOOLEAN SystemStateUpdate;   BOOLEAN MediaRadioOn;\n} NFCRM_SET_RADIO_STATE, *PNFCRM_SET_RADIO_STATE; 成员",
+      "header": "nfcradiodev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 1254
+    },
+    {
+      "id": "windows::STATUS_INVALID_DEVICE_STATE",
+      "name": "STATUS_INVALID_DEVICE_STATE",
+      "entity_type": "ioctl",
+      "description": "完成在同一句柄上收到的任何后续 IOCTL_NFP_SET_PAYLOAD。 如果 IOCTL 包含输出缓冲区，驱动程序必须通过STATUS_INVALID_PARAMETER完成 IOCTL。 如果输入缓冲区大于驱动程序的最大消息大小，驱动程序必须用 STATUS_INVALID_BUFFER_SIZE完成 IOCTL。 如果此 IOCTL 成功后任何设备成为代理设备，并在句柄关闭之前，则消息数据（及其类型）必须仅传输到代理设备一次。 如果在关闭句柄之前，相同（或不同）设备再次成为代理设备，则必须再次传输消息。 如果此 IOCTL 成功完成时设备当前处于代理状态，则必须将消息数据（及其类型）传输（仅一次）传输到代理设备。 即使句柄立即关闭，也是如此。",
+      "remarks": "以下是驱动程序必须遵循的要求。 必须在具有 SEEvents 相对文件名的句柄上调用此 IOCTL;否则，驱动程序返回 STATUS_INVALID_DEVICE_STATE 此驱动程序必须支持此挂起的 IOCTL 的 CancelIO。 此驱动程序必须维护与订阅类型匹配的已接收安全元素事件的接收队列。在驱动程序中收到此 IOCTL 时，必须满足以下条件： 如果收到的队列为空，则驱动程序必须笔下 IOCTL 才能在以后完成。 如果收到的队列为非空，则驱动程序必须取消对一个事件进行排队，将消息缓冲 区复制到 IOCTL 的输出缓冲区，并立即完成 IOCTL STATUS_SUCCESS。如果驱动程序使用 STATUS_SUCCESS 完成此 IOCTL，则输出缓冲区的第一个 DWORD [4 字节] 必须包含SECURE_ELEMENT_EVENT_INFO结构的大小及其有效负载。 如果收到的安全元素事件信息太大，无法复制到此 IOCTL 的缓冲区中，驱动程序必须将所需的缓冲区大小复制到输出缓冲区的前 4 个字节中，将 IOCTL 的信息字段设置为 sizeof（DWORD），并使用 STATUS_BUFFER_OVERFLOW完成 IOCTL。 然后，事件必须保留在接收的队列中。",
+      "requirements": {
+        "header": "nfcsedev.h"
+      },
+      "header": "nfcradiodev.h",
+      "deprecated": false,
+      "cross_references": [
+        "IOCTL_NFP_SET_PAYLOAD",
+        "STATUS_SUCCESS"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1265
+    },
+    {
+      "id": "windows::IOCTL_NFCSERM_QUERY_RADIO_STATE",
+      "name": "IOCTL_NFCSERM_QUERY_RADIO_STATE",
+      "entity_type": "ioctl",
+      "description": "SE 无线电管理应用程序或服务使用此 IOCTL 来查询邻近设备的当前无线电电源状态。",
+      "header": "nfcradiodev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1282
+    },
+    {
+      "id": "windows::STATUS_INVALID_PARAMETER",
+      "name": "STATUS_INVALID_PARAMETER",
+      "entity_type": "ioctl",
+      "description": "STATUS_INVALID_DEVICE_STATE 描述 提供的缓冲区大于 NFC 控制器 MAX_ROUTING_TABLE_SIZE。 NFCC 不支持侦听模式路由配置。 如果输出缓冲区为非零，或者用于技术或协议的值符合 NFC NCI 规范秒 6.3.2，或者使用重复的 AID，或者使用当前 NFC 控制器功能不支持的路由模式时，将返回此状态。 如果在具有相对名称“SEManage”的句柄上发送 IOCTL，则",
+      "remarks": "描述 如果安全元素 GUID 无效或输出缓冲区为非零。 如果 IOCTL 是在具有相对名称“SEManage”的句柄上发送的。 以下是驱动程序必须遵循的要求。 必须在具有 SEEvents 相对文件名的句柄上调用此 IOCTL;否则，驱动程序将返回 STATUS_INVALID_DEVICE_STATE。 如果卡仿真模式设置为附加到 NFC 控制器的所有安全元素的仿真Off，则必须禁用轮询循环的仿真模式。 如果邻近感应功能也处于禁用状态，驱动程序应转换为低功率模式。 如果卡仿真模式设置为除 EmulationOff 以外的值，则驱动程序必须继续处于 D0 状态，并且应启用轮询循环的仿真模式（可检测到外部读取器）。 关闭 SEManage 打开的文件句柄时，驱动程序必须将所有安全元素的卡片仿真模式设置设置为 EmulationOff，除非上次设置的卡仿真模式状态为 EmulationOnPowerIndependent。 如果最后一个设置的卡仿真模式状态为 EmulationOnPowerIndependent，则驱动程序必须与特定安全元素的 PbF 选项一起将卡仿真模式设置为 On。 驱动程序必须授予对客户端的独占访问权限才能管理卡仿真模式。 使用相对文件名 SEManage 打开文件句柄的后续调用将失败并STATUS_ACCESS_DENIED，直到具有独占访问权限的客户端关闭其文件句柄。",
+      "requirements": {
+        "header": "nfcsedev.h"
+      },
+      "header": "nfcradiodev.h",
+      "deprecated": false,
+      "cross_references": [
+        "EmulationOff",
+        "EmulationOnPowerIndependent",
+        "STATUS_INVALID_DEVICE_STATE"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1294
+    },
+    {
+      "id": "windows::SystemStateUpdate",
+      "name": "SystemStateUpdate",
+      "entity_type": "ioctl",
+      "description": "。 如果为 true，则表示IOCTL_NFCRM_SET_RADIO_STATE是由飞行模式触发的。",
+      "header": "nfcradiodev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1364
+    },
+    {
+      "id": "windows::NumberOfEndpoints",
+      "name": "NumberOfEndpoints",
+      "entity_type": "struct",
+      "description": "NFC 控制器上的枚举终结点数。 EndpointList[ANYSIZE_ARRAY] SECURE_ELEMENT_ENDPOINT_INFO 结构的数组。",
+      "requirements": {
+        "header": "nfcsedev.h"
+      },
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [
+        "SECURE_ELEMENT_ENDPOINT_INFO"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1441
+    },
+    {
+      "id": "windows::STATUS_BUFFER_OVERFLOW",
+      "name": "STATUS_BUFFER_OVERFLOW",
+      "entity_type": "struct",
+      "description": "STATUS_INVALID_PARAMETER STATUS_INVALID_DEVICE_STATE 描述 提供的缓冲区太小，无法接收通知，第一个 DWORD 将包含预期的缓冲区大小。 如果输入缓冲区为非零。 如果 IOCTL 是在具有相对名称“SEManage”的句柄上发送的。",
+      "remarks": "以下是驱动程序必须遵循的要求。 触发 HCE 激活事件后，此 IOCTL 将在现有连接上发送。驱动程序必须支持此笔化 IOCTL 上的 CancelIo。 驱动程序必须维护当前连接的已接收 APDU 的“已接收”队列。在驱动程序中收到此 IOCTL 时： 如果“已接收”队列为空，则驱动程序必须为 IOCTL 笔，以便稍后完成。 如果“已接收”队列为非空，则驱动程序必须取消对一个 APDU 进行排队，将 APDU 缓冲区复制到 IOCTL 的输出缓冲区，并立即完成 IOCTL STATUS_SUCCESS。 如果驱动程序使用 STATUS_SUCCESS 完成此 IOCTL，则输出缓冲区的第一个 DWORD [4 字节] 必须包含SECURE_ELEMENT_HCE_DATA_PACKET结构的大小及其有效负载。 如果收到的 APDU 数据太大而无法复制到此 IOCTL 的输出缓冲区中，驱动程序必须将所需 的缓冲区大小复制到输出缓冲区的前 4 个字节中，将 IOCTL 的信息字段设置为 sizeof（DWORD），并使用 STATUS_BUFFER_OVERFLOW完成 IOCTL。 APDU 数据必须保留在“接收”队列中。",
+      "requirements": {
+        "header": "nfcsedev.h"
+      },
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [
+        "STATUS_INVALID_DEVICE_STATE",
+        "STATUS_INVALID_PARAMETER",
+        "STATUS_SUCCESS"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1532
+    },
+    {
+      "id": "windows::NumberOfEntries",
+      "name": "NumberOfEntries",
+      "entity_type": "struct",
+      "description": "路由表条目数。 TableEntries[ANYSIZE_ARRAY] 侦听模式路由表。",
+      "requirements": {
+        "header": "nfcsedev.h"
+      },
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 1558
+    },
+    {
+      "id": "windows::STATUS_FEATURE_NOT_SUPPORTED",
+      "name": "STATUS_FEATURE_NOT_SUPPORTED",
+      "entity_type": "struct",
+      "description": "言论 以下是驱动程序必须遵循的要求。 描述 当此 IOCTL 在具有除 SEEvents以外的文件名的设备句柄上调用此 IOCTL 时返回，或者已经有另一个尚未完成的挂起请求。 当输出为非零或安全元素的 GUID 与任何枚举 ID 不匹配时，将返回此代码。 必须在具有 SEEvents 文件名的句柄上调用此 IOCTL;否则，驱动程序将返回",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1574
+    },
+    {
+      "id": "windows::IOCTL_NFCSE_HCE_REMOTE_RECV",
+      "name": "IOCTL_NFCSE_HCE_REMOTE_RECV",
+      "entity_type": "struct",
+      "description": "IOCTL 返回可用的下一个数据缓冲区，或者如果没有更多的缓冲数据，请求应保持挂起状态，直到 APDU 缓冲区可供读取。 然后，数据缓冲区应返回到调用方。 请注意，调用方必须分配足够大 的输出缓冲区，以容纳已接收的最大 APDU + 4 字节开销。",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1593
+    },
+    {
+      "id": "windows::STATUS_ACCESS_DENIED",
+      "name": "STATUS_ACCESS_DENIED",
+      "entity_type": "struct",
+      "description": "，直到具有独占访问权限的客户端关闭其文件句柄。",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1666
+    },
+    {
+      "id": "windows::SECURE_ELEMENT_CARD_EMULATION_MO",
+      "name": "SECURE_ELEMENT_CARD_EMULATION_MO",
+      "entity_type": "struct",
+      "description": "此枚举指示安全元素的卡片仿真模式。",
+      "syntax": "typedef enum _SECURE_ELEMENT_CARD_EMULATION_MODE {   EmulationOff,\nEmulationOnPowerIndependent,   EmulationOnPowerDependent,   EmulationStealthListen\n} SECURE_ELEMENT_CARD_EMULATION_MODE, *PSECURE_ELEMENT_CARD_EMULATION_MODE; 常数",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1801
+    },
+    {
+      "id": "windows::EmulationOff",
+      "name": "EmulationOff",
+      "entity_type": "struct",
+      "description": "未公开安全元素。",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 1810
+    },
+    {
+      "id": "windows::EmulationOnPowerIndependent",
+      "name": "EmulationOnPowerIndependent",
+      "entity_type": "struct",
+      "description": "无论设备/电池的电源状态如何，eSE 安全元素都会公开，并且是唯一公开的安全元素。 如果删除了电池， 设备将关闭电源，否则电源不可用。 安全元素必须保持向外部读取器公开。 EmulationOnPowerDependent 只要设备已打开，安全元素才会公开，并且是公开的唯一安全元素。 如果电池已移除，设备已关闭，或者 电源不可用，则安全元素不得再向外部读取器公开。 EmulationStealthListen 指示安全元素模拟隐形侦听模式。",
+      "requirements": {
+        "header": "nfcsedev.h"
+      },
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1812
+    },
+    {
+      "id": "windows::ExternalReaderArrival",
+      "name": "ExternalReaderArrival",
+      "entity_type": "struct",
+      "description": "当外部读取器与指示的安全元素建立连接时，将触发此事件。 没有为此事件提供其他参数。 ExternalReaderDeparture 当外部读取器终止与所指示的安全元素的连接时，将触发此事件。 没有为此事件提供其他参数。 ApplicationSelected 当外部读取器发出“SELECT”命令以选择指定安全元素上的应用程序时，将触发此事件。 此外，事件通知还包括所选应用程序的应用程序 ID（AID）。 并非所有类型的安全元素都支持引发此事件的能力。",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1943
+    },
+    {
+      "id": "windows::Transaction",
+      "name": "Transaction",
+      "entity_type": "struct",
+      "description": "当在安全元素中作的应用程序通知控制器发生某种形式的作时，将触发此事件。 此事件发送 BER- TLV 字段中编码的参数列表。 此事件映射到EVT_TRANSACTION。 HceActivated 当侦听模式接口激活到设备主机时，将触发此事件。 此事件发送当前连接 ID、激活的 RF 协议和技 术。",
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1948
+    },
+    {
+      "id": "windows::HceDeactivated",
+      "name": "HceDeactivated",
+      "entity_type": "struct",
+      "description": "终止当前活动 HCE 会话时，将触发此事件。 此事件发送当前终止的连接 ID。 ExternalFieldEnter 此事件在输入外部字段时触发。 ExternalFieldExit 退出外部字段时会触发此事件。",
+      "requirements": {
+        "header": "nfcsedev.h"
+      },
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1956
+    },
+    {
+      "id": "windows::RoutingTypeTech",
+      "name": "RoutingTypeTech",
+      "entity_type": "struct",
+      "description": "NFC 论坛基于技术的路由类型。 RoutingTypeProtocol 基于 NFC 论坛协议的路由类型。 RoutingTypeAid 基于 NFC 论坛 AID 的路由类型。",
+      "requirements": {
+        "header": "nfcsedev.h"
+      },
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 2133
+    },
+    {
+      "id": "windows::Integrated",
+      "name": "Integrated",
+      "entity_type": "struct",
+      "description": "集成的安全元素。 External 分隔基于 UICC 的安全元素。 DeviceHost 分隔基于 HCE 的安全元素。",
+      "requirements": {
+        "header": "nfcsedev.h"
+      },
+      "header": "nfcsedev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 2194
+    },
+    {
+      "id": "windows::IOCTL_NFP_ENABLE",
+      "name": "IOCTL_NFP_ENABLE",
+      "entity_type": "ioctl",
+      "description": "客户端发送 IOCTL_NFP_ENABLE 请求以重新启用以前禁用的订阅、发布和状态事件。",
+      "header": "nfpdev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2264
+    },
+    {
+      "id": "windows::IOCTL_NFP_GET_KILO_BYTES_PER_SECO",
+      "name": "IOCTL_NFP_GET_KILO_BYTES_PER_SECO",
+      "entity_type": "ioctl",
+      "description": "客户端将 IOCTL_NFP_GET_KILO_BYTES_PER_SECOND 请求发送到提供程序设备的任何泛型句柄（即未发布和非订阅的句柄）。 发送请求以确定提供商或其基础 RF 技术支持的近似最佳情况传输速度。 这用于区分传输速率到另一个数量级的差。 注意 典型的 NFC 实现应提供大约 50 的值。",
+      "header": "nfpdev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2290
+    },
+    {
+      "id": "windows::IOCTL_NFP_GET_NEXT_SUBSCRIBED_MESS",
+      "name": "IOCTL_NFP_GET_NEXT_SUBSCRIBED_MESS",
+      "entity_type": "ioctl",
+      "description": "客户端将 IOCTL_NFP_GET_NEXT_SUBSCRIBED_MESSAGE 请求反复发送到订阅句柄，以便在消息到达时接收订阅的消息。 通常，此 IOCTL 将笔在订阅句柄中，直到与订阅类型匹配的消息实 际到达为止。",
+      "header": "nfpdev.h",
+      "deprecated": false,
+      "cross_references": [
+        "IOCTL_NFP_GET_NEXT_SUBSCRIBED_MESSAGE"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2357
+    },
+    {
+      "id": "windows::IOCTL_NFP_GET_NEXT_TRANSMITTED",
+      "name": "IOCTL_NFP_GET_NEXT_TRANSMITTED",
+      "entity_type": "ioctl",
+      "description": "_ 想要接收已传输消息的通知的客户端会将",
+      "header": "nfpdev.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2395
+    },
+    {
+      "id": "windows::IOCTL_SMARTCARD_EJECT",
+      "name": "IOCTL_SMARTCARD_EJECT",
+      "entity_type": "ioctl",
+      "description": "请求从智能卡读取器中弹出当前插入的智能卡。",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2477
+    },
+    {
+      "id": "windows::IOCTL_SMARTCARD_GET_LAST_ERROR",
+      "name": "IOCTL_SMARTCARD_GET_LAST_ERROR",
+      "entity_type": "ioctl",
+      "description": "请求检索上一作的错误代码，因为在完成重叠作后，无法立即返回错误代码。",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2479
+    },
+    {
+      "id": "windows::IOCTL_SMARTCARD_SWALLOW",
+      "name": "IOCTL_SMARTCARD_SWALLOW",
+      "entity_type": "ioctl",
+      "description": "请求会导致智能卡读卡器吞下卡。",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2495
+    },
+    {
+      "id": "windows::IOCTL_SMARTCARD_TRANSMIT",
+      "name": "IOCTL_SMARTCARD_TRANSMIT",
+      "entity_type": "ioctl",
+      "description": "将数据从客户端传输到符合 ISO7816-4 的 APDU 中检测到的智能卡。 这些 APDU 针对 PC/SC 规范进行了解释（第 4.3.7 节对不同 NFC 无接触标记格式的支持有更详细的要求）。 由于 NFP 功能与智能卡共享相同的驱动程序，因此该卡应在发现后立即连接，因此不需要“传输”显式连接。 由于输入缓冲区和输出缓冲区指向相同的内存区域，因此驱动程序必须避免覆盖输入数据。 使 用智能卡驱动程序库确保不会覆盖输入数据。",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2495
+    },
+    {
+      "id": "windows::SCARD_UNKNOWN",
+      "name": "SCARD_UNKNOWN",
+      "entity_type": "ioctl",
+      "description": "SCARD_ABSENT",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2556
+    },
+    {
+      "id": "windows::SCARD_SPECIFIC",
+      "name": "SCARD_SPECIFIC",
+      "entity_type": "ioctl",
+      "description": "状态块 描述 未知状态 未检测到卡片 卡片存在，但未供电。 设置SCARD_POWER_DOWN时。卡片存在并且已建立通信协议。 Irp->IoStatus.Status 设置为",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2558
+    },
+    {
+      "id": "windows::STATUS_DEVICE_POWERED_OFF",
+      "name": "STATUS_DEVICE_POWERED_OFF",
+      "entity_type": "ioctl",
+      "description": "言论 如果邻近无线电控制处于关闭状态，则返回此代码。 对于COLD_RESET和WARM_RESET，虚拟电源设置为 TRUE;否则，虚拟电源设置为 FALSE。",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2574
+    },
+    {
+      "id": "windows::SCARD_COLD_RESET",
+      "name": "SCARD_COLD_RESET",
+      "entity_type": "ioctl",
+      "description": "SCARD_WARM_RESET",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2665
+    },
+    {
+      "id": "windows::SCARD_PROTOCOL_RAW",
+      "name": "SCARD_PROTOCOL_RAW",
+      "entity_type": "ioctl",
+      "description": "SCARD_PROTOCOL_T0 SCARD_PROTOCOL_T1",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2736
+    },
+    {
+      "id": "windows::SCARD_PROTOCOL_DEFAULT",
+      "name": "SCARD_PROTOCOL_DEFAULT",
+      "entity_type": "ioctl",
+      "description": "SCARD_PROTOCOL_OPTIMAL 最后两个值是额外的位定义，指示驱动程序必须显式执行协议类型选择（PTS），并具有最佳通信参数（SCARD_PROTOCOL_OPTIMAL）或使用卡的隐式协议 （SCARD_PROTOCOL_DEFAULT）。 如果卡仅支持一个具有一组通信参数的协议，则忽略位。 Parameters.DeviceIoControl.InputBufferLength 必须设置为 sizeof（ULONG）。 驱动程序决定掩码中要与插入卡片一起使用的协议。 输出缓冲区 Irp->AssociatedIrp.SystemBuffer 驱动程序在此处存储所选协议（例如， SCARD_PROTOCOL_T1）。 只能设置一位出掩码。 输出缓冲区长度 Parameters.DeviceIoControl.OutputBufferLength 必须为 sizeof（ULONG）。状态块 Irp->IoStatus.Information 必须设置为 sizeof（ULONG）。 Irp->IoStatus.Status 设置为以下值之一。 价值",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [
+        "DeviceIoControl",
+        "InputBufferLength",
+        "OutputBufferLength"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2737
+    },
+    {
+      "id": "windows::STATUS_INVALID_DEVICE_REQUEST",
+      "name": "STATUS_INVALID_DEVICE_REQUEST",
+      "entity_type": "ioctl",
+      "description": "有关详细信息，请参阅 NTSTATUS 值。",
+      "header": "winsmcrd.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2751
+    }
+  ]
+}

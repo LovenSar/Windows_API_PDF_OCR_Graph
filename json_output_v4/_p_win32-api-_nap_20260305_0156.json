@@ -1,0 +1,449 @@
+{
+  "_schema": "windows_api_kg_v4.0",
+  "_generated_at": "2026-03-05T08:07:20Z",
+  "_content_hash": "65146e5a49cf",
+  "document": {
+    "document_id": "win32-api::nap",
+    "title": "网络访问保护",
+    "domain": "win32-api",
+    "topic": "nap",
+    "source_file": "[OCR]_windows-win32-api-_nap_20260305_0156.p.txt",
+    "ocr_timestamp": "2026-03-05T01:56:00",
+    "headers_referenced": [
+      "naptypes.h"
+    ],
+    "total_entities": 28
+  },
+  "entities": [
+    {
+      "id": "windows::ExtendedIsolationState",
+      "name": "ExtendedIsolationState",
+      "entity_type": "enum",
+      "description": "IsolationState NAP 参考 NAP 结构 是 值 Windows Vista [仅限桌面应用] Windows Server 2008 [仅限桌面应用] naptypes.h 否 isolationState 枚举 (naptypes.h) 项目2024/03/05 注意从Windows 10开始，网络访问保护平台不可用",
+      "syntax": "typedef enum tagExtendedIsolationState {   extendedIsolationStateNoData = 0,\nextendedIsolationStateTransition = 0x1,   extendedIsolationStateInfected = 0x2,\nextendedIsolationStateUnknown = 0x3} ExtendedIsolationState;",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "IsolationState",
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.7,
+      "_source_line": 9
+    },
+    {
+      "id": "windows::FailureCategory",
+      "name": "FailureCategory",
+      "entity_type": "enum",
+      "description": "指示故障的来源。 FixupState 定义系统运行状况代理 (SHA) 的修复状态。 IsolationState 描述连接的隔离状态。 NapNotifyType 枚举 NapAgent 服务发送的服务通知的类型。 RemoteConfigurationType 描述组件可能的远程配置类型。反馈 注意网络访问保护平台从Windows 10开始不可用",
+      "syntax": "typedef enum tagFailureCategory {\nfailureCategoryNone = 0,   failureCategoryOther = 1,\nfailureCategoryClientComponent = 2,\nfailureCategoryClientCommunication = 3,   failureCategoryServerComponent = 4,\nfailureCategoryServerCommunication = 5} FailureCategory;",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "FixupState",
+        "IsolationState",
+        "NapAgent",
+        "RemoteConfigurationType"
+      ],
+      "confidence": 0.7,
+      "_source_line": 11
+    },
+    {
+      "id": "windows::CorrelationId",
+      "name": "CorrelationId",
+      "entity_type": "enum",
+      "description": "用于将 SoHRequests 与 SoHResponses 配对，并唯一描述 SoH 交换。 CountedString 定义具有定义长度的以 null 结尾的字符串。 FailureCategoryMapping 包含系统运行状况验证程序 (SHV) 返回的可选符合性状态信息。 FixupInfo 包含 Sysytem Health Agent (SHA) 的修复信息。 Ipv4Address 定义 IPv4 地址。 Ipv6Address 定义 IPv6 地址。 IsolationInfo 定义计算机或连接的隔离状态。 IsolationInfoEx 定义计算机或连接的扩展隔离状态。 NapComponentRegistrationInfo 定义已注册的 NAP 组件，例如 SHA、SHV 或强制客户端。 NetworkSoH 定义线路 SoH 协议。 PrivateData 用于存储和检索不透明的数据 Blob。 ResultCodes 定义结果代码的列表。 SoH 包含运行状况声明 (SoH) 数据。 SoHAttribute 定义 SHA/SHV 和 NAP 系统之间的 SoH 协议。",
+      "syntax": "typedef struct tagCorrelationId {   GUID     connId;\nFILETIME timeStamp;} CorrelationId;\n成员 connId\n全局唯一标识符 (标识 SoH 交换的 GUID) 。 timeStamp\n一个唯一 的 FILETIME 值，该值包含生成 SoHRequest 的系统时间。",
+      "remarks": "字符串版本 StringCorrelationId 主要用于日志记录，而 SHA/SHV 使用此字节版本将 SoHRequests 与 SoHResponses 匹配。",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "CountedString",
+        "FailureCategoryMapping",
+        "FixupInfo",
+        "Ipv4Address",
+        "Ipv6Address",
+        "IsolationInfo",
+        "IsolationInfoEx",
+        "NapComponentRegistrationInfo",
+        "NetworkSoH",
+        "PrivateData",
+        "ResultCodes",
+        "SoHAttribute",
+        "SoHRequests"
+      ],
+      "confidence": 0.7,
+      "_source_line": 18
+    },
+    {
+      "id": "windows::SystemHealthAgentState",
+      "name": "SystemHealthAgentState",
+      "entity_type": "enum",
+      "description": "结构 注意网络访问保护平台从Windows 10开始不可用",
+      "syntax": "typedef struct tagSystemHealthAgentState {   SystemHealthEntityId id;",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 34
+    },
+    {
+      "id": "windows::CountedString",
+      "name": "CountedString",
+      "entity_type": "enum",
+      "description": "vendorName; CLSID infoClsid; CLSID configClsid; FILETIME registrationDate; UINT32 componentType;} NapComponentRegistrationInfo; 成员 id 一个 NapComponentId 值，该值包含组件的唯一标识符。 friendlyName 一个 CountedString 结构，包含组件名称的友好 (可读) 。 description 包含组件说明的 CountedString 结构。 version 包含组件的版本的 CountedString 结构。 vendorName 包含组件的供应商名称的 CountedString 结构。 infoClsid 实现 INapComponentInfo 接口的 COM 对象的 CLSID。 此接口用于检索有关 NAP 组件的更详细和本地化的信息。 目前，强制客户端不需要提供有效的 infoClsid。 configClsid 实现 INapComponentConfig 接口的 COM 对象的 CLSID。 此接口用于启动自定义用户界面以及获取和设置 SHV 配置设置。 目前，SHA 和强制客户端不需要提供有效的 configClsid。 registrationDate 包含注册信息日期的 FILETIME 结构。 componentType 定义组件类型的值。 对于强制客户端，此值应为 ComponentTypeEnforcementClientSoH 或 ComponentTypeEnforcementClientRp。 目前，对于 SHA 和 SHV， 将忽略 componentType ，应设置为 0x00000000。",
+      "syntax": "typedef struct tagCountedString {\nUINT16 length;   WCHAR  *string;} CountedString;\n成员 length\n字符串的大小（以字符为单位），范围为 0 到 maxStringLength。\n注释长度 不包括 null 终止符。\nstring\n指向大小 长度 + 1 的以 null 结尾的宽字符串的指针。",
+      "remarks": "此注册信息未本地化，仅在 US-English 中提供。 通过注册 API 注册 NAP 组件时， 将忽略 registrationDate 字段。 检索有关已注册的 NAP 组件的信息时，如果没有有效的 infoClsid、 configClsid 或 registrationDate，则它们将设置为 0。",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "NapComponentRegistrationInfo"
+      ],
+      "confidence": 0.7,
+      "_source_line": 103
+    },
+    {
+      "id": "windows::FailureCategoryMapping",
+      "name": "FailureCategoryMapping",
+      "entity_type": "constant",
+      "description": "反馈 是 值 Windows Vista [仅限桌面应用] Windows Server 2008 [仅限桌面应用] naptypes.h 否",
+      "syntax": "typedef struct tagFailureCategoryMapping {\nBOOL mappingCompliance[5];} FailureCategoryMapping;",
+      "remarks": "例如，如果系统 (发生故障，组件或通信故障) ，SHV 可能会在其 SoHResponse 中返回 sohAttributeTypeFailureCategory 类型 type-length-value (TLV) 对象，而不是做出符合性 决策。 反过来，NAP 系统将 TLV 对象返回的 FailureCategory 类型映射到 FailureCategoryMapping 结构中的符合或不合规，如下所示： mappingCompliance[0] = failureCategoryOther mappingCompliance[1] = failureCategoryClientComponent 的映射 mappingCompliance[2] = failureCategoryClientCommunication 的映射 mappingCompliance[3] = failureCategoryServerComponent 的映射 mappingCompliance[4] = failureCategoryServerCommunication 的映射 默认情况下，所有类别都映射到不合规 (FALSE) 。",
+      "members": [
+        {
+          "name": "mappingCompliance[5]",
+          "description": "包含每个 FailureCategory 的符合性状态的 BOOLs 数组。 TRUE 表示类别符合， FALSE 表示不符合。 注意mappingCompliance 的长度由 failureCategoryCount 定义。"
+        }
+      ],
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "FailureCategory",
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.8,
+      "_source_line": 188
+    },
+    {
+      "id": "windows::FixupInfo",
+      "name": "FixupInfo",
+      "entity_type": "constant",
+      "description": "fixupInfo;} SystemHealthAgentState; 成员 id 一个唯一 的 SystemHealthEntityId 值，用于标识系统运行状况代理 (SHA) 。 shaResultCodes",
+      "syntax": "typedef struct tagFixupInfo {   FixupState  state;",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "SystemHealthAgentState"
+      ],
+      "confidence": 0.7,
+      "_source_line": 233
+    },
+    {
+      "id": "windows::Percentage",
+      "name": "Percentage",
+      "entity_type": "constant",
+      "description": "percentage; ResultCodes resultCodes; MessageId fixupMsgId;} FixupInfo; 成员 state 一个 FixupState 值，用于定义 SHA 的修复状态。 percentage 包含完成修正百分比的百分比的 百分比 的数据类型。 当 状态 等于 FixupStateInProgress 时，此成员是介于 0 (零) 和 100 之间的非零值;否则为 0 (零) 。 注意 如果 SHA 不支持百分比，则此值为 0，表示 SHA 更新尚未启动;或 101，指示 SHA 正在更新。 resultCodes",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "FixupInfo",
+        "FixupState",
+        "ResultCodes"
+      ],
+      "confidence": 0.6,
+      "_source_line": 236
+    },
+    {
+      "id": "windows::ResultCodes",
+      "name": "ResultCodes",
+      "entity_type": "constant",
+      "description": "结构，包含从 SHA 接收的最新 SoHRespnse 中返回的符合性结果代码。注意SoHRespnse 中的 sohAttributeTypeComplianceResultCodes 属性类型包含符 合性结果代码。 failureCategory 一个 FailureCategory 值，该值描述从 SHA 接收的最新 SoHRespnse 中返回的失败类别字段。 注意SoHRespnse 中的 sohAttributeTypeFailureCategory 属性类型包含失败类别字段。 fixupInfo 一个",
+      "syntax": "typedef struct tagResultCodes {   UINT16  count;\nHRESULT *results;} ResultCodes;\n成员 count\n结果代码数，表示介于 0 和 maxDwordCountPerSoHAttribute 之间的数字。 results\n指向应用程序定义的 4-octet HRESULT 列表（指定客户端计算机是否合规）的指针，或指定 SoH 构造或处理错误原因的 NAP 错误常量列表。 值必须采用主机系统的字节顺序。\ntypedef struct tagSoH {   UINT16       count;",
+      "remarks": "如果 SHA 修正过程支持在更新期间报告百分比值，则 百分比 用于将当前进度作为整数百分比值传达。 修正更新完成后， 必须将百分比 设置为 100， 状态 必须设置为 fixupStateSuccess。 如果修正未完成，则必须将 百分比 设置为介于 0 和 99（含）之间的值，并且 状态 必须设置为 fixupStateInProgress。 如果修正过程不支持报告百分比值，则只要 状态 设置为 fixupStateInProgress， 百分比必须设置为值 101，这表示修正过程处于常规“正在更新”状态，但完成量未知。 修正 完成后，状态 必须设置为 fixupStateSuccess ， 百分比 必须设置为 100。 如果 SHA 无法更新修复信息，则必须将 状态 设置为 fixupStateCouldNotUpdate。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "naptypes.h",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "FailureCategory",
+        "FixupState",
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.7,
+      "_source_line": 243
+    },
+    {
+      "id": "windows::FixupState",
+      "name": "FixupState",
+      "entity_type": "constant",
+      "description": "注意网络访问保护平台从Windows 10开始不可用",
+      "syntax": "typedef enum tagFixupState {   fixupStateSuccess = 0,\nfixupStateInProgress = 1,\nfixupStateCouldNotUpdate = 2} FixupState;",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 264
+    },
+    {
+      "id": "windows::Ipv4Address",
+      "name": "Ipv4Address",
+      "entity_type": "constant",
+      "description": "结构定义 IPv4 地址。",
+      "syntax": "typedef struct tagIpv4Address {\nBYTE addr[4];} Ipv4Address;\n成员 addr[4]\n包含按网络字节顺序排列的 IPv4 网络地址的数组。",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.5,
+      "_source_line": 292
+    },
+    {
+      "id": "windows::Ipv6Address",
+      "name": "Ipv6Address",
+      "entity_type": "constant",
+      "description": "结构定义 IPv6 地址。",
+      "syntax": "typedef struct tagIpv6Address {\nBYTE addr[16];} Ipv6Address;\n成员 addr[16]\n包含按网络字节顺序排列的 IPv6 网络地址的数组。",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.5,
+      "_source_line": 315
+    },
+    {
+      "id": "windows::IsolationInfo",
+      "name": "IsolationInfo",
+      "entity_type": "constant",
+      "description": "注意网络访问保护平台从Windows 10开始不可用",
+      "syntax": "typedef struct tagIsolationInfo {   IsolationState isolationState;",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 336
+    },
+    {
+      "id": "windows::ProbationTime",
+      "name": "ProbationTime",
+      "entity_type": "constant",
+      "description": "probEndTime; CountedString failureUrl;}",
+      "members": [
+        {
+          "name": "isolationState",
+          "description": "包含计算机的隔离状态的 IsolationState 值。 probEndTime 一个 ProbationTime 值，该值包含计算机应从缓刑中出来的时间。 failureUrl 一个 CountedString 值，该值包含要在发生故障时导航到的 URL。"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "CountedString",
+        "IsolationState"
+      ],
+      "confidence": 0.6,
+      "_source_line": 341
+    },
+    {
+      "id": "windows::IsolationInfoEx",
+      "name": "IsolationInfoEx",
+      "entity_type": "constant",
+      "description": "注意网络访问保护平台从Windows 10开始不可用",
+      "syntax": "typedef struct tagIsolationInfoEx {",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 364
+    },
+    {
+      "id": "windows::IsolationState",
+      "name": "IsolationState",
+      "entity_type": "constant",
+      "description": "isolationState;",
+      "syntax": "typedef enum tagIsolationState {   isolationStateNotRestricted = 1,   isolationStateInProbation = 2,\nisolationStateRestrictedAccess = 3} IsolationState;",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 369
+    },
+    {
+      "id": "windows::NapComponentRegistrationInfo",
+      "name": "NapComponentRegistrationInfo",
+      "entity_type": "constant",
+      "description": "结构定义注册的 NAP 组件，例如 SHA、SHV 或强制客 户端。",
+      "syntax": "typedef struct tagNapComponentRegistrationInfo {   NapComponentId id;",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 419
+    },
+    {
+      "id": "windows::NapAgent",
+      "name": "NapAgent",
+      "entity_type": "constant",
+      "description": "服务状态更改通知。 每当 NapAgent 服务停止或启动时，就会发送类型为 napNotifyTypeServiceState 的通知。 napNotifyTypeQuarState 值： 2 隔离状态更改通知。 每当隔离状态更改时，将发送 类型为 napNotifyTypeQuarState 的通知。 有关详细信息，请参阅",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 474
+    },
+    {
+      "id": "windows::InitializeNapAgentNotifier",
+      "name": "InitializeNapAgentNotifier",
+      "entity_type": "constant",
+      "description": "UninitializeNapAgentNotifier 是 值 Windows Vista [仅限桌面应用] Windows Server 2008 [仅限桌面应用] naptypes.h 否 注意从Windows 10开始，网络访问保护平台不可用",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.6,
+      "_source_line": 484
+    },
+    {
+      "id": "windows::NetworkSoH",
+      "name": "NetworkSoH",
+      "entity_type": "constant",
+      "description": "结构定义线路 SoH 协议。",
+      "syntax": "typedef struct tagNetworkSoH {\nUINT16 size;   BYTE   *data;\n} NetworkSoH, NetworkSoHRequest, NetworkSoHResponse;\n成员 size\n范围 minNetworkSoHSize 到 maxNetworkSoHSize 的数据 Blob 的大小（以字节为单\n位）。 data\n指向包含 SoH 结构（按网络字节顺序排列）的数据 Blob 的指针。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "naptypes.h",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 498
+    },
+    {
+      "id": "windows::PrivateData",
+      "name": "PrivateData",
+      "entity_type": "constant",
+      "description": "结构用于存储 NapAgent 和强制客户端的状态信息。 它由 INapSystemHealthValidationRequest 和 INapEnforcementClientConnection 接口查询和 设置。",
+      "syntax": "typedef struct tagPrivateData {\nUINT16 size;   BYTE   *data;} PrivateData;\n成员 size\n0 到 maxPrivateDataSize 范围内的数据的大小（以字节为单位）。 data\n指向不透明数据 Blob 的指针。",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "NapAgent"
+      ],
+      "confidence": 0.7,
+      "_source_line": 524
+    },
+    {
+      "id": "windows::RemoteConfigurationType",
+      "name": "RemoteConfigurationType",
+      "entity_type": "constant",
+      "description": "枚举描述组件可能的远程配置类型。",
+      "syntax": "typedef enum tagRemoteConfigurationType {\nremoteConfigTypeMachine = 1,   remoteConfigTypeConfigBlob} RemoteConfigurationType;",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 552
+    },
+    {
+      "id": "windows::SoHAttribute",
+      "name": "SoHAttribute",
+      "entity_type": "constant",
+      "description": "*attributes; } SoH, SoHRequest, SoHResponse; 成员 count SoH 中包含的属性数，介于 0 (零) 和 maxSoHAttributeCount 之间。 attributes 包含此 SoH 定义的属性集合的 SoHAttribute 结构的数组。",
+      "syntax": "typedef struct tagSoHAttribute {\nUINT16 type;   UINT16 size;   BYTE   *value;} SoHAttribute;\n成员 type\n一个 SoHAttributeType 值，该值定义 value 中包含的属性类型。 size\n值指向的 SoH 属性的大小（以字节为单位），其范围为 0 到 maxSoHAttributeSize。 value\n指向 SoHAttributeValue 结构的指针，该结构包含 按类型定义的 SoH 属性值。",
+      "remarks": "SoH 数据包是属性的集合，存储为 type-length-value 对象 (TLV) 。 属性类型由",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 605
+    },
+    {
+      "id": "windows::SoHAttributeType",
+      "name": "SoHAttributeType",
+      "entity_type": "constant",
+      "description": "指定，属性值由 SoHAttributeValue 指定。 TLV 的排序方式是，某些 TLV (例如 sohAttributeTypeSystemHealthId TLV 或 sohAttributeTypeHealthClass TLV) 单独的组或 TLV 子组。 sohAttributeTypeSystemHealthId TLV 必须是 SoHRequest 和 SoHResponse 数据包中的第一个 TLV。 SoHResponse 数据包最多可以有一个 sohAttributeTypeIpv4FixupServers 或 sohAttributeTypeIpv6FixupServers TLV。",
+      "header": "naptypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.6,
+      "_source_line": 611
+    },
+    {
+      "id": "windows::Direct2D",
+      "name": "Direct2D",
+      "entity_type": "unknown",
+      "description": "DXGI 网络访问保护 远程过程调用 (RPC) 系统服务 任务计划程序 Windows 动画管理器 Windows 事件日志 Windows 筛选平台 winerror.h 包含以下编程接口： 函数 FAILED 提供针对任何状态值失败的泛型测试。 HRESULT_CODE 提取指定 HRESULT 的代码部分。 HRESULT_FACILITY 提取指定 HRESULT 的设施。 HRESULT_FROM_NT 将 NT 状态值映射到 HRESULT 值。 HRESULT_FROM_WIN32 将系统错误代码映射到 HRESULT 值。 HRESULT_SEVERITY 提取指定 HRESULT 的严重性字段。",
+      "header": "winerror.h",
+      "deprecated": false,
+      "cross_references": [
+        "HRESULT_FROM_WIN32"
+      ],
+      "confidence": 0.45,
+      "_source_line": 692
+    },
+    {
+      "id": "windows::IS_ERROR",
+      "name": "IS_ERROR",
+      "entity_type": "unknown",
+      "description": "针对任何状态值提供错误的泛型测试。",
+      "header": "winerror.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 706
+    },
+    {
+      "id": "windows::MAKE_HRESULT",
+      "name": "MAKE_HRESULT",
+      "entity_type": "unknown",
+      "description": "宏 (winerror.h) 从其组件部分创建 HRESULT 值。",
+      "header": "winerror.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 708
+    },
+    {
+      "id": "windows::MAKE_SCODE",
+      "name": "MAKE_SCODE",
+      "entity_type": "unknown",
+      "description": "从其组件部分创建 SCODE 值。 SCODE_CODE 提取指定 SCODE 的代码部分。 SCODE_FACILITY 提取指定 SCODE 的设施。 SCODE_SEVERITY 提取指定 SCODE 的严重性字段。已成功 提供针对任何状态值是否成功的泛型测试。反馈",
+      "header": "winerror.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 708
+    }
+  ]
+}

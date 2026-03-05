@@ -1,0 +1,497 @@
+{
+  "_schema": "windows_api_kg_v4.0",
+  "_generated_at": "2026-03-05T08:06:58Z",
+  "_content_hash": "0be76df90431",
+  "document": {
+    "document_id": "hardware-drivers::gettingstarted",
+    "title": "开始在 Windows 上使用驱动程序项目• 2024/10/04",
+    "domain": "hardware-drivers",
+    "topic": "gettingstarted",
+    "source_file": "[OCR]_windows-hardware-drivers-gettingstarted_20260305_0129.txt",
+    "ocr_timestamp": "2026-03-05T01:29:00",
+    "headers_referenced": [],
+    "total_entities": 29
+  },
+  "entities": [
+    {
+      "id": "windows::DRIVER_INITIALIZE",
+      "name": "DRIVER_INITIALIZE",
+      "entity_type": "unknown",
+      "description": "DriverEntry;",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "DriverEntry"
+      ],
+      "confidence": 0.3,
+      "_source_line": 357
+    },
+    {
+      "id": "windows::EVT_WDF_DRIVER_DEVICE_ADD",
+      "name": "EVT_WDF_DRIVER_DEVICE_ADD",
+      "entity_type": "callback",
+      "description": "KmdfHelloWorldEvtDeviceAdd; 3. 使用以下代码编写 DriverEntry： C NTSTATUS",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "DriverEntry",
+        "KmdfHelloWorldEvtDeviceAdd"
+      ],
+      "confidence": 0.65,
+      "_source_line": 358
+    },
+    {
+      "id": "windows::DriverEntry",
+      "name": "DriverEntry",
+      "entity_type": "unknown",
+      "description": "_In_ PDRIVER_OBJECT DriverObject, _In_ PUNICODE_STRING RegistryPath ){ // NTSTATUS variable to record success or failure NTSTATUS status = STATUS_SUCCESS; // Allocate the driver configuration object WDF_DRIVER_CONFIG config; // Print \"Hello World\" for DriverEntry",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "PDRIVER_OBJECT",
+        "PUNICODE_STRING",
+        "STATUS_SUCCESS",
+        "WDF_DRIVER_CONFIG"
+      ],
+      "confidence": 0.35,
+      "_source_line": 361
+    },
+    {
+      "id": "windows::KdPrintEx",
+      "name": "KdPrintEx",
+      "entity_type": "function",
+      "description": "( DPFLTR_IHVDRIVER_ID, DPFLTR_INFO_LEVEL, \"KmdfHelloWorld: DriverEntry\\n\" )); // Initialize the driver configuration object to register the // entry point for the EvtDeviceAdd callback, KmdfHelloWorldEvtDeviceAdd WDF_DRIVER_CONFIG_INIT(&config, KmdfHelloWorldEvtDeviceAdd ); // Finally, create the driver object status = WdfDriverCreate(DriverObject, RegistryPath,",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "DriverEntry",
+        "Initialize",
+        "KmdfHelloWorldEvtDeviceAdd",
+        "WDF_DRIVER_CONFIG_INIT"
+      ],
+      "confidence": 0.5,
+      "_source_line": 367
+    },
+    {
+      "id": "windows::WDF_NO_OBJECT_ATTRIBUTES",
+      "name": "WDF_NO_OBJECT_ATTRIBUTES",
+      "entity_type": "unknown",
+      "description": ", &hDevice ); return status;} 6. 保存 Driver.c。 此示例演示了驱动程序的基本概念：它们是一个“回调集合”，一旦初始化，就处于待命状态并等待系统在需要时调用。 系统调用可以是新的设备到达事件、来自用户模式应用程序的 I/O 请求、系统电源关闭事件、来自另一个驱动程序的请求，或者是用户意外拔下设备时的意外移除事件。 幸运的是，就“Hello World”而言，只需操心驱动程序和设备的创建。 接下来，生成驱动程序。生成驱动程序 1. 在 解决方案资源管理器 窗口中，右键单击 解决方案“KmdfHelloWorld”（共 1 个项目） 并选择 Configuration Manager。 为驱动程序项目选择配置和平台。 对于本练习，请选择调试和 x64。 2. 在 解决方案资源管理器 窗口中，右键单击 KmdfHelloWorld，然后选择 属性。 在“Wpp 跟踪”>“所有选项”中，将“运行 Wpp 跟踪”设置为“否”。 依次选择“应用”、“确定” 。 3. 若要生成驱动程序，请从“生成”菜单中选择“生成解决方案”。 Visual Studio 在“输出”窗口中显示生成进度。 （如果 输出 窗口不可见，请从 视图 菜单中选择 输出。验证解决方案是 否已成功生成时，可以关闭 Visual Studio。 4. 若要查看生成的驱动程序，请在文件资源管理器中转到 KmdfHelloWorld 文件夹，然后查看 x64\\Debug\\KmdfHelloWorld。 该文件夹包括： KmdfHelloWorld.sys - 内核模式驱动程序文件 KmdfHelloWorld.inf - 在安装驱动程序时 Windows 使用的信息文件 KmdfHelloWorld.cat - 安装程序验证驱动程序的测试签名所使用的目录文件  提示 如果在生成驱动程序时看到 DriverVer set to a date in the future ，则请更改驱动程序项目设置，让 Inf2Cat 设置 /uselocaltime 。 为此，请使用 配置属性 ->Inf2Cat ->常规 -> 使用本地时间。 现在，Stampinf 和 Inf2Cat 都使用本地时间。部署驱动程序 通常，在测试和调试驱动程序时，调试程序和驱动程序会在不同的计算机上运行。 运行调试程序的计算机称为“主计算机”，运行驱动程序的计算机称为“目标计算机”。 目标计算机也称为“测试计算机”。 到目前为止，你已使用 Visual Studio 在主计算机上生成驱动程序。 现在，你需要配置目标计算机。 1. 按照预配计算机以便进行驱动程序部署和测试 (WDK 10) 中的说明进行操作。  提示 按照步骤使用网络电缆自动预配目标计算机时，请记下端口和密钥。 以后，你将在调试步骤中使用它们。 在此示例中，使用 50000 作为端口，1.2.3.4 作为密钥。 在实际的驱动程序调试方案中，我们建议使用 KDNET 生成的密钥。 有关如何使用 KDNET 生成一个随机密钥的详细信息，请参阅调试驱动程序 - 分步实验室（Sysvad 内核模式）主题。 2. 在主计算机上，在 Visual Studio 中打开你的解决方案。 可以在 KmdfHelloWorld 文件夹中双击解决方案文件 KmdfHelloWorld.sln。 3. 在 解决方案资源管理器 窗口中，右键单击 KmdfHelloWorld 项目，然后选择 属性。 4. 转到“驱动程序安装”>“部署”。 5. 对于“目标设备名称”，请选择配置用于测试和调试的计算机名。 在本练习中，我们使用名为 MyTestComputer 的计算机。 6. 若要确保测试最新版本的驱动程序，请在部署 之前检查删除以前的驱动程序版本。 7. 选择“硬件 ID 驱动程序更新”，然后输入驱动程序的硬件 ID。 在本练习中，硬件 ID 为 Root\\KmdfHelloWorld。 选择“确定”。７ 备注 在本练习中，硬件 ID 并不用于标识真实的硬件。 它标识了虚构设备，该设备位于设 备树中，作为根节点的子节点。 对于真实的硬件，不要选择“硬件 ID 驱动程序更新”，而要选择“安装并验证”。 可在驱动程序的信息（INF）文件中看到硬件 ID。 在“解决方案资源管理器”窗口中，转到“KmdfHelloWorld”>“驱动程序文件”，然后双击 KmdfHelloWorld.inf。 硬件 ID 位于 [Standard.NT$ARCH$] 下。 C++ [Standard.NT$ARCH$] %KmdfHelloWorld.DeviceDesc%=KmdfHelloWorld_Device, Root\\KmdfHelloWorld 8. 在“生成”菜单上，选择“部署解决方案”。 Visual Studio 会自动将安装和运行驱动程序所需 的文件复制到目标计算机。 部署可能会需要一两分钟的时间。部署驱动程序时，驱动程序文件将复制到测试计算机上的 %Systemdrive%\\drivertest\\drivers 文件夹。 如果部署期间发生错误，可以查看这些文件是否已复制到测试计算机。 请确认 .inf、.cat、测试证书和 .sys 文件以及其他任何必要的文件均位于 %systemdrive%\\drivertest\\drivers 文件夹中。 有关部署驱动程序的详细信息，请参阅将驱动程序部署到测试计算机。安装驱动程序 将 Hello World 驱动程序部署到目标计算机后，现在安装驱动程序。 如果你之前使用“自动”选项通过 Visual Studio 预配了目标计算机，则在预配过程中，Visual Studio 会将目标计算机设置为运行测试签名驱动程序。 现在，你只需使用 DevCon 工具安装驱动程序即可。 1. 在主计算机上，导航到 WDK 安装中的“Tools”文件夹，然后找到 DevCon 工具。 例如，在以下文件夹中查看： C:\\Program Files (x86)\\Windows Kits\\10\\Tools\\x64\\devcon.exe 将 DevCon 工具复制到远程计算机。 2. 在目标计算机上，导航到包含驱动程序文件的文件夹，然后运行 DevCon 工具，以安装驱动程序。 a. devcon 工具的一般语法如下，用于安装驱动程序： devcon 安装 <INF 文件><硬件 ID> 安装此驱动程序所需的 INF 文件是 KmdfHelloWorld.inf。 INF 文件包含用于安装驱动程序二进制文件 KmdfHelloWorld.sys 的硬件 ID。 请注意，位于 INF 文件中的硬件 ID 是 Root\\KmdfHelloWorld。 b. 以管理员身份打开命令提示符窗口。 导航到内置驱动程序 .sys 文件所在的文件夹，然后输入以下命令： devcon 安装 kmdfhelloworld.inf root\\kmdfhelloworld 如果收到一条关于 devcon 未被识别的错误消息，请尝试添加 devcon 工具的路径。 例如，如果已将其复制到目标计算机上名为 C:\\Tools 的文件夹，则请尝试使用以下命令： c:\\tools\\devcon install kmdfhelloworld.inf root\\kmdfhelloworld 此时会显示一个对话框，指示测试驱动程序是未签名的驱动程序。 选择“仍然安装此驱动程序”以继续。 x Windows Security Windows can't verify the publisherof this driversoftware Don't install this driver software You should check your manufacturers website forupdated driver software for your device Install this driver software anyway Only install driver software obtained from your manufacturer's website or disc. Unsigned software from other sources may harm your computer or steal information. See details 调试驱动程序 在目标计算机上安装 KmdfHelloWorld 驱动程序后，可以从主计算机远程附加调试器。 x 1. 在主计算机上，以管理员身份打开命令提示符窗口。 切换到 WinDbg.exe 目录。 你将使用 安装 Windows 工具包过程中安装的 Windows 驱动程序工具包 (WDK) 中的 x64 版本 WinDbg.exe。 下面是 WinDbg.exe 的默认路径： C:\\Program Files (x86)\\Windows Kits\\10\\Debuggers\\x64 2. 使用以下命令启动 WinDbg 以连接到目标计算机上的内核调试会话。 端口和密钥的值应该与你预配目标计算机所使用的值相同。 你在部署步骤中使用的值是，端口用 50000，键值 用 1.2.3.4。 K 标志指示这是内核调试会话。 WinDbg -k net:port=50000,key=1.2.3.4 3. 在“调试”菜单上，选择“中断”。 主计算机上的调试器闯入目标计算机。 在“调试程序命令” 窗口中，你可以看到内核调试命令提示符：kd>。 4. 此时，可以试验调试程序，方法是在 kd> 提示符处输入命令。 例如，可以尝试使用以下命令： lm .sympath.reload x KmdfHelloWorld!* 5. 若要让目标计算机再次运行，请从“调试”菜单中选择“执行”，或者按“g”，然后按“Enter”。 6. 若要停止调试会话，请从调试菜单中选择分离调试器。 ） 重要 请确保在退出调试程序之前使用“执行”命令让目标计算机再次运行，否则目标计算机将仍然对你的鼠标和键盘输入无响应，因为它仍在与调试程序通话。 有关驱动程序调试过程的详细分步演练，请参阅调试通用驱动程序 - 分步实验室（回显内核模式）。 有关远程调试的详细信息，请参阅使用 WinDbg 远程调试。 相关文章 Windows 调试工具 调试通用驱动程序 - 分步骤实验(Echo Kernel-Mode) 编写你的第一个驱动程序 教程：基于模板编写通用 Windows 驱动 程序 （UMDF 2）项目• 2025/03/11 本主题介绍如何使用 User-Mode Driver Framework （UMDF） 2 编写 通用 Windows 驱动程序。 你将从 Microsoft Visual Studio 模板开始，然后在单独的计算机上部署并安装驱动程序。 先决条件 按照步骤安装 Windows 驱动程序工具包（WDK）。 安装 WDK 时，将包括适用于 Windows 的 调试工具。 安装 Visual Studio 2022 。 安装 Visual Studio 2022 时，选择使用 C++ 进行桌面 开发工作负荷，然后在单独组件下添加： MSVC v143 - VS 2022 C++ ARM64/ARM64EC Spectre 缓解库（最新版本） MSVC v143 - VS 2022 C++ x64/x86 Spectre 缓解库（最新版本） 带有 Spectre 缓解库的适用于最新 v143 生成工具的 C++ ATL(ARM64/ARM64EC) 带有 Spectre 缓解库的适用于最新 v143 生成工具的 C++ ATL (x86 & x64) 带有 Spectre 缓解库的适用于最新 v143 生成工具的 C++ MFC(ARM64/ARM64EC) 带有 Spectre 缓解库的适用于最新 v143 生成工具的 C++ MFC (x86 & x64) Windows 驱动程序工具包 创建和生成驱动程序７ 备注 创建新的 KMDF 或 UMDF 驱动程序时，必须选择包含 32 个字符或更少字符的驱动程序名称。 此长度限制在 wdfglobals.h 中定义。 1. 打开 Visual Studio。 在“文件”菜单上，选择“新建 > 项目”。 2. 在“创建新项目 对话框中，选择左侧下拉列表中的 C++，在中间下拉列表中选择 Windows，然后选择右侧下拉列表中的 驱动程序。 3. 从项目类型列表中选择 用户模式驱动程序（UMDF V2）。 选择“下一步”。 Create a new project Recent project templates User Mode Driver(UMDF V2) User Mode Driver, USB (UMDF V2) Printer Driver V4 i Console App Empty Project Console App (.NET Framework)  提示 C++ C++ C++ C++ C++ C# Search for templates (Alt+S) C++ drivers by default. C++ Windows Windows Driver User Mode Driver (UMDF V2) p Driver □ Clear all A basic project using the User-Mode Driver Framework v2 (UMDF2). Builds Universal drivers by default. C++ Windows Driver User Mode Driver, Empty (UMDF V2) An empty project using the User-Mode Driver Framework v2 (UMDF2). Builds Universal drivers by default. C++ Windows Empty WDM Driver Driver An empty project for creating a WDM driver C++ o Windows Printer Driver V4 Driver Back Next 如果在 Visual Studio 中找不到驱动程序项目模板，WDK Visual Studio 扩展未 x 正确安装。 若要解决此问题，请启动 Visual Studio Installer，选择 \"修改\"，然后在 \"单个组件\" 选项卡中添加 Windows 驱动程序工具包，最后选择 \"修改\"。 4. 在 配置新项目 对话框中，在 项目名称 字段中输入“UmdfDriver”。 ７ 备注 创建新的 KMDF 或 UMDF 驱动程序时，必须选择包含 32 个字符或更少字符的驱动程序名称。 此长度限制在 wdfglobals.h 中定义。 5. 在 位置 字段中，输入要创建新项目的目录。 6. 选中“将解决方案和项目置于同一目录中”，然后选择“创建”。 Configure your new project User Mode Driver (UMDF V2) Project name UmdfDriver Location C:\\projects Solution name UmdfDriver 6 C++ Place solution and project in the same directory Windows Driver Back □ Create x Visual Studio 创建一个项目和一个解决方案。 可以在 解决方案资源管理器 窗口中看到它们。 （如果 解决方案资源管理器 窗口不可见，请从 视图 菜单中选择 解决方案资源管理器。该解决方案有一个名为 UmdfDriver 的驱动程序项目。 若要查看驱动程序源代码，请打开 源文件下的任何文件。 Driver.c 和 Device.c 是开始的好位置。 Solution Explorer ·司 Search Solution Explorer (Ctrl+;) Solution 'UmdfDriver' (1 of 1 project) 图UmdfDriver > D v 解决方案资源管理器 References External Dependencies 四 H S A p Driver Files Header Files Resource Files Source Files Device.c Driver.c Queue.c ReadMe.txt Solution Explorer Team Explorer 品 →x p- 7. 在 解决方案资源管理器 窗口中，选择并按住（或右键单击）解决方案 “UmdfDriver”（共 1 个项目），然后选择 配置管理器。 为驱动程序项目选择配置和平台。 例如，选择 调试 和 x64。 8. 在 解决方案资源管理器 窗口中，选择并按住 UmdfDriver （或右键单击），然后选择 属性。 导航到 配置属性 > 驱动程序设置 > 常规，请注意，目标平台 默认为 通用。 9. 若要生成驱动程序，请从 生成 菜单中选择 生成解决方案。 Microsoft Visual Studio 在 输出 窗口中显示生成进度。 （如果 输出 窗口不可见，请从 视图 菜单中选择 输出。 验证生成输出是否包括： syntax > Driver is 'Universal'. 验证解决方案是否已成功生成后，可以关闭 Visual Studio。 10. 若要查看生成的驱动程序，请在文件资源管理器中转到 UmdfDriver 文件夹，然后 x64\\Debug\\UmdfDriver。 该目录包括以下文件： UmdfDriver.dll - 用户模式驱动程序文件 UmdfDriver.inf -- 安装驱动程序时 Windows 使用的信息文件部署并安装通用 Windows 驱动程序 通常在测试和调试驱动程序时，调试器和驱动程序在单独的计算机上运行。 运行调试器的计算机称为 主计算机，运行驱动程序的计算机称为 目标计算机。 目标计算机也称为 测试计算机。） 重要 到目前为止，你已使用 Visual Studio 在主计算机上生成驱动程序。 现在需要配置目标计算机。 按照预配计算机以便进行驱动程序部署和测试 (WDK 10) 中的说明进行操作。 然后，便可以部署、安装、加载和调试驱动程序。 1. 在主计算机上，在 Visual Studio 中打开解决方案。 可以在 UmdfDriver 文件夹中双击解决方案文件UmdfDriver.sln。 2. 在 解决方案资源管理器 窗口中，选择并按住 UmdfDriver （或右键单击），然后选择 属性。 3. 在“UmdfDriver 属性页”窗口中，依次转到“配置属性”>“驱动程序安装”>“部署”，如此处所示。 4. 在部署 之前检查删除以前的驱动程序版本。 5. 对于 目标设备名称，请选择配置为测试和调试的计算机的名称。 6. 选择 硬件 ID 驱动程序更新，然后输入驱动程序的硬件 ID。 在本练习中，硬件 ID 为 Root\\UmdfDriver。 选择“确定”。 UmdfDriver Property Pages Configuration:",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "Clear",
+        "Dependencies",
+        "DevCon",
+        "Echo",
+        "Framework",
+        "Manager",
+        "Property",
+        "Security",
+        "Source"
+      ],
+      "confidence": 0.5,
+      "_source_line": 373
+    },
+    {
+      "id": "windows::WDF_NO_HANDLE",
+      "name": "WDF_NO_HANDLE",
+      "entity_type": "unknown",
+      "description": "); return status;} DriverEntry 是所有驱动程序的入口点，就像 Main() 适用于许多用户模式应用程序一样。 DriverEntry 的任务是初始化驱动程序范围的结构和资源。 在此示例中，你在 DriverEntry中打印了“Hello World”，将驱动程序对象配置为注册 EvtDeviceAdd 回调的入口点，接着创建驱动程序对象并返回。 驱动程序对象充当你可能在驱动程序中创建的所有其他框架对象的父对象，这些框架对象包括设备对象、I/O 队列、计时器、旋转锁等。 有关框架对象的详细信息，请参阅框架对 象简介。  提示 对于 DriverEntry，我们强烈建议将名称保留为“DriverEntry”，以便进行代码分析和调试。 4. 接下来，使用以下代码编写 KmdfHelloWorldEvtDeviceAdd： C NTSTATUS",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "DriverEntry",
+        "KmdfHelloWorldEvtDeviceAdd"
+      ],
+      "confidence": 0.5,
+      "_source_line": 374
+    },
+    {
+      "id": "windows::KmdfHelloWorldEvtDeviceAdd",
+      "name": "KmdfHelloWorldEvtDeviceAdd",
+      "entity_type": "unknown",
+      "description": "_In_ WDFDRIVER Driver, _Inout_ PWDFDEVICE_INIT DeviceInit ){ // We're not using the driver object, // so we need to mark it as unreferenced",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "DeviceInit",
+        "PWDFDEVICE_INIT"
+      ],
+      "confidence": 0.35,
+      "_source_line": 385
+    },
+    {
+      "id": "windows::UNREFERENCED_PARAMETER",
+      "name": "UNREFERENCED_PARAMETER",
+      "entity_type": "unknown",
+      "description": "(Driver); NTSTATUS status; // Allocate the device object WDFDEVICE hDevice; // Print \"Hello World\"",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 390
+    },
+    {
+      "id": "windows::Active",
+      "name": "Active",
+      "entity_type": "unknown",
+      "description": "Debug) Configuration Properties General Advanced Debugging VC++ Directories C/C++ Linker Driver Settings Driver Install Package Files Deployment Driver Verification KMDF Verifier UMDF Verifier Build Events Stamplnf Inf2Cat Driver Signing ≥ Wpp Tracing Message Compiler Counters Manifest Preproces Code Analysis ApiValidator < ７ 备注 Platform: Target Device Name: MyTestComputer X64 Remove previous driver versions before deployment Driver Installation Options O Do Not Install O Hardware ID Driver Update Root\\KmdfDriver O Custom Command Line O Install/Reinstall and Verify Default Driver Package Installation Task (possible reboot) Optional Arguments O Fast Reinstall Devices Printers OK ？ X Configuration Manager... Additional Files <Edit...> Cancel Apply 在本练习中，硬件 ID 不标识真实的硬件。 它标识了虚构设备，该设备位于设备树中，作为根节点的子节点。 对于真实的硬件，不要选择“硬件 ID 驱动程序更新” ，而要选择“安装并验证” 。 你将在驱动程序的信息 (INF) 文件中看到硬件 ID。 在“解决方案资源管理器”窗口中，转到“KmdfDriver”>“驱动程序文件”， 然后双击 KmdfDriver.inf。 硬件 ID 位于 [Standard.NT$ARCH$] 下。 C++ [Standard.NT$ARCH$] %KmdfDriver.DeviceDesc%=KmdfDriver_Device, Root\\KmdfDriver 8. 在“生成”菜单上，选择“部署解决方案”。 Visual Studio 会自动将安装和运行驱动程 序所需的文件复制到目标计算机。 此操作可能会需要一两分钟的时间。部署驱动程序时，驱动程序文件将复制到测试计算机上的 %Systemdrive%\\drivertest\\drivers 文件夹。 如果部署期间发生错误，可以查看这些文件是否已复制到测试计算机。 请确认 .inf、.cat、测试证书和 .sys 文件以及其他任何必要的文件均位于 %systemdrive%\\drivertest\\drivers 文件夹中。 有关部署驱动程序的详细信息，请参阅将驱动程序部署到测试计算机。 安装驱动程序 将 KMDF 驱动程序部署到目标计算机后，现在你将安装该驱动程序。 如果你之前使用“自动”选项通过 Visual Studio 预配了目标计算机，则在预配过程中，Visual Studio 会将目标计算机设置为运行测试签名驱动程序。 现在，你只需使用 DevCon 工具安装驱动程序即可。 1. 在主计算机上，导航到 WDK 安装中的“Tools”文件夹，然后找到 DevCon 工具。 例如，在以下文件夹中查看： C:\\Program Files (x86)\\Windows Kits\\10\\Tools\\x64\\devcon.exe 将 DevCon 工具复制到远程计算机。 2. 在目标计算机上，导航到包含驱动程序文件的文件夹，然后运行 DevCon 工具，以安装驱动程序。 a. 以下是将用于安装驱动程序的 devcon 工具的常规语法： devcon install <INF file><hardware ID> 安装此驱动程序所需的 INF 文件是 KmdfDriver.inf。 INF 文件包含用于安装驱动程序二进制文件 KmdfDriver.sys 的硬件 ID。 回想一下，位于 INF 文件中的硬件 ID 为 Root\\KmdfDriver。 b. 以管理员身份打开命令提示符窗口。 导航到你的驱动程序包文件夹，然后输入以下命令： devcon install kmdfdriver.inf root\\kmdfdriver 如果你收到一条关于 devcon 未被识别的错误消息，请尝试添加 devcon 工具的路径。 例如，如果已将其复制到目标计算机上名为 C:\\Tools 的文件夹，则请尝试使用以下命令： c:\\tools\\devcon install kmdfdriver.inf root\\kmdfdriver 此时将显示一个对话框，指示测试驱动程序是未签名驱动程序。 选择“仍然安装此驱动程序”以继续。 x Windows Security Windows can't verify the publisherof this driversoftware Don't install this driver software You should check your manufacturers website forupdated driver software for your device Install this driver software anyway Only install driver software obtained from your manufacturer's website or disc. Unsigned software from other sources may harm your computer or steal information. See details 调试驱动程序 x 现在，你已在目标计算机上安装了 KMDF 驱动程序，你将从主计算机远程连接调试程序。 1. 在主计算机上，以管理员身份打开命令提示符窗口。 转到 WinDbg.exe 目录。 我们将使用安装 Windows 工具包过程中安装的 Windows 驱动程序工具包 (WDK) 中的 x64 版本 WinDbg.exe。 下面是 WinDbg.exe 的默认路径： C:\\Program Files (x86)\\Windows Kits\\10\\Debuggers\\x64 2. 使用以下命令启动 WinDbg 以连接到目标计算机上的内核调试会话。 端口和密钥的值应该与你预配目标计算机所使用的值相同。 我们将使用 50000 作为端口，使用 1.2.3.4 作为密钥。我们在部署步骤中使用过这些值。 K 标志指示这是内核调试会话。 WinDbg -k net:port=50000,key=1.2.3.4 3. 在“调试”菜单上，选择“中断”。 主计算机上的调试程序将中断目标计算机。 在“调试程序命令”窗口中，你可以看到内核调试命令提示符：kd> 。 4. 此时，可以试验调试程序，方法是在 kd> 提示符处输入命令。 例如，可以尝试使用以下命令： lm .sympath.reload x KmdfHelloWorld!* 5. 若要让目标计算机再次运行，请从“调试”菜单中选择“执行”，或者按“g”，然后按“Enter”。 6. 若要停止调试会话，请从“调试”菜单中选择“分离调试程序”。 ） 重要 请确保在退出调试程序之前使用“执行”命令让目标计算机再次运行，否则目标计算机将仍然对你的鼠标和键盘输入无响应，因为它仍在与调试程序通话。 有关驱动程序调试过程的详细分步演练，请参阅调试通用驱动程序 - 分步实验室（回显内核模式）。 有关远程调试的详细信息，请参阅使用 WinDbg 远程调试。使用驱动程序模块框架 (DMF) 驱动程序模块 Framework (DMF) 是 WDF 的一个扩展，可为 WDF 驱动程序开发人员提 供额外的功能。 它可以帮助开发人员更快、更好地编写任何类型的 WDF 驱动程序。作为一个框架，DMF 可用于创建称作“DMF 模块”的 WDF 对象。 可以在不同的驱动程序之间共享这些 DMF 模块的代码。 此外，DMF 捆绑了为我们为驱动程序开发的 DMF 模块库，可为其他驱动程序开发人员提供价值。 DMF 不会取代 WDF。 DMF 是与 WDF 搭配使用的另一个框架。 利用 DMF 的开发人员仍需使用 WDF 及其所有基元来编写设备驱动程序。 有关详细信息，请参阅驱动程序模块框架 (DMF) 相关主题 开发、测试以及部署驱动程序 Windows 调试工具 。 调试通用驱动程序 - 分步实验室（回显内核模式）编写你的第一个驱动程序 从示例代码到生产驱动程序 - WDK 示例 中的具体更改项目• 2024/09/27 本主题介绍了在根据示例代码发布设备驱动程序之前，需要对 WDK 示例驱动程序进行的重要更改。 除了此处所述的更改，所有驱动程序还应采用创建可靠的内核模式驱动程序和 Surface 团队驱动程序开发最佳做法中所述的最佳做法。 所有驱动程序还应遵循驱动程序安全指南中提供的准则。 WDK 驱动程序示例 - 唯一标识符 Windows 驱动程序工具包 (WDK) 包含各种示例驱动程序，它们演示了用于驱动程序开发的有用技术。 你可使用这些示例作为你自己的驱动程序的基础，但在发布驱动程序之前，除了明显的操作代码外，还必须更改示例中某些特定于设备的方面，才能唯一地应用于你自己的设备和驱动程序。 驱动程序编写人员有时会忽略这些详细信息。 必须更改的确切项目因示例而异，但是在通常情况下，它们会标识特定设备、接口或驱动程序。 例如，如果示例驱动程序包含以下任何项，必须将其更改为适用于你的驱动程序和设备： 全局唯一标识符 (GUID) 符号链接名称设备对象名称池标记 I/O 控制代码 (IOCTL) 定义 复制到系统文件夹的任何文件的名称即插即用设备 ID、硬件 ID 和兼容 ID 驱动程序服务名称 设备说明资源文件 如果忘记进行这些更改，可能会导致安装失败，与系统上的其他设备和驱动程序冲突，调试困难，还可能导致其他错误。 例如，如果收到 ...\\toastDrv\\kmdf\\toastmon\\wdftoastmon.inx(18-18): error 1284: Class \"Sample\" is reserved for use by Microsoft. 之类的错误，则表示必须将“Sample” 名称更改为示例驱动程序的唯一名称。 GUID 驱动程序使用 GUID 来标识设备安装程序类、设备接口类、自定义 PnP 事件、自定义 Windows Management Instrumentation (WMI) 事件和 Windows 预处理器 (WPP) 跟踪提供程序。 一些 GUID 由 Microsoft 定义，其他 GUID 由设备和驱动程序供应商定义。 用于常见设备和 WMI 数据的设备安装程序类 GUID、设备接口类 GUID 和 WMI GUID 是 在 WDK 或公共头文件中定义的，可供任何驱动程序使用。 不应更改这些 GUID。例如，如果要实现鼠标，可继续使用在 WDK Ntddmou.h 头文件中定义的",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "Apply",
+        "Arguments",
+        "Cancel",
+        "Command",
+        "Counters",
+        "DevCon",
+        "Framework",
+        "Manager",
+        "Message",
+        "Security"
+      ],
+      "confidence": 0.35,
+      "_source_line": 641
+    },
+    {
+      "id": "windows::GUID_DEVINTERFACE_MOUSE",
+      "name": "GUID_DEVINTERFACE_MOUSE",
+      "entity_type": "constant",
+      "description": "作为设备接口类。但是，如果定义新的设备安装程序类，则必须生成新的设备安装程序类 GUID 和安装程序类名称，还可生成新的设备接口类 GUID。 安装程序类 GUID 和设备接口类 GUID 必须是唯一值；它们不能共享 GUID。 对于大多数基于示例的驱动程序，只应更改在示例的本地头文件或源文件中定义的，因此特定于示例的 GUID。 这类 GUID 可能包括下列各项： 自定义 PnP 事件自定义 WMI 事件 新设备或自定义设备的设备接口类 WPP 跟踪提供程序 如果在同一系统上加载两个驱动程序，则使用已为另一个驱动程序定义的 GUID 可能会导致冲突。 例如，如果两个不同的驱动程序使用同一个 GUID 来注册设备接口，则尝试打开设备接口的客户端可能会无意中打开错误的设备。 以下摘录来自所有 Toaster 驱动程序示例中包含的 Driver.h 文件。 它定义了适用于 Toaster 设备的设备接口 GUID：",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1189
+    },
+    {
+      "id": "windows::DEFINE_GUID",
+      "name": "DEFINE_GUID",
+      "entity_type": "unknown",
+      "description": "(GUID_TOASTER_INTERFACE_STANDARD, \\ 0xe0b27630, 0x5434, 0x11d3, 0xb8, 0x90, 0x0, 0xc0, \\ 0x4f, 0xad, 0x51, 0x71); // {E0B27630-5434-11d3-B890-00C04FAD5171} 如果在自己的驱动程序中使用此文件，请确保将上面粗体显示的示例 GUID 替换为你自己的设备的接口 GUID。 若要创建 GUID，请使用 Microsoft Visual Studio 或 Guidgen.exe 中的“创建 GUID”工具，这二者都包含在 Microsoft Windows 软件开发工具包 (SDK) 中。然后，可将 GUID 与驱动程序头文件中的符号常数相关联，如示例所示。 你可能还需要为驱动程序的 WMI 事件创建新的 GUID。 Toaster 驱动程序示例定义以下 GUID，来获取 Toaster 设备到达通知：",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 1195
+    },
+    {
+      "id": "windows::WPP_DEFINE_CONTROL_GUID",
+      "name": "WPP_DEFINE_CONTROL_GUID",
+      "entity_type": "unknown",
+      "description": "( \\ OsrUsbFxTraceGuid,(d23a0c5a,d307,4f0e,ae8e,E2A355AD5DAB), \\ WPP_DEFINE_BIT(DBG_INIT) /* bit 0 = 0x00000001 */ \\ WPP_DEFINE_BIT(DBG_PNP) /* bit 1 = 0x00000002 */ \\ WPP_DEFINE_BIT(DBG_POWER) /* bit 2 = 0x00000004 */ \\ WPP_DEFINE_BIT(DBG_WMI) /* bit 3 = 0x00000008 */ \\ WPP_DEFINE_BIT(DBG_CREATE_CLOSE) /* bit 4 = 0x00000010 */ \\ WPP_DEFINE_BIT(DBG_IOCTL) /* bit 5 = 0x00000020 */ \\ WPP_DEFINE_BIT(DBG_WRITE) /* bit 6 = 0x00000040 */ \\ WPP_DEFINE_BIT(DBG_READ) /* bit 7 = 0x00000080 */ \\ ) 在你自己的驱动程序中，你将使用特定于驱动程序的名称和你创建的 GUID 来替换粗体文本。 符号链接名称 如果示例定义了符号链接名称，请将示例中的名称替换为适用于你自己的驱动程序的名称。 但是，请不要更改常见链接名称，例如 \\DosDevices\\COM1。 通常，如果链接名称非常类似于示例名称（例如 \\DosDevices\\CancelSamp），则应更改此名称。 使用与另一驱动程序相同的符号链接与使用错误的设备接口 GUID 具有相同的效果，因为设备接口本质上是符号链接。 %WinDDK\\Src\\Kmdf\\Toaster\\Filter 中的 KMDF Toaster Filter 驱动程序创建一个符号链接名称，它使用在 Filter.h 头文件中如下定义的字符串： #define SYMBOLIC_NAME_STRING L\"\\\\DosDevices\\\\ToasterFilter\" 更改粗体字符串来更准确地描述自己的驱动程序。设备对象名称 如果示例创建了设备对象的名称，则在修改示例代码时必须更改该名称。 KMDF Toaster Filter 驱动程序在 Filter.h 头文件中为其设备对象命名，如下所示：#define NTDEVICE_NAME_STRING L\\\\Device\\\\ToasterFilter 与符号链接名称一样，你应更改字符串来描述你的驱动程序。 请记住，命名设备对象可能会带来安全风险。 物理设备对象 (PDO) 必须具有名称，并且大多数此类名称是系统生成的，而不是由驱动程序显式分配。 仅当其他设备对象代表控制设备对象（用于应用程序和驱动程序之间的边带通信）时，才应命名这些对象。 通过内核模式驱动程序框架 (KMDF) 和 Windows 驱动程序模型 (WDM)，可要求 Windows 生成名称。 此方法可确保设备对象的名称是唯一的，并且没有特权的用户无法访问它。 有关详细信息，请参阅控制设备命名空间访问权限和控制 KMDF 驱动程序中的设备访问权限。 池标记 池标记是一个由 4 个字符组成的文本，用于标识特定内存分配，有助于进行调试。许多示例驱动程序在驱动程序头文件中定义了一个池标记，如 Toaster.h 中的以下行所示： #define TOASTER_POOL_TAG (ULONG) 'saoT' 由于调试程序以相反顺序显示标记，因此驱动程序将向后定义标记。 因此，此标记在调试程序输出中显示为 Toas。 不要使用此示例定义的标记，而应更改字符串来唯一标识自己的代码。 Pooltag.txt 文件列出了 Windows 提供的内核模式组件和驱动程序所使用的池标记。 Pooltag.txt 与 WDK 一并安装在 %winddk%\\Tools\\Other<i>platform\\Poolmon 中，其中 platform 是 amd64、i386 或 ia64。 不要使用此列表中出现的任何标记。 IOCTL 定义 更改任何示例定义的 I/O 控制代码来使用适用于你的设备和驱动程序的名称、设备类型、功能代码、传输类型和访问类型。 例如，对于 IOCTL_OSRUSBFX2_READ_SWITCHES，Osrusbfx2 示例包括以下定义：#define IOCTL_OSRUSBFX2_READ_SWITCHES",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "WPP_DEFINE_BIT"
+      ],
+      "confidence": 0.5,
+      "_source_line": 1207
+    },
+    {
+      "id": "windows::CTL_CODE",
+      "name": "CTL_CODE",
+      "entity_type": "unknown",
+      "description": "(FILE_DEVICE_OSRUSBFX2, \\",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 1233
+    },
+    {
+      "id": "windows::IOCTL_INDEX",
+      "name": "IOCTL_INDEX",
+      "entity_type": "ioctl",
+      "description": "+ 6, \\ METHOD_BUFFERED, \\ FILE_READ_ACCESS) 适用于不同设备的基于示例的驱动程序需要修改此定义。文件名 在 INF 或 INX 中，更改驱动程序的名称、供应商提供的辅助安装程序，以及安装过程复制到系统文件夹的任何其他文件。 这些文件名通常出现在 INF 的 [SourceDisksFiles] and[ClassInstall32] 部分和 CopyFiles 条目中。 以下示例来自用于 KMDF Featured Toaster 示例的 INX 文件 - 可在 %WinDDK%\\src\\kmdf\\Toaster\\Func\\Featured 中获取此示例。 必须更改的文件名以粗体显示： [ClassInstall32] Addreg=ToasterClassReg CopyFiles=ToasterClassInstallerCopyFileshighlight [ToasterClassReg]... HKR,,Installer32,,\"tostrcls.dll,ToasterClassInstaller\"... [ToasterClassInstallerCopyFiles] tostrcls.dll... 若要针对其他驱动程序修改文件的这一部分，需要将“tostrcls.dll”更改为你的类安装程序的文件名，并更改“ToasterClassInstaller”字符串来描述你自己的安装程序。 这些更改可确保安装过程复制正确的辅助安装程序文件，并确保该注册表项记录正确的文件名。 请勿更改在 WDK 中提供或 Windows 附带的辅助安装程序的名称，例如 KMDF、UMDF 和 WinUSB 辅助安装程序。 稍后需要在文件的“设备安装”部分进行其他更改，如以下示例中所示：[Toaster_Device.NT] CopyFiles=Toaster_Device.NT.Copy [Toaster_Device.NT.Copy] wdffeatured.sys 在此示例中，将粗体文件名更改为生成的驱动程序文件的名称。 安装程序在复制 INF 和驱动程序目录文件时，会将其重命名，因此没有严格要求你在驱动程序包中更改其名称。 不过，通常最好确保 INF 和目录文件名与驱动程序文件名相似。 PnP 设备 ID、硬件 ID 和兼容 ID 安装程序将设备 ID 与硬件 ID 和兼容 ID 一起使用来选择要用于设备安装的 INF。设备 ID 是供应商提供的字符串，可唯一标识特定设备。 每台设备都恰好有一个设备 ID。 总线驱动程序在枚举过程中报告设备 ID，安装程序使用它将设备与正确的 INF 文件进行匹配。 设备 ID 在 INF 的 [Manufacturer] 部分定义。 以下示例显示了 OSR USB Fx2 设备的设备 ID，如 Osrusbfx2.inx 文件中指定：[Manufacturer] %MfgName%=Microsoft,NT$ARCH$ ; For Win2K[Microsoft] %USB\\VID_045E&PID_930A.DeviceDesc%=osrusbfx2.Dev, USB\\VID_0547&PID_1002... ; For XP and later[Microsoft.NT$ARCH$] %USB\\VID_045E&PID_930A.DeviceDesc%=osrusbfx2.Dev, USB\\VID_0547&PID_1002 若要针对你自己的驱动程序调整此 INF 指令，请将粗体显示的设备 ID 替换为自己的设备的 ID。 还应将制造商名称更改为你的公司的名称。 如果无法将设备 ID 与 INF 匹配，则硬件 ID 和兼容 ID 是安装程序使用的不太具体的 ID。如果 INF 可支持其他设备，则除了设备 ID 之外，还应更改这些值。 KMDF Featured Toaster 驱动程序中的以下示例显示了硬件 ID：[Manufacturer] %StdMfg%=Standard,NT$ARCH$ ; For Win2K[Standard] ; DisplayName Section DeviceId; ----------- ------- --------%ToasterDevice.DeviceDesc%=Toaster_Device, {b85b7c50-6a01-11d2-b841-00c04fad5171}\\MsToaster ; For XP and later[Standard.NT$ARCH$] %ToasterDevice.DeviceDesc%=Toaster_Device, {b85b7c50-6a01-11d2-b841-00c04fad5171}\\MsToaster 若要针对你自己的驱动程序调整此 INF 指令，请将硬件 ID 替换为你的驱动程序的设备 ID，将“MsToaster”更改为更具描述性的字符串。驱动程序服务名称 将 INF 中的 AddService 指令中的服务名称更新为适合你的驱动程序的值。 如果驱动程序服务名称与系统上另一个驱动程序的名称冲突，则不会安装或加载该驱动程序。 KMDF Featured Toaster 驱动程序按如下所示命名其服务：[Toaster_Device.NT.Services] AddService = wdffeatured, %SPSVCINST_ASSOCSERVICE%, wdffeatured_Service_Inst 服务名称是 AddService 指令中的第一个条目。 若要修改 Featured Toaster 的 INF，需要将粗体字符串更改为更适合你的驱动程序的字符串。 在示例中， wdffeatured_Service_Inst 条目仅引用 INF 定义的部分，因此更改它并不重要。设备说明 设备说明由多个字符串组成，这些字符串通常在 INF 的 [Strings] 部分中定义的，并且在整个 INF 的各个位置使用。 例如，KMDF Featured Toaster 示例在 WdfFeatured.inx 文件中定义了以下字符串： [Strings]",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "ClassInstall32",
+        "Copy",
+        "METHOD_BUFFERED",
+        "SPSVCINST_ASSOCSERVICE",
+        "WinUSB"
+      ],
+      "confidence": 0.65,
+      "_source_line": 1234
+    },
+    {
+      "id": "windows::SPSVCINST_ASSOCSERVICE",
+      "name": "SPSVCINST_ASSOCSERVICE",
+      "entity_type": "unknown",
+      "description": "= 0x00000002 MSFT = \"Microsoft\" StdMfg = \"(Standard system devices)\" ClassName = \"Toaster\" DiskId1 = \"Toaster Device Installation Disk #1\" ToasterDevice.DeviceDesc = \"Microsoft WDF Featured Toaster\" Toaster.SVCDESC = \"Microsoft WDF Toaster Featured Device Driver\" 若要修改此文件来安装自己的驱动程序，应更改粗体字符串以反映你的公司、设备和驱动程序的相关信息。 如果公司名称也出现在 INF 的 [Manufacturer] 部分，则还必须更改此处的名称。资源文件 驱动程序和其他组件（例如特定于示例的辅助安装程序）也具有资源 (.rc) 文件，这些文件定义了特定于驱动程序的字符串，包括产品名称、文件版本和公司名称。 将这些字符串更改为适合你的驱动程序包的值。 总结 - 应执行哪些操作？ 在发布基于 WDK 示例的驱动程序之前，请替换用于创建自己的驱动程序的源文件、INF 和任何其他资源中任何特定于示例的信息。 所需的更改因示例而异，但通常包含唯一标识示例驱动程序及其设备的任何信息。 以下是必须进行的典型更改： 在适当时生成和使用特定于你的驱动程序的 GUID。更新符号链接名称。 更新设备对象的名称或使用自动生成的名称。 使用可标识驱动程序且不与任何已知标记冲突的池标记。 定义适合你的驱动程序和设备的 IOCTL 代码。更新复制到系统文件夹的任何文件的名称。 在 INF 中插入正确的即插即用设备 ID、硬件 ID 和兼容 ID。 在 INF 中更新驱动程序的服务名称。更改设备说明。 修改资源文件中任何特定于驱动程序的字符串。 遵循有关安全性和可靠性的最佳做法 其他信息书籍 《使用 Windows Driver Foundation 开发驱动程序》(Developing Drivers with the Windows Driver Foundation)，作者：Penny Orwick 和 Guy Smith WDK 主题定义和导出新 GUID 在 KMDF 驱动程序中控制设备访问权限 开发、测试以及部署驱动程序创建可靠的内核模式驱动程序 Surface 团队驱动程序开发最佳实践驱动程序安全指南 编写你的第一个驱动程序反馈 是 否 预配计算机以便进行驱动程序部署和测试 (WDK 10) 项目• 2024/09/27 预配目标计算机或测试计算机是配置计算机以自动部署、测试和调试驱动程序的过程。要预配计算机，请使用 Microsoft Visual Studio。 一个测试和调试环境具有两台计算机：主计算机和目标计算机。 目标计算机也称为“测试计算机”。 在主计算机上的 Visual Studio 中开发和构建驱动程序。 调试程序在主机上运行并且位于 Visual Studio 用户界面中。 当测试和调试驱动程序时，驱动程序在目标计算机上运行。 确保主机和目标计算机可以通过名称互相 ping。 如果两台电脑都属于同一个工作组或网络域，那么这一过程就比较简单。 如果计算机位于工作组中，请使用路由器而不是集线器或交换机连接它们。 为部署驱动程序调配系统时，主机和目标计算机必须使用相同版本的 Windows 操作系统。  提示 有关 WDK 上的社区支持，请参阅 Microsoft Q&A 上的 Windows 硬件性能论坛。准备要预配的目标计算机 1. 在目标计算机上，安装将用于运行和测试驱动程序的操作系统。 2. 安装 WDK。 只有计划在目标计算机上进行驱动程序开发时，才需要安装 Visual Studio。 3. 如果目标计算机启用了安全启动，请将其禁用。 有关统一可扩展固件接口 (UEFI) 和安全启动的信息，请参阅 UEFI 固件。 4. 如果目标计算机是 VM，则应在非增强模式下启动它，以便禁用 VM 增强模式配置，请参阅与虚拟机共享设备 5. 如果要在目标计算机上部署测试驱动程序，请使用 bcdedit /set testsigning 从提升的命令启用测试签名。 6. 如果要使用 WDTF 测试驱动程序，请确保使用属性页启用驱动程序验证程序，并在部署后重启目标计算机 在主计算机上，在 Visual Studio 中右键单击驱动程序项目，前往属性 > 配置属性 > 驱动程序安装 > 驱动程序验证 > 启用驱动程序验证 7. 在目标计算机上，运行与目标计算机平台匹配的 WDK 测试目标设置 MSI。 可以在 Remote 下的 Windows 驱动程序工具包 (WDK) 安装目录中找到该 MSI。 示例：C:\\Program Files (x86)\\Windows Kits\\10\\Remote\\x64\\WDK Test Target Setup x64-x64_en-us.msi 8. 如果目标计算机运行的是 Windows Server，请查找刚才通过 WDK 测试目标设置 MSI 创建的 DriverTest 文件夹。 （示例：c:\\DriverTest）。 选择并按住（或右键选择）DriverTest 文件夹，然后选择属性。 在“安全性”选项卡上，向“经过身份验证的用户”组授予“修改”权限。 验证主计算机和目标计算机是否可以彼此 ping 通。 打开命令提示符窗口，输入“ping ComputerName”。 如果主计算机和目标计算机已加入到一个工作组，但位于不同的子网上，则可能必须调整某些防火墙设置，以便主计算机和目标计算机可以通信。 执行以下步骤： 1. 在目标计算机上的“控制面板”中，转到“网络和 Internet”>“网络共享中心”。 请注意活动网络。 这将是公用网络、专用网络或域。 2. 在目标计算机上的“控制面板”中，转到“系统和安全”>“Windows 防火墙”>“高级设置”>“入站规则”。 3. 在入站规则列表中，查找用于活动网络的所有网络发现规则。 （例如，查找配置文件为专用的所有网络发现规则。）双击每个规则并打开作用域选项卡。在远程 IP 地址下选择任意 IP 地址。 4. 在入站规则列表中，查找用于活动网络的所有“文件和打印机共享”规则。 对于其中每个规则，双击该规则，然后打开作用域选项卡。在远程 IP 地址下选择任意 IP 地址。 预配目标计算机 现在，可以随时在 Visual Studio 中通过主计算机预配目标计算机。 1. 在主机计算机上的 Visual Studio 中，选择“扩展”菜单，依次指向“驱动程序”和“测试”，然后选择“配置设备”。 2. 在“配置设备”对话框中，选择“添加新设备”。 3. 对于网络主机名，输入目标计算机的名称或本地 IP 地址。 选择“预配设备并选择调试程序设置”。 Device Configuration P Adding a new target device Display name: MyTestComputer Network host name: Provisioning Options OProvision device and choose debugger settings Installs and configures components on the target to allow deploying drivers and running tests from Visual Studio. The specified debug setings will also be set on the target, and the connection validated. OManually configure debuggers and do not provision Sets debuggers settings inVisual Studio to connect to the targetbut does novalidation or provisioning. Show help <Previous 4. 选择下一步。 5. 选择某种调试连接类型，并输入所需的参数。 Next > Finish Cancel x 有关通过各种类型的连接设置调试的详细信息，请参阅 CHM 中的手动设置 KDNET 网络内核调试或 Windows 调试工具的相关文档。 6. 预配过程将需要几分钟时间，并且可能会自动重新启动目标计算机一到两次。 预配完成后，选择“完成”。 7. 重启计算机。",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "Cancel",
+        "ClassName",
+        "ComputerName",
+        "DEVICE_OBJECT",
+        "IoCallDriver",
+        "Network",
+        "Server",
+        "Sets"
+      ],
+      "confidence": 0.5,
+      "_source_line": 1290
+    },
+    {
+      "id": "windows::DRIVER_OBJECT",
+      "name": "DRIVER_OBJECT",
+      "entity_type": "unknown",
+      "description": "DriverExtension AddDevice Startlo Unload MajorFunction [IRP_MJ_CREATE] MajorFunction[IRP_MJ_CREATE_NAMED_PIPE] MajorF unction [IRP_MJ_FILE_SYSTEM_CLOSE] MajorFunction [IRP_MJ_READ] MajorFunction [IRP_MJ_WWRITE] MajorFunction[IRP_MJ_QUERY_INFORMATION] MajorFunction [IRP_MJ_SET_INFORMATION] MajorFunction[IRP_MJ_QUERY_EA] MajorFunction [IRP_MJ_SET_EA] MajorFunction[IRP_MJ_F LUSH_BUFFERS] MajorF unction [IRP_MJ_SET_VOLUME_INFORMATION] MajorFunction [IRP_MJ_DIRECTORY_CONTROL] MajorF unction [IRP_MJ_FILE_SYSTEM_CONTROL] MajorFunction [IRP_MJ_DEVICE_CONTROL] MajorFunction [IRP_MJ_INTERNAL_DEVICE_CONTROL] MajorFunction [IRP_MJ_SHUTDOWN] MajorFunction [IRP_MJ_LOCK_CONTROL] MajorFunction [IRP_MJ_CLEANUP] MajorF unction [IRP_MJ_CREATE_MAILSLOT] MajorFunction [IRP_MJ_QUERY_SECURITY] MajorFunction [IRP_MJ_SET_SECURITY] MajorF unction [IRP_MJ_POWER] MajorFunction [IRP_MJ_SYSTEM_CONTROL] MajorFunction [IRP_MJ_DEVICE_CHANGE] MajorFunction [IRP_MJ_QUERY_QUOTA] MajorFunction [IRP_MJ_SET_QUOTA] MajorFunction [IRP_MJ_PNP] 使用驱动程序对使其更轻松 在一段时间内，当驱动程序开发者身处 Microsoft 获取的 Windows 驱动程序模型 (WDM) 体验内外时，他们意识到有关调度函数的一些事项： 调度函数很大程度上为样本。 例如，用于 IRP_MJ_PNP 的调度函数中的很多代码对于所有驱动程序而言相同。 它仅为即插即用 (PnP) 代码的一小部分，该代码特定于单个驱动程序，该驱动程序控制硬件的单个部分。 调度函数比较复杂且难以用对。 实现功能（如线程同步、IRP 排队以及 IRP 取消）具有挑战性，需要对操作系统的工作原理有着较深的了解。 为了使驱动程序开发者更轻松，Microsoft 创建了多个技术特定的驱动程序模型。 初看之下，技术特定模型似乎彼此差异很大，但细看之后会发现多个模型都基于此范例： 驱动程序拆分为两个部分：一部分负责通用处理，另一部分负责特定于特殊设备的处理。 通用部分由 Microsoft 编写。 特定部分由 Microsoft 或独立硬件供应商编写。 假设 Proseware 和 Contoso 公司生产的机器人玩具都需要使用 WDM 驱动程序。 另假设 Microsoft 提供了名为 GeneralRobot.sys 的通用机器人驱动程序。 Proseware 和 Contoso 各自都可以编写小的驱动程序，用于处理其特定机器人的需求。 例如，Proseware 可以编写 ProsewareRobot.sys，驱动程序对（ProsewareRobot.sys、GeneralRobot.sys）可以合并形成单个的 WDM 驱动程序。 同样，驱动程序对（ContosoRobot.sys、 GeneralRobot.sys）可以合并形成单个的 WDM 驱动程序。 在大部分的通用形式中，理念 是可以使用（specific.sys、general.sys）对来创建驱动程序。驱动程序对中的函数指针 在（specific.sys、general.sys）对中，Windows 会加载 specific.sys 并调用其 DriverEntry 函数。 specific.sys 的 DriverEntry 函数会收到指向 DRIVER_OBJECT 结构的指针。 正常情况下，你期望 DriverEntry 使用指向调度函数的指针来填充 MajorFunction 数组的多个 元素。 你还期望 DriverEntry 填充 DRIVER_OBJECT 结构的 Unload 成员（和可能的 StartIo 成员）和驱动程序对象扩展的 AddDevice 成员。 但是，在驱动程序对模型中， DriverEntry 不需这样做， 只需通过 specific.sys 的 DriverEntry 函数将 DRIVER_OBJECT 结构传递至 general.sys 实现的初始化函数即可。 以下代码示例说明了在（ProsewareRobot.sys、GeneralRobot.sys）对中如何调用初始化函数。 ManagedCPlusPlus PVOID g_ProsewareRobottCallbacks[3] = {DeviceControlCallback, PnpCallback, PowerCallback}; // DriverEntry function in ProsewareRobot.sys NTSTATUS DriverEntry (DRIVER_OBJECT *DriverObject, PUNICODE_STRING RegistryPath){ // Call the initialization function implemented by GeneralRobot.sys. return GeneralRobotInit(DriverObject, RegistryPath, g_ProsewareRobottCallbacks);} GeneralRobot.sys 中的初始化函数编写指向DRIVEROBJECT 结构（及其扩展）的相应成员和 MajorFunction 数组的相应元素的函数指针。 理念为当 I/O 管理器将 IRP 发送至驱动程序对时，IRP 首先转至由 GeneralRobot.sys 实现的调度函数。 如果 GeneralRobot.sys 可以自行处理 IRP，则无需涉及到特定驱动程序 ProsewareRobot.sys。如果 GeneralRobot.sys 可以处理部分但不是全部的 IRP 处理，则它会从由 ProsewareRobot.sys 实现的回调函数之一获取帮助。 GeneralRobot.sys 接收指向 GeneralRobotInit 调用中 ProsewareRobot 回调的指针。 在 DriverEntry 返回的某个点，会构造用于 Proseware Robot 设备节点的设备堆栈。 设备 堆栈可能如下所示。 Proseware Robot Filter DO FDO PDO AfterThought.sys (ProsewareRobot.sys, GeneralRobot.sys) Pci.sys 如上图所示，Proseware Robot 的设备堆栈有三个设备对象。 顶部设备对象为与筛选器驱动程序 AfterThought.sys 关联的筛选器设备对象（筛选器 DO）。 中间设备对象为与驱动程序对（ProsewareRobot.sys、GeneralRobot.sys）关联的功能设备对象 (FDO)。 驱动程序对用作设备堆栈的函数驱动程序。 底部设备对象为与 Pci.sys 关联的物理设备对象(PDO)。 注意，驱动程序对仅占用设备堆栈中的一层并且仅与一个设备对象关联：FDO。 当 GeneralRobot.sys 处理 IRP 时，它可能会调用 ProsewareRobot.sys 以获取帮助，但这不同于沿着设备堆栈向下传递请求。 驱动程序对形成单个的 WDM 驱动程序，该驱动程序位于设备堆栈中的一层。 驱动程序对完成 IRP 或沿着设备堆栈向下传递 IRP 至与 Pci.sys 关联的 PDO。 驱动程序对示例 假设笔记本电脑中有无线网卡，并且通过在“设备管理器”中查找，你确定 netwlv64.sys 为网卡驱动程序。 可以使用 !drvobj 调试程序扩展来检查用于 netwlv64.sys 的函数指针。 syntax 1: kd> !drvobj netwlv64 2 Driver object (fffffa8002e5f420) is for: \\Driver\\netwlv64 DriverEntry: fffff8800482f064 netwlv64!GsDriverEntry DriverStartIo: 00000000 DriverUnload: fffff8800195c5f4 ndis!ndisMUnloadEx AddDevice: fffff88001940d30 ndis!ndisPnPAddDevice Dispatch routines: [00] IRP_MJ_CREATE fffff880018b5530 ndis!ndisCreateIrpHandler [01] IRP_MJ_CREATE_NAMED_PIPE fffff88001936f00 ndis!ndisDummyIrpHandler [02] IRP_MJ_CLOSE fffff880018b5870 ndis!ndisCloseIrpHandler [03] IRP_MJ_READ fffff88001936f00 ndis!ndisDummyIrpHandler [04] IRP_MJ_WRITE fffff88001936f00 ndis!ndisDummyIrpHandler [05] IRP_MJ_QUERY_INFORMATION fffff88001936f00 ndis!ndisDummyIrpHandler [06] IRP_MJ_SET_INFORMATION fffff88001936f00 ndis!ndisDummyIrpHandler [07] IRP_MJ_QUERY_EA fffff88001936f00 ndis!ndisDummyIrpHandler [08] IRP_MJ_SET_EA fffff88001936f00 ndis!ndisDummyIrpHandler [09] IRP_MJ_FLUSH_BUFFERS fffff88001936f00 ndis!ndisDummyIrpHandler [0a] IRP_MJ_QUERY_VOLUME_INFORMATION fffff88001936f00 ndis!ndisDummyIrpHandler [0b] IRP_MJ_SET_VOLUME_INFORMATION fffff88001936f00 ndis!ndisDummyIrpHandler [0c] IRP_MJ_DIRECTORY_CONTROL fffff88001936f00 ndis!ndisDummyIrpHandler [0d] IRP_MJ_FILE_SYSTEM_CONTROL fffff88001936f00 ndis!ndisDummyIrpHandler [0e] IRP_MJ_DEVICE_CONTROL fffff8800193696c ndis!ndisDeviceControlIrpHandler [0f] IRP_MJ_INTERNAL_DEVICE_CONTROL fffff880018f9114 ndis!ndisDeviceInternalIrpDispatch [10] IRP_MJ_SHUTDOWN fffff88001936f00 ndis!ndisDummyIrpHandler [11] IRP_MJ_LOCK_CONTROL fffff88001936f00 ndis!ndisDummyIrpHandler [12] IRP_MJ_CLEANUP fffff88001936f00 ndis!ndisDummyIrpHandler [13] IRP_MJ_CREATE_MAILSLOT fffff88001936f00 ndis!ndisDummyIrpHandler [14] IRP_MJ_QUERY_SECURITY fffff88001936f00 ndis!ndisDummyIrpHandler [15] IRP_MJ_SET_SECURITY fffff88001936f00 ndis!ndisDummyIrpHandler [16] IRP_MJ_POWER fffff880018c35e8 ndis!ndisPowerDispatch [17] IRP_MJ_SYSTEM_CONTROL fffff880019392c8 ndis!ndisWMIDispatch [18] IRP_MJ_DEVICE_CHANGE fffff88001936f00 ndis!ndisDummyIrpHandler [19] IRP_MJ_QUERY_QUOTA fffff88001936f00 ndis!ndisDummyIrpHandler [1a] IRP_MJ_SET_QUOTA fffff88001936f00 ndis!ndisDummyIrpHandler [1b] IRP_MJ_PNP fffff8800193e518 ndis!ndisPnPDispatch 在调试程序输出中，可以看到 netwlv64.sys 实现 GsDriverEntry，驱动程序的入口点。 GsDriverEntry（在生成驱动程序时自动生成）执行一些初始化，然后调用 DriverEntry（由驱动程序开发人员编写）。 在本示例中，netwlv64.sys 实现 DriverEntry，但 ndis.sys 实现 AddDevice、Unload 以及多个调度函数。 Netwlv64.sys 称为 NDIS 微型端口驱动程序，ndis.sys 称为 NDIS 库。 两个模块共同形成（NDIS 微型端口、NDIS 库）对。 此图表示无线网卡的设备堆栈。 注意，驱动程序对（netwlv64.sys、ndis.sys）仅占用设备堆栈中的一层并且仅与一个设备对象关联：FDO。 Wireless network card FDO PDO (Netwlv64.sys, ndis.sys) Pci.sys 可用驱动程序对 不同技术特定的驱动程序模型将大量名称用于驱动程序对的特定部分和通用部分。 在许多情况下，对的特定部分具有前缀“mini”。下面是一些可用的（特定、一般）对： （屏幕微型端口驱动程序，屏幕端口驱动程序）（音频微型端口驱动程序、音频端口驱动程序）（存储微型端口驱动程序，存储端口驱动程序） （电池微型类驱动程序，电池类驱动程序）（HID 微型驱动程序，HID 类驱动程序） （转换器微型类驱动程序、转换器端口驱动程序） （NDIS 微型端口驱动程序、NDIS 库） 注意：正如你在列表中看到的一样，多个模型将术语类驱动程序用作驱动程序对的通用部 分。 此种类驱动程序不同于独立类驱动程序，也不同于类筛选器驱动程序。相关主题 适用于所有驱动程序开发人员的概念设备节点和设备堆栈 驱动程序堆栈反馈 是 否 作为通用驱动程序对模型的 KMDF 项目• 2023/06/15 在本主题中，我们介绍内核模式驱动程序框架可以作为通用驱动程序对模型来查看的这一 思想。 在阅读本主题之前，应了解微型驱动程序和驱动程序对中介绍的思想。在过去的数年里，Microsoft 已创建多个使用此范例的技术特定的驱动程序模型： 驱动程序分为两部分：一部分进行通用处理，另一部分进行特定设备特有的处理。通用部分（称为“框架”）由 Microsoft 编写。 特定部分（称为“KMDF 驱动程序”）可由 Microsoft 或独立硬件供应商编写。 KMDF Driver Pair Framework KMDF Driver General Tasks Specific Event Handlers 驱动程序对的“框架”部分执行通用于各种驱动程序的常规任务。 例如，“框架”可以处理 I/O 请求队列、线程同步以及很大一部分的电源管理任务。 “框架”拥有 KMDF 驱动程序的调度表，因此当某人将 I/O 请求数据包 (IRP) 发送到 （KMDF 驱动程序，框架）对时，IRP 会转到“框架”。 如果“框架”可以自行处理 IRP，则不会涉及到 KMDF 驱动程序。 如果“框架”自身无法处理 IRP，则它会通过调用 KMDF 驱动程序实现的事件处理程序来获取帮助。 下面是可以由 KMDF 驱动程序实现的事件处理程序的一些示例。 EvtDevicePrepareHardware EvtIoRead EvtIoDeviceControl EvtInterruptIsr EvtInterruptDpc EvtDevicePnpStateChange 例如，USB 2.0 主控制器驱动程序有一个名为 usbehci.sys 的特定部分和一个名为 usbport.sys 的通用部分。 Usbehci.sys（称为 USB 2.0 微型端口驱动程序）的代码特定于 USB 2.0 主控制器。 Usbport.sys（称为 USB 端口驱动程序）的通用代码适用于 USB 2.0 和 USB 1.0。 驱动程序对（usbehci.sys，usbport.sys）合并形成用于 USB 2.0 主控制器的单个 WDM 驱动程序。 在不同的设备技术中，（特定，通用）驱动程序对有不同的名称。 大部分设备特定的驱动程序都有前缀“微型” 。 常规驱动程序通常称为“端口”或“类驱动程序”。 下面是（特定，通用）对的一些示例： （屏幕微型端口驱动程序，屏幕端口驱动程序）（USB 微型端口驱动程序，USB 端口驱动程序） （电池微型类驱动程序，电池类驱动程序）（HID 微型驱动程序，HID 类驱动程序） （存储微型端口驱动程序，存储端口驱动程序） 随着开发了越来越多的驱动程序对模型，跟踪编写驱动程序的所有不同方式就变得很困难。 每个模型都有其自己的接口用于在设备特定驱动程序与通用驱动程序之间进行通信。 为一个设备技术（例如，音频）开发驱动程序所需的知识主体可以与为其他设备技术（例如，存储）开发驱动程序所需的知识主体完全不同。 随着时间的推移，开发者已意识到最好将单个统一模型用于内核模式驱动程序对。 内核模式驱动程序框架 (KMDF)（首先在 Windows Vista 中提供）满足该需要。 基于 KMDF 的驱动程序使用的范例类似于多个技术特定驱动程序对模型。 驱动程序分为两部分：一部分进行通用处理，另一部分进行特定设备特有的处理。通用部分（由 Microsoft 编写）称为框架。 特定部分（由 Microsoft 或独立的硬件供应商编写）称为 KMDF 驱动程序。 USB 3.0 主控制器驱动程序为基于 KMDF 的驱动程序示例。 在此示例中，驱动程序对中的两个驱动程序都由 Microsoft 编写。 通用驱动程序为“框架”，设备特定的驱动程序为 USB 3.0 主控制器驱动程序。 此图说明了用于 USB 3.0 主控制器的设备节点和设备堆栈。 USB 3.0 Ho st Controller FDO Filter DO PDO (Usbxhci. sys, Wdf01000.sys) Acpi.sys Pci.sys 在该图中，Usbxhci.sys 为 USB 3.0 主控制器驱动程序。 它使用 Wdf01000.sys（即“框架”）进行配对。 （usbxhci.sys，wdf01000.sys）对形成单个 WDM 驱动程序，该驱动程序用作 USB 3.0 主控制器的函数驱动程序。 注意，驱动程序对占用了设备堆栈中的一层并且用单个设备对象表示。 表示（usbxhci.sys，wdf01000.sys）对的单个设备对象为用于 USB 3.0 主控制器的功能设备对象 (FDO)。 在（KMDF 驱动程序，框架）对中，框架处理各种内核模式驱动程序共同的任务。 例 如，框架可以处理 I/O 请求排队、线程同步、大部分即插即用任务以及大部分电源管理任 务。 KMDF 驱动程序处理需要与特定设备交互的任务。 KMDF 驱动程序通过注册“框架” 根据需要调用的事件处理程序来参与处理请求。相关主题 微型驱动程序和驱动程序对内核模式驱动程序框架 KMDF 扩展和三重驱动程序项目• 2023/06/14 在本主题中，我们介绍内核模式驱动程序框架 (KMDF) 基于类的扩展。 在阅读本主题之前，应了解微型驱动程序和驱动程序对和作为通用驱动程序对模型的 KMDF 中介绍的理念。 对于某些设备类，Microsoft 会提供 KMDF 扩展，这些扩展会进一步降低必须由 KMDF 驱动程序执行处理的量。 使用基于类的 KMDF 扩展的驱动程序有以下三个部分，我们将其称为“三重驱动程序” 。 框架，处理大部分驱动程序共同的任务 基于类的框架扩展，处理特定于特殊类的设备的任务 KMDF 驱动程序，处理特定于特殊设备的任务。 三重驱动程序（KMDF 驱动程序、设备类 KMDF 扩展、框架）中的三个驱动程序合并形成单个 WDM 驱动程序。 设备类 KMDF 扩展示例为 SpbCx.sys，它为简易外围总线 (SPB) 设备类的 KMDF 扩展。 SPB 类包含同步串行总线，如 I2C 和 SPI。 I2C 总线控制器的三重驱动程序如下所示： 框架处理大部分驱动程序共同的常规任务。 SpbCx.sys 处理特定于 SPB 总线类的任务。 以下为所有 SPB 总线共同的任务。 KMDF 驱动程序处理特定于 I2C 总线的任务。 我们将此驱动程序称为 MyI2CBusDriver.sys。 KMDF Driver Triple Framework Class-based extension KMDF Driver SpbCx.sys Myl2CBusDriver.sys 三重驱动程序中的三个驱动程序（MyI2CBusDriver.sys、SpbCx.sys、Wdf01000.sys）合并形成单个 WDM 驱动程序，该驱动程序用作 I2C 总线控制器的函数驱动程序。 Wdf01000.sys（框架）拥有此驱动程序的调度表，因此当某人将 IRP 发送至三重驱动程序时，它会转至 wdf01000.sys。 如果 wdf01000.sys 本身可以处理 IRP，则不会涉及到 SpbCx.sys 和 MyI2CBusDriver.sys。 如果 wdf01000.sys 本身无法处理 IRP，则它可以通过调用 SbpCx.sys 中的事件处理程序来获取帮助。 以下是可以由 MyI2CBusDriver.sys 实现的事件处理程序的一些示例： EvtSpbControllerLock EvtSpbIoRead EvtSpbIoSequence 以下是可以由 SpbCx.sys 实现的事件处理程序的一些示例 EvtIoRead 驱动程序的上沿和下沿项目• 2023/06/15 参与 I/O 请求的驱动程序序列称为“请求的驱动程序堆栈”。 驱动程序可以调用堆栈中低层驱动程序的上沿。 驱动程序也可以调用堆栈中高层驱动程序的下沿。 在阅读本主题之前，应了解设备节点和设备堆栈以及驱动程序堆栈中介绍的理念。 I/O 请求首先由驱动程序堆栈中的顶层驱动程序处理，然后由下一层驱动程序处理，依此类推，直到完全处理请求。 当驱动程序实现一组高层驱动程序可以调用的函数时，该组函数称为“驱动程序的上沿”，或者“驱动程序的上沿接口” 。 当驱动程序实现一组低层驱动程序可以调用的函数时，该组函数称为“驱动程序的下沿” ，或者“驱动程序的下沿接口” 。音频示例 我们可以想象一个音频微型端口驱动程序位于驱动程序堆栈中音频端口驱动程序的下面。该端口驱动程序调用微型端口驱动程序的上沿。 微型端口驱动程序调用端口驱动程序的下沿。 Port Driver Port Driver's Lower-Edge Interface Stack Miniport Driver's Upper-Edge Interface Miniport Driver 上面的图说明，有时将端口驱动程序想象成位于驱动程序堆栈中的微型端口驱动程序之上是有用的。 因为 I/O 请求首先由端口驱动程序处理，然后再由微型端口驱动程序处理，所以将端口驱动程序视为高于微型端口驱动程序是合理的。 但是，请记住（微型端口， 端口）驱动程序对通常位于设备堆栈中的单层，如此处所示。 Device Node FDO PDO (Miniport driver, Port driver)-PCI bus driver 请注意，设备堆栈 不同于驱动程序堆栈 。 有关这些术语的定义，以及对于一对驱动程序如何形成单一 WDM 驱动程序（在设备堆栈中占用一层）的讨论，请参阅微型驱动程序和驱动程序对。 下面是绘制相同设备节点和设备堆栈图的另一种方法： Device Node FDO PDO Port driver Miniport driv er PCI bus driver 在上图中我们看到，（微型端口，端口）对形成与设备堆栈中单一设备对象 (FDO) 关联的单一 WDM 驱动程序；即，（微型端口，端口）对仅占用设备堆栈中的一层。 但我们也看到微型端口和端口驱动程序之间的垂直关系。 端口驱动程序显示在微型端口驱动程序的上面，这表示端口驱动程序首先处理 I/O 请求，然后调用微型端口驱动程序以进行其他处理。 关键点在于，当端口驱动程序调用微型端口驱动程序的上沿接口时，这不同于将 I/O 请求向下传递到设备堆栈。 在驱动程序堆栈（不是设备堆栈）中，可以选择在微型端口驱动程序的上面绘制端口驱动程序，但这并非意味着该端口驱动程序位于设备堆栈中微型驱动 程序的上面。 NDIS 示例 有时，驱动程序直接调用低层驱动程序的上沿。 例如，假设 TCP/IP 协议驱动程序在驱动程序堆栈中位于 NDIS 微型端口驱动程序的上面。 该微型端口驱动程序将实现一组 MiniportXxx 函数，它们形成微型端口驱动程序的上沿。 我们称之为 TCP/IP 协议驱动程序绑定 到 NDIS 微型端口驱动程序的上沿。 但 TCP/IP 驱动程序不直接调用 MiniportXxx 函数。 而是调用 NDIS 库中的函数，然后这些函数再调用 MiniportXxx 函数。 TCP/IP protocol driver NDISlibrary NDIS miniport driver Miniport driver's upper-edge interface 上图显示了驱动程序堆栈。 下面是相同驱动程序的另一个视图。 Device Node for NIC FDO Filter DO PDO Tcpip.sys (MyMiniport.sys, Ndis.sys) Acpi.sys Pci.sys Root 上图显示了用于网络接口卡 (NIC) 的设备节点。 该设备节点位于即插即用 (PnP) 设备树中。 NIC 的设备节点具有一个包含三个设备对象的设备堆栈。 请注意，NDIS 微型端口驱动程序和 NDIS 库是成对工作的。 (MyMiniport.sys, Ndis.sys) 对形成单一 WDM 驱动程序，由功能设备对象 (FDO) 表示。 另请注意，协议驱动程序 Tcpip.sys 不属于 NIC 的设备堆栈。 实际上，Tcpip.sys 根本不是 PnP 设备树的一部分。摘要 术语“上沿” 和“下沿” 用于描述堆栈中的驱动程序用来相互通信的接口。 驱动程序堆栈不同于设备堆栈。 在驱动程序堆栈中垂直显示的两个驱动程序可能形成位于设备堆栈中单 层上的驱动程序对。 某些驱动程序不是 PnP 设备树的一部分。相关主题 适用于所有驱动程序开发人员的概念 设备节点和设备堆栈驱动程序堆栈 音频设备 从 Windows Vista 开始的网络驱动程序 Windows 驱动程序工具包中的头文件项目• 2025/03/11 适用于 Windows 驱动程序工具包（WDK）的 API 参考文档 包含生成内核模式驱动程序和用户模式驱动程序所需的所有头文件（.h 文件）。 头文件位于 WDK 安装文件夹中的“包含”文件夹中。 示例：C：\\Program Files （x86）\\Windows Kits\\10\\Include。 头文件包含版本信息，以便无论驱动程序将运行哪个版本的 Windows，都可以使用相同的头文件集。 表示 Windows 版本的常量 WDK 中的头文件包含条件语句，这些语句指定仅在某些版本的 Windows作系统中可用的编程元素。 版本控制的元素包括函数、枚举、结构和结构成员。 若要指定每个作系统版本中可用的编程元素，标头文件包含将NTDDI_VERSION值与 Sdkddkver.h 中定义的一组预定义常量值进行比较的预处理器条件。下面是表示 Microsoft Windows作系统版本的预定义常量值。 恒定的",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "AddDevice",
+        "Dispatch",
+        "DriverEntry",
+        "EvtDevicePrepareHardware",
+        "EvtInterruptIsr",
+        "EvtIoDeviceControl",
+        "EvtIoRead",
+        "EvtSpbControllerLock",
+        "Framework",
+        "IRP_MJ_CLEANUP",
+        "IRP_MJ_CLOSE",
+        "IRP_MJ_CREATE",
+        "IRP_MJ_CREATE_MAILSLOT",
+        "IRP_MJ_DEVICE_CONTROL",
+        "IRP_MJ_DIRECTORY_CONTROL",
+        "IRP_MJ_FILE_SYSTEM_CONTROL",
+        "IRP_MJ_FLUSH_BUFFERS",
+        "IRP_MJ_INTERNAL_DEVICE_CONTROL",
+        "IRP_MJ_PNP",
+        "IRP_MJ_POWER",
+        "IRP_MJ_QUERY_INFORMATION",
+        "IRP_MJ_QUERY_QUOTA",
+        "IRP_MJ_QUERY_VOLUME_INFORMATION",
+        "IRP_MJ_READ",
+        "IRP_MJ_SET_INFORMATION",
+        "IRP_MJ_SET_QUOTA",
+        "IRP_MJ_SET_VOLUME_INFORMATION",
+        "IRP_MJ_SHUTDOWN",
+        "IRP_MJ_SYSTEM_CONTROL",
+        "IRP_MJ_WRITE",
+        "PUNICODE_STRING",
+        "SpbCx",
+        "StartIo",
+        "Unload",
+        "Vista"
+      ],
+      "confidence": 0.5,
+      "_source_line": 1585
+    },
+    {
+      "id": "windows::IRP_MJ_WRITE",
+      "name": "IRP_MJ_WRITE",
+      "entity_type": "unknown",
+      "description": "的 irp。 在这种情况下，驱动程序必须在数组的 MajorFunction[IRP_MJ_WRITE] 元素中填写指向调度函数的指针。 通常，驱动程序填充 MajorFunction 数组的某些元素并使剩下的元素设置为 I/O 管理器提供的默认值。 以下示例说明了如何使用 !drvobj 调试程序扩展来检查用于 parport 驱动 程序的函数指针。 syntax 0: kd> !drvobj parport 2 Driver object (fffffa80048d9e70) is for: \\Driver\\Parport DriverEntry: fffff880065ea070 parport!GsDriverEntry DriverStartIo: 00000000 DriverUnload: fffff880065e131c parport!PptUnload AddDevice: fffff880065d2008 parport!P5AddDevice Dispatch routines: [00] IRP_MJ_CREATE fffff880065d49d0 parport!PptDispatchCreateOpen [01] IRP_MJ_CREATE_NAMED_PIPE fffff80001b6ecd4 nt!IopInvalidDeviceRequest [02] IRP_MJ_CLOSE fffff880065d4a78 parport!PptDispatchClose [03] IRP_MJ_READ fffff880065d4bac parport!PptDispatchRead [04] IRP_MJ_WRITE fffff880065d4bac parport!PptDispatchRead [05] IRP_MJ_QUERY_INFORMATION fffff880065d4c40 parport!PptDispatchQueryInformation [06] IRP_MJ_SET_INFORMATION fffff880065d4ce4 parport!PptDispatchSetInformation [07] IRP_MJ_QUERY_EA fffff80001b6ecd4 nt!IopInvalidDeviceRequest [08] IRP_MJ_SET_EA fffff80001b6ecd4 nt!IopInvalidDeviceRequest [09] IRP_MJ_FLUSH_BUFFERS fffff80001b6ecd4 nt!IopInvalidDeviceRequest [0a] IRP_MJ_QUERY_VOLUME_INFORMATION fffff80001b6ecd4 nt!IopInvalidDeviceRequest [0b] IRP_MJ_SET_VOLUME_INFORMATION fffff80001b6ecd4 nt!IopInvalidDeviceRequest [0c] IRP_MJ_DIRECTORY_CONTROL fffff80001b6ecd4 nt!IopInvalidDeviceRequest [0d] IRP_MJ_FILE_SYSTEM_CONTROL fffff80001b6ecd4 nt!IopInvalidDeviceRequest [0e] IRP_MJ_DEVICE_CONTROL fffff880065d4be8 parport!PptDispatchDeviceControl [0f] IRP_MJ_INTERNAL_DEVICE_CONTROL fffff880065d4c24 parport!PptDispatchInternalDeviceControl [10] IRP_MJ_SHUTDOWN fffff80001b6ecd4 nt!IopInvalidDeviceRequest [11] IRP_MJ_LOCK_CONTROL fffff80001b6ecd4 nt!IopInvalidDeviceRequest [12] IRP_MJ_CLEANUP fffff880065d4af4 parport!PptDispatchCleanup [13] IRP_MJ_CREATE_MAILSLOT fffff80001b6ecd4 nt!IopInvalidDeviceRequest [14] IRP_MJ_QUERY_SECURITY fffff80001b6ecd4 nt!IopInvalidDeviceRequest [15] IRP_MJ_SET_SECURITY fffff80001b6ecd4 nt!IopInvalidDeviceRequest [16] IRP_MJ_POWER fffff880065d491c parport!PptDispatchPower [17] IRP_MJ_SYSTEM_CONTROL fffff880065d4d4c parport!PptDispatchSystemControl [18] IRP_MJ_DEVICE_CHANGE fffff80001b6ecd4 nt!IopInvalidDeviceRequest [19] IRP_MJ_QUERY_QUOTA fffff80001b6ecd4 nt!IopInvalidDeviceRequest [1a] IRP_MJ_SET_QUOTA fffff80001b6ecd4 nt!IopInvalidDeviceRequest [1b] IRP_MJ_PNP fffff880065d4840 parport!PptDispatchPnp 在调试程序输出中，可以看到 parport.sys 实现 GsDriverEntry，驱动程序的入口点。 GsDriverEntry（在生成驱动程序时自动生成）执行一些初始化，然后调用 DriverEntry（由驱动程序开发人员实现）。 还可以看到 parport 驱动程序（位于其",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "AddDevice",
+        "Dispatch",
+        "DriverEntry",
+        "IRP_MJ_CLEANUP",
+        "IRP_MJ_CLOSE",
+        "IRP_MJ_CREATE",
+        "IRP_MJ_CREATE_MAILSLOT",
+        "IRP_MJ_DEVICE_CONTROL",
+        "IRP_MJ_DIRECTORY_CONTROL",
+        "IRP_MJ_FILE_SYSTEM_CONTROL",
+        "IRP_MJ_FLUSH_BUFFERS",
+        "IRP_MJ_INTERNAL_DEVICE_CONTROL",
+        "IRP_MJ_PNP",
+        "IRP_MJ_POWER",
+        "IRP_MJ_QUERY_INFORMATION",
+        "IRP_MJ_QUERY_QUOTA",
+        "IRP_MJ_QUERY_VOLUME_INFORMATION",
+        "IRP_MJ_READ",
+        "IRP_MJ_SET_INFORMATION",
+        "IRP_MJ_SET_QUOTA",
+        "IRP_MJ_SET_VOLUME_INFORMATION",
+        "IRP_MJ_SHUTDOWN",
+        "IRP_MJ_SYSTEM_CONTROL"
+      ],
+      "confidence": 0.5,
+      "_source_line": 1687
+    },
+    {
+      "id": "windows::IRP_MJ_CREATE",
+      "name": "IRP_MJ_CREATE",
+      "entity_type": "unknown",
+      "description": "IRP_MJ_CLOSE IRP_MJ_READ",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "IRP_MJ_CLOSE",
+        "IRP_MJ_READ"
+      ],
+      "confidence": 0.4,
+      "_source_line": 1732
+    },
+    {
+      "id": "windows::IRP_MJ_QUERY_INFORMATION",
+      "name": "IRP_MJ_QUERY_INFORMATION",
+      "entity_type": "unknown",
+      "description": "IRP_MJ_SET_INFORMATION IRP_MJ_DEVICE_CONTROL",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "IRP_MJ_DEVICE_CONTROL",
+        "IRP_MJ_SET_INFORMATION"
+      ],
+      "confidence": 0.4,
+      "_source_line": 1733
+    },
+    {
+      "id": "windows::IRP_MJ_CLEANUP",
+      "name": "IRP_MJ_CLEANUP",
+      "entity_type": "unknown",
+      "description": "IRP_MJ_POWER",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "IRP_MJ_POWER"
+      ],
+      "confidence": 0.3,
+      "_source_line": 1735
+    },
+    {
+      "id": "windows::IRP_MJ_SYSTEM_CONTROL",
+      "name": "IRP_MJ_SYSTEM_CONTROL",
+      "entity_type": "unknown",
+      "description": "IRP_MJ_PNP MajorFunction 数组的其余元素包含指向默认调度函数 nt!IopInvalidDeviceRequest 的指针。 在调试程序输出中，可以看到 parport 驱动程序提供了用于 Unload 和 AddDevice 的函数指针，但未提供用于 StartIo 的函数指针。 AddDevice 函数很独特，原因是其函数指针未存储在 DRIVER_OBJECT 结构中。 而是存储在 DRIVER_OBJECT 结构扩展的 AddDevice 成员中。 下图说明了 parport 驱动程序在其",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "AddDevice",
+        "DRIVER_OBJECT",
+        "IRP_MJ_PNP",
+        "StartIo",
+        "Unload"
+      ],
+      "confidence": 0.5,
+      "_source_line": 1736
+    },
+    {
+      "id": "windows::NTDDI_WIN10",
+      "name": "NTDDI_WIN10",
+      "entity_type": "unknown",
+      "description": "NTDDI_WINBLUE NTDDI_WIN8 NTDDI_WIN7 NTDDI_WS08SP4 NTDDI_WS08SP3 NTDDI_WS08SP2 NTDDI_WS08 操作系统版本 Windows 10 Windows 8.1 Windows 8 Windows 7 Windows Server 2008 with SP4 Windows Server 2008 含 SP3 Windows Server 2008 带有 SP2 Windows Server 2008 可以在 WDK 头文件中查看特定于版本的 DDI 元素的许多示例。 此条件声明显示在 Wdm.h 中，该文件是内核模式驱动程序可能包含的头文件。 C++ #if (NTDDI_VERSION >= NTDDI_WIN7)_Must_inspect_result_ NTKERNELAPI NTSTATUS",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "NTDDI_VERSION",
+        "Server"
+      ],
+      "confidence": 0.5,
+      "_source_line": 1993
+    },
+    {
+      "id": "windows::KeSetTargetProcessorDpcEx",
+      "name": "KeSetTargetProcessorDpcEx",
+      "entity_type": "function",
+      "description": "_Inout_ PKDPC Dpc, _In_ PPROCESSOR_NUMBER ProcNumber );#endif 在示例中可以看到，KeSetTargetProcessorDpcEx 函数仅在 Windows 7 及更高版本的 Windows 中可用。 此条件声明显示在 Winspool.h 中，它是可能由用户模式驱动程序包含的头文件。 ManagedCPlusPlus #if (NTDDI_VERSION >= NTDDI_WIN7) ... BOOL WINAPI",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "NTDDI_VERSION"
+      ],
+      "confidence": 0.5,
+      "_source_line": 2003
+    },
+    {
+      "id": "windows::GetPrintExecutionData",
+      "name": "GetPrintExecutionData",
+      "entity_type": "unknown",
+      "description": "_Out_ PRINT_EXECUTION_DATA *pData ); #endif // (NTDDI_VERSION >= NTDDI_WIN7) 在此示例中可以看到，GetPrintExecutionData 函数仅在 Windows 7 及更高版本的 Windows 中可用。 内核模式驱动程序框架的头文件 WDK 支持多个版本的 Windows，它还支持多个版本的内核模式驱动程序框架（KMDF）和用户模式驱动程序框架（UMDF）。 WDK 头文件中的版本控制信息与 Windows 版本有关，但与 KMDF 或 UMDF 版本无关。 不同版本的 KMDF 和 UMDF 的头文件放置在单 独的目录中。反馈 是 否 为不同版本的 Windows 编写驱动程序项目• 2024/03/19 创建驱动程序项目时，请指定最低目标操作系统，该操作系统是运行驱动程序的 Windows 的最低版本。 例如，可以指定 Windows 7 为最低目标操作系统。 在这种情况 下，驱动程序会在 Windows 7 和更高版本的 Windows 上运行。７ 备注 如果为特定的最低版本的 Windows 开发驱动程序且希望驱动程序运行在更高版本的 Windows 上，则不得使用任何未记录的函数，也不得以文档中介绍的方式之外的任何其他方式使用记录的函数。 否则，驱动程序可能会无法运行在更高版本的 Windows 上。 即使你已经很小心地仅使用记录的函数，也应在每次发布新版本的 Windows 时在其上对驱动程序进行测试。 编写仅使用共同功能的多版本驱动程序 设计将在多个版本的 Windows 上运行的驱动程序时，最简单的方法是允许驱动程序仅使用运行该驱动程序的所有版本的 Windows 共同的 DDI 函数和结构。 在此情形下，将最低目标操作系统设置为驱动程序将支持的最低 Windows 版本。 例如，若要支持从 Windows 7 开始的所有版本的 Windows，应执行以下操作： 1. 设计并实现驱动程序，以便该驱动程序仅使用 Windows 7 中提供的那些功能。 2. 生成驱动程序时，将 Windows 7 指定为最低目标操作系统。 虽然此过程很简单，但它可能会限制驱动程序仅使用更高版本的 Windows 上提供的功能子集。 在许多情况下，你会希望在更新的操作系统功能可用时使用它，以提高安全性、提高可靠性或启用更新的功能。 编写使用版本相关功能的多版本驱动程序 内核模式驱动程序可以动态确定操作系统提供的 API 是否可用，或者驱动程序正在运行于哪个版本的Windows 上，并选择使用该运行时环境中可用的功能。 例如，必须支持从 Windows 7 开始的所有 Windows 版本的驱动程序可以在运行时确定它在哪个 Windows 版本上运行。 如果驱动程序在 Windows 7 上运行，则它只能使用 Windows 7 支持的 DDI 函数。 但是，同一个驱动程序可以使用 Windows 8 独有的其他 DDI 函数，例如，当其运行时检查确定这些 API 当前存在，或者确定它在 Windows 8 上运行时。 ７ 备注 建议尽可能检查功能或 API 可用性，而不是尝试检查驱动程序是否在特定操作系统版本或更高版本上运行。 有条件地调用与 Windows 版本相关的函数内核模式驱动程序可以使用 MmGetSystemRoutineAddress 或 MmGetSystemRoutineAddressEx 函数动态检查它想要使用的特定 API 是否在当前运行时 环境中可用，并获取要用于调用该 API 的函数指针。７ 备注 若要帮助保留键入检查和防止出现无意识的错误，应创建映射原始函数类型的 typedef。 示例：确定 API 可用性并有条件地调用 API C++ typedef NTSTATUS (*PFN_IoOpenDriverRegistryKey)(",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "MmGetSystemRoutineAddress",
+        "MmGetSystemRoutineAddressEx",
+        "NTDDI_VERSION",
+        "PRINT_EXECUTION_DATA"
+      ],
+      "confidence": 0.35,
+      "_source_line": 2010
+    },
+    {
+      "id": "windows::PDRIVER_OBJECT",
+      "name": "PDRIVER_OBJECT",
+      "entity_type": "unknown",
+      "description": "DriverObject, DRIVER_REGKEY_TYPE RegKeyType, ACCESS_MASK DesiredAccess, ULONG Flags, PHANDLE DriverRegKey ); VOID ExampleFunction(VOID) { NTSTATUS status = STATUS_UNSUCCESSFUL; HANDLE persistentStateKey = NULL; PFN_IoOpenDriverRegistryKey pfnIoOpenDriverRegistryKey = NULL; UNICODE_STRING functionName = {0};",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "ACCESS_MASK",
+        "Flags",
+        "STATUS_UNSUCCESSFUL",
+        "UNICODE_STRING"
+      ],
+      "confidence": 0.5,
+      "_source_line": 2048
+    },
+    {
+      "id": "windows::RtlInitUnicodeString",
+      "name": "RtlInitUnicodeString",
+      "entity_type": "unknown",
+      "description": "&functionName, L\"IoOpenDriverRegistryKey\"); pfnIoOpenDriverRegistryKey = (PFN_IoOpenDriverRegistryKey)MmGetSystemRoutineAddress(&functionName); if (pfnIoOpenDriverRegistryKey != NULL) { // Open a key to where state can be stored under the driver service status = pfnIoOpenDriverRegistryKey(g_GlobalStructure.DriverObject, DriverRegKeyPersistentState,",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "IoOpenDriverRegistryKey",
+        "MmGetSystemRoutineAddress"
+      ],
+      "confidence": 0.35,
+      "_source_line": 2053
+    },
+    {
+      "id": "windows::KEY_WRITE",
+      "name": "KEY_WRITE",
+      "entity_type": "unknown",
+      "description": ", 0, &persistentStateKey); } else { // Fall back to opening up a different location to store state in } // Use the opened registry key} 确定 Windows 版本 内核模式驱动程序可以使用 RtlVerifyVersionInfo 函数动态检查当前运行的 Windows 版本。 ７ 备注 建议尽可能检查功能或 API 可用性，而不是尝试检查驱动程序是否在特定操作系统版本或更高版本上运行。 示例：确定 Windows 版本 以下示例检测当前运行的操作系统版本是否大于或等于版本 10.0，并检测内部版本号是否大于或等于内部版本 22000（Windows 11 版本 21H2）。 C++... NTSTATUS Status = STATUS_SUCCESS;",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "RtlVerifyVersionInfo",
+        "STATUS_SUCCESS"
+      ],
+      "confidence": 0.5,
+      "_source_line": 2056
+    },
+    {
+      "id": "windows::RTL_OSVERSIONINFOEXW",
+      "name": "RTL_OSVERSIONINFOEXW",
+      "entity_type": "unknown",
+      "description": "VersionInfo = {0}; ULONG TypeMask = 0; ULONGLONG ConditionMask = 0; VersionInfo.dwOSVersionInfoSize = sizeof(VersionInfo); VersionInfo.dwMajorVersion = 10; VersionInfo.dwMinorVersion = 0; VersionInfo.dwBuildNumber = 22000; TypeMask = VER_MAJORVERSION | VER_MINORVERSION | VER_BUILDNUMBER;",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "VER_MAJORVERSION"
+      ],
+      "confidence": 0.5,
+      "_source_line": 2070
+    },
+    {
+      "id": "windows::VER_SET_CONDITION",
+      "name": "VER_SET_CONDITION",
+      "entity_type": "unknown",
+      "description": "(ConditionMask, VER_MAJORVERSION, VER_GREATER_EQUAL); VER_SET_CONDITION(ConditionMask, VER_MINORVERSION, VER_GREATER_EQUAL); VER_SET_CONDITION(ConditionMask, VER_BUILDNUMBER, VER_GREATER_EQUAL); Status = RtlVerifyVersionInfo(&VersionInfo, TypeMask, ConditionMask); if (NT_SUCCESS(Status)) { // // The call to RtlVerifyVersionInfo succeeded, so the running OS // version and build number is greater than or equal to the value // specified. Do appropriate action for newer OS versions. // } else if (Status == STATUS_REVISION_MISMATCH) { // // The running OS version is less than the value specified. Do // appropriate action for older OS versions. //} else { // // There was an error comparing to the running OS version. Do // appropriate action for when the OS version is not known. // }... 是 否",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "NT_SUCCESS",
+        "RtlVerifyVersionInfo",
+        "STATUS_REVISION_MISMATCH",
+        "VER_MAJORVERSION"
+      ],
+      "confidence": 0.5,
+      "_source_line": 2076
+    }
+  ]
+}

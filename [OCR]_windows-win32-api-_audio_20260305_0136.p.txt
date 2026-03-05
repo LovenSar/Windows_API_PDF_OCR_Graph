@@ -1,0 +1,3343 @@
+音频设备 DDI 参考项目2023/10/05
+音频设备 DDI 参考技术概述。
+若要开发音频设备 DDI 参考，需要以下标头：
+audiomediatype.h
+audioenginebaseapo.h
+audioengineextensionapo.h baseaudioprocessingobject.h msapofxproxy.h
+有关此技术的编程指南，请参阅：
+音频设备 DDI 参考
+枚举  
+APO_FLAG
+告知我们有关下载 PDF 体验的信息。
+APO_FLAG 枚举定义常量，这些常量由音频处理对象 (APO) 用作标志。 APO_LOG_LEVEL
+指定使用 IAudioProcessingObjectLoggingService：：ApoLog 记录的 APO 事件的级别。 APO_NOTIFICATION_TYPE
+指定APO_NOTIFICATION的类型。
+APO_REFERENCE_STREAM_PROPERTIES
+指定 IApoAcousticEchoCancellation2：：GetDesiredReferenceStreamProperties 回调方法的环回流属性。
+AUDIO_SYSTEMEFFECT_STATE
+指定系统效果音频处理对象的状态 (sAPO) 音频效果。 DEVICE_ORIENTATION_TYPE
+指定APO_NOTIFICATION_TYPE_DEVICE_ORIENTATION类型的通知的设备方向值。
+ 
+KSPROPERTY_AUDIOEFFECTSDISCOVERY
+KSPROPERTY_AUDIOEFFECTSDISCOVERY枚举定义了一个常量，该常量由音频处理对象列表 (ASO)
+使用。函数  
+AcceptInput
+在其辅助输入之一上向 APO 提供输入。 AddAuxiliaryInput
+将辅助输入添加到 APO，并提供初始化参数。 AERT_Allocate
+AERT_Allocate实用工具函数分配并锁定一段内存，供音频处理对象使用。 AERT_Free
+AERT_Free 实用工具函数释放 (释放AERT_Allocate函数锁定的) 内存，供音频处理对象用来处理音频
+数据。 ApoLog
+记录 APO 事件。 APOProcess
+APOProcess 方法会导致 APO 进行处理传递。 CalcInputFrames
+CalcInputFrames 方法返回 APO 生成给定数量的输出帧所需的输入帧数。 CalcOutputFrames
+CalcOutputFrames 方法返回 APO 为给定数量的输入帧所需的输出帧数。提交
+进行更改后，此方法将保存更改。
+ 
+CreateAudioMediaType
+CreateAudioMediaType 函数使用调用方指定的格式来创建描述音频格式的媒体类型对象。 CreateAudioMediaTypeFromUncompressedAudioFormat
+CreateAudioMediaTypeFromUncompressedAudioFormat 函数使用
+UNCOMPRESSEDAUDIOFORMAT 结构中提供的信息来创建描述音频格式的媒体类型对象。 GetApoNotificationRegistrationInfo
+由系统调用，以允许客户端注册以接收 APO 终结点和系统效果通知的通知回调。 GetApoNotificationRegistrationInfo2
+由系统调用，以允许客户端注册以接收 APO 终结点和系统效果通知的通知回调。 此方法添加一个
+参数，该参数可用于确定当前设备上运行的 Windows 版本支持的通知类型。 GetAt
+从项的属性数组中获取属性键。 GetAudioFormat
+GetAudioFormat 方法返回音频数据格式的 WAVEFORMATEX 结构。 GetControllableSystemEffectsList
+由系统效果音频处理对象实现 (sAPO) 音频效果，以允许调用方获取当前效果列表。 GetCount
+此方法返回附加到文件的属性数的计数。 GetDesiredReferenceStreamProperties
+如果环回流在关联的音频终结点上受支持，则请求一组属性。 GetEffectsList
+GetEffectsList 方法用于检索当前处于活动状态的音频处理效果列表，并在列表更改时存储要发出信
+号的事件。 GetFormat
+GetFormat 方法检索自定义格式的 IAudioMediaType 表示形式。 GetFormatCount
+ 
+GetFormatCount 方法检索系统效果音频处理对象 (sAPO) 支持的自定义格式数。 GetFormatRepresentation
+GetFormatRepresentation 方法检索自定义格式的字符串表示形式，以便它可以显示在用户界面上。
+GetInputChannelCount
+GetInputChannelCount 返回此 APO 的每帧样本) (输入通道计数。 GetLatency
+GetLatency 方法返回此 APO 的延迟。 延迟是指帧遍历 APO 的处理过程所花费的时间量。 GetPreferredInputFormat
+回调函数，它允许 ADO 为提供的输出格式指定首选输入格式。 GetPreferredOutputFormat
+回调函数，它允许 ADO 为提供的输入格式指定首选输出格式。 GetRealTimeWorkQueue
+获取 APO 可用于计划需要以实时优先级运行的任务的工作队列的 ID。 GetRegistrationProperties
+GetRegistrationProperties 返回音频处理对象的注册属性 (APO) 。 GetUncompressedAudioFormat
+IAudioMediaType：：GetUncompressedAudioFormat 返回有关音频数据格式的信息。 GetValue
+此方法检索特定属性的数据。 HandleNotification
+由系统调用，以通知客户端 APO 终结点或系统效果的更改。初始化
+Initialize 方法初始化 APO 并支持长度可变的数据。 IsCompressedFormat
+IsCompressedFormat 方法确定音频数据格式是否为压缩格式。
+ 
+IsEqual
+IsEqual 方法比较两种媒体类型，并确定它们是否相同。 IsInputFormatSupported
+验证 APO 是否支持特定的辅助输入格式。 IsInputFormatSupported
+此方法与 Windows Vista 音频引擎协商，以建立音频数据流的数据格式。 IsOutputFormatSupported
+IsOutputFormatSupported 方法用于验证是否支持特定的输出格式。 LockForProcess
+LockForProcess 方法用于验证 APO 是否已锁定并准备好处理数据。 RemoveAuxiliaryInput
+从 APO 中删除辅助输入。重置
+Reset 方法将 APO 重置为其原始状态。 此方法不会导致附加到 APO 的输入或输出的连接对象发生任何更改。
+SetAudioDeviceModulesManager
+由系统调用，用于将 IAudioDeviceModulesManager 的实例传递到实现
+IAudioDeviceModulesClient 接口 (ADO) 音频处理对象。 SetAudioSystemEffectState
+由系统效果音频处理对象实现 (sAPO) 音频效果，以允许调用方设置效果的状态。 SetValue
+此方法设置属性值，或者替换或删除现有值。 UnlockForProcess
+UnlockForProcess 方法释放 LockForProcess 方法对 APO 施加的锁。接口
+ 
+IApoAcousticEchoCancellation
+此接口由 ADO 实现，用于 (AEC) 方案启用回声消除。 IApoAcousticEchoCancellation2
+扩展 IAcousticEchoCancellation 以允许 ADO 指定引用流的所需属性。 IApoAuxiliaryInputConfiguration
+提供 ADO 可以实现的方法，以便音频引擎可以添加和删除辅助输入流。 IApoAuxiliaryInputRT
+实时安全接口，用于驱动 APO 的辅助输入。 IAudioDeviceModulesClient
+音频处理对象 (ASO) 实现此接口以获取对 IAudioDeviceModulesManager 实例的引用。 IAudioMediaType
+IAudioMediaType 接口公开的方法，这些方法允许 sAPO 获取用于与音频引擎协商的相应音频数据格式的信息。
+IAudioProcessingObject
+系统效果音频处理对象 (sAPOs) 通常用于实时进程线程或从实时进程线程调用。 IAudioProcessingObjectConfiguration
+IAudioProcessingObjectConfiguration 接口用于配置 APO。 此接口使用其方法来锁定和解锁 APO 进行处理。
+IAudioProcessingObjectLoggingService 表示 ADO 的日志记录服务。
+IAudioProcessingObjectNotifications
+由客户端实现，用于注册和接收 APO 终结点和系统效果通知的常见音频相关通知。 IAudioProcessingObjectNotifications2
+由客户端实现，用于注册和接收 APO 终结点和系统效果通知的常见音频相关通知。 此接口添加了
+确定当前设备上运行的 Windows 版本上支持的通知类型的功能。 IAudioProcessingObjectPreferredFormatSupport
+ 
+此接口由 ADO 实现，以使它们能够指定首选的输入或输出格式。 IAudioProcessingObjectRT
+此接口可以在实时模式下运行，其方法可以称为实时处理线程。 IAudioProcessingObjectRTQueueService
+表示 ADO 的实时工作队列服务。 IAudioSystemEffects
+IAudioSystemEffects 接口使用从 IUnknown 继承的基本方法，并且必须实现 Initialize 方法。 IAudioSystemEffects2
+IAudioSystemEffects2 接口与 Windows 8.1 一起引入，用于检索给定模式下处理对象的相关信息。 IAudioSystemEffects3
+由需要将 APOInitSystemEffects3 结构传递到 IAudioProcessingObject：：Initialize 方法的客户端实现。
+IAudioSystemEffectsCustomFormats
+Windows Vista 和更高版本的 Windows 支持 IAudioSystemEffectsCustomFormats 接口。 IPropertyStore
+此接口公开用于枚举和操作属性值的方法。
+结构  
+AcousticEchoCanceller_Reference_Input
+包含与当前回声消除 (AEC) 配置相关的扩展信息。 APO_NOTIFICATION
+表示更改 APO 终结点或系统效果的通知。
+APO_NOTIFICATION_DESCRIPTOR 指定请求的 APO 通知。
+ 
+APO_REG_PROPERTIES
+IAudioProcessingObject：：GetRegistrationProperties 使用 APO_REG_PROPERTIES 结构返回音频
+处理对象的注册属性， (APO) 。 APOInitBaseStruct
+APOInitBaseStruct 结构是必须在 IAudioProcessingObject：：Initialize 中的其他初始化数据之前的
+基本初始化标头。 APOInitSystemEffects
+APOInitSystemEffects 结构将传递给系统效果 APO 进行初始化。 APOInitSystemEffects2
+APOInitSystemEffects2 结构随 Windows 8.1 一起引入，以便向音频处理对象提供其他初始化上下
+文， (APO) 进行初始化。 APOInitSystemEffects3
+提供 APO 初始化参数，扩展 APOInitSystemEffects2 以添加指定日志记录服务提供程序的功能。
+AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR 指定终结点属性更改 APO 通知。
+AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION 表示属性更改 APO 通知。
+AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR 指定终结点卷 APO 通知。
+AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION 表示音频终结点音量更改 APO 通知。
+AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2
+表示音频终结点音量更改 APO 通知。 这是AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION 的更新版本，提供有关卷更改事件的其他信息。
+AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION 表示音频环境更改 APO 通知。
+ 
+AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR 指定终结点麦克风提升 APO 通知。
+AUDIO_MICROPHONE_BOOST_NOTIFICATION
+表示音频麦克风提升 APO 通知。 AUDIO_SYSTEMEFFECT
+表示 (sAPO) 音频效果的系统效果音频处理对象。
+AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION 表示系统音频效果 APO 通知。
+AUDIO_VOLUME_NOTIFICATION_DATA2
+表示有关卷更改通知事件的信息。 此结构由
+AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2 结构使用。 KSP_PINMODE
+KSP_PINMODE结构指定引脚工厂的引脚属性和支持的音频处理模式。 MDEVICECAPSEX
+MDEVICECAPSEX 结构包含即插即用 (PnP) 设备驱动程序的设备功能信息。 MIDIOPENDESC
+MIDIOPENDESC 结构是一种客户端填充结构，可提供有关如何打开 MIDI 设备的信息。 UNCOMPRESSEDAUDIOFORMAT
+UNCOMPRESSEDAUDIOFORMAT 结构指定未压缩音频数据格式的帧速率、通道掩码和其他属性。 WAVEFORMATEX
+WAVEFORMATEX 结构指定波形音频流的数据格式。反馈
+此页面是否有帮助？
+是
+否
+audioenginebaseapo.h 标头项目2023/08/11
+此标头由多种技术使用。 有关详细信息，请参阅：
+音频设备 DDI 参考核心音频 API
+audioenginebaseapo.h 包含以下编程接口：
+接口  
+IApoAcousticEchoCancellation
+此接口由 AEC 实现，用于在 AEC) 方案中 (回声消除。 IApoAcousticEchoCancellation2
+扩展 IAcousticEchoCancellation 以允许 ADO 指定引用流的所需属性。 IApoAuxiliaryInputConfiguration
+提供 ADO 可以实现的方法，以便音频引擎可以添加和删除辅助输入流。 IApoAuxiliaryInputRT
+实时安全接口，用于驱动 APO 的辅助输入。 IAudioDeviceModulesClient
+音频处理对象 (ASO) 实现此接口以获取对 IAudioDeviceModulesManager 实例的引用。 IAudioProcessingObject
+系统效果音频处理对象 (sAPOs) 通常在实时进程线程中使用或从中调用。 IAudioProcessingObjectConfiguration
+IAudioProcessingObjectConfiguration 接口用于配置 APO。 此接口使用其方法来锁定和解锁 APO 进行处理。
+IAudioProcessingObjectRT
+此接口可以在实时模式下运行，其方法可以称为实时处理线程。
+ 
+IAudioSystemEffects
+IAudioSystemEffects 接口使用从 IUnknown 继承的基本方法，并且必须实现 Initialize 方法。 IAudioSystemEffects2
+IAudioSystemEffects2 接口与 Windows 8.1 一起引入，用于检索有关给定模式下处理对象的信息。 IAudioSystemEffectsCustomFormats
+Windows Vista 和更高版本的 Windows 支持 IAudioSystemEffectsCustomFormats 接口。
+结构  
+APO_REG_PROPERTIES
+IAudioProcessingObject：：GetRegistrationProperties 使用 APO_REG_PROPERTIES 结构返回音频
+处理对象的注册属性 (APO) 。 APOInitBaseStruct
+APOInitBaseStruct 结构是必须在 IAudioProcessingObject：：Initialize 中的其他初始化数据之前的
+基本初始化标头。 APOInitSystemEffects
+APOInitSystemEffects 结构将传递给系统效果 APO 进行初始化。 APOInitSystemEffects2
+APOInitSystemEffects2 结构是随 Windows 8.1 一起引入的，以便向音频处理对象提供其他初始化上下文， (APO) 进行初始化。
+枚举  
+APO_FLAG
+APO_FLAG 枚举定义常量，这些常量由音频处理对象 (APO) 用作标志。 APO_REFERENCE_STREAM_PROPERTIES
+ 
+指定 IApoAcousticEchoCancellation2：：GetDesiredReferenceStreamProperties 回调方法的环回流
+属性。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+APO_FLAG 枚举 (audioenginebaseapo.h) 项目2024/02/28
+APO_FLAG 枚举定义常量，这些常量由音频处理对象 (APO) 用作标志。 APO_REG_PROPERTIES 结构使用此枚举来帮助描述 APO 的注册属性。
+语法 C++
+typedef enum APO_FLAG {   APO_FLAG_NONE,
+  APO_FLAG_INPLACE,
+  APO_FLAG_SAMPLESPERFRAME_MUST_MATCH,   APO_FLAG_FRAMESPERSECOND_MUST_MATCH,   APO_FLAG_BITSPERSAMPLE_MUST_MATCH,
+  APO_FLAG_MIXER,   APO_FLAG_DEFAULT} ;
+常量  
+APO_FLAG_NONE
+指示没有为此 APO 启用标志。 APO_FLAG_INPLACE
+指示此 APO 可以执行就地处理。 这允许处理
+器对输入和输出使用通用缓冲区。 APO_FLAG_SAMPLESPERFRAME_MUST_MATCH
+指示输入和输出连接的每帧样本必须匹配。 APO_FLAG_FRAMESPERSECOND_MUST_MATCH
+指示输入和输出连接的每秒帧数必须匹配。 APO_FLAG_BITSPERSAMPLE_MUST_MATCH
+指示输入和输出连接的每个样本的位数和每个
+示例容器的字节数必须匹配。 APO_FLAG_MIXER
+APO_FLAG_DEFAULT
+此成员的值由前面三个成员的逻辑 OR 结果确定。 换句话说：
+APO_FLAG_DEFAULT = (
+APO_FLAG_SAMPLESPERFRAME_MUST_MATCH 要求
+APO_FLAG_FRAMESPERSECOND_MUST_MATCH
+ﾉ
+展开表
+APO_FLAG_BITSPERSAMPLE_MUST_MATCH) 。
+ﾉ
+展开表
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 APO_REG_PROPERTIES
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+值
+Windows 8
+Windows Server 2012 audioenginebaseapo.h
+APO_REFERENCE_STREAM_PROPERTIES
+枚举 (audioenginebaseapo.h) 项目2024/02/28
+指定请求的环回流属性。
+语法 C++
+typedef enum APO_REFERENCE_STREAM_PROPERTIES {   APO_REFERENCE_STREAM_PROPERTIES_NONE,
+  APO_REFERENCE_STREAM_PROPERTIES_POST_VOLUME_LOOPBACK} ;
+常量
+ﾉ
+ 
+APO_REFERENCE_STREAM_PROPERTIES_NONE 没有环回流属性。
+APO_REFERENCE_STREAM_PROPERTIES_POST_VOLUME_LOOPBACK
+如果音频终结点支持，应在应用音量和/或静音后点击环回流。注解
+展开表
+APO 通过从 IApoAcousticEchoCancellation2：：GetDesiredReferenceStreamProperties
+方法的实现返回此枚举中的标志的按位组合来请求环回流属性。要求
+ﾉ
+要求
+最低受支持的客户端
+值
+Windows 内部版本 22621
+展开表
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+audioenginebaseapo.h
+| 在 Microsoft Q&A 获取帮助
+APO_REG_PROPERTIES 结构(audioenginebaseapo.h) 项目2024/02/23
+APO_REG_PROPERTIES 结构由 IAudioProcessingObject：：GetRegistrationProperties 用于返回音频处理对象的注册属性 (APO) 。
+语法 C++
+typedef struct APO_REG_PROPERTIES {
+  CLSID    clsid;   APO_FLAG Flags;
+  WCHAR    szFriendlyName[256];   WCHAR    szCopyrightInfo[256];
+  UINT32   u32MajorVersion;   UINT32   u32MinorVersion;
+  UINT32   u32MinInputConnections;   UINT32   u32MaxInputConnections;   UINT32   u32MinOutputConnections;   UINT32   u32MaxOutputConnections;   UINT32   u32MaxInstances;
+  UINT32   u32NumAPOInterfaces;
+  IID      iidAPOInterfaceList[1];
+} APO_REG_PROPERTIES, *PAPO_REG_PROPERTIES;
+成员 clsid
+此 APO 的类 ID。 Flags
+此 APO 的标志。 此参数是 APO_FLAG 类型的枚举常量。 szFriendlyName[256]
+此 APO 的友好名称。 这是最大长度为 256 的字符串。 szCopyrightInfo[256]
+此 APO 的版权信息。 这是最大长度为 256 的字符串。
+u32MajorVersion
+此 APO 的主版本号。 u32MinorVersion
+此 APO 的次要版本号。 u32MinInputConnections
+此 APO 的最小输入连接数。 u32MaxInputConnections
+此 APO 的最大输入连接数。 u32MinOutputConnections 此 APO 的最小输出连接数。 u32MaxOutputConnections 此 APO 的最大输出连接数。 u32MaxInstances
+此 APO 的最大实例数。 u32NumAPOInterfaces 此 APO 的接口数。 iidAPOInterfaceList[1]
+要求
+要求 Header
+另请参阅
+值
+audioenginebaseapo.h
+IAudioProcessingObject：：GetRegistrationProperties
+ﾉ
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+APOInitBaseStruct 结构(audioenginebaseapo.h) 项目2024/02/28
+APOInitBaseStruct 结构是必须位于其他基础初始化标头之前初始化 IAudioProcessingObject：：Initialize 中的数据。
+语法 C++
+typedef struct APOInitBaseStruct {
+  UINT32 cbSize;   CLSID  clsid;
+} APOInitBaseStruct;
+成员 cbSize
+结构的总大小（以字节为单位）。 clsid
+类 ID (APO 的 CLSID) 。注解
+如果指定的 CLSID 不匹配，则 APOInitBaseStruct 结构不是为此 APO 设计的，这是一个错误条件。 如果 APO 的 CLSID 发生更改，则
+在版本之间，则 CLSID 也可用于版本管理。 在将 CLSID 用于版本管理的情况下，APO 可
+能仍支持以前的版本。要求
+ﾉ
+展开表
+要求 Header
+另请参阅 APOInitSystemEffects
+值
+audioenginebaseapo.h
+IAudioProcessingObject：：Initialize 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+APOInitSystemEffects 结构(audioenginebaseapo.h) 项目2024/02/26
+将 APOInitSystemEffects 结构传递给 的系统效果 APO
+初始 化。语法 C++
+typedef struct APOInitSystemEffects {   APOInitBaseStruct   APOInit;
+  IPropertyStore      *pAPOEndpointProperties;
+  IPropertyStore      *pAPOSystemEffectsProperties;   void                *pReserved;
+  IMMDeviceCollection *pDeviceCollection;} APOInitSystemEffects;
+成员 APOInit
+APOInitBaseStruct 结构。 pAPOEndpointProperties
+指向 IPropertyStore 对象的指针。 pAPOSystemEffectsProperties
+指向 IPropertyStore 对象的指针。 pReserved
+保留供将来使用。 pDeviceCollection
+指向 IMMDeviceCollection 对象的指针。要求
+要求 Header
+另请参阅 APOInitBaseStruct
+APOInitSystemEffects2
+IPropertyStore 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+audioenginebaseapo.h 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+APOInitSystemEffects2 结构
+(audioenginebaseapo.h) 项目2024/03/13
+APOInitSystemEffects2 结构随 Windows 8.1 一起引入，以便为音频处理对象提供额外的初始化上下文， (APO)
+初始 化。语法 C++
+typedef struct APOInitSystemEffects2 {   APOInitBaseStruct   APOInit;
+  IPropertyStore      *pAPOEndpointProperties;
+  IPropertyStore      *pAPOSystemEffectsProperties;   void                *pReserved;
+  IMMDeviceCollection *pDeviceCollection;
+  UINT                nSoftwareIoDeviceInCollection;
+  UINT                nSoftwareIoConnectorIndex;   GUID                AudioProcessingMode;
+  BOOL                InitializeForDiscoveryOnly;} APOInitSystemEffects2;
+成员 APOInit
+APOInitBaseStruct 结构。 pAPOEndpointProperties
+指向 IPropertyStore 对象的指针。 pAPOSystemEffectsProperties
+指向 IPropertyStore 对象的指针。 pReserved
+保留供将来使用。 pDeviceCollection
+指向 IMMDeviceCollection 对象的指针。 pDeviceCollection 中的最后一项始终是表示音频终结点的 IMMDevice。
+nSoftwareIoDeviceInCollection
+指定实现 DeviceTopology 的 MMDevice，其中包括为其初始化 APO 的软件连接器。
+MMDevice 包含在 pDeviceCollection 中。 nSoftwareIoConnectorIndex
+指定 DeviceTopology 中Software_IO连接器的索引。 AudioProcessingMode
+指定音频图的处理模式。 InitializeForDiscoveryOnly
+指示音频系统是否仅为效果发现初始化 APO。要求
+ﾉ
+要求 Header
+另请参阅 APOInitSystemEffects
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+audioenginebaseapo.h 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IApoAcousticEchoCancellation 接口
+(audioenginebaseapo.h) 项目2024/02/23
+此接口由 ADO 实现，用于 (AEC) 方案启用回声消除。继承
+IApoAcousticEchoCancellation 接口继承自 IUnknown 接口。注解
+此接口只能通过捕获终结点上的模式效果 (MFX) 来实现。 在任何其他 APO 上实现此接口都会导致加载该 APO 失败。 如果捕获终结点上的模式效果是作为一系列链式 APO 实现的，则只有最靠近设备的 APO 才能实现此接口。
+IApoAcousticEchoCancellation 接口上没有显式方法。 其用途是标识音频引擎的 AEC APO。 实现此接口的 APO 将在调用 IAudioProcessingObjectRT：：APOProcess 时向其传递APO_CONNECTION_PROPERTY_V2结构。 APO_CONNECTION_PROPERTY_V2 提供时间戳，允许 APO 从主流和辅助流同步缓冲区。 如果传递到
+IAudioProcessingObjectRT：：APOProcess 的 APO_CONNECTION_PROPERTY 结构的 u32Signature 字段等于APO_CONNECTION_PROPERTY_V2_SIGNATURE，则可以安全地将结构类型转换为APO_CONNECTION_PROPERTY_V2。
+由于 AEC 算法通常需要特定的采样率和通道计数，因此音频引擎为实现 IApoAcousticEchoCancellation 接口的 APO 提供重新采样支持。
+IApoAuxiliaryInputConfiguration：：IsInputFormatSupported 方法提供了一种机制，用于通过返回 HRESULT APOERR_FORMAT_NOT_SUPPORTED来通知系统 APO 的首选输入格式。 并在方法的 ppSupportedInputFormat 参数中返回请求的格式。 然后，音频引擎会将输入音频重新采样为建议的格式，然后再将其发送到 AEC APO。 这样，AEC APO 就无
+需实现采样率和通道计数转换。要求
+ﾉ
+要求
+最低受支持的客户端
+值
+Windows 10内部版本 20348
+展开表
+要求标头
+另请参阅
+值
+audioenginebaseapo.h
+APO_CONNECTION_PROPERTY_V2IAudioProcessingObjectRT：： APOProcessIAudioProcessingObject：：IsInputFormatSupported
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IApoAcousticEchoCancellation2 接口
+(audioenginebaseapo.h) 项目2024/02/28
+此接口由 AEC 实现，用于在 AEC) 方案中 (回声消除。 它扩展 了 IAcousticEchoCancellation ，以允许 APO 指定引用流的所需属性。
+继承
+IApoAcousticEchoCancellation2 接口继承自 IApoAcousticEchoCancellation 接口。方法
+IApoAcousticEchoCancellation2 接口具有这些方法。
+ﾉ
+ 
+IApoAcousticEchoCancellation2：：GetDesiredReferenceStreamProperties
+如果环回流在关联的音频终结点上受支持，则请求一组属性。要求
+ﾉ
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 内部版本 22621 audioenginebaseapo.h
+| 在 Microsoft Q&A 获取帮助
+展开表展开表
+IApoAcousticEchoCancellation2：： GetDesiredReferenceStreamProperties
+方法 (audioenginebaseapo.h) 项目2024/03/05
+由返回一组请求的环回流属性的 APO 实现的回调函数。
+语法 C++
+HRESULT GetDesiredReferenceStreamProperties(
+  [out] APO_REFERENCE_STREAM_PROPERTIES *pProperties);
+参数
+[out] pProperties
+APO_REFERENCE_STREAM_PROPERTIES指定请求的环回流属性的标志的按位组合。返回值
+GetDesiredReferenceStreamProperties 方法返回S_OK指示它已成功完成。要求
+ﾉ
+要求
+最低受支持的客户端
+标头反馈
+值
+Windows 内部版本 22621 audioenginebaseapo.h
+展开表
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IApoAuxiliaryInputConfiguration 接口
+(audioenginebaseapo.h) 项目2024/03/05
+提供 ADO 可以实现的方法，以便音频引擎可以添加和删除辅助输入流。继承
+IApoAuxiliaryInputConfiguration 接口继承自 IUnknown 接口。方法
+IApoAuxiliaryInputConfiguration 接口具有这些方法。
+ﾉ
+ 
+IApoAuxiliaryInputConfiguration：：AddAuxiliaryInput 将辅助输入添加到 APO，并提供初始化参数。
+IApoAuxiliaryInputConfiguration：：IsInputFormatSupported 验证 APO 是否支持特定的辅助输入格式。
+IApoAuxiliaryInputConfiguration：：RemoveAuxiliaryInput
+从 APO 中删除辅助输入。要求
+ﾉ
+要求
+最低受支持的客户端标头
+值
+Windows 10内部版本 20348 audioenginebaseapo.h
+展开表展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IApoAuxiliaryInputConfiguration：：
+AddAuxiliaryInput 方法(audioenginebaseapo.h) 项目2024/02/28
+将辅助输入添加到 APO，并提供初始化参数。
+语法 C++
+HRESULT AddAuxiliaryInput(
+  DWORD                     dwInputId,   UINT32                    cbDataSize,   BYTE                      *pbyData,
+  APO_CONNECTION_DESCRIPTOR *pInputConnection);
+参数 dwInputId
+输入的标识符。 这是系统生成的唯一标识符。 APO 可以使用此标识符来区分多个辅助输入。
+cbDataSize
+初始化数据的大小（以字节为单位）。 pbyData
+特定于此 APO 的初始化数据。 pInputConnection
+此辅助输入连接的连接描述符。
+返回值 HRESULT
+HRESULT
+APOERR_NUM_CONNECTIONS_INVALID 注解
+说明
+APO 不需要辅助输入。
+初始化数据长度可变，采用以下形式。 有关使用初始化数据的信息，请参阅
+IAudioProcessingObject：：Initialize 。 C++
+struct MyAPOInitializationData{
+    APOInitBaseStruct    APOInit;
+    // add additional fields here...};
+ﾉ
+展开表
+仅当 APO 未锁定进行处理时，才会调用此方法。 此方法不会从实时处理线程调用。要求
+ﾉ
+要求
+最低受支持的客户端标头
+另请参阅
+IAudioProcessingObject：：Initialize 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 10内部版本 20348 audioenginebaseapo.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+IApoAuxiliaryInputConfiguration：： IsInputFormatSupported 方法
+(audioenginebaseapo.h) 项目2024/02/23
+验证 APO 是否支持特定的辅助输入格式。
+语法 C++
+HRESULT IsInputFormatSupported(
+  IAudioMediaType *pRequestedInputFormat,   IAudioMediaType **ppSupportedInputFormat);
+参数
+pRequestedInputFormat 要验证的输入格式。 ppSupportedInputFormat
+APO 使用最接近传入方法的格式的支持输入格式填充此参数。
+返回值 HRESULT
+ﾉ
+HRESULT
+S_OK S_FALSE
+说明
+展开表
+成功完成。 APO 应添加对 pRequestedInputFormat 的引用，并在 ppSupportedInputFormat 中返回它
+不支持格式。 APO 应返回 ppSupportedInputFormat 中建议支持的格式
+HRESULT
+APOERR_FORMAT_NOT_SUPPORTED E_POINTER
+其他值注解
+说明
+不支持格式。 APO 不应修改 ppSupportedInputFormat 传递给此函数的指针无效。
+另一个组件导致故障。 系统跟踪这些故障。
+如果 APO 可以接受请求的格式，则应添加对所请求格式的引用，将此作为支持的输出格式返回，并返回S_OK。
+如果 APO 无法接受请求的格式，它可能会建议备用请求的格式。 在这种情况下，它应创建并返回建议的格式，并返回S_FALSE。
+返回的支持格式应“最接近”请求的格式，这意味着格式对于以下属性（按优先级顺序指定）应具有相同的值。
+示例格式位深度通道数采样率
+仅当返回S_FALSE时，建议的格式可能与请求的格式不同。 返回任何失败时，建议的格式应保持不变。
+可以随时调用此 API。 返回的结果将取决于可由外部用户界面操作的 APO 的内部状态。但是，锁定 APO 进行处理后，此格式不能也不会更改。
+不能从实时处理线程调用此方法。要求
+ﾉ
+要求
+最低受支持的客户端标头
+值
+Windows 10内部版本 20348 audioenginebaseapo.h
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IApoAuxiliaryInputConfiguration：：
+RemoveAuxiliaryInput 方法(audioenginebaseapo.h) 项目2024/02/26
+从 APO 中删除辅助输入。
+语法 C++
+HRESULT RemoveAuxiliaryInput(
+  DWORD dwInputId);
+参数 dwInputId
+输入的标识符。 这是系统生成的唯一标识符。 APO 可以使用此标识符来区分多个辅助输入。
+返回值 HRESULT
+注解
+仅当 APO 未锁定进行处理时，才会调用此方法。 此方法不会从实时处理线程调用。要求
+ﾉ
+要求
+最低受支持的客户端
+值
+Windows 10内部版本 20348
+展开表
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+audioenginebaseapo.h
+| 在 Microsoft Q&A 获取帮助
+IApoAuxiliaryInputRT 接口(audioenginebaseapo.h) 项目2024/03/04
+实时安全接口，用于驱动 APO 的辅助输入。继承
+IApoAuxiliaryInputRT 接口继承自 IUnknown 接口。方法
+IApoAuxiliaryInputRT 接口具有这些方法。  
+IApoAuxiliaryInputRT：：AcceptInput 在其辅助输入之一上向 APO 提供输入。
+注解
+ﾉ
+展开表
+此方法可以从实时处理线程调用。 这些方法的实现不得阻止、触摸分页内存或调用任何
+阻塞的系统例程。要求
+ﾉ
+要求
+最低受支持的客户端标头
+值
+Windows 10内部版本 20348 audioenginebaseapo.h
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IApoAuxiliaryInputRT：：AcceptInput
+方法 (audioenginebaseapo.h) 项目2024/02/26
+在其辅助输入之一上向 APO 提供输入。
+语法 C++
+void AcceptInput(
+  DWORD                         dwInputId,
+  const APO_CONNECTION_PROPERTY *pInputConnection);
+参数 dwInputId
+输入的标识符。 这是系统生成的唯一标识符。 APO 可以使用此标识符来区分多个辅助输入。
+pInputConnection 输入连接属性结构。
+返回值无
+备注
+此方法可以从实时处理线程调用。 此方法的实现不会也不应阻止、触摸分页内存或调用任何阻塞系统例程。
+输入终结点的节奏可能与呈现终结点的节奏不匹配，因此向辅助输入提供输入的节奏可能与在主输入上调用 IAudioProcessingObjectRT：：APOProcess 的节奏不匹配。 APO 必须实现适当的非阻塞缓冲，以确保此调用不会阻止。
+APO_CONNECTION_PROPERTY_V2包含可用于同步主流和辅助流的时间戳。 如果传递到 IAudioProcessingObjectRT：：APOProcess 的APO_CONNECTION_PROPERTY结构的 u32Signature 字段等于 APO_CONNECTION_PROPERTY_V2_SIGNATURE，则可以安全地
+将结构类型转换到APO_CONNECTION_PROPERTY_V2。要求
+ﾉ
+要求
+最低受支持的客户端标头
+另请参阅
+值
+Windows 10内部版本 20348 audioenginebaseapo.h
+IAudioProcessingObjectRT：：APOProcessAPO_CONNECTION_PROPERTY_V2 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IAudioDeviceModulesClient 接口
+(audioenginebaseapo.h) 项目2024/02/23
+音频处理对象 (ASO) 实现此接口以获取对 IAudioDeviceModulesManager 实例的引用。继承
+IAudioDeviceModulesClient 接口继承自 IUnknown 接口。方法
+IAudioDeviceModulesClient 接口包含以下方法。
+ﾉ
+ 
+IAudioDeviceModulesClient：：SetAudioDeviceModulesManager
+由系统调用，用于将 IAudioDeviceModulesManager 的实例传递到实现
+IAudioDeviceModulesClient 接口 (ADO) 音频处理对象。要求
+ﾉ
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 10内部版本 20348 audioenginebaseapo.h
+| 在 Microsoft Q&A 获取帮助
+展开表展开表
+IAudioDeviceModulesClient：：
+SetAudioDeviceModulesManager 方法
+(audioenginebaseapo.h) 项目2024/02/28
+由系统调用，以将 AudioDeviceModulesManager 的实例传递到实现 IAudioDeviceModulesClient 接口 (ADO) 音频处理对象。
+语法 C++
+HRESULT SetAudioDeviceModulesManager(   IUnknown *pAudioDeviceModulesManager);
+参数
+pAudioDeviceModulesManager
+表示 IAudioDeviceModulesManager 的 IUnknown 接口。
+返回值 HRESULT。
+注解
+下面的代码示例演示 IAudioDeviceModulesClient 的实现。 C++
+STDMETHODIMP CTestModuleAPO::SetAudioDeviceModulesManager(_In_ IUnknown* 
+pAudioDeviceModulesManager) {
+    HRESULT hr = S_OK;
+    CComQIPtr<Windows::Media::Devices::IAudioDeviceModulesManager>  spModuleManager = pAudioDeviceModulesManager;
+    ComPtr<IVectorView<AudioDeviceModule *>> spModules;
+    // Cache the audio modules manager for later use within the apo
+    m_AudioModulesManager = pAudioDeviceModulesManager;     // Search the audio modules for a known module
+    hr = m_pAudioDeviceModulesMgr->FindAllById(KNOWN_MODULE_ID, &spModules);
+    if (SUCCEEDED(hr))     {
+        // do something with the module(s) returned or cache them for later  usage
+        m_KnownModules = spModules;     }
+    return hr;}
+要求
+ﾉ
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 10内部版本 20348 audioenginebaseapo.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+(audioenginebaseapo.h) 的 IAudioProcessingObject 接口项目2024/02/28
+系统效果音频处理对象 (sAPOs) 通常用于实时进程线程或从实时进程线程调用。 但是，有时需要在非实时模式下使用 sAPO。 例如，初始化 sAPO 时，将从非实时线程调用它。但是，当音频处理开始时，将从实时线程调用 sAPO。 接口 IAudioProcessingObject  公
+开的方法使客户端能够访问 sAPO 的非实时兼容部分。接口 IAudioProcessingObject  支持以下方法：
+IAudioProcessingObject：：GetInputChannelCount IAudioProcessingObject：：GetLatency
+IAudioProcessingObject：：GetRegistrationProperties IAudioProcessingObject：：Initialize
+IAudioProcessingObject：：IsInputFormatSupported IAudioProcessingObject：：IsOutputFormatSupported
+IAudioProcessingObject：：Reset 继承
+IAudioProcessingObject 接口继承自 IUnknown 接口。方法
+IAudioProcessingObject 接口包含以下方法。
+ﾉ
+ 
+IAudioProcessingObject：：GetInputChannelCount
+GetInputChannelCount 返回此 APO 的输入通道计数 (每帧样本) 。 IAudioProcessingObject：：GetLatency
+展开表
+ 
+GetLatency 方法返回此 APO 的延迟。 延迟是指帧遍历 APO 的处理过程所花费的时间。 IAudioProcessingObject：：GetRegistrationProperties
+GetRegistrationProperties 返回音频处理对象的注册属性 (APO) 。 IAudioProcessingObject：：Initialize
+Initialize 方法初始化 APO 并支持长度可变的数据。 IAudioProcessingObject：：IsInputFormatSupported
+此方法与 Windows Vista 音频引擎协商，以建立音频数据流的数据格式。 IAudioProcessingObject：：IsOutputFormatSupported
+IsOutputFormatSupported 方法用于验证是否支持特定的输出格式。 IAudioProcessingObject：：Reset
+Reset 方法将 APO 重置为其原始状态。 此方法不会导致附加到 APO 的输入或输出的连接对象发生
+任何更改。要求
+ﾉ
+要求
+目标平台
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows
+audioenginebaseapo.h 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IAudioProcessingObject：： GetInputChannelCount 方法
+(audioenginebaseapo.h) 项目2024/02/26
+GetInputChannelCount 返回此 APO 的每帧样本) (输入通道计数。
+语法 C++
+HRESULT GetInputChannelCount(
+  [out] UINT32 *pu32ChannelCount);
+参数
+[out] pu32ChannelCount
+输入通道计数。返回值
+GetInputChannelCount  如果调用成功，则返回值 S_OK。注解
+返回的输入通道计数是指 APO 的输入端。要求
+要求
+最低受支持的客户端
+值
+适用于 Windows 7 及更高版本的 Windows 操作系统。
+ﾉ
+展开表
+要求
+目标平台
+标头 Library IRQL
+另请参阅
+IAudioProcessingObject 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值通用
+audioenginebaseapo.h Audioenginebaseapo.idl
+任何级别 否
+| 在 Microsoft Q&A 获取帮助
+IAudioProcessingObject：：GetLatency
+方法 (audioenginebaseapo.h) 项目2024/02/28
+GetLatency 方法返回此 APO 的延迟。 延迟是指帧遍历 APO 的处理过程所花费的时间。
+语法 C++
+HRESULT GetLatency(
+  [out] HNSTIME *pTime);
+参数[out] pTime
+指向 MFTIME 结构的指针，该结构将接收此 APO 引入的延迟单位数。 每个延迟单位表示
+100 纳秒。返回值
+GetLatency  如果调用成功，则返回值 S_OK。 否则，它将返回错误代码 E_POINTER，指
+示传递给函数的指针无效。注解
+如果调用此 APO 的客户端知道采样率，则客户端可以计算帧数的延迟。 若要获取整个音频信号处理流的总延迟，客户端必须查询处理链中的每个 APO 并添加结果。
+重要 此方法不符合实时要求，不得从实时处理线程调用。  
+要求
+要求
+最低受支持的客户端目标平台
+标头 Library IRQL
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+适用于 Windows Vista 和更高版本的 Windows 操作系统。通用
+audioenginebaseapo.h Audioenginebaseapo.idl 任何级别
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IAudioProcessingObject：： GetRegistrationProperties 方法
+(audioenginebaseapo.h) 项目2024/02/23
+GetRegistrationProperties 返回音频处理对象的注册属性 (APO) 。
+语法 C++
+HRESULT GetRegistrationProperties(
+  [out] APO_REG_PROPERTIES **ppRegProps);
+参数
+[out] ppRegProps
+APO 的注册属性。 此参数的类型为 APO_REG_PROPERTIES。返回值
+GetRegistrationProperties  返回
+如果调用成功，则为 S_OK 的值。 否则，它将返回错误代码E_POINTER，指示指针传递到
+函数无效。注解
+调用方必须释放 返回的 GetRegistrationProperties 内存。注意  
+不得从实时处理线程调用此方法。  
+要求要求
+最低受支持的客户端目标平台
+标头 Library IRQL
+另请参阅
+IAudioProcessingObject 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+适用于 Windows 7 及更高版本的 Windows 操作系统。通用
+audioenginebaseapo.h Audioenginebaseapo.idl
+任何级别 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IAudioProcessingObject：：Initialize 方
+法 (audioenginebaseapo.h) 项目2024/02/26
+Initialize 方法初始化 APO 并支持长度可变的数据。
+语法 C++
+HRESULT Initialize(
+  [in] UINT32 cbDataSize,
+  [in] BYTE   *pbyData);
+参数
+[in] cbDataSize
+这是初始化数据的大小（以字节为单位）。[in] pbyData
+这是特定于此 APO 的初始化数据。返回值
+如果调用成功，该方法 Initialize  将返回值 S_OK。 否则，此方法返回以下错误代码之一：
+ﾉ
+返回代码 E_POINTER
+E_INVALIDARG
+APOERR_ALREADY_INITIALIZED 其他 HRESULTS
+说明
+传递给函数的指针无效。
+无效的参数。 APO 已初始化。
+音频引擎跟踪这些附加错误条件。
+展开表
+注解
+如果使用此方法初始化 APO 而无需初始化任何数据，则可以接受提供 NULL 作为
+pbyData 参数的值，提供 0 (零) 作为 cbDataSize 参数的值。 提供的数据长度可变，必须具有以下格式：
+Struct MyAPOInitializationData{
+APOInitBaseStruct APOInit;
+// list additional struct members here
+// ...};
+要求
+ﾉ
+要求
+最低受支持的客户端目标平台
+标头 Library IRQL
+另请参阅 APOInitBaseStruct
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+适用于 Windows Vista 和更高版本的 Windows 操作系统。通用
+audioenginebaseapo.h Audioenginebaseapo.idl 任何级别
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IAudioProcessingObject：： IsInputFormatSupported 方法
+(audioenginebaseapo.h) 项目2024/02/23
+此方法与 Windows Vista 音频引擎协商，以建立音频数据流的数据格式。
+语法 C++
+HRESULT IsInputFormatSupported(
+  [in, optional]  IAudioMediaType *pOppositeFormat,
+  [in, optional]  IAudioMediaType *pRequestedInputFormat,   [out, optional] IAudioMediaType **ppSupportedInputFormat);
+参数
+[in, optional] pOppositeFormat
+指向 IAudioMediaType 接口的指针。 此参数用于指示数据的输出格式。
+pOppositeFormat 的值必须设置为 NULL ，以指示输出格式可以是任意类型。[in, optional] pRequestedInputFormat
+指向 IAudioMediaType 接口的指针。 此参数用于指示要验证的输入格式。[out, optional] ppSupportedInputFormat
+此参数指示最接近要验证的格式的支持格式。返回值
+如果调用成功完成，则 ppSupportedInputFormat 参数返回 pRequestedInputFormat 指针，IsInputFormatSupported 方法返回值 S_OK。 否则，此方法返回以下错误代码之一：
+ﾉ
+返回代码
+说明
+展开表
+S_FALSE
+APOERR_FORMAT_NOT_SUPPORTED E_POINTER
+其他 HRESULT 值注解
+不支持输入/输出格式对的格式。
+ppSupportedInputFormat 返回建议的新格式。
+不支持要验证的格式。 ppSupportedInputFormat 的值不会更改。
+传递给 方法的指针无效。 ppSupportedInputFormat 的值不会更改。
+音频引擎跟踪这些附加错误条件。
+不同 ADO 在方法的 IsInputFormatSupported  实现上存在差异。 例如，对于某些实现，当输入格式为 integer 类型时，输出只能是 float 类型。
+为了启动格式协商，音频服务首先将 LFX sAPO 的输出设置为基于 float32 的默认格式。然后，音频服务调用 IAudioProcessingObject::IsInputFormatSupported  LFX sAPO 的 方法，建议默认格式，并监视此方法的 HRESULT 响应。 如果 LFX sAPO 的输入可以支持建议的格式，它将返回S_OK，以及对受支持格式的引用。 如果 LFX sAPO 的输入不支持建议的格式，它将返回S_FALSE以及对与建议格式最匹配的格式的引用。 如果 LFX sAPO 不支持建议的格式并且没有密切匹配，则返回APOERR_FORMAT_NOT_SUPPORTED。 GFX
+sAPO 适用于 LFX sAPO 的输出格式。 因此，GFX sAPO 不参与格式协商过程。要求
+ﾉ
+要求
+最低受支持的客户端目标平台
+标头 Library IRQL
+反馈
+值
+适用于 Windows Vista 和更高版本的 Windows 操作系统。通用
+audioenginebaseapo.h Audioenginebaseapo.idl 所有级别
+展开表
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IAudioProcessingObject：： IsOutputFormatSupported 方法
+(audioenginebaseapo.h) 项目2024/02/26
+方法 IsOutputFormatSupported  用于验证特定输出格式是否受支持。
+语法 C++
+HRESULT IsOutputFormatSupported(
+  [in, optional]  IAudioMediaType *pOppositeFormat,
+  [in, optional]  IAudioMediaType *pRequestedOutputFormat,   [out, optional] IAudioMediaType **ppSupportedOutputFormat);
+参数
+[in, optional] pOppositeFormat
+指向 IAudioMediaType 接口的指针。 此参数指示输出格式。 此参数必须设置为 NULL ，以指示输出格式可以是任何类型。
+[in, optional] pRequestedOutputFormat
+指向 IAudioMediaType 接口的指针。 此参数指示要验证的输出格式。[out, optional] ppSupportedOutputFormat
+此参数指示最接近要验证的格式的支持输出格式。返回值
+如果调用成功完成，ppSupportedOutputFormat 参数将返回 pRequestedOutputFormat 指针，IsOutputFormatSupported 方法返回值 S_OK。 否则，此方法将返回以下错误代码之一：
+ﾉ
+展开表
+返回代码 S_FALSE
+APOERR_FORMAT_NOT_SUPPORTED E_POINTER
+其他 HRESULT 值注解
+说明
+不支持输入/输出格式对的格式。
+ppSupportedOutPutFormat 参数返回建议的新格式。不支持格式。 ppSupportedOutputFormat 的值不会更改。
+传递给函数的指针无效。 ppSupportedOutputFormat 的值不会更改。
+音频引擎会跟踪这些附加错误条件。
+不同 APOs 在方法的 IsOutputFormatSupported  实现方面存在差异。 例如，对于某些实
+现，仅当输入格式为 integer 类型时，输出才能为 float 类型。要求
+ﾉ
+要求
+最低受支持的客户端目标平台
+标头 Library IRQL
+另请参阅 IAudioMediaType
+IAudioProcessingObject 反馈
+值
+适用于 Windows Vista 和更高版本的 Windows 操作系统。通用
+audioenginebaseapo.h Audioenginebaseapo.idl 所有级别
+展开表
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IAudioProcessingObject：：Reset 方法
+(audioenginebaseapo.h) 项目2024/02/26
+Reset 方法将 APO 重置为其原始状态。 此方法不会导致附加到 APO 的输入或输出的连接对象发生任何更改。
+语法 C++
+HRESULT Reset(); 返回值
+Reset 调用成功完成时， 方法返回值 S_OK。注解
+此方法不符合实时要求，不得从实时处理线程调用。 此方法的实现不会且不得接触分页
+内存。 此外，它不得调用任何阻塞系统例程。要求
+ﾉ
+要求
+最低受支持的客户端目标平台
+标头 Library IRQL
+值
+适用于 Windows Vista 和更高版本的 Windows 操作系统。通用
+audioenginebaseapo.h Audioenginebaseapo.idl 所有级别
+展开表
+另请参阅
+IAudioProcessingObject 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IAudioProcessingObjectConfiguration
+接口 (audioenginebaseapo.h) 项目2024/02/28
+接口 IAudioProcessingObjectConfiguration  用于配置 APO。 此接口使用其方法来锁定和解锁 APO 进行处理。
+接口 IAudioProcessingObjectConfiguration  支持以下方法： IAudioProcessingObjectConfiguration：：LockForProcess IAudioProcessingObjectConfiguration：：UnlockForProcess
+继承
+IAudioProcessingObjectConfiguration 接口继承自 IUnknown 接口。方法
+IAudioProcessingObjectConfiguration 接口包含以下方法。
+ﾉ
+ 
+IAudioProcessingObjectConfiguration：：LockForProcess
+LockForProcess 方法用于验证 APO 是否已锁定并准备好处理数据。 IAudioProcessingObjectConfiguration：：UnlockForProcess
+UnlockForProcess 方法释放 LockForProcess 方法对 APO 施加的锁。要求
+ﾉ
+要求
+目标平台
+值
+Windows
+展开表展开表
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+audioenginebaseapo.h 否
+| 在 Microsoft Q&A 获取帮助
+IAudioProcessingObjectConfiguration：
+：LockForProcess 方法(audioenginebaseapo.h) 项目2024/02/28
+方法 LockForProcess  用于验证 APO 是否已锁定并准备好处理数据。
+语法 C++
+HRESULT LockForProcess(
+  [in] UINT32                    u32NumInputConnections,   [in] APO_CONNECTION_DESCRIPTOR **ppInputConnections,   [in] UINT32                    u32NumOutputConnections,   [in] APO_CONNECTION_DESCRIPTOR **ppOutputConnections);
+参数
+[in] u32NumInputConnections 附加到此 APO 的输入连接数。[in] ppInputConnections
+附加到此 APO 的每个输入连接的连接描述符。
+[in] u32NumOutputConnections 附加到此 APO 的输出连接数。[in] ppOutputConnections
+附加到此 APO 的每个输出连接的连接描述符。返回值
+如果调用成功完成，方法 LockForProcess  将返回值 S_OK。 在此阶段，APO 已锁定并已准备好处理数据。
+返回代码 E_POINTER
+APOERR_INVALID_CONNECITON_FORMAT APOERR_NUM_CONNECTIONS_INVALID APOERR_APO_LOCKED
+其他 HRESULTS 注解
+说明
+传递给函数的指针无效。连接格式无效。
+在此 APO 上无效的输入或输出连接数。 APO 已锁定。
+音频引擎将跟踪这些故障。
+ﾉ
+展开表
+LockForProcess 调用 方法时，它首先执行内部检查以查看 APO 是否已初始化并准备好处理数据。 每个 APO 都有不同的初始化要求，因此每个 APO 必须根据需要定义自己的
+Initialize 方法。要求
+ﾉ
+要求
+最低受支持的客户端目标平台
+标头 Library IRQL
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+适用于 Windows Vista 和更高版本的 Windows 操作系统。通用
+audioenginebaseapo.h Audioenginebaseapo.idl 所有级别
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IAudioProcessingObjectConfiguration：
+：UnlockForProcess 方法(audioenginebaseapo.h) 项目2024/02/26
+方法 UnlockForProcess  释放由 LockForProcess 方法对 APO 施加的锁。
+语法 C++
+HRESULT UnlockForProcess(); 返回值
+如果调用成功完成，方法 UnlockForProcess  将返回值 S_OK。 如果在调用时 APO 已解
+锁，则 方法将返回值 APOERR_ALREADY_UNLOCKED。注解
+方法 UnlockForProcess  将 APO 置于使配置更改成为可能的模式。 这些更改包括添加、
+删除和交换附加到 APO 的输入和输出连接。要求
+ﾉ
+要求
+最低受支持的客户端目标平台
+标头 Library IRQL
+值
+可用的 Windows Vista 和更高版本的 Windows 操作系统。通用
+audioenginebaseapo.h Audioenginebaseapo.idl 所有级别
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IAudioProcessingObjectRT 接口
+(audioenginebaseapo.h) 项目2024/02/23
+此接口可以在实时模式下运行，其方法可以称为实时处理线程。 此接口的方法的实现不得阻止或触摸分页内存。 此外，不得在方法的实现中调用任何阻止系统例程。
+接口 IAudioProcessingObjectRT  包括以下方法： IAudioProcessingObjectRT：：APOProcess
+IAudioProcessingObjectRT：：CalcInputFrames IAudioProcessingObjectRT：：CalcOutputFrames
+继承
+IAudioProcessingObjectRT 接口继承自 IUnknown 接口。方法
+IAudioProcessingObjectRT 接口具有这些方法。
+ﾉ
+ 
+IAudioProcessingObjectRT：：APOProcess APOProcess 方法会导致 APO 进行处理传递。 IAudioProcessingObjectRT：：CalcInputFrames
+CalcInputFrames 方法返回 APO 生成给定数量的输出帧所需的输入帧数。 IAudioProcessingObjectRT：：CalcOutputFrames
+CalcOutputFrames 方法返回 APO 为给定数量的输入帧所需的输出帧数。要求
+展开表
+要求
+目标平台
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows
+audioenginebaseapo.h 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IAudioProcessingObjectRT：： APOProcess 方法
+(audioenginebaseapo.h) 项目2023/08/22
+APOProcess 方法会导致 APO 进行处理传递。
+语法 C++
+void APOProcess(
+  [in]      UINT32                  u32NumInputConnections,   [in]      APO_CONNECTION_PROPERTY **ppInputConnections,   [in]      UINT32                  u32NumOutputConnections,   [in, out] APO_CONNECTION_PROPERTY **ppOutputConnections);
+参数
+[in] u32NumInputConnections 附加到此 APO 的输入连接数。[in] ppInputConnections
+输入连接属性结构的数组。 每个输入连接有一个结构。
+[in] u32NumOutputConnections 附加到此 APO 的输出连接数。[in, out] ppOutputConnections
+输出连接属性结构的数组。 每个输出连接有一个结构。
+返回值无
+返回代码备注
+说明
+方法 APOProcess  不得更改 ppOutputConnections 数组中的数据。 但它必须在处理后设置输出连接的属性。
+方法 APOProcess  从实时处理线程调用。 此方法的实现不得接触分页内存，并且不应调用任何系统阻塞例程。
+有关此方法的实现的详细信息，请参阅 Swap 示例代码 并参阅 Swapapolfx.cpp 文件。要求
+ 
+最低受支持的客户端目标平台
+标头 Library IRQL
+另请参阅交换示例代码
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+适用于 Windows Vista 和更高版本的 Windows 操作系统。通用
+audioenginebaseapo.h Audioenginebaseapo.idl 所有级别
+ﾄ否
+IAudioProcessingObjectRT：：
+CalcInputFrames 方法(audioenginebaseapo.h) 项目2024/02/23
+方法 CalcInputFrames  返回 APO 生成给定数量的输出帧所需的输入帧数。
+语法 C++
+UINT32 CalcInputFrames(
+  UINT32 u32OutputFrameCount);
+参数
+u32OutputFrameCount 这是输出帧数的计数。
+返回值
+方法 CalcInputFrames  返回生成给定数量的输出帧所需的输入帧数。
+返回代码备注
+说明
+ﾉ
+展开表
+方法 CalcInputFrames  从实时处理线程调用。 此方法的实现不得接触分页内存，并且不
+应调用任何系统阻塞例程。要求
+要求
+最低受支持的客户端目标平台
+标头 Library IRQL
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+适用于 Windows Vista 和更高版本的 Windows 操作系统。通用
+audioenginebaseapo.h Audioenginebaseapo.idl 所有级别
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IAudioProcessingObjectRT：：
+CalcOutputFrames 方法(audioenginebaseapo.h) 项目2024/02/23
+方法 CalcOutputFrames  返回 APO 为给定数量的输入帧所需的输出帧数。
+语法 C++
+UINT32 CalcOutputFrames(
+  [in] UINT32 u32InputFrameCount);
+参数
+[in] u32InputFrameCount 这是输入帧数的计数。
+返回值
+方法 CalcOutputFrames  返回 APO 将为给定数量的输入帧生成的输出帧数。
+返回代码备注
+说明
+ﾉ
+展开表
+CalcOutputFrames 可以调用 方法，形成实时处理线程。 此方法的实现不得阻止或触摸分
+页内存，也不应调用任何系统阻止例程。要求
+要求
+最低受支持的客户端目标平台
+标头 Library IRQL
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+适用于 Windows Vista 和更高版本的 Windows 操作系统。通用
+audioenginebaseapo.h Audioenginebaseapo.idl 所有级别
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+(audioenginebaseapo.h) 的 IAudioSystemEffects 接口项目2024/02/23
+IAudioSystemEffects 接口使用从 IUnknown 继承的基本方法，并且必须实现 Initialize 方
+法。 传递给此 Initialize 方法的参数必须直接传递给 IAudioProcessingObject：： Initialize 方法。
+有关实现 IAudioSystemEffects：：Initialize 方法所需的结构和参数的信息，请参阅
+IAudioProcessingObject：：Initialize 方法。继承
+IAudioSystemEffects 接口继承自 IUnknown 接口。要求
+ﾉ
+要求
+目标平台
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows
+audioenginebaseapo.h 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IAudioSystemEffects2 接口(audioenginebaseapo.h) 项目2025/02/19
+IAudioSystemEffects2 接口与 Windows 8.1 一起引入，用于检索有关给定模式下处理对象的信息。
+继承
+IAudioSystemEffects2 接口继承自 IAudioSystemEffects。 IAudioSystemEffects2 还具有以下类
+型的成员：方法
+IAudioSystemEffects2 接口具有这些方法。
+ﾉ
+ 
+IAudioSystemEffects2：：GetEffectsList
+展开表
+GetEffectsList 方法用于检索当前处于活动状态的音频处理效果列表，并在列表更改时存储要发出信号的事
+件。要求
+ﾉ
+ 
+目标平台标头
+另请参阅 IAudioSystemEffects
+ 
+Windows
+audioenginebaseapo.h
+展开表
+IAudioSystemEffects2：：GetEffectsList 方
+法 (audioenginebaseapo.h) 项目2024/02/23
+GetEffectsList 方法用于检索当前处于活动状态的音频处理效果列表，并在列表更改时存储要发出信号的事件。
+语法 C++
+HRESULT GetEffectsList(
+  [out] LPGUID *ppEffectsIds,   [out] UINT   *pcEffects,
+  [in]  HANDLE Event);
+参数
+[out] ppEffectsIds
+指向表示音频处理效果的 GUID 列表的指针。 调用方负责通过调用 CoTaskMemFree 来释放此内存。
+[out] pcEffects
+列表中的音频处理效果计数。[in] Event
+如果列表更改，将发出信号的事件的 HANDLE。返回值
+如果方法调用成功， 则 GetEffectsList 方法返回S_OK。 如果列表中没有任何效果，则该函数仍
+然成功， ppEffectsIds 返回 NULL 指针， pcEffects 返回计数 0。注解
+当音频处理效果列表从 GetEffectsList 返回的列表中更改时，APO 向指定的事件发出信号。 APO 使用此事件，直到再次调用 GetEffectsList 或销毁 APO 为止。 传递的句柄可以为 NULL，
+在这种情况下，APO 停止使用任何以前的句柄，并且不发出事件信号。
+APO 实现此方法以允许 Windows 发现 APO 应用的当前效果。 效果列表可能取决于 APO 初始
+化的处理模式以及任何最终用户配置。 处理模式由 APOInitSystemEffects2 的 AudioProcessingMode 成员指示。
+ADO 应使用 Windows 定义的 GUID（例如
+AUDIO_EFFECT_TYPE_ACOUSTIC_ECHO_CANCELLATION）来识别效果。 APO 仅应在效果类型
+明显不同于 Windows 定义的效果类型的情况下定义并返回自定义 GUID。要求
+ﾉ
+要求
+目标平台标头
+另请参阅 APOInitSystemEffects2 IAudioSystemEffects2
+值桌面
+audioenginebaseapo.h
+展开表
+IAudioSystemEffectsCustomFormats 接
+口 (audioenginebaseapo.h) 项目2024/02/23
+该 IAudioSystemEffectsCustomFormats  接口在 Windows Vista 和更高版本的 Windows 中受支持。 开发音频处理对象 (APO) 以非典型格式驱动音频适配器时，APO 必须支持 接口 IAudioSystemEffectsCustomFormats  。
+Windows 操作系统可以在音频引擎外部实例化 APO，并使用
+IAudioSystemEffectsCustomFormats  接口检索有关非典型格式的信息。 关联的用户界面显示检索到的数据。
+重要 尽管该 IAudioSystemEffectsCustomFormats  接口在 Windows 中仍受支持，但请注意，可以应用此接口的 APO 类型取决于所面向的 Windows 版本。 下表提供了详
+细信息：  
+ﾉ
+目标操作系统 Windows Vista Windows 7 Windows 8 Windows 8.1  
+目标 APO 类型 GFX) (全局效果 GFX) (全局效果 GFX) (全局效果终结点效果 (EFX)
+接口 IAudioSystemEffectsCustomFormats  继承自 IUnknown ，还支持以下方法： IAudioSystemEffectsCustomFormats：：GetFormat
+IAudioSystemEffectsCustomFormats：：GetFormatCount
+IAudioSystemEffectsCustomFormats：：GetFormatRepresentation 继承
+IAudioSystemEffectsCustomFormats 接口继承自 IUnknown 接口。
+展开表
+方法
+IAudioSystemEffectsCustomFormats 接口包含以下方法。  
+IAudioSystemEffectsCustomFormats：：GetFormat
+GetFormat 方法检索自定义格式的 IAudioMediaType 表示形式。 IAudioSystemEffectsCustomFormats：：GetFormatCount
+GetFormatCount 方法检索系统效果音频处理对象 (sAPO) 支持的自定义格式数。 IAudioSystemEffectsCustomFormats：：GetFormatRepresentation
+ﾉ
+展开表
+GetFormatRepresentation 方法检索自定义格式的字符串表示形式，以便它可以显示在用户界面
+上。要求
+ﾉ
+要求
+目标平台
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows
+audioenginebaseapo.h 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IAudioSystemEffectsCustomFormats：： GetFormat 方法 (audioenginebaseapo.h) 项目2023/08/22
+方法 GetFormat  检索自定义格式的 IAudioMediaType 表示形式。
+语法 C++
+HRESULT GetFormat(
+  [in]            UINT            nFormat,   [out, optional] IAudioMediaType **ppFormat);
+参数[in] nFormat
+指定受支持格式的索引。 此参数可以是从零到比 GetFormatCount 的返回值小 1 范围内
+的任意值。 换句话说，从零到 GetFormatCount 范围内的任何值 ( ) - 1。[out, optional] ppFormat
+指定指向 IAudioMediaType 接口的指针的指针。 调用方负责释放 ppFormat 参数指向的
+IAudioMediaType 接口。返回值
+当调用成功时，方法 GetFormat  将返回S_OK。 否则，它将返回下表中显示的错误代码之一。
+返回代码 E_POINTER
+E_OUTOFMEMORY E_INVALIDARG
+说明
+传递给函数的指针无效无法分配返回缓冲区 nFormat 已超过范围
+注解
+当音频系统调用 方法时 GetFormat  ，sAPO 会创建音频媒体类型对象并返回
+IAudioMediaType 接口。 sAPO 实现可以使用 CreateAudioMediaType 实用工具函数创
+建音频媒体类型对象。要求
+ 
+最低受支持的客户端目标平台
+标头 IRQL
+另请参阅
+CreateAudioMediaType
+GetFormatCount IAudioMediaType
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+在 Windows Vista 和更高版本的 Windows 中可用。桌面
+audioenginebaseapo.h (包括 Audioenginebaseapo.h)
+所有级别。ﾄ否
+IAudioSystemEffectsCustomFormats：：
+GetFormatCount 方法(audioenginebaseapo.h) 项目2024/02/26
+方法 GetFormatCount  检索系统效果音频处理对象支持的自定义格式数， (sAPO) 。
+语法 C++
+HRESULT GetFormatCount(   [out] UINT *pcFormats);
+参数
+[out] pcFormats
+指定指向无符号整数的指针。 无符号整数表示 sAPO 支持的格式数。返回值
+调用成功时，该方法 GetFormatCount  返回S_OK。 否则，它将返回E_POINTER，指示传递
+给函数的指针无效。注解
+有关 sAPOS 的详细信息，请参阅 系统效果音频处理对象。要求
+ﾉ
+要求
+最低受支持的客户端
+值
+在 Windows Vista 和更高版本的 Windows 中可用。
+展开表
+要求
+目标平台
+标头 IRQL
+另请参阅系统效果音频处理对象
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值桌面
+audioenginebaseapo.h (包括 Audioenginebaseapo.h)
+所有级别。 否
+| 在 Microsoft Q&A 获取帮助
+IAudioSystemEffectsCustomFormats：： GetFormatRepresentation 方法
+(audioenginebaseapo.h) 项目2023/08/22
+方法 GetFormatRepresentation  检索自定义格式的字符串表示形式，以便它可以显示在用
+户界面上。语法 C++
+HRESULT GetFormatRepresentation(   [in]            UINT   nFormat,
+  [out, optional] LPWSTR *ppwstrFormatRep);
+参数[in] nFormat
+指定受支持格式的索引。 此参数可以是介于 0 到 GetFormatCount 返回值 1 之间的任何
+值。 换句话说，从零到 GetFormatCount 范围内的任何值 ( ) - 1。[out, optional] ppwstrFormatRep
+指定接收描述自定义格式的以 NULL 结尾的 Unicode 字符串的缓冲区的地址。返回值
+调用成功时，该方法 GetFormatRepresentation  返回S_OK。 否则，它将返回下表中显示的错误代码之一。
+返回代码 E_POINTER
+E_OUTOFMEMORY E_INVALIDARG
+说明
+传递给函数的指针无效无法分配返回缓冲区 nFormat 已超过范围
+注解
+sAPO 使用 CoTaskMemAlloc 分配返回的字符串。 调用方必须使用 CoTaskMemFree 删除
+ppwstrFormatRep 参数指向的缓冲区。要求
+ 
+最低受支持的客户端目标平台
+标头 IRQL
+另请参阅 CoTaskMemAlloc CoTaskMemFree GetFormatCount
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+在 Windows Vista 和更高版本的 Windows 中可用。桌面
+audioenginebaseapo.h (包括 Audioenginebaseapo.h)
+所有级别。ﾄ否
+audioengineextensionapo.h 标头项目2023/08/29
+音频设备 DDI 参考使用此标头。 有关详细信息，请参阅：
+音频设备 DDI 参考
+有关音频驱动程序随附的音频处理对象 (API) 的Windows 11 API 的详细信息，请参阅音频处理对象的Windows 11 API。
+audioengineextensionapo.h 包含以下编程接口：
+接口  
+IAudioProcessingObjectLoggingService 表示 ADO 的日志记录服务。
+IAudioProcessingObjectNotifications
+由客户端实现，用于注册和接收 APO 终结点和系统效果通知的常见音频相关通知。 IAudioProcessingObjectNotifications2
+由客户端实现，用于注册和接收 APO 终结点和系统效果通知的常见音频相关通知。 此接口添加了
+确定当前设备上运行的 Windows 版本上支持的通知类型的功能。 IAudioProcessingObjectPreferredFormatSupport
+此接口由 ADO 实现，以使它们能够指定首选的输入或输出格式。 IAudioProcessingObjectRTQueueService
+表示 ADO 的实时工作队列服务。 IAudioSystemEffects3
+由需要将 APOInitSystemEffects3 结构传递到 IAudioProcessingObject：：Initialize 方法的客户端实
+现。结构
+ 
+AcousticEchoCanceller_Reference_Input
+包含与当前回声消除 (AEC) 配置相关的扩展信息。 APO_NOTIFICATION
+表示更改 APO 终结点或系统效果的通知。 APO_NOTIFICATION_DESCRIPTOR
+指定请求的 APO 通知。 APOInitSystemEffects3
+提供 APO 初始化参数，扩展 APOInitSystemEffects2 以添加指定日志记录服务提供程序的功能。
+AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR 指定终结点属性更改 APO 通知。
+AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION 表示属性更改 APO 通知。
+AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR 指定终结点卷 APO 通知。
+AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION 表示音频终结点音量更改 APO 通知。
+AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2
+表示音频终结点音量更改 APO 通知。 这是AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION 的更新版本，提供有关卷更改事件的其他信息。
+AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION 表示音频环境更改 APO 通知。
+AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR 指定终结点麦克风提升 APO 通知。
+AUDIO_MICROPHONE_BOOST_NOTIFICATION 表示音频麦克风提升 APO 通知。
+ 
+AUDIO_SYSTEMEFFECT
+表示 (sAPO) 音频效果的系统效果音频处理对象。
+AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR audioengineextensionapo.h
+(AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR 结构) 指定系统效果属性更改 APO 通知。
+AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION 表示系统音频效果 APO 通知。
+AUDIO_VOLUME_NOTIFICATION_DATA2
+表示有关卷更改通知事件的信息。 此结构由
+AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2 结构使用。
+枚举  
+APO_LOG_LEVEL
+指定使用 IAudioProcessingObjectLoggingService：：ApoLog 记录的 APO 事件的级别。 APO_NOTIFICATION_TYPE
+指定APO_NOTIFICATION的类型。 AUDIO_SYSTEMEFFECT_STATE
+指定系统效果音频处理对象的状态 (sAPO) 音频效果。 DEVICE_ORIENTATION_TYPE
+指定APO_NOTIFICATION_TYPE_DEVICE_ORIENTATION类型的通知的设备方向值。反馈
+此页面是否有帮助？
+是
+否
+在 Microsoft Q&A 获取帮助
+AcousticEchoCanceller_Reference_Input
+结构 (audioengineextensionapo.h) 项目2024/02/26
+包含与当前回声消除 (AEC) 配置相关的扩展信息。
+语法 C++
+typedef struct AcousticEchoCanceller_Reference_Input {   APOInitSystemEffects3           apoInitSystemEffects;
+  APO_REFERENCE_STREAM_PROPERTIES streamProperties;} AcousticEchoCanceller_Reference_Input;
+成员
+apoInitSystemEffects
+APOInitSystemEffects3 结构， (APO) 初始化参数提供音频处理对象。 streamProperties
+APO_REFERENCE_STREAM_PROPERTIES的值的按位组合，用于指定请求的环回流属性。注解
+此结构将传递给实现 IApoAcousticEchoCancellation2 的 APO，作为
+IApoAuxiliaryInputConfiguration：：AddAuxiliaryInput 中的 pbyData 参数。要求
+ﾉ
+要求
+最低受支持的客户端标头
+值
+Windows 10内部版本 20348 audioengineextensionapo.h
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+APO_LOG_LEVEL 枚举
+(audioengineextensionapo.h) 项目2024/02/23
+指定使用 IAudioProcessingObjectLoggingService：：ApoLog 记录的 APO 事件的级别。
+语法 C++
+typedef enum APO_LOG_LEVEL {   APO_LOG_LEVEL_ALWAYS = 0,   APO_LOG_LEVEL_CRITICAL = 1,
+  APO_LOG_LEVEL_ERROR = 2,   APO_LOG_LEVEL_WARNING = 3,   APO_LOG_LEVEL_INFO = 4,   APO_LOG_LEVEL_VERBOSE = 5} ;
+常量
+ﾉ
+ 
+APO_LOG_LEVEL_ALWAYS 值： 0
+所有事件。
+APO_LOG_LEVEL_CRITICAL 值：1
+异常退出或终止事件。 APO_LOG_LEVEL_ERROR 值： 2
+严重错误事件。
+APO_LOG_LEVEL_WARNING 值： 3
+警告事件，例如分配失败。
+APO_LOG_LEVEL_INFO 值： 4
+展开表
+ 
+非错误事件，例如进入或退出事件。
+APO_LOG_LEVEL_VERBOSE 值： 5
+详细的跟踪事件。注解
+有关音频驱动程序随附的音频处理对象 (API) 的Windows 11 API 的详细信息，请参阅音
+频处理对象的Windows 11 API。要求
+ﾉ
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 内部版本 22000 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+APO_NOTIFICATION 结构
+(audioengineextensionapo.h) 项目2024/02/23
+表示更改 APO 终结点或系统效果的通知。
+语法 C++
+typedef struct APO_NOTIFICATION {
+  APO_NOTIFICATION_TYPE type;   union {
+    AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION         audioEndpointVolumeChange;
+    AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION       audioEndpointPropertyChange;
+    AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION  audioSystemEffectsPropertyChange;
+    AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2        audioEndpointVolumeChange2;
+    DEVICE_ORIENTATION_TYPE                          deviceOrientation;
+    AUDIO_MICROPHONE_BOOST_NOTIFICATION               audioMicrophoneBoostChange;
+    AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION      audioEnvironmentChange;
+  } DUMMYUNIONNAME;} APO_NOTIFICATION;
+成员 type
+APO_NOTIFICATION_TYPE 枚举中的值，指定通知所表示的更改类型。 DUMMYUNIONNAME
+DUMMYUNIONNAME.audioEndpointVolumeChange
+当 type 为APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME时，联合值为表示 APO 终结点
+卷更改通知 的AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION 。 DUMMYUNIONNAME.audioEndpointPropertyChange
+当 类型 为APO_NOTIFICATION_TYPE_ENDPOINT_PROPERTY_CHANGE时，联合值是表示 APO 终结点属性更改通知 的AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION 。
+DUMMYUNIONNAME.audioSystemEffectsPropertyChange
+当 type 为APO_NOTIFICATION_TYPE_ENDPOINT_PROPERTY_CHANGE时，联合值是表示 APO 系统效果属性更改通知 的
+AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION 。 DUMMYUNIONNAME.audioEndpointVolumeChange2
+当 type 为APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME2时，联合值是一个
+AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2 表示 APO 终结点卷（包括主卷
+和通道卷）的更改通知（以 dB 为单位）。 DUMMYUNIONNAME.deviceOrientation
+APO_NOTIFICATION_TYPE_DEVICE_ORIENTATION 类型 时，联合值是表示设备方向值的 DEVICE_ORIENTATION_TYPE 。
+DUMMYUNIONNAME.audioMicrophoneBoostChange
+当 type 为APO_NOTIFICATION_TYPE_MICROPHONE_BOOST时，联合值是表示终结点麦
+克风提升 APO 通知 的AUDIO_MICROPHONE_BOOST_NOTIFICATION 。 DUMMYUNIONNAME.audioEnvironmentChange
+APO_NOTIFICATION_TYPE_AUDIO_ENVIRONMENT_STATE_CHANGE 类型 时，联合值为表示音频环境更改 APO 通知 的AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION。
+注解
+通过实现 IAudioProcessingObjectNotifications：：GetApoNotificationRegistrationInfo
+注册要接收的通知类型。 通过实现 IAudioProcessingObjectNotifications：： HandleNotification 接收已注册的通知。
+有关音频处理对象Windows 11 API (音频驱动程序附带的 API) 的详细信息，请参阅音频
+处理对象的 Windows 11 API。要求
+ﾉ
+展开表
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 内部版本 22000 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+APO_NOTIFICATION_DESCRIPTOR结构
+（audioengineextensionapo.h）项目2024/11/20
+指定请求的 APO 通知。
+语法 C++
+typedef struct APO_NOTIFICATION_DESCRIPTOR {
+  APO_NOTIFICATION_TYPE type;   union {
+    AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR                audioEndpointVolume;
+    AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR       audioEndpointPropertyChange;
+    AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR  audioSystemEffectsPropertyChange;
+    AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR              
+audioMicrophoneBoost;   } DUMMYUNIONNAME;
+} APO_NOTIFICATION_DESCRIPTOR;
+成员 type
+来自 APO_NOTIFICATION_TYPE 枚举的值 DUMMYUNIONNAME
+DUMMYUNIONNAME.audioEndpointVolume 指定终结点卷更改 APO 通知的
+AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR。
+DUMMYUNIONNAME.audioEndpointPropertyChange 指定终结点属性更改 APO 通知的
+AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR。 DUMMYUNIONNAME.audioSystemEffectsPropertyChange
+指定系统效果属性更改 APO 通知的
+AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR。
+DUMMYUNIONNAME.audioMicrophoneBoost 指定麦克风提升 APO 通知的
+AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR。言论
+从 IAudioProcessingObjectNotifications：：GetApoNotificationRegistrationInfo 或
+IAudioProcessingObjectNotifications2：：GetApoNotificationRegistrationInfo2 的实现中返回此结构，以指定请求的 APO 通知。
+有关可附带音频驱动程序的音频处理对象的 Windows 11 API 的详细信息，请参阅
+Windows 11 API for Audio Processing Objects。要求
+ﾉ
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+Windows 内部版本 22000 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+APO_NOTIFICATION_TYPE 枚举(audioengineextensionapo.h) 项目2025/02/20
+指定 APO_NOTIFICATION的类型。
+语法 C++
+typedef enum APO_NOTIFICATION_TYPE {   APO_NOTIFICATION_TYPE_NONE = 0,
+  APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME = 1,
+  APO_NOTIFICATION_TYPE_ENDPOINT_PROPERTY_CHANGE = 2,
+  APO_NOTIFICATION_TYPE_SYSTEM_EFFECTS_PROPERTY_CHANGE = 3,
+  APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME2 = 4,   APO_NOTIFICATION_TYPE_DEVICE_ORIENTATION = 5,   APO_NOTIFICATION_TYPE_MICROPHONE_BOOST = 6,
+  APO_NOTIFICATION_TYPE_AUDIO_ENVIRONMENT_STATE_CHANGE} ;
+常量  
+APO_NOTIFICATION_TYPE_NONE
+值： 0 无。
+APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME 值：1
+ﾉ
+展开表
+终结点卷通知。 AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION结构传达此通知的数据。
+APO_NOTIFICATION_TYPE_ENDPOINT_PROPERTY_CHANGE 值： 2
+终结点属性更改通知。 AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION结构传达此通知的数据。
+APO_NOTIFICATION_TYPE_SYSTEM_EFFECTS_PROPERTY_CHANGE 值： 3
+ 
+系统效果属性更改通知。 AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION结构传达此通知的数据。
+APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME2 值： 4
+包含主卷和通道卷的终结点的终结点卷通知（以 dB 为单位）。
+AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2结构传达此通知的数据。
+APO_NOTIFICATION_TYPE_DEVICE_ORIENTATION 值： 5
+设备的显示方向通知。 DEVICE_ORIENTATION_TYPE枚举传达此通知的数据。
+APO_NOTIFICATION_TYPE_MICROPHONE_BOOST 值： 6
+麦克风提升通知。 AUDIO_MICROPHONE_BOOST_NOTIFICATION结构传达此通知的数据。 APO_NOTIFICATION_TYPE_AUDIO_ENVIRONMENT_STATE_CHANGE
+音频环境状态更改通知。 AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION结构传达此通知
+的数据。注解
+客户端使用此枚举在 IAudioProcessingObjectNotifications2：：
+GetApoNotificationRegistrationInfo2 和 IAudioProcessingObjectNotifications：： GetApoNotificationRegistrationInfo 的实现中指定请求的通知类型。
+传递到 HandleNotification的APO_NOTIFICATION结构在其联合字段中将包含不同的结构，具体取决于引发的通知类型。 有关详细信息，请参阅 APO_NOTIFICATION 结构。
+有关音频处理对象Windows 11 API (音频驱动程序附带的 API) 的详细信息，请参阅音频
+处理对象的 Windows 11 API。要求
+ﾉ
+要求
+最低受支持的客户端标头
+值
+Windows 内部版本 22000 audioengineextensionapo.h
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+APOInitSystemEffects3 结构(audioengineextensionapo.h) 项目2025/02/19
+提供音频处理对象 (APO) 初始化参数，扩展 APOInitSystemEffects2 以添加指定日志记录服务提供程序的功能。
+语法 C++
+typedef struct APOInitSystemEffects3 {   APOInitBaseStruct   APOInit;
+  IPropertyStore      *pAPOEndpointProperties;
+  IServiceProvider    *pServiceProvider;   IMMDeviceCollection *pDeviceCollection;
+  UINT                nSoftwareIoDeviceInCollection;
+  UINT                nSoftwareIoConnectorIndex;   GUID                AudioProcessingMode;
+  BOOL                InitializeForDiscoveryOnly;} APOInitSystemEffects3;
+成员 APOInit
+APOInitBaseStruct 结构。 pAPOEndpointProperties
+指向 IPropertyStore 对象的指针。 pServiceProvider
+IServiceProvider 接口。 pDeviceCollection
+指向 IMMDeviceCollection 对象的指针。 pDeviceCollection 中的最后一项始终是表示音频终结点的 IMMDevice。
+nSoftwareIoDeviceInCollection
+指定实现 DeviceTopology 的 MMDevice ，其中包括为其初始化 APO 的软件连接器。
+MMDevice 包含在 pDeviceCollection 中。 nSoftwareIoConnectorIndex
+指定 DeviceTopology 中Software_IO连接器的索引。 AudioProcessingMode
+指定音频图的处理模式。 InitializeForDiscoveryOnly
+指示音频系统是否仅为效果发现初始化 APO。注解
+有关音频驱动程序随附的音频处理对象 (API) 的Windows 11 API 的详细信息，请参阅音
+频处理对象的Windows 11 API。要求
+ﾉ
+ 
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+ 
+Windows 内部版本 22000 Windows 内部版本 22000 audioengineextensionapo.h
+APOInitSystemEffectsAPOInitSystemEffects2 反馈
+此页面是否有帮助？
+是
+否
+展开表
+AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR结构
+（audioengineextensionapo.h）项目2024/11/20
+指定终结点属性更改 APO 通知。
+语法 C++
+typedef struct AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR {   IMMDevice *device;
+} AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR;
+成员 device
+IMMDevice 表示与通知关联的音频终结点。言论
+从 IAudioProcessingObjectNotifications：：GetApoNotificationRegistrationInfo 的实现返回包含此结构的 APO_NOTIFICATION_DESCRIPTOR，以请求终结点属性更改 APO 通知。
+有关可附带音频驱动程序的音频处理对象的 Windows 11 API 的详细信息，请参阅
+Windows 11 API for Audio Processing Objects。要求
+ﾉ
+要求
+最低支持的客户端
+价值
+Windows 内部版本 22000
+展开表
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION 结构
+(audioengineextensionapo.h) 项目2024/02/23
+表示属性更改 APO 通知。
+语法 C++
+typedef struct AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION {   IMMDevice      *endpoint;
+  IPropertyStore *propertyStore;   PROPERTYKEY    propertyKey;
+} AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION;
+成员 endpoint
+表示与通知关联的音频终结点的 IMMDevice 。 propertyStore
+表示与通知关联的属性存储的 IPropertyStore 。 propertyKey
+一个 PROPERTYKEY 结构，用于标识与通知关联的属性。注解
+有关音频处理对象Windows 11 API (音频驱动程序附带的 API) 的详细信息，请参阅音频
+处理对象的 Windows 11 API。要求
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 内部版本 22000 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+AUDIO_ENDPOINT_VOLUME_APO_NOTI FICATION_DESCRIPTOR结构
+（audioengineextensionapo.h）项目2024/11/20
+指定终结点卷 APO 通知。
+语法 C++
+typedef struct AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR {   IMMDevice *device;
+} AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR;
+成员 device
+IMMDevice 表示与通知请求关联的音频终结点。言论
+从 IAudioProcessingObjectNotifications：：GetApoNotificationRegistrationInfo 实现中返回包含此结构的 APO_NOTIFICATION_DESCRIPTOR，以请求终结点卷更改 APO 通知。
+有关可附带音频驱动程序的音频处理对象的 Windows 11 API 的详细信息，请参阅
+Windows 11 API for Audio Processing Objects。要求
+ﾉ
+要求
+最低支持的客户端标头
+价值
+Windows 内部版本 22000 audioengineextensionapo.h
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+(audioengineextensionapo.h) 的
+AUDIO_ENDPOINT_VOLUME_CHANGE_
+NOTIFICATION结构项目2024/02/28
+表示音频终结点音量更改 APO 通知。
+语法 C++
+typedef struct AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION {
+  IMMDevice                       *endpoint;   PAUDIO_VOLUME_NOTIFICATION_DATA volume;
+} AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION;
+成员 endpoint
+表示与通知关联的音频终结点的 IMMDevice 。 volume
+指向表示新终结点卷 的AUDIO_VOLUME_NOTIFICATION_DATA 的指针。注解
+有关音频驱动程序随附的音频处理对象 (API) 的Windows 11 API 的详细信息，请参阅音
+频处理对象的Windows 11 API。要求
+ﾉ
+要求
+最低受支持的客户端
+值
+Windows 内部版本 22000
+展开表
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+AUDIO_ENDPOINT_VOLUME_CHANGE_ NOTIFICATION2 结构
+(audioengineextensionapo.h) 项目2023/03/22
+表示音频终结点音量更改 APO 通知。 这是
+AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION 的更新版本，提供有关卷更改事件的其他信息。
+语法 C++
+typedef struct AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2 {
+
+  IMMDevice                        *endpoint;
+   PAUDIO_VOLUME_NOTIFICATION_DATA2 volume;
+
+} AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2;
+
+成员 endpoint
+表示与通知关联的音频终结点的 IMMDevice 。 volume
+指向包含卷更改事件相关信息 的AUDIO_VOLUME_NOTIFICATION_DATA2 的指针。备注
+有关音频驱动程序随附的音频处理对象 (API) 的Windows 11 API 的详细信息，请参阅音
+频处理对象的Windows 11 API。要求
+ 
+标头
+ 
+audioengineextensionapo.h
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION 结构
+(audioengineextensionapo.h) 项目2024/02/23
+表示音频环境更改 APO 通知。
+语法 C++
+typedef struct AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION {
+  IPropertyStore *propertyStore;   PROPERTYKEY    propertyKey;
+} AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION;
+成员 propertyStore
+表示发生更改的属性存储的 IPropertyStore 对象。 使用此对象查询 propertyKey 中指定的
+属性的新值。 propertyKey
+具有新值的 PROPERTYKEY 。要求
+ﾉ
+要求 Header
+反馈
+值
+audioengineextensionapo.h
+展开表
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+AUDIO_MICROPHONE_BOOST_APO_NO
+TIFICATION_DESCRIPTOR 结构(audioengineextensionapo.h) 项目2024/02/26
+指定终结点麦克风提升 APO 通知。
+语法 C++
+typedef struct AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR {   IMMDevice *device;
+} AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR;
+成员 device
+表示与通知请求关联的音频终结点的 IMMDevice 。注解
+从 IAudioProcessingObjectNotifications2：：GetApoNotificationRegistrationInfo2 的实现返回包含此结构的APO_NOTIFICATION_DESCRIPTOR，以请求指定设备的终结点麦克风提升通知。
+有关音频处理对象Windows 11 API (音频驱动程序附带的 API) 的详细信息，请参阅音频
+处理对象的 Windows 11 API。要求
+ﾉ
+要求 Header
+值
+audioengineextensionapo.h
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+AUDIO_MICROPHONE_BOOST_NOTIFIC ATION 结构
+(audioengineextensionapo.h) 项目2024/02/26
+表示音频麦克风提升 APO 通知。
+语法 C++
+typedef struct AUDIO_MICROPHONE_BOOST_NOTIFICATION {   IMMDevice *endpoint;
+  GUID      eventContext;
+  BOOL      microphoneBoostEnabled;   float     levelInDb;
+  float     levelMinInDb;   float     levelMaxInDb;   float     levelStepInDb;   BOOL      muteSupported;   BOOL      mute;
+} AUDIO_MICROPHONE_BOOST_NOTIFICATION;
+成员 endpoint
+表示与通知关联的音频终结点的 IMMDevice 。 eventContext
+一个 GUID，表示与事件的发起者关联的上下文。 客户端可以使用此方法跟踪其他进程和硬件所做的控制更改。 函数 IAudioVolumeLevel：：SetLevel 和 IAudioMute：：
+SetMute 使用上下文。 收到此通知后，客户端可以检查上下文 GUID，以发现它是还是另
+一个客户端是通知的源。 microphoneBoostEnabled
+一个布尔值，指示音频捕获设备拓扑 (连接器或子单元) 是否存在“麦克风提升”部分。 levelInDb
+一个浮点值，指定以分贝为单位的音量级别。 levelMinInDb
+一个浮点值，指定以分贝为单位的最小音量级别。 levelMaxInDb
+一个浮点值，指定最大音量级别（以分贝为单位）。 levelStepInDb
+一个 float 值，指定范围级别 从级别MinInDb 到 levelMaxInDb 的连续卷级别之间的单步执行值。
+muteSupported
+一个布尔值，指示音频捕获设备拓扑的“麦克风增强”部分是否支持 IAudioMute 接口。 mute
+一个布尔值，指示当前状态 (启用或禁用静音控件) 注解
+有关音频驱动程序随附的音频处理对象 (API) 的Windows 11 API 的详细信息，请参阅音
+频处理对象的Windows 11 API。要求
+ﾉ
+要求 Header
+反馈
+此页面是否有帮助？
+提供产品反馈 
+值
+audioengineextensionapo.h
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+AUDIO_SYSTEMEFFECT 结构(audioengineextensionapo.h) 项目2024/02/23
+表示系统效果音频处理对象 (sAPO) 音频效果。
+语法 C++
+typedef struct AUDIO_SYSTEMEFFECT {   GUID                     id;
+  BOOL                     canSetState;
+  AUDIO_SYSTEMEFFECT_STATE state;} AUDIO_SYSTEMEFFECT;
+成员 id
+音频效果的 GUID 标识符。 音频效果 GUID 在 ksmedia.h 中定义。 canSetState
+一个布尔值，指定是否可以修改效果状态。 state
+指定音频效果状态 的 AUDIO_SYSTEMEFFECT_STATE 枚举的成员。注解
+有关音频处理对象Windows 11 API (音频驱动程序附带的 API) 的详细信息，请参阅音频
+处理对象的 Windows 11 API。要求
+ﾉ
+展开表
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 内部版本 22000 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+AUDIO_SYSTEMEFFECT_STATE 枚举
+(audioengineextensionapo.h) 项目2024/02/23
+指定系统效果音频处理对象的状态 (sAPO) 音频效果。
+语法 C++
+typedef enum AUDIO_SYSTEMEFFECT_STATE {
+  AUDIO_SYSTEMEFFECT_STATE_OFF,   AUDIO_SYSTEMEFFECT_STATE_ON} ;
+常量  
+AUDIO_SYSTEMEFFECT_STATE_OFF 音频效果已关闭。
+AUDIO_SYSTEMEFFECT_STATE_ON
+音频效果已打开。注解
+ﾉ
+展开表
+有关音频处理对象Windows 11 API (音频驱动程序附带的 API) 的详细信息，请参阅音频
+处理对象的 Windows 11 API。要求
+ﾉ
+要求
+最低受支持的客户端
+值
+Windows 内部版本 22000
+展开表
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+AUDIO_SYSTEMEFFECTS_PROPERTY_CH
+ANGE_NOTIFICATION 结构(audioengineextensionapo.h) 项目2024/02/23
+表示系统音频效果 APO 通知。
+语法 C++
+typedef struct AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION {   IMMDevice                              *endpoint;
+  GUID                                   propertyStoreContext;
+  AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE propertyStoreType;   IPropertyStore                         *propertyStore;
+  PROPERTYKEY                            propertyKey;} AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION;
+成员 endpoint
+表示与通知关联的音频终结点的 IMMDevice 。 propertyStoreContext
+标识与通知关联的 APO 属性存储的 GUID。 propertyStoreType
+AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE 枚举中的值，该值指定与通知关联的属
+性存储的类型。 propertyStore
+表示与通知关联的属性存储的 IPropertyStore 。 propertyKey
+一个 PROPERTYKEY 结构，标识与通知关联的属性。
+注解
+有关音频驱动程序随附的音频处理对象 (API) 的Windows 11 API 的详细信息，请参阅音
+频处理对象的Windows 11 API。要求
+ﾉ
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 内部版本 22000 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+AUDIO_VOLUME_NOTIFICATION_DATA2
+结构 (audioengineextensionapo.h) 项目2024/03/05
+表示有关卷更改通知事件的信息。 此结构由
+AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2 结构使用。
+语法 C++
+typedef struct AUDIO_VOLUME_NOTIFICATION_DATA2 {
+  PAUDIO_VOLUME_NOTIFICATION_DATA notificationData;   float                           masterVolumeInDb;
+  float                           volumeMinInDb;   float                           volumeMaxInDb;
+  float                           volumeIncrementInDb;   UINT                            step;
+  UINT                            stepCount;
+  float                           channelVolumesInDb[1];
+} AUDIO_VOLUME_NOTIFICATION_DATA2, *PAUDIO_VOLUME_NOTIFICATION_DATA2; 成员
+notificationData
+包含有关卷更改事件的其他信息的 AUDIO_VOLUME_NOTIFICATION_DATA 结构。 masterVolumeInDb
+一个浮点值，表示音频流的当前主音量级别（以 dB 为单位）。 volumeMinInDb
+一个浮点值，表示终结点的最小音量级别（以分贝为单位）。 此值在关联
+AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR中指定的音频设备的生存
+期内保持不变。 volumeMaxInDb
+一个浮点值，表示终结点的最大音量级别（以分贝为单位）。 此值在关联
+AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR中指定的音频设备的生
+存期内保持不变。 volumeIncrementInDb
+一个浮点值，表示终结点的体积增量（以分贝为单位）。 此值在关联
+AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR中指定的音频设备的生
+存期内保持不变。 step
+一个无符号整数值，表示卷范围内的当前步长。 是介于 0 到 stepCount - 1 范围内的值，
+其中 0 表示最小音量级别， stepCount - 1 表示最大音量。 stepCount
+一个无符号整数值，表示卷范围内的步骤数。 此值在关联
+AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR中指定的音频设备的生存期内保持不变。
+channelVolumesInDb[1]
+通道卷数组中的第一个元素（以 dB 为单位）。 此元素包含音频流中通道 0 的当前音量级别。 如果音频流包含多个通道，则其他声道的音量会立即遵循
+AUDIO_VOLUME_NOTIFICATION_DATA2 结构。要求
+ﾉ
+要求 Header
+反馈
+此页面是否有帮助？
+提供产品反馈 
+值
+audioengineextensionapo.h
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+DEVICE_ORIENTATION_TYPE 枚举
+(audioengineextensionapo.h) 项目2024/02/23
+指定 APO_NOTIFICATION_TYPE_DEVICE_ORIENTATION类型的通知的设备方向值。
+语法 C++
+typedef enum DEVICE_ORIENTATION_TYPE {   DEVICE_NOT_ROTATED,
+  DEVICE_ROTATED_90_DEGREES_CLOCKWISE,   DEVICE_ROTATED_180_DEGREES_CLOCKWISE,   DEVICE_ROTATED_270_DEGREES_CLOCKWISE} ;
+常量
+ﾉ
+ 
+DEVICE_NOT_ROTATED 设备未旋转
+DEVICE_ROTATED_90_DEGREES_CLOCKWISE 设备顺时针旋转 90 度。
+DEVICE_ROTATED_180_DEGREES_CLOCKWISE 设备顺时针旋转 180 度。
+DEVICE_ROTATED_270_DEGREES_CLOCKWISE
+设备顺时针旋转 180 度。注解
+展开表
+有关音频驱动程序随附的音频处理对象 (API) 的Windows 11 API 的详细信息，请参阅音频处理对象的Windows 11 API。
+要求要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 内部版本 22621 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IAudioProcessingObjectLoggingService
+接口 (audioengineextensionapo.h) 项目2024/02/23
+表示 ADO 的日志记录服务。继承
+IAudioProcessingObjectLoggingService 接口继承自 IUnknown 接口。方法
+IAudioProcessingObjectLoggingService 接口包含以下方法。
+ﾉ
+ 
+IAudioProcessingObjectLoggingService：：ApoLog
+记录 APO 事件。注解
+展开表
+在将 pbyData 参数传递给 IAudioProcessingObject：：Initialize 的 aPOInitSystemEffects3
+结构的 pServiceProvider 字段中的 对象上，QueryService 获取此接口的实例。 将 SID_AudioProcessingObjectLoggingService 指定为 guidService 参数中的标识符。
+７ 备注
+绝不应从实时优先级线程调用 IAudioProcessingObjectLoggingService：： ApoLog。 有关线程优先级的详细信息，请参阅 计划优先级。
+有关音频驱动程序随附的音频处理对象 (API) 的Windows 11 API 的详细信息，请参阅音
+频处理对象的Windows 11 API。要求
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 内部版本 22000 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IAudioProcessingObjectLoggingService：：ApoLog 方法
+(audioengineextensionapo.h)
+项目2024/03/05 记录 APO 事件。
+语法 C++
+void ApoLog(
+  APO_LOG_LEVEL level,   LPCWSTR       format,
+  ...           );
+参数 level
+APO_LOG_LEVEL 枚举中的值，用于指定要记录的事件的级别。 format
+日志消息的格式控制字符串。...
+设置参数列表的格式。
+返回值无
+备注７ 备注
+绝不应从实时优先级线程调用此方法。 有关线程优先级的详细信息，请参阅 计划优先级。
+有关音频驱动程序随附的音频处理对象 (API) 的Windows 11 API 的详细信息，请参阅音
+频处理对象的Windows 11 API。要求
+ﾉ
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 内部版本 22000 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+IAudioProcessingObjectNotifications 接
+口 (audioengineextensionapo.h) 项目2024/03/13
+由客户端实现，用于注册和接收 APO 终结点和系统效果通知的常见音频相关通知。继承
+IAudioProcessingObjectNotifications 接口继承自 IUnknown 接口。方法
+IAudioProcessingObjectNotifications 接口具有这些方法。
+ﾉ
+ 
+IAudioProcessingObjectNotifications：：GetApoNotificationRegistrationInfo
+由系统调用，以允许客户端注册以接收 APO 终结点和系统效果通知的通知回调。
+IAudioProcessingObjectNotifications：：HandleNotification 由系统调用，以通知客户端 APO 终结点或系统效果的更改。
+注解
+展开表
+有关音频处理对象Windows 11 API (音频驱动程序附带的 API) 的详细信息，请参阅音频
+处理对象的 Windows 11 API。要求
+ﾉ
+要求
+最低受支持的客户端标头
+值
+Windows 内部版本 22000 audioengineextensionapo.h
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IAudioProcessingObjectNotifications：：GetApoNotificationRegistrationInfo 方法（audioengineextensionapo.h）项目2024/11/08
+系统调用，允许客户端注册以接收 APO 终结点和系统效果通知的通知回调。
+语法 C++
+HRESULT GetApoNotificationRegistrationInfo(
+  [out] APO_NOTIFICATION_DESCRIPTOR **apoNotifications,
+  [out] DWORD                       *count);
+参数
+[out] apoNotifications
+返回指向 APO_NOTIFICATION_DESCRIPTOR 数组的指针的输出参数，该数组指定请求通知的 APO 更改集。 被调用方使用 CoTaskMemAlloc分配
+APO_NOTIFICATION_DESCRIPTOR结构;调用方必须在完成后使用 CoTaskMemFree 释放结构。
+[out] count
+指定 poNotifications中返回的项数的输出参数。
+返回值 HRESULT。
+言论
+有关可附带音频驱动程序的音频处理对象的 Windows 11 API 的详细信息，请参阅 Windows 11 API for Audio Processing Objects。
+要求要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+Windows 内部版本 22000 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IAudioProcessingObjectNotifications：
+：HandleNotification 方法(audioengineextensionapo.h) 项目2024/02/23
+由系统调用，以通知客户端 APO 终结点或系统效果的更改。
+语法 C++
+void HandleNotification(
+  APO_NOTIFICATION *apoNotification);
+参数
+apoNotification
+表示与通知关联的 APO 更改 的APO_NOTIFICATION 。
+返回值无
+备注
+指定通过实现 IAudioProcessingObjectNotifications：：
+GetApoNotificationRegistrationInfo 为其调用此方法的 APO 更改集。
+此方法将在 调用 LockForProcess 后调用，并在 UnlockForProcess 之前停止调用。 如果有任何通知处于未完成状态，它们可能会在 UnlockForProcess 期间或之后执行。 在这种
+情况下，APO 必须处理同步。７ 备注
+ADO 必须查询每个属性一次才能获取其初始值，因为仅当任何属性发生更改时才会调用 HandleNotification 方法。 例外情况是 APO 注册
+APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME时的初始音频终结点音量，如果
+APO 注册APO_NOTIFICATION_TYPE_ENDPOINT_PROPERTY_CHANGE值 PKEY_AudioEndpoint_Disable_SysFx
+有关音频驱动程序随附的音频处理对象 (API) 的Windows 11 API 的详细信息，请参阅音
+频处理对象的Windows 11 API。要求
+ﾉ
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 内部版本 22000 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+IAudioProcessingObjectNotifications2
+接口 (audioengineextensionapo.h) 项目2024/03/09
+由客户端实现，用于注册和接收 APO 终结点和系统效果通知的常见音频相关通知。 此接口提供 GetApoNotificationRegistrationInfo2 方法，该方法的行为与
+IAudioProcessingObjectNotifications：：GetApoNotificationRegistrationInfo 相同，并添
+加了可用于确定当前设备上运行的 Windows 版本支持的通知类型的参数。继承
+IAudioProcessingObjectNotifications2 接口继承自 IAudioProcessingObjectNotifications
+接口。方法
+IAudioProcessingObjectNotifications2 接口具有这些方法。
+ﾉ
+ 
+IAudioProcessingObjectNotifications2：：GetApoNotificationRegistrationInfo2
+展开表
+由系统调用，以允许客户端注册以接收 APO 终结点和系统效果通知的通知回调。 此方法添加一个
+参数，该参数可用于确定当前设备上运行的 Windows 版本支持的通知类型。注解
+有关音频处理对象Windows 11 API (音频驱动程序附带的 API) 的详细信息，请参阅音频
+处理对象的 Windows 11 API。要求
+ﾉ
+要求
+最低受支持的客户端
+值
+Windows 内部版本 22621
+展开表
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+IAudioProcessingObjectNotifications2：：GetApoNotificationRegistrationInfo2
+方法 (audioengineextensionapo.h) 项目2024/02/28
+由系统调用，以允许客户端注册以接收 APO 终结点和系统效果通知的通知回调。 此方法的行为与 IAudioProcessingObjectNotifications：：GetApoNotificationRegistrationInfo 相同，并添加了一个参数，该参数可用于确定在当前设备上运行的 Windows 版本上支持的通知类型。
+语法 C++
+HRESULT GetApoNotificationRegistrationInfo2(
+        APO_NOTIFICATION_TYPE       maxApoNotificationTypeSupported,   [out] APO_NOTIFICATION_DESCRIPTOR **apoNotifications,
+  [out] DWORD                       *count);
+参数
+maxApoNotificationTypeSupported
+APO_NOTIFICATION_TYPE 枚举中的 值，指示当前设备上运行的 Windows 版本支持的最
+高枚举值。 客户端可以使用比较运算符来确定是否支持特定通知类型。[out] apoNotifications
+返回指向 APO_NOTIFICATION_DESCRIPTOR 数组的指针的输出参数，指定请求通知的
+APO 更改集。[out] count
+指定 apoNotifications 中返回的项数的输出参数。
+返回值 HRESULT。
+注解
+以下示例演示 GetAppNotificationRegistrationInfo2 的典型实现。 该示例检查
+maxApoNotificationTypeSupported 参数的值，以确定当前设备上运行的 Windows 版本是
+否支持它感兴趣的通知。 如果是，则注册这些通知。 C++
+STDMETHODIMP SampleApo::GetApoNotificationRegistrationInfo2(     UINT32 maxApoNotificationTypeSupported,
+    APO_NOTIFICATION_DESCRIPTOR** apoNotificationDescriptorsReturned,
+    DWORD* count){
+    *apoNotificationDescriptorsReturned = nullptr;     
+    *count = 0;     
+    // Before this function can be called, our m_device member variable  should already have been initialized.
+    // This would typically be done in our implementation of  IAudioProcessingObject::Initialize, by using
+    // APOInitSystemEffects3::pDeviceCollection to obtain the last IMMDevice 
+in the collection.     
+    RETURN_HR_IF_NULL(E_FAIL, m_device);     
+    if(maxApoNotificationTypeSupported >=  APO_NOTIFICATION_TYPE_MICROPHONE_BOOST)
+    {     
+        // Let the OS know what notifications we are interested in by  returning an array of
+        // APO_NOTIFICATION_DESCRIPTORs.
+        constexpr DWORD numDescriptors = 3;
+        wil::unique_cotaskmem_ptr<APO_NOTIFICATION_DESCRIPTOR[]> 
+apoNotificationDescriptors;         
+apoNotificationDescriptors.reset(static_cast<APO_NOTIFICATION_DESCRIPTOR*>(
+        CoTaskMemAlloc(sizeof(APO_NOTIFICATION_DESCRIPTOR) *  numDescriptors)));
+        RETURN_IF_NULL_ALLOC(apoNotificationDescriptors);         
+        // Our APO wants to get notified when the volume level changes on  the audio endpoint.
+        // The APO_NOTIFICATION_DESCRIPTOR::audioEndpointVolume element is  used to specify the audio
+        // endpoint for both the APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME and  the
+        // APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME2 notifications.
+        apoNotificationDescriptors[0].type =  APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME2;
+        
+(void)m_device.query_to(&apoNotificationDescriptors[0].audioEndpointVolume.d
+evice);         
+        // Our APO also wants to get notified when the orientation of the  device changes.
+        apoNotificationDescriptors[1].type = 
+APO_NOTIFICATION_TYPE_DEVICE_ORIENTATION;         
+        // Our APO also wants to get notified when the microphone boost  changes on the audio endpoint.
+        apoNotificationDescriptors[2].type = 
+APO_NOTIFICATION_TYPE_MICROPHONE_BOOST;         
+(void)m_device.query_to(&apoNotificationDescriptors[2].audioMicrophoneBoost.
+device);         
+        // The OS will immediately fire a notification for the above  notification types, so we do not
+        // need to query the OS for the current values.         
+        *apoNotificationDescriptorsReturned = 
+apoNotificationDescriptors.release();         *count = numDescriptors;
+         }
+    else     {
+        // If we get here, the APO is running on an older version of Windows  that does not support the
+        // APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME2,  APO_NOTIFICATION_TYPE_DEVICE_ORIENTATION, and
+        // APO_NOTIFICATION_TYPE_MICROPHONE_BOOST notifications. What the  APO does at this point is
+        // implementation-specific. For example, the APO may choose to  subscribe to the
+        // APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME notification instead of         // APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME2.
+    }     
+    return S_OK;}
+在 22621 之前的 Windows 版本中，Windows 将仅调用
+IAudioProcessingObjectNotifications：：GetApoNotificationRegistrationInfo，而不是 IAudioProcessingObjectNotifications2 上的 方法。 由于在 22621 之前的 Windows 版本上支持的最高通知类型 是
+APO_NOTIFICATION_TYPE_SYSTEM_EFFECTS_PROPERTY_CHANGE，因此需要在版本 22621 及更早版本上运行的 APO 可以选择通过使用
+IAudioProcessingObjectNotifications：：GetApoNotificationRegistrationInfo 的以下
+实现来简化其代码。 C++
+STDMETHODIMP SampleApo::GetApoNotificationRegistrationInfo(
+    APO_NOTIFICATION_DESCRIPTOR** apoNotificationDescriptorsReturned,
+    DWORD* count){
+    // When the OS invokes GetApoNotificationRegistrationInfo, it implies 
+that the maximum notification value     // that is supported is 
+APO_NOTIFICATION_TYPE_SYSTEM_EFFECTS_PROPERTY_CHANGE.     
+GetApoNotificationRegistrationInfo2(APO_NOTIFICATION_TYPE_SYSTEM_EFFECTS_PRO
+PERTY_CHANGE, apoNotificationDescriptorsReturned, count);     
+    return S_OK;}
+有关音频驱动程序随附的音频处理对象 (API) 的Windows 11 API 的详细信息，请参阅音
+频处理对象的Windows 11 API。要求
+ﾉ
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 内部版本 22621 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+IAudioProcessingObjectPreferredFormat Support 接口
+(audioengineextensionapo.h) 项目2023/08/29
+此接口由 ADO 实现，使其能够指定首选输入或输出格式。 这允许 ADO 声明可能不同于终结点格式的首选格式。 例如，当客户端调用 IAudioClient：：GetMixFormat 时，将返
+回此首选值。继承
+IAudioProcessingObjectPreferredFormatSupport 接口继承自 IUnknown 接口。方法
+IAudioProcessingObjectPreferredFormatSupport 接口具有这些方法。  
+IAudioProcessingObjectPreferredFormatSupport：：GetPreferredInputFormat 回调函数，它允许 ADO 为提供的输出格式指定首选输入格式。
+IAudioProcessingObjectPreferredFormatSupport：：GetPreferredOutputFormat
+回调函数，它允许 ADO 为提供的输入格式指定首选输出格式。要求
+ 
+最低受支持的客户端
+标头反馈
+ 
+Windows 11版本 23H2
+audioengineextensionapo.h
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+IAudioProcessingObjectPreferredFormat Support：：GetPreferredInputFormat
+方法 (audioengineextensionapo.h) 项目2024/02/23
+回调函数，允许 ADO 为提供的输出格式指定首选输入格式。
+语法 C++
+HRESULT GetPreferredInputFormat(
+  [in]  IAudioMediaType *outputFormat,
+  [out] IAudioMediaType **preferredFormat);
+参数
+[in] outputFormat
+表示与回调关联的输出格式的 IAudioMediaType 。[out] preferredFormat
+表示 APO 的首选输入格式的 IAudioMediaType 。
+返回值 HRESULT。
+注解
+此 API 支持提供虚拟环绕音效的耳机提供程序等方案。 即使终结点以立体声呈现，APO 也可以请求接收 7-1 输入。 ADO 可以为不同的输出格式指定不同的首选格式。 例如，当 m 流类型为媒体时，应用可能会请求 7.1 输入，但在流类型为通信时请求立体声输入。
+要求
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 11，版本 23H2 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IAudioProcessingObjectPreferredFormat Support：：GetPreferredOutputFormat
+方法 (audioengineextensionapo.h) 项目2024/02/28
+回调函数，允许 ADO 为提供的输入格式指定首选输出格式。
+语法 C++
+HRESULT GetPreferredOutputFormat(
+  [in]  IAudioMediaType *inputFormat,
+  [out] IAudioMediaType **preferredFormat);
+参数
+[in] inputFormat
+表示与回调关联的输入格式的 IAudioMediaType 。[out] preferredFormat
+表示 APO 的首选输入格式的 IAudioMediaType 。
+返回值 HRESULT。
+要求
+ﾉ
+要求
+最低受支持的客户端标头
+值
+Windows 11，版本 23H2 audioengineextensionapo.h
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IAudioProcessingObjectRTQueueService
+接口 (audioengineextensionapo.h) 项目2024/03/13
+为 APOs 提供对实时工作队列的访问。继承
+IAudioProcessingObjectRTQueueService 接口继承自 IUnknown 接口。方法
+IAudioProcessingObjectRTQueueService 接口具有这些方法。
+ﾉ
+ 
+IAudioProcessingObjectRTQueueService：：GetRealTimeWorkQueue 获取 APO 可用于计划需要以实时优先级运行的任务的工作队列的 ID。
+注解
+通过在 pbyData 参数传递到 IAudioProcessingObject：：Initialize 的
+展开表
+APOInitSystemEffects3 结构的 pServiceProvider 字段中调用 QueryService 获取此接口的实例。 指定 SID_AudioProcessingObjectRTQueue 作为 guidService 参数中的标识符。
+有关使用实时工作队列 API 的信息，请参阅 rtworkq.h 标头。
+有关音频处理对象Windows 11 API (音频驱动程序附带的 API) 的详细信息，请参阅音频
+处理对象的 Windows 11 API。要求
+ﾉ
+展开表
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 内部版本 22000 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+IAudioProcessingObjectRTQueueService：：GetRealTimeWorkQueue 方法
+(audioengineextensionapo.h) 项目2024/02/26
+获取 APO 可用于计划需要以实时优先级运行的任务的工作队列的 ID。
+语法 C++
+HRESULT GetRealTimeWorkQueue(
+  DWORD *workQueueId);
+参数 workQueueId
+包含工作队列 ID 的 DWORD。返回值
+如果成功，则返回 S_OK。注解
+返回的工作队列 ID 与实时工作队列 API 一起使用。 有关详细信息，请参阅 rtworkq.h 标头。
+有关音频驱动程序随附的音频处理对象 (API) 的Windows 11 API 的详细信息，请参阅音
+频处理对象的Windows 11 API。要求
+ﾉ
+展开表
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 内部版本 22000 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+IAudioSystemEffects3 接口(audioengineextensionapo.h) 项目2024/02/23
+实现此接口还意味着 APO 支持 APO 设置框架，并允许 APO 订阅音频引擎中的常见音频相关通知
+此接口还由需要将 APOInitSystemEffects3 结构传递到 IAudioProcessingObject：： Initialize 方法的客户端实现。 APOInitSystemEffects3 添加了获取服务提供商（如
+IAudioProcessingObjectLoggingService 或 IAudioProcessingObjectRTQueueService）的
+功能。７ 备注
+在低于 Windows 内部版本 22000 的操作系统上，即使客户端实现
+IAudioSystemEffects3，系统也不会将 APOInitSystemEffects3 传递到 IAudioProcessingObject：：Initialize，而是将较旧版本的结构
+APOInitSystemEffects2 或 APOInitSystemEffects 传递到 Initialize。继承
+IAudioSystemEffects3 接口继承自 IAudioSystemEffects2 接口。方法
+IAudioSystemEffects3 接口具有这些方法。
+ﾉ
+ 
+IAudioSystemEffects3：：GetControllableSystemEffectsList
+由系统效果音频处理对象实现 (sAPO) 音频效果，以允许调用方获取当前效果列表。 IAudioSystemEffects3：：SetAudioSystemEffectState
+由系统效果音频处理对象实现 (sAPO) 音频效果，以允许调用方设置效果状态。
+展开表
+注解
+有关音频处理对象Windows 11 API (音频驱动程序附带的 API) 的详细信息，请参阅音频
+处理对象的 Windows 11 API。要求
+ﾉ
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 内部版本 22000 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+IAudioSystemEffects3：：
+GetControllableSystemEffectsList 方法
+(audioengineextensionapo.h) 项目2024/02/26
+由系统效果音频处理对象实现 (sAPO) 音频效果，以允许调用方获取当前效果列表。
+语法 C++
+HRESULT GetControllableSystemEffectsList(
+  AUDIO_SYSTEMEFFECT **effects,   UINT               *numEffects,
+  HANDLE             event);
+参数 effects
+接收指向表示当前音频效果列表 的AUDIO_SYSTEMEFFECT_STATE 结构的数组的指针。 numEffects
+接收效果中返回的AUDIO_EFFECT结构数。 event
+如果列表更改，将发出信号的事件的 HANDLE。
+返回值 HRESULT。
+注解
+有关音频驱动程序随附的音频处理对象 (API) 的Windows 11 API 的详细信息，请参阅音频处理对象的Windows 11 API。
+要求要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 内部版本 22000 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IAudioSystemEffects3：：
+SetAudioSystemEffectState 方法(audioengineextensionapo.h) 项目2024/02/26
+由系统效果音频处理对象实现 (sAPO) 音频效果，以允许调用方设置效果的状态。
+语法 C++
+HRESULT SetAudioSystemEffectState(   GUID                     effectId,
+  AUDIO_SYSTEMEFFECT_STATE state);
+参数 effectId
+音频效果的 GUID 标识符。 音频效果 GUID 在 ksmedia.h 中定义。 state
+AUDIO_SYSTEMEFFECT_STATE 枚举中 指定要设置的状态的值。
+返回值 HRESULT。
+注解
+有关音频驱动程序随附的音频处理对象 (API) 的Windows 11 API 的详细信息，请参阅音
+频处理对象的Windows 11 API。要求
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows 内部版本 22000 audioengineextensionapo.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+audiomediatype.h 标头项目2023/08/22
+音频设备 DDI 参考使用此标头。 有关详细信息，请参阅：
+音频设备 DDI 参考
+audiomediatype.h 包含以下编程接口：
+接口  
+IAudioMediaType
+IAudioMediaType 接口公开的方法，这些方法允许 sAPO 获取用于与音频引擎协商的相应音频数据格式的信息。
+函数  
+CreateAudioMediaType
+CreateAudioMediaType 函数使用调用方指定的格式来创建描述音频格式的媒体类型对象。 CreateAudioMediaTypeFromUncompressedAudioFormat
+CreateAudioMediaTypeFromUncompressedAudioFormat 函数使用
+UNCOMPRESSEDAUDIOFORMAT 结构中提供的信息来创建描述音频格式的媒体类型对象。
+结构  
+UNCOMPRESSEDAUDIOFORMAT
+UNCOMPRESSEDAUDIOFORMAT 结构指定未压缩音频数据格式的帧速率、通道掩码和其他属性。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+CreateAudioMediaType 函数
+(audiomediatype.h) 项目2023/08/22
+函数 CreateAudioMediaType  使用调用方指定的格式来创建描述音频格式的媒体类型对象。
+语法 C++
+HRESULT CreateAudioMediaType(
+  const WAVEFORMATEX *pAudioFormat,
+  UINT32             cbAudioFormatSize,   IAudioMediaType    **ppIAudioMediaType);
+参数 pAudioFormat
+指定指向 WAVEFORMATEX 结构的指针。 cbAudioFormatSize
+指定 pAudioFormat 参数指向的 WAVEFORMATEX 结构的大小。 ppIAudioMediaType
+指定指向 IAudioMediaType 接口的指针。返回值
+如果对函数的调用成功，函数 CreateAudioMediaType  将返回S_OK。 否则，它将返回相应
+的 HRESULT 错误代码。注解
+实现自定义音频系统效果时， CreateAudioMediaType  函数可与
+IAudioSystemEffectsCustomFormats：：GetFormat 一起使用，表示自定义音频数据格式
+并提供有关自定义格式的信息。要求
+ 
+最低受支持的客户端目标平台
+标头 IRQL
+请参阅 IAudioMediaType
+ 
+在 Windows Vista 和更高版本的 Windows 中可用。桌面
+audiomediatype.h (包括 Audiomediatype.h) 不可用
+IAudioSystemEffectsCustomFormats：：GetFormat
+WAVEFORMATEX 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+CreateAudioMediaTypeFromUncompres
+sedAudioFormat 函数(audiomediatype.h) 项目2024/03/13
+函数 CreateAudioMediaTypeFromUncompressedAudioFormat  使用
+UNCOMPRESSEDAUDIOFORMAT 结构中提供的信息来创建描述音频格式的媒体类型对象。
+语法 C++
+HRESULT CreateAudioMediaTypeFromUncompressedAudioFormat(   const UNCOMPRESSEDAUDIOFORMAT *pUncompressedAudioFormat,
+  IAudioMediaType               **ppIAudioMediaType);
+参数
+pUncompressedAudioFormat
+指定指向 UNCOMPRESSEDAUDIOFORMAT 结构的指针。 ppIAudioMediaType
+指定指向 IAudioMediaType 接口的指针。返回值
+如果对函数的调用成功，函数 CreateAudioMediaTypeFromUncompressedAudioFormat  将返回
+S_OK。 否则，它将返回相应的 HRESULT 错误代码。注解
+实现自定义音频系统效果时， CreateAudioMediaTypeFromUncompressedAudioFormat  函数与 IAudioSystemEffectsCustomFormats：：GetFormat 一起使用，表示自定义音频数据格式并提供有关自定义格式的信息。
+要求要求
+最低受支持的客户端目标平台
+标头 IRQL
+请参阅 IAudioMediaType
+值
+在 Windows Vista 和更高版本的 Windows 中可用。桌面
+audiomediatype.h (包括 Audiomediatype.h) 不可用
+IAudioSystemEffectsCustomFormats：：GetFormat
+UNCOMPRESSEDAUDIOFORMAT 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IAudioMediaType 接口(audiomediatype.h) 项目2024/02/26
+接口 IAudioMediaType  公开的方法允许 sAPO 获取用于与音频引擎协商相应音频数据格式
+的信息。 sAPO 还会返回此接口，以响应对 IAudioSystemEffectsCustomFormats：： GetFormat 的调用。
+IAudioMediaType  继承自 IUnknown ，还支持以下方法： IAudioMediaType：：GetAudioFormat
+IAudioMediaType：：GetUncompressedAudioFormat IAudioMediaType：：IsCompressedFormat
+IAudioMediaType：：IsEqual 继承
+IAudioMediaType 接口继承自 IUnknown 接口。方法
+IAudioMediaType 接口具有以下方法。
+ﾉ
+ 
+IAudioMediaType：：GetAudioFormat
+GetAudioFormat 方法返回音频数据格式的 WAVEFORMATEX 结构。 IAudioMediaType：：GetUncompressedAudioFormat
+IAudioMediaType：：GetUncompressedAudioFormat 返回有关音频数据格式的信息。 IAudioMediaType：：IsCompressedFormat
+IsCompressedFormat 方法确定音频数据格式是否为压缩格式。
+展开表
+ 
+IAudioMediaType：：IsEqual
+IsEqual 方法比较两种媒体类型，并确定它们是否相同。要求
+要求
+目标平台
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows
+audiomediatype.h 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IAudioMediaType：：GetAudioFormat
+方法 (audiomediatype.h) 项目2024/02/28
+方法 GetAudioFormat  返回音频数据格式的 WAVEFORMATEX 结构。
+语法 C++
+const WAVEFORMATEX * GetAudioFormat(); 返回值
+方法 GetAudioFormat  返回指向 WAVEFORMATEX 结构的指针。注解
+返回的指针仅在引用 IAudioMediaType 接口时有效。要求
+ﾉ
+要求
+最低受支持的客户端目标平台
+标头 Library IRQL
+另请参阅 WAVEFORMATEX
+值
+在 Windows Vista 和更高版本的 Windows 中可用。桌面
+audiomediatype.h (包括 Audiomediatype.h)
+Audiomediatype.idl 所有级别
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IAudioMediaType：：
+GetUncompressedAudioFormat 方法
+(audiomediatype.h) 项目2024/02/26
+返回 IAudioMediaType::GetUncompressedAudioFormat  有关音频数据格式的信息。
+语法 C++
+HRESULT GetUncompressedAudioFormat(
+  [out] UNCOMPRESSEDAUDIOFORMAT *pUncompressedAudioFormat);
+参数
+[out] pUncompressedAudioFormat
+指定指向 UNCOMPRESSEDAUDIOFORMAT 结构的指针。返回值
+如果成功，该方法 GetUncompressedAudioFormat  将返回S_OK。 否则，它将返回错误代码。
+注解
+返回的信息对于未压缩的格式很有用。 但是，对于压缩格式，此方法调用也将成功。 对
+压缩的音频数据格式调用此函数时，必须确定返回的信息是否适用于压缩格式。要求
+ﾉ
+展开表
+要求
+最低受支持的客户端目标平台
+标头 IRQL
+另请参阅
+值
+在 Windows Vista 和更高版本的 Windows 中可用。桌面
+audiomediatype.h (包括 Audiomediatype.h) 所有级别。
+UNCOMPRESSEDAUDIOFORMAT 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IAudioMediaType：：
+IsCompressedFormat 方法
+(audiomediatype.h) 项目2024/02/23
+方法 IsCompressedFormat  确定音频数据格式是否为压缩格式。
+语法 C++
+HRESULT IsCompressedFormat(   [out] BOOL *pfCompressed);
+参数
+[out] pfCompressed
+接收布尔值。 如果格式已压缩，则值为 TRUE ;如果格式未压缩，则值为 FALSE 。返回值
+如果音频数据格式已压缩，该方法 IsCompressedFormat  将返回S_OK，否则返回错误代码。
+备注无。
+要求
+ﾉ
+要求
+最低受支持的客户端
+值
+在 Windows Vista 和更高版本的 Windows 中可用。
+展开表
+要求
+目标平台
+标头 IRQL
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值桌面
+audiomediatype.h (包括 Audiomediatype.h)
+所有级别 否
+| 在 Microsoft Q&A 获取帮助
+IAudioMediaType：：IsEqual 方法
+(audiomediatype.h) 项目2024/02/23
+方法 IsEqual  比较两种媒体类型，并确定它们是否相同。
+语法 C++
+HRESULT IsEqual(
+  [in]  IAudioMediaType *pIAudioType,
+  [out] DWORD           *pdwFlags);
+参数
+[in] pIAudioType
+指定要比较的媒体类型的 IAudioMediaType 接口的指针。[out] pdwFlags
+指定指向包含零个或多个标志的按位 OR 结果的 DWORD 变量的指针。 这些标志指示两种媒体类型之间的相似程度。 下表显示了支持的标志。
+ﾉ
+标志
+AUDIOMEDIATYPE_EQUAL_FORMAT_TYPES AUDIOMEDIATYPE_EQUAL_FORMAT_DATA
+AUDIOMEDIATYPE_EQUAL_FORMAT_USER_DATA 返回值
+含义
+音频格式类型相同。
+展开表
+格式信息匹配，不包括基本 WAVEFORMATEX 结构以外的额外数据。
+额外的数据是相同的，或者两种媒体类型都不包含额外的数据。
+如果成功，该方法 IsEqual  将返回S_OK，否则返回下表中显示的 HRESULT 值之一。
+返回代码
+E_INVALIDARG
+S_FALSE 注解
+说明
+ﾉ
+一种媒体类型无效，或者两种媒体类型都无效。
+展开表
+媒体类型不相等。 检查 pdwFlags 参数以确定媒体类型有何不同。
+这两种媒体类型都必须具有主类型，否则该方法将返回E_INVALIDARG。 有关媒体类型的
+详细信息，请参阅 媒体类型
+。
+MF_MEDIATYPE_EQUAL_FORMAT_DATA标志指示这两种媒体类型都具有兼容的属性，尽管其中一种可能是另一种媒体类型的超集。 这种比较方法意味着可以将部分指定的媒体类型与完整的媒体类型进行比较。 例如，可能有两种描述相同格式的视频类型，但一种类型包含扩展颜色信息的属性 (色度定位、标称范围等) 。
+如果方法成功，并且所有比较标志都在 pdwFlags 中设置，则返回值S_OK。 如果方法成
+功，但未设置某些比较标志，则该方法返回S_FALSE。要求
+ﾉ
+要求
+最低受支持的客户端目标平台
+标头 IRQL
+另请参阅 IAudioMediaType 媒体类型
+WAVEFORMATEX
+值
+在 Windows Vista 和更高版本的 Windows 中可用。桌面
+audiomediatype.h (包括 Audiomediatype.h) 所有级别。
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+UNCOMPRESSEDAUDIOFORMAT 结构
+(audiomediatype.h) 项目2023/08/22
+UNCOMPRESSEDAUDIOFORMAT 结构指定未压缩音频数据格式的帧速率、通道掩码和其
+他属性。语法 C++
+typedef struct _UNCOMPRESSEDAUDIOFORMAT {   GUID  guidFormatType;
+  DWORD dwSamplesPerFrame;
+  DWORD dwBytesPerSampleContainer;   DWORD dwValidBitsPerSample;
+  FLOAT fFramesPerSecond;   DWORD dwChannelMask;
+} UNCOMPRESSEDAUDIOFORMAT; 成员
+guidFormatType
+指定数据格式类型的 GUID。
+dwSamplesPerFrame 指定每帧的样本数。
+dwBytesPerSampleContainer
+指定构成示例的单元容器的字节数。 dwValidBitsPerSample
+指定每个样本的有效位数。 fFramesPerSecond
+指定每秒流式处理音频数据的帧数。 dwChannelMask
+指定未压缩的音频数据使用的通道掩码。注解
+此结构提供对描述未压缩 PCM 音频格式的参数的访问。要求
+ 
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+在 Windows Vista 和更高版本的 Windows 中可用。
+audiomediatype.h (包括 Audiomediatype.h) ﾄ否
+baseaudioprocessingobject.h 标头项目2023/08/22
+音频设备 DDI 参考使用此标头。 有关详细信息，请参阅：
+音频设备 DDI 参考
+baseaudioprocessingobject.h 包含以下编程接口：
+函数  
+AERT_Allocate
+AERT_Allocate实用工具函数分配并锁定一段内存，供音频处理对象使用。 AERT_Free
+AERT_Free 实用工具函数释放 (释放AERT_Allocate函数锁定的) 内存，供音频处理对象用来处理音频
+数据。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+AERT_Allocate 函数
+(baseaudioprocessingobject.h) 项目2024/02/23
+实用工具 AERT_Allocate  函数分配并锁定一段内存，供音频处理对象使用。
+语法 C++
+HRESULT AERT_Allocate(   size_t size,
+  void   **pMemory);
+参数 size
+要分配的字节数。 pMemory
+指向已分配内存的指针。返回值
+如果函数成功分配请求的锁定内存，则函数将返回值 S_OK。 如果找不到足够的内存来分配和锁定，函数将返回值 E_OUTOFMEMORY。
+备注无
+要求
+ﾉ
+展开表
+要求
+最低受支持的客户端目标平台
+标头 Library DLL IRQL
+反馈
+此页面是否有帮助？
+提供产品反馈 
+值
+在 Windows Vista 和更高版本的 Windows 操作系统中可用。通用
+baseaudioprocessingobject.h
+Audioeng.lib Audioeng.dll 所有级别
+是
+否
+| 在 Microsoft Q&A 获取帮助
+AERT_Free 函数
+(baseaudioprocessingobject.h) 项目2024/02/26
+实用工具 AERT_Free  函数释放 (释放AERT_Allocate函数锁定的 ) 内存，供音频处理对象用来处理音频数据。
+语法 C++
+HRESULT AERT_Free(
+  void *pMemory);
+参数 pMemory
+指向函数将释放的内存的 AERT_Free  指针。返回值
+函数 AERT_Free  在释放锁定的内存后返回值 S_OK。
+备注无要求
+ﾉ
+要求
+最低受支持的客户端目标平台
+值
+在 Windows Vista 和更高版本的 Windows 操作系统中可用，通用
+展开表
+要求标头 Library DLL IRQL
+另请参阅 AERT_Allocate
+反馈
+此页面是否有帮助？
+提供产品反馈 
+值
+baseaudioprocessingobject.h
+Audioeng.lib Audioeng.dll 所有级别
+是
+否
+| 在 Microsoft Q&A 获取帮助
+mmddk.h 标头项目2023/08/24
+包含多媒体设备开发工具包的文件。有关详细信息，请参阅：
+音频设备 DDI 参考人机接口设备参考 Windows 多媒体
+mmddk.h 包含以下编程接口：
+函数  
+mmGetCurrentTask
+mmGetCurrentTask 函数已弃用。 应用程序不应使用此函数。 mmTaskBlock
+mmTaskBlock 函数已弃用。 应用程序不应使用此函数。 mmTaskCreate
+mmTaskCreate 函数已弃用。 应用程序不应使用此函数。 mmTaskSignal
+mmTaskSignal 函数已弃用。 应用程序不应使用此函数。 mmTaskYield
+mmTaskYield 函数已弃用。 应用程序不应使用此函数。
+结构  
+JOYREGHWVALUES
+JOYREGHWVALUES (mmddk.h) 结构包含硬件返回的值范围， (校准) 填充。
+ 
+MDEVICECAPSEX
+MDEVICECAPSEX 结构包含即插即用 (PnP) 设备驱动程序的设备功能信息。 MIDIOPENDESC
+MIDIOPENDESC 结构是客户端填充的结构，它提供有关如何打开 MIDI 设备的信息。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+mdEVICECAPSEX 结构 (mmddk.h) 项目2024/02/29
+结构MDEVICECAPSEX 包含即插即用 (PnP) 设备驱动程序的设备功能信息。
+语法 C++
+typedef struct {   DWORD  cbSize;   LPVOID pCaps;} MDEVICECAPSEX;
+成员 cbSize
+指定结构的大小（以字节为单位）。 pCaps
+指定设备的功能。 此数据的格式特定于设备。要求
+要求
+最低受支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+在 Windows XP 和更高版本的 Windows 操作系统中可用。 mmddk.h (包括 Mmddk.h、Mmsystem.h、Windows.h)
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+MIDIOPENDESC 结构 (mmddk.h) 项目2024/02/29
+结构 MIDIOPENDESC  是客户端填充的结构，可提供有关如何打开 MIDI 设备的信息。
+语法 C++
+typedef struct midiopendesc_tag {   HMIDI          hMidi;
+  DWORD_PTR      dwCallback;   DWORD_PTR      dwInstance;   DWORD_PTR      dnDevNode;   DWORD          cIds;
+  MIDIOPENSTRMID rgIds[1];} MIDIOPENDESC;
+成员 hMidi
+指定客户端用于引用设备的句柄。 此句柄由 WINMM 分配。 使用 DriverCallback
+通知客户端时，请使用此句柄。 dwCallback
+指定回调函数、窗口句柄或任务句柄的地址，具体取决于 MODM_OPEN 消息的 dwParam2 参数中指定的标志。 如果此字段包含句柄，则它包含在低序字中。
+dwInstance
+ 函数
+指定指向包含客户端实例信息的 DWORD 的指针。 每当驱动程序使用 DriverCallback 函
+数通知客户端时，此实例信息将返回到客户端。 dnDevNode
+指定 MIDI 输出设备的设备节点（如果它是即插即用 (PnP) MIDI 设备）。 cIds
+指定流标识符的数目（如果流处于打开状态）。
+rgIds[1]
+指定设备标识符的数组。 标识符数由 cIds 成员提供。要求
+要求
+最低受支持的客户端标头
+另请参阅 DriverCallback
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+在 Windows XP 和更高版本的 Windows 操作系统中可用。 mmddk.h (包括 Mmddk.h、Mmsystem.h、Windows.h)
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+mmreg.h 标头项目2023/08/24
+此标头由多种技术使用。 有关详细信息，请参阅：
+音频设备 DDI 参考 DirectShow
+Windows 多媒体
+mmreg.h 包含以下编程接口：
+结构  
+HEAACWAVEFORMAT
+包含包含 AudioSpecificConfig () 数据的 AAC 或 HE-AAC 流的格式数据。 HEAACWAVEINFO
+包含高级音频编码 (AAC) 或 High-Efficiency 高级音频编码 (HE-AAC) 流的格式数据。 MPEG1WAVEFORMAT
+MPEG1WAVEFORMAT 结构描述 MPEG-1 音频数据的格式。 MPEGLAYER3WAVEFORMAT
+MPEGLAYER3WAVEFORMAT结构描述 MPEG 音频第 3 层 (MP3) 音频格式。 PCMWAVEFORMAT
+PCMWAVEFORMAT 结构描述 PCM 波形音频数据的数据格式。 此结构由 WAVEFORMATEX 结构取代。
+WAVEFILTER
+WAVEFILTER 结构定义波形音频数据的筛选器。 WAVEFORMAT
+WAVEFORMAT 结构描述波形音频数据的格式。 此结构由 WAVEFORMATEX 结构取代。 WAVEFORMATEX
+WAVEFORMATEX 结构指定波形音频流的数据格式。
+ 
+WAVEFORMATEXTENSIBLE
+WAVEFORMATEXTENSIBLE 结构定义波形音频数据的格式，这些格式具有两个以上的通道或高于
+WAVEFORMATEX 允许的采样分辨率。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+WAVEFORMATEX 结构 (mmreg.h) 项目2023/08/24
+WAVEFORMATEX 结构指定波形音频流的数据格式。
+语法 C++
+typedef struct tWAVEFORMATEX {
+  WORD  wFormatTag;   WORD  nChannels;
+  DWORD nSamplesPerSec;   DWORD nAvgBytesPerSec;   WORD  nBlockAlign;
+  WORD  wBitsPerSample;   WORD  cbSize;
+} WAVEFORMATEX, *PWAVEFORMATEX, *NPWAVEFORMATEX, *LPWAVEFORMATEX;
+成员 wFormatTag
+指定波形音频格式类型。 有关更多信息，请参见下面的“备注”部分。 nChannels
+指定音频数据的通道数。 对于单声道音频，将此成员设置为 1。 对于立体声，将此成员设置为 2。
+nSamplesPerSec
+指定应播放或录制每个通道的采样频率。 如果 wFormatTag = WAVE_FORMAT_PCM，则 nSamplesPerSec 的常见值为 8.0 kHz、11.025 kHz、22.05 kHz 和 44.1 kHz。 例如，若要指定 11.025 kHz 的采样频率，请将 nSamplesPerSec 设置为 11025。 对于非 PCM 格
+式，应根据格式标记的制造商规范计算此成员。 nAvgBytesPerSec
+指定所需的平均数据传输速率（以字节/秒为单位）。 此值可用于估算缓冲区大小。 nBlockAlign
+指定块对齐方式（以字节为单位）。 块对齐方式是 wFormatTag 格式类型的最小原子单元数据的大小。 如果 wFormatTag = WAVE_FORMAT_PCM 或 wFormatTag =
+WAVE_FORMAT_IEEE_FLOAT，请将 nBlockAlign 设置为 (nChannels*wBitsPerSample)/8 ，这是单个音频帧的大小。 对于非 PCM 格式，应根据制造商的格式标记规范计算此成员。
+播放和录制软件应一次处理 多个 nBlockAlign 字节的数据。 写入设备以及从设备读取的
+数据应始终从块的开头开始。 wBitsPerSample
+为 wFormatTag 指定的格式类型指定每个样本的位数。 如果 wFormatTag =
+WAVE_FORMAT_PCM，则应将 wBitsPerSample 设置为 8 或 16。 如果 wFormatTag = WAVE_FORMAT_IEEE_FLOAT，则应将 wBitsPerSample 设置为 32。 对于非 PCM 格式，根据制造商的格式标记规范设置此成员的值。 某些压缩方案无法定义 wBitsPerSample
+的值。 在这种情况下，请将 wBitsPerSample 设置为零。 cbSize
+指定追加到 WAVEFORMATEX 结构末尾的额外格式信息的大小（以字节为单位）。 非 PCM 格式可以使用此信息来存储 wFormatTag 的额外属性。 如果 wFormatTag 不需要额外的信息，请将此成员设置为零。 对于WAVE_FORMAT_PCM格式，客户端应忽略此成员(其值为隐式零) 。 由于所有客户端可能都未遵循此规则，因此建议将 cbSize 初始化为
+WAVE_FORMAT_PCM格式。注解
+WAVEFORMATEX 结构只能描述由 WAVEFORMATEXTENSIBLE 结构描述的格式的子集。例如，WAVEFORMATEX 可以描述单声道或 (双声道) 立体声脉冲代码调节 (具有 8 位或 16 位整数样本值或 32 位浮点样本值的 PCM) 流。 此外，WAVEFORMATEX 可以描述常用的非 PCM 格式，例如 AC-3 和 WMA Pro。
+WAVEFORMATEX 可以明确描述单声道或立体声 PCM 格式，每个样本的有效位数与样本容器大小相同。 若要描述具有两个以上声道的 PCM 格式，需要使用
+WAVEFORMATEXTENSIBLE，该格式具有一个通道掩码来指定扬声器配置 (即将通道映射到物理扬声器位置) 。 例如，为了描述每个样本的有效位数小于样本容器大小 (的 PCM 格式，存储在三字节容器) 中的 20 位样本需要 WAVEFORMATEXTENSIBLE，它同时指定有效样本位数和样本容器大小。
+WAVEFORMATEX 可以描述头文件 Mmreg.h 中为其定义了 16 位格式标记的非 PCM 格式， (例如，WAVE_FORMAT_MPEG) 。 WAVEFORMATEX 的 wFormatTag 成员包含格式标记。 指定一种非 PCM 格式，该格式标记未在 Mmreg.h 中由
+WAVEFORMATEXTENSIBLE 结构定义，该结构包含标识格式的 GUID。 如有必要，硬件供应商可以独立生成 GUID 值来标识新格式。 不需要向 Microsoft 注册 GUID。
+有关 WAVEFORMATEX 和 WAVEFORMATEXTENSIBLE 之间的差异的详细信息，请参阅 Extensible Wave-Format 描述符。
+wFormatTag 成员设置为 Mmreg.h 中定义的波形格式标记之一。 下表列出了一些更常见的非特权格式的标记。
+wFormatTag 值
+WAVE_FORMAT_PCM
+WAVE_FORMAT_IEEE_FLOAT WAVE_FORMAT_DRM
+WAVE_FORMAT_EXTENSIBLE
+WAVE_FORMAT_ALAW WAVE_FORMAT_MULAW WAVE_FORMAT_ADPCM WAVE_FORMAT_MPEG
+WAVE_FORMAT_DOLBY_AC3_SPDIF
+WAVE_FORMAT_WMASPDIF  
+含义
+PCM (整数格式的脉冲代码调节) 数据。采用 IEEE 浮点格式的 PCM 数据。
+受 Microsoft 数字版权管理) 保护的数字音频内容的 DRM 编码格式 (。
+可扩展 WAVEFORMATEX 结构 (请参阅 WAVEFORMATEXTENSIBLE) 。
+A-law 编码格式。 Mu-law 编码格式。
+ADPCM (自适应差分脉冲代码调节) 数据。
+MPEG-1 数据格式 (流符合 ISO 11172-3 音频规范) 。 AC-3 (又名 Dolby Digital) over S/PDIF。
+Windows Media Audio (WMA) Pro over S/PDIF。
+有关WAVE_FORMAT_Xxx 格式的完整列表，请参阅 Mmreg.h。
+WAVEFORMATEX 几乎与 PCMWAVEFORMAT 结构相同，后者是用于指定 PCM 格式的过时结构。 唯一的区别是 WAVEFORMATEX 包含 cbSize 成员，而 PCMWAVEFORMAT 不包含。 按照约定，当 wFormatTag = WAVE_FORMAT_PCM (时应忽略 cbSize，因为 cbSize) 隐式为零。 此约定允许驱动程序软件在 PCM 格式的情况下以相同的方式处理
+WAVEFORMATEX 和 PCMWAVEFORMAT 结构。 有关 PCMWAVEFORMAT 的详细信息，请参阅Microsoft Windows SDK文档。
+如果 wFormatTag = WAVE_FORMAT_PCM 或 wFormatTag =
+WAVE_FORMAT_IEEE_FLOAT，请将 cbSize 设置为零。 对于 wFormatTag 的所有其他
+值， cbSize 指定追加到 WAVEFORMATEX 结构的附加格式数据的字节数。如果 wFormatTag = WAVE_FORMAT_EXTENSIBLE，请将 cbSize 设置为
+sizeof(WAVEFORMATEXTENSIBLE)-sizeof(WAVEFORMATEX)  加上追加到 WAVEFORMATEXTENSIBLE 结构的任何特定于格式的数据的大小。
+要求   标头
+ 
+mmreg.h (包括 mmsystem.h、mmreg.h、mmsystem.h)
+另请参阅
+WAVEFORMATEXTENSIBLE 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+msapofxproxy.h 标头项目2023/08/24
+音频设备 DDI 参考使用此标头。 有关详细信息，请参阅：
+音频设备 DDI 参考
+msapofxproxy.h 包含以下编程接口：
+结构  
+KSP_PINMODE
+KSP_PINMODE结构指定引脚工厂的引脚属性和支持的音频处理模式。
+枚举  
+KSPROPERTY_AUDIOEFFECTSDISCOVERY
+KSPROPERTY_AUDIOEFFECTSDISCOVERY枚举定义了一个常量，该常量由音频处理对象列表 (ASO)
+使用。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+KSP_PINMODE 结构 (msapofxproxy.h) 项目2023/08/24
+KSP_PINMODE 结构指定引脚工厂的 pin 属性和支持的音频处理模式。
+KSP_PINMODE为 KSPROPERTY_AUDIOEFFECTSDISCOVERY_EFFECTSLIST提供属性数据。
+语法 C++
+typedef struct tagKSP_PINMODE {   KSP_PIN PinProperty;
+  GUID    AudioProcessingMode;} KSP_PINMODE, *PKSP_PINMODE;
+成员 PinProperty
+引脚工厂的 pin 属性。 AudioProcessingMode
+音频处理模式 (引脚工厂) 支持的一个或多个模式。要求
+ 
+标头
+另请参阅
+ 
+msapofxproxy.h
+KSPROPERTY_AUDIOEFFECTSDISCOVERY_EFFECTSLIST 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+KSPROPERTY_AUDIOEFFECTSDISCOVER
+Y 枚举 (msapofxproxy.h) 项目2024/03/13
+KSPROPERTY_AUDIOEFFECTSDISCOVERY 枚举定义一个常量，该常量由音频处理对象列表 (ASO) 使用。
+语法 C++
+typedef enum {
+  KSPROPERTY_AUDIOEFFECTSDISCOVERY_EFFECTSLIST = 1} KSPROPERTY_AUDIOEFFECTSDISCOVERY;
+常量
+ﾉ
+ 
+KSPROPERTY_AUDIOEFFECTSDISCOVERY_EFFECTSLIST 值：1
+指定 KSPROPERTY_AUDIOEFFECTSDISCOVERY_EFFECTSLIST 属性的 ID。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows 8.1
+Windows Server 2012 R2 msapofxproxy.h
+展开表展开表
+KSPROPERTY_AUDIOEFFECTSDISCOVERY_EFFECTSLIST
+KSPROPSETID_AudioEffectsDiscovery 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+propsys.h 标头项目2023/08/25
+此标头由多种技术使用。 有关详细信息，请参阅：
+音频设备 DDI 参考 Windows Shell
+Windows 属性系统
+propsys.h 包含以下编程接口：
+接口  
+ICreateObject
+公开一个方法，该方法创建指定类的 对象。 IDelayedPropertyStoreFactory
+公开方法，用于在属性访问可能较慢的情况下创建指定的 IPropertyStore 对象。 IInitializeWithFile
+公开用于使用文件路径初始化处理程序的方法，例如属性处理程序、缩略图处理程序或预览处理程序。
+IInitializeWithStream
+公开一个方法，该方法使用流初始化处理程序，例如属性处理程序、缩略图处理程序或预览处理程序。
+INamedPropertyStore
+公开用于获取和设置命名属性的方法。 IObjectWithPropertyKey
+公开用于获取和设置属性键的方法。 IPersistSerializedPropStorage
+公开方法以持久保存序列化的属性存储数据供以后使用，以及将持久化数据还原到新的属性存储实例。 (IPersistSerializedPropStorage)
+ 
+IPersistSerializedPropStorage2
+公开方法以持久保存序列化的属性存储数据供以后使用，以及将持久化数据还原到新的属性存储实
+例。 (IPersistSerializedPropStorage2) IPropertyChange
+公开一个方法，该方法封装对单个属性的更改。 IPropertyChangeArray
+公开可能传递给 IFileOperation 的多个更改操作的方法。 IPropertyDescription
+公开枚举和检索单个属性说明详细信息的方法。 (IPropertyDescription) IPropertyDescription2
+公开枚举和检索单个属性说明详细信息的方法。 (IPropertyDescription2) IPropertyDescriptionAliasInfo
+公开方法以获取项的“排序依据”列属性。 此接口由想要检索给定属性的主要或辅助排序列的 UI 对象使用。
+IPropertyDescriptionList
+公开从以列表形式显示的属性说明集合中提取信息的方法。 IPropertyDescriptionRelatedPropertyInfo
+提供检索 IPropertyDescription 接口的方法。 IPropertyDescriptionSearchInfo
+公开属性的搜索相关信息。 IPropertyEnumType
+公开从枚举信息中提取数据的方法。 IPropertyEnumType 在运行时以编程方式授予对属性架构中的
+枚举和 enumRange 元素的访问权限。 IPropertyEnumType2
+公开从枚举信息中提取数据的方法。 IPropertyEnumType2 扩展了 IPropertyEnumType。 IPropertyEnumTypeList
+ 
+公开枚举属性的可能值的方法。 IPropertyStore
+此接口公开用于枚举和操作属性值的方法。 IPropertyStoreCache
+公开允许处理程序管理每个属性的各种状态的方法。 IPropertyStoreCapabilities
+公开一个方法，该方法确定用户是否可以在 UI 中编辑属性。 IPropertyStoreFactory
+公开用于获取 IPropertyStore 对象的方法。 IPropertySystem
+公开用于获取属性说明、注册和注销属性架构、枚举属性说明以及以严格类型的方式设置属性值格
+式的方法。函数  
+PropVariantToWinRTPropertyValue
+将数据从 PROPVARIANT 结构提取到Windows 运行时属性值中。 PSCoerceToCanonicalValue
+根据属性说明，将属性的值转换为规范值。
+PSCreateAdapterFromPropertyStore 从 IPropertyStore 创建适配器。
+PSCreateDelayedMultiplexPropertyStore
+创建包含多个属性存储的只读延迟绑定属性存储。
+PSCreateMemoryPropertyStore 创建内存中属性存储。
+ 
+PSCreateMultiplexPropertyStore
+创建包含多个属性存储的只读属性存储，每个属性存储都必须支持 IPropertyStore 或 IPropertySetStorage。
+PSCreatePropertyChangeArray
+为一组 IPropertyChange 对象创建容器。 此容器可以与 IFileOperation 一起使用，以将一组属性更改应用于一组文件。
+PSCreatePropertyStoreFromObject
+接受支持 IPropertyStore 或 IPropertySetStorage 的对象的 IUnknown 接口。 如果对象支持
+IPropertySetStorage，则将其包装为支持 IPropertyStore。 PSCreatePropertyStoreFromPropertySetStorage
+将 IPropertySetStorage 接口包装在 IPropertyStore 接口中。
+PSCreateSimplePropertyChange 创建简单的属性更改。
+PSEnumeratePropertyDescriptions
+一个包装器 API，用于调用架构子系统的 IPropertySystem：：EnumeratePropertyDescriptions。 PSFormatForDisplay
+获取存储在 PROPVARIANT 结构中的属性值的格式化 Unicode 字符串表示形式。 调用方负责分配输出缓冲区。
+PSFormatForDisplayAlloc
+获取存储在 PROPVARIANT 结构中的属性值的格式化 Unicode 字符串表示形式。 此函数为输出字符串分配内存。
+PSFormatPropertyValue
+获取存储在属性存储中的属性值的格式化 Unicode 字符串表示形式。 此函数为输出字符串分配内存。
+PSGetImageReferenceForValue
+获取指定属性的属性说明接口的实例。 PSGetItemPropertyHandler
+检索 Shell 项的属性处理程序。 (PSGetItemPropertyHandler)
+ 
+PSGetItemPropertyHandlerWithCreateObject
+检索 Shell 项的属性处理程序。 (PSGetItemPropertyHandlerWithCreateObject)
+PSGetNamedPropertyFromPropertyStorage 按属性名称从序列化的属性存储中获取值。 PSGetNameFromPropertyKey
+检索属性的规范名称（给定其 PROPERTYKEY）。 PSGetPropertyDescription
+获取由 PROPERTYKEY 结构指定的属性的属性的属性说明接口的实例。 PSGetPropertyDescriptionByName
+获取指定属性名称的属性说明接口的实例。 PSGetPropertyDescriptionListFromString
+获取指定属性列表的属性说明列表接口的实例。 PSGetPropertyFromPropertyStorage
+获取存储在序列化属性存储中的属性的值。
+PSGetPropertyKeyFromName 获取规范属性名称的属性键。 PSGetPropertySystem
+获取实现 IPropertySystem 的子系统对象的实例。 PSGetPropertyValue
+从属性存储中获取属性值。
+PSLookupPropertyHandlerCLSID
+获取每台计算机注册的文件属性处理程序 (CLSID) 的类标识符。
+PSPropertyBag_Delete 从属性包中删除属性。
+PSPropertyBag_ReadBOOL
+ 
+读取属性包中属性的 BOOL 数据值。 PSPropertyBag_ReadBSTR
+从属性包中的属性读取 BSTR 数据值。 PSPropertyBag_ReadDWORD
+从属性包中的 属性读取 DWORD 数据值。 PSPropertyBag_ReadGUID
+从属性包中的属性读取 GUID 数据值。 PSPropertyBag_ReadInt
+从属性包中的属性读取 int 数据值。 PSPropertyBag_ReadLONG
+从属性包中的属性读取 LONG 数据值。 PSPropertyBag_ReadPOINTL
+检索存储在指定属性包的 POINTL 结构中的属性坐标。 PSPropertyBag_ReadPOINTS
+检索存储在指定属性包的 POINTS 结构中的属性坐标。
+PSPropertyBag_ReadPropertyKey 读取指定属性包中属性的属性键。 PSPropertyBag_ReadRECTL
+检索存储在指定属性包中包含的属性中的矩形的坐标。 PSPropertyBag_ReadSHORT
+读取属性包中属性的 SHORT 数据值。 PSPropertyBag_ReadStr
+读取属性包中属性的字符串数据值。 PSPropertyBag_ReadStrAlloc
+从属性包中的属性读取字符串数据值，并为读取的字符串分配内存。
+ 
+PSPropertyBag_ReadStream
+读取存储在指定属性包中包含的给定属性中的数据流。 PSPropertyBag_ReadType
+读取存储在属性包中的属性的数据值的类型。 PSPropertyBag_ReadULONGLONG
+从属性包中的属性读取 ULONGLONG 数据值。 PSPropertyBag_ReadUnknown
+读取属性包中未知数据值的给定属性。 PSPropertyBag_WriteBOOL
+设置属性包中属性的 BOOL 值。 PSPropertyBag_WriteBSTR
+设置属性包中属性的 BSTR 值。 PSPropertyBag_WriteDWORD
+设置属性包中属性的 DWORD 值。 PSPropertyBag_WriteGUID
+设置属性包中属性的 GUID 值。 PSPropertyBag_WriteInt
+设置属性包中属性的 int 值。 PSPropertyBag_WriteLONG
+设置属性包中属性的 LONG 值。 PSPropertyBag_WritePOINTL
+将属性坐标存储在指定属性包的POINTL 结构中。 PSPropertyBag_WritePOINTS
+将属性坐标存储在指定属性包的POINTS 结构中。 PSPropertyBag_WritePropertyKey
+ 
+设置属性包中属性的属性键值。 PSPropertyBag_WriteRECTL
+将矩形的坐标存储在属性包中的 属性中。 PSPropertyBag_WriteSHORT
+设置属性包中属性的 SHORT 值。 PSPropertyBag_WriteStr
+设置属性包中属性的字符串值。 PSPropertyBag_WriteStream 将数据流写入属性包中的属性。 PSPropertyBag_WriteULONGLONG
+设置属性包中属性的 ULONGLONG 值。 PSPropertyBag_WriteUnknown
+在属性包中写入未知数据值的属性。 PSPropertyKeyFromString
+将字符串转换为 PROPERTYKEY 结构。 PSRefreshPropertySchema
+不支持。调用此函数是有效的，但它未实现以执行任何函数，因此没有理由执行此操作。 PSRegisterPropertySchema
+通知架构子系统添加属性说明架构文件。 (PSRegisterPropertySchema) PSSetPropertyValue
+设置属性存储区中属性的值。 PSStringFromPropertyKey
+创建一个字符串，该字符串从该属性的键标识属性。 PSUnregisterPropertySchema
+通知架构子系统属性说明架构文件的删除。
+ 
+WinRTPropertyValueToPropVariant
+将内容从 Windows 运行时属性值复制到 PROPVARIANT 结构。
+枚举  
+GETPROPERTYSTOREFLAGS
+指示修改由创建属性存储的方法检索的属性存储对象的标志，如 IShellItem2：：GetPropertyStore
+或 IPropertyStoreFactory：：GetPropertyStore。 PKA_FLAGS
+描述属性更改数组行为。
+PROPDESC_AGGREGATION_TYPE
+描述在选择多个项时如何显示属性值。 PROPDESC_COLUMNINDEX_TYPE
+指示是否可以或如何为属性编制索引。 PROPDESC_CONDITION_TYPE
+描述在 Windows Vista 的查询生成器 UI 中显示属性时要使用的条件类型，但在 Windows 7 及更高
+版本中则不显示该属性。 PROPDESC_ENUMFILTER
+描述返回的属性说明的筛选列表。 PROPDESC_FORMAT_FLAGS
+由属性说明帮助程序函数（如 PSFormatForDisplay）用来指示属性字符串的格式。 PROPDESC_RELATIVEDESCRIPTION_TYPE
+描述属性说明的相对说明类型，由 displayInfo 元素的 relativeDescriptionType 属性确定。 PROPDESC_SEARCHINFO_FLAGS
+确定 Windows 搜索是否以及如何为属性编制索引。
+ 
+PROPDESC_TYPE_FLAGS
+描述属性的 .propdesc 文件中 typeInfo 元素的属性。 PROPDESC_VIEW_FLAGS
+这些标志描述属性说明列表字符串中的属性。 PSC_STATE
+指定属性的状态。 它们由托管内存中属性存储缓存的代码手动设置。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+IPropertyStore 接口 (propsys.h) 项目2024/03/13
+此接口公开用于枚举和操作属性值的方法。继承
+IPropertyStore 接口继承自 IUnknown 接口。 IPropertyStore 还具有以下类型的成员：方法
+IPropertyStore 接口具有以下方法。
+ﾉ
+ 
+IPropertyStore：：Commit
+进行更改后，此方法将保存更改。 IPropertyStore：：GetAt
+从项的属性数组中获取属性键。 IPropertyStore：：GetCount
+此方法返回附加到文件的属性数的计数。
+IPropertyStore：：GetValue 此方法检索特定属性的数据。 IPropertyStore：：SetValue
+此方法设置属性值，或者替换或删除现有值。要求
+ﾉ
+要求
+目标平台
+值
+Windows
+展开表展开表
+要求标头
+另请参阅 APOInitSystemEffects
+AudioFXExtensionParams
+值
+propsys.h
+IPropertyStore：：Commit 方法
+(propsys.h) 项目2023/08/25
+进行更改后，此方法将保存更改。
+语法 C++
+HRESULT Commit(); 返回值
+方法 IPropertyStore::Commit  返回以下任一项：
+返回代码 S_OK
+STG_E_ACCESSDENIED
+E_FAIL 注解
+说明
+所有属性更改都已成功写入流或路径。 这包括调用 方法
+时没有挂起更改且未写入任何更改的情况。流或文件为只读;方法无法设置值。
+无法将部分或全部更改写入文件。 另一个解释性更高的错误可用于代替E_FAIL。
+在 Commit  方法返回之前，它会释放已初始化为方法使用的文件流或路径。 因此，返回后Commit 没有 IPropertyStore 方法成功。 此时，它们返回E_FAIL。
+属性处理程序必须确保属性更改导致有效的目标文件，即使 Commit  进程异常终止或遇到
+任何错误。要求
+ 
+最低受支持的客户端
+ 
+适用于 Windows Vista 和更高版本的 Windows 操作系统。
+ 
+目标平台
+标头 Library IRQL
+请参阅 IPropertyStore
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+通用
+propsys.h Propsys.idl 所有级别
+ﾄ否
+IPropertyStore：：GetAt 方法
+(propsys.h) 项目2024/03/04
+从项的属性数组中获取属性键。
+语法 C++
+HRESULT GetAt(
+  DWORD       iProp,   PROPERTYKEY *pkey);
+参数 iProp
+PROPERTYKEY 结构数组中属性键的索引。 这是从零开始的索引。
+pkey TBD
+返回值
+如果成功，该方法 IPropertyStore::GetAt  将返回值 S_OK。 否则，它返回的任何其他代码都必须被视为错误代码。
+备注无
+要求
+ﾉ
+展开表
+要求
+最低受支持的客户端目标平台
+标头 Library IRQL
+另请参阅 IPropertyStore
+值
+适用于 Windows Vista 和更高版本的 Windows 操作系统。通用
+propsys.h Propsys.idl 所有级别
+IPropertyStore：：GetValue IPropertyStore：：SetValue
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IPropertyStore：：GetCount 方法
+(propsys.h) 项目2024/03/01
+此方法返回附加到文件的属性数的计数。
+语法 C++
+HRESULT GetCount(   DWORD *cProps);
+参数 cProps
+指向指示属性计数的值的指针。返回值
+调用成功时，方法 IpropertyStore::GetCount  返回值 S_OK，即使文件没有附加任何属性
+也是如此。 返回的任何其他代码都是错误代码。注解
+IPropertyStore 通过 IPropertyStore::GetCount  和 IPropertyStore：：GetAt 方法对属性键数组提供抽象。 此数组中的属性键表示 当前由 IPropertyStore 存储的属性。
+成功时 GetCount  ，cProps 指向的值是数组中属性键的计数。 对于小于 cProps 的 iProp 值，调用方可以期望对 IPropertyStore：：GetAt 的调用成功。
+如果发生故障（如E_OUTOFMEMORY），应将 cProps 设置为零。 最好是在创建或初始
+化属性存储期间发现错误。要求
+要求
+最低受支持的客户端目标平台
+标头 Library IRQL
+另请参阅 IPropertyStore
+IPropertyStore：：GetAt 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+适用于 Windows Vista 和更高版本的 Windows 操作系统。通用
+propsys.h Propsys.idl 所有级别
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IPropertyStore：：GetValue 方法
+(propsys.h) 项目2024/03/01
+此方法检索特定属性的数据。
+语法 C++
+HRESULT GetValue(
+  REFPROPERTYKEY key,   PROPVARIANT    *pv);
+参数 key TBD pv
+方法 IPropertyStore::GetValue  成功返回后，此参数指向包含有关 属性的数据的
+PROPVARIANT 结构。返回值
+如果成功，则返回S_OK或INPLACE_S_TRUNCATED，否则返回错误值。
+返回INPLACE_S_TRUNCATED指示返回的 PROPVARIANT 已转换为更规范的形式。 例如，这样做是为了剪裁字符串值中的前导空格或尾随空格。 必须使用 SUCCEEDED 宏检查返回值，这将INPLACE_S_TRUNCATED视为成功代码。 SUCCEEDED 宏在 Winerror.h 文件中
+定义。注解
+如果键中引用的 PROPERTYKEY 在属性存储中不存在，则此方法返回S_OK，并且 pv 指向的结构的 vt 成员设置为 VT_EMPTY。
+要求要求
+最低受支持的客户端目标平台
+标头 Library IRQL
+另请参阅 IPropertyStore
+IPropertyStore：：GetAt 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+适用于 Windows Vista 和更高版本的 Windows 操作系统。通用
+propsys.h Propsys.idl 所有级别
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IPropertyStore：：SetValue 方法
+(propsys.h) 项目2024/03/09
+此方法设置属性值，或者替换或删除现有值。
+语法 C++
+HRESULT SetValue(
+  REFPROPERTYKEY key,
+  REFPROPVARIANT propvar);
+参数 key TBD propvar TBD
+返回值
+方法 IPropertyStore::SetValue  可以返回以下任一项：
+返回代码 S_OK
+INPLACE_S_TRUNCATED STG_E_ACCESSDENIED
+说明
+属性更改成功。
+值已设置，但被截断。
+ﾉ
+展开表
+这是错误代码。 属性存储是只读的，因此方法无法设置值。
+注解
+IPropertyStore::SetValue  仅影响当前属性存储实例。 属性处理程序通过累积内存中数据结构中的属性更改来实现 IPropertyStore::SetValue  。 仅当调用 IPropertyStore：： Commit 时，才会将属性更改写入流。
+如果在只读属性存储中调用 IPropertyStore：：Commit ，则属性处理程序将确定这一点并返回STG_E_ACCESSDENIED。
+如果由于 添加或删除 SetValue 了值， 则 IPropertyStore：：GetCount 和 IPropertyStore：：GetAt 的后续枚举将反映该更改，后续调用将
+IPropertyStore::SetValue  反映更改的值。添加新属性
+如果存储中不存在由键指向的属性值， IPropertyStore::SetValue  请将该值添加到存储区。
+替换现有属性值
+如果存储中已存在由键指向的属性值，则替换存储的值。删除现有属性
+若要从属性存储中删除值，请将 pv 指向的 结构的 vt 成员设置为VT_EMPTY。 如果该值
+不存在，则不执行任何操作，该方法将返回S_OK。要求
+ﾉ
+要求
+最低受支持的客户端目标平台
+标头 Library IRQL
+另请参阅
+值
+适用于 Windows Vista 和更高版本的 Windows 操作系统。通用
+propsys.h Propsys.idl 所有级别
+展开表
+IPropertyStore
+IPropertyStore：：Commit IPropertyStore：：GetAt IPropertyStore：：GetCount
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助

@@ -1,0 +1,2667 @@
+告知我们有关下载 PDF 体验的信息。
+常规用途 I/O （GPIO） 控制器项目2025/03/12
+若要开发 GPIO 端口的驱动程序，请使用以下标头：
+gpio.h gpioclx.h
+GPIO 概述
+通用 I/O （GPIO） 控制器驱动程序通过 GpioClx 设备驱动程序接口（DDI）与 GPIO 框架扩展（GpioClx）通信。 此 DDI 在 Gpioclx.h 头文件中定义，本节对此进行介绍。 作为此 DDI 的一部分，GpioClx 实现多个驱动程序支持方法，这些方法由 GPIO 控制器驱动程序调用。 此驱动程序实现由 GpioClx 调用的一组事件回调函数。 GpioClx 使用这些回调来管理配置为中断输入的 GPIO 引脚的中断请求，以及将数据传输到或传出配置为数据输入和输出的 GPIO 引脚。
+有关编写 GPIOClx 客户端驱动程序的概念性信息，请参阅 General-Purpose I/O
+（GPIO） 驱动程序设计指南 IOCTLs
+ﾉ
+ 
+IOCTL_GPIO_CONTROLLER_SPECIFIC_FUNCTION
+展开表
+IOCTL_GPIO_CONTROLLER_SPECIFIC_FUNCTION I/O 控制代码使常规用途 I/O（GPIO） 控制器的
+客户端能够请求特定于控制器的设备控制作。 IOCTL_GPIO_READ_PINS
+IOCTL_GPIO_READ_PINS I/O 控制代码使常规用途 I/O（GPIO） 控制器的客户端能够从配置为输入
+的一组 GPIO 引脚中读取。 IOCTL_GPIO_WRITE_PINS
+IOCTL_GPIO_WRITE_PINS I/O 控制代码使常规用途 I/O （GPIO） 控制器的客户端能够写入配置为
+输出的一组 GPIO 引脚。枚举
+ 
+CLIENT_CONTROLLER_QUERY_SET_REQUEST_TYPE
+ﾉ
+展开表
+CLIENT_CONTROLLER_QUERY_SET_REQUEST_TYPE枚举类型指示 GPIO 框架扩展 （GpioClx） 从
+GPIO 控制器驱动程序请求的属性信息类型。 GPIO_CONNECT_IO_PINS_MODE
+GPIO_CONNECT_IO_PINS_MODE枚举指示是否将一组常规用途 I/O （GPIO） 引脚配置为输入或输
+出。功能
+ﾉ
+ 
+GPIO_CLIENT_CLEAR_ACTIVE_INTERRUPTS
+展开表
+CLIENT_ClearActiveInterrupts事件回调函数清除配置为中断输入的一组常规用途 I/O （GPIO） 引脚上的活动中断。
+GPIO_CLIENT_CONNECT_IO_PINS
+CLIENT_ConnectIoPins事件回调函数将打开与一组常规用途 I/O （GPIO） 引脚的逻辑连接，并为数据读取或写入作配置这些引脚。
+GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION
+CLIENT_ControllerSpecificFunction事件回调函数执行特定于特定常规用途 I/O （GPIO） 控制器的作。
+GPIO_CLIENT_DISABLE_INTERRUPT
+CLIENT_DisableInterrupt事件回调函数在配置为中断输入的常规用途 I/O （GPIO） 引脚上禁用中断。
+GPIO_CLIENT_DISCONNECT_IO_PINS
+CLIENT_DisconnectIoPins事件回调函数关闭与为数据读取或写入作配置一组常规用途 I/O（GPIO） 引脚的逻辑连接。
+GPIO_CLIENT_ENABLE_INTERRUPT
+ 
+CLIENT_EnableInterrupt事件回调函数在配置为中断输入的常规用途 I/O （GPIO） 引脚上启用中断。
+GPIO_CLIENT_MASK_INTERRUPTS
+CLIENT_MaskInterrupts事件回调函数对配置为中断输入的一组常规用途 I/O （GPIO） 引脚屏蔽中断。
+GPIO_CLIENT_PRE_PROCESS_CONTROLLER_INTERRUPT
+CLIENT_PreProcessControllerInterrupt事件回调函数执行常规用途 I/O （GPIO） 中断的任何预处
+理，如果 ISR 计划稍后运行，则必须立即完成该中断。 GPIO_CLIENT_PREPARE_CONTROLLER
+CLIENT_PrepareController事件回调函数执行使通用 I/O （GPIO） 控制器可供 GPIO 控制器驱动程序访问所需的任何作。
+GPIO_CLIENT_QUERY_ACTIVE_INTERRUPTS
+CLIENT_QueryActiveInterrupts事件回调函数查询配置为中断输入的一组常规用途 I/O （GPIO） 引脚的状态。
+GPIO_CLIENT_QUERY_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation事件回调函数检索常规用途 I/O （GPIO） 控制器的硬件属性。
+GPIO_CLIENT_QUERY_ENABLED_INTERRUPTS
+CLIENT_QueryEnabledInterrupts事件回调函数查询一组常规用途 I/O （GPIO） 引脚的状态，以确定哪些引脚都配置为中断输入，并为中断启用。
+GPIO_CLIENT_QUERY_SET_CONTROLLER_INFORMATION
+CLIENT_QuerySetControllerInformation事件回调函数查询 GPIO 控制器的指定属性集的常规用途
+I/O （GPIO） 控制器驱动程序。 GPIO_CLIENT_READ_PINS
+CLIENT_ReadGpioPins事件回调函数读取配置为数据输入的一组常规用途 I/O （GPIO） 引脚。 GPIO_CLIENT_READ_PINS_MASK
+CLIENT_ReadGpioPinsUsingMask事件回调函数读取一组通用 I/O （GPIO） 引脚。 GPIO_CLIENT_RECONFIGURE_INTERRUPT
+CLIENT_ReconfigureInterrupt事件回调函数重新配置用作中断输入的常规用途 I/O （GPIO） 引脚。
+ 
+GPIO_CLIENT_RELEASE_CONTROLLER
+CLIENT_ReleaseController事件回调函数执行在常规用途 I/O（GPIO） 控制器设备不再可访问时所需的作。
+GPIO_CLIENT_RESTORE_BANK_HARDWARE_CONTEXT
+CLIENT_RestoreBankHardwareContext事件回调函数还原常规用途 I/O（GPIO）引脚的银行的硬件上下文。
+GPIO_CLIENT_SAVE_BANK_HARDWARE_CONTEXT
+CLIENT_SaveBankHardwareContext事件回调函数保存常规用途 I/O（GPIO）引脚的银行的硬件上下文。
+GPIO_CLIENT_START_CONTROLLER
+CLIENT_StartController事件回调函数执行常规用途 I/O（GPIO） 控制器设备进入 D0 电源状态时所需的作。
+GPIO_CLIENT_STOP_CONTROLLER
+CLIENT_StopController事件回调函数执行准备常规用途 I/O（GPIO） 控制器设备以退出 D0 电源状态所需的作。
+GPIO_CLIENT_UNMASK_INTERRUPT
+CLIENT_UnmaskInterrupt事件回调函数在配置为中断输入的常规用途 I/O （GPIO） 引脚上取消屏蔽中断。
+GPIO_CLIENT_WRITE_PINS
+CLIENT_WriteGpioPins事件回调函数写入配置为数据输出的一组常规用途 I/O （GPIO） 引脚。 GPIO_CLIENT_WRITE_PINS_MASK
+CLIENT_WriteGpioPinsUsingMask事件回调函数写入配置为数据输出的一组常规用途 I/O （GPIO）引脚。
+GPIO_CLX_AcquireInterruptLock
+GPIO_CLX_AcquireInterruptLock方法获取常规用途 I/O（GPIO） 控制器中引脚的一个中断锁。 GPIO_CLX_ProcessAddDevicePostDeviceCreate
+GPIO_CLX_ProcessAddDevicePostDeviceCreate方法将框架设备对象传递给 GPIO 框架扩展（GpioClx）。
+ 
+GPIO_CLX_ProcessAddDevicePreDeviceCreate
+GPIO_CLX_ProcessAddDevicePreDeviceCreate方法将初始化信息加载到作为输入参数传递给
+WdfDeviceCreate 方法的两个结构中。 GPIO_CLX_RegisterClient
+GPIO_CLX_RegisterClient方法将常规用途 I/O （GPIO） 控制器驱动程序注册为 GPIO 框架扩展（GpioClx） 的客户端。
+GPIO_CLX_ReleaseInterruptLock
+GPIO_CLX_ReleaseInterruptLock方法释放指定银行上的中断锁。 GPIO_CLX_UnregisterClient
+GPIO_CLX_UnregisterClient方法删除使用 GPIO 框架扩展（GpioClx）注册通用 I/O（GPIO）控制器
+驱动程序。结构
+ﾉ
+ 
+CLIENT_CONTROLLER_BASIC_INFORMATION
+展开表
+CLIENT_CONTROLLER_BASIC_INFORMATION结构包含常规用途 I/O（GPIO）控制器硬件属性和配置信息。
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT结构包含对常规用途 I/O（GPIO） 控制器的硬件属性的请求。
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT结构包含 GPIO 框架扩展 （GpioClx）请求的一组通用 I/O （GPIO） 控制器属性。
+CLIENT_QUERY_BANK_POWER_INFORMATION_OUTPUT
+CLIENT_QUERY_BANK_POWER_INFORMATION_OUTPUT结构包含有关通用 I/O （GPIO） 引脚的银行电源管理功能的信息。
+CONTROLLER_ATTRIBUTE_FLAGS
+ 
+CONTROLLER_ATTRIBUTE_FLAGS结构描述通用 I/O（GPIO）控制器设备的硬件属性。 GPIO_CLEAR_ACTIVE_INTERRUPTS_PARAMETERS
+GPIO_CLEAR_ACTIVE_INTERRUPTS_PARAMETERS结构描述要清除的一组常规用途 I/O（GPIO）中断引脚。
+GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION_PARAMETERS
+GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION_PARAMETERS结构描述控制器特定作的输入和输出缓冲区。
+GPIO_CLIENT_REGISTRATION_PACKET
+GPIO_CLIENT_REGISTRATION_PACKET结构包含通用 I/O（GPIO） 控制器驱动程序传递给 GPIO 框架扩展（GpioClx）的注册信息。
+GPIO_CONNECT_IO_PINS_PARAMETERS
+GPIO_CONNECT_IO_PINS_PARAMETERS结构描述与一组常规用途 I/O （GPIO） 引脚的逻辑连接，
+并指定是将这些引脚配置为数据输入还是输出。 GPIO_DISABLE_INTERRUPT_PARAMETERS
+GPIO_DISABLE_INTERRUPT_PARAMETERS结构描述要禁用的常规用途 I/O （GPIO） 中断引脚。 GPIO_DISCONNECT_IO_PINS_PARAMETERS
+GPIO_DISCONNECT_IO_PINS_PARAMETERS结构描述了一组要断开连接的常规用途 I/O （GPIO）引脚。
+GPIO_ENABLE_INTERRUPT_PARAMETERS
+GPIO_ENABLE_INTERRUPT_PARAMETERS结构指定常规用途 I/O （GPIO） 引脚，并描述此引脚的中断属性。
+GPIO_MASK_INTERRUPT_PARAMETERS
+GPIO_MASK_INTERRUPT_PARAMETERS结构描述一组通用 I/O（GPIO）中断引脚来屏蔽。 GPIO_QUERY_ACTIVE_INTERRUPTS_PARAMETERS
+GPIO_QUERY_ACTIVE_INTERRUPTS_PARAMETERS结构描述了一组常规用途 I/O （GPIO） 中断引脚，用于查询其启用和活动状态。
+GPIO_QUERY_ENABLED_INTERRUPTS_PARAMETERS
+GPIO_QUERY_ENABLED_INTERRUPTS_PARAMETERS结构指示启用了常规用途 I/O（GPIO）引脚的银行中的中断引脚。
+ 
+GPIO_READ_PINS_MASK_PARAMETERS
+GPIO_READ_PINS_MASK_PARAMETERS结构描述常规用途 I/O （GPIO） 引脚的一个读取作。 GPIO_READ_PINS_PARAMETERS
+GPIO_READ_PINS_PARAMETERS结构描述对一组常规用途 I/O （GPIO） 引脚的读取作。 GPIO_RECONFIGURE_INTERRUPTS_PARAMETERS
+GPIO_RECONFIGURE_INTERRUPTS_PARAMETERS结构描述要重新配置通用 I/O（GPIO）中断引脚。
+GPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS
+GPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS结构描述了一组通用 I/O
+（GPIO）引脚，其硬件状态是保存或还原的。 GPIO_WRITE_PINS_MASK_PARAMETERS
+GPIO_WRITE_PINS_MASK_PARAMETERS结构描述常规用途 I/O （GPIO） 引脚的银行上的写入作。 GPIO_WRITE_PINS_PARAMETERS
+GPIO_WRITE_PINS_PARAMETERS结构描述对一组常规用途 I/O （GPIO） 引脚的写入作。反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+gpio.h 标头项目2023/08/07
+此标头由 parports 使用。 有关详细信息，请参见:
+并行端口
+gpio.h 包含以下编程接口：
+IOCTL  
+IOCTL_GPIO_CONTROLLER_SPECIFIC_FUNCTION
+ﾉ
+展开表
+IOCTL_GPIO_CONTROLLER_SPECIFIC_FUNCTION I/O 控制代码允许常规用途 I/O (GPIO) 控制器的客户端请
+求特定于控制器的设备控制操作。 IOCTL_GPIO_READ_PINS
+IOCTL_GPIO_READ_PINS I/O 控制代码使常规用途 I/O (GPIO) 控制器的客户端能够从配置为输入的一组
+GPIO 引脚中读取数据。 IOCTL_GPIO_WRITE_PINS
+IOCTL_GPIO_WRITE_PINS I/O 控制代码使常规用途 I/O (GPIO) 控制器的客户端能够写入配置为输出的一组 GPIO 引脚。
+IOCTL_GPIO_CONTROLLER_SPECIFIC_FU
+NCTION IOCTL （gpio.h）项目2025/02/07
+IOCTL_GPIO_CONTROLLER_SPECIFIC_FUNCTION I/O 控制代码使常规用途 I/O（GPIO）控制器的客户端能够请求特定于控制器的设备控制作。 通常，GPIO 控制器的客户端是连
+接到 GPIO 引脚的外围设备的驱动程序。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+此 I/O 控件代码的输入缓冲区要求由 GPIO 控制器驱动程序的开发人员定义。 有关
+METHOD_BUFFERED IRP 的输入缓冲区的详细信息，请参阅 I/O 控制代码的缓冲区说明。输出缓冲区
+此 I/O 控制代码的输出缓冲区要求由 GPIO 控制器驱动程序的开发人员定义。 有关
+METHOD_BUFFERED IRP 的输出缓冲区的详细信息，请参阅 I/O 控制代码的缓冲区说明。状态块
+如果作成功，GPIO 控制器驱动程序会将 状态 成员设置为STATUS_SUCCESS，并将 信息
+成员设置为写入输出缓冲区的字节总数。 如果作不生成输出数据或输出数据指针为 NULL，则 信息 成员设置为零。
+如果输入缓冲区不够大，无法包含输入参数，或者输出缓冲区不够大，无法包含特定于控制器的作的输出参数，则 状态 成员设置为STATUS_BUFFER_TOO_SMALL。
+如果此请求失败，则 状态 成员设置为错误代码，信息 成员设置为零。如果 GPIO 控制器驱动程序不支持特定于控制器的作，则 状态 成员设置为
+STATUS_NOT_IMPLEMENTED。 如果 GPIO 控制器驱动程序支持特定于控制器的作，但无
+法将输入缓冲区的内容识别为有效，则 状态 成员设置为STATUS_NOT_SUPPORTED。言论
+典型的 GPIO 控制器不支持 IOCTL_GPIO_CONTROLLER_SPECIFIC_FUNCTION 请求。 但是，控制器驱动程序开发人员可以选择定义一个或多个特定于控制器的作，以解决特定硬件平台上 GPIO 控制器的特殊要求或功能。
+只有知道特定类型 GPIO 控制器硬件支持的特定于控制器的作的外围设备驱动程序才能使用 IOCTL_GPIO_CONTROLLER_SPECIFIC_FUNCTION 请求来执行这些作。 使用这些请求在一个硬件平台上执行控制器特定的作的外围设备驱动程序可能会丢失与不支持这些作的其他平台的兼容性。
+IOCTL_GPIO_CONTROLLER_SPECIFIC_FUNCTION 控件代码的含义由 GPIO 控制器驱动程序的开发人员定义。 通常，控制器驱动程序使用此控制代码使外围设备驱动程序能够对其设备连接到的 GPIO 引脚执行特定于硬件的作。
+例如，IOCTL_GPIO_CONTROLLER_SPECIFIC_FUNCTION 请求的输入缓冲区可能包含控制器定义的命令代码和一些数量的输入参数。 GPIO 控制器驱动程序可能会或可能不会将数据写入输出缓冲区，具体取决于命令代码。
+外围设备驱动程序将此 I/O 控制请求发送到目标 GPIO 设备的文件对象。 文件对象是一个 FILE_OBJECT 结构，表示与 GPIO 控制器上的一组引脚的打开连接。 内核模式驱动程
+序框架 （KMDF） 驱动程序使用 WDFIOTARGET 句柄来引用此文件对象。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 FILE_OBJECT
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始支持。 gpio.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+IOCTL_GPIO_READ_PINS IOCTL
+（gpio.h）项目2025/02/07
+IOCTL_GPIO_READ_PINS I/O 控制代码使常规用途 I/O（GPIO） 控制器的客户端能够从配置为输入的一组 GPIO 引脚中读取。 通常，GPIO 控制器的客户端是连接到 GPIO 引脚
+的外围设备的驱动程序。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区无输入缓冲区。
+输入缓冲区长度没有。
+输出缓冲区输出缓冲区。
+输出缓冲区长度
+输出缓冲区应足够大，以包含来自客户端向其发送请求的目标连接的一部分的所有 GPIO 引脚的读取。 例如，如果 GPIO 控制器硬件实现 64 个 GPIO 引脚，并且客户端打开与其中三个 GPIO 引脚的连接，则一字节缓冲区足够大，可以包含从连接中的三个引脚读取的
+三个 1 位值。状态块
+如果作成功，GPIO 控制器驱动程序会将 状态 成员设置为STATUS_SUCCESS，并将 信息成员设置为请求的作期间传输的总字节数。 如果作传输 N 位，则传输的字节数为 （N + 7） / 8。 （也就是说，将 7 添加到 N，以在整数除以 8 之前向上舍入到下一个字节边界。
+如果此请求失败，则 状态 成员设置为错误代码，并且不会从 GPIO 引脚读取任何数据。由于各种原因，请求的作可能会失败，其中包括无效的客户端输入、资源不足和设备故障。
+如果输出缓冲区不够大，无法包含从目标连接中的所有 GPIO 引脚读取的数据，则 状态成员设置为STATUS_BUFFER_TOO_SMALL。 如果目标连接中的 GPIO 引脚配置为输出，则
+状态 成员设置为STATUS_GPIO_OPERATION_DENIED。言论
+此请求读取作为客户端向其发送请求的目标连接的一部分的所有 GPIO 引脚。 例如，如果连接有三个引脚，则从这些引脚读取的 1 位值将保存在输出缓冲区中的位 0、1 和 2 中。 此示例连接中的三个引脚可能映射到 GPIO 控制器硬件中的 GPIO 引脚 7、8 和 23。如果是这样，GPIO 引脚 7 将保存在缓冲区的第 0 位（最小有效位），GPIO 引脚 8 保存在缓冲区的第 1 位中，GPIO 引脚 23 保存在缓冲区的位 2 中。
+当客户端打开与目标 GPIO 设备的连接时，此连接中的所有 GPIO 引脚都配置为输入或输出。 仅当目标引脚是输入时，IOCTL_GPIO_READ_PINS 请求才能成功。
+客户端将此 I/O 控制请求发送到目标设备的文件对象。 文件对象是表示与目标的逻辑连接的 FILE_OBJECT 结构。 内核模式驱动程序框架 （KMDF） 驱动程序调用
+WdfIoTargetCreate 方法来打开此连接。 用户模式驱动程序框架（UMDF）驱动程序调用 IWDFRemoteTarget：：OpenFileByName 方法来打开连接。
+有关演示如何使用 IOCTL_GPIO_READ_PINS 请求读取一组 GPIO I/O 引脚的代码示例，请参阅以下主题：
+将 KMDF 驱动程序连接到 GPIO I/O 引脚要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 FILE_OBJECT
+价值
+从 Windows 8 开始支持。 gpio.h
+展开表
+IWDFRemoteTarget：：OpenFileByName
+WdfIoTargetCreate 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IOCTL_GPIO_WRITE_PINS IOCTL
+（gpio.h）项目2025/02/07
+IOCTL_GPIO_WRITE_PINS I/O 控制代码使常规用途 I/O （GPIO） 控制器的客户端能够写入配置为输出的一组 GPIO 引脚。 通常，GPIO 控制器的客户端是连接到 GPIO 引脚的外
+围设备的驱动程序。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区输入缓冲区。
+输入缓冲区长度
+输入缓冲区应足够大，足以包含作为客户端向其发送请求的目标连接一部分的所有 GPIO 引脚的数据。 例如，如果 GPIO 控制器硬件实现 64 个 GPIO 引脚，并且客户端打开与其中三个 GPIO 引脚的连接，则一个字节缓冲区足够大，可以包含三个 1 位值，以写入连接
+中的三个引脚。输出缓冲区
+输出缓冲区包含与输入缓冲区相同的数据（因为此 IOCTL 的 TransferType
+METHOD_BUFFERED）。输出缓冲区长度与输入缓冲区相同。状态块
+如果作成功，控制器驱动程序会将 状态 成员设置为STATUS_SUCCESS，并将 信息 成员设置为请求的作期间传输的总字节数。 如果作传输 N 位，则传输的字节数为 （N + 7） / 8。 （也就是说，将 7 添加到 N，以在整数除以 8 之前向上舍入到下一个字节边界。
+如果此请求失败，则 状态 成员设置为错误代码，并且不会从 GPIO 引脚读取任何数据。由于各种原因，请求的作可能会失败，其中包括无效的客户端输入、资源不足和设备故障。
+如果输入缓冲区不够大，无法包含目标连接中每个 GPIO 引脚的一位数据，则 状态 成员设置为STATUS_BUFFER_TOO_SMALL。 如果目标连接中的 GPIO 引脚配置为输入，则 状
+态 成员设置为STATUS_GPIO_OPERATION_DENIED。言论
+此请求写入客户端向其发送请求的目标连接的所有 GPIO 引脚。 例如，如果连接有三个引脚，则输入缓冲区中的位为 0、1 和 2，则写入这三个引脚。 此示例连接中的三个引脚可能映射到 GPIO 控制器硬件中的 GPIO 引脚 7、8 和 23。 如果是这样，缓冲区中的位 0（最小有效位）将写入 GPIO 引脚 7，缓冲区中的位 1 将写入 GPIO 引脚 8，缓冲区中的位 2 将写入 GPIO 引脚 23。
+当客户端打开与目标 GPIO 设备的连接时，此连接中的所有 GPIO 引脚都配置为输入或输出。 仅当目标引脚是输出时，IOCTL_GPIO_WRITE_PINS 请求才能成功。
+客户端将此 I/O 控制请求发送到目标设备的文件对象。 文件对象是表示与目标的逻辑连接的 FILE_OBJECT 结构。 内核模式驱动程序框架 （KMDF） 驱动程序调用
+WdfIoTargetCreate 方法来打开此连接。 用户模式驱动程序框架（UMDF）驱动程序调用 IWDFRemoteTarget：：OpenFileByName 方法来打开连接。
+有关演示如何使用 IOCTL_GPIO_WRITE_PINS 请求写入到一组 GPIO I/O 引脚的代码示例，请参阅以下主题：
+将 KMDF 驱动程序连接到 GPIO I/O 引脚要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 FILE_OBJECT
+价值
+从 Windows 8 开始支持。 gpio.h
+展开表
+IWDFRemoteTarget：：OpenFileByName
+WdfIoTargetCreate 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+gpioclx.h 标头项目2025/03/22
+此标头由分析使用。 有关详细信息，请参阅：
+并行端口
+gpioclx.h 包含以下编程接口：
+功能  
+GPIO_CLX_AcquireInterruptLock
+ﾉ
+展开表
+GPIO_CLX_AcquireInterruptLock方法获取常规用途 I/O（GPIO） 控制器中引脚的一个中断锁。 GPIO_CLX_ProcessAddDevicePostDeviceCreate
+GPIO_CLX_ProcessAddDevicePostDeviceCreate方法将框架设备对象传递给 GPIO 框架扩展（GpioClx）。
+GPIO_CLX_ProcessAddDevicePreDeviceCreate
+GPIO_CLX_ProcessAddDevicePreDeviceCreate方法将初始化信息加载到作为输入参数传递给
+WdfDeviceCreate 方法的两个结构中。 GPIO_CLX_RegisterClient
+GPIO_CLX_RegisterClient方法将常规用途 I/O （GPIO） 控制器驱动程序注册为 GPIO 框架扩展（GpioClx） 的客户端。
+GPIO_CLX_ReleaseInterruptLock
+GPIO_CLX_ReleaseInterruptLock方法释放指定银行上的中断锁。 GPIO_CLX_UnregisterClient
+GPIO_CLX_UnregisterClient方法删除使用 GPIO 框架扩展（GpioClx）注册通用 I/O（GPIO）控制器驱动程序。
+回调函数
+ 
+GPIO_CLIENT_CLEAR_ACTIVE_INTERRUPTS
+ﾉ
+展开表
+CLIENT_ClearActiveInterrupts事件回调函数清除配置为中断输入的一组常规用途 I/O （GPIO） 引脚上的活动中断。
+GPIO_CLIENT_CONNECT_IO_PINS
+CLIENT_ConnectIoPins事件回调函数将打开与一组常规用途 I/O （GPIO） 引脚的逻辑连接，并为数据读取或写入作配置这些引脚。
+GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION
+CLIENT_ControllerSpecificFunction事件回调函数执行特定于特定常规用途 I/O （GPIO） 控制器的作。
+GPIO_CLIENT_DISABLE_INTERRUPT
+CLIENT_DisableInterrupt事件回调函数在配置为中断输入的常规用途 I/O （GPIO） 引脚上禁用中断。
+GPIO_CLIENT_DISCONNECT_IO_PINS
+CLIENT_DisconnectIoPins事件回调函数关闭与为数据读取或写入作配置一组常规用途 I/O（GPIO） 引脚的逻辑连接。
+GPIO_CLIENT_ENABLE_INTERRUPT
+CLIENT_EnableInterrupt事件回调函数在配置为中断输入的常规用途 I/O （GPIO） 引脚上启用中断。
+GPIO_CLIENT_MASK_INTERRUPTS
+CLIENT_MaskInterrupts事件回调函数对配置为中断输入的一组常规用途 I/O （GPIO） 引脚屏蔽中断。
+GPIO_CLIENT_PRE_PROCESS_CONTROLLER_INTERRUPT
+CLIENT_PreProcessControllerInterrupt事件回调函数执行常规用途 I/O （GPIO） 中断的任何预处
+理，如果 ISR 计划稍后运行，则必须立即完成该中断。 GPIO_CLIENT_PREPARE_CONTROLLER
+CLIENT_PrepareController事件回调函数执行使通用 I/O （GPIO） 控制器可供 GPIO 控制器驱动程序访问所需的任何作。
+GPIO_CLIENT_QUERY_ACTIVE_INTERRUPTS
+ 
+CLIENT_QueryActiveInterrupts事件回调函数查询配置为中断输入的一组常规用途 I/O （GPIO） 引脚的状态。
+GPIO_CLIENT_QUERY_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation事件回调函数检索常规用途 I/O （GPIO） 控制器的硬件属性。
+GPIO_CLIENT_QUERY_ENABLED_INTERRUPTS
+CLIENT_QueryEnabledInterrupts事件回调函数查询一组常规用途 I/O （GPIO） 引脚的状态，以确定哪些引脚都配置为中断输入，并为中断启用。
+GPIO_CLIENT_QUERY_SET_CONTROLLER_INFORMATION
+CLIENT_QuerySetControllerInformation事件回调函数查询 GPIO 控制器的指定属性集的常规用途
+I/O （GPIO） 控制器驱动程序。 GPIO_CLIENT_READ_PINS
+CLIENT_ReadGpioPins事件回调函数读取配置为数据输入的一组常规用途 I/O （GPIO） 引脚。 GPIO_CLIENT_READ_PINS_MASK
+CLIENT_ReadGpioPinsUsingMask事件回调函数读取一组通用 I/O （GPIO） 引脚。 GPIO_CLIENT_RECONFIGURE_INTERRUPT
+CLIENT_ReconfigureInterrupt事件回调函数重新配置用作中断输入的常规用途 I/O （GPIO） 引脚。 GPIO_CLIENT_RELEASE_CONTROLLER
+CLIENT_ReleaseController事件回调函数执行在常规用途 I/O（GPIO） 控制器设备不再可访问时所需的作。
+GPIO_CLIENT_RESTORE_BANK_HARDWARE_CONTEXT
+CLIENT_RestoreBankHardwareContext事件回调函数还原常规用途 I/O（GPIO）引脚的银行的硬件上下文。
+GPIO_CLIENT_SAVE_BANK_HARDWARE_CONTEXT
+CLIENT_SaveBankHardwareContext事件回调函数保存常规用途 I/O（GPIO）引脚的银行的硬件上下文。
+GPIO_CLIENT_START_CONTROLLER
+CLIENT_StartController事件回调函数执行常规用途 I/O（GPIO） 控制器设备进入 D0 电源状态时所需的作。
+ 
+GPIO_CLIENT_STOP_CONTROLLER
+CLIENT_StopController事件回调函数执行准备常规用途 I/O（GPIO） 控制器设备以退出 D0 电源状态所需的作。
+GPIO_CLIENT_UNMASK_INTERRUPT
+CLIENT_UnmaskInterrupt事件回调函数在配置为中断输入的常规用途 I/O （GPIO） 引脚上取消屏蔽中断。
+GPIO_CLIENT_WRITE_PINS
+CLIENT_WriteGpioPins事件回调函数写入配置为数据输出的一组常规用途 I/O （GPIO） 引脚。 GPIO_CLIENT_WRITE_PINS_MASK
+CLIENT_WriteGpioPinsUsingMask事件回调函数写入配置为数据输出的一组常规用途 I/O （GPIO）
+引脚。结构
+ﾉ
+ 
+CLIENT_CONTROLLER_BASIC_INFORMATION
+展开表
+CLIENT_CONTROLLER_BASIC_INFORMATION结构包含常规用途 I/O（GPIO）控制器硬件属性和配置信息。
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT结构包含对常规用途 I/O（GPIO） 控制器的硬件属性的请求。
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT结构包含 GPIO 框架扩展 （GpioClx）请求的一组通用 I/O （GPIO） 控制器属性。
+CLIENT_QUERY_BANK_POWER_INFORMATION_OUTPUT
+CLIENT_QUERY_BANK_POWER_INFORMATION_OUTPUT结构包含有关通用 I/O （GPIO） 引脚的银行电源管理功能的信息。
+CONTROLLER_ATTRIBUTE_FLAGS
+ 
+CONTROLLER_ATTRIBUTE_FLAGS结构描述通用 I/O（GPIO）控制器设备的硬件属性。 GPIO_CLEAR_ACTIVE_INTERRUPTS_PARAMETERS
+GPIO_CLEAR_ACTIVE_INTERRUPTS_PARAMETERS结构描述要清除的一组常规用途 I/O（GPIO）中断引脚。
+GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION_PARAMETERS
+GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION_PARAMETERS结构描述控制器特定作的输入和输出缓冲区。
+GPIO_CLIENT_REGISTRATION_PACKET
+GPIO_CLIENT_REGISTRATION_PACKET结构包含通用 I/O（GPIO） 控制器驱动程序传递给 GPIO 框架扩展（GpioClx）的注册信息。
+GPIO_CONNECT_IO_PINS_PARAMETERS
+GPIO_CONNECT_IO_PINS_PARAMETERS结构描述与一组常规用途 I/O （GPIO） 引脚的逻辑连接，
+并指定是将这些引脚配置为数据输入还是输出。 GPIO_DISABLE_INTERRUPT_PARAMETERS
+GPIO_DISABLE_INTERRUPT_PARAMETERS结构描述要禁用的常规用途 I/O （GPIO） 中断引脚。 GPIO_DISCONNECT_IO_PINS_PARAMETERS
+GPIO_DISCONNECT_IO_PINS_PARAMETERS结构描述了一组要断开连接的常规用途 I/O （GPIO）引脚。
+GPIO_ENABLE_INTERRUPT_PARAMETERS
+GPIO_ENABLE_INTERRUPT_PARAMETERS结构指定常规用途 I/O （GPIO） 引脚，并描述此引脚的中断属性。
+GPIO_MASK_INTERRUPT_PARAMETERS
+GPIO_MASK_INTERRUPT_PARAMETERS结构描述一组通用 I/O（GPIO）中断引脚来屏蔽。 GPIO_QUERY_ACTIVE_INTERRUPTS_PARAMETERS
+GPIO_QUERY_ACTIVE_INTERRUPTS_PARAMETERS结构描述了一组常规用途 I/O （GPIO） 中断引脚，用于查询其启用和活动状态。
+GPIO_QUERY_ENABLED_INTERRUPTS_PARAMETERS
+GPIO_QUERY_ENABLED_INTERRUPTS_PARAMETERS结构指示启用了常规用途 I/O（GPIO）引脚的银行中的中断引脚。
+ 
+GPIO_READ_PINS_MASK_PARAMETERS
+GPIO_READ_PINS_MASK_PARAMETERS结构描述常规用途 I/O （GPIO） 引脚的一个读取作。 GPIO_READ_PINS_PARAMETERS
+GPIO_READ_PINS_PARAMETERS结构描述对一组常规用途 I/O （GPIO） 引脚的读取作。 GPIO_RECONFIGURE_INTERRUPTS_PARAMETERS
+GPIO_RECONFIGURE_INTERRUPTS_PARAMETERS结构描述要重新配置通用 I/O（GPIO）中断引脚。
+GPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS
+GPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS结构描述了一组通用 I/O
+（GPIO）引脚，其硬件状态是保存或还原的。 GPIO_WRITE_PINS_MASK_PARAMETERS
+GPIO_WRITE_PINS_MASK_PARAMETERS结构描述常规用途 I/O （GPIO） 引脚的银行上的写入作。 GPIO_WRITE_PINS_PARAMETERS
+GPIO_WRITE_PINS_PARAMETERS结构描述对一组常规用途 I/O （GPIO） 引脚的写入作。枚举
+ﾉ
+ 
+CLIENT_CONTROLLER_QUERY_SET_REQUEST_TYPE
+展开表
+CLIENT_CONTROLLER_QUERY_SET_REQUEST_TYPE枚举类型指示 GPIO 框架扩展 （GpioClx） 从
+GPIO 控制器驱动程序请求的属性信息类型。 GPIO_CONNECT_IO_PINS_MODE
+GPIO_CONNECT_IO_PINS_MODE枚举指示是否将一组常规用途 I/O （GPIO） 引脚配置为输入或输
+出。反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+CLIENT_CONTROLLER_BASIC_INFORMATIO
+N结构（gpioclx.h）项目2025/02/07
+CLIENT_CONTROLLER_BASIC_INFORMATION 结构包含常规用途 I/O（GPIO）控制器硬件属性和配置信息。
+语法 C++
+typedef struct _CLIENT_CONTROLLER_BASIC_INFORMATION {
+  USHORT                     Version;   USHORT                     Size;
+  USHORT                     TotalPins;
+  UCHAR                      NumberOfPinsPerBank;   ULONG                      DeviceIdleTimeout;   CONTROLLER_ATTRIBUTE_FLAGS Flags;
+} CLIENT_CONTROLLER_BASIC_INFORMATION, *PCLIENT_CONTROLLER_BASIC_INFORMATION;
+成员 Version
+此结构的版本号。 将此成员设置为 GPIO_CONTROLLER_BASIC_INFORMATION_VERSION，该
+成员在 Gpioclx.h 头文件中定义。 Size
+此结构的大小（以字节为单位）。 将此成员设置为 sizeof
+（CLIENT_CONTROLLER_BASIC_INFORMATION）。 TotalPins
+GPIO 控制器上的引脚数。 如果引脚分区为多个库，则此成员指定 GPIO 控制器中所有银行的总引脚计数。
+NumberOfPinsPerBank
+每个银行的 GPIO 引脚数。 每个银行的最大引脚数为 64。 GPIO 控制器上的引脚分区为一个或多个银行。 每个银行都包含此参数指定的引脚数，最后一个银行可能例外。 有关详细信息，请参阅“备注”。
+DeviceIdleTimeout
+如果 GPIO 控制器支持 D3 电源状态，则空闲超时间隔（以毫秒为单位）。 超时间隔是 GPIO 控制器在控制器空闲后保持 D0 状态的最小时间。 超时间隔过期后，电源管理器可能会请求控制
+器切换到 D3 状态。 Flags
+一组标志，用于指定 GPIO 控制器的硬件属性。 此成员可设置为所有零或以下标志位的任何按位或组合：
+MemoryMappedController
+ActiveInterruptsAutoClearOnRead FormatIoRequestsAsMasks
+DeviceIdlePowerMgmtSupported BankIdlePowerMgmtSupported
+模拟Debouncing 模拟ActiveBoth
+有关详细信息，请参阅 CONTROLLER_ATTRIBUTE_FLAGS。言论
+CLIENT_QueryControllerBasicInformation 事件回调函数使用
+CLIENT_CONTROLLER_BASIC_INFORMATION 结构将有关 GPIO 控制器的设备特定信息传递给 GPIO 框架扩展（GpioClx）。
+GPIO 控制器驱动程序可以将 GPIO 控制器设备中的引脚分区为一些银行。 如果 N 是控制者中的银行数，则银行编号为 0 到 N–1。 除最后一个银行（即银行号 N–1）之外的所有库都必须包含 NumberOfPinsPerBank 成员中指定的引脚数。 最后一个银行可以有任意数量的引脚，从一个到 NumberOfPinsPerBank。
+GpioClx 根据 TotalPins 的值确定 GPIO 控制器中的银行总数，并 NumberOfPinsPerBank 成员。 GpioClx 使用以下整数公式计算银行总数：
+TotalPinsNumberOfPinsPerBank NumberOfPinsPerBank 通常，GPIO 控制器设备中的银行可以
+独立于同一设备中的其他银行打开和关闭。 因此，可以通过关闭空闲的银行来节省电源。要求
+ﾉ
+展开表
+要求
+最低支持的客户端标头
+另请参阅
+CLIENT_QueryControllerBasicInformation CONTROLLER_ATTRIBUTE_FLAGS
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_QUERY_SET_INFO
+RMATION_INPUT结构（gpioclx.h）项目2025/02/07
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT 结构包含对常规用途 I/O（GPIO） 控制器的硬件属性的请求。
+语法 C++
+typedef struct _CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT {   CLIENT_CONTROLLER_QUERY_SET_REQUEST_TYPE RequestType;
+  USHORT                                   Size;   ULONG                                    Flags;   union {
+    struct {
+      BANK_ID BankId;
+    } BankPowerInformation;     struct {
+      WDFCMRESLIST ResourcesTranslated;
+      WDFCMRESLIST ResourcesRaw;       USHORT       TotalBanks;
+    } BankInterruptBinding;     struct {
+      PVOID  InputBuffer;
+      SIZE_T InputBufferSize;       SIZE_T OutputBufferSize;       USHORT TotalBanks;
+    } ControllerFunctionBankMapping;   };
+} CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT, *PCLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT;
+成员 RequestType
+正在请求的属性信息的类型。 此成员设置为
+CLIENT_CONTROLLER_QUERY_SET_REQUEST_TYPE 枚举值。 Size
+指定 CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT 结构的大小（以字节为
+单位）。 Flags
+一组标志位，提供有关 RequestType 成员指示的属性请求类型的其他信息。 当前未为 标
+志 成员定义任何标志。 BankPowerInformation
+包含有关请求其电源属性的 GPIO 银行的信息的结构。 BankPowerInformation.BankId
+GPIO 引脚库的标识符。 如果 M 是 GPIO 控制器中的银行数，BankId 是 0 到 M–1 范围内的整数。 GPIO 框架扩展（GpioClx）以前从 CLIENT_QueryControllerBasicInformation 事件回调函数中获取控制器中的银行数。 有关详细信息，请参阅
+CLIENT_CONTROLLER_BASIC_INFORMATION中的备注。 BankInterruptBinding
+包含有关分配给 GPIO 控制器的中断资源的信息的结构。 BankInterruptBinding.ResourcesTranslated
+框架资源列表对象的句柄，用于标识即插即用管理器分配给设备的已转换的硬件资源。 BankInterruptBinding.ResourcesRaw
+框架资源列表对象的句柄，用于标识即插即用管理器分配给设备的原始硬件资源。 BankInterruptBinding.TotalBanks
+GPIO 控制器中的银行数。 此成员指示调用方分配
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT 结构中
+BankInterruptBinding.ResourceMapping 数组的预期长度（如果调用方为此结构提供非 NULL 指针）。
+ControllerFunctionBankMapping
+包含有关 I/O 控件请求（IOCTL）的信息的结构。
+ControllerFunctionBankMapping.InputBuffer 指向 IOCTL 的输入缓冲区的指针。
+ControllerFunctionBankMapping.InputBufferSize
+IOCTL 的输入缓冲区的大小（以字节为单位）。 ControllerFunctionBankMapping.OutputBufferSize IOCTL 的输出缓冲区的大小（以字节为单位）。 ControllerFunctionBankMapping.TotalBanks
+GPIO 控制器中的银行数。 如果调用方向此结构提供非 NULL 指针，则此成员指示调用方分配 CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT 结构中
+ControllerFunctionBankMapping.Mapping 数组的预期长度。言论
+未命名的联合包含各种类型的属性请求的输入信息。 RequestType 成员确定使用此联合的成员。 下表显示了对应于每个有效 RequestType 值的联合成员。
+ﾉ
+RequestType 值
+QueryBankPowerInformation
+QueryBankInterruptBindingInformation
+QueryControllerFunctionBankMappingInformation
+联合成员
+BankPowerInformation BankInterruptBinding
+展开表
+ControllerFunctionBankMapping
+CLIENT_QuerySetControllerInformation 函数的 InputBuffer 参数是指向 CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT 结构的指针。
+要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_BASIC_INFORMATION
+展开表
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT
+CLIENT_QueryControllerBasicInformation CLIENT_QuerySetControllerInformation
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+CLIENT_CONTROLLER_QUERY_SET_INFO RMATION_OUTPUT结构（gpioclx.h）项目2025/02/07
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT 结构包含 GPIO 框架扩展（GpioClx） 请求的一组常规用途 I/O （GPIO） 控制器属性。
+语法 C++
+typedef struct _CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT {   USHORT Version;
+  USHORT Size;   union {
+    CLIENT_QUERY_BANK_POWER_INFORMATION_OUTPUT BankPowerInformation;     struct {
+      ULONG ResourceMapping[ANYSIZE_ARRAY];
+    } BankInterruptBinding;     struct {
+      BOOLEAN Mapping[ANYSIZE_ARRAY];     } ControllerFunctionBankMapping;   };
+} CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT, *PCLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT;
+成员 Version
+指定此结构的版本号。 Size
+指定此结构的大小（以字节为单位）。 BankPowerInformation
+一个 CLIENT_QUERY_BANK_POWER_INFORMATION_OUTPUT 结构，其中包含由相应 CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT 结构
+BankPowerInformation.BankId 成员标识的 GPIO 银行的电源属性。 BankInterruptBinding
+包含有关将中断资源绑定到 GPIO 银行的信息的结构。 BankInterruptBinding.ResourceMapping[ANYSIZE_ARRAY]
+中断资源编号的数组。 数组中的元素数等于 GPIO 银行的数量。 如果 N 是 GPIO 控制器中的银行数，则银行编号为 0 到 N–1。 数组的元素 0 包含绑定到 bank 0 的中断资源编号，元素 1 包含绑定到银行 1 的中断资源编号，依此等。 不能将多个中断资源绑定到 GPIO 银行，但两个或多个银行可能会共享中断资源。 如果银行未绑定到中断资源，则相应的数组元素设置为 GPIO_BANK_INTERRUPT_BINDING_RESERVED_INDEX（0xffff）。
+中断资源由其资源编号标识，它是 ResourcesTranslated 或 ResourcesRaw 资源列表中的 BankInterruptBinding 成员 CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT 结构的成员中的资源索引。 如果列表包含 M 资源，则资源编号为 0 到 M-1。 只有与资源
+列表中的中断资源相对应的资源编号才能显示在 ResourceMapping 数组中。 ControllerFunctionBankMapping
+包含有关 GPIO 银行的信息的结构，这些银行必须处于 F0（完全打开）电源状态才能处理 I/O 控制请求（IOCTL）。
+ControllerFunctionBankMapping.Mapping[ANYSIZE_ARRAY]
+布尔值的数组，指示所需的 F0 电源状态到 GPIO 银行的映射。 数组中的元素数等于
+GPIO 银行的数量。 如果 N 是 GPIO 控制器中的银行数，则银行编号为 0 到 N–1。 数组的元素 0 包含银行 0 的映射，元素 1 包含银行 1 的映射等。 如果元素 TRUE，则相应的 GPIO 银行必须处于 F0 电源状态才能处理 IOCTL。 如果元素 FALSE，则不需要相应的银
+行处于 F0 电源状态。言论
+未命名的联合包含各种类型的属性请求的输出信息。 相应
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT 结构的 RequestType 成员确定使用这些成员中的哪一个。
+CLIENT_QuerySetControllerInformation 函数的可选 OutputBuffer 参数是指向调用方分配 CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT 结构的指针。 如果
+OutputBuffer 为非 NULL，则该函数会将请求的属性信息写入此结构。要求
+ﾉ
+展开表
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT CLIENT_QUERY_BANK_POWER_INFORMATION_OUTPUT CLIENT_QuerySetControllerInformation
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+CLIENT_CONTROLLER_QUERY_SET_REQ
+UEST_TYPE枚举 （gpioclx.h）项目2025/02/07
+CLIENT_CONTROLLER_QUERY_SET_REQUEST_TYPE 枚举类型指示 GPIO 框架扩展（GpioClx）从 GPIO 控制器驱动程序请求的属性信息的类型。
+语法 C++
+typedef enum _CLIENT_CONTROLLER_QUERY_SET_REQUEST_TYPE {   QueryBankPowerInformation,
+  QueryBankInterruptBindingInformation,
+  QueryControllerFunctionBankMappingInformation,   QuerySetRequestMaximumType
+} CLIENT_CONTROLLER_QUERY_SET_REQUEST_TYPE, *PCLIENT_CONTROLLER_QUERY_SET_REQUEST_TYPE;
+常数
+ﾉ
+ 
+QueryBankPowerInformation
+展开表
+Power 属性。 对于此属性类型，CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT 结构的 BankPowerInformation 成员指定 GPIO 银行，
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT 结构的 BankPowerInformation 成员包含指定银行的电源属性。
+QueryBankInterruptBindingInformation
+中断绑定属性。 对于此属性类型，CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT 结构的 BankInterruptBinding 成员包含分配给 GPIO 控制器的原始和已转换的硬件资源，
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT 结构的 BankInterruptBinding 成员描述了中断资源绑定到 GPIO 银行。
+QueryControllerFunctionBankMappingInformation
+函数映射属性。 对于此属性类型，CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT 结
+构的 ControllerFunctionBankMapping 成员指定 I/O 控制请求（IOCTL）， ControllerFunctionBankMapping 成员
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT 结构指示哪些 GPIO 银行必须处于 F0（完全打开）电源状态才能处理指定的 IOCTL。
+ 
+QuerySetRequestMaximumType
+保留供作系统使用。言论
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT 结构的 RequestType 成员是 CLIENT_CONTROLLER_QUERY_SET_REQUEST_TYPE类型的值。 GpioClx 将此成员设置为 CLIENT_CONTROLLER_QUERY_SET_REQUEST_TYPE 枚举常量，以指示请求哪种类型的属性信息。 CLIENT_QuerySetControllerInformation 回调函数将指向
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT 结构的指针作为输入参数，并选择性地将指向 CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT 结构的
+指针作为输出参数。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT
+CLIENT_QuerySetControllerInformation 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+CLIENT_QUERY_BANK_POWER_INFORMATI
+ON_OUTPUT结构（gpioclx.h）项目2025/02/07
+CLIENT_QUERY_BANK_POWER_INFORMATION_OUTPUT 结构包含有关通用 I/O（GPIO）引脚银行电源管理功能的信息。
+语法 C++
+typedef struct _CLIENT_QUERY_BANK_POWER_INFORMATION_OUTPUT {   struct {
+    USHORT F1StateSupported : 1;
+    USHORT Reserved : 15;   };
+  PO_FX_COMPONENT_IDLE_STATE F1IdleStateParameters;
+} CLIENT_QUERY_BANK_POWER_INFORMATION_OUTPUT, *PCLIENT_QUERY_BANK_POWER_INFORMATION_OUTPUT;
+成员
+F1StateSupported
+指示 GPIO 银行是否支持 组件级电源管理。 如果设置了此标志，GPIO 银行支持组件级电源管理。 否则，它不会。 支持电源管理的 GPIO 银行可以独立于 GPIO 控制器中其他银行的 Fx 电源状态在 F0（完全供电）状态和 F1（低功率）状态之间发生更改。 当控制器处于 D0 电源状态时，不支持组件级电源管理的 GPIO 银行始终处于 F0 电源状态。
+Reserved 未使用。
+F1IdleStateParameters
+描述 GPIO 银行 F1 电源状态的参数（转换延迟、驻留要求等）的
+PO_FX_COMPONENT_IDLE_STATE 结构。 有关这些参数的详细信息，请参阅
+PO_FX_COMPONENT_IDLE_STATE。言论
+_CLIENT_QUERY_BANK_POWER_INFORMATION_OUTPUT内的未命名结构包含一组电源管理标志位。
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT 结构的 BankPowerInformation 成员是 CLIENT_QUERY_BANK_POWER_INFORMATION_OUTPUT类型的结构。
+有关 GPIO 银行的详细信息，请参阅 将 GPIO 控制器分区为引脚的库。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT PO_FX_COMPONENT_IDLE_STATE
+展开表
+CONTROLLER_ATTRIBUTE_FLAGS union
+（gpioclx.h）项目2025/02/07
+CONTROLLER_ATTRIBUTE_FLAGS 结构描述常规用途 I/O（GPIO） 控制器设备的硬件属性。
+语法 C++
+typedef union _CONTROLLER_ATTRIBUTE_FLAGS {   struct {
+    ULONG MemoryMappedController : 1;
+    ULONG ActiveInterruptsAutoClearOnRead : 1;     ULONG FormatIoRequestsAsMasks : 1;
+    ULONG DeviceIdlePowerMgmtSupported : 1;     ULONG BankIdlePowerMgmtSupported : 1;
+    ULONG EmulateDebouncing : 1;     ULONG EmulateActiveBoth : 1;
+    ULONG IndependentIoHwSupported : 1;
+    ULONG Reserved : 24;   };
+  ULONG  AsULONG;
+} CONTROLLER_ATTRIBUTE_FLAGS, *PCONTROLLER_ATTRIBUTE_FLAGS; 成员
+MemoryMappedController
+GPIO 控制器是否为内存映射。 如果设置了此标志，GPIO 控制器的硬件寄存器将映射到内存地址，并且可由在 DIRQL 上运行的 GPIO 控制器驱动程序例程直接访问。 否则，只能通过 I/O 请求（GPIO 控制器驱动程序在 IRQL = PASSIVE_LEVEL 发送）访问 GPIO 控制
+器的寄存器。 有关详细信息，请参阅“备注”。 ActiveInterruptsAutoClearOnRead
+GPIO 控制器驱动程序读取活动中断时是否自动清除它们。 如果设置了此标志，GpioClx 假定中断在读取时自动清除，因此不会显式请求驱动程序在中断处理期间清除活动中断。否则，GpioClx 显式请求清除活动中断。 有关详细信息，请参阅
+GPIO_CLIENT_REGISTRATION_PACKET中 ActiveInterruptsAutoClearOnRead 标志位的讨论。
+FormatIoRequestsAsMasks
+读取或写入 GPIO 引脚的回调函数是否应将读取和写入值指定为 64 位掩码。 如果设置了此标志，GpioClx 将使用将 GPIO 引脚值读入掩码的 CLIENT_ReadGpioPinsUsingMask 回调，并使用掩码来指定 GPIO 引脚进行设置和清除 CLIENT_WriteGpioPinsUsingMask 回调。 否则，GpioClx 使用 CLIENT_ReadGpioPins 和 CLIENT_WriteGpioPins 回调，这些回调使用引脚数数组来指定要访问的 GPIO 引脚。 有关详细信息，请参阅
+GPIO_CLIENT_REGISTRATION_PACKET中 FormatIoRequestsAsMasks 标志位的讨论。 DeviceIdlePowerMgmtSupported
+GPIO 控制器是否支持设备级电源管理。 如果设置了此标志，则当 GPIO 控制器处于空闲状态（即没有与控制器的活动连接时），GPIO 控制器可以处于低功率（D3）状态。 否
+则，每当控制器打开时，GPIO 控制器将保持完全打开（D0）电源状态。 BankIdlePowerMgmtSupported
+GPIO 控制器是否支持组件级电源管理。 如果设置了此标志，则 GPIO 控制器中的一个或多个银行可以独立于 GPIO 控制器中的其他银行进入低功率状态。 否则，银行的权力状态不能单独控制。 只能为寄存器为内存映射的 GPIO 控制器设置此标志，如
+MemoryMappedController 标志指示。 通常，只有作为 SoC 模块集成部分的 GPIO 控制
+器才进行内存映射。 SOC 模块外部的 GPIO 控制器通常不映射内存。 EmulateDebouncing
+无论是通过软件还是硬件对 GPIO 引脚的输入信号取消启动。 如果设置了此标志，GPIO 控制器需要通过 GPIO 框架扩展 （GpioClx） 在软件中模拟取消启动。 否则，硬件将执
+行反转，并且不需要软件模拟的反转。 EmulateActiveBoth
+GPIO 控制器驱动程序是否需要 GpioClx 模拟软件中的主动-两个中断。 如果设置了此标志，GpioClx 将模拟软件中的主动-两个中断。 否则，GpioClx 不会模拟主动-两个中断。有关详细信息，请参阅“备注”。
+IndependentIoHwSupported Reserved
+保留供系统使用。
+AsULONG 言论
+CLIENT_CONTROLLER_BASIC_INFORMATION 结构的 标志 成员是一种 CONTROLLER_ATTRIBUTE_FLAGS 结构。
+GpioClx 实现中断服务例程（ISR），以从 GPIO 控制器服务中断。 如果设置了
+MemoryMappedController 标志位，则此 ISR 将直接访问 GPIO 控制器的硬件寄存器。否则，ISR 会计划一个工作线程来处理中断，而此工作线程在 IRQL = PASSIVE_LEVEL 上运行，则调用驱动程序的中断相关回调函数来处理中断。 这些函数使用 I/O 请求向 GPIO 控制器的寄存器传输数据和控制信息。 由于这些 I/O 请求是从被动级线程发送的，因此可以同步发送这些请求。
+有关 MemoryMappedController 标志位的详细信息，请参阅 Interrupt-Related 回调。主动-两个中断都是边缘触发的中断，中断请求由中断线的低到高或高到低转换指示。 在低到高转换发出中断请求信号后，中断线将保持高，直到高到低转换发出下一个中断请求的信号。 同样，在高到低转换发出中断请求信号后，中断线将保持低，直到低到高转换发出下一个中断请求的信号。
+一个按下按钮设备通常连接到主动-两个中断。 当用户按下按钮时会生成中断，释放该按钮时会生成另一个中断。 如果设备驱动程序的 ISR 连接到主动-两个中断，则会在信号线的上升和下降边缘上调用 ISR。
+某些 GPIO 控制器在硬件中实现主动-两个中断输入。 但是，如果硬件不支持主动-两个中断，GPIO 控制器驱动程序将设置 EmulateActiveBoth 标志，以请求 GpioClx 在软件中模拟主动-两个中断。 设置此标志的驱动程序必须实现 CLIENT_ReconfigureInterrupt 回调函数。 为了模拟主动-两个中断引脚，GpioClx 调用此函数，以便为主动-高和主动-低级别
+模式中断配置 GPIO 引脚。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_BASIC_INFORMATION CLIENT_QueryActiveInterrupts
+展开表
+CLIENT_ReadGpioPins
+CLIENT_ReadGpioPinsUsingMask
+CLIENT_ReconfigureInterrupt CLIENT_WriteGpioPins
+CLIENT_WriteGpioPinsUsingMask
+GPIO_CLIENT_REGISTRATION_PACKET 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+GPIO_CLEAR_ACTIVE_INTERRUPTS_PARAM
+ETERS结构（gpioclx.h）项目2025/02/07
+GPIO_CLEAR_ACTIVE_INTERRUPTS_PARAMETERS 结构描述要清除的一组常规用途 I/O（GPIO）中断引脚。
+语法 C++
+typedef struct _GPIO_CLEAR_ACTIVE_INTERRUPTS_PARAMETERS {   BANK_ID BankId;
+  ULONG64 ClearActiveMask;   ULONG64 FailedClearMask;
+} GPIO_CLEAR_ACTIVE_INTERRUPTS_PARAMETERS, *PGPIO_CLEAR_ACTIVE_INTERRUPTS_PARAMETERS;
+成员 BankId
+包含要清除的引脚的 GPIO 引脚的银行标识符。 如果 N 是 GPIO 控制器中的银行数，BankId 是 0 到 N–1 范围内的整数。 GPIO 框架扩展（GpioClx）以前从
+CLIENT_QueryControllerBasicInformation 事件回调函数中获取控制器中的银行数。 有关详细信
+息，请参阅 CLIENT_CONTROLLER_BASIC_INFORMATION中的备注。 ClearActiveMask
+一个 64 位掩码，指示在指定银行中清除哪些中断。 掩码中设置为 1 的位标识配置为中断且要清除的引脚。 掩码中的所有其他位均为 0。 如果 N 是此银行中的引脚数，则引脚编号为 0 到 N–
+1。 掩码中的位 0（最小有效位）表示引脚 0、位 1 表示引脚 1 等。 FailedClearMask
+一个 64 位掩码，用于标识无法清除的 GPIO 引脚。 如果 GPIO 控制器驱动程序无法清除
+ClearActiveMask 成员中指示的位，驱动程序会将 FailedClearMask 成员中的相应位设置为标记失败。 如果成功清除 ClearActiveMask 中指定的所有位，驱动程序会将 failedClearMask 设置为零。
+言论
+CLIENT_ClearActiveInterrupts 事件回调函数的 ClearParameters 参数是指向调用方分配
+GPIO_CLEAR_ACTIVE_INTERRUPTS_PARAMETERS 结构的指针。 此函数仅影响配置为中断输入
+且属于指定 GPIO 引脚库的 GPIO 引脚。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_BASIC_INFORMATION CLIENT_ClearActiveInterrupts
+CLIENT_QueryControllerBasicInformation
+展开表
+GPIO_CLIENT_CLEAR_ACTIVE_INTERRUPTS
+回调函数 （gpioclx.h）项目2025/02/07
+CLIENT_ClearActiveInterrupts 事件回调函数清除配置为中断输入的一组常规用途 I/O （GPIO）引脚上的活动中断。
+语法 C++
+GPIO_CLIENT_CLEAR_ACTIVE_INTERRUPTS GpioClientClearActiveInterrupts;
+NTSTATUS GpioClientClearActiveInterrupts(   [in]      PVOID Context,
+  [in, out] PGPIO_CLEAR_ACTIVE_INTERRUPTS_PARAMETERS ClearParameters)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in, out] ClearParameters
+指向 GPIO_CLEAR_ACTIVE_INTERRUPTS_PARAMETERS 结构的指针，该结构在条目上描述要清除
+的 GPIO 中断引脚，并且退出时包含清除作的状态。返回值
+如果调用成功，CLIENT_ClearActiveInterrupts 函数将返回STATUS_SUCCESS。 否则，它将返回适
+当的错误代码。言论
+此回调函数由常规用途 I/O （GPIO） 控制器驱动程序实现。 GPIO 框架扩展 （GpioClx） 调用此函数以清除配置为中断请求输入的 GPIO 引脚上的活动中断。
+此回调函数是可选的。 如果 GPIO 控制器硬件在读取时自动清除活动中断状态位，驱动程序不应注册 CLIENT_ClearActiveInterrupts 回调函数。 有关详细信息，请参阅 可选和必需的 GPIO 回调函数。
+若要注册驱动程序的 CLIENT_ClearActiveInterrupts 回调函数，请调用 GPIO_CLX_RegisterClient 方法。 此方法接受作为输入参数的指针，指向包含 CLIENT_ClearActiveInterrupts 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结构。
+GpioClx 在 PASSIVE_LEVEL 或 DIRQL 上调用 CLIENT_ClearActiveInterrupts 回调函数，具体取决于 CLIENT_QueryControllerBasicInformation 回调函数提供给 GpioClx 的设备信息。
+CLIENT_QueryControllerBasicInformation 函数以 CLIENT_CONTROLLER_BASIC_INFORMATION 结构的形式提供设备信息。 如果在 标志 成员中设置了 MemoryMappedController 标志位， GpioClx 将在 DIRQL 调用 CLIENT_ClearActiveInterrupts 函数，这是 GpioClx 中 ISR 运行的
+IRQL。 否则，会在PASSIVE_LEVEL调用此函数。 有关此标志位的详细信息，请参阅 Interrupt-
+Related 回调。例子
+若要定义 CLIENT_ClearActiveInterrupts 回调函数，必须先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 的 MyEvtGpioClearActiveInterrupts  回调函数，请使用 GPIO_CLIENT_CLEAR_ACTIVE_INTERRUPTS函数类型，如以下代码示例所示：
+GPIO_CLIENT_CLEAR_ACTIVE_INTERRUPTS MyEvtGpioClearActiveInterrupts; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioClearActiveInterrupts(     PVOID Context,
+    PGPIO_CLEAR_ACTIVE_INTERRUPTS_PARAMETERS ClearParameters
+    ){ ... }
+GPIO_CLIENT_CLEAR_ACTIVE_INTERRUPTS函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。
+Use_decl_annotations 批注可确保使用应用于头文件中
+GPIO_CLIENT_CLEAR_ACTIVE_INTERRUPTS函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函数。 有关 Use_decl_annotations的详细信息，
+请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+请参阅“备注”。
+CLIENT_CONTROLLER_BASIC_INFORMATION CLIENT_QueryControllerBasicInformation
+GPIO_CLEAR_ACTIVE_INTERRUPTS_PARAMETERS
+GPIO_CLIENT_REGISTRATION_PACKET GPIO_CLX_RegisterClient
+展开表
+GPIO_CLIENT_CONNECT_IO_PINS回调函
+数 （gpioclx.h）项目2025/02/07
+CLIENT_ConnectIoPins 事件回调函数将打开与一组常规用途 I/O （GPIO） 引脚的逻辑连接，并为数据读取或写入作配置这些引脚。
+语法 C++
+GPIO_CLIENT_CONNECT_IO_PINS GpioClientConnectIoPins;
+NTSTATUS GpioClientConnectIoPins(   [in] PVOID Context,
+  [in] PGPIO_CONNECT_IO_PINS_PARAMETERS ConnectParameters)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in] ConnectParameters
+指向 GPIO_CONNECT_IO_PINS_PARAMETERS 结构的指针，该结构描述与一组 GPIO 引脚
+的连接，并指定是将这些引脚配置为数据输入还是输出。返回值
+如果调用成功，CLIENT_ConnectIoPins 函数将返回STATUS_SUCCESS。 否则，它将返回适
+当的错误代码。言论
+此回调函数由 GPIO 控制器驱动程序实现。 GPIO 框架扩展 （GpioClx） 调用此函数以打开与一组 GPIO 引脚的连接。 这些引脚在 ConnectParameters指向的
+GPIO_CONNECT_IO_PINS_PARAMETERS 结构中的 PinNumberTable 数组中指定。 此结构的 ConnectMode 成员指示是将引脚配置为输入还是输出。
+若要关闭连接，GpioClx 将调用 CLIENT_DisconnectIoPins 回调函数。
+若要注册驱动程序的 CLIENT_ConnectIoPins 回调函数，请调用 GPIO_CLX_RegisterClient 方法。 此方法接受作为输入参数的指针，指向包含 CLIENT_ConnectIoPins 函数指针的
+GPIO_CLIENT_REGISTRATION_PACKET 结构。例子
+若要定义 CLIENT_ConnectIoPins 回调函数，必须首先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 MyEvtGpioConnectIoPins 的 CLIENT_ConnectIoPins 回调函数，请使用GPIO_CLIENT_CONNECT_IO_PINS函数类型，如以下代码示例所示：
+GPIO_CLIENT_CONNECT_IO_PINS MyEvtGpioConnectIoPins; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioConnectIoPins(     PVOID Context,
+    PGPIO_CONNECT_IO_PINS_PARAMETERS ConnectParameters
+    ){ ... }
+GPIO_CLIENT_CONNECT_IO_PINS函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中GPIO_CLIENT_CONNECT_IO_PINS 函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角
+色类型声明函数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+CLIENT_DisconnectIoPins
+GPIO_CLIENT_REGISTRATION_PACKET
+GPIO_CLX_RegisterClient 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+在PASSIVE_LEVEL调用。
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+GPIO_CLIENT_CONTROLLER_SPECIFIC_FUN
+CTION回调函数 （gpioclx.h）项目2025/02/07
+CLIENT_ControllerSpecificFunction 事件回调函数执行特定于特定常规用途 I/O （GPIO） 控制器
+的作。语法 C++
+GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION GpioClientControllerSpecificFunction;
+NTSTATUS GpioClientControllerSpecificFunction(   [in]      PVOID Context,
+  [in, out] PGPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION_PARAMETERS Parameters)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in, out] Parameters
+指向 GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION_PARAMETERS 结构的指针，该结构包含
+控制器特定作的输入和输出缓冲区。返回值
+如果调用成功，CLIENT_ControllerSpecificFunction 函数将返回 STATUS_SUCCESS。 可能的返回值包括以下错误代码。
+ﾉ
+返回代码
+STATUS_NOT_SUPPORTED STATUS_BUFFER_TOO_SMALL
+描述
+GPIO 控制器不支持输入参数指定的作。输入缓冲区或输出缓冲区的大小太小。
+展开表
+言论
+作为一个选项，GPIO 控制器驱动程序可以支持
+IOCTL_GPIO_CONTROLLER_SPECIFIC_FUNCTION 请求。 这种类型的 I/O 控制请求（IOCTL）针对需要这些作的外围设备驱动程序的优势执行控制器特定的作。 为了支持此 IOCTL，GPIO 控制器驱动程序实现 CLIENT_ControllerSpecificFunction 函数。
+GPIO 框架扩展（GpioClx）支持 CLIENT_ControllerSpecificFunction 函数来满足某些硬件平台的特定需求。 典型的 GPIO 控制器驱动程序不实现此函数。 使用
+IOCTL_GPIO_CONTROLLER_SPECIFIC_FUNCTION 请求在一个平台上执行特定于硬件的作的外围设备驱动程序可能会丢失与不支持此作的其他平台的兼容性。
+通常，CLIENT_ControllerSpecificFunction 函数对 GPIO 控制器进行程序，以对一组 GPIO 引脚执行特定于硬件的作。 此作的输入和输出参数由 GPIO 控制器驱动程序的开发人员定义。 只有知道 GPIO 控制器驱动程序实现的特定作的外围设备驱动程序才能请求这些作。
+GpioClx 收到 IOCTL_GPIO_CONTROLLER_SPECIFIC_FUNCTION 请求时，它会检查 GPIO 控制器驱动程序是否已实现 CLIENT_ControllerSpecificFunction 函数。 如果是这样，GpioClx 会将输入和输出缓冲区的说明从 IOCTL 复制到
+GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION_PARAMETERS 结构，并将指向此结构的指针作为参数传递给 CLIENT_ControllerSpecificFunction 函数。 如果
+GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION_PARAMETERS 结构中的参数值有效，该函数将执行请求的作并返回STATUS_SUCCESS。
+如果 GpioClx 收到 IOCTL_GPIO_CONTROLLER_SPECIFIC_FUNCTION 请求，并且 GPIO 控制器驱动程序未实现 CLIENT_ControllerSpecificFunction 函数，GpioClx 将完成 IOCTL 并
+STATUS_NOT_IMPLEMENTED错误代码。例子
+若要定义 CLIENT_ControllerSpecificFunction 回调函数，必须首先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 的 MyEvtGpioControllerSpecificFunction  回调函数，请使用 GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION函数类型，如以下代码示例所示：
+GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION MyEvtGpioControllerSpecificFunction; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioControllerSpecificFunction(     PVOID Context,
+    PGPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION_PARAMETERS Parameters
+    ){ ... }
+GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中
+GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函数。 有关 Use_decl_annotations的详
+细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+在PASSIVE_LEVEL调用。
+GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION_PARAMETERS IOCTL_GPIO_CONTROLLER_SPECIFIC_FUNCTION
+展开表
+GPIO_CLIENT_CONTROLLER_SPECIFIC_F UNCTION_PARAMETERS结构
+（gpioclx.h）项目2025/02/07
+GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION_PARAMETERS 结构描述控制器特定作的输入和输出缓冲区。
+语法 C++
+typedef struct _GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION_PARAMETERS {   PVOID  InputBuffer;
+  SIZE_T InputBufferLength;   PVOID  OutputBuffer;
+  SIZE_T OutputBufferLength;   ULONG  BytesWritten;
+} GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION_PARAMETERS, *PGPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION_PARAMETERS;
+成员 InputBuffer
+指向输入缓冲区的指针，通用 I/O （GPIO） 控制器驱动程序从中读取特定于控制器的作
+的输入参数。 如果作不需要输入参数，则此成员可以为 NULL。 InputBufferLength
+InputBuffer指向的输入缓冲区的大小（以字节为单位）。 OutputBuffer
+指向 GPIO 控制器驱动程序向其写入控制器特定作结果的输出缓冲区的指针。 如果作不
+需要输出参数，则此成员可以为 NULL。 OutputBufferLength
+OutputBuffer指向的输出缓冲区的大小（以字节为单位）。
+BytesWritten
+写入到输出缓冲区的字节数。 GPIO 控制器驱动程序设置此成员的值，以指示写入到输出缓冲区的数据量。 如果未将数据写入输出缓冲区，或者如果 OutputBuffer = NULL，驱
+动程序应设置 BytesWritten = 0。言论
+CLIENT_ControllerSpecificFunction 函数的 Parameters 参数是指向
+GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION_PARAMETERS 结构的指针。 此结构描述了自定义 I/O 控件请求（IOCTL）中的输入和输出缓冲区，该请求由 GPIO 控制器实现，并且由 GPIO 控制器驱动程序支持。
+GPIO 框架扩展（GpioClx）在调用 CLIENT_ControllerSpecificFunction 函数之前填充结构
+的前四个成员。 此函数填充最后一个成员，BytesWritten。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+CLIENT_ControllerSpecificFunction 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始支持。 gpioclx.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+GPIO_CLIENT_DISABLE_INTERRUPT回调
+函数 （gpioclx.h）项目2025/02/07
+CLIENT_DisableInterrupt 事件回调函数在配置为中断输入的常规用途 I/O （GPIO） 引脚上禁用中断。
+语法 C++
+GPIO_CLIENT_DISABLE_INTERRUPT GpioClientDisableInterrupt;
+NTSTATUS GpioClientDisableInterrupt(   [in] PVOID Context,
+  [in] PGPIO_DISABLE_INTERRUPT_PARAMETERS DisableParameters)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in] DisableParameters
+指向描述 GPIO 中断引脚的 GPIO_DISABLE_INTERRUPT_PARAMETERS 结构的指针。返回值
+如果调用成功，CLIENT_DisableInterrupt 函数将返回STATUS_SUCCESS。 否则，它将返回
+适当的错误代码。言论
+此回调函数由 GPIO 控制器驱动程序实现。 GpioClx 调用此函数以禁用配置为中断请求输入的 GPIO 引脚上的中断。
+若要注册驱动程序的 CLIENT_DisableInterrupt 回调函数，请调用
+GPIO_CLX_RegisterClient 方法。 此方法接受作为输入参数的指针，指向包含
+CLIENT_DisableInterrupt 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结构。 GpioClx 始终在 IRQL = PASSIVE_LEVEL 调用 CLIENT_EnableInterrupt 和
+CLIENT_DisableInterrupt 回调函数。 但是，如果 GPIO 寄存器是内存映射的，GpioClx 将从其 ISR at DIRQL 调用其他与中断相关的回调函数。 在这种情况下，
+CLIENT_EnableInterrupt 和 CLIENT_DisableInterrupt 函数应使用 GPIO 中断锁将其与中断
+相关的作同步到 ISR。 有关详细信息，请参阅 GPIO 控制器驱动程序的中断同步。例子
+若要定义 CLIENT_DisableInterrupt 回调函数，必须首先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 MyEvtGpioDisableInterrupt 的 CLIENT_DisableInterrupt 回调函数，请使用GPIO_CLIENT_DISABLE_INTERRUPT函数类型，如以下代码示例所示：
+GPIO_CLIENT_DISABLE_INTERRUPT MyEvtGpioDisableInterrupt; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ VOID
+  MyEvtGpioDisableInterrupt(     PVOID Context,
+    PGPIO_DISABLE_INTERRUPT_PARAMETERS DisableParameters
+    ){ ... }
+GPIO_CLIENT_DISABLE_INTERRUPT函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中GPIO_CLIENT_DISABLE_INTERRUPT 函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角
+色类型声明函数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+CLIENT_EnableInterrupt
+GPIO_CLIENT_REGISTRATION_PACKET GPIO_CLX_RegisterClient
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+在PASSIVE_LEVEL调用。
+GPIO_DISABLE_INTERRUPT_PARAMETERS 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+GPIO_CLIENT_DISCONNECT_IO_PINS回调函
+数 （gpioclx.h）项目2025/03/22
+CLIENT_DisconnectIoPins 事件回调函数关闭与为数据读取或写入作配置的一组常规用途 I/O（GPIO） 引脚的逻辑连接。
+语法 C++
+GPIO_CLIENT_DISCONNECT_IO_PINS GpioClientDisconnectIoPins;
+NTSTATUS GpioClientDisconnectIoPins(   [in] PVOID Context,
+  [in] PGPIO_DISCONNECT_IO_PINS_PARAMETERS DisconnectParameters)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in] DisconnectParameters
+指向 GPIO_DISCONNECT_IO_PINS_PARAMETERS 结构的指针，该结构描述要断开连接的 GPIO
+引脚集。返回值
+如果调用成功，CLIENT_DisconnectIoPins 函数将返回STATUS_SUCCESS。 否则，它将返回适当
+的错误代码。言论
+此回调函数由 GPIO 控制器驱动程序实现。 GPIO 框架扩展 （GpioClx） 调用此函数以关闭以前由调用 CLIENT_ConnectIoPins 回调函数打开的连接。
+若要注册驱动程序的 CLIENT_DisconnectIoPins 回调函数，请调用 GPIO_CLX_RegisterClient 方法。 此方法接受作为输入参数的指针，指向包含 CLIENT_DisconnectIoPins 函数指针的
+GPIO_CLIENT_REGISTRATION_PACKET 结构。例子
+若要定义 CLIENT_DisconnectIoPins 回调函数，必须先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助
+于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 的 MyEvtGpioDisconnectIoPins  回调函数，请使用 GPIO_CLIENT_DISCONNECT_IO_PINS函数类型，如以下代码示例所示：
+GPIO_CLIENT_DISCONNECT_IO_PINS MyEvtGpioDisconnectIoPins; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioDisconnectIoPins(     PVOID Context,
+    PGPIO_DISCONNECT_IO_PINS_PARAMETERS DisconnectParameters
+    ){ ... }
+GPIO_CLIENT_DISCONNECT_IO_PINS函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。
+Use_decl_annotations 批注可确保使用应用于头文件中GPIO_CLIENT_DISCONNECT_IO_PINS函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明
+函数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端
+价值
+从 Windows 8 开始支持。
+展开表
+要求
+目标平台
+标头 IRQL
+另请参阅 CLIENT_ConnectIoPins
+GPIO_CLIENT_REGISTRATION_PACKET GPIO_CLX_RegisterClient
+价值桌面
+gpioclx.h
+在PASSIVE_LEVEL调用。
+GPIO_DISCONNECT_IO_PINS_PARAMETERS
+GPIO_CLIENT_ENABLE_INTERRUPT回调
+函数 （gpioclx.h）项目2025/02/07
+CLIENT_EnableInterrupt 事件回调函数在配置为中断输入的常规用途 I/O （GPIO） 引脚上
+启用中断。语法 C++
+GPIO_CLIENT_ENABLE_INTERRUPT GpioClientEnableInterrupt;
+NTSTATUS GpioClientEnableInterrupt(   [in] PVOID Context,
+  [in] PGPIO_ENABLE_INTERRUPT_PARAMETERS EnableParameters)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in] EnableParameters
+指向 GPIO_ENABLE_INTERRUPT_PARAMETERS 结构的指针，该结构指定 GPIO 引脚并描
+述此引脚的中断属性。返回值
+如果调用成功，CLIENT_EnableInterrupt 函数将返回STATUS_SUCCESS。 否则，它将返回
+适当的错误代码。言论
+此回调函数由 GPIO 控制器驱动程序实现。 GPIO 框架扩展 （GpioClx） 调用此函数，以在配置为中断请求输入的 GPIO 引脚上启用中断。
+若要注册驱动程序的 CLIENT_EnableInterrupt 回调函数，请调用 GPIO_CLX_RegisterClient 方法。 此方法接受作为输入参数的指针，指向包含 CLIENT_EnableInterrupt 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结构。
+GpioClx 始终在 IRQL = PASSIVE_LEVEL 调用 CLIENT_EnableInterrupt 和
+CLIENT_DisableInterrupt 回调函数。 但是，如果 GPIO 寄存器是内存映射的，GpioClx 将从其 ISR at DIRQL 调用其他与中断相关的回调函数。 在这种情况下，
+CLIENT_EnableInterrupt 和 CLIENT_DisableInterrupt 函数应使用 GPIO 中断锁将其与中断
+相关的作同步到 ISR。 有关详细信息，请参阅 GPIO 控制器驱动程序的中断同步。例子
+若要定义 CLIENT_EnableInterrupt 回调函数，必须先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 MyEvtGpioEnableInterrupt 的 CLIENT_EnableInterrupt 回调函数，请
+使用GPIO_CLIENT_ENABLE_INTERRUPT函数类型，如以下代码示例所示： C++
+GPIO_CLIENT_ENABLE_INTERRUPT MyEvtGpioEnableInterrupt;
+然后，按如下所示实现回调函数： C++
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioEnableInterrupt(     PVOID Context,
+    PGPIO_ENABLE_INTERRUPT_PARAMETERS InterruptParameters
+    ){ ... }
+GPIO_CLIENT_ENABLE_INTERRUPT函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中GPIO_CLIENT_ENABLE_INTERRUPT 函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角
+色类型声明函数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+CLIENT_DisableInterrupt
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+在PASSIVE_LEVEL调用。
+GPIO_CLIENT_REGISTRATION_PACKET GPIO_CLX_RegisterClient
+GPIO_ENABLE_INTERRUPT_PARAMETERS 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+GPIO_CLIENT_MASK_INTERRUPTS回调函
+数 （gpioclx.h）项目2025/02/07
+CLIENT_MaskInterrupts 事件回调函数在配置为中断输入的一组常规用途 I/O（GPIO）引脚上屏蔽中断。
+语法 C++
+GPIO_CLIENT_MASK_INTERRUPTS GpioClientMaskInterrupts;
+NTSTATUS GpioClientMaskInterrupts(   [in]      PVOID Context,
+  [in, out] PGPIO_MASK_INTERRUPT_PARAMETERS MaskParameters)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in, out] MaskParameters
+指向 GPIO_MASK_INTERRUPT_PARAMETERS 结构的指针，该结构在条目中描述要屏蔽的
+GPIO 中断引脚，在退出时包含掩码作的状态。返回值
+如果调用成功，CLIENT_MaskInterrupts 函数将返回STATUS_SUCCESS。 否则，它将返回
+适当的错误代码。言论
+此回调函数由 GPIO 控制器驱动程序实现。 GPIO 框架扩展 （GpioClx） 调用此函数，以屏蔽配置为中断请求输入的 GPIO 引脚上的中断。 有关详细信息，请参阅 GPIO 中断掩码。
+若要注册驱动程序的 CLIENT_MaskInterrupts 回调函数，请调用 GPIO_CLX_RegisterClient 方法。 此方法接受作为输入参数的指针，指向包含 CLIENT_MaskInterrupts 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结构。
+CLIENT_MaskInterrupts 函数从 GpioClx 中的中断服务例程（ISR）调用。 此 ISR 在
+PASSIVE_LEVEL 或 DIRQL 上运行，具体取决于 CLIENT_QueryControllerBasicInformation 回调函数提供给 GpioClx 的设备信息。 CLIENT_QueryControllerBasicInformation 函数以 CLIENT_CONTROLLER_BASIC_INFORMATION 结构的形式提供设备信息。 如果
+MemoryMappedController 标志位在 标志 此结构的成员中设置，则 GpioClx ISR 在 DIRQL 上运行，并在 DIRQL 上调用 CLIENT_MaskInterrupts 函数。 否则，ISR 在
+PASSIVE_LEVEL运行，并在PASSIVE_LEVEL调用该函数。 有关此标志位的详细信息，请参阅 可选和必需的 GPIO 回调函数。
+未能将中断掩码设置为所请求值的 CLIENT_MaskInterrupts 调用必须将
+GPIO_MASK_INTERRUPT_PARAMETERS 结构的 FailedMask 成员设置为非零值，并返回适当的错误状态代码。 内存映射 GPIO 控制器的 CLIENT_MaskInterrupts 函数应始终成功地将中断掩码设置为请求的值。 但是，非内存映射的控制器的 CLIENT_MaskInterrupts 函数必须将 I/O 请求发送到控制器来设置掩码，并且此请求可能会失败。 如果请求未能设
+置掩码，该函数必须在写入 FailedMask 成员的值中指示此失败。例子
+若要定义 CLIENT_MaskInterrupts 回调函数，必须首先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 MyEvtGpioMaskInterrupts 的 CLIENT_MaskInterrupts 回调函数，请使用GPIO_CLIENT_MASK_INTERRUPTS函数类型，如以下代码示例所示：
+GPIO_CLIENT_MASK_INTERRUPTS MyEvtGpioMaskInterrupts; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioMaskInterrupts(     PVOID Context,
+    PGPIO_MASK_INTERRUPT_PARAMETERS MaskParameters
+    ){ ... }
+GPIO_CLIENT_MASK_INTERRUPTS函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中GPIO_CLIENT_MASK_INTERRUPTS 函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角
+色类型声明函数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+请参阅“备注”。
+CLIENT_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation GPIO_CLIENT_REGISTRATION_PACKET GPIO_CLX_RegisterClient
+GPIO_MASK_INTERRUPT_PARAMETERS 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+GPIO_CLIENT_PRE_PROCESS_CONTROLL
+ER_INTERRUPT回调函数 (gpioclx.h) 项目2023/08/07
+CLIENT_PreProcessControllerInterrupt 事件回调函数执行常规用途 I/O (GPIO) 中断的任何预处理，如果 ISR 计划稍后运行，则必须立即完成这些处理。
+语法 C++
+GPIO_CLIENT_PRE_PROCESS_CONTROLLER_INTERRUPT  GpioClientPreProcessControllerInterrupt;
+NTSTATUS GpioClientPreProcessControllerInterrupt(
+  [in] PVOID Context,   [in] BANK_ID BankId,
+       ULONG64 EnabledMask)
+{...}
+parameters[in] Context
+指向 GPIO 控制器驱动程序 的设备上下文的指针。[in] BankId
+包含中断 GPIO 引脚的库。 如果 N 是 GPIO 控制器中的库数， 则 BankId 是介于 0 到 N– 1 范围内的整数。 GPIO 框架扩展以前从 CLIENT_QueryControllerBasicInformation 事件
+回调函数获取控制器中的库数。 有关详细信息，请参阅 CLIENT_CONTROLLER_BASIC_INFORMATION 中的备注。
+EnabledMask 返回值
+如果调用成功， CLIENT_PreProcessControllerInterrupt 函数将返回STATUS_SUCCESS。 否则，它将返回相应的错误代码。
+备注
+此回调函数是可选的。 仅当 GPIO 控制器驱动程序在 PASSIVE_LEVEL 执行大部分中断处理，但必须在 DIRQL 中对中断执行一些初始处理时，才实现此函数。
+通常，GPIO 控制器驱动程序可以在 DIRQL 上访问内存映射的 GPIO 控制器，但只能在 PASSIVE_LEVEL访问串行连接的 GPIO 控制器。 但是，如果某些串行连接的 GPIO 控制器延迟捕获中断状态位，直到 IRQL 降至PASSIVE_LEVEL，它们可能会丢失中断状态数据。当 IRQL 稍后下降到 PASSIVE_LEVEL 时，GPIO 框架扩展 (GpioClx) 可以调用驱动程序的 CLIENT_QueryActiveInterrupts 回调函数来检索寄存器内容。
+GPIO 控制器驱动程序指示它是否必须处理在 CLIENT_QueryControllerBasicInformation回调期间 传递给 GpioClx 的设备信息PASSIVE_LEVEL中断。 如果 GPIO 控制器是内存映射的，以便驱动程序可以在 DIRQL 上访问控制器的寄存器，则驱动程序会在驱动程序传递给 GpioClx 的 CLIENT_CONTROLLER_BASIC_INFORMATION 结构的 Flags 成员中设置 MemoryMappedController 标志位。 否则，驱动程序设置 MemoryMappedController = 0 以指示驱动程序必须在PASSIVE_LEVEL处理中断。 有关详细信息，请参阅 被动级别 ISR。
+若要注册驱动程序的 CLIENT_PreProcessControllerInterrupt 回调函数，请调用 GPIO_CLX_RegisterClient 方法。 此方法接受指向包含
+CLIENT_PreProcessControllerInterrupt函数指针的GPIO_CLIENT_REGISTRATION_PACKET
+结构的指针作为输入参数。示例
+若要定义 CLIENT_PreProcessControllerInterrupt 回调函数，必须先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供了一组回调函数类型。 使用回调函数类型声明函数可帮助 驱动程序的代码分析、 静态驱动程序验证程序 (SDV) 和其他验证工具查找错误，这是为 Windows 操作系统编写驱动程序的要求。
+例如，若要定义名为 MyEvtGpioPreProcessInterrupt 的 CLIENT_PreProcessControllerInterrupt回调函数，请使用
+GPIO_CLIENT_PRE_PROCESS_CONTROLLER_INTERRUPT 函数类型，如以下代码示例所示：
+GPIO_CLIENT_PRE_PROCESS_CONTROLLER_INTERRUPT MyEvtGpioPreProcessInterrupt; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioPreProcessInterrupt(     PVOID Context
+    ){ ... }
+GPIO_CLIENT_PRE_PROCESS_CONTROLLER_INTERRUPT函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations批注可确保使用应用于头文件中
+GPIO_CLIENT_PRE_PROCESS_CONTROLLER_INTERRUPT函数类型的注释。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函数。 有关
+Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+ 
+最低受支持的客户端目标平台
+标头 IRQL
+另请参阅
+GPIO_CLIENT_REGISTRATION_PACKET GPIO_CLX_RegisterClient
+ 
+从 Windows 8 开始受支持。桌面
+gpioclx.h
+在 DIRQL 中调用。
+GPIO_CLIENT_PREPARE_CONTROLLER回
+调函数 （gpioclx.h）项目2025/02/07
+CLIENT_PrepareController 事件回调函数执行使通用 I/O （GPIO） 控制器可供 GPIO 控制器驱动程序访问所需的任何作。
+语法 C++
+GPIO_CLIENT_PREPARE_CONTROLLER GpioClientPrepareController; NTSTATUS GpioClientPrepareController(
+  [in] WDFDEVICE Device,   [in] PVOID Context,
+  [in] WDFCMRESLIST ResourcesRaw,
+  [in] WDFCMRESLIST ResourcesTranslated)
+{...}
+参数[in] Device
+表示 GPIO 控制器的框架设备对象的 WDFDEVICE 句柄。[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in] ResourcesRaw
+框架资源对象的集合的 WDFCMRESLIST 句柄。 此集合标识即插即用（PnP）管理器分配
+给 GPIO 控制器设备的原始（总线相对）硬件资源。[in] ResourcesTranslated
+框架资源对象的集合的 WDFCMRESLIST 句柄。 此集合标识 PnP 管理器分配给 GPIO 控制器设备的已转换（系统物理）硬件资源。
+返回值
+如果调用成功，CLIENT_PrepareController 函数将返回STATUS_SUCCESS。 否则，它将返
+回适当的错误代码。言论
+此回调函数由 GPIO 控制器驱动程序实现。 GPIO 框架扩展 （GpioClx） 调用此函数来初始化 GPIO 控制器驱动程序所需的硬件资源，以便它可以访问 GPIO 控制器设备。
+ResourcesRaw 和 ResourcesTranslated 参数是原始和已翻译资源列表的句柄。 这些列表描述了 PnP 管理器分配给由 Device 参数指定的 GPIO 控制器设备的硬件资源。 有关详细信息，请参阅 原始资源和已翻译的资源。
+在 CLIENT_PrepareController 回调期间，GPIO 控制器驱动程序可以从 ResourcesRaw 或 ResourcesTranslated 列表中获取所需的硬件资源。 如果 GPIO 控制器设备是内存映射的，驱动程序应将分配给设备硬件寄存器的总线相对内存地址范围或范围映射到系统虚拟地址。 有关详细信息，请参阅 Bus-Relative 地址映射到虚拟地址。
+如果 GPIO 控制器未映射内存，驱动程序的硬件资源包含连接 ID 而不是内存范围。 驱动程序使用此 ID 打开与 GPIO 控制器的逻辑连接，并通过此连接发送 I/O 请求以访问控制器的寄存器。
+GpioClx 连接到 PnP 管理器分配给 GPIO 控制器的任何中断资源（稍后断开连接）。 如果 GpioClx 收到此类中断资源，则不会从传递给 CLIENT_PrepareController 回调函数的资源列表中删除此中断资源。 但是，GPIO 控制器驱动程序不应尝试连接到它在这些列表中找到的任何中断资源（或以后断开连接）。
+CLIENT_ReleaseController 事件回调函数执行在 GPIO 控制器设备不再可访问时所需的作。 在此回调期间，GPIO 控制器驱动程序应释放在上一个 CLIENT_PrepareController 回调期间获取的任何硬件资源。
+若要注册驱动程序的 CLIENT_PrepareController 回调函数，请调用
+GPIO_CLX_RegisterClient 方法。 此方法接受作为输入参数的指针，指向包含
+CLIENT_PrepareController 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结构。
+尽管在 IRQL = PASSIVE_LEVEL 调用 CLIENT_PrepareController 回调函数，但不应使此函数可分页。 CLIENT_PrepareController 回调位于关键计时路径中，用于将电源还原到硬件
+平台中的设备，出于性能原因，不应因页面故障而延迟。例子
+若要定义 CLIENT_PrepareController 回调函数，必须先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 MyEvtGpioPrepareController 的 CLIENT_PrepareController 回调函数，请使用GPIO_CLIENT_PREPARE_CONTROLLER函数类型，如以下代码示例所示：
+GPIO_CLIENT_PREPARE_CONTROLLER MyEvtGpioPrepareController; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioPrepareController(
+    WDFDEVICE Device,     PVOID Context,
+    WDFCMRESLIST ResourcesRaw,
+    WDFCMRESLIST ResourcesTranslated)
+{ ... }
+GPIO_CLIENT_PREPARE_CONTROLLER函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中
+GPIO_CLIENT_PREPARE_CONTROLLER函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函数。 有关 Use_decl_annotations的详
+细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端
+目标平台标头
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+展开表
+要求 IRQL
+另请参阅
+CLIENT_ReleaseController
+GPIO_CLIENT_REGISTRATION_PACKET
+GPIO_CLX_RegisterClient 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+在PASSIVE_LEVEL调用。
+| 在 Microsoft Q&A 获取帮助
+GPIO_CLIENT_QUERY_ACTIVE_INTERRUPTS
+回调函数 （gpioclx.h）项目2025/02/07
+CLIENT_QueryActiveInterrupts 事件回调函数查询配置为中断输入的一组常规用途 I/O （GPIO）引脚的状态。
+语法 C++
+GPIO_CLIENT_QUERY_ACTIVE_INTERRUPTS GpioClientQueryActiveInterrupts;
+NTSTATUS GpioClientQueryActiveInterrupts(   [in]      PVOID Context,
+  [in, out] PGPIO_QUERY_ACTIVE_INTERRUPTS_PARAMETERS QueryActiveParameters)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in, out] QueryActiveParameters
+指向 GPIO_QUERY_ACTIVE_INTERRUPTS_PARAMETERS 结构的指针，该结构在条目上描述要查
+询的 GPIO 中断引脚，在退出时包含这些引脚的活动和已启用的中断状态。返回值
+如果调用成功，CLIENT_QueryActiveInterrupts 函数将返回STATUS_SUCCESS。 否则，它将返回
+适当的错误代码。言论
+此回调函数由 GPIO 控制器驱动程序实现。 GPIO 框架扩展 （GpioClx） 调用此函数来查询配置为中断请求输入的一组 GPIO 引脚。
+QueryActiveParameters 参数指向调用方分配的
+GPIO_QUERY_ACTIVE_INTERRUPTS_PARAMETERS 结构。 调用方设置此结构的 BankId 和 EnabledMask 成员的值。 CLIENT_QueryActiveInterrupts 函数写入结构的 ActiveMask 成员。
+在条目中，EnabledMask 成员中设置的位应与银行中当前启用的中断集匹配。 返回时，
+ActiveMask 成员中设置的位应对应于启用和活动的中断。 因此，如果 EnabledMask 中的位为零，则 ActiveMask 中的相应位必须为零。
+若要注册驱动程序的 CLIENT_QueryActiveInterrupts 回调函数，请调用 GPIO_CLX_RegisterClient 方法。 此方法接受作为输入参数的指针，指向包含 CLIENT_QueryActiveInterrupts 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结构。
+GpioClx 在 PASSIVE_LEVEL 或 DIRQL 上调用 CLIENT_QueryActiveInterrupts 回调函数，具体取决于 CLIENT_QueryControllerBasicInformation 回调函数提供给 GpioClx 的设备信息。
+CLIENT_QueryControllerBasicInformation 函数以 CLIENT_CONTROLLER_BASIC_INFORMATION 结构的形式提供设备信息。 如果在 标志 成员中设置了 MemoryMappedController 标志位， GpioClx 将在 DIRQL 调用 CLIENT_QueryActiveInterrupts 函数，这是 GPioClx 中 ISR 运行的 IRQL。 否则，会在PASSIVE_LEVEL调用此函数。 有关此标志位的详细信息，请参阅 可选和必需
+的 GPIO 回调函数。例子
+若要定义 CLIENT_QueryActiveInterrupts 回调函数，必须首先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 的 MyEvtGpioQueryActiveInterrupts  回调函数，请使用 GPIO_CLIENT_QUERY_ACTIVE_INTERRUPTS函数类型，如以下代码示例所示：
+GPIO_CLIENT_QUERY_ACTIVE_INTERRUPTS MyEvtGpioQueryActiveInterrupts; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioQueryActiveInterrupts(     PVOID Context,
+    PGPIO_QUERY_ACTIVE_INTERRUPTS_PARAMETERS QueryActiveParameters
+    ){ ... }
+GPIO_CLIENT_QUERY_ACTIVE_INTERRUPTS函数类型在 Gpioclx.h 头文件中定义。 若要在运行代
+码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中
+GPIO_CLIENT_QUERY_ACTIVE_INTERRUPTS函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函数。 有关 Use_decl_annotations的详细信
+息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+请参阅“备注”。
+CLIENT_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation GPIO_CLIENT_REGISTRATION_PACKET GPIO_CLX_RegisterClient
+GPIO_QUERY_ACTIVE_INTERRUPTS_PARAMETERS
+展开表
+GPIO_CLIENT_QUERY_CONTROLLER_BASIC_
+INFORMATION回调函数 （gpioclx.h）项目2025/03/22
+CLIENT_QueryControllerBasicInformation 事件回调函数检索常规用途 I/O （GPIO） 控制器的硬
+件属性。语法 C++
+GPIO_CLIENT_QUERY_CONTROLLER_BASIC_INFORMATION  GpioClientQueryControllerBasicInformation;
+NTSTATUS GpioClientQueryControllerBasicInformation(   [in]  PVOID Context,
+  [out] PCLIENT_CONTROLLER_BASIC_INFORMATION Information)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[out] Information
+指向调用方分配 CLIENT_CONTROLLER_BASIC_INFORMATION 结构的指针。
+CLIENT_QueryControllerBasicInformation 函数将 GPIO 控制器硬件属性和配置信息写入此结构。返回值
+如果调用成功，CLIENT_QueryControllerBasicInformation 函数将返回STATUS_SUCCESS。 否
+则，它将返回适当的错误代码。言论
+此回调函数由 GPIO 控制器驱动程序实现。 GPIO 框架扩展 （GpioClx） 调用此函数。
+CLIENT_QueryControllerBasicInformation 回调函数应设置
+CLIENT_CONTROLLER_BASIC_INFORMATION 结构的所有成员，包括 版本 和 大小 成员。
+GpioClx 在调用此函数之前不会初始化 大小 成员，但保证 信息 参数指向的缓冲区足够大，以包含 GPIO 控制器驱动程序使用的此结构的版本。
+若要注册驱动程序的 CLIENT_QueryControllerBasicInformation 回调函数，请调用 GPIO_CLX_RegisterClient 方法。 此方法接受作为输入参数的指针，指向包含
+CLIENT_QueryControllerBasicInformation 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结
+构。例子
+若要定义 CLIENT_QueryControllerBasicInformation 回调函数，必须先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 的 MyEvtGpioQueryControllerBasicInformation  回调函数，请使用
+GPIO_CLIENT_QUERY_CONTROLLER_BASIC_INFORMATION函数类型，如以下代码示例所示：
+GPIO_CLIENT_QUERY_CONTROLLER_BASIC_INFORMATION MyEvtGpioQueryDeviceInformation; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioQueryDeviceInformation(     PVOID Context,
+    PCLIENT_CONTROLLER_BASIC_INFORMATION Information
+    ){ ... }
+GPIO_CLIENT_QUERY_CONTROLLER_BASIC_INFORMATION函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中
+GPIO_CLIENT_QUERY_CONTROLLER_BASIC_INFORMATION函数类型的批注。 有关函数声明要
+求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。
+要求要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+在PASSIVE_LEVEL调用。
+CLIENT_CONTROLLER_BASIC_INFORMATION
+GPIO_CLIENT_REGISTRATION_PACKET GPIO_CLX_RegisterClient
+ﾉ
+展开表
+GPIO_CLIENT_QUERY_ENABLED_INTERR
+UPTS回调函数 （gpioclx.h）项目2025/02/07
+CLIENT_QueryEnabledInterrupts 事件回调函数查询一组常规用途 I/O （GPIO） 引脚的状态，以确定哪些引脚都配置为中断输入，并为中断启用。
+语法 C++
+GPIO_CLIENT_QUERY_ENABLED_INTERRUPTS GpioClientQueryEnabledInterrupts;
+NTSTATUS GpioClientQueryEnabledInterrupts(   [in] PVOID Context,
+  [in] PGPIO_QUERY_ENABLED_INTERRUPTS_PARAMETERS QueryEnabledParameters)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in] QueryEnabledParameters
+指向调用方分配 GPIO_QUERY_ENABLED_INTERRUPTS_PARAMETERS 结构的指针。 在调用此函数之前，调用方会将银行 ID 写入到此结构的 BankId 成员，以指定要查询的 GPIO 引脚。 如果成功，该函数会将掩码值写入到此结构的 EnabledMask 成员，以指示指定银
+行中启用了哪些中断。返回值
+如果调用成功，CLIENT_QueryEnabledInterrupts 函数将返回STATUS_SUCCESS。 否则，
+它将返回适当的错误代码。言论
+从 Windows 8.1 开始，GPIO 控制器驱动程序可以根据需要实现
+CLIENT_QueryEnabledInterrupts 回调函数。 如果实现，GPIO 框架扩展（GpioClx）将调
+用此函数，以确定在 GPIO 引脚的银行中启用哪些中断。 QueryEnabledParameters 参数指向调用方分配
+GPIO_QUERY_ENABLED_INTERRUPTS_PARAMETERS 结构。 调用方设置此结构的 BankId
+成员的值。 CLIENT_QueryEnabledInterrupts 函数写入结构的 EnabledMask 成员。若要注册驱动程序的 CLIENT_QueryEnabledInterrupts 回调函数，请调用
+GPIO_CLX_RegisterClient 方法。 此方法接受作为输入参数的指针，指向包含
+CLIENT_QueryEnabledInterrupts 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结构。
+CLIENT_QueryEnabledInterrupts 函数是可选的。 如果驱动程序未实现此函数，请将
+GPIO_CLIENT_REGISTRATION_PACKET 结构的 CLIENT_QueryEnabledInterrupts 成员设置为 NULL。
+如果实现了 CLIENT_QueryEnabledInterrupts 函数，GpioClx 将使用此函数来提高驱动程序可靠性和诊断。 GpioClx 调用此函数，以验证 GPIO 控制器中启用的中断集是否与 GpioClx 的预期匹配。 通常，不匹配表示可能导致中断风暴的驱动程序 bug。 GpioClx 使用此函数在检查的（调试）版本中执行更广泛的状态验证，并减少免费（零售）版本中对此函数的调用数，以避免影响性能。 如果实现，此函数必须直接读取硬件状态，而不是读取缓存或软件维护的状态版本。
+GpioClx 在 PASSIVE_LEVEL 或 DIRQL 调用 CLIENT_QueryEnabledInterrupts 回调函数，具体取决于 CLIENT_QueryControllerBasicInformation 回调函数提供给 GpioClx 的设备信息。 CLIENT_QueryControllerBasicInformation 函数以
+CLIENT_CONTROLLER_BASIC_INFORMATION 结构的形式提供设备信息。 如果在 标志 成员中设置了 MemoryMappedController 标志位，GpioClx 将在 DIRQL 调用
+CLIENT_QueryEnabledInterrupts 函数，这是 GPioClx 中 ISR 运行的 IRQL。 否则，会在 PASSIVE_LEVEL调用此函数。 有关此标志位的详细信息，请参阅 可选和必需的 GPIO 回调
+函数。例子
+若要定义 CLIENT_QueryEnabledInterrupts 回调函数，必须先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 MyEvtGpioQueryEnabledInterrupts 的 CLIENT_QueryEnabledInterrupts 回调函数，请使用
+GPIO_CLIENT_QUERY_ENABLED_INTERRUPTS函数类型，如以下代码示例所示：
+GPIO_CLIENT_QUERY_ENABLED_INTERRUPTS MyEvtGpioQueryEnabledInterrupts; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioQueryEnabledInterrupts(     PVOID Context,
+    PGPIO_QUERY_ENABLED_INTERRUPTS_PARAMETERS QueryEnabledParameters
+    ){ ... }
+GPIO_CLIENT_QUERY_ENABLED_INTERRUPTS函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中
+GPIO_CLIENT_QUERY_ENABLED_INTERRUPTS函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函数。 有关
+Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+从 Windows 8.1 开始支持。桌面
+gpioclx.h
+请参阅“备注”。
+CLIENT_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation GPIO_CLIENT_REGISTRATION_PACKET
+展开表
+GPIO_CLX_RegisterClient
+GPIO_QUERY_ENABLED_INTERRUPTS_PARAMETERS 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+GPIO_CLIENT_QUERY_SET_CONTROLLER_INFORMATION回调函数 （gpioclx.h）项目2025/02/07
+CLIENT_QuerySetControllerInformation 事件回调函数查询 GPIO 控制器的指定属性集的常规用途 I/O （GPIO） 控制器驱动程序。
+语法 C++
+GPIO_CLIENT_QUERY_SET_CONTROLLER_INFORMATION  GpioClientQuerySetControllerInformation;
+NTSTATUS GpioClientQuerySetControllerInformation(   [in]            PVOID Context,
+  [in]            PCLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT  InputBuffer,
+  [out, optional] PCLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT 
+OutputBuffer)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in] InputBuffer
+指向描述调用方请求的属性类型的
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT 结构的指针。[out, optional] OutputBuffer
+一个可选指针，指向函数在其中写入所请求属性的值的
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT 结构。返回值
+如果调用成功，CLIENT_QuerySetControllerInformation 函数将返回 STATUS_SUCCESS。可能的返回值包括以下错误代码。
+ﾉ
+返回代码
+STATUS_NOT_SUPPORTED 言论
+描述
+该函数不支持所请求的属性的类型。
+展开表
+InputBuffer 指向的 CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT 结构的 RequestType 成员指定所请求的属性的类型。 有关可请求的属性类型的列表，请参阅 CLIENT_CONTROLLER_QUERY_SET_REQUEST_TYPE。
+实现 CLIENT_QuerySetControllerInformation 函数是可选的。 如果 GPIO 控制器驱动程序实现 CLIENT_QuerySetControllerInformation 函数，则此函数可能支持某些类型的属性请求，但不支持其他属性请求。 如果调用方请求函数不支持的属性类型，该函数将返回
+STATUS_NOT_SUPPORTED。例子
+若要定义 CLIENT_QuerySetControllerInformation 回调函数，必须先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 MyEvtGpioQuerySetControllerInformation 的 CLIENT_QuerySetControllerInformation 回调函数，请使用
+GPIO_CLIENT_QUERY_SET_CONTROLLER_INFORMATION函数类型，如以下代码示例所示：
+GPIO_CLIENT_QUERY_SET_CONTROLLER_INFORMATION  MyEvtGpioQuerySetControllerInformation;
+然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioQuerySetControllerInformation(     PVOID Context,
+    PCLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT InputBuffer,     PCLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT OutputBuffer
+    ){ ... }
+GPIO_CLIENT_QUERY_SET_CONTROLLER_INFORMATION函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中
+GPIO_CLIENT_QUERY_SET_CONTROLLER_INFORMATION函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函数。 有关
+Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+在PASSIVE_LEVEL调用。
+CLIENT_CONTROLLER_QUERY_SET_INFORMATION_INPUT CLIENT_CONTROLLER_QUERY_SET_INFORMATION_OUTPUT
+CLIENT_CONTROLLER_QUERY_SET_REQUEST_TYPE 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+GPIO_CLIENT_READ_PINS回调函数
+（gpioclx.h）项目2025/02/07
+CLIENT_ReadGpioPins 事件回调函数读取配置为数据输入的一组常规用途 I/O （GPIO） 引脚。
+语法 C++
+GPIO_CLIENT_READ_PINS GpioClientReadPins;
+NTSTATUS GpioClientReadPins(   [in]      PVOID Context,
+  [in, out] PGPIO_READ_PINS_PARAMETERS ReadParameters)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in, out] ReadParameters
+指向 GPIO_READ_PINS_PARAMETERS 结构的指针，该结构在条目中描述要读取的 GPIO 引脚，
+在退出时包含从 GPIO 引脚读取的数据。返回值
+如果调用成功，CLIENT_ReadGpioPins 函数将返回STATUS_SUCCESS。 否则，它将返回适当的错
+误代码。言论
+此回调函数由 GPIO 控制器驱动程序实现。 GpioClx 调用此函数。
+PinNumberTable 数组中的所有引脚都属于由 BankId 参数标识的银行。
+若要注册驱动程序的 CLIENT_ReadGpioPins 回调函数，请调用 GPIO_CLX_RegisterClient 方法。
+此方法接受作为输入参数的指针，指向包含 CLIENT_ReadGpioPins 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结构。
+可以从 GpioClx 中的中断服务例程（ISR）调用 CLIENT_ReadGpioPins 函数。 此 ISR 在
+PASSIVE_LEVEL 或 DIRQL 上运行，具体取决于 CLIENT_QueryControllerBasicInformation 回调函数提供给 GpioClx 的设备信息。 CLIENT_QueryControllerBasicInformation 函数以
+CLIENT_CONTROLLER_BASIC_INFORMATION 结构的形式提供设备信息。 如果在 标志 成员中设置了 MemoryMappedController 标志位，则 GpioClx ISR 在 DIRQL 上运行，并在 DIRQL 中调用 CLIENT_ReadGpioPins 函数。 否则，ISR 在PASSIVE_LEVEL运行，并在PASSIVE_LEVEL调用该
+函数。 有关此标志位的详细信息，请参阅 可选和必需的 GPIO 回调函数。例子
+若要定义 CLIENT_ReadGpioPins 回调函数，必须首先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助
+于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 的 MyEvtGpioReadGpioPins  回调函数，请使用GPIO_CLIENT_READ_PINS函数类型，如以下代码示例所示：
+GPIO_CLIENT_READ_PINS MyEvtGpioReadPins; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioReadPins(     PVOID Context,
+    PGPIO_READ_PINS_PARAMETERS ReadParameters
+    ){ ... }
+GPIO_CLIENT_READ_PINS函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中GPIO_CLIENT_READ_PINS函数类型的批注。 有关函数声明要求
+的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。
+要求要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+请参阅“备注”。
+CLIENT_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation GPIO_CLIENT_REGISTRATION_PACKET GPIO_CLX_RegisterClient
+GPIO_READ_PINS_PARAMETERS
+ﾉ
+展开表
+GPIO_CLIENT_READ_PINS_MASK回调函
+数 （gpioclx.h）项目2025/02/07
+CLIENT_ReadGpioPinsUsingMask 事件回调函数读取一组通用 I/O （GPIO） 引脚。
+语法 C++
+GPIO_CLIENT_READ_PINS_MASK GpioClientReadPinsMask;
+NTSTATUS GpioClientReadPinsMask(   [in]      PVOID Context,
+  [in, out] PGPIO_READ_PINS_MASK_PARAMETERS ReadParameters)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in, out] ReadParameters
+指向 GPIO_READ_PINS_MASK_PARAMETERS 结构的指针，该结构在条目中描述要读取的
+GPIO 引脚，并且退出时包含从 GPIO 引脚读取的数据。返回值
+如果调用成功，CLIENT_ReadGpioPinsUsingMask 函数将返回STATUS_SUCCESS。 否则，
+它将返回适当的错误代码。言论
+此回调函数由 GPIO 控制器驱动程序实现。 GpioClx 调用此函数。
+CLIENT_ReadGpioPinsUsingMask 回调函数读取引脚库中所有 GPIO 引脚的值。 该函数将这些值存储在 GPIO_READ_PINS_MASK_PARAMETERS 结构的 PinValues 成员中。 此成
+员的位 0（最小有效位）包含引脚 0 的值，位 1 包含引脚 1 的值，依此类传。若要注册驱动程序的 CLIENT_ReadGpioPinsUsingMask 回调函数，请调用
+GPIO_CLX_RegisterClient 方法。 此方法接受作为输入参数的指针，指向包含
+CLIENT_ReadGpioPinsUsingMask 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结构。
+可以从 GpioClx 中的中断服务例程（ISR）调用 CLIENT_ReadGpioPinsUsingMask 函数。此 ISR 在 PASSIVE_LEVEL 或 DIRQL 上运行，具体取决于
+CLIENT_QueryControllerBasicInformation 回调函数提供给 GpioClx 的设备信息。 CLIENT_QueryControllerBasicInformation 函数以
+CLIENT_CONTROLLER_BASIC_INFORMATION 结构的形式提供设备信息。 如果
+MemoryMappedController 标志位在 标志 此结构的成员中设置，则 GpioClx ISR 在 DIRQL 上运行，并在 DIRQL 中调用 CLIENT_ReadGpioPinsUsingMask 函数。 否则，ISR 在PASSIVE_LEVEL运行，并在PASSIVE_LEVEL调用该函数。 有关此标志位的详细信息，请
+参阅 可选和必需的 GPIO 回调函数。例子
+若要定义 CLIENT_ReadGpioPinsUsingMask 回调函数，必须先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证
+工具查找错误，这是为 Windows作系统编写驱动程序的要求。例如，若要定义名为 MyEvtGpioReadGpioPinsUsingMask 的
+CLIENT_ReadGpioPinsUsingMask 回调函数，请使用GPIO_CLIENT_READ_PINS_MASK函数类型，如以下代码示例所示：
+GPIO_CLIENT_READ_PINS_MASK MyEvtGpioReadPinsUsingMask; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioReadPinsUsingMask(     PVOID Context,
+    PGPIO_READ_PINS_MASK_PARAMETERS ReadParameters
+    ){ ... }
+GPIO_CLIENT_READ_PINS_MASK函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中GPIO_CLIENT_READ_PINS_MASK函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色
+类型声明函数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+请参阅“备注”。
+CLIENT_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation GPIO_CLIENT_REGISTRATION_PACKET GPIO_CLX_RegisterClient
+GPIO_READ_PINS_MASK_PARAMETERS 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+GPIO_CLIENT_RECONFIGURE_INTERRUP
+T回调函数 (gpioclx.h) 项目2024/03/05
+CLIENT_ReconfigureInterrupt 事件回调函数重新配置用作中断输入的常规用途 I/O (GPIO)
+引脚。语法 C++
+GPIO_CLIENT_RECONFIGURE_INTERRUPT GpioClientReconfigureInterrupt;
+NTSTATUS GpioClientReconfigureInterrupt(   [in] PVOID Context,
+  [in] PGPIO_RECONFIGURE_INTERRUPTS_PARAMETERS ReconfigureParameters)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 的设备上下文的指针。[in] ReconfigureParameters
+指向 GPIO_RECONFIGURE_INTERRUPTS_PARAMETERS 结构的指针，该结构指定如何重新
+配置 GPIO 中断引脚。返回值
+如果调用成功， CLIENT_ReconfigureInterrupt函数将 返回STATUS_SUCCESS。 否则，它将
+返回相应的错误代码。注解
+GPIO 框架扩展 (GpioClx) 可能会调用 CLIENT_ReconfigureInterrupt 函数来更改用作中断输入的 GPIO 引脚的中断模式或中断极性。
+例如，如果 GPIO 控制器硬件不直接支持同时有源中断，但可以配置为支持主动-高和主动-低级别模式中断，则 GpioClx 可以通过调用 CLIENT_ReconfigureInterrupt 函数来为主动-高和主动-低级别模式中断交替配置 GPIO 引脚来模拟双活动中断引脚。 有关双活动中断的详细信息，请参阅 CONTROLLER_ATTRIBUTE_FLAGS 中的 EmulateActiveBoth 标志的说明。
+GpioClx 在 PASSIVE_LEVEL 或 DIRQL 调用CLIENT_ReconfigureInterrupt回调函数，具体取决于 CLIENT_QueryControllerBasicInformation 回调函数提供给 GpioClx 的设备信息。 CLIENT_QueryControllerBasicInformation函数以
+CLIENT_CONTROLLER_BASIC_INFORMATION结构的形式提供设备信息。 如果在此结构的 Flags 成员中设置了 MemoryMappedController 标志位，GpioClx 将在 DIRQL（GPioClx 中的 ISR 运行所在的 IRQL）调用 CLIENT_ReconfigureInterrupt 函数。 否则，在
+PASSIVE_LEVEL 调用此函数。 有关此标志位的详细信息，请参阅 可选和必需的 GPIO 回
+调函数。示例
+若要定义 CLIENT_ReconfigureInterrupt 回调函数，必须首先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、 静态驱动程序验证程序 (SDV) 和其他验证工具查找错误，并且这是编写适用于 Windows 操作系统的驱动程序的要求。
+例如，若要定义名为 MyEvtGpioReconfigureInterrupt 的CLIENT_ReconfigureInterrupt回调函数，请使用 GPIO_CLIENT_RECONFIGURE_INTERRUPT 函数类型，如以下代码示例所示：
+GPIO_CLIENT_RECONFIGURE_INTERRUPT MyEvtGpioReconfigureInterrupt; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioReconfigureInterrupt(     PVOID Context,
+    PGPIO_RECONFIGURE_INTERRUPTS_PARAMETERS ReconfigureParameters
+    ){ ... }
+GPIO_CLIENT_RECONFIGURE_INTERRUPT函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations批注可确保使用应用于头文件中
+GPIO_CLIENT_RECONFIGURE_INTERRUPT函数类型的注释。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函数。 有关 Use_decl_annotations
+的详细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低受支持的客户端目标平台
+标头 IRQL
+另请参阅
+值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+请参阅“备注”。
+CLIENT_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation CONTROLLER_ATTRIBUTE_FLAGS
+GPIO_RECONFIGURE_INTERRUPTS_PARAMETERS
+展开表
+GPIO_CLIENT_REGISTRATION_PACKET结构
+（gpioclx.h）项目2025/02/07
+GPIO_CLIENT_REGISTRATION_PACKET 结构包含通用 I/O（GPIO） 控制器驱动程序传递给 GPIO 框架扩展（GpioClx）的注册信息。
+语法 C++
+typedef struct _GPIO_CLIENT_REGISTRATION_PACKET {
+  USHORT                                          Version;
+  USHORT                                          Size;   ULONG                                           Flags;
+  ULONG                                           ControllerContextSize;   ULONG64                                         Reserved;
+  PGPIO_CLIENT_PREPARE_CONTROLLER                 CLIENT_PrepareController;   PGPIO_CLIENT_RELEASE_CONTROLLER                 CLIENT_ReleaseController;   PGPIO_CLIENT_START_CONTROLLER                   CLIENT_StartController;   PGPIO_CLIENT_STOP_CONTROLLER                    CLIENT_StopController;
+  PGPIO_CLIENT_QUERY_CONTROLLER_BASIC_INFORMATION  CLIENT_QueryControllerBasicInformation;
+  PGPIO_CLIENT_QUERY_SET_CONTROLLER_INFORMATION    CLIENT_QuerySetControllerInformation;
+  PGPIO_CLIENT_ENABLE_INTERRUPT                   CLIENT_EnableInterrupt;   PGPIO_CLIENT_DISABLE_INTERRUPT                  CLIENT_DisableInterrupt;   PGPIO_CLIENT_UNMASK_INTERRUPT                   CLIENT_UnmaskInterrupt;   PGPIO_CLIENT_MASK_INTERRUPTS                    CLIENT_MaskInterrupts;
+  PGPIO_CLIENT_QUERY_ACTIVE_INTERRUPTS            CLIENT_QueryActiveInterrupts;   PGPIO_CLIENT_CLEAR_ACTIVE_INTERRUPTS            CLIENT_ClearActiveInterrupts;   PGPIO_CLIENT_CONNECT_IO_PINS                    CLIENT_ConnectIoPins;
+  PGPIO_CLIENT_DISCONNECT_IO_PINS                 CLIENT_DisconnectIoPins;   union {
+    PGPIO_CLIENT_READ_PINS      CLIENT_ReadGpioPins;
+    PGPIO_CLIENT_READ_PINS_MASK CLIENT_ReadGpioPinsUsingMask;   };
+  union {
+    PGPIO_CLIENT_WRITE_PINS      CLIENT_WriteGpioPins;
+    PGPIO_CLIENT_WRITE_PINS_MASK CLIENT_WriteGpioPinsUsingMask;   };
+  PGPIO_CLIENT_SAVE_BANK_HARDWARE_CONTEXT         CLIENT_SaveBankHardwareContext;
+  PGPIO_CLIENT_RESTORE_BANK_HARDWARE_CONTEXT       CLIENT_RestoreBankHardwareContext;
+  PGPIO_CLIENT_PRE_PROCESS_CONTROLLER_INTERRUPT    CLIENT_PreProcessControllerInterrupt;
+  PGPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION        CLIENT_ControllerSpecificFunction;
+  PGPIO_CLIENT_RECONFIGURE_INTERRUPT              CLIENT_ReconfigureInterrupt;   PGPIO_CLIENT_QUERY_ENABLED_INTERRUPTS           CLIENT_QueryEnabledInterrupts;
+  PGPIO_CLIENT_CONNECT_FUNCTION_CONFIG_PINS        CLIENT_ConnectFunctionConfigPins;
+  PGPIO_CLIENT_DISCONNECT_FUNCTION_CONFIG_PINS     CLIENT_DisconnectFunctionConfigPins;
+} GPIO_CLIENT_REGISTRATION_PACKET, *PGPIO_CLIENT_REGISTRATION_PACKET;
+成员 Version
+GPIO 控制器驱动程序支持的 GPIO 接口的版本号。 将此成员设置为在 Gpioclx.h 头文件中定义
+的值GPIO_CLIENT_VERSION。 Size
+此结构的大小（以字节为单位）。 将此成员设置为 sizeof
+（GPIO_CLIENT_REGISTRATION_PACKET）。 Flags
+一组标志，指示选择了哪些注册选项。 当前没有为注册选项定义任何标志。 将此成员设置为零。
+ControllerContextSize
+所需的设备上下文大小（以字节为单位）。 GPIO_CLX_RegisterClient 方法分配此大小的设备上下文。 当 GpioClx 调用 GPIO_CLIENT_REGISTRATION_PACKET 结构中的任何已注册回调函数时，GpioClx 将此设备上下文作为参数传递给回调函数。 回调函数使用此上下文访问和更新驱动
+程序有关 GPIO 控制器设备状态的信息。 有关详细信息，请参阅 GPIO 设备上下文。 Reserved
+保留以供将来使用。 将此成员设置为零。 CLIENT_PrepareController
+指向 GPIO 控制器驱动程序 CLIENT_PrepareController 事件回调函数的指针。 CLIENT_ReleaseController
+指向 GPIO 控制器驱动程序 CLIENT_ReleaseController 事件回调函数的指针。 CLIENT_StartController
+指向 GPIO 控制器驱动程序 CLIENT_StartController 事件回调函数的指针。
+CLIENT_StopController
+指向 GPIO 控制器驱动程序 CLIENT_StopController 事件回调函数的指针。 CLIENT_QueryControllerBasicInformation
+指向 GPIO 控制器驱动程序 CLIENT_QueryControllerBasicInformation 事件回调函数的指针。 CLIENT_QuerySetControllerInformation
+指向 GPIO 控制器驱动程序 CLIENT_QuerySetControllerInformation 事件回调函数的指针。 CLIENT_EnableInterrupt
+指向 GPIO 控制器驱动程序 CLIENT_EnableInterrupt 事件回调函数的指针。 CLIENT_DisableInterrupt
+指向 GPIO 控制器驱动程序 CLIENT_DisableInterrupt 事件回调函数的指针。 CLIENT_UnmaskInterrupt
+指向 GPIO 控制器驱动程序 CLIENT_UnmaskInterrupt 事件回调函数的指针。 CLIENT_MaskInterrupts
+指向 GPIO 控制器驱动程序 CLIENT_MaskInterrupts 事件回调函数的指针。 CLIENT_QueryActiveInterrupts
+指向 GPIO 控制器驱动程序 CLIENT_QueryActiveInterrupts 事件回调函数的指针。 CLIENT_ClearActiveInterrupts
+指向 GPIO 控制器驱动程序 CLIENT_ClearActiveInterrupts 事件回调函数的指针。 CLIENT_ConnectIoPins
+指向 GPIO 控制器驱动程序 CLIENT_ConnectIoPins 事件回调函数的指针。 CLIENT_DisconnectIoPins
+指向 GPIO 控制器驱动程序 CLIENT_DisconnectIoPins 事件回调函数的指针。 CLIENT_ReadGpioPins
+指向 GPIO 控制器驱动程序 CLIENT_ReadGpioPins 事件回调函数的指针。 CLIENT_ReadGpioPinsUsingMask
+指向 GPIO 控制器驱动程序 CLIENT_ReadGpioPinsUsingMask 事件回调函数的指针。 CLIENT_WriteGpioPins
+指向 GPIO 控制器驱动程序 CLIENT_WriteGpioPins 事件回调函数的指针。 CLIENT_WriteGpioPinsUsingMask
+指向 GPIO 控制器驱动程序 CLIENT_WriteGpioPinsUsingMask 事件回调函数的指针。 CLIENT_SaveBankHardwareContext
+指向 GPIO 控制器驱动程序 CLIENT_SaveBankHardwareContext 事件回调函数的指针。 CLIENT_RestoreBankHardwareContext
+指向 GPIO 控制器驱动程序 CLIENT_RestoreBankHardwareContext 事件回调函数的指针。 CLIENT_PreProcessControllerInterrupt
+指向 GPIO 控制器驱动程序 CLIENT_PreProcessControllerInterrupt 事件回调函数的指针。 CLIENT_ControllerSpecificFunction
+指向 GPIO 控制器驱动程序 CLIENT_ControllerSpecificFunction 事件回调函数的指针。 CLIENT_ReconfigureInterrupt
+指向 GPIO 控制器驱动程序 CLIENT_ReconfigureInterrupt 事件回调函数的指针。 CLIENT_QueryEnabledInterrupts
+指向 GPIO 控制器驱动程序 CLIENT_QueryEnabledInterrupts 事件回调函数的指针。 从
+Windows 8.1 开始，此成员受支持。 CLIENT_ConnectFunctionConfigPins CLIENT_DisconnectFunctionConfigPins
+言论
+GPIO 控制器驱动程序将指向 GPIO_CLIENT_REGISTRATION_PACKET 结构的指针作为输入参数传递给 GPIO_CLX_RegisterClient 方法。 此方法注册驱动程序以使用 GpioClx 提供的服务。 通常，驱动程序从其 DriverEntry 例程调用此方法。
+GPIO_CLIENT_REGISTRATION_PACKET 结构包含两个未命名的联合。 每个联合可以包含指向两种备用事件回调函数之一的指针。 在每个情况下，GPIO 控制器驱动程序都应实现最适合 GPIO
+控制器硬件的回调函数类型。 GPIO 控制器驱动程序的 CLIENT_QueryControllerBasicInformation 回调函数通知 GpioClx 实现哪些回调函数。
+GPIO 控制器驱动程序调用 GPIO_CLX_RegisterClient 注册一组回调后，GpioClx 调用驱动程序的 CLIENT_QueryControllerBasicInformation 回调函数以获取包含 GPIO 控制器硬件属性和配置数据的 CLIENT_CONTROLLER_BASIC_INFORMATION 结构。 GpioClx 使用此信息来确定 GPIO 控制器驱动程序实现的回调函数。
+如果 GPIO 控制器驱动程序实现 CLIENT_ReadGpioPins 和 CLIENT_WriteGpioPins 回调函数，则 CLIENT_QueryControllerBasicInformation 回调函数应将此
+CLIENT_CONTROLLER_BASIC_INFORMATION 结构的 Flags 成员中的 FormatIoRequestsAsMasks 标志位设置为 0。
+如果 CLIENT_QueryControllerBasicInformation 回调函数将 FormatIoRequestsAsMasks 标志位
+设置为 1，则此值指示驱动程序实现 CLIENT_ReadGpioPinsUsingMask 和 CLIENT_WriteGpioPinsUsingMask 回调函数。
+GpioClx 需要 GPIO 控制器驱动程序来实现某些回调函数，但对其他回调函数的支持是可选的。
+有关详细信息，请参阅 可选和必需的 GPIO 回调函数。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_BASIC_INFORMATION
+CLIENT_ClearActiveInterrupts CLIENT_ConnectIoPins
+CLIENT_ControllerSpecificFunction
+CLIENT_DisableInterrupt CLIENT_DisconnectIoPins
+展开表
+CLIENT_EnableInterrupt CLIENT_MaskInterrupts
+CLIENT_PreProcessControllerInterrupt CLIENT_PrepareController
+CLIENT_QueryActiveInterrupts
+CLIENT_QueryControllerBasicInformation
+CLIENT_QueryEnabledInterrupts CLIENT_ReadGpioPins
+CLIENT_ReadGpioPinsUsingMask
+CLIENT_ReconfigureInterrupt CLIENT_ReleaseController
+CLIENT_RestoreBankHardwareContext CLIENT_SaveBankHardwareContext
+CLIENT_StartController CLIENT_StopController CLIENT_UnmaskInterrupt CLIENT_WriteGpioPins
+CLIENT_WriteGpioPinsUsingMask DriverEntry
+GPIO_CLX_RegisterClient
+GPIO_CLIENT_RELEASE_CONTROLLER回调
+函数 （gpioclx.h）项目2025/03/22
+CLIENT_ReleaseController 事件回调函数执行常规用途 I/O（GPIO） 控制器设备不再可访问时所
+需的作。语法 C++
+GPIO_CLIENT_RELEASE_CONTROLLER GpioClientReleaseController;
+NTSTATUS GpioClientReleaseController(   [in] WDFDEVICE Device,
+  [in] PVOID Context)
+{...}
+参数[in] Device
+表示 GPIO 控制器的框架设备对象的 WDFDEVICE 句柄。[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。返回值
+如果调用成功，CLIENT_ReleaseController 函数将返回STATUS_SUCCESS。 否则，它将返回适当
+的错误代码。言论
+此回调函数由 GPIO 控制器驱动程序实现。 GPIO 框架扩展 （GpioClx） 在 GPIO 控制器设备不再可访问后调用此函数。
+在 CLIENT_ReleaseController 回调期间，GPIO 控制器驱动程序应释放由于上述调用
+CLIENT_PrepareController 回调函数而获取的任何硬件资源。 对于内存映射 GPIO 控制器设备，
+驱动程序应取消映射分配给硬件寄存器的内存地址范围或范围。 对于未映射内存的控制器，驱动程序应关闭以前打开的与控制器的逻辑连接。
+若要注册驱动程序的 CLIENT_ReleaseController 回调函数，请调用 GPIO_CLX_RegisterClient 方
+法。 此方法接受作为输入参数的指针，指向包含 CLIENT_ReleaseController 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结构。
+尽管在 IRQL = PASSIVE_LEVEL 调用 CLIENT_ReleaseController 回调函数，但不应使此函数可分页。 CLIENT_ReleaseController 回调位于关键计时路径中，用于将电源还原到硬件平台中的设
+备，出于性能原因，不应因页面故障而延迟。例子
+若要定义 CLIENT_ReleaseController 回调函数，必须先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助
+于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 的 MyEvtGpioReleaseController  回调函数，请使用 GPIO_CLIENT_RELEASE_CONTROLLER函数类型，如以下代码示例所示：
+GPIO_CLIENT_RELEASE_CONTROLLER  MyEvtGpioReleaseController; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioReleaseController(     WDFDEVICE Device,
+    PVOID Context)
+{ ... }
+GPIO_CLIENT_RELEASE_CONTROLLER函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。
+Use_decl_annotations 批注可确保使用应用于头文件中GPIO_CLIENT_RELEASE_CONTROLLER函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。
+要求要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+GPIO_CLIENT_REGISTRATION_PACKET GPIO_CLX_RegisterClient
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+在PASSIVE_LEVEL调用。
+ﾉ
+展开表
+GPIO_CLIENT_RESTORE_BANK_HARDWARE
+_CONTEXT回调函数 （gpioclx.h）项目2025/02/07
+CLIENT_RestoreBankHardwareContext 事件回调函数还原通用 I/O（GPIO）引脚的一组硬件上下文。
+语法 C++
+GPIO_CLIENT_RESTORE_BANK_HARDWARE_CONTEXT GpioClientRestoreBankHardwareContext;
+void GpioClientRestoreBankHardwareContext(   [in] PVOID Context,
+  [in] PGPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS Parameters)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in] Parameters
+指向描述要还原的 GPIO 引脚库的
+GPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS 结构的指针。
+返回值没有
+言论
+如果调用成功，CLIENT_RestoreBankHardwareContext 函数将返回STATUS_SUCCESS。 否则，它将返回适当的错误状态代码。
+如果 GPIO 引脚的银行支持组件级电源管理，则如果银行处于空闲状态，GpioClx 可以将银行切换到低功率 Fx 状态。 如果 GPIO 控制器银行在 Fx 状态下丢失其硬件上下文，GPIO 控制器驱动
+程序必须在 F0-to-Fx 转换之前保存此上下文，稍后在 Fx 到 F0 转换之后还原上下文。 目前，F1 是唯一为使用 GpioClx 的 GPIO 控制器定义的低功率状态。
+GpioClx 调用 CLIENT_RestoreBankHardwareContext 函数来还原银行以前保存的硬件上下文。 硬件上下文以前由 CLIENT_SaveBankHardwareContext 事件回调函数保存。
+某些 GPIO 控制器设备使所选的引脚库能够独立于同一设备中的其他银行打开和关闭。 因此，可以通过关闭空闲的银行来节省电源。
+若要注册驱动程序的 CLIENT_RestoreBankHardwareContext 回调函数，请调用 GPIO_CLX_RegisterClient 方法。 此方法接受作为输入参数的指针，指向包含
+CLIENT_RestoreBankHardwareContext 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结构。
+GpioClx 在 PASSIVE_LEVEL 或 DIRQL 上调用 CLIENT_RestoreBankHardwareContext 回调函数，具体取决于 CLIENT_QueryControllerBasicInformation 回调函数提供给 GpioClx 的设备信息。 CLIENT_QueryControllerBasicInformation 函数以 CLIENT_CONTROLLER_BASIC_INFORMATION 结构的形式提供设备信息。 如果在 标志 成员中设置了 MemoryMappedController 标志位， GpioClx 将在 DIRQL 调用 CLIENT_RestoreBankHardwareContext 函数，这是 GPioClx 中 ISR 运行的 IRQL。 否则，会在PASSIVE_LEVEL调用此函数。 有关此标志位的详细信息，请参阅 可选和必
+需的 GPIO 回调函数。例子
+若要定义 CLIENT_RestoreBankHardwareContext 回调函数，必须先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 的 MyEvtGpioRestoreBankHardwareContext  回调函数，请使用
+GPIO_CLIENT_RESTORE_BANK_HARDWARE_CONTEXT函数类型，如以下代码示例所示： C++
+GPIO_CLIENT_RESTORE_BANK_HARDWARE_CONTEXT MyEvtGpioRestoreBankHardwareContext; </pre>
+然后，按如下所示实现回调函数： C++
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioRestoreBankHardwareContext(
+    PVOID Context,
+    PGPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS Parameters
+    ){ ... }
+GPIO_CLIENT_RESTORE_BANK_HARDWARE_CONTEXT函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中
+GPIO_CLIENT_RESTORE_BANK_HARDWARE_CONTEXT函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函数。 有关 Use_decl_annotations的
+详细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+请参阅“备注”。
+CLIENT_CONTROLLER_BASIC_INFORMATION CLIENT_QueryControllerBasicInformation
+CLIENT_SaveBankHardwareContext GPIO_CLIENT_REGISTRATION_PACKET GPIO_CLX_RegisterClient
+GPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS
+展开表
+GPIO_CLIENT_SAVE_BANK_HARDWARE_CO
+NTEXT回调函数 （gpioclx.h）项目2025/02/07
+CLIENT_SaveBankHardwareContext 事件回调函数保存常规用途 I/O（GPIO）引脚的银行的硬件
+上下文。语法 C++
+GPIO_CLIENT_SAVE_BANK_HARDWARE_CONTEXT GpioClientSaveBankHardwareContext;
+void GpioClientSaveBankHardwareContext(   [in] PVOID Context,
+  [in] PGPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS Parameters)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in] Parameters
+指向描述要保存的 GPIO 引脚库的
+GPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS 结构的指针。
+返回值没有
+言论
+如果调用成功，CLIENT_SaveBankHardwareContext 函数将返回STATUS_SUCCESS。 否则，它将返回适当的错误状态代码。
+如果 GPIO 引脚的银行支持组件级电源管理，则如果银行处于空闲状态，GpioClx 可以将银行切换到低功率 Fx 状态。 如果 GPIO 控制器银行在 Fx 状态下丢失其硬件上下文，GPIO 控制器驱动
+程序必须在 F0-to-Fx 转换之前保存此上下文，稍后在 Fx 到 F0 转换之后还原上下文。 目前，F1 是唯一为使用 GpioClx 的 GPIO 控制器定义的低功率状态。
+GpioClx 调用 CLIENT_SaveBankHardwareContext 函数以保存银行的硬件上下文。 稍后，
+GpioClx 调用 CLIENT_RestoreBankHardwareContext 事件回调函数来还原以前保存的上下文。某些 GPIO 控制器设备使所选的引脚库能够独立于同一设备中的其他银行打开和关闭。 因此，可以通过关闭空闲的银行来节省电源。
+若要注册驱动程序的 CLIENT_SaveBankHardwareContext 回调函数，请调用 GPIO_CLX_RegisterClient 方法。 此方法接受作为输入参数的指针，指向包含
+CLIENT_SaveBankHardwareContext 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结构。 GpioClx 在 PASSIVE_LEVEL 或 DIRQL 上调用 CLIENT_SaveBankHardwareContext 回调函数，具体取决于 CLIENT_QueryControllerBasicInformation 回调函数提供给 GpioClx 的设备信息。
+CLIENT_QueryControllerBasicInformation 函数以 CLIENT_CONTROLLER_BASIC_INFORMATION 结构的形式提供设备信息。 如果在 标志 成员中设置了 MemoryMappedController 标志位， GpioClx 将在 DIRQL 调用 CLIENT_SaveBankHardwareContext 函数，这是 GPioClx 中 ISR 运行的
+IRQL。 有关此标志位的详细信息，请参阅 可选和必需的 GPIO 回调函数。例子
+若要定义 CLIENT_SaveBankHardwareContext 回调函数，必须先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 的 MyEvtGpioSaveBankHardwareContext  回调函数，请使用
+GPIO_CLIENT_SAVE_BANK_HARDWARE_CONTEXT函数类型，如以下代码示例所示： GPIO_CLIENT_SAVE_BANK_HARDWARE_CONTEXT MyEvtGpioSaveBankHardwareContext;
+然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioSaveBankHardwareContext(     PVOID Context,
+    PGPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS Parameters
+    ){ ... }
+GPIO_CLIENT_SAVE_BANK_HARDWARE_CONTEXT函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中
+GPIO_CLIENT_SAVE_BANK_HARDWARE_CONTEXT函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函数。 有关 Use_decl_annotations的详
+细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+请参阅“备注”。
+CLIENT_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation CLIENT_RestoreBankHardwareContext GPIO_CLIENT_REGISTRATION_PACKET GPIO_CLX_RegisterClient
+GPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS
+展开表
+GPIO_CLIENT_START_CONTROLLER回调函
+数 （gpioclx.h）项目2025/02/07
+CLIENT_StartController 事件回调函数执行常规用途 I/O（GPIO） 控制器设备进入 D0 电源状态时所需的作。
+语法 C++
+GPIO_CLIENT_START_CONTROLLER GpioClientStartController;
+NTSTATUS GpioClientStartController(   [in] PVOID Context,
+  [in] BOOLEAN RestoreContext,
+  [in] WDF_POWER_DEVICE_STATE PreviousPowerState)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in] RestoreContext
+客户端驱动程序是否应将 GPIO 控制器还原到以前保存的硬件上下文。 如果为 TRUE，则应还原
+硬件上下文。 如果为 FALSE，则不应还原硬件上下文。 有关详细信息，请参阅“备注”。[in] PreviousPowerState
+以前的设备电源状态。 此参数是一个 WDF_POWER_DEVICE_STATE 枚举值，该值指定设备从中进入 D0 电源状态的低功率状态。 GPIO 控制器驱动程序可以使用此信息来确定如何配置控制器
+设备，使其可供使用。返回值
+如果调用成功，CLIENT_StartController 函数将返回STATUS_SUCCESS。 否则，它将返回适当的错误代码。
+言论
+此回调函数由 GPIO 控制器驱动程序实现。 GPIO 框架扩展 （GpioClx） 调用此函数，将 GPIO 控制器设备置于系统启动时的已知初始状态，或者当设备从低功率状态转换为工作状态时。 此回调函数必须执行设备从低功率状态唤醒后所需的任何作，例如还原设备进入 D0 电源状态后驱动程序所需的任何信息。
+通常，CLIENT_StartController 回调函数将所有 GPIO 引脚设置为其默认状态。
+若要注册驱动程序的 CLIENT_StartController 回调函数，请调用 GPIO_CLX_RegisterClient 方法。
+此方法接受作为输入参数的指针，指向包含 CLIENT_StartController 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结构。
+尽管在 IRQL = PASSIVE_LEVEL 调用 CLIENT_StartController 回调函数，但不应使此函数 可分页。 CLIENT_StartController 回调位于关键计时路径中，用于将电源还原到硬件平台中的设备，
+出于性能原因，不应因页面故障而延迟。例子
+若要定义 CLIENT_StartController 回调函数，必须先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于
+驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 的 MyEvtGpioStartController  回调函数，请使用 GPIO_CLIENT_START_CONTROLLER函数类型，如以下代码示例所示：
+GPIO_CLIENT_START_CONTROLLER MyEvtGpioStartController; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ VOID
+  MyEvtGpioStartController(     PVOID Context,
+    BOOLEAN RestoreContext,
+    WDF_POWER_DEVICE_STATE PreviousPowerState
+    ){ ... }
+GPIO_CLIENT_START_CONTROLLER函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。
+Use_decl_annotations 批注可确保使用应用于头文件中GPIO_CLIENT_START_CONTROLLER函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函
+数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+在PASSIVE_LEVEL打电话（见“备注”）。
+GPIO_CLIENT_REGISTRATION_PACKET GPIO_CLX_RegisterClient
+展开表
+GPIO_CLIENT_STOP_CONTROLLER回调函
+数 （gpioclx.h）项目2025/02/07
+CLIENT_StopController 事件回调函数执行准备常规用途 I/O（GPIO） 控制器设备以退出 D0 电源状态所需的作。
+语法 C++
+GPIO_CLIENT_STOP_CONTROLLER GpioClientStopController;
+NTSTATUS GpioClientStopController(   [in] PVOID Context,
+  [in] BOOLEAN SaveContext,
+  [in] WDF_POWER_DEVICE_STATE TargetState)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in] SaveContext
+客户端驱动程序是否应保存 GPIO 控制器设备的当前硬件上下文。 如果为 TRUE，则应保
+存硬件上下文。 如果为 FALSE，则不应保存硬件上下文。 有关详细信息，请参阅“备注”。
+[in] TargetState
+目标设备电源状态。 此参数是一个 WDF_POWER_DEVICE_STATE 枚举值，该值指定设备退出 D0 电源状态时要进入的低功率状态。 GPIO 控制器驱动程序可以使用此信息来确定
+在控制器设备离开 D0 之前如何配置控制器设备。返回值
+如果调用成功，CLIENT_StopController 函数将返回STATUS_SUCCESS。 否则，它将返回
+适当的错误代码。言论
+此回调函数由 GPIO 控制器驱动程序实现。 GPIO 框架扩展 （GpioClx） 调用此函数来准备要关闭的 GPIO 控制器设备或转换为低功率状态。 此回调函数必须执行设备进入低功率状态之前所需的任何作，例如保存驱动程序稍后在设备还原到 D0 电源状态后需要的任何信息。
+通常，CLIENT_StopController 回调函数将 GPIO 引脚配置为特定于平台的初始状态。 例如，此函数可以将所有 GPIO 引脚配置为输入，以防止在 GPIO 控制器设备关闭时发生输出暂时性。
+若要注册驱动程序的 CLIENT_StopController 回调函数，请调用 GPIO_CLX_RegisterClient 方法。 此方法接受作为输入参数的指针，指向包含 CLIENT_StopController 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结构。
+尽管在 IRQL = PASSIVE_LEVEL 调用 CLIENT_StopController 回调函数，但不应使此函数可分页。 CLIENT_StopController 回调位于关键计时路径中，用于将电源还原到硬件平台中
+的设备，出于性能原因，它不应因页面故障而延迟。例子
+若要定义 CLIENT_StopController 回调函数，必须首先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 MyEvtGpioStopController 的 CLIENT_StopController 回调函数，请使用GPIO_CLIENT_STOP_CONTROLLER函数类型，如以下代码示例所示：
+GPIO_CLIENT_STOP_CONTROLLER  MyEvtGpioStopController; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ VOID
+  MyEvtGpioStopController(     PVOID Context,
+    BOOLEAN RestoreContext,
+    WDF_POWER_DEVICE_STATE TargetState
+    ){ ... }
+GPIO_CLIENT_STOP_CONTROLLER函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中GPIO_CLIENT_STOP_CONTROLLER 函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角
+色类型声明函数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+GPIO_CLIENT_REGISTRATION_PACKET
+GPIO_CLX_RegisterClient 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+在PASSIVE_LEVEL调用。
+| 在 Microsoft Q&A 获取帮助
+展开表
+GPIO_CLIENT_UNMASK_INTERRUPT回调
+函数 （gpioclx.h）项目2025/02/07
+CLIENT_UnmaskInterrupt 事件回调函数在配置为中断输入的常规用途 I/O （GPIO） 引脚上取消屏蔽中断。
+语法 C++
+GPIO_CLIENT_UNMASK_INTERRUPT GpioClientUnmaskInterrupt;
+NTSTATUS GpioClientUnmaskInterrupt(   [in] PVOID Context,
+  [in] PGPIO_ENABLE_INTERRUPT_PARAMETERS InterruptParameters)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in] InterruptParameters
+指向 GPIO_ENABLE_INTERRUPT_PARAMETERS 结构的指针，该结构指定 GPIO 引脚并描
+述此引脚的中断属性。返回值
+如果调用成功，CLIENT_UnmaskInterrupt 函数将返回STATUS_SUCCESS。 否则，它将返
+回适当的错误代码。言论
+此回调函数由 GPIO 控制器驱动程序实现。 GPIO 框架扩展 （GpioClx） 调用此函数，以在配置为中断请求输入的 GPIO 引脚上取消屏蔽中断。 有关详细信息，请参阅 GPIO 中断掩码。
+若要注册驱动程序的 CLIENT_UnmaskInterrupt 回调函数，请调用
+GPIO_CLX_RegisterClient 方法。 此方法接受作为输入参数的指针，指向包含
+CLIENT_UnmaskInterrupt 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结构。 CLIENT_UnmaskInterrupt 函数从 GpioClx 中的中断服务例程（ISR）调用。 此 ISR 在
+PASSIVE_LEVEL 或 DIRQL 上运行，具体取决于 CLIENT_QueryControllerBasicInformation 回调函数提供给 GpioClx 的设备信息。 CLIENT_QueryControllerBasicInformation 函数以 CLIENT_CONTROLLER_BASIC_INFORMATION 结构的形式提供设备信息。 如果
+MemoryMappedController 标志位在 标志 此结构的成员中设置，则 GpioClx ISR 在 DIRQL 上运行，并在 DIRQL 中调用 CLIENT_UnmaskInterrupt 函数。 否则，ISR 在
+PASSIVE_LEVEL运行，并在PASSIVE_LEVEL调用该函数。 有关此标志位的详细信息，请参
+阅 可选和必需的 GPIO 回调函数。例子
+若要定义 CLIENT_UnmaskInterrupt 回调函数，必须首先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 MyEvtGpioUnmaskInterrupt 的 CLIENT_UnmaskInterrupt 回调函数，请使用GPIO_CLIENT_UNMASK_INTERRUPT函数类型，如以下代码示例所示：
+GPIO_CLIENT_UNMASK_INTERRUPT MyEvtGpioUnmaskInterrupt; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioUnmaskInterrupt(     PVOID Context,
+    PGPIO_ENABLE_INTERRUPT_PARAMETERS InterruptParameters
+    ){ ... }
+GPIO_CLIENT_UNMASK_INTERRUPT函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中
+GPIO_CLIENT_UNMASK_INTERRUPT函数类型的批注。 有关函数声明要求的详细信息，
+请参阅 使用 KMDF 驱动程序的函数角色类型声明函数。 有关 Use_decl_annotations的详
+细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+GPIO_CLIENT_REGISTRATION_PACKET GPIO_CLX_RegisterClient
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+请参阅“备注”。
+GPIO_ENABLE_INTERRUPT_PARAMETERS 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+GPIO_CLIENT_WRITE_PINS回调函数
+（gpioclx.h）项目2025/02/07
+CLIENT_WriteGpioPins 事件回调函数写入配置为数据输出的一组常规用途 I/O （GPIO） 引脚。
+语法 C++
+GPIO_CLIENT_WRITE_PINS GpioClientWritePins;
+NTSTATUS GpioClientWritePins(   [in] PVOID Context,
+  [in] PGPIO_WRITE_PINS_PARAMETERS WriteParameters)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in] WriteParameters
+指向 GPIO_WRITE_PINS_PARAMETERS 结构的指针，该结构描述 GPIO 引脚的一组，并包含要写
+入到这些引脚的数据。返回值
+如果调用成功，CLIENT_WriteGpioPins 函数将返回STATUS_SUCCESS。 否则，它将返回适当的错
+误代码。言论
+此回调函数由 GPIO 控制器驱动程序实现。 GpioClx 调用此函数。
+PinNumberTable 数组中的所有引脚都属于由 BankId 参数标识的银行。
+若要注册驱动程序的 CLIENT_WriteGpioPins 回调函数，请调用 GPIO_CLX_RegisterClient 方法。
+此方法接受作为输入参数的指针，指向包含 CLIENT_WriteGpioPins 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结构。
+可以从 GpioClx 中的中断服务例程（ISR）调用 CLIENT_WriteGpioPins 函数。 此 ISR 在
+PASSIVE_LEVEL 或 DIRQL 上运行，具体取决于 CLIENT_QueryControllerBasicInformation 回调函
+数提供给 GpioClx 的设备信息。 CLIENT_QueryControllerBasicInformation 函数以 CLIENT_CONTROLLER_BASIC_INFORMATION 结构的形式提供设备信息。 如果
+MemoryMappedController 标志位在 标志 此结构的成员中设置，则 GpioClx ISR 在 DIRQL 上运行，并在 DIRQL 中调用 CLIENT_WriteGpioPins 函数。 否则，ISR 在PASSIVE_LEVEL运行，并在 PASSIVE_LEVEL调用该函数。 有关此标志位的详细信息，请参阅 可选和必需的 GPIO 回调函数。
+例子
+若要定义 CLIENT_WriteGpioPins 回调函数，必须先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于
+驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 的 MyEvtGpioWriteGpioPins  回调函数，请使用GPIO_CLIENT_WRITE_PINS 函数类型，如以下代码示例所示：
+GPIO_CLIENT_WRITE_PINS MyEvtGpioWritePins; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtGpioWritePins(     PVOID Context,
+    PGPIO_WRITE_PINS_MASK_PARAMETERS WriteParameters
+    ){ ... }
+GPIO_CLIENT_WRITE_PINS函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中GPIO_CLIENT_WRITE_PINS函数类型的批注。 有关函数声明要求
+的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。
+要求要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+请参阅“备注”。
+CLIENT_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation GPIO_CLIENT_REGISTRATION_PACKET GPIO_CLX_RegisterClient
+GPIO_WRITE_PINS_PARAMETERS
+ﾉ
+展开表
+GPIO_CLIENT_WRITE_PINS_MASK回调函数
+（gpioclx.h）项目2025/02/07
+CLIENT_WriteGpioPinsUsingMask 事件回调函数写入配置为数据输出的一组常规用途 I/O（GPIO） 引脚。
+语法 C++
+GPIO_CLIENT_WRITE_PINS_MASK GpioClientWritePinsMask;
+NTSTATUS GpioClientWritePinsMask(   [in] PVOID Context,
+  [in] PGPIO_WRITE_PINS_MASK_PARAMETERS WriteParameters)
+{...}
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。[in] WriteParameters
+指向 GPIO_WRITE_PINS_MASK_PARAMETERS 结构的指针，该结构描述 GPIO 引脚的一组，并包
+含要写入到这些引脚的数据。返回值
+如果调用成功，CLIENT_WriteGpioPinsUsingMask 函数将返回STATUS_SUCCESS。 否则，它将返
+回适当的错误代码。言论
+此回调函数由 GPIO 控制器驱动程序实现。 GpioClx 调用此函数以写入指定的 GPIO 引脚集。此函数要写入到的 GPIO 引脚由两个 64 位掩码指定。 第一个掩码指定一组要设置为 1 的 GPIO 引脚;如果相应的 GPIO 引脚设置为 1，则此掩码中的位为 1。 第二个掩码指定要设置为 0 的一
+组 GPIO 引脚;如果相应的 GPIO 引脚设置为 0，则此掩码中的位为 1。若要注册驱动程序的 CLIENT_WriteGpioPinsUsingMask 回调函数，请调用 GPIO_CLX_RegisterClient 方法。 此方法接受作为输入参数的指针，指向包含
+CLIENT_WriteGpioPinsUsingMask 函数指针的 GPIO_CLIENT_REGISTRATION_PACKET 结构。可以从 GpioClx 中的中断服务例程（ISR）调用 CLIENT_WriteGpioPinsUsingMask 函数。 此 ISR 在 PASSIVE_LEVEL 或 DIRQL 上运行，具体取决于 CLIENT_QueryControllerBasicInformation 回
+调函数提供给 GpioClx 的设备信息。 CLIENT_QueryControllerBasicInformation 函数以 CLIENT_CONTROLLER_BASIC_INFORMATION 结构的形式提供设备信息。 如果
+MemoryMappedController 标志位在 标志 此结构的成员中设置，GpioClx ISR 将在 DIRQL 上运行，并在 DIRQL 上调用 CLIENT_WriteGpioPinsUsingMask 函数。 否则，ISR 在PASSIVE_LEVEL运行，并在PASSIVE_LEVEL调用该函数。 有关此标志位的详细信息，请参阅 可选和必需的 GPIO 回
+调函数。例子
+若要定义 CLIENT_WriteGpioPinsUsingMask 回调函数，必须首先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 的 MyEvtGpioWriteGpioPinsUsingMask  回调函数，请使用
+GPIO_CLIENT_WRITE_PINS_MASK函数类型，如以下代码示例所示： GPIO_CLIENT_WRITE_PINS_MASK  MyEvtGpioWritePinsUsingMask;
+然后，按如下所示实现回调函数：
+_Use_decl_annotations_ VOID
+  MyEvtGpioWritePinsUsingMask(     PVOID Context,
+    PGPIO_WRITE_PINS_MASK_PARAMETERS WriteParameters
+    ){ ... }
+GPIO_CLIENT_WRITE_PINS_MASK函数类型在 Gpioclx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。
+Use_decl_annotations 批注可确保使用应用于头文件中GPIO_CLIENT_WRITE_PINS_MASK函数类
+型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函
+数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+从 Windows 8 开始支持。桌面
+gpioclx.h
+请参阅“备注”。
+CLIENT_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation GPIO_CLIENT_REGISTRATION_PACKET GPIO_CLX_RegisterClient
+GPIO_WRITE_PINS_MASK_PARAMETERS
+展开表
+GPIO_CLX_AcquireInterruptLock函数
+（gpioclx.h）项目2025/02/07
+GPIO_CLX_AcquireInterruptLock 方法获取常规用途 I/O（GPIO） 控制器中引脚的一个中断锁。
+语法 C++
+void GPIO_CLX_AcquireInterruptLock(
+  [in] PVOID   Context,   [in] BANK_ID BankId);
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。 GPIO 框架扩展 （GpioClx） 将此指针值作为参
+数传递给 GPIO 控制器驱动程序实现的回调函数。[in] BankId
+此 GPIO 引脚库的标识符。 如果 N 是 GPIO 控制器中的银行数，BankId 是 0 到 N–1 范围内的整数。
+返回值没有
+言论
+GPIO 控制器驱动程序线程调用此方法以同步到 GpioClx 中的中断服务例程（ISR）。 当调用方
+持有中断锁时，ISR 无法调用驱动程序实现的回调函数来访问指定银行中的 GPIO 寄存器。 GPIO 控制器驱动程序应在尝试访问 GpioClx ISR 可能访问的 GPIO 寄存器之前调用此方法。
+GpioClx ISR 调用驱动程序实现的回调函数以访问中断状态并在 GPIO 控制器中启用寄存器。 根
+据 GPIO 控制器的功能，ISR 在 DIRQL 或 PASSIVE_LEVEL 调用。 有关详细信息，请参阅 Interrupt-Related 回调。
+如果 GpioClx ISR 访问 DIRQL 上的这些中断寄存器，GPIO_CLX_AcquireInterruptLock 将调用线程的 IRQL 提升到运行 ISR 的 DIRQL。 如果 ISR 在PASSIVE_LEVEL运行，此方法不会更改调用线程的 IRQL。
+GPIO_CLX_ReleaseInterruptLock 方法释放在上一次调用 GPIO_CLX_AcquireInterruptLock中获
+取的中断锁。 BankId 参数指定受锁影响的银行。 若要释放银行上的锁， GPIO_CLX_ReleaseInterruptLock 调用的 BankId 参数必须与获取锁的
+GPIO_CLX_AcquireInterruptLock 调用的 BankId 参数匹配。 如果 GPIO_CLX_AcquireInterruptLock 调用引发了调用线程的 IRQL， GPIO_CLX_ReleaseInterruptLock 还原此线程的原始 IRQL。
+GPIO 控制器驱动程序可以独立获取和释放 GPIO 控制器中各银行的中断锁。 但是，如果驱动程序已在此银行上持有锁，则驱动程序尝试获取特定银行上的锁是一个致命错误。
+如果 上下文 参数为 NULL 或指向无效的 GPIO 设备上下文，此方法会导致在 GpioClx 的调试版
+本中进行 bug 检查。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头库 IRQL
+另请参阅
+价值
+从 Windows 8 开始可用。普遍
+gpioclx.h
+Msgpioclxstub.lib
+DIRQL 或PASSIVE_LEVEL。 请参阅“备注”。
+GPIO_CLX_ReleaseInterruptLock
+展开表
+GPIO_CLX_ProcessAddDevicePostDeviceCre
+ate函数 （gpioclx.h）项目2025/02/07
+GPIO_CLX_ProcessAddDevicePostDeviceCreate 方法将框架设备对象传递给 GPIO 框架扩展（GpioClx）。
+语法 C++
+NTSTATUS GPIO_CLX_ProcessAddDevicePostDeviceCreate(
+  [in] WDFDRIVER Driver,   [in] WDFDEVICE Device);
+参数[in] Driver
+GPIO 控制器驱动程序的框架驱动程序对象的 WDFDRIVER 句柄。[in] Device
+表示 GPIO 控制器的框架设备对象的 WDFDEVICE 句柄。 调用方从创建设备对象的
+WdfDeviceCreate 调用中获取此句柄。返回值
+如果调用成功，GPIO_CLX_ProcessAddDevicePostDeviceCreate 返回STATUS_SUCCESS。 可能的返回值包括以下错误代码。
+ﾉ
+返回代码
+STATUS_INVALID_PARAMETER STATUS_UNSUCCESSFUL
+STATUS_INSUFFICIENT_RESOURCES
+描述
+调用方不是 GpioClx 的已注册客户端。框架找不到 GPIO 控制器的设备名称。内存不足。
+展开表
+言论
+在调用 WdfDeviceCreate 方法（用于创建表示 GPIO 控制器的设备对象 （FDO）后，GPIO 控制器驱动程序必须在其 EvtDriverDeviceAdd 回调函数中调用此方法。 否则，GpioClx 无法处理新设备对象的 I/O 请求或处理中断。
+有关包含对 GPIO_CLX_ProcessAddDevicePostDeviceCreate的调用的代码示例，请参阅
+GPIO_CLX_ProcessAddDevicePreDeviceCreate。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头库 IRQL
+另请参阅 EvtDriverDeviceAdd
+价值
+从 Windows 8 开始可用。普遍
+gpioclx.h
+Msgpioclxstub.lib PASSIVE_LEVEL
+GPIO_CLX_ProcessAddDevicePreDeviceCreate WdfDeviceCreate
+展开表
+GPIO_CLX_ProcessAddDevicePreDeviceC
+reate函数 （gpioclx.h）项目2025/02/07
+GPIO_CLX_ProcessAddDevicePreDeviceCreate 方法将初始化信息加载到作为输入参数传递给 WdfDeviceCreate 方法的两个结构中。
+语法 C++
+NTSTATUS GPIO_CLX_ProcessAddDevicePreDeviceCreate(   [in]      WDFDRIVER              Driver,
+  [in, out] PWDFDEVICE_INIT        DeviceInit,   [out]     PWDF_OBJECT_ATTRIBUTES FdoAttributes);
+参数[in] Driver
+GPIO 控制器驱动程序的框架驱动程序对象的 WDFDRIVER 句柄。[in, out] DeviceInit
+指向框架分配 WDFDEVICE_INIT 结构的指针。 此方法将初始化信息加载到此结构中。 返
+回时，此结构已准备好用作 WdfDeviceCreate 方法的输入参数。[out] FdoAttributes
+指向调用方分配 WDF_OBJECT_ATTRIBUTES 结构的指针。 此方法将初始化信息加载到此
+结构中。 返回时，此结构已准备好用作 WdfDeviceCreate 方法的输入参数。返回值
+如果调用成功，GPIO_CLX_ProcessAddDevicePreDeviceCreate 返回STATUS_SUCCESS。可能的返回值包括以下错误代码。
+ﾉ
+展开表
+返回代码
+STATUS_INVALID_PARAMETER
+STATUS_INSUFFICIENT_RESOURCES 言论
+描述
+调用方不是 GpioClx 的已注册客户端。内存不足。
+GPIO 控制器驱动程序必须在调用 EvtDriverDeviceAdd 回调函数中调用此方法，然后才能
+调用 WdfDeviceCreate 方法，该方法创建表示 GPIO 控制器的设备对象（FDO）。 否则，GPIO 框架扩展 （GpioClx） 无法处理新框架设备对象的 I/O 请求或处理中断。
+例子
+下面的代码示例演示“XYZ”GPIO 控制器设备的 GPIO 控制器驱动程序中的
+EvtDriverDeviceAdd 回调函数。 NTSTATUS
+  XyzEvtDriverDeviceAdd(     _In_ WDFDRIVER Driver,
+    _Inout_ PWDFDEVICE_INIT DeviceInit
+    ){
+    WDFDEVICE Device;
+    WDF_OBJECT_ATTRIBUTES FdoAttributes;     NTSTATUS Status;
+    Status = GPIO_CLX_ProcessAddDevicePreDeviceCreate(Driver,
+                                                      DeviceInit,
+                                                      &FdoAttributes);
+    if (!NT_SUCCESS(Status)) {         goto ExitDeviceAdd;
+    }     //
+    // Call the framework to create the device and attach it to the lower 
+stack.     //
+    Status = WdfDeviceCreate(&DeviceInit, &FdoAttributes, &Device);     if (!NT_SUCCESS(Status)) {
+        goto ExitDeviceAdd;     }
+    Status = GPIO_CLX_ProcessAddDevicePostDeviceCreate(Driver, Device);
+    if (!NT_SUCCESS(Status)) {         goto ExitDeviceAdd;
+    }
+ExitDeviceAdd:
+    return Status;}
+在前面的代码示例中，WdfDeviceCreate 调用创建表示 GPIO 控制器设备的框架设备对象。 此调用点的两个输入参数用于 WDFDEVICE_INIT 和 WDF_OBJECT_ATTRIBUTES 结构。 这些结构由 GPIO_CLX_ProcessAddDevicePreDeviceCreate 调用修改，该调用位于
+WdfDeviceCreate 调用之前。 WdfDeviceCreate 调用中的输出参数 Device是 GPIO_CLX_ProcessAddDevicePostDeviceCreate 调用的输入参数，该参数遵循
+WdfDeviceCreate 调用。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头库 IRQL
+另请参阅 EvtDriverDeviceAdd
+价值
+从 Windows 8 开始可用。普遍
+gpioclx.h
+Msgpioclxstub.lib PASSIVE_LEVEL
+GPIO_CLX_ProcessAddDevicePostDeviceCreate WDFDEVICE_INIT
+WDF_OBJECT_ATTRIBUTES
+WdfDeviceCreate 反馈
+展开表
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+GPIO_CLX_RegisterClient函数 （gpioclx.h）项目2025/02/07
+GPIO_CLX_RegisterClient 方法将常规用途 I/O （GPIO） 控制器驱动程序注册为 GPIO 框架扩展（GpioClx）的客户端。
+语法 C++
+NTSTATUS GPIO_CLX_RegisterClient(
+  [in]      WDFDRIVER                        Driver,
+  [in, out] PGPIO_CLIENT_REGISTRATION_PACKET RegistrationPacket,
+  [in]      PUNICODE_STRING                  RegistryPath);
+参数[in] Driver
+GPIO 控制器驱动程序的框架驱动程序对象的 WDFDRIVER 句柄。[in, out] RegistrationPacket
+指向调用方分配 GPIO_CLIENT_REGISTRATION_PACKET 结构的指针，该结构包含调用方注册信息。 此结构包含指向 GPIO 控制器驱动程序实现的事件回调函数的指针。 此外，此结构指定
+GPIO 控制器驱动程序对其内部配置数据和状态信息所需的设备上下文的大小。[in] RegistryPath
+指向包含 GPIO 控制器驱动程序注册表项路径名称的 UNICODE_STRING 结构的指针。 此参数应是传递给驱动程序的 DriverEntry 例程的注册表路径名称。 有关驱动程序注册表项的详细信息，
+请参阅 设备和驱动程序的注册表树。返回值
+如果调用成功，GPIO_CLX_RegisterClient 返回STATUS_SUCCESS。 可能的返回值包括以下错误代码。
+ﾉ
+返回代码
+描述
+展开表
+STATUS_INVALID_PARAMETER
+STATUS_GPIO_INVALID_REGISTRATION_PACKET
+STATUS_INSUFFICIENT_RESOURCES 言论
+Driver、RegistrationPacket或 RegistryPath 参数为 NULL。
+指定的注册数据包无效。内存不足。
+GPIO 控制器驱动程序调用此方法，以向 GpioClx 注册其事件回调函数。 通常，驱动程序从其 DriverEntry 例程调用此方法，该例程在将驱动程序加载到内存后不久运行。
+稍后，在 GPIO 控制器驱动程序卸载之前，驱动程序调用 GPIO_CLX_UnregisterClient 方法以取
+消其与 GpioClx 的注册。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头库 IRQL
+另请参阅 DriverEntry
+GPIO_CLIENT_REGISTRATION_PACKET
+GPIO_CLX_UnregisterClient UNICODE_STRING
+价值
+从 Windows 8 开始可用。普遍
+gpioclx.h
+Msgpioclxstub.lib PASSIVE_LEVEL
+展开表
+GPIO_CLX_ReleaseInterruptLock函数
+（gpioclx.h）项目2025/02/07
+GPIO_CLX_ReleaseInterruptLock 方法释放指定银行上的中断锁。
+语法 C++
+void GPIO_CLX_ReleaseInterruptLock(
+  [in] PVOID   Context,   [in] BANK_ID BankId);
+参数[in] Context
+指向 GPIO 控制器驱动程序 设备上下文的指针。 GPIO 框架扩展 （GpioClx） 将此指针值
+作为参数传递给 GPIO 控制器驱动程序实现的回调函数。[in] BankId
+此 GPIO 引脚库的标识符。 如果 N 是 GPIO 控制器中的银行数，BankId 是 0 到 N–1 范
+围内的整数。返回值没有
+言论
+此方法释放调用方在对 GPIO_CLX_AcquireInterruptLock 方法的上一次调用中获取的中断锁。
+如果对 GPIO_CLX_AcquireInterruptLock 方法的上一次调用引发了调用线程的 IRQL， GPIO_CLX_ReleaseInterruptLock 将此 IRQL 还原到其原始级别。
+如果 上下文 参数为 NULL 或指向无效的 GPIO 设备上下文，此方法会导致在 GpioClx 的
+调试版本中进行 bug 检查。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头库 IRQL
+另请参阅
+GPIO_CLX_AcquireInterruptLock 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始可用。普遍
+gpioclx.h
+Msgpioclxstub.lib 请参阅“备注”。
+| 在 Microsoft Q&A 获取帮助
+展开表
+GPIO_CLX_UnregisterClient函数
+（gpioclx.h）项目2025/02/07
+GPIO_CLX_UnregisterClient 方法删除使用 GPIO 框架扩展（GpioClx）注册通用 I/O（GPIO）控制器驱动程序。
+语法 C++
+NTSTATUS GPIO_CLX_UnregisterClient(
+  [in] WDFDRIVER Driver);
+参数[in] Driver
+GPIO 控制器驱动程序的框架驱动程序对象的 WDFDRIVER 句柄。返回值
+如果调用成功，GPIO_CLX_UnregisterClient 返回STATUS_SUCCESS。 可能的返回值包括以下错误代码。
+ﾉ
+返回代码
+STATUS_NOT_FOUND 言论
+描述
+调用方不是 GpioClx 的已注册客户端。
+展开表
+GPIO 控制器驱动程序调用此方法以取消其注册。 在上一次调用 GPIO_CLX_RegisterClient 方法中注册的驱动程序。
+通常，GPIO 控制器驱动程序从其 EvtDriverUnload 事件回调函数调用此方法，该函数在驱动程序卸载前不久运行。
+要求要求
+最低支持的客户端目标平台
+标头库 IRQL
+另请参阅 EvtDriverUnload
+GPIO_CLX_RegisterClient 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始可用。普遍
+gpioclx.h
+Msgpioclxstub.lib PASSIVE_LEVEL
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+GPIO_CONNECT_IO_PINS_MODE枚举
+（gpioclx.h）项目2025/02/07
+GPIO_CONNECT_IO_PINS_MODE 枚举指示是否将一组常规用途 I/O （GPIO） 引脚配置为输入或输出。
+语法 C++
+typedef enum _GPIO_CONNECT_IO_PINS_MODE {
+  ConnectModeInvalid,   ConnectModeInput,   ConnectModeOutput,   ConnectModeMaximum
+} GPIO_CONNECT_IO_PINS_MODE, *PGPIO_CONNECT_IO_PINS_MODE; 常数
+ﾉ
+ 
+ConnectModeInvalid
+未初始化此 GPIO 引脚集的连接模式（输入或输出）。 ConnectModeInput
+此组 GPIO 引脚配置为数据输入。 ConnectModeOutput
+此组 GPIO 引脚配置为数据输出。
+ConnectModeMaximum 枚举中的最大值。
+言论
+GPIO_CONNECT_IO_PINS_PARAMETERS 结构的 ConnectMode 成员包含 GPIO_CONNECT_IO_PINS_MODE 枚举常量。
+展开表
+ConnectModeInput 枚举常量标记一组可由 IOCTL_GPIO_READ_PINS 请求读取的 GPIO 引脚。 ConnectModeOutput 标记一组可由 IOCTL_GPIO_WRITE_PINS 请求写入的 GPIO
+引脚。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+GPIO_CONNECT_IO_PINS_PARAMETERS
+IOCTL_GPIO_READ_PINS IOCTL_GPIO_WRITE_PINS
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+GPIO_CONNECT_IO_PINS_PARAMETERS
+结构（gpioclx.h）项目2025/02/07
+GPIO_CONNECT_IO_PINS_PARAMETERS 结构描述与一组常规用途 I/O （GPIO） 引脚的逻辑连接，并指定是将这些引脚配置为数据输入还是输出。
+语法 C++
+typedef struct _GPIO_CONNECT_IO_PINS_PARAMETERS {   BANK_ID                    BankId;
+  PPIN_NUMBER                PinNumberTable;   USHORT                     PinCount;
+  GPIO_CONNECT_IO_PINS_MODE  ConnectMode;
+  UCHAR                      PullConfiguration;   USHORT                     DebounceTimeout;
+  USHORT                     DriveStrength;   PVOID                      VendorData;
+  ULONG                      VendorDataLength;   GPIO_CONNECT_IO_PINS_FLAGS ConnectFlags;
+} GPIO_CONNECT_IO_PINS_PARAMETERS, *PGPIO_CONNECT_IO_PINS_PARAMETERS;
+成员 BankId
+包含 GPIO 引脚的银行的标识符。 如果 M 是 GPIO 控制器中的银行数，BankId 是 0 到 M–1 范围内的整数。 GPIO 框架扩展（GpioClx）以前从
+CLIENT_QueryControllerBasicInformation 事件回调函数中获取控制器中的银行数。 有关
+详细信息，请参阅 CLIENT_CONTROLLER_BASIC_INFORMATION中的备注。 PinNumberTable
+指向PIN_NUMBER值的数组的指针。 每个数组元素指定要连接到的 GPIO 引脚的数目。如果 N 是此银行中的引脚数，则引脚编号为 0 到 N–1。 此数组中的元素数由 PinCount
+成员指定。 PinCount
+PinNumberTable 数组中的元素数。
+ConnectMode
+新连接中的 GPIO 引脚是否应配置为输入或输出。 此参数的值 ConnectModeInput，用
+于只读连接，ConnectModeOutput 写入连接;（ConnectModeInput | ConnectModeOutput） 用于读/写连接。 有关详细信息，请参阅
+GPIO_CONNECT_IO_PINS_MODE。 PullConfiguration
+GPIO 引脚是拉起还是下拉。 此成员通常设置为以下系统定义的常量之一：
+GPIO_PIN_PULL_CONFIGURATION_PULLDEFAULT GPIO_PIN_PULL_CONFIGURATION_PULLUP
+GPIO_PIN_PULL_CONFIGURATION_PULLDOWN GPIO_PIN_PULL_CONFIGURATION_PULLNONE
+如果这些常量都未适当描述引脚配置，则可以将此成员设置为 128-255 范围内的供应商定义的常量。 有关这些常量的详细信息，请参阅
+GPIO_PIN_PULL_CONFIGURATION_XXX。 DebounceTimeout
+以 10 微秒为单位的反击时间。 例如，将 debounce 时间指定为 584 毫秒。 如果输入信号由机械开关生成，开关中的金属接触往往在开关打开或关闭后短暂反弹。 反转时间是
+输入信号的最小时间必须保持稳定，然后才能将信号解释为有效的高或低级别。 DriveStrength
+GPIO 引脚的驱动器强度（单位为 10 微采样）。 例如，驱动器强度为 1.21 毫米，指定为 121。
+VendorData
+指向调用方分配的缓冲区的指针，其中包含从硬件平台的 ACPI 固件获取的特定于供应商的数据。 此数据从 GPIO 资源描述符的 VendorData 字段中复制，该字段描述外围设备与 GPIO 控制器上的一组 GPIO 引脚之间的数据 I/O 连接。 此成员是可选的，如果固件未
+为此连接提供特定于供应商的数据，则设置为 NULL。 VendorDataLength
+VendorData 成员指向的数据缓冲区的大小（以字节为单位）。 如果 VendorData 为
+NULL，VendorDataLength 设置为零。 ConnectFlags
+一组用于控制 GPIO 引脚配置的标志。 当前没有为此成员定义任何标志。
+言论
+CLIENT_ConnectIoPins 事件回调例程的 ClientParameters 参数是指向
+GPIO_CONNECT_IO_PINS_PARAMETERS 结构的指针。要求
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_BASIC_INFORMATION CLIENT_ConnectIoPins
+CLIENT_QueryControllerBasicInformation GPIO_CONNECT_IO_PINS_MODE
+GPIO_PIN_PULL_CONFIGURATION_XXX 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+GPIO_DISABLE_INTERRUPT_PARAMETER
+S结构（gpioclx.h）项目2025/02/07
+GPIO_DISABLE_INTERRUPT_PARAMETERS 结构描述要禁用的常规用途 I/O （GPIO） 中
+断引脚。语法 C++
+typedef struct _GPIO_DISABLE_INTERRUPT_PARAMETERS {   BANK_ID                      BankId;
+  PIN_NUMBER                   PinNumber;   GPIO_DISABLE_INTERRUPT_FLAGS Flags;
+} GPIO_DISABLE_INTERRUPT_PARAMETERS, *PGPIO_DISABLE_INTERRUPT_PARAMETERS;
+成员 BankId
+包含要禁用的 GPIO 中断引脚的 GPIO 引脚的银行标识符。 如果 N 是 GPIO 控制器中的银行数，BankId 是 0 到 N–1 范围内的整数。 GPIO 框架扩展（GpioClx）以前从
+CLIENT_QueryControllerBasicInformation 事件回调函数中获取控制器中的银行数。 有关
+详细信息，请参阅 CLIENT_CONTROLLER_BASIC_INFORMATION中的备注。 PinNumber
+银行相对引脚号。 如果 N 是此银行中的数字引脚，则 PinNumber 是 0 到 N–1 范围内的整数。 GpioClx 以前从 CLIENT_QueryControllerBasicInformation 事件回调函数中获取每个银行中的引脚数。 有关详细信息，请参阅
+CLIENT_CONTROLLER_BASIC_INFORMATION中的 NumberOfPinsPerBank 成员的说明。 Flags
+用于控制中断禁用作的一组标志。 RetryDisableOnFailure 标志位指示先前
+CLIENT_DisableInterrupt 调用禁用同一引脚失败。 有关详细信息，请参阅“备注”。言论
+CLIENT_DisableInterrupt 事件回调函数的 DisableParameters 参数是指向调用方分配 GPIO_DISABLE_INTERRUPT_PARAMETERS 结构的指针。
+内存映射 GPIO 控制器的 CLIENT_DisableInterrupt 函数应始终成功禁用中断。 但是，未映射内存的控制器的 CLIENT_DisableInterrupt 函数必须将 I/O 请求发送到控制器以禁用中断，并且此请求可能会失败。 如果请求未能禁用中断，该函数必须返回错误状态代码。
+CLIENT_DisableInterrupt 调用失败后，GpioClx 可能会重试一次或多次调用。 每次重试期间，GpioClx 都会设置 RetryDisableOnFailure 标志，以指示上一次调用失败。
+CLIENT_DisableInterrupt 函数可能会采取其他步骤来响应此标志，以提高下次尝试禁用中
+断成功的可能性。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_BASIC_INFORMATION CLIENT_DisableInterrupt
+CLIENT_QueryControllerBasicInformation 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+GPIO_DISCONNECT_IO_PINS_PARAMETERS
+结构（gpioclx.h）项目2025/02/07
+GPIO_DISCONNECT_IO_PINS_PARAMETERS 结构描述要断开连接的一组通用 I/O（GPIO）引脚。
+语法 C++
+typedef struct _GPIO_DISCONNECT_IO_PINS_PARAMETERS {   BANK_ID                       BankId;
+  PPIN_NUMBER                   PinNumberTable;   ULONG                         PinCount;
+  GPIO_CONNECT_IO_PINS_MODE     DisconnectMode;   GPIO_DISCONNECT_IO_PINS_FLAGS DisconnectFlags;
+} GPIO_DISCONNECT_IO_PINS_PARAMETERS, *PGPIO_DISCONNECT_IO_PINS_PARAMETERS;
+成员 BankId
+包含 GPIO 引脚的银行的标识符。 如果 M 是 GPIO 控制器中的银行数，BankId 是 0 到 M–1 范围内的整数。 GPIO 框架扩展（GpioClx）以前从 CLIENT_QueryControllerBasicInformation 事件回调函数中获取控制器中的银行数。 有关详细信息，请参阅
+CLIENT_CONTROLLER_BASIC_INFORMATION中的备注。 PinNumberTable
+指向PIN_NUMBER值的数组的指针。 每个数组元素指定要断开连接的 GPIO 引脚的数目。 如果 GPIO 控制器有 N 个引脚，则引脚编号为 0 到 N–1。 此数组中的元素数由 PinCount 成员指定。
+PinCount
+PinNumberTable 数组中的元素数。 DisconnectMode
+正在关闭的连接中的 GPIO 引脚是配置为输入还是输出。 此成员的值是 ConnectModeInput 进行只读连接，ConnectModeOutput 用于写入连接，或者（ConnectModeInput |
+ConnectModeOutput）进行读/写连接。 有关详细信息，请参阅 GPIO_CONNECT_IO_PINS_MODE。
+DisconnectFlags
+一组标志，用于控制 GPIO 引脚在关闭后的配置方式。 如果设置了 PreserveConfiguration 标志位，则 GPIO 控制器驱动程序会在断开连接后保留引脚的配置。 有关详细信息，请参阅“备注”。
+言论
+DisconnectParameters 参数到 CLIENT_DisconnectIoPins 事件回调例程是指向 GPIO_CONNECT_IO_PINS_PARAMETERS 结构的指针。
+默认情况下，当 GPIO I/O 引脚断开连接时，GPIO 控制器驱动程序会以特定于平台的初始状态配置引脚。 引脚通常配置为处于低功率状态，以减少电池负载。 但是，可以使用
+PreserveConfiguration 标志来替代此默认行为。 该标志指示 GPIO 控制器驱动程序保留正在断开连接的 I/O 引脚的配置。
+例如，外围设备驱动程序可能会打开与配置为输出的 GPIO I/O 引脚的逻辑连接，然后将位值 1 写入引脚。 PreserveConfiguration 标志使驱动程序无需更改引脚的输出级别即可关闭连接。 稍
+后，如果驱动程序需要将引脚的输出级别从 1 更改为 0，驱动程序将打开与引脚的新连接。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_BASIC_INFORMATION CLIENT_DisconnectIoPins
+CLIENT_QueryControllerBasicInformation GPIO_CONNECT_IO_PINS_MODE
+展开表
+GPIO_ENABLE_INTERRUPT_PARAMETER
+S结构（gpioclx.h）项目2025/02/07
+GPIO_ENABLE_INTERRUPT_PARAMETERS 结构指定常规用途 I/O （GPIO） 引脚，并描述此引脚的中断属性。
+语法 C++
+typedef struct _GPIO_ENABLE_INTERRUPT_PARAMETERS {   BANK_ID                     BankId;
+  PIN_NUMBER                  PinNumber;   GPIO_ENABLE_INTERRUPT_FLAGS Flags;
+  KINTERRUPT_MODE             InterruptMode;   KINTERRUPT_POLARITY         Polarity;
+  UCHAR                       PullConfiguration;   USHORT                      DebounceTimeout;   PVOID                       VendorData;
+  ULONG                       VendorDataLength;
+} GPIO_ENABLE_INTERRUPT_PARAMETERS, *PGPIO_ENABLE_INTERRUPT_PARAMETERS;
+成员 BankId
+包含 GPIO 引脚的银行的标识符。 如果 M 是 GPIO 控制器中的银行数，BankId 是 0 到 M–1 范围内的整数。 GPIO 框架扩展（GpioClx）以前从
+CLIENT_QueryControllerBasicInformation 事件回调函数中获取控制器中的银行数。 有关
+详细信息，请参阅 CLIENT_CONTROLLER_BASIC_INFORMATION中的备注。 PinNumber
+银行相对引脚号。 如果 N 是此银行中的数字引脚，则 PinNumber 是 0 到 N–1 范围内的整数。 GpioClx 以前从 CLIENT_QueryControllerBasicInformation 事件回调函数中获取每个银行中的引脚数。 有关详细信息，请参阅
+CLIENT_CONTROLLER_BASIC_INFORMATION中的 NumberOfPinsPerBank 成员的说明。 Flags
+一组用于控制 GPIO 引脚配置的标志。 当前没有为此成员定义任何标志。
+InterruptMode
+来自此 GPIO 引脚的中断请求是级别敏感还是边缘触发。 此成员设置为以下值之一：
+LevelSensitive 闩锁
+有关详细信息，请参阅 KINTERRUPT_MODE。 Polarity
+此 GPIO 引脚中的中断线是主动高还是主动-低。 此成员设置为以下值之一：
+InterruptActiveHigh InterruptRisingEdge InterruptActiveLow InterruptFallingEdge InterruptActiveBoth
+有关详细信息，请参阅 KINTERRUPT_POLARITY。 PullConfiguration
+此 GPIO 引脚是拉起还是下拉。 此成员通常设置为以下系统定义的常量之一：
+GPIO_PIN_PULL_CONFIGURATION_PULLDEFAULT GPIO_PIN_PULL_CONFIGURATION_PULLUP
+GPIO_PIN_PULL_CONFIGURATION_PULLDOWN GPIO_PIN_PULL_CONFIGURATION_PULLNONE
+如果这些常量都未适当描述引脚配置，则可以将此成员设置为 128-255 范围内的供应商定义的常量。 有关这些常量的详细信息，请参阅 GPIO_PIN_PULL_CONFIGURATION。
+DebounceTimeout
+以 10 微秒为单位的反击时间。 例如，将 debounce 时间指定为 584 毫秒。 反转时间是输入信号在低到高转换开始后在高水平稳定或低水平转换开始后在低级别稳定所需的时间。 例如，如果机械开关生成中断信号，则开关中的金属接触停止弹跳的时间是开关打开或关闭后停止弹跳所需的时间。
+VendorData
+指向调用方分配的缓冲区的指针，该缓冲区包含此 GPIO 引脚的供应商定义数据。 此成员是可选的，如果未提供供应商定义的数据，则设置为 NULL。 有关供应商定义数据的详
+细信息，请参阅 ACPI 5.0 规范  VendorDataLength
+中 GPIO 连接描述符 的说明。
+VendorData 成员指向的数据缓冲区的大小（以字节为单位）。言论
+CLIENT_EnableInterrupt 和 CLIENT_UnmaskInterrupt 事件回调函数使用
+GPIO_ENABLE_INTERRUPT_PARAMETERS 结构来指定 GPIO 引脚并描述此引脚的中断属性。
+GPIO_PIN_PULL_CONFIGURATION_XXX 常量指定是拉取还是拉下常规用途 I/O（GPIO）
+引脚。 C++
+#define GPIO_PIN_PULL_CONFIGURATION_DEFAULT (0x0)#define GPIO_PIN_PULL_CONFIGURATION_PULLUP (0x1)#define GPIO_PIN_PULL_CONFIGURATION_PULLDOWN (0x2)#define GPIO_PIN_PULL_CONFIGURATION_NONE (0x3)
+GPIO_ENABLE_INTERRUPT_PARAMETERS 结构的 PullConfiguration 成员设置为 GPIO_PIN_PULL_CONFIGURATION_XXX 常量。
+如果系统定义的 GPIO_PIN_PULL_CONFIGURATION_XXX 常量均未正确描述引脚配置，
+则可以将此成员设置为 128 到 255 范围内的供应商定义的常量。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+展开表
+CLIENT_CONTROLLER_BASIC_INFORMATION CLIENT_EnableInterrupt
+CLIENT_QueryControllerBasicInformation CLIENT_UnmaskInterrupt
+KINTERRUPT_MODE KINTERRUPT_POLARITY
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+GPIO_MASK_INTERRUPT_PARAMETERS结构
+（gpioclx.h）项目2025/02/07
+GPIO_MASK_INTERRUPT_PARAMETERS 结构描述了一组通用 I/O （GPIO） 中断引脚来屏蔽。
+语法 C++
+typedef struct _GPIO_MASK_INTERRUPT_PARAMETERS {
+  BANK_ID BankId;   ULONG64 PinMask;
+  ULONG64 FailedMask;
+} GPIO_MASK_INTERRUPT_PARAMETERS, *PGPIO_MASK_INTERRUPT_PARAMETERS;
+成员 BankId
+包含要屏蔽的中断的 GPIO 引脚的银行的标识符。 如果 N 是 GPIO 控制器中的银行数，BankId 是 0 到 N–1 范围内的整数。 GPIO 框架扩展（GpioClx）以前从
+CLIENT_QueryControllerBasicInformation 事件回调函数中获取控制器中的银行数。 有关详细信
+息，请参阅 CLIENT_CONTROLLER_BASIC_INFORMATION中的备注。 PinMask
+一个 64 位掩码，用于指示在指定的银行中屏蔽哪些中断引脚。 此掩码仅影响配置为中断请求输入的 GPIO 引脚。 掩码中设置为 1 的位标识要屏蔽的引脚。 掩码中的所有其他位均为 0。 如果 N 是此银行中的引脚数，则引脚编号为 0 到 N–1。 掩码中的位 0（最小有效位）表示引脚 0、
+位 1 表示引脚 1 等。 FailedMask
+一个 64 位掩码，用于标识无法屏蔽的 GPIO 引脚。 如果 GPIO 控制器驱动程序无法屏蔽
+PinMask 成员中指示的位，驱动程序会将 FailedMask 成员中的相应位设置为标记此失败。 如果成功屏蔽了 PinMask 中指定的所有引脚，驱动程序会将 failedMask 设置为零。 有关详细信息，
+请参阅“备注”。言论
+CLIENT_MaskInterrupts 事件回调函数的 MaskParameters 参数是指向调用方分配
+GPIO_MASK_INTERRUPT_PARAMETERS 结构的指针。 此函数仅影响配置为中断输入且属于指定 GPIO 引脚库的 GPIO 引脚。
+具有内存映射寄存器的 GPIO 控制器应始终成功地将中断掩码设置为请求的值。 FailedMask 成
+员主要用于未映射内存的 GPIO 控制器。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_BASIC_INFORMATION CLIENT_MaskInterrupts
+CLIENT_QueryControllerBasicInformation
+展开表
+GPIO_QUERY_ACTIVE_INTERRUPTS_PARAM
+ETERS结构（gpioclx.h）项目2025/02/07
+GPIO_QUERY_ACTIVE_INTERRUPTS_PARAMETERS 结构描述了一组常规用途 I/O （GPIO） 中断引脚，用于查询其已启用和活动状态。
+语法 C++
+typedef struct _GPIO_QUERY_ACTIVE_INTERRUPTS_PARAMETERS {   BANK_ID BankId;
+  ULONG64 EnabledMask;   ULONG64 ActiveMask;
+} GPIO_QUERY_ACTIVE_INTERRUPTS_PARAMETERS, *PGPIO_QUERY_ACTIVE_INTERRUPTS_PARAMETERS;
+成员 BankId
+包含要查询的中断的 GPIO 引脚的银行标识符。 如果 N 是 GPIO 控制器中的银行数，BankId 是 0 到 N–1 范围内的整数。 GPIO 框架扩展（GpioClx）以前从
+CLIENT_QueryControllerBasicInformation 事件回调函数中获取控制器中的银行数。 有关详细信
+息，请参阅 CLIENT_CONTROLLER_BASIC_INFORMATION中的备注。 EnabledMask
+GPIO 控制器驱动程序向其写入 64 位掩码以指示在指定银行中启用哪些中断引脚的ULONG64变量。 掩码中设置为 1 的位标识配置为中断且已启用的引脚。 掩码中的所有其他位均为 0。 如果 N 是此银行中的引脚数，则引脚编号为 0 到 N–1。 掩码中的位 0（最小有效位）表示引脚 0、
+位 1 表示引脚 1 等。 ActiveMask
+GPIO 控制器驱动程序向其写入 64 位掩码以指示哪些中断引脚在指定银行中处于活动状态的 ULONG64变量。 掩码中设置为 1 的位标识配置为中断且处于活动状态的引脚。 掩码中的所有
+其他位均为 0。言论
+CLIENT_QueryActiveInterrupts 事件回调函数的 QueryActiveParameters 参数是指向调用方分配 GPIO_QUERY_ACTIVE_INTERRUPTS_PARAMETERS 结构的指针。 此函数仅查询配置为中断输入的 GPIO 引脚。 指定银行中的所有其他 GPIO 引脚在 EnabledMask 中表示为零，ActiveMask 结
+构的成员。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_BASIC_INFORMATION CLIENT_QueryActiveInterrupts
+CLIENT_QueryControllerBasicInformation
+展开表
+GPIO_QUERY_ENABLED_INTERRUPTS_PARA
+METERS结构（gpioclx.h）项目2025/02/07
+GPIO_QUERY_ENABLED_INTERRUPTS_PARAMETERS 结构指示启用了常规用途 I/O（GPIO）引脚的一组中断引脚。
+语法 C++
+typedef struct _GPIO_QUERY_ENABLED_INTERRUPTS_PARAMETERS {   BANK_ID BankId;
+  ULONG64 EnabledMask;
+} GPIO_QUERY_ENABLED_INTERRUPTS_PARAMETERS, *PGPIO_QUERY_ENABLED_INTERRUPTS_PARAMETERS;
+成员 BankId
+要查询已启用中断的 GPIO 引脚的银行标识符。 如果 N 是 GPIO 控制器中的银行数，BankId 是 0 到 N–1 范围内的整数。 GPIO 框架扩展（GpioClx）以前从
+CLIENT_QueryControllerBasicInformation 事件回调函数中获取控制器中的银行数。 有关详细信
+息，请参阅 CLIENT_CONTROLLER_BASIC_INFORMATION中的备注。 EnabledMask
+一个 64 位掩码，指示在指定的银行中启用了哪些中断。 掩码中设置为 1 的位用于标识为中断启用的中断引脚。 掩码中的所有其他位均为 0。 如果 N 是此银行中的引脚数，则引脚编号为 0 到
+N–1。 掩码中的位 0（最小有效位）表示引脚 0、位 1 表示引脚 1 等。言论
+CLIENT_QueryEnabledInterrupts 事件回调函数的 QueryEnabledParameters 参数是指向调用方分配 GPIO_QUERY_ENABLED_INTERRUPTS_PARAMETERS 结构的指针。 在调用此函数之前，调用方会将银行 ID 写入到此结构的 BankId 成员，以指定要查询的 GPIO 引脚。 该函数将掩码值
+写入此结构的 EnabledMask 成员，以指示在指定银行中启用哪些中断。要求
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8.1 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation CLIENT_QueryEnabledInterrupts
+ﾉ
+展开表
+GPIO_READ_PINS_MASK_PARAMETERS结构
+（gpioclx.h）项目2025/02/07
+GPIO_READ_PINS_MASK_PARAMETERS 结构描述常规用途 I/O （GPIO） 引脚的一个读取作。
+语法 C++
+typedef struct _GPIO_READ_PINS_MASK_PARAMETERS {   BANK_ID              BankId;
+  PULONG64             PinValues;   GPIO_READ_PINS_FLAGS Flags;
+  PVOID                Reserved;
+} GPIO_READ_PINS_MASK_PARAMETERS, *PGPIO_READ_PINS_MASK_PARAMETERS;
+成员 BankId
+此 GPIO 引脚库的标识符。 如果 N 是 GPIO 控制器中的银行数，BankId 是 0 到 N–1 范围内的整数。 GPIO 框架扩展（GpioClx）以前从 CLIENT_QueryControllerBasicInformation 事件回调函
+数中获取控制器中的银行数。 有关详细信息，请参阅 CLIENT_CONTROLLER_BASIC_INFORMATION中的备注。
+PinValues
+GPIO 控制器驱动程序向其存储从银行中的 GPIO 引脚读取的值的 64 位变量。 如果 N 是此银行中的 GPIO 引脚数，则引脚编号为 0 到 N–1。 引脚数字 0 中的值保存在此变量的位 0（最小有
+效位）中，引脚数字 1 中的值将保存在此变量的位 1 中，依此类图。 Flags
+用于控制 GPIO 引脚读取作的一组标志。 如果设置了 WriteConfiguredPins 标志位，GPIO 控制
+器驱动程序可以从配置为写入作的 GPIO 引脚读取。 Reserved
+保留供系统使用。言论
+CLIENT_ReadGpioPinsUsingMask 事件回调函数的 ReadParameters 参数是指向调用方分配
+GPIO_READ_PINS_MASK_PARAMETERS 结构的指针。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation CLIENT_ReadGpioPinsUsingMask
+展开表
+GPIO_READ_PINS_PARAMETERS结构
+（gpioclx.h）项目2025/02/07
+GPIO_READ_PINS_PARAMETERS 结构描述一组常规用途 I/O （GPIO） 引脚的读取作。
+语法 C++
+typedef struct _GPIO_READ_PINS_PARAMETERS {   BANK_ID              BankId;
+  PPIN_NUMBER          PinNumberTable;
+  ULONG                PinCount;   PVOID                Buffer;   GPIO_READ_PINS_FLAGS Flags;   PVOID                Reserved;
+} GPIO_READ_PINS_PARAMETERS, *PGPIO_READ_PINS_PARAMETERS;
+成员 BankId
+包含要读取的引脚的 GPIO 引脚的银行标识符。 如果 N 是 GPIO 控制器中的银行数，BankId 是 0 到 N–1 范围内的整数。 GPIO 框架扩展（GpioClx）以前从
+CLIENT_QueryControllerBasicInformation 事件回调函数中获取控制器中的银行数。 有关详细信
+息，请参阅 CLIENT_CONTROLLER_BASIC_INFORMATION中的备注。 PinNumberTable
+指向银行相对PIN_NUMBER值的数组的指针。 每个数组元素指定要从中读取的 GPIO 引脚的数目。 如果此银行具有 N 个引脚，则引脚编号为 0 到 N–1。 此数组中的元素数由 PinCount 成员
+指定。 PinCount
+PinNumberTable 数组中的元素数。 Buffer
+指向缓冲区的指针，用于保存 GPIO 控制器驱动程序从由 PinNumberTable 数组指定的 GPIO 引脚读取的值。 Array 元素 0 指定将值保存到缓冲区中的位 0（最小有效位）的 GPIO 引脚，数组元素 1 指定其值保存到缓冲区中的位 1 的 GPIO 引脚，依此指定。
+Flags
+用于控制 GPIO 引脚读取作的一组标志。 如果设置了 WriteConfiguredPins 标志位，GPIO 控制
+器驱动程序可以从配置为写入作的 GPIO 引脚读取。 Reserved
+保留供系统使用。言论
+CLIENT_ReadGpioPins 事件回调函数的 ReadParameters 参数是指向调用方分配
+GPIO_READ_PINS_PARAMETERS 结构的指针。 此函数读取的所有引脚都是同一组 GPIO 引脚的
+一部分。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation CLIENT_ReadGpioPins
+展开表
+GPIO_RECONFIGURE_INTERRUPTS_PARAM
+ETERS结构（gpioclx.h）项目2025/02/07
+GPIO_RECONFIGURE_INTERRUPTS_PARAMETERS 结构描述要重新配置通用 I/O（GPIO）中断
+引脚。语法 C++
+typedef struct _GPIO_RECONFIGURE_INTERRUPTS_PARAMETERS {   BANK_ID                          BankId;
+  PIN_NUMBER                       PinNumber;
+  KINTERRUPT_MODE                  InterruptMode;   KINTERRUPT_POLARITY              Polarity;
+  GPIO_RECONFIGURE_INTERRUPT_FLAGS Flags;} GPIO_RECONFIGURE_INTERRUPTS_PARAMETERS, *PGPIO_RECONFIGURE_INTERRUPTS_PARAMETERS;
+成员 BankId
+包含要重新配置中断引脚的 GPIO 引脚的银行标识符。 如果 N 是 GPIO 控制器中的银行数， BankId 是 0 到 N–1 范围内的整数。 GPIO 框架扩展（GpioClx）以前从
+CLIENT_QueryControllerBasicInformation 事件回调函数中获取控制器中的银行数。 有关详细信
+息，请参阅 CLIENT_CONTROLLER_BASIC_INFORMATION中的备注。 PinNumber
+银行相对引脚号。 如果 N 是此银行中的引脚数，则 PinNumber 是 0 到 N–1 范围内的整数。 GpioClx 以前从 CLIENT_QueryControllerBasicInformation 事件回调函数中获取每个银行中的引脚数。 有关详细信息，请参阅 CLIENT_CONTROLLER_BASIC_INFORMATION中的
+NumberOfPinsPerBank 成员的说明。 InterruptMode
+指示是将 GPIO 中断引脚配置为级别敏感还是边缘触发（闩锁）。 此成员设置为以下值之一：
+LevelSensitive 闩锁
+有关详细信息，请参阅 KINTERRUPT_MODE。 Polarity
+指示重新配置 GPIO 中断引脚的极性。 对于级别敏感中断，此成员指示中断是主动高还是主动-低。 对于边缘触发的中断，此成员指示是在上升边缘、下边缘还是两个边缘上触发中断。 此成员设置为以下值之一：
+InterruptActiveHigh InterruptRisingEdge InterruptActiveLow InterruptFallingEdge InterruptActiveBoth
+有关详细信息，请参阅 KINTERRUPT_POLARITY。 Flags
+用于控制中断重新配置作的一组标志。 目前没有为此作定义任何标志。言论
+CLIENT_ReconfigureInterrupt 事件回调函数的 ReconfigureParameters 参数是指向调用方分配
+GPIO_RECONFIGURE_INTERRUPTS_PARAMETERS 结构的指针。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation CLIENT_ReconfigureInterrupt
+展开表
+KINTERRUPT_MODE KINTERRUPT_POLARITY
+GPIO_SAVE_RESTORE_BANK_HARDWARE_C ONTEXT_PARAMETERS结构（gpioclx.h）项目2025/02/07
+GPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS 结构描述了一组通用 I/O（GPIO）引脚，其硬件状态是要保存或还原的。
+语法 C++
+typedef struct _GPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS {
+  BANK_ID                                       BankId;   ULONG                                         State;   GPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_FLAGS Flags;} GPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS, *PGPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS;
+成员 BankId
+此 GPIO 引脚库的标识符。 如果 N 是 GPIO 控制器中的银行数，BankId 是 0 到 N–1 范围内的整数。 GPIO 框架扩展（GpioClx）以前从 CLIENT_QueryControllerBasicInformation 事件回调函
+数中获取控制器中的银行数。 有关详细信息，请参阅 CLIENT_CONTROLLER_BASIC_INFORMATION中的备注。
+State
+目标组件电源状态。 保存作在指定的 GPIO 引脚库从 F0（完全打开）状态转换为目标组件电源
+状态 Fx 之前发生。 在银行从 Fx 转换到 F0 后，将发生还原作。 Flags
+用于控制银行硬件保存和还原作的一组标志。 如果设置了 CriticalTransition 标志位，则会将此空闲状态转换作为关键转换的一部分完成，其中电源引擎插件（PEP）会将系统置于低功率状态。
+言论
+CLIENT_SaveBankHardwareContext 和 CLIENT_RestoreBankHardwareContext 事件回调函数的 Parameters 参数是指向调用方分配
+GPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS 结构的指针。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation CLIENT_RestoreBankHardwareContext CLIENT_SaveBankHardwareContext
+展开表
+GPIO_WRITE_PINS_MASK_PARAMETERS结
+构（gpioclx.h）项目2025/02/07
+GPIO_WRITE_PINS_MASK_PARAMETERS 结构描述常规用途 I/O （GPIO） 引脚的银行上的写入作。
+语法 C++
+typedef struct _GPIO_WRITE_PINS_MASK_PARAMETERS {
+  BANK_ID               BankId;   ULONG64               SetMask;
+  ULONG64               ClearMask;   GPIO_WRITE_PINS_FLAGS Flags;
+  PVOID                 Reserved;
+} GPIO_WRITE_PINS_MASK_PARAMETERS, *PGPIO_WRITE_PINS_MASK_PARAMETERS;
+成员 BankId
+此 GPIO 引脚库的标识符。 如果 N 是 GPIO 控制器中的银行数，BankId 是 0 到 N–1 范围内的整数。 GPIO 框架扩展（GpioClx）以前从 CLIENT_QueryControllerBasicInformation 事件回调函
+数中获取控制器中的银行数。 有关详细信息，请参阅 CLIENT_CONTROLLER_BASIC_INFORMATION中的备注。
+SetMask
+一个掩码，指定要在此银行中设置的 GPIO 引脚。 如果此掩码中的位设置为 1，GPIO 控制器驱动程序会将相应的 GPIO 引脚设置为值 1。 如果 N 是此银行中的引脚数，则引脚编号为 0 到 N– 1。 如果掩码的位 0（最小有效位）为 1，则函数设置引脚号 0;如果掩码的位 1 为 1，则函数设
+置引脚数字 1;等等。 ClearMask
+一个掩码，指定要在此银行中清除的 GPIO 引脚。 如果此掩码中的位设置为 1，GPIO 控制器驱动程序会将相应的 GPIO 引脚设置为值 0。 如果掩码的位 0 为 1，则函数清除引脚 0;如果掩码的
+位 1 为 1，则函数清除引脚 1;等等。 Flags
+用于控制 GPIO 引脚写入作的一组标志。 目前没有为此作定义任何标志。 Reserved
+保留供系统使用。言论
+CLIENT_WriteGpioPinsUsingMask 事件回调函数的 WriteParameters 参数是指向调用方分配
+GPIO_WRITE_PINS_MASK_PARAMETERS 结构的指针。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation CLIENT_WriteGpioPinsUsingMask
+展开表
+GPIO_WRITE_PINS_PARAMETERS结构
+（gpioclx.h）项目2025/02/07
+GPIO_WRITE_PINS_PARAMETERS 结构描述对一组常规用途 I/O （GPIO） 引脚的写入作。
+语法 C++
+typedef struct _GPIO_WRITE_PINS_PARAMETERS {   BANK_ID               BankId;
+  PPIN_NUMBER           PinNumberTable;
+  ULONG                 PinCount;   PVOID                 Buffer;   GPIO_WRITE_PINS_FLAGS Flags;   PVOID                 Reserved;
+} GPIO_WRITE_PINS_PARAMETERS, *PGPIO_WRITE_PINS_PARAMETERS;
+成员 BankId
+包含要写入到的引脚的 GPIO 引脚的银行标识符。 如果 N 是 GPIO 控制器中的银行数，BankId 是 0 到 N–1 范围内的整数。 GPIO 框架扩展（GpioClx）以前从
+CLIENT_QueryControllerBasicInformation 事件回调函数中获取控制器中的银行数。 有关详细信
+息，请参阅 CLIENT_CONTROLLER_BASIC_INFORMATION中的备注。 PinNumberTable
+指向银行相对PIN_NUMBER值的数组的指针。 每个数组元素指定要写入的 GPIO 引脚的数目。如果此银行具有 N 个引脚，则引脚编号为 0 到 N–1。 此数组中的元素数由 PinCount 成员指定。
+PinCount
+PinNumberTable 数组中的元素数。 Buffer
+指向缓冲区的指针，该缓冲区包含此回调函数要写入 PinNumberTable 数组中标识的 GPIO 引脚。 该函数将位 0（最小有效位）从缓冲区写入由数组元素 0 标识的 GPIO 引脚，将位 1 从缓冲区写入由数组元素 1 标识的引脚，依如此。
+Flags
+用于控制 GPIO 引脚写入作的一组标志。 目前没有为此作定义任何标志。 Reserved
+保留供系统使用。言论
+CLIENT_WriteGpioPins 事件回调函数的 WriteParameters 参数是指向调用方分配
+GPIO_WRITE_PINS_PARAMETERS 结构的指针。 此函数写入的所有引脚都是同一组 GPIO 引脚
+的一部分。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 gpioclx.h
+CLIENT_CONTROLLER_BASIC_INFORMATION
+CLIENT_QueryControllerBasicInformation CLIENT_WriteGpioPins
+展开表

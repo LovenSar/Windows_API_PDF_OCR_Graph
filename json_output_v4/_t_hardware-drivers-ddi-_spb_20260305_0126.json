@@ -1,0 +1,2337 @@
+{
+  "_schema": "windows_api_kg_v4.0",
+  "_generated_at": "2026-03-05T08:06:54Z",
+  "_content_hash": "7da5336745a4",
+  "document": {
+    "document_id": "hardware-drivers-ddi::spb",
+    "title": "简单外围总线 （SPB）",
+    "domain": "hardware-drivers-ddi",
+    "topic": "spb",
+    "source_file": "[OCR]_windows-hardware-drivers-ddi-_spb_20260305_0126.txt",
+    "ocr_timestamp": "2026-03-05T01:26:00",
+    "headers_referenced": [
+      "pwmutil.h",
+      "reshub.h",
+      "spb.h",
+      "spbcx.h"
+    ],
+    "total_entities": 141
+  },
+  "entities": [
+    {
+      "id": "windows::SPB_MULTI_SPI_TRANSFER_MODE",
+      "name": "SPB_MULTI_SPI_TRANSFER_MODE",
+      "entity_type": "enum",
+      "description": "枚举值，指定总线驱动程序用来与外围设备通信的多 SPI 传 输的线路模式。 TransferPhaseCount 多 SPI 传输中的阶段数。 对于读取作，应将其设置为 2，表示读取阶段，然后是写入阶段。 对 于写入作，应将其设置为 1，仅表示写入阶段。",
+      "syntax": "typedef enum SPB_MULTI_SPI_TRANSFER_MODE {\nSpbMultiSpiTransferModeInvalid,   SpbMultiSpiTransferModeDualSpi,   SpbMultiSpiTransferModeQuadSpi,   SpbMultiSpiTransferModeMax\n}  *PSPB_MULTI_SPI_TRANSFER_MODE; 常数",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 10
+    },
+    {
+      "id": "windows::SPB_REQUEST_SEQUENCE_POSITION",
+      "name": "SPB_REQUEST_SEQUENCE_POSITION",
+      "entity_type": "enum",
+      "description": "枚举值，该值指示 I/O 请求在 I/O 传输序列中的位置，该请求是它的一部分。 如果调用 SpbRequestGetParameters 以检索不属于序列的 I/O 请求的位置值，此方法会将适当的 SPB_REQUEST_SEQUENCE_POSITION 枚举值分配给请求。 对于读取和写入请求，位置值设置为以下值之一：SpbRequestSequencePositionSingle、 SpbRequestSequencePositionFirst、SpbRequestSequencePositionContinue或 SpbRequestSequencePositionLast。 如果客户端发送不属于序列的简单读取或写入（IRP_MJ_READ 或 IRP_MJ_WRITE）请求，则位置值设置为",
+      "syntax": "typedef enum _SPB_REQUEST_SEQUENCE_POSITION {\nSpbRequestSequencePositionInvalid,   SpbRequestSequencePositionSingle,   SpbRequestSequencePositionFirst,\nSpbRequestSequencePositionContinue,\nSpbRequestSequencePositionLast,   SpbRequestSequencePositionMax\n} SPB_REQUEST_SEQUENCE_POSITION, *PSPB_REQUEST_SEQUENCE_POSITION; 常数",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "IRP_MJ_READ",
+        "IRP_MJ_WRITE",
+        "SpbRequestGetParameters",
+        "SpbRequestSequencePositionLast",
+        "SpbRequestSequencePositionSingle"
+      ],
+      "confidence": 0.85,
+      "_source_line": 14
+    },
+    {
+      "id": "windows::SPB_REQUEST_TYPE",
+      "name": "SPB_REQUEST_TYPE",
+      "entity_type": "enum",
+      "description": "枚举指定客户端正在请求的 SPB 操作的类型。",
+      "syntax": "typedef enum _SPB_REQUEST_TYPE {   SpbRequestTypeUndefined,\nSpbRequestTypeRead,   SpbRequestTypeWrite,\nSpbRequestTypeSequence,\nSpbRequestTypeLockController,   SpbRequestTypeUnlockController,   SpbRequestTypeLockConnection,   SpbRequestTypeUnlockConnection,\nSpbRequestTypeOther,   SpbRequestTypeMax\n} SPB_REQUEST_TYPE, *PSPB_REQUEST_TYPE; 常数",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 15
+    },
+    {
+      "id": "windows::SPB_TRANSFER_BUFFER_FORMAT",
+      "name": "SPB_TRANSFER_BUFFER_FORMAT",
+      "entity_type": "enum",
+      "description": "SPB_TRANSFER_BUFFER_LIST_ENTRY SPB_TRANSFER_LIST_ENTRY 价值桌面 spb.h 任何 IRQL",
+      "syntax": "typedef enum SPB_TRANSFER_BUFFER_FORMAT {\nSpbTransferBufferFormatInvalid,   SpbTransferBufferFormatSimple,   SpbTransferBufferFormatList,\nSpbTransferBufferFormatSimpleNonPaged,\nSpbTransferBufferFormatMdl,   SpbTransferBufferFormatMax\n}  *PSPB_TRANSFER_BUFFER_FORMAT; 常数",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_TRANSFER_BUFFER_LIST_ENTRY",
+        "SPB_TRANSFER_LIST_ENTRY"
+      ],
+      "confidence": 0.85,
+      "_source_line": 16
+    },
+    {
+      "id": "windows::SPB_TRANSFER_DIRECTION",
+      "name": "SPB_TRANSFER_DIRECTION",
+      "entity_type": "enum",
+      "description": "Direction; ULONG DelayInUs; SPB_TRANSFER_BUFFER Buffer; } SPB_TRANSFER_LIST_ENTRY, *PSPB_TRANSFER_LIST_ENTRY;",
+      "syntax": "typedef enum SPB_TRANSFER_DIRECTION {   SpbTransferDirectionNone,\nSpbTransferDirectionFromDevice,   SpbTransferDirectionToDevice,   SpbTransferDirectionMax\n}  *PSPB_TRANSFER_DIRECTION; 常数",
+      "members": [
+        {
+          "name": "Direction",
+          "description": "传输的方向。 此成员设置为以下 SPB_TRANSFER_DIRECTION 枚举值之一："
+        }
+      ],
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "Buffer",
+        "DelayInUs",
+        "SPB_TRANSFER_BUFFER",
+        "SPB_TRANSFER_LIST_ENTRY"
+      ],
+      "confidence": 0.95,
+      "_source_line": 17
+    },
+    {
+      "id": "windows::EVT_SPB_CONTROLLER_LOCK",
+      "name": "EVT_SPB_CONTROLLER_LOCK",
+      "entity_type": "enum",
+      "description": "EvtSpbControllerLock; void EvtSpbControllerLock( [in] WDFDEVICE Controller, [in] SPBTARGET Target, [in] SPBREQUEST LockRequest) {...} 参数 [in] Controller 表示 SPB 控制器的 框架设备对象的 WDFDEVICE 句柄。[in] Target SPBTARGET 此 I/O 请求的目标句柄。 目标是附加到总线的外围设备或端口。 SPB 框架扩展（SpbCx）以前将此句柄分配给 EvtSpbTargetConnect 回调中打开了与目标的连接。 [in] LockRequest SPBREQUEST I/O 控制请求的句柄来锁定控制器。 SPB 控制器驱动程序必须通过执行请求的作或返回错误状态来完成此请求。 有关详细信息，请参阅 备注。",
+      "return_value": {
+        "description": "没有"
+      },
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtSpbControllerLock",
+        "EvtSpbTargetConnect",
+        "SpbCx"
+      ],
+      "confidence": 0.8,
+      "_source_line": 23
+    },
+    {
+      "id": "windows::EVT_SPB_CONTROLLER_OTHER",
+      "name": "EVT_SPB_CONTROLLER_OTHER",
+      "entity_type": "enum",
+      "description": "EvtSpbControllerOther; void EvtSpbControllerOther( [in] WDFDEVICE Controller, [in] SPBTARGET Target, [in] SPBREQUEST Request, [in] size_t OutputBufferLength, [in] size_t InputBufferLength, [in] ULONG IoControlCode) {...} 参数 [in] Controller 表示 SPB 控制器的 框架设备对象的 WDFDEVICE 句柄。[in] Target SPBTARGET 此 I/O 请求的目标句柄。 目标是附加到总线的外围设备或端口。 SPB 框架扩展 （SpbCx）以前将此句柄分配给 EvtSpbTargetConnect 回调中打开了与目标的连接。[in] Request SPBREQUEST I/O 请求的句柄。 SPB 控制器驱动程序必须完成此请求。 有关详细信息，请参阅“备注”。 [in] OutputBufferLength 如果输出缓冲区随请求一起提供，则输出缓冲区的长度（以字节为单位）。[in] InputBufferLength 如果输入缓冲区随请求一起提供，则输入缓冲区的长度（以字节为单位）。[in] IoControlCode 请求的 I/O 控制代码（IOCTL）。 此值是 SPB 框架扩展 （SpbCx） 无法识别的 IOCTL。 有关详细信息，请参阅“备注”。",
+      "return_value": {
+        "description": "没有"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "spbcx.h",
+        "min_client": "Windows 8"
+      },
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtSpbTargetConnect",
+        "InputBufferLength",
+        "IoControlCode",
+        "OutputBufferLength",
+        "SpbCx"
+      ],
+      "confidence": 0.8,
+      "_source_line": 27
+    },
+    {
+      "id": "windows::EVT_SPB_CONTROLLER_SEQUENCE",
+      "name": "EVT_SPB_CONTROLLER_SEQUENCE",
+      "entity_type": "enum",
+      "description": "EvtSpbControllerSequence; void EvtSpbControllerSequence( [in] WDFDEVICE Controller, [in] SPBTARGET Target, [in] SPBREQUEST Request, [in] ULONG TransferCount) {...} 参数 [in] Controller 表示 SPB 控制器的 框架设备对象的 WDFDEVICE 句柄。[in] Target SPBTARGET 此 I/O 请求的目标句柄。 目标是附加到总线的外围设备或端口。 SPB 框架扩展（SpbCx）以前将此句柄分配给 EvtSpbTargetConnect 回调中打开了与目标的连接。 [in] Request SPBREQUEST I/O 请求的句柄。 SPB 控制器驱动程序必须通过执行请求的作或返回错误状 态来完成此请求。 有关详细信息，请参阅 备注。[in] TransferCount 此 I/O 传输序列中的单个传输数。 每个单独的传输都是一个简单的读取或写入作。",
+      "return_value": {
+        "description": "没有"
+      },
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtSpbTargetConnect",
+        "SpbCx"
+      ],
+      "confidence": 0.8,
+      "_source_line": 31
+    },
+    {
+      "id": "windows::EVT_SPB_TARGET_CONNECT",
+      "name": "EVT_SPB_TARGET_CONNECT",
+      "entity_type": "enum",
+      "description": "SPB 控制器驱动程序的 EvtSpbTargetConnect 事件回调函数打开与总线上目标设备的连接。 EVT_SPB_TARGET_DISCONNECT SPB 控制器驱动程序的 EvtSpbTargetDisconnect 事件回调函数关闭了与目标设备的连接，该设备以 前是通过调用驱动程序的 EvtSpbTargetConnect 事件回调函数打开的。 PwmParsePinPath 分析脉冲宽度调节（PWM）控制器命名空间下的引脚路径，以验证其格式并提取引脚号。",
+      "return_value": {
+        "description": "如果驱动程序成功打开到目标的连接，EvtSpbTargetConnect 将返回STATUS_SUCCESS。 否则， 该函数将返回相应的 NTSTATUS 错误代码。"
+      },
+      "remarks": "SPB 控制器驱动程序对此函数的实现是可选的。 SPB 框架扩展 （SpbCx） 管理 SPB 控制器的 I/O 队列。 如果 SPB 控制器驱动程序注册",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EVT_SPB_TARGET_DISCONNECT",
+        "EvtSpbTargetConnect",
+        "EvtSpbTargetDisconnect",
+        "PwmParsePinPath",
+        "SpbCx"
+      ],
+      "confidence": 0.8,
+      "_source_line": 37
+    },
+    {
+      "id": "windows::SPB_CONNECTION_PARAMETERS_INIT",
+      "name": "SPB_CONNECTION_PARAMETERS_INIT",
+      "entity_type": "enum",
+      "description": "反馈 是 否 价值 从 Windows 8 开始可用。 普遍 spbcx.h Spbcxstubs.lib <= DISPATCH_LEVEL",
+      "syntax": "void SPB_CONNECTION_PARAMETERS_INIT(\n[out] SPB_CONNECTION_PARAMETERS *Parameters);",
+      "parameters": [
+        {
+          "name": "Parameters",
+          "direction": "out",
+          "description": "指向要初始化的 SPB_CONNECTION_PARAMETERS 结构的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "没有"
+      },
+      "remarks": "SPB 控制器驱动程序必须使用此函数来初始化 SPB_CONNECTION_PARAMETERS 结构，然后再将此结构作为输出参数传递给 SpbTargetGetConnectionParameters 方法。 此方法将总线上目标 设备的连接参数写入到此结构。",
+      "requirements": {
+        "header": "spbcx.h"
+      },
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "DISPATCH_LEVEL",
+        "SPB_CONNECTION_PARAMETERS",
+        "SpbTargetGetConnectionParameters"
+      ],
+      "confidence": 1.0,
+      "_source_line": 45
+    },
+    {
+      "id": "windows::SPB_CONTROLLER_CONFIG_INIT",
+      "name": "SPB_CONTROLLER_CONFIG_INIT",
+      "entity_type": "enum",
+      "description": "反馈 是 否 价值 从 Windows 8 开始可用。 普遍 spbcx.h Spbcxstubs.lib PASSIVE_LEVEL",
+      "syntax": "void SPB_CONTROLLER_CONFIG_INIT(\n[out] SPB_CONTROLLER_CONFIG *Config);",
+      "parameters": [
+        {
+          "name": "Config",
+          "direction": "out",
+          "description": "指向要初始化的 SPB_CONTROLLER_CONFIG 结构的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "没有"
+      },
+      "remarks": "SPB 控制器驱动程序必须使用此函数初始化 SPB_CONTROLLER_CONFIG 结构，然后再将此结构作为输入参数传递给 SpbDeviceInitialize 方法。 此方法完成 SPB 框架扩展 （SpbCx）的初始化。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "PASSIVE_LEVEL",
+        "SPB_CONTROLLER_CONFIG",
+        "SpbCx",
+        "SpbDeviceInitialize"
+      ],
+      "confidence": 1.0,
+      "_source_line": 46
+    },
+    {
+      "id": "windows::SPB_MULTI_SPI_READ_TRANSFER_INIT",
+      "name": "SPB_MULTI_SPI_READ_TRANSFER_INIT",
+      "entity_type": "enum",
+      "description": "函数应用于初始化多 SPI 读取传输。 它使用读取 作所需的两个传输阶段初始化 SPB_MULTI_SPI_READ_TRANSFER 结构。",
+      "syntax": "void SPB_MULTI_SPI_READ_TRANSFER_INIT(",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_MULTI_SPI_READ_TRANSFER"
+      ],
+      "confidence": 0.85,
+      "_source_line": 47
+    },
+    {
+      "id": "windows::SPB_MULTI_SPI_TRANSFER_INIT",
+      "name": "SPB_MULTI_SPI_TRANSFER_INIT",
+      "entity_type": "enum",
+      "description": "函数初始化 SPB_MULTI_SPI_TRANSFER 结构。",
+      "syntax": "void SPB_MULTI_SPI_TRANSFER_INIT(",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_MULTI_SPI_TRANSFER"
+      ],
+      "confidence": 0.75,
+      "_source_line": 48
+    },
+    {
+      "id": "windows::SPB_MULTI_SPI_WRITE_TRANSFER_INIT",
+      "name": "SPB_MULTI_SPI_WRITE_TRANSFER_INIT",
+      "entity_type": "enum",
+      "description": "或 SPB_MULTI_SPI_TRANSFER_INIT 函数来初始化 SPB_MULTI_SPI_TRANSFER 的标头，不应直接访问。 控制器驱动程序访问此结构以检 索多 SPI 传输的参数。",
+      "syntax": "void SPB_MULTI_SPI_WRITE_TRANSFER_INIT(",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_MULTI_SPI_TRANSFER",
+        "SPB_MULTI_SPI_TRANSFER_INIT"
+      ],
+      "confidence": 0.85,
+      "_source_line": 49
+    },
+    {
+      "id": "windows::SPB_REQUEST_PARAMETERS_INIT",
+      "name": "SPB_REQUEST_PARAMETERS_INIT",
+      "entity_type": "enum",
+      "description": "WdfRequestGetParameters 价值 从 Windows 8 开始可用。 普遍 spbcx.h Spbcxstubs.lib <= DISPATCH_LEVEL",
+      "syntax": "void SPB_REQUEST_PARAMETERS_INIT(\n[out] SPB_REQUEST_PARAMETERS *Parameters);",
+      "parameters": [
+        {
+          "name": "Parameters",
+          "direction": "out",
+          "description": "指向要初始化的 SPB_REQUEST_PARAMETERS 结构的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "没有"
+      },
+      "remarks": "SPB 控制器驱动程序必须使用此函数初始化 SPB_REQUEST_PARAMETERS 结构，然后再将此结构作为输出参数传递给 SpbRequestGetParameters 方法。 此方法将特定于 SPB 的参数从 I/O 请 求写入到此结构。",
+      "requirements": {
+        "header": "spbcx.h"
+      },
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "DISPATCH_LEVEL",
+        "SPB_REQUEST_PARAMETERS",
+        "SpbRequestGetParameters",
+        "WdfRequestGetParameters"
+      ],
+      "confidence": 1.0,
+      "_source_line": 50
+    },
+    {
+      "id": "windows::SPB_TRANSFER_DESCRIPTOR_INIT",
+      "name": "SPB_TRANSFER_DESCRIPTOR_INIT",
+      "entity_type": "enum",
+      "description": "函数初始化SPB_TRANSFER_DESCRIPTOR结构。 SpbControllerSetIoOtherCallback",
+      "syntax": "void SPB_TRANSFER_DESCRIPTOR_INIT(\n[out] SPB_TRANSFER_DESCRIPTOR *Descriptor);",
+      "parameters": [
+        {
+          "name": "Descriptor",
+          "direction": "out",
+          "description": "指向要初始化的 SPB_TRANSFER_DESCRIPTOR 结构的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "没有"
+      },
+      "remarks": "SPB 控制器驱动程序必须使用此函数初始化 SPB_TRANSFER_DESCRIPTOR 结构，然后再将此结构作为输出参数传递给 SpbRequestGetTransferParameters 方法。 此方法将 I/O 传 输序列中单个传输的传输参数写入到此结构。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_TRANSFER_DESCRIPTOR",
+        "SpbControllerSetIoOtherCallback",
+        "SpbRequestGetTransferParameters"
+      ],
+      "confidence": 1.0,
+      "_source_line": 51
+    },
+    {
+      "id": "windows::SPB_TRANSFER_LIST_ENTRY_INIT_BUFFER_LIST",
+      "name": "SPB_TRANSFER_LIST_ENTRY_INIT_BUFFER_LIST",
+      "entity_type": "enum",
+      "description": "函数返回一个SPB_TRANSFER_LIST_ENTRY结构，该结构初始化以描述散点收集列表。SPB_TRANSFER_LIST_ENTRY_INIT_BUFFER_LIST函数返回初始化 以描述散点收集列表的SPB_TRANSFER_LIST_ENTRY结构。",
+      "remarks": "此初始化函数返回 SPB_TRANSFER_LIST_ENTRY类型的未命名局部变量。 此变量的存储在调用方堆栈帧中分配，在堆栈帧保留在范围内时有效。",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 52
+    },
+    {
+      "id": "windows::SPB_TRANSFER_LIST_ENTRY_INIT_MDL",
+      "name": "SPB_TRANSFER_LIST_ENTRY_INIT_MDL",
+      "entity_type": "enum",
+      "description": "将 SPB_TRANSFER_LIST_ENTRY 结构的 Buffer.Format 成员设置为 SpbTransferBufferFormatMdl。 有关缓冲区格式的详细信息，请参阅",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "Buffer",
+        "Format",
+        "SPB_TRANSFER_LIST_ENTRY",
+        "SpbTransferBufferFormatMdl"
+      ],
+      "confidence": 0.75,
+      "_source_line": 55
+    },
+    {
+      "id": "windows::SPB_TRANSFER_LIST_ENTRY_INIT_NON_PAGED",
+      "name": "SPB_TRANSFER_LIST_ENTRY_INIT_NON_PAGED",
+      "entity_type": "enum",
+      "description": "将 SPB_TRANSFER_LIST_ENTRY 结构的 Buffer.Format 成员设置为 SpbTransferBufferFormatSimpleNonPaged。 有关缓冲区格式的详 细信息，请参阅",
+      "remarks": "此初始化函数返回 SPB_TRANSFER_LIST_ENTRY类型的未命名局部变量。 此变量的存储在调用方堆栈帧中分配，在堆栈帧保留在范围内时有效。",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "Buffer",
+        "Format",
+        "SPB_TRANSFER_LIST_ENTRY",
+        "SpbTransferBufferFormatSimpleNonPaged"
+      ],
+      "confidence": 0.75,
+      "_source_line": 56
+    },
+    {
+      "id": "windows::SPB_TRANSFER_LIST_ENTRY_INIT_SIMPLE",
+      "name": "SPB_TRANSFER_LIST_ENTRY_INIT_SIMPLE",
+      "entity_type": "enum",
+      "description": "函数返回一个SPB_TRANSFER_LIST_ENTRY结构，该结构 已初始化以描述简单的数据缓冲区。SPB_TRANSFER_LIST_ENTRY_INIT_SIMPLE 函数返回一个",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 59
+    },
+    {
+      "id": "windows::SPB_TRANSFER_LIST_ENTRY",
+      "name": "SPB_TRANSFER_LIST_ENTRY",
+      "entity_type": "enum",
+      "description": "_INIT_BUFFER_LIST( [in] SPB_TRANSFER_DIRECTION Direction, [in] ULONG DelayInUs, [in] SPB_TRANSFER_BUFFER_LIST_ENTRY [] BufferList, [in] ULONG BufferListCe);",
+      "syntax": "typedef struct SPB_TRANSFER_LIST_ENTRY {",
+      "parameters": [
+        {
+          "name": "Direction",
+          "direction": "in",
+          "description": "传输的方向。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY 结构的 Direction 成员。[in] DelayInUs 可选延迟（以微秒为单位）。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY 结构的"
+        }
+      ],
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "BufferList",
+        "DelayInUs",
+        "SPB_TRANSFER_BUFFER_LIST_ENTRY",
+        "SPB_TRANSFER_DIRECTION"
+      ],
+      "confidence": 0.95,
+      "_source_line": 60
+    },
+    {
+      "id": "windows::SPB_TRANSFER_LIST_INIT",
+      "name": "SPB_TRANSFER_LIST_INIT",
+      "entity_type": "enum",
+      "description": "函数初始化SPB_TRANSFER_LIST结构。 SpbControllerSetIoOtherCallback",
+      "syntax": "void SPB_TRANSFER_LIST_INIT(\n[out] SPB_TRANSFER_LIST *TransferList,   [in]  ULONG             TransferCount);",
+      "parameters": [
+        {
+          "name": "TransferList",
+          "direction": "out",
+          "description": "指向要初始化的 SPB_TRANSFER_LIST 结构的指针。[in] TransferCount 传输列表中的条目数。 该函数将此值写入 SPB_TRANSFER_LIST 结构的 TransferCount 成员。"
+        }
+      ],
+      "return_value": {
+        "description": "没有"
+      },
+      "remarks": "若要初始化 SPB_TRANSFER_LIST 结构 传输 数组中的元素，请使用",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_TRANSFER_LIST",
+        "SpbControllerSetIoOtherCallback"
+      ],
+      "confidence": 1.0,
+      "_source_line": 64
+    },
+    {
+      "id": "windows::SpbControllerSetIoOtherCallback",
+      "name": "SpbControllerSetIoOtherCallback",
+      "entity_type": "enum",
+      "description": "WdfRequestGetRequestorMode 是 否 价值 从 Windows 8 开始可用。 普遍 spbcx.h Spbcxstubs.lib 请参阅“备注”。",
+      "syntax": "void SpbControllerSetIoOtherCallback(\n[in]           WDFDEVICE                    FxDevice,\n[in]           PFN_SPB_CONTROLLER_OTHER     EvtSpbControllerIoOther,\n[in, optional] PFN_WDF_IO_IN_CALLER_CONTEXT EvtIoInCallerContext);",
+      "parameters": [
+        {
+          "name": "FxDevice",
+          "direction": "in",
+          "description": "表示 SPB 控制器的设备对象的 WDFDEVICE 句柄。[in] EvtSpbControllerIoOther 指向 EvtSpbControllerIoOther 回调函数的指针。 SPB 控制器驱动程序实现此函数。 SPB 框架扩展 （SpbCx） 调用此函数，以将 I/O 控制请求传递给控制器驱动程序。 有关传递 给此函数的 I/O 请求类型的详细信息，请参阅以下“备注”部分。[in, optional] EvtIoInCallerContext 指向 EvtIoInCallerContext 的指针 回调函数，该函数在 I/O 控制请求首次到达控制器的 I/O 队列时调用，请求包含 SPB 框架扩展 （SpbCx） 无法识别的 IOCTL 代码。 此回调在请求发起方的进程上下文中运行，并且可以预处理稍后将由 EvtSpbControllerIoOther 回调处理的请求。 此参数是可选的，如果不需要此类预处理，则可以指定为 NULL。 有关详细信息，请参阅以下“备注”部分。"
+        }
+      ],
+      "return_value": {
+        "description": "没有"
+      },
+      "remarks": "此方法为 SPB 控制器驱动程序提供了一种方法，用于声明对特定于总线或特定于驱动程序的自定义 I/O 控制代码（IOCTL）的支持。 如果 SPB 控制器驱动程序不调用此方法， SpbCx 将拒绝所有此类 I/O 控制请求，SPB 控制器驱动程序永远不会看到它们。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SpbCx"
+      ],
+      "confidence": 0.85,
+      "_source_line": 66
+    },
+    {
+      "id": "windows::SpbControllerSetRequestAttributes",
+      "name": "SpbControllerSetRequestAttributes",
+      "entity_type": "enum",
+      "description": "将这些值用作 SPBREQUEST 对象的默认属性。 但是，驱动程序无法更改 ExecutionLevel、SynchronizationScope和 ParentObject 成员中包含的默认属性值。 这些成员必须与 WDF_OBJECT_ATTRIBUTES_INIT 函数初始化这些成员的值保持不变。",
+      "syntax": "void SpbControllerSetRequestAttributes(   [in] WDFDEVICE              FxDevice,\n[in] PWDF_OBJECT_ATTRIBUTES RequestAttributes);",
+      "parameters": [
+        {
+          "name": "FxDevice",
+          "direction": "in",
+          "description": "表示 SPB 控制器的设备对象的 WDFDEVICE 句柄。[in] RequestAttributes 指向调用方分配的 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构包含 SPB 控制器的 SPBREQUEST 对象的属性。"
+        }
+      ],
+      "return_value": {
+        "description": "没有"
+      },
+      "remarks": "在设备初始化期间，SPB 控制器驱动程序可以调用此方法来设置 SPBREQUEST 对象的默认属性。 此后，SpbCx 将这些属性分配给它向总线上的目标设备传递（或转发）的任何 I/O 请求。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "ExecutionLevel",
+        "SpbCx",
+        "WDF_OBJECT_ATTRIBUTES_INIT"
+      ],
+      "confidence": 0.85,
+      "_source_line": 67
+    },
+    {
+      "id": "windows::SpbControllerSetTargetAttributes",
+      "name": "SpbControllerSetTargetAttributes",
+      "entity_type": "enum",
+      "description": "将这些值用作 SPBTARGET 对象的默认属性。 但是，驱动程序无法更改 ExecutionLevel、SynchronizationScope和 ParentObject 成员中包含的默认属性值。 这些成员必须与 WDF_OBJECT_ATTRIBUTES_INIT 函数初始化的值保持不变。 SPB 控制器驱动程序必须先调用此方法，然后才能 提交 设备对象，也就是说，在从",
+      "syntax": "void SpbControllerSetTargetAttributes(   [in] WDFDEVICE              FxDevice,\n[in] PWDF_OBJECT_ATTRIBUTES ObjectAttributes);",
+      "parameters": [
+        {
+          "name": "FxDevice",
+          "direction": "in",
+          "description": "表示 SPB 控制器的设备对象的 WDFDEVICE 句柄。[in] ObjectAttributes 指向调用方分配的 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构包含控制器 SPBTARGET 对象的属性。"
+        }
+      ],
+      "return_value": {
+        "description": "没有"
+      },
+      "remarks": "SPB 控制器驱动程序调用此方法来设置 SPBTARGET 对象的默认属性。 SPB 框架扩展（SpbCx） 在控制器的客户端（外围设备）打开的总线上的任何目标设备上设置这些属性。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "ExecutionLevel",
+        "SpbCx",
+        "WDF_OBJECT_ATTRIBUTES_INIT"
+      ],
+      "confidence": 0.85,
+      "_source_line": 70
+    },
+    {
+      "id": "windows::SpbDeviceInitConfig",
+      "name": "SpbDeviceInitConfig",
+      "entity_type": "enum",
+      "description": "方法将 SPB 框架扩展 （SpbCx） 附加到要创建的 WDFDEVICE （FDO 或 PDO） 对象的 I/O 请求链。 SpbDeviceInitialize",
+      "syntax": "NTSTATUS SpbDeviceInitConfig(\n[in, out] WDFDEVICE_INIT *DeviceInit);",
+      "parameters": [
+        {
+          "name": "DeviceInit",
+          "direction": "in, out",
+          "description": "指向要配置的 WDFDEVICE_INIT 结构的指针。"
+        }
+      ],
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SpbCx",
+        "SpbDeviceInitialize"
+      ],
+      "confidence": 0.8,
+      "_source_line": 72
+    },
+    {
+      "id": "windows::SpbDeviceInitialize",
+      "name": "SpbDeviceInitialize",
+      "entity_type": "enum",
+      "description": "返回后，控制器可以处理 I/O 请求，但 SPB 控制器驱动程序可以根据需要继续配置控制器设置，然后再提交设备对象。 如果 配置 指向的结构未正确填写，驱动程序验证程序 将引发错误。 有关 配置 参数的要 求的详细信息，请参阅",
+      "syntax": "NTSTATUS SpbDeviceInitialize(\n[in] WDFDEVICE              FxDevice,\n[in] PSPB_CONTROLLER_CONFIG Config);",
+      "parameters": [
+        {
+          "name": "FxDevice",
+          "direction": "in",
+          "description": "表示 SPB 控制器的设备对象的 WDFDEVICE 句柄。[in] Config 指向包含 SPB 控制器驱动程序的设备配置信息的 SPB_CONTROLLER_CONFIG 结构的指 针。 此结构必须由 SPB_CONTROLLER_CONFIG_INIT 函数初始化。"
+        }
+      ],
+      "remarks": "SPB 控制器驱动程序调用此方法，将事件回调函数注册到 SPB 框架扩展 （SpbCx），并指定要用于控制器 I/O 队列的传输模式。 SpbDeviceInitialize 创建所有控制器的内部数据结构，包括 I/O 队列。 SPB 控制器驱动程序必须先调用此方法，然后才能 提交 设备对象，也就是说，在从",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SpbCx"
+      ],
+      "confidence": 0.8,
+      "_source_line": 74
+    },
+    {
+      "id": "windows::SpbRequestCaptureIoOtherTransferList",
+      "name": "SpbRequestCaptureIoOtherTransferList",
+      "entity_type": "enum",
+      "description": "方法检索自定义 IOCTL 请求的输入缓冲区中的 SPB_TRANSFER_LIST 结构。",
+      "syntax": "NTSTATUS SpbRequestCaptureIoOtherTransferList(\nSPBREQUEST Request);",
+      "parameters": [
+        {
+          "name": "Request",
+          "description": "SPBREQUEST 自定义 IOCTL 请求的句柄。 SPB 控制器驱动程序以前通过其注册的 事件回 调函数之一接收此句柄。"
+        }
+      ],
+      "return_value": {
+        "description": "如果调用成功，SpbRequestCaptureIoOtherTransferList 返回STATUS_SUCCESS。 可能的返回值包括以下错误代码。"
+      },
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_TRANSFER_LIST"
+      ],
+      "confidence": 0.75,
+      "_source_line": 75
+    },
+    {
+      "id": "windows::SPB_TRANSFER_LIST",
+      "name": "SPB_TRANSFER_LIST",
+      "entity_type": "enum",
+      "description": "结构的大小（以字节为单位）。 此大小值不包括任何 传输 可能遵循此结构的数组元素。 如果将新成员添加到此结构的未来版本，则可以使用 Size 值来确 定正在使用哪个版本的 SPB_TRANSFER_LIST 结构。 Reserved 保留供作系统使用。 设置为零。 TransferCount 传输 数组中的元素数。 此数组包含至少一个元素。 Transfers[1] 此成员是 SPB_TRANSFER_LIST_ENTRY 结构数组中的第一个元素。 每个数组元素描述 I/O 传输序列中的单个传输。 如果数组包含多个元素，则其他数组元素紧跟内存中的 SPB_TRANSFER_LIST 结构。 传输按数组中出现的顺序执行，从第一个元素开始。",
+      "syntax": "typedef struct SPB_TRANSFER_LIST {   ULONG                   Size;\nULONG                   Reserved;\nULONG                   TransferCount;   SPB_TRANSFER_LIST_ENTRY Transfers[1];} SPB_TRANSFER_LIST, *PSPB_TRANSFER_LIST;",
+      "members": [
+        {
+          "name": "Size",
+          "description": ""
+        }
+      ],
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_TRANSFER_LIST_ENTRY"
+      ],
+      "confidence": 0.95,
+      "_source_line": 76
+    },
+    {
+      "id": "windows::SpbRequestComplete",
+      "name": "SpbRequestComplete",
+      "entity_type": "enum",
+      "description": "方法完成 I/O 请求并提供完成状态。 SpbRequestGetController",
+      "syntax": "void SpbRequestComplete(   [in] SPBREQUEST Request,\n[in] NTSTATUS   CompletionStatus);",
+      "parameters": [
+        {
+          "name": "Request",
+          "direction": "in",
+          "description": "SPBREQUEST I/O 请求的句柄来完成。 SPB 控制器驱动程序以前通过其注册的 事件回调函数之一接收此句柄。"
+        },
+        {
+          "name": "CompletionStatus",
+          "direction": "in",
+          "description": "表示请求完成状态的 NTSTATUS 值。 有效状态值包括但不限于以下各项："
+        }
+      ],
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SpbRequestGetController"
+      ],
+      "confidence": 0.7,
+      "_source_line": 77
+    },
+    {
+      "id": "windows::SpbRequestGetController",
+      "name": "SpbRequestGetController",
+      "entity_type": "enum",
+      "description": "方法将 WDFDEVICE 句柄返回到发送到指定 I/O 请求的 SPB 控制器的 设备对象。",
+      "syntax": "WDFDEVICE SpbRequestGetController(\n[in] SPBREQUEST SpbRequest);",
+      "parameters": [
+        {
+          "name": "SpbRequest",
+          "direction": "in",
+          "description": "SPBREQUEST 从中检索 WDFDEVICE 句柄的 I/O 请求的句柄。 SPB 控制器驱动程序以前通过其 注册的 事件回调函数之一接收此句柄。"
+        }
+      ],
+      "return_value": {
+        "description": "SpbRequestGetController 返回 I/O 请求发送到的 WDFDEVICE 句柄。"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "spbcx.h",
+        "library": "Spbcxstubs.lib",
+        "min_client": "Windows 8"
+      },
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 78
+    },
+    {
+      "id": "windows::SpbRequestGetParameters",
+      "name": "SpbRequestGetParameters",
+      "entity_type": "enum",
+      "description": "类似于 WdfRequestGetParameters 方法，但只检索特定于 SPB 的信息。 SPB 控制器驱动程序可以调用 SpbRequestGetParameters 从 SPB 框架扩展（SpbCx）接收的 I/O 请求中检索特定于 SPB 的信息。 SPB 控制器驱动程序可以调用 WdfRequestGetParameters，以从接收的 I/O 请求中检索泛型请求参数。例子 下面的代码示例演示如何使用 SpbRequestGetParameters 从 I/O 请求中检索特定于 SPB 的参 数。 spbRequest 变量包含 I/O 请求的 SPBREQUEST 句柄。",
+      "syntax": "void SpbRequestGetParameters(\n[in]  SPBREQUEST             SpbRequest,   [out] SPB_REQUEST_PARAMETERS *Parameters);",
+      "parameters": [
+        {
+          "name": "SpbRequest",
+          "direction": "in",
+          "description": "SPBREQUEST I/O 请求的句柄。 SPB 控制器驱动程序以前通过其注册的 事件回调函数之一接收此句柄。"
+        },
+        {
+          "name": "Parameters",
+          "direction": "out",
+          "description": "指向调用方分配 SPB_REQUEST_PARAMETERS 结构的指针，该方法从 I/O 请求写入 SPB 特定的参数值。 调用方以前必须通过调用 SPB_REQUEST_PARAMETERS_INIT 函数来初始化此结构。"
+        }
+      ],
+      "return_value": {
+        "description": "没有"
+      },
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SpbCx",
+        "WdfRequestGetParameters"
+      ],
+      "confidence": 0.85,
+      "_source_line": 79
+    },
+    {
+      "id": "windows::SpbRequestGetTarget",
+      "name": "SpbRequestGetTarget",
+      "entity_type": "enum",
+      "description": "方法从指定的 I/O 请求检索 SPBTARGET 句柄。 SpbRequestGetTransferParameters",
+      "syntax": "SPBTARGET SpbRequestGetTarget(   [in] SPBREQUEST SpbRequest);",
+      "parameters": [
+        {
+          "name": "SpbRequest",
+          "direction": "in",
+          "description": "SPBREQUEST I/O 请求的句柄。 SPB 控制器驱动程序以前通过其注册的 事件回调函数之 一接收此句柄。"
+        }
+      ],
+      "remarks": "返回的 SPBTARGET 句柄保证在相应的 I/O 请求完成之前保持有效。",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 8"
+      },
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SpbRequestGetTransferParameters"
+      ],
+      "confidence": 0.8,
+      "_source_line": 81
+    },
+    {
+      "id": "windows::SpbRequestGetTransferParameters",
+      "name": "SpbRequestGetTransferParameters",
+      "entity_type": "enum",
+      "description": "方法使用此结构。 在将 SPB_TRANSFER_DESCRIPTOR 结构传递给此方法之前，请通过调用 SPB_TRANSFER_DESCRIPTOR_INIT 函数来初始化结构。",
+      "syntax": "void SpbRequestGetTransferParameters(\n[in]            SPBREQUEST              SpbRequest,   [in]            ULONG                   Index,\n[out, optional] SPB_TRANSFER_DESCRIPTOR *TransferDescriptor,\n[out, optional] PMDL                    *TransferBuffer);",
+      "parameters": [
+        {
+          "name": "SpbRequest",
+          "direction": "in",
+          "description": "SPBREQUEST 从中检索传输参数的 I/O 请求的句柄。 此参数必须是"
+        }
+      ],
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_TRANSFER_DESCRIPTOR",
+        "SPB_TRANSFER_DESCRIPTOR_INIT"
+      ],
+      "confidence": 0.8,
+      "_source_line": 85
+    },
+    {
+      "id": "windows::SpbTargetGetConnectionParameters",
+      "name": "SpbTargetGetConnectionParameters",
+      "entity_type": "enum",
+      "description": "方法检索总线上目标设备的连接参数。 SpbTargetGetFileObject",
+      "syntax": "void SpbTargetGetConnectionParameters(\n[in]  SPBTARGET                 Target,\n[out] SPB_CONNECTION_PARAMETERS *ConnectionParameters);",
+      "parameters": [
+        {
+          "name": "Target",
+          "direction": "in",
+          "description": "SPBTARGET 要为其检索连接参数的目标设备的句柄。[out] ConnectionParameters 指向调用方分配 SPB_CONNECTION_PARAMETERS 结构的指针，该方法将连接参数写入其中。 调用方之前必须调用 SPB_CONNECTION_PARAMETERS_INIT 函数来初始化此结构。"
+        }
+      ],
+      "return_value": {
+        "description": "没有"
+      },
+      "remarks": "此方法检索 SPB 控制器驱动程序在总线上访问指定目标设备所需的一组连接参数。 有关详细信息，请参阅 SPB_CONNECTION_PARAMETERS。 成功打开与目标的连接的客户端（外围驱动程序）具有该目标的独占用途。 SPB 框架扩展（SpbCx）调用控制器驱动程序的 EvtSpbTargetConnect， EvtSpbTargetDisconnect 回调函数来打开和关闭连接。 如果使用有效的 SPBTARGET 句柄调用 SpbTargetGetConnectionParameters ， SpbTargetGetConnectionParameters 将不会失败。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtSpbTargetConnect",
+        "EvtSpbTargetDisconnect",
+        "SPB_CONNECTION_PARAMETERS",
+        "SpbCx",
+        "SpbTargetGetFileObject"
+      ],
+      "confidence": 0.75,
+      "_source_line": 87
+    },
+    {
+      "id": "windows::SpbTargetGetFileObject",
+      "name": "SpbTargetGetFileObject",
+      "entity_type": "enum",
+      "description": "仅当目标的 WDFFILEOBJECT 句柄已关闭但关闭之前，SPB 控制器驱动程序才对 SBPTARGET 对象返回 NULL，以延长其生存期。 如果连接已关闭，并且 SPB 控制器驱动程序没有对 SPBTARGET 对象的引用，则 SBPTARGET 句柄不再有效。 将无效句柄传递给",
+      "syntax": "WDFFILEOBJECT SpbTargetGetFileObject(\n[in] SPBTARGET Target);",
+      "parameters": [
+        {
+          "name": "Target",
+          "direction": "in",
+          "description": "SPBTARGET 总线上目标设备的句柄。"
+        }
+      ],
+      "remarks": "控制器驱动程序可以调用此方法，以获取对总线上打开的目标设备的 WDFFILEOBJECT 句柄。然后，SPB 控制器驱动程序可以将此句柄用作需要此类句柄的 WDF 方法的输入参数。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.8,
+      "_source_line": 88
+    },
+    {
+      "id": "windows::PNP_SERIAL_BUS_DESCRIPTOR",
+      "name": "PNP_SERIAL_BUS_DESCRIPTOR",
+      "entity_type": "enum",
+      "description": "结构的 Length 成员中的字节计数等于结构大小，减去标记 中的三个字节，并在结构开头 长度 成员，以及遵循结构的总线类型特定数据和资源源字符串的字节数。 资源源字符串（必需字段）的最小大小为两个字节（对于一个字符的资源源名称和终止 null）。 因此，最小有效 长度 值为 11。 有关详细信息，请参阅 ACPI 5.0 规范。 RevisionId 串行总线连接描述符的修订 ID。 此成员设置为在 Reshub.h 头文件中定义的",
+      "syntax": "typedef struct _PNP_SERIAL_BUS_DESCRIPTOR {   UCHAR  Tag;\nUSHORT Length;\nUCHAR  RevisionId;\nUCHAR  ResourceSourceIndex;\nUCHAR  SerialBusType;   UCHAR  GeneralFlags;\nUSHORT TypeSpecificFlags;\nUCHAR  TypeSpecificRevisionId;   USHORT TypeDataLength;\n} PNP_SERIAL_BUS_DESCRIPTOR, *PPNP_SERIAL_BUS_DESCRIPTOR;",
+      "remarks": "此结构定义串行总线连接描述符中的数据字段，如 ACPI 5.0 规范的第 6.4.3.8.2 节中所述。 此描述符描述与连接到串行总线（I2C、SPI 或 UART）的目标设备的总线连接。 例如，对于 I2C 总线上的设备，PNP_SERIAL_BUS_DESCRIPTOR 结构（及其特定于总线类型的扩展）指定设备的总线地址、地址模式（7 位或 10 位），以及访问设备时运行总 线时钟的频率。 有关显示 I2C 控制器驱动程序如何从结构中提取此信息的代码示例，请参阅 如何获取设备的连接设置。 Reshub.h 头文件中的 PNP_SERIAL_BUS_DESCRIPTOR 结构定义前面是 Pshpack1.h 头文件的 include 语句，该语句将编译器配置为将相邻结构成员打包到字节边界，而不会干预间隙。 然后，软件可以将打包的结构覆盖到串行总线连接描述符的内存映像上，以访问此描述符的各个字段。 结构的 USHORT 成员可能无法与内存中的字节边界对齐。 USHORT 成员中的字节以小端顺序存储 x86、x64 和 ARM 处理器体系结构。",
+      "members": [
+        {
+          "name": "Tag",
+          "description": "串行总线类型。 此成员设置为0x8e串行总线（I2C、SPI 或 UART）连接。 有关详细信 息，请参阅 ACPI 5.0 规范 Length 中串行总线连接描述符的说明。 串行总线连接描述符的长度（以字节为单位）。 为了与 ACPI 5.0 规范一致，"
+        }
+      ],
+      "requirements": {
+        "header": "reshub.h",
+        "target_platform": "Windows",
+        "min_client": "Windows 8"
+      },
+      "header": "reshub.h",
+      "deprecated": false,
+      "cross_references": [
+        "Length"
+      ],
+      "confidence": 0.95,
+      "_source_line": 92
+    },
+    {
+      "id": "windows::RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER",
+      "name": "RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER",
+      "entity_type": "enum",
+      "description": "结构包含连接到串行总线（I2C、SPI 或 UART）的目标设备的连接属性。",
+      "syntax": "typedef struct _RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER {   ULONG Version;\nULONG PropertiesLength;\nUCHAR ConnectionProperties[ANYSIZE_ARRAY];\n} RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER, *PRH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER;",
+      "members": [
+        {
+          "name": "Version",
+          "description": "此结构的版本号。 此成员设置为在 Reshub.h 头文件中定义的"
+        }
+      ],
+      "header": "reshub.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 94
+    },
+    {
+      "id": "windows::SPB_CONNECTION_PARAMETERS",
+      "name": "SPB_CONNECTION_PARAMETERS",
+      "entity_type": "enum",
+      "description": "结构的 ConnectionParameters 成员是指向包含总线上目标设备的连接设置的缓冲区的指针。 有关使用 ConnectionParameters 成员获取这些连接参数的代码示例，请参阅 如何获取设备的连接设置。 调用 SpbTargetGetConnectionParameters 方法以获取表示目标设备的 SPBTARGET 句柄的连接参数。 此方法将连接参数写入调用方提供的 SPB_CONNECTION_PARAMETERS 结 构。 将此结构传递给 SpbTargetGetConnectionParameters之前，请通过调用 SPB_CONNECTION_PARAMETERS_INIT 函数初始化结构。 若要代表客户端（外围驱动程序）打开连接，SPB 框架扩展（SpbCx）调用 SPB 控制器驱动程序的",
+      "syntax": "typedef struct _SPB_CONNECTION_PARAMETERS {   USHORT Size;\nPCWSTR ConnectionTag;\nPVOID  ConnectionParameters;\n} SPB_CONNECTION_PARAMETERS, *PSPB_CONNECTION_PARAMETERS;",
+      "members": [
+        {
+          "name": "Size",
+          "description": "此结构的大小（以字节为单位）。 SpbTargetGetConnectionParameters 方法使用 Size 值来确定正在使用哪种版本的此结构。 使用 SPB_CONNECTION_PARAMETERS_INIT 函数初 始化此成员。 有关详细信息，请参阅以下“备注”部分。 ConnectionTag 指向此目标的连接标记的指针。 连接标记是一个不透明的字符串，其中包含一个连接 ID，用于标识目标设备与总线的连接。 有关详细信息，请参阅 SPB-Connected 外围设备连接 ID。"
+        }
+      ],
+      "header": "reshub.h",
+      "deprecated": false,
+      "cross_references": [
+        "ConnectionParameters",
+        "SPB_CONNECTION_PARAMETERS_INIT",
+        "SpbCx",
+        "SpbTargetGetConnectionParameters"
+      ],
+      "confidence": 0.95,
+      "_source_line": 97
+    },
+    {
+      "id": "windows::SPB_CONTROLLER_CONFIG",
+      "name": "SPB_CONTROLLER_CONFIG",
+      "entity_type": "enum",
+      "description": "SpbDeviceInitialize 是 否",
+      "syntax": "typedef struct _SPB_CONTROLLER_CONFIG {   ULONG                       Size;",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SpbDeviceInitialize"
+      ],
+      "confidence": 0.75,
+      "_source_line": 97
+    },
+    {
+      "id": "windows::SPB_MULTI_SPI_READ_TRANSFER",
+      "name": "SPB_MULTI_SPI_READ_TRANSFER",
+      "entity_type": "enum",
+      "description": "），则必须使用 SPB_MULTI_SPI_TRANSFER_INIT 帮助程序函数对其进行初始化。 此结构（和关联的标头）允许指定以下内容： 双或象限 SPI 传输模式。 一个或两个传输阶段 - 写入 阶段，后跟可选的 读取 阶段。 在切换到指定的多 SPI 模式之前，在 写入 阶段开始时要传输的可变字节数。 其中提供了 读取 阶段，写入 和 读取 阶段之间的可变数量的 等待 周期数 -时钟周期，其中不传输任何数据。 以下限制适用于此结构： 请求中的 TransferPhases 结构必须正好包含一两个条目。 第一个条目描述包含要写入到设备的数据的缓冲区。 第二个可选条目描述用于保存从设备读取的数据的缓冲区。 这些 TransferPhases 的方向应分别设置为 SpbTransferDirectionToDevice 和 SpbTransferDirectionFromDevice。 传输列表中的每个",
+      "syntax": "typedef struct SPB_MULTI_SPI_READ_TRANSFER {",
+      "parameters": [
+        {
+          "name": "SpiTransfer",
+          "description": "指向要初始化 SPB_MULTI_SPI_READ_TRANSFER 结构的指针。 Mode"
+        }
+      ],
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_MULTI_SPI_TRANSFER_INIT",
+        "SpbTransferDirectionFromDevice"
+      ],
+      "confidence": 0.95,
+      "_source_line": 98
+    },
+    {
+      "id": "windows::SPB_MULTI_SPI_TRANSFER",
+      "name": "SPB_MULTI_SPI_TRANSFER",
+      "entity_type": "enum",
+      "description": "*SpiTransfer, SPB_MULTI_SPI_TRANSFER_MODE Mode, ULONG TransferPhaseCount, ULONG WritePhaseSingleSpiByteCount, ULONG WaitCycleByteCount);",
+      "syntax": "typedef struct SPB_MULTI_SPI_TRANSFER {   SPB_MULTI_SPI_TRANSFER_HEADER Header;\nULONG                         TransferPhaseCount;   SPB_TRANSFER_LIST_ENTRY       TransferPhases[1];} SPB_MULTI_SPI_TRANSFER, *PSPB_MULTI_SPI_TRANSFER;",
+      "parameters": [
+        {
+          "name": "SpiTransfer",
+          "description": "指向要初始化的 SPB_MULTI_SPI_TRANSFER 结构的指针。 此结构包括单个传输阶段 - 使用此函 数初始化双阶段读取作时，应提供额外的传输阶段。 Mode"
+        }
+      ],
+      "remarks": "使用 SPB_MULTI_SPI_READ_TRANSFER_INIT初始化后，外围驱动程序可以访问 SpiTransfer.TransferPhases[] 的成员来配置传输缓冲区。",
+      "members": [
+        {
+          "name": "SpiTransfer",
+          "description": "包含传输参数和写入阶段缓冲区的 SPB_MULTI_SPI_TRANSFER 结构。 ExtraTransfer 额外的 SPB_TRANSFER_LIST_ENTRY 结构，包含传输作的读取阶段缓冲区。"
+        }
+      ],
+      "requirements": {
+        "header": "spb.h"
+      },
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_MULTI_SPI_TRANSFER_MODE",
+        "WaitCycleByteCount",
+        "WritePhaseSingleSpiByteCount"
+      ],
+      "confidence": 0.95,
+      "_source_line": 100
+    },
+    {
+      "id": "windows::SPB_MULTI_SPI_TRANSFER_HEADER",
+      "name": "SPB_MULTI_SPI_TRANSFER_HEADER",
+      "entity_type": "enum",
+      "description": "结构描述在多 SPI（例如双 SPI 或 Quad SPI）模式下执行的 SPI 传输。 控制器驱动程序应访问此结构，以检索多 SPI 传输的参数。",
+      "syntax": "typedef struct SPB_MULTI_SPI_TRANSFER_HEADER {\nULONG                       Size;   SPB_MULTI_SPI_TRANSFER_MODE Mode;\nULONG                       WritePhaseSingleSpiByteCount;   ULONG                       WaitCycleByteCount;\n} SPB_MULTI_SPI_TRANSFER_HEADER, *PSPB_MULTI_SPI_TRANSFER_HEADER;",
+      "members": [
+        {
+          "name": "Size",
+          "description": "父 SPB_MULTI_SPI_TRANSFER 结构的大小（以字节为单位）不包括父结构后面的任何其 他 TransferPhases 条目。 Mode"
+        }
+      ],
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.95,
+      "_source_line": 105
+    },
+    {
+      "id": "windows::SPB_MULTI_SPI_WRITE_TRANSFER",
+      "name": "SPB_MULTI_SPI_WRITE_TRANSFER",
+      "entity_type": "enum",
+      "description": "*SpiTransfer, SPB_MULTI_SPI_TRANSFER_MODE Mode, ULONG WritePhaseSingleSpiByteCount, ULONG",
+      "syntax": "typedef struct SPB_MULTI_SPI_WRITE_TRANSFER {   SPB_MULTI_SPI_TRANSFER SpiTransfer;\n} SPB_MULTI_SPI_WRITE_TRANSFER, *PSPB_MULTI_SPI_WRITE_TRANSFER;",
+      "parameters": [
+        {
+          "name": "SpiTransfer",
+          "description": "指向要初始化的 SPB_MULTI_SPI_WRITE_TRANSFER 结构的指针。 Mode"
+        }
+      ],
+      "remarks": "使用 SPB_MULTI_SPI_WRITE_TRANSFER_INIT初始化后，外围驱动程序可以访问 SpiTransfer.TransferPhases[] 来配置传输缓冲区。",
+      "members": [
+        {
+          "name": "SpiTransfer",
+          "description": "包含传输参数和写入阶段缓冲区的 SPB_MULTI_SPI_TRANSFER 结构。"
+        }
+      ],
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_MULTI_SPI_TRANSFER_MODE",
+        "WritePhaseSingleSpiByteCount"
+      ],
+      "confidence": 0.95,
+      "_source_line": 107
+    },
+    {
+      "id": "windows::SPB_TRANSFER_BUFFER",
+      "name": "SPB_TRANSFER_BUFFER",
+      "entity_type": "enum",
+      "description": "结构的 Format 成员是一个 SPB_TRANSFER_BUFFER_FORMAT 枚举值。",
+      "syntax": "typedef struct SPB_TRANSFER_BUFFER {   SPB_TRANSFER_BUFFER_FORMAT Format;   union {",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "Format",
+        "SPB_TRANSFER_BUFFER_FORMAT"
+      ],
+      "confidence": 0.75,
+      "_source_line": 109
+    },
+    {
+      "id": "windows::SPB_TRANSFER_BUFFER_LIST_ENTRY",
+      "name": "SPB_TRANSFER_BUFFER_LIST_ENTRY",
+      "entity_type": "enum",
+      "description": "结构描述一个简单的传输缓冲区，或者一个或多个传输缓冲区数组中的元素。",
+      "syntax": "typedef struct SPB_TRANSFER_BUFFER_LIST_ENTRY {\nPVOID Buffer;   ULONG BufferCb;\n} SPB_TRANSFER_BUFFER_LIST_ENTRY, *PSPB_TRANSFER_BUFFER_LIST_ENTRY;",
+      "remarks": "若要为总线上的目标设备请求 I/O 传输序列，SPB 控制器驱动程序的客户端（外围驱动程序）会发送描述序列的 IOCTL_SPB_EXECUTE_SEQUENCE 请求。 序列中的传输由 SPB_TRANSFER_LIST 结构描述，后跟一个或多个 SPB_TRANSFER_LIST_ENTRY 结构的数组。 此数组中的每个元素描述序列中的单个传输，每个元素都包含一个 SPB_TRANSFER_BUFFER 结构，该结构描述用于传输的缓冲区。 如果缓冲区格式 SpbTransferBufferFormatSimple，则 SPB_TRANSFER_BUFFER 结构包含一个描述地址和长度指定的简单缓冲区的单个 SPB_TRANSFER_BUFFER_LIST_ENTRY 结构。 如果缓冲区格式 SpbTransferBufferFormatList，则缓冲区是散点收集列表，SPB_TRANSFER_BUFFER 结构包含指向描述列表的 SPB_TRANSFER_BUFFER_LIST_ENTRY 数组的指针。 要求",
+      "members": [
+        {
+          "name": "Buffer",
+          "description": "传输缓冲区的虚拟地址。 对于 SPB 控制器驱动程序在用户模式下运行的客户端请求的传输，此 缓冲区必须完全驻留在用户模式内存中。 BufferCb 缓冲区 指向的传输缓冲区的大小（以字节为单位）。"
+        }
+      ],
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "IOCTL_SPB_EXECUTE_SEQUENCE",
+        "SPB_TRANSFER_BUFFER",
+        "SPB_TRANSFER_LIST",
+        "SPB_TRANSFER_LIST_ENTRY",
+        "SpbTransferBufferFormatSimple"
+      ],
+      "confidence": 0.85,
+      "_source_line": 110
+    },
+    {
+      "id": "windows::SPB_TRANSFER_DESCRIPTOR",
+      "name": "SPB_TRANSFER_DESCRIPTOR",
+      "entity_type": "enum",
+      "description": "中的 DelayInUs 成员的说明。 Buffer 此传输的缓冲区。 此成员使用以下缓冲区格式之一：简单缓冲区、散点收集列表或（对于内核 模式客户端）MDL。 有关缓冲区格式的详细信息，请参阅",
+      "syntax": "typedef struct SPB_TRANSFER_DESCRIPTOR {   USHORT                 Size;",
+      "remarks": "若要为总线上的目标设备请求 I/O 传输序列，SPB 控制器驱动程序的客户端（外围驱动程序）发送描述序列的 IOCTL_SPB_EXECUTE_SEQUENCE 请求。 序列中的传输由 SPB_TRANSFER_LIST 结构描述，后跟一个或多个 SPB_TRANSFER_LIST_ENTRY 结构的数组。 此数组中的每个元素描述序列中的单个传输。 要求",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "Buffer",
+        "DelayInUs",
+        "IOCTL_SPB_EXECUTE_SEQUENCE",
+        "SPB_TRANSFER_LIST",
+        "SPB_TRANSFER_LIST_ENTRY"
+      ],
+      "confidence": 0.85,
+      "_source_line": 112
+    },
+    {
+      "id": "windows::PwmParsePinPath",
+      "name": "PwmParsePinPath",
+      "entity_type": "unknown",
+      "description": "分析脉冲宽度调节（PWM）控制器命名空间下的引脚路径，以验证其格式并提取引脚号。",
+      "syntax": "NTSTATUS PwmParsePinPath(\n[in]            UNICODE_STRING *PinPath,   [out, optional] ULONG          *PinNumber);",
+      "parameters": [
+        {
+          "name": "PinPath",
+          "direction": "in",
+          "description": "指向将路径固定为 Unicode 字符串的指针。[out, optional] PinNumber 指向接收引脚编号的变量的指针。"
+        }
+      ],
+      "header": "pwmutil.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 130
+    },
+    {
+      "id": "windows::STATUS_SUCCESS",
+      "name": "STATUS_SUCCESS",
+      "entity_type": "constant",
+      "description": "。 此类部分完成的读取作不能发生在 SPI 或 I C 总线上，但可能发生在另一种类型的总线上。 如果读取作因线路干扰、控制器硬件错误或驱动程序错误而失败，SPB 控制器驱动程序应在 I/O 请求中将完成状态设置为适当的错误代码。 并非所有总线都为目标设备提供一种 机制来报告传输错误或部分完成的传输，并非所有控制器都能够检测这些情况。若要注册 EvtSpbControllerIoRead 回调函数，请调用 SpbDeviceInitialize 方法。 例子 若要定义 EvtSpbControllerIoRead 回调函数，必须首先提供一个函数声明来标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。 例如，若要定义名为 MyEvtSpbControllerIoRead 的 EvtSpbControllerIoRead 回调函数，请 使用EVT_SPB_CONTROLLER_READ函数类型，如以下代码示例所示： C++",
+      "header": "pwmutil.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtSpbControllerIoRead",
+        "MyEvtSpbControllerIoRead",
+        "SpbDeviceInitialize"
+      ],
+      "confidence": 0.75,
+      "_source_line": 146
+    },
+    {
+      "id": "windows::STATUS_NO_SUCH_FILE",
+      "name": "STATUS_NO_SUCH_FILE",
+      "entity_type": "constant",
+      "description": "言论 描述 从提供的引脚路径成功提取的引脚路径。 指定的引脚路径指针无效或其 Unicode 字符串无效。指定的引脚路径不构成有效的引脚路径。 引脚路径必须是以 pin 号结尾的 Unicode 字符串，如下所示：...<PinNumber>。 要求",
+      "header": "pwmutil.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 148
+    },
+    {
+      "id": "windows::SERIAL_BUS_DESCRIPTOR_REVISION",
+      "name": "SERIAL_BUS_DESCRIPTOR_REVISION",
+      "entity_type": "struct",
+      "description": "常量。 ResourceSourceIndex 保留以供将来使用。 此成员未使用，并且设置为零。 SerialBusType 串行总线类型。 此成员设置为 1（对于 I2C）、2（对于 SPI），或 3（对于 UART）。 其他值要么保留供将来使用，要么由硬件供应商定义。 有关详细信息，请参阅 ACPI 5.0 规范。",
+      "header": "reshub.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 202
+    },
+    {
+      "id": "windows::GeneralFlags",
+      "name": "GeneralFlags",
+      "entity_type": "struct",
+      "description": "所有串行总线类型通用的标志。 位 0 是从属模式标志。 如果此位设置为 1，则此连接的通信由总线控制器启动;否则，通信由目标设备启动。 位 1 是使用者/生成者标志，始终设 置为 1。 当前未定义其他标志位。 有关详细信息，请参阅 ACPI 5.0 规范。 TypeSpecificFlags 特定于串行总线类型的标志。 对于 I2C 总线，如果连接使用 10 位地址，则设置位 0;否则，连接使用 7 位地址。 目前没有为 I2C 定义其他标志位。 有关详细信息，请参阅 ACPI 5.0 规范。",
+      "header": "reshub.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 205
+    },
+    {
+      "id": "windows::TypeSpecificRevisionId",
+      "name": "TypeSpecificRevisionId",
+      "entity_type": "struct",
+      "description": "此结构的变体的修订 ID，该变体用于 标记 成员指定的串行总线类型（I2C、SPI 和 UART）。 每个串行总线类型通过添加特定于总线类型的字段来扩展",
+      "header": "reshub.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 209
+    },
+    {
+      "id": "windows::RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_VERSION",
+      "name": "RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_VERSION",
+      "entity_type": "struct",
+      "description": "常量。 PropertiesLength 以 ConnectionProperties 数组元素 0 开头的串行总线连接描述符的大小（以字节为单位）。 ConnectionProperties[ANYSIZE_ARRAY] 串行总线连接描述符的第一个字节。 此字节紧跟描述符的剩余字节。 PropertiesLength 成员指定描述符占用的字节总数。 ConnectionProperties 成员的定义使用 ntdef.h 头文 件定义为 1 的ANYSIZE_ARRAY常量。 有关详细信息，请参阅“备注”。",
+      "remarks": "ConnectionPropertiesRH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER 结构的成员包含目标设备的串行总线连接描述符的第一个字节。 描述符中的剩余字节紧跟内存 中的此成员。 为 RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER 结构分配的缓冲区足够大，足以包含此结构以及扩展至结构末尾的串行总线连接描述符的剩余字节。 ACPI 5.0 规范 中介绍了串行总线连接描述符的格式。 为方便起见，Reshub.h 头文件定 义了 PNP_SERIAL_BUS_DESCRIPTOR 结构，使驱动程序能够访问此描述符中的值。 SPB 控制器驱动程序调用 SpbTargetGetConnectionParameters 方法，以获取 简单外围总线（通常为 IーC 或 SPI）上目标设备的连接参数。 此方法将连接参数写入",
+      "header": "reshub.h",
+      "deprecated": false,
+      "cross_references": [
+        "PNP_SERIAL_BUS_DESCRIPTOR",
+        "RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER",
+        "SpbTargetGetConnectionParameters"
+      ],
+      "confidence": 0.75,
+      "_source_line": 246
+    },
+    {
+      "id": "windows::WritePhaseSingleSpiByteCount",
+      "name": "WritePhaseSingleSpiByteCount",
+      "entity_type": "enum",
+      "description": "写入阶段开始时要以单 SPI 模式传输的字节计数，然后行模式切换到此结构的 Mode 成 员中指定的模式。 WaitCycleByteCount 表示为字节数的等待周期数，表示多 SPI 传输周期，例如 1 字节 => 8 位 = 在四 SPI 模式下> 2 个时钟周期，介于写入阶段和传输的读取阶段之间。 这些等待周期字节应存在， 以及 WritePhaseBuffer 末尾未定义的值。",
+      "return_value": {
+        "description": "没有"
+      },
+      "remarks": "外围驱动程序应使用 SPB_MULTI_SPI_READ_TRANSFER_INIT、",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_MULTI_SPI_READ_TRANSFER_INIT",
+        "WaitCycleByteCount"
+      ],
+      "confidence": 0.65,
+      "_source_line": 358
+    },
+    {
+      "id": "windows::WaitCycleByteCount",
+      "name": "WaitCycleByteCount",
+      "entity_type": "enum",
+      "description": "表示为字节数的等待周期数，表示多 SPI 传输周期，例如 1 字节 => 8 位 = 在四 SPI 模式下> 2 个时钟周期，介于写入阶段和传输的读取阶段之间。 这些等待周期字节应存在，以及 WritePhaseBuffer 末尾未定义的值。 如果传输没有读取阶段，则应将其设置为 0。",
+      "return_value": {
+        "description": "没有"
+      },
+      "remarks": "通常，不应直接调用此函数，而是 SPB_MULTI_SPI_READ_TRANSFER_INIT 或 SPB_MULTI_SPI_WRITE_TRANSFER_INIT 适当地使用。",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_MULTI_SPI_READ_TRANSFER_INIT",
+        "SPB_MULTI_SPI_WRITE_TRANSFER_INIT"
+      ],
+      "confidence": 0.65,
+      "_source_line": 477
+    },
+    {
+      "id": "windows::SpbMultiSpiTransferModeInvalid",
+      "name": "SpbMultiSpiTransferModeInvalid",
+      "entity_type": "enum",
+      "description": "保留供作系统使用。",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 506
+    },
+    {
+      "id": "windows::SpbMultiSpiTransferModeDualSpi",
+      "name": "SpbMultiSpiTransferModeDualSpi",
+      "entity_type": "enum",
+      "description": "传输应在控制器的 Dual-SPI 传输模式下传输。 SpbMultiSpiTransferModeQuadSpi 传输应在控制器的 Quad-SPI 传输模式下传输。 SpbMultiSpiTransferModeMax 保留供作系统使用。",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 507
+    },
+    {
+      "id": "windows::PSPB_TRANSFER_BUFFER_LIST_ENTRY",
+      "name": "PSPB_TRANSFER_BUFFER_LIST_ENTRY",
+      "entity_type": "enum",
+      "description": "List; ULONG ListCe; } BufferList; PMDL Mdl; }; } SPB_TRANSFER_BUFFER, *PSPB_TRANSFER_BUFFER;",
+      "members": [
+        {
+          "name": "Format",
+          "description": "缓冲区格式。 此成员设置为以下 SPB_TRANSFER_BUFFER_FORMAT 枚举值之一："
+        }
+      ],
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "BufferList",
+        "SPB_TRANSFER_BUFFER"
+      ],
+      "confidence": 0.85,
+      "_source_line": 590
+    },
+    {
+      "id": "windows::SpbTransferBufferFormatSimple",
+      "name": "SpbTransferBufferFormatSimple",
+      "entity_type": "enum",
+      "description": "传输缓冲区由简单的用户模式或内核模式指针和长度描述。 SpbTransferBufferFormatList 传输缓冲区由指向缓冲区列表的指针和列表中缓冲区数的计数来描述。 SpbTransferBufferFormatSimpleNonPaged 传输缓冲区由简单的用户模式或内核模式指针和长度描述。 缓冲区驻留在非分页内存中。 仅当源 自 I/O 请求的客户端是内核模式驱动程序时，此格式值才有效。",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "SpbTransferBufferFormatSimpleNonPaged"
+      ],
+      "confidence": 0.6,
+      "_source_line": 595
+    },
+    {
+      "id": "windows::SpbTransferBufferFormatSimpleNonPaged",
+      "name": "SpbTransferBufferFormatSimpleNonPaged",
+      "entity_type": "enum",
+      "description": "格式仅由内核模式客户端使用。 BufferList 由缓冲区描述符数组组成的散点收集列表。 如果 FormatSpbTransferBufferFormatList， 请使用此联合成员。 BufferList.List 指向描述散点收集列表中的缓冲区的 SPB_TRANSFER_BUFFER_LIST_ENTRY 结构的数组的指针。 BufferList.ListCe List 数组中的元素数。 Mdl 指向描述缓冲区的 MDL 的指针。 此成员仅由内核模式客户端使用。 如果 FormatSpbTransferBufferFormatMdl，请使用此联合成员。 有关详细信息，请参阅“备 注”。",
+      "remarks": "此结构由 SPB_TRANSFER_LIST_ENTRY 结构用来描述传输缓冲区。 此结构的 Mdl 成员只能由作为内核模式组件的 SPB 控制器驱动程序的客户端使用。 用户 模式客户端不得使用此成员。 有关 MDL 的详细信息，请参阅 使用 MDL。",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "BufferList",
+        "SPB_TRANSFER_BUFFER_LIST_ENTRY",
+        "SPB_TRANSFER_LIST_ENTRY"
+      ],
+      "confidence": 0.6,
+      "_source_line": 596
+    },
+    {
+      "id": "windows::SpbTransferBufferFormatMdl",
+      "name": "SpbTransferBufferFormatMdl",
+      "entity_type": "enum",
+      "description": "是仅对 SPB 控制器驱动程序的客户端请求的 I/O 传输序列 （内核模式组件）的有效值。 Simple 一个SPB_TRANSFER_BUFFER_LIST_ENTRY结构，指定简单传输缓冲区的基址和长度。 如果 FormatSpbTransferBufferFormatSimple 或",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 597
+    },
+    {
+      "id": "windows::SpbTransferBufferFormatInvalid",
+      "name": "SpbTransferBufferFormatInvalid",
+      "entity_type": "enum",
+      "description": "保留供作系统使用。",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 644
+    },
+    {
+      "id": "windows::SpbTransferBufferFormatMax",
+      "name": "SpbTransferBufferFormatMax",
+      "entity_type": "enum",
+      "description": "保留供作系统使用。",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 655
+    },
+    {
+      "id": "windows::IOCTL_SPB_EXECUTE_SEQUENCE",
+      "name": "IOCTL_SPB_EXECUTE_SEQUENCE",
+      "entity_type": "enum",
+      "description": "请求的句柄。[in] Index I/O 传输序列中传输的索引。 有关详细信息，请参阅以下“备注”部分。[out, optional] TransferDescriptor 指向调用方分配 SPB_TRANSFER_DESCRIPTOR 结构的指针，该方法将传输参数写入其中。 TransferDescriptor 参数是可选的，如果调用方不需要传输参数，则可以指定为 NULL。 有关详细信息，请参阅 备注 部分。[out, optional] TransferBuffer 指向方法将指针写入到描述传输缓冲区中物理内存的 MDL（或 MDL 链）的位置的指针。调用方不得修改此 MDL 的内容。 此参数是可选的，如果不需要 MDL，则可以设置为 NULL。 有关详细信息，请参阅以下“备注”部分。",
+      "return_value": {
+        "description": "没有言论 若要请求 I/O 传输序列，SPB 控制器驱动程序的客户端（外围驱动程序）发送包含序列中 传输列表的 IOCTL_SPB_EXECUTE_SEQUENCE 请求。 控制器驱动程序可以调用 SpbRequestGetTransferParameters 以获取有关序列中特定传输的信息。"
+      },
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "Index",
+        "SPB_TRANSFER_DESCRIPTOR",
+        "TransferBuffer"
+      ],
+      "confidence": 0.8,
+      "_source_line": 692
+    },
+    {
+      "id": "windows::SpbTransferDirectionNone",
+      "name": "SpbTransferDirectionNone",
+      "entity_type": "enum",
+      "description": "数据传输方向未定义。",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 709
+    },
+    {
+      "id": "windows::SpbTransferDirectionFromDevice",
+      "name": "SpbTransferDirectionFromDevice",
+      "entity_type": "enum",
+      "description": "进行读取作，并且 SpbTransferDirectionToDevice 进行写入作。 SPB 控制器驱动程序可以调用 SpbRequestGetParameters 方法，从 I/O 请求中检索一组特定于 SPB 的参数。 其中一个参数是一个 SPB_TRANSFER_DIRECTION 枚举值，指示上一个 I/O 请求的传输方向。 SPB 控制器驱动程序可以使用此方向值来确定当前读取或写入（IRP_MJ_READ 还是 IRP_MJ_WRITE）请求是否需要更改总线上的传输方向。 此外，SpbRequestGetParameters 检索一个位置值，该值指示多请求序列传输列表中的读取或写入请求的相对位置。 如果读取请求或写入请求的位置值为",
+      "remarks": "此枚举中的值指示 I/O 传输序列中单个传输的方向。 IOCTL_SPB_EXECUTE_SEQUENCE I/O 控制请求的输入缓冲区是指定序列传输列表的 SPB_TRANSFER_LIST 结构。 每个传输由包含传输参数（包括传输方向）的 SPB_TRANSFER_LIST_ENTRY 结构描述。 传输方向",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "IOCTL_SPB_EXECUTE_SEQUENCE",
+        "IRP_MJ_READ",
+        "IRP_MJ_WRITE",
+        "SPB_TRANSFER_DIRECTION",
+        "SPB_TRANSFER_LIST",
+        "SPB_TRANSFER_LIST_ENTRY",
+        "SpbRequestGetParameters"
+      ],
+      "confidence": 0.6,
+      "_source_line": 710
+    },
+    {
+      "id": "windows::SpbRequestSequencePositionSingle",
+      "name": "SpbRequestSequencePositionSingle",
+      "entity_type": "enum",
+      "description": "单传输 I/O 请求。 此请求是不属于序列的读取或写入（IRP_MJ_READ 或 IRP_MJ_WRITE）请求，或者是包含单个传输的序列的 IOCTL_SPB_EXECUTE_SEQUENCE I/O 控制请求。 控制器应在执行传输之前选择目标，并在传输完成后释放目标。 SpbRequestSequencePositionFirst 序列中的第一个 I/O 请求。 此请求是紧跟锁（IOCTL_SPB_LOCK_CONTROLLER）I/O 控制请求的读取或写入请求，用于发出序列的开始信号。 控制器应在执行此传输之前选择目标，目标应在传输完成后保持选中状态。 SpbRequestSequencePositionContinue 序列中间的 I/O 请求。 此请求是读取或写入请求，既不是序列中的第一个传输，也不是最后一个传输请求。 在某些情况下，SPB 框架扩展（SpbCx）无法将上次传输标识为 SpbRequestSequencePositionContinue 而不是 SpbRequestSequencePositionLast。 有关详细信息，请参阅以下“备注”部分。控制器应在启动此传输之前已选择目标，并且目标应在传输完成后保持选中状态。 SpbRequestSequencePositionLast 序列中的最后一个 I/O 请求。 此请求是在解锁（IOCTL_SPB_UNLOCK_CONTROLLER）I/O 控制请求之前立即发出信号序列结束的读取或写入请求。 在某些情况下，SpbCx 无法将上次传输标识为 SpbRequestSequencePositionContinue 而不是 SpbRequestSequencePositionLast。 有关详细信息，请参阅以下“备注”部分。 控制器应在启动此传输之前选择目标，并在传输完成后释放目标。 SpbRequestSequencePositionMax 仅供内部使用。",
+      "remarks": "SPB 控制器的客户端（外围驱动程序）可以通过向总线上的目标设备发送一系列读取和写入请求来执行 I/O 传输序列。 序列中的每个读取或写入请求都占据序列传输列表中的位置。",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "IOCTL_SPB_EXECUTE_SEQUENCE",
+        "IOCTL_SPB_LOCK_CONTROLLER",
+        "IOCTL_SPB_UNLOCK_CONTROLLER",
+        "IRP_MJ_READ",
+        "IRP_MJ_WRITE",
+        "SpbCx",
+        "SpbRequestSequencePositionLast"
+      ],
+      "confidence": 0.6,
+      "_source_line": 721
+    },
+    {
+      "id": "windows::SpbRequestSequencePositionMiddle",
+      "name": "SpbRequestSequencePositionMiddle",
+      "entity_type": "enum",
+      "description": "或 SpbRequestSequencePositionLast的读取或写入请求，方向值指示上一次传输是读取还是写入。 对于解锁（IOCTL_SPB_UNLOCK_CONTROLLER）请求，其位置值为 SpbRequestSequencePositionLast，方向值指示序列中的最后一次传输是读取还是写入。 锁（IOCTL_SPB_LOCK_CONTROLLER）请求没有以前的方向。 同样，传递给",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "IOCTL_SPB_LOCK_CONTROLLER",
+        "IOCTL_SPB_UNLOCK_CONTROLLER",
+        "SpbRequestSequencePositionLast"
+      ],
+      "confidence": 0.6,
+      "_source_line": 722
+    },
+    {
+      "id": "windows::EvtSpbControllerIoOther",
+      "name": "EvtSpbControllerIoOther",
+      "entity_type": "enum",
+      "description": "函数必须验证它从用户模式客户端接收的 I/O 控件请求中的参数值。 对于除 EvtSpbControllerIoOther以外的所有 EvtSpbXxx 回调函数，SpbCx 会在调用函数之前验证用户模式参数。 若要注册 EvtSpbControllerIoOther 回调函数，请调用 SpbControllerSetIoOther 方法。例子 若要定义 EvtSpbControllerIoOther 回调函数，必须首先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助 于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。 例如，若要定义名为 MyEvtSpbControllerIoOther 的 EvtSpbControllerIoOther 回调函数，请使用",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "MyEvtSpbControllerIoOther",
+        "SpbControllerSetIoOther",
+        "SpbCx"
+      ],
+      "confidence": 0.6,
+      "_source_line": 724
+    },
+    {
+      "id": "windows::IRP_MJ_READ",
+      "name": "IRP_MJ_READ",
+      "entity_type": "enum",
+      "description": "IRP_MJ_WRITE SPBREQUEST SPBTARGET",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "IRP_MJ_WRITE"
+      ],
+      "confidence": 0.65,
+      "_source_line": 732
+    },
+    {
+      "id": "windows::IOCTL_SPB_FULL_DUPLEX",
+      "name": "IOCTL_SPB_FULL_DUPLEX",
+      "entity_type": "enum",
+      "description": "请求的输入缓冲区以 SPB_TRANSFER_LIST 结构开头。 此请求的 SPB_TRANSFER_LIST 结构始终指定两个缓冲区。 第一个缓冲区由此结构的 传输 成员描述，其中包含要写入到设备的数据。 第二个缓冲区（由紧跟在 SPB_TRANSFER_LIST 结构后面的数组元素描述）用于保存从设备读取的数据。 如果 SPB 控制器驱动程序支持使用输入或输出缓冲区的自定义 I/O 控件（IOCTL）请求，请使用 SPB_TRANSFER_LIST 结构来描述这些缓冲区。 有关详细信息，请参阅 使用自定 义 IOCTL SPB_TRANSFER_LIST 结构。",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_TRANSFER_LIST"
+      ],
+      "confidence": 0.75,
+      "_source_line": 758
+    },
+    {
+      "id": "windows::DelayInUs",
+      "name": "DelayInUs",
+      "entity_type": "enum",
+      "description": "成员指定传输开始前的延迟。 在某些情况下，外围驱动程序可能需要在序列中的两次连续传输之间插入延迟。 例如，如果写入目标设备指定所请求的信息类型，则此设备可能需要时间来处理请求，然后才能读取信息。 此外，外围驱动程序可能需要在序列中的第一次传输之前指定延迟。 在这种情况下，控制器必须在第一次传输开始前将地址或断言设备选择行应用 于目标设备，以指定延迟间隔。",
+      "return_value": {
+        "description": "SPB_TRANSFER_LIST_ENTRY_INIT_MDL 返回初始化 SPB_TRANSFER_LIST_ENTRY 结构。"
+      },
+      "remarks": "此初始化函数返回 SPB_TRANSFER_LIST_ENTRY类型的未命名局部变量。 此变量的存储在调用方堆栈帧中分配，在堆栈帧保留在范围内时有效。",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 787
+    },
+    {
+      "id": "windows::BufferList",
+      "name": "BufferList",
+      "entity_type": "enum",
+      "description": "指向的散点收集列表中的缓冲区数。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY 结构的 Buffer.BufferList.ListCe 成员。 有关详细信息，请参阅",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "Buffer",
+        "SPB_TRANSFER_LIST_ENTRY"
+      ],
+      "confidence": 0.6,
+      "_source_line": 819
+    },
+    {
+      "id": "windows::Buffer",
+      "name": "Buffer",
+      "entity_type": "enum",
+      "description": "指向的缓冲区的大小（以字节为单位）。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY 结构的 Buffer.Simple.BufferCb 成员。 有关详细信息，请参阅",
+      "return_value": {
+        "description": "SPB_TRANSFER_LIST_ENTRY_INIT_SIMPLE 返回初始化 SPB_TRANSFER_LIST_ENTRY 结构。"
+      },
+      "remarks": "此初始化函数返回 SPB_TRANSFER_LIST_ENTRY类型的未命名局部变量。 此变量的存储在调用方堆栈帧中分配，在堆栈帧保留在范围内时有效。",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_TRANSFER_LIST_ENTRY"
+      ],
+      "confidence": 0.65,
+      "_source_line": 887
+    },
+    {
+      "id": "windows::SPB_MDL_TRANSFER_ENTRY",
+      "name": "SPB_MDL_TRANSFER_ENTRY",
+      "entity_type": "enum",
+      "description": "将 SPB_TRANSFER_LIST_ENTRY 结构的 Buffer.Format 成员设置为 SpbTransferBufferFormatSimple。 有关缓冲区格式的详细信息，请参阅",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "Buffer",
+        "Format",
+        "SPB_TRANSFER_LIST_ENTRY",
+        "SpbTransferBufferFormatSimple"
+      ],
+      "confidence": 0.75,
+      "_source_line": 932
+    },
+    {
+      "id": "windows::SpbIoctl",
+      "name": "SpbIoctl",
+      "entity_type": "enum",
+      "description": "定义值以指示类型 I/O 控件请求。",
+      "syntax": "typedef enum SpbIoctl {",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 971
+    },
+    {
+      "id": "windows::IOCTL_SPB_LOCK_CONTROLLER",
+      "name": "IOCTL_SPB_LOCK_CONTROLLER",
+      "entity_type": "enum",
+      "description": "客户端（外围驱动程序）使用 IOCTL_SPB_LOCK_CONTROLLER 控制代码来锁定 SPB 控制器。 当控 制器锁定时，客户端只使用总线来访问锁定的指定目标设备。 IOCTL_SPB_UNLOCK_CONTROLLER 客户端（外围驱动程序）使用 IOCTL_SPB_UNLOCK_CONTROLLER I/O 控制代码来解锁 SPB 控制 器。 客户端以前锁定了控制器，以独占使用总线来访问总线上的目标设备。",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "IOCTL_SPB_UNLOCK_CONTROLLER"
+      ],
+      "confidence": 0.75,
+      "_source_line": 975
+    },
+    {
+      "id": "windows::IOCTL_SPB_MULTI_SPI_TRANSFER",
+      "name": "IOCTL_SPB_MULTI_SPI_TRANSFER",
+      "entity_type": "enum",
+      "description": "} *PSpbIoctl; 常数",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 976
+    },
+    {
+      "id": "windows::IOCTL_SPB_LOCK_CONNECTION",
+      "name": "IOCTL_SPB_LOCK_CONNECTION",
+      "entity_type": "enum",
+      "description": "客户端（外围驱动程序）使用 IOCTL_SPB_LOCK_CONNECTION 控制代码获取与另一个客户端共享的 SPB 连接目标设备上的连接锁。 当客户端持有连接锁时，此客户端对设备具有独占访问权限。",
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 986
+    },
+    {
+      "id": "windows::IOCTL_SPB_UNLOCK_CONNECTION",
+      "name": "IOCTL_SPB_UNLOCK_CONNECTION",
+      "entity_type": "enum",
+      "description": "客户端（外围驱动程序）使用 IOCTL_SPB_UNLOCK_CONNECTION I/O 控制代码释放与另一个客户 端共享的 SPB 连接目标设备上的连接锁。 客户端以前发送了一个 IOCTL_SPB_LOCK_CONNECTION 请求来获取对设备的独占访问权限。 IOCTL_SPB_FULL_DUPLEX 客户端（外围驱动程序）使用 IOCTL_SPB_FULL_DUPLEX 控制代码来请求全双工 I/O作。 可以同时 读取和写入数据的总线（如 SPI）的控制器支持全双工 I/O作。 IOCTL_SPB_MULTI_SPI_TRANSFER 客户端（外围驱动程序）使用 IOCTL_SPB_MULTI_SPI_TRANSFER 控制代码来请求 SPI I/O作，以使用多 SPI 传输模式（例如双 SPI 或 Quad SPI）。 支持在双或四次 SPI 线路模式下传输数据的 SPI 总 线的控制器支持多 SPI I/O作。",
+      "requirements": {
+        "header": "spb.h",
+        "target_platform": "Windows",
+        "min_client": "Windows 8"
+      },
+      "header": "spb.h",
+      "deprecated": false,
+      "cross_references": [
+        "IOCTL_SPB_FULL_DUPLEX",
+        "IOCTL_SPB_LOCK_CONNECTION",
+        "IOCTL_SPB_MULTI_SPI_TRANSFER"
+      ],
+      "confidence": 0.75,
+      "_source_line": 988
+    },
+    {
+      "id": "windows::SpbCx",
+      "name": "SpbCx",
+      "entity_type": "enum",
+      "description": "管理 SPB 控制器的 I/O 队列。 默认情况下，如果 SpbCx 收到具有不支持的 IOCTL 的 I/O 控制请求，SpbCx 会以错误状态代码完成请求 STATUS_INVALID_DEVICE_REQUEST。 但是，通过调用 SpbControllerSetIoOtherCallback，SPB 控制器驱动程序声明了对 SPB 框架扩展（SpbCx）不支持的 I/O 控制请求的支持。 在这种情况下，当 SpbCx 收到具有不支持的 IOCTL 代码的 I/O 控制请求时，SpbCx 调用 EvtSpbControllerIoOther 函数，以 将请求传递给 SPB 控制器驱动程序进行处理。 SPB 控制器驱动程序负责完成请求。有关 SpbCx 支持的 IOCTL 列表，请参阅 SpbCx I/O 控制代码。 可选的 EvtIoInCallerContext 回调函数在请求发起方的进程上下文中运行，并且可以在将请求传递给 EvtSpbControllerIoOther 回调函数之前预处理依赖于上下文的请求参数（如缓冲区指针）。 调用 EvtIoInCallerContext 函数时，SPB 控制器驱动程序在上一次调用中请求",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtIoInCallerContext",
+        "EvtSpbControllerIoOther",
+        "STATUS_INVALID_DEVICE_REQUEST",
+        "SpbControllerSetIoOtherCallback"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1095
+    },
+    {
+      "id": "windows::EvtSpbControllerLock",
+      "name": "EvtSpbControllerLock",
+      "entity_type": "enum",
+      "description": "和 EvtSpbControllerUnlock 函数执行互补作。 这两个函数都是可选的。 如果 SPB 控制器驱动程序实现 EvtSpbControllerUnlock 函数，则不需要驱动程序来实现 EvtSpbControllerLock 函数，但可能这样做。 但是，如果 SPB 控制器驱动程序实现 EvtSpbControllerLock 函数，则它还必须实现 EvtSpbControllerUnlock 函数。 有关详细信息，请参阅 SPB_CONTROLLER_CONFIG中的备注。 当锁生效时，控制器不得允许访问除 LockRequest 参数指定的目标以外的总线上的目标。如果 SPB 控制器驱动程序需要更改其控制器的模式以暂时替代正常的目标选择机制，则可以在 EvtSpbControllerLock 回调期间执行此作。 如果此模式更改涉及长时间延迟或要求驱动程序等待设备中断，驱动程序应启动模式更改，然后从回调返回而不延迟。 稍后，驱动程序可以在计时器 DPC 或中断 DPC 中完成锁定作。 如果锁作在 DPC 中完成，SPB 控制器驱动程序应之前已分配锁作所需的所有资源。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtSpbControllerUnlock"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1096
+    },
+    {
+      "id": "windows::MyEvtSpbControllerLock",
+      "name": "MyEvtSpbControllerLock",
+      "entity_type": "enum",
+      "description": "WDFDEVICE Controller, SPBTARGET Target, SPBREQUEST LockRequest ){ ... }",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1114
+    },
+    {
+      "id": "windows::EvtSpbControllerUnlock",
+      "name": "EvtSpbControllerUnlock",
+      "entity_type": "enum",
+      "description": "函数不返回值。 相反，SPB 控制器驱动程序指示 UnlockRequest 参数标识的 I/O 请求完成状态中的解锁作的状态。 将完成状态设置为STATUS_SUCCESS。 若要注册 EvtSpbControllerUnlock 回调函数，请调用 SpbDeviceInitialize 方法。 有关 EvtSpbControllerUnlock 函数的详细信息，请参阅 处理 Client-Implemented 序列。例子 若要定义 EvtSpbControllerUnlock 回调函数，必须首先提供一个函数声明来标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。 例如，若要定义名为 MyEvtSpbControllerUnlock 的 EvtSpbControllerUnlock 回调函数，请 使用EVT_SPB_CONTROLLER_UNLOCK函数类型，如以下代码示例所示： C++",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "Client",
+        "Implemented",
+        "MyEvtSpbControllerUnlock",
+        "SpbDeviceInitialize"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1125
+    },
+    {
+      "id": "windows::STATUS_NOT_SUPPORTED",
+      "name": "STATUS_NOT_SUPPORTED",
+      "entity_type": "enum",
+      "description": "错误状态。 有关 SpbCx 支持的 IOCTL 列表，请参阅 SpbCx I/O 控制代码。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SpbCx"
+      ],
+      "confidence": 0.65,
+      "_source_line": 1168
+    },
+    {
+      "id": "windows::MyEvtSpbControllerIoOther",
+      "name": "MyEvtSpbControllerIoOther",
+      "entity_type": "enum",
+      "description": "WDFDEVICE Controller, SPBTARGET Target, SPBREQUEST Request, size_t OutputBufferLength, size_t InputBufferLength, ULONG IoControlCode ){ ... }",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "InputBufferLength",
+        "IoControlCode",
+        "OutputBufferLength"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1182
+    },
+    {
+      "id": "windows::SpbControllerSetIoOther",
+      "name": "SpbControllerSetIoOther",
+      "entity_type": "enum",
+      "description": "价值 在 IRQL <调用 = DISPATCH_LEVEL。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "DISPATCH_LEVEL"
+      ],
+      "confidence": 0.5,
+      "_source_line": 1202
+    },
+    {
+      "id": "windows::EVT_SPB_CONTROLLER_READ",
+      "name": "EVT_SPB_CONTROLLER_READ",
+      "entity_type": "enum",
+      "description": "EvtSpbControllerRead; void EvtSpbControllerRead( [in] WDFDEVICE Controller, [in] SPBTARGET Target, [in] SPBREQUEST Request, [in] size_t Length) {...} 参数 [in] Controller 表示 SPB 控制器的 框架设备对象的 WDFDEVICE 句柄。[in] Target SPBTARGET 此 I/O 请求的目标句柄。 目标是附加到总线的外围设备或端口。 SPB 框架扩展（SpbCx）以前将此句柄分配给 EvtSpbTargetConnect 回调中打开了与目标的连接。 [in] Request SPBREQUEST I/O 请求的句柄。 SPB 控制器驱动程序必须通过执行请求的作或返回错误状 态来完成此请求。 有关详细信息，请参阅 备注。[in] Length 要从目标设备读取的字节数。",
+      "return_value": {
+        "description": "没有"
+      },
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtSpbTargetConnect",
+        "Length",
+        "SpbCx"
+      ],
+      "confidence": 0.8,
+      "_source_line": 1207
+    },
+    {
+      "id": "windows::EvtSpbControllerIoRead",
+      "name": "EvtSpbControllerIoRead",
+      "entity_type": "enum",
+      "description": "回调是异步的。 也就是说，回调函数应启动请求的读取作，然后返回，而无需等待作完成。 稍后，SPB 控制器驱动程序在中断 DPC 或计时器 DPC 期间完成读取请求。 如果读取作完全完成，SPB 控制器驱动程序应将完成状态设置为STATUS_SUCCESS。 如果目标设备指示它可以提供一些但并非所有请求的数据，SPB 控制器驱动程序应检索尽可能多的可用数据，指定检索的数据字节数，并将 I/O 请求中的完成状态设置为 2",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1228
+    },
+    {
+      "id": "windows::MyEvtSpbControllerIoRead",
+      "name": "MyEvtSpbControllerIoRead",
+      "entity_type": "enum",
+      "description": "WDFDEVICE Controller, SPBTARGET Target, SPBREQUEST Request, size_t Length ){ ... }",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "Length"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1245
+    },
+    {
+      "id": "windows::EvtSpbControllerIoSequence",
+      "name": "EvtSpbControllerIoSequence",
+      "entity_type": "enum",
+      "description": "回调是异步的。 也就是说，回调函数应启动请求的序列（或序列的第一部分）作，然后返回，而无需等待作完成。 稍后，SPB 控制器驱动程序继续处理请求或在中断 DPC 或计时器 DPC 期间完成请求。 SPB 控制器驱动程序可以从 I/O 请求中检索参数值，以确定序列中传输的最大长度。 驱动程序可以使用此长度来分配 DMA 资源，该资源可以用于序列中的每个传输。 SPB 控制器驱动程序可以调用 SpbRequestGetTransferParameters 方法来检索序列中每个传输的控制参数和数据缓冲区。 缓冲区是一个 WDFMEMORY 对象，在当前实现中封装链式 MDL。 有关链接的 MDL 的详细信息，请参阅 使用 MDL。 SPB 控制器应保留为整个序列作选择的目标设备。 如果目标是由设备选择行选择的，则可以从序列中的第一个传输开始持续断言该行，直到最后一次传输结束。 此行最早可以在序列开头的锁定作进行断言，并且可以保持断言状态，直到序列末尾的解锁作为止。 可以为序列中的每个传输指定可选延迟。 SPB 控制器驱动程序负责在启动传输之前至少延迟该微秒数。 如果序列中的第一次传输具有关联的延迟，驱动程序应首先传输地址或断言目标设备的设备选择行，然后在开始数据传输之前延迟指定时间。 在此延迟期间，目标应保持选中状态，但控制器不应在总线上运行时钟。 如果目标设备在序列中的传输过程中发出 NACK 信号，SPB 控制器将停止序列。 （也就是说，控制器不会重试失败的传输，也不会尝试在序列中执行剩余传输。如果发生这种情况，SPB 控制器驱动程序应将 I/O 请求的完成状态设置为STATUS_SUCCESS，将 I/O 状态块中的 信息 字段设置为实际传输的字节数（不包括接收 NACK 的传输中丢失的数据），并完成请求。 仅当发生以下情况之一时，SPB 控制器驱动程序才应使用错误状态代码完成 I/O 请求： 2 SPB 控制器无法选择目标设备（例如，当控制器传输地址字节时，I C 总线上的目标设备向 NACK 发出信号）。 SPB 控制器驱动程序在处理序列作时从对 WDF 或 WDM 服务的调用中获取错误状态。 若要注册 EvtSpbControllerIoSequence 回调函数，请调用",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SpbRequestGetTransferParameters"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1260
+    },
+    {
+      "id": "windows::MyEvtSpbControllerIoSequence",
+      "name": "MyEvtSpbControllerIoSequence",
+      "entity_type": "enum",
+      "description": "WDFDEVICE Controller, SPBTARGET Target, SPBREQUEST Request, ULONG TransferCount ){ ... }",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1315
+    },
+    {
+      "id": "windows::EvtSpbTargetConnect",
+      "name": "EvtSpbTargetConnect",
+      "entity_type": "enum",
+      "description": "回调函数，则当控制器的客户端（外围驱动程序）发送 IRP_MJ_CREATE 请求以在总线上打开与目标设备的连接时，SpbCx 将调用此函数。 如果 EvtSpbTargetConnect 函数 返回错误代码，SpbCx 将失败 IRP_MJ_CREATE 请求。 成功打开与目标的连接的客户端对目标具有独占访问权限，直到连接关闭。 调用",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "IRP_MJ_CREATE",
+        "SpbCx"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1328
+    },
+    {
+      "id": "windows::EVT_SPB_CONTROLLER_UNLOCK",
+      "name": "EVT_SPB_CONTROLLER_UNLOCK",
+      "entity_type": "enum",
+      "description": "EvtSpbControllerUnlock; void EvtSpbControllerUnlock( [in] WDFDEVICE Controller, [in] SPBTARGET Target, [in] SPBREQUEST UnlockRequest) {...} 参数 [in] Controller 表示 SPB 控制器的 框架设备对象的 WDFDEVICE 句柄。[in] Target SPBTARGET 此 I/O 请求的目标句柄。 目标是附加到总线的外围设备或端口。 SPB 框架扩展（SpbCx）以前将此句柄分配给",
+      "return_value": {
+        "description": "没有"
+      },
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtSpbControllerUnlock",
+        "SpbCx"
+      ],
+      "confidence": 0.8,
+      "_source_line": 1344
+    },
+    {
+      "id": "windows::MyEvtSpbControllerUnlock",
+      "name": "MyEvtSpbControllerUnlock",
+      "entity_type": "enum",
+      "description": "WDFDEVICE Controller, SPBTARGET Target, SPBREQUEST UnlockRequest ){ ... }",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1378
+    },
+    {
+      "id": "windows::IOCTL_SPB_UNLOCK_CONTROLLER",
+      "name": "IOCTL_SPB_UNLOCK_CONTROLLER",
+      "entity_type": "enum",
+      "description": "SPBTARGET",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 1394
+    },
+    {
+      "id": "windows::EVT_SPB_CONTROLLER_WRITE",
+      "name": "EVT_SPB_CONTROLLER_WRITE",
+      "entity_type": "enum",
+      "description": "EvtSpbControllerWrite; void EvtSpbControllerWrite( [in] WDFDEVICE Controller, [in] SPBTARGET Target, [in] SPBREQUEST Request, [in] size_t Length) {...} 参数 [in] Controller 表示 SPB 控制器的 框架设备对象的 WDFDEVICE 句柄。[in] Target SPBTARGET 此 I/O 请求的目标句柄。 目标是附加到总线的外围设备或端口。 SPB 框架扩展（SpbCx）以前将此句柄分配给",
+      "return_value": {
+        "description": "没有"
+      },
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "Length",
+        "SpbCx"
+      ],
+      "confidence": 0.8,
+      "_source_line": 1407
+    },
+    {
+      "id": "windows::EvtSpbControllerIoWrite",
+      "name": "EvtSpbControllerIoWrite",
+      "entity_type": "enum",
+      "description": "回调不返回状态值。 相反，SPB 控制器驱动程序指示在 I/O 请求的完成状态中写入作的状态。 如果写入作完全完成，回调函数应将完成状态设置为STATUS_SUCCESS。 如果目标设备指示在传输完成之前无法再接受任何数据，驱动程序应将完成状态设置为STATUS_SUCCESS 并指定传输的字节数。 如果在写入作期间发生传输错误，驱动程序应在 I/O 请求中将完成状态设置为适当的错误代码。 并非所有总线都为目标设备提供一种机制来报告传输错误或部分完成的传输，并非所有控制器都能够检测这些情况。 若要注册 EvtSpbControllerIoWrite 回调函数，请调用 SpbDeviceInitialize 方法。例子 若要定义 EvtSpbControllerIoWrite 回调函数，必须先提供一个函数声明来标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函 数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。 例如，若要定义 EvtSpbControllerIoWrite 名为 MyEvtSpbControllerIoWrite 的回调函数， 请使用EVT_SPB_CONTROLLER_WRITE函数类型，如以下代码示例所示： C++",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "MyEvtSpbControllerIoWrite",
+        "SpbDeviceInitialize"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1428
+    },
+    {
+      "id": "windows::MyEvtSpbControllerIoWrite",
+      "name": "MyEvtSpbControllerIoWrite",
+      "entity_type": "enum",
+      "description": "WDFDEVICE Controller, SPBTARGET Target, SPBREQUEST Request, size_t Length ){ ... }",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "Length"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1444
+    },
+    {
+      "id": "windows::IRP_MJ_WRITE",
+      "name": "IRP_MJ_WRITE",
+      "entity_type": "enum",
+      "description": "SPBREQUEST SPBTARGET",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 1461
+    },
+    {
+      "id": "windows::MyEvtSpbTargetConnect",
+      "name": "MyEvtSpbTargetConnect",
+      "entity_type": "enum",
+      "description": "WDFDEVICE Controller, SPBTARGET Target ){ ... }",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 1504
+    },
+    {
+      "id": "windows::EvtSpbTargetDisconnect",
+      "name": "EvtSpbTargetDisconnect",
+      "entity_type": "enum",
+      "description": "回调返回后，可以随时调用客户端驱动程序的 DispatchCleanup 和 CreateProcessNotifyEx 回调例程。 当客户端驱动程序的进程退出时，其 CreateProcessNotifyEx 例程在最后一个线程退出进程之前被调用。 若要注册 EvtSpbTargetDisconnect 回调函数，请调用 SpbDeviceInitialize 方法。例子 若要定义 EvtSpbTargetDisconnect 回调函数，必须首先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。 例如，若要定义名为 MyEvtSpbTargetDisconnect 的 EvtSpbTargetDisconnect 回调函数，请使用EVT_SPB_TARGET_DISCONNECT函数类型，如以下代码示例所示：",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "MyEvtSpbTargetDisconnect",
+        "SpbDeviceInitialize"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1516
+    },
+    {
+      "id": "windows::IRP_MJ_CREATE",
+      "name": "IRP_MJ_CREATE",
+      "entity_type": "enum",
+      "description": "SPBTARGET",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 1517
+    },
+    {
+      "id": "windows::EVT_SPB_TARGET_DISCONNECT",
+      "name": "EVT_SPB_TARGET_DISCONNECT",
+      "entity_type": "enum",
+      "description": "EvtSpbTargetDisconnect; void EvtSpbTargetDisconnect( [in] WDFDEVICE Controller, [in] SPBTARGET Target) {...} 参数 [in] Controller 表示 SPB 控制器的 框架设备对象的 WDFDEVICE 句柄。[in] Target 要关闭的目标 SPBTARGET 句柄。 目标是附加到总线的外围设备或端口。 SPB 框架扩展（SpbCx）以前将此句柄分配给",
+      "return_value": {
+        "description": "没有"
+      },
+      "remarks": "SPB 控制器驱动程序对此函数的实现是可选的。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtSpbTargetDisconnect",
+        "SpbCx"
+      ],
+      "confidence": 0.8,
+      "_source_line": 1526
+    },
+    {
+      "id": "windows::IRP_MJ_CLOSE",
+      "name": "IRP_MJ_CLOSE",
+      "entity_type": "enum",
+      "description": "请求以关闭 SPBTARGET 句柄时，SpbCx 将调用此函数。 此句柄表示客户端在上一个 IRP_MJ_CREATE 请求中打开的总线上与目标设备的连接。 如果",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "IRP_MJ_CREATE",
+        "SpbCx"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1544
+    },
+    {
+      "id": "windows::MyEvtSpbTargetDisconnect",
+      "name": "MyEvtSpbTargetDisconnect",
+      "entity_type": "enum",
+      "description": "WDFDEVICE Controller, SPBTARGET Target ){ ... }",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 1555
+    },
+    {
+      "id": "windows::ConnectionParameters",
+      "name": "ConnectionParameters",
+      "entity_type": "enum",
+      "description": "指向此目标的连接参数的指针。 此成员指向一个内存缓冲区，该缓冲区包含 SPB 控制器驱动程序需要与目标通信的目标特定参数。 有关详细信息，请参阅以下“备注”部分。",
+      "remarks": "此结构包含有关目标设备与总线的连接的信息。 当客户端（外围驱动程序）打开与目标设备的逻辑连接时，SPB 控制器驱动程序将检索设备的连接设置并存储这些设置。 稍 后，为了响应从客户端到设备的 I/O 请求，SPB 控制器驱动程序使用连接设置将控制器配置为通过总线访问设备。 例如，I2C 总线上设备的连接设置包括： 目标设备的总线相对地址。 用于访问目标设备的地址位数。 用于访问目标设备的总线时钟频率。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1592
+    },
+    {
+      "id": "windows::WDF_IO_QUEUE_DISPATCH_TYPE",
+      "name": "WDF_IO_QUEUE_DISPATCH_TYPE",
+      "entity_type": "enum",
+      "description": "ControllerDispatchType; WDF_TRI_STATE PowerManaged;",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "ControllerDispatchType",
+        "WDF_TRI_STATE"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1658
+    },
+    {
+      "id": "windows::PFN_SPB_TARGET_CONNECT",
+      "name": "PFN_SPB_TARGET_CONNECT",
+      "entity_type": "enum",
+      "description": "EvtSpbTargetConnect;",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtSpbTargetConnect"
+      ],
+      "confidence": 0.55,
+      "_source_line": 1659
+    },
+    {
+      "id": "windows::PFN_SPB_TARGET_DISCONNECT",
+      "name": "PFN_SPB_TARGET_DISCONNECT",
+      "entity_type": "enum",
+      "description": "EvtSpbTargetDisconnect; PFN_SPB_CONTROLLER_LOCK EvtSpbControllerLock; PFN_SPB_CONTROLLER_UNLOCK",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtSpbControllerLock",
+        "EvtSpbTargetDisconnect"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1660
+    },
+    {
+      "id": "windows::PFN_SPB_CONTROLLER_READ",
+      "name": "PFN_SPB_CONTROLLER_READ",
+      "entity_type": "enum",
+      "description": "EvtSpbIoRead; PFN_SPB_CONTROLLER_WRITE EvtSpbIoWrite;",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1661
+    },
+    {
+      "id": "windows::PFN_SPB_CONTROLLER_SEQUENCE",
+      "name": "PFN_SPB_CONTROLLER_SEQUENCE",
+      "entity_type": "enum",
+      "description": "EvtSpbIoSequence;} SPB_CONTROLLER_CONFIG, *PSPB_CONTROLLER_CONFIG;",
+      "members": [
+        {
+          "name": "Size",
+          "description": "此结构的大小（以字节为单位）。 SpbDeviceInitialize 方法使用此参数值来确定正在使用的结构版本。"
+        }
+      ],
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_CONTROLLER_CONFIG"
+      ],
+      "confidence": 0.85,
+      "_source_line": 1662
+    },
+    {
+      "id": "windows::ControllerDispatchType",
+      "name": "ControllerDispatchType",
+      "entity_type": "enum",
+      "description": "控制器驱动程序的 I/O 队列的调度类型。 将此成员设置为 WdfIoQueueDispatchSequential 或 WdfIoQueueDispatchParallel，但不能 WdfIoQueueDispatchManual。 SPB_CONTROLLER_CONFIG_INIT 函数将此成员初始化为其默认值， WdfIoQueueDispatchSequential。 有关这些调度类型的详细信息，请参阅 I/O 队列的示例用法。在从属模式下运行的控制器驱动程序应将此成员设置为 WdfIoQueueDispatchParallel。 例如， 2 2 I C 控制器可能作为外围设备附加到 SPI 总线。 此设备充当 I C 总线的主控形状，但属于 SPI 总 线的下属。 PowerManaged 控制器驱动程序的 I/O 队列是否应由电源管理。 将此成员设置为 WdfTrue 以指示队列应进行电源管理。 将此成员设置为 WdfFalse，以指示不应对队列进行电源管理。 如果此成员设置为 WdfDefault，则除非驱动程序调用 WdfFdoInitSetFilter 方法（该方法将调用方标识为较高级别或较低级别的筛选器驱动程序），否则队列将受到电源管理。 SPB_CONTROLLER_CONFIG_INIT 函数将此成员初始化为 WdfDefault。 当 I/O 请求在电源管理的队列中可用时，框架仅当设备处于工作状态（D0）时，才会将请求传 送到驱动程序。 有关详细信息，请参阅 I/O 队列的电源管理。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_CONTROLLER_CONFIG_INIT",
+        "WdfFdoInitSetFilter"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1665
+    },
+    {
+      "id": "windows::Implemented",
+      "name": "Implemented",
+      "entity_type": "enum",
+      "description": "序列。 EvtSpbIoRead 指向 EvtSpbControllerIoRead 回调函数的指针。 此函数由 SPB 控制器驱动程序实现。 此成员不 是可选的，不能为 NULL。 EvtSpbIoWrite 指向 EvtSpbControllerIoWrite 回调函数的指针。 此函数由 SPB 控制器驱动程序实现。 此成员不 是可选的，不能为 NULL。 EvtSpbIoSequence 指向",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtSpbControllerIoRead",
+        "EvtSpbControllerIoWrite"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1686
+    },
+    {
+      "id": "windows::IRP_MN_READ",
+      "name": "IRP_MN_READ",
+      "entity_type": "enum",
+      "description": "IRP_MN_WRITE",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 1706
+    },
+    {
+      "id": "windows::SPB_REQUEST_PARAMETERS",
+      "name": "SPB_REQUEST_PARAMETERS",
+      "entity_type": "enum",
+      "description": "SPB_TRANSFER_DIRECTION SpbRequestGetParameters 价值 从 Windows 8 开始支持。 spbcx.h （包括 Spb.h）",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_TRANSFER_DIRECTION",
+        "SpbRequestGetParameters"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1767
+    },
+    {
+      "id": "windows::SpbRequestSequencePositionLast",
+      "name": "SpbRequestSequencePositionLast",
+      "entity_type": "enum",
+      "description": "分配给最后一次传输，因为它不知道客户端发送了最后一个读取或写入请求，直到客户端发送结束序列的解锁（IOCTL_SPB_UNLOCK_CONTROLLER）请求。 对于锁定请求，位置值设置为 SpbRequestSequencePositionFirst。 对于解锁请求，位置值设置为 SpbRequestSequencePositionLast。 某些控制器可能支持特殊作，例如，同时读取和写入目标设备的全双工总线传输。 客户端可以通过锁定控制器并发送一系列自定义 I/O 请求来执行自定义序列作，SpbCx 会将这些请求传递给 SPB 控制器驱动程序的 EvtSpbControllerIoOther 回调函数。 在这种情况下，序列中第一个自定义 I/O 请求的位置值 SpbRequestSequencePositionFirst，序列中其余自定义 I/O 请求的位置 值 SpbRequestSequencePositionContinue。 当客户端解锁控制器时，序列将结束。 如果 EvtSpbControllerIoOther 回调函数收到不属于序列的自定义 I/O 请求，则此请求的位置值 SpbRequestSequencePositionSingle。 对于 SpbRequestSequencePositionLast的位置值，SPB_REQUEST_PARAMETERS 结构的 长度成员可以为 0，以指示目标应仅释放，并且不应传输任何 I/O 数据（或者等效），以指示应发生 0 字节传输（如果控制器无法在不运行时钟的情况下释放设备）。 对于 SpbRequestSequencePositionContinue 和 SpbRequestSequencePositionLast的位置值，传输方向可能已从上一次传输变化，SPB 控制器驱动程序可能需要指示总线上可能出现的方向更 2 改（例如，I C 控制器发出新的 START 条件）。 有关传输方向的详细信息，请参阅",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtSpbControllerIoOther",
+        "IOCTL_SPB_UNLOCK_CONTROLLER",
+        "SPB_REQUEST_PARAMETERS",
+        "SpbCx",
+        "SpbRequestSequencePositionSingle"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1809
+    },
+    {
+      "id": "windows::SpbRequestTypeUndefined",
+      "name": "SpbRequestTypeUndefined",
+      "entity_type": "enum",
+      "description": "仅供内部使用。 SpbRequestTypeRead 读取作。 读取数据的传输方向是从目标设备到客户端（外围驱动程序）。 仅当 SPB 控制器驱动程 序注册 EvtSpbControllerIoRead 回调函数时，SPB 控制器驱动程序才会看到此类型的请求。 SpbRequestTypeWrite 写入作。 写入数据的传输方向是从客户端到目标设备的。 仅当 SPB 控制器驱动程序注册",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtSpbControllerIoRead"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1843
+    },
+    {
+      "id": "windows::SpbRequestTypeLockController",
+      "name": "SpbRequestTypeLockController",
+      "entity_type": "enum",
+      "description": "以独占方式锁定控制器的请求，用于将总线传输到指定目标设备或从指定目标设备传输。 仅当 SPB 控制器驱动程序注册 EvtSpbControllerLock 回调函数时，SPB 控制器驱动程序才会接收此类型的请求。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtSpbControllerLock"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1856
+    },
+    {
+      "id": "windows::SpbRequestTypeUnlockController",
+      "name": "SpbRequestTypeUnlockController",
+      "entity_type": "enum",
+      "description": "解锁指定目标设备的控制器的请求。 SPB 控制器驱动程序通过其 EvtSpbControllerUnlock 回调函数接收此类型的请求。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtSpbControllerUnlock"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1858
+    },
+    {
+      "id": "windows::SpbRequestTypeLockConnection",
+      "name": "SpbRequestTypeLockConnection",
+      "entity_type": "enum",
+      "description": "锁定指定目标设备以供客户端独占使用的请求。 此请求完全由 SpbCx 处理。 SPB 控制器驱动程序 不对此类请求执行任何处理。 有关详细信息，请参阅 IOCTL_SPB_LOCK_CONNECTION。 SpbRequestTypeUnlockConnection 解锁指定目标设备的请求。 此请求完全由 SpbCx 处理。 SPB 控制器驱动程序不对此类请求执行任 何处理。 有关详细信息，请参阅 IOCTL_SPB_UNLOCK_CONNECTION。 SpbRequestTypeOther 客户端（外围驱动程序）发送到总线上目标设备的未知 I/O 控件（IOCTL）请求。 调用 WdfRequestGetParameters 方法来检索此请求的参数;对于此调用，请使用 Request 参数的 SPBREQUEST 句柄。 仅当 SPB 控制器驱动程序注册",
+      "remarks": "SPB_REQUEST_PARAMETERS 结构包含 SPB_REQUEST_TYPE 枚举值。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "IOCTL_SPB_LOCK_CONNECTION",
+        "IOCTL_SPB_UNLOCK_CONNECTION",
+        "SPB_REQUEST_PARAMETERS",
+        "SPB_REQUEST_TYPE",
+        "SpbCx",
+        "WdfRequestGetParameters"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1860
+    },
+    {
+      "id": "windows::TransferLength",
+      "name": "TransferLength",
+      "entity_type": "enum",
+      "description": "要传输的数据字节数。 DelayInUs 此传输开始前的可选延迟（以微秒为单位）。 有关详细信息，请参阅以下“备注”部分。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "DelayInUs"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1904
+    },
+    {
+      "id": "windows::EvtDriverDeviceAdd",
+      "name": "EvtDriverDeviceAdd",
+      "entity_type": "enum",
+      "description": "返回之前， 回调或将 PDO 添加到控制器的子列表中。 子列表表示附 加到总线的设备。 有关详细信息，请参阅 枚举总线上的设备。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "PASSIVE_LEVEL"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1979
+    },
+    {
+      "id": "windows::EvtIoInCallerContext",
+      "name": "EvtIoInCallerContext",
+      "entity_type": "enum",
+      "description": "_In_ WDFDEVICE SpbController, _In_ WDFREQUEST FxRequest ) { NTSTATUS status; // // NOTE: The driver should check for custom IOCTLs that this // driver handles. If an IOCTL is not recognized, mark the // request as STATUS_NOT_SUPPORTED, and complete the request. // status = SpbRequestCaptureIoOtherTransferList((SPBREQUEST)FxRequest); // // If the preceding call fails, the driver must complete the // request instead of queueing the request. // if (!NT_SUCCESS(status)) { goto exit; } status = WdfDeviceEnqueueRequest(SpbController, FxRequest); if (!NT_SUCCESS(status)) { goto exit; } exit: if (!NT_SUCCESS(status)) {",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "NT_SUCCESS",
+        "STATUS_NOT_SUPPORTED",
+        "SpbRequestCaptureIoOtherTransferList"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1993
+    },
+    {
+      "id": "windows::RequestAttributes",
+      "name": "RequestAttributes",
+      "entity_type": "enum",
+      "description": "指向 WDF_OBJECT_ATTRIBUTES 结构。 调用方以前必须调用 WDF_OBJECT_ATTRIBUTES_INIT 函数来初始化此结构。 在此调用之后，但在调用",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "WDF_OBJECT_ATTRIBUTES",
+        "WDF_OBJECT_ATTRIBUTES_INIT"
+      ],
+      "confidence": 0.6,
+      "_source_line": 2015
+    },
+    {
+      "id": "windows::EvtCleanupCallback",
+      "name": "EvtCleanupCallback",
+      "entity_type": "enum",
+      "description": "EvtDestroyCallback ContextSizeOverride ContextTypeInfo",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 2019
+    },
+    {
+      "id": "windows::WDF_OBJECT_ATTRIBUTES_INIT",
+      "name": "WDF_OBJECT_ATTRIBUTES_INIT",
+      "entity_type": "enum",
+      "description": "初始化 EvtCleanupCallback，EvtDestroyCallback 成员 NULL。 如果更改这些默认值以注册 EvtCleanupCallback 或 EvtDestroyCallback 回调函数，则每次 I/O 请求到达 SPB 控制器队列时都会调用此函数，该队列由 SpbCx 管理。 此类 I/O 请求会导致 EvtCleanupCallback 或 EvtDestroyCallback 函数调用，即使 SpbCx 从不向 SPB 控制器驱动程序显示请求（因为请求在到达队列后取消，但在传递给驱动程序之前）。 SPB 控制器驱动程序必须先调用",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtCleanupCallback",
+        "EvtDriverDeviceAdd",
+        "SpbCx"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2021
+    },
+    {
+      "id": "windows::WDF_OBJECT_ATTRIBUTES",
+      "name": "WDF_OBJECT_ATTRIBUTES",
+      "entity_type": "enum",
+      "description": "价值 从 Windows 8 开始可用。 普遍 spbcx.h Spbcxstubs.lib PASSIVE_LEVEL",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "PASSIVE_LEVEL"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2029
+    },
+    {
+      "id": "windows::ObjectAttributes",
+      "name": "ObjectAttributes",
+      "entity_type": "enum",
+      "description": "指向 WDF_OBJECT_ATTRIBUTES 结构。 调用方以前必须调用 WDF_OBJECT_ATTRIBUTES_INIT 函数来初始化此结构。 在此调用之后，但在调用",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "WDF_OBJECT_ATTRIBUTES",
+        "WDF_OBJECT_ATTRIBUTES_INIT"
+      ],
+      "confidence": 0.6,
+      "_source_line": 2057
+    },
+    {
+      "id": "windows::STATUS_INSUFFICIENT_RESOURCES",
+      "name": "STATUS_INSUFFICIENT_RESOURCES",
+      "entity_type": "enum",
+      "description": "言论 描述 无法分配所需的系统资源。 此方法将 SpbCx 的配置信息与要创建的设备对象（PDO 或 FDO）的 WDFDEVICE_INIT 结构相关联。 驱动程序的 EvtDriverDeviceAdd 回调例程应在调用 WdfDeviceCreate 方法创 建设备对象之前调用 SpbDeviceInitConfig。例子 下面的代码示例演示如何使用 SpbDeviceInitConfig 方法将 SpbCx 框架扩展的配置信息 与 WDFDEVICE_INIT 结构相关联。// // FxDeviceInit is a pointer to a WDFDEVICE_INIT structure that comes as a// parameter for an EvtDriverDeviceAdd handler, or from WdfPdoInitAllocate.// status = SpbDeviceInitConfig(FxDeviceInit); if (!NT_SUCCESS(status)){ return status; }// // Set WDF and SpbCx device-level configuration options. //...// // Call WdfDeviceCreate// status = WdfDeviceCreate(&FxDeviceInit,...); 要求",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtDriverDeviceAdd",
+        "NT_SUCCESS",
+        "PASSIVE_LEVEL",
+        "SpbCx",
+        "SpbDeviceInitConfig",
+        "WDFDEVICE_INIT",
+        "WdfDeviceCreate"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2098
+    },
+    {
+      "id": "windows::EvtChildListCreateDevice",
+      "name": "EvtChildListCreateDevice",
+      "entity_type": "enum",
+      "description": "EvtDriverDeviceAdd",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "EvtDriverDeviceAdd"
+      ],
+      "confidence": 0.4,
+      "_source_line": 2163
+    },
+    {
+      "id": "windows::WdfRequestComplete",
+      "name": "WdfRequestComplete",
+      "entity_type": "enum",
+      "description": "价值 从 Windows 8 开始可用。 普遍 spbcx.h Spbcxstubs.lib <= DISPATCH_LEVEL",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "DISPATCH_LEVEL",
+        "EvtIoInCallerContext"
+      ],
+      "confidence": 0.6,
+      "_source_line": 2220
+    },
+    {
+      "id": "windows::STATUS_CANCELLED",
+      "name": "STATUS_CANCELLED",
+      "entity_type": "enum",
+      "description": "I/O 请求已取消。",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2255
+    },
+    {
+      "id": "windows::STATUS_UNSUCCESSFUL",
+      "name": "STATUS_UNSUCCESSFUL",
+      "entity_type": "enum",
+      "description": "驱动程序在处理 I/O 请求时遇到错误。",
+      "return_value": {
+        "description": "没有"
+      },
+      "remarks": "控制器驱动程序调用此方法以完成以前在以下回调之一期间收到的 I/O 请求：",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 2256
+    },
+    {
+      "id": "windows::EvtSpbControllerIoOtherEvtSpbControllerIoReadEvtSpbControllerIoSequenceEvtSpbControllerI",
+      "name": "EvtSpbControllerIoOtherEvtSpbControllerIoReadEvtSpbControllerIoSequenceEvtSpbControllerI",
+      "entity_type": "enum",
+      "description": "oWrite 调用 SpbRequestComplete，而不是 WdfRequestComplete 方法，以完成上述列表中的回调函数收到的 I/O 请求。 如果调用方提供无效的 SPBREQUEST 句柄，则会发生 bug 检查。 调用",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SpbRequestComplete",
+        "WdfRequestComplete"
+      ],
+      "confidence": 0.6,
+      "_source_line": 2263
+    },
+    {
+      "id": "windows::Index",
+      "name": "Index",
+      "entity_type": "enum",
+      "description": "参数是标识序列中特定传输的索引。 如果 N 是序列中的传输数，则有效索引范围为 0 到 N–1。 若要确定序列中的传输数，请调用 SpbRequestGetParameters 方法。 此方法检索包含请求参数的 SPB_TRANSFER_DESCRIPTOR 结构。 此结构的 TransferCount 成员指定序列中的传输数。 如果 TransferDescriptor 为非 NULL，则调用方必须在调用",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SPB_TRANSFER_DESCRIPTOR",
+        "SpbRequestGetParameters"
+      ],
+      "confidence": 0.6,
+      "_source_line": 2399
+    },
+    {
+      "id": "windows::TransferBuffer",
+      "name": "TransferBuffer",
+      "entity_type": "enum",
+      "description": "是可选指针，SpbRequestGetTransferParameters 将指针写入描述传输缓冲区的物理页面布局的 MDL。 传输缓冲区可由单个 MDL 或 MDL 链描述。 由一个 MDL 描述的简单缓冲区由一个连续的虚拟内存块组成。 如果将传输缓冲区格式化为散点收集列表，则缓冲区中的每个连续虚拟内存块都由 MDL 链中的 MDL 描述。 有关 MDL 的详细信息，请参阅 使用 MDL。 例子 C++// // Note that this snippet shows a transfer completing synchronously. This// is a horrible thing for a driver to do, but demonstrates the DDI nicely.//",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [
+        "SpbRequestGetTransferParameters"
+      ],
+      "confidence": 0.6,
+      "_source_line": 2402
+    },
+    {
+      "id": "windows::WDF_REQUEST_PARAMETERS",
+      "name": "WDF_REQUEST_PARAMETERS",
+      "entity_type": "enum",
+      "description": "parameters; WDF_TRANSFER_DESCRIPTOR transfer;",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2405
+    },
+    {
+      "id": "windows::WDF_REQUEST_PARAMETERS_INIT",
+      "name": "WDF_REQUEST_PARAMETERS_INIT",
+      "entity_type": "enum",
+      "description": "(&parameters); WDF_TRANSFER_DESCRIPTOR_INIT(&transfer);",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2406
+    },
+    {
+      "id": "windows::MyDriverPerformTransfer",
+      "name": "MyDriverPerformTransfer",
+      "entity_type": "enum",
+      "description": "deviceContext, request, transfer, buffer);}",
+      "header": "spbcx.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 2413
+    }
+  ]
+}

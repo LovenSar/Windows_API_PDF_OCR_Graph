@@ -1,0 +1,605 @@
+{
+  "_schema": "windows_api_kg_v4.0",
+  "_generated_at": "2026-03-05T08:07:01Z",
+  "_content_hash": "441e37853a61",
+  "document": {
+    "document_id": "win32-api::cmpapi",
+    "title": "压缩 API",
+    "domain": "win32-api",
+    "topic": "cmpapi",
+    "source_file": "[OCR]_windows-win32-api-_cmpapi_20260305_0138.txt",
+    "ocr_timestamp": "2026-03-05T01:38:00",
+    "headers_referenced": [
+      "compressapi.h"
+    ],
+    "total_entities": 26
+  },
+  "entities": [
+    {
+      "id": "windows::COMPRESS_INFORMATION_CLASS",
+      "name": "COMPRESS_INFORMATION_CLASS",
+      "entity_type": "enum",
+      "description": "枚举 此枚举的值标识要设置或检索的信息类的类型。",
+      "syntax": "typedef enum {",
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 10
+    },
+    {
+      "id": "windows::CloseCompressor",
+      "name": "CloseCompressor",
+      "entity_type": "function",
+      "description": "调用 以关闭打开的COMPRESSOR_HANDLE。 CloseDecompressor 调用 以关闭打开的DECOMPRESSOR_HANDLE。压缩 获取信息块并压缩它。 CreateCompressor 生成新的COMPRESSOR_HANDLE。 CreateDecompressor 生成新的DECOMPRESSOR_HANDLE。 解 压缩 获取一个压缩信息块并解压缩它。 QueryCompressorInformation 查询压缩器以获取特定压缩算法的信息。 QueryDecompressorInformation 使用此函数可查询有关特定压缩算法的信息。 ResetCompressor 准备压缩器以压缩新流。 ResetDecompressor 准备解压缩器以解压缩新流。 SetCompressorInformation 为特定压缩算法设置压缩器中的信息。 SetDecompressorInformation 为特定压缩算法设置解压缩器中的信息。",
+      "syntax": "BOOL CloseCompressor(\n[in] COMPRESSOR_HANDLE CompressorHandle);",
+      "parameters": [
+        {
+          "name": "CompressorHandle",
+          "direction": "in",
+          "description": "要关闭的压缩器的句柄。 这是 CreateCompressor 返回的压缩器的句柄。"
+        }
+      ],
+      "return_value": {
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。"
+      },
+      "remarks": "如果压缩算法由于某种内部原因而失败，则可以ERROR_FUNCTION_FAILED来自 GetLastError 的错误。 如果系统找不到压缩算法句柄，则可以 ERROR_INVALID_HANDLE错误。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "compressapi.h",
+        "library": "Cabinet.lib",
+        "dll": "Cabinet.dll",
+        "min_client": "Windows 8 [桌面应用 |UWP 应用]",
+        "min_server": "Windows Server 2012 [桌面应用 |UWP 应用]"
+      },
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "CloseDecompressor",
+        "CreateCompressor",
+        "CreateDecompressor",
+        "GetLastError",
+        "QueryCompressorInformation",
+        "QueryDecompressorInformation",
+        "ResetCompressor",
+        "ResetDecompressor",
+        "SetCompressorInformation",
+        "SetDecompressorInformation"
+      ],
+      "confidence": 0.85,
+      "_source_line": 13
+    },
+    {
+      "id": "windows::COMPRESS_ALLOCATION_ROUTINES",
+      "name": "COMPRESS_ALLOCATION_ROUTINES",
+      "entity_type": "struct",
+      "description": "结构中的可选内存分配和解除分配例程。 [out] DecompressorHandle 如果函数成功，则为指定解压缩器的句柄。",
+      "syntax": "typedef struct _COMPRESS_ALLOCATION_ROUTINES {",
+      "return_value": {
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。"
+      },
+      "remarks": "如果压缩算法由于某种内部原因而失败，则可以ERROR_FUNCTION_FAILED来自 GetLastError 的错误。 如果系统找不到与指定名称和版本匹配的压缩算法，则可以 ERROR_NOT_SUPPORTED错误。",
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetLastError"
+      ],
+      "confidence": 0.9,
+      "_source_line": 32
+    },
+    {
+      "id": "windows::CloseDecompressor",
+      "name": "CloseDecompressor",
+      "entity_type": "enum",
+      "description": "调用 以关闭打开 的DECOMPRESSOR_HANDLE。",
+      "syntax": "BOOL CloseDecompressor(\n[in] DECOMPRESSOR_HANDLE DecompressorHandle);",
+      "parameters": [
+        {
+          "name": "DecompressorHandle",
+          "direction": "in",
+          "description": "要关闭的解压缩器的句柄。 这是 CreateDecompressor 返回的压缩器的句柄。"
+        }
+      ],
+      "return_value": {
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。"
+      },
+      "remarks": "如果压缩算法由于某种内部原因而失败，则可以ERROR_FUNCTION_FAILED来自 GetLastError 的错误。 如果系统找不到压缩算法句柄，则可以 ERROR_INVALID_HANDLE错误。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "compressapi.h",
+        "library": "Cabinet.lib",
+        "dll": "Cabinet.dll",
+        "min_client": "Windows 8 [桌面应用 |UWP 应用]",
+        "min_server": "Windows Server 2012 [桌面应用 |UWP 应用]"
+      },
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetLastError"
+      ],
+      "confidence": 0.75,
+      "_source_line": 101
+    },
+    {
+      "id": "windows::Compress",
+      "name": "Compress",
+      "entity_type": "enum",
+      "description": "获取并压缩信息块。",
+      "syntax": "BOOL Compress(\n[in]  COMPRESSOR_HANDLE CompressorHandle,   [in]  LPCVOID           UncompressedData,\n[in]  SIZE_T            UncompressedDataSize,   [out] PVOID             CompressedBuffer,\n[in]  SIZE_T            CompressedBufferSize,\n[out] PSIZE_T           CompressedDataSize);",
+      "parameters": [
+        {
+          "name": "CompressorHandle",
+          "direction": "in",
+          "description": ""
+        }
+      ],
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 130
+    },
+    {
+      "id": "windows::CreateCompressor",
+      "name": "CreateCompressor",
+      "entity_type": "enum",
+      "description": "返回的压缩器的句柄。[in] UncompressedData 包含要压缩的信息块。 UncompressedDataSize 提供未压缩块的大小（以字节为单位）。[in] UncompressedDataSize 未压缩信息的大小（以字节为单位）。[out] CompressedBuffer 接收压缩信息的缓冲区。 Buffer 的最大大小（以字节为单位）由 CompressedBufferSize 提供。[in] CompressedBufferSize 接收压缩信息的缓冲区的最大大小（以字节为单位）。[out] CompressedDataSize 接收的压缩信息的实际大小（以字节为单位）。",
+      "syntax": "BOOL CreateCompressor(\n[in]           DWORD                         Algorithm,\n[in, optional] PCOMPRESS_ALLOCATION_ROUTINES AllocationRoutines,\n[out]          PCOMPRESSOR_HANDLE            CompressorHandle);",
+      "parameters": [
+        {
+          "name": "Algorithm",
+          "direction": "in",
+          "description": "此压缩器要使用的压缩算法和模式的类型。 此参数可以选择将下列值之一与 COMPRESS_RAW 标志结合使用。 使用“按位 OR”运算符包括 COMPRESS_RAW 并创建块模式压缩器。 如果 不包括COMPRESS_RAW ，压缩 API 将创建缓冲区模式压缩器。 有关选择压缩算法和模式的详细信息，请参阅 使用压缩 API。 值"
+        }
+      ],
+      "return_value": {
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。"
+      },
+      "remarks": "如果压缩算法由于某种内部原因而失败，则可以ERROR_FUNCTION_FAILED来自 GetLastError 的错误。 如果系统找不到压缩算法句柄，则可以 ERROR_INVALID_HANDLE错误。 如果输出缓冲区太小而无法容纳压缩的数据，则可能会 ERROR_INSUFFICIENT_BUFFER错误。 如果 CompressedBuffer 输出缓冲区太小而无法容纳压缩的数据，则函数会失败，并且可能会 ERROR_INSUFFICIENT_BUFFER来自 GetLastError 的错误。 在这种情况下，",
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "Buffer",
+        "CompressedDataSize",
+        "GetLastError",
+        "UncompressedDataSize"
+      ],
+      "confidence": 0.85,
+      "_source_line": 140
+    },
+    {
+      "id": "windows::CompressedDataSize",
+      "name": "CompressedDataSize",
+      "entity_type": "enum",
+      "description": "参数接收的大小为 CompressedBuffer 保证该输入缓冲区成功所需的大小。 可以将 CompressedBufferSize 设置为零，以确定要分配的输出缓冲区的大小。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "compressapi.h",
+        "library": "Cabinet.lib",
+        "dll": "Cabinet.dll",
+        "min_client": "Windows 8 [桌面应用 |UWP 应用]",
+        "min_server": "Windows Server 2012 [桌面应用 |UWP 应用]"
+      },
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 153
+    },
+    {
+      "id": "windows::PFN_COMPRESS_ALLOCATE",
+      "name": "PFN_COMPRESS_ALLOCATE",
+      "entity_type": "enum",
+      "description": "Allocate; PFN_COMPRESS_FREE Free; PVOID UserContext; } COMPRESS_ALLOCATION_ROUTINES, *PCOMPRESS_ALLOCATION_ROUTINES;",
+      "members": [
+        {
+          "name": "Allocate",
+          "description": "分配内存的回调。 Free 解除分配内存的回调。 UserContext 指向用户定义的分配或解除分配例程的上下文信息的指针。"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "compressapi.h",
+        "min_client": "Windows 8 [桌面应用 |UWP 应用]",
+        "min_server": "Windows Server 2012 [桌面应用 |UWP 应用]"
+      },
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "COMPRESS_ALLOCATION_ROUTINES"
+      ],
+      "confidence": 0.85,
+      "_source_line": 173
+    },
+    {
+      "id": "windows::COMPRESS_INFORMATION_CLASS_INVALID",
+      "name": "COMPRESS_INFORMATION_CLASS_INVALID",
+      "entity_type": "enum",
+      "description": "= 0, COMPRESS_INFORMATION_CLASS_BLOCK_SIZE,",
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "COMPRESS_INFORMATION_CLASS_BLOCK_SIZE"
+      ],
+      "confidence": 0.65,
+      "_source_line": 199
+    },
+    {
+      "id": "windows::COMPRESS_INFORMATION_CLASS_LEVEL",
+      "name": "COMPRESS_INFORMATION_CLASS_LEVEL",
+      "entity_type": "enum",
+      "description": "} COMPRESS_INFORMATION_CLASS;",
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "COMPRESS_INFORMATION_CLASS"
+      ],
+      "confidence": 0.65,
+      "_source_line": 200
+    },
+    {
+      "id": "windows::COMPRESS_INFORMATION_CLASS_BLOCK_SIZE",
+      "name": "COMPRESS_INFORMATION_CLASS_BLOCK_SIZE",
+      "entity_type": "constant",
+      "description": "自定义块大小。 指定的值可能介于 65536 到 67108864 个字节之间。 此值只能与 LZMS 压缩算法一起使 用。 建议最小大小为 1 MB，以获得更好的压缩比。 此类型的信息类的大小为 (DWORD) 。 COMPRESS_INFORMATION_CLASS_LEVEL 所需的压缩级别。 默认值为 (DWORD) 0。 (DWORD) 1 的值可以通过稍微慢一点的压缩速度来提高压缩比。 此值只能与 XPRESS 压缩算法或具有 Huffman 编码压缩算法的 XPRESS 一起使用。 此类型的信息类的 大小为 (DWORD) 。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "compressapi.h",
+        "min_client": "Windows 8 [桌面应用 |UWP 应用]",
+        "min_server": "Windows Server 2012 [桌面应用 |UWP 应用]"
+      },
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "COMPRESS_INFORMATION_CLASS_LEVEL",
+        "Huffman"
+      ],
+      "confidence": 0.75,
+      "_source_line": 206
+    },
+    {
+      "id": "windows::COMPRESS_ALGORITHM_LZMS",
+      "name": "COMPRESS_ALGORITHM_LZMS",
+      "entity_type": "constant",
+      "description": "5 [in, optional] AllocationRoutines 含义 MSZIP 压缩算法 XPRESS 压缩算法 使用 Huffman 编码的 XPRESS 压缩算法 LZMS 压缩算法",
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "Huffman"
+      ],
+      "confidence": 0.75,
+      "_source_line": 242
+    },
+    {
+      "id": "windows::CreateDecompressor",
+      "name": "CreateDecompressor",
+      "entity_type": "constant",
+      "description": "返回的解压缩器的句柄。[in] CompressedData 包含要解压缩的信息块。 压缩块的大小（以字节为单位）由 CompressedDataSize 提供。[in] CompressedDataSize 压缩信息的大小（以字节为单位）。[out] UncompressedBuffer 接收未压缩信息的缓冲区。 缓冲区的大小（以字节为单位）由 UncompressedBufferSize 提供。[in] UncompressedBufferSize 接收未压缩信息的缓冲区的大小（以字节为单位）。[out] UncompressedDataSize 接收的未压缩信息的实际大小（以字节为单位）。",
+      "syntax": "BOOL CreateDecompressor(\n[in]           DWORD                         Algorithm,\n[in, optional] PCOMPRESS_ALLOCATION_ROUTINES AllocationRoutines,   [out]          PDECOMPRESSOR_HANDLE          DecompressorHandle);",
+      "parameters": [
+        {
+          "name": "Algorithm",
+          "direction": "in",
+          "description": "此解压缩程序要使用的压缩算法和模式的类型。 此参数可以具有下列值之一（可选）与 COMPRESS_RAW 标志组合。 使用“按位 OR”运算符包含 COMPRESS_RAW 并创建块模式解压缩器。 如果未包含 COMPRESS_RAW ，压缩 API 将创建缓冲区模式解压缩器。 有关选择压缩算法和模式的详细信息，请参阅 使用压缩 API。 值"
+        }
+      ],
+      "return_value": {
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。"
+      },
+      "remarks": "如果 CompressedData 指向的压缩数据块已损坏，则函数可能会失败，并且可能会",
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "CompressedDataSize",
+        "UncompressedBufferSize",
+        "UncompressedDataSize"
+      ],
+      "confidence": 0.85,
+      "_source_line": 271
+    },
+    {
+      "id": "windows::Decompress",
+      "name": "Decompress",
+      "entity_type": "constant",
+      "description": "获取压缩信息块并将其解压缩。",
+      "syntax": "BOOL Decompress(\n[in]  DECOMPRESSOR_HANDLE DecompressorHandle,   [in]  LPCVOID             CompressedData,\n[in]  SIZE_T              CompressedDataSize,   [out] PVOID               UncompressedBuffer,\n[in]  SIZE_T              UncompressedBufferSize,\n[out] PSIZE_T             UncompressedDataSize);",
+      "parameters": [
+        {
+          "name": "DecompressorHandle",
+          "direction": "in",
+          "description": ""
+        }
+      ],
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 315
+    },
+    {
+      "id": "windows::ERROR_BAD_COMPRESSION_BUFFER",
+      "name": "ERROR_BAD_COMPRESSION_BUFFER",
+      "entity_type": "constant",
+      "description": "来自 GetLastError 的错误。 该函数也可能生成与原始数据不匹配的未压缩数据块。 建议压缩器和解压缩器不要使用 COMPRESS_RAW 标志。 如果使用 COMPRESS_RAW 标志创建压缩器，则还必须使用 COMPRESS_RAW 标志创建解压缩器。 如果使用 COMPRESS_RAW 标志创建压缩器和解压缩器，则 UncompressedBufferSize 的值必须完全等于未压缩数据的原始大小，而不仅仅是输出缓冲区的大小。 这意味着，使用",
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "COMPRESS_RAW",
+        "GetLastError",
+        "UncompressedBufferSize"
+      ],
+      "confidence": 0.75,
+      "_source_line": 337
+    },
+    {
+      "id": "windows::COMPRESS_RAW",
+      "name": "COMPRESS_RAW",
+      "entity_type": "constant",
+      "description": "标志时，应保存未压缩数据的确切原始大小，以及压缩数据和压缩大小。 如果 UncompressedBufferSize 不等于未压缩数据的原始大小，则未压缩的数据将与原始数据不匹配。 在这种情况下，函数可以返回成功，也可以返回 ERROR_BAD_COMPRESSION_BUFFER。 如果未使用 COMPRESS_RAW 标志， 则 UncompressedBufferSize 不需要完全等于未压缩数据的原始大小。 在这种情况下， UncompressedDataSize 返回未压缩数据的原始大小。 如果",
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "ERROR_BAD_COMPRESSION_BUFFER",
+        "UncompressedBufferSize",
+        "UncompressedDataSize"
+      ],
+      "confidence": 0.75,
+      "_source_line": 340
+    },
+    {
+      "id": "windows::UncompressedBufferSize",
+      "name": "UncompressedBufferSize",
+      "entity_type": "constant",
+      "description": "小于原始数据大小，则函数将失败，并将 UncompressedDataSize 设置为原始数据的大小，ERROR_INSUFFICIENT_BUFFER来自 GetLastError的错误。 若要确定 UncompressedBuffer 需要有多大，请在 将 UncompressedBufferSize 设置为零的情况下调用 函数。 在这种情况下，函数将失败，并将 UncompressedDataSize 设置为原始数据的大小，并且 getLastError 的错误 ERROR_INSUFFICIENT_BUFFER。 请注意，函数返回的原始大小是从缓冲区本身中提取的，应将其视为不受信任，并针对合理的限制进行测试。 如果在将",
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "ERROR_INSUFFICIENT_BUFFER",
+        "UncompressedDataSize"
+      ],
+      "confidence": 0.6,
+      "_source_line": 342
+    },
+    {
+      "id": "windows::ERROR_INSUFFICIENT_BUFFER",
+      "name": "ERROR_INSUFFICIENT_BUFFER",
+      "entity_type": "constant",
+      "description": "来自 GetLastError 的错误。 如果失败，函数将返回 ，并将",
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetLastError"
+      ],
+      "confidence": 0.65,
+      "_source_line": 345
+    },
+    {
+      "id": "windows::UncompressedDataSize",
+      "name": "UncompressedDataSize",
+      "entity_type": "constant",
+      "description": "设置为一个值，你可以使用该值来避免为压缩数据分配太大的缓冲区。必须知道原始数据的最大可能大小才能使用此方法。 如果将 CompressedDataSize 设置为零，并将 UncompressedBufferSize 设置为原始未压缩数据的最大可能大小， 则 Decompress 函数将按所述失败， UncompressedDataSize 的值将设置为压缩数据缓冲区的最大大小。 如果压缩算法由于某种内部原因而失败，则可以ERROR_FUNCTION_FAILED来自 GetLastError 的错误。 如果系统找不到压缩算法句柄，则可以 ERROR_INVALID_HANDLE错误。 如果输出缓冲区太小，无法容纳未压缩的数据，则可能会",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "compressapi.h",
+        "library": "Cabinet.lib",
+        "dll": "Cabinet.dll",
+        "min_client": "Windows 8 [桌面应用 |UWP 应用]",
+        "min_server": "Windows Server 2012 [桌面应用 |UWP 应用]"
+      },
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "CompressedDataSize",
+        "Decompress",
+        "GetLastError",
+        "UncompressedBufferSize"
+      ],
+      "confidence": 0.6,
+      "_source_line": 346
+    },
+    {
+      "id": "windows::QueryCompressorInformation",
+      "name": "QueryCompressorInformation",
+      "entity_type": "constant",
+      "description": "函数 查询压缩器以获取特定压缩算法的信息。",
+      "syntax": "BOOL QueryCompressorInformation(\n[in]  COMPRESSOR_HANDLE          CompressorHandle,\n[in]  COMPRESS_INFORMATION_CLASS CompressInformationClass,   [out] PVOID                      CompressInformation,\n[in]  SIZE_T                     CompressInformationSize);",
+      "parameters": [
+        {
+          "name": "CompressorHandle",
+          "direction": "in",
+          "description": "要查询信息的压缩器的句柄。[in] CompressInformationClass 标识信息类型的 COMPRESS_INFORMATION_CLASS 枚举的值。[out] CompressInformation 写入为字节的压缩算法的信息。 此信息的最大大小（以字节为单位）由"
+        }
+      ],
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 364
+    },
+    {
+      "id": "windows::CompressInformationSize",
+      "name": "CompressInformationSize",
+      "entity_type": "constant",
+      "description": "提供。[in] CompressInformationSize 信息的最大大小（以字节为单位）。",
+      "return_value": {
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。"
+      },
+      "remarks": "如果压缩算法由于某种内部原因而失败，则可以ERROR_FUNCTION_FAILED来自 GetLastError 的错误。 如果系统找不到压缩算法句柄，则可以 ERROR_INVALID_HANDLE错误。 如果压缩算法不允许信息类，则可以 ERROR_UNSUPPORTED_TYPE错误。 如果缓冲区太小而无法容纳该 值，则可以 ERROR_INSUFFICIENT_BUFFER错误。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "compressapi.h",
+        "library": "Cabinet.lib",
+        "dll": "Cabinet.dll",
+        "min_client": "Windows 8 [桌面应用 |UWP 应用]",
+        "min_server": "Windows Server 2012 [桌面应用 |UWP 应用]"
+      },
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetLastError"
+      ],
+      "confidence": 0.55,
+      "_source_line": 377
+    },
+    {
+      "id": "windows::QueryDecompressorInformation",
+      "name": "QueryDecompressorInformation",
+      "entity_type": "constant",
+      "description": "函数 使用此函数查询有关特定压缩算法的信息。",
+      "syntax": "BOOL QueryDecompressorInformation(\n[in]  DECOMPRESSOR_HANDLE        DecompressorHandle,\n[in]  COMPRESS_INFORMATION_CLASS CompressInformationClass,   [out] PVOID                      CompressInformation,\n[in]  SIZE_T                     CompressInformationSize);",
+      "parameters": [
+        {
+          "name": "DecompressorHandle",
+          "direction": "in",
+          "description": "正在查询信息的解压缩器的句柄。[in] CompressInformationClass 标识信息类型的 COMPRESS_INFORMATION_CLASS 枚举的值。[out] CompressInformation 写入为字节的压缩算法的信息。 此信息的最大大小（以字节为单位）由"
+        }
+      ],
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 398
+    },
+    {
+      "id": "windows::ResetCompressor",
+      "name": "ResetCompressor",
+      "entity_type": "constant",
+      "description": "准备压缩器以压缩新流。 压缩器对象保留使用 SetCompressorInformation 设置的属性。 生成的块序列独立于以前的块。",
+      "syntax": "BOOL ResetCompressor(\n[in] COMPRESSOR_HANDLE CompressorHandle);",
+      "parameters": [
+        {
+          "name": "CompressorHandle",
+          "direction": "in",
+          "description": "CreateCompressor 返回的压缩器的句柄。"
+        }
+      ],
+      "return_value": {
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。"
+      },
+      "remarks": "如果压缩算法由于某种内部原因而失败，则可以ERROR_FUNCTION_FAILED来自 GetLastError 的错误。 如果系统找不到压缩算法句柄，则可以 ERROR_INVALID_HANDLE错误。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "compressapi.h",
+        "library": "Cabinet.lib",
+        "dll": "Cabinet.dll",
+        "min_client": "Windows 8 [桌面应用 |UWP 应用]",
+        "min_server": "Windows Server 2012 [桌面应用 |UWP 应用]"
+      },
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetLastError",
+        "SetCompressorInformation"
+      ],
+      "confidence": 0.85,
+      "_source_line": 431
+    },
+    {
+      "id": "windows::ResetDecompressor",
+      "name": "ResetDecompressor",
+      "entity_type": "constant",
+      "description": "准备解压缩器以解压缩新流。",
+      "syntax": "BOOL ResetDecompressor(\n[in] DECOMPRESSOR_HANDLE DecompressorHandle);",
+      "parameters": [
+        {
+          "name": "DecompressorHandle",
+          "direction": "in",
+          "description": "CreateDecompressor 返回的解压缩器的句柄。"
+        }
+      ],
+      "return_value": {
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。"
+      },
+      "remarks": "如果压缩算法由于某种内部原因而失败，则可以ERROR_FUNCTION_FAILED来自 GetLastError 的错误。 如果系统找不到压缩算法句柄，则可以 ERROR_INVALID_HANDLE错误。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "compressapi.h",
+        "library": "Cabinet.lib",
+        "dll": "Cabinet.dll",
+        "min_client": "Windows 8 [桌面应用 |UWP 应用]",
+        "min_server": "Windows Server 2012 [桌面应用 |UWP 应用]"
+      },
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetLastError"
+      ],
+      "confidence": 0.65,
+      "_source_line": 462
+    },
+    {
+      "id": "windows::SetCompressorInformation",
+      "name": "SetCompressorInformation",
+      "entity_type": "constant",
+      "description": "函数 为特定压缩算法设置压缩器中的信息。",
+      "syntax": "BOOL SetCompressorInformation(\n[in] COMPRESSOR_HANDLE          CompressorHandle,\n[in] COMPRESS_INFORMATION_CLASS CompressInformationClass,   [in] LPCVOID                    CompressInformation,\n[in] SIZE_T                     CompressInformationSize);",
+      "parameters": [
+        {
+          "name": "CompressorHandle",
+          "direction": "in",
+          "description": "压缩器的句柄。"
+        },
+        {
+          "name": "CompressInformationClass",
+          "direction": "in",
+          "description": "一个标识信息类型的值。 标识信息类型的枚举的 。[in] CompressInformation 正在设置为字节读取的信息。 最大大小（以字节为单位）由 CompressInformationSize 提供。[in] CompressInformationSize 信息的最大大小（以字节为单位）。"
+        }
+      ],
+      "return_value": {
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。"
+      },
+      "remarks": "如果压缩算法由于某种内部原因而失败，则可以ERROR_FUNCTION_FAILEDGetLastError 的错误。 如果系统找不到压缩算法句柄，则可以 ERROR_INVALID_HANDLE错误。 如果压缩算法不允许更改此信息类的值，则可以 ERROR_NOT_SUPPORTED错误。 如果压缩算法不允许信息 类，则可以 ERROR_UNSUPPORTED_TYPE错误。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "compressapi.h",
+        "library": "Cabinet.lib",
+        "dll": "Cabinet.dll",
+        "min_client": "Windows 8 [桌面应用 |UWP 应用]",
+        "min_server": "Windows Server 2012 [桌面应用 |UWP 应用]"
+      },
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 490
+    },
+    {
+      "id": "windows::SetDecompressorInformation",
+      "name": "SetDecompressorInformation",
+      "entity_type": "constant",
+      "description": "函数 为特定压缩算法设置解压缩器中的信息。",
+      "syntax": "BOOL SetDecompressorInformation(\n[in] DECOMPRESSOR_HANDLE        DecompressorHandle,\n[in] COMPRESS_INFORMATION_CLASS CompressInformationClass,   [in] LPCVOID                    CompressInformation,\n[in] SIZE_T                     CompressInformationSize);",
+      "parameters": [
+        {
+          "name": "DecompressorHandle",
+          "direction": "in",
+          "description": "解压缩器的句柄。"
+        },
+        {
+          "name": "CompressInformationClass",
+          "direction": "in",
+          "description": "一个标识信息类型的 值。 用于标识信息类型的枚举。[in] CompressInformation 正在设置为字节的信息。 CompressInformationSize 提供的最大大小（以字节为单位）。[in] CompressInformationSize 信息的最大大小（以字节为单位）。"
+        }
+      ],
+      "return_value": {
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。"
+      },
+      "remarks": "如果压缩算法由于某种内部原因而失败，则可以ERROR_FUNCTION_FAILED来自 GetLastError 的错误。 如果系统找不到压缩算法句柄，则可以 ERROR_INVALID_HANDLE错误。 如果压缩算法不允许更改此信息类的值，则可以 ERROR_NOT_SUPPORTED错误。 如果压缩算法不允许信 息类，则可以 ERROR_UNSUPPORTED_TYPE错误。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "compressapi.h",
+        "library": "Cabinet.lib",
+        "dll": "Cabinet.dll",
+        "min_client": "Windows 8 [桌面应用 |UWP 应用]",
+        "min_server": "Windows Server 2012 [桌面应用 |UWP 应用]"
+      },
+      "header": "compressapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetLastError"
+      ],
+      "confidence": 0.75,
+      "_source_line": 523
+    }
+  ]
+}

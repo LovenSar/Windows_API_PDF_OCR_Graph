@@ -1,0 +1,873 @@
+{
+  "_schema": "windows_api_kg_v4.0",
+  "_generated_at": "2026-03-05T08:07:23Z",
+  "_content_hash": "1e0edfb2579e",
+  "document": {
+    "document_id": "win32-api::rstmgr",
+    "title": "Restart Manager",
+    "domain": "win32-api",
+    "topic": "rstmgr",
+    "source_file": "[OCR]_windows-win32-api-_rstmgr_20260305_0159.p.txt",
+    "ocr_timestamp": "2026-03-05T01:59:00",
+    "headers_referenced": [
+      "restartmanager.h"
+    ],
+    "total_entities": 51
+  },
+  "entities": [
+    {
+      "id": "windows::Restart",
+      "name": "Restart",
+      "entity_type": "constant",
+      "description": "Manager 函数无法在分配的时间获取注册表写入互斥体。 建议重启系统，因为进一步使用重启管理器可能会失败。 一个或多个参数不正确。 如果 NULL 指针或 0 在参数中传递需要非null 和非零值，则 Restart Manager 函数将返回此错误值。 操作无法读取或写入注册表。 重启管理器操作无法完成，因为没有足够的内存可用。 提供的句柄不存在重启管理器会话。注册到重启管理器会话的路径是目录。 Windows Vista [仅限桌面应用] Windows Server 2008 [仅限桌面应用] 窗户 restartmanager.h Rstrtmgr.lib Rstrtmgr.dll",
+      "syntax": "DWORD RmJoinSession(\n[out] DWORD          *pSessionHandle,\n[in]  const WCHAR [] strSessionKey);",
+      "parameters": [
+        {
+          "name": "pSessionHandle",
+          "direction": "out",
+          "description": "指向现有重启管理器会话句柄的指针。[in] strSessionKey 一个 以 null 结尾的字符串，其中包含现有会话的会话密钥。"
+        }
+      ],
+      "return_value": {
+        "description": "这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。 值"
+      },
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "Manager",
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.85,
+      "_source_line": 1
+    },
+    {
+      "id": "windows::RM_APP_STATUS",
+      "name": "RM_APP_STATUS",
+      "entity_type": "enum",
+      "description": "描述重新启动管理器所针对的应用程序的当前状态。 RM_APP_TYPE 指定由 RM_PROCESS_INFO 结构描述的应用程序的类型。 RM_FILTER_ACTION 指定应用于重启或关闭操作的修改类型。 RM_FILTER_TRIGGER 描述应用程序或服务的重启或关闭操作。 RM_REBOOT_REASON 描述需要重启系统的原因。",
+      "syntax": "typedef enum _RM_APP_STATUS {",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RM_APP_TYPE",
+        "RM_FILTER_ACTION",
+        "RM_FILTER_TRIGGER",
+        "RM_PROCESS_INFO",
+        "RM_REBOOT_REASON"
+      ],
+      "confidence": 0.85,
+      "_source_line": 8
+    },
+    {
+      "id": "windows::RM_SHUTDOWN_TYPE",
+      "name": "RM_SHUTDOWN_TYPE",
+      "entity_type": "enum",
+      "description": "枚举 配置应用程序的关闭。",
+      "syntax": "typedef enum _RM_SHUTDOWN_TYPE {   RmForceShutdown = 0x1,",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 14
+    },
+    {
+      "id": "windows::RM_WRITE_STATUS_CALLBACK",
+      "name": "RM_WRITE_STATUS_CALLBACK",
+      "entity_type": "function",
+      "description": "函数可由控制重启管理器的用户界面实现。 RmAddFilter 修改应用于应用程序或服务的关闭或重启操作。 RmCancelCurrentTask 取消当前 RmShutdown 或 RmRestart 操作。 必须通过调用 RmStartSession 函数从已启动会话的应 用程序调用此函数。 RmEndSession 结束重启管理器会话。 RmGetFilterList 列出 RmAddFilter 函数已应用的对关闭和重启操作的修改。 RmGetList 获取当前使用已注册到 Restart Manager 会话的资源的所有应用程序和服务的列表。 RmJoinSession 将辅助安装程序加入现有的 Restart Manager 会话。 RmRegisterResources 将资源注册到 Restart Manager 会话。 RmRemoveFilter 删除已使用 RmAddFilter 函数应用的关闭或重启操作的任何修改。 RmRestart 重启已由 RmShutdown 函数关闭且已注册以使用 RegisterApplicationRestart 函数重启的应用程序和服务。",
+      "syntax": "DWORD RmAddFilter(\n[in]           DWORD             dwSessionHandle,   [in, optional] LPCWSTR           strModuleName,   [in, optional] RM_UNIQUE_PROCESS *pProcess,\n[in, optional] LPCWSTR           strServiceShortName,\n[in]           RM_FILTER_ACTION  FilterAction);\nparameters[in] dwSessionHandle\n现有重启管理器会话的句柄。[in, optional] strModuleName\n指向以 null 结尾的字符串值的指针，该值包含应用程序可执行文件的完整路径。 对完整路径引用的应用程序应用对关闭或重启操作的修改。 如果 Application 或 strServiceShortName 参数为\n非 NULL，则此参数必须为 NULL。[in, optional] pProcess\n指向应用程序的 RM_UNIQUE_PROCESS 结构的指针。 对 RM_UNIQUE_PROCESS结构引用 的应\n用程序应用对关闭或重启操作的修改。 如果 strFilename 或 strShortServiceName 参数为非 NULL，则此参数必须为 NULL。\n[in, optional] strServiceShortName\n指向包含短服务名称的 以 null 结尾的字符串值的指针。 对由短服务文件名引用的服务应用对关\n闭或重启操作的修改。 如果 strFilename 或 Application 参数为非 NULL，则此参数必须为 NULL。\n[in] FilterAction\n一个RM_FILTER_ACTION枚举值，该值指定要应用的修改类型。",
+      "return_value": {
+        "description": "无 这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。 值"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "Manager",
+        "RegisterApplicationRestart",
+        "Restart",
+        "RmAddFilter",
+        "RmCancelCurrentTask",
+        "RmEndSession",
+        "RmGetList",
+        "RmJoinSession",
+        "RmRemoveFilter",
+        "RmRestart",
+        "RmShutdown",
+        "RmStartSession"
+      ],
+      "confidence": 0.9,
+      "_source_line": 18
+    },
+    {
+      "id": "windows::RmShutdown",
+      "name": "RmShutdown",
+      "entity_type": "function",
+      "description": "函数使用详细状态信息更新 RmGetList 函数返回的 RM_PROCESS_INFO 结构的 AppStatus 成员。 重启管理器遵循分隔不同用户或终端会话的权限。 作为具有 LocalSystem 特权的服务运行的安装程序无法关闭或重启其他用户或终端会话中的任何应用程序。 安装程序应实现自定义方法，以关闭并重启在其他会话中运行的应用程序。 一种方法是在另一个会话中启动新的安装程序进程，以执行关闭和重启操作。 即使",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "AppStatus",
+        "LocalSystem",
+        "RM_PROCESS_INFO",
+        "RmGetList"
+      ],
+      "confidence": 0.6,
+      "_source_line": 30
+    },
+    {
+      "id": "windows::RM_FILTER_INFO",
+      "name": "RM_FILTER_INFO",
+      "entity_type": "struct",
+      "description": "包含有关对重启或关闭操作的修改的信息。 使用 RmAddFilter、RmRemoveFilter 和 RmGetFilterList 函数向重启管理器会话注册的指定应用程序和服务添加、删除和列出修改。",
+      "syntax": "typedef struct _RM_FILTER_INFO {   RM_FILTER_ACTION  FilterAction;   RM_FILTER_TRIGGER FilterTrigger;   DWORD             cbNextOffset;   union {\nLPWSTR            strFilename;     RM_UNIQUE_PROCESS Process;\nLPWSTR            strServiceShortName;   };\n} RM_FILTER_INFO, *PRM_FILTER_INFO;",
+      "members": [
+        {
+          "name": "FilterAction",
+          "description": "此成员包含 RM_FILTER_ACTION 枚举值。 使用值 RmNoRestart 可阻止重启应用程序或 服务。 使用值 RmNoShutdown 可防止关闭和重启应用程序或服务。 FilterTrigger 此成员包含 RM_FILTER_TRIGGER 枚举值。 使用值 RmFilterTriggerFile 修改可执行文件的完整路径文件名引用的应用程序的重启或关闭操作。 使用值 RmFilterTriggerProcess 可 修改 RM_UNIQUE_PROCESS 结构引用的应用程序的重启或关闭操作。 使用值 RmFilterTriggerService 修改由短服务名称引用的服务的重启或关闭操作。"
+        },
+        {
+          "name": "cbNextOffset",
+          "description": "到下一个结构的偏移量（以字节为单位）。 strFilename 如果 FilterTrigger 的值为 RmFilterTriggerFile，则此成员包含指向包含应用程序文件名的 字符串值的指针。 Process 如果 FilterTrigger 的值为 RmFilterTriggerProcess，则此成员是应用程序的"
+        }
+      ],
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RmAddFilter",
+        "RmRemoveFilter"
+      ],
+      "confidence": 0.95,
+      "_source_line": 34
+    },
+    {
+      "id": "windows::RmAddFilter",
+      "name": "RmAddFilter",
+      "entity_type": "function",
+      "description": "修改应用于应用程序或服务的关闭或重启操作。 RmCancelCurrentTask 取消当前的 RmShutdown 或 RmRestart 操作。 必须通过调用 RmStartSession 函数从已启动会话的 应用程序调用此函数。 RmEndSession 结束重启管理器会话。 RmGetFilterList 列出 RmAddFilter 函数已应用的关闭和重启操作的修改。 RmGetList 获取当前正在使用已在重启管理器会话中注册的资源的所有应用程序和服务的列表。 RmJoinSession 将辅助安装程序加入现有的重启管理器会话。 RmRegisterResources 将资源注册到重启管理器会话。 RmRemoveFilter 删除对已使用 RmAddFilter 函数应用的关闭或重启操作所做的任何修改。 RmRestart 重启已由 RmShutdown 函数关闭且已注册为使用 RegisterApplicationRestart 函数重启的应用程序和服务。",
+      "return_value": {
+        "description": "这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。 值"
+      },
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RegisterApplicationRestart",
+        "RmCancelCurrentTask",
+        "RmEndSession",
+        "RmGetList",
+        "RmJoinSession",
+        "RmRemoveFilter",
+        "RmRestart",
+        "RmShutdown",
+        "RmStartSession"
+      ],
+      "confidence": 0.65,
+      "_source_line": 47
+    },
+    {
+      "id": "windows::RM_APP_TYPE",
+      "name": "RM_APP_TYPE",
+      "entity_type": "enum",
+      "description": "指定由 RM_PROCESS_INFO 结构描述的应用程序的类型。 RM_FILTER_ACTION 指定应用于重启或关闭操作的修改类型。 RM_FILTER_TRIGGER 描述应用程序或服务的重启或关闭操作。 RM_REBOOT_REASON 描述需要重启系统的原因。",
+      "syntax": "typedef enum _RM_APP_TYPE {",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RM_FILTER_ACTION",
+        "RM_FILTER_TRIGGER",
+        "RM_PROCESS_INFO",
+        "RM_REBOOT_REASON"
+      ],
+      "confidence": 0.85,
+      "_source_line": 74
+    },
+    {
+      "id": "windows::RmStatusUnknown",
+      "name": "RmStatusUnknown",
+      "entity_type": "enum",
+      "description": "= 0x0, RmStatusRunning = 0x1, RmStatusStopped = 0x2,",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RmStatusRunning",
+        "RmStatusStopped"
+      ],
+      "confidence": 0.6,
+      "_source_line": 89
+    },
+    {
+      "id": "windows::RmStatusStoppedOther",
+      "name": "RmStatusStoppedOther",
+      "entity_type": "enum",
+      "description": "= 0x4, RmStatusRestarted = 0x8,",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RmStatusRestarted"
+      ],
+      "confidence": 0.5,
+      "_source_line": 90
+    },
+    {
+      "id": "windows::RmStatusErrorOnStop",
+      "name": "RmStatusErrorOnStop",
+      "entity_type": "enum",
+      "description": "值： 0x10 重启管理器在停止应用程序时遇到错误。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 91
+    },
+    {
+      "id": "windows::RmStatusErrorOnRestart",
+      "name": "RmStatusErrorOnRestart",
+      "entity_type": "enum",
+      "description": "= 0x20, RmStatusShutdownMasked = 0x40, RmStatusRestartMasked = 0x80}",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RmStatusShutdownMasked"
+      ],
+      "confidence": 0.6,
+      "_source_line": 92
+    },
+    {
+      "id": "windows::RmStatusRunning",
+      "name": "RmStatusRunning",
+      "entity_type": "constant",
+      "description": "值： 0x1 应用程序当前正在运行。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 96
+    },
+    {
+      "id": "windows::RmStatusStopped",
+      "name": "RmStatusStopped",
+      "entity_type": "constant",
+      "description": "值： 0x2 重启管理器已停止应用程序。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 98
+    },
+    {
+      "id": "windows::RmStatusRestarted",
+      "name": "RmStatusRestarted",
+      "entity_type": "constant",
+      "description": "值： 0x8 重启管理器已重启应用程序。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 105
+    },
+    {
+      "id": "windows::RmStatusShutdownMasked",
+      "name": "RmStatusShutdownMasked",
+      "entity_type": "constant",
+      "description": "值： 0x40 筛选器屏蔽了关闭。 RmStatusRestartMasked 值： 0x80 重新启动被筛选器屏蔽。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 111
+    },
+    {
+      "id": "windows::RmUnknownApp",
+      "name": "RmUnknownApp",
+      "entity_type": "constant",
+      "description": "值： 0 应用程序不能归类为任何其他类型。 此类型的应用程序只能通过强制关闭来关闭。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 134
+    },
+    {
+      "id": "windows::RmService",
+      "name": "RmService",
+      "entity_type": "constant",
+      "description": "= 3, RmExplorer = 4, RmConsole = 5,",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RmConsole",
+        "RmExplorer"
+      ],
+      "confidence": 0.5,
+      "_source_line": 135
+    },
+    {
+      "id": "windows::RmCritical",
+      "name": "RmCritical",
+      "entity_type": "constant",
+      "description": "值： 1000 需要重启系统才能完成安装，因为无法关闭进程。 由于以下原因，无法关闭进程。 该过程可能是一个关键过程。 当前用户可能没有关闭进程的权限。 进程可能属于启动重启管理器的主安装程 序。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 136
+    },
+    {
+      "id": "windows::RmMainWindow",
+      "name": "RmMainWindow",
+      "entity_type": "constant",
+      "description": "值：1 Windows 应用程序作为显示顶级窗口的独立进程运行。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 142
+    },
+    {
+      "id": "windows::RmOtherWindow",
+      "name": "RmOtherWindow",
+      "entity_type": "constant",
+      "description": "值： 2 不作为独立进程运行且不显示顶级窗口的 Windows 应用程序。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 144
+    },
+    {
+      "id": "windows::RmExplorer",
+      "name": "RmExplorer",
+      "entity_type": "constant",
+      "description": "值： 4 应用程序是 Windows 资源管理器。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 148
+    },
+    {
+      "id": "windows::RmConsole",
+      "name": "RmConsole",
+      "entity_type": "constant",
+      "description": "值： 5 该应用程序是一个独立的控制台应用程序。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 152
+    },
+    {
+      "id": "windows::RM_FILTER_ACTION",
+      "name": "RM_FILTER_ACTION",
+      "entity_type": "constant",
+      "description": "枚举 指定应用于重启或关闭操作的修改类型。",
+      "syntax": "typedef enum _RM_FILTER_ACTION {   RmInvalidFilterAction = 0,",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 171
+    },
+    {
+      "id": "windows::RmNoRestart",
+      "name": "RmNoRestart",
+      "entity_type": "constant",
+      "description": "值：1 阻止重启指定的应用程序或服务。 RmNoShutdown 阻止关闭和重启指定的应用程序或服务。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "restartmanager.h",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 176
+    },
+    {
+      "id": "windows::RmInvalidFilterAction",
+      "name": "RmInvalidFilterAction",
+      "entity_type": "constant",
+      "description": "值： 0 无效的筛选操作。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 179
+    },
+    {
+      "id": "windows::RM_PROCESS_INFO",
+      "name": "RM_PROCESS_INFO",
+      "entity_type": "constant",
+      "description": "结构。 strServiceShortName 如果 FilterTrigger 的值为 RmFilterTriggerService ，则此成员是指向包含短服务名称的字 符串值的指针。",
+      "syntax": "typedef struct _RM_PROCESS_INFO {   RM_UNIQUE_PROCESS Process;\nWCHAR             strAppName[CCH_RM_MAX_APP_NAME + 1];\nWCHAR             strServiceShortName[CCH_RM_MAX_SVC_NAME + 1];   RM_APP_TYPE       ApplicationType;\nULONG             AppStatus;   DWORD             TSSessionId;   BOOL              bRestartable;\n} RM_PROCESS_INFO, *PRM_PROCESS_INFO;",
+      "members": [
+        {
+          "name": "Process",
+          "description": "包含一个 RM_UNIQUE_PROCESS 结构，该结构按应用程序的 PID 和进程开始的时间唯一标识应用程序。 strAppName[CCH_RM_MAX_APP_NAME + 1] 如果进程是一个服务，则此参数返回该服务的长名称。 如果进程不是服务，则此参数返回应用程序的用户友好名称。 如果进程是关键进程，并且安装程序使用提升的权限运行，则此参数返回关键进程的可执行文件的名称。 如果进程是关键进程，并且安装程序 作为服务运行，则此参数返回关键进程的长名称。 strServiceShortName[CCH_RM_MAX_SVC_NAME + 1] 如果进程是一个服务，则这是服务的短名称。 如果进程不是服务，则不使用此成员。 ApplicationType 包含一个 RM_APP_TYPE 枚举值，该值将应用程序类型指定为 RmUnknownApp、 RmMainWindow、 RmOtherWindow、 RmService、 RmExplorer 或 RmCritical。"
+        }
+      ],
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RM_FILTER_TRIGGER",
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.95,
+      "_source_line": 212
+    },
+    {
+      "id": "windows::RM_FILTER_TRIGGER",
+      "name": "RM_FILTER_TRIGGER",
+      "entity_type": "constant",
+      "description": "枚举 描述应用程序或服务的重启或关闭操作。",
+      "syntax": "typedef enum _RM_FILTER_TRIGGER {",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 229
+    },
+    {
+      "id": "windows::RmFilterTriggerInvalid",
+      "name": "RmFilterTriggerInvalid",
+      "entity_type": "constant",
+      "description": "值： 0 无效的筛选器触发器。 RmFilterTriggerFile 修改由其可执行文件名标识的应用程序的关闭或重启操作。 RmFilterTriggerProcess 修改由 RM_UNIQUE_PROCESS 结构标识的应用程序的关闭或重启操作。 RmFilterTriggerService 修改由服务短名称标识的服务的关闭或重启操作。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RM_UNIQUE_PROCESS"
+      ],
+      "confidence": 0.6,
+      "_source_line": 234
+    },
+    {
+      "id": "windows::AppStatus",
+      "name": "AppStatus",
+      "entity_type": "constant",
+      "description": "包含一个位掩码，用于描述应用程序的当前状态。 请参阅 RM_APP_STATUS 枚举。 TSSessionId 包含进程的终端服务会话 ID。 如果无法确定进程的终端会话，则此成员的值将设置为 RM_INVALID_SESSION (-1) 。 如果进程是服务或系统关键进程，则不使用此成员。 bRestartable 如果重启管理器可以重启应用程序，则为 TRUE;否则为 FALSE。 如果进程是服务，则此 成员始终为 TRUE 。 如果进程是关键系统进程，则此成员始终为 FALSE 。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RM_APP_STATUS"
+      ],
+      "confidence": 0.6,
+      "_source_line": 272
+    },
+    {
+      "id": "windows::RM_UNIQUE_PROCESS",
+      "name": "RM_UNIQUE_PROCESS",
+      "entity_type": "constant",
+      "description": "结构的数组。 如果 nApplications 为 0，此参数可以为 NULL。 [in] nServices 要注册的服务数。 [in, optional] rgsServiceNames 以 null 结尾的服务短名称字符串的数组。 如果 nServices 为 0，此参数可以为 NULL。",
+      "syntax": "DWORD RmRegisterResources(\n[in]           DWORD                dwSessionHandle,   [in]           UINT                 nFiles,\n[in, optional] LPCWSTR []           rgsFileNames,   [in]           UINT                 nApplications,   [in, optional] RM_UNIQUE_PROCESS [] rgApplications,   [in]           UINT                 nServices,\n[in, optional] LPCWSTR []           rgsServiceNames);",
+      "parameters": [
+        {
+          "name": "dwSessionHandle",
+          "direction": "in",
+          "description": "现有重启管理器会话的句柄。[in] nFiles 正在注册的文件数。"
+        },
+        {
+          "name": "rgsFileNames",
+          "direction": "in, optional",
+          "description": "完整文件名路径的 以 null 结尾的字符串数组。 如果 nFiles 为 0，此参数可以为 NULL。"
+        },
+        {
+          "name": "nApplications",
+          "direction": "in",
+          "description": "正在注册的进程数。"
+        },
+        {
+          "name": "rgApplications",
+          "direction": "in, optional",
+          "description": ""
+        }
+      ],
+      "return_value": {
+        "description": "这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。 值"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "restartmanager.h",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 1.0,
+      "_source_line": 281
+    },
+    {
+      "id": "windows::RmGetList",
+      "name": "RmGetList",
+      "entity_type": "constant",
+      "description": "RmRestart RmShutdown Windows Vista [仅限桌面应用] Windows Server 2008 [仅限桌面应用] restartmanager.h (restartmanager.h)",
+      "syntax": "DWORD RmGetList(\n[in]                DWORD              dwSessionHandle,   [out]               UINT               *pnProcInfoNeeded,   [in, out]           UINT               *pnProcInfo,\n[in, out, optional] RM_PROCESS_INFO [] rgAffectedApps,   [out]               LPDWORD            lpdwRebootReasons);",
+      "parameters": [
+        {
+          "name": "dwSessionHandle",
+          "direction": "in",
+          "description": "现有重启管理器会话的句柄。[out] pnProcInfoNeeded 指向接收 RM_PROCESS_INFO 结构所需的数组大小的指针，该结构返回所有受影响的应用程序和服务的信息。"
+        },
+        {
+          "name": "pnProcInfo",
+          "direction": "in, out",
+          "description": "指向数组中 RM_PROCESS_INFO 结构的总数和填充结构数的指针。[in, out, optional] rgAffectedApps 一个由 RM_PROCESS_INFO 结构构成的数组，这些结构使用已注册到会话的资源列出应用程序和服务。"
+        },
+        {
+          "name": "lpdwRebootReasons",
+          "direction": "out",
+          "description": "指向接收 RM_REBOOT_REASON 枚举值的位置的指针，该枚举描述需要系统重启的原因。"
+        }
+      ],
+      "return_value": {
+        "description": "这是收到的最新错误。 该函数可以返回 Winerror.h 中定义的 系统错误代码之一。 价值"
+      },
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RmRestart",
+        "RmShutdown",
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.85,
+      "_source_line": 282
+    },
+    {
+      "id": "windows::RM_REBOOT_REASON",
+      "name": "RM_REBOOT_REASON",
+      "entity_type": "constant",
+      "description": "描述需要重启系统的原因。",
+      "syntax": "typedef enum _RM_REBOOT_REASON {   RmRebootReasonNone = 0x0,",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 292
+    },
+    {
+      "id": "windows::RmRebootReasonPermissionDenied",
+      "name": "RmRebootReasonPermissionDenied",
+      "entity_type": "constant",
+      "description": "= 0x1, RmRebootReasonSessionMismatch = 0x2, RmRebootReasonCriticalProcess = 0x4, RmRebootReasonCriticalService = 0x8, RmRebootReasonDetectedSelf}",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RmRebootReasonCriticalService",
+        "RmRebootReasonSessionMismatch"
+      ],
+      "confidence": 0.6,
+      "_source_line": 296
+    },
+    {
+      "id": "windows::RmRebootReasonNone",
+      "name": "RmRebootReasonNone",
+      "entity_type": "constant",
+      "description": "值： 0x0 不需要重启系统。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 299
+    },
+    {
+      "id": "windows::RmRebootReasonSessionMismatch",
+      "name": "RmRebootReasonSessionMismatch",
+      "entity_type": "constant",
+      "description": "值： 0x2 一个或多个进程是 在另一个终端服务会话中运行。 RmRebootReasonCriticalProcess 值： 0x4 需要重启系统，因为要关闭的一个或多个进程是关键进程。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 304
+    },
+    {
+      "id": "windows::RmRebootReasonCriticalService",
+      "name": "RmRebootReasonCriticalService",
+      "entity_type": "constant",
+      "description": "值： 0x8 需要重启系统，因为要关闭的一个或多个服务是关键服务。 RmRebootReasonDetectedSelf 需要重启系统，因为当前进程必须关闭。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RmGetList",
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.6,
+      "_source_line": 311
+    },
+    {
+      "id": "windows::RmShutdownOnlyRegistered",
+      "name": "RmShutdownOnlyRegistered",
+      "entity_type": "constant",
+      "description": "0x10 [in, optional] fnStatus 含义 强制在超时期限后关闭无响应的应用程序和服务。 未响应关闭请求的应用程序在 30 秒内被迫关闭。 不响应关闭请求的服务在 20 秒后被迫关闭。 仅当已使用 RegisterApplicationRestart 函数注册所有应用程序以重启时，才关闭应用程序。 如果无法重启任何进程或服务，则不会关闭任何进程或服务。 指向",
+      "return_value": {
+        "description": "这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。 值"
+      },
+      "remarks": "启动应用程序强制关闭之前等待的时间由以下注册表项指定。 HKCU\\控制面板\\Desktop\\HungAppTimeout 在启动强制关闭服务之前等待的时间由以下注册表项指定。 HKLM\\系统\\CurrentControlSet\\控制\\WaitToKillServiceTimeout",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "restartmanager.h",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "CurrentControlSet",
+        "Desktop",
+        "RegisterApplicationRestart"
+      ],
+      "confidence": 0.65,
+      "_source_line": 333
+    },
+    {
+      "id": "windows::RmForceShutdown",
+      "name": "RmForceShutdown",
+      "entity_type": "constant",
+      "description": "值： 0x1 强制在超时期限过后关闭无响应应用程序和服务。 不响应重启管理器的关闭请求的应用程序在 30 秒后被迫关闭。 不响应关闭请求的服务在 20 秒后强制关闭。 可以通过修改“备注”部分中所述的注册表项来更改这些默认时间。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 335
+    },
+    {
+      "id": "windows::ERROR_SUCCESS",
+      "name": "ERROR_SUCCESS",
+      "entity_type": "constant",
+      "description": "0 含义 函数已成功完成。",
+      "remarks": "无法重启一个或多个应用程序。 RmGetList 函数返回的 RM_PROCESS_INFO结构包含更新的状态信息。 重启管理器函数无法在分配的时间内获取注册表写入互斥体。建议重启系统，因为进一步使用重启管理器可能会失败。 当取消操作的请求成功时， RmRestart 函数将返回此错误值。一个或多个参数无效。 如果在需要非 null 和非零值的参数中传 递 NULL 指针或 0，则重启管理器函数将返回此错误值。操作无法读取或写入注册表。 重启管理器操作无法完成，因为没有足够的内存可用。 提供的句柄不存在重启管理器会话。函数成功并返回 。 调用 RmRestart 函数后，RmGetList 函数返回的RM_PROCESS_INFO结构包含更新的状态信息。重启管理器遵循分隔不同用户或终端会话的权限。 作为具有 LocalSystem 特权的服务运行的安装程序无法关闭或重启其他用户或终端会话中的任何应用程序。 安装程序应实现自定义方法来关闭和重启在其他会话中运行的应用程序。 一种方法是在另一个会话中启动新的安装程序进程，以执行关闭和重启操作。 当重新启动管理器关闭并重启控制台应用程序时，应用程序在新控制台中重启。 即使 RmShutdown 函数返回指示并非所有应用程序和服务都可以关闭的错误，安装程序也应始终使用 RmRestart 函数重启应用程序和服务。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "LocalSystem",
+        "RmGetList",
+        "RmRestart",
+        "RmShutdown"
+      ],
+      "confidence": 0.55,
+      "_source_line": 427
+    },
+    {
+      "id": "windows::ERROR_SESSION_CREDENTIAL_CONFLICT",
+      "name": "ERROR_SESSION_CREDENTIAL_CONFLICT",
+      "entity_type": "constant",
+      "description": "1219 注解 函数已成功完成。 一个或多个参数无效。 如果将 NULL 指针或 0 作为需要非 null 和非零值的参数传入，则重启管理器函数将返回此错误值。 如果 pbFilterBuf 缓冲区太小而无法保存列表中的所有应用程 序信息，或者如果未指定 cbFilterBufNeededed，则 RmGetFilterList 函数将返回此错误值。 当辅助安装程序调用此函数时，将返回此错误。 此函数仅适用于主安装程序。 返回的 pbFilterBuf 缓冲区必须是 typecast 到",
+      "syntax": "DWORD RmRestart(\n[in]           DWORD                    dwSessionHandle,                  DWORD                    dwRestartFlags,\n[in, optional] RM_WRITE_STATUS_CALLBACK fnStatus);",
+      "parameters": [
+        {
+          "name": "dwSessionHandle",
+          "direction": "in",
+          "description": "现有会话的句柄。"
+        }
+      ],
+      "return_value": {
+        "description": "这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。 值"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "restartmanager.h",
+        "library": "Rstrtmgr.lib",
+        "dll": "Rstrtmgr.dll",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 1.0,
+      "_source_line": 429
+    },
+    {
+      "id": "windows::ERROR_INVALID_HANDLE",
+      "name": "ERROR_INVALID_HANDLE",
+      "entity_type": "constant",
+      "description": "6 含义 请求取消当前操作。 一个或多个参数无效。 如果在需要非 null 和非零值的参数中传 递 NULL 指针或 0，则重启管理器函数将返回此错误值。重启管理器操作无法完成，因为没有足够的内存可用。 提供的句柄不存在重启管理器会话。 要求",
+      "syntax": "DWORD RmRemoveFilter(\n[in]           DWORD             dwSessionHandle,   [in, optional] LPCWSTR           strModuleName,   [in, optional] RM_UNIQUE_PROCESS *pProcess,\n[in, optional] LPCWSTR           strServiceShortName);",
+      "parameters": [
+        {
+          "name": "dwSessionHandle",
+          "direction": "in",
+          "description": "现有 Restart Manager 会话的句柄。"
+        }
+      ],
+      "return_value": {
+        "description": "这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。 值"
+      },
+      "remarks": "含义 指定的资源已注册。 重启管理器函数无法在分配的时间内获取注册表写入互斥体。建议重启系统，因为进一步使用重启管理器可能会失败。 一个或多个参数无效。 如果在需要非 null 和非零值的参数中传 递 NULL 指针或 0，则重启管理器函数将返回此错误值。操作无法读取或写入注册表。 重启管理器操作无法完成，因为没有足够的内存可用。提供的句柄不存在重启管理器会话。 每次调用 RmRegisterResources 函数都会执行相对昂贵的写入操作。 不要为每个文件调用此函 数一次，而是将相关文件分组到组件中，并一起注册这些组件。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "restartmanager.h",
+        "library": "Rstrtmgr.lib",
+        "dll": "Rstrtmgr.dll",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RmEndSession",
+        "RmRestart",
+        "RmShutdown",
+        "RmStartSession",
+        "Server",
+        "Vista"
+      ],
+      "confidence": 1.0,
+      "_source_line": 461
+    },
+    {
+      "id": "windows::ERROR_SEM_TIMEOUT",
+      "name": "ERROR_SEM_TIMEOUT",
+      "entity_type": "constant",
+      "description": "121 含义 函数已成功完成。无法验证会话密钥。 重启管理器函数无法在分配的时间内获取注册表写入互斥体。 建议重启系统，因为进一步使用重启管理器可能会失败。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 491
+    },
+    {
+      "id": "windows::Lists",
+      "name": "Lists",
+      "entity_type": "constant",
+      "description": "RmAddFilter 函数已应用的关闭和重启操作的修改。 函数返回指向缓冲区的指针，其中包含有关已应用的修改的信息。",
+      "syntax": "DWORD RmGetFilterList(\n[in]            DWORD   dwSessionHandle,\n[out, optional] PBYTE   pbFilterBuf,   [in]            DWORD   cbFilterBuf,\n[out]           LPDWORD cbFilterBufNeeded);",
+      "parameters": [
+        {
+          "name": "dwSessionHandle",
+          "direction": "in",
+          "description": "现有 Restart Manager 会话的句柄。[out, optional] pbFilterBuf 指向包含修改信息的缓冲区的指针。[in] cbFilterBuf 包含修改信息的缓冲区的大小（以字节为单位）。"
+        },
+        {
+          "name": "cbFilterBufNeeded",
+          "direction": "out",
+          "description": "缓冲区中所需的字节数。"
+        }
+      ],
+      "return_value": {
+        "description": "这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。 值 含义"
+      },
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RmAddFilter"
+      ],
+      "confidence": 0.85,
+      "_source_line": 514
+    },
+    {
+      "id": "windows::RmJoinSession",
+      "name": "RmJoinSession",
+      "entity_type": "constant",
+      "description": "函数将辅助安装程序加入到现有的重启管理器会话。 这通常是不控制用户界面的安装程序，可以运行主安装程序的进程内或进程外。 只有主安装程序可以调用",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 630
+    },
+    {
+      "id": "windows::RmStartSession",
+      "name": "RmStartSession",
+      "entity_type": "constant",
+      "description": "函数应由控制用户界面或控制更新中多个修补程序的安装顺序的主安装程序调用。 辅助安装程序可以通过使用从主安装程序的 RmStartSession 函数调用返回的会话句柄和会话密 钥调用",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RmEndSession",
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.6,
+      "_source_line": 631
+    },
+    {
+      "id": "windows::RmRemoveFilter",
+      "name": "RmRemoveFilter",
+      "entity_type": "constant",
+      "description": "函数删除对引用的应用程序关闭或重启操作所做的任何修改，这些操作以前由 RmAddFilter 函数应用。 如果 Application 或 strServiceShortName 参数为非 NULL，则此参数必须为 NULL。 [in, optional] pProcess 应用程序的 RM_UNIQUE_PROCESS 结构。 RmRemoveFilter 函数删除对引用的应用程序关闭或重启操作所做的任何修改，这些操作以前由 RmAddFilter 函数应用。 如果 strFilename 或 strShortServiceName 参数为非 NULL，则此参数必须为 NULL。[in, optional] strServiceShortName 指向包含短服务名称的 以 null 结尾的字符串值的指针。 RmRemoveFilter 函数删除对",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RM_UNIQUE_PROCESS",
+        "RmAddFilter"
+      ],
+      "confidence": 0.6,
+      "_source_line": 704
+    },
+    {
+      "id": "windows::ERROR_REQUEST_OUT_OF_SEQUENCE",
+      "name": "ERROR_REQUEST_OUT_OF_SEQUENCE",
+      "entity_type": "constant",
+      "description": "776 含义 如果在调用 RmShutdown 函数之前使用有效的会话句柄调用 RmRestart 函数，则返回此错误值。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RmRestart",
+        "RmShutdown"
+      ],
+      "confidence": 0.75,
+      "_source_line": 748
+    },
+    {
+      "id": "windows::RmRestart",
+      "name": "RmRestart",
+      "entity_type": "constant",
+      "description": "函数不会重启任何未以当前登录用户身份运行的应用程序。 即使应用程序已由重启管理器关闭。 例如， RmRestart 函数不会重启使用 运行方式 命令启动的应用程序，这些应用 程序不以当前登录的用户身份运行。 必须手动重启这些应用程序。",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 770
+    },
+    {
+      "id": "windows::RmCancelCurrentTask",
+      "name": "RmCancelCurrentTask",
+      "entity_type": "constant",
+      "description": "RmRestart 值 Windows Vista [仅限桌面应用] Windows Server 2008 [仅限桌面应用] Windows restartmanager.h Rstrtmgr.lib Rstrtmgr.dll rmStartSession 函数 (restartmanager.h) 项目2023/08/25 启动新的重启管理器会话。 每个用户会话最多可以同时在系统上打开 64 个重启管理器会话。当此函数启动会话时，它将返回会话句柄和会话密钥，这些句柄和会话密钥可用于对重启管理器 API 的后续调用。",
+      "syntax": "DWORD RmShutdown(\n[in]           DWORD                    dwSessionHandle,   [in]           ULONG                    lActionFlags,\n[in, optional] RM_WRITE_STATUS_CALLBACK fnStatus);",
+      "parameters": [
+        {
+          "name": "dwSessionHandle",
+          "direction": "in",
+          "description": "现有 Restart Manager 会话的句柄。[in] lActionFlags 配置组件的关闭 的 一个或多个RM_SHUTDOWN_TYPE选项。 OR 运算符可以组合以下值，以指定当且仅当所有应用程序都已注册重启时，才会强制关闭无响应的应用程序和服务。 值"
+        }
+      ],
+      "return_value": {
+        "description": "这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。 值"
+      },
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RmRestart",
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.85,
+      "_source_line": 778
+    },
+    {
+      "id": "windows::RmEndSession",
+      "name": "RmEndSession",
+      "entity_type": "constant",
+      "description": "RmJoinSession",
+      "header": "restartmanager.h",
+      "deprecated": false,
+      "cross_references": [
+        "RmJoinSession"
+      ],
+      "confidence": 0.4,
+      "_source_line": 893
+    }
+  ]
+}

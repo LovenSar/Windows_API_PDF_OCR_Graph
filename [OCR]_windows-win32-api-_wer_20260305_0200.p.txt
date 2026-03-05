@@ -1,0 +1,2564 @@
+Windows 错误报告项目2023/07/28
+Windows 错误报告技术概述。
+若要开发Windows 错误报告，需要以下标头：
+errorrep.h werapi.h
+有关此技术的编程指南，请参阅：
+Windows 错误报告
+枚举  
+REPORT_STORE_TYPES
+定义可以打开的Windows 错误报告 (WER) 报表存储的类型。 WER_CONSENT
+定义可能Windows 错误报告 (WER) 用户同意状态。 WER_DUMP_TYPE
+定义可能Windows 错误报告 (WER) 小型转储类型。 WER_FILE_TYPE
+定义小型转储报表的可能Windows 错误报告 (WER) 文件类型。 WER_REGISTER_FILE_TYPE
+定义可注册的Windows 错误报告 (WER) 文件类型。 WER_REPORT_TYPE
+定义Windows 错误报告 (WER) 报表类型。 WER_REPORT_UI
+告知我们有关下载 PDF 体验的信息。
+定义Windows 错误报告 (WER) 报表的可自定义 UI 字符串的索引。
+ 
+WER_SUBMIT_RESULT
+定义Windows 错误报告 (WER) 提交结果选项。
+函数  
+AddERExcludedApplicationA
+从错误报告中排除指定的应用程序。 (ANSI) AddERExcludedApplicationW
+从错误报告中排除指定的应用程序。 (Unicode)
+PFN_WER_RUNTIME_EXCEPTION_DEBUGGER_LAUNCH
+Windows 错误报告 (WER) 调用此函数来自定义调试器启动选项和启动字符串。 PFN_WER_RUNTIME_EXCEPTION_EVENT
+Windows 错误报告 (WER) 调用此函数来确定异常处理程序是否正在声明崩溃。 PFN_WER_RUNTIME_EXCEPTION_EVENT_SIGNATURE
+Windows 错误报告 (WER) 调用此函数来获取唯一描述问题的报表参数。 ReportFault
+允许执行自己的异常处理的应用程序向 Microsoft 报告错误。 WerAddExcludedApplication
+将指定的应用程序添加到要从错误报告中排除的应用程序列表。 WerFreeString
+释放用于存储报表密钥字符串的内存。 在每次连续调用 WerStoreGetFirstReportKey 或
+WerStoreGetNextReportKey 之后，应调用该密钥，一旦特定报表密钥字符串已使用且不再需要。 WerGetFlags
+检索指定进程的故障报告设置。 WerRegisterAdditionalProcess
+ 
+注册要包含在Windows 错误报告 (WER) 报表中的进程以及main应用程序过程。 （可选）指定要从
+中获取其他数据的已注册进程内的线程。 WerRegisterAppLocalDump
+注册相对于打包应用程序的 LocalFolder 的路径 () 其中应保存诊断内存转储的副本，Windows 错误
+报告 (WER) 在应用程序的某个进程停止响应时收集该转储。 WerRegisterCustomMetadata
+注册要以键/值字符串的形式收集 (的应用特定元数据，) Windows 错误报告 (WER) 错误报告。 WerRegisterExcludedMemoryBlock
+标记通常默认包含在错误报告中的内存块 (，) 从Windows 错误报告 (WER) 错误报告中排除。 WerRegisterFile
+注册Windows 错误报告 (WER) 创建错误报告时要收集的文件。 WerRegisterMemoryBlock
+注册Windows 错误报告 (WER) 创建错误报告时要收集的内存块。 WerRegisterRuntimeExceptionModule
+注册自定义运行时异常处理程序，该处理程序用于为崩溃提供自定义Windows 错误报告 (WER) 。 WerRemoveExcludedApplication
+从Windows 错误报告 (WER) 排除的应用程序列表中删除指定的应用程序。 WerReportAddDump
+将指定类型的转储添加到指定的Windows 错误报告 (WER) 报表。 WerReportAddFile
+将文件添加到指定的WINDOWS 错误报告 (WER) 报表。 WerReportCloseHandle
+关闭指定的Windows 错误报告 (WER) 报表。 WerReportCreate
+创建描述应用程序事件的Windows 错误报告 (WER) 报表。 WerReportHang
+ 
+在指定窗口上启动“无响应”报告。 WerReportSetParameter
+设置唯一标识指定Windows 错误报告 (WER) 报表的事件的参数。 WerReportSetUIOption
+设置指定Windows 错误报告 (WER) 报表的用户界面选项。 WerReportSubmit
+提交指定的Windows 错误报告 (WER) 报表。 WerSetFlags
+设置当前进程的Windows 错误报告 (WER) 报告设置。 WerSetMaxProcessHoldMilliseconds
+设置WINDOWS 错误报告 (WER) 的最大进程保留时间（以毫秒为单位）。 WerStoreClose
+关闭存储Windows 错误报告 (WER) 报表的集合。 WerStoreGetFirstReportKey
+获取对报表存储中第一个WINDOWS 错误报告 (WER) 报表的引用。 WerStoreGetNextReportKey
+获取对错误报告存储中下一个WINDOWS 错误报告 (WER) 报表的引用。 WerStoreGetReportCount
+获取错误报告存储中Windows 错误报告 (WER) 报表的数目。 WerStoreGetSizeOnDisk
+获取Windows 错误报告 (WER) 错误报告存储的大小（以字节为单位）。 WerStoreOpen
+打开存储Windows 错误报告 (WER) 错误报告的集合。 WerStorePurge
+清除Windows 错误报告 (WER) 报表存储。
+ 
+WerStoreQueryReportMetadataV1
+检索有关存储中Windows 错误报告 (WER) 报表的元数据。 WerStoreQueryReportMetadataV2
+检索有关存储中Windows 错误报告 (WER) 报表的元数据。 WerStoreQueryReportMetadataV3
+检索有关存储中Windows 错误报告 (WER) 报表的元数据。 WerStoreUploadReport
+将报表上传到Windows 错误报告 (WER) 存储。 WerUnregisterAdditionalProcess
+从要包含在Windows 错误报告 (WER) 错误报告中的其他进程列表中删除进程。 WerUnregisterAppLocalDump
+取消通过调用 WerRegisterAppLocalDump 函数进行的注册，以指定Windows 错误报告 (WER) 应保
+存当应用程序的某个进程停止响应时 WER 收集的诊断内存转储的副本。 WerUnregisterCustomMetadata
+删除在为应用程序Windows 错误报告 (WER) 期间收集的应用特定元数据项。 WerUnregisterExcludedMemoryBlock
+删除以前标记为已排除的内存块，该内存块将再次包含在 Windows 错误报告] (WER) 错误报告中。 WerUnregisterFile
+从要添加到为当前进程生成的Windows 错误报告 (WER) 报告的文件列表中删除文件。 WerUnregisterMemoryBlock
+从应用程序Windows 错误报告 (WER) 期间收集的数据列表中删除内存块。 WerUnregisterRuntimeExceptionModule
+删除Windows 错误报告 (WER) 异常处理程序的注册。结构
+ 
+WER_DUMP_CUSTOM_OPTIONS
+指定要由 WerReportAddDump 函数收集的自定义Windows 错误报告 (WER) 小型转储信息。 WER_DUMP_CUSTOM_OPTIONS_V2
+指定要由 WerReportAddDump 函数收集的自定义Windows 错误报告 (WER) 小型转储信息。 WER_DUMP_CUSTOM_OPTIONS_V3
+指定要在后台 (中收集的自定义Windows 错误报告 (WER) 小型转储信息，而无需暂停
+PssCaptureSnapshot 函数) 进程。 WER_EXCEPTION_INFORMATION
+包含 werReportAddDump 函数Windows 错误报告 (WER) 异常信息。 WER_REPORT_INFORMATION
+包含 werReportCreate 函数使用的Windows 错误报告 (WER) 信息。 WER_REPORT_INFORMATION_V3
+包含 werReportCreate 函数使用的Windows 错误报告 (WER) 信息。 WER_REPORT_INFORMATION_V4
+包含 Windows 错误报告] (WerReportCreate 函数使用的 WER) 信息。 WER_REPORT_INFORMATION_V5
+包含 werReportCreate 函数使用的Windows 错误报告 (WER) 信息。 WER_REPORT_METADATA_V1
+包含有关Windows 错误报告 (WER) 生成的错误报告的信息。 WER_REPORT_METADATA_V2
+包含有关Windows 错误报告 (WER) 生成的错误报告的信息。 WER_REPORT_METADATA_V3
+包含有关Windows 错误报告 (WER) 生成的错误报告的信息。 WER_REPORT_PARAMETER
+包含有关Windows 错误报告 (WER) 生成的错误报告参数的信息。
+ 
+WER_REPORT_SIGNATURE
+包含有关Windows 错误报告 (WER) 生成的错误报告签名的信息。 WER_RUNTIME_EXCEPTION_INFORMATION
+包含Windows 错误报告 (WER) 异常信息，这些信息用于确定是否要声明崩溃。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+errorrep.h 标头项目2023/08/23
+此标头由 Windows 错误报告 使用。 有关详细信息，请参阅：
+Windows 错误报告
+errorrep.h 包含以下编程接口：
+函数  
+AddERExcludedApplicationA
+从错误报告中排除指定的应用程序。 (ANSI) AddERExcludedApplicationW
+从错误报告中排除指定的应用程序。 (Unicode) ReportFault
+使执行自身异常处理的应用程序能够向 Microsoft 报告错误。 WerReportHang
+在指定窗口上启动“无响应”报告。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+AddERExcludedApplicationA 函数
+（errorrep.h）项目2024/11/20
+[AddERExcludedApplication 函数可用于“要求”部分中指定的操作系统。 在后续版本中可能会更
+改或不可用。 请改用 WerAddExcludedApplication 函数。] 从错误报告中排除指定的应用程序。
+语法 C++
+BOOL AddERExcludedApplicationA(
+  [in] LPCSTR szApplication);
+参数
+[in] szApplication
+应用程序的可执行文件的名称，包括文件扩展名。 名称不能包含路径信息。返回值
+如果函数成功，则返回值为非零。
+如果函数失败，则返回值为零。 若要获取扩展的错误信息，请参阅 GetLastError。言论
+此函数将排除的应用程序列表存储在 HKEY_LOCAL_MACHINE 配置单元下。 调用进程必须有权
+写入此注册表配置单元。７ 备注
+errorrep.h 标头将 AddERExcludedApplication 定义为一个别名，该别名根据 UNICODE 预处理器常量的定义自动选择此函数的 ANSI 或 Unicode 版本。 将中性编码别名与不中性编
+码的代码混合使用可能会导致编译或运行时错误不匹配。 有关详细信息，请参阅函数原型
+的 约定。要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器目标平台
+标头库 DLL
+另请参阅 ReportFault WER 函数
+Windows 错误报告
+价值
+Windows XP [仅限桌面应用]
+Windows Server 2003 [仅限桌面应用] 窗户
+errorrep.h Faultrep.lib Faultrep.dll
+展开表
+AddERExcludedApplicationW 函数
+（errorrep.h）项目2024/11/20
+[AddERExcludedApplication 函数可用于“要求”部分中指定的操作系统。 在后续版本中可
+能会更改或不可用。 请改用 WerAddExcludedApplication 函数.] 从错误报告中排除指定的应用程序。
+语法 C++
+BOOL AddERExcludedApplicationW(
+  LPCWSTR wszApplication);
+参数
+wszApplication
+应用程序的可执行文件的名称，包括文件扩展名。 名称不能包含路径信息。返回值
+如果函数成功，则返回值为非零。
+如果函数失败，则返回值为零。 若要获取扩展的错误信息，请参阅 GetLastError。言论
+此函数将排除的应用程序列表存储在 HKEY_LOCAL_MACHINE 配置单元下。 调用进程必
+须有权写入此注册表配置单元。７ 备注
+errorrep.h 标头将 AddERExcludedApplication 定义为一个别名，该别名根据
+UNICODE 预处理器常量的定义自动选择此函数的 ANSI 或 Unicode 版本。 将中性编
+码别名与不中性编码的代码混合使用可能会导致编译或运行时错误不匹配。 有关详
+细信息，请参阅函数原型的 约定。要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器目标平台
+标头库 DLL
+另请参阅
+价值
+Windows XP [仅限桌面应用]
+Windows Server 2003 [仅限桌面应用] 窗户
+errorrep.h Faultrep.lib Faultrep.dll
+ReportFault 函数、ER 函数、Windows 错误报告反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+ReportFault 函数 (errorrep.h) 项目2023/08/23
+允许执行自己的异常处理的应用程序向 Microsoft 报告错误。 尽管可以使用此函数来报告应用程序崩溃，但我们建议应用程序不要直接处理严重错误，而是依赖于操作系统提供的崩溃报告功能。
+语法 C++
+EFaultRepRetVal ReportFault(
+  [in] LPEXCEPTION_POINTERS pep,   [in] DWORD                dwOpt);
+参数[in] pep
+一个指向 EXCEPTION_POINTERS 结构的指针。[in] dwOpt
+此参数保留供系统使用，应设置为零。返回值
+此函数返回以下值之一。
+ﾉ
+返回代码 frrvErr
+frrvErrNoDW frrvErrTimeout
+frrvLaunchDebugger frrvOk
+说明
+函数失败，但错误报告客户端已启动。
+展开表
+报告客户端无法启动的错误。 系统将执行其默认操作，例如显
+示标准异常对话框和启动调试器。函数超时。
+函数成功，并且用户启动了调试器。函数成功。
+ 
+frrvOkHeadless frrvOkManifest frrvOkQueued
+函数成功，错误报告客户端在无提示报告模式下启动， () 未使用 UI。
+函数成功，错误报告客户端在清单报告模式下启动。函数成功，故障报告已排队等待后续报告。
+这些返回值指示是否已成功启动报告应用程序。 成功的返回值不一定表示已成功报告错误。备注
+调用此函数的确切结果取决于用户或系统管理员配置错误报告系统的方式。要求
+ﾉ
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+请参阅
+AddERExcludedApplication
+EXCEPTION_POINTERS WER 函数
+Windows 错误报告
+ 
+Windows XP [仅限桌面应用]
+Windows Server 2003 [仅限桌面应用]
+Windows errorrep.h Faultrep.lib Faultrep.dll
+展开表
+WerReportHang 函数 (errorrep.h) 项目2023/08/23
+在指定窗口上启动“无响应”报告。
+语法 C++
+HRESULT WerReportHang(
+  [in]           HWND   hwndHungApp,
+  [in, optional] PCWSTR pwzHungApplicationName);
+参数
+[in] hwndHungApp 未响应窗口的句柄。
+[in, optional] pwzHungApplicationName
+挂起报告 UI 中显示的无响应应用程序的名称。 名称限制为 128 个字符，包括 NULL 终止符。如果 为 NULL，则 WER 会尝试从目标映像资源获取名称。 如果无法从映像中获取名称，将使用
+映像名称。返回值
+如果函数能够在失败时启动报告或错误代码，则返回S_OK。 请注意，S_OK并不一定意味着“无
+响应”报告已成功完成，只是表示它已启动。备注
+谨慎 应用程序不应使用此 API 来报告来自顶级窗口的响应;默认情况下，无响应检测和报告适用于 Windows XP 及更高版本上的所有顶级窗口。 应仅使用此函数来报告子窗口的响应。 通常，仅当顶级窗口及其子窗口由不同的进程拥有，并且子窗口中检测到非响应时，
+才使用此函数。  
+此函数将启动无响应报告，然后终止创建窗口的进程。 调用方负责确定子窗口何时不响应，并且应在报告非响应之前提示用户同意。 检测未响应的窗口的典型方法是检查及时答复窗口消息。 可以使用 SendMessageTimeout 函数检测此情况。
+此函数是异步的;它不会等待无响应报告完成。 启动无响应报告后，无法取消报告。如果使用此函数，请务必遵守以下要求：
+确保子窗口由单独的进程创建。 完成无响应报告后，它将终止创建窗口的进程。
+在子窗口中提供无响应的视觉线索;无响应报告不会变暗子窗口，只会显示报告对话框。在调用此函数之前，确认用户想要终止未响应的子窗口。
+若要在未响应的窗口前面显示无响应报告 UI，应用程序应调用
+AllowSetForegroundWindow ， (从顶级窗口的进程中传递进程标识符) 函数的 ASFW_ANY。
+要求
+ﾉ
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+ 
+Windows Vista SP1 [仅限桌面应用] Windows Server 2008 [仅限桌面应用]
+Windows errorrep.h Faultrep.lib Faultrep.dll
+展开表
+werapi.h 标头项目2023/07/28
+Windows 错误报告 ( WER) 使用此标头。 werapi.h 包含以下编程接口：
+函数  
+WerAddExcludedApplication
+将指定的应用程序添加到要从错误报告中排除的应用程序列表。 WerFreeString
+释放用于存储报表密钥字符串的内存。 在每次连续调用 WerStoreGetFirstReportKey 或
+WerStoreGetNextReportKey 之后，应调用该密钥，一旦特定报表密钥字符串已使用且不再需要。 WerGetFlags
+检索指定进程的故障报告设置。 WerRegisterAdditionalProcess
+注册要包含在Windows 错误报告 (WER) 报表中的进程以及main应用程序过程。 （可选）指定要从
+中获取其他数据的已注册进程内的线程。 WerRegisterAppLocalDump
+注册相对于打包应用程序的 LocalFolder 的路径 () 其中应保存诊断内存转储的副本，Windows 错误
+报告 (WER) 在应用程序的某个进程停止响应时收集该转储。 WerRegisterCustomMetadata
+注册要以键/值字符串的形式收集 (的应用特定元数据，) Windows 错误报告 (WER) 错误报告。 WerRegisterExcludedMemoryBlock
+标记通常默认包含在错误报告中的内存块 (，) 从Windows 错误报告 (WER) 错误报告中排除。 WerRegisterFile
+注册Windows 错误报告 (WER) 创建错误报告时要收集的文件。 WerRegisterMemoryBlock
+ 
+注册Windows 错误报告 (WER) 创建错误报告时要收集的内存块。 WerRegisterRuntimeExceptionModule
+注册自定义运行时异常处理程序，该处理程序用于为崩溃提供自定义Windows 错误报告 (WER) 。 WerRemoveExcludedApplication
+从Windows 错误报告 (WER) 排除的应用程序列表中删除指定的应用程序。 WerReportAddDump
+将指定类型的转储添加到指定的Windows 错误报告 (WER) 报表。 WerReportAddFile
+将文件添加到指定的WINDOWS 错误报告 (WER) 报表。 WerReportCloseHandle
+关闭指定的Windows 错误报告 (WER) 报表。 WerReportCreate
+创建描述应用程序事件的Windows 错误报告 (WER) 报表。 WerReportSetParameter
+设置唯一标识指定Windows 错误报告 (WER) 报表的事件的参数。 WerReportSetUIOption
+设置指定Windows 错误报告 (WER) 报表的用户界面选项。 WerReportSubmit
+提交指定的Windows 错误报告 (WER) 报表。 WerSetFlags
+设置当前进程的Windows 错误报告 (WER) 报告设置。 WerSetMaxProcessHoldMilliseconds
+设置WINDOWS 错误报告 (WER) 的最大进程保留时间（以毫秒为单位）。 WerStoreClose
+关闭存储Windows 错误报告 (WER) 报表的集合。
+ 
+WerStoreGetFirstReportKey
+获取对报表存储中第一个WINDOWS 错误报告 (WER) 报表的引用。 WerStoreGetNextReportKey
+获取对错误报告存储中下一个WINDOWS 错误报告 (WER) 报表的引用。 WerStoreGetReportCount
+获取错误报告存储中Windows 错误报告 (WER) 报表的数目。 WerStoreGetSizeOnDisk
+获取Windows 错误报告 (WER) 错误报告存储的大小（以字节为单位）。 WerStoreOpen
+打开存储Windows 错误报告 (WER) 错误报告的集合。 WerStorePurge
+清除Windows 错误报告 (WER) 报表存储。 WerStoreQueryReportMetadataV1
+检索有关存储中Windows 错误报告 (WER) 报表的元数据。 WerStoreQueryReportMetadataV2
+检索有关存储中Windows 错误报告 (WER) 报表的元数据。 WerStoreQueryReportMetadataV3
+检索有关存储中Windows 错误报告 (WER) 报表的元数据。 WerStoreUploadReport
+将报表上传到Windows 错误报告 (WER) 存储。 WerUnregisterAdditionalProcess
+从要包含在Windows 错误报告 (WER) 错误报告中的其他进程列表中删除进程。 WerUnregisterAppLocalDump
+取消通过调用 WerRegisterAppLocalDump 函数进行的注册，以指定Windows 错误报告 (WER) 应保存当应用程序的某个进程停止响应时 WER 收集的诊断内存转储的副本。
+ 
+WerUnregisterCustomMetadata
+删除在应用程序Windows 错误报告 (WER) 期间收集的特定于应用的元数据项。 WerUnregisterExcludedMemoryBlock
+删除以前标记为已排除的内存块，该内存块将再次包含在 Windows 错误报告] (WER) 错误报告中。 WerUnregisterFile
+从要添加到Windows 错误报告 (WER) 当前进程生成的报表的文件列表中删除文件。 WerUnregisterMemoryBlock
+从应用程序Windows 错误报告 (WER) 期间收集的数据列表中删除内存块。 WerUnregisterRuntimeExceptionModule
+删除Windows 错误报告 (WER) 异常处理程序的注册。
+回调函数  
+PFN_WER_RUNTIME_EXCEPTION_DEBUGGER_LAUNCH
+Windows 错误报告 (WER) 调用此函数来自定义调试器启动选项和启动字符串。 PFN_WER_RUNTIME_EXCEPTION_EVENT
+Windows 错误报告 (WER) 调用此函数来确定异常处理程序是否正在声明崩溃。 PFN_WER_RUNTIME_EXCEPTION_EVENT_SIGNATURE
+Windows 错误报告 (WER) 调用此函数来获取唯一描述问题的报表参数。
+结构  
+WER_DUMP_CUSTOM_OPTIONS
+指定要由 WerReportAddDump 函数收集的自定义Windows 错误报告 (WER) 小型转储信息。
+ 
+WER_DUMP_CUSTOM_OPTIONS_V2
+指定要由 WerReportAddDump 函数收集的自定义Windows 错误报告 (WER) 小型转储信息。 WER_DUMP_CUSTOM_OPTIONS_V3
+指定要在后台 (中收集的自定义WINDOWS 错误报告 (WER) 小型转储信息，而无需暂停
+PssCaptureSnapshot 函数) 进程。 WER_EXCEPTION_INFORMATION
+包含 werReportAddDump 函数Windows 错误报告 (WER) 异常信息。 WER_REPORT_INFORMATION
+包含 werReportCreate 函数使用的Windows 错误报告 (WER) 信息。 WER_REPORT_INFORMATION_V3
+包含 werReportCreate 函数使用的Windows 错误报告 (WER) 信息。 WER_REPORT_INFORMATION_V4
+包含 Windows 错误报告] (WerReportCreate 函数使用的 WER) 信息。 WER_REPORT_INFORMATION_V5
+包含 werReportCreate 函数使用的Windows 错误报告 (WER) 信息。 WER_REPORT_METADATA_V1
+包含有关Windows 错误报告 (WER) 生成的错误报告的信息。 WER_REPORT_METADATA_V2
+包含有关Windows 错误报告 (WER) 生成的错误报告的信息。 WER_REPORT_METADATA_V3
+包含有关Windows 错误报告 (WER) 生成的错误报告的信息。 WER_REPORT_PARAMETER
+包含有关Windows 错误报告 (WER) 生成的错误报告参数的信息。 WER_REPORT_SIGNATURE
+包含有关Windows 错误报告 (WER) 生成的错误报告签名的信息。
+ 
+WER_RUNTIME_EXCEPTION_INFORMATION
+包含Windows 错误报告 (WER) 异常信息，这些信息用于确定是否要声明崩溃。
+枚举  
+REPORT_STORE_TYPES
+定义可以打开的Windows 错误报告 (WER) 报表存储的类型。 WER_CONSENT
+定义可能Windows 错误报告 (WER) 用户同意状态。 WER_DUMP_TYPE
+定义可能Windows 错误报告 (WER) 小型转储类型。 WER_FILE_TYPE
+定义小型转储报告的可能Windows 错误报告 (WER) 文件类型。 WER_REGISTER_FILE_TYPE
+定义可以注册的Windows 错误报告 (WER) 文件类型。 WER_REPORT_TYPE
+定义Windows 错误报告 (WER) 报表类型。 WER_REPORT_UI
+定义Windows 错误报告 (WER) 报表的可自定义 UI 字符串的索引。 WER_SUBMIT_RESULT
+定义Windows 错误报告 (WER) 提交结果选项。反馈
+此页面是否有帮助？
+ﾂ是
+ﾄ否
+在 Microsoft Q&A 获取帮助
+PFN_WER_RUNTIME_EXCEPTION_DEBUGGE
+R_LAUNCH回调函数 (werapi.h) 项目2023/07/27
+Windows 错误报告 (WER) 调用此函数，以便自定义调试器启动选项和启动字符串。
+PFN_WER_RUNTIME_EXCEPTION_DEBUGGER_LAUNCH类型定义指向此回调函数的指针。 必须使用“OutOfProcessExceptionEventDebuggerLaunchCallback”作为回调函数的名称。
+语法 C++
+PFN_WER_RUNTIME_EXCEPTION_DEBUGGER_LAUNCH PfnWerRuntimeExceptionDebuggerLaunch;
+HRESULT PfnWerRuntimeExceptionDebuggerLaunch(   [in]      PVOID pContext,
+  [in]      const PWER_RUNTIME_EXCEPTION_INFORMATION pExceptionInformation,
+  [out]     PBOOL pbIsCustomDebugger,   [out]     PWSTR pwszDebuggerLaunch,   [in, out] PDWORD pchDebuggerLaunch,
+  [out]     PBOOL pbIsDebuggerAutolaunch)
+{...}
+参数[in] pContext
+指向在调用 WerRegisterRuntimeExceptionModule 函数以注册异常处理程序时指定的任意上下文信息的指针。
+[in] pExceptionInformation
+包含异常信息的 WER_RUNTIME_EXCEPTION_INFORMATION 结构。[out] pbIsCustomDebugger
+如果使用 pwszDebuggerLaunch 参数中指定的自定义调试器来调试故障，则设置为 TRUE;否则，设置为 FALSE 以使用默认调试器。 如果将此参数设置为 FALSE，请不要设置
+pwszDebuggerLaunch 参数。[out] pwszDebuggerLaunch
+调用方分配的缓冲区，用于指定用于启动调试器的调试器启动字符串。 启动字符串必须包含调试器的完整路径和任何参数。 如果参数包含多个单词，请使用引号分隔参数。 调试器字符串应遵循与默认 AeDebug 调试器字符串相同的协议 (请参阅 配置自动调试) 。 字符串必须包含两个格式说明符：%ld 表示崩溃进程 ID，%ld 表示在自定义调试器附加到目标 (后要发出信号的事件对象的句柄，有关这些说明符的说明，请参阅 启用事后调试) 。 但是，自定义调试器可以选择忽略这些参数。
+[in, out] pchDebuggerLaunch
+pwszDebuggerLaunch 缓冲区的大小（以字符为单位）。[out] pbIsDebuggerAutolaunch
+如果希望 WER 以无提示方式启动调试器，则设置为 TRUE ;否则，如果希望 WER 在启动调试器
+之前询问用户，则为 FALSE 。返回值
+返回 S_OK，即使不使用任何客户调试器。 如果返回其他失败代码，WER 将还原为其默认故障
+报告行为。备注
+必须在异常处理程序 DLL 中实现此函数。
+WER 使用此函数来确定要启动的调试器，以及是自动启动调试器，还是在启动调试器之前询问用户。 指定自定义调试器将替代默认启动字符串 (AeDebug 注册表项包含默认启动字符串) 。
+仅当将 OutOfProcessExceptionEventCallback 回调函数的 pbOwnershipClaimed 参数设置为
+TRUE 时，WER 才会调用此回调函数。要求
+ﾉ
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+ 
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用] Windows
+展开表
+ 
+标头
+另请参阅
+ 
+werapi.h
+WerRegisterRuntimeExceptionModule，Windows 错误报告
+PFN_WER_RUNTIME_EXCEPTION_EVENT回
+调函数 (werapi.h) 项目2024/03/13
+Windows 错误报告 (WER) 调用此函数来确定异常处理程序是否正在声明崩溃。
+PFN_WER_RUNTIME_EXCEPTION_EVENT类型定义指向此回调函数的指针。 必须使用“OutOfProcessExceptionEventCallback”作为回调函数的名称。
+语法 C++
+PFN_WER_RUNTIME_EXCEPTION_EVENT PfnWerRuntimeExceptionEvent;
+HRESULT PfnWerRuntimeExceptionEvent(   [in]      PVOID pContext,
+  [in]      const PWER_RUNTIME_EXCEPTION_INFORMATION pExceptionInformation,   [out]     BOOL *pbOwnershipClaimed,
+  [out]     PWSTR pwszEventName,   [in, out] PDWORD pchSize,
+  [out]     PDWORD pdwSignatureCount)
+{...}
+参数[in] pContext
+指向在调用 WerRegisterRuntimeExceptionModule 函数以注册异常处理程序时指定的任意上下文信息的指针。
+[in] pExceptionInformation
+包含异常信息的 WER_RUNTIME_EXCEPTION_INFORMATION 结构。 使用信息确定是否要声明崩溃。
+[out] pbOwnershipClaimed
+如果异常处理程序声称此崩溃，则设置为 TRUE ;否则为 FALSE。 如果将此参数设置为 FALSE，
+请不要设置 out 参数的其余部分。[out] pwszEventName
+调用方分配的缓冲区，用于指定用于标识此崩溃的事件名称。[in, out] pchSize
+pwszEventName 缓冲区的大小（以字符为单位）。 缓冲区限制为MAX_PATH个字符。 大小包括 null 终止字符。
+[out] pdwSignatureCount
+你将提供的报表参数数。 值的有效范围是 1 到 10。 如果指定的值大于 10，WER 将忽略该值，并仅收集前 10 个参数。 如果指定零，则报告过程将不确定。
+此值确定 WER 调用 OutOfProcessExceptionEventSignatureCallback 函数的次数。返回值
+返回 S_OK，即使异常处理程序未声明此崩溃也是如此。 如果返回其他失败代码，如果未注册其
+他处理程序，WER 将还原为其默认的崩溃报告行为。注解
+必须在异常处理程序 DLL 中实现此函数。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用]
+Windows werapi.h
+WerRegisterRuntimeExceptionModule，Windows 错误报告
+展开表
+PFN_WER_RUNTIME_EXCEPTION_EVENT_SI
+GNATURE回调函数 (werapi.h) 项目2024/03/13
+Windows 错误报告 (WER) 调用此函数以获取唯一描述问题的报告参数。
+PFN_WER_RUNTIME_EXCEPTION_EVENT_SIGNATURE类型定义指向此回调函数的指针。 必须使用“OutOfProcessExceptionEventSignatureCallback”作为回调函数的名称。
+语法 C++
+PFN_WER_RUNTIME_EXCEPTION_EVENT_SIGNATURE PfnWerRuntimeExceptionEventSignature;
+HRESULT PfnWerRuntimeExceptionEventSignature(   [in]      PVOID pContext,
+  [in]      const PWER_RUNTIME_EXCEPTION_INFORMATION pExceptionInformation,
+  [in]      DWORD dwIndex,   [out]     PWSTR pwszName,   [in, out] PDWORD pchName,   [out]     PWSTR pwszValue,   [in, out] PDWORD pchValue)
+{...}
+参数[in] pContext
+指向在调用 WerRegisterRuntimeExceptionModule 函数以注册异常处理程序时指定的任意上下文信息的指针。
+[in] pExceptionInformation
+包含异常信息的 WER_RUNTIME_EXCEPTION_INFORMATION 结构。[in] dwIndex
+报表参数的索引。 有效值为 0 到 9。 对此函数的第一次调用必须将索引设置为 0，并且每次连
+续调用都必须按顺序递增索引值。[out] pwszName
+调用方分配的缓冲区，用于指定参数名称。[in, out] pchName
+pwszName 缓冲区的大小（以字符为单位）。 大小包括 null 终止字符。[out] pwszValue
+调用方分配的缓冲区，用于指定参数值。[in, out] pchValue
+pwszValue 缓冲区的大小（以字符为单位）。 大小包括 null 终止字符。返回值
+成功返回 S_OK 。 如果返回其他失败代码，WER 将还原为其默认的崩溃报告行为。注解
+必须在异常处理程序 DLL 中实现此函数。
+若要为特定于应用程序的问题生成错误报告，应用程序必须使用一些基本信息（称为报表参数）创建问题的简短说明。 报表参数包括应用程序名称、应用程序版本、模块名称、模块版本和错误代码等信息。 这些报表参数的组合描述了一个独特的问题。
+仅当将 OutOfProcessExceptionEventCallback 回调函数的 pbOwnershipClaimed 参数设置为 TRUE 时，WER 才会调用此回调函数。 OutOfProcessExceptionEventCallback 的
+pdwSignatureCount 参数确定 WER 调用此回调函数的次数。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用]
+Windows werapi.h
+展开表
+另请参阅
+WerRegisterRuntimeExceptionModule，Windows 错误报告
+REPORT_STORE_TYPES 枚举 (werapi.h) 项目2024/03/09
+定义可以打开的Windows 错误报告 (WER) 报表存储的类型。
+语法 C++
+typedef enum _REPORT_STORE_TYPES {
+  E_STORE_USER_ARCHIVE,   E_STORE_USER_QUEUE,
+  E_STORE_MACHINE_ARCHIVE,   E_STORE_MACHINE_QUEUE,   E_STORE_INVALID
+} REPORT_STORE_TYPES; 常量
+ﾉ
+ 
+E_STORE_USER_ARCHIVE 已存档报表的用户存储。
+E_STORE_USER_QUEUE 排队报表的用户存储。 E_STORE_MACHINE_ARCHIVE
+展开表
+存档报表的计算机范围存储。 不能依赖于报表将在此处显示多长时间。 较旧的报表可以更好地通过事件日志获取。
+E_STORE_MACHINE_QUEUE
+计算机范围的已排队报表存储。
+E_STORE_INVALID 存储存档无效。
+要求
+ﾉ
+展开表
+要求 Header
+另请参阅 Windows 错误报告
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+值
+werapi.h
+WER_CONSENT 枚举 (werapi.h) 项目2024/03/03
+定义用户同意状态 ( WER) 可能的Windows 错误报告。
+语法 C++
+typedef enum _WER_CONSENT {   WerConsentNotAsked = 1,   WerConsentApproved = 2,   WerConsentDenied = 3,
+  WerConsentAlwaysPrompt = 4,
+  WerConsentMax = 5} WER_CONSENT;
+常量  
+WerConsentNotAsked 值：1
+未要求用户同意。 WerConsentApproved 值： 2
+用户批准的同意。 WerConsentDenied 值： 3
+用户拒绝同意。
+WerConsentAlwaysPrompt 值： 4
+始终要求用户同意。
+WerConsentMax 值： 5
+此枚举的最大值。
+ﾉ
+展开表
+要求要求 Header
+另请参阅
+值
+werapi.h
+WerReportSubmit 函数，Windows 错误报告反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+WER_DUMP_CUSTOM_OPTIONS 结构
+(werapi.h) 项目2024/03/09
+指定要由 WerReportAddDump 函数收集的自定义Windows 错误报告 (WER) 小型转储信息。
+语法 C++
+typedef struct _WER_DUMP_CUSTOM_OPTIONS {
+  DWORD dwSize;   DWORD dwMask;
+  DWORD dwDumpFlags;
+  BOOL  bOnlyThisThread;
+  DWORD dwExceptionThreadFlags;   DWORD dwOtherThreadFlags;
+  DWORD dwExceptionThreadExFlags;
+  DWORD dwOtherThreadExFlags;   DWORD dwPreferredModuleFlags;   DWORD dwOtherModuleFlags;
+  WCHAR wzPreferredModuleList[WER_MAX_PREFERRED_MODULES_BUFFER];} WER_DUMP_CUSTOM_OPTIONS, *PWER_DUMP_CUSTOM_OPTIONS;
+成员 dwSize
+结构大小（以字节为单位）。 dwMask
+一个掩码，用于控制哪些选项在此结构中有效。 可以指定以下一个或多个值：
+WER_DUMP_MASK_DUMPTYPE
+WER_DUMP_MASK_ONLY_THISTHREAD
+WER_DUMP_MASK_OTHER_MODULESFLAGS WER_DUMP_MASK_OTHERTHREADFLAGS WER_DUMP_MASK_OTHERTHREADFLAGS_EX WER_DUMP_MASK_PREFERRED_MODULE_LIST WER_DUMP_MASK_PREFERRED_MODULESFLAGS
+WER_DUMP_MASK_THREADFLAGS WER_DUMP_MASK_THREADFLAGS_EX
+dwDumpFlags
+要包含在小型转储中的类型信息。 可以指定一个或多个 MINIDUMP_TYPE 标志。
+仅当 dwMask 包含WER_DUMP_MASK_DUMPTYPE时，此成员才有效。 bOnlyThisThread
+如果此成员为 TRUE 且 dwMask 包含WER_DUMP_MASK_ONLY_THISTHREAD，则仅为调
+用线程收集小型转储。 dwExceptionThreadFlags
+要包含在小型转储中的线程信息的类型。 可以指定一个或多个 THREAD_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_THREADFLAGS时，此成员才有效。 dwOtherThreadFlags
+要包含在小型转储中的线程信息的类型。 可以指定一个或多个 THREAD_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_OTHERTHREADFLAGS时，此成员才有效。 dwExceptionThreadExFlags
+要包含在小型转储中的线程信息的类型。 可以指定一个或多个 THREAD_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_THREADFLAGS_EX时，此成员才有效。 dwOtherThreadExFlags
+要包含在小型转储中的线程信息的类型。 可以指定一个或多个 THREAD_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_OTHERTHREADFLAGS_EX时，此成员才有效。 dwPreferredModuleFlags
+要包含在 wzPreferredModuleList 成员中指定的模块的小型转储中的模块信息的类型。可以指定一个或多个 MODULE_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_PREFERRED_MODULESFLAGS时，此成员才有效。 dwOtherModuleFlags
+要包含在小型转储中的模块信息的类型。 可以指定一个或多个 MODULE_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_OTHER_MODULESFLAGS时，此成员才有效。 wzPreferredModuleList[WER_MAX_PREFERRED_MODULES_BUFFER]
+模块名称列表 (不包括 dwPreferredModuleFlags 标志所应用到的路径) 。 每个名称都必
+须以 null 结尾，并且列表必须以两个 null 字符 (终止，例如， module1.dll\0module2.dll\0\0) 。
+若要指定首选所有模块，请将此成员设置为 *\0\0 。 如果在列表中包含 *  其他模块名称， *  则会忽略 。
+仅当 dwMask 包含WER_DUMP_MASK_PREFERRED_MODULE_LIST时，此成员才有效。注解
+此结构中指定的标志与 在MINIDUMP_CALLBACK_ROUTINE回调函数回调函数 中传递的
+标志有直接关联， (请参阅 WER 生成转储文件时) MiniDumpWriteDump 函数 。如果小型转储的回调输入类型为 ThreadCallback (see the CallbackType member of
+MINIDUMP_CALLBACK_INPUT structure) ，则 MINIDUMP_CALLBACK_OUTPUT 结构的 ThreadWriteFlags 成员设置为 dwExceptionThreadFlags、
+dwExceptionThreadExFlags、dwOtherThreadFlags 或 dwOtherThreadExFlags 成员中指
+定的标志。 如果回调针对崩溃线程，则使用 dwExceptionThreadFlags 或 dwExceptionThreadExFlags 标志;否则，使用 dwOtherThreadFlags 或 dwOtherThreadExFlags 标志。
+如果回调输入类型为 ModuleCallback，则将MINIDUMP_CALLBACK_OUTPUT 结构的
+ModuleWriteFlags 成员设置为 dwPreferredModuleFlags 或 dwOtherModuleFlags 成员中指定的标志。 如果回调适用于首选模块列表中的模块，则使用
+dwPreferredModuleFlags 标志;否则，使用 dwOtherModuleFlags 标志。要求
+ﾉ
+展开表
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] werapi.h
+WerReportAddDump 函数，Windows 错误报告反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+WER_DUMP_CUSTOM_OPTIONS_V2 结
+构 (werapi.h) 项目2024/03/13
+指定要由 WerReportAddDump 函数收集的自定义Windows 错误报告 (WER) 小型转储信息。
+语法 C++
+typedef struct _WER_DUMP_CUSTOM_OPTIONS_V2 {
+  DWORD dwSize;   DWORD dwMask;
+  DWORD dwDumpFlags;
+  BOOL  bOnlyThisThread;
+  DWORD dwExceptionThreadFlags;   DWORD dwOtherThreadFlags;
+  DWORD dwExceptionThreadExFlags;
+  DWORD dwOtherThreadExFlags;   DWORD dwPreferredModuleFlags;   DWORD dwOtherModuleFlags;
+  WCHAR wzPreferredModuleList[WER_MAX_PREFERRED_MODULES_BUFFER];
+  DWORD dwPreferredModuleResetFlags;   DWORD dwOtherModuleResetFlags;
+} WER_DUMP_CUSTOM_OPTIONS_V2, *PWER_DUMP_CUSTOM_OPTIONS_V2;
+成员 dwSize
+结构大小（以字节为单位）。 dwMask
+一个掩码，用于控制哪些选项在此结构中有效。 可以指定以下一个或多个值：
+WER_DUMP_MASK_DUMPTYPE
+WER_DUMP_MASK_ONLY_THISTHREAD
+WER_DUMP_MASK_OTHER_MODULESFLAGS WER_DUMP_MASK_OTHERTHREADFLAGS WER_DUMP_MASK_OTHERTHREADFLAGS_EX WER_DUMP_MASK_PREFERRED_MODULE_LIST
+WER_DUMP_MASK_PREFERRED_MODULESFLAGS
+WER_DUMP_MASK_THREADFLAGS WER_DUMP_MASK_THREADFLAGS_EX
+dwDumpFlags
+要包含在小型转储中的类型信息。 可以指定一个或多个 MINIDUMP_TYPE 标志。
+仅当 dwMask 包含WER_DUMP_MASK_DUMPTYPE时，此成员才有效。 bOnlyThisThread
+如果此成员为 TRUE 且 dwMask 包含WER_DUMP_MASK_ONLY_THISTHREAD，则仅为调
+用线程收集小型转储。 dwExceptionThreadFlags
+要包含在微型转储中的线程信息的类型。 可以指定一个或多个 THREAD_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_THREADFLAGS时，此成员才有效。 dwOtherThreadFlags
+要包含在微型转储中的线程信息的类型。 可以指定一个或多个 THREAD_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_OTHERTHREADFLAGS时，此成员才有效。 dwExceptionThreadExFlags
+要包含在微型转储中的线程信息的类型。 可以指定一个或多个 THREAD_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_THREADFLAGS_EX时，此成员才有效。 dwOtherThreadExFlags
+要包含在微型转储中的线程信息的类型。 可以指定一个或多个 THREAD_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_OTHERTHREADFLAGS_EX时，此成员才有效。 dwPreferredModuleFlags
+要包含在 wzPreferredModuleList 成员中指定的模块的微型转储中的模块信息的类型。可以指定一个或多个 MODULE_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_PREFERRED_MODULESFLAGS时，此成员才有效。 dwOtherModuleFlags
+要包含在微型转储中的模块信息的类型。 可以指定一个或多个 MODULE_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_OTHER_MODULESFLAGS时，此成员才有效。 wzPreferredModuleList[WER_MAX_PREFERRED_MODULES_BUFFER]
+模块名称列表 (不包括 dwPreferredModuleFlags 标志所应用的路径) 。 每个名称都必须以 null 结尾，并且列表必须以两个 null 字符 (例如，module1.dll\0module2.dll\0\0) 终止。
+若要指定所有模块都是首选模块，请将此成员设置为 *\0\0 。 如果在列表中包含 *  其他模块名称， *  则会忽略 。
+仅当 dwMask 包含WER_DUMP_MASK_PREFERRED_MODULE_LIST时，此成员才有效。 dwPreferredModuleResetFlags
+要包含在 wzPreferredModuleList 成员中指定的模块的微型转储中的首选模块信息类型。 可以指定一个或多个 MODULE_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_PREFERRED_MODULESFLAGS时，此成员才有效。 dwOtherModuleResetFlags
+要包含在 wzPreferredModuleList 成员中指定的模块的微型转储中的其他类型的模块信息。 可以指定一个或多个 MODULE_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_PREFERRED_MODULESFLAGS时，此成员才有效。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] werapi.h
+展开表
+另请参阅
+WerReportAddDump 函数，Windows 错误报告反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+WER_DUMP_CUSTOM_OPTIONS_V3 结
+构 (werapi.h) 项目2024/03/03
+指定要在后台 ( 中收集的自定义Windows 错误报告 (WER) 小型转储信息，而无需暂停 PssCaptureSnapshot 函数) 进程。
+语法 C++
+typedef struct _WER_DUMP_CUSTOM_OPTIONS_V3 {
+  DWORD  dwSize;   DWORD  dwMask;
+  DWORD  dwDumpFlags;
+  BOOL   bOnlyThisThread;
+  DWORD  dwExceptionThreadFlags;   DWORD  dwOtherThreadFlags;
+  DWORD  dwExceptionThreadExFlags;
+  DWORD  dwOtherThreadExFlags;   DWORD  dwPreferredModuleFlags;   DWORD  dwOtherModuleFlags;
+  WCHAR  wzPreferredModuleList[WER_MAX_PREFERRED_MODULES_BUFFER];
+  DWORD  dwPreferredModuleResetFlags;   DWORD  dwOtherModuleResetFlags;
+  PVOID  pvDumpKey;   HANDLE hSnapshot;   DWORD  dwThreadID;
+} WER_DUMP_CUSTOM_OPTIONS_V3, *PWER_DUMP_CUSTOM_OPTIONS_V3;
+成员 dwSize
+结构大小（以字节为单位）。 dwMask
+一个掩码，用于控制哪些选项在此结构中有效。 可以指定以下一个或多个值：
+WER_DUMP_MASK_DUMPTYPE
+WER_DUMP_MASK_ONLY_THISTHREAD
+WER_DUMP_MASK_OTHER_MODULESFLAGS
+WER_DUMP_MASK_OTHERTHREADFLAGS WER_DUMP_MASK_OTHERTHREADFLAGS_EX WER_DUMP_MASK_PREFERRED_MODULE_LIST WER_DUMP_MASK_PREFERRED_MODULESFLAGS
+WER_DUMP_MASK_THREADFLAGS WER_DUMP_MASK_THREADFLAGS_EX
+dwDumpFlags
+要包含在小型转储中的类型信息。 可以指定一个或多个 MINIDUMP_TYPE 标志。
+仅当 dwMask 包含WER_DUMP_MASK_DUMPTYPE时，此成员才有效。 bOnlyThisThread
+如果此成员为 TRUE 且 dwMask 包含WER_DUMP_MASK_ONLY_THISTHREAD，则仅为调
+用线程收集小型转储。 dwExceptionThreadFlags
+要包含在小型转储中的线程信息的类型。 可以指定一个或多个 THREAD_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_THREADFLAGS时，此成员才有效。 dwOtherThreadFlags
+要包含在小型转储中的线程信息的类型。 可以指定一个或多个 THREAD_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_OTHERTHREADFLAGS时，此成员才有效。 dwExceptionThreadExFlags
+要包含在小型转储中的线程信息的类型。 可以指定一个或多个 THREAD_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_THREADFLAGS_EX时，此成员才有效。 dwOtherThreadExFlags
+要包含在小型转储中的线程信息的类型。 可以指定一个或多个 THREAD_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_OTHERTHREADFLAGS_EX时，此成员才有效。 dwPreferredModuleFlags
+要包含在 wzPreferredModuleList 成员中指定的模块的小型转储中的模块信息的类型。可以指定一个或多个 MODULE_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_PREFERRED_MODULESFLAGS时，此成员才有效。 dwOtherModuleFlags
+要包含在小型转储中的模块信息的类型。 可以指定一个或多个 MODULE_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_OTHER_MODULESFLAGS时，此成员才有效。 wzPreferredModuleList[WER_MAX_PREFERRED_MODULES_BUFFER]
+模块名称列表 (不包括 dwPreferredModuleFlags 标志所应用到的路径) 。 每个名称都必
+须以 null 结尾，并且列表必须以两个 null 字符 (终止，例如， module1.dll\0module2.dll\0\0) 。
+若要指定首选所有模块，请将此成员设置为 *\0\0 。 如果在列表中包含 *  其他模块名称， *  则会忽略 。
+仅当 dwMask 包含WER_DUMP_MASK_PREFERRED_MODULE_LIST时，此成员才有效。 dwPreferredModuleResetFlags
+要包含在 wzPreferredModuleList 成员中指定的模块的小型转储中的首选模块信息类型。 可以指定一个或多个 MODULE_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_PREFERRED_MODULESFLAGS时，此成员才有效。 dwOtherModuleResetFlags
+要包含在 wzPreferredModuleList 成员中指定的模块的小型转储中的其他类型的模块信息。 可以指定一个或多个 MODULE_WRITE_FLAGS 标志。
+仅当 dwMask 包含WER_DUMP_MASK_PREFERRED_MODULESFLAGS时，此成员才有效。 pvDumpKey
+转储密钥值。 hSnapshot
+目标进程快照的句柄。 dwThreadID
+线程 ID。要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] werapi.h
+WerReportAddDump 函数、PssCaptureSnapshot、Windows 错误报告反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+WER_DUMP_TYPE 枚举 (werapi.h) 项目2024/03/13
+定义 (WER ) 小型转储类型的可能Windows 错误报告。
+语法 C++
+typedef enum _WER_DUMP_TYPE {   WerDumpTypeNone,
+  WerDumpTypeMicroDump,   WerDumpTypeMiniDump,   WerDumpTypeHeapDump,   WerDumpTypeTriageDump,
+  WerDumpTypeMax} WER_DUMP_TYPE;
+常量  
+WerDumpTypeNone 无转储。
+WerDumpTypeMicroDump
+一个仅包含堆栈跟踪的有限小型转储。 此类型等效于使用以下选项创建小型转储：- MiniDumpWithDataSegs
+- MiniDumpWithUnloadedModules- MiniDumpWithProcessThreadData- MiniDumpWithoutOptionalData
+WerDumpTypeMiniDump
+小型转储。 此类型等效于使用以下选项创建小型转储：- MiniDumpWithDataSegs
+- MiniDumpWithUnloadedModules- MiniDumpWithProcessThreadData
+- MiniDumpWithTokenInformation (Windows 7 及更高版本) WerDumpTypeHeapDump
+ﾉ
+展开表
+包含其他数据（例如进程内存）的扩展小型转储。 此类型等效于使用以下选项创建小型转储：
+ 
+- MiniDumpWithDataSegs
+- MiniDumpWithProcessThreadData- MiniDumpWithHandleData
+- MiniDumpWithPrivateReadWriteMemory
+- MiniDumpWithUnloadedModules- MiniDumpWithFullMemoryInfo
+- MiniDumpWithThreadInfo (Windows 7 及更高版本)
+- MiniDumpWithTokenInformation (Windows 7 及更高版本)
+- MiniDumpWithPrivateWriteCopyMemory (Windows 7 及更高版本) WerDumpTypeTriageDump
+一个扩展的小型转储，其中包含用于会审的其他数据。 WerDumpTypeMax
+包含所有已保存数据的扩展小型转储。要求
+要求 Header
+另请参阅
+值
+werapi.h
+WerReportAddDump 函数，Windows 错误报告反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+(werapi.h)
+WER_EXCEPTION_INFORMATION 结构项目2024/03/03
+包含 werReportAddDump 函数的Windows 错误报告 (WER) 异常信息。
+语法 C++
+typedef struct _WER_EXCEPTION_INFORMATION {   PEXCEPTION_POINTERS pExceptionPointers;   BOOL                bClientPointers;
+} WER_EXCEPTION_INFORMATION, *PWER_EXCEPTION_INFORMATION; 成员
+pExceptionPointers
+一个指向 EXCEPTION_POINTERS 结构的指针。 bClientPointers
+调用进程) 的进程 (可以为另一个进程提供错误报告功能， (客户端进程) 。 如果此成员为 TRUE，则异常指针位于客户端进程的地址空间内。 如果此成员为 FALSE，则异常指针位
+于调用进程的地址空间内。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] werapi.h
+展开表
+WerReportAddDump，Windows 错误报告反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+WER_FILE_TYPE 枚举 (werapi.h) 项目2024/03/03
+定义小型转储报表 (WER) 文件类型的可能Windows 错误报告。
+语法 C++
+typedef enum _WER_FILE_TYPE {
+  WerFileTypeMicrodump,   WerFileTypeMinidump,   WerFileTypeHeapdump,
+  WerFileTypeUserDocument,   WerFileTypeOther,
+  WerFileTypeTriagedump,   WerFileTypeCustomDump,
+  WerFileTypeAuxiliaryDump,   WerFileTypeEtlTrace,
+  WerFileTypeAuxiliaryHeapDump,
+  WerFileTypeMax} WER_FILE_TYPE;
+常量  
+WerFileTypeMicrodump 微转储。
+WerFileTypeMinidump 小型转储。
+WerFileTypeHeapdump 堆转储。
+WerFileTypeUserDocument 用户文档。
+WerFileTypeOther 其他。
+WerFileTypeTriagedump
+ﾉ
+展开表
+ 
+会审转储。
+WerFileTypeCustomDump 自定义转储。
+WerFileTypeAuxiliaryDump 辅助转储。
+WerFileTypeEtlTrace
+事件跟踪日志记录 (ETL) 跟踪。 WerFileTypeAuxiliaryHeapDump
+辅助堆转储。 WerFileTypeMax 最大数据转储。
+要求要求 Header
+另请参阅
+值
+werapi.h
+WerReportAddFile 函数，Windows 错误报告反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+WER_REGISTER_FILE_TYPE枚举
+(werapi.h) 项目2024/03/03
+定义可注册 (WER) 文件类型的Windows 错误报告。
+语法 C++
+typedef enum _WER_REGISTER_FILE_TYPE {   WerRegFileTypeUserDocument,
+  WerRegFileTypeOther,   WerRegFileTypeMax
+} WER_REGISTER_FILE_TYPE;
+常量  
+WerRegFileTypeUserDocument 用户文档。
+WerRegFileTypeOther 其他。
+WerRegFileTypeMax 最大数据转储。要求
+要求 Header
+值
+werapi.h
+ﾉﾉ
+展开表展开表
+另请参阅
+WerRegisterFile 函数，Windows 错误报告反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+WER_REPORT_INFORMATION 结构
+(werapi.h) 项目2023/07/27
+包含 werReportCreate 函数使用的Windows 错误报告 (WER) 信息。
+语法 C++
+typedef struct _WER_REPORT_INFORMATION {
+  DWORD  dwSize;   HANDLE hProcess;
+  WCHAR  wzConsentKey[64];
+  WCHAR  wzFriendlyEventName[128];   WCHAR  wzApplicationName[128];
+  WCHAR  wzApplicationPath[MAX_PATH];
+  WCHAR  wzDescription[512];   HWND   hwndParent;
+} WER_REPORT_INFORMATION, *PWER_REPORT_INFORMATION;
+成员 dwSize
+此结构的大小（以字节为单位）。 hProcess
+正在为其生成报表的进程句柄。 如果此成员为 NULL，则这是调用进程。 wzConsentKey[64]
+用于查找同意设置的名称。 如果此成员为空，则默认值为 WerReportCreate 的
+pwzEventType 参数指定的名称。 wzFriendlyEventName[128]
+显示名称。 如果此成员为空，则默认值为 WerReportCreate 的 pwzEventType 参数指定的名称。
+wzApplicationName[128]
+应用程序的名称。 如果此参数为空，则默认值为映像文件的基名称。 wzApplicationPath[MAX_PATH]
+应用程序的完整路径。 wzDescription[512]
+问题的说明。 此说明显示在 Windows Vista 上 的问题报告和解决方案 或 Windows 7 上
+的操作中心 的问题报告窗格中。 hwndParent
+父窗口的句柄。要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+ 
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] werapi.h
+WerReportCreate，Windows 错误报告反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+WER_REPORT_INFORMATION_V3 结构
+(werapi.h) 项目2024/03/13
+包含 werReportCreate 函数使用的Windows 错误报告 (WER) 信息。
+语法 C++
+typedef struct _WER_REPORT_INFORMATION_V3 {
+  DWORD  dwSize;   HANDLE hProcess;
+  WCHAR  wzConsentKey[64];
+  WCHAR  wzFriendlyEventName[128];   WCHAR  wzApplicationName[128];
+  WCHAR  wzApplicationPath[MAX_PATH];
+  WCHAR  wzDescription[512];   HWND   hwndParent;
+  WCHAR  wzNamespacePartner[64];   WCHAR  wzNamespaceGroup[64];
+} WER_REPORT_INFORMATION_V3, *PWER_REPORT_INFORMATION_V3;
+成员 dwSize
+此结构的大小（以字节为单位）。 hProcess
+正在为其生成报表的进程句柄。 如果此成员为 NULL，则这是调用进程。 wzConsentKey[64]
+wzFriendlyEventName[128] wzApplicationName[128]
+wzApplicationPath[MAX_PATH] wzDescription[512]
+hwndParent
+父窗口的句柄。
+wzNamespacePartner[64] wzNamespaceGroup[64]
+要求要求 Header
+另请参阅
+WerReportCreate，Windows 错误报告反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+值
+werapi.h
+ﾉ
+展开表
+WER_REPORT_INFORMATION_V4 结构
+(werapi.h) 项目2024/03/13
+包含 werReportCreate 函数使用的Windows 错误报告 (WER) 信息。
+语法 C++
+typedef struct _WER_REPORT_INFORMATION_V4 {
+  DWORD  dwSize;   HANDLE hProcess;
+  WCHAR  wzConsentKey[64];
+  WCHAR  wzFriendlyEventName[128];   WCHAR  wzApplicationName[128];
+  WCHAR  wzApplicationPath[MAX_PATH];
+  WCHAR  wzDescription[512];   HWND   hwndParent;
+  WCHAR  wzNamespacePartner[64];   WCHAR  wzNamespaceGroup[64];
+  BYTE   rgbApplicationIdentity[16];   HANDLE hSnapshot;
+  HANDLE hDeleteFilesImpersonationToken;
+} WER_REPORT_INFORMATION_V4, *PWER_REPORT_INFORMATION_V4;
+成员 dwSize
+此结构的大小（以字节为单位）。 hProcess
+正在为其生成报表的进程句柄。 如果此成员为 NULL，则为调用进程。 wzConsentKey[64]
+wzFriendlyEventName[128] wzApplicationName[128]
+wzApplicationPath[MAX_PATH]
+wzDescription[512] hwndParent
+父窗口的句柄。
+wzNamespacePartner[64] wzNamespaceGroup[64]
+rgbApplicationIdentity[16] hSnapshot
+hDeleteFilesImpersonationToken
+要求要求 Header
+另请参阅
+WerReportCreate， Windows 错误报告反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+值
+werapi.h
+ﾉ
+展开表
+WER_REPORT_INFORMATION_V5 结构
+(werapi.h) 项目2024/03/03
+包含 werReportCreate 函数使用的Windows 错误报告 (WER) 信息。
+语法 C++
+typedef struct _WER_REPORT_INFORMATION_V5 {
+  DWORD             dwSize;   HANDLE            hProcess;
+  WCHAR             wzConsentKey[64];
+  WCHAR             wzFriendlyEventName[128];   WCHAR             wzApplicationName[128];
+  WCHAR             wzApplicationPath[MAX_PATH];
+  WCHAR             wzDescription[512];   HWND              hwndParent;
+  WCHAR             wzNamespacePartner[64];   WCHAR             wzNamespaceGroup[64];
+  BYTE              rgbApplicationIdentity[16];   HANDLE            hSnapshot;
+  HANDLE            hDeleteFilesImpersonationToken;   WER_SUBMIT_RESULT submitResultMax;
+} WER_REPORT_INFORMATION_V5, *PWER_REPORT_INFORMATION_V5;
+成员 dwSize
+此结构的大小（以字节为单位）。 hProcess
+正在为其生成报表的进程句柄。 如果此成员为 NULL，则为调用进程。 wzConsentKey[64]
+wzFriendlyEventName[128] wzApplicationName[128]
+wzApplicationPath[MAX_PATH]
+wzDescription[512] hwndParent
+父窗口的句柄。
+wzNamespacePartner[64] wzNamespaceGroup[64]
+rgbApplicationIdentity[16] hSnapshot
+hDeleteFilesImpersonationToken submitResultMax
+要求要求 Header
+另请参阅
+WerReportCreate， Windows 错误报告反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+值
+werapi.h
+ﾉ
+展开表
+WER_REPORT_METADATA_V1结构
+(werapi.h) 项目2023/07/27
+包含有关 Windows 错误报告 ( WER) 生成的错误报告的信息。
+语法 C++
+typedef struct _WER_REPORT_METADATA_V1 {
+  WER_REPORT_SIGNATURE Signature;   GUID                 BucketId;   GUID                 ReportId;
+  FILETIME             CreationTime;   ULONGLONG            SizeInBytes;
+} WER_REPORT_METADATA_V1, *PWER_REPORT_METADATA_V1;
+成员 Signature
+包含报表签名的结构。 签名由存在的事件名称和事件参数组成。 BucketId
+签名的哈希。 可用于与其他具有相同签名 (当前未实现) 的崩溃报告进行交叉引用。 ReportId
+报表的本地唯一标识符。 CreationTime
+创建报表时的 UTC 时间戳。 SizeInBytes
+单个报表及其组成文件) 磁盘上 (大小。 此值仅对直接包含在报表中的文件进行计数。要求
+ 
+标头
+另请参阅 Windows 错误报告
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+ 
+werapi.h
+(werapi.h) WER_REPORT_METADATA_V2
+结构项目2023/07/27
+包含有关 Windows 错误报告 (WER) 生成的错误报告的信息。
+语法 C++
+typedef struct _WER_REPORT_METADATA_V2 {
+  WER_REPORT_SIGNATURE Signature;   GUID                 BucketId;   GUID                 ReportId;
+  FILETIME             CreationTime;   ULONGLONG            SizeInBytes;
+  WCHAR                CabId[MAX_PATH];   DWORD                ReportStatus;
+  GUID                 ReportIntegratorId;
+  DWORD                NumberOfFiles;   DWORD                SizeOfFileNames;   WCHAR                *FileNames;
+} WER_REPORT_METADATA_V2, *PWER_REPORT_METADATA_V2;
+成员 Signature
+包含报表签名的 结构。 签名由存在的事件名称和事件参数组成。 BucketId
+签名的哈希。 可用于交叉引用具有相同签名的其他故障报告， (当前未实现) 。 ReportId
+报表的本地唯一标识符。 CreationTime
+创建报表时的 UTC 时间戳。 SizeInBytes
+单个报表及其组成文件) 磁盘上的大小 (。 此值仅对直接包含在报表中的文件进行计数。
+CabId[MAX_PATH] ReportStatus
+报表的详细状态。 使用 ReportStatus 解码器跟踪此位字段。
+ReportIntegratorId 报表的集成器 ID。 NumberOfFiles
+报表中包含的数据文件数。 SizeOfFileNames
+文件名字段的总大小（以 WCHAR计数计算），包括每个名称的终止字符，以及记录末尾
+的一个。 FileNames
+一个指针，用于保存报表中包含的文件的名称。 其格式为：
+FileName001\0FileName002\0\FileName003\0\0。要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+ 
+Windows 10版本 1703 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] werapi.h
+WerStoreQueryReportMetadataV2，Windows 错误报告反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+WER_REPORT_METADATA_V3结构
+(werapi.h) 项目2023/07/27
+包含有关 Windows 错误报告 (WER) 生成的错误报告的信息。
+语法 C++
+typedef struct _WER_REPORT_METADATA_V3 {
+  WER_REPORT_SIGNATURE Signature;   GUID                 BucketId;   GUID                 ReportId;
+  FILETIME             CreationTime;   ULONGLONG            SizeInBytes;
+  WCHAR                CabId[MAX_PATH];   DWORD                ReportStatus;
+  GUID                 ReportIntegratorId;
+  DWORD                NumberOfFiles;   DWORD                SizeOfFileNames;
+  WCHAR                *FileNames;   WCHAR                
+FriendlyEventName[WER_MAX_FRIENDLY_EVENT_NAME_LENGTH];
+  WCHAR                ApplicationName[WER_MAX_APPLICATION_NAME_LENGTH];   WCHAR                ApplicationPath[MAX_PATH];
+  WCHAR                Description[WER_MAX_DESCRIPTION_LENGTH];
+  WCHAR                BucketIdString[WER_MAX_BUCKET_ID_STRING_LENGTH];   ULONGLONG            LegacyBucketId;
+} WER_REPORT_METADATA_V3, *PWER_REPORT_METADATA_V3;
+成员 Signature
+包含报表签名的 结构。 签名由存在的事件名称和事件参数组成。 BucketId
+签名的哈希。 可用于交叉引用具有相同签名的其他故障报告， (当前未实现) 。 ReportId
+报表的本地唯一标识符。
+CreationTime
+创建报表时的 UTC 时间戳。 SizeInBytes
+单个报表及其组成文件) 磁盘上的大小 (。 此值仅对直接包含在报表中的文件进行计数。 CabId[MAX_PATH]
+WER 分配的 cab 标识值。 使用此值在 COSMOS/WER 中查找相应的数据。 未成功上传
+的报表将不具有此值。 ReportStatus
+报表的详细状态。 使用 ReportStatus 解码器跟踪此位字段。
+ReportIntegratorId 报表的集成器 ID。 NumberOfFiles
+报表中包含的数据文件数。 SizeOfFileNames
+文件名字段的总大小（以 WCHAR计数计算），包括每个名称的终止字符，以及记录末尾
+的一个。 FileNames
+一个指针，用于保存报表中包含的文件的名称。 其格式为： FileName001\0FileName002\0\FileName003\0\0。
+FriendlyEventName[WER_MAX_FRIENDLY_EVENT_NAME_LENGTH]
+ApplicationName[WER_MAX_APPLICATION_NAME_LENGTH] ApplicationPath[MAX_PATH]
+Description[WER_MAX_DESCRIPTION_LENGTH]
+BucketIdString[WER_MAX_BUCKET_ID_STRING_LENGTH] LegacyBucketId
+要求   标头
+另请参阅 Windows 错误报告
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+ 
+werapi.h
+WER_REPORT_PARAMETER 结构
+(werapi.h) 项目2023/07/27
+包含有关 Windows 错误报告 ( WER) 生成的错误报告参数的信息。
+语法 C++
+typedef struct _WER_REPORT_PARAMETER {
+       WCHAR Name[WER_MAX_SIGNATURE_NAME_LENGTH + 1];        WCHAR Value[WER_MAX_PARAM_LENGTH];
+} WER_REPORT_PARAMETER, PWER_REPORT_PARAMETER; 成员
+Name[WER_MAX_SIGNATURE_NAME_LENGTH + 1] Value[WER_MAX_PARAM_LENGTH]
+{1}参数值。{2} 要求
+ 
+标头
+另请参阅 Windows 错误报告
+反馈
+此页面是否有帮助？
+ﾂ是
+ﾄ否
+ 
+werapi.h
+在 Microsoft Q&A 获取帮助
+WER_REPORT_SIGNATURE 结构
+(werapi.h) 项目2023/07/27
+包含有关 Windows 错误报告 ( WER) 生成的错误报告签名的信息。
+语法 C++
+typedef struct _WER_REPORT_SIGNATURE {
+       WCHAR                EventName[WER_MAX_EVENT_NAME_LENGTH + 1];
+       WER_REPORT_PARAMETER Parameters[WER_MAX_PARAM_COUNT];} WER_REPORT_SIGNATURE, *PWER_REPORT_SIGNATURE;
+成员
+EventName[WER_MAX_EVENT_NAME_LENGTH + 1] Parameters[WER_MAX_PARAM_COUNT]
+签名中的参数集合。要求
+ 
+标头
+另请参阅 Windows 错误报告
+反馈
+此页面是否有帮助？
+ﾂ是
+ﾄ否
+ 
+werapi.h
+在 Microsoft Q&A 获取帮助
+WER_REPORT_TYPE 枚举 (werapi.h) 项目2023/07/27
+定义 ( WER) 报表类型的Windows 错误报告。
+语法 C++
+typedef enum _WER_REPORT_TYPE {
+  WerReportNonCritical,   WerReportCritical,
+  WerReportApplicationCrash,   WerReportApplicationHang,
+  WerReportKernel,   WerReportInvalid} WER_REPORT_TYPE;
+常量  
+WerReportNonCritical 非关键。
+WerReportCritical 关键。
+WerReportApplicationCrash 应用程序崩溃。
+WerReportApplicationHang
+应用程序挂起。 WerReportKernel 内核。
+WerReportInvalid
+无效。要求
+ 
+标头
+另请参阅
+ 
+werapi.h
+WerReportCreate 函数，Windows 错误报告反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+WER_REPORT_UI 枚举 (werapi.h) 项目2024/03/13
+定义Windows 错误报告 (WER) 报表的可自定义 UI 字符串的索引。
+语法 C++
+typedef enum _WER_REPORT_UI {   WerUIAdditionalDataDlgHeader,   WerUIIconFilePath,
+  WerUIConsentDlgHeader,   WerUIConsentDlgBody,
+  WerUIOnlineSolutionCheckText,   WerUIOfflineSolutionCheckText,   WerUICloseText,
+  WerUICloseDlgHeader,   WerUICloseDlgBody,
+  WerUICloseDlgButtonText,   WerUIMax
+} WER_REPORT_UI;
+常量  
+WerUIAdditionalDataDlgHeader 其他数据对话框标头。
+WerUIIconFilePath 图标文件路径。
+WerUIConsentDlgHeader
+同意对话框标头。 WerUIConsentDlgBody 同意对话框正文。
+WerUIOnlineSolutionCheckText 联机解决方案检查文本。
+WerUIOfflineSolutionCheckText
+ﾉ
+展开表
+ 
+脱机解决方案检查文本。
+WerUICloseText 关闭文本。
+WerUICloseDlgHeader 关闭对话框标题。 WerUICloseDlgBody 关闭对话框正文。
+WerUICloseDlgButtonText 关闭对话框按钮文本。
+WerUIMax
+最大文本加载。
+要求要求 Header
+另请参阅
+值
+werapi.h
+WerReportSetUIOption 函数，Windows 错误报告反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+WER_RUNTIME_EXCEPTION_INFORMATI
+ON 结构 (werapi.h) 项目2024/03/03
+包含Windows 错误报告 (WER) 异常信息，用于确定是否要声明崩溃。
+语法 C++
+typedef struct _WER_RUNTIME_EXCEPTION_INFORMATION {
+  DWORD            dwSize;   HANDLE           hProcess;   HANDLE           hThread;
+  EXCEPTION_RECORD exceptionRecord;   CONTEXT          context;
+  PCWSTR           pwszReportId;
+  BOOL             bIsFatal;   DWORD            dwReserved;
+} WER_RUNTIME_EXCEPTION_INFORMATION, *PWER_RUNTIME_EXCEPTION_INFORMATION;
+成员 dwSize
+此结构的大小（以字节为单位）。 hProcess
+崩溃进程的句柄。 hThread
+崩溃的线程的句柄。 exceptionRecord
+包含异常信息的 EXCEPTION_RECORD 结构。 context
+包含 上下文信息的 CONTEXT 结构。
+pwszReportId
+指向常量、以 null 结尾的字符串的指针，该字符串包含异常信息的大小。
+bIsFatal dwReserved
+要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用] werapi.h
+OutOfProcessExceptionEventCallback，Windows 错误报告反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+WER_SUBMIT_RESULT 枚举 (werapi.h) 项目2024/03/09
+定义Windows 错误报告 (WER) 提交结果选项。
+语法 C++
+typedef enum _WER_SUBMIT_RESULT {
+  WerReportQueued,   WerReportUploaded,   WerReportDebug,   WerReportFailed,   WerDisabled,
+  WerReportCancelled,   WerDisabledQueue,
+  WerReportAsync,   WerCustomAction,   WerThrottled,
+  WerReportUploadedCab,
+  WerStorageLocationNotFound,   WerSubmitResultMax
+} WER_SUBMIT_RESULT, *PWER_SUBMIT_RESULT; 常量
+ﾉ
+ 
+WerReportQueued Queued.
+WerReportUploaded 上传。
+WerReportDebug 调试。
+WerReportFailed
+已失败。 WerDisabled 已禁用。
+展开表
+ 
+WerReportCancelled 取消。
+WerDisabledQueue
+已禁用队列。 WerReportAsync 异步。
+WerCustomAction 自定义操作。 WerThrottled 扼杀。
+WerReportUploadedCab
+已上传 cabinet (CAB) 文件。 WerStorageLocationNotFound
+找不到存储位置。 WerSubmitResultMax 提交最大数据负载。
+要求要求 Header
+另请参阅
+值
+werapi.h
+WerReportSubmit 函数，Windows 错误报告反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+WerAddExcludedApplication 函数
+(werapi.h) 项目2023/07/27
+将指定的应用程序添加到要从WINDOWS 错误报告 (WER) 中排除的应用程序列表。
+语法 C++
+HRESULT WerAddExcludedApplication(
+  [in] PCWSTR pwzExeName,   [in] BOOL   bAllUsers);
+参数
+[in] pwzExeName
+指向 Unicode 字符串的指针，该字符串指定应用程序的可执行文件的名称，包括文件扩展名。
+此路径的最大长度为 MAX_PATH 个字符。[in] bAllUsers
+如果此参数为 TRUE，则应用程序名称将添加到所有用户的已排除应用程序列表中。 否则，只会
+将其添加到当前用户的已排除应用程序列表中。返回值
+此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。
+ﾉ
+返回代码
+E_ACCESSDENIED 注解
+说明
+进程没有权限更新注册表中的列表。 有关其他信息，请参阅备注部分。
+展开表
+如果 bAllUsers 为 TRUE，则排除的应用程序列表存储在HKEY_LOCAL_MACHINE注册表配置单元下。 调用进程必须有权写入 HKLM 注册表配置单元。
+如果 bAllUsers 为 FALSE，则排除的应用程序列表存储在HKEY_CURRENT_USER注册表配置单元下。
+若要从排除的应用程序列表中删除应用程序，请调用 WerRemoveExcludedApplication 函数。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows werapi.h Wer.lib Wer.dll
+WerRemoveExcludedApplication， Windows 错误报告
+展开表
+werFreeString 函数 (werapi.h) 项目2023/07/27
+释放用于存储Windows 错误报告 (WER) 密钥字符串的内存。
+语法 C++
+void WerFreeString(
+  PCWSTR pwszStr);
+参数 pwszStr
+要释放的字符串 (值设置为 NULL) 。
+返回值无
+备注
+每次连续调用 WerStoreGetFirstReportKey 或 WerStoreGetNextReportKey 后，应调用此方法，
+一旦特定报表密钥字符串已使用且不再需要。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+值
+Windows 10版本 1703 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows werapi.h
+展开表
+要求 Library DLL
+另请参阅
+值
+Wer.lib Wer.dll
+WerStoreGetFirstReportKey、WerStoreGetNextReportKey、Windows 错误报告
+werGetFlags 函数 (werapi.h) 项目2023/07/27
+检索指定进程的Windows 错误报告 (WER) 故障报告设置。
+语法 C++
+HRESULT WerGetFlags(
+  [in]  HANDLE hProcess,   [out] PDWORD pdwFlags);
+参数[in] hProcess
+进程的句柄。 此句柄必须具有PROCESS_VM_READ或PROCESS_QUERY_INFORMATION访问权限。
+[out] pdwFlags
+此参数可以包含以下一个或多个值。
+ﾉ
+值
+WER_FAULT_REPORTING_FLAG_DISABLE_THREAD_SUSPENSION
+WER_FAULT_REPORTING_FLAG_NOHEAP WER_FAULT_REPORTING_FLAG_QUEUE
+WER_FAULT_REPORTING_FLAG_QUEUE_UPLOAD
+WER_FAULT_REPORTING_ALWAYS_SHOW_UI 返回值
+含义
+展开表
+在报告错误之前，请勿挂起进程线程。
+在发生应用程序崩溃或无响应时，请勿收集堆信息。
+对指定进程的关键报告进行队列。 这不显示任何 UI。
+对关键报表进行排队并从队列上传。始终显示此过程的错误报告 UI。 这仅适用于交互式应用程序。
+此函数在成功时返回 S_OK 或失败时返回错误代码。要求
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+WerSetFlags，Windows 错误报告
+ 
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows werapi.h Kernel32.lib Kernel32.dll
+ﾉ
+展开表
+WerRegisterAdditionalProcess 函数
+(werapi.h) 项目2024/03/03
+注册要包含在Windows 错误报告 (WER) 报表中的进程以及main应用程序进程。 （可选）指定要从中获取其他数据的已注册进程内的线程。
+语法 C++
+HRESULT WerRegisterAdditionalProcess(              DWORD processId,
+  [optional] DWORD captureExtraInfoForThreadId);
+参数 processId
+要注册的进程 ID。
+[optional] captureExtraInfoForThreadId
+从中请求更多信息的已注册进程中线程的 ID。返回值
+此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。
+ﾉ
+返回代码
+E_INVALIDARG
+E_OUTOFMEMORY
+HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)
+说明
+processId 的值为 0。
+WER 无法为数据分配足够大的堆。
+展开表
+(内存块、元数据、文件) 的 WER 注册条目数超过最大 (WER_MAX_REGISTERED_ENTRIES) 或进程数超过最大
+(WER_MAX_REGISTERED_DUMPCOLLECTION)
+返回代码
+WER_E_INVALID_STATE 注解
+说明
+进程状态无效。 例如，进程处于应用程序恢复模式。
+此 API 适用于具有多个进程相互交互的应用程序。 应用程序的main进程会注册另一个进程的 ID。 当注册进程崩溃时，WER 会将已注册进程的附加会审转储添加到生成的诊断。 （可选）注
+册进程还可以提供线程 ID，以获取该特定线程的更多数据。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows 10版本 1703 [桌面应用 |UWP 应用] Windows Server 2016 [桌面应用 |UWP 应用]
+Windows werapi.h Kernel32.lib Kernel32.dll
+WerUnregisterAdditionalProcess，Windows 错误报告
+展开表
+WerRegisterAppLocalDump 函数 (werapi.h) 项目2024/03/13
+注册相对于打包应用程序的 LocalFolder 的路径 (，) 其中应保存诊断内存转储的副本，Windows 错误报告 (WER) 在应用程序的某个进程停止响应时收集该副本。
+语法 C++
+HRESULT WerRegisterAppLocalDump(
+  [in] PCWSTR localAppDataRelativePath);
+参数
+[in] localAppDataRelativePath
+相对于调用应用程序的本地应用商店的路径。 这是保存当应用程序的某个进程停止响应时 WER 收集的诊断内存转储的副本的位置。 此相对路径的最大长度（以字符为单位 ）为
+WER_MAX_LOCAL_DUMP_SUBPATH_LENGTH，其值为 64。 此最大长度包括 null 终止字符。返回值
+此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。
+ﾉ
+返回代码
+WER_E_INVALID_STATE
+E_INVALIDARG 注解
+说明
+进程无法存储内存转储，或者 WER 无法创建存储内存转储的位置。 localAppDataRelativePath 参数为 NULL 或长度超过 64 个字符。
+当应用程序启动以请求 WER 收集的诊断内存转储的副本时，打包的应用程序将调用
+WerRegisterAppLocalDump （如果或当应用程序的某个进程停止响应时）。 WER 不管理相对路径指定的位置或为应用程序收集的内存转储数的存储。
+展开表
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows 10版本 1709 [桌面应用 |UWP 应用] Windows Server 2016 [桌面应用 |UWP 应用]
+Windows werapi.h Kernel32.lib KernelBase.dll
+WerUnregisterAppLocalDump 函数，Windows 错误报告
+ﾉ
+展开表
+werRegisterCustomMetadata 函数
+(werapi.h) 项目2024/03/13
+注册要 (以键/值字符串的形式收集的应用特定元数据，) Windows 错误报告 (WER) 错误报告。
+语法 C++
+HRESULT WerRegisterCustomMetadata(
+  PCWSTR key,   PCWSTR value);
+参数 key
+正在注册的元数据元素的“key”字符串。 value
+正在注册的元数据元素的值字符串。返回值
+此函数在成功 时返回S_OK 或失败时返回错误代码，包括以下错误代码。
+ﾉ
+返回代码
+E_INVALIDARG
+E_OUTOFMEMORY
+HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)
+说明
+展开表
+字符串为 NULL，键长度大于 64 个字符或 xml 元素名称无效，或 值 长度大于 128 个字符或
+包含的字符不是 ASCII 可打印字符。 WER 无法为数据分配足够大的堆
+(WER_MAX_REGISTERED_ENTRIES ) 的最大已注册条目数或已达到已注册元数据
+(WER_MAX_REGISTERED_METADATA) 的最大数量。
+返回代码
+WER_E_INVALID_STATE 注解
+说明
+进程状态无效。 例如，进程处于应用程序恢复模式。
+此 API 允许应用将自己的应用级遥测与系统级遥测集成 (WER) ，方法是将应用元数据与其进程
+对应的故障报告相关联。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows 10版本 1703 [桌面应用 |UWP 应用] Windows Server 2016 [桌面应用 |UWP 应用]
+Windows werapi.h Kernel32.lib Kernel32.dll
+WerUnregisterCustomMetadata，Windows 错误报告
+展开表
+werRegisterExcludedMemoryBlock 函数
+(werapi.h) 项目2023/10/28
+标记通常默认包含在错误报告中的内存块 (，) 从Windows 错误报告 (WER) 错误报告中排除。
+语法 C++
+HRESULT WerRegisterExcludedMemoryBlock(   const void *address,
+  DWORD      size);
+参数 address
+内存块的起始地址。 size
+内存块的大小（以字节为单位）。返回值
+此函数在成功 时返回S_OK 或失败时返回错误代码，包括以下错误代码。
+ﾉ
+返回代码
+E_INVALIDARG
+E_OUTOFMEMORY
+HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) WER_E_INVALID_STATE
+说明
+address 为 NULL 或 size 为 0。 WER 无法为数据分配足够大的堆已注册的条目数 超出了
+展开表
+WER_MAX_REGISTERED_ENTRIES) (限制。进程状态无效。 例如，进程处于应用程序恢复模式。
+注解
+此机制适用于在内存中保存大量数据的应用程序，这些数据对根本原因调试没有用，并且不必要
+地增加转储文件的大小。 例如，某些游戏在内存中保存大量默认包含在错误转储中的纹理数据。
+要求
+ﾉ
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+ 
+Windows 10版本 1703 [桌面应用 |UWP 应用] Windows Server 2016 [桌面应用 |UWP 应用]
+Windows werapi.h Kernel32.lib Kernel32.dll
+WerUnregisterExcludedMemoryBlock，Windows 错误报告
+展开表
+werRegisterFile 函数 (werapi.h) 项目2024/03/13
+注册Windows 错误报告 ( WER) 创建错误报告时要收集的文件。
+语法 C++
+HRESULT WerRegisterFile(
+  [in] PCWSTR                 pwzFile,
+  [in] WER_REGISTER_FILE_TYPE regFileType,
+  [in] DWORD                  dwFlags);
+参数[in] pwzFile
+文件的完整路径。 此路径的最大长度为 MAX_PATH 个字符。[in] regFileType
+文件类型。 此参数可以是 WER_REGISTER_FILE_TYPE 枚举类型中的下列值之一。
+值
+WerRegFileTypeMax 3
+WerRegFileTypeOther 2
+WerRegFileTypeUserDocument 1
+[in] dwFlags
+含义
+WER_REGISTER_FILE_TYPE枚举类型的最大值。任何其他类型的文件。
+ﾉ
+展开表
+应用程序在事件发生时使用的文档。 仅当 Watson 服务器要求时，才会收集此文档。
+此参数可使用以下一个或多个值。
+值
+WER_FILE_ANONYMOUS_DATA WER_FILE_DELETE_WHEN_DONE
+返回值
+含义
+该文件不包含可用于标识或联系用户的个人信息。将文件添加到报表后，自动删除该文件。
+此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。
+返回代码
+WER_E_INVALID_STATE
+HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) 注解
+说明
+ﾉﾉ
+展开表展开表
+进程状态无效。 例如，进程处于应用程序恢复模式。
+已注册的内存块和文件数超出了限制。
+仅当服务器请求其他数据时，注册的文件才会添加到报表中。
+对于崩溃和非响应，操作系统会自动提供错误报告， (无需在应用程序) 提供任何错误报告代码。 如果使用此函数注册文件，则操作系统会将该文件添加到在发生崩溃或无响应时创建的错误报告， (除了操作系统已收集) 的文件外，还会添加此文件。
+对于泛型事件报告，应用程序必须改用 WerReportAddFile 函数。 或者，使用 WER_SUBMIT_ADD_REGISTERED_DATA 标志调用 WerReportSubmit 函数将包括 WerRegisterFile 函数添加的文件。
+若要从列表中删除文件，请调用 WerUnregisterFile 函数。要求
+ﾉ
+要求
+最低受支持的客户端
+值
+Windows Vista [桌面应用 | UWP 应用]
+展开表
+要求
+最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Server 2008 [桌面应用 | UWP 应用]
+Windows werapi.h Kernel32.lib Kernel32.dll
+WerUnregisterFile，Windows 错误报告
+WerRegisterMemoryBlock 函数 (werapi.h) 项目2024/03/03
+注册Windows 错误报告 ( WER) 创建错误报告时要收集的内存块。
+语法 C++
+HRESULT WerRegisterMemoryBlock(   [in] PVOID pvAddress,
+  [in] DWORD dwSize);
+参数
+[in] pvAddress
+内存块的起始地址。[in] dwSize
+内存块的大小（以字节为单位）。 此参数的最大值为 WER_MAX_MEM_BLOCK_SIZE 字节。返回值
+此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。
+ﾉ
+返回代码
+WER_E_INVALID_STATE
+HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) 注解
+说明
+展开表
+进程状态无效。 例如，进程处于应用程序恢复模式。
+已注册的内存块和文件数超出了限制。
+使用此函数注册的内存仅添加到堆或更大的转储文件中。 此内存永远不会添加到小型转储或较小的转储文件中。
+对于崩溃且无响应，操作系统会自动提供错误报告， (无需在应用程序) 提供任何错误报告代码。 如果使用此函数注册内存块，操作系统将在发生崩溃或无响应时将内存块信息添加到转储文件。 仅当服务器请求其他数据时，内存块才会添加到报表的转储文件中。
+对于泛型事件报告，应用程序必须直接调用 WER 泛型事件报告函数。 若要将内存块添加到泛型
+报表，请调用 WerReportAddDump 函数，然后调用 WerReportSubmit 函数并指定 WER_SUBMIT_ADD_REGISTERED_DATA标志。
+若要从此列表中删除块，请调用 WerUnregisterMemoryBlock 函数。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Vista [桌面应用 | UWP 应用]
+Windows Server 2008 [桌面应用 | UWP 应用]
+Windows werapi.h Kernel32.lib Kernel32.dll
+WerUnregisterMemoryBlock，Windows 错误报告
+展开表
+werRegisterRuntimeExceptionModule 函数
+(werapi.h) 项目2024/03/03
+注册自定义运行时异常处理程序，该处理程序用于为崩溃提供自定义Windows 错误报告 (WER) 。
+语法 C++
+HRESULT WerRegisterRuntimeExceptionModule(
+  [in]           PCWSTR pwszOutOfProcessCallbackDll,
+  [in, optional] PVOID  pContext);
+参数
+[in] pwszOutOfProcessCallbackDll 要注册的异常处理程序 DLL 的名称。[in, optional] pContext
+指向传递给处理程序回调函数的任意上下文信息的指针。返回值
+此函数在成功 时返回S_OK 或失败时返回错误代码，包括以下错误代码。
+ﾉ
+返回代码
+WER_E_INVALID_STATE
+HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) 注解
+说明
+展开表
+进程状态无效。 例如，进程处于应用程序恢复模式。
+已注册的运行时异常模块数超出了限制。 进程最多可以注册
+WER_MAX_REGISTERED_RUNTIME_EXCEPTION_MODULES 处理程序。
+异常处理程序是 WER 服务在发生崩溃或未经处理的异常时加载的进程外 DLL。 DLL 必须实现并导出以下函数：
+OutOfProcessExceptionEventCallback
+OutOfProcessExceptionEventSignatureCallback
+OutOfProcessExceptionEventDebuggerLaunchCallback(DLL 还必须包含 DllMain 入口点.)
+与当前的进程内事件报告功能相比，使用异常处理程序报告崩溃信息更安全、更可靠。 此外，当前的通用事件报告功能仅适用于报告非致命错误。
+此函数要求 将 pwszOutOfProcessCallbackDll DLL 包含在注册表的 WER 异常处理程序模块列表中 。 注册异常处理程序后，如果进程崩溃或引发未经处理的异常，WER 服务将加载异常处理程序并调用
+OutOfProcessExceptionEventCallback 回调函数，该函数用于在崩溃时声明声明并提供事件名称和报告参数计数。 请注意，如果进程注册了多个异常处理程序，则服务会调用每个处理程序，直到其中一个处理程序声明崩溃。 如果没有处理程序声明崩溃，WER 默认为本机崩溃报告。
+如果异常处理程序声明异常，WER 服务将调用 OutOfProcessExceptionEventSignatureCallback 回调函数，该函数提供唯一定义问题的报告参数。 然后，WER 服务调用
+OutOfProcessExceptionEventDebuggerLaunchCallback 回调，以确定是为用户提供启动调试器还是自动启动调试器的选项。 处理程序还可以指定自定义调试器启动字符串，这将替代默认字符串， (默认值是 AeDebug 注册表项中指定的调试器) 。
+处理程序提供事件名称、报告参数和调试器启动设置后，其余的错误报告流将继续以通常的方式进行。在进程退出之前，必须调用 WerUnregisterRuntimeExceptionModule 函数来删除注册。 进程最多可以
+注册WER_MAX_REGISTERED_RUNTIME_EXCEPTION_MODULES处理程序。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 Windows 错误报告
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用]
+Windows werapi.h Kernel32.lib Kernel32.dll
+展开表
+WerRemoveExcludedApplication 函数
+(werapi.h) 项目2024/03/03
+从Windows 错误报告 (WER) 排除的应用程序列表中删除指定的应用程序。
+语法 C++
+HRESULT WerRemoveExcludedApplication(
+  [in] PCWSTR pwzExeName,   [in] BOOL   bAllUsers);
+参数
+[in] pwzExeName
+指向 Unicode 字符串的指针，该字符串指定应用程序的可执行文件的名称，包括文件扩展名。此路径的最大长度为 MAX_PATH 个字符。
+必须使用 WerAddExcludedApplication 函数排除此文件，否则
+WerRemoveExcludedApplication 将失败。[in] bAllUsers
+如果此参数为 TRUE，则会从所有用户的已排除应用程序列表中删除应用程序名称。 否则，它仅
+从当前用户的已排除应用程序列表中删除。返回值
+此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。
+ﾉ
+返回代码
+E_ACCESSDENIED
+说明
+进程无权更新注册表中的列表。 有关其他信息，请参阅备注部分。
+展开表
+注解
+此函数使用 WerAddExcludedApplication 函数删除添加到排除的应用程序列表的应用程序。
+如果 bAllUsers 为 TRUE，则排除的应用程序列表存储在HKEY_LOCAL_MACHINE注册表配置单元下。 调用进程必须有权写入 HKLM 注册表配置单元。 如果 bAllUsers 为 FALSE，则排除的应用
+程序列表存储在HKEY_CURRENT_USER注册表配置单元下。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows werapi.h Wer.lib Wer.dll
+WerAddExcludedApplication， Windows 错误报告
+展开表
+werReportAddDump 函数 (werapi.h) 项目2023/07/27
+将指定类型的转储添加到指定的Windows 错误报告 (WER) 报表。
+语法 C++
+HRESULT WerReportAddDump(
+  [in]           HREPORT                    hReportHandle,
+  [in]           HANDLE                     hProcess,   [in, optional] HANDLE                     hThread,   [in]           WER_DUMP_TYPE              dumpType,
+  [in, optional] PWER_EXCEPTION_INFORMATION pExceptionParam,
+  [in, optional] PWER_DUMP_CUSTOM_OPTIONS   pDumpCustomOptions,
+  [in]           DWORD                      dwFlags);
+参数
+[in] hReportHandle
+报表的句柄。 此句柄由 WerReportCreate 函数返回。[in] hProcess
+正在为其生成报表的进程句柄。 此句柄必须具有STANDARD_RIGHTS_READ和
+PROCESS_QUERY_INFORMATION访问权限。[in, optional] hThread
+要为其生成报表的 hProcess 线程的句柄。 如果 dumpType 为 WerDumpTypeMicro，则此参数是
+必需的。 对于其他转储类型，此参数可能为 NULL。[in] dumpType
+小型转储的类型。 此参数可以是 WER_DUMP_TYPE 枚举类型的下列值之一。
+ﾉ
+值
+WerDumpTypeHeapDump
+含义
+包含其他数据（如进程内存）的扩展小型转储。此类型等效于使用以下选项创建小型转储：
+展开表
+WerDumpTypeMicroDump WerDumpTypeMiniDump
+[in, optional] pExceptionParam
+MiniDumpWithDataSegs
+MiniDumpWithProcessThreadData MiniDumpWithHandleData
+MiniDumpWithPrivateReadWriteMemory
+MiniDumpWithUnloadedModules MiniDumpWithFullMemoryInfo
+MiniDumpWithThreadInfo (Windows 7 及更高版本)
+MiniDumpWithTokenInformation (Windows 7 及更高版本)
+MiniDumpWithPrivateWriteCopyMemory (Windows 7 及更高版本)
+仅包含堆栈跟踪的有限小型转储。
+此类型等效于使用以下选项创建小型转储：
+MiniDumpWithDataSegs
+MiniDumpWithUnloadedModules MiniDumpWithProcessThreadData MiniDumpWithoutOptionalData
+小型转储。
+此类型等效于使用以下选项创建小型转储：
+MiniDumpWithDataSegs
+MiniDumpWithUnloadedModules MiniDumpWithProcessThreadData
+MiniDumpWithTokenInformation (Windows 7 及更高版本)
+指向指定异常信息的 WER_EXCEPTION_INFORMATION 结构的指针。[in, optional] pDumpCustomOptions
+指向指定自定义小型转储选项 的WER_DUMP_CUSTOM_OPTIONS 结构的指针。 如果此参数为
+NULL，则收集标准小型转储信息。[in] dwFlags
+此参数可以是 0 或以下值。
+ﾉ
+值
+含义
+展开表
+WER_DUMP_NOHEAP_ONQUEUE 返回值
+如果报表正在排队，请不要包含堆转储。 使用此标志可节省磁盘空间。
+此函数在成功 时返回S_OK 或失败时返回错误代码。注解
+此函数仅用于通用报告，它不会影响操作系统崩溃或无响应报告。
+如果服务器请求小型转储，并且你为 dumpType 参数指定了 WerDumpTypeHeapDump，则 WER 不会将堆转储发送到 Watson 服务器。 但是，如果服务器请求堆转储，并且 dumpType 为 WerDumpTypeMiniDump，则 WER 会将小型转储发送到服务器。 因此，建议将 dumpType 设
+置为 WerDumpTypeMiniDump。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows werapi.h Wer.lib Wer.dll
+小型转储文件、WER_DUMP_CUSTOM_OPTIONS、WER_EXCEPTION_INFORMATION、 WerReportCreate、Windows 错误报告
+展开表
+werReportAddFile 函数 (werapi.h) 项目2023/07/27
+将文件添加到指定的Windows 错误报告 (WER) 报表。
+语法 C++
+HRESULT WerReportAddFile(
+  [in] HREPORT       hReportHandle,   [in] PCWSTR        pwzPath,
+  [in] WER_FILE_TYPE repFileType,   [in] DWORD         dwFileFlags);
+参数
+[in] hReportHandle
+报表的句柄。 此句柄由 WerReportCreate 函数返回。[in] pwzPath
+指向 Unicode 字符串的指针，该字符串包含要添加的文件的完整路径。 此路径可以使用环境变
+量。 此路径的最大长度为MAX_PATH个字符。[in] repFileType
+文件类型。 此参数可以是 WER_FILE_TYPE 枚举类型的下列值之一。
+ﾉ
+值
+WerFileTypeHeapdump WerFileTypeMicrodump WerFileTypeMinidump WerFileTypeOther
+WerFileTypeUserDocument
+含义
+包含其他数据（如进程内存）的扩展小型转储。
+仅包含堆栈跟踪的有限小型转储。小型转储文件。
+展开表
+任何其他类型的文件。 此文件将始终添加到 cab (，但仅当服务器请求 cab) 时。
+应用程序在事件发生时使用的文档。 仅当服务器请求此类型的文档时，才
+值
+[in] dwFileFlags
+含义
+会添加该文档。
+此参数可使用以下一个或多个值。
+值
+WER_FILE_ANONYMOUS_DATA WER_FILE_DELETE_WHEN_DONE
+返回值
+含义
+该文件不包含可用于识别或联系用户的个人信息。提交报告后自动删除文件。
+此函数在成功 时返回S_OK 或失败时返回错误代码，包括以下错误代码。
+返回代码
+HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND)
+HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED)
+注解
+说明
+指定的文件不存在。
+ﾉﾉ
+展开表展开表
+指定的文件是用户文档，存储在加密的文件系统上; 不支持此组合。
+尽管此函数还可用于使用特定标志) 错误报告添加内存转储 (，但用于添加内存转储的首选函数是 WerReportAddDump。 仅当希望自行收集转储并将其添加到报表时，才应使用此函数。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+展开表
+要求
+目标平台
+标头 Library DLL
+另请参阅
+值
+Windows werapi.h Wer.lib Wer.dll
+WerReportCreate，Windows 错误报告
+werReportCloseHandle 函数 (werapi.h) 项目2024/03/13
+关闭指定的Windows 错误报告 ( WER) 报表。
+语法 C++
+HRESULT WerReportCloseHandle(   [in] HREPORT hReportHandle);
+参数
+[in] hReportHandle
+报表的句柄。 此句柄由 WerReportCreate 函数返回。返回值
+此函数在成功 时返回S_OK 或失败时返回错误代码。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows werapi.h Wer.lib Wer.dll
+展开表
+WerReportCreate，Windows 错误报告
+werReportCreate 函数 (werapi.h) 项目2023/07/27
+创建描述应用程序事件的Windows 错误报告 (WER) 报表。
+语法 C++
+HRESULT WerReportCreate(
+  [in]           PCWSTR                  pwzEventType,   [in]           WER_REPORT_TYPE         repType,
+  [in, optional] PWER_REPORT_INFORMATION pReportInformation,
+  [out]          HREPORT                 *phReportHandle);
+参数
+[in] pwzEventType
+指向 Unicode 字符串的指针，该字符串指定事件的名称。[in] repType
+报表的类型。 此参数可以是 WER_REPORT_TYPE 枚举类型中的下列值之一。
+值
+WerReportApplicationCrash 2
+WerReportApplicationHang 3
+WerReportInvalid 5
+WerReportKernel 4
+WerReportCritical 1
+含义
+发生了导致应用程序停止运行的错误。发生了导致应用程序停止响应的错误。
+发生了一个错误，该错误调用了无效的返回。内核中发生错误。
+ﾉ
+展开表
+发生了严重错误，例如崩溃或无响应。 默认情况下，遇到严重错误的进程会终止或重新启动。
+值
+WerReportNonCritical 0
+含义
+发生了不重要的错误。 此类型的报表不显示 UI;报表以无提示方式排队。然后，如果有足够的用户同意，则可以在后台以无提示方式将其发送到服务器。
+[in, optional] pReportInformation
+指向 WER_REPORT_INFORMATION 结构的指针，该结构指定报表的信息。[out] phReportHandle
+报表的句柄。 如果函数失败，则此句柄为 NULL。返回值
+此函数在成功时返回 S_OK 或失败时返回错误代码。注解
+使用以下函数指定要提交的附加信息：
+WerReportAddDump WerReportAddFile
+WerReportSetParameter
+若要提交信息，请调用 WerReportSubmit 函数。 完成报表句柄后，调用 WerReportCloseHandle 函数。
+应用程序还可以指示他们希望有机会恢复数据或在失败时重启。 有关详细信息，请参阅 应用程序恢复和重启。
+若要查看应用程序提交的报表，请转到 Windows 质量在线服务。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+展开表
+要求
+目标平台
+标头 Library DLL
+另请参阅
+值
+Windows werapi.h Wer.lib Wer.dll
+应用程序恢复和重启、WER_REPORT_INFORMATION、WerReportCloseHandle、 WerReportSubmitWindows 错误报告
+werReportSetParameter 函数 (werapi.h) 项目2023/07/27
+设置唯一标识指定Windows 错误报告 (WER) 报表的事件的参数。
+语法 C++
+HRESULT WerReportSetParameter(
+  [in]           HREPORT hReportHandle,
+  [in]           DWORD   dwparamID,   [in, optional] PCWSTR  pwzName,   [in]           PCWSTR  pwzValue);
+参数
+[in] hReportHandle
+报表的句柄。 此句柄由 WerReportCreate 函数返回。[in] dwparamID
+要设置的参数的标识符。 此参数的取值可为下列值之一：
+WER_P0 WER_P1 WER_P2 WER_P3 WER_P4 WER_P5 WER_P6 WER_P7 WER_P8 WER_P9
+[in, optional] pwzName
+指向包含参数名称的 Unicode 字符串的指针。 如果此参数为 NULL，则默认名称为 Px，其中 x
+与 dwparamID 中指定的值的整数部分匹配。[in] pwzValue
+{1}参数值。{2} 返回值
+此函数在成功 时返回S_OK 或失败时返回错误代码，包括以下错误代码。
+返回代码 E_HANDLE
+WER_E_LENGTH_EXCEEDED 备注
+说明
+指定的句柄无效。
+一个或多个字符串参数的长度已超出其限制。
+ﾉ
+展开表
+每个报表都支持参数 P0 到 P9。 此函数一次设置一个参数。 如果设置了参数 Px ，则必须设置
+P0 和 Px 中的所有参数。要求
+ﾉ
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+ 
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows werapi.h Wer.lib Wer.dll
+WerReportCreate，Windows 错误报告
+展开表
+werReportSetUIOption 函数 (werapi.h) 项目2023/07/27
+设置指定Windows 错误报告 (WER) 报表的用户界面选项。
+语法 C++
+HRESULT WerReportSetUIOption(
+  [in] HREPORT       hReportHandle,   [in] WER_REPORT_UI repUITypeID,
+  [in] PCWSTR        pwzValue);
+参数
+[in] hReportHandle
+报表的句柄。 此句柄由 WerReportCreate 函数返回。[in] repUITypeID
+要自定义的用户界面元素。 此参数可以是 WER_REPORT_UI 枚举类型中的下列值之一。
+ﾉ
+值
+WerUIAdditionalDataDlgHeader WerUICloseDlgBody
+WerUICloseDlgButtonText
+WerUICloseDlgHeader WerUICloseText
+WerUIConsentDlgBody WerUIConsentDlgHeader WerUIIconFilePath
+WerUIOfflineSolutionCheckText
+含义
+“其他数据”对话框的说明。关闭对话框的内容。
+关闭对话框中按钮的文本。关闭对话框main说明。
+链接的文本，用于终止应用程序。
+同意对话框的内容。同意对话框main说明。
+要显示在同意对话框中的图标。
+脱机时指向解决方案检查的链接的文本。
+展开表
+值
+WerUIOnlineSolutionCheckText[in] pwzValue
+含义
+联机时指向解决方案检查链接的文本。
+指向指定自定义文本的 Unicode 字符串的指针。 有关详细信息，请参阅 repUITypeID 的说明。返回值
+此函数在成功 时返回S_OK 或失败时返回错误代码。要求
+ﾉ
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+ 
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows werapi.h Wer.lib Wer.dll
+WerReportCreate，Windows 错误报告
+展开表
+WerReportSubmit 函数 (werapi.h) 项目2024/03/13
+提交指定的Windows 错误报告 (WER) 报表。
+语法 C++
+HRESULT WerReportSubmit(
+  [in]            HREPORT            hReportHandle,
+  [in]            WER_CONSENT        consent,   [in]            DWORD              dwFlags,
+  [out, optional] PWER_SUBMIT_RESULT pSubmitResult);
+参数
+[in] hReportHandle
+报表的句柄。 此句柄由 WerReportCreate 函数返回。[in] consent
+同意状态。 此参数可以是 WER_CONSENT 枚举类型中的以下值之一。
+值
+WerConsentAlwaysPrompt 4
+WerConsentApproved 2
+WerConsentDenied 3
+WerConsentMax 5
+WerConsentNotAsked 1
+含义
+始终要求用户提交请求。用户已批准提交请求。用户已拒绝提交请求。
+WER_CONSENT 枚举类型的最大值。未要求用户同意。
+ﾉ
+展开表
+[in] dwFlags
+此参数可使用以下一个或多个值。值
+WER_SUBMIT_ADD_REGISTERED_DATA 16
+WER_SUBMIT_HONOR_RECOVERY 1
+WER_SUBMIT_HONOR_RESTART 2
+WER_SUBMIT_NO_ARCHIVE 256
+WER_SUBMIT_NO_CLOSE_UI 64
+WER_SUBMIT_NO_QUEUE 128
+WER_SUBMIT_OUTOFPROCESS 32
+WER_SUBMIT_OUTOFPROCESS_ASYNC 1024
+WER_SUBMIT_QUEUE 4
+WER_SUBMIT_SHOW_DEBUG 8
+WER_SUBMIT_START_MINIMIZED
+含义
+将 WerSetFlags、 WerRegisterFile 和
+ﾉ
+展开表
+WerRegisterMemoryBlock 注册的数据添加到报表。
+遵循应用程序的任何恢复注册。 有关详细信息，请参阅 RegisterApplicationRecoveryCallback。
+遵循应用程序的任何重启注册。 有关详细信息，请参阅
+RegisterApplicationRestart。不要存档报表。
+不显示关键报表的关闭对话框。
+不要将报表排队。 如果有足够的用户同意，则立即将报告发送给 Microsoft;否则，将放弃报表。 可以将此标志用于非关键报表。
+对于需要将报表排队的任何操作，报告将被丢弃。 例如，如果提交报表时计算机处于脱机状态，则会放弃该报表。此外，如果 (许可不足，则报表) 的数据部分需要同意，则放弃报表。
+生成另一个进程来提交报告。 调用线程被阻止，直到函数返回。
+注意： 将抽水窗口消息，以便不会阻止调用线程上的 UI 活动。
+生成另一个进程以提交报告并立即从此函数调用返回。 请注意， pSubmitResult 参数的内容未定义，并且无法查询报告完成时间或完成状态。
+在不通知用户的情况下将报表添加到 WER 队列。 报表仅排队 - 报告 (将报表发送到 Microsoft) 稍后根据用户的同
+意级别进行。显示调试按钮。
+初始 UI 最小化并闪烁。
+值 512
+WER_SUBMIT_BYPASS_DATA_THROTTLING 2048
+WER_SUBMIT_ARCHIVE_PARAMETERS_ONLY 4096
+WER_SUBMIT_REPORT_MACHINE_ID 8192
+[out, optional] pSubmitResult
+含义
+绕过报表的数据限制。
+Windows 7 或更早版本： 此参数不可用。仅存档参数;驾驶室被丢弃。 此标志将替代 ConfigureArchive WER 设置。
+Windows 7 或更早版本： 此参数不可用。
+始终将唯一的 128 位计算机标识符与报表一起发送，而不考虑提交报表时是否同意。 有关其他信息，请参阅备注。
+Windows 7 或更早版本： 此参数不可用。
+提交的结果。 此参数可以是 WER_SUBMIT_RESULT 枚举类型中的下列值之一。
+ﾉ
+值
+WerCustomAction 9
+WerDisabled 5
+WerDisabledQueue 7
+WerReportAsync 8
+WerReportCancelled 6
+WerReportDebug 3
+WerReportFailed 4
+WerReportQueued 1
+含义
+可以自定义错误报告。错误报告已禁用。
+队列已禁用。报告是异步的。报表已取消。
+单击了“调试”按钮。
+报告提交失败。报表已排队。
+展开表
+值
+WerReportUploaded 2
+返回值
+含义
+报告已上传。
+此函数在成功时返回 S_OK 或失败时返回错误代码。注解
+应用程序调用此函数后，WER 会收集指定的数据。 如果 consent 参数为
+WerConsentApproved，它将向 Microsoft 提交报告。 如果 同意 为 WerConsentNotAsked， WER 将显示同意对话框。 若要确定提交状态，检查 pSubmitResult 参数。
+发生关键应用程序事件时，将重启 已注册重启 的应用程序。计算机标识符在以下情况下随报表一起发送：
+用于发送报告的同意不是来自应用程序。 例如，报告是在同意状态设置为 WerConsentNotAsked 的情况下提交的。
+报告在提交时设置了WER_SUBMIT_REPORT_MACHINE_ID标志。
+若要查看应用程序提交的报表，请转到 Windows 质量在线服务。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows werapi.h Wer.lib Wer.dll
+展开表
+另请参阅
+应用程序恢复和重启、WerReportCreate、Windows 错误报告
+werSetFlags 函数 (werapi.h) 项目2024/03/13
+设置当前进程的Windows 错误报告 (WER) 设置。
+语法 C++
+HRESULT WerSetFlags(   [in] DWORD dwFlags);
+参数[in] dwFlags
+错误报告设置。 可以指定以下一个或多个值：值
+WER_FAULT_REPORTING_FLAG_DISABLE_THREAD_SUSPENSION
+WER_FAULT_REPORTING_FLAG_NOHEAP WER_FAULT_REPORTING_FLAG_QUEUE
+WER_FAULT_REPORTING_FLAG_QUEUE_UPLOAD
+WER_FAULT_REPORTING_ALWAYS_SHOW_UI 返回值
+此函数在成功 时返回S_OK 或失败时返回错误代码。要求
+含义
+ﾉ
+展开表
+在报告错误之前，请不要挂起进程线程。
+在发生应用程序崩溃或无响应时，请勿收集堆信息。
+对关键报表进行排队。
+对关键报表进行排队并从队列上传。始终显示此过程的错误报告 UI。 这仅适用于交互式应用程序。
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+WerGetFlags，Windows 错误报告
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows werapi.h Kernel32.lib Kernel32.dll
+ﾉ
+展开表
+werSetMaxProcessHoldMilliseconds 函
+数 (werapi.h) 项目2024/03/03
+设置Windows 错误报告 ( WER) 的最大进程保持时间（以毫秒为单位）。
+语法 C++
+HRESULT WerSetMaxProcessHoldMilliseconds(
+  DWORD dwMilliseconds);
+参数
+dwMilliseconds
+进程保留时间（以毫秒为单位）。返回值
+此函数在成功 时返回S_OK 或失败时返回错误代码。要求
+ﾉ
+要求 Header
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+值
+werapi.h
+展开表
+werStoreClose 函数 (werapi.h) 项目2024/03/03
+关闭 WER ) 报表 (存储Windows 错误报告集合。
+语法 C++
+void WerStoreClose(
+  HREPORTSTORE hReportStore);
+参数 hReportStore
+要关闭之前使用 WerStoreOpen) 检索 (的错误报告存储。返回值
+此函数在成功时返回 S_OK 或失败时返回错误代码。要求
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows 10版本 1703 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows werapi.h Wer.lib Wer.dll
+ﾉ
+展开表
+WerStoreOpen，Windows 错误报告
+WerStoreGetFirstReportKey 函数 (werapi.h) 项目2024/03/13
+获取对报表存储中第一个Windows 错误报告 (WER) 报表的引用。
+语法 C++
+HRESULT WerStoreGetFirstReportKey(
+  HREPORTSTORE hReportStore,   PCWSTR       *ppszReportKey);
+参数 hReportStore
+以前使用 WerStoreOpen) 检索的错误报告存储 (。 ppszReportKey
+指向报表键字符串的指针。 成功调用后，这将指向检索到的报告密钥。返回值
+此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。
+ﾉ
+返回代码
+E_INVALID_ARG
+ERROR_NO_MORE_FILES 要求
+说明
+其中一个参数不是有效值。存储中没有错误报告。
+ﾉ
+展开表展开表
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows 10版本 1703 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows werapi.h Wer.lib Wer.dll
+WerStoreGetNextReportKey、WerStoreOpen、Windows 错误报告
+WerStoreGetNextReportKey 函数 (werapi.h) 项目2023/07/27
+获取对错误报告存储中下一个Windows 错误报告 (WER) 报表的引用。
+语法 C++
+HRESULT WerStoreGetNextReportKey(
+  HREPORTSTORE hReportStore,   PCWSTR       *ppszReportKey);
+参数 hReportStore
+以前使用 WerStoreOpen) 检索的错误报告存储 (。 ppszReportKey
+指向报表键字符串的指针。 成功调用后，这将指向检索到的报告密钥。返回值
+此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。
+ﾉ
+返回代码
+E_INVALID_ARG
+ERROR_NO_MORE_FILES 要求
+说明
+其中一个参数不是有效值。存储中不再有错误报告。
+ﾉ
+展开表展开表
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+ 
+Windows 10版本 1703 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows werapi.h Wer.lib Wer.dll
+WerStoreGetFirstReportKey，Windows 错误报告
+werStoreGetReportCount 函数
+(werapi.h) 项目2023/07/27
+获取错误报告存储区中 (WER) 报表的Windows 错误报告数。
+语法 C++
+HRESULT WerStoreGetReportCount(
+  HREPORTSTORE hReportStore,   DWORD        *pdwReportCount);
+参数 hReportStore
+以前使用 WerStoreOpen) 检索的错误报告存储 (。 pdwReportCount
+报表计数。返回值
+此函数在成功 时返回S_OK 或失败时返回错误代码，包括以下错误代码。
+返回代码
+E_INVALID_ARG
+ERROR_NO_MORE_FILES
+要求   标头
+ 
+werapi.h
+说明
+其中一个参数不是有效值。存储中不再有错误报告。
+另请参阅 Windows 错误报告
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+werStoreGetSizeOnDisk 函数 (werapi.h) 项目2024/03/13
+获取 WER) 错误报告存储区 (Windows 错误报告的大小（以字节为单位）。
+语法 C++
+HRESULT WerStoreGetSizeOnDisk(   HREPORTSTORE hReportStore,   ULONGLONG    *pqwSizeInBytes);
+参数 hReportStore
+以前使用 WerStoreOpen) 检索的错误报告存储 (。 pqwSizeInBytes
+错误报告存储大小（以字节为单位）。返回值
+ﾉ
+返回代码
+E_INVALID_ARG
+ERROR_NO_MORE_FILES 要求
+说明
+其中一个参数不是有效值。存储中不再有错误报告。
+ﾉ
+展开表展开表
+要求 Header
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+值
+werapi.h
+werStoreOpen 函数 (werapi.h) 项目2024/03/13
+(WER ) 错误报告打开存储Windows 错误报告集合。
+语法 C++
+HRESULT WerStoreOpen(
+  REPORT_STORE_TYPES repStoreType,   PHREPORTSTORE      phReportStore);
+参数 repStoreType
+要打开的报表存储的类型。 有关详细信息，请参阅“备注”。 phReportStore
+指向报表存储的指针。 成功调用后，这将指向检索到的报表存储。返回值
+此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。
+返回代码
+E_INVALIDARG 注解
+说明
+其中一个参数不是有效值。
+ﾉ
+展开表
+storeType 值为 E_STORE_MACHINE_QUEUE 打开计算机上尚未发送给 Microsoft 的所有错误报告的队列。 值为 E_STORE_MACHINE_ARCHIVE 可打开已发送的错误报告的存储。
+WINDOWS 错误报告 (WER) Store 是已标记为要发送到 Microsoft 但尚未上传的错误报告队列。在很多情况下，可以推迟错误报告的上传。 WerStore 函数允许开发人员访问存储的报表并查询
+每个报表的状态。
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows 10版本 1703 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows werapi.h Wer.lib Wer.dll
+WerStoreClose、WerStoreGetFirstReportKey、Windows 错误报告
+ﾉ
+展开表
+werStorePurge 函数 (werapi.h) 项目2023/07/27
+清除 ( WER) 报表存储区Windows 错误报告。
+语法 C++
+HRESULT WerStorePurge(); 返回值
+此函数在成功 时返回S_OK 或失败时返回错误代码。要求
+ 
+标头反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+ 
+werapi.h
+WerStoreQueryReportMetadataV1 函数
+(werapi.h) 项目2023/07/27
+检索存储区中有关Windows 错误报告 (WER) 报表的元数据。
+语法 C++
+HRESULT WerStoreQueryReportMetadataV1(   HREPORTSTORE            hReportStore,   PCWSTR                  pszReportKey,
+  PWER_REPORT_METADATA_V1 pReportMetadata);
+参数 hReportStore
+以前使用 WerStoreOpen) 检索的错误报告存储 (。 pszReportKey
+标识查询哪个报表的字符串， (之前使用 WerStoreGetFirstReportKey 或
+WerStoreGetNextReportKey) 检索。 pReportMetadata
+指向报表的指针以 WER_REPORT_METADATA_V1 结构的形式存储元数据。返回值
+此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。
+返回代码
+E_INVALID_ARG
+ERROR_INSUFFICIENT_BUFFER
+说明
+其中一个参数不是有效值。
+没有足够的内存可用于检索元数据。
+要求   标头
+另请参阅
+ 
+werapi.h
+WER_REPORT_METADATA_V1、WerStoreGetFirstReportKey、
+WerStoreGetNextReportKey、Windows 错误报告反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+werStoreQueryReportMetadataV2 函数
+(werapi.h) 项目2023/07/27
+检索存储区中有关Windows 错误报告 (WER) 报表的元数据。
+语法 C++
+HRESULT WerStoreQueryReportMetadataV2(   HREPORTSTORE            hReportStore,   PCWSTR                  pszReportKey,
+  PWER_REPORT_METADATA_V2 pReportMetadata);
+参数 hReportStore
+以前使用 WerStoreOpen) 检索的错误报告存储 (。 pszReportKey
+标识查询哪个报表 (之前使用 WerStoreGetFirstReportKey 或 WerStoreGetNextReportKey) 检索的字符串。
+pReportMetadata
+指向报表以 WER_REPORT_METADATA_V2 结构形式存储元数据的指针。 在第一次调用期间，字段 SizeOfFileNames 应设置为 0。 函数更新此字段所需的大小，以保存与报表关联的文件名。然后，应为字段 FileNames 分配 SizeOfFileNames 字节，并再次调用 该函数以获取所有文件名。
+返回值
+此函数在成功 时返回S_OK 或失败时返回错误代码，包括以下错误代码。
+ﾉ
+展开表
+返回代码
+E_INVALID_ARG
+ERROR_INSUFFICIENT_BUFFER
+要求  
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+说明
+其中一个参数不是有效值。
+没有足够的内存可用于检索元数据。 在这种情况下，调用方应为
+FileNames 字段分配大小为 sizeOfFileNames 的内存（位于 WER_REPORT_METADATA_V2 结构中），然后再次调用函数。
+ﾉ
+ 
+Windows 10版本 1703 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows werapi.h Wer.lib Wer.dll
+展开表
+WER_REPORT_METADATA_V2、WerStoreGetFirstReportKey、WerStoreGetNextReportKey、 Windows 错误报告
+WerStoreQueryReportMetadataV3 函数
+(werapi.h) 项目2024/03/13
+检索存储区中有关Windows 错误报告 (WER) 报表的元数据。
+语法 C++
+HRESULT WerStoreQueryReportMetadataV3(   HREPORTSTORE            hReportStore,   PCWSTR                  pszReportKey,
+  PWER_REPORT_METADATA_V3 pReportMetadata);
+参数 hReportStore
+以前使用 WerStoreOpen) 检索的错误报告存储 (。 pszReportKey
+标识查询哪个报表的字符串， (之前使用 WerStoreGetFirstReportKey 或
+WerStoreGetNextReportKey) 检索。 pReportMetadata
+指向报表的指针以 WER_REPORT_METADATA_V3 结构的形式存储元数据。返回值
+此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。
+ﾉ
+返回代码
+E_INVALID_ARG
+说明
+其中一个参数不是有效值。
+展开表
+返回代码
+ERROR_INSUFFICIENT_BUFFER
+要求要求 Header
+另请参阅
+说明
+没有足够的内存可用于检索元数据。值
+werapi.h
+WER_REPORT_METADATA_V3、WerStoreGetFirstReportKey、
+WerStoreGetNextReportKey、Windows 错误报告反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+werStoreUploadReport 函数 (werapi.h) 项目2025/03/01
+将报表上传到 WER) 存储 (Windows 错误报告。
+语法 C++
+HRESULT WerStoreUploadReport(
+                  HREPORTSTORE       hReportStore,                   PCWSTR             pszReportKey,   [in]            DWORD              dwFlags,
+  [out, optional] PWER_SUBMIT_RESULT pSubmitResult);
+参数 hReportStore
+以前使用 WerStoreOpen) 检索的错误报告存储 (。 pszReportKey
+标识查询哪个报表 (之前使用 WerStoreGetFirstReportKey 或 WerStoreGetNextReportKey)
+检索的字符串。[in] dwFlags
+此参数可使用以下一个或多个值。
+ﾉ
+值
+WER_SUBMIT_ADD_REGISTERED_DATA 16
+WER_SUBMIT_HONOR_RECOVERY 1
+WER_SUBMIT_HONOR_RESTART 2
+含义
+将 WerSetFlags、 WerRegisterFile 和
+展开表
+WerRegisterMemoryBlock 注册的数据添加到报表。
+遵循应用程序的任何恢复注册。 有关详细信息，请参阅 RegisterApplicationRecoveryCallback。
+接受应用程序的任何重启注册。 有关详细信息，请参阅 RegisterApplicationRestart。
+值
+WER_SUBMIT_NO_ARCHIVE 256
+WER_SUBMIT_NO_CLOSE_UI 64
+WER_SUBMIT_NO_QUEUE 128
+WER_SUBMIT_OUTOFPROCESS 32
+WER_SUBMIT_OUTOFPROCESS_ASYNC 1024
+WER_SUBMIT_QUEUE 4
+WER_SUBMIT_SHOW_DEBUG 8
+WER_SUBMIT_START_MINIMIZED 512
+WER_SUBMIT_BYPASS_DATA_THROTTLING 2048
+WER_SUBMIT_ARCHIVE_PARAMETERS_ONLY 4096
+WER_SUBMIT_REPORT_MACHINE_ID 8192
+含义
+不要存档报表。
+不显示关键报表的关闭对话框。
+不要将报表排队。 如果有足够的用户同意，则立即将报告发送给 Microsoft;否则，将放弃报表。 可以将此标志用于非关键报表。
+对于需要将报表排队的任何操作，将放弃报表。例如，如果在提交报表时计算机处于脱机状态，则报表将被丢弃。 此外，如果没有足够的同意 (例如，报表的数据部分需要同意) ，则报表将被丢弃。
+生成另一个提交报告的过程。 调用线程被阻止，直到函数返回。
+注意： 将抽水窗口消息，以便不会阻止调用线程上的 UI 活动。
+生成另一个进程以提交报告并立即从此函数调用返回。 请注意， pSubmitResult 参数的内容未定义，并且无法查询报告何时完成或完成状态。
+将报表添加到 WER 队列，而不通知用户。 报告仅排队 - 报告 (向 Microsoft 发送报告) 稍后根据用户
+的同意级别进行。显示调试按钮。
+初始 UI 已最小化并闪烁。绕过报表的数据限制。
+Windows 7 或更早版本： 此参数不可用。仅存档参数;驾驶室被丢弃。 此标志替代 ConfigureArchive WER 设置。
+Windows 7 或更早版本： 此参数不可用。始终随报表一起发送唯一的 128 位计算机标识
+符，而不考虑提交报表的同意。 有关其他信息，请参阅“备注”。
+值
+[out, optional] pSubmitResult
+含义
+Windows 7 或更早版本： 此参数不可用。
+提交的结果。 此参数可以是 WER_SUBMIT_RESULT 枚举类型的下列值之一。
+ﾉ
+值
+WerCustomAction 9
+WerDisabled 5
+WerDisabledQueue 7
+WerReportAsync 8
+WerReportCancelled 6
+WerReportDebug 3
+WerReportFailed 4
+WerReportQueued 1
+WerReportUploaded 2
+返回值
+含义
+可以自定义错误报告。已禁用错误报告。
+队列已禁用。报告是异步的。报表已取消。
+单击了“调试”按钮。
+报告提交失败。报告已排队。报告已上传。
+此函数在成功 时返回S_OK 或失败时返回错误代码。要求
+展开表
+要求 Header
+另请参阅 Windows 错误报告
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+值
+werapi.h
+ﾉ
+展开表
+werUnregisterAdditionalProcess 函数
+(werapi.h) 项目2023/07/27
+从要包含在Windows 错误报告 (WER) 错误报告中的其他进程列表中删除进程。
+语法 C++
+HRESULT WerUnregisterAdditionalProcess(
+  DWORD processId);
+参数 processId
+要删除的进程 ID。 它必须以前已注册到 WerRegisterAdditionalProcess。返回值
+此函数在成功 时返回S_OK 或失败时返回错误代码，包括以下错误代码。
+返回代码
+WER_E_INVALID_STATE WER_E_NOT_FOUND
+要求要求
+最低受支持的客户端最低受支持的服务器
+说明
+进程状态无效。 例如，进程处于 应用程序恢复模式。
+已注册的进程列表不包含指定的进程。值
+Windows 10版本 1703 [桌面应用 |UWP 应用] Windows Server 2016 [桌面应用 |UWP 应用]
+ﾉﾉ
+展开表展开表
+要求
+目标平台
+标头 Library DLL
+另请参阅
+值
+Windows werapi.h Kernel32.lib Kernel32.dll
+WerRegisterAdditionalProcess，Windows 错误报告
+werUnregisterAppLocalDump 函数
+(werapi.h) 项目2024/03/03
+取消通过 WerRegisterAppLocalDump 函数进行的注册，该函数指定Windows 错误报告 (WER) 应保存当应用程序的某个进程停止响应时 WER 收集的诊断内存转储的副本。
+语法 C++
+HRESULT WerUnregisterAppLocalDump(); 返回值
+如果此函数成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows 10版本 1709 [桌面应用 |UWP 应用] Windows Server 2016 [桌面应用 |UWP 应用]
+Windows werapi.h Kernel32.lib KernelBase.dll
+WerRegisterAppLocalDump，Windows 错误报告 (WER)
+展开表
+werUnregisterCustomMetadata 函数
+(werapi.h) 项目2024/03/13
+删除在应用程序Windows 错误报告 ( WER) 期间收集的应用特定元数据项。
+语法 C++
+HRESULT WerUnregisterCustomMetadata(
+  PCWSTR key);
+参数 key
+要删除的元数据元素的“key”字符串。 它必须以前已注册到 WerRegisterCustomMetadata 函数。
+返回值
+此函数在成功 时返回S_OK 或失败时返回错误代码，包括以下错误代码。
+ﾉ
+返回代码
+WER_E_INVALID_STATE WER_E_NOT_FOUND
+要求要求
+最低受支持的客户端
+说明
+进程状态无效。 例如，进程处于应用程序恢复模式。 WER 找不到要删除的元数据项。
+ﾉ
+值
+Windows 10版本 1703 [桌面应用 |UWP 应用]
+展开表展开表
+要求
+最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Server 2016 [桌面应用 |UWP 应用]
+Windows werapi.h Kernel32.lib Kernel32.dll
+WerRegisterCustomMetadata，Windows 错误报告
+WerUnregisterExcludedMemoryBlock 函数
+(werapi.h) 项目2023/07/27
+删除以前标记为已排除的内存块，该内存块将再次包含在Windows 错误报告 (WER) 错误报告中。
+语法 C++
+HRESULT WerUnregisterExcludedMemoryBlock(
+  const void *address);
+参数 address
+内存块的起始地址。 此内存块必须已使用 WerRegisterExcludedMemoryBlock 函数注册。返回值
+此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。
+ﾉ
+返回代码
+WER_E_INVALID_STATE
+要求要求
+最低受支持的客户端最低受支持的服务器
+说明
+进程状态无效。 例如，进程处于应用程序恢复模式。
+ﾉ
+值
+Windows 10版本 1703 [桌面应用 |UWP 应用] Windows Server 2016 [桌面应用 |UWP 应用]
+展开表展开表
+要求
+目标平台
+标头 Library DLL
+另请参阅
+值
+Windows werapi.h Kernel32.lib Kernel32.dll
+WerRegisterExcludedMemoryBlock， Windows 错误报告
+werUnregisterFile 函数 (werapi.h) 项目2023/07/27
+从要添加到Windows 错误报告的文件列表中删除文件， ( WER) 为当前进程生成的报表。
+语法 C++
+HRESULT WerUnregisterFile(   [in] PCWSTR pwzFilePath);
+参数
+[in] pwzFilePath
+文件的完整路径。 此文件必须已使用 WerRegisterFile 函数注册。返回值
+此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。
+ﾉ
+返回代码
+WER_E_INVALID_STATE WER_E_NOT_FOUND
+要求  
+最低受支持的客户端最低受支持的服务器目标平台
+说明
+进程状态无效。 例如，进程处于应用程序恢复模式。已注册文件的列表不包含指定的文件。
+ﾉ
+ 
+Windows Vista [桌面应用 | UWP 应用]
+Windows Server 2008 [桌面应用 | UWP 应用] Windows
+展开表展开表
+ 
+标头 Library DLL
+另请参阅
+ 
+werapi.h Kernel32.lib Kernel32.dll
+WerRegisterFile，Windows 错误报告
+WerUnregisterMemoryBlock 函数
+(werapi.h) 项目2024/03/03
+从应用程序Windows 错误报告 (WER) 期间收集的数据列表中删除内存块。
+语法 C++
+HRESULT WerUnregisterMemoryBlock(
+  [in] PVOID pvAddress);
+参数
+[in] pvAddress
+内存块的起始地址。 此内存块必须已使用 WerRegisterMemoryBlock 函数注册。返回值
+此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。
+返回代码
+WER_E_INVALID_STATE WER_E_NOT_FOUND
+要求要求
+最低受支持的客户端最低受支持的服务器
+说明
+进程状态无效。 例如，进程处于应用程序恢复模式。
+已注册的内存块列表不包含指定的内存块。值
+Windows Vista [桌面应用 | UWP 应用]
+Windows Server 2008 [桌面应用 | UWP 应用]
+ﾉﾉ
+展开表展开表
+要求
+目标平台
+标头 Library DLL
+另请参阅
+值
+Windows werapi.h Kernel32.lib Kernel32.dll
+WerRegisterMemoryBlock，Windows 错误报告
+WerUnregisterRuntimeExceptionModule 函
+数 (werapi.h) 项目2023/07/27
+删除Windows 错误报告 (WER) 异常处理程序的注册。
+语法 C++
+HRESULT WerUnregisterRuntimeExceptionModule(
+  [in]           PCWSTR pwszOutOfProcessCallbackDll,
+  [in, optional] PVOID  pContext);
+参数
+[in] pwszOutOfProcessCallbackDll
+要删除其注册的异常处理程序 DLL 的名称。[in, optional] pContext
+指向传递给回调的任意上下文信息的指针。返回值
+此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。
+ﾉ
+返回代码
+WER_E_INVALID_STATE WER_E_NOT_FOUND
+备注
+说明
+进程状态无效。 例如，进程处于应用程序恢复模式。
+已注册的运行时异常处理程序列表不包含指定的异常处理程序。
+若要注册运行时异常处理程序，请调用 WerRegisterRuntimeExceptionModule 函数。
+展开表
+要求  
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+ 
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用]
+Windows werapi.h Kernel32.lib Kernel32.dll
+WerRegisterRuntimeExceptionModule，Windows 错误报告
+ﾉ
+展开表

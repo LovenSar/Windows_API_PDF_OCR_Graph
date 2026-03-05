@@ -1,0 +1,1095 @@
+{
+  "_schema": "windows_api_kg_v4.0",
+  "_generated_at": "2026-03-05T08:07:27Z",
+  "_content_hash": "9ed33f05f49b",
+  "document": {
+    "document_id": "win32::midl",
+    "title": "Microsoft 接口定义语言",
+    "domain": "win32",
+    "topic": "midl",
+    "source_file": "[OCR]_windows-win32-midl_20260305_0203.txt",
+    "ocr_timestamp": "2026-03-05T02:03:00",
+    "headers_referenced": [],
+    "total_entities": 79
+  },
+  "entities": [
+    {
+      "id": "windows::cpp_quote",
+      "name": "cpp_quote",
+      "entity_type": "property",
+      "description": "\"#define ARRSIZE 10\") 此语句导致在头文件中生成以下行： syntax #define ARRSIZE 10 验证预处理器选项项目• 2023/06/13 MIDL 编译器隐式调用预处理器，并且不显示其预处理器开关。 在没有 MIDL /cpp_opt 开关的情况下，预处理器命令行由 MIDL 命令行中使用的所有 /I、 /D 和 /U 开关以及 /E 和 /nologo 开关组成。 若要查看传递给预处理器的开关，请使用编译器的 /confirm 开关。 例如，以下行 midl.exe -D_WIN32_WINNT=0x501 -robust -DNTENV=1 -Id：\\nt\\public\\sdk\\inc -confirm -Oicf -env win32 -out x86 stub.idl 生成以下输出： syntax 32 bit arguments input file - stub.idl app_config - No c_ext - Yes client - stub char - signed confirm - Yes cpp_cmd - cl.exe cpp_opt - -Id:\\nt\\public\\sdk\\inc -D_WIN32_WINNT=0x501 - DNTENV=1 - E -nologo msc_ver - 1100 cstub - i386\\stub_c.c D - -D_WIN32_WINNT=0x501 -DNTENV=1 env - win32 append64 - No rpcss - No use_epv - No no_default_epv - No error - allocation ref bounds_check enum stub_data header - i386\\stub.h I - -Id:\\nt\\public\\sdk\\inc nologo - No ms_ext - Yes ms_union - No no_format_opt - No oldnames - No out - i386\\ server - stub sstub - i386\\stub_s.c O - interpreted stubs W - 1 Zp - 8 保存预处理器输出项目• 2024/07/18 查看预处理器输出可能是一种有效的故障排除方法；例如，当出现无效的 IDL、C 或 C 预处理器语法时，或是 MIDL 命令行中的虚假 -D 值导致 MIDL 报告不可预测的错误时。 开发人员可能还希望检查预处理器输出以确定编译器输入流中存在哪些文件和定义；例如，必须解决类型重定义冲突这一困难情况。 或是以下不太常见的情况：某些开发人员可能希望使用 /cpp_opt 强制开启预处理器的专用开关，或是可能想了解这些开关的工作原理。 从 MIDL 编译运行中获取预处理文件的最简便且最不突兀的方法是使用 -savePP 开关。 -savePP 开关只会阻止 MIDL 删除预处理器传回到 MIDL 的临时文件。 考虑以下情况： midl -savePP -Id:\\nt\\public\\sdk\\inc -DNTENV=1 -Oicf -env win32 stub.idl 此指令会编译 Stub.idl，但保留所有预处理器文件。７ 备注 MIDL 会为 IDL 和 ACF 文件（如果存在）以及每个导入的文件生成单独的预处理器 运行。 对于 DCOM 编译，通常会生成多个预处理器文件，即使 MIDL 会将其作为虚拟连续输入流来处理。 在典型的 Windows 编程环境中，这些临时文件可在 Temp 目录中找到，而其文件名则如 MID*.tmp。 如果保留预处理器输出，则最好监视 Temp 目录中的最新文件，以确定哪些文件与哪个预处理器运行相关联。 简单情况下（例如，编译的 IDL 文件不会直接或间接导入其他文件，或在检查顶级文件时），可直接调用预处理器。 直接执行 C/C++ 预处理器可能会出现经 MIDL 屏蔽或混淆 的错误。 例如，以下两个预处理器命令行可用于先前引用的 MIDL 行： cl /E /nologo -Id:\\nt\\public\\sdk\\inc -DNTENV=1 stub.idl > stub.pp cl /E /P -Id:\\nt\\public\\sdk\\inc -DNTENV=1 stub.idl 在这两个示例的第一个示例中，/E /nologo 为 MIDL 在调用预处理器时所添加的开关。预处理器输出会发送到 stdout（屏幕），因此需重定向到文件以便进行检查。 在这些示例中的第二个示例中，/P 指示预处理器将输出重定向到 *.i 文件。在此情况下，会在当前目录中创建 Stub.i 文件。 /cpp_opt 开关还可用于获取预处理文件，但对比先前提及的方法则较难使用且效果不佳。 以下示例还会生成 Stub.i 文件，如前一示例所示。 以下示例中的引号必须存在： Midl -Oicf -win32 -cpp_opt \"/E /P -Id:\\nt\\public\\sdk\\inc -DNTENV=1\" stub.idl 是 否 C/C++-编译器注意事项项目• 2023/06/13 MIDL 编译器必须与 C 编译器和 C 预处理器互操作。 MIDL 在输入时不接受 C++ 语法。生成的 .h 文件具有接口的 C 样式和 C++样式定义。 以下主题介绍 C 编译器的要求。 C 编译器打包问题 代理/存根的 C 编译器定义 C 编译器打包问题项目• 2023/06/13 打包级别以相同的方式影响 MIDL 和 Microsoft C/C++ 编译器类型的内存布局。 在 Microsoft 生成环境（例如 VC++ 或平台软件开发工具包 (SDK) 定义的生成环境）中， MIDL 和 C/C++ 编译器的默认打包级别相同：32 位和 64 位 Windows 生成环境的默认打 包级别为 8。自然对齐 对于内存中的类型，默认对齐方式与其自然对齐方式相同。 基类型（如 short、float 和 __int64），如果指针的表示形式从其大小相等的地址开始，则指针自然对齐。 当前支持的所有基类型的大小为 1、2、4 或 8。 指针在 32 位环境中的大小为 4，在 64 位环境中为 8。 如果复合类型的每个组件相对于类型开头自然对齐，并且组件之间没有不必要的间隙 (填充) ，则复合类型自然对齐。 复合组件（如字段或元素）将递归为指针或基类型组件。 帮助记住此行为的一个简单规则是，类型的自然对齐方式等于其组件的最大对齐方式。 C 或 C++ 和 IDL 等语言中的某个类型的对齐方式与内存大小之间存在连接，由运算符 sizeof () 表示。 大小是对齐方式 (跨越类型) 的最小倍数的倍数。 这后跟内存中的数组表示形式。 自然对齐非常重要，因为访问未对齐的数据可能会导致某些系统上出现异常。 数据在未对齐时可以标记为安全操作，但这通常涉及速度损失，在某些平台上可能相当严重。 ７ 备注 在内存中，当放置在 n 的倍数的地址时，保证正确对齐 n 的类型的对象。 打包与对齐 指定大于类型自然对齐方式的打包级别不会更改类型对齐方式。 指定小于自然对齐方式的打包级别会将类型对齐方式降低到打包级别。 因此，打包类型可能会放置在内存中，这些地址是打包级别的倍数， (减少的对齐) ，而不会造成错位。 这会影响简单类型和组 件类型。 对于复合类型，类型的内部布局可能会受到影响，因为组件的对齐方式的减少可能会更改组件正确对齐所需的填充大小，从而减小类型的大小。 帮助记住此行为的一个简单规则是，打包类型的新对齐方式是打包级别的较小及其自然对 齐方式。 类型的大小是新对齐方式的倍数。 sizeof () 运算符返回已打包类型的减小大小。 例如，当打包级别为 2 时，一个长变为对齐 2，因此可以放置在任何偶数地址，而不仅仅是位于 4 倍的地址处，自然对齐的情况也是如此。 短和长的结构，包装在 2，不需要短和下长之间的内部间隙，这是自然对齐所必需的：因此，结构不仅现在在 2 对齐，而且其大小也从 8 缩小到 6。 例如，考虑由 1 字节字符、4 字节长整数和 1 字节字符组成的复合类型： syntax struct mystructtype { char c1; /* requires 1 byte */ /* 3 bytes of padding with natural alignment only */ long l2; /* requires 4 bytes */ char c3; /* requires 1 byte */ /* 3 bytes of padding with natural alignment only */ } mystruct; 此结构在 4 处自然对齐，其自然大小为 12。 对于打包级别 4 或更高版本，结构 mystruct 在 4 处对齐，等于 sizeof(struct mystructtype) 12。 如果位于内存中的地址不是 4 的倍数，则结构将不对齐。 对于包装级别 2，结构在 2 对齐，其大小为 8。 如果位于内存中不是 2 的倍数的地址，则包含级别 2 的结构将错位。 对于打包级别 1，结构在 1 对齐，其大小为 6。 使用级别 1 打包的结构可以放置在任何 位置，而不会导致错位错误。相关主题 /Zp/包 代理/存根的 C 编译器定义项目• 2023/06/13 头文件 Rpcproxy.h 包含以下宏定义，在生成分布式 COM 应用程序时，每个宏定义都可能很方便。 这些宏是在 C 编译时使用 /D (或 -D) 预处理器开关调用的。 MACRO",
+      "remarks": "出现在 IDL 文件中的 C 语言预处理指令由 C 编译器的预处理器处理。 IDL 文件中 的#define 指令在 MIDL 编译期间可用，但对 C 编译器不可用。 例如，当预处理器遇到指令“#define WINDOWS 4”时，预处理器会将 IDL 文件中出现的所有“WINDOWS”替换为“4”。 符号“WINDOWS”在 C 语言编译期间不可用。 若要允许 C 预处理器宏定义通过 MIDL 编译器传递到 C 编译器，请使用 #pragma midl_echo 或 cpp_quote 指令。 这些指令指示 MIDL 编译器生成包含参数字符串的头文件，并删除了引号。 #pragma midl_echo 和 cpp_quote 指令是等效的。 MIDL 编译器将 cpp_quote 和 杂注 指令中指定的字符串置于头文件中，其顺序是在 IDL 文件中指定的，相对于 IDL 文件中的其他接口组件。 在所有 导入 操作之后，字符串通常应显示在 IDL 文件接口正文部分中。 示例 syntax",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 182
+    },
+    {
+      "id": "windows::REGISTER_PROXY_DLL",
+      "name": "REGISTER_PROXY_DLL",
+      "entity_type": "unknown",
+      "description": "PROXY_CLSID=<clsid>",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "PROXY_CLSID"
+      ],
+      "confidence": 0.3,
+      "_source_line": 345
+    },
+    {
+      "id": "windows::PROXY_CLSID_IS",
+      "name": "PROXY_CLSID_IS",
+      "entity_type": "unknown",
+      "description": "={0x8hexdigits， 0x4hexdigits， 0x4hexdigits， {0x2hexdigits，0x2hexdigits， 0x2hexdigits，0x2hexdigits，0x2hexdigits， 0x2hexdigits，0x2hexdigits，0x2hexdigits，}} 说明 生成 DllMain、 DllRegisterServer 和 DllUnregisterServer 函数，用于自动注册代理 DLL。 指定服务器的类标识符。 如果未定义此宏，则默认 CLSID 是 MIDL 编译器在代理/存根服务器的 IDL 规范中遇到的第一个接口标识符。 以二进制十六进制格式指定服务器的类标识符的值。 通过在编译 Dlldata.c 时定义 REGISTER_PROXY_DLL 宏，代理/存根封送 DLL 将自动包含 DllMain、 DllRegisterServer 和 DllUnregisterServer 函数的默认定义。 可以使用这些函数在系统注册表中自行注册代理 DLL。 此默认注册代码使用作为 CLSID 遇到的第一个接口的 GUID 来注册整个代理/存根 DLL 服务器。 COM 稍后使用此 CLSID 来查找和加载已编译的代理/存根服务器，以便封送服务器注册要处理的任何接口。 当应用程序进行跨越线程、进程或计算机边界的接口方法调用时，COM 使用接口标识符注册表项来查找代理/存根封送服务器的 CLSID 注册表项。然后，如果服务器尚未加载) ，则使用此 CLSID 加载服务器 (，以便可以封送接口调用。 如果要显式指定代理/存根服务器的 CLSID 而不是依赖于默认 CLSID>，请使用",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "DllRegisterServer",
+        "REGISTER_PROXY_DLL"
+      ],
+      "confidence": 0.5,
+      "_source_line": 346
+    },
+    {
+      "id": "windows::PROXY_CLSID",
+      "name": "PROXY_CLSID",
+      "entity_type": "unknown",
+      "description": "=<clsid 宏。 例如，如果要将标准封送 DLL 生成为自己的进程内 COM 服务器，或者需要定义自己的 DllMain 来处理DLL_PROCESS_ATTACH。 使用 PROXY_CLSID_IS= 宏而不是 PROXY_CLSID 以 DEFINE_GUID 宏使用的二进制十六进制格式定义 CLSID 的值。 另请注意，当默认 DllRegisterServer 函数运行时，它会向 ThreadingModel=Both 注册服务器。 以下生成文件示例使用 REGISTER_PROXY_DLL 和 PROXY_CLSID= 宏： syntax example.h example.tlb example_p.c example_i.c dlldata.c : example.idl midl example.idl dlldata.obj : dlldata.c CL /c /DWIN32 /DREGISTER_PROXY_DLL dlldata.c example.obj : example_p.c CL /c /DWIN32 /DREGISTER_PROXY_DLL \\ /DPROXY_CLSID=7a98c250-6808-11cf-b73b-00aa00b677a7 example_p.c iids.obj : example_i.c PROXYSTUBOBJS = dlldata.obj example.obj iids.obj PROXYSTUBLIBS = kernel32.lib rpcns4.lib rpcrt4.lib uuid.lib proxy.dll : $(PROXYSTUBOBJX) example.def link /dll /out:proxy.dll /def:example.def $(PROXYSTUBOBJS) $(PROXYSTUBLIBS) regsvr32 /s proxy.dll 有关 /D 预处理器选项的详细信息，请参阅 C 编译器文档。 使用__midl预定义常量项目• 2023/06/13 当 MIDL 编译器处理输入 IDL 和 ACF 文件时，默认定义__midl，并用于条件编译，以便在整个生成过程中实现一致性。 这会逐步淘汰在头文件中使用 define 语句（如",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "DEFINE_GUID",
+        "DllRegisterServer",
+        "PROXY_CLSID_IS",
+        "REGISTER_PROXY_DLL"
+      ],
+      "confidence": 0.5,
+      "_source_line": 355
+    },
+    {
+      "id": "windows::MIDL_PASS",
+      "name": "MIDL_PASS",
+      "entity_type": "unknown",
+      "description": "），并将其替换为一致的标志。 __midl常量的值根据公式 major * 100 + minor 指示编译器版本 major.minor;例如 MIDL ver. 6.0.x 的__midl定义为 600。 如果选择，可以通过在命令行上指定以下内容来替代此默认值： /U__midl。 有关详细信息，请参阅 /U。 MIDL 和 RPC 项目• 2023/06/13 开发 RPC 应用程序时，使用文本编辑器创建定义客户端和服务器之间的接口的 IDL 文件。 使用 MIDL 编译器生成客户端和服务器程序所需的源文件。 以下主题介绍有关将 MIDL 编译器用于 RPC 应用程序的信息： 为 RPC 接口生成的文件 针对特定 32 位或 64 位平台的存根 有关详细信息，请参阅 生成 RPC 应用程序。 为 RPC 接口生成的文件项目• 2023/06/13 MIDL 编译器生成在客户端应用程序和服务器应用程序之间创建接口所需的 C 语言存根和头文件。 以下主题介绍为 RPC 接口生成的每个文件： 客户端存根服务器存根头文件 客户端存根项目• 2023/06/13 客户端存根模块为输入 IDL 文件中定义的每个操作在客户端上提供代理入口点。 当客户端应用程序调用远程过程时，其调用将首先转到客户端存根文件中的代理例程。客户端存根例程执行以下功能： 封送参数。 客户端存根将输入参数打包为可以传输到服务器的表单。 调用客户端运行时库以将参数传输到远程地址空间，并在服务器地址空间中调用远程过程。 取消封送输出参数。 客户端存根解包输出参数并返回到调用方。 MIDL 编译器切换 /client、 /cstub 和 /out 会影响客户端存根文件。 服务器存根项目• 2023/06/13 服务器存根为输入 IDL 文件中定义的每个操作在服务器上提供代理项入口点。当 RPC 运行时库调用服务器存根例程时，它将执行以下功能： unmarshals input arguments (解包自变量的传输格式) 。在服务器上调用过程的实际实现。 封送输出参数 (将参数打包到) 传输的表单中。 MIDL 编译器切换 /server、 /sstub 和 /out 会影响服务器存根文件。 头文件项目• 2023/06/13 头文件包含 IDL 文件中声明的所有数据类型和操作的定义，以及#include 指令中包含的文件中声明的所有数据类型和操作。 使用 import 指令导入的文件中的数据类型不会复制到头文件;而生成的头文件包含从导入的文件生成的 H 文件的包含行。 调用已定义操作、 实现已定义操作或操作已定义类型的所有应用程序模块都必须包含头文件。 MIDL 编译器切换 /header 和 /out 会影响头文件。 面向特定的 32 位或 64 位平台的存根项目• 2023/11/24 Microsoft RPC 和 MIDL 3.0 及更高版本的编译器的某些功能是特定于平台的。 MIDL 3.0 及更高版本的编译器会生成防护作为预防措施，方便在 C 编译阶段进行兼容性检查。 MIDL 生成两种类型的防护：依赖于平台的防护（32 位与 64 位）和依赖于版本的防护（功能集依赖）。 例如，MIDL 生成以下防护来防止对其他平台的 32 位存根进行 C 编译： syntax #if !defined(__RPC_WIN32__) #error Invalid build platform for this stub.#endif 依赖于版本的防护由已处理的 IDL 文件中的一组功能和 /target 开关触发。 例如，如果接 口使用仅在 Windows 2000 或更高版本上支持的功能，则 MIDL 会生成带有 TARGET_IS_NT50_OR_LATER 宏的防护。 Rpcndr.h 中定义的防护宏取决于 WINVER 和 _WIN32_WINNT 的设置，由 C/C++ 编译器进行评估。 如果在 C 编译时收到一条错误消息，指示你需要特定平台来运行存根，请首先进行检查，以确保你没有使用该平台上不可用的功能。 触发特定防护的功能在防护正文中列出。 在上一示例中，-Oicf 编译器开关触发了防护。 此类值得注意的功能包括 Windows 2000 及更高版本上提供的 /robust 开关和 [async] 属性，pipe 类型构造函数、/Oif 编译器选项以及 [user_marshal] 和 [wire_marshal]属性。 使用这些功能的存根将无法在早期系统上运行。 如果你知道目标平台对于正在使用的功能来说是正确的，但你仍然收到错误，你可能需要适当地设置环境变量。 针对 Windows 2000 或更高版本进行生成 将此行添加到生成文件： syntax CFLAGS = $(CFLAGS) -D_WIN32_WINNT=0x500 相关主题 /target/robust async async_uuid /Oi pipe wire_marshal user_marshal 封送 OLE 数据类型 是 否 MIDL 和 COM 项目• 2023/06/13 所有 COM 对象都实现一个或多个接口。 创建自定义 COM 对象时，必须在 IDL 文件中描述接口。 本节中的主题介绍有关使用 MIDL 定义 COM 接口的信息： 为 COM 接口生成的文件封送 OLE 数据类型 有关使用 MIDL 定义 COM 接口的详细信息，请参阅 定义 COM 接口。 有关为各种平台生成文件的详细信息，请参阅 面向特定 32 位或 64 位平台的存根。 为 COM 接口生成的文件项目• 2023/06/13 对于 COM 接口，MIDL 编译器将所有客户端和对象服务器辅助例程和数据合并到单个接口代理文件中。 此文件包括客户端和服务器的代理项入口点。 此外，MIDL 编译器会生成接口头文件、接口 UUID 文件和接口注册文件。 在创建包含代码的代理 DLL 时，将使用所有这些文件，以支持客户端应用程序和对象服务器使用 接口。 为使用 接口的客户端应用程序创建可执行文件时，还将使用接口头文件和接口 UUID 文件。 以下主题介绍为自定义 COM 接口生成的每个文件，通过在 IDL 文件的接口属性列表中包括 [object] 属性来标识这些文件： 接口代理文件头文件 接口 UUID 文件接口注册文件 有关详细信息，请参阅应用程序配置文件 (ACF) 、/app_config、接口定义 (IDL) 文件和生成和注册代理 DLL。 接口代理文件项目• 2023/06/13 接口代理文件 (U_p.c) 是一个 C 文件，其中包含与对象 (COM) 接口的客户端存根和服务器存根文件中的例程等效的例程。 此文件包含编译器内联模式下客户端和服务器的代理例程的实现或解释模式中的等效数据和 thunk，以及其他适当的 COM 粘附数据（如代理和存根 Vtable）。 接口代理文件包括仅支持当前 IDL 文件中定义的接口方法的例程和数据。 为了阐明此行为，本部分使用了扩展示例。 使用从 IFaceA 继承的接口（例如 IFaceB）编译 IDL 文件时，会将 IFaceB 相关的辅助数据和例程生成到当前代理文件，而基接口 IFaceA 相关辅助数据和例程在从包含 IFaceA 定义的 IDL 文件生成的代理中找到。 编译器生成标识基接口代理项所需的所有数据，并在需要时委托给它们以支持通过 IFaceB 接口使用的 IFaceA 方法。 对于当前 IDL 文件中接口中的每个方法，代理文件在混合模式下编译时包含以下两个代理项方法 (/Os) ，在解释器模式下编译时包含等效的解释器数据 (/Oi) 。 客户端代理项，例如此示例中的IFaceB_Method_Proxy。 此客户端代理项是客户端（例如 IFaceB：：Method）调度到的虚拟入口点。 它将输入参数封送为可传输形式，传输封送的参数以及标识接口和操作的信息，然后在 调用的操作返回时取消对返回值和任何输出参数的封送。服务器端代理项，例如，IFaceB_Method_Stub 。 此服务器端代理项是基础运行时在服务器上调度的虚拟入口点，以模拟客户端。 它将取消对输入参数进行封存以复制客户端数据，调用服务器的接口函数实现，然后封送并将返回值和任何输出参数传输回客户端。 从 file.idl 生成的代理文件的默认名称为 file_p.c.使用 /proxy MIDL 编译器开关替代接口代理文件的默认名称。 /env 和 /out 开关会影响此文件。 头文件项目• 2024/08/14 接口头文件 (Name.h) 包含基于当前 IDL 文件中的接口定义的类型定义和函数声明，以及#include 指令中包含的文件中声明的所有数据类型和操作。 使用 import 指令导入的文件中的数据类型不会复制到头文件;相反，生成的头文件包含从导入的文件生成的 H 文件的包含行。 将此文件包含在代理 DLL 和使用 接口的客户端应用程序的源文件中。 从 file.idl 生成的头文件的默认名称是 File.h。 /header MIDL 编译器开关将替代接口头文件的默认名称。 是 否 接口 UUID 文件项目• 2023/06/13 接口 UUID 文件从已处理的 IDL 文件中的所有接口收集接口标识符的定义。 与存根文件和头文件类似，输入流闭包由当前 IDL 文件和包含的文件定义。 例如，对于接口 IFace，编译器会生成一个常量IID_IFace并将其初始化为 IDL 文件中指定的接口的 UUID。 客户端应用程序和代理 DLL 使用此常量来标识接口。 从 file.idl 生成的接口 IID 文件的默认名称为 File_i.c。 /iid MIDL 编译器开关替代接口 UUID 文件的默认名称。 接口注册文件项目• 2023/06/13 接口注册文件收集有助于注册打包到 DLL 或 EXE 文件的 COM 接口的信息。 接口注册文件与其他生成的文件不同，因为它可以通过编译多个不同的 IDL 文件来收集信息。 针对 COM 接口运行的每个 MIDL 编译器首先查找现有的 dlldata.c 文件，如果未找到该文件，则会创建一个新的 dlldata.c 文件。 如果找到 dlldata.c 文件，则会 (添加有关当前 IDL 的信息（如果不存在) 或替换）。 接口注册文件在多处理器环境中安全生成或更新，因为并行 MIDL 编译无法同时写入文件。 由于任何 dlldata.c 文件都可以被生成环境或用户标记为只读，因此 MIDL 编译器会实现超时方法来等待无法打开的文件，并在超时过期时发出相应的错误消息。 从输入文件生成的接口注册文件的默认名称为 dlldata.c。 /dlldata MIDL 编译器开关可用于替代文件的默认名称。 当打包到公共二进制文件的某些 IDL 文件驻留在不同的目录中时，重写接口注册文件的默认名称特别有用。 相关主题生成和注册代理 DLL 封送 OLE 数据类型项目• 2023/06/13 为了更轻松地使用某些自动化和 OLE 数据类型以及 COM 中常用的某些系统句柄，可以通过导入 Windows IDL 文件并链接到 OLE 和自动化 DLL 文件来获取这些数据类型及其相关帮助程序函数的 typedefs。 这些文件会自动安装在系统上。 若要在远程过程调用中使用 BSTR 数据类型，请在生成分布式应用程序时将 wtypes.idl 文件导入接口定义 (IDL) 文件并链接到 Oleaut32.lib。 这将允许存根使用现成的帮助程序函数 BSTR_UserSize、 BSTR_UserMarshal、 BSTR_UserUnmarshal 和 BSTR_UserFree。 若要使用其他自动化数据类型（如 VARIANT 和 SAFEARRAY），或者使用这些类型(例如 DISPPARAMS 和 EXCEPINFO) ，请将 objidl.idl 文件导入 IDL 文件并在生成时链接到 oleaut32.lib。 这将允许你使用适当的帮助程序例程。 若要使用 OLE 数据类型 (，如 CLIPFORMAT、SNB、STGMEDIUM、",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 398
+    },
+    {
+      "id": "windows::ASYNC_STGMEDIUM",
+      "name": "ASYNC_STGMEDIUM",
+      "entity_type": "unknown",
+      "description": ") 或系统句柄 (，例如 HMETAFILE_PICT、HENHMETAFILE、 HMETAFILE、HBITMAP、HPALETTE 和 HGLOBAL) ，请将 objidl.idl 文件导入到接口定义文件并在生成时链接到 ole32.lib。 以下 OLE 句柄也是使用 [wire_marshal] 属性定义的，但仅用作计算机中的句柄，因为它们目前不能用于对其他计算机的远程过程调用：HWND、HMENU、HACCEL、 HDC、HFONT、HICON、HBRUSH。 将 objidl.idl 文件导入 IDL 文件，并在生成时链接到 ole32.lib，以在单个计算机上的进程间通信中使用这些句柄。 有关详细信息，请参阅 wire_marshal属性、 type_UserSize函数、 type_UserMarshal函数、 type_UserUnmarshal函数、 type_UserFree函数和 面向特定 32 位或 64 位平台的存根。 MIDL 和 ODL 项目• 2023/06/13 Microsoft 接口定义语言 (MIDL) 现在包含完整的对象定义语言 (ODL) 语法。 这使你可以 使用 32 位 MIDL 编译器为 COM 应用程序生成类型库和可选头文件。７ 备注 当文档引用 ODL 文件时，它指的是Mktyplib.exe可以分析的文件。 当它引用 IDL 文件时，它指的是 MIDL 编译器可以分析的文件。 这严格意义上是一种命名约定。 MIDL 编译器将分析输入文件，而不考虑其文件扩展名。 本节中的主题讨论使用包含 IDL 和 ODL 语句的 MIDL 编译器和 IDL 文件来生成类型库： 使用 MIDL 生成类型库 生成类型库所需的其他文件 MIDL 和 MkTypLib 之间的差异 MIDL 中的 ODL 语言功能 从单个 IDL 文件生成代理 DLL 和类型库 使用 MIDL 生成类型库项目• 2023/06/13 ODL 语法的顶级元素是库语句 (库块) 。 除应用于库语句的属性外，所有其他 ODL 语句都必须在库块中定义。 当 MIDL 编译器看到库块时，它生成类型库的方式与 MkTypLib 大致相同。 除了 MIDL 和 MKTYPLIB 之间的差异中所述的一些例外，库块中的语句应遵循 与 ODL 语言和 MkTypLib 相同的语法。７ 备注 Mktyplib.exe工具已过时。 请改用 MIDL 编译器。 可以将 ODL 属性应用于库块内部或外部定义的元素。 这些属性在库块外部无效，除非从库块中引用它们所应用到的元素。 库块中的语句可以通过将外部元素用作基类型、从它 继承或通过在行上引用它来引用它，如下所示： syntax <some IDL definitions including definitions for interface IFace and struct bar> [<some attributes>] library a { interface IFace; struct this_struct; ... }; 如果在库块内引用库块外定义的元素，则其定义将放入生成的类型库中。 MIDL 编译器将库块外部的语句视为典型的 IDL 文件，并像往常一样分析这些语句。 通常，这意味着为 RPC 应用程序生成 C 语言存根。 有关 ODL 文件的一般语法的详细信息，请参阅 ODL 文件语法。 生成类型库所需的其他文件项目• 2023/06/13 若要编译包含库语句的 IDL 文件，OLE 和 OLE 自动化 DLL 文件必须位于系统上。 这些文件会自动安装。 MIDL 和 MkTypLib 之间的差异 项目• 2023/06/13 ７ 备注 Mktyplib.exe工具已过时。 请改用 MIDL 编译器。 有几个关键方面，MIDL 编译器与 MkTypLib 不同。 之所以出现这些差异，是因为 MIDL 更倾向于 C 语法，而不是 MkTypLib。 一般情况下，需要在 IDL 文件中使用 MIDL 语法。 但是，如果需要编译现有的 ODL 文件，或以其他方式保持与 MkTypLib 的兼容性，请使用 /mktyplib203 MIDL 编译器选项强制 MIDL 的行为类似于 Mkktyplib.exe 版本 2.03。 (这是 MkTypLib 工具的最后一个版本。) 具体而言， /mktyplib203 选项解决了这些差异： 复杂数据类型的 typedef 语法 在 MkTypLib 中，以下两个定义都会为类型库中的“this_struct”生成",
+      "header": null,
+      "deprecated": true,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 584
+    },
+    {
+      "id": "windows::TKIND_RECORD",
+      "name": "TKIND_RECORD",
+      "entity_type": "unknown",
+      "description": "，并为“this_struct”生成一个TKIND_ALIAS， (将“this_struct”定义为“struct_tag”) 的别名。 由于第二个定义中缺少标记，因此 MIDL 将为 MIDL 内部的乱写名称生成一个TKIND_RECORD，该名称对用户没有意义，并且为“that_struct”生成TKIND_ALIAS。 这对类型库浏览器具有潜在影响，这些浏览器只是在其用户界面中显示记录的名称。 如果预期TKIND_RECORD具有真实名称，则用户界面中可能会出现无法识别的名称。 此行为也适用于 联合 和 枚举 定义，MIDL 编译器分别生成TKIND_UNIONs 和TKIND_ENUMs。 MIDL 还允许 C 样式 的结构、 联合和 枚举 定义。 例如，以下定义在 MIDL 中是合法的： syntax struct my_struct { ... }; typedef struct my_struct your_struct; Boolean 数据类型 在 MkTypLib 中， 布尔 基类型和 MkTypLib 数据类型 BOOL 等同于VT_BOOL，它映 射到VARIANT_BOOL，定义为 short。 在 MIDL 中， 布尔 基类型等效于 VT_UI1（定义为 无符号字符），BOOL 数据类型定义为 long。 如果在同一文件中混合使用 IDL 语法和 ODL 语法，同时仍尝试保持与 MkTypLib 的兼容性，这会导致困难。由于数据类型大小不同，因此封送代码与类型信息中描述的代码不匹配。 如果要在 类型库中VT_BOOL，则应使用 VARIANT_BOOL 数据类型。头文件中的 GUID 定义 在 MkTypLib 中，GUID 在头文件中定义，其中包含一个宏，该宏可按条件编译以生成 GUID 预定义或实例化 GUID。 MIDL 通常将 GUID 预定义放在其生成的头文件中，而 GUID 实例化仅放在 由 /iid 开关生成的文件中。 使用 /mktyplib203 开关无法解决以下行为差异： 事例敏感性 MIDL 区分大小写，OLE 自动化不区分大小写。枚举声明中符号的范围 在 MkTypLib 中，枚举中的符号范围是局部的。 在 MIDL 中，枚举中的符号范围是全局的，就像在 C 中一样。例如，以下代码将在 MkTypLib 中编译，但在 MIDL 中 生成重复的名称错误： syntax typedef struct { ... } a; enum {a=1, b=2, c=3}; 公共属性的范围 如果将 公共 属性应用于接口块，MkTypLib 会将该接口块中的每个 typedef 视为公 共。 MIDL 要求将 公共 属性显式应用于需要公共的那些 typedef。 Importlib 搜索顺序 如果导入多个类型库，并且这些库包含重复引用，则 MkTypLib 将使用找到的第一个引用来解决此问题。 MIDL 将使用找到的最后一个引用。 例如，给定以下 ODL 语法，如果使用 MkTypLib 进行编译，库 C 将使用库 A 中的 MOO typedef，如果使 用 MIDL 编译，则使用库 B 中的 MOO typedef： syntax [...]library A { typedef struct tagMOO {...}MOO } [...]library B { typedef struct tagMOO {...} MOO } [...]library C {",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "VARIANT_BOOL",
+        "VT_UI1"
+      ],
+      "confidence": 0.5,
+      "_source_line": 661
+    },
+    {
+      "id": "windows::importlib",
+      "name": "importlib",
+      "entity_type": "property",
+      "description": "B.TLB) typedef struct tagBAA {MOO y;}BAA } 适当的解决方法是使用正确的导入库名称限定每个此类引用，如下所示： syntax typedef struct tagBAA {A.MOO y;}BAA 无法识别 VOID 数据类型 MIDL 识别 C 语言 void 数据类型，并且无法识别 OLE 自动化 VOID 数据类型。 如 果有使用 VOID 的 ODL 文件，请将此定义放在文件顶部： syntax #define VOID void“” 指数表示法 MIDL 要求用指数表示法表示的值包含在引号内。 例如，“-2.5E+3” LCID 值和常量 通常，在分析文件时，MIDL 不会考虑 LCID。 若要强制对某个值执行此行为，或者在定义常量时需要使用特定于区域设置的表示法，请将该值或常量括在引号中。 有关详细信息，请参阅 /mktyplib203、 /iid 和 封送 OLE 数据类型。 MIDL 中的 ODL 语言功能 项目• 2023/06/13 ７ 备注 Mktyplib.exe工具已过时。 请改用 MIDL 编译器。 以下主题列出了对象描述语言 (ODL) 属性、关键字、语句和指令，这些属性、关键字、语句和指令现在是 Microsoft 接口定义语言 (MIDL) 的一部分： ODL 属性 ODL 关键字、语句和指令 ODL 属性[appobject][bindable][control][default] [defaultvalue][displaybind] [dllname] [dual][entry] [helpcontext][helpstring][helpfile] [hidden][id] [immediatebind] [in][lcid][许可] [不可扩展][odl] [oleautomation] [可选][out] [propget][propput][propputref][public][ readonly][requestedit] [受限][retval][source][uuid] vararg] [version] Â ODL 关键字、语句和指令 coclass dispinterface 枚举 [importlib] 接口图书馆模块结构 typedef 联盟 有关如何封送 OLE 自动化类型（如 BSTR、 VARIANT 和 SAFEARRAY）的信息，请参阅封送 OLE 数据类型。 从单个 IDL 文件生成代理 DLL 和类型库项目• 2023/06/13 可以使用单个 IDL 文件生成代理存根和头文件来封送代码，以及类型库。 为此，请在库 块外部定义接口，然后从库块内部引用该接口，如以下示例所示： syntax //file: AllKnown.idl [ object, uuid(. . .), <other interface attributes> ] interface IKnown : IUnknown { import \"unknwn.idl\"; <declarations, etc. for IKnown interface go here> }; [ <library attributes> ] library KnownLibrary { //reference interface IKnown: interface IKnown; //or create a new class: [ <coclass attributes> ] coclass KnowMore { interface IKnown; }; }; 有关详细信息，请参阅 封送 OLE 数据类型 和 生成类型库所需的其他文件。 MIDLRT 与 Windows 运行时组件项目• 2024/07/18 演示如何创建用于表示自定义 Windows 运行时组件的 API 的元数据 (.winmd) 文件。使用 MIDLRT 编译器为自定义 Windows 运行时组件生成元数据 (.winmd) 文件。 生成元数据文件时，可使用 MDMERGE 实用工具将这些文件组合为更高效的包。 有关详细信息，请参阅 MDMERGE 和元数据文件。 MIDLRT 的使用类似于 MIDL 编译器的使用。 使用以下命令从命令行运行 MIDLRT： midlrt <选项> filename.idl 其中，<选项>表示你要使用的命令行选项，而 Filename.idl 则为待编译 IDL 文件的名称。 以下列表显示了 MIDLRT.EXE 使用的命令行开关。 /enum_class/metadata_dir /nomidl/nomd/ns_prefix/winmd/winrt 使用 MIDLRT 编译器 /help 与 /? 开关时会提供 MIDLRT 编译器开关和选项的完整列表 。 这些开关会按类别进行组织。 有关详细信息，请参阅 MIDL 命令行参考。相关主题 MDMERGE 与元数据文件 是 否 MDMERGE 与元数据文件项目• 2024/07/18 根据命名空间将多个元数据 (.winmd) 文件组合到多个输出元数据文件中。使用情况 使用以下命令从命令行运行 MDMERGE： mdmerge <选项> 其中，<选项>表示你要使用的命令行选项。 使用 MIDLRT 编译器为自定义 Windows 运行时组件生成元数据文件。 有关详细信息，请 参阅 MIDLRT 与 Windows 运行时组件。命令行开关 以下列表显示了 MDMERGE 使用的命令行开关。/i /metadata_dir /n/o /partial/v 使用 -h 和 /? 开关时，可使用 MDMERGE 编译器开关与选项的完整列表。",
+      "remarks": "以下列表显示了为名为 Name.idl 的 IDL 文件生成的文件的默认名称。 可以使用命令行开关来替代这些默认名称。 请注意，IDL 文件的名称可以具有 .idl 以外的扩展名，或者根本不具有扩展名。 默认情况下， (即，如果接口属性列表不包含 对象 或 本地 属性) ，则编译器会为 RPC 接口生成以下文件： 客户端存根 (name_c.c) 服务器存根 (name_s.c) 头文件 (name.h) 当 对象 属性出现在接口属性列表中时，编译器会为 COM 接口生成以下文件： 接口代理文件 (name_p.c) 接口头文件 (name.h) 接口 UUID 文件 (name_I.c) 当 本地 属性出现在接口属性列表中时，编译器仅生成接口头文件 Name.h。 随 Microsoft RPC 一起提供的 MIDL 编译器根据需要调用 C 预处理器来处理 IDL 文件。 它不会自动调用 C 编译器来编译生成的文件。７ 备注 随 Microsoft RPC 一起提供的 MIDL 编译器使用的命令行语法与 DCE IDL 编译器不 同。 MIDL 编译器切换 /env、 /server、 /sstub 和 /out 会影响服务器存根文件。 从 MIDL 版本 6.0.359 开始，MIDL 编译器的默认命令行选项为 /OicfÂ /robust。 若要禁 用 /robust，请指定 /no_robust 选项。头文件 头文件包含 IDL 文件中声明的所有数据类型和操作的定义。 调用定义的操作、实现定义 的操作或操作定义的类型的所有应用程序模块都必须包含头文件。 MIDL 编译器切换 /header 和 /out 会影响头文件。 响应文件命令项目• 2023/06/13 响应文件是包含一个或多个 MIDL 编译器命令行选项的文本文件。 与命令行不同，响应文件允许多行选项和文件名。 由于生成环境的限制，或者为生成过程提供便利，这可能很有用。 切换选项 syntax midl @response_file response_file 指定响应文件的名称。 响应文件名必须紧跟 @ 字符。 @ 字符和响应文件名之间不允许 有空格。 作为在命令行上放置与开关关联的所有选项的替代方法，MIDL 编译器接受包含开关和参数的响应文件。 响应文件中的选项被解释为它们存在于 MIDL 命令行中的该位置。 响应文件中的每个参数必须在同一行上开始和结束。 反斜杠字符 (\\) 不能用于连接行。当它是响应文件中带引号的字符串的一部分时，只能在另一个反斜杠之前或双引号字符(“) 之前使用反斜杠字符。 如果它不是带引号的字符串的一部分，则只能在双引号字符之前使用反斜杠字符。 MIDL 支持命令行参数，这些参数包括一个或多个与其他命令行开关组合的响应文件。 MIDL 编译器不支持嵌套响应文件。示例 **midl @midl.rsp** midl -Oicf @midl1.rsp -env win32 @midl2.rsp itf.idl 相关主题 常规 MIDL 命令行语法 /acf switch 项目• 2023/06/13 /acf 开关允许用户提供显式 ACF 文件名。 开关还允许在 IDL 和 ACF 文件中使用不同的接 口名称。 syntax midl /acf acf_filename 切换选项 acf_filename 指定 ACF 的名称。 /acf 开关和文件名之间可能存在空格，也可能不存在空格。 默认情况下，MIDL 编译器通过将 IDL 文件扩展名 (通常为 .idl) 替换为 .acf 来构造 ACF 的名称。 当 存在 /acf 开关时，ACF 会从指定的文件名中获取其名称。 /acf 开关仅适用于在 MIDL 编译器命令行中指定的 IDL 文件。 它不适用于导入的文件。 使用 /acf 开关时，ACF 中的接口名称不需要与 MIDL 接口名称匹配。 此功能允许接口共享 ACF 规范。 如果未指定 ACF 的绝对路径，则 MIDL 编译器在当前目录中搜索 /I 选项提供的目录以及 INCLUDE 路径中的目录。 如果未找到 ACF，则 MIDL 编译器假定此接口没有 ACF。 有关目录序列的详细信息，请参阅 /I 和 /no_def_idir 开关的引用条目。 有关 /acf 的详细信息，请参阅 接口定义 (IDL) 文件。示例 midl /acf bar.acf filename.idl",
+      "header": null,
+      "deprecated": true,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 715
+    },
+    {
+      "id": "windows::uuid",
+      "name": "uuid",
+      "entity_type": "property",
+      "description": "ABCDEFOO-1234-1234-5678-ABCDEF123456) ] interface IStream : IUnknown { typedef IStream * LPSTREAM; // Other interface definition statements. } 在 COM 接口中，所有接口成员函数都假定为虚拟函数。 虚拟函数将隐式 此 指针作为第一个参数。 虚拟函数表包含每个接口成员函数的条目。 非[local] 对象接口成员函数的返回值必须为 HRESULT 或 SCODE。 (请注意，早期版本的 MIDL 允许成员函数返回 void。但是，从 MIDL 版本 3.0 开始，返回 void 会生成编译器错误。) 返回值为 HRESULT 或 SCODE 意味着如果在远程调用期间生成异常，则生成的代理会捕获异常并在返回值中返回异常代码。 如果应用程序能够忽略远程过程调用期间发生的错误，则可以将 HRESULT 指定为返回类型，而无需在调用后检查返回值。 如果要重新编译旧应用程序，则当服务器将新引入的结果发送到客户端时，更改返回类型可能会导致向后兼容性问题。 作为更改返回类型的替代方法，可以使用 [call_as] 属性标记返回 void 的函数，从而使其成为本地函数。 然后，定义具有相同参数但返回类型为 HRESULT 的相关远程函数。 如有必要，本地函数可以根据该 HRESULT 值引发异常。 使用 MIDL 编译器 /osf 开关进行编译时，[object] 属性不可用。 示例 syntax[",
+      "parameters": [
+        {
+          "name": "或",
+          "direction": "implicit_handle",
+          "description": "[auto_handle]。 用逗号分隔多个属性。 interface-name 指定软件组件可描述接口的名称。 string-uuid 指定 Uuidgen 实用工具生成的 UUID 字符串。 如果不使用 MIDL 编译器开关 /osf，则可 以将 UUID 字符串括在引号中。 function-attribute-list 指定应用于函数的零个或多个属性。 有效的函数属性为 [callback];指针属性 [ref]、"
+        },
+        {
+          "name": "或",
+          "direction": "unique",
+          "description": "[ptr];以及用法属性 [string]、[ignore]和 [context_handle]。 用逗号分隔多个属性。 function-declarator 指定函数的类型说明符、函数名称和参数列表。"
+        }
+      ],
+      "remarks": "[code] 属性可以出现在 ACF 标头中，也可以应用于单个函数。 当 [code] 属性出现在 ACF 标头中时，将为没有 [nocode] 函数属性的所有远程函数生成客户端存根代码。 可以通过将 [nocode] 属性指定为函数属性来替代单个函数的 标头中的 [code] 属性。 当 [code] 属性出现在远程函数的属性列表中时，会为函数生成客户端存根代码。 在出现时，不会生成客户端存根代码： ACF 标头包含 [nocode] 属性。[nocode] 属性应用于 函数。 [local] 属性适用于接口文件中的 函数。 [code] 或 [nocode] 可以出现在接口或函数属性列表中，但你选择的接口或函数属性列表 中只能显示一次。 [comm_status] 属性可用作函数属性或参数属性，但每个函数只能出现一次。 它可以应用于 函数，也可以应用于每个函数中的一个参数。 [comm_status] 属性只能应用于返回类型error_status_t的函数。 执行函数期间发生通信错误时，将返回错误代码。 当 [comm_status] 用作参数属性时，该参数必须在 IDL 文件中定义，并且必须是类型为 error_status_t 的 [out] 参数。 执行函数期间发生通信错误时， 参数设置为错误代码。 远程调用成功完成后，该过程将设置 值。 [comm_status] 和 [fault_status] 属性都可以作为函数属性或参数属性出现在单个函数中。 如果这两个属性都是函数属性，或者它们应用于同一个参数且未发生错误，则函数或参数 的值error_status_ok。 否则，它包含相应的 [comm_status] 或 [fault_status] 值。由于为 [comm_status] 返回的值与 [fault_status] 返回的值不同，因此很容易解释返回的值。 MIDL 允许在 IDL 文件的接口正文中声明常量整数、字符、字符串和布尔类型。 Const 类型声明在生成的头文件中作为 #define 指令重现。 DCE IDL 编译器不支持常量表达式。 因此，使用 MIDL 编译器 /osf 开关时，此功能不可用。 以前定义的常量可用作后续常量的赋值。 常量整型表达式的值根据 C 转换规则自动转换为相应的整数类型。 字符常量的值必须是单引号 ASCII 字符。 当字符常量是单引号字符本身 (') 时，反斜杠字符 (\\) 必须位于单引号字符前面，如 \\'中所示。 字符串常量的值必须是双引号字符串。 在字符串中，反斜杠 (\\) 字符必须位于文本双引号字符之前， ( “ ) ，如 \\”。 在字符串中，反斜杠字符 (\\) 表示转义字符。 字符串常量最多 可以包含 255 个字符。 值 NULL 是 voidÂ * 类型的常量的唯一有效值。 与 const 声明关联的任何属性都将被忽略。 MIDL 编译器不会检查常量初始化中的范围错误。 例如，当指定“const short x = 0xFFFFFFFF;”时，MIDL 编译器不会报告错误，并且初始值设定项将在生成的头文件中重现。 示例 syntax const void * p1 = NULL; const char my_char1 = 'a'; const char my_char2 = my_char1; const wchar_t my_wchar3 = L'a'; const wchar_t * pszNote = L\"Note\"; const unsigned short int x = 123; typedef [string] const char *LPCSTR; HRESULT GetName([out] wchar_t * const pszName );",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "Const",
+        "GetName"
+      ],
+      "confidence": 0.45,
+      "_source_line": 1333
+    },
+    {
+      "id": "windows::version",
+      "name": "version",
+      "entity_type": "property",
+      "description": "1.0) ] library MyLibrary { /* Library definition statements */ }; interface IMyFace : IDispatch { [propget] HRESULT MyFunc([in, lcid] long LocaleID, [out, retval] BSTR * ReturnVal); // Other interface definition statements }",
+      "remarks": "未指定 [last_is] 时，[length_is] 属性确定对应于 [last_is] 属性的数组索引的值。 这些数组索引之间的关系如下：length = last - first + 1。 [length_is] 属性不能与 [last_is] 属性或 [string] 属性同时使用。 若要定义具有 [length_is] 或 [last_is] 属性的计数字符串，请使用不带 [string] 属性的字符数组或指针。 将常量表达式与 [length_is] 属性一起使用是不恰当的。 这是合法的，但效率低下，并将导致代码封送处理速度变慢。 可以将 [size_is] 和 [length_is] 属性一起使用。 执行此操作时， [size_is] 属性控制为数据分配的内存量。 [length_is] 属性指定传输的元素数。 [size_is] 和 [length_is] 属性指定的内存量不需要相同。 例如，客户端可能会将 [in， out] 参数传递给服务器，并使用 [size_is] 指定较大的内存分配，即使它指定要使用 [length_is] 传递的少量数据元素。 这使服务器能够用比收到的更多的数据填充数组，然后可以将其发送回客户端。 通常，在 [in] 或 [out] 参数上同时指定 [size_is] 和 [length_is]没有用。 在这两种情况下，[size_is] 控制内存分配。 应用程序可以使用 [size_is] 分配比 [length_is]) 指定的传输 ( 更多的数组元素。 但是，这将效率低下。 为 [size_is] 和 [length_is] 指定相同的值也效率低 下。 因为它会在参数封送期间产生额外的开销。 如果 [size_is] 和 [length_is] 的值始终相同，请省略 [length_is] 属性。 示例 syntax /* counted string holding at most \"size\" characters */ typedef struct { unsigned short size; unsigned short length; [size_is(size), length_is(length)] char string[*]; } COUNTED_STRING_TYPE; /* counted string holding at most 80 characters */ typedef struct { unsigned short length; [length_is(length)] char string[80]; } STATIC_COUNTED_STRING_TYPE; HRESULT Proc1( [in] short iLength; [in, length_is(iLength)] short asNumbers[10]);",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 1334
+    },
+    {
+      "id": "windows::pointer_default",
+      "name": "pointer_default",
+      "entity_type": "property",
+      "description": "unique) ] interface IdlGrammarExample { import \"windows.idl\", \"other.idl\"; const wchar_t * NAME = L\"Example Program\"; typedef char * PCHAR; HRESULT DictCheckSpelling( [in, string] PCHAR word, // word to look up [out] short * isPresent // 0 if not present ); } IDL 特性项目• 2023/06/13 属性是指定接口的特征以及该接口中的数据和方法的特征的关键字。 应用于单个接口的属性集括在方括号中， ([ ]) 。 以下主题介绍可在 IDL 文件中使用的属性类别。 字段属性 别名和封送处理属性异步属性 数组和Sized-Pointer属性 数据类型属性方向特性 函数调用属性接口标头属性性能属性 指针类型属性结构和联合属性类型库属性 别名和封送处理属性项目• 2023/06/13 分布式应用程序在调用接口过程时，几乎总是在客户端和服务器程序之间传递数据。 开发人员使用 MIDL 来描述客户端和服务器程序以标准方式传递的数据。 MIDL 编译器为客户端和服务器创建应用程序存根或代理程序，这些程序将数据转换为可通过网络发送的标准化形式。 此格式（网络数据表示 (NDR) 格式）通常称为数据的线路格式。 存根必须将数据从程序内存空间中的本机格式转换为 NDR。 此转换称为封送数据。 当客户端或服务器程序收到数据时，它必须将 NDR 中的数据转换为该程序的本机格式。 这称为取消数据封送。 使用别名和封送属性控制如何将数据打包为 NDR 格式并通过网络传输。 属性 call_as iid_is transmit_as wire_marshal 使用情况 将不可更新的函数映射到远程过程调用。 提供 COM 接口的接口标识符，该接口是指针的对象。将数据类型转换为更简单的类型，以便通过网络传输。 类似于 transmit_as 但你实现例程来调整数据的大小、封送、取消封送和释放数据。 相关主题 类型转换和封送 ACF 属性 异步属性项目• 2023/06/13 当程序调用接口中的过程时，该过程可以同步或异步执行。 同步过程会导致调用程序等待过程返回，然后程序才能继续。 异步过程会立即返回，而无需等待结果。 调用程序稍 后必须与接口过程重新同步以接收数据。 有关详细信息，请参阅 异步 RPC。可以使用以下属性为异步远程过程调用提供支持。 属性 async async_uuid 也许消息 使用情况 应用于函数参数时，定义一个句柄，该句柄允许调用方在不等待结果的情况下进行异步调用并立即返回，并在调用完成后与被调用的函数重新同步以接收数据。 ACF 文件中还使用异步属性来定义过程或整个接口的异步句柄。 对于 COM 接口，此接口已过时，不能用于新接口。 指示 MIDL 编译器定义 COM 接口的同步和异步版本。 进行此远程过程调用的客户端不需要任何指示调用的传递或完成的响应，并且无法保证传递。 这与预期没有响应 但 保证传递的消息操作形成鲜明对比。 远程过程调用被视为从客户端到服务器的异步消息。 客户端发出调用并立即返回，而实际调用由消息队列传输 (ncadg_mq) 处理。 数组和Sized-Pointer属性项目• 2024/01/28 MIDL 提供了一组丰富的功能，用于传递数据数组和指向数据的指针。 可以使用这些属性来指定数组的特征和多个指针级别。 Attribute size_is max_is length_is first_is last_is 字符串 range 用法 指定要为大小指针分配的内存量、用于调整大小指针的指针以及单维或多维数组。 数组索引的最大值。要传输的数组元素数。 要传输的第一个数组元素的索引。 提供要传输的最后一个数组元素的索引。 指示一维 字符、 wchar_t、 字节 (或等效) 数组或指向此类数组的指针将作为字符串进行处理。 为在运行时设置其值的参数或字段指定允许值的范围。 MIDL 支持三种类型的指针：引用指针、唯一指针和完整指针。 这些指针由指针属性 ref、 unique 和 ptr 指定。 指针属性可以应用为类型属性;作为应用于结构成员、联合成员或参数的字段属性;或作为应用于函数返回类型的函数属性。 指针属性还可以与 pointer_default 关键字一起显示。 若要允许指针参数在远程函数期间更改值，必须提供另一级别的间接连接，方法是提供多个指针声明符。 应用于参数的显式指针属性仅影响参数最右侧的指针声明符。 当参数声明中有多个指针声明符时，其他声明符默认为 由pointer_default 属性指定的指针属性。若要将不同的指针属性应用于多个指针声明符，必须定义指定显式指针属性的中间类型。 默认Pointer-Attribute值 如果没有指针属性与作为参数的指针相关联，则假定该指针是 ref 指针。 如果没有指针属性与作为结构或联合成员的指针相关联，MIDL 编译器会使用以下优先级规则分配指针属性， (1 为最高) ： 1. 显式应用于指针类型的属性 2. 显式应用于指针参数或成员的属性 3. IDL 文件中定义类型的 pointer_default 属性 4. IDL 文件中导入类型的 pointer_default 属性 5. ptr (osf 模式) ; 唯 一 (Microsoft RPC 默认模式) 在默认模式下编译 IDL 文件时，导入的文件可以从导入文件继承指针属性。 使用 /osf 开 关进行编译时，此功能不可用。 有关详细信息，请参阅 导入。函数返回类型 函数返回的指针必须是 唯 一指针或完整指针。 如果函数结果为引用指针（显式或默认情况下），MIDL 编译器将报告错误。 返回的指针始终指示新存储。 返回指针值的函数可以将指针属性指定为函数属性。 如果指针属性不存在，函数结果指 针将使用作为 pointer_default 属性提供的值。类型定义中的指针属性 在 typedef 语句的顶层指定指针属性时，指定的属性将按预期应用于指针声明符。 如果未指定指针属性，则 typedef 语句顶层的指针声明符会在使用时继承指针属性类型。 DCE IDL 不允许显式应用同一指针属性两次，例如，在 typedef 声明和参数属性列表中。使用 MIDL 编译器的默认 (Microsoft 扩展) 模式时，此约束会放宽。 有关在远程过程调用中使用 MIDL 数组和指针的讨论，请参阅 数组和指针。 是 否 数据类型属性项目• 2023/06/13 可以在 typedef 语句中将这些属性应用于数据类型，以进一步定义数据类型的用法或效果。",
+      "remarks": "此关键字 (keyword) 是可选的，可用于任何字符和整数类型 char、wchar_t、long、 short 和 small。 可以选择将 关键字 (keyword) int 包含在类型限定符 long、short 和 small 之后。 使用 MIDL 编译器开关 /char 时，在 IDL 文件中出现的不带显式符号关键字的字符和整数类型可能会与生成的头文件中的有符号或无符号关键字 (keyword) 一起显示。 为避免混淆，请指定整数和字符类型的符号。 每个命名的本地类型 userm-type 都与定义该 类型的线路表示形式的线路类型 具有一对一的对应关系。 必须提供例程来调整数据大小以便封送处理、封送和取消封送数据以及释放内存。 有关这些例程的详细信息，请参阅 user_marshal 属性。 请注意，如果数据中存在也使用 user_marshal 或 [ [wire_marshal] 定义的嵌入类型，则还需要管理这些嵌入类型的服务。 线路类型不能是接口指针或完整指针。 线路类型必须具有明确定义的内存大小。 有关如何封送给定线路类型的详细信息，请参阅封送规则user_marshal和wire_marshal。 userm 类型不应是接口指针，因为这些指针可以直接封送。 如果用户类型是完整指针，则必须自行管理别名。 示例 syntax // Marshal a long as a structure containing two shorts. typedef unsigned long FOUR_BYTE_DATA; typedef struct _TWO_X_TWO_BYTE_DATA { unsigned short low; unsigned short high; } TWO_X_TWO_BYTE_DATA; syntax // ACFL file typedef [user_marshal(FOUR_BYTE_DATA)] TWO_X_TWO_BYTE_DATA;// Marshaling functions: // Calculate size that converted data will require in the buffer unsigned long __RPC_USER FOUR_BYTE_DATA_UserSize( ULONG __RPC_FAR * pulFlags, ULONG __RPC_FAR ulStartingSize, FOUR_BYTE_DATA __RPC_FAR * pul); // Copy FOUR_BYTE_DATA into buffer as TWO_X_TWO_BYTE_DATA unsigned long __RPC_USER FOUR_BYTE_DATA_UserMarshal( ULONG __RPC_FAR *pulFlags, char __RPC_FAR * pBufferStart, FOUR_BYTE_DATA __RPC_FAR * pul); // Recreate FOUR_BYTE_DATA from TWO_X_TWO_BYTE_DATA in buffer unsigned long __RPC_USER FOUR_BYTE_DATA_UserUnmarshal( ULONG __RPC_FAR * pulFlags, char __RPC_FAR * pBufferStart, FOUR_BYTE_DATA __RPC_FAR * pul); // Nothing to do here as the engine frees the top node and FOUR_BYTE_DATA is a flat data type. void __RPC_USER FOUR_BYTE_DATA_UserFree( ULONG __RPC_FAR * pulFlags,",
+      "header": null,
+      "deprecated": true,
+      "cross_references": [
+        "Attribute",
+        "Copy",
+        "FOUR_BYTE_DATA"
+      ],
+      "confidence": 0.35,
+      "_source_line": 1336
+    },
+    {
+      "id": "windows::IN_LINE",
+      "name": "IN_LINE",
+      "entity_type": "property",
+      "description": "和out_of_line的 DCE 封送处理属性未在 Microsoft RPC 中实现。 MIDL 编译器自动对复杂数据类型进行外联封送。 内存管理 ACF 属性项目• 2023/06/13 下表中列出的属性使你能够从客户端执行内存管理。 属性分配 byte_count enable_allocate 使用情况 指定客户端应用程序和存根分配和释放指针内存的方式。 当希望某些指针结构在远程过程调用返回到客户端后仍可供服务器应用程序访问时，此属性特别有用。 还可以使用 allocate 属性指示存根计算通过指定类型的指针引用的所有内存的大小，并单个调用 midl_user_allocate。 使你能够创建一个持久、连续的内存块，该块可通过多个远程过程调用重复使用。 这样，客户端应用程序就无需重复分配和释放可能包含多个指针和其他复杂数据结构的内存。 指定服务器存根代码应启用存根内存管理环境。 错误和异常处理 ACF 属性项目• 2023/06/13 使用以下属性进行错误处理。",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1743
+    },
+    {
+      "id": "windows::BAR_TYP",
+      "name": "BAR_TYP",
+      "entity_type": "property",
+      "description": "Es (块的大小，以及指向实际块BAR_TYPEs的指针。 Size 参数与 pBarType 参数相关联。 根据 OSF-DCE 规范，Size 参数在线路上表示两次，首先表示为自身，然后使用表示 pBarType 参数的 BAR_TYPE 元素数组。 每个参数根据其自己的线表示形式独立展开。 通常，Size 参数及其副本（用于表示另一个参数的一部分）具有相同的值。 但是，如果 Size 参数 (损坏，例如，当 BAR_TYPES 块大于) 分配的块时，服务器应用程序可能会停止响应，因为它使用 Size 参数的值来度量传入数据。 需要 /robust 开关才能使用 range 属性实现有效的 范围 检查。示例 midl /robust /Oicf filename.idl",
+      "remarks": "在默认模式下，仅当过程或接口具有 enable_allocate 属性或在命令行上指定 了 /rpcss 开关时，才会启用 RpcSs 包。 在 /osf 模式下，服务器端存根启用 RpcSs 分配包。示例 midl /rpcss filename.idl",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "switch"
+      ],
+      "confidence": 0.65,
+      "_source_line": 3491
+    },
+    {
+      "id": "windows::annotate",
+      "name": "annotate",
+      "entity_type": "property",
+      "description": "标注) appobject 阵 列 async async_uuid auto_handle bindable 布尔广播字节 byte_count call_as 回调 (callback) 字符 coclass 代码 comm_status const context_handle context_handle_noserialize context_handle_serialize 控制",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 4016
+    },
+    {
+      "id": "windows::dllname",
+      "name": "dllname",
+      "entity_type": "property",
+      "description": "str) 双双 enable_allocate 编码端点进入枚举 error_status_t explicit_handle fault_status first_is FLOAT force_allocate 处理 handle_t helpcontext helpfile helpstring helpstringcontext helpstringdll 隐藏 hyper id idempotent 忽略 iid_is immediatebind implicit_handle 进口 importlib in include in_line int __int32 __int64 接口 last_is lcid length_is 图书馆 许可当地长 max_is 也许消息 midl_pragma警告 midl_user_allocate midl_user_free min_is 模块 ms_union ncacn_at_dsp ncacn_dnet_nsp ncacn_http ncacn_ip_tcp ncacn_nb_ipx ncacn_nb_nb ncacn_nb_tcp ncacn_np ncacn_spx ncacn_vns_spp ncadg_ip_udp ncadg_ipx ncadg_mq ncalrpc nocode nonbrowsable noncreatable nonextensible 通知 notify_flag object odl oleautomation 优化选 out out_of_line partial_ignore 管 pointer_default pragma propget propput propputref proxy Ptr 公共范围 readonly 裁判 represent_as requestedit 限制 retval shape 短签署 size_is 小源 strict_context_handle 字符串结构开关 switch_is switch_type transmit_as typedef uidefault 独特联盟符号 user_marshal usesgetlasterror",
+      "remarks": "枚举 类型可以在 typedef 声明、常规声明和函数声明符中显示为类型说明符， (作为 function-return-type 或参数类型说明符) 。 有关显示类型说明符的上下文，请参阅 接口定义 (IDL) 文件。 在 MIDL 编译器的默认模式下，可以将整数值分配给枚举器。 (使用 /osf switch.) 与 C 语言枚举器一样，枚举器名称必须唯一，但枚举器值不必是唯一的。 如果未提供赋值运算符，标识符将从左到右映射到从零开始的连续整数。 提供赋值运算 符时，分配的值从最近分配的值开始。最大标识符数为 65，535。 枚举类型的对象是 int 类型，其大小取决于系统。 默认情况下， 枚举 类型的对象在通过网络传输时被视为 无符号短 类型的 16 位对象。 超出范围 0 - 32，767 的值会导致运行 时异常RPC_X_ENUM_VALUE_OUT_OF_RANGE。 若要将对象作为 32 位实体传输，请将[v1_enum] 属性应用于 枚举 typedef。 示例 syntax typedef enum {Monday=2, Tuesday, Wednesday, Thursday, Friday} workdays; typedef enum {Clemens=21, Palmer=22, Ryan=34} pitchers;",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 4058
+    },
+    {
+      "id": "windows::ISO_MULTI_LINGUAL",
+      "name": "ISO_MULTI_LINGUAL",
+      "entity_type": "property",
+      "description": "Null SAFEARRAY TRUE__alignof__asm__cdecl __declspec__出口 __external_symbol__远 __fastcall__float128__float80__Fortran__巨大 __inline__int128__int32__int3264__int64 __interface_interception_info__loadds __method_property __附近__帕斯卡__ptr32__ptr64__saveregs __段__self__stdcall __unaligned__w64 __winrt_type_serialization_info _Asm_cdecl_declspec _出口_远_fastcall _Fortran_巨大_内嵌_loadds_附近_帕斯卡_saveregs _段_self_stdcall auto boolean 字节 case cdecl char coclass const contract cpp_quote declare_guid 默认值 dispinterface Double 枚举 extern 远 FLOAT handle_t hyper import importlib include inline int interface 库 long 方法 midl_pragma name near 帕斯卡管 private_char_16 private_char_8 properties register short signed sizeof 小型 static stdcall struct 开关 typedef union unsigned void volatile 在“[ ]”组合中保留的关键字列表 aggregatable align allocate annotation appobject async async_uuid auto_handle bem_handle bindable broadcast bstring byte_count call_as 回调 (callback) code comm_status context_handle context_handle_noserialize context_handle_serialize 控制 cs_char cs_drtag cs_rtag cs_stag cs_tag_rtn 自定义 custom_allocator decode default_allocator defaultbind defaultcollelem defaultvalue defaultvtable disable_consistency_check displaybind dllname dual enable_allocate encode endpoint entry explicit_handle 扩展 fault_status first_is force_allocate funcdescattr 句柄堆 helpcontext helpfile helpstring helpstringcontext helpstringdll 隐藏 hostContract id idempotent idldescattr ignore iid_is immediatebind implicit_handle in in_line input_sync 解释 last_is lcid length_is licensed local local_call long_enum manual max_is 也许 message min_is ms_conf_struct ms_union nocode nointerpret nonbrowsable noncreatable nonextensible 通知 notify_flag 对象 (object) odl off_line oleautomation optimize 可选 optional_interface out out_of_line partial_ignore pointer_default predeclid propget propput propputref proxy ptr 公共 range readonly ref 更换 represent_as requestedit restricted retval sh_composition sh_event sh_file sh_job sh_mutex sh_pipe sh_process sh_reg_key sh_section sh_semaphore sh_socket sh_thread sh_token shape short_enum size_is 源 strict_context_handle string switch_is switch_type system_handle transmit_as type_strict_context_handle typedescattr uidefault unaligned unique user_marshal usesgetlasterror",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "Null"
+      ],
+      "confidence": 0.65,
+      "_source_line": 4214
+    },
+    {
+      "id": "windows::UseShared",
+      "name": "UseShared",
+      "entity_type": "property",
+      "description": "... [in] TestContextHandleShared *Ctx, ...); void",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 4356
+    },
+    {
+      "id": "windows::UseExclusive",
+      "name": "UseExclusive",
+      "entity_type": "property",
+      "description": "... [in, out] TestContextHandleExclusive *Ctx, ...); 第二个示例演示如何在 ACF 文件中启用上下文句柄的混合模式序列化： syntax typedef [context_handle_serialize] TestContextHandleExclusive; typedef [context_handle_noserialize] TestContextHandleShared; 相关主题 context_handle context_handle_serialize context_handle_noserialize aggregatable 特性项目• 2023/06/13 [aggregatable] 属性指示类支持聚合。 syntax[ coclass-attribute-list, aggregatable ] coclass coclass-name { coclass-interface-list }",
+      "remarks": "对 coclass 语句使用 [aggregatable] 属性可让用户知道该类支持聚合。 也就是说，类允 许容器类公开其接口，就像这些接口是容器自己的接口一样。此属性的 typeflag 表示形式TYPEFLAG_FAGGREGATABLE。 示例 syntax[",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 4363
+    },
+    {
+      "id": "windows::helpstring",
+      "name": "helpstring",
+      "entity_type": "property",
+      "description": "\"This is IForm\"), restricted ] interface IForm1: IForm { [propget, defaultcollelem] HRESULT Button1( [out, retval] Button *Value); } //User code may access the button using property syntax or ! syntax. Sub Test() Dim f as Form1 Dim b1 As Button Dim b2 As Button Set f = Form1 Set b1 = f.Button1 ' Property syntax Set b = f!Button1 ' ! syntax End Sub",
+      "remarks": "为 参数指定的默认值可以是任何常量，也可以是由 VARIANT 表示的解析为常量的表达式。 具体而言，不能将 [defaultvalue] 属性应用于结构、数组或 SAFEARRAY 类型的参数。 MIDL 编译器接受从左到右) (以下参数排序： 1. 必需参数 (没有 [defaultvalue] 或 [可选] 属性的参数) ， 2. 带或不带 [defaultvalue] 属性的可选参数， 3. 具有 [optional] 属性且不带 [defaultvalue] 属性的参数， 4. [lcid] 参数（如果有） 5. [retval] 参数 示例 syntax interface IFace : IUnknown { HRESULT Ex1([defaultvalue(44)] LONG i); HRESULT Ex2([defaultvalue(44)] SHORT i); ... }; interface QueryDef : IUnknown { HRESULT OpenRecordset( [in, defaultvalue(DBOPENTABLE)] LONG Type, [out,retval] Recordset **pprst); } // Type is now known to be a LONG type (good for browser in VBA and // good for a C/C++ programmer) and has a default value of // DBOPENTABLE",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "Button",
+        "Property",
+        "async_uuid",
+        "first_is",
+        "helpcontext",
+        "name",
+        "size_is",
+        "switch_type"
+      ],
+      "confidence": 0.35,
+      "_source_line": 4556
+    },
+    {
+      "id": "windows::async_uuid",
+      "name": "async_uuid",
+      "entity_type": "property",
+      "description": "string-uuid2)[ [, interface-attribute-list] ] interface interface-name : base-interface { interface-definition } 参数 string-uuid1 UUID 字符串，由 Uuidgen 实用工具生成，用于标识接口的同步版本。 string-uuid2 UUID 字符串，由 Uuidgen 实用工具生成，用于标识接口的异步版本。 interface-attribute-list 应用于接口作为一个整体的其他属性。 不能在 COM 接口中使用 [version] 属性。 interface-name 接口的名称。 base-interface 从中派生此接口的接口。 基接口必须是 IUnknown 或直接或间接派生自 IUnknown 的异步接口。 interface-definition 指定构成接口定义的 IDL 语句。",
+      "remarks": "使用此属性需要 Windows 2000 或更高版本的 Windows。 将 [async_uuid] 属性应用于 COM 接口 (即) 具有 [object] 属性的接口时，MIDL 编译器除了传统同步版本外，还会生成接口的异步定义。 异步接口的名称与同步接口相同，但带有“Async”前缀。 IID) (接口标识符将是指定为 [async_uuid] 属性的参数的 UUID。 对于异步接口，MIDL 将每个方法拆分为单独的 begin 和 finish 方法。 begin 方法的同步方法名称带有“Begin_”前缀，并包含同步方法中的所有 [in] 参数。 finish 方法具有具有“Finish_”前缀的同步方法名称，并包含同步方法中的所有 [out] 参数。 如果同步方法具有任何 [in， out] 参数，则它们将同时包含在 begin 和 finish 异步方法中。 如果异步接口方法具有 [call_as] 属性，则 MIDL 将为 begin 和 finish 方法生成声明。 必须实现这两种方法。 每个异步接口都是同步接口上的修饰符，因此没有单独的继承图。 这意味着不能从异步接口 (IUnknown) 定义同步接口。 同步接口也不能从异步接口继承。 如果尝试其中一个，MIDL 编译器将发出错误消息。 示例 syntax[ object,",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 4724
+    },
+    {
+      "id": "windows::FUNCFLAG_FBINDABLE",
+      "name": "FUNCFLAG_FBINDABLE",
+      "entity_type": "property",
+      "description": "、VARFLAG_FBINDABLE 示例 syntax[",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 4851
+    },
+    {
+      "id": "windows::proc1",
+      "name": "proc1",
+      "entity_type": "property",
+      "description": "[byte_count(length)] pMyStruct);",
+      "remarks": "将无法远程调用的函数映射到远程函数的功能在具有许多无法通过网络传输的参数类型的接口中特别有用。 可以使用 [call_as] 例程合并所有转换，而不是使用许多 [represent_as] 和 [transmit_as]类型。 (客户端和服务器端) 提供两个 [call_as] 例程，以在应用程序调用和远程调用之间绑定例程。 [call_as] 属性可用于对象接口。 在这种情况下，接口定义可用于本地调用和远程调用，因为 [call_as] 允许无法远程访问的接口以透明方式映射到远程接口。 [call_as] 属性不能与 /osf 模式一起使用。 例如，假设对象接口 IFace 中的例程 f1 需要在用户调用和实际传输的内容之间进行大量转换。 以下示例描述了接口 IFace 的 IDL 和 ACF 文件： 在接口 IFace 的 IDL 文件中： syntax [local] HRESULT f1 ( <users parameter list> ) [call_as( f1 )] long Remf1( <remote parameter list> ); 在接口 IFace 的 ACF 中： syntax [call_as( f1 )] Remf1(); 这会导致生成的头文件使用 f1 的定义来定义接口，但它也为 Remf1 提供存根。 MIDL 编译器将在接口 IFace 的头文件中生成以下 Vtable： syntax struct IFace_vtable {",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "name",
+        "size_is"
+      ],
+      "confidence": 0.25,
+      "_source_line": 5006
+    },
+    {
+      "id": "windows::HRESULT",
+      "name": "HRESULT",
+      "entity_type": "property",
+      "description": "* f1) ( <users parameter list> ); /* Other vtable functions. */}; 然后，客户端代理将具有 Remf1 的典型 MIDL 生成的代理，而 Remf1 的服务器端存根将 与典型的 MIDL 生成的存根相同： syntax IFace_Remf1_Stub ( <parameter list> ) { // Other function code. /* instead of IFace_f1 */ invoke IFace_f1_Stub ( <remote parameter list> ); // Other function code. } 然后， (客户端和服务器端) 的两个 [call_as] 绑定例程必须手动编码： syntax f1_Proxy ( <users parameter list> ) { // Other function code.",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 5047
+    },
+    {
+      "id": "windows::Remf1_Proxy",
+      "name": "Remf1_Proxy",
+      "entity_type": "property",
+      "description": "<remote parameter list> ); // Other function code. } long IFace_f1_Stub ( <remote parameter list> ) { // Other function code.",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 5070
+    },
+    {
+      "id": "windows::IFace_f1",
+      "name": "IFace_f1",
+      "entity_type": "property",
+      "description": "<users parameter list> ); // Other function code. } 对于对象接口，这些是绑定例程的原型。 对于客户端： syntax <local_return_type> <interface>_<local_routine>_proxy( <local_parameter_list> ); 对于服务器端： syntax <remote_return_type> <interface>_<local_routine>_stub( <remote_parameter_list> ); 对于非对象接口，这些是绑定例程的原型。 对于客户端： syntax <local_return_type> <local_routine> ( <local_parameter_list> ); 对于服务器端： syntax <local_return_type> <interface>_v<maj>_<min>_<local_routine> ( <remote_parameter_list> );",
+      "parameters": [
+        {
+          "name": "属性在",
+          "direction": "uuid",
+          "description": "coclass 上是必需的。 这与在系统注册数据库中注册为 CLSID 的 [uuid] 相同。 在 coclass 定义之前，接受 [helpstring]、[helpcontext]、[licensed]、[version]、 [control]、[hidden]和 [appobject] 属性。 classname 在类型库中已知公共对象的名称。 interface-attributes 接口或调度接口的可选属性。 [source]、[default]和 [restricted] 属性在 coclass 中的接 口或 dispinterface 上接受。 interfacename 使用接口关键字 (keyword) 声明的接口，或使用 dispinterface 关键字 (keyword) 声明的 dispinterface。"
+        }
+      ],
+      "remarks": "当服务器必须从客户端获取信息时， [callback] 函数非常有用。 如果 Windows 3 支持服务器应用程序。x，服务器可以调用 Windows 3 上的远程过程。用于 获取所需信息的 x 服务器。 回调函数可实现相同的目的，并允许服务器在原始调用的上下文中查询客户端信息。 回调是作为单个线程的一部分执行的远程调用的特殊情况。 在远程调用的上下文中发出回调。 定义为静态回调函数同一接口的一部分的任何远程过程都可以调用回调函数。 请务必注意，不建议在多线程编程中使用 [callback]。 作为单线程编程函数，它无法支持多线程环境提供的安全要求。 RpcCancelThread 函数不能用于取消可能调度静态回调的调用。 如果特定的远程过程调用永远不会导致回调，则可以取消回调。 否则，仅当可以保证未为其发出回调时，才能取消调用。 只有面向连接的本地协议序列支持回调属性。 针对本地协议序列的回调的 [out] 数据的大小限制为 150 字节。 如果 RPC 接口使用无连接 (数据报) 协议序列，则调用具有回调属性的过程将失败。 句柄不能用作回调函数中的参数。 由于回调始终在调用的上下文中执行，因此客户端用 于对服务器的调用的绑定句柄也用作从服务器到客户端的绑定句柄。回调可以嵌套到任何深度。 示例 syntax [callback] HRESULT DisplayString([in, string] char * p1);",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "RpcCancelThread"
+      ],
+      "confidence": 0.45,
+      "_source_line": 5084
+    },
+    {
+      "id": "windows::helpcontext",
+      "name": "helpcontext",
+      "entity_type": "property",
+      "description": "value) [, attribute-list] ] element element-name { definitions } parameters uuid-number 指定 库 [importlib]、 interface、 dispinterface、 module、 typedef、 methods、 [property]或 coclass 的通用唯一标识号。 helpcontext-value 标识与当前 MIDL 元素关联的帮助文本的唯一整数。 attribute-list 指定一个或多个属性的列表，这些属性作为一个整体应用于 MIDL 元素。 element 以下指令之一： library、[importlib]、 interface、 dispinterface、 module、 typedef、 method、 property 或 coclass。 element-name 其他软件组件可用于描述当前元素的名称。定义 指定构成元素定义的语句。",
+      "remarks": "[helpcontext] 属性可以应用于以下元素： library、[importlib]、 interface、 dispinterface、 module、 typedef、 method、 property 或 coclass。 helpcontext-value 是帮助文件中的 32 位上下文标识符，可以使用 ITypeLib 和ITypeInfo 接口中的 GetDocumentation 函数进行检索。 示例 syntax[",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 5234
+    },
+    {
+      "id": "windows::TYPEFLAG_FCONTROL",
+      "name": "TYPEFLAG_FCONTROL",
+      "entity_type": "property",
+      "description": "、LIBFLAG_FCONTROL 示例 syntax[",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 5659
+    },
+    {
+      "id": "windows::declare_guid",
+      "name": "declare_guid",
+      "entity_type": "property",
+      "description": "variable-name, guid) 参数 variable-name 为生成的头文件中的标识符指定变量名称。 guid 指定将应用于生成的头文件中变量名称的 GUID 。 示例 syntax",
+      "remarks": "使用 declare_guid 等效于 使用 cpp_quote 生成宏的 EXTERN_GUID 调用。 上面的示例生成以下输出： C",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 5748
+    },
+    {
+      "id": "windows::IMPLTYPEFLAG_FDEFAULT",
+      "name": "IMPLTYPEFLAG_FDEFAULT",
+      "entity_type": "property",
+      "description": "示例 syntax[",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.45,
+      "_source_line": 5841
+    },
+    {
+      "id": "windows::name",
+      "name": "name",
+      "entity_type": "property",
+      "description": "params) } parameters interface-attribute-list 指定应用于整个接口的一个或多个属性的列表。 如果存在两个或多个接口属性，则必须 用逗号分隔它们。 interface-name 指定接口的名称。 attribute-list 指定应用于函数的一个或多个属性的列表。 如果存在两个或多个接口属性，则必须用逗 号分隔它们。 returntype 指定函数的返回类型。 function-name 指定要应用 [defaultbind] 属性的函数的名称。 params 函数参数列表。",
+      "remarks": "具有 [defaultbind] 属性的属性还必须具有 [bindable] 属性。 接口或 dispinterface 中只有一个属性可以具有 [defaultbind] 属性。 此属性由具有用户模型的容器使用，该模型涉及绑定到对象，而不是绑定到对象的属性。 对象可以支持数据绑定，但不具有此属性。 Flags",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "Flags"
+      ],
+      "confidence": 0.35,
+      "_source_line": 5881
+    },
+    {
+      "id": "windows::FUNCFLAG_FDEFAULTBIND",
+      "name": "FUNCFLAG_FDEFAULTBIND",
+      "entity_type": "property",
+      "description": "、VARFLAG_FDEFAULTBIND 示例 syntax[",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 5898
+    },
+    {
+      "id": "windows::size_is",
+      "name": "size_is",
+      "entity_type": "property",
+      "description": "Length )]LPWSTR MyString ); 如果 MyString 为 NULL，RPC 将拒绝调用，除非 Length 设置为 0。 请注意，当 MyString 为非 NULL 时，RPC 将允许 Length 为 0，RPC 会将 MyString 视为 0 长度缓冲区分配。",
+      "remarks": "若要禁用此检查，IDL 可以包含参数、typedef 或指针类型的 [disable_consistency_check] 属性。 这会指示 RPC 不强制实施缓冲区指针与参数或指针指向的缓冲区的相关变量之间的一致性。 若要禁用整个 MIDL 编译 (的一致性检查，并在所有情况下都禁用检查) ，可以使用 MIDL 命令行开关 /backward_compat maybenull_sizeis 。 这要求 MIDL 编译的目标至少为 “目标 NT60”。 dispinterface 特性项目• 2023/06/13 dispinterface 语句定义一组属性和方法，可对其调用 IDispatch：：Invoke。 可以通过显 式列出语法 1) (受支持的方法和属性集，或通过 (语法 2) 列出单个接口来定义 dispinterface。 syntax[ [attributes] ] dispinterface dispinterface-name { properties: property-list methods: method-list }; [ [attributes] ] dispinterface dispinterface-name { interface interface-name }; 参数 attributes 指定应用于整个 dispinterface 的属性。 接受以下属性： [helpstring]、 [helpcontext]、[helpfile]、 [hidden]、 [nonextensible]、 [oleautomation]、 [restricted]、 [uuid]和[version]。 dispinterface-name 在类型库中已知 dispinterface 的名称。 此名称在类型库中必须唯一。 property-list (语法 1) 对象支持的属性的可选列表，以变量的形式声明。 这是在方法列表中声明属性函 数的简短形式。 有关详细信息，请参阅注释部分。 method-list (语法 1) 包含 dispinterface 中每个方法和属性的函数原型的列表。 methlist 中可以显示任意数量的函数定义。 methlist 中的函数具有以下形式： [attributes]returntype methname type paramname (params) ; 在 dispinterface 中的方法上接受以下属性： [helpstring]、 [helpcontext]、 [propget]、[propput]、 [propputref]、 [string]和 [vararg]。 如果指定 了 [vararg] ，则最后一个参数必须是 VARIANT 类型的安全数组。 参数列表是逗号分隔的列表，其每个元素具有以下形式：[attributes] 类型可以是任何声明或内置类型，也可以是指向任意类型的指针。 参数的属性包括： [in]、 [out]、 [可选]、 [string] interface-name (语法 2) 要声明为 IDispatch 接口的接口的名称。 MIDL 编译器接受从左到右) (以下参数排序： 1. 必需参数 (没有 [defaultvalue] 或 [可选] 属性的参数) ， 2. 带或不带 [defaultvalue] 属性的可选参数， 3. 具有 [optional] 属性且不带 [defaultvalue] 属性的参数， 4. [ lcid] 参数（如果有） 5. [ retval] 参数 方法函数的指定方式与 模块 的参考页中所述完全一致，但不允许使用 [ entry] 属性。 请注意，STDOLE32。TLB (STDOLE。必须导入 16 位系统上的 TLB) ，因为 dispinterface 继承自 IDispatch。 可以在属性或方法列表中声明属性。 在属性列表中声明属性并不指示属性支持的访问类型， (即 get、put 或 putref) 。 为不支持 put 或 putref 的属性指定 [ readonly] 属性。 如果在方法列表中声明属性函数，则一个属性的函数都具有相同的标识符。 使用第一个语法时，需要 properties： 和 methods： 标记。 每个成员也需要 [ id] 属 性。 例如： syntax properties: [id(0)] int Value; // Default property. methods: [id(1)] HRESULT Show(); 与接口成员不同，除 HRESULT 错误代码外，dispinterface 成员不能使用 retval 属性返回值。 [ lcid] 属性对于 dispinterfaces 同样无效，因为 IDispatch：：Invoke 传递 LCID。 但是，可以重新声明使用这些属性的接口。 使用第二种语法，支持 IDispatch 和先前在 ODL 脚本中声明的接口可以重新声明为 IDispatch 接口，如下所示： syntax dispinterface helloPro { interface hello; }; 前面的示例将 hello 的所有成员和 hello 继承的所有成员声明为支持 IDispatch。 在这种情况下，如果之前使用返回 HRESULT 的 [lcid] 和 [retval] 成员声明了 hello，则 MkTypLib 将删除每个 [lcid] 参数和 HRESULT 返回类型，而是将返回类型标记为 [retval] 参数的返回 类型。７ 备注 Mktyplib.exe工具已过时。 请改用 MIDL 编译器。 dispinterface 的属性和方法不是 dispinterface 的 VTBL 的一部分。 因此， CreateStdDispatch 和 DispInvoke 不能用于实现 IDispatch：：Invoke。 当应用程序需要通过自动化公开现有的非 VTBL 函数时，将使用 dispinterface。 这些应用程序可以通过检查 dispidMember 参数并直接调用相应的函数来实现 IDispatch：：Invoke。 示例 syntax[",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 10",
+        "min_server": "Windows Server 2016"
+      },
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "Invoke",
+        "Length"
+      ],
+      "confidence": 0.35,
+      "_source_line": 6163
+    },
+    {
+      "id": "windows::FUNCFLAG_FDISPLAYBIND",
+      "name": "FUNCFLAG_FDISPLAYBIND",
+      "entity_type": "property",
+      "description": "、VARFLAG_FDISPLAYBIND 示例 syntax[",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 6348
+    },
+    {
+      "id": "windows::TYPEFLAG_FOLEAUTOMATION",
+      "name": "TYPEFLAG_FOLEAUTOMATION",
+      "entity_type": "property",
+      "description": "示例 syntax library Hello {",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 6489
+    },
+    {
+      "id": "windows::TYPEFLAG_FDUAL",
+      "name": "TYPEFLAG_FDUAL",
+      "entity_type": "property",
+      "description": "，TYPEFLAG_FOLEAUTOMATION 示例 syntax[",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "TYPEFLAG_FOLEAUTOMATION"
+      ],
+      "confidence": 0.55,
+      "_source_line": 6490
+    },
+    {
+      "id": "windows::implicit_handle",
+      "name": "implicit_handle",
+      "entity_type": "property",
+      "description": "handle_t xa_bhandle ) ] interface remote_if_2 { // Attribute configuration statements. } /* use of interface keyword in IDL file for a COM interface */ [ object, uuid (00000000-0000-0000-0000-000000000000) ] interface IDerivedInterface : IBaseInterface { import \"base.idl\"",
+      "remarks": "使用 import 指令，导入的文件中的所有 IDL 语句（如 typedef、常量声明和接口定义）都可用于导入 。IDL 文件。 导入的文件单独处理 (这意味着从导入 IDL 文件) 独立调用 CPP 预处理器。 这样，预处理器指令（如 #define）不会从导入的标头或 IDL 文件延续到导入的 IDL 文件。 与 C 语言预处理器宏 #include一样， import 指令告知编译器包括导入的 IDL 文件中定义的数据类型。 与 #include 指令不同， import 指令会忽略过程原型，因为不会为导入的文件中的任何内容生成存根。 有关使用 导入 在 IDL 文件中包括头文件的特定信息，请参阅 导入系统头文件。 C 语言标头 (。为接口生成的 H) 文件不直接包含导入的类型，而是为与导入的接口对应的头文件生成 #include 指令。 例如，导入 BASE 时。将 IDL 输入到 DERIVED 中。IDL， 生成的头文件 DERIVED。H 将包含 base.H #include 指令。下列规则适用： 导入关键字 (keyword) 是可选的，可以在 IDL 文件中出现零次或多次。 每个导入关键字 (keyword) 都可以与多个文件名相关联。用逗号分隔多个文件名。 必须将文件名括在引号内，并使用分号 (;) 结束 import 语句。 可以将没有属性的接口导入到另一个 IDL 文件中。 但是，接口必须仅包含数据类型; 它不能包含任何过程。 如果导入的接口中甚至包含一个过程，则必须指定 本地 或 UUID 属性。 import 函数是幂等的，也就是说，多次导入接口不会产生其他效果。７ 备注 导入指令的行为独立于 MIDL 编译器模式开关 /ms_ext (默认) 、/osf 和 /app_config。 但是，编译器模式 (/osf 或 /ms_ext) 可能会影响导入类型的指针属性修饰。 有关详细信息，请参阅 指针属性类型继承。 示例 syntax import \"myoldodl.odl\"; import \"unknwn.idl\"; import \"part1.idl\", \"part2.idl\", \"part3.idl\";",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "Attribute",
+        "endpoint"
+      ],
+      "confidence": 0.35,
+      "_source_line": 6607
+    },
+    {
+      "id": "windows::endpoint",
+      "name": "endpoint",
+      "entity_type": "property",
+      "description": "\"ncacn_http:major7.microsoft.com[2225]\") ] interface iface { // Interface definition statements. } //string binding format. //IIS Web server (websvr1)is on a different machine than the RPC //server, and endpoints are dynamic \"obj_uuid@ncacn_http:major7.microsoft.com [,]\" //tells the transport to use proxysvr, port 80, as the outgoing http //server: \"obj_uuid@ncacn_http:major7.microsoft.com[,]\"",
+      "remarks": "通过将 Microsoft Internet Information Server (IIS) 标识为协议系列，客户端和服务器应用程序可以使用 Microsoft Internet Information Server (IIS) 作为代理通过 Internet 进行通 信。 由于调用通过已建立的 HTTP 端口进行隧道传输，因此它们可能跨越防火墙。任何 RPC 客户端和服务器应用程序都可以支持 ncacn_http 协议，只要它们联网到 Internet 信息服务器即可。 IIS 与 RPC 服务器联系，并建立一个 TCP/IP 套接字，它为客户端维护该套接字。 IIS 与 RPC 服务器协商 TCP/IP 连接，协商完成后，充当 RPC 代理，在客户端 TCP/IP 套接字和服务器端 TCP/IP 套接字之间转发数据。 当 IIS RPC 代理在客户端或服务器端检测到会话关闭时，它会关闭剩余的套接字。 客户端应用程序隐式使用 IIS 的静态绑定，但服务器可以使用动态终结点，) 解析 RPC 服务器端口的 RPCSS (终结点映射器。 如果 IIS 与 RPC 服务器位于不同的计算机上，则 IIS 接收远程调用，联系 RPC 服务器计算机上的 RPCSS 以获取服务器进程终结点，然后将调用转发到相应的 RPC 服务器。 如果安装了 Internet Explorer，传输将检查注册表，以查看是否有 HTTP 代理的配置。 如果存在代理，传输将使用该代理。 示例 syntax //RPC client accesses an RPC server application, which is listening on //endpoint 2225 of an IIS Web Server named major7.microsoft.com [",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.35,
+      "_source_line": 6635
+    },
+    {
+      "id": "windows::entry",
+      "name": "entry",
+      "entity_type": "property",
+      "description": "id) [, optional-attribute-list] ] module modulename { elementlist }; 参数 uuid-number 指定 模块的通用唯一标识号。 entry-id 指定模块入口点函数名称或整数标识号。 optional-attribute-list 指定 MIDL 编译器应用于 模块的零个或多个属性。 modulename 指定其他软件组件用于表示 模块的名称。 elementlist 指定一个或多个模块元素定义语句。",
+      "remarks": "切勿将此开关或属性用于新接口。 这只是一项向后兼容性功能。此版本的 Microsoft RPC 中的 MIDL 编译器镜像 OSF DCE IDL 编译器对于非封装联合的行为。 但是，由于早期版本的 MIDL 编译器未执行此操作， 因此/ms_union 开关提供与基于早期版本 MIDL 编译器构建的接口的兼容性。 ms_union功能可用作 IDL 接口属性、IDL 类型属性或命令行开关 ( /ms_union) 。 示例 syntax [ms_union] long procedure (...);",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 6672
+    },
+    {
+      "id": "windows::Func1",
+      "name": "Func1",
+      "entity_type": "property",
+      "description": "[force_allocate] pstr); /* e.g. pData really points to a structure that needs an alignment greater than 1 */",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 6971
+    },
+    {
+      "id": "windows::Func2",
+      "name": "Func2",
+      "entity_type": "property",
+      "description": "[force_allocate] pData);",
+      "remarks": "用户定义的句柄允许开发人员设计对应用程序有意义的句柄。 用户定义句柄只能在类型声明中定义，而不能在函数声明符中定义。 [handle] 属性定义的类型的参数用于确定调用的绑定，并将其传输到被调用的过程。用户必须提供绑定和取消绑定例程，才能在基元和用户定义的句柄类型之间转换。 给定类型为 typename 的用户定义句柄，用户必须提供 例程 typename_bind 和 typename_unbind。 例如，如果用户定义的句柄类型名为 MYHANDLE，则例程命名为 MYHANDLE_bind 和 MYHANDLE_unbind。 如果成功， typename_bind 例程应返回有效的基元绑定句柄。 如果不成功，例程应返回 NULL。 如果例程返回 NULL，则不会调用 typename_unbind 例程。 如果绑定例程返回与 NULL 不同的无效绑定句柄，则存根行为未定义。 当远程过程将用户定义的句柄作为参数或隐式句柄时，客户端存根会在调用远程过程之前调用绑定例程。 客户端存根在远程调用后调用取消绑定例程。 在 DCE IDL 中，具有 [handle] 属性的参数必须显示为远程过程参数列表中的第一个参数。 后续参数（包括其他 [handle] 属性）被视为普通参数。 Microsoft 支持 DCE IDL 的 扩展，该扩展允许用户定义的 [handle] 参数出现在第一个参数以外的位置。示例 syntax typedef [handle] struct { char machine[8]; char nmpipe[256]; } h_service; handle_t __RPC_USER h_service_bind(h_service); void __RPC_USER h_service_unbind(h_service, handle_t);",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "helpcontext"
+      ],
+      "confidence": 0.4,
+      "_source_line": 6977
+    },
+    {
+      "id": "windows::helpfile",
+      "name": "helpfile",
+      "entity_type": "property",
+      "description": "\"filename\") [, optional-attribute-list] ] library { library statements }; 参数 uuid-number 指定 库的通用唯一标识号。 filename 指定包含帮助文本的文件的名称。 optional-attribute-list 指定 MIDL 编译器将应用于 库的零个或多个属性。库语句 指定定义库接口的一个或多个 MIDL 语句。",
+      "remarks": "使用 ITypeLib 和 ITypeInfo 接口中的 GetDocumentation 函数检索文件名。 示例 syntax [",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 7125
+    },
+    {
+      "id": "windows::lcid",
+      "name": "lcid",
+      "entity_type": "property",
+      "description": "localeID) [, optional-attribute-list] ] library library-name { library-definition-statements} function-name([parameter-attribute-list, lcid] long parameter-name,. . .); parameters uuid-number 指定 库的通用唯一标识号。 localeID 指定 Windows 国家/地区语言支持中使用的 32 位区域设置标识符。 通常，区域设置标识 符以十六进制形式提供。 optional-attribute-list 要应用于 库的零个或多个属性。 library-name 软件组件引用 库的名称。 library-definition-statements 定义 库内容的一个或多个 MIDL 语句。 function-name 指定 IDL 文件中函数的名称。 parameter-attribute-list 将应用于函数参数的零个或多个 MIDL 属性。 parameter-name 指定 IDL 文件中参数的名称。",
+      "remarks": "[lcid] 语法有两种不同的形式：属性的效果取决于使用的语法 - 库语句语法或参数语法。当应用于 库 语句以及第一个示例中所示的 localeID 参数时， [lcid] 属性标识类型库或函数参数的区域设置，并允许在库块内使用国际字符。 在 MIDL 编译器版本 3.01.75 中，此属性提供的区域设置标识符不仅修饰生成的类型库，而且实际上会更改编译器的行为。 在 库 语句中，从使用 [lcid] 属性的点开始，MIDL 将接受根据指定区域设置本地化的输入。 特别是，提供对亚洲语言（如日语、中文和朝鲜语）的完全支持 (完整的 DBCS 支持) 。 本地化支持的功能包括：注释、字符串、帮助字符串和标识符。 使用 /lcid 编译器开关使此本地化支持可用于整个输入文件，包括文件名和目录路径，而不仅仅是在库块中。 应用于参数时， [lcid] 属性允许您将区域设置标识符传递给函数，如第二个示例所示。以下限制适用于 [lcid] 参数： 一个函数最多可以有一个 [lcid] 参数。 参数的数据类型必须为 长。参数的方向只能为 [in]。 [lcid] 参数必须遵循除 [retval] 参数以外的任何其他参数。不能将 [lcid] 属性应用于 dispinterface 或 coclass 参数。 示例 syntax[",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 7150
+    },
+    {
+      "id": "windows::helpstringcontext",
+      "name": "helpstringcontext",
+      "entity_type": "property",
+      "description": "102), oleautomation, dual ] interface ILine : IDispatch { [propget, helpstringcontext(100)] HRESULT Color([out, retval] long* ReturnVal); [propput, helpstringcontext(101)] HRESULT Color([in] long rgb); } }; helpstringdll 属性项目• 2023/06/13 [helpstringdll] 属性设置用于执行文档字符串查找的 DLL 的名称。 syntax[",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "Color"
+      ],
+      "confidence": 0.35,
+      "_source_line": 7265
+    },
+    {
+      "id": "windows::helpstringdll",
+      "name": "helpstringdll",
+      "entity_type": "property",
+      "description": "help-text-string) [, optional-attribute-list] ] library library-name { library-definition-statements}; parameters help-text-string 一个以零结尾的字符串，用于指定 DLL 的完全限定文件名。 optional-attribute-list 应用于库语句的其他属性作为一个整体。 library-name 软件组件将用于表示此 库的标识符。 library-definition-statements 定义 库接口的一个或多个 MIDL 语句。",
+      "remarks": "使用库语句上的 [helpstringdll] 属性可以指定动态链接库的完全限定文件名作为字符串。这允许用户使用对象查看器查看 DLL 的说明。 使用 ITypeLib2 和 ITypeInfo2 接口中的 GetDocumentation2 函数检索帮助字符串。 [hidden] 属性允许从接口 (中删除成员，方法是阻止成员进一步使用) ，同时保持与现有代码的兼容性。 可以对属性、方法以及 coclass、dispinterface、interface 和 library 语句使用 [hidden] 属性。 为库指定 [ hidden] 属性时，会阻止显示整个库。 这种用法与控件一起使用。 主机需要 创建新的类型库，该库对控件进行包装，使其具有扩展特性。 Flags",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "Flags",
+        "name"
+      ],
+      "confidence": 0.35,
+      "_source_line": 7308
+    },
+    {
+      "id": "windows::VARFLAG_FHIDDEN",
+      "name": "VARFLAG_FHIDDEN",
+      "entity_type": "property",
+      "description": "、FUNCFLAG_FHIDDEN、TYPEFLAG_FHIDDEN 示例 syntax [hidden, vararg] SAFEARRAY (int) SecretFunc( [in, out] SAFEARRAY (variant) *varP) ; [",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 7369
+    },
+    {
+      "id": "windows::DBL_LINK_NODE_TYPE",
+      "name": "DBL_LINK_NODE_TYPE",
+      "entity_type": "property",
+      "description": "* p, * q p = (DBL_LINK_NODE_TYPE *) midl_user_allocate(",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 7532
+    },
+    {
+      "id": "windows::sizeof",
+      "name": "sizeof",
+      "entity_type": "property",
+      "description": "DBL_LINK_NODE_TYPE)); p->next = q; q->previous = p; p->previous = q->next = NULL; ..",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "DBL_LINK_NODE_TYPE"
+      ],
+      "confidence": 0.35,
+      "_source_line": 7536
+    },
+    {
+      "id": "windows::remote_op",
+      "name": "remote_op",
+      "entity_type": "property",
+      "description": "p); 在前面的示例中发生别名，因为同一内存区域可从函数 p 和 p-next-previous>> 中的两个不同指针获得。 请注意， [ignore] 不能用作类型属性。 示例 syntax typedef struct _DBL_LINK_NODE_TYPE { long value; struct _DBL_LINK_NODE_TYPE * next; [ignore] struct _DBL_LINK_NODE_TYPE * previous; }",
+      "remarks": "对于函数参数和结构或联合成员，可以在属性列表中使用 [iid_is]。 存根使用 IID 来确定如何封送接口指针。 这对于类型化为基类参数的接口指针很有用。 使用 [iid_is] 属性的文件必须在不使用 /osf 开关的默认模式下使用 MIDL 编译器进行编译。 示例 syntax HRESULT CreateInstance( [in] REFIID riid, [out, iid_is(riid)] IUnknown ** ppvObject); [immediatebind] 属性允许控件区分需要向数据库通知每个更改的属性和不需要通知的属性。 例如，对复选框控件的每个更改都应立即发送到基础数据库，即使该控件没有失去焦点。 但是，对于列表框控件，只要突出显示不同的选择，就会发生更改。 在控件失去焦点之前通知数据库更改是效率低下且不必要的。 [immediatebind] 属性允许您通过设 置 ImmediateBind 位来指定窗体上应立即报告其更改的各个属性。具有 [immediatebind] 属性的属性还必须具有 [bindable] 属性。 Flags",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "CreateInstance",
+        "Flags",
+        "name",
+        "uuid"
+      ],
+      "confidence": 0.35,
+      "_source_line": 7552
+    },
+    {
+      "id": "windows::FUNCFLAG_FIMMEDIATEBIND",
+      "name": "FUNCFLAG_FIMMEDIATEBIND",
+      "entity_type": "property",
+      "description": "、VARFLAG_FIMMEDIATEBIND 示例 syntax[",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 7626
+    },
+    {
+      "id": "windows::Save",
+      "name": "Save",
+      "entity_type": "property",
+      "description": "); } /* use of interface keyword to define an interface pointer type */ typedef interface IStorage *LPSTORAGE;",
+      "remarks": "未指定 [length_is] 时，[last_is] 属性确定对应于 [length_is] 属性的数组索引的值。 这些数组索引之间的关系如下：length = last - first + 1。 如果 [first_is] 指定的数组索引的值大于 [last_is] 指定的值，则传输零个元素。[last_is] 属性不能与 [length_is] 属性或 [string] 属性同时用作字段属性。 将常量表达式与 [last_is] 属性一起使用是不恰当的。 这是合法的，但效率低下，并将导致代码封送处理速度变慢。 当 [max_is] 指定的值等于或大于零时，以下关系必须为 true：0 <= last_is <= max_is。 示例 syntax proc1( [in] short Last, [in, last_is(Last)] short asNumbers[MAXSIZE]);",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "RPC_IF_HANDLE",
+        "first_is",
+        "lcid",
+        "pointer_default",
+        "size_is",
+        "uuid"
+      ],
+      "confidence": 0.5,
+      "_source_line": 8024
+    },
+    {
+      "id": "windows::TYPEFLAG_FLICENSED",
+      "name": "TYPEFLAG_FLICENSED",
+      "entity_type": "property",
+      "description": "示例 syntax[",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.45,
+      "_source_line": 8317
+    },
+    {
+      "id": "windows::warning",
+      "name": "warning",
+      "entity_type": "property",
+      "description": "disable: 2209 ) // ignored redundant attr #endif",
+      "remarks": "客户端应用程序和服务器应用程序都必须实现 midl_user_allocate 函数，除非以 OSF 兼 容性 (/osf) 模式进行编译。 处理指针引用的对象时，应用程序和生成的存根调用 midl_user_allocate ： 服务器应用程序应调用 midl_user_allocate 为应用程序分配内存，例如，在创建新节点时。 将指向数据解封到服务器地址空间时，服务器存根调用 midl_user_allocate 。 从 out 指针引用的服务器取消封送数据时，客户端存根调用 midl_user_allocate。 请注意，对于 [in]、[out] 和 [unique] 指针，仅当 [unique] 指针值在输入时为 NULL 并在调用期间更改为非 NULL 值时，客户端存根才会调用 midl_user_allocate。 如果 [unique] 指针在输入时为非 NULL ，则客户端存根会将关联的数据写入现有内存。 如果 midl_user_allocate 分配内存失败，则必须返回 NULL 指针。建议 midl_user_allocate 返回一个 8 字节对齐的指针。 示例 C++ #include <windows.h> void __RPC_FAR * __RPC_API midl_user_allocate(size_t cBytes) {",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.25,
+      "_source_line": 8625
+    },
+    {
+      "id": "windows::return",
+      "name": "return",
+      "entity_type": "property",
+      "description": "malloc(cBytes)); }",
+      "remarks": "客户端应用程序和服务器应用程序都必须实现 midl_user_free 函数，除非以 OSF 兼容性(/osf) 模式进行编译。 midl_user_free 函数必须能够释放midl_user_allocate分配的所有存储。 处理指针引用的对象时，应用程序和存根调用 midl_user_free ： 服务器应用程序应调用 midl_user_free 以释放应用程序分配的内存，例如，删除指定的节点时。 服务器存根调用 midl_user_free ，在封送所有 [out] 参数、 [in， out] 参数和返回值后释放服务器上的内存。 示例 C++ #include <windows.h> void __RPC_API midl_user_free(void __RPC_FAR * p) {",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "void"
+      ],
+      "confidence": 0.15,
+      "_source_line": 8662
+    },
+    {
+      "id": "windows::RPC_S_SERVER_TOO_BUSY",
+      "name": "RPC_S_SERVER_TOO_BUSY",
+      "entity_type": "property",
+      "description": "。 因此，需要确保客户端应用程序处理服务器太忙而无法接受连接的情况。 客户端应自动重试、提示用户执行操作或正常失败。 与所有端口字符串一样，命名管道端口字符串的语法由传输实现定义，并且独立于 IDL 规范。 MIDL 编译器执行有限的语法检查，但不保证终结点规范正确。 某些类错误可能会在运行时报告，而不是在编译时报告。 示例 syntax[",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 9142
+    },
+    {
+      "id": "windows::TYPEFLAG_FNONEXTENSIBLE",
+      "name": "TYPEFLAG_FNONEXTENSIBLE",
+      "entity_type": "property",
+      "description": "示例 syntax library Hello{ [",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 9645
+    },
+    {
+      "id": "windows::MyProcedure",
+      "name": "MyProcedure",
+      "entity_type": "property",
+      "description": "[in] short S); 在 ACF for MIDL 中指定以下内容以生成 _notify_flag 调用： syntax [notify_flag] MyProcedure(); MIDL 编译器将生成服务器存根代码，其中包含对 _notify_flag 过程的以下调用： syntax",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 9678
+    },
+    {
+      "id": "windows::MyProcedure_notify",
+      "name": "MyProcedure_notify",
+      "entity_type": "property",
+      "description": "); 头文件将包含一个原型： syntax void MyProcedure_notify(void); 示例 syntax [notify] MyProcedure();",
+      "remarks": "[notify_flag] 属性在用法上与 [notify] 属性类似。 [notify_flag] 过程名称是_notify_flag后缀的远程过程的名称。 _notify_flag过程不需要任何参数，也不返回结果。 此过程的原型也会在头文件中生成。 例如，如果 IDL 文件包含 以下项： syntax",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "MyProcedure",
+        "name"
+      ],
+      "confidence": 0.5,
+      "_source_line": 9687
+    },
+    {
+      "id": "windows::MyProcedure_notify_flag",
+      "name": "MyProcedure_notify_flag",
+      "entity_type": "property",
+      "description": "); 头文件将包含一个原型： syntax void MyProcedure_notify_flag(boolean __MIDL_NotifyFlag); 如果调用服务器例程，_MIDL_NotifyFlag为 TRUE。 示例 syntax [notify_flag] MyProcedure();",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "MyProcedure"
+      ],
+      "confidence": 0.5,
+      "_source_line": 9715
+    },
+    {
+      "id": "windows::optimize",
+      "name": "optimize",
+      "entity_type": "property",
+      "description": "\"i\") HRESULT SmallerProcedure(...);",
+      "remarks": "[optional] 属性仅当参数的类型为 VARIANT 或 VARIANTÂ *时有效。 MIDL 编译器接受从左到右) (以下参数排序： 1. 必需的参数 (没有 [defaultvalue] 或 [可选] 属性) 的参数， 2. 具有或不带 [defaultvalue] 属性的可选参数， 3. 具有 [可选] 属性且不包含 [defaultvalue] 属性的参数， 4. [lcid] 参数（如果有） 5. [retval] 参数 不能将 [可选] 属性应用于同时具有 [lcid] 或 [retval] 属性的参数。 示例 syntax HRESULT MyFunc([in, optional] VARIANT Param1, [out, optional] VARIANT Param2)",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.25,
+      "_source_line": 9947
+    },
+    {
+      "id": "windows::INVOKE_PROPERTYGET",
+      "name": "INVOKE_PROPERTYGET",
+      "entity_type": "struct",
+      "description": "示例 syntax interface MyInterface : IDispatch { [propget,",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 10227
+    },
+    {
+      "id": "windows::INVOKE_PROPERTYPUT",
+      "name": "INVOKE_PROPERTYPUT",
+      "entity_type": "struct",
+      "description": "示例 syntax interface InMyFace : IDispatch { [propget,",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 10283
+    },
+    {
+      "id": "windows::INVOKE_PROPERTYPUTREF",
+      "name": "INVOKE_PROPERTYPUTREF",
+      "entity_type": "struct",
+      "description": "示例 syntax interface InMyFace : IDispatch { [propget,",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 10326
+    },
+    {
+      "id": "windows::TYPEFLAG_PROXY",
+      "name": "TYPEFLAG_PROXY",
+      "entity_type": "struct",
+      "description": "可以使用 TYPEFLAG_PROXY 标志标记接口，以指示它们将使用代理/存根动态链接库。此标志指定在取消注册 typelib 时，不应取消注册 typelib 代理。",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 10384
+    },
+    {
+      "id": "windows::GRAPH_NODE_TYPE",
+      "name": "GRAPH_NODE_TYPE",
+      "entity_type": "struct",
+      "description": "g, h; g.pdata = h.pdata = &a; t->left = &g; t->right = &h; // t->left->pdata == t->right->pdata == &a 尽管“t-left>”和“t-right>”指向唯一的内存位置，但“t-left-pdata>>”和“t-right-pdata>>”是别名。 因此，支持别名的算法必须遵循所有指针 (包括最终可能达到完整指针的唯一指针和引用指针) 。 示例 syntax",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 10472
+    },
+    {
+      "id": "windows::VARFLAG_FREADONLY",
+      "name": "VARFLAG_FREADONLY",
+      "entity_type": "struct",
+      "description": "示例 syntax HRESULT Method3([in, readonly] int iMmutable);",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 10593
+    },
+    {
+      "id": "windows::FUNCFLAG_FREQUESTEDIT",
+      "name": "FUNCFLAG_FREQUESTEDIT",
+      "entity_type": "struct",
+      "description": "、VARFLAG_FREQUESTEDIT 示例 syntax properties: [propget, helpstring(\"A useful comment\"), bindable, defaultbind, displaybind, requestedit] long",
+      "remarks": "使用此属性可以控制对接口、库、模块和 dispinterface 元素的访问。 例如，它可以阻止宏程序员使用数据项。 可以将此属性应用于 coclass 的成员，这与成员是非接口还是接口无关，也独立于该成员是接收 () 接收器还是源 (传出) 。 coclass 的成员不能同时具有 [restricted] 和 [default] 属性。 Flags",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "Flags",
+        "name"
+      ],
+      "confidence": 0.65,
+      "_source_line": 10770
+    },
+    {
+      "id": "windows::IMPLTYPEFLAG_FRESTRICTED",
+      "name": "IMPLTYPEFLAG_FRESTRICTED",
+      "entity_type": "struct",
+      "description": "、FUNCFLAG_FRESTRICTED 示例 syntax[",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 10815
+    },
+    {
+      "id": "windows::IDLFLAG_FRETVAL",
+      "name": "IDLFLAG_FRETVAL",
+      "entity_type": "struct",
+      "description": "示例 syntax HRESULT MyMethod([out, retval] InMyFace** ReturnVal); HRESULT MyOtherMethod([out, retval]",
+      "remarks": "若要将此关键字 (keyword) 与 属性一起使用system_handle，-target在运行 midl.exe 时， 标志必须设置为 NT100 (或更高的) 。 示例 syntax interface MyInterface : IUnknown { HRESULT GetVisualSurface([out, system_handle(sh_composition)] HANDLE* visual); } 若要将此关键字 (keyword) 与 属性一起使用system_handle，-target在运行midl.exe时，必须将标志设置为NT100 (或更高的) 。 示例 syntax interface MyInterface : IUnknown { HRESULT NotifyThisEvent([in, system_handle(sh_event)] HANDLE listeningToThisEvent); } 若要将此关键字 (keyword) 与 属性一起使用system_handle，-target在运行midl.exe时，必须将标志设置为NT100 (或更高的) 。 示例 syntax interface MyInterface : IUnknown { HRESULT WriteThisFile([in, system_handle(sh_file)] HANDLE file); HRESULT GetFileToRead([out, system_handle(sh_file, READ_CONTROL | SYNCHRONIZE | FILE_READ_DATA | FILE_READ_keywordS | FILE_READ_EA)] HANDLE* pReadThisFile); } 若要将此关键字 (keyword) 与 属性一起使用system_handle，-target在运行midl.exe时，必须将标志设置为NT100 (或更高的) 。 示例 syntax interface MyInterface : IUnknown { HRESULT SetJob([in, system_handle(sh_job)] HANDLE job); HRESULT GetJobForAccounting([out, system_handle(sh_job,",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 10",
+        "min_server": "Windows Server 2016"
+      },
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "FILE_READ_DATA",
+        "READ_CONTROL"
+      ],
+      "confidence": 0.65,
+      "_source_line": 10868
+    },
+    {
+      "id": "windows::JOB_OBJECT_QUERY",
+      "name": "JOB_OBJECT_QUERY",
+      "entity_type": "struct",
+      "description": ")] HANDLE* pJob);}",
+      "remarks": "若要将此关键字 (keyword) 与 属性一起使用system_handle，-target在运行 midl.exe 时， 标志必须设置为 NT100 (或更高的) 。 示例 syntax interface MyInterface : IUnknown { HRESULT WaitOnThisMutex([in, system_handle(sh_mutex)] HANDLE mutex); } 若要将此关键字 (keyword) 与 属性一起使用system_handle，-target在运行midl.exe时，必须将标志设置为NT100 (或更高的) 。 示例 syntax interface MyInterface : IUnknown { HRESULT GetNewPipe([out, system_handle(sh_pipe)] HANDLE* mySidePipe); HRESULT PutReadOnlyPipe([in, system_handle(sh_pipe, FILE_GENERIC_READ)] HANDLE theirSidePipe); } 若要将此关键字 (keyword) 与 属性一起使用system_handle，-target在运行midl.exe时，必须将标志设置为NT100 (或更高的) 。 示例 syntax interface MyInterface : IUnknown { HRESULT GetStubProcess([out, system_handle(sh_process)] HANDLE* processHandle); HRESULT WatchProcess([in, system_handle(sh_process,",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 10",
+        "min_server": "Windows Server 2016"
+      },
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.45,
+      "_source_line": 11011
+    },
+    {
+      "id": "windows::PROCESS_QUERY_INFORMATION",
+      "name": "PROCESS_QUERY_INFORMATION",
+      "entity_type": "struct",
+      "description": "| PROCESS_QUERY_LIMITED_INFORMATION)] HANDLE processHandle); }",
+      "remarks": "若要将此关键字 (keyword) 与 属性一起使用system_handle，-target在运行 midl.exe 时， 标志必须设置为 NT100 (或更高的) 。 示例 syntax interface MyInterface : IUnknown { HRESULT GetConfigurationKey([out, system_handle(sh_reg_key)] HANDLE* key); HRESULT SetKeyForWatch([in, system_handle(sh_reg_key, KEY_READ)] HANDLE watchKey); } 若要将此关键字 (keyword) 与 属性一起使用system_handle，-target在运行midl.exe时，必须将标志设置为NT100 (或更高的) 。 示例 syntax interface MyInterface : IUnknown { HRESULT GiveSection([in, system_handle(sh_section)] HANDLE section); HRESULT GetSectionToWatch([out, system_handle(sh_section,",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 10",
+        "min_server": "Windows Server 2016"
+      },
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "PROCESS_QUERY_LIMITED_INFORMATION"
+      ],
+      "confidence": 0.65,
+      "_source_line": 11119
+    },
+    {
+      "id": "windows::SECTION_MAP_READ",
+      "name": "SECTION_MAP_READ",
+      "entity_type": "struct",
+      "description": ")] HANDLE* pSection); }",
+      "remarks": "若要将此关键字 (keyword) 与 属性一起使用system_handle，-target在运行midl.exe时，必须将标志设置为NT100 (或更高的) 。 示例 syntax interface MyInterface : IUnknown { HRESULT SignalThisSemaphore([in, system_handle(sh_semaphore)] HANDLE semaphore); } 若要将此关键字 (keyword) 与 属性一起使用system_handle，-target在运行midl.exe时，必须将标志设置为NT100 (或更高的) 。 示例 syntax interface MyInterface : IUnknown { HRESULT ListenToSocket([in, system_handle(sh_socket)] HANDLE socket); } 若要将此关键字 (keyword) 与 属性一起使用system_handle，-target在运行midl.exe时，必须将标志设置为NT100 (或更高的) 。 示例 syntax interface MyInterface : IUnknown { HRESULT SetThread([in, system_handle(sh_process)] HANDLE threadHandle); } 若要将此关键字 (keyword) 与 属性一起使用system_handle，-target在运行midl.exe时，必须将标志设置为NT100 (或更高的) 。 示例 syntax interface MyInterface : IUnknown { HRESULT SetToken([in, system_handle(sh_token)] HANDLE token); HRESULT GetToken([out, system_handle(sh_token, TOKEN_QUERY)] HANDLE* pToken); } 短关键字 (keyword) 前面可以是有符号关键字 (keyword) 或无符号关键字 (keyword) 。 int 关键字 (keyword) 是可选的，可以省略。 对于 MIDL 编译器，短整数默认为有符号，并且与 signed short int 同义。 短整数类型是 IDL 语言的基类型之一。 短整数类型可以在 const 声明、typedef 声明、常规声明和函数声明符中显示为类型说明符， (作为 function-return-type 说明符和参数类型说明符) 。 有关显示类型说明符的上下文，请参阅 接口定义 (IDL) 文件。 此关键字 (keyword) 是可选的，可用于任何字符和整数类型 char、wchar_t、long、 short 和 small。 可以选择将 关键字 (keyword) int 包含在类型限定符 long、short 和 small 之后。 使用 MIDL 编译器开关 字符时，在 IDL 文件中出现的不带显式符号关键字的字符和整数类型可以与生成的头文件中的 有符号 或 无符号 关键字一起显示。 为避免混淆，请指定整数和字符类型的符号。 如果使用 [size_is] 属性为多维数组分配内存，并且使用的是 array [ ] 表示法，请记住，在运行时只能动态确定多维数组的第一个维度。 其他维度必须静态指定。 有关将 [size_is] 属性与多个级别的指针配合使用以使服务器能够将动态大小的数据数组返回给客户端的详细信息，如示例 Proc7 中所示，请参阅 多级别指针。 可以使用 [size_is] 或 max_is (，但不能同时在同一属性列表中) 来指定在运行时确定其上限的数组的大小。 但请注意，[size_is] 属性不能用于固定的数组维度。 [max_is] 属性指定最大有效数组索引。 因此，指定 [size_is (n) ] 等效于指定 [max_is (n-1) ]。 具有 [ string] 属性的 [ in] 或 [in， out] 符合数组参数不需要具有 [size_is] 或 [max_is] 属性。 在这种情况下，分配的大小取决于输入字符串的 NULL 终止符。 具有 [string] 属性的所有其他符合数组必须具有 [size_is] 或 [max_is] 属性。 虽然将 [size_is] 属性与常量一起使用是合法的，但这样做效率低下且不必要。 例如，使 用固定大小的数组： syntax HRESULT Proc3([in] short Arr[MAX_SIZE]); 而不是： syntax // legal but marshaling code is much slower HRESULT Proc3([in size_is(MAX_SIZE)] short Arr[] ); 可以将 [size_is] 和 [length_is] 属性一起使用。 执行此操作时，[size_is] 属性控制为数据分配的内存量。 [length_is] 属性指定传输的元素数。 [size_is] 和 [length_is] 属性指定的内存量不需要相同。 例如，客户端可以向服务器传递 [in，out] 参数，并使用 [size_is] 指定大型内存分配，即使它指定要通过 [length_is] 传递的少量数据元素。 这使服务器能够用比收到的更多的数据填充数组，然后可以将其发送回客户端。 通常，在 [in] 或 [out] 参数上同时指定 [size_is] 和 [length_is] 没有用。 在这两种情况下，[size_is] 控制内存分配。 应用程序可以使用 [size_is] 分配比 [length_is] ) 指定的传输(更多的数组元素。 但是，这将效率低下。 为 [size_is] 和 [length_is] 指定相同的值也效率低下。 这会在参数封送处理期间产生额外的开销。 如果 [size_is] 和 [length_is] 的值始终相同，请省略 [length_is] 属性。 示例 syntax HRESULT Proc1( [in] short m; [in, size_is(m)] short a[]); // If m = 10, a[10] HRESULT Proc2( [in] short m; [in, size_is(m)] short b[][20]); // If m = 10, b[10][20] HRESULT Proc3( [in] short m; [size_is(m)] short * pshort); /* Specifies a pointer to an m-sized block of shorts */ HRESULT Proc4( [in] short m; [size_is( , m)] short ** ppshort); /* Specifies a pointer to a pointer to an m-sized block of shorts */ HRESULT Proc5( [in] short m; [size_is(m ,)] short ** ppshort); /* Specifies an m-sized block of pointers to shorts */ HRESULT Proc6( [in] short m; [in] short n; [size_is(m,n)] short ** ppshort); /* Specifies a pointer to an m-sized block of pointers, each of which points to an n-sized block of shorts. m associates with the pointer closeest to the identifer it decorates. n associates with rest.*/ HRESULT Proc7( [out] long * pSize, [out, size_is( , *pSize)] my_type ** ppMyType); /* Specifies a pointer to a sized pointer, which points to a block of my_types, whose size is unknown when the stub calls the server. */",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 10",
+        "min_server": "Windows Server 2016"
+      },
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "name",
+        "size_is"
+      ],
+      "confidence": 0.55,
+      "_source_line": 11195
+    },
+    {
+      "id": "windows::IMPLTYPEFLAG_FSOURCE",
+      "name": "IMPLTYPEFLAG_FSOURCE",
+      "entity_type": "struct",
+      "description": "、VARFLAG_SOURCE、FUNCFLAG_SOURCE 示例 syntax [default, source] dispinterface DIMyFaceAdviseSink; [source]interface IMyFaceAdviseSink;",
+      "parameters": [
+        {
+          "name": "或",
+          "direction": "unique",
+          "description": "[ptr]以及联合属性 [switch_type]。 用逗号分隔多个字段属性。 function-attribute-list 指定应用于函数的零个或多个属性。 有效的函数属性为 [callback]、 [local];指针属性 [ref]、 [unique]或 [ptr];和用法属性 [string]、 [ignore] 和 [context_handle]。 ptr-decl 指定 应用 [string] 属性的可选指针声明符。 指针声明符与 C 中使用的指针声明符相同;它 由 * 指示符、修饰符（如 far）和限定符 const 构造。 function-name 指定远程过程的名称。 parameter-attribute-list 包含适用于指定参数类型的零个或多个属性。 参数属性可以采用方向属性 [in] 和 [out]; 字段属性 [max_is] 和 [size_is];指针属性 [ref]、 [unique]或 [ptr];和用法属性"
+        },
+        {
+          "name": "和",
+          "direction": "context_handle",
+          "description": "[string]。 usage 属性 [ignore] 不能用作参数属性。 用逗号分隔多个 属性。"
+        }
+      ],
+      "remarks": "通常，当对接口方法的调用生成上下文句柄时，该句柄可供任何其他接口自由使用。 使用 [strict_context_handle] 属性时，可以保证该接口中的方法仅接受由同一接口中的方法创建的上下文句柄。 在没有 [strict_context_handle] 的情况下编译的接口不能接受在用 [strict_context_handle] 编译的接口上创建的上下文句柄。 如果将 [string] 属性用于在运行时确定其边界的数组，则还必须指定 [size_is] 或 [max_is] 属性，如以下示例所示： syntax /* a string that can hold up to MAX_STRING_LENGTH characters */ typedef [string, max_is(MAX_STRING_LENGTH)] char line[]; [string] 特性不能与指定传输元素范围的属性一起使用，如 [first_is]、[last_is] 和[length_is]。 在多维数组上使用时， [string] 属性应用于最右侧的数组。 若要定义计数字符串，请不要使用 [string] 属性。 使用字符数组或基于字符的指针，如 下所示： syntax typedef struct { unsigned short size; unsigned short length; [size_is(size), length_is(length)] char string[*]; } counted_string; [string] 属性指定存根应使用语言提供的方法来确定字符串的长度。在 C 中声明字符串时，必须为标记字符串末尾的额外字符分配空间。 示例 syntax /* a string type that can hold up to 80 characters */ typedef [string] char line[81]; HRESULT Proc1([in, string] char * pszName);",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "implicit_handle",
+        "name"
+      ],
+      "confidence": 0.75,
+      "_source_line": 11569
+    },
+    {
+      "id": "windows::switch",
+      "name": "switch",
+      "entity_type": "struct",
+      "description": "type switch-name) parameters switch-type 指定一个 int、 char、 enum 类型或一个解析为这些类型之一的标识符。 switch-name 指定充当联合判别符的 switch-type 类型的变量的名称。 示例 syntax typedef union _S1_TYPE switch (long l1) U1_TYPE { case 1024: float f1; case 2048: double d2; } S1_TYPE; /* in generated header file */ typedef struct _S1_TYPE { long l1; union { float f1; double d2; } U1_TYPE; } S1_TYPE;",
+      "remarks": "与 [switch_is] 属性关联的判别器必须在与联合相同的逻辑级别定义： 当联合是一个参数时，联合判别器必须是另一个参数。 当联合是结构的字段时，判别者必须是同一结构的另一个字段。结构或函数参数列表中的序列并不重要。 联合可以先于或跟随判别者。[switch_is] 属性可以显示为字段属性或参数属性。 示例 syntax typedef [switch_type(short)] union _WILLIE_UNION_TYPE { [case(24)] float fMays; [case(25)] double dMcCovey; [default] ; } WILLIE_UNION_TYPE; typedef struct _WINNER_TYPE { [switch_is(sUniformNumber)] WILLIE_UNION_TYPE w; short sUniformNumber; } WINNER_TYPE;",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "first_is",
+        "name",
+        "size_is",
+        "switch_type",
+        "usage"
+      ],
+      "confidence": 0.35,
+      "_source_line": 11779
+    },
+    {
+      "id": "windows::switch_type",
+      "name": "switch_type",
+      "entity_type": "struct",
+      "description": "switch-type-specifier) parameters switch-type-specifier 指定 int、 char、 Boolean 或 枚举 类型，或此类类型的标识符。",
+      "remarks": "虽然 [switch_type] 属性标识变量类型， 但 [switch_is] 属性指定联合判别符的参数的名称。 [switch_type] 属性适用于结构或联合的参数或成员。 必须在同一逻辑级别指定联合及其判别器。 当联合是一个参数时，联合判别器必须是另一个参数。 当联合是结构的字段时，判别者必须是结构的另一个字段，位于与联合字段相同的级别。 示例 syntax typedef [switch_type(short)] union _WILLIE_UNION_TYPE { [case(24)] float fMays; [case(25)] double dMcCovey; [default] ; } WILLIE_UNION_TYPE; typedef struct _WINNER_TYPE { [switch_is(sUniformNumber)] WILLIE_UNION_TYPE w; short sUniformNumber; } WINNER_TYPE; 若要使用此属性，在运行 midl.exe 时， -target 标志必须设置为 NT100 (或更高的) 。系统句柄是由操作系统定义的句柄，用于提供对系统资源的访问。 声明特性时，必须指定句柄后面的对象的特定类型。 对于标记为 [in]的句柄，该句柄将复制到远程过程中，并在该过程期间保持有效。 从远程过程返回时，将释放重复的句柄。 若要保持对基础对象的访问，远程应用程序必须将句柄复制到其自己的地址空间中。 相比之下，对于标记为 [out]的句柄，当远程过程从调用返回句柄时，远程过程将失去它的所有权。 若要保持对基础对象的访问，远程过程应复制句柄并返回重复项。 然后，返回的句柄将成为调用方所有，调用方负责在不再需要访问基础系统对象时关闭它。 由于这是一种用于中继对系统对象的访问的机制，因此此属性仅适用于同一计算机上的过程之间的调用。 创建对象时，系统句柄后面的基础对象的创建和访问参数将决定该对象是否可以成功封送到远程过程上下文。 可以使用 size_is 属性文档中的语法传入或传出 的数组system_handle。示例 以下示例的多个用法 system_handle。 有关完整示例，请参阅 SystemHandlePassing 示例。 C interface MyInterface : IUnknown { HRESULT Proc1([in, system_handle(sh_file)] HANDLE writeThisFile); HRESULT Proc2([in, system_handle(sh_pipe, FILE_GENERIC_READ)] HANDLE readThisPipe); HRESULT Proc3([out, system_handle(sh_composition)] HANDLE* visual); HRESULT Proc4([in] DWORD cEvents, [out, system_handle(sh_event),",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 11914
+    },
+    {
+      "id": "windows::TREE_TYPE",
+      "name": "TREE_TYPE",
+      "entity_type": "struct",
+      "description": "__RPC_FAR *); void __RPC_USER TREE_TYPE_free_inst(",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 12088
+    },
+    {
+      "id": "windows::TREE_XMIT_TYPE",
+      "name": "TREE_XMIT_TYPE",
+      "entity_type": "struct",
+      "description": "__RPC_FAR * __RPC_FAR *); void __RPC_USER",
+      "remarks": "IDL typedef 声明已扩充，使你能够将类型属性与定义的类型相关联。 有效的类型属性包括 [handle]、 [switch_type]、 [transmit_as];指针属性 [ref]、 [unique]或 [ptr];和用法属性 [context_handle]、 [string]和 [ignore]。 ACF 中的 typedef 关键字 (keyword) 将属性应用于相应 IDL 文件中定义的类型。 例如，分配 类型属性允许通过应用程序和存根自定义内存分配和解除分配。 ACF typedef 语句显示为 ACF 正文的一部分。 请注意，ACF typedef 语法不同于 IDL typedef 语法和 C 语言 typedef 语法。 ACF 中不能引入任何新类型。请参阅 应用程序配置文件 (ACF) 分配阵 列 const context_handle 解码编码枚举处理 接口定义 (IDL) 文件 忽略 Ptr 裁判 string 结构 switch_type transmit_as 联盟 unique 是 否 type_strict_context_handle 属性项目• 2023/06/13 在 ACF 文件中使用 [type_strict_context_handle] 可设置对上下文句柄的限制。 syntax[ type_strict_context_handle [, interface-attribute-list] ] interface interface-name { interface-definition-statements } parameters interface-attribute-list 应用于接口的其他 ACF 属性作为一个整体。 有效属性包括 auto_handle、 implicit_handle、 explicit_handle和 优化、 代码或 nocode。 用逗号分隔多个属性。 interface-name 接口的名称。 interface-definition-statements 一个或多个用于定义 接口元素的 MIDL 语句。 若要使用此属性，在运行 midl.exe 时，必须将 -target 标志设置为 NT60 (或更高版本) 。[type_strict_context_handle] 是 [strict_context_handle] 的功能超集。 在 [strict_context_handle]中，句柄的类型 ID 始终为 0;[type_strict_context_handle]中，MIDL 编译器分配唯一的类型 ID。 建议使用 [type_strict_context_handle] 而不是 [strict_context_handle]。 默认情况下，上下文句柄不与特定类型关联。 在同一进程中使用多种类型的上下文句柄时，恶意客户端可能会传递上下文句柄来代替另一个上下文句柄，从而产生不良结果。 使用 [type_strict_context_handle] 允许应用程序强制实施上下文句柄类型一致性，并防止任何不匹配的上下文句柄类型用法。 使用 [type_strict_context_handle] 特性化上下文句柄也不能通过 [strict_context_handle] 进行特性化。 MIDL 支持两种类型的可歧视联合： 封装联合 和非 封装联合。 封装的联合与以前实现的 RPC (NCA 版本 1) 兼容。 非封装联合消除了封装联合的一些限制，并提供比封装的联合更明显的判别。 封装的联合由开关关键字 (keyword) 标识，并且缺少其他与联合相关的关键字。 非封装联合（也称为联合）由标识判别者及其类型的 [switch_is] 和 [switch_type] 关键字来标识。 使用 [in， out] 联合时，请注意，在调用期间更改联合交换机的值会使远程呼叫的行为与本地呼叫不同。 返回时，存根将 [in， out] 参数复制到客户端上已存在的内存中。 当远程过程修改联合开关的值并因此更改数据对象的大小时，存根可以使用 [out] 值覆盖有效内存。 当联合开关将数据对象从基类型更改为指针类型时，存根可以在将指针引用复制 到基类型的 [in] 值指示的内存位置时覆盖有效内存。联合的形状必须跨平台相同，以确保互连。",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 12090
+    },
+    {
+      "id": "windows::FOUR_BYTE_DATA",
+      "name": "FOUR_BYTE_DATA",
+      "entity_type": "struct",
+      "description": "__RPC_FAR * pul );",
+      "return_value": {
+        "description": "roo.idl： 返回代码 MIDL2416 MIDL2417 说明 void GetDouble([out] double *result); //top level pointer is a [ref] pointer. roo.acf： [decode] GetDouble(); 请注意，此解决方案在线路上完全向后兼容，因为 [ref， out] 指针或双精度指针的线表示形式与 double 的表示形式相同。 传输类型不能包含 [wire_marshal] 或 [user_marshal] 的完整指针 具有 [ wire_marshal] 或 [ user_marshal] 属性的类型不能包含完整的 ([ ptr]) 指针。 请 改用 [ unique] 或 [ ref]。以下示例演示了此错误： typedef struct{ [ptr] long *a; //Should use [ref] or [unique] instead} st1; typedef [wire_marshal(st1)] struct{ long a;} st2: void roo(st2 *s); //MIDL2416 传输类型必须是指针或具有 [wire_marshal] 和 [user_marshal] 的常量大小 具有 [ wire_marshal] 或 [ user_marshal] 属性的顶级类型在编译时必须具有明确定义 的大小。 它们不能为或包含一致数组或大小不一的数组。以下示例演示了此错误： typedef struct //Type contains variable-sized array{ long s; [size_is(s)] char a[];} st1; typedef [wire_marshal(st1)] struct{ long a;} 返回代码 MIDL2418 MIDL2461 MIDL2465 MIDL9008 说明 st2; void roo(st2 *s); //MIDL2417 具有 [propget] 的过程必须至少有一个参数或返回值 具有 [propget] 属性的过程必须具有返回属性值的某种方式。 它们必须至少有一个[out] 参数或一个返回值。 [readonly] 属性在方法级别应用。 [readonly] 属性只能在参数级别应用。包含符合数组的结构必须通过引用传递 RPC 中的顶级参数在编译时必须具有定义完善的大小。 它们不能为 ，也不能包含一致数组或大小不一的数组。 此外，如果没有明确定义的大小，用户无法对类型进行编 码/解码。 应用程序需要按引用传递符合性结构/符合性可变结构。以下示例演示了此错误： typedef struct //Type contains variable-sized array{ long s; [size_is(s)] char a[];} st1; void roo(st1 s); //MIDL2465 on .acf file typedef [encode,decode] st1; //MIDL2465 内部编译器问题 <系统错误代码> - 编译器因未知原因而无法继续。 有关解决方法，请参阅文档。 编译器无法继续，错误原因未知。 十六进制错误号是系统错误标识符。 编译可能由于外部问题（例如内存不足的情况）而失败。 在这种情况下，可以在 Winerror.h 或 Ntstatus.h 中找到详细信息。通常有两种情况会生成此错误： 在检测到 IDL 文件中的错误后，MIDL 编译器无法恢复。 如果 MIDL 返回了有关 IDL 文件的任何错误消息，请尝试修复它们并重新编译。 如果没有错误消息，则编译器可能在报告错误之前失败。 在报告内部编译器错误的行上查找语法错误。 MIDL 编译器无法在指定的优化选项下生成正确的代码。 尝试更改编译器模式、在混合模式优化中编译 (/Os) 或删除所有优化。 或者，使用 /NO_FORMAT_OPT 标志重新编译，以禁止对过程和类型描述符进行 MIDL 的默认优化。 有时，即使 IDL 文件正确且未使用优化选项，也会发生此错误。 如果是这种情况，请尝试在报告错误的位置附近重写代码部分，方法是删除最近所做的任何修改、简化或重新排列数据类型、更改原型，或者开始注释掉 IDL 文件的某些部分以查找问题代 返回代码反馈 说明码。 如果这些选项都无法正常工作，或者如果你认为问题可能与Midl.exe中的 bug 有关，请通知 Microsoft，并告知所有相关详细信息。"
+      },
+      "remarks": "如果模块入口点使用 Windows 函数 SetLastError 返回错误代码，则可以在模块入口点上设置 [usesgetlasterror] 属性。 属性告知调用方，如果在调用该函数时出错，则调用方可以调用 GetLastError 来检索错误代码。 示例 syntax[",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "GetLastError",
+        "SetLastError"
+      ],
+      "confidence": 0.5,
+      "_source_line": 12518
+    },
+    {
+      "id": "windows::SAFEARRAY",
+      "name": "SAFEARRAY",
+      "entity_type": "struct",
+      "description": "VARIANT) last-param-name);",
+      "remarks": "不能将 [可选] 或 [defaultvalue] 属性应用于具有 [vararg] 属性的函数中的任何参数。示例 syntax [vararg] VARIANT_BOOL Button([in]SAFEARRAY(VARIANT) psa);",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "Button",
+        "VARIANT_BOOL"
+      ],
+      "confidence": 0.25,
+      "_source_line": 12663
+    },
+    {
+      "id": "windows::WCHAR_T",
+      "name": "WCHAR_T",
+      "entity_type": "struct",
+      "description": "类型由 MIDL 定义为无符号短 (16 位) 数据对象。 MIDL 编译器允许重新定义 wchar_t，但前提是它与前面的定义一致。 宽字符类型是 MIDL 的预定义类型之一。 宽字符类型可以在 const 声明、 typedef 声明、常规声明和函数声明符中显示为类型说明符， (作为函数返回类型说明符和参数类型 说明符) 。 有关显示类型说明符的上下文，请参阅 接口定义 (IDL) 文件。[string] 属性可以应用于wchar_t类型的指针或数组。 在字符或字符串常量之前使用 L 字符来指定宽字符类型常量。",
+      "remarks": "每个特定于应用程序的数据类型 userm-type 都有 一对一的对应关系 ，该类型 定义该类型的线表示形式。 必须提供用于封送处理的数据大小、封送和取消封送数据的例程以及释放内存。 请注意，如果数据中存在也使用 [wire_marshal] 或 [user_marshal] 定义的嵌 入类型，则还需要管理这些嵌入类型的维护。 有关这些例程的详细信息，请参阅 wire_marshal 属性。 实现必须遵循 OSF-DCE 规范的封送规则。 有关 NDR 传输语法的详细信息，请参阅 https://www.opengroup.org/onlinepubs/9629399/chap14.htm 议，则不建议使用 [wire_marshal]。 。 如果不熟悉线路协 wire-type 不能是接口指针或完整指针。 线路类型必须具有明确定义的内存大小。 有关如何封送给定线路类型的详细信息，请参阅封送规则user_marshal和wire_marshal。 userm-type 不应是接口指针，因为这些指针可以直接封送。 如果用户类型是完整指针，则必须自行管理别名。 不能直接或间接将 [wire_marshal] 属性与 [allocate] 属性一起使用，因为 NDR 引擎不控制传输类型的内存分配。 示例 syntax typedef unsigned long _FOUR_BYTE_DATA; typedef struct _TWO_X_TWO_BYTE_DATA { unsigned short low; unsigned short high;} TWO_X_TWO_BYTE_DATA; typedef [wire_marshal(TWO_X_TWO_BYTE_DATA)] _FOUR_BYTE_DATA FOUR_BYTE_DATA; //Marshaling functions: // Calculate size that converted data will // require in the buffer unsigned long __RPC_USER FOUR_BYTE_DATA_UserSize( ULONG __RPC_FAR * pulFlags, ULONG __RPC_FAR ulStartingSize, FOUR_BYTE_DATA __RPC_FAR * pul); // Copy FOUR_BYTE_DATA into buffer as // TWO_X_TWO_BYTE_DATA unsigned long __RPC_USER FOUR_BYTE_DATA_UserMarshal( ULONG __RPC_FAR *pulFlags, char __RPC_FAR * pBufferStart, FOUR_BYTE_DATA __RPC_FAR * pul); // Recreate FOUR_BYTE_DATA from TWO_X_TWO_BYTE_DATA in buffer unsigned long __RPC_USER FOUR_BYTE_DATA_UserUnmarshal( ULONG __RPC_FAR * pulFlags, char __RPC_FAR * pBufferStart, FOUR_BYTE_DATA __RPC_FAR * pul); // Nothing to do here as the engine frees the top // node and FOUR_BYTE_DATA is a flat data type. void __RPC_USER FOUR_BYTE_DATA_UserFree( ULONG __RPC_FAR * pulFlags,",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [
+        "Buffer",
+        "Copy",
+        "FOUR_BYTE_DATA",
+        "void"
+      ],
+      "confidence": 0.65,
+      "_source_line": 12777
+    }
+  ]
+}

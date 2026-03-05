@@ -1,0 +1,1986 @@
+{
+  "_schema": "windows_api_kg_v4.0",
+  "_generated_at": "2026-03-05T08:07:01Z",
+  "_content_hash": "655297402683",
+  "document": {
+    "document_id": "win32-api::bluetooth",
+    "title": "Bluetooth",
+    "domain": "win32-api",
+    "topic": "bluetooth",
+    "source_file": "[OCR]_windows-win32-api-_bluetooth_20260305_0138.txt",
+    "ocr_timestamp": "2026-03-05T01:38:00",
+    "headers_referenced": [
+      "bluetoothapis.h",
+      "bthdef.h",
+      "bthsdpdef.h",
+      "ws2bth.h"
+    ],
+    "total_entities": 127
+  },
+  "entities": [
+    {
+      "id": "windows::BLUETOOTH_AUTHENTICATION_METHOD",
+      "name": "BLUETOOTH_AUTHENTICATION_METHOD",
+      "entity_type": "enum",
+      "description": "authenticationMethod; BLUETOOTH_IO_CAPABILITY ioCapability;",
+      "syntax": "typedef enum _BLUETOOTH_AUTHENTICATION_METHOD {   BLUETOOTH_AUTHENTICATION_METHOD_LEGACY = 0x1,   BLUETOOTH_AUTHENTICATION_METHOD_OOB,",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BLUETOOTH_IO_CAPABILITY"
+      ],
+      "confidence": 0.85,
+      "_source_line": 11
+    },
+    {
+      "id": "windows::BLUETOOTH_AUTHENTICATION_REQUIREMENTS",
+      "name": "BLUETOOTH_AUTHENTICATION_REQUIREMENTS",
+      "entity_type": "enum",
+      "description": "authenticationRequirements; union { ULONG Numeric_Value; ULONG Passkey; }; } BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS, *PBLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS; 成员 deviceInfo 包含有关蓝牙设备信息的 BLUETOOTH_DEVICE_INFO 结构。 authenticationMethod 定义蓝牙设备使用的身份验证方法的",
+      "syntax": "typedef enum _BLUETOOTH_AUTHENTICATION_REQUIREMENTS {",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS",
+        "BLUETOOTH_DEVICE_INFO"
+      ],
+      "confidence": 0.85,
+      "_source_line": 13
+    },
+    {
+      "id": "windows::BLUETOOTH_IO_CAPABILITY",
+      "name": "BLUETOOTH_IO_CAPABILITY",
+      "entity_type": "enum",
+      "description": "枚举定义蓝牙设备的输入/输出功能。反馈 bluetoothapis.h)",
+      "syntax": "typedef enum _BLUETOOTH_IO_CAPABILITY {",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 14
+    },
+    {
+      "id": "windows::BluetoothAuthenticateDevice",
+      "name": "BluetoothAuthenticateDevice",
+      "entity_type": "function",
+      "description": "函数将身份验证请求发送到远程蓝牙设备。注意 针对 Windows Vista SP2 和 Windows 7 进行开发时，建议使用",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "Vista"
+      ],
+      "confidence": 0.6,
+      "_source_line": 17
+    },
+    {
+      "id": "windows::BluetoothAuthenticateDeviceEx",
+      "name": "BluetoothAuthenticateDeviceEx",
+      "entity_type": "function",
+      "description": "函数将身份验证请求发送到远程蓝牙设备。 此外，此函数允许 将带外数据传递到要进行身份验证的设备函数调用中。注意 Windows Vista SP2 和 Windows 7 支持此 API。",
+      "syntax": "DWORD BluetoothAuthenticateDevice(   HWND                  hwndParent,\nHANDLE                hRadio,   BLUETOOTH_DEVICE_INFO *pbtbi,\nPWSTR                 pszPasskey,\nULONG                 ulPasskeyLength);\n参数 hwndParent\n作为身份验证向导的父级的窗口。 如果设置为 NULL，则会从桌面中删除向导。 hRadio\n有效的本地单选句柄，或 NULL。 如果 为 NULL，则尝试在所有本地无线电上进行身份验证;如\n果任何无线电成功，则函数调用成功。 pbtbi\n类型为 BLUETOOTH_DEVICE_INFO 的结构，包含要进行身份验证的蓝牙设备的记录。 pszPasskey\n个人标识号 (PIN) 用于设备身份验证。 如果设置为 NULL，则显示用户界面，用户必须遵循用户界面中提供的身份验证过程。 如果 pszPasskey 不为 NULL，则不显示任何用户界面。 如果密钥不是 NULL，则它必须是 以 NULL 结尾的字符串。 有关详细信息，请参见“备注”部分。\nulPasskeyLength\npszPasskey 的大小（以字符为单位）。 pszPasskey 的大小必须小于或等于\nBLUETOOTH_MAX_PASSKEY_SIZE。",
+      "parameters": [
+        {
+          "name": "hwndParentIn",
+          "direction": "in, optional",
+          "description": "父级身份验证向导的窗口。 如果 为 NULL，则向导将从桌面上父级显示。[in, optional] hRadioIn 有效的本地单选句柄或 NULL。 如果 为 NULL，则将尝试所有无线电。 如果任何无线电成功，则调用将成功。"
+        },
+        {
+          "name": "pbtdiInout",
+          "direction": "in, out",
+          "description": "指向描述要进行身份验证的设备 BLUETOOTH_DEVICE_INFO 结构的指针。[in, optional] pbtOobData 指向要随此 API 调用一起提供的特定于设备的带外数据的指针。 如果 为 NULL，则显示 UI 以继续身份验证过程。 如果不是 NULL，则不显示 UI。 注意 如果使用 BluetoothRegisterForAuthenticationEx 注册回调，则不会显示 UI。"
+        },
+        {
+          "name": "authenticationRequirement",
+          "direction": "in",
+          "description": "一个BLUETOOTH_AUTHENTICATION_REQUIREMENTS值，该值指定身份验证所需的保护。"
+        }
+      ],
+      "return_value": {
+        "description": "成功完成后返回 ERROR_SUCCESS 。下表列出了常见错误。 返回代码"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "Vista"
+      ],
+      "confidence": 0.85,
+      "_source_line": 19
+    },
+    {
+      "id": "windows::BluetoothAuthenticateMultipleDevices",
+      "name": "BluetoothAuthenticateMultipleDevices",
+      "entity_type": "function",
+      "description": "函数使调用方能够在蓝牙连接向导的单个实例期间提示对多个设备进行身份验证。 注意BluetoothAuthenticateMultipleDevices 已弃用。 不建议实现此 API。",
+      "syntax": "DWORD BluetoothAuthenticateMultipleDevices(   HWND                  hwndParent,\nHANDLE                hRadio,   DWORD                 cDevices,   BLUETOOTH_DEVICE_INFO *rgbtdi);\n参数 hwndParent\n作为身份验证向导的父级的窗口。 如果设置为 NULL，则向导在桌面上为父级。 hRadio\n有效的本地单选句柄或 NULL。 如果 为 NULL，则尝试在所有本地无线电上进行身份验证;如果\n任何无线电成功，则函数调用成功。 cDevices",
+      "header": "bluetoothapis.h",
+      "deprecated": true,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 23
+    },
+    {
+      "id": "windows::BluetoothDisplayDeviceProperties",
+      "name": "BluetoothDisplayDeviceProperties",
+      "entity_type": "function",
+      "description": "启动控制面板设备信息属性表。 BluetoothEnableDiscovery",
+      "syntax": "BOOL BluetoothDisplayDeviceProperties(   HWND                  hwndParent,",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothEnableDiscovery"
+      ],
+      "confidence": 0.6,
+      "_source_line": 25
+    },
+    {
+      "id": "windows::BluetoothEnableDiscovery",
+      "name": "BluetoothEnableDiscovery",
+      "entity_type": "function",
+      "description": "函数更改本地蓝牙无线电或无线电的发现状态。 BluetoothEnableIncomingConnections",
+      "syntax": "BOOL BluetoothEnableDiscovery(\nHANDLE hRadio,   BOOL   fEnabled);\n参数 hRadio\n有效的本地单选句柄或 NULL。 如果 为 NULL，则在所有本地无线电上修改发现;如果调用修改\n了任何无线电，则函数调用成功。 fEnabled\n指定是启用还是禁用发现的标志。 设置为 TRUE 可启用发现，设置为 FALSE 可禁用发现。",
+      "return_value": {
+        "description": "如果发现状态已成功更改，则返回 TRUE 。 如果 hRadio 为 NULL，则返回值 TRUE 表示至少一个本地无线电状态已成功更改。 如果未更改发现状态，则返回 FALSE ;如果 hRadio 为 NULL，则 没有无线电接受状态更改。"
+      },
+      "remarks": "使用 BluetoothIsDiscoverable 函数确定蓝牙无线电的当前状态。 Windows 确保可发现的系统可 连接，因此，无线电在使无线电可发现之前必须允许传入连接。 未能允许传入连接会导致 BluetoothEnableDiscovery 函数调用失败。 当 BluetoothEnableDiscovery 更改发现状态时，新状态在调用应用程序的生存期内有效。 此外，如果以前通过此功能使蓝牙无线电可发现通过应用程序禁用并重新启用，则可发现性将不会 保留。 调用应用程序终止后，指定蓝牙无线电的发现状态将恢复到调用 BluetoothEnableDiscovery 之前的状态。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothEnableIncomingConnections",
+        "BluetoothIsDiscoverable"
+      ],
+      "confidence": 0.75,
+      "_source_line": 26
+    },
+    {
+      "id": "windows::BluetoothEnableIncomingConnections",
+      "name": "BluetoothEnableIncomingConnections",
+      "entity_type": "function",
+      "description": "函数修改本地蓝牙无线电是否接受传入连接。 BluetoothEnumerateInstalledServices",
+      "syntax": "BOOL BluetoothEnableIncomingConnections(\nHANDLE hRadio,   BOOL   fEnabled);\n参数 hRadio\n要更改传入连接是启用还是 NULL 的有效本地单选句柄。 如果 为 NULL，则尝试修改传入连接\n接受会循环访问所有本地无线电;如果调用修改了任何无线电，则函数调用成功。 fEnabled\n指定是启用或禁用传入连接接受的标志。 设置为 TRUE 可启用传入连接，设置为 FALSE 可禁用\n传入连接。",
+      "return_value": {
+        "description": "如果已成功更改传入连接状态，则返回 TRUE 。 如果 hRadio 为 NULL，则返回值为 TRUE 表示至少一个本地无线电状态已成功更改。 如果未更改传入连接状态，则返回 FALSE ;如果 hRadio 为 NULL，则没有无线电接受状态更改。"
+      },
+      "remarks": "不可连接的无线电不可发现。 在使无线电不可连接之前，必须使无线电不可发现。 未能在使无线电不可连接之前使无线电不可发现，将导致 BluetoothEnableIncomingConnections 函数调用失败。 要求",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothEnumerateInstalledServices"
+      ],
+      "confidence": 0.75,
+      "_source_line": 27
+    },
+    {
+      "id": "windows::BluetoothEnumerateInstalledServices",
+      "name": "BluetoothEnumerateInstalledServices",
+      "entity_type": "function",
+      "description": "函数枚举在蓝牙设备上启用的服务 GUID (全局唯一标识 符) 。",
+      "syntax": "DWORD BluetoothEnumerateInstalledServices(\nHANDLE                      hRadio,   const BLUETOOTH_DEVICE_INFO *pbtdi,\nDWORD                       *pcServiceInout,   GUID                        *pGuidServices);\n参数 hRadio\n本地蓝牙无线电设备的句柄。 如果 为 NULL，则搜索所有本地无线电，查找与 pbtdi 中的无线\n电地址匹配的已启用服务。 pbtdi\n指向 BLUETOOTH_DEVICE_INFO 结构的指针。 pcServiceInout\n输入时， pGuidServices 参数指向的记录数。 输出时， pGuidServices 参数中返回的有效记录\n数。 如果 pGuidServices 为 NULL，则输出 pcServices 包含已启用的服务数。 pGuidServices\n指向内存中缓冲区的指针，用于接收已安装服务的 GUID。 缓冲区必须至少为 *pcServices *大小\n， (GUID) 字节。",
+      "return_value": {
+        "description": "成功完成后返回ERROR_SUCCESS，pGuidServices 参数包含已启用的服务 GUID 的完整列表。 下表描述了一个常见错误：返回代码"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 28
+    },
+    {
+      "id": "windows::BluetoothFindDeviceClose",
+      "name": "BluetoothFindDeviceClose",
+      "entity_type": "function",
+      "description": "BluetoothFindFirstDevice BluetoothFindNextDevice BluetoothGetDeviceInfo BluetoothRemoveDevice bluetoothapis.h (PFN_AUTHENTICATION_CALLBACK 回调函",
+      "syntax": "BOOL BluetoothFindDeviceClose(   HBLUETOOTH_DEVICE_FIND hFind);\n参数 hFind\n要关闭的查询的句柄。 在对 BluetoothFindFirstDevice 函数的上一次调用中获取。",
+      "return_value": {
+        "description": "成功关闭句柄时返回 TRUE 。 错误时返回 FALSE 。 有关失败的详细信息，请调用 GetLastError 函数。"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "bluetoothapis.h",
+        "library": "Bthprops.lib",
+        "min_client": "Windows Vista"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothFindFirstDevice",
+        "BluetoothFindNextDevice",
+        "BluetoothGetDeviceInfo",
+        "BluetoothRemoveDevice",
+        "PFN_AUTHENTICATION_CALLBACK"
+      ],
+      "confidence": 0.75,
+      "_source_line": 29
+    },
+    {
+      "id": "windows::BluetoothFindFirstDevice",
+      "name": "BluetoothFindFirstDevice",
+      "entity_type": "function",
+      "description": "函数找不到蓝牙低功耗 (LE) 设备。 若要访问蓝牙 LE 设备，请使用 Windows 运行时蓝牙低功耗 API。 用于蓝牙的Windows 运行时 API 适用于 UWP 和经典桌面应用。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 31
+    },
+    {
+      "id": "windows::BluetoothFindFirstRadio",
+      "name": "BluetoothFindFirstRadio",
+      "entity_type": "function",
+      "description": "BluetoothFindNextRadio 值 Windows Vista、Windows XP SP2 [仅限桌面应用] 无受支持的版本 bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h) 是 否",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothFindNextRadio",
+        "Vista"
+      ],
+      "confidence": 0.6,
+      "_source_line": 32
+    },
+    {
+      "id": "windows::BluetoothFindNextDevice",
+      "name": "BluetoothFindNextDevice",
+      "entity_type": "function",
+      "description": "BluetoothGetDeviceInfo BluetoothRemoveDevice",
+      "syntax": "BOOL BluetoothFindNextDevice(   HBLUETOOTH_DEVICE_FIND hFind,   BLUETOOTH_DEVICE_INFO  *pbtdi);\n参数 hFind\n在上次调用 BluetoothFindFirstDevice 函数时获取的查询的句柄。 pbtdi\n指向 BLUETOOTH_DEVICE_INFO 结构的指针，其中放置了有关找到的下一个蓝牙设备的信息。 pbtdi 指向的 BLUETOOTH_DEVICE_INFO 结构的 dwSize 成员必须与结构的大小匹配，否则对\nBluetoothFindNextDevice 的调用将失败。",
+      "return_value": {
+        "description": "成功找到下一个设备时返回 TRUE，pbtdi 参数指向有关设备的信息。 出错时返回 FALSE 。 有关错误的详细信息，请调用 GetLastError 函数。 下表描述了常见错误： 返回代码"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothGetDeviceInfo",
+        "BluetoothRemoveDevice"
+      ],
+      "confidence": 0.65,
+      "_source_line": 33
+    },
+    {
+      "id": "windows::BluetoothFindNextRadio",
+      "name": "BluetoothFindNextRadio",
+      "entity_type": "function",
+      "description": "函数一起使用。 当不再需要此句柄时，必须通过 BluetoothFindRadioClose 将其关闭。 失败时返回 NULL 。 有关错误的详细信息，请调用 GetLastError 函数。 下表描述了常见错误： 返回代码",
+      "syntax": "BOOL BluetoothFindNextRadio(\n[in]  HBLUETOOTH_RADIO_FIND hFind,   [out] HANDLE                *phRadio);",
+      "parameters": [
+        {
+          "name": "hFind",
+          "direction": "in",
+          "description": "上一次调用 BluetoothFindFirstRadio 函数返回的句柄。 不再需要时，请使用"
+        }
+      ],
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothFindRadioClose",
+        "GetLastError"
+      ],
+      "confidence": 0.8,
+      "_source_line": 34
+    },
+    {
+      "id": "windows::BluetoothFindRadioClose",
+      "name": "BluetoothFindRadioClose",
+      "entity_type": "function",
+      "description": "函数关闭与查找蓝牙无线电关联的枚举句柄。 BluetoothGetDeviceInfo 检索有关远程蓝牙设备的信息。 BluetoothGetRadioInfo 获取有关蓝牙无线电的信息。",
+      "syntax": "BOOL BluetoothFindRadioClose(   HBLUETOOTH_RADIO_FIND hFind);\n参数 hFind\n要关闭的枚举句柄，通过上一次调用 BluetoothFindFirstRadio 函数获取。",
+      "return_value": {
+        "description": "找到下一个可用单选无线电时，返回 TRUE 。 如果未找到新的无线电，则返回 FALSE 。 有关错误的详细信息，请调用 GetLastError 函数。 下表描述了常见错误： 返回代码"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "bluetoothapis.h",
+        "library": "Bthprops.lib",
+        "min_client": "Windows Vista"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothGetDeviceInfo",
+        "BluetoothGetRadioInfo"
+      ],
+      "confidence": 0.75,
+      "_source_line": 35
+    },
+    {
+      "id": "windows::BluetoothGetRadioInfo",
+      "name": "BluetoothGetRadioInfo",
+      "entity_type": "function",
+      "description": "获取有关蓝牙无线电的信息。 BluetoothIsConnectable",
+      "syntax": "DWORD BluetoothGetRadioInfo(\nHANDLE                hRadio,",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothIsConnectable"
+      ],
+      "confidence": 0.6,
+      "_source_line": 40
+    },
+    {
+      "id": "windows::BluetoothIsConnectable",
+      "name": "BluetoothIsConnectable",
+      "entity_type": "function",
+      "description": "函数确定蓝牙无线电或无线电是否可连接。 BluetoothIsDiscoverable",
+      "syntax": "BOOL BluetoothIsConnectable(\nHANDLE hRadio);\n参数 hRadio\n有效的本地单选句柄或 NULL。 如果 为 NULL，则检查所有本地无线电的可连接性;如果任何无\n线电可连接，则函数调用成功。",
+      "return_value": {
+        "description": "如果至少有一个蓝牙无线电接受传入连接，则返回 TRUE 。 如果没有无线电接受传入连接，则 返回 FALSE 。"
+      },
+      "remarks": "如果存在多个蓝牙无线电，则返回可连接的第一个无线电会导致 BluetoothIsConnectable 功能 成功。",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows Vista"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothIsDiscoverable"
+      ],
+      "confidence": 0.65,
+      "_source_line": 42
+    },
+    {
+      "id": "windows::BluetoothIsDiscoverable",
+      "name": "BluetoothIsDiscoverable",
+      "entity_type": "function",
+      "description": "函数确定蓝牙无线电或无线电是否可被发现。 BluetoothIsVersionAvailable",
+      "syntax": "BOOL BluetoothIsDiscoverable(\nHANDLE hRadio);\n参数 hRadio\n有效的本地单选句柄，或 NULL。 如果 为 NULL，则确定所有本地无线电的发现;如果可发现任\n何无线电，则函数调用成功。",
+      "return_value": {
+        "description": "如果至少可发现一个蓝牙无线电，则返回 TRUE 。 如果未发现蓝牙无线电，则返回 FALSE 。"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "bluetoothapis.h",
+        "library": "Bthprops.lib",
+        "min_client": "Windows Vista"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothIsVersionAvailable"
+      ],
+      "confidence": 0.65,
+      "_source_line": 43
+    },
+    {
+      "id": "windows::BluetoothIsVersionAvailable",
+      "name": "BluetoothIsVersionAvailable",
+      "entity_type": "function",
+      "description": "函数指示已安装的蓝牙二进制文件集是否支持请求的版本。 BluetoothRegisterForAuthentication",
+      "syntax": "BOOL BluetoothIsVersionAvailable(\n[in] UCHAR MajorVersion,   [in] UCHAR MinorVersion);",
+      "parameters": [
+        {
+          "name": "MajorVersion",
+          "direction": "in",
+          "description": "主版本号。"
+        },
+        {
+          "name": "MinorVersion",
+          "direction": "in",
+          "description": "次版本号。"
+        }
+      ],
+      "return_value": {
+        "description": "如果安装的蓝牙二进制文件支持指定的 MajorVersion 和 MinorVersion，则为 TRUE;否则为 FALSE。"
+      },
+      "remarks": "此功能仅在适用于 Windows 版本 2.1 及更高版本的蓝牙中导出。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "bluetoothapis.h",
+        "library": "Bthprops.lib",
+        "min_client": "Windows Vista"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothRegisterForAuthentication"
+      ],
+      "confidence": 0.85,
+      "_source_line": 44
+    },
+    {
+      "id": "windows::BluetoothRegisterForAuthentication",
+      "name": "BluetoothRegisterForAuthentication",
+      "entity_type": "function",
+      "description": "BluetoothSendAuthenticationResponse BluetoothUnregisterAuthentication bluetoothEnumerateInstalledServices 函数",
+      "syntax": "BOOL BluetoothUnregisterAuthentication(",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothSendAuthenticationResponse",
+        "BluetoothUnregisterAuthentication"
+      ],
+      "confidence": 0.7,
+      "_source_line": 45
+    },
+    {
+      "id": "windows::BluetoothRegisterForAuthenticationEx",
+      "name": "BluetoothRegisterForAuthenticationEx",
+      "entity_type": "function",
+      "description": "函数为 pin 请求、数字比较和回调函数注册应用程序。 BluetoothRemoveDevice 删除蓝牙设备和计算机之间的身份验证，并清除设备的缓存服务信息。 BluetoothSdpEnumAttributes",
+      "syntax": "DWORD BluetoothRegisterForAuthenticationEx(\n[in, optional] const BLUETOOTH_DEVICE_INFO            *pbtdiIn,\n[out]          HBLUETOOTH_AUTHENTICATION_REGISTRATION *phRegHandleOut,   [in, optional] PFN_AUTHENTICATION_CALLBACK_EX         pfnCallbackIn,\n[in, optional] PVOID                                  pvParam);",
+      "parameters": [
+        {
+          "name": "pbtdiIn",
+          "direction": "in, optional",
+          "description": "指向 BLUETOOTH_DEVICE_INFO 结构的指针，该结构指定要用于比较的蓝牙地址。[out] phRegHandleOut 指向与已注册的应用程序关联的 HBLUETOOTH_AUTHENTICATION_REGISTRATION 句柄的指 针。 调用 BluetoothUnregisterAuthentication 以关闭句柄。[in, optional] pfnCallbackIn 身份验证事件发生时将调用的函数。 此函数应与 PFN_AUTHENTICATION_CALLBACK_EX 的原型匹配。"
+        },
+        {
+          "name": "pvParam",
+          "direction": "in, optional",
+          "description": "要传递到 pfnCallbackIn 指定的回调函数的可选参数。 此参数可以是应用程序需要定义的任何内容。"
+        }
+      ],
+      "return_value": {
+        "description": "成功完成后返回ERROR_SUCCESS;失败时返回以下错误代码： 返回代码"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothRemoveDevice",
+        "BluetoothSdpEnumAttributes"
+      ],
+      "confidence": 0.85,
+      "_source_line": 46
+    },
+    {
+      "id": "windows::BluetoothSdpEnumAttributes",
+      "name": "BluetoothSdpEnumAttributes",
+      "entity_type": "function",
+      "description": "函数通过 SDP 记录流枚举，并为记录中的每个属性调用回调函数。 BluetoothSdpGetAttributeValue",
+      "syntax": "BOOL BluetoothSdpEnumAttributes(\nLPBYTE                                 pSDPStream,   ULONG                                  cbStreamSize,   PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK pfnCallback,\nLPVOID                                 pvParam);\n参数 pSDPStream\n指向格式化为单个 SDP 记录的有效记录流的指针。 cbStreamSize\npSDPStream 指向的流的大小（以字节为单位）。 pfnCallback\n指向回调例程的指针。 有关回调的详细信息，请参阅 PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK 。\npvParam\n要传递给回调例程的可选参数。",
+      "return_value": {
+        "description": "如果发生枚举，则返回 TRUE 。 失败时返回 FALSE 。 有关详细信息，请调用 GetLastError 函数。 下表描述了与 BluetoothSdpEnumAttributes 函数关联的常见错误代码： 返回代码"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothSdpGetAttributeValue"
+      ],
+      "confidence": 0.75,
+      "_source_line": 48
+    },
+    {
+      "id": "windows::BluetoothSdpGetAttributeValue",
+      "name": "BluetoothSdpGetAttributeValue",
+      "entity_type": "function",
+      "description": "函数检索属性标识符的属性值。 BluetoothSdpGetContainerElementData 循环访问容器流并返回容器元素中包含的每个元素。 BluetoothSdpGetElementData 从 SDP 流中检索和分析单个元素。 BluetoothSdpGetString 将 SDP 记录中嵌入的原始字符串转换为 Unicode 字符串。 BluetoothSelectDevices 启用蓝牙设备选择。",
+      "syntax": "DWORD BluetoothSdpGetAttributeValue(\n[in]  LPBYTE            pRecordStream,   [in]  ULONG             cbRecordLength,   [in]  USHORT            usAttributeId,   [out] PSDP_ELEMENT_DATA pAttributeData);",
+      "parameters": [
+        {
+          "name": "pRecordStream",
+          "direction": "in",
+          "description": "指向格式化为单个 SDP 记录的有效记录流的指针。[in] cbRecordLength pRecordStream 的长度（以字节为单位）。[in] usAttributeId 要搜索的属性标识符。 请参阅“备注”。[out] pAttributeData 指向 SDP_ELEMENT_DATA 结构的指针，该结构将特性的标识符值放置到其中。"
+        }
+      ],
+      "return_value": {
+        "description": "成功完成后返回ERROR_SUCCESS; pAddributeData 参数包含属性值。 任何其他返回值都指示错误。 下表描述了与 BluetoothSdpGetAttributeValue 函数关联的常见错误代码： 返回代码"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothSdpGetContainerElementData",
+        "BluetoothSdpGetElementData",
+        "BluetoothSdpGetString",
+        "BluetoothSelectDevices"
+      ],
+      "confidence": 0.85,
+      "_source_line": 49
+    },
+    {
+      "id": "windows::BluetoothSelectDevicesFree",
+      "name": "BluetoothSelectDevicesFree",
+      "entity_type": "function",
+      "description": "释放与之前对 BluetoothSelectDevices 的调用关联的资源。 BluetoothSendAuthenticationResponse 收到发送密钥响应的身份验证请求时，将调用 BluetoothSendAuthenticationResponse 函数。 BluetoothSendAuthenticationResponseEx 当发出发送密钥的身份验证请求或进行数字比较响应时，将调用",
+      "syntax": "BOOL BluetoothSelectDevicesFree(",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothSelectDevices",
+        "BluetoothSendAuthenticationResponse",
+        "BluetoothSendAuthenticationResponseEx"
+      ],
+      "confidence": 0.7,
+      "_source_line": 57
+    },
+    {
+      "id": "windows::BluetoothSendAuthenticationResponseEx",
+      "name": "BluetoothSendAuthenticationResponseEx",
+      "entity_type": "function",
+      "description": "当发送密钥的身份验证请求或进行数字比较响应时，将调用 BluetoothSendAuthenticationResponseEx 函数。 注意 Windows Vista SP2 和 Windows 7 支持此 API。",
+      "syntax": "DWORD BluetoothSendAuthenticationResponse(\nHANDLE                      hRadio,   const BLUETOOTH_DEVICE_INFO *pbtdi,\nLPCWSTR                     pszPasskey);\n参数 hRadio\n本地单选句柄的可选句柄，或 NULL。 如果 为 NULL，则函数会尝试在所有本地无线电上发送身\n份验证响应。 pbtdi\n指向描述要进行身份验证的蓝牙设备的 BLUETOOTH_DEVICE_INFO 结构的指针。 这可以是传递\n给回调函数的相同结构。 pszPasskey\n指向要发送回身份验证设备的传递密钥响应的 UNICODE 零终止字符串的指针。 pszPasskey 参数不能大于 BLUETOOTH_MAX_PASSKEY_SIZE，不包括 NULL。 如果执行到 ANSI 的转换， 则\npszPasskey 参数不能大于 16 个字节，不包括 NULL。",
+      "parameters": [
+        {
+          "name": "hRadioIn",
+          "direction": "in, optional",
+          "description": "用于指定其本地服务信息的蓝牙无线电设备的句柄。[in] pauthResponse 指向 包含对 BTH_REMOTE_AUTHENTICATE_REQUEST 事件的响应 的 BLUETOOTH_AUTHENTICATE_RESPONSE 结构的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "当设备接受密钥响应时返回ERROR_SUCCESS;设备已经过身份验证。 任何其他返回值表示失败。下表描述了常见错误： 返回代码"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "Vista"
+      ],
+      "confidence": 0.85,
+      "_source_line": 61
+    },
+    {
+      "id": "windows::BluetoothUnregisterAuthentication",
+      "name": "BluetoothUnregisterAuthentication",
+      "entity_type": "function",
+      "description": "函数删除以前通过调用 BluetoothRegisterForAuthentication 函 数注册的回调例程的注册。 BluetoothUpdateDeviceRecord 汇报有关蓝牙设备的本地计算机缓存。 PFN_AUTHENTICATION_CALLBACK 与 BluetoothRegisterForAuthentication 函数结合使用。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothRegisterForAuthentication",
+        "BluetoothUpdateDeviceRecord",
+        "PFN_AUTHENTICATION_CALLBACK"
+      ],
+      "confidence": 0.6,
+      "_source_line": 63
+    },
+    {
+      "id": "windows::PFN_AUTHENTICATION_CALLBACK_EX",
+      "name": "PFN_AUTHENTICATION_CALLBACK_EX",
+      "entity_type": "function",
+      "description": "PfnAuthenticationCallbackEx; BOOL PfnAuthenticationCallbackEx( [in, optional] LPVOID pvParam, [in] PBLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS pAuthCallbackParams) {...} 参数 [in, optional] pvParam 可选。 以前传递到 BluetoothRegisterForAuthentication 函数的上下文指针。[in] pAuthCallbackParams 一个BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS结构，其中包含特定于响应身份验证 请求的蓝牙设备的设备和身份验证配置信息。",
+      "return_value": {
+        "description": "系统忽略此函数的返回值。"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothRegisterForAuthentication"
+      ],
+      "confidence": 0.8,
+      "_source_line": 68
+    },
+    {
+      "id": "windows::PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK",
+      "name": "PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK",
+      "entity_type": "function",
+      "description": "PfnBluetoothEnumAttributesCallback; BOOL PfnBluetoothEnumAttributesCallback( ULONG uAttribId, LPBYTE pValueStream, ULONG cbStreamSize, LPVOID pvParam) {...} 参数 uAttribId SDP 流中的当前属性标识符。 pValueStream 与 uAttribId 关联的属性值的原始 SDP 流。 使用 BluetoothSdpGetElementData 函数将原始结果 分析为计算机可读的数据。 cbStreamSize pValueStream 的大小（以字节为单位）。 pvParam 从上次调用",
+      "return_value": {
+        "description": "当枚举继续到在流中找到的下一个属性标识符时，应返回 TRUE 。 当记录属性标识符的枚举应 立即停止时，应返回 FALSE 。"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothSdpGetElementData"
+      ],
+      "confidence": 0.8,
+      "_source_line": 69
+    },
+    {
+      "id": "windows::BLUETOOTH_ADDRESS",
+      "name": "BLUETOOTH_ADDRESS",
+      "entity_type": "function",
+      "description": "结构提供蓝牙设备的地址。",
+      "syntax": "typedef struct _BLUETOOTH_ADDRESS {   union {",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 77
+    },
+    {
+      "id": "windows::BLUETOOTH_AUTHENTICATE_RESPONSE",
+      "name": "BLUETOOTH_AUTHENTICATE_RESPONSE",
+      "entity_type": "function",
+      "description": "反馈 是 否 bluetoothapis.h) (BLUETOOTH_LOCAL_SERVICE_INFO_STRUC",
+      "syntax": "typedef struct _BLUETOOTH_AUTHENTICATE_RESPONSE {   BLUETOOTH_ADDRESS               bthAddressRemote;",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 77
+    },
+    {
+      "id": "windows::BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS",
+      "name": "BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS",
+      "entity_type": "function",
+      "description": "结构包含有关响应身份验证请求的蓝牙设备的特定配置信息。",
+      "syntax": "typedef struct _BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS {   BLUETOOTH_DEVICE_INFO                 deviceInfo;",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 79
+    },
+    {
+      "id": "windows::BLUETOOTH_COD_PAIRS",
+      "name": "BLUETOOTH_COD_PAIRS",
+      "entity_type": "function",
+      "description": "*prgClassOfDevices; LPWSTR pszInfo; HWND hwndParent; BOOL fForceAuthentication; BOOL fShowAuthenticated; BOOL fShowRemembered; BOOL fShowUnknown; BOOL fAddNewDeviceWizard; BOOL fSkipServicesPage; PFN_DEVICE_CALLBACK pfnDeviceCallback; LPVOID pvParam; DWORD cNumDevices;",
+      "syntax": "typedef struct _BLUETOOTH_COD_PAIRS {   ULONG   ulCODMask;\nLPCWSTR pcszDescription;} BLUETOOTH_COD_PAIRS;\n成员 ulCODMask\n要比较以确定设备类别的掩码。 ulCODMask 的主要和次要代码用于比较找到的设备类。如果提供了主要代码，则它必须与远程设备返回的主要代码匹配，以便GET_COD_MAJOR\n(ulCODMask) 等于 GET_COD_MAJOR ([远程设备的设备类]) 。 pcszDescription\n掩码的描述性字符串。",
+      "remarks": "如果在 ulCODMask 中提供了次要代码，则它还必须与远程设备返回的次要代码匹配。如果指定了次要代码，则必须设置主代码;零不是有效的主代码。 有关设备类信息，请参阅 www.bluetooth.com 要求 中的蓝牙规范。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "PFN_DEVICE_CALLBACK"
+      ],
+      "confidence": 0.85,
+      "_source_line": 81
+    },
+    {
+      "id": "windows::BLUETOOTH_DEVICE_INFO",
+      "name": "BLUETOOTH_DEVICE_INFO",
+      "entity_type": "function",
+      "description": "结构的大小（以字节为单位）。 Address 设备的地址。 ulClassofDevice 设备的类。 fConnected 指定设备是否已连接。 fRemembered 指定设备是否为记住的设备。 并非所有记住的设备都经过身份验证。 fAuthenticated 指定是对设备进行身份验证、配对还是绑定。 所有经过身份验证的设备都会被记住。 stLastSeen 上次看到设备的时间，采用 SYSTEMTIME 结构的形式。 stLastUsed 上次使用设备的时间，采用 SYSTEMTIME 结构的形式。 szName[BLUETOOTH_MAX_NAME_SIZE] 设备的名称。",
+      "syntax": "typedef struct _BLUETOOTH_DEVICE_INFO {\nDWORD             dwSize;   BLUETOOTH_ADDRESS Address;\nULONG             ulClassofDevice;\nBOOL              fConnected;   BOOL              fRemembered;\nBOOL              fAuthenticated;\nSYSTEMTIME        stLastSeen;   SYSTEMTIME        stLastUsed;\nWCHAR             szName[BLUETOOTH_MAX_NAME_SIZE];} BLUETOOTH_DEVICE_INFO_STRUCT;\n成员 dwSize",
+      "return_value": {
+        "description": "成功完成后返回ERROR_SUCCESS;检查每个设备的 fAuthenticate 标志。下表列出了常见错误。 返回代码"
+      },
+      "remarks": "有关详细信息，请参阅 蓝牙设备类 (CoD) 代码要求",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows Vista"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "Address"
+      ],
+      "confidence": 0.9,
+      "_source_line": 83
+    },
+    {
+      "id": "windows::BLUETOOTH_DEVICE_SEARCH_PARAMS",
+      "name": "BLUETOOTH_DEVICE_SEARCH_PARAMS",
+      "entity_type": "function",
+      "description": "结构的 dwSize 成员必须与结构的大小匹配。 pbtdi 指向 BLUETOOTH_DEVICE_INFO 结构的指针，其中放置了有关找到的第一个蓝牙设备的信息。 pbtdi 指向的 BLUETOOTH_DEVICE_INFO 结构的 dwSize 成员必须与结构的大小匹配，否则对",
+      "syntax": "typedef struct _BLUETOOTH_DEVICE_SEARCH_PARAMS {   DWORD  dwSize;\nBOOL   fReturnAuthenticated;   BOOL   fReturnRemembered;\nBOOL   fReturnUnknown;   BOOL   fReturnConnected;   BOOL   fIssueInquiry;\nUCHAR  cTimeoutMultiplier;   HANDLE hRadio;\n} BLUETOOTH_DEVICE_SEARCH_PARAMS;\n成员 dwSize\n结构的大小（以字节为单位）。 fReturnAuthenticated\n一个 值，该值指定搜索应返回经过身份验证的蓝牙设备。 fReturnRemembered\n一个 值，该值指定搜索应返回记住的蓝牙设备。 fReturnUnknown\n一个 值，该值指定搜索应返回未知的蓝牙设备。 fReturnConnected\n一个 值，该值指定搜索应返回连接的蓝牙设备。\nfIssueInquiry\n一个 值，该值指定应发出新的查询。 cTimeoutMultiplier\n一个 值，该值指示查询的超时，以 1.28 秒的增量表示。 例如，12.8 秒的查询的\ncTimeoutMultiplier 值为 10。 此成员的最大值为 48。 使用大于 48 的值时，调用函数会\n立即失败并返回 E_INVALIDARG。 hRadio\n要对其执行查询的无线电的句柄。 设置为 NULL 可对所有本地蓝牙无线电执行查询。",
+      "return_value": {
+        "description": "成功完成后返回第一个蓝牙设备的有效句柄， pbtdi 参数指向有关设备的信息。 当不再需要此句柄时，必须通过 BluetoothFindDeviceClose 将其关闭。 失败时返回 NULL 。 有关错误的详细信息，请调用 GetLastError 函数。 下表描述了常见错误： 返回代码"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BLUETOOTH_DEVICE_INFO"
+      ],
+      "confidence": 0.9,
+      "_source_line": 84
+    },
+    {
+      "id": "windows::BLUETOOTH_FIND_RADIO_PARAMS",
+      "name": "BLUETOOTH_FIND_RADIO_PARAMS",
+      "entity_type": "function",
+      "description": "结构的 dwSize 成员必须与结构的大小匹配。[out] phRadio 指向将返回第一个枚举单选句柄的指针。 不再需要时，必须通过 CloseHandle 关闭此句柄。",
+      "syntax": "typedef struct _BLUETOOTH_FIND_RADIO_PARAMS {   DWORD dwSize;\n} BLUETOOTH_FIND_RADIO_PARAMS;\n成员 dwSize\nBLUETOOTH_FIND_RADIO_PARAMS 结构的大小（以字节为单位）。",
+      "return_value": {
+        "description": "除了 phRadio 指示的句柄外，调用此函数还将创建HBLUETOOTH_RADIO_FIND句柄，以便与"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "CloseHandle"
+      ],
+      "confidence": 0.9,
+      "_source_line": 85
+    },
+    {
+      "id": "windows::BLUETOOTH_LOCAL_SERVICE_INFO_STRUCT",
+      "name": "BLUETOOTH_LOCAL_SERVICE_INFO_STRUCT",
+      "entity_type": "function",
+      "description": "包含蓝牙设备的本地服务信息。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 87
+    },
+    {
+      "id": "windows::BLUETOOTH_NUMERIC_COMPARISON_INFO",
+      "name": "BLUETOOTH_NUMERIC_COMPARISON_INFO",
+      "entity_type": "function",
+      "description": "结构包含用于通过数字比较进行身份验证 的数值。",
+      "syntax": "typedef struct _BLUETOOTH_NUMERIC_COMPARISON_INFO {   ULONG NumericValue;\n} BLUETOOTH_NUMERIC_COMPARISON_INFO, *PBLUETOOTH_NUMERIC_COMPARISON_INFO;\n成员 NumericValue 数值。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 88
+    },
+    {
+      "id": "windows::BLUETOOTH_OOB_DATA_INFO",
+      "name": "BLUETOOTH_OOB_DATA_INFO",
+      "entity_type": "function",
+      "description": "结构包含用于在建立带外设备配对之前进行身份验证的数据。",
+      "syntax": "typedef struct _BLUETOOTH_OOB_DATA_INFO {\nUCHAR C[16];   UCHAR R[16];\n} BLUETOOTH_OOB_DATA_INFO, *PBLUETOOTH_OOB_DATA_INFO;",
+      "remarks": "有关创建用于 OOB 身份验证的密钥的更多详细信息，请参阅 蓝牙核心规范要求",
+      "members": [
+        {
+          "name": "C[16]",
+          "description": "用于双向身份验证的 128 位加密密钥。 R[16] 用于单向身份验证的随机生成的数字。 如果启动 OOB 会话的设备未提供此数字，则此值 为 0。"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "bluetoothapis.h",
+        "min_client": "Windows Vista"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 89
+    },
+    {
+      "id": "windows::BLUETOOTH_PASSKEY_INFO",
+      "name": "BLUETOOTH_PASSKEY_INFO",
+      "entity_type": "function",
+      "description": "passkeyInfo; }; UCHAR negativeResponse; } BLUETOOTH_AUTHENTICATE_RESPONSE, *PBLUETOOTH_AUTHENTICATE_RESPONSE; 成员 bthAddressRemote 包含请求身份验证响应的设备地址 的BLUETOOTH_ADDRESS 结构。 注意 可以在从回调检索到 的 PBLUETOOTH_AUTHENTICATION_CALLBACK PARAMS 结构中找到此信息。 authMethod 定义支持的身份验证方法 的BLUETOOTH_AUTHENTICATION_METHOD 枚举。 注意 可以在从回调检索到 的 PBLUETOOTH_AUTHENTICATION_CALLBACK PARAMS 结构中找到此信息。 pinInfo 必须根据 authMethod 中定义的身份验证方法使用以下结构之一。 例如，如果指定 了",
+      "syntax": "typedef struct _BLUETOOTH_PASSKEY_INFO {   ULONG passkey;\n} BLUETOOTH_PASSKEY_INFO, *PBLUETOOTH_PASSKEY_INFO;\n成员 passkey\n用于身份验证的密钥。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BLUETOOTH_AUTHENTICATE_RESPONSE"
+      ],
+      "confidence": 0.85,
+      "_source_line": 90
+    },
+    {
+      "id": "windows::BLUETOOTH_PIN_INFO",
+      "name": "BLUETOOTH_PIN_INFO",
+      "entity_type": "function",
+      "description": "结构。包含有关 PIN 身份验证的信息。 oobInfo 包含用于对设备进行身份验证的带外数据。 numericCompInfo 包含数字比较身份验证的信息。 passkeyInfo 包含有关密钥身份验证的信息。 negativeResponse 如果身份验证请求被拒绝，则为 TRUE;否则为 FALSE。",
+      "syntax": "typedef struct _BLUETOOTH_PIN_INFO {\nUCHAR pin[BTH_MAX_PIN_SIZE];   UCHAR pinLength;\n} BLUETOOTH_PIN_INFO, *PBLUETOOTH_PIN_INFO; 成员\npin[BTH_MAX_PIN_SIZE] 用于身份验证的 PIN。 pinLength\n引脚的长度。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 92
+    },
+    {
+      "id": "windows::BLUETOOTH_RADIO_INFO",
+      "name": "BLUETOOTH_RADIO_INFO",
+      "entity_type": "function",
+      "description": "结构包含有关蓝牙无线电的信息。",
+      "syntax": "typedef struct _BLUETOOTH_RADIO_INFO {\nDWORD             dwSize;   BLUETOOTH_ADDRESS address;\nWCHAR             szName[BLUETOOTH_MAX_NAME_SIZE];\nULONG             ulClassofDevice;   USHORT            lmpSubversion;   USHORT            manufacturer;\n} BLUETOOTH_RADIO_INFO, *PBLUETOOTH_RADIO_INFO;\n成员 dwSize\n结构的大小（以字节为单位）。 address\n本地蓝牙无线电的地址。\nszName[BLUETOOTH_MAX_NAME_SIZE]\n本地蓝牙无线电的名称。 ulClassofDevice\n本地蓝牙无线电的设备类。 lmpSubversion\n此成员包含特定于单个蓝牙设备制造商的数据。 manufacturer\n蓝牙无线电的制造商，表示为 BTH_MFG_Xxx 值。 有关蓝牙分配号码文档和当前值列表\n的详细信息，请参阅 www.bluetooth.com 要求",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 97
+    },
+    {
+      "id": "windows::BLUETOOTH_SELECT_DEVICE_PARAMS",
+      "name": "BLUETOOTH_SELECT_DEVICE_PARAMS",
+      "entity_type": "function",
+      "description": "结构的大小（以字节为单位）。 cNumOfClasses prgClassOfDevices 中的类数。 设置为零可搜索所有设备。 prgClassOfDevices 要查找的设备类的数组。 pszInfo 在非 NULL 时设置信息文本。 hwndParent 父窗口的句柄。 对于无父项，设置为 NULL 。 fForceAuthentication 如果 为 TRUE，则强制身份验证，然后再返回。 fShowAuthenticated 如果 为 TRUE，则经过身份验证的设备将显示在选取器中。 fShowRemembered 如果 为 TRUE，则选取器中会显示记住的设备。 fShowUnknown 如果 为 TRUE，则未通过身份验证或记住的未知设备将显示在选取器中。 fAddNewDeviceWizard 如果 为 TRUE，则启动“添加新设备”向导。 fSkipServicesPage 如果 为 TRUE，则跳过“添加新设备”向导中的“服务”页。 pfnDeviceCallback 指向为每个设备调用的回调函数的指针。 如果回调函数返回 TRUE，则添加该项。 如果回调函数返回 FALSE，则不显示该项。 在没有回调时，将 pfnDeviceCallback 设置为 null。 有关详细信息，请参阅 PFN_DEVICE_CALLBACK。 pvParam 要作为 pvParam 传递给 pfnDeviceCallback 中指向的回调函数的参数。 cNumDevices 输入时，指定所需的调用数。 设置为零，没有限制。 输出时，返回返回的设备数。 pDevices 指向",
+      "syntax": "typedef struct _BLUETOOTH_SELECT_DEVICE_PARAMS {   DWORD                  dwSize;\nULONG                  cNumOfClasses;",
+      "return_value": {
+        "description": "如果用户选择了设备，则返回 TRUE 。 如果未返回有效数据，则返回 FALSE 。 调用 GetLastError 函数以检索错误信息。 以下条件适用于返回的错误信息。 返回代码"
+      },
+      "remarks": "若要释放 pDevices 成员中传递的BLUETOOTH_DEVICE_INFO结构数组，请调用 BluetoothSelectDevicesFree 函数。",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows Vista"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothSelectDevicesFree",
+        "PFN_DEVICE_CALLBACK"
+      ],
+      "confidence": 0.9,
+      "_source_line": 98
+    },
+    {
+      "id": "windows::BTH_QUERY_SERVICE",
+      "name": "BTH_QUERY_SERVICE",
+      "entity_type": "function",
+      "description": "结构用于查询蓝牙服务。",
+      "syntax": "typedef struct _BTH_QUERY_SERVICE {   ULONG             type;\nULONG             serviceHandle;",
+      "header": "bthsdpdef.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 104
+    },
+    {
+      "id": "windows::BTH_RADIO_IN_RANGE",
+      "name": "BTH_RADIO_IN_RANGE",
+      "entity_type": "function",
+      "description": "在通信范围内存储有关蓝牙设备的数据。 BTH_SET_SERVICE 为指定的蓝牙服务提供服务信息。",
+      "syntax": "typedef struct _BTH_RADIO_IN_RANGE {   BTH_DEVICE_INFO deviceInfo;\nULONG           previousDeviceFlags;\n} BTH_RADIO_IN_RANGE, *PBTH_RADIO_IN_RANGE;\n成员 deviceInfo\n与远程设备关联的当前属性集，采用 BTH_DEVICE_INFO 结构的形式。 previousDeviceFlags\ndeviceInfo 成员指向的 BTH_DEVICE_INFO 结构的 flags 成员以前的标志。 用于确定与远\n程设备关联的属性已更改。",
+      "header": "bthdef.h",
+      "deprecated": false,
+      "cross_references": [
+        "BTH_SET_SERVICE"
+      ],
+      "confidence": 0.75,
+      "_source_line": 104
+    },
+    {
+      "id": "windows::SDP_ELEMENT_DATA",
+      "name": "SDP_ELEMENT_DATA",
+      "entity_type": "function",
+      "description": "结构存储 SDP 元素数据。",
+      "syntax": "typedef struct _SDP_ELEMENT_DATA {   SDP_TYPE         type;",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 107
+    },
+    {
+      "id": "windows::SDP_STRING_TYPE_DATA",
+      "name": "SDP_STRING_TYPE_DATA",
+      "entity_type": "function",
+      "description": "结构存储有关 SDP 字符串类型的信息。 SdpAttributeRange",
+      "syntax": "typedef struct _SDP_STRING_TYPE_DATA {\nUSHORT encoding;   USHORT mibeNum;\nUSHORT attributeId;\n} SDP_STRING_TYPE_DATA, *PSDP_STRING_TYPE_DATA;\n成员 encoding\n指定如何根据 ISO 639：1988 (E/F) ：语言名称表示形式的代码对字符串进行编码。 mibeNum\nIANA 数据库中的 MIBE 编号。 attributeId\n记录中要在其中找到字符串的基属性的标识符。",
+      "requirements": {
+        "header": "bluetoothapis.h",
+        "min_client": "Windows Vista"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "SdpAttributeRange"
+      ],
+      "confidence": 0.75,
+      "_source_line": 107
+    },
+    {
+      "id": "windows::SdpAttributeRange",
+      "name": "SdpAttributeRange",
+      "entity_type": "function",
+      "description": "在蓝牙查询中使用 SdpAttributeRange 结构来限制在查询中返回的属性集。",
+      "syntax": "typedef struct SdpAttributeRange {\nUSHORT minAttribute;   USHORT maxAttribute;} SdpAttributeRange;\n成员 minAttribute\n要搜索的最小属性值。 maxAttribute\n要搜索的最大属性值。",
+      "header": "bthsdpdef.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 109
+    },
+    {
+      "id": "windows::SdpQueryUuid",
+      "name": "SdpQueryUuid",
+      "entity_type": "function",
+      "description": "uuids[MAX_UUIDS_IN_QUERY]; ULONG numRange; SdpAttributeRange pRange[1]; } BTH_QUERY_SERVICE, *PBTH_QUERY_SERVICE, BTHNS_RESTRICTIONBLOB, *PBTHNS_RESTRICTIONBLOB; 成员 type 要执行的服务类型。 从下列各项中进行选择：",
+      "syntax": "typedef struct _SdpQueryUuid {   SdpQueryUuidUnion u;\nUSHORT            uuidType;} SdpQueryUuid;\n成员 u\n包含要搜索的 UUID 的联合。 uuidType\n正在搜索的 UUID 的类型。 必须是SDP_SPECIFICTYPE枚举中的三个有效值之一：",
+      "remarks": "pRange 成员是一个开放式数组，指定要从查询返回的稀疏属性集。 应用程序负责提供按属性 ID 的升序排序的非重叠数组，而不提供重复项。 有关蓝牙规范的详细信息，请参阅 www.bluetooth.com",
+      "header": "bthsdpdef.h",
+      "deprecated": false,
+      "cross_references": [
+        "BTH_QUERY_SERVICE",
+        "SdpAttributeRange"
+      ],
+      "confidence": 0.7,
+      "_source_line": 113
+    },
+    {
+      "id": "windows::SdpQueryUuidUnion",
+      "name": "SdpQueryUuidUnion",
+      "entity_type": "function",
+      "description": "联合包含要对其执行 SDP 查询的 UUID。 与 SdpQueryUuid 结构结合使用。反馈",
+      "syntax": "typedef union SdpQueryUuidUnion {\nGUID   uuid128;   ULONG  uuid32;   USHORT uuid16;\n} SdpQueryUuidUnion;\n成员 uuid128\n128 位格式的 UUID。 uuid32\n32 位格式的 UUID。 uuid16\n16 位格式的 UUID。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "bthsdpdef.h",
+        "min_client": "Windows Vista"
+      },
+      "header": "bthsdpdef.h",
+      "deprecated": false,
+      "cross_references": [
+        "SdpQueryUuid"
+      ],
+      "confidence": 0.6,
+      "_source_line": 115
+    },
+    {
+      "id": "windows::SOCKADDR_BTH",
+      "name": "SOCKADDR_BTH",
+      "entity_type": "function",
+      "description": "结构与由地址系列AF_BTH定义的蓝牙套接字操作结合使用。反馈 是 否",
+      "syntax": "typedef struct _SOCKADDR_BTH {\nUSHORT   addressFamily;   BTH_ADDR btAddr;\nGUID     serviceClassId;   ULONG    port;\n} SOCKADDR_BTH, *PSOCKADDR_BTH;\n成员 addressFamily\n套接字的地址系列。 此成员始终AF_BTH。 btAddr\n目标蓝牙设备的地址。 与 绑定 函数一起使用时，必须是零或有效的本地无线电地址。如果为零，则调用 connect 或 accept 函数时，会分配有效的本地蓝牙设备地址。 与\nconnect 函数一起使用时，必须指定有效的远程无线电地址。 serviceClassId\n套接字的服务类标识符。 与 绑定 函数一起使用时， 将忽略 serviceClassId 。 如果指定了端口，也将被忽略。 对于 connect 函数，指定要连接到的服务的唯一蓝牙服务类 ID。 如果对等设备有多个与服务类标识符对应的端口， 则 connect 函数会尝试连接到第一个有\n效服务;此机制无需事先进行 SDP 查询即可使用。 port\n与套接字关联的 RFCOMM 通道。 请参阅“备注”。",
+      "remarks": "在客户端应用程序上与 绑定 函数一起使用时， 端口 成员必须为零才能启用要分配的相应本地终结点。 与服务器应用程序 绑定 一起使用时， 端口 成员必须是有效的端口号或 BT_PORT_ANY;使用 BT_PORT_ANY 自动分配的端口随后可能会通过调用 getsockname 函数来查询。 请求特定 RFCOMM 端口的有效范围是 1 到 30。 如果未提供 serviceClassId，则使用 connect 函数时，端口应直接指定请求连接操作的远程端口号。 使用 端口 成员而不是 serviceClassId 成员要求应用程序在尝试 连接 操作之 前执行自己的服务 (SDP) 搜索。",
+      "requirements": {
+        "header": "ws2bth.h",
+        "min_client": "Windows Vista"
+      },
+      "header": "ws2bth.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 115
+    },
+    {
+      "id": "windows::BluetoothSelectDevices",
+      "name": "BluetoothSelectDevices",
+      "entity_type": "function",
+      "description": "函数将打开一个用于选择蓝牙设备的通用对话框。 向用户显示的设备列表由调用方在 pbtsdp 参数中指定的标志和设置决定。 如果 BluetoothSelectDevices 返回 TRUE，则BLUETOOTH_SELECT_DEVICE_PARAMS结构的 pDevices 成员指向有效数据。 调用方应验证BLUETOOTH_SELECT_DEVICE_PARAMS结构中的 fAuthenticated 和 fRemembered 标志，以确定哪些设备已成功进行身份验证，以及哪些设备是用户的有效选择。 仅当 BluetoothSelectDevices 函数返回 TRUE 时，调用 Free 函数以释放资源。",
+      "syntax": "BOOL BluetoothSelectDevices(",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 164
+    },
+    {
+      "id": "windows::PFN_AUTHENTICATION_CALLBACK",
+      "name": "PFN_AUTHENTICATION_CALLBACK",
+      "entity_type": "callback",
+      "description": "函数是与 BluetoothRegisterForAuthentication 函数结合使用的回调函数原型。 注意 针对 Windows Vista SP2 和 Windows 7 进行开发时，建议使用",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothRegisterForAuthentication",
+        "Vista"
+      ],
+      "confidence": 0.75,
+      "_source_line": 180
+    },
+    {
+      "id": "windows::BTH_ADDR",
+      "name": "BTH_ADDR",
+      "entity_type": "enum",
+      "description": "bthAddress; USHORT psm; UCHAR connected; UCHAR initiated; } BTH_L2CAP_EVENT_INFO, *PBTH_L2CAP_EVENT_INFO; 成员 bthAddress 与 L2CAP 事件关联的远程无线电地址，采用 BTH_ADDR 结构的形式。 psm 已建立或终止的通道编号。 connected 连接状态。 如果为非零，则表示已建立通道。 如果为零，则表示通道已终止。 initiated 提供连接信息。 如果不是零，则本地无线电启动 L2CAP 连接。 如果为零，则远程蓝牙设 备启动 L2CAP 连接。 如果 connected 为零，则此成员未定义且不适用。",
+      "remarks": "仅针对已成功建立的通道发送已销毁通道的通知。",
+      "requirements": {
+        "header": "bluetoothapis.h",
+        "min_client": "Windows Vista"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BTH_L2CAP_EVENT_INFO"
+      ],
+      "confidence": 0.75,
+      "_source_line": 233
+    },
+    {
+      "id": "windows::BLUETOOTH_AUTHENTICATION_METHOD_NUMERIC_COMPARISON",
+      "name": "BLUETOOTH_AUTHENTICATION_METHOD_NUMERIC_COMPARISON",
+      "entity_type": "enum",
+      "description": ", BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY_NOTIFICATION, BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY } BLUETOOTH_AUTHENTICATION_METHOD, *PBLUETOOTH_AUTHENTICATION_METHOD; 常量",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BLUETOOTH_AUTHENTICATION_METHOD",
+        "BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY_NOTIFICATION"
+      ],
+      "confidence": 0.75,
+      "_source_line": 340
+    },
+    {
+      "id": "windows::BLUETOOTH_AUTHENTICATION_METHOD_LEGACY",
+      "name": "BLUETOOTH_AUTHENTICATION_METHOD_LEGACY",
+      "entity_type": "enum",
+      "description": "值： 0x1 蓝牙设备支持通过 PIN 进行身份验证。 BLUETOOTH_AUTHENTICATION_METHOD_OOB 蓝牙设备支持通过带外数据进行身份验证。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 344
+    },
+    {
+      "id": "windows::BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY_NOTIFICATION",
+      "name": "BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY_NOTIFICATION",
+      "entity_type": "enum",
+      "description": "蓝牙设备支持通过密钥通知进行身份验证。 BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY 蓝牙设备支持通过密钥进行身份验证。",
+      "requirements": {
+        "header": "bluetoothapis.h",
+        "min_client": "Windows XP [仅限桌面应用]"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 348
+    },
+    {
+      "id": "windows::BLUETOOTH_MITM",
+      "name": "BLUETOOTH_MITM",
+      "entity_type": "enum",
+      "description": "_ProtectionRequiredGeneralBonding 值： 0x5 一般邦德需要保护免受“中间人”攻击。 BLUETOOTH_MITM_ProtectionNotDefined 值： 0xff 未定义针对“中间人”攻击的保护。",
+      "remarks": "通过适用于无线开发人员的 Windows Vista 功能包补充下载，Microsoft Connect 中提供了与此 API 关联的头文件。 访问此资源需要向 Microsoft Connect 网站注册。 标头还包含在通过 Windows 驱动程序工具包 (WDK) 、Windows 徽标工具包 (WLK) 和 Windows 驱动程序框架 (Microsoft Connect 上的 WDF) Connections 提供的综合开发人员资源包中。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "Connect",
+        "Vista"
+      ],
+      "confidence": 0.75,
+      "_source_line": 374
+    },
+    {
+      "id": "windows::BluetoothUpdateDeviceRecord",
+      "name": "BluetoothUpdateDeviceRecord",
+      "entity_type": "constant",
+      "description": "反馈 是 否 bluetoothapis.h) (BLUETOOTH_FIND_RADIO_PARAMS 结构",
+      "syntax": "DWORD BluetoothUpdateDeviceRecord(   const BLUETOOTH_DEVICE_INFO *pbtdi);\n参数 pbtdi\n指向要更新 的BLUETOOTH_DEVICE_INFO 结构的指针。 有关详细信息，请参见“备注”部分。",
+      "return_value": {
+        "description": "成功后返回 ERROR_SUCCESS 。 下表列出了常见错误。 返回代码"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BLUETOOTH_FIND_RADIO_PARAMS"
+      ],
+      "confidence": 0.75,
+      "_source_line": 516
+    },
+    {
+      "id": "windows::BLUETOOTH_IO_CAPABILITY_DISPLAYONLY",
+      "name": "BLUETOOTH_IO_CAPABILITY_DISPLAYONLY",
+      "entity_type": "constant",
+      "description": "= 0x00, BLUETOOTH_IO_CAPABILITY_DISPLAYYESNO = 0x01, BLUETOOTH_IO_CAPABILITY_KEYBOARDONLY = 0x02,",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BLUETOOTH_IO_CAPABILITY_DISPLAYYESNO",
+        "BLUETOOTH_IO_CAPABILITY_KEYBOARDONLY"
+      ],
+      "confidence": 0.75,
+      "_source_line": 560
+    },
+    {
+      "id": "windows::BLUETOOTH_IO_CAPABILITY_NOINPUTNOOUTPUT",
+      "name": "BLUETOOTH_IO_CAPABILITY_NOINPUTNOOUTPUT",
+      "entity_type": "constant",
+      "description": "值： 0x03 蓝牙设备无法输入/输出。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 561
+    },
+    {
+      "id": "windows::BLUETOOTH_IO_CAPABILITY_UNDEFINED",
+      "name": "BLUETOOTH_IO_CAPABILITY_UNDEFINED",
+      "entity_type": "constant",
+      "description": "= 0xff} BLUETOOTH_IO_CAPABILITY;",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BLUETOOTH_IO_CAPABILITY"
+      ],
+      "confidence": 0.65,
+      "_source_line": 562
+    },
+    {
+      "id": "windows::BLUETOOTH_IO_CAPABILITY_DISPLAYYESNO",
+      "name": "BLUETOOTH_IO_CAPABILITY_DISPLAYYESNO",
+      "entity_type": "constant",
+      "description": "值： 0x01 蓝牙设备能够通过显示器输出，并具有向用户显示是/否问题的附加功能。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 566
+    },
+    {
+      "id": "windows::BLUETOOTH_IO_CAPABILITY_KEYBOARDONLY",
+      "name": "BLUETOOTH_IO_CAPABILITY_KEYBOARDONLY",
+      "entity_type": "constant",
+      "description": "值： 0x02 蓝牙设备能够通过键盘进行输入。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 568
+    },
+    {
+      "id": "windows::BLUETOOTH_LOCAL_SERVICE_INFO",
+      "name": "BLUETOOTH_LOCAL_SERVICE_INFO",
+      "entity_type": "constant",
+      "description": "结构包含蓝牙设备的本地服务信息。 BluetoothSetLocalServiceInfo 函数使用此结构。",
+      "syntax": "typedef struct _BLUETOOTH_LOCAL_SERVICE_INFO {\nBOOL              Enabled;   BLUETOOTH_ADDRESS btAddr;\nWCHAR             szName[BLUETOOTH_MAX_SERVICE_NAME_SIZE];\nWCHAR             szDeviceString[BLUETOOTH_DEVICE_NAME_SIZE];} BLUETOOTH_LOCAL_SERVICE_INFO_STRUCT;",
+      "remarks": "如果服务未与特定设备关联，则 btAddr 应设置为 BTH_ADDR_NULL。",
+      "members": [
+        {
+          "name": "Enabled",
+          "description": "如果 为 TRUE，则指定启用播发的服务;否则，将禁用播发的服务。 btAddr 包含远程设备的地址 的BLUETOOTH_ADDRESS 结构。 向设备播发服务时使用此地址。 szName[BLUETOOTH_MAX_SERVICE_NAME_SIZE] 服务名称。 此字符串的最大长度（包括 null 终止符） BLUETOOTH_MAX_SERVICE_NAME_SIZE(256) 。 szDeviceString[BLUETOOTH_DEVICE_NAME_SIZE] 本地设备名称（如果有），例如 COM4 或 LPT1。 此字符串的最大长度（包括 null 终止符） BLUETOOTH_DEVICE_NAME_SIZE (256) 。"
+        }
+      ],
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothSetLocalServiceInfo"
+      ],
+      "confidence": 0.95,
+      "_source_line": 597
+    },
+    {
+      "id": "windows::BluetoothSetLocalServiceInfo",
+      "name": "BluetoothSetLocalServiceInfo",
+      "entity_type": "constant",
+      "description": "值 Windows Vista [仅限桌面应用] 无受支持的版本 bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "Vista"
+      ],
+      "confidence": 0.6,
+      "_source_line": 616
+    },
+    {
+      "id": "windows::PBLUETOOTH_DEVICE_INFO",
+      "name": "PBLUETOOTH_DEVICE_INFO",
+      "entity_type": "constant",
+      "description": "pDeviceInfo; HRESULT status; HANDLE hEvent = NULL; HRESULT WINAPI AuthenticateService(){ status = BluetoothAuthenticateDeviceEx( NULL, NULL, pDeviceInfo, // NULL, MITMProtectionNotRequired ); if ( ERROR_INVALID_PARAMETER == status ) { // goto Cleanup;// ... // Take cleanup action here, // ...} // Wait for the Authentication callback to return before trying to unregister the handle // Use an infinite timeout since the handle to the function that sets the event is being // deleted// if ( WAIT_FAILED == WaitForSingleObject(hEvent, INFINITE) ) { status = GetLastError();// goto Cleanup; // ... // Take cleanup action here, // ...} return status;}",
+      "return_value": {
+        "description": "系统忽略此函数的返回值。"
+      },
+      "remarks": "调用方可以使用同一回调函数注册多个地址。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothAuthenticateDeviceEx",
+        "Cleanup",
+        "ERROR_INVALID_PARAMETER",
+        "GetLastError",
+        "WaitForSingleObject"
+      ],
+      "confidence": 0.8,
+      "_source_line": 786
+    },
+    {
+      "id": "windows::PFN_DEVICE_CALLBACK",
+      "name": "PFN_DEVICE_CALLBACK",
+      "entity_type": "constant",
+      "description": "PfnDeviceCallback; BOOL PfnDeviceCallback( LPVOID pvParam, const BLUETOOTH_DEVICE_INFO *pDevice) {...} 参数 pvParam 通过 BluetoothSelectDevices 函数从",
+      "return_value": {
+        "description": "返回 FALSE 会阻止将设备添加到蓝牙设备的列表视图中。"
+      },
+      "remarks": "pDevice 中指向的BLUETOOTH_DEVICE_INFO结构是 BluetoothSelectDevices 函数查询的设备，以确定该设备是否应添加到列表视图中。 如果回调对每个设备执行 SDP 查询，则用户可以从中选择的设备列表将延迟到可以查询所有设备为止。 建议的方法是使用服务调用设备类中的位域（可通过 GET_COD_SERVICE获取），以确 定是否应向用户显示设备。 服务类位域通过 ulClassOfDevice 成员在 pDevice 参数中可用。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BLUETOOTH_DEVICE_INFO",
+        "BluetoothSelectDevices"
+      ],
+      "confidence": 0.8,
+      "_source_line": 820
+    },
+    {
+      "id": "windows::ERROR_CANCELLED",
+      "name": "ERROR_CANCELLED",
+      "entity_type": "constant",
+      "description": "说明 设备被拒绝传递密钥响应。 这可能还表示本地无线电设备的通信问题。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 851
+    },
+    {
+      "id": "windows::ERROR_INVALID_PARAMETER",
+      "name": "ERROR_INVALID_PARAMETER",
+      "entity_type": "constant",
+      "description": "言论 pbtdi 参数 NULL。 获取数据的蓝牙设备之前必须通过成功的设备查询函数调用进行标识。 在 pbtdi指向的 BLUETOOTH_DEVICE_INFO 结构中，dwSize 成员必须等效于结构的大小（以字节为单位）。 BLUETOOTH_DEVICE_INFO 结构的 地址 成员必须包含远程设备的蓝牙地址。",
+      "remarks": "说明 pbtdi 参数为 NULL。 pbtdi 参数中指向的结构的 dwSize 成员无效。 更新蓝牙设备记录时，必须遵守下表中列出的 BLUETOOTH_DEVICE_INFO 结构成员的要求。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BLUETOOTH_DEVICE_INFO"
+      ],
+      "confidence": 0.75,
+      "_source_line": 852
+    },
+    {
+      "id": "windows::ERROR_NO_MORE_ITEMS",
+      "name": "ERROR_NO_MORE_ITEMS",
+      "entity_type": "constant",
+      "description": "注解 说明 用户取消了操作。 pbtdi 参数中的设备结构无效。 pbtdi 指向的设备已标记为已经过身份验证。 某些远程蓝牙设备只能接受数字密钥。 无法提前确定哪些设备仅接受数字密钥。蓝牙身份验证过程有两种模式：向导模式和透明模式。 当 pszPasskey 设置为 NULL 并启动蓝牙连接向导时，将启动向导模式。 系统会提示用户输入密钥作为向导中的步骤，然后发送身份验证请求。 用户界面显示身份验证尝试是成功还是失败，并为用户提供重新尝试失败身份验证的机会。 当 pszPasskey 不为 NULL 时，将启动透明模式。 在透明模式下，身份验证请求将发送到远程蓝牙设备，而不会显示任何用户界面。 在透明模式下，蓝牙状态代码映射到 Win32 错误代码;下表列出了此映射信息。 蓝牙状态代码",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "Win32"
+      ],
+      "confidence": 0.75,
+      "_source_line": 853
+    },
+    {
+      "id": "windows::BTH_ERROR_NO_CONNECTION",
+      "name": "BTH_ERROR_NO_CONNECTION",
+      "entity_type": "constant",
+      "description": "BTH_ERROR_PAGE_TIMEOUT",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 866
+    },
+    {
+      "id": "windows::Win32",
+      "name": "Win32",
+      "entity_type": "constant",
+      "description": "错误注解 说明 内存不足。 提供的注册句柄无效。 调用方必须提供有效的回调地址，并且必须在不再需要通知后注销回调。 通过调用 BluetoothUnregisterAuthentication，可以取消注册经过身份验证的设备。 如果应用程序多次注册身份验证，则在身份验证正在进行时，只会在应用程序中调用通过此函数 注册的第一个回调函数。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothUnregisterAuthentication"
+      ],
+      "confidence": 0.6,
+      "_source_line": 867
+    },
+    {
+      "id": "windows::ERROR_DEVICE_NOT_CONNECTED",
+      "name": "ERROR_DEVICE_NOT_CONNECTED",
+      "entity_type": "constant",
+      "description": "WAIT_TIMEOUT",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "WAIT_TIMEOUT"
+      ],
+      "confidence": 0.55,
+      "_source_line": 869
+    },
+    {
+      "id": "windows::BTH_ERROR_AUTHENTICATION_FAILURE",
+      "name": "BTH_ERROR_AUTHENTICATION_FAILURE",
+      "entity_type": "constant",
+      "description": "BTH_ERROR_MEMORY_FULL",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BTH_ERROR_MEMORY_FULL"
+      ],
+      "confidence": 0.65,
+      "_source_line": 873
+    },
+    {
+      "id": "windows::BTH_ERROR_CONNECTION_TIMEOUT",
+      "name": "BTH_ERROR_CONNECTION_TIMEOUT",
+      "entity_type": "constant",
+      "description": "BTH_ERROR_LMP_RESPONSE_TIMEOUT",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 874
+    },
+    {
+      "id": "windows::BTH_ERROR_PAIRING_NOT_ALLOWED",
+      "name": "BTH_ERROR_PAIRING_NOT_ALLOWED",
+      "entity_type": "constant",
+      "description": "BTH_ERROR_UNSPECIFIED_ERROR",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 876
+    },
+    {
+      "id": "windows::ERROR_NOT_AUTHENTICATED",
+      "name": "ERROR_NOT_AUTHENTICATED",
+      "entity_type": "constant",
+      "description": "ERROR_NOT_ENOUGH_MEMORY",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "ERROR_NOT_ENOUGH_MEMORY"
+      ],
+      "confidence": 0.65,
+      "_source_line": 885
+    },
+    {
+      "id": "windows::ERROR_REQ_NOT_ACCEP",
+      "name": "ERROR_REQ_NOT_ACCEP",
+      "entity_type": "constant",
+      "description": "ERROR_ACCESS_DENIED ERROR_NOT_READY",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "ERROR_ACCESS_DENIED"
+      ],
+      "confidence": 0.65,
+      "_source_line": 887
+    },
+    {
+      "id": "windows::ERROR_VC_DISCONNECTED",
+      "name": "ERROR_VC_DISCONNECTED",
+      "entity_type": "constant",
+      "description": "Windows Vista、Windows XP 和 SP2 [仅限桌面应用] 无受支持的版本 Windows bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h) Bthprops.lib bthprops.cpl",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "Vista"
+      ],
+      "confidence": 0.75,
+      "_source_line": 888
+    },
+    {
+      "id": "windows::ERROR_MORE_DATA",
+      "name": "ERROR_MORE_DATA",
+      "entity_type": "constant",
+      "description": "ERROR_INVALID_DATA",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "ERROR_INVALID_DATA"
+      ],
+      "confidence": 0.55,
+      "_source_line": 1144
+    },
+    {
+      "id": "windows::HBLUETOOTH_DEVICE_FIND",
+      "name": "HBLUETOOTH_DEVICE_FIND",
+      "entity_type": "constant",
+      "description": "BluetoothFindFirstDevice( const BLUETOOTH_DEVICE_SEARCH_PARAMS *pbtsp, BLUETOOTH_DEVICE_INFO *pbtdi); 参数 pbtsp 指向 BLUETOOTH_DEVICE_SEARCH_PARAMS 结构的指针。 pbtsp 指向的",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BLUETOOTH_DEVICE_INFO",
+        "BLUETOOTH_DEVICE_SEARCH_PARAMS",
+        "BluetoothFindFirstDevice"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1197
+    },
+    {
+      "id": "windows::HBLUETOOTH_RADIO_FIND",
+      "name": "HBLUETOOTH_RADIO_FIND",
+      "entity_type": "constant",
+      "description": "BluetoothFindFirstRadio( const BLUETOOTH_FIND_RADIO_PARAMS *pbtfrp, [out] HANDLE *phRadio); 参数 pbtfrp 指向 BLUETOOTH_FIND_RADIO_PARAMS 结构的指针。 pbtfrp 指向的",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BLUETOOTH_FIND_RADIO_PARAMS",
+        "BluetoothFindFirstRadio"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1238
+    },
+    {
+      "id": "windows::ERROR_REVISION_MISMATCH",
+      "name": "ERROR_REVISION_MISMATCH",
+      "entity_type": "constant",
+      "description": "ERROR_OUTOFMEMORY 要求",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "ERROR_OUTOFMEMORY",
+        "Vista"
+      ],
+      "confidence": 0.55,
+      "_source_line": 1256
+    },
+    {
+      "id": "windows::ERROR_INVALID_HANDLE",
+      "name": "ERROR_INVALID_HANDLE",
+      "entity_type": "constant",
+      "description": "ERROR_NO_MORE_ITEMS ERROR_OUTOFMEMORY 说明 句柄为 NULL。 没有找到更多的无线电。内存不足。 要求",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "ERROR_NO_MORE_ITEMS",
+        "ERROR_OUTOFMEMORY"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1285
+    },
+    {
+      "id": "windows::BluetoothGetDeviceInfo",
+      "name": "BluetoothGetDeviceInfo",
+      "entity_type": "constant",
+      "description": "函数检索有关远程蓝牙设备的信息。 蓝牙设备以前必须通过成功的设备查询函数调用进行标识。",
+      "syntax": "DWORD BluetoothGetDeviceInfo(   HANDLE                hRadio,   BLUETOOTH_DEVICE_INFO *pbtdi);\n参数 hRadio\n从对 BluetoothFindFirstRadio 或类似函数的调用或从对 SetupDiEnumDeviceInterfaces 函数的\n调用获取的本地无线电的句柄。 pbtdi\n指向将放置第一个蓝牙设备数据的 BLUETOOTH_DEVICE_INFO 结构的指针。 有关详细信息，请\n参阅“备注”。",
+      "return_value": {
+        "description": "成功后返回 ERROR_SUCCESS，指示检索有关远程蓝牙设备的数据。 失败时返回错误代码。 下表列出了与 BluetoothGetDeviceInfo 函数关联的常见错误代码。 返回代码"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1370
+    },
+    {
+      "id": "windows::PBLUETOOTH_RADIO_INFO",
+      "name": "PBLUETOOTH_RADIO_INFO",
+      "entity_type": "constant",
+      "description": "pRadioInfo); 参数 hRadio 本地蓝牙无线电的句柄，通过调用 BluetoothFindFirstRadio 或类似函数或",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothFindFirstRadio"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1417
+    },
+    {
+      "id": "windows::SetupDiEnumerateDeviceInterfances",
+      "name": "SetupDiEnumerateDeviceInterfances",
+      "entity_type": "constant",
+      "description": "函数获得。 pRadioInfo 指向 BLUETOOTH_RADIO_INFO 结构的指针，其中放置有关无线电的信息。 BLUETOOTH_RADIO_INFO 结构的 dwSize 成员必须与结构的大小匹配。",
+      "return_value": {
+        "description": "下表列出了常见的返回值。 返回代码"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BLUETOOTH_RADIO_INFO"
+      ],
+      "confidence": 0.65,
+      "_source_line": 1420
+    },
+    {
+      "id": "windows::HBLUETOOTH_AUTHENTICATION_REGISTRATION",
+      "name": "HBLUETOOTH_AUTHENTICATION_REGISTRATION",
+      "entity_type": "constant",
+      "description": "*phRegHandle, PFN_AUTHENTICATION_CALLBACK pfnCallback, PVOID pvParam); 参数 pbtdi 指向 BLUETOOTH_DEVICE_INFO 结构的指针。 Address 成员用于比较。 phRegHandle 指向在其中存储注册 HANDLE 的结构的指针。 调用 BluetoothUnregisterAuthentication 以关闭句柄。 pfnCallback 发生身份验证事件时要调用的函数。 函数应与 PFN_AUTHENTICATION_CALLBACK 中所述的原 型匹配。 pvParam 要通过回调函数传递的可选参数。",
+      "return_value": {
+        "description": "成功完成后返回ERROR_SUCCESS，并在 phRegHandle 中返回有效的注册句柄。 任何其他返回值表示失败。 调用 GetLastError 函数以获取有关错误的详细信息。 下表描述了一个常见错误： 返回代码"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "Address",
+        "BLUETOOTH_DEVICE_INFO",
+        "BluetoothUnregisterAuthentication",
+        "PFN_AUTHENTICATION_CALLBACK"
+      ],
+      "confidence": 0.8,
+      "_source_line": 1549
+    },
+    {
+      "id": "windows::BluetoothRemoveDevice",
+      "name": "BluetoothRemoveDevice",
+      "entity_type": "constant",
+      "description": "功能删除蓝牙设备和计算机之间的身份验证，并清除设备的缓存服务 信息。",
+      "syntax": "DWORD BluetoothRemoveDevice(\nconst BLUETOOTH_ADDRESS *pAddress);\n参数 pAddress\n指向要删除的蓝牙设备的地址的指针。",
+      "return_value": {
+        "description": "成功删除蓝牙设备后返回 ERROR_SUCCESS 。 如果未找到设备，则返回 ERROR_NOT_FOUND。"
+      },
+      "remarks": "如果 pAddress 指示的设备不是已记住的设备，BluetoothRemoveDevice 功能将失败。",
+      "requirements": {
+        "min_client": "Windows Vista"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1637
+    },
+    {
+      "id": "windows::ERROR_INVALID_DATA",
+      "name": "ERROR_INVALID_DATA",
+      "entity_type": "constant",
+      "description": "注解 说明 pSDPStream 或 pfnCallback 参数为 NULL。 SDP 流已损坏。 如果回调函数返回 FALSE，则由 BluetoothSdpEnumAttributes 函数启动的枚举将停止。 pSDPStream 中的记录流必须是格式化为 SDP 记录的 SDP 流、包含属性 ID 的 SEQUENCE (UINT16) 加上属性值 (任何 SDP 元素类型) 对。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "BluetoothSdpEnumAttributes",
+        "Vista"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1685
+    },
+    {
+      "id": "windows::BluetoothSdpGetContainerElementData",
+      "name": "BluetoothSdpGetContainerElementData",
+      "entity_type": "constant",
+      "description": "函数循环访问容器流并返回容器元素中包含的每个元素。",
+      "syntax": "DWORD BluetoothSdpGetContainerElementData(\n[in]      LPBYTE                       pContainerStream,   [in]      ULONG                        cbContainerLength,   [in, out] HBLUETOOTH_CONTAINER_ELEMENT *pElement,\n[out]     PSDP_ELEMENT_DATA            pData);",
+      "parameters": [
+        {
+          "name": "pContainerStream",
+          "direction": "in",
+          "description": "指向有效 SDP 流的指针。 流中的第一个元素必须是序列或替代元素。[in] cbContainerLength pContainerStream 参数的大小（以字节为单位）。[in, out] pElement 用于跟踪流中的位置的值。 首次为容器调用 BluetoothSdpGetContainerElementData 函数时， *pElement 应为 NULL。 对于后续调用，该值应未修改。[out] pData 指向用 pContainerStream 的当前 SDP 元素中的数据填充的缓冲区的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "成功后返回 ERROR_SUCCESS ，指示 pData 参数包含数据。 失败时返回错误代码。 下表描述了与 BluetoothSdpGetContainerElementData 函数关联的常见错误代码： 返回代码"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1702
+    },
+    {
+      "id": "windows::BluetoothSdpGetElementData",
+      "name": "BluetoothSdpGetElementData",
+      "entity_type": "constant",
+      "description": "bluetoothapis.h) (PFN_DEVICE_CALLBACK",
+      "syntax": "DWORD BluetoothSdpGetElementData(\n[in]  LPBYTE            pSdpStream,\n[in]  ULONG             cbSdpStreamLength,\n[out] PSDP_ELEMENT_DATA pData);",
+      "parameters": [
+        {
+          "name": "pSdpStream",
+          "direction": "in",
+          "description": "指向有效 SDP 流的指针。[in] cbSdpStreamLength pSdpStream 的长度（以字节为单位）。[out] pData 指向要用 pSdpStream SDP 流开头找到的 SDP 元素数据填充的缓冲区的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "正确分析 SDP 元素时返回 ERROR_SUCCESS 。 如果所需的参数之一为 NULL，或者 pSdpStream 指向的 SDP 流无效，则返回ERROR_INVALID_PARAMETER。"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "PFN_DEVICE_CALLBACK"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1703
+    },
+    {
+      "id": "windows::ERROR_FILE_NOT_FOUND",
+      "name": "ERROR_FILE_NOT_FOUND",
+      "entity_type": "constant",
+      "description": "注解 说明 其中一个必需的指针为 NULL，pRecordStream 参数不是有效的 SDP 流，或者 pRecordStream 参数不是格式正确的 SDP 记录。 在记录中找不到 usAttributeId 中提供的标识符。 pRecordStream 中的记录流必须是格式化为 SDP 记录的 SDP 流、包含属性 ID 的 SEQUENCE(UINT16) 加上属性值 (任何 SDP 元素类型) 对。 usAttributeId 参数中提供的属性标识符可以是 bthdef.h 文件中提供的众多SDP_ATTRIB_Xxx通用属性标识符之一，也可以是蓝牙配置文件定义的自定义属性值。 所有大于或等于 0x200 的值都是特定于配置文件的属性标识符，并且特定于配置文件。 有关通用 SDP 属性标识符的列表，请 参阅 bthdef.h 头文件。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "Vista"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1730
+    },
+    {
+      "id": "windows::BluetoothSdpGetString",
+      "name": "BluetoothSdpGetString",
+      "entity_type": "constant",
+      "description": "SDP_ELEMENT_DATA SDP_STRING_TYPE_DATA bluetoothSdpGetElementData 函数",
+      "syntax": "DWORD BluetoothSdpGetString(\n[in]      LPBYTE                      pRecordStream,   [in]      ULONG                       cbRecordLength,   [in]      const PSDP_STRING_TYPE_DATA pStringData,\n[in]      USHORT                      usStringOffset,   [out]     PWSTR                       pszString,\n[in, out] PULONG                      pcchStringLength);",
+      "parameters": [
+        {
+          "name": "pRecordStream",
+          "direction": "in",
+          "description": "指向格式化为单个 SDP 记录的有效记录流的指针。[in] cbRecordLength pRecordStream 的长度（以字节为单位）。[in] pStringData 设置为 NULL 时，调用线程区域设置用于在 SDP 记录中搜索匹配的字符串。 如果不是 NULL，则使用 SDP_STRING_TYPE_DATA 结构的 mibeNum 和 attributeId 成员来查找要转换的字符串。"
+        },
+        {
+          "name": "usStringOffset",
+          "direction": "in",
+          "description": "要转换的 SDP 字符串类型偏移量。 usStringOffset 将添加到字符串的基属性标识符。 SDP 规范定义的偏移量为：STRING_NAME_OFFSET、STRING_DESCRIPTION_OFFSET和"
+        }
+      ],
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "SDP_ELEMENT_DATA",
+        "SDP_STRING_TYPE_DATA"
+      ],
+      "confidence": 0.8,
+      "_source_line": 1792
+    },
+    {
+      "id": "windows::STRING_PROVIDER_NAME_OFFSET",
+      "name": "STRING_PROVIDER_NAME_OFFSET",
+      "entity_type": "constant",
+      "description": "。 可以在 bthdef.h 头文件中找到这些偏移量。[out] pszString 如果不是 NULL，则包含输出中转换后的字符串。 如果设置为 NULL， 则 pcchStringLength 参数将填充所需的字符数（而不是字节数）以检索转换后的字符串。 [in, out] pcchStringLength 输入时，如果 pszString 不是 NULL，则包含 pszString 的长度（以字符为单位）。 输出时，包含所需的字符数，包括返回错误时为 NULL ，或写入 pszString 的字符数，包括 NULL。",
+      "return_value": {
+        "description": "成功完成后返回ERROR_SUCCESS; pszString 参数包含转换后的字符串。 失败时返回错误代码。下表列出了常见错误。 返回代码"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.8,
+      "_source_line": 1844
+    },
+    {
+      "id": "windows::ERROR_NO_SYSTEM_RESOURCES",
+      "name": "ERROR_NO_SYSTEM_RESOURCES",
+      "entity_type": "constant",
+      "description": "ERROR_INVALID_PARAMETER",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "bluetoothapis.h",
+        "library": "Bthprops.lib",
+        "min_client": "Windows Vista"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "ERROR_INVALID_PARAMETER"
+      ],
+      "confidence": 0.65,
+      "_source_line": 1856
+    },
+    {
+      "id": "windows::E_FAIL",
+      "name": "E_FAIL",
+      "entity_type": "constant",
+      "description": "注解 设备在身份验证期间返回了失败代码。 调用方只能使用此函数来响应挂起的身份验证请求。 应用程序应向",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1972
+    },
+    {
+      "id": "windows::BluetoothSendAuthenticationResponse",
+      "name": "BluetoothSendAuthenticationResponse",
+      "entity_type": "constant",
+      "description": "bluetoothSetServiceState 函数",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 2037
+    },
+    {
+      "id": "windows::BluetoothSetServiceState",
+      "name": "BluetoothSetServiceState",
+      "entity_type": "constant",
+      "description": "函数启用或禁用蓝牙设备的服务。",
+      "syntax": "DWORD BluetoothSetServiceState(\nHANDLE                      hRadio,   const BLUETOOTH_DEVICE_INFO *pbtdi,\nconst GUID                  *pGuidService,   DWORD                       dwServiceFlags);\n参数 hRadio\n本地蓝牙无线电的句柄。 pbtdi\n指向 BLUETOOTH_DEVICE_INFO 结构的指针。 必须是以前找到的单选地址。 pGuidService\n指向远程设备上的服务 GUID 的指针。 dwServiceFlags\n调整服务的标志。 若要禁用该服务，请将 设置为 BLUETOOTH_SERVICE_DISABLE;若要启用该\n服务，请将 设置为 BLUETOOTH_SERVICE_ENABLE。",
+      "return_value": {
+        "description": "成功完成后返回 ERROR_SUCCESS 。 下表列出了常见错误。 返回代码"
+      },
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2043
+    },
+    {
+      "id": "windows::E_INVALIDARG",
+      "name": "E_INVALIDARG",
+      "entity_type": "constant",
+      "description": "注解 说明 dwServiceFlags 无效。 不支持 pGuidService 中指定的 GUID 。 dwServiceFlags 设置为 BLUETOOTH_SERVICE_DISABLE 且服务已禁用，或 dwServiceFlags 设置为",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2062
+    },
+    {
+      "id": "windows::BLUETOOTH_SERVICE_ENABLE",
+      "name": "BLUETOOTH_SERVICE_ENABLE",
+      "entity_type": "constant",
+      "description": "且服务已启用。 Windows 维护服务全局唯一标识符 (GUID 的映射，) 支持蓝牙的设备驱动程序。 启用服务会安装相应的设备驱动程序，禁用服务会删除相应的设备驱动程序。 如果启用了不支持的服务，则 不会安装驱动程序。",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2067
+    },
+    {
+      "id": "windows::SDP_SPECIFICTYPE",
+      "name": "SDP_SPECIFICTYPE",
+      "entity_type": "constant",
+      "description": "specificType; union {",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2302
+    },
+    {
+      "id": "windows::SDP_LARGE_INTEGER_16",
+      "name": "SDP_LARGE_INTEGER_16",
+      "entity_type": "constant",
+      "description": "int128; LONGLONG int64; LONG int32; SHORT int16; CHAR int8;",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2303
+    },
+    {
+      "id": "windows::SDP_ULARGE_INTEGER_16",
+      "name": "SDP_ULARGE_INTEGER_16",
+      "entity_type": "constant",
+      "description": "uint128; ULONGLONG uint64; ULONG uint32; USHORT uint16; UCHAR uint8; UCHAR booleanVal; GUID uuid128; ULONG uuid32; USHORT uuid16; struct { LPBYTE value; ULONG length; } string; struct { LPBYTE value; ULONG length; } url; struct { LPBYTE value; ULONG length; } sequence; struct { LPBYTE value; ULONG length; } alternative; } data; }",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2304
+    },
+    {
+      "id": "windows::SDP_TYPE_UINT",
+      "name": "SDP_TYPE_UINT",
+      "entity_type": "constant",
+      "description": "SDP_TYPE_INT SDP_TYPE_UUID 以下元素类型没有相应的 specificType 值：",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2319
+    },
+    {
+      "id": "windows::SDP_TYPE_STRING",
+      "name": "SDP_TYPE_STRING",
+      "entity_type": "constant",
+      "description": "SDP_TYPE_URL",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2321
+    },
+    {
+      "id": "windows::SDP_TYPE_SEQUENCE",
+      "name": "SDP_TYPE_SEQUENCE",
+      "entity_type": "constant",
+      "description": "SDP_TYPE_ALTERNATIVE SDP_TYPE_BOOLEAN SDP_TYPE_NIL 没有与类型SDP_TYPE_NIL关联的数据值。 specificType SDP 元素的特定类型，用于进一步指定泛型元素类型。 data data.int128 类型的值等于 SDP_TYPE_INT，specificType 的值等于 SDP_ST_INT128。 data.int64 类型的值等于 SDP_TYPE_INT，specificType 的值等于 SDP_ST_INT64。 data.int32 类型的值等于 SDP_TYPE_INT，specificType 的值等于 SDP_ST_INT32。 data.int16 类型的值等于 SDP_TYPE_INT，specificType 的值等于 SDP_ST_INT16。 data.int8 类型的值等于 SDP_TYPE_INT，specificType 的值等于 SDP_ST_INT8。 data.uint128 类型的值等于 SDP_TYPE_UINT，specificType 的值等于 SDP_ST_UINT128。 data.uint64 类型的值等于 SDP_TYPE_UINT，specificType 的值等于SDP_ST_UINT64。 data.uint32 类型的值等于 SDP_TYPE_UINT，specificType 的值等于 SDP_ST_UINT32。 data.uint16 类型的值等于 SDP_TYPE_UINT，specificType 的值等于 SDP_ST_UINT16。 data.uint8 类型的值等于 SDP_TYPE_UINT，specificType 的值等于 SDP_ST_UINT8。 data.booleanVal 类型的值等于 SDP_TYPE_BOOLEAN。 data.uuid128 类型的值等于 SDP_TYPE_UUID，specificType 的值等于 SDP_ST_UUID128。 data.uuid32 类型的值等于 SDP_TYPE_UUID，specificType 的值等于 SDP_ST_UUID32。 data.uuid16 类型的值等于 SDP_TYPE_UUID，specificType 的值等于SDP_ST_UUID16。 data.string data.string.value 类型的值等于 SDP_TYPE_STRING，即原始字符串缓冲区。 不能编码为 ANSI。 如果基本 语言属性标识符列表描述了该值，请使用",
+      "header": "bluetoothapis.h",
+      "deprecated": false,
+      "cross_references": [
+        "SDP_TYPE_STRING",
+        "SDP_TYPE_UINT",
+        "Vista"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2322
+    },
+    {
+      "id": "windows::BTH_DEVICE_INFO",
+      "name": "BTH_DEVICE_INFO",
+      "entity_type": "struct",
+      "description": "存储有关蓝牙设备的信息。 BTH_HCI_EVENT_INFO 用于获取蓝牙WM_DEVICECHANGE消息。 BTH_L2CAP_EVENT_INFO 包含有关与 L2CAP 通道关联的事件的数据。",
+      "syntax": "typedef struct _BTH_DEVICE_INFO {\nULONG    flags;   BTH_ADDR address;",
+      "header": "bthdef.h",
+      "deprecated": false,
+      "cross_references": [
+        "BTH_HCI_EVENT_INFO",
+        "BTH_L2CAP_EVENT_INFO"
+      ],
+      "confidence": 0.85,
+      "_source_line": 2418
+    },
+    {
+      "id": "windows::BTH_COD",
+      "name": "BTH_COD",
+      "entity_type": "struct",
+      "description": "classOfDevice; CHAR name[BTH_MAX_NAME_SIZE];} BTH_DEVICE_INFO, *PBTH_DEVICE_INFO; 成员 flags 下表中列出的一个或多个标志的组合。 值",
+      "header": "bthdef.h",
+      "deprecated": false,
+      "cross_references": [
+        "BTH_DEVICE_INFO"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2434
+    },
+    {
+      "id": "windows::BDIF_COD",
+      "name": "BDIF_COD",
+      "entity_type": "struct",
+      "description": "BDIF_NAME BDIF_PAIRED",
+      "header": "bthdef.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2440
+    },
+    {
+      "id": "windows::BDIF_PERSONAL",
+      "name": "BDIF_PERSONAL",
+      "entity_type": "struct",
+      "description": "BDIF_CONNECTED",
+      "header": "bthdef.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2441
+    },
+    {
+      "id": "windows::BDIF_SSP_SUPPORTED",
+      "name": "BDIF_SSP_SUPPORTED",
+      "entity_type": "struct",
+      "description": "BDIF_SSP_PAIRED",
+      "header": "bthdef.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2442
+    },
+    {
+      "id": "windows::BDIF_SSP_MITM_PROTECTED",
+      "name": "BDIF_SSP_MITM_PROTECTED",
+      "entity_type": "struct",
+      "description": "含义 地址成员包含有效数据。 classOfDevice 成员包含有效数据。名称成员包含有效数据。 设备是经过记住且经过身份验证的设备。 设置此标志时，始终设置 BDIF_PERSONAL 标志。 设备是已记住的设备。 如果设置了此标志且未设置 BDIF_PAIRED 标志，则设备不会进行身份验证。 远程蓝牙设备当前已连接到本地无线电。设备支持使用安全简单配对 (SSP) 。 设备被记住并使用安全简单配对 (SSP) 进行身份验证。设备支持使用安全简单配对 (SSP) 来防范“中间人”攻击。 address 远程蓝牙设备的地址。 classOfDevice 描述远程设备的设备 (COD) 的设备类的位字段。 COD 由以下四个字段组成：格式：使用 GET_COD_FORMAT (classOfDevice) 检索。 当前支持的唯一格式是 COD_VERSION。 主要：使用 GET_COD_MAJOR (类OfDevice) 检索。 当前定义了以下值，但列表应会展开。 不要使用主要类字段来确定要连接到哪个远程设备。 远程设备可能只有一个主要类 代码，并且可能不是给定配置文件的相应代码。",
+      "header": "bthdef.h",
+      "deprecated": false,
+      "cross_references": [
+        "BDIF_PERSONAL"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2443
+    },
+    {
+      "id": "windows::COD_MAJOR_COMPUTER",
+      "name": "COD_MAJOR_COMPUTER",
+      "entity_type": "struct",
+      "description": "COD_MAJOR_PHONE",
+      "header": "bthdef.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2460
+    },
+    {
+      "id": "windows::COD_MAJOR_LAN_ACCESS",
+      "name": "COD_MAJOR_LAN_ACCESS",
+      "entity_type": "struct",
+      "description": "COD_MAJOR_AUDIO",
+      "header": "bthdef.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2461
+    },
+    {
+      "id": "windows::COD_MAJOR_PERIPHERAL",
+      "name": "COD_MAJOR_PERIPHERAL",
+      "entity_type": "struct",
+      "description": "COD_MAJOR_IMAGING",
+      "header": "bthdef.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2462
+    },
+    {
+      "id": "windows::COD_MAJOR_UNCLASSIFIED",
+      "name": "COD_MAJOR_UNCLASSIFIED",
+      "entity_type": "struct",
+      "description": "次要：使用 GET_COD_MINOR (classOfDevice) 检索。 次要代码特定于每个主代码，后者定义其次要代码的格式。 一些次要代码是严格枚举的值;其他是位字段或位字段和枚举值的组合。 服务提示：使用 GET_COD_SERVICE (类OfDevice) 检索。 提供有关远程设备功能的提示。",
+      "header": "bthdef.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2463
+    },
+    {
+      "id": "windows::COD_SERVICE_POSITIONING",
+      "name": "COD_SERVICE_POSITIONING",
+      "entity_type": "struct",
+      "description": "COD_SERVICE_NETWORKING COD_SERVICE_RENDERING COD_SERVICE_CAPTURING COD_SERVICE_OBJECT_XFER COD_SERVICE_AUDIO",
+      "header": "bthdef.h",
+      "deprecated": false,
+      "cross_references": [
+        "COD_SERVICE_AUDIO",
+        "COD_SERVICE_CAPTURING",
+        "COD_SERVICE_NETWORKING"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2469
+    },
+    {
+      "id": "windows::COD_SERVICE_TELEPHONY",
+      "name": "COD_SERVICE_TELEPHONY",
+      "entity_type": "struct",
+      "description": "COD_SERVICE_INFORMATION name[BTH_MAX_NAME_SIZE] 远程蓝牙设备的名称，由设备报告，以 UTF8 编码。 用户可能已在本地为远程蓝牙设备提供了显示名称;该名称被重写，并且不在此成员中显示;它只能通过调用",
+      "header": "bthdef.h",
+      "deprecated": false,
+      "cross_references": [
+        "BTH_QUERY_DEVICE",
+        "BTH_QUERY_SERVICE",
+        "COD_SERVICE_INFORMATION",
+        "Vista"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2470
+    },
+    {
+      "id": "windows::BTH_SET_SERVICE",
+      "name": "BTH_SET_SERVICE",
+      "entity_type": "struct",
+      "description": "结构为指定的蓝牙服务提供服务信息。",
+      "syntax": "typedef struct _BTH_SET_SERVICE {   PULONG pSdpVersion;\nHANDLE *pRecordHandle;\nULONG  fCodService;   ULONG  Reserved[5];\nULONG  ulRecordLength;   UCHAR  pRecord[1];\n} BTH_SET_SERVICE, *PBTH_SET_SERVICE, BTHNS_SETBLOB, *PBTHNS_SETBLOB;\n成员 pSdpVersion\nSDP 的版本。 客户端将此成员设置为 BTH_SDP_VERSION。 pRecordHandle\nSDP 记录的句柄。 对应于 SDP ServiceRecordHandle。 由添加记录操作返回，随后用于\n删除记录。 fCodService\n设备 (COD) 信息的类。 与此 SDP 记录关联的COD_SERVICE_* 类设备位的 32 位字段。 系统将这些位与其他服务记录和系统特征中的 COD 位组合在一起。 当在设备查询期间找到无线电时，将播发本地无线电的生成的设备类。 删除与特定服务位关联的最后一条 SDP 记录时，不再在响应将来的设备查询时报告该服务位。\nCOD 字段的格式和可能值在 蓝牙规范第 1.2 节的蓝牙分配号码 1.1 部分中定义。 (此资源在某些语言和国家/地区中可能不可用。) Windows 使用的 COD_SERVICE_* 位的相应宏和定义在 Bthdef.h 中定义。 有关设备 (COD) 类的详细信息，请参阅 BTH_DEVICE_INFO。\nReserved[5]\n保留。 必须设置为零。\nulRecordLength\npRecord 的大小（以字节为单位）。 pRecord[1]\nSDP 记录，由蓝牙规范定义。",
+      "remarks": "使用 BTH_SET_SERVICE 结构使用 WSASetService 函数和 WSAQUERYSET 和 BLOB 结构查询服务和设备时。 必须使用 BTH_SET_SERVICE 成员的以下值。 有关设备类 (COD) 的详细信息，请参阅 www.bluetooth.com",
+      "members": [
+        {
+          "name": "ulRecordLength",
+          "description": ""
+        },
+        {
+          "name": "pRecord",
+          "description": "所需的值 上的蓝牙规范。 指向 ULONG 版本的指针，每当 SDP 记录的二进制格式更改时都会更改，从而影响 pRecord 成员的格式。 设置为 客户端的 BTH_SDP_VERSION ，由系统返回。 SDP 记录的句柄;对应于 SDP ServiceRecordHandle。 由添加记录操作返回，随后用于删除记录。 由 BTHNS_SET_FLAGS 定义的属性。 pRecord 指向的二进制 SDP 记录的长度（以字节为单位）。指向有效 SDP 记录的指针，采用蓝牙规范定义的格式。 pRecordHandle 成员必须指向新服务注册为 null 的数据。 对于服务删除， pRecordHandle 必须指向有效的句柄。 pRecord 成员必须包含整个 SD 服务记录，如蓝牙规范中所述。 对于 RFCOMM 协议条目，端口号与 由 getsockname 函数调用返回的端口相同。 蓝牙在 SDP 记录和服务器套接字之间实现一对一关联。 因此，不需要 SERVICE_MULTIPLE 标志。"
+        }
+      ],
+      "requirements": {
+        "header": "ws2bth.h",
+        "min_client": "Windows Vista"
+      },
+      "header": "bthdef.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2483
+    },
+    {
+      "id": "windows::BTH_HCI_EVENT_INFO",
+      "name": "BTH_HCI_EVENT_INFO",
+      "entity_type": "struct",
+      "description": "结构用于获取蓝牙WM_DEVICECHANGE消息。",
+      "syntax": "typedef struct _BTH_HCI_EVENT_INFO {   BTH_ADDR bthAddress;\nUCHAR    connectionType;   UCHAR    connected;\n} BTH_HCI_EVENT_INFO, *PBTH_HCI_EVENT_INFO;\n成员 bthAddress\n远程设备的地址，采用 BTH_ADDR 结构的形式。 connectionType\n连接类型。 有效值为 HCI_CONNECTION_TYPE_ACL 或 HCI_CONNECTION_TYPE_SCO。 connected\n连接的状态。 如果不是零，则已建立连接。 如果为零，则表示连接已终止。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "bthdef.h",
+        "min_client": "Windows Vista"
+      },
+      "header": "bthdef.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2492
+    },
+    {
+      "id": "windows::BTH_L2CAP_EVENT_INFO",
+      "name": "BTH_L2CAP_EVENT_INFO",
+      "entity_type": "struct",
+      "description": "结构包含有关与 L2CAP 通道关联的事件的数据。",
+      "syntax": "typedef struct _BTH_L2CAP_EVENT_INFO {",
+      "header": "bthdef.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2521
+    },
+    {
+      "id": "windows::SDP_ST_UUID16",
+      "name": "SDP_ST_UUID16",
+      "entity_type": "struct",
+      "description": "指示将在搜索中使用 u.uuid16。 SDP_ST_UUID32 - 指示将在搜索中使用 u.uuid32。 SDP_ST_UUID128 - 指示将在搜索中使用 u.uuid128。",
+      "header": "bthsdpdef.h",
+      "deprecated": false,
+      "cross_references": [
+        "Vista"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2626
+    },
+    {
+      "id": "windows::BTH_QUERY_DEVICE",
+      "name": "BTH_QUERY_DEVICE",
+      "entity_type": "struct",
+      "description": "查询是否存在蓝牙设备时，将使用 BTH_QUERY_DEVICE 结构。",
+      "syntax": "typedef struct _BTH_QUERY_DEVICE {   ULONG LAP;\nUCHAR length;\n} BTH_QUERY_DEVICE, *PBTH_QUERY_DEVICE, BTHNS_INQUIRYBLOB, *PBTHNS_INQUIRYBLOB;",
+      "remarks": "有关 LAP 的其他信息，请参阅 www.bluetooth.com 要求",
+      "members": [
+        {
+          "name": "LAP",
+          "description": "保留。 必须设置为零。 length 请求的查询长度（以秒为单位）。"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ws2bth.h",
+        "min_client": "Windows Vista"
+      },
+      "header": "ws2bth.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 2673
+    },
+    {
+      "id": "windows::SDP_SERVICE_SEARCH_REQUEST",
+      "name": "SDP_SERVICE_SEARCH_REQUEST",
+      "entity_type": "struct",
+      "description": "SDP_SERVICE_ATTRIBUTE_REQUEST",
+      "header": "ws2bth.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2724
+    },
+    {
+      "id": "windows::SDP_SERVICE_SEARCH_ATTRIBUTE_REQUEST",
+      "name": "SDP_SERVICE_SEARCH_ATTRIBUTE_REQUEST",
+      "entity_type": "struct",
+      "description": "serviceHandle 要查询 pRange 成员中指定的属性的服务句柄。 仅用于属性搜索。 uuids[MAX_UUIDS_IN_QUERY] 记录必须包含的 UUID 以匹配搜索。 用于服务和服务属性搜索。 查询小于 MAX_UUIDS_IN_QUERY UUID 时，请将紧跟在最后一个有效 UUID 后面的",
+      "header": "ws2bth.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2725
+    }
+  ]
+}

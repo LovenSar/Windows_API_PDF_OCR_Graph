@@ -1,0 +1,1901 @@
+{
+  "_schema": "windows_api_kg_v4.0",
+  "_generated_at": "2026-03-05T08:07:21Z",
+  "_content_hash": "1854c607cf74",
+  "document": {
+    "document_id": "win32-api::recovery",
+    "title": "应用程序还原和重启",
+    "domain": "win32-api",
+    "topic": "recovery",
+    "source_file": "[OCR]_windows-win32-api-_recovery_20260305_0158.p.txt",
+    "ocr_timestamp": "2026-03-05T01:58:00",
+    "headers_referenced": [],
+    "total_entities": 142
+  },
+  "entities": [
+    {
+      "id": "windows::ApplicationRecoveryFinished",
+      "name": "ApplicationRecoveryFinished",
+      "entity_type": "function",
+      "description": "指示调用应用程序已完成其数据恢复。 ApplicationRecoveryInProgress 指示调用应用程序正在继续恢复数据。 GetApplicationRecoveryCallback 检索指向为指定进程注册的回调例程的指针。 返回的地址位于进程的虚拟地址空间中。 GetApplicationRestartSettings 检索为指定进程注册的重启信息。 RegisterApplicationRecoveryCallback 注册要恢复的应用程序的活动实例。 RegisterApplicationRestart 注册要重启的应用程序的活动实例。 UnregisterApplicationRecoveryCallback 从恢复列表中删除应用程序的活动实例。 UnregisterApplicationRestart 从重启列表中删除应用程序的活动实例。",
+      "syntax": "void ApplicationRecoveryFinished(\n[in] BOOL bSuccess);",
+      "parameters": [
+        {
+          "name": "bSuccess",
+          "direction": "in",
+          "description": "指定 TRUE 以指示数据已成功恢复;否则为 FALSE。"
+        }
+      ],
+      "return_value": {
+        "description": "无"
+      },
+      "remarks": "这应该是在回调中执行的最后一次调用，因为一旦调用此函数，应用程序就会终止。",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "ApplicationRecoveryInProgress",
+        "GetApplicationRecoveryCallback",
+        "GetApplicationRestartSettings",
+        "RegisterApplicationRecoveryCallback",
+        "RegisterApplicationRestart",
+        "UnregisterApplicationRecoveryCallback",
+        "UnregisterApplicationRestart"
+      ],
+      "confidence": 0.85,
+      "_source_line": 6
+    },
+    {
+      "id": "windows::_lclose",
+      "name": "_lclose",
+      "entity_type": "unknown",
+      "description": "函数关闭指定的文件，使其不再可用于读取或写入。 提供此函数是为了与 16 位版本的 Windows 兼容。 基于 Win32 的应用程序应使用 CloseHandle 函数。_lcreat 创建或打开指定的文件。_llseek 重新定位指定文件的文件指针。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "CloseHandle",
+        "Win32"
+      ],
+      "confidence": 0.5,
+      "_source_line": 30
+    },
+    {
+      "id": "windows::_lopen",
+      "name": "_lopen",
+      "entity_type": "unknown",
+      "description": "函数将打开现有文件，并将文件指针设置为文件开头。 提供此函数是为了与 16 位版本的 Windows 兼容。 基于 Win32 的应用程序应使用 CreateFile 函数。_lread",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "CreateFile",
+        "Win32"
+      ],
+      "confidence": 0.5,
+      "_source_line": 37
+    },
+    {
+      "id": "windows::_lread",
+      "name": "_lread",
+      "entity_type": "unknown",
+      "description": "函数从指定文件读取数据。 提供此函数是为了与 16 位版本的 Windows 兼容。 基于 Win32 的应用程序应使用 ReadFile 函数。_lwrite 将数据写入指定的文件。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "Win32"
+      ],
+      "confidence": 0.5,
+      "_source_line": 42
+    },
+    {
+      "id": "windows::AccessCheckAndAuditAlarmA",
+      "name": "AccessCheckAndAuditAlarmA",
+      "entity_type": "function",
+      "description": "确定安全描述符是否向由调用线程模拟的客户端授予一组指定的访问权限。(AccessCheckAndAuditAlarmA)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 46
+    },
+    {
+      "id": "windows::AccessCheckByTypeAndAuditAlarmA",
+      "name": "AccessCheckByTypeAndAuditAlarmA",
+      "entity_type": "function",
+      "description": "确定安全描述符是否向由调用线程模拟的客户端授予一组指定的访问权限。(AccessCheckByTypeAndAuditAlarmA)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 49
+    },
+    {
+      "id": "windows::AccessCheckByTypeResultListAndAuditAlarmA",
+      "name": "AccessCheckByTypeResultListAndAuditAlarmA",
+      "entity_type": "function",
+      "description": "确定安全描述符是否向由调用线程模拟的客户端授予一组指定的访问权限。(AccessCheckByTypeResultListAndAuditAlarmA)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 52
+    },
+    {
+      "id": "windows::AccessCheckByTypeResultListAndAuditAlarmByHandleA",
+      "name": "AccessCheckByTypeResultListAndAuditAlarmByHandleA",
+      "entity_type": "function",
+      "description": "ANSI) 函数 (winbase.h) 确定安全描述符 是否向调用线程正在模拟的客户端授予一组指定的访问权限。 ActivateActCtx",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "ActivateActCtx"
+      ],
+      "confidence": 0.6,
+      "_source_line": 55
+    },
+    {
+      "id": "windows::ActivateActCtx",
+      "name": "ActivateActCtx",
+      "entity_type": "unknown",
+      "description": "函数激活指定的激活上下文。 AddAtomA 将字符串添加到本地原子表，并返回一个唯一值 (atom) 标识该字符串。 (ANSI) AddAtomW 将字符串添加到本地原子表，并返回一个唯一值 (atom) 标识该字符串。 (Unicode) AddConditionalAce 将 ACE) (条件访问控制项添加到指定的访问控制列表 (ACL) 。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "AddAtomA",
+        "AddAtomW"
+      ],
+      "confidence": 0.45,
+      "_source_line": 60
+    },
+    {
+      "id": "windows::AddIntegrityLabelToBoundaryDescriptor",
+      "name": "AddIntegrityLabelToBoundaryDescriptor",
+      "entity_type": "unknown",
+      "description": "将新的必需安全标识符 (SID) 添加到指定的边界描述符。 AddRefActCtx",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "AddRefActCtx"
+      ],
+      "confidence": 0.35,
+      "_source_line": 68
+    },
+    {
+      "id": "windows::AddRefActCtx",
+      "name": "AddRefActCtx",
+      "entity_type": "unknown",
+      "description": "函数递增指定激活上下文的引用计数。 AddSecureMemoryCacheCallback 注册在释放安全内存范围或更改其保护时要调用的回调函数。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.45,
+      "_source_line": 72
+    },
+    {
+      "id": "windows::ApplicationRecoveryInProgress",
+      "name": "ApplicationRecoveryInProgress",
+      "entity_type": "enum",
+      "description": "指示调用应用程序继续恢复数据。 BackupEventLogA 将指定的事件日志保存到备份文件。 (ANSI) BackupEventLogW 将指定的事件日志保存到备份文件。 (Unicode) BackupRead 备份文件或目录，包括安全信息。 BackupSeek 在最初使用 BackupRead 或 BackupWrite 函数访问的数据流中向前查找。 BackupWrite 还原使用 BackupRead 备份的文件或目录。 BeginUpdateResourceA 检索 UpdateResource 函数可用于添加、删除或替换二进制模块中的资源的句柄。 (ANSI) BeginUpdateResourceW 检索 UpdateResource 函数可用于添加、删除或替换二进制模块中的资源的句柄。 (Unicode)",
+      "syntax": "HRESULT ApplicationRecoveryInProgress(\n[out] PBOOL pbCancelled);",
+      "parameters": [
+        {
+          "name": "pbCancelled",
+          "direction": "out",
+          "description": "指示用户是否已取消恢复过程。 如果用户单击“取消”按钮，则由 WER 设置。"
+        }
+      ],
+      "return_value": {
+        "description": "此函数在成功 时返回S_OK 或以下错误代码之一。 返回代码 E_FAIL"
+      },
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "BackupRead",
+        "BackupSeek",
+        "BackupWrite",
+        "BeginUpdateResourceA",
+        "BeginUpdateResourceW",
+        "UpdateResource"
+      ],
+      "confidence": 0.85,
+      "_source_line": 77
+    },
+    {
+      "id": "windows::BindIoCompletionCallback",
+      "name": "BindIoCompletionCallback",
+      "entity_type": "callback",
+      "description": "将线程池拥有的 I/O 完成端口与指定的文件句柄相关联。 完成涉及此文件的 I/O 请求后，非 I/O 工 作线程将执行指定的回调函数。 BuildCommDCBA 使用设备控制字符串中指定的值填充指定的 DCB 结构。 (ANSI) BuildCommDCBAndTimeoutsA 将设备定义字符串转换为相应的设备控制块代码，并将其放入设备控制块中。 (ANSI) BuildCommDCBAndTimeoutsW 将设备定义字符串转换为相应的设备控制块代码，并将其放入设备控制块中。 (Unicode) BuildCommDCBW 使用设备控制字符串中指定的值填充指定的 DCB 结构。 (Unicode) CallNamedPipeA (连接到消息类型管道，并在管道实例不可用时) 等待，对管道进行写入和读取，然后关闭管道。(CallNamedPipeA)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 94
+    },
+    {
+      "id": "windows::CheckNameLegalDOS8Dot3A",
+      "name": "CheckNameLegalDOS8Dot3A",
+      "entity_type": "function",
+      "description": "确定指定名称是否可用于在 FAT 文件系统上创建文件。 (ANSI) CheckNameLegalDOS8Dot3W 确定指定名称是否可用于在 FAT 文件系统上创建文件。 (Unicode) ClearCommBreak 还原指定通信设备的字符传输，并将传输线路置于非中断状态。 ClearCommError 检索有关通信错误的信息并报告通信设备的当前状态。 ClearEventLogA 清除指定的事件日志，并选择性地将日志的当前副本保存到备份文件中。 (ANSI) ClearEventLogW 清除指定的事件日志，并选择性地将日志的当前副本保存到备份文件中。 (Unicode)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 108
+    },
+    {
+      "id": "windows::CloseEncryptedFileRaw",
+      "name": "CloseEncryptedFileRaw",
+      "entity_type": "unknown",
+      "description": "在备份或还原操作后关闭加密的文件，并释放关联的系统资源。 CloseEventLog 关闭指定的事件日志。 (CloseEventLog) CommConfigDialogA 显示驱动程序提供的配置对话框。 (ANSI) CommConfigDialogW 显示驱动程序提供的配置对话框。 (Unicode)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.45,
+      "_source_line": 122
+    },
+    {
+      "id": "windows::ConvertFiberToThread",
+      "name": "ConvertFiberToThread",
+      "entity_type": "unknown",
+      "description": "将当前光纤转换为线程。 ConvertThreadToFiber 将当前线程转换为光纤。 必须先将线程转换为纤程，然后才能计划其他光纤。 (ConvertThreadToFiber) ConvertThreadToFiberEx 将当前线程转换为光纤。 必须先将线程转换为纤程，然后才能计划其他光纤。 (ConvertThreadToFiberEx) CopyContext 将源上下文结构 (包括任何 XState) 复制到初始化的目标上下文结构中。 CopyFile copyFile 函数 (winbase.h) 将现有文件复制到新文件。 CopyFile2 将现有文件复制到新文件，并通过回调函数通知应用程序其进度。 (CopyFile2) CopyFileA 将现有文件复制到新文件。 (CopyFileA) CopyFileExA 将现有文件复制到新文件，并通过回调函数通知应用程序其进度。 (CopyFileExA)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "ConvertThreadToFiber",
+        "ConvertThreadToFiberEx"
+      ],
+      "confidence": 0.45,
+      "_source_line": 131
+    },
+    {
+      "id": "windows::CopyFileExW",
+      "name": "CopyFileExW",
+      "entity_type": "function",
+      "description": "将现有文件复制到新文件，并通过回调函数通知应用程序其进度。 (CopyFileExW) CopyFileTransactedA 将现有文件作为事务处理操作复制到新文件，并通过回调函数通知应用程序其进度。 (ANSI) CopyFileTransactedW 将现有文件作为事务处理操作复制到新文件，并通过回调函数通知应用程序其进度。 (Unicode) CopyFileW",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 150
+    },
+    {
+      "id": "windows::copyFileW",
+      "name": "copyFileW",
+      "entity_type": "unknown",
+      "description": "Unicode) 函数 (winbase.h) 将现有文件复制到新文件。 CreateActCtxA",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.2,
+      "_source_line": 158
+    },
+    {
+      "id": "windows::CreateActCtx",
+      "name": "CreateActCtx",
+      "entity_type": "unknown",
+      "description": "函数创建激活上下文。 (Unicode) CreateBoundaryDescriptorA",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "CreateBoundaryDescriptorA"
+      ],
+      "confidence": 0.35,
+      "_source_line": 160
+    },
+    {
+      "id": "windows::createBoundaryDescriptorA",
+      "name": "createBoundaryDescriptorA",
+      "entity_type": "unknown",
+      "description": "ANSI) 函数 (winbase.h) 创建边界描述符。 CreateDirectory createDirectory 函数 (winbase.h) 创建新目录。 CreateDirectoryExA 使用指定模板目录的属性创建新目录。 (ANSI) CreateDirectoryExW 使用指定模板目录的属性创建新目录。 (Unicode) CreateDirectoryTransactedA 使用指定模板目录的属性，以事务处理操作的形式创建新目录。 (ANSI) CreateDirectoryTransactedW 使用指定模板目录的属性，以事务处理操作的形式创建新目录。 (Unicode)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.3,
+      "_source_line": 164
+    },
+    {
+      "id": "windows::CreateFiber",
+      "name": "CreateFiber",
+      "entity_type": "unknown",
+      "description": "分配一个光纤对象，为其分配一个堆栈，并将执行设置为从指定的开始地址（通常是光纤函数）开 始。 此函数不计划光纤。 (CreateFiber) CreateFiberEx 分配一个光纤对象，为其分配一个堆栈，并将执行设置为从指定的开始地址（通常是光纤函数）开 始。 此函数不计划光纤。 (CreateFiberEx) CreateFileMappingA 为指定文件创建或打开命名或未命名的文件映射对象。 (CreateFileMappingA) CreateFileMappingNumaA 为指定文件创建或打开命名或未命名的文件映射对象，并指定物理内存的 NUMA 节点。 (CreateFileMappingNumaA) CreateFileTransactedA 创建或打开文件、文件流或目录作为事务处理操作。 (ANSI) CreateFileTransactedW 创建或打开文件、文件流或目录作为事务处理操作。 (Unicode) CreateHardLinkA 在现有文件和新文件之间建立硬链接。 (ANSI) CreateHardLinkTransactedA 将现有文件与新文件之间建立硬链接作为事务处理操作。 (ANSI) CreateHardLinkTransactedW 将现有文件与新文件之间建立硬链接作为事务处理操作。 (Unicode) CreateHardLinkW 在现有文件和新文件之间建立硬链接。 (Unicode) CreateJobObjectA 创建或打开作业对象。 (CreateJobObjectA)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "CreateJobObjectA"
+      ],
+      "confidence": 0.45,
+      "_source_line": 176
+    },
+    {
+      "id": "windows::CreateMailslotA",
+      "name": "CreateMailslotA",
+      "entity_type": "function",
+      "description": "创建具有指定名称的邮件图，并返回 mailslot 服务器可用于对 mailslot 执行操作的句柄。 (ANSI) CreateMailslotW 创建具有指定名称的邮件图，并返回 mailslot 服务器可用于对 mailslot 执行操作的句柄。(Unicode)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 203
+    },
+    {
+      "id": "windows::CreateNamedPipeA",
+      "name": "CreateNamedPipeA",
+      "entity_type": "function",
+      "description": "ANSI) 函数 (winbase.h) 创建命名管道的实例，并返回后续管道操作的句柄。 CreatePrivateNamespaceA",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 208
+    },
+    {
+      "id": "windows::createPrivateNamespaceA",
+      "name": "createPrivateNamespaceA",
+      "entity_type": "unknown",
+      "description": "ANSI) 函数 (winbase.h) 创建专用命名空间。 CreateProcessWithLogonW 创建新进程及其主线程。 然后，新进程在指定凭据的安全上下文中运行指定的可执行文件， (用 户、域和密码) 。 可以选择加载指定用户的用户配置文件。 CreateProcessWithTokenW 创建新进程及其主线程。 新进程在指定令牌的安全上下文中运行。 它可以选择性地加载指定用户 的用户配置文件。 CreateSemaphoreA 创建或打开命名或未命名的信号量对象。 (CreateSemaphoreA) CreateSemaphoreExA 创建或打开一个命名或未命名的信号量对象，并返回该对象的句柄。 (CreateSemaphoreExA)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "CreateProcessWithLogonW",
+        "CreateProcessWithTokenW",
+        "CreateSemaphoreA",
+        "CreateSemaphoreExA"
+      ],
+      "confidence": 0.3,
+      "_source_line": 212
+    },
+    {
+      "id": "windows::CreateSymbolicLinkA",
+      "name": "CreateSymbolicLinkA",
+      "entity_type": "function",
+      "description": "创建符号链接。 (ANSI)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 223
+    },
+    {
+      "id": "windows::CreateSymbolicLinkTransactedA",
+      "name": "CreateSymbolicLinkTransactedA",
+      "entity_type": "function",
+      "description": "创建符号链接作为事务处理的操作。 (ANSI) CreateSymbolicLinkTransactedW 创建符号链接作为事务处理的操作。 (Unicode)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 225
+    },
+    {
+      "id": "windows::CreateSymbolicLinkW",
+      "name": "CreateSymbolicLinkW",
+      "entity_type": "function",
+      "description": "创建符号链接。 (Unicode)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 231
+    },
+    {
+      "id": "windows::CreateTapePartition",
+      "name": "CreateTapePartition",
+      "entity_type": "unknown",
+      "description": "重新设置磁带格式。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.25,
+      "_source_line": 233
+    },
+    {
+      "id": "windows::CreateUmsCompletionList",
+      "name": "CreateUmsCompletionList",
+      "entity_type": "unknown",
+      "description": "(UMS) 完成列表创建用户模式计划。 CreateUmsThreadContext (UMS) 线程上下文创建用户模式计划，以表示 UMS 工作线程。 DeactivateActCtx",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "CreateUmsThreadContext",
+        "DeactivateActCtx"
+      ],
+      "confidence": 0.45,
+      "_source_line": 235
+    },
+    {
+      "id": "windows::DeactivateActCtx",
+      "name": "DeactivateActCtx",
+      "entity_type": "unknown",
+      "description": "函数停用与指定 Cookie 对应的激活上下文。 DebugBreakProcess 导致在指定的进程中发生断点异常。 这样，调用线程就可以向调试器发出信号来处理异常。 DebugSetProcessKillOnExit 设置在调用线程退出时要执行的操作。 DecryptFileA 解密加密的文件或目录。 (ANSI) DecryptFileW 解密加密的文件或目录。 (Unicode) DefineDosDeviceA 定义、重新定义或删除 MS-DOS 设备名称。 (DefineDosDeviceA) DeleteAtom 递减本地字符串原子的引用计数。 如果 atom 的引用计数减少到零，DeleteAtom 将从本地 atom 表中删除与原子关联的字符串。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "Cookie",
+        "DeleteAtom"
+      ],
+      "confidence": 0.45,
+      "_source_line": 241
+    },
+    {
+      "id": "windows::DeleteFile",
+      "name": "DeleteFile",
+      "entity_type": "unknown",
+      "description": "winbase.h (DeleteFile 函数) 删除现有文件。 DeleteFileTransactedA 将现有文件作为事务处理操作删除。 (ANSI) DeleteFileTransactedW 将现有文件作为事务处理操作删除。 (Unicode) DeleteUmsCompletionList 删除指定的用户模式计划 (UMS) 完成列表。 列表必须为空。 DeleteUmsThreadContext 删除指定的用户模式计划 (UMS) 线程上下文。 线程必须终止。 DeleteVolumeMountPointA 删除驱动器号或装载的文件夹。 (DeleteVolumeMountPointA) DequeueUmsCompletionListItems 从指定的 UMS 完成列表中检索用户模式计划 (UMS) 工作线程。 DeregisterEventSource 关闭指定的事件日志。 (DeregisterEventSource) DestroyThreadpoolEnvironment 删除指定的回调环境。 当不再需要回调环境来创建新的线程池对象时，调用此函数。(DestroyThreadpoolEnvironment)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "DeleteUmsCompletionList",
+        "DeleteUmsThreadContext",
+        "DequeueUmsCompletionListItems",
+        "DestroyThreadpoolEnvironment"
+      ],
+      "confidence": 0.45,
+      "_source_line": 257
+    },
+    {
+      "id": "windows::DnsHostnameToComputerNameA",
+      "name": "DnsHostnameToComputerNameA",
+      "entity_type": "function",
+      "description": "将 DNS 样式的主机名转换为 NetBIOS 样式的计算机名称。 (ANSI) DnsHostnameToComputerNameW 将 DNS 样式的主机名转换为 NetBIOS 样式的计算机名称。 (Unicode)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "NetBIOS"
+      ],
+      "confidence": 0.6,
+      "_source_line": 278
+    },
+    {
+      "id": "windows::DosDateTimeToFileTime",
+      "name": "DosDateTimeToFileTime",
+      "entity_type": "unknown",
+      "description": "将 MS-DOS 日期和时间值转换为文件时间。 EnableProcessOptionalXStateFeatures",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "EnableProcessOptionalXStateFeatures"
+      ],
+      "confidence": 0.45,
+      "_source_line": 283
+    },
+    {
+      "id": "windows::EnableProcessOptionalXStateFeatures",
+      "name": "EnableProcessOptionalXStateFeatures",
+      "entity_type": "unknown",
+      "description": "函数为当前进程启用一组可选的 XState 功能。 EnableThreadProfiling 在指定线程上启用线程分析。 EncryptFileA 加密文件或目录。 (ANSI) EncryptFileW 加密文件或目录。 (Unicode) EndUpdateResourceA 提交或放弃在调用 UpdateResource 之前所做的更改。 (ANSI) EndUpdateResourceW 提交或放弃在调用 UpdateResource 之前所做的更改。 (Unicode) EnterUmsSchedulingMode 将调用线程转换为用户模式计划 (UMS) 计划程序线程。 EnumResourceLanguagesA 枚举与二进制模块关联的指定类型和名称的语言特定资源。 (ANSI) EnumResourceLanguagesW 枚举与二进制模块关联的指定类型和名称的语言特定资源。 (Unicode) EnumResourceTypesA 枚举二进制模块中的资源类型。 (ANSI) EnumResourceTypesW 枚举二进制模块中的资源类型。 (Unicode)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "EndUpdateResourceA",
+        "EndUpdateResourceW",
+        "EnterUmsSchedulingMode",
+        "EnumResourceLanguagesA",
+        "EnumResourceLanguagesW",
+        "EnumResourceTypesA",
+        "EnumResourceTypesW",
+        "UpdateResource"
+      ],
+      "confidence": 0.45,
+      "_source_line": 287
+    },
+    {
+      "id": "windows::EraseTape",
+      "name": "EraseTape",
+      "entity_type": "unknown",
+      "description": "擦除磁带的全部或部分内容。 EscapeCommFunction 指示指定的通信设备执行扩展功能。 ExecuteUmsThread 运行指定的 UMS 工作线程。 FatalExit 将执行控制转移到调试器。 此后调试器的行为特定于所使用的调试器类型。 FileEncryptionStatusA 检索指定文件的加密状态。 (ANSI) FileEncryptionStatusW 检索指定文件的加密状态。 (Unicode) FileTimeToDosDateTime 将文件时间转换为 MS-DOS 日期和时间值。 FindActCtxSectionGuid",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "ExecuteUmsThread",
+        "FindActCtxSectionGuid"
+      ],
+      "confidence": 0.45,
+      "_source_line": 309
+    },
+    {
+      "id": "windows::FindActCtxSectionGuid",
+      "name": "FindActCtxSectionGuid",
+      "entity_type": "unknown",
+      "description": "函数检索当前激活上下文中特定 GUID 的信息，并返回",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 325
+    },
+    {
+      "id": "windows::ACTCTX_SECTION_KEYED_DATA",
+      "name": "ACTCTX_SECTION_KEYED_DATA",
+      "entity_type": "callback",
+      "description": "结构由 FindActCtxSectionString 和 FindActCtxSectionGuid 函数用 来返回激活上下文信息以及 GUID 或 32 位整数标记的激活上下文部分。 ACTCTXA CREATEActCtx 函数使用 ACTCTX 结构创建激活上下文。 (ANSI) ACTCTXW CREATEActCtx 函数使用 ACTCTX 结构创建激活上下文。 (Unicode) COMMCONFIG 包含有关通信设备的配置状态的信息。 COMMPROP 包含有关通信驱动程序的信息。 COMMTIMEOUTS 包含通信设备的超时参数。 COMSTAT 包含有关通信设备的信息。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "FindActCtxSectionGuid",
+        "FindActCtxSectionString"
+      ],
+      "confidence": 0.75,
+      "_source_line": 326
+    },
+    {
+      "id": "windows::FindActCtxSectionString",
+      "name": "FindActCtxSectionString",
+      "entity_type": "unknown",
+      "description": "函数检索当前激活上下文中特定字符串的信息，并返回",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 328
+    },
+    {
+      "id": "windows::FindAtomW",
+      "name": "FindAtomW",
+      "entity_type": "function",
+      "description": "在本地 atom 表中搜索指定的字符串，并检索与该字符串关联的 atom。 (Unicode) FindFirstFileNameTransactedW 以事务处理操作的形式创建指向指定文件的所有硬链接的枚举。 函数返回枚举的句柄，该句柄可用 于对 FindNextFileNameW 函数的后续调用。 FindFirstFileTransactedA 在目录中搜索具有与特定名称匹配的名称的文件或子目录，作为事务处理操作。 (ANSI) FindFirstFileTransactedW 在目录中搜索具有与特定名称匹配的名称的文件或子目录，作为事务处理操作。 (Unicode) FindFirstStreamTransactedW 将指定文件或目录中的第一个流作为事务处理操作枚举。 FindFirstVolumeA 检索计算机上的卷的名称。 (FindFirstVolumeA) FindFirstVolumeMountPointA 检索指定卷上装载的文件夹的名称。 (ANSI) FindFirstVolumeMountPointW 检索指定卷上装载的文件夹的名称。 (Unicode) FindNextVolumeA 继续通过调用 FindFirstVolume 函数启动的卷搜索。 (FindNextVolumeA) FindNextVolumeMountPointA 继续通过调用 FindFirstVolumeMountPoint 函数启动的装载文件夹搜索。 (ANSI) FindNextVolumeMountPointW 继续通过调用 FindFirstVolumeMountPoint 函数启动的装载文件夹搜索。 (Unicode) FindResourceA 确定指定模块中具有指定类型和名称的资源的位置。 (FindResourceA)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "FindResourceA"
+      ],
+      "confidence": 0.6,
+      "_source_line": 336
+    },
+    {
+      "id": "windows::FindResourceExA",
+      "name": "FindResourceExA",
+      "entity_type": "function",
+      "description": "确定指定模块中具有指定类型、名称和语言的资源的位置。 (FindResourceExA) FindVolumeMountPointClose 关闭指定的已装载文件夹搜索句柄。 FormatMessage formatMessage 函数 (winbase.h) 设置消息字符串的格式。 FormatMessageA 设置消息字符串的格式。 (FormatMessageA) FormatMessageW",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "FormatMessage",
+        "FormatMessageW"
+      ],
+      "confidence": 0.6,
+      "_source_line": 363
+    },
+    {
+      "id": "windows::FormatMessageW",
+      "name": "FormatMessageW",
+      "entity_type": "function",
+      "description": "Unicode) 函数 (winbase.h) 设置消息字符串的格式。 GetActiveProcessorCount 返回处理器组或系统中活动处理器的数目。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 373
+    },
+    {
+      "id": "windows::GetActiveProcessorGroupCount",
+      "name": "GetActiveProcessorGroupCount",
+      "entity_type": "unknown",
+      "description": "返回系统中活动处理器组的数目。 GetApplicationRecoveryCallback 检索指向为指定进程注册的回调例程的指针。 返回的地址位于进程的虚拟地址空间中。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetApplicationRecoveryCallback"
+      ],
+      "confidence": 0.45,
+      "_source_line": 376
+    },
+    {
+      "id": "windows::GetApplicationRestartSettings",
+      "name": "GetApplicationRestartSettings",
+      "entity_type": "unknown",
+      "description": "检索为指定进程注册的重启信息。 GetAtomNameA 检索与指定的本地原子关联的字符串的副本。 (ANSI) GetAtomNameW 检索与指定的本地原子关联的字符串的副本。 (Unicode) GetBinaryTypeA 确定文件是否为可执行 (.exe) 文件，如果是，则由哪个子系统运行可执行文件。 (ANSI)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetAtomNameA",
+        "GetAtomNameW"
+      ],
+      "confidence": 0.45,
+      "_source_line": 380
+    },
+    {
+      "id": "windows::GetBinaryTypeW",
+      "name": "GetBinaryTypeW",
+      "entity_type": "function",
+      "description": "确定文件是否为可执行 (.exe) 文件，如果是，则由哪个子系统运行可执行文件。 (Unicode) GetCommConfig 检索通信设备的当前配置。 GetCommMask 检索指定通信设备的事件掩码的值。 GetCommModemStatus 检索调制解调器控制寄存器值。 GetCommPorts 获取包含格式正确的 COM 端口的数组。 GetCommProperties 检索有关指定通信设备的通信属性的信息。 GetCommState 检索指定通信设备的当前控件设置。 GetCommTimeouts 检索指定通信设备上所有读取和写入操作的超时参数。 GetCompressedFileSizeTransactedA 检索用于将指定文件存储为事务操作的实际磁盘存储字节数。 (ANSI) GetCompressedFileSizeTransactedW 检索用于将指定文件存储为事务操作的实际磁盘存储字节数。 (Unicode) GetComputerNameA 检索本地计算机的 NetBIOS 名称。 当系统从注册表读取此名称时，会在系统启动时建立此名称。(ANSI)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "NetBIOS"
+      ],
+      "confidence": 0.6,
+      "_source_line": 389
+    },
+    {
+      "id": "windows::GetComputerNameW",
+      "name": "GetComputerNameW",
+      "entity_type": "function",
+      "description": "检索本地计算机的 NetBIOS 名称。 当系统从注册表读取此名称时，会在系统启动时建立此名称。(Unicode)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "NetBIOS"
+      ],
+      "confidence": 0.6,
+      "_source_line": 412
+    },
+    {
+      "id": "windows::GetCurrentActCtx",
+      "name": "GetCurrentActCtx",
+      "entity_type": "unknown",
+      "description": "函数返回调用线程的活动激活上下文的句柄。 GetCurrentDirectory 检索当前进程的当前目录。 GetCurrentHwProfileA 检索有关本地计算机的当前硬件配置文件的信息。 (ANSI) GetCurrentHwProfileW 检索有关本地计算机的当前硬件配置文件的信息。 (Unicode) GetCurrentUmsThread 返回调用 UMS 线程) 线程上下文 (UMS 的用户模式计划。 GetDefaultCommConfigA 检索指定通信设备的默认配置。 (ANSI) GetDefaultCommConfigW 检索指定通信设备的默认配置。 (Unicode) GetDevicePowerState 检索指定设备的当前电源状态。 GetDllDirectoryA 检索用于查找应用程序的 DLL 的搜索路径中特定于应用程序的部分。 (ANSI) GetDllDirectoryW 检索用于查找应用程序的 DLL 的搜索路径中特定于应用程序的部分。 (Unicode) GetEnabledXStateFeatures 获取 x86 或 x64 处理器上已启用的 XState 功能的掩码。 GetEnvironmentVariable getEnvironmentVariable 函数 (winbase.h) 从调用进程的环境块检索指定变量的内容。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetCurrentUmsThread",
+        "GetEnvironmentVariable"
+      ],
+      "confidence": 0.45,
+      "_source_line": 416
+    },
+    {
+      "id": "windows::GetEventLogInformation",
+      "name": "GetEventLogInformation",
+      "entity_type": "unknown",
+      "description": "检索有关指定事件日志的信息。 GetFileAttributesTransactedA 检索指定文件或目录的文件系统属性作为事务处理操作。 (ANSI) GetFileAttributesTransactedW 检索指定文件或目录的文件系统属性作为事务处理操作。 (Unicode) GetFileBandwidthReservation 检索指定文件所在的卷的带宽预留属性。 GetFileInformationByHandleEx 检索指定文件的文件信息。 (GetFileInformationByHandleEx) GetFileSecurityA 获取有关文件或目录安全性的指定信息。 获取的信息受调用方的访问权限和特权约束。(GetFileSecurityA)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetFileInformationByHandleEx"
+      ],
+      "confidence": 0.45,
+      "_source_line": 442
+    },
+    {
+      "id": "windows::GetFirmwareEnvironmentVariableA",
+      "name": "GetFirmwareEnvironmentVariableA",
+      "entity_type": "function",
+      "description": "检索指定固件环境变量的值。 (ANSI) GetFirmwareEnvironmentVariableExA 检索指定固件环境变量及其属性的值。 (ANSI) GetFirmwareEnvironmentVariableExW 检索指定固件环境变量及其属性的值。 (Unicode)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 455
+    },
+    {
+      "id": "windows::GetFirmwareEnvironmentVariableW",
+      "name": "GetFirmwareEnvironmentVariableW",
+      "entity_type": "function",
+      "description": "检索指定固件环境变量的值。 (Unicode) GetFirmwareType 检索本地计算机的固件类型。 GetFullPathNameTransactedA 检索指定文件的完整路径和文件名作为事务处理操作。 (ANSI)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 461
+    },
+    {
+      "id": "windows::GetFullPathNameTransactedW",
+      "name": "GetFullPathNameTransactedW",
+      "entity_type": "function",
+      "description": "检索指定文件的完整路径和文件名作为事务处理操作。 (Unicode) GetLogicalDriveStringsA 使用在系统中指定有效驱动器的字符串填充缓冲区。 (GetLogicalDriveStringsA) GetLongPathNameTransactedA 将指定路径转换为其长格式作为事务处理操作。 (ANSI) GetLongPathNameTransactedW 将指定路径转换为其长格式作为事务处理操作。 (Unicode) GetMailslotInfo 检索有关指定 mailslot 的信息。 GetMaximumProcessorCount 返回处理器组或系统可以具有的最大逻辑处理器数。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 468
+    },
+    {
+      "id": "windows::GetMaximumProcessorGroupCount",
+      "name": "GetMaximumProcessorGroupCount",
+      "entity_type": "unknown",
+      "description": "返回系统可以具有的最大处理器组数。 GetNamedPipeClientComputerNameA",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetNamedPipeClientComputerNameA"
+      ],
+      "confidence": 0.35,
+      "_source_line": 481
+    },
+    {
+      "id": "windows::GetNamedPipeClientComputerNameA",
+      "name": "GetNamedPipeClientComputerNameA",
+      "entity_type": "function",
+      "description": "ANSI) 函数 (winbase.h) 检索指定命名管道的客户端计算机名称。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 484
+    },
+    {
+      "id": "windows::GetNamedPipeClientProcessId",
+      "name": "GetNamedPipeClientProcessId",
+      "entity_type": "unknown",
+      "description": "检索指定命名管道的客户端进程标识符。 GetNamedPipeClientSessionId 检索指定命名管道的客户端会话标识符。 GetNamedPipeHandleStateA",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.45,
+      "_source_line": 485
+    },
+    {
+      "id": "windows::getNamedPipeHandleStateA",
+      "name": "getNamedPipeHandleStateA",
+      "entity_type": "unknown",
+      "description": "ANSI) 函数 (winbase.h) 检索有关指定命名管道的信息。 GetNamedPipeServerProcessId 检索指定命名管道的服务器进程标识符。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.3,
+      "_source_line": 491
+    },
+    {
+      "id": "windows::GetNamedPipeServerSessionId",
+      "name": "GetNamedPipeServerSessionId",
+      "entity_type": "unknown",
+      "description": "检索指定命名管道的服务器会话标识符。 GetNextUmsListItem 在线程上下文列表中返回下一个用户模式计划 (UMS) 线程上下文。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetNextUmsListItem"
+      ],
+      "confidence": 0.45,
+      "_source_line": 495
+    },
+    {
+      "id": "windows::GetNumaAvailableMemoryNode",
+      "name": "GetNumaAvailableMemoryNode",
+      "entity_type": "unknown",
+      "description": "检索指定节点中的可用内存量。 GetNumaAvailableMemoryNodeEx 检索指定为 USHORT 值的节点中可用的内存量。 GetNumaNodeNumberFromHandle 检索与指定的文件句柄表示的文件或 I/O 设备关联的 NUMA 节点。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetNumaAvailableMemoryNodeEx",
+        "GetNumaNodeNumberFromHandle"
+      ],
+      "confidence": 0.45,
+      "_source_line": 500
+    },
+    {
+      "id": "windows::GetNumaNodeProcessorMask",
+      "name": "GetNumaNodeProcessorMask",
+      "entity_type": "unknown",
+      "description": "检索指定节点的处理器掩码。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.25,
+      "_source_line": 506
+    },
+    {
+      "id": "windows::GetNumaProcessorNode",
+      "name": "GetNumaProcessorNode",
+      "entity_type": "unknown",
+      "description": "检索指定处理器的节点号。 GetNumaProcessorNodeEx 检索节点号作为指定逻辑处理器的 USHORT 值。 GetNumaProximityNode 检索与指定的邻近域标识符对应的 NUMA 节点编号。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetNumaProximityNode"
+      ],
+      "confidence": 0.45,
+      "_source_line": 508
+    },
+    {
+      "id": "windows::GetNumberOfEventLogRecords",
+      "name": "GetNumberOfEventLogRecords",
+      "entity_type": "unknown",
+      "description": "检索指定事件日志中的记录数。 GetOldestEventLogRecord 检索指定事件日志中最早记录的绝对记录编号。 GetPrivateProfileInt getPrivateProfileInt 函数 (winbase.h) 检索与初始化文件的指定节中的键关联的整数。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.45,
+      "_source_line": 513
+    },
+    {
+      "id": "windows::GetPrivateProfileIntA",
+      "name": "GetPrivateProfileIntA",
+      "entity_type": "function",
+      "description": "检索与初始化文件的指定节中的键关联的整数。 (GetPrivateProfileIntA) GetPrivateProfileIntW",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetPrivateProfileIntW"
+      ],
+      "confidence": 0.6,
+      "_source_line": 520
+    },
+    {
+      "id": "windows::GetPrivateProfileIntW",
+      "name": "GetPrivateProfileIntW",
+      "entity_type": "function",
+      "description": "Unicode) 函数 (winbase.h) 检索与初始化文件的指定节中的键关联的整数。 GetPrivateProfileSection getPrivateProfileSection 函数 (winbase.h) 检索初始化文件的指定节的所有键和值。 GetPrivateProfileSectionA 检索初始化文件的指定节的所有键和值。 (GetPrivateProfileSectionA) GetPrivateProfileSectionNames getPrivateProfileSectionNames 函数 (winbase.h) 检索初始化文件中所有节的名称。 GetPrivateProfileSectionNamesA 检索初始化文件中所有节的名称。 (GetPrivateProfileSectionNamesA) GetPrivateProfileSectionNamesW",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetPrivateProfileSectionNamesW"
+      ],
+      "confidence": 0.6,
+      "_source_line": 524
+    },
+    {
+      "id": "windows::GetPrivateProfileSectionNamesW",
+      "name": "GetPrivateProfileSectionNamesW",
+      "entity_type": "function",
+      "description": "Unicode) 函数 (winbase.h) 检索初始化文件中所有节的名称。 GetPrivateProfileSectionW",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 534
+    },
+    {
+      "id": "windows::getPrivateProfileSectionW",
+      "name": "getPrivateProfileSectionW",
+      "entity_type": "unknown",
+      "description": "Unicode) 函数 (winbase.h) 检索初始化文件的指定节的所有键和值。 GetPrivateProfileString getPrivateProfileString 函数 (winbase.h) 从初始化文件中的指定节检索字符串。 GetPrivateProfileStringA 从初始化文件中的指定节检索字符串。 (GetPrivateProfileStringA) GetPrivateProfileStringW",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetPrivateProfileStringW"
+      ],
+      "confidence": 0.3,
+      "_source_line": 536
+    },
+    {
+      "id": "windows::GetPrivateProfileStringW",
+      "name": "GetPrivateProfileStringW",
+      "entity_type": "function",
+      "description": "Unicode) 函数 (winbase.h) 从初始化文件中的指定节检索字符串。 GetPrivateProfileStruct getPrivateProfileStruct 函数 (winbase.h) 检索与初始化文件的指定节中的键关联的数据。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 542
+    },
+    {
+      "id": "windows::GetPrivateProfileStructA",
+      "name": "GetPrivateProfileStructA",
+      "entity_type": "function",
+      "description": "检索与初始化文件的指定节中的键关联的数据。 (GetPrivateProfileStructA) GetPrivateProfileStructW",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetPrivateProfileStructW"
+      ],
+      "confidence": 0.6,
+      "_source_line": 546
+    },
+    {
+      "id": "windows::GetPrivateProfileStructW",
+      "name": "GetPrivateProfileStructW",
+      "entity_type": "function",
+      "description": "Unicode) 函数 (winbase.h) 检索与初始化文件的指定节中的键关联的数据。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 550
+    },
+    {
+      "id": "windows::GetProcessAffinityMask",
+      "name": "GetProcessAffinityMask",
+      "entity_type": "unknown",
+      "description": "检索指定进程的进程关联掩码和系统的系统关联掩码。 GetProcessDEPPolicy 获取指定 32 位进程的 DEP) 和 DEP-ATL thunk 仿真设置 (数据执行防护。具有 SP3 的 Windows XP：获取当前进程的 DEP 和 DEP-ATL thunk 仿真设置。 GetProcessIoCounters 检索指定进程执行的所有 I/O 操作的计帐信息。 GetProfileIntA 从Win.ini文件的指定节中的键中检索整数。 (ANSI) GetProfileIntW 从Win.ini文件的指定节中的键中检索整数。 (Unicode) GetProfileSectionA 检索Win.ini文件的指定节的所有键和值。 (ANSI) GetProfileSectionW 检索Win.ini文件的指定节的所有键和值。 (Unicode) GetProfileStringA 检索与Win.ini文件的指定节中的键关联的字符串。 (ANSI) GetProfileStringW 检索与Win.ini文件的指定节中的键关联的字符串。 (Unicode) GetShortPathNameA 检索指定路径的短路径形式。 (GetShortPathNameA)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetProcessIoCounters"
+      ],
+      "confidence": 0.45,
+      "_source_line": 551
+    },
+    {
+      "id": "windows::GetSystemDEPPolicy",
+      "name": "GetSystemDEPPolicy",
+      "entity_type": "unknown",
+      "description": "获取系统 (DEP) 策略设置的数据执行防护。 GetSystemPowerStatus 检索系统的电源状态。 状态指示系统是使用交流还是直流电源运行，电池当前是否正在充电，剩余 的电池使用时间，以及节电模式是打开还是关闭。 GetSystemRegistryQuota 检索注册表的当前大小以及允许注册表在系统上达到的最大大小。 GetTapeParameters 检索描述磁带或磁带驱动器的信息。 GetTapePosition 检索磁带的当前地址（以逻辑块或绝对块为单位）。 GetTapeStatus 确定磁带设备是否已准备好处理磁带命令。 GetTempFileName getTempFileName 函数 (winbase.h) 创建临时文件的名称。 如果生成唯一的文件名，则会创建一个 空文件，并释放它的句柄;否则，仅生成文件名。 GetThreadEnabledXStateFeatures",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetTapeParameters",
+        "GetTapePosition",
+        "GetTapeStatus",
+        "GetThreadEnabledXStateFeatures"
+      ],
+      "confidence": 0.45,
+      "_source_line": 574
+    },
+    {
+      "id": "windows::GetThreadEnabledXStateFeatures",
+      "name": "GetThreadEnabledXStateFeatures",
+      "entity_type": "unknown",
+      "description": "函数返回当前为当前线程启用的 XState 功能集。 GetThreadSelectorEntry 检索指定选择符和线程的描述符表条目。 GetUmsCompletionListEvent 检索与指定的用户模式计划关联的事件的句柄 (UMS) 完成列表。 GetUmsSystemThreadInformation 查询指定的线程是 UMS 计划程序线程、UMS 工作线程还是非 UMS 线程。 GetUserNameA 检索与当前线程关联的用户的名称。 (ANSI)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetUmsCompletionListEvent",
+        "GetUmsSystemThreadInformation"
+      ],
+      "confidence": 0.45,
+      "_source_line": 592
+    },
+    {
+      "id": "windows::GetUserNameW",
+      "name": "GetUserNameW",
+      "entity_type": "function",
+      "description": "检索与当前线程关联的用户的名称。 (Unicode) GetVolumeNameForVolumeMountPointA 检索卷的卷 GUID 路径，该路径与指定的卷装入点 (驱动器号、卷 GUID 路径或装载的文件夹) 相关 联。 (GetVolumeNameForVolumeMountPointA) GetVolumePathNameA 检索装载指定路径的卷装入点。 (GetVolumePathNameA) GetVolumePathNamesForVolumeNameA 检索指定卷的驱动器号和装载的文件夹路径的列表。 (GetVolumePathNamesForVolumeNameA) GetXStateFeaturesMask 返回在 CONTEXT 结构中设置的 XState 功能的掩码。 GlobalAddAtomA 将字符串添加到全局 atom 表，并返回一个唯一值 (atom) 标识该字符串。 (GlobalAddAtomA) GlobalAddAtomExA 将字符串添加到全局 atom 表，并返回一个唯一值 (atom) 标识该字符串。 (GlobalAddAtomExA) GlobalAddAtomExW 将字符串添加到全局 atom 表，并返回一个唯一值 (atom) 标识该字符串。 (GlobalAddAtomExW) GlobalAddAtomW 将字符串添加到全局 atom 表，并返回一个唯一值 (atom) 标识该字符串。 (GlobalAddAtomW) GlobalAlloc 从堆中分配指定的字节数。 (GlobalAlloc) GlobalDeleteAtom 递减全局字符串原子的引用计数。 如果原子的引用计数达到零，GlobalDeleteAtom 将从全局原子 表中删除与原子关联的字符串。 GlobalDiscard 放弃指定的全局内存块。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "GlobalAddAtomA",
+        "GlobalAddAtomExA",
+        "GlobalAddAtomExW",
+        "GlobalAddAtomW",
+        "GlobalAlloc",
+        "GlobalDeleteAtom"
+      ],
+      "confidence": 0.6,
+      "_source_line": 602
+    },
+    {
+      "id": "windows::GlobalFindAtomA",
+      "name": "GlobalFindAtomA",
+      "entity_type": "function",
+      "description": "在全局原子表中搜索指定的字符串，并检索与该字符串关联的全局原子。 (ANSI) GlobalFindAtomW 在全局原子表中搜索指定的字符串，并检索与该字符串关联的全局原子。 (Unicode) GlobalFlags 检索有关指定全局内存对象的信息。 GlobalFree 释放指定的全局内存对象并使其句柄失效。 GlobalGetAtomNameA 检索与指定的全局原子关联的字符串的副本。 (ANSI) GlobalGetAtomNameW 检索与指定的全局原子关联的字符串的副本。 (Unicode) GlobalHandle 检索与指向全局内存块的指定指针关联的句柄。 GlobalLock 锁定全局内存对象并返回指向对象内存块的第一个字节的指针。 GlobalMemoryStatus 检索有关系统当前物理内存和虚拟内存使用情况的信息。 (GlobalMemoryStatus) GlobalReAlloc 更改指定全局内存对象的大小或属性。 大小可以增加或减少。 GlobalSize 检索指定全局内存对象的当前大小（以字节为单位）。 GlobalUnlock 递减与分配有GMEM_MOVEABLE的内存对象关联的锁计数。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "GlobalFindAtomW",
+        "GlobalFree",
+        "GlobalGetAtomNameA",
+        "GlobalGetAtomNameW",
+        "GlobalReAlloc",
+        "GlobalSize"
+      ],
+      "confidence": 0.6,
+      "_source_line": 630
+    },
+    {
+      "id": "windows::HasOverlappedIoCompleted",
+      "name": "HasOverlappedIoCompleted",
+      "entity_type": "unknown",
+      "description": "提供可用于轮询完成未完成 I/O 操作的高性能测试操作。 InitAtomTable 初始化本地 Atom 表，并将哈希桶数设置为指定大小。 InitializeContext 使用必要的大小和对齐方式初始化缓冲区内的 CONTEXT 结构。 InitializeContext2 使用必要的大小和对齐方式初始化缓冲区内的 CONTEXT 结构，并使用 用于指定 XSTATE 压缩掩码的选项。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "InitAtomTable"
+      ],
+      "confidence": 0.45,
+      "_source_line": 656
+    },
+    {
+      "id": "windows::InitializeThreadpoolEnvironment",
+      "name": "InitializeThreadpoolEnvironment",
+      "entity_type": "unknown",
+      "description": "初始化回调环境。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.25,
+      "_source_line": 665
+    },
+    {
+      "id": "windows::InterlockedExchangeSubtract",
+      "name": "InterlockedExchangeSubtract",
+      "entity_type": "unknown",
+      "description": "执行两个值的原子减法。 IsBadCodePtr 确定调用进程是否对指定地址处的内存具有读取访问权限。 IsBadReadPtr 验证调用进程是否具有对指定内存范围的读取访问权限。 (IsBadReadPtr) IsBadStringPtrA 验证调用进程是否具有对指定内存范围的读取访问权限。 (IsBadStringPtrA) IsBadStringPtrW 验证调用进程是否具有对指定内存范围的读取访问权限。 (IsBadStringPtrW) IsBadWritePtr 验证调用进程是否对指定的内存范围具有写入访问权限。 IsNativeVhdBoot 指示 OS 是否已从 VHD 容器启动。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.45,
+      "_source_line": 667
+    },
+    {
+      "id": "windows::IsSystemResumeAutomatic",
+      "name": "IsSystemResumeAutomatic",
+      "entity_type": "unknown",
+      "description": "确定计算机的当前状态。 IsTextUnicode 确定缓冲区是否可能包含 Unicode 文本形式。 LoadModule 加载和执行应用程序或创建现有应用程序的新实例。 LoadPackagedLibrary 将指定的打包模块及其依赖项加载到调用进程的地址空间中。 LocalAlloc 从堆中分配指定的字节数。 (LocalAlloc) LocalFlags 检索有关指定本地内存对象的信息。 LocalFree 释放指定的本地内存对象并使其句柄失效。 LocalHandle 检索与指向本地内存对象的指定指针关联的句柄。 LocalLock 锁定本地内存对象并返回指向对象内存块的第一个字节的指针。 LocalReAlloc 更改指定本地内存对象的大小或属性。 大小可以增加或减少。 LocalSize 检索指定本地内存对象的当前大小（以字节为单位）。 LocalUnlock 递减与分配有LMEM_MOVEABLE的内存对象关联的锁计数。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "LocalFree"
+      ],
+      "confidence": 0.45,
+      "_source_line": 683
+    },
+    {
+      "id": "windows::LocateXStateFeature",
+      "name": "LocateXStateFeature",
+      "entity_type": "unknown",
+      "description": "检索指向 CONTEXT 结构中 XState 功能的处理器状态的指针。 LogonUserA",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 708
+    },
+    {
+      "id": "windows::Win32",
+      "name": "Win32",
+      "entity_type": "unknown",
+      "description": "LogonUser 函数尝试将用户登录到本地计算机。 LogonUser 返回可用于模拟用户的用户令 牌的句柄。 (Unicode) LookupAccountNameA 接受系统和帐户的名称作为输入。 它检索帐户的安全标识符 (SID) 以及在其中找到帐户的域的名称。 (ANSI)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.45,
+      "_source_line": 712
+    },
+    {
+      "id": "windows::LogonUserEx",
+      "name": "LogonUserEx",
+      "entity_type": "function",
+      "description": "函数尝试将用户登录到本地计算机。 (Unicode) LogonUserW",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 715
+    },
+    {
+      "id": "windows::LookupAccountNameW",
+      "name": "LookupAccountNameW",
+      "entity_type": "function",
+      "description": "接受系统和帐户的名称作为输入。 它检索帐户的安全标识符 (SID) 以及在其中找到帐户的域的名称。 (Unicode)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 723
+    },
+    {
+      "id": "windows::LookupAccountSidA",
+      "name": "LookupAccountSidA",
+      "entity_type": "function",
+      "description": "接受 SID) (安全标识符作为输入。 它检索此 SID 的帐户名称和找到此 SID 的第一个域的名称。(ANSI)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 726
+    },
+    {
+      "id": "windows::LookupAccountSidLocalA",
+      "name": "LookupAccountSidLocalA",
+      "entity_type": "function",
+      "description": "检索本地计算机上指定 SID 的帐户名称。 (ANSI) LookupAccountSidLocalW 检索本地计算机上指定 SID 的帐户名称。 (Unicode) LookupAccountSidW 接受 SID) (安全标识符作为输入。 它检索此 SID 的帐户名称和找到此 SID 的第一个域的名称。(Unicode)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 729
+    },
+    {
+      "id": "windows::LookupPrivilegeDisplayNameA",
+      "name": "LookupPrivilegeDisplayNameA",
+      "entity_type": "function",
+      "description": "检索表示指定特权的显示名称。 (ANSI) LookupPrivilegeDisplayNameW 检索表示指定特权的显示名称。 (Unicode) LookupPrivilegeNameA 检索与特定系统上由指定的本地唯一标识符 (LUID) 所表示的特权相对应的名称。 (ANSI) LookupPrivilegeNameW 检索与特定系统上由指定的本地唯一标识符 (LUID) 所表示的特权相对应的名称。 (Unicode) LookupPrivilegeValueA 检索指定系统上用于本地表示指定特权名称 (LUID) 本地唯一标识符。 (ANSI) LookupPrivilegeValueW 检索指定系统上用于本地表示指定特权名称 (LUID) 本地唯一标识符。 (Unicode) lstrcatA 将一个字符串追加到另一个字符串。警告 请勿使用。 (ANSI) lstrcatW 将一个字符串追加到另一个字符串。警告 请勿使用。 (Unicode) lstrcmpA 比较两个字符串。 比较是区分大小写的。 (ANSI) lstrcmpiA 比较两个字符串。 该比较不区分大小写。 (ANSI) lstrcmpiW 比较两个字符串。 该比较不区分大小写。 (Unicode) lstrcmpW 比较两个字符串。 比较是区分大小写的。 (Unicode) lstrcpyA 将字符串复制到缓冲区。 (ANSI) lstrcpynA 将指定数量的字符从源字符串复制到缓冲区中。警告 请勿使用。 (ANSI) lstrcpynW 将指定数量的字符从源字符串复制到缓冲区中。警告 请勿使用。 (Unicode) lstrcpyW 将字符串复制到缓冲区。 (Unicode) lstrlenA 确定指定字符串的长度， (不包括终止 null 字符) 。 (ANSI) lstrlenW 确定指定字符串的长度， (不包括终止 null 字符) 。 (Unicode) MAKEINTATOM 将指定的原子转换为字符串，以便可以将其传递给接受原子或字符串的函数。 MapUserPhysicalPagesScatter 在地址窗口扩展 (AWE) 区域中的指定地址映射以前分配的物理内存页。 (MapUserPhysicalPagesScatter) MapViewOfFileExNuma 将映射的文件视图映射到调用进程的地址空间中，并指定物理内存的 NUMA 节点。 MoveFile moveFile 函数 (winbase.h) 移动现有文件或目录，包括其子文件。 MoveFileA 移动现有文件或目录，包括其子级。 (MoveFileA) MoveFileExA 使用各种移动选项移动现有文件或目录，包括其子级。 (ANSI)",
+      "header": "winbase.h",
+      "deprecated": true,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 737
+    },
+    {
+      "id": "windows::MoveFileExW",
+      "name": "MoveFileExW",
+      "entity_type": "function",
+      "description": "使用各种移动选项移动现有文件或目录，包括其子级。 (Unicode) MoveFileTransactedA 将现有文件或目录（包括其子级）作为事务处理操作移动。 (ANSI) MoveFileTransactedW 将现有文件或目录（包括其子级）作为事务处理操作移动。 (Unicode) MoveFileW",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 790
+    },
+    {
+      "id": "windows::moveFileW",
+      "name": "moveFileW",
+      "entity_type": "unknown",
+      "description": "Unicode) 函数 (winbase.h) 移动现有文件或目录，包括其子级。 MoveFileWithProgressA 移动文件或目录，包括其子级。 可以提供接收进度通知的回调函数。 (ANSI) MoveFileWithProgressW 移动文件或目录，包括其子级。 可以提供接收进度通知的回调函数。 (Unicode) MulDiv 将两个 32 位值相乘，然后将 64 位结果除以第三个 32 位值。 NotifyChangeEventLog 使应用程序能够在将事件写入指定的事件日志时接收通知。 ObjectCloseAuditAlarmA 删除私有对象的句柄时，在安全事件日志中生成审核消息。 (ObjectCloseAuditAlarmA) ObjectDeleteAuditAlarmA",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.3,
+      "_source_line": 798
+    },
+    {
+      "id": "windows::objectDeleteAuditAlarmA",
+      "name": "objectDeleteAuditAlarmA",
+      "entity_type": "unknown",
+      "description": "ANSI) 函数 (winbase.h) 在删除对象时生成审核消息。 ObjectOpenAuditAlarmA 当客户端应用程序尝试获取对对象的访问权限或创建新对象时，生成审核消息。 (ObjectOpenAuditAlarmA) ObjectPrivilegeAuditAlarmA 在安全事件日志中生成审核消息。 (ObjectPrivilegeAuditAlarmA)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.3,
+      "_source_line": 809
+    },
+    {
+      "id": "windows::OpenBackupEventLogA",
+      "name": "OpenBackupEventLogA",
+      "entity_type": "function",
+      "description": "打开 BackupEventLog 函数创建的备份事件日志的句柄。 (ANSI) OpenBackupEventLogW 打开 BackupEventLog 函数创建的备份事件日志的句柄。 (Unicode)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 816
+    },
+    {
+      "id": "windows::OpenCommPort",
+      "name": "OpenCommPort",
+      "entity_type": "unknown",
+      "description": "尝试打开通信设备。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.25,
+      "_source_line": 821
+    },
+    {
+      "id": "windows::OpenEncryptedFileRawA",
+      "name": "OpenEncryptedFileRawA",
+      "entity_type": "function",
+      "description": "打开加密文件以备份 (导出) 或还原 (导入) 该文件。 (ANSI) OpenEncryptedFileRawW 打开加密文件以备份 (导出) 或还原 (导入) 该文件。 (Unicode) OpenEventLogA 打开指定事件日志的句柄。 (ANSI) OpenEventLogW 打开指定事件日志的句柄。 (Unicode) OpenFile 创建、打开、重新打开或删除文件。 OpenFileById 打开与指定标识符匹配的文件。 OpenFileMappingA 打开命名文件映射对象。 (OpenFileMappingA) OpenJobObjectA 打开现有作业对象。 (OpenJobObjectA) OpenPrivateNamespaceA",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "OpenFile",
+        "OpenJobObjectA"
+      ],
+      "confidence": 0.6,
+      "_source_line": 823
+    },
+    {
+      "id": "windows::openPrivateNamespaceA",
+      "name": "openPrivateNamespaceA",
+      "entity_type": "unknown",
+      "description": "ANSI) 函数 (winbase.h) 打开专用命名空间。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.2,
+      "_source_line": 841
+    },
+    {
+      "id": "windows::OperationEnd",
+      "name": "OperationEnd",
+      "entity_type": "callback",
+      "description": "通知系统应用程序即将结束操作。 OperationStart 通知系统应用程序即将启动操作。 PowerClearRequest 递减电源请求对象的指定类型的电源请求计数。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "OperationStart"
+      ],
+      "confidence": 0.6,
+      "_source_line": 843
+    },
+    {
+      "id": "windows::PowerCreateRequest",
+      "name": "PowerCreateRequest",
+      "entity_type": "unknown",
+      "description": "创建新的电源请求对象。 PowerSetRequest 递增电源请求对象的指定类型的电源请求计数。 PrepareTape 准备要访问或删除的磁带。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "PrepareTape"
+      ],
+      "confidence": 0.45,
+      "_source_line": 850
+    },
+    {
+      "id": "windows::PrivilegedServiceAuditAlarmA",
+      "name": "PrivilegedServiceAuditAlarmA",
+      "entity_type": "function",
+      "description": "在安全事件日志中生成审核消息。 (PrivilegedServiceAuditAlarmA) PulseEvent 将指定的事件对象设置为信号状态，然后在释放适当数量的等待线程后将其重置为未对齐状态。 PurgeComm 放弃指定通信资源的输出或输入缓冲区中的所有字符。 它还可以终止对资源的挂起读取或写入操作。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 856
+    },
+    {
+      "id": "windows::QueryActCtxSettingsW",
+      "name": "QueryActCtxSettingsW",
+      "entity_type": "function",
+      "description": "函数指定要查询的属性的激活上下文、命名空间和名称。 QueryActCtxW",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "QueryActCtxW"
+      ],
+      "confidence": 0.5,
+      "_source_line": 862
+    },
+    {
+      "id": "windows::QueryActCtxW",
+      "name": "QueryActCtxW",
+      "entity_type": "function",
+      "description": "函数查询激活上下文。 QueryDosDeviceA 检索有关 MS-DOS 设备名称的信息。 (QueryDosDeviceA)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 866
+    },
+    {
+      "id": "windows::QueryFullProcessImageNameA",
+      "name": "QueryFullProcessImageNameA",
+      "entity_type": "function",
+      "description": "检索指定进程的可执行映像的完整名称。 (ANSI) QueryFullProcessImageNameW 检索指定进程的可执行映像的完整名称。 (Unicode) QueryThreadProfiling 确定是否为指定的线程启用线程分析。 QueryUmsThreadInformation 检索有关指定用户模式计划的信息 (UMS) 工作线程。 ReadDirectoryChangesExW 检索描述指定目录中的更改的信息，如果指定了该信息类型，这些更改可以包含扩展信息。 ReadDirectoryChangesW 检索描述指定目录中的更改的信息。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "QueryFullProcessImageNameW",
+        "QueryUmsThreadInformation"
+      ],
+      "confidence": 0.6,
+      "_source_line": 870
+    },
+    {
+      "id": "windows::ReadEncryptedFileRaw",
+      "name": "ReadEncryptedFileRaw",
+      "entity_type": "unknown",
+      "description": "备份 (导出) 加密文件。 ReadEventLogA 从指定的事件日志中读取指定数量的条目。 (ANSI) ReadEventLogW 从指定的事件日志中读取指定数量的条目。 (Unicode) ReadThreadProfilingData 读取与线程关联的指定分析数据。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.45,
+      "_source_line": 883
+    },
+    {
+      "id": "windows::RegisterApplicationRecoveryCallback",
+      "name": "RegisterApplicationRecoveryCallback",
+      "entity_type": "callback",
+      "description": "注册要恢复的应用程序的活动实例。 RegisterApplicationRestart 注册要重启的应用程序的活动实例。",
+      "syntax": "HRESULT RegisterApplicationRecoveryCallback(\n[in]           APPLICATION_RECOVERY_CALLBACK pRecoveyCallback,   [in, optional] PVOID                         pvParameter,\n[in]           DWORD                         dwPingInterval,\n[in]           DWORD                         dwFlags);",
+      "parameters": [
+        {
+          "name": "hProcess",
+          "direction": "in",
+          "description": "进程的句柄。 此句柄必须具有PROCESS_VM_READ访问权限。[out, optional] pwzCommandline 指向缓冲区的指针，该缓冲区接收应用程序在调用 RegisterApplicationRestart 函数时指定的重启命令行。 命令行的最大大小（以字符为单位）RESTART_MAX_CMD_LINE。 如果 pcchSize 为 零，可以为 NULL。[in, out] pcchSize 输入时，指定 pwzCommandLine 缓冲区的大小（以字符为单位）。 如果缓冲区不够大，无法接收命令行，则函数将失败并HRESULT_FROM_WIN32 (ERROR_INSUFFICIENT_BUFFER) 并将此参数设置为所需的缓冲区大小（以字符为单位）。在输出中，指定所使用的缓冲区的大小。 若要确定所需的缓冲区大小，请将 pwzCommandLine 设置为 NULL ，并将此参数设置为零。 大小包括 一个 null 终止符字符。 请注意，此函数返回S_OK，在本例中不返回"
+        }
+      ],
+      "return_value": {
+        "description": "此函数返回 成功时S_OK 或以下错误代码之一。 返回代码 E_FAIL"
+      },
+      "remarks": "说明 内部错误。 退出之前不需要调用此函数。 仅当选择不重启应用程序时，才需要删除注册。 例如，如果应用程序进入损坏状态，将来重启也会失败，则可以删除注册。 在应用程序异常失败之前，必须调 用此函数。",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "RegisterApplicationRestart"
+      ],
+      "confidence": 0.85,
+      "_source_line": 891
+    },
+    {
+      "id": "windows::RegisterEventSourceA",
+      "name": "RegisterEventSourceA",
+      "entity_type": "function",
+      "description": "检索指定事件日志的已注册句柄。 (ANSI) RegisterEventSourceW 检索指定事件日志的已注册句柄。 (Unicode) RegisterWaitForSingleObject 指示线程池中的等待线程等待对象。 ReleaseActCtx",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "RegisterWaitForSingleObject",
+        "ReleaseActCtx"
+      ],
+      "confidence": 0.6,
+      "_source_line": 896
+    },
+    {
+      "id": "windows::ReleaseActCtx",
+      "name": "ReleaseActCtx",
+      "entity_type": "unknown",
+      "description": "函数递减指定激活上下文的引用计数。 RemoveDirectoryTransactedA 删除现有的空目录作为事务处理操作。 (ANSI) RemoveDirectoryTransactedW 删除现有的空目录作为事务处理操作。 (Unicode) RemoveSecureMemoryCacheCallback 取消注册以前使用 AddSecureMemoryCacheCallback 函数注册的回调函数。 ReOpenFile 使用不同的访问权限、共享模式和标志重新打开指定的文件系统对象。 ReplaceFileA 将一个文件替换为另一个文件，使用创建原始文件的备份副本的选项。 (ANSI) ReplaceFileW 将一个文件替换为另一个文件，使用创建原始文件的备份副本的选项。 (Unicode) ReportEventA 在指定事件日志的末尾写入一个条目。 (ANSI) ReportEventW 在指定事件日志的末尾写入一个条目。 (Unicode)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.45,
+      "_source_line": 904
+    },
+    {
+      "id": "windows::RequestWakeupLatency",
+      "name": "RequestWakeupLatency",
+      "entity_type": "unknown",
+      "description": "不起作用，并返回STATUS_NOT_SUPPORTED。 提供此函数只是为了与早期版本的 Windows.Windows Server 2008 和 Windows Vista 兼容：不起作用，并且始终返回成功。 SetCommBreak 暂停指定通信设备的字符传输，并将传输线路置于中断状态，直到调用 ClearCommBreak 函数。 SetCommConfig 设置通信设备的当前配置。 SetCommMask 指定要为通信设备监视的一组事件。 SetCommState 根据设备控制块中的规范配置通信设备， (DCB 结构) 。 函数重新初始化所有硬件和控制设置，但 不为空输出或输入队列。 SetCommTimeouts 为指定通信设备上的所有读取和写入操作设置超时参数。 SetCurrentDirectory 更改当前进程的当前目录。 SetDefaultCommConfigA 设置通信设备的默认配置。 (ANSI) SetDefaultCommConfigW 设置通信设备的默认配置。 (Unicode) SetDllDirectoryA 将目录添加到用于查找应用程序的 DLL 的搜索路径。 (ANSI) SetDllDirectoryW 将目录添加到用于查找应用程序的 DLL 的搜索路径。 (Unicode) SetEnvironmentVariable setEnvironmentVariable 函数 (winbase.h) 设置当前进程的指定环境变量的内容。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server",
+        "SetCommTimeouts",
+        "Vista"
+      ],
+      "confidence": 0.45,
+      "_source_line": 921
+    },
+    {
+      "id": "windows::SetFileAttributesTransactedA",
+      "name": "SetFileAttributesTransactedA",
+      "entity_type": "function",
+      "description": "将文件或目录的属性设置为事务处理操作。 (ANSI) SetFileAttributesTransactedW 将文件或目录的属性设置为事务处理操作。 (Unicode) SetFileBandwidthReservation 请求保留指定文件流的带宽。 预留指定为指定文件句柄上的 I/O 请求的字节数（以毫秒为单位）。 SetFileCompletionNotificationModes 设置文件句柄的通知模式，使你可以指定完成通知对指定文件的工作方式。 SetFileSecurityA",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 949
+    },
+    {
+      "id": "windows::setFileSecurityA",
+      "name": "setFileSecurityA",
+      "entity_type": "unknown",
+      "description": "ANSI) 函数 (winbase.h) 设置文件或目录对象的安全性。 SetFileShortNameA 设置指定文件的短名称。 (ANSI) SetFileShortNameW 设置指定文件的短名称。 (Unicode) SetFirmwareEnvironmentVariableA 设置指定固件环境变量的值。 (ANSI) SetFirmwareEnvironmentVariableExA 将指定的固件环境变量的值设置为指示如何存储和维护此变量的属性。 SetFirmwareEnvironmentVariableExW 设置指定固件环境变量的值以及指示如何存储和维护此变量的属性。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.3,
+      "_source_line": 959
+    },
+    {
+      "id": "windows::SetFirmwareEnvironmentVariableW",
+      "name": "SetFirmwareEnvironmentVariableW",
+      "entity_type": "function",
+      "description": "设置指定固件环境变量的值。 (Unicode) SetHandleCount",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "SetHandleCount"
+      ],
+      "confidence": 0.5,
+      "_source_line": 969
+    },
+    {
+      "id": "windows::SetHandleCount",
+      "name": "SetHandleCount",
+      "entity_type": "unknown",
+      "description": "函数更改进程可用的文件句柄数。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.25,
+      "_source_line": 972
+    },
+    {
+      "id": "windows::SetMailslotInfo",
+      "name": "SetMailslotInfo",
+      "entity_type": "unknown",
+      "description": "设置指定 mailslot 用于读取操作的超时值。 SetProcessAffinityMask 为指定进程的线程设置处理器关联掩码。 SetProcessDEPPolicy 更改 32 位进程的 DEP) 和 DEP-ATL thunk 仿真设置 (数据执行防护。 SetSearchPathMode 设置 SearchPath 函数在查找文件时使用的按进程模式。 SetSystemPowerState 通过关闭电源来挂起系统。 根据 ForceFlag 参数，函数会立即暂停操作，或者在执行此操作之前向 所有应用程序和设备驱动程序请求权限。 SetTapeParameters 指定磁带的块大小或配置磁带设备。 SetTapePosition 设置指定设备上的磁带位置。 SetThreadAffinityMask 为指定线程设置处理器关联掩码。 SetThreadExecutionState 使应用程序能够通知系统它正在使用中，从而防止系统在应用程序运行时进入睡眠状态或关闭显示器。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "SetProcessAffinityMask",
+        "SetTapeParameters",
+        "SetTapePosition",
+        "SetThreadAffinityMask"
+      ],
+      "confidence": 0.45,
+      "_source_line": 974
+    },
+    {
+      "id": "windows::SetThreadpoolCallbackCleanupGroup",
+      "name": "SetThreadpoolCallbackCleanupGroup",
+      "entity_type": "unknown",
+      "description": "将指定的清理组与指定的回调环境相关联。 (SetThreadpoolCallbackCleanupGroup) SetThreadpoolCallbackLibrary 确保只要有未完成的回调，指定的 DLL 就保持加载状态。 (SetThreadpoolCallbackLibrary) SetThreadpoolCallbackPersistent 指定回调应在持久线程上运行。 (SetThreadpoolCallbackPersistent)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "SetThreadpoolCallbackLibrary"
+      ],
+      "confidence": 0.45,
+      "_source_line": 994
+    },
+    {
+      "id": "windows::SetThreadpoolCallbackPool",
+      "name": "SetThreadpoolCallbackPool",
+      "entity_type": "unknown",
+      "description": "设置生成回调时要使用的线程池。 SetThreadpoolCallbackPriority 指定回调函数相对于同一线程池中其他工作项的优先级。 (SetThreadpoolCallbackPriority) SetThreadpoolCallbackRunsLong 指示与此回调环境关联的回调可能不会快速返回。 (SetThreadpoolCallbackRunsLong) SetUmsThreadInformation 为指定的用户模式计划设置应用程序特定的上下文信息， (UMS) 工作线程。 SetupComm 初始化指定通信设备的通信参数。 SetVolumeLabelA 设置文件系统卷的标签。 (ANSI) SetVolumeLabelW 设置文件系统卷的标签。 (Unicode) SetVolumeMountPointA 将卷与其他卷上的驱动器号或目录相关联。 (ANSI) SetVolumeMountPointW 将卷与其他卷上的驱动器号或目录相关联。 (Unicode) SetXStateFeaturesMask 设置在 CONTEXT 结构中设置的 XState 特征的掩码。 SwitchToFiber 计划光纤。 必须在光纤上调用函数。 TransmitCommChar 在指定通信设备的输出缓冲区中的任何挂起数据之前传输指定字符。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "SetThreadpoolCallbackRunsLong",
+        "SetUmsThreadInformation",
+        "SwitchToFiber"
+      ],
+      "confidence": 0.45,
+      "_source_line": 1002
+    },
+    {
+      "id": "windows::UmsThreadYield",
+      "name": "UmsThreadYield",
+      "entity_type": "unknown",
+      "description": "对运行调用 UMS 工作线程 (UMS) 计划程序线程的用户模式计划生成控制权。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 1027
+    },
+    {
+      "id": "windows::UnregisterApplicationRecoveryCallback",
+      "name": "UnregisterApplicationRecoveryCallback",
+      "entity_type": "callback",
+      "description": "从恢复列表中删除应用程序的活动实例。 UnregisterApplicationRestart 从重启列表中删除应用程序的活动实例。 UnregisterWait 取消 RegisterWaitForSingleObject 函数发出的已注册等待操作。 (UnregisterWait) UpdateResourceA 在可移植可执行文件 (PE) 文件中添加、删除或替换资源。 (ANSI) UpdateResourceW 在可移植可执行文件 (PE) 文件中添加、删除或替换资源。 (Unicode) VerifyVersionInfoA 将一组操作系统版本要求与当前正在运行的系统版本的相应值进行比较。 (ANSI) VerifyVersionInfoW 将一组操作系统版本要求与当前正在运行的系统版本的相应值进行比较。 (Unicode) WaitCommEvent 等待指定的通信设备发生事件。 此函数监视的事件集包含在与设备句柄关联的事件掩码中。 WaitNamedPipeA",
+      "syntax": "HRESULT UnregisterApplicationRecoveryCallback(); 返回值\n此函数返回 成功时S_OK 或以下错误代码之一。\n返回代码 E_FAIL",
+      "remarks": "说明 内部错误。 退出之前，无需调用此函数。 仅当你选择不恢复数据时，才需要删除注册。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "winbase.h",
+        "library": "Kernel32.lib",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "RegisterWaitForSingleObject",
+        "UnregisterApplicationRestart",
+        "UnregisterWait",
+        "UpdateResourceA",
+        "UpdateResourceW",
+        "WaitNamedPipeA"
+      ],
+      "confidence": 0.7,
+      "_source_line": 1030
+    },
+    {
+      "id": "windows::WaitNamedPipeA",
+      "name": "WaitNamedPipeA",
+      "entity_type": "function",
+      "description": "ANSI) 函数 (winbase.h) 等待，直到超时间隔过去或指定命名管道的实例可用于 连接 (，即管道的服务器进程在管道) 上具有挂起的 ConnectNamedPipe 操作。 WinExec 运行指定的应用程序。 WinMain 用户提供的基于 Windows 的图形应用程序的入口点。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "ConnectNamedPipe",
+        "WinExec",
+        "WinMain"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1047
+    },
+    {
+      "id": "windows::Wow64GetThreadSelectorEntry",
+      "name": "Wow64GetThreadSelectorEntry",
+      "entity_type": "unknown",
+      "description": "检索指定选择器和 WOW64 线程的描述符表条目。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 1054
+    },
+    {
+      "id": "windows::WriteEncryptedFileRaw",
+      "name": "WriteEncryptedFileRaw",
+      "entity_type": "unknown",
+      "description": "还原 (导入) 加密文件。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.25,
+      "_source_line": 1057
+    },
+    {
+      "id": "windows::WritePrivateProfileSectionA",
+      "name": "WritePrivateProfileSectionA",
+      "entity_type": "function",
+      "description": "替换初始化文件中指定节的键和值。 (ANSI) WritePrivateProfileSectionW 替换初始化文件中指定节的键和值。 (Unicode) WritePrivateProfileStringA 将字符串复制到初始化文件的指定节中。 (ANSI) WritePrivateProfileStringW 将字符串复制到初始化文件的指定节中。 (Unicode) WritePrivateProfileStructA 将数据复制到初始化文件的指定节中的键中。 在复制数据时，函数计算校验和并将其追加到数据末尾。 (ANSI)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1059
+    },
+    {
+      "id": "windows::WritePrivateProfileStructW",
+      "name": "WritePrivateProfileStructW",
+      "entity_type": "function",
+      "description": "将数据复制到初始化文件的指定节中的键中。 在复制数据时，函数计算校验和并将其追加到数据末尾。 (Unicode)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1070
+    },
+    {
+      "id": "windows::WriteProfileSectionA",
+      "name": "WriteProfileSectionA",
+      "entity_type": "function",
+      "description": "将 Win.ini 文件中指定节的内容替换为指定的键和值。 (ANSI) WriteProfileSectionW 将 Win.ini 文件中指定节的内容替换为指定的键和值。 (Unicode) WriteProfileStringA 将字符串复制到 Win.ini 文件的指定节中。 (ANSI) WriteProfileStringW 将字符串复制到 Win.ini 文件的指定节中。 (Unicode)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1073
+    },
+    {
+      "id": "windows::WriteTapemark",
+      "name": "WriteTapemark",
+      "entity_type": "unknown",
+      "description": "将指定数量的文件标记、集标记、短文件标记或长文件标记写入磁带设备。 WTSGetActiveConsoleSessionId 检索控制台会话的会话标识符。 ZombifyActCtx",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "ZombifyActCtx"
+      ],
+      "confidence": 0.45,
+      "_source_line": 1083
+    },
+    {
+      "id": "windows::ZombifyActCtx",
+      "name": "ZombifyActCtx",
+      "entity_type": "unknown",
+      "description": "函数会停用指定的激活上下文，但不会解除分配它。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.35,
+      "_source_line": 1089
+    },
+    {
+      "id": "windows::LPPROGRESS_ROUTINE",
+      "name": "LPPROGRESS_ROUTINE",
+      "entity_type": "callback",
+      "description": "与 CopyFileEx、MoveFileTransacted 和 MoveFileWithProgress 函数一起使用的应用程序定义的回调函数。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1091
+    },
+    {
+      "id": "windows::PCOPYFILE2_PROGRESS_ROUTINE",
+      "name": "PCOPYFILE2_PROGRESS_ROUTINE",
+      "entity_type": "callback",
+      "description": "与 CopyFile2 函数一起使用的应用程序定义的回调函数。 PFE_EXPORT_FUNC 与 ReadEncryptedFileRaw 一起使用的应用程序定义的回调函数。 PFE_IMPORT_FUNC 与 WriteEncryptedFileRaw 一起使用的应用程序定义的回调函数。 系统每次调用 ImportCallback 一 次或多次，以检索备份文件的一部分数据。 PFIBER_START_ROUTINE 与",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "PFIBER_START_ROUTINE",
+        "ReadEncryptedFileRaw",
+        "WriteEncryptedFileRaw"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1094
+    },
+    {
+      "id": "windows::COPYFILE2_EXTENDED_PARAMETERS",
+      "name": "COPYFILE2_EXTENDED_PARAMETERS",
+      "entity_type": "callback",
+      "description": "包含 CopyFile2 函数的扩展参数。 COPYFILE2_MESSAGE 传递给 CopyFile2ProgressRoutine 回调函数，其中包含有关挂起的复制操作的信息。 DCB 定义串行通信设备的控制设置。 EVENTLOG_FULL_INFORMATION 指示事件日志是否已满。 FILE_ALIGNMENT_INFO 包含文件的对齐信息。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1122
+    },
+    {
+      "id": "windows::FILE_ALLOCATION_INFO",
+      "name": "FILE_ALLOCATION_INFO",
+      "entity_type": "callback",
+      "description": "包含应为文件分配的字节总数。 FILE_ATTRIBUTE_TAG_INFO 接收请求的文件属性信息。 用于任何句柄。 FILE_BASIC_INFO 包含文件的基本信息。 用于文件句柄。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "FILE_BASIC_INFO"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1133
+    },
+    {
+      "id": "windows::FILE_COMPRESSION_INFO",
+      "name": "FILE_COMPRESSION_INFO",
+      "entity_type": "callback",
+      "description": "接收文件压缩信息。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 1140
+    },
+    {
+      "id": "windows::FILE_DISPOSITION_INFO",
+      "name": "FILE_DISPOSITION_INFO",
+      "entity_type": "callback",
+      "description": "指示是否应删除文件。 用于任何句柄。 FILE_END_OF_FILE_INFO 包含文件末尾应设置为的指定值。 FILE_FULL_DIR_INFO 包含文件的目录信息。 (FILE_FULL_DIR_INFO) FILE_ID_BOTH_DIR_INFO 包含有关指定目录中的文件的信息。 FILE_ID_DESCRIPTOR 指定正在使用的 ID 的类型。 FILE_ID_EXTD_DIR_INFO 包含文件的标识信息。 (FILE_ID_EXTD_DIR_INFO) FILE_ID_INFO 包含文件的标识信息。 (FILE_ID_INFO)",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "FILE_ID_DESCRIPTOR"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1142
+    },
+    {
+      "id": "windows::FILE_IO_PRIORITY_HINT_INFO",
+      "name": "FILE_IO_PRIORITY_HINT_INFO",
+      "entity_type": "callback",
+      "description": "指定文件 I/O 操作的优先级提示。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 1157
+    },
+    {
+      "id": "windows::FILE_REMOTE_PROTOCOL_INFO",
+      "name": "FILE_REMOTE_PROTOCOL_INFO",
+      "entity_type": "callback",
+      "description": "包含文件远程协议信息。 FILE_RENAME_INFO 包含文件应重命名为的名称。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1162
+    },
+    {
+      "id": "windows::FILE_STANDARD_INFO",
+      "name": "FILE_STANDARD_INFO",
+      "entity_type": "callback",
+      "description": "接收文件的扩展信息。 FILE_STORAGE_INFO 包含文件的目录信息。 (FILE_STORAGE_INFO) FILE_STREAM_INFO 接收指定文件的文件流信息。 HW_PROFILE_INFOA 包含有关硬件配置文件的信息。 (ANSI) HW_PROFILE_INFOW 包含有关硬件配置文件的信息。 (Unicode) MEMORYSTATUS 包含有关物理内存和虚拟内存的当前状态的信息。 OFSTRUCT 包含有关 OpenFile 函数打开或尝试打开的文件的信息。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "OpenFile"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1167
+    },
+    {
+      "id": "windows::OperationStart",
+      "name": "OperationStart",
+      "entity_type": "callback",
+      "description": "函数使用此结构。 STARTUPINFOEXA 指定新进程的窗口工作站、桌面、标准句柄和属性。 它与 CreateProcess 和 CreateProcessAsUser 函数一起使用。 (ANSI) STARTUPINFOEXW 指定新进程的窗口工作站、桌面、标准句柄和属性。 它与 CreateProcess 和 CreateProcessAsUser 函数一起使用。 (Unicode) SYSTEM_POWER_STATUS 包含有关系统电源状态的信息。 UMS_SCHEDULER_STARTUP_INFO 指定用户模式计划 (UMS) 计划程序线程的属性。 UMS_SYSTEM_THREAD_INFORMATION 指定 UMS 计划程序线程、UMS 工作线程或非 UMS 线程。 GetUmsSystemThreadInformation 函数使用此结构。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "CreateProcess",
+        "CreateProcessAsUser",
+        "GetUmsSystemThreadInformation",
+        "UMS_SCHEDULER_STARTUP_INFO"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1183
+    },
+    {
+      "id": "windows::COPYFILE2_COPY_PHASE",
+      "name": "COPYFILE2_COPY_PHASE",
+      "entity_type": "enum",
+      "description": "指示发生错误时副本的阶段。 COPYFILE2_MESSAGE_ACTION 由 CopyFile2ProgressRoutine 回调函数返回，用于指示应对挂起的复制操作采取什么操作。 COPYFILE2_MESSAGE_TYPE 指示在 COPYFILE2_MESSAGE 结构中传递给 CopyFile2ProgressRoutine 回调函数的消息的类型。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1201
+    },
+    {
+      "id": "windows::FILE_ID_DESCRIPTOR",
+      "name": "FILE_ID_DESCRIPTOR",
+      "entity_type": "enum",
+      "description": "结构中联合的鉴别器。",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 1208
+    },
+    {
+      "id": "windows::PRIORITY_HINT",
+      "name": "PRIORITY_HINT",
+      "entity_type": "enum",
+      "description": "定义与 FILE_IO_PRIORITY_HINT_INFO 结构一起使用的值，以指定文件 I/O 操作的优先级提示。反馈",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "FILE_IO_PRIORITY_HINT_INFO"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1210
+    },
+    {
+      "id": "windows::E_INVALIDARG",
+      "name": "E_INVALIDARG",
+      "entity_type": "enum",
+      "description": "注解 说明 内部错误;注册失败。 ping 间隔不能超过五分钟。 如果应用程序遇到未经处理的异常或变得无响应，Windows 错误报告 (WER) 调用指定的恢复回调。 应使用回调来保存数据和状态信息。 如果还调用 RegisterApplicationRestart 函数来请求 WER 重启应用程序，则可以使用该信息。 如果安装程序想要更新应用程序的组件，WER 不会调用恢复回调。 若要在更新案例中保存数据和状态信息，应处理 WM_QUERYENDSESSION 并 WM_ENDSESSION 消息。 有关详细信息，请 参阅每条消息。 响应这些消息的超时为 5 秒。 大部分可用恢复时间都位于有 30 秒 的 WM_CLOSE 消息中。 可更新的控制台应用程序使用CTRL_C_EVENT通知启动恢复 (有关详细信息，请参阅 HandlerRoutine 回调函数) 。 处理程序完成的超时为 30 秒。 应用程序应考虑定期保存数据和状态信息，以缩短恢复所需的时间。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "winbase.h",
+        "library": "Kernel32.lib",
+        "dll": "Kernel32.dll",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "RegisterApplicationRestart",
+        "WM_CLOSE",
+        "WM_QUERYENDSESSION"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1253
+    },
+    {
+      "id": "windows::GetApplicationRecoveryCallback",
+      "name": "GetApplicationRecoveryCallback",
+      "entity_type": "enum",
+      "description": "函数 检索指向为指定进程注册的回调例程的指针。 返回的地址位于进程的虚拟地址空间中。",
+      "syntax": "HRESULT GetApplicationRecoveryCallback(\n[in]  HANDLE                        hProcess,\n[out] APPLICATION_RECOVERY_CALLBACK *pRecoveryCallback,\n[out] PVOID                         *ppvParameter,   [out] PDWORD                        pdwPingInterval,\n[out] PDWORD                        pdwFlags);",
+      "parameters": [
+        {
+          "name": "hProcess",
+          "direction": "in",
+          "description": "进程的句柄。 此句柄必须具有PROCESS_VM_READ访问权限。[out] pRecoveryCallback 指向恢复回调函数的指针。 有关详细信息，请参阅 ApplicationRecoveryCallback。"
+        },
+        {
+          "name": "ppvParameter",
+          "direction": "out",
+          "description": "指向回调参数的指针。[out] pdwPingInterval 恢复 ping 间隔，以 100 纳秒间隔为单位。"
+        },
+        {
+          "name": "pdwFlags",
+          "direction": "out",
+          "description": "保留供将来使用。"
+        }
+      ],
+      "return_value": {
+        "description": "此函数返回 成功时S_OK 或以下错误代码之一。 返回代码 S_FALSE"
+      },
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1275
+    },
+    {
+      "id": "windows::HRESULT_FROM_WIN32",
+      "name": "HRESULT_FROM_WIN32",
+      "entity_type": "enum",
+      "description": "(ERROR_INSUFFICIENT_BUFFER) 。[out, optional] pdwFlags 指向变量的指针，该变量接收应用程序在调用 RegisterApplicationRestart 函数时指定的标志。",
+      "return_value": {
+        "description": "此函数在成功 时返回S_OK 或以下错误代码之一。 返回代码"
+      },
+      "remarks": "说明 一个或多个参数无效。应用程序未注册重启。 pwzCommandLine 缓冲区太小。 函数返回 pcchSize 中所需的缓冲区大小。 使用所需的大小重新分配缓冲区。 此信息仅适用于当前进程;重启程序以获取重启命令行后，无法调用此函数。 若要在重启后获取 命令行，请访问 main 函数的 argv 参数。示例 以下示例演示如何获取调用 RegisterApplicationRestart 函数时指定的重启设置。 C++ #include <windows.h>#include <stdio.h> void wmain(int argc, WCHAR* argv[]){ HRESULT hr = S_OK; WCHAR wsCommandLine[RESTART_MAX_CMD_LINE + 1]; DWORD cchCmdLine = sizeof(wsCommandLine) / sizeof(WCHAR); DWORD dwFlags = 0; LPWSTR pwsCmdLine = NULL;",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "ERROR_INSUFFICIENT_BUFFER",
+        "RegisterApplicationRestart"
+      ],
+      "confidence": 0.8,
+      "_source_line": 1321
+    },
+    {
+      "id": "windows::UNREFERENCED_PARAMETER",
+      "name": "UNREFERENCED_PARAMETER",
+      "entity_type": "enum",
+      "description": "(argv); UNREFERENCED_PARAMETER(argc);",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1343
+    },
+    {
+      "id": "windows::wprintf",
+      "name": "wprintf",
+      "entity_type": "enum",
+      "description": "L\"\\nGet settings using dynamic buffer...\\n\"); cchCmdLine = 0; // Returns S_OK instead of ERROR_INSUFFICIENT_BUFFER when pBuffer is NULL and size is 0. hr = GetApplicationRestartSettings(GetCurrentProcess(), (PWSTR)pwsCmdLine, &cchCmdLine, &dwFlags); if (SUCCEEDED(hr)) { pwsCmdLine = (LPWSTR)malloc(cchCmdLine * sizeof(WCHAR)); if (pwsCmdLine) { hr = GetApplicationRestartSettings(GetCurrentProcess(), (PWSTR)pwsCmdLine, &cchCmdLine, &dwFlags); if (FAILED(hr)) {",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "ERROR_INSUFFICIENT_BUFFER",
+        "GetApplicationRestartSettings",
+        "GetCurrentProcess"
+      ],
+      "confidence": 0.45,
+      "_source_line": 1344
+    },
+    {
+      "id": "windows::free",
+      "name": "free",
+      "entity_type": "enum",
+      "description": "pwsCmdLine);}",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.25,
+      "_source_line": 1375
+    },
+    {
+      "id": "windows::RegisterApplicationRestart",
+      "name": "RegisterApplicationRestart",
+      "entity_type": "enum",
+      "description": "Windows Vista [仅限桌面应用] Windows Server 2008 [仅限桌面应用] Windows winbase.h (包括 Windows.h) Kernel32.lib Kernel32.dll",
+      "syntax": "HRESULT RegisterApplicationRestart(\n[in, optional] PCWSTR pwzCommandline,\n[in]           DWORD  dwFlags);",
+      "parameters": [
+        {
+          "name": "pwzCommandline",
+          "direction": "in, optional",
+          "description": "指向 Unicode 字符串的指针，该字符串指定应用程序重启时应用程序的命令行参数。 可以指定的命令行的最大大小为 RESTART_MAX_CMD_LINE 个字符。 不要在命令行中包含可执行文件的名称;此函数会为你添加它。 如果此参数为 NULL 或空字符串，则会删除以前注册的命令行。 如果参数包含空格，请在 参数 周围使用引号。[in] dwFlags 此参数可以是 0 或以下一个或多个值。 值"
+        }
+      ],
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.8,
+      "_source_line": 1380
+    },
+    {
+      "id": "windows::ApplicationRecoveryCallback",
+      "name": "ApplicationRecoveryCallback",
+      "entity_type": "enum",
+      "description": "ApplicationRecoveryInProgress RegisterApplicationRestart",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "ApplicationRecoveryInProgress",
+        "RegisterApplicationRestart"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1429
+    },
+    {
+      "id": "windows::RESTART_NO_REBOOT",
+      "name": "RESTART_NO_REBOOT",
+      "entity_type": "enum",
+      "description": "8 含义 如果进程因未经处理的异常而终止，请不要重启。如果进程因应用程序未响应而终止，请不要重启。 如果进程因安装更新而终止，请不要重启。如果计算机因更新而重启，请不要重启进程。",
+      "return_value": {
+        "description": "此函数返回 成功时S_OK 或以下错误代码之一。 返回代码 E_FAIL"
+      },
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.8,
+      "_source_line": 1448
+    },
+    {
+      "id": "windows::WM_QUERYENDSESSION",
+      "name": "WM_QUERYENDSESSION",
+      "entity_type": "enum",
+      "description": "消息时。 对于正在更新的控制台应用程序，必须在安装程序尝试关闭应用程序之前进行注册， (需要使注册保持最新状态;处理CTRL_C_EVENT通知) 时，不能调用此函数。 如果注册重启，但应用程序遇到未经处理的异常或响应不响应，则向用户提供重启应用程序的机会;未经用户同意，应用程序不会自动重启。 但是，如果应用程序正在更新并且需要重启，则会自动重启应用程序。 为了防止循环重启，系统仅在应用程序运行至少 60 秒时重启。 请注意，对于在更新需要重启计算机时要重启的应用程序，安装程序必须调用设置了",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1464
+    },
+    {
+      "id": "windows::EWX_RESTARTAPPS",
+      "name": "EWX_RESTARTAPPS",
+      "entity_type": "enum",
+      "description": "标志的 ExitWindowsEx 函数或设置了 SHUTDOWN_RESTARTAPPS 标志的 InitiateShutdown 函数。",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [
+        "InitiateShutdown"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1468
+    },
+    {
+      "id": "windows::UnregisterApplicationRestart",
+      "name": "UnregisterApplicationRestart",
+      "entity_type": "enum",
+      "description": "值 winbase.h (包括 Windows.h) Kernel32.lib Kernel32.dll",
+      "header": "winbase.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1479
+    }
+  ]
+}

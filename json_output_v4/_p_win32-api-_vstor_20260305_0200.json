@@ -1,0 +1,3663 @@
+{
+  "_schema": "windows_api_kg_v4.0",
+  "_generated_at": "2026-03-05T08:07:24Z",
+  "_content_hash": "ebc8bf817e3f",
+  "document": {
+    "document_id": "win32-api::vstor",
+    "title": "虚拟存储",
+    "domain": "win32-api",
+    "topic": "vstor",
+    "source_file": "[OCR]_windows-win32-api-_vstor_20260305_0200.p.txt",
+    "ocr_timestamp": "2026-03-05T02:00:00",
+    "headers_referenced": [],
+    "total_entities": 233
+  },
+  "entities": [
+    {
+      "id": "windows::APPLY_SNAPSHOT_VHDSET_FLAG",
+      "name": "APPLY_SNAPSHOT_VHDSET_FLAG",
+      "entity_type": "enum",
+      "description": "包含影响 ApplySnapshotVhdSet 函数行为的标志。 APPLY_SNAPSHOT_VHDSET_VERSION 枚举 ApplySnapshotVhdSet 函数的参数的可能版本。",
+      "syntax": "typedef enum _APPLY_SNAPSHOT_VHDSET_FLAG {",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 10 [仅限桌面应用]"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPLY_SNAPSHOT_VHDSET_VERSION",
+        "ApplySnapshotVhdSet"
+      ],
+      "confidence": 0.85,
+      "_source_line": 5
+    },
+    {
+      "id": "windows::ATTACH_VIRTUAL_DISK_FLAG",
+      "name": "ATTACH_VIRTUAL_DISK_FLAG",
+      "entity_type": "enum",
+      "description": "枚举的值的有效组合。[in] ProviderSpecificFlags 特定于要附加的虚拟磁盘类型的标志。 如果不需要，可以为零。 [in, optional] Parameters 指向包含附件参数数据的有效 ATTACH_VIRTUAL_DISK_PARAMETERS 结构的指针。[in, optional] Overlapped 如果需要异步操作，则为指向有效 OVERLAPPED 结构的可选指针。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。",
+      "syntax": "typedef enum _ATTACH_VIRTUAL_DISK_FLAG {",
+      "remarks": "在本机 (模式下插入 SD 控制器的 VHD 或 SD (SD) 媒体上托管的 VHD 或 ISO 不支持",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "ATTACH_VIRTUAL_DISK_PARAMETERS",
+        "ERROR_SUCCESS",
+        "Overlapped"
+      ],
+      "confidence": 0.85,
+      "_source_line": 8
+    },
+    {
+      "id": "windows::ATTACH_VIRTUAL_DISK_VERSION",
+      "name": "ATTACH_VIRTUAL_DISK_VERSION",
+      "entity_type": "enum",
+      "description": "Version; union { struct { ULONG Reserved; } Version1; struct { ULONGLONG RestrictedOffset; ULONGLONG RestrictedLength; } Version2; }; }",
+      "syntax": "typedef enum _ATTACH_VIRTUAL_DISK_VERSION {",
+      "members": [
+        {
+          "name": "Version",
+          "description": "一个 ATTACH_VIRTUAL_DISK_VERSION 枚举，该枚举指定传递给 VHD 函数或从 VHD 函 数传递的 ATTACH_VIRTUAL_DISK_PARAMETERS 结构的版本。 Version1 具有以下成员的 结构。 Version1.Reserved 保留。 Version2 Version2.RestrictedOffset Version2.RestrictedLength 要求"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Version1",
+        "Version2"
+      ],
+      "confidence": 0.95,
+      "_source_line": 9
+    },
+    {
+      "id": "windows::COMPACT_VIRTUAL_DISK_FLAG",
+      "name": "COMPACT_VIRTUAL_DISK_FLAG",
+      "entity_type": "enum",
+      "description": "枚举 包含虚拟磁盘压缩请求标志。",
+      "syntax": "typedef enum _COMPACT_VIRTUAL_DISK_FLAG {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 12
+    },
+    {
+      "id": "windows::COMPACT_VIRTUAL_DISK_VERSION",
+      "name": "COMPACT_VIRTUAL_DISK_VERSION",
+      "entity_type": "enum",
+      "description": "Version; union { struct { ULONG Reserved; } Version1; }; } COMPACT_VIRTUAL_DISK_PARAMETERS, *PCOMPACT_VIRTUAL_DISK_PARAMETERS;",
+      "syntax": "typedef enum _COMPACT_VIRTUAL_DISK_VERSION {",
+      "members": [
+        {
+          "name": "Version",
+          "description": "一个COMPACT_VIRTUAL_DISK_VERSION枚举，指定传入或传递自 VHD 函数的"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "COMPACT_VIRTUAL_DISK_PARAMETERS",
+        "Version1"
+      ],
+      "confidence": 0.95,
+      "_source_line": 13
+    },
+    {
+      "id": "windows::CREATE_VIRTUAL_DISK_FLAG",
+      "name": "CREATE_VIRTUAL_DISK_FLAG",
+      "entity_type": "enum",
+      "description": "枚举 包含虚拟硬盘 (VHD) 创建标志。",
+      "syntax": "typedef enum _CREATE_VIRTUAL_DISK_FLAG {   CREATE_VIRTUAL_DISK_FLAG_NONE = 0x0,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 15
+    },
+    {
+      "id": "windows::CREATE_VIRTUAL_DISK_VERSION",
+      "name": "CREATE_VIRTUAL_DISK_VERSION",
+      "entity_type": "enum",
+      "description": "Version; union { struct { GUID UniqueId; ULONGLONG MaximumSize; ULONG BlockSizeInBytes; ULONG SectorSizeInBytes; PCWSTR ParentPath; PCWSTR SourcePath; } Version1; struct { GUID UniqueId; ULONGLONG MaximumSize; ULONG BlockSizeInBytes; ULONG SectorSizeInBytes; ULONG PhysicalSectorSizeInBytes; PCWSTR ParentPath; PCWSTR SourcePath; OPEN_VIRTUAL_DISK_FLAG OpenFlags;",
+      "syntax": "typedef enum _CREATE_VIRTUAL_DISK_VERSION {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "OPEN_VIRTUAL_DISK_FLAG",
+        "Version1"
+      ],
+      "confidence": 0.85,
+      "_source_line": 15
+    },
+    {
+      "id": "windows::DELETE_SNAPSHOT_VHDSET_FLAG",
+      "name": "DELETE_SNAPSHOT_VHDSET_FLAG",
+      "entity_type": "enum",
+      "description": "包含影响 DeleteSnapshotVhdSet 函数行为的标志。 DELETE_SNAPSHOT_VHDSET_VERSION 包含DELETE_SNAPHSOT_VHDSET_PARAMETERS结构的版本，用于对虚拟磁盘函数的调用。 DEPENDENT_DISK_FLAG 包含虚拟硬盘 (VHD) 依赖项信息标志。",
+      "syntax": "typedef enum _DELETE_SNAPSHOT_VHDSET_FLAG {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "DELETE_SNAPSHOT_VHDSET_VERSION",
+        "DEPENDENT_DISK_FLAG",
+        "DeleteSnapshotVhdSet"
+      ],
+      "confidence": 0.85,
+      "_source_line": 18
+    },
+    {
+      "id": "windows::DETACH_VIRTUAL_DISK_FLAG",
+      "name": "DETACH_VIRTUAL_DISK_FLAG",
+      "entity_type": "enum",
+      "description": "枚举的值的有效组合。[in] ProviderSpecificFlags 特定于要分离的虚拟磁盘类型的标志。 如果不需要，可以为零。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。",
+      "syntax": "typedef enum _DETACH_VIRTUAL_DISK_FLAG {",
+      "remarks": "如果 DetachVirtualDisk 函数失败，错误代码值为 ERROR_INVALID_PARAMETER，原因可能是以下任一情况造成的：",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "DetachVirtualDisk",
+        "ERROR_INVALID_PARAMETER",
+        "ERROR_SUCCESS"
+      ],
+      "confidence": 0.85,
+      "_source_line": 22
+    },
+    {
+      "id": "windows::EXPAND_VIRTUAL_DISK_FLAG",
+      "name": "EXPAND_VIRTUAL_DISK_FLAG",
+      "entity_type": "enum",
+      "description": "包含虚拟硬盘 (VHD) 扩展请求标志。 EXPAND_VIRTUAL_DISK_VERSION 包含要用于调用虚拟磁盘函数的虚拟磁盘EXPAND_VIRTUAL_DISK_PARAMETERS结构的版本。 GET_STORAGE_DEPENDENCY_FLAG 包含虚拟硬盘 (VHD) 存储依赖项请求标志。 GET_VIRTUAL_DISK_INFO_VERSION 包含可以检索的虚拟硬盘 (VHD) 信息的类型。 MERGE_VIRTUAL_DISK_FLAG 包含虚拟硬盘 (VHD) 合并请求标志。 MERGE_VIRTUAL_DISK_VERSION 包含虚拟硬盘的版本 (VHD) MERGE_VIRTUAL_DISK_PARAMETERS 结构，用于调用 VHD 函数。 MIRROR_VIRTUAL_DISK_FLAG 包含虚拟硬盘 (VHD) 镜像 请求标志。 MIRROR_VIRTUAL_DISK_VERSION 包含 MirrorVirtualDisk 函数使用的虚拟磁盘版本MIRROR_VIRTUAL_DISK_PARAMETERS结构。 MODIFY_VHDSET_FLAG 包含影响 ModifyVhdSet 函数行为的标志。 MODIFY_VHDSET_VERSION 包含MODIFY_VHDSET_PARAMETERS 结构的版本，用于对虚拟磁盘函数的调用。 OPEN_VIRTUAL_DISK_FLAG 包含虚拟硬盘 (VHD) 或 CD 或 DVD 映像文件 (ISO) 打开请求标志。 OPEN_VIRTUAL_DISK_VERSION 包含要用于调用虚拟磁盘函数的虚拟磁盘OPEN_VIRTUAL_DISK_PARAMETERS结构的版本。 RAW_SCSI_VIRTUAL_DISK_FLAG 包含影响 RawSCSIVirtualDisk 函数行为的标志。 RAW_SCSI_VIRTUAL_DISK_VERSION 包含RAW_SCSI_VIRTUAL_DISK_PARAMETERS结构的版本，用于对虚拟磁盘函数的调用。 RESIZE_VIRTUAL_DISK_FLAG 枚举 ResizeVirtualDisk 函数的可用标志。 RESIZE_VIRTUAL_DISK_VERSION 枚举 ResizeVirtualDisk 函数的参数的可能版本。 SET_VIRTUAL_DISK_INFO_VERSION 包含虚拟磁盘的版本SET_VIRTUAL_DISK_INFO结构，用于调用 VHD 函数。 STORAGE_DEPENDENCY_INFO_VERSION 包含虚拟硬盘的版本 (VHD) STORAGE_DEPENDENCY_INFO 结构，用于调用 VHD 函数。 TAKE_SNAPSHOT_VHDSET_FLAG 包含影响 TakeSnapshotVhdSet 函数行为的标志。 TAKE_SNAPSHOT_VHDSET_VERSION 枚举 TakeSnapshotVhdSet 函数的参数的可能版本。函数",
+      "syntax": "typedef enum _EXPAND_VIRTUAL_DISK_FLAG {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "EXPAND_VIRTUAL_DISK_VERSION",
+        "GET_STORAGE_DEPENDENCY_FLAG",
+        "GET_VIRTUAL_DISK_INFO_VERSION",
+        "MERGE_VIRTUAL_DISK_FLAG",
+        "MERGE_VIRTUAL_DISK_PARAMETERS",
+        "MERGE_VIRTUAL_DISK_VERSION",
+        "MIRROR_VIRTUAL_DISK_FLAG",
+        "MIRROR_VIRTUAL_DISK_VERSION",
+        "MODIFY_VHDSET_FLAG",
+        "MODIFY_VHDSET_VERSION",
+        "MirrorVirtualDisk",
+        "OPEN_VIRTUAL_DISK_FLAG",
+        "OPEN_VIRTUAL_DISK_VERSION",
+        "RAW_SCSI_VIRTUAL_DISK_FLAG",
+        "RAW_SCSI_VIRTUAL_DISK_VERSION",
+        "RESIZE_VIRTUAL_DISK_FLAG",
+        "RESIZE_VIRTUAL_DISK_VERSION",
+        "RawSCSIVirtualDisk",
+        "ResizeVirtualDisk",
+        "SET_VIRTUAL_DISK_INFO_VERSION",
+        "STORAGE_DEPENDENCY_INFO",
+        "STORAGE_DEPENDENCY_INFO_VERSION",
+        "TAKE_SNAPSHOT_VHDSET_FLAG",
+        "TAKE_SNAPSHOT_VHDSET_VERSION",
+        "TakeSnapshotVhdSet"
+      ],
+      "confidence": 0.85,
+      "_source_line": 22
+    },
+    {
+      "id": "windows::AddVirtualDiskParent",
+      "name": "AddVirtualDiskParent",
+      "entity_type": "function",
+      "description": "将父级附加到使用 OPEN_VIRTUAL_DISK_FLAG_CUSTOM_DIFF_CHAIN 标志打开的虚拟磁盘。 ApplySnapshotVhdSet 为 VHD 集文件应用当前虚拟磁盘的快照。 AttachVirtualDisk 通过查找相应的 VHD 提供程序来完成附件， (ISO) 附加虚拟硬盘 (VHD) 或 CD 或 DVD 映像文件。 BreakMirrorVirtualDisk 中断以前启动镜像操作，并将镜像设置为活动虚拟磁盘。 CompactVirtualDisk 减小虚拟硬盘 (VHD) 备份存储文件的大小。 CreateVirtualDisk 使用默认参数或使用现有虚拟磁盘或物理磁盘 (VHD) 映像文件创建虚拟硬盘。 DeleteSnapshotVhdSet 从 VHD 集文件中删除快照。 DeleteVirtualDiskMetadata 从虚拟磁盘中删除元数据。 DetachVirtualDisk 通过查找适当的虚拟磁盘提供程序来完成操作， (ISO) 分离虚拟硬盘 (VHD) 或 CD 或 DVD 映像文件。",
+      "syntax": "DWORD AddVirtualDiskParent(\n[in] HANDLE VirtualDiskHandle,\n[in] PCWSTR ParentPath);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "虚拟磁盘的句柄。[in] ParentPath 字符串的地址，其中包含要添加为父级的虚拟硬盘映像的有效路径。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+        }
+      ],
+      "remarks": "这会将指定的父虚拟硬盘添加到指定虚拟硬盘的差异链的头。 如果差异链扩展到父级之外，则 可以重复调用此函数以将其他父级添加到差异链。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "ApplySnapshotVhdSet",
+        "AttachVirtualDisk",
+        "BreakMirrorVirtualDisk",
+        "CompactVirtualDisk",
+        "CreateVirtualDisk",
+        "DeleteSnapshotVhdSet",
+        "DeleteVirtualDiskMetadata",
+        "DetachVirtualDisk",
+        "OPEN_VIRTUAL_DISK_FLAG_CUSTOM_DIFF_CHAIN"
+      ],
+      "confidence": 0.8,
+      "_source_line": 45
+    },
+    {
+      "id": "windows::EnumerateVirtualDiskMetadata",
+      "name": "EnumerateVirtualDiskMetadata",
+      "entity_type": "function",
+      "description": "枚举与虚拟磁盘关联的元数据。 ExpandVirtualDisk 增加固定或动态扩展虚拟硬盘的大小 (VHD) 。 GetStorageDependencyInformation 返回虚拟硬盘 (VHD) 、CD 或 DVD 映像文件 (ISO) ，或者这些磁盘及其父磁盘或卷中包含的卷之间的关系。",
+      "syntax": "DWORD EnumerateVirtualDiskMetadata(   [in]      HANDLE VirtualDiskHandle,   [in, out] PULONG NumberOfItems,\n[out]     GUID   *Items);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的虚拟磁盘的句柄。[in, out] NumberOfItems ULONG 的地址。 输入时，该值指示 Items 参数指向的缓冲区中的元素数。 输出时，值包含检索到的项数。 如果缓冲区太小，API 将失败并返回 ERROR_INSUFFICIENT_BUFFER 并且 ULONG 将包含所需的缓冲区大小。[out] Items 要用表示元数据的 GUID填充的缓冲区的地址。 GetVirtualDiskMetadata 函数可用于检索每个 GUID 表示的数据。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果 Items 参数指向的缓冲区太小，则返回值 ERROR_INSUFFICIENT_BUFFER。如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。 要求"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "ExpandVirtualDisk",
+        "GetStorageDependencyInformation"
+      ],
+      "confidence": 0.8,
+      "_source_line": 54
+    },
+    {
+      "id": "windows::GetVirtualDiskInformation",
+      "name": "GetVirtualDiskInformation",
+      "entity_type": "function",
+      "description": "检索有关 VHD 的信息。 GetVirtualDiskMetadata 从虚拟磁盘检索指定的元数据。 GetVirtualDiskOperationProgress 检查异步虚拟硬盘 (VHD) 操作的进度。 GetVirtualDiskPhysicalPath 检索物理设备对象的路径，该对象包含虚拟硬盘 (VHD) 或 CD 或 DVD 映像文件 (ISO) 。 MergeVirtualDisk 将差异链中的子虚拟硬盘 (VHD) 与链中的一个或多个父虚拟磁盘合并。 MirrorVirtualDisk 为虚拟磁盘启动镜像操作。 ModifyVhdSet 修改虚拟磁盘文件的内部内容。 可用于设置活动叶，或修复快照条目。 OpenVirtualDisk (ISO) 打开虚拟硬盘 (VHD) 或 CD 或 DVD 映像文件以供使用。 QueryChangesVirtualDisk 检索有关虚拟硬盘的指定区域更改的信息， (VHD) 由可复原更改跟踪 (RCT) 跟踪。 RawSCSIVirtualDisk 直接向虚拟硬盘发出嵌入式 SCSI 请求。 ResizeVirtualDisk 调整虚拟磁盘的大小。 SetVirtualDiskInformation 设置有关虚拟硬盘的信息 (VHD) 。 SetVirtualDiskMetadata 设置虚拟磁盘的元数据项。 TakeSnapshotVhdSet 为 VHD 集文件创建当前虚拟磁盘的快照。",
+      "syntax": "DWORD GetVirtualDiskInformation(\n[in]                HANDLE                 VirtualDiskHandle,   [in, out]           PULONG                 VirtualDiskInfoSize,   [in, out]           PGET_VIRTUAL_DISK_INFO VirtualDiskInfo,\n[in, out, optional] PULONG                 SizeUsed);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的 VHD 的句柄，该句柄必须已使用 OpenVirtualDisk 函数的 VirtualDiskAccessMask 参数中设置的 VIRTUAL_DISK_ACCESS_GET_INFO 标志打开。 有关如何打开 VHD 的信 息，请参阅 OpenVirtualDisk 函数。[in, out] VirtualDiskInfoSize 指向包含 VirtualDiskInfo 参数大小的 ULONG 的指针。[in, out] VirtualDiskInfo 指向有效 GET_VIRTUAL_DISK_INFO 结构的指针。 返回的数据的格式取决于调用方在 Version 成员中传递的值。"
+        },
+        {
+          "name": "SizeUsed",
+          "direction": "in, out, optional",
+          "description": "指向包含所用大小的 ULONG 的指针。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS 并且 VirtualDiskInfo 参数包含请求的信息。如果函数失败，则返回值为错误代码， 并且 VirtualDiskInfo 参数未定义。 有关详细信 息，请参阅 系统错误代码。"
+        }
+      ],
+      "remarks": "只要使用 VIRTUAL_DISK_ACCESS_GET_INFO 标志打开句柄，就可以在任何有效的 VirtualDiskHandle 上调用 GetVirtualDiskInformation 函数。 VHD 不需要是附加磁盘。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetVirtualDiskMetadata",
+        "GetVirtualDiskOperationProgress",
+        "GetVirtualDiskPhysicalPath",
+        "MergeVirtualDisk",
+        "MirrorVirtualDisk",
+        "OpenVirtualDisk",
+        "QueryChangesVirtualDisk",
+        "RawSCSIVirtualDisk",
+        "ResizeVirtualDisk",
+        "SetVirtualDiskInformation",
+        "SetVirtualDiskMetadata",
+        "TakeSnapshotVhdSet",
+        "VirtualDiskHandle"
+      ],
+      "confidence": 0.8,
+      "_source_line": 58
+    },
+    {
+      "id": "windows::APPLY_SNAPSHOT_VHDSET_PARAMETERS",
+      "name": "APPLY_SNAPSHOT_VHDSET_PARAMETERS",
+      "entity_type": "struct",
+      "description": "包含快照参数，指示有关要应用的新快照的信息。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 74
+    },
+    {
+      "id": "windows::ATTACH_VIRTUAL_DISK_PARAMETERS",
+      "name": "ATTACH_VIRTUAL_DISK_PARAMETERS",
+      "entity_type": "struct",
+      "description": "包含虚拟硬盘 (VHD) 附加请求参数。 COMPACT_VIRTUAL_DISK_PARAMETERS 包含虚拟硬盘 (VHD) 压缩参数。",
+      "syntax": "typedef struct _ATTACH_VIRTUAL_DISK_PARAMETERS {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "COMPACT_VIRTUAL_DISK_PARAMETERS"
+      ],
+      "confidence": 0.85,
+      "_source_line": 76
+    },
+    {
+      "id": "windows::CREATE_VIRTUAL_DISK_PARAMETERS",
+      "name": "CREATE_VIRTUAL_DISK_PARAMETERS",
+      "entity_type": "struct",
+      "description": "包含虚拟硬盘 (VHD) 创建参数，提供对新创建的虚拟磁盘的控制和相关信息。 DELETE_SNAPSHOT_VHDSET_PARAMETERS 包含快照删除参数，指定要从 VHD 集中删除哪些快照。",
+      "syntax": "typedef struct _CREATE_VIRTUAL_DISK_PARAMETERS {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 77
+    },
+    {
+      "id": "windows::EXPAND_VIRTUAL_DISK_PARAMETERS",
+      "name": "EXPAND_VIRTUAL_DISK_PARAMETERS",
+      "entity_type": "struct",
+      "description": "结构的版本。 Version1 如果 Version 成员 EXPAND_VIRTUAL_DISK_VERSION_1 ( 1) ，则使用此结构。 Version1.NewSize 扩展请求的新大小（以字节为单位）。",
+      "syntax": "typedef struct _EXPAND_VIRTUAL_DISK_PARAMETERS {",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 7"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "EXPAND_VIRTUAL_DISK_VERSION_1",
+        "Version1"
+      ],
+      "confidence": 0.85,
+      "_source_line": 80
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO",
+      "name": "GET_VIRTUAL_DISK_INFO",
+      "entity_type": "struct",
+      "description": "结构的版本。 这决定了将使用此结构的哪些部分。 Size 具有以下成员的 结构。 将 Version 成员设置为 GET_VIRTUAL_DISK_INFO_SIZE。 Size.VirtualSize 虚拟磁盘的虚拟大小（以字节为单位）。 Size.PhysicalSize 物理磁盘上虚拟磁盘的物理大小（以字节为单位）。 Size.BlockSize 虚拟磁盘的块大小（以字节为单位）。 Size.SectorSize 虚拟磁盘的扇区大小（以字节为单位）。 Identifier 虚拟磁盘的唯一标识符。 将 Version 成员设置为",
+      "syntax": "typedef struct _GET_VIRTUAL_DISK_INFO {   GET_VIRTUAL_DISK_INFO_VERSION Version;   union {\nstruct {\nULONGLONG VirtualSize;       ULONGLONG PhysicalSize;\nULONG     BlockSize;       ULONG     SectorSize;     } Size;\nGUID                 Identifier;     struct {\nBOOL  ParentResolved;\nWCHAR ParentLocationBuffer[1];     } ParentLocation;\nGUID                 ParentIdentifier;     ULONG                ParentTimestamp;",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "GET_VIRTUAL_DISK_INFO_SIZE"
+      ],
+      "confidence": 0.85,
+      "_source_line": 81
+    },
+    {
+      "id": "windows::MERGE_VIRTUAL_DISK_PARAMETERS",
+      "name": "MERGE_VIRTUAL_DISK_PARAMETERS",
+      "entity_type": "struct",
+      "description": "包含虚拟硬盘 (VHD) 合并请求参数。 MIRROR_VIRTUAL_DISK_PARAMETERS 包含虚拟硬盘 (VHD) 镜像 请求参数。",
+      "syntax": "typedef struct _MERGE_VIRTUAL_DISK_PARAMETERS {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "MIRROR_VIRTUAL_DISK_PARAMETERS"
+      ],
+      "confidence": 0.85,
+      "_source_line": 82
+    },
+    {
+      "id": "windows::MODIFY_VHDSET_PARAMETERS",
+      "name": "MODIFY_VHDSET_PARAMETERS",
+      "entity_type": "struct",
+      "description": "结构 包含 VHD 集修改参数，指示应如何更改 VHD 集。",
+      "syntax": "typedef struct _MODIFY_VHDSET_PARAMETERS {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 82
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_PARAMETERS",
+      "name": "OPEN_VIRTUAL_DISK_PARAMETERS",
+      "entity_type": "struct",
+      "description": "结 包含虚拟磁盘打开请求参数。",
+      "syntax": "typedef struct _OPEN_VIRTUAL_DISK_PARAMETERS {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 85
+    },
+    {
+      "id": "windows::QUERY_CHANGES_VIRTUAL_DISK_RANGE",
+      "name": "QUERY_CHANGES_VIRTUAL_DISK_RANGE",
+      "entity_type": "struct",
+      "description": "标识虚拟硬盘 (VHD) 上已更改的区域，该区域已由可复原更改跟踪 (RCT) 跟踪。 RAW_SCSI_VIRTUAL_DISK_PARAMETERS 包含原始 SCSI 虚拟磁盘请求参数。 RAW_SCSI_VIRTUAL_DISK_RESPONSE 包含原始 SCSI 虚拟磁盘响应参数。 RESIZE_VIRTUAL_DISK_PARAMETERS 包含 ResizeVirtualDisk 函数的参数。 SET_VIRTUAL_DISK_INFO 包含虚拟硬盘 (VHD) 信息，在调用 SetVirtualDiskInformation 函数来设置 VHD 属性时要使用的信息。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "library": "VirtDisk.lib",
+        "dll": "VirtDisk.dll",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "RAW_SCSI_VIRTUAL_DISK_PARAMETERS",
+        "RAW_SCSI_VIRTUAL_DISK_RESPONSE",
+        "RESIZE_VIRTUAL_DISK_PARAMETERS",
+        "ResizeVirtualDisk",
+        "SET_VIRTUAL_DISK_INFO",
+        "SetVirtualDiskInformation"
+      ],
+      "confidence": 0.75,
+      "_source_line": 86
+    },
+    {
+      "id": "windows::STORAGE_DEPENDENCY_INFO",
+      "name": "STORAGE_DEPENDENCY_INFO",
+      "entity_type": "struct",
+      "description": "包含虚拟硬盘 (VHD) 存储依赖项信息。 STORAGE_DEPENDENCY_INFO_TYPE_1 包含虚拟硬盘 (VHD) 类型 1 的存储依赖项信息。 STORAGE_DEPENDENCY_INFO_TYPE_2 包含类型 2 的 VHD 或 ISO 存储依赖项信息。 TAKE_SNAPSHOT_VHDSET_PARAMETERS 包含快照参数，指示有关要创建的新快照的信息。 VIRTUAL_DISK_PROGRESS 包含 GetVirtualDiskOperationProgress 函数使用的当前虚拟硬盘 (VHD) 操作的进度和结果数据。 VIRTUAL_STORAGE_TYPE 包含虚拟存储设备的类型和提供程序 (供应商) 。",
+      "syntax": "typedef struct _STORAGE_DEPENDENCY_INFO {   STORAGE_DEPENDENCY_INFO_VERSION Version;\nULONG                           NumberEntries;   union {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetVirtualDiskOperationProgress",
+        "STORAGE_DEPENDENCY_INFO_TYPE_1",
+        "STORAGE_DEPENDENCY_INFO_TYPE_2",
+        "VIRTUAL_DISK_PROGRESS",
+        "VIRTUAL_STORAGE_TYPE"
+      ],
+      "confidence": 0.85,
+      "_source_line": 90
+    },
+    {
+      "id": "windows::DetachVirtualDisk",
+      "name": "DetachVirtualDisk",
+      "entity_type": "function",
+      "description": "通过查找适当的虚拟磁盘提供程序来完成操作， (VHD) 或 CD 或 DVD 映像文件 (ISO) 分离虚拟硬盘。",
+      "syntax": "DWORD DetachVirtualDisk(\n[in] HANDLE                   VirtualDiskHandle,   [in] DETACH_VIRTUAL_DISK_FLAG Flags,\n[in] ULONG                    ProviderSpecificFlags);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的虚拟磁盘的句柄，该句柄必须已使用 OpenVirtualDisk 函数的"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.8,
+      "_source_line": 117
+    },
+    {
+      "id": "windows::QueryChangesVirtualDisk",
+      "name": "QueryChangesVirtualDisk",
+      "entity_type": "function",
+      "description": "检索有关虚拟硬盘的指定区域更改的信息， (VHD) 由可复原更改跟踪 (RCT) 跟踪。 RawSCSIVirtualDisk 直接向虚拟硬盘发出嵌入式 SCSI 请求。 ResizeVirtualDisk 调整虚拟磁盘的大小。 SetVirtualDiskInformation 设置有关虚拟硬盘的信息 (VHD) 。 SetVirtualDiskMetadata 设置虚拟磁盘的元数据项。 TakeSnapshotVhdSet 为 VHD 集文件创建当前虚拟磁盘的快照。",
+      "syntax": "DWORD QueryChangesVirtualDisk(\n[in]      HANDLE                            VirtualDiskHandle,   [in]      PCWSTR                            ChangeTrackingId,\n[in]      ULONG64                           ByteOffset,   [in]      ULONG64                           ByteLength,\n[in]      QUERY_CHANGES_VIRTUAL_DISK_FLAG   Flags,   [out]     PQUERY_CHANGES_VIRTUAL_DISK_RANGE Ranges,\n[in, out] PULONG                            RangeCount,\n[out]     PULONG64                          ProcessedLength);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的 VHD 的句柄，该句柄必须已使用 OpenVirtualDisk 函数的 VirtualDiskAccessMask 参数中设置的 VIRTUAL_DISK_ACCESS_GET_INFO 标志打开。 有关如何打开 VHD 的信 息，请参阅 OpenVirtualDisk 函数。[in] ChangeTrackingId 指向字符串的指针，该字符串指定更改跟踪标识符，该更改标识要用作比较基础的虚拟磁 盘的状态，以确定 VHD 的指定区域是否已更改。[in] ByteOffset 一个无符号长整数，指定从 VHD 开始到要检查更改的 VHD 区域开头的距离（以字节为单位）。"
+        },
+        {
+          "name": "ByteLength",
+          "direction": "in",
+          "description": "一个无符号长整数，指定要检查更改的 VHD 区域的长度（以字节为单位）。[in] Flags 保留。 设置为 QUERY_CHANGES_VIRTUAL_DISK_FLAG_NONE。[out] Ranges 一个QUERY_CHANGES_VIRTUAL_DISK_RANGE结构数组，指示自 ChangeTrackingId 参数指定的更改跟踪标识符密封以来，ByteOffset 和 ByteLength 参数指定的区域中已更改的虚拟磁盘区域。"
+        },
+        {
+          "name": "RangeCount",
+          "direction": "in, out",
+          "description": "无符号长整数的地址。 输入时， 值指示 Ranges 参数指向的数组可以容纳的"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "RawSCSIVirtualDisk",
+        "ResizeVirtualDisk",
+        "SetVirtualDiskInformation",
+        "SetVirtualDiskMetadata",
+        "TakeSnapshotVhdSet"
+      ],
+      "confidence": 0.8,
+      "_source_line": 131
+    },
+    {
+      "id": "windows::STORAGE_DEPENDENCY_INFO_TYPE_1",
+      "name": "STORAGE_DEPENDENCY_INFO_TYPE_1",
+      "entity_type": "struct",
+      "description": "包含虚拟硬盘 (VHD) 类型 1 的存储依赖项信息。 STORAGE_DEPENDENCY_INFO_TYPE_2 包含类型 2 的 VHD 或 ISO 存储依赖项信息。 TAKE_SNAPSHOT_VHDSET_PARAMETERS 包含快照参数，指示有关要创建的新快照的信息。 VIRTUAL_DISK_PROGRESS 包含 GetVirtualDiskOperationProgress 函数使用的当前虚拟硬盘 (VHD) 操作的进度和结果数据。 VIRTUAL_STORAGE_TYPE 包含虚拟存储设备的类型和提供程序 (供应商) 。",
+      "syntax": "typedef struct _STORAGE_DEPENDENCY_INFO_TYPE_1 {",
+      "members": [
+        {
+          "name": "Version",
+          "description": ""
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetVirtualDiskOperationProgress",
+        "STORAGE_DEPENDENCY_INFO_TYPE_2",
+        "VIRTUAL_DISK_PROGRESS",
+        "VIRTUAL_STORAGE_TYPE"
+      ],
+      "confidence": 0.95,
+      "_source_line": 158
+    },
+    {
+      "id": "windows::TAKE_SNAPSHOT_VHDSET_VERSION",
+      "name": "TAKE_SNAPSHOT_VHDSET_VERSION",
+      "entity_type": "enum",
+      "description": "Version; union { struct { GUID SnapshotId; } Version1; }; } TAKE_SNAPSHOT_VHDSET_PARAMETERS, *PTAKE_SNAPSHOT_VHDSET_PARAMETERS;",
+      "syntax": "typedef enum _TAKE_SNAPSHOT_VHDSET_VERSION {",
+      "members": [
+        {
+          "name": "Version",
+          "description": "来自TAKE_SNAPSHOT_VHDSET_VERSION枚举的值，该值是联合的判别函数。 Version1 具有以下成员的结构。 Version1.SnapshotId 要添加到 Vhd 集的新快照的 ID。"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "SnapshotId",
+        "Version1"
+      ],
+      "confidence": 0.95,
+      "_source_line": 202
+    },
+    {
+      "id": "windows::VIRTUAL_DISK_ACCESS_MASK",
+      "name": "VIRTUAL_DISK_ACCESS_MASK",
+      "entity_type": "enum",
+      "description": "包含用于指定虚拟硬盘 (VHD) 或 CD 或 DVD 映像文件 (ISO) 的访问 权限的位掩码。反馈",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 204
+    },
+    {
+      "id": "windows::APPLY_SNAPSHOT_VHDSET_FLAG_NONE",
+      "name": "APPLY_SNAPSHOT_VHDSET_FLAG_NONE",
+      "entity_type": "enum",
+      "description": "值： 0x00000000 未指定标志。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 241
+    },
+    {
+      "id": "windows::APPLY_SNAPSHOT_VHDSET_FLAG_WRITEABLE",
+      "name": "APPLY_SNAPSHOT_VHDSET_FLAG_WRITEABLE",
+      "entity_type": "enum",
+      "description": "= 0x00000001 } APPLY_SNAPSHOT_VHDSET_FLAG, *PAPPLY_SNAPSHOT_VHDSET_FLAG; 常量",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPLY_SNAPSHOT_VHDSET_FLAG"
+      ],
+      "confidence": 0.75,
+      "_source_line": 242
+    },
+    {
+      "id": "windows::APPLY_SNAPSHOT_VHDSET_PARAMETE",
+      "name": "APPLY_SNAPSHOT_VHDSET_PARAMETE",
+      "entity_type": "enum",
+      "description": "包含快照参数，指示有关要应用的新快照的信息。",
+      "syntax": "typedef struct _APPLY_SNAPSHOT_VHDSET_PARAMETERS {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 263
+    },
+    {
+      "id": "windows::APPLY_SNAPSHOT_VHDSET_VERSION",
+      "name": "APPLY_SNAPSHOT_VHDSET_VERSION",
+      "entity_type": "enum",
+      "description": "Version; union { struct { GUID SnapshotId; GUID LeafSnapshotId; } Version1; }; } APPLY_SNAPSHOT_VHDSET_PARAMETERS, *PAPPLY_SNAPSHOT_VHDSET_PARAMETERS;",
+      "syntax": "typedef enum _APPLY_SNAPSHOT_VHDSET_VERSION {",
+      "members": [
+        {
+          "name": "Version",
+          "description": "一个APPLY_SNAPSHOT_VHDSET_VERSION枚举，用于指定要传递到 VHD 函数或从 VHD 函数传递APPLY_SNAPSHOT_VHDSET_PARAMETERS结构的版本。 Version1 具有以下成员的结构。 Version1.SnapshotId 要应用于 VHD 集的新快照的 ID。 Version1.LeafSnapshotId 指示在应用操作过程中是否应保留当前默认叶数据。 指定零 GUID 时，应用操作将放弃当前默认叶数据。 指定非零 GUID 时，应用操作会将默认叶数据转换为具有指定 ID 的可写快照。"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPLY_SNAPSHOT_VHDSET_PARAMETERS",
+        "SnapshotId",
+        "Version1"
+      ],
+      "confidence": 0.95,
+      "_source_line": 268
+    },
+    {
+      "id": "windows::APPLY_SNAPSHOT_VHDSET_VERSION_1",
+      "name": "APPLY_SNAPSHOT_VHDSET_VERSION_1",
+      "entity_type": "enum",
+      "description": "= 1} APPLY_SNAPSHOT_VHDSET_VERSION;",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPLY_SNAPSHOT_VHDSET_VERSION"
+      ],
+      "confidence": 0.65,
+      "_source_line": 296
+    },
+    {
+      "id": "windows::ApplySnapshotVhdSet",
+      "name": "ApplySnapshotVhdSet",
+      "entity_type": "constant",
+      "description": "为 VHD 集文件应用当前虚拟磁盘的快照。",
+      "syntax": "DWORD ApplySnapshotVhdSet(\n[in] HANDLE                                  VirtualDiskHandle,   [in] const PAPPLY_SNAPSHOT_VHDSET_PARAMETERS Parameters,\n[in] APPLY_SNAPSHOT_VHDSET_FLAG              Flags);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的虚拟磁盘的句柄。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。[in] Parameters 指向包含快照数据的有效APPLY_SNAPSHOT_VHDSET_PARAMETERS结构的指针。[in] Flags"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 317
+    },
+    {
+      "id": "windows::ATTACH_VIRTUAL_DISK_FLAG_NONE",
+      "name": "ATTACH_VIRTUAL_DISK_FLAG_NONE",
+      "entity_type": "constant",
+      "description": "值： 0x00000000 无标志。 使用系统默认值。 ISO 虚拟磁盘不支持此枚举值。 必须指定ATTACH_VIRTUAL_DISK_FLAG_READ_ONLY。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 352
+    },
+    {
+      "id": "windows::ATTACH_VIRTUAL_DISK_FLAG_READ_ONLY",
+      "name": "ATTACH_VIRTUAL_DISK_FLAG_READ_ONLY",
+      "entity_type": "constant",
+      "description": "值： 0x00000001 将虚拟磁盘附加为只读。 Windows 7 和 Windows Server 2008 R2： 在 Windows 8 和 之前，打开 ISO 虚拟磁盘不支持此标志 Windows Server 2012。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 353
+    },
+    {
+      "id": "windows::ATTACH_VIRTUAL_DISK_FLAG_NO_DRIVE_LETTER",
+      "name": "ATTACH_VIRTUAL_DISK_FLAG_NO_DRIVE_LETTER",
+      "entity_type": "constant",
+      "description": "值： 0x00000002 不会将驱动器号分配给磁盘的卷。 Windows 7 和 Windows Server 2008 R2： 在 Windows 8 和 之前，打开 ISO 虚拟磁盘不支持此标志 Windows Server 2012。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 354
+    },
+    {
+      "id": "windows::ATTACH_VIRTUAL_DISK_FLAG_PERMANENT_LIFETIME",
+      "name": "ATTACH_VIRTUAL_DISK_FLAG_PERMANENT_LIFETIME",
+      "entity_type": "constant",
+      "description": "，则将在关闭最后一个打开的句柄时自动分离虚拟磁盘。 如果找不到提供程序、映像文件无效、未附加映像或调用方在 Windows Server 操作系统上没有 SE_MANAGE_VOLUME_PRIVILEGE 访问权限，则此函数将失败。 有关文件安全性的详细信息，请参阅 文件安全性和访问权限。 在 Windows 8 和 Windows Server 2012 之前，不支持 (ISO) 的 CD 和 DVD 映像文件。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 355
+    },
+    {
+      "id": "windows::ATTACH_VIRTUAL_DISK_FLAG_NO_SECURITY_DESCRIPTOR",
+      "name": "ATTACH_VIRTUAL_DISK_FLAG_NO_SECURITY_DESCRIPTOR",
+      "entity_type": "constant",
+      "description": "= 0x00000010,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 356
+    },
+    {
+      "id": "windows::ATTACH_VIRTUAL_DISK_FLAG_BYPASS_DEFAULT_ENCRYPTION_POLICY",
+      "name": "ATTACH_VIRTUAL_DISK_FLAG_BYPASS_DEFAULT_ENCRYPTION_POLICY",
+      "entity_type": "constant",
+      "description": "= 0x00000020, ATTACH_VIRTUAL_DISK_FLAG_NON_PNP,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 357
+    },
+    {
+      "id": "windows::ATTACH_VIRTUAL_DISK_FLAG_RESTRICTED_RANGE",
+      "name": "ATTACH_VIRTUAL_DISK_FLAG_RESTRICTED_RANGE",
+      "entity_type": "constant",
+      "description": ", ATTACH_VIRTUAL_DISK_FLAG_SINGLE_PARTITION, ATTACH_VIRTUAL_DISK_FLAG_REGISTER_VOLUME,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 358
+    },
+    {
+      "id": "windows::ATTACH_VIRTUAL_DISK_FLAG_AT_BOOT",
+      "name": "ATTACH_VIRTUAL_DISK_FLAG_AT_BOOT",
+      "entity_type": "constant",
+      "description": "} ATTACH_VIRTUAL_DISK_FLAG;",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "ATTACH_VIRTUAL_DISK_FLAG"
+      ],
+      "confidence": 0.65,
+      "_source_line": 359
+    },
+    {
+      "id": "windows::ATTACH_VIRTUAL_DISK_FLAG_NO_LOCAL_HOST",
+      "name": "ATTACH_VIRTUAL_DISK_FLAG_NO_LOCAL_HOST",
+      "entity_type": "constant",
+      "description": "值： 0x00000008 保留。 ISO 虚拟磁盘不支持此标志。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 378
+    },
+    {
+      "id": "windows::ATTACH_VIRTUAL_DISK_VERSION_UNSPECIFIED",
+      "name": "ATTACH_VIRTUAL_DISK_VERSION_UNSPECIFIED",
+      "entity_type": "constant",
+      "description": "= 0, ATTACH_VIRTUAL_DISK_VERSION_1 = 1,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "ATTACH_VIRTUAL_DISK_VERSION_1"
+      ],
+      "confidence": 0.65,
+      "_source_line": 435
+    },
+    {
+      "id": "windows::ATTACH_VIRTUAL_DISK_VERSION_2",
+      "name": "ATTACH_VIRTUAL_DISK_VERSION_2",
+      "entity_type": "constant",
+      "description": "} ATTACH_VIRTUAL_DISK_VERSION;",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "ATTACH_VIRTUAL_DISK_VERSION"
+      ],
+      "confidence": 0.65,
+      "_source_line": 436
+    },
+    {
+      "id": "windows::AttachVirtualDisk",
+      "name": "AttachVirtualDisk",
+      "entity_type": "constant",
+      "description": "功能，sffdisk.sys、sffp_sd.sys 和 sdbus.sys 驱动程序将) 加载，并且会失败并 出现错误ERROR_FILE_NOT_FOUND。 支持在连接到 USB 阅读器的 SD 媒体上托管的 VHD 和 ISO。 如果",
+      "syntax": "DWORD AttachVirtualDisk(\n[in]           HANDLE                          VirtualDiskHandle,   [in, optional] PSECURITY_DESCRIPTOR            SecurityDescriptor,   [in]           ATTACH_VIRTUAL_DISK_FLAG        Flags,\n[in]           ULONG                           ProviderSpecificFlags,\n[in, optional] PATTACH_VIRTUAL_DISK_PARAMETERS Parameters,   [in, optional] LPOVERLAPPED                    Overlapped);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的虚拟磁盘的句柄。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。[in, optional] SecurityDescriptor 指向要应用于附加虚拟磁盘 的SECURITY_DESCRIPTOR 的可选指针。 如果此参数为 NULL，则使用虚拟磁盘映像文件的安全描述符。 确保 AttachVirtualDisk 应用于附加虚拟磁盘的安全描述符授予用户的写入属性权限，或者如果为此参数指定 NULL，请确保虚拟磁盘映像文件的安全描述符向用户授予写入属性权限。 如果安全描述符未向用户授予写入属性权限，则当用户访问附加的虚拟磁盘时，"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.8,
+      "_source_line": 458
+    },
+    {
+      "id": "windows::Shell",
+      "name": "Shell",
+      "entity_type": "constant",
+      "description": "会显示以下错误： 回收站已损坏。是否要清空此驱动器的回收站？[in] Flags",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Flags"
+      ],
+      "confidence": 0.5,
+      "_source_line": 470
+    },
+    {
+      "id": "windows::VirtualDiskHandle",
+      "name": "VirtualDiskHandle",
+      "entity_type": "constant",
+      "description": "参数不是 OpenVirtualDisk 函数创建的有效句柄。 Flags 参数设置为大于 0x020 的值。 Parameters 参数的 Version 成员未设置为 ATTACH_VIRTUAL_DISK_VERSION_1。包含虚拟磁盘映像文件的主机卷无法压缩或对 EFS 进行加密。 如果找不到提供程序、VHD 或 ISO 映像文件无效、VHD 映像已附加，或者调用方没有 SE_MANAGE_VOLUME_PRIVILEGE 访问权限，则此函数将失败。 有关文件安全性的详细信息，请参阅 文件安全性和访问权限。 打开虚拟磁盘句柄时，必须考虑虚拟磁盘的预期访问模式。 例如，如果附加虚拟磁盘以 便进行读/写访问，则必须使用 VIRTUAL_DISK_ACCESS_ATTACH_RW 访问标志打开 VirtualDiskHandle 参数。 有关详细信息，请参阅",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "ATTACH_VIRTUAL_DISK_VERSION_1",
+        "Flags",
+        "OpenVirtualDisk",
+        "Server"
+      ],
+      "confidence": 0.6,
+      "_source_line": 482
+    },
+    {
+      "id": "windows::BreakMirrorVirtualDisk",
+      "name": "BreakMirrorVirtualDisk",
+      "entity_type": "constant",
+      "description": "中断以前启动镜像操作，并将镜像设置为活动虚拟磁盘。",
+      "syntax": "DWORD BreakMirrorVirtualDisk(   [in] HANDLE VirtualDiskHandle);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的镜像虚拟磁盘的句柄。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。 有关如何镜像虚拟磁盘的信息，请参阅 MirrorVirtualDisk 函数。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "library": "VirtDisk.lib",
+        "min_client": "Windows 8",
+        "min_server": "Windows Server 2012"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "MirrorVirtualDisk",
+        "OpenVirtualDisk"
+      ],
+      "confidence": 0.7,
+      "_source_line": 502
+    },
+    {
+      "id": "windows::COMPACT_VIRTUAL_DISK_FLAG_NONE",
+      "name": "COMPACT_VIRTUAL_DISK_FLAG_NONE",
+      "entity_type": "constant",
+      "description": "值： 0x00000000 未指定任何标志。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 533
+    },
+    {
+      "id": "windows::COMPACT_VIRTUAL_DISK_FLAG_NO_ZERO_SCAN",
+      "name": "COMPACT_VIRTUAL_DISK_FLAG_NO_ZERO_SCAN",
+      "entity_type": "constant",
+      "description": "= 0x00000001, COMPACT_VIRTUAL_DISK_FLAG_NO_BLOCK_MOVES = 0x00000002} COMPACT_VIRTUAL_DISK_FLAG;",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "COMPACT_VIRTUAL_DISK_FLAG",
+        "COMPACT_VIRTUAL_DISK_FLAG_NO_BLOCK_MOVES"
+      ],
+      "confidence": 0.75,
+      "_source_line": 534
+    },
+    {
+      "id": "windows::COMPACT_VIRTUAL_DISK_FLAG_NO_BLOCK_MOVES",
+      "name": "COMPACT_VIRTUAL_DISK_FLAG_NO_BLOCK_MOVES",
+      "entity_type": "constant",
+      "description": "值： 0x00000002 要求",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 7",
+        "min_server": "Windows Server 2008 R2"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 541
+    },
+    {
+      "id": "windows::COMPACT_VIRTUAL_DISK_PARAMETERS",
+      "name": "COMPACT_VIRTUAL_DISK_PARAMETERS",
+      "entity_type": "constant",
+      "description": "结构的版本。 Version1 具有以下成员的结构。 Version1.Reserved 保留。 必须设置为零。",
+      "syntax": "typedef struct _COMPACT_VIRTUAL_DISK_PARAMETERS {",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 7"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Version1"
+      ],
+      "confidence": 0.85,
+      "_source_line": 561
+    },
+    {
+      "id": "windows::COMPACT_VIRTUAL_DISK_VERSION_1",
+      "name": "COMPACT_VIRTUAL_DISK_VERSION_1",
+      "entity_type": "constant",
+      "description": "= 1} COMPACT_VIRTUAL_DISK_VERSION;",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "COMPACT_VIRTUAL_DISK_VERSION"
+      ],
+      "confidence": 0.65,
+      "_source_line": 600
+    },
+    {
+      "id": "windows::CompactVirtualDisk",
+      "name": "CompactVirtualDisk",
+      "entity_type": "constant",
+      "description": "减小虚拟硬盘的大小 (VHD) 备份存储文件。",
+      "syntax": "DWORD CompactVirtualDisk(\n[in]           HANDLE                           VirtualDiskHandle,   [in]           COMPACT_VIRTUAL_DISK_FLAG        Flags,\n[in, optional] PCOMPACT_VIRTUAL_DISK_PARAMETERS Parameters,   [in, optional] LPOVERLAPPED                     Overlapped);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开虚拟磁盘的句柄，该句柄必须已使用传递给 OpenVirtualDisk 的"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 616
+    },
+    {
+      "id": "windows::VirtualDiskAccessMask",
+      "name": "VirtualDiskAccessMask",
+      "entity_type": "constant",
+      "description": "参数中的 VIRTUAL_DISK_ACCESS_METAOPS 标志打开。 有关如 何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。[in] Flags 必须是 COMPACT_VIRTUAL_DISK_FLAG 枚举 (0) COMPACT_VIRTUAL_DISK_FLAG_NONE 值。 [in, optional] Parameters 指向包含压缩参数数据的有效 COMPACT_VIRTUAL_DISK_PARAMETERS 结构的可选指针。 [in, optional] Overlapped 如果需要异步操作，则为指向有效 OVERLAPPED 结构的可选指针。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。",
+      "remarks": "压缩只能在可动态扩展或差异的虚拟磁盘上运行。有两种不同类型的压缩。 第一种类型是文件系统感知压缩，它使用 NTFS 文件系统来确定可用空间。 为此，将 VHD 附加为只读设备，方法是在传递给 OpenVirtualDisk的",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "COMPACT_VIRTUAL_DISK_FLAG",
+        "COMPACT_VIRTUAL_DISK_FLAG_NONE",
+        "COMPACT_VIRTUAL_DISK_PARAMETERS",
+        "ERROR_SUCCESS",
+        "Flags",
+        "OpenVirtualDisk",
+        "Overlapped"
+      ],
+      "confidence": 0.6,
+      "_source_line": 625
+    },
+    {
+      "id": "windows::VIRTUAL_DISK_ACCESS_ATTACH_RO",
+      "name": "VIRTUAL_DISK_ACCESS_ATTACH_RO",
+      "entity_type": "constant",
+      "description": "标志，通过调用 AttachVirtualDisk 来附加 VHD，并在 VHD 附加时调用 CompactVirtualDisk。 在完成压缩之前分离 VHD 可能会导致压缩在完成之前返回失败 (类似于取消压缩) 。 第二种类型（与文件系统无关的压缩）不涉及文件系统，但只查找完全用零填充的 VHD 块 (0) 。 为此，请将 VIRTUAL_DISK_ACCESS_METAOPS 标志包含在传递给 OpenVirtualDisk 的 VirtualDiskAccessMask 参数中，并调用 CompactVirtualDisk。 文件系统感知压缩是最有效的压缩类型，但首先使用文件系统感知压缩，然后使用与文件系统无关的压缩将产生最小的 VHD。 可以安全地中断虚拟磁盘上的压缩操作，并在以后重新运行。 重新打开已中断的虚拟磁盘文件可能会导致在打开时虚拟磁盘文件的大小减小。 压缩可以占用大量 CPU 和/或 I/O，具体取决于虚拟磁盘的大小以及需要移动的块数。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "library": "VirtDisk.lib",
+        "dll": "VirtDisk.dll",
+        "min_client": "Windows 7",
+        "min_server": "Windows Server 2008 R2"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "AttachVirtualDisk",
+        "CompactVirtualDisk",
+        "OpenVirtualDisk",
+        "VirtualDiskAccessMask"
+      ],
+      "confidence": 0.75,
+      "_source_line": 638
+    },
+    {
+      "id": "windows::CREATE_VIRTUAL_DISK_FLAG_FULL_PHYSICAL_ALLOCATION",
+      "name": "CREATE_VIRTUAL_DISK_FLAG_FULL_PHYSICAL_ALLOCATION",
+      "entity_type": "constant",
+      "description": "值： 0x1 预先分配虚拟磁盘大小所需的所有物理空间。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 663
+    },
+    {
+      "id": "windows::CREATE_VIRTUAL_DISK_FLAG_PREVENT_WRITES_TO_SOURCE_DISK",
+      "name": "CREATE_VIRTUAL_DISK_FLAG_PREVENT_WRITES_TO_SOURCE_DISK",
+      "entity_type": "constant",
+      "description": "值： 0x2 在从源磁盘创建期间获取源磁盘的所有权，以确保源磁盘不会更改创建操作期间。 源磁盘还必须已脱机或只读 (或同时) 。 所有权为创建完成后释放。 这也有一个副作用，即禁止从同一源进行并发创建 磁盘。 如果无法获取所有权，或者源磁盘尚未脱机，则创建将失败或 处于只读状态。 此标志是可选的，但强烈建议从源磁盘创建。 对其他没有影响创建类型 (对从源 VHD 创建不起作用;对于没有 SourcePath) 的创建没有效果。 Windows 7 和 Windows Server 2008 R2： 在Windows 8 和 之前，打开 ISO 虚拟磁盘不支持此标志 Windows Server 2012。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 664
+    },
+    {
+      "id": "windows::CREATE_VIRTUAL_DISK_FLAG_DO_NOT_COPY_METADATA_FROM_PARENT",
+      "name": "CREATE_VIRTUAL_DISK_FLAG_DO_NOT_COPY_METADATA_FROM_PARENT",
+      "entity_type": "constant",
+      "description": "值： 0x4 不要从父 VHD 复制初始虚拟磁盘元数据或块状态;这在父级时很有用 VHD 是一个备用文件，稍后将显式设置真正的父级。 Windows 7 和 Windows Server 2008 R2： 在Windows 8 和 之前，打开 ISO 虚拟磁盘不支持此标志 Windows Server 2012。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 665
+    },
+    {
+      "id": "windows::CREATE_VIRTUAL_DISK_FLAG_PRESERVE_PARENT_CHANGE_TRACKING_STATE",
+      "name": "CREATE_VIRTUAL_DISK_FLAG_PRESERVE_PARENT_CHANGE_TRACKING_STATE",
+      "entity_type": "constant",
+      "description": "= 0x20, CREATE_VIRTUAL_DISK_FLAG_VHD_SET_USE_ORIGINAL_BACKING_STORAGE = 0x40, CREATE_VIRTUAL_DISK_FLAG_SPARSE_FILE = 0x80,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "CREATE_VIRTUAL_DISK_FLAG_SPARSE_FILE",
+        "CREATE_VIRTUAL_DISK_FLAG_VHD_SET_USE_ORIGINAL_BACKING_STORAGE"
+      ],
+      "confidence": 0.75,
+      "_source_line": 667
+    },
+    {
+      "id": "windows::CREATE_VIRTUAL_DISK_FLAG_PMEM_COMPATIBLE",
+      "name": "CREATE_VIRTUAL_DISK_FLAG_PMEM_COMPATIBLE",
+      "entity_type": "constant",
+      "description": "值： 0x100 注解 CREATE_VIRTUAL_DISK_FLAG_FULL_PHYSICAL_ALLOCATION标志用于创建固定 VHD。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 668
+    },
+    {
+      "id": "windows::CREATE_VIRTUAL_DISK_FLAG_SUPPORT_COMPRESSED_VOLUMES",
+      "name": "CREATE_VIRTUAL_DISK_FLAG_SUPPORT_COMPRESSED_VOLUMES",
+      "entity_type": "constant",
+      "description": ", CREATE_VIRTUAL_DISK_FLAG_SUPPORT_SPARSE_FILES_ANY_FS} CREATE_VIRTUAL_DISK_FLAG;",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "CREATE_VIRTUAL_DISK_FLAG"
+      ],
+      "confidence": 0.75,
+      "_source_line": 669
+    },
+    {
+      "id": "windows::CREATE_VIRTUAL_DISK_FLAG_NONE",
+      "name": "CREATE_VIRTUAL_DISK_FLAG_NONE",
+      "entity_type": "constant",
+      "description": "值： 0x0 无特殊创建条件;使用系统默认值。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 673
+    },
+    {
+      "id": "windows::VIRTUAL_STORAGE_TYPE",
+      "name": "VIRTUAL_STORAGE_TYPE",
+      "entity_type": "constant",
+      "description": "VirtualStorageType; ULONG ProviderSubtype; BOOL Is4kAligned; BOOL IsLoaded; struct { ULONG LogicalSectorSize; ULONG PhysicalSectorSize; BOOL IsRemote; } PhysicalDisk; ULONG VhdPhysicalSectorSize; ULONGLONG SmallestSafeVirtualSize; ULONG FragmentationPercentage; GUID VirtualDiskId; struct { BOOL Enabled; BOOL NewerChanges; WCHAR MostRecentId[1]; } ChangeTrackingState; }; }",
+      "syntax": "typedef struct _VIRTUAL_STORAGE_TYPE {\nULONG DeviceId;   GUID  VendorId;\n} VIRTUAL_STORAGE_TYPE, *PVIRTUAL_STORAGE_TYPE;",
+      "members": [
+        {
+          "name": "Version",
+          "description": "来自CREATE_VIRTUAL_DISK_VERSION枚举的值，该值是联合的判别值。 值 含义"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "ChangeTrackingState",
+        "FragmentationPercentage",
+        "Is4kAligned",
+        "MostRecentId",
+        "SmallestSafeVirtualSize",
+        "VirtualDiskId",
+        "VirtualStorageType"
+      ],
+      "confidence": 0.95,
+      "_source_line": 729
+    },
+    {
+      "id": "windows::CREATE_VIRTUAL_DISK_VERSION_1",
+      "name": "CREATE_VIRTUAL_DISK_VERSION_1",
+      "entity_type": "constant",
+      "description": "值：1 将使用 Version1 成员结构。 CREATE_VIRTUAL_DISK_VERSION_2 值： 2 将使用 Version2 成员结构。 Windows 7 和 Windows Server 2008 R2： 在Windows 8和Windows Server 2012之前，不支持此值。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "CREATE_VIRTUAL_DISK_VERSION_2",
+        "Server",
+        "Version1",
+        "Version2"
+      ],
+      "confidence": 0.75,
+      "_source_line": 736
+    },
+    {
+      "id": "windows::Version1",
+      "name": "Version1",
+      "entity_type": "constant",
+      "description": "使用此结构的 Version1 成员。使用此结构的 Version2 成员。 如果 Version 成员 CREATE_VIRTUAL_DISK_VERSION_1 ( 1) ，则使用此结构。 Version1.UniqueId 要分配给虚拟磁盘对象的唯一标识符。 如果此成员设置为零，则由系统创建唯一标识符。 .MaximumSize 虚拟磁盘对象的最大虚拟大小（以字节为单位）。 必须是 512 的倍数。如果指定 了 ParentPath ，则此值必须为零。 如果指定 了 SourcePath ，则此值可以为零以指定要使用的源虚拟磁盘的大小，否则指定 的大小必须大于或等于源磁盘的大小。 Version1.BlockSizeInBytes 虚拟磁盘对象块的内部大小（以字节为单位）。 必须将其设置为以下值之一。 值",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "CREATE_VIRTUAL_DISK_VERSION_1",
+        "Version2"
+      ],
+      "confidence": 0.6,
+      "_source_line": 738
+    },
+    {
+      "id": "windows::CREATE_VIRTUAL_DISK_PARAMETERS_DEFAULT_BLOCK_SIZE",
+      "name": "CREATE_VIRTUAL_DISK_PARAMETERS_DEFAULT_BLOCK_SIZE",
+      "entity_type": "constant",
+      "description": "0 524288 (0x80000) 2097152 (0x200000) 含义 这是默认值，表示块大小为 2 MB。 这是固定 VHD 1 虚拟磁盘唯一支持的值。 块大小为 512 KB。 固定 VHD 1 虚拟磁盘不支持此值。 块大小为 2 MB。 固定 VHD 1 虚拟磁盘不支持此值。 Version2.SectorSizeInBytes 虚拟磁盘对象扇区的内部大小。 对于 VHDX，必须设置为 512 (0x200) 或 4096 (0x1000) 。 对于 VHD 1，必须设置为 512。 Version2.PhysicalSectorSizeInBytes Version2.ParentPath 父虚拟磁盘对象的可选 完全限定 路径。 将新虚拟磁盘与现有虚拟磁盘相关联。 如果此参数不为 NULL， 则 SourcePath 必须为 NULL。 Version2.SourcePath 用于使用现有磁盘中的块数据预填充新虚拟磁盘对象的可选 完全限定 路径。 此路径可能引用虚拟磁盘或物理磁盘。 如果此参数不为 NULL， 则 ParentPath 必须为 NULL。 Version2.OpenFlags",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Version2"
+      ],
+      "confidence": 0.75,
+      "_source_line": 748
+    },
+    {
+      "id": "windows::CREATE_VIRTUAL_DISK_PARAMETERS_DEFAULT_SECTOR_SIZE",
+      "name": "CREATE_VIRTUAL_DISK_PARAMETERS_DEFAULT_SECTOR_SIZE",
+      "entity_type": "constant",
+      "description": "0x200 Version1.ParentPath 含义 这是默认值，表示块大小为 2 MB。 块大小为 512 KB。 块大小为 2 MB 含义 默认且仅允许的大小，512 字节。 父虚拟磁盘对象的可选 完全限定 路径。 将新虚拟磁盘与现有虚拟磁盘相关联。 如果此参数不为 NULL， 则 SourcePath 必须为 NULL。 Version1.SourcePath 用于使用现有磁盘中的块数据预填充新虚拟磁盘对象的可选 完全限定 路径。 此路径可能引用虚拟磁盘或物理磁盘。 如果此参数不为 NULL， 则 ParentPath 必须为 NULL。 Version2 如果 Version 成员 CREATE_VIRTUAL_DISK_VERSION_2 ( 2) ，则使用此结构。 Windows 7 和 Windows Server 2008 R2： 在 Windows 8 和 Windows Server 2012 之前 不支持此结构。 Version2.UniqueId 要分配给虚拟磁盘对象的唯一标识符。 如果此成员设置为零，则由系统创建唯一标识符。 Version2.MaximumSize 虚拟磁盘对象的最大虚拟大小（以字节为单位）。 必须是 512 的倍数。如果指定 了 ParentPath ，则此值必须为零。 如果指定 了 SourcePath ，则此值可以为零以指定要使用的源虚拟磁盘的大小，否则指定 的大小必须大于或等于源磁盘的大小。 Version2.BlockSizeInBytes 虚拟磁盘对象块的内部大小（以字节为单位）。 对于 VHDX，这必须是介于 1 到 256 MB 之间的 1 MB 的倍数。 对于 VHD 1，必须将其设置为以下值之一。 值",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "CREATE_VIRTUAL_DISK_VERSION_2",
+        "Server",
+        "Version1",
+        "Version2"
+      ],
+      "confidence": 0.75,
+      "_source_line": 752
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_FLAG",
+      "name": "OPEN_VIRTUAL_DISK_FLAG",
+      "entity_type": "constant",
+      "description": "枚举中的零个或多个标志，描述如何打开虚拟磁盘。 Version2.ParentVirtualStorageType 描述 ParentPath 成员中指定的父虚拟磁盘的VIRTUAL_STORAGE_TYPE结构。 Version2.SourceVirtualStorageType 描述 SourcePath 成员中指定的源虚拟磁盘的VIRTUAL_STORAGE_TYPE结构。 Version2.ResiliencyGuid 文件的复原 GUID 。７ 备注 以下以 Version3 和 Version4 开头的参数供内部使用。 Version3 Version3.UniqueId Version3.MaximumSize Version3.BlockSizeInBytes Version3.SectorSizeInBytes Version3.PhysicalSectorSizeInBytes Version3.ParentPath Version3.SourcePath Version3.OpenFlags Version3.ParentVirtualStorageType Version3.SourceVirtualStorageType Version3.ResiliencyGuid Version3.SourceLimitPath Version3.BackingStorageType Version4 Version4.UniqueId Version4.MaximumSize Version4.BlockSizeInBytes Version4.SectorSizeInBytes Version4.PhysicalSectorSizeInBytes Version4.ParentPath Version4.SourcePath Version4.OpenFlags Version4.ParentVirtualStorageType Version4.SourceVirtualStorageType Version4.ResiliencyGuid Version4.SourceLimitPath Version4.BackingStorageType Version4.PmemAddressAbstractionType Version4.DataAlignment",
+      "syntax": "typedef enum _OPEN_VIRTUAL_DISK_FLAG {",
+      "return_value": {
+        "description": "如果函数成功，则返回值为 ERROR_SUCCESS (0) ，并且 Handle 参数包含指向新虚拟磁盘对象的有效指针。 如果函数失败，则返回值为错误代码， 并且 Handle 参数的值未定义。 有关详细信息， 请参阅 系统错误代码。"
+      },
+      "remarks": "为了防止在尝试打开永久附加虚拟磁盘的句柄时打开请求失败，以下要求适用：",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Version2"
+      ],
+      "confidence": 0.9,
+      "_source_line": 786
+    },
+    {
+      "id": "windows::CreateVirtualDisk",
+      "name": "CreateVirtualDisk",
+      "entity_type": "constant",
+      "description": "函数还可用作将一种类型的虚拟磁盘转换为另一种虚拟磁盘或将物理磁盘转换为虚拟磁盘的机制。 这是通过使用 CREATE_VIRTUAL_DISK_PARAMETERS 结构 的 SourcePath 成员使用源磁盘中的块数据预填充新虚拟磁盘来实现的。",
+      "syntax": "DWORD CreateVirtualDisk(\n[in]           PVIRTUAL_STORAGE_TYPE           VirtualStorageType,   [in]           PCWSTR                          Path,\n[in]           VIRTUAL_DISK_ACCESS_MASK        VirtualDiskAccessMask,\n[in, optional] PSECURITY_DESCRIPTOR            SecurityDescriptor,   [in]           CREATE_VIRTUAL_DISK_FLAG        Flags,\n[in]           ULONG                           ProviderSpecificFlags,\n[in]           PCREATE_VIRTUAL_DISK_PARAMETERS Parameters,   [in, optional] LPOVERLAPPED                    Overlapped,\n[out]          PHANDLE                         Handle);",
+      "parameters": [
+        {
+          "name": "VirtualStorageType",
+          "direction": "in",
+          "description": "指向包含所需磁盘类型和供应商信息的 VIRTUAL_STORAGE_TYPE 结构的指针。[in] Path 指向表示新虚拟磁盘映像文件路径的有效字符串的指针。[in] VirtualDiskAccessMask 打开新创建的虚拟磁盘文件时要使用的 VIRTUAL_DISK_ACCESS_MASK 值。 如果将 Parameters 参数的 Version 成员设置为 CREATE_VIRTUAL_DISK_VERSION_2则只能指定"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "CREATE_VIRTUAL_DISK_PARAMETERS"
+      ],
+      "confidence": 0.8,
+      "_source_line": 811
+    },
+    {
+      "id": "windows::CREATE_VIRTUAL_DISK_VERSION_UNSPECIFIED",
+      "name": "CREATE_VIRTUAL_DISK_VERSION_UNSPECIFIED",
+      "entity_type": "constant",
+      "description": "值： 0 不支持。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 827
+    },
+    {
+      "id": "windows::VIRTUAL_DISK_ACCESS_NONE",
+      "name": "VIRTUAL_DISK_ACCESS_NONE",
+      "entity_type": "constant",
+      "description": "(0) 值。[in, optional] SecurityDescriptor 指向要应用于虚拟磁盘映像文件的 SECURITY_DESCRIPTOR 的可选指针。 如果此参数为 NULL，则将使用父目录的安全描述符。[in] Flags 创建标志，必须是 CREATE_VIRTUAL_DISK_FLAG 枚举的有效组合。[in] ProviderSpecificFlags 特定于要创建的虚拟磁盘类型的标志。 如果不需要，可以为零。[in] Parameters 指向包含创建参数数据的有效",
+      "return_value": {
+        "description": "如果函数成功，则返回值为 ERROR_SUCCESS ， Handle 参数包含指向新虚拟磁盘对象的有效指针。 如果函数失败，则返回值为错误代码， 并且 Handle 参数的值未定义。 有关详细信息， 请参阅 系统错误代码。"
+      },
+      "remarks": "如果 CreateVirtualDisk 函数失败，错误代码值为 ERROR_INVALID_PARAMETER，原因可能是以下任一情况造成的：",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "CREATE_VIRTUAL_DISK_FLAG",
+        "CreateVirtualDisk",
+        "ERROR_INVALID_PARAMETER",
+        "Flags",
+        "SECURITY_DESCRIPTOR"
+      ],
+      "confidence": 0.8,
+      "_source_line": 874
+    },
+    {
+      "id": "windows::VirtualStorageType",
+      "name": "VirtualStorageType",
+      "entity_type": "constant",
+      "description": "参数为 NULL。 Parameters 参数为 NULL。 Parameters 参数的 Version 成员未设置为 CREATE_VIRTUAL_DISK_VERSION_1 或 CREATE_VIRTUAL_DISK_VERSION_2。 Parameters 参数的 Version 成员设置为 CREATE_VIRTUAL_DISK_VERSION_2但",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "CREATE_VIRTUAL_DISK_VERSION_1",
+        "CREATE_VIRTUAL_DISK_VERSION_2"
+      ],
+      "confidence": 0.6,
+      "_source_line": 886
+    },
+    {
+      "id": "windows::Flags",
+      "name": "Flags",
+      "entity_type": "constant",
+      "description": "参数设置为 的值(Flags & ~(OPEN_VIRTUAL_DISK_FLAG_NO_PARENTS | OPEN_VIRTUAL_DISK_FLAG_BLANK_FILE)) 。 Parameters 参数的 Version 成员未设置为 OPEN_VIRTUAL_DISK_VERSION_1 或 OPEN_VIRTUAL_DISK_VERSION_2。 包含虚拟磁盘映像文件的主机卷无法压缩或对 EFS 进行加密。 如果主机卷已压缩，此函数将失败并出现错误ERROR_UNSUPPORTED_COMPRESSION (618) ;如果主机卷在初始虚拟磁盘创建后已进行 EFS 加密，则此函数将失败ERROR_FILE_ENCRYPTED) (6002 错误。 Path 参数指向的路径不能位于通过环回) 的网络共享 (本地网络共享上。 如果路径 位于本地网络共享上，此函数将失败并出现错误ERROR_FILE_SYSTEM_LIMITATION (665) 。 如果打开 ISO 虚拟磁盘且文件大小不是 2 KB (2，048 字节) 的偶数倍数，) 至少为 34 KB(34，816 字节，或者卷结构描述符不包含已知的 CDFS 或 UDFS 卷标识符，则此函数将失败并出现 ERROR_FILE_CORRUPT 错误 (1392) 。 当应用程序使用 Handle 参数中 返回的对象句柄完成时，请使用 CloseHandle 函数关闭句柄。 在 Windows 8 和 Windows Server 2012 之前，不支持 (ISO) 的 CD 和 DVD 映像文件。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "CloseHandle",
+        "OPEN_VIRTUAL_DISK_FLAG_BLANK_FILE",
+        "OPEN_VIRTUAL_DISK_FLAG_NO_PARENTS",
+        "OPEN_VIRTUAL_DISK_VERSION_1",
+        "OPEN_VIRTUAL_DISK_VERSION_2",
+        "Server"
+      ],
+      "confidence": 0.6,
+      "_source_line": 894
+    },
+    {
+      "id": "windows::OpenVirtualDisk",
+      "name": "OpenVirtualDisk",
+      "entity_type": "constant",
+      "description": "Windows 7 Windows Server 2008 R2 Windows virtdisk.h VirtDisk.lib VirtDisk.dll VHD 参考反馈",
+      "syntax": "DWORD OpenVirtualDisk(\n[in]           PVIRTUAL_STORAGE_TYPE         VirtualStorageType,   [in]           PCWSTR                        Path,\n[in]           VIRTUAL_DISK_ACCESS_MASK      VirtualDiskAccessMask,   [in]           OPEN_VIRTUAL_DISK_FLAG        Flags,\n[in, optional] POPEN_VIRTUAL_DISK_PARAMETERS Parameters,\n[out]          PHANDLE                       Handle);",
+      "parameters": [
+        {
+          "name": "VirtualStorageType",
+          "direction": "in",
+          "description": "指向有效 VIRTUAL_STORAGE_TYPE 结构的指针。[in] Path 指向要打开的虚拟磁盘映像的有效路径的指针。[in] VirtualDiskAccessMask"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.8,
+      "_source_line": 908
+    },
+    {
+      "id": "windows::DELETE_SNAPSHOT_VHDSET_FLAG_NONE",
+      "name": "DELETE_SNAPSHOT_VHDSET_FLAG_NONE",
+      "entity_type": "constant",
+      "description": "值： 0x00000000 未指定标志。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 923
+    },
+    {
+      "id": "windows::DELETE_SNAPSHOT_VHDSET_FLAG_PERSIST_RCT",
+      "name": "DELETE_SNAPSHOT_VHDSET_FLAG_PERSIST_RCT",
+      "entity_type": "constant",
+      "description": "= 0x00000001 } DELETE_SNAPSHOT_VHDSET_FLAG, *PDELETE_SNAPSHOT_VHDSET_FLAG;",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "DELETE_SNAPSHOT_VHDSET_FLAG"
+      ],
+      "confidence": 0.75,
+      "_source_line": 924
+    },
+    {
+      "id": "windows::DELETE_SNAPSHOT_VHDSET_PARAMETE",
+      "name": "DELETE_SNAPSHOT_VHDSET_PARAMETE",
+      "entity_type": "constant",
+      "description": "包含快照删除参数，指定要从 VHD 集中删除哪些快照。",
+      "syntax": "typedef struct _DELETE_SNAPSHOT_VHDSET_PARAMETERS {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 941
+    },
+    {
+      "id": "windows::DELETE_SNAPSHOT_VHDSET_VERSION",
+      "name": "DELETE_SNAPSHOT_VHDSET_VERSION",
+      "entity_type": "constant",
+      "description": "Version; union { struct { GUID SnapshotId; } Version1; }; } DELETE_SNAPSHOT_VHDSET_PARAMETERS, *PDELETE_SNAPSHOT_VHDSET_PARAMETERS;",
+      "syntax": "typedef enum _DELETE_SNAPSHOT_VHDSET_VERSION {",
+      "members": [
+        {
+          "name": "Version",
+          "description": "一个来自 DELETE_SNAPSHOT_VHDSET_VERSION 枚举的值，该值是联合的判别函数。 Version1 具有以下成员的 结构。 Version1.SnapshotId GUID 格式的快照 ID，指示要从 VHD 集中删除哪个快照。"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "SnapshotId",
+        "Version1"
+      ],
+      "confidence": 0.95,
+      "_source_line": 946
+    },
+    {
+      "id": "windows::DELETE_SNAPSHOT_VHDSET_VERSION_UNSPECIFIED",
+      "name": "DELETE_SNAPSHOT_VHDSET_VERSION_UNSPECIFIED",
+      "entity_type": "constant",
+      "description": "值： 0 不支持。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 970
+    },
+    {
+      "id": "windows::DELETE_SNAPSHOT_VHDSET_VERSION_1",
+      "name": "DELETE_SNAPSHOT_VHDSET_VERSION_1",
+      "entity_type": "constant",
+      "description": "= 1} DELETE_SNAPSHOT_VHDSET_VERSION;",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "DELETE_SNAPSHOT_VHDSET_VERSION"
+      ],
+      "confidence": 0.65,
+      "_source_line": 971
+    },
+    {
+      "id": "windows::DeleteSnapshotVhdSet",
+      "name": "DeleteSnapshotVhdSet",
+      "entity_type": "constant",
+      "description": "从 VHD 集文件中删除快照。",
+      "syntax": "DWORD DeleteSnapshotVhdSet(\n[in] HANDLE                                   VirtualDiskHandle,   [in] const PDELETE_SNAPSHOT_VHDSET_PARAMETERS Parameters,\n[in] DELETE_SNAPSHOT_VHDSET_FLAG              Flags);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的虚拟磁盘的句柄。 这必须是 VHD 集文件。[in] Parameters 指向包含快照删除数据的有效DELETE_SNAPSHOT_VHDSET_PARAMETERS结构的指针。[in] Flags 快照删除标志，必须是 DELETE_SNAPSHOT_VHDSET_FLAG 枚举的有效组合。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "library": "VirtDisk.lib",
+        "dll": "VirtDisk.dll",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 992
+    },
+    {
+      "id": "windows::DeleteVirtualDiskMetadata",
+      "name": "DeleteVirtualDiskMetadata",
+      "entity_type": "constant",
+      "description": "从虚拟磁盘中删除元数据。",
+      "syntax": "DWORD DeleteVirtualDiskMetadata(\n[in] HANDLE     VirtualDiskHandle,\n[in] const GUID *Item);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的虚拟磁盘的句柄。[in] Item 要删除的项。返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 8",
+        "min_server": "Windows Server 2012"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1021
+    },
+    {
+      "id": "windows::DEPENDENT_DISK_FLAG",
+      "name": "DEPENDENT_DISK_FLAG",
+      "entity_type": "constant",
+      "description": "DependencyTypeFlags; ULONG ProviderSpecificFlags; VIRTUAL_STORAGE_TYPE VirtualStorageType; ULONG AncestorLevel; PWSTR DependencyDeviceName; PWSTR HostVolumeName; PWSTR DependentVolumeName; PWSTR DependentVolumeRelativePath; }",
+      "syntax": "typedef enum _DEPENDENT_DISK_FLAG {",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 7",
+        "min_server": "Windows Server 2008 R2"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "AncestorLevel",
+        "DependencyDeviceName",
+        "DependencyTypeFlags",
+        "VIRTUAL_STORAGE_TYPE",
+        "VirtualStorageType"
+      ],
+      "confidence": 0.85,
+      "_source_line": 1047
+    },
+    {
+      "id": "windows::DEPENDENT_DISK_FLAG_NONE",
+      "name": "DEPENDENT_DISK_FLAG_NONE",
+      "entity_type": "constant",
+      "description": "值： 0x00000000 未指定标志。 使用系统默认值。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1052
+    },
+    {
+      "id": "windows::DEPENDENT_DISK_FLAG_MULT_BACKING_FILES",
+      "name": "DEPENDENT_DISK_FLAG_MULT_BACKING_FILES",
+      "entity_type": "constant",
+      "description": "= 0x00000001, DEPENDENT_DISK_FLAG_FULLY_ALLOCATED = 0x00000002,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "DEPENDENT_DISK_FLAG_FULLY_ALLOCATED"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1053
+    },
+    {
+      "id": "windows::DEPENDENT_DISK_FLAG_READ_ONLY",
+      "name": "DEPENDENT_DISK_FLAG_READ_ONLY",
+      "entity_type": "constant",
+      "description": "= 0x00000004, DEPENDENT_DISK_FLAG_REMOTE = 0x00000008,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "DEPENDENT_DISK_FLAG_REMOTE"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1054
+    },
+    {
+      "id": "windows::DEPENDENT_DISK_FLAG_SYSTEM_VOLUME",
+      "name": "DEPENDENT_DISK_FLAG_SYSTEM_VOLUME",
+      "entity_type": "constant",
+      "description": "= 0x00000010,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 1055
+    },
+    {
+      "id": "windows::DEPENDENT_DISK_FLAG_SYSTEM_VOLUME_PARENT",
+      "name": "DEPENDENT_DISK_FLAG_SYSTEM_VOLUME_PARENT",
+      "entity_type": "constant",
+      "description": "= 0x00000020, DEPENDENT_DISK_FLAG_REMOVABLE = 0x00000040,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "DEPENDENT_DISK_FLAG_REMOVABLE"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1056
+    },
+    {
+      "id": "windows::DEPENDENT_DISK_FLAG_NO_DRIVE_LETTER",
+      "name": "DEPENDENT_DISK_FLAG_NO_DRIVE_LETTER",
+      "entity_type": "constant",
+      "description": "= 0x00000080, DEPENDENT_DISK_FLAG_PARENT = 0x00000100,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "DEPENDENT_DISK_FLAG_PARENT"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1057
+    },
+    {
+      "id": "windows::DEPENDENT_DISK_FLAG_NO_HOST_DISK",
+      "name": "DEPENDENT_DISK_FLAG_NO_HOST_DISK",
+      "entity_type": "constant",
+      "description": "值： 0x00000200 虚拟磁盘未附加到本地主机。例如，它附加到来宾虚拟机。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1058
+    },
+    {
+      "id": "windows::DEPENDENT_DISK_FLAG_PERMANENT_LIFETIME",
+      "name": "DEPENDENT_DISK_FLAG_PERMANENT_LIFETIME",
+      "entity_type": "constant",
+      "description": "值： 0x00000400 虚拟磁盘的生存期不绑定到任何应用程序或进程。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 7",
+        "min_server": "Windows Server 2008 R2"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1059
+    },
+    {
+      "id": "windows::DEPENDENT_DISK_FLAG_SUPPORT_COMPRESSED_VOLUMES",
+      "name": "DEPENDENT_DISK_FLAG_SUPPORT_COMPRESSED_VOLUMES",
+      "entity_type": "constant",
+      "description": ", DEPENDENT_DISK_FLAG_ALWAYS_ALLOW_SPARSE,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1060
+    },
+    {
+      "id": "windows::DEPENDENT_DISK_FLAG_SUPPORT_ENCRYPTED_FILES",
+      "name": "DEPENDENT_DISK_FLAG_SUPPORT_ENCRYPTED_FILES",
+      "entity_type": "constant",
+      "description": "} DEPENDENT_DISK_FLAG;",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "DEPENDENT_DISK_FLAG"
+      ],
+      "confidence": 0.65,
+      "_source_line": 1061
+    },
+    {
+      "id": "windows::DEPENDENT_DISK_FLAG_FULLY_ALLOCATED",
+      "name": "DEPENDENT_DISK_FLAG_FULLY_ALLOCATED",
+      "entity_type": "constant",
+      "description": "值： 0x00000002 完全分配的虚拟磁盘。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1067
+    },
+    {
+      "id": "windows::DEPENDENT_DISK_FLAG_REMOTE",
+      "name": "DEPENDENT_DISK_FLAG_REMOTE",
+      "entity_type": "constant",
+      "description": "值： 0x00000008 虚拟磁盘的后备文件不在本地物理磁盘上。 DEPENDENT_DISK_FLAG_SYSTEM_VOLUME 值： 0x00000010 保留。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "DEPENDENT_DISK_FLAG_SYSTEM_VOLUME"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1072
+    },
+    {
+      "id": "windows::DEPENDENT_DISK_FLAG_REMOVABLE",
+      "name": "DEPENDENT_DISK_FLAG_REMOVABLE",
+      "entity_type": "constant",
+      "description": "值： 0x00000040 虚拟磁盘的后备文件位于可移动物理磁盘上。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1077
+    },
+    {
+      "id": "windows::DEPENDENT_DISK_FLAG_PARENT",
+      "name": "DEPENDENT_DISK_FLAG_PARENT",
+      "entity_type": "constant",
+      "description": "值： 0x00000100 虚拟磁盘是差异链的父级。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1081
+    },
+    {
+      "id": "windows::DETACH_VIRTUAL_DISK_FLAG_NONE",
+      "name": "DETACH_VIRTUAL_DISK_FLAG_NONE",
+      "entity_type": "constant",
+      "description": "= 0x00000000} DETACH_VIRTUAL_DISK_FLAG;",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 7",
+        "min_server": "Windows Server 2008 R2"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "DETACH_VIRTUAL_DISK_FLAG"
+      ],
+      "confidence": 0.65,
+      "_source_line": 1104
+    },
+    {
+      "id": "windows::EXPAND_VIRTUAL_DISK_FLAG_NONE",
+      "name": "EXPAND_VIRTUAL_DISK_FLAG_NONE",
+      "entity_type": "constant",
+      "description": "值： 0x00000000 要求",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 7",
+        "min_server": "Windows Server 2008 R2"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 1189
+    },
+    {
+      "id": "windows::EXPAND_VIRTUAL_DISK_FLAG_NOTIFY_CHANGE",
+      "name": "EXPAND_VIRTUAL_DISK_FLAG_NOTIFY_CHANGE",
+      "entity_type": "constant",
+      "description": "} EXPAND_VIRTUAL_DISK_FLAG;",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "EXPAND_VIRTUAL_DISK_FLAG"
+      ],
+      "confidence": 0.65,
+      "_source_line": 1190
+    },
+    {
+      "id": "windows::EXPAND_VIRTUAL_DISK_VERSION",
+      "name": "EXPAND_VIRTUAL_DISK_VERSION",
+      "entity_type": "constant",
+      "description": "Version; union { struct { ULONGLONG NewSize; } Version1; }; } EXPAND_VIRTUAL_DISK_PARAMETERS, *PEXPAND_VIRTUAL_DISK_PARAMETERS;",
+      "syntax": "typedef enum _EXPAND_VIRTUAL_DISK_VERSION {",
+      "members": [
+        {
+          "name": "Version",
+          "description": "一个 EXPAND_VIRTUAL_DISK_VERSION 枚举值，该值指定传入或传出虚拟磁盘函数的"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "EXPAND_VIRTUAL_DISK_PARAMETERS",
+        "Version1"
+      ],
+      "confidence": 0.95,
+      "_source_line": 1213
+    },
+    {
+      "id": "windows::EXPAND_VIRTUAL_DISK_VERSION_1",
+      "name": "EXPAND_VIRTUAL_DISK_VERSION_1",
+      "entity_type": "constant",
+      "description": "= 1} EXPAND_VIRTUAL_DISK_VERSION;",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 7",
+        "min_server": "Windows Server 2008 R2"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "EXPAND_VIRTUAL_DISK_VERSION"
+      ],
+      "confidence": 0.65,
+      "_source_line": 1247
+    },
+    {
+      "id": "windows::ExpandVirtualDisk",
+      "name": "ExpandVirtualDisk",
+      "entity_type": "constant",
+      "description": "函数就地执行操作，因此不会创建虚拟磁盘。 扩展操作仅对固定和可扩展虚拟磁盘有效，并且会使差异虚拟磁盘链失效。扩展虚拟磁盘需要在操作期间分离虚拟磁盘。 调用方必须具有 READ|对虚拟磁盘的后备存储的写入访问权限。 对于可扩展虚拟磁盘， ExpandVirtualDisk 函数可能不会生成更大的文件，因为大小是虚拟的，在实际使用之前不会以物理方式增长。 如果虚拟磁盘是可扩展的，并且主机卷没有足够的空间来容纳新大小， 则",
+      "syntax": "DWORD ExpandVirtualDisk(\n[in]           HANDLE                          VirtualDiskHandle,   [in]           EXPAND_VIRTUAL_DISK_FLAG        Flags,\n[in]           PEXPAND_VIRTUAL_DISK_PARAMETERS Parameters,   [in, optional] LPOVERLAPPED                    Overlapped);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的虚拟磁盘的句柄，该句柄必须已使用 VIRTUAL_DISK_ACCESS_METAOPS 标志打 开。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。[in] Flags 必须是 EXPAND_VIRTUAL_DISK_FLAG 枚举的 EXPAND_VIRTUAL_DISK_FLAG_NONE 值。[in] Parameters 指向包含扩展参数数据的有效 EXPAND_VIRTUAL_DISK_PARAMETERS 结构的指针。[in, optional] Overlapped 如果需要异步操作，则为指向有效 OVERLAPPED 结构的可选指针。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.8,
+      "_source_line": 1269
+    },
+    {
+      "id": "windows::GET_STORAGE_DEPENDENCY_FLAG",
+      "name": "GET_STORAGE_DEPENDENCY_FLAG",
+      "entity_type": "constant",
+      "description": "值的有效组合。[in] StorageDependencyInfoSize",
+      "syntax": "typedef enum _GET_STORAGE_DEPENDENCY_FLAG {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1310
+    },
+    {
+      "id": "windows::GET_STORAGE_DEPENDENCY_FLAG_NONE",
+      "name": "GET_STORAGE_DEPENDENCY_FLAG_NONE",
+      "entity_type": "constant",
+      "description": "值： 0x00000000 未指定标志。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 1315
+    },
+    {
+      "id": "windows::GET_STORAGE_DEPENDENCY_FLAG_HOST_VOLUMES",
+      "name": "GET_STORAGE_DEPENDENCY_FLAG_HOST_VOLUMES",
+      "entity_type": "constant",
+      "description": "= 0x00000001, GET_STORAGE_DEPENDENCY_FLAG_DISK_HANDLE = 0x00000002} GET_STORAGE_DEPENDENCY_FLAG;",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "GET_STORAGE_DEPENDENCY_FLAG",
+        "GET_STORAGE_DEPENDENCY_FLAG_DISK_HANDLE"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1316
+    },
+    {
+      "id": "windows::GET_STORAGE_DEPENDENCY_FLAG_DISK_HANDLE",
+      "name": "GET_STORAGE_DEPENDENCY_FLAG_DISK_HANDLE",
+      "entity_type": "constant",
+      "description": "值： 0x00000002 提供的句柄是磁盘，而不是卷或文件。",
+      "remarks": "如果未设置 GET_STORAGE_DEPENDENCY_FLAG_HOST_VOLUMES 标志，",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "GET_STORAGE_DEPENDENCY_FLAG_HOST_VOLUMES"
+      ],
+      "confidence": 0.65,
+      "_source_line": 1322
+    },
+    {
+      "id": "windows::GetStorageDependencyInformation",
+      "name": "GetStorageDependencyInformation",
+      "entity_type": "constant",
+      "description": "函数将返回有关由指定的卷或磁盘托管的卷或磁盘的信息。 例如，如果 VHD 文件 C：\\file.vhd 定义了虚拟驱动器 D，则设置",
+      "syntax": "DWORD GetStorageDependencyInformation(\n[in]                HANDLE                      ObjectHandle,   [in]                GET_STORAGE_DEPENDENCY_FLAG Flags,\n[in]                ULONG                       StorageDependencyInfoSize,   [in, out]           PSTORAGE_DEPENDENCY_INFO    StorageDependencyInfo,\n[in, out, optional] PULONG                      SizeUsed);",
+      "parameters": [
+        {
+          "name": "ObjectHandle",
+          "direction": "in",
+          "description": "如果 Flags 参数未指定 GET_STORAGE_DEPENDENCY_FLAG_DISK_HANDLE 标志，则为卷或根目录的句柄。 有关如何打开卷或根目录的信息，请参阅 CreateFile 函数。 如果 Flags 参数指定 GET_STORAGE_DEPENDENCY_FLAG_DISK_HANDLE 标志，则此句 柄应是磁盘的句柄。[in] Flags"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.8,
+      "_source_line": 1325
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO_VERSION",
+      "name": "GET_VIRTUAL_DISK_INFO_VERSION",
+      "entity_type": "constant",
+      "description": "GetVirtualDiskInformation 值 Windows 7 Windows Server 2008 R2 virtdisk.h VHD 参考反馈 是 否",
+      "syntax": "typedef enum _GET_VIRTUAL_DISK_INFO_VERSION {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetVirtualDiskInformation",
+        "Server"
+      ],
+      "confidence": 0.85,
+      "_source_line": 1363
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO_IDENTIFIER",
+      "name": "GET_VIRTUAL_DISK_INFO_IDENTIFIER",
+      "entity_type": "constant",
+      "description": "。 ParentLocation 具有以下成员的 结构。 将 “版本成员 ”设置为 “GET_VIRTUAL_DISK_INFO_PARENT_LOCATION”。 ParentLocation.ParentResolved 父级解析。 如果已成功解析父后备存储，则为 TRUE;否则为 FALSE。 ParentLocation.ParentLocationBuffer[1] 如果 ParentResolved 成员为 TRUE，则 包含父级后备存储的路径。 如果 ParentResolved 成员为 FALSE，则 包含搜索列表中存在的所有父路径。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "GET_VIRTUAL_DISK_INFO_PARENT_LOCATION"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1371
+    },
+    {
+      "id": "windows::ParentIdentifier",
+      "name": "ParentIdentifier",
+      "entity_type": "constant",
+      "description": "父磁盘后备存储区的唯一标识符。 将 Version 成员设置为",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 1377
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO_PARENT_IDENTIFIER",
+      "name": "GET_VIRTUAL_DISK_INFO_PARENT_IDENTIFIER",
+      "entity_type": "constant",
+      "description": "。 ParentTimestamp 父磁盘后备存储的内部时间戳。 将 Version 成员设置为",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1379
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO_PARENT_TIMESTAMP",
+      "name": "GET_VIRTUAL_DISK_INFO_PARENT_TIMESTAMP",
+      "entity_type": "constant",
+      "description": "。 VirtualStorageType 包含 有关虚拟磁盘类型信息的VIRTUAL_STORAGE_TYPE结构。 将 Version 成员设置为",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "VirtualStorageType"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1381
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO_VIRTUAL_STORAGE_TYPE",
+      "name": "GET_VIRTUAL_DISK_INFO_VIRTUAL_STORAGE_TYPE",
+      "entity_type": "constant",
+      "description": "。 ProviderSubtype 提供程序特定的子类型。 将 Version 成员设置为 GET_VIRTUAL_DISK_INFO_PROVIDER_SUBTYPE。 值 2 3 4",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "GET_VIRTUAL_DISK_INFO_PROVIDER_SUBTYPE"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1383
+    },
+    {
+      "id": "windows::Is4kAligned",
+      "name": "Is4kAligned",
+      "entity_type": "constant",
+      "description": "含义 已修复。 可动态扩展 (稀疏) 。差异。 指示虚拟磁盘是否对齐 4 KB。 将 Version 成员设置为 GET_VIRTUAL_DISK_INFO_IS_4K_ALIGNED。 Windows 7 和 Windows Server 2008 R2： 在Windows 8和Windows Server 2012之前， 不支持此操作。 IsLoaded 指示虚拟磁盘当前是否已装载和使用。 如果虚拟磁盘当前已装载且正在使用，则为 TRUE;否则为 FALSE。 将 Version 成员设置为 GET_VIRTUAL_DISK_INFO_IS_LOADED。 Windows 8和Windows Server 2012：在 Windows 8.1 和 Windows Server 2012 R2 之前 不支持此操作。 PhysicalDisk 有关虚拟磁盘所在的物理磁盘的详细信息。 将 Version 成员设置为 GET_VIRTUAL_DISK_INFO_PHYSICAL_DISK。 Windows 7 和 Windows Server 2008 R2： 在Windows 8和Windows Server 2012之前，不支持此操作。 PhysicalDisk.LogicalSectorSize 物理磁盘的逻辑扇区大小。 PhysicalDisk.PhysicalSectorSize 物理磁盘的物理扇区大小。 PhysicalDisk.IsRemote 指示物理磁盘是否为远程磁盘。 VhdPhysicalSectorSize 虚拟磁盘的物理扇区大小。 将 Version 成员设置为",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "GET_VIRTUAL_DISK_INFO_IS_4K_ALIGNED",
+        "GET_VIRTUAL_DISK_INFO_IS_LOADED",
+        "GET_VIRTUAL_DISK_INFO_PHYSICAL_DISK",
+        "Server"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1387
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO_VHD_PHYSICAL_SECTOR_SIZE",
+      "name": "GET_VIRTUAL_DISK_INFO_VHD_PHYSICAL_SECTOR_SIZE",
+      "entity_type": "constant",
+      "description": "值： 10 虚拟磁盘的物理扇区大小。 Windows 7 和 Windows Server 2008 R2： 在Windows 8和Windows Server 2012之前，不支持此值。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1405
+    },
+    {
+      "id": "windows::SmallestSafeVirtualSize",
+      "name": "SmallestSafeVirtualSize",
+      "entity_type": "constant",
+      "description": "虚拟磁盘的最小安全最小大小。 将 Version 成员设置为",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 1407
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO_SMALLEST_SAFE_VIRTUAL_SIZE",
+      "name": "GET_VIRTUAL_DISK_INFO_SMALLEST_SAFE_VIRTUAL_SIZE",
+      "entity_type": "constant",
+      "description": "值： 11 虚拟磁盘的最小安全最小大小。 Windows 7 和 Windows Server 2008 R2： 在Windows 8和Windows Server 2012之前，不支持此值。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1409
+    },
+    {
+      "id": "windows::FragmentationPercentage",
+      "name": "FragmentationPercentage",
+      "entity_type": "constant",
+      "description": "虚拟磁盘的碎片级别。 将 Version 成员设置为 GET_VIRTUAL_DISK_INFO_FRAGMENTATION。 Windows 7 和 Windows Server 2008 R2： 在Windows 8和Windows Server 2012之前， 不支持此操作。 VirtualDiskId 当用户首次创建虚拟磁盘以尝试唯一标识该虚拟磁盘时唯一创建的标识符。 将 Version 成员设置为 GET_VIRTUAL_DISK_INFO_VIRTUAL_DISK_ID。 Windows 8和Windows Server 2012：在 Windows 8.1 和 Windows Server 2012 R2 之前不支持此操作。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "GET_VIRTUAL_DISK_INFO_FRAGMENTATION",
+        "GET_VIRTUAL_DISK_INFO_VIRTUAL_DISK_ID",
+        "Server",
+        "VirtualDiskId"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1411
+    },
+    {
+      "id": "windows::ChangeTrackingState",
+      "name": "ChangeTrackingState",
+      "entity_type": "constant",
+      "description": "虚拟磁盘的可复原更改跟踪 (RCT) 的状态。 将 Version 成员设置为 GET_VIRTUAL_DISK_INFO_CHANGE_TRACKING_STATE。 Windows 8.1和Windows Server 2012 R2：在Windows 10和Windows Server 2016之前，不支持此成员。 .Enabled 是否打开 RCT。 如果 RCT 已打开，则为 TRUE;否则为 FALSE。 ChangeTrackingState.NewerChanges 自 MostRecentId 成员标识的更改发生以来，虚拟磁盘是否已更改。 如果虚拟磁盘自",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "GET_VIRTUAL_DISK_INFO_CHANGE_TRACKING_STATE",
+        "MostRecentId",
+        "Server"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1417
+    },
+    {
+      "id": "windows::MostRecentId",
+      "name": "MostRecentId",
+      "entity_type": "constant",
+      "description": "成员标识的更改发生后发生更改，则为 TRUE;否则为 FALSE。 ChangeTrackingState.MostRecentId[1] 更改跟踪标识符，用于标识要用作比较基础的虚拟磁盘的状态，以确定 NewerChanges 成员是否报告新更改。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "ChangeTrackingState"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1423
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO_UNSPECIFIED",
+      "name": "GET_VIRTUAL_DISK_INFO_UNSPECIFIED",
+      "entity_type": "constant",
+      "description": "= 0, GET_VIRTUAL_DISK_INFO_SIZE = 1,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "GET_VIRTUAL_DISK_INFO_SIZE"
+      ],
+      "confidence": 0.65,
+      "_source_line": 1446
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO_PARENT_LOCATION",
+      "name": "GET_VIRTUAL_DISK_INFO_PARENT_LOCATION",
+      "entity_type": "constant",
+      "description": "= 3, GET_VIRTUAL_DISK_INFO_PARENT_IDENTIFIER = 4, GET_VIRTUAL_DISK_INFO_PARENT_TIMESTAMP = 5,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "GET_VIRTUAL_DISK_INFO_PARENT_IDENTIFIER",
+        "GET_VIRTUAL_DISK_INFO_PARENT_TIMESTAMP"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1448
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO_IS_4K_ALIGNED",
+      "name": "GET_VIRTUAL_DISK_INFO_IS_4K_ALIGNED",
+      "entity_type": "constant",
+      "description": "值： 8 指示虚拟磁盘是否为 4 KB 对齐。 Windows 7 和 Windows Server 2008 R2： 在Windows 8和Windows Server 2012之前，不支持此值。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1450
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO_FRAGMENTATION",
+      "name": "GET_VIRTUAL_DISK_INFO_FRAGMENTATION",
+      "entity_type": "constant",
+      "description": "值： 12 虚拟磁盘的碎片级别。 Windows 7 和 Windows Server 2008 R2： 在Windows 8和Windows Server 2012之前，不支持此值。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1452
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO_VIRTUAL_DISK_ID",
+      "name": "GET_VIRTUAL_DISK_INFO_VIRTUAL_DISK_ID",
+      "entity_type": "constant",
+      "description": "值： 14 用户首次创建虚拟磁盘以尝试唯一标识该虚拟磁盘时唯一创建的标识符。 Windows 8和Windows Server 2012：在Windows 8.1和Windows Server 2012 R2 之前，不支持此值。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1453
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO_CHANGE_TRACKING_STATE",
+      "name": "GET_VIRTUAL_DISK_INFO_CHANGE_TRACKING_STATE",
+      "entity_type": "constant",
+      "description": "值： 15 虚拟磁盘的可复原更改跟踪 (RCT) 状态。 Windows 8.1和Windows Server 2012 R2：在Windows 10和Windows Server 2016之前，不支持此 值。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 7",
+        "min_server": "Windows Server 2008 R2"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1454
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO_SIZE",
+      "name": "GET_VIRTUAL_DISK_INFO_SIZE",
+      "entity_type": "constant",
+      "description": "值：1 与虚拟磁盘大小相关的信息，包括总大小、使用的物理分配、块大小、和扇区大小。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1460
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO_PROVIDER_SUBTYPE",
+      "name": "GET_VIRTUAL_DISK_INFO_PROVIDER_SUBTYPE",
+      "entity_type": "constant",
+      "description": "值： 7 虚拟磁盘的类型。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 1474
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO_PHYSICAL_DISK",
+      "name": "GET_VIRTUAL_DISK_INFO_PHYSICAL_DISK",
+      "entity_type": "constant",
+      "description": "值： 9 有关虚拟磁盘所在的物理磁盘的详细信息。 Windows 7 和 Windows Server 2008 R2： 在Windows 8和Windows Server 2012之前，不支持此值。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1479
+    },
+    {
+      "id": "windows::GET_VIRTUAL_DISK_INFO_IS_LOADED",
+      "name": "GET_VIRTUAL_DISK_INFO_IS_LOADED",
+      "entity_type": "constant",
+      "description": "值： 13 虚拟磁盘当前是否已装载和使用。 Windows 8和Windows Server 2012：在Windows 8.1和Windows Server 2012 R2 之前，不支持此值。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1492
+    },
+    {
+      "id": "windows::StorageDependencyInfo",
+      "name": "StorageDependencyInfo",
+      "entity_type": "constant",
+      "description": "参数引用的缓冲区的大小（以字节为单位）。[in, out] StorageDependencyInfo 指向缓冲区的指针，用于接收填充 STORAGE_DEPENDENCY_INFO 结构，该结构是可变长度结构。 [in, out, optional] SizeUsed 指向接收所用大小的 ULONG 的可选指针。 返回值请求的状态。 如果函数成功，则返回值ERROR_SUCCESS，StorageDependencyInfo 参数包含请求的依赖项信息。 如果函数失败，则返回值为错误代码， StorageDependencyInfo 参数未定义。 有关详细 信息，请参阅 系统错误代码。",
+      "remarks": "在Windows 8和Windows Server 2012之前，不支持 (ISO) 的 CD 和 DVD 映像文件。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "STORAGE_DEPENDENCY_INFO",
+        "Server"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1531
+    },
+    {
+      "id": "windows::GetVirtualDiskMetadata",
+      "name": "GetVirtualDiskMetadata",
+      "entity_type": "constant",
+      "description": "从虚拟磁盘检索指定的元数据。",
+      "syntax": "DWORD GetVirtualDiskMetadata(\n[in]      HANDLE     VirtualDiskHandle,   [in]      const GUID *Item,\n[in, out] PULONG     MetaDataSize,\n[out]     PVOID      MetaData);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的虚拟磁盘的句柄。[in] Item 标识要检索的元数据的 GUID 的地址。[in, out] MetaDataSize ULONG 的地址。 输入时，该值指示 MetaData 参数指向的缓冲区的大小（以字节为单位）。输出时，该值包含检索到的元数据的大小（以字节为单位）。 如果缓冲区太小，API 将失败并返回 ERROR_INSUFFICIENT_BUFFER，将所需大小放在 ULONG 中，缓冲区将包含元数据的开头。"
+        },
+        {
+          "name": "MetaData",
+          "direction": "out",
+          "description": "要存储元数据的缓冲区的地址。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果 Items 参数指向的缓冲区太小，则返回值 ERROR_INSUFFICIENT_BUFFER。如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1591
+    },
+    {
+      "id": "windows::GetVirtualDiskOperationProgress",
+      "name": "GetVirtualDiskOperationProgress",
+      "entity_type": "constant",
+      "description": "VHD 参考反馈 是 否 值 Windows 7 Windows Server 2008 R2 virtdisk.h",
+      "syntax": "DWORD MirrorVirtualDisk(\n[in] HANDLE                          VirtualDiskHandle,   [in] MIRROR_VIRTUAL_DISK_FLAG        Flags,\n[in] PMIRROR_VIRTUAL_DISK_PARAMETERS Parameters,   [in] LPOVERLAPPED                    Overlapped);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "具有挂起异步操作的虚拟磁盘的有效句柄。[in] Overlapped 指向有效 OVERLAPPED 结构的指针。 此参数必须引用先前发送到正在检查进度的虚拟磁 盘操作的相同结构。[out] Progress 指向接收当前虚拟磁盘操作进度 的VIRTUAL_DISK_PROGRESS 结构的指针。 返回值请求的状态。 如果函数成功，则返回值为 ERROR_SUCCESS ， Progress 参数将使用当前虚拟磁盘操作进度填充。 如果函数失败，则返回值为错误代码， 并且 Progress 参数的值未定义。 有关详细信息，请参阅 系统错误代码。"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.8,
+      "_source_line": 1619
+    },
+    {
+      "id": "windows::VIRTUAL_DISK_PROGRESS",
+      "name": "VIRTUAL_DISK_PROGRESS",
+      "entity_type": "constant",
+      "description": "反馈 Windows 7 Windows Server 2008 R2 Windows virtdisk.h VirtDisk.lib VirtDisk.dll",
+      "syntax": "typedef struct _VIRTUAL_DISK_PROGRESS {\nDWORD     OperationStatus;   ULONGLONG CurrentValue;\nULONGLONG CompletionValue;\n} VIRTUAL_DISK_PROGRESS, *PVIRTUAL_DISK_PROGRESS; 成员",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.85,
+      "_source_line": 1640
+    },
+    {
+      "id": "windows::GetVirtualDiskPhysicalPath",
+      "name": "GetVirtualDiskPhysicalPath",
+      "entity_type": "constant",
+      "description": "函数 检索包含虚拟硬盘（VHD）或 CD 或 DVD 映像文件（ISO）的物理设备对象的路径。",
+      "syntax": "DWORD GetVirtualDiskPhysicalPath(\n[in]            HANDLE VirtualDiskHandle,   [in, out]       PULONG DiskPathSizeInBytes,\n[out, optional] PWSTR  DiskPath);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的虚拟磁盘的句柄，必须使用 VIRTUAL_DISK_ACCESS_GET_INFO 标志打开。 有关 如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。[in, out] DiskPathSizeInBytes"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 1649
+    },
+    {
+      "id": "windows::DiskPath",
+      "name": "DiskPath",
+      "entity_type": "constant",
+      "description": "参数指向的缓冲区的大小（以字节为单位）。[out, optional] DiskPath 用于接收包含虚拟磁盘的物理磁盘设备的路径的目标缓冲区。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS，DiskPath 参数包含指向已填充字符串的指针。 如果函数失败，则返回值为错误代码，并且未定义由 DiskPath 参数引用的缓冲区内容的值。 有关详细信息，请参阅 系统错误代码。",
+      "remarks": "要使 GetVirtualDiskPhysicalPath 函数成功，必须附加由 VirtualDiskHandle 参数引用的虚拟磁盘，物理磁盘对象必须由系统定位，DiskPath 参数必须引用足够大的缓冲区来保存生成的路径。 此路径采用 \\\\.\\PhysicalDriveX，其中 X 是一个整数，表示调用方系统上物理磁盘的特定枚举。 Windows 8 和 Windows Server 2012 之前不支持 CD 和 DVD 映像文件（ISO）。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "library": "VirtDisk.lib",
+        "dll": "VirtDisk.dll",
+        "min_client": "Windows 7",
+        "min_server": "Windows Server 2008 R2"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "ERROR_SUCCESS",
+        "GetVirtualDiskPhysicalPath",
+        "Server",
+        "VirtualDiskHandle"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1660
+    },
+    {
+      "id": "windows::MERGE_VIRTUAL_DISK_FLAG",
+      "name": "MERGE_VIRTUAL_DISK_FLAG",
+      "entity_type": "constant",
+      "description": "枚举 包含虚拟硬盘 (VHD) 合并请求标志。",
+      "syntax": "typedef enum _MERGE_VIRTUAL_DISK_FLAG {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1684
+    },
+    {
+      "id": "windows::MERGE_VIRTUAL_DISK_FLAG_NONE",
+      "name": "MERGE_VIRTUAL_DISK_FLAG_NONE",
+      "entity_type": "constant",
+      "description": "= 0x00000000} MERGE_VIRTUAL_DISK_FLAG;",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 7",
+        "min_server": "Windows Server 2008 R2"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "MERGE_VIRTUAL_DISK_FLAG"
+      ],
+      "confidence": 0.65,
+      "_source_line": 1689
+    },
+    {
+      "id": "windows::MERGE_VIRTUAL_DISK_VERSION",
+      "name": "MERGE_VIRTUAL_DISK_VERSION",
+      "entity_type": "constant",
+      "description": "Version; union { struct { ULONG MergeDepth; } Version1; struct { ULONG MergeSourceDepth; ULONG MergeTargetDepth; } Version2; }; }",
+      "syntax": "typedef enum _MERGE_VIRTUAL_DISK_VERSION {",
+      "members": [
+        {
+          "name": "Version",
+          "description": "一个MERGE_VIRTUAL_DISK_VERSION枚举，用于指定要传递到 VHD 函数或从 VHD 函数 传递MERGE_VIRTUAL_DISK_PARAMETERS结构的版本。 Version1 当版本成员 MERGE_VIRTUAL_DISK_VERSION_1 ( 1) 时，使用此结构。 Version1.MergeDepth 合并请求的深度。 这是要合并在一起的差异链中的父磁盘数。 注意 虚拟磁盘的 RWDepth 必须大于 MergeDepth。 有关详细信息，请参阅"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "MergeDepth",
+        "Version1",
+        "Version2"
+      ],
+      "confidence": 0.95,
+      "_source_line": 1712
+    },
+    {
+      "id": "windows::Version2",
+      "name": "Version2",
+      "entity_type": "constant",
+      "description": "当版本成员 MERGE_VIRTUAL_DISK_VERSION_2 ( 2) 时，使用此结构。 Windows 7 和 Windows Server 2008 R2： 在 Windows 8 和 Windows Server 2012 之前，不支持此值。 .MergeSourceDepth 从叶开始合并的深度。 叶位于深度 1。 Version2.MergeTargetDepth 从叶到目标合并的深度。 叶位于深度 1。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1726
+    },
+    {
+      "id": "windows::MergeDepth",
+      "name": "MergeDepth",
+      "entity_type": "constant",
+      "description": "成员指定的合并请求的深度为 要合并的差异链中的父 VHD 映像文件。 有关详细信息，请参阅 MergeVirtualDisk。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "MergeVirtualDisk"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1732
+    },
+    {
+      "id": "windows::MergeVirtualDisk",
+      "name": "MergeVirtualDisk",
+      "entity_type": "constant",
+      "description": "函数使用 VirtualDiskHandle 参数引用的子磁盘中的数据块更新一个或 多个父磁盘中的所有数据块。 这实质上是复制操作。合并磁盘需要在操作期间分离受影响的磁盘。 调用方必须具有 READ|对受影响磁盘的后备存储的写入访问权限。 磁盘的 RWDepth 必须大于 OPEN_VIRTUAL_DISK_PARAMETERS指定的合并深度。 合并会修改要合并到的父磁盘，因此依赖于该父磁盘的任何其他差异磁盘将不再有效。 要合并到 的父磁盘将更改为表示在执行合并的子差异磁盘中保留的相同数据。将覆盖要合并到的父磁盘中的任何预先存在的数据。 如果合并操作中断，子磁盘仍可用。 可以重新运行 MergeVirtualDisk 函数以完成合并。合并请求的深度是差异链中要合并的父 VHD 映像文件数。 例如，如果 MergeDepth 成员的值为 1，则指定差异磁盘中的数据块将移到其父磁盘中。 如果 MergeDepth 成员的值为 2，并且指定的差异磁盘的父磁盘也是差异磁盘 (这意味着链) 中存在第三个磁盘，则第一个和第二个磁盘中的数据块将移动到第三个磁盘 (，其中第一个磁盘的块优先于第二个磁盘) 的最后操作。 完成后，受影响的子磁盘将不再被视为有效，并且对其执行的任何未来操作都将产生不受支持的结果。 在前面的示例中，成功完成合并后，第三个磁盘有效，第一个和第二个磁盘无效。 MergeVirtualDisk 函数不会删除任何无效磁盘，也不会执行任何自动差异关系重新连接。 这必须由调用方显式完成。 如果在差异磁盘的非叶节点上执行合并操作，则调用方负责修复正在合并的磁盘子节点的 父信息。",
+      "syntax": "DWORD MergeVirtualDisk(\n[in]           HANDLE                         VirtualDiskHandle,   [in]           MERGE_VIRTUAL_DISK_FLAG        Flags,\n[in]           PMERGE_VIRTUAL_DISK_PARAMETERS Parameters,   [in, optional] LPOVERLAPPED                   Overlapped);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的虚拟磁盘的句柄，该句柄必须已使用 VIRTUAL_DISK_ACCESS_METAOPS 标志打 开。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。[in] Flags 必须是 MERGE_VIRTUAL_DISK_FLAG 枚举的 MERGE_VIRTUAL_DISK_FLAG_NONE 值。[in] Parameters 指向包含合并参数数据的有效 MERGE_VIRTUAL_DISK_PARAMETERS 结构的指针。[in, optional] Overlapped 如果需要异步操作，则为指向有效 OVERLAPPED 结构的可选指针。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+        }
+      ],
+      "remarks": "注意 本部分中出现的所有 术语磁盘 都指虚拟磁盘。 术语 后备存储 是指一个或多个 VHD 映像文件所在的物理磁盘存储。",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 7",
+        "min_server": "Windows Server 2008 R2"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "MergeDepth",
+        "VirtualDiskHandle"
+      ],
+      "confidence": 0.8,
+      "_source_line": 1737
+    },
+    {
+      "id": "windows::MERGE_VIRTUAL_DISK_VERSION_UNSPECIFIED",
+      "name": "MERGE_VIRTUAL_DISK_VERSION_UNSPECIFIED",
+      "entity_type": "constant",
+      "description": "值： 0 不支持。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 1751
+    },
+    {
+      "id": "windows::MERGE_VIRTUAL_DISK_VERSION_1",
+      "name": "MERGE_VIRTUAL_DISK_VERSION_1",
+      "entity_type": "constant",
+      "description": "值：1 将使用 Version1 成员结构。 MERGE_VIRTUAL_DISK_VERSION_2 值： 2 将使用 Version2 成员结构。 Windows 7 和 Windows Server 2008 R2： 在Windows 8和Windows Server 2012之前，不支持此 值。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server",
+        "Version1",
+        "Version2"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1752
+    },
+    {
+      "id": "windows::MIRROR_VIRTUAL_DISK_FLAG",
+      "name": "MIRROR_VIRTUAL_DISK_FLAG",
+      "entity_type": "constant",
+      "description": "枚举 包含虚拟硬盘 (VHD) 镜像 请求标志。",
+      "syntax": "typedef enum _MIRROR_VIRTUAL_DISK_FLAG {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1825
+    },
+    {
+      "id": "windows::MIRROR_VIRTUAL_DISK_FLAG_NONE",
+      "name": "MIRROR_VIRTUAL_DISK_FLAG_NONE",
+      "entity_type": "constant",
+      "description": "( 0) 则此文件不得存在。 如果 MirrorVirtualDisk 的 Flags 参数MIRROR_VIRTUAL_DISK_FLAG_EXISTING_FILE ( 1) 则此文件必须存在。",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 8"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Flags",
+        "MirrorVirtualDisk"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1830
+    },
+    {
+      "id": "windows::MIRROR_VIRTUAL_DISK_FLAG_EXISTING_FILE",
+      "name": "MIRROR_VIRTUAL_DISK_FLAG_EXISTING_FILE",
+      "entity_type": "constant",
+      "description": "0x00000001 [in] Parameters 含义 镜像虚拟磁盘文件不存在，需要创建。使用现有文件创建镜像。 包含镜像参数数据的MIRROR_VIRTUAL_DISK_PARAMETERS结构的地址。[in] Overlapped 重叠结构的地址。 此参数是必需的。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "ERROR_SUCCESS",
+        "Overlapped"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1831
+    },
+    {
+      "id": "windows::MIRROR_VIRTUAL_DISK_FLAG_SKIP_MIRROR_ACTIVATION",
+      "name": "MIRROR_VIRTUAL_DISK_FLAG_SKIP_MIRROR_ACTIVATION",
+      "entity_type": "constant",
+      "description": "= 0x00000002, MIRROR_VIRTUAL_DISK_FLAG_ENABLE_SMB_COMPRESSION,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1832
+    },
+    {
+      "id": "windows::MIRROR_VIRTUAL_DISK_FLAG_IS_LIVE_MIGRATION",
+      "name": "MIRROR_VIRTUAL_DISK_FLAG_IS_LIVE_MIGRATION",
+      "entity_type": "constant",
+      "description": "} MIRROR_VIRTUAL_DISK_FLAG;",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "MIRROR_VIRTUAL_DISK_FLAG"
+      ],
+      "confidence": 0.65,
+      "_source_line": 1833
+    },
+    {
+      "id": "windows::MIRROR_VIRTUAL_DISK_PARAMETERS",
+      "name": "MIRROR_VIRTUAL_DISK_PARAMETERS",
+      "entity_type": "constant",
+      "description": "VHD 函数反馈 Windows 8 Windows Server 2012 Windows virtdisk.h VirtDisk.lib VirtDisk.dll",
+      "syntax": "typedef struct _MIRROR_VIRTUAL_DISK_PARAMETERS {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.85,
+      "_source_line": 1845
+    },
+    {
+      "id": "windows::MIRROR_VIRTUAL_DISK_VERSION",
+      "name": "MIRROR_VIRTUAL_DISK_VERSION",
+      "entity_type": "constant",
+      "description": "Version; union { struct { PCWSTR MirrorVirtualDiskPath; } Version1; }; } MIRROR_VIRTUAL_DISK_PARAMETERS, *PMIRROR_VIRTUAL_DISK_PARAMETERS;",
+      "syntax": "typedef enum _MIRROR_VIRTUAL_DISK_VERSION {",
+      "members": [
+        {
+          "name": "Version",
+          "description": "指示要使用的此结构的版本。 将此设置为 MIRROR_VIRTUAL_DISK_VERSION_1 (1) 。 Version1 如果 版本 成员设置为 MIRROR_VIRTUAL_DISK_VERSION_1，则使用此结构。 Version1.MirrorVirtualDiskPath 镜像虚拟磁盘将位于的完全限定路径。 如果 MirrorVirtualDisk 的 Flags 参数"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "MIRROR_VIRTUAL_DISK_PARAMETERS",
+        "Version1"
+      ],
+      "confidence": 0.95,
+      "_source_line": 1860
+    },
+    {
+      "id": "windows::MIRROR_VIRTUAL_DISK_VERSION_UNSPECIFIED",
+      "name": "MIRROR_VIRTUAL_DISK_VERSION_UNSPECIFIED",
+      "entity_type": "constant",
+      "description": "值： 0 不支持。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 1890
+    },
+    {
+      "id": "windows::MIRROR_VIRTUAL_DISK_VERSION_1",
+      "name": "MIRROR_VIRTUAL_DISK_VERSION_1",
+      "entity_type": "constant",
+      "description": "= 1} MIRROR_VIRTUAL_DISK_VERSION;",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 8",
+        "min_server": "Windows Server 2012"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "MIRROR_VIRTUAL_DISK_VERSION"
+      ],
+      "confidence": 0.65,
+      "_source_line": 1891
+    },
+    {
+      "id": "windows::MirrorVirtualDisk",
+      "name": "MirrorVirtualDisk",
+      "entity_type": "constant",
+      "description": "为虚拟磁盘启动镜像操作。 启动镜像操作后，它不会完成，直到调用 CancelIo 或",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 1914
+    },
+    {
+      "id": "windows::CancelIoEx",
+      "name": "CancelIoEx",
+      "entity_type": "constant",
+      "description": "来取消 VirtualDiskHandle 上的所有 I/O，将原始文件保留为当前文件，或者调用 BreakMirrorVirtualDisk 以停止使用原始文件，只使用镜像。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "BreakMirrorVirtualDisk",
+        "VirtualDiskHandle"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1916
+    },
+    {
+      "id": "windows::MODIFY_VHDSET_FLAG",
+      "name": "MODIFY_VHDSET_FLAG",
+      "entity_type": "constant",
+      "description": "包含影响 ModifyVhdSet 函数行为的标志。",
+      "syntax": "typedef enum _MODIFY_VHDSET_FLAG {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1952
+    },
+    {
+      "id": "windows::MODIFY_VHDSET_FLAG_NONE",
+      "name": "MODIFY_VHDSET_FLAG_NONE",
+      "entity_type": "constant",
+      "description": "值： 0x00000000 未指定标志。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 1956
+    },
+    {
+      "id": "windows::MODIFY_VHDSET_FLAG_WRITEABLE_SNAPSHOT",
+      "name": "MODIFY_VHDSET_FLAG_WRITEABLE_SNAPSHOT",
+      "entity_type": "constant",
+      "description": "= 0x00000001} MODIFY_VHDSET_FLAG, *PMODIFY_VHDSET_FLAG;",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "MODIFY_VHDSET_FLAG"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1957
+    },
+    {
+      "id": "windows::MODIFY_VHDSET_VERSION",
+      "name": "MODIFY_VHDSET_VERSION",
+      "entity_type": "constant",
+      "description": "Version; union { struct { GUID SnapshotId; PCWSTR SnapshotFilePath; } SnapshotPath; GUID SnapshotId; PCWSTR DefaultFilePath; }; }",
+      "syntax": "typedef enum _MODIFY_VHDSET_VERSION {",
+      "members": [
+        {
+          "name": "Version",
+          "description": "来自MODIFY_VHDSET_VERSION枚举的值，用于确定它是联合的判别项。 SnapshotPath 具有以下成员的结构。 SnapshotPath.SnapshotId GUID 格式的快照 ID，指示哪个快照要在 VHD 集中更改其路径。 SnapshotPath.SnapshotFilePath"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "DefaultFilePath",
+        "SnapshotId"
+      ],
+      "confidence": 0.95,
+      "_source_line": 1983
+    },
+    {
+      "id": "windows::SnapshotId",
+      "name": "SnapshotId",
+      "entity_type": "constant",
+      "description": "字段指示的 Snapshot 的新文件路径。 SnapshotId GUID 格式的快照 ID，指示要从 VHD Set 文件中删除哪个快照。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1994
+    },
+    {
+      "id": "windows::DefaultFilePath",
+      "name": "DefaultFilePath",
+      "entity_type": "constant",
+      "description": "Vhd 集的默认快照的文件路径。 要求",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 1996
+    },
+    {
+      "id": "windows::MODIFY_VHDSET_UNSPECIFIED",
+      "name": "MODIFY_VHDSET_UNSPECIFIED",
+      "entity_type": "constant",
+      "description": "= 0, MODIFY_VHDSET_SNAPSHOT_PATH = 1, MODIFY_VHDSET_REMOVE_SNAPSHOT = 2,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "MODIFY_VHDSET_SNAPSHOT_PATH"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2016
+    },
+    {
+      "id": "windows::MODIFY_VHDSET_DEFAULT_SNAPSHOT_PATH",
+      "name": "MODIFY_VHDSET_DEFAULT_SNAPSHOT_PATH",
+      "entity_type": "constant",
+      "description": "= 3 } MODIFY_VHDSET_VERSION, *PMODIFY_VHDSET_VERSION; 常量",
+      "syntax": "DWORD ModifyVhdSet(\n[in] HANDLE                          VirtualDiskHandle,   [in] const PMODIFY_VHDSET_PARAMETERS Parameters,\n[in] MODIFY_VHDSET_FLAG              Flags);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的虚拟磁盘的句柄。 这必须是 VHD 集文件。[in] Parameters 指向包含修改数据的有效 MODIFY_VHDSET_PARAMETERS 结构的指针。[in] Flags 修改标志，必须是 MODIFY_VHDSET_FLAG 枚举的有效组合。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "library": "VirtDisk.lib",
+        "dll": "VirtDisk.dll",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "MODIFY_VHDSET_VERSION"
+      ],
+      "confidence": 0.95,
+      "_source_line": 2017
+    },
+    {
+      "id": "windows::MODIFY_VHDSET_SNAPSHOT_PATH",
+      "name": "MODIFY_VHDSET_SNAPSHOT_PATH",
+      "entity_type": "constant",
+      "description": "值：1 将使用 SnapshotPath 成员结构。 MODIFY_VHDSET_REMOVE_SNAPSHOT 值： 2 将使用",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2023
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_FLAG_NONE",
+      "name": "OPEN_VIRTUAL_DISK_FLAG_NONE",
+      "entity_type": "constant",
+      "description": "值： 0x00000000 未指定标志。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2076
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_FLAG_NO_PARENTS",
+      "name": "OPEN_VIRTUAL_DISK_FLAG_NO_PARENTS",
+      "entity_type": "constant",
+      "description": "= 0x00000001, OPEN_VIRTUAL_DISK_FLAG_BLANK_FILE = 0x00000002, OPEN_VIRTUAL_DISK_FLAG_BOOT_DRIVE = 0x00000004, OPEN_VIRTUAL_DISK_FLAG_CACHED_IO = 0x00000008,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "OPEN_VIRTUAL_DISK_FLAG_BLANK_FILE",
+        "OPEN_VIRTUAL_DISK_FLAG_BOOT_DRIVE",
+        "OPEN_VIRTUAL_DISK_FLAG_CACHED_IO"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2077
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_FLAG_CUSTOM_DIFF_CHAIN",
+      "name": "OPEN_VIRTUAL_DISK_FLAG_CUSTOM_DIFF_CHAIN",
+      "entity_type": "constant",
+      "description": "= 0x00000010, OPEN_VIRTUAL_DISK_FLAG_PARENT_CACHED_IO = 0x00000020, OPEN_VIRTUAL_DISK_FLAG_VHDSET_FILE_ONLY = 0x00000040,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "OPEN_VIRTUAL_DISK_FLAG_PARENT_CACHED_IO",
+        "OPEN_VIRTUAL_DISK_FLAG_VHDSET_FILE_ONLY"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2078
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_FLAG_IGNORE_RELATIVE_PARENT_LOCATOR",
+      "name": "OPEN_VIRTUAL_DISK_FLAG_IGNORE_RELATIVE_PARENT_LOCATOR",
+      "entity_type": "constant",
+      "description": "= 0x00000080, OPEN_VIRTUAL_DISK_FLAG_NO_WRITE_HARDENING = 0x00000100,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "OPEN_VIRTUAL_DISK_FLAG_NO_WRITE_HARDENING"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2079
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_FLAG_SUPPORT_COMPRESSED_VOLUMES",
+      "name": "OPEN_VIRTUAL_DISK_FLAG_SUPPORT_COMPRESSED_VOLUMES",
+      "entity_type": "constant",
+      "description": ", OPEN_VIRTUAL_DISK_FLAG_SUPPORT_SPARSE_FILES_ANY_FS,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2080
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_FLAG_SUPPORT_ENCRYPTED_FILES",
+      "name": "OPEN_VIRTUAL_DISK_FLAG_SUPPORT_ENCRYPTED_FILES",
+      "entity_type": "constant",
+      "description": "} OPEN_VIRTUAL_DISK_FLAG;",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "OPEN_VIRTUAL_DISK_FLAG"
+      ],
+      "confidence": 0.65,
+      "_source_line": 2081
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_FLAG_BLANK_FILE",
+      "name": "OPEN_VIRTUAL_DISK_FLAG_BLANK_FILE",
+      "entity_type": "constant",
+      "description": "值： 0x00000002 保留。 ISO 虚拟磁盘不支持此标志。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2092
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_FLAG_BOOT_DRIVE",
+      "name": "OPEN_VIRTUAL_DISK_FLAG_BOOT_DRIVE",
+      "entity_type": "constant",
+      "description": "值： 0x00000004 保留。 ISO 虚拟磁盘不支持此标志。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2095
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_FLAG_CACHED_IO",
+      "name": "OPEN_VIRTUAL_DISK_FLAG_CACHED_IO",
+      "entity_type": "constant",
+      "description": "值： 0x00000008 指示应在缓存模式下打开虚拟磁盘。 默认情况下，虚拟磁盘处于打开状态 使用 FILE_FLAG_NO_BUFFERING 和 FILE_FLAG_WRITE_THROUGH。 Windows 7 和 Windows Server 2008 R2： 在Windows 8和Windows Server 2012之前，不支持此值。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2098
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_FLAG_PARENT_CACHED_IO",
+      "name": "OPEN_VIRTUAL_DISK_FLAG_PARENT_CACHED_IO",
+      "entity_type": "constant",
+      "description": "值： 0x00000020",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2106
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_FLAG_VHDSET_FILE_ONLY",
+      "name": "OPEN_VIRTUAL_DISK_FLAG_VHDSET_FILE_ONLY",
+      "entity_type": "constant",
+      "description": "值： 0x00000040",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2107
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_FLAG_NO_WRITE_HARDENING",
+      "name": "OPEN_VIRTUAL_DISK_FLAG_NO_WRITE_HARDENING",
+      "entity_type": "constant",
+      "description": "值： 0x00000100 要求",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.55,
+      "_source_line": 2109
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_VERSION",
+      "name": "OPEN_VIRTUAL_DISK_VERSION",
+      "entity_type": "constant",
+      "description": "Version; union { struct { ULONG RWDepth; } Version1; struct { BOOL GetInfoOnly; BOOL ReadOnly; GUID ResiliencyGuid; } Version2; }; }",
+      "syntax": "typedef enum _OPEN_VIRTUAL_DISK_VERSION {",
+      "members": [
+        {
+          "name": "Version",
+          "description": "一个OPEN_VIRTUAL_DISK_VERSION枚举，指定要传入或传递自 VHD 函数的 OPEN_VIRTUAL_DISK_PARAMETERS结构的版本。 值"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Version1",
+        "Version2"
+      ],
+      "confidence": 0.95,
+      "_source_line": 2131
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_VERSION_1",
+      "name": "OPEN_VIRTUAL_DISK_VERSION_1",
+      "entity_type": "constant",
+      "description": "值：1 将使用 Version1 成员结构。 OPEN_VIRTUAL_DISK_VERSION_2 值： 2 将使用 Version2 成员结构。 Windows 7 和 Windows Server 2008 R2： 在 Windows 8 和 Windows Server 2012 之前不支持此值。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "OPEN_VIRTUAL_DISK_VERSION_2",
+        "Server",
+        "Version1",
+        "Version2"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2143
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_RW_DEPTH_DEFAULT",
+      "name": "OPEN_VIRTUAL_DISK_RW_DEPTH_DEFAULT",
+      "entity_type": "constant",
+      "description": "1 n (用户定义的) Version2 含义 请勿在任何深度打开进行读取/写入。 此值应用于只读操作。 如果不需要其他值，则要使用的默认值。 如果打算执行合并操作，则此整数值应为合并级别数加 1。 如果 版本 成员 OPEN_VIRTUAL_DISK_VERSION_2 ( 2) ，则使用此结构。 Windows 7 和 Windows Server 2008 R2： 在Windows 8和Windows Server 2012之前，不支持此结构。 Version2.GetInfoOnly 如果 为 TRUE，则指示句柄仅用于获取虚拟磁盘上的信息。 Version2.ReadOnly 如果 为 TRUE，则指示要以只读的形式打开文件后备存储。 Version2.ResiliencyGuid 打开文件时要指定的复原 GUID 。７ 备注 以下参数的前面版本 3 供内部使用。 Version3 Version3.GetInfoOnly Version3.ReadOnly Version3.ResiliencyGuid Version3.SnapshotId 要求",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "OPEN_VIRTUAL_DISK_VERSION_2",
+        "Server",
+        "SnapshotId",
+        "Version2"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2153
+    },
+    {
+      "id": "windows::OPEN_VIRTUAL_DISK_VERSION_UNSPECIFIED",
+      "name": "OPEN_VIRTUAL_DISK_VERSION_UNSPECIFIED",
+      "entity_type": "constant",
+      "description": "值： 0 不支持。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2190
+    },
+    {
+      "id": "windows::QUERY_CHANGES_VIRTUAL_DISK_RANG",
+      "name": "QUERY_CHANGES_VIRTUAL_DISK_RANG",
+      "entity_type": "constant",
+      "description": "标识虚拟硬盘 (VHD) 上已更改的区域，该区域已根据可复原更改跟踪 (RCT) 进行跟踪。",
+      "syntax": "typedef struct _QUERY_CHANGES_VIRTUAL_DISK_RANGE {\nULONG64 ByteOffset;   ULONG64 ByteLength;   ULONG64 Reserved;\n} QUERY_CHANGES_VIRTUAL_DISK_RANGE, *PQUERY_CHANGES_VIRTUAL_DISK_RANGE;",
+      "members": [
+        {
+          "name": "ByteOffset",
+          "description": "从虚拟磁盘开始到已更改的虚拟磁盘区域开头的距离（以字节为单位）。 ByteLength 已更改的虚拟磁盘区域的长度（以字节为单位）。 Reserved 保留。"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 2259
+    },
+    {
+      "id": "windows::RAW_SCSI_VIRTUAL_DISK_FLAG",
+      "name": "RAW_SCSI_VIRTUAL_DISK_FLAG",
+      "entity_type": "constant",
+      "description": "枚举 包含影响 RawSCSIVirtualDisk 函数行为的标志。",
+      "syntax": "typedef enum _RAW_SCSI_VIRTUAL_DISK_FLAG {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "RawSCSIVirtualDisk"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2331
+    },
+    {
+      "id": "windows::RAW_SCSI_VIRTUAL_DISK_FLAG_NONE",
+      "name": "RAW_SCSI_VIRTUAL_DISK_FLAG_NONE",
+      "entity_type": "constant",
+      "description": "= 0X00000000 } RAW_SCSI_VIRTUAL_DISK_FLAG, *PRAW_SCSI_VIRTUAL_DISK_FLAG; 常量",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "RAW_SCSI_VIRTUAL_DISK_FLAG"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2336
+    },
+    {
+      "id": "windows::RAW_SCSI_VIRTUAL_DISK_PARAMETERS",
+      "name": "RAW_SCSI_VIRTUAL_DISK_PARAMETERS",
+      "entity_type": "constant",
+      "description": "结构的版本。 Version1 具有以下成员的 结构。 Version1.RSVDHandle 如果为 TRUE，则指示将使用 RSVD 协议将操作传输到虚拟磁盘。 Version1.DataIn 如果为 TRUE，则指示 SCSI 命令将从 DataBuffer 读取数据。 如果为 FALSE，则指示可以写入数据。 Version1.CdbLength CDB 成员中包含的 CDB) 命令描述符块 (长度（以字节为单位）。 Version1.SenseInfoLength 检测缓冲区的长度（以字节为单位）。 Version1.SrbFlags 调用方提供的SRB_FLAGS前缀位标志，用于指定请求的操作。 标志在 srb.h 中定义。 Version1.DataTransferLength 要传输的缓冲区的长度（以字节为单位）。 Version1.DataBuffer 指向 SCSI 数据缓冲区的指针。 Version1.SenseInfo 指向缓冲区的指针，用于在命令完成后接收 SCSI 感知信息。 Version1.Cdb 调用方提供的 CDB 数据。 (CDB 结构在 scsi.h.) 中声明",
+      "syntax": "typedef struct _RAW_SCSI_VIRTUAL_DISK_PARAMETERS {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Version1"
+      ],
+      "confidence": 0.85,
+      "_source_line": 2355
+    },
+    {
+      "id": "windows::RAW_SCSI_VIRTUAL_DISK_VERSION",
+      "name": "RAW_SCSI_VIRTUAL_DISK_VERSION",
+      "entity_type": "constant",
+      "description": "Version; union { struct { BOOL RSVDHandle; UCHAR DataIn; UCHAR CdbLength; UCHAR SenseInfoLength; ULONG SrbFlags; ULONG DataTransferLength; PVOID DataBuffer; UCHAR *SenseInfo; UCHAR *Cdb; }",
+      "syntax": "typedef enum _RAW_SCSI_VIRTUAL_DISK_VERSION {",
+      "members": [
+        {
+          "name": "Version",
+          "description": "一个 RAW_SCSI_VIRTUAL_DISK_VERSION 枚举，指定传入或传出 VHD 函数的"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.95,
+      "_source_line": 2360
+    },
+    {
+      "id": "windows::RAW_SCSI_VIRTUAL_DISK_RESPONSE",
+      "name": "RAW_SCSI_VIRTUAL_DISK_RESPONSE",
+      "entity_type": "constant",
+      "description": "结 包含原始 SCSI 虚拟磁盘响应参数。",
+      "syntax": "typedef struct _RAW_SCSI_VIRTUAL_DISK_RESPONSE {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2393
+    },
+    {
+      "id": "windows::RAW_SCSI_VIRTUAL_DISK_VERSION_1",
+      "name": "RAW_SCSI_VIRTUAL_DISK_VERSION_1",
+      "entity_type": "constant",
+      "description": "= 1} RAW_SCSI_VIRTUAL_DISK_VERSION;",
+      "requirements": {
+        "header": "virtdisk.h"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "RAW_SCSI_VIRTUAL_DISK_VERSION"
+      ],
+      "confidence": 0.65,
+      "_source_line": 2430
+    },
+    {
+      "id": "windows::RawSCSIVirtualDisk",
+      "name": "RawSCSIVirtualDisk",
+      "entity_type": "constant",
+      "description": "直接向虚拟硬盘发出嵌入式 SCSI 请求。",
+      "syntax": "DWORD RawSCSIVirtualDisk(\n[in]  HANDLE                                  VirtualDiskHandle,   [in]  const PRAW_SCSI_VIRTUAL_DISK_PARAMETERS Parameters,\n[in]  RAW_SCSI_VIRTUAL_DISK_FLAG              Flags,   [out] PRAW_SCSI_VIRTUAL_DISK_RESPONSE         Response);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的虚拟磁盘的句柄。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。此句柄也可以是远程共享虚拟磁盘的句柄。 有关如何打开远程共享虚拟磁盘的信息，请 参阅 远程共享虚拟磁盘协议 文档。[in] Parameters 指向包含快照删除数据的有效RAW_SCSI_VIRTUAL_DISK_PARAMETERS 结构的指针。[in] Flags SCSI 虚拟磁盘标志，必须是 RAW_SCSI_VIRTUAL_DISK_FLAG 枚举的有效组合。[out] Response 指向包含处理 SCSI 命令的结果 的 RAW_SCSI_VIRTUAL_DISK_RESPONSE 结构的指针。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 返回 ERROR_SUCCESS 仅表示虚拟磁盘已收到请求。 由于设备状态无效、SCSI 命令不受支持或其他错误，SCSI 命令本身可能已失败。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "library": "VirtDisk.lib",
+        "dll": "VirtDisk.dll",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 2448
+    },
+    {
+      "id": "windows::RESIZE_VIRTUAL_DISK_FLAG",
+      "name": "RESIZE_VIRTUAL_DISK_FLAG",
+      "entity_type": "constant",
+      "description": "枚举 枚举 ResizeVirtualDisk 函数的可用标志。",
+      "syntax": "typedef enum _RESIZE_VIRTUAL_DISK_FLAG {   RESIZE_VIRTUAL_DISK_FLAG_NONE = 0x0,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "ResizeVirtualDisk"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2477
+    },
+    {
+      "id": "windows::RESIZE_VIRTUAL_DISK_FLAG_ALLOW_UNSAFE_VIRTUAL_SIZE",
+      "name": "RESIZE_VIRTUAL_DISK_FLAG_ALLOW_UNSAFE_VIRTUAL_SIZE",
+      "entity_type": "constant",
+      "description": "值： 0x1 如果设置了此标志，请跳过检查虚拟磁盘的分区表以确保此截断安全。 设置此标志可能会导致不可恢复的数据丢失;请谨慎使用 。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2482
+    },
+    {
+      "id": "windows::RESIZE_VIRTUAL_DISK_FLAG_RESIZE_TO_SMALLEST_SAFE_VIRTUAL_SIZE",
+      "name": "RESIZE_VIRTUAL_DISK_FLAG_RESIZE_TO_SMALLEST_SAFE_VIRTUAL_SIZE",
+      "entity_type": "constant",
+      "description": "值： 0x2 如果设置了此标志，请将磁盘大小调整为尽可能小的虚拟大小，而不会截断 现有分区。 如果已设置，则 中的 NewSize 成员 RESIZE_VIRTUAL_DISK_PARAMETERS 结构必须为零。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "RESIZE_VIRTUAL_DISK_PARAMETERS"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2483
+    },
+    {
+      "id": "windows::RESIZE_VIRTUAL_DISK_FLAG_NONE",
+      "name": "RESIZE_VIRTUAL_DISK_FLAG_NONE",
+      "entity_type": "constant",
+      "description": "值： 0x0 未指定任何标志。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2487
+    },
+    {
+      "id": "windows::RESIZE_VIRTUAL_DISK_PARAMETERS",
+      "name": "RESIZE_VIRTUAL_DISK_PARAMETERS",
+      "entity_type": "constant",
+      "description": "VHD 函数 值 Windows 8 Windows Server 2012 Windows virtdisk.h (包括 Windows.h) VirtDisk.lib VirtDisk.dll",
+      "syntax": "typedef struct _RESIZE_VIRTUAL_DISK_PARAMETERS {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.85,
+      "_source_line": 2499
+    },
+    {
+      "id": "windows::RESIZE_VIRTUAL_DISK_VERSION",
+      "name": "RESIZE_VIRTUAL_DISK_VERSION",
+      "entity_type": "constant",
+      "description": "Version; union { struct { ULONGLONG NewSize; } Version1; }; } RESIZE_VIRTUAL_DISK_PARAMETERS, *PRESIZE_VIRTUAL_DISK_PARAMETERS;",
+      "syntax": "typedef enum _RESIZE_VIRTUAL_DISK_VERSION {",
+      "members": [
+        {
+          "name": "Version",
+          "description": "包含从 RESIZE_VIRTUAL_DISK_VERSION 枚举枚举的值的联合的判别。 Version1 如果 Version 成员 RESIZE_VIRTUAL_DISK_VERSION_1 ( 1) ，则使用此结构。 Version1.NewSize 包含虚拟磁盘的新大小。"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 8",
+        "min_server": "Windows Server 2012"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "RESIZE_VIRTUAL_DISK_PARAMETERS",
+        "Version1"
+      ],
+      "confidence": 0.95,
+      "_source_line": 2515
+    },
+    {
+      "id": "windows::RESIZE_VIRTUAL_DISK_VERSION_UNSPECIFIED",
+      "name": "RESIZE_VIRTUAL_DISK_VERSION_UNSPECIFIED",
+      "entity_type": "constant",
+      "description": "值： 0 版本无效。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2547
+    },
+    {
+      "id": "windows::RESIZE_VIRTUAL_DISK_VERSION_1",
+      "name": "RESIZE_VIRTUAL_DISK_VERSION_1",
+      "entity_type": "constant",
+      "description": "= 1} RESIZE_VIRTUAL_DISK_VERSION;",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "RESIZE_VIRTUAL_DISK_VERSION"
+      ],
+      "confidence": 0.65,
+      "_source_line": 2548
+    },
+    {
+      "id": "windows::ResizeVirtualDisk",
+      "name": "ResizeVirtualDisk",
+      "entity_type": "constant",
+      "description": "调整虚拟磁盘的大小。",
+      "syntax": "DWORD ResizeVirtualDisk(\n[in]           HANDLE                          VirtualDiskHandle,   [in]           RESIZE_VIRTUAL_DISK_FLAG        Flags,\n[in]           PRESIZE_VIRTUAL_DISK_PARAMETERS Parameters,   [in, optional] LPOVERLAPPED                    Overlapped);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的虚拟磁盘的句柄。[in] Flags 从 RESIZE_VIRTUAL_DISK_FLAG 枚举中枚举的零个或多个标志。[in] Parameters 包含虚拟磁盘新大小的 RESIZE_VIRTUAL_DISK_PARAMETERS 结构的地址。[in, optional] Overlapped 如果这是异步操作，则为有效 OVERLAPPED 结构的地址。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 2562
+    },
+    {
+      "id": "windows::SET_VIRTUAL_DISK_INFO",
+      "name": "SET_VIRTUAL_DISK_INFO",
+      "entity_type": "constant",
+      "description": "结构 包含虚拟硬盘 (VHD) 调用 SetVirtualDiskInformation 函数以设置 VHD 属性时使用的信息。",
+      "syntax": "typedef struct _SET_VIRTUAL_DISK_INFO {   SET_VIRTUAL_DISK_INFO_VERSION Version;   union {\nPCWSTR ParentFilePath;     GUID   UniqueIdentifier;     struct {\nULONG  ChildDepth;\nPCWSTR ParentFilePath;     } ParentPathWithDepthInfo;\nULONG  VhdPhysicalSectorSize;     GUID   VirtualDiskId;\nBOOL   ChangeTrackingEnabled;     struct {\nGUID   LinkageId;\nPCWSTR ParentFilePath;\n} ParentLocator;   };\n} SET_VIRTUAL_DISK_INFO, *PSET_VIRTUAL_DISK_INFO;",
+      "members": [
+        {
+          "name": "Version",
+          "description": "一个 SET_VIRTUAL_DISK_INFO_VERSION 枚举，该枚举指定传递给 VHD 函数或从 VHD 函数传递的 SET_VIRTUAL_DISK_INFO 结构的版本。 这决定了信息集的类型。 ParentFilePath 父级后备存储的路径。 将 Version 成员设置为 SET_VIRTUAL_DISK_INFO_PARENT_PATH(1) 。"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "SetVirtualDiskInformation"
+      ],
+      "confidence": 0.95,
+      "_source_line": 2595
+    },
+    {
+      "id": "windows::UniqueIdentifier",
+      "name": "UniqueIdentifier",
+      "entity_type": "constant",
+      "description": "VHD 的唯一标识符。 将 Version 成员设置为 SET_VIRTUAL_DISK_INFO_IDENTIFIER (2)。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "SET_VIRTUAL_DISK_INFO_IDENTIFIER"
+      ],
+      "confidence": 0.6,
+      "_source_line": 2613
+    },
+    {
+      "id": "windows::ParentPathWithDepthInfo",
+      "name": "ParentPathWithDepthInfo",
+      "entity_type": "constant",
+      "description": "设置父文件路径和子深度。 将 Version 成员设置为",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 2615
+    },
+    {
+      "id": "windows::SET_VIRTUAL_DISK_INFO_PARENT_PATH_WITH_DEPTH",
+      "name": "SET_VIRTUAL_DISK_INFO_PARENT_PATH_WITH_DEPTH",
+      "entity_type": "constant",
+      "description": "(3) 。 Windows 7 和 Windows Server 2008 R2： 在Windows 8和Windows Server 2012之前，不支持此操作。 ParentPathWithDepthInfo.ChildDepth 指定从叶到子级的深度。 叶本身的深度为 1。 ParentPathWithDepthInfo.ParentFilePath 指定从叶到父级的深度。 叶本身的深度为 1。 VhdPhysicalSectorSize 设置 VHD 报告的物理扇区大小。 将 Version 成员设置为",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "ParentPathWithDepthInfo",
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2617
+    },
+    {
+      "id": "windows::SET_VIRTUAL_DISK_INFO_PHYSICAL_SECTOR_SIZE",
+      "name": "SET_VIRTUAL_DISK_INFO_PHYSICAL_SECTOR_SIZE",
+      "entity_type": "constant",
+      "description": "值： 4 设置 VHD 报告的物理扇区大小。 Windows 7 和 Windows Server 2008 R2： 在Windows 8和Windows Server 2012之前，不支持此值。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2623
+    },
+    {
+      "id": "windows::VirtualDiskId",
+      "name": "VirtualDiskId",
+      "entity_type": "constant",
+      "description": "当用户首次创建虚拟磁盘以尝试唯一标识该虚拟磁盘时唯一创建的标识符。 将 Version 成员设置为 SET_VIRTUAL_DISK_INFO_VIRTUAL_DISK_ID (5) 。 Windows 8和Windows Server 2012：在 Windows 8.1 和 Windows Server 2012 R2 之前不支持此操作。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "SET_VIRTUAL_DISK_INFO_VIRTUAL_DISK_ID",
+        "Server"
+      ],
+      "confidence": 0.6,
+      "_source_line": 2624
+    },
+    {
+      "id": "windows::ChangeTrackingEnabled",
+      "name": "ChangeTrackingEnabled",
+      "entity_type": "constant",
+      "description": "打开或关闭 VHD 的可复原更改跟踪 (RCT) 。 TRUE 将打开 RCT。 FALSE 会关闭 RCT。 将 Version 成员设置为 SET_VIRTUAL_DISK_INFO_CHANGE_TRACKING_STATE ( 6) 。 Windows 8.1和Windows Server 2012 R2：在Windows 10和Windows Server 2016之前， 不支持此成员。 ParentLocator 设置差异 VHD 存储的父链接信息。 父链接信息是用于查找和正确标识虚拟磁盘链中的下一个父级的元数据。 将 Version 成员设置为",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "SET_VIRTUAL_DISK_INFO_CHANGE_TRACKING_STATE",
+        "Server"
+      ],
+      "confidence": 0.6,
+      "_source_line": 2627
+    },
+    {
+      "id": "windows::SET_VIRTUAL_DISK_INFO_PARENT_LOCATOR",
+      "name": "SET_VIRTUAL_DISK_INFO_PARENT_LOCATOR",
+      "entity_type": "constant",
+      "description": "(7) 。 Windows 8.1和Windows Server 2012 R2：在Windows 10和Windows Server 2016之前，不支持此成员。 ParentLocator.LinkageId 父链接信息的唯一标识符。 ParentLocator.ParentFilePath 父 VHD 的文件路径。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2632
+    },
+    {
+      "id": "windows::SET_VIRTUAL_DISK_INFO_VERSION",
+      "name": "SET_VIRTUAL_DISK_INFO_VERSION",
+      "entity_type": "constant",
+      "description": "枚举 包含虚拟磁盘的版本 SET_VIRTUAL_DISK_INFO 结构，用于对 VHD 函数的调用。 使用不同版本的 结构为 VHD 设置不同类型的信息。",
+      "syntax": "typedef enum _SET_VIRTUAL_DISK_INFO_VERSION {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "SET_VIRTUAL_DISK_INFO"
+      ],
+      "confidence": 0.85,
+      "_source_line": 2651
+    },
+    {
+      "id": "windows::SET_VIRTUAL_DISK_INFO_UNSPECIFIED",
+      "name": "SET_VIRTUAL_DISK_INFO_UNSPECIFIED",
+      "entity_type": "constant",
+      "description": "= 0, SET_VIRTUAL_DISK_INFO_PARENT_PATH = 1, SET_VIRTUAL_DISK_INFO_IDENTIFIER = 2,",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "SET_VIRTUAL_DISK_INFO_IDENTIFIER",
+        "SET_VIRTUAL_DISK_INFO_PARENT_PATH"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2656
+    },
+    {
+      "id": "windows::SET_VIRTUAL_DISK_INFO_CHANGE_TRACKING_STATE",
+      "name": "SET_VIRTUAL_DISK_INFO_CHANGE_TRACKING_STATE",
+      "entity_type": "constant",
+      "description": "值： 6 是否为虚拟磁盘启用了可复原更改跟踪 (RCT) 。 Windows 8.1和Windows Server 2012 R2：在Windows 10和Windows Server 2016之前不支持此值。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2658
+    },
+    {
+      "id": "windows::SET_VIRTUAL_DISK_INFO_PARENT_PATH",
+      "name": "SET_VIRTUAL_DISK_INFO_PARENT_PATH",
+      "entity_type": "constant",
+      "description": "值：1 正在设置父信息。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2665
+    },
+    {
+      "id": "windows::SET_VIRTUAL_DISK_INFO_IDENTIFIER",
+      "name": "SET_VIRTUAL_DISK_INFO_IDENTIFIER",
+      "entity_type": "constant",
+      "description": "值： 2 正在设置唯一标识符。 注意 如果 VHD 的唯一标识符因",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2667
+    },
+    {
+      "id": "windows::SET_VIRTUAL_DISK_INFO_VIRTUAL_DISK_ID",
+      "name": "SET_VIRTUAL_DISK_INFO_VIRTUAL_DISK_ID",
+      "entity_type": "constant",
+      "description": "值： 5 当用户首次创建虚拟磁盘以尝试唯一标识该虚拟磁盘时唯一创建的标识符。 Windows 8和Windows Server 2012：在Windows 8.1和Windows Server 2012 R2 之前不支持此值。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2680
+    },
+    {
+      "id": "windows::SetVirtualDiskInformation",
+      "name": "SetVirtualDiskInformation",
+      "entity_type": "constant",
+      "description": "函数 设置有关虚拟硬盘的信息 (VHD) 。",
+      "syntax": "DWORD SetVirtualDiskInformation(\n[in] HANDLE                 VirtualDiskHandle,\n[in] PSET_VIRTUAL_DISK_INFO VirtualDiskInfo);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的虚拟磁盘的句柄，该句柄必须已使用 VIRTUAL_DISK_ACCESS_METAOPS 标志打 开。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。[in] VirtualDiskInfo 指向有效 SET_VIRTUAL_DISK_INFO 结构的指针。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+        }
+      ],
+      "remarks": "如果请求设置 ParentFilePath 成员，但系统无法解析提供的路径， SetVirtualDiskInformation 函数将失败。 设置父信息还会导致更新子级的父 GUID 和时间戳字段。 此操作正在进行时，无法附加虚拟磁盘。 调用方必须具有 READ|对虚拟磁盘的后备存储的写入访问权限。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.7,
+      "_source_line": 2705
+    },
+    {
+      "id": "windows::SetVirtualDiskMetadata",
+      "name": "SetVirtualDiskMetadata",
+      "entity_type": "constant",
+      "description": "设置虚拟磁盘的元数据项。",
+      "syntax": "DWORD SetVirtualDiskMetadata(\n[in] HANDLE     VirtualDiskHandle,   [in] const GUID *Item,\n[in] ULONG      MetaDataSize,\n[in] const void *MetaData);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的虚拟磁盘的句柄。[in] Item 标识要设置的元数据的 GUID 的地址。 这不能是 NULL GUID () 所有零的 GUID。[in] MetaDataSize 包含 MetaData 参数指向的缓冲区的大小（以字节为单位）的 ULONG 的地址。 特定 VHD 文件类型具有每个元数据元素的最大大小。 特定 VHD 文件还具有最大数量的元数据条目总数和总元 数据大小。[in] MetaData 包含要存储的元数据的缓冲区的地址。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。 要求"
+        }
+      ],
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.6,
+      "_source_line": 2741
+    },
+    {
+      "id": "windows::STORAGE_DEPENDENCY_INFO_TYPE_2",
+      "name": "STORAGE_DEPENDENCY_INFO_TYPE_2",
+      "entity_type": "constant",
+      "description": "包含类型 2 的 VHD 或 ISO 存储依赖项信息。",
+      "syntax": "typedef struct _STORAGE_DEPENDENCY_INFO_TYPE_2 {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2819
+    },
+    {
+      "id": "windows::DependencyDeviceName",
+      "name": "DependencyDeviceName",
+      "entity_type": "constant",
+      "description": "依赖设备的设备名称。 如果设备是虚拟硬盘驱动器，则其格式为 \\.\\PhysicalDriveN。 如果设备是 (ISO) 的虚拟 CD 或 DVD 驱动器，则其格式为 \\.\\CDRomN。 在任一情况下 ，N 都是表示调用方主机系统的唯一标识符的整数。 HostVolumeName 主机磁盘卷名称的格式为 \\？\\Volume{GUID}\\，其中 GUID 是标识卷的 GUID 。 DependentVolumeName 依赖卷的名称（如果有），格式为 \\？\\Volume{GUID}\\，其中 GUID 是标识卷的 GUID 。 DependentVolumeRelativePath 依赖卷的相对路径。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.6,
+      "_source_line": 2834
+    },
+    {
+      "id": "windows::STORAGE_DEPENDENCY_INFO_VERSION",
+      "name": "STORAGE_DEPENDENCY_INFO_VERSION",
+      "entity_type": "constant",
+      "description": "包含虚拟硬盘的版本 (VHD) STORAGE_DEPENDENCY_INFO 结构，用于调用 VHD 函数。",
+      "syntax": "typedef enum _STORAGE_DEPENDENCY_INFO_VERSION {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "STORAGE_DEPENDENCY_INFO"
+      ],
+      "confidence": 0.85,
+      "_source_line": 2855
+    },
+    {
+      "id": "windows::STORAGE_DEPENDENCY_INFO_VERSION_UNSPECIFIED",
+      "name": "STORAGE_DEPENDENCY_INFO_VERSION_UNSPECIFIED",
+      "entity_type": "constant",
+      "description": "值： 0 未指定版本。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2860
+    },
+    {
+      "id": "windows::STORAGE_DEPENDENCY_INFO_VERSION_1",
+      "name": "STORAGE_DEPENDENCY_INFO_VERSION_1",
+      "entity_type": "constant",
+      "description": "= 1, STORAGE_DEPENDENCY_INFO_VERSION_2 = 2} STORAGE_DEPENDENCY_INFO_VERSION;",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "STORAGE_DEPENDENCY_INFO_VERSION",
+        "STORAGE_DEPENDENCY_INFO_VERSION_2"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2861
+    },
+    {
+      "id": "windows::STORAGE_DEPENDENCY_INFO_VERSION_2",
+      "name": "STORAGE_DEPENDENCY_INFO_VERSION_2",
+      "entity_type": "constant",
+      "description": "值： 2 指定 STORAGE_DEPENDENCY_INFO_TYPE_2。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 7",
+        "min_server": "Windows Server 2008 R2"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "STORAGE_DEPENDENCY_INFO_TYPE_2"
+      ],
+      "confidence": 0.65,
+      "_source_line": 2867
+    },
+    {
+      "id": "windows::TAKE_SNAPSHOT_VHDSET_FLAG",
+      "name": "TAKE_SNAPSHOT_VHDSET_FLAG",
+      "entity_type": "constant",
+      "description": "枚举 包含影响 TakeSnapshotVhdSet 函数行为的标志。",
+      "syntax": "typedef enum _TAKE_SNAPSHOT_VHDSET_FLAG {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "TakeSnapshotVhdSet"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2881
+    },
+    {
+      "id": "windows::TAKE_SNAPSHOT_VHDSET_FLAG_NONE",
+      "name": "TAKE_SNAPSHOT_VHDSET_FLAG_NONE",
+      "entity_type": "constant",
+      "description": "值： 0x00000000 未指定标志。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 2886
+    },
+    {
+      "id": "windows::TAKE_SNAPSHOT_VHDSET_FLAG_WRITEABLE",
+      "name": "TAKE_SNAPSHOT_VHDSET_FLAG_WRITEABLE",
+      "entity_type": "constant",
+      "description": "= 0x00000001 } TAKE_SNAPSHOT_VHDSET_FLAG, *PTAKE_SNAPSHOT_VHDSET_FLAG;",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "TAKE_SNAPSHOT_VHDSET_FLAG"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2887
+    },
+    {
+      "id": "windows::TAKE_SNAPSHOT_VHDSET_PARAMETER",
+      "name": "TAKE_SNAPSHOT_VHDSET_PARAMETER",
+      "entity_type": "constant",
+      "description": "包含快照参数，指示有关要创建的新快照的信息。",
+      "syntax": "typedef struct _TAKE_SNAPSHOT_VHDSET_PARAMETERS {",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 2905
+    },
+    {
+      "id": "windows::TAKE_SNAPSHOT_VHDSET_VERSION_1",
+      "name": "TAKE_SNAPSHOT_VHDSET_VERSION_1",
+      "entity_type": "constant",
+      "description": "= 1 } TAKE_SNAPSHOT_VHDSET_VERSION;",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "TAKE_SNAPSHOT_VHDSET_VERSION"
+      ],
+      "confidence": 0.65,
+      "_source_line": 2939
+    },
+    {
+      "id": "windows::TakeSnapshotVhdSet",
+      "name": "TakeSnapshotVhdSet",
+      "entity_type": "constant",
+      "description": "为 VHD 集文件创建当前虚拟磁盘的快照。",
+      "syntax": "DWORD TakeSnapshotVhdSet(\n[in] HANDLE                                 VirtualDiskHandle,   [in] const PTAKE_SNAPSHOT_VHDSET_PARAMETERS Parameters,\n[in] TAKE_SNAPSHOT_VHDSET_FLAG              Flags);",
+      "parameters": [
+        {
+          "name": "VirtualDiskHandle",
+          "direction": "in",
+          "description": "打开的虚拟磁盘的句柄。 这必须是 VHD 集文件。[in] Parameters 指向包含快照数据的有效TAKE_SNAPSHOT_VHDSET_PARAMETERS结构的指针。[in] Flags 快照标志，必须是 TAKE_SNAPSHOT_VHDSET_FLAG 枚举的有效组合 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "library": "VirtDisk.lib",
+        "dll": "VirtDisk.dll",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 2956
+    },
+    {
+      "id": "windows::OperationStatus",
+      "name": "OperationStatus",
+      "entity_type": "constant",
+      "description": "系统 错误代码 状态值，如果操作仍在进行中，则将 ERROR_IO_PENDING 此成员;否则， 该值是已完成操作的结果代码。 CurrentValue 操作的当前进度，与 CompletionValue 成员一起使用。 仅当 OperationStatusERROR_IO_PENDING时，此值才有意义。 CompletionValue 如果操作完成， CurrentValue 成员将为的值。 仅当 OperationStatusERROR_IO_PENDING时，此值才有意义。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "CompletionValue",
+        "CurrentValue",
+        "ERROR_IO_PENDING"
+      ],
+      "confidence": 0.6,
+      "_source_line": 2993
+    },
+    {
+      "id": "windows::CurrentValue",
+      "name": "CurrentValue",
+      "entity_type": "constant",
+      "description": "和 CompletionValue 成员在对 GetVirtualDiskOperationProgress 函数的后续调用中可能会有所不同，因此它们必须在同一调用中同时一起使用。 也就是说，将其中任一值保存在本地，然后对 GetVirtualDiskOperationProgress 函数进行另一次调用是无效的，而 GetVirtualDiskOperationProgress 函数期望将上述任一值与最近调用中的其他值一起使用。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "CompletionValue",
+        "GetVirtualDiskOperationProgress"
+      ],
+      "confidence": 0.6,
+      "_source_line": 3000
+    },
+    {
+      "id": "windows::CompletionValue",
+      "name": "CompletionValue",
+      "entity_type": "constant",
+      "description": "乘以 100 等于完成百分比，最多且包括 100%，即使 OperationStatus 仍返回 ERROR_IO_PENDING。 随着对 GetVirtualDiskOperationProgress 函数的后续调用，此百分比不一定会增加，并且可能会降低。 如果希望仅通过本地存储当前最大百分比来跟踪进度，则可以安全地忽略这些降低的百分比。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "ERROR_IO_PENDING",
+        "GetVirtualDiskOperationProgress",
+        "OperationStatus"
+      ],
+      "confidence": 0.6,
+      "_source_line": 3001
+    },
+    {
+      "id": "windows::VendorId",
+      "name": "VendorId",
+      "entity_type": "constant",
+      "description": "含义 设备类型未知或无效。 CD 或 DVD 映像文件设备类型。 (.iso 文件) Windows 7 和 Windows Server 2008 R2： 在 Windows 8 和 Windows Server 2012 之前不支持此值。 虚拟硬盘设备类型。 (.vhd 文件) VHDX 格式的虚拟硬盘设备类型。 (.vhdx 文件) Windows 7 和 Windows Server 2008 R2： 在 Windows 8 和 Windows Server 2012 之前不支持此值。 供应商唯一标识符。",
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.6,
+      "_source_line": 3035
+    },
+    {
+      "id": "windows::VIRTUAL_STORAGE_TYPE_VENDOR_MICROSOFT",
+      "name": "VIRTUAL_STORAGE_TYPE_VENDOR_MICROSOFT",
+      "entity_type": "constant",
+      "description": "(EC984AEC-A0F9-47e9-901F-71415A66345B) VIRTUAL_STORAGE_TYPE_VENDOR_UNKNOWN (0)",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "virtdisk.h",
+        "min_client": "Windows 7",
+        "min_server": "Windows Server 2008 R2"
+      },
+      "header": "virtdisk.h",
+      "deprecated": false,
+      "cross_references": [
+        "VIRTUAL_STORAGE_TYPE_VENDOR_UNKNOWN"
+      ],
+      "confidence": 0.75,
+      "_source_line": 3045
+    }
+  ]
+}

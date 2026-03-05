@@ -1,0 +1,1554 @@
+家长控制项目2023/08/22
+家长控制技术概述。
+若要开发家长控制，需要以下标头：
+wpcapi.h wpcevent.h
+有关此技术的编程指南，请参阅：
+家长控制枚举  
+WPC_ARGS_CONVERSATIONINITEVENT 指示有关启动会话的信息。
+WPC_ARGS_CONVERSATIONJOINEVENT 指示有关加入现有会话的信息。
+WPC_ARGS_CONVERSATIONLEAVEEVENT
+指示有关离开对话的信息。 WPC_ARGS_CUSTOMEVENT
+指示有关常规事件未涵盖的用户定义事件的信息。 WPC_ARGS_EMAILCONTACTEVENT
+指示有关使用电子邮件联系某人的信息。
+WPC_ARGS_EMAILRECEIEVEDEVENT 指示有关已收到的电子邮件的信息。 WPC_ARGS_EMAILSENTEVENT
+指示有关已发送的电子邮件的信息。
+告知我们有关下载 PDF 体验的信息。
+ 
+WPC_ARGS_FILEDOWNLOADEVENT
+指示有关已下载的文件的信息。 WPC_ARGS_GAMESTARTEVENT 指示有关计算机游戏开始的信息。 WPC_ARGS_IMCONTACTEVENT
+指示有关使用即时消息应用程序联系某人的信息。 WPC_ARGS_IMFEATUREEVENT
+指示有关即时消息交互功能的信息。 WPC_ARGS_MEDIADOWNLOADEVENT 指示有关下载媒体文件的信息。
+WPC_ARGS_MEDIAPLAYBACKEVENT
+指示有关媒体文件播放的信息。 WPC_ARGS_SAFERAPPBLOCKED
+指示有关被阻止的更安全应用程序的信息。
+WPC_ARGS_SETTINGSCHANGEEVENT 指示有关用户对设置所做的更改的信息。 WPC_ARGS_URLVISITEVENT
+指示有关所查看网站的地址 URL 的信息。 WPC_MEDIA_EXPLICIT
+指示有关媒体文件的显式分级的信息。 WPC_MEDIA_TYPE
+指示有关访问的媒体文件类型的信息。 WPCFLAG_IM_FEATURE
+指示有关在即时消息交互期间访问的功能的信息。 WPCFLAG_IM_LEAVE
+ 
+指示有关参与者何时离开即时消息交互的信息。 WPCFLAG_ISBLOCKED
+指示有关阻止使用哪些事件以及哪些控件已就位的信息。 WPCFLAG_LOGOFF_TYPE
+指示有关所用注销方法类型的信息。
+函数   配置
+在“家长控制”控制面板中单击用户磁贴时，为当前提供商调用。 此方法允许更改配置。 Disable
+通知第三方应用程序它不是当前提供程序。启用
+通知第三方应用程序已选择它作为新的当前提供程序。 GetCurrent
+检索当前提供程序的 GUID。 GetGamesSettings
+检索指向指定用户的游戏限制设置接口的指针。 GetLastSettingsChangeTime
+检索上次更新配置设置的时间。 GetRestrictions
+确定是否启用 Web 限制、时间限制或游戏限制。 GetSettings
+检索 Web 限制设置。 GetUserSettings
+ 
+检索指向指定用户的常规设置接口的指针。 GetUserSummary
+使用家长控制控制面板检索每个用户的信息。 GetVisibility
+指示家长控制用户界面的可见性。 GetWebFilterInfo
+检索当前处于活动状态的 Web 内容筛选器的名称和标识符。 GetWebSettings
+检索指向指定用户的 Web 限制设置接口的指针。 IsBlocked
+确定是否阻止指定的游戏执行。 IsLoggingRequired
+确定获取 IWPCSettings 接口时是否应执行活动日志记录。 RequestOverride
+为当前提供程序调用以启用配置替代。 RequestURLOverride
+请求家长控制 Web 限制子系统将指定的主 URL 和子 URL 设置为允许的状态。
+接口  
+IWindowsParentalControls
+允许访问最低符合性 API 的所有设置接口。
+IWindowsParentalControlsCore. (IWindowsParentalControlsCore) IWPCGamesSettings
+ 
+访问用户的游戏设置。 IWPCProviderConfig
+公开由第三方实现的配置方法。 IWPCProviderState
+公开由第三方实现的提供程序状态方法。 IWPCProviderSupport
+公开允许第三方提供程序查询当前启用的提供程序的方法。 IWPCSettings
+访问用户的常规设置。 IWPCWebSettings
+访问用户的 Web 限制设置。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+wpcapi.h 标头项目2023/08/28
+此标头由家长控制使用。 有关详细信息，请参阅：
+家长控制
+wpcapi.h 包含以下编程接口：
+接口  
+IWindowsParentalControls
+允许访问最低符合性 API 的所有设置接口。
+IWindowsParentalControlsCore. (IWindowsParentalControlsCore)
+IWPCGamesSettings 访问用户的游戏设置。 IWPCProviderConfig
+公开由第三方实现的配置方法。 IWPCProviderState
+公开由第三方实现的提供程序状态方法。 IWPCProviderSupport
+公开允许第三方提供程序查询当前启用的提供程序的方法。 IWPCSettings
+访问用户的常规设置。 IWPCWebSettings
+访问用户的 Web 限制设置。
+反馈
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+iWindowsParentalControls 接口 (wpcapi.h) 项目2024/03/13
+允许访问最低符合性 API 的所有设置接口。继承
+IWindowsParentalControls 接口继承自 IWindowsParentalControlsCore。
+IWindowsParentalControls 还具有以下类型的成员：方法
+IWindowsParentalControls 接口具有这些方法。
+ﾉ
+ 
+IWindowsParentalControls：：GetGamesSettings 检索指向指定用户的游戏限制设置接口的指针。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+值
+Windows Vista [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+展开表展开表
+IWindowsParentalControls：： GetGamesSettings 方法 (wpcapi.h) 项目2024/03/13
+检索指向指定用户的游戏限制设置接口的指针。
+语法 C++
+HRESULT GetGamesSettings(
+  [in]  LPCWSTR           pcszSID,
+  [out] IWPCGamesSettings **ppSettings);
+参数[in] pcszSID
+用户的 SID 字符串。 如果此参数为 NULL，请检索当前用户的设置。[out] ppSettings
+指向 IWPCGamesSettings 接口指针的指针。返回值
+此方法可以返回其中一个值。
+返回代码 S_OK
+E_INVALIDARG
+E_FILE_NOT_FOUND E_OUT_OF_MEMORY E_FAIL
+说明
+该方法已成功完成。指针参数为 NULL。找不到用户设置。
+内存不足，无法完成操作。方法失败。
+ﾉ
+展开表
+要求要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅
+IWindowsParentalControls
+值
+Windows Vista [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+ﾉ
+展开表
+IWindowsParentalControlsCore 接口
+(wpcapi.h) 项目2024/03/04
+IWindowsParentalControlsCore 接口用于检索常规和 Web 限制设置的指针以及活动
+Web 内容筛选器的标识符。继承
+IWindowsParentalControlsCore 接口继承自 IUnknown 接口。
+IWindowsParentalControlsCore 还具有以下类型的成员：方法
+IWindowsParentalControlsCore 接口具有这些方法。
+ﾉ
+ 
+IWindowsParentalControlsCore：：GetUserSettings 检索指向指定用户的常规设置接口的指针。
+IWindowsParentalControlsCore：：GetVisibility 指示家长控制用户界面的可见性。
+IWindowsParentalControlsCore：：GetWebFilterInfo 检索当前活动 Web 内容筛选器的名称和标识符。 IWindowsParentalControlsCore：：GetWebSettings 检索指向指定用户的 Web 限制设置接口的指针。
+要求
+ﾉ
+展开表展开表
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows Vista [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+| 在 Microsoft Q&A 获取帮助
+IWindowsParentalControlsCore：： GetUserSettings 方法 (wpcapi.h) 项目2024/03/13
+检索指向指定用户的常规设置接口的指针。
+语法 C++
+HRESULT GetUserSettings(
+  [in]  LPCWSTR      pcszSID,
+  [out] IWPCSettings **ppSettings);
+参数[in] pcszSID
+用户的 SID 字符串。 如果此参数为 NULL，请检索当前用户的设置。[out] ppSettings
+指向 IWPCSettings 接口指针的指针。返回值
+此方法可以返回其中一个值。
+返回代码 S_OK
+E_INVALIDARG
+E_FILE_NOT_FOUND E_OUT_OF_MEMORY E_FAIL
+说明
+该方法已成功完成。指针参数为 NULL。找不到用户设置。
+内存不足，无法完成操作。方法失败。
+ﾉ
+展开表
+要求要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅
+IWindowsParentalControls
+IWindowsParentalControlsCore
+值
+Windows Vista [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+ﾉ
+展开表
+IWindowsParentalControlsCore：：
+GetVisibility 方法 (wpcapi.h) 项目2024/03/04
+指示家长控制用户界面的可见性。
+语法 C++
+HRESULT GetVisibility(
+  [out] WPCFLAG_VISIBILITY *peVisibility);
+参数
+[out] peVisibility
+指示用户界面是否隐藏。 此参数的取值可为下列值之一：
+值
+WPCFLAG_WPC_VISIBLE 0
+WPCFLAG_WPC_HIDDEN 0x1
+返回值
+此方法可以返回其中一个值。
+返回代码 S_OK
+E_INVALIDARG
+含义
+用户界面可见。
+用户界面处于隐藏状态。说明
+该方法已成功完成。指针参数为 NULL。
+ﾉﾉ
+展开表展开表
+E_OUT_OF_MEMORY
+E_FAIL 要求
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅
+IWindowsParentalControls
+IWindowsParentalControlsCore
+内存不足，无法完成操作。
+方法失败。值
+Windows Vista [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+ﾉ
+展开表
+IWindowsParentalControlsCore：： GetWebFilterInfo 方法 (wpcapi.h) 项目2024/03/04
+检索当前活动 Web 内容筛选器的名称和标识符。
+语法 C++
+HRESULT GetWebFilterInfo(
+  [out]     GUID   *pguidID,   [in, out] LPWSTR *ppszName);
+参数[out] pguidID
+当前活动 Web 内容筛选器的 GUID。[in, out] ppszName
+当前处于活动状态的 Web 内容筛选器的名称。返回值
+此方法可以返回其中一个值。
+返回代码 S_OK
+E_INVALIDARG
+E_OUT_OF_MEMORY E_FAIL
+说明
+该方法已成功完成。指针参数为 NULL。
+内存不足，无法完成操作。方法失败。
+ﾉ
+展开表
+要求要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅
+IWindowsParentalControls
+IWindowsParentalControlsCore
+值
+Windows Vista [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+ﾉ
+展开表
+IWindowsParentalControlsCore：： GetWebSettings 方法 (wpcapi.h) 项目2024/03/04
+检索指向指定用户的 Web 限制设置接口的指针。
+语法 C++
+HRESULT GetWebSettings(
+  [in]  LPCWSTR         pcszSID,
+  [out] IWPCWebSettings **ppSettings);
+参数[in] pcszSID
+用户的 SID 字符串。 如果此参数为 NULL，请检索当前用户的设置。[out] ppSettings
+指向 IWPCWebSettings 接口指针的指针。返回值
+此方法可以返回其中一个值。
+返回代码 S_OK
+E_INVALIDARG
+E_FILE_NOT_FOUND E_OUT_OF_MEMORY E_FAIL
+说明
+该方法已成功完成。指针参数为 NULL。找不到用户设置。
+内存不足，无法完成操作。方法失败。
+ﾉ
+展开表
+要求要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅
+IWindowsParentalControls
+IWindowsParentalControlsCore
+值
+Windows Vista [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+ﾉ
+展开表
+iWPCGamesSettings 接口 (wpcapi.h) 项目2023/08/28
+访问用户的游戏设置。继承
+IWPCGamesSettings 接口继承自 IWPCSettings。 IWPCGamesSettings 还具有以下类型的成员：
+方法
+IWPCGamesSettings 接口包含以下方法。
+ﾉ
+ 
+IWPCGamesSettings：：IsBlocked 确定是否阻止指定的游戏执行。
+要求
+ﾉ
+ 
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+ 
+Windows Vista [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+展开表展开表
+IWPCGamesSettings：：IsBlocked 方法
+(wpcapi.h) 项目2024/03/04
+确定是否阻止指定的游戏执行。
+语法 C++
+HRESULT IsBlocked(
+  [in]  GUID  guidAppID,   [out] DWORD *pdwReasons);
+参数
+[in] guidAppID
+在安装或游戏扫描检测期间与游戏关联的 GUID。[out] pdwReasons
+原因代码。 有关值列表，请参阅 WPCFLAG_ISBLOCKED 枚举。返回值
+如果方法成功，则返回值S_OK。 否则，它将E_FAIL。注解
+如果未找到 guidAppID ，策略将默认为 unrated，并将 *pdwReasons 设置为
+WPCFLAG_ISBLOCKED_NOT_BLOCKED。要求
+ﾉ
+展开表
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 IWPCGamesSettings
+值
+Windows Vista [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+iWPCProviderConfig 接口 (wpcapi.h) 项目2023/08/28
+公开由第三方实现的配置方法。 家长控制使用提供商的 ConfigCLSID 注册表详细信息中的 CLSID 来调用 CoCreateInstanceEx。 创建 类的实例时使用 CLSCTX_LOCAL_SERVER 标志。
+继承
+IWPCProviderConfig 接口继承自 IUnknown 接口。 IWPCProviderConfig 还包含以下类型的成员：
+方法
+IWPCProviderConfig 接口包含以下方法。
+ﾉ
+ 
+IWPCProviderConfig：：Configure
+在“家长控制”控制面板中单击用户磁贴时，为当前提供商调用。 此方法允许更改配置。
+IWPCProviderConfig：：GetUserSummary 使用家长控制控制面板检索每个用户的信息。 IWPCProviderConfig：：RequestOverride
+为当前提供程序调用以启用配置替代。要求
+ﾉ
+ 
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+ 
+Windows 7 [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+展开表展开表
+IWPCProviderConfig：：Configure 方法
+(wpcapi.h) 项目2023/08/28
+在“家长控制”控制面板中单击用户磁贴时，为当前提供程序调用。 此方法允许更改配置。
+语法 C++
+HRESULT Configure(   [in] HWND hWnd,   [in] BSTR bstrSID);
+参数[in] hWnd
+父窗口的句柄。[in] bstrSID
+一个字符串，其中包含要配置的用户的安全 标识符 (SID) 。返回值
+如果方法成功，该方法将返回 S_OK。
+如果方法失败，它将返回一个 指示错误的 HRESULT 值。 可能的值包括（但并不限于）下表中的项。 有关常见错误代码的列表，请参阅 通用 HRESULT 值。
+ﾉ
+返回代码 E_NOTIMPL
+要求
+说明
+展开表
+允许提供程序不处理配置用户界面，而是依赖于内置家长控制配置用户界面。
+ 
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 IWPCProviderConfig
+ 
+Windows 7 [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+ﾉ
+展开表
+IWPCProviderConfig：：GetUserSummary
+方法 (wpcapi.h) 项目2024/03/04
+使用家长控制控制面板检索每个用户的信息。 此接口由第三方实现。
+语法 C++
+HRESULT GetUserSummary(   [in]  BSTR bstrSID,
+  [out] BSTR *pbstrUserSummary);
+参数[in] bstrSID
+包含要获取其设置的用户的安全 标识符 (SID) 的字符串。[out] pbstrUserSummary
+指向字符串的指针，该字符串包含 bstrSID 参数中指定的用户的摘要详细信息。返回值
+如果 方法成功，函数将返回 S_OK。
+如果方法失败，它将返回一个 指示错误的 HRESULT 值。 有关常见错误代码的列表，请参阅 通
+用 HRESULT 值。注解
+用户摘要字符串用于在家长控制控制面板中的每个用户下显示信息。要求
+ﾉ
+展开表
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 IWPCProviderConfig
+值
+Windows 7 [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+IWPCProviderConfig：：RequestOverride
+方法 (wpcapi.h) 项目2024/03/04
+调用当前提供程序以启用配置替代。
+语法 C++
+HRESULT RequestOverride(   [in] HWND  hWnd,
+  [in] BSTR  bstrPath,   [in] DWORD dwFlags);
+参数[in] hWnd
+父窗口的句柄。[in] bstrPath
+指向包含路径的字符串的指针。[in] dwFlags
+指定限制的标志。 这可以是以下多个值之一。
+ﾉ
+值
+WPCFLAG_NO_RESTRICTION 0
+WPCFLAG_LOGGING_REQUIRED 0x1
+WPCFLAG_WEB_FILTERED 0x2
+WPCFLAG_HOURS_RESTRICTED
+含义
+没有限制。
+活动日志记录处于打开状态。 Web 内容筛选器处于活动状态。小时数受到限制。
+展开表
+0x4
+WPCFLAG_GAMES_BLOCKED 0x8
+WPCFLAG_APPS_RESTRICTED 0x10
+返回值
+如果方法成功，该方法将返回 S_OK。
+游戏被阻止。
+应用程序受到限制。
+如果方法失败，它将返回一个 指示错误的 HRESULT 值。 有关常见错误代码的列表，请参阅 通
+用 HRESULT 值。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 IWPCProviderConfig
+值
+Windows 8 [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+展开表
+iWPCProviderState 接口 (wpcapi.h) 项目2024/03/13
+公开由第三方实现的提供程序状态方法。继承
+IWPCProviderState 接口继承自 IUnknown 接口。 IWPCProviderState 还具有以下类型的成员：方法
+IWPCProviderState 接口具有以下方法。
+ﾉ
+ 
+IWPCProviderState：:D isable
+通知第三方应用程序它不是当前提供程序。 IWPCProviderState：：Enable
+通知第三方应用程序已选择它作为新的当前提供程序。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+值
+Windows 7 [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+展开表展开表
+IWPCProviderState：:D isable 方法
+(wpcapi.h) 项目2023/08/28
+通知第三方应用程序它不是当前提供程序。
+语法 C++
+HRESULT Disable(); 返回值
+如果 方法成功，函数将返回 S_OK。
+如果方法失败，它将返回一个 指示错误的 HRESULT 值。 有关常见错误代码的列表，请参阅 通
+用 HRESULT 值。注解
+当当前提供程序发生更改时，将为每个已注册的提供程序调用此方法。 这意味着可以为已禁用
+的提供程序调用 Disable 方法。要求
+ﾉ
+ 
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅
+ 
+Windows 7 [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+展开表
+IWPCProviderState
+IWPCProviderState：：Enable 方法
+(wpcapi.h) 项目2023/08/28
+通知第三方应用程序已选择它作为新的当前提供程序。
+语法 C++
+HRESULT Enable(); 返回值
+如果 方法成功，函数将返回 S_OK。
+如果方法失败，它将返回一个 指示错误的 HRESULT 值。 有关常见错误代码的列表，请参阅 通
+用 HRESULT 值。注解
+通过“家长控制”控制面板中的下拉列表更改当前提供程序时，将调用此方法。要求
+ﾉ
+ 
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 IWPCProviderState
+ 
+Windows 7 [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+展开表
+iWPCProviderSupport 接口 (wpcapi.h) 项目2023/08/28
+公开允许第三方提供程序查询当前启用的提供程序的方法。继承
+IWPCProviderSupport 接口继承自 IUnknown 接口。 IWPCProviderSupport 还具有以下类型的
+成员：方法
+IWPCProviderSupport 接口包含以下方法。
+ﾉ
+ 
+IWPCProviderSupport：：GetCurrent
+检索当前提供程序的 GUID。要求
+ﾉ
+ 
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+ 
+Windows 7 [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+展开表展开表
+IWPCProviderSupport：：GetCurrent 方法
+(wpcapi.h) 项目2023/08/28
+检索当前提供程序的 GUID。
+语法 C++
+HRESULT GetCurrent(
+  [out] GUID *pguidProvider);
+参数
+[out] pguidProvider 当前提供程序的 GUID。返回值
+如果该方法成功，该方法将返回 S_OK。
+如果方法失败，它将返回指示错误的 HRESULT 值。 可能的值包括（但并不限于）下表中的项。有关常见错误代码的列表，请参阅 常见 HRESULT 值。
+ﾉ
+返回代码
+E_INVALIDARG 注解
+说明
+pguidProvider 参数无效。
+如果当前没有选定的提供程序， pguidProvider 参数将为 null GUID。要求
+展开表
+ 
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 IWPCProviderSupport
+ 
+Windows 7 [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+ﾉ
+展开表
+iWPCSettings 接口 (wpcapi.h) 项目2024/03/09
+访问用户的常规设置。继承
+IWPCSettings 接口继承自 IUnknown 接口。 IWPCSettings 还具有以下类型的成员：方法
+IWPCSettings 接口具有这些方法。
+ﾉ
+ 
+IWPCSettings：：GetLastSettingsChangeTime
+检索上次更新配置设置的时间。 IWPCSettings：：GetRestrictions
+确定是否启用 Web 限制、时间限制或游戏限制。 IWPCSettings：：IsLoggingRequired
+确定获取 IWPCSettings 接口时是否应执行活动日志记录。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+值
+Windows Vista [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+展开表展开表
+IWPCSettings：：
+GetLastSettingsChangeTime 方法
+(wpcapi.h) 项目2024/03/04
+检索上次更新配置设置的时间。
+语法 C++
+HRESULT GetLastSettingsChangeTime(
+  [out] SYSTEMTIME *pTime);
+参数[out] pTime
+指向 SYSTEMTIME 结构的指针，该结构接收上次更新设置的时间。返回值
+此方法可以返回其中一个值。
+返回代码 S_OK
+E_FILE_NOT_FOUND
+E_FAIL 要求
+说明
+该方法已成功完成。找不到用户设置。方法失败。
+ﾉﾉ
+展开表展开表
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 IWPCSettings
+值
+Windows Vista [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+IWPCSettings：：GetRestrictions 方法
+(wpcapi.h) 项目2024/03/04
+确定是否启用 Web 限制、时间限制或游戏限制。
+语法 C++
+HRESULT GetRestrictions(
+  [out] DWORD *pdwRestrictions);
+参数
+[out] pdwRestrictions
+指示当前限制。 此参数可以是以下多个值之一。
+值
+WPCFLAG_NO_RESTRICTION 0
+WPCFLAG_LOGGING_REQUIRED 0x1
+WPCFLAG_WEB_FILTERED 0x2
+WPCFLAG_HOURS_RESTRICTED 0x4
+WPCFLAG_GAMES_BLOCKED 0x8
+WPCFLAG_APPS_RESTRICTED 0x10
+返回值
+含义
+没有限制。
+记录的活动已打开。
+Web 内容筛选器处于活动状态。
+小时数受到限制。游戏被阻止。
+应用程序受到限制。
+ﾉ
+展开表
+此方法可以返回其中一个值。
+返回代码 S_OK
+E_ACCESS_DENIED E_FILE_NOT_FOUND
+E_FAIL 要求
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 IWPCSettings
+说明
+该方法已成功完成。调用进程的权限不足。找不到用户设置。
+方法失败。值
+Windows Vista [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+ﾉﾉ
+展开表展开表
+IWPCSettings：：IsLoggingRequired 方法
+(wpcapi.h) 项目2024/03/13
+确定获取 IWPCSettings 接口时是否应执行活动日志记录。
+语法 C++
+HRESULT IsLoggingRequired(   [out] BOOL *pfRequired);
+参数
+[out] pfRequired
+指示是否需要日志记录。返回值
+此方法可以返回其中一个值。
+ﾉ
+返回代码 S_OK
+E_ACCESS_DENIED E_FILE_NOT_FOUND
+E_FAIL 要求
+说明
+该方法已成功完成。调用进程的权限不足。找不到用户设置。方法失败。
+ﾉ
+展开表展开表
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 IWPCSettings
+值
+Windows Vista [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+IWPCWebSettings 接口 (wpcapi.h) 项目2024/03/04
+访问用户的 Web 限制设置。继承
+IWPCWebSettings 接口继承自 IWPCSettings。 IWPCWebSettings 还具有以下类型的成员：方法
+IWPCWebSettings 接口具有这些方法。
+ﾉ
+ 
+IWPCWebSettings：：GetSettings 检索 Web 限制设置。
+IWPCWebSettings：：RequestURLOverride
+请求家长控制 Web 限制子系统将指定的主 URL 和子 URL 设置为允许的状态。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+值
+Windows Vista [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+展开表展开表
+IWPCWebSettings：：GetSettings 方法
+(wpcapi.h) 项目2024/03/04
+检索 Web 限制设置。
+语法 C++
+HRESULT GetSettings(
+  [out] DWORD *pdwSettings);
+参数
+[out] pdwSettings
+设置。 此参数可使用以下一个或多个值。
+ﾉ
+值
+WPCFLAG_WEB_SETTING_NOTBLOCKED 0
+WPCFLAG_WEB_SETTING_DOWNLOADSBLOCKED 0x1
+返回值
+含义
+没有限制。阻止下载。
+如果该方法成功，则返回值S_OK。 否则，它将E_FAIL。要求
+ﾉ
+展开表展开表
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 IWPCWebSettings
+值
+Windows Vista [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+IWPCWebSettings：：RequestURLOverride
+方法 (wpcapi.h) 项目2023/08/28
+请求家长控制 Web 限制子系统将指定的主 URL 和子 URL 设置为允许的状态。
+语法 C++
+HRESULT RequestURLOverride(   [in]  HWND    hWnd,
+  [in]  LPCWSTR pcszURL,   [in]  DWORD   cURLs,
+  [in]  LPCWSTR *ppcszSubURLs,
+  [out] BOOL    *pfChanged);
+参数[in] hWnd
+父窗口的句柄。 这是正确用户帐户控制 (UAC) 对话框行为所必需的。[in] pcszURL
+指向替代的主 URL 的指针。[in] cURLs
+ppcszSubURLs 中的条目数。[in] ppcszSubURLs
+指向包含具有主 URL 的页面的 URL 的指针。[out] pfChanged
+指向通知替代已更改状态完成的标志的指针。 如果状态已更改，此参数为 1，否则为 0。返回值
+如果方法成功，则返回值S_OK。 否则，它将E_FAIL。
+要求  
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 IWPCWebSettings
+ 
+Windows Vista [仅限桌面应用] 无受支持的版本
+Windows wpcapi.h
+ﾉ
+展开表
+wpcevent.h 标头项目2023/08/28
+此标头由家长控制使用。 有关详细信息，请参阅：
+家长控制
+wpcevent.h 包含以下编程接口：
+枚举  
+WPC_ARGS_CONVERSATIONINITEVENT 指示有关启动会话的信息。
+WPC_ARGS_CONVERSATIONJOINEVENT 指示有关加入现有会话的信息。
+WPC_ARGS_CONVERSATIONLEAVEEVENT
+指示有关离开对话的信息。 WPC_ARGS_CUSTOMEVENT
+指示有关常规事件未涵盖的用户定义事件的信息。 WPC_ARGS_EMAILCONTACTEVENT
+指示有关使用电子邮件联系某人的信息。
+WPC_ARGS_EMAILRECEIEVEDEVENT 指示有关已收到的电子邮件的信息。 WPC_ARGS_EMAILSENTEVENT
+指示有关已发送的电子邮件的信息。 WPC_ARGS_FILEDOWNLOADEVENT
+指示有关已下载的文件的信息。 WPC_ARGS_GAMESTARTEVENT
+ 
+指示有关计算机游戏开始的信息。 WPC_ARGS_IMCONTACTEVENT
+指示有关使用即时消息应用程序联系某人的信息。 WPC_ARGS_IMFEATUREEVENT
+指示有关即时消息交互功能的信息。 WPC_ARGS_MEDIADOWNLOADEVENT 指示有关下载媒体文件的信息。
+WPC_ARGS_MEDIAPLAYBACKEVENT
+指示有关媒体文件播放的信息。 WPC_ARGS_SAFERAPPBLOCKED
+指示有关被阻止的更安全应用程序的信息。
+WPC_ARGS_SETTINGSCHANGEEVENT 指示有关用户对设置所做的更改的信息。 WPC_ARGS_URLVISITEVENT
+指示有关所查看网站的地址 URL 的信息。 WPC_MEDIA_EXPLICIT
+指示有关媒体文件的显式分级的信息。 WPC_MEDIA_TYPE
+指示有关访问的媒体文件类型的信息。 WPCFLAG_IM_FEATURE
+指示有关在即时消息交互期间访问的功能的信息。 WPCFLAG_IM_LEAVE
+指示有关参与者何时离开即时消息交互的信息。 WPCFLAG_ISBLOCKED
+指示有关阻止使用哪些事件以及哪些控件已就位的信息。
+ 
+WPCFLAG_LOGOFF_TYPE
+指示有关所用注销方法类型的信息。反馈
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+WPC_ARGS_CONVERSATIONINITEVENT
+枚举 (wpcevent.h) 项目2023/08/28
+指示有关启动会话的信息。
+语法 C++
+typedef enum tagWPC_ARGS_CONVERSATIONINITEVENT {
+  WPC_ARGS_CONVERSATIONINITEVENT_APPNAME = 0,   WPC_ARGS_CONVERSATIONINITEVENT_APPVERSION,   WPC_ARGS_CONVERSATIONINITEVENT_ACCOUNTNAME,   WPC_ARGS_CONVERSATIONINITEVENT_CONVID,
+  WPC_ARGS_CONVERSATIONINITEVENT_REQUESTINGIP,
+  WPC_ARGS_CONVERSATIONINITEVENT_SENDER,   WPC_ARGS_CONVERSATIONINITEVENT_REASON,
+  WPC_ARGS_CONVERSATIONINITEVENT_RECIPCOUNT,   WPC_ARGS_CONVERSATIONINITEVENT_RECIPIENT,
+  WPC_ARGS_CONVERSATIONINITEVENT_CARGS} WPC_ARGS_CONVERSATIONINITEVENT;
+常量  
+WPC_ARGS_CONVERSATIONINITEVENT_APPNAME 值： 0
+用于启动会话的应用程序的名称。
+WPC_ARGS_CONVERSATIONINITEVENT_APPVERSION 用于启动会话的应用程序版本。
+WPC_ARGS_CONVERSATIONINITEVENT_ACCOUNTNAME 用于启动会话的帐户名称。
+WPC_ARGS_CONVERSATIONINITEVENT_CONVID 用于启动会话的会话标识符。
+WPC_ARGS_CONVERSATIONINITEVENT_REQUESTINGIP 启动会话的计算机的 IP 地址。
+WPC_ARGS_CONVERSATIONINITEVENT_SENDER
+ 
+正在启动会话的发件人。
+WPC_ARGS_CONVERSATIONINITEVENT_REASON 给出的开始对话的原因。
+WPC_ARGS_CONVERSATIONINITEVENT_RECIPCOUNT 启动对话中包含的收件人数。
+WPC_ARGS_CONVERSATIONINITEVENT_RECIPIENT 已启动对话的收件人。
+WPC_ARGS_CONVERSATIONINITEVENT_CARGS
+用于启动会话的参数。要求
+ 
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+ 
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+WPC_ARGS_CONVERSATIONJOINEVENT
+枚举 (wpcevent.h) 项目2024/03/04
+指示有关加入现有会话的信息。
+语法 C++
+typedef enum tagWPC_ARGS_CONVERSATIONJOINEVENT {
+  WPC_ARGS_CONVERSATIONJOINEVENT_APPNAME = 0,   WPC_ARGS_CONVERSATIONJOINEVENT_APPVERSION,   WPC_ARGS_CONVERSATIONJOINEVENT_ACCOUNTNAME,   WPC_ARGS_CONVERSATIONJOINEVENT_CONVID,
+  WPC_ARGS_CONVERSATIONJOINEVENT_JOININGIP,   WPC_ARGS_CONVERSATIONJOINEVENT_JOININGUSER,   WPC_ARGS_CONVERSATIONJOINEVENT_REASON,
+  WPC_ARGS_CONVERSATIONJOINEVENT_MEMBERCOUNT,
+  WPC_ARGS_CONVERSATIONJOINEVENT_MEMBER,   WPC_ARGS_CONVERSATIONJOINEVENT_SENDER,   WPC_ARGS_CONVERSATIONJOINEVENT_CARGS} WPC_ARGS_CONVERSATIONJOINEVENT;
+常量
+ﾉ
+ 
+WPC_ARGS_CONVERSATIONJOINEVENT_APPNAME 值： 0
+用于加入现有会话的应用程序的名称。
+WPC_ARGS_CONVERSATIONJOINEVENT_APPVERSION 用于加入现有会话的应用程序版本。
+WPC_ARGS_CONVERSATIONJOINEVENT_ACCOUNTNAME 用于加入现有会话的帐户名称。
+WPC_ARGS_CONVERSATIONJOINEVENT_CONVID 用于加入现有会话的会话标识符。
+展开表
+ 
+WPC_ARGS_CONVERSATIONJOINEVENT_JOININGIP 加入现有会话的计算机的 IP 地址。
+WPC_ARGS_CONVERSATIONJOINEVENT_JOININGUSER 加入现有对话的用户的用户名。
+WPC_ARGS_CONVERSATIONJOINEVENT_REASON 给定加入现有会话的原因。
+WPC_ARGS_CONVERSATIONJOINEVENT_MEMBERCOUNT 现有会话中的成员数。
+WPC_ARGS_CONVERSATIONJOINEVENT_MEMBER 现有会话的成员。
+WPC_ARGS_CONVERSATIONJOINEVENT_SENDER 邀请其他人加入现有对话的发件人。 WPC_ARGS_CONVERSATIONJOINEVENT_CARGS
+用于现有会话的参数。要求
+要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+WPC_ARGS_CONVERSATIONLEAVEEVEN
+T 枚举 (wpcevent.h) 项目2024/03/13
+指示有关离开对话的信息。
+语法 C++
+typedef enum tagWPC_ARGS_CONVERSATIONLEAVEEVENT {
+  WPC_ARGS_CONVERSATIONLEAVEEVENT_APPNAME = 0,   WPC_ARGS_CONVERSATIONLEAVEEVENT_APPVERSION,   WPC_ARGS_CONVERSATIONLEAVEEVENT_ACCOUNTNAME,   WPC_ARGS_CONVERSATIONLEAVEEVENT_CONVID,
+  WPC_ARGS_CONVERSATIONLEAVEEVENT_LEAVINGIP,   WPC_ARGS_CONVERSATIONLEAVEEVENT_LEAVINGUSER,   WPC_ARGS_CONVERSATIONLEAVEEVENT_REASON,
+  WPC_ARGS_CONVERSATIONLEAVEEVENT_MEMBERCOUNT,
+  WPC_ARGS_CONVERSATIONLEAVEEVENT_MEMBER,   WPC_ARGS_CONVERSATIONLEAVEEVENT_FLAGS,   WPC_ARGS_CONVERSATIONLEAVEEVENT_CARGS} WPC_ARGS_CONVERSATIONLEAVEEVENT;
+常量
+ﾉ
+ 
+WPC_ARGS_CONVERSATIONLEAVEEVENT_APPNAME 值： 0
+用于离开会话的应用程序的名称。
+WPC_ARGS_CONVERSATIONLEAVEEVENT_APPVERSION 用于离开对话的应用程序的版本。
+WPC_ARGS_CONVERSATIONLEAVEEVENT_ACCOUNTNAME 用于离开对话的帐户名称。
+WPC_ARGS_CONVERSATIONLEAVEEVENT_CONVID 用于离开会话的会话标识符。
+展开表
+ 
+WPC_ARGS_CONVERSATIONLEAVEEVENT_LEAVINGIP 离开会话的计算机的 IP 地址。
+WPC_ARGS_CONVERSATIONLEAVEEVENT_LEAVINGUSER 正在离开对话的用户。
+WPC_ARGS_CONVERSATIONLEAVEEVENT_REASON 给出退出对话的原因。
+WPC_ARGS_CONVERSATIONLEAVEEVENT_MEMBERCOUNT 对话中剩余的成员数。
+WPC_ARGS_CONVERSATIONLEAVEEVENT_MEMBER 正在离开对话的成员。
+WPC_ARGS_CONVERSATIONLEAVEEVENT_FLAGS 用于离开会话的标志。
+WPC_ARGS_CONVERSATIONLEAVEEVENT_CARGS
+用于离开会话的参数。要求
+要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+(wpcevent.h)
+WPC_ARGS_CUSTOMEVENT 枚举项目2023/08/28
+指示有关常规事件未涵盖的用户定义事件的信息。
+语法 C++
+typedef enum tagWPC_ARGS_CUSTOMEVENT {   WPC_ARGS_CUSTOMEVENT_PUBLISHER = 0,   WPC_ARGS_CUSTOMEVENT_APPNAME,
+  WPC_ARGS_CUSTOMEVENT_APPVERSION,
+  WPC_ARGS_CUSTOMEVENT_EVENT,   WPC_ARGS_CUSTOMEVENT_VALUE1,   WPC_ARGS_CUSTOMEVENT_VALUE2,   WPC_ARGS_CUSTOMEVENT_VALUE3,   WPC_ARGS_CUSTOMEVENT_BLOCKED,   WPC_ARGS_CUSTOMEVENT_REASON,
+  WPC_ARGS_CUSTOMEVENT_CARGS} WPC_ARGS_CUSTOMEVENT;
+常量  
+WPC_ARGS_CUSTOMEVENT_PUBLISHER 值： 0
+自定义事件的发布者。
+WPC_ARGS_CUSTOMEVENT_APPNAME 自定义事件的应用程序名称。
+WPC_ARGS_CUSTOMEVENT_APPVERSION 自定义事件的应用程序版本号。
+WPC_ARGS_CUSTOMEVENT_EVENT 事件的类型。
+WPC_ARGS_CUSTOMEVENT_VALUE1 为自定义事件定义的第一个值。 WPC_ARGS_CUSTOMEVENT_VALUE2
+ 
+为自定义事件定义的第二个值。 WPC_ARGS_CUSTOMEVENT_VALUE3 为自定义事件定义的第三个值。
+WPC_ARGS_CUSTOMEVENT_BLOCKED 自定义事件被阻止。
+WPC_ARGS_CUSTOMEVENT_REASON 自定义事件的原因。
+WPC_ARGS_CUSTOMEVENT_CARGS 自定义事件的参数。
+要求  
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+ 
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+WPC_ARGS_EMAILCONTACTEVENT 枚举
+(wpcevent.h) 项目2024/03/04
+指示有关使用电子邮件联系某人的信息。
+语法 C++
+typedef enum tagWPC_ARGS_EMAILCONTACTEVENT {
+  WPC_ARGS_EMAILCONTACTEVENT_APPNAME = 0,   WPC_ARGS_EMAILCONTACTEVENT_APPVERSION,
+  WPC_ARGS_EMAILCONTACTEVENT_OLDNAME,   WPC_ARGS_EMAILCONTACTEVENT_OLDID,   WPC_ARGS_EMAILCONTACTEVENT_NEWNAME,   WPC_ARGS_EMAILCONTACTEVENT_NEWID,   WPC_ARGS_EMAILCONTACTEVENT_REASON,
+  WPC_ARGS_EMAILCONTACTEVENT_EMAILACCOUNT,
+  WPC_ARGS_EMAILCONTACTEVENT_CARGS} WPC_ARGS_EMAILCONTACTEVENT;
+常量
+ﾉ
+ 
+WPC_ARGS_EMAILCONTACTEVENT_APPNAME 值： 0
+用于电子邮件联系人的应用程序的名称。 WPC_ARGS_EMAILCONTACTEVENT_APPVERSION 用于电子邮件联系人的应用程序版本。
+WPC_ARGS_EMAILCONTACTEVENT_OLDNAME 电子邮件联系人的先前姓名。
+WPC_ARGS_EMAILCONTACTEVENT_OLDID 电子邮件联系人的上一个 ID。
+WPC_ARGS_EMAILCONTACTEVENT_NEWNAME 电子邮件联系人的新姓名。
+展开表
+ 
+WPC_ARGS_EMAILCONTACTEVENT_NEWID 电子邮件联系人的新 ID。
+WPC_ARGS_EMAILCONTACTEVENT_REASON 为电子邮件联系人提供的原因。
+WPC_ARGS_EMAILCONTACTEVENT_EMAILACCOUNT 用于电子邮件联系人的电子邮件帐户。 WPC_ARGS_EMAILCONTACTEVENT_CARGS
+电子邮件联系人的参数。要求
+要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+WPC_ARGS_EMAILRECEIEVEDEVENT 枚
+举 (wpcevent.h) 项目2023/08/28
+指示有关已收到的电子邮件的信息。
+语法 C++
+typedef enum tagWPC_ARGS_EMAILRECEIEVEDEVENT {
+  WPC_ARGS_EMAILRECEIEVEDEVENT_SENDER = 0,   WPC_ARGS_EMAILRECEIEVEDEVENT_APPNAME,
+  WPC_ARGS_EMAILRECEIEVEDEVENT_APPVERSION,
+  WPC_ARGS_EMAILRECEIEVEDEVENT_SUBJECT,   WPC_ARGS_EMAILRECEIEVEDEVENT_REASON,
+  WPC_ARGS_EMAILRECEIEVEDEVENT_RECIPCOUNT,   WPC_ARGS_EMAILRECEIEVEDEVENT_RECIPIENT,   WPC_ARGS_EMAILRECEIEVEDEVENT_ATTACHCOUNT,
+  WPC_ARGS_EMAILRECEIEVEDEVENT_ATTACHMENTNAME,   WPC_ARGS_EMAILRECEIEVEDEVENT_RECEIVEDTIME,   WPC_ARGS_EMAILRECEIEVEDEVENT_EMAILACCOUNT,
+  WPC_ARGS_EMAILRECEIEVEDEVENT_CARGS} WPC_ARGS_EMAILRECEIEVEDEVENT;
+常量  
+WPC_ARGS_EMAILRECEIEVEDEVENT_SENDER 值： 0
+发送电子邮件的发件人。
+WPC_ARGS_EMAILRECEIEVEDEVENT_APPNAME 发送电子邮件的应用程序的名称。
+WPC_ARGS_EMAILRECEIEVEDEVENT_APPVERSION 发送电子邮件的应用程序的版本。
+WPC_ARGS_EMAILRECEIEVEDEVENT_SUBJECT 电子邮件的主题行。
+WPC_ARGS_EMAILRECEIEVEDEVENT_REASON 电子邮件给出的原因。
+ 
+WPC_ARGS_EMAILRECEIEVEDEVENT_RECIPCOUNT 接收电子邮件的帐户数。
+WPC_ARGS_EMAILRECEIEVEDEVENT_RECIPIENT 接收电子邮件的收件人帐户。
+WPC_ARGS_EMAILRECEIEVEDEVENT_ATTACHCOUNT 电子邮件中的附件数。
+WPC_ARGS_EMAILRECEIEVEDEVENT_ATTACHMENTNAME 电子邮件中附件的名称。
+WPC_ARGS_EMAILRECEIEVEDEVENT_RECEIVEDTIME 收到电子邮件的时间。
+WPC_ARGS_EMAILRECEIEVEDEVENT_EMAILACCOUNT 发送电子邮件的电子邮件帐户。
+WPC_ARGS_EMAILRECEIEVEDEVENT_CARGS
+电子邮件的参数。要求
+ 
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+ 
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+WPC_ARGS_EMAILSENTEVENT枚举
+(wpcevent.h) 项目2024/03/04
+指示有关已发送的电子邮件的信息。
+语法 C++
+typedef enum tagWPC_ARGS_EMAILSENTEVENT {
+  WPC_ARGS_EMAILSENTEVENT_SENDER = 0,   WPC_ARGS_EMAILSENTEVENT_APPNAME,
+  WPC_ARGS_EMAILSENTEVENT_APPVERSION,
+  WPC_ARGS_EMAILSENTEVENT_SUBJECT,   WPC_ARGS_EMAILSENTEVENT_REASON,
+  WPC_ARGS_EMAILSENTEVENT_RECIPCOUNT,   WPC_ARGS_EMAILSENTEVENT_RECIPIENT,   WPC_ARGS_EMAILSENTEVENT_ATTACHCOUNT,
+  WPC_ARGS_EMAILSENTEVENT_ATTACHMENTNAME,   WPC_ARGS_EMAILSENTEVENT_EMAILACCOUNT,
+  WPC_ARGS_EMAILSENTEVENT_CARGS} WPC_ARGS_EMAILSENTEVENT;
+常量  
+WPC_ARGS_EMAILSENTEVENT_SENDER 值： 0
+发送电子邮件的发件人。
+WPC_ARGS_EMAILSENTEVENT_APPNAME 发送电子邮件的应用程序的名称。
+WPC_ARGS_EMAILSENTEVENT_APPVERSION 发送电子邮件的应用程序的版本。 WPC_ARGS_EMAILSENTEVENT_SUBJECT 电子邮件的主题。
+ﾉ
+展开表
+ 
+WPC_ARGS_EMAILSENTEVENT_REASON 电子邮件的原因。
+WPC_ARGS_EMAILSENTEVENT_RECIPCOUNT 接收电子邮件的帐户数。
+WPC_ARGS_EMAILSENTEVENT_RECIPIENT 接收电子邮件的收件人帐户。
+WPC_ARGS_EMAILSENTEVENT_ATTACHCOUNT 电子邮件中的附件数。
+WPC_ARGS_EMAILSENTEVENT_ATTACHMENTNAME 电子邮件中附件的名称。
+WPC_ARGS_EMAILSENTEVENT_EMAILACCOUNT
+发送电子邮件的电子邮件帐户。 WPC_ARGS_EMAILSENTEVENT_CARGS 电子邮件的参数。
+要求要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+WPC_ARGS_FILEDOWNLOADEVENT 枚
+举 (wpcevent.h) 项目2023/08/28
+指示有关已下载的文件的信息。
+语法 C++
+typedef enum tagWPC_ARGS_FILEDOWNLOADEVENT {
+  WPC_ARGS_FILEDOWNLOADEVENT_URL = 0,   WPC_ARGS_FILEDOWNLOADEVENT_APPNAME,   WPC_ARGS_FILEDOWNLOADEVENT_VERSION,   WPC_ARGS_FILEDOWNLOADEVENT_BLOCKED,
+  WPC_ARGS_FILEDOWNLOADEVENT_PATH,   WPC_ARGS_FILEDOWNLOADEVENT_CARGS} WPC_ARGS_FILEDOWNLOADEVENT;
+常量  
+WPC_ARGS_FILEDOWNLOADEVENT_URL 值： 0
+已下载文件的 URL 或 Web 地址。 WPC_ARGS_FILEDOWNLOADEVENT_APPNAME 用于下载文件的应用程序的名称。
+WPC_ARGS_FILEDOWNLOADEVENT_VERSION 用于下载文件的应用程序版本。
+WPC_ARGS_FILEDOWNLOADEVENT_BLOCKED 文件下载被阻止。
+WPC_ARGS_FILEDOWNLOADEVENT_PATH 下载的文件的路径位置。
+WPC_ARGS_FILEDOWNLOADEVENT_CARGS 文件下载的参数。
+要求  
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+ 
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+WPC_ARGS_GAMESTARTEVENT 枚举
+(wpcevent.h) 项目2024/03/04
+指示有关计算机游戏开始的信息。
+语法 C++
+typedef enum tagWPC_ARGS_GAMESTARTEVENT {
+  WPC_ARGS_GAMESTARTEVENT_APPID = 0,   WPC_ARGS_GAMESTARTEVENT_INSTANCEID,   WPC_ARGS_GAMESTARTEVENT_APPVERSION,
+  WPC_ARGS_GAMESTARTEVENT_PATH,   WPC_ARGS_GAMESTARTEVENT_RATING,
+  WPC_ARGS_GAMESTARTEVENT_RATINGSYSTEM,   WPC_ARGS_GAMESTARTEVENT_REASON,
+  WPC_ARGS_GAMESTARTEVENT_DESCCOUNT,   WPC_ARGS_GAMESTARTEVENT_DESCRIPTOR,
+  WPC_ARGS_GAMESTARTEVENT_PID,   WPC_ARGS_GAMESTARTEVENT_CARGS} WPC_ARGS_GAMESTARTEVENT;
+常量
+ﾉ
+ 
+WPC_ARGS_GAMESTARTEVENT_APPID 值： 0
+计算机游戏的应用程序标识符。
+WPC_ARGS_GAMESTARTEVENT_INSTANCEID 计算机游戏的实例标识符。
+WPC_ARGS_GAMESTARTEVENT_APPVERSION 计算机游戏的版本。
+WPC_ARGS_GAMESTARTEVENT_PATH 计算机游戏的路径。
+展开表
+ 
+WPC_ARGS_GAMESTARTEVENT_RATING 计算机游戏的分级。
+WPC_ARGS_GAMESTARTEVENT_RATINGSYSTEM 用于对计算机游戏进行评分的分级系统。
+WPC_ARGS_GAMESTARTEVENT_REASON 启动计算机游戏的原因。
+WPC_ARGS_GAMESTARTEVENT_DESCCOUNT 计算机游戏的描述符数。
+WPC_ARGS_GAMESTARTEVENT_DESCRIPTOR 计算机游戏的描述符。
+WPC_ARGS_GAMESTARTEVENT_PID 计算机游戏的产品标识符。
+WPC_ARGS_GAMESTARTEVENT_CARGS 计算机游戏的参数。
+要求要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+WPC_ARGS_IMCONTACTEVENT枚举
+(wpcevent.h) 项目2024/03/13
+指示有关使用即时消息应用程序联系某人的信息。
+语法 C++
+typedef enum tagWPC_ARGS_IMCONTACTEVENT {
+  WPC_ARGS_IMCONTACTEVENT_APPNAME = 0,   WPC_ARGS_IMCONTACTEVENT_APPVERSION,   WPC_ARGS_IMCONTACTEVENT_ACCOUNTNAME,
+  WPC_ARGS_IMCONTACTEVENT_OLDNAME,   WPC_ARGS_IMCONTACTEVENT_OLDID,   WPC_ARGS_IMCONTACTEVENT_NEWNAME,   WPC_ARGS_IMCONTACTEVENT_NEWID,   WPC_ARGS_IMCONTACTEVENT_REASON,   WPC_ARGS_IMCONTACTEVENT_CARGS} WPC_ARGS_IMCONTACTEVENT;
+常量
+ﾉ
+ 
+WPC_ARGS_IMCONTACTEVENT_APPNAME 值： 0
+用于即时消息的应用程序的名称。 WPC_ARGS_IMCONTACTEVENT_APPVERSION 用于即时消息的应用程序版本。
+WPC_ARGS_IMCONTACTEVENT_ACCOUNTNAME 用于即时消息的帐户名称。
+WPC_ARGS_IMCONTACTEVENT_OLDNAME 用于即时消息的联系人的上一姓名。 WPC_ARGS_IMCONTACTEVENT_OLDID
+用于即时消息的联系人的上一个 ID。
+展开表
+ 
+WPC_ARGS_IMCONTACTEVENT_NEWNAME 用于即时消息的联系人的新姓名。
+WPC_ARGS_IMCONTACTEVENT_NEWID 用于即时消息的联系人的新 ID。
+WPC_ARGS_IMCONTACTEVENT_REASON 用于即时消息的原因。
+WPC_ARGS_IMCONTACTEVENT_CARGS 用于即时消息的参数。
+要求要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+WPC_ARGS_IMFEATUREEVENT枚举
+(wpcevent.h) 项目2023/03/08
+指示有关即时消息交互功能的信息。
+语法 C++
+typedef enum tagWPC_ARGS_IMFEATUREEVENT {
+
+  WPC_ARGS_IMFEATUREEVENT_APPNAME = 0,
+   WPC_ARGS_IMFEATUREEVENT_APPVERSION,
+   WPC_ARGS_IMFEATUREEVENT_ACCOUNTNAME,
+   WPC_ARGS_IMFEATUREEVENT_CONVID,
+  WPC_ARGS_IMFEATUREEVENT_MEDIATYPE,
+   WPC_ARGS_IMFEATUREEVENT_REASON,
+  WPC_ARGS_IMFEATUREEVENT_RECIPCOUNT,
+   WPC_ARGS_IMFEATUREEVENT_RECIPIENT,
+   WPC_ARGS_IMFEATUREEVENT_SENDER,
+  WPC_ARGS_IMFEATUREEVENT_SENDERIP,
+
+  WPC_ARGS_IMFEATUREEVENT_DATA,
+   WPC_ARGS_IMFEATUREEVENT_CARGS
+} WPC_ARGS_IMFEATUREEVENT;
+
+常量  
+WPC_ARGS_IMFEATUREEVENT_APPNAME
+ 值： 0
+
+用于即时消息交互的应用程序的名称。 WPC_ARGS_IMFEATUREEVENT_APPVERSION
+ 用于即时消息交互的应用程序版本。 WPC_ARGS_IMFEATUREEVENT_ACCOUNTNAME
+
+用于即时消息交互的帐户名称。 WPC_ARGS_IMFEATUREEVENT_CONVID
+ 用于即时消息交互的对话 ID。
+WPC_ARGS_IMFEATUREEVENT_MEDIATYPE
+ 用于即时消息交互的媒体类型。
+ 
+WPC_ARGS_IMFEATUREEVENT_REASON
+ 用于即时消息交互的原因。
+WPC_ARGS_IMFEATUREEVENT_RECIPCOUNT
+ 即时消息交互中的收件人数。
+WPC_ARGS_IMFEATUREEVENT_RECIPIENT
+ 即时消息交互的接收方。
+WPC_ARGS_IMFEATUREEVENT_SENDER
+ 即时消息交互的发送方。
+WPC_ARGS_IMFEATUREEVENT_SENDERIP
+ 即时消息交互发送方的 IP 地址。
+WPC_ARGS_IMFEATUREEVENT_DATA
+ 用于即时消息交互的数据。
+WPC_ARGS_IMFEATUREEVENT_CARGS
+ 用于即时消息交互的参数。
+要求  
+最低受支持的客户端最低受支持的服务器标头
+ 
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+WPC_ARGS_MEDIADOWNLOADEVENT
+枚举 (wpcevent.h) 项目2024/03/04
+指示有关媒体文件下载的信息。
+语法 C++
+typedef enum tagWPC_ARGS_MEDIADOWNLOADEVENT {
+  WPC_ARGS_MEDIADOWNLOADEVENT_APPNAME = 0,   WPC_ARGS_MEDIADOWNLOADEVENT_APPVERSION,   WPC_ARGS_MEDIADOWNLOADEVENT_MEDIATYPE,
+  WPC_ARGS_MEDIADOWNLOADEVENT_PATH,   WPC_ARGS_MEDIADOWNLOADEVENT_TITLE,   WPC_ARGS_MEDIADOWNLOADEVENT_PML,   WPC_ARGS_MEDIADOWNLOADEVENT_ALBUM,
+  WPC_ARGS_MEDIADOWNLOADEVENT_EXPLICIT,   WPC_ARGS_MEDIADOWNLOADEVENT_REASON,
+  WPC_ARGS_MEDIADOWNLOADEVENT_CARGS} WPC_ARGS_MEDIADOWNLOADEVENT;
+常量
+ﾉ
+ 
+WPC_ARGS_MEDIADOWNLOADEVENT_APPNAME 值： 0
+用于下载媒体文件的应用程序的名称。 WPC_ARGS_MEDIADOWNLOADEVENT_APPVERSION
+用于下载媒体文件的应用程序版本。 WPC_ARGS_MEDIADOWNLOADEVENT_MEDIATYPE 下载的媒体文件的类型。
+WPC_ARGS_MEDIADOWNLOADEVENT_PATH 用于下载媒体文件的路径。
+WPC_ARGS_MEDIADOWNLOADEVENT_TITLE 下载的媒体文件的标题。
+展开表
+ 
+WPC_ARGS_MEDIADOWNLOADEVENT_PML
+家长管理级别 (下载的媒体文件的 PML) 。
+WPC_ARGS_MEDIADOWNLOADEVENT_ALBUM 下载的媒体文件的相册信息。
+WPC_ARGS_MEDIADOWNLOADEVENT_EXPLICIT 下载的媒体文件的显式分级。
+WPC_ARGS_MEDIADOWNLOADEVENT_REASON 用于下载媒体文件的原因。
+WPC_ARGS_MEDIADOWNLOADEVENT_CARGS
+用于下载媒体文件的参数。要求
+要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+(wpcevent.h)
+WPC_ARGS_MEDIAPLAYBACKEVENT 枚举
+项目2023/08/28
+指示有关媒体文件播放的信息。
+语法 C++
+typedef enum tagWPC_ARGS_MEDIAPLAYBACKEVENT {
+  WPC_ARGS_MEDIAPLAYBACKEVENT_APPNAME = 0,   WPC_ARGS_MEDIAPLAYBACKEVENT_APPVERSION,   WPC_ARGS_MEDIAPLAYBACKEVENT_MEDIATYPE,
+  WPC_ARGS_MEDIAPLAYBACKEVENT_PATH,   WPC_ARGS_MEDIAPLAYBACKEVENT_TITLE,   WPC_ARGS_MEDIAPLAYBACKEVENT_PML,   WPC_ARGS_MEDIAPLAYBACKEVENT_ALBUM,
+  WPC_ARGS_MEDIAPLAYBACKEVENT_EXPLICIT,   WPC_ARGS_MEDIAPLAYBACKEVENT_REASON,
+  WPC_ARGS_MEDIAPLAYBACKEVENT_CARGS} WPC_ARGS_MEDIAPLAYBACKEVENT;
+常量  
+WPC_ARGS_MEDIAPLAYBACKEVENT_APPNAME 值： 0
+用于播放媒体文件的应用程序的名称。 WPC_ARGS_MEDIAPLAYBACKEVENT_APPVERSION
+用于播放媒体文件的应用程序版本。 WPC_ARGS_MEDIAPLAYBACKEVENT_MEDIATYPE 播放的媒体文件的类型。
+WPC_ARGS_MEDIAPLAYBACKEVENT_PATH 用于播放媒体文件的路径。
+WPC_ARGS_MEDIAPLAYBACKEVENT_TITLE 播放的媒体文件的标题。
+ 
+WPC_ARGS_MEDIAPLAYBACKEVENT_PML 播放的媒体文件的家长管理级别。
+WPC_ARGS_MEDIAPLAYBACKEVENT_ALBUM 播放的媒体文件的相册。
+WPC_ARGS_MEDIAPLAYBACKEVENT_EXPLICIT 播放的媒体文件的显式分级。
+WPC_ARGS_MEDIAPLAYBACKEVENT_REASON 播放媒体文件的原因。
+WPC_ARGS_MEDIAPLAYBACKEVENT_CARGS 用于播放媒体文件的参数。
+要求  
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+ 
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+WPC_ARGS_SAFERAPPBLOCKED枚举
+(wpcevent.h) 项目2024/03/04
+指示有关被阻止的更安全应用程序的信息。
+语法 C++
+typedef enum tagWPC_ARGS_SAFERAPPBLOCKED {   WPC_ARGS_SAFERAPPBLOCKED_TIMESTAMP = 0,
+  WPC_ARGS_SAFERAPPBLOCKED_USERID,   WPC_ARGS_SAFERAPPBLOCKED_PATH,   WPC_ARGS_SAFERAPPBLOCKED_RULEID,   WPC_ARGS_SAFERAPPBLOCKED_CARGS} WPC_ARGS_SAFERAPPBLOCKED;
+常量
+ﾉ
+ 
+WPC_ARGS_SAFERAPPBLOCKED_TIMESTAMP 值： 0
+被阻止应用程序的时间戳。
+WPC_ARGS_SAFERAPPBLOCKED_USERID 被阻止的应用程序的用户标识符。
+WPC_ARGS_SAFERAPPBLOCKED_PATH 被阻止的应用程序的位置。
+WPC_ARGS_SAFERAPPBLOCKED_RULEID 被阻止的应用程序的规则标识符。
+WPC_ARGS_SAFERAPPBLOCKED_CARGS
+被阻止的应用程序的参数。要求
+展开表
+要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+WPC_ARGS_SETTINGSCHANGEEVENT枚
+举 (wpcevent.h) 项目2023/03/08
+指示有关用户对设置所做的更改的信息。
+语法 C++
+typedef enum tagWPC_ARGS_SETTINGSCHANGEEVENT {
+
+  WPC_ARGS_SETTINGSCHANGEEVENT_CLASS = 0,
+   WPC_ARGS_SETTINGSCHANGEEVENT_SETTING,
+
+  WPC_ARGS_SETTINGSCHANGEEVENT_OWNER,
+   WPC_ARGS_SETTINGSCHANGEEVENT_OLDVAL,
+   WPC_ARGS_SETTINGSCHANGEEVENT_NEWVAL,
+   WPC_ARGS_SETTINGSCHANGEEVENT_REASON,
+   WPC_ARGS_SETTINGSCHANGEEVENT_OPTIONAL,
+
+  WPC_ARGS_SETTINGSCHANGEEVENT_CARGS
+} WPC_ARGS_SETTINGSCHANGEEVENT;
+
+常量  
+WPC_ARGS_SETTINGSCHANGEEVENT_CLASS
+ 值： 0
+
+对设置所做的更改的类。
+WPC_ARGS_SETTINGSCHANGEEVENT_SETTING
+ 已更改的设置。
+WPC_ARGS_SETTINGSCHANGEEVENT_OWNER
+ 进行更改的用户。
+WPC_ARGS_SETTINGSCHANGEEVENT_OLDVAL
+ 已更改的设置的上一个值。
+WPC_ARGS_SETTINGSCHANGEEVENT_NEWVAL
+ 已更改的设置的新值。
+WPC_ARGS_SETTINGSCHANGEEVENT_REASON
+ 更改设置的原因。
+ 
+WPC_ARGS_SETTINGSCHANGEEVENT_OPTIONAL
+ 有关更改设置的可选信息。
+WPC_ARGS_SETTINGSCHANGEEVENT_CARGS
+ 更改设置的参数。
+要求  
+最低受支持的客户端最低受支持的服务器标头
+ 
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+WPC_ARGS_URLVISITEVENT 枚举
+(wpcevent.h) 项目2023/08/28
+指示有关所查看网站的地址 URL 的信息。
+语法 C++
+typedef enum tagWPC_ARGS_URLVISITEVENT {
+  WPC_ARGS_URLVISITEVENT_URL = 0,   WPC_ARGS_URLVISITEVENT_APPNAME,   WPC_ARGS_URLVISITEVENT_VERSION,   WPC_ARGS_URLVISITEVENT_REASON,
+  WPC_ARGS_URLVISITEVENT_RATINGSYSTEMID,
+  WPC_ARGS_URLVISITEVENT_CATCOUNT,   WPC_ARGS_URLVISITEVENT_CATEGORY,
+  WPC_ARGS_URLVISITEVENT_CARGS} WPC_ARGS_URLVISITEVENT;
+常量  
+WPC_ARGS_URLVISITEVENT_URL 值： 0
+所查看网站的地址 URL。
+WPC_ARGS_URLVISITEVENT_APPNAME 用于查看网站的应用程序的名称。
+WPC_ARGS_URLVISITEVENT_VERSION 用于查看网站的应用程序的版本。
+WPC_ARGS_URLVISITEVENT_REASON 查看网站的原因。
+WPC_ARGS_URLVISITEVENT_RATINGSYSTEMID 用于查看网站的分级系统的标识符。 WPC_ARGS_URLVISITEVENT_CATCOUNT 在网站上查看的类别数。
+ 
+WPC_ARGS_URLVISITEVENT_CATEGORY 网站的类别。
+WPC_ARGS_URLVISITEVENT_CARGS 用于查看网站的参数。
+要求  
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+ 
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+WPC_MEDIA_EXPLICIT 枚举
+(wpcevent.h) 项目2024/03/13
+指示有关媒体文件的显式分级的信息。
+语法 C++
+typedef enum tagWPC_MEDIA_EXPLICIT_TYPE {   WPC_MEDIA_EXPLICIT_FALSE = 0,
+  WPC_MEDIA_EXPLICIT_TRUE,   WPC_MEDIA_EXPLICIT_UNKNOWN} WPC_MEDIA_EXPLICIT;
+常量  
+WPC_MEDIA_EXPLICIT_FALSE 值： 0
+媒体文件未评级为显式文件。
+WPC_MEDIA_EXPLICIT_TRUE 媒体文件被分级为显式。
+WPC_MEDIA_EXPLICIT_UNKNOWN
+媒体文件具有未知的显式分级。要求
+要求
+最低受支持的客户端最低受支持的服务器
+值
+Windows Vista [仅限桌面应用] 无受支持的版本
+ﾉﾉ
+展开表展开表
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+wpcevent.h
+| 在 Microsoft Q&A 获取帮助
+WPC_MEDIA_TYPE枚举 (wpcevent.h) 项目2024/03/13
+指示有关访问的媒体文件类型的信息。
+语法 C++
+typedef enum tagWPC_MEDIA_TYPE {
+  WPC_MEDIA_TYPE_OTHER = 0,   WPC_MEDIA_TYPE_DVD,
+  WPC_MEDIA_TYPE_RECORDED_TV,   WPC_MEDIA_TYPE_AUDIO_FILE,
+  WPC_MEDIA_TYPE_CD_AUDIO,   WPC_MEDIA_TYPE_VIDEO_FILE,   WPC_MEDIA_TYPE_PICTURE_FILE,
+  WPC_MEDIA_TYPE_MAX} WPC_MEDIA_TYPE;
+常量
+ﾉ
+ 
+WPC_MEDIA_TYPE_OTHER 值： 0
+访问的媒体文件类型不是可用的类型之一。 WPC_MEDIA_TYPE_DVD
+访问的媒体文件类型是 DVD。 WPC_MEDIA_TYPE_RECORDED_TV
+访问的媒体文件类型是录制的电视。 WPC_MEDIA_TYPE_AUDIO_FILE
+访问的媒体文件类型是 CD 音频文件以外的音频文件。 WPC_MEDIA_TYPE_CD_AUDIO
+访问的媒体文件类型是 CD 音频文件。 WPC_MEDIA_TYPE_VIDEO_FILE
+访问的媒体文件类型是视频文件。
+展开表
+ 
+WPC_MEDIA_TYPE_PICTURE_FILE
+访问的媒体文件类型是图片文件。 WPC_MEDIA_TYPE_MAX
+访问的媒体文件类型是.max文件。
+要求要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+WPCFLAG_IM_FEATURE枚举
+(wpcevent.h) 项目2024/03/04
+指示有关在即时消息交互期间访问的功能的信息。
+语法 C++
+typedef enum tagWPCFLAG_IM_FEATURE {
+  WPCFLAG_IM_FEATURE_NONE = 0x00,   WPCFLAG_IM_FEATURE_VIDEO = 0x01,   WPCFLAG_IM_FEATURE_AUDIO = 0x02,   WPCFLAG_IM_FEATURE_GAME = 0x04,   WPCFLAG_IM_FEATURE_SMS = 0x08,
+  WPCFLAG_IM_FEATURE_FILESWAP = 0x10,   WPCFLAG_IM_FEATURE_URLSWAP = 0x20,
+  WPCFLAG_IM_FEATURE_SENDING = 0x80000000,
+  WPCFLAG_IM_FEATURE_ALL = 0xFFFFFFFF} WPCFLAG_IM_FEATURE;
+常量  
+WPCFLAG_IM_FEATURE_NONE 值： 0x00
+未使用即时消息功能。 WPCFLAG_IM_FEATURE_VIDEO 值： 0x01
+视频功能是在即时消息会话期间使用的。
+WPCFLAG_IM_FEATURE_AUDIO 值： 0x02
+音频功能是在即时消息会话期间使用的。
+WPCFLAG_IM_FEATURE_GAME 值： 0x04
+游戏功能是在即时消息会话期间使用的。
+ﾉ
+展开表
+ 
+WPCFLAG_IM_FEATURE_SMS 值： 0x08
+在即时消息会话期间使用了短消息服务功能。
+WPCFLAG_IM_FEATURE_FILESWAP 值： 0x10
+即时消息会话期间交换了文件。
+WPCFLAG_IM_FEATURE_URLSWAP 值： 0x20
+在即时消息会话期间交换了 URL 或网站位置。
+WPCFLAG_IM_FEATURE_SENDING 值： 0x80000000
+顶部位表示正在发送或接收。
+WPCFLAG_IM_FEATURE_ALL 值： 0xFFFFFFFF
+即时消息会话期间使用了所有功能要求
+要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+WPCFLAG_IM_LEAVE枚举 (wpcevent.h) 项目2023/08/28
+指示有关参与者何时离开即时消息交互的信息。
+语法 C++
+typedef enum tagWPCFLAG_IM_LEAVE_FLAG {   WPCFLAG_IM_LEAVE_NORMAL = 0x00000000,   WPCFLAG_IM_LEAVE_FORCED = 0x00000001,
+  WPCFLAG_IM_LEAVE_CONVERSATION_END} WPCFLAG_IM_LEAVE;
+常量  
+WPCFLAG_IM_LEAVE_NORMAL 值： 0x00000000
+即时消息参与者离开了交互。
+WPCFLAG_IM_LEAVE_FORCED 值： 0x00000001
+即时消息参与者被迫离开交互。
+WPCFLAG_IM_LEAVE_CONVERSATION_END
+这标志着整个对话的结束。要求
+ 
+最低受支持的客户端最低受支持的服务器
+标头反馈
+ 
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+WPCFLAG_ISBLOCKED 枚举
+(wpcevent.h) 项目2024/03/04
+指示有关阻止使用哪些事件以及哪些控件已就位的信息。
+语法 C++
+typedef enum tagWPCFLAG_ISBLOCKED {
+  WPCFLAG_ISBLOCKED_NOTBLOCKED = 0x00000000,   WPCFLAG_ISBLOCKED_IMBLOCKED = 0x00000001,
+  WPCFLAG_ISBLOCKED_EMAILBLOCKED = 0x00000002,
+  WPCFLAG_ISBLOCKED_MEDIAPLAYBACKBLOCKED = 0x00000004,
+  WPCFLAG_ISBLOCKED_WEBBLOCKED = 0x00000008,   WPCFLAG_ISBLOCKED_GAMESBLOCKED = 0x00000010,
+  WPCFLAG_ISBLOCKED_CONTACTBLOCKED = 0x00000020,   WPCFLAG_ISBLOCKED_FEATUREBLOCKED = 0x00000040,   WPCFLAG_ISBLOCKED_DOWNLOADBLOCKED = 0x00000080,   WPCFLAG_ISBLOCKED_RATINGBLOCKED = 0x00000100,
+  WPCFLAG_ISBLOCKED_DESCRIPTORBLOCKED = 0x00000200,   WPCFLAG_ISBLOCKED_EXPLICITBLOCK = 0x00000400,
+  WPCFLAG_ISBLOCKED_BADPASS = 0x00000800,   WPCFLAG_ISBLOCKED_MAXHOURS = 0x00001000,   WPCFLAG_ISBLOCKED_SPECHOURS = 0x00002000,
+  WPCFLAG_ISBLOCKED_SETTINGSCHANGEBLOCKED = 0x00004000,   WPCFLAG_ISBLOCKED_ATTACHMENTBLOCKED = 0x00008000,
+  WPCFLAG_ISBLOCKED_SENDERBLOCKED = 0x00010000,   WPCFLAG_ISBLOCKED_RECEIVERBLOCKED = 0x00020000,
+  WPCFLAG_ISBLOCKED_NOTEXPLICITLYALLOWED = 0x00040000,   WPCFLAG_ISBLOCKED_NOTINLIST = 0x00080000,
+  WPCFLAG_ISBLOCKED_CATEGORYBLOCKED = 0x00100000,   WPCFLAG_ISBLOCKED_CATEGORYNOTINLIST = 0x00200000,
+  WPCFLAG_ISBLOCKED_NOTKIDS = 0x00400000,   WPCFLAG_ISBLOCKED_UNRATED = 0x00800000,   WPCFLAG_ISBLOCKED_NOACCESS = 0x01000000,
+  WPCFLAG_ISBLOCKED_INTERNALERROR = 0xFFFFFFFF} WPCFLAG_ISBLOCKED;
+常量
+ﾉ
+展开表
+ 
+WPCFLAG_ISBLOCKED_NOTBLOCKED 值： 0x00000000
+不会阻止用户发生任何事件。 WPCFLAG_ISBLOCKED_IMBLOCKED 值： 0x00000001
+阻止用户发送即时消息。
+WPCFLAG_ISBLOCKED_EMAILBLOCKED 值： 0x00000002
+Email阻止用户访问。
+WPCFLAG_ISBLOCKED_MEDIAPLAYBACKBLOCKED 值： 0x00000004
+阻止用户播放媒体文件。
+WPCFLAG_ISBLOCKED_WEBBLOCKED 值： 0x00000008
+阻止用户访问 Internet。
+WPCFLAG_ISBLOCKED_GAMESBLOCKED
+值： 0x00000010 游戏被用户阻止。
+WPCFLAG_ISBLOCKED_CONTACTBLOCKED 值： 0x00000020
+用户阻止联系人列表。
+WPCFLAG_ISBLOCKED_FEATUREBLOCKED
+值： 0x00000040 用户阻止功能。
+WPCFLAG_ISBLOCKED_DOWNLOADBLOCKED
+值： 0x00000080 用户无法下载文件。
+WPCFLAG_ISBLOCKED_RATINGBLOCKED 值： 0x00000100
+用户阻止具有指定分级的内容。
+WPCFLAG_ISBLOCKED_DESCRIPTORBLOCKED
+值： 0x00000200 用户阻止内容说明。
+WPCFLAG_ISBLOCKED_EXPLICITBLOCK 值： 0x00000400
+阻止用户显示显式内容。
+ 
+WPCFLAG_ISBLOCKED_BADPASS 值： 0x00000800
+用户输入的密码无效。
+WPCFLAG_ISBLOCKED_MAXHOURS 值： 0x00001000
+用户已达到允许计算机访问的最大小时数。
+WPCFLAG_ISBLOCKED_SPECHOURS 值： 0x00002000
+阻止用户访问计算机，因为该时间超出了此用户允许的指定小时数。
+WPCFLAG_ISBLOCKED_SETTINGSCHANGEBLOCKED 值： 0x00004000
+阻止用户更改任何计算机设置。
+WPCFLAG_ISBLOCKED_ATTACHMENTBLOCKED
+值： 0x00008000 阻止用户的附件。
+WPCFLAG_ISBLOCKED_SENDERBLOCKED 值： 0x00010000
+用户被阻止将任何信息发送到指定的帐户。
+WPCFLAG_ISBLOCKED_RECEIVERBLOCKED 值： 0x00020000
+阻止用户从指定帐户接收任何信息。
+WPCFLAG_ISBLOCKED_NOTEXPLICITLYALLOWED 值： 0x00040000
+用户被阻止，因为未显式允许该功能。
+WPCFLAG_ISBLOCKED_NOTINLIST 值： 0x00080000
+用户被阻止，因为该功能未列为辅助功能。
+WPCFLAG_ISBLOCKED_CATEGORYBLOCKED 值： 0x00100000
+阻止用户访问整个类别的活动。
+WPCFLAG_ISBLOCKED_CATEGORYNOTINLIST 值： 0x00200000
+用户被阻止，因为该类别未列为辅助。
+WPCFLAG_ISBLOCKED_NOTKIDS 值： 0x00400000
+用户被阻止，因为分级指定内容不适合子级。
+ 
+WPCFLAG_ISBLOCKED_UNRATED 值： 0x00800000
+用户被阻止，因为内容未分级。
+WPCFLAG_ISBLOCKED_NOACCESS 值： 0x01000000
+阻止用户进行任何访问。
+WPCFLAG_ISBLOCKED_INTERNALERROR 值： 0xFFFFFFFF
+用户被内部错误阻止。
+要求要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+WPCFLAG_LOGOFF_TYPE 枚举
+(wpcevent.h) 项目2024/03/04
+指示有关所用注销方法类型的信息。
+语法 C++
+typedef enum tagWPCFLAG_LOGOFF_TYPE {
+  WPCFLAG_LOGOFF_TYPE_LOGOUT = 0x00000000,   WPCFLAG_LOGOFF_TYPE_RESTART = 0x00000001,   WPCFLAG_LOGOFF_TYPE_SHUTDOWN = 0x00000002,   WPCFLAG_LOGOFF_TYPE_FUS = 0x00000004,
+  WPCFLAG_LOGOFF_TYPE_FORCEDFUS = 0x00000008} WPCFLAG_LOGOFF_TYPE;
+常量  
+WPCFLAG_LOGOFF_TYPE_LOGOUT 值： 0x00000000
+用户通过注销计算机注销。 WPCFLAG_LOGOFF_TYPE_RESTART 值： 0x00000001
+用户通过重新启动计算机注销。 WPCFLAG_LOGOFF_TYPE_SHUTDOWN 值： 0x00000002
+用户通过关闭计算机注销。 WPCFLAG_LOGOFF_TYPE_FUS 值： 0x00000004
+用户使用快速用户切换注销。 WPCFLAG_LOGOFF_TYPE_FORCEDFUS 值： 0x00000008
+用户被快速切换强制注销。
+ﾉ
+展开表
+要求要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+Windows Vista [仅限桌面应用]
+无受支持的版本 wpcevent.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表

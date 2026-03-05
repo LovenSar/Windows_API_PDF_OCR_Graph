@@ -1,0 +1,2664 @@
+2026-03-05 01:50:30
+
+≦ 1 ≧
+人机接口设备参考项目2023/05/20
+人机接口设备 (HID) 技术参考概述。
+若要开发人机接口设备，需要以下标头：
+dinput.h dinputd.h ntddkbd.h ntddmou.h
+有关 HID 驱动程序编程指南，请参阅：
+人体学接口设备 (HID) 简介
+WINDOWS 驱动程序人机接口设备 (HID) API
+IOCTL  
+IOCTL_KEYBOARD_QUERY_ATTRIBUTES 
+
+告知我们有关下载 PDF 体验的信息。
+IOCTL_KEYBOARD_QUERY_ATTRIBUTES请求返回有关键盘属性的信息。 IOCTL_KEYBOARD_QUERY_EXTENDED_ATTRIBUTES 
+
+IOCTL_KEYBOARD_QUERY_EXTENDED_ATTRIBUTES请求返回有关扩展键盘属性的信息。 IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION 
+
+IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION请求返回有关扫描代码和键盘指示器之间的映射的信息。
+IOCTL_KEYBOARD_QUERY_INDICATORS 
+
+IOCTL_KEYBOARD_QUERY_INDICATORS请求返回有关键盘指示器的信息。 IOCTL_KEYBOARD_QUERY_TYPEMATIC 
+
+IOCTL_KEYBOARD_QUERY_TYPEMATIC请求返回键盘类型设置。 IOCTL_KEYBOARD_SET_INDICATORS 
+
+IOCTL_KEYBOARD_SET_INDICATORS请求设置键盘指示器。
+
+≦ 2 ≧
+ 
+IOCTL_KEYBOARD_SET_TYPEMATIC 
+
+IOCTL_KEYBOARD_SET_TYPEMATIC请求设置键盘类型设置。 IOCTL_MOUSE_QUERY_ATTRIBUTES 
+
+IOCTL_MOUSE_QUERY_ATTRIBUTES请求返回有关鼠标属性的信息。
+函数   获取 
+
+IDirectInputJoyConfig8：：Acquire 方法获取“游戏杆配置模式”。一次只能有一个应用程序处于游戏杆配置模式;其他应用程序随后尝试获取此模式时，应收到错误DIERR_OTHERAPPHASPRIO。 进入配置模式后，应用程序可以更改全局游戏杆配置设置。 应用程序应在安装新设置之前检查现有设
+置，以防另一个应用程序在此期间更改了设置。 AddNewHardware 
+
+IDirectInputJoyConfig8：：AddNewHardware 方法显示“添加新硬件”对话框，该对话框指导用户安
+装新的输入设备。 AddRef 
+IDirectInputEffectDriver：：AddRef 方法将 DirectInputEffectDriver 对象的引用计数增加 1。 此方
+法是 DirectInputEffectDriver 继承的 IUnknown 接口的一部分。 AddRef 
+IDirectInputJoyConfig8：：AddRef 方法将 DirectInputJoyConfig 对象的引用计数增加 1。 此方法
+是 DirectInputJoyConfig 继承的 IUnknown 接口的一部分。 DeleteConfig 
+
+IDirectInputJoyConfig8：:D eleteConfig 方法删除有关游戏杆的配置信息。 DeleteType 
+
+IDirectInputJoyConfig8：:D eleteType 方法删除有关游戏杆类型的信息。 请谨慎使用此方法;调用方负责确保没有游戏杆引用已删除的类型。
+
+≦ 3 ≧
+ 
+DestroyEffect 
+
+IDirectInputEffectDriver：:D estroyEffect 方法从设备中删除效果。 如果效果正在播放，驱动程序应
+在卸载它之前将其停止。 DeviceID 
+
+IDirectInputEffectDriver：:D eviceID 方法向驱动程序发送设备的标识。 DownloadEffect 
+
+IDirectInputEffectDriver：:D ownloadEffect 方法将效果发送到设备。 EnumTypes 
+
+IDirectInputJoyConfig8：：EnumTypes 方法枚举 DirectInput 当前支持的游戏杆类型。 Esc 键 
+
+IDirectInputEffectDriver：：Escape 方法转义到驱动程序。 调用此方法以响应调用 IDirectInputEffect：：Escape 或 IDirectInputDevice：：Escape 方法的应用程序。
+GetConfig 
+
+IDirectInputJoyConfig8：：GetConfig 方法获取有关游戏杆配置的信息。 GetEffectStatus 
+
+IDirectInputEffectDriver：：GetEffectStatus 方法获取有关效果状态的信息。 GetForceFeedbackState 
+
+IDirectInputEffectDriver：：GetForceFeedbackState 方法检索设备的力回馈状态。 GetTypeInfo 
+
+IDirectInputJoyConfig8：：GetTypeInfo 方法获取有关游戏杆类型的信息。 GetUserValues 
+
+IDirectInputJoyConfig8：：GetUserValues 方法获取有关游戏杆的用户设置的信息。 GetVersions 
+
+IDirectInputEffectDriver：：GetVersions 方法获取有关力回馈硬件和驱动程序的版本信息。
+
+≦ 4 ≧
+ 
+OpenAppStatusKey 
+
+IDirectInputJoyConfig8：：OpenAppStatusKey 方法打开应用程序状态注册表项的根键，并获取密
+钥的句柄作为返回参数。 OpenTypeKey 
+
+IDirectInputJoyConfig8：：OpenTypeKey 方法打开与游戏杆类型关联的注册表项。 QueryInterface 
+
+IDirectInputEffectDriver：：QueryInterface 方法确定 DirectInputEffectDriver 对象是否支持特定的
+COM 接口。 QueryInterface 
+
+IDirectInputJoyConfig8：：QueryInterface 方法确定 DirectInputJoyConfig 对象是否支持特定的
+COM 接口。版本 
+
+IDirectInputEffectDriver：：Release 方法将 DirectInputEffectDriver 对象的引用计数减少 1。 此方
+法是 DirectInputEffectDriver 继承的 IUnknown 接口的一部分。版本 
+
+IDirectInputJoyConfig8：：Release 方法将 DirectInputJoyConfig 对象的引用计数减少 1。 此方法
+是 DirectInputJoyConfig 继承的 IUnknown 接口的一部分。 SendForceFeedbackCommand 
+
+IDirectInputEffectDriver：：SendForceFeedbackCommand 方法更改设备的力回馈状态。 SendNotify 
+
+IDirectInputJoyConfig8：：SendNotify 方法通知设备驱动程序和应用程序已对设备配置进行了更改。
+SetConfig 
+
+IDirectInputJoyConfig8：：SetConfig 方法创建或重新定义有关游戏杆的配置信息。 SetCooperativeLevel 
+
+IDirectInputJoyConfig8：：SetCooperativeLevel 方法为设备实例建立协作级别。
+IDirectInputJoyConfig8 接口支持的唯一协作级别是DISCL_EXCLUSIVE和DISCL_BACKGROUND。
+
+≦ 5 ≧
+ 
+SetGain 
+
+IDirectInputEffectDriver：：SetGain 方法设置设备总增益。 SetTypeInfo 
+
+IDirectInputJoyConfig8：：SetTypeInfo 方法创建新的游戏杆类型或重新定义有关现有游戏杆类型的信息。
+SetUserValues 
+
+IDirectInputJoyConfig8：：SetUserValues 方法设置游戏杆的用户设置。 StartEffect 
+
+IDirectInputEffectDriver：：StartEffect 方法开始播放效果。 如果效果已在播放，则会从头开始重启。
+StopEffect 
+
+IDirectInputEffectDriver：：StopEffect 方法停止播放效果。未获取 
+
+IDirectInputJoyConfig8：：Unacquire 方法 unacquires“游戏杆配置模式”。
+接口  
+IDirectInputEffectDriver 
+
+这三种方法允许将其他接口添加到 DirectInputEffectDriver 对象，而不会影响原始接口的功能。 IDirectInputJoyConfig8 
+
+IDirectInputJoyConfig8 接口包含的方法允许编写属性表的硬件开发人员向注册表写入和读取信
+息。结构  
+
+≦ 6 ≧
+ 
+DIDEVICESTATE 
+
+DIDEVICESTATE 结构返回有关力回馈设备状态的信息。 DIDRIVERVERSIONS 
+
+DIRECTInput 效果驱动程序使用 DIDRIVERVERSIONS 结构将版本信息报告回 DirectInput。 DIEFFECTATTRIBUTES 
+
+DIEFFECTATTRIBUTES 结构描述由力回馈设备支持的每个效果的注册表项的“Attributes”值中包含的信息。
+DIEFFESCAPE 
+
+DIEFFESCAPE 结构将特定于硬件的数据直接传递给设备驱动程序。 DIFFDEVICEATTRIBUTES 
+
+DIFFDEVICEATTRIBUTES 结构描述 OEMForceFeedback 注册表项的“Attributes”值中包含的信息。 DIFFOBJECTATTRIBUTES 
+
+DIFFOBJECTATTRIBUTES 结构描述强制回馈设备上每个“对象”注册表项的“FFAttributes”值中包含的信息。
+DIHIDFFINITINFO 
+
+DirectInput 使用 DIHIDFFINITINFO 结构向 HID 力回馈驱动程序提供有关要求其控制的设备的信息。
+DIJOYCONFIG 
+
+DIJOYCONFIG 结构包含有关游戏杆配置的信息。 DIJOYTYPEINFO 
+
+DIJOYTYPEINFO 结构包含有关游戏杆类型的信息。 DIJOYUSERVALUES 
+
+DIJOYUSERVALUES 结构包含有关用户游戏杆设置的信息。 DIOBJECTATTRIBUTES 
+
+DIOBJECTATTRIBUTES 结构描述设备上每个“对象”的注册表项的“Attributes”值中包含的信息。 如果不存在“Attributes”值，则使用默认属性。
+
+≦ 7 ≧
+ 
+DIOBJECTCALIBRATION 
+
+DIOBJECTCALIBRATION 结构描述设备上每个轴的注册表项的“校准”值中包含的信息。 JOYREGHWVALUES 
+
+JOYREGHWVALUES (mmddk.h) 结构包含硬件返回的值范围， (校准) 填充。 JOYREGHWVALUES 
+
+JOYREGHWVALUES (dinputd.h) 结构包含由校准) 填充的硬件 (返回的值范围。 KEYBOARD_ATTRIBUTES 
+
+KEYBOARD_ATTRIBUTES指定键盘的属性。 KEYBOARD_EXTENDED_ATTRIBUTES 
+
+KEYBOARD_EXTENDED_ATTRIBUTES指定键盘的扩展属性。 KEYBOARD_INDICATOR_PARAMETERS 
+
+KEYBOARD_INDICATOR_PARAMETERS指定键盘指示器 LED 的状态。 KEYBOARD_INDICATOR_TRANSLATION 
+
+KEYBOARD_INDICATOR_TRANSLATION指定键盘扫描代码和 LED 指示器之间的映射的特定于设备的可变长度数组。
+KEYBOARD_INPUT_DATA 
+
+KEYBOARD_INPUT_DATA包含一个键盘输入数据包。 KEYBOARD_TYPEMATIC_PARAMETERS 
+
+KEYBOARD_TYPEMATIC_PARAMETERS指定键盘的键入设置。 KEYBOARD_UNIT_ID_PARAMETER 
+
+KEYBOARD_UNIT_ID_PARAMETER指定 Kbdclass 分配给键盘的单元 ID。 MOUSE_ATTRIBUTES 
+
+MOUSE_ATTRIBUTES指定鼠标设备的属性。 MOUSE_INPUT_DATA 
+
+MOUSE_INPUT_DATA包含一个鼠标输入数据包。
+
+≦ 8 ≧
+ 
+MOUSE_UNIT_ID_PARAMETER 
+
+MOUSE_UNIT_ID_PARAMETER指定 Mouclass 分配给鼠标的单元 ID。
+
+≦ 9 ≧
+dinput.h 标头项目2023/08/23
+DirectInput 包含文件。有关详细信息，请参阅：
+人机接口设备参考
+dinput.h 包含以下编程接口：
+结构  
+DIEFFESCAPE
+DIEFFESCAPE 结构将特定于硬件的数据直接传递给设备驱动程序。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 10 ≧
+DIEFFESCAPE 结构 (dinput.h) 项目2023/08/23
+DIEFFESCAPE 结构将特定于硬件的数据直接传递给设备驱动程序。
+语法 C++
+typedef struct DIEFFESCAPE {   DWORD  dwSize;
+  DWORD  dwCommand;   LPVOID lpvInBuffer;   DWORD  cbInBuffer;   LPVOID lpvOutBuffer;   DWORD  cbOutBuffer;
+} DIEFFESCAPE, *LPDIEFFESCAPE;
+成员 dwSize
+指定结构的大小（以字节为单位）。 在使用 结构之前，必须初始化此成员。 dwCommand
+指定特定于驱动程序的命令编号。 有关有效命令及其参数的列表，请与硬件供应商联系。
+lpvInBuffer
+指向包含执行操作所需数据的缓冲区。 cbInBuffer
+指定 lpvInBuffer 缓冲区的大小（以字节为单位）。 lpvOutBuffer
+指向返回操作输出数据的缓冲区。 cbOutBuffer
+
+≦ 11 ≧
+在 输入时，指定 lpvOutBuffer 缓冲区的大小（以字节为单位）。 退出时，指定命令实际
+生成的字节数。要求
+ 
+标头反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+ 
+dinput.h
+
+≦ 12 ≧
+dinputd.h 标头项目2023/08/23
+设备驱动程序实现者的 DirectInput 包含文件。有关详细信息，请参阅：
+人机接口设备参考
+dinputd.h 包含以下编程接口：
+接口  
+IDirectInputEffectDriver
+这三种方法允许将其他接口添加到 DirectInputEffectDriver 对象，而不会影响原始接口的功能。 IDirectInputJoyConfig8
+IDirectInputJoyConfig8 接口包含的方法允许编写属性表的硬件开发人员向注册表写入和读取信
+息。结构  
+DIDEVICESTATE
+DIDEVICESTATE 结构返回有关力回馈设备状态的信息。 DIDRIVERVERSIONS
+DIRECTInput 效果驱动程序使用 DIDRIVERVERSIONS 结构将版本信息报告回 DirectInput。 DIEFFECTATTRIBUTES
+DIEFFECTATTRIBUTES 结构描述由力回馈设备支持的每个效果的注册表项的“Attributes”值中包含的信息。
+DIFFDEVICEATTRIBUTES
+DIFFDEVICEATTRIBUTES 结构描述 OEMForceFeedback 注册表项的“Attributes”值中包含的信息。
+
+≦ 13 ≧
+ 
+DIFFOBJECTATTRIBUTES
+DIFFOBJECTATTRIBUTES 结构描述强制回馈设备上每个“对象”注册表项的“FFAttributes”值中包含的信息。
+DIHIDFFINITINFO
+DirectInput 使用 DIHIDFFINITINFO 结构向 HID 力回馈驱动程序提供有关要求其控制的设备的信息。
+DIJOYCONFIG
+DIJOYCONFIG 结构包含有关游戏杆配置的信息。 DIJOYTYPEINFO
+DIJOYTYPEINFO 结构包含有关游戏杆类型的信息。 DIJOYUSERVALUES
+DIJOYUSERVALUES 结构包含有关用户游戏杆设置的信息。 DIOBJECTATTRIBUTES
+DIOBJECTATTRIBUTES 结构描述设备上每个“对象”的注册表项的“Attributes”值中包含的信息。 如果
+不存在“Attributes”值，则使用默认属性。 DIOBJECTCALIBRATION
+DIOBJECTCALIBRATION 结构描述设备上每个轴的注册表项的“校准”值中包含的信息。 JOYREGHWVALUES
+JOYREGHWVALUES (dinputd.h) 结构包含由校准) 填充的硬件 (返回的值范围。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 14 ≧
+DIDEVICESTATE 结构 (dinputd.h) 项目2023/08/23
+DIDEVICESTATE 结构返回有关力回馈设备状态的信息。
+语法 C++
+typedef struct DIDEVICESTATE {
+  DWORD dwSize;   DWORD dwState;   DWORD dwLoad;
+} DIDEVICESTATE, *LPDIDEVICESTATE;
+成员 dwSize
+指定结构的大小（以字节为单位）。 必须先初始化此成员，然后才能使用结构。 dwState
+指示设备状态的各个方面。 可以指示以下零项、一项或多项： DIGFFS_EMPTY
+指示力回馈设备没有任何下载效果。 DIGFFS_STOPPED
+指示当前未播放任何效果，并且设备未暂停。 DIGFFS_PAUSED
+指示上一个DISFFC_PAUSE命令已暂停播放效果。
+DIGFFS_ACTUATORSON 指示设备的力回馈执行器已启用。
+
+≦ 15 ≧
+DIGFFS_ACTUATORSOFF 指示设备的力回馈执行器已禁用。
+DIGFFS_POWERON
+指示力回馈系统的电源当前可用。 如果设备无法报告电源状态，则不应返回
+DIGFFS_POWERON和DIGFFS_POWEROFF。 DIGFFS_POWEROFF
+指示力回馈系统的电源当前不可用。 如果设备无法报告电源状态，则不应返回
+DIGFFS_POWERON和DIGFFS_POWEROFF。 DIGFFS_SAFETYSWITCHON
+指示安全开关 (死人开关) 当前处于打开状态，这意味着设备可以运行。 如果设备无法报
+告安全开关的状态，则不应返回DIGFFS_SAFETYSWITCHON和 DIGFFS_SAFETYSWITCHOFF。
+DIGFFS_SAFETYSWITCHOFF
+指示安全开关 (死人开关) 当前处于关闭状态，这意味着设备无法运行。 如果设备无法报
+告安全开关的状态，则不应返回DIGFFS_SAFETYSWITCHON和 DIGFFS_SAFETYSWITCHOFF。
+DIGFFS_USERFFSWITCHON
+指示用户强制反馈开关当前处于打开状态，这意味着设备可以运行。 如果设备无法报告
+用户强制反馈开关的状态，则不应返回DIGFFS_USERFFSWITCHON和 DIGFFS_USERFFSWITCHOFF。
+DIGFFS_USERFFSWITCHOFF
+指示用户强制反馈开关当前已关闭，这意味着设备无法运行。 如果设备无法报告用户强制反馈开关的状态，则不应返回DIGFFS_USERFFSWITCHON和
+DIGFFS_USERFFSWITCHOFF。 DIGFFS_DEVICELOST
+
+≦ 16 ≧
+指示设备发生意外故障，并处于不确定状态。 它必须通过取消获取和重新获取设备或通过显式发送DISFFC_RESET命令来重置。 例如，如果用户暂停计算机，则设备可能会丢
+失，从而导致设备上的板载内存丢失。 dwLoad
+一个指示正在使用的设备内存百分比的值。 值为零表示设备内存完全可用。 值为 100 表
+示设备已满。要求
+ 
+标头反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+ 
+dinputd.h
+
+≦ 17 ≧
+DIDRIVERVERSIONS 结构 (dinputd.h) 项目2023/08/23
+DirectInput 效果驱动程序使用 DIDRIVERVERSIONS 结构将版本信息报告回
+DirectInput。 版本号的语义由设备驱动程序自行决定。 唯一的要求是更高版本的版本号高于早期版本。
+语法 C++
+typedef struct DIDRIVERVERSIONS {   DWORD dwSize;
+  DWORD dwFirmwareRevision;   DWORD dwHardwareRevision;   DWORD dwFFDriverVersion;
+} DIDRIVERVERSIONS, *LPDIDRIVERVERSIONS;
+成员 dwSize
+指定结构的大小（以字节为单位）。 必须先初始化此成员，然后才能使用结构。
+dwFirmwareRevision 指定设备的固件版本。 dwHardwareRevision
+指定设备的硬件修订版。 dwFFDriverVersion
+指定强制回馈设备驱动程序的版本号。要求
+ 
+标头
+ 
+dinputd.h
+
+≦ 18 ≧
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 19 ≧
+DIEFFECTATTRIBUTES 结构 (dinputd.h) 项目2024/02/29
+DIEFFECTATTRIBUTES 结构描述由力回馈设备支持的每个效果的注册表项的“Attributes” 值中包含的信息。
+语法 C++
+typedef struct DIEFFECTATTRIBUTES {
+  DWORD dwEffectId;   DWORD dwEffType;
+  DWORD dwStaticParams;   DWORD dwDynamicParams;   DWORD dwCoords;
+} DIEFFECTATTRIBUTES, *LPDIEFFECTATTRIBUTES;
+成员 dwEffectId
+指定传递给驱动程序以标识效果的任意 32 位值。 驱动程序接收此值作为
+IDirectInputEffectDriver：:D ownloadEffect 方法的 dwEffectID 参数。 dwEffType
+描述效果的类别和功能。 此成员必须包含以下值之一： DIEFT_CONSTANTFORCE
+该效果表示常量力效果。 创建或修改常量力效果时，DIEFFECT 结构的
+lpvTypeSpecificParams 成员指向 DICONSTANTFORCE 结构，并且 DIEFFECT 结构的
+cbTypeSpecificParams 成员设置为 size of (DICONSTANTFORCE) 。 DIEFT_RAMPFORCE
+该效果表示渐变力效果。 创建或修改渐变力效果时，DIEFFECT 结构的
+lpvTypeSpecificParams 成员指向 DIRAMPFORCE 结构，并且 DIEFFECT 结构的 cbTypeSpecificParams 成员设置为 size of (DIRAMPFORCE) 。
+
+≦ 20 ≧
+DIEFT_PERIODIC
+该效果表示定期效果。 创建或修改定期效果时，DIEFFECT 结构的
+lpvTypeSpecificParams 成员指向 DIPERIODIC 结构，DIEFFECT 结构的
+cbTypeSpecificParams 成员设置为 size of (DIPERIODIC) 。 DIEFT_CONDITION
+效果表示条件。 创建或修改条件时， DIEFFECT 结构的 lpvTypeSpecificParams 成员指向 DICONDITION 结构的数组， (每个轴) 正好一个 DICONDITION 结构或一个
+DICONDITION 结构，并且 DIEFFECT 结构的 cbTypeSpecificParams 成员分别设置为 sizeof (DICONDITION) 或 cAxis * sizeof (DICONDITION) 。 如果 cbTypeSpecificParams 设置为 sizeof (DICONDITION) ，则效果表示可旋转的单轴条件。 如果
+cbTypeSpecificParams 设置为 cAxis * sizeof (DICONDITION) ，则效果表示多轴条件，每
+个 DICONDITION 结构应用于 rgdwAxes 列表中的相应轴。 DIEFT_CUSTOMFORCE
+该效果表示自定义强制效果。 创建或修改自定义强制效果时，DIEFFECT 结构的 lpvTypeSpecificParams 成员指向 DICUSTOMFORCE 结构，并且 DIEFFECT 结构的
+cbTypeSpecificParams 成员设置为 size of (DICUSTOMFORCE) 。 DIEFT_HARDWARE
+该效果表示特定于硬件的效果。 硬件供应商需要向应用程序编写器提供有关如何使用效果的其他文档。 除了类别代码之外， dwEffTtype 成员还可以包含描述效果功能的以下标
+志的零个、一个或多个： DIEFT_FFATTACK
+此效果的效果生成器支持攻击信封参数。 如果效果生成器不支持攻击，则效果将忽略
+DIENVELOPE 结构的攻击级别和攻击时间参数。 DIEFT_FFFADE
+此效果的效果生成器支持 fade 参数。 如果效果生成器不支持淡化，则效果将忽略 DIENVELOPE 结构的淡出级别和淡出时间参数。 如果未设置DIEFT_FFATTACK或
+DIEFT_FFFADE，则效果不支持信封，并且将忽略提供的任何信封。 DIEFT_SATURATION
+
+≦ 21 ≧
+此效果的效果生成器支持条件效果的饱和度。 如果效果生成器不支持饱和，则条件产生
+的力仅受设备可以生成的最大力的限制。 DIEFT_POSNEGCOEFFICIENTS
+此效果的效果生成器支持条件的两个系数值：一个用于轴的正位移，一个用于轴的负位移。 如果设备不支持这两个系数，则忽略 DICONDITION 结构中的负系数，并在两个方向使用正系数。
+DIEFT_POSNEGSATURATION
+效果的效果生成器支持正负力输出的最大饱和度。 如果设备不支持这两个饱和度值，则
+忽略 DICONDITION 结构中的负饱和度，并在两个方向使用正饱和度。 dwStaticParams
+描述效果支持的参数。 例如，如果设置了DIEP_ENVELOPE，则效果支持信封。 所有效果应至少支持DIEP_DURATION、DIEP_AXES和DIEP_TYPESPECIFICPARAMS。 应用程序尝试使用设备不支持的效果参数不是错误。 不受支持的参数只会被忽略。 此值可以是零、一
+个或多个以下标志： DIEP_DURATION
+指示驱动程序支持更改 dwDuration (在效果未播放时查看效果的 DIEFFECT 结构) 。 DIEP_SAMPLEPERIOD
+指示驱动程序支持更改 dwSamplePeriod (在效果未播放时查看效果的 DIEFFECT 结构) 。 DIEP_GAIN
+指示驱动程序支持更改 dwGain (在效果未播放时查看效果的 DIEFFECT 结构) 。 DIEP_TRIGGERBUTTON
+指示驱动程序支持更改 dwTriggerButton (在效果未播放时查看效果的 DIEFFECT 结构) 。 DIEP_TRIGGERREPEATINTERVAL
+指示驱动程序支持更改 dwTriggerRepeatInterval (在效果未播放时查看效果的 DIEFFECT 结构) 。
+
+≦ 22 ≧
+DIEP_AXES
+指示驱动程序支持更改 cAxes 和 rgdwAxes (在效果未播放时查看效果的 DIEFFECT 结构)。
+DIEP_DIRECTION
+指示驱动程序支持更改 cAxes 和 rglDirection (在效果未播放时看到效果的 DIEFFECT 结构) 。 (DIEFFECT 结构的 dwFlags 成员通过DIEFF_CARTESIAN或DIEFF_POLAR指定应在其
+中解释值的坐标系。) DIEP_ENVELOPE
+指示驱动程序支持更改 lpEnvelope (在效果未播放时看到效果的 DIEFFECT 结构) 。 DIEP_TYPESPECIFICPARAMS
+指示驱动程序支持更改 cbTypeSpecificParams 和 lpTypeSpecificParams (在效果未播放时查看效果的 DIEFFECT 结构) 。 请注意，DIEFFECT 结构的 lpTypeSpecificParams 成员指向的缓冲区必须在效果 (的生存期内保持有效，或直到类型特定的参数设置为) 的新
+值。 DirectInput 不会创建缓冲区的专用副本。 dwDynamicParams
+描述在播放效果时可修改的效果参数。 如果应用程序尝试在播放效果时更改参数，而驱动程序不支持动态修改该效果，则驱动程序将返回DIERR_EFFECTPLAYING。 此成员使用与 dwStaticParams 成员相同的标志，不同之处在于，这些标志被解释为描述驱动程序是
+否可以在播放效果时修改效果的参数，而不是在未播放时修改该效果的参数。 dwCoords
+一个或多个坐标系标志 (DIEFF_CARTESIAN、DIEFF_POLAR DIEFF_SPHERICAL) 指示效果支持的坐标系。 必须至少支持一个坐标系。 如果应用程序尝试在不支持的坐标系中设置
+方向，DirectInput 会自动将其转换为设备支持的坐标系。注解
+有关 DIEFFECT、DICONSTANTFORCE、DIRAMPFORCE、DIPERIODIC、DICONDITION、 DICUSTOMFORCE 和 DIENVELOPE 结构的信息，请参阅 DirectX SDK 的 DirectInput 部分。
+
+≦ 23 ≧
+要求要求 Header
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+dinputd.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 24 ≧
+DIFFDEVICEATTRIBUTES 结构
+(dinputd.h) 项目2023/08/23
+DIFFDEVICEATTRIBUTES 结构描述 OEMForceFeedback 注册表项的“Attributes”值中包含
+的信息。语法 C++
+typedef struct DIFFDEVICEATTRIBUTES {   DWORD dwFlags;
+  DWORD dwFFSamplePeriod;
+  DWORD dwFFMinTimeResolution;
+} DIFFDEVICEATTRIBUTES, *LPDIFFDEVICEATTRIBUTES;
+成员 dwFlags
+保留供将来使用。 此成员必须设置为零。 dwFFSamplePeriod
+指定播放强制命令之间的最短时间（以微秒为单位）。 dwFFMinTimeResolution
+指定设备可以解析的最短时间，以微秒为单位。 设备将任意时间值舍入为最接近的受支持增量。 例如，如果 dwFFMinTimeResolution 的值为 1000，则设备将随时舍入到最接
+近的毫秒。要求
+ 
+标头
+ 
+dinputd.h (包括 Dinputd.h)
+
+≦ 25 ≧
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 26 ≧
+DIFFOBJECTATTRIBUTES 结构
+(dinputd.h) 项目2023/08/23
+DIFFOBJECTATTRIBUTES 结构描述在力回馈设备上每个“对象”的注册表项的“FFAttributes” 值中包含的信息。 如果不存在“FFAttributes”值，则假定对象不支持力回馈。
+语法 C++
+typedef struct DIFFOBJECTATTRIBUTES {   DWORD dwFFMaxForce;
+  DWORD dwFFForceResolution;
+} DIFFOBJECTATTRIBUTES, *LPDIFFOBJECTATTRIBUTES;
+成员 dwFFMaxForce
+指定由与此对象关联的执行器可以创建的最大力的幅度。 力以牛顿表示，并相对于在设备 正常 操作期间手部的位置进行测量。 如果此成员为零，则假定对象不支持力回馈。
+dwFFForceResolution
+指定与此对象关联的执行器的力分辨率。 返回的值表示力回馈系统可表示的最大力的等
+级或细分数，从 0 (无力) 到最大力。要求
+ 
+标头反馈
+此页面是否有帮助？
+ 
+dinputd.h (包括 Dinputd.h)
+ﾂ是
+ﾄ否
+
+≦ 27 ≧
+在 Microsoft Q&A 获取帮助
+
+≦ 28 ≧
+diHIDFFINITINFO 结构 (dinputd.h) 项目2023/08/23
+DirectInput 使用 DIHIDFFINITINFO 结构向 HID 力回馈驱动程序提供有关要求其控制的设备的信息。
+语法 C++
+typedef struct DIHIDFFINITINFO {   DWORD  dwSize;
+  LPWSTR pwszDeviceInterface;   GUID   GuidInstance;
+} DIHIDFFINITINFO, *LPDIHIDFFINITINFO;
+成员 dwSize
+指定结构的大小（以字节为单位）。 在使用 结构之前，必须初始化此成员。 pwszDeviceInterface
+指向以 null 结尾的 Unicode 字符串，该字符串标识设备的设备接口。 驱动程序可以将设
+备接口传递给 CreateFile 函数，以获取对设备的访问权限。 GuidInstance
+指定此设备的设备实例 GUID。要求
+ 
+标头反馈
+ 
+dinputd.h
+
+≦ 29 ≧
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 30 ≧
+DIJOYCONFIG 结构 (dinputd.h) 项目2024/02/26
+DIJOYCONFIG 结构包含有关游戏杆配置的信息。
+语法 C++
+typedef struct DIJOYCONFIG {   DWORD          dwSize;
+  GUID           guidInstance;   JOYREGHWCONFIG hwc;
+  DWORD          dwGain;
+  WCHAR          wszType[MAX_JOYSTRING];
+  WCHAR          wszCallout[MAX_JOYSTRING];
+  GUID           guidGameport;} DIJOYCONFIG, *LPDIJOYCONFIG;
+成员 dwSize
+指定结构的大小（以字节为单位）。 必须先初始化此成员，然后才能使用结构。 guidInstance
+指定游戏杆的实例 GUID。 hwc
+游戏杆硬件配置。 dwGain
+指定全局增益设置。 此值作为“主音量控件”应用于所有力回馈效果。 wszType[MAX_JOYSTRING]
+游戏杆的操纵杆类型。 它必须是 IDirectInputJoyConfig8：：EnumTypes 枚举的值之一。
+wszCallout[MAX_JOYSTRING] 游戏杆的标注驱动程序。
+
+≦ 31 ≧
+guidGameport
+指定标识用于此游戏杆的游戏端口的 GUID。注解
+在枚举期间，可以通过为枚举游戏杆调用 IDirectInputJoyConfig8：：GetTypeInfo 方法，然后研究 DIJOYTYPEINFO 结构的 dwFlags 成员中存在的标志来找到 WDM 游戏端口。如果设置了JOY_HWS_ISGAMEPORTBUS标志，则当前枚举的对象是可用的 WDM 游戏端口。
+要求
+ﾉ
+要求 Header
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+dinputd.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 32 ≧
+DIJOYTYPEINFO 结构 (dinputd.h) 项目2023/08/23
+DIJOYTYPEINFO 结构包含有关游戏杆类型的信息。
+语法 C++
+typedef struct DIJOYTYPEINFO {
+  DWORD            dwSize;   JOYREGHWSETTINGS hws;
+  CLSID            clsidConfig;
+  WCHAR            wszDisplayName[MAX_JOYSTRING];
+  WCHAR            wszCallout[MAX_JOYSTICKOEMVXDNAME];   WCHAR            wszHardwareId[MAX_JOYSTRING];
+  DWORD            dwFlags1;   DWORD            dwFlags2;
+  WCHAR            wszMapFile[MAX_JOYSTRING];} DIJOYTYPEINFO, *LPDIJOYTYPEINFO;
+成员 dwSize
+指定结构的大小（以字节为单位）。 必须先初始化此成员，然后才能使用结构。 hws
+游戏杆硬件设置。 clsidConfig
+为游戏杆类型配置对象指定 CLSID。 将此 CLSID 传递给 CoCreateInstance 以创建配置对
+象。 如果类型没有自定义配置，则此字段为零。 wszDisplayName[MAX_JOYSTRING]
+游戏杆类型的显示名称。 显示名称是用于向最终用户显示游戏杆类型的名称的名称。 wszCallout[MAX_JOYSTICKOEMVXDNAME]
+负责处理此类型设备的轮询的设备。 如果要使用全局轮询标注，则这是一个 null 字符串。
+
+≦ 33 ≧
+wszHardwareId[MAX_JOYSTRING]
+游戏杆类型的硬件 ID。 Windows 2000 和 Windows 98 上的即插即用硬件 ID (DirectX 7.0
+仅) 来查找游戏杆的驱动程序。 dwFlags1
+游戏杆类型标志。 可以将此成员设置为以下标志的组合。
+JOYTYPE_ZEROGAMEENUMOEMDATA Zero GameEnum 的 OEM 数据字段。
+JOYTYPE_NOAUTODETECTGAMEPORT
+设备不支持自动检测游戏端口。 JOYTYPE_NOHIDDIRECT
+请勿直接对此设备使用 HID。 仅 (Windows 98.) JOYTYPE_DEFAULTPROPSHEET
+CPL 重写自定义属性表。 dwFlags2
+设备筛选和设备类型/子类型替代标志的组合。 设备筛选标志应放置在 dwFlags2 的高 WORD 中。 设备类型和子类型应分别放置在成员的低 WORD 和高 WORD 中。
+设备筛选标志隐藏未分类的设备。
+JOYTYPE_MOUSEHIDE 隐藏鼠标。
+JOYTYPE_KEYBHIDE 隐藏键盘。
+
+≦ 34 ≧
+JOYTYPE_GAMEHIDE 隐藏游戏控制器。
+JOYTYPE_HIDEACTIVE
+隐藏标志处于活动状态。 如果指定了任何其他隐藏标志，则必须包含此标志。设备类型和子类型替代标志
+设备类型
+DI8DEVTYPE_1STPERSON DI8DEVTYPE_DEVICE
+DI8DEVTYPE_DEVICECTRL DI8DEVTYPE_DRIVING
+DI8DEVTYPE_FLIGHT DI8DEVTYPE_GAMEPAD
+设备子类型
+DI8DEVTYPE1STPERSON_LIMITED DI8DEVTYPE1STPERSON_UNKNOWN DI8DEVTYPE1STPERSON_SIXDOF DI8DEVTYPE1STPERSON_SHOOTER 不适用
+DI8DEVTYPEDEVICECTRL_UNKNOWN
+DI8DEVTYPEDEVICECTRL_COMMSSELECTION
+DI8DEVTYPEDEVICECTRL_COMMSSELECTION_HARDWIRED DI8DEVTYPEDRIVING_LIMITED
+DI8DEVTYPEDRIVING_COMBINEDPEDALS
+DI8DEVTYPEDRIVING_DUALPEDALS DI8DEVTYPEDRIVING_THREEPEDALS DI8DEVTYPEDRIVING_HANDHELD
+DI8DEVTYPEFLIGHT_LIMITED DI8DEVTYPEFLIGHT_STICK DI8DEVTYPEFLIGHT_YOKE DI8DEVTYPEFLIGHT_RC
+DI8DEVTYPEGAMEPAD_LIMITED DI8DEVTYPEGAMEPAD_STANDARD DI8DEVTYPEGAMEPAD_TILT
+
+≦ 35 ≧
+DI8DEVTYPE_JOYSTICK DI8DEVTYPE_KEYBOARD
+DI8DEVTYPE_MOUSE DI8DEVTYPE_REMOTE
+DI8DEVTYPE_SCREENPOINTER
+DI8DEVTYPEJOYSTICK_LIMITED DI8DEVTYPEJOYSTICK_STANDARD DI8DEVTYPEJOYSTICK_ENHANCED DI8DEVTYPEKEYBOARD_UNKNOWN DI8DEVTYPEKEYBOARD_PCXT
+DI8DEVTYPEKEYBOARD_OLIVETTI
+DI8DEVTYPEKEYBOARD_PCAT DI8DEVTYPEKEYBOARD_PCENH
+DI8DEVTYPEKEYBOARD_NOKIA1050 DI8DEVTYPEKEYBOARD_NOKIA9140 DI8DEVTYPEKEYBOARD_NEC98
+DI8DEVTYPEKEYBOARD_NEC98LAPTOP
+DI8DEVTYPEKEYBOARD_NEC98106 DI8DEVTYPEKEYBOARD_JAPAN106 DI8DEVTYPEKEYBOARD_JAPANAX
+DI8DEVTYPEKEYBOARD_J3100 DI8DEVTYPEMOUSE_UNKNOWN DI8DEVTYPEMOUSE_TRADITIONAL DI8DEVTYPEMOUSE_FINGERSTICK DI8DEVTYPEMOUSE_TOUCHPAD DI8DEVTYPEMOUSE_TRACKBALL DI8DEVTYPEMOUSE_ABSOLUTE DI8DEVTYPEREMOTE_UNKNOWN
+DI8DEVTYPESCREENPTR_UNKNOWN DI8DEVTYPESCREENPTR_LIGHTGUN DI8DEVTYPESCREENPTR_LIGHTPEN DI8DEVTYPESCREENPTR_TOUCH
+
+≦ 36 ≧
+DI8DEVTYPE_SUPPLEMENTAL wszMapFile[MAX_JOYSTRING] 备注
+DI8DEVTYPESUPPLEMENTAL_UNKNOWN
+DI8DEVTYPESUPPLEMENTAL_2NDHANDCONTROLLER
+DI8DEVTYPESUPPLEMENTAL_HEADTRACKER DI8DEVTYPESUPPLEMENTAL_HANDTRACKER DI8DEVTYPESUPPLEMENTAL_SHIFTSTICKGATE
+DI8DEVTYPESUPPLEMENTAL_SHIFTER DI8DEVTYPESUPPLEMENTAL_THROTTLE
+DI8DEVTYPESUPPLEMENTAL_SPLITTHROTTLE DI8DEVTYPESUPPLEMENTAL_COMBINEDPEDALS
+DI8DEVTYPESUPPLEMENTAL_DUALPEDALS DI8DEVTYPESUPPLEMENTAL_THREEPEDALS DI8DEVTYPESUPPLEMENTAL_RUDDERPEDALS
+“游戏杆类型”描述 DirectInput 应如何与设备通信，以及如何报告设备数据。 例如，
+“Frobozz Industries SuperStick 5X 是一个三轴五按钮游戏杆，第三个轴报告为第二个端口上的第一个位。”
+DirectInput 附带以下预定义游戏杆类型，所有类型在其默认位置都有轴：
+双轴双按钮游戏杆。
+双按钮游戏板。双按钮飞行纽扣。
+带油门的双按钮飞行锁。
+三轴双按钮游戏杆。三轴四按钮游戏杆。
+四按钮游戏板。四按钮飞行扣。
+带油门的四按钮飞行锁。
+如果游戏杆类型在 JOYHWSETTINGS 结构的 dwFlags 成员中设置了
+JOY_HWS_ISGAMEPORTDRIVER标志，则 DIJOYTYPEINFO 结构的 wszCallout 成员包含可
+
+≦ 37 ≧
+用作全局驱动程序的驱动程序的名称。 游戏杆类型应显示在全局驱动程序列表中，而不
+是显示在可分配的游戏杆类型列表中。 DirectX 8.0 中的新增功能
+dwFlags2 成员已添加到 DIJOYCONFIG 结构。 此成员携带的信息控制 DirectInput 如何将设备枚举到应用程序。 dwFlags2 成员在低字中携带设备类型和子类型替代标志，并在高字中携带设备枚举“隐藏”标志。 设备类型和子类型替代标志控制 DirectInput 如何将设备描绘成使用 DirectInput 的应用程序。 这些标志与应用程序在设备枚举期间从 DirectInput 接收的标志相同。 例如，如果你的设备在其固件中被描述为电话设备，则通常不会将其枚举到游戏，因为电话设备被认为与游戏无关。 但是，如果使用
+DI8DEVTYPE_DEVICECTRL和DI8DEVTYPEDEVICECONTROL_COMMSSELECTION来描述此设备，则 DirectInput 会替代它从固件检索的数据，并将该设备枚举到游戏。
+dwFlags2 的高字可以设置为包含将 DirectInput 枚举设备的方式限定为 DirectInput 应用程序的标志。 例如，某些设备声明多个顶级 HID 集合。 此类设备可能声明它可以一起充当键盘、鼠标和游戏杆。 通常，这些顶级集合中的一个或多个只是虚拟设备，不应将其枚举到游戏中。 对于此设备， dwFlags2 的高字可以设置为JOYTYPE_HIDEACTIVE、
+JOYTYPE_MOUSEHIDE和JOYTYPE_KEYBHIDE标志的组合。 JOYTYPE_HIDEACTIVE标志指示 DirectInput 不应按设备的所有类型枚举设备。 高字中的JOYTYPE_MOUSEHIDE和
+JOYTYPE_KEYBHIDE标志也向 DirectInput 指示应禁止枚举设备上的虚拟鼠标和键盘。 请注意，应用程序可以包含Microsoft Windows SDK文档中描述的DIEDFL_INCLUDEHIDDEN
+(，) 标志来枚举设备，即使设备处于隐藏状态也是如此。要求
+ 
+标头反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+ 
+dinputd.h
+
+≦ 38 ≧
+diJOYUSERVALUES 结构 (dinputd.h) 项目2023/08/23
+DIJOYUSERVALUES 结构包含有关用户游戏杆设置的信息。
+语法 C++
+typedef struct DIJOYUSERVALUES {
+  DWORD            dwSize;   JOYREGUSERVALUES ruv;
+  WCHAR            wszGlobalDriver[MAX_JOYSTRING];
+  WCHAR            wszGameportEmulator[MAX_JOYSTRING];} DIJOYUSERVALUES, *LPDIJOYUSERVALUES;
+成员 dwSize
+指定结构的大小（以字节为单位）。 在使用 结构之前，必须初始化此成员。 ruv
+游戏杆用户配置。 除了 mmddk.h 头文件中包含的字段外，以前未使用的
+jrvRanges.jpCenter 字段还包含每个轴的用户饱和度级别。 控制面板应用程序根据最终用户在校准或微调期间设置的值设置死区和饱和度值。 死区可以解释为“中心敏感度”，饱和度可以解释为“沿边缘的敏感度”。
+wszGlobalDriver[MAX_JOYSTRING] 全局端口驱动程序。
+wszGameportEmulator[MAX_JOYSTRING]
+未使用。要求
+ 
+标头
+ 
+dinputd.h
+
+≦ 39 ≧
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 40 ≧
+DIOBJECTATTRIBUTES 结构 (dinputd.h) 项目2024/03/05
+DIOBJECTATTRIBUTES 结构描述设备上每个“对象”的注册表项的“属性”值中包含的信息。如果不存在“Attributes”值，则使用默认属性。
+语法 C++
+typedef struct DIOBJECTATTRIBUTES {   DWORD dwFlags;
+  WORD  wUsagePage;   WORD  wUsage;
+} DIOBJECTATTRIBUTES, *LPDIOBJECTATTRIBUTES;
+成员 dwFlags
+以下标志可能为零、一个或多个： DIDOI_FFACTUATOR
+指示对象可以应用强制回馈效果。 DIDOI_FFEFFECTTRIGGER
+指示对象可以触发力回馈效果的播放。
+DIDOI_ASPECTPOSITION 指示对象报告位置信息。
+DIDOI_ASPECTVELOCITY
+指示对象报告速度信息。 DIDOI_ASPECTACCEL
+
+≦ 41 ≧
+指示对象报告加速信息。 DIDOI_ASPECTFORCE 指示对象报告强制信息。 DIDOI_ASPECTMASK
+指示用于报告方面信息的位。 一个 对象最多可以表示一个方面。 DIDOI_POLLED
+指示必须显式轮询对象才能从中检索数据。 如果未设置此标志，则对象的数据为中断驱动。
+wUsagePage
+指定要与 对象关联的 HID 用法页。 wUsage
+指定要与 对象关联的 HID 用法。要求
+ﾉ
+要求 Header
+反馈
+此页面是否有帮助？
+提供产品反馈 
+值
+dinputd.h (包括 Dinputd.h)
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 42 ≧
+DIOBJECTCALIBRATION 结构 (dinputd.h) 项目2023/08/23
+DIOBJECTCALIBRATION 结构描述设备上每个轴的注册表项的“校准”值中包含的信息。
+语法 C++
+typedef struct DIOBJECTCALIBRATION {   LONG lMin;
+  LONG lCenter;   LONG lMax;
+} DIOBJECTCALIBRATION, *LPDIOBJECTCALIBRATION;
+成员 lMin
+指定轴最小位置的逻辑值。 lCenter
+指定轴中心位置的逻辑值。 lMax
+指定轴最大位置的逻辑值。备注
+如果缺少“校准”值，则校准信息取自游戏杆 JOYREGHWVALUES 配置结构。
+只有 HID 游戏杆具有“校准”值。要求
+ 
+标头
+ 
+dinputd.h (包括 Dinputd.h)
+
+≦ 43 ≧
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 44 ≧
+iDirectInputEffectDriver 接口 (dinputd.h) 项目2023/08/23
+这三种方法允许将其他接口添加到 DirectInputEffectDriver 对象，而不会影响原始接口的
+功能。继承
+IDirectInputEffectDriver 接口继承自 IUnknown 接口。 IDirectInputEffectDriver 还具有
+以下类型的成员：方法
+IDirectInputEffectDriver 接口包含以下方法。  
+IDirectInputEffectDriver：：AddRef
+IDirectInputEffectDriver：：AddRef 方法将 DirectInputEffectDriver 对象的引用计数增加 1。 此方
+法是 DirectInputEffectDriver 继承的 IUnknown 接口的一部分。 IDirectInputEffectDriver：:D estroyEffect
+IDirectInputEffectDriver：:D estroyEffect 方法从设备中删除效果。 如果效果正在播放，驱动程序应在卸载它之前将其停止。
+IDirectInputEffectDriver：:D eviceID
+IDirectInputEffectDriver：:D eviceID 方法向驱动程序发送设备的标识。 IDirectInputEffectDriver：:D ownloadEffect
+IDirectInputEffectDriver：:D ownloadEffect 方法将效果发送到设备。 IDirectInputEffectDriver：：Escape
+IDirectInputEffectDriver：：Escape 方法转义到驱动程序。 调用此方法以响应调用 IDirectInputEffect：：Escape 或 IDirectInputDevice：：Escape 方法的应用程序。
+IDirectInputEffectDriver：：GetEffectStatus
+IDirectInputEffectDriver：：GetEffectStatus 方法获取有关效果状态的信息。 IDirectInputEffectDriver：：GetForceFeedbackState
+
+≦ 45 ≧
+ 
+IDirectInputEffectDriver：：GetForceFeedbackState 方法检索设备的力回馈状态。 IDirectInputEffectDriver：：GetVersions
+IDirectInputEffectDriver：：GetVersions 方法获取有关力回馈硬件和驱动程序的版本信息。 IDirectInputEffectDriver：：QueryInterface
+IDirectInputEffectDriver：：QueryInterface 方法确定 DirectInputEffectDriver 对象是否支持特定的 COM 接口。
+IDirectInputEffectDriver：：Release
+IDirectInputEffectDriver：：Release 方法将 DirectInputEffectDriver 对象的引用计数减少 1。 此方
+法是 DirectInputEffectDriver 继承的 IUnknown 接口的一部分。 IDirectInputEffectDriver：：SendForceFeedbackCommand
+IDirectInputEffectDriver：：SendForceFeedbackCommand 方法更改设备的力回馈状态。 IDirectInputEffectDriver：：SetGain
+IDirectInputEffectDriver：：SetGain 方法设置设备总增益。 IDirectInputEffectDriver：：StartEffect
+IDirectInputEffectDriver：：StartEffect 方法开始播放效果。 如果效果已在播放，则会从头开始重启。
+IDirectInputEffectDriver：：StopEffect
+IDirectInputEffectDriver：：StopEffect 方法停止播放效果。要求
+ 
+目标平台
+标头反馈
+此页面是否有帮助？
+ 
+Windows dinputd.h
+
+≦ 46 ≧
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 47 ≧
+IDirectInputEffectDriver：：AddRef 方法
+(dinputd.h) 项目2023/08/23
+IDirectInputEffectDriver：：AddRef 方法将 DirectInputEffectDriver 对象的引用计数增加 1。 此方法是 DirectInputEffectDriver 继承的 IUnknown 接口的一部分。
+语法 C++
+ULONG AddRef(); 返回值
+如果成功，则返回S_OK;否则，将返回错误代码。备注
+创建 DirectInputEffectDriver 对象时，其引用计数应设置为 1。 每次应用程序获取对象的接口或调用 AddRef 方法时，对象的引用计数都会增加 1。 应用程序使用 Release 方法将
+对象的引用计数减少 1。要求
+ 
+目标平台
+标头反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+桌面
+dinputd.h (包括 Dinputd.h) ﾄ否
+
+≦ 48 ≧
+IDirectInputEffectDriver：:D estroyEffect
+方法 (dinputd.h) 项目2024/03/05
+IDirectInputEffectDriver：:D estroyEffect 方法从设备中删除效果。 如果效果正在播放，驱动程序应在卸载它之前将其停止。
+语法 C++
+HRESULT DestroyEffect(   DWORD unnamedParam1,   DWORD unnamedParam2);
+参数 unnamedParam1
+指定要寻址的外部游戏杆编号。 unnamedParam2
+指定要销毁的效果。返回值
+如果成功，则返回S_OK;否则，将返回错误代码。要求
+ﾉ
+要求
+目标平台标头
+值桌面
+dinputd.h (包括 Dinputd.h)
+展开表
+
+≦ 49 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 50 ≧
+IDirectInputEffectDriver：:D eviceID 方
+法 (dinputd.h) 项目2023/08/23
+IDirectInputEffectDriver：:D eviceID 方法向驱动程序发送设备的标识。
+语法 C++
+HRESULT DeviceID(
+  DWORD  unnamedParam1,   DWORD  unnamedParam2,   DWORD  unnamedParam3,   DWORD  unnamedParam4,   LPVOID unnamedParam5);
+参数 unnamedParam1
+指定加载效果驱动程序的 DirectInput 的版本号。 例如，在 DirectInput 5.0 中，此参数的
+值0x00000500。 unnamedParam2
+指定游戏杆 ID 号。 Microsoft Windows 游戏杆子系统分配外部 ID。 unnamedParam3
+指定设备的可用性。 如果开始对设备的访问，则此值为非零值;如果对设备的访问即将结
+束，则此值为零。 unnamedParam4
+指定内部游戏杆的 ID。 设备驱动程序管理内部 ID。 unnamedParam5
+指向包含力回馈驱动程序的初始化信息的 DIHIDFFINITINFO 结构。 驱动程序使用此信息来区分多个设备，并查询 DirectInput 以获取任何其他设备属性。
+
+≦ 51 ≧
+返回值
+如果成功，则返回S_OK;否则，将返回错误代码。备注
+作为 IDirectInputEffectDriver：:D eviceID 方法的示例，如果传递设备驱动程序
+dwExternalID = 2 且 dwInternalId = 1，则设备上的单元 1 对应于 ID 为 2 的游戏杆。要求
+ 
+目标平台
+标头反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+桌面
+dinputd.h (包括 Dinputd.h) ﾄ否
+
+≦ 52 ≧
+IDirectInputEffectDriver：:D ownloadEffect 方法 (dinputd.h) 项目2023/08/23
+IDirectInputEffectDriver：:D ownloadEffect 方法将效果发送到设备。
+语法 C++
+HRESULT DownloadEffect(
+  DWORD       unnamedParam1,   DWORD       unnamedParam2,   LPDWORD     unnamedParam3,   LPCDIEFFECT unnamedParam4,   DWORD       unnamedParam5);
+参数 unnamedParam1
+指定要寻址的外部游戏杆编号。 unnamedParam2
+指定与应用程序尝试创建的效果关联的 DIEFFECTATTRIBUTES 结构的 dwEffectId 成员。 DIEFFECTATTRIBUTES 结构存储在注册表中的相应效果注册表项下，可以是任何 32 位
+值。 DirectInput 将 32 位值传递给驱动程序，无需解释。 unnamedParam3
+在输入时，此参数是指向正在下载的效果句柄的指针。 如果此参数指向零，则下载新效果。 退出时，此参数是指向包含新效果句柄的 DWORD 的指针。 失败时，如果效果丢失，则此参数指向的 DWORD 设置为零;如果效果仍然有效，则将其旧参数保留为单独。
+请注意，零从来不是有效的效果句柄。 unnamedParam4
+指向描述新效果的 DIEFFECT 结构。 轴和按钮值已转换为对象标识符，其中包括：
+
+≦ 53 ≧
+一种类型说明符： DIDFT_RELAXIS DIDFT_ABSAXIS
+DIDFT_PSHBUTTON DIDFT_TGLBUTTON DIDFT_POV
+一个实例标识符：
+DIDFT_MAKEINSTANCE (n)
+对象标识符中的其他位是保留的，应忽略。
+例如，0x02000104 = DIDFT_PSHBUTTON |DIDFT_MAKEINSTANCE (1) |其他内容
+此值指示效果使用按钮 1。 unnamedParam5
+指定效果信息的哪些部分已从已应用于设备的效果更改。 此信息将传递给驱动程序，以允许优化效果修改。 如果正在修改效果，驱动程序可能能够更新其原始位置的效果，并仅将已更改的信息传输到设备。 但是，实现此优化不需要驱动程序。 peff 参数指向的 DIEFFECT 结构中的所有成员都是有效的，驱动程序可以选择在每次下载时仅更新效果的所有参数。 (有关 DIEFFECT 结构的信息，请参阅独立 DirectX SDK 的 DirectInput 部分 )
+此参数可以是零、一个或多个以下参数： DIEP_DURATION
+指示 DIEFFECT 结构的 dwDuration 成员是第一次下载或自上次下载以来已更改。 DIEP_SAMPLEPERIOD
+指示 DIEFFECT 结构的 dwSamplePeriod 成员是第一次下载或自上次下载以来已更改。
+
+≦ 54 ≧
+DIEP_GAIN
+指示 DIEFFECT 结构的 dwGain 成员是第一次下载或自上次下载以来已更改。 DIEP_TRIGGERBUTTON
+指示 DIEFFECT 结构的 dwTriggerButton 成员是第一次下载或自上次下载以来已更改。 DIEP_TRIGGERREPEATINTERVAL
+指示 DIEFFECT 结构的 dwTriggerRepeatInterval 成员是第一次下载或自上次下载以来已更改。
+DIEP_AXES
+指示 DIEFFECT 结构的 cAxes 和 rgdwAxes 成员是第一次下载或自上次下载以来已更改。 DIEP_DIRECTION
+指示 DIEFFECT 结构的 cAxes 和 rglDirection 成员是第一次下载或自上次下载以来已更改。 (DIEFFECT 结构的 dwFlags 成员通过DIEFF_CARTESIAN或DIEFF_POLAR指定应在其中
+解释值的坐标系。) DIEP_ENVELOPE
+指示 DIEFFECT 结构的 lpEnvelope 成员是首次下载的，或者自上次下载以来已更改。 如果设置了此标志，并且 lpEnvelope 成员为 NULL 指针，则创建效果时不带信封，或者正在删除现有信封。
+DIEP_TYPESPECIFICPARAMS
+指示 DIEFFECT 结构的 cbTypeSpecificParams 和 lpTypeSpecificParams 成员是第一次下
+载或自上次下载以来已更改。 DIEP_START
+指示在更新效果的参数后，将从头开始重启效果。 请注意，DIEP_NODOWNLOAD标志将
+替代DIEP_START标志。 DIEP_NORESTART
+
+≦ 55 ≧
+如果未指定此标志，则允许效果设备驱动程序重启效果（如果这样做是更改指定参数所必
+需的）。 请注意，DIEP_NODOWNLOAD和DIEP_START标志将替代此标志。 DIEP_NODOWNLOAD
+禁止在更新参数后通常执行的自动下载。 如果设置了此标志，驱动程序应验证参数而不
+执行实际下载。返回值
+如果成功，则返回 S_OK，否则返回错误值。要求
+ 
+目标平台
+标头反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+桌面
+dinputd.h (包括 Dinputd.h) ﾄ否
+
+≦ 56 ≧
+iDirectInputEffectDriver：：Escape 方法
+(dinputd.h) 项目2024/03/05
+IDirectInputEffectDriver：：Escape 方法转义到驱动程序。 调用此方法以响应调用 IDirectInputEffect：：Escape 或 IDirectInputDevice：：Escape 方法的应用程序。
+语法 C++
+HRESULT Escape(
+  DWORD         unnamedParam1,   DWORD         unnamedParam2,   LPDIEFFESCAPE unnamedParam3);
+参数 unnamedParam1
+指示正在使用的操纵杆 ID 号。 unnamedParam2
+指定命令定向的效果;如果命令指向设备本身而不是任何特定效果，则为零。 unnamedParam3
+指向描述要发送的命令的 DIEFFESCAPE 结构。 成功后， cbOutBuffer 成员包含实际使用
+的输出缓冲区字节数。返回值
+如果成功，则返回S_OK;否则，将返回错误代码。要求
+ﾉ
+展开表
+
+≦ 57 ≧
+要求
+目标平台
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值桌面
+dinputd.h (包括 Dinputd.h) 否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 58 ≧
+IDirectInputEffectDriver：：
+GetEffectStatus 方法 (dinputd.h) 项目2023/08/23
+IDirectInputEffectDriver：：GetEffectStatus 方法获取有关效果状态的信息。
+语法 C++
+HRESULT GetEffectStatus(   DWORD   unnamedParam1,   DWORD   unnamedParam2,   LPDWORD unnamedParam3);
+参数 unnamedParam1
+指示要寻址的外部游戏杆编号。 unnamedParam2
+指定要查询的效果。 unnamedParam3
+指向接收效果状态的 DWORD 。 应使用以下值之一填充 DWORD ： DIEGES_PLAYING
+效果仍在播放。 0
+效果未播放。返回值
+
+≦ 59 ≧
+如果成功，则返回S_OK;否则，将返回错误代码。要求
+ 
+目标平台
+标头反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+桌面
+dinputd.h (包括 Dinputd.h) ﾄ否
+
+≦ 60 ≧
+IDirectInputEffectDriver：：
+GetForceFeedbackState 方法 (dinputd.h) 项目2024/02/29
+IDirectInputEffectDriver：：GetForceFeedbackState 方法检索设备的力回馈状态。
+语法 C++
+HRESULT GetForceFeedbackState(   DWORD           unnamedParam1,   LPDIDEVICESTATE unnamedParam2);
+参数 unnamedParam1
+指示要寻址的外部游戏杆编号。 unnamedParam2
+指向接收设备状态的 DIDEVICESTATE 结构。 DirectInput 在调用此方法之前，将
+DIDEVICESTATE 结构的 dwSize 成员设置为 size of (DIDEVICESTATE) 。返回值
+如果成功，则返回S_OK;否则，将返回错误代码。要求
+ﾉ
+要求
+目标平台标头
+值桌面
+dinputd.h (包括 Dinputd.h)
+展开表
+
+≦ 61 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 62 ≧
+IDirectInputEffectDriver：：GetVersions
+方法 (dinputd.h) 项目2023/08/23
+IDirectInputEffectDriver：：GetVersions 方法获取有关力回馈硬件和驱动程序的版本信息。
+语法 C++
+HRESULT GetVersions(
+  LPDIDRIVERVERSIONS unnamedParam1);
+参数 unnamedParam1
+指向应使用描述硬件、固件和驱动程序的版本信息填充 的 DIDRIVERVERSIONS 结构。 DirectInput 在调用此方法之前，将 DIDRIVERVERSIONS 结构的 dwSize 成员设置为 size
+of (DIDRIVERVERSIONS) 。返回值
+如果成功，则返回S_OK;否则，将返回错误代码。要求
+ 
+目标平台
+标头反馈
+ 
+桌面
+dinputd.h (包括 Dinputd.h)
+
+≦ 63 ≧
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 64 ≧
+IDirectInputEffectDriver：：
+QueryInterface 方法 (dinputd.h) 项目2024/02/29
+IDirectInputEffectDriver：：QueryInterface 方法确定 DirectInputEffectDriver 对象是否支持特定的 COM 接口。 如果这样做，系统将对象的引用计数增加 1，应用程序可以立即开始使用该接口。 此方法是 DirectInputEffectDriver 继承的 IUnknown 接口的一部分。
+语法 C++
+HRESULT QueryInterface(
+  REFIID riid,   LPVOID *ppvObj);
+参数 riid
+正在请求的接口的引用标识符。 ppvObj
+如果查询成功，则使用接口指针填充的指针的地址。返回值
+如果接口受支持，则返回S_OK;否则， 返回E_NOINTERFACE。注解
+当应用程序不再需要使用通过调用此方法检索的接口时，它必须为该接口调用 Release 方
+法才能释放它。要求
+
+≦ 65 ≧
+要求
+目标平台
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值桌面
+dinputd.h (包括 Dinputd.h) 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 66 ≧
+IDirectInputEffectDriver：：Release 方
+法 (dinputd.h) 项目2023/08/23
+IDirectInputEffectDriver：：Release 方法将 DirectInputEffectDriver 对象的引用计数减少 1。 此方法是 DirectInputEffectDriver 继承的 IUnknown 接口的一部分。
+语法 C++
+ULONG Release(); 返回值
+返回 对象的新引用计数。备注
+DirectInputEffectDriver 对象在其引用计数达到 0 时解除分配自身。 使用 IDirectInputEffectDriver：：AddRef 方法将对象的引用计数增加 1。
+要求
+ 
+目标平台
+标头反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+桌面
+dinputd.h (包括 Dinputd.h) ﾄ否
+
+≦ 67 ≧
+IDirectInputEffectDriver：：
+SendForceFeedbackCommand 方法
+(dinputd.h) 项目2024/03/05
+IDirectInputEffectDriver：：SendForceFeedbackCommand 方法更改设备的力回馈状态。
+语法 C++
+HRESULT SendForceFeedbackCommand(
+  DWORD unnamedParam1,   DWORD unnamedParam2);
+参数 unnamedParam1
+指示要寻址的外部游戏杆编号。 unnamedParam2
+指示正在发送以下哪些命令： DISFFC_RESET
+指示应停止播放任何活动效果，并且应从设备中删除所有效果。 重置设备后，所有效果
+都不再有效，必须重新创建。 DISFFC_STOPALL
+指示应停止播放所有效果。 发送DISFFC_STOPALL命令等效于对正在播放的所有效果调用 IDirectInputEffect：：Stop 方法。 如果设备处于暂停状态，则允许设备驱动程序丢失暂停状态。
+
+≦ 68 ≧
+DISFFC_PAUSE
+指示应暂停播放所有效果。 当效果暂停时，时间将“停止”，直到发送DISFFC_CONTINUE 命令。 例如，假设启动持续时间为 5 秒的效果。 一秒钟后，所有效果都暂停。 再过两秒钟，所有效果都会继续。 然后，该效果应再播放 4 秒。 当力回馈设备暂停时，启动新效
+果或修改现有效果可能会导致暂停状态丢失。 DISFFC_CONTINUE
+指示应在播放中断时恢复播放，以处理先前DISFFC_PAUSE命令暂停的效果。
+DISFFC_SETACTUATORSON 指示应启用设备的力回馈执行器。
+DISFFC_SETACTUATORSOFF
+指示应禁用设备的力回馈执行器。 如果成功，力回馈效果将“静音”。 请注意，当执行器关闭时，时间会持续过。 例如，假设已启动持续时间为 5 秒的效果。 一秒钟后，执行器
+关闭。 再过两秒钟，执行器将重新打开。 然后，该效果应再播放两秒钟。返回值
+如果成功，则返回S_OK;否则，将返回错误代码。要求
+ﾉ
+要求
+目标平台
+标头反馈
+此页面是否有帮助？
+是
+值桌面
+dinputd.h (包括 Dinputd.h) 否
+展开表
+
+≦ 69 ≧
+提供产品反馈 
+| 在 Microsoft Q&A 获取帮助
+
+≦ 70 ≧
+IDirectInputEffectDriver：：SetGain 方
+法 (dinputd.h) 项目2024/02/26
+IDirectInputEffectDriver：：SetGain 方法设置整体设备增益。
+语法 C++
+HRESULT SetGain(
+  DWORD unnamedParam1,   DWORD unnamedParam2);
+参数 unnamedParam1
+指示正在使用的游戏杆 ID 号。 unnamedParam2
+指定 (1 到 10,000) 的新增益值。返回值
+如果成功，则返回S_OK;否则，将返回错误代码。要求
+ﾉ
+要求
+目标平台标头
+值桌面
+dinputd.h (包括 Dinputd.h)
+展开表
+
+≦ 71 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 72 ≧
+iDirectInputEffectDriver：：StartEffect
+方法 (dinputd.h) 项目2024/02/26
+IDirectInputEffectDriver：：StartEffect 方法开始播放效果。 如果效果已在播放，则会从头开始重启。
+语法 C++
+HRESULT StartEffect(   DWORD unnamedParam1,   DWORD unnamedParam2,   DWORD unnamedParam3,   DWORD unnamedParam4);
+参数 unnamedParam1
+标识要寻址的外部游戏杆编号 unnamedParam2
+指定要播放的效果。 unnamedParam3
+指定效果如何影响其他效果。 只能使用下面列出的模式：所有其他模式都保留。 例如，驱动程序永远不会收到 DIES_NODOWNLOAD 标志，因为它由 DirectInput 而不是驱动程
+序管理。 此参数可以是零、一个或多个以下标志： DIES_SOLO
+指示在播放指定效果之前应停止设备上的所有其他效果。 如果省略此标志，则效果与已
+在设备上启动的现有效果混合。 unnamedParam4
+
+≦ 73 ≧
+指定执行效果的次数。 如果值为 INFINITE，则应重复该效果，直到显式停止或暂停为止。
+返回值
+如果成功，则返回S_OK;否则，将返回错误代码。要求
+ﾉ
+要求
+目标平台
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值桌面
+dinputd.h (包括 Dinputd.h) 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 74 ≧
+IDirectInputEffectDriver：：StopEffect
+方法 (dinputd.h) 项目2023/08/23
+IDirectInputEffectDriver：：StopEffect 方法停止播放效果。
+语法 C++
+HRESULT StopEffect(
+  DWORD unnamedParam1,   DWORD unnamedParam2);
+参数 unnamedParam1
+指示要寻址的外部游戏杆编号。 unnamedParam2
+指定要停止的效果。返回值
+如果成功，则返回S_OK;否则，将返回错误代码。要求
+ 
+目标平台
+标头反馈
+ 
+桌面
+dinputd.h (包括 Dinputd.h)
+
+≦ 75 ≧
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 76 ≧
+IDirectInputJoyConfig8 接口 (dinputd.h) 项目2024/02/29
+IDirectInputJoyConfig8 接口包含一些方法，这些方法允许正在编写属性表的硬件开发人员在注册表中写入和读取信息。 如果需要打开注册表项，应使用
+IDirectInputJoyConfig8：：OpenConfigKey 和 IDirectInputJoyConfig8：：OpenTypeKey 方法，而不是直接打开注册表项。 使用上述任一方法可确保打开正确的注册表分支。 此外，当基础注册表数据的结构可能不同时，未来版本的 DirectInput 将支持
+IDirectInputJoyConfig8 接口。继承
+IDirectInputJoyConfig8 接口继承自 IUnknown 接口。 IDirectInputJoyConfig8 还具有以
+下类型的成员：方法
+IDirectInputJoyConfig8 接口具有这些方法。
+ﾉ
+ 
+IDirectInputJoyConfig8：：Acquire
+展开表
+IDirectInputJoyConfig8：：Acquire 方法获取“游戏杆配置模式”。一次只能有一个应用程序处于游戏杆配置模式;其他应用程序尝试获取此模式的后续尝试应收到错误DIERR_OTHERAPPHASPRIO。进入配置模式后，应用程序可以更改全局游戏杆配置设置。 应用程序应在安装新设置之前检查现有
+设置，以防另一个应用程序在此期间更改了设置。 IDirectInputJoyConfig8：：AddNewHardware
+IDirectInputJoyConfig8：：AddNewHardware 方法显示“添加新硬件”对话框，该对话框将指导用户安装新的输入设备。
+IDirectInputJoyConfig8：：AddRef
+IDirectInputJoyConfig8：：AddRef 方法将 DirectInputJoyConfig 对象的引用计数增加 1。 此方法
+是 DirectInputJoyConfig 继承的 IUnknown 接口的一部分。 IDirectInputJoyConfig8：:D eleteConfig
+IDirectInputJoyConfig8：:D eleteConfig 方法删除有关游戏杆的配置信息。
+
+≦ 77 ≧
+ 
+IDirectInputJoyConfig8：:D eleteType
+IDirectInputJoyConfig8：:D eleteType 方法删除有关游戏杆类型的信息。 请谨慎使用此方法;调用方
+负责确保没有游戏杆引用已删除的类型。 IDirectInputJoyConfig8：：EnumTypes
+IDirectInputJoyConfig8：：EnumTypes 方法枚举 DirectInput 当前支持游戏杆类型。 IDirectInputJoyConfig8：：GetConfig
+IDirectInputJoyConfig8：：GetConfig 方法获取有关游戏杆配置的信息。 IDirectInputJoyConfig8：：GetTypeInfo
+IDirectInputJoyConfig8：：GetTypeInfo 方法获取有关游戏杆类型的信息。 IDirectInputJoyConfig8：：GetUserValues
+IDirectInputJoyConfig8：：GetUserValues 方法获取有关游戏杆的用户设置的信息。 IDirectInputJoyConfig8：：OpenAppStatusKey
+IDirectInputJoyConfig8：：OpenAppStatusKey 方法打开应用程序状态注册表项的根键，并获取密钥的句柄作为返回参数。
+IDirectInputJoyConfig8：：OpenTypeKey
+IDirectInputJoyConfig8：：OpenTypeKey 方法打开与游戏杆类型关联的注册表项。 IDirectInputJoyConfig8：：QueryInterface
+IDirectInputJoyConfig8：：QueryInterface 方法确定 DirectInputJoyConfig 对象是否支持特定的 COM 接口。
+IDirectInputJoyConfig8：：Release
+IDirectInputJoyConfig8：：Release 方法将 DirectInputJoyConfig 对象的引用计数减少 1。 此方法
+是 DirectInputJoyConfig 继承的 IUnknown 接口的一部分。 IDirectInputJoyConfig8：：SendNotify
+IDirectInputJoyConfig8：：SendNotify 方法通知设备驱动程序和应用程序已对设备配置进行了更改。
+IDirectInputJoyConfig8：：SetConfig
+IDirectInputJoyConfig8：：SetConfig 方法创建或重新定义有关游戏杆的配置信息。
+
+≦ 78 ≧
+ 
+IDirectInputJoyConfig8：：SetCooperativeLevel
+IDirectInputJoyConfig8：：SetCooperativeLevel 方法为设备实例建立协作级别。
+IDirectInputJoyConfig8 接口支持的唯一合作级别是DISCL_EXCLUSIVE和DISCL_BACKGROUND。 IDirectInputJoyConfig8：：SetTypeInfo
+IDirectInputJoyConfig8：：SetTypeInfo 方法创建新的游戏杆类型或重新定义有关现有游戏杆类型的信息。
+IDirectInputJoyConfig8：：SetUserValues
+IDirectInputJoyConfig8：：SetUserValues 方法设置游戏杆的用户设置。 IDirectInputJoyConfig8：：Unacquire
+IDirectInputJoyConfig8：：Unacquire 方法 unacquires“游戏杆配置模式”。要求
+ﾉ
+要求
+目标平台
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+值
+Windows dinputd.h
+展开表
+
+≦ 79 ≧
+IDirectInputJoyConfig8：：Acquire 方法
+(dinputd.h) 项目2024/02/27
+IDirectInputJoyConfig8：：Acquire 方法获取“游戏杆配置模式”。一次只能有一个应用程序处于游戏杆配置模式;其他应用程序尝试获取此模式的后续尝试应收到错误
+DIERR_OTHERAPPHASPRIO。 进入配置模式后，应用程序可以更改全局游戏杆配置设置。 应用程序应在安装新设置之前检查现有设置，以防另一个应用程序在此期间更改了
+设置。语法 C++
+HRESULT Acquire(); 返回值
+如果成功，则返回DI_OK;否则，返回以下 COM 错误值之一：
+ﾉ
+返回代码
+DIERR_OTHERAPPHASPRIO DIERR_INSUFFICIENTPRIVS DIERR_DEVICECHANGE
+要求要求目标平台标头
+值桌面
+说明
+另一个应用程序已处于游戏杆配置模式。当前用户没有更改游戏杆配置所需的权限。
+展开表
+另一个应用程序已更改全局游戏杆配置。 接口需要重新初始化。
+ﾉ
+dinputd.h (包括 Dinputd.h)
+展开表
+
+≦ 80 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 81 ≧
+IDirectInputJoyConfig8：：
+AddNewHardware 方法 (dinputd.h) 项目2024/02/26
+IDirectInputJoyConfig8：：AddNewHardware 方法显示“添加新硬件”对话框，该对话框将指导用户安装新的输入设备。
+语法 C++
+HRESULT AddNewHardware(   HWND    unnamedParam1,   REFGUID unnamedParam2);
+参数 unnamedParam1
+充当用户界面所有者窗口的窗口的句柄。 unnamedParam2
+GUID，指定要添加的硬件设备的类。 DirectInput 附带已定义的以下类 GUID：
+GUID_KeyboardClass 键盘设备。
+GUID_MouseClass 鼠标设备。
+GUID_MediaClass 媒体设备，包括游戏杆。
+GUID_HIDClass
+
+≦ 82 ≧
+HID 设备。返回值
+如果成功，则返回DI_OK;否则，返回以下 COM 错误值之一：
+返回代码
+DIERR_INVALIDPARAM
+DIERR_INVALIDCLASSINSTALLER
+DIERR_CANCELLED DIERR_BADINF
+S_FALSE 要求
+要求
+目标平台
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值桌面
+说明
+(E_INVALIDARG) 。 一个或多个参数无效。
+找不到指定设备的类安装程序或无效。用户取消了操作。
+ﾉ
+展开表
+找不到用户所选设备的 INF 文件，或者该文件无效或已损坏。
+DirectInput 无法确定操作是否已成功完成。
+ﾉ
+dinputd.h (包括 Dinputd.h) 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 83 ≧
+IDirectInputJoyConfig8：：AddRef 方法
+(dinputd.h) 项目2024/03/13
+IDirectInputJoyConfig8：：AddRef 方法将 DirectInputJoyConfig 对象的引用计数增加 1。 此方法是 DirectInputJoyConfig 继承的 IUnknown 接口的一部分。
+语法 C++
+ULONG AddRef(); 返回值
+返回 对象的新引用计数。注解
+创建 DirectInputJoyConfig 对象时，其引用计数应设置为 1。 每次应用程序获取对象的接口或调用 AddRef 方法时，对象的引用计数都会增加 1。 应用程序使用 Release 方法将对
+象的引用计数减少 1。要求
+ﾉ
+要求
+目标平台
+标头反馈
+此页面是否有帮助？
+是
+值桌面
+dinputd.h (包括 Dinputd.h) 否
+展开表
+
+≦ 84 ≧
+提供产品反馈 
+| 在 Microsoft Q&A 获取帮助
+
+≦ 85 ≧
+iDirectInputJoyConfig8：:D eleteConfig
+方法 (dinputd.h) 项目2023/08/23
+IDirectInputJoyConfig8：:D eleteConfig 方法删除有关游戏杆的配置信息。
+语法 C++
+HRESULT DeleteConfig(   UINT unnamedParam1);
+参数 unnamedParam1
+指示从零开始的游戏杆标识号。返回值
+如果成功，则返回DI_OK;否则， 返回以下 COM 错误值之一， (这些值旨在说明性，并且不一定是全面的) ：
+返回代码
+DIERR_NOTACQUIRED DIERR_INVALIDPARAM
+要求   目标平台标头
+ 
+桌面
+说明
+尚未获取游戏杆配置。 必须先调用
+IDirectInputJoyConfig8：：Acquire ，然后才能更改游戏杆配置设置。
+一个或多个参数无效。
+dinputd.h (包括 Dinputd.h)
+
+≦ 86 ≧
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 87 ≧
+IDirectInputJoyConfig8：:D eleteType 方
+法 (dinputd.h) 项目2024/02/28
+IDirectInputJoyConfig8：:D eleteType 方法删除有关游戏杆类型的信息。 请谨慎使用此方法;调用方负责确保没有游戏杆引用已删除的类型。
+语法 C++
+HRESULT DeleteType(
+  LPCWSTR unnamedParam1);
+参数 unnamedParam1
+指向类型的名称。 类型的名称不能超过 MAX_PATH 个字符，包括终止 null 字符。 此
+外，名称不能以“#”字符开头。 以“#”开头的类型由 DirectInput 保留。返回值
+如果成功，则返回DI_OK;否则，返回以下 COM 错误值之一， (这些值旨在说明并且不一定是全面的) ：
+ﾉ
+返回代码
+DIERR_NOTACQUIRED DIERR_INVALIDPARAM 要求
+说明
+尚未获取游戏杆配置。 必须先调用
+展开表
+IDirectInputJoyConfig8：：Acquire ，然后才能更改游戏杆配置设置。
+一个或多个参数无效。
+
+≦ 88 ≧
+要求
+目标平台
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值桌面
+dinputd.h (包括 Dinputd.h) 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 89 ≧
+iDirectInputJoyConfig8：：EnumTypes
+方法 (dinputd.h) 项目2024/02/28
+IDirectInputJoyConfig8：：EnumTypes 方法枚举 DirectInput 当前支持的游戏杆类型。游戏杆类型描述 DirectInput 应如何与游戏杆设备通信。 它包括诸如每个轴的状态和位置以及设备支持的按钮数等信息。
+语法 C++
+HRESULT EnumTypes(
+  LPDIJOYTYPECALLBACK unnamedParam1,   LPVOID              unnamedParam2);
+参数 unnamedParam1
+指向接收 DirectInput 游戏杆类型的应用程序定义的回调函数。 有关函数原型，请参阅
+“备注”部分。 unnamedParam2
+指定要传递给回调函数的 32 位应用程序定义值。 此值可以是任何 32 位值;为方便起见，
+它已原型化为 LPVOID。返回值
+如果成功，则返回DI_OK;否则， 返回以下 COM 错误值之一：
+ﾉ
+返回代码
+DIERR_INVALIDPARAM
+说明
+一个或多个参数无效。
+展开表
+
+≦ 90 ≧
+注解
+由于调用 IDirectInputJoyConfig8：：EnumTypes 方法，此回调接收 DirectInput 游戏杆
+类型。 syntax
+/*
+Parameters
+pwszTypeName 
+Points to the name of the joystick type. A buffer of MAX_JOYSTRING 
+characters is sufficient to hold the type name. The type name should never  be shown to the end user; instead, the "display name" should be shown. Use  IDirectInputJoyConfig8::GetTypeInfo to obtain the display name of a joystick  type. Type names that begin with a pound sign ("#") represent predefined 
+types that cannot be modified or deleted.  pvRef 
+Points to the application-defined value given in the 
+IDirectInputJoyConfig8::EnumTypes method. Return value
+Returns a BOOL value, DIENUM_CONTINUE, to continue the enumeration, or 
+DIENUM_STOP to stop the enumeration. */
+BOOL DIEnumJoyTypeProc(    LPCWSTR pwszTypeName,    LPVOID  pvRef
+);  
+要求
+ﾉ
+要求
+目标平台标头
+值桌面
+dinputd.h (包括 Dinputd.h)
+展开表
+
+≦ 91 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 92 ≧
+IDirectInputJoyConfig8：：GetConfig 方
+法 (dinputd.h) 项目2024/02/29
+IDirectInputJoyConfig8：：GetConfig 方法获取有关游戏杆配置的信息。
+语法 C++
+HRESULT GetConfig(
+  UINT          unnamedParam1,   LPDIJOYCONFIG unnamedParam2,   DWORD         unnamedParam3);
+参数 unnamedParam1
+指示游戏杆标识号。 该值是非负整数。 若要枚举游戏杆，请从游戏杆零开始，并将游戏
+杆编号递增 1，直到函数返回DIERR_NOMOREITEMS。 unnamedParam2
+指向一个结构，该结构接收有关游戏杆配置的信息。 调用方“must”在调用此方法之前初
+始化 DIJOYCONFIG 结构的 dwSize 成员。 unnamedParam3
+指定要填充的 pjc 指向的结构的成员。 此参数可以是零、一个或多个以下参数： DIJC_GUIDINSTANCE
+指示正在请求游戏杆的实例 GUID。 应用程序可以将实例 GUID 传递给 IDirectInput：： CreateDevice ，以获取游戏杆的 IDirectInputDevice 接口。 请注意，此标志不是
+IDirectInputJoyConfig8：：SetConfig 的有效参数。 DIJC_REGHWCONFIGTYPE
+
+≦ 93 ≧
+指示游戏杆的硬件配置 (DIJOYCONFIG 结构的 hwc 成员) ，游戏杆类型名称 (请求的相同
+结构的 wszType 成员) 。 请注意，无法单独检索硬件配置和类型名称。 DIJC_GAIN
+指示正在请求游戏杆的力回馈增益。 DIJC_CALLOUT
+指示正在请求游戏杆轮询标注。返回值
+如果成功，则返回DI_OK;否则，返回以下 COM 错误值之一：
+ﾉ
+返回代码
+DIERR_INVALIDPARAM S_FALSE
+DIERR_NOMOREITEMS
+要求要求目标平台标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值桌面
+说明
+一个或多个参数无效。尚未配置指定的游戏杆。不再提供游戏杆。
+ﾉ
+dinputd.h (包括 Dinputd.h) 否
+| 在 Microsoft Q&A 获取帮助
+展开表展开表
+
+≦ 94 ≧
+iDirectInputJoyConfig8：：GetTypeInfo
+方法 (dinputd.h) 项目2023/08/23
+IDirectInputJoyConfig8：：GetTypeInfo 方法获取有关游戏杆类型的信息。
+语法 C++
+HRESULT GetTypeInfo(
+  LPCWSTR         unnamedParam1,   LPDIJOYTYPEINFO unnamedParam2,   DWORD           unnamedParam3);
+参数 unnamedParam1
+指向类型的名称，该名称以前是通过调用 IDirectInputJoyConfig8：：EnumTypes 获取的。
+unnamedParam2
+指向接收游戏杆类型相关信息的 结构。 调用方必须在调用此方法之前初始化
+DIJOYTYPEINFO 结构的 dwSize 成员。 unnamedParam3
+指定要填充的 pjti 指向的 DIJOYTYPEINFO 结构的各个部分。 可能有以下零项、一项或多项：
+DITC_REGHWSETTINGS
+指示正在请求游戏杆的注册表硬件设置。 DITC_CLSIDCONFIG
+指示正在请求游戏杆配置 CLSID。 如果值为所有零，则此游戏杆类型没有自定义配置。
+
+≦ 95 ≧
+DITC_DISPLAYNAME
+指示正在请求游戏杆类型的显示名称。 DITC_CALLOUT
+指示正在请求游戏杆类型的标注。返回值
+如果成功，则返回DI_OK;否则， 返回以下 COM 错误值之一：
+返回代码
+DIERR_INVALIDPARAM DIERR_NOTFOUND
+要求   目标平台标头
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+桌面
+说明
+一个或多个参数无效。找不到游戏杆类型。
+dinputd.h (包括 Dinputd.h) ﾄ否
+
+≦ 96 ≧
+iDirectInputJoyConfig8：：
+GetUserValues 方法 (dinputd.h) 项目2023/08/23
+IDirectInputJoyConfig8：：GetUserValues 方法获取有关游戏杆的用户设置的信息。
+语法 C++
+HRESULT GetUserValues(
+  LPDIJOYUSERVALUES unnamedParam1,   DWORD             unnamedParam2);
+参数 unnamedParam1
+指向一个 结构，该结构接收有关用户游戏杆配置的信息。 调用方必须在调用此方法之前
+初始化 DIJOYUSERVALUES 结构的 dwSize 成员。 unnamedParam2
+指定 DIJOYUSERVALUES 结构的哪些成员包含要检索的值。 可能有以下零项、一项或多项：
+DIJU_USERVALUES
+指示用户配置设置 (正在请求 DIJOYUSERVALUES 结构的 ruv 成员) 。 DIJU_GLOBALDRIVER
+指示全局端口驱动程序 (正在请求 DIJOYUSERVALUES 结构的 wszGlobalDriver 成员) 。可以通过枚举游戏杆类型列表来获取有效的全局驱动程序列表。 如果游戏杆类型在
+JOYHWSETTINGS 结构的 dwFlags 成员中设置了JOY_HWS_ISGAMEPORTDRIVER标志，则 DIJOYTYPEINFO 结构的 wszCallout 成员包含可用作全局驱动程序的驱动程序的名称。
+
+≦ 97 ≧
+DIJU_GAMEPORTEMULATOR 未使用
+返回值
+如果成功，则返回DI_OK;否则， 将返回以下 COM 错误值：
+返回代码
+DIERR_INVALIDPARAM
+要求   目标平台标头
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+桌面
+说明
+一个或多个参数无效。
+dinputd.h (包括 Dinputd.h) ﾄ否
+
+≦ 98 ≧
+IDirectInputJoyConfig8：：
+OpenAppStatusKey 方法 (dinputd.h) 项目2024/02/26
+IDirectInputJoyConfig8：：OpenAppStatusKey 方法打开应用程序状态注册表项的根键，并获取密钥的句柄作为返回参数。
+语法 C++
+HRESULT OpenAppStatusKey(
+  PHKEY unnamedParam1);
+参数 unnamedParam1
+指向 HKEY) 类型的变量 (的地址，如果方法成功，该变量将包含注册表项句柄。 有关其
+他使用情况详细信息，请参阅“备注”。返回值
+如果成功，则返回DI_OK;否则， 返回以下 COM 错误值之一。 以下错误代码旨在说明，但不一定是全面的。
+ﾉ
+返回代码
+DIERR_INVALIDPARAM
+DIERR_NOTFOUND 注解
+说明
+一个或多个参数无效。
+展开表
+此系统上缺少密钥。 应用程序应像键为空一样继续。
+phKey 参数中返回的注册表项句柄可与标准 Win32 注册表函数一起使用。 Dinputd.h 头文件定义以下字符串常量，用于访问应用程序状态根键包含的子项和命名值。
+
+≦ 99 ≧
+要求要求目标平台标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值桌面
+dinputd.h (包括 Dinputd.h) 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 100 ≧
+IDirectInputJoyConfig8：： OpenTypeKey 方法 (dinputd.h) 项目2024/02/28
+IDirectInputJoyConfig8：：OpenTypeKey 方法打开与游戏杆类型关联的注册表项。
+语法 C++
+HRESULT OpenTypeKey(
+  LPCWSTR unnamedParam1,   DWORD   unnamedParam2,   PHKEY   unnamedParam3);
+参数 unnamedParam1
+指向类型的名称。 类型的名称不能超过MAX_PATH个字符，包括终止 null 字符。 名称不
+能以“#”字符开头。 以“#”开头的类型由 DirectInput 保留。 unnamedParam2
+指定注册表安全访问掩码。 这可以是 RegOpenKeyEx 函数允许的任何值。 如果请求写入
+访问权限，则必须先获取游戏杆配置。 如果仅请求读取访问权限，则不需要获取。 unnamedParam3
+成功时指向打开的注册表项。返回值
+如果成功，则返回DI_OK;否则， 返回以下 COM 错误值之一：
+ﾉ
+返回代码
+说明
+展开表
+
+≦ 101 ≧
+DIERR_NOTACQUIRED DIERR_INVALIDPARAM MAKE_HRESULT
+(SEVERITY_ERROR、
+FACILITY_WIN32、ErrorCode) 注解
+尚未获取游戏杆配置。 必须先调用
+IDirectInputJoyConfig8：：Acquire ，然后才能打开游戏
+杆类型配置键进行写入。一个或多个参数无效。
+如果注册表权限或其他一些外部因素拒绝了对密钥的访问，则返回 Win32 错误代码。
+控制面板应用程序可以使用此方法打开的注册表项来存储每个类型的持久性信息，例如全局配置参数。 此类私人信息应保存在名为 OEM 的子项中;不要将私人信息存储在main类型密钥中。 控制面板应用程序还可以使用此密钥来读取配置信息，例如用于设备校准提
+示的字符串。 应用程序应使用 RegCloseKey 关闭注册表项。要求
+ﾉ
+要求
+目标平台
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值桌面
+dinputd.h (包括 Dinputd.h) 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 102 ≧
+IDirectInputJoyConfig8：：
+QueryInterface 方法 (dinputd.h) 项目2024/02/26
+IDirectInputJoyConfig8：：QueryInterface 方法确定 DirectInputJoyConfig 对象是否支持特定的 COM 接口。 如果这样做，系统将对象的引用计数增加 1，应用程序可以立即开始使用该接口。 此方法是 DirectInputJoyConfig 继承的 IUnknown 接口的一部分。
+语法 C++
+HRESULT QueryInterface(
+  REFIID riid,   LPVOID *ppvObj);
+参数 riid
+正在请求的接口的引用标识符。 ppvObj
+如果查询成功，则使用接口指针填充的指针的地址。返回值
+如果成功，则返回DI_OK;否则， 返回E_NOINTERFACE。注解
+当应用程序不再需要使用通过调用此方法获取的接口时，它必须为该接口调用 Release 方
+法才能释放它。要求
+
+≦ 103 ≧
+要求
+目标平台
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值桌面
+dinputd.h (包括 Dinputd.h) 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 104 ≧
+IDirectInputJoyConfig8：：Release 方法
+(dinputd.h) 项目2024/02/28
+IDirectInputJoyConfig8：：Release 方法将 DirectInputJoyConfig 对象的引用计数减少 1。 此方法是 DirectInputJoyConfig 继承的 IUnknown 接口的一部分。
+语法 C++
+ULONG Release(); 返回值
+返回 对象的新引用计数。注解
+DirectInputJoyConfig 对象在其引用计数达到 0 时解除分配自身。 使用 IDirectInputJoyConfig8：：AddRef 方法将对象的引用计数增加 1。
+要求
+ﾉ
+要求
+目标平台
+标头反馈
+此页面是否有帮助？
+是
+值桌面
+dinputd.h (包括 Dinputd.h) 否
+展开表
+
+≦ 105 ≧
+提供产品反馈 
+| 在 Microsoft Q&A 获取帮助
+
+≦ 106 ≧
+iDirectInputJoyConfig8：：SendNotify
+方法 (dinputd.h) 项目2023/08/23
+IDirectInputJoyConfig8：：SendNotify 方法通知设备驱动程序和应用程序已对设备配置进行了更改。 更改设备配置的应用程序必须在 (更改后和取消获取设备) 之前调用此方法。
+语法 C++
+HRESULT SendNotify(); 返回值
+如果成功，则返回DI_OK;否则， 将返回以下 COM 错误值， (此值旨在说明，并且不一定是全面的) ：
+返回代码
+DIERR_NOTACQUIRED
+要求   目标平台标头
+反馈
+此页面是否有帮助？
+ﾂ是
+ 
+桌面
+说明
+尚未获取游戏杆配置。 必须先调用
+IDirectInputJoyConfig8：：Acquire ，然后才能通知应用程序和驱动程序游戏杆配置更改。
+dinputd.h (包括 Dinputd.h) ﾄ否
+
+≦ 107 ≧
+在 Microsoft Q&A 获取帮助
+
+≦ 108 ≧
+IDirectInputJoyConfig8：：SetConfig 方
+法 (dinputd.h) 项目2024/02/29
+IDirectInputJoyConfig8：：SetConfig 方法创建或重新定义有关游戏杆的配置信息。
+语法 C++
+HRESULT SetConfig(
+  UINT           unnamedParam1,   LPCDIJOYCONFIG unnamedParam2,   DWORD          unnamedParam3);
+参数 unnamedParam1
+指示从零开始的游戏杆标识号。 unnamedParam2
+包含有关游戏杆的信息。 unnamedParam3
+指定 pcfg 指向的 DIJOYCONFIG 结构中包含要设置的信息的部分。 可能有以下零项、一项或多项：
+DIJC_REGHWCONFIGTYPE
+指示游戏杆的硬件配置 (DIJOYCONFIG 结构) 的 hwc 成员，以及 DIJOYCONFIG) 的 wszType 成员 (游戏杆类型名称有效。 请注意，不能单独设置硬件配置和类型名称。
+DIJC_GAIN
+指示游戏杆的力回馈增益有效。
+
+≦ 109 ≧
+DIJC_CALLOUT
+指示游戏杆轮询标注有效。返回值
+如果成功，则返回DI_OK;否则， 返回以下 COM 错误值之一：
+返回代码
+DIERR_NOTACQUIRED DIERR_INVALIDPARAM
+要求要求目标平台标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值桌面
+说明
+尚未获取游戏杆配置。 必须先调用
+ﾉ
+展开表
+IDirectInputJoyConfig8：：Acquire ，然后才能通知应用
+程序和驱动程序游戏杆配置更改。一个或多个参数无效。
+ﾉ
+dinputd.h (包括 Dinputd.h) 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 110 ≧
+IDirectInputJoyConfig8：：
+SetCooperativeLevel 方法 (dinputd.h) 项目2024/03/05
+IDirectInputJoyConfig8：：SetCooperativeLevel 方法为设备实例建立协作级别。
+IDirectInputJoyConfig8 接口支持的唯一协作级别是DISCL_EXCLUSIVE和 DISCL_BACKGROUND。
+语法 C++
+HRESULT SetCooperativeLevel(
+  HWND  unnamedParam1,   DWORD unnamedParam2);
+参数 unnamedParam1
+与 接口关联的窗口的句柄。 此参数必须是非 NULL，并且必须是顶级窗口。 当窗口仍与
+IDirectInputJoyConfig8 接口关联时，销毁窗口是一个错误。 unnamedParam2
+指定描述与设备关联的合作级别的一组标志之一。 该值必须DISCL_EXCLUSIVE
+|DISCL_BACKGROUND。返回值
+如果成功，则返回DI_OK;否则，返回以下 COM 错误值， (此值旨在说明，不一定是全面的) ：
+ﾉ
+返回代码
+DIERR_INVALIDPARAM
+说明
+一个或多个参数无效。
+展开表
+
+≦ 111 ≧
+要求要求目标平台标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值桌面
+dinputd.h (包括 Dinputd.h) 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 112 ≧
+IDirectInputJoyConfig8：：SetTypeInfo
+方法 (dinputd.h) 项目2024/01/10
+IDirectInputJoyConfig8：：SetTypeInfo 方法创建新的游戏杆类型或重新定义有关现有游戏杆类型的信息。
+语法 C++
+HRESULT SetTypeInfo(
+  LPCWSTR          unnamedParam1,   LPCDIJOYTYPEINFO unnamedParam2,   DWORD            unnamedParam3,   LPWSTR           unnamedParam4);
+参数 unnamedParam1
+指向类型的名称。 类型的名称不能超过 MAX_JOYSTRING 个字符，包括终止 null 字符。如果类型名称尚不存在，则会创建它。 不能更改预定义类型的类型信息。 名称不能以“#”
+字符开头。 以“#”开头的类型由 DirectInput 保留。 unnamedParam2
+指向一个结构，该结构接收有关游戏杆类型的信息。 unnamedParam3
+指定 pjti 指向的 DIJOYTYPEINFO 结构的各个部分，其中包含要设置的值。 DITC_REGHWSETTINGS
+指示游戏杆的注册表硬件设置有效。 DITC_CLSIDCONFIG
+指示游戏杆配置 CLSID 有效。 如果值为全部零，则此游戏杆类型没有自定义配置。
+
+≦ 113 ≧
+DITC_DISPLAYNAME
+指示游戏杆类型的显示名称有效。 DITC_CALLOUT
+指示游戏杆类型的标注有效。 unnamedParam4
+如果类型名称不是采用VID_xxxx&PID_yyyy格式的 OEM 类型，则此参数将返回 Dinput 分配VID_xxxx&PID_yyyy格式的名称。 调用 SetConfig 时，应在 DIJOYCONFIG.wszType 字
+段中使用此VID_xxxx&PID_yyyy名称。返回值
+如果成功，则返回DI_OK;否则，返回以下 COM 错误值之一：
+ﾉ
+返回代码
+DIERR_NOTACQUIRED DIERR_INVALIDPARAM DIERR_READONLY
+要求   目标平台标头
+反馈
+ 
+桌面
+描述
+尚未获取游戏杆配置。 必须先调用
+展开表
+IDirectInputJoyConfig8：：Acquire ，然后才能通知应用程序和驱动程序游戏杆配置发生更改。
+一个或多个参数无效。尝试更改预定义的类型。
+ﾉ
+dinputd.h (包括 Dinputd.h)
+展开表
+
+≦ 114 ≧
+此页面是否有帮助？
+是
+否
+
+≦ 115 ≧
+IDirectInputJoyConfig8：： SetUserValues 方法 (dinputd.h) 项目2024/02/28
+IDirectInputJoyConfig8：：SetUserValues 方法设置游戏杆的用户设置。
+语法 C++
+HRESULT SetUserValues(
+  LPCDIJOYUSERVALUES unnamedParam1,   DWORD              unnamedParam2);
+参数 unnamedParam1
+指向一个结构，该结构接收有关新用户游戏杆设置的信息。 unnamedParam2
+指定包含要设置的值的 DIJOYUSERVALUES 结构的各个部分。 可能存在以下零项、一项或多项：
+DIJU_USERVALUES
+指示 DIJOYUSERVALUES 结构的 ruv 成员 (用户配置设置) 有效。 DIJU_GLOBALDRIVER
+指示全局端口驱动程序 (DIJOYUSERVALUES 结构的 wszGlobalDriver 成员) 有效。可以通过枚举游戏杆类型列表来获取有效的全局驱动程序列表。 如果游戏杆类型在
+JOYHWSETTINGS 结构的 dwFlags 成员中设置了JOY_HWS_ISGAMEPORTDRIVER标志，则 DIJOYTYPEINFO 结构的 wszCallout 成员包含可用作全局驱动程序的驱动程序的名称。
+DIJU_GAMEPORTEMULATOR
+
+≦ 116 ≧
+未使用。返回值
+如果成功，则返回DI_OK;否则，返回以下 COM 错误值之一：
+返回代码
+DIERR_NOTACQUIRED DIERR_INVALIDPARAM
+要求要求目标平台标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值桌面
+说明
+尚未获取游戏杆配置。 必须先调用
+ﾉ
+展开表
+IDirectInputJoyConfig8：：Acquire ，然后才能通知应用
+程序和驱动程序游戏杆配置发生更改。一个或多个参数无效。
+ﾉ
+dinputd.h (包括 Dinputd.h) 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 117 ≧
+IDirectInputJoyConfig8：：Unacquire 方
+法 (dinputd.h) 项目2023/08/23
+IDirectInputJoyConfig8：：Unacquire 方法 unacquires“游戏杆配置模式”。
+语法 C++
+HRESULT Unacquire(); 返回值
+如果成功，则返回DI_OK;否则，返回 COM 错误代码。备注
+在取消获取配置模式之前，应用程序执行 IDirectInputJoyConfig8：：SendNotify ，将游戏杆配置中的更改传播到所有设备驱动程序和应用程序。 在重新初始化设备之前，如果应用程序与游戏杆的接口受到配置更改的实质性影响，则应收到DIERR_DEVICECHANGE 错误代码。 配置材料更改的示例包括更改轴数或按钮数。 相比之下，对设备校准的更改
+由 DirectInput 在内部处理，并且对应用程序是透明的。要求
+ 
+目标平台
+标头反馈
+此页面是否有帮助？
+ﾂ是
+ 
+桌面
+dinputd.h (包括 Dinputd.h) ﾄ否
+
+≦ 118 ≧
+在 Microsoft Q&A 获取帮助
+
+≦ 119 ≧
+JOYREGHWVALUES 结构 (dinputd.h) 项目2023/08/23
+JOYREGHWVALUES 结构包含由校准) 填充的硬件 (返回的值范围。
+语法 C++
+typedef struct joyreghwvalues_tag {   JOYRANGE jrvHardware;
+  DWORD    dwPOVValues[JOY_POV_NUMDIRS];   DWORD    dwCalFlags;
+} JOYREGHWVALUES, *LPJOYREGHWVALUES;
+成员 jrvHardware
+硬件返回的值。
+dwPOVValues[JOY_POV_NUMDIRS] 视点 (POV) 硬件返回的值。 dwCalFlags
+已校准的内容。要求
+ 
+标头反馈
+此页面是否有帮助？
+ 
+dinputd.h (包括 Dinputd.h)
+ﾂ是
+ﾄ否
+
+≦ 120 ≧
+在 Microsoft Q&A 获取帮助
+
+≦ 121 ≧
+mmddk.h 标头项目2023/08/24
+包含多媒体设备开发工具包的文件。有关详细信息，请参阅：
+音频设备 DDI 参考人机接口设备参考 Windows 多媒体
+mmddk.h 包含以下编程接口：
+函数  
+mmGetCurrentTask
+mmGetCurrentTask 函数已弃用。 应用程序不应使用此函数。 mmTaskBlock
+mmTaskBlock 函数已弃用。 应用程序不应使用此函数。 mmTaskCreate
+mmTaskCreate 函数已弃用。 应用程序不应使用此函数。 mmTaskSignal
+mmTaskSignal 函数已弃用。 应用程序不应使用此函数。 mmTaskYield
+mmTaskYield 函数已弃用。 应用程序不应使用此函数。
+结构  
+JOYREGHWVALUES
+JOYREGHWVALUES (mmddk.h) 结构包含硬件返回的值范围， (校准) 填充。
+
+≦ 122 ≧
+ 
+MDEVICECAPSEX
+MDEVICECAPSEX 结构包含即插即用 (PnP) 设备驱动程序的设备功能信息。 MIDIOPENDESC
+MIDIOPENDESC 结构是客户端填充的结构，它提供有关如何打开 MIDI 设备的信息。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 123 ≧
+JOYREGHWVALUES 结构 (mmddk.h) 项目2023/08/24
+JOYREGHWVALUES 结构包含由校准) 填充的硬件 (返回的值范围。
+语法 C++
+typedef struct joyreghwvalues_tag {   JOYRANGE jrvHardware;
+  DWORD    dwPOVValues[JOY_POV_NUMDIRS];   DWORD    dwCalFlags;
+} JOYREGHWVALUES, *LPJOYREGHWVALUES;
+成员 jrvHardware
+硬件返回的值。
+dwPOVValues[JOY_POV_NUMDIRS] 视图点 (POV) 硬件返回的值。 dwCalFlags
+已校准的内容。要求
+ 
+标头反馈
+此页面是否有帮助？
+ 
+mmddk.h (包括 Dinputd.h)
+ﾂ是
+ﾄ否
+
+≦ 124 ≧
+在 Microsoft Q&A 获取帮助
+
+≦ 125 ≧
+ntddkbd.h 标头项目2023/08/25
+这是定义用于访问键盘设备的所有常量和类型的 include 文件。有关详细信息，请参阅：
+人机接口设备参考
+ntddkbd.h 包含以下编程接口：
+IOCTL  
+IOCTL_KEYBOARD_QUERY_ATTRIBUTES
+IOCTL_KEYBOARD_QUERY_ATTRIBUTES请求返回有关键盘属性的信息。 IOCTL_KEYBOARD_QUERY_EXTENDED_ATTRIBUTES
+IOCTL_KEYBOARD_QUERY_EXTENDED_ATTRIBUTES请求返回有关扩展键盘属性的信息。 IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION
+IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION请求返回有关扫描代码与键盘指示器之间的映射的信息。
+IOCTL_KEYBOARD_QUERY_INDICATORS
+IOCTL_KEYBOARD_QUERY_INDICATORS请求返回有关键盘指示器的信息。 IOCTL_KEYBOARD_QUERY_TYPEMATIC
+IOCTL_KEYBOARD_QUERY_TYPEMATIC请求返回键盘类型设置。 IOCTL_KEYBOARD_SET_INDICATORS
+IOCTL_KEYBOARD_SET_INDICATORS请求设置键盘指示器。 IOCTL_KEYBOARD_SET_TYPEMATIC
+IOCTL_KEYBOARD_SET_TYPEMATIC请求设置键盘类型设置。结构
+
+≦ 126 ≧
+ 
+KEYBOARD_ATTRIBUTES
+KEYBOARD_ATTRIBUTES指定键盘的属性。 KEYBOARD_EXTENDED_ATTRIBUTES
+KEYBOARD_EXTENDED_ATTRIBUTES指定键盘的扩展属性。 KEYBOARD_INDICATOR_PARAMETERS
+KEYBOARD_INDICATOR_PARAMETERS指定键盘指示灯 LED 的状态。 KEYBOARD_INDICATOR_TRANSLATION
+KEYBOARD_INDICATOR_TRANSLATION指定键盘扫描代码与 LED 指示器之间的映射的特定于设备的可变长度数组。
+KEYBOARD_INPUT_DATA
+KEYBOARD_INPUT_DATA包含一个键盘输入数据包。 KEYBOARD_TYPEMATIC_PARAMETERS
+KEYBOARD_TYPEMATIC_PARAMETERS指定键盘的类型设置。 KEYBOARD_UNIT_ID_PARAMETER
+KEYBOARD_UNIT_ID_PARAMETER指定 Kbdclass 分配给键盘的单元 ID。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 127 ≧
+IOCTL_KEYBOARD_QUERY_ATTRIBUTES
+IOCTL (ntddkbd.h) 项目2024/03/09
+IOCTL_KEYBOARD_QUERY_ATTRIBUTES请求返回有关键盘属性的信息。输入缓冲区
+Parameters.DeviceIoControl.OutputBufferLength 设置为大于或等于
+KEYBOARD_ATTRIBUTES结构的大小（以字节为单位 ） 的值。输入缓冲区长度
+KEYBOARD_ATTRIBUTES结构的大小。输出缓冲区
+AssociatedIrp.SystemBuffer 指向客户端分配的缓冲区，I8042prt 使用该缓冲区输出
+KEYBOARD_ATTRIBUTES 结构。输出缓冲区长度
+KEYBOARD_ATTRIBUTES结构的大小。要求
+ﾉ
+要求 Header
+另请参阅
+值
+ntddkbd.h (包括 Ntddkbd.h)
+IOCTL_KEYBOARD_QUERY_INDICATORS
+IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION IOCTL_KEYBOARD_QUERY_TYPEMATIC
+展开表
+
+≦ 128 ≧
+KEYBOARD_ATTRIBUTES 结构反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 129 ≧
+IOCTL_KEYBOARD_QUERY_EXTENDED_A
+TTRIBUTES IOCTL (ntddkbd.h) 项目2024/02/29
+IOCTL_KEYBOARD_QUERY_EXTENDED_ATTRIBUTES请求返回有关扩展键盘属性的信息。输入缓冲区
+Parameters.DeviceIoControl.OutputBufferLength 设置为大于或等于
+KEYBOARD_EXTENDED_ATTRIBUTES结构的大小（以字节为单位 ） 的值。输入缓冲区长度
+KEYBOARD_EXTENDED_ATTRIBUTES结构的大小。输出缓冲区
+AssociatedIrp.SystemBuffer 指向客户端分配的缓冲区，I8042prt 使用该缓冲区输出
+KEYBOARD_EXTENDED_ATTRIBUTES 结构。输出缓冲区长度
+KEYBOARD_EXTENDED_ATTRIBUTES结构的大小。要求
+ﾉ
+要求 Header
+另请参阅
+值
+ntddkbd.h (包括 Ntddkbd.h)
+KEYBOARD_EXTENDED_ATTRIBUTES 结构 IOCTL_KEYBOARD_QUERY_ATTRIBUTES IOCTL_KEYBOARD_QUERY_INDICATORS
+展开表
+
+≦ 130 ≧
+IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION
+IOCTL_KEYBOARD_QUERY_TYPEMATIC 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 131 ≧
+IOCTL_KEYBOARD_QUERY_INDICATOR_T
+RANSLATION IOCTL (ntddkbd.h) 项目2024/03/05
+IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION请求返回有关扫描代码和键盘指示
+器之间的映射的信息。输入缓冲区
+Parameters.DeviceIoControl.OutputBufferLength 设置为大于或等于设备特定
+KEYBOARD_INDICATOR_TRANSLATION结构的大小（以字节为单位 ） 的值。 此结构包含
+特定于设备的INDICATOR_LIST成员的可变大小数组。输入缓冲区长度
+KEYBOARD_INDICATOR_TRANSLATION结构的大小。输出缓冲区
+AssociatedIrp.SystemBuffer 指向客户端分配的缓冲区，I8042prt 使用该缓冲区输出
+KEYBOARD_INDICATOR_TRANSLATION 结构。 此结构包含特定于设备的INDICATOR_LIST
+成员的可变大小数组。输出缓冲区长度
+KEYBOARD_INDICATOR_TRANSLATION结构的大小。要求
+ﾉ
+要求 Header
+另请参阅
+值
+ntddkbd.h (包括 Ntddkbd.h)
+IOCTL_KEYBOARD_QUERY_ATTRIBUTES
+展开表
+
+≦ 132 ≧
+IOCTL_KEYBOARD_QUERY_INDICATORS IOCTL_KEYBOARD_QUERY_TYPEMATIC KEYBOARD_INDICATOR_TRANSLATION
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 133 ≧
+IOCTL_KEYBOARD_QUERY_INDICATORS
+IOCTL (ntddkbd.h) 项目2024/02/29
+IOCTL_KEYBOARD_QUERY_INDICATORS请求返回有关键盘指示器的信息。输入缓冲区
+Parameters.DeviceIoControl.OutputBufferLength 设置为大于或等于
+KEYBOARD_INDICATOR_PARAMETERS结构的大小（以字节为单位 ） 的值。输入缓冲区长度
+KEYBOARD_INDICATOR_PARAMETERS结构的大小。输出缓冲区
+AssociatedIrp.SystemBuffer 指向客户端分配的缓冲区，I8042prt 使用该缓冲区输出
+KEYBOARD_INDICATOR_PARAMETERS 结构。输出缓冲区长度
+KEYBOARD_INDICATOR_PARAMETERS结构的大小。要求
+ﾉ
+要求 Header
+另请参阅
+值
+ntddkbd.h (包括 Ntddkbd.h)
+IOCTL_KEYBOARD_QUERY_ATTRIBUTES
+IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION IOCTL_KEYBOARD_QUERY_TYPEMATIC
+展开表
+
+≦ 134 ≧
+KEYBOARD_INDICATOR_PARAMETERS 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 135 ≧
+IOCTL_KEYBOARD_QUERY_TYPEMATIC
+IOCTL (ntddkbd.h) 项目2024/02/29
+IOCTL_KEYBOARD_QUERY_TYPEMATIC请求返回键盘类型设置。输入缓冲区
+Parameters.DeviceIoControl.OutputBufferLength 设置为大于或等于
+KEYBOARD_TYPEMATIC_PARAMETERS结构的大小（以字节为单位 ） 的值。输入缓冲区长度
+KEYBOARD_TYPEMATIC_PARAMETERS结构的大小。输出缓冲区
+AssociatedIrp.SystemBuffer 指向客户端分配的输出缓冲区，I8042prt 使用该缓冲区输出
+KEYBOARD_TYPEMATIC_PARAMETERS 结构。输出缓冲区长度
+KEYBOARD_TYPEMATIC_PARAMETERS结构的大小。要求
+ﾉ
+要求 Header
+另请参阅
+值
+ntddkbd.h (包括 Ntddkbd.h)
+IOCTL_KEYBOARD_QUERY_ATTRIBUTES IOCTL_KEYBOARD_QUERY_INDICATORS
+IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION
+展开表
+
+≦ 136 ≧
+KEYBOARD_TYPEMATIC_PARAMETERS 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 137 ≧
+IOCTL_KEYBOARD_SET_INDICATORS
+IOCTL (ntddkbd.h) 项目2024/03/05
+IOCTL_KEYBOARD_SET_INDICATORS请求设置键盘指示器。输入缓冲区
+AssociatedIrp.SystemBuffer 指向客户端分配的缓冲区，该缓冲区输入
+KEYBOARD_INDICATOR_PARAMETERS 结构。 客户端在此结构中设置指示器参数。 Parameters.DeviceIoControl.InputBufferLength 设置为大于或等于
+KEYBOARD_INDICATOR_PARAMETERS结构的大小（以字节为单位 ） 的值。输入缓冲区长度
+KEYBOARD_INDICATOR_PARAMETERS结构的大小。
+输出缓冲区无。
+输出缓冲区长度无。
+要求
+ﾉ
+要求 Header
+另请参阅
+值
+ntddkbd.h (包括 Ntddkbd.h)
+IOCTL_KEYBOARD_SET_TYPEMATIC KEYBOARD_INDICATOR_PARAMETERS
+展开表
+
+≦ 138 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 139 ≧
+IOCTL_KEYBOARD_SET_TYPEMATIC
+IOCTL (ntddkbd.h) 项目2024/03/05
+IOCTL_KEYBOARD_SET_TYPEMATIC请求设置键盘类型设置。输入缓冲区
+AssociatedIrp.SystemBuffer 指向客户端分配的缓冲区以输入
+KEYBOARD_TYPEMATIC_PARAMETERS 结构。 客户端在此结构中设置类型参数。 Parameters.DeviceIoControl.InputBufferLength 设置为大于或等于
+KEYBOARD_TYPEMATIC_PARAMETERS结构的大小（以字节为单位 ） 的值。输入缓冲区长度
+KEYBOARD_TYPEMATIC_PARAMETERS结构的大小。
+输出缓冲区无。
+输出缓冲区长度无。
+要求
+ﾉ
+要求 Header
+另请参阅
+值
+ntddkbd.h (包括 Ntddkbd.h)
+IOCTL_KEYBOARD_SET_INDICATORS KEYBOARD_TYPEMATIC_PARAMETERS
+展开表
+
+≦ 140 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 141 ≧
+KEYBOARD_ATTRIBUTES 结构
+(ntddkbd.h) 项目2024/03/05
+指定键盘的属性。
+语法 C++
+typedef struct _KEYBOARD_ATTRIBUTES {
+  KEYBOARD_ID                   KeyboardIdentifier;   USHORT                        KeyboardMode;
+  USHORT                        NumberOfFunctionKeys;   USHORT                        NumberOfIndicators;   USHORT                        NumberOfKeysTotal;   ULONG                         InputDataQueueLength;
+  KEYBOARD_TYPEMATIC_PARAMETERS KeyRepeatMinimum;   KEYBOARD_TYPEMATIC_PARAMETERS KeyRepeatMaximum;} KEYBOARD_ATTRIBUTES, *PKEYBOARD_ATTRIBUTES;
+成员
+KeyboardIdentifier
+指定KEYBOARD_ID结构中的键盘类型和子类型： C++
+typedef struct _KEYBOARD_ID {   UCHAR  Type;
+  UCHAR  Subtype;
+} KEYBOARD_ID, *PKEYBOARD_ID; 类型
+指定键盘类型。
+ﾉ
+展开表
+
+≦ 142 ≧
+值 0x4 0x7 0x8 0x51
+子类型
+说明
+增强的 101 或 102 键键盘 (兼容)
+日语键盘朝鲜语键盘
+未知类型或 HID 键盘
+指定键盘子类型，这是特定于供应商的值。 KeyboardMode
+指定扫描代码模式。 请参阅 “备注 ”部分。 NumberOfFunctionKeys
+指定键盘支持的功能键数。 NumberOfIndicators
+指定键盘支持的 LED 指示器数。 NumberOfKeysTotal
+指定键盘支持的键数。 InputDataQueueLength
+指定键盘端口驱动程序使用的输入数据队列的大小（以字节为单位）。 KeyRepeatMinimum
+指定 KEYBOARD_TYPEMATIC_PARAMETERS结构中 键盘键入速率和延迟的可能最小值。 KeyRepeatMaximum
+指定 KEYBOARD_TYPEMATIC_PARAMETERS 结构中键盘键入速率和延迟的可能最大值。注解
+此结构与 IOCTL_KEYBOARD_QUERY_ATTRIBUTES IOCTL 请求一起使用，以返回有关键盘支持的属性的信息。
+
+≦ 143 ≧
+有关键盘类型、子类型、扫描代码模式和相关键盘布局的详细信息，请参阅驱动程序文档中的 键盘和鼠标 HID 客户端驱动程序 。
+有关详细信息，请参阅Windows SDK中的 kbd.h、ntdd8042.h 和 ntddkbd.h 标头、
+Microsoft 提供的 USB HID 到 PS/2 扫描代码转换表要求
+要求 Header
+另请参阅
+值
+ntddkbd.h (包括 Ntddkbd.h)
+IOCTL_KEYBOARD_QUERY_ATTRIBUTES IOCTL IOCTL_KEYBOARD_QUERY_INDICATORS IOCTL
+规范以及键盘布局示例。
+ﾉ
+IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION IOCTL
+IOCTL_KEYBOARD_QUERY_TYPEMATIC IOCTL IOCTL_KEYBOARD_SET_INDICATORS IOCTL IOCTL_KEYBOARD_SET_TYPEMATIC IOCTL KEYBOARD_TYPEMATIC_PARAMETERS 结构
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 144 ≧
+KEYBOARD_EXTENDED_ATTRIBUTES 结
+构 (ntddkbd.h) 项目2023/08/25
+KEYBOARD_EXTENDED_ATTRIBUTES指定键盘的扩展属性。
+语法 C++
+typedef struct _KEYBOARD_EXTENDED_ATTRIBUTES {   UCHAR Version;
+  UCHAR FormFactor;   UCHAR KeyType;
+  UCHAR PhysicalLayout;
+  UCHAR VendorSpecificPhysicalLayout;   UCHAR IETFLanguageTagIndex;
+  UCHAR ImplementedInputAssistControls;
+} KEYBOARD_EXTENDED_ATTRIBUTES, *PKEYBOARD_EXTENDED_ATTRIBUTES;
+成员 Version
+类型： UCHAR 此结构的版本。
+仅 支持KEYBOARD_EXTENDED_ATTRIBUTES_STRUCT_VERSION_1 。 FormFactor
+类型： UCHAR
+键盘外形规格 (用法 ID： 0x2C1) 。
+值 0x00 0x01 0x02
+说明
+未知外形规格。全尺寸键盘。
+紧凑键盘。 此类键盘宽度小于 13 英寸。
+
+≦ 145 ≧
+KeyType
+类型： UCHAR
+键盘键类型 (用法 ID： 0x2C2) 。
+值 0x00 0x01 0x02 0x03
+说明
+未知的密钥类型。完整移动密钥。
+低行程键，如笔记本电脑键盘上的键。零移动或虚拟密钥。
+PhysicalLayout 类型： UCHAR
+键盘物理布局 (用法 ID： 0x2C3) 。
+值 0x00 0x01 0x02 0x03 0x04 0x05 0x06
+说明
+未知布局
+101 (例如 US) 103 (韩国)
+102 (，例如德语)
+104 (例如 ABNT Brazil) 106 (DOS/V 日本)
+供应商特定 – 如果指定，还必须指定 VendorSpecificPhysicalLayout 。
+此值不引用在键上打印的图例集，而仅指物理键集布局，由文本键的相对位置和形状相对于彼此定义。 此值指示键盘符合的实际标准物理布局。 通常可以理解这些布局。
+VendorSpecificPhysicalLayout 类型： UCHAR
+特定供应商特定键盘物理布局的数字标识符 (用法 ID： 0x2C4) 。
+此字段的值由硬件供应商定义，但0x00定义为不指定供应商特定的键盘物理布局。 如果不是零， 则 PhysicalLayout 的值必须 0x06。 如果此标识符 0x00， 则 PhysicalLayout 不
+
+≦ 146 ≧
+得将值0x06。
+IETFLanguageTagIndex 类型： UCHAR
+具有 IETF 语言标记的字符串描述符的字符串索引 (用法 ID：0x2C5) 。
+可以通过内核模式驱动程序 中的 IOCTL_HID_GET_INDEXED_STRING IOCTL 或在用户模式应用程序中 HidD_GetIndexedString 调用来获取实际字符串。
+此语言标记指定键盘图例集的预期主区域设置，符合 IETF BCP 47
+ 或其后续语言。
+如果相应的 IETF 语言标记不可用（例如，对于自定义、自适应或新布局），则该值设置为 0x00。
+ImplementedInputAssistControls 类型： UCHAR
+物理实现的输入辅助控件的位图。 (使用情况 ID： 0x2C6) 。
+bit 全部 0 位 0 位 1 位 2 位 3 位 4 位 5
+注解
+说明
+未实现键盘输入助手控件。
+以前的建议下一个建议上一个建议组下一个建议组
+接受建议取消建议
+所有其他保留位。
+此结构与 IOCTL_KEYBOARD_QUERY_EXTENDED_ATTRIBUTES 请求一起使用，以返回有关键盘支持的扩展属性的信息。
+此信息来自 HID 使用情况表查看请求 42：使用者页面键盘辅助控件中所述的 HID 键盘报告描述符。
+
+≦ 147 ≧
+要求   标头
+请参阅
+ 
+ntddkbd.h (包括 Ntddkbd.h)
+IOCTL_KEYBOARD_QUERY_EXTENDED_ATTRIBUTES IOCTL_KEYBOARD_QUERY_ATTRIBUTES
+HID 使用情况表查看请求 42：使用者页面键盘辅助控件反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 148 ≧
+KEYBOARD_INDICATOR_PARAMETERS
+结构 (ntddkbd.h) 项目2024/03/05
+KEYBOARD_INDICATOR_PARAMETERS指定键盘指示灯 LED 的状态。
+语法 C++
+typedef struct _KEYBOARD_INDICATOR_PARAMETERS {
+  USHORT UnitId;   USHORT LedFlags;
+} KEYBOARD_INDICATOR_PARAMETERS, *PKEYBOARD_INDICATOR_PARAMETERS;
+成员 UnitId
+指定键盘设备的单位号。 键盘设备名称的格式为 \Device\KeyboardPortN，其中后缀 N 是设备的单位号。 例如，名称为 \Device\KeyboardPort0 的设备具有零的单位号，而名
+称为 \Device\KeyboardPort1 的设备单位号为 1。 LedFlags
+指定以下 LED 标志的零个或多个按位 OR：
+ﾉ
+LED 标志
+KEYBOARD_CAPS_LOCK_ON KEYBOARD_LED_INJECTED KEYBOARD_NUM_LOCK_ON KEYBOARD_SCROLL_LOCK_ON KEYBOARD_SHADOW
+含义
+CAPS LOCK LED 已打开。由终端服务器使用。
+NUM LOCK LED 已打开。
+滚动锁 LED 已打开。由终端服务器使用。
+展开表
+
+≦ 149 ≧
+注解
+此结构与 IOCTL_KEYBOARD_QUERY_INDICATORS 和
+IOCTL_KEYBOARD_SET_INDICATORS 请求一起使用，以查询和设置键盘指示器 LED。要求
+ﾉ
+要求 Header
+另请参阅
+值
+ntddkbd.h (包括 Ntddkbd.h)
+IOCTL_KEYBOARD_QUERY_ATTRIBUTES IOCTL_KEYBOARD_QUERY_INDICATORS
+IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION
+IOCTL_KEYBOARD_QUERY_TYPEMATIC IOCTL_KEYBOARD_SET_INDICATORS IOCTL_KEYBOARD_SET_TYPEMATIC KEYBOARD_UNIT_ID_PARAMETER
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 150 ≧
+KEYBOARD_INDICATOR_TRANSLATION
+结构 (ntddkbd.h) 项目2024/03/13
+KEYBOARD_INDICATOR_TRANSLATION指定键盘扫描代码与 LED 指示器之间的映射的特定于设备的可变长度数组。
+语法 C++
+typedef struct _KEYBOARD_INDICATOR_TRANSLATION {
+  USHORT         NumberOfIndicatorKeys;   INDICATOR_LIST IndicatorList[1];
+} KEYBOARD_INDICATOR_TRANSLATION, *PKEYBOARD_INDICATOR_TRANSLATION; 成员
+NumberOfIndicatorKeys
+指定 IndicatorList 数组中的元素数。 IndicatorList[1]
+指定INDICATOR_LIST结构的特定于设备的可变长度数组。
+typedef struct _INDICATOR_LIST {   USHORT  MakeCode;
+  USHORT  IndicatorFlags;
+} INDICATOR_LIST, *PINDICATOR_LIST; MakeCode
+指定按下键时生成的生成扫描代码。 IndicatorFlags
+
+≦ 151 ≧
+指定对应于 MakeCode 扫描代码的 LED 指示器。 有关标志的信息，请参阅
+KEYBOARD_INDICATOR_PARAMETERS 结构的 LedFlags 成员。注解
+此结构与 IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION 请求一起使用，以获取
+指示器转换信息。要求
+ﾉ
+要求 Header
+另请参阅
+值
+ntddkbd.h (包括 Ntddkbd.h)
+IOCTL_KEYBOARD_QUERY_ATTRIBUTES IOCTL_KEYBOARD_QUERY_INDICATORS
+IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION
+IOCTL_KEYBOARD_QUERY_TYPEMATIC IOCTL_KEYBOARD_SET_INDICATORS IOCTL_KEYBOARD_SET_TYPEMATIC KEYBOARD_INDICATOR_PARAMETERS
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 152 ≧
+KEYBOARD_INPUT_DATA 结构
+(ntddkbd.h) 项目2024/02/29
+KEYBOARD_INPUT_DATA包含一个键盘输入数据包。
+语法 C++
+typedef struct _KEYBOARD_INPUT_DATA {
+  USHORT UnitId;   USHORT MakeCode;   USHORT Flags;   USHORT Reserved;
+  ULONG  ExtraInformation;
+} KEYBOARD_INPUT_DATA, *PKEYBOARD_INPUT_DATA;
+成员 UnitId
+指定键盘设备的单位号。 键盘设备名称的格式为 \Device\KeyboardPortN，其中后缀 N 是设备的单位号。 例如，名称为 \Device\KeyboardPort0 的设备具有零的单位号，而名
+称为 \Device\KeyboardPort1 的设备单位号为 1。 MakeCode
+指定与按键关联的扫描代码。 Flags
+指定以下一个或多个标志的按位 OR，这些标志指示是按下还是释放了某个键以及其他其他信息。
+ﾉ
+值
+KEY_MAKE KEY_BREAK
+含义
+已按下该键。密钥已释放。
+展开表
+
+≦ 153 ≧
+KEY_E0 KEY_E1
+Reserved
+用于指示特殊键盘功能的扩展扫描代码。用于指示特殊键盘功能的扩展扫描代码。
+保留给操作系统使用。 ExtraInformation
+指定与键盘事件关联的特定于设备的信息。注解
+为了响应 IRP_MJ_READ (Kbdclass) 请求，Kbdclass 将零个或多个
+KEYBOARD_INPUT_DATA 结构从其内部数据队列传输到 Win32 子系统缓冲区。要求
+ﾉ
+要求 Header
+另请参阅
+值
+ntddkbd.h (包括 Ntddkbd.h)
+IRP_MJ_READ (Kbdclass)
+KeyboardClassServiceCallback 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 154 ≧
+KEYBOARD_TYPEMATIC_PARAMETERS
+结构 (ntddkbd.h) 项目2024/03/05
+KEYBOARD_TYPEMATIC_PARAMETERS指定键盘的键入设置。
+语法 C++
+typedef struct _KEYBOARD_TYPEMATIC_PARAMETERS {
+  USHORT UnitId;   USHORT Rate;   USHORT Delay;
+} KEYBOARD_TYPEMATIC_PARAMETERS, *PKEYBOARD_TYPEMATIC_PARAMETERS;
+成员 UnitId
+指定键盘设备的单位号。 键盘设备名称的格式为 \Device\KeyboardPortN，其中后缀 N 是设备的单元号。 例如，名为 \Device\KeyboardPort0 的设备的单位号为零，而名为
+\Device\KeyboardPort1 的设备单位号为 1。 Rate
+指定键盘的字符输出在按下并持续按住后重复的速率（以每秒字符数为单位）。 可能的
+最小值为KEYBOARD_TYPEMATIC_RATE_MINIMUM，最大值为 KEYBOARD_TYPEMATIC_RATE_MAXIMUM。 默认值为
+KEYBOARD_TYPEMATIC_RATE_DEFAULT。 Delay
+指定在按键并持续按住某个键之后，在键盘的字符输出开始重复之前必须经过的时间（以毫秒为单位）。 最小可能的延迟为KEYBOARD_TYPEMATIC_DELAY_MINIMUM，最大可能的延迟为KEYBOARD_TYPEMATIC_DELAY_MAXIMUM。 默认值为
+KEYBOARD_TYPEMATIC_DELAY_DEFAULT。注解
+
+≦ 155 ≧
+此结构与 IOCTL_KEYBOARD_QUERY_TYPEMATIC 和 IOCTL_KEYBOARD_SET_TYPEMATIC
+请求一起使用，用于查询和设置键盘的类型设置。要求
+ﾉ
+要求 Header
+另请参阅
+值
+ntddkbd.h (包括 Ntddkbd.h)
+IOCTL_KEYBOARD_QUERY_ATTRIBUTES IOCTL_KEYBOARD_QUERY_INDICATORS
+IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION
+IOCTL_KEYBOARD_QUERY_TYPEMATIC IOCTL_KEYBOARD_SET_INDICATORS IOCTL_KEYBOARD_SET_TYPEMATIC KEYBOARD_UNIT_ID_PARAMETER
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 156 ≧
+KEYBOARD_UNIT_ID_PARAMETER 结构
+(ntddkbd.h) 项目2024/03/13
+KEYBOARD_UNIT_ID_PARAMETER指定 Kbdclass 分配给键盘的单元 ID。
+语法 C++
+typedef struct _KEYBOARD_UNIT_ID_PARAMETER {   USHORT UnitId;
+} KEYBOARD_UNIT_ID_PARAMETER, *PKEYBOARD_UNIT_ID_PARAMETER;
+成员 UnitId
+指定键盘设备的单位号。 键盘设备名称的格式为 \Device\KeyboardPortN，其中后缀 N 是设备的单位号。 例如，名称为 \Device\KeyboardPort0 的设备具有零的单位号，而名
+称为 \Device\KeyboardPort1 的设备单位号为 1。注解
+尽管此结构用于IOCTL_KEYBOARD_QUERY_Xxx请求，但 Kbdclass 不使用 UnitId 值。要求
+ﾉ
+要求 Header
+另请参阅
+值
+ntddkbd.h (包括 Ntddkbd.h)
+IOCTL_KEYBOARD_QUERY_ATTRIBUTES
+展开表
+
+≦ 157 ≧
+IOCTL_KEYBOARD_QUERY_INDICATORS
+IOCTL_KEYBOARD_QUERY_INDICATOR_TRANSLATION
+IOCTL_KEYBOARD_QUERY_TYPEMATIC 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 158 ≧
+ntddmou.h 标头项目2023/08/25
+这是定义用于访问鼠标设备的所有常量和类型的 include 文件。有关详细信息，请参阅：
+人机接口设备参考
+ntddmou.h 包含以下编程接口：
+IOCTL  
+IOCTL_MOUSE_QUERY_ATTRIBUTES
+IOCTL_MOUSE_QUERY_ATTRIBUTES请求返回有关鼠标属性的信息。
+结构  
+MOUSE_ATTRIBUTES
+MOUSE_ATTRIBUTES指定鼠标设备的属性。 MOUSE_INPUT_DATA
+MOUSE_INPUT_DATA包含一个鼠标输入数据包。 MOUSE_UNIT_ID_PARAMETER
+MOUSE_UNIT_ID_PARAMETER指定 Mouclass 分配给鼠标的单元 ID。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 159 ≧
+IOCTL_MOUSE_QUERY_ATTRIBUTES
+IOCTL (ntddmou.h) 项目2024/02/29
+IOCTL_MOUSE_QUERY_ATTRIBUTES请求返回有关鼠标属性的信息。
+Mouclass 复制当前堆栈位置，将新堆栈位置的 MajorFunction 成员设置为
+IRP_MJ_INTERNAL_DEVICE_CONTROL，并将此请求发送到设备堆栈。有关此请求的详细信息，请参阅 I8042prt 鼠标内部设备控制请求。
+输入缓冲区
+Parameters.DeviceIoControl.InputBufferLength 成员设置为零或大于或等于
+MOUSE_UNIT_ID_PARAMETER的大小（以字节为单位）。 如果值为零，则默认单位 ID 为零。
+AssociatedIrp.SystemBuffer 成员指向客户端分配的用于输入和输出信息的缓冲区。 输入时， AssociatedIrp.SystemBuffer 指向MOUSE_UNIT_ID_PARAMETER结构。 客户端设置输入结构的 UnitId 成员。
+Parameters.DeviceIoControl.OutputBufferLength 成员指定输出缓冲区的大小（以字节为单位），该大小必须大于或等于MOUSE_ATTRIBUTES结构的大小（以字节为单位）。
+输入缓冲区长度
+MOUSE_UNIT_ID_PARAMETER结构的大小。输出缓冲区
+AssociatedIrp.SystemBuffer 指向客户端分配的缓冲区，较低级别的驱动程序使用该缓冲
+区输出 MOUSE_ATTRIBUTES 结构。输出缓冲区长度
+MOUSE_ATTRIBUTES 结构的大小。要求
+
+≦ 160 ≧
+要求 Header
+另请参阅 MOUSE_ATTRIBUTES
+值
+ntddmou.h (包括 Ntddmou.h)
+MOUSE_UNIT_ID_PARAMETER 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 161 ≧
+MOUSE_ATTRIBUTES 结构 (ntddmou.h) 项目2024/02/29
+MOUSE_ATTRIBUTES指定鼠标设备的属性。
+语法 C++
+typedef struct _MOUSE_ATTRIBUTES {
+  USHORT MouseIdentifier;   USHORT NumberOfButtons;   USHORT SampleRate;
+  ULONG  InputDataQueueLength;
+} MOUSE_ATTRIBUTES, *PMOUSE_ATTRIBUTES; 成员
+MouseIdentifier
+指定以下类型的鼠标设备之一。
+ﾉ
+鼠标类型
+BALLPOINT_I8042_HARDWARE BALLPOINT_SERIAL_HARDWARE
+MOUSE_HID_HARDWARE MOUSE_I8042_HARDWARE MOUSE_INPORT_HARDWARE MOUSE_SERIAL_HARDWARE
+WHEELMOUSE_HID_HARDWARE WHEELMOUSE_I8042_HARDWARE WHEELMOUSE_SERIAL_HARDWARE
+NumberOfButtons
+含义
+i8042 端口圆珠鼠标串行端口圆珠鼠标
+HIDClass 鼠标 i8042 端口鼠标
+inport (bus) mouse 串行端口鼠标
+HIDClass 滚轮鼠标 i8042 端口滚轮鼠标串行端口滚轮鼠标
+展开表
+
+≦ 162 ≧
+指定鼠标支持的按钮数。 鼠标可以有两到五个按钮。 默认值为
+MOUSE_NUMBER_OF_BUTTONS。 SampleRate
+指定对 PS/2 鼠标的输入进行采样的速率（以每秒报表为单位）。 默认值为
+MOUSE_SAMPLE_RATE。 此值不用于 USB 设备。 InputDataQueueLength
+指定端口驱动程序用于鼠标设备的输入数据队列的大小（以字节为单位）。注解
+此结构与 IOCTL_MOUSE_QUERY_ATTRIBUTES 请求一起使用，以获取鼠标的属性。要求
+ﾉ
+要求 Header
+另请参阅
+值
+ntddmou.h (包括 Ntddmou.h)
+IOCTL_MOUSE_QUERY_ATTRIBUTES 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 163 ≧
+MOUSE_INPUT_DATA 结构 (ntddmou.h) 项目2024/03/13
+MOUSE_INPUT_DATA包含一个鼠标输入数据包。
+语法 C++
+typedef struct _MOUSE_INPUT_DATA {
+  USHORT UnitId;   USHORT Flags;   union {
+    ULONG Buttons;     struct {
+      USHORT ButtonFlags;       USHORT ButtonData;
+    };   };
+  ULONG  RawButtons;
+  LONG   LastX;   LONG   LastY;
+  ULONG  ExtraInformation;
+} MOUSE_INPUT_DATA, *PMOUSE_INPUT_DATA;
+成员 UnitId
+指定鼠标设备的单位号。 鼠标 设备名称 的格式为 \Device\PointerPortN，其中后缀 N 是设备的单位号。 例如，名称为 \Device\PointerPort0 的设备具有零的单位号，而名为
+\Device\PointerPort1 的设备具有单位号为 1 的设备。 Flags
+指定以下一个或多个鼠标指示器标志的按位 OR。
+ﾉ
+值
+MOUSE_MOVE_RELATIVE MOUSE_MOVE_ABSOLUTE
+含义
+LastX 和 LastY 相对于上一个位置进行设置。 LastX 和 LastY 值设置为绝对值。
+展开表
+
+≦ 164 ≧
+MOUSE_VIRTUAL_DESKTOP
+MOUSE_ATTRIBUTES_CHANGED MOUSE_MOVE_NOCOALESCE
+Buttons
+鼠标坐标映射到虚拟桌面。
+鼠标属性已更改。 不使用结构中的其他数据。
+(Windows Vista 及更高版本) WM_MOUSEMOVE 通知消息不会合并。 默认情况下，这些消息是合并的。
+有关WM_MOUSEMOVE通知消息的详细信息，请参阅 Microsoft 软件开发工具包 (SDK) 文档
+指定 ButtonFlags 和 ButtonData 值。 Mouclass 在其中断服务例程中使用 Buttons 对
+ButtonFlags 和 ButtonData 执行快速单内存访问。 ButtonFlags
+指定鼠标按钮的转换状态。
+ﾉ
+标志
+MOUSE_LEFT_BUTTON_DOWN MOUSE_LEFT_BUTTON_UP
+MOUSE_RIGHT_BUTTON_DOWN MOUSE_RIGHT_BUTTON_UP
+MOUSE_MIDDLE_BUTTON_DOWN
+MOUSE_MIDDLE_BUTTON_UP MOUSE_BUTTON_4_DOWN MOUSE_BUTTON_4_UP
+MOUSE_BUTTON_5_DOWN MOUSE_BUTTON_5_UP
+MOUSE_WHEEL MOUSE_HWHEEL
+ButtonData
+含义
+鼠标左键更改为向下键。鼠标左键更改为向上键。鼠标右键更改为向下键。鼠标右键已更改为向上。鼠标中键更改为向下键。鼠标中键已更改为向上。
+第四个鼠标按钮更改为向下键。第四个鼠标按钮更改为向上。第五个鼠标按钮更改为“向下”。第五个鼠标按钮更改为向上。存在鼠标滚轮数据。
+存在鼠标水平滚轮数据。
+如果在 ButtonFlags 中设置了MOUSE_WHEEL，则指定鼠标滚轮数据。
+展开表
+
+≦ 165 ≧
+RawButtons
+指定鼠标按钮的原始状态。 Win32 子系统不使用此成员。 LastX
+指定 x 方向的有符号相对运动或绝对运动。 LastY
+指定 y 方向的有符号相对运动或绝对运动。 ExtraInformation
+指定特定于设备的信息。注解
+为了响应 IRP_MJ_READ (Mouclass) 请求，Mouclass 将零个或多个 MOUSE_INPUT_DATA
+结构从其内部数据队列传输到 Microsoft Win32 子系统缓冲区。要求
+ﾉ
+要求 Header
+另请参阅 IRP_MJ_READ (穆类)
+值
+ntddmou.h (包括 Ntddmou.h)
+MouseClassServiceCallback 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 166 ≧
+MOUSE_UNIT_ID_PARAMETER 结构
+(ntddmou.h) 项目2024/02/29
+MOUSE_UNIT_ID_PARAMETER指定 Mouclass 分配给鼠标的单元 ID。
+语法 C++
+typedef struct _MOUSE_UNIT_ID_PARAMETER {   USHORT UnitId;
+} MOUSE_UNIT_ID_PARAMETER, *PMOUSE_UNIT_ID_PARAMETER;
+成员 UnitId
+指定鼠标设备的单位号。 鼠标 设备名称 的格式为 \Device\PointerPortN，其中后缀 N 是设备的单位号。 例如，名称为 \Device\PointerPort0 的设备具有零的单位号，而名为
+\Device\PointerPort1 的设备具有单位号为 1 的设备。注解
+尽管此结构用于 IOCTL_MOUSE_QUERY_ATTRIBUTES 请求，但 Mouclass 不使用 UnitId 值。
+要求
+ﾉ
+要求 Header
+另请参阅
+值
+ntddmou.h (包括 Ntddmou.h)
+IOCTL_MOUSE_QUERY_ATTRIBUTES
+展开表
+
+≦ 167 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+

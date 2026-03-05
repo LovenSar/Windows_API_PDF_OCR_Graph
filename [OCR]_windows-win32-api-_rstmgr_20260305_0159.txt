@@ -1,0 +1,1003 @@
+2026-03-05 01:59:23
+
+≦ 1 ≧
+Restart Manager 项目2023/08/22
+重启管理器技术概述。
+若要开发 Restart Manager，需要以下标头：
+restartmanager.h
+有关此技术的编程指南，请参阅：
+Restart Manager
+枚举  
+RM_APP_STATUS
+描述重新启动管理器所针对的应用程序的当前状态。 RM_APP_TYPE
+指定由 RM_PROCESS_INFO 结构描述的应用程序的类型。 RM_FILTER_ACTION
+指定应用于重启或关闭操作的修改类型。 RM_FILTER_TRIGGER
+描述应用程序或服务的重启或关闭操作。 RM_REBOOT_REASON
+描述需要重启系统的原因。
+RM_SHUTDOWN_TYPE 配置应用程序的关闭。
+函数
+告知我们有关下载 PDF 体验的信息。
+
+≦ 2 ≧
+ 
+RM_WRITE_STATUS_CALLBACK
+RM_WRITE_STATUS_CALLBACK函数可由控制重启管理器的用户界面实现。 RmAddFilter
+修改应用于应用程序或服务的关闭或重启操作。 RmCancelCurrentTask
+取消当前 RmShutdown 或 RmRestart 操作。 必须通过调用 RmStartSession 函数从已启动会话的应
+用程序调用此函数。 RmEndSession
+结束重启管理器会话。 RmGetFilterList
+列出 RmAddFilter 函数已应用的对关闭和重启操作的修改。 RmGetList
+获取当前使用已注册到 Restart Manager 会话的资源的所有应用程序和服务的列表。 RmJoinSession
+将辅助安装程序加入现有的 Restart Manager 会话。 RmRegisterResources
+将资源注册到 Restart Manager 会话。 RmRemoveFilter
+删除已使用 RmAddFilter 函数应用的关闭或重启操作的任何修改。 RmRestart
+重启已由 RmShutdown 函数关闭且已注册以使用 RegisterApplicationRestart 函数重启的应用程序和服务。
+RmShutdown
+启动应用程序的关闭。 RmStartSession
+启动新的 Restart Manager 会话。
+
+≦ 3 ≧
+结构  
+RM_FILTER_INFO
+包含有关修改重启或关闭操作的信息。 RM_PROCESS_INFO
+描述要向重启管理器注册的应用程序。 RM_UNIQUE_PROCESS
+按进程 PID 和进程开始的时间唯一标识进程。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 4 ≧
+restartmanager.h 标头项目2023/08/25
+重启管理器使用此标头。 有关详细信息，请参阅：
+重启管理器
+restartmanager.h 包含以下编程接口：
+函数  
+RmAddFilter
+修改应用于应用程序或服务的关闭或重启操作。 RmCancelCurrentTask
+取消当前的 RmShutdown 或 RmRestart 操作。 必须通过调用 RmStartSession 函数从已启动会话的
+应用程序调用此函数。 RmEndSession
+结束重启管理器会话。 RmGetFilterList
+列出 RmAddFilter 函数已应用的关闭和重启操作的修改。 RmGetList
+获取当前正在使用已在重启管理器会话中注册的资源的所有应用程序和服务的列表。 RmJoinSession
+将辅助安装程序加入现有的重启管理器会话。 RmRegisterResources
+将资源注册到重启管理器会话。 RmRemoveFilter
+删除对已使用 RmAddFilter 函数应用的关闭或重启操作所做的任何修改。 RmRestart
+
+≦ 5 ≧
+ 
+重启已由 RmShutdown 函数关闭且已注册为使用 RegisterApplicationRestart 函数重启的应用程序和服务。
+RmShutdown
+启动应用程序的关闭。 RmStartSession
+启动新的重启管理器会话。
+回调函数  
+RM_WRITE_STATUS_CALLBACK
+RM_WRITE_STATUS_CALLBACK函数可由控制重启管理器的用户界面实现。
+结构  
+RM_FILTER_INFO
+包含有关对重启或关闭操作的修改的信息。 RM_PROCESS_INFO
+描述要注册到重启管理器的应用程序。 RM_UNIQUE_PROCESS
+按进程的 PID 和进程开始的时间唯一标识进程。
+枚举  
+RM_APP_STATUS
+描述重启管理器所针对的应用程序的当前状态。
+
+≦ 6 ≧
+ 
+RM_APP_TYPE
+指定由 RM_PROCESS_INFO 结构描述的应用程序的类型。 RM_FILTER_ACTION
+指定应用于重启或关闭操作的修改类型。 RM_FILTER_TRIGGER
+描述应用程序或服务的重启或关闭操作。 RM_REBOOT_REASON
+描述需要重启系统的原因。
+RM_SHUTDOWN_TYPE 配置应用程序的关闭。
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 7 ≧
+RM_APP_STATUS 枚举(restartmanager.h) 项目2024/03/04
+描述重启管理器所针对的应用程序的当前状态。
+语法 C++
+typedef enum _RM_APP_STATUS {
+  RmStatusUnknown = 0x0,   RmStatusRunning = 0x1,   RmStatusStopped = 0x2,
+  RmStatusStoppedOther = 0x4,   RmStatusRestarted = 0x8,
+  RmStatusErrorOnStop = 0x10,
+  RmStatusErrorOnRestart = 0x20,   RmStatusShutdownMasked = 0x40,   RmStatusRestartMasked = 0x80} RM_APP_STATUS;
+常量  
+RmStatusUnknown 值： 0x0
+应用程序处于未由任何其他枚举状态描述的状态。
+RmStatusRunning 值： 0x1
+应用程序当前正在运行。
+RmStatusStopped 值： 0x2
+重启管理器已停止应用程序。
+RmStatusStoppedOther 值： 0x4
+重启管理器外部的操作已停止应用程序。
+ﾉ
+展开表
+
+≦ 8 ≧
+ 
+RmStatusRestarted 值： 0x8
+重启管理器已重启应用程序。
+RmStatusErrorOnStop 值： 0x10
+重启管理器在停止应用程序时遇到错误。
+RmStatusErrorOnRestart 值： 0x20
+重启应用程序时，重启管理器遇到错误。
+RmStatusShutdownMasked 值： 0x40
+筛选器屏蔽了关闭。 RmStatusRestartMasked 值： 0x80
+重新启动被筛选器屏蔽。注解
+RM_APP_STATUS的常量可与 OR 运算符结合使用。 该组合描述重启管理器对应用程序执
+行的操作的历史记录。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 RM_PROCESS_INFO
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] restartmanager.h
+展开表
+
+≦ 9 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 10 ≧
+RM_APP_TYPE枚举 (restartmanager.h) 项目2024/03/01
+指定 由 RM_PROCESS_INFO 结构描述的应用程序的类型。
+语法 C++
+typedef enum _RM_APP_TYPE {
+  RmUnknownApp = 0,   RmMainWindow = 1,   RmOtherWindow = 2,
+  RmService = 3,   RmExplorer = 4,   RmConsole = 5,
+  RmCritical = 1000} RM_APP_TYPE;
+常量
+ﾉ
+ 
+RmUnknownApp 值： 0
+应用程序不能归类为任何其他类型。 此类型的应用程序只能通过强制关闭来关闭。
+RmMainWindow 值：1
+Windows 应用程序作为显示顶级窗口的独立进程运行。
+RmOtherWindow 值： 2
+不作为独立进程运行且不显示顶级窗口的 Windows 应用程序。
+RmService 值： 3
+该应用程序是 Windows 服务。
+RmExplorer 值： 4
+应用程序是 Windows 资源管理器。
+展开表
+
+≦ 11 ≧
+ 
+RmConsole 值： 5
+该应用程序是一个独立的控制台应用程序。
+RmCritical 值： 1000
+需要重启系统才能完成安装，因为无法关闭进程。 由于以下原因，无法关闭进程。 该过程可能是一个关键过程。 当前用户可能没有关闭进程的权限。 进程可能属于启动重启管理器的主安装程
+序。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 RM_PROCESS_INFO
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] restartmanager.h
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 12 ≧
+RM_FILTER_ACTION 枚举
+(restartmanager.h) 项目2023/08/25
+指定应用于重启或关闭操作的修改类型。
+语法 C++
+typedef enum _RM_FILTER_ACTION {   RmInvalidFilterAction = 0,
+  RmNoRestart = 1,   RmNoShutdown
+} RM_FILTER_ACTION;
+常量  
+RmInvalidFilterAction 值： 0
+无效的筛选操作。
+RmNoRestart 值：1
+阻止重启指定的应用程序或服务。 RmNoShutdown
+阻止关闭和重启指定的应用程序或服务。要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+ 
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] restartmanager.h
+
+≦ 13 ≧
+请参阅 RM_FILTER_INFO RmAddFilter
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 14 ≧
+RM_FILTER_INFO 结构(restartmanager.h) 项目2024/03/01
+包含有关对重启或关闭操作的修改的信息。 使用 RmAddFilter、RmRemoveFilter 和 RmGetFilterList 函数向重启管理器会话注册的指定应用程序和服务添加、删除和列出修改。
+语法 C++
+typedef struct _RM_FILTER_INFO {   RM_FILTER_ACTION  FilterAction;   RM_FILTER_TRIGGER FilterTrigger;   DWORD             cbNextOffset;   union {
+    LPWSTR            strFilename;     RM_UNIQUE_PROCESS Process;
+    LPWSTR            strServiceShortName;   };
+} RM_FILTER_INFO, *PRM_FILTER_INFO;
+成员 FilterAction
+此成员包含 RM_FILTER_ACTION 枚举值。 使用值 RmNoRestart 可阻止重启应用程序或
+服务。 使用值 RmNoShutdown 可防止关闭和重启应用程序或服务。 FilterTrigger
+此成员包含 RM_FILTER_TRIGGER 枚举值。 使用值 RmFilterTriggerFile 修改可执行文件的完整路径文件名引用的应用程序的重启或关闭操作。 使用值 RmFilterTriggerProcess 可
+修改 RM_UNIQUE_PROCESS 结构引用的应用程序的重启或关闭操作。 使用值 RmFilterTriggerService 修改由短服务名称引用的服务的重启或关闭操作。
+cbNextOffset
+到下一个结构的偏移量（以字节为单位）。 strFilename
+
+≦ 15 ≧
+如果 FilterTrigger 的值为 RmFilterTriggerFile，则此成员包含指向包含应用程序文件名的
+字符串值的指针。 Process
+如果 FilterTrigger 的值为 RmFilterTriggerProcess，则此成员是应用程序的
+RM_PROCESS_INFO 结构。 strServiceShortName
+如果 FilterTrigger 的值为 RmFilterTriggerService ，则此成员是指向包含短服务名称的字
+符串值的指针。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 RM_FILTER_TRIGGER RmGetFilterList
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] restartmanager.h
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 16 ≧
+RM_FILTER_TRIGGER 枚举
+(restartmanager.h) 项目2024/03/01
+描述应用程序或服务的重启或关闭操作。
+语法 C++
+typedef enum _RM_FILTER_TRIGGER {
+  RmFilterTriggerInvalid = 0,   RmFilterTriggerFile,
+  RmFilterTriggerProcess,   RmFilterTriggerService} RM_FILTER_TRIGGER;
+常量  
+RmFilterTriggerInvalid 值： 0
+无效的筛选器触发器。 RmFilterTriggerFile
+修改由其可执行文件名标识的应用程序的关闭或重启操作。 RmFilterTriggerProcess
+修改由 RM_UNIQUE_PROCESS 结构标识的应用程序的关闭或重启操作。 RmFilterTriggerService
+修改由服务短名称标识的服务的关闭或重启操作。要求
+ﾉﾉ
+展开表展开表
+
+≦ 17 ≧
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 RM_FILTER_INFO
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] restartmanager.h
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 18 ≧
+RM_PROCESS_INFO 结构
+(restartmanager.h) 项目2023/08/25
+描述要向重启管理器注册的应用程序。
+语法 C++
+typedef struct _RM_PROCESS_INFO {   RM_UNIQUE_PROCESS Process;
+  WCHAR             strAppName[CCH_RM_MAX_APP_NAME + 1];
+  WCHAR             strServiceShortName[CCH_RM_MAX_SVC_NAME + 1];   RM_APP_TYPE       ApplicationType;
+  ULONG             AppStatus;   DWORD             TSSessionId;   BOOL              bRestartable;
+} RM_PROCESS_INFO, *PRM_PROCESS_INFO;
+成员 Process
+包含一个 RM_UNIQUE_PROCESS 结构，该结构按应用程序的 PID 和进程开始的时间唯一标识应用程序。
+strAppName[CCH_RM_MAX_APP_NAME + 1]
+如果进程是一个服务，则此参数返回该服务的长名称。 如果进程不是服务，则此参数返回应用程序的用户友好名称。 如果进程是关键进程，并且安装程序使用提升的权限运行，则此参数返回关键进程的可执行文件的名称。 如果进程是关键进程，并且安装程序
+作为服务运行，则此参数返回关键进程的长名称。 strServiceShortName[CCH_RM_MAX_SVC_NAME + 1]
+如果进程是一个服务，则这是服务的短名称。 如果进程不是服务，则不使用此成员。 ApplicationType
+包含一个 RM_APP_TYPE 枚举值，该值将应用程序类型指定为 RmUnknownApp、 RmMainWindow、 RmOtherWindow、 RmService、 RmExplorer 或 RmCritical。
+
+≦ 19 ≧
+AppStatus
+包含一个位掩码，用于描述应用程序的当前状态。 请参阅 RM_APP_STATUS 枚举。 TSSessionId
+包含进程的终端服务会话 ID。 如果无法确定进程的终端会话，则此成员的值将设置为 RM_INVALID_SESSION (-1) 。 如果进程是服务或系统关键进程，则不使用此成员。
+bRestartable
+如果重启管理器可以重启应用程序，则为 TRUE;否则为 FALSE。 如果进程是服务，则此
+成员始终为 TRUE 。 如果进程是关键系统进程，则此成员始终为 FALSE 。要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+请参阅 RM_APP_TYPE RM_FILTER_INFO
+RM_UNIQUE_PROCESS
+RmGetList RmRestart RmShutdown
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] restartmanager.h
+ﾄ否
+
+≦ 20 ≧
+(restartmanager.h)
+RM_REBOOT_REASON 枚举项目2024/03/05
+描述需要重启系统的原因。
+语法 C++
+typedef enum _RM_REBOOT_REASON {   RmRebootReasonNone = 0x0,
+  RmRebootReasonPermissionDenied = 0x1,   RmRebootReasonSessionMismatch = 0x2,   RmRebootReasonCriticalProcess = 0x4,   RmRebootReasonCriticalService = 0x8,
+  RmRebootReasonDetectedSelf} RM_REBOOT_REASON;
+常量  
+RmRebootReasonNone 值： 0x0
+不需要重启系统。
+RmRebootReasonPermissionDenied 值： 0x1
+当前用户没有
+有足够的权限关闭一个或多个进程。
+RmRebootReasonSessionMismatch 值： 0x2
+一个或多个进程是
+在另一个终端服务会话中运行。 RmRebootReasonCriticalProcess 值： 0x4
+需要重启系统，因为要关闭的一个或多个进程是关键进程。
+ﾉ
+展开表
+
+≦ 21 ≧
+ 
+RmRebootReasonCriticalService 值： 0x8
+需要重启系统，因为要关闭的一个或多个服务是关键服务。 RmRebootReasonDetectedSelf
+需要重启系统，因为当前进程必须关闭。要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 RmGetList
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] restartmanager.h
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 22 ≧
+RM_SHUTDOWN_TYPE 枚举
+(restartmanager.h) 项目2025/02/20
+配置应用程序的关闭。
+语法 C++
+typedef enum _RM_SHUTDOWN_TYPE {   RmForceShutdown = 0x1,
+  RmShutdownOnlyRegistered = 0x10} RM_SHUTDOWN_TYPE;
+常量  
+RmForceShutdown 值： 0x1
+ﾉ
+展开表
+强制在超时期限过后关闭无响应应用程序和服务。 不响应重启管理器的关闭请求的应用程序在 30 秒后被迫关闭。 不响应关闭请求的服务在 20 秒后强制关闭。 可以通过修改“备注”部分中所述的注册表项来更改这些默认时间。
+RmShutdownOnlyRegistered 值： 0x10
+当并且仅当所有应用程序都已使用 RegisterApplicationRestart 函数注册重启时，才会关闭应用程
+序。 如果无法重启任何进程或服务，则不会关闭任何进程或服务。注解
+启动应用程序强制关闭之前等待的时间由以下注册表项指定。 HKCU\控制面板\Desktop\HungAppTimeout
+在启动强制关闭服务之前等待的时间由以下注册表项指定。 HKLM\系统\CurrentControlSet\控制\WaitToKillServiceTimeout
+
+≦ 23 ≧
+要求  
+最低受支持的客户端最低受支持的服务器标头
+请参阅 RmShutdown
+反馈
+此页面是否有帮助？
+是
+ 
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] restartmanager.h
+否
+ﾉ
+展开表
+
+≦ 24 ≧
+RM_UNIQUE_PROCESS 结构
+(restartmanager.h) 项目2025/02/21
+按进程的 PID 和进程开始的时间唯一标识进程。 可以将RM_UNIQUE_PROCESS结构的数组传递给 RmRegisterResources 函数。
+语法 C++
+typedef struct _RM_UNIQUE_PROCESS {   DWORD    dwProcessId;
+  FILETIME ProcessStartTime;
+} RM_UNIQUE_PROCESS, *PRM_UNIQUE_PROCESS;
+成员 dwProcessId
+PID) (产品标识符。 ProcessStartTime
+进程的创建时间。 时间作为 FILETIME 结构提供，由 GetProcessTimes 函数的
+lpCreationTime 参数返回。注解
+RM_UNIQUE_PROCESS 结构可用于唯一标识RM_PROCESS_INFO结构中的应用程序，或
+者通过 RmRegisterResources 函数注册到重启管理器会话的应用程序。要求
+ﾉ
+要求
+最低受支持的客户端
+值
+Windows Vista [仅限桌面应用]
+展开表
+
+≦ 25 ≧
+要求
+最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Server 2008 [仅限桌面应用] restartmanager.h
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 26 ≧
+RM_WRITE_STATUS_CALLBACK callback 函
+数 (restartmanager.h) 项目2024/03/01
+RM_WRITE_STATUS_CALLBACK函数可由控制重启管理器的用户界面实现。 启动重启管理器会话的安装程序可以将指向此函数的指针传递给重启管理器函数，以接收一定百分比的完整性。完整性百分比严格增加，并描述正在执行的当前操作和受影响的应用程序的名称。
+语法 C++
+RM_WRITE_STATUS_CALLBACK RmWriteStatusCallback;
+void RmWriteStatusCallback(   [in] UINT nPercentComplete)
+{...} 参数
+[in] nPercentComplete
+一个介于 0 和 100 之间的整数值，指示已关闭或重启的应用程序总数的百分比。
+返回值无
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] Windows
+展开表
+
+≦ 27 ≧
+要求标头
+另请参阅 RmRestart RmShutdown
+值
+restartmanager.h
+
+≦ 28 ≧
+rmAddFilter 函数 (restartmanager.h) 项目2023/08/25
+修改应用于应用程序或服务的关闭或重启操作。 主安装程序可以多次调用 RmAddFilter 函数。最近的调用将替代以前对同一文件、进程或服务所做的任何修改。
+语法 C++
+DWORD RmAddFilter(
+  [in]           DWORD             dwSessionHandle,   [in, optional] LPCWSTR           strModuleName,   [in, optional] RM_UNIQUE_PROCESS *pProcess,
+  [in, optional] LPCWSTR           strServiceShortName,
+  [in]           RM_FILTER_ACTION  FilterAction);
+parameters[in] dwSessionHandle
+现有重启管理器会话的句柄。[in, optional] strModuleName
+指向以 null 结尾的字符串值的指针，该值包含应用程序可执行文件的完整路径。 对完整路径引用的应用程序应用对关闭或重启操作的修改。 如果 Application 或 strServiceShortName 参数为
+非 NULL，则此参数必须为 NULL。[in, optional] pProcess
+指向应用程序的 RM_UNIQUE_PROCESS 结构的指针。 对 RM_UNIQUE_PROCESS结构引用 的应
+用程序应用对关闭或重启操作的修改。 如果 strFilename 或 strShortServiceName 参数为非 NULL，则此参数必须为 NULL。
+[in, optional] strServiceShortName
+指向包含短服务名称的 以 null 结尾的字符串值的指针。 对由短服务文件名引用的服务应用对关
+闭或重启操作的修改。 如果 strFilename 或 Application 参数为非 NULL，则此参数必须为 NULL。
+[in] FilterAction
+
+≦ 29 ≧
+一个RM_FILTER_ACTION枚举值，该值指定要应用的修改类型。返回值
+这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。
+值
+ERROR_SUCCESS 0
+ERROR_BAD_ARGUMENTS 160
+ERROR_SESSION_CREDENTIAL_CONFLICT
+1219 要求
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+请参阅 RmGetFilterList
+ 
+含义
+函数已成功完成。
+ﾉ
+展开表
+一个或多个参数无效。 如果将 NULL 指针或 0 作为需要非 null 和非零值的参数传入，则重启管理器函数将返回此错误值。
+当辅助安装程序调用此函数时，将返回此错误。 此函数仅适用于主安装程序。
+ﾉ
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] Windows
+restartmanager.h
+Rstrtmgr.lib Rstrtmgr.dll
+展开表
+
+≦ 30 ≧
+rmCancelCurrentTask 函数
+(restartmanager.h) 项目2024/03/04
+取消当前的 RmShutdown 或 RmRestart 操作。 必须通过调用 RmStartSession 函数从已启动会话的应用程序调用此函数。
+语法 C++
+DWORD RmCancelCurrentTask(   [in] DWORD dwSessionHandle);
+参数
+[in] dwSessionHandle 现有会话的句柄。返回值
+这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。
+ﾉ
+值
+ERROR_SUCCESS 0
+ERROR_BAD_ARGUMENTS 160
+ERROR_OUTOFMEMORY 14
+ERROR_INVALID_HANDLE 6
+含义
+请求取消当前操作。
+展开表
+一个或多个参数无效。 如果在需要非 null 和非零值的参数中传
+递 NULL 指针或 0，则重启管理器函数将返回此错误值。重启管理器操作无法完成，因为没有足够的内存可用。
+提供的句柄不存在重启管理器会话。
+
+≦ 31 ≧
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 RmRestart RmShutdown
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] Windows
+restartmanager.h
+Rstrtmgr.lib Rstrtmgr.dll
+ﾉ
+展开表
+
+≦ 32 ≧
+rmEndSession 函数 (restartmanager.h) 项目2024/03/01
+结束重启管理器会话。 此函数应由之前通过调用 RmStartSession 函数启动会话的主安装程序调用。 RmEndSession 函数可由加入会话的辅助安装程序调用，辅助安装程序无需再注册更多资源。
+语法 C++
+DWORD RmEndSession(
+  [in] DWORD dwSessionHandle);
+参数
+[in] dwSessionHandle
+现有 Restart Manager 会话的句柄。返回值
+这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。
+ﾉ
+值
+ERROR_SUCCESS 0
+ERROR_SEM_TIMEOUT 121
+ERROR_WRITE_FAULT 29
+ERROR_OUTOFMEMORY 14
+ERROR_INVALID_HANDLE 6
+含义
+函数已成功完成。
+展开表
+Restart Manager 函数无法在分配的时间内获取注册表写入互斥体。 建议系统重启，因为进一步使用重启管理器可能会失败。
+操作无法读取或写入注册表。
+重启管理器操作无法完成，因为没有足够的内存可用。
+传递给函数的句柄无效。 提供的句柄不存在 Restart Manager 会话。
+
+≦ 33 ≧
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 RmJoinSession RmStartSession
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] Windows
+restartmanager.h
+Rstrtmgr.lib Rstrtmgr.dll
+ﾉ
+展开表
+
+≦ 34 ≧
+rmGetFilterList 函数 (restartmanager.h) 项目2024/03/01
+Lists RmAddFilter 函数已应用的关闭和重启操作的修改。 函数返回指向缓冲区的指针，其中包含有关已应用的修改的信息。
+语法 C++
+DWORD RmGetFilterList(
+  [in]            DWORD   dwSessionHandle,
+  [out, optional] PBYTE   pbFilterBuf,   [in]            DWORD   cbFilterBuf,
+  [out]           LPDWORD cbFilterBufNeeded);
+参数
+[in] dwSessionHandle
+现有 Restart Manager 会话的句柄。[out, optional] pbFilterBuf
+指向包含修改信息的缓冲区的指针。[in] cbFilterBuf
+包含修改信息的缓冲区的大小（以字节为单位）。
+[out] cbFilterBufNeeded 缓冲区中所需的字节数。
+返回值
+这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。
+ﾉ
+值
+含义
+展开表
+
+≦ 35 ≧
+ERROR_SUCCESS 0
+ERROR_BAD_ARGUMENTS 160
+ERROR_MORE_DATA 234
+ERROR_SESSION_CREDENTIAL_CONFLICT
+1219 注解
+函数已成功完成。
+一个或多个参数无效。 如果将 NULL 指针或 0 作为需要非 null 和非零值的参数传入，则重启管理器函数将返回此错误值。
+如果 pbFilterBuf 缓冲区太小而无法保存列表中的所有应用程
+序信息，或者如果未指定 cbFilterBufNeededed，则 RmGetFilterList 函数将返回此错误值。
+当辅助安装程序调用此函数时，将返回此错误。 此函数仅适用于主安装程序。
+返回的 pbFilterBuf 缓冲区必须是 typecast 到 RM_FILTER_INFO 才能访问筛选器列表。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 RmAddFilter
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] Windows
+restartmanager.h
+Rstrtmgr.lib Rstrtmgr.dll
+展开表
+
+≦ 36 ≧
+RmGetList 函数 （restartmanager.h）项目2024/11/18
+获取当前使用已在重启管理器会话中注册的资源的所有应用程序和服务的列表。
+语法 C++
+DWORD RmGetList(
+  [in]                DWORD              dwSessionHandle,   [out]               UINT               *pnProcInfoNeeded,   [in, out]           UINT               *pnProcInfo,
+  [in, out, optional] RM_PROCESS_INFO [] rgAffectedApps,   [out]               LPDWORD            lpdwRebootReasons);
+参数
+[in] dwSessionHandle
+现有重启管理器会话的句柄。[out] pnProcInfoNeeded
+指向接收 RM_PROCESS_INFO 结构所需的数组大小的指针，该结构返回所有受影响的应用程序和服务的信息。
+[in, out] pnProcInfo
+指向数组中 RM_PROCESS_INFO 结构的总数和填充结构数的指针。[in, out, optional] rgAffectedApps
+一个由 RM_PROCESS_INFO 结构构成的数组，这些结构使用已注册到会话的资源列出应用程序和服务。
+[out] lpdwRebootReasons
+指向接收 RM_REBOOT_REASON 枚举值的位置的指针，该枚举描述需要系统重启的原因。返回值
+这是收到的最新错误。 该函数可以返回 Winerror.h 中定义的 系统错误代码之一。
+
+≦ 37 ≧
+价值
+ERROR_SUCCESS 0
+ERROR_MORE_DATA 234
+ERROR_CANCELLED 1223
+ERROR_SEM_TIMEOUT 121
+ERROR_BAD_ARGUMENTS 160
+ERROR_WRITE_FAULT 29
+ERROR_OUTOFMEMORY 14
+ERROR_INVALID_HANDLE 6
+ERROR_ACCESS_DENIED 5
+要求要求
+最低支持的客户端支持的最低服务器目标平台
+标头库 DLL
+价值
+意义
+函数成功完成。
+ﾉ
+展开表
+如果 rgAffectedApps 缓冲区太小，则 RmGetList 函数返回此错
+误值，无法保存列表中的所有应用程序信息。当前操作已由用户取消。
+Restart Manager 函数无法在分配的时间获取注册表写入互斥体。 建议重启系统，因为进一步使用重启管理器可能会失败。
+一个或多个参数不正确。 如果 NULL 指针或 0 在参数中传递需要非null 和非零值，则 Restart Manager 函数将返回此错误值。
+操作无法读取或写入注册表。
+重启管理器操作无法完成，因为没有足够的内存可用。
+提供的句柄不存在重启管理器会话。注册到重启管理器会话的路径是目录。
+ﾉ
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] 窗户
+restartmanager.h
+Rstrtmgr.lib Rstrtmgr.dll
+展开表
+
+≦ 38 ≧
+另请参阅 RmCancelCurrentTask
+
+≦ 39 ≧
+rmJoinSession 函数 (restartmanager.h) 项目2024/03/01
+将辅助安装程序加入现有的重启管理器会话。 必须使用只能从启动会话的主安装程序获取的会话密钥调用此函数。 需要使用有效的会话密钥才能使用任何重启管理器函数。 辅助安装程序加入会话后，可以调用 RmRegisterResources 函数来注册资源。
+语法 C++
+DWORD RmJoinSession(
+  [out] DWORD          *pSessionHandle,
+  [in]  const WCHAR [] strSessionKey);
+参数
+[out] pSessionHandle
+指向现有重启管理器会话句柄的指针。[in] strSessionKey
+一个 以 null 结尾的字符串，其中包含现有会话的会话密钥。返回值
+这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。
+ﾉ
+值
+ERROR_SUCCESS 0
+ERROR_SESSION_CREDENTIAL_CONFLICT 1219
+ERROR_SEM_TIMEOUT 121
+含义
+函数已成功完成。无法验证会话密钥。
+展开表
+重启管理器函数无法在分配的时间内获取注册表写入互斥体。 建议重启系统，因为进一步使用重启管理器可能会失败。
+
+≦ 40 ≧
+ERROR_BAD_ARGUMENTS 22
+ERROR_WRITE_FAULT 29
+ERROR_MAX_SESSIONS_REACHED 353
+ERROR_OUTOFMEMORY 14
+注解
+一个或多个参数无效。 如果在需要非 null 和非零值的参数中传递 NULL 指针或 0，则重启管理器函数将返回此错误值。
+操作无法读取或写入注册表。已达到最大会话数。
+重启管理器操作无法完成，因为没有足够的内存可用。
+RmJoinSession 函数将辅助安装程序加入到现有的重启管理器会话。 这通常是不控制用户界面的安装程序，可以运行主安装程序的进程内或进程外。 只有主安装程序可以调用
+RmStartSession 函数，这通常是控制用户界面或控制更新中多个修补程序的安装顺序的应用程序。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 RmEndSession RmStartSession
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] Windows
+restartmanager.h
+Rstrtmgr.lib Rstrtmgr.dll
+展开表
+
+≦ 41 ≧
+rmRegisterResources 函数
+(restartmanager.h) 项目2024/03/01
+将资源注册到重启管理器会话。 重启管理器使用向会话注册的资源列表来确定必须关闭和重启哪些应用程序和服务。 可以通过文件名、服务短名称或描述正在运行的应用程序
+RM_UNIQUE_PROCESS 结构来标识资源。 RmRegisterResources 函数可由主安装程序或辅助安装程序使用。
+语法 C++
+DWORD RmRegisterResources(
+  [in]           DWORD                dwSessionHandle,   [in]           UINT                 nFiles,
+  [in, optional] LPCWSTR []           rgsFileNames,   [in]           UINT                 nApplications,   [in, optional] RM_UNIQUE_PROCESS [] rgApplications,   [in]           UINT                 nServices,
+  [in, optional] LPCWSTR []           rgsServiceNames);
+参数
+[in] dwSessionHandle
+现有重启管理器会话的句柄。[in] nFiles
+正在注册的文件数。
+[in, optional] rgsFileNames
+完整文件名路径的 以 null 结尾的字符串数组。 如果 nFiles 为 0，此参数可以为 NULL。
+[in] nApplications 正在注册的进程数。
+[in, optional] rgApplications
+RM_UNIQUE_PROCESS 结构的数组。 如果 nApplications 为 0，此参数可以为 NULL。
+
+≦ 42 ≧
+[in] nServices 要注册的服务数。
+[in, optional] rgsServiceNames
+以 null 结尾的服务短名称字符串的数组。 如果 nServices 为 0，此参数可以为 NULL。返回值
+这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。
+ﾉ
+值
+ERROR_SUCCESS 0
+ERROR_SEM_TIMEOUT 121
+ERROR_BAD_ARGUMENTS 160
+ERROR_WRITE_FAULT 29
+ERROR_OUTOFMEMORY 14
+ERROR_INVALID_HANDLE 6
+注解
+含义
+指定的资源已注册。
+展开表
+重启管理器函数无法在分配的时间内获取注册表写入互斥体。建议重启系统，因为进一步使用重启管理器可能会失败。
+一个或多个参数无效。 如果在需要非 null 和非零值的参数中传
+递 NULL 指针或 0，则重启管理器函数将返回此错误值。操作无法读取或写入注册表。
+重启管理器操作无法完成，因为没有足够的内存可用。提供的句柄不存在重启管理器会话。
+每次调用 RmRegisterResources 函数都会执行相对昂贵的写入操作。 不要为每个文件调用此函
+数一次，而是将相关文件分组到组件中，并一起注册这些组件。要求
+ﾉ
+展开表
+
+≦ 43 ≧
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] Windows
+restartmanager.h
+Rstrtmgr.lib Rstrtmgr.dll
+
+≦ 44 ≧
+rmRemoveFilter 函数 (restartmanager.h) 项目2025/02/21
+删除对已使用 RmAddFilter 函数应用的关闭或重启操作所做的任何修改。 主安装程序可以多次调用 RmRemoveFilter 函数。
+语法 C++
+DWORD RmRemoveFilter(
+  [in]           DWORD             dwSessionHandle,   [in, optional] LPCWSTR           strModuleName,   [in, optional] RM_UNIQUE_PROCESS *pProcess,
+  [in, optional] LPCWSTR           strServiceShortName);
+参数
+[in] dwSessionHandle
+现有重启管理器会话的句柄。[in, optional] strModuleName
+指向以 null 结尾的字符串值的指针，该值包含应用程序可执行文件的完整路径。
+RmRemoveFilter 函数删除对引用的应用程序关闭或重启操作所做的任何修改，这些操作以前由 RmAddFilter 函数应用。 如果 Application 或 strServiceShortName 参数为非 NULL，则此参数必须为 NULL。
+[in, optional] pProcess
+应用程序的 RM_UNIQUE_PROCESS 结构。 RmRemoveFilter 函数删除对引用的应用程序关闭或重启操作所做的任何修改，这些操作以前由 RmAddFilter 函数应用。 如果 strFilename 或
+strShortServiceName 参数为非 NULL，则此参数必须为 NULL。[in, optional] strServiceShortName
+指向包含短服务名称的 以 null 结尾的字符串值的指针。 RmRemoveFilter 函数删除对
+RmAddFilter 函数以前应用的被引用服务的关闭或重启操作所做的任何修改。 如果 strFilename 或 Application 参数为非 NULL，则此参数必须为 NULL。
+
+≦ 45 ≧
+返回值
+这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。
+值
+ERROR_SUCCESS 0
+ERROR_FILE_NOT_FOUND 1
+ERROR_SESSION_CREDENTIAL_CONFLICT
+1219 要求
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+含义
+函数已成功完成。
+找不到指定的筛选器。
+ﾉ
+展开表
+当辅助安装程序调用此函数时，将返回此错误。 此函数仅适用于主安装程序。
+ﾉ
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] Windows
+restartmanager.h
+Rstrtmgr.lib Rstrtmgr.dll
+展开表
+
+≦ 46 ≧
+rmRestart 函数 (restartmanager.h) 项目2023/08/25
+重启已由 RmShutdown 函数关闭且已注册为使用 RegisterApplicationRestart 函数重启的应用程序和服务。 此函数只能由调用 RmStartSession 函数的主安装程序调用，以启动重启管理器会话。
+语法 C++
+DWORD RmRestart(
+  [in]           DWORD                    dwSessionHandle,                  DWORD                    dwRestartFlags,
+  [in, optional] RM_WRITE_STATUS_CALLBACK fnStatus);
+参数
+[in] dwSessionHandle
+现有重启管理器会话的句柄。 dwRestartFlags
+保留。 此参数应为 0。[in, optional] fnStatus
+指向状态消息回调函数的指针，该函数用于在 RmRestart 函数运行时传达状态。 如果 为
+NULL，则不提供状态。返回值
+这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。
+ﾉ
+值
+ERROR_REQUEST_OUT_OF_SEQUENCE 776
+含义
+展开表
+如果在调用 RmShutdown 函数之前使用有效的会话句柄调用 RmRestart 函数，则返回此错误值。
+
+≦ 47 ≧
+ERROR_FAIL_RESTART 352
+ERROR_SEM_TIMEOUT 121
+ERROR_CANCELLED 1223
+ERROR_BAD_ARGUMENTS 160
+ERROR_WRITE_FAULT 29
+ERROR_OUTOFMEMORY 14
+ERROR_INVALID_HANDLE 6
+ERROR_SUCCESS 0
+注解
+无法重启一个或多个应用程序。 RmGetList 函数返回的 RM_PROCESS_INFO结构包含更新的状态信息。
+重启管理器函数无法在分配的时间内获取注册表写入互斥体。建议重启系统，因为进一步使用重启管理器可能会失败。
+当取消操作的请求成功时， RmRestart 函数将返回此错误值。一个或多个参数无效。 如果在需要非 null 和非零值的参数中传
+递 NULL 指针或 0，则重启管理器函数将返回此错误值。操作无法读取或写入注册表。
+重启管理器操作无法完成，因为没有足够的内存可用。
+提供的句柄不存在重启管理器会话。函数成功并返回 。
+调用 RmRestart 函数后，RmGetList 函数返回的RM_PROCESS_INFO结构包含更新的状态信息。重启管理器遵循分隔不同用户或终端会话的权限。 作为具有 LocalSystem 特权的服务运行的安装程序无法关闭或重启其他用户或终端会话中的任何应用程序。 安装程序应实现自定义方法来关闭和重启在其他会话中运行的应用程序。 一种方法是在另一个会话中启动新的安装程序进程，以执行关闭和重启操作。
+当重新启动管理器关闭并重启控制台应用程序时，应用程序在新控制台中重启。
+即使 RmShutdown 函数返回指示并非所有应用程序和服务都可以关闭的错误，安装程序也应始终使用 RmRestart 函数重启应用程序和服务。
+RmRestart 函数不会重启使用提升的权限运行的任何应用程序。 即使应用程序已由重启管理器关闭。
+RmRestart 函数不会重启任何未以当前登录用户身份运行的应用程序。 即使应用程序已由重启管理器关闭。 例如， RmRestart 函数不会重启使用 运行方式 命令启动的应用程序，这些应用
+程序不以当前登录的用户身份运行。 必须手动重启这些应用程序。要求
+
+≦ 48 ≧
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+RegisterApplicationRestart
+RmCancelCurrentTask RmShutdown
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] Windows
+restartmanager.h
+Rstrtmgr.lib Rstrtmgr.dll
+ﾉ
+展开表
+
+≦ 49 ≧
+rmShutdown 函数 (restartmanager.h) 项目2024/03/01
+启动应用程序的关闭。 只能从使用 RmStartSession 函数启动重启管理器会话的安装程序调用此
+函数。语法 C++
+DWORD RmShutdown(
+  [in]           DWORD                    dwSessionHandle,   [in]           ULONG                    lActionFlags,
+  [in, optional] RM_WRITE_STATUS_CALLBACK fnStatus);
+参数
+[in] dwSessionHandle
+现有 Restart Manager 会话的句柄。[in] lActionFlags
+配置组件的关闭 的 一个或多个RM_SHUTDOWN_TYPE选项。 OR 运算符可以组合以下值，以指定当且仅当所有应用程序都已注册重启时，才会强制关闭无响应的应用程序和服务。
+ﾉ
+值
+RmForceShutdown 0x1
+RmShutdownOnlyRegistered 0x10
+[in, optional] fnStatus
+含义
+展开表
+强制在超时期限后关闭无响应的应用程序和服务。 未响应关闭请求的应用程序在 30 秒内被迫关闭。 不响应关闭请求的服务在 20 秒后被迫关闭。
+仅当已使用 RegisterApplicationRestart 函数注册所有应用程序以重启时，才关闭应用程序。 如果无法重启任何进程或服务，则不会关闭任何进程或服务。
+指向 RM_WRITE_STATUS_CALLBACK 函数的指针，该函数在执行时用于传达详细状态。 如果 为 NULL，则不提供任何状态。
+
+≦ 50 ≧
+返回值
+这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。
+值
+ERROR_SUCCESS 0
+ERROR_FAIL_NOACTION_REBOOT 350
+ERROR_FAIL_SHUTDOWN 351
+ERROR_CANCELLED 1223
+ERROR_SEM_TIMEOUT 121
+ERROR_BAD_ARGUMENTS 160
+ERROR_WRITE_FAULT 29
+ERROR_OUTOFMEMORY 14
+ERROR_INVALID_HANDLE 6
+注解
+含义
+所有关闭、重启和回调操作均已成功完成。
+ﾉ
+展开表
+未执行任何关闭操作。 一个或多个进程或服务需要重启系统才能关闭。 当重启管理器检测到在关闭任何应用程序之前需要重启系统时，将返回此错误代码。
+某些应用程序无法关闭。 RmGetList 函数返回的
+RM_PROCESS_INFO结构的 AppStatus 包含更新的状态信息。当取消操作的请求成功时， RmShutdown 函数将返回此错误值。
+Restart Manager 函数无法在分配的时间内获取注册表写入互斥体。 建议系统重启，因为进一步使用重启管理器可能会失败。
+一个或多个参数无效。 如果在需要非 null 和非零值的参数中传
+递 NULL 指针或 0，则重启管理器函数将返回此错误值。操作无法读取或写入注册表。
+无法完成重启管理器操作，因为没有足够的内存可用。提供的句柄不存在 Restart Manager 会话。
+RmShutdown 函数调用 RmGetList 并更新当前使用已注册资源的进程列表，然后再尝试关闭任何进程。 然后，RmShutdown 函数会尝试使用最新列表中的已注册资源关闭进程。
+RmShutdown 函数使用详细状态信息更新 RmGetList 函数返回的 RM_PROCESS_INFO 结构的 AppStatus 成员。
+重启管理器遵循分隔不同用户或终端会话的权限。 作为具有 LocalSystem 特权的服务运行的安装程序无法关闭或重启其他用户或终端会话中的任何应用程序。 安装程序应实现自定义方法，以关闭并重启在其他会话中运行的应用程序。 一种方法是在另一个会话中启动新的安装程序进程，以执行关闭和重启操作。
+
+≦ 51 ≧
+即使 RmShutdown 函数返回错误，指示并非所有应用程序和服务都可以关闭，安装程序也应始
+终使用 RmRestart 函数重启应用程序和服务。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+RegisterApplicationRestart
+RmCancelCurrentTask RmRestart
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] Windows
+restartmanager.h
+Rstrtmgr.lib Rstrtmgr.dll
+展开表
+
+≦ 52 ≧
+rmStartSession 函数 (restartmanager.h) 项目2023/08/25
+启动新的重启管理器会话。 每个用户会话最多可以同时在系统上打开 64 个重启管理器会话。当此函数启动会话时，它将返回会话句柄和会话密钥，这些句柄和会话密钥可用于对重启管理器 API 的后续调用。
+语法 C++
+DWORD RmStartSession(
+  [out] DWORD    *pSessionHandle,         DWORD    dwSessionFlags,
+  [out] WCHAR [] strSessionKey);
+参数
+[out] pSessionHandle
+指向重启管理器会话句柄的指针。 会话句柄可以在后续调用中传递给重启管理器 API。 dwSessionFlags
+保留。 此参数应为 0。[out] strSessionKey
+一个 以 null 结尾的字符串，其中包含新会话的会话密钥。 在调用 RmStartSession 函数之前，
+必须分配字符串。返回值
+这是收到的最新错误。 函数可以返回 Winerror.h 中定义的 系统错误代码 之一。
+ﾉ
+值
+ERROR_SUCCESS 0
+含义
+函数已成功完成。
+展开表
+
+≦ 53 ≧
+ERROR_SEM_TIMEOUT 121
+ERROR_BAD_ARGUMENTS 160
+ERROR_MAX_SESSIONS_REACHED 353
+ERROR_WRITE_FAULT 29
+ERROR_OUTOFMEMORY 14
+注解
+重启管理器函数无法在分配的时间内获取注册表写入互斥体。建议重启系统，因为进一步使用重启管理器可能会失败。
+一个或多个参数无效。 如果在需要非 null 和非零值的参数中传
+递 NULL 指针或 0，则重启管理器函数将返回此错误值。已达到最大会话数。
+系统无法写入指定的设备。
+重启管理器操作无法完成，因为没有足够的内存可用。
+如果已存在具有相同会话密钥的会话， RmStartSession 函数将返回错误。
+RmStartSession 函数应由控制用户界面或控制更新中多个修补程序的安装顺序的主安装程序调用。
+辅助安装程序可以通过使用从主安装程序的 RmStartSession 函数调用返回的会话句柄和会话密
+钥调用 RmJoinSession 函数来加入现有的重启管理器会话。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] Windows
+restartmanager.h
+Rstrtmgr.lib Rstrtmgr.dll
+展开表
+
+≦ 54 ≧
+RmEndSession RmJoinSession
+

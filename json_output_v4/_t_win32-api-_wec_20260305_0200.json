@@ -1,0 +1,1083 @@
+{
+  "_schema": "windows_api_kg_v4.0",
+  "_generated_at": "2026-03-05T08:07:25Z",
+  "_content_hash": "80e010dce8b5",
+  "document": {
+    "document_id": "win32-api::wec",
+    "title": "Windows 事件收集器",
+    "domain": "win32-api",
+    "topic": "wec",
+    "source_file": "[OCR]_windows-win32-api-_wec_20260305_0200.txt",
+    "ocr_timestamp": "2026-03-05T02:00:00",
+    "headers_referenced": [
+      "evcoll.h"
+    ],
+    "total_entities": 60
+  },
+  "entities": [
+    {
+      "id": "windows::EC_SUBSCRIPTION_CONFIGURATION_MODE",
+      "name": "EC_SUBSCRIPTION_CONFIGURATION_MODE",
+      "entity_type": "enum",
+      "description": "枚举的 EcVarTypeUInt32 值。 EcSubscriptionExpires 包含订阅结束日期的订阅的 Expires 属性。 可以使用的最大日期为 3000-12-31T23：59： 59.999Z。 如果未定义此属性，则订阅不会过期。 此属性是 EcVarTypeDateTime 值。 EcSubscriptionQuery 包含查询的订阅的 Query 属性，事件源使用该属性选择要转发到事件收集器的事件。 此属性是 EcVarTypeString 值。",
+      "syntax": "typedef enum _EC_SUBSCRIPTION_CONFIGURATION_MODE {",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcVarTypeDateTime",
+        "EcVarTypeString",
+        "EcVarTypeUInt32"
+      ],
+      "confidence": 0.85,
+      "_source_line": 11
+    },
+    {
+      "id": "windows::EC_SUBSCRIPTION_CONTENT_FORMAT",
+      "name": "EC_SUBSCRIPTION_CONTENT_FORMAT",
+      "entity_type": "enum",
+      "description": "枚举值。 EcSubscriptionLogFile 订阅的 LogFile 属性，该属性指定存储从事件源收集的事件的日志文件。 此属性是 EcVarTypeString 值。",
+      "syntax": "typedef enum _EC_SUBSCRIPTION_CONTENT_FORMAT {",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcVarTypeString"
+      ],
+      "confidence": 0.85,
+      "_source_line": 11
+    },
+    {
+      "id": "windows::EC_SUBSCRIPTION_CREDENTIALS_TYPE",
+      "name": "EC_SUBSCRIPTION_CREDENTIALS_TYPE",
+      "entity_type": "enum",
+      "description": "枚举值。 此属性不能用于源启动的订阅。 EcSubscriptionCommonUserName 包含公用用户名的订阅的 CommonUserName 属性，本地和远程计算机使用该属性对用户进行身 份验证。 此属性是 EcVarTypeString 值。 此属性不能用于源启动的订阅。 EcSubscriptionCommonPassword 包含公用密码的订阅的 CommonPassword 属性，本地和远程计算机使用该密码对用户进行身份验 证。 此属性是 EcVarTypeString 值。 此属性不能用于源启动的订阅。 EcSubscriptionHostName 订阅的 HostName 属性，指定本地计算机的完全限定域名 (FQDN) 。 此属性由事件源用于转发事件，在涉及可能具有多个 FQDN 的多宿主服务器的方案中使用。 此属性是 EcVarTypeString 值，只能用于推送订阅。",
+      "syntax": "typedef enum _EC_SUBSCRIPTION_CREDENTIALS_TYPE {",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcVarTypeString"
+      ],
+      "confidence": 0.85,
+      "_source_line": 14
+    },
+    {
+      "id": "windows::EC_SUBSCRIPTION_PROPERTY_ID",
+      "name": "EC_SUBSCRIPTION_PROPERTY_ID",
+      "entity_type": "enum",
+      "description": "枚举中的值，该值指定要设置的订阅的属性。[in] Flags 保留。 必须为 0。[in] PropertyValue 要为指示的订阅属性设置的属性的值。",
+      "syntax": "typedef enum _EC_SUBSCRIPTION_PROPERTY_ID {",
+      "return_value": {
+        "description": "此函数返回 BOOL。"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "evcoll.h",
+        "library": "Wecapi.lib",
+        "dll": "Wecapi.dll",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2008"
+      },
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "Flags"
+      ],
+      "confidence": 0.9,
+      "_source_line": 14
+    },
+    {
+      "id": "windows::EC_SUBSCRIPTION_RUNTIME_STATUS_ACTIVE_STATUS",
+      "name": "EC_SUBSCRIPTION_RUNTIME_STATUS_ACTIVE_STATUS",
+      "entity_type": "enum",
+      "description": "枚举返回无符号 32 位整数值。 EcSubscriptionRunTimeStatusLastError 获取订阅或事件源的最后一个错误状态。 这将返回 EcVarTypeUInt32 值。 EcSubscriptionRunTimeStatusLastErrorMessage 获取订阅或事件源的最后一条错误消息。 这将返回 EcVarTypeString 值。 EcSubscriptionRunTimeStatusLastErrorTime 获取订阅或事件源发生上次错误的时间。 这将返回 EcVarTypeDateTime 值。",
+      "syntax": "typedef enum _EC_SUBSCRIPTION_RUNTIME_STATUS_ACTIVE_STATUS {   EcRuntimeStatusActiveStatusDisabled = 1,\nEcRuntimeStatusActiveStatusActive,   EcRuntimeStatusActiveStatusInactive,   EcRuntimeStatusActiveStatusTrying\n} EC_SUBSCRIPTION_RUNTIME_STATUS_ACTIVE_STATUS;",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcVarTypeDateTime",
+        "EcVarTypeString",
+        "EcVarTypeUInt32"
+      ],
+      "confidence": 0.85,
+      "_source_line": 16
+    },
+    {
+      "id": "windows::EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID",
+      "name": "EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID",
+      "entity_type": "enum",
+      "description": "枚举指定用于获取订阅的状态或特定事件源相对于订阅的状态的值。 这些值在 EcGetSubscriptionRunTimeStatus 函数中使用。",
+      "syntax": "typedef enum _EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID {",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcGetSubscriptionRunTimeStatus"
+      ],
+      "confidence": 0.85,
+      "_source_line": 17
+    },
+    {
+      "id": "windows::EC_SUBSCRIPTION_TYPE",
+      "name": "EC_SUBSCRIPTION_TYPE",
+      "entity_type": "enum",
+      "description": "枚举指定 (源发起的订阅或收集器启动的订阅) 要使用的订阅类型。",
+      "syntax": "typedef enum _EC_SUBSCRIPTION_TYPE {",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 22
+    },
+    {
+      "id": "windows::EC_VARIANT_TYPE",
+      "name": "EC_VARIANT_TYPE",
+      "entity_type": "enum",
+      "description": "枚举定义指定 Windows 事件收集器函数中使用的数据类型的值。 函数 EcClose 关闭从其他事件收集器函数接收的句柄。",
+      "syntax": "typedef enum _EC_VARIANT_TYPE {",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcClose"
+      ],
+      "confidence": 0.85,
+      "_source_line": 24
+    },
+    {
+      "id": "windows::EcDeleteSubscription",
+      "name": "EcDeleteSubscription",
+      "entity_type": "enum",
+      "description": "函数删除由 SubscriptionName 参数指定的现有订阅。如果订阅的安全描述符不允许对调用进程进行删除访问，则 函数将失败。如果在调用此 API 时订阅处于活动状态，则订阅将被停用。",
+      "syntax": "BOOL EcDeleteSubscription(\n[in] LPCWSTR SubscriptionName,\n[in] DWORD   Flags);",
+      "parameters": [
+        {
+          "name": "SubscriptionName",
+          "direction": "in",
+          "description": "要删除的订阅。[in] Flags 保留，必须为 0。"
+        }
+      ],
+      "return_value": {
+        "description": "此函数返回 BOOL。"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2008"
+      },
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 27
+    },
+    {
+      "id": "windows::EcEnumNextSubscription",
+      "name": "EcEnumNextSubscription",
+      "entity_type": "enum",
+      "description": "函数继续枚举在本地计算机上注册的订阅。",
+      "syntax": "BOOL EcEnumNextSubscription(\n[in]  EC_HANDLE SubscriptionEnum,\n[in]  DWORD     SubscriptionNameBufferSize,   [in]  LPWSTR    SubscriptionNameBuffer,\n[out] PDWORD    SubscriptionNameBufferUsed);",
+      "parameters": [
+        {
+          "name": "SubscriptionEnum",
+          "direction": "in",
+          "description": "从 EcOpenSubscriptionEnum 函数返回的枚举器对象的句柄。[in] SubscriptionNameBufferSize 用户提供的缓冲区的大小 (字符) 存储订阅名称。[in] SubscriptionNameBuffer 用于存储订阅名称的用户提供的缓冲区。[out] SubscriptionNameBufferUsed 成功返回时函数使用的用户提供的缓冲区的大小，或函数失败并 出现 ERROR_INSUFFICIENT_BUFFER时存储订阅名称所需的大小。"
+        }
+      ],
+      "return_value": {
+        "description": "此函数返回 BOOL。"
+      },
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 28
+    },
+    {
+      "id": "windows::EcGetObjectArrayProperty",
+      "name": "EcGetObjectArrayProperty",
+      "entity_type": "enum",
+      "description": "检索订阅的事件源的属性值。 EcGetObjectArraySize 检索订阅的事件源的属性值数组的索引数。",
+      "syntax": "BOOL EcGetObjectArrayProperty(\n[in]  EC_OBJECT_ARRAY_PROPERTY_HANDLE ObjectArray,   [in]  EC_SUBSCRIPTION_PROPERTY_ID     PropertyId,   [in]  DWORD                           ArrayIndex,   [in]  DWORD                           Flags,\n[in]  DWORD                           PropertyValueBufferSize,   [in]  PEC_VARIANT                     PropertyValueBuffer,\n[out] PDWORD                          PropertyValueBufferUsed);",
+      "parameters": [
+        {
+          "name": "ObjectArray",
+          "direction": "in",
+          "description": "订阅的事件源的属性数组的句柄。 将 EcSubscriptionEventSources 值传递到 PropertyId 参数 时，由 EcGetSubscriptionProperty 方法返回的数组句柄。[in] PropertyId 数组中属性的属性标识符。 指定 EC_SUBSCRIPTION_PROPERTY_ID 枚举中的值。 通过指定 EcSubscriptionEventSourceAddress、EcSubscriptionEventSourceEnabled、"
+        }
+      ],
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcGetObjectArraySize"
+      ],
+      "confidence": 0.8,
+      "_source_line": 30
+    },
+    {
+      "id": "windows::EcGetSubscriptionProperty",
+      "name": "EcGetSubscriptionProperty",
+      "entity_type": "enum",
+      "description": "函数从订阅对象中检索特定属性值。 订阅对象由传递到 Subscription 参数的句柄指定。",
+      "syntax": "BOOL EcGetSubscriptionProperty(\n[in]  EC_HANDLE                   Subscription,   [in]  EC_SUBSCRIPTION_PROPERTY_ID PropertyId,   [in]  DWORD                       Flags,\n[in]  DWORD                       PropertyValueBufferSize,   [in]  PEC_VARIANT                 PropertyValueBuffer,\n[out] PDWORD                      PropertyValueBufferUsed);",
+      "parameters": [
+        {
+          "name": "Subscription",
+          "direction": "in",
+          "description": "订阅对象的句柄。[in] PropertyId 指定要获取的订阅属性的标识符。 指定 EC_SUBSCRIPTION_PROPERTY_ID 枚举中的值。 如果指定 EcSubscriptionEventSources 值，则将返回数组 (EC_OBJECT_ARRAY_PROPERTY_HANDLE) 的句柄。 然后，可以使用 EcGetObjectArrayProperty 和 EcSetObjectArrayProperty 函数获取和设 置数组中的 Address、Enabled、UserName 和 Password 属性。[in] Flags 保留。 必须为 NULL。"
+        },
+        {
+          "name": "PropertyValueBufferSize",
+          "direction": "in",
+          "description": "用户提供的用于存储属性值的缓冲区的大小。[in] PropertyValueBuffer 用户提供的用于存储属性值的缓冲区。[out] PropertyValueBufferUsed 函数成功返回时使用的用户提供的缓冲区的大小，或函数失败并 出现 ERROR_INSUFFICIENT_BUFFER时存储属性值所需的大小。"
+        }
+      ],
+      "return_value": {
+        "description": "此函数返回 BOOL。"
+      },
+      "remarks": "数组从零开始，因此数组中第一项的索引为 0。示例 有关使用 EcRemoveObjectArrayElement 函数的示例代码，请参阅 从收集器发起的订阅中删除事件源。 要求",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcRemoveObjectArrayElement"
+      ],
+      "confidence": 0.75,
+      "_source_line": 32
+    },
+    {
+      "id": "windows::EcGetSubscriptionRunTimeStatus",
+      "name": "EcGetSubscriptionRunTimeStatus",
+      "entity_type": "enum",
+      "description": "检索订阅的事件源或订阅本身的运行时状态信息。 EcInsertObjectArrayElement 将空对象插入到订阅的事件源的属性值数组中。 EcOpenSubscription 打开现有订阅或创建新订阅。 EcOpenSubscriptionEnum 创建一个订阅枚举器，以枚举本地计算机上所有已注册的订阅。 EcRemoveObjectArrayElement 从包含订阅的事件源的属性值的对象数组中删除元素。 EcRetrySubscription 重试连接到未连接的订阅的事件源。",
+      "syntax": "BOOL EcGetSubscriptionRunTimeStatus(\n[in]  LPCWSTR                                SubscriptionName,   [in]  EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID StatusInfoId,\n[in]  LPCWSTR                                EventSourceName,   [in]  DWORD                                  Flags,\n[in]  DWORD                                  StatusValueBufferSize,   [in]  PEC_VARIANT                            StatusValueBuffer,\n[out] PDWORD                                 StatusValueBufferUsed);",
+      "parameters": [
+        {
+          "name": "SubscriptionName",
+          "direction": "in",
+          "description": "要从中获取运行时状态信息的订阅的名称。[in] StatusInfoId 指定要从订阅获取的运行时状态信息的标识符。 指定"
+        }
+      ],
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcInsertObjectArrayElement",
+        "EcOpenSubscription",
+        "EcOpenSubscriptionEnum",
+        "EcRemoveObjectArrayElement",
+        "EcRetrySubscription"
+      ],
+      "confidence": 0.8,
+      "_source_line": 33
+    },
+    {
+      "id": "windows::EcOpenSubscriptionEnum",
+      "name": "EcOpenSubscriptionEnum",
+      "entity_type": "enum",
+      "description": "创建一个订阅枚举器，以枚举本地计算机上所有已注册的订阅。 EcRemoveObjectArrayElement 从包含订阅的事件源的属性值的对象数组中删除元素。 EcRetrySubscription 重试连接到未连接的订阅的事件源。",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcRemoveObjectArrayElement",
+        "EcRetrySubscription"
+      ],
+      "confidence": 0.6,
+      "_source_line": 40
+    },
+    {
+      "id": "windows::EcSaveSubscription",
+      "name": "EcSaveSubscription",
+      "entity_type": "enum",
+      "description": "函数保存订阅配置信息。 每当通过 EcSetSubscriptionProperty 方法向订阅添加或更新新值时，都应调用此函数。 如果启用了订阅，则会在保存订阅时激活该订阅。",
+      "syntax": "BOOL EcSaveSubscription(\n[in] EC_HANDLE Subscription,\n[in] DWORD     Flags);",
+      "parameters": [
+        {
+          "name": "Subscription",
+          "direction": "in",
+          "description": "订阅对象的句柄。[in] Flags 保留。 必须为 NULL。"
+        }
+      ],
+      "return_value": {
+        "description": "此函数返回 BOOL。"
+      },
+      "remarks": "若要重试订阅的所有事件源的订阅，请使用 EcSaveSubscription 函数，而不是单独在每个事件源上调用 EcRetrySubscription 。 仅当收集器服务正在运行时，订阅才会处于活动状态。 服务必须设置为在计算机启动后自动启 动和运行。示例 有关使用 EcSaveSubscription 函数的示例代码，请参阅 创建收集器发起的订阅 或 创建源启动的订阅。 要求",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcRetrySubscription",
+        "EcSetSubscriptionProperty"
+      ],
+      "confidence": 0.85,
+      "_source_line": 44
+    },
+    {
+      "id": "windows::EcSetObjectArrayProperty",
+      "name": "EcSetObjectArrayProperty",
+      "entity_type": "enum",
+      "description": "为订阅的事件源设置属性值数组中的属性值。 EcSetSubscriptionProperty 设置新值或更新订阅的现有值。",
+      "syntax": "BOOL EcSetObjectArrayProperty(\n[in] EC_OBJECT_ARRAY_PROPERTY_HANDLE ObjectArray,   [in] EC_SUBSCRIPTION_PROPERTY_ID     PropertyId,   [in] DWORD                           ArrayIndex,   [in] DWORD                           Flags,\n[in] PEC_VARIANT                     PropertyValue);",
+      "parameters": [
+        {
+          "name": "ObjectArray",
+          "direction": "in",
+          "description": "包含要设置的属性值的数组的句柄。 数组包含订阅的事件源的属性值。 将"
+        }
+      ],
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcSetSubscriptionProperty"
+      ],
+      "confidence": 0.8,
+      "_source_line": 45
+    },
+    {
+      "id": "windows::EC_VARIANT",
+      "name": "EC_VARIANT",
+      "entity_type": "struct",
+      "description": "包含事件收集器数据 (订阅数据) 或属性值。反馈",
+      "syntax": "typedef struct _EC_VARIANT {   union {\nBOOL                            BooleanVal;     UINT32                          UInt32Val;     ULONGLONG                       DateTimeVal;     LPCWSTR                         StringVal;     PBYTE                           BinaryVal;     BOOL                            *BooleanArr;     INT32                           *Int32Arr;     LPWSTR                          *StringArr;",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 49
+    },
+    {
+      "id": "windows::EcConfigurationModeNormal",
+      "name": "EcConfigurationModeNormal",
+      "entity_type": "enum",
+      "description": "值： 0 当管理员需要可靠地传递事件，并且订阅使用最少的配置时，以及网络使用率不是问题时，将使用 此模式。 此模式将默认订阅传递模式设置为拉取订阅。 EcConfigurationModeCustom 此订阅模式允许 DeliveryMode 属性、DeliveryMaxItems 属性、DeliveryMaxLatencyTime 和",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 110
+    },
+    {
+      "id": "windows::HeartBeatInterval",
+      "name": "HeartBeatInterval",
+      "entity_type": "constant",
+      "description": "属性的自定义值。 EcConfigurationModeMinLatency 此模式用于警报和关键事件，因为它将订阅配置为在事件发生时立即发送事件，且延迟最小。 此模 式将默认订阅传递模式设置为推送订阅。 EcConfigurationModeMinBandwidth 当网络活动是可控的，并且网络使用成本高昂时，将使用此模式。 此模式将默认订阅传递模式设置 为推送订阅。",
+      "remarks": "可在位于以下位置的事件收集器注册表中找到每种配置模式的设置：",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 118
+    },
+    {
+      "id": "windows::HKEY_LOCAL_MACHINE",
+      "name": "HKEY_LOCAL_MACHINE",
+      "entity_type": "constant",
+      "description": "SOFTWARE Microsoft Windows",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 126
+    },
+    {
+      "id": "windows::ConfigurationModes",
+      "name": "ConfigurationModes",
+      "entity_type": "constant",
+      "description": "有关订阅传送模式和属性的详细信息，请参阅 EC_SUBSCRIPTION_DELIVERY_MODE 和",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "evcoll.h",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2008"
+      },
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EC_SUBSCRIPTION_DELIVERY_MODE"
+      ],
+      "confidence": 0.6,
+      "_source_line": 130
+    },
+    {
+      "id": "windows::EcContentFormatEvents",
+      "name": "EcContentFormatEvents",
+      "entity_type": "constant",
+      "description": "值：1 收到事件时，事件收集器服务会将事件作为接收的事件发送到事件日志。 该服务仅发送原始事件数 据，不发送任何本地化的事件数据。 EcContentFormatRenderedText 收到事件时，事件收集器服务会将事件作为呈现的文本发送到事件日志。 服务发送原始事件数据和 本地化事件信息。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "evcoll.h",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2008"
+      },
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 150
+    },
+    {
+      "id": "windows::EcSubscriptionCredDefault",
+      "name": "EcSubscriptionCredDefault",
+      "entity_type": "constant",
+      "description": "= 0, EcSubscriptionCredNegotiate, EcSubscriptionCredDigest, EcSubscriptionCredBasic,",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 177
+    },
+    {
+      "id": "windows::EcSubscriptionCredLocalMachine",
+      "name": "EcSubscriptionCredLocalMachine",
+      "entity_type": "constant",
+      "description": "} EC_SUBSCRIPTION_CREDENTIALS_TYPE; 常量",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EC_SUBSCRIPTION_CREDENTIALS_TYPE"
+      ],
+      "confidence": 0.5,
+      "_source_line": 179
+    },
+    {
+      "id": "windows::WinRM",
+      "name": "WinRM",
+      "entity_type": "constant",
+      "description": "将与事件源协商，为订阅凭据指定正确的身份验证类型。 EcSubscriptionCredDigest 对订阅凭据使用摘要式身份验证。 EcSubscriptionCredBasic 发送用户名和密码以用作订阅的凭据。 EcSubscriptionCredLocalMachine 使用本地计算机的域帐户凭据创建订阅，而不是使用订阅的用户凭据。 这样做的优点是无需管理用 户帐户和密码过期，即可简化长期订阅管理。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "evcoll.h",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2008"
+      },
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcSubscriptionCredLocalMachine"
+      ],
+      "confidence": 0.6,
+      "_source_line": 185
+    },
+    {
+      "id": "windows::EC_SUBSCRIPTION_DELIVERY_MODE",
+      "name": "EC_SUBSCRIPTION_DELIVERY_MODE",
+      "entity_type": "constant",
+      "description": "枚举值。 此属性不能用于源启动的订阅。 EcSubscriptionDeliveryMaxItems 订阅的 DeliveryMaxItems 属性，指定从事件源转发时可以批处理的最大事件数。 当",
+      "syntax": "typedef enum _EC_SUBSCRIPTION_DELIVERY_MODE {",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 208
+    },
+    {
+      "id": "windows::EcDeliveryModePull",
+      "name": "EcDeliveryModePull",
+      "entity_type": "constant",
+      "description": "= 1, EcDeliveryModePush } EC_SUBSCRIPTION_DELIVERY_MODE; 常量",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "evcoll.h",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2008"
+      },
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EC_SUBSCRIPTION_DELIVERY_MODE"
+      ],
+      "confidence": 0.6,
+      "_source_line": 213
+    },
+    {
+      "id": "windows::EcSubscriptionEnabled",
+      "name": "EcSubscriptionEnabled",
+      "entity_type": "constant",
+      "description": "= 0, EcSubscriptionEventSources, EcSubscriptionEventSourceAddress, EcSubscriptionEventSourceEnabled, EcSubscriptionEventSourceUserName, EcSubscriptionEventSourcePassword, EcSubscriptionDescription, EcSubscriptionURI, EcSubscriptionConfigurationMode, EcSubscriptionExpires, EcSubscriptionQuery, EcSubscriptionTransportName, EcSubscriptionTransportPort, EcSubscriptionDeliveryMode, EcSubscriptionDeliveryMaxItems, EcSubscriptionDeliveryMaxLatencyTime, EcSubscriptionHeartbeatInterval, EcSubscriptionLocale, EcSubscriptionContentFormat, EcSubscriptionLogFile, EcSubscriptionPublisherName, EcSubscriptionCredentialsType, EcSubscriptionCommonUserName, EcSubscriptionCommonPassword, EcSubscriptionHostName, EcSubscriptionReadExistingEvents, EcSubscriptionDialect, EcSubscriptionType, EcSubscriptionAllowedIssuerCAs, EcSubscriptionAllowedSubjects, EcSubscriptionDeniedSubjects, EcSubscriptionAllowedSourceDomainComputers, EcSubscriptionPropertyIdEND}",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcSubscriptionAllowedIssuerCAs",
+        "EcSubscriptionCredentialsType",
+        "EcSubscriptionDeliveryMode",
+        "EcSubscriptionEventSourceUserName",
+        "EcSubscriptionEventSources",
+        "EcSubscriptionPropertyIdEND",
+        "EcSubscriptionPublisherName",
+        "EcSubscriptionReadExistingEvents",
+        "EcSubscriptionTransportName"
+      ],
+      "confidence": 0.6,
+      "_source_line": 242
+    },
+    {
+      "id": "windows::EcSubscriptionEventSources",
+      "name": "EcSubscriptionEventSources",
+      "entity_type": "constant",
+      "description": "订阅的 EventSources 属性，其中包含有关本地或远程计算机的信息集合， (可将事件转发到事件收集器的事件源) 。 此属性是数组的句柄， (ecVarObjectArrayPropertyHandle 值) 。 此值通常用于收 集器启动的订阅。 它可用于源发起的订阅，以禁用从特定事件源收集事件。 EcSubscriptionEventSourceAddress 订阅的 EventSourceAddress 属性，其中包含从中收集事件的本地或远程计算机的 IP 地址或完全限 定域名 (FQDN) (事件源) 。 此属性是 EcVarTypeString 值。 EcSubscriptionEventSourceEnabled 用于启用或禁用事件源的订阅的 EventSourceEnabled 属性。 此属性是 EcVarTypeBoolean 值。 EcSubscriptionEventSourceUserName 包含用户名的订阅的 EventSourceUserName 属性，远程计算机 (事件源) 使用该属性对用户进行身 份验证。 此属性是 EcVarTypeString 值。 此属性不能用于源启动的订阅。 EcSubscriptionEventSourcePassword 包含密码的订阅的 EventSourcePassword 属性，该密码由远程计算机 (事件源) 用于对用户进行身 份验证。 此属性是 EcVarTypeString 值。 此属性不能用于源启动的订阅。 EcSubscriptionDescription 包含订阅说明的订阅的 Description 属性。 此属性是 EcVarTypeString 值。 EcSubscriptionURI 包含 URI 的订阅的 URI 属性，WS-Management 使用该 URI 连接到计算机。 例如，对于硬件事 件，URI 可以是 http://schemas.microsoft.com/wbem/wsman/1/logrecord/sel ，或者对于在事件日志中发布的事件，可以是 http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog 。 此属性是 EcVarTypeString 值。 EcSubscriptionConfigurationMode 订阅的 ConfigurationMode 属性，指定如何将事件传递到订阅。 此属性是来自",
+      "return_value": {
+        "description": "此函数返回 BOOL。"
+      },
+      "remarks": "数组从零开始，因此数组中第一项的索引为 0。示例 有关使用 EcGetObjectArraySize 函数的示例代码，请参阅 显示事件收集器订阅的属性。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "evcoll.h",
+        "library": "Wecapi.lib",
+        "dll": "Wecapi.dll",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2008"
+      },
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcGetObjectArraySize",
+        "EcSubscriptionEventSourceUserName",
+        "EcVarTypeString"
+      ],
+      "confidence": 0.65,
+      "_source_line": 263
+    },
+    {
+      "id": "windows::EcSubscriptionTransportName",
+      "name": "EcSubscriptionTransportName",
+      "entity_type": "constant",
+      "description": "订阅的 TransportName 属性指定传输的类型，该类型用于连接到远程计算机 (事件源) 。 此值可以 是 HTTP（默认值），也可以是 HTTPS。 此属性是 EcVarTypeString 值。 EcSubscriptionTransportPort 订阅的 TransportPort 属性指定端口号，传输使用该端口号连接到远程计算机 (事件源) 。 HTTP 的 默认端口号为 80，HTTPS 的默认端口号为 443。 此属性是 EcVarTypeUInt32 值。 EcSubscriptionDeliveryMode 订阅的 DeliveryMode 属性，指定是否使用推送或拉取模型将事件传递到订阅。 此属性是",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcSubscriptionDeliveryMode",
+        "EcVarTypeString",
+        "EcVarTypeUInt32"
+      ],
+      "confidence": 0.6,
+      "_source_line": 285
+    },
+    {
+      "id": "windows::EcSubscriptionDeliveryMode",
+      "name": "EcSubscriptionDeliveryMode",
+      "entity_type": "constant",
+      "description": "属性设置为 EcDeliveryModePush 时，此属性确定从事件源发送的批处理中包含的事件数。 当 EcSubscriptionDeliveryMode 属性设置为 EcDeliveryModePull 时， 此属性确定将从每个请求的事件源转发的最大项数。 此属性是 EcVarTypeUInt32 值。 EcSubscriptionDeliveryMaxLatencyTime 订阅的 DeliveryMaxLatencyTime 属性指定事件源在发送事件之前应等待多长时间 (（以毫秒为单位），即使事件源未收集足够的事件达到) 的最大项数也是如此。 当 EcSubscriptionDeliveryMode 属性设置为 EcDeliveryModePush 时，将使用此值。 此属性是 EcVarTypeUInt32 值。 EcSubscriptionHeartbeatInterval 订阅的 HeartbeatInterval 属性，用于定义在发送的检测信号消息之间观察到的检测信号时间间隔（以毫秒为单位）。 当 EcSubscriptionDeliveryMode 属性设置为 EcDeliveryModePush 时，事件收集器使用此属性来确定事件源的可用性。 当 EcSubscriptionDeliveryMode 属性设置为",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcDeliveryModePull",
+        "EcVarTypeUInt32"
+      ],
+      "confidence": 0.6,
+      "_source_line": 293
+    },
+    {
+      "id": "windows::EcVarTypeUInt32",
+      "name": "EcVarTypeUInt32",
+      "entity_type": "constant",
+      "description": "值。 EcSubscriptionLocale 订阅的 Locale 属性，用于指定区域设置 (例如，事件的 en-us) 。 此属性是 EcVarTypeString 值。 EcSubscriptionContentFormat 订阅的 ContentFormat 属性，指定传递事件内容的格式。 此属性是",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "ContentFormat",
+        "EcVarTypeString",
+        "Locale"
+      ],
+      "confidence": 0.6,
+      "_source_line": 299
+    },
+    {
+      "id": "windows::EcSubscriptionPublisherName",
+      "name": "EcSubscriptionPublisherName",
+      "entity_type": "constant",
+      "description": "订阅的 PublisherName 属性，该属性包含事件收集器计算机将事件作为本地日志引发事件的发布者的名称。 如果要在除 ForwardedEvents 日志之外的日志中收集事件，则使用此方法。 此属性是 EcVarTypeString 值。",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcVarTypeString"
+      ],
+      "confidence": 0.6,
+      "_source_line": 304
+    },
+    {
+      "id": "windows::EcSubscriptionCredentialsType",
+      "name": "EcSubscriptionCredentialsType",
+      "entity_type": "constant",
+      "description": "订阅的 CredentialsType 属性，指定事件订阅中使用的凭据的类型。 此属性是",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 306
+    },
+    {
+      "id": "windows::EcSubscriptionReadExistingEvents",
+      "name": "EcSubscriptionReadExistingEvents",
+      "entity_type": "constant",
+      "description": "订阅的 ReadExistingEvents 属性，用于确定是否收集现有事件。 此属性是 EcVarTypeBoolean 值。 EcSubscriptionDialect 订阅的 Dialect 属性，指定查询字符串的方言。 例如，基于 SQL 的筛选器的方言为 SQL，基于 WMI 的筛选器的方言为 WQL。 此属性是 EcVarTypeString 值。 EcSubscriptionType 订阅的 Type 属性，用于定义订阅是由事件源还是收集器启动。 此属性是 EC_SUBSCRPTION_TYPE 值。",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcVarTypeString"
+      ],
+      "confidence": 0.6,
+      "_source_line": 317
+    },
+    {
+      "id": "windows::EcSubscriptionAllowedIssuerCAs",
+      "name": "EcSubscriptionAllowedIssuerCAs",
+      "entity_type": "constant",
+      "description": "如果订阅使用基于证书的身份验证，则包含证书颁发机构 (CA 的订阅的 AllowedIssuerCAs 属性) 允 许。 这用于源启动的订阅。 此属性是 EcVarTypeString 值。 EcSubscriptionAllowedSubjects 包含订阅允许的主题的订阅的 AllowedSubjects 属性。 这用于源启动的订阅。 使用者为订阅中允 许的所有事件源计算机指定名称，例如域名。 此属性是 EcVarTypeString 值。 EcSubscriptionDeniedSubjects 包含订阅不允许的主题的订阅的 DeniedSubjects 属性。 这用于源启动的订阅。 使用者为订阅中不 允许的所有事件源计算机指定名称，例如域名。 此属性是 EcVarTypeString 值。 EcSubscriptionAllowedSourceDomainComputers 订阅的 AllowedSourceDomainComputers 属性，该属性包含允许将事件发送到由 SDDL 字符串定义的收集器计算机的源计算机。 此属性是 EcVarTypeString 值。",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcVarTypeString"
+      ],
+      "confidence": 0.6,
+      "_source_line": 322
+    },
+    {
+      "id": "windows::EcRuntimeStatusActiveStatusDisabled",
+      "name": "EcRuntimeStatusActiveStatusDisabled",
+      "entity_type": "constant",
+      "description": "值：1 订阅或事件源处于禁用状态。",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 353
+    },
+    {
+      "id": "windows::EcRuntimeStatusActiveStatusActive",
+      "name": "EcRuntimeStatusActiveStatusActive",
+      "entity_type": "constant",
+      "description": "订阅或事件源正在运行。",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 355
+    },
+    {
+      "id": "windows::EcRuntimeStatusActiveStatusInactive",
+      "name": "EcRuntimeStatusActiveStatusInactive",
+      "entity_type": "constant",
+      "description": "订阅或事件源处于非活动状态。 可以查询系统事件日志以查看事件收集器服务发送的错误事件。使用 EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID 值获取有关订阅或源处于非活动状态的原因的信息。",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID"
+      ],
+      "confidence": 0.6,
+      "_source_line": 356
+    },
+    {
+      "id": "windows::EcRuntimeStatusActiveStatusTrying",
+      "name": "EcRuntimeStatusActiveStatusTrying",
+      "entity_type": "constant",
+      "description": "订阅或事件源是首次尝试连接或在出现问题后重试。 当活动订阅遇到问题时，它将重试多次。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "evcoll.h",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2008"
+      },
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 358
+    },
+    {
+      "id": "windows::EcSubscriptionRunTimeStatusActive",
+      "name": "EcSubscriptionRunTimeStatusActive",
+      "entity_type": "constant",
+      "description": "= 0, EcSubscriptionRunTimeStatusLastError, EcSubscriptionRunTimeStatusLastErrorMessage, EcSubscriptionRunTimeStatusLastErrorTime, EcSubscriptionRunTimeStatusNextRetryTime, EcSubscriptionRunTimeStatusEventSources, EcSubscriptionRunTimeStatusLastHeartbeatTime, EcSubscriptionRunTimeStatusInfoIdEND }",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcSubscriptionRunTimeStatusEventSources",
+        "EcSubscriptionRunTimeStatusInfoIdEND",
+        "EcSubscriptionRunTimeStatusLastHeartbeatTime",
+        "EcSubscriptionRunTimeStatusNextRetryTime"
+      ],
+      "confidence": 0.6,
+      "_source_line": 383
+    },
+    {
+      "id": "windows::EcSubscriptionRunTimeStatusNextRetryTime",
+      "name": "EcSubscriptionRunTimeStatusNextRetryTime",
+      "entity_type": "constant",
+      "description": "获取订阅或事件源下次在出现错误) 后尝试运行 (的时间。 这将返回 EcVarTypeDateTime 值。 EcSubscriptionRunTimeStatusEventSources 获取订阅的事件源。 对于收集器启动的订阅，此列表将与订阅配置中的列表相同。 对于源发起的订阅，此列表将是收集器在过去 30 天内从中听到的事件源集。 此列表在事件收集器重启后永久存在。 这将返回 EcVarTypeString 值。",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcSubscriptionRunTimeStatusEventSources",
+        "EcVarTypeDateTime",
+        "EcVarTypeString"
+      ],
+      "confidence": 0.6,
+      "_source_line": 400
+    },
+    {
+      "id": "windows::EcSubscriptionRunTimeStatusLastHeartbeatTime",
+      "name": "EcSubscriptionRunTimeStatusLastHeartbeatTime",
+      "entity_type": "constant",
+      "description": "获取上次检测信号 (用于表示订阅正常工作的信号的时间，) 订阅或事件源发生。 这将返回 EcVarTypeDateTime 值。",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcVarTypeDateTime"
+      ],
+      "confidence": 0.6,
+      "_source_line": 403
+    },
+    {
+      "id": "windows::EcSubscriptionTypeSourceInitiated",
+      "name": "EcSubscriptionTypeSourceInitiated",
+      "entity_type": "constant",
+      "description": "值： 0 允许在事件收集器计算机上定义事件订阅，而无需定义事件源计算机。 然后，可以使用组策略设置(设置多个远程事件源计算机，) 将事件转发到事件收集器计算机。 有关详细信息，请参阅 设置源启动的订阅。 当你不知道或不想指定将转发事件的所有事件源计算机时，此订阅类型非常有用。",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 425
+    },
+    {
+      "id": "windows::EcSubscriptionTypeCollectorInitiated",
+      "name": "EcSubscriptionTypeCollectorInitiated",
+      "entity_type": "constant",
+      "description": "值：1 从事件源接收转发事件的计算机 (发布事件的其他计算机) 启动订阅。 在创建订阅时指定所有事件 源。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "evcoll.h",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2008"
+      },
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 432
+    },
+    {
+      "id": "windows::EC_OBJECT_ARRAY_PROPERTY_HANDLE",
+      "name": "EC_OBJECT_ARRAY_PROPERTY_HANDLE",
+      "entity_type": "constant",
+      "description": "PropertyHandleVal; }; DWORD Count; DWORD Type; }",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "PropertyHandleVal"
+      ],
+      "confidence": 0.65,
+      "_source_line": 460
+    },
+    {
+      "id": "windows::PropertyHandleVal",
+      "name": "PropertyHandleVal",
+      "entity_type": "constant",
+      "description": "Count 元素数 (长度不) 字节。 用于数组和二进制或字符串类型。 Type 结构中数据的类型。 使用 EC_VARIANT_TYPE 枚举中的值指定类型。 指定类型后，可以使用任何联合成员来访问实际值。 例如，如果类型为 EcVarTypeDateTime，则",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "evcoll.h",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2008"
+      },
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EC_VARIANT_TYPE",
+        "EcVarTypeDateTime"
+      ],
+      "confidence": 0.6,
+      "_source_line": 473
+    },
+    {
+      "id": "windows::EcVarTypeNull",
+      "name": "EcVarTypeNull",
+      "entity_type": "constant",
+      "description": "= 0, EcVarTypeBoolean, EcVarTypeUInt32, EcVarTypeDateTime, EcVarTypeString, EcVarObjectArrayPropertyHandle}",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcVarObjectArrayPropertyHandle",
+        "EcVarTypeDateTime",
+        "EcVarTypeString",
+        "EcVarTypeUInt32"
+      ],
+      "confidence": 0.6,
+      "_source_line": 496
+    },
+    {
+      "id": "windows::EcVarTypeDateTime",
+      "name": "EcVarTypeDateTime",
+      "entity_type": "constant",
+      "description": "ULONGLONG 值。",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 504
+    },
+    {
+      "id": "windows::EcClose",
+      "name": "EcClose",
+      "entity_type": "constant",
+      "description": "函数关闭从其他事件收集器函数接收的句柄。 当用户完成句柄时，必须使用此调用关闭事件收集器管理 API 调用返回的任何句柄。 成功调用此函数后，句柄变为无效。",
+      "syntax": "BOOL EcClose(\n[in] EC_HANDLE Object);",
+      "parameters": [
+        {
+          "name": "Object",
+          "direction": "in",
+          "description": "从事件收集器管理 API 调用返回的有效打开句柄。"
+        }
+      ],
+      "return_value": {
+        "description": "此函数返回 BOOL。"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "evcoll.h",
+        "library": "Wecapi.lib",
+        "dll": "Wecapi.dll",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2008"
+      },
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 526
+    },
+    {
+      "id": "windows::EcSubscriptionEventSourceUserName",
+      "name": "EcSubscriptionEventSourceUserName",
+      "entity_type": "constant",
+      "description": "或 EcSubscriptionEventSourcePassword 值，获取数组 中的 Address、Enabled、UserName 和 Password 属性。[in] ArrayIndex 数组的索引，该数组指定要从哪个事件源获取属性。[in] Flags 保留。 必须为 0。 [in] PropertyValueBufferSize 包含 属性值的缓冲区的大小。 大小必须至少为 EC_VARIANT 值的大小。[in] PropertyValueBuffer 用户提供的用于存储属性值的缓冲区。[out] PropertyValueBufferUsed 函数成功返回时使用的用户提供的缓冲区的大小，或函数失败并 出现 ERROR_INSUFFICIENT_BUFFER时存储属性值所需的大小。",
+      "return_value": {
+        "description": "此函数返回 BOOL。"
+      },
+      "remarks": "数组从零开始，因此数组中第一项的索引为 0。 无法检索事件源或订阅的 Password 属性。 出于安全原因，将为 属性值返回一个空字符串，最后一个错误将设置为 ERROR_ACCESS_DENIED。 一个订阅可以有多个事件源，每个源可以具有 Address、 Enabled、 UserName 和 Password 属 性。示例 有关使用 EcGetObjectArrayProperty 函数的示例代码，请参阅 显示事件收集器订阅的属性。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "evcoll.h",
+        "library": "Wecapi.lib",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2008",
+        "dll": "Wecapi.dll"
+      },
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "Address",
+        "EC_VARIANT",
+        "ERROR_ACCESS_DENIED",
+        "EcGetObjectArrayProperty",
+        "Flags",
+        "Password",
+        "UserName"
+      ],
+      "confidence": 0.65,
+      "_source_line": 620
+    },
+    {
+      "id": "windows::EcGetObjectArraySize",
+      "name": "EcGetObjectArraySize",
+      "entity_type": "constant",
+      "description": "函数检索 (订阅的事件源的属性值数组的索引数) 的大小。",
+      "syntax": "BOOL EcGetObjectArraySize(\n[in]  EC_OBJECT_ARRAY_PROPERTY_HANDLE ObjectArray,\n[out] PDWORD                          ObjectArraySize);",
+      "parameters": [
+        {
+          "name": "ObjectArray",
+          "direction": "in",
+          "description": "要从中获取大小的数组的句柄。 数组包含订阅的事件源的属性值。 将"
+        }
+      ],
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 655
+    },
+    {
+      "id": "windows::EcSubscriptionRunTimeStatusEventSources",
+      "name": "EcSubscriptionRunTimeStatusEventSources",
+      "entity_type": "constant",
+      "description": "值可用于获取与订阅关联的事件源的列表。[in] EventSourceName 要从中获取状态的事件源的名称。 每个订阅可以有多个事件源。[in] Flags 保留。 必须为 NULL。 [in] StatusValueBufferSize 将保存运行时状态信息的用户提供的缓冲区的大小。 [in] StatusValueBuffer 用户提供的用于保存运行时状态信息的缓冲区。 缓冲区将保留适当的值，具体取决于传递到",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "Flags"
+      ],
+      "confidence": 0.6,
+      "_source_line": 732
+    },
+    {
+      "id": "windows::StatusInfoId",
+      "name": "StatusInfoId",
+      "entity_type": "constant",
+      "description": "参数中的EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID值。[out] StatusValueBufferUsed 成功返回时函数使用的用户提供的缓冲区的大小，或函数因 ERROR_INSUFFICIENT_BUFFER失 败而存储属性值所需的大小。",
+      "return_value": {
+        "description": "此函数返回 BOOL。"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "evcoll.h",
+        "library": "Wecapi.lib",
+        "dll": "Wecapi.dll",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2008"
+      },
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 741
+    },
+    {
+      "id": "windows::EcInsertObjectArrayElement",
+      "name": "EcInsertObjectArrayElement",
+      "entity_type": "constant",
+      "description": "函数将空对象插入到订阅的事件源的属性值数组中。 对象插入到指定的数组索引处。",
+      "syntax": "BOOL EcInsertObjectArrayElement(\n[in] EC_OBJECT_ARRAY_PROPERTY_HANDLE ObjectArray,   [in] DWORD                           ArrayIndex);",
+      "parameters": [
+        {
+          "name": "ObjectArray",
+          "direction": "in",
+          "description": "对象插入到的数组的句柄。 数组包含订阅的事件源的属性值。 将 EcSubscriptionEventSources 值传递到 Subscription 参数时，EcGetSubscriptionProperty 方法将返回数组句柄。[in] ArrayIndex 一个数组索引，指示插入对象的位置。"
+        }
+      ],
+      "return_value": {
+        "description": "此函数返回 BOOL。"
+      },
+      "remarks": "数组从零开始，因此数组中第一项的索引为 0。 使用 EcSetObjectArrayProperty 设置插入到 ObjectArray 参数中指定的数组中的空对象的单个属 性。示例 有关使用 EcInsertObjectArrayElement 函数的示例代码，请参阅 将事件源添加到收集器发起的订阅。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "evcoll.h",
+        "library": "Wecapi.lib",
+        "dll": "Wecapi.dll",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2008"
+      },
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcSetObjectArrayProperty"
+      ],
+      "confidence": 0.75,
+      "_source_line": 759
+    },
+    {
+      "id": "windows::EcOpenSubscription",
+      "name": "EcOpenSubscription",
+      "entity_type": "constant",
+      "description": "函数用于根据指定的标志值打开现有订阅或创建新订阅。",
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 789
+    },
+    {
+      "id": "windows::EC_HANDLE",
+      "name": "EC_HANDLE",
+      "entity_type": "constant",
+      "description": "EcOpenSubscription( [in] LPCWSTR SubscriptionName, [in] DWORD AccessMask, [in] DWORD Flags);",
+      "parameters": [
+        {
+          "name": "SubscriptionName",
+          "direction": "in",
+          "description": "指定订阅的名称。 为此参数提供的值在计算机范围内应是唯一的。[in] AccessMask 一个访问掩码，指定对订阅的所需访问权限。 使用 EC_READ_ACCESS 或 EC_WRITE_ACCESS 常量指定访问权限。 如果订阅的安全描述符不允许对调用进程进行请求的访问，则函数将失败。"
+        },
+        {
+          "name": "Flags",
+          "direction": "in",
+          "description": "一个 值，该值指定是要打开新的订阅还是打开现有订阅。 使用 EC_CREATE_NEW、 EC_OPEN_ALWAYS或 EC_OPEN_EXISTING 常量。"
+        }
+      ],
+      "return_value": {
+        "description": "如果该函数成功，它将返回一个句柄， (EC_HANDLE) 到新的订阅对象。 否则返回 NULL ，在这 种情况下，使用 GetLastError 函数获取错误代码。"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "evcoll.h",
+        "library": "Wecapi.lib",
+        "dll": "Wecapi.dll",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2008"
+      },
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcOpenSubscription",
+        "Flags",
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.9,
+      "_source_line": 791
+    },
+    {
+      "id": "windows::EcRemoveObjectArrayElement",
+      "name": "EcRemoveObjectArrayElement",
+      "entity_type": "constant",
+      "description": "函数从包含订阅事件源的属性值的对象数组中删除元素。",
+      "syntax": "BOOL EcRemoveObjectArrayElement(\n[in] EC_OBJECT_ARRAY_PROPERTY_HANDLE ObjectArray,   [in] DWORD                           ArrayIndex);",
+      "parameters": [
+        {
+          "name": "ObjectArray",
+          "direction": "in",
+          "description": "要在其中删除元素的数组的句柄。 数组包含订阅的事件源的属性值。 将 EcSubscriptionEventSources 值传递到 Subscription 参数时，数组句柄由"
+        }
+      ],
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 842
+    },
+    {
+      "id": "windows::EcRetrySubscription",
+      "name": "EcRetrySubscription",
+      "entity_type": "constant",
+      "description": "函数用于重试连接到未连接的订阅的事件源。",
+      "syntax": "BOOL EcRetrySubscription(\n[in] LPCWSTR SubscriptionName,   [in] LPCWSTR EventSourceName,\n[in] DWORD   Flags);",
+      "parameters": [
+        {
+          "name": "SubscriptionName",
+          "direction": "in",
+          "description": "要连接到的订阅的名称。[in] EventSourceName 订阅的事件源的名称。 此参数是可选的，可以为 NULL。 当订阅为源启动时，此参数必须为 NULL 。 如果此参数为 NULL，将重试整个订阅。[in] Flags 保留。 必须为 NULL。"
+        }
+      ],
+      "return_value": {
+        "description": "此函数返回 BOOL。"
+      },
+      "remarks": "若要为订阅的所有事件源重试订阅，请使用 EcSaveSubscription 函数，而不是单独在每个事件 源上调用 EcRetrySubscription 。示例 有关使用 EcRetrySubscription 函数的示例代码，请参阅 重试事件收集器订阅。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "evcoll.h",
+        "library": "Wecapi.lib",
+        "dll": "Wecapi.dll",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2008"
+      },
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcSaveSubscription"
+      ],
+      "confidence": 0.65,
+      "_source_line": 872
+    },
+    {
+      "id": "windows::EcSetSubscriptionProperty",
+      "name": "EcSetSubscriptionProperty",
+      "entity_type": "constant",
+      "description": "函数设置新值或更新订阅的现有值。 除非通过 EcSaveSubscription 方法保存通过此方法设置的新值，否则它们不会处于活动状态。",
+      "syntax": "BOOL EcSetSubscriptionProperty(\n[in] EC_HANDLE                   Subscription,   [in] EC_SUBSCRIPTION_PROPERTY_ID PropertyId,   [in] DWORD                       Flags,\n[in] PEC_VARIANT                 PropertyValue);",
+      "parameters": [
+        {
+          "name": "Subscription",
+          "direction": "in",
+          "description": "订阅对象的句柄。[in] PropertyId"
+        }
+      ],
+      "header": "evcoll.h",
+      "deprecated": false,
+      "cross_references": [
+        "EcSaveSubscription"
+      ],
+      "confidence": 0.8,
+      "_source_line": 966
+    }
+  ]
+}

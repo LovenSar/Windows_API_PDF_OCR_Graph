@@ -1,0 +1,2840 @@
+2026-03-05 01:38:06
+
+≦ 1 ≧
+Bluetooth 项目2023/08/22
+蓝牙技术概述。
+若要开发蓝牙，需要以下标头：
+bluetoothapis.h bthdef.h
+bthsdpdef.h ws2bth.h
+有关此技术的编程指南，请参阅：
+蓝牙枚举  
+BLUETOOTH_AUTHENTICATION_METHOD
+告知我们有关下载 PDF 体验的信息。
+BLUETOOTH_AUTHENTICATION_METHOD枚举定义设备配对期间支持的身份验证类型。 BLUETOOTH_AUTHENTICATION_REQUIREMENTS
+BLUETOOTH_AUTHENTICATION_REQUIREMENTS枚举指定身份验证所需的“中间人”保护。 BLUETOOTH_IO_CAPABILITY
+BLUETOOTH_IO_CAPABILITY 枚举定义蓝牙设备的输入/输出功能。
+函数  
+BluetoothAuthenticateDevice
+向远程蓝牙设备发送身份验证请求。 BluetoothAuthenticateDeviceEx
+BluetoothAuthenticateDeviceEx 函数向远程蓝牙设备发送身份验证请求。
+
+≦ 2 ≧
+ 
+BluetoothAuthenticateMultipleDevices
+使调用方能够在蓝牙连接向导的单个实例期间提示对多个设备进行身份验证。
+BluetoothDisplayDeviceProperties 启动控制面板设备信息属性表。 BluetoothEnableDiscovery
+BluetoothEnableDiscovery 函数更改本地蓝牙无线电或无线电的发现状态。 BluetoothEnableIncomingConnections
+BluetoothEnableIncomingConnections 函数修改本地蓝牙无线电是否接受传入连接。 BluetoothEnumerateInstalledServices
+BluetoothEnumerateInstalledServices 函数枚举在蓝牙设备上启用的服务 GUID (全局唯一标识符)。
+BluetoothFindDeviceClose
+BluetoothFindDeviceClose 函数关闭与设备查询关联的枚举句柄。 BluetoothFindFirstDevice
+BluetoothFindFirstDevice 函数开始枚举蓝牙设备。 BluetoothFindFirstRadio
+BluetoothFindFirstRadio 函数开始枚举本地蓝牙无线电。 BluetoothFindNextDevice
+BluetoothFindNextDevice 函数查找下一个蓝牙设备。 BluetoothFindNextRadio
+BluetoothFindNextRadio 函数查找下一个蓝牙无线电。 BluetoothFindRadioClose
+BluetoothFindRadioClose 函数关闭与查找蓝牙无线电关联的枚举句柄。 BluetoothGetDeviceInfo
+检索有关远程蓝牙设备的信息。
+
+≦ 3 ≧
+ 
+BluetoothGetRadioInfo
+获取有关蓝牙无线电的信息。 BluetoothIsConnectable
+BluetoothIsConnectable 函数确定蓝牙无线电或无线电是否可连接。 BluetoothIsDiscoverable
+BluetoothIsDiscoverable 函数确定蓝牙无线电或无线电是否可被发现。 BluetoothIsVersionAvailable
+BluetoothIsVersionAvailable 函数指示已安装的蓝牙二进制文件集是否支持请求的版本。 BluetoothRegisterForAuthentication
+BluetoothRegisterForAuthentication 函数注册当特定蓝牙设备请求身份验证时调用的回调函数。 BluetoothRegisterForAuthenticationEx
+BluetoothRegisterForAuthenticationEx 函数为 pin 请求、数字比较和回调函数注册应用程序。 BluetoothRemoveDevice
+删除蓝牙设备和计算机之间的身份验证，并清除设备的缓存服务信息。 BluetoothSdpEnumAttributes
+BluetoothSdpEnumAttributes 函数通过 SDP 记录流枚举，并为记录中的每个属性调用回调函数。 BluetoothSdpGetAttributeValue
+BluetoothSdpGetAttributeValue 函数检索属性标识符的属性值。 BluetoothSdpGetContainerElementData
+循环访问容器流并返回容器元素中包含的每个元素。 BluetoothSdpGetElementData
+从 SDP 流中检索和分析单个元素。 BluetoothSdpGetString
+将 SDP 记录中嵌入的原始字符串转换为 Unicode 字符串。 BluetoothSelectDevices
+
+≦ 4 ≧
+ 
+启用蓝牙设备选择。
+BluetoothSelectDevicesFree
+释放与之前对 BluetoothSelectDevices 的调用关联的资源。 BluetoothSendAuthenticationResponse
+收到发送密钥响应的身份验证请求时，将调用 BluetoothSendAuthenticationResponse 函数。 BluetoothSendAuthenticationResponseEx
+当发出发送密钥的身份验证请求或进行数字比较响应时，将调用
+BluetoothSendAuthenticationResponseEx 函数。 BluetoothSetServiceState
+启用或禁用蓝牙设备的服务。
+BluetoothUnregisterAuthentication
+BluetoothUnregisterAuthentication 函数删除以前通过调用 BluetoothRegisterForAuthentication 函
+数注册的回调例程的注册。 BluetoothUpdateDeviceRecord
+汇报有关蓝牙设备的本地计算机缓存。 PFN_AUTHENTICATION_CALLBACK
+与 BluetoothRegisterForAuthentication 函数结合使用。 PFN_AUTHENTICATION_CALLBACK_EX
+PFN_AUTHENTICATION_CALLBACK_EX函数是与 BluetoothRegisterForAuthenticationEx 函数结合使用的回调函数原型。
+PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK
+一个回调函数原型，该原型针对传递到 BluetoothSdpEnumAttributes 函数调用的 pSDPStream 参
+数中找到的每个属性调用一次。 PFN_DEVICE_CALLBACK
+与选择蓝牙设备关联的回调原型。结构
+
+≦ 5 ≧
+ 
+BLUETOOTH_ADDRESS_STRUCT
+BLUETOOTH_ADDRESS结构提供蓝牙设备的地址。 BLUETOOTH_AUTHENTICATE_RESPONSE
+BLUETOOTH_AUTHENTICATE_RESPONSE 结构包含为响应BTH_REMOTE_AUTHENTICATE_REQUEST 事件而传递的信息。
+BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS
+BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS结构包含有关响应身份验证请求的蓝牙设备的特定配置信息。
+BLUETOOTH_COD_PAIRS
+BLUETOOTH_COD_PAIRS结构提供规范和检索蓝牙类设备 (COD) 信息。 BLUETOOTH_DEVICE_INFO_STRUCT
+BLUETOOTH_DEVICE_INFO结构提供有关蓝牙设备的信息。
+BLUETOOTH_DEVICE_SEARCH_PARAMS 指定蓝牙设备搜索的搜索条件。
+BLUETOOTH_FIND_RADIO_PARAMS
+BLUETOOTH_FIND_RADIO_PARAMS结构有助于枚举已安装的蓝牙无线电。
+BLUETOOTH_LOCAL_SERVICE_INFO_STRUCT 包含蓝牙设备的本地服务信息。
+BLUETOOTH_NUMERIC_COMPARISON_INFO
+BLUETOOTH_NUMERIC_COMPARISON_INFO 结构包含用于通过数字比较进行身份验证的数值。 BLUETOOTH_OOB_DATA_INFO
+BLUETOOTH_OOB_DATA_INFO结构包含用于在建立带外设备配对之前进行身份验证的数据。 BLUETOOTH_PASSKEY_INFO
+BLUETOOTH_PASSKEY_INFO结构包含用于身份验证的密钥值。 密钥类似于密码，只是密钥值仅用于身份验证一次。
+BLUETOOTH_PIN_INFO
+
+≦ 6 ≧
+ 
+BLUETOOTH_PIN_INFO结构包含用于通过 PIN 进行身份验证的信息。
+BLUETOOTH_RADIO_INFO 包含有关蓝牙无线电的信息。
+BLUETOOTH_SELECT_DEVICE_PARAMS
+促进和管理蓝牙设备和服务的可见性、身份验证和选择。 BTH_DEVICE_INFO
+存储有关蓝牙设备的信息。 BTH_HCI_EVENT_INFO
+用于获取蓝牙WM_DEVICECHANGE消息。 BTH_L2CAP_EVENT_INFO
+包含有关与 L2CAP 通道关联的事件的数据。 BTH_QUERY_DEVICE
+查询是否存在蓝牙设备时，将使用BTH_QUERY_DEVICE结构。 BTH_QUERY_SERVICE
+BTH_QUERY_SERVICE结构用于查询蓝牙服务。 BTH_RADIO_IN_RANGE
+在通信范围内存储有关蓝牙设备的数据。 BTH_SET_SERVICE
+为指定的蓝牙服务提供服务信息。 SDP_ELEMENT_DATA
+SDP_ELEMENT_DATA结构存储 SDP 元素数据。 SDP_STRING_TYPE_DATA
+SDP_STRING_TYPE_DATA结构存储有关 SDP 字符串类型的信息。 SdpAttributeRange
+SdpAttributeRange 结构用于蓝牙查询，以限制在查询中返回的属性集。
+
+≦ 7 ≧
+ 
+SdpQueryUuid
+SdpQueryUuid 结构有助于搜索 UUID。 SdpQueryUuidUnion
+SdpQueryUuidUnion 联合包含要对其执行 SDP 查询的 UUID。 与 SdpQueryUuid 结构结合使用。 SOCKADDR_BTH
+SOCKADDR_BTH结构与蓝牙套接字操作结合使用，由地址系列AF_BTH定义。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 8 ≧
+bluetoothapis.h 标头项目2023/08/22
+此标头由多种技术使用。 有关详细信息，请参阅：
+蓝牙
+蓝牙设备参考
+bluetoothapis.h 包含以下编程接口：
+函数  
+BluetoothAuthenticateDevice
+将身份验证请求发送到远程蓝牙设备。 BluetoothAuthenticateDeviceEx
+BluetoothAuthenticateDeviceEx 函数将身份验证请求发送到远程蓝牙设备。 BluetoothAuthenticateMultipleDevices
+使调用方能够在蓝牙连接向导的单个实例期间提示对多个设备进行身份验证。
+BluetoothDisplayDeviceProperties 启动控制面板设备信息属性表。 BluetoothEnableDiscovery
+BluetoothEnableDiscovery 函数更改本地蓝牙无线电或无线电的发现状态。 BluetoothEnableIncomingConnections
+BluetoothEnableIncomingConnections 函数修改本地蓝牙无线电是否接受传入连接。 BluetoothEnumerateInstalledServices
+BluetoothEnumerateInstalledServices 函数枚举在蓝牙设备上启用的服务 GUID (全局唯一标识符)。
+BluetoothFindDeviceClose
+BluetoothFindDeviceClose 函数关闭与设备查询关联的枚举句柄。
+
+≦ 9 ≧
+ 
+BluetoothFindFirstDevice
+BluetoothFindFirstDevice 函数开始枚举蓝牙设备。 BluetoothFindFirstRadio
+BluetoothFindFirstRadio 函数开始枚举本地蓝牙无线电。 BluetoothFindNextDevice
+BluetoothFindNextDevice 函数查找下一个蓝牙设备。 BluetoothFindNextRadio
+BluetoothFindNextRadio 函数查找下一个蓝牙无线电。 BluetoothFindRadioClose
+BluetoothFindRadioClose 函数关闭与查找蓝牙无线电关联的枚举句柄。 BluetoothGetDeviceInfo
+检索有关远程蓝牙设备的信息。 BluetoothGetRadioInfo
+获取有关蓝牙无线电的信息。 BluetoothIsConnectable
+BluetoothIsConnectable 函数确定蓝牙无线电或无线电是否可连接。 BluetoothIsDiscoverable
+BluetoothIsDiscoverable 函数确定蓝牙无线电或无线电是否可发现。 BluetoothIsVersionAvailable
+BluetoothIsVersionAvailable 函数指示已安装的蓝牙二进制文件集是否支持请求的版本。 BluetoothRegisterForAuthentication
+BluetoothRegisterForAuthentication 函数注册当特定蓝牙设备请求身份验证时调用的回调函数。 BluetoothRegisterForAuthenticationEx
+BluetoothRegisterForAuthenticationEx 函数为 Pin 请求、数字比较和回调函数注册应用程序。 BluetoothRemoveDevice
+
+≦ 10 ≧
+ 
+删除蓝牙设备和计算机之间的身份验证，并清除设备的缓存服务信息。 BluetoothSdpEnumAttributes
+BluetoothSdpEnumAttributes 函数通过 SDP 记录流枚举，并为记录中的每个属性调用回调函数。 BluetoothSdpGetAttributeValue
+BluetoothSdpGetAttributeValue 函数检索属性标识符的属性值。 BluetoothSdpGetContainerElementData
+循环访问容器流并返回容器元素中包含的每个元素。 BluetoothSdpGetElementData
+从 SDP 流中检索和分析单个元素。 BluetoothSdpGetString
+将 SDP 记录中嵌入的原始字符串转换为 Unicode 字符串。
+BluetoothSelectDevices 启用蓝牙设备选择。
+BluetoothSelectDevicesFree
+释放与之前调用 BluetoothSelectDevices 关联的资源。 BluetoothSendAuthenticationResponse
+收到发送密钥响应的身份验证请求时，将调用 BluetoothSendAuthenticationResponse 函数。 BluetoothSendAuthenticationResponseEx
+当发送密钥的身份验证请求或进行数字比较响应时，将调用
+BluetoothSendAuthenticationResponseEx 函数。 BluetoothSetLocalServiceInfo
+设置特定蓝牙无线电的本地服务信息。 BluetoothSetServiceState
+启用或禁用蓝牙设备的服务。
+BluetoothUnregisterAuthentication
+
+≦ 11 ≧
+ 
+BluetoothUnregisterAuthentication 函数删除以前通过调用 BluetoothRegisterForAuthentication 函
+数注册的回调例程的注册。 BluetoothUpdateDeviceRecord
+汇报有关蓝牙设备的本地计算机缓存。
+回调函数  
+PFN_AUTHENTICATION_CALLBACK
+与 BluetoothRegisterForAuthentication 函数结合使用。 PFN_AUTHENTICATION_CALLBACK_EX
+PFN_AUTHENTICATION_CALLBACK_EX 函数是与 BluetoothRegisterForAuthenticationEx 函数结合使用的回调函数原型。
+PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK
+一个回调函数原型，为传递到 BluetoothSdpEnumAttributes 函数调用的 pSDPStream 参数中找到
+的每个属性调用一次。 PFN_DEVICE_CALLBACK
+与选择蓝牙设备关联的回调原型。
+结构  
+BLUETOOTH_ADDRESS_STRUCT
+BLUETOOTH_ADDRESS结构提供蓝牙设备的地址。 BLUETOOTH_AUTHENTICATE_RESPONSE
+BLUETOOTH_AUTHENTICATE_RESPONSE结构包含为响应BTH_REMOTE_AUTHENTICATE_REQUEST 事件而传递的信息。
+BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS
+
+≦ 12 ≧
+ 
+BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS结构包含有关响应身份验证请求的蓝牙设备的特定配置信息。
+BLUETOOTH_COD_PAIRS
+BLUETOOTH_COD_PAIRS结构提供规范和检索蓝牙类设备 (COD) 信息。 BLUETOOTH_DEVICE_INFO_STRUCT
+BLUETOOTH_DEVICE_INFO结构提供有关蓝牙设备的信息。
+BLUETOOTH_DEVICE_SEARCH_PARAMS 指定蓝牙设备搜索的搜索条件。
+BLUETOOTH_FIND_RADIO_PARAMS
+BLUETOOTH_FIND_RADIO_PARAMS结构有助于枚举已安装的蓝牙无线电。
+BLUETOOTH_LOCAL_SERVICE_INFO_STRUCT 包含蓝牙设备的本地服务信息。
+BLUETOOTH_NUMERIC_COMPARISON_INFO
+BLUETOOTH_NUMERIC_COMPARISON_INFO 结构包含用于通过数字比较进行身份验证的数值。 BLUETOOTH_OOB_DATA_INFO
+BLUETOOTH_OOB_DATA_INFO结构包含用于在建立带外设备配对之前进行身份验证的数据。 BLUETOOTH_PASSKEY_INFO
+BLUETOOTH_PASSKEY_INFO结构包含用于身份验证的密钥值。 密钥类似于密码，只是密钥值仅用于身份验证一次。
+BLUETOOTH_PIN_INFO
+BLUETOOTH_PIN_INFO结构包含用于通过 PIN 进行身份验证的信息。
+BLUETOOTH_RADIO_INFO 包含有关蓝牙无线电的信息。
+BLUETOOTH_SELECT_DEVICE_PARAMS
+促进和管理蓝牙设备和服务的可见性、身份验证和选择。 SDP_ELEMENT_DATA
+
+≦ 13 ≧
+ 
+SDP_ELEMENT_DATA结构存储 SDP 元素数据。 SDP_STRING_TYPE_DATA
+SDP_STRING_TYPE_DATA结构存储有关 SDP 字符串类型的信息。
+枚举  
+BLUETOOTH_AUTHENTICATION_METHOD
+BLUETOOTH_AUTHENTICATION_METHOD枚举定义设备配对期间支持的身份验证类型。 BLUETOOTH_AUTHENTICATION_REQUIREMENTS
+BLUETOOTH_AUTHENTICATION_REQUIREMENTS枚举指定身份验证所需的“中间人”保护。 BLUETOOTH_IO_CAPABILITY
+BLUETOOTH_IO_CAPABILITY枚举定义蓝牙设备的输入/输出功能。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 14 ≧
+bluetoothapis.h)
+(BLUETOOTH_ADDRESS_STRUCT 结构项目2023/08/22
+BLUETOOTH_ADDRESS 结构提供蓝牙设备的地址。
+语法 C++
+typedef struct _BLUETOOTH_ADDRESS {   union {
+    BTH_ADDR ullLong;
+    BYTE     rgBytes[6];   };
+} BLUETOOTH_ADDRESS_STRUCT;
+成员 ullLong
+蓝牙设备的地址。 rgBytes[6]
+蓝牙设备的地址，以字节数组表示。要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+ 
+Windows Vista、Windows XP SP2 [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+ﾉ
+展开表
+
+≦ 15 ≧
+bluetoothapis.h)
+(BLUETOOTH_AUTHENTICATE_RESPONS
+E 结构项目2024/02/26
+BLUETOOTH_AUTHENTICATE_RESPONSE 结构包含为响应 BTH_REMOTE_AUTHENTICATE_REQUEST事件而传递的信息。
+语法 C++
+typedef struct _BLUETOOTH_AUTHENTICATE_RESPONSE {   BLUETOOTH_ADDRESS               bthAddressRemote;
+  BLUETOOTH_AUTHENTICATION_METHOD authMethod;   union {
+    BLUETOOTH_PIN_INFO                pinInfo;     BLUETOOTH_OOB_DATA_INFO           oobInfo;
+    BLUETOOTH_NUMERIC_COMPARISON_INFO numericCompInfo;
+    BLUETOOTH_PASSKEY_INFO            passkeyInfo;   };
+  UCHAR                           negativeResponse;
+} BLUETOOTH_AUTHENTICATE_RESPONSE, *PBLUETOOTH_AUTHENTICATE_RESPONSE; 成员
+bthAddressRemote
+包含请求身份验证响应的设备地址 的BLUETOOTH_ADDRESS 结构。
+注意 可以在从回调检索到 的 PBLUETOOTH_AUTHENTICATION_CALLBACK
+PARAMS 结构中找到此信息。  
+authMethod
+定义支持的身份验证方法 的BLUETOOTH_AUTHENTICATION_METHOD 枚举。
+
+≦ 16 ≧
+ 
+注意 可以在从回调检索到 的 PBLUETOOTH_AUTHENTICATION_CALLBACK PARAMS 结构中找到此信息。
+pinInfo
+必须根据 authMethod 中定义的身份验证方法使用以下结构之一。 例如，如果指定 了 BLUETOOTH_AUTHENTICATION_METHOD_LEGACY ，则必须填充
+BLUETOOTH_PIN_INFO 结构。包含有关 PIN 身份验证的信息。 oobInfo
+包含用于对设备进行身份验证的带外数据。 numericCompInfo
+包含数字比较身份验证的信息。 passkeyInfo
+包含有关密钥身份验证的信息。 negativeResponse
+如果身份验证请求被拒绝，则为 TRUE;否则为 FALSE。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows XP SP2 [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+BLUETOOTH_AUTHENTICATION_METHOD
+展开表
+
+≦ 17 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 18 ≧
+bluetoothapis.h)
+(BLUETOOTH_AUTHENTICATION_CALLB
+ACK_PARAMS 结构项目2024/03/04
+BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS结构包含有关响应身份验证请求的蓝牙设备的特定配置信息。
+语法 C++
+typedef struct _BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS {   BLUETOOTH_DEVICE_INFO                 deviceInfo;
+  BLUETOOTH_AUTHENTICATION_METHOD       authenticationMethod;   BLUETOOTH_IO_CAPABILITY               ioCapability;
+  BLUETOOTH_AUTHENTICATION_REQUIREMENTS authenticationRequirements;   union {
+    ULONG Numeric_Value;
+    ULONG Passkey;   };
+} BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS, *PBLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS;
+成员 deviceInfo
+包含有关蓝牙设备信息的 BLUETOOTH_DEVICE_INFO 结构。 authenticationMethod
+定义蓝牙设备使用的身份验证方法的 BLUETOOTH_AUTHENTICATION_METHOD 枚举。 ioCapability
+定义蓝牙设备的输入/输出功能的 BLUETOOTH_IO_CAPABILITY 枚举。 authenticationRequirements
+BLUETOOTH_AUTHENTICATION_REQUIREMENTS指定身份验证所需的“中间人”保护。
+
+≦ 19 ≧
+Numeric_Value
+用于数字比较身份验证的 ULONG 值。 Passkey
+用作用于身份验证的密钥的 ULONG 值。要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows XP SP2 [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+BLUETOOTH_AUTHENTICATION_REQUIREMENTS
+BLUETOOTH_DEVICE_INFO BLUETOOTH_IO_CAPABILITY
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 20 ≧
+BLUETOOTH_AUTHENTICATION_METHO
+D 枚举 (bluetoothapis.h) 项目2024/02/23
+BLUETOOTH_AUTHENTICATION_METHOD枚举定义设备配对期间支持的身份验证类型。
+语法 C++
+typedef enum _BLUETOOTH_AUTHENTICATION_METHOD {   BLUETOOTH_AUTHENTICATION_METHOD_LEGACY = 0x1,   BLUETOOTH_AUTHENTICATION_METHOD_OOB,
+  BLUETOOTH_AUTHENTICATION_METHOD_NUMERIC_COMPARISON,   BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY_NOTIFICATION,   BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY
+} BLUETOOTH_AUTHENTICATION_METHOD, *PBLUETOOTH_AUTHENTICATION_METHOD; 常量
+ﾉ
+ 
+BLUETOOTH_AUTHENTICATION_METHOD_LEGACY 值： 0x1
+蓝牙设备支持通过 PIN 进行身份验证。 BLUETOOTH_AUTHENTICATION_METHOD_OOB
+蓝牙设备支持通过带外数据进行身份验证。
+BLUETOOTH_AUTHENTICATION_METHOD_NUMERIC_COMPARISON 蓝牙设备支持通过数字比较进行身份验证。
+BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY_NOTIFICATION
+蓝牙设备支持通过密钥通知进行身份验证。 BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY
+蓝牙设备支持通过密钥进行身份验证。要求
+展开表
+
+≦ 21 ≧
+要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+具有 SP2 的 Windows XP [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h) 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 22 ≧
+BLUETOOTH_AUTHENTICATION_REQUIR
+EMENTS 枚举 (bluetoothapis.h) 项目2024/02/26
+BLUETOOTH_AUTHENTICATION_REQUIREMENTS枚举指定身份验证所需的“中间人”保护。
+注意 Windows Vista SP2 和 Windows 7 支持此枚举。  
+语法 C++
+typedef enum _BLUETOOTH_AUTHENTICATION_REQUIREMENTS {
+  BLUETOOTH_MITM_ProtectionNotRequired = 0,   BLUETOOTH_MITM_ProtectionRequired = 0x1,
+  BLUETOOTH_MITM_ProtectionNotRequiredBonding = 0x2,   BLUETOOTH_MITM_ProtectionRequiredBonding = 0x3,
+  BLUETOOTH_MITM_ProtectionNotRequiredGeneralBonding = 0x4,   BLUETOOTH_MITM_ProtectionRequiredGeneralBonding = 0x5,
+  BLUETOOTH_MITM_ProtectionNotDefined = 0xff} BLUETOOTH_AUTHENTICATION_REQUIREMENTS;
+常量
+ﾉ
+ 
+BLUETOOTH_MITM_ProtectionNotRequired 值： 0
+身份验证不需要防范“中间人”攻击。 BLUETOOTH_MITM_ProtectionRequired 值： 0x1
+身份验证需要防范“中间人”攻击。
+BLUETOOTH_MITM_ProtectionNotRequiredBonding 值： 0x2
+绑定不需要防止“中间人”攻击。
+展开表
+
+≦ 23 ≧
+ 
+BLUETOOTH_MITM_ProtectionRequiredBonding 值： 0x3
+绑定需要防止“中间人”攻击。
+BLUETOOTH_MITM_ProtectionNotRequiredGeneralBonding 值： 0x4
+一般邦德不需要保护免受“中间人”攻击。
+BLUETOOTH_MITM_ProtectionRequiredGeneralBonding 值： 0x5
+一般邦德需要保护免受“中间人”攻击。 BLUETOOTH_MITM_ProtectionNotDefined 值： 0xff
+未定义针对“中间人”攻击的保护。注解
+通过适用于无线开发人员的 Windows Vista 功能包补充下载，Microsoft Connect 中提供了与此 API 关联的头文件。 访问此资源需要向 Microsoft Connect 网站注册。 标头还包含在通过 Windows 驱动程序工具包 (WDK) 、Windows 徽标工具包 (WLK) 和 Windows 驱动程序框架 (Microsoft Connect 上的 WDF) Connections 提供的综合开发人员资源包中。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+BluetoothAuthenticateDeviceEx
+展开表
+
+≦ 24 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 25 ≧
+bluetoothapis.h)
+(BLUETOOTH_COD_PAIRS 结构项目2024/03/13
+BLUETOOTH_COD_PAIRS结构提供蓝牙类设备 (COD) 信息的规范和检索。
+语法 C++
+typedef struct _BLUETOOTH_COD_PAIRS {   ULONG   ulCODMask;
+  LPCWSTR pcszDescription;} BLUETOOTH_COD_PAIRS;
+成员 ulCODMask
+要比较以确定设备类别的掩码。 ulCODMask 的主要和次要代码用于比较找到的设备类。如果提供了主要代码，则它必须与远程设备返回的主要代码匹配，以便GET_COD_MAJOR
+(ulCODMask) 等于 GET_COD_MAJOR ([远程设备的设备类]) 。 pcszDescription
+掩码的描述性字符串。注解
+如果在 ulCODMask 中提供了次要代码，则它还必须与远程设备返回的次要代码匹配。如果指定了次要代码，则必须设置主代码;零不是有效的主代码。
+有关设备类信息，请参阅 www.bluetooth.com 要求
+ 中的蓝牙规范。
+ﾉ
+展开表
+
+≦ 26 ≧
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+BLUETOOTH_SELECT_DEVICE_PARAMS 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 27 ≧
+bluetoothapis.h)
+(BLUETOOTH_DEVICE_INFO_STRUCT 结构项目2024/02/28
+BLUETOOTH_DEVICE_INFO 结构提供有关蓝牙设备的信息。
+语法 C++
+typedef struct _BLUETOOTH_DEVICE_INFO {
+  DWORD             dwSize;   BLUETOOTH_ADDRESS Address;
+  ULONG             ulClassofDevice;
+  BOOL              fConnected;   BOOL              fRemembered;
+  BOOL              fAuthenticated;
+  SYSTEMTIME        stLastSeen;   SYSTEMTIME        stLastUsed;
+  WCHAR             szName[BLUETOOTH_MAX_NAME_SIZE];} BLUETOOTH_DEVICE_INFO_STRUCT;
+成员 dwSize
+BLUETOOTH_DEVICE_INFO结构的大小（以字节为单位）。 Address
+设备的地址。 ulClassofDevice
+设备的类。 fConnected
+指定设备是否已连接。 fRemembered
+指定设备是否为记住的设备。 并非所有记住的设备都经过身份验证。 fAuthenticated
+
+≦ 28 ≧
+指定是对设备进行身份验证、配对还是绑定。 所有经过身份验证的设备都会被记住。 stLastSeen
+上次看到设备的时间，采用 SYSTEMTIME 结构的形式。 stLastUsed
+上次使用设备的时间，采用 SYSTEMTIME 结构的形式。 szName[BLUETOOTH_MAX_NAME_SIZE]
+设备的名称。注解
+有关详细信息，请参阅 蓝牙设备类 (CoD) 代码要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 SYSTEMTIME
+值
+ 。
+ﾉ
+Windows Vista、Windows XP SP2 [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+展开表
+
+≦ 29 ≧
+BLUETOOTH_DEVICE_SEARCH_PARAMS
+结构 (bluetoothapis.h) 项目2024/02/26
+BLUETOOTH_DEVICE_SEARCH_PARAMS 结构指定蓝牙设备搜索的搜索条件。
+语法 C++
+typedef struct _BLUETOOTH_DEVICE_SEARCH_PARAMS {   DWORD  dwSize;
+  BOOL   fReturnAuthenticated;   BOOL   fReturnRemembered;
+  BOOL   fReturnUnknown;   BOOL   fReturnConnected;   BOOL   fIssueInquiry;
+  UCHAR  cTimeoutMultiplier;   HANDLE hRadio;
+} BLUETOOTH_DEVICE_SEARCH_PARAMS;
+成员 dwSize
+结构的大小（以字节为单位）。 fReturnAuthenticated
+一个 值，该值指定搜索应返回经过身份验证的蓝牙设备。 fReturnRemembered
+一个 值，该值指定搜索应返回记住的蓝牙设备。 fReturnUnknown
+一个 值，该值指定搜索应返回未知的蓝牙设备。 fReturnConnected
+一个 值，该值指定搜索应返回连接的蓝牙设备。
+
+≦ 30 ≧
+fIssueInquiry
+一个 值，该值指定应发出新的查询。 cTimeoutMultiplier
+一个 值，该值指示查询的超时，以 1.28 秒的增量表示。 例如，12.8 秒的查询的
+cTimeoutMultiplier 值为 10。 此成员的最大值为 48。 使用大于 48 的值时，调用函数会
+立即失败并返回 E_INVALIDARG。 hRadio
+要对其执行查询的无线电的句柄。 设置为 NULL 可对所有本地蓝牙无线电执行查询。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+BluetoothDisplayDeviceProperties
+BluetoothFindDeviceClose BluetoothFindFirstDevice BluetoothFindNextDevice BluetoothGetDeviceInfo BluetoothRemoveDevice
+BluetoothUpdateDeviceRecord 反馈
+展开表
+
+≦ 31 ≧
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 32 ≧
+bluetoothapis.h)
+(BLUETOOTH_FIND_RADIO_PARAMS 结构
+项目2024/02/23
+BLUETOOTH_FIND_RADIO_PARAMS结构有助于枚举已安装的蓝牙无线电。
+语法 C++
+typedef struct _BLUETOOTH_FIND_RADIO_PARAMS {   DWORD dwSize;
+} BLUETOOTH_FIND_RADIO_PARAMS;
+成员 dwSize
+BLUETOOTH_FIND_RADIO_PARAMS 结构的大小（以字节为单位）。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+BluetoothFindFirstRadio BluetoothFindNextRadio
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+展开表
+
+≦ 33 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 34 ≧
+BLUETOOTH_IO_CAPABILITY 枚举
+(bluetoothapis.h) 项目2024/03/05
+BLUETOOTH_IO_CAPABILITY枚举定义蓝牙设备的输入/输出功能。
+语法 C++
+typedef enum _BLUETOOTH_IO_CAPABILITY {
+  BLUETOOTH_IO_CAPABILITY_DISPLAYONLY = 0x00,   BLUETOOTH_IO_CAPABILITY_DISPLAYYESNO = 0x01,   BLUETOOTH_IO_CAPABILITY_KEYBOARDONLY = 0x02,
+  BLUETOOTH_IO_CAPABILITY_NOINPUTNOOUTPUT = 0x03,
+  BLUETOOTH_IO_CAPABILITY_UNDEFINED = 0xff} BLUETOOTH_IO_CAPABILITY;
+常量  
+BLUETOOTH_IO_CAPABILITY_DISPLAYONLY 值： 0x00
+蓝牙设备只能通过显示器输出。
+BLUETOOTH_IO_CAPABILITY_DISPLAYYESNO 值： 0x01
+蓝牙设备能够通过显示器输出，并具有向用户显示是/否问题的附加功能。
+BLUETOOTH_IO_CAPABILITY_KEYBOARDONLY 值： 0x02
+蓝牙设备能够通过键盘进行输入。
+BLUETOOTH_IO_CAPABILITY_NOINPUTNOOUTPUT 值： 0x03
+蓝牙设备无法输入/输出。
+BLUETOOTH_IO_CAPABILITY_UNDEFINED 值： 0xff
+蓝牙设备的输入/输出功能未定义。
+ﾉ
+展开表
+
+≦ 35 ≧
+要求要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+具有 SP2 的 Windows XP [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+BLUETOOTH_AUTHENTICATE_RESPONSE 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 36 ≧
+bluetoothapis.h)
+(BLUETOOTH_LOCAL_SERVICE_INFO_STRUC
+T 结构项目2025/02/20
+BLUETOOTH_LOCAL_SERVICE_INFO结构包含蓝牙设备的本地服务信息。 BluetoothSetLocalServiceInfo 函数使用此结构。
+语法 C++
+typedef struct _BLUETOOTH_LOCAL_SERVICE_INFO {
+  BOOL              Enabled;   BLUETOOTH_ADDRESS btAddr;
+  WCHAR             szName[BLUETOOTH_MAX_SERVICE_NAME_SIZE];
+  WCHAR             szDeviceString[BLUETOOTH_DEVICE_NAME_SIZE];} BLUETOOTH_LOCAL_SERVICE_INFO_STRUCT;
+成员 Enabled
+如果 为 TRUE，则指定启用播发的服务;否则，将禁用播发的服务。 btAddr
+包含远程设备的地址 的BLUETOOTH_ADDRESS 结构。 向设备播发服务时使用此地址。 szName[BLUETOOTH_MAX_SERVICE_NAME_SIZE]
+服务名称。 此字符串的最大长度（包括 null 终止符） BLUETOOTH_MAX_SERVICE_NAME_SIZE(256) 。
+szDeviceString[BLUETOOTH_DEVICE_NAME_SIZE]
+本地设备名称（如果有），例如 COM4 或 LPT1。 此字符串的最大长度（包括 null 终止符）
+BLUETOOTH_DEVICE_NAME_SIZE (256) 。注解
+
+≦ 37 ≧
+如果服务未与特定设备关联，则 btAddr 应设置为 BTH_ADDR_NULL。要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+BluetoothSetLocalServiceInfo
+值
+Windows Vista [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+ﾉ
+展开表
+
+≦ 38 ≧
+BLUETOOTH_NUMERIC_COMPARISON_I
+NFO 结构 (bluetoothapis.h) 项目2024/02/28
+BLUETOOTH_NUMERIC_COMPARISON_INFO 结构包含用于通过数字比较进行身份验证
+的数值。语法 C++
+typedef struct _BLUETOOTH_NUMERIC_COMPARISON_INFO {   ULONG NumericValue;
+} BLUETOOTH_NUMERIC_COMPARISON_INFO, *PBLUETOOTH_NUMERIC_COMPARISON_INFO;
+成员 NumericValue 数值。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+BLUETOOTH_AUTHENTICATION_METHOD 反馈
+展开表
+
+≦ 39 ≧
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 40 ≧
+BLUETOOTH_OOB_DATA_INFO 结构
+(bluetoothapis.h) 项目2024/03/05
+BLUETOOTH_OOB_DATA_INFO 结构包含用于在建立带外设备配对之前进行身份验证的数据。
+语法 C++
+typedef struct _BLUETOOTH_OOB_DATA_INFO {
+  UCHAR C[16];   UCHAR R[16];
+} BLUETOOTH_OOB_DATA_INFO, *PBLUETOOTH_OOB_DATA_INFO;
+成员 C[16]
+用于双向身份验证的 128 位加密密钥。 R[16]
+用于单向身份验证的随机生成的数字。 如果启动 OOB 会话的设备未提供此数字，则此值
+为 0。注解
+有关创建用于 OOB 身份验证的密钥的更多详细信息，请参阅 蓝牙核心规范要求
+要求
+最低受支持的客户端
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+。
+ﾉ
+展开表
+
+≦ 41 ≧
+要求
+最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h) 否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 42 ≧
+bluetoothapis.h)
+(BLUETOOTH_PASSKEY_INFO 结构项目2024/02/26
+BLUETOOTH_PASSKEY_INFO 结构包含用于身份验证的密钥值。 密钥类似于密码，只不过密钥值仅用于身份验证一次。
+语法 C++
+typedef struct _BLUETOOTH_PASSKEY_INFO {   ULONG passkey;
+} BLUETOOTH_PASSKEY_INFO, *PBLUETOOTH_PASSKEY_INFO;
+成员 passkey
+用于身份验证的密钥。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+BLUETOOTH_AUTHENTICATION_METHODS
+BluetoothAuthenticateDevice BluetoothAuthenticateDeviceEx
+展开表
+
+≦ 43 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 44 ≧
+bluetoothapis.h)
+(BLUETOOTH_PIN_INFO 结构项目2023/08/22
+BLUETOOTH_PIN_INFO结构包含用于通过 PIN 进行身份验证的信息。
+语法 C++
+typedef struct _BLUETOOTH_PIN_INFO {
+  UCHAR pin[BTH_MAX_PIN_SIZE];   UCHAR pinLength;
+} BLUETOOTH_PIN_INFO, *PBLUETOOTH_PIN_INFO; 成员
+pin[BTH_MAX_PIN_SIZE] 用于身份验证的 PIN。 pinLength
+引脚的长度。要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+ 
+Windows Vista、Windows XP SP2 [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+BLUETOOTH_AUTHENTICATION_METHOD
+
+≦ 45 ≧
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 46 ≧
+bluetoothapis.h
+(BLUETOOTH_RADIO_INFO 结构) 项目2024/02/23
+BLUETOOTH_RADIO_INFO结构包含有关蓝牙无线电的信息。
+语法 C++
+typedef struct _BLUETOOTH_RADIO_INFO {
+  DWORD             dwSize;   BLUETOOTH_ADDRESS address;
+  WCHAR             szName[BLUETOOTH_MAX_NAME_SIZE];
+  ULONG             ulClassofDevice;   USHORT            lmpSubversion;   USHORT            manufacturer;
+} BLUETOOTH_RADIO_INFO, *PBLUETOOTH_RADIO_INFO;
+成员 dwSize
+结构的大小（以字节为单位）。 address
+本地蓝牙无线电的地址。
+szName[BLUETOOTH_MAX_NAME_SIZE]
+本地蓝牙无线电的名称。 ulClassofDevice
+本地蓝牙无线电的设备类。 lmpSubversion
+此成员包含特定于单个蓝牙设备制造商的数据。 manufacturer
+
+≦ 47 ≧
+蓝牙无线电的制造商，表示为 BTH_MFG_Xxx 值。 有关蓝牙分配号码文档和当前值列表
+的详细信息，请参阅 www.bluetooth.com 要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+ 中的蓝牙规范。
+ﾉ
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+BLUETOOTH_FIND_RADIO_PARAMS
+BluetoothFindFirstRadio BluetoothFindNextRadio BluetoothFindRadioClose BluetoothGetRadioInfo
+WSAGetLastError 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 48 ≧
+BLUETOOTH_SELECT_DEVICE_PARAMS
+结构 (bluetoothapis.h) 项目2024/02/28
+BLUETOOTH_SELECT_DEVICE_PARAMS结构有助于和管理蓝牙设备和服务的可见性、身份验证和选择。
+语法 C++
+typedef struct _BLUETOOTH_SELECT_DEVICE_PARAMS {   DWORD                  dwSize;
+  ULONG                  cNumOfClasses;
+  BLUETOOTH_COD_PAIRS    *prgClassOfDevices;   LPWSTR                 pszInfo;
+  HWND                   hwndParent;
+  BOOL                   fForceAuthentication;   BOOL                   fShowAuthenticated;
+  BOOL                   fShowRemembered;   BOOL                   fShowUnknown;
+  BOOL                   fAddNewDeviceWizard;   BOOL                   fSkipServicesPage;   PFN_DEVICE_CALLBACK    pfnDeviceCallback;   LPVOID                 pvParam;
+  DWORD                  cNumDevices;
+  PBLUETOOTH_DEVICE_INFO pDevices;} BLUETOOTH_SELECT_DEVICE_PARAMS;
+成员 dwSize
+BLUETOOTH_SELECT_DEVICE_PARAMS结构的大小（以字节为单位）。 cNumOfClasses
+prgClassOfDevices 中的类数。 设置为零可搜索所有设备。 prgClassOfDevices
+要查找的设备类的数组。 pszInfo
+
+≦ 49 ≧
+在非 NULL 时设置信息文本。 hwndParent
+父窗口的句柄。 对于无父项，设置为 NULL 。 fForceAuthentication
+如果 为 TRUE，则强制身份验证，然后再返回。 fShowAuthenticated
+如果 为 TRUE，则经过身份验证的设备将显示在选取器中。 fShowRemembered
+如果 为 TRUE，则选取器中会显示记住的设备。 fShowUnknown
+如果 为 TRUE，则未通过身份验证或记住的未知设备将显示在选取器中。 fAddNewDeviceWizard
+如果 为 TRUE，则启动“添加新设备”向导。 fSkipServicesPage
+如果 为 TRUE，则跳过“添加新设备”向导中的“服务”页。 pfnDeviceCallback
+指向为每个设备调用的回调函数的指针。 如果回调函数返回 TRUE，则添加该项。 如果回调函数返回 FALSE，则不显示该项。 在没有回调时，将 pfnDeviceCallback 设置为
+null。 有关详细信息，请参阅 PFN_DEVICE_CALLBACK。 pvParam
+要作为 pvParam 传递给 pfnDeviceCallback 中指向的回调函数的参数。 cNumDevices
+输入时，指定所需的调用数。 设置为零，没有限制。 输出时，返回返回的设备数。 pDevices
+指向 BLUETOOTH_DEVICE_INFO 结构的数组的指针。
+
+≦ 50 ≧
+注解
+若要释放 pDevices 成员中传递的BLUETOOTH_DEVICE_INFO结构数组，请调用
+BluetoothSelectDevicesFree 函数。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+BLUETOOTH_COD_PAIRS BLUETOOTH_DEVICE_INFO BluetoothSelectDevices
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+BluetoothSelectDevicesFree
+PFN_DEVICE_CALLBACK 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 51 ≧
+BluetoothAuthenticateDevice 函数
+(bluetoothapis.h) 项目2023/08/22
+BluetoothAuthenticateDevice 函数将身份验证请求发送到远程蓝牙设备。注意 针对 Windows Vista SP2 和 Windows 7 进行开发时，建议使用
+BluetoothAuthenticateDeviceEx 。  
+语法 C++
+DWORD BluetoothAuthenticateDevice(   HWND                  hwndParent,
+  HANDLE                hRadio,   BLUETOOTH_DEVICE_INFO *pbtbi,
+  PWSTR                 pszPasskey,
+  ULONG                 ulPasskeyLength);
+参数 hwndParent
+作为身份验证向导的父级的窗口。 如果设置为 NULL，则会从桌面中删除向导。 hRadio
+有效的本地单选句柄，或 NULL。 如果 为 NULL，则尝试在所有本地无线电上进行身份验证;如
+果任何无线电成功，则函数调用成功。 pbtbi
+类型为 BLUETOOTH_DEVICE_INFO 的结构，包含要进行身份验证的蓝牙设备的记录。 pszPasskey
+个人标识号 (PIN) 用于设备身份验证。 如果设置为 NULL，则显示用户界面，用户必须遵循用户界面中提供的身份验证过程。 如果 pszPasskey 不为 NULL，则不显示任何用户界面。 如果密钥不是 NULL，则它必须是 以 NULL 结尾的字符串。 有关详细信息，请参见“备注”部分。
+
+≦ 52 ≧
+ulPasskeyLength
+pszPasskey 的大小（以字符为单位）。 pszPasskey 的大小必须小于或等于
+BLUETOOTH_MAX_PASSKEY_SIZE。返回值
+成功完成后返回 ERROR_SUCCESS 。下表列出了常见错误。
+返回代码
+ERROR_CANCELLED
+ERROR_INVALID_PARAMETER
+ERROR_NO_MORE_ITEMS 注解
+说明
+用户取消了操作。
+pbtdi 参数中的设备结构无效。
+pbtdi 指向的设备已标记为已经过身份验证。
+某些远程蓝牙设备只能接受数字密钥。 无法提前确定哪些设备仅接受数字密钥。蓝牙身份验证过程有两种模式：向导模式和透明模式。
+ﾉ
+展开表
+当 pszPasskey 设置为 NULL 并启动蓝牙连接向导时，将启动向导模式。 系统会提示用户输入密钥作为向导中的步骤，然后发送身份验证请求。 用户界面显示身份验证尝试是成功还是失败，并为用户提供重新尝试失败身份验证的机会。
+当 pszPasskey 不为 NULL 时，将启动透明模式。 在透明模式下，身份验证请求将发送到远程蓝牙设备，而不会显示任何用户界面。 在透明模式下，蓝牙状态代码映射到 Win32 错误代码;下表列出了此映射信息。
+ﾉ
+蓝牙状态代码
+BTH_ERROR_SUCCESS
+BTH_ERROR_NO_CONNECTION BTH_ERROR_PAGE_TIMEOUT
+Win32 错误代码 ERROR_SUCCESS
+展开表
+ERROR_DEVICE_NOT_CONNECTED WAIT_TIMEOUT
+
+≦ 53 ≧
+BTH_ERROR_HARDWARE_FAILURE
+BTH_ERROR_AUTHENTICATION_FAILURE BTH_ERROR_MEMORY_FULL
+BTH_ERROR_CONNECTION_TIMEOUT BTH_ERROR_LMP_RESPONSE_TIMEOUT
+BTH_ERROR_MAX_NUMBER_OF_CONNECTIONS
+BTH_ERROR_PAIRING_NOT_ALLOWED BTH_ERROR_UNSPECIFIED_ERROR
+BTH_ERROR_LOCAL_HOST_TERMINATED_CONNECTION 要求
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+BLUETOOTH_DEVICE_INFO
+值
+ERROR_GEN_FAILURE
+ERROR_NOT_AUTHENTICATED ERROR_NOT_ENOUGH_MEMORY
+WAIT_TIMEOUT WAIT_TIMEOUT
+ERROR_REQ_NOT_ACCEP ERROR_ACCESS_DENIED ERROR_NOT_READY
+ERROR_VC_DISCONNECTED
+ﾉ
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BluetoothAuthenticateDeviceEx
+BluetoothAuthenticateMultipleDevices BluetoothEnableDiscovery
+BluetoothEnableIncomingConnections
+展开表
+
+≦ 54 ≧
+BluetoothIsConnectable BluetoothIsDiscoverable
+BluetoothRegisterForAuthentication BluetoothSendAuthenticationResponse BluetoothUnregisterAuthentication
+
+≦ 55 ≧
+BluetoothAuthenticateDeviceEx 函数
+(bluetoothapis.h) 项目2024/02/28
+BluetoothAuthenticateDeviceEx 函数将身份验证请求发送到远程蓝牙设备。 此外，此函数允许
+将带外数据传递到要进行身份验证的设备函数调用中。注意 Windows Vista SP2 和 Windows 7 支持此 API。  
+语法 C++
+DWORD BluetoothAuthenticateDeviceEx(
+  [in, optional] HWND                        hwndParentIn,   [in, optional] HANDLE                      hRadioIn,
+  [in, out]      BLUETOOTH_DEVICE_INFO       *pbtdiInout,   [in, optional] PBLUETOOTH_OOB_DATA_INFO    pbtOobData,
+  [in]           AUTHENTICATION_REQUIREMENTS authenticationRequirement);
+参数
+[in, optional] hwndParentIn
+父级身份验证向导的窗口。 如果 为 NULL，则向导将从桌面上父级显示。[in, optional] hRadioIn
+有效的本地单选句柄或 NULL。 如果 为 NULL，则将尝试所有无线电。 如果任何无线电成功，则调用将成功。
+[in, out] pbtdiInout
+指向描述要进行身份验证的设备 BLUETOOTH_DEVICE_INFO 结构的指针。[in, optional] pbtOobData
+指向要随此 API 调用一起提供的特定于设备的带外数据的指针。 如果 为 NULL，则显示 UI 以继续身份验证过程。 如果不是 NULL，则不显示 UI。
+
+≦ 56 ≧
+ 
+注意 如果使用 BluetoothRegisterForAuthenticationEx 注册回调，则不会显示 UI。
+[in] authenticationRequirement
+一个BLUETOOTH_AUTHENTICATION_REQUIREMENTS值，该值指定身份验证所需的保护。返回值
+成功完成后返回ERROR_SUCCESS;失败时返回以下错误代码：
+ﾉ
+返回代码
+ERROR_CANCELLED
+ERROR_INVALID_PARAMETER
+ERROR_NO_MORE_ITEMS 注解
+说明
+用户中止了操作。
+pbdti 中指定的设备结构无效。 pbtdi 中的设备已标记为已验证。
+展开表
+pbtdilInOut 指定的BLUETOOTH_DEVICE_INFO结构必须包含要进行身份验证的设备地址。 如果 pbtOobData 的值不为 NULL，则会尝试使用提供的带外数据对远程设备进行身份验证。
+对于所有其他类型的身份验证，调用方应使用 BluetoothRegisterForAuthenticationEx 注册身份
+验证回调，然后使用 BluetoothSendAuthenticationResponseEx 响应相关身份验证方法。示例
+在以下示例代码中，已找到设备并使用 BluetoothAuthenticateDeviceEx 发送身份验证请求。 C++
+PBLUETOOTH_DEVICE_INFO pDeviceInfo;  HRESULT status;
+HANDLE hEvent = NULL;
+HRESULT WINAPI AuthenticateService(){
+status = BluetoothAuthenticateDeviceEx( NULL,
+        NULL,
+        pDeviceInfo,
+
+≦ 57 ≧
+//
+        NULL,
+        MITMProtectionNotRequired );
+if ( ERROR_INVALID_PARAMETER == status ) {
+// goto Cleanup;// ...
+// Take cleanup action here,
+// ...}
+// Wait for the Authentication callback to return before trying to unregister the  handle
+// Use an infinite timeout since the handle to the function that sets the event is  being
+// deleted//
+if ( WAIT_FAILED == WaitForSingleObject(hEvent, INFINITE) ) {
+                 
+status = GetLastError();// goto Cleanup;
+// ...
+// Take cleanup action here,
+// ...}
+      return status;}
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+具有 SP2 的 Windows XP [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BluetoothAuthenticateDevice
+展开表
+
+≦ 59 ≧
+BluetoothAuthenticateMultipleDevices 函数
+(bluetoothapis.h) 项目2024/02/26
+BluetoothAuthenticateMultipleDevices 函数使调用方能够在蓝牙连接向导的单个实例期间提示对多个设备进行身份验证。
+注意BluetoothAuthenticateMultipleDevices 已弃用。 不建议实现此 API。  
+语法 C++
+DWORD BluetoothAuthenticateMultipleDevices(   HWND                  hwndParent,
+  HANDLE                hRadio,   DWORD                 cDevices,   BLUETOOTH_DEVICE_INFO *rgbtdi);
+参数 hwndParent
+作为身份验证向导的父级的窗口。 如果设置为 NULL，则向导在桌面上为父级。 hRadio
+有效的本地单选句柄或 NULL。 如果 为 NULL，则尝试在所有本地无线电上进行身份验证;如果
+任何无线电成功，则函数调用成功。 cDevices
+BLUETOOTH_DEVICE_INFO 结构的 pbtdi 数组中的设备数。 rgbtdi
+包含要进行身份验证的蓝牙设备的记录 的BLUETOOTH_DEVICE_INFO 结构的数组。
+
+≦ 60 ≧
+返回值
+成功完成后返回ERROR_SUCCESS;检查每个设备的 fAuthenticate 标志。下表列出了常见错误。
+返回代码
+ERROR_CANCELLED
+ERROR_INVALID_PARAMETER ERROR_NO_MORE_ITEMS
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+BLUETOOTH_DEVICE_INFO BluetoothEnableDiscovery
+值
+说明
+ﾉ
+展开表
+用户取消了操作。 检查每个蓝牙设备的 fAuthenticate 标志，以确定在用户取消操作之前是否对任何设备进行身份验证。
+pbtdi 数组中的一个或多个设备无效。
+pbtdi 指向的所有设备都已标记为经过身份验证。
+ﾉ
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BluetoothEnableIncomingConnections
+BluetoothIsConnectable BluetoothIsDiscoverable
+展开表
+
+≦ 61 ≧
+BluetoothRegisterForAuthentication BluetoothSendAuthenticationResponse BluetoothUnregisterAuthentication
+
+≦ 62 ≧
+bluetoothDisplayDeviceProperties 函数
+(bluetoothapis.h) 项目2024/02/28
+BluetoothDisplayDeviceProperties 函数控制面板设备信息属性表启动。
+语法 C++
+BOOL BluetoothDisplayDeviceProperties(   HWND                  hwndParent,
+  BLUETOOTH_DEVICE_INFO *pbtdi);
+参数 hwndParent
+属性表的父窗口的句柄。 pbtdi
+指向包含有关蓝牙设备信息的 BLUETOOTH_DEVICE_INFO 结构的指针。返回值
+如果成功显示属性表，则返回 TRUE 。 如果未成功显示属性表，则返回 FALSE ;调用
+GetLastError 函数以获取其他错误信息。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+展开表
+
+≦ 63 ≧
+要求标头 Library DLL
+另请参阅
+BLUETOOTH_DEVICE_INFO
+值
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BLUETOOTH_DEVICE_SEARCH_PARAMS
+BluetoothFindDeviceClose BluetoothFindFirstDevice BluetoothFindNextDevice BluetoothGetDeviceInfo BluetoothRemoveDevice
+BluetoothUpdateDeviceRecord
+
+≦ 64 ≧
+bluetoothEnableDiscovery 函数
+(bluetoothapis.h) 项目2024/02/23
+BluetoothEnableDiscovery 函数更改本地蓝牙无线电或无线电的发现状态。
+语法 C++
+BOOL BluetoothEnableDiscovery(
+  HANDLE hRadio,   BOOL   fEnabled);
+参数 hRadio
+有效的本地单选句柄或 NULL。 如果 为 NULL，则在所有本地无线电上修改发现;如果调用修改
+了任何无线电，则函数调用成功。 fEnabled
+指定是启用还是禁用发现的标志。 设置为 TRUE 可启用发现，设置为 FALSE 可禁用发现。返回值
+如果发现状态已成功更改，则返回 TRUE 。 如果 hRadio 为 NULL，则返回值 TRUE 表示至少一个本地无线电状态已成功更改。 如果未更改发现状态，则返回 FALSE ;如果 hRadio 为 NULL，则
+没有无线电接受状态更改。注解
+使用 BluetoothIsDiscoverable 函数确定蓝牙无线电的当前状态。 Windows 确保可发现的系统可
+连接，因此，无线电在使无线电可发现之前必须允许传入连接。 未能允许传入连接会导致 BluetoothEnableDiscovery 函数调用失败。
+当 BluetoothEnableDiscovery 更改发现状态时，新状态在调用应用程序的生存期内有效。 此外，如果以前通过此功能使蓝牙无线电可发现通过应用程序禁用并重新启用，则可发现性将不会
+
+≦ 65 ≧
+保留。 调用应用程序终止后，指定蓝牙无线电的发现状态将恢复到调用
+BluetoothEnableDiscovery 之前的状态。要求
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BluetoothAuthenticateDevice
+BluetoothAuthenticateMultipleDevices BluetoothEnableIncomingConnections
+BluetoothIsConnectable BluetoothIsDiscoverable
+BluetoothRegisterForAuthentication BluetoothSendAuthenticationResponse BluetoothUnregisterAuthentication
+ﾉ
+展开表
+
+≦ 66 ≧
+BluetoothEnableIncomingConnections 函数
+(bluetoothapis.h) 项目2024/03/09
+BluetoothEnableIncomingConnections 函数修改本地蓝牙无线电是否接受传入连接。
+语法 C++
+BOOL BluetoothEnableIncomingConnections(
+  HANDLE hRadio,   BOOL   fEnabled);
+参数 hRadio
+要更改传入连接是启用还是 NULL 的有效本地单选句柄。 如果 为 NULL，则尝试修改传入连接
+接受会循环访问所有本地无线电;如果调用修改了任何无线电，则函数调用成功。 fEnabled
+指定是启用或禁用传入连接接受的标志。 设置为 TRUE 可启用传入连接，设置为 FALSE 可禁用
+传入连接。返回值
+如果已成功更改传入连接状态，则返回 TRUE 。 如果 hRadio 为 NULL，则返回值为 TRUE 表示至少一个本地无线电状态已成功更改。 如果未更改传入连接状态，则返回 FALSE ;如果 hRadio
+为 NULL，则没有无线电接受状态更改。注解
+不可连接的无线电不可发现。 在使无线电不可连接之前，必须使无线电不可发现。 未能在使无线电不可连接之前使无线电不可发现，将导致 BluetoothEnableIncomingConnections 函数调用失败。
+
+≦ 67 ≧
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BluetoothAuthenticateDevice
+BluetoothAuthenticateMultipleDevices
+BluetoothEnableDiscovery BluetoothIsConnectable BluetoothIsDiscoverable
+BluetoothRegisterForAuthentication BluetoothSendAuthenticationResponse BluetoothUnregisterAuthentication
+ﾉ
+展开表
+
+≦ 68 ≧
+bluetoothEnumerateInstalledServices 函数
+(bluetoothapis.h) 项目2024/02/23
+BluetoothEnumerateInstalledServices 函数枚举在蓝牙设备上启用的服务 GUID (全局唯一标识
+符) 。语法 C++
+DWORD BluetoothEnumerateInstalledServices(
+  HANDLE                      hRadio,   const BLUETOOTH_DEVICE_INFO *pbtdi,
+  DWORD                       *pcServiceInout,   GUID                        *pGuidServices);
+参数 hRadio
+本地蓝牙无线电设备的句柄。 如果 为 NULL，则搜索所有本地无线电，查找与 pbtdi 中的无线
+电地址匹配的已启用服务。 pbtdi
+指向 BLUETOOTH_DEVICE_INFO 结构的指针。 pcServiceInout
+输入时， pGuidServices 参数指向的记录数。 输出时， pGuidServices 参数中返回的有效记录
+数。 如果 pGuidServices 为 NULL，则输出 pcServices 包含已启用的服务数。 pGuidServices
+指向内存中缓冲区的指针，用于接收已安装服务的 GUID。 缓冲区必须至少为 *pcServices *大小
+， (GUID) 字节。返回值
+成功完成后返回ERROR_SUCCESS，pGuidServices 参数包含已启用的服务 GUID 的完整列表。
+
+≦ 69 ≧
+下表描述了一个常见错误：返回代码
+ERROR_MORE_DATA
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+BLUETOOTH_DEVICE_INFO
+值
+说明
+ﾉ
+展开表
+调用成功。 pGuidServices 参数包含已启用的服务 GUID 的不完整列表。
+ﾉ
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BLUETOOTH_DEVICE_SEARCH_PARAMS BluetoothDisplayDeviceProperties
+BluetoothFindDeviceClose BluetoothFindFirstDevice BluetoothFindNextDevice BluetoothGetDeviceInfo BluetoothRemoveDevice
+展开表
+
+≦ 70 ≧
+BluetoothFindDeviceClose 函数
+(bluetoothapis.h) 项目2024/02/23
+BluetoothFindDeviceClose 函数关闭与设备查询关联的枚举句柄。
+语法 C++
+BOOL BluetoothFindDeviceClose(   HBLUETOOTH_DEVICE_FIND hFind);
+参数 hFind
+要关闭的查询的句柄。 在对 BluetoothFindFirstDevice 函数的上一次调用中获取。返回值
+成功关闭句柄时返回 TRUE 。 错误时返回 FALSE 。 有关失败的详细信息，请调用 GetLastError
+函数。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+展开表
+
+≦ 71 ≧
+另请参阅
+BLUETOOTH_DEVICE_INFO
+BLUETOOTH_DEVICE_SEARCH_PARAMS BluetoothDisplayDeviceProperties
+BluetoothFindFirstDevice BluetoothFindNextDevice BluetoothGetDeviceInfo BluetoothRemoveDevice
+BluetoothUpdateDeviceRecord
+
+≦ 72 ≧
+bluetoothFindFirstDevice 函数
+(bluetoothapis.h) 项目2024/02/23
+BluetoothFindFirstDevice 函数开始枚举蓝牙设备。
+语法 C++
+HBLUETOOTH_DEVICE_FIND BluetoothFindFirstDevice(   const BLUETOOTH_DEVICE_SEARCH_PARAMS *pbtsp,   BLUETOOTH_DEVICE_INFO                *pbtdi);
+参数 pbtsp
+指向 BLUETOOTH_DEVICE_SEARCH_PARAMS 结构的指针。 pbtsp 指向的
+BLUETOOTH_DEVICE_SEARCH_PARAMS 结构的 dwSize 成员必须与结构的大小匹配。 pbtdi
+指向 BLUETOOTH_DEVICE_INFO 结构的指针，其中放置了有关找到的第一个蓝牙设备的信息。 pbtdi 指向的 BLUETOOTH_DEVICE_INFO 结构的 dwSize 成员必须与结构的大小匹配，否则对
+BluetoothFindFirstDevice 函数的调用将失败。返回值
+成功完成后返回第一个蓝牙设备的有效句柄， pbtdi 参数指向有关设备的信息。 当不再需要此句柄时，必须通过 BluetoothFindDeviceClose 将其关闭。
+失败时返回 NULL 。 有关错误的详细信息，请调用 GetLastError 函数。 下表描述了常见错误：
+ﾉ
+返回代码
+ERROR_INVALID_PARAMETER ERROR_REVISION_MISMATCH
+说明
+pbtsp 或 pbtdi 参数为 NULL。
+pbtsp 或 pbtdi 指向的结构大小不正确。
+展开表
+
+≦ 73 ≧
+注解
+BluetoothFindFirstDevice 函数找不到蓝牙低功耗 (LE) 设备。 若要访问蓝牙 LE 设备，请使用 Windows 运行时蓝牙低功耗 API。 用于蓝牙的Windows 运行时 API 适用于 UWP 和经典桌面应用。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+BLUETOOTH_DEVICE_INFO
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BLUETOOTH_DEVICE_SEARCH_PARAMS BluetoothDisplayDeviceProperties
+BluetoothFindDeviceClose BluetoothFindNextDevice BluetoothGetDeviceInfo BluetoothRemoveDevice
+BluetoothUpdateDeviceRecord
+展开表
+
+≦ 74 ≧
+BluetoothFindFirstRadio 函数
+(bluetoothapis.h) 项目2024/03/13
+BluetoothFindFirstRadio 函数开始枚举本地蓝牙无线电。
+语法 C++
+HBLUETOOTH_RADIO_FIND BluetoothFindFirstRadio(
+        const BLUETOOTH_FIND_RADIO_PARAMS *pbtfrp,   [out] HANDLE                            *phRadio);
+参数 pbtfrp
+指向 BLUETOOTH_FIND_RADIO_PARAMS 结构的指针。 pbtfrp 指向的
+BLUETOOTH_FIND_RADIO_PARAMS 结构的 dwSize 成员必须与结构的大小匹配。[out] phRadio
+指向将返回第一个枚举单选句柄的指针。 不再需要时，必须通过 CloseHandle 关闭此句柄。返回值
+除了 phRadio 指示的句柄外，调用此函数还将创建HBLUETOOTH_RADIO_FIND句柄，以便与
+BluetoothFindNextRadio 函数一起使用。 当不再需要此句柄时，必须通过 BluetoothFindRadioClose 将其关闭。
+失败时返回 NULL 。 有关错误的详细信息，请调用 GetLastError 函数。 下表描述了常见错误：
+ﾉ
+返回代码
+ERROR_NO_MORE_ITEMS
+ERROR_INVALID_PARAMETER
+说明
+找不到蓝牙无线电。 pbtfrp 参数为 NULL。
+展开表
+
+≦ 75 ≧
+ERROR_REVISION_MISMATCH ERROR_OUTOFMEMORY
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+pbtfrp 指向的结构大小不正确。内存不足。
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BLUETOOTH_FIND_RADIO_PARAMS
+BluetoothFindNextRadio BluetoothFindRadioClose BluetoothGetRadioInfo GetLastError
+ﾉ
+展开表
+
+≦ 76 ≧
+bluetoothFindNextDevice 函数
+(bluetoothapis.h) 项目2025/02/20
+BluetoothFindNextDevice 函数查找下一个蓝牙设备。
+语法 C++
+BOOL BluetoothFindNextDevice(   HBLUETOOTH_DEVICE_FIND hFind,   BLUETOOTH_DEVICE_INFO  *pbtdi);
+参数 hFind
+在上次调用 BluetoothFindFirstDevice 函数时获取的查询的句柄。 pbtdi
+指向 BLUETOOTH_DEVICE_INFO 结构的指针，其中放置了有关找到的下一个蓝牙设备的信息。 pbtdi 指向的 BLUETOOTH_DEVICE_INFO 结构的 dwSize 成员必须与结构的大小匹配，否则对
+BluetoothFindNextDevice 的调用将失败。返回值
+成功找到下一个设备时返回 TRUE，pbtdi 参数指向有关设备的信息。 出错时返回 FALSE 。 有关错误的详细信息，请调用 GetLastError 函数。 下表描述了常见错误：
+ﾉ
+返回代码
+ERROR_INVALID_HANDLE ERROR_NO_MORE_ITEMS ERROR_OUTOFMEMORY
+说明
+句柄为 NULL。找不到更多设备。内存不足。
+展开表
+
+≦ 77 ≧
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+BLUETOOTH_DEVICE_INFO
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BLUETOOTH_DEVICE_SEARCH_PARAMS BluetoothDisplayDeviceProperties
+BluetoothFindDeviceClose BluetoothFindFirstDevice BluetoothGetDeviceInfo BluetoothRemoveDevice
+BluetoothUpdateDeviceRecord
+ﾉ
+展开表
+
+≦ 78 ≧
+BluetoothFindNextRadio 函数
+(bluetoothapis.h) 项目2024/02/28
+BluetoothFindNextRadio 函数查找下一个蓝牙无线电。
+语法 C++
+BOOL BluetoothFindNextRadio(
+  [in]  HBLUETOOTH_RADIO_FIND hFind,   [out] HANDLE                *phRadio);
+参数[in] hFind
+上一次调用 BluetoothFindFirstRadio 函数返回的句柄。 不再需要时，请使用
+BluetoothFindRadioClose 关闭此句柄。[out] phRadio
+指向将返回下一个枚举单选句柄的指针。 当不再需要时，必须通过 CloseHandle 释放此句柄。返回值
+找到下一个可用单选无线电时，返回 TRUE 。
+如果未找到新的无线电，则返回 FALSE 。 有关错误的详细信息，请调用 GetLastError 函数。 下表描述了常见错误：
+ﾉ
+返回代码
+ERROR_INVALID_HANDLE ERROR_NO_MORE_ITEMS ERROR_OUTOFMEMORY
+说明
+句柄为 NULL。
+没有找到更多的无线电。内存不足。
+展开表
+
+≦ 79 ≧
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BLUETOOTH_FIND_RADIO_PARAMS
+BluetoothFindFirstRadio BluetoothFindRadioClose BluetoothGetRadioInfo GetLastError
+ﾉ
+展开表
+
+≦ 80 ≧
+bluetoothFindRadioClose 函数
+(bluetoothapis.h) 项目2024/02/26
+BluetoothFindRadioClose 函数关闭与查找蓝牙无线电关联的枚举句柄。
+语法 C++
+BOOL BluetoothFindRadioClose(   HBLUETOOTH_RADIO_FIND hFind);
+参数 hFind
+要关闭的枚举句柄，通过上一次调用 BluetoothFindFirstRadio 函数获取。返回值
+成功关闭句柄时返回 TRUE 。 如果尝试关闭枚举句柄失败，则返回 FALSE 。 有关与关闭句柄相
+关的可能错误的其他信息，请调用 GetLastError 函数。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+展开表
+
+≦ 81 ≧
+另请参阅
+BLUETOOTH_FIND_RADIO_PARAMS
+BluetoothFindFirstRadio BluetoothFindNextRadio BluetoothGetRadioInfo GetLastError
+
+≦ 82 ≧
+BluetoothGetDeviceInfo 函数
+（bluetoothapis.h）项目2024/07/25
+BluetoothGetDeviceInfo 函数检索有关远程蓝牙设备的信息。 蓝牙设备以前必须通过成功的设备查询函数调用进行标识。
+语法 C++
+DWORD BluetoothGetDeviceInfo(   HANDLE                hRadio,   BLUETOOTH_DEVICE_INFO *pbtdi);
+参数 hRadio
+从对 BluetoothFindFirstRadio 或类似函数的调用或从对 SetupDiEnumDeviceInterfaces 函数的
+调用获取的本地无线电的句柄。 pbtdi
+指向将放置第一个蓝牙设备数据的 BLUETOOTH_DEVICE_INFO 结构的指针。 有关详细信息，请
+参阅“备注”。返回值
+成功后返回 ERROR_SUCCESS，指示检索有关远程蓝牙设备的数据。 失败时返回错误代码。 下表列出了与 BluetoothGetDeviceInfo 函数关联的常见错误代码。
+ﾉ
+返回代码
+ERROR_REVISION_MISMATCH ERROR_NOT_FOUND
+描述
+BLUETOOTH_DEVICE_INFO的大小不兼容。 检查 BLUETOOTH_DEVICE_INFO 结构的 dwSize 成员。
+展开表
+系统不知道无线电，或者 BLUETOOTH_DEVICE_INFO 结构的 地址 成员全部为零。
+
+≦ 83 ≧
+ERROR_INVALID_PARAMETER 言论
+pbtdi 参数 NULL。
+获取数据的蓝牙设备之前必须通过成功的设备查询函数调用进行标识。
+在 pbtdi指向的 BLUETOOTH_DEVICE_INFO 结构中，dwSize 成员必须等效于结构的大小（以字节为单位）。 BLUETOOTH_DEVICE_INFO 结构的 地址 成员必须包含远程设备的蓝牙地址。
+要求
+ﾉ
+要求
+最低支持的客户端支持的最低服务器目标平台
+标头库 DLL
+另请参阅
+价值
+具有 SP2 的 Windows Vista、Windows XP [仅限桌面应用]
+不支持窗户
+bluetoothapis.h （包括 Bthsdpdef.h， BluetoothAPIs.h）
+Bthprops.lib bthprops.cpl
+BLUETOOTH_DEVICE_INFO
+BLUETOOTH_DEVICE_SEARCH_PARAMS BluetoothDisplayDeviceProperties
+BluetoothFindDeviceClose BluetoothFindFirstDevice BluetoothFindNextDevice BluetoothRemoveDevice
+展开表
+
+≦ 84 ≧
+bluetoothGetRadioInfo 函数
+(bluetoothapis.h) 项目2025/02/20
+BluetoothGetRadioInfo 函数获取有关蓝牙无线电的信息。
+语法 C++
+DWORD BluetoothGetRadioInfo(
+  HANDLE                hRadio,
+  PBLUETOOTH_RADIO_INFO pRadioInfo);
+参数 hRadio
+本地蓝牙无线电的句柄，通过调用 BluetoothFindFirstRadio 或类似函数或
+SetupDiEnumerateDeviceInterfances 函数获得。 pRadioInfo
+指向 BLUETOOTH_RADIO_INFO 结构的指针，其中放置有关无线电的信息。 BLUETOOTH_RADIO_INFO 结构的 dwSize 成员必须与结构的大小匹配。
+返回值
+下表列出了常见的返回值。
+返回代码
+ERROR_SUCCESS
+ERROR_INVALID_PARAMETER ERROR_REVISION_MISMATCH
+说明
+已成功检索无线电信息。
+hRadio 或 pRadioInfo 参数为 NULL。
+ﾉ
+展开表
+pRadioInfo 指向的 BLUETOOTH_RADIO_INFO 结构的 dwSize 成员无效。
+
+≦ 85 ≧
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BLUETOOTH_FIND_RADIO_PARAMS
+BluetoothFindFirstRadio BluetoothFindNextRadio BluetoothFindRadioClose GetLastError
+ﾉ
+展开表
+
+≦ 86 ≧
+BluetoothIsConnectable 函数
+(bluetoothapis.h) 项目2024/03/13
+BluetoothIsConnectable 函数确定蓝牙无线电或无线电是否可连接。
+语法 C++
+BOOL BluetoothIsConnectable(
+  HANDLE hRadio);
+参数 hRadio
+有效的本地单选句柄或 NULL。 如果 为 NULL，则检查所有本地无线电的可连接性;如果任何无
+线电可连接，则函数调用成功。返回值
+如果至少有一个蓝牙无线电接受传入连接，则返回 TRUE 。 如果没有无线电接受传入连接，则
+返回 FALSE 。注解
+如果存在多个蓝牙无线电，则返回可连接的第一个无线电会导致 BluetoothIsConnectable 功能
+成功。要求
+ﾉ
+要求
+最低受支持的客户端
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+展开表
+
+≦ 87 ≧
+要求
+最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BluetoothAuthenticateDevice
+BluetoothAuthenticateMultipleDevices BluetoothEnableDiscovery
+BluetoothEnableIncomingConnections BluetoothIsDiscoverable
+BluetoothRegisterForAuthentication BluetoothSendAuthenticationResponse BluetoothUnregisterAuthentication
+
+≦ 88 ≧
+BluetoothIsDiscoverable 函数
+(bluetoothapis.h) 项目2024/02/26
+BluetoothIsDiscoverable 函数确定蓝牙无线电或无线电是否可发现。
+语法 C++
+BOOL BluetoothIsDiscoverable(
+  HANDLE hRadio);
+参数 hRadio
+有效的本地单选句柄，或 NULL。 如果 为 NULL，则确定所有本地无线电的发现;如果可发现任
+何无线电，则函数调用成功。返回值
+如果至少可发现一个蓝牙无线电，则返回 TRUE 。 如果未发现蓝牙无线电，则返回 FALSE 。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+展开表
+
+≦ 89 ≧
+另请参阅
+BluetoothAuthenticateDevice
+BluetoothAuthenticateMultipleDevices BluetoothEnableDiscovery
+BluetoothEnableIncomingConnections BluetoothIsConnectable
+BluetoothRegisterForAuthentication BluetoothSendAuthenticationResponse BluetoothUnregisterAuthentication
+
+≦ 90 ≧
+bluetoothIsVersionAvailable 函数
+(bluetoothapis.h) 项目2024/02/26
+BluetoothIsVersionAvailable 函数指示已安装的蓝牙二进制文件集是否支持请求的版本。
+语法 C++
+BOOL BluetoothIsVersionAvailable(
+  [in] UCHAR MajorVersion,   [in] UCHAR MinorVersion);
+参数
+[in] MajorVersion 主版本号。
+[in] MinorVersion
+次版本号。返回值
+如果安装的蓝牙二进制文件支持指定的 MajorVersion 和 MinorVersion，则为 TRUE;否则为
+FALSE。注解
+此功能仅在适用于 Windows 版本 2.1 及更高版本的蓝牙中导出。要求
+ﾉ
+展开表
+
+≦ 91 ≧
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib Bthprops.cpl
+
+≦ 92 ≧
+BluetoothRegisterForAuthentication 函数
+(bluetoothapis.h) 项目2024/02/23
+BluetoothRegisterForAuthentication 函数注册当特定蓝牙设备请求身份验证时调用的回调函数。
+注意 针对 Windows Vista SP2 和 Windows 7 进行开发时，建议使用
+BluetoothRegisterForAuthenticationEx 。  
+语法 C++
+DWORD BluetoothRegisterForAuthentication(
+  const BLUETOOTH_DEVICE_INFO            *pbtdi,
+  HBLUETOOTH_AUTHENTICATION_REGISTRATION *phRegHandle,   PFN_AUTHENTICATION_CALLBACK            pfnCallback,
+  PVOID                                  pvParam);
+参数 pbtdi
+指向 BLUETOOTH_DEVICE_INFO 结构的指针。 Address 成员用于比较。 phRegHandle
+指向在其中存储注册 HANDLE 的结构的指针。 调用 BluetoothUnregisterAuthentication 以关闭句柄。
+pfnCallback
+发生身份验证事件时要调用的函数。 函数应与 PFN_AUTHENTICATION_CALLBACK 中所述的原
+型匹配。 pvParam
+要通过回调函数传递的可选参数。
+
+≦ 93 ≧
+返回值
+成功完成后返回ERROR_SUCCESS，并在 phRegHandle 中返回有效的注册句柄。 任何其他返回值表示失败。
+调用 GetLastError 函数以获取有关错误的详细信息。 下表描述了一个常见错误：
+ﾉ
+返回代码
+ERROR_OUTOFMEMORY
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+BLUETOOTH_DEVICE_INFO
+值
+说明
+内存不足。
+ﾉ
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BluetoothAuthenticateDevice
+BluetoothAuthenticateMultipleDevices BluetoothEnableDiscovery
+BluetoothEnableIncomingConnections
+BluetoothIsConnectable BluetoothIsDiscoverable
+展开表展开表
+
+≦ 94 ≧
+BluetoothRegisterForAuthentication BluetoothSendAuthenticationResponse BluetoothUnregisterAuthentication
+
+≦ 95 ≧
+BluetoothRegisterForAuthenticationEx 函数
+(bluetoothapis.h) 项目2023/08/22
+BluetoothRegisterForAuthenticationEx 函数为 Pin 请求、数字比较和回调函数注册应用程序。
+注意 Windows Vista SP2 和 Windows 7 支持此 API。  
+语法 C++
+DWORD BluetoothRegisterForAuthenticationEx(
+  [in, optional] const BLUETOOTH_DEVICE_INFO            *pbtdiIn,
+  [out]          HBLUETOOTH_AUTHENTICATION_REGISTRATION *phRegHandleOut,   [in, optional] PFN_AUTHENTICATION_CALLBACK_EX         pfnCallbackIn,
+  [in, optional] PVOID                                  pvParam);
+参数
+[in, optional] pbtdiIn
+指向 BLUETOOTH_DEVICE_INFO 结构的指针，该结构指定要用于比较的蓝牙地址。[out] phRegHandleOut
+指向与已注册的应用程序关联的 HBLUETOOTH_AUTHENTICATION_REGISTRATION 句柄的指
+针。 调用 BluetoothUnregisterAuthentication 以关闭句柄。[in, optional] pfnCallbackIn
+身份验证事件发生时将调用的函数。 此函数应与 PFN_AUTHENTICATION_CALLBACK_EX 的原型匹配。
+[in, optional] pvParam
+要传递到 pfnCallbackIn 指定的回调函数的可选参数。 此参数可以是应用程序需要定义的任何内容。
+
+≦ 96 ≧
+返回值
+成功完成后返回ERROR_SUCCESS;失败时返回以下错误代码：
+返回代码
+ERROR_OUTOFMEMORY
+Win32 错误注解
+说明
+内存不足。
+提供的注册句柄无效。
+调用方必须提供有效的回调地址，并且必须在不再需要通知后注销回调。 通过调用 BluetoothUnregisterAuthentication，可以取消注册经过身份验证的设备。
+ﾉ
+展开表
+如果应用程序多次注册身份验证，则在身份验证正在进行时，只会在应用程序中调用通过此函数
+注册的第一个回调函数。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BluetoothRegisterForAuthentication BluetoothUnregisterAuthentication
+展开表
+
+≦ 97 ≧
+bluetoothRemoveDevice 函数
+(bluetoothapis.h) 项目2024/02/26
+BluetoothRemoveDevice 功能删除蓝牙设备和计算机之间的身份验证，并清除设备的缓存服务
+信息。语法 C++
+DWORD BluetoothRemoveDevice(
+  const BLUETOOTH_ADDRESS *pAddress);
+参数 pAddress
+指向要删除的蓝牙设备的地址的指针。返回值
+成功删除蓝牙设备后返回 ERROR_SUCCESS 。 如果未找到设备，则返回 ERROR_NOT_FOUND。
+注解
+如果 pAddress 指示的设备不是已记住的设备，BluetoothRemoveDevice 功能将失败。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用] 无受支持的版本
+展开表
+
+≦ 98 ≧
+要求
+目标平台
+标头 Library DLL
+另请参阅
+BLUETOOTH_DEVICE_INFO
+值
+Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BLUETOOTH_DEVICE_SEARCH_PARAMS BluetoothDisplayDeviceProperties
+BluetoothFindDeviceClose BluetoothFindFirstDevice BluetoothFindNextDevice BluetoothGetDeviceInfo
+
+≦ 99 ≧
+bluetoothSdpEnumAttributes 函数
+(bluetoothapis.h) 项目2024/03/05
+BluetoothSdpEnumAttributes 函数通过 SDP 记录流枚举，并为记录中的每个属性调用回调函数。
+语法 C++
+BOOL BluetoothSdpEnumAttributes(
+  LPBYTE                                 pSDPStream,   ULONG                                  cbStreamSize,   PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK pfnCallback,
+  LPVOID                                 pvParam);
+参数 pSDPStream
+指向格式化为单个 SDP 记录的有效记录流的指针。 cbStreamSize
+pSDPStream 指向的流的大小（以字节为单位）。 pfnCallback
+指向回调例程的指针。 有关回调的详细信息，请参阅 PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK 。
+pvParam
+要传递给回调例程的可选参数。返回值
+如果发生枚举，则返回 TRUE 。 失败时返回 FALSE 。 有关详细信息，请调用 GetLastError 函数。 下表描述了与 BluetoothSdpEnumAttributes 函数关联的常见错误代码：
+
+≦ 100 ≧
+返回代码
+ERROR_INVALID_PARAMETER
+ERROR_INVALID_DATA 注解
+说明
+pSDPStream 或 pfnCallback 参数为 NULL。 SDP 流已损坏。
+ﾉ
+展开表
+如果回调函数返回 FALSE，则由 BluetoothSdpEnumAttributes 函数启动的枚举将停止。 pSDPStream 中的记录流必须是格式化为 SDP 记录的 SDP 流、包含属性 ID 的 SEQUENCE
+(UINT16) 加上属性值 (任何 SDP 元素类型) 对。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BluetoothSdpGetContainerElementData
+BluetoothSdpGetElementData BluetoothSdpGetString
+PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK SDP_ELEMENT_DATA
+展开表
+
+≦ 101 ≧
+SDP_STRING_TYPE_DATA
+
+≦ 102 ≧
+bluetoothSdpGetAttributeValue 函数
+(bluetoothapis.h) 项目2023/08/22
+BluetoothSdpGetAttributeValue 函数检索属性标识符的属性值。
+语法 C++
+DWORD BluetoothSdpGetAttributeValue(
+  [in]  LPBYTE            pRecordStream,   [in]  ULONG             cbRecordLength,   [in]  USHORT            usAttributeId,   [out] PSDP_ELEMENT_DATA pAttributeData);
+参数
+[in] pRecordStream
+指向格式化为单个 SDP 记录的有效记录流的指针。[in] cbRecordLength
+pRecordStream 的长度（以字节为单位）。[in] usAttributeId
+要搜索的属性标识符。 请参阅“备注”。[out] pAttributeData
+指向 SDP_ELEMENT_DATA 结构的指针，该结构将特性的标识符值放置到其中。返回值
+成功完成后返回ERROR_SUCCESS; pAddributeData 参数包含属性值。 任何其他返回值都指示错误。 下表描述了与 BluetoothSdpGetAttributeValue 函数关联的常见错误代码：
+ﾉ
+展开表
+
+≦ 103 ≧
+返回代码
+ERROR_INVALID_PARAMETER
+ERROR_FILE_NOT_FOUND 注解
+说明
+其中一个必需的指针为 NULL，pRecordStream 参数不是有效的 SDP 流，或者 pRecordStream 参数不是格式正确的 SDP 记录。
+在记录中找不到 usAttributeId 中提供的标识符。
+pRecordStream 中的记录流必须是格式化为 SDP 记录的 SDP 流、包含属性 ID 的 SEQUENCE(UINT16) 加上属性值 (任何 SDP 元素类型) 对。
+usAttributeId 参数中提供的属性标识符可以是 bthdef.h 文件中提供的众多SDP_ATTRIB_Xxx通用属性标识符之一，也可以是蓝牙配置文件定义的自定义属性值。 所有大于或等于 0x200 的值都是特定于配置文件的属性标识符，并且特定于配置文件。 有关通用 SDP 属性标识符的列表，请
+参阅 bthdef.h 头文件。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BluetoothSdpEnumAttributes
+BluetoothSdpGetContainerElementData
+BluetoothSdpGetElementData BluetoothSdpGetString
+展开表
+
+≦ 104 ≧
+SDP_ELEMENT_DATA
+SDP_STRING_TYPE_DATA
+
+≦ 105 ≧
+BluetoothSdpGetContainerElementData 函
+数 (bluetoothapis.h) 项目2023/08/22
+BluetoothSdpGetContainerElementData 函数循环访问容器流并返回容器元素中包含的每个元素。
+语法 C++
+DWORD BluetoothSdpGetContainerElementData(
+  [in]      LPBYTE                       pContainerStream,   [in]      ULONG                        cbContainerLength,   [in, out] HBLUETOOTH_CONTAINER_ELEMENT *pElement,
+  [out]     PSDP_ELEMENT_DATA            pData);
+参数
+[in] pContainerStream
+指向有效 SDP 流的指针。 流中的第一个元素必须是序列或替代元素。[in] cbContainerLength
+pContainerStream 参数的大小（以字节为单位）。[in, out] pElement
+用于跟踪流中的位置的值。 首次为容器调用 BluetoothSdpGetContainerElementData 函数时，
+*pElement 应为 NULL。 对于后续调用，该值应未修改。[out] pData
+指向用 pContainerStream 的当前 SDP 元素中的数据填充的缓冲区的指针。返回值
+成功后返回 ERROR_SUCCESS ，指示 pData 参数包含数据。 失败时返回错误代码。 下表描述了与 BluetoothSdpGetContainerElementData 函数关联的常见错误代码：
+
+≦ 106 ≧
+返回代码
+ERROR_NO_MORE_ITEMS
+ERROR_INVALID_PARAMETER
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+说明
+列表中没有任何项。 调用方应停止为此容器调用 BluetoothSdpGetContainerElementData 函数。
+ﾉ
+所需的指针为 NULL，或者容器不是有效的 SDP 流。
+ﾉ
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BluetoothSdpEnumAttributes BluetoothSdpGetElementData
+BluetoothSdpGetString SDP_ELEMENT_DATA SDP_STRING_TYPE_DATA
+展开表展开表
+
+≦ 107 ≧
+bluetoothSdpGetElementData 函数
+(bluetoothapis.h) 项目2023/08/22
+BluetoothSdpGetElementData 函数从 SDP 流中检索和分析单个元素。
+语法 C++
+DWORD BluetoothSdpGetElementData(
+  [in]  LPBYTE            pSdpStream,
+  [in]  ULONG             cbSdpStreamLength,
+  [out] PSDP_ELEMENT_DATA pData);
+参数
+[in] pSdpStream
+指向有效 SDP 流的指针。[in] cbSdpStreamLength
+pSdpStream 的长度（以字节为单位）。[out] pData
+指向要用 pSdpStream SDP 流开头找到的 SDP 元素数据填充的缓冲区的指针。返回值
+正确分析 SDP 元素时返回 ERROR_SUCCESS 。 如果所需的参数之一为 NULL，或者 pSdpStream
+指向的 SDP 流无效，则返回ERROR_INVALID_PARAMETER。要求
+ﾉ
+展开表
+
+≦ 108 ≧
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BluetoothSdpEnumAttributes
+BluetoothSdpGetContainerElementData
+BluetoothSdpGetString SDP_ELEMENT_DATA SDP_STRING_TYPE_DATA
+
+≦ 109 ≧
+bluetoothSdpGetString 函数
+(bluetoothapis.h) 项目2024/02/23
+BluetoothSdpGetString 函数将 SDP 记录中嵌入的原始字符串转换为 Unicode 字符串。
+语法 C++
+DWORD BluetoothSdpGetString(
+  [in]      LPBYTE                      pRecordStream,   [in]      ULONG                       cbRecordLength,   [in]      const PSDP_STRING_TYPE_DATA pStringData,
+  [in]      USHORT                      usStringOffset,   [out]     PWSTR                       pszString,
+  [in, out] PULONG                      pcchStringLength);
+参数
+[in] pRecordStream
+指向格式化为单个 SDP 记录的有效记录流的指针。[in] cbRecordLength
+pRecordStream 的长度（以字节为单位）。[in] pStringData
+设置为 NULL 时，调用线程区域设置用于在 SDP 记录中搜索匹配的字符串。 如果不是 NULL，则使用 SDP_STRING_TYPE_DATA 结构的 mibeNum 和 attributeId 成员来查找要转换的字符串。
+[in] usStringOffset
+要转换的 SDP 字符串类型偏移量。 usStringOffset 将添加到字符串的基属性标识符。 SDP 规范定义的偏移量为：STRING_NAME_OFFSET、STRING_DESCRIPTION_OFFSET和
+STRING_PROVIDER_NAME_OFFSET。 可以在 bthdef.h 头文件中找到这些偏移量。[out] pszString
+如果不是 NULL，则包含输出中转换后的字符串。 如果设置为 NULL， 则 pcchStringLength 参数将填充所需的字符数（而不是字节数）以检索转换后的字符串。
+
+≦ 110 ≧
+[in, out] pcchStringLength
+输入时，如果 pszString 不是 NULL，则包含 pszString 的长度（以字符为单位）。
+输出时，包含所需的字符数，包括返回错误时为 NULL ，或写入 pszString 的字符数，包括 NULL。
+返回值
+成功完成后返回ERROR_SUCCESS; pszString 参数包含转换后的字符串。 失败时返回错误代码。下表列出了常见错误。
+ﾉ
+返回代码
+ERROR_MORE_DATA ERROR_INVALID_DATA
+ERROR_NO_SYSTEM_RESOURCES ERROR_INVALID_PARAMETER
+要求
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+说明
+pszString 参数为 NULL 或太小，无法包含转换后的字符
+展开表
+串;pcchStringLength 参数包含所需的长度（以字符为单位）。无法执行转换。
+系统无法在内部分配内存来执行转换。
+所需的指针之一为 NULL，pRecordStream 参数不是有效的 SDP 流，pRecordStream 不是格式正确的记录，或者请求的属性加偏移量不是字符串。
+ﾉ
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+展开表
+
+≦ 111 ≧
+另请参阅
+BluetoothSdpEnumAttributes BluetoothSdpGetAttributeValue
+BluetoothSdpGetContainerElementData
+BluetoothSdpGetElementData SDP_ELEMENT_DATA
+SDP_STRING_TYPE_DATA
+
+≦ 112 ≧
+bluetoothSelectDevices 函数
+(bluetoothapis.h) 项目2023/08/22
+BluetoothSelectDevices 功能启用蓝牙设备选择。
+语法 C++
+BOOL BluetoothSelectDevices(
+  BLUETOOTH_SELECT_DEVICE_PARAMS *pbtsdp);
+参数 pbtsdp
+指向标识蓝牙设备的 BLUETOOTH_SELECT_DEVICE_PARAMS 结构的指针。返回值
+如果用户选择了设备，则返回 TRUE 。
+如果未返回有效数据，则返回 FALSE 。 调用 GetLastError 函数以检索错误信息。 以下条件适用于返回的错误信息。
+ﾉ
+返回代码
+ERROR_CANCELLED
+ERROR_INVALID_PARAMETER ERROR_REVISION_MISMATCH
+注解
+说明
+用户取消了请求。
+pbtsdp 参数为 NULL。
+在 pbtsdp 中传递的结构大小未知。
+展开表
+BluetoothSelectDevices 函数将打开一个用于选择蓝牙设备的通用对话框。 向用户显示的设备列表由调用方在 pbtsdp 参数中指定的标志和设置决定。
+
+≦ 113 ≧
+如果 BluetoothSelectDevices 返回 TRUE，则BLUETOOTH_SELECT_DEVICE_PARAMS结构的 pDevices 成员指向有效数据。 调用方应验证BLUETOOTH_SELECT_DEVICE_PARAMS结构中的
+fAuthenticated 和 fRemembered 标志，以确定哪些设备已成功进行身份验证，以及哪些设备是用户的有效选择。 仅当 BluetoothSelectDevices 函数返回 TRUE 时，调用
+BluetoothSelectDevicesFree 函数以释放资源。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BLUETOOTH_SELECT_DEVICE_PARAMS PFN_DEVICE_CALLBACK
+展开表
+
+≦ 114 ≧
+BluetoothSelectDevicesFree 函数
+(bluetoothapis.h) 项目2024/02/28
+BluetoothSelectDevicesFree 函数释放与之前调用 BluetoothSelectDevices 关联的资源。
+语法 C++
+BOOL BluetoothSelectDevicesFree(
+  BLUETOOTH_SELECT_DEVICE_PARAMS *pbtsdp);
+参数 pbtsdp
+指向 BLUETOOTH_SELECT_DEVICE_PARAMS 结构的指针，该结构标识要释放的蓝牙设备资源。返回值
+成功后返回 TRUE 。 如果没有要释放的资源，则返回 FALSE 。注解
+仅当之前对 BluetoothSelectDevices 函数的调用返回 TRUE 时，才调用
+BluetoothSelectDevicesFree 函数。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+无受支持的版本 Windows
+展开表
+
+≦ 115 ≧
+要求标头 Library DLL
+另请参阅
+值
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BLUETOOTH_SELECT_DEVICE_PARAMS BluetoothSelectDevices
+
+≦ 116 ≧
+bluetoothSendAuthenticationResponse 函
+数 (bluetoothapis.h) 项目2024/02/23
+收到发送密钥响应的身份验证请求时，将调用 BluetoothSendAuthenticationResponse 函数。注意 针对 Windows Vista SP2 和 Windows 7 进行开发时，建议使用
+BluetoothSendAuthenticationResponseEx 。  
+语法 C++
+DWORD BluetoothSendAuthenticationResponse(
+  HANDLE                      hRadio,   const BLUETOOTH_DEVICE_INFO *pbtdi,
+  LPCWSTR                     pszPasskey);
+参数 hRadio
+本地单选句柄的可选句柄，或 NULL。 如果 为 NULL，则函数会尝试在所有本地无线电上发送身
+份验证响应。 pbtdi
+指向描述要进行身份验证的蓝牙设备的 BLUETOOTH_DEVICE_INFO 结构的指针。 这可以是传递
+给回调函数的相同结构。 pszPasskey
+指向要发送回身份验证设备的传递密钥响应的 UNICODE 零终止字符串的指针。 pszPasskey 参数不能大于 BLUETOOTH_MAX_PASSKEY_SIZE，不包括 NULL。 如果执行到 ANSI 的转换， 则
+pszPasskey 参数不能大于 16 个字节，不包括 NULL。返回值
+
+≦ 117 ≧
+当设备接受密钥响应时返回ERROR_SUCCESS;设备已经过身份验证。 任何其他返回值表示失败。下表描述了常见错误：
+ﾉ
+返回代码
+ERROR_CANCELLED
+E_FAIL 要求
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+BLUETOOTH_DEVICE_INFO
+值
+说明
+展开表
+蓝牙设备拒绝密钥响应。 如果本地无线电存在通信问题，也会返回此错误。
+设备在身份验证期间返回了失败代码。
+ﾉ
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BluetoothAuthenticateDevice
+BluetoothAuthenticateMultipleDevices BluetoothEnableDiscovery
+BluetoothEnableIncomingConnections
+BluetoothIsConnectable BluetoothIsDiscoverable
+展开表
+
+≦ 118 ≧
+BluetoothRegisterForAuthentication
+BluetoothSendAuthenticationResponseEx BluetoothUnregisterAuthentication
+
+≦ 119 ≧
+BluetoothSendAuthenticationResponseEx
+函数 (bluetoothapis.h) 项目2024/02/26
+当发送密钥的身份验证请求或进行数字比较响应时，将调用 BluetoothSendAuthenticationResponseEx 函数。
+注意 Windows Vista SP2 和 Windows 7 支持此 API。  
+语法 C++
+DWORD BluetoothSendAuthenticationResponseEx(
+  [in, optional] HANDLE                           hRadioIn,
+  [in]           PBLUETOOTH_AUTHENTICATE_RESPONSE pauthResponse);
+参数
+[in, optional] hRadioIn
+用于指定其本地服务信息的蓝牙无线电设备的句柄。[in] pauthResponse
+指向 包含对 BTH_REMOTE_AUTHENTICATE_REQUEST 事件的响应 的
+BLUETOOTH_AUTHENTICATE_RESPONSE 结构的指针。返回值
+成功完成后返回ERROR_SUCCESS;失败时返回以下错误代码：
+ﾉ
+返回代码
+ERROR_CANCELLED
+说明
+展开表
+设备被拒绝传递密钥响应。 这可能还表示本地无线电设备的通信问题。
+
+≦ 120 ≧
+E_FAIL 注解
+设备在身份验证期间返回了失败代码。
+调用方只能使用此函数来响应挂起的身份验证请求。 应用程序应向
+BluetoothRegisterForAuthenticationEx 注册，以便收到传入身份验证请求的通知。只有 BLUETOOTH_AUTHENTICATION_METHOD_LEGACY、
+BLUETOOTH_AUTHENTICATION_METHOD_NUMERIC_COMPARISON 和
+BLUETOOTH_AUTHENTICATION_METHOD_PASSKEY_NOTIFICATION 响应类型有效。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BluetoothSendAuthenticationResponse
+展开表
+
+≦ 121 ≧
+bluetoothSetServiceState 函数
+(bluetoothapis.h) 项目2024/02/26
+BluetoothSetServiceState 函数启用或禁用蓝牙设备的服务。
+语法 C++
+DWORD BluetoothSetServiceState(
+  HANDLE                      hRadio,   const BLUETOOTH_DEVICE_INFO *pbtdi,
+  const GUID                  *pGuidService,   DWORD                       dwServiceFlags);
+参数 hRadio
+本地蓝牙无线电的句柄。 pbtdi
+指向 BLUETOOTH_DEVICE_INFO 结构的指针。 必须是以前找到的单选地址。 pGuidService
+指向远程设备上的服务 GUID 的指针。 dwServiceFlags
+调整服务的标志。 若要禁用该服务，请将 设置为 BLUETOOTH_SERVICE_DISABLE;若要启用该
+服务，请将 设置为 BLUETOOTH_SERVICE_ENABLE。返回值
+成功完成后返回 ERROR_SUCCESS 。 下表列出了常见错误。
+ﾉ
+展开表
+
+≦ 122 ≧
+返回代码
+ERROR_INVALID_PARAMETER
+ERROR_SERVICE_DOES_NOT_EXIST
+E_INVALIDARG 注解
+说明
+dwServiceFlags 无效。
+不支持 pGuidService 中指定的 GUID 。
+dwServiceFlags 设置为 BLUETOOTH_SERVICE_DISABLE 且服务已禁用，或 dwServiceFlags 设置为
+BLUETOOTH_SERVICE_ENABLE 且服务已启用。
+Windows 维护服务全局唯一标识符 (GUID 的映射，) 支持蓝牙的设备驱动程序。 启用服务会安装相应的设备驱动程序，禁用服务会删除相应的设备驱动程序。 如果启用了不支持的服务，则
+不会安装驱动程序。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+BLUETOOTH_DEVICE_INFO
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BLUETOOTH_DEVICE_SEARCH_PARAMS BluetoothDisplayDeviceProperties
+BluetoothFindDeviceClose BluetoothFindFirstDevice
+展开表
+
+≦ 123 ≧
+BluetoothFindNextDevice BluetoothGetDeviceInfo BluetoothRemoveDevice
+
+≦ 124 ≧
+BluetoothUnregisterAuthentication 函数
+(bluetoothapis.h) 项目2024/03/05
+BluetoothUnregisterAuthentication 函数删除以前通过调用
+BluetoothRegisterForAuthentication 函数注册的回调例程的注册。
+语法 C++
+BOOL BluetoothUnregisterAuthentication(
+  HBLUETOOTH_AUTHENTICATION_REGISTRATION hRegHandle);
+参数 hRegHandle
+以前调用 BluetoothRegisterForAuthentication 函数返回的句柄。返回值
+成功删除身份验证注册后，返回 TRUE 。 如果未成功关闭指定的句柄，则返回 FALSE 。调用 GetLastError 函数以获取有关错误的详细信息。 下表描述了一个常见错误：
+ﾉ
+返回代码
+ERROR_INVALID_HANDLE
+要求要求
+最低受支持的客户端
+值
+说明
+句柄为 NULL。
+ﾉ
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+展开表展开表
+
+≦ 125 ≧
+要求
+最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+BLUETOOTH_DEVICE_INFO
+值
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BluetoothAuthenticateDevice
+BluetoothAuthenticateMultipleDevices BluetoothEnableDiscovery
+BluetoothEnableIncomingConnections
+BluetoothIsConnectable BluetoothIsDiscoverable
+BluetoothRegisterForAuthentication BluetoothSendAuthenticationResponse
+
+≦ 126 ≧
+BluetoothUpdateDeviceRecord 函数
+(bluetoothapis.h) 项目2024/02/26
+BluetoothUpdateDeviceRecord 函数更新有关蓝牙设备的本地计算机缓存。
+语法 C++
+DWORD BluetoothUpdateDeviceRecord(   const BLUETOOTH_DEVICE_INFO *pbtdi);
+参数 pbtdi
+指向要更新 的BLUETOOTH_DEVICE_INFO 结构的指针。 有关详细信息，请参见“备注”部分。返回值
+成功后返回 ERROR_SUCCESS 。 下表列出了常见错误。
+ﾉ
+返回代码
+ERROR_INVALID_PARAMETER ERROR_REVISION_MISMATCH
+注解
+说明
+pbtdi 参数为 NULL。
+pbtdi 参数中指向的结构的 dwSize 成员无效。
+展开表
+更新蓝牙设备记录时，必须遵守下表中列出的 BLUETOOTH_DEVICE_INFO 结构成员的要求。
+ﾉ
+成员
+要求
+展开表
+
+≦ 127 ≧
+dwSize Address szName
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+必须与结构大小匹配。
+必须是以前找到的单选地址。必须包含要存储的新名称。
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+Bthprops.lib bthprops.cpl
+BLUETOOTH_DEVICE_INFO
+BLUETOOTH_DEVICE_SEARCH_PARAMS BluetoothDisplayDeviceProperties
+BluetoothFindDeviceClose BluetoothFindFirstDevice BluetoothFindNextDevice BluetoothGetDeviceInfo BluetoothRemoveDevice
+ﾉ
+展开表
+
+≦ 128 ≧
+bluetoothapis.h
+(PFN_AUTHENTICATION_CALLBACK 回调函
+数) 项目2024/02/26
+PFN_AUTHENTICATION_CALLBACK函数是与 BluetoothRegisterForAuthentication 函数结合使用的回调函数原型。
+注意 针对 Windows Vista SP2 和 Windows 7 进行开发时，建议使用
+PFN_AUTHENTICATION_CALLBACK_EX 。  
+语法 C++
+PFN_AUTHENTICATION_CALLBACK PfnAuthenticationCallback;
+BOOL PfnAuthenticationCallback(   LPVOID pvParam,
+  PBLUETOOTH_DEVICE_INFO pDevice)
+{...}
+参数 pvParam
+可选。 先前传递到 BluetoothRegisterForAuthentication 函数的上下文指针。 pDevice
+请求身份验证的远程蓝牙设备。 远程地址是上一次调用 BluetoothRegisterForAuthentication 函
+数期间用于注册回调的地址。返回值
+系统忽略此函数的返回值。
+
+≦ 129 ≧
+注解
+调用方可以使用同一回调函数注册多个地址。要求
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+BluetoothRegisterForAuthentication
+ﾉ
+展开表
+
+≦ 130 ≧
+PFN_AUTHENTICATION_CALLBACK_EX回调
+函数 (bluetoothapis.h) 项目2024/02/26
+PFN_AUTHENTICATION_CALLBACK_EX 函数是与 BluetoothRegisterForAuthenticationEx 函数结合使用的回调函数原型。
+注意 Windows Vista SP2 和 Windows 7 支持此结构。  
+语法 C++
+PFN_AUTHENTICATION_CALLBACK_EX PfnAuthenticationCallbackEx;
+BOOL PfnAuthenticationCallbackEx(   [in, optional] LPVOID pvParam,
+  [in]           PBLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS pAuthCallbackParams)
+{...} 参数
+[in, optional] pvParam
+可选。 以前传递到 BluetoothRegisterForAuthentication 函数的上下文指针。[in] pAuthCallbackParams
+一个BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS结构，其中包含特定于响应身份验证
+请求的蓝牙设备的设备和身份验证配置信息。返回值
+系统忽略此函数的返回值。要求
+
+≦ 131 ≧
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+BluetoothRegisterForAuthenticationEx PFN_AUTHENTICATION_CALLBACK
+ﾉ
+展开表
+
+≦ 132 ≧
+bluetoothapis.h
+(PFN_BLUETOOTH_ENUM_ATTRIBUTES_CAL
+LBACK 回调函数) 项目2023/08/22
+PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK是一个回调函数原型，该原型针对传递到 BluetoothSdpEnumAttributes 函数调用的 pSDPStream 参数中找到的每个属性调用一次。
+语法 C++
+PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK PfnBluetoothEnumAttributesCallback;
+BOOL PfnBluetoothEnumAttributesCallback(   ULONG uAttribId,
+  LPBYTE pValueStream,   ULONG cbStreamSize,
+  LPVOID pvParam)
+{...}
+参数 uAttribId
+SDP 流中的当前属性标识符。 pValueStream
+与 uAttribId 关联的属性值的原始 SDP 流。 使用 BluetoothSdpGetElementData 函数将原始结果
+分析为计算机可读的数据。 cbStreamSize
+pValueStream 的大小（以字节为单位）。 pvParam
+从上次调用 BluetoothSdpEnumAttributes 函数传入的上下文。返回值
+
+≦ 133 ≧
+当枚举继续到在流中找到的下一个属性标识符时，应返回 TRUE 。 当记录属性标识符的枚举应
+立即停止时，应返回 FALSE 。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+BluetoothSdpGetElementData
+展开表
+
+≦ 134 ≧
+bluetoothapis.h) (PFN_DEVICE_CALLBACK
+回调函数项目2024/02/23
+PFN_DEVICE_CALLBACK函数是与选择蓝牙设备关联的回调原型。 如果不需要专用筛选，可以将 PFN_DEVICE_CALLBACK 函数设置为 NULL 。
+语法 C++
+PFN_DEVICE_CALLBACK PfnDeviceCallback;
+BOOL PfnDeviceCallback(   LPVOID pvParam,
+  const BLUETOOTH_DEVICE_INFO *pDevice)
+{...}
+参数 pvParam
+通过 BluetoothSelectDevices 函数从 BLUETOOTH_SELECT_DEVICE_PARAMS 结构的 pvParam 成
+员传入的参数。 pDevice
+已查询远程蓝牙地址;这是插入到用户提供的蓝牙设备列表中的地址。返回值
+返回 FALSE 会阻止将设备添加到蓝牙设备的列表视图中。注解
+pDevice 中指向的BLUETOOTH_DEVICE_INFO结构是 BluetoothSelectDevices 函数查询的设备，以确定该设备是否应添加到列表视图中。
+如果回调对每个设备执行 SDP 查询，则用户可以从中选择的设备列表将延迟到可以查询所有设备为止。 建议的方法是使用服务调用设备类中的位域（可通过 GET_COD_SERVICE获取），以确
+
+≦ 135 ≧
+定是否应向用户显示设备。 服务类位域通过 ulClassOfDevice 成员在 pDevice 参数中可用。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅
+BLUETOOTH_DEVICE_INFO
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 Windows
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+BLUETOOTH_SELECT_DEVICE_PARAMS BluetoothSelectDevices
+展开表
+
+≦ 136 ≧
+bluetoothapis.h) (SDP_ELEMENT_DATA
+结构项目2024/03/05
+SDP_ELEMENT_DATA结构存储 SDP 元素数据。
+语法 C++
+typedef struct _SDP_ELEMENT_DATA {   SDP_TYPE         type;
+  SDP_SPECIFICTYPE specificType;   union {
+    SDP_LARGE_INTEGER_16  int128;     LONGLONG              int64;     LONG                  int32;     SHORT                 int16;     CHAR                  int8;
+    SDP_ULARGE_INTEGER_16 uint128;     ULONGLONG             uint64;     ULONG                 uint32;     USHORT                uint16;     UCHAR                 uint8;
+    UCHAR                 booleanVal;
+    GUID                  uuid128;     ULONG                 uuid32;     USHORT                uuid16;     struct {
+      LPBYTE value;       ULONG  length;
+    } string;     struct {
+      LPBYTE value;       ULONG  length;
+    } url;     struct {
+      LPBYTE value;       ULONG  length;
+    } sequence;     struct {
+      LPBYTE value;       ULONG  length;     } alternative;   } data;
+} SDP_ELEMENT_DATA, *PSDP_ELEMENT_DATA;
+
+≦ 137 ≧
+成员 type
+SDP 元素类型的枚举。 泛型元素类型具有不同于SDP_ST_NONE 的 specificType 值。 泛型 SDP 元素类型如下：
+SDP_TYPE_UINT SDP_TYPE_INT SDP_TYPE_UUID
+以下元素类型没有相应的 specificType 值：
+SDP_TYPE_STRING SDP_TYPE_URL
+SDP_TYPE_SEQUENCE SDP_TYPE_ALTERNATIVE SDP_TYPE_BOOLEAN SDP_TYPE_NIL
+没有与类型SDP_TYPE_NIL关联的数据值。 specificType
+SDP 元素的特定类型，用于进一步指定泛型元素类型。 data
+data.int128
+类型的值等于 SDP_TYPE_INT，specificType 的值等于 SDP_ST_INT128。 data.int64
+类型的值等于 SDP_TYPE_INT，specificType 的值等于 SDP_ST_INT64。 data.int32
+类型的值等于 SDP_TYPE_INT，specificType 的值等于 SDP_ST_INT32。 data.int16
+类型的值等于 SDP_TYPE_INT，specificType 的值等于 SDP_ST_INT16。 data.int8
+类型的值等于 SDP_TYPE_INT，specificType 的值等于 SDP_ST_INT8。
+
+≦ 138 ≧
+data.uint128
+类型的值等于 SDP_TYPE_UINT，specificType 的值等于 SDP_ST_UINT128。 data.uint64
+类型的值等于 SDP_TYPE_UINT，specificType 的值等于SDP_ST_UINT64。 data.uint32
+类型的值等于 SDP_TYPE_UINT，specificType 的值等于 SDP_ST_UINT32。 data.uint16
+类型的值等于 SDP_TYPE_UINT，specificType 的值等于 SDP_ST_UINT16。 data.uint8
+类型的值等于 SDP_TYPE_UINT，specificType 的值等于 SDP_ST_UINT8。 data.booleanVal
+类型的值等于 SDP_TYPE_BOOLEAN。 data.uuid128
+类型的值等于 SDP_TYPE_UUID，specificType 的值等于 SDP_ST_UUID128。 data.uuid32
+类型的值等于 SDP_TYPE_UUID，specificType 的值等于 SDP_ST_UUID32。 data.uuid16
+类型的值等于 SDP_TYPE_UUID，specificType 的值等于SDP_ST_UUID16。 data.string
+data.string.value
+类型的值等于 SDP_TYPE_STRING，即原始字符串缓冲区。 不能编码为 ANSI。 如果基本
+语言属性标识符列表描述了该值，请使用 BluetoothSdpGetString 函数转换该值。 data.string.length
+字符串的原始长度。 不能以 null 结尾。 data.url
+
+≦ 139 ≧
+data.url.value
+类型的值等于 SDP_TYPE_URL。 data.url.length
+原始 URL 的长度。 不能以 null 结尾。 data.sequence
+data.sequence.value
+从序列元素标头开始的原始序列。 类型的值等于 SDP_TYPE_SEQUENCE。 data.sequence.length
+原始序列的长度。 不能以 null 结尾。 data.alternative
+data.alternative.value
+原始替代项，从备用元素标头开始。 类型的值等于 SDP_TYPE_ALTERNATIVE。 data.alternative.length
+原始替代项的长度。 不能以 null 结尾。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+BluetoothSdpEnumAttributes BluetoothSdpGetAttributeValue
+展开表
+
+≦ 140 ≧
+BluetoothSdpGetContainerElementData
+BluetoothSdpGetElementData BluetoothSdpGetString
+PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 141 ≧
+SDP_STRING_TYPE_DATA 结构
+(bluetoothapis.h) 项目2024/02/26
+SDP_STRING_TYPE_DATA 结构存储有关 SDP 字符串类型的信息。
+语法 C++
+typedef struct _SDP_STRING_TYPE_DATA {
+  USHORT encoding;   USHORT mibeNum;
+  USHORT attributeId;
+} SDP_STRING_TYPE_DATA, *PSDP_STRING_TYPE_DATA;
+成员 encoding
+指定如何根据 ISO 639：1988 (E/F) ：语言名称表示形式的代码对字符串进行编码。 mibeNum
+IANA 数据库中的 MIBE 编号。 attributeId
+记录中要在其中找到字符串的基属性的标识符。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用] 无受支持的版本
+bluetoothapis.h (包括 Bthsdpdef.h、BluetoothAPIs.h)
+展开表
+
+≦ 142 ≧
+另请参阅
+BluetoothSdpEnumAttributes BluetoothSdpGetAttributeValue
+BluetoothSdpGetContainerElementData
+BluetoothSdpGetElementData BluetoothSdpGetString
+PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK
+SDP_ELEMENT_DATA 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 143 ≧
+bthdef.h 标头项目2023/08/22
+蓝牙使用此标头。 有关详细信息，请参阅：
+蓝牙
+bthdef.h 包含以下编程接口：
+结构  
+BTH_DEVICE_INFO
+存储有关蓝牙设备的信息。 BTH_HCI_EVENT_INFO
+用于获取蓝牙WM_DEVICECHANGE消息。 BTH_L2CAP_EVENT_INFO
+包含有关与 L2CAP 通道关联的事件的数据。 BTH_RADIO_IN_RANGE
+在通信范围内存储有关蓝牙设备的数据。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 144 ≧
+bthdef.h) (BTH_DEVICE_INFO 结构项目2024/03/05
+BTH_DEVICE_INFO结构存储有关蓝牙设备的信息。
+语法 C++
+typedef struct _BTH_DEVICE_INFO {
+  ULONG    flags;   BTH_ADDR address;
+  BTH_COD  classOfDevice;
+  CHAR     name[BTH_MAX_NAME_SIZE];} BTH_DEVICE_INFO, *PBTH_DEVICE_INFO;
+成员 flags
+下表中列出的一个或多个标志的组合。
+值
+BDIF_ADDRESS
+BDIF_COD BDIF_NAME BDIF_PAIRED
+BDIF_PERSONAL BDIF_CONNECTED
+BDIF_SSP_SUPPORTED BDIF_SSP_PAIRED
+BDIF_SSP_MITM_PROTECTED
+含义
+地址成员包含有效数据。
+classOfDevice 成员包含有效数据。名称成员包含有效数据。
+ﾉ
+展开表
+设备是经过记住且经过身份验证的设备。 设置此标志时，始终设置 BDIF_PERSONAL 标志。
+设备是已记住的设备。 如果设置了此标志且未设置 BDIF_PAIRED 标志，则设备不会进行身份验证。
+远程蓝牙设备当前已连接到本地无线电。设备支持使用安全简单配对 (SSP) 。
+设备被记住并使用安全简单配对 (SSP) 进行身份验证。设备支持使用安全简单配对 (SSP) 来防范“中间人”攻击。
+
+≦ 145 ≧
+address
+远程蓝牙设备的地址。 classOfDevice
+描述远程设备的设备 (COD) 的设备类的位字段。 COD 由以下四个字段组成：格式：使用 GET_COD_FORMAT (classOfDevice) 检索。 当前支持的唯一格式是 COD_VERSION。
+主要：使用 GET_COD_MAJOR (类OfDevice) 检索。 当前定义了以下值，但列表应会展开。 不要使用主要类字段来确定要连接到哪个远程设备。 远程设备可能只有一个主要类
+代码，并且可能不是给定配置文件的相应代码。 COD_MAJOR_MISCELLANEOUS
+COD_MAJOR_COMPUTER COD_MAJOR_PHONE
+COD_MAJOR_LAN_ACCESS COD_MAJOR_AUDIO
+COD_MAJOR_PERIPHERAL COD_MAJOR_IMAGING
+COD_MAJOR_UNCLASSIFIED
+次要：使用 GET_COD_MINOR (classOfDevice) 检索。 次要代码特定于每个主代码，后者定义其次要代码的格式。 一些次要代码是严格枚举的值;其他是位字段或位字段和枚举值的组合。
+服务提示：使用 GET_COD_SERVICE (类OfDevice) 检索。 提供有关远程设备功能的提示。
+COD_SERVICE_LIMITED
+
+≦ 146 ≧
+COD_SERVICE_POSITIONING COD_SERVICE_NETWORKING COD_SERVICE_RENDERING COD_SERVICE_CAPTURING COD_SERVICE_OBJECT_XFER COD_SERVICE_AUDIO
+COD_SERVICE_TELEPHONY COD_SERVICE_INFORMATION name[BTH_MAX_NAME_SIZE]
+远程蓝牙设备的名称，由设备报告，以 UTF8 编码。 用户可能已在本地为远程蓝牙设备提供了显示名称;该名称被重写，并且不在此成员中显示;它只能通过调用
+BluetoothGetDeviceInfo 函数进行访问。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 BTH_QUERY_DEVICE BTH_QUERY_SERVICE
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 bthdef.h
+展开表
+
+≦ 147 ≧
+BTH_SET_SERVICE
+BluetoothGetDeviceInfo 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 148 ≧
+BTH_HCI_EVENT_INFO 结构 (bthdef.h) 项目2024/02/26
+BTH_HCI_EVENT_INFO 结构用于获取蓝牙WM_DEVICECHANGE消息。
+语法 C++
+typedef struct _BTH_HCI_EVENT_INFO {   BTH_ADDR bthAddress;
+  UCHAR    connectionType;   UCHAR    connected;
+} BTH_HCI_EVENT_INFO, *PBTH_HCI_EVENT_INFO;
+成员 bthAddress
+远程设备的地址，采用 BTH_ADDR 结构的形式。 connectionType
+连接类型。 有效值为 HCI_CONNECTION_TYPE_ACL 或 HCI_CONNECTION_TYPE_SCO。 connected
+连接的状态。 如果不是零，则已建立连接。 如果为零，则表示连接已终止。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+无受支持的版本 bthdef.h
+展开表
+
+≦ 149 ≧
+另请参阅 BTH_ADDR
+蓝牙和WM_DEVICECHANGE消息反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 150 ≧
+bthdef.h) (BTH_L2CAP_EVENT_INFO 结构项目2023/08/22
+BTH_L2CAP_EVENT_INFO 结构包含有关与 L2CAP 通道关联的事件的数据。
+语法 C++
+typedef struct _BTH_L2CAP_EVENT_INFO {
+  BTH_ADDR bthAddress;   USHORT   psm;
+  UCHAR    connected;   UCHAR    initiated;
+} BTH_L2CAP_EVENT_INFO, *PBTH_L2CAP_EVENT_INFO;
+成员 bthAddress
+与 L2CAP 事件关联的远程无线电地址，采用 BTH_ADDR 结构的形式。 psm
+已建立或终止的通道编号。 connected
+连接状态。 如果为非零，则表示已建立通道。 如果为零，则表示通道已终止。 initiated
+提供连接信息。 如果不是零，则本地无线电启动 L2CAP 连接。 如果为零，则远程蓝牙设
+备启动 L2CAP 连接。 如果 connected 为零，则此成员未定义且不适用。注解
+仅针对已成功建立的通道发送已销毁通道的通知。要求
+
+≦ 151 ≧
+ 
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 BTH_ADDR
+ 
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 bthdef.h
+蓝牙和WM_DEVICECHANGE消息反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 152 ≧
+BTH_RADIO_IN_RANGE 结构 (bthdef.h) 项目2024/02/26
+BTH_RADIO_IN_RANGE结构在通信范围内存储有关蓝牙设备的数据。
+语法 C++
+typedef struct _BTH_RADIO_IN_RANGE {   BTH_DEVICE_INFO deviceInfo;
+  ULONG           previousDeviceFlags;
+} BTH_RADIO_IN_RANGE, *PBTH_RADIO_IN_RANGE;
+成员 deviceInfo
+与远程设备关联的当前属性集，采用 BTH_DEVICE_INFO 结构的形式。 previousDeviceFlags
+deviceInfo 成员指向的 BTH_DEVICE_INFO 结构的 flags 成员以前的标志。 用于确定与远
+程设备关联的属性已更改。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 BTH_DEVICE_INFO
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 bthdef.h
+展开表
+
+≦ 153 ≧
+蓝牙和WM_DEVICECHANGE消息反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 154 ≧
+bthsdpdef.h 标头项目2023/08/22
+蓝牙使用此标头。 有关详细信息，请参阅：
+蓝牙
+bthsdpdef.h 包含以下编程接口：
+结构  
+SdpAttributeRange
+SdpAttributeRange 结构用于蓝牙查询，以限制在查询中返回的属性集。 SdpQueryUuid
+SdpQueryUuid 结构有助于搜索 UUID。 SdpQueryUuidUnion
+SdpQueryUuidUnion 联合包含要对其执行 SDP 查询的 UUID。 与 SdpQueryUuid 结构结合使用。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 155 ≧
+SdpAttributeRange 结构 (bthsdpdef.h) 项目2024/02/28
+在蓝牙查询中使用 SdpAttributeRange 结构来限制在查询中返回的属性集。
+语法 C++
+typedef struct SdpAttributeRange {
+  USHORT minAttribute;   USHORT maxAttribute;} SdpAttributeRange;
+成员 minAttribute
+要搜索的最小属性值。 maxAttribute
+要搜索的最大属性值。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 BTH_QUERY_SERVICE
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 bthsdpdef.h
+展开表
+
+≦ 156 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 157 ≧
+SdpQueryUuid 结构 (bthsdpdef.h) 项目2024/02/23
+SdpQueryUuid 结构有助于搜索 UUID。
+语法 C++
+typedef struct _SdpQueryUuid {   SdpQueryUuidUnion u;
+  USHORT            uuidType;} SdpQueryUuid;
+成员 u
+包含要搜索的 UUID 的联合。 uuidType
+正在搜索的 UUID 的类型。 必须是SDP_SPECIFICTYPE枚举中的三个有效值之一：
+SDP_ST_UUID16 - 指示将在搜索中使用 u.uuid16。 SDP_ST_UUID32 - 指示将在搜索中使用 u.uuid32。 SDP_ST_UUID128 - 指示将在搜索中使用 u.uuid128。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 bthsdpdef.h
+展开表
+
+≦ 158 ≧
+BTH_QUERY_SERVICE 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 159 ≧
+SdpQueryUuidUnion union (bthsdpdef.h) 项目2024/03/05
+SdpQueryUuidUnion 联合包含要对其执行 SDP 查询的 UUID。 与 SdpQueryUuid 结构结合使用。
+语法 C++
+typedef union SdpQueryUuidUnion {
+  GUID   uuid128;   ULONG  uuid32;   USHORT uuid16;
+} SdpQueryUuidUnion;
+成员 uuid128
+128 位格式的 UUID。 uuid32
+32 位格式的 UUID。 uuid16
+16 位格式的 UUID。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+值
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+无受支持的版本 bthsdpdef.h
+展开表
+
+≦ 160 ≧
+另请参阅 BTH_QUERY_SERVICE SdpQueryUuid
+
+≦ 161 ≧
+ws2bth.h 标头项目2023/08/28
+蓝牙使用此标头。 有关详细信息，请参阅：
+蓝牙
+ws2bth.h 包含以下编程接口：
+结构  
+BTH_QUERY_DEVICE
+查询蓝牙设备是否存在时，将使用BTH_QUERY_DEVICE结构。 BTH_QUERY_SERVICE
+BTH_QUERY_SERVICE 结构用于查询蓝牙服务。 BTH_SET_SERVICE
+为指定的蓝牙服务提供服务信息。 SOCKADDR_BTH
+SOCKADDR_BTH结构与由地址系列AF_BTH定义的蓝牙套接字操作结合使用。反馈
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+
+≦ 162 ≧
+BTH_QUERY_DEVICE 结构 (ws2bth.h) 项目2024/03/13
+查询是否存在蓝牙设备时，将使用 BTH_QUERY_DEVICE 结构。
+语法 C++
+typedef struct _BTH_QUERY_DEVICE {   ULONG LAP;
+  UCHAR length;
+} BTH_QUERY_DEVICE, *PBTH_QUERY_DEVICE, BTHNS_INQUIRYBLOB, *PBTHNS_INQUIRYBLOB;
+成员 LAP
+保留。 必须设置为零。 length
+请求的查询长度（以秒为单位）。注解
+有关 LAP 的其他信息，请参阅 www.bluetooth.com 要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+值
+ 中的蓝牙规范。
+ﾉ
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用]
+无受支持的版本 ws2bth.h
+展开表
+
+≦ 163 ≧
+另请参阅
+用于设备查询的蓝牙和 WSALookupServiceBegin
+用于设备查询的蓝牙和 WSAQUERYSET 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 164 ≧
+BTH_QUERY_SERVICE 结构 (ws2bth.h) 项目2023/08/28
+BTH_QUERY_SERVICE 结构用于查询蓝牙服务。
+语法 C++
+typedef struct _BTH_QUERY_SERVICE {   ULONG             type;
+  ULONG             serviceHandle;
+  SdpQueryUuid      uuids[MAX_UUIDS_IN_QUERY];
+  ULONG             numRange;   SdpAttributeRange pRange[1];
+} BTH_QUERY_SERVICE, *PBTH_QUERY_SERVICE, BTHNS_RESTRICTIONBLOB, *PBTHNS_RESTRICTIONBLOB;
+成员 type
+要执行的服务类型。 从下列各项中进行选择：
+SDP_SERVICE_SEARCH_REQUEST SDP_SERVICE_ATTRIBUTE_REQUEST
+SDP_SERVICE_SEARCH_ATTRIBUTE_REQUEST
+serviceHandle
+要查询 pRange 成员中指定的属性的服务句柄。 仅用于属性搜索。 uuids[MAX_UUIDS_IN_QUERY]
+记录必须包含的 UUID 以匹配搜索。 用于服务和服务属性搜索。 查询小于 MAX_UUIDS_IN_QUERY UUID 时，请将紧跟在最后一个有效 UUID 后面的
+SdpQueryUuid 元素设置为所有零。 仅用于属性和服务属性搜索。 numRange
+pRange 中的元素数。 仅用于属性和服务属性搜索。 pRange[1]
+
+≦ 165 ≧
+要检索任何匹配记录的属性值，采用 SdpAttributeRange 结构数组的形式。 属性在蓝牙
+规范中定义。 请参阅“备注”。注解
+pRange 成员是一个开放式数组，指定要从查询返回的稀疏属性集。 应用程序负责提供按属性 ID 的升序排序的非重叠数组，而不提供重复项。
+有关蓝牙规范的详细信息，请参阅 www.bluetooth.com 要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+ 
+ 。
+Windows Vista、Windows XP SP2 [仅限桌面应用]
+无受支持的版本 ws2bth.h
+蓝牙和 WSALookupServiceBegin for Service Discovery
+用于服务查询的蓝牙和 WSAQUERYSET 反馈
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+
+≦ 166 ≧
+BTH_SET_SERVICE 结构 (ws2bth.h) 项目2024/03/04
+BTH_SET_SERVICE 结构为指定的蓝牙服务提供服务信息。
+语法 C++
+typedef struct _BTH_SET_SERVICE {   PULONG pSdpVersion;
+  HANDLE *pRecordHandle;
+  ULONG  fCodService;   ULONG  Reserved[5];
+  ULONG  ulRecordLength;   UCHAR  pRecord[1];
+} BTH_SET_SERVICE, *PBTH_SET_SERVICE, BTHNS_SETBLOB, *PBTHNS_SETBLOB;
+成员 pSdpVersion
+SDP 的版本。 客户端将此成员设置为 BTH_SDP_VERSION。 pRecordHandle
+SDP 记录的句柄。 对应于 SDP ServiceRecordHandle。 由添加记录操作返回，随后用于
+删除记录。 fCodService
+设备 (COD) 信息的类。 与此 SDP 记录关联的COD_SERVICE_* 类设备位的 32 位字段。 系统将这些位与其他服务记录和系统特征中的 COD 位组合在一起。 当在设备查询期间找到无线电时，将播发本地无线电的生成的设备类。 删除与特定服务位关联的最后一条 SDP 记录时，不再在响应将来的设备查询时报告该服务位。
+COD 字段的格式和可能值在 蓝牙规范第 1.2 节的蓝牙分配号码 1.1 部分中定义。 (此资源在某些语言和国家/地区中可能不可用。) Windows 使用的 COD_SERVICE_* 位的相应宏和定义在 Bthdef.h 中定义。 有关设备 (COD) 类的详细信息，请参阅 BTH_DEVICE_INFO。
+Reserved[5]
+保留。 必须设置为零。
+
+≦ 167 ≧
+ulRecordLength
+pRecord 的大小（以字节为单位）。 pRecord[1]
+SDP 记录，由蓝牙规范定义。注解
+使用 BTH_SET_SERVICE 结构使用 WSASetService 函数和 WSAQUERYSET 和 BLOB 结构查询服务和设备时。 必须使用 BTH_SET_SERVICE 成员的以下值。
+有关设备类 (COD) 的详细信息，请参阅 www.bluetooth.com
+成员
+pSdpVersion pRecordHandle fOptions
+ulRecordLength
+pRecord  
+所需的值
+ 上的蓝牙规范。
+ﾉ
+展开表
+指向 ULONG 版本的指针，每当 SDP 记录的二进制格式更改时都会更改，从而影响 pRecord 成员的格式。 设置为 客户端的 BTH_SDP_VERSION ，由系统返回。
+SDP 记录的句柄;对应于 SDP ServiceRecordHandle。 由添加记录操作返回，随后用于删除记录。
+由 BTHNS_SET_FLAGS 定义的属性。
+pRecord 指向的二进制 SDP 记录的长度（以字节为单位）。指向有效 SDP 记录的指针，采用蓝牙规范定义的格式。
+pRecordHandle 成员必须指向新服务注册为 null 的数据。 对于服务删除，
+pRecordHandle 必须指向有效的句柄。 pRecord 成员必须包含整个 SD 服务记录，如蓝牙规范中所述。 对于 RFCOMM 协议条目，端口号与 由 getsockname 函数调用返回的端口相同。
+蓝牙在 SDP 记录和服务器套接字之间实现一对一关联。 因此，不需要
+SERVICE_MULTIPLE 标志。要求
+ﾉ
+展开表
+
+≦ 168 ≧
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅蓝牙和 getsockname 蓝牙和 BLOB
+蓝牙和 WSASetService
+WSAQUERYSET 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Vista、Windows XP SP2 [仅限桌面应用] 无受支持的版本
+ws2bth.h 否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 169 ≧
+SOCKADDR_BTH 结构 (ws2bth.h) 项目2023/08/28
+SOCKADDR_BTH结构与蓝牙套接字操作结合使用，由地址系列AF_BTH定义。
+语法 C++
+typedef struct _SOCKADDR_BTH {
+  USHORT   addressFamily;   BTH_ADDR btAddr;
+  GUID     serviceClassId;   ULONG    port;
+} SOCKADDR_BTH, *PSOCKADDR_BTH;
+成员 addressFamily
+套接字的地址系列。 此成员始终AF_BTH。 btAddr
+目标蓝牙设备的地址。 与 绑定 函数一起使用时，必须是零或有效的本地无线电地址。如果为零，则调用 connect 或 accept 函数时，会分配有效的本地蓝牙设备地址。 与
+connect 函数一起使用时，必须指定有效的远程无线电地址。 serviceClassId
+套接字的服务类标识符。 与 绑定 函数一起使用时， 将忽略 serviceClassId 。 如果指定了端口，也将被忽略。 对于 connect 函数，指定要连接到的服务的唯一蓝牙服务类 ID。 如果对等设备有多个与服务类标识符对应的端口， 则 connect 函数会尝试连接到第一个有
+效服务;此机制无需事先进行 SDP 查询即可使用。 port
+与套接字关联的 RFCOMM 通道。 请参阅“备注”。注解
+
+≦ 170 ≧
+在客户端应用程序上与 绑定 函数一起使用时， 端口 成员必须为零才能启用要分配的相应本地终结点。 与服务器应用程序 绑定 一起使用时， 端口 成员必须是有效的端口号或 BT_PORT_ANY;使用 BT_PORT_ANY 自动分配的端口随后可能会通过调用 getsockname 函数来查询。 请求特定 RFCOMM 端口的有效范围是 1 到 30。
+如果未提供 serviceClassId，则使用 connect 函数时，端口应直接指定请求连接操作的远程端口号。 使用 端口 成员而不是 serviceClassId 成员要求应用程序在尝试 连接 操作之
+前执行自己的服务 (SDP) 搜索。要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+另请参阅蓝牙和绑定
+蓝牙和 getsockname
+蓝牙和接受蓝牙和连接
+反馈
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+ 
+Windows Vista、Windows XP 和 SP2 [仅限桌面应用] 无受支持的版本
+ws2bth.h 否
+

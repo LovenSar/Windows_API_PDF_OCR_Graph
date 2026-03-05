@@ -1,0 +1,5237 @@
+2026-03-05 02:03:31
+
+≦ 1 ≧
+XAudio2 API 项目2023/08/22
+XAudio2 API 技术概述。
+若要开发 XAudio2 API，需要以下标头：
+hrtfapoapi.h x3daudio.h xapo.h
+xapobase.h xapofx.h xaudio2.h xaudio2fx.h
+有关此技术的编程指南，请参阅：
+XAudio2 API
+类  
+CXAPOBase
+IXAPO 接口的默认实现。 CXAPOParametersBase
+IXAPOParameters 接口的默认实现。
+枚举  
+HrtfDirectivityType
+指示多种股票指向性模式之一。 HrtfDistanceDecayType
+指示应用于声音的基于距离的衰减类型。
+告知我们有关下载 PDF 体验的信息。
+
+≦ 2 ≧
+ 
+HrtfEnvironment
+指示多种库存环境类型之一。
+XAPO_BUFFER_FLAGS 描述流缓冲区的内容。 XAUDIO2_FILTER_TYPE 指示筛选器类型。
+函数   AddRef
+添加对 XAudio2 对象的引用。 BeginProcess
+返回当前进程参数。 CalcInputFrames
+返回生成给定数量的输出帧所需的输入帧数。 CalcOutputFrames
+返回将从给定数量的输入帧生成的输出帧数。 CommitChanges
+以原子方式应用一组使用给定标识符标记的操作。 CreateFX
+创建请求的 XAPOFX 效果的实例。 CreateHrtfApo
+为与头相关的传输函数创建 IXAPO 接口的实例， (HRTF) 处理。
+CreateMasteringVoice 创建并配置主语音。
+
+≦ 3 ≧
+ 
+CreateSourceVoice 创建并配置源语音。 CreateSubmixVoice
+创建并配置子混合语音。 CXAPOBase
+创建 CXAPOBase 类的实例。 CXAPOParametersBase
+创建 CXAPOParametersBase 类的实例。 DestroyVoice
+销毁语音。 如有必要，停止语音并将其从 XAudio2 图中删除。 DisableEffect
+禁用语音效果链中给定位置的效果。间断
+通知 XAudio2 语音，在当前位于其队列中的最后一个缓冲区之后不再出现缓冲区。 EnableEffect
+在语音效果链中的给定位置启用效果。 EndProcess
+通知 CXAPOParametersBase XAPO 已完成对当前进程参数的访问。 ExitLoop
+在语音到达当前循环区域的末尾时停止循环。 FlushSourceBuffers
+从语音队列中删除所有挂起的音频缓冲区。 GetChannelMask
+返回此语音的通道掩码。 GetChannelVolumes
+
+≦ 4 ≧
+ 
+返回每个声道的语音音量级别。 GetEffectParameters
+返回语音效果链中给定效果的当前效果特定参数。 GetEffectState
+返回声音效果链中指定位置的效果的运行状态。 GetFilterParameters
+获取语音的筛选器参数。 GetFrequencyRatio
+返回语音的频率调整比率。 GetOutputFilterParameters
+从此语音的某个发送中返回筛选器参数。 GetOutputMatrix
+获取语音最终输出的每个通道的音量级别。 这些通道映射到指定目标语音的输入通道。 GetParameters
+获取任何特定于效果的参数的当前值。 GetPerformanceData
+返回当前资源使用情况详细信息，例如可用内存或 CPU 使用率。
+GetRegistrationProperties 返回 XAPO 的注册属性。
+GetRegistrationPropertiesInternal
+返回指向XAPO_REGISTRATION_PROPERTIES结构的指针，该结构包含创建 XAPO 时所使用的注册
+属性。 GetState
+返回语音的当前光标位置数据。 GetVoiceDetails
+返回有关语音的创建标志、输入通道和采样率的信息。
+
+≦ 5 ≧
+ 
+GetVolume
+获取语音的当前总音量级别。初始化
+执行任何特定于效果的初始化。 IsInputFormatSupported
+查询给定输出格式是否支持特定输入格式。 IsLocked
+查询 XAPO 是否已锁定。 IsOutputFormatSupported
+查询给定输入格式是否支持特定输出格式。 LockForProcess
+由 XAudio2 调用以锁定 XAPO 的输入和输出配置，允许它在实时线程上调用 Process 之前执行任何
+最终初始化。 OnBufferEnd
+在语音完成处理缓冲区时调用。 OnBufferStart
+当语音即将开始处理新的音频缓冲区时调用。 OnCriticalError
+如果发生需要关闭并重启 XAudio2 的严重系统错误，则调用 。 OnLoopEnd
+当语音到达循环的结束位置时调用。 OnProcessingPassEnd
+在音频处理传递结束后由 XAudio2 调用。 OnProcessingPassStart
+在音频处理阶段开始前由 XAudio2 调用。
+
+≦ 6 ≧
+ 
+OnSetParameters
+由 IXAPOParameters：：SetParameters 调用，以允许用户定义参数验证。 OnStreamEnd
+当语音刚刚播放完连续音频流时调用。 OnVoiceError
+在语音处理期间发生严重错误时调用。 OnVoiceProcessingPassEnd
+在语音的处理过程结束之后调用。 OnVoiceProcessingPassStart
+在 XAudio2 从语音的缓冲区队列读取数据之前，在每个语音的处理阶段调用。 ParametersChanged
+指示自上次处理过程以来是否已调用 IXAPOParameters：：SetParameters。处理
+在给定输入和输出缓冲区上运行 XAPO 的数字信号处理 (DSP) 代码。 ProcessThru
+当禁用 XAPO 进行直通处理时，由 IXAPO：:P rocess 实现调用。 QueryInterface
+查询 XAudio2 对象上的给定 COM 接口。 RegisterForCallbacks
+将 IXAudio2EngineCallback 指针添加到 XAudio2 引擎回调列表。版本
+释放对 XAudio2 对象的引用。重置
+重置依赖于帧历史记录的变量。 ReverbConvertI3DL2ToNative
+
+≦ 7 ≧
+ 
+内联函数，用于将 I3DL2 (交互式 3D 音频呈现指南级别 2.0) 参数转换为本机 XAudio2 参数。 SetChannelVolumes
+为每个声道设置语音的音量级别。 SetDebugConfiguration
+更改 XAudio2 的全局调试日志记录选项。 SetEffectChain
+替换语音的效果链。 SetEffectParameters
+设置语音效果链中给定效果的参数。 SetEnvironment
+选择要模拟的声学环境。 SetFilterParameters
+设置语音的筛选器参数。 SetFrequencyRatio
+设置语音的频率调整比。 SetOutputFilterParameters
+设置此语音的某个发送的筛选器参数。 SetOutputMatrix
+设置语音最终输出的每个声道的音量级别。 这些通道映射到指定目标语音的输入通道。 SetOutputVoices
+指定一组新的子混合或主语音来接收语音的输出。 SetParameters
+设置特定于效果的参数。 SetSourceGain
+设置当前源位置的自定义直接路径增益值。 仅适用于使用 HrtfDistanceDecayType 自定义衰减类型播放的声音。
+
+≦ 8 ≧
+ 
+SetSourceOrientation
+相对于侦听器的坐标系，设置源方向的旋转矩阵。 SetSourcePosition
+设置声音相对于侦听器的位置。 SetSourceSampleRate
+重新配置语音，以与创建语音时指定的采样率不同的采样率使用源数据。 SetVolume
+设置语音的总体音量级别。启动
+开始使用和处理语音的音频。 将结果传送到任何连接的子混合或主语音，或输出设备。 StartEngine
+启动音频处理线程。停止
+停止当前语音使用音频。 StopEngine
+停止音频处理线程。 SubmitSourceBuffer
+将新的音频缓冲区添加到语音队列。 UnlockForProcess
+解除分配使用 LockForProcess 方法分配的变量。 UnregisterForCallbacks
+从 XAudio2 引擎回调列表中删除 IXAudio2EngineCallback 指针。 ValidateFormatDefault
+验证音频格式是否在支持的默认范围内。 ValidateFormatPair
+
+≦ 9 ≧
+ 
+验证 XAPO 是否支持输入和输出格式对配置。 X3DAudioCalculate
+计算与 3D 参数相关的 DSP 设置。 X3DAudioInitialize
+设置所有全局 3D 音频常量。 XAPOAlloc
+IXAPO 方法使用的内存分配宏，这些方法必须分配随后返回给应用程序的任意大小结构。 XAPOFree
+用于释放使用 XAPOAlloc 宏分配的内存的宏。 XAudio2AmplitudeRatioToDecibels
+将振幅比值转换为分贝值的内联函数。 XAudio2Create
+创建新的 XAudio2 对象并返回指向其 IXAudio2 接口的指针。 XAudio2CreateReverb
+创建一个新的混响音频处理对象 (APO) ，并返回指向它的指针。 XAudio2CreateVolumeMeter
+(APO) 创建新的音量计音频处理对象，并返回指向它的指针。 XAudio2CutoffFrequencyToOnePoleCoefficient
+内联函数，从以赫为单位表示的筛选器截止频率转换为与 XAUDIO2_FILTER_PARAMETERS 结构的
+Frequency 成员一起使用的筛选器系数。 XAudio2CutoffFrequencyToRadians
+内联函数，从以赫为单位表示的筛选器截止频率转换为XAUDIO2_FILTER_PARAMETERS结构的
+Frequency 成员中使用的弧度频率值。 XAudio2DecibelsToAmplitudeRatio 将分贝值转换为振幅比值的内联函数。 XAudio2FrequencyRatioToSemitones
+
+≦ 10 ≧
+ 
+将频率比率值转换为半色调值的内联函数。 XAudio2RadiansToCutoffFrequency
+内联函数，从在XAUDIO2_FILTER_PARAMETERS中使用的弧度频率转换回以赫为单位的绝对频率。 XAudio2SemitonesToFrequencyRatio
+将半色调值转换为频率比率值的内联函数。
+接口   IXAPO
+在 XAudio2 效果链中使用的音频处理对象的接口。 IXAPOHrtfParameters
+用于设置参数的接口，这些参数控制如何将与头部相关的传输功能 (HRTF) 应用于声音。 IXAPOParameters
+一个可选接口，允许 XAPO 使用特定于效果的参数。 IXAudio2
+IXAudio2 是用于管理所有音频引擎状态、音频处理线程、语音图等的 XAudio2 对象的接口。 IXAudio2EngineCallback
+IXAudio2EngineCallback 接口包含当 IXAudio2 引擎中发生某些事件时通知客户端的方法。 IXAudio2MasteringVoice
+主语音用于表示音频输出设备。 IXAudio2SourceVoice
+使用源语音将音频数据提交到 XAudio2 处理管道。 IXAudio2SubmixVoice
+子混合语音主要用于性能改进和效果处理。 IXAudio2Voice
+
+≦ 11 ≧
+ 
+IXAudio2Voice 表示从中派生 IXAudio2SourceVoice、IXAudio2SubmixVoice 和 IXAudio2MasteringVoice 的基接口。 下面列出的方法适用于所有语音子类。
+IXAudio2VoiceCallback
+IXAudio2VoiceCallback 接口包含当给定 IXAudio2SourceVoice 中发生某些事件时通知客户端的方
+法。结构  
+FXECHO_INITDATA
+用于 FXECHO XAPOFX 的初始化参数。 FXECHO_PARAMETERS
+用于 FXECHO XAPOFX 的参数。 FXEQ_PARAMETERS
+用于 FXEQ XAPO 的参数。
+FXMASTERINGLIMITER_PARAMETERS 用于 FXMasteringLimiter XAPO 的参数。 FXREVERB_PARAMETERS
+用于 FXReverb XAPO 的参数。 HrtfApoInit
+指定用于初始化 HRTF 空间音频的参数。 HrtfDirectivity
+基本定向性模式描述符。 描述应用于声音的定向性类型。
+HrtfDirectivityCardioid 描述心形指向性模式。 HrtfDirectivityCone 描述锥形指向性。
+
+≦ 12 ≧
+ 
+HrtfDistanceDecay
+描述基于距离的衰减行为。 HrtfOrientation
+指示 HRTF 定向性对象的方向。 HrtfPosition
+使用右手坐标系表示 3D 空间中的位置。 X3DAUDIO_CONE
+通过根据发射器的方向缩放 DSP 行为，指定单通道非 LFE 发射器的方向性。 X3DAUDIO_DISTANCE_CURVE
+定义由线性段组成的显式分段曲线，直接定义与规范化距离相关的 DSP 行为。
+X3DAUDIO_DISTANCE_CURVE_POINT 定义给定规范化距离处的 DSP 设置。 X3DAUDIO_DSP_SETTINGS
+接收对 X3DAudioCalculate 的调用的结果。 X3DAUDIO_EMITTER
+定义与任意数量的声音通道一起使用的单点或多点 3D 音频源。
+X3DAUDIO_LISTENER 定义 3D 音频接收点。
+XAPO_LOCKFORPROCESS_PARAMETERS
+定义在 XAPO 锁定时保持不变的流缓冲区参数。 与 IXAPO：：LockForProcess 方法一起使用。 XAPO_PROCESS_BUFFER_PARAMETERS
+定义可能会从一次调用更改为下一个调用的流缓冲区参数。 与 Process 方法一起使用。 XAPO_REGISTRATION_PROPERTIES
+描述 XAPO 的一般特征。 与 IXAPO：：GetRegistrationProperties、CXAPOParametersBase：： CXAPOParametersBase 和 CXAPOBase：：CXAPOBase 一起使用。
+
+≦ 13 ≧
+ 
+XAUDIO2_BUFFER
+表示与 IXAudio2SourceVoice：：SubmitSourceBuffer 一起使用的音频数据缓冲区。 XAUDIO2_BUFFER_WMA
+在提交 xWMA 数据时与 IXAudio2SourceVoice：：SubmitSourceBuffer 一起使用。 XAUDIO2_DEBUG_CONFIGURATION
+包含 XAudio2 的新全局调试配置。 与 SetDebugConfiguration 函数一起使用。
+XAUDIO2_EFFECT_CHAIN 定义效果链。
+XAUDIO2_EFFECT_DESCRIPTOR
+包含有关在效果链中使用的 XAPO 的信息。
+XAUDIO2_FILTER_PARAMETERS 定义源语音的筛选器参数。
+XAUDIO2_PERFORMANCE_DATA
+包含性能信息。 (XAUDIO2_PERFORMANCE_DATA) XAUDIO2_SEND_DESCRIPTOR
+定义一个目标语音，该语音是来自另一个语音的发送目标，并指定是否应使用筛选器。 XAUDIO2_VOICE_DETAILS
+包含有关语音的创建标志、输入通道和采样率的信息。 XAUDIO2_VOICE_SENDS
+定义一组语音，用于从单个输出语音接收数据。 XAUDIO2_VOICE_STATE
+返回语音的当前状态和光标位置数据。 XAUDIO2FX_REVERB_I3DL2_PARAMETERS
+介绍 I3DL2 (Interactive 3D Audio Rendering Guidelines Level 2.0) 用于 ReverbConvertI3DL2ToNative 函数的参数。
+
+≦ 14 ≧
+ 
+XAUDIO2FX_REVERB_PARAMETERS 描述在混响 APO 中使用的参数。 XAUDIO2FX_VOLUMEMETER_LEVELS
+描述用于卷计量 APO 的参数。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 15 ≧
+hrtfapoapi.h 标头项目2023/08/24
+XAudio2 API 使用此标头。 有关详细信息，请参阅：
+XAudio2 API
+hrtfapoapi.h 包含以下编程接口：
+接口  
+IXAPOHrtfParameters
+用于设置控制如何将与头部相关的传输功能 (HRTF) 应用于声音的参数的接口。
+函数  
+CreateHrtfApo
+为与头相关的传输函数创建 IXAPO 接口的实例， (HRTF) 处理。
+结构  
+HrtfApoInit
+指定用于初始化 HRTF 空间音频的参数。 HrtfDirectivity
+基本指向性模式描述符。 描述应用于声音的指向性类型。
+HrtfDirectivityCardioid 描述心形指向性模式。 HrtfDirectivityCone
+
+≦ 16 ≧
+ 
+描述锥形指向性。 HrtfDistanceDecay
+描述基于距离的衰减行为。 HrtfOrientation
+指示 HRTF 指向性对象的方向。 HrtfPosition
+使用右手坐标系表示 3D 空间中的位置。
+枚举  
+HrtfDirectivityType
+指示多种股票指向性模式之一。 HrtfDistanceDecayType
+指示应用于声音的基于距离的衰减类型。 HrtfEnvironment
+指示多种库存环境类型之一。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 17 ≧
+CreateHrtfApo 函数 (hrtfapoapi.h) 项目2024/02/26
+为与头相关的传输函数创建 IXAPO 接口的实例， (HRTF) 处理。
+语法 C++
+HRESULT CreateHrtfApo(
+  [in]  const HrtfApoInit *init,   [out] IXAPO             **xApo);
+参数[in] init
+指向 HrtfApoInit 结构的指针。 指定 XAPO 接口初始化的参数。[out] xApo
+IXAPO 接口的新实例。返回值
+此函数可以返回以下值。
+返回代码 S_OK
+E_NOTIMPL 注解
+音频在 1024 个样本块中进行处理。格式要求：
+说明
+已成功创建 XAPO 对象的实例。当前平台不支持 HRTF。
+ﾉ
+展开表
+
+≦ 18 ≧
+输入：单声道，48 kHz，32 位浮点 PCM。输出：立体声、48 kHz、32 位浮点 PCM。
+HRTF XAPO 的源和环境参数通过 IXAPOHrtfParameters 接口进行控制。平台要求
+Windows 10 (XAudio2.9) ; 要求
+要求
+目标平台
+标头 DLL
+请参阅
+函数 IXAPO
+值
+Windows hrtfapoapi.h HrtfApo.dll
+ﾉ
+展开表
+
+≦ 19 ≧
+HrtfApoInit 结构 (hrtfapoapi.h) 项目2024/03/05
+指定用于初始化 HRTF 空间音频的参数。
+语法 C++
+typedef struct HrtfApoInit {
+  HrtfDistanceDecay *distanceDecay;   HrtfDirectivity   *directivity;} HrtfApoInit;
+成员 distanceDecay
+衰减类型。 如果传入 nullptr，则使用默认值。 默认值为自然衰减。 directivity
+指向性类型。 如果传入 nullptr，则使用默认值。 默认指向性是全向的。要求
+要求 Header
+另请参阅 CreateHrtfApo 结构
+值
+hrtfapoapi.h
+ﾉ
+展开表
+
+≦ 20 ≧
+HrtfDirectivity 结构 (hrtfapoapi.h) 项目2023/08/24
+基本定向性模式描述符。 描述应用于声音的定向性类型。
+语法 C++
+typedef struct HrtfDirectivity {   HrtfDirectivityType type;
+  float               scaling;} HrtfDirectivity;
+成员 type
+指示指向性的类型。 scaling
+介于 0 和 1 之间的规范化值。 指定全向音效与全指向性模式之间的线性内插量，其中 0 是完全
+全向的，1 是完全定向的。注解
+缩放参数用于在定向行为和全向性之间插值;它确定对指向性模式之外的源应用多少衰减，并控制源的方向。
+对于全方向源，虽然指向性模式之外的直接路径信号将完全衰减，但仍可听到任何环境反射。要求
+ﾉ
+ 
+标头
+ 
+hrtfapoapi.h
+展开表
+
+≦ 21 ≧
+另请参阅 HrtfDirectivityType 结构
+
+≦ 22 ≧
+hrtfDirectivityCardioid 结构 (hrtfapoapi.h) 项目2024/02/26
+描述心形指向性模式。
+语法 C++
+typedef struct HrtfDirectivityCardioid {   HrtfDirectivity directivity;
+  float           order;} HrtfDirectivityCardioid;
+成员 directivity
+心形模式的描述符。 类型参数必须设置为 HrtfDirectivityType.Cardioid。 order
+控制心形的形状。 形状顺序越高，越窄。 必须大于 0 且小于或等于 32。要求
+ﾉ
+要求 Header
+另请参阅 HrtfDirectivity HrtfDirectivityCone 结构
+值
+hrtfapoapi.h
+展开表
+
+≦ 23 ≧
+hrtfapoapi.h (hrtfDirectivityCone 结构) 项目2024/02/26
+描述锥形指向性。
+语法 C++
+typedef struct HrtfDirectivityCone {
+  HrtfDirectivity directivity;   float           innerAngle;   float           outerAngle;} HrtfDirectivityCone;
+成员 directivity
+圆锥模式的描述符。 类型参数必须设置为 HrtfDirectivityType.Cone。 innerAngle
+定义内部圆锥的角度（以弧度为单位）。 必须介于 0 和 2 * pi 之间。 outerAngle
+角度，以弧度为单位，用于定义外锥。 必须介于 0 和 2 * pi 之间。注解
+内锥内的衰减为 0。 衰减在内部圆锥（由 innerAngle 定义）和由 outerAngle 定义的外锥之间线
+性内插。要求
+ﾉ
+要求 Header
+值
+hrtfapoapi.h
+展开表
+
+≦ 24 ≧
+另请参阅 HrtfDirectivity
+HrtfDirectivityCardioid 结构
+
+≦ 25 ≧
+hrtfapoapi.h (hrtfapoapi.h) 项目2023/08/24
+指示多种股票指向性模式之一。
+语法 C++
+typedef enum HrtfDirectivityType {
+  OmniDirectional = 0,   Cardioid,
+  Cone} ;
+常量  
+OmniDirectional 值： 0
+声音发射在四方位。 Cardioid
+声音发射是心形形状。 Cone
+声音发射是一个圆锥体。要求
+ 
+标头
+请参阅枚举
+ 
+hrtfapoapi.h
+ﾉﾉ
+展开表展开表
+
+≦ 27 ≧
+HrtfDistanceDecay 结构 (hrtfapoapi.h) 项目2023/08/24
+描述基于距离的衰减行为。
+语法 C++
+typedef struct HrtfDistanceDecay {   HrtfDistanceDecayType type;
+  float                 maxGain;   float                 minGain;
+  float                 unityGainDistance;
+  float                 cutoffDistance;} HrtfDistanceDecay;
+成员 type
+衰减行为的类型，自然或自定义。 maxGain
+在任何距离处应用的最大增益限制。 适用于自然衰减和自定义衰减。 此值以 dB 为单位指定，
+范围为 -96 到 12（含 12）。 默认值为 12 dB。 minGain
+在任何距离处应用的最小增益限制。 适用于自然衰减和自定义衰减。 此值以 dB 为单位指定，
+范围为 -96 到 12（含 12）。 默认值为 -96 dB。 unityGainDistance
+增益为 0dB 的距离。 仅适用于自然衰变。 此值以米为单位指定，范围为 0.05 到无穷大
+(FLT_MAX) 。 默认值为 1 米。 cutoffDistance
+输出为无提示的距离。 仅适用于自然衰变。 此值以米为单位指定，其范围从零 (非非独占) 到无穷大 (FLT_MAX) 。 默认值为无穷大。
+
+≦ 28 ≧
+要求   标头
+另请参阅 HrtfApoInit
+HrtfDistanceDecayType 结构
+ 
+hrtfapoapi.h
+ﾉ
+展开表
+
+≦ 29 ≧
+hrtfDistanceDecayType 枚举 (hrtfapoapi.h) 项目2023/08/24
+指示应用于声音的基于距离的衰减类型。
+语法 C++
+typedef enum HrtfDistanceDecayType {   NaturalDecay = 0,
+  CustomDecay} ;
+常量
+ﾉ
+ 
+NaturalDecay 值： 0
+模拟受最小和最大增益距离限制限制的距离的自然衰减。 在滚出距离处下降到静音。 CustomDecay
+用于在最大和最小增益限制内设置自定义增益曲线。要求
+ﾉ
+ 
+标头
+请参阅枚举
+HrtfDistanceDecay
+ 
+hrtfapoapi.h
+展开表展开表
+
+≦ 30 ≧
+hrtfapoapi.h (hrtfapoapi.h) 项目2023/08/24
+指示多种库存环境类型之一。
+语法 C++
+typedef enum HrtfEnvironment {   Small = 0,
+  Medium,   Large,   Outdoors} ;
+常量   Small 值： 0
+一个小房间。 Medium
+中型房间。 Large
+一个大型封闭空间。
+Outdoors 户外空间。要求
+ 
+标头
+ 
+hrtfapoapi.h
+ﾉﾉ
+展开表展开表
+
+≦ 31 ≧
+请参阅枚举
+IXAPOHrtfParameters
+
+≦ 32 ≧
+HrtfOrientation 结构 (hrtfapoapi.h) 项目2023/08/24
+指示 HRTF 定向性对象的方向。
+语法 C++
+typedef struct HrtfOrientation {
+  float element[9];} HrtfOrientation;
+成员 element[9]
+方向。 这是一个行主 3x3 旋转矩阵。要求
+ 
+标头
+另请参阅 IXAPOHrtfParameters 结构
+ 
+hrtfapoapi.h
+ﾉ
+展开表
+
+≦ 33 ≧
+HrtfPosition 结构 (hrtfapoapi.h) 项目2024/02/28
+使用右手坐标系表示 3D 空间中的位置。
+语法 C++
+typedef struct HrtfPosition {
+  float x;   float y;   float z;
+} HrtfPosition; 成员
+x y z
+要求
+要求 Header
+另请参阅 IXAPOHrtfParameters 结构
+值
+hrtfapoapi.h
+ﾉ
+展开表
+
+≦ 34 ≧
+iXAPOHrtfParameters 接口 (hrtfapoapi.h) 项目2023/08/24
+用于设置参数的接口，这些参数控制如何将与头部相关的传输功能 (HRTF) 应用于声音。继承
+IXAPOHrtfParameters 接口继承自 IUnknown 接口。 IXAPOHrtfParameters 还具有以下类型的
+成员：方法
+IXAPOHrtfParameters 接口包含以下方法。
+ﾉ
+ 
+IXAPOHrtfParameters：：SetEnvironment 选择要模拟的声学环境。
+IXAPOHrtfParameters：：SetSourceGain
+展开表
+设置当前源位置的自定义直接路径增益值。 仅对使用 HrtfDistanceDecayType 自定义衰减类型播放的声音有效。
+IXAPOHrtfParameters：：SetSourceOrientation 根据侦听器的坐标系设置源方向的旋转矩阵。 IXAPOHrtfParameters：：SetSourcePosition
+设置声音相对于侦听器的位置。注解
+通过调用 CreateHrtfApo 函数创建 XAPO 接口的实例。要求
+ﾉ
+展开表
+
+≦ 35 ≧
+ 
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅接口
+ 
+Windows 10 [仅限桌面应用]
+Windows Server 2016 [仅限桌面应用]
+Windows hrtfapoapi.h
+
+≦ 36 ≧
+IXAPOHrtfParameters：：SetEnvironment
+方法 (hrtfapoapi.h) 项目2023/08/24
+选择要模拟的声学环境。
+语法 C++
+HRESULT SetEnvironment(
+  [in] HrtfEnvironment environment);
+parameters[in] environment 要模拟的声学环境。返回值
+如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。注解
+环境表示距离提示参数。要求
+ﾉ
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+ 
+Windows 10 [仅限桌面应用]
+Windows Server 2016 [仅限桌面应用] Windows
+展开表
+
+≦ 37 ≧
+ 
+标头 DLL
+另请参阅 IXAPOHrtfParameters
+ 
+hrtfapoapi.h HrtfApo.dll
+
+≦ 38 ≧
+IXAPOHrtfParameters：：SetSourceGain 方
+法 (hrtfapoapi.h) 项目2024/03/13
+设置当前源位置的自定义直接路径增益值（以 dB 为单位）。 仅对使用 HrtfDistanceDecayType 自定义衰减类型播放的声音有效。
+语法 C++
+HRESULT SetSourceGain(
+  [in] float gain);
+参数[in] gain
+当前源位置的自定义直接路径增益值（以 dB 为单位）。 仅对使用 HrtfDistanceDecayType 自定
+义衰减类型播放的声音有效。返回值
+如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 DLL
+值
+Windows 10 [仅限桌面应用]
+Windows Server 2016 [仅限桌面应用]
+Windows hrtfapoapi.h HrtfApo.dll
+展开表
+
+≦ 39 ≧
+另请参阅 IXAPOHrtfParameters
+
+≦ 40 ≧
+IXAPOHrtfParameters：：
+SetSourceOrientation 方法 (hrtfapoapi.h) 项目2024/02/29
+根据侦听器的坐标系设置源方向的旋转矩阵。
+语法 C++
+HRESULT SetSourceOrientation(
+  [in] const HrtfOrientation *orientation);
+参数
+[in] orientation
+相对于侦听器的参照系的源方向的旋转矩阵。返回值
+如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 DLL
+值
+Windows 10 [仅限桌面应用]
+Windows Server 2016 [仅限桌面应用]
+Windows hrtfapoapi.h HrtfApo.dll
+展开表
+
+≦ 41 ≧
+另请参阅 IXAPOHrtfParameters
+
+≦ 42 ≧
+IXAPOHrtfParameters：：
+SetSourcePosition 方法 (hrtfapoapi.h) 项目2023/08/24
+设置声音相对于侦听器的位置。
+语法 C++
+HRESULT SetSourcePosition(
+  [in] const HrtfPosition *position);
+parameters[in] position
+声音相对于侦听器的位置。返回值
+如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。要求
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 DLL
+ 
+Windows 10 [仅限桌面应用]
+Windows Server 2016 [仅限桌面应用]
+Windows hrtfapoapi.h HrtfApo.dll
+ﾉ
+展开表
+
+≦ 43 ≧
+另请参阅 IXAPOHrtfParameters
+
+≦ 44 ≧
+x3daudio.h 标头项目2023/08/28
+XAudio2 API 使用此标头。 有关详细信息，请参阅：
+XAudio2 API
+x3daudio.h 包含以下编程接口：
+函数  
+X3DAudioCalculate
+计算与 3D 参数相关的 DSP 设置。 X3DAudioInitialize
+设置所有全局 3D 音频常量。
+结构  
+X3DAUDIO_CONE
+通过根据发射器的方向缩放 DSP 行为，指定单通道非 LFE 发射器的方向性。 X3DAUDIO_DISTANCE_CURVE
+定义由线性段组成的显式分段曲线，直接定义与规范化距离相关的 DSP 行为。
+X3DAUDIO_DISTANCE_CURVE_POINT 定义给定规范化距离处的 DSP 设置。 X3DAUDIO_DSP_SETTINGS
+接收对 X3DAudioCalculate 的调用的结果。 X3DAUDIO_EMITTER
+定义与任意数量的声音通道一起使用的单点或多点 3D 音频源。
+
+≦ 45 ≧
+ 
+X3DAUDIO_LISTENER 定义 3D 音频接收点。
+反馈
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+
+≦ 46 ≧
+X3DAUDIO_CONE 结构 (x3daudio.h) 项目2024/03/13
+通过根据发射器的方向缩放 DSP 行为，指定单通道非 LFE 发射器的方向性。
+语法 C++
+typedef struct X3DAUDIO_CONE {
+  FLOAT32 InnerAngle;   FLOAT32 OuterAngle;   FLOAT32 InnerVolume;   FLOAT32 OuterVolume;
+  FLOAT32 InnerLPF;   FLOAT32 OuterLPF;
+  FLOAT32 InnerReverb;   FLOAT32 OuterReverb;
+} X3DAUDIO_CONE, *LPX3DAUDIO_CONE;
+成员 InnerAngle
+以弧度为单位的内锥角。 此值必须在 0.0f 以内才能X3DAUDIO_2PI。 OuterAngle
+外锥角（以弧度为单位）。 此值必须位于 InnerAngle 中才能X3DAUDIO_2PI。 InnerVolume
+卷缩放器在内部锥体上/内部。 此值必须在 0.0f 到 2.0f 范围内。 OuterVolume
+卷缩放器位于/超出外锥体上。 此值必须在 0.0f 到 2.0f 范围内。 InnerLPF
+LPF 直接路径或混响路径系数缩放器在内部锥体上或内部。 此值仅用于 LPF 计算，必须在 0.0f
+到 1.0f 范围内。 OuterLPF
+
+≦ 47 ≧
+外部锥体上或外部的 LPF 直接路径或混响路径系数刻度器。 此值仅用于 LPF 计算，必须在 0.0f
+到 1.0f 范围内。 InnerReverb
+混响器在内部锥体上或内部发送级别缩放器。 这必须在 0.0f 到 2.0f 范围内。 OuterReverb
+混响器发送级别缩放器在外锥上/超出外锥。 这必须在 0.0f 到 2.0f 范围内。注解
+有关音锥的详细说明，请参阅 音锥。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求 Header
+另请参阅结构
+值
+x3daudio.h
+展开表
+
+≦ 48 ≧
+X3DAUDIO_DISTANCE_CURVE 结构
+(x3daudio.h) 项目2023/08/28
+定义由线性段组成的显式分段曲线，直接定义与规范化距离相关的 DSP 行为。
+语法 C++
+typedef struct X3DAUDIO_DISTANCE_CURVE {   X3DAUDIO_DISTANCE_CURVE_POINT *pPoints;   UINT32                        PointCount;
+} X3DAUDIO_DISTANCE_CURVE, *LPX3DAUDIO_DISTANCE_CURVE;
+成员 pPoints
+X3DAUDIO_DISTANCE_CURVE_POINT 数组。 数组必须没有重复项，并且根据距离按升序排序。 PointCount
+距离曲线点数。 必须有两个或更多点，因为所有曲线必须至少有两个端点分别定义 0.0f 和 1.0f 规范化距离的值。
+注解平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+展开表
+
+≦ 49 ≧
+ 
+标头
+另请参阅结构
+ 
+x3daudio.h
+
+≦ 50 ≧
+X3DAUDIO_DISTANCE_CURVE_POINT 结构
+(x3daudio.h) 项目2024/03/13
+定义给定规范化距离的 DSP 设置。
+语法 C++
+typedef struct X3DAUDIO_DISTANCE_CURVE_POINT {
+  FLOAT32 Distance;   FLOAT32 DSPSetting;
+} X3DAUDIO_DISTANCE_CURVE_POINT, *LPX3DAUDIO_DISTANCE_CURVE_POINT;
+成员 Distance
+规范化距离。 这必须在 0.0f 到 1.0f 范围内。 DSPSetting
+DSP 控制设置。
+注解平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求 Header
+值
+x3daudio.h
+展开表
+
+≦ 51 ≧
+另请参阅结构
+
+≦ 52 ≧
+x3daudio.h) (X3DAUDIO_DSP_SETTINGS 结构
+项目2024/03/04
+接收对 X3DAudioCalculate 的调用的结果。
+语法 C++
+typedef struct X3DAUDIO_DSP_SETTINGS {
+  FLOAT32 *pMatrixCoefficients;   FLOAT32 *pDelayTimes;
+  UINT32  SrcChannelCount;   UINT32  DstChannelCount;
+  FLOAT32 LPFDirectCoefficient;   FLOAT32 LPFReverbCoefficient;
+  FLOAT32 ReverbLevel;   FLOAT32 DopplerFactor;
+  FLOAT32 EmitterToListenerAngle;
+  FLOAT32 EmitterToListenerDistance;   FLOAT32 EmitterVelocityComponent;   FLOAT32 ListenerVelocityComponent;
+} X3DAUDIO_DSP_SETTINGS, *LPX3DAUDIO_DSP_SETTINGS; 成员
+pMatrixCoefficients
+调用方提供的数组，将使用每个目标通道中存在的每个源通道的音量级别进行初始化。 数组必须至少有 (SrcChannelCount × DstChannelCount) 元素。 数组的排列方式是源通道作为数组的列索引，目标通道作为数组的行索引。 例如，将双声道立体声输入呈现为 5.1 输出，该输出加权到前声道（但中间声道和低频通道中不存在），矩阵可能如下表所示。
+ﾉ
+输出 Left Right
+Front Center
+左输入
+1.0 0.0 0.0
+右输入
+0.0 1.0 0.0
+展开表
+
+≦ 53 ≧
+ 
+LFE 向左后右后方
+0.0 0.8 0.0
+0.0 0.0 0.8
+请注意，左通道和右声道完全映射到输出左声道和右声道;80% 的左右输入映射到后左和右通道。
+如果在调用 X3DAudioCalculate 时未指定X3DAUDIO_CALCULATE_MATRIX标志，则 pMatrixCoefficients 成员可以为 NULL。
+将 X3DAudio 与 XAudio2 配合使用时， pMatrixCoefficients 成员中返回的值将应用于具有
+IXAudio2Voice：：SetOutputMatrix 的语音。 pDelayTimes
+调用方提供了延迟时间数组，它接收每个目标通道的延迟（以毫秒为单位）。 此数组必须至少具有 DstChannelCount 元素。 X3DAudio 实际上不会执行延迟。 它只返回可用于调整放置在效
+果链中的延迟 DSP 效果的系数。 如果在调用 X3DAudioCalculate 时未指定 X3DAUDIO_CALCULATE_DELAY标志，则 pDelayTimes 成员可以为 NULL。
+注意 仅当为立体声输出初始化 X3DAudio 时，才会返回此成员。 对于典型的 Xbox 360 用
+法，它根本不会返回任何数据。  
+SrcChannelCount
+源通道数。 在调用 X3DAudioCalculate 之前，必须将其初始化为发射器通道数。 DstChannelCount
+源通道数。 在调用 X3DAudioCalculate 之前，必须将其初始化为发射器通道数。 LPFDirectCoefficient
+LPF 直接路径系数。 仅在调用 X3DAudioCalculate 时指定了X3DAUDIO_CALCULATE_LPF_DIRECT 标志时才计算。
+将 X3DAudio 与 XAudio2 配合使用时，LPFDirectCoefficient 成员中返回的值将应用于具有
+IXAudio2Voice：：SetFilterParameters 的源语音上的低传递筛选器。 LPFReverbCoefficient
+
+≦ 54 ≧
+LPF 混响路径系数。
+仅在调用 X3DAudioCalculate 时指定X3DAUDIO_CALCULATE_LPF_REVERB标志时计算。 ReverbLevel
+混响发送级别。 仅在调用 X3DAudioCalculate 时指定X3DAUDIO_CALCULATE_REVERB标志时计算。
+DopplerFactor
+多普勒移位因子。 缩放多普勒移位效果的重新采样器比率，其中： effective_frequency = DopplerFactor × original_frequency
+仅在调用 X3DAudioCalculate 时指定X3DAUDIO_CALCULATE_DOPPLER标志时计算。将 X3DAudio 与 XAudio2 结合使用时，DopplerFactor 中返回的值将应用于具有
+IXAudio2SourceVoice：：SetFrequencyRatio 的源语音。 EmitterToListenerAngle
+发射器到侦听器的内部角度，以弧度表示，相对于发射器的正面方向。
+仅在调用 X3DAudioCalculate 时指定X3DAUDIO_CALCULATE_EMITTER_ANGLE标志时计算。 EmitterToListenerDistance
+从侦听器到发射器基位置的距离（以用户定义的世界单位为单位）。 EmitterVelocityComponent
+投影到发射器到侦听器矢量的发射器速度矢量的分量，以用户定义的世界单位/秒为单位。
+仅在调用 X3DAudioCalculate 时指定X3DAUDIO_CALCULATE_DOPPLER标志时计算。 ListenerVelocityComponent
+投影到发射器->侦听器矢量上的侦听器速度矢量的分量，以用户定义的世界单位/秒为单位。 仅
+在调用 X3DAudioCalculate 时指定X3DAUDIO_CALCULATE_DOPPLER标志时计算。注解
+在将此结构传递给 X3DAudioCalculate 函数之前，必须初始化以下成员：
+
+≦ 55 ≧
+pMatrixCoefficients pDelayTimes
+SrcChannelCount DstChannelCount
+通过将此结构传递给 X3DAudioCalculate 函数返回以下成员：
+pMatrixCoefficients pDelayTimes
+LPFDirectCoefficient LPFReverbCoefficient
+ReverbLevel DopplerFactor
+EmitterToListenerAngle EmitterToListenerDistance
+EmitterVelocityComponent ListenerVelocityComponent
+注意对于 pMatrixCoefficients 和 pDelayTimes，X3DAudioCalculate 不会分配额外的内
+存。 X3DAudioCalculate 仅修改为这些指针分配的内存位置上的值。  
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求 Header
+值
+x3daudio.h
+展开表
+
+≦ 56 ≧
+另请参阅结构
+
+≦ 57 ≧
+(x3daudio.h) X3DAUDIO_EMITTER 结构项目2023/08/28
+定义与任意数量的声音通道一起使用的单点或多点 3D 音频源。
+语法 C++
+typedef struct X3DAUDIO_EMITTER {   X3DAUDIO_CONE           *pCone;
+  X3DAUDIO_VECTOR         OrientFront;   X3DAUDIO_VECTOR         OrientTop;   X3DAUDIO_VECTOR         Position;   X3DAUDIO_VECTOR         Velocity;
+  FLOAT32                 InnerRadius;
+  FLOAT32                 InnerRadiusAngle;
+  UINT32                  ChannelCount;   FLOAT32                 ChannelRadius;
+  FLOAT32                 *pChannelAzimuths;
+  X3DAUDIO_DISTANCE_CURVE *pVolumeCurve;   X3DAUDIO_DISTANCE_CURVE *pLFECurve;
+  X3DAUDIO_DISTANCE_CURVE *pLPFDirectCurve;   X3DAUDIO_DISTANCE_CURVE *pLPFReverbCurve;   X3DAUDIO_DISTANCE_CURVE *pReverbCurve;
+  FLOAT32                 CurveDistanceScaler;
+  FLOAT32                 DopplerScaler;} X3DAUDIO_EMITTER, *LPX3DAUDIO_EMITTER;
+成员 pCone
+指向音锥的指针。 LPF 仅与矩阵的单通道发射器一起使用， (直接路径和混响路径) 以及混响计
+算。 NULL 指定发射器是全向的。 OrientFront
+前方方向的方向。 此值必须与 OrientTop 正交。 使用 OrientFront 时必须规范化。 对于不带 cones 的单通道发射器 ，OrientFront 仅用于发射器角度计算。 对于多通道发射器或具有 Cones
+OrientFront 的单通道用于矩阵，LPF (直接和混响路径) 和混响计算。 OrientTop
+顶部方向的方向。 此值必须与 OrientFront 正交。 OrientTop 仅用于矩阵计算的多通道发射器。
+
+≦ 58 ≧
+Position
+在用户定义的世界单位中的位置。 此值不会影响 速度。 Velocity
+速度向量（以用户定义的世界单位/秒为单位）。 此值仅用于多普勒计算。 它不会影响 位置。 InnerRadius
+要用于内部半径计算的值。 如果 InnerRadius 为 0，则不使用内部半径，但仍可使用
+InnerRadiusAngle 。 此值必须介于 0.0f 和 MAX_FLT 之间。 InnerRadiusAngle
+要用于内部半径角度计算的值。 此值必须介于 0.0f 和 X3DAUDIO_PI/4.0 之间。 ChannelCount
+由X3DAUDIO_EMITTER结构定义的发射器数。 必须大于 0。 ChannelRadius
+如果 ChannelCount 大于 1，则与放置通道的位置的距离。 ChannelRadius 仅用于矩阵计算的
+多通道发射器。 必须大于或等于 0.0f。 pChannelAzimuths
+通道位置表，表示为沿通道半径相对于与顶部方向矢量正交的平面中的前方向矢量的方位角。 X3DAUDIO_2PI方位线指定通道是 LFE) 通道 (低频效果。 LFE 通道定位在发射器基上，仅针对 pLFECurve 进行计算，从不针对 pVolumeCurve 进行计算。 pChannelAzimuths 必须至少具有 ChannelCount 元素，但如果 ChannelCount = 1，则可以为 NULL。 表值必须在 0.0f 范围内才
+能X3DAUDIO_2PI。 pChannelAzimuths 与多通道发射器一起使用，用于矩阵计算。 pVolumeCurve
+量级距离曲线，仅用于矩阵计算。 NULL 指定符合反平方法则的专用默认曲线，以便当距离介于 0.0f 和 CurveDistanceScaler × 1.0f 之间时，不应用任何衰减。 当 distance 大于
+CurveDistanceScaler × 1.0f 时，放大因子 (CurveDistanceScaler × 1.0f) /distance。 在
+CurveDistanceScaler × 2.0f 的距离处，声音将为半音量或 -6 dB，在 CurveDistanceScaler × 4.0f 的距离处，声音将为四分之一音量或 -12 dB，依序而论。
+pVolumeCurve 和 pLFECurve 彼此独立。 pVolumeCurve 不会影响 LFE 通道 音量。 pLFECurve
+
+≦ 59 ≧
+LFE 滚动距离曲线，或 NULL 以使用默认曲线：[0.0f， CurveDistanceScaler ×1.0f]，
+[CurveDistanceScaler ×1.0f， 0.0f]。 pLFECurve 的 NULL 值指定一个默认曲线，该曲线符合具有 distance = <CurveDistanceScaler 固定为无衰减的反平方法则。 pVolumeCurve 和
+pLFECurve 彼此独立。 pLFECurve 不会影响非 LFE 通道音量。 pLPFDirectCurve
+低通筛选器 (LPF) 直接路径系数距离曲线，或 NULL 以使用默认曲线：[0.0f， 1.0f]、[1.0f，
+0.75f]。 pLPFDirectCurve 仅用于 LPF 直接路径计算。 pLPFReverbCurve
+LPF 混响路径系数距离曲线，或 NULL 以使用默认曲线：[0.0f， 0.75f]、[1.0f， 0.75f]。
+pLPFReverbCurve 仅用于 LPF 混响路径计算。 pReverbCurve
+混响发送级别距离曲线，或 NULL 以使用默认曲线：[0.0f， 1.0f]， [1.0f， 0.0f]。 CurveDistanceScaler
+曲线距离缩放器，用于将规范化距离曲线缩放为用户定义的世界单位和/或放大其效果。 这不会影响任何其他计算。 该值必须位于要FLT_MAX FLT_MIN的范围内。 CurveDistanceScaler 仅用
+于矩阵、LPF (直接路径和混响路径) 以及混响计算。 DopplerScaler
+用于夸大多普勒移位效果的多普勒移位缩放器。 DopplerScaler 仅用于 Doppler 计算，不会影
+响任何其他计算。 该值必须在 0.0f 范围内才能FLT_MAX。注解
+X3DAUDIO_EMITTER 仅支持单点发射器中的圆锥体。 多点发射器是管理一组相关声源的便捷高效方法。 许多属性在所有通道点之间共享，例如 Doppler ， 相同的多普勒移位应用于发射器中的所有通道。 因此，只需计算一次多普勒值，而不需要像使用多个单独的单点发射器那样按点计算。 由于 X3DAUDIO_EMITTER 只有一个方向向量，因此多点发射器圆锥的用途有限，迫使所有通道的行为就像它们面向相同的方向一样。 如果需要多个独立锥体，则应使用多个单点发射器，每个发射器都有自己的方向。
+参数类型X3DAUDIO_VECTOR类型为 DirectX：：XMFLOAT3，以提供 x、y 和 z 浮点值。
+X3DAudio 使用左手笛卡尔坐标系，x 轴上的值从左到右递增，y 轴上的值从下到上，z 轴的值从近到远。 方位角是从给定参考方向顺时针测量的。
+
+≦ 60 ≧
+若要将 X3DAudio 与右手坐标一起使用，必须否定 OrientFront、 OrientTop、 Position 和 Velocity 的 .z 元素。
+对于用户定义的距离曲线，第一个点的距离字段必须为 0.0f，最后一个点的距离字段必须为 1.0f。
+如果发射器移动超出 (CurveDistanceScaler × 1.0f) 的距离，则曲线上的最后一个点用于计算音量输出级别。 最后一个点由以下各项确定：
+X3DAUDIO_DISTANCE_CURVE.pPoints[PointCount-1].DSPSetting) 内部半径和内部半径角度
+InnerRadius 用于指定声音直接通过侦听器上方或下方时，围绕原点平滑过渡的区域。 提升是通过指定 InnerRadiusAngle 来计算的，因此，其高程增加或减少的声音最终将开始将声音出血到两个以上的扬声器。
+如果未使用“内部半径”和“内部半径角度”，则发射器在距离其当前位置/方向最近的两个扬声器(或者，如果直接位于具有一个扬声器定义角度的线条上，则仅从该扬声器) 听到。
+“内部半径”和“内部半径角度”对位于它们描述的锥体外部的发射器没有影响。 在圆锥体内部，它们会逐渐使声音流血到相反的扬声器中，直到当发射器与 (位于同一位置或直接高于或低于侦听器) 时，声音在所有扬声器中均能听到。
+
+≦ 61 ≧
+平台要求
+IRAngle (Alpha) IR
+(Inner Radius)
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求 Header
+另请参阅结构
+值
+x3daudio.h
+展开表
+
+≦ 62 ≧
+X3DAUDIO_LISTENER 结构 (x3daudio.h) 项目2025/02/21
+定义 3D 音频接收点。
+语法 C++
+typedef struct X3DAUDIO_LISTENER {
+  X3DAUDIO_VECTOR OrientFront;   X3DAUDIO_VECTOR OrientTop;   X3DAUDIO_VECTOR Position;   X3DAUDIO_VECTOR Velocity;   X3DAUDIO_CONE   *pCone;
+} X3DAUDIO_LISTENER, *LPX3DAUDIO_LISTENER;
+成员 OrientFront
+前方方向的方向。 当 pCone 为 NULL 时 ，OrientFront 仅用于矩阵和延迟计算。 当 pCone 不是 NULL OrientFront 用于矩阵时，LPF (直接路径和混响路径) 以及混响计算。 使用时，此值必
+须与 OrientTop 正交。 OrientTop
+顶部方向的方向，仅用于矩阵和延迟计算。 使用时，此值必须与 OrientFront 正交。 Position
+以用户定义的世界单位表示的位置。 此值不会影响 速度。 Velocity
+速度向量（以用户定义的世界单位/秒为单位），仅用于多普勒计算。 此值不会影响 位置。 pCone
+指向此侦听器 X3DAUDIO_CONE 结构的指针。 提供侦听器锥体将指定在确定单个声源的音量和筛选 DSP 参数时执行其他计算。 NULL pCone 值指定全向声音，并且不应用锥体处理。 pCone 仅用于矩阵、LPF (直接路径和混响路径) 以及混响计算。
+
+≦ 63 ≧
+注解
+X3DAudio 使用左手笛卡尔坐标系，x 轴上的值从左到右递增，y 轴上从下到上，z 轴的值从近到远。 方位角是从给定引用方向顺时针测量的。
+若要将 X3DAudio 与右手坐标一起使用，必须取消 OrientFront、 OrientTop、 Position 和 Velocity 的 .z 元素。
+参数类型 X3DAUDIO_VECTOR 键入为 DirectX：：XMFLOAT3，以提供 x、y 和 z 浮点值。
+侦听器的前向量和顶部向量必须是正交向量。 要被视为正态向量，一对矢量的量级必须为 1 +-
+1x10-5，点积为 0 +- 1x10-5。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求 Header
+值
+x3daudio.h
+展开表
+
+≦ 64 ≧
+X3DAudioCalculate 函数 (x3daudio.h) 项目2024/03/13
+计算与 3D 参数相关的 DSP 设置。
+语法 C++
+X3DAUDIO_API_(void) X3DAudioCalculate(
+  [in]      const X3DAUDIO_HANDLE   Instance,   [in]      const X3DAUDIO_LISTENER *pListener,   [in]      const X3DAUDIO_EMITTER  *pEmitter,   [in]      UINT32                  Flags,
+  [in, out] X3DAUDIO_DSP_SETTINGS   *pDSPSettings);
+参数[in] Instance
+3D 音频实例句柄。 调用 X3DAudioInitialize 以获取此句柄。[in] pListener
+指向表示接收点 的X3DAUDIO_LISTENER 的指针。[in] pEmitter
+指向表示声源 的X3DAUDIO_EMITTER 的指针。[in] Flags
+值
+X3DAUDIO_CALCULATE_MATRIX X3DAUDIO_CALCULATE_DELAY
+X3DAUDIO_CALCULATE_LPF_DIRECT X3DAUDIO_CALCULATE_LPF_REVERB X3DAUDIO_CALCULATE_REVERB
+说明
+启用矩阵系数表计算。 
+启用仅立体声) (延迟时间数组计算。 
+(LPF) 直接路径系数计算启用低通滤波器。 
+启用 LPF 混响路径系数计算。  启用混响发送级别计算。 
+ﾉ
+展开表
+
+≦ 65 ≧
+X3DAUDIO_CALCULATE_DOPPLER
+X3DAUDIO_CALCULATE_EMITTER_ANGLE X3DAUDIO_CALCULATE_ZEROCENTER
+X3DAUDIO_CALCULATE_REDIRECT_TO_LFE[in, out] pDSPSettings
+启用多普勒移位因子计算。 
+启用发射器到侦听器的内部角度计算。 
+使用静音填充中心通道。 此标志允许保留 6 声道矩阵，因此无需重新映射通道，但中心通道将无提示。 仅当同时设置了 X3DAUDIO_CALCULATE_MATRIX时，此标志才有效。 
+将所有源通道的相同混合应用于 LFE) 目标通道 (低频效果。它仅适用于没有 LFE 通道的源和具有 LFE 通道的目标的矩阵计算。 仅当同时设置了X3DAUDIO_CALCULATE_MATRIX时，此标志才有效。 
+指向接收计算结果 的X3DAUDIO_DSP_SETTINGS 结构的指针。
+返回值此函数不返回值。
+注解
+通常，为场景中的每对发出对象和侦听器调用 X3DAudioCalculate 一次。 每次调用后，为了应用 3D 效果，应用会手动将 pDSPSettings 处的计算结果应用于XAUDIO2图。 有关详细信息，请参阅 如何：将 X3DAudio 与 XAudio2 集成。
+重要 侦听器和发射器值必须有效。 浮点特殊 (NaN、QNaN、+INF、-INF) 可能会导致整个
+音频输出在引入到正在运行的音频图中时静音。  
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+Windows Phone 8.1：支持此 API。要求
+ﾉ
+展开表
+
+≦ 66 ≧
+要求
+目标平台
+标头 Library
+请参阅函数
+值
+Windows x3daudio.h Xaudio2.lib
+
+≦ 67 ≧
+X3DAudioInitialize 函数 (x3daudio.h) 项目2024/03/13
+设置所有全局 3D 音频常量。
+语法 C++
+X3DAUDIO_API_(HRESULT) X3DAudioInitialize(   [in]  UINT32          SpeakerChannelMask,   [in]  FLOAT32         SpeedOfSound,
+  [out] X3DAUDIO_HANDLE Instance);
+参数
+[in] SpeakerChannelMask
+将通道分配给说话人位置。 此值不得为零。 Xbox 360 上唯一允许的值是SPEAKER_XBOX。[in] SpeedOfSound
+声音速度，以用户定义的世界单位/秒为单位。 仅将此值用于多普勒计算。 它必须大于或等于 FLT_MIN。
+[out] Instance
+3D 音频实例句柄。 调用 X3DAudioCalculate 时使用此句柄。
+返回值此函数不返回值。
+注解
+X3DAUDIO_HANDLE 是不透明的数据结构。 由于操作系统不会为 3D 音频实例句柄分配任何其
+他存储，因此无需释放或关闭它。平台要求
+
+≦ 68 ≧
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+Windows Phone 8.1：支持此 API。要求
+ﾉ
+要求
+目标平台
+标头 Library
+请参阅函数
+值
+Windows x3daudio.h XAudio2.lib
+展开表
+
+≦ 69 ≧
+xapo.h 标头项目2023/08/28
+XAudio2 API 使用此标头。 有关详细信息，请参阅：
+XAudio2 API
+xapo.h 包含以下编程接口：
+接口   IXAPO
+用于 XAudio2 效果链中的音频处理对象的接口。 IXAPOParameters
+一个可选接口，允许 XAPO 使用特定于效果的参数。
+函数  
+XAPOAlloc
+IXAPO 方法使用的内存分配宏，这些方法必须分配随后返回到应用程序的任意大小结构。 XAPOFree
+用于释放使用 XAPOAlloc 宏分配的内存的宏。
+结构  
+XAPO_LOCKFORPROCESS_PARAMETERS
+定义在锁定 XAPO 时保持恒定的流缓冲区参数。 与 IXAPO：：LockForProcess 方法一起使用。 XAPO_PROCESS_BUFFER_PARAMETERS
+
+≦ 70 ≧
+ 
+定义可能会从一次调用更改为下一个调用的流缓冲区参数。 与 Process 方法一起使用。 XAPO_REGISTRATION_PROPERTIES
+介绍 XAPO 的一般特征。 与 IXAPO：：GetRegistrationProperties、CXAPOParametersBase：： CXAPOParametersBase 和 CXAPOBase：：CXAPOBase 一起使用。
+枚举  
+XAPO_BUFFER_FLAGS 描述流缓冲区的内容。
+反馈
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+
+≦ 71 ≧
+IXAPO 接口 (xapo.h) 项目2025/02/20
+用于 XAudio2 效果链中的音频处理对象的接口。继承
+IXAPO 接口继承自 IUnknown 接口。 IXAPO 还具有以下类型的成员：方法
+IXAPO 接口具有这些方法。  
+IXAPO：：CalcInputFrames
+返回生成给定数量的输出帧所需的输入帧数。 IXAPO：：CalcOutputFrames
+返回将从给定数量的输入帧生成的输出帧数。 IXAPO：：GetRegistrationProperties
+返回 XAPO 的注册属性。 IXAPO：：Initialize
+执行任何特定于效果的初始化。
+IXAPO：：IsInputFormatSupported
+查询给定输出格式是否支持特定输入格式。 IXAPO：：IsOutputFormatSupported
+查询给定输入格式是否支持特定输出格式。 IXAPO：：LockForProcess
+ﾉ
+展开表
+由 XAudio2 调用以锁定 XAPO 的输入和输出配置，允许它在实时线程上调用 Process 之前执行任何最终初始化。
+
+≦ 72 ≧
+ 
+IXAPO：:P rocess
+在给定输入和输出缓冲区上运行 XAPO 的数字信号处理 (DSP) 代码。 IXAPO：：Reset
+重置依赖于帧历史记录的变量。 IXAPO：：UnlockForProcess
+解除分配使用 LockForProcess 方法分配的变量。
+注解平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅接口
+ 
+Windows xapo.h
+展开表
+
+≦ 73 ≧
+IXAPO：：CalcInputFrames 方法 (xapo.h) 项目2023/08/28
+返回生成给定数量的输出帧所需的输入帧数。
+语法 C++
+UINT32 CalcInputFrames(   UINT32 OutputFrameCount);
+参数
+OutputFrameCount 所需的输出帧数。返回值
+返回所需的输入帧数。注解
+XAudio2 调用此方法来确定 XAPO 生成给定数量的输出帧所需的输入缓冲区大小。 锁定 XAPO 时，只需调用此方法一次。 仅当 XAPO 锁定时，XAudio2 才会调用 CalcInputFrames。
+此函数不应阻止，因为它可以从实时音频处理线程调用。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+展开表
+
+≦ 74 ≧
+ 
+目标平台标头
+另请参阅 IXAPO
+ 
+Windows xapo.h
+
+≦ 75 ≧
+IXAPO：：CalcOutputFrames 方法 (xapo.h) 项目2024/03/04
+返回将从给定数量的输入帧生成的输出帧数。
+语法 C++
+UINT32 CalcOutputFrames(   UINT32 InputFrameCount);
+参数
+InputFrameCount
+输入帧数。返回值
+返回将生成的输出帧数。注解
+XAudio2 调用此方法来确定 XAPO 对于特定数量的输入帧所需的输出缓冲区的大小。 仅当
+XAPO 已锁定时，XAudio2 才会调用 CalcOutputFrames。此函数不应阻止，因为它可以从实时音频处理线程调用。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+展开表
+
+≦ 76 ≧
+要求
+目标平台标头
+另请参阅 IXAPO
+值
+Windows xapo.h
+
+≦ 77 ≧
+IXAPO：：GetRegistrationProperties 方法
+(xapo.h) 项目2023/08/28
+返回 XAPO 的注册属性。
+语法 C++
+HRESULT GetRegistrationProperties(
+  XAPO_REGISTRATION_PROPERTIES **ppRegistrationProperties);
+参数
+ppRegistrationProperties
+接收指向 XAPO_REGISTRATION_PROPERTIES 结构的指针，该结构包含创建 XAPO 时所使用的注
+册属性;使用 XAPOFree 释放结构。返回值
+如果成功，则返回S_OK;否则返回错误代码。
+注解平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+展开表
+
+≦ 78 ≧
+ 
+目标平台标头
+另请参阅 IXAPO
+ 
+Windows xapo.h
+
+≦ 79 ≧
+IXAPO：：Initialize 方法 (xapo.h) 项目2023/08/28
+执行任何特定于效果的初始化。
+语法 C++
+HRESULT Initialize(   const void *pData,
+  UINT32     DataByteSize);
+参数 pData
+如果 DataByteSize 为 0，则特定于效果的初始化参数可以为 NULL。 DataByteSize
+如果 pData 为 NULL，则 pData 的大小（以字节为单位）可以为 0。返回值
+如果成功，则返回S_OK，否则返回错误代码。注解
+pData 的内容由给定的 XAPO 定义。 在 XAPO) 的生存期内，不可变参数 (常量应在此方法中设置。 初始化后，无法再次初始化 XAPO。 在将 XAPO 作为效果链的一部分传递给 XAudio2 之前，应对其进行初始化。
+注意 XAudio2 不调用此方法，应在将 XAPO 传递给 XAudio2 之前由客户端调用此方法。  
+平台要求
+
+≦ 80 ≧
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅 IXAPO
+ 
+Windows xapo.h
+展开表
+
+≦ 81 ≧
+IXAPO：：IsInputFormatSupported 方法
+(xapo.h) 项目2023/08/28
+查询给定输出格式是否支持特定输入格式。
+语法 C++
+HRESULT IsInputFormatSupported(
+  const WAVEFORMATEX *pOutputFormat,
+  const WAVEFORMATEX *pRequestedInputFormat,   WAVEFORMATEX       **ppSupportedInputFormat);
+参数 pOutputFormat 输出格式。
+pRequestedInputFormat 支持检查的输入格式。 ppSupportedInputFormat
+如果不是 NULL，并且给定输出格式不支持输入格式， 则 ppSupportedInputFormat 将返回指向
+支持的最近输入格式的指针。 使用 XAPOFree 释放返回的结构。返回值
+如果支持格式对，则返回S_OK。 如果格式对不受支持，则返回
+XAPO_E_FORMAT_UNSUPPORTED。注解
+IXAPO：：IsOutputFormatSupported 和 IsInputFormatSupported 方法允许 XAPO 指示它可以处理哪些音频格式。 如果请求的格式不受支持，则 XAPO 应返回它所支持的最接近的格式。 应根据帧速率、位深度和通道计数确定最接近的格式，并按该重要性顺序确定。 允许根据 XAPO
+
+≦ 82 ≧
+的内部状态更改 IsInputFormatSupported 的行为，但其行为在调用 IXAPO：：LockForProcess
+和 IXAPO：：UnlockForProcess 方法之间应保持不变。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅 IXAPO
+ 
+Windows xapo.h
+展开表
+
+≦ 83 ≧
+IXAPO：：IsOutputFormatSupported 方法
+(xapo.h) 项目2024/03/04
+查询给定输入格式是否支持特定输出格式。
+语法 C++
+HRESULT IsOutputFormatSupported(
+  [in]  const WAVEFORMATEX *pInputFormat,
+  [in]  const WAVEFORMATEX *pRequestedOutputFormat,   [out] WAVEFORMATEX       **ppSupportedOutputFormat);
+参数
+[in] pInputFormat 输入格式。
+[in] pRequestedOutputFormat 支持检查的输出格式。
+[out] ppSupportedOutputFormat
+如果不是 NULL 并且给定输入格式不支持输出格式， 则 ppSupportedOutputFormat 返回指向最
+接近支持的输出格式的指针。 使用 XAPOFree 释放返回的结构。返回值
+如果支持格式对，则返回S_OK。 如果不支持格式对，则返回
+XAPO_E_FORMAT_UNSUPPORTED。注解
+IXAPO：：IsInputFormatSupported 和 IsOutputFormatSupported 方法允许 XAPO 指示它能够处理哪些音频格式。 如果不支持请求的格式，XAPO 应返回它支持的最接近的格式。 最接近的格式应根据帧速率、位深度和通道计数按重要性顺序确定。 允许根据 XAPO 的内部状态更改
+
+≦ 84 ≧
+IsOutputFormatSupported 的行为，但在调用 IXAPO：：LockForProcess 和 IXAPO：：
+UnlockForProcess 方法之间，其行为应保持不变。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅 IXAPO
+值
+Windows xapo.h
+展开表
+
+≦ 85 ≧
+IXAPO：：LockForProcess 方法 (xapo.h) 项目2023/08/28
+由 XAudio2 调用以锁定 XAPO 的输入和输出配置，允许它在实时线程上调用 Process 之前执行任何最终初始化。
+语法 C++
+HRESULT LockForProcess(
+  UINT32                               InputLockedParameterCount,   const XAPO_LOCKFORPROCESS_PARAMETERS *pInputLockedParameters,   UINT32                               OutputLockedParameterCount,   const XAPO_LOCKFORPROCESS_PARAMETERS *pOutputLockedParameters);
+参数
+InputLockedParameterCount
+ppInputLockedParameters 中的元素数。 必须在 XAPO_REGISTRATION_PROPERTIES内。 MinInputBufferCount 和 XAPO_REGISTRATION_PROPERTIES。传递给 CXAPOBase：：
+CXAPOBase 的 MaxInputBufferCount 值。 pInputLockedParameters
+输入 XAPO_LOCKFORPROCESS_BUFFER_PARAMETERS 结构的数组。 如果
+InputLockedParameterCount 为 0，pInputLockedParameters 可能为 NULL，否则它必须具有
+InputLockedParameterCount 元素。 OutputLockedParameterCount
+ppOutputLockedParameters 中的元素数。 必须在 XAPO_REGISTRATION_PROPERTIES内。 MinOutputBufferCount 和 XAPO_REGISTRATION_PROPERTIES。传递给 CXAPOBase：：
+CXAPOBase 的 MaxOutputBufferCount 值。 如果在 XAPO_REGISTRATION_PROPERTIES 中指定了 XAPO_FLAG_BUFFERCOUNT_MUST_MATCH标志。然后 OutputLockedParameterCount 的标
+志必须等于 InputLockedParameterCount。 pOutputLockedParameters
+输出 XAPO_LOCKFORPROCESS_BUFFER_PARAMETERS 结构的数组。 如果
+OutputLockedParameterCount 为 0，pOutputLockedParameters 可能为 NULL，否则它必须具有
+
+≦ 86 ≧
+OutputLockedParameterCount 元素。返回值
+如果成功，则返回S_OK，否则返回错误代码。注解
+锁定后，输入和输出配置以及任何其他锁定参数将保持不变，直到调用 UnLockForProcess 。 锁定 XAPO 后，在调用 UnLockForProcess 函数之前，对 LockForProcess 的进一步调用不起作用。
+XAPO 指示它通过 IsInputFormatSupported 和 IsOutputFormatSupported 方法的实现支持哪些特定格式。 XAPO 应断言输入和输出配置受支持，并且任何所需的特定于效果的初始化都已完
+成。 在调用此方法之前，应根据需要使用 IsInputFormatSupported、 IsOutputFormatSupported 和 Initialize 方法。
+由于 Process 是一种非阻塞方法，因此 Process 所需的所有内部内存缓冲区都应在 LockForProcess 中分配。
+在 LockForProcess 成功返回之前，永远不会调用进程。
+LockForProcess 由 XAudio2 直接调用，不应由客户端代码调用。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅
+ 
+Windows xapo.h
+展开表
+
+≦ 87 ≧
+IXAPO
+
+≦ 88 ≧
+IXAPO：:P rocess 方法 (xapo.h) 项目2023/08/28
+在给定的输入和输出缓冲区上运行 XAPO 的数字信号处理 (DSP) 代码。
+语法 C++
+void Process(
+  [in]      UINT32                               InputProcessParameterCount,   [in]      const XAPO_PROCESS_BUFFER_PARAMETERS *pInputProcessParameters,   [in]      UINT32                               OutputProcessParameterCount,   [in, out] XAPO_PROCESS_BUFFER_PARAMETERS       *pOutputProcessParameters,
+            BOOL                                 IsEnabled);
+参数
+[in] InputProcessParameterCount
+pInputProcessParameters 中的元素数。
+注意 XAudio2 目前仅支持一个输入流和一个输出流。  
+[in] pInputProcessParameters
+XAPO_PROCESS_BUFFER_PARAMETERS 结构的输入数组。[in] OutputProcessParameterCount
+pOutputProcessParameters 中的元素数。
+注意 XAudio2 目前仅支持一个输入流和一个输出流。  
+[in, out] pOutputProcessParameters
+XAPO_PROCESS_BUFFER_PARAMETERS 结构的输出数组。 输入时，的值
+XAPO_PROCESS_BUFFER_PARAMETERS。 ValidFrameCount 指示 XAPO 应写入输出缓冲区的
+
+≦ 89 ≧
+帧数。 输出时， 的值XAPO_PROCESS_BUFFER_PARAMETERS。 ValidFrameCount 指示实际写
+入的帧数。 IsEnabled
+如果为 TRUE，则正常处理;如果为 FALSE，则通过处理。 有关其他信息，请参阅“备注”。
+返回值无
+备注
+此函数的实现不应受阻，因为该函数是从实时音频处理线程调用的。
+所有可能导致延迟的代码（如格式验证和内存分配）都应放在 IXAPO：：LockForProcess 方法中，该方法不是从实时音频处理线程调用的。
+对于就地处理， pInputProcessParameters 参数不一定与 pOutputProcessParameters 相同。 相反，他们的 pBuffer 成员将指向相同的内存。
+多个输入和输出缓冲区可以与就地 XAPOs 一起使用，但输入缓冲区计数必须等于输出缓冲区计数。 对于使用多个输入和输出缓冲区时的就地处理，XAPO 可能假定输入缓冲区数等于输出缓冲区的数量。
+除了写入输出缓冲区外，XAPO 还负责根据需要设置输出流的缓冲区标志和有效的帧计数。当 IsEnabled 为 FALSE 时，XAPO 不应在此期间将其正常处理应用于给定的输入/输出缓冲区。它应改为将数据从输入传递到输出，并尽可能少地进行修改。 执行格式转换的效果应继续执行此操作。 效果必须确保正常处理与直通处理之间的转换不会给信号带来不连续。
+编写 Process 方法时，请务必注意 XAudio2 音频数据是交错的，这意味着每个通道的数据对于特定样本数是相邻的。 例如，如果有 4 声道波播放到 XAudio2 源语音中，音频数据将是通道 0 的样本、通道 1 的样本、通道 2 的样本、通道 3 的样本，然后是通道 0、1、2、3 等的下一个样本。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+
+≦ 90 ≧
+ 
+目标平台标头
+另请参阅 IXAPO
+ 
+Windows xapo.h
+ﾉ
+展开表
+
+≦ 91 ≧
+IXAPO：：Reset 方法 (xapo.h) 项目2024/03/13
+重置依赖于帧历史记录的变量。
+语法 C++
+void Reset(); 返回值无
+备注
+常量和锁定参数（如输入和输出格式）保持不变。 IXAPOParameters：：SetParameters 设置的变量保持不变。
+例如，具有延迟的效果在此方法期间应将其延迟线归零，但不应重新分配任何内容，因为 XAPO
+使用恒定的输入和输出配置保持锁定状态。 XAudio2 仅在 XAPO 锁定时调用此方法。此方法是从实时线程调用的，不应阻止。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台
+值
+Windows
+展开表
+
+≦ 92 ≧
+要求标头
+另请参阅 IXAPO
+值
+xapo.h
+
+≦ 93 ≧
+IXAPO：：UnlockForProcess 方法 (xapo.h) 项目2024/03/13
+解除分配使用 LockForProcess 方法分配的变量。
+语法 C++
+void UnlockForProcess();
+返回值无
+备注
+解锁 XAPO 实例允许以不同的输入和输出格式重复使用它。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅 IXAPO
+值
+Windows xapo.h
+展开表
+
+≦ 94 ≧
+IXAPOParameters 接口 (xapo.h) 项目2025/02/21
+一个可选接口，允许 XAPO 使用特定于效果的参数。继承
+IXAPOParameters 接口继承自 IUnknown 接口。 IXAPOParameters 还具有以下类型的成员：方法
+IXAPOParameters 接口具有以下方法。
+ﾉ
+ 
+IXAPOParameters：：GetParameters 获取任何特定于效果的参数的当前值。 IXAPOParameters：：SetParameters 设置特定于效果的参数。
+注解平台要求
+展开表
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+值
+Windows xapo.h
+展开表
+
+≦ 95 ≧
+另请参阅接口
+
+≦ 96 ≧
+IXAPOParameters：：GetParameters 方法
+(xapo.h) 项目2024/03/04
+获取任何特定于效果的参数的当前值。
+语法 C++
+void GetParameters(
+  [in, out] void   *pParameters,
+  [in]      UINT32 ParameterByteSize);
+参数
+[in, out] pParameters
+接收特定于效果的参数块。[in] ParameterByteSize
+pParameters 的大小（以字节为单位）。
+返回值无
+备注
+pParameters 中的数据完全特定于效果，由 IXAPOParameters：：GetParameters 函数的实现确定。 pParameters 中返回的数据可用于提供有关 XAPO 当前状态的信息。
+与 SetParameters 不同，XAudio2 不会在实时音频处理线程上调用此方法。 因此，XAPO 必须使用适当的同步来保护与 IXAPOParameters：：SetParameters 或 IXAPO：:P roces 共享的 变量。 CXAPOParametersBase 类是 IXAPOParameters 的实现，其 GetParameters 的实现可有效地为用户处理此同步。
+XAudio2 从 IXAudio2Voice：：GetEffectParameters 方法调用此方法。
+
+≦ 97 ≧
+此方法可能会阻止并且绝不应从实时音频处理线程调用，而是从 CXAPOParametersBase：：
+BeginProcess 获取当前参数。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅 IXAPOParameters
+IXAudio2Voice：：GetEffectParameters
+值
+Windows xapo.h
+展开表
+
+≦ 98 ≧
+IXAPOParameters：：SetParameters 方法
+(xapo.h) 项目2024/03/04
+设置特定于效果的参数。
+语法 C++
+void SetParameters(
+  const void *pParameters,
+  UINT32     ParameterByteSize);
+参数 pParameters
+特定于效果的参数块。 ParameterByteSize
+pParameters 的大小（以字节为单位）。
+返回值无
+备注
+pParameters 中的数据完全特定于效果，由 IXAPOParameters：：SetParameters 函数的实现确定。 传递给 SetParameters 的数据可用于设置 XAPO 的状态和控制 IXAPO：:P rocess 函数的行为。
+只能在实时音频处理线程上调用 SetParameters;SetParameters 和 IXAPO：:P rocess 方法之间不需要同步。 但是，可以在任何线程中调用 IXAudio2Voice：：SetEffectParameters 方法，因为它添加所需的同步，以异步方式将参数 () 传送到实时线程上的 SetParameters ;
+IXAudio2Voice：：SetEffectParameters 和 IXAPO：:P rocess 方法之间不需要同步。
+
+≦ 99 ≧
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅 IXAPOParameters
+IXAudio2Voice：：SetEffectParameters
+值
+Windows xapo.h
+展开表
+
+≦ 100 ≧
+XAPO_BUFFER_FLAGS枚举 (xapo.h) 项目2024/03/13
+描述流缓冲区的内容。
+语法 C++
+typedef enum XAPO_BUFFER_FLAGS {
+  XAPO_BUFFER_SILENT,   XAPO_BUFFER_VALID} ;
+常量  
+XAPO_BUFFER_SILENT
+Stream缓冲区仅包含无提示样本。 XAPO_BUFFER_VALID
+Stream缓冲区包含要处理的音频数据。注解
+ﾉ
+展开表
+此元数据可用于实现需要了解流缓冲区内容的优化。 例如，始终从无提示输入生成无提示输出的 XAPOs 可以在输入流缓冲区上检查标志，以确定是否需要进行任何信号处理。 如果无提示， XAPO 只需将输出流缓冲区上的标志设置为无提示并返回，从而避免处理无提示数据的工作。
+同样，接收有效输入数据但出于任何原因) 生成静音 (的 XAPO 可能会相应地设置输出流缓冲区的标志，而不是将静默样本写入缓冲区。
+这些标志表示应假定在相应的缓冲区中的内容。 标志可能不会反映内存中实际存储的内容。 例
+如，XAPO_BUFFER_SILENT指示应假定无提示数据，但各自的内存可能未初始化平台要求
+
+≦ 101 ≧
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求 Header
+请参阅枚举
+值
+xapo.h
+展开表
+
+≦ 102 ≧
+xapo.h)
+(XAPO_LOCKFORPROCESS_PARAMETER
+S 结构项目2024/03/13
+定义在锁定 XAPO 时保持恒定的流缓冲区参数。 与 IXAPO：：LockForProcess 方法一起
+使用。语法 C++
+typedef struct XAPO_LOCKFORPROCESS_BUFFER_PARAMETERS {   const WAVEFORMATEX *pFormat;
+  UINT32             MaxFrameCount;} XAPO_LOCKFORPROCESS_PARAMETERS;
+成员 pFormat
+描述流缓冲区格式的 WAVFORMATEX。 MaxFrameCount
+流缓冲区中 IXAPO：:P rocess 需要处理的最大帧数，而不考虑动态参数设置。注解
+相应流缓冲区的字节大小必须至少为 maxFrameCount × (pFormat-nBlockAlign>) 字节。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK
+(XAudio 2.7) 要求
+
+≦ 103 ≧
+要求 Header
+另请参阅
+结构反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+值
+xapo.h
+ﾉ
+展开表
+
+≦ 104 ≧
+xapo.h)
+(XAPO_PROCESS_BUFFER_PARAMETERS 结构
+项目2024/03/04
+定义可能会从一次调用更改为下一个调用的流缓冲区参数。 与 Process 方法一起使用。
+语法 C++
+typedef struct XAPO_PROCESS_BUFFER_PARAMETERS {   void              *pBuffer;
+  XAPO_BUFFER_FLAGS BufferFlags;
+  UINT32            ValidFrameCount;} XAPO_PROCESS_BUFFER_PARAMETERS;
+成员 pBuffer
+指向包含音频数据的流缓冲区的指针。 缓冲区必须是 16 字节对齐的、非 NULL 的，并且必须至
+少 XAPO_LOCKFORPROCESS_BUFFER_PARAMETERS。MaxFrameCount 帧大小。 BufferFlags
+描述流缓冲区内容的 XAPO_BUFFER_FLAGS 枚举。 ValidFrameCount
+要处理的帧数;此值必须在 0 范围内才能 XAPO_LOCKFORPROCESS_BUFFER_PARAMETERS。
+MaxFrameCount。注解
+尽管特定流缓冲区的格式和最大大小值是常量（由
+XAPO_LOCKFORPROCESS_BUFFER_PARAMETERS 结构定义），但允许更改流缓冲区的实际内存
+地址。 对于固定比特率 (CBR) XAPOs，ValidFrameCount 为常量，始终等于相应的 XAPO_LOCKFORPROCESS_BUFFER_PARAMETERS。此缓冲区的 MaxFrameCount。
+
+≦ 105 ≧
+ 
+注意 目前仅支持恒定比特率 XAPOs。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求 Header
+另请参阅结构
+值
+xapo.h
+展开表
+
+≦ 106 ≧
+XAPO_REGISTRATION_PROPERTIES结构
+(xapo.h) 项目2023/08/28
+介绍 XAPO 的一般特征。 与 IXAPO：：GetRegistrationProperties、
+CXAPOParametersBase：：CXAPOParametersBase 和 CXAPOBase：：CXAPOBase 一起使用。
+语法 C++
+typedef struct XAPO_REGISTRATION_PROPERTIES {   CLSID  clsid;
+  WCHAR  FriendlyName[XAPO_REGISTRATION_STRING_LENGTH];   WCHAR  CopyrightInfo[XAPO_REGISTRATION_STRING_LENGTH];
+  UINT32 MajorVersion;   UINT32 MinorVersion;   UINT32 Flags;
+  UINT32 MinInputBufferCount;   UINT32 MaxInputBufferCount;   UINT32 MinOutputBufferCount;   UINT32 MaxOutputBufferCount;} XAPO_REGISTRATION_PROPERTIES;
+成员 clsid
+用于 CoCreateInstance 函数的 COM 类 ID。
+FriendlyName[XAPO_REGISTRATION_STRING_LENGTH] 友好名称，unicode 字符串。
+CopyrightInfo[XAPO_REGISTRATION_STRING_LENGTH] 版权信息，unicode 字符串。
+MajorVersion 主版本号。 MinorVersion 次版本号。
+
+≦ 107 ≧
+Flags
+描述进程行为的一般特征的 XAPO 属性标志。 下表介绍了这些标志。
+标志
+XAPO_FLAG_INPLACE_SUPPORTED XAPO_FLAG_INPLACE_REQUIRED
+XAPO_FLAG_CHANNELS_MUST_MATCH XAPO_FLAG_FRAMERATE_MUST_MATCH
+XAPO_FLAG_BITSPERSAMPLE_MUST_MATCH XAPO_FLAG_BUFFERCOUNT_MUST_MATCH
+XAPOBASE_DEFAULT_FLAG MinInputBufferCount
+处理所需的最小输入流数。 MaxInputBufferCount
+描述
+ﾉ
+展开表
+XAPO 支持就地处理：输入流缓冲区和输出流缓冲区可以是相同的缓冲区，具体取决于输入。
+例如，考虑可在立体声到 5.1 模式或单声道到单声道模式下运行的效果。 设置为 5.1 的立体声时，它将使用单独的输入和输出缓冲区运行，因为不允许就地进行格式转换。 但是，如果配置为运行单声道到单声道，则可以就地运行相同的 XAPO。 因此，同一实现可以方便地用于各种输入/输出配置，同时尽可能利用就地处理。
+XAPO 需要就地处理：输入流缓冲区和输出流缓冲区必须是相同的缓冲区。 使用XAPO_FLAG_INPLACE_REQUIRED时， XAPO 无法执行格式转换。
+输入和输出流的通道计数必须匹配。输入和输出流的帧速率必须匹配。
+输入和输出流的位深度和容器大小必须匹配。输入和输出缓冲区数必须匹配，适用于
+XAPO_LOCKFORPROCESS_BUFFER_PARAMETERS。 XAPO_REGISTRATION_PROPERTIES 设置
+XAPO_FLAG_BUFFERCOUNT_MUST_MATCH标志时。 MinInputBufferCount 必须等于
+XAPO_REGISTRATION_PROPERTIES。 MinOutputBufferCount 和
+XAPO_REGISTRATION_PROPERTIES。 MaxInputBufferCount 必须等于
+XAPO_REGISTRATION_PROPERTIES。 MaxOutputBufferCount。
+XAPO_FLAG_CHANNELS_MUST_MATCH |XAPO_FLAG_FRAMERATE_MUST_MATCH
+|XAPO_FLAG_BITSPERSAMPLE_MUST_MATCH |XAPO_FLAG_BUFFERCOUNT_MUST_MATCH |XAPO_FLAG_INPLACE_SUPPORTED
+
+≦ 108 ≧
+处理所需的最大输入流数。
+注意MaxInputBufferCount 当前限制为值 1。  
+MinOutputBufferCount
+处理所需的最小输出流数。 MaxOutputBufferCount
+处理所需的最大输出流数。
+注意MaxOutputBufferCount 当前限制为值 1。  
+注解平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求 Header
+另请参阅结构
+值
+xapo.h
+展开表
+
+≦ 109 ≧
+XAPOAlloc 宏 (xapo.h) 项目2024/03/13
+IXAPO 方法使用的内存分配宏，这些方法必须分配随后返回给应用程序的任意大小结构。
+语法 C++
+void XAPOAlloc(
+   size);
+参数 size
+要分配的内存块的大小（以字节为单位）。
+返回值无
+备注
+XAPOFree 和 XAPOAlloc 是内存分配宏，允许一个模块分配内存，另一个模块通过保证使用同一堆管理器而不考虑两个模块的生成环境之间的差异来释放内存。
+ﾉ
+Xbox 360
+XAPOFree 和 XAPOAlloc 解析为 Xbox 360 上的 XMemAlloc 和 XMemFree 。  
+ﾉ
+Windows
+XAPOFree 和 XAPOAlloc 解析为 CoTaskMemAlloc 和 CoTaskMemFree。  
+展开表展开表
+
+≦ 110 ≧
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅宏
+值
+Windows xapo.h
+展开表
+
+≦ 111 ≧
+XAPOFree 宏 (xapo.h) 项目2023/08/28
+用于释放使用 XAPOAlloc 宏分配的内存的宏。
+语法 C++
+void XAPOFree(
+   p);
+参数 p
+指向要释放的内存块的指针。
+返回值无
+备注
+XAPOFree 和 XAPOAlloc 是内存分配宏，允许一个模块分配内存，另一个模块通过保证使用相同的堆管理器来释放内存，而不考虑两个模块的生成环境之间的差异。
+ﾉ
+Xbox 360
+XAPOFree 和 XAPOAlloc 解析为 Xbox 360 上的 XMemAlloc 和 XMemFree 。  
+ﾉ
+Windows
+XAPOFree 和 XAPOAlloc 解析为 CoTaskMemAlloc 和 CoTaskMemFree。  
+展开表展开表
+
+≦ 112 ≧
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅宏
+ 
+Windows xapo.h
+展开表
+
+≦ 113 ≧
+xapobase.h 标头项目2023/08/28
+XAudio2 API 使用此标头。 有关详细信息，请参阅：
+XAudio2 API
+xapobase.h 包含以下编程接口：
+类  
+CXAPOBase
+IXAPO 接口的默认实现。 CXAPOParametersBase
+IXAPOParameters 接口的默认实现。反馈
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+
+≦ 114 ≧
+CXAPOBase 类 (xapobase.h) 项目2023/08/28
+IXAPO 接口的默认实现。
+有关此类所有成员的列表，请参阅 CXAPOBase 成员。继承
+CXAPOBase 类实现 IXAPO。方法
+CXAPOBase 类具有这些方法。  
+CXAPOBase：：CXAPOBase 创建 CXAPOBase 类的实例。
+CXAPOBase：：GetRegistrationPropertiesInternal
+ﾉ
+展开表
+返回指向XAPO_REGISTRATION_PROPERTIES结构的指针，该结构包含创建 XAPO 时所使用的注册属性。
+CXAPOBase：：IsLocked 查询 XAPO 是否已锁定。 CXAPOBase：:P rocessThru
+当禁用 XAPO 进行直通处理时，由 IXAPO：:P rocess 实现调用。
+CXAPOBase：：ValidateFormatDefault 验证音频格式是否在支持的默认范围内。 CXAPOBase：：ValidateFormatPair
+验证 XAPO 是否支持输入和输出格式对配置。注解
+
+≦ 115 ≧
+CXAPOBase 为所有 IXAPO 方法（IXAPO：:P rocess 除外）提供可替代的实现。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅 CXAPOBase 成员类
+IXAPO
+值
+Windows xapobase.h
+展开表
+
+≦ 116 ≧
+CXAPOBase：：CXAPOBase 方法
+(xapobase.h) 项目2024/03/09
+创建 CXAPOBase 类的实例。
+语法 C++
+void CXAPOBase(
+  const XAPO_REGISTRATION_PROPERTIES *pRegistrationProperties);
+参数
+pRegistrationProperties
+指向包含 XAPO 注册属性 的XAPO_REGISTRATION_PROPERTIES 结构的指针。
+返回值无
+备注
+此 CXAPOBase 创建的 对象的引用计数为 1。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+展开表
+
+≦ 117 ≧
+要求
+目标平台
+标头 Library
+另请参阅 CXAPOBase
+值
+Windows xapobase.h XAPOBase.lib
+
+≦ 118 ≧
+CXAPOBase：：
+GetRegistrationPropertiesInternal 方法
+(xapobase.h) 项目2024/03/04
+返回指向 XAPO_REGISTRATION_PROPERTIES 结构的指针，该结构包含创建 XAPO 时所使用的注
+册属性。语法 C++
+const XAPO_REGISTRATION_PROPERTIES * GetRegistrationPropertiesInternal(); 返回值
+指向 XAPO_REGISTRATION_PROPERTIES 结构的指针，该结构包含创建 XAPO 时所使用的注册属性。
+CXAPOBase 注解平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+值
+Windows xapobase.h
+展开表
+
+≦ 119 ≧
+要求 Library
+另请参阅 CXAPOBase
+值
+XAPOBase.lib
+
+≦ 120 ≧
+CXAPOBase：：IsLocked 方法 (xapobase.h) 项目2023/08/28
+查询 XAPO 是否已锁定。
+语法 C++
+BOOL IsLocked(); 返回值
+如果 XAPO 已锁定进行处理，则返回 TRUE;否则返回 FALSE。
+注解平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台
+标头 Library
+另请参阅 CXAPOBase IXAPO
+ 
+Windows xapobase.h XAPOBase.lib
+展开表
+
+≦ 121 ≧
+IXAPO：：LockForProcess IXAPO：：UnlockForProcess
+
+≦ 122 ≧
+CXAPOBase：:P rocessThru 方法
+(xapobase.h) 项目2023/08/28
+当禁用 XAPO 进行直通处理时，由 IXAPO：:P rocess 实现调用。
+语法 C++
+void ProcessThru(
+  const void *pInputBuffer,   FLOAT32    *pOutputBuffer,   UINT32     FrameCount,
+  UINT32     InputChannelCount,   UINT32     OutputChannelCount,
+  BOOL       MixWithOutput);
+参数 pInputBuffer
+指向包含输入音频数据的缓冲区的指针。 pOutputBuffer
+指向将包含已处理音频数据的缓冲区的指针。 FrameCount
+要处理的音频数据的帧数，其中帧是一个样本块，每个音频数据通道一个。 InputChannelCount
+输入数据缓冲区中的通道数。 OutputChannelCount
+输出数据缓冲区中的通道数。 MixWithOutput
+如果为 TRUE，则与目标缓冲区混合，如果为 FALSE，则覆盖目标缓冲区。
+
+≦ 123 ≧
+返回值无
+备注
+ProcessThru 将数据从源复制到目标/混合，对音频数据进行尽可能少的更改。 但是，
+ProcessThru 能够通道向上混合/下混合，并使用 Windows Vista 使用的相同矩阵系数表来执行此操作。
+在以下的情况下，可以调用此函数：
+1. XAPO 已锁定并禁用。 2. 源帧数等于目标帧数。 3. 输出格式为FLOAT32。
+4. 输入格式为 INT8、INT16、INT20 (包含在 24 位或 32 位) 中，INT24 (包含在 24 位或 32 位) 、INT32 或 FLOAT32中。
+对于就地处理 (输入缓冲区等于输出缓冲区) 此函数不执行任何操作。
+编写 ProcessThru 方法时，请务必注意 XAudio2 音频数据是交错的，来自每个通道的数据对于特定样本数是相邻的。 例如，如果有 4 声道波在 XAudio2 源语音中播放，则音频数据将是通道 0 的样本、通道 1 的样本、通道 2 的样本、通道 3 的样本，然后是通道 0、1、2、3 的下一个样
+本，等等。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台
+标头 Library
+ 
+Windows xapobase.h XAPOBase.lib
+展开表
+
+≦ 124 ≧
+另请参阅 CXAPOBase IXAPO
+
+≦ 125 ≧
+CXAPOBase：：ValidateFormatDefault 方法
+(xapobase.h) 项目2024/03/04
+验证音频格式是否在支持的默认范围内。
+语法 C++
+HRESULT ValidateFormatDefault(
+  WAVEFORMATEX *pFormat,   BOOL         fOverwrite);
+参数 pFormat
+要验证的音频格式。 fOverwrite
+如果为 TRUE，则指示如果指定的格式不受支持，则应用最接近的音频格式覆盖 pFormat 。 最
+接近的音频格式由位深度、帧速率和声道计数按重要性顺序确定。返回值
+如果支持音频格式，则返回S_OK。 返回XAPO_E_FORMAT_UNSUPPORTED如果音频格式不受支持，则如果 fOverwrite 为 TRUE，将使用最接近的音频格式覆盖 pFormat。 如果音频格式无效，则返回E_INVALIDARG，在这种情况下 ，pFormat 将保持不变。
+注解平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+
+≦ 126 ≧
+要求要求目标平台标头 Library
+另请参阅 CXAPOBase
+值
+Windows xapobase.h XAPOBase.lib
+ﾉ
+展开表
+
+≦ 127 ≧
+CXAPOBase：：ValidateFormatPair 方法
+(xapobase.h) 项目2024/03/13
+验证 XAPO 是否支持输入和输出格式对配置。
+语法 C++
+HRESULT ValidateFormatPair(
+  const WAVEFORMATEX *pSupportedFormat,   WAVEFORMATEX       *pRequestedFormat,
+  BOOL               fOverwrite);
+参数
+pSupportedFormat
+已知受 XAPO 支持的音频格式。 pRequestedFormat
+要检查的音频格式必须是指向 WAVEFORMATEXTENSIBLE 结构的指针（如果 fOverWrite 为
+TRUE）。 fOverwrite
+如果 TRUE 指示 pRequestedFormat 在不支持请求的格式不受支持时，应使用支持的最接近的音
+频格式进行覆盖。 最接近的音频格式由位深度、帧速率和声道计数按重要性顺序确定。返回值
+如果支持格式对，则返回S_OK。 如果格式对不受支持，则返回
+XAPO_E_FORMAT_UNSUPPORTED;如果 fOverWrite 为 TRUE，将覆盖 pRequestedFormat。 如果
+任一音频格式无效，则返回E_INVALIDARG; pRequestedFormat 将保持不变。注解
+
+≦ 128 ≧
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台
+标头 Library
+另请参阅 CXAPOBase
+值
+Windows xapobase.h XAPOBase.lib
+展开表
+
+≦ 129 ≧
+CXAPOParametersBase 类 (xapobase.h) 项目2024/03/13
+IXAPOParameters 接口的默认实现。
+有关此类所有成员的列表，请参阅 CXAPOParametersBase 成员。继承
+CXAPOParametersBase 类实现 CXAPOBaseIXAPOParameters。方法
+CXAPOParametersBase 类具有这些方法。
+ﾉ
+ 
+CXAPOParametersBase：：BeginProcess 返回当前进程参数。
+CXAPOParametersBase：：CXAPOParametersBase
+创建 CXAPOParametersBase 类的实例。 CXAPOParametersBase：：EndProcess
+通知 CXAPOParametersBase XAPO 已完成对当前进程参数的访问。 CXAPOParametersBase：：OnSetParameters
+由 IXAPOParameters：：SetParameters 调用，以允许用户定义参数验证。 CXAPOParametersBase：:P arametersChanged
+指示自上次处理阶段以来是否调用了 IXAPOParameters：：SetParameters。注解
+CXAPOParametersBase 为所有 IXAPOParameters 方法提供线程安全的可重写实现。
+展开表
+此类适用于大小大于 8 个字节的参数块。 若要实现较小参数块的同步，请直接对参数使用互锁操作。
+
+≦ 130 ≧
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅 CXAPOBase
+CXAPOParametersBase 成员类
+IXAPOParameters
+值
+Windows xapobase.h
+展开表
+
+≦ 131 ≧
+CXAPOParametersBase：：BeginProcess 方
+法 (xapobase.h) 项目2023/08/28
+返回当前进程参数。
+语法 C++
+BYTE * BeginProcess(); 返回值
+返回指向当前进程参数的指针。注解
+XPO 必须在其 IXAPO：:P rocess 实现中调用此方法，才能以线程安全的方式访问当前进程参数。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台
+标头 Library
+ 
+Windows xapobase.h XAPOBase.lib
+展开表
+
+≦ 132 ≧
+另请参阅
+CXAPOParametersBase
+
+≦ 133 ≧
+CXAPOParametersBase：：
+CXAPOParametersBase 方法 (xapobase.h) 项目2023/08/28
+创建 CXAPOParametersBase 类的实例。
+语法 C++
+void CXAPOParametersBase(
+  const XAPO_REGISTRATION_PROPERTIES *pRegistrationProperties,   BYTE                               *pParameterBlocks,
+  UINT32                             uParameterBlockByteSize,
+  BOOL                               fProducer);
+参数
+pRegistrationProperties
+类型： const XAPO_REGISTRATION_PROPERTIES*
+指向包含 XAPO 注册属性 的XAPO_REGISTRATION_PROPERTIES 结构的指针。
+pParameterBlocks 类型： BYTE*
+指向用于同步的三个连续进程参数块的指针。
+uParameterBlockByteSize 类型： UINT32
+pParameterBlocks 中参数块的大小。
+fProducer 类型： BOOL
+如果为 TRUE，则指示 IXAPO：:P rocess 生成将由 IXAPOParameters：：GetParameters 返回的数据，并禁止调用 IXAPOParameters：：SetParameters。
+
+≦ 134 ≧
+返回值无
+备注
+在调用 IXAPO：:P rocess、IXAPOParameters：：GetParameters 和 IXAPOParameters：： SetParameters 方法之前，必须将 pParameterBlocks 中的所有进程参数块初始化为相同的默认值。 通常，应在 IXAPO：：Initialize 或 IXAPO：：LockForProcess 中处理此初始化。
+此 CXAPOParametersBase 创建的对象的引用计数为 1。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台
+标头 Library
+另请参阅
+CXAPOParametersBase
+值
+Windows xapobase.h XAPOBase.lib
+展开表
+
+≦ 135 ≧
+CXAPOParametersBase：：EndProcess 方
+法 (xapobase.h) 项目2023/08/28
+通知 CXAPOParametersBase XAPO 已完成对当前进程参数的访问。
+语法 C++
+void EndProcess();
+返回值无
+备注
+XPO 必须在其 IXAPO：:P rocess 实现中调用此方法，才能以线程安全的方式访问当前进程参数。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台
+标头 Library
+ 
+Windows xapobase.h XAPOBase.lib
+展开表
+
+≦ 136 ≧
+另请参阅
+CXAPOParametersBase
+
+≦ 137 ≧
+CXAPOParametersBase：：
+OnSetParameters 方法 (xapobase.h) 项目2023/08/28
+由 IXAPOParameters：：SetParameters 调用，以允许用户定义参数验证。
+语法 C++
+void OnSetParameters(
+  const void *pParameters,
+  UINT32     ParameterByteSize);
+参数 pParameters
+特定于效果的参数块。 ParameterByteSize
+pParameters 的大小（以字节为单位）。
+返回值无
+备注
+用户应在 OnSetParameters 中使用断言进行参数验证。
+CXAPOParametersBase 类对 IXAPOParameters：：SetParameters 的实现在调用
+OnSetParameters 之前验证 ParameterByteSize 是否等于m_uParameterBlockByteSize私有成员，因此可以假定 ParameterByteSize == m_uParameterBlockByteSize。
+m_uParameterBlockByteSize将等于传递到 CXAPOParametersBase：：CXAPOParametersBase 构造函数的 uParameterBlockByteSize 参数。
+此方法不应阻止，因为它是从实时音频处理线程调用的。
+
+≦ 138 ≧
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台
+标头 Library
+另请参阅
+CXAPOParametersBase
+ 
+Windows xapobase.h XAPOBase.lib
+展开表
+
+≦ 139 ≧
+CXAPOParametersBase：:P
+arametersChanged 方法 (xapobase.h) 项目2023/08/28
+指示自上次处理过程以来是否已调用 IXAPOParameters：：SetParameters 。
+语法 C++
+BOOL ParametersChanged(); 返回值
+如果自上次处理传递以来已调用 IXAPOParameters：：SetParameters ，则返回 TRUE。 在调用 CXAPOParametersBase：：BeginProcess 之前，只能在 XAPO 的 IXAPO：:P rocess 实现中使用。
+注解平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台
+标头 Library
+另请参阅
+ 
+Windows xapobase.h XAPOBase.lib
+展开表
+
+≦ 140 ≧
+CXAPOParametersBase
+
+≦ 141 ≧
+xapofx.h 标头项目2023/08/28
+XAudio2 API 使用此标头。 有关详细信息，请参阅：
+XAudio2 API
+xapofx.h 包含以下编程接口：
+函数   CreateFX
+创建请求的 XAPOFX 效果的实例。
+结构  
+FXECHO_INITDATA
+用于 FXECHO XAPOFX 的初始化参数。 FXECHO_PARAMETERS
+用于 FXECHO XAPOFX 的参数。 FXEQ_PARAMETERS
+用于 FXEQ XAPO 的参数。
+FXMASTERINGLIMITER_PARAMETERS 用于 FXMasteringLimiter XAPO 的参数。 FXREVERB_PARAMETERS
+用于 FXReverb XAPO 的参数。反馈
+
+≦ 142 ≧
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+
+≦ 143 ≧
+createFX 函数 (xapofx.h) 项目2024/03/04
+创建请求的 XAPOFX 效果的实例。
+语法 C++
+FX_API_(HRESULT) CreateFX(
+             REFCLSID                clsid,
+             IUnknown                **pEffect,              const void *pInitDat    DEFAULT,              UINT32 InitDataByteSize DEFAULT);
+参数 clsid
+要创建的效果的 ID。 使用效果类名称上的 __uuidof 获取效果的 CLSID。 例如， __uuidof
+(FXReverb) 将为 FXReverb 效果提供 CLSID。 有关 XAPOFX 提供的效果列表，请参阅 XAPOFX
+概述。 有关检索效果 CLSID 的示例，请参阅 如何：在 XAudio2 中使用 XAPOFX。 pEffect
+接收指向创建的 XAPO 实例的指针。 如果 CreateFX 失败， 则 pEffect 保持不变。
+DEFAULT DEFAULT
+返回值
+如果此函数成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。注解
+创建的 XAPO 的引用计数为 1。 客户端代码必须在将 XAPO 传递给 XAudio2 后调用
+IUnknown：：Release ，以允许 XAudio2 在不再需要 XAPO 时释放它。 使用 IXAudio2：： CreateSourceVoice 或 IXAudio2Voice：：SetEffectChain 将 XAPO 传递给 XAudio2。
+
+≦ 144 ≧
+ 
+注意 此函数的 DirectX SDK 版本没有 pInitData 或 InitDataByteSize 参数，因为它仅采用前 2 个参数。 若要设置使用此函数的 DirectX SDK 版本创建的 XAPOFX 效果的初始参数，必须将该效果绑定到语音并使用 IXAudio2Voice：：SetEffectParameters。 有关如何执行此操作的信息，请参阅 如何：在 XAudio2 中使用 XAPOFX。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台
+标头 Library DLL
+请参阅函数
+值
+Windows xapofx.h XAudio.lib
+Windows.Media.Audio.dll
+展开表
+
+≦ 145 ≧
+xapofx.h) (FXECHO_INITDATA 结构项目2024/03/13
+用于 FXECHO XAPOFX 的初始化参数。
+语法 C++
+typedef struct FXECHO_INITDATA {
+  float MaxDelay;} FXECHO_INITDATA;
+成员 MaxDelay
+最大延迟 (所有通道) 以毫秒为单位。 这必须在 FXECHO_MIN_DELAY 和 FXECHO_MAX_DELAY
+范围内。注解
+此结构的使用是可选的。 默认 的 MaxDelay 为 FXECHO_DEFAULT_DELAY。
+注意 XAUDIO2的 DirectX SDK 版本不支持此功能。  
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求 Header
+值
+xapofx.h
+展开表
+
+≦ 146 ≧
+另请参阅结构
+
+≦ 147 ≧
+xapofx.h) (FXECHO_PARAMETERS 结构项目2024/03/13
+用于 FXECHO XAPOFX 的参数。
+语法 C++
+typedef struct FXECHO_PARAMETERS {
+  float WetDryMix;   float Feedback;   float Delay;
+} FXECHO_PARAMETERS;
+成员 WetDryMix
+处理的湿 () 信号与干 (原始) 信号的比例。 Feedback
+要反馈到输入中的输出量。 Delay
+延迟到所有通道（以毫秒为单位）。 此值必须介于 FXECHO_MIN_DELAY 和 FXECHO_INITDATA
+之间。MaxDelay。注解
+Echo 仅支持FLOAT32音频格式。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+
+≦ 148 ≧
+要求 Header
+另请参阅结构
+值
+xapofx.h
+ﾉ
+展开表
+
+≦ 149 ≧
+FXEQ_PARAMETERS结构 (xapofx.h) 项目2023/08/28
+用于 FXEQ XAPO 的参数。
+语法 C++
+typedef struct FXEQ_PARAMETERS {
+  float FrequencyCenter0;   float Gain0;
+  float Bandwidth0;
+  float FrequencyCenter1;   float Gain1;
+  float Bandwidth1;
+  float FrequencyCenter2;   float Gain2;
+  float Bandwidth2;
+  float FrequencyCenter3;   float Gain3;
+  float Bandwidth3;} FXEQ_PARAMETERS;
+成员
+FrequencyCenter0
+带 0 的中心频率（以 Hz 为单位）。 必须介于 FXEQ_MIN_FREQUENCY_CENTER 和
+FXEQ_MAX_FREQUENCY_CENTER 之间。 Gain0
+提升或降低到频带 0 中的频率。 必须介于 FXEQ_MIN_GAIN 和 FXEQ_MAX_GAIN Bandwidth0
+带 0 的宽度。 必须介于 FXEQ_MIN_BANDWIDTH 和 FXEQ_MAX_BANDWIDTH 之间。 FrequencyCenter1
+带 1 的中心频率（以 Hz 为单位）。 必须介于 FXEQ_MIN_FREQUENCY_CENTER 和
+FXEQ_MAX_FREQUENCY_CENTER 之间。 Gain1
+
+≦ 150 ≧
+提升或降低到波段 1 中的频率。 必须介于 FXEQ_MIN_GAIN 和 FXEQ_MAX_GAIN Bandwidth1
+带 1 的宽度。 必须介于 FXEQ_MIN_BANDWIDTH 和 FXEQ_MAX_BANDWIDTH 之间。 FrequencyCenter2
+频带 2 的中心频率（以 Hz 为单位）。 必须介于 FXEQ_MIN_FREQUENCY_CENTER 和
+FXEQ_MAX_FREQUENCY_CENTER 之间。 Gain2
+提升或降低到波段 2 中的频率。 必须介于 FXEQ_MIN_GAIN 和 FXEQ_MAX_GAIN Bandwidth2
+带 2 的宽度。 必须介于 FXEQ_MIN_BANDWIDTH 和 FXEQ_MAX_BANDWIDTH 之间。 FrequencyCenter3
+频带 3 的中心频率（以 Hz 为单位）。 必须介于 FXEQ_MIN_FREQUENCY_CENTER 和
+FXEQ_MAX_FREQUENCY_CENTER 之间。 Gain3
+提升或降低到波段 3 中的频率。 必须介于 FXEQ_MIN_GAIN 和 FXEQ_MAX_GAIN Bandwidth3
+带 3 的宽度。 必须介于 FXEQ_MIN_BANDWIDTH 和 FXEQ_MAX_BANDWIDTH 之间。注解
+每个频带的范围从 FrequencyCenterN - (BandwidthN / 2) 到 FrequencyCenterN +
+(BandwidthN / 2) 。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+
+≦ 151 ≧
+ 
+标头
+另请参阅结构
+ 
+xapofx.h
+ﾉ
+展开表
+
+≦ 152 ≧
+FXMASTERINGLIMITER_PARAMETERS 结构
+(xapofx.h) 项目2024/03/04
+用于 FXMasteringLimiter XAPO 的参数。
+语法 C++
+typedef struct FXMASTERINGLIMITER_PARAMETERS {
+  UINT32 Release;   UINT32 Loudness;
+} FXMASTERINGLIMITER_PARAMETERS;
+成员 Release
+速度，以毫秒为单位，在音频低于限制器的阈值（由 响度 成员指定）后，限制器停止影响音
+频。 此值必须介于 FXMASTERINGLIMITER_MIN_RELEASE (1) 到 FXMASTERINGLIMITER_MAX_RELEASE (20) 之间，并且默认为
+FXMASTERINGLIMITER_DEFAULT_RELEASE (6) 。 Loudness
+限制器的响度指标阈值。 此值必须介于 FXMASTERINGLIMITER_MIN_LOUDNESS (1) 到 1800
+FXMASTERINGLIMITER_MAX_LOUDNESS (1800) 之间，并且默认为 FXMASTERINGLIMITER_DEFAULT_LOUDNESS (1000) 。
+注解平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+
+≦ 153 ≧
+要求 Header
+另请参阅结构
+值
+xapofx.h
+ﾉ
+展开表
+
+≦ 154 ≧
+FXREVERB_PARAMETERS 结构 (xapofx.h) 项目2023/08/28
+用于 FXReverb XAPO 的参数。
+语法 C++
+typedef struct FXREVERB_PARAMETERS {
+  float Diffusion;   float RoomSize;
+} FXREVERB_PARAMETERS;
+成员 Diffusion
+控制单个墙反射的字符。 设置为最小值以模拟硬平面表面，将 设置为最大值以模拟漫射表面。
+值必须介于 FXREVERB_MIN_DIFFUSION 和 FXREVERB_MAX_DIFFUSION 之间。 RoomSize
+房间的大小。 值必须介于 FXREVERB_MIN_ROOMSIZE 和 FXREVERB_MAX_ROOMSIZE 之间。请注意，RoomSize 的物理含义是主观的，与任何特定单位无关。 较小的值将导致反射更快地到达侦听器，而反射将花费更长的时间，而 RoomSize 值较大。
+注解平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+展开表
+
+≦ 155 ≧
+ 
+标头
+另请参阅结构
+ 
+xapofx.h
+
+≦ 156 ≧
+xaudio2.h 标头项目2023/08/28
+XAudio2 API 使用此标头。 有关详细信息，请参阅：
+XAudio2 API
+xaudio2.h 包含以下编程接口：
+接口   IXAudio2
+IXAudio2 是 XAudio2 对象的接口，用于管理所有音频引擎状态、音频处理线程、语音图等。 IXAudio2EngineCallback
+IXAudio2EngineCallback 接口包含当 IXAudio2 引擎中发生某些事件时通知客户端的方法。 IXAudio2MasteringVoice
+主语音用于表示音频输出设备。 IXAudio2SourceVoice
+使用源语音将音频数据提交到 XAudio2 处理管道。 IXAudio2SubmixVoice
+子混合语音主要用于性能改进和效果处理。 IXAudio2Voice
+IXAudio2Voice 表示从中派生 IXAudio2SourceVoice、IXAudio2SubmixVoice 和 IXAudio2MasteringVoice 的基接口。 下面列出的方法适用于所有语音子类。
+IXAudio2VoiceCallback
+IXAudio2VoiceCallback 接口包含当给定 IXAudio2SourceVoice 中发生某些事件时通知客户端的方
+法。函数
+
+≦ 157 ≧
+ 
+XAudio2AmplitudeRatioToDecibels
+将振幅比值转换为分贝值的内联函数。 XAudio2Create
+创建新的 XAudio2 对象并返回指向其 IXAudio2 接口的指针。 XAudio2CutoffFrequencyToOnePoleCoefficient
+内联函数，从以hz表示的筛选器截止频率转换为与XAUDIO2_FILTER_PARAMETERS结构的
+Frequency 成员一起使用的筛选器系数。 XAudio2CutoffFrequencyToRadians
+内联函数，从以hz表示的筛选器截止频率转换为XAUDIO2_FILTER_PARAMETERS结构的 Frequency 成员中使用的弧度频率值。
+XAudio2DecibelsToAmplitudeRatio
+将分贝值转换为振幅比率值的内联函数。 XAudio2FrequencyRatioToSemitones
+将频率比率值转换为半色调值的内联函数。 XAudio2RadiansToCutoffFrequency
+内联函数，从XAUDIO2_FILTER_PARAMETERS中使用的弧度频率转换回以赫茨为单位的绝对频率。 XAudio2SemitonesToFrequencyRatio
+将半色调值转换为频率比率值的内联函数。
+结构  
+XAUDIO2_BUFFER
+表示与 IXAudio2SourceVoice：：SubmitSourceBuffer 一起使用的音频数据缓冲区。 XAUDIO2_BUFFER_WMA
+在提交 xWMA 数据时与 IXAudio2SourceVoice：：SubmitSourceBuffer 一起使用。
+
+≦ 158 ≧
+ 
+XAUDIO2_DEBUG_CONFIGURATION
+包含 XAudio2 的新全局调试配置。 与 SetDebugConfiguration 函数一起使用。
+XAUDIO2_EFFECT_CHAIN 定义效果链。
+XAUDIO2_EFFECT_DESCRIPTOR
+包含有关在效果链中使用的 XAPO 的信息。
+XAUDIO2_FILTER_PARAMETERS 定义源语音的筛选器参数。
+XAUDIO2_PERFORMANCE_DATA
+包含性能信息。 (XAUDIO2_PERFORMANCE_DATA) XAUDIO2_SEND_DESCRIPTOR
+定义一个目标语音，该语音是来自另一个语音的发送目标，并指定是否应使用筛选器。 XAUDIO2_VOICE_DETAILS
+包含有关语音的创建标志、输入通道和采样率的信息。 XAUDIO2_VOICE_SENDS
+定义一组语音以从单个输出语音接收数据。 XAUDIO2_VOICE_STATE
+返回语音的当前状态和光标位置数据。
+枚举  
+XAUDIO2_FILTER_TYPE 指示筛选器类型。
+
+≦ 159 ≧
+反馈
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+
+≦ 160 ≧
+IXAudio2 接口 (xaudio2.h) 项目2024/03/13
+IXAudio2 是用于管理所有音频引擎状态、音频处理线程、语音图等 的 XAudio2 对象的接口。这是派生自 COM IUnknown 接口的唯一 XAudio2 接口。 它使用派生自 IUnknown 的两种方法控制 XAudio2 对象的生存期：IXAudio2：：AddRef 和 IXAudio2：：Release。 没有对其他 XAudio2 对象进行引用计数;它们的生存期使用 create 和 destroy 调用显式控制，并受拥有它们
+的 XAudio2 对象的生存期的约束。继承
+IXAudio2 接口继承自 IUnknown 接口。 IXAudio2 还具有以下类型的成员：方法
+IXAudio2 接口包含以下方法。
+ﾉ
+ 
+IXAudio2：：AddRef
+添加对 XAudio2 对象的引用。 IXAudio2：：CommitChanges
+以原子方式应用一组使用给定标识符标记的操作。
+IXAudio2：：CreateMasteringVoice 创建并配置主语音。
+IXAudio2：：CreateSourceVoice 创建并配置源语音。
+IXAudio2：：CreateSubmixVoice 创建并配置子混合语音。
+IXAudio2：：GetPerformanceData
+返回当前资源使用情况详细信息，例如可用内存或 CPU 使用率。
+展开表
+
+≦ 161 ≧
+ 
+IXAudio2：：QueryInterface
+查询 XAudio2 对象上的给定 COM 接口。 IXAudio2：：RegisterForCallbacks
+将 IXAudio2EngineCallback 指针添加到 XAudio2 引擎回调列表。 IXAudio2：：Release
+释放对 XAudio2 对象的引用。
+IXAudio2：：SetDebugConfiguration
+更改 XAudio2 的全局调试日志记录选项。
+IXAudio2：：StartEngine 启动音频处理线程。
+IXAudio2：：StopEngine 停止音频处理线程。
+IXAudio2：：UnregisterForCallbacks
+从 XAudio2 引擎回调列表中删除 IXAudio2EngineCallback 指针。注解
+XAUDIO2的 DirectX SDK 版本包含三个Windows 8版本中不存在的成员函数：
+GetDeviceCount、GetDeviceDetails 和 Initialize。 不再提供这些枚举方法，应改用标准
+Windows 音频 API 进行设备枚举。平台要求
+Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7) 要求
+ﾉ
+展开表
+
+≦ 162 ≧
+要求
+目标平台标头
+另请参阅 XAudio2 接口
+值
+Windows xaudio2.h
+
+≦ 163 ≧
+IXAudio2：：AddRef 方法 (xaudio2.h) 项目2024/03/13
+添加对 XAudio2 对象的引用。
+语法 C++
+ULONG AddRef();
+返回值始终为 0。
+备注平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅 IXAudio2
+值
+Windows xaudio2.h
+展开表
+
+≦ 164 ≧
+IXAudio2：：CommitChanges 方法
+(xaudio2.h) 项目2024/03/13
+以原子方式应用一组使用给定标识符标记的操作。
+语法 C++
+HRESULT CommitChanges(
+  [in] UINT32 OperationSet);
+参数
+[in] OperationSet
+要应用的操作集的标识符。 若要提交所有挂起的操作， 请传递XAUDIO2_COMMIT_ALL。返回值
+如果成功，则返回S_OK;否则返回错误代码。 有关 XAudio2 特定错误代码的说明，请参阅
+XAudio2 错误代码。注解
+如果未使用给定标识符标记任何操作，则 CommitChanges 不执行任何操作。
+请参阅 XAudio2 操作集 概述，了解如何使用可能延迟的 CommitChanges 和 XAudio2 接口方法。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+
+≦ 165 ≧
+要求
+目标平台标头
+另请参阅 IXAudio2
+值
+Windows xaudio2.h
+ﾉ
+展开表
+
+≦ 166 ≧
+IXAudio2：：CreateMasteringVoice 方法
+(xaudio2.h) 项目2024/03/04
+创建并配置主语音。
+语法 C++
+HRESULT CreateMasteringVoice(
+  [out]          IXAudio2MasteringVoice     **ppMasteringVoice,
+  [in]           UINT32                     InputChannels,   [in]           UINT32                     InputSampleRate,   [in]           UINT32                     Flags,
+  [in]           LPCWSTR                    szDeviceId,
+  [in, optional] const XAUDIO2_EFFECT_CHAIN *pEffectChain,   [in, optional] AUDIO_STREAM_CATEGORY      StreamCategory);
+参数
+[out] ppMasteringVoice
+如果成功，则返回指向新 IXAudio2MasteringVoice 对象的指针。[in] InputChannels
+主语音在其输入音频中期望的通道数。 InputChannels 必须小于或等于 XAUDIO2_MAX_AUDIO_CHANNELS。
+可以将 InputChannels 设置为 XAUDIO2_DEFAULT_CHANNELS，这会导致 XAudio2 尝试检测系
+统扬声器配置设置。[in] InputSampleRate
+主语音的输入音频数据的采样率。 此速率必须是XAUDIO2_QUANTUM_DENOMINATOR的倍
+数。 InputSampleRate 必须介于 XAUDIO2_MIN_SAMPLE_RATE 和 XAUDIO2_MAX_SAMPLE_RATE 之间。
+可以将 InputSampleRate 设置为 XAUDIO2_DEFAULT_SAMPLERATE，默认值由当前平台确定。 Windows XP 默认为 44100。
+
+≦ 167 ≧
+Windows Vista 和 Windows 7 默认为声音控制面板中指定的设置。 此设置的默认值为 44100 (或
+48000（如果驱动程序) 需要）。 Flags
+[in] Flags
+指定主语音的行为的标志。 这可以是 0 或 XAUDIO2_NO_VIRTUAL_AUDIO_CLIENT 。[in] szDeviceId
+用于接收输出音频的设备标识符。 指定默认值 NULL 会导致 XAudio2 选择全局默认音频设备。在 Windows 10 或更高版本上，NULL 还会选择加入 WASAPI 虚拟化客户端，除非
+XAUDIO2_NO_VIRTUAL_AUDIO_CLIENT 在 Flags 中传递 。[in, optional] pEffectChain
+指向描述在主语音中使用的效果链 的XAUDIO2_EFFECT_CHAIN 结构的指针，或 NULL 表示不使用任何效果。
+[in, optional] StreamCategory 用于此主语音的音频流类别。返回值
+如果成功，则返回S_OK;否则为错误代码。 如果不存在默认音频设备并且 NULL 作为 szDeviceId 参数传入，则返回ERROR_NOT_FOUND。
+有关 XAudio2 特定错误代码的说明，请参阅 XAudio2 错误代码。注解
+主语音接收一个或多个源语音或子混合语音的输出。 它们处理数据，并将其发送到音频输出设备。
+通常，应创建具有输入采样率的主语音，该速率将由游戏的大部分音频内容使用。 主语音执行从此输入采样率到实际设备输出速率的采样率转换。
+在主语音存在之前，无法创建源语音或子混合语音。 如果任何源或子混合语音仍然存在，则无法销毁主语音。
+始终在所有源语音和子混合语音之后处理主语音。 这意味着无需指定 ProcessingStage 参数来控制处理顺序。
+
+≦ 168 ≧
+XAudio2 仅允许同时存在一个主语音。 如果尝试创建多个语音，则会返回
+XAUDIO2_E_INVALID_CALL。 如果需要其他主语音（例如，对于设置了不同音频类别的输出设
+备），则需要创建额外的 XAudio2 实例。首次创建时，主语音处于启动状态。
+从回调 (（即 IXAudio2EngineCallback 或 IXAudio2VoiceCallback) ）中调用
+CreateMasteringVoice 无效。 如果在回调中调用 CreateMasteringVoice ，它将返回 XAUDIO2_E_INVALID_CALL。
+在 CreateMasteringVoice 成功完成后，不再需要作为 pEffectChain 参数传入的
+XAUDIO2_EFFECT_CHAIN以及其中包含的任何XAUDIO2_EFFECT_DESCRIPTOR信息，并且可能在调用 CreateMasteringVoice 后立即删除。
+请注意，DirectX SDK XAUDIO2版本的 CreateMasteringVoice 采用 DeviceIndex 参数，而不是
+szDeviceId 和 StreamCategory 参数。 这反映了标准 Windows 设备枚举模型所需的更改。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅
+如何：构建基本的音频处理图
+IXAudio2 XAPO 概述
+XAudio2 采样率转换
+值
+Windows xaudio2.h
+展开表
+
+≦ 169 ≧
+IXAudio2：：CreateSourceVoice 方法
+(xaudio2.h) 项目2023/08/28
+创建并配置源语音。
+语法 C++
+HRESULT CreateSourceVoice(
+  [out]          IXAudio2SourceVoice        **ppSourceVoice,   [in]           const WAVEFORMATEX         *pSourceFormat,   [in]           UINT32                     Flags,
+  [in]           float                      MaxFrequencyRatio,
+  [in, optional] IXAudio2VoiceCallback      *pCallback,   [in, out]      const XAUDIO2_VOICE_SENDS  *pSendList,   [in, optional] const XAUDIO2_EFFECT_CHAIN *pEffectChain);
+参数
+[out] ppSourceVoice
+如果成功，则返回指向新 IXAudio2SourceVoice 对象的指针。[in] pSourceFormat
+指向下表中某个结构的指针。 此结构包含提交到源语音的所有音频缓冲区的预期格式。 XAudio2 支持 PCM 和 ADPCM 语音类型。
+ﾉ
+格式标记
+WAVE_FORMAT_PCM (0x0001)-或-
+WAVE_FORMAT_IEEE_FLOAT (0x0003) [32 位] WAVE_FORMAT_ADPCM (0x0002) [MS-ADPCM] WAVE_FORMAT_EXTENSIBLE (0xFFFE)
+波形格式结构
+PCMWAVEFORMAT WAVEFORMATEX PCMWAVEFORMAT ADPCMWAVEFORMAT
+WAVEFORMATEXTENSIBLE
+展开表
+大小（以字节为单位）
+16 18 18 50 40
+
+≦ 170 ≧
+ 
+XAudio2 支持以下 PCM 格式。
+8 位 (无符号) 整数 PCM
+16 位整数 PCM (XAudio2) 的最佳格式 24 位或 32 位容器中的 20 位整数 PCM () 24 位或 32 位容器中的 24 位整数 PCM () 32 位整数 PCM
+32 位浮点 PCM (16 位整数后的首选格式)
+源语音中的通道数必须小于或等于XAUDIO2_MAX_AUDIO_CHANNELS。 源语音的采样率必须介于 XAUDIO2_MIN_SAMPLE_RATE 和 XAUDIO2_MAX_SAMPLE_RATE 之间。
+注意 PCM 数据格式（如 PCMWAVEFORMAT 和 ADPCMWAVEFORMAT ）需要比 WAVEFORMATEX 提供的信息更多的信息，其格式结构中的第一个成员为
+WAVEFORMATEX 结构。 使用其中一种格式创建源语音时，请将格式的结构转换为
+WAVEFORMATEX 结构，并将其用作 pSourceFormat 的值。  
+[in] Flags
+指定源语音行为的标志。 标志可以是 0，也可以是以下一个或多个标志的组合：
+ﾉ
+值
+XAUDIO2_VOICE_NOPITCH XAUDIO2_VOICE_NOSRC
+XAUDIO2_VOICE_USEFILTER  
+说明
+语音上没有可用的音调控件。 
+展开表
+语音上没有可用的采样率转换。 语音的输出必须具有相同的采样率。注意 XAUDIO2_VOICE_NOSRC标志使语音的行为就像还指定
+了XAUDIO2_VOICE_NOPITCH标志一样。  
+此语音应提供筛选器效果。 
+注意 Windows 不支持XAUDIO2_VOICE_MUSIC标志。  
+
+≦ 171 ≧
+[in] MaxFrequencyRatio
+可对此语音设置的最高允许频率比。 此参数的值必须介于 XAUDIO2_MIN_FREQ_RATIO 和
+XAUDIO2_MAX_FREQ_RATIO 之间。 后续对 IXAudio2SourceVoice：：SetFrequencyRatio 的调用将固定在 XAUDIO2_MIN_FREQ_RATIO 和 MaxFrequencyRatio 之间。 此参数的最大值定义为 XAUDIO2_MAX_FREQ_RATIO，它允许将音调提升最多 10 个八度。
+如果 MaxFrequencyRatio 小于 1.0，则语音将在创建 (后立即使用该比率，而不是默认值 1.0) 。
+ﾉ
+Xbox 360
+展开表
+对于 XMA 语音， MaxFrequencyRatio 参数和语音的采样率还有一个限制。 对于单声道语音，这两个数字的乘积不能超过 XAUDIO2_MAX_RATIO_TIMES_RATE_XMA_MONO，对于具有任何其他声道数的语音，不能超过XAUDIO2_MAX_RATIO_TIMES_RATE_XMA_MULTICHANNEL。 如果为 MaxFrequencyRatio 指定的值
+对于指定格式而言过高，则对 CreateSourceVoice 的调用会失败并生成调试消息。  
+注意 可以使用尽可能低的 MaxFrequencyRatio 值来减少 XAudio2 的内存使用量。  
+[in, optional] pCallback
+指向客户端提供的回调接口 IXAudio2VoiceCallback 的指针。[in, out] pSendList
+指向描述源语音的目标语音集的 XAUDIO2_VOICE_SENDS 结构列表的指针。 如果 pSendList 为
+NULL，则发送列表默认为创建的第一个主语音的单个输出。[in, optional] pEffectChain
+指向 XAUDIO2_EFFECT_CHAIN 结构列表的指针，这些结构描述要用于源语音的效果链。返回值
+如果成功，则返回S_OK;否则为错误代码。
+有关 特定于 XAudio2 的错误代码 的说明，请参阅 XAudio2 错误代码。注解
+
+≦ 172 ≧
+源语音从客户端读取音频数据。 它们处理数据并将其发送到 XAudio2 处理图。
+源语音包括可变速率采样率转换，用于将数据从源格式采样率转换为语音发送列表所需的输出速率。 如果使用 NULL 发送列表，则目标采样率将是主语音的输入采样率。 如果在 pSendList 中提供单个语音，则该语音的输入采样率为目标速率。 如果在 pSendList 中提供多个语音，则源语音的所有输出语音都必须以相同的输入采样率运行。
+在主语音存在之前，无法创建任何源或子混合语音，并且如果仍然存在任何源或子混合语音，则不能销毁主语音。
+源语音始终在任何子混合或主语音之前进行处理。 这意味着无需 ProcessingStage 参数即可控制处理顺序。
+首次创建时，源语音处于停止状态。
+XAudio2 对具有相同格式的语音使用内部内存池。 这意味着，随着创建和销毁更多语音，语音的内存分配频率会降低。 若要最大程度地减少实时分配，游戏可以预先创建预期的最大语音数，然后根据需要将其删除。 然后，将从 XAudio2 池中重复使用语音。 内存池绑定到 XAudio2 引擎实例。 可以通过销毁 XAudio2 对象并根据需要重新创建 XAudio2 对象来回收 XAudio2 引擎实例使用的所有内存， (必须根据需要重新应用通过预分配来强制内存池增长) 。
+从回调 (（即 IXAudio2EngineCallback 或 IXAudio2VoiceCallback) ）调用 CreateSourceVoice 无
+效。 如果在回调中调用 CreateSourceVoice ，它将返回XAUDIO2_E_INVALID_CALL。在 CreateSourceVoice 成功完成后，不再需要作为 pEffectChain 参数传入的
+XAUDIO2_EFFECT_CHAIN以及其中包含的任何XAUDIO2_EFFECT_DESCRIPTOR信息，并且可以在
+调用 CreateSourceVoice 后立即删除。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+值
+Windows xaudio2.h
+展开表
+
+≦ 173 ≧
+另请参阅
+如何：构建基本的音频处理图
+IXAudio2 XAPO 概述
+XAudio2 采样率转换
+
+≦ 174 ≧
+IXAudio2：：CreateSubmixVoice 方法
+(xaudio2.h) 项目2024/03/04
+创建并配置子混合语音。
+语法 C++
+HRESULT CreateSubmixVoice(
+  [out]          IXAudio2SubmixVoice        **ppSubmixVoice,   [in]           UINT32                     InputChannels,   [in]           UINT32                     InputSampleRate,   [in]           UINT32                     Flags,
+  [in]           UINT32                     ProcessingStage,
+  [in, optional] const XAUDIO2_VOICE_SENDS  *pSendList,   [in, optional] const XAUDIO2_EFFECT_CHAIN *pEffectChain);
+参数
+[out] ppSubmixVoice
+成功后，返回指向新的 IXAudio2SubmixVoice 对象的指针。[in] InputChannels
+子混合语音的输入音频数据中的声道数。 InputChannels 必须小于或等于
+XAUDIO2_MAX_AUDIO_CHANNELS。[in] InputSampleRate
+子混合语音的输入音频数据的采样率。 此速率必须是XAUDIO2_QUANTUM_DENOMINATOR的倍数。 InputSampleRate 必须介于 XAUDIO2_MIN_SAMPLE_RATE 和
+XAUDIO2_MAX_SAMPLE_RATE 之间。[in] Flags
+指定子混合语音行为的标志。 它可以是 0 或以下值：
+ﾉ
+展开表
+
+≦ 175 ≧
+值
+XAUDIO2_VOICE_USEFILTER[in] ProcessingStage
+说明
+此语音应提供筛选器效果。
+如果 XAudio2 引擎正在运行其他子混合语音，则指定处理此语音时相对于其他子混合语音的时间的任意数字。 该语音在包含较小 ProcessingStage 值的所有其他语音之后处理，在包含较大 ProcessingStage 值的所有其他语音之前处理。 包含相同 ProcessingStage 值的语音按任意顺序进行处理。 子混合语音不能发送到另一个具有较低或等于 ProcessingStage 值的子混合语音。 这
+可以防止音频因子混合循环而丢失。[in, optional] pSendList
+指向 XAUDIO2_VOICE_SENDS 结构列表的指针，这些结构描述子混合语音的目标语音集。 如果
+pSendList 为 NULL，则发送列表将默认为创建的第一个主语音的单个输出。[in, optional] pEffectChain
+指向 XAUDIO2_EFFECT_CHAIN 结构的指针，这些结构描述要用于子混合语音的效果链。返回值
+如果成功，则返回S_OK;否则为错误代码。
+有关 XAudio2 特定错误代码的说明，请参阅 XAudio2 错误代码。注解
+子混合语音接收一个或多个源语音或子混合语音的输出。 处理输出，然后将其发送到另一个子混合语音或主语音。
+子混合语音执行从输入采样率到 pSendList 中输出语音的输入速率的采样率转换。 如果指定多个语音发送，则它们必须具有相同的输入采样率。
+在主语音存在之前，无法创建任何源语音或子混合语音;如果任何源或子混合语音仍然存在，则无法销毁主语音。
+首次创建时，子混合语音处于启动状态。
+XAudio2 对格式相同的语音使用内部内存池程序。 这意味着，随着创建并销毁更多语音，语音的内存分配频率会降低。 若要最大程度地减少实时分配，游戏可以预先创建所需的预期最大语音数，然后根据需要将其删除。 然后，将从 XAudio2 池中重复使用语音。 内存池绑定到
+
+≦ 176 ≧
+XAudio2 引擎实例。 可以通过销毁 XAudio2 对象并根据需要重新创建 XAudio2 对象来回收 XAudio2 引擎实例使用的所有内存， (必须根据需要重新应用通过预分配增长的内存池) 。
+从回调 (IXAudio2EngineCallback 或 IXAudio2VoiceCallback) 调用 CreateSubmixVoice 无效。
+如果在回调中调用 CreateSubmixVoice ，它将返回XAUDIO2_E_INVALID_CALL。在 CreateSubmixVoice 成功完成后，不再需要作为 pEffectChain 参数传入的
+XAUDIO2_EFFECT_CHAIN以及其中包含的任何XAUDIO2_EFFECT_DESCRIPTOR信息，并且可能在
+调用 CreateSubmixVoice 后立即删除。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅 IXAudio2
+XAudio2 采样率转换
+值
+Windows xaudio2.h
+展开表
+
+≦ 177 ≧
+IXAudio2：：GetPerformanceData 方法
+(xaudio2.h) 项目2024/03/13
+返回当前资源使用情况详细信息，例如可用内存或 CPU 使用率。
+语法 C++
+void GetPerformanceData(
+  [out] XAUDIO2_PERFORMANCE_DATA *pPerfData);
+参数
+[out] pPerfData
+成功后，指向返回 的XAUDIO2_PERFORMANCE_DATA 结构的指针。
+返回值无
+备注
+有关 GetPerformanceData 返回的统计信息的具体信息，请参阅
+XAUDIO2_PERFORMANCE_DATA 结构参考。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+展开表
+
+≦ 178 ≧
+要求
+目标平台标头
+另请参阅 IXAudio2
+值
+Windows xaudio2.h
+
+≦ 179 ≧
+IXAudio2：：QueryInterface 方法
+(xaudio2.h) 项目2024/03/04
+查询 XAudio2 对象上的给定 COM 接口。
+语法 C++
+HRESULT QueryInterface(   [in]  REFIID riid,
+  [out] void   **ppvInterface);
+参数[in] riid
+标识要查询的接口的 REFIID。[out] ppvInterface
+接收接口的指针的地址。返回值
+如果成功，则返回S_OK，否则返回错误代码。 有关 XAudio2 特定错误代码 的说明，请参阅
+XAudio2 错误代码。注解
+XAudio2 仅提供IID_IUnknown和IID_IXAudio2。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+
+≦ 180 ≧
+要求要求目标平台标头
+另请参阅 IXAudio2
+值
+Windows xaudio2.h
+ﾉ
+展开表
+
+≦ 181 ≧
+IXAudio2：：RegisterForCallbacks 方法
+(xaudio2.h) 项目2024/03/13
+将 IXAudio2EngineCallback 指针添加到 XAudio2 引擎回调列表。
+语法 C++
+HRESULT RegisterForCallbacks(
+  [in] IXAudio2EngineCallback *pCallback);
+参数
+[in] pCallback
+要添加到 XAudio2 引擎回调列表的 IXAudio2EngineCallback 指针。返回值
+如果成功，则返回S_OK，否则返回错误代码。 有关 XAudio2 特定错误代码的说明，请参阅
+XAudio2 错误代码。注解
+可以多次调用此方法，从而允许同一应用程序的不同组件或层单独管理其自己的引擎回调实现。从回调 (IXAudio2EngineCallback 或 IXAudio2VoiceCallback) 中调用 RegisterForCallbacks 无
+效。 如果在回调中调用 RegisterForCallbacks ，则返回XAUDIO2_E_INVALID_CALL。平台要求
+Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7) 要求
+
+≦ 182 ≧
+要求
+目标平台标头
+另请参阅 IXAudio2
+XAudio2 回调
+值
+Windows xaudio2.h
+ﾉ
+展开表
+
+≦ 183 ≧
+IXAudio2：：Release 方法 (xaudio2.h) 项目2023/08/28
+释放对 XAudio2 对象的引用。
+语法 C++
+ULONG Release();
+返回值始终返回 0。
+注解
+在给定的 XAudio2 对象上调用最终 Release 时，将销毁与其关联的所有语音对象。 指向客户端仍保留的这些对象的指针会立即失效。 对它们进行的任何调用都会导致未定义的行为。 音频处理引擎也会停止。 这样，在返回 Release 后，客户端可以安全地释放图形 (引用的任何数据，例如音频源缓冲区或) 回调处理对象。
+Release 是同步调用。 虽然故障不应 (发生，因为它只会短暂地) 处理锁，但游戏可以通过在 XAudio2 回调中调用此方法来避免潜在的线程等待时间。
+从回调 (IXAudio2EngineCallback 或 IXAudio2VoiceCallback) 调用 Release 无效。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台
+ 
+Windows
+展开表
+
+≦ 184 ≧
+ 
+标头
+另请参阅 IXAudio2
+ 
+xaudio2.h
+
+≦ 185 ≧
+IXAudio2：：SetDebugConfiguration 方法
+(xaudio2.h) 项目2023/08/28
+更改 XAudio2 的全局调试日志记录选项。
+语法 C++
+void SetDebugConfiguration(
+  const XAUDIO2_DEBUG_CONFIGURATION *pDebugConfiguration,
+  void                              *pReserved);
+参数
+pDebugConfiguration
+指向包含新调试配置的 XAUDIO2_DEBUG_CONFIGURATION 结构的指针。 pReserved
+返回值无
+备注
+SetDebugConfiguration 为给定的 XAudio2 引擎实例设置调试配置。 有关支持的调试选项，请参阅 XAUDIO2_DEBUG_CONFIGURATION 结构。 默认情况下，XAudio2 不会记录调试输出或错误中断。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+
+≦ 186 ≧
+ 
+目标平台标头
+另请参阅 IXAudio2
+XAudio2 函数
+ 
+Windows xaudio2.h
+ﾉ
+展开表
+
+≦ 187 ≧
+IXAudio2：：StartEngine 方法 (xaudio2.h) 项目2023/08/28
+启动音频处理线程。
+语法 C++
+HRESULT StartEngine(); 返回值
+如果成功，则返回S_OK，否则返回错误代码。 有关 XAudio2 特定错误代码的说明，请参阅
+XAudio2 错误代码。注解
+调用 StartEngine 后，所有已启动的语音开始使用音频。 所有启用的效果开始运行，生成的音频将发送到任何连接的输出设备。 首次初始化 XAudio2 时，引擎已处于启动状态。
+从回调 (（即 IXAudio2EngineCallback 或 IXAudio2VoiceCallback) ）中调用 StartEngine 无效。
+如果在回调中调用 StartEngine ，它将返回XAUDIO2_E_INVALID_CALL。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+ 
+Windows xaudio2.h
+展开表
+
+≦ 188 ≧
+另请参阅 IXAudio2
+
+≦ 189 ≧
+IXAudio2：：StopEngine 方法 (xaudio2.h) 项目2023/08/28
+停止音频处理线程。
+语法 C++
+void StopEngine();
+返回值无
+备注
+调用 StopEngine 时，将立即停止所有输出。 但是，音频图保持不变，保留效果参数、效果历史
+记录 (例如，通过混响效果存储的数据，以便发出先前声音) 回声、语音状态、挂起的源缓冲区、光标位置等。 重新启动引擎时，生成的音频输出（除了一段静音时间）将与引擎从未停止时生成的输出相同。
+从回调 (IXAudio2EngineCallback 或 IXAudio2VoiceCallback) 调用 StopEngine 无效。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+ 
+Windows xaudio2.h
+展开表
+
+≦ 190 ≧
+另请参阅
+IXAudio2 XAPO 概述
+
+≦ 191 ≧
+IXAudio2：：UnregisterForCallbacks 方法
+(xaudio2.h) 项目2023/08/28
+从 XAudio2 引擎回调列表中删除 IXAudio2EngineCallback 指针。
+语法 C++
+void UnregisterForCallbacks(
+  [in] IXAudio2EngineCallback *pCallback);
+参数
+[in] pCallback
+要从 XAudio2 引擎回调列表中删除的 IXAudio2EngineCallback 指针。 如果给定指针在列表中多次存在，则只会删除列表中的第一个实例。
+返回值无
+备注
+从回调 (IXAudio2EngineCallback 或 IXAudio2VoiceCallback) 调用 UnregisterForCallbacks 无效。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+展开表
+
+≦ 192 ≧
+ 
+目标平台标头
+另请参阅 IXAudio2
+XAudio2 回调
+ 
+Windows xaudio2.h
+
+≦ 193 ≧
+IXAudio2EngineCallback 接口 (xaudio2.h) 项目2024/03/13
+IXAudio2EngineCallback 接口包含当 IXAudio2 引擎中发生某些事件时通知客户端的方法。
+此接口应由 XAudio2 客户端实现。 XAudio2 使用 XAudio2Create 方法，通过客户端提供的接口
+指针调用这些方法。 此接口中的方法返回 void，而不是 HRESULT。有关回调实现的限制，请参阅 XAudio2 回调。
+ﾉ
+方法
+OnCriticalError
+OnProcessingPassEnd OnProcessingPassStart
+方法
+说明
+展开表
+如果发生需要关闭并重启 XAudio2 的关键系统错误，则调用。
+在音频处理阶段结束后由 XAudio2 调用。在音频处理阶段开始前由 XAudio2 调用。
+IXAudio2EngineCallback 接口具有这些方法。
+ﾉ
+ 
+IXAudio2EngineCallback：：OnCriticalError
+如果发生需要关闭并重启 XAudio2 的关键系统错误，则调用。
+IXAudio2EngineCallback：：OnProcessingPassEnd 在音频处理阶段结束后由 XAudio2 调用。
+IXAudio2EngineCallback：：OnProcessingPassStart 在音频处理阶段开始前由 XAudio2 调用。
+注解平台要求
+展开表
+
+≦ 194 ≧
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅 XAudio2 回调 XAudio2 接口
+值
+Windows xaudio2.h
+展开表
+
+≦ 195 ≧
+IXAudio2EngineCallback：：OnCriticalError
+方法 (xaudio2.h) 项目2023/08/28
+如果发生需要关闭并重启 XAudio2 的严重系统错误，则调用 。
+语法 C++
+void OnCriticalError(
+  HRESULT Error);
+参数 Error
+XAudio2 返回的错误代码。
+返回值无
+备注
+如果在 szDeviceId 参数中向 IXAudio2：：CreateMasteringVoice 提供特定设备的 ID 或使用
+XAUDIO2_NO_VIRTUAL_AUDIO_CLIENT 标志，则会发生严重错误，如果基础 WASAPI 呈现设备不可用，则会引发 OnCriticalError 。 例如，当拔下耳机或扬声器或移除 USB 音频设备时，可能会发生这种情况。 发生严重错误后，音频处理将停止，并且对 XAudio2 的所有进一步调用都会失败。 在这种情况下，恢复的唯一方法是释放 XAudio2 实例并创建一个新实例。
+如果将 NULL 或 szDeviceId 参数指定为 IXAudio2：：CreateMasteringVoice，则系统会使用虚拟音频客户端来表示音频终结点。 在这种情况下，如果基础 WASAPI 呈现设备不可用，系统会自
+动选择新的音频呈现设备进行呈现，音频处理将继续，并且不会引发 OnCriticalError 。在移动设备系列中，始终使用虚拟音频客户端，并且从不引发 OnCriticalError ，无论向 CreateMasteringVoice 提供的值如何。
+有关 IXAudio2EngineCallback 接口方法的信息，请参阅 XAudio2 回调 部分。
+
+≦ 196 ≧
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅
+IXAudio2EngineCallback XAudio2 回调
+ 
+Windows xaudio2.h
+展开表
+
+≦ 197 ≧
+IXAudio2EngineCallback：：
+OnProcessingPassEnd 方法 (xaudio2.h) 项目2023/08/28
+在音频处理阶段结束后由 XAudio2 调用。
+语法 C++
+void OnProcessingPassEnd();
+返回值无
+备注
+有关 IXAudio2EngineCallback 接口方法的信息，请参阅 XAudio2 回调 部分。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅
+IXAudio2EngineCallback
+ 
+Windows xaudio2.h
+展开表
+
+≦ 198 ≧
+XAudio2 回调
+
+≦ 199 ≧
+IXAudio2EngineCallback：：
+OnProcessingPassStart 方法 (xaudio2.h) 项目2024/03/04
+在音频处理阶段开始前由 XAudio2 调用。
+语法 C++
+void OnProcessingPassStart();
+返回值无
+备注平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅
+IXAudio2EngineCallback XAudio2 回调
+值
+Windows xaudio2.h
+展开表
+
+≦ 200 ≧
+IXAudio2MasteringVoice 接口 (xaudio2.h) 项目2024/03/04
+主语音用于表示音频输出设备。
+数据缓冲区无法直接提交到主语音，但提交到其他类型的语音的数据必须定向到主语音才能听到。
+IXAudio2MasteringVoice 直接从 IXAudio2Voice 继承，但不实现特定于主控语音的方法。 接口类型之所以存在，只是因为某些基类方法的实现方式不同，用于主语音。 为这些语音提供单独
+的类型可帮助客户端代码区分不同的语音类型并受益于 C++ 类型安全性。继承
+IXAudio2MasteringVoice 接口继承自 IXAudio2Voice。 IXAudio2MasteringVoice 也有以下类型
+的成员：方法
+IXAudio2MasteringVoice 接口具有这些方法。
+ﾉ
+ 
+IXAudio2MasteringVoice：：GetChannelMask 返回此语音的通道掩码。
+注解平台要求
+展开表
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+展开表
+
+≦ 201 ≧
+要求
+目标平台标头
+另请参阅 IXAudio2Voice XAudio2 接口
+值
+Windows xaudio2.h
+
+≦ 202 ≧
+IXAudio2MasteringVoice：：
+GetChannelMask 方法 (xaudio2.h) 项目2024/03/04
+返回此语音的通道掩码。
+语法 C++
+HRESULT GetChannelMask(
+  [out] DWORD *pChannelmask);
+参数
+[out] pChannelmask
+返回此语音的通道掩码。 这对应于 WAVEFORMATEXTENSIBLE 结构的 dwChannelMask 成员。
+返回值此方法不返回值。
+备注
+pChannelMask 参数是音频系统报告的扬声器几何图形中各种声道的位掩码。 X3DAudioInitializeSpeakerChannelMask 参数需要此信息。
+X3DAUDIO。H 标头声明许多 位置定义SPEAKER_ 来解码这些通道掩码。示例包括：
+SPEAKER_STEREO // SPEAKER_FRONT_LEFT (0x1) | SPEAKER_FRONT_RIGHT (0x2)  SPEAKER_5POINT1 // SPEAKER_FRONT_LEFT (0x1) | SPEAKER_FRONT_RIGHT (0x2)
+                                    // | SPEAKER_FRONT_CENTER (0x4)                                     // | SPEAKER_LOW_FREQUENCY (0x8)
+
+≦ 203 ≧
+ 
+                                    // | SPEAKER_BACK_LEFT (0x10) |  SPEAKER_BACK_RIGHT (0x20)
+注意对于 XAUDIO 的 DirectX SDK 版本，输出设备的通道掩码是通过 IXAudio2：： GetDeviceDetails 方法获取的，该方法在 Windows 8 及更高版本中不存在。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) 要求
+ﾉ
+要求
+目标平台标头
+另请参阅
+IXAudio2MasteringVoice
+值
+Windows xaudio2.h
+展开表
+
+≦ 204 ≧
+IXAudio2SourceVoice 接口 (xaudio2.h) 项目2023/08/28
+使用源语音将音频数据提交到 XAudio2 处理管道。必须直接或通过中间子混合语音将语音数据
+发送到主语音以听到。继承
+IXAudio2SourceVoice 接口继承自 IXAudio2Voice。 IXAudio2SourceVoice 还具有以下类型的成员：
+方法
+IXAudio2SourceVoice 接口具有这些方法。
+ﾉ
+ 
+IXAudio2SourceVoice：:D iscontinuity
+通知 XAudio2 语音，在当前位于其队列中的最后一个缓冲区之后不再出现缓冲区。 IXAudio2SourceVoice：：ExitLoop
+在语音到达当前循环区域的末尾时停止循环。 IXAudio2SourceVoice：：FlushSourceBuffers 从语音队列中删除所有挂起的音频缓冲区。 IXAudio2SourceVoice：：GetFrequencyRatio 返回语音的频率调整比率。
+IXAudio2SourceVoice：：GetState 返回语音的当前光标位置数据。
+IXAudio2SourceVoice：：SetFrequencyRatio 设置语音的频率调整比。
+IXAudio2SourceVoice：：SetSourceSampleRate
+重新配置语音，以与创建语音时指定的采样率不同的采样率使用源数据。
+展开表
+
+≦ 205 ≧
+ 
+IXAudio2SourceVoice：：Start
+开始使用和处理语音的音频。 将结果传送到任何连接的子混合或主语音，或输出设备。
+IXAudio2SourceVoice：：Stop 停止当前语音使用音频。
+IXAudio2SourceVoice：：SubmitSourceBuffer 将新的音频缓冲区添加到语音队列。
+注解平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅如何：更改语音音调
+如何：对磁盘中的声音进行流式处理如何：使用源语音回调
+IXAudio2Voice XAudio2 接口
+值
+Windows xaudio2.h
+展开表
+
+≦ 206 ≧
+IXAudio2SourceVoice：:D iscontinuity 方法
+(xaudio2.h) 项目2024/03/13
+通知 XAudio2 语音，在当前位于其队列中的最后一个缓冲区之后不再出现缓冲区。
+语法 C++
+HRESULT Discontinuity(); 返回值
+如果成功，则返回S_OK，否则返回错误代码。注解
+当 语音用完要播放的音频缓冲区时，中断会抑制 XAudio2 调试版本中通常发生的警告。 最好使用 XAUDIO2_END_OF_STREAM 标志标记流的最终缓冲区，但在某些情况下，客户端可能不知道缓冲区是流的末尾，直到提交缓冲区。
+由于调用 Discontinuity 等效于将 XAUDIO2_END_OF_STREAM 标志追溯到提交的最后一个缓冲区，因此，当此缓冲区完成时，将进行 OnStreamEnd 回调。
+注意 XAudio2 可能会使用其整个缓冲区队列并在 不连续 调用生效之前发出警告，因此不保
+证 不连续 会禁止显示警告。  
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+展开表
+
+≦ 207 ≧
+要求
+目标平台标头
+另请参阅 IXAudio2SourceVoice
+值
+Windows xaudio2.h
+
+≦ 208 ≧
+IXAudio2SourceVoice：：ExitLoop 方法
+(xaudio2.h) 项目2024/03/04
+在语音到达当前循环区域的末尾时停止循环。
+语法 C++
+HRESULT ExitLoop(
+       UINT32 OperationSet);
+参数 OperationSet 返回值
+如果成功，则返回S_OK，否则返回错误代码。 有关 XAudio2 特定错误代码的说明，请参阅
+XAudio2 错误代码。注解
+如果语音的光标不在循环区域中， ExitLoop 不执行任何操作。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+展开表
+
+≦ 209 ≧
+要求
+目标平台标头
+另请参阅 IXAudio2SourceVoice
+值
+Windows xaudio2.h
+
+≦ 210 ≧
+IXAudio2SourceVoice：：
+FlushSourceBuffers 方法 (xaudio2.h) 项目2025/02/20
+从语音队列中删除所有挂起的音频缓冲区。
+语法 C++
+HRESULT FlushSourceBuffers(); 返回值
+如果成功，则返回S_OK，否则返回错误代码。注解
+如果语音已启动，则当前正在播放的缓冲区不会从队列中删除。无论语音当前是启动还是停止，都可以调用 FlushSourceBuffers。
+对于删除的每个缓冲区，将发出 OnBufferEnd 回调，但不会 (OnBufferStart、 OnStreamEnd 或 OnLoopEnd) 创建其他每个缓冲区回调。
+FlushSourceBuffers 不会更改语音的运行状态，因此，如果语音在调用之前正在播放缓冲区，它将继续这样做，并且将正常传递缓冲区的所有回调。 这意味着，此缓冲区的 OnBufferEnd 回调将在删除的缓冲区的 OnBufferEnd 回调之后发生。 因此，调用 FlushSourceBuffers 的 XAudio2 客户端不能按照提交缓冲区的顺序接收 OnBufferEnd 回调。
+当前正在播放的缓冲区完成后，不会发出缓冲区队列耗尽的警告;假定客户端已有意删除其后的缓冲区。 但是，如果此缓冲区未在零交叉处结束，则可能会出现音频弹出。 如果应用程序必须确保在播放特定缓冲区时执行刷新操作（可能是因为缓冲区以零交叉结束），则必须从回调调用 FlushSourceBuffers ，以便同步执行。
+在语音停止后调用 FlushSourceBuffers ，然后将新数据提交到语音后，会重置语音的所有内部计数器。
+调用 FlushSourceBuffers 后，语音的状态不会被视为重置，直到 OnBufferEnd 回调发生 (如果缓
+冲区之前已提交) 或 IXAudio2SourceVoice：：GetState 返回 XAUDIO2_VOICE_STATE。 BuffersQueued == 0。 例如，如果停止语音并调用 FlushSourceBuffers，则立即调用
+
+≦ 211 ≧
+IXAudio2SourceVoice：：SetSourceSampleRate (这要求语音没有任何缓冲区当前排队) ，直到
+满足上述任一条件为止。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅 IXAudio2SourceVoice
+ 
+Windows xaudio2.h
+展开表
+
+≦ 212 ≧
+IXAudio2SourceVoice：：
+GetFrequencyRatio 方法 (xaudio2.h) 项目2023/08/28
+返回语音的频率调整比率。
+语法 C++
+void GetFrequencyRatio(   [out] float *pRatio);
+参数[out] pRatio
+如果成功，则返回当前频率调整比率。
+返回值无
+备注
+GetFrequencyRatio 始终返回语音的实际当前频率比。 但是，这可能与最新的
+IXAudio2SourceVoice：：SetFrequencyRatio 调用设置的比率不匹配：实际比率仅在音频引擎下次在 IXAudio2SourceVoice：：SetFrequencyRatio 调用 (之后或在相应的 IXAudio2：：
+CommitChanges 调用之后运行时更改， 如果调用 了 IXAudio2SourceVoice：： SetFrequencyRatio ，则) 延迟操作 ID。
+有关频率比率的信息，请参阅 IXAudio2SourceVoice：：SetFrequencyRatio。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+
+≦ 213 ≧
+要求   目标平台标头
+另请参阅 IXAudio2SourceVoice
+ 
+Windows xaudio2.h
+ﾉ
+展开表
+
+≦ 214 ≧
+IXAudio2SourceVoice：：GetState 方法
+(xaudio2.h) 项目2024/03/09
+返回语音的当前光标位置数据。
+语法 C++
+void GetState(
+             XAUDIO2_VOICE_STATE *pVoiceState,
+  [optional] UINT32              Flags);
+参数 pVoiceState
+指向包含语音状态 的XAUDIO2_VOICE_STATE 结构的指针。[optional] Flags
+控制应返回哪些语音状态数据的标志。 有效值为 0 或 XAUDIO2_VOICE_NOSAMPLESPLAYED。默认值为 0。 如果指定 XAUDIO2_VOICE_NOSAMPLESPLAYED， 则 GetState 仅返回缓冲区状态，而不返回采样器状态。 指定XAUDIO2_VOICE_NOSAMPLESPLAYED时，GetState 大约需要三分之一的时间来完成。
+返回值无
+备注
+例如，如果客户端需要获取多个语音的相关位置 (，若要确切地知道当另一个语音的给定样本正在播放) 时，它必须在 XAudio2 引擎回调中发出 GetState 调用。 这可确保在进行呼叫时不会发
+出任何声音。 有关使用 XAudio2 回调 的信息，请参阅 XAudio2 回调概述。请注意，XAUDIO2的 DirectX SDK 版本不采用 GetState 的 Flags 参数。
+
+≦ 215 ≧
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅
+如何：对磁盘中的声音进行流式处理 IXAudio2SourceVoice
+值
+Windows xaudio2.h
+展开表
+
+≦ 216 ≧
+IXAudio2SourceVoice：：
+SetFrequencyRatio 方法 (xaudio2.h) 项目2024/03/04
+设置语音的频率调整比。
+语法 C++
+HRESULT SetFrequencyRatio(   [in] float  Ratio,
+  [in] UINT32 OperationSet);
+参数[in] Ratio
+频率调整比。 此值必须介于 XAUDIO2_MIN_FREQ_RATIO 和创建语音时指定的 MaxFrequencyRatio 参数之间， (请参阅 IXAudio2：：CreateSourceVoice) 。 XAUDIO2_MIN_FREQ_RATIO当前为 0.0005，这允许音调降低至多 11 个八度程。
+[in] OperationSet
+将此调用标识为延迟批处理的一部分。 有关详细信息，请参阅 XAudio2 操作集 概述。返回值
+如果成功，则返回S_OK，否则返回错误代码。 有关错误代码的说明，请参阅 XAudio2 错误代码。
+注解
+频率调整表示为 源频率 / 目标频率。 更改频率比率会更改音频在语音上播放的速率。 大于 1.0 的比率将导致音频播放速度更快，低于 1.0 的比率将导致音频播放速度变慢。 此外，频率比会影响语音上音频的音调。 例如，值 1.0 对音频没有影响，而值 2.0 将音调提高一个八度，0.5 将音调降低一个八度。
+
+≦ 217 ≧
+如果调用 SetFrequencyRatio 并指定有效范围之外的 Ratio 值，该方法会将频率比率设置为最接近的有效值。 还将为调试版本生成警告。
+注意IXAudio2SourceVoice：：GetFrequencyRatio 始终返回语音的实际当前频率比。 但是，这可能与最近 IXAudio2SourceVoice：：SetFrequencyRatio 调用设置的比率不匹配：仅在音频引擎下次在 IXAudio2SourceVoice：：SetFrequencyRatio 调用 (之后或在相应的 IXAudio2：：CommitChanges 调用之后，才会更改实际比率， 如果调用 了
+IXAudio2SourceVoice：：SetFrequencyRatio 且) 延迟的操作 ID。  
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅如何：更改语音音调 IXAudio2SourceVoice
+值
+Windows xaudio2.h
+展开表
+
+≦ 218 ≧
+IXAudio2SourceVoice：：
+SetSourceSampleRate 方法 (xaudio2.h) 项目2024/03/13
+重新配置语音，以与创建语音时指定的采样率不同的采样率使用源数据。
+语法 C++
+HRESULT SetSourceSampleRate(
+  [in] UINT32 NewSourceSampleRate);
+参数
+[in] NewSourceSampleRate
+语音应按其处理提交的数据的新采样率。 有效采样率为 1kHz 到 200kHz。返回值
+如果成功，则返回S_OK，否则返回错误代码。 有关错误代码的说明，请参阅 XAudio2 错误代码。
+注解
+SetSourceSampleRate 方法允许语音播放具有各种采样率的声音，从而支持重复使用 XAudio2 语音。 若要使用 SetSourceSampleRate ，必须创建语音时没有XAUDIO2_VOICE_NOPITCH或 XAUDIO2_VOICE_NOSRC标志，并且当前不得有任何缓冲区排队。
+SetSourceSampleRate 的典型用途是支持语音池。 例如，为了支持语音池，应用程序会预先创建它希望使用的所有语音。 每当将播放新声音时，应用程序都会选择非活动语音，或者，如果所有语音都忙，则选取最不重要的语音，并使用新声音的采样率在语音上调用
+SetSourceSampleRate 。 在语音上调用 SetSourceSampleRate 后，应用程序可以立即开始使用新的采样率提交和播放缓冲区。 这样，应用程序就可以避免在玩游戏期间频繁创建和销毁语音的开销。
+平台要求
+
+≦ 219 ≧
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅 IXAudio2SourceVoice
+值
+Windows xaudio2.h
+展开表
+
+≦ 220 ≧
+IXAudio2SourceVoice：：Start 方法
+(xaudio2.h) 项目2023/08/28
+开始使用和处理语音的音频。 将结果传送到任何连接的子混合或主语音，或输出设备。
+语法 C++
+HRESULT Start(
+  [in] UINT32 Flags,
+  [in] UINT32 OperationSet);
+参数[in] Flags
+控制语音启动方式的标志。 必须为 0。[in] OperationSet
+将此调用标识为延迟批处理的一部分。 有关详细信息，请参阅 XAudio2 操作集 概述。返回值
+如果成功，则返回S_OK，否则返回错误代码。 有关 XAudio2 特定错误代码 的说明，请参阅
+XAudio2 错误代码。注解
+如果 XAudio2 引擎停止，语音将停止运行。 但是，它仍处于启动状态，以便在引擎启动后立即开始运行。
+首次创建时，源语音处于停止状态。 子混合和主语音处于启动状态。
+调用 Start 后，如果在调用 IXAudio2SourceVoice：：Stop 之前再次调用，则它不再有效。 此外，多次调用 “启动” ，而不匹配对 IXAudio2SourceVoice：：Stop 的调用将导致调试版本中出现警告消息。
+
+≦ 221 ≧
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅
+如何：构建基本的音频处理图
+如何：对磁盘中的声音进行流式处理 IXAudio2SourceVoice
+IXAudio2Voice XAPO 概述
+ 
+Windows xaudio2.h
+展开表
+
+≦ 222 ≧
+IXAudio2SourceVoice：：Stop 方法
+(xaudio2.h) 项目2023/08/28
+停止当前语音使用音频。
+语法 C++
+HRESULT Stop(
+  [in] UINT32 Flags,
+  [in] UINT32 OperationSet);
+参数[in] Flags
+控制语音停止方式的标志。 可以是 0 或以下值：
+Value
+XAUDIO2_PLAY_TAILS[in] OperationSet
+说明
+停止语音后继续发出效果输出。 
+ﾉ
+将此调用标识为延迟批处理的一部分。 有关详细信息，请参阅 XAudio2 操作集 概述。返回值
+展开表
+如果成功，则返回S_OK，否则返回错误代码。 有关 XAudio2 特定错误代码 的说明，请参阅
+XAudio2 错误代码。注解
+保留语音和当前光标位置上排队的所有源缓冲区。 这允许语音在重新启动时从其中断的位置继续。 IXAudio2SourceVoice：：FlushSourceBuffers 方法可用于刷新排队的源缓冲区。
+
+≦ 223 ≧
+默认情况下，不会播放来自语音效果（例如混响尾部）的任何挂起输出。 相反，语音会立即呈现无声。 XAUDIO2_PLAY_TAILS标志可用于在语音停止运行后继续发出效果输出。
+使用XAUDIO2_PLAY_TAILS标志停止的语音会停止使用源缓冲区，但会继续处理其效果，并将音频发送到目标语音。 在此状态下的语音稍后可以完全停止，方法是再次调用 Stop 并将 Flags 参数设置为 0。 这样，便可以使用XAUDIO2_PLAY_TAILS停止语音，等待其效果生成的任何音频完成，然后再次调用 Stop 即可完全停止语音，而无需XAUDIO2_PLAY_TAILS。 此方法允许正常停
+止具有效果的语音，同时确保空闲语音在完成音频生成后不会继续处理。停止 始终是异步的，即使在回调中调用也是如此。
+注意 如果语音停止 (，XAudio2 从不为语音调用任何语音回调，即使它已使用
+XAUDIO2_PLAY_TAILS) 停止。  
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅 IXAudio2SourceVoice XAPO 概述
+ 
+Windows xaudio2.h
+展开表
+
+≦ 224 ≧
+IXAudio2SourceVoice：：
+SubmitSourceBuffer 方法 (xaudio2.h) 项目2024/03/04
+将新的音频缓冲区添加到语音队列。
+语法 C++
+HRESULT SubmitSourceBuffer(
+  [in] const XAUDIO2_BUFFER     *pBuffer,   [in] const XAUDIO2_BUFFER_WMA *pBufferWMA);
+参数[in] pBuffer
+指向队列 XAUDIO2_BUFFER 结构的指针。[in] pBufferWMA
+指向提交 WMA 数据时使用的其他 XAUDIO2_BUFFER_WMA 结构的指针。返回值
+如果成功，则返回S_OK，否则返回错误代码。 有关 XAudio2 特定错误代码 的说明，请参阅
+XAudio2 错误代码。注解
+语音按提交顺序处理并播放队列中的缓冲区。
+XAUDIO2_BUFFER结构包括有关音频缓冲区位置和大小、实际应播放的缓冲区部分、循环区域(（如果有任何) 和循环计数）的详细信息、要在与此缓冲区相关的任何回调中使用的上下文指针，以及指示它是连续声音的最后一个缓冲区的可选XAUDIO2_END_OF_STREAM标志。
+如果语音已启动，并且没有排队的缓冲区，则新缓冲区将立即开始播放。 如果语音停止，缓冲区将添加到语音的队列中，并在语音启动时播放。
+
+≦ 225 ≧
+如果只应播放给定缓冲区的一部分，则可以使用XAUDIO2_BUFFER中的 PlayBegin 和
+PlayLength 字段指定要播放的区域。 PlayLength 值为 0 表示播放整个缓冲区 (，在这种情况下，PlayBegin 必须是 0，并且) 。
+如果应在连续循环中播放全部或部分缓冲区，则可以使用 XAUDIO2_BUFFER 中的 LoopBegin、 LoopLength 和 LoopCount 字段来指定循环区域的特征。 LoopBegin 值为
+XAUDIO2_NO_LOOP_REGION 意味着不应执行循环，在本例中，LoopLength 和 LoopCount 必须设置为 0。 如果指定了循环区域，则它必须是非空 (LoopLength> 0) ，循环计数必须介于 1 到 XAUDIO2_MAX_LOOP_COUNT（包括 (或XAUDIO2_LOOP_INFINITE）之间，以指定仅在) 调用 IXAudio2SourceVoice：：ExitLoop 时结束的无限循环。 N 的循环计数表示向后跳过 N 次，即播放循环区域 N+1 次。
+如果指定了显式播放区域，则必须在给定的音频缓冲区 (开始和结束，或者在压缩的情况下，在缓冲区将解码为) 的示例集中。 此外，循环区域不能在播放区域的末尾结束。
+ﾉ
+Xbox 360
+展开表
+对于某些音频格式，任何播放或循环区域的有效终结点可能存在其他限制;例如，对于 XMA 缓冲区，区域
+只能在解码的音频中的 128 个样本边界处开始或结束。  
+调用此方法后，可以立即重复使用或释放 pBuffer 指针，但 pBuffer 引用的实际音频数据必须保
+持有效，直到缓冲区已由 XAudio2 (IXAudio2VoiceCallback：：OnBufferEnd 回调) 指示。最多XAUDIO2_MAX_QUEUED_BUFFERS缓冲区可以随时在语音上排队。
+当使用 OperationSet 为 XAUDIO2_COMMIT_NOW 的 XAudio2 回调调用时， SubmitSourceBuffer 将立即生效。
+ﾉ
+Xbox 360
+展开表
+此方法可以从 Xbox 系统线程调用， (大多数其他 XAudio2 方法无法) 。 但是，一次最多可以从系统线程提
+交两个源缓冲区。  
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+
+≦ 226 ≧
+要求要求目标平台标头
+另请参阅
+如何：构建基本的音频处理图
+如何：对磁盘中的声音进行流式处理 IXAudio2SourceVoice
+值
+Windows xaudio2.h
+ﾉ
+展开表
+
+≦ 227 ≧
+IXAudio2SubmixVoice 接口 (xaudio2.h) 项目2024/03/04
+子混合语音主要用于性能改进和效果处理。继承
+IXAudio2SubmixVoice 接口继承自 IXAudio2Voice 接口。注解
+数据缓冲区无法直接提交到子混合语音，并且除非提交到主语音，否则无法听到数据缓冲区。子混合语音可用于确保将一组特定的语音数据转换为相同的格式和/或对集体结果处理特定的效果链。
+IXAudio2SubmixVoice 直接继承自 IXAudio2Voice，但不实现特定于子混合语音的方法。 接口类型之所以存在，仅仅是因为某些基类方法对子混合语音的实现方式不同。 为这些语音提供单独
+的类型可帮助客户端代码区分不同的语音类型并受益于 C++ 类型安全性。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅如何：使用提交语音 IXAudio2Voice XAPO 概述
+值
+Windows xaudio2.h
+展开表
+
+≦ 228 ≧
+XAudio2 接口
+
+≦ 229 ≧
+IXAudio2Voice 接口 (xaudio2.h) 项目2023/08/28
+IXAudio2Voice 表示从中派生 IXAudio2SourceVoice、 IXAudio2SubmixVoice 和 IXAudio2MasteringVoice 的基接口。 下面列出的方法适用于所有语音子类。
+方法
+DestroyVoice DisableEffect EnableEffect
+GetChannelVolumes GetEffectParameters GetEffectState
+GetFilterParameters
+GetOutputFilterParameters
+GetOutputMatrix GetVoiceDetails GetVolume
+SetChannelVolumes SetEffectChain
+SetEffectParameters SetFilterParameters
+SetOutputFilterParameters
+SetOutputMatrix SetOutputVoices SetVolume
+说明
+ﾉ
+展开表
+销毁语音。 如有必要，停止语音并将其从 XAudio2 图中删除。
+禁用语音效果链中给定位置处的效果。在语音效果链中的给定位置启用效果。返回每个通道语音的音量级别。
+返回语音效果链中给定效果的当前特定于效果的参数。
+返回声音效果链中指定位置处效果的运行状态。获取语音的筛选器参数。
+从此语音的其中一个发送中返回筛选器参数。
+获取语音最终输出的每个声道的音量级别。 这些通道映射到指定目标语音的输入通道。
+返回有关语音的创建标志、输入通道和采样率的信息。获取语音的当前总音量级别。
+为每个通道设置语音的音量级别。替换语音的效果链。
+设置语音效果链中给定效果的参数。设置语音的筛选器参数。
+设置其中一个语音发送的筛选器参数。
+设置语音最终输出的每个声道的音量级别。 这些通道映射到指定目标语音的输入通道。
+指定一组新的子混合语音或主语音来接收语音的输出。设置语音的总体音量级别。
+
+≦ 230 ≧
+方法
+IXAudio2Voice 接口包含以下方法。  
+IXAudio2Voice：:D estroyVoice
+销毁语音。 如有必要，停止语音并将其从 XAudio2 图中删除。 IXAudio2Voice：:D isableEffect
+禁用语音效果链中给定位置处的效果。 IXAudio2Voice：：EnableEffect
+在语音效果链中的给定位置启用效果。 IXAudio2Voice：：GetChannelVolumes 返回每个通道语音的音量级别。
+IXAudio2Voice：：GetEffectParameters
+返回语音效果链中给定效果的当前特定于效果的参数。 IXAudio2Voice：：GetEffectState
+返回声音效果链中指定位置处效果的运行状态。
+IXAudio2Voice：：GetFilterParameters 获取语音的筛选器参数。
+IXAudio2Voice：：GetOutputFilterParameters 从此语音的其中一个发送中返回筛选器参数。 IXAudio2Voice：：GetOutputMatrix
+获取语音最终输出的每个声道的音量级别。 这些通道映射到指定目标语音的输入通道。 IXAudio2Voice：：GetVoiceDetails
+返回有关语音的创建标志、输入通道和采样率的信息。 IXAudio2Voice：：GetVolume
+ﾉ
+展开表
+
+≦ 231 ≧
+ 
+获取语音的当前总音量级别。
+IXAudio2Voice：：SetChannelVolumes
+为每个通道设置语音的音量级别。 IXAudio2Voice：：SetEffectChain 替换语音的效果链。
+IXAudio2Voice：：SetEffectParameters 设置语音效果链中给定效果的参数。 IXAudio2Voice：：SetFilterParameters 设置语音的筛选器参数。
+IXAudio2Voice：：SetOutputFilterParameters
+设置其中一个语音发送的筛选器参数。 IXAudio2Voice：：SetOutputMatrix
+设置语音最终输出的每个声道的音量级别。 这些通道映射到指定目标语音的输入通道。 IXAudio2Voice：：SetOutputVoices
+指定一组新的子混合语音或主语音来接收语音的输出。
+IXAudio2Voice：：SetVolume 设置语音的总体音量级别。
+注解平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+展开表
+
+≦ 232 ≧
+要求
+目标平台标头
+另请参阅 XAudio2 接口
+值
+Windows xaudio2.h
+
+≦ 233 ≧
+IXAudio2Voice：:D estroyVoice 方法
+(xaudio2.h) 项目2024/03/04
+销毁语音。 如有必要，停止语音并将其从 XAudio2 图中删除。
+语法 C++
+\\ void DestroyVoice();
+返回值此方法不返回值。
+备注
+如果任何其他语音当前正在向此语音发送音频，则 方法将失败。
+DestroyVoice 等待音频处理线程处于空闲状态，因此 () 通常不超过几毫秒的时间。 这是保证语音不再进行任何回调或读取任何音频数据所必需的，因此应用程序可以在呼叫返回后立即安全地释放这些资源。
+为了避免游戏线程因阻塞 的 DestroyVoice 调用而中断，应用程序可以销毁单独的非关键线程上的语音，或者应用程序可以使用语音池策略重复使用语音，而不是销毁语音。 请注意，语音只能与具有相同数据格式和创建语音时使用的通道数相同的音频重复使用。 通过使用适当的比率参数调用 IXAudio2SourceVoice：：SetFrequencyRatio ，语音可以播放与语音不同的采样率的音频数据。
+从回调 (IXAudio2EngineCallback 或 IXAudio2VoiceCallback) 调用 DestroyVoice 无效。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+
+≦ 234 ≧
+要求
+目标平台标头
+另请参阅 IXAudio2Voice
+值
+Windows xaudio2.h
+ﾉ
+展开表
+
+≦ 235 ≧
+IXAudio2Voice：:D isableEffect 方法
+(xaudio2.h) 项目2024/03/04
+禁用语音效果链中给定位置处的效果。
+语法 C++
+\\HRESULT DisableEffect(   [in] UINT32 EffectIndex,   [in] UINT32 OperationSet);
+参数
+[in] EffectIndex
+语音效果链中效果的从零开始的索引。[in] OperationSet
+将此调用标识为延迟批处理的一部分。 有关详细信息，请参阅 XAudio2 操作集 概述。返回值
+如果成功，则返回S_OK;否则为错误代码。 有关有效错误代码的说明，请参阅 XAudio2 错误代码。
+注解
+给定 XAudio2 语音的效果链中的效果必须以该语音的处理采样率使用和生成音频。 他们可以更改音频格式的唯一方面是声道计数。 例如，混响效果可以将单声道数据转换为 5.1。 客户端可以使用 XAUDIO2_EFFECT_DESCRIPTOR 结构的 OutputChannels 字段来指定希望每个效果生成的通道数。 效果链中的每个效果必须生成下一个效果可以使用的通道数。 对
+IXAudio2Voice：：EnableEffect 或 IXAudio2Voice：:D isableEffect 的任何调用都会使效果链停止满足这些要求，都将失败。
+
+≦ 236 ≧
+禁用效果会立即将其从处理图中删除。 效果中任何挂起的音频（如混响尾部）都不会播放。 当承载它的语音正在运行时，请小心禁用效果。 如果效果显著改变音频的音调或音量，则可能会导致可听见的伪像。
+从 OperationSet 为 XAUDIO2_COMMIT_NOW 的 XAudio2 回调调用 DisableEffect 时立即生效。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅 IXAudio2Voice XAPO 概述
+值
+Windows xaudio2.h
+展开表
+
+≦ 237 ≧
+IXAudio2Voice：：EnableEffect 方法
+(xaudio2.h) 项目2023/08/28
+在语音效果链中的给定位置启用效果。
+语法 C++
+\\HRESULT EnableEffect(
+  [in] UINT32 EffectIndex,   [in] UINT32 OperationSet);
+参数
+[in] EffectIndex
+语音效果链中效果的从零开始的索引。[in] OperationSet
+将此调用标识为延迟批处理的一部分。 有关详细信息，请参阅 XAudio2 操作集 概述。返回值
+如果成功，则返回S_OK;否则为错误代码。 有关错误代码的说明，请参阅 XAudio2 错误代码。注解
+当承载它的语音正在运行时启用效果时，请小心。 如果效果显著改变音频的音调或音量，则此类操作可能会导致问题。
+给定 XAudio2 语音效果链中的效果必须以该语音的处理采样率使用和生成音频。 他们可以更改音频格式的唯一方面是通道计数。 例如，混响效果可将单声道数据转换为 5.1。 客户端可以使用 XAUDIO2_EFFECT_DESCRIPTOR 结构的 OutputChannels 字段来指定它希望每个效果生成的通道数。 效果链中的每个效果都必须生成下一个效果可以使用的通道数。 对
+IXAudio2Voice：：EnableEffect 或 IXAudio2Voice：:D isableEffect 的任何调用都会使效果链停止满足这些要求将失败。
+
+≦ 238 ≧
+从具有 OperationSet 的 XAudio2 回调调用 EnableEffect 时立即生效，
+XAUDIO2_COMMIT_NOW。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅 IXAudio2Voice XAPO 概述
+ 
+Windows xaudio2.h
+展开表
+
+≦ 239 ≧
+IXAudio2Voice：：GetChannelVolumes 方
+法 (xaudio2.h) 项目2024/03/13
+返回每个声道的语音音量级别。
+语法 C++
+\\ void GetChannelVolumes(   [in]  UINT32 Channels,   [out] float  *pVolumes);
+参数[in] Channels
+确认语音的声道计数。[out] pVolumes
+返回语音中每个通道的当前音量级别。 数组必须至少具有 Channels 元素。 有关卷级别的详细信息，请参阅备注。
+返回值此方法不返回值。
+备注
+这些设置在应用效果链后应用。 此方法仅对源语音和子混合语音有效，因为主语音未指定每个通道的音量。
+音量级别表示为 -2²⁴ 到 2²⁴ 之间的浮点振幅乘法器，最大增益为 144.5 dB。 音量为 1 表示没有衰减或增益，0 表示静音，负级别可用于反转音频的相位。 有关音量控制的其他信息，请参阅 XAudio2 音量和音调 控制。
+
+≦ 240 ≧
+ 
+注意GetChannelVolumes 始终返回 IXAudio2Voice：：SetChannelVolumes 最近设置的卷级别。 但是，这些值实际上可能尚未生效：它们仅在 IXAudio2Voice：：
+SetChannelVolumes 调用 (之后或相应 IXAudio2：：CommitChanges 调用之后（如果 IXAudio2Voice：：SetChannelVolumes 调用 IXAudio2Voice：：SetChannelVolumes ）的下一次运行时生效，) 。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅 IXAudio2Voice
+值
+Windows xaudio2.h
+展开表
+
+≦ 241 ≧
+IXAudio2Voice：：GetEffectParameters 方
+法 (xaudio2.h) 项目2023/08/28
+返回语音效果链中给定效果的当前特定于效果的参数。
+语法 C++
+\\HRESULT GetEffectParameters(
+  [in]  UINT32 EffectIndex,   [out] void   *pParameters,
+  [out] UINT32 ParametersByteSize);
+参数
+[in] EffectIndex
+语音效果链中效果的从零开始的索引。[out] pParameters
+返回特定于效果的参数的当前值。[out] ParametersByteSize
+pParameters 数组的大小（以字节为单位）。返回值
+如果成功，则返回S_OK，否则返回错误代码。 有关错误代码的说明，请参阅 XAudio2 错误代码。
+如果效果不支持泛型参数控制接口，则失败并E_NOTIMPL。注解
+GetEffectParameters 始终返回效果的实际当前参数。 但是， 这些参数可能与最近对
+IXAudio2Voice：：SetEffectParameters 的调用设置的参数不匹配：如果 IXAudio2Voice：：
+
+≦ 242 ≧
+SetEffectParameters 使用延迟的操作 ID () 调用 IXAudio2：：SetEffectParameters，则仅在音
+频引擎下次运行时更改实际参数。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅
+IXAPOParameters：：GetParameters
+IXAudio2Voice XAPO 概述
+ 
+Windows xaudio2.h
+展开表
+
+≦ 243 ≧
+IXAudio2Voice：：GetEffectState 方法
+(xaudio2.h) 项目2023/08/28
+返回声音效果链中指定位置处效果的运行状态。
+语法 C++
+\\ void GetEffectState(
+  [in]  UINT32 EffectIndex,
+  [out] BOOL   *pEnabled);
+参数
+[in] EffectIndex
+语音效果链中效果的从零开始的索引。[out] pEnabled
+如果启用效果，则返回 TRUE。 如果禁用该效果，则返回 FALSE。
+返回值此方法不返回值。
+备注
+GetEffectState 始终返回效果的实际当前状态。 但是， 这可能不是最新的 IXAudio2Voice：： EnableEffect 或 IXAudio2Voice：:D isableEffect 调用设置的状态：实际状态仅在音频引擎下次在 IXAudio2Voice：：EnableEffect 或 IXAudio2Voice：:D isableEffect 调用 (或在相应的
+IXAudio2：：CommitChanges 调用之后运行时更改， 如果调用 EnableEffect/DisableEffect 时使
+用延迟的操作 ID) 。平台要求
+
+≦ 244 ≧
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅 IXAudio2Voice XAPO 概述
+ 
+Windows xaudio2.h
+展开表
+
+≦ 245 ≧
+IXAudio2Voice：：GetFilterParameters 方
+法 (xaudio2.h) 项目2023/08/28
+获取语音的筛选器参数。
+语法 C++
+\\ void GetFilterParameters(
+  [out] XAUDIO2_FILTER_PARAMETERS *pParameters);
+参数
+[out] pParameters
+指向包含筛选器信息的 XAUDIO2_FILTER_PARAMETERS 结构的指针。
+返回值此方法不返回值。
+备注
+如果未使用 XAUDIO2_VOICE_USEFILTER 标志创建语音，GetFilterParameters 将失败。
+GetFilterParameters 始终返回此语音的实际当前筛选器参数。 但是，这些参数可能与最新的 IXAudio2Voice：：SetFilterParameters 调用设置的参数不匹配：实际参数仅在音频引擎下次在 IXAudio2Voice：：SetFilterParameters 调用 (之后或在相应的 IXAudio2：：CommitChanges 调用之后运行时更改， 如果调用 了 IXAudio2Voice：：SetFilterParameters ，则) 延迟操作 ID。
+注意GetFilterParameters 仅在源语音和子混合语音上可用，对主语音没有影响。  
+平台要求
+
+≦ 246 ≧
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅 IXAudio2Voice
+ 
+Windows xaudio2.h
+展开表
+
+≦ 247 ≧
+IXAudio2Voice：：
+GetOutputFilterParameters 方法
+(xaudio2.h) 项目2024/03/04
+从此语音的某个发送中返回筛选器参数。
+语法 C++
+\\ void GetOutputFilterParameters(
+  [in]  IXAudio2Voice             *pDestinationVoice,
+  [out] XAUDIO2_FILTER_PARAMETERS *pParameters);
+参数
+[in] pDestinationVoice
+IXAudio2Voice 指针，指向将读取其筛选器参数的发送的目标语音。[out] pParameters
+指向包含筛选器信息的 XAUDIO2_FILTER_PARAMETERS 结构的指针。
+返回值此方法不返回值。
+备注
+如果未使用 XAUDIO2_SEND_USEFILTER 标志创建发送，则 GetOutputFilterParameters 将失败。 此方法仅适用于属于源语音和子混合语音的发送，对掌握语音的发送没有影响。
+注意IXAudio2Voice：：GetOutputFilterParameters 始终返回此发送的实际当前筛选器参数。 但是，这些参数可能与最新的 IXAudio2Voice：：SetOutputFilterParameters 调用设置的参数不匹配：实际参数仅在音频引擎下次在 IXAudio2Voice：：
+
+≦ 248 ≧
+ 
+SetOutputFilterParameters 调用 (或相应 IXAudio2：：CommitChanges 调用之后运行时更改， 如果调用 了 IXAudio2Voice：：SetOutputFilterParameters ，则) 延迟操作 ID。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅 IXAudio2Voice
+值
+Windows xaudio2.h
+展开表
+
+≦ 249 ≧
+IXAudio2Voice：：GetOutputMatrix 方法
+(xaudio2.h) 项目2024/03/04
+获取语音最终输出的每个声道的音量级别。 这些通道映射到指定目标语音的输入通道。
+语法 C++
+\\ void GetOutputMatrix(
+  [in]  IXAudio2Voice *pDestinationVoice,   [in]  UINT32        SourceChannels,
+  [in]  UINT32        DestinationChannels,
+  [out] float         *pLevelMatrix);
+参数
+[in] pDestinationVoice
+指定要检索其输出矩阵的目标 IXAudio2Voice 的指针。
+注意 如果语音发送到单个目标语音，则指定 NULL 将导致 GetOutputMatrix 针对该目标语
+音进行操作。  
+[in] SourceChannels
+确认语音的输出通道计数。 这是链中最后一个效果生成的通道数。[in] DestinationChannels
+确认目标语音的输入通道计数。[out] pLevelMatrix
+发送到目标语音的 [SourceChannels * DestinationChannels] 音量级别的数组。 从源通道 S 发送到目标通道 D 的级别以 pLevelMatrix[DestinationChannels × S + D] 的形式返回。 有关卷级别的详细信息，请参阅“备注”。
+
+≦ 250 ≧
+返回值此方法不返回值。
+备注
+此方法仅适用于源语音和子混合语音，因为主语音直接写入设备，无需矩阵混合。
+音量级别表示为 -2²⁴ 到 2²⁴ 之间的浮点振幅乘数，最大增益为 144.5 dB。 音量级别为 1 表示没有衰减或增益，0 表示静音。 负级别可用于反转音频的相位。 有关音量控制的其他信息，请参阅 XAudio2 音量和音调 控制。
+有关标准通道排序的信息，请参阅 WAVEFORMATEXTENSIBLE 。
+注意GetOutputMatrix 始终返回 IXAudio2Voice：：SetOutputMatrix 最近设置的级别。但是，它们可能实际上尚未生效：它们仅在 IXAudio2Voice：：SetOutputMatrix 调用 (之
+后或相应的 IXAudio2：：CommitChanges 调用之后（如果 IXAudio2Voice：： SetOutputMatrix 在) 调用了 IXAudio2Voice：：SetOutputMatrix 时）才生效。
+ 
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅 IXAudio2Voice
+值
+Windows xaudio2.h
+展开表
+
+≦ 251 ≧
+IXAudio2Voice：：GetVoiceDetails 方法
+(xaudio2.h) 项目2023/08/28
+返回有关语音的创建标志、输入通道和采样率的信息。
+语法 C++
+\\ void GetVoiceDetails(
+  [in, out] XAUDIO2_VOICE_DETAILS *pVoiceDetails);
+参数
+[in, out] pVoiceDetails
+包含语音相关信息的XAUDIO2_VOICE_DETAILS结构。
+返回值此方法不返回值。
+备注平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台
+ 
+Windows
+展开表
+
+≦ 252 ≧
+ 
+标头
+另请参阅 IXAudio2Voice
+ 
+xaudio2.h
+
+≦ 253 ≧
+IXAudio2Voice：：GetVolume 方法
+(xaudio2.h) 项目2023/08/28
+获取语音的当前总音量级别。
+语法 C++
+\\ void GetVolume(
+  [out] float *pVolume);
+参数[out] pVolume
+返回语音的当前总音量级别。 有关卷级别的详细信息，请参阅备注。
+返回值此方法不返回值。
+备注
+音量级别表示为 -224 到 224 之间的浮点振幅乘法器，最大增益为 144.5 dB。 音量级别为 1 表示没有衰减或增益，0 表示静音。 负级别可用于反转音频的相位。 有关音量控制的其他信息，请参阅 XAudio2 音量和音调 控制。
+注意GetVolume 始终返回 最近由 IXAudio2Voice：：SetVolume 设置的卷。 但是，它可
+能实际上尚未生效：如果 IXAudio2Voice：：SetVolume 调用) 延迟的操作 ID 调用 IXAudio2：：SetVolume 调用了 IXAudio2：：SetVolume，则它只会在
+IXAudio2Voice：：SetVolume 调用 (之后或相应的 IXAudio2：：CommitChanges 调用后
+才会生效。  
+平台要求
+
+≦ 254 ≧
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅 IXAudio2Voice
+ 
+Windows xaudio2.h
+展开表
+
+≦ 255 ≧
+IXAudio2Voice：：SetChannelVolumes 方
+法 (xaudio2.h) 项目2023/08/28
+为每个通道设置语音的音量级别。
+语法 C++
+\\HRESULT SetChannelVolumes(   [in] UINT32      Channels,   [in] const float *pVolumes,
+  [in] UINT32      OperationSet);
+参数[in] Channels
+语音中的通道数。[in] pVolumes
+包含语音中每个通道的新卷的数组。 数组必须具有 Channels 元素。 有关卷级别的详细信息，
+请参阅“备注”。[in] OperationSet
+将此调用标识为延迟批处理的一部分。 有关详细信息，请参阅 XAudio2 操作集 概述。返回值
+如果成功，则返回S_OK，否则返回错误代码。 有关 XAudio2 特定错误代码的说明，请参阅
+XAudio2 错误代码。注解
+SetChannelVolumes 控制语音的每声道输出级别，在语音的最终 SRC 之后和发送之前应用。此方法仅对源语音和子混合语音有效，因为主语音不指定每个通道的音量。
+
+≦ 256 ≧
+音量级别表示为 -XAUDIO2_MAX_VOLUME_LEVEL 和 XAUDIO2_MAX_VOLUME_LEVEL (-2²⁴ 到 2²⁴) 之间的浮点振幅乘数，最大增益为 144.5 dB。 音量为 1 表示没有衰减或增益，0 表示静音。 负级别可用于反转音频的相位。 有关音量控制的其他信息，请参阅 XAudio2 音量和音调控制。
+注意IXAudio2Voice：：GetChannelVolumes 始终返回 IXAudio2Voice：：
+SetChannelVolumes 最近设置的卷级别。 但是，这些值可能实际上尚未生效：只有在 IXAudio2Voice：：SetChannelVolumes 调用 IXAudio2Voice：：SetChannelVolumes 调用 (之后或在相应的 IXAudio2：：CommitChanges 调用之后（如果 IXAudio2Voice：：
+SetChannelVolumes 是使用延迟操作 ID) 调用）时，它们才会生效。  
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅如何：更改语音音量 IXAudio2Voice
+值
+Windows xaudio2.h
+展开表
+
+≦ 257 ≧
+IXAudio2Voice：：SetEffectChain 方法
+(xaudio2.h) 项目2024/03/13
+替换语音的效果链。
+语法 C++
+\\HRESULT SetEffectChain(
+  [in, optional] const XAUDIO2_EFFECT_CHAIN *pEffectChain);
+参数
+[in, optional] pEffectChain
+指向描述要使用的新效果链 的XAUDIO2_EFFECT_CHAIN 结构的指针。 如果传递 NULL，则删除当前效果链。
+注意 如果 pEffectChain 为非 NULL，则它指向 的XAUDIO2_EFFECT_CHAIN 结构必须至少
+指定一种效果。  
+返回值
+如果成功，则返回S_OK;否则为错误代码。
+有关 XAudio2 特定错误代码 的说明，请参阅 XAudio2 错误代码。注解
+语音效果链允许的输出通道数在语音创建时被锁定。 如果使用效果链创建语音，则传递给
+SetEffectChain 的任何新效果链都必须具有与原始效果链相同的输入和输出通道数。 如果创建没有效果链的语音，则为效果链允许的输出通道数将默认为语音的输入通道数。 如果效果链创建的任何部分失败，则不应用任何部分。
+
+≦ 258 ≧
+将效果附加到 XAudio2 语音后，XAudio2 将控制该效果，客户端不应对其进行任何进一步调用。 确保此操作的最简单方法是释放所有指向效果的指针。
+从回调 (（即 IXAudio2EngineCallback 或 IXAudio2VoiceCallback) ）调用 SetEffectChain 无效。
+如果在回调中调用 SetEffectChain ，它将返回XAUDIO2_E_INVALID_CALL。在 SetEffectChain 成功完成后，不再需要作为 pEffectChain 参数传入的
+XAUDIO2_EFFECT_CHAIN以及其中包含的任何XAUDIO2_EFFECT_DESCRIPTOR信息，并且可以在
+调用 SetEffectChain 后立即删除。平台要求
+Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7) 要求
+ﾉ
+要求
+目标平台标头
+另请参阅如何：创建效果链 IXAudio2Voice XAPO 概述
+值
+Windows xaudio2.h
+展开表
+
+≦ 259 ≧
+IXAudio2Voice：：SetEffectParameters 方
+法 (xaudio2.h) 项目2024/03/04
+设置语音效果链中给定效果的参数。
+语法 C++
+\\HRESULT SetEffectParameters(   [in] UINT32     EffectIndex,   [in] const void *pParameters,
+  [in] UINT32     ParametersByteSize,
+  [in] UINT32     OperationSet);
+参数
+[in] EffectIndex
+语音效果链中效果的从零开始的索引。[in] pParameters
+返回特定于效果的参数的当前值。[in] ParametersByteSize
+pParameters 数组的大小（以字节为单位）。[in] OperationSet
+将此调用标识为延迟批处理的一部分。 有关详细信息，请参阅 XAudio2 操作集 概述。返回值
+如果成功，则返回S_OK;否则为错误代码。 有关错误代码的说明，请参阅 XAudio2 错误代码。
+如果效果不支持泛型参数控件接口，则失败并E_NOTIMPL。注解
+
+≦ 260 ≧
+使用的特定效果决定了 pParameters 缓冲区的有效大小和格式。 如果 pParameters 无效，或者 ParametersByteSize 不完全是效果预期的大小，则调用将失败。 客户端必须注意将
+SetEffectParameters 调用定向到正确的效果。 如果此调用定向到恰好接受相同参数块大小的不同效果，则参数的解释将不同。 这可能会导致意外的结果。
+不能立即释放 pParameters 指向的内存，因为 XAudio2 稍后在实际应用于效果的参数时需要引用它。 如果下一个音频处理过程XAUDIO2_COMMIT_NOW OperationSet 参数，则会发生这种情况。 否则，参数将在稍后使用同一 OperationSet 参数调用 IXAudio2：：CommitChanges 函数后的第一个处理阶段应用于效果。
+从具有 XAUDIO2_COMMIT_NOW OperationSet 的 XAudio2 回调调用时，SetEffectParameters 会立即生效。
+注意IXAudio2Voice：：GetEffectParameters 始终返回效果的实际当前参数。 但是，这些参数可能与最近调用 IXAudio2Voice：：SetEffectParameters 设置的参数不匹配。 只有在 IXAudio2Voice：：SetEffectParameters 调用 IXAudio2Voice：：SetEffectParameters 调
+用 (之后或相应的 IXAudio2：：CommitChanges 调用之后，如果 IXAudio2Voice：： SetEffectParameters 调用了 IXAudio2Voice：：SetEffectParameters 时) ，实际参数才会
+更改。  
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅如何：创建效果链
+IXAPOParameters：：SetParameters
+值
+Windows xaudio2.h
+展开表
+
+≦ 261 ≧
+IXAudio2Voice XAPO 概述
+
+≦ 262 ≧
+IXAudio2Voice：：SetFilterParameters 方法
+(xaudio2.h) 项目2024/03/13
+设置语音的筛选器参数。
+语法 C++
+\\HRESULT SetFilterParameters(
+  [in] const XAUDIO2_FILTER_PARAMETERS *pParameters,   [in] UINT32                          OperationSet);
+参数
+[in] pParameters
+指向包含筛选器信息的 XAUDIO2_FILTER_PARAMETERS 结构的指针。[in] OperationSet
+将此调用标识为延迟批处理的一部分。 有关详细信息，请参阅 XAudio2 操作集 概述。返回值
+如果成功，则返回S_OK，否则返回错误代码。 有关错误代码的说明，请参阅 XAudio2 错误代码。
+注解
+如果未使用 XAUDIO2_VOICE_USEFILTER 标志创建语音，SetFilterParameters 将失败。此方法仅在源语音和子混合语音上可用，对主语音没有影响。
+注意IXAudio2Voice：：GetFilterParameters 始终返回此语音的实际当前筛选器参数。 但是，这些参数可能与最新的 IXAudio2Voice：：SetFilterParameters 调用设置的参数不匹配：仅在音频引擎下次在 IXAudio2Voice：：SetFilterParameters 调用 (之后或在相应的
+
+≦ 263 ≧
+ 
+IXAudio2：：CommitChanges 调用之后，更改实际参数， 如果 调用 IXAudio2Voice：： SetFilterParameters 且) 延迟的操作 ID。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅 IXAudio2Voice
+值
+Windows xaudio2.h
+展开表
+
+≦ 264 ≧
+IXAudio2Voice：：
+SetOutputFilterParameters 方法 (xaudio2.h) 项目2023/08/28
+设置其中一个语音发送的筛选器参数。
+语法 C++
+\\HRESULT SetOutputFilterParameters(
+  [in] IXAudio2Voice                   *pDestinationVoice,
+  [in] const XAUDIO2_FILTER_PARAMETERS *pParameters,   [in] UINT32                          OperationSet);
+参数
+[in] pDestinationVoice
+指向将设置其筛选器参数的发送的目标语音的 IXAudio2Voice 指针。[in] pParameters
+指向包含筛选器信息的 XAUDIO2_FILTER_PARAMETERS 结构的指针。[in] OperationSet
+将此调用标识为延迟批处理的一部分。 有关详细信息，请参阅 XAudio2 操作集 概述。返回值
+如果成功，则返回S_OK，否则返回错误代码。 有关错误代码的说明，请参阅 XAudio2 错误代码。
+注解
+如果未使用 XAUDIO2_SEND_USEFILTER 标志创建发送，则 SetOutputFilterParameters 将失败。 此方法仅在属于源语音和子混合语音的发送上可用，对主语音的发送没有影响。
+
+≦ 265 ≧
+ 
+注意IXAudio2Voice：：GetOutputFilterParameters 始终返回此发送的实际当前筛选器参数。 但是，这些参数可能与最新的 IXAudio2Voice：：SetOutputFilterParameters 调用设置的参数不匹配：实际参数仅在 IXAudio2Voice：：SetOutputFilterParameters 调用 (之后或在相应的 IXAudio2：：CommitChanges 调用之后的音频引擎下次运行时更改， 如果调用 了 IXAudio2Voice：：SetOutputFilterParameters 并) 延迟的操作 ID。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅 IXAudio2Voice
+ 
+Windows xaudio2.h
+展开表
+
+≦ 266 ≧
+IXAudio2Voice：：SetOutputMatrix 方法
+(xaudio2.h) 项目2023/08/28
+设置语音最终输出的每个声道的音量级别。 这些通道映射到指定目标语音的输入通道。
+语法 C++
+\\HRESULT SetOutputMatrix(
+  [in] IXAudio2Voice *pDestinationVoice,   [in] UINT32        SourceChannels,
+  [in] UINT32        DestinationChannels,
+  [in] const float   *pLevelMatrix,   [in] UINT32        OperationSet);
+参数
+[in] pDestinationVoice
+指向要为其设置卷级别的目标 IXAudio2Voice 的指针。
+注意 如果语音发送到单个目标语音，则指定 NULL 将导致 SetOutputMatrix 在该目标语音
+上运行。  
+[in] SourceChannels
+确认语音的输出声道计数。 这是链中最后一个效果生成的通道数。[in] DestinationChannels
+确认目标语音的输入通道计数。[in] pLevelMatrix
+发送到目标语音的 [SourceChannels × DestinationChannels] 音量级别的数组。 从源通道 S 发送到目标通道 D 的级别以 pLevelMatrix[SourceChannels × D + S] 的形式指定。
+
+≦ 267 ≧
+例如，将双声道立体声输入呈现到 5.1 输出中，该输出加权到前声道（但中心通道和低频通道中不存在）时，矩阵可能具有下表中显示的值。
+ﾉ
+输出 Left Right 前中心 LFE 左后向右后  
+左输入 [数组索引]
+1.0 [0] 0.0 [2] 0.0 [4] 0.0 [6] 0.8 [8] 0.0 [10]
+右输入 [数组索引]
+0.0 [1] 1.0 [3] 0.0 [5] 0.0 [7] 0.0 [9] 0.8 [11]
+展开表
+注意 左右输入完全映射到输出的左声道和右声道;80% 的左输入和右输入映射到后左通道和
+右声道。  
+有关卷级别的详细信息，请参阅备注。[in] OperationSet
+将此调用标识为延迟批处理的一部分。 有关详细信息，请参阅 XAudio2 操作集 概述。返回值
+如果成功，则返回S_OK，否则返回错误代码。 有关错误代码的说明，请参阅 XAudio2 错误代码。
+注解
+此方法仅对源语音和子混合语音有效，因为主语音直接写入设备，而无需混合矩阵。
+音量级别表示为 -XAUDIO2_MAX_VOLUME_LEVEL 和 XAUDIO2_MAX_VOLUME_LEVEL (-2²-2²⁴ 到 2²⁴) 之间的浮点振幅乘法器，最大增益为 144.5 dB。 音量级别为 1.0 表示没有衰减或增益，0 表示静音。 负级别可用于反转音频的相位。 有关音量控制的其他信息，请参阅 XAudio2 音量和音调 控制。
+
+≦ 268 ≧
+X3DAudio 函数 X3DAudioCalculate 可以生成输出矩阵，以便根据声音的位置和侦听器的位置与 SetOutputMatrix 一起使用。
+注意IXAudio2Voice：：GetOutputMatrix 始终返回 IXAudio2Voice：：SetOutputMatrix
+最近设置的级别。 但是，它们可能实际上尚未生效：它们仅在 IXAudio2Voice：： SetOutputMatrix 调用 (之后或相应 IXAudio2：：CommitChanges 调用之后（如果
+IXAudio2Voice：：SetOutputMatrix 调用 IXAudio2Voice：：SetOutputMatrix 在) 调用
+IXAudio2Voice：：SetOutputMatrix ）之后才会生效。  
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅如何：更改语音音量 IXAudio2Voice
+ 
+Windows xaudio2.h
+展开表
+
+≦ 269 ≧
+IXAudio2Voice：：SetOutputVoices 方法
+(xaudio2.h) 项目2023/08/28
+指定一组新的子混合语音或主语音来接收语音的输出。
+语法 C++
+\\HRESULT SetOutputVoices(
+  [in] const XAUDIO2_VOICE_SENDS *pSendList);
+参数
+[in] pSendList
+指向目标语音 的XAUDIO2_VOICE_SENDS 结构指针的数组。 如果 pSendList 为 NULL，则语音会将其输出发送到当前主语音。 若要将语音设置为不将其输出发送到任何位置，请将
+XAUDIO2_VOICE_SENDS 的 OutputCount 成员设置为 0。 发送列表中的所有语音必须具有相同
+的输入采样率，有关其他信息，请参阅 XAudio2 采样率转换 。返回值
+如果成功，则返回S_OK，否则返回错误代码。 有关 XAudio2 特定错误代码的说明，请参阅
+XAudio2 错误代码。注解
+此方法仅对源语音和子混合语音有效。 掌握语音无法将音频发送到其他语音。
+调用 SetOutputVoices 后，语音的当前发送级别将替换为默认发送矩阵。 必须调用 IXAudio2Voice：：SetOutputMatrix 方法，为新的 sendlist 设置自定义矩阵。
+从回调 (（即 IXAudio2EngineCallback 或 IXAudio2VoiceCallback) ）中调用 SetOutputVoices 无效。 如果在回调中调用 SetOutputVoices ，则返回XAUDIO2_E_INVALID_CALL。
+
+≦ 270 ≧
+ 
+注意 调用 SetOutputVoices 会使以前使用 IXAudio2Voice：：SetOutputMatrix 设置的任何发送矩阵失效。
+平台要求
+Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7) 要求
+ﾉ
+ 
+目标平台标头
+另请参阅 IXAudio2Voice
+ 
+Windows xaudio2.h
+展开表
+
+≦ 271 ≧
+IXAudio2Voice：：SetVolume 方法
+(xaudio2.h) 项目2024/03/04
+设置语音的总体音量级别。
+语法 C++
+\\HRESULT SetVolume(   [in] float  Volume,
+  [in] UINT32 OperationSet);
+参数[in] Volume
+要使用的总体卷级别。 有关卷级别的详细信息，请参阅备注。[in] OperationSet
+将此调用标识为延迟批处理的一部分。 有关详细信息，请参阅 XAudio2 操作集 概述。返回值
+如果成功，则返回S_OK，否则返回错误代码。 有关错误代码的说明，请参阅 XAudio2 错误代码。
+注解
+SetVolume 控制语音的主输入音量。 主音量级别根据语音类型在不同时间应用。 对于子混合和主语音，音量级别在应用语音的内置筛选器和效果链之前应用。 对于源语音，主音量级别在应用语音的筛选器和效果链后应用。
+音量级别表示为 -XAUDIO2_MAX_VOLUME_LEVEL 和 XAUDIO2_MAX_VOLUME_LEVEL (-2²-2²⁴ 到 2²⁴) 之间的浮点振幅乘法器，最大增益为 144.5 dB。 音量级别为 1.0 表示没有衰减或增益，0 表示静音。 负级别可用于反转音频的相位。 有关音量控制的其他信息，请参阅 XAudio2 音量和音调 控制。
+
+≦ 272 ≧
+ 
+注意IXAudio2Voice：：GetVolume 始终返回 最近由 IXAudio2Voice：：SetVolume 设置的卷。 但是，它可能实际上尚未生效：如果 IXAudio2Voice：：SetVolume 调用) 延迟的操作 ID 调用 IXAudio2：：SetVolume 调用了 IXAudio2：：SetVolume，则它只会在
+IXAudio2Voice：：SetVolume 调用 (之后或相应的 IXAudio2：：CommitChanges 调用后才会生效。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅如何：更改语音音量如何：使用提交语音 IXAudio2Voice
+值
+Windows xaudio2.h
+展开表
+
+≦ 273 ≧
+IXAudio2VoiceCallback 接口 (xaudio2.h) 项目2023/08/28
+IXAudio2VoiceCallback 接口包含当给定 IXAudio2SourceVoice 中发生某些事件时通知客户端的方法。
+此接口应由 XAudio2 客户端实现。 XAudio2 通过 客户端在 IXAudio2：：CreateSourceVoice 方
+法中提供的接口指针调用这些方法。 此接口中的方法返回 void，而不是 HRESULT。有关回调实现的限制，请参阅 XAudio2 回调 主题。
+ﾉ
+方法
+OnBufferEnd OnBufferStart OnLoopEnd OnStreamEnd OnVoiceError
+OnVoiceProcessingPassEnd OnVoiceProcessingPassStart
+方法
+说明
+在语音完成处理缓冲区时调用。
+当语音即将开始处理新的音频缓冲区时调用。
+当语音到达循环的结束位置时调用。当语音刚刚播放完连续音频流时调用。在语音处理期间发生严重错误时调用。在语音的处理过程结束之后调用。
+展开表
+在 XAudio2 从语音的缓冲区队列读取数据之前，在每个语音的处理阶段调用。
+IXAudio2VoiceCallback 接口具有这些方法。
+ﾉ
+ 
+IXAudio2VoiceCallback：：OnBufferEnd 在语音完成处理缓冲区时调用。
+IXAudio2VoiceCallback：：OnBufferStart
+当语音即将开始处理新的音频缓冲区时调用。
+展开表
+
+≦ 274 ≧
+ 
+IXAudio2VoiceCallback：：OnLoopEnd 当语音到达循环的结束位置时调用。 IXAudio2VoiceCallback：：OnStreamEnd 当语音刚刚播放完连续音频流时调用。 IXAudio2VoiceCallback：：OnVoiceError 在语音处理期间发生严重错误时调用。
+IXAudio2VoiceCallback：：OnVoiceProcessingPassEnd 在语音的处理过程结束之后调用。
+IXAudio2VoiceCallback：：OnVoiceProcessingPassStart
+在 XAudio2 从语音的缓冲区队列读取数据之前，在每个语音的处理阶段调用。
+注解平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅
+如何：对磁盘中的声音进行流式处理如何：使用源语音回调
+值
+Windows xaudio2.h
+展开表
+
+≦ 275 ≧
+XAudio2 回调 XAudio2 接口
+
+≦ 276 ≧
+IXAudio2VoiceCallback：：OnBufferEnd 方
+法 (xaudio2.h) 项目2024/03/04
+在语音完成处理缓冲区时调用。
+语法 C++
+void OnBufferEnd(
+  void *pBufferContext);
+参数
+pBufferContext
+提交缓冲区时分配给 XAUDIO2_BUFFER 结构的 pContext 成员的上下文指针。
+返回值无
+备注
+在 OnBufferEnd 回调后，可以安全地释放与 pBufferContext 关联的缓冲区的音频内存。
+pBufferContext 是最初由 XAUDIO2_BUFFER 结构的 pContext 成员提供的上下文指针，可以是 NULL。
+OnBufferEnd 保证在当前缓冲区的最后一个字节消耗完毕后，以及下一个缓冲区的第一个字节被使用之前调用。 此回调可用于覆盖或释放已完成缓冲区引用的音频数据，并根据需要更新与语音关联的其他状态。
+有关 IXAudio2VoiceCallback 接口方法的信息，请参阅 XAudio2 回调 主题。平台要求
+
+≦ 277 ≧
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅
+如何：对磁盘中的声音进行流式处理
+如何：使用源语音回调 IXAudio2VoiceCallback
+值
+Windows xaudio2.h
+展开表
+
+≦ 278 ≧
+IXAudio2VoiceCallback：：OnBufferStart
+方法 (xaudio2.h) 项目2024/03/04
+当语音即将开始处理新的音频缓冲区时调用。
+语法 C++
+void OnBufferStart(
+  void *pBufferContext);
+参数
+pBufferContext
+提交缓冲区时分配给 XAUDIO2_BUFFER 结构的 pContext 成员的上下文指针。
+返回值无
+备注
+pBufferContext 是最初由 XAUDIO2_BUFFER 结构的 pContext 成员提供的上下文指针，可以是 NULL。
+保证在使用当前缓冲区的第一个字节之前调用 OnBufferStart。 适合使用此回调来更改语音状态，如下所示。
+将新缓冲区提交到语音
+调整语音的音量、音调和效果参数启用或禁用语音效果链中的效果
+在 XAudio2 回调中执行上面列出的所有操作都是同步的，因此更改将立即生效，从而影响即将启动的缓冲区。
+
+≦ 279 ≧
+还可以安全地使用此回调将音频数据直接写入缓冲区，这对于低延迟流式处理方案非常有用。但是，与所有 XAudio2 回调一样，不应执行占用大量处理器时间或可能阻止执行（包括同步磁盘或网络读取）的工作。
+有关 IXAudio2VoiceCallback 接口方法的信息，请参阅 XAudio2 回调 部分。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅如何：使用源语音回调 IXAudio2VoiceCallback XAudio2 回调
+值
+Windows xaudio2.h
+展开表
+
+≦ 280 ≧
+IXAudio2VoiceCallback：：OnLoopEnd 方
+法 (xaudio2.h) 项目2023/08/28
+当语音到达循环的结束位置时调用。
+语法 C++
+void OnLoopEnd(
+  void *pBufferContext);
+参数
+pBufferContext
+提交缓冲区时分配给 XAUDIO2_BUFFER 结构的 pContext 成员的上下文指针。
+返回值无
+备注
+pBufferContext 是最初由 XAUDIO2_BUFFER 结构的 pContext 成员提供的上下文指针，可以是 NULL。
+OnLoopEnd 不精确采样;也就是说，回调中的操作不会在处理给定样本的确切时刻发生。 仅保证在处理循环中的最后一个样本后不久调用它。
+有关 IXAudio2VoiceCallback 接口方法的信息，请参阅 XAudio2 回调 部分。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+
+≦ 281 ≧
+要求   目标平台标头
+另请参阅如何：使用源语音回调 IXAudio2VoiceCallback XAudio2 回调
+ 
+Windows xaudio2.h
+ﾉ
+展开表
+
+≦ 282 ≧
+IXAudio2VoiceCallback：：OnStreamEnd
+方法 (xaudio2.h) 项目2023/08/28
+当语音刚刚播放完连续音频流时调用。
+语法 C++
+void OnStreamEnd();
+返回值无
+备注
+当 XAudio2 处理设置了XAUDIO2_END_OF_STREAM标志的XAUDIO2_BUFFER时，将触发
+OnStreamEnd。 有关详细信息，请参阅 IXAudio2SourceVoice：：SubmitSourceBuffer 方法。 OnStreamEnd 回调指示 XAudio2 已完成使用提交到语音的最后一个缓冲区。 使用 PCM 数据，可以保证已播放所有音频，并且可以安全地停止或销毁语音。
+OnStreamEnd 回调仅指示已处理设置了 XAUDIO2_END_OF_STREAM 标志的
+XAUDIO2_BUFFER。 回调严格是信息性的，不会更改触发它的源语音的状态。 语音一直处于启动状态，直到调用 IXAudio2SourceVoice：：Stop ，并将继续播放提交的源缓冲区并触发其他回调。
+保证在当前缓冲区的最后一个字节已使用之后调用 OnStreamEnd。
+有关 IXAudio2VoiceCallback 接口方法的信息，请参阅 XAudio2 回调 主题。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+
+≦ 283 ≧
+ 
+目标平台标头
+另请参阅如何：使用源语音回调 IXAudio2VoiceCallback XAudio2 回调
+ 
+Windows xaudio2.h
+ﾉ
+展开表
+
+≦ 284 ≧
+IXAudio2VoiceCallback：：OnVoiceError 方
+法 (xaudio2.h) 项目2024/03/04
+在语音处理期间发生严重错误时调用。
+语法 C++
+void OnVoiceError(
+  void    *pBufferContext,
+  HRESULT Error);
+参数
+pBufferContext
+提交缓冲区时分配给 XAUDIO2_BUFFER 结构的 pContext 成员的上下文指针。 Error
+遇到的错误的 HRESULT 代码。
+返回值无
+备注
+如果语音处理期间出错（例如 Xbox 360 上的硬件 XMA 解码器错误），将调用 OnVoiceError。参数报告发生错误时正在处理的缓冲区及其 HRESULT 代码。 如果错误无法通过销毁并重新创建
+语音来恢复，也将调用 OnCriticalError 引擎回调。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+
+≦ 285 ≧
+要求要求目标平台标头
+另请参阅如何：使用源语音回调 IXAudio2VoiceCallback XAudio2 回调
+值
+Windows xaudio2.h
+ﾉ
+展开表
+
+≦ 286 ≧
+IXAudio2VoiceCallback：：
+OnVoiceProcessingPassEnd 方法
+(xaudio2.h) 项目2024/03/13
+在语音的处理阶段结束后调用。
+语法 C++
+void OnVoiceProcessingPassEnd();
+返回值无
+备注
+有关 IXAudio2VoiceCallback 接口方法的信息，请参阅 XAudio2 回调 主题。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅
+值
+Windows xaudio2.h
+展开表
+
+≦ 287 ≧
+如何：使用源语音回调 IXAudio2VoiceCallback XAudio2 回调
+
+≦ 288 ≧
+IXAudio2VoiceCallback：：
+OnVoiceProcessingPassStart 方法
+(xaudio2.h) 项目2024/03/04
+在 XAudio2 从语音的缓冲区队列读取数据之前，在每个语音的处理阶段调用。
+语法 C++
+void OnVoiceProcessingPassStart(
+  UINT32 BytesRequired);
+参数 BytesRequired
+必须立即提交以避免饥饿的字节数。 这允许实现实时流式处理方案;客户端可以始终将绝对最小数据保留在语音上排队，并在需要数据之前传递新数据。 此模型提供 XAudio2 可实现的最低延迟。 对于 xWMA 和 XMA，BytesRequired 将始终为零，因为 xWMA 或 XMA 数据帧的概念毫无意义。
+注意 在源语音上始终有大量可用数据的情况下， BytesRequired 应始终报告零，因为它不
+需要立即任何样本来避免故障。  
+返回值无
+备注
+有关 IXAudio2VoiceCallback 接口方法的信息，请参阅 XAudio2 回调 主题。平台要求
+
+≦ 289 ≧
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅如何：使用源语音回调 IXAudio2VoiceCallback XAudio2 回调
+值
+Windows xaudio2.h
+展开表
+
+≦ 290 ≧
+xaudio2.h) (XAUDIO2_BUFFER 结构项目2023/08/28
+表示与 IXAudio2SourceVoice：：SubmitSourceBuffer 一起使用的音频数据缓冲区。
+语法 C++
+typedef struct XAUDIO2_BUFFER {   UINT32     Flags;
+  UINT32     AudioBytes;   const BYTE *pAudioData;   UINT32     PlayBegin;   UINT32     PlayLength;   UINT32     LoopBegin;   UINT32     LoopLength;   UINT32     LoopCount;   void       *pContext;} XAUDIO2_BUFFER;
+成员 Flags
+提供有关音频缓冲区的其他信息的标志。 可以为 0，或以下值。
+Value
+XAUDIO2_END_OF_STREAM AudioBytes
+说明
+ﾉ
+展开表
+指示此缓冲区之后的队列中不能有任何缓冲区。 此标志的唯一效果是禁止因缓冲区队列不足而导致的调试输出警告。 
+音频数据的大小（以字节为单位）。 不得大于 xaudio2.h) 中为 PCM 数据定义的 XAUDIO2_MAX_BUFFER_BYTES (，且不得大于 xma2defs.h) 中为 XMA 数据定义的 XMA_READBUFFER_MAX_BYTES (。
+注意 使用 IXAudio2SourceVoice：：SubmitSourceBuffer 提交到 XAudio2 语音的 XMA 缓冲区必须包含完整的 XMA 块。 完整的 XMA 块的大小必须与 XMA2WAVEFORMATEX相
+
+≦ 291 ≧
+ 
+同。BytesPerBlock 值，文件中最后一个 XMA 块除外，该值可能较短，但仍被视为已完成。
+pAudioData
+指向音频数据的指针。
+ﾉ
+Xbox 360
+展开表
+为包含 XMA 数据的缓冲区分配的内存的块对齐方式必须为 2048。 这是使用 XPhysicalAlloc 完成的，并将
+ulAlignment 参数设置为 2048。 PlayBegin
+缓冲区中应播放的第一个示例。
+对于 XMA 缓冲区，此值必须是 128 个样本的倍数。 PlayLength
+要播放的区域的长度（以示例为单位）。 值为零表示播放整个缓冲区，在本例中， PlayBegin 也必须为零。 对于 ADPCM 数据，此值必须是包含此XAUDIO2_BUFFER结构的
+ADPCMWAVEFORMAT 结构中 wSamplesPerBlock的倍数。 LoopBegin
+要循环的区域的第一个示例。 LoopBegin 的值必须小于 PlayBegin + PlayLength。 LoopBegin 可
+以小于 PlayBegin。 如果 LoopCount 为 0，则LoopBegin 必须为 0。 LoopLength
+循环区域的长度（以样本为单位）。 LoopBegin+LoopLength 的值必须大于 PlayBegin 且小于 PlayBegin + PlayLength。 如果 LoopCount 为 0，则 LoopLength 必须为零。 如果 LoopCount 不
+为 0，则循环长度为 0 表示应循环整个样本。 对于 ADPCM 数据，此值必须是包含此 XAUDIO2_BUFFER结构的 ADPCMWAVEFORMAT 结构中 wSamplesPerBlock的倍数。
+LoopCount
+循环区域的次数。 此值可以介于 0 和 XAUDIO2_MAX_LOOP_COUNT 之间。 如果 LoopCount 为零，则不执行循环， LoopBegin 和 LoopLength 必须为 0。 若要永久循环，请将 LoopCount 设置为 XAUDIO2_LOOP_INFINITE。
+
+≦ 292 ≧
+pContext
+要在回调中传回给客户端的上下文值。 这可能为 NULL。注解
+XAudio2 音频数据交错，每个通道的数据对于特定样本数是相邻的。 例如，如果有一个 4 声道波播放到 XAudio2 源语音中，则音频数据将是通道 0 的样本、通道 1 的样本、通道 2 的样本、通道 3 的样本，然后是通道 0、1、2、3 的下一个样本，等等。
+XAUDIO2_BUFFER的 AudioBytes 和 pAudioData 成员对应于正在播放的文件的“data”RIFF 区块的大小（以字节为单位）和内容。 在 Xbox 360 上加载文件时，可能需要对区块的内容进行字节交换。
+一旦 IXAudio2SourceVoice：：SubmitSourceBuffer 调用传递给返回，就可以释放分配用于保存 XAUDIO2_BUFFER或XAUDIO2_BUFFER_WMA结构的内存。 结构指向的数据分别 (pAudioData 和 pDecodedPacketCumulativeBytes，) 无法释放，直到缓冲区完成 (，由
+IXAudio2VoiceCallback：：OnBufferEnd 回调) 或语音停止或销毁。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+标头
+另请参阅
+如何：构建基本的音频处理图
+ 
+xaudio2.h
+IXAudio2SourceVoice：：SubmitSourceBuffer XAudio2 结构
+展开表
+
+≦ 293 ≧
+XAUDIO2_BUFFER_WMA 结构 (xaudio2.h) 项目2024/03/04
+在提交 xWMA 数据时与 IXAudio2SourceVoice：：SubmitSourceBuffer 一起使用。
+语法 C++
+typedef struct XAUDIO2_BUFFER_WMA {
+  const UINT32 *pDecodedPacketCumulativeBytes;
+  UINT32       PacketCount;} XAUDIO2_BUFFER_WMA;
+成员
+pDecodedPacketCumulativeBytes
+解码数据包累积数据大小数组，每个元素是相应 xWMA 数据包按顺序解码后累积的字节数，必
+须具有 PacketCount 元素。 PacketCount
+提交的 xWMA 数据包数必须为 >= 1，并均匀划分为相应的XAUDIO2_BUFFER。传递给
+IXAudio2SourceVoice：：SubmitSourceBuffer 的 AudioBytes 值。注解
+一次流式处理几个数据包的 xWMA 文件时，应在最后一个数据包上指定
+XAUDIO2_END_OF_STREAM。 或者，应用程序可以在提交最后一个数据包后调用 IXAudio2SourceVoice：:D iscontinuity 。
+此外，当一次流式传输 xWMA 文件几个数据包时，应用程序应从当前提交的数据包的所有条目中减去上一个数据包的 pDecodedPacketCumulativeBytes[PacketCount-1]。
+XAUDIO2_BUFFER_WMA的成员对应于正在播放的 xWMA 文件的“dpds”RIFF 区块中包含的值。 PacketCount 将对应于区块的 UINT32 大小。 pDecodedPacketCumulativeBytes 将对应于包含区块内容的 UINT32 缓冲区。 在 Xbox 360 上加载缓冲区时，需要对缓冲区的内容进行字节交换。
+一旦 IXAudio2SourceVoice：：SubmitSourceBuffer 调用它传递给返回，就可立即释放分配用于保存XAUDIO2_BUFFER或XAUDIO2_BUFFER_WMA结构的内存。 结构指向的数据分别
+
+≦ 294 ≧
+(pAudioData 和 pDecodedPacketCumulativeBytes，) 在缓冲区完成由
+IXAudio2VoiceCallback：：OnBufferEnd 回调) 或语音停止并销毁 (之前无法释放。
+Windows 8.x 中的 XAUDIO 2.8 不支持 xWMA 解码。 改用 Windows Media Foundation API 执行从 WMA 到 PCM 的解码。 此功能在 DirectX SDK 版本的 XAUDIO 和 Windows 10 的 XAUDIO
+2.9 中可用。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求 Header
+另请参阅结构
+值
+xaudio2.h
+展开表
+
+≦ 295 ≧
+XAUDIO2_DEBUG_CONFIGURATION 结构
+(xaudio2.h) 项目2024/03/04
+包含 XAudio2 的新全局调试配置。 与 SetDebugConfiguration 函数一起使用。
+语法 C++
+typedef struct XAUDIO2_DEBUG_CONFIGURATION {
+  UINT32 TraceMask;   UINT32 BreakMask;   BOOL   LogThreadID;   BOOL   LogFileline;
+  BOOL   LogFunctionName;   BOOL   LogTiming;
+} XAUDIO2_DEBUG_CONFIGURATION;
+成员 TraceMask
+已启用调试消息类型的位掩码。 可以是 0 或以下一个或多个值：
+ﾉ
+值
+XAUDIO2_LOG_ERRORS XAUDIO2_LOG_WARNINGS
+XAUDIO2_LOG_INFO XAUDIO2_LOG_DETAIL
+说明
+记录错误消息。  记录警告消息。
+注意 启用XAUDIO2_LOG_WARNINGS还会启用
+XAUDIO2_LOG_ERRORS。  
+记录信息性消息。  记录详细信息消息。
+展开表
+
+≦ 296 ≧
+XAUDIO2_LOG_API_CALLS XAUDIO2_LOG_FUNC_CALLS
+XAUDIO2_LOG_TIMING XAUDIO2_LOG_LOCKS XAUDIO2_LOG_MEMORY
+XAUDIO2_LOG_STREAMING BreakMask
+ 
+注意 启用XAUDIO2_LOG_DETAIL还可以启用 XAUDIO2_LOG_INFO。
+记录公共 API 函数条目和退出。  记录内部函数条目和退出。
+注意 启用XAUDIO2_LOG_FUNC_CALLS还可以启用
+XAUDIO2_LOG_API_CALLS。  
+检测到的日志延迟和其他计时数据。  记录关键部分和互斥体的使用情况。 
+记录内存堆使用情况信息。  记录音频流式处理信息。 
+将导致立即中断的消息类型。 可以是 0 或以下值之一：
+值
+XAUDIO2_LOG_ERRORS XAUDIO2_LOG_WARNINGS
+LogThreadID
+说明
+中断错误消息。  中断警告消息。
+注意 启用XAUDIO2_LOG_WARNINGS还会启用
+XAUDIO2_LOG_ERRORS。  
+指示是否使用每条消息记录线程 ID。 LogFileline
+指示是否记录源文件和行号。
+ﾉ
+展开表
+
+≦ 297 ≧
+LogFunctionName
+指示是否记录函数名称。 LogTiming
+指示是否记录消息时间戳。注解
+通过将 XAUDIO2_DEBUG_CONFIGURATION 初始化为所有零，可以完全关闭调试消息。注意对于此版本的 XAudio2，TraceMask 或 BreakMask 仅支持 XAUDIO2_LOG_ERRORS
+值。 将忽略所有其他成员和值。  
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求 Header
+另请参阅结构
+值
+xaudio2.h
+展开表
+
+≦ 298 ≧
+XAUDIO2_EFFECT_CHAIN 结构 (xaudio2.h)
+项目2023/08/28 定义效果链。
+语法 C++
+typedef struct XAUDIO2_EFFECT_CHAIN {
+  UINT32                    EffectCount;
+  XAUDIO2_EFFECT_DESCRIPTOR *pEffectDescriptors;} XAUDIO2_EFFECT_CHAIN;
+成员 EffectCount
+语音的效果链中的效果数。 pEffectDescriptors
+包含指向 XAPO 实例的指针 的XAUDIO2_EFFECT_DESCRIPTOR 结构的数组。
+注解平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+标头
+ 
+xaudio2.h
+展开表
+
+≦ 299 ≧
+另请参阅如何：创建效果链
+IXAudio2：：CreateMasteringVoice IXAudio2：：CreateSourceVoice IXAudio2：：CreateSubmixVoice IXAudio2Voice：：SetEffectChain
+XAPO 概述 XAudio2 结构
+
+≦ 300 ≧
+xaudio2.h) (XAUDIO2_EFFECT_DESCRIPTOR
+结构项目2023/08/28
+包含有关在效果链中使用的 XAPO 的信息。
+语法 C++
+typedef struct XAUDIO2_EFFECT_DESCRIPTOR {   IUnknown *pEffect;
+  BOOL     InitialState;   UINT32   OutputChannels;} XAUDIO2_EFFECT_DESCRIPTOR;
+成员 pEffect
+指向 XAPO 对象的 IUnknown 接口的指针。 InitialState
+如果效果应以启用状态开始，则为 TRUE。 否则为 FALSE。 OutputChannels
+效果应生成的输出通道数。注解
+XAPO 实例作为 IUnknown 接口传递给 XAudio2，XAudio2 使用 IXAPO：：QueryInterface 获取 IXAPO 接口并检测 XAPO 是否实现 IXAPOParameters 接口。
+有关将 XAPOs 与 XAudio2 配合使用的其他信息 ，请参阅如何：创建效果链 和 如何：在
+XAudio2 中使用 XAPO。平台要求
+
+≦ 301 ≧
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+标头
+另请参阅 XAPO 概述 XAudio2 结构
+XAudio2_Effect_Chain
+ 
+xaudio2.h
+展开表
+
+≦ 302 ≧
+xaudio2.h) (XAUDIO2_FILTER_PARAMETERS
+结构项目2023/08/28
+定义源语音的筛选器参数。
+语法 C++
+typedef struct XAUDIO2_FILTER_PARAMETERS {   XAUDIO2_FILTER_TYPE Type;
+  float               Frequency;   float               OneOverQ;} XAUDIO2_FILTER_PARAMETERS;
+成员 Type
+XAUDIO2_FILTER_TYPE。 Frequency
+按 (2 * sin (pi * (所需的筛选器截止频率) /sampleRate) ) 计算的筛选器弧度频率。 频率必须大于或等于 0 且小于或等于 XAUDIO2_MAX_FILTER_FREQUENCY。 允许的最大频率等于源声音的采样率除以 6，对应于最大筛选器弧度频率 1。 例如，如果声音的采样率为 48000，而所需的截止频率是该采样率允许的最大值 8000，则 Frequency 的值为 1。 如果定义了
+XAUDIO2_HELPER_FUNCTIONS，XAudio2.h 将包括 XAudio2RadiansToCutoffFrequency 和
+XAudio2CutoffFrequencyToRadians 帮助程序函数，用于在 hertz 和弧度频率之间进行转换。 定义XAUDIO2_HELPER_FUNCTIONS还将包括 XAudio2CutoffFrequencyToOnePoleCoefficient ，用于在 hertz 和适合与 LowPassOnePoleFilter 和 HighPassOnePoleFilter 一起使用的单极系数之间
+进行转换。 OneOverQ
+Q 因子的倒数。 控制频率超出频率的阻尼速度。 值越大，阻尼速度越快，值越小则会导致阻尼
+逐渐发生。 必须大于 0 且小于或等于 XAUDIO2_MAX_FILTER_ONEOVERQ。注解
+
+≦ 303 ≧
+使用以下值设置XAUDIO2_FILTER_PARAMETERS在声学上等效于完全绕过的筛选器。 XAUDIO2_FILTER_PARAMETERS FilterParams;
+FilterParams.Frequency = 1.0f;     FilterParams.OneOverQ = 1.0f;
+FilterParams.Type = LowPassFilter;
+以下公式显示了 XAUDIO2_FILTER_PARAMETERS 的成员与每语音筛选器之间的关系。
+Yl( n ) = F1 yb( n ) + yl( n - 1 ) Yb( n ) = F1 yh( n ) + yb( n - 1 )
+Yh( n ) = x( n ) - yl( n ) - OneOverQ(yb( n - 1 ) Yn( n ) = Yl(n) + Yh(n)
+其中：
+Yl = lowpass output Yb = bandpass output Yh = highpass output Yn = notch output
+F1 = XAUDIO2_FILTER_PARAMETERS.Frequency
+OneOverQ = XAUDIO2_FILTER_PARAMETERS.OneOverQ 平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+标头
+ 
+xaudio2.h
+展开表
+
+≦ 304 ≧
+另请参阅
+IXAudio2Voice：：GetFilterParameters IXAudio2Voice：：SetFilterParameters XAudio2 结构
+
+≦ 305 ≧
+XAUDIO2_FILTER_TYPE 枚举 (xaudio2.h) 项目2024/03/04
+指示筛选器类型。
+语法 C++
+typedef enum XAUDIO2_FILTER_TYPE {
+  LowPassFilter,   BandPassFilter,   HighPassFilter,   NotchFilter,
+  LowPassOnePoleFilter,   HighPassOnePoleFilter} ;
+常量
+ﾉ
+ 
+LowPassFilter
+衰减 (将) 频率降低到截止频率以上。 BandPassFilter
+衰减给定范围之外的频率。 HighPassFilter
+将频率衰减到截止频率以下。 NotchFilter
+衰减给定范围内的频率。 LowPassOnePoleFilter
+展开表
+衰减超过截止频率的频率。 这是单极过滤器， XAUDIO2_FILTER_PARAMETERS。OneOverQ 不起作用。 HighPassOnePoleFilter
+将频率衰减到截止频率以下。 这是单极过滤器， XAUDIO2_FILTER_PARAMETERS。OneOverQ 不起作用。注解
+
+≦ 306 ≧
+ 
+注意 请注意，XAUDIO2的 DirectX SDK 版本不支持 LowPassOnePoleFilter 或 HighPassOnePoleFilter。
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求 Header
+另请参阅
+XAUDIO2_FILTER_PARAMETERS XAudio2：：Enumerations
+值
+xaudio2.h
+展开表
+
+≦ 307 ≧
+XAUDIO2_PERFORMANCE_DATA 结构(xaudio2.h)
+项目2024/03/04 包含性能信息。
+语法 C++
+typedef struct XAUDIO2_PERFORMANCE_DATA {
+  UINT64 AudioCyclesSinceLastQuery;   UINT64 TotalCyclesSinceLastQuery;   UINT32 MinimumCyclesPerQuantum;   UINT32 MaximumCyclesPerQuantum;   UINT32 MemoryUsageInBytes;
+  UINT32 CurrentLatencyInSamples;
+  UINT32 GlitchesSinceEngineStarted;
+  UINT32 ActiveSourceVoiceCount;   UINT32 TotalSourceVoiceCount;   UINT32 ActiveSubmixVoiceCount;   UINT32 ActiveResamplerCount;   UINT32 ActiveMatrixMixCount;   UINT32 ActiveXmaSourceVoices;
+  UINT32 ActiveXmaStreams;} XAUDIO2_PERFORMANCE_DATA;
+成员
+AudioCyclesSinceLastQuery
+自上次调用 IXAudio2：：StartEngine 或 IXAudio2：：GetPerformanceData 函数以来，音频处理所用的 CPU 周期。
+TotalCyclesSinceLastQuery
+自上次调用以来经过的总 CPU 周期数。
+注意 这仅计算运行 XAudio2 的 CPU 上的周期数。  
+MinimumCyclesPerQuantum
+
+≦ 308 ≧
+自上次调用以来，处理任何单个音频量子所用的 CPU 周期最少。 MaximumCyclesPerQuantum
+自上次调用以来，处理任何单个音频量子的大多数 CPU 周期。 MemoryUsageInBytes
+当前正在使用的总内存。 CurrentLatencyInSamples
+从源缓冲区读取样本到到达扬声器的时间之间的最小延迟。 Windows
+ﾉ
+展开表
+报告的延迟是一个变量值，该值等于 XAudio2 提交给驱动程序的最后一个样本与当前正在播放的样本之间的粗略距离。 以下因素可能会影响延迟：在硬件加速设备上播放多声道音频;音频设备类型 (WavePci、
+WaveCyclic 或 WaveRT) ;在较小程度上，音频硬件实现。  
+ﾉ
+Xbox 360
+报告的延迟是一个固定值，通常为 1,024 个样本 (21.333 毫秒，) 48 kHz。 如果使用
+展开表
+XAUDIOSPEAKERCONFIG_LOW_LATENCY 标志调用了 XOverrideSpeakerConfig，则报告的延迟为 512 个
+样本 (10.667 毫秒（48 kHz) ）。 GlitchesSinceEngineStarted
+自引擎启动以来音频中断总数。
+ActiveSourceVoiceCount 当前播放的源语音数。 TotalSourceVoiceCount 当前存在的源语音总数。 ActiveSubmixVoiceCount
+当前播放的子混合语音数。
+
+≦ 309 ≧
+ActiveResamplerCount
+当前处于活动状态的重新采样器 xAPOS 的数目。 ActiveMatrixMixCount
+当前处于活动状态的矩阵混合 xAPOS 的数目。 ActiveXmaSourceVoices
+Windows 不支持。  
+Xbox 360
+解码 XMA 数据的源语音数。 ActiveXmaStreams
+Windows 不支持。  
+Xbox 360
+一个语音可以使用多个 XMA 流。注解
+使用 记录 CPU 周期。 使用 转换这些值。平台要求
+ﾉﾉ
+ﾉﾉ
+展开表展开表
+展开表展开表
+
+≦ 310 ≧
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求 Header
+另请参阅
+IXAudio2：：GetPerformanceData XAudio2 结构
+值
+xaudio2.h
+展开表
+
+≦ 311 ≧
+XAUDIO2_SEND_DESCRIPTOR 结构
+(xaudio2.h) 项目2024/03/04
+定义一个目标语音，该语音是来自另一个语音的发送目标，并指定是否应使用筛选器。
+语法 C++
+typedef struct XAUDIO2_SEND_DESCRIPTOR {   UINT32        Flags;
+  IXAudio2Voice *pOutputVoice;} XAUDIO2_SEND_DESCRIPTOR;
+成员 Flags
+指示是否应对发送到 pOutputVoice 所指向的语音的数据使用筛选器。 标志可以是 0 或
+XAUDIO2_SEND_USEFILTER。 pOutputVoice
+指向将成为发送目标的 IXAudio2Voice 的指针。 pOutputVoice 成员不能为 NULL。
+注解平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+展开表
+
+≦ 312 ≧
+要求 Header
+另请参阅如何：更改语音音量如何：使用提交语音
+IXAudio2：：CreateSourceVoice IXAudio2：：CreateSubmixVoice IXAudio2Voice：：SetOutputVoices XAudio 结构
+XAudio2 采样率转换
+值
+xaudio2.h
+
+≦ 313 ≧
+XAUDIO2_VOICE_DETAILS 结构 (xaudio2.h) 项目2024/03/13
+包含有关语音的创建标志、输入通道和采样率的信息。
+语法 C++
+typedef struct XAUDIO2_VOICE_DETAILS {
+  UINT32 CreationFlags;   UINT32 ActiveFlags;   UINT32 InputChannels;
+  UINT32 InputSampleRate;} XAUDIO2_VOICE_DETAILS;
+成员 CreationFlags
+用于创建语音的标志;有关详细信息，请参阅各个语音 接口 。 ActiveFlags
+当前在语音上设置的标志。 InputChannels
+语音所需的输入通道数。 InputSampleRate
+语音预期的输入采样率。注解
+请注意，XAUDIO2的 DirectX SDK 版本不支持 ActiveFlags 成员。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+
+≦ 314 ≧
+要求要求 Header
+另请参阅结构
+值
+xaudio2.h
+ﾉ
+展开表
+
+≦ 315 ≧
+XAUDIO2_VOICE_SENDS 结构 (xaudio2.h) 项目2023/08/28
+定义一组语音以从单个输出语音接收数据。
+语法 C++
+typedef struct XAUDIO2_VOICE_SENDS {   UINT32                  SendCount;   XAUDIO2_SEND_DESCRIPTOR *pSends;} XAUDIO2_VOICE_SENDS;
+成员 SendCount
+要接收语音输出的语音数。 OutputCount 值为 0 表示语音不应将输出发送到任何语音。 pSends
+描述目标语音以及发送到语音时应使用的筛选器的 XAUDIO2_SEND_DESCRIPTOR 结构的数组。此数组应包含 SendCount 元素。 如果 SendCount 为 0 pSends 应为 NULL。 请注意， pSends
+不能多次包含同一语音。注解
+如果 pSends 不是 NULL，则其所有元素都必须为非 NULL。 若要将输出发送到默认主语音，请调用 IXAudio2Voice：：SetOutputVoices ，并将 pSendList 参数设置为 NULL。
+将 SendCount 设置为 0 对于某些效果（如音量计或文件编写器）非常有用，这些效果不会生成任何要传递给另一语音的音频输出。
+如果需要，语音将执行单个采样率转换，从语音的输入采样率到语音输出语音的输入采样率。由于将只执行一个采样率转换，因此所有语音的输出语音必须具有相同的输入采样率。 如果语
+音的输入采样率及其输出语音相同，则不执行采样率转换。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+
+≦ 316 ≧
+要求   标头
+另请参阅如何：更改语音音量如何：使用提交语音
+IXAudio2：：CreateSourceVoice IXAudio2：：CreateSubmixVoice IXAudio2Voice：：SetOutputVoices XAudio 结构
+XAudio2 采样率转换
+ 
+xaudio2.h
+ﾉ
+展开表
+
+≦ 317 ≧
+XAUDIO2_VOICE_STATE 结构 (xaudio2.h) 项目2023/08/28
+返回语音的当前状态和光标位置数据。
+语法 C++
+typedef struct XAUDIO2_VOICE_STATE {   void   *pCurrentBufferContext;
+  UINT32 BuffersQueued;   UINT64 SamplesPlayed;} XAUDIO2_VOICE_STATE;
+成员
+pCurrentBufferContext
+指向当前正在处理的 XAUDIO2_BUFFER 中提供的缓冲区上下文的指针，如果语音当前已停止，则指向即将处理的下一个缓冲区。 如果队列中没有缓冲区，pCurrentBufferContext 为 NULL。
+BuffersQueued
+语音上当前排队的音频缓冲区数，包括当前正在处理的音频缓冲区。 SamplesPlayed
+自上次启动或自上次音频流结束以来，此语音处理的样本总数 () XAUDIO2_END_OF_STREAM标志。 此总数包括由于循环而多次播放的示例。 从理论上讲，如果捕获到此时间前语音发出的所有音频，则此参数将是样本中音频流的长度。 如果在调用 IXAudio2SourceVoice：：GetState 时
+指定XAUDIO2_VOICE_NOSAMPLESPLAYED，则不会计算此成员，并且从 IXAudio2SourceVoice：：GetState 返回时未指定其值。 指定
+XAUDIO2_VOICE_NOSAMPLESPLAYED时，IXAudio2SourceVoice：：GetState 需要大约三分
+之一的时间来完成。注解
+对于所有编码格式，包括恒定比特率 (CBR) 格式（如自适应差分脉冲编码调制 (ADPCM) ）， SamplesPlayed 以解码样本表示。 对于脉冲代码调制 (PCM) 格式， SamplesPlayed 以输入样本或输出样本表示。 PCM 格式有从输入到输出的一对一映射。
+
+≦ 318 ≧
+如果客户端需要获取多个语音的相关位置（即，在播放另一语音的指定样本时确切地知道正在播放特定语音的哪个示例），则必须在 XAudio2 引擎回调中发出 IXAudio2SourceVoice：：
+GetState 调用。 这样做可确保在进行呼叫时，不会发出任何语音。平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+标头
+另请参阅结构
+ 
+xaudio2.h
+展开表
+
+≦ 319 ≧
+XAudio2AmplitudeRatioToDecibels 函数
+(xaudio2.h) 项目2024/03/04
+将振幅比值转换为分贝值的内联函数。
+语法 C++
+float XAudio2AmplitudeRatioToDecibels(
+  [in] float Volume);
+参数[in] Volume
+表示振幅比的浮点值。返回值
+返回表示分贝值的浮点值。注解
+必须在生成中显式定义XAUDIO2_HELPER_FUNCTIONS，此函数才可用。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+展开表
+
+≦ 320 ≧
+要求
+目标平台标头
+另请参阅 XAudio2：：Functions
+值
+Windows xaudio2.h
+
+≦ 321 ≧
+XAudio2Create 函数 (xaudio2.h) 项目2025/02/21
+创建新的 XAudio2 对象并返回指向其 IXAudio2 接口的指针。
+语法 C++
+HRESULT XAudio2Create(
+  [out] IXAudio2          **ppXAudio2,   [in]  UINT32            Flags,
+  [in]  XAUDIO2_PROCESSOR XAudio2Processor);
+参数
+[out] ppXAudio2
+如果操作成功，则 返回指向 IXAudio2 对象的指针。[in] Flags
+指定 IXAudio2 对象行为的标志。 此参数的值必须为 0。[in] XAudio2Processor
+一个XAUDIO2_PROCESSOR类型的值，该值指定要使用的 CPU。 如果指定了多个位，系统将为每个处理器创建单独的工作线程。
+XAUDIO2_PROCESSOR 默认值为XAUDIO2_DEFAULT_PROCESSOR。
+警告 如果指定 XAUDIO2_ANY_PROCESSOR，系统将使用设备的所有处理器，并如上所述
+为每个处理器创建一个工作线程。  
+注意 通常应避免指定处理器，因为这会干扰计划程序跨处理器有效计划线程的能力。
+请改为传递XAUDIO2_DEFAULT_PROCESSOR值， (请参阅下面的) 。  
+特殊XAUDIO2_DEFAULT_PROCESSOR值会导致 XAudio2 使用其默认处理器。
+
+≦ 322 ≧
+返回值
+如果成功，则返回S_OK，否则返回错误代码。 有关 XAudio2 特定错误代码的说明，请参
+阅 XAudio2 错误代码。注解
+XAUDIO2的 DirectX SDK 版本支持 标志XAUDIO2_DEBUG_ENGINE 在版本和“已检查”版本之间进行选择。 XAUDIO2的 Windows 8 版本中不支持或定义此标志。
+注意 DirectX SDK 版本不包含 xaudio2.lib 导入库。 DirectX SDK 版本使用 COM 创建
+新的 XAudio2 对象。  
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK(XAudio 2.7)
+Windows Phone 8.1：支持此 API。要求
+ﾉ
+要求
+目标平台
+标头 Library DLL
+另请参阅
+值
+Windows xaudio2.h Xaudio2.lib
+Windows.Media.Audio.dll
+如何：构建基本的音频处理图 XAudio2 函数
+展开表
+
+≦ 323 ≧
+XAudio2CutoffFrequencyToOnePoleCoeffici
+ent 函数 (xaudio2.h) 项目2024/03/09
+内联函数，用于从以hz表示的筛选器截止频率转换为与 XAUDIO2_FILTER_PARAMETERS 结构的 Frequency 成员一起使用的筛选器系数。
+此函数仅适用于 LowPassOnePoleFilter 和 HighPassOnePole 筛选器类型，对于状态变量筛选器类型，请使用 XAudio2CutoffFrequencyToRadians 。
+语法 C++
+float XAudio2CutoffFrequencyToOnePoleCoefficient(   float  CutoffFrequency,
+  UINT32 SampleRate);
+参数
+CutoffFrequency
+截止频率（以赫斯为单位）。 大于 SampleRate 的频率被限制为
+XAUDIO2_MAX_FILTER_FREQUENCY。 SampleRate
+受 XAUDIO2_FILTER_PARAMETERS 结构影响的音频数据的采样率。返回值
+返回在 XAUDIO2_FILTER_PARAMETERS 结构中使用的筛选器系数。注解
+必须在生成中显式定义XAUDIO2_HELPER_FUNCTIONS，此函数才可用。
+XAUDIO2的 DirectX SDK 版本不支持单极筛选器，因此这些版本中不存在此函数。
+
+≦ 324 ≧
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求
+目标平台标头
+另请参阅 XAudio：：Functions
+值
+Windows xaudio2.h
+展开表
+
+≦ 325 ≧
+XAudio2CutoffFrequencyToRadians 函数
+(xaudio2.h) 项目2024/03/13
+内联函数，从以赫为单位表示的筛选器截止频率转换为XAUDIO2_FILTER_PARAMETERS结构的 Frequency 成员中使用的弧度频率值。
+语法 C++
+float XAudio2CutoffFrequencyToRadians(   [in] float  CutoffFrequency,
+  [in] UINT32 SampleRate);
+参数
+[in] CutoffFrequency
+截止频率（以赫为单位）。 大于 SampleRate ÷ 6 的频率被固定到
+XAUDIO2_MAX_FILTER_FREQUENCY。[in] SampleRate
+受 XAUDIO2_FILTER_PARAMETERS 结构影响的音频数据的采样率。返回值
+返回在 XAUDIO2_FILTER_PARAMETERS 结构中使用的弧度频率。注解
+必须在生成中显式定义XAUDIO2_HELPER_FUNCTIONS，此函数才可用。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+
+≦ 326 ≧
+要求要求目标平台标头
+另请参阅 XAudio2 函数
+值
+Windows xaudio2.h
+ﾉ
+展开表
+
+≦ 327 ≧
+XAudio2DecibelsToAmplitudeRatio 函数
+(xaudio2.h) 项目2024/03/04
+将分贝值转换为振幅比值的内联函数。
+语法 C++
+float XAudio2DecibelsToAmplitudeRatio(
+  [in] float Decibels);
+参数[in] Decibels
+表示分贝级别的浮点值。返回值
+返回表示振幅比的浮点值。注解
+此函数可用于计算传递给 IXAudio2Voice：：SetVolume 函数的 Volume 参数值。
+必须在生成中显式定义XAUDIO2_HELPER_FUNCTIONS，此函数才可用。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+展开表
+
+≦ 328 ≧
+要求
+目标平台标头
+另请参阅 XAudio2 函数
+值
+Windows xaudio2.h
+
+≦ 329 ≧
+XAudio2FrequencyRatioToSemitones 函数
+(xaudio2.h) 项目2024/03/04
+将频率比率值转换为半色调值的内联函数。
+语法 C++
+float XAudio2FrequencyRatioToSemitones(
+  [in] float FrequencyRatio);
+参数
+[in] FrequencyRatio
+表示频率比率的浮点值。返回值
+返回一个浮点值，该值代表半色调。注解
+必须在生成中显式定义XAUDIO2_HELPER_FUNCTIONS，此函数才可用。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+展开表
+
+≦ 330 ≧
+要求
+目标平台标头
+另请参阅 XAudio2 函数
+值
+Windows xaudio2.h
+
+≦ 331 ≧
+XAudio2RadiansToCutoffFrequency 函数
+(xaudio2.h) 项目2023/08/28
+内联函数，从在 XAUDIO2_FILTER_PARAMETERS 中使用的弧度频率转换回以赫兹为单位的绝对
+频率。语法 C++
+float XAudio2RadiansToCutoffFrequency(
+  [in] float Radians,   [in] float SampleRate);
+参数[in] Radians
+XAUDIO2_FILTER_PARAMETERS 结构的 Frequency 成员的值。[in] SampleRate
+受 XAUDIO2_FILTER_PARAMETERS 结构影响的音频数据的采样率。返回值
+返回一个浮点值，该值代表以赫为单位的频率。
+注解平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+
+≦ 332 ≧
+ 
+目标平台标头
+另请参阅 XAudio2 函数
+ 
+Windows xaudio2.h
+ﾉ
+展开表
+
+≦ 333 ≧
+XAudio2SemitonesToFrequencyRatio 函数
+(xaudio2.h) 项目2024/03/04
+将半色调值转换为频率比率值的内联函数。
+语法 C++
+float XAudio2SemitonesToFrequencyRatio(
+  float Semitones);
+参数 Semitones
+表示半色调值的浮点值。返回值
+返回表示频率比率的浮点值。注解
+XAudio2SemitonesToFrequencyRatio 可用于计算传递给函数 IXAudio2SourceVoice：： SetFrequencyRatio 的 Ratio 参数值。
+必须在生成中显式定义XAUDIO2_HELPER_FUNCTIONS，此函数才可用。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+
+≦ 334 ≧
+要求
+目标平台标头
+另请参阅 XAudio2 函数
+值
+Windows xaudio2.h
+ﾉ
+展开表
+
+≦ 335 ≧
+xaudio2fx.h 标头项目2023/08/28
+XAudio2 API 使用此标头。 有关详细信息，请参阅：
+XAudio2 API
+xaudio2fx.h 包含以下编程接口：
+函数  
+ReverbConvertI3DL2ToNative
+内联函数，用于将 I3DL2 (交互式 3D 音频呈现指南级别 2.0) 参数转换为本机 XAudio2 参数。 XAudio2CreateReverb
+(APO) 创建新的混响音频处理对象，并返回指向它的指针。 XAudio2CreateVolumeMeter
+(APO) 创建新的音量计音频处理对象，并返回指向它的指针。
+结构  
+XAUDIO2FX_REVERB_I3DL2_PARAMETERS
+介绍 I3DL2 (Interactive 3D Audio Rendering Guidelines Level 2.0) 用于 ReverbConvertI3DL2ToNative 函数的参数。
+XAUDIO2FX_REVERB_PARAMETERS 描述在混响 APO 中使用的参数。 XAUDIO2FX_VOLUMEMETER_LEVELS 描述用于卷计量 APO 的参数。
+
+≦ 336 ≧
+反馈
+此页面是否有帮助？
+是
+在 Microsoft Q&A 获取帮助
+否
+
+≦ 337 ≧
+ReverbConvertI3DL2ToNative 函数
+(xaudio2fx.h) 项目2023/08/28
+将 I3DL2 (Interactive 3D Audio Rendering Guidelines Level 2.0) 参数转换为本机 XAudio2 参数的内联函数。
+语法 C++
+void ReverbConvertI3DL2ToNative(
+  [in]      const XAUDIO2FX_REVERB_I3DL2_PARAMETERS *pI3DL2,   [in, out] XAUDIO2FX_REVERB_PARAMETERS             *pNative,             BOOL sevenDotOneReverb                  DEFAULT);
+参数[in] pI3DL2
+指向包含要转换的 I3DL2 参数 的 XAUDIO2FX_REVERB_I3DL2_PARAMETERS 结构的指针。 为 XAUDIO2FX_REVERB_I3DL2_PARAMETERS 结构定义了许多预设值;有关详细信息，请参阅
+XAUDIO2FX_I3DL2_PRESET。[in, out] pNative
+指向 XAUDIO2FX_REVERB_PARAMETERS 结构的指针，该结构将接收与 I3DL2 参数等效的本机
+参数。 DEFAULT
+返回值无
+备注平台要求
+
+≦ 338 ≧
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+目标平台标头
+另请参阅
+XAUDIO2FX_I3DL2_PRESET
+XAUDIO2FX_REVERB_I3DL2_PARAMETERS XAudio2：：Functions
+ 
+Windows xaudio2fx.h
+展开表
+
+≦ 339 ≧
+XAudio2CreateReverb 函数 （xaudio2fx.h）项目2025/04/23
+创建一个新的混响音频处理对象（APO），并返回指向它的指针。
+语法 C++
+HRESULT XAudio2CreateReverb(
+  [in, out] IUnknown     **ppApo,   [in]      UINT32 Flags DEFAULT);
+参数
+[in, out] ppApo
+包含指向创建的混响 APO 的指针。[in] DEFAULT
+指定 APO 行为的标志。 此参数的值必须为 0。返回值
+如果此函数成功，则返回 S_OK。 否则，它将返回 HRESULT 错误代码。注解
+XAudio2CreateReverb 创建一个效果，执行普林斯顿数字混响。 XAPO 效果库 （XAPOFX） 包
+括备用混响效果。 使用 CreateFX 创建此备用效果。混响 APO 支持具有以下限制：
+输入音频数据必须FLOAT32。
+帧速率必须位于XAUDIO2FX_REVERB_MIN_FRAMERATE（20,000 Hz）和
+XAUDIO2FX_REVERB_MAX_FRAMERATE（48,000 Hz）。输入和输出通道必须是以下组合之一。
+Mono 输入和单声道输出 Mono 输入和 5.1 输出
+
+≦ 340 ≧
+立体声输入和立体声输出立体声输入和 5.1 输出
+混响 APO 在处理样本之间维护内部状态信息。 一次只能将 APO 的实例与一个音频数据源一起使用。 需要混响效果的多个语音都需要使用 XAudio2CreateReverb 创建单独的混响效果。
+有关创建新效果以用于 XAudio2 的信息，请参阅 XAPO 概述。
+ﾉ
+Windows操作系统
+由于 XAudio2CreateReverb 在 Windows 上调用 CoCreateInstance，因此应用程序必须在调用
+展开表
+XAudio2CreateReverb 之前调用 CoInitializeEx 方法。 XAudio2Create 具有相同的要求，这意味着在调用 XAudio2CreateReverb 之前，通常会调用 CoInitializeEx。
+Windows 上的典型调用模式如下所示：#ifndef _XBOX
+CoInitializeEx(NULL, COINIT_MULTITHREADED);#endif
+IXAudio2* pXAudio2 = NULL; HRESULT hr;
+if ( FAILED(hr = XAudio2Create( &pXAudio2, 0, XAUDIO2_DEFAULT_PROCESSOR ) ) )
+    return hr;...
+IUnknown * pReverbAPO;
+XAudio2CreateReverb(&pReverbAPO);  
+xaudio2fx.h 标头将 AudioReverb 类 GUID 定义为跨平台音频处理对象（XAPO）。 syntax
+class __declspec(uuid("C2633B16-471B-4498-B8C5-4F0959E2EC09")) AudioReverb;
+XAudio2CreateReverb 将此对象作为指向 ppApo 参数中 IUnknown 的指针的指针返回。 虽然可以从此 IUnknown 查询 IXAPO 和 IXAPOParameters 接口，但通常永远不会直接使用这些接口。
+而是在创建语音以将其添加为效果链的一部分时使用它们。混响使用通过 IXAudio2Voice：：SetEffectParameters 访问的 XAUDIO2FX_REVERB_PARAMETERS参数结构。
+
+≦ 341 ≧
+ 
+７ 备注
+  XAudio2CreateReverb 是 xaudio2fx.h 中的内联函数，调用 CreateAudioReverb ，如以下
+代码示例所示。 syntax
+XAUDIO2FX_STDAPI CreateAudioReverb(_Outptr_ IUnknown** ppApo);
+__inline HRESULT XAudio2CreateReverb(_Outptr_ IUnknown** ppApo, UINT32 /*Flags*/ 
+DEFAULT(0)){
+    return CreateAudioReverb(ppApo);}
+平台要求
+Windows 10 （XAudio2.9）：Windows 8、Windows Phone 8（XAudio 2.8）：DirectX SDK
+（XAudio 2.7）要求
+ﾉ
+要求
+目标平台
+页眉图书馆 DLL
+另请参阅如何：创建效果链
+价值
+Windows操作系统
+xaudio2fx.h Xaudio2.lib
+Windows.Media.Audio.dll
+IXAudio2Voice：：SetEffectParameters
+XAUDIO2FX_REVERB_PARAMETERS XAudio2 函数
+展开表
+
+≦ 343 ≧
+XAudio2CreateVolumeMeter 函数
+(xaudio2fx.h) 项目2023/08/28
+(APO) 创建新的音量计音频处理对象，并返回指向它的指针。
+语法 C++
+HRESULT XAudio2CreateVolumeMeter(   [in, out] IUnknown     **ppApo,   [in]      UINT32 Flags DEFAULT);
+参数
+[in, out] ppApo
+包含创建的卷计量 APO。[in] DEFAULT
+指定 APO 行为的标志。 此参数的值必须为 0。返回值
+如果此函数成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。注解
+有关创建用于 XAudio2 的新效果的信息，请参阅 XAPO 概述。 Windows
+ﾉ
+展开表
+由于 XAudio2CreateVolumeMeter 在 Windows 上调用 CoCreateInstance，因此应用程序必须在调用
+XAudio2CreateVolumeMeter 之前调用 CoInitializeEx 方法。 XAudio2Create 具有相同的要求，这意味着
+在调用 XAudio2CreateVolumeMeter 之前，通常会调用 CoInitializeEx。 Windows 上的典型调用模式如下所示：
+
+≦ 344 ≧
+ 
+#ifndef _XBOX
+CoInitializeEx(NULL, COINIT_MULTITHREADED);#endif
+IXAudio2* pXAudio2 = NULL; HRESULT hr;
+if ( FAILED(hr = XAudio2Create( &pXAudio2, 0, XAUDIO2_DEFAULT_PROCESSOR ) ) )
+    return hr;...
+IUnknown * pVolumeMeterAPO;
+XAudio2CreateVolumeMeter(&pVolumeMeterAPO);
+xaudio2fx.h 标头将 AudioVolumeMeter 类 GUID 定义为 XAPO) (跨平台音频处理对象。 syntax
+class __declspec(uuid("4FC3B166-972A-40CF-BC37-7DB03DB2FBA3")) AudioVolumeMeter;
+XAudio2CreateVolumeMeter 将此对象作为指向 ppApo 参数中 IUnknown 的指针返回。 尽管可以从此 IUnknown 查询 IXAPO 和 IXAPOParameters 接口，但通常永远不会直接使用这些接口。而是在创建语音以将其添加为效果链的一部分时使用它们。
+当 XAPO 绑定到音频图时，音量计使用通过 IXAudio2Voice：：GetEffectParameters 方法访问的 XAUDIO2FX_VOLUMEMETER_LEVELS 参数结构。
+注意XAudio2CreateVolumeMeter 是 xaudio2fx.h 中调用 CreateAudioVolumeMeter 的内联函数：“”语法
+XAUDIO2FX_STDAPI CreateAudioVolumeMeter (Outptr IUnknown** ppApo) ;__inline HRESULT XAudio2CreateVolumeMeter (Outptr IUnknown** ppApo， UINT32 /Flags/
+DEFAULT (0) ) { return CreateAudioVolumeMeter (ppApo) ; } </div>
+<div> </div>
+<h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a  id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
+Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
+
+≦ 345 ≧
+## Requirements
+| Requirement | Value | | ---- |:---- |
+| **Target Platform** | Windows |
+| **Header** | xaudio2fx.h | | **Library** | Xaudio2.lib |
+## See also
+<a href="/windows/desktop/xaudio2/how-to--create-an-effect-chain">How to:  Create an Effect Chain</a>
+<a href="/windows/desktop/api/xaudio2/nf-xaudio2-ixaudio2voice-
+seteffectparameters">IXAudio2Voice::SetEffectParameters</a> <a href="/windows/desktop/api/xaudio2fx/ns-xaudio2fx-
+xaudio2fx_volumemeter_levels">XAUDIO2FX_VOLUMEMETER_LEVELS</a>
+<a href="/windows/desktop/xaudio2/functions">XAudio2 Functions</a>
+
+≦ 346 ≧
+XAUDIO2FX_REVERB_I3DL2_PARAMETERS
+结构 (xaudio2fx.h) 项目2024/03/13
+介绍 I3DL2 (Interactive 3D Audio Rendering Guidelines Level 2.0) 用于 ReverbConvertI3DL2ToNative 函数的参数。
+语法 C++
+typedef struct XAUDIO2FX_REVERB_I3DL2_PARAMETERS {   float WetDryMix;
+  INT32 Room;   INT32 RoomHF;
+  float RoomRolloffFactor;   float DecayTime;
+  float DecayHFRatio;   INT32 Reflections;
+  float ReflectionsDelay;   INT32 Reverb;
+  float ReverbDelay;   float Diffusion;   float Density;
+  float HFReference;
+} XAUDIO2FX_REVERB_I3DL2_PARAMETERS;
+成员 WetDryMix
+将进行混响的输出的百分比。 允许的值为 0 到 100。 Room
+房间效果的衰减。 百分之一分贝的允许值介于 -10000 到 0。 RoomHF
+房间高频效果的衰减。 百分之一分贝的允许值介于 -10000 到 0。 RoomRolloffFactor
+反射信号的滚降系数。 允许的值为 0.0 到 10.0。 对于内置的混响效果，将忽略 Rolloff 因子。
+
+≦ 347 ≧
+DecayTime
+低频率的混响衰减时间。 允许的值（以秒为单位）介于 0.1 到 20.0 之间。 DecayHFRatio
+高频率衰减时间与低频率衰减时间的比率。 允许的值为 0.1 到 2.0。 Reflections
+相对于 Room 的早期反射的衰减。 百分之一分贝的允许值从 -10000 到 1000。 ReflectionsDelay
+相对于直接路径的第一次反射的延迟时间。 允许的秒值介于 0.0 到 0.3 之间。 Reverb
+相对于 房间的后期混响衰减。 百分之一分贝的允许值介于 -10000 到 2000。 ReverbDelay
+相对于第一次反射的时间，早期反射与后期混响之间的时间限制。 允许的秒值介于 0.0 到 0.1 之间。
+Diffusion
+后期混响衰减中的回声密度。 允许的百分比值为 0 到 100。 Density
+后期混响衰减中的模态密度。 允许的百分比值为 0 到 100。 HFReference
+引用高频率。 Hz 中的允许值介于 20.0 到 20000.0 之间。注解
+为 XAUDIO2FX_REVERB_I3DL2_PARAMETERS 结构定义了许多预设值。 有关详细信息，请参阅
+XAUDIO2FX_I3DL2_PRESET。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+
+≦ 348 ≧
+要求要求 Header
+另请参阅
+ReverbConvertI3DL2ToNative XAPO 概述
+XAUDIO2FX_I3DL2_PRESET XAudio 结构
+值
+xaudio2fx.h
+ﾉ
+展开表
+
+≦ 349 ≧
+xaudio2fx.h)
+(XAUDIO2FX_REVERB_PARAMETERS 结构项目2024/03/04
+描述在混响 APO 中使用的参数。
+语法 C++
+typedef struct XAUDIO2FX_REVERB_PARAMETERS {   float  WetDryMix;
+  UINT32 ReflectionsDelay;
+  BYTE   ReverbDelay;   BYTE   RearDelay;   BYTE   SideDelay;
+  BYTE   PositionLeft;   BYTE   PositionRight;
+  BYTE   PositionMatrixLeft;   BYTE   PositionMatrixRight;
+  BYTE   EarlyDiffusion;   BYTE   LateDiffusion;
+  BYTE   LowEQGain;   BYTE   LowEQCutoff;   BYTE   HighEQGain;   BYTE   HighEQCutoff;
+  float  RoomFilterFreq;   float  RoomFilterMain;   float  RoomFilterHF;   float  ReflectionsGain;
+  float  ReverbGain;   float  DecayTime;
+  float  Density;   float  RoomSize;
+  BOOL   DisableLateField;
+} XAUDIO2FX_REVERB_PARAMETERS;
+成员 WetDryMix
+将混响的输出的百分比。 允许的值为 0 到 100。 ReflectionsDelay
+第一次反射相对于直接路径的延迟时间。 允许的范围为 0 到 300 毫秒。
+
+≦ 350 ≧
+ 
+注意 与采样率或时间相关的所有参数都相对于 48kHz 采样率，必须进行缩放才能与其他采样率一起使用。 有关其他信息，请参阅下面的“备注”部分。
+ReverbDelay
+相对于第一次反射的混响延迟。 允许的范围为 0 到 85 毫秒。
+注意 与采样率或时间相关的所有参数都相对于 48kHz 采样率，必须进行缩放才能与其他采
+样率一起使用。 有关其他信息，请参阅下面的“备注”部分。  
+RearDelay
+左后输出和右后输出的延迟。 允许的范围为 0 到 5 毫秒。
+注意 与采样率或时间相关的所有参数都相对于 48kHz 采样率，必须进行缩放才能与其他采
+样率一起使用。 有关其他信息，请参阅下面的“备注”部分。  
+SideDelay
+左侧输出和右侧输出的延迟。 允许的范围为 0 到 5 毫秒。
+注意从 Windows 10 开始支持此值。  
+注意 与采样率或时间相关的所有参数都相对于 48kHz 采样率，必须进行缩放才能与其他采
+样率一起使用。 有关其他信息，请参阅下面的“备注”部分。  
+PositionLeft
+模拟空间中左输入相对于侦听器的位置。 将 PositionLeft 设置为最小值后，左侧输入将放置在靠近侦听器的位置。 在此位置，早期反射占主导地位，混响衰减在声场中被设置回去，振幅减小。 将 PositionLeft 设置为最大值后，左侧输入将放置在与模拟房间内侦听器的最大距离处。 PositionLeft 不会影响混响衰减时间 (房间) 的活跃度，仅影响源相对于侦听器的明显位置。 允许的范围是 0 到 30 (无单位) 。
+
+≦ 351 ≧
+PositionRight
+与 PositionLeft 相同，但仅影响正确的输入。 允许的范围是 0 到 30 (无单位) 。
+注意 在单进/单输出模式下忽略 PositionRight。
+ 
+PositionMatrixLeft
+提供从源到侦听器的距离或多或少的印象。 允许的范围是 0 到 30 (无单位) 。
+PositionMatrixRight
+提供从源到侦听器的距离或多或少的印象。 允许的范围是 0 到 30 (无单位) 。
+注意 在单进/单输出模式下，将忽略 PositionMatrixRight。
+ 
+EarlyDiffusion
+控制单个墙壁反射的特征。 设置为最小值以模拟硬平面，将 设置为最大值以模拟漫射表面。 允
+许的范围是 0 到 15 (无单位) 。
+LateDiffusion
+控制单个墙混响的特征。 设置为最小值以模拟硬平面，将 设置为最大值以模拟漫射表面。 允许
+的范围是 0 到 15 (无单位) 。
+LowEQGain
+相对于 1 kHz 处的衰减时间，调整低频率的衰减时间。 这些值对应于增益的 dB，如下所示：
+展开表ﾉ
+12 11 10 9 8 7 6 5 4 3 2 1 0
+值
++4 +3 +2 +1 0-1-2-3-4-5-6-7-8
+增益 (dB)
+ 
+注意LowEQGain 值为 8 会导致低频率的衰减时间等于 1 kHz 处的衰减时间。
+ 
+允许的范围是 0 到 12 (无单位) 。
+
+≦ 352 ≧
+LowEQCutoff
+设置 LowEQGain 参数控制的低通筛选器的角频率。 值对应于频率（以 Hz 为单位），如下所
+示：
+展开表ﾉ
+9 8 7 6 5 4 3 2 1 0
+值
+500 450 400 350 300 250 200 150 100 50
+频率 (Hz)
+ 
+允许的范围为 0 到 9 (无单位) 。
+HighEQGain
+相对于 1 kHz 处的衰减时间调整高频率的衰减时间。 设置为零时，高频率会以与 1 kHz 相同的
+速率衰减。 设置为最大值时，高频率衰减的速度比 1 kHz 快得多。
+展开表ﾉ
+8 7 6 5 4 3 2 1 0
+值
+0-1-2-3-4-5-6-7-8
+增益 (dB)
+ 
+允许的范围是 0 到 8 (无单位) 。
+HighEQCutoff
+设置由 HighEQGain 参数控制的高通筛选器的角频率。 值对应于频率（以 kHz 为单位），如下
+所示：
+展开表ﾉ
+14 13 12 11 10
+9 8
+7 6
+5 4
+3 2
+1 0
+值
+8 7.5
+7 6.5
+6 5.5 5 4.5 4 3.5 3 2.5 2 1.5 1
+频率 (kHz)
+ 
+允许的范围是 0 到 14 (无单位) 。
+RoomFilterFreq
+设置房间效果的低通筛选器的角频率。 允许的范围是 20 到 20,000 Hz。
+
+≦ 353 ≧
+ 
+注意 与采样率或时间相关的所有参数都相对于 48kHz 采样率，必须进行缩放才能与其他采样率一起使用。 有关其他信息，请参阅下面的“备注”部分。
+RoomFilterMain
+设置早期反射和后期场混响的低通筛选器的通带强度级别。 允许的范围是 -100 到 0 dB。 RoomFilterHF
+(RoomFilterFreq) 设置早期反射和后期字段混响的低通筛选器的强度。 允许的范围是 -100 到 0 dB。
+ReflectionsGain
+调整早期反射的强度。 允许的范围是 -100 到 20 dB。 ReverbGain
+调整混响的强度。 允许的范围是 -100 到 20 dB。 DecayTime
+1 kHz 的混响衰减时间。 这是全量程输入信号衰减 60 dB 的时间。 允许的范围是从 0.1 到无穷
+大秒。 Density
+控制后期字段混响中的模式密度。 对于无色 空间，密度 应设置为最大值 (100) 。 随着密度的降低，声音变得空心 (梳理过滤) 。 如果尝试为 silo 建模，这种效果会很有用。 允许的百分比范围
+为 0 到 100。 RoomSize
+声学空间的明显大小。 允许的范围是 1 到 100 英尺。 DisableLateField
+如果设置为 TRUE，则禁用后期字段反射计算。 禁用后期字段反射计算可显著节省 CPU 时间。
+注意 XAUDIO2的 DirectX SDK 版本不支持此成员。  
+
+≦ 354 ≧
+注解
+与采样率或时间相关的所有参数都相对于 48kHz 语音，并且必须缩放以与其他采样率一起使用。 例如，如果将 ReflectionsDelay 设置为 300 毫秒，则当混响在 48kHz 语音中托管时，会提
+供真正的 300 毫秒延迟，但在 24kHz 语音中托管时，延迟会变为 150 毫秒。平台要求
+Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+要求 Header
+另请参阅如何：创建效果链
+IXAudio2Voice：：SetEffectParameters
+XAPO 概述 XAudio 结构
+XAudio2CreateReverb
+值
+xaudio2fx.h
+展开表
+
+≦ 355 ≧
+XAUDIO2FX_VOLUMEMETER_LEVELS 结构
+(xaudio2fx.h) 项目2023/08/28
+描述用于卷计量 APO 的参数。
+语法 C++
+typedef struct XAUDIO2FX_VOLUMEMETER_LEVELS {
+  float  *pPeakLevels;   float  *pRMSLevels;   UINT32 ChannelCount;
+} XAUDIO2FX_VOLUMEMETER_LEVELS;
+成员 pPeakLevels
+在处理传递期间，将使用每个通道的最大绝对级别填充的数组。 数组必须至少为 ChannelCount
+× size (float) 字节。 如果 pRMSLevels 不为 NULL，pPeakLevels 可能为 NULL。 pRMSLevels
+在处理阶段，将使用每个通道的均方根级别填充的数组。 数组必须至少为 ChannelCount × size
+(float) 字节。 如果 pPeakLevels 不为 NULL，pRMSLevels 可能为 NULL。 ChannelCount
+正在处理的通道数。注解
+此结构与 XAudio2 IXAudio2Voice：：GetEffectParameters 方法一起使用。
+IXAudio2Voice：：GetEffectParameters 不返回 pPeakLevels 和 pRMSLevels，仅当数组存在时才进行填充。 如果使用 pPeakLevels 和 pRMSLevels ，则必须由应用程序分配它们。 应用程序负责在不再需要数组时释放这些数组。
+ChannelCount 必须由应用程序设置，以匹配应用效果的语音中的通道数。
+
+≦ 356 ≧
+平台要求
+Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)
+要求
+ﾉ
+ 
+标头
+另请参阅如何：创建效果链
+ 
+xaudio2fx.h
+IXAudio2Voice：：SetEffectParameters
+XAPO 概述 XAudio 结构
+XAudio2CreateVolumeMeter
+展开表
+

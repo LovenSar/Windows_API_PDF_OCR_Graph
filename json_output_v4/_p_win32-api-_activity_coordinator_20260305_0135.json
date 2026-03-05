@@ -1,0 +1,506 @@
+{
+  "_schema": "windows_api_kg_v4.0",
+  "_generated_at": "2026-03-05T08:07:00Z",
+  "_content_hash": "e17c327f6d72",
+  "document": {
+    "document_id": "win32-api::activity_coordinator",
+    "title": "活动协调器",
+    "domain": "win32-api",
+    "topic": "activity_coordinator",
+    "source_file": "[OCR]_windows-win32-api-_activity_coordinator_20260305_0135.p.txt",
+    "ocr_timestamp": "2026-03-05T01:35:00",
+    "headers_referenced": [
+      "activitycoordinator.h",
+      "activitycoordinatortypes.h"
+    ],
+    "total_entities": 37
+  },
+  "entities": [
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_CONDITION",
+      "name": "ACTIVITY_COORDINATOR_CONDITION",
+      "entity_type": "enum",
+      "description": "枚举 (activitycoordinatortypes.h) 项目2024/02/28 支持的一组条件的枚举。",
+      "syntax": "typedef enum _ACTIVITY_COORDINATOR_CONDITION {",
+      "header": "activitycoordinator.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 12
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_NOTIFICATION",
+      "name": "ACTIVITY_COORDINATOR_NOTIFICATION",
+      "entity_type": "enum",
+      "description": "notification, void *callbackContext) {...} 参数 notification 指示活动应停止/暂停还是启动/恢复的 ACTIVITY_COORDINATOR_NOTIFICATION 。 callbackContext 提供创建订阅时给定的上下文。",
+      "return_value": {
+        "description": "无"
+      },
+      "requirements": {
+        "header": "activitycoordinatortypes.h"
+      },
+      "header": "activitycoordinator.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.8,
+      "_source_line": 13
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_POLICY_TEMPLATE",
+      "name": "ACTIVITY_COORDINATOR_POLICY_TEMPLATE",
+      "entity_type": "enum",
+      "description": "policyTemplate,",
+      "header": "activitycoordinator.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 14
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_RESOURCE",
+      "name": "ACTIVITY_COORDINATOR_RESOURCE",
+      "entity_type": "enum",
+      "description": "枚 举 (activitycoordinatortypes.h) 项目2024/06/12 支持的一组资源的枚举。",
+      "syntax": "typedef enum _ACTIVITY_COORDINATOR_RESOURCE {   ACTIVITY_COORDINATOR_RESOURCE_USER_IDLE,",
+      "parameters": [
+        {
+          "name": "Resource",
+          "description": "要检查支持 ACTIVITY_COORDINATOR_RESOURCE 类型。"
+        }
+      ],
+      "return_value": {
+        "description": "返回一个 BOOL 值，该值指示当前系统上是否支持该资源。"
+      },
+      "remarks": "应用程序编译的活动协调器版本可能与运行时系统上的版本不同。 应用程序需要使用提供的 API 检查资源可用性，并根据需要调整其程序。 这使应用程序能够区分缺少功能支持和将无效参数传递给 API。 开发人员应记住，活动协调器资源支持并不指示系统中是否存在此类资源。 可以在运行时添加和删除 GPU 和 NPU 等设备，开发人员应参考他们使用的库或框架，了解如何最好地处理此类情况。 由于活动协调器无法控制工作运行的方式或时间，因此开发人员必须小心创建反映其应用程序如何使用资源的策略。 例如，如果在图形处理单元 (GPU) 上运行工作，当不存在 NPU 时，开发人员应创建同时监视或根据需要在基于 NPU 或 GPU 的策略之间进行切换的策略。 要求要求 Header",
+      "header": "activitycoordinator.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 1.0,
+      "_source_line": 19
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_CALLBACK",
+      "name": "ACTIVITY_COORDINATOR_CALLBACK",
+      "entity_type": "function",
+      "description": "要为活动的所有通知调用的回调。 CreateActivityCoordinatorPolicy 分配新策略，并根据提供的策略模板枚举预填充字段。 DestroyActivityCoordinatorPolicy 销毁通过 CreateActivityCoordinatorPolicy 获取的策略。",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "CreateActivityCoordinatorPolicy",
+        "DestroyActivityCoordinatorPolicy"
+      ],
+      "confidence": 0.75,
+      "_source_line": 21
+    },
+    {
+      "id": "windows::GetActivityCoordinatorPolicyResourceCondition",
+      "name": "GetActivityCoordinatorPolicyResourceCondition",
+      "entity_type": "function",
+      "description": "SetActivityCoordinatorPolicyResourceCondition",
+      "header": "activitycoordinator.h",
+      "deprecated": false,
+      "cross_references": [
+        "SetActivityCoordinatorPolicyResourceCondition"
+      ],
+      "confidence": 0.5,
+      "_source_line": 24
+    },
+    {
+      "id": "windows::IsActivityCoordinatorResourceSupported",
+      "name": "IsActivityCoordinatorResourceSupported",
+      "entity_type": "function",
+      "description": "此函数允许应用在运行时检查受支持的资源。 SetActivityCoordinatorPolicyResourceCondition 为策略设置资源所需的条件。",
+      "header": "activitycoordinator.h",
+      "deprecated": false,
+      "cross_references": [
+        "SetActivityCoordinatorPolicyResourceCondition"
+      ],
+      "confidence": 0.6,
+      "_source_line": 25
+    },
+    {
+      "id": "windows::SetActivityCoordinatorPolicyResourceCondition",
+      "name": "SetActivityCoordinatorPolicyResourceCondition",
+      "entity_type": "function",
+      "description": "为策略设置资源的所需条件。",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.3,
+      "_source_line": 26
+    },
+    {
+      "id": "windows::SubscribeActivityCoordinatorPolicy",
+      "name": "SubscribeActivityCoordinatorPolicy",
+      "entity_type": "function",
+      "description": "函数 创建一个订阅，该订阅根据策略的配置将协调通知传递到提供的回调。 收到通知后，将提供的回调使用提供的上下文执行。 具有当前状态的通知将立即在单独的线程上传递，并且可以在此调用返回之前传递。 订阅后对策略所做的更改不会影响订阅。 单个策略可用于创建具有唯一策略配置的多个订阅。 通知已序列化。",
+      "syntax": "HRESULT SubscribeActivityCoordinatorPolicy(   ACTIVITY_COORDINATOR_POLICY       policy,   ACTIVITY_COORDINATOR_CALLBACK     callback,\nvoid                              *callbackContext,",
+      "header": "activitycoordinator.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 27
+    },
+    {
+      "id": "windows::CreateActivityCoordinatorPolicy",
+      "name": "CreateActivityCoordinatorPolicy",
+      "entity_type": "function",
+      "description": "分配新策略，并根据提供的策略模板枚举预先填充字段。 DestroyActivityCoordinatorPolicy 销毁通过 CreateActivityCoordinatorPolicy 获取的策略。",
+      "syntax": "HRESULT CreateActivityCoordinatorPolicy(",
+      "header": "activitycoordinator.h",
+      "deprecated": false,
+      "cross_references": [
+        "DestroyActivityCoordinatorPolicy"
+      ],
+      "confidence": 0.7,
+      "_source_line": 42
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_POLICY",
+      "name": "ACTIVITY_COORDINATOR_POLICY",
+      "entity_type": "function",
+      "description": "policy, ACTIVITY_COORDINATOR_RESOURCE resource, ACTIVITY_COORDINATOR_CONDITION condition); 参数 policy 为目标策略提供句柄。 resource 提供感兴趣的资源。 condition 提供所需的条件。返回值返回 HRESULT。",
+      "parameters": [
+        {
+          "name": "policyTemplate",
+          "description": "提供策略模板枚举值。 policy 提供指向接收所创建策略句柄 的ACTIVITY_COORDINATOR_POLICY 句柄的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "返回 HRESULT。"
+      },
+      "remarks": "调用方应订阅策略以使用 SubscribeActivityCoordinatorPolicy 接收协调通知。 当不再需 要时，调用方应使用 DestroyActivityCoordinatorPolicy 销毁策略。",
+      "header": "activitycoordinator.h",
+      "deprecated": false,
+      "cross_references": [
+        "ACTIVITY_COORDINATOR_CONDITION",
+        "ACTIVITY_COORDINATOR_RESOURCE",
+        "DestroyActivityCoordinatorPolicy",
+        "SubscribeActivityCoordinatorPolicy"
+      ],
+      "confidence": 0.9,
+      "_source_line": 64
+    },
+    {
+      "id": "windows::DestroyActivityCoordinatorPolicy",
+      "name": "DestroyActivityCoordinatorPolicy",
+      "entity_type": "function",
+      "description": "函数 销毁通过 CreateActivityCoordinatorPolicy 获取的策略。",
+      "syntax": "void DestroyActivityCoordinatorPolicy(   ACTIVITY_COORDINATOR_POLICY policy);\n参数 policy\n为目标策略提供句柄。",
+      "return_value": {
+        "description": "无"
+      },
+      "header": "activitycoordinator.h",
+      "deprecated": false,
+      "cross_references": [
+        "CreateActivityCoordinatorPolicy"
+      ],
+      "confidence": 0.65,
+      "_source_line": 87
+    },
+    {
+      "id": "windows::GetActivityCoordinatorPolicyResourceC",
+      "name": "GetActivityCoordinatorPolicyResourceC",
+      "entity_type": "function",
+      "description": "ondition 函数 (activitycoordinator.h) 项目2024/02/23 获取策略的资源所需条件。 策略中未监视的资源由",
+      "header": "activitycoordinator.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 109
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_CONDITION_NOT_SET",
+      "name": "ACTIVITY_COORDINATOR_CONDITION_NOT_SET",
+      "entity_type": "function",
+      "description": "不监视资源的条件。 策略应仅对关联活动 未 使用的资源使用此条件。 使用未监视其状况的资源可能会严重影响用户体验和/或系统性能，并可能严重降低其性能。 潜在影响也可能不是暂时的，例如，在按流量计费的连接上使用网络 (用户) 的潜在财务成本，或者在电池电量不足状态下运行， (可能没有充电访问权 限的用户) 缩短电池使用时间。",
+      "syntax": "HRESULT GetActivityCoordinatorPolicyResourceCondition(",
+      "header": "activitycoordinator.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 111
+    },
+    {
+      "id": "windows::IsActivityCoordinatorResourceSupporte",
+      "name": "IsActivityCoordinatorResourceSupporte",
+      "entity_type": "function",
+      "description": "此函数允许应用在运行时检查受支持的资源。 某些资源类型（例如神经处理单元 (NPU) 资源）可能并非在所有系统上都受支持。",
+      "syntax": "BOOL IsActivityCoordinatorResourceSupported(",
+      "header": "activitycoordinator.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 134
+    },
+    {
+      "id": "windows::SetActivityCoordinatorPolicyResourceCo",
+      "name": "SetActivityCoordinatorPolicyResourceCo",
+      "entity_type": "function",
+      "description": "ndition 函数 (activitycoordinator.h) 项目2024/02/26 为策略设置资源的所需条件。 对于开发人员不希望其策略监视的资源，他们可以将资源的条件设置为",
+      "syntax": "HRESULT SetActivityCoordinatorPolicyResourceCondition(",
+      "header": "activitycoordinator.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 158
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_SUBSCRIPTION",
+      "name": "ACTIVITY_COORDINATOR_SUBSCRIPTION",
+      "entity_type": "function",
+      "description": "*subscription); 参数 policy 为目标策略提供句柄。 callback 提供要为此订阅中的所有协调通知执行的回调。 callbackContext 提供要传递给回调例程的上下文。 subscription 提供指向接收所创建订阅句柄 的ACTIVITY_COORDINATOR_SUBSCRIPTION 句柄的指针。",
+      "return_value": {
+        "description": "返回 HRESULT。"
+      },
+      "remarks": "注意 请勿在此回调中执行活动，因为它将阻止此订阅的未来策略通知的传递。 应使用此回调来协调活动的启动和停止，以响应来自 API 的 RUN/STOP 通知。 注意 请勿长时间阻止此回调，因为它会阻止 UnsubscribeActivityCoordinatorPolicy，并可能导致线程池耗尽。 注意 从此回调调用 UnsubscribeActivityCoordinatorPolicy 将失败。 取消订阅必须在 回调外部发生。",
+      "header": "activitycoordinator.h",
+      "deprecated": false,
+      "cross_references": [
+        "UnsubscribeActivityCoordinatorPolicy"
+      ],
+      "confidence": 0.8,
+      "_source_line": 188
+    },
+    {
+      "id": "windows::UnsubscribeActivityCoordinatorPolicy",
+      "name": "UnsubscribeActivityCoordinatorPolicy",
+      "entity_type": "function",
+      "description": "函 销毁订阅。 请注意，此例程在完成之前会等待任何正在进行的回调返回。Ｕ 注意 请勿从其订阅的回调调用例程。 这样做将使程序崩溃。",
+      "syntax": "HRESULT UnsubscribeActivityCoordinatorPolicy(",
+      "header": "activitycoordinator.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 205
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_CONDITION_GOOD",
+      "name": "ACTIVITY_COORDINATOR_CONDITION_GOOD",
+      "entity_type": "enum",
+      "description": "ACTIVITY_COORDINATOR_CONDITION_NOT_SET ACTIVITY_COORDINATOR_CONDITION_MEDIUM ACTIVITY_COORDINATOR_CONDITION_MEDIUM ACTIVITY_COORDINATOR_CONDITION_MEDIUM",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "ACTIVITY_COORDINATOR_CONDITION_MEDIUM",
+        "ACTIVITY_COORDINATOR_CONDITION_NOT_SET"
+      ],
+      "confidence": 0.75,
+      "_source_line": 284
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_CONDITION_MEDIUM",
+      "name": "ACTIVITY_COORDINATOR_CONDITION_MEDIUM",
+      "entity_type": "constant",
+      "description": "ACTIVITY_COORDINATOR_CONDITION_NOT_SET ACTIVITY_COORDINATOR_CONDITION_MEDIUM ACTIVITY_COORDINATOR_CONDITION_MEDIUM ACTIVITY_COORDINATOR_CONDITION_MEDIUM 资源 GPU 可用值",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "ACTIVITY_COORDINATOR_CONDITION_NOT_SET"
+      ],
+      "confidence": 0.75,
+      "_source_line": 290
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_NOTIFICATIO",
+      "name": "ACTIVITY_COORDINATOR_NOTIFICATIO",
+      "entity_type": "constant",
+      "description": "N 枚举 (activitycoordinatortypes.h) 项目2024/03/05 订阅回调的可能通知类型的枚举。",
+      "syntax": "typedef enum _ACTIVITY_COORDINATOR_NOTIFICATION {",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 309
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_NOTIFICATION_RUN",
+      "name": "ACTIVITY_COORDINATOR_NOTIFICATION_RUN",
+      "entity_type": "constant",
+      "description": "指示满足策略的条件，并且现在可以启动或恢复关联的活动。 ACTIVITY_COORDINATOR_NOTIFICATION_STOP 指示 不 满足策略的条件，并且现在应停止或暂停关联的活动。",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 314
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_POLICY_TEMP",
+      "name": "ACTIVITY_COORDINATOR_POLICY_TEMP",
+      "entity_type": "constant",
+      "description": "LATE 枚举 (activitycoordinatortypes.h) 项目2024/01/27 支持的模板策略集的枚举。 这些模板涵盖大多数活动的需求，但开发人员应根据需要自定义其策略，以确保为其活动正确配置所有资源。",
+      "syntax": "typedef enum _ACTIVITY_COORDINATOR_POLICY_TEMPLATE {",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 334
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_POLICY_TEMPLATE_GOOD",
+      "name": "ACTIVITY_COORDINATOR_POLICY_TEMPLATE_GOOD",
+      "entity_type": "constant",
+      "description": "只要未使用未配置的资源，使用此策略运行的活动就不太可能干扰大多数用户体验和系统性能。 ACTIVITY_COORDINATOR_POLICY_TEMPLATE_MEDIUM 使用配置后使用此策略运行的活动可能会干扰用户体验和系统性能，但只要未使用未配置的资源，它们就不会严重降级。 与 GOOD 模板相比，此模板配置的资源条件更有可能得到满足，但影响用户体验和系统性能的可能性也更大。",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "ACTIVITY_COORDINATOR_POLICY_TEMPLATE_MEDIUM"
+      ],
+      "confidence": 0.75,
+      "_source_line": 338
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_POLICY_TEMPLATE_BASE",
+      "name": "ACTIVITY_COORDINATOR_POLICY_TEMPLATE_BASE",
+      "entity_type": "constant",
+      "description": "此模板表示建议的最低资源条件。 这有助于确保活动至少不会严重降低所有活动所需的最常见资源的大多数用户体验和系统性能。",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 347
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_POLICY_TEMPLATE_EMPTY",
+      "name": "ACTIVITY_COORDINATOR_POLICY_TEMPLATE_EMPTY",
+      "entity_type": "constant",
+      "description": "资源 User-Idle 强力网络 CPU 内存 System-Disk GPU 要求 可用值",
+      "remarks": "[!重要提示] 下面提供了模板配置，仅供参考。 随着常见工作流和系统配置的发展，配置可能会在将来更新，以满足用户的需求。 但是，此类更新不会破坏这些策略提供的合理预期。 汇报将主要限制为以前未配置的资源的新条件，尤其是在添加新资源类型时。 汇 报不会删除模板中已配置资源的配置。资源的可用条件",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 349
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_POLICY_TEMPLATE_MEDIUM",
+      "name": "ACTIVITY_COORDINATOR_POLICY_TEMPLATE_MEDIUM",
+      "entity_type": "constant",
+      "description": "资源 User-Idle 强力网络 CPU 内存 System-Disk 可用值",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 362
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_RESOURCE_POWER",
+      "name": "ACTIVITY_COORDINATOR_RESOURCE_POWER",
+      "entity_type": "constant",
+      "description": ", ACTIVITY_COORDINATOR_RESOURCE_NETWORK, ACTIVITY_COORDINATOR_RESOURCE_CPU,",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "ACTIVITY_COORDINATOR_RESOURCE_CPU",
+        "ACTIVITY_COORDINATOR_RESOURCE_NETWORK"
+      ],
+      "confidence": 0.75,
+      "_source_line": 409
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_RESOURCE_MEMORY",
+      "name": "ACTIVITY_COORDINATOR_RESOURCE_MEMORY",
+      "entity_type": "constant",
+      "description": "表示系统的当前内存状态。",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 410
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_RESOURCE_SYSTEM_DISK",
+      "name": "ACTIVITY_COORDINATOR_RESOURCE_SYSTEM_DISK",
+      "entity_type": "constant",
+      "description": "表示系统的当前系统磁盘状态。 系统磁盘是指安装操作系统的驱动器。 ACTIVITY_COORDINATOR_RESOURCE_GPU 表示 GPU 可用性。 包括 GPU 利用率。",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "ACTIVITY_COORDINATOR_RESOURCE_GPU"
+      ],
+      "confidence": 0.75,
+      "_source_line": 411
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_RESOURCE_GPU",
+      "name": "ACTIVITY_COORDINATOR_RESOURCE_GPU",
+      "entity_type": "constant",
+      "description": ", ACTIVITY_COORDINATOR_RESOURCE_NPU} ACTIVITY_COORDINATOR_RESOURCE;",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [
+        "ACTIVITY_COORDINATOR_RESOURCE",
+        "ACTIVITY_COORDINATOR_RESOURCE_NPU"
+      ],
+      "confidence": 0.75,
+      "_source_line": 412
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_RESOURCE_USER_IDLE",
+      "name": "ACTIVITY_COORDINATOR_RESOURCE_USER_IDLE",
+      "entity_type": "constant",
+      "description": "表示用户与设备互动的活跃程度，以及活动干扰该使用的可能性。",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 416
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_RESOURCE_NETWORK",
+      "name": "ACTIVITY_COORDINATOR_RESOURCE_NETWORK",
+      "entity_type": "constant",
+      "description": "表示系统的当前网络状态。",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 419
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_RESOURCE_CPU",
+      "name": "ACTIVITY_COORDINATOR_RESOURCE_CPU",
+      "entity_type": "constant",
+      "description": "表示系统的当前 CPU 状态。",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 420
+    },
+    {
+      "id": "windows::ACTIVITY_COORDINATOR_RESOURCE_NPU",
+      "name": "ACTIVITY_COORDINATOR_RESOURCE_NPU",
+      "entity_type": "constant",
+      "description": "表示 NPU 可用性。 包括 NPU 利用率。",
+      "remarks": "资源的条件信息 资源",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 426
+    },
+    {
+      "id": "windows::USER_IDLE",
+      "name": "USER_IDLE",
+      "entity_type": "constant",
+      "description": "POWER NETWORK CPU 记忆",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 430
+    },
+    {
+      "id": "windows::SYSTEM_DISK",
+      "name": "SYSTEM_DISK",
+      "entity_type": "constant",
+      "description": "GPU NPU ７ 备注 良好条件 用户处于非活动状态，并且/或后台活动不太可能干扰用户体验。 能耗不太可能影响用户体验。可以访问 Internet;活动极不可能影响用户体验。 额外的 CPU 使用率不太可能干扰用户体验。 额外的内存使用量不太可能干扰用户体验。 额外的系统磁盘使用情况不太可能干扰用户体验。 额外的 GPU 使用率不太可能干扰用户体验。 额外的 NPU 用法不太可能干扰用户体验。 中等条件 用户可能处于活动状态。 后台活动不太可能干扰高度敏感的体验。 能耗可能会影响用户体验，但不会严重降低用户体验。 潜在影响可能包括电池使用时间。 可以使用 Internet 访问，但使用可能会影响用户。 潜在影响可能包括消耗有限的带宽和/或付费带宽。 额外的 CPU 使用率可能会干扰系统性能，但不会严重降低系统性能。 额外的内存使用量可能会干扰系统性能，但不会严重降级。 额外的系统磁盘使用可能会干扰系统性能，但不会严重降低系统性能。 额外的 GPU 使用可能会干扰资源密集型视觉用户体验，例如游戏、视频流等。 额外的 NPU 使用可能会干扰需要资源密集型神经处理任务的用户体验。 应用程序编译的活动协调器版本可能与运行时系统上的版本不同。 在 API 中使用之前，应用程序应使用",
+      "header": "activitycoordinatortypes.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 432
+    }
+  ]
+}

@@ -1,0 +1,5207 @@
+2026-03-05 01:38:28
+
+≦ 1 ≧
+云筛选器 API 项目2023/03/09
+云筛选器 API 技术概述。
+若要开发云筛选器 API，需要以下标头：
+cfapi.h
+有关此技术的编程指南，请参阅：
+云筛选器 API
+枚举  
+CF_CALLBACK_CANCEL_FLAGS 
+
+用于取消占位符文件或文件夹的数据提取的回调标志。 CF_CALLBACK_CLOSE_COMPLETION_FLAGS 
+
+告知我们有关下载 PDF 体验的信息。
+用于通知同步提供程序其某个同步根下的占位符的回调标志，该占位符之前已打开进行读/写/删除访问。
+CF_CALLBACK_DEHYDRATE_COMPLETION_FLAGS 
+
+一个回调标志，用于通知同步提供程序其某个同步根下的占位符已成功解除冻结。 CF_CALLBACK_DEHYDRATE_FLAGS 
+
+用于通知同步提供程序其某个同步根下的占位符将解除冻结的回调标志。
+CF_CALLBACK_DEHYDRATION_REASON 
+ 指定云文件被冻结的原因。
+CF_CALLBACK_DELETE_COMPLETION_FLAGS 
+
+用于通知同步提供程序已成功删除占位符的回调标志。 CF_CALLBACK_DELETE_FLAGS 
+
+此回调用于通知同步提供程序，其某个同步根下的占位符文件或目录即将被删除或取消删除。
+
+≦ 2 ≧
+ 
+CF_CALLBACK_FETCH_DATA_FLAGS 
+
+用于提取占位符文件或文件夹数据的回调标志。 CF_CALLBACK_FETCH_PLACEHOLDERS_FLAGS 
+用于提取有关占位符文件或目录内容的信息的标志。 CF_CALLBACK_OPEN_COMPLETION_FLAGS 
+
+用于通知同步提供程序已成功打开占位符进行读/写/删除访问的回调标志。 CF_CALLBACK_RENAME_COMPLETION_FLAGS 
+
+一个回调标志，用于通知同步提供程序其某个同步根下的占位符已成功重命名。 CF_CALLBACK_RENAME_FLAGS 
+
+回调用标志以通知同步提供程序其同步根之一下的占位符即将重命名或移动。 CF_CALLBACK_TYPE 
+
+包含对占位符文件或文件夹使用的各种类型的回调。 CF_CALLBACK_VALIDATE_DATA_FLAGS 
+
+用于验证占位符文件或目录的数据的标志。 CF_CONNECT_FLAGS 
+
+同步提供程序在调用其回调时可以请求的其他信息。 CF_CONVERT_FLAGS 
+
+普通文件/目录到占位符的文件/目录转换标志。 CF_CREATE_FLAGS 
+
+用于创建占位符文件或目录的标志。
+CF_DEHYDRATE_FLAGS 
+ 占位符解除冻结标志。 CF_HARDLINK_POLICY 
+
+指定是否允许在占位符文件上使用硬链接。
+
+≦ 3 ≧
+ 
+CF_HYDRATE_FLAGS 
+
+占位符数据解除冻结标志。
+CF_HYDRATION_POLICY_MODIFIER 
+
+允许同步提供程序控制平台应如何冻结占位符文件。 这是可与主策略：
+_CF_HYDRATION_POLICY_PRIMARY一起使用的修饰符。 CF_HYDRATION_POLICY_PRIMARY 
+
+允许同步提供程序控制平台应如何冻结占位符文件。 这是主要策略。 CF_IN_SYNC_STATE 
+
+指定占位符文件和文件夹的同步状态。 CF_INSYNC_POLICY 
+
+允许同步提供程序控制平台何时应清除占位符文件或目录上的同步状态的策略。 CF_OPEN_FILE_FLAGS 
+
+用于请求打开文件时的各种权限的标志。 CF_OPERATION_ACK_DATA_FLAGS 
+
+用于验证和确认占位符文件或文件夹的数据的标志。 CF_OPERATION_ACK_DEHYDRATE_FLAGS 
+
+用于确认占位符文件或目录的解除冻结的标志。
+CF_OPERATION_ACK_DELETE_FLAGS 
+ 用于确认删除占位符文件或目录的标志。 CF_OPERATION_ACK_RENAME_FLAGS 
+
+用于确认占位符文件或目录重命名的标志。
+CF_OPERATION_RESTART_HYDRATION_FLAGS 
+
+用于在占位符文件或文件夹上重启数据解除冻结的标志。
+CF_OPERATION_RETRIEVE_DATA_FLAGS 
+ 用于检索占位符文件或文件夹数据的标志。
+
+≦ 4 ≧
+ 
+CF_OPERATION_TRANSFER_DATA_FLAGS 
+
+用于将数据传输到占位符文件或文件夹水合的标志。 CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS 
+ 用于指定传输占位符文件或目录时的行为的标志。 CF_OPERATION_TYPE 
+
+可以对占位符文件和目录执行的操作类型。 CF_PIN_STATE 
+
+占位符文件或目录的固定状态。
+CF_PLACEHOLDER_CREATE_FLAGS 
+
+用于基于每个占位符创建占位符的标志。
+CF_PLACEHOLDER_INFO_CLASS 
+ 占位符信息的信息类。
+CF_PLACEHOLDER_MANAGEMENT_POLICY 
+
+指定CF_SYNC_POLICIES结构的占位符管理策略。 CF_PLACEHOLDER_RANGE_INFO_CLASS 
+占位符文件数据范围的类型。 CF_PLACEHOLDER_STATE 
+ 占位符文件或文件夹的状态。
+CF_POPULATION_POLICY_MODIFIER 
+
+定义填充策略修饰符。 这是可与主策略：_CF_POPULATION_POLICY_PRIMARY一起使用的修饰符。
+CF_POPULATION_POLICY_PRIMARY 
+
+允许同步提供程序控制平台应如何创建占位符目录和文件。 这是主要策略。 CF_REGISTER_FLAGS 
+
+用于注册和更新同步根的标志。
+
+≦ 5 ≧
+ 
+CF_REVERT_FLAGS 
+
+用于将占位符文件还原为常规文件的标志。 CF_SET_IN_SYNC_FLAGS 
+
+占位符文件和文件夹的同步状态标志。
+CF_SET_PIN_FLAGS 
+ 占位符固定标志。
+CF_SYNC_PROVIDER_STATUS 
+ 同步提供程序的当前状态。 CF_SYNC_ROOT_INFO_CLASS 
+
+同步根信息的类型。 CF_UPDATE_FLAGS 
+
+用于更新占位符文件或目录的标志。
+函数  
+CfCloseHandle 
+
+关闭 CfOpenFileWithOplock 返回的文件或目录句柄。 这不应与标准 Win32 文件句柄一起使用，只
+能在 CfApi.h 中使用的句柄上使用。 CfConnectSyncRoot 
+
+启动同步提供程序与同步筛选器 API 之间的双向通信。 CfConvertToPlaceholder 
+
+将普通文件/目录转换为占位符文件/目录。 CfCreatePlaceholders 
+
+在同步根树下创建一个或多个新的占位符文件或目录。
+
+≦ 6 ≧
+ 
+CfDisconnectSyncRoot 
+
+断开 CfConnectSyncRoot 创建的信道的连接。 CfExecute 
+
+所有基于连接键的占位符操作的主入口点。 同步提供程序打算使用它来响应来自平台的各种回调。 CfGetCorrelationVector 
+
+允许同步提供程序查询给定占位符文件的当前相关向量。 CfGetPlaceholderInfo 
+
+获取占位符文件或文件夹的各种特征。 CfGetPlaceholderRangeInfo 
+
+获取有关占位符文件或文件夹的范围信息。 CfGetPlaceholderRangeInfoForHydration 
+
+使用 ConnectionKey、TransferKey 和 FileId 作为标识符获取有关占位符文件或文件夹的范围信息。 CfGetPlaceholderStateFromAttributeTag 
+
+根据文件的 FileAttributes 和 ReparseTag 值获取一组占位符状态。 CfGetPlaceholderStateFromFileInfo 
+
+根据文件的各种信息获取一组占位符状态。 CfGetPlaceholderStateFromFindData 
+
+获取基于WIN32_FIND_DATA结构的一组占位符状态。
+CfGetPlatformInfo 
+ 获取平台版本信息。
+CfGetSyncRootInfoByHandle 
+
+获取包含由文件句柄指定的给定文件的同步根的各种特征。 CfGetSyncRootInfoByPath 
+
+获取在同步根目录下给定文件的各种同步根信息。
+
+≦ 7 ≧
+ 
+CfGetTransferKey 
+
+启动将数据传输到占位符文件或文件夹中。 CfGetWin32HandleFromProtectedHandle 
+
+将受保护的句柄转换为 Win32 句柄，以便它可以与所有基于句柄的 Win32 API 一起使用。 CfHydratePlaceholder 
+
+通过确保指定的字节范围出现在占位符的磁盘上来冻结占位符文件。 这仅适用于文件。 CfOpenFileWithOplock 
+
+为普通文件和占位符文件) 打开文件或目录 (异步不透明句柄，并基于打开的标志为其设置适当的 oplock。
+CfQuerySyncProviderStatus 
+
+查询同步提供程序以获取提供程序的状态。 CfReferenceProtectedHandle 
+
+允许调用方将受保护的句柄引用到可用于非 CfApi Win32 API 的 Win32 句柄。 CfRegisterSyncRoot 
+
+执行一次性同步根注册。 CfReleaseProtectedHandle 
+
+释放 CfReferenceProtectedHandle 引用的受保护句柄。 CfReleaseTransferKey 
+
+释放 CfGetTransferKey 获取的传输密钥。 CfReportProviderProgress 
+
+允许同步提供程序报告带外进度。 CfReportProviderProgress2 
+
+允许同步提供程序报告带外进度。 使用其他参数扩展 CfReportProviderProgress。 CfReportSyncStatus 
+
+允许同步提供程序在指定同步根上通知平台其状态，而无需先通过调用 CfConnectSyncRoot 进行连接。
+
+≦ 8 ≧
+ 
+CfRevertPlaceholder 
+
+将占位符还原回常规文件，去除所有特殊特征，例如重新分析标记、文件标识等。 CfSetCorrelationVector 
+
+允许同步提供程序指示平台在占位符文件上使用特定的相关向量进行遥测。 此为可选项。 CfSetInSyncState 
+
+设置占位符文件或文件夹的同步状态。 CfSetPinState 
+
+这会设置用于表示用户意向的占位符的固定状态。 任何应用程序 (，而不仅仅是同步提供程序) 都可以调用此函数。
+CfUnregisterSyncRoot 
+
+取消注册以前注册的同步根。 CfUpdatePlaceholder 
+
+汇报占位符文件或目录的特征。 CfUpdateSyncProviderStatus 
+ 汇报同步提供程序的当前状态。
+結構  
+CF_CALLBACK_INFO 
+ 包含常见的回调信息。
+CF_CALLBACK_PARAMETERS 
+
+包含特定于回调的参数，例如文件偏移量、长度、标志等。
+CF_CALLBACK_REGISTRATION 
+ 同步提供程序要注册的回调。
+
+≦ 9 ≧
+ 
+CF_FILE_RANGE 
+
+指定占位符文件中的数据范围。 CF_FS_METADATA 
+
+占位符文件或目录元数据。 CF_HYDRATION_POLICY 
+
+指定主要混合策略及其修饰符。 CF_OPERATION_INFO 
+
+有关占位符文件或文件夹上的操作的信息。 CF_OPERATION_PARAMETERS 
+
+占位符文件或文件夹上的操作的参数。
+CF_PLACEHOLDER_BASIC_INFO 
+ 基本占位符信息。
+CF_PLACEHOLDER_CREATE_INFO 
+
+包含用于创建新占位符文件或目录的占位符信息。
+CF_PLACEHOLDER_STANDARD_INFO 
+ 标准占位符信息。
+CF_PLATFORM_INFO 
+
+返回云文件平台的信息。 这适用于在多个版本的 Windows 上运行的同步提供程序。 CF_POPULATION_POLICY 
+
+指定主要填充策略及其修饰符。 CF_PROCESS_INFO 
+
+包含有关用户进程的信息。 CF_SYNC_POLICIES 
+
+定义同步根目录使用的同步策略。
+
+≦ 10 ≧
+ 
+CF_SYNC_REGISTRATION 
+
+要注册的同步提供程序和同步根的详细信息。
+CF_SYNC_ROOT_BASIC_INFO 
+ 基本同步根信息。
+CF_SYNC_ROOT_PROVIDER_INFO 
+ 同步根提供程序信息。
+CF_SYNC_ROOT_STANDARD_INFO 
+
+标准同步根信息。 CF_SYNC_STATUS 
+
+在 CF_OPERATION_INFO 结构中用于描述指定同步根的状态。
+
+≦ 11 ≧
+cfapi.h 标头项目2023/03/16
+此标头由云筛选器 API 使用。 有关详细信息，请参阅：
+云筛选器 API
+cfapi.h 包含以下编程接口：
+函数  
+CfCloseHandle 
+
+关闭 CfOpenFileWithOplock 返回的文件或目录句柄。 这不应与标准 Win32 文件句柄一起使用，而
+只能在 CfApi.h 中使用的句柄上使用。 CfConnectSyncRoot 
+
+启动同步提供程序与同步筛选器 API 之间的双向通信。 CfConvertToPlaceholder 
+
+将普通文件/目录转换为占位符文件/目录。 CfCreatePlaceholders 
+
+在同步根树下创建一个或多个新的占位符文件或目录。 CfDisconnectSyncRoot 
+
+断开由 CfConnectSyncRoot 创建的信道的连接。 CfExecute 
+
+所有基于连接键的占位符操作的主入口点。 它旨在由同步提供程序用来响应来自平台的各种回调。 CfGetCorrelationVector 
+
+允许同步提供程序查询给定占位符文件的当前相关向量。 CfGetPlaceholderInfo 
+
+获取占位符文件或文件夹的各种特征。
+
+≦ 12 ≧
+ 
+CfGetPlaceholderRangeInfo 
+
+获取有关占位符文件或文件夹的范围信息。 CfGetPlaceholderRangeInfoForHydration 
+
+使用 ConnectionKey、TransferKey 和 FileId 作为标识符获取有关占位符文件或文件夹的范围信息。 CfGetPlaceholderStateFromAttributeTag 
+
+根据文件的 FileAttributes 和 ReparseTag 值获取一组占位符状态。 CfGetPlaceholderStateFromFileInfo 
+
+根据文件的各种信息获取一组占位符状态。 CfGetPlaceholderStateFromFindData 
+
+根据 WIN32_FIND_DATA 结构获取一组占位符状态。
+CfGetPlatformInfo 
+ 获取平台版本信息。
+CfGetSyncRootInfoByHandle 
+
+获取包含由文件句柄指定的给定文件的同步根的各种特征。 CfGetSyncRootInfoByPath 
+
+获取给定同步根目录下的文件的各种同步根信息。 CfGetTransferKey 
+
+启动将数据传输到占位符文件或文件夹。 CfGetWin32HandleFromProtectedHandle 
+
+将受保护的句柄转换为 Win32 句柄，以便它可以与所有基于句柄的 Win32 API 一起使用。 CfHydratePlaceholder 
+
+通过确保指定的字节范围存在于占位符的磁盘上来冻结占位符文件。 这仅适用于文件。 CfOpenFileWithOplock 
+
+为普通文件和占位符文件) 打开文件或目录的异步不透明句柄 (，并根据打开的标志设置正确的 oplock。
+
+≦ 13 ≧
+ 
+CfQuerySyncProviderStatus 
+
+查询同步提供程序以获取提供程序的状态。 CfReferenceProtectedHandle 
+
+允许调用方引用 Win32 句柄的受保护句柄，该句柄可与非 CfApi Win32 API 一起使用。 CfRegisterSyncRoot 
+
+执行一次性同步根注册。 CfReleaseProtectedHandle 
+
+释放 CfReferenceProtectedHandle 引用的受保护句柄。 CfReleaseTransferKey 
+
+释放由 CfGetTransferKey 获取的传输密钥。 CfReportProviderProgress 
+
+允许同步提供程序报告带外进度。 CfReportProviderProgress2 
+
+允许同步提供程序报告带外进度。 使用其他参数扩展 CfReportProviderProgress。 CfReportSyncStatus 
+
+允许同步提供程序在指定的同步根上通知平台其状态，而无需先通过调用 CfConnectSyncRoot 进行连接。
+CfRevertPlaceholder 
+
+将占位符恢复为常规文件，去除所有特殊特征，例如重分析标记、文件标识等。 CfSetCorrelationVector 
+
+允许同步提供程序指示平台在占位符文件上使用特定的相关向量进行遥测。 此为可选项。 CfSetInSyncState 
+
+设置占位符文件或文件夹的同步状态。 CfSetPinState 
+
+这将设置占位符的固定状态，该占位符用于表示用户的意向。 任何应用程序 (不只是同步提供程序) 都可以调用此函数。
+
+≦ 14 ≧
+ 
+CfUnregisterSyncRoot 
+
+取消注册以前注册的同步根目录。 CfUpdatePlaceholder 
+
+汇报占位符文件或目录的特征。 CfUpdateSyncProviderStatus 
+ 汇报同步提供程序的当前状态。
+結構  
+CF_CALLBACK_INFO 
+ 包含常见的回调信息。
+CF_CALLBACK_PARAMETERS 
+
+包含特定于回调的参数，例如文件偏移量、长度、标志等。
+CF_CALLBACK_REGISTRATION 
+ 同步提供程序要注册的回调。 CF_FILE_RANGE 
+
+指定占位符文件中的数据范围。 CF_FS_METADATA 
+
+占位符文件或目录元数据。 CF_HYDRATION_POLICY 
+
+指定主要混合策略及其修饰符。 CF_OPERATION_INFO 
+
+有关占位符文件或文件夹上的操作的信息。 CF_OPERATION_PARAMETERS 
+
+占位符文件或文件夹上的操作的参数。
+
+≦ 15 ≧
+ 
+CF_PLACEHOLDER_BASIC_INFO 
+ 基本占位符信息。
+CF_PLACEHOLDER_CREATE_INFO 
+
+包含用于创建新占位符文件或目录的占位符信息。
+CF_PLACEHOLDER_STANDARD_INFO 
+ 标准占位符信息。
+CF_PLATFORM_INFO 
+
+返回云文件平台的信息。 这适用于在多个版本的 Windows 上运行的同步提供程序。 CF_POPULATION_POLICY 
+
+指定主要填充策略及其修饰符。 CF_PROCESS_INFO 
+
+包含有关用户进程的信息。 CF_SYNC_POLICIES 
+
+定义同步根目录使用的同步策略。 CF_SYNC_REGISTRATION 
+
+要注册的同步提供程序和同步根的详细信息。
+CF_SYNC_ROOT_BASIC_INFO 
+ 基本同步根信息。
+CF_SYNC_ROOT_PROVIDER_INFO 
+ 同步根提供程序信息。
+CF_SYNC_ROOT_STANDARD_INFO 
+
+标准同步根信息。 CF_SYNC_STATUS 
+
+在 CF_OPERATION_INFO 结构中用于描述指定同步根的状态。
+
+≦ 16 ≧
+枚举  
+CF_CALLBACK_CANCEL_FLAGS 
+
+用于取消占位符文件或文件夹的数据提取的回调标志。 CF_CALLBACK_CLOSE_COMPLETION_FLAGS 
+
+用于通知同步提供程序其某个同步根下的占位符的回调标志，该占位符之前已打开进行读/写/删除访问。
+CF_CALLBACK_DEHYDRATE_COMPLETION_FLAGS 
+
+一个回调标志，用于通知同步提供程序其某个同步根下的占位符已成功解除冻结。 CF_CALLBACK_DEHYDRATE_FLAGS 
+
+用于通知同步提供程序其同步根之一下的占位符将解除冻结的回调标志。
+CF_CALLBACK_DEHYDRATION_REASON 
+ 指定云文件冻结的原因。
+CF_CALLBACK_DELETE_COMPLETION_FLAGS 
+
+用于通知同步提供程序占位符已成功删除的回调标志。 CF_CALLBACK_DELETE_FLAGS 
+
+此回调用于通知同步提供程序，其中一个同步根下的占位符文件或目录即将被删除或取消删除。 CF_CALLBACK_FETCH_DATA_FLAGS 
+
+用于提取占位符文件或文件夹数据的回调标志。 CF_CALLBACK_FETCH_PLACEHOLDERS_FLAGS 
+用于提取有关占位符文件或目录内容的信息的标志。 CF_CALLBACK_OPEN_COMPLETION_FLAGS 
+
+用于通知同步提供程序已成功打开占位符进行读/写/删除访问的回调标志。 CF_CALLBACK_RENAME_COMPLETION_FLAGS 
+
+一个回调标志，用于通知同步提供程序其同步根之一下的占位符已成功重命名。
+
+≦ 17 ≧
+ 
+CF_CALLBACK_RENAME_FLAGS 
+
+回调标志以通知同步提供程序其同步根之一下的占位符即将重命名或移动。 CF_CALLBACK_TYPE 
+
+包含对占位符文件或文件夹使用的各种类型的回调。
+CF_CALLBACK_VALIDATE_DATA_FLAGS 
+ 用于验证占位符文件或目录数据的标志。 CF_CONNECT_FLAGS 
+
+同步提供程序在调用其回调时可以请求的其他信息。 CF_CONVERT_FLAGS 
+
+普通文件/目录到占位符文件/目录的转换标志。 CF_CREATE_FLAGS 
+
+用于创建占位符文件或目录的标志。
+CF_DEHYDRATE_FLAGS 
+ 占位符冻结标志。
+CF_HARDLINK_POLICY 
+
+指定是否允许对占位符文件使用硬链接。
+CF_HYDRATE_FLAGS 
+ 占位符数据混合标志。
+CF_HYDRATION_POLICY_MODIFIER 
+
+允许同步提供程序控制平台应如何冻结占位符文件。 这是可与主 policy：
+_CF_HYDRATION_POLICY_PRIMARY 一起使用的修饰符。 CF_HYDRATION_POLICY_PRIMARY 
+
+允许同步提供程序控制平台应如何冻结占位符文件。 这是主要策略。 CF_IN_SYNC_STATE 
+
+指定占位符文件和文件夹的同步状态。
+
+≦ 18 ≧
+ 
+CF_INSYNC_POLICY 
+
+允许同步提供程序控制平台何时应清除占位符文件或目录上的同步状态的策略。 CF_OPEN_FILE_FLAGS 
+
+用于请求打开文件时的各种权限的标志。 CF_OPERATION_ACK_DATA_FLAGS 
+
+用于验证和确认占位符文件或文件夹的数据的标志。 CF_OPERATION_ACK_DEHYDRATE_FLAGS 
+
+用于确认占位符文件或目录已解除冻结的标志。
+CF_OPERATION_ACK_DELETE_FLAGS 
+ 用于确认删除占位符文件或目录的标志。 CF_OPERATION_ACK_RENAME_FLAGS 
+
+用于确认占位符文件或目录重命名的标志。
+CF_OPERATION_RESTART_HYDRATION_FLAGS 
+
+用于在占位符文件或文件夹上重启数据混合的标志。 CF_OPERATION_RETRIEVE_DATA_FLAGS 
+
+用于检索占位符文件或文件夹的数据的标志。 CF_OPERATION_TRANSFER_DATA_FLAGS 
+
+用于传输数据以冻结占位符文件或文件夹的标志。 CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS 
+ 用于指定传输占位符文件或目录时的行为的标志。 CF_OPERATION_TYPE 
+
+可以对占位符文件和目录执行的操作类型。 CF_PIN_STATE 
+
+固定占位符文件或目录的状态。
+
+≦ 19 ≧
+ 
+CF_PLACEHOLDER_CREATE_FLAGS 
+
+用于基于每个占位符创建占位符的标志。
+CF_PLACEHOLDER_INFO_CLASS 
+ 占位符信息的信息类。
+CF_PLACEHOLDER_MANAGEMENT_POLICY 
+
+指定CF_SYNC_POLICIES结构的占位符管理策略。 CF_PLACEHOLDER_RANGE_INFO_CLASS 
+占位符文件数据范围的类型。 CF_PLACEHOLDER_STATE 
+ 占位符文件或文件夹的状态。
+CF_POPULATION_POLICY_MODIFIER 
+
+定义填充策略修饰符。 这是可与主 policy：_CF_POPULATION_POLICY_PRIMARY 一起使用的修饰符。
+CF_POPULATION_POLICY_PRIMARY 
+
+允许同步提供程序控制平台应如何创建占位符目录和文件。 这是主要策略。 CF_REGISTER_FLAGS 
+
+用于注册和更新同步根的标志。 CF_REVERT_FLAGS 
+
+用于将占位符文件还原为常规文件的标志。 CF_SET_IN_SYNC_FLAGS 
+
+占位符文件和文件夹的同步状态标志。
+CF_SET_PIN_FLAGS 
+ 占位符固定标志。
+CF_SYNC_PROVIDER_STATUS 
+ 同步提供程序的当前状态。
+
+≦ 20 ≧
+ 
+CF_SYNC_ROOT_INFO_CLASS 
+
+同步根信息的类型。 CF_UPDATE_FLAGS 
+
+用于更新占位符文件或目录的标志。
+
+≦ 21 ≧
+CF_CALLBACK_CANCEL_FLAGS 枚举
+(cfapi.h) 项目2023/03/31
+用于取消占位符文件或文件夹的数据提取的回调标志。
+语法 C++
+typedef enum CF_CALLBACK_CANCEL_FLAGS {
+
+  CF_CALLBACK_CANCEL_FLAG_NONE = 0x00000000,
+
+  CF_CALLBACK_CANCEL_FLAG_IO_TIMEOUT = 0x00000001,
+   CF_CALLBACK_CANCEL_FLAG_IO_ABORTED = 0x00000002
+} ;
+
+常量  
+CF_CALLBACK_CANCEL_FLAG_NONE
+
+值： 0x00000000
+ 无取消标志。
+CF_CALLBACK_CANCEL_FLAG_IO_TIMEOUT
+ 值： 0x00000001
+
+如果由于 60 秒计时器过期而取消用户请求，则要设置的标志。
+CF_CALLBACK_CANCEL_FLAG_IO_ABORTED
+ 值： 0x00000002
+
+如果用户显式终止应用启动的下载 Toast 中的混合，则取消用户请求时要设置的标志。要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+
+≦ 22 ≧
+另请参阅 CF_CALLBACK_TYPE
+
+≦ 23 ≧
+CF_CALLBACK_CLOSE_COMPLETION_FLA
+GS 枚举 (cfapi.h) 项目2024/02/26
+用于通知同步提供程序其某个同步根下的占位符（以前为读/写/删除访问打开）的回调标志现已关闭。
+语法 C++
+typedef enum CF_CALLBACK_CLOSE_COMPLETION_FLAGS {
+  CF_CALLBACK_CLOSE_COMPLETION_FLAG_NONE = 0x00000000,   CF_CALLBACK_CLOSE_COMPLETION_FLAG_DELETED = 0x00000001} ;
+常量
+ﾉ
+ 
+CF_CALLBACK_CLOSE_COMPLETION_FLAG_NONE
+值： 0x00000000 没有关闭完成标志。
+CF_CALLBACK_CLOSE_COMPLETION_FLAG_DELETED 值： 0x00000001
+如果占位符因关闭而被删除，则设置的标志。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表展开表
+
+≦ 24 ≧
+另请参阅 CF_CALLBACK_TYPE
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 25 ≧
+CF_CALLBACK_DEHYDRATE_COMPLETIO
+N_FLAGS 枚举 (cfapi.h) 项目2024/02/23
+一个回调标志，用于通知同步提供程序其某个同步根下的占位符已成功解除冻结。
+语法 C++
+typedef enum CF_CALLBACK_DEHYDRATE_COMPLETION_FLAGS {
+  CF_CALLBACK_DEHYDRATE_COMPLETION_FLAG_NONE = 0x00000000,
+  CF_CALLBACK_DEHYDRATE_COMPLETION_FLAG_BACKGROUND = 0x00000001,   CF_CALLBACK_DEHYDRATE_COMPLETION_FLAG_DEHYDRATED = 0x00000002} ;
+常量
+ﾉ
+ 
+CF_CALLBACK_DEHYDRATE_COMPLETION_FLAG_NONE
+值： 0x00000000 无冻结完成标志。
+CF_CALLBACK_DEHYDRATE_COMPLETION_FLAG_BACKGROUND 值： 0x00000001
+如果解除冻结请求由系统后台服务启动，则设置一个标志。
+CF_CALLBACK_DEHYDRATE_COMPLETION_FLAG_DEHYDRATED 值： 0x00000002
+如果占位符在解除冻结请求之前已水合，则设置一个标志。要求
+ﾉ
+要求
+最低受支持的客户端
+值
+Windows 10版本 1709 [仅限桌面应用]
+展开表展开表
+
+≦ 26 ≧
+要求
+最低受支持的服务器标头
+另请参阅 CF_CALLBACK_TYPE
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 27 ≧
+CF_CALLBACK_DEHYDRATE_FLAGS 枚举
+(cfapi.h) 项目2024/02/26
+用于通知同步提供程序其同步根之一下的占位符将解除冻结的回调标志。
+语法 C++
+typedef enum CF_CALLBACK_DEHYDRATE_FLAGS {
+  CF_CALLBACK_DEHYDRATE_FLAG_NONE = 0x00000000,
+  CF_CALLBACK_DEHYDRATE_FLAG_BACKGROUND = 0x00000001} ;
+常量
+ﾉ
+ 
+CF_CALLBACK_DEHYDRATE_FLAG_NONE
+值： 0x00000000 无脱水标志。
+CF_CALLBACK_DEHYDRATE_FLAG_BACKGROUND 值： 0x00000001
+如果解除冻结请求由系统后台服务启动，则为设置的标志。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表展开表
+
+≦ 28 ≧
+另请参阅 CF_CALLBACK_TYPE
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 29 ≧
+CF_CALLBACK_DEHYDRATION_REASON
+枚举 (cfapi.h) 项目2024/02/23
+指定云文件冻结的原因。
+语法 C++
+typedef enum CF_CALLBACK_DEHYDRATION_REASON {   CF_CALLBACK_DEHYDRATION_REASON_NONE,
+  CF_CALLBACK_DEHYDRATION_REASON_USER_MANUAL,
+  CF_CALLBACK_DEHYDRATION_REASON_SYSTEM_LOW_SPACE,   CF_CALLBACK_DEHYDRATION_REASON_SYSTEM_INACTIVITY,   CF_CALLBACK_DEHYDRATION_REASON_SYSTEM_OS_UPGRADE} ;
+常量
+ﾉ
+ 
+CF_CALLBACK_DEHYDRATION_REASON_NONE 云文件在创建后从未冻结过。
+CF_CALLBACK_DEHYDRATION_REASON_USER_MANUAL 用户显式解除冻结了云文件。
+CF_CALLBACK_DEHYDRATION_REASON_SYSTEM_LOW_SPACE
+当此文件所在的卷上的磁盘空间不足时，平台会解除云文件冻结。
+CF_CALLBACK_DEHYDRATION_REASON_SYSTEM_INACTIVITY 平台根据用户定义的策略将云文件过期。
+CF_CALLBACK_DEHYDRATION_REASON_SYSTEM_OS_UPGRADE 平台在回收磁盘空间以升级 OS 时将此文件冻结。
+要求
+展开表
+
+≦ 30 ≧
+要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+值
+Windows 10 版本 1709 Windows Server 2016 cfapi.h
+ﾉ
+展开表
+
+≦ 31 ≧
+CF_CALLBACK_DELETE_COMPLETION_FL
+AGS 枚举 (cfapi.h) 项目2024/03/05
+用于通知同步提供程序占位符已成功删除的回调标志。
+语法 C++
+typedef enum CF_CALLBACK_DELETE_COMPLETION_FLAGS {
+  CF_CALLBACK_DELETE_COMPLETION_FLAG_NONE = 0x00000000} ;
+常量
+ﾉ
+ 
+CF_CALLBACK_DELETE_COMPLETION_FLAG_NONE
+值： 0x00000000 无删除完成标志。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CF_CALLBACK_TYPE
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表展开表
+
+≦ 32 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 33 ≧
+CF_CALLBACK_DELETE_FLAGS 枚举
+(cfapi.h) 项目2024/02/26
+当通知同步提供程序某个同步根下的占位符文件或目录即将被删除或取消删除时， (see CF_CALLBACK_TYPE) 使用此CF_CALLBACK_TYPE_NOTIFY_DELETE 枚举。
+语法 C++
+typedef enum CF_CALLBACK_DELETE_FLAGS {   CF_CALLBACK_DELETE_FLAG_NONE,
+  CF_CALLBACK_DELETE_FLAG_IS_DIRECTORY,   CF_CALLBACK_DELETE_FLAG_IS_UNDELETE} ;
+常量
+ﾉ
+ 
+CF_CALLBACK_DELETE_FLAG_NONE 0x00000000
+无删除标志。
+CF_CALLBACK_DELETE_FLAG_IS_DIRECTORY 0x00000001
+即将删除的占位符是目录。
+CF_CALLBACK_DELETE_FLAG_IS_UNDELETE 0x00000002
+正在取消删除占位符。要求
+展开表
+
+≦ 34 ≧
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CF_CALLBACK_TYPE
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 35 ≧
+CF_CALLBACK_FETCH_DATA_FLAGS 枚举
+(cfapi.h) 项目2024/02/23
+用于提取占位符文件或文件夹数据的回调标志。
+语法 C++
+typedef enum CF_CALLBACK_FETCH_DATA_FLAGS {
+  CF_CALLBACK_FETCH_DATA_FLAG_NONE = 0x00000000,
+  CF_CALLBACK_FETCH_DATA_FLAG_RECOVERY = 0x00000001,
+  CF_CALLBACK_FETCH_DATA_FLAG_EXPLICIT_HYDRATION = 0x00000002} ;
+常量
+ﾉ
+ 
+CF_CALLBACK_FETCH_DATA_FLAG_NONE
+值： 0x00000000 无数据提取标志。
+CF_CALLBACK_FETCH_DATA_FLAG_RECOVERY 值： 0x00000001
+展开表
+如果由于之前由于同步提供程序意外关闭或断电等导致冻结过程中断而调用回调，则要使用的标志。
+CF_CALLBACK_FETCH_DATA_FLAG_EXPLICIT_HYDRATION
+值： 0x00000002 >[!注意]
+>此值是 Windows 10 版本 1803 的新增值。
+如果由于调用 CfHydratePlaceholder 而调用回调，则要使用的标志。要求
+
+≦ 36 ≧
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CF_CALLBACK_TYPE CfHydratePlaceholder
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 37 ≧
+CF_CALLBACK_FETCH_PLACEHOLDERS_F
+LAGS 枚举 (cfapi.h) 项目2024/03/04
+用于提取有关占位符文件或目录内容的信息的标志。
+语法 C++
+typedef enum CF_CALLBACK_FETCH_PLACEHOLDERS_FLAGS {
+  CF_CALLBACK_FETCH_PLACEHOLDERS_FLAG_NONE = 0x00000000} ;
+常量
+ﾉ
+ 
+CF_CALLBACK_FETCH_PLACEHOLDERS_FLAG_NONE
+值： 0x00000000 无提取占位符标志。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CF_CALLBACK_TYPE
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表展开表
+
+≦ 38 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 39 ≧
+CF_CALLBACK_INFO 结构 (cfapi.h) 项目2023/04/11
+包含常见的回调信息，例如回调类型、触发回调的用户进程，以及有关请求回调的文件的
+基本信息。语法 C++
+typedef struct CF_CALLBACK_INFO {
+   DWORD               StructSize;
+  CF_CONNECTION_KEY   ConnectionKey;
+   LPVOID              CallbackContext;
+   PCWSTR              VolumeGuidName;
+   PCWSTR              VolumeDosName;
+
+  DWORD               VolumeSerialNumber;
+
+  LARGE_INTEGER       SyncRootFileId;
+   LPCVOID             SyncRootIdentity;
+
+  DWORD               SyncRootIdentityLength;
+
+  LARGE_INTEGER       FileId;
+   LARGE_INTEGER       FileSize;
+
+  LPCVOID             FileIdentity;
+
+  DWORD               FileIdentityLength;
+   PCWSTR              NormalizedPath;
+
+  CF_TRANSFER_KEY     TransferKey;
+   UCHAR               PriorityHint;
+
+  PCORRELATION_VECTOR CorrelationVector;
+   CF_PROCESS_INFO     *ProcessInfo;
+
+  CF_REQUEST_KEY      RequestKey;} CF_CALLBACK_INFO;
+
+成员 StructSize
+CF_CALLBACK_INFO的大小。 ConnectionKey
+CfConnectSyncRoot 为同步提供程序管理的同步根创建的不透明句柄。 为方便起见，将
+返回 ConnectionKey，因此同步提供程序无需手动跟踪它。 CallbackContext
+
+≦ 40 ≧
+指向同步提供程序在同步根连接时间提供的不透明 Blob。 为方便起见，将返回
+CallbackContext，因此同步提供程序无需手动跟踪它。 VolumeGuidName
+要提供服务的占位符文件/目录所在的卷的 GUID 名称。 其格式为：“\？
+\Volume{GUID}”。 VolumeDosName
+卷的 DOS 驱动器号采用“X：”形式，其中 X 是驱动器号。 VolumeSerialNumber
+卷的序列号。 SyncRootFileId
+要提供服务的占位符文件或目录所在的同步根目录的 64 位文件系统维护的卷范围唯一 ID。
+SyncRootIdentity
+指向同步根注册时同步提供程序提供的不透明 Blob。 SyncRootIdentityLength
+SyncRootIdentity 的长度（以字节为单位）。 FileId
+要服务的占位符文件或目录的 64 位文件系统维护的卷范围唯一 ID。 FileSize
+要服务的占位符文件的逻辑大小。 如果回调的主题是目录，则始终 0 如此。 FileIdentity
+指向同步提供程序在占位符创建/转换/更新时提供的不透明 Blob。 FileIdentityLength
+FileIdentity 的长度（以字节为单位）。 NormalizedPath
+
+≦ 41 ≧
+要在 VolumeGuidName/VolumeDosName 标识的卷上服务的占位符文件或目录的绝对路
+径。 它从卷的根目录开始。 有关更多详细信息，请参阅 备注 部分。 TransferKey
+要服务的占位符文件/目录的不透明句柄。 同步提供程序必须将其传递回 CfExecute 调
+用，以便对文件/目录执行所需的操作。 PriorityHint
+提供给同步提供程序的数值刻度，用于描述一个提取相对于另一个提取的相对优先级，以便为用户提供响应最快速的体验。 值的范围从 0 (最低可能优先级) 到 15 (最高可能优先级) ，但否则这些值没有特定含义。 筛选器可能会根据条件调整选择优先级提示的方式。同步提供程序可以随意使用提示，但可以选择。
+CorrelationVector 可选的相关向量。 ProcessInfo
+指向 CF_PROCESS_INFO 结构，该结构包含有关触发此回调的用户进程的信息。 仅当同步提供程序在同步根连接时间指定 CF_CONNECT_FLAG_REQUIRE_PROCESS_INFO 时，
+它才存在。 RequestKey
+一个不透明 ID，用于唯一标识特定云文件上的云文件操作，如 TransferKey 所指示。 同步提供程序无需解释此字段。 同步提供程序的唯一要求是按原样将其传输到
+CF_OPERATION_INFO。备注
+如果以下所有条件都成立，则文件名被视为规范化：
+它包含文件的完整目录路径（包括卷名称），除非用户按文件 ID 打开了文件，但没有对整个路径的遍历权限。 (有关详细信息，请参阅 FltGetFileNameInformation.)
+卷名称是卷的非永久性设备对象名称， (例如“\Device\HarddiskVolume1”) 。所有短名称都扩展为等效的长名称。
+任何尾随“：$DATA”或“：$DATA”字符串都将从流名称中删除。已解析所有装入点。
+要求
+
+≦ 42 ≧
+ 
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfConnectSyncRoot CfExecute
+CF_PROCESS_INFO CF_OPERATION_INFO
+FltGetFileNameInformation
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+
+≦ 43 ≧
+CF_CALLBACK_OPEN_COMPLETION_FLA
+GS 枚举 (cfapi.h) 项目2023/03/31
+用于通知同步提供程序已成功打开占位符进行读/写/删除访问的回调标志。
+语法 C++
+typedef enum CF_CALLBACK_OPEN_COMPLETION_FLAGS {
+
+  CF_CALLBACK_OPEN_COMPLETION_FLAG_NONE = 0x00000000,
+
+  CF_CALLBACK_OPEN_COMPLETION_FLAG_PLACEHOLDER_UNKNOWN = 0x00000001,
+
+  CF_CALLBACK_OPEN_COMPLETION_FLAG_PLACEHOLDER_UNSUPPORTED = 0x00000002
+} ;
+
+常量  
+CF_CALLBACK_OPEN_COMPLETION_FLAG_NONE
+
+值： 0x00000000
+ 无打开的完成标志。
+CF_CALLBACK_OPEN_COMPLETION_FLAG_PLACEHOLDER_UNKNOWN
+ 值： 0x00000001
+
+占位符元数据损坏时设置的标志。
+CF_CALLBACK_OPEN_COMPLETION_FLAG_PLACEHOLDER_UNSUPPORTED
+ 值： 0x00000002
+
+如果占位符元数据为较旧且不受支持的版本，则设置一个标志。要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+
+≦ 44 ≧
+另请参阅 CF_CALLBACK_TYPE
+
+≦ 45 ≧
+CF_CALLBACK_PARAMETERS 结构
+(cfapi.h) 项目2023/03/18
+此结构包含特定于回调的参数，例如文件偏移量、长度、标志等。
+语法 C++
+typedef struct CF_CALLBACK_PARAMETERS {
+
+  ULONG ParamSize;
+   union {
+
+    struct {
+
+      CF_CALLBACK_CANCEL_FLAGS Flags;
+       union {
+
+        struct {
+
+          LARGE_INTEGER FileOffset;
+
+          LARGE_INTEGER Length;
+         } FetchData;
+
+      } DUMMYUNIONNAME;
+
+    } Cancel;
+     struct {
+
+      CF_CALLBACK_FETCH_DATA_FLAGS   Flags;
+
+      LARGE_INTEGER                  RequiredFileOffset;
+       LARGE_INTEGER                  RequiredLength;
+
+      LARGE_INTEGER                  OptionalFileOffset;
+       LARGE_INTEGER                  OptionalLength;
+
+      LARGE_INTEGER                  LastDehydrationTime;
+       CF_CALLBACK_DEHYDRATION_REASON LastDehydrationReason;
+
+    } FetchData;
+     struct {
+
+      CF_CALLBACK_VALIDATE_DATA_FLAGS Flags;
+
+      LARGE_INTEGER                   RequiredFileOffset;
+       LARGE_INTEGER                   RequiredLength;
+
+    } ValidateData;
+     struct {
+
+      CF_CALLBACK_FETCH_PLACEHOLDERS_FLAGS Flags;
+       PCWSTR                               Pattern;
+
+    } FetchPlaceholders;
+     struct {
+
+      CF_CALLBACK_OPEN_COMPLETION_FLAGS Flags;
+
+    } OpenCompletion;
+     struct {
+
+      CF_CALLBACK_CLOSE_COMPLETION_FLAGS Flags;
+
+    } CloseCompletion;
+     struct {
+
+      CF_CALLBACK_DEHYDRATE_FLAGS    Flags;
+       CF_CALLBACK_DEHYDRATION_REASON Reason;
+
+
+≦ 46 ≧
+    } Dehydrate;
+     struct {
+
+      CF_CALLBACK_DEHYDRATE_COMPLETION_FLAGS Flags;
+       CF_CALLBACK_DEHYDRATION_REASON         Reason;
+
+    } DehydrateCompletion;
+     struct {
+
+      CF_CALLBACK_DELETE_FLAGS Flags;
+
+    } Delete;
+     struct {
+
+      CF_CALLBACK_DELETE_COMPLETION_FLAGS Flags;
+
+    } DeleteCompletion;
+     struct {
+
+      CF_CALLBACK_RENAME_FLAGS Flags;
+
+      PCWSTR                   TargetPath;
+
+    } Rename;
+     struct {
+
+      CF_CALLBACK_RENAME_COMPLETION_FLAGS Flags;
+
+      PCWSTR                              SourcePath;
+
+    } RenameCompletion;
+   } DUMMYUNIONNAME;
+
+} CF_CALLBACK_PARAMETERS;
+
+成员 ParamSize
+ParamSize 是根据正在执行的回调设置的。
+回调
+CF_CALLBACK_TYPE_FETCH_DATA CF_CALLBACK_TYPE_VALIDATE_DATA
+CF_CALLBACK_TYPE_CANCEL_FETCH_DATA CF_CALLBACK_TYPE_FETCH_PLACHOLDERS
+CF_CALLBACK_TYPE_CANCEL_FETCH_PLACHOLDERS CF_CALLBACK_TYPE_NOTIFY_FILE_OPEN_COMPLETION
+CF_CALLBACK_TYPE_NOTIFY_FILE_CLOSE_COMPLETION
+ParamSize 信息
+将 设置为 的大小 FetchData 加上 的大小 ULONG。
+将 设置为 的大小 ValidateData 加上 的大小 ULONG。
+将 设置为 的大小 Cancel.FetchData 加上两 ULONG个 s 的大小。
+将 设置为 的大小 FetchPlaceholders 加上 的大小 ULONG。
+将 设置为两 ULONG个 s 的大小。
+将 设置为 的大小 OpenCompletion 加上的大小 ULONG。
+将 设置为 的大小 CloseCompletion 加上 的大小 ULONG。
+
+≦ 47 ≧
+回调
+CF_CALLBACK_TYPE_NOTIFY_DEHYDRATE
+CF_CALLBACK_TYPE_NOTIFY_DEHYDRATE_COMPLETION CF_CALLBACK_TYPE_NOTIFY_DELETE
+CF_CALLBACK_TYPE_NOTIFY_DELETE_COMPLETION CF_CALLBACK_TYPE_NOTIFY_RENAME
+CF_CALLBACK_TYPE_NOTIFY_RENAME_COMPLETION DUMMYUNIONNAME
+DUMMYUNIONNAME.Cancel
+DUMMYUNIONNAME.Cancel.Flags 可以将标志 设置为以下标志：
+ParamSize 信息
+将 设置为 的大小 Dehydrate 加上 的大小 ULONG。
+将 设置为 的大小 DehydrateCompletion 加上 的大小 ULONG。
+将 设置为 的大小 Delete 加上 的大小 ULONG。
+将 设置为 的大小 DeleteCompletion 加上 的大小 ULONG。
+将 设置为 的大小 Rename 加上 的大小 ULONG。
+将 设置为 的大小 RenameCompletion 加上 的大小 ULONG。
+如果用户请求因 60 秒计时器过期而取消，则设置 CF_CALLBACK_CANCEL_FLAG_IO_TIMEOUT。
+如果由于用户显式终止应用启动的下载 Toast 中的混合而取消用户请求，则会设置 CF_CALLBACK_CANCEL_FLAG_IO_ABORTED。
+DUMMYUNIONNAME.Cancel.DUMMYUNIONNAME
+DUMMYUNIONNAME.Cancel.DUMMYUNIONNAME.FetchData
+DUMMYUNIONNAME.Cancel.DUMMYUNIONNAME.FetchData.FileOffset
+用于指定不再需要的文件数据范围的偏移量（以字节为单位）。 请注意，这可能与相应提取中的 RequiredFileOffset 匹配，但也可能是子集。 如果是子集，则仍然需要取消范
+围以外的数据，例如，以满足随后到达的未完成 I/O 操作。 DUMMYUNIONNAME.Cancel.DUMMYUNIONNAME.FetchData.Length
+不再需要的文件数据的长度（以字节为单位）。 请注意，这可能与相应提取中的
+RequiredLength 匹配，但也可能是子集。 如果是子集，则仍然需要取消范围以外的数
+
+≦ 48 ≧
+据，例如，以满足随后到达的未完成 I/O 操作。 DUMMYUNIONNAME.FetchData
+DUMMYUNIONNAME.FetchData.Flags 可以将标志设置为以下值：
+如果由于以前由于同步提供程序不干净关闭或断电等原因而中断水化过程而调用回
+调，则设置CF_CALLBACK_FETCH_DATA_FLAG_RECOVER。如果回调因调用 CfHydratePlaceholder 而调用，则设置
+CF_CALLBACK_FETCH_DATA_FLAG_EXPLICIT_HYDRATION。
+DUMMYUNIONNAME.FetchData.RequiredFileOffset
+用于指定筛选器为满足未完成的 I/O 请求而绝对需要的文件数据范围的偏移量（以字节为单位）。
+DUMMYUNIONNAME.FetchData.RequiredLength
+筛选器为满足未完成的 I/O 请求而绝对需要的文件数据的长度（以字节为单位）。 DUMMYUNIONNAME.FetchData.OptionalFileOffset
+偏移量（以字节为单位）作为一个提示提供，可以有效地提供给平台的更广泛的文件数据，以防同步提供程序倾向于提供较大区块中的数据。 通常，可选范围将是占位符中当前不存在的最大连续范围。 这是可选的，如果同步提供程序希望处理较大的数据段，则可以使用。
+DUMMYUNIONNAME.FetchData.OptionalLength
+长度（以字节为单位）作为一个提示提供，可以有效地提供给平台的更广泛的文件数据，以防同步提供程序倾向于提供较大区块中的数据。 通常，可选范围将是占位符中当前不存在的最大连续范围。 这是可选的，如果同步提供程序希望处理较大的数据段，则可以使用。
+长度为 -1（表示为 CF_EOF）表示无穷大 (即到文件) 末尾。
+同步提供程序不需要一次返回所需的所有数据。 同步提供程序也不要求返回所需范围或可选范围内的数据。 平台确保在任何情况下都不会因为无效 的
+CF_OPERATION_TYPE_TRANSFER_DATA 操作而修改/未同步的文件数据。 但是，返回的数据在偏移量和长度上必须对齐 4KB，除非返回的范围在文件末尾结束，在这种情况下，
+如果范围在文件末尾或超过文件末尾，则不需要将长度对齐 4KB。 DUMMYUNIONNAME.FetchData.LastDehydrationTime
+
+≦ 49 ≧
+有关云文件解除冻结的系统时间。 这是自 1601 年 1 月 1 日以来的 100 纳秒间隔计数。 DUMMYUNIONNAME.FetchData.LastDehydrationReason
+CF_CALLBACK_DEHYDRATION_REASON枚举的成员，指定上次解除冻结文件的原因。 LastDehydrationReason 可以是下列值之一：
+原因
+CF_CALLBACK_DEHYDRATE_REASON_NEVER
+CF_CALLBACK_DEHYDRATE_REASON_USER_MANUAL CF_CALLBACK_DEHYDRATE_REASON_SYSTEM_PERIODIC
+CF_CALLBACK_DEHYDRATE_REASON_SYSTEM_LOWSPACE CF_CALLBACK_DEHYDRATE_REASON_SYSTEM_UPGRADE
+DUMMYUNIONNAME.ValidateData
+DUMMYUNIONNAME.ValidateData.Flags
+说明
+云文件在创建后从未冻结过。用户显式解除冻结了云文件。
+平台根据用户定义的策略将云文件过期。
+当此文件所在的卷上的磁盘空间不足时，平台会解除云文件冻结。
+平台在回收磁盘空间以升级 OS 时将此文件冻结。
+数据验证标志。 如果回调因调用 CfHydratePlaceholder 而调用，则设置
+CF_CALLBACK_VALIDATE_DATA_FLAG_EXPLICIT_HYDRATION。 DUMMYUNIONNAME.ValidateData.RequiredFileOffset
+用于指定要验证的文件数据范围的偏移量（以字节为单位）。 DUMMYUNIONNAME.ValidateData.RequiredLength
+需要验证的文件数据范围的长度（以字节为单位）。 长度为 -1（表示为 CF_EOF）表示无穷大 (即到文件) 末尾。
+同步提供程序不需要一次确认所需的所有数据。 同步提供程序也无需确认所需范围内的数据。 平台确保在任何情况下都不会因为无效 的CF_OPERATION_TYPE_ACT_DATA 操作而修改/未同步的文件数据。 但是，除非返回的范围在文件末尾结束，否则确认的数据在偏移量和长度上必须对齐 4KB，在这种情况下，如果范围在文件末尾或超过文件末尾，则不需要长度为 4KB。
+DUMMYUNIONNAME.FetchPlaceholders
+DUMMYUNIONNAME.FetchPlaceholders.Flags
+
+≦ 50 ≧
+此 Flags 值应设置为 CF_CALLBACK_FETCH_PLACEHOLDERS_FLAG_NONE。 DUMMYUNIONNAME.FetchPlaceholders.Pattern
+一种标准 Windows 文件模式，可能包含通配符 (?、 *) 。 模式通常为 * ，但可能更具体。 同步提供程序应使用 CF_OPERATION_TYPE_TRANSFER_PLACEHOLDERS 开始传输目录中所有文件的占位符信息。 同步提供程序必须传输与模式匹配的所有占位符，但不一定是一次性传输，这是最低要求。 同步提供程序可能还会选择传输与模式不匹配的占位符。
+DUMMYUNIONNAME.OpenCompletion
+DUMMYUNIONNAME.OpenCompletion.Flags
+占位符打开完成标志。 可以将其设置为以下两个标志之一：
+如果占位符元数据损坏，则设置
+CF_CALLBACK_OPEN_COMPLETION_FLAG_PLACEHOLDER_UNKNOWN。如果占位符元数据的版本较旧且不受支持，则设置
+CF_CALLBACK_OPEN_COMPLETION_FLAG_PLACEHOLDER_UNSUPPORTED。
+DUMMYUNIONNAME.CloseCompletion
+DUMMYUNIONNAME.CloseCompletion.Flags
+占位符关闭完成标志。 如果占位符因关闭而被删除，则可以将其设置为
+CF_CALLBACK_CLOSE_COMPLETION_FLAG_DELETED 。 DUMMYUNIONNAME.Dehydrate
+DUMMYUNIONNAME.Dehydrate.Flags
+占位符冻结标志。 如果解除冻结请求由系统后台服务发起，则可以将其设置为
+CF_CALLBACK_DEHYDRATE_FLAG_BACKGROUND 。 DUMMYUNIONNAME.Dehydrate.Reason
+Reason 是CF_CALLBACK_DEHYDRATION_REASON枚举的成员，用于指定占位符被冻结的原因。 可以为下列值之一：
+原因
+CF_CALLBACK_DEHYDRATE_REASON_USER_MANUAL
+CF_CALLBACK_DEHYDRATE_REASON_SYSTEM_INACTIVITY
+说明
+用户显式要求解除云文件冻结。平台根据用户定义的策略定期将云文件过期。
+
+≦ 51 ≧
+原因
+CF_CALLBACK_DEHYDRATE_REASON_SYSTEM_LOW_SPACE CF_CALLBACK_DEHYDRATE_REASON_SYSTEM_OS_UPGRADE DUMMYUNIONNAME.DehydrateCompletion
+DUMMYUNIONNAME.DehydrateCompletion.Flags
+占位符解除冻结完成标志。 可以将其设置为以下值：
+如果解除冻结请求由系统后台服务发起，则设置
+说明
+平台在此云文件所在的卷上遇到磁盘空间不足的情况。
+平台正在回收磁盘空间以升级 OS。
+CF_CALLBACK_DEHYDRATE_COMPLETION_FLAG_BACKGROUND。如果放置器在脱水请求之前水合，则设置
+CF_CALLBACK_DEHYDRATE_COMPLETION_FLAG_DEHYDRATED。
+DUMMYUNIONNAME.DehydrateCompletion.Reason
+Reason 是CF_CALLBACK_DEHYDRATION_REASON枚举的成员，它指定占位符被冻结的原因。 可以为下列值之一：
+原因
+CF_CALLBACK_DEHYDRATE_REASON_USER_MANUAL
+CF_CALLBACK_DEHYDRATE_REASON_SYSTEM_INACTIVITY CF_CALLBACK_DEHYDRATE_REASON_SYSTEM_LOW_SPACE CF_CALLBACK_DEHYDRATE_REASON_SYSTEM_OS_UPGRADE DUMMYUNIONNAME.Delete
+DUMMYUNIONNAME.Delete.Flags
+说明
+用户显式要求解除云文件冻结。平台根据用户定义的策略定期将云文件过期。
+平台在此云文件所在的卷上遇到磁盘空间不足的情况。
+平台正在回收磁盘空间以升级 OS。
+占位符删除标志。 它设置为 CF_CALLBACK_DELETE_FLAG_NONE。 DUMMYUNIONNAME.DeleteCompletion
+DUMMYUNIONNAME.DeleteCompletion.Flags
+占位符删除完成标志。 它设置为 CF_CALLBACK_DELETE_COMPLETION_FLAG_NONE。 DUMMYUNIONNAME.Rename
+
+≦ 52 ≧
+DUMMYUNIONNAME.Rename.Flags
+重命名占位符标志。 可以将其设置为以下值：
+如果占位符是目录，则设置CF_CALLBACK_RENAME_FLAG_IS_DIRECTORY。
+如果要重命名或移动的链接位于同步进程管理的同步根目录中，则设置 CF_CALLBACK_RENAME_FLAG_SOURCE_IN_SCOPE。
+如果重命名或移动目标位于源路径的同一同步根目录中，则设置 CF_CALLBACK_RENAME_FLAG_TARGET_IN_SCOPE。
+DUMMYUNIONNAME.Rename.TargetPath
+相对于卷的完整重命名/移动目标路径。 DUMMYUNIONNAME.RenameCompletion
+DUMMYUNIONNAME.RenameCompletion.Flags 重命名完成占位符标志。 它设置为
+CF_CALLBACK_RENAME_COMPLETION_FLAG_NONE。 DUMMYUNIONNAME.RenameCompletion.SourcePath
+相对于卷的完整源链接路径。要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfHydratePlaceholder CF_CALLBACK_TYPE
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+CF_CALLBACK_DEHYDRATION_REASON
+
+≦ 53 ≧
+CF_CALLBACK_REGISTRATION 结构
+(cfapi.h) 项目2024/02/23
+同步提供程序要注册的回调。
+语法 C++
+typedef struct CF_CALLBACK_REGISTRATION {   CF_CALLBACK_TYPE Type;
+  CF_CALLBACK      Callback;} CF_CALLBACK_REGISTRATION;
+成员 Type
+要注册的回调类型。 请参阅 CF_CALLBACK_TYPE。 Callback
+指向回调函数的指针。注解
+此回调注册是同步提供程序与库通信的方式，该库要调用哪些函数来执行来自平台的各种请求。
+请注意，同步提供程序只需注册实现的回调， CF_CALLBACK_REGISTRATION 应始终以
+CF_CALLBACK_REGISTRATION_END结尾。要求
+ﾉ
+要求
+最低受支持的客户端
+值
+Windows 10版本 1709 [仅限桌面应用]
+展开表
+
+≦ 54 ≧
+要求
+最低受支持的服务器标头
+另请参阅 CF_CALLBACK_TYPE CfConnectSyncRoot
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 55 ≧
+CF_CALLBACK_RENAME_COMPLETION_F
+LAGS 枚举 (cfapi.h) 项目2024/03/05
+一个回调标志，用于通知同步提供程序其某个同步根下的占位符已成功重命名。
+语法 C++
+typedef enum CF_CALLBACK_RENAME_COMPLETION_FLAGS {
+  CF_CALLBACK_RENAME_COMPLETION_FLAG_NONE = 0x00000000} ;
+常量
+ﾉ
+ 
+CF_CALLBACK_RENAME_COMPLETION_FLAG_NONE
+值： 0x00000000 无重命名完成标志。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CF_CALLBACK_TYPE
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表展开表
+
+≦ 56 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 57 ≧
+CF_CALLBACK_RENAME_FLAGS 枚举
+(cfapi.h) 项目2024/02/23
+回调标志，用于通知同步提供程序其同步根之一下的占位符即将重命名或移动。
+语法 C++
+typedef enum CF_CALLBACK_RENAME_FLAGS {
+  CF_CALLBACK_RENAME_FLAG_NONE = 0x00000000,
+  CF_CALLBACK_RENAME_FLAG_IS_DIRECTORY = 0x00000001,
+  CF_CALLBACK_RENAME_FLAG_SOURCE_IN_SCOPE = 0x00000002,   CF_CALLBACK_RENAME_FLAG_TARGET_IN_SCOPE = 0x00000004} ;
+常量
+ﾉ
+ 
+CF_CALLBACK_RENAME_FLAG_NONE
+值： 0x00000000 无重命名标志。
+CF_CALLBACK_RENAME_FLAG_IS_DIRECTORY 值： 0x00000001
+如果占位符是目录，则设置标志。
+CF_CALLBACK_RENAME_FLAG_SOURCE_IN_SCOPE 值： 0x00000002
+要重命名或移动的链接是否位于同步进程管理的同步根目录中设置的标志。
+CF_CALLBACK_RENAME_FLAG_TARGET_IN_SCOPE 值： 0x00000004
+如果重命名或移动目标位于源路径的同一同步根目录中，则设置标志。要求
+展开表
+
+≦ 58 ≧
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CF_CALLBACK_TYPE
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 59 ≧
+CF_CALLBACK_TYPE 枚举 (cfapi.h) 项目2023/08/25
+包含对占位符文件或文件夹使用的各种类型的回调。
+语法 C++
+typedef enum CF_CALLBACK_TYPE {   CF_CALLBACK_TYPE_FETCH_DATA,
+  CF_CALLBACK_TYPE_VALIDATE_DATA,
+  CF_CALLBACK_TYPE_CANCEL_FETCH_DATA,   CF_CALLBACK_TYPE_FETCH_PLACEHOLDERS,
+  CF_CALLBACK_TYPE_CANCEL_FETCH_PLACEHOLDERS,   CF_CALLBACK_TYPE_NOTIFY_FILE_OPEN_COMPLETION,   CF_CALLBACK_TYPE_NOTIFY_FILE_CLOSE_COMPLETION,   CF_CALLBACK_TYPE_NOTIFY_DEHYDRATE,
+  CF_CALLBACK_TYPE_NOTIFY_DEHYDRATE_COMPLETION,   CF_CALLBACK_TYPE_NOTIFY_DELETE,
+  CF_CALLBACK_TYPE_NOTIFY_DELETE_COMPLETION,   CF_CALLBACK_TYPE_NOTIFY_RENAME,
+  CF_CALLBACK_TYPE_NOTIFY_RENAME_COMPLETION,
+  CF_CALLBACK_TYPE_NONE = 0xffffffff} ;
+常量  
+CF_CALLBACK_TYPE_FETCH_DATA
+此回调用于向同步提供程序请求满足占位符上的 I/O 请求或显式解除冻结请求所需的一系列文件数据。 如果同步提供程序指定的解除冻结策略在同步根注册时 未ALWAYS_FULL ，则需要实现此回调。
+CF_CALLBACK_TYPE_VALIDATE_DATA
+此回调用于请求同步提供程序确认给定范围的文件数据（之前
+CF_OPERATION_TYPE_TRANSFER_DATA 操作已存在于磁盘上）是有效的，因此平台可以使用它来满足用户 I/O 请求。 仅当同步提供程序指定了同步根注册时 VALIDATION_REQUIRED 解除冻结策
+略修饰符时，才需要实现此回调。 CF_CALLBACK_TYPE_CANCEL_FETCH_DATA
+此回调用于通知同步提供程序不再需要一系列文件数据，通常是因为发起的请求已取消。 这样，同步提供程序就可以停止尝试获取数据 (取消未完成的网络请求等 ) 。 此回调的实现是可选的。
+
+≦ 60 ≧
+ 
+CF_CALLBACK_TYPE_FETCH_PLACEHOLDERS
+此回调用于要求同步提供程序提供有关占位符目录的内容的信息，以满足目录查询操作或尝试在目录下打开文件。 仅当同步提供程序在同步根注册时指定 CF_POPULATION_POLICY_ALWAYS_FULL 以外的策略时，才需要实现此回调。
+CF_CALLBACK_TYPE_CANCEL_FETCH_PLACEHOLDERS
+此回调用于通知同步提供程序不再需要占位符目录的内容，通常是因为原始请求已取消。 这样，同
+步提供程序就可以停止尝试获取内容 (取消未完成的网络请求等 ) 。 此回调的实现是可选的。 CF_CALLBACK_TYPE_NOTIFY_FILE_OPEN_COMPLETION
+此回调用于通知同步提供程序，已成功打开其某个同步根下的占位符进行读/写/删除访问。 不阻止执行打开操作的用户应用程序。 同步提供程序不会响应。 此通知不适用于目录。 此回调的实现是可选的。
+CF_CALLBACK_TYPE_NOTIFY_FILE_CLOSE_COMPLETION
+此回调用于通知同步提供程序，其某个同步根下的占位符已关闭，该占位符之前已打开进行读/写/ 删除访问。 不会阻止执行关闭操作的用户应用程序。 同步提供程序不会响应。 此通知不适用于目录。 此回调的实现是可选的。
+CF_CALLBACK_TYPE_NOTIFY_DEHYDRATE
+此回调用于通知同步提供程序，其同步根之一下的占位符即将停用。 执行解除冻结的用户应用程序
+被阻止。 同步提供程序应会做出响应。 此回调的实现是可选的。 CF_CALLBACK_TYPE_NOTIFY_DEHYDRATE_COMPLETION
+此回调用于通知同步提供程序，其某个同步根下的占位符已成功解除冻结。 不会阻止执行解除冻结
+的用户应用程序。 同步提供程序不会响应。 此回调的实现是可选的。 CF_CALLBACK_TYPE_NOTIFY_DELETE
+此回调用于通知同步提供程序将删除其同步根之一下的占位符。 执行删除的用户应用程序被阻止。
+同步提供程序应会做出响应。 此回调的实现是可选的。 CF_CALLBACK_TYPE_NOTIFY_DELETE_COMPLETION
+此回调用于通知同步提供程序已成功删除其同步根之一下的占位符。 不会阻止执行删除的用户应用
+程序。 同步提供程序不会响应。 此回调的实现是可选的。 CF_CALLBACK_TYPE_NOTIFY_RENAME
+此回调用于通知同步提供程序，其同步根之一下的占位符即将重命名或移动。 执行重命名/移动的
+用户应用程序被阻止。 同步提供程序应会做出响应。 此回调的实现是可选的。 CF_CALLBACK_TYPE_NOTIFY_RENAME_COMPLETION
+此回调用于通知同步提供程序，其某个同步根下的占位符已成功重命名或移动。 不会阻止执行重命
+名/移动的用户应用程序。 同步提供程序不会响应。 此回调的实现是可选的。 CF_CALLBACK_TYPE_NONE
+值： 0xffffffff 无回调类型。
+
+≦ 61 ≧
+注解
+这些不是库提供的 API，而是同步提供程序必须实现的回调，以便为来自平台的请求提供服务。 根据需要，平台将要求在同步提供程序进程内运行的库实例调用相应的回调例程。
+回调例程将在任意线程 (线程池) 的一部分调用。 在不同的线程中可以同时发生多个回调，同步提供程序代码负责实现任何必要的同步，以使此工作可靠。 所有回调都是异步的。 触发回调的异步用户请求将被插入，并将控件返回到用户应用程序。
+每个回调请求都有固定的 60 秒超时。 对来自同步提供程序的任何挂起请求的有效操作会重置所有挂起请求的计时器。
+所有回调函数都有相同的原型，其中包含两个参数： CF_CALLBACK_INFO 结构和 CF_CALLBACK_PARAMETERS 结构。
+回调例程没有返回值。要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CF_CALLBACK_INFO
+CF_CALLBACK_PARAMETERS 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+ﾄ否
+
+≦ 62 ≧
+CF_CALLBACK_VALIDATE_DATA_FLAGS
+枚举 (cfapi.h) 项目2025/02/19
+用于验证占位符文件或目录的数据的标志。
+语法 C++
+typedef enum CF_CALLBACK_VALIDATE_DATA_FLAGS {
+  CF_CALLBACK_VALIDATE_DATA_FLAG_NONE = 0x00000000,
+  CF_CALLBACK_VALIDATE_DATA_FLAG_EXPLICIT_HYDRATION = 0x00000002} ;
+常量
+ﾉ
+ 
+CF_CALLBACK_VALIDATE_DATA_FLAG_NONE
+值： 0x00000000 无数据验证标志。
+CF_CALLBACK_VALIDATE_DATA_FLAG_EXPLICIT_HYDRATION
+值： 0x00000002 >[!注意]
+>此值是 Windows 10 版本 1803 的新增值。
+设置是否由于调用 CfHydratePlaceholder 而调用回调。要求
+ﾉ
+ 
+最低受支持的客户端最低受支持的服务器
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+展开表展开表
+
+≦ 63 ≧
+ 
+标头
+另请参阅 CF_CALLBACK_TYPE CfHydratePlaceholder
+反馈
+此页面是否有帮助？
+是
+ 
+cfapi.h 否
+
+≦ 64 ≧
+CF_CONNECT_FLAGS 枚举 (cfapi.h) 项目2024/02/23
+同步提供程序在调用其回调时可以请求的其他信息。
+语法 C++
+typedef enum CF_CONNECT_FLAGS {
+  CF_CONNECT_FLAG_NONE = 0x00000000,
+  CF_CONNECT_FLAG_REQUIRE_PROCESS_INFO = 0x00000002,   CF_CONNECT_FLAG_REQUIRE_FULL_FILE_PATH = 0x00000004,
+  CF_CONNECT_FLAG_BLOCK_SELF_IMPLICIT_HYDRATION = 0x00000008} ;
+常量  
+CF_CONNECT_FLAG_NONE
+值： 0x00000000 无连接标志。
+CF_CONNECT_FLAG_REQUIRE_PROCESS_INFO 值： 0x00000002
+指定此标志后，平台将在回调参数中返回解冻进程的完整图像路径。
+CF_CONNECT_FLAG_REQUIRE_FULL_FILE_PATH 值： 0x00000004
+指定此标志后，平台将返回回调参数中请求的占位符的完整路径。 CF_CONNECT_FLAG_BLOCK_SELF_IMPLICIT_HYDRATION
+值： 0x00000008 >[!注意]
+>此值是 Windows 10 版本 1803 的新值。
+ﾉ
+展开表
+指定此标志时，当防病毒软件扫描同步提供程序的非水化云文件占位符上的文件系统活动时，可能会发生不通过 CfHydratePlaceholder 执行的隐式混合。 这种隐式水化不是预期的。 如果同步提供
+程序从未启动隐式混合操作，它可以指示平台阻止所有此类隐式混合操作，而不是在以后 FETCH_DATA回调失败 。
+
+≦ 65 ≧
+要求要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfConnectSyncRoot CfHydratePlaceholder
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 66 ≧
+CF_CONVERT_FLAGS 枚举 (cfapi.h) 项目2023/04/06
+普通文件/目录到占位符的文件/目录转换标志。
+语法 C++
+typedef enum CF_CONVERT_FLAGS {
+
+  CF_CONVERT_FLAG_NONE = 0x00000000,
+
+  CF_CONVERT_FLAG_MARK_IN_SYNC = 0x00000001,
+   CF_CONVERT_FLAG_DEHYDRATE = 0x00000002,
+
+  CF_CONVERT_FLAG_ENABLE_ON_DEMAND_POPULATION = 0x00000004,
+   CF_CONVERT_FLAG_ALWAYS_FULL = 0x00000008,
+
+  CF_CONVERT_FLAG_FORCE_CONVERT_TO_CLOUD_FILE = 0x00000010
+} ;
+
+常量  
+CF_CONVERT_FLAG_NONE
+
+值： 0x00000000
+ 无转换标志。
+CF_CONVERT_FLAG_MARK_IN_SYNC
+ 值： 0x00000001
+
+成功转换文件后，平台会将转换的占位符标记为与云同步。
+CF_CONVERT_FLAG_DEHYDRATE
+ 值： 0x00000002
+
+仅适用于文件。 指定后，平台在成功将文件转换为占位符后将其冻结。 调用方在指定此标志时必须获取独占句柄，否则可能会出现数据损坏。 请注意，平台不验证句柄的独占性。
+CF_CONVERT_FLAG_ENABLE_ON_DEMAND_POPULATION
+ 值： 0x00000004
+
+仅适用于目录。 指定后，它会将转换的占位符目录标记为部分填充，以便将来对其进行的任何访问都将导致 FETCH_PLACEHOLDERS 回调发送到同步提供程序。
+CF_CONVERT_FLAG_ALWAYS_FULL
+ 值： 0x00000008
+
+当此标志存在时，新创建的占位符将始终标记为已满。水合后，任何尝试将此类 (文件冻结) 占位符都将失败，并
+ERROR_CLOUD_FILE_DEHYDRATION_DISALLOWED错误代码。 此标志仅在占位符文件上强制执行。 可以在占位符目录上设置它，但它不起作用。
+
+≦ 67 ≧
+ 
+CF_CONVERT_FLAG_FORCE_CONVERT_TO_CLOUD_FILE
+ 值： 0x00000010
+
+指定后，平台允许同步引擎以原子方式将非云文件占位符转换为 (将另一个重新分析标记/数据) 转换为云文件占位符。 请注意，API 通常无法将任何非占位符文件转
+换为占位符。组合 **
+(CF_CONVERT_FLAG_FORCE_CONVERT_TO_CLOUD_FILE 要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+CfConvertToPlaceholder
+CfRegisterSyncRoot CfGetPlatformInfo
+ 
+当某些提供商从另一个平台迁移到云文件平台时，
+CF_CONVERT_FLAG_DEHYDRATE) ** 在迁移方案中特别有用，并且他们打算以原子方式将旧平台上的合水占位符转换为云文件平台上的脱水占位符。 应仅传递此标志，以便将完整占位符转换为云文件占位符。 如果旧平台将完整文件实现为常规的非占位符文件，则不需要此标志。 在目录上传递此标志也
+会将目录转换为云文件，但 DEHYDRATE 标志不适用于目录。
+ 即使策略
+CF_PLACEHOLDER_MANAGEMENT_POLICY_CONVERT_TO_UNRESTRICTED 是使用 CfRegisterSyncRoot 指定的，也仅允许已注册/连接到云文件同步根
+的进程指定此标志。 >[!注意]
+>仅当 PlatformVersion.IntegrationNumber 从 CfGetPlatformInfo 获取的 为 0x500 或更高时，才支持标志。
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+
+≦ 68 ≧
+CF_CREATE_FLAGS枚举 (cfapi.h) 项目2024/02/28
+用于创建占位符文件或目录的标志。
+语法 C++
+typedef enum CF_CREATE_FLAGS {
+  CF_CREATE_FLAG_NONE = 0x00000000,
+  CF_CREATE_FLAG_STOP_ON_ERROR = 0x00000001} ;
+常量  
+CF_CREATE_FLAG_NONE 值： 0x00000000
+默认模式。 处理所有条目。 CF_CREATE_FLAG_STOP_ON_ERROR 值： 0x00000001
+如果占位符创建失败，则会导致 API 立即返回。 如果创建失败，API 将返回错误代码。要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+ﾉﾉ
+展开表展开表
+
+≦ 69 ≧
+CfCreatePlaceholders 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 70 ≧
+CF_DEHYDRATE_FLAGS 枚举 (cfapi.h) 项目2024/02/26
+使用 CfDehydratePlaceholder 对文件进行冻结期间使用的标志。
+语法 C++
+typedef enum CF_DEHYDRATE_FLAGS {
+  CF_DEHYDRATE_FLAG_NONE = 0x00000000,
+  CF_DEHYDRATE_FLAG_BACKGROUND = 0x00000001} ;
+常量
+ﾉ
+ 
+CF_DEHYDRATE_FLAG_NONE
+值： 0x00000000 没有脱水标志。
+CF_DEHYDRATE_FLAG_BACKGROUND 值： 0x00000001
+展开表
+如果指定，调用方是在后台运行的系统进程。 否则，调用方将代表已登录用户执行此操作。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表
+
+≦ 71 ≧
+CfDehydratePlaceholder 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 72 ≧
+CF_FILE_RANGE 结构 (cfapi.h) 项目2024/02/23
+指定占位符文件中的数据范围。
+语法 C++
+typedef struct CF_FILE_RANGE {   LARGE_INTEGER StartingOffset;
+  LARGE_INTEGER Length;} CF_FILE_RANGE;
+成员
+StartingOffset
+数据的起始点偏移量。 Length
+数据的长度（以字节为单位）。要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfUpdatePlaceholder
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+ﾉ
+展开表
+
+≦ 73 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 74 ≧
+CF_FS_METADATA 结构 (cfapi.h) 项目2024/02/28
+占位符文件或目录元数据，可以包括所有时间戳、文件属性和文件大小， (目录) 可选。
+语法 C++
+typedef struct CF_FS_METADATA {
+  FILE_BASIC_INFO BasicInfo;   LARGE_INTEGER   FileSize;} CF_FS_METADATA;
+成员 BasicInfo
+FILE_BASIC_INFO 结构中的基本文件信息。 FileSize
+文件的大小（字节）。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 FILE_BASIC_INFO
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表
+
+≦ 75 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 76 ≧
+CF_HARDLINK_POLICY 枚举 (cfapi.h) 项目2024/02/28
+指定是否允许对占位符文件使用硬链接。
+语法 C++
+typedef enum CF_HARDLINK_POLICY {
+  CF_HARDLINK_POLICY_NONE = 0x00000000,   CF_HARDLINK_POLICY_ALLOWED = 0x00000001} ;
+常量
+ﾉ
+ 
+CF_HARDLINK_POLICY_NONE 值： 0x00000000
+默认;不能在任何占位符上创建硬链接。
+CF_HARDLINK_POLICY_ALLOWED 值： 0x00000001
+可以在同一同步根或无同步根下的占位符上创建硬链接。注解
+展开表
+如果启用了硬链接，应用程序可以创建文件系统支持的任意数量的硬链接，只要这些链接位于同一同步根目录下或没有同步根。 与此策略不兼容的硬链接和占位符操作将失败，并出现以下错误： HRESULT (ERROR_CLOUD_FILES_INCOMPATIBLE_HARDLINKS) 。
+要求
+ﾉ
+展开表
+
+≦ 77 ≧
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CF_SYNC_POLICIES
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 78 ≧
+CF_HYDRATE_FLAGS 枚举 (cfapi.h) 项目2023/03/31
+占位符数据混合标志。
+语法 C++
+typedef enum CF_HYDRATE_FLAGS {
+
+  CF_HYDRATE_FLAG_NONE = 0x00000000
+} ;
+
+常量  
+CF_HYDRATE_FLAG_NONE
+ 值： 0x00000000
+
+无水化标志。要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfHydratePlaceholder
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+
+≦ 79 ≧
+CF_HYDRATION_POLICY 结构 (cfapi.h) 项目2024/02/26
+指定 CF_HYDRATION_POLICY_PRIMARY 及其 CF_HYDRATION_POLICY_MODIFIER。
+语法 C++
+typedef struct CF_HYDRATION_POLICY {
+  CF_HYDRATION_POLICY_PRIMARY_USHORT  Primary;   CF_HYDRATION_POLICY_MODIFIER_USHORT Modifier;} CF_HYDRATION_POLICY;
+成员 Primary
+主要水合策略。 Modifier
+解除冻结策略修饰符。注解
+解除冻结策略允许同步提供程序控制平台应如何冻结占位符文件。 它由一个主策略和一
+组策略修饰符组成。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表
+
+≦ 80 ≧
+另请参阅
+CF_HYDRATION_POLICY_PRIMARY CF_HYDRATION_POLICY_MODIFIER
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 81 ≧
+CF_HYDRATION_POLICY_MODIFIER 枚举
+(cfapi.h) 项目2023/03/08
+允许同步提供程序控制平台应如何冻结占位符文件。 这是可与主策略一起使用的修饰符： CF_HYDRATION_POLICY_PRIMARY。
+语法 C++
+typedef enum CF_HYDRATION_POLICY_MODIFIER {
+   CF_HYDRATION_POLICY_MODIFIER_NONE,
+
+  CF_HYDRATION_POLICY_MODIFIER_VALIDATION_REQUIRED,
+   CF_HYDRATION_POLICY_MODIFIER_STREAMING_ALLOWED,
+
+  CF_HYDRATION_POLICY_MODIFIER_AUTO_DEHYDRATION_ALLOWED,
+
+  CF_HYDRATION_POLICY_MODIFIER_ALLOW_FULL_RESTART_HYDRATION
+} ;
+
+常量  
+CF_HYDRATION_POLICY_MODIFIER_NONE
+ 0x0000
+
+无策略修饰符。
+CF_HYDRATION_POLICY_MODIFIER_VALIDATION_REQUIRED
+ 0x0001
+
+此策略修饰符为同步提供程序提供两个保证。 首先，它保证同步提供程序返回的数据在返回到用户应用程序之前始终保存到磁盘。 其次，它允许同步提供程序检索之前返回到平台的相同数据，并验证其完整性。 只有在同步提供程序成功确认完整性后，平台才会完成用户 I/O 请求。 此修饰符有助于支持端到端数据完整性，但代价是额外的磁盘 I/O。
+CF_HYDRATION_POLICY_MODIFIER_STREAMING_ALLOWED
+ 0x0002
+
+此策略修饰符授予平台不在本地磁盘上存储同步提供程序返回的任何数据的权限。 与
+CF_HYDRATION_POLICY_MODIFIER_VALIDATION_REQUIRED 结合使用时，此策略修饰符无效。
+
+≦ 82 ≧
+ 
+CF_HYDRATION_POLICY_MODIFIER_AUTO_DEHYDRATION_ALLOWED
+ 0x0004
+
+此策略修饰符授予平台无需同步提供商帮助即可解除同步云文件占位符的冻结权限。 如果没有此标志，则不允许平台直接调用 CfDehydratePlaceholder 。 相反，解除云文件占位符冻结的唯一受支持方法是清除文件的固定属性并设置文件的未固定属性。 此时，在同步引擎收到有关这两个属性的目录更改通知后，实际解除冻结将由同步引擎异步执行。 指定此标志后，将允许平台直接在任何同
+步云文件占位符上调用 CfDehydratePlaceholder 。 建议同步提供程序支持自动冻结。
+ ７ 备注
+此值在 Windows 10 版本 1803 及更高版本中可用。 CF_HYDRATION_POLICY_MODIFIER_ALLOW_FULL_RESTART_HYDRATION
+ 0x0008
+
+此策略修饰符授予平台在截获 AV 筛选器扫描文件时同步完全冻结文件的权限。 希望使用 RestartHydration 从 FetchData 回调更改 的fileSize的同步提供程序必须选择加入
+ALLOW_FULL_RESTART_HYDRATION策略，以避免尝试扫描文件的防病毒和反恶意软件以及尝试使用
+RestartHydration 进行更改fileSize的提供程序可能出现的死锁。
+ ７ 备注
+仅当从 CfGetPlatformInfo 获取的 为 或更高时0x500， PlatformVersion.IntegrationNumber才支持此枚举更新。
+备注
+通常，修饰符可以混合并与任何主策略 (CF_HYDRATION_POLICY_PRIMARY) 和其他策略修饰符匹配，只要组合不自冲突。
+CF_HYDRATION_POLICY_MODIFIER_ALLOW_FULL_RESTART_HYDRATION添加 标志是为了避免重启水化功能遇到防病毒和恶意软件检测器 (AV) 导致的死锁。 所有打算在解除冻结请求过程中更新已解除冻结文件的文件大小的同步提供程序都应选择启用此功能，否则当 AV 尝试通过创建文件的内存映射部分来扫描正在打开的文件时，重启冻结可能会陷入死锁，从而导致冻结。 请注意，即使文件已在后端/服务器中更新，维护文件的快照或版本并满足用户请求（即使文件已在后端/服务器中更新）来满足用户请求的提供程序也不需要选择加入此策略。 同样，如果后端中的文件发生更改，导致混合请求失败的提供程序可能不会选择加入此策略。
+
+≦ 83 ≧
+要求  
+最低受支持的客户端最低受支持的服务器标头
+请参阅
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+CF_HYDRATION_POLICY_PRIMARY
+CfDehydratePlaceholder CfGetPlatformInfo
+
+≦ 84 ≧
+CF_HYDRATION_POLICY_PRIMARY 枚举
+(cfapi.h) 项目2023/08/25
+允许同步提供程序控制平台应如何冻结占位符文件。 这是主要策略。２ 警告
+当前不支持CF_HYDRATION_POLICY_PARTIAL 策略。
+语法 C++
+typedef enum CF_HYDRATION_POLICY_PRIMARY {   CF_HYDRATION_POLICY_PARTIAL = 0,
+  CF_HYDRATION_POLICY_PROGRESSIVE = 1,   CF_HYDRATION_POLICY_FULL = 2,
+  CF_HYDRATION_POLICY_ALWAYS_FULL = 3} ;
+常量  
+CF_HYDRATION_POLICY_PARTIAL 值： 0
+行为与 CF_HYDRATION_POLICY_PROGRESSIVE相同，只不过 CF_HYDRATION_POLICY_PARTIAL 在后台没有连续水化。
+CF_HYDRATION_POLICY_PROGRESSIVE 值：1
+选择 CF_HYDRATION_POLICY_PROGRESSIVE 后，平台将允许占位符脱水。 当平台检测到对脱水占位符的访问时，一旦确定从同步提供程序接收足够的数据，它将立即完成用户 IO 请求。 但是，平台将继续从后台的同步提供程序请求占位符中的剩余内容，直到占位符的完整内容在本地可用，
+或者占位符上的最后一个用户句柄关闭。注意
+选择 加入CF_HYDRATION_POLICY_PROGRESSIVE 的同步提供程序可能不会假定解除冻结回调从偏移量 0 按顺序到达。 换句话说，具有 CF_HYDRATION_POLICY_PROGRESSIVE策略的 同步提供程序应处理占位符上的随机查找。
+
+≦ 85 ≧
+ 
+CF_HYDRATION_POLICY_FULL 值： 2
+选择 CF_HYDRATION_POLICY_FULL 后，平台将允许占位符脱水。 当平台检测到对脱水占位符的访问时，它将确保在完成用户 IO 请求之前，占位符的完整内容在本地可用，即使请求仅请求 1 字节。
+CF_HYDRATION_POLICY_ALWAYS_FULL 值： 3
+选择 CF_HYDRATION_POLICY_ALWAYS_FULL 后，平台将阻止任何可能导致未完全水合占位符的占位符操作，其中包括 CfCreatePlaceholders、带脱水选项的 CfUpdatePlaceholder 和带失水选项的
+CfConvertToPlaceholder 。要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+请参阅
+CfCreatePlaceholders CfUpdatePlaceholder CfConvertToPlaceholder
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+ﾄ否
+
+≦ 86 ≧
+CF_IN_SYNC_STATE 枚举 (cfapi.h) 项目2024/02/26
+指定占位符文件和文件夹的同步状态。
+语法 C++
+typedef enum CF_IN_SYNC_STATE {
+  CF_IN_SYNC_STATE_NOT_IN_SYNC = 0,
+  CF_IN_SYNC_STATE_IN_SYNC = 1} ;
+常量  
+CF_IN_SYNC_STATE_NOT_IN_SYNC 值： 0
+当 CfSetInSyncState 调用成功返回时，平台会清除占位符的同步状态。
+CF_IN_SYNC_STATE_IN_SYNC 值：1
+当 CfSetInSyncState 调用成功返回时，平台将设置占位符的同步状态。要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+ﾉﾉ
+展开表展开表
+
+≦ 87 ≧
+CfSetInSyncState 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 88 ≧
+CF_INSYNC_POLICY 枚举 (cfapi.h) 项目2024/03/05
+允许同步提供程序控制平台何时应清除占位符文件或目录上的同步状态的策略。
+语法 C++
+typedef enum CF_INSYNC_POLICY {
+  CF_INSYNC_POLICY_NONE = 0x00000000,
+  CF_INSYNC_POLICY_TRACK_FILE_CREATION_TIME = 0x00000001,
+  CF_INSYNC_POLICY_TRACK_FILE_READONLY_ATTRIBUTE = 0x00000002,   CF_INSYNC_POLICY_TRACK_FILE_HIDDEN_ATTRIBUTE = 0x00000004,   CF_INSYNC_POLICY_TRACK_FILE_SYSTEM_ATTRIBUTE = 0x00000008,   CF_INSYNC_POLICY_TRACK_DIRECTORY_CREATION_TIME = 0x00000010,
+  CF_INSYNC_POLICY_TRACK_DIRECTORY_READONLY_ATTRIBUTE = 0x00000020,   CF_INSYNC_POLICY_TRACK_DIRECTORY_HIDDEN_ATTRIBUTE = 0x00000040,   CF_INSYNC_POLICY_TRACK_DIRECTORY_SYSTEM_ATTRIBUTE = 0x00000080,   CF_INSYNC_POLICY_TRACK_FILE_LAST_WRITE_TIME = 0x00000100,
+  CF_INSYNC_POLICY_TRACK_DIRECTORY_LAST_WRITE_TIME = 0x00000200,   CF_INSYNC_POLICY_TRACK_FILE_ALL = 0x0055550f,
+  CF_INSYNC_POLICY_TRACK_DIRECTORY_ALL = 0x00aaaaf0,   CF_INSYNC_POLICY_TRACK_ALL = 0x00ffffff,
+  CF_INSYNC_POLICY_PRESERVE_INSYNC_FOR_SYNC_ENGINE = 0x80000000} ;
+常量
+ﾉ
+ 
+CF_INSYNC_POLICY_NONE
+值： 0x00000000 默认同步策略。
+CF_INSYNC_POLICY_TRACK_FILE_CREATION_TIME 值： 0x00000001
+在创建文件时清除同步状态。
+CF_INSYNC_POLICY_TRACK_FILE_READONLY_ATTRIBUTE 值： 0x00000002
+当文件为只读时，清除同步状态。
+展开表
+
+≦ 89 ≧
+ 
+CF_INSYNC_POLICY_TRACK_FILE_HIDDEN_ATTRIBUTE 值： 0x00000004
+在文件隐藏时清除同步状态。
+CF_INSYNC_POLICY_TRACK_FILE_SYSTEM_ATTRIBUTE 值： 0x00000008
+当文件为系统文件时，清除同步状态。
+CF_INSYNC_POLICY_TRACK_DIRECTORY_CREATION_TIME 值： 0x00000010
+在创建目录时清除同步状态。
+CF_INSYNC_POLICY_TRACK_DIRECTORY_READONLY_ATTRIBUTE 值： 0x00000020
+当目录为只读时，清除同步状态。
+CF_INSYNC_POLICY_TRACK_DIRECTORY_HIDDEN_ATTRIBUTE 值： 0x00000040
+在隐藏目录时清除同步状态。
+CF_INSYNC_POLICY_TRACK_DIRECTORY_SYSTEM_ATTRIBUTE 值： 0x00000080
+当目录是系统目录时，清除同步状态。
+CF_INSYNC_POLICY_TRACK_FILE_LAST_WRITE_TIME 值： 0x00000100
+根据上次写入文件的时间清除同步状态。
+CF_INSYNC_POLICY_TRACK_DIRECTORY_LAST_WRITE_TIME 值： 0x00000200
+根据上次写入目录的时间清除同步状态。
+CF_INSYNC_POLICY_TRACK_FILE_ALL 值： 0x0055550f
+清除对文件所做的任何更改的同步状态。 CF_INSYNC_POLICY_TRACK_DIRECTORY_ALL 值： 0x00aaaaf0
+清除目录的任何更改的同步状态。
+CF_INSYNC_POLICY_TRACK_ALL 值： 0x00ffffff
+清除对文件或目录的任何更改的同步状态。
+CF_INSYNC_POLICY_PRESERVE_INSYNC_FOR_SYNC_ENGINE
+值： 0x80000000 同步策略无需清除。
+
+≦ 90 ≧
+要求要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfRegisterSyncRoot
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 91 ≧
+CF_OPEN_FILE_FLAGS 枚举 (cfapi.h) 项目2023/12/22
+用于请求打开文件时的各种权限的标志。
+语法 C++
+typedef enum CF_OPEN_FILE_FLAGS {
+  CF_OPEN_FILE_FLAG_NONE = 0x00000000,
+  CF_OPEN_FILE_FLAG_EXCLUSIVE = 0x00000001,
+  CF_OPEN_FILE_FLAG_WRITE_ACCESS = 0x00000002,   CF_OPEN_FILE_FLAG_DELETE_ACCESS = 0x00000004,
+  CF_OPEN_FILE_FLAG_FOREGROUND = 0x00000008} ;
+常量  
+CF_OPEN_FILE_FLAG_NONE 值： 0x00000000
+没有打开的文件标志。
+CF_OPEN_FILE_FLAG_EXCLUSIVE 值： 0x00000001
+ﾉ
+展开表
+指定时， CfOpenFileWithOplock 返回 无共享 句柄并请求 RH (OPLOCK_LEVEL_CACHE_READ |OPLOCK_LEVEL_CACHE_HANDLE) 文件上的 oplock。
+为任何FILE_EXECUTE打开的常规 CreateFile 调用 |FILE_READ_DATA |FILE_WRITE_DATA
+|FILE_APPEND_DATA |删除 (或任一/两GENERIC_READ |GENERIC_WRITE) 由于共享冲突而中断 oplock，如 备注 部分所述。 oplock 所有者将完成并确认。
+CF_OPEN_FILE_FLAG_WRITE_ACCESS 值： 0x00000002
+指定后， CfOpenFileWithOplock 会尝试使用 FILE_READ_DATA/FILE_LIST_DIRECTORY 和
+FILE_WRITE_DATA/FILE_ADD_FILE 访问权限打开文件或目录;否则，它会尝试使用 FILE_READ_DATA/FILE_LIST_DIRECTORY 打开文件或目录。
+CF_OPEN_FILE_FLAG_DELETE_ACCESS 值： 0x00000004
+
+≦ 92 ≧
+ 
+指定后， CfOpenFileWithOplock 会尝试使用 DELETE 访问权限打开文件或目录;否则，它会正常打开文件。
+CF_OPEN_FILE_FLAG_FOREGROUND 值： 0x00000008
+使用此标志时， CfOpenFileWithOplock 不请求 oplock。 当调用方充当前台应用程序时，应使用此选项。 也就是说，他们不关心此 API 创建的文件句柄是否会导致其他调用方发生共享冲突，也不关心破坏文件上可能已存在的任何 oplock。 因此，无需请求 oplock 即可打开句柄。
+注意： 默认 后台 行为在打开文件句柄时请求 oplock，这样，如果已有 oplock，则其调用会失败; 如果需要避免以后导致共享冲突，可以告知他们关闭句柄。
+除非调用方指定 cfOpenFileWithOplock 的CF_OPEN_FILE_FLAG_EXCLUSIVE，否则他们获取的 oplock 将仅OPLOCK_LEVEL_CACHE_READ，而不是 (OPLOCK_LEVEL_CACHE_READ
+|OPLOCK_LEVEL_CACHE_HANDLE) ，因此后台应用通常不需要共享冲突保护。注解
+后台应用程序通常希望以透明方式对文件进行操作。 具体而言，他们希望避免导致其他
+(前台) 打开器的共享冲突。 为此，他们采取 (OPLOCK_LEVEL_CACHE_READ |OPLOCK_LEVEL_CACHE_HANDLE) oplock（例如）将通过将
+CF_OPEN_FILE_FLAG_EXCLUSIVE 与 CfOpenFileWithOplock 一起使用来授予。 然后，如果其他打开程序请求的共享/访问模式与后台应用程序的模式冲突，则后台应用程序的 oplock 将中断。 这会提示后台应用关闭其 cf 句柄的文件句柄 (，这会导致它变得无效 -实际基础句柄已关闭) 。 后台应用关闭其句柄后，打开的另一个请求将继续，而不会遇到共享冲突。 这一切之所以有效，是因为 oplock 的OPLOCK_LEVEL_CACHE_HANDLE部
+分。 如果没有CF_OPEN_FILE_FLAG_EXCLUSIVE，oplock 只有 OPLOCK_LEVEL_CACHE_READ保护，因此不提供共享违规保护。
+如果未指定CF_OPEN_FILE_FLAG_EXCLUSIVE，则打开的 将 全部共享 ，并获取 OPLOCK_LEVEL_CACHE_READ oplock。
+正常的 CreateFile 调用不会中断 oplock。 例如，如果普通 CreateFile 指定的共享模式与
+Cf 句柄的访问 (冲突，则如果普通 CreateFile 未指定FILE_SHARE_READ) ，则正常的 CreateFile 将失败并出现ERROR_SHARING_VIOLATION。 在其他调用方发出冲突的 I/O（例如写入）之前，oplock 不会中断。 发生这种情况时 ，oplock 中断仅为公告。
+要求
+ﾉ
+展开表
+
+≦ 93 ≧
+ 
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfOpenFileWithOplock
+CreateFile 反馈
+此页面是否有帮助？
+是
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+
+≦ 94 ≧
+CF_OPERATION_ACK_DATA_FLAGS 枚举
+(cfapi.h) 项目2024/03/09
+用于验证和确认占位符文件或文件夹的数据的标志。
+语法 C++
+typedef enum CF_OPERATION_ACK_DATA_FLAGS {
+  CF_OPERATION_ACK_DATA_FLAG_NONE = 0x00000000} ;
+常量
+ﾉ
+ 
+CF_OPERATION_ACK_DATA_FLAG_NONE
+值： 0x00000000 无确认数据标志。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CF_OPERATION_TYPE
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表展开表
+
+≦ 95 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 96 ≧
+CF_OPERATION_ACK_DEHYDRATE_FLAG
+S 枚举 (cfapi.h) 项目2024/03/05
+用于确认占位符文件或目录的解除冻结的标志。
+语法 C++
+typedef enum CF_OPERATION_ACK_DEHYDRATE_FLAGS {
+  CF_OPERATION_ACK_DEHYDRATE_FLAG_NONE = 0x00000000} ;
+常量
+ﾉ
+ 
+CF_OPERATION_ACK_DEHYDRATE_FLAG_NONE
+值： 0x00000000 无确认脱水标志。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfExecute
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表展开表
+
+≦ 97 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 98 ≧
+CF_OPERATION_ACK_DELETE_FLAGS 枚
+举 (cfapi.h) 项目2024/02/23
+用于确认删除占位符文件或目录的标志。
+语法 C++
+typedef enum CF_OPERATION_ACK_DELETE_FLAGS {
+  CF_OPERATION_ACK_DELETE_FLAG_NONE = 0x00000000} ;
+常量
+ﾉ
+ 
+CF_OPERATION_ACK_DELETE_FLAG_NONE
+值： 0x00000000 无删除确认标志。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfExecute
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表展开表
+
+≦ 99 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 100 ≧
+CF_OPERATION_ACK_RENAME_FLAGS 枚
+举 (cfapi.h) 项目2024/03/13
+用于确认占位符文件或目录重命名的标志。
+语法 C++
+typedef enum CF_OPERATION_ACK_RENAME_FLAGS {
+  CF_OPERATION_ACK_RENAME_FLAG_NONE = 0x00000000} ;
+常量
+ﾉ
+ 
+CF_OPERATION_ACK_RENAME_FLAG_NONE 值： 0x00000000
+未确认占位符重命名。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfExecute
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表展开表
+
+≦ 101 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 102 ≧
+CF_OPERATION_INFO 结构 (cfapi.h) 项目2024/02/26
+有关对占位符文件或文件夹执行的操作的信息。
+语法 C++
+typedef struct CF_OPERATION_INFO {
+  ULONG                    StructSize;   CF_OPERATION_TYPE        Type;
+  CF_CONNECTION_KEY        ConnectionKey;   CF_TRANSFER_KEY          TransferKey;
+  const CORRELATION_VECTOR *CorrelationVector;
+  const CF_SYNC_STATUS     *SyncStatus;   CF_REQUEST_KEY           RequestKey;} CF_OPERATION_INFO;
+成员 StructSize
+CF_OPERATION_INFO结构的大小。 Type
+正在执行的操作的类型。 有关详细信息 ，请参阅CF_OPERATION_TYPE 。 ConnectionKey
+为信道获取的连接密钥。 TransferKey
+占位符的不透明句柄。 CorrelationVector
+用于遥测的占位符上的相关向量。
+SyncStatus ７ 备注
+
+≦ 103 ≧
+此成员是 Windows 10 版本 1803 的新增成员。平台的当前 CF_SYNC_STATUS 。
+平台在对云文件占位符执行的任何失败操作时查询此信息。 如果结构可用，平台将使用提供的信息来向用户构造更有意义且可操作的消息。 平台会将此信息保留在文件上，直到该文件的最后一个句柄消失。 如果 SyncStatus 为 null，则平台将清除以前设置的同步
+状态（如果有）。 RequestKey
+一个不透明 ID，用于唯一标识特定云文件上的云文件操作。注解
+该平台为通过 CfConnectSyncRoot 注册的所有回调函数提供 ConnectionKey、TransferKey 和 CorrelationVector。 此外，同步提供程序可以使用 CfGetTransferKey 获取
+TransferKey，并使用 CfGetCorrelationVector 获取 CorrelationVector。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CF_OPERATION_TYPE CfConnectSyncRoot CfGetTransferKey
+CfGetCorrelationVector CfExecute
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表
+
+≦ 104 ≧
+CF_SYNC_STATUS 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 105 ≧
+CF_OPERATION_PARAMETERS 结构
+(cfapi.h) 项目2024/02/23
+占位符文件或文件夹上操作的详细参数。 此结构中提供的数据特定于操作 CF_OPERATION_TYPE 。
+语法 C++
+typedef struct CF_OPERATION_PARAMETERS {
+  ULONG ParamSize;   union {
+    struct {
+      CF_OPERATION_TRANSFER_DATA_FLAGS Flags;
+      NTSTATUS                         CompletionStatus;
+      LPCVOID                          Buffer;       LARGE_INTEGER                    Offset;       LARGE_INTEGER                    Length;
+    } TransferData;     struct {
+      CF_OPERATION_RETRIEVE_DATA_FLAGS Flags;       LPVOID                           Buffer;       LARGE_INTEGER                    Offset;       LARGE_INTEGER                    Length;
+      LARGE_INTEGER                    ReturnedLength;
+    } RetrieveData;     struct {
+      CF_OPERATION_ACK_DATA_FLAGS Flags;
+      NTSTATUS                    CompletionStatus;
+      LARGE_INTEGER               Offset;       LARGE_INTEGER               Length;
+    } AckData;     struct {
+      CF_OPERATION_RESTART_HYDRATION_FLAGS Flags;
+      const CF_FS_METADATA                 *FsMetadata;       LPCVOID                              FileIdentity;
+      DWORD                                FileIdentityLength;
+    } RestartHydration;     struct {
+      CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS Flags;
+      NTSTATUS                                 CompletionStatus;
+      LARGE_INTEGER                            PlaceholderTotalCount;
+      CF_PLACEHOLDER_CREATE_INFO               *PlaceholderArray;       DWORD                                    PlaceholderCount;       DWORD                                    EntriesProcessed;     } TransferPlaceholders;
+
+≦ 106 ≧
+    struct {
+      CF_OPERATION_ACK_DEHYDRATE_FLAGS Flags;
+      NTSTATUS                         CompletionStatus;       LPCVOID                          FileIdentity;
+      DWORD                            FileIdentityLength;
+    } AckDehydrate;     struct {
+      CF_OPERATION_ACK_RENAME_FLAGS Flags;
+      NTSTATUS                      CompletionStatus;
+    } AckRename;     struct {
+      CF_OPERATION_ACK_DELETE_FLAGS Flags;
+      NTSTATUS                      CompletionStatus;     } AckDelete;
+  } DUMMYUNIONNAME;
+} CF_OPERATION_PARAMETERS;
+成员 ParamSize
+DUMMYUNIONNAME
+DUMMYUNIONNAME.TransferData
+同步提供程序执行 TRANSFER_DATA 来冻结占位符文件。 此操作可以作为对
+FETCH_DATA 回调、 VALIDATE_DATA 回调的响应，或作为任何回调上下文之外的抢先后台混合工作的一部分来执行。
+此 API 仅适用于支持小于 ALWAYS_FULL 的混合策略 的同步提供程序。 否则，操作将失败并 ERROR_CLOUD_FILE_INVALID_REQUEST。
+同步提供程序需要 具有WRITE_DATA 或 WRITE_DAC 对要对其执行 TRANSFER_DATA 操作的文件的访问权限。 否则，操作将失败并 显示
+ERROR_CLOUD_FILE_ACCESS_DENIED。若要执行此操作，请执行以下操作：
+OpInfo.Type 必须设置为 CF_OPERATION_TYPE_TRANSFER_DATA。
+OpParams.ParamSize 必须设置为 OpParams.TransferData 的确切大小加上 OpParams.TransferData 的偏移量。
+OpParams.TransferData.Flags 必须设置为
+CF_OPERATION_TRANSFER_DATA_FLAG_NONE。
+如果同步提供程序要将数据传输到占位符文件，则必须将
+OpParams.TransferData.CompletionStatus 设置为 STATUS_SUCCESS。 如果同步提供程序出于任何原因无法处理水化请求，并且不想重新启动混合，则必须在
+
+≦ 107 ≧
+CompletionStatus 中设置STATUS_CLOUD_FILE_* 状态。 STATUS_CLOUD_FILE_ * 范
+围之外返回的任何状态代码（ STATUS_SUCCESS 除外）都将由平台转换为 STATUS_CLOUD_FILE_UNSUCCESSFUL 。
+如果 OpParams.TransferData.CompletionStatusSTATUS_SUCCESS且至少应为
+OpParams.TransferData.Length 字节，则 OpParams.TransferData.Buffer 必须指向有效的用户模式缓冲区;否则，将忽略缓冲区字段。
+OpParams.TransferData.Offset 和 OpParams.TransferData.Length 描述同步提供程序将数据传输到的占位符中的范围。 同步提供程序不要求在一次拍摄中按请求返回所有数据。 同步提供程序也可以返回比请求更多的数据。 例如，出于性能或其他原因，同步提供程序可以决定过度读取。 同步提供程序还可以重复执行多个
+TRANSFER_DATA 操作，作为对同一 FETCH_DATA回调的 响应。 唯一的要求是偏移量和长度都是 4KB 对齐的，除非所描述的范围以逻辑文件大小 (EoF) 结束，在这种情况下，只要结果范围结束于或超过逻辑文件大小，长度就不需要对齐 4KB。
+操作完成后：
+如果同步提供程序未指定同步根注册时 VALIDATION_REQUIRED 。
+在成功传输的情况下，任何挂起的用户 IO 请求都将完成已收到传输所需的所有字节的占位符文件;否则，不完整的用户 IO 请求将更新以反映最新的混合状态。 在传输失败的情况下，如果占位符文件与偏移量和长度描述的范围重叠，则任何挂起的用户 IO 请求都将因 OpParams.TransferData.CompletionStatus 而失败。
+如果同步提供程序在同步根注册时指定 了VALIDATION_REQUIRED ，则在同步提供程序
+通过ACK_DATA操作确认范围中的数据之前，平台不会再执行 任何处理 。 DUMMYUNIONNAME.TransferData.Flags
+用于传输数据的标志。 必须将其设置为
+CF_OPERATION_TRANSFER_DATA_FLAG_NONE。 有关详细信息 ，请参阅
+CF_OPERATION_TRANSFER_DATA_FLAGS 。 DUMMYUNIONNAME.TransferData.CompletionStatus
+传输数据的状态。 如果同步提供程序要将数据传输到占位符文件，则必须将其设置为 STATUS_SUCCESS 。 如果同步提供程序出于任何原因无法处理水化请求，并且不想重新启动混合，则必须在 CompletionStatus 中设置STATUS_CLOUD_FILE_* 状态。
+STATUS_CLOUD_FILE_ * 范围之外返回的任何状态代码（ STATUS_SUCCESS 除外）都将由
+平台转换为 STATUS_CLOUD_FILE_UNSUCCESSFUL 。 DUMMYUNIONNAME.TransferData.Buffer
+有效的用户模式缓冲区。 如果 CompletionStatus 是 STATUS_SUCCESS 且 长度至少为 字节，则必须指向有效的用户模式缓冲区。 否则，将忽略缓冲区字段。
+
+≦ 108 ≧
+DUMMYUNIONNAME.TransferData.Offset
+与 Length 一起使用的偏移量，用于描述数据要传输到的占位符中的范围。 它描述同步提供程序将数据传输到的占位符中的一个范围。 同步提供程序不要求在一次拍摄中按请求返回所有数据。 同步提供程序也可以返回比请求更多的数据。 例如，出于性能或其他原因，同步提供程序可以决定过度读取。 同步提供程序还可以重复执行多个
+TRANSFER_DATA 操作，作为对同一 FETCH_DATA回调的 响应。 偏移量 必须对齐 4KB。 DUMMYUNIONNAME.TransferData.Length
+Buffer 的长度（以字节为单位）。 长度必须对齐 4KB，除非所描述的范围以逻辑文件大小 (EoF) 结束，在这种情况下，只要生成的范围以逻辑文件大小结束或超过逻辑文件大小， 长度 就不需要对齐 4KB。 即使不STATUS_SUCCESSCompletionStatus，也应将此字段设置为有效值。
+DUMMYUNIONNAME.RetrieveData
+同步提供程序在占位符混合过程中执行 RETRIEVE_DATA 操作，以验证以前传输到占位符的数据的完整性。 此操作可以作为对 FETCH_DATA 回调、 VALIDATE_DATA 回调的响应，或作为任何回调上下文之外的抢先后台混合工作的一部分来执行。
+此 API 仅适用于支持小于 ALWAYS_FULL 的混合策略 的同步提供程序。 否则，操作将失败并 STATUS_CLOUD_FILE_NOT_SUPPORTED。
+同步提供程序需要在同步根注册时指定水化策略修饰符 VALIDATE_REQUIRED ，以便执
+行此操作。 否则，操作将失败并 STATUS_CLOUD_FILE_NOT_SUPPORTED。同步提供程序需要对要对其执行RETRIEVE_DATA操作的文件具有READ_DATA或
+WRITE_DAC访问权限。 否则，操作将失败并 STATUS_CLOUD_FILE_ACCESS_DENIED。若要执行此操作，请执行以下操作：
+OpInfo.Type 必须设置为 CF_OPERATION_TYPE_RETRIEVE_DATA。
+OpParams.ParamSize 必须设置为 OpParams.RetrieveData 的确切大小加上 OpParams.RetrieveData 的偏移量。
+OpParams.RetrieveData.Flags 必须设置为
+CF_OPERATION_RETRIEVE_DATA_FLAG_NONE。
+OpParams.RetrieveData.Buffer 必须指向有效的用户模式缓冲区，并且至少为 OpParams.RetrieveData.Length 字节。 成功完成操作后，它将接收之前通过 TRANSFER_DATA传输到占位符的数据。
+OpParams.RetrieveData.Offset 和 OpParams.RetrieveData.Length 描述同步提供程序
+从中检索数据的占位符范围。 请求的范围必须在RETRIEVE_DATA操作之前由 TRANSFER_DATA操作完全冻结，否则操作将失败并
+STATUS_CLOUD_FILE_INVALID_REQUEST。 偏移量和长度都是 4KB 对齐的，除非
+
+≦ 109 ≧
+所描述的范围以逻辑文件大小 (EoF) 结束，在这种情况下，只要长度在逻辑文件大小上结束或超过逻辑文件大小，就不需要对齐 4KB。
+OpParams.RetrieveData.ReturnedLength 接收成功完成操作后检索到的实际字节数。
+DUMMYUNIONNAME.RetrieveData.Flags
+用于检索数据的标志。 必须将其设置为
+CF_OPERATION_RETRIEVE_DATA_FLAG_NONE。 有关详细信息 ，请参阅
+CF_OPERATION_RETRIEVE_DATA_FLAGS 。 DUMMYUNIONNAME.RetrieveData.Buffer
+这必须指向有效的用户模式缓冲区，并且至少为 长度 字节。 成功完成操作后，它将接收
+之前通过 TRANSFER_DATA传输到占位符的数据。 DUMMYUNIONNAME.RetrieveData.Offset
+与 Length 一起使用的偏移量，用于描述从占位符检索的数据范围。 它描述同步提供程序从中检索数据的占位符中的一个范围。 请求的范围必须在RETRIEVE_DATA操作之前由 TRANSFER_DATA操作完全冻结，否则操作将失败并
+STATUS_CLOUD_FILE_INVALID_REQUEST。 偏移量 必须对齐 4KB。 DUMMYUNIONNAME.RetrieveData.Length
+Buffer 的长度（以字节为单位）。 除非所描述的范围以逻辑文件大小 (EoF) 结束，否则为 4KB 对齐，在这种情况下，只要 长度 在逻辑文件大小上或超过逻辑文件大小，就不需要对齐 4KB。
+DUMMYUNIONNAME.RetrieveData.ReturnedLength
+成功完成操作时检索到的字节数。 DUMMYUNIONNAME.AckData
+同步提供程序在验证以前传输到平台的数据的完整性后，执行 ACK_DATA 操作，作为占位符混合的一部分。 此操作可以作为对 FETCH_DATA 回调、 VALIDATE_DATA 回调的响应，或作为任何回调上下文之外的抢先后台混合工作的一部分来执行。
+此 API 仅适用于支持小于 ALWAYS_FULL 的混合策略 的同步提供程序。 否则，操作将失败并 STATUS_CLOUD_FILE_NOT_SUPPORTED。
+同步提供程序需要在同步根注册时指定水化策略修饰符 VALIDATE_REQUIRED 以执行此操作。 否则，操作将失败并 STATUS_CLOUD_FILE_NOT_SUPPORTED。
+同步提供程序需要对要对其执行ACK_DATA操作的文件具有READ_DATA或WRITE_DAC访问权限。 否则，操作将失败并 STATUS_CLOUD_FILE_ACCESS_DENIED。
+
+≦ 110 ≧
+若要执行此操作，请执行以下操作：
+OpInfo.Type 必须设置为 CF_OPERATION_TYPE_ACK_DATA。
+OpParams.ParamSize 必须设置为 OpParams.AckData 的确切大小加上 OpParams.AckData 的偏移量。
+OpParams.AckData.Flags 必须设置为 CF_OPERATION_ACK_DATA_FLAG_NONE。如果同步提供程序验证要确认的范围内的数据是否正常，则必须将
+OpParams.AckData.CompletionStatus 设置为 STATUS_SUCCESS。 如果同步提供程序出于任何原因未能验证数据，并且不想重启水化，则必须在 CompletionStatus 中设置STATUS_CLOUD_FILE_* 状态。 STATUS_CLOUD_FILE_ * 范围之外返回的任何状
+态代码（ STATUS_SUCCESS 除外）都将由平台转换为 STATUS_CLOUD_FILE_UNSUCCESSFUL 。
+OpParams.AckData.Offset 和 OpParams.AckData.Length 描述占位符中的一个范围，其数据将由同步提供程序确认。 在操作之前，不需要通过 TRANSFER_DATA 操作完全冻结所请求的范围。 Offset 和 Length 都是 4KB 对齐的，除非所描述的范围以逻辑文件大小 (EoF) 结束，在这种情况下，只要长度在逻辑文件大小上结束或超过逻辑文件大小，就不需要对齐 4KB。
+长度-1 （表示为 CF_EOF）表示无限 (，即到文件) 末尾。
+成功ACK_DATA操作后，将完成占位符文件上由于ACK_DATA操作而收到所有所需字节的挂起用户 IO 请求;否则，不完整的用户 IO 请求将更新以反映最新的混合状态。 在失败 ACK_DATA 的情况下，占位符文件上与 Offset 和 Length 所描述的范围重叠的任何挂起的
+用户 IO 请求都将因 CompletionStatus 而失败。 DUMMYUNIONNAME.AckData.Flags
+用于确认数据的标志。 必须将其设置为 CF_OPERATION_ACK_DATA_FLAG_NONE。 有关
+详细信息 ，请参阅CF_OPERATION_ACK_DATA_FLAGS 。 DUMMYUNIONNAME.AckData.CompletionStatus
+数据确认的完成状态。 如果同步提供程序验证要确认的范围内的数据是否正常，则必须将其设置为 STATUS_SUCCESS 。 如果同步提供程序出于任何原因未能验证数据，并且不想重启水化，则必须在 CompletionStatus 中设置STATUS_CLOUD_FILE_* 状态。
+STATUS_CLOUD_FILE_ * 范围之外返回的任何状态代码（ STATUS_SUCCESS 除外）都将由
+平台转换为 STATUS_CLOUD_FILE_UNSUCCESSFUL 。 DUMMYUNIONNAME.AckData.Offset
+要确认的占位符数据的偏移量（以字节为单位）。 Offset 描述占位符中的一个范围，同步提供程序将确认其数据。 在操作之前，不需要通过 TRANSFER_DATA 操作完全冻结所请求的范围。 偏移量 必须对齐 4KB。
+
+≦ 111 ≧
+DUMMYUNIONNAME.AckData.Length
+要确认的占位符中数据的长度（以字节为单位）。 必须对齐 4KB，除非所描述的范围以逻辑文件大小 (EoF) 结束，在这种情况下，只要 长度 在逻辑文件大小上或超过逻辑文件大小，就不需要对齐 4KB。 长度-1 （表示为 CF_EOF）表示无限 (，即到文件) 末尾。
+DUMMYUNIONNAME.RestartHydration
+同步提供程序执行 RESTART_HYDRATION 操作以重新启动正在进行的混合。 此操作可以作为对 FETCH_DATA 回调、 VALIDATE_DATA 回调的响应，或作为任何回调上下文之外的抢先后台混合工作的一部分来执行。
+此 API 仅适用于支持 完全 混合策略的同步提供程序。 否则，操作将失败并 STATUS_CLOUD_FILE_NOT_SUPPORTED。
+同步提供程序需要对要对其执行RESTART_HYDRATION操作的文件具有WRITE_DATA或 WRITE_DAC访问权限。 否则，操作将失败并 STATUS_CLOUD_FILE_ACCESS_DENIED。
+若要执行此操作，请执行以下操作：
+OpInfo.Type 必须设置为 CF_OPERATION_TYPE_RESTART_HYDRATION。
+OpParams.ParamSize 必须设置为 OpParams.RestartHydration 的确切大小加上 OpParams.RestartHydration 的偏移量。
+OpParams.RestartHydration.Flags 必须设置为
+CF_OPERATION_RESTART_HYDRATION_FLAG_NONE 或
+CF_OPERATION_RESTART_HYDRATION_FLAG_MARK_IN_SYNC。
+如果指定 了CF_OPERATION_RESTART_HYDRATION_FLAG_MARK_IN_SYNC ，
+则占位符将在成功 RESTART_HYDRATION 操作后标记为同步。 OpParams.RestartHydration.FsMetadata 是可选的。 提供时：
+0  timestamp 字段中的值 (CreationTime、LastAccessTime、LastWriteTime 和 ChangeTime) 表示对文件的当前时间戳没有更改。
+0 FileAttributes 中的值表示文件中的当前文件属性没有更改。 FileSize 中没有特殊值。 0 FileSize 中的值将文件大小截断为 0。 OpParams.RestartHydration.FileIdentity 和
+OpParams.RestartHydration.FileIdentityLength 是可选的。 提供后，新标识将保留在文件中。 否则，当前文件标识将保留。
+同步提供程序在确定占位符中的磁盘数据实际上无效且不适合满足 I/O 请求的情况下调用此 API。 典型的情况是，由于某种原因检索到的数据未能通过校验和验证。 另一种使用场景是，在混合过程中，文件内容实际上已在云中更新 (并且同步提供程序无法从云中检索对应于本地占位符版本) 的历史内容。
+
+≦ 112 ≧
+成功重启后，占位符将完全冻结，并使用新的元数据（如果有）进行更新。 挂起的用户 IO 请求（如果有）将重新处理，就像它们刚刚到达一样，因此，同步提供程序将收到看起来与同步提供程序之前收到的回调完全相同的新回调。
+但是，如果重启因任何原因失败，则占位符可能处于非确定性状态，具体取决于遇到错误的位置，并且占位符上的所有挂起的用户 IO 请求都将失败并出现相同的错误。 在这种情
+况下，平台唯一保证的是，用户将来对占位符文件的访问权限将触发相同的回调。 DUMMYUNIONNAME.RestartHydration.Flags
+用于重启占位符混合的标志。 必须将其设置为
+CF_OPERATION_RESTART_HYDRATION_FLAG_NONE 或
+CF_OPERATION_RESTART_HYDRATION_FLAG_MARK_IN_SYNC。 如果指定 了
+CF_OPERATION_RESTART_HYDRATION_FLAG_MARK_IN_SYNC ，则占位符将在成功 RESTART_HYDRATION 操作后标记为同步。 有关详细信息 ，请参阅
+CF_OPERATION_RESTART_HYDRATION_FLAGS 。 DUMMYUNIONNAME.RestartHydration.FsMetadata 可选。 包含对文件元数据的更新。 指定时：
+0  timestamp 字段中的值 (CreationTime、LastAccessTime、LastWriteTime 和 ChangeTime) 表示对文件的当前时间戳没有更改。
+0 FileAttributes 中的值表示对文件的当前文件属性没有更改。 FileSize 中没有特殊值。 0 FileSize 中的值将文件大小截断为 0。
+DUMMYUNIONNAME.RestartHydration.FileIdentity
+可选。 提供后，文件标识将更新为此值。 否则，它保持不变。 DUMMYUNIONNAME.RestartHydration.FileIdentityLength
+可选。 这指定 FileIdentity 的长度。 DUMMYUNIONNAME.TransferPlaceholders
+DUMMYUNIONNAME.TransferPlaceholders.Flags
+用于传输占位符的标志。 有关详细信息 ，请参阅
+CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS 。 DUMMYUNIONNAME.TransferPlaceholders.CompletionStatus 传输占位符操作的完成状态。
+DUMMYUNIONNAME.TransferPlaceholders.PlaceholderTotalCount
+
+≦ 113 ≧
+占位符的总数。
+DUMMYUNIONNAME.TransferPlaceholders.PlaceholderArray 要传输的占位符数组。
+DUMMYUNIONNAME.TransferPlaceholders.PlaceholderCount 正在传输的占位符数。
+DUMMYUNIONNAME.TransferPlaceholders.EntriesProcessed 已处理的占位符条目。
+DUMMYUNIONNAME.AckDehydrate
+DUMMYUNIONNAME.AckDehydrate.Flags
+冻结的数据确认标志。 有关详细信息 ，请参阅CF_OPERATION_ACK_DEHYDRATE_FLAGS。
+DUMMYUNIONNAME.AckDehydrate.CompletionStatus
+确认冻结操作的完成状态。 如果同步提供程序能够允许解除冻结继续进行，则必须将其设置为 STATUS_SUCCESS 。 如果同步提供程序出于任何原因打算禁止解除冻结，则必须在 CompletionStatus 中设置STATUS_CLOUD_FILE_*状态。 STATUS_CLOUD_FILE_ * 范围之外返回的任何状态代码（ STATUS_SUCCESS 除外）都将由平台转换为
+STATUS_CLOUD_FILE_UNSUCCESSFUL 。 DUMMYUNIONNAME.AckDehydrate.FileIdentity
+要确认其冻结数据的占位符文件的文件标识。
+DUMMYUNIONNAME.AckDehydrate.FileIdentityLength
+FileIdentity 的长度（以字节为单位）。 DUMMYUNIONNAME.AckRename
+DUMMYUNIONNAME.AckRename.Flags
+确认重命名占位符标志。 有关详细信息 ，请参阅CF_OPERATION_ACK_RENAME_FLAGS。
+DUMMYUNIONNAME.AckRename.CompletionStatus
+
+≦ 114 ≧
+确认重命名操作的完成状态。 如果同步提供程序能够允许重命名操作继续，则必须将其设置为 STATUS_SUCCESS 。 如果同步提供程序出于任何原因打算禁止重命名，则必须在 CompletionStatus 中设置STATUS_CLOUD_FILE_*状态。 STATUS_CLOUD_FILE_ * 范围之外返回的任何状态代码（ STATUS_SUCCESS 除外）都将由平台转换为
+STATUS_CLOUD_FILE_UNSUCCESSFUL 。 DUMMYUNIONNAME.AckDelete
+DUMMYUNIONNAME.AckDelete.Flags
+确认删除标志。 有关详细信息 ，请参阅CF_OPERATION_ACK_DELETE_FLAGS 。 DUMMYUNIONNAME.AckDelete.CompletionStatus
+确认删除操作的完成状态。 如果同步提供程序能够允许删除操作继续，则必须将其设置为 STATUS_SUCCESS 。 如果同步提供程序出于任何原因打算禁止删除，则必须在
+CompletionStatus 中设置STATUS_CLOUD_FILE_* 状态。 STATUS_CLOUD_FILE_ * 范围之外返回的任何状态代码（ STATUS_SUCCESS 除外）都将由平台转换为
+STATUS_CLOUD_FILE_UNSUCCESSFUL 。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfExecute
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+CF_OPERATION_TRANSFER_DATA_FLAGS CF_OPERATION_RETRIEVE_DATA_FLAGS
+反馈
+展开表
+
+≦ 115 ≧
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 116 ≧
+CF_OPERATION_RESTART_HYDRATION_F
+LAGS 枚举 (cfapi.h) 项目2024/02/26
+用于在占位符文件或文件夹上重启数据解除冻结的标志。
+语法 C++
+typedef enum CF_OPERATION_RESTART_HYDRATION_FLAGS {
+  CF_OPERATION_RESTART_HYDRATION_FLAG_NONE = 0x00000000,
+  CF_OPERATION_RESTART_HYDRATION_FLAG_MARK_IN_SYNC = 0x00000001} ;
+常量
+ﾉ
+ 
+CF_OPERATION_RESTART_HYDRATION_FLAG_NONE 值： 0x00000000
+无重启数据解除冻结标志。
+CF_OPERATION_RESTART_HYDRATION_FLAG_MARK_IN_SYNC 值： 0x00000001
+如果指定了此标志，则成功 RESTART_HYDRATION 操作时，占位符将标记为同步。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表展开表
+
+≦ 117 ≧
+另请参阅 CfExecute
+CF_OPERATION_TYPE 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 118 ≧
+CF_OPERATION_RETRIEVE_DATA_FLAGS
+枚举 (cfapi.h) 项目2024/02/26
+用于检索占位符文件或文件夹的数据的标志。
+语法 C++
+typedef enum CF_OPERATION_RETRIEVE_DATA_FLAGS {
+  CF_OPERATION_RETRIEVE_DATA_FLAG_NONE = 0x00000000} ;
+常量
+ﾉ
+ 
+CF_OPERATION_RETRIEVE_DATA_FLAG_NONE
+值： 0x00000000 没有检索数据标志。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CF_OPERATION_TYPE
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表展开表
+
+≦ 119 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 120 ≧
+CF_OPERATION_TRANSFER_DATA_FLAG
+S 枚举 (cfapi.h) 项目2024/02/23
+用于传输数据以冻结占位符文件或文件夹的标志。
+语法 C++
+typedef enum CF_OPERATION_TRANSFER_DATA_FLAGS {
+  CF_OPERATION_TRANSFER_DATA_FLAG_NONE = 0x00000000} ;
+常量
+ﾉ
+ 
+CF_OPERATION_TRANSFER_DATA_FLAG_NONE
+值： 0x00000000 无传输数据标志。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CF_OPERATION_TYPE
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表展开表
+
+≦ 121 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 122 ≧
+CF_OPERATION_TRANSFER_PLACEHOLD
+ERS_FLAGS 枚举 (cfapi.h) 项目2023/03/18
+用于指定传输占位符文件或目录时的行为的标志。
+语法 C++
+typedef enum CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS {
+
+  CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_NONE = 0x00000000,
+
+  CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_STOP_ON_ERROR = 0x00000001,
+
+  CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_DISABLE_ON_DEMAND_POPULATION = 
+0x00000002
+} ;
+
+常量  
+CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_NONE
+ 值： 0x00000000
+
+没有传输占位符标志。
+CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_STOP_ON_ERROR
+ 值： 0x00000001
+
+如果占位符传输失败，导致 API 立即返回。 如果传输失败，将返回错误代码。
+
+≦ 123 ≧
+ 
+CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_DISABLE_ON_DEMAND_POPULATION
+ 值： 0x00000002
+
+如果提供程序不再希望调用其CF_CALLBACK_TYPE_FETCH_PLACEHOLDERS回调，则应通过在 CF_OPERATION_TYPE_TRANSFER_PLACEHOLDERS 中设置
+CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_DISABLE_ON_DEMAND_POPULATION标志来标记占位符目录已完全填充。 通常，提供程序应在已设置目录中的所有占位符后设置此标志，或者如果 当前调用CF_OPERATION_TYPE_TRANSFER_PLACEHOLDERS 应该设置所有占位符。 提供程序可以随时设置此标志，如果 当前调用 期间CF_OPERATION_TYPE_TRANSFER_PLACEHOLDERS，平台将遵循此标志：
+1. TransferPlaceholders.PlaceholderTotalCount<= (之前 TransferPlaceholders.EntriesProcessed) + 当前 TransferPlaceholders.PlaceholderCount的总和。
+
+2. 已成功创建所有当前 TransferPlaceholders.PlaceholderCount 占位符。
+
+例如，如果提供程序必须传输 10 个占位符，则它可以通过以下方式之一传输和设置
+CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_DISABLE_ON_DEMAND_POPULATION 。
+ 它可以执行此操作：
+1. 将 TransferPlaceholders.PlaceholderTotalCount = 5、设置
+TransferPlaceholders.PlaceholderCount 4 = 和 设置为 。Flags NONE
+ 2. 将 TransferPlaceholders.PlaceholderTotalCount = 9、设置
+TransferPlaceholders.PlaceholderCount 4 = 和 设置为 。Flags NONE
+ 3. 将 TransferPlaceholders.PlaceholderTotalCount = 11、设置
+TransferPlaceholders.PlaceholderCount 2 = 和 设置为 。Flags NONE
+
+4. 将 TransferPlaceholders.PlaceholderTotalCount = 10、设置 TransferPlaceholders.PlaceholderCount 0 = 和 设置为 。
+Flags CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_DISABLE_ON_DEMAND_POPULATION
+ 或者，它可以执行以下操作：
+1. 将 TransferPlaceholders.PlaceholderTotalCount = 5、设置
+TransferPlaceholders.PlaceholderCount 4 = 和 设置为 。Flags NONE
+ 2. 将 TransferPlaceholders.PlaceholderTotalCount = 9、设置
+TransferPlaceholders.PlaceholderCount 4 = 和 设置为 。Flags NONE
+
+3. 将 TransferPlaceholders.PlaceholderTotalCount = 10、设置 TransferPlaceholders.PlaceholderCount 2 = 和 设置为 。
+Flags CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_DISABLE_ON_DEMAND_POPULATION 要求
+ 
+最低受支持的客户端
+ 
+Windows 10版本 1709 [仅限桌面应用]
+
+≦ 124 ≧
+ 
+最低受支持的服务器标头
+另请参阅 CF_CALLBACK_TYPE CF_OPERATION_TYPE CfExecute
+ 
+Windows Server 2016 [仅限桌面应用] cfapi.h
+
+≦ 125 ≧
+CF_OPERATION_TYPE 枚举 (cfapi.h) 项目2023/04/11
+可以对占位符文件和目录执行的操作类型。另请参阅 Cloud Mirror 示例。
+语法 C++
+typedef enum CF_OPERATION_TYPE {
+   CF_OPERATION_TYPE_TRANSFER_DATA,
+   CF_OPERATION_TYPE_RETRIEVE_DATA,
+   CF_OPERATION_TYPE_ACK_DATA,
+
+  CF_OPERATION_TYPE_RESTART_HYDRATION,
+
+  CF_OPERATION_TYPE_TRANSFER_PLACEHOLDERS,
+   CF_OPERATION_TYPE_ACK_DEHYDRATE,
+
+  CF_OPERATION_TYPE_ACK_DELETE,
+   CF_OPERATION_TYPE_ACK_RENAME
+} ;
+
+常量  
+CF_OPERATION_TYPE_TRANSFER_DATA
+
+同步提供程序执行 TRANSFER_DATA 来冻结占位符文件。 此操作可以作为对 FETCH_DATA 回调、 VALIDATE_DATA 回调的响应，或作为任何回调上下文之外的抢先后台混合工作的一部分来执行。
+CF_OPERATION_TYPE_RETRIEVE_DATA
+
+同步提供程序在占位符混合过程中执行 RETRIEVE_DATA 操作，以验证以前传输到占位符的数据的完整性。 此操作可以作为对 FETCH_DATA 回调、 VALIDATE_DATA 回调的响应，或作为任何回调
+上下文之外的抢先后台混合工作的一部分来执行。 CF_OPERATION_TYPE_ACK_DATA
+
+同步提供程序在验证之前传输到平台的数据的完整性后，执行 ACK_DATA 操作作为占位符混合的一部分。 此操作可以作为对 FETCH_DATA 回调、 VALIDATE_DATA 回调的响应，或作为任何回调
+上下文之外的抢先式后台混合工作的一部分执行 CF_OPERATION_TYPE_RESTART_HYDRATION
+
+同步提供程序执行 RESTART_HYDRATION 操作以重新启动正在进行的混合。 此操作可以作为对 FETCH_DATA 回调、 VALIDATE_DATA 回调的响应，或作为任何回调上下文之外的抢先后台混合工作的一部分来执行。
+
+≦ 126 ≧
+ 
+CF_OPERATION_TYPE_TRANSFER_PLACEHOLDERS
+
+传输占位符。 同步提供程序必须传输与模式匹配的所有占位符，但不一定是一次性传输，这是最低要求。 同步提供程序可能还会选择传输与模式不匹配的占位符。
+CF_OPERATION_TYPE_ACK_DEHYDRATE
+ 确认占位符并解除冻结。
+CF_OPERATION_TYPE_ACK_DELETE
+ 确认并删除占位符。
+CF_OPERATION_TYPE_ACK_RENAME
+
+确认并重命名占位符。要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 Cloud Mirror 示例 CfExecute
+CF_OPERATION_INFO
+CF_OPERATION_PARAMETERS
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+
+≦ 127 ≧
+CF_PIN_STATE 枚举 (cfapi.h) 项目2024/02/28
+占位符文件或目录的固定状态。
+语法 C++
+typedef enum CF_PIN_STATE {
+  CF_PIN_STATE_UNSPECIFIED = 0,
+  CF_PIN_STATE_PINNED = 1,   CF_PIN_STATE_UNPINNED = 2,   CF_PIN_STATE_EXCLUDED = 3,   CF_PIN_STATE_INHERIT = 4} ;
+常量  
+CF_PIN_STATE_UNSPECIFIED 值： 0
+平台可以自由决定占位符的内容何时需要在磁盘本地显示或不存在。
+CF_PIN_STATE_PINNED 值：1
+在平台收到固定请求后，同步提供程序将收到异步提取占位符内容的通知。 无法保证在
+ﾉ
+展开表
+CfSetPinState 调用成功完成后，要固定的占位符将在本地完全可用。 但是，平台将在固定占位符
+上失败任何冻结请求。 CF_PIN_STATE_UNPINNED 值： 2
+平台收到取消固定请求后，将通知同步提供程序异步解除冻结/使占位符在磁盘上的内容失效。 无法保证在 API 调用成功完成后，要取消固定的占位符将完全冻结。
+CF_PIN_STATE_EXCLUDED 值： 3
+同步提供程序永远不会将占位符同步到云。 此状态只能由同步提供程序设置。
+CF_PIN_STATE_INHERIT 值： 4
+
+≦ 128 ≧
+ 
+平台将其视为调用方对占位符执行移动操作，因此根据其父级的固定状态重新评估占位符的固定状
+态。 有关继承表 ，请参阅“备注 ”部分。注解
+ﾉ
+Parent
+文件
+Directory 要求要求
+未指定 Pinned 取消固定已排除未指定 Pinned 取消固定已排除
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfSetPinState
+未指定未指定 Pinned 取消固定未指定未指定 Pinned 取消固定未指定
+值
+Pinned Pinned Pinned 取消固定 Pinned Pinned Pinned 取消固定 Pinned
+取消固定未指定 Pinned 取消固定未指定取消固定 Pinned 取消固定取消固定
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表
+已排除已排除已排除已排除已排除已排除已排除已排除已排除
+ﾉ
+展开表
+
+≦ 129 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 130 ≧
+CF_PLACEHOLDER_BASIC_INFO 结构
+(cfapi.h) 项目2024/02/26
+基本占位符信息。
+语法 C++
+typedef struct CF_PLACEHOLDER_BASIC_INFO {   CF_PIN_STATE     PinState;
+  CF_IN_SYNC_STATE InSyncState;   LARGE_INTEGER    FileId;
+  LARGE_INTEGER    SyncRootFileId;
+  ULONG            FileIdentityLength;
+  BYTE             FileIdentity[1];} CF_PLACEHOLDER_BASIC_INFO;
+成员 PinState
+占位符 的CF_PIN_STATE ，用于表示用户的意向。 有关更多详细信息，请参阅
+CfSetPinState 。 InSyncState
+占位符的 CF_IN_SYNC_STATE 。 有关更多详细信息，请参阅 CfSetInSyncState 。 FileId
+一个 64 位卷宽的非易失数，用于唯一标识文件或目录。 SyncRootFileId
+同步根目录的文件 ID，其中包含要查询其占位符信息的文件。 FileIdentityLength
+FileIdentity 的长度（以字节为单位）。 FileIdentity[1]
+
+≦ 131 ≧
+创建占位符时由同步提供程序提供给平台的不透明 Blob。 为所有同步提供程序回调提供
+文件标识。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CF_PIN_STATE CfSetPinState
+CF_IN_SYNC_STATE CfSetInSyncState
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 132 ≧
+CF_PLACEHOLDER_CREATE_FLAGS 枚举
+(cfapi.h) 项目2024/03/05
+用于基于每个占位符创建占位符的标志。
+语法 C++
+typedef enum CF_PLACEHOLDER_CREATE_FLAGS {
+  CF_PLACEHOLDER_CREATE_FLAG_NONE = 0x00000000,
+  CF_PLACEHOLDER_CREATE_FLAG_DISABLE_ON_DEMAND_POPULATION = 0x00000001,   CF_PLACEHOLDER_CREATE_FLAG_MARK_IN_SYNC = 0x00000002,
+  CF_PLACEHOLDER_CREATE_FLAG_SUPERSEDE = 0x00000004,   CF_PLACEHOLDER_CREATE_FLAG_ALWAYS_FULL = 0x00000008} ;
+常量
+ﾉ
+ 
+CF_PLACEHOLDER_CREATE_FLAG_NONE
+值： 0x00000000 无占位符创建标志。
+CF_PLACEHOLDER_CREATE_FLAG_DISABLE_ON_DEMAND_POPULATION 值： 0x00000001
+展开表
+当标志存在时，新创建的子占位符目录被视为其所有子占位符目录在本地存在，因此将来访问它不会对其触发任何 FETCH_PLACEHOLDERS 回调。 当标志不存在时，新创建的占位符目录被视为部分，将来的访问将触发 FETCH_PLACEHOLDERS。 此标志仅适用于子占位符目录。
+CF_PLACEHOLDER_CREATE_FLAG_MARK_IN_SYNC 值： 0x00000002
+新创建的占位符在 TRANSFER_PLACEHOLDERS 操作过程中标记为同步。 这同时适用于占位符文件和目录。
+CF_PLACEHOLDER_CREATE_FLAG_SUPERSEDE 值： 0x00000004
+新创建的占位符将取代/覆盖现有占位符。
+
+≦ 133 ≧
+ 
+CF_PLACEHOLDER_CREATE_FLAG_ALWAYS_FULL 值： 0x00000008
+当此标志存在时，新创建的占位符将始终标记为已满。 水合后，任何尝试将此类 (文件冻结) 占位符都将失败， 并ERROR_CLOUD_FILE_DEHYDRATION_DISALLOWED错误代码。 此标志仅在占位
+符文件上强制执行。 可以在占位符目录上设置它，但它不起作用。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfCreatePlaceholders
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 134 ≧
+CF_PLACEHOLDER_CREATE_INFO 结构
+(cfapi.h) 项目2024/02/23
+包含用于创建新占位符文件或目录的占位符信息。
+语法 C++
+typedef struct CF_PLACEHOLDER_CREATE_INFO {
+  LPCWSTR                     RelativeFileName;
+  CF_FS_METADATA              FsMetadata;   LPCVOID                     FileIdentity;
+  DWORD                       FileIdentityLength;
+  CF_PLACEHOLDER_CREATE_FLAGS Flags;   HRESULT                     Result;
+  USN                         CreateUsn;} CF_PLACEHOLDER_CREATE_INFO;
+成员
+RelativeFileName
+要创建的子占位符文件或目录的名称。 它应仅包含文件或目录名称。
+例如，如果提供程序的同步根为 C：\SyncRoot，则在同步根的子目录中创建名为
+placeholder.txt 的占位符，请在 BaseDirectoryPath 等于 C:\SyncRoot\SubDirectory  的情况下调用 CfCreatePlaceholders 函数，并将CF_PLACEHOLDER_CREATE_INFO的
+RelativePathName 字段设置为 placeholder.txt 。 FsMetadata
+使用占位符创建的文件系统元数据，包括所有时间戳、文件属性和文件大小， (目录) 可选。
+FileIdentity
+包含同步提供程序提供的文件信息的用户模式缓冲区。 FileIdentity blob 的大小不应超过 CF_PLACEHOLDER_MAX_FILE_IDENTITY_LENGTH (定义为 4KB) 。 FileIdentity 在所有回调中传递回同步提供程序。 这是文件 (目录) 所必需的。
+
+≦ 135 ≧
+FileIdentityLength
+FileIdentity 的长度（以字节为单位）。 Flags
+用于指定占位符创建行为的标志。 有关详细信息 ，请参阅
+CF_PLACEHOLDER_CREATE_FLAGS 。 Result
+占位符创建的结果。 成功创建后，该值 STATUS_OK。 CreateUsn
+执行创建操作后的最终 USN 值。要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+CF_PLACEHOLDER_CREATE_FLAGS
+CfCreatePlaceholders 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 136 ≧
+CF_PLACEHOLDER_INFO_CLASS 枚举
+(cfapi.h) 项目2024/03/04
+一个枚举，指示将使用占位符信息的信息结构中的哪一个。
+语法 C++
+typedef enum CF_PLACEHOLDER_INFO_CLASS {
+  CF_PLACEHOLDER_INFO_BASIC = 0,   CF_PLACEHOLDER_INFO_STANDARD = 1} ;
+常量
+ﾉ
+ 
+CF_PLACEHOLDER_INFO_BASIC 值： 0
+基本占位符信息。 请参阅 CF_PLACEHOLDER_BASIC_INFO。
+CF_PLACEHOLDER_INFO_STANDARD 值：1
+标准占位符信息。 请参阅 CF_PLACEHOLDER_STANDARD_INFO。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表展开表
+
+≦ 137 ≧
+另请参阅
+CF_PLACEHOLDER_BASIC_INFO
+CF_PLACEHOLDER_STANDARD_INFO 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 138 ≧
+CF_PLACEHOLDER_MANAGEMENT_POLI
+CY 枚举 (cfapi.h) 项目2024/02/23
+指定 CF_SYNC_POLICIES 结构的占位符管理策略。
+语法 C++
+typedef enum CF_PLACEHOLDER_MANAGEMENT_POLICY {
+  CF_PLACEHOLDER_MANAGEMENT_POLICY_DEFAULT = 0x00000000,
+  CF_PLACEHOLDER_MANAGEMENT_POLICY_CREATE_UNRESTRICTED = 0x00000001,
+  CF_PLACEHOLDER_MANAGEMENT_POLICY_CONVERT_TO_UNRESTRICTED = 0x00000002,
+  CF_PLACEHOLDER_MANAGEMENT_POLICY_UPDATE_UNRESTRICTED = 0x00000004} ;
+常量
+ﾉ
+ 
+CF_PLACEHOLDER_MANAGEMENT_POLICY_DEFAULT
+只有同步提供程序才能在同步 roo 中执行占位符管理操作 CF_PLACEHOLDER_MANAGEMENT_POLICY_CREATE_UNRESTRICTED 任何进程都可以在活动同步根目录中创建占位符。
+CF_PLACEHOLDER_MANAGEMENT_POLICY_CONVERT_TO_UNRESTRICTED 任何进程都可以将活动同步根目录中的文件转换为占位符。
+CF_PLACEHOLDER_MANAGEMENT_POLICY_UPDATE_UNRESTRICTED
+任何进程都可以更新活动同步根目录中的占位符。注解
+展开表
+默认情况下，只有同步提供程序可以在同步根中执行占位符管理操作。 仅当同步根处于非活动状态时，即当同步根未连接到任何同步提供程序时，非同步提供程序进程才能执行占位符管理操作。 启用这些策略后，允许非同步提供程序进程在活动同步根中执行相应
+
+≦ 139 ≧
+的占位符管理操作。 仅允许连接的同步提供程序执行任何占位符管理操作的默认策略。
+其他三个策略可以任意组合指定。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CF_SYNC_POLICIES
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+值
+Windows 10 版本 1709 Windows Server 2016 cfapi.h
+展开表
+
+≦ 140 ≧
+CF_PLACEHOLDER_RANGE_INFO_CLASS
+枚举 (cfapi.h) 项目2024/02/23
+指示占位符文件数据的范围信息的类型。
+语法 C++
+typedef enum CF_PLACEHOLDER_RANGE_INFO_CLASS {   CF_PLACEHOLDER_RANGE_INFO_ONDISK = 1,
+  CF_PLACEHOLDER_RANGE_INFO_VALIDATED = 2,   CF_PLACEHOLDER_RANGE_INFO_MODIFIED = 3} ;
+常量
+ﾉ
+ 
+CF_PLACEHOLDER_RANGE_INFO_ONDISK 值：1
+磁盘上数据是物理上存在于文件中的数据，该文件是其他类型的范围的超级集。
+CF_PLACEHOLDER_RANGE_INFO_VALIDATED 值： 2
+已验证数据是当前与云同步的磁盘上数据的子集。
+CF_PLACEHOLDER_RANGE_INFO_MODIFIED 值： 3
+修改的数据是磁盘上数据的子集，当前未与云同步，即已修改或追加。要求
+ﾉ
+要求
+最低受支持的客户端
+值
+Windows 10版本 1709 [仅限桌面应用]
+展开表展开表
+
+≦ 141 ≧
+要求
+最低受支持的服务器标头
+另请参阅
+CfGetPlaceholderRangeInfo 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 142 ≧
+CF_PLACEHOLDER_STANDARD_INFO 结
+构 (cfapi.h) 项目2024/02/23
+标准占位符信息。
+语法 C++
+typedef struct CF_PLACEHOLDER_STANDARD_INFO {   LARGE_INTEGER    OnDiskDataSize;
+  LARGE_INTEGER    ValidatedDataSize;   LARGE_INTEGER    ModifiedDataSize;
+  LARGE_INTEGER    PropertiesSize;   CF_PIN_STATE     PinState;
+  CF_IN_SYNC_STATE InSyncState;   LARGE_INTEGER    FileId;
+  LARGE_INTEGER    SyncRootFileId;
+  ULONG            FileIdentityLength;
+  BYTE             FileIdentity[1];} CF_PLACEHOLDER_STANDARD_INFO;
+成员
+OnDiskDataSize
+磁盘上的字节总数。 ValidatedDataSize
+与云同步的字节总数。 ModifiedDataSize
+已在本地覆盖/追加且未与云同步的字节总数。 PropertiesSize
+磁盘上所有属性 Blob 使用的字节总数。 PinState
+占位符 的CF_PIN_STATE 。 有关更多详细信息，请参阅 CfSetPinState 。
+
+≦ 143 ≧
+InSyncState
+占位符 的CF_IN_SYNC_STATE 。 有关更多详细信息 ，请参阅 CfSetInSyncState 。 FileId
+唯一标识文件或目录的 64 位卷宽非易失性数字。 SyncRootFileId
+包含要查询占位符信息的文件的同步根目录的文件 ID。 FileIdentityLength
+FileIdentity 的长度（以字节为单位）。 FileIdentity[1]
+同步提供程序在创建占位符时提供给平台的不透明 Blob。 为所有同步提供程序回调提供
+文件标识。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CF_PIN_STATE CfSetPinState
+CF_IN_SYNC_STATE CfSetInSyncState
+反馈
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表
+
+≦ 144 ≧
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 145 ≧
+CF_PLACEHOLDER_STATE 枚举 (cfapi.h) 项目2024/02/23
+占位符文件或文件夹的状态。
+语法 C++
+typedef enum CF_PLACEHOLDER_STATE {
+  CF_PLACEHOLDER_STATE_NO_STATES = 0x00000000,   CF_PLACEHOLDER_STATE_PLACEHOLDER = 0x00000001,   CF_PLACEHOLDER_STATE_SYNC_ROOT = 0x00000002,
+  CF_PLACEHOLDER_STATE_ESSENTIAL_PROP_PRESENT = 0x00000004,
+  CF_PLACEHOLDER_STATE_IN_SYNC = 0x00000008,   CF_PLACEHOLDER_STATE_PARTIAL = 0x00000010,
+  CF_PLACEHOLDER_STATE_PARTIALLY_ON_DISK = 0x00000020,
+  CF_PLACEHOLDER_STATE_INVALID = 0xffffffff} ;
+常量
+ﾉ
+ 
+CF_PLACEHOLDER_STATE_NO_STATES 值： 0x00000000
+返回时，API 检查其 FileAttributes 和 ReparseTag 的文件或目录不是占位符。
+CF_PLACEHOLDER_STATE_PLACEHOLDER 值： 0x00000001
+由 API 检查其 FileAttributes 和 ReparseTag 的文件或目录是占位符。
+CF_PLACEHOLDER_STATE_SYNC_ROOT 值： 0x00000002
+目录既是占位符目录，也是同步根目录。
+CF_PLACEHOLDER_STATE_ESSENTIAL_PROP_PRESENT 值： 0x00000004
+文件或目录必须是占位符，并且文件或目录的属性存储中存在基本属性。
+CF_PLACEHOLDER_STATE_IN_SYNC 值： 0x00000008
+文件或目录必须是占位符，其内容必须与云同步。
+展开表
+
+≦ 146 ≧
+ 
+CF_PLACEHOLDER_STATE_PARTIAL 值： 0x00000010
+文件或目录必须是占位符，并且其内容尚未准备好供用户应用程序使用，尽管它可能在本地完全存
+在，也可能不完全存在。 例如，占位符文件的内容已完全下载到本地磁盘，但尚未由已使用 hydration 修饰符 VERIFICATION_REQUIRED注册同步根的同步提供程序进行验证。
+CF_PLACEHOLDER_STATE_PARTIALLY_ON_DISK 值： 0x00000020
+文件或目录必须是占位符，并且其内容在本地未完全存在。 设置此项后，还必须设置 CF_PLACEHOLDER_STATE_PARTIAL 。
+CF_PLACEHOLDER_STATE_INVALID 值： 0xffffffff
+当 API 无法分析文件或目录的信息时，这是无效状态。注解
+可以通过调用以下函数来获取占位符状态信息：
+CfGetPlaceholderStateFromAttributeTag
+CfGetPlaceholderStateFromFileInfo CfGetPlaceholderStateFromFindData
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+CfGetPlaceholderStateFromAttributeTag
+CfGetPlaceholderStateFromFileInfo CfGetPlaceholderStateFromFindData
+展开表
+
+≦ 147 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 148 ≧
+CF_PLATFORM_INFO 结构 (cfapi.h) 项目2024/03/05
+返回云文件平台的信息。 这适用于在多个版本的 Windows 上运行的同步提供程序。
+语法 C++
+typedef struct CF_PLATFORM_INFO {   DWORD BuildNumber;
+  DWORD RevisionNumber;
+  DWORD IntegrationNumber;} CF_PLATFORM_INFO;
+成员 BuildNumber
+Windows 平台版本的内部版本号。 当 Windows 更新为平台提供服务时更改。 RevisionNumber
+Windows 平台版本的修订号。 当 Windows 更新为平台提供服务时更改。 IntegrationNumber
+Windows 平台版本的集成号。 这在 API 协定和 bug 修复的可用性方面都表明平台功能。注解
+该平台是云筛选器和占位符文件 API 库的组合，它们始终彼此保持同步。 此 API 适用于
+需要根据多个 Windows 版本的平台功能做出决策的同步提供程序。如果你正在构建使用或感知占位符文件的应用，这可能对你有用。
+要求
+ﾉ
+展开表
+
+≦ 149 ≧
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfGetPlatformInfo
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 150 ≧
+cfapi.h) (CF_POPULATION_POLICY 结构项目2023/04/11
+指定主要填充策略及其修饰符。 填充策略允许同步提供程序控制占位符命名空间 (目录和文件) 应由平台创建的方式。
+语法 C++
+typedef struct CF_POPULATION_POLICY {
+
+  CF_POPULATION_POLICY_PRIMARY_USHORT  Primary;
+   CF_POPULATION_POLICY_MODIFIER_USHORT Modifier;
+} CF_POPULATION_POLICY;
+
+成员 Primary
+主要人口策略。 有关详细信息 ，请参阅CF_POPULATION_POLICY_PRIMARY 。 Modifier
+人口策略修饰符。 有关详细信息 ，请参阅CF_POPULATION_POLICY_MODIFIER 。要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+CF_POPULATION_POLICY_PRIMARY CF_POPULATION_POLICY_MODIFIER
+
+≦ 151 ≧
+CfRegisterSyncRoot
+
+≦ 152 ≧
+CF_POPULATION_POLICY_MODIFIER 枚
+举 (cfapi.h) 项目2024/02/23
+定义填充策略修饰符。 这是可与主策略一起使用的修饰符： CF_POPULATION_POLICY_PRIMARY。
+语法 C++
+typedef enum CF_POPULATION_POLICY_MODIFIER {   CF_POPULATION_POLICY_MODIFIER_NONE = 0x0000} ;
+常量
+ﾉ
+ 
+CF_POPULATION_POLICY_MODIFIER_NONE
+值： 0x0000 无策略修饰符。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表展开表
+
+≦ 153 ≧
+CfRegisterSyncRoot
+CF_POPULATION_POLICY_PRIMARY 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 154 ≧
+CF_POPULATION_POLICY_PRIMARY 枚举
+(cfapi.h) 项目2023/03/31
+允许同步提供程序控制平台应如何创建占位符目录和文件。 这是主要策略。
+语法 C++
+typedef enum CF_POPULATION_POLICY_PRIMARY {
+
+  CF_POPULATION_POLICY_PARTIAL = 0,
+   CF_POPULATION_POLICY_FULL = 2,
+
+  CF_POPULATION_POLICY_ALWAYS_FULL = 3
+} ;
+
+常量  
+CF_POPULATION_POLICY_PARTIAL
+ 值： 0
+
+使用 CF_POPULATION_POLICY_PARTIAL 填充策略时，当平台检测到对未完全填充的目录的访问权限时，它将仅从同步提供程序请求用户应用程序所需的条目。 平台当前不支持此策略。
+CF_POPULATION_POLICY_FULL
+ 值： 2
+
+使用 CF_POPULATION_POLICY_FULL 填充策略时，当平台检测到对未完全填充的目录的访问权限时，它将请求同步提供程序在完成用户请求之前返回目录下的所有条目。
+CF_POPULATION_POLICY_ALWAYS_FULL
+ 值： 3
+
+选择 CF_POPULATION_POLICY_ALWAYS_FULL 后，平台假定全名空间始终在本地可用。 它永远不
+会将任何目录枚举请求转发到同步提供程序。要求
+ 
+最低受支持的客户端最低受支持的服务器
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+
+≦ 155 ≧
+ 
+标头
+另请参阅 CfRegisterSyncRoot
+ 
+cfapi.h
+
+≦ 156 ≧
+CF_PROCESS_INFO 结构 (cfapi.h) 项目2024/02/23
+包含有关触发回调的用户进程的信息。
+语法 C++
+typedef struct CF_PROCESS_INFO {
+  DWORD  StructSize;   DWORD  ProcessId;   PCWSTR ImagePath;   PCWSTR PackageName;
+  PCWSTR ApplicationId;   PCWSTR CommandLine;
+  DWORD  SessionId;} CF_PROCESS_INFO;
+成员 StructSize
+CF_PROCESS_INFO结构的大小。 ProcessId
+用户进程的 32 位 ID。 ImagePath
+main可执行文件的绝对路径，包括 NT 文件路径格式的卷名。 如果平台未能检索映像路
+径， UNKNOWN  将返回 。 PackageName
+用于新式应用程序。 应用包名称。 ApplicationId
+用于新式应用程序。 应用程序 ID。 CommandLine
+
+≦ 157 ≧
+７ 备注
+此成员已添加到 Windows 10 版本 1803 中。
+用于启动进程的字符串。 如果平台未能检索命令行， UNKNOWN  将返回 。
+SessionId ７ 备注
+此成员已添加到 Windows 10 版本 1803 中。
+会话的 32 位 ID，其中触发回调的用户进程驻留在其中。要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CF_CALLBACK_INFO
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 158 ≧
+CF_REGISTER_FLAGS 枚举 (cfapi.h) 项目2024/02/23
+用于注册和更新同步根的标志。
+语法 C++
+typedef enum CF_REGISTER_FLAGS {
+  CF_REGISTER_FLAG_NONE = 0x00000000,   CF_REGISTER_FLAG_UPDATE = 0x00000001,
+  CF_REGISTER_FLAG_DISABLE_ON_DEMAND_POPULATION_ON_ROOT = 0x00000002,
+  CF_REGISTER_FLAG_MARK_IN_SYNC_ON_ROOT = 0x00000004} ;
+常量
+ﾉ
+ 
+CF_REGISTER_FLAG_NONE
+值： 0x00000000 无注册标志。
+CF_REGISTER_FLAG_UPDATE 值： 0x00000001
+使用此标志修改以前注册的同步根标识和策略。
+CF_REGISTER_FLAG_DISABLE_ON_DEMAND_POPULATION_ON_ROOT 值： 0x00000002
+展开表
+按需目录/文件夹填充行为由填充策略全局控制。 此标志允许同步提供程序仅针对同步根本身选择退出按需填充行为，同时使同步根下所有其他目录的按需填充保持打开状态。 当同步提供程序想要预填充同步根目录的即时子文件/目录时，这非常有用。
+CF_REGISTER_FLAG_MARK_IN_SYNC_ON_ROOT 值： 0x00000004
+此标志允许同步提供程序将同步根标记为在注册时同时注册。 另一种方法是稍后对同步根目录调用
+CfSetInSyncState 。要求
+
+≦ 159 ≧
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfSetInSyncState CfRegisterSyncRoot
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 160 ≧
+CF_REVERT_FLAGS 枚举 (cfapi.h) 项目2024/02/28
+用于将占位符文件还原为常规文件的标志。
+语法 C++
+typedef enum CF_REVERT_FLAGS {
+  CF_REVERT_FLAG_NONE = 0x00000000} ;
+常量  
+CF_REVERT_FLAG_NONE 值： 0x00000000
+没有占位符还原标志。要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfRevertPlaceholder
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+ﾉﾉ
+展开表展开表
+
+≦ 161 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 162 ≧
+CF_SET_IN_SYNC_FLAGS 枚举 (cfapi.h) 项目2024/02/23
+占位符文件和文件夹的同步状态标志。
+语法 C++
+typedef enum CF_SET_IN_SYNC_FLAGS {
+  CF_SET_IN_SYNC_FLAG_NONE = 0x00000000} ;
+常量
+ﾉ
+ 
+CF_SET_IN_SYNC_FLAG_NONE
+值： 0x00000000 无同步标志。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfSetInSyncState
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表展开表
+
+≦ 163 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 164 ≧
+CF_SET_PIN_FLAGS 枚举 (cfapi.h) 项目2024/02/23
+占位符固定标志。
+语法 C++
+typedef enum CF_SET_PIN_FLAGS {
+  CF_SET_PIN_FLAG_NONE = 0x00000000,
+  CF_SET_PIN_FLAG_RECURSE = 0x00000001,
+  CF_SET_PIN_FLAG_RECURSE_ONLY = 0x00000002,
+  CF_SET_PIN_FLAG_RECURSE_STOP_ON_ERROR = 0x00000004} ;
+常量  
+CF_SET_PIN_FLAG_NONE
+值： 0x00000000 无固定标志。
+CF_SET_PIN_FLAG_RECURSE 值： 0x00000001
+ﾉ
+展开表
+平台将固定状态应用于占位符 FileHandle ，并且仅当 FileHandle 是目录) 的句柄时，它下面的每个文件都以递归方式 (相关。
+CF_SET_PIN_FLAG_RECURSE_ONLY 值： 0x00000002
+平台以递归方式将固定状态应用于占位符 FileHandle 下的每个文件，但不应用于 FileHandle 本身。
+CF_SET_PIN_FLAG_RECURSE_STOP_ON_ERROR 值： 0x00000004
+遇到第一个错误时，平台将停止递归;否则，平台将跳过错误并继续递归。要求
+ﾉ
+展开表
+
+≦ 165 ≧
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfSetPinState
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 166 ≧
+CF_SYNC_POLICIES 结构 (cfapi.h) 项目2023/03/14
+定义同步根使用的同步策略。
+语法 C++
+typedef struct CF_SYNC_POLICIES {
+
+  ULONG                            StructSize;
+   CF_HYDRATION_POLICY              Hydration;
+   CF_POPULATION_POLICY             Population;
+
+  CF_INSYNC_POLICY                 InSync;
+   CF_HARDLINK_POLICY               HardLink;
+
+  CF_PLACEHOLDER_MANAGEMENT_POLICY PlaceholderManagement;
+} CF_SYNC_POLICIES;
+
+成员 StructSize
+CF_SYNC_POLICIES 结构的大小。 Hydration
+解除冻结策略允许同步提供程序控制平台应如何冻结占位符文件。 它由一个主策略和一组策略修饰符组成。
+主策略有四个可能的值：
+策略
+ALWAYS_FULL FULL
+描述
+选择 后ALWAYS_FULL，平台将失败，使用 HRESULT
+ERROR_CLOUD_FILE_INVALID_REQUEST，任何可能导致不完全水合占位符的占位符操作，其中包括 CfCreatePlaceholders、CfDehydratePlaceholder、具有脱水选项的 CfUpdatePlaceholder 和具有失水选项的 CfConvertPlaceholder。
+选择 时 FULL ，平台将允许占位符脱水。 当平台检测到对脱水占位符的访问时，它将确保在完成用户 IO 请求之前，占位符的完整内容在本地可用，即使请求仅请求 1 字节。
+
+≦ 167 ≧
+策略进步
+PARTIAL
+描述
+选择 时 PROGRESSIVE ，平台将允许占位符脱水。 当平台检测到对脱水占位符的访问时，一旦确定从同步提供程序接收足够的数据，它将立即完成用户 IO 请求。 但是，平台承诺继续从后台同步提供程序请求占位符中的剩余内容，直到占位符的完整内容在本地可用或占位符上的最后一个用户句柄关闭为止。
+请注意，选择加入的 PROGRESSIVE 同步提供程序可能不会假定解除冻结回调从偏移量 0 按顺序到达。 换句话说，具有策略的 PROGRESSIVE 同步提供程序应处理占位符上的随机查找。
+该 PARTIAL 策略与 非常相似 PROGRESSIVE。 两者的唯一区别是，在政策背景下 PARTIAL 缺乏持续水合作。
+当前支持三个策略修饰符： VALIDATION_REQUIRED、 STREAMING_ALLOWED和
+AUTO_DEHYDRATION_ALLOWED。 通常，只要组合不自冲突，修饰符就可以与任何主策略和其他策略修饰符混合和匹配。
+策略修饰符
+VALIDATION_REQUIRED STREAMING_ALLOWED
+AUTO_DEHYDRATION_ALLOWED
+说明
+此策略修饰符为同步提供程序提供两个保证。 首先，它保证同步提供程序返回的数据在返回到用户应用程序之前始终保存到磁盘。 其次，它允许同步提供程序检索之前返回到平台的相同数据，并验证其完整性。 只有在同步提供程序成功确认完整性后，平台才会完成用户 IO 请求。 此修饰符有助于支持端到端数据完整性，但代价是额外的磁盘 IO。
+此策略修饰符授予平台不在本地磁盘上存储同步提供程序返回的任何数据的权限。 此策略修饰符与
+VALIDATION_REQUIRED互斥。 指定了两个标志时，API 将失败，并 ERROR_INVALID_PARAMETER 返回 。
+此策略修饰符授予平台无需同步提供程序帮助即可解除同步中的云文件占位符的冻结权限。 如果没有此标志，则不允许平台直接调用 CfDehydratePlaceholder 。 相反，解除云文件占位符冻结的唯一受支持方法是清除文件的固定属性并设置文件的未固定属性。 然后，在同步引擎收到有关这两个属性的目录更改通知后，实际解除冻结将由同步引擎异步执行。 指定此标志后，将允许平台直接在任何同步云文件占位符上调用 CfDehydratePlaceholder 。 建议同步提供程序支持自动解除冻结。
+
+≦ 168 ≧
+策略修饰符
+ALLOW_FULL_RESTART_HYDRATION Population
+说明
+当平台截获 AV 筛选器扫描文件的尝试时，此策略修饰符授予平台同步完全冻结文件的权限。 希望使用
+RestartHydration 从 FetchData 回调更改 的fileSize同步提供程序必须选择加入ALLOW_FULL_RESTART_HYDRATION策略，以避免尝试扫描文件的防病毒软件和反恶意软件以及尝试使用 RestartHydration 进行更改fileSize的提供程序可能出现的死锁。
+注意： 仅当 PlatformVersion.IntegrationNumber 从
+CfGetPlatformInfo 获取的 为 0x500 或更高时，才支持此修饰符。
+填充策略允许同步提供程序控制平台应如何创建占位符命名空间（目录和文件）。 目前有三个主要策略未定义修饰符：
+策略
+ALWAYS_FULL
+FULL PARTIAL
+InSync
+描述
+选择 时 ALWAYS_FULL ，平台假定全名空间始终在本地可用。 它永远不会将任何目录枚举请求转发到同步提供程序。
+FULL使用填充策略时，当平台检测到对未完全填充的目录进行访问时，它将请求同步提供程序在完成用户请求之前返回目录下的所有条目。
+PARTIAL使用填充策略时，当平台检测到对未完全填充的目录进行访问时，它将仅从同步提供程序请求用户应用程序所需的条目。
+策略 InSync 允许同步提供程序控制平台何时应清除占位符上的同步状态。 除了始终清除
+任何数据修改的同步外，平台目前还可以清除三个文件属性的任意组合的同步更改，(ReadOnly、 System 和 Hidden) ， (CreateTime 和 LastWriteTime) 两个文件时间。 这些
+策略可以分别应用于文件和目录。 HardLink
+默认情况下，平台不允许在任何占位符上创建硬链接。 但是，能够处理硬链接的同步提供程序可以指示平台通过 ALLOWED 策略启用支持。 使用此策略，只要链接位于同一同步根或没有同步根下，应用程序就可以创建文件系统支持的任意数量的硬链接。 当引入第一个同步根链接时，平台将强制对占位符进行水合，并在删除其最后一个同步根链接时将占位符还原为普通文件。 与策略不兼容的硬链接创建将失败，HRESULT
+ERROR_CLOUD_FILES_INCOMPATIBLE_HARDLINKS。 与策略不兼容的占位符操作也会失败 ERROR_CLOUD_FILES_INCOMPATIBLE_HARDLINKS。
+
+≦ 169 ≧
+PlaceholderManagement
+默认情况下，只有同步提供程序可以在同步根中执行占位符管理操作。 仅当同步根处于非活动状态 (即，当没有同步提供程序连接到同步根时，非同步提供程序进程才能执行占位符管理操作。) 启用这些策略后，允许非同步提供程序进程在活动同步根中执行相应的占位符管理操作。 CF_PLACEHOLDER_MANAGEMENT_POLICY_DEFAULT 是默认策略，仅允许连接的同步提供程序执行任何占位符管理操作。 可以任意组合指定以下三个策略：
+策略
+CF_PLACEHOLDER_MANAGEMENT_POLICY_CREATE_UNRESTRICTED CF_PLACEHOLDER_MANAGEMENT_POLICY_CONVERT_UNRESTRICTED CF_PLACEHOLDER_MANAGEMENT_POLICY_UPDATE_UNRESTRICTED ７ 备注
+仅当从 CfGetPlatformInfo 获取的 为 0x310 或更高时， PlatformVersion.IntegrationNumber才支持这些标志。
+要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+ 
+描述
+在注册期间指定此策略时，任何进程都可以通过调用
+CfCreatePlaceholders 在活动同步根目录中创建占位符。
+在注册过程中指定此策略时，任何进程都可以通过调用
+CfConvertToPlaceholder 将活动同步根中的文件或
+目录转换为占位符。在注册期间指定此策略时，任何进程都可以通过 API CfUpdatePlaceholder 更新活动同步根目录中的占位符。
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+
+≦ 170 ≧
+另请参阅 CfCreatePlaceholders
+CfConvertToPlaceholder CfGetPlatformInfo
+
+≦ 171 ≧
+CF_SYNC_PROVIDER_STATUS 枚举
+(cfapi.h) 项目2024/02/26
+同步提供程序的当前状态。
+语法 C++
+typedef enum CF_SYNC_PROVIDER_STATUS {
+  CF_PROVIDER_STATUS_DISCONNECTED = 0x00000000,   CF_PROVIDER_STATUS_IDLE = 0x00000001,
+  CF_PROVIDER_STATUS_POPULATE_NAMESPACE = 0x00000002,   CF_PROVIDER_STATUS_POPULATE_METADATA = 0x00000004,   CF_PROVIDER_STATUS_POPULATE_CONTENT = 0x00000008,   CF_PROVIDER_STATUS_SYNC_INCREMENTAL = 0x00000010,   CF_PROVIDER_STATUS_SYNC_FULL = 0x00000020,
+  CF_PROVIDER_STATUS_CONNECTIVITY_LOST = 0x00000040,
+  CF_PROVIDER_STATUS_CLEAR_FLAGS = 0x80000000,   CF_PROVIDER_STATUS_TERMINATED = 0xC0000001,
+  CF_PROVIDER_STATUS_ERROR = 0xC0000002} ;
+常量  
+CF_PROVIDER_STATUS_DISCONNECTED 值： 0x00000000
+同步提供程序已断开连接。 CF_PROVIDER_STATUS_IDLE 值： 0x00000001
+同步提供程序处于空闲状态。
+CF_PROVIDER_STATUS_POPULATE_NAMESPACE 值： 0x00000002
+同步提供程序正在填充命名空间。
+CF_PROVIDER_STATUS_POPULATE_METADATA 值： 0x00000004
+ﾉ
+展开表
+
+≦ 172 ≧
+ 
+同步提供程序正在填充占位符元数据。 CF_PROVIDER_STATUS_POPULATE_CONTENT 值： 0x00000008
+同步提供程序正在填充占位符内容。 CF_PROVIDER_STATUS_SYNC_INCREMENTAL 值： 0x00000010
+同步提供程序正在以增量方式同步占位符内容。
+CF_PROVIDER_STATUS_SYNC_FULL 值： 0x00000020
+同步提供程序具有完全同步的占位符文件数据。
+CF_PROVIDER_STATUS_CONNECTIVITY_LOST 值： 0x00000040
+同步提供程序丢失了连接。
+CF_PROVIDER_STATUS_CLEAR_FLAGS 值： 0x80000000
+清除同步提供程序的标志。
+CF_PROVIDER_STATUS_TERMINATED 值： 0xC0000001
+同步提供程序已终止。 CF_PROVIDER_STATUS_ERROR
+值： 0xC0000002 同步提供程序出错。
+要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+CfGetSyncRootInfoByPath
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+ﾉ
+展开表
+
+≦ 173 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 174 ≧
+CF_SYNC_REGISTRATION 结构 (cfapi.h) 项目2024/02/23
+要注册的同步提供程序和同步根的详细信息。
+语法 C++
+typedef struct CF_SYNC_REGISTRATION {
+  ULONG   StructSize;   LPCWSTR ProviderName;
+  LPCWSTR ProviderVersion;   LPCVOID SyncRootIdentity;
+  DWORD   SyncRootIdentityLength;   LPCVOID FileIdentity;
+  DWORD   FileIdentityLength;
+  GUID    ProviderId;} CF_SYNC_REGISTRATION;
+成员 StructSize
+CF_SYNC_REGISTRATION结构的大小。 ProviderName
+同步提供程序的名称。 这是一个用户友好的字符串，最大长度为 255 个字符。 ProviderVersion
+同步提供程序的版本。 这是一个用户友好的字符串，最大长度为 255 个字符。 SyncRootIdentity
+提供程序使用的同步根标识。 此成员是可选的，最大大小为 64 KB。 超过最大长度时， API 会失败 并ERROR_INVALID_PARAMETER 。 平台将在同步提供程序的任何回调中向同
+步提供程序提供 SyncRootIdentity 。 SyncRootIdentityLength
+SyncRootIdentity 的长度。 此成员是可选的，仅在提供 SyncRootIdentity 时才使用。
+
+≦ 175 ≧
+FileIdentity
+可选的文件标识。 此成员的最大大小为 4 KB。 超过最大长度时，API 会失败 并
+ERROR_INVALID_PARAMETER 。 仅当回调的主题是同步根本身时，才会提供同步根
+FileIdentity Blob。 FileIdentityLength
+FileIdentity 的长度。 此成员是可选的，仅在提供 FileIdentity 时才使用。 ProviderId
+这是用于标识特定同步提供程序的 GUID。 它是可选的。 如果未提供，平台将使用
+ProviderName 字符串的 MD5 哈希生成 GUID。 此信息仅用于遥测，以便平台可以更有效地、更准确地关联来自同一同步提供程序的活动，即使同步提供程序使用不同的
+ProviderName 字符串注册同步根。 建议同步提供程序始终为其同步产品的所有版本提供相同的 GUID () 。 另一方面，同步提供程序可以自由选择不同的 ProviderName 字符串，
+以便获得最佳用户体验。注解
+SyncRootIdentity 和 SyncRootIdentityLength 是可选成员。 如果未使用，请将
+SyncRootIdentity 设置为 nullptr  ， 将 SyncRootIdentityLength 设置为 0 。 FileIdentity 和
+FileIdentityLength 也是可选的，如果未使用，应分别设置为 nullptr  和 0 。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfRegisterSyncRoot
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+展开表
+
+≦ 176 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 177 ≧
+CF_SYNC_ROOT_BASIC_INFO 结构
+(cfapi.h) 项目2024/02/23
+提供基本同步根信息。
+语法 C++
+typedef struct CF_SYNC_ROOT_BASIC_INFO {
+  LARGE_INTEGER SyncRootFileId;} CF_SYNC_ROOT_BASIC_INFO;
+成员
+SyncRootFileId 同步根的文件 ID。要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+CfGetSyncRootInfoByPath 反馈
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+ﾉ
+展开表
+
+≦ 178 ≧
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 179 ≧
+CF_SYNC_ROOT_INFO_CLASS 枚举
+(cfapi.h) 项目2023/03/31
+同步根信息的类型。
+语法 C++
+typedef enum CF_SYNC_ROOT_INFO_CLASS {
+   CF_SYNC_ROOT_INFO_BASIC = 0,
+
+  CF_SYNC_ROOT_INFO_STANDARD = 1,
+   CF_SYNC_ROOT_INFO_PROVIDER = 2
+} ;
+
+常量  
+CF_SYNC_ROOT_INFO_BASIC
+ 值： 0
+
+提供了基本同步根信息。 请参阅 CF_SYNC_ROOT_BASIC_INFO。
+CF_SYNC_ROOT_INFO_STANDARD
+ 值：1
+
+提供了标准同步根信息。 请参阅 CF_SYNC_ROOT_STANDARD_INFO。
+CF_SYNC_ROOT_INFO_PROVIDER
+ 值： 2
+
+正在提供同步根提供程序信息。 请参阅 CF_SYNC_ROOT_PROVIDER_INFO。要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+
+≦ 180 ≧
+另请参阅
+CfGetSyncRootInfoByPath CF_SYNC_ROOT_BASIC_INFO
+CF_SYNC_ROOT_STANDARD_INFO CF_SYNC_ROOT_PROVIDER_INFO
+
+≦ 181 ≧
+cfapi.h)
+(CF_SYNC_ROOT_PROVIDER_INFO 结构项目2024/02/23
+包含同步根提供程序信息。
+语法 C++
+typedef struct CF_SYNC_ROOT_PROVIDER_INFO {   CF_SYNC_PROVIDER_STATUS ProviderStatus;
+  WCHAR                   ProviderName[CF_MAX_PROVIDER_NAME_LENGTH + 1];
+  WCHAR                   ProviderVersion[CF_MAX_PROVIDER_VERSION_LENGTH +  1];
+} CF_SYNC_ROOT_PROVIDER_INFO; 成员
+ProviderStatus
+同步根提供程序的状态。 有关可能的值 ，请参阅CF_SYNC_PROVIDER_STATUS 。 ProviderName[CF_MAX_PROVIDER_NAME_LENGTH + 1]
+同步根提供程序的名称。 ProviderName 是面向最终用户的字符串，最大长度为
+CF_MAX_PROVIDER_NAME_LENGTH () 255 个字符。 ProviderVersion[CF_MAX_PROVIDER_VERSION_LENGTH + 1]
+同步根提供程序的版本。 ProviderVersion 是面向最终用户的字符串，) 的最大长度为
+CF_MAX_PROVIDER_VERSION_LENGTH (255 个字符。要求
+ﾉ
+要求
+最低受支持的客户端
+值
+Windows 10版本 1709 [仅限桌面应用]
+展开表
+
+≦ 182 ≧
+要求
+最低受支持的服务器标头
+另请参阅
+CfGetSyncRootInfoByPath CF_SYNC_PROVIDER_STATUS
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 183 ≧
+cfapi.h)
+(CF_SYNC_ROOT_STANDARD_INFO 结构项目2024/02/23
+标准同步根信息。
+语法 C++
+typedef struct CF_SYNC_ROOT_STANDARD_INFO {   LARGE_INTEGER           SyncRootFileId;   CF_HYDRATION_POLICY     HydrationPolicy;   CF_POPULATION_POLICY    PopulationPolicy;
+  CF_INSYNC_POLICY        InSyncPolicy;   CF_HARDLINK_POLICY      HardLinkPolicy;   CF_SYNC_PROVIDER_STATUS ProviderStatus;
+  WCHAR                   ProviderName[CF_MAX_PROVIDER_NAME_LENGTH + 1];
+  WCHAR                   ProviderVersion[CF_MAX_PROVIDER_VERSION_LENGTH +  1];
+  ULONG                   SyncRootIdentityLength;
+  BYTE                    SyncRootIdentity[1];} CF_SYNC_ROOT_STANDARD_INFO;
+成员
+SyncRootFileId
+同步根目录的文件 ID。 HydrationPolicy
+同步根的混合策略。 有关详细信息 ，请参阅CF_HYDRATION_POLICY_PRIMARY 。 PopulationPolicy
+同步根的填充策略。 有关详细信息 ，请参阅CF_POPULATION_POLICY_PRIMARY 。 InSyncPolicy
+同步根的同步策略。 有关可能的值 ，请参阅CF_INSYNC_POLICY 。 HardLinkPolicy
+
+≦ 184 ≧
+同步根硬链接策略。 有关可能的值 ，请参阅CF_HARDLINK_POLICY 。 ProviderStatus
+同步根提供程序的状态。 有关可能的值 ，请参阅CF_SYNC_PROVIDER_STATUS 。 ProviderName[CF_MAX_PROVIDER_NAME_LENGTH + 1]
+同步根目录的名称。 ProviderName 是面向最终用户的字符串，最大长度为
+CF_MAX_PROVIDER_NAME_LENGTH () 255 个字符。 ProviderVersion[CF_MAX_PROVIDER_VERSION_LENGTH + 1]
+同步根目录的版本。 ProviderVersion 是面向最终用户的字符串，) 的最大长度为
+CF_MAX_PROVIDER_VERSION_LENGTH (255 个字符。 SyncRootIdentityLength
+SyncRootIdentity 的长度（以字节为单位）。
+SyncRootIdentity[1] 同步根目录的标识。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+CF_HYDRATION_POLICY_PRIMARY CF_POPULATION_POLICY_PRIMARY CF_INSYNC_POLICY
+[CF_HARDLINK_POLICY] (ne-cfapi-cf_hardlink_policy.md
+展开表
+
+≦ 185 ≧
+CF_SYNC_PROVIDER_STATUS CfGetSyncRootInfoByPath
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 186 ≧
+cfapi.h) (CF_SYNC_STATUS 结构项目2024/02/26
+在 CF_OPERATION_INFO 结构中用于描述指定同步根的状态。
+语法 C++
+typedef struct CF_SYNC_STATUS {
+  ULONG StructSize;   ULONG Code;
+  ULONG DescriptionOffset;   ULONG DescriptionLength;
+  ULONG DeviceIdOffset;   ULONG DeviceIdLength;} CF_SYNC_STATUS;
+成员 StructSize
+同步状态结构的大小（以字节为单位），包括实际说明字符串。 Code
+此参数的使用完全由支持此丰富同步状态构造的同步提供程序决定。对于特定的同步提供程序，代码和说明字符串之间应存在 1：1 映射。
+建议使用最高位顺序来描述错误代码的类型： 1  对于错误级别代码， 0  对于信息级代码。
+７ 备注
+代码 对平台不透明，仅用于跟踪目的。 DescriptionOffset
+说明字符串相对于 CF_SYNC_STATUS开头的偏移量。 它指向本地化的以 null 结尾的宽字符串，该字符串应包含有关该文件的更有意义和可操作的信息。 同步提供程序应平衡提供更多可操作的信息和维护尽可能小的内存占用的需求。
+
+≦ 187 ≧
+DescriptionLength
+包含 null 终止符的说明字符串的大小（以字节为单位）。 DeviceIdOffset
+设备 ID blob 相对于 CF_SYNC_STATUS开始的偏移量。 设备 ID blob 是可选的，对平台不透明。 Blob 在每台设备上应是唯一的。 如果提供，Blob 将作为平台遥测的一部分收
+集，以帮助诊断技术问题。 DeviceIdLength
+设备 ID blob 的大小（以字节为单位）。注解
+如果在CF_OPERATION_INFO结构的 SyncStatus 字段中设置了 null 指针，平台将清除以前
+设置的同步状态（如果有）。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CF_OPERATION_INFO
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1803 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 188 ≧
+CF_UPDATE_FLAGS 枚举 (cfapi.h) 项目2025/02/20
+用于更新占位符文件或目录的标志。
+语法 C++
+typedef enum CF_UPDATE_FLAGS {   CF_UPDATE_FLAG_NONE,
+  CF_UPDATE_FLAG_VERIFY_IN_SYNC,   CF_UPDATE_FLAG_MARK_IN_SYNC,   CF_UPDATE_FLAG_DEHYDRATE,
+  CF_UPDATE_FLAG_ENABLE_ON_DEMAND_POPULATION,   CF_UPDATE_FLAG_DISABLE_ON_DEMAND_POPULATION,   CF_UPDATE_FLAG_REMOVE_FILE_IDENTITY,
+  CF_UPDATE_FLAG_CLEAR_IN_SYNC,   CF_UPDATE_FLAG_REMOVE_PROPERTY,
+  CF_UPDATE_FLAG_PASSTHROUGH_FS_METADATA,
+  CF_UPDATE_FLAG_ALWAYS_FULL,   CF_UPDATE_FLAG_ALLOW_PARTIAL} ;
+常量  
+CF_UPDATE_FLAG_NONE 0x00000000
+无更新标志。
+CF_UPDATE_FLAG_VERIFY_IN_SYNC 0x00000001
+ﾉ
+展开表
+如果当前未在占位符上设置 CF_UPDATE_FLAG_MARK_IN_SYNC 属性，更新将失败。 这是为了防止从云向下同步到本地占位符的更改与本地修改占位符的数据流之间的争用。
+CF_UPDATE_FLAG_MARK_IN_SYNC 0x00000002
+成功执行更新占位符操作后，平台会将占位符标记为同步。
+
+≦ 189 ≧
+ 
+CF_UPDATE_FLAG_DEHYDRATE 0x00000004
+仅适用于文件。 指定后，平台在成功更新占位符后解除冻结文件。 调用方必须在指定此标志时获取独占句柄，否则可能会发生数据损坏。 请注意，平台不会验证句柄的独占性。
+CF_UPDATE_FLAG_ENABLE_ON_DEMAND_POPULATION 0x00000008
+仅适用于目录。 指定后，它会将更新的占位符目录标记为部分填充，以便将来对其进行的任何访问都将导致发送到同步提供程序的FETCH_PLACEHOLDERS回调。
+CF_UPDATE_FLAG_DISABLE_ON_DEMAND_POPULATION 0x00000010
+仅适用于目录。 指定后，它会将更新的占位符目录标记为已完全填充，以便以后对该占位符目录的任何访问都将由平台处理，而无需对同步提供程序进行任何回调。
+CF_UPDATE_FLAG_REMOVE_FILE_IDENTITY 0x00000020
+指定后，将忽略 CfUpdatePlaceholder 中的 FileIdentity 和 FileIdentityLength，并且平台将在成功更新调用后删除占位符上的现有文件标识 blob。
+CF_UPDATE_FLAG_CLEAR_IN_SYNC 0x00000040
+成功执行更新占位符操作后，平台会将占位符标记为未同步。
+CF_UPDATE_FLAG_REMOVE_PROPERTY 0x00000080
+平台删除占位符上的所有现有外部属性。７ 备注
+此值在 Windows 10 版本 1803 及更高版本中可用。
+CF_UPDATE_FLAG_PASSTHROUGH_FS_METADATA 0x00000100
+平台无需任何筛选即可将 CF_FS_METADATA 传递到文件系统;否则，平台将跳过设置值为 0 的任何字段。
+
+≦ 190 ≧
+ 
+７ 备注
+此值在 Windows 10 版本 1803 及更高版本中可用。
+CF_UPDATE_FLAG_ALWAYS_FULL 0x00000200
+CF_UPDATE_FLAG_ALWAYS_FULL  仅在占位符文件上有效。 指定后，要更新的占位符将始终标记为已
+满。 解除冻结后，任何解除冻结此类占位符文件的尝试都将失败，并出现错误代码 ERROR_CLOUD_FILE_DEHYDRATION_DISALLOWED 。
+CF_UPDATE_FLAG_ALLOW_PARTIAL 0x00000400
+CF_UPDATE_FLAG_ALLOW_PARTIAL  仅在占位符文件上有效。 指定后，将清除占位符文件上的始终完整状态（如果存在），以便再次将其冻结。 与 一起 CF_UPDATE_FLAG_ALWAYS_FULL  指定此标志无效，
+因此将返回错误代码 ERROR_CLOUD_FILE_INVALID_REQUEST  。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CfUpdatePlaceholder
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] cfapi.h
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 191 ≧
+CfCloseHandle 函数 (cfapi.h) 项目2024/03/13
+关闭 CfOpenFileWithOplock 返回的文件或目录句柄。 这不应与标准 Win32 文件句柄一起使用，而应仅在 中使用的句柄上使用 CfApi.h 。
+语法 C++
+void CfCloseHandle(
+  [in] HANDLE FileHandle);
+参数
+[in] FileHandle
+要关闭的文件或目录句柄。
+返回值无
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+展开表
+
+≦ 192 ≧
+另请参阅 CfOpenFileWithOplock
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 193 ≧
+CfConnectSyncRoot 函数 (cfapi.h) 项目2025/02/20
+启动同步提供程序与同步筛选器 API 之间的双向通信。
+语法 C++
+HRESULT CfConnectSyncRoot(
+  [in]           LPCWSTR                        SyncRootPath,   [in]           const CF_CALLBACK_REGISTRATION *CallbackTable,   [in, optional] LPCVOID                        CallbackContext,   [in]           CF_CONNECT_FLAGS               ConnectFlags,   [out]          CF_CONNECTION_KEY              *ConnectionKey);
+参数
+[in] SyncRootPath 同步根路径。
+[in] CallbackTable
+要注册的回调表。 此参数是同步提供程序告知库对来自平台的各种类型的请求调用哪些函数的方式。 它是包含回调类型和关联的函数指针的结构数组。 同步提供程序只需注册其实现的回调。 CallbackTable 数组应始终以CF_CALLBACK_REGISTRATION_END结尾。
+[in, optional] CallbackContext
+提供 CallbackContext 是为了方便同步提供程序。 每当在当前同步根上调用某个回调函数时，平台都会记住此 CallbackContext ，并将其传递回同步提供程序。 CallbackContext
+的一个好用是指向同步提供程序自己的结构的指针，该结构维护此连接的状态。[in] ConnectFlags
+同步提供程序可以通过将 ConnectFlags 传递到此 API 来请求在调用其回调时提供其他信息。 支持以下标志：
+ﾉ
+展开表
+
+≦ 194 ≧
+请求
+REQUEST_PROCESS_INFO REQUIRE_FULL_FILE_PATH
+BLOCK_SELF_IMPLICIT_HYDRATION[out] ConnectionKey
+说明
+指定此标志时，平台将在回调参数中返回冻结进程的完整图像路径。
+指定此标志时，平台将返回回调参数中请求的占位符的完整路径。
+当防病毒软件扫描非水合云文件占位符上的同步提供程序的文件系统活动时，不会通过 CfHydratePlaceholder 执行隐式解除冻结。 这种隐式水合是预料不到的。 如果同步提供程序从未启动隐式解除冻结操作本身，它可以指示平台阻止所有此类隐式解除冻结操作，而不是稍后失败 FETCH_DATA 回调。
+成功返回后，此 API 会将不透明的 ConnectionKey 返回到同步提供程序。 这表示刚刚建立的信道，同步提供程序可能会记住 ConnectionKey ，并在调用各种同步提供程序 API 时传递它。 如果同步提供程序只希望建立单个连接，则可以将 ConnectionKey 存储在全局中。 但是，平台支持单个提供程序进程同时连接到多个不同的同步根，并且对于每个连接，将返回不同的 ConnectionKey 。 存储每个 ConnectionKey 的好位置是在 由
+CallbackContext 标识的同步提供程序的内部结构内。返回值
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。注解
+这会在同步提供程序和同步筛选器之间启动双向信道。 同步提供程序通常在启动后不久调用此 API，一旦它已初始化并准备好为请求提供服务。
+在连接之前，必须在平台中注册同步根。 对于给定的 SyncRootPath，在任何给定时间最多可以建立一个连接。
+同步提供程序应具有 WRITE_DATA 或 WRITE_DAC 要连接的同步根的访问权限，否则
+API 将因 HRESULT (ERROR_CLOUD_FILE_ACCESS_DENIED) 而失败。要求
+ﾉ
+展开表
+
+≦ 195 ≧
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 CfHydratePlaceholder
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 196 ≧
+CfConvertToPlaceholder 函数 (cfapi.h) 项目2023/04/06
+将同步根目录树下的现有非占位符文件或目录转换为占位符。 例如，在客户端上出现新的本地文件或目录并且同步提供程序完成将其同步到云之后，这非常有用。 请注意，没有用于传入文件系统元数据的参数 (时间戳、文件大小等) ;它们从本地文件逐字获取。
+语法 C++
+HRESULT CfConvertToPlaceholder(
+
+  [in]                HANDLE           FileHandle,
+   [in, optional]      LPCVOID          FileIdentity,
+
+  [in]                DWORD            FileIdentityLength,
+
+  [in]                CF_CONVERT_FLAGS ConvertFlags,
+   [out, optional]     USN              *ConvertUsn,
+
+  [in, out, optional] LPOVERLAPPED     Overlapped
+);
+
+参数
+[in] FileHandle
+要转换的文件或目录的句柄。[in, optional] FileIdentity
+包含调用方提供的不透明文件或目录信息的用户模式缓冲区。 如果调用方未同时解除冻结文件，或者调用方正在转
+换目录，则为可选。 FileIdentity 在所有回调中传递回同步提供程序。 大小不能超过 4KB。[in] FileIdentityLength
+FileIdentity 的长度（以字节为单位）。[in] ConvertFlags
+占位符转换标志。 ConvertFlags 可以设置为以下值：
+标志
+CF_CONVERT_FLAG_MARK_IN_SYNC CF_CONVERT_FLAG_DEHYDRATE
+CF_CONVERT_FLAG_ENABLE_ON_DEMAND_POPULATION CF_CONVERT_FLAG_ALWAYS_FULL
+描述
+如果指定了这一点，则成功转换文件后，平台会将转换的占位符标记为与云同步。
+这仅适用于文件。 指定后，平台在成功将文件转换为占位符后将其冻结。调用方在指定此标志时必须获取独占句柄，否则可能会出现数据损坏。 请注意，平台不验证句柄的独占性。
+这仅适用于目录。 指定后，它会将转换的占位符目录标记为部分填充，以便将来对其进行的任何访问都将导致 FETCH_PLACEHOLDERS 回调发送到同步提供程序。
+这仅适用于占位符文件。 将文件转换为具有此标志的占位符后，占位符将始终标记为已满。 任何解除此类占位符冻结的尝试都将失败，并 出现错误代码ERROR_CLOUD_FILE_DEHYDRATION_DISALLOWED。
+
+≦ 197 ≧
+标志
+CF_CONVERT_FLAG_FORCE_CONVERT_TO_CLOUD_FILE[out, optional] ConvertUsn
+指定后，这是执行转换操作后的最终 USN 值。[in, out, optional] Overlapped
+描述
+指定后，平台允许同步引擎以原子方式将非云文件占位符转换为 (将另一个重新分析标记/数据) 转换为云文件占位符。 请注意，API 通常无法将任何非占位符文件转换为占位符。
+组合 (CF_CONVERT_FLAG_FORCE_CONVERT_TO_CLOUD_FILE |当某些提供商从另一个平台迁移到云文件平台，并且他们打算以原子方式将旧平台上的合水占位符转换为云文件平台上的脱水占位符时，
+CF_CONVERT_FLAG_DEHYDRATE) 在迁移方案中特别有用。 应仅传递此标志，以便将完整占位符转换为云文件占位符。 如果旧平台将完整文件实现为常规的非占位符文件，则不需要此标志。 在目录上传递此标志也会将目录转
+换为云文件，但 DEHYDRATE 标志不适用于目录。
+ 即使策略
+CF_PLACEHOLDER_MANAGEMENT_POLICY_CONVERT_TO_UNRESTRICTED 是使用 CfRegisterSyncRoot 指定的，也仅允许已注册/连接到云文件同步根的进程指定此标志。
+注意： 仅当 PlatformVersion.IntegrationNumber 从 CfGetPlatformInfo 获取的 为 0x500 或更高时，才支持标志。
+指定并结合异步 FileHandle 时， Overlapped 允许平台异步执行 CfConvertToPlaceholder 调用。 有关更多详细信息，请参阅 备注 。
+如果未指定，平台将同步执行 API 调用，而不考虑句柄的创建方式。返回值
+如果此函数成功，则返回 S_OK。 否则，它将返回 HRESULT 错误代码。注解
+在文件案例中，如果调用方还打算同时解除文件冻结，否则可能会发生数据损坏，则调用方必须获取文件的独占句柄。 为了尽量减少对用户应用程序的影响，强烈建议调用方通过 CfOpenFileWithOplock) （而不是使用无共享句
+柄）使用正确的 oplock (获取独占性。转换占位符：
+要转换的文件或目录必须包含在已注册的同步根树中;它可以是同步根目录本身，也可以是任何后代目录;否则，具有 的调用将失败， HRESULT (ERROR_CLOUD_FILE_NOT_UNDER_SYNC_ROOT) 。
+如果请求解除冻结，则必须使用未 CF_HYDRATION_POLICY_ALWAYS_FULL的有效解除冻结策略注册同步根;否则调用将失败， HRESULT (ERROR_CLOUD_FILE_NOT_SUPPORTED) 。
+如果请求解除冻结，则不能在本地固定占位符，或者使用 的调用因 HRESULT (ERROR_CLOUD_FILE_PINNED) 失败。
+如果请求解除冻结，则占位符必须处于同步状态，或者调用 失败， HRESULT(ERROR_CLOUD_FILE_NOT_IN_SYNC) 。
+调用方必须对要转换的文件或目录具有 WRITE_DATA 或 WRITE_DAC 访问权限。 否则，操作将失败， HRESULT (ERROR_CLOUD_FILE_ACCESS_DENIED) 。
+
+≦ 198 ≧
+如果 API 在异步使用 Overlapped 时返回HRESULT_FROM_WIN32 (ERROR_IO_PENDING) ，则调用方可以使用
+GetOverlappedResult 等待。要求
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 CfOpenFileWithOplock GetOverlappedResult
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+
+≦ 199 ≧
+CfCreatePlaceholders 函数 (cfapi.h) 项目2024/03/04
+在同步根目录树下创建一个或多个新的占位符文件或目录。
+语法 C++
+HRESULT CfCreatePlaceholders(
+  [in]      LPCWSTR                    BaseDirectoryPath,   [in, out] CF_PLACEHOLDER_CREATE_INFO *PlaceholderArray,   [in]      DWORD                      PlaceholderCount,   [in]      CF_CREATE_FLAGS            CreateFlags,
+  [out]     PDWORD                     EntriesProcessed);
+参数
+[in] BaseDirectoryPath
+在其中创建占位符的本地目录的路径。 指定路径时，请记住以下事项：
+此路径必须包含在已注册的同步根树中。 它可以是同步根目录本身，也可以是任何后代目录。 否则，调用将失败并 出现
+STATUS_CLOUD_FILE_NOT_UNDER_SYNC_ROOT。
+必须使用未 CF_HYDRATION_POLICY_ALWAYS_FULL的有效解除冻结策略注册同步根，否则调用将失败并 出现STATUS_CLOUD_FILE_NOT_SUPPORTED。
+调用方必须具有 WRITE_DATA 或 WRITE_DAC 对要在其中创建占位符的基目录的访问权限。 否则，操作将失败并 出现STATUS_CLOUD_FILE_ACCESS_DENIED。
+[in, out] PlaceholderArray
+成功创建后， PlaceholderArray 包含最终 USN 值和一 STATUS_OK  条消息。 返回时，此数组包含一个 HRESULT 值，该值描述是否创建了占位符。 PlaceholderArray 指向要创建的占位符数组，相对于 BaseDirectoryPath。 数组中的每个条目都包含以下字段：
+RelativeFileName 是要创建的子占位符（文件和目录）的名称。
+FsMetadata 包含有关要创建的占位符的文件系统元数据，包括目录) 的所有时间戳、文件属性和文件大小 (可选 。
+FileIdentity 和 FileIdentityLength 描述包含同步提供程序提供的不透明文件信息的用户模式缓冲区。 FileIdentity blob 的大小不应超过
+
+≦ 200 ≧
+CF_PLACEHOLDER_MAX_FILE_IDENTITY_LENGTH (定义为 4KB) 。 FileIdentity 在所有回调中传递回同步提供程序。 这是文件的必填字段。
+同步提供程序可以按占位符选择以下标志或组合：
+CF_PLACEHOLDER_CREATE_FLAG_DISABLE_ON_DEMAND_POPULATION - 此标志仅适用于子占位符目录。 当标志存在时，新创建的子占位符目录被视为其所有子占位符目录在本地存在，因此将来访问它不会对其触发任何 FETCH_PLACEHOLDERS
+回调。 当标志不存在时，新创建的占位符目录被视为部分，将来的访问将触发 FETCH_PLACEHOLDERS。
+CF_PLACEHOLDER_CREATE_FLAG_MARK_IN_SYNC - 此标志同时适用于占位符文件和目录。 如果存在此标志，则新创建的占位符将作为 TRANSFER_PLACEHOLDERS 操作的一部分标记为同步。
+CF_PLACEHOLDER_CREATE_FLAG_ALWAYS_FULL - 此标志仅在占位符文件上强制执行。 可以在占位符目录上设置它，但它不起作用。 当此标志存在时，新创建的占位符将始终标记为已满。 水合后，任何解除此类文件占位符冻结的尝试都将失败，并 出现错误代码ERROR_CLOUD_FILE_DEHYDRATION_DISALLOWED。
+[in] PlaceholderCount
+占位符 数组中的占位符计数。[in] CreateFlags
+用于配置占位符的创建的标志。 CreateFlags 可以设置为以下值：
+CF_CREATE_FLAG_NONE 是默认模式，即使遇到错误，API 也会处理数组中的所有条目。
+如果 占位符创建失败，CF_CREATE_FLAG_STOP_ON_ERROR会导致 API 立即返回。在这种情况下，API 将返回失败代码。
+[out] EntriesProcessed
+处理的条目数，包括失败的条目。 如果未在 CreateFlags 中指定
+CF_CREATE_FLAG_STOP_ON_ERROR，则 API 将返回遇到的第一个失败代码，但会继续
+处理尽可能多的条目;然后，调用方必须检查数组，以查看哪个占位符创建 () 失败。返回值
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。注解
+
+≦ 201 ≧
+与使用 CreateFile 创建新文件，然后使用 CfConvertToPlaceholder 将其转换为占位符相比，最好使用此函数创建占位符;为了提高效率，因为它消除了文件不是占位符的时间窗口。 函数还可以在批处理中创建多个文件或目录，这也可以更高效。
+执行从云到客户端的文件或目录的初始同步，或者从云向下同步新创建的单个文件或目录
+时，此函数非常有用。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 CreateFile
+CfConvertToPlaceholder 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 202 ≧
+CfDisconnectSyncRoot 函数 (cfapi.h) 项目2024/03/05
+断开 CfConnectSyncRoot 创建的信道的连接。
+语法 C++
+HRESULT CfDisconnectSyncRoot(
+  [in] CF_CONNECTION_KEY ConnectionKey);
+参数
+[in] ConnectionKey
+从 CfConnectSyncRoot 返回的连接密钥，该密钥现在用于断开同步根的连接。返回值
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。注解
+这会删除与以前使用 CfConnectSyncRoot 建立的平台的通信通道。
+同步提供程序仍然可以在 CfDisconnectSyncRoot 调用期间接收回调，并且提供程序可以自由选择调用是需要失败还是需要提供服务。 任一选择都不会对同步提供程序造成中断。
+调用 CfDisconnectSyncRoot 返回后，同步提供程序将不再接收回调，并且平台将失败依赖于上述回调的任何操作。
+同步提供程序应具有 WRITE_DATA 或 WRITE_DAC 对要断开连接的同步根的访问权限，否则调用 CfDisconnectSyncRoot 将失败，并出现 HRESULT
+(ERROR_CLOUD_FILE_ACCESS_DENIED) 。 此外，如果之前尚未连接同步根，则调用将失败，参数无效。 可以在正常关闭同步提供程序时调用此 API。 但是，如果同步提供程序进程选择在不调用此 API 的情况下终止，或者意外崩溃，平台将检测到此情况并执行必要的清理。
+
+≦ 203 ≧
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 CfConnectSyncRoot
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 204 ≧
+CfExecute 函数 (cfapi.h) 项目2024/02/23
+所有基于连接键的占位符操作的main入口点。 同步提供程序打算使用它来响应来自平台的各种回调。
+语法 C++
+HRESULT CfExecute(
+  [in]      const CF_OPERATION_INFO *OpInfo,   [in, out] CF_OPERATION_PARAMETERS *OpParams);
+参数[in] OpInfo
+有关占位符上的操作的信息。[in, out] OpParams
+占位符上的操作的参数。返回值
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。注解
+对 CfExecute 的有效调用将重置属于同一同步提供程序进程的所有挂起回调请求的计时器。
+CfExecute 采用两个可变大小的参数，即 CF_OPERATION_INFO 和
+CF_OPERATION_PARAMETERS，其中一个用于标识操作类型，另一个提供详细的操作参数。 这两个参数都以相应结构开头的 StructSize 字段开头。 CfExecute 的调用方负责准确计算结构大小。
+
+≦ 205 ≧
+该平台为注册到 CfConnectSyncRoot 的所有回调函数提供 ConnectionKey、TransferKey
+和 CorrelationVector。 此外，同步提供程序可以使用 CfGetTransferKey 获取 TransferKey，使用 CfGetCorrelationVector 获取 CorrelationVector。
+（可选）同步提供程序可以向平台提供同步状态 blob。 如果在 CF_OPERATION_INFO 的 SyncStatus 字段中设置了非 null 指针，则其内容将保留在文件中，直到删除该文件上的最后一个句柄。 平台将在云文件占位符上的任何失败操作时查询此信息。 如果可用，平台将使用提供的信息向用户构造更有意义且可操作的消息。
+如果在 CF_OPERATION_INFO 的 SyncStatus 字段中设置了 null 指针，则平台将清除以前设置的同步状态 (（如果存在) ）。
+可以在同步提供程序进程中的任意线程上下文中执行所有操作。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 CfConnectSyncRoot
+CfGetCorrelationVector CF_OPERATION_INFO
+CF_OPERATION_PARAMETERS 反馈
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+展开表
+
+≦ 206 ≧
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 207 ≧
+cfGetCorrelationVector 函数 (cfapi.h) 项目2023/04/06
+允许同步提供程序查询给定占位符文件的当前相关向量。 这是平台在首次打开文件时自动分配的文件，或者是通过 CfSetCorrelationVector 显式分配的。
+语法 C++
+HRESULT CfGetCorrelationVector(
+
+  [in]  HANDLE              FileHandle,
+
+  [out] PCORRELATION_VECTOR CorrelationVector
+);
+
+参数
+[in] FileHandle
+占位符文件的句柄。 平台将操作与其他活动请求正确同步。 属性或无访问句柄就足够了。
+[out] CorrelationVector
+当前与 FileHandle 关联的相关向量。返回值
+如果此函数成功，则返回 S_OK。 否则，它将返回 HRESULT 错误代码。注解
+调用方必须对要解除冻结的占位符具有 READ_DATA 或 WRITE_DAC 访问权限。 否则，
+操作将失败并 STATUS_CLOUD_FILE_ACCESS_DENIED。要求
+ 
+ 
+
+≦ 208 ≧
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 CfSetCorrelationVector
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+
+≦ 209 ≧
+cfGetPlaceholderInfo 函数 (cfapi.h) 项目2024/03/09
+获取占位符文件或文件夹的各种特征。 如果文件不是云文件占位符，API 将失败。 成功后，将根据请求的特定 InfoClass 返回信息。
+语法 C++
+HRESULT CfGetPlaceholderInfo(
+  [in]            HANDLE                    FileHandle,   [in]            CF_PLACEHOLDER_INFO_CLASS InfoClass,   [out]           PVOID                     InfoBuffer,
+  [in]            DWORD                     InfoBufferLength,
+  [out, optional] PDWORD                    ReturnedLength);
+参数
+[in] FileHandle
+将查询其信息的占位符的句柄。 与大多数采用文件句柄的云文件 API 不同，此 API 不会
+以任何方式修改文件。 因此，文件句柄只需要 READ_ATTRIBUTES 访问权限。[in] InfoClass
+占位符信息。 这可以设置为 CF_PLACEHOLDER_STANDARD_INFO 或
+CF_PLACEHOLDER_BASIC_INFO。[out] InfoBuffer
+指向将接收占位符相关信息的缓冲区的指针。[in] InfoBufferLength
+InfoBuffer 的长度（以字节为单位）。 如果缓冲区不够大，无法容纳所有请求的信息，则
+API 将返回尽可能多的数据，并且调用将失败， 并HRESULT_FROM_WIN32(ERROR_MORE_DATA) 。
+[out, optional] ReturnedLength InfoBuffer 中返回的字节数。
+
+≦ 210 ≧
+返回值
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。注解
+占位符信息包括以下属性：
+Attribute
+OnDiskDataSize ValidatedDataSize ModifiedDataSize PropertiesSize
+PinState InSyncState FileId
+SyncRootFileId FileIdentity
+FileIdentityLength
+要求要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+说明
+磁盘上的字节总数。与云同步的字节总数。
+已在本地覆盖/追加的总字节数，即与云不同步的字节数。
+磁盘上所有属性 blob 使用的字节总数。有关详细信息，请参阅 CfSetPinState 。有关详细信息，请参阅 CfSetInSyncState 。
+唯一标识文件或目录的 64 位卷宽非易失性数字。
+要查询占位符信息的文件所在的同步根目录的文件 ID。
+ﾉ
+展开表
+同步提供程序在创建占位符时提供给平台的不透明 Blob。 为所有同步提供程序回调提供文件标识。
+文件标识的长度（以字节为单位）。
+ﾉ
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h
+展开表
+
+≦ 211 ≧
+要求 Library DLL
+另请参阅 CfSetPinState CfSetInSyncState
+值
+CldApi.lib CldApi.dll
+CF_PLACEHOLDER_STANDARD_INFO
+CF_PLACEHOLDER_BASIC_INFO 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 212 ≧
+CfGetPlaceholderRangeInfo 函数
+(cfapi.h) 项目2023/04/06
+获取有关占位符文件或文件夹的范围信息。
+语法 C++
+HRESULT CfGetPlaceholderRangeInfo(
+
+  [in]            HANDLE                          FileHandle,
+   [in]            CF_PLACEHOLDER_RANGE_INFO_CLASS InfoClass,
+
+  [in]            LARGE_INTEGER                   StartingOffset,
+   [in]            LARGE_INTEGER                   Length,
+
+  [out]           PVOID                           InfoBuffer,
+
+  [in]            DWORD                           InfoBufferLength,
+
+  [out, optional] PDWORD                          ReturnedLength
+);
+
+参数
+[in] FileHandle
+要查询的占位符文件的句柄。[in] InfoClass
+占位符数据范围的类型。[in] StartingOffset
+数据范围的起始点偏移量。[in] Length
+数据范围的长度。 提供程序可以指定 CF_EOFLength ，以指示请求信息的范围从
+StartingOffset 到文件末尾。[out] InfoBuffer
+指向将接收数据的缓冲区的指针。 缓冲区是 CF_FILE_RANGE 结构的数组，这些结构是偏移/长度对，用于描述请求的范围。
+
+≦ 213 ≧
+[in] InfoBufferLength
+InfoBuffer 的长度（以字节为单位）。[out, optional] ReturnedLength
+InfoBuffer 中返回的占位符数据的长度范围。返回值
+如果此函数成功，则返回 S_OK。 否则，它将返回 HRESULT 错误代码。 下表中列出了一些常见的错误代码：
+错误代码
+HRESULT_FROM_WIN32( ERROR_HANDLE_EOF )
+HRESULT_FROM_WIN32( ERROR_MORE_DATA )
+注解
+含义
+这意味着 StartingOffset> = 文件末尾的位置。
+这意味着下一 个CF_FILE_RANGE 项不适合提供的缓冲区。 调用方应验证是否收到任何条目，或者是否使用返回的 InfoBufferWritten 值。
+与采用文件句柄的大多数占位符 API 不同，此占位符 API 不会以任何方式修改文件，因
+此文件句柄只需要READ_ATTRIBUTES访问。要求
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+
+≦ 214 ≧
+CfGetPlaceholderRangeInfoForHydration
+
+≦ 215 ≧
+CfGetPlaceholderRangeInfoForHydratio
+n 函数 (cfapi.h) 项目2024/03/09
+获取有关占位符文件或文件夹的范围信息。 此范围信息与 CfGetPlaceholderRangeInfo 返回的信息相同。 但是，它不会将 fileHandle 作为参数。 相反，它使用 ConnectionKey、 TransferKey 和 FileId 来标识正在为其请求范围信息的文件和流。
+平台为通过 CfConnectSyncRoot 注册的所有回调函数提供 ConnectionKey、TransferKey 和 FileId，提供程序可以使用这些参数从CF_CALLBACK_TYPE_FETCH_DATA回调获取占位符的范围信息，而无需它打开文件的句柄。
+如果文件不是云文件占位符，API 将失败。 成功后，将根据请求的特定 InfoClass 返回范
+围信息。７ 备注
+仅当从 CfGetPlatformInfo 获取的 为0x600 或更高时， PlatformVersion.IntegrationNumber 此 API 才可用。
+语法 C++
+HRESULT CfGetPlaceholderRangeInfoForHydration(
+  [in]            CF_CONNECTION_KEY               ConnectionKey,   [in]            CF_TRANSFER_KEY                 TransferKey,   [in]            LARGE_INTEGER                   FileId,
+  [in]            CF_PLACEHOLDER_RANGE_INFO_CLASS InfoClass,
+  [in]            LARGE_INTEGER                   StartingOffset,
+  [in]            LARGE_INTEGER                   RangeLength,   [out]           PVOID                           InfoBuffer,
+  [in]            DWORD                           InfoBufferSize,   [out, optional] PDWORD                          InfoBufferWritten);
+参数
+[in] ConnectionKey
+
+≦ 216 ≧
+CfConnectSyncRoot 为同步提供程序管理的同步根创建的不透明句柄。 它还在
+CF_CALLBACK_TYPE_FETCH_DATA 回调和其他回调的 CF_CALLBACK_INFO 中返回。[in] TransferKey
+已为其调用 CF_CALLBACK_TYPE_FETCH_DATA 回调的占位符文件的不透明句柄。 它还在 CF_CALLBACK_TYPE_FETCH_DATA回调CF_CALLBACK_INFO中返回。 如果不从
+CF_CALLBACK_TYPE_FETCH_DATA回调调用 API，则 CfGetTransferKey 也可以获取此 API。
+[in] FileId
+要服务的占位符文件/目录的 64 位文件系统维护的卷范围唯一 ID。 与 TransferKey 一
+样，它在 CF_CALLBACK_TYPE_FETCH_DATA 和其他回调的 CF_CALLBACK_INFO 中返回，
+因此提供程序不必再次检索它。[in] InfoClass
+占位符数据范围的类型。 值可以是下列任一值：
+ﾉ
+“值”
+CF_PLACEHOLDER_RANGE_INFO_ONDISK CF_PLACEHOLDER_RANGE_INFO_VALIDATED CF_PLACEHOLDER_RANGEINFO_MODIFIED
+[in] StartingOffset
+说明
+展开表
+磁盘上数据是文件中实际存在的数据。 这是其他类型的范围的超级集。
+验证数据是当前与云同步的磁盘上数据的子集。修改的数据是磁盘上数据的子集，当前未与云 (同步，即修改或追加。)
+数据范围的起始点偏移量。 StartingOffset 和 RangeLength 在占位符文件中指定一个区
+域，请求 InfoClass 参数所描述的信息[in] RangeLength
+数据范围的长度。 提供程序可以为 RangeLength 指定CF_EOF ，以指示请求其信息的范围
+从 StartingOffset 到文件末尾。[out] InfoBuffer
+指向将接收数据的缓冲区的指针。 缓冲区是 CF_FILE_RANGE 结构的数组，这些结构是偏移/长度对，用于描述请求的范围。
+
+≦ 217 ≧
+[in] InfoBufferSize
+InfoBuffer 的长度（以字节为单位）。[out, optional] InfoBufferWritten 接收 InfoBuffer 中返回的字节数。返回值
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。 下表中列出了一些常见的错误代码：
+ﾉ
+错误代码
+HRESULT_FROM_WIN32 ( ERROR_HANDLE_EOF )
+HRESULT_FROM_WIN32 ( ERROR_MORE_DATA )
+注解
+含义
+这意味着 StartingOffset> = 文件末尾的位置。
+展开表
+这意味着下一 个CF_FILE_RANGE 项不适合提供的缓冲区。 调
+用方应验证是否收到任何条目，或者是否使用返回的 InfoBufferWritten 值。
+虽然已存在用于查询占位符的冻结文件范围的 API，但需要一个新的 API 来提高平台的可靠性。
+现有 API CfGetPlaceholderRangeInfo 需要打开文件的句柄，然后使用该句柄触发
+FSCTL_HSM_CONTROL 。 提供程序/同步引擎通常使用此 API 来评估文件的哪些部分未从筛选器调用的 CF_CALLBACK_TYPE_FETCH_DATA 回调的上下文中解除冻结，从而冻结文件以满足 IO。
+当提供程序/同步引擎尝试打开要作为参数传递给 CfGetPlaceholderRangeInfo 的文件的句柄时，IO 堆栈中的微型筛选器可能会对文件发出数据扫描。 或者，微型筛选器可能会阻止 CfGetPlaceholderRangeInfo 在内部触发的FSCTL_HSM_CONTROL。
+cldflt 筛选器旨在为每个所需的文件范围调用一个CF_CALLBACK_TYPE_FETCH_DATA回调，以对文件进行冻结。 由于上述任一情况，数据扫描卡在原始
+CF_CALLBACK_TYPE_FETCH_DATA 后面，或者 CF_CALLBACK_TYPE_FETCH_DATA 卡在阻止的 FSCTL 后面。 这会导致水合路径出现死锁。
+
+≦ 218 ≧
+因此，需要此 API。 它执行与 CfGetPlaceholderRangeInfo 相同的功能，但使用绕过中间 IO 堆栈的筛选器消息端口直接与筛选器通信。 因此，任何中间微型筛选器都不能阻止 CreateFile 或 FSCTL_HSM_CONTROL。
+请注意，调用方始终具有通过 CfConnectSyncRoot 获取的 ConnectionKey。 它可以通过 CfGetTransferKey 获取 TransferKey，并使用 GetFileInformationByHandle 获取 FileId。 但此方法需要一个句柄才能打开文件，因此与使用 CfGetPlaceholderRangeInfo 没有什么不同。
+总之，当需要 CF_CALLBACK_TYPE_FETCH_DATA 回调上下文中的范围信息时，应使用此 API。 在所有其他情况下，包括当提供程序想要在不受筛选器请求的情况下对文件进行水合时，应使用 CfGetPlaceholderRangeInfo 。 平台无法识别在特定上下文中调用的 API，
+因此，提供程序/同步引擎需要执行正确的操作。示例
+这是一个简单的示例，其中函数传递的 InfoBuffer 足以一次只检索一 个CF_FILE_RANGE 条目。 实际上，调用方可以传递一个 InfoBuffer，该 InfoBuffer 可以对应于每次调用 API
+的多个 CF_FILE_RANGE 条目。 错误代码 HRESULT_FROM_WIN32 ( ERROR_MORE_DATA ) 可用于传递更大的缓冲区（如果需要）。
+C++/WinRT
+#include <cfapi.h>// 
+******************************************************************************************************
+// From within the CF_CALLBACK_TYPE_FETCH_DATA Callback, the provider can  use
+// g_PlatformInfo.IntegrationNumber to see if the new API is supported. If  it is, the provider can pass
+// ConnectionKey, TransferKey and FileId along with other parameters to  obtain information about file
+// ranges which have already been hydrated.// 
+*******************************************************************************************************
+// The provider could obtain file ranges that are hydrated like this: std::vector<CF_FILE_RANGE> hydratedRanges = GetFileRangesFromCallback(  CallbackInfo->ConnectionKey,
+                                                                        CallbackInfo->TransferKey,
+                                                                        CallbackInfo->FileId,
+                                                                        CF_PLACEHOLDER_RANGE_INFO_ONDISK
+
+≦ 219 ≧
+                                                                       0,                                                                         CF_EOF);
+// Based on these hydratedRanges, the provider can chose to hydrate only 
+ranges which aren’t on the disk.// 
+******************************************************************************************************
+// Implementation of a function that eventually calls this API.// 
+******************************************************************************************************
+typedef HRESULT( __stdcall* t_CfGetPlaceholderRangeInfoForHydration )(     CF_CONNECTION_KEY ConnectionKey,
+    CF_TRANSFER_KEY TransferKey,     LARGE_INTEGER FileId,
+    CF_PLACEHOLDER_RANGE_INFO_CLASS InfoClass,     LARGE_INTEGER StartingOffset,
+    LARGE_INTEGER RangeLength,     PVOID InfoBuffer,
+    DWORD InfoBufferSize,
+    PDWORD InfoBufferWritten );
+t_CfGetPlaceholderRangeInfoForHydration 
+_CfGetPlaceholderRangeInfoForHydration = nullptr; std::vector<CF_FILE_RANGE>
+GetFileRangesFromCallback( CF_CONNECTION_KEY ConnectionKey,
+                           CF_TRANSFER_KEY TransferKey,                            LARGE_INTEGER FileId,
+                           CF_PLACEHOLDER_RANGE_INFO_CLASS RangeInfoClass,
+                           long long StartOffset,                            long long Length,
+                           PBOOLEAN UseOldAPI ){
+    long long StartOffset = 0;     CF_FILE_RANGE fileRange;     long long Length = 0;
+    LARGE_INTEGER queryOffset = ll2li( StartOffset );
+    LARGE_INTEGER queryLength = ll2li( Length );     DWORD inforBufferWritten = 0;
+    // This will contain all the hydrated ranges in the file if the function  succeeds.
+    std::vector<CF_FILE_RANGE> ranges;     bool stop = false;
+    CF_PLATFORM_INFO platformInfo;
+    hr = (CfGetPlatformInfo( &platformInfo ));     if(FAILED(hr)) {
+
+≦ 220 ≧
+        *UseOldAPI = TRUE;
+        return ranges; //empty.     }
+    if (platformInfo.IntegrationNumber < 600) {         *UseOldAPI = TRUE;
+        return ranges; //empty.     }
+    wil::unique_hmodule CloudFilesApi( LoadLibrary( L"cldapi.dll" ) );
+    THROW_LAST_ERROR_IF_NULL( CloudFilesApi );     _CfGetPlaceholderRangeInfoForHydration = 
+reinterpret_cast<t_CfGetPlaceholderRangeInfoForHydration>(
+            GetProcAddress( CloudFilesApi.get(), "CfGetPlaceholderRangeInfoForHydration" ) );
+    THROW_LAST_ERROR_IF_NULL( _CfGetPlaceholderRangeInfoForHydration );     while ( !stop ) {
+        hr = _CfGetPlaceholderRangeInfoForHydration ( ConnectionKey,                                                       TransferKey,                                                       FileId,
+                                                      RangeInfoClass,
+                                                      queryOffset,                                                       queryLength,                                                       &fileRange,
+                                                      sizeof( fileRange ),                                                       &infoBufferWritten );
+        if ( hr == HRESULT_FROM_WIN32( ERROR_HANDLE_EOF ) ||              hr == HRESULT_FROM_WIN32( ERROR_MORE_DATA ) ) {
+            // We need to break the loop only if there is no more data.             if ( hr == HRESULT_FROM_WIN32( ERROR_HANDLE_EOF ) ) {
+                stop = true;             }
+            hr = S_OK;         }
+        if ( FAILED( hr ) || infoBufferWritten == 0 ) {
+            return ranges;         }
+        ranges.push_back( fileRange );
+        queryOffset.QuadPart = fileRange.StartingOffset.QuadPart +  fileRange.Length.QuadPart;
+        if ( Length != CF_EOF && queryOffset.QuadPart >= ( StartOffset +  Length ) ) {
+            stop = true;
+        } else if ( Length != CF_EOF) {
+            // Update the new query length
+            queryLength.QuadPart = StartOffset + Length - 
+
+≦ 221 ≧
+queryOffset.QuadPart         
+            if ( queryLength.QuadPart <= 0 ) {
+                stop = true;             }
+        }     }
+    return ranges;}
+要求
+要求 Header
+另请参阅
+CF_PLACEHOLDER_RANGE_INFO_CLASS CfGetPlaceholderRangeInfo
+CfConnectSyncRoot CfGetPlatformInfo CfGetTransferKey
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+值
+cfapi.h
+ﾉ
+展开表
+
+≦ 222 ≧
+CfGetPlaceholderStateFromAttributeTag
+函数 (cfapi.h) 项目2023/04/06
+根据文件的 FileAttributes 和 ReparseTag 值获取一组占位符状态。
+语法 C++
+CF_PLACEHOLDER_STATE CfGetPlaceholderStateFromAttributeTag(
+   [in] DWORD FileAttributes,
+
+  [in] DWORD ReparseTag
+);
+
+参数
+[in] FileAttributes
+文件属性信息。[in] ReparseTag
+重新分析文件中的标记信息。返回值
+可以包括 CF_PLACEHOLDER_STATE;占位符状态。注解
+可以通过列出包含文件的目录或直接查询文件上的 FileAttributeTagInfo 来获取 FileAttributes 和 ReparseTag。
+可以返回以下 CF_PLACEHOLDER_STATE 值：
+|占位符状态 |说明 | | CF_PLACEHOLDER_STATE_NO_STATES |返回时，API 检查其属性和重新分析标记的文件或目录不是云文件占位符。 | |
+CF_PLACEHOLDER_STATE_PLACEHOLDER |设置后，由 API 检查其属性和重新分析标记的文件或目录是云文件占位符。 | | CF_PLACEHOLDER_STATE_SYNC_ROOT |设置后，目
+
+≦ 223 ≧
+录不仅是云文件占位符目录，也是同步根目录。 | |
+CF_PLACEHOLDER_STATE_ESSENTIAL_PROP_PRESENT |设置后，文件或目录必须是云文件占位符，并且文件或目录的属性存储中存在基本属性。 | |
+CF_PLACEHOLDER_STATE_IN_SYNC |设置后，文件或目录必须是云文件占位符，并且其内容与云同步。 | | CF_PLACEHOLDER_STATE_PARTIAL |设置后，文件或目录必须是云文件占位符，并且其内容尚未准备好供用户应用程序使用， (尽管它可能或可能不会完全呈现在本地) 。 例如，占位符文件的内容已完全下载到本地磁盘，但尚未由已使用
+hydration 修饰符 VERIFICATION_REQUIRED注册同步根的同步提供程序进行验证。 | | CF_PLACEHOLDER_STATE_PARTIALLY_ON_DISK |设置后，文件或目录必须是云文件占位符，并且其内容在本地未完全显示。 设置 PARTIALLY_ON_DISK 时，还必须设置
+PARTIAL 。 | | CF_PLACEHOLDER_STATE_INVALID |当 API 无法分析文件或目录的各种信
+息时，这是无效状态。 | 要求
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+CF_PLACEHOLDER_STATE
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+
+≦ 224 ≧
+CfGetPlaceholderStateFromFileInfo 函数
+（cfapi.h）项目2024/07/30
+根据文件的各种信息获取一组占位符状态。
+语法 C++
+CF_PLACEHOLDER_STATE CfGetPlaceholderStateFromFileInfo(
+  [in] LPCVOID                   InfoBuffer,   [in] FILE_INFO_BY_HANDLE_CLASS InfoClass);
+参数
+[in] InfoBuffer
+有关文件的信息缓冲区。[in] InfoClass
+一个 FILE_INFO_BY_HANDLE_CLASS 类，可帮助函数解释 infoBuffer中的数据。返回值
+可以包括 CF_PLACEHOLDER_STATE;占位符状态。言论
+输入是一个缓冲区，其中包含 GetFileInformationByHandleEx返回的信息，以及相应的 InfoClass，以便 API 知道如何解释缓冲区。
+此 API 不支持 GetFileInformationByHandleEx 支持的所有信息类。 如果无法从给定的信息类中提取 FileAttributes 和 ReparseTag，则此 API 将返回
+CF_PLACEHOLDER_STATE_INVALID 并正确设置最后一个错误。要求
+
+≦ 225 ≧
+要求
+最低支持的客户端支持的最低服务器目标平台
+标头库 DLL
+另请参阅
+CF_PLACEHOLDER_STATE
+GetFileInformationByHandleEx 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows 10 版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+窗户 cfapi.h
+CldApi.lib CldApi.dll
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 226 ≧
+CfGetPlaceholderStateFromFindData 函
+数 (cfapi.h) 项目2024/03/13
+根据 WIN32_FIND_DATA 结构获取一组占位符状态。
+语法 C++
+CF_PLACEHOLDER_STATE CfGetPlaceholderStateFromFindData(
+  [in] const WIN32_FIND_DATA *FindData);
+参数[in] FindData
+文件中的查找数据信息。返回值
+可以包括 CF_PLACEHOLDER_STATE;占位符状态。注解
+WIN32_FIND_DATA 结构是从 FindFirstFileFindNextFile/ 函数获取的。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用] Windows
+展开表
+
+≦ 227 ≧
+要求标头 Library DLL
+另请参阅 WIN32_FIND_DATA
+CF_PLACEHOLDER_STATE
+FindFirstFile FindNextFile
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+cfapi.h CldApi.lib CldApi.dll
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 228 ≧
+CfGetPlatformInfo 函数 (cfapi.h) 项目2024/03/04
+获取云文件平台的版本信息。
+语法 C++
+HRESULT CfGetPlatformInfo(
+  [out] CF_PLATFORM_INFO *PlatformVersion);
+参数
+[out] PlatformVersion
+平台版本信息。 有关详细信息 ，请参阅CF_PLATFORM_INFO 。返回值
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。注解
+平台定义为筛选器和 API 库的组合，它们始终彼此保持同步。 此 API 主要用于在多个 Windows 版本上运行且需要根据平台功能做出决策的同步提供程序。 平台版本信息由三个部分组成：内部版本号、修订号和集成号。 当平台由Windows 更新提供服务时，内部版本号和修订号会更改。 集成编号本身就 API 协定和关键 bug 修复的可用性而言，都指示平台功能。 集成数单调递增。 平台永远不会因集成数的增量而失去功能。 云文件感知
+应用程序可能还会发现此 API 很有用。要求
+ﾉ
+要求
+最低受支持的客户端
+值
+Windows 10版本 1709 [仅限桌面应用]
+展开表
+
+≦ 229 ≧
+要求
+最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 CF_PLATFORM_INFO
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 230 ≧
+CfGetSyncRootInfoByHandle 函数
+(cfapi.h) 项目2024/02/28
+获取包含由文件句柄指定的给定文件的同步根的各种特征。
+语法 C++
+HRESULT CfGetSyncRootInfoByHandle(
+  [in]            HANDLE                  FileHandle,   [in]            CF_SYNC_ROOT_INFO_CLASS InfoClass,   [out]           PVOID                   InfoBuffer,
+  [in]            DWORD                   InfoBufferLength,   [out, optional] DWORD                   *ReturnedLength);
+参数
+[in] FileHandle
+要查询其信息的同步根下的文件的句柄。[in] InfoClass
+同步根信息的类型。[out] InfoBuffer
+指向将接收同步根信息的缓冲区的指针。[in] InfoBufferLength
+InfoBuffer 的长度（以字节为单位）。[out, optional] ReturnedLength
+InfoBuffer 中返回的字节数。返回值
+
+≦ 231 ≧
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。注解
+与采用文件句柄的大多数占位符 API 不同，此占位符 API 不会以任何方式修改文件，因此 FileHandle 只需要 READ_ATTRIBUTES 访问权限。
+如果文件不在云文件同步根目录下，API 将失败。 成功后，将根据请求的特定 InfoClass
+返回信息。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+CfGetSyncRootInfoByPath 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 232 ≧
+cfGetSyncRootInfoByPath 函数 (cfapi.h) 项目2023/04/06
+获取给定同步根目录下的文件的各种同步根信息。
+语法 C++
+HRESULT CfGetSyncRootInfoByPath(
+
+  [in]            LPCWSTR                 FilePath,
+   [in]            CF_SYNC_ROOT_INFO_CLASS InfoClass,
+   [out]           PVOID                   InfoBuffer,
+
+  [in]            DWORD                   InfoBufferLength,
+   [out, optional] DWORD                   *ReturnedLength
+);
+
+参数[in] FilePath
+要查询其同步根信息的文件的完全限定路径。[in] InfoClass
+同步根信息的类型。[out] InfoBuffer
+指向将接收同步根信息的缓冲区的指针。[in] InfoBufferLength
+InfoBuffer 的长度（以字节为单位）。[out, optional] ReturnedLength
+返回的同步根信息的长度（以字节为单位）。 有关同步根信息的详细信息，请参阅
+CfRegisterSyncRoot 。返回值
+如果此函数成功，则返回 S_OK。 否则，它将返回 HRESULT 错误代码。
+
+≦ 233 ≧
+注解
+如果文件不在云文件同步根目录下，API 将失败。 成功后，将根据请求的特定 InfoClass 返回信息。
+InfoClass 参数可以是CF_SYNC_ROOT_INFO_CLASS中的下列值之一：
+CF_SYNC_ROOT_INFO_BASIC
+CF_SYNC_ROOT_INFO_STANDARD CF_SYNC_ROOT_INFO_PROVIDER
+要求
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 CfRegisterSyncRoot
+CfGetSyncRootInfoByHandle
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+
+≦ 234 ≧
+CfGetTransferKey 函数 (cfapi.h) 项目2024/02/23
+CfGetTransferKey 返回 TransferKey，这是使用 CfExecute API 启动将数据传输到占位符所
+必需的。语法 C++
+HRESULT CfGetTransferKey(
+  [in]  HANDLE          FileHandle,   [out] CF_TRANSFER_KEY *TransferKey);
+参数
+[in] FileHandle
+占位符的文件句柄。[out] TransferKey
+要提供服务的占位符的不透明句柄。返回值
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。注解
+此 API 适用于可能希望主动启动数据传输到占位符的同步提供程序，作为调用
+CfHydratePlaceholder 的替代方法。 CfGetTransferKey 返回提取数据回调将返回的相同 TransferKey 。 然后，同步提供程序可以在后续调用中传递 TransferKey 到 CfExecute API。 通过这种方式，数据传输由同步提供程序而不是筛选器驱动。
+同步提供程序应READ_DATA或WRITE_DAC访问要获取其传输密钥的文件，否则
+CfGetTransferKey 将失败，并显示 HRESULT (ERROR_CLOUD_FILE_ACCESS_DENIED) 。
+
+≦ 235 ≧
+只要用于获取它的 FileHandle 保持打开状态，TransferKey 就有效。 同步提供程序必须将 TransferKey 传递给 CfExecute ，才能对占位符文件或文件夹执行所需的操作。 不再使用
+TransferKey 时，必须使用 CfReleaseTransferKey 将其释放。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 CfHydratePlaceholder CfExecute
+CfReleaseTransferKey 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 236 ≧
+CfGetWin32HandleFromProtectedHandl
+e 函数 (cfapi.h) 项目2023/04/06
+将受保护的句柄转换为 Win32 句柄，以便它可以与所有基于句柄的 Win32 API 一起使用。
+语法 C++
+HANDLE CfGetWin32HandleFromProtectedHandle(
+
+  [in] HANDLE ProtectedHandle
+);
+
+参数
+[in] ProtectedHandle 要转换的受保护句柄。返回值
+相应的 Win32 句柄。注解
+调用方必须在调用之前使用 CfReferenceProtectedHandle 引用受保护的句柄，以确保跟踪 Win32 句柄的使用，并且使用 Win32 句柄的 Win32 API 调用与 oplock 中断通知确认同步。
+调用方在使用 CfReleaseProtectedHandle 处理 Win32 句柄后，必须释放受保护句柄上的引用。
+在任何情况下，调用方都不应关闭使用 CfCloseHandle 返回的 Win32 句柄。要求
+
+≦ 237 ≧
+   
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+CfReferenceProtectedHandle CfReleaseProtectedHandle CfCloseHandle
+   
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+
+≦ 238 ≧
+CfHydratePlaceholder 函数 (cfapi.h) 项目2025/02/20
+通过确保指定的字节范围存在于占位符的磁盘上来冻结占位符文件。 这仅适用于文件。
+语法 C++
+HRESULT CfHydratePlaceholder(
+  [in]                HANDLE           FileHandle,
+  [in]                LARGE_INTEGER    StartingOffset,   [in]                LARGE_INTEGER    Length,
+  [in]                CF_HYDRATE_FLAGS HydrateFlags,
+  [in, out, optional] LPOVERLAPPED     Overlapped);
+参数
+[in] FileHandle
+要水合的占位符文件的句柄。 属性或无访问句柄就足够了。[in] StartingOffset
+占位符文件数据的起始点偏移量。[in] Length
+占位符文件的长度（以字节为单位），该占位符文件在 API 成功完成后，其数据必须在磁盘上本地可用。 定义为 -1) 的 CF_EOF  (长度表示文件结束。 对于占位符中不存在的任
+何子范围，平台将从同步提供程序提取数据并将其存储在占位符的磁盘上。[in] HydrateFlags
+占位符水合标志。 水合物标志 必须设置为 CF_HYDRATE_FLAG_NONE。[in, out, optional] Overlapped
+指定并结合异步 FileHandle 时， Overlapped 允许平台异步执行 CfHydratePlaceholder 调用。 有关更多详细信息，请参阅 备注 。
+如果未指定，平台将同步执行 API 调用，而不考虑句柄的创建方式。
+
+≦ 239 ≧
+返回值
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。注解
+调用方必须具有 READ_DATA 或 WRITE_DAC 访问要水合的占位符的访问权限。
+如果 API 在异步使用 Overlapped 时返回HRESULT_FROM_WIN32 (ERROR_IO_PENDING)
+，则调用方可以使用 GetOverlappedResult 等待。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 GetOverlappedResult
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 240 ≧
+CfOpenFileWithOplock 函数 (cfapi.h) 项目2024/02/23
+为普通文件和占位符文件) 打开文件或目录的异步不透明句柄 (，并根据打开的标志为其设置适当的 oplock。
+语法 C++
+HRESULT CfOpenFileWithOplock(
+  [in]  LPCWSTR            FilePath,   [in]  CF_OPEN_FILE_FLAGS Flags,
+  [out] PHANDLE            ProtectedHandle);
+参数[in] FilePath
+要打开的文件或目录的完全限定路径。[in] Flags
+用于指定打开文件的权限的标志。 可以将标志设置为以下值的组合：
+如果指定 了CF_OPEN_FILE_FLAG_EXCLUSIVE，API 将返回无共享句柄并请求 RH(OPLOCK_LEVEL_CACHE_READ|对文件OPLOCK_LEVEL_CACHE_HANDLE) oplock;否则，将打开一个全部共享句柄并请求 R (OPLOCK_LEVEL_CACHE_READ) 。
+1. 如果指定 了CF_OPEN_FILE_FLAG_EXCLUSIVE ，则打开为“无共享”，并获取(OPLOCK_LEVEL_CACHE_READ |OPLOCK_LEVEL_CACHE_HANDLE) oplock。为任意FILE_EXECUTE打开的常规 CreateFile 调用 |FILE_READ_DATA
+|FILE_WRITE_DATA |FILE_APPEND_DATA |删除 (或GENERIC_READ的任一/两者 |由于共享冲突，GENERIC_WRITE) 将中断 oplock。 oplock 所有者将完成并确认。
+2. 如果未指定 CF_OPEN_FILE_FLAG_EXCLUSIVE ，则打开为“全部共享”，并获取 OPLOCK_LEVEL_CACHE_READ oplock。
+正常的 CreateFile 调用不会中断 oplock。
+例如，如果常规 CreateFile 指定的共享模式与 Cf 句柄的访问 (冲突，则如果常规 CreateFile 未指定FILE_SHARE_READ) ，则常规 CreateFile 将失败并
+
+≦ 241 ≧
+ERROR_SHARING_VIOLATION。
+直到另一个调用方发出冲突的 I/O（例如写入），oplock 才会中断。 发生这种情况时，oplock 中断只是公告。
+如果指定 了CF_OPEN_FILE_FLAG_WRITE_ACCESS，API 将尝试使用
+FILE_READ_DATA/FILE_LIST_DIRECTORY 打开文件或目录，并 FILE_WRITE_DATA/FILE_ADD_FILE 访问权限;否则 API 尝试使用 FILE_READ_DATA/FILE_LIST_DIRECTORY打开文件或目录。
+如果指定 了CF_OPEN_FILE_FLAG_DELETE_ACCESS，API 将尝试打开具有 DELETE 访问权限的文件或目录;否则，它会正常打开文件。
+如果指定 了CF_OPEN_FILE_FLAG_FOREGROUND ， 则 CfOpenFileWithOplock 不会请求 oplock。 当调用方充当前台应用程序时，应使用此方法。 即，他们不关心此 API 创建的文件句柄是否会导致其他调用方发生共享冲突，也不关心破坏文件上
+可能已存在的任何 oplock。 因此，他们打开句柄而不请求 oplock。７ 备注
+默认 后台 行为在打开文件句柄时请求 oplock，以便如果已有 oplock，则其调
+用会失败;如果需要避免以后导致共享冲突，可以告知他们关闭句柄。除非调用方指定对 CfOpenFileWithOplock的
+CF_OPEN_FILE_FLAG_EXCLUSIVE，否则他们获取的 oplock 将仅
+OPLOCK_LEVEL_CACHE_READ，而不 (OPLOCK_LEVEL_CACHE_READ
+|OPLOCK_LEVEL_CACHE_HANDLE) ，因此后台应用通常不需要共享冲突保护。
+[out] ProtectedHandle
+刚打开的文件或目录的不透明句柄。 请注意，这不是普通的 Win32 句柄，因此不能直接
+与非 CfApi Win32 API 一起使用。返回值
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。注解
+当 oplock 中断时，API 将通过清空所有活动请求，然后关闭基础 Win32 句柄来代表调用方自动处理中断通知。
+
+≦ 242 ≧
+这旨在消除与 oplock 用法相关的复杂性。 调用方必须使用 CfCloseHandle 关闭 CfOpenFileWithOplock 返回的句柄。
+后台应用程序通常希望以透明方式对文件进行操作。 具体而言，他们希望避免导致与其
+他 (前台) 打开器发生共享冲突。 为此，他们采取 (OPLOCK_LEVEL_CACHE_READ |OPLOCK_LEVEL_CACHE_HANDLE) oplock（如 ）将通过将
+CF_OPEN_FILE_FLAG_EXCLUSIVE 与 CfOpenFileWithOplock 一起使用来授予。 如果随后出现另一个打开程序，其请求的共享/访问模式与后台应用的 冲突，则后台应用的 oplock 将中断。 这会提示后台应用关闭其 Cf 句柄的文件句柄 (，这会导致它变得无效 - 实际基础句柄已关闭) 。 一旦后台应用关闭其句柄，另一个打开器的打开将继续，而不会遇到共享冲突。 这一切之所以有效，是因为 oplock 的OPLOCK_LEVEL_CACHE_HANDLE部分。如果没有CF_OPEN_FILE_FLAG_EXCLUSIVE，oplock 仅具有OPLOCK_LEVEL_CACHE_READ
+保护，因此不会发生所述的共享冲突保护。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 CfCloseHandle
+CreateFile 反馈
+此页面是否有帮助？
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+否
+展开表
+
+≦ 243 ≧
+提供产品反馈 
+| 在 Microsoft Q&A 获取帮助
+
+≦ 244 ≧
+cfQuerySyncProviderStatus 函数
+(cfapi.h) 项目2023/04/06
+查询同步提供程序以获取提供程序的状态。
+语法 C++
+HRESULT CfQuerySyncProviderStatus(
+
+  [in]  CF_CONNECTION_KEY       ConnectionKey,
+   [out] CF_SYNC_PROVIDER_STATUS *ProviderStatus
+);
+
+参数
+[in] ConnectionKey
+表示具有同步筛选器的信道的连接键。[out] ProviderStatus
+同步提供程序的当前状态。返回值
+如果此函数成功，则返回 S_OK。 否则，它将返回 HRESULT 错误代码。要求
+ 
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h
+
+≦ 245 ≧
+ 
+Library DLL
+另请参阅
+CF_SYNC_PROVIDER_STATUS
+ 
+CldApi.lib CldApi.dll
+
+≦ 246 ≧
+cfReferenceProtectedHandle 函数
+(cfapi.h) 项目2023/04/06
+允许调用方将受保护的句柄引用到可用于非 CfApi Win32 API 的 Win32 句柄。
+语法 C++
+BOOLEAN CfReferenceProtectedHandle(
+
+  [in] HANDLE ProtectedHandle
+);
+
+参数
+[in] ProtectedHandle
+占位符文件的受保护句柄。返回值
+如果此函数成功，则返回 TRUE。 否则，将返回 FALSE。注解
+每个 CfReferenceProtectedHandle 调用都必须与 CfReleaseProtectedHandle 调用匹配。不建议长时间引用受保护的句柄，因为这样做会阻止确认 oplock 中断通知。
+相反，调用方应将长时间运行的任务分解为较小的子任务，并引用/释放每个子任务的受
+保护句柄。要求
+ 
+最低受支持的客户端
+ 
+Windows 10版本 1709 [仅限桌面应用]
+
+≦ 247 ≧
+ 
+最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+CfReleaseProtectedHandle
+ 
+Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+
+≦ 248 ≧
+CfRegisterSyncRoot 函数 (cfapi.h) 项目2023/04/06
+执行一次性同步根注册，允许同步提供程序声明整个目录树结构（根位于 SyncRootPath）作为自己的管理。
+语法 C++
+HRESULT CfRegisterSyncRoot(
+
+  [in] LPCWSTR                    SyncRootPath,
+   [in] const CF_SYNC_REGISTRATION *Registration,
+   [in] const CF_SYNC_POLICIES     *Policies,
+
+  [in] CF_REGISTER_FLAGS          RegisterFlags
+);
+
+参数
+[in] SyncRootPath
+要注册的同步根路径。[in] Registration
+包含有关要注册的同步提供程序和同步根的信息。
+ProviderName 和 ProviderVersion 是面向最终用户的字符串，每个字符串的最大长度为 255 个字符。
+SyncRootIdentity 和 FileIdentity 都是可选的，如果未提供相应的缓冲区长度，也应将其设置为 0 。 它们是同步提供程序将任意数据与同步根永久关联的一种方式。
+平台将在同步提供程序的任何回调中向同步提供程序提供 SyncRootIdentity 。 仅当回调的主题是同步根本身时，才会提供同步根 FileIdentity blob。
+提供此功能只是为了方便同步提供程序，这两个 blob 在同步提供程序之外没有特殊含义。
+FileIdentity 允许的最大长度为 4KB，SyncRootIdentity 允许的最大长度为 64KB。 超过任一最大长度时，API 失败并 ERROR_INVALID_PARAMETER 。
+
+≦ 249 ≧
+ProviderId 是用于标识特定同步提供程序的 GUID。 它是可选的。 如果未提供，平台将使用 ProviderName 字符串的 MD5 哈希生成 GUID。 此信息仅用于遥测，以便平台可以更好地关联来自同一同步提供程序的活动，更高效和更准确地，即使同步提供程序注册了不同 ProviderName 字符串的同步根。 建议同步提供程序始终为其同步产品的所有版本提供相同的 GUID () 。 但是，为了获得最佳用户体验，同步提供程序可以自由选择不同
+的 ProviderName 字符串。[in] Policies
+要注册的同步根的策略。[in] RegisterFlags
+用于注册以前的和新的同步根的标志。
+标志
+CF_REGISTER_FLAG_UPDATE
+CF_REGISTER_FLAG_DISABLE_ON_DEMAND_POPULATION_ON_ROOT
+CF_REGISTER_FLAG_MARK_IN_SYNC_ON_ROOT 返回值
+描述
+同步提供程序可以传递
+CF_REGISTER_FLAG_UPDATE 来重新注册以前注册的同步根标识和策略。
+按需目录/文件夹填充行为由填充策略全局控制。 此标志允许同步提供程序选择仅针对同步根本身退出按需填充行为，同时使同步根下所有其他目录的按需填充保持打开状态。 当同步提供程序想要预填充同步根目录的即时子文件/目录时，这非常有用。
+此标志允许同步提供程序将同步根标记为在注册时同时注册。 替代方法是稍后对同步根目录调用
+CfSetInSyncState 。
+如果此函数成功，则返回 S_OK。 否则，它将返回 HRESULT 错误代码。注解
+
+≦ 250 ≧
+这可以在同步提供程序安装时、首次为单个用户设置时使用，或者当用户配置另一个同步
+根 (（如果此方案受支持) ）。７ 备注
+不允许两个同步根树重叠。 由于文件系统禁止目录硬链接，因此两个同步根重叠的唯一方法是它们具有直接上级/后代关系。 平台负责持续记住在给定卷上注册的所有同步根，并阻止任何尝试创建重叠的同步根。
+同步提供程序应具有 WRITE_DATA 或 WRITE_DAC 对要注册的同步根目录的访问权限，否则注册将失败并 显示ERROR_CLOUD_FILE_ACCESS_DENIED。
+同步提供程序应提供一个注册记录，其中包含同步提供程序本身的各种标识和要注册的同步根，一组策略供平台用来根据每个同步根来调整其行为，以及一组允许同步提供程序更精细地控制注册操作的注册标志。
+除非显式调用为可选字段，否则所有字段都是必需的，如果不提供它们，将导致 API 调用失败并出现无效参数错误。
+预期将来扩展的所有结构都以 StructSize 字段开头。 调用方负责准确计算结构大小。
+该平台目前支持五种类型的 策略：水化策略
+混合策略允许同步提供程序控制平台应如何冻结占位符文件。 它由一个主策略和一组策略修饰符组成。
+主要水化策略有四个不同的值：
+策略
+ALWAYS_FULL FULL
+描述
+平台将失败 (， ERROR_CLOUD_FILE_INVALID_REQUEST) 任何可能导致未完全水化占位符的占位符操作，包括 CfCreatePlaceholders、 CfDehydratePlaceholder、带解水选项 的 CfUpdatePlaceholder 和带解冻选项的 CfConvertToPlaceholder 。
+平台将允许占位符脱水。 当平台检测到对脱水占位符的访问时，它将确保在完成用户 IO 请求之前，占位符的完整内容在本地可用，即使请求仅请求 1 个字节。
+
+≦ 251 ≧
+策略进步
+PARTIAL
+描述
+平台将允许占位符脱水。 当平台检测到对脱水占位符的访问时，它将在确定从同步提供程序收到足够的数据后立即完成用户 IO 请求。 但是，平台承诺继续从后台的同步提供程序请求占位符中的剩余内容，直到占位符的完整内容在本地可用或占位符上的最后一个用户句柄关闭为止。 
+
+注意： 选择使用 PROGRESSIVE 的同步提供程序可能不会假定混合回调从偏移 0 量 按顺序到达。 换句话说，具有 渐进式 策略的同步提供程序应处理占位符上的随机查找。
+此策略与 PROGRESSIVE 非常相似，唯一的区别在于后台缺少连续水化。
+目前支持三个策略修饰符。 通常，只要组合不自冲突，修饰符就可以混合并与任何主策略和其他策略修饰符匹配。
+修饰符
+VALIDATION_REQUIRED STREAMING_ALLOWED
+AUTO_DEHYDRATION_ALLOWED 人口政策
+说明
+此策略修饰符为同步提供程序提供两个保证。 首先，它保证同步提供程序返回的数据在返回到用户应用程序之前始终保存到磁盘。 其次，它允许同步提供程序检索之前返回到平台的相同数据，并验证其完整性。 只有在同步提供程序成功确认完整性后，平台才会完成用户 IO 请求。 此修饰符有助于支持端到端数据完整性，但代价是额外的磁盘 IO。
+此策略修饰符授予平台不在本地磁盘上存储同步提供程序返回的任何数据的权限。 此策略修饰符与
+VALIDATION_REQUIRED 互斥。 指定两个标志时，API 失败并 ERROR_INVALID_PARAMETER 。
+此策略修饰符授予平台无需同步提供商帮助即可解除同步云文件占位符的冻结权限。 如果没有此标志，则不允许平台直接调用 CfDehydratePlaceholder 。 相反，解除云文件占位符冻结的唯一受支持方法是清除文件的固定属性并设置文件的未固定属性，然后在同步引擎收到有关这两个属性的目录更改通知后，以异步方式执行实际的解除冻结。 指定此标志后，将允许平台直接在任何同步云文件占位符上调用
+CfDehydratePlaceholder 。 建议同步提供程序支持自动解除冻结。
+填充策略允许同步提供程序控制占位符命名空间 (目录和文件) 应由平台创建的方式。 目前有三个主要策略未定义修饰符：
+策略
+描述
+
+≦ 252 ≧
+策略
+ALWAYS_FULL FULL
+PARTIAL
+描述
+平台假定全名空间始终在本地可用。 它永远不会将任何目录枚举请求转发到同步提供程序。
+当平台检测到对未完全填充目录的访问时，它将请求同步提供程序在完成用户请求之前返回目录下的所有条目。
+当平台检测到对未完全填充目录的访问时，它将仅从同步提供程序请求用户应用程序所需的条目。
+InSync 跟踪策略
+InSync 策略允许同步提供程序控制平台何时应清除占位符上的同步状态。 除了始终清除任何数据修改的同步外，平台当前还可以清除三个文件属性的任意组合的更改，
+(ReadOnly、 System 和 Hidden) ，以及 createTime 和 LastWriteTime) (两个文件时间。
+这些策略可以分别应用于文件和目录。硬链接策略
+默认情况下，平台不允许在任何占位符上创建硬链接。 但是，能够处理硬链接的同步提供程序可以指示平台通过 ALLOWED 策略启用支持。 使用此策略，只要链接位于同一同步根目录下或没有同步根目录，应用程序就可以创建文件系统支持的任意数量的硬链接。当引入第一个不同同步根链接时，平台将强制冻结占位符，并在删除其最后一个同步根链接时将占位符还原到普通文件中。 与策略不兼容的硬链接创建将失败 ，并
+STATUS_CLOUD_FILES_INCOMPATIBLE_HARDLINKS。 与策略不兼容的占位符操作也会
+因 STATUS_CLOUD_FILES_INCOMPATIBLE_HARDLINKS而失败。占位符管理策略
+默认情况下，只有同步提供程序才能在同步根目录中执行占位符管理操作。 仅当同步根处于非活动状态时，即当同步根未由任何同步提供程序连接到时，非同步提供程序进程才能执行占位符管理操作。 启用这些策略后，允许非同步提供程序进程在活动同步根中执行相应的占位符管理操作。 CF_PLACEHOLDER_MANAGEMENT_POLICY_DEFAULT 是默认策略，仅允许连接的同步提供程序执行任何占位符管理操作。 可以任意组合指定以下策略：
+策略
+CF_PLACEHOLDER_MANAGEMENT_POLICY_CREATE_UNRESTRICTED
+描述
+在注册期间指定此策略时，任何进程都可以通过调用
+CfCreatePlaceholders 在活动同步根目录中创建占位符。
+
+≦ 253 ≧
+策略
+CF_PLACEHOLDER_MANAGEMENT_POLICY_CONVERT_UNRESTRICTED CF_PLACEHOLDER_MANAGEMENT_POLICY_UPDATE_UNRESTRICTED
+７ 备注
+描述
+在注册期间指定此策略时，任何进程都可以通过调用
+CfConvertToPlaceholder 将活动同步根中的文件或目录转换为占位符。
+在注册期间指定此策略时，任何进程都可以通过调用
+CfUpdatePlaceholder 来更新活动同步根目录中的占位符。
+仅当从 CfGetPlatformInfo 获取的 PlatformVersion.IntegrationNumber 为 或更高
+时0x310，才支持这些标志。要求
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 CfCreatePlaceholders
+CfDehydratePlaceholder CfUpdatePlaceholder
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+
+≦ 254 ≧
+CfConvertToPlaceholder
+CfGetPlatformInfo CfSetInSyncState
+
+≦ 255 ≧
+CfReleaseProtectedHandle 函数 (cfapi.h) 项目2024/02/23
+释放 CfReferenceProtectedHandle 引用的受保护句柄。
+语法 C++
+void CfReleaseProtectedHandle(   [in] HANDLE ProtectedHandle);
+参数
+[in] ProtectedHandle 要释放的受保护句柄。
+返回值无
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+展开表
+
+≦ 256 ≧
+另请参阅
+CfReferenceProtectedHandle 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 257 ≧
+CfReleaseTransferKey 函数 (cfapi.h) 项目2023/04/06
+在不再需要 时释放 CfGetTransferKey 获取的传输密钥。
+语法 C++
+void CfReleaseTransferKey(
+
+  [in] HANDLE          FileHandle,
+   [in] CF_TRANSFER_KEY *TransferKey
+);
+
+参数
+[in] FileHandle
+占位符的文件句柄。[in] TransferKey
+占位符的不透明句柄。
+返回值无
+备注
+CfReleaseTransferKey 没有安全要求。要求
+ 
+最低受支持的客户端最低受支持的服务器
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+
+≦ 258 ≧
+ 
+目标平台
+标头 Library DLL
+另请参阅 CfGetTransferKey
+ 
+Windows cfapi.h CldApi.lib CldApi.dll
+
+≦ 259 ≧
+CfReportProviderProgress 函数 (cfapi.h) 项目2024/02/26
+允许同步提供程序报告带外进度。
+语法 C++
+HRESULT CfReportProviderProgress(
+  [in] CF_CONNECTION_KEY ConnectionKey,   [in] CF_TRANSFER_KEY   TransferKey,
+  [in] LARGE_INTEGER     ProviderProgressTotal,
+  [in] LARGE_INTEGER     ProviderProgressCompleted);
+参数
+[in] ConnectionKey
+表示具有同步筛选器的信道的连接键。[in] TransferKey
+占位符的不透明句柄。
+[in] ProviderProgressTotal
+同步提供程序响应提取数据回调的总进度。[in] ProviderProgressCompleted
+同步提供程序响应提取数据回调的已完成进度。返回值
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。注解
+
+≦ 260 ≧
+筛选器通过跟踪为响应FETCH_DATA回调而传输和/或确认的范围，自动跟踪 混合 的进度。 但是，如果提供商在开始 TRANSFER_DATA 筛选器之前花费大量时间将内容下载到临时位置，则筛选器将不知道这些活动与请求有任何关系。
+通过定期调用 CfReportProviderProgress ，同步提供程序可以向筛选器报告进度，从而重置对应于 CF_CALLBACK_TYPE_FETCH_DATA 回调的 60 秒超时期限。 这也将使进度看
+起来更流畅。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+CfReportProviderProgress2
+CF_CALLBACK_TYPE 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 261 ≧
+CfReportProviderProgress2 函数
+(cfapi.h) 项目2024/02/26
+允许同步提供程序报告带外进度。 使用其他参数扩展 CfReportProviderProgress 。
+语法 C++
+HRESULT CfReportProviderProgress2(   CF_CONNECTION_KEY ConnectionKey,   CF_TRANSFER_KEY   TransferKey,   CF_REQUEST_KEY    RequestKey,
+  LARGE_INTEGER     ProviderProgressTotal,
+  LARGE_INTEGER     ProviderProgressCompleted,
+  DWORD             TargetSessionId);
+参数 ConnectionKey
+表示具有同步筛选器的信道的连接密钥。 TransferKey
+占位符的不透明句柄。 RequestKey
+允许调用方报告除冻结以外的特定操作的进度。 ProviderProgressTotal
+同步提供程序响应提取数据回调的总进度。 ProviderProgressCompleted
+同步提供程序响应提取数据回调的已完成进度。 TargetSessionId
+
+≦ 262 ≧
+指示此进度信息的目标会话。返回值
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。要求
+要求
+最低受支持的客户端标头
+另请参阅
+CfReportProviderProgress 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10 版本 1809 (10.0;内部版本 17763)
+cfapi.h 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 263 ≧
+cfReportSyncStatus 函数 (cfapi.h) 项目2024/02/23
+允许同步提供程序在指定的同步根上通知平台其状态，而无需先通过调用 CfConnectSyncRoot 进行连接。
+语法 C++
+HRESULT CfReportSyncStatus(
+  [in, out] LPCWSTR        SyncRootPath,   [in]      CF_SYNC_STATUS *SyncStatus);
+参数
+[in, out] SyncRootPath 同步根目录的路径。[in] SyncStatus
+要报告的同步状态;如果 NULL 为 ，则清除以前保存的同步状态。 有关详细信息，请参阅
+下面的 “备注 ”部分。返回值
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。注解
+如果 SyncStatus 参数中提供了非 null CF_SYNC_STATUS，则会在同步根上记住该信息，直到同步提供程序显式清除该信息或计算机重新启动为止。 平台将使用以下过程在云文件
+占位符上执行任何失败的操作时查询此信息： 1. 平台将首先在文件级别搜索同步状态。
+2. 如果未找到同步状态，平台将搜索在同步根级别注册的同步状态，这是通过此函数完成的。
+3. 找到同步状态后，平台将使用提供的信息来向用户构造更有意义和可操作的消息。
+
+≦ 264 ≧
+使用同步状态调用时，CfReportSyncStatus 会清除以前保存的NULL 同步状态。 如果函数
+调用失败，将不会对现有同步状态进行更改。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 CfConnectSyncRoot CF_SYNC_STATUS
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1803 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 265 ≧
+cfRevertPlaceholder 函数 (cfapi.h) 项目2025/02/20
+将占位符恢复为常规文件，去除所有特殊特征，例如重分析标记、文件标识等。
+语法 C++
+HRESULT CfRevertPlaceholder(
+  [in]                HANDLE          FileHandle,   [in]                CF_REVERT_FLAGS RevertFlags,   [in, out, optional] LPOVERLAPPED    Overlapped);
+参数
+[in] FileHandle
+即将还原为普通文件或目录的文件或目录占位符的句柄。 平台将还原操作与其他活动请
+求正确同步。 属性或无访问句柄就足够了。[in] RevertFlags
+占位符还原标志。 RevertFlags 应设置为 CF_REVERT_FLAG_NONE。[in, out, optional] Overlapped
+当指定并与异步 FileHandle 结合使用时， Overlapped 允许平台异步执行
+CfRevertPlaceholder 调用。 有关更多详细信息，请参阅 “备注 ”。如果未指定，平台将同步执行 API 调用，而不考虑句柄的创建方式。
+返回值
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。注解
+调用方必须对要还原的占位符具有 WRITE_DATA 或 WRITE_DAC 访问权限。
+
+≦ 266 ≧
+如果在调用时占位符尚未完全冻结，则筛选器将向同步提供程序发送 FETCH_DATA 回调
+以冻结文件。 如果无法冻结文件，还原将失败，状态 STATUS_CLOUD_FILE_ACCESS_DENIED。
+如果 API 在异步使用 Overlapped 时返回HRESULT_FROM_WIN32 (ERROR_IO_PENDING)
+，则调用方可以使用 GetOverlappedResult 等待。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 GetOverlappedResult CF_REVERT_FLAGS
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 267 ≧
+cfSetCorrelationVector 函数 (cfapi.h) 项目2023/04/06
+允许同步提供程序指示平台在占位符文件上使用特定的相关向量进行遥测。 此为可选项。
+语法 C++
+HRESULT CfSetCorrelationVector(
+
+  [in] HANDLE                    FileHandle,
+
+  [in] const PCORRELATION_VECTOR CorrelationVector
+);
+
+参数
+[in] FileHandle
+占位符文件的句柄。 平台将操作与其他活动请求正确同步。 属性或无访问句柄就足够了。
+[in] CorrelationVector
+要与 FileHandle 关联的特定相关向量。返回值
+如果此函数成功，则返回 S_OK。 否则，它将返回 HRESULT 错误代码。注解
+平台在首次打开每个文件时自动为其分配相关向量，并在公共 CF_CALLBACK_INFO中向同步提供程序的每个回调提供此相关向量。 建议同步引擎调用此函数来递增相关向量“时钟”的最后一位数，因为同步提供程序) 在满足请求) 同步提供程序定义的内部 (阶段。
+要求
+ 
+ 
+
+≦ 268 ≧
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 CF_CALLBACK_INFO
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+
+≦ 269 ≧
+CfSetInSyncState 函数 (cfapi.h) 项目2025/02/20
+设置占位符文件或文件夹的同步状态。
+语法 C++
+HRESULT CfSetInSyncState(
+  [in]                HANDLE               FileHandle,   [in]                CF_IN_SYNC_STATE     InSyncState,   [in]                CF_SET_IN_SYNC_FLAGS InSyncFlags,   [in, out, optional] USN                  *InSyncUsn);
+参数
+[in] FileHandle
+占位符的句柄。 平台正确地将操作与其他活动请求同步。 属性或无访问句柄就足够了。
+调用方必须具有 WRITE_DATA 或 WRITE_DAC 占位符的访问权限。[in] InSyncState
+同步状态。 InSyncState 可以设置为以下值之一：
+如果指定 了CF_IN_SYNC_STATE_NOT_IN_SYNC ，则当 API 调用成功返回时，平台会清除占位符的同步状态。
+如果指定 了CF_IN_SYNC_STATE_IN_SYNC ，则平台会在 API 调用成功返回时设置占位符的同步状态。
+[in] InSyncFlags
+同步状态标志。 有关详细信息 ，请参阅CF_SET_IN_SYNC_FLAGS 。[in, out, optional] InSyncUsn
+指定时，在输入时， InSyncUsn 指示平台仅当文件仍具有与传入的相同 USN 值时执行同步设置。 这是为了结束同步提供程序刚刚同步的占位符更改到云的争用，但在调用
+CfSetInSyncState 之前，占位符以某种方式更改。 将指针传递到输入上的 USN 值 0  与传递 NULL  指针相同。 返回时， InSYncUsn 在设置同步状态后收到最终的 USN 值。
+
+≦ 270 ≧
+返回值
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。要求
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 CF_IN_SYNC_STATE
+CF_SET_IN_SYNC_FLAGS 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 271 ≧
+CfSetPinState 函数 (cfapi.h) 项目2023/04/06
+这将设置占位符的固定状态，该占位符用于表示用户的意向。 任何应用程序 (不只是同步提供程序) 都可以调用此函数。
+语法 C++
+HRESULT CfSetPinState(
+
+  [in]                HANDLE           FileHandle,
+   [in]                CF_PIN_STATE     PinState,
+   [in]                CF_SET_PIN_FLAGS PinFlags,
+   [in, out, optional] LPOVERLAPPED     Overlapped
+);
+
+参数
+[in] FileHandle
+占位符文件的句柄。 平台将操作与其他活动请求正确同步。 属性或无访问句柄就足够了。 调用方必须具有 READ_DATA 或 WRITE_DAC 占位符的访问权限，否则操作将失败
+并STATUS_CLOUD_FILE_ACCESS_DENIED。[in] PinState
+占位符文件的固定状态。 有关有效 PinState 值的列表，请参阅 CF_PIN_STATE。[in] PinFlags
+引脚状态标志。 PinFlags 可以设置为以下值：
+如果指定 了CF_PIN_FLAG_RECURSE ，平台会将固定状态应用于 FileHandle ，并且仅当 FileHandle 是目录) 的句柄时，它下面的每个文件才 (相关。
+如果指定 了CF_PIN_FLAG_RECURSE_ONLY ，平台以递归方式将固定状态应用于 FileHandle 下的每个文件，但不应用于 FileHandle 本身。
+如果指定 了CF_PIN_FLAG_RECURSE_STOP_ERROR ，则平台将在遇到第一个错误时停止递归。 否则，平台将跳过错误并继续递归。
+[in, out, optional] Overlapped
+
+≦ 272 ≧
+允许异步执行调用。 有关更多详细信息，请参阅 “备注 ”部分。返回值
+如果此函数成功，则返回 S_OK。 否则，它将返回 HRESULT 错误代码。注解
+当指定并与异步 FileHandle 结合使用时， Overlapped 允许平台异步执行调用。
+调用方必须已使用要等待的事件初始化重叠结构。 如果返回 HRESULT_FROM_WIN32(ERROR_IO_PENDING) ，则调用方可以使用 GetOverlappedResult 等待。 如果未指定，
+平台将同步执行 API 调用，而不考虑句柄的创建方式。要求
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 GetOverlappedResult CF_PIN_STATE CF_SET_PIN_FLAGS
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+
+≦ 273 ≧
+cfUnregisterSyncRoot 函数 (cfapi.h) 项目2023/04/06
+取消注册以前注册的同步根目录。
+语法 C++
+HRESULT CfUnregisterSyncRoot(
+   [in] LPCWSTR SyncRootPath
+);
+
+参数
+[in] SyncRootPath
+要注销的同步根路径。返回值
+如果此函数成功，则返回 S_OK。 否则，它将返回 HRESULT 错误代码。注解
+注销已注册到 CfRegisterSyncRoot 的同步根。 这通常在同步提供程序卸载时、删除用户帐户时或当用户选择不再同步目录树 (（如果同步提供程序) 支持）时调用。 如果以前从
+未注册过要注销的同步根目录，则 API 会失败并 STATUS_CLOUD_FILE_NOT_UNDER_SYNC_ROOT。
+同步提供程序应具有 WRITE_DATA 或 WRITE_DAC 要注销的同步根的访问权限，否则取消注册将失败并显示 HRESULT (ERROR_CLOUD_FILE_ACCESS_DENIED) 。 如果同步提供程序连接到同步根目录，则取消注册也会失败，并
+(ERROR_CLOUD_FILE_INVALID_REQUEST) HRESULT。
+通过遍历同步根目录树来取消注册同步根目录。对于占位符文件：
+如果占位符文件已完全冻结，则会将其还原为“普通”文件。
+
+≦ 274 ≧
+如果占位符文件未解除冻结，则会从本地计算机中将其永久删除。对于占位符目录：
+如果占位符目录已完全填充，则会将其还原为“普通”目录。
+如果未完全填充占位符目录，则会从本地计算机中永久删除该目录。７ 备注
+如果无法还原或删除占位符文件或目录，则会跳过该占位符文件或目录，并且取消
+注册过程将继续，直到遍历完全同步根树。要求
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 CfRegisterSyncRoot
+ 
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+
+≦ 275 ≧
+CfUpdatePlaceholder 函数 (cfapi.h) 项目2024/02/23
+此 API 更改现有占位符的特征。 此 API 最有可能用于在云中修改文件，并且同步提供程序希望将修改的效果合并到占位符中。 为了支持此方案，调用方可能会传入新的文件系统元数据 (时间戳、文件大小等 ) 应用，以及/或新的 FileIdentity blob。
+语法 C++
+HRESULT CfUpdatePlaceholder(
+  [in]                HANDLE               FileHandle,   [in, optional]      const CF_FS_METADATA *FsMetadata,   [in, optional]      LPCVOID              FileIdentity,
+  [in]                DWORD                FileIdentityLength,   [in, optional]      const CF_FILE_RANGE  *DehydrateRangeArray,   [in]                DWORD                DehydrateRangeCount,
+  [in]                CF_UPDATE_FLAGS      UpdateFlags,   [in, out, optional] USN                  *UpdateUsn,   [in, out, optional] LPOVERLAPPED         Overlapped);
+参数
+[in] FileHandle
+FileHandle 是要更新其元数据的文件或目录的句柄。 对于文件，如果调用方还打算同时解除文件冻结，则调用方必须获取文件的独占句柄，否则可能会发生数据损坏。 为了尽量减少对用户应用程序的影响，强烈建议调用方通过 CfOpenFileWithOplock) （而不是使用无共享句柄）使用适
+当的 oplock (获取独占性。[in, optional] FsMetadata
+FsMetadata 包含有关要更新的占位符的文件系统元数据，包括目录) 可选的所有时间戳、文件属性和文件大小 (。 这是一个可选字段。 如果未提供，所有这些字段在调用后保持不变。
+0 时间戳字段中 (CreationTime、LastAccessTime、LastWriteTime 和 ChangeTime) 的值表示对文件的当前时间戳没有更改。
+0 FileAttributes 中的值意味着对文件的当前文件属性没有更改。 FileSize 中没有特殊值; 0 FileSize 中的值将文件大小截断为 0 。
+[in, optional] FileIdentity
+FileIdentity 是包含调用方提供的不透明文件或目录信息的用户模式缓冲区。 FileIdentity blob 的大小不应超过 4KB。 FileIdentity 在所有回调中传递回同步提供程序。 如果不需要更新，或者调
+
+≦ 276 ≧
+用方想要从要更新的占位符中删除 FileIdentity blob，则这是可选的。[in] FileIdentityLength
+FileIdentity 的长度（以字节为单位）。[in, optional] DehydrateRangeArray
+此数组指定在更新后将不再被视为有效的现有占位符的范围。
+此参数的最简单用法是传递单个范围，告知平台整个字节范围的数据现在无效。 此参数的更复杂用途是提供一系列被视为无效的离散范围。 这意味着同步提供程序可以区分子文件级别的更改。 所有偏移量和长度都应 PAGE_SIZE 对齐。 平台将确保指定的所有范围在更新过程中都解除
+冻结。 如果任何范围的解除冻结失败，API 将失败，而不是导致文件内容撕毁。７ 备注
+传递偏移量 为 0 和长度 CF_EOF 的单个范围将使整个文件失效 - 这与改为 CF_UPDATE_FLAG_DEHYDRATE 传递标志的效果相同。 此外，传递
+CF_UPDATE_FLAG_DEHYDRATE 会导致 DehydrateRangeArray 被静默删除[in] DehydrateRangeCount
+占位符数据的一系列离散 DehydrateRangeArray 分区的计数。[in] UpdateFlags
+更新占位符的标志。 UpdateFlags 可以设置为以下值：
+ﾉ
+标志
+CF_UPDATE_FLAG_VERIFY_IN_SYNC CF_UPDATE_FLAG_MARK_IN_SYNC CF_UPDATE_FLAG_DEHYDRATE
+CF_UPDATE_FLAG_ENABLE_ON_DEMAND_POPULATION
+描述
+展开表
+如果当前未在占位符上设置 IN_SYNC 属性，更新将失败。 这是为了防止从云向下同步到本地占位符的更改与本地修改占位符的数据流之间的争用。
+成功更新占位符操作后，平台会将占位符标记为同步。
+仅适用于文件。 指定后，平台在成功更新占位符后解除文件冻结。 调用方在指定此标志时必须获取独占句柄，否则可能会发生数据损坏。 请注意，平台不验证句柄的独占性。
+仅适用于目录。 指定后，它会将更新的占位符目录标记为部分填充，以便将来对其进行的任何访问都将导致向同步提供程序发送 FETCH_PLACEHOLDERS 回调。
+
+≦ 277 ≧
+标志
+CF_UPDATE_FLAG_DISABLE_ON_DEMAND_POPULATION
+CF_UPDATE_FLAG_REMOVE_FILE_IDENTITY CF_UPDATE_FLAG_CLEAR_IN_SYNC
+CF_UPDATE_FLAG_REMOVE_PROPERTY
+CF_UPDATE_FLAG_PASSTHROUGH_FS_METADATA
+CF_UPDATE_FLAG_ALWAYS_FULL CF_UPDATE_FLAG_ALLOW_PARTIAL
+[in, out, optional] UpdateUsn
+描述
+仅适用于目录。 指定后，它会将更新的占位符目录标记为已完全填充，以便平台将来对其进行的任何访问都将由平台处理，而无需对同步提供程序进行任何回调。
+FileIdentity 和 FileIdentityLength 将被忽略，平台将在成功调用更新后删除占位符上的现有文件标识 blob。
+成功更新占位符操作时，平台会将占位符标记为未同步。
+平台删除占位符上的所有现有外部属性。
+平台无需任何筛选即可将 CF_FS_METADATA 传递到文件系统;否则，平台将跳过设置值为 0 的任何字段。
+仅适用于占位符文件。 指定后，要更新的占位符将始终标记为已满。 水合后，任何解除此类占位符文件冻结的尝试都将失败，并 出现错误代码
+ERROR_CLOUD_FILE_DEHYDRATION_DISALLOWED。仅适用于占位符文件。 指定后，将清除占位符文件上的始终完整状态（如果存在），从而允许其再次脱水。 指定此标志和 CF_UPDATE_FLAG_ALWAYS_FULL 无效，因此将返回错误代码
+ERROR_CLOUD_FILE_INVALID_REQUEST 。
+在输入时， UpdateUsn 指示平台仅当文件仍具有与传入的文件相同的 USN 值时执行更新。 这与 CF_UPDATE_FLAG_VERIFY_IN_SYNC用途类似 ， 但也包含本地元数据更改。 将指针传递到输入上的 USN 值 0  与传递 NULL  指针相同。
+返回时， UpdateUsn 在执行更新操作后收到最终的 USN 值。[in, out, optional] Overlapped
+指定并结合异步 FileHandle 时， Overlapped 允许平台异步执行 CfUpdatePlaceholder 调用。 有关更多详细信息，请参阅 备注 。
+如果未指定，平台将同步执行 API 调用，而不考虑句柄的创建方式。返回值
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。注解
+
+≦ 278 ≧
+更新占位符：
+要更新的占位符必须包含在已注册的同步根树中;它可以是同步根目录本身，也可以是任何后代目录;否则，调用将失败，并出现 HRESULT
+(ERROR_CLOUD_FILE_NOT_UNDER_SYNC_ROOT) 。
+如果请求解除冻结，则必须使用未 CF_HYDRATION_POLICY_ALWAYS_FULL的有效解除冻结策略注册同步根;否则调用将失败， HRESULT (ERROR_CLOUD_FILE_NOT_SUPPORTED)。
+如果请求解除冻结，则不能在本地固定占位符，否则调用将因 HRESULT(ERROR_CLOUD_FILE_PINNED) 失败。
+如果请求解除冻结，占位符必须处于同步状态，否则调用将失败，并且 HRESULT(ERROR_CLOUD_FILE_NOT_IN_SYNC) 。
+调用方必须对要更新的占位符具有 WRITE_DATA 或 WRITE_DAC 访问权限。 否则，操作将失败， HRESULT (ERROR_CLOUD_FILE_ACCESS_DENIED) 。
+如果 API 在异步使用 Overlapped 时返回HRESULT_FROM_WIN32 (ERROR_IO_PENDING) ，则调
+用方可以使用 GetOverlappedResult 等待。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 CfOpenFileWithOplock CF_UPDATE_FLAGS
+反馈
+此页面是否有帮助？
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+Windows cfapi.h CldApi.lib CldApi.dll
+展开表
+
+≦ 279 ≧
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 280 ≧
+CfUpdateSyncProviderStatus 函数
+(cfapi.h) 项目2024/02/23
+汇报同步提供程序的当前状态。
+语法 C++
+HRESULT CfUpdateSyncProviderStatus(
+  [in] CF_CONNECTION_KEY       ConnectionKey,   [in] CF_SYNC_PROVIDER_STATUS ProviderStatus);
+参数
+[in] ConnectionKey
+表示具有同步筛选器的信道的连接键。[in] ProviderStatus
+同步提供程序的当前状态。 状态在同步根连接的生命周期内保持不变。 在调用 CfDisconnectSyncRoot 或终止同步提供程序进程时，同步根连接将断开连接。
+返回值
+如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+值
+Windows 10版本 1709 [仅限桌面应用] Windows Server 2016 [仅限桌面应用]
+展开表
+
+≦ 281 ≧
+要求
+目标平台
+标头 Library DLL
+另请参阅 CfDisconnectSyncRoot
+CF_SYNC_PROVIDER_STATUS 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows cfapi.h CldApi.lib CldApi.dll
+否
+| 在 Microsoft Q&A 获取帮助
+

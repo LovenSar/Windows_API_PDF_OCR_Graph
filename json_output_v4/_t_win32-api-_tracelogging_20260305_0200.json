@@ -1,0 +1,996 @@
+{
+  "_schema": "windows_api_kg_v4.0",
+  "_generated_at": "2026-03-05T08:07:24Z",
+  "_content_hash": "6c9160d1d547",
+  "document": {
+    "document_id": "win32-api::tracelogging",
+    "title": "TraceLogging",
+    "domain": "win32-api",
+    "topic": "tracelogging",
+    "source_file": "[OCR]_windows-win32-api-_tracelogging_20260305_0200.txt",
+    "ocr_timestamp": "2026-03-05T02:00:00",
+    "headers_referenced": [
+      "traceloggingactivity.h",
+      "traceloggingprovider.h"
+    ],
+    "total_entities": 48
+  },
+  "entities": [
+    {
+      "id": "windows::TraceLogging",
+      "name": "TraceLogging",
+      "entity_type": "function",
+      "description": "是一种系统，用于记录可在不带清单的情况下解码的自描述事件。 在 Windows 上，TraceLogging 用于 为 Windows (ETW) 事件生成事件跟踪。 Windows SDK 中的 TraceLoggingProvider.h 标头包含宏和内联函数，用于使用 C 或 C++ 为内核和用户模式代码生成 TraceLogging 编码的 ETW 事件。７ 备注 Provider.h 需要事件属性（如提供程序名称、事件名称和字段名称）的编译时常量值。 为了最大程度地减少运行时开销， TraceLoggingProvider.h 在编译时生成其数据结构，并将信息存储在只读内存中。 如果需要生成运行时动态事 件，则需要使用不同的 TraceLogging 实现，例如 TraceLoggingDynamic 快速启动 。 在 .c 或 .cpp 文件中，使用 TRACELOGGING_DEFINE_PROVIDER 宏声明全局提供程序句柄。 提供程序句柄表示组件与 ETW 的连接。 在组件启动 (例如 、wmain 、 DllMain 或 DriverEntry ) 中main ，使用 TraceLoggingRegister 函数打开组件与 ETW 的连接。 在组件关闭时，使用 TraceLoggingUnregister 函数关闭组件与 ETW 的连接。在组件执行期间，使用 TraceLoggingWrite 宏生成 TraceLogging 编码的 ETW 事件。 根据需要，在标头中使用",
+      "syntax": "void TraceLoggingCustom(   [in]            pValue,   [in]            cbValue,   [in]            protocol,   [in]            bSchema,   [in]            cbSchema,\n[in, optional]  __VA_ARGS__);",
+      "parameters": [
+        {
+          "name": "fieldCount",
+          "direction": "in",
+          "description": "将被视为结构的一部分的字段数。 此参数必须是编译时常量。[in] name 要用于事件中的结构的名称。 name 参数必须是字符串文本 (不是) 变量，并且不得包含任何“\\0” 字符。"
+        },
+        {
+          "name": "__VA_ARGS__",
+          "direction": "in, optional",
+          "description": "字段定义的可选 说明 和 标记 参数。"
+        }
+      ],
+      "return_value": {
+        "description": "无"
+      },
+      "header": "traceloggingactivity.h",
+      "deprecated": false,
+      "cross_references": [
+        "DriverEntry",
+        "TRACELOGGING_DEFINE_PROVIDER",
+        "TraceLoggingRegister",
+        "TraceLoggingUnregister",
+        "TraceLoggingWrite"
+      ],
+      "confidence": 0.85,
+      "_source_line": 4
+    },
+    {
+      "id": "windows::TraceLoggingActivity",
+      "name": "TraceLoggingActivity",
+      "entity_type": "class",
+      "description": "类具有这些方法。 ：:P rovider ：:P rovider (traceloggingactivity.h) 将句柄返回到与此活动关联的 TraceLogging 提供程序。 ：：SetRelatedActivity 设置此 TraceLoggingActivity 对象的相关活动。 TraceLoggingActivity：：SetRelatedActivityId ：：SetRelatedActivityId 使用活动的唯一标识符来设置此 TraceLoggingActivity 对象的相关活动。 ：：SetRelatedActivityId ：：SetRelatedActivityId (const GUID) 使用活动的唯一标识符为此 TraceLoggingActivity 对象设置相关活动。 ：：TraceLoggingActivity 创建新的 TraceLoggingActivity 对象。 (重载 1/2) TraceLoggingActivity：：TraceLoggingActivity 创建新的 TraceLoggingActivity 对象。 (重载 2/2)",
+      "return_value": {
+        "description": "无"
+      },
+      "remarks": "若要使用 TraceLogging 活动，需要定义 TraceLoggingActivity 或",
+      "header": "traceloggingactivity.h",
+      "deprecated": false,
+      "cross_references": [
+        "SetRelatedActivityId",
+        "TraceLogging"
+      ],
+      "confidence": 0.65,
+      "_source_line": 11
+    },
+    {
+      "id": "windows::TRACELOGGING_DECLARE_PROVIDER",
+      "name": "TRACELOGGING_DECLARE_PROVIDER",
+      "entity_type": "function",
+      "description": "TRACELOGGING_DEFINE_PROVIDER traceloggingprovider.h 包含以下编程接口：",
+      "syntax": "void TRACELOGGING_DECLARE_PROVIDER(\n[in]  handleVariable);",
+      "parameters": [
+        {
+          "name": "handleVariable",
+          "direction": "in",
+          "description": "要转发声明的句柄名称。 这应该是使用 TRACELOGGING_DEFINE_PROVIDER 在 .c 或 .cpp 文件中定义的句 柄的名称。"
+        }
+      ],
+      "return_value": {
+        "description": "无"
+      },
+      "remarks": "根据需要使用此宏来转发声明 TraceLogging 提供程序句柄，例如在组件的头文件中。 此宏不会为提供程序句柄分配存储。 若要使用提供程序，需要使用 TRACELOGGING_DEFINE_PROVIDER 来定义句柄，并使用 TraceLoggingRegister 来注册它。 类似于 TRACELOGGING_DECLARE_PROVIDER(MyProviderHandle) 的调用可视为类似于以下代码： C extern \"C\" const TraceLoggingHProvider MyProviderHandle; ７ 备注 声明的 TRACELOGGING_DECLARE_PROVIDER 提供程序句柄具有模块范围。 它可以根据需要在 EXE、DLL 或 SYS 文件中使用，但不应与同一进程中的其他 DLL 共享。 每个 EXE、DLL 或 SYS 文件都应定义自己的提供程序句柄，并应执行自己的 Register 和 Unregister。",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "TRACELOGGING_DEFINE_PROVIDER",
+        "TraceLogging",
+        "TraceLoggingHProvider",
+        "TraceLoggingRegister"
+      ],
+      "confidence": 1.0,
+      "_source_line": 30
+    },
+    {
+      "id": "windows::TRACELOGGING_DEFINE_PROVIDER",
+      "name": "TRACELOGGING_DEFINE_PROVIDER",
+      "entity_type": "function",
+      "description": "( // defines g_hProvider g_hProvider, // Name of the provider handle \"MyCompany.MyComponent\", // Human-readable name for the provider // {ce5fa4ea-ab00-5402-8b76-9f76ac858fb5} (0xce5fa4ea,0xab00,0x5402,0x8b,0x76,0x9f,0x76,0xac,0x85,0x8f,0xb5)); 可以将上述 TRACELOGGING_DEFINE_PROVIDER 宏视为定义 g_hMyProvider 提供程序句柄常量，类似 于以下代码： C const TraceLoggingHProvider g_hMyProvider = ...; 生成的句柄具有模块范围，可以在定义它的 EXE、DLL 或 SYS 模块中的任何位置使用。 根据需要使用 TRACELOGGING_DECLARE_PROVIDER 宏 (例如在标头) 中转发声明句柄，以便它可供组件中的其他 .c 或.cpp文件使用。 组件开始运行时，提供程序将处于未注册状态。 将无提示地忽略使用它生成事件的任何尝试。需要先使用 TraceLoggingRegister 注册提供程序，然后才能响应任何写入调用。 这通常在组件 启动期间完成，例如在 、wmain 、、 WinMain DllMain(DLL_PROCESS_ATTACH) 或 DriverEntry 中 main 。 在组件关闭时，通过调用 TraceLoggingUnregister 来注销提供程序。７ 备注 定义的 TRACELOGGING_DEFINE_PROVIDER 提供程序句柄的范围限定为模块。 可以根据需要在 EXE、DLL 或 SYS 文件中使用该句柄，但不应在模块范围之外使用，即不应将其传递给同一进程中的其他 DLL。 每个 EXE、DLL 或 SYS 文件都应使用其自己的提供程序句柄，并应执行自己的注册和注销。 在调试版本中，如果尝试使用来自另一个模块的提供程序句柄进行 写入，则会触发断言。提供程序名称和 ID ETW 使用提供程序 ID (也称为提供程序 GUID 或控制 GUID) 来执行事件筛选和路由。 例如，如果具有名为 MyCompany.MyComponent 的提供程序 ID {ce5fa4ea-ab00-5402-8b76-9f76ac858fb5} ，则可以启动跟踪，以使用跟踪 日志 命令（如 tracelog -start MySessionName -f MySession.etl-guid #ce5fa4ea-ab00-5402-8b76-9f76ac858fb5 ）从此提供程序捕获事件。 所有 ETW 提供程序都由提供程序名称和提供程序 ID 标识。 名称和 ID 都需要是唯一的，这样它们就不会与其他提供程序冲突。 此外，应链接名称和 ID：将特定名称与 ETW 提供程序的特定 ID 一起使用后，该名称不应与任何其他 ID 一起使用，并且该 ID 不应与任何其他名称一起使用。 提供程序 ID 可以是任何唯一 GUID，例如使用 guidgen SDK 工具或 https://uuidgen.org 生成 的 GUID。但是，Microsoft 建议使用下面所述的 ETW 名称哈希算法从提供程序名称生成提供程序 ID，而不是为提供程序 ID 使用随机生成的 GUID。 这提供了几个好处：更容易记住名称;ID 和名称会自动链接;tracelog、traceview、EventSource 和 WPR 等工具对使用此算法生成的 ID 的提供程序提供特殊支持。 例如，如果具有名为 MyCompany.MyComponent 的提供程序 ID {ce5fa4ea-ab00-5402-8b76- 9f76ac858fb5} ，则可以启动跟踪，以使用跟踪 日志 命令（如 tracelog -start MySessionName -f MySession.etl -guid *MyCompany.MyComponent ）从此提供程序捕获事件。 这之所以有效，是 因为提供程序 ID {ce5fa4ea-ab00-5402-8b76-9f76ac858fb5} 是通过对提供程序名称 MyCompany.MyComponent 进行哈希生成的，因此 tracefmt 工具认为 -guid *MyCompany.MyComponent 等效于 -guid #ce5fa4ea-ab00-5402-8b76-9f76ac858fb5 。 可以使用 PowerShell 通过 EventSource 类使用 ETW 名称哈希算法获取特定提供程序名称的提供 程序 ID： PowerShell [System.Diagnostics.Tracing.EventSource]::new(\"MyCompany.MyComponent\").Guid 结果： text Guid---- ce5fa4ea-ab00-5402-8b76-9f76ac858fb5 在 C# 中，可以按如下所示实现 ETW 名称哈希算法： C# static Guid ProviderIdFromName(string name){ var signature = new byte[] { 0x48, 0x2C, 0x2D, 0xB2, 0xC3, 0x90, 0x47, 0xC8, 0x87, 0xF8, 0x1A, 0x15, 0xBF, 0xC1, 0x30, 0xFB }; var nameBytes = System.Text.Encoding.BigEndianUnicode.GetBytes(name.ToUpperInvariant());",
+      "syntax": "void TRACELOGGING_DEFINE_PROVIDER(   [in]            handleVariable,\n[in]            providerName,   [in]            providerId,   [in, optional]  __VA_ARGS__);",
+      "parameters": [
+        {
+          "name": "handleVariable",
+          "direction": "in",
+          "description": "要用于提供程序句柄的名称，使用组件对全局变量的命名约定，例如 MyComponentLog 或 g_hMyProvider 。[in] providerName 具有 TraceLogging 提供程序名称的字符串文本。 此名称应特定于组织和组件，以便它不会与其他组件的提供程序冲突。 此名称字符串将包含在提供程序生成的每个 ETW 事件中，因此请尝试使用相对较短的名称。 例如，可以使用 或 \"MyCompany.MyOrganization.MyComponent\" 等\"MyCompany.MyComponent\" 名称。 这必须是字符串文本。 请勿使用变量。[in] providerId 提供程序的 ETW 控件 GUID，指定为逗号分隔列表（括号中包含 11 个整数）。 例如，GUID{ce5fa4ea-ab00-5402-8b76-9f76ac858fb5} 将表示为 (0xce5fa4ea,0xab00,0x5402,0x8b,0x76,0x9f,0x76,0xac,0x85,0x8f,0xb5) 。 尽管任何唯一 GUID 都可用于提供程序 ID，但 Microsoft 建议使用使用 ETW 名称哈希算法从提供程序名称生成的 GUID。 有关生成提供程序 ID 的信息，请参阅下文。"
+        },
+        {
+          "name": "__VA_ARGS__",
+          "direction": "in, optional",
+          "description": "提供程序的可选参数。 大多数提供程序不需要指定任何可选参数。 如果希望提供程序与 ETW 提供程序组相关联，请添加 TraceLoggingOptionGroup 宏以指定提供程序的组 GUID。 否则，请勿指定任何 __VA_ARGS__ 参数。"
+        }
+      ],
+      "return_value": {
+        "description": "无"
+      },
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "DriverEntry",
+        "Encoding",
+        "Guid",
+        "TRACELOGGING_DECLARE_PROVIDER",
+        "TraceLoggingHProvider",
+        "TraceLoggingRegister",
+        "TraceLoggingUnregister",
+        "WinMain"
+      ],
+      "confidence": 1.0,
+      "_source_line": 32
+    },
+    {
+      "id": "windows::TRACELOGGING_DEFINE_PROVIDER_STORAGE",
+      "name": "TRACELOGGING_DEFINE_PROVIDER_STORAGE",
+      "entity_type": "function",
+      "description": "( // defines static storageVar storageVar, // Name of the storage variable \"MyCompany.MyComponent\", // Human-readable name for the provider // {ce5fa4ea-ab00-5402-8b76-9f76ac858fb5} (0xce5fa4ea,0xab00,0x5402,0x8b,0x76,0x9f,0x76,0xac,0x85,0x8f,0xb5)); const",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 33
+    },
+    {
+      "id": "windows::TraceLoggingCustomAttribute",
+      "name": "TraceLoggingCustomAttribute",
+      "entity_type": "function",
+      "description": "\"key\", \"value\") 可用作 TraceLoggingWrite 宏调用的参数。 大多数 TraceLogging 事件不需要自定义属性，也不应使用 TraceLoggingCustomAttribute。 自定义属性存储在 PDB 中。 它们在运行时不可用。",
+      "syntax": "void TraceLoggingDescription(\n[in]  eventDescription);",
+      "parameters": [
+        {
+          "name": "eventDescription",
+          "direction": "in",
+          "description": "事件的说明。 此值必须是字符串文本。"
+        }
+      ],
+      "return_value": {
+        "description": "无"
+      },
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "TraceLogging",
+        "TraceLoggingWrite"
+      ],
+      "confidence": 0.85,
+      "_source_line": 44
+    },
+    {
+      "id": "windows::TraceLoggingThreadActivity",
+      "name": "TraceLoggingThreadActivity",
+      "entity_type": "function",
+      "description": "初始化 TraceLoggingThreadActivity 类的新实例。 (重载 1/2) TraceLoggingThreadActivityIdSetter 创建新的 TraceLoggingThreadActivityIdSetter 对象。 (重载 2/2) TraceLoggingThreadActivityIdSetter 创建新的 TraceLoggingThreadActivityIdSetter 对象。 (重载 1/2) TraceLoggingValue 用于 C++ 的 TraceLogging 包装宏，用于向事件添加具有自动推导类型的字段。 TraceLoggingWrite 发出 TraceLogging 事件。 TraceLoggingWriteActivity 发出具有指定活动 ID 的 TraceLogging 事件。 TraceLoggingWriteStart 启动活动并记录 start 事件。 TraceLoggingWriteStop 停止活动并记录停止事件。 TraceLoggingWriteTagged 使用关联的 ETW 活动 ID 记录事件。反馈",
+      "syntax": "void TraceLoggingThreadActivity();",
+      "return_value": {
+        "description": "无"
+      },
+      "remarks": "此类通过设置每线程变量来工作。 只有活动线程上发生的事件才会自动标记。若要使用 TraceLogging 活动，需要定义 TraceLoggingActivity 或",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "traceloggingactivity.h",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2012 R2"
+      },
+      "header": "traceloggingactivity.h",
+      "deprecated": false,
+      "cross_references": [
+        "TraceLogging",
+        "TraceLoggingActivity",
+        "TraceLoggingThreadActivityIdSetter",
+        "TraceLoggingValue",
+        "TraceLoggingWrite",
+        "TraceLoggingWriteActivity",
+        "TraceLoggingWriteStart",
+        "TraceLoggingWriteStop",
+        "TraceLoggingWriteTagged"
+      ],
+      "confidence": 0.75,
+      "_source_line": 61
+    },
+    {
+      "id": "windows::TraceLoggingFunction",
+      "name": "TraceLoggingFunction",
+      "entity_type": "function",
+      "description": "创建以当前函数命名的 TraceLoggingThreadActivity，并为活动写入 Start 事件。 停止活动将在当 前范围的末尾写入。 TraceLoggingWriteStart 启动活动并记录 start 事件。 TraceLoggingWriteStop 停止活动并记录停止事件。 TraceLoggingWriteTagged 使用关联的 ETW 活动 ID 记录事件。",
+      "syntax": "void TraceLoggingFunction(   [in]  providerHandle,\n__VA_ARGS__);",
+      "parameters": [
+        {
+          "name": "providerHandle",
+          "direction": "in",
+          "description": "提供程序注册句柄。 __VA_ARGS__ 返回值无"
+        }
+      ],
+      "remarks": "在函数的开头调用此宏以定义活动。 然后，此宏将根据函数的名称自动创建",
+      "header": "traceloggingactivity.h",
+      "deprecated": false,
+      "cross_references": [
+        "TraceLoggingThreadActivity",
+        "TraceLoggingWriteStart",
+        "TraceLoggingWriteStop",
+        "TraceLoggingWriteTagged"
+      ],
+      "confidence": 0.8,
+      "_source_line": 87
+    },
+    {
+      "id": "windows::TraceLoggingWriteTagged",
+      "name": "TraceLoggingWriteTagged",
+      "entity_type": "function",
+      "description": "操作活动日志记录。 当启用跟踪并启动活动时，此类会自动创建唯一标识符。 可以通过向 TraceLoggingWriteStart 和 TraceLoggingWriteStop 宏提供唯一标识符来手动 嵌套活动。",
+      "syntax": "void TraceLoggingWriteTagged(\n[in]  activity,   [in]  name,\n__VA_ARGS__);",
+      "parameters": [
+        {
+          "name": "activity",
+          "direction": "in",
+          "description": "此方法将用于标记事件的活动。[in] name 事件的名称。 这必须是字符串文本，而不是变量。 它不能有任何嵌入的 nul 字符。 __VA_ARGS__ 返回值无"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "traceloggingactivity.h",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2012 R2"
+      },
+      "header": "traceloggingactivity.h",
+      "deprecated": false,
+      "cross_references": [
+        "TraceLoggingWriteStart",
+        "TraceLoggingWriteStop"
+      ],
+      "confidence": 0.8,
+      "_source_line": 119
+    },
+    {
+      "id": "windows::TraceLoggingHProvider",
+      "name": "TraceLoggingHProvider",
+      "entity_type": "function",
+      "description": "HProvider const& 提供程序 UINT64 关键字 = 0 UINT8 级别 = WINEVENT_LEVEL_VERBOSE typename TlgReflectorTag = _TlgReflectorTag_Param0IsHProvider 要求",
+      "syntax": "void SetRelatedActivity(\n[in] const ActivityTy & relatedActivity);",
+      "parameters": [
+        {
+          "name": "relatedActivity",
+          "direction": "in",
+          "description": "要与此实例关联的活动。"
+        }
+      ],
+      "return_value": {
+        "description": "无"
+      },
+      "header": "traceloggingactivity.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server",
+        "TraceLoggingActivity",
+        "Vista"
+      ],
+      "confidence": 0.85,
+      "_source_line": 141
+    },
+    {
+      "id": "windows::SetRelatedActivityId",
+      "name": "SetRelatedActivityId",
+      "entity_type": "function",
+      "description": "constGUID&) 方法 使用活动的唯一标识符设置此 TraceLoggingActivity 对象的相关活动。",
+      "syntax": "void SetRelatedActivityId(\n[in] const GUID *relatedActivityId);\nvoid TraceLoggingActivity();",
+      "parameters": [
+        {
+          "name": "relatedActivityId",
+          "direction": "in",
+          "description": "要与此活动关联的活动的唯一标识符。"
+        }
+      ],
+      "return_value": {
+        "description": "无"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "traceloggingactivity.h",
+        "min_client": "Windows Vista",
+        "min_server": "Windows Server 2012 R2"
+      },
+      "header": "traceloggingactivity.h",
+      "deprecated": false,
+      "cross_references": [
+        "TraceLoggingActivity"
+      ],
+      "confidence": 0.85,
+      "_source_line": 181
+    },
+    {
+      "id": "windows::TraceLoggingThreadActivityIdSetter",
+      "name": "TraceLoggingThreadActivityIdSetter",
+      "entity_type": "function",
+      "description": "类具有这些方法。 ：：~TraceLoggingThreadActivityIdSetter 将原始活动 ID 还原到线程。 ：：TraceLoggingThreadActivityIdSetter 创建新的 TraceLoggingThreadActivityIdSetter 对象。 (重载 2/2) ：：TraceLoggingThreadActivityIdSetter 创建新的 TraceLoggingThreadActivityIdSetter 对象。 (重载 1/2)",
+      "syntax": "void TraceLoggingThreadActivityIdSetter(\n[in] const GUID & activityId);",
+      "parameters": [
+        {
+          "name": "activityId",
+          "direction": "in",
+          "description": "对应与此实例关联的唯一标识符的引用。"
+        }
+      ],
+      "return_value": {
+        "description": "无"
+      },
+      "remarks": "线程中发生的所有活动都将在此对象的生存期或线程中嵌套新活动之前使用关联的活动 ID 进行 标记。 新的嵌套 ID 将优先于 TraceLoggingThreadActivityIdSetter 对象。） 重要 仅当可以保证此线程的所有活动完全嵌套时，才使用此类。 在 DEBUG 生成中，如果类检测到不正确的活动嵌套，或者如果 Stop 事件发生在用于启动它的线程以外的线程上，类将 在 Stop 事件期间引发断言。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "traceloggingactivity.h",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2012 R2 [仅限桌面应用]"
+      },
+      "header": "traceloggingactivity.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 444
+    },
+    {
+      "id": "windows::TraceLoggingWriteStart",
+      "name": "TraceLoggingWriteStart",
+      "entity_type": "method",
+      "description": "值 Windows Server 2012 R2 Windows traceloggingactivity.h",
+      "syntax": "void TraceLoggingWriteStart(\n[in]  activity,   [in]  name,\n__VA_ARGS__);",
+      "parameters": [
+        {
+          "name": "activity",
+          "direction": "in",
+          "description": "要启动的活动。[in] name 事件的名称。 这必须是字符串文本，而不是变量。 它不能有任何嵌入的 nul 字符。 __VA_ARGS__ 返回值无"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows Vista"
+      },
+      "header": "traceloggingactivity.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.8,
+      "_source_line": 554
+    },
+    {
+      "id": "windows::TraceLoggingWriteStop",
+      "name": "TraceLoggingWriteStop",
+      "entity_type": "method",
+      "description": "值 Windows Server 2012 R2 Windows traceloggingactivity.h",
+      "syntax": "void TraceLoggingWriteStop(\n[in]  activity,   [in]  name,\n__VA_ARGS__);",
+      "parameters": [
+        {
+          "name": "activity",
+          "direction": "in",
+          "description": "要启动的活动。[in] name 事件的名称。 这必须是字符串文本，而不是变量。 它不能有任何嵌入的 nul 字符。 __VA_ARGS__ 返回值无"
+        }
+      ],
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows Vista"
+      },
+      "header": "traceloggingactivity.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.8,
+      "_source_line": 577
+    },
+    {
+      "id": "windows::TraceLoggingRegister",
+      "name": "TraceLoggingRegister",
+      "entity_type": "function",
+      "description": "TraceLoggingUnregister TraceLoggingWrite",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "TraceLoggingUnregister",
+        "TraceLoggingWrite"
+      ],
+      "confidence": 0.5,
+      "_source_line": 662
+    },
+    {
+      "id": "windows::TraceLoggingWrite",
+      "name": "TraceLoggingWrite",
+      "entity_type": "function",
+      "description": "宏调用的参数。 每个 TraceLoggingCustom 参数都会向事件添加一个自定义序列化字段。 大多数 TraceLogging 事件不使用自定义序列化程序，并且不应使用 TraceLoggingCustom。 常规用途 ETW 解码器不支持使用自定义序列化的字段，通常将这些字段视为TDH_INTYPE_BINARY。 解码器应使用 TDH API 访问 TraceLoggingCustom 序列化字段。 TdhGetEventInformation 返回 的 TRACE_EVENT_INFO 结构将包含两个与记录的 TraceLoggingCustom 字段相关的 EVENT_PROPERTY_INFO结构。 它们以典型方式与二进制字段 (TDH_INTYPE_BINARY) EVENT_RECORD的 UserData Blob 中找到的数据相关联。 两个EVENT_PROPERTY_INFO结构中的第一个是“Length”属性，用于描述序列化有效负载(的长度，即 cbValue) 。 第二个属性引用用户的有效负载 (pbValue) 。 第二个属性将具有 PropertyParamLength (引用“Length”属性) 和 PropertyHasCustomSchema 集。 解码器应识别已设置 PropertyHasCustomSchema，并查阅 customSchemaOffset",
+      "syntax": "void TraceLoggingWrite(\n[in]            hProvider,   [in]            eventName,   [in, optional]  __VA_ARGS__);",
+      "parameters": [
+        {
+          "name": "hProvider",
+          "direction": "in",
+          "description": "用于写入事件的 TraceLogging 提供程序 的句柄。[in] eventName 用于标识事件的短唯一名称。 这必须是字符串文本，而不是变量。 它不能包含任何嵌入 '\\0' 字符。"
+        },
+        {
+          "name": "__VA_ARGS__",
+          "direction": "in, optional",
+          "description": "最多 99 个用于配置或向事件添加字段的其他参数。 每个参数必须是 TraceLogging 包装宏之 一，例如 TraceLoggingLevel、 TraceLoggingKeyword 或 TraceLoggingValue。） 重要 ProviderId、Level 和 Keyword 是筛选事件的主要方法。 其他类型的筛选是可能的，但开销要高得多。 始终为每个事件分配非零级别和关键字 (keyword) 。"
+        }
+      ],
+      "return_value": {
+        "description": "无"
+      },
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "Length",
+        "TDH_INTYPE_BINARY",
+        "TRACE_EVENT_INFO",
+        "TraceLogging",
+        "TraceLoggingCustom",
+        "UserData"
+      ],
+      "confidence": 0.85,
+      "_source_line": 663
+    },
+    {
+      "id": "windows::TraceLoggingLevel",
+      "name": "TraceLoggingLevel",
+      "entity_type": "function",
+      "description": "eventLevel) 可用作 TraceLoggingWrite 宏调用的参数，以设置事件的级别。 事件级别是筛选事件的主要方法。 始终为每个事件分配有意义的 (非零) 级别。 如果未向 TraceLoggingWrite 调用提供 TraceLoggingLevel 宏，则事件的默认级别为 5 (WINEVENT_LEVEL_VERBOSE) 。 如果提供了多个 TraceLoggingLevel 宏，则使用最后一个值。级别值 0 到 5 由 Microsoft (查看 evntrace.h 和 winmeta.h ) 定义。 级别值 6 到 15 由 Microsoft 保留，供将来定义。 级别值 16 到 255 可由事件提供程序定义。 值",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "TraceLoggingWrite"
+      ],
+      "confidence": 0.6,
+      "_source_line": 664
+    },
+    {
+      "id": "windows::TraceLoggingKeyword",
+      "name": "TraceLoggingKeyword",
+      "entity_type": "function",
+      "description": "eventKeyword) 可用作 TraceLoggingWrite 宏调用的参数，以设置事件的关键字 (keyword) 。 事件关键字 (keyword) 是筛选事件的主要方法。 始终为每个事件分配有意义的 (非零) 关键字 (keyword) 。 如果未向 TraceLoggingWrite 调用提供 TraceLoggingKeyword 宏，则事件的默认关键字(keyword) 为 0。 如果提供了多个 TraceLoggingKeyword 宏，则值将 OR 组合在一起。 关键字 (keyword) (位掩码0xFFFF000000000000) 的前 16 位由 Microsoft 定义。 关键字 (keyword) (位掩码0x0000FFFFFFFFFFFF) 的低 48 位由事件提供程序定义。 例如，事件提供程序可以将位 0 (位掩码0x1) 定义为“I/O”类别，将位 1 (位掩码 0x2) 定义为“UI”类别，将位 2 (位掩码 0x4) 定义为“性能度量”类别。 在这种情况下，事件关键字 (keyword) 可能设置为0x5，表示事件 同时处于“I/O”和“性能度量”类别。",
+      "syntax": "void TraceLoggingKeyword(\n[in]  eventKeyword);",
+      "parameters": [
+        {
+          "name": "eventKeyword",
+          "direction": "in",
+          "description": "一个 64 位位掩码，用于指示事件在一组事件类别中的成员身份。 此值必须是编译时常量。） 重要 ProviderId、Level 和 Keyword 是筛选事件的主要方式。 可以进行其他类型的筛选，但开销 要高得多。 始终为每个事件分配有意义的非零级别和关键字 (keyword) 。有关事件关键字 (keyword) 的详细信息，请参阅EVENT_DESCRIPTOR。"
+        }
+      ],
+      "return_value": {
+        "description": "无"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows Vista [桌面应用 | UWP 应用]",
+        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
+      },
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "TraceLoggingWrite"
+      ],
+      "confidence": 0.85,
+      "_source_line": 665
+    },
+    {
+      "id": "windows::TraceLoggingString",
+      "name": "TraceLoggingString",
+      "entity_type": "function",
+      "description": "operationName), // Adds an \"operationName\" field. TraceLoggingHResult(hr, \"NetStatus\")); // Adds a \"NetStatus\" field. 的调用 TraceLoggingWrite(hProvider, \"EventName\", args...) 可视为扩展为代码，如下所示： C if (TraceLoggingProviderEnabled(hProvider, eventLevel, eventKeyword)){ static const metadata = { GetMetadataFromArgs(args...) };",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "TraceLoggingProviderEnabled",
+        "TraceLoggingWrite"
+      ],
+      "confidence": 0.6,
+      "_source_line": 666
+    },
+    {
+      "id": "windows::TraceLoggingUnregister",
+      "name": "TraceLoggingUnregister",
+      "entity_type": "function",
+      "description": "g_hProvider); return 0;} 有关详细信息，请参阅：",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 667
+    },
+    {
+      "id": "windows::TraceLoggingBinary",
+      "name": "TraceLoggingBinary",
+      "entity_type": "function",
+      "description": "可以使用 2、3、4 或 5 个参数指定。 如果未指定可选参数，将使用默认 值。 例如，TraceLoggingBinary(&x.data, sizeof(x.data)) 等效于 TraceLoggingBinary(&x.data, sizeof(x.data), \"&x.data\", \"\", 0) 。 [in, optional] name 要用于事件字段的名称。 如果提供名称参数，则名称参数必须是字符串文本 (而不是) 变 量，并且不得包含任何“\\0”字符。 如果未提供，事件字段名称将基于 pValue。[in, optional] description 事件字段值的说明。 如果提供说明参数，则说明参数必须是字符串文本，并且将包含在 PDB 中。 [in, optional] tags 编译时常量整数值。 该值的低 28 位将包含在字段的元数据中。 此值的语义由事件使用者定义。 在事件处理期间，可以从 “EVENT_PROPERTY_INFO 标记”字段检索此值。",
+      "return_value": {
+        "description": "无"
+      },
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "EVENT_PROPERTY_INFO"
+      ],
+      "confidence": 0.65,
+      "_source_line": 683
+    },
+    {
+      "id": "windows::using",
+      "name": "using",
+      "entity_type": "function",
+      "description": "var sha1 = new System.Security.Cryptography.SHA1Managed()) { sha1.TransformBlock(signature, 0, signature.Length, null, 0); sha1.TransformFinalBlock(nameBytes, 0, nameBytes.Length); var hash = sha1.Hash; Array.Resize(ref hash, 16); hash[7] = (byte)((hash[7] & 0x0F) | 0x50); return new Guid(hash); }} 示例 C++ #include <windows.h> // or <wdm.h> for kernel-mode.#include <winmeta.h> // For event level definitions.#include <TraceLoggingProvider.h>",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "Array",
+        "Guid",
+        "Length",
+        "Security"
+      ],
+      "confidence": 0.45,
+      "_source_line": 807
+    },
+    {
+      "id": "windows::TRACELOGGING_DEFINE_PROVIDER_STORA",
+      "name": "TRACELOGGING_DEFINE_PROVIDER_STORA",
+      "entity_type": "function",
+      "description": "为将由用户定义的 TraceLogging 提供程序句柄保留静态存储。 TRACELOGGING_DEFINE_PROVIDER优先于此宏。",
+      "syntax": "void TRACELOGGING_DEFINE_PROVIDER_STORAGE(   [in]            storageVariable,\n[in]            providerName,   [in]            providerId,   [in, optional]  __VA_ARGS__);",
+      "parameters": [
+        {
+          "name": "storageVariable",
+          "direction": "in",
+          "description": "要用于静态提供程序存储变量的名称，例如 MyStaticProviderStorage 。[in] providerName 具有 TraceLogging 提供程序名称的字符串文本。 此名称应特定于组织和组件，以便它不会与其他组件的提供程序冲突。 此名称字符串将包含在提供程序生成的每个 ETW 事件中，因此请尝试使用相对较短的名称。 例如，可以使用 或 \"MyCompany.MyOrganization.MyComponent\" 等\"MyCompany.MyComponent\" 名称。 这必须是字符串文本。 请勿使用变量。[in] providerId 提供程序的 ETW 控件 GUID，指定为逗号分隔列表（括号中包含 11 个整数）。 例如，GUID{ce5fa4ea-ab00-5402-8b76-9f76ac858fb5} 将表示为 (0xce5fa4ea,0xab00,0x5402,0x8b,0x76,0x9f,0x76,0xac,0x85,0x8f,0xb5) 。 尽管任何唯一 GUID 都可用于提供程序 ID，但 Microsoft 建议使用使用 ETW 名称哈希算法从提 供程序名称生成的 GUID。 有关生成提供程序 ID 的信息，请参阅 TRACELOGGING_DEFINE_PROVIDER 。"
+        },
+        {
+          "name": "__VA_ARGS__",
+          "direction": "in, optional",
+          "description": "提供程序的可选参数。 大多数提供程序不需要指定任何可选参数。 如果希望提供程序与 ETW 提供程序组相关联，请添加 TraceLoggingOptionGroup 宏以指定提供程序的组 GUID。 否则，请勿指定任何 __VA_ARGS__ 参数。"
+        }
+      ],
+      "return_value": {
+        "description": "无"
+      },
+      "remarks": "在大多数情况下，你将使用 TRACELOGGING_DEFINE_PROVIDER 而不是此宏。 在某些异常情况下，可能需要使用此宏为 TraceLogging 提供程序分配静态存储，而无需同时声明句柄变量。 代码随后会根据需要声明句柄变量。",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "TRACELOGGING_DEFINE_PROVIDER",
+        "TraceLogging"
+      ],
+      "confidence": 1.0,
+      "_source_line": 842
+    },
+    {
+      "id": "windows::TraceLoggingChannel",
+      "name": "TraceLoggingChannel",
+      "entity_type": "function",
+      "description": "eventChannel) 可用作 TraceLoggingWrite 宏调用的参数。 大多数 TraceLogging 事件不需要更改事件的默认通道，也不应使用 TraceLoggingChannel。 eventChannel 参数必须是编译时常量 0 到 255。 如果未 TraceLoggingChannel(n) 提供参数，则默认通道为 11 (WINEVENT_CHANNEL_TRACELOGGING) ，表示这是正常的 TraceLogging 事件。 如果提供了多个 TraceLoggingChannel(n) 参数，将使用最后一个 TraceLoggingChannel(n) 参数中的值。 通道用于 Windows (ETW) 方案的高级事件跟踪。 其中包括写入系统定义的事件使用者，例如 Windows 事件日志。 ２ 警告 如果提供程序将在早于 Windows 10 的 Windows 上运行，请不要使用 。 若要使事件解码器识别为 TraceLogging 兼容事件，必须将通道设置为默认值 (11) 或者必须在 EventWrite 期间由 ETW 运行时将其标记为 TraceLogging 事件。 通过调用 EventSetInformation 将提供程序配置为 TraceLogging 提供程序来启用此事件标记。 Windows 10 或更高版本中的 EventSetInformation 支持 TraceLogging 事件，而不考虑通道，但早期版本的 Windows 需要更新才能支持标记 TraceLogging 事件。 对于在未更新 EventSetInformation 的系统上捕获的事件，通道 11 是识别 TraceLogging 事件的唯 一方法，因此具有其他通道的事件可能无法正确解码。 TraceLogging 和事件日志 在大多数情况下，开发人员将基于清单的 ETW 用于需要由事件日志记录的事件。 事件日志主要用于收集可能对系统管理员有用的低容量事件。 基于清单的 ETW 非常适合此情况，因为它支持精心策划的事件， (组件的所有事件都在一个清单文件) 中描述，并且它支持可本地化的消息字符串，可帮助管理员了解如何对事件做出反应。 尽管 TraceLogging 事件没有消息字符串，并且通常不是集中策展的，但 TraceLogging 仍适用于某些事件日志方案。 例如，虽然转到 Windows 日志 (应用程序、安全性、安装程序和系统) 的事件应始终具有本地化的消息字符串，并且应始终对系统管理员有用，但应用程序和服务日志中记录的事件可能更具技术性，并且可以记录诊断信息。 写入应用程序和服务日志时，可能需要使用 TraceLogging 来简化记录事件的管理。 将 TraceLogging 事件与 Windows 事件日志配合使用类似于将基于常规清单的事件与事件日志配合使用。 仍需要创建并注册清单来定义提供程序和通道，但不需要在清单中定义各个事件： 编写定义提供程序和事件日志通道的 ETW 清单。 清单中的提供程序应使用与在",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "TraceLogging",
+        "TraceLoggingWrite"
+      ],
+      "confidence": 0.6,
+      "_source_line": 924
+    },
+    {
+      "id": "windows::ProviderSymbol_CHANNEL_ChannelName",
+      "name": "ProviderSymbol_CHANNEL_ChannelName",
+      "entity_type": "function",
+      "description": "即，它将使用元素中的符号<provider> 和或元素) 的名称<channel> <importChannel> 。 ChannelSymbol_KEYWORD的名称是 ChannelSymbol 的名称，_KEYWORD 后跟 。 ChannelSymbol_KEYWORD常量仅由 MC.exe 10.0.22621 或更高版本生成。要转到事件日志的每个",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 957
+    },
+    {
+      "id": "windows::TraceLoggingCustom",
+      "name": "TraceLoggingCustom",
+      "entity_type": "function",
+      "description": "&x.data, sizeof(x.data), p, (schema), cbSchema, \"&x.data\", \"\", 0) 。 [in, optional] name 要用于事件字段的名称。 如果提供，则 name 参数必须是字符串文本 (不是) 变量，并且不 得包含任何“\\0”字符。 如果未提供，事件字段名称将基于 pValue。[in, optional] description 事件字段值的说明。 如果提供说明参数，则说明参数必须是字符串文本，并且将包含在 PDB 中。 [in, optional] tags 编译时常量整数值。 该值的低 28 位将包含在字段的元数据中。 此值的语义由事件使用者定义。 在事件处理期间，可以从 “EVENT_PROPERTY_INFO 标记”字段检索此值。",
+      "return_value": {
+        "description": "无"
+      },
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "EVENT_PROPERTY_INFO"
+      ],
+      "confidence": 0.65,
+      "_source_line": 991
+    },
+    {
+      "id": "windows::EVENT_PROPERTY_INFO",
+      "name": "EVENT_PROPERTY_INFO",
+      "entity_type": "function",
+      "description": "的 customSchemaType 成员，该成员是协议类型和协议元数据所在的 TRACE_EVENT_INFORMATION中的偏移量。 在那里，他们可以找到传入的元数据，格式为 (伪 结构) ： C struct _CUSTOM_SCHEMA { UINT16 protocolType; UINT16 cbSchema; BYTE bSchema[cbSchema];}; 不采取这些额外步骤来识别 PropertyHasCustomSchema 标志，而是引用",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1028
+    },
+    {
+      "id": "windows::sizeof",
+      "name": "sizeof",
+      "entity_type": "function",
+      "description": "rgValue),",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.25,
+      "_source_line": 1039
+    },
+    {
+      "id": "windows::TRACELOGGING_PROTOCOL_MYPROTOCOL",
+      "name": "TRACELOGGING_PROTOCOL_MYPROTOCOL",
+      "entity_type": "function",
+      "description": ", ( 0x0, 0x1, 0x2 ), // Generated at compile-time 3, \"MyCustomField\"),",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1040
+    },
+    {
+      "id": "windows::TraceLoggingDescription",
+      "name": "TraceLoggingDescription",
+      "entity_type": "function",
+      "description": "\"event description\") 可用作 TraceLoggingWrite 宏调用的参数。如果提供了多个说明参数，则它们会一起连接成一个字符串。 事件说明存储在 PDB 中。 它们在运行时不可用。",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows Vista [桌面应用 | UWP 应用]"
+      },
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server",
+        "TraceLogging",
+        "TraceLoggingWrite"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1096
+    },
+    {
+      "id": "windows::TraceLoggingEventTag",
+      "name": "TraceLoggingEventTag",
+      "entity_type": "function",
+      "description": "或 TraceLoggingChannel 等参数设置。可以使用 TraceLoggingStruct 对事件字段进行分组。 事件字段由字段参数添加，如 TraceLoggingValue、TraceLoggingInt32、 TraceLoggingHResult、TraceLoggingString 等。有关详细信息 ，请参阅",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "TraceLoggingChannel",
+        "TraceLoggingInt32",
+        "TraceLoggingString",
+        "TraceLoggingStruct",
+        "TraceLoggingValue"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1115
+    },
+    {
+      "id": "windows::LOG_ALWAYS",
+      "name": "LOG_ALWAYS",
+      "entity_type": "function",
+      "description": "(0) 关键 (1) 错误 (2) 警告 (3) INFO (4) 详细 (5) 语义 事件绕过基于级别的事件筛选。 事件不应使用此级别。严重错误 错误警告信息详细 事件集合会话可以设置级别筛选器，这意味着会话将仅接受其中 eventDescriptor.Level <= session.LevelFilter 的事件。 请注意，级别为 0 的事件将绕过基于级别的筛选。 示例 C",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1197
+    },
+    {
+      "id": "windows::TraceLoggingOpcode",
+      "name": "TraceLoggingOpcode",
+      "entity_type": "function",
+      "description": "eventOpcode) 可用作 TraceLoggingWrite 宏调用的参数，以设置事件的操作码。 如果未向 TraceLoggingWrite 调用提供 TraceLoggingOpcode 宏，则事件的默认操作码为 0(WINEVENT_OPCODE_INFO) 。 如果提供了多个 TraceLoggingOpcode 宏，则使用最后一个值。 操作码WINEVENT_OPCODE_START (1) 和 WINEVENT_OPCODE_STOP (2) 用于指示 ETW 活动的开始和结束，如下所示： 1. 生成跟踪中唯一的活动 ID，通常使用 EventActivityIdControl 或 UuidCreate。 2. 编写操作码 = START、活动 ID = 生成的活动 ID 和相关活动 ID = 父活动 ID (的开始事件;如果没有父活动 ID) ，则为 NULL。 3. 使用 opcode = INFO、活动 ID = 生成的活动 ID 编写任意数量的活动信息事件。 4. 使用 opcode = STOP，活动 ID = 生成的活动 ID 编写停止事件。然后，跟踪解码工具将能够根据事件的活动 ID 将这些事件组织到组中。",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "TraceLoggingWrite",
+        "UuidCreate",
+        "WINEVENT_OPCODE_STOP"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1227
+    },
+    {
+      "id": "windows::TraceLoggingOptionGroup",
+      "name": "TraceLoggingOptionGroup",
+      "entity_type": "function",
+      "description": "宏 traceLogging 宏，用于 TRACELOGGING_DEFINE_PROVIDER 指定提供程序组。 大多数 TraceLogging 提供程序不与提供程序组关联，也不需要使用 TraceLoggingOptionGroup。",
+      "syntax": "void TraceLoggingOptionGroup(\n[in]  g1,   [in]  g2,   [in]  g3,   [in]  g4,   [in]  g5,   [in]  g6,   [in]  g7,   [in]  g8,   [in]  g9,   [in]  g10,   [in]  g11);",
+      "parameters": [
+        {
+          "name": "g1",
+          "direction": "in",
+          "description": "GUID 的前 4 个字节。[in] g2 GUID 的下两个字节。[in] g3 GUID 的下两个字节。[in] g4 GUID 的下一个字节。"
+        },
+        {
+          "name": "g5",
+          "direction": "in",
+          "description": "GUID 的下一个字节。[in] g6 GUID 的下一个字节。[in] g7 GUID 的下一个字节。[in] g8 GUID 的下一个字节。[in] g9 GUID 的下一个字节。[in] g10 GUID 的下一个字节。[in] g11 GUID 的下一个字节。"
+        }
+      ],
+      "return_value": {
+        "description": "无"
+      },
+      "remarks": "如果希望提供程序与 ETW 提供程序组相关联，请将 TraceLoggingOptionGroup 宏添加到 TRACELOGGING_DEFINE_PROVIDER 声明中，以指定提供程序的组 GUID。 提供程序可以是不超过一个组的成员。 组成员身份的语义由 ETW 控制器确定，这些控制器通过 EnableTraceEx2 和 EVENT_ENABLE_PROPERTY_PROVIDER_GROUP 订阅会话。 示例 C",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "EVENT_ENABLE_PROPERTY_PROVIDER_GROUP",
+        "EnableTraceEx2",
+        "TRACELOGGING_DEFINE_PROVIDER",
+        "TraceLogging"
+      ],
+      "confidence": 0.85,
+      "_source_line": 1261
+    },
+    {
+      "id": "windows::TraceLoggingRegisterEx",
+      "name": "TraceLoggingRegisterEx",
+      "entity_type": "function",
+      "description": "执行以下操作： 调用 EventRegister 以打开与 ETW 的连接。 如果 EventRegister 成功，请使用 InformationClassEventProviderSetTraits 调用 TraceLoggingSetInformation 来配置 TraceLogging 支持的提供程序。 对 TraceLoggingRegister 的调用与对",
+      "remarks": "有关注册提供程序的详细信息 ，请参阅 TraceLoggingRegister 。 有关回调行为的详细信息，请参阅 ETW 启用 回调。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "traceloggingprovider.h",
+        "library": "Advapi32.lib",
+        "min_client": "Windows Vista [桌面应用 | UWP 应用]",
+        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
+      },
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "TraceLogging",
+        "TraceLoggingRegister"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1309
+    },
+    {
+      "id": "windows::TLG_STATUS",
+      "name": "TLG_STATUS",
+      "entity_type": "function",
+      "description": "TraceLoggingRegisterEx( [in, out] TraceLoggingHProvider hProvider, [in, optional] TLG_PENABLECALLBACK pEnableCallback, [in, optional] PVOID pCallbackContext);",
+      "parameters": [
+        {
+          "name": "hProvider",
+          "direction": "in, out",
+          "description": "要注册的 TraceLogging 提供程序的句柄。 句柄必须尚未注册。[in, optional] pEnableCallback ETW 启用回调 ，在跟踪会话启用或禁用提供程序时将调用该回调。[in, optional] pCallbackContext 要传递给回调的提供程序定义的可选上下文指针。"
+        }
+      ],
+      "return_value": {
+        "description": "如果从用户模式代码调用此函数，该函数将 HRESULT 返回 。 SUCCEEDED() 使用 宏确定函数是否成功。 如果从内核模式代码调用此函数，该函数将 NTSTATUS 返回 。 NT_SUCCESS() 使用 宏确定函数是 否成功。７"
+      },
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "TraceLoggingHProvider",
+        "TraceLoggingRegisterEx"
+      ],
+      "confidence": 0.9,
+      "_source_line": 1313
+    },
+    {
+      "id": "windows::TraceLoggingSocketAddress",
+      "name": "TraceLoggingSocketAddress",
+      "entity_type": "function",
+      "description": "&x.sockAddr, sizeof(x.sockAddr), \"&x.sockAddr\", \"\", 0) 。 [in, optional] name 要用于事件字段的名称。 如果提供，则 name 参数必须是字符串文本 (不是) 变量，并且不 得包含任何“\\0”字符。 如果未提供，事件字段名称将基于 pValue。[in, optional] description 事件字段值的说明。 如果提供说明参数，则说明参数必须是字符串文本，并且将包含在 PDB 中。 [in, optional] tags 编译时常量整数值。 该值的低 28 位将包含在字段的元数据中。 此值的语义由事件使用者定义。 在事件处理期间，可以从 “EVENT_PROPERTY_INFO 标记”字段检索此值。",
+      "return_value": {
+        "description": "无"
+      },
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "EVENT_PROPERTY_INFO"
+      ],
+      "confidence": 0.65,
+      "_source_line": 1351
+    },
+    {
+      "id": "windows::SOCKADDR_IN6",
+      "name": "SOCKADDR_IN6",
+      "entity_type": "function",
+      "description": "、 SOCKADDR_STORAGE等。事件将记录原始二进制数据和数据大小。 事件解 码器将使用 sa_family 字段来确定套接字地址的实际类型。７ 备注 并非所有解码器都支持所有 sockaddr 系列类型。 如果遇到不受支持的 sockaddr，解码器 可能会将字段解码为原始二进制数据，而不是将其格式化为地址。",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows Vista [桌面应用 | UWP 应用]",
+        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
+      },
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "TraceLogging",
+        "TraceLoggingWrite"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1378
+    },
+    {
+      "id": "windows::TraceLoggingStruct",
+      "name": "TraceLoggingStruct",
+      "entity_type": "function",
+      "description": "可以使用 2、3 或 4 个参数指定。 如果未指定参数，将使用默认值。 例如， TraceLoggingStruct(3, \"MyStruct\") 等效于 TraceLoggingStruct(3, \"MyStruct\", \"\", 0) 。 [in, optional] description 事件字段值的说明。 如果提供说明参数，则说明参数必须是字符串文本，并且将包含在 PDB 中。 [in, optional] tags 编译时常量整数值。 该值的低 28 位将包含在字段的元数据中。 此值的语义由事件使用者定义。 在事件处理期间，可以从 “EVENT_PROPERTY_INFO 标记”字段检索此值。",
+      "return_value": {
+        "description": "无"
+      },
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "EVENT_PROPERTY_INFO"
+      ],
+      "confidence": 0.65,
+      "_source_line": 1397
+    },
+    {
+      "id": "windows::TraceLoggingInt32",
+      "name": "TraceLoggingInt32",
+      "entity_type": "function",
+      "description": "num3, \"StructField2NestedField1\"), TraceLoggingInt32(num4, \"StructField2NestedField2\"),",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1430
+    },
+    {
+      "id": "windows::TraceLoggingValue",
+      "name": "TraceLoggingValue",
+      "entity_type": "function",
+      "description": "value, ...) 等效于标准 TraceLogging 包装宏之一，如下所示： 值类型 bool char char16_t wchar_t intNN_t uintNN_t float double GUID FILETIME SYSTEMTIME SID* void* char* char16_t* wchar_t* 等效于",
+      "syntax": "void TraceLoggingValue(   [in]            value,\n[in, optional]  __VA_ARGS__);",
+      "parameters": [
+        {
+          "name": "value",
+          "direction": "in",
+          "description": "事件字段值。"
+        },
+        {
+          "name": "__VA_ARGS__",
+          "direction": "in, optional",
+          "description": "字段定义的可选 名称、 说明和 标记 参数。 可以使用 1、2、3 或 4 个参数指定 TraceLoggingValue。 如果未指定参数，将使用默认值。 例如，TraceLoggingValue(a+b) 等效于 TraceLoggingValue(a+b, \"a+b\", \"\", 0) 。"
+        },
+        {
+          "name": "name",
+          "direction": "in, optional",
+          "description": "要用于事件字段的名称。 如果提供名称参数，则名称参数必须是字符串文本 (而不是) 变 量，并且不得包含任何“\\0”字符。 如果未提供，事件字段名称将基于 值。[in, optional] description 事件字段值的说明。 如果提供说明参数，则说明参数必须是字符串文本，并且将包含在 PDB 中。"
+        },
+        {
+          "name": "tags",
+          "direction": "in, optional",
+          "description": "编译时常量整数值。 该值的低 28 位将包含在字段的元数据中。 此值的语义由事件使用者定义。 在事件处理期间，可以从 “EVENT_PROPERTY_INFO 标记”字段检索此值。"
+        }
+      ],
+      "return_value": {
+        "description": "无"
+      },
+      "remarks": "在 C++ 代码中， TraceLoggingValue(value, ...) 可用作 TraceLoggingWrite 宏调用的参数。每个 TraceLoggingValue 参数都会向事件添加一个字段。 ETW 事件中的字段类型会自动从 值 表达式的类型推导。 根据 值的类型，",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "TraceLogging",
+        "TraceLoggingWrite"
+      ],
+      "confidence": 0.85,
+      "_source_line": 1447
+    },
+    {
+      "id": "windows::TraceLoggingBoolean",
+      "name": "TraceLoggingBoolean",
+      "entity_type": "function",
+      "description": "TraceLoggingChar TraceLoggingChar16 TraceLoggingWChar TraceLoggingIntNN TraceLoggingUIntNN TraceLoggingFloat32 TraceLoggingFloat64 TraceLoggingGuid TraceLoggingFileTime",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1477
+    },
+    {
+      "id": "windows::TraceLoggingSystemTime",
+      "name": "TraceLoggingSystemTime",
+      "entity_type": "function",
+      "description": "TraceLoggingSid",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 1478
+    },
+    {
+      "id": "windows::TraceLoggingPointer",
+      "name": "TraceLoggingPointer",
+      "entity_type": "function",
+      "description": "TraceLoggingString TraceLoggingString16 TraceLoggingWideString",
+      "remarks": "仅适用于 char，而不适用于已签名 char 或 unsigned char。 仅适用于本机wchar_t，不适用于 USHORT。对于带符号字符，short、int、long 和 long。 对于无符号 char，short、int、long 和 long long。 必须为非 NULL，并且必须指向有效的 SID 。记录指针值，而不是引用的数据。 零终止CP_ACP字符串。 NULL 被视为 \"\" 。 以零结尾的 UTF-16 字符串。 NULL 被视为 u\"\" 。以零结尾的 UTF-16 字符串。 NULL 被视为 L\"\" 。 要求",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server",
+        "TraceLogging",
+        "TraceLoggingString",
+        "TraceLoggingWrite",
+        "Vista"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1479
+    },
+    {
+      "id": "windows::EVENT_DATA_DESCRIPTOR",
+      "name": "EVENT_DATA_DESCRIPTOR",
+      "entity_type": "function",
+      "description": "data[N] = { GetDataFromArgs(args...) };",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1543
+    },
+    {
+      "id": "windows::EventWriteTransfer",
+      "name": "EventWriteTransfer",
+      "entity_type": "function",
+      "description": "etwHandle, metadata.desc, aid, rid, N, data);} ７ 备注 每个 TraceLoggingWriteActivity 宏都会自动检查 TraceLoggingProviderEnabled ，以便仅当使用者正在侦听来自提供程序的事件时，才会写入事件。 因此，通常不需要直接调用 TraceLoggingProviderEnabled。 仅当 启用了 事件时，才会计算 中 args... 的任何运行时表达式。 运行时表达式的计算不会多次。 如果生成复杂事件，可能会收到编译器错误，指示行太长或编译器已超过堆空间。 当",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "TraceLoggingProviderEnabled",
+        "TraceLoggingWriteActivity"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1544
+    },
+    {
+      "id": "windows::TraceLoggingWriteActivity",
+      "name": "TraceLoggingWriteActivity",
+      "entity_type": "function",
+      "description": "宏使用EVENT_DATA_DESCRIPTOR数组将数据传输到 ETW。 ETW 接受的描述符的最大数目为 128。 由于每个参数可能需要使用 0、1 或 2 个描述符，因此在达到参数限制 (99) 之前，可能会达到数据描述符限制 (128) 。 ） 重要 尽量避免大型事件。 ETW 主要用于处理小型事件。 TraceLoggingWriteActivity 将以无提示方式删除任何太大的事件。 事件的大小基于 ETW 运行时) (添加的事件标头总数，元数据(即提供程序名称、事件名称、字段名称、字段类型) 以及数据 (字段值) 。 如果事件的总大小大于 65535，或者使用者会话使用的缓冲区大小小于事件的大小，则不会记录事件。 调用 TraceLoggingWrite 与调用 TraceLoggingWriteActivity 相同，pActivityId 和 pRelatedActivityId 参数为 NULL。 如果需要为事件指定活动 ID，请使用 TraceLoggingWriteActivity 。 有关 ActivityId 和 RelatedActivityId 参数的语义的信息，请参阅 EventWriteTransfer。有关在 ETW 中编写活动的信息 ，请参阅 EventActivityIdControl 。 请参阅用于帮助管理",
+      "syntax": "void TraceLoggingWriteActivity(\n[in]            hProvider,   [in]            eventName,   [in, optional]  pActivityId,\n[in, optional]  pRelatedActivityId,\n[in, optional]  __VA_ARGS__);",
+      "parameters": [
+        {
+          "name": "hProvider",
+          "direction": "in",
+          "description": "用于编写事件的 TraceLogging 提供程序 的句柄。[in] eventName 用于标识事件的短唯一名称。 这必须是字符串文本，而不是变量。 它不能有任何嵌入 '\\0' 字符。"
+        },
+        {
+          "name": "pActivityId",
+          "direction": "in, optional",
+          "description": "事件的活动 ID，或使用默认值的 NULL。[in, optional] pRelatedActivityId 事件的相关活动 ID;对于没有相关活动 ID，则为 NULL。[in, optional] __VA_ARGS__ 最多 99 个用于配置或向事件添加字段的其他参数。 每个参数必须是 TraceLogging Wrapper 宏 之一，例如 TraceLoggingLevel、 TraceLoggingKeyword 或 TraceLoggingValue。） 重要 ProviderId、Level 和 Keyword 是筛选事件的主要方式。 可以进行其他类型的筛选，但开销要高得多。 始终为每个事件分配非零级别和关键字 (keyword) 。"
+        }
+      ],
+      "return_value": {
+        "description": "无"
+      },
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "EventWriteTransfer",
+        "TraceLoggingWrite"
+      ],
+      "confidence": 0.85,
+      "_source_line": 1554
+    },
+    {
+      "id": "windows::TraceLoggingProviderEnabled",
+      "name": "TraceLoggingProviderEnabled",
+      "entity_type": "function",
+      "description": "一样。 如果没有使用者侦听事件， TraceLoggingWriteActivity 不执行任何工作。 否则， TraceLoggingWriteActivity 将计算参数中指定的运行时表达式，保存结果，将必要的数据打包到事件中，并调用 EventWriteTransfer 将事件发送到 ETW。 生成的事件将按如下方式构造： 事件的提供程序 ID、提供程序名称和提供程序组将来自 hProvider 参数。事件的名称将来自 eventName 参数。 事件的活动 ID 将来自 pActivityId 参数。 如果 pActivityId 为 NULL，则用户模式事件将使用线程的隐式活动 ID，内核模式事件将使用GUID_NULL。 事件的相关活动 ID 将来自 pRelatedActivityId 参数。 如果 pRelatedActivityId 为 NULL，则事件将没有相关的活动 ID。 事件的级别将来自",
+      "header": "traceloggingprovider.h",
+      "deprecated": false,
+      "cross_references": [
+        "EventWriteTransfer",
+        "TraceLoggingWriteActivity"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1612
+    }
+  ]
+}

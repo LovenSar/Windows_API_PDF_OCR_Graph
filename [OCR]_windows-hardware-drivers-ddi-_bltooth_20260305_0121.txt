@@ -1,0 +1,6487 @@
+2026-03-05 01:21:06
+
+≦ 1 ≧
+Bluetooth 项目2023/08/07
+蓝牙技术概述。
+若要开发蓝牙，需要以下标头：
+bthddi.h bthioctl.h bthsdpddi.h bthxddi.h sdplib.h sdpnode.h
+有关编程指南，请参阅 蓝牙。
+回调函数标题
+PBYTESWAPUINT128 PBYTESWAPUINT64 PBYTESWAPUUID128
+PCONVERTSTREAMTOTREE PCONVERTTREETOSTREAM
+PFNBTHPORT_INDICATION_CALLBACK
+PFNBTHPORT_INDICATION_CALLBACK_ENHANCED
+说明
+告知我们有关下载 PDF 体验的信息。
+蓝牙 SdpByteSwapUint128 函数用于反转无符号 128 位整数的字节顺序。
+蓝牙 SdpByteSwapUint64 函数用于反转无符号 64 位整数的字节顺序。
+蓝牙 SdpByteSwapUuid128 函数用于反转 128 位通用唯一标识符的字节顺序 (UUID) 。
+蓝牙 SdpConvertStreamToTree 函数用于创建 Microsoft 专有的基于树的 SDP 记录表示形式，同时使原始基于流的表示形式未修改。
+蓝牙 SdpConvertTreeToStream 函数用于从树表示形式生成 SDP 记录的原始字节流表示形式。 原始字节流版本适用于在本地 SDP 服务器上发布。
+配置文件驱动程序实现 L2CAP 回调函数，为蓝牙驱动程序堆栈提供一种机制，用于通知配置文件驱动程序有关来自远程设备的传入 L2CAP 连接请求以及当前打开的 L2CAP 连接状态的任何更改。
+配置文件驱动程序实现增强的 L2CAP 回调函数，为蓝牙驱动程序堆栈提供一种机制，以
+
+≦ 2 ≧
+标题
+PFNBTH_ALLOCATE_BRB PFNBTH_FREE_BRB
+PFNBTH_INITIALIZE_BRB
+PFNBTH_IS_BLUETOOTH_VERSION_AVAILABLE PFNBTH_REUSE_BRB
+PFNSCO_INDICATION_CALLBACK
+PGETNEXTELEMENT PRETRIEVEUINT64 PRETRIEVEUUID128
+PVALIDATESTREAM
+IOCTL  
+IOCTL_BTH_DISCONNECT_DEVICE
+说明
+通知配置文件驱动程序当前打开的 L2CAP 或 eL2CAP 连接状态的任何更改。
+BthAllocateBrb 函数 (指定类型的 BRB) 分配蓝牙请求块。
+BthFreeBrb 函数释放之前使用
+BthAllocateBrb 分配的蓝牙请求块 (BRB) 。 BthInitializeBrb 函数 (本地堆栈上分配的 BRB) 初始化蓝牙请求块。
+IsBluetoothVersionAvailable 函数检查操作系统是否支持给定的蓝牙版本。
+BthReuseBrb 函数重新初始化蓝牙请求块，(要重复使用的 BRB) 。
+配置文件驱动程序实现 SCO 回调功能，为蓝牙驱动程序堆栈提供一种机制，用于通知配置文件驱动程序有关来自远程设备的传入 SCO 连接请求，以及对当前打开的 SCO 连接状态的任何更改。
+蓝牙 SdpGetNextElement 函数用于循环访问在 SDP 记录流中找到的条目。
+蓝牙 SdpRetrieveUint64 函数用于从 SDP 流复制未对齐的 64 位整数。
+蓝牙 SdpRetrieveUuid128 函数用于从 SDP 流复制未对齐的 128 位通用唯一标识符(UUID) 。
+蓝牙 SdpValidateStream 函数用于分析原始 SDP 记录并确定它是否包含错误。
+配置文件驱动程序使用 IOCTL_BTH_DISCONNECT_DEVICE 请求操作系统断开指定的远程设备的连接。
+IOCTL_BTH_GET_DEVICE_INFO
+
+≦ 3 ≧
+ 
+IOCTL_BTH_GET_DEVICE_INFO请求返回有关所有缓存的、以前发现的已启用蓝牙的远程无线电的信息。
+IOCTL_BTH_GET_LOCAL_INFO
+IOCTL_BTH_GET_LOCAL_INFO请求返回有关本地蓝牙系统和无线电的信息。 IOCTL_BTH_GET_RADIO_INFO
+IOCTL_BTH_GET_RADIO_INFO请求获取有关指定远程无线电的信息。 IOCTL_BTH_HCI_VENDOR_COMMAND
+IOCTL_BTH_HCI_VENDOR_COMMAND请求允许蓝牙应用程序将特定于供应商的命令发送到无线电。
+IOCTL_BTH_SDP_ATTRIBUTE_SEARCH
+IOCTL_BTH_SDP_ATTRIBUTE_SEARCH请求获取指定 SDP 记录的属性。 IOCTL_BTH_SDP_CONNECT
+IOCTL_BTH_SDP_CONNECT请求创建与远程蓝牙设备上的 SDP 服务的连接。 IOCTL_BTH_SDP_DISCONNECT
+IOCTL_BTH_SDP_DISCONNECT请求关闭与远程 SDP 服务器的连接。 IOCTL_BTH_SDP_REMOVE_RECORD
+IOCTL_BTH_SDP_REMOVE_RECORD请求会删除配置文件驱动程序之前提交的本地 SDP 记录。 本地服务器将不再向远程设备提供此记录。
+IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SEARCH
+IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SEARCH请求将 SDP 服务和属性搜索合并到单个操作中。 这
+允许调用方直接从远程设备获取 SDP 记录。 IOCTL_BTH_SDP_SERVICE_SEARCH
+IOCTL_BTH_SDP_SERVICE_SEARCH请求联系具有 SDP 请求的远程设备，以获取特定服务类的 SDP 记录的句柄。
+IOCTL_BTH_SDP_SUBMIT_RECORD
+IOCTL_BTH_SDP_SUBMIT_RECORD请求允许配置文件驱动程序将 SDP 记录添加到本地 SDP 服务
+器，从而允许客户端播发本地计算机上可用的服务。 IOCTL_BTH_SDP_SUBMIT_RECORD_WITH_INFO
+
+≦ 4 ≧
+ 
+IOCTL_BTH_SDP_SUBMIT_RECORD_WITH_INFO请求将 SDP 记录以及不属于 SDP 记录本身的属性添加到本地 SDP 服务器。
+IOCTL_BTHX_GET_VERSION
+配置文件驱动程序使用 IOCTL_BTHX_GET_VERSION 获取传输驱动程序支持的版本。 IOCTL_BTHX_QUERY_CAPABILITIES
+IOCTL_BTHX_QUERY_CAPABILITIES用于查询传输驱动程序的功能。 IOCTL_BTHX_READ_HCI
+IOCTL_BTHX_READ_HCI用于从传输层读取蓝牙 ACL 数据和事件。 IOCTL_BTHX_SET_VERSION
+IOCTL_BTHX_SET_VERSION用于通知传输驱动程序正在使用的扩展性接口的版本。 IOCTL_BTHX_WRITE_HCI
+IOCTL_BTHX_WRITE_HCI用于将蓝牙 ACL 数据和命令写入传输层。 IOCTL_INTERNAL_BTH_SUBMIT_BRB
+配置文件驱动程序使用 IOCTL_INTERNAL_BTH_SUBMIT_BRB 将蓝牙请求块 (BRB) 提交到蓝牙驱动程序堆栈。
+IOCTL_INTERNAL_BTHENUM_GET_DEVINFO
+IOCTL_INTERNAL_BTHENUM_GET_DEVINFO请求返回有关导致即插即用 (PnP) 管理器加载配置文件驱动程序的当前实例的远程设备的信息。
+IOCTL_INTERNAL_BTHENUM_GET_ENUMINFO
+IOCTL_INTERNAL_BTHENUM_GET_ENUMINFO请求获取导致即插即用 (PnP) 管理器加载配置文件驱动程序的基础设备和服务的信息。
+枚举  
+ACL_MODE
+ACL_MODE枚举类型用于列出 ACL 连接的可能状态。 BRB_TYPE
+
+≦ 5 ≧
+ 
+BRB_TYPE枚举类型用于确定配置文件驱动程序生成并发送 BRB 时的蓝牙请求块。 BRB_VERSION
+保留以供内部使用。
+BTHX_HCI_PACKET_TYPE
+BTHX_HCI_PACKET_TYPE枚举列出了从蓝牙堆栈发送到传输驱动程序的不同类型的数据包。 BTHX_SCO_SUPPORT
+BTHX_SCO_SUPPORT 枚举列出了传输驱动程序支持的不同类型的 SCO。 CODING_FORMAT
+此枚举仅供内部使用。 ENUMERATOR_ACTION
+Microsoft 保留ENUMERATOR_ACTION枚举仅供内部使用。 请勿在代码中使用此枚举。 ENUMERATOR_TYPE
+ENUMERATOR_TYPE枚举类型用于确定枚举设备是与服务关联还是与协议相关联。
+ENUMERATOR_TYPE枚举仅供内部使用，不应由配置文件驱动程序使用。 INDICATION_CODE
+INDICATION_CODE枚举类型向配置文件驱动程序指示发生了哪种类型的 L2CAP 事件。 L2CAP_DISCONNECT_REASON
+L2CAP_DISCONNECT_REASON 枚举类型提供了 L2CAP 通道断开连接的原因。 PCM_DATA_FORMAT
+Microsoft 保留PCM_DATA_FORMAT枚举仅供内部使用。 请勿在代码中使用此枚举。 SCO_DISCONNECT_REASON
+SCO_DISCONNECT_REASON 枚举类型提供了 SCO 通道断开连接的原因。 SCO_INDICATION_CODE
+SCO_INDICATION_CODE枚举类型描述传入 SCO 连接或绑定状态更改的类型。 蓝牙驱动程序堆栈
+在配置文件驱动程序的 SCO 回调函数的 Indication 参数中传递此枚举的值。 SCO_LINK_TYPE
+
+≦ 6 ≧
+ 
+SCO_LINK_TYPE 枚举类型描述处理 ScoIndicationRemoteConnect 指示事件时 SCO 连接使用的链接类型。
+SCO_RETRANSMISSION_EFFORT
+SCO_RETRANSMISSION_EFFORT 枚举类型用于确定 SCO 通道的重新传输策略。
+函数  
+PBYTESWAPUINT128
+蓝牙 SdpByteSwapUint128 函数用于反转无符号 128 位整数的字节顺序。 PBYTESWAPUINT64
+蓝牙 SdpByteSwapUint64 函数用于反转无符号 64 位整数的字节顺序。 PBYTESWAPUUID128
+蓝牙 SdpByteSwapUuid128 函数用于反转 128 位通用唯一标识符的字节顺序 (UUID) 。 PCONVERTSTREAMTOTREE
+Bluetooth SdpConvertStreamToTree 函数用于创建 Microsoft 专有的基于树的 SDP 记录表示形式，
+同时不修改原始的基于流的表示形式。 PCONVERTTREETOSTREAM
+Bluetooth SdpConvertTreeToStream 函数用于从树表示形式生成 SDP 记录的原始字节流表示形
+式。 原始字节流版本适用于在本地 SDP 服务器上发布。 PFNBTH_ALLOCATE_BRB
+BthAllocateBrb 函数 (指定类型的 BRB) 分配蓝牙请求块。 PFNBTH_FREE_BRB
+BthFreeBrb 函数释放之前使用 BthAllocateBrb 分配的蓝牙请求块 (BRB) 。 PFNBTH_INITIALIZE_BRB
+BthInitializeBrb 函数 (本地堆栈上分配的 BRB) 初始化蓝牙请求块。 PFNBTH_IS_BLUETOOTH_VERSION_AVAILABLE
+
+≦ 7 ≧
+ 
+IsBluetoothVersionAvailable 函数检查操作系统是否支持给定的蓝牙版本。 PFNBTH_REUSE_BRB
+BthReuseBrb 函数重新初始化蓝牙请求块， (BRB) 重复使用。 PFNBTHPORT_INDICATION_CALLBACK
+配置文件驱动程序实现 L2CAP 回调函数，以便为蓝牙驱动程序堆栈提供一种机制，以通知配置文件驱动程序有关来自远程设备的传入 L2CAP 连接请求，以及当前打开的 L2CAP 连接状态的任何更改。
+PFNBTHPORT_INDICATION_CALLBACK_ENHANCED
+配置文件驱动程序实现增强的 L2CAP 回调函数，以便为蓝牙驱动程序堆栈提供一种机制，用于通
+知配置文件驱动程序当前打开的 L2CAP 或 eL2CAP 连接状态的任何更改。 PFNSCO_INDICATION_CALLBACK
+配置文件驱动程序实现 SCO 回调函数，以便为蓝牙驱动程序堆栈提供一种机制，以通知配置文件驱动程序有关来自远程设备的传入 SCO 连接请求，以及当前打开的 SCO 连接状态的任何更改。
+PGETNEXTELEMENT
+蓝牙 SdpGetNextElement 函数用于循环访问在 SDP 记录流中找到的条目。 PRETRIEVEUINT64
+蓝牙 SdpRetrieveUint64 函数用于从 SDP 流复制未对齐的 64 位整数。 PRETRIEVEUUID128
+蓝牙 SdpRetrieveUuid128 函数用于从 SDP 流复制未对齐的 128 位通用唯一标识符 (UUID) 。 PVALIDATESTREAM
+蓝牙 SdpValidateStream 函数用于分析原始 SDP 记录并确定它是否包含错误。 SdpAddAttributeToTree
+蓝牙 SdpAddAttributeToTree 函数用于将 SDP 属性节点附加到 SDP 记录的顶层。 SdpAppendNodeToContainerNode
+蓝牙 SdpAppendNodeToContainerNode 函数用于将 SDP 节点附加到序列或备用 SDP 节点。 SdpCreateNodeAlternative
+Bluetooth SdpCreateNodeAlternative 函数用于创建空的备用序列 SDP 节点。
+
+≦ 8 ≧
+ 
+SdpCreateNodeBoolean
+Bluetooth SdpCreateNodeBoolean 函数用于将SDP_NODE结构分配给布尔类型并对其进行初始化。
+SdpCreateNodeInt128
+Bluetooth SdpCreateNodeInt128 函数用于将SDP_NODE结构分配和初始化为 128 位整数类型。 SdpCreateNodeInt16
+Bluetooth SdpCreateNodeInt16 函数用于将SDP_NODE结构分配和初始化为 16 位整数类型。 SdpCreateNodeInt32
+Bluetooth SdpCreateNodeInt32 函数用于将SDP_NODE结构分配和初始化为 32 位整数类型。 SdpCreateNodeInt64
+Bluetooth SdpCreateNodeInt64 函数用于将SDP_NODE结构分配和初始化为 64 位整数类型。 SdpCreateNodeInt8
+蓝牙 SdpCreateNodeInt8 函数用于将SDP_NODE结构分配和初始化为 8 位整数类型。 SdpCreateNodeNil
+Bluetooth SdpCreateNodeNil 函数用于将SDP_NODE结构分配给空节点类型并对其进行初始化。 SdpCreateNodeSequence
+Bluetooth SdpCreateNodeSequence 函数用于创建空序列 SDP 节点。 SdpCreateNodeString
+Bluetooth SdpCreateNodeString 函数用于将SDP_NODE结构分配给字符串类型并对其进行初始化。
+SdpCreateNodeTree
+Bluetooth SdpCreateNodeTree 函数用于分配空根SDP_TREE_ROOT_NODE结构。 SdpCreateNodeUInt128
+蓝牙 SdpCreateNodeUInt128 函数用于将SDP_NODE结构分配给无符号 128 位整数类型并对其进行初始化。
+SdpCreateNodeUInt16
+
+≦ 9 ≧
+ 
+Bluetooth SdpCreateNodeUInt16 函数用于将SDP_NODE结构分配给无符号 16 位整数类型并对其进行初始化。
+SdpCreateNodeUInt32
+Bluetooth SdpCreateNodeUInt32 函数用于将SDP_NODE结构分配给无符号 32 位整数类型并对其进行初始化。
+SdpCreateNodeUInt64
+Bluetooth SdpCreateNodeUInt64 函数用于将SDP_NODE结构分配给无符号 64 位整数类型并对其进行初始化。
+SdpCreateNodeUInt8
+Bluetooth SdpCreateNodeUInt8 函数用于将SDP_NODE结构分配给无符号 8 位整数类型并对其进行初始化。
+SdpCreateNodeUrl
+Bluetooth SdpCreateNodeUrl 函数用于向 URL 类型分配和初始化SDP_NODE结构。 SdpCreateNodeUUID128
+Bluetooth SdpCreateNodeUUID128 函数用于将SDP_NODE结构分配给 128 位 UUID 类型并对其进行初始化。
+SdpCreateNodeUUID16
+蓝牙 SdpCreateNodeUUID16 函数用于将SDP_NODE结构分配给 16 位 UUID 类型并对其进行初始化。
+SdpCreateNodeUUID32
+蓝牙 SdpCreateNodeUUID32 函数用于为 32 位 UUID 类型分配和初始化SDP_NODE结构。 SdpFindAttributeInTree
+蓝牙 SdpFindAttributeInTree 函数用于在 SDP 记录的基于树的表示形式中查找指定的属性节点。 SdpFreeTree
+蓝牙 SdpFreeTree 函数用于释放为 SDP 记录的基于树的表示形式分配的内存。结构
+
+≦ 10 ≧
+ 
+INDICATION_PARAMETERS
+INDICATION_PARAMETERS 结构作为 Parameters 参数传递给配置文件驱动程序的 L2CAP 回调函数。
+INDICATION_PARAMETERS_ENHANCED
+INDICATION_PARAMETERS_ENHANCED 结构作为 Parameters 参数传递给配置文件驱动程序的增强型 L2CAP 回调函数。
+_BRB_ACL_ENTER_ACTIVE_MODE
+_BRB_ACL_ENTER_ACTIVE_MODE结构指定要置于活动模式的远程设备。_BRB_ACL_GET_MODE
+_BRB_ACL_GET_MODE结构描述指定远程设备的 ACL 模式。_BRB_GET_DEVICE_INTERFACE_STRING
+_BRB_GET_DEVICE_INTERFACE_STRING 结构描述当前设备对象的设备接口字符串。_BRB_GET_LOCAL_BD_ADDR
+_BRB_GET_LOCAL_BD_ADDR结构描述本地无线电的地址。_BRB_L2CA_ACL_TRANSFER
+_BRB_L2CA_ACL_TRANSFER 结构描述从 L2CAP 通道读取异步数据或向 L2CAP 通道写入异步数据的缓冲区。
+_BRB_L2CA_CLOSE_CHANNEL
+_BRB_L2CA_CLOSE_CHANNEL结构描述要关闭的打开的 L2CAP 通道。_BRB_L2CA_OPEN_CHANNEL
+_BRB_L2CA_OPEN_CHANNEL结构描述了要向远程设备打开的 L2CAP 通道，或者配置文件驱动程序
+接受或拒绝远程设备发起的传入 L2CAP 连接请求的响应。_BRB_L2CA_OPEN_ENHANCED_CHANNEL
+_BRB_L2CA_OPEN_ENHANCED_CHANNEL结构用于向远程设备打开增强型 L2CAP 通道，或发送响
+应以接受/拒绝远程设备发起的传入增强型 L2CAP 连接请求。_BRB_L2CA_PING
+_BRB_L2CA_PING结构描述对远程无线电执行 ping 操作的请求。
+
+≦ 11 ≧
+ 
+_BRB_L2CA_REGISTER_SERVER
+配置文件驱动程序使用 _BRB_L2CA_REGISTER_SERVER 结构将自身注册为能够从远程蓝牙设备接收 L2CAP 连接的服务器。
+_BRB_L2CA_UNREGISTER_SERVER
+配置文件驱动程序使用 _BRB_L2CA_UNREGISTER_SERVER 结构将自身注销为能够从远程蓝牙设备接收 L2CAP 连接的服务器。
+_BRB_L2CA_UPDATE_CHANNEL
+_BRB_L2CA_UPDATE_CHANNEL结构描述对打开的 L2CAP 通道到远程设备的链接特征的更新，或确
+定某些通道属性何时发生更改。_BRB_PSM
+_BRB_PSM 结构描述了要注册或注销的协议/服务多路复用器 (PSM) 。_BRB_SCO_CLOSE_CHANNEL
+_BRB_SCO_CLOSE_CHANNEL结构描述了当前打开的要关闭的 SCO 通道。_BRB_SCO_FLUSH_CHANNEL
+_BRB_SCO_FLUSH_CHANNEL 结构描述 SCO 通道的刷新操作。_BRB_SCO_GET_CHANNEL_INFO
+_BRB_SCO_GET_CHANNEL_INFO结构描述了 SCO 频道的设置和统计信息。_BRB_SCO_GET_SYSTEM_INFO
+_BRB_SCO_GET_SYSTEM_INFO结构描述有关本地系统对 SCO 连接的支持的信息。_BRB_SCO_OPEN_CHANNEL
+_BRB_SCO_OPEN_CHANNEL结构描述向远程设备打开的 SCO 通道，或配置文件驱动程序接受或拒
+绝远程设备发起的传入 SCO 连接请求的响应。_BRB_SCO_REGISTER_SERVER
+配置文件驱动程序使用 _BRB_SCO_REGISTER_SERVER 结构将自身注册为能够从远程蓝牙设备接收
+SCO 连接的服务器。_BRB_SCO_TRANSFER
+_BRB_SCO_TRANSFER 结构描述一个缓冲区，用于从中读取常时等量数据或将常时等量数据写入 SCO 通道。
+
+≦ 12 ≧
+ 
+_BRB_SCO_UNREGISTER_SERVER
+配置文件驱动程序使用 _BRB_SCO_UNREGISTER_SERVER 结构将自身注销为能够从远程蓝牙设备接收 SCO 连接的服务器。
+BASEBAND_CHANNEL_INFO
+BASEBAND_CHANNEL_INFO结构描述BRB_GET_CHANNEL_INFO BRB 完成后 SCO 链路使用的基带
+通道的输出信息。 BRB
+配置文件驱动程序使用蓝牙请求块 (BRB) ，将请求发送到蓝牙驱动程序堆栈。 BRB 结构定义可发送
+到蓝牙设备的所有受支持命令的格式。 BRB_HEADER
+BRB_HEADER 结构包含有关蓝牙请求块 (BRB) 的标头信息，包括有关蓝牙驱动程序堆栈用于确定要
+处理的 BRB 类型的 BRB 类型的信息。 BTH_COMMAND_HEADER
+BTH_COMMAND_HEADER 结构指定特定于供应商的 HCI 命令的标头信息。 BTH_DEVICE_INFO_LIST
+BTH_DEVICE_INFO_LIST 结构包含有关所有缓存的、以前发现的远程设备的输出信息。 BTH_ENUMERATOR_INFO
+BTH_ENUMERATOR_INFO 结构包含有关导致即插即用 (PnP) 管理器加载配置文件驱动程序的基础设备和服务的信息。
+BTH_LOCAL_RADIO_INFO
+BTH_LOCAL_RADIO_INFO 结构包含有关本地蓝牙系统和无线电的信息。 BTH_PROFILE_DRIVER_INTERFACE
+BTH_PROFILE_DRIVER_INTERFACE 结构提供用于分配、释放、初始化和重用 BRB 以及确定当前安
+装的蓝牙版本的函数。 BTH_RADIO_INFO
+BTH_RADIO_INFO结构包含有关远程无线电的信息。 BTH_SDP_ATTRIBUTE_SEARCH_REQUEST
+BTH_SDP_ATTRIBUTE_SEARCH_REQUEST 结构包含与 SDP 属性搜索相关的信息。
+
+≦ 13 ≧
+ 
+BTH_SDP_CONNECT
+BTH_SDP_CONNECT结构包含有关本地蓝牙系统和远程 SDP 服务器之间的连接的输入和输出信息。
+此结构作为IOCTL_BTH_SDP_CONNECT的输入缓冲区和输出缓冲区传递。 BTH_SDP_DISCONNECT
+BTH_SDP_DISCONNECT 结构包含有关要终止的远程 SDP 连接的连接句柄的输入信息。 此结构作为
+IOCTL_BTH_SDP_DISCONNECT 的输入缓冲区传递。 BTH_SDP_RECORD
+BTH_SDP_RECORD 结构包含有关要添加到本地 SDP 服务器的 SDP 记录的信息。 BTH_SDP_SERVICE_ATTRIBUTE_SEARCH_REQUEST
+BTH_SDP_SERVICE_ATTRIBUTE_SEARCH_REQUEST结构包含与组合的 SDP 服务和属性搜索相关的信
+息。 此结构作为输入缓冲区传递到 IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SEARCH IOCTL。 BTH_SDP_SERVICE_SEARCH_REQUEST
+BTH_SDP_SERVICE_SEARCH_REQUEST结构包含与 SDP 服务搜索相关的信息。 BTH_SDP_STREAM_RESPONSE
+BTH_SDP_STREAM_RESPONSE 结构包含有关 SDP 记录的信息。 BTH_VENDOR_EVENT_INFO
+BTH_VENDOR_EVENT_INFO 结构指定与GUID_BLUETOOTH_HCI_VENDOR_EVENT GUID 关联的缓冲区。
+BTH_VENDOR_PATTERN
+BTH_VENDOR_PATTERN 结构指定供应商模式。 BTH_VENDOR_SPECIFIC_COMMAND
+BTH_VENDOR_SPECIFIC_COMMAND结构指定特定于蓝牙供应商的命令。 BTHDDI_SDP_NODE_INTERFACE
+BTHDDI_SDP_NODE_INTERFACE 结构提供用于操作 SDP 记录的函数，包括将它们与分析驱动程序
+可以更轻松地分析的树表示形式进行转换。 BTHDDI_SDP_PARSE_INTERFACE
+BTHDDI_SDP_PARSE_INTERFACE 结构提供用于分析 SDP 记录的函数。
+
+≦ 14 ≧
+ 
+BTHX_CAPABILITIES
+BTHX_CAPABILITIES结构描述了蓝牙可扩展传输驱动程序的功能。 BTHX_HCI_READ_WRITE_CONTEXT
+BTHX_HCI_READ_WRITE_CONTEXT 结构用作IOCTL_BTHX_READ_HCI和IOCTL_BTHX_WRITE_HCI
+IOCTL 的输入/输出结构。 BTHX_VERSION
+BTHX_VERSION 结构描述传输驱动程序支持的一个或多个版本。 CHANNEL_CONFIG_PARAMETERS
+CHANNEL_CONFIG_PARAMETERS 结构包含 L2CAP 通道的入站和出站方向的配置参数。 CHANNEL_CONFIG_PARAMETERS_ENHANCED
+CHANNEL_CONFIG_PARAMETERS_ENHANCED结构描述 L2CAP 通道的入站和出站方向的配置参数。
+CHANNEL_CONFIG_RESULTS
+CHANNEL_CONFIG_RESULTS结构包含 L2CAP 通道入站和出站方向的任何额外选项的配置参数和缓冲区大小。
+CHANNEL_CONFIG_RESULTS_ENHANCED
+CHANNEL_CONFIG_RESULTS_ENHANCED结构描述 L2CAP 通道入站和出站方向的任何额外选项的
+配置参数和缓冲区大小。 CO_HEADER
+CO_HEADER 结构用于指定 L2CAP_CONFIG_OPTION 结构的 Header 成员的值。 L2CAP_CONFIG_OPTION
+L2CAP_CONFIG_OPTION 结构的数组用于指定 CHANNEL_CONFIG_PARAMETERS、
+_BRB_L2CA_OPEN_CHANNEL 和 INDICATION_PARAMETERS 结构的 ExtraOptions 成员的值。 L2CAP_CONFIG_RANGE
+L2CAP_CONFIG_RANGE 结构用于在传入请求期间为 _BRB_L2CA_OPEN_CHANNEL 结构的 FlushTO 成员指定一系列可能值。
+L2CAP_CONFIG_VALUE_RANGE
+
+≦ 15 ≧
+ 
+L2CAP_CONFIG_VALUE_RANGE 结构用于指定_BRB_L2CA_OPEN_CHANNEL结构的 Mtu 和 FlushTO 成员的值。
+L2CAP_EXTENDED_FLOW_SPEC
+保留L2CAP_EXTENDED_FLOW_SPEC供将来使用。 L2CAP_FLOWSPEC
+此结构保留供将来使用。
+L2CAP_RETRANSMISSION_AND_FLOW_CONTROL
+L2CAP_RETRANSMISSION_AND_FLOW_CONTROL结构描述了增强型重新传输模式和流式传输模式的配置参数。
+SCO_INDICATION_PARAMETERS
+SCO_INDICATION_PARAMETERS结构描述有关 SCO 连接或断开连接通知的指示参数。 SDP_NODE
+SDP_NODE 结构保存有关 SDP 记录的基于树的表示形式的元素的信息。 SDP_NODE_DATA
+SDP_NODE_DATA联合在 SDP 记录的基于树的表示形式中保存元素的数据。 SDP_NODE_HEADER
+SDP_NODE_HEADER 结构保存有关 SDP 记录的基于树的表示形式的元素的信息。 SDP_TREE_ROOT_NODE
+SDP_TREE_ROOT_NODE 结构是 SDP 记录的基于树的表示形式的根元素。
+
+≦ 16 ≧
+bthddi.h 标头项目2024/11/08
+此标头由 bltooth 使用。 有关详细信息，请参阅：
+蓝牙
+bthddi.h 包含以下编程接口：
+回调函数  
+PFNBTH_ALLOCATE_BRB
+BthAllocateBrb 函数分配指定类型的蓝牙请求块（BRB）。 PFNBTH_FREE_BRB
+BthFreeBrb 函数释放以前使用 BthAllocateBrb 分配的蓝牙请求块（BRB）。 PFNBTH_INITIALIZE_BRB
+BthInitializeBrb 函数初始化在本地堆栈上分配的蓝牙请求块（BRB）。 PFNBTH_IS_BLUETOOTH_VERSION_AVAILABLE
+IsBluetoothVersionAvailable 函数检查操作系统是否支持给定的蓝牙版本。 PFNBTH_REUSE_BRB
+BthReuseBrb 函数重新初始化要重复使用的蓝牙请求块（BRB）。 PFNBTHPORT_INDICATION_CALLBACK
+ﾉ
+展开表
+配置文件驱动程序实现 L2CAP 回调函数，以便为蓝牙驱动程序堆栈提供一种机制，以通知来自远程设备的
+传入 L2CAP 连接请求，以及对当前打开的 L2CAP 连接状态所做的任何更改。 PFNBTHPORT_INDICATION_CALLBACK_ENHANCED
+配置文件驱动程序实现增强的 L2CAP 回调函数，以向蓝牙驱动程序堆栈提供一种机制，以通知配置文件驱
+动程序对当前打开的 L2CAP 或 eL2CAP 连接的状态所做的任何更改。 PFNSCO_INDICATION_CALLBACK
+
+≦ 17 ≧
+ 
+配置文件驱动程序实现 SCO 回调函数，以提供蓝牙驱动程序堆栈的机制，以通知配置文件驱动程序从远程
+设备传入的 SCO 连接请求，以及对当前打开的 SCO 连接状态的任何更改。结构
+ﾉ
+ 
+INDICATION_PARAMETERS
+展开表
+INDICATION_PARAMETERS结构作为 Parameters 参数传递给配置文件驱动程序的 L2CAP 回调函数。 INDICATION_PARAMETERS_ENHANCED
+INDICATION_PARAMETERS_ENHANCED结构作为 Parameters 参数传递给配置文件驱动程序增强的 L2CAP 回调函数。
+_BRB_ACL_ENTER_ACTIVE_MODE
+_BRB_ACL_ENTER_ACTIVE_MODE结构指定要置于活动模式的远程设备。_BRB_ACL_GET_MODE
+_BRB_ACL_GET_MODE结构描述指定远程设备的 ACL 模式。_BRB_GET_DEVICE_INTERFACE_STRING
+_BRB_GET_DEVICE_INTERFACE_STRING结构描述当前设备对象的设备接口字符串。_BRB_GET_LOCAL_BD_ADDR
+_BRB_GET_LOCAL_BD_ADDR结构描述本地无线电的地址。_BRB_L2CA_ACL_TRANSFER
+_BRB_L2CA_ACL_TRANSFER结构描述从中读取异步数据的缓冲区，或将异步数据写入 L2CAP 通道。_BRB_L2CA_CLOSE_CHANNEL
+_BRB_L2CA_CLOSE_CHANNEL结构描述要关闭的开放 L2CAP 通道。_BRB_L2CA_OPEN_CHANNEL
+_BRB_L2CA_OPEN_CHANNEL结构描述要打开到远程设备的 L2CAP 通道，或者从配置文件驱动程序接受或拒绝远程设备启动的传入 L2CAP 连接请求的响应。
+
+≦ 18 ≧
+ 
+_BRB_L2CA_OPEN_ENHANCED_CHANNEL
+_BRB_L2CA_OPEN_ENHANCED_CHANNEL结构用于向远程设备打开增强型 L2CAP 通道，或发送响应以接
+受/拒绝远程设备启动的传入增强型 L2CAP 连接请求。_BRB_L2CA_PING
+_BRB_L2CA_PING结构描述对远程无线电执行 ping 操作的请求。_BRB_L2CA_REGISTER_SERVER
+配置文件驱动程序使用_BRB_L2CA_REGISTER_SERVER结构将自身注册为能够从远程蓝牙设备接收 L2CAP 连接的服务器。
+_BRB_L2CA_UNREGISTER_SERVER
+配置文件驱动程序使用_BRB_L2CA_UNREGISTER_SERVER结构将自身注销为能够从远程蓝牙设备接收 L2CAP 连接的服务器。
+_BRB_L2CA_UPDATE_CHANNEL
+_BRB_L2CA_UPDATE_CHANNEL结构描述对打开的 L2CAP 通道到远程设备的链接特征的更新，或确定某些
+通道属性何时发生更改。_BRB_PSM
+_BRB_PSM结构描述用于注册或注销的协议/服务多路复用器（PSM）。_BRB_SCO_CLOSE_CHANNEL
+_BRB_SCO_CLOSE_CHANNEL结构描述了目前开放的上海合作组织通道即将关闭。_BRB_SCO_FLUSH_CHANNEL
+_BRB_SCO_FLUSH_CHANNEL结构描述 SCO 通道的刷新操作。_BRB_SCO_GET_CHANNEL_INFO
+_BRB_SCO_GET_CHANNEL_INFO结构描述了 SCO 通道的设置和统计信息。_BRB_SCO_GET_SYSTEM_INFO
+_BRB_SCO_GET_SYSTEM_INFO结构描述有关本地系统对 SCO 连接的支持的信息。_BRB_SCO_OPEN_CHANNEL
+_BRB_SCO_OPEN_CHANNEL结构描述要向远程设备打开的 SCO 通道，或者从配置文件驱动程序接受或拒绝远程设备发起的传入 SCO 连接请求的响应。
+
+≦ 19 ≧
+ 
+_BRB_SCO_REGISTER_SERVER
+配置文件驱动程序使用_BRB_SCO_REGISTER_SERVER结构将自身注册为能够从远程蓝牙设备接收 SCO 连接的服务器。
+_BRB_SCO_TRANSFER
+_BRB_SCO_TRANSFER结构描述从中读取时序数据的缓冲区，或将数据写入 SCO 通道。_BRB_SCO_UNREGISTER_SERVER
+配置文件驱动程序使用 _BRB_SCO_UNREGISTER_SERVER 结构将自身注销为能够从远程蓝牙设备接收 SCO 连接的服务器。
+BASEBAND_CHANNEL_INFO
+BASEBAND_CHANNEL_INFO结构描述在BRB_GET_CHANNEL_INFO BRB 完成后由 SCO 链接使用的基带通道
+的输出信息。 BRB
+配置文件驱动程序使用蓝牙请求块（BRB）将请求发送到蓝牙驱动程序堆栈。 BRB 结构定义可发送到蓝牙
+设备的所有受支持命令的格式。 BRB_HEADER
+BRB_HEADER结构包含有关蓝牙请求块（BRB）的标头信息，包括有关蓝牙驱动程序堆栈用于确定要处理的
+BRB 类型的 BRB 类型的信息。 BTH_ENUMERATOR_INFO
+BTH_ENUMERATOR_INFO结构包含有关基础设备和导致即插即用（PnP）管理器加载配置文件驱动程序的服务的信息。
+BTH_PROFILE_DRIVER_INTERFACE
+BTH_PROFILE_DRIVER_INTERFACE结构提供用于分配、释放、初始化和重用 BRB 的函数，并确定当前安装的蓝牙版本。
+CHANNEL_CONFIG_PARAMETERS
+CHANNEL_CONFIG_PARAMETERS结构包含 L2CAP 通道的入站和出站方向的配置参数。 CHANNEL_CONFIG_PARAMETERS_ENHANCED
+CHANNEL_CONFIG_PARAMETERS_ENHANCED结构描述 L2CAP 通道的入站和出站方向的配置参数。 CHANNEL_CONFIG_RESULTS
+
+≦ 20 ≧
+ 
+CHANNEL_CONFIG_RESULTS结构包含用于 L2CAP 通道入站和出站方向的任何额外选项的配置参数和缓冲区大小。
+CHANNEL_CONFIG_RESULTS_ENHANCED
+CHANNEL_CONFIG_RESULTS_ENHANCED结构描述 L2CAP 通道入站和出站方向的任何额外选项的配置参数
+和缓冲区大小。 CO_HEADER
+CO_HEADER结构用于指定L2CAP_CONFIG_OPTION结构的 Header 成员的值。 L2CAP_CONFIG_OPTION
+L2CAP_CONFIG_OPTION结构的数组用于指定CHANNEL_CONFIG_PARAMETERS、
+_BRB_L2CA_OPEN_CHANNEL和INDICATION_PARAMETERS结构的 ExtraOptions 成员的值。 L2CAP_CONFIG_RANGE
+L2CAP_CONFIG_RANGE结构用于在传入请求期间为_BRB_L2CA_OPEN_CHANNEL结构的 FlushTO 成员指定一系列可能的值。
+L2CAP_CONFIG_VALUE_RANGE
+L2CAP_CONFIG_VALUE_RANGE结构用于指定_BRB_L2CA_OPEN_CHANNEL结构的 Mtu 和 FlushTO 成员的值。
+L2CAP_EXTENDED_FLOW_SPEC
+L2CAP_EXTENDED_FLOW_SPEC保留供将来使用。 L2CAP_FLOWSPEC
+此结构保留供将来使用。
+L2CAP_RETRANSMISSION_AND_FLOW_CONTROL
+L2CAP_RETRANSMISSION_AND_FLOW_CONTROL结构描述了增强的重新传输模式和流式传输模式的配置参数。
+SCO_INDICATION_PARAMETERS
+SCO_INDICATION_PARAMETERS结构描述有关 SCO 连接或断开连接通知的指示参数。枚举
+ﾉ
+展开表
+
+≦ 21 ≧
+ 
+ACL_MODE
+ACL_MODE枚举类型用于列出 ACL 连接的可能状态。 BRB_TYPE
+BRB_TYPE枚举类型用于在配置文件驱动程序生成和发送 BRB 时确定蓝牙请求块。 BRB_VERSION
+保留供内部使用。 CODING_FORMAT
+此枚举仅用于内部使用。 ENUMERATOR_ACTION
+Microsoft保留ENUMERATOR_ACTION枚举以供内部使用。 请勿在代码中使用此枚举。 ENUMERATOR_TYPE
+ENUMERATOR_TYPE枚举类型用于确定枚举设备是与服务还是协议相关联。 ENUMERATOR_TYPE枚举仅供
+内部使用，不应由配置文件驱动程序使用。 INDICATION_CODE
+INDICATION_CODE枚举类型向配置文件驱动程序指示发生了哪种类型的 L2CAP 事件。 L2CAP_DISCONNECT_REASON
+L2CAP_DISCONNECT_REASON枚举类型提供 L2CAP 通道断开连接的原因。 PCM_DATA_FORMAT
+Microsoft保留PCM_DATA_FORMAT枚举以供内部使用。 请勿在代码中使用此枚举。 SCO_DISCONNECT_REASON
+SCO_DISCONNECT_REASON枚举类型提供 SCO 通道已断开连接的原因。 SCO_INDICATION_CODE
+SCO_INDICATION_CODE枚举类型描述传入的 SCO 连接或绑定状态更改的类型。 蓝牙驱动程序堆栈在配置
+文件驱动程序的 SCO 回调函数的指示参数中传递此枚举中的值。 SCO_LINK_TYPE
+SCO_LINK_TYPE枚举类型描述处理 ScoIndicationRemoteConnect 指示事件时 SCO 连接使用的链接类型。
+
+≦ 22 ≧
+ 
+SCO_RETRANSMISSION_EFFORT
+SCO_RETRANSMISSION_EFFORT枚举类型用于确定 SCO 通道的重新传输策略。
+
+≦ 23 ≧
+INDICATION_PARAMETERS结构
+（bthddi.h）项目2025/02/06
+INDICATION_PARAMETERS 结构作为 参数 参数传递给配置文件驱动程序的 L2CAP 回调函数
+语法 C++
+typedef struct _INDICATION_PARAMETERS {   L2CAP_CHANNEL_HANDLE ConnectionHandle;
+  IN BTH_ADDR          BtAddress;   union {
+    struct {       struct {
+        OUT USHORT PSM;
+      } Request;     } Connect;     struct {
+      CHANNEL_CONFIG_PARAMETERS CurrentParams;       CHANNEL_CONFIG_PARAMETERS RequestedParams;       CHANNEL_CONFIG_PARAMETERS ResponseParams;       USHORT                    Response;
+    } ConfigRequest;     struct {
+      CHANNEL_CONFIG_PARAMETERS CurrentParams;       CHANNEL_CONFIG_PARAMETERS RequestedParams;       CHANNEL_CONFIG_PARAMETERS RejectedParams;       PCO_TYPE                  UnknownTypes;       ULONG                     NumUnknownTypes;       CHANNEL_CONFIG_PARAMETERS NewRequestParams;       USHORT                    Response;
+    } ConfigResponse;     struct {
+      ULONG                NumExtraOptions;       PL2CAP_CONFIG_OPTION ExtraOptions;
+    } FreeExtraOptions;     struct {
+      L2CAP_DISCONNECT_REASON Reason;       BOOLEAN                 CloseNow;
+    } Disconnect;     struct {
+      ULONG PacketLength;
+      ULONG TotalQueueLength;     } RecvPacket;
+
+≦ 24 ≧
+  } Parameters;
+} *PINDICATION_PARAMETERS, INDICATION_PARAMETERS; 成员
+ConnectionHandle
+与远程设备的 L2CAP 连接句柄。 此句柄仅适用于通过已建立的 L2CAP 连接到达的通知。
+BtAddress
+远程设备的蓝牙地址。 Parameters
+Parameters.Connect
+包含 IndicationRemoteConnect 回调函数的参数的结构。
+Parameters.Connect.Request 包含连接请求参数的结构。
+Parameters.Connect.Request.PSM
+在回调函数的 指示 参数中指定了 IndicationRemoteConnectINDICATION_CODE 值时传
+递给调用函数的协议/服务多路复用器（PSM）。 Parameters.ConfigRequest
+包含 IndicationRemoteConfigRequestINDICATION_CODE 值参数的结构。 Parameters.ConfigRequest.CurrentParams
+包含当前通道参数的 CHANNEL_CONFIG_PARAMETERS 结构。 仅当通道以前打开并且现在正在配置时，此值才有效。 此成员在回调函数指定
+IndicationRemoteConfigRequestINDICATION_CODE 值时使用。 Parameters.ConfigRequest.RequestedParams
+一个 CHANNEL_CONFIG_PARAMETERS 结构，其中包含从远程主机为配置请求传递的参数。 此成员在回调函数指定 IndicationRemoteConfigRequestINDICATION_CODE 值时使用。
+Parameters.ConfigRequest.ResponseParams
+
+≦ 25 ≧
+一个 CHANNEL_CONFIG_PARAMETERS 结构，其中包含配置文件驱动程序响应配置请求的参数。
+Parameters.ConfigRequest.Response
+指示配置请求状态的标志。 下表中列出了有效的标志值。
+ﾉ
+旗
+CONFIG_STATUS_SUCCESS
+CONFIG_STATUS_DISCONNECT
+CONFIG_STATUS_INVALID_PARAMETER CONFIG_STATUS_REJECT
+CONFIG_STATUS_UNKNOWN_OPTION Parameters.ConfigResponse
+描述
+配置请求成功。
+配置请求失败，因为 L2CAP 连接已断开连接。
+展开表
+配置请求失败，因为参数无效已传递到配置文件驱动程序。
+配置文件驱动程序拒绝了配置请求。
+配置请求失败，因为配置文件驱动程序无法识别其中一个指定的配置选项。
+包含 IndicationRemoteConfigResponseINDICATION_CODE 值参数的结构。 Parameters.ConfigResponse.CurrentParams
+包含当前通道参数的 CHANNEL_CONFIG_PARAMETERS 结构。 仅当通道以前打开并且现在正在配置时，此值才有效。 此成员在回调函数指定
+IndicationRemoteConfigRequestINDICATION_CODE 值时使用。 Parameters.ConfigResponse.RequestedParams
+一个 CHANNEL_CONFIG_PARAMETERS 结构，其中包含从远程主机为配置请求传递的参数。 此成员在回调函数指定 IndicationRemoteConfigRequestINDICATION_CODE 值时使用。
+Parameters.ConfigResponse.RejectedParams
+*CHANNEL_CONFIG_PARAMETERS 结构，其中包含远程设备拒绝的配置参数设置。
+Parameters.ConfigResponse.UnknownTypes 响应设备无法识别的类型数组。
+Parameters.ConfigResponse.NumUnknownTypes
+
+≦ 26 ≧
+UnknownTypes 成员中无法识别的类型数。 Parameters.ConfigResponse.NewRequestParams
+*CHANNEL_CONFIG_PARAMETERS 结构，其中包含在从远程设备返回响应后要重新提交的回调函数的参数设置。
+Parameters.ConfigResponse.Response
+指示配置请求状态的标志。 下表中列出了有效的标志值。
+ﾉ
+旗
+CONFIG_STATUS_SUCCESS
+CONFIG_STATUS_DISCONNECT
+CONFIG_STATUS_INVALID_PARAMETER CONFIG_STATUS_REJECT
+CONFIG_STATUS_UNKNOWN_OPTION Parameters.FreeExtraOptions
+描述
+配置请求成功。
+配置请求失败，因为 L2CAP 连接已断开连接。
+展开表
+配置请求失败，因为参数无效已传递到配置文件驱动程序。
+配置文件驱动程序拒绝了配置请求。
+配置请求失败，因为配置文件驱动程序无法识别其中一个指定的配置选项。
+包含 IndicationFreeExtraOptionsINDICATION_CODE 值参数的结构。 Parameters.FreeExtraOptions.NumExtraOptions
+ExtraOptions 成员中包含的额外选项数。 Parameters.FreeExtraOptions.ExtraOptions ExtraOptions 成员中包含的额外选项数。 Parameters.Disconnect
+包含 IndicationRemoteDisconnectINDICATION_CODE 值参数的结构。 Parameters.Disconnect.Reason
+一个 L2CAP_DISCONNECT_REASON 值，该值指示与远程设备的 L2CAP 连接终止的原因。
+
+≦ 27 ≧
+Parameters.Disconnect.CloseNow
+配置文件驱动程序用来通知蓝牙驱动程序堆栈关闭 L2CAP 连接的布尔值。 将此成员设置为 TRUE 以通知蓝牙驱动程序堆栈关闭连接。 否则，将其设置为 FALSE 使连接保持打开状态。
+Parameters.RecvPacket
+包含 IndicationRecvPacketINDICATION_CODE 值参数的结构。 Parameters.RecvPacket.PacketLength
+回调函数通过 L2CAP 连接发送的数据包的大小（以字节为单位）。
+Parameters.RecvPacket.TotalQueueLength 要通过 L2CAP 连接处理的数据包数。言论
+配置文件驱动程序的 L2CAP 回调函数 应根据蓝牙驱动程序堆栈传入回调函数的 指示 参数中的值以不同的方式处理此结构。
+当蓝牙驱动程序堆栈通过 IndicationRemoteConnect时，回调函数应使用 ConnectParameters 联合的成员。
+当蓝牙驱动程序堆栈通过 IndicationRemoteDisconnect时，回调函数应使用 DisconnectParameters 联合的成员。
+当蓝牙驱动程序堆栈通过 IndicationRemoteConfigRequest时，回调函数应使用 Parameters union 的 ConfigRequest 成员。
+当蓝牙驱动程序堆栈通过 IndicationRemoteConfigResponse时，回调函数应使用 Parameters union 的 ConfigResponse 成员。
+当蓝牙驱动程序堆栈通过 IndicationRemoteFreeExtraOptions时，回调函数应使用 FreeExtraOptionsParameters 联合的成员。
+当蓝牙驱动程序堆栈通过 IndicationRemoteRecvPacket时，回调函数应使用 Parameters union 的 RecvPacket 成员。
+要求
+ﾉ
+展开表
+
+≦ 28 ≧
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+CHANNEL_CONFIG_PARAMETERS
+INDICATION_CODE L2CAP 回调函数
+L2CAP_CONFIG_OPTION
+L2CAP_DISCONNECT_REASON 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 29 ≧
+INDICATION_PARAMETERS_ENHANCED
+结构（bthddi.h）项目2025/02/06
+INDICATION_PARAMETERS_ENHANCED结构作为 Parameters 参数传递给配置文件驱动程序的 增强型 L2CAP 回调函数
+语法 C++
+typedef struct _INDICATION_PARAMETERS_ENHANCED {   L2CAP_CHANNEL_HANDLE ConnectionHandle;
+  IN BTH_ADDR          BtAddress;   union {
+    struct {       struct {
+        OUT USHORT PSM;
+      } Request;     } Connect;     struct {
+      CHANNEL_CONFIG_PARAMETERS_ENHANCED CurrentParams;       CHANNEL_CONFIG_PARAMETERS_ENHANCED RequestedParams;       CHANNEL_CONFIG_PARAMETERS_ENHANCED ResponseParams;       USHORT                             Response;
+    } ConfigRequest;     struct {
+      CHANNEL_CONFIG_PARAMETERS_ENHANCED CurrentParams;       CHANNEL_CONFIG_PARAMETERS_ENHANCED RequestedParams;       CHANNEL_CONFIG_PARAMETERS_ENHANCED RejectedParams;       PCO_TYPE                           UnknownTypes;       ULONG                              NumUnknownTypes;       CHANNEL_CONFIG_PARAMETERS_ENHANCED NewRequestParams;       USHORT                             Response;
+    } ConfigResponse;     struct {
+      ULONG                NumExtraOptions;       PL2CAP_CONFIG_OPTION ExtraOptions;
+    } FreeExtraOptions;     struct {
+      L2CAP_DISCONNECT_REASON Reason;       BOOLEAN                 CloseNow;
+    } Disconnect;     struct {
+      ULONG PacketLength;
+      ULONG TotalQueueLength;
+    } RecvPacket;     PVOID Reserved;
+
+≦ 30 ≧
+  } Parameters;
+} *PINDICATION_PARAMETERS_ENHANCED, INDICATION_PARAMETERS_ENHANCED; 成员
+ConnectionHandle
+与远程设备的 L2CAP 连接句柄。 此句柄仅适用于通过已建立的 L2CAP 连接到达的通知。
+BtAddress
+远程设备的蓝牙地址。 Parameters
+Parameters.Connect
+包含 IndicationRemoteConnect 回调函数的参数的结构。
+Parameters.Connect.Request 包含连接请求参数的结构。
+Parameters.Connect.Request.PSM
+在增强回调函数的 指示 参数中指定了 IndicationRemoteConnect INDICATION_CODE 值时
+传递给调用函数的协议/服务多路复用器（PSM）。 Parameters.ConfigRequest
+包含 IndicationRemoteConfigRequest INDICATION_CODE 值的参数的结构。 Parameters.ConfigRequest.CurrentParams
+包含当前通道的参数的 CHANNEL_CONFIG_PARAMETERS_ENHANCED 结构。 仅当通道以前打开并且现在正在配置时，此值才有效。 当回调函数指定
+IndicationRemoteConfigRequest INDICATION_CODE 值时，将使用此成员。 Parameters.ConfigRequest.RequestedParams
+一个CHANNEL_CONFIG_PARAMETERS_ENHANCED结构，其中包含从远程主机为配置请求传递的参数。 当回调函数指定 IndicationRemoteConfigRequest INDICATION_CODE 值时，将使用此成员。
+Parameters.ConfigRequest.ResponseParams
+
+≦ 31 ≧
+一个CHANNEL_CONFIG_PARAMETERS_ENHANCED结构，其中包含配置文件驱动程序响应配置请求的参数。
+Parameters.ConfigRequest.Response
+指示配置请求状态的标志。 下表中列出了有效的标志值。
+ﾉ
+旗
+CONFIG_STATUS_SUCCESS
+CONFIG_STATUS_DISCONNECT
+CONFIG_STATUS_INVALID_PARAMETER CONFIG_STATUS_REJECT
+CONFIG_STATUS_UNKNOWN_OPTION Parameters.ConfigResponse
+描述
+配置请求成功。
+展开表
+配置请求失败，因为增强的 L2CAP 连接已断开连接。配置请求失败，因为参数无效已传递到配置文件驱动程序。
+配置文件驱动程序拒绝了配置请求。
+配置请求失败，因为配置文件驱动程序无法识别其中一个指定的配置选项。
+包含 IndicationRemoteConfigResponse INDICATION_CODE 值的参数的结构。 Parameters.ConfigResponse.CurrentParams
+包含当前通道的参数的 CHANNEL_CONFIG_PARAMETERS_ENHANCED 结构。
+仅当通道以前打开并且现在正在配置时，此值才有效。 当回调函数指定 IndicationRemoteConfigRequest INDICATION_CODE 值时，将使用此成员。
+Parameters.ConfigResponse.RequestedParams
+一个CHANNEL_CONFIG_PARAMETERS_ENHANCED结构，其中包含从远程主机为配置请求传递的参数。 当回调函数指定 IndicationRemoteConfigRequest INDICATION_CODE 值时，将使用此成员。
+Parameters.ConfigResponse.RejectedParams
+包含远程设备拒绝的配置参数设置的CHANNEL_CONFIG_PARAMETERS_ENHANCED结构。
+Parameters.ConfigResponse.UnknownTypes 响应设备无法识别的类型数组。
+
+≦ 32 ≧
+Parameters.ConfigResponse.NumUnknownTypes UnknownTypes 成员中无法识别的类型数。 Parameters.ConfigResponse.NewRequestParams
+一个CHANNEL_CONFIG_PARAMETERS_ENHANCED结构，该结构包含增强型回调函数的
+参数设置，以便在从远程设备返回响应后重新提交。 Parameters.ConfigResponse.Response
+指示配置请求状态的标志。 下表中列出了有效的标志值：
+ﾉ
+旗
+CONFIG_STATUS_SUCCESS
+CONFIG_STATUS_DISCONNECT
+CONFIG_STATUS_INVALID_PARAMETER CONFIG_STATUS_REJECT
+CONFIG_STATUS_UNKNOWN_OPTION Parameters.FreeExtraOptions
+描述
+配置请求成功。
+展开表
+配置请求失败，因为增强的 L2CAP 连接已断开连接。配置请求失败，因为参数无效已传递到配置文件驱动程序。
+配置文件驱动程序拒绝了配置请求。
+配置请求失败，因为配置文件驱动程序无法识别其中一个指定的配置选项。
+包含 IndicationFreeExtraOptions INDICATION_CODE 值的参数的结构。 Parameters.FreeExtraOptions.NumExtraOptions
+ExtraOptions 成员中包含的额外选项数。 Parameters.FreeExtraOptions.ExtraOptions 其他选项。
+Parameters.Disconnect
+包含 IndicationRemoteDisconnect INDICATION_CODE 值的参数的结构。 Parameters.Disconnect.Reason
+
+≦ 33 ≧
+一个 L2CAP_DISCONNECT_REASON 值，该值指示与远程设备的 L2CAP 连接终止的原因。
+Parameters.Disconnect.CloseNow
+配置文件驱动程序用来通知蓝牙驱动程序堆栈关闭 L2CAP 连接的布尔值。 将此成员设置为 TRUE 以通知蓝牙驱动程序堆栈关闭连接。 否则，将其设置为 FALSE 使连接保持打开状态。
+Parameters.RecvPacket
+包含 IndicationRecvPacket INDICATION_CODE 值的参数的结构。 Parameters.RecvPacket.PacketLength
+回调函数通过 L2CAP 连接发送的数据包的大小（以字节为单位）。
+Parameters.RecvPacket.TotalQueueLength 要通过 L2CAP 连接处理的数据包数。
+Parameters.Reserved 保留成员。 请勿使用。要求
+ﾉ
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows 8 及更高版本中的版本：_Supported
+bthddi.h （包括 Bthddi.h） 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 34 ≧
+_BRB_ACL_ENTER_ACTIVE_MODE结构
+（bthddi.h）项目2025/02/06
+_BRB_ACL_ENTER_ACTIVE_MODE结构指定要置于活动模式的远程设备。
+语法 C++
+struct _BRB_ACL_ENTER_ACTIVE_MODE {   BRB_HEADER Hdr;
+  BTH_ADDR   BtAddress;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 BtAddress
+远程设备的地址。言论
+若要将远程设备置于活动模式，配置文件驱动程序应 生成并发送
+BRB_ACL_ENTER_ACTIVE_MODE 请求。要求
+要求
+最低支持的客户端标头
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+ﾉ
+展开表
+
+≦ 35 ≧
+另请参阅
+BRB_ACL_ENTER_ACTIVE_MODE BRB_HEADER
+
+≦ 36 ≧
+_BRB_ACL_GET_MODE结构（bthddi.h）项目2025/02/06
+_BRB_ACL_GET_MODE结构描述指定远程设备的 ACL 模式。
+语法 C++
+struct _BRB_ACL_GET_MODE {   BRB_HEADER Hdr;
+  BTH_ADDR   BtAddress;   ACL_MODE   AclMode;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 BtAddress
+远程设备的地址。 AclMode
+指定远程设备的 ACL 模式的 ACL_MODE 枚举中的值。言论
+若要获取远程设备的当前 ACL 连接状态，配置文件驱动程序应 生成并发送
+BRB_ACL_GET_MODE 请求。要求
+ﾉ
+要求
+最低支持的客户端
+价值
+Windows Vista 及更高版本中的版本：_Supported。
+展开表
+
+≦ 37 ≧
+要求标头
+另请参阅 ACL_MODE
+BRB_ACL_GET_MODE
+BRB_HEADER 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+bthddi.h （包括 Bthddi.h）
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 38 ≧
+_BRB_GET_DEVICE_INTERFACE_STRING
+结构（bthddi.h）项目2025/02/06
+_BRB_GET_DEVICE_INTERFACE_STRING结构描述当前设备对象的设备接口字符串。
+语法 C++
+struct _BRB_GET_DEVICE_INTERFACE_STRING {   BRB_HEADER Hdr;
+  PWCHAR     DeviceInterfaceString;
+  ULONG      DeviceInterfaceStringCbLength;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 DeviceInterfaceString
+指向包含设备接口字符串的缓冲区的指针。 DeviceInterfaceStringCbLength
+在输入时，此成员指定设备接口字符串的长度（以字节为单位）。 在输出中，此成员指定字符串所需的字节数（如果 BRB_GET_DEVICE_INTERFACE_STRING BRB 失败，并且由于缓冲区长度不足而返回STATUS_MORE_ENTRIES。 如果 BRB 调用成功，则此成员包含
+复制的字节数。言论
+若要获取当前设备对象的设备接口字符串，配置文件驱动程序应 生成并发送 BRB_GET_DEVICE_INTERFACE_STRING 请求。
+蓝牙驱动程序堆栈对创建的每个设备对象执行 IoRegisterDeviceInterface 调用。 BRB 返回该调用返回的设备接口字符串。 这对于注册事件非常有用。
+
+≦ 39 ≧
+如果 DeviceInterfaceString 成员指向的缓冲区不足以容纳字符串，则调用将失败，并且
+DeviceInterfaceStringCbLength 成员包含所需的缓冲区长度。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+BRB_GET_DEVICE_INTERFACE_STRING BRB_HEADER
+IoRegisterDeviceInterface 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 40 ≧
+_BRB_GET_LOCAL_BD_ADDR结构
+（bthddi.h）项目2025/02/06
+_BRB_GET_LOCAL_BD_ADDR结构描述本地无线电的地址。
+语法 C++
+struct _BRB_GET_LOCAL_BD_ADDR {   BRB_HEADER Hdr;
+  BTH_ADDR   BtAddress;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 BtAddress
+接收本地无线电地址的输出成员。言论
+若要获取本地无线电的地址，配置文件驱动程序应 生成并发送 BRB_HCI_GET_LOCAL_BD_ADDR 请求。
+蓝牙驱动程序堆栈仅支持单个本地无线电。要求
+ﾉ
+要求
+最低支持的客户端标头
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+展开表
+
+≦ 41 ≧
+另请参阅
+BRB_HCI_GET_LOCAL_BD_ADDR BRB_HEADER
+
+≦ 42 ≧
+_BRB_L2CA_ACL_TRANSFER结构
+（bthddi.h）项目2025/02/06
+_BRB_L2CA_ACL_TRANSFER结构描述从中读取异步数据的缓冲区，或将异步数据写入 L2CAP 通道。
+语法 C++
+struct _BRB_L2CA_ACL_TRANSFER {   BRB_HEADER           Hdr;
+  BTH_ADDR             BtAddress;
+  L2CAP_CHANNEL_HANDLE ChannelHandle;   ULONG                TransferFlags;
+  ULONG                BufferSize;   PVOID                Buffer;
+  PMDL                 BufferMDL;   LONGLONG             Timeout;
+  ULONG                RemainingBufferSize;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 BtAddress
+远程设备的地址。 ChannelHandle
+蓝牙驱动程序堆栈返回的 L2CAP 通道句柄，以响应之前 BRB_L2CA_OPEN_CHANNEL 或
+BRB_L2CA_OPEN_CHANNEL_RESPONSE 请求。 TransferFlags
+指定接口的基本行为的标志的组合。 可以同时设置多个标志。 下表描述了有效的标志值：
+ﾉ
+展开表
+
+≦ 43 ≧
+旗
+ACL_SHORT_TRANSFER_OK ACL_TRANSFER_DIRECTION_IN ACL_TRANSFER_DIRECTION_OUT
+ACL_TRANSFER_TIMEOUT BufferSize
+描述
+如果设置了此位，则读取作可以在缓冲区已满之前完成。 这只能与 ACL_TRANSFER_DIRECTION_IN结合使用。
+如果设置了此位，将从远程设备接收数据。 无法将此标志与 ACL_TRANSFER_DIRECTION_OUT结合使用。
+如果设置了此位，则数据将发送到远程设备。 无法将此标志与 ACL_TRANSFER_DIRECTION_IN结合使用。
+读取作应在 超时 成员中指定的毫秒数后停止。
+缓冲区的大小（以字节为单位）。 Buffer
+指向输入缓冲区的指针。 BufferMDL
+指向 MDL 输入缓冲区的指针。 Timeout
+取消读取作之前，持续时间（以毫秒为单位），此时使用的任何数据都将丢失。 RemainingBufferSize
+BRB 调用后缓冲区中留下的空间量（以字节为单位）。言论
+若要从 L2CAP 通道读取或写入异步数据，配置文件驱动程序应 生成并发送 BRB_L2CA_ACL_TRANSFER 请求。
+每个 L2CAP 连接都是双向的，可以同时读取和写入。
+如果未指定超时，则与读取请求关联的 BR 将保持挂起状态，直到数据到达或取消它们为止。 配置文件驱动程序可以保留读取请求挂起，以便接受来自远程设备的传入数据。
+蓝牙驱动程序堆栈提供传入数据的一些缓冲，因此无需持续检查读取 IRP 是否挂起。 配置文件驱动程序可以指定要在与 BRB_L2CA_OPEN_CHANNEL 请求关联的 IncomingQueueDepth 成员中提供的缓冲量。
+
+≦ 44 ≧
+如果在 TransferFlags 成员中设置了ACL_TRANSFER_TIMEOUT标志，并且 超时 成员中指定的持
+续时间将过期，则 BRB_L2CA_ACL_TRANSFER 请求将完成并返回错误。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 BRB_HEADER
+BRB_L2CA_ACL_TRANSFER
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+BRB_L2CA_OPEN_CHANNEL
+BRB_L2CA_OPEN_CHANNEL_RESPONSE
+展开表
+
+≦ 45 ≧
+_BRB_L2CA_CLOSE_CHANNEL结构
+（bthddi.h）项目2025/02/06
+_BRB_L2CA_CLOSE_CHANNEL结构描述要关闭的开放 L2CAP 通道。
+语法 C++
+struct _BRB_L2CA_CLOSE_CHANNEL {   BRB_HEADER           Hdr;
+  BTH_ADDR             BtAddress;
+  L2CAP_CHANNEL_HANDLE ChannelHandle;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 BtAddress
+远程设备的地址。 ChannelHandle
+蓝牙驱动程序堆栈返回的 L2CAP 通道句柄，以响应之前 BRB_L2CA_OPEN_CHANNEL 或
+BRB_L2CA_OPEN_CHANNEL_RESPONSE 请求。 这是要关闭的通道句柄。言论
+若要关闭 L2CAP 通道，配置文件驱动程序应 生成并发送BRB_L2CA_CLOSE_CHANNEL 请求。可以为本地或远程启动的通道发出 BRB_L2CA_CLOSE_CHANNEL 请求。 如果配置文件驱动程序
+有多个 L2CAP 通道到单个远程设备，则必须单独关闭每个通道。要求
+
+≦ 46 ≧
+要求
+最低支持的客户端标头
+另请参阅 BRB_HEADER
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+BRB_L2CA_CLOSE_CHANNEL BRB_L2CA_OPEN_CHANNEL
+BRB_L2CA_OPEN_CHANNEL_RESPONSE
+ﾉ
+展开表
+
+≦ 47 ≧
+_BRB_L2CA_OPEN_CHANNEL结构
+（bthddi.h）项目2025/02/06
+_BRB_L2CA_OPEN_CHANNEL结构描述要打开到远程设备的 L2CAP 通道，或者从配置文件驱动程序接受或拒绝远程设备启动的传入 L2CAP 连接请求的响应。
+语法 C++
+struct _BRB_L2CA_OPEN_CHANNEL {
+  BRB_HEADER                     Hdr;
+  L2CAP_CHANNEL_HANDLE           ChannelHandle;   union {
+    struct {
+      USHORT Response;
+      USHORT ResponseStatus;     };
+    USHORT Psm;   };
+  ULONG                          ChannelFlags;
+  BTH_ADDR                       BtAddress;   struct {
+    ULONG                    Flags;     L2CAP_CONFIG_VALUE_RANGE Mtu;
+    L2CAP_CONFIG_VALUE_RANGE FlushTO;
+    L2CAP_FLOWSPEC           Flow;     USHORT                   LinkTO;
+    ULONG                    NumExtraOptions;
+    PL2CAP_CONFIG_OPTION     ExtraOptions;     struct {
+      UCHAR ServiceType;       ULONG Latency;
+    } LocalQos;   } ConfigOut;   struct {
+    ULONG                    Flags;     L2CAP_CONFIG_VALUE_RANGE Mtu;
+    L2CAP_CONFIG_RANGE       FlushTO;   } ConfigIn;
+  ULONG                          CallbackFlags;   PFNBTHPORT_INDICATION_CALLBACK Callback;
+  PVOID                          CallbackContext;   PVOID                          ReferenceObject;
+  CHANNEL_CONFIG_RESULTS         OutResults;   CHANNEL_CONFIG_RESULTS         InResults;
+
+≦ 48 ≧
+  UCHAR                          IncomingQueueDepth;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 ChannelHandle
+用于在成功连接时标识连接的句柄。 发送 BRB_L2CA_OPEN_CHANNEL时，BRB 完成时将填写此项。 发送 BRB_L2CA_OPEN_CHANNEL_RESPONSE时，服务器必须填写此项，然后才能发送 BRB。 分配的值应 INDICATION_PARAMETERS::ConnectionHandle  在
+IndicationRemoteConnect 期间传入的值。 Response
+仅用于 BRB_L2CA_OPEN_CHANNEL_RESPONSE。 使用CONNECT_RSP_RESULT_Xxx值之一。
+如果 BRB 返回状态为STATUS_REQUEST_NOT_ACCEPTED，则 响应 将包含来自远程主机的负响应。
+ResponseStatus
+如果 响应 等于CONNECT_RSP_RESULT_PENDING，则此字段有效。 使用其中一个
+CONNECT_RSP_STATUS_XXX值。 Psm
+通道用于连接到远程设备的协议/服务多路复用器（PSM）。 与
+BRB_L2CA_OPEN_CHANNEL 请求一起使用时，此成员将设置为输入字段。 与
+BRB_L2CA_OPEN_CHANNEL_RESPONSE 请求一起使用时，此成员将用作输出字段。 ChannelFlags
+指定要打开的通道的要求的标志。 下表中列出了有效的标志值：
+ﾉ
+旗
+CF_LINK_AUTHENTICATED
+描述
+必须对链接进行身份验证。
+展开表
+
+≦ 49 ≧
+旗
+CF_LINK_ENCRYPTED CF_LINK_SUPPRESS_PIN BtAddress
+连接的设备的蓝牙地址。 ConfigOut
+描述
+必须对链接进行加密。 设置此标志还会设置 CF_LINK_AUTHENTICATED标志。
+配置文件驱动程序指示不提示用户输入 PIN 的首选项。
+包含发送到远程设备的 BRB_L2CA_OPEN_CHANNEL BRB 的参数设置的子结构。 ConfigOut.Flags
+指定要打开的通道的要求的标志。 下表中列出了有效的标志值：
+ﾉ
+旗
+CF_LINK_AUTHENTICATED
+CF_LINK_ENCRYPTED CF_LINK_SUPPRESS_PIN ConfigOut.Mtu
+描述
+必须对链接进行身份验证。
+必须对链接进行加密。 设置此标志还会设置 CF_LINK_AUTHENTICATED标志。
+配置文件驱动程序指示不提示用户输入 PIN 的首选项。
+用于协商通道出站一半大小的消息传输单位（MTU）的范围。 ConfigOut.FlushTO
+可用于通道出站一半的刷新超时的可能值的范围。 ConfigOut.Flow
+保留以供将来使用。 请勿使用。 ConfigOut.LinkTO
+链接管理器链接超时。
+ConfigOut.NumExtraOptions
+展开表
+
+≦ 50 ≧
+ExtraOptions 成员中包含的数组项数。 对于大多数客户端，此值应为零。 ConfigOut.ExtraOptions
+ExtraOptions 成员中包含的数组项数。 对于大多数客户端，此值应为零。 ConfigOut.LocalQos
+保留以供将来使用。 请勿使用。 ConfigOut.LocalQos.ServiceType 保留以供将来使用。 请勿使用。 ConfigOut.LocalQos.Latency
+保留以供将来使用。 请勿使用。 ConfigIn
+包含参数设置的子结构，用于验证从远程设备发送的传入
+BRB_L2CA_OPEN_CHANNEL_RESPONSE BRB。 ConfigIn.Flags
+指定要打开的通道的要求的标志。 下表中列出了有效的标志值：
+旗
+CF_LINK_AUTHENTICATED
+CF_LINK_ENCRYPTED CF_LINK_SUPPRESS_PIN ConfigIn.Mtu
+描述
+必须对链接进行身份验证。
+必须对链接进行加密。 设置此标志还会设置 CF_LINK_AUTHENTICATED标志。
+配置文件驱动程序指示不提示用户输入 PIN 的首选项。
+用于协商通道出站一半大小的消息传输单位（MTU）的范围。 ConfigIn.FlushTO
+可用于通道出站一半的刷新超时的可能值的范围。 CallbackFlags
+ﾉ
+展开表
+
+≦ 51 ≧
+一个标志，指定哪些事件应生成回调例程，以通知配置文件驱动程序已发生该事件。 下表中包含有效的标志值。
+ﾉ
+旗
+CALLBACK_CONFIG_EXTRA_IN CALLBACK_CONFIG_EXTRA_OUT
+CALLBACK_CONFIG_QOS CALLBACK_DISCONNECT CALLBACK_RECV_PACKET Callback
+描述
+展开表
+如果设置，则当远程设备的配置请求包含额外选项时，将调用回调例程。 如果未设置，额外配置选项将被拒绝为未知选项。
+此标志用于BRB_L2CA_OPEN_CHANNEL_RESPONSE BR。如果已设置，则当远程设备拒绝来自
+BRB_L2CA_OPEN_CHANNEL请求的额外配置选项时，将调用回调例程。 如果未设置，并且远程设备由于其他选项而拒绝配置请求，连接将关闭。
+如果设置，远程设备发送包含 QOS 值的配置请求时，将调用回调例程。 如果未设置此标志，远程设备要么在配置请求中发送 QOS 参数，要么拒绝配置文件驱动程序请求的 QOS 参数，连接将断开连接。
+如果设置，当远程设备与 L2CAP 通道断开连接时，将调用回调例程。
+如果已设置，则当配置文件驱动程序收到传入的 L2CAP 数据包时，将调用回调例程。
+L2CAP 回调函数 由配置文件驱动程序实现，蓝牙驱动程序堆栈应调用以通知配置文件驱
+动程序对 L2CAP 连接所做的任何更改。 CallbackContext
+要传递给 Callback 成员中指定的回调函数的上下文。 配置文件驱动程序定义此值。 ReferenceObject
+指向要传递给 ObReferenceObject 和 ObDereferenceObject 的对象的指针，该对象保留
+其引用计数。 OutResults
+包含出站请求的配置参数的 CHANNEL_CONFIG_RESULTS 结构。 InResults
+包含入站请求的配置参数的CHANNEL_CONFIG_RESULTS结构。
+
+≦ 52 ≧
+IncomingQueueDepth
+指定消息传输单元（MTU）中的传入队列长度。响应
+此成员用作 BRB_L2CA_OPEN_CHANNEL_RESPONSE 请求的输入参数和 BRB_L2CA_OPEN_CHANNEL 请求的输出参数。
+对于 BRB_L2CA_OPEN_CHANNEL_RESPONSE 请求，此成员保留一个标志，指示配置文件驱动程序对远程设备的响应。 下表中包含有效的标志值。
+ﾉ
+旗
+CONNECT_RSP_RESULT_NO_RESOURCES
+CONNECT_RSP_RESULT_PENDING CONNECT_RSP_RESULT_PSM_NEG
+CONNECT_RSP_RESULT_SECURITY_BLOCK CONNECT_RSP_RESULT_SUCCESS
+描述
+展开表
+由于资源不足，配置文件驱动程序拒绝了连接。
+配置文件驱动程序当前正忙，无法接受连接。 请稍后再试。
+配置文件驱动程序拒绝连接，因为不支持 PSM。出于安全原因，配置文件驱动程序拒绝连接。配置文件驱动程序接受了连接。
+对于 BRB_L2CA_OPEN_CHANNEL BRB，此成员包含配置文件驱动程序尝试连接到的远程设备的响应。 下表中包含有效的标志值。
+ﾉ
+旗
+CONNECT_RSP_RESULT_NO_RESOURCES CONNECT_RSP_RESULT_PSM_NEG
+CONNECT_RSP_RESULT_SECURITY_BLOCK
+CONNECT_RSP_RESULT_SUCCESS ResponseStatus
+描述
+由于资源不足，远程设备拒绝连接。远程设备拒绝连接。
+由于安全原因，远程设备拒绝连接。远程设备接受连接。
+展开表
+如果在调用 BRB_L2CA_OPEN_CHANNEL_RESPONSE BRB 期间，响应 成员设置为 CONNECT_RSP_RESULT_PENDING ，则此成员有效，并包含以下值之一：
+
+≦ 53 ≧
+CONNECT_RSP_STATUS_AUTHENTICATION_PENDING CONNECT_RSP_STATUS_AUTHORIZATION_PENDING CONNECT_RSP_STATUS_NO_INFORMATION
+言论
+若要打开 L2CAP 通道，配置文件驱动程序应 生成并发送BRB_L2CA_OPEN_CHANNEL 请求。
+充当客户端的配置文件驱动程序指定目标地址、PSM 和各种配置参数。
+如果 BRB_L2CA_OPEN_CHANNEL 请求成功完成，OutResults 中提供了有关新创建连接的各种信息，InResults 成员。 OutResults 指定通道的出站半部分的参数，InResults 指定通道入站半部分的参数。
+在此结构中传递的几个配置参数（如 Mtu 成员）是用于与远程无线电协商的范围。 客户端应尽可能广泛地提供，以增加成功通道协商的机会。 仅当绝对必要时，才应指定大于基本蓝牙最小 MTU 大小的最小 MTU 大小。 如果协商失败，连接将失败。
+配置文件驱动程序必须分配内存来存储存储在 ExtraOptions 成员中的数组，并且除非在
+Callback 成员中定义的回调函数返回并返回 IndicationFreeExtraOptions 通知 INDICATION_CODE 值，否则不应释放此内存。
+_BRB_L2CA_OPEN_CHANNEL结构的 IncomingQueueDepth 成员指定蓝牙驱动程序堆栈在开始放弃连接之前接收和排队的最大 MTU 数。 将此值设置为极少数会增加数据丢失的可能性，同时将其设置为非常大的数量可能会增加内存使用量。 将此成员设置为 10 是有效的妥协。
+若要接受或拒绝远程设备发起的传入 L2CAP 连接请求，配置文件驱动程序应 生成并发送 BRB_L2CA_OPEN_CHANNEL_RESPONSE 请求。
+当蓝牙驱动程序堆栈调用配置文件驱动程序的 L2CAP 回调函数 时，配置文件驱动程序应生成并发送 BRB_L2CA_OPEN_CHANNEL_RESPONSE 请求，并在回调函数的 指示 参数中传递 IndicationRemoteConnect。
+根据此结构的 响应 成员的值，蓝牙驱动程序堆栈随后将接受或拒绝连接请求。
+配置文件驱动程序指定是否应通过将此结构的 响应 成员中存储适当的值来接受连接。收到CONNECT_RSP_RESULT_PENDING响应后，连接客户端应重置其连接计时器并等待更新的连接响应消息。 调用 BRB_L2CA_OPEN_CHANNEL_RESPONSE BRB 的配置文件驱动程序，其中 响应 成员设置为CONNECT_RSP_RESULT_PENDING应立即发出具有更新连接值的附加 BRB_L2CA_OPEN_CHANNEL_RESPONSE BRB。 更新的值可以是 响应 成员中描述的任何状态代码，包括重新发送CONNECT_RSP_RESULT_PENDING值。
+
+≦ 54 ≧
+配置文件驱动程序必须分配内存以存储存储在 ExtraOptions 成员中的数组，并且除非在 Callback 成员中定义的回调函数返回并返回 IndicationFreeExtraOptions 通知
+INDICATION_CODE 值，否则不应释放此内存。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 BRB_HEADER
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+BRB_L2CA_OPEN_CHANNEL
+BRB_L2CA_OPEN_CHANNEL_RESPONSE
+BRB_L2CA_REGISTER_SERVER CHANNEL_CONFIG_RESULTS INDICATION_CODE
+INDICATION_PARAMETERS L2CAP 回调函数
+L2CAP_CONFIG_OPTION ObDereferenceObject
+ObReferenceObject 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 55 ≧
+_BRB_L2CA_OPEN_ENHANCED_CHANNE
+L结构（bthddi.h）项目2025/02/06
+_BRB_L2CA_OPEN_ENHANCED_CHANNEL结构用于向远程设备打开增强型 L2CAP 通道，或发送响应以接受/拒绝远程设备启动的传入增强型 L2CAP 连接请求。
+语法 C++
+struct _BRB_L2CA_OPEN_ENHANCED_CHANNEL {
+  BRB_HEADER                              Hdr;
+  L2CAP_CHANNEL_HANDLE                    ChannelHandle;   union {
+    struct {
+      USHORT Response;
+      USHORT ResponseStatus;     };
+    USHORT Psm;   };
+  ULONG                                   ChannelFlags;
+  BTH_ADDR                                BtAddress;   struct {
+    ULONG                    Flags;     L2CAP_CONFIG_VALUE_RANGE Mtu;
+    L2CAP_CONFIG_VALUE_RANGE FlushTO;
+    L2CAP_FLOWSPEC           Flow;     USHORT                   LinkTO;
+    ULONG                    NumExtraOptions;
+    PL2CAP_CONFIG_OPTION     ExtraOptions;     struct {
+      UCHAR ServiceType;       ULONG Latency;
+    } LocalQos;     struct {
+      ULONG                                 Flags;
+      L2CAP_RETRANSMISSION_AND_FLOW_CONTROL RetransmissionAndFlow;     } ModeConfig;
+    USHORT                   Fcs;
+    L2CAP_EXTENDED_FLOW_SPEC ExtendedFlowSpec;     USHORT                   ExtendedWindowSize;
+  } ConfigOut;   struct {
+    ULONG                    Flags;     L2CAP_CONFIG_VALUE_RANGE Mtu;
+    L2CAP_CONFIG_RANGE       FlushTO;   } ConfigIn;
+
+≦ 56 ≧
+  ULONG                                   CallbackFlags;   PFNBTHPORT_INDICATION_CALLBACK_ENHANCED Callback;
+  PVOID                                   CallbackContext;   PVOID                                   ReferenceObject;
+  CHANNEL_CONFIG_RESULTS_ENHANCED         OutResults;   CHANNEL_CONFIG_RESULTS_ENHANCED         InResults;
+  UCHAR                                   IncomingQueueDepth;
+  PVOID                                   Reserved;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 ChannelHandle
+用于在成功连接时标识连接的句柄。 发送 BRB_L2CA_OPEN_CHANNEL时，BRB 完成时将填写此项。 发送 BRB_L2CA_OPEN_CHANNEL_RESPONSE 请求时，服务器必须在发送 BRB 之前填写此信息。 分配的值应 INDICATION_PARAMETERS::ConnectionHandle  在
+IndicationRemoteConnect 期间传入的值。 Response
+仅用于 BRB_L2CA_OPEN_CHANNEL_RESPONSE。 使用CONNECT_RSP_RESULT_Xxx值之一。
+如果 BRB 返回状态为STATUS_REQUEST_NOT_ACCEPTED，则 响应 将包含来自远程主机的负响应。
+ResponseStatus
+如果 响应 等于CONNECT_RSP_RESULT_PENDING，则此字段有效。 使用其中一个
+CONNECT_RSP_STATUS_XXX值。 Psm
+通道用于连接到远程设备的协议/服务多路复用器（PSM）。 与
+BRB_L2CA_OPEN_ENHANCED_CHANNEL 请求一起使用时，此成员将设置为输入字段。与 BRB_L2CA_OPEN_ENHANCED_CHANNEL_RESPONSE 请求一起使用时，此成员将用
+作输出字段。 ChannelFlags
+指定要打开的通道的要求的标志。 下表中列出了有效的标志值：
+
+≦ 57 ≧
+旗
+CF_LINK_AUTHENTICATED
+CF_LINK_ENCRYPTED CF_LINK_SUPPRESS_PIN BtAddress
+连接的设备的蓝牙地址。 ConfigOut
+描述
+必须对链接进行身份验证。
+必须对链接进行加密。 设置此标志还会设置 CF_LINK_AUTHENTICATED标志。
+配置文件驱动程序指示不提示用户输入 PIN 的首选项。
+ﾉ
+展开表
+包含发送到远程设备的 BRB_L2CA_OPEN_ENHANCED_CHANNEL BRB 的参数设置的子结构。
+ConfigOut.Flags
+指定要打开的通道的要求的标志。 下表中列出了有效的标志值：
+ﾉ
+旗
+CF_LINK_AUTHENTICATED
+CF_LINK_ENCRYPTED CF_LINK_SUPPRESS_PIN
+CFG_ENHANCED CFG_FCS
+ConfigOut.Mtu
+描述
+必须对链接进行身份验证。
+必须对链接进行加密。 设置此标志还会设置 CF_LINK_AUTHENTICATED标志。
+配置文件驱动程序指示不提示用户输入 PIN 的首选项。
+指定 ModeConfig 结构有效。指定 Fcs 值有效。
+用于协商通道出站一半大小的消息传输单位（MTU）的范围。 ConfigOut.FlushTO
+可用于通道出站一半的刷新超时的可能值的范围。 ConfigOut.Flow
+展开表
+
+≦ 58 ≧
+保留以供将来使用。 请勿使用。 ConfigOut.LinkTO
+链接管理器链接超时。
+ConfigOut.NumExtraOptions
+ExtraOptions 成员中包含的数组项数。 对于大多数客户端，此值应为零。 ConfigOut.ExtraOptions
+其他选项。 对于大多数客户端，此值应为零。 ConfigOut.LocalQos
+保留以供将来使用。 请勿使用。 ConfigOut.LocalQos.ServiceType 保留以供将来使用。 请勿使用。 ConfigOut.LocalQos.Latency
+保留以供将来使用。 请勿使用。 ConfigOut.ModeConfig
+指定要打开的 L2CAP 通道的类型。 仅当指定CFG_ENHANCED标志时，此结构才有效。 ConfigOut.ModeConfig.Flags
+指定请求的 L2CAP 通道模式的类型。
+ﾉ
+旗
+CM_BASIC
+CM_RETRANSMISSION_AND_FLOW CM_STREAMING
+ConfigOut.ModeConfig.RetransmissionAndFlow
+描述
+打开基本模式通道。
+打开增强的重新传输模式通道。打开流模式通道。
+展开表
+指定CM_RETRANSMISSION_AND_FLOW和CM_STREAMING模式的选项。 如果仅在 标志成员中指定了CM_BASIC，则此结构必须为零。
+
+≦ 59 ≧
+RetransmissionAndFlow 的 模式 子成员应设置为 0。 使用 RetransmissionAndFlow 的
+ModeConfig 子成员指定要打开的通道类型。 ConfigOut.Fcs
+指定是否应将 FCS 用于增强的 L2CAP 通道。 仅当CM_RETRANSMISSION_AND_FLOW或 CM_STREAMING标志在 标志 成员中指定时，此值才有效。
+ConfigOut.ExtendedFlowSpec 不支持。
+ConfigOut.ExtendedWindowSize
+不支持。 ConfigIn
+包含参数设置的子结构，用于验证从远程设备发送的传入
+BRB_L2CA_OPEN_ENHANCED_CHANNEL_RESPONSE BRB。 ConfigIn.Flags
+指定要打开的通道的要求的标志。 下表中列出了有效的标志值：
+ﾉ
+旗
+CF_LINK_AUTHENTICATED
+CF_LINK_ENCRYPTED CF_LINK_SUPPRESS_PIN ConfigIn.Mtu
+描述
+必须对链接进行身份验证。
+必须对链接进行加密。 设置此标志还会设置 CF_LINK_AUTHENTICATED标志。
+配置文件驱动程序指示不提示用户输入 PIN 的首选项。
+用于协商通道入站一半大小的消息传输单位（MTU）的范围。 ConfigIn.FlushTO
+用于通道入站一半的刷新超时的可能值的范围。 CallbackFlags
+展开表
+一个标志，指定哪些事件应生成回调例程，以通知配置文件驱动程序已发生该事件。 下表中包含有效的标志值。
+
+≦ 60 ≧
+旗
+CALLBACK_CONFIG_EXTRA_IN CALLBACK_CONFIG_EXTRA_OUT
+CALLBACK_CONFIG_QOS CALLBACK_DISCONNECT CALLBACK_RECV_PACKET Callback
+描述
+ﾉ
+展开表
+如果设置，则当远程设备的配置请求包含额外选项时，将调用回调例程。 如果未设置，额外配置选项将被拒绝为未知选项。此标志与 BRB_L2CA_OPEN_ENHANCED_CHANNEL_RESPONSE BR 一起使用。
+如果已设置，远程设备拒绝来自
+BRB_L2CA_OPEN_ENHANCED_CHANNEL 请求的额外配置选项时，将调用回调例程。 如果未设置，并且远程设备由于其他选项而拒绝配置请求，连接将关闭。
+如果设置，远程设备发送包含 QOS 值的配置请求时，将调用回调例程。 如果未设置此标志，远程设备要么在配置请求中发送 QOS 参数，要么拒绝配置文件驱动程序请求的 QOS 参数，连接将断开连接。
+如果设置，当远程设备与增强的 L2CAP 通道断开连接时，将调用回调例程。
+如果已设置，则当配置文件驱动程序收到传入增强型 L2CAP 数据包时，将调用回调例程。
+配置文件驱动程序实现的增强型 L2CAP 回调函数，蓝牙驱动程序堆栈应调用以通知配置
+文件驱动程序对增强型 L2CAP 连接所做的任何更改。 CallbackContext
+要传递给 Callback 成员中指定的回调函数的上下文。 配置文件驱动程序定义此值。 ReferenceObject
+指向要传递给 ObReferenceObject 和 ObDereferenceObject 的对象的指针，用于维护引
+用计数。 OutResults
+包含为出站请求协商的配置参数的 CHANNEL_CONFIG_RESULTS_ENHANCED 结构。 InResults
+包含为入站请求协商的配置参数的CHANNEL_CONFIG_RESULTS_ENHANCED结构。 IncomingQueueDepth
+
+≦ 61 ≧
+指定消息传输单元（MTU）中的传入队列长度。 Reserved
+保留成员。 请勿使用。响应
+此成员用作 BRB_L2CA_OPEN_ENHANCED_CHANNEL 请求的输入参数和 BRB_L2CA_OPEN_ENHANCED_CHANNEL_RESPONSE 请求的输出参数。
+对于 BRB_L2CA_OPEN_ENHANCED_CHANNEL_RESPONSE 请求，此成员保留一个标志，指示配置文件驱动程序对远程设备的响应。 下表中包含有效的标志值。
+ﾉ
+旗
+CONNECT_RSP_RESULT_NO_RESOURCES
+CONNECT_RSP_RESULT_PENDING CONNECT_RSP_RESULT_PSM_NEG
+CONNECT_RSP_RESULT_SECURITY_BLOCK CONNECT_RSP_RESULT_SUCCESS
+描述
+展开表
+由于资源不足，配置文件驱动程序拒绝了连接。
+配置文件驱动程序当前正忙，无法接受连接。 请稍后再试。
+配置文件驱动程序拒绝连接，因为不支持 PSM。出于安全原因，配置文件驱动程序拒绝连接。配置文件驱动程序接受了连接。
+对于 BRB_L2CA_OPEN_ENHANCED_CHANNEL BRB，此成员包含配置文件驱动程序尝试连接到的远程设备的响应。 下表中包含有效的标志值。
+ﾉ
+旗
+CONNECT_RSP_RESULT_NO_RESOURCES CONNECT_RSP_RESULT_PSM_NEG
+CONNECT_RSP_RESULT_SECURITY_BLOCK
+CONNECT_RSP_RESULT_SUCCESS ResponseStatus
+描述
+由于资源不足，远程设备拒绝连接。远程设备拒绝连接。
+由于安全原因，远程设备拒绝连接。远程设备接受连接。
+展开表
+
+≦ 62 ≧
+如果在调用 BRB_L2CA_OPEN_ENHANCED_CHANNEL_RESPONSE BRB 期间，响应成员设置为CONNECT_RSP_RESULT_PENDING，则此成员有效并包含以下值之一：
+CONNECT_RSP_STATUS_AUTHENTICATION_PENDING CONNECT_RSP_STATUS_AUTHORIZATION_PENDING CONNECT_RSP_STATUS_NO_INFORMATION
+言论
+配置文件驱动程序可以使用 CM_BASIC | CM_RETRANSMISSION_AND_FLOW 或 CM_BASIC |
+CM_STREAMING  模式作为 标志 成员。 这表示可以打开增强的重新传输模式或流式传输模式通道（如果可能）以及如果不能回退到基本模式通道。 不支持
+CM_RETRANSMISSION_AND_FLOW | CM_STREAMING  的值。要求
+ﾉ
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows 8 及更高版本中的版本：_Supported
+bthddi.h （包括 Bthddi.h） 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 63 ≧
+_BRB_L2CA_PING结构（bthddi.h）项目2025/02/06
+_BRB_L2CA_PING结构描述对远程无线电执行 ping作的请求。
+语法 C++
+struct _BRB_L2CA_PING {   BRB_HEADER Hdr;
+  BTH_ADDR   BtAddress;
+  UCHAR      PingRequestLength;
+  UCHAR      PingRequestData[MAX_L2CAP_PING_DATA_LENGTH];   UCHAR      PingResponseLength;
+  UCHAR      PingResponseData[MAX_L2CAP_PING_DATA_LENGTH];};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 BtAddress
+ping 发送到的设备地址。 PingRequestLength
+要以 ping 信号形式发送的数据的长度（以字节为单位）。 PingRequestData[MAX_L2CAP_PING_DATA_LENGTH]
+在 ping 信号中发送的数据。 PingResponseLength
+远程设备响应 ping 信号的数据长度（以字节为单位）。
+PingResponseData[MAX_L2CAP_PING_DATA_LENGTH] 远程设备响应 ping 信号的数据。
+
+≦ 64 ≧
+言论
+若要 ping 远程无线电，通过传输L2CA_EchoReq消息并接收L2CAP_EchoRsp消息，配置文件驱动程序应 生成并发送 BRB_L2CA_PING 请求。
+BRB_L2CA_PING主要用于调试。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 BRB_HEADER BRB_L2CA_PING
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+展开表
+
+≦ 65 ≧
+_BRB_L2CA_REGISTER_SERVER结构
+（bthddi.h）项目2025/02/06
+配置文件驱动程序使用_BRB_L2CA_REGISTER_SERVER结构将自身注册为能够从远程蓝牙设备接收 L2CAP 连接的服务器。
+语法 C++
+struct _BRB_L2CA_REGISTER_SERVER {
+  BRB_HEADER                     Hdr;
+  BTH_ADDR                       BtAddress;   USHORT                         PSM;
+  ULONG                          IndicationFlags;
+  PFNBTHPORT_INDICATION_CALLBACK IndicationCallback;
+  PVOID                          IndicationCallbackContext;   PVOID                          ReferenceObject;
+  OUT L2CAP_SERVER_HANDLE        ServerHandle;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 BtAddress
+要接收通知的远程蓝牙设备的地址。 指定BTH_ADDR_NULL以接收任何传入连接的通知。 PSM
+接受连接请求的协议/服务多路复用器（PSM）。 IndicationFlags
+一个可选的标志或标志的组合，指示配置文件驱动程序是否会接受配对通知，以及连接通知。 下表列出了可能的标志设置。
+ﾉ
+展开表
+
+≦ 66 ≧
+旗
+INDICATION_PAIR_DEVICE INDICATION_UNPAIR_DEVICE
+INDICATION_UNPERSONALIZE_DEVICE IndicationCallback
+描述
+当设备配对时，配置文件驱动程序将接受通知。当设备未配对时，配置文件驱动程序将接受通知。当设备未个性化时，配置文件驱动程序将接受通知。
+由配置文件驱动程序实现的 L2CAP 回调函数，蓝牙驱动程序堆栈应调用以通知配置文件
+驱动程序传入 L2CAP 连接。 IndicationCallbackContext
+要传递给 IndicationCallback 成员中指定的回调函数的上下文。 ReferenceObject
+指向要传递给 ObReferenceObject 和 ObDereferenceObject 函数以维护引用计数的对象的指针。 配置文件驱动程序应以某种方式提供此对象，只要驱动程序堆栈可以调用
+IndicationCallback 成员中指定的回调函数，蓝牙驱动程序堆栈就可以增加对象的计数。当配置文件驱动程序 生成并发送 时，蓝牙驱动程序堆栈将减少对象的引用计数
+BRB_L2CA_UNREGISTER_SERVER 请求。 ServerHandle
+如果成功返回，则为 L2CAP 服务器的句柄。 当配置文件驱动程序不应再收到远程连接指
+示时，它应将此句柄传递给 BRB_L2CA_UNREGISTER_SERVER。言论
+若要将自身注册为 L2CAP 服务器，配置文件驱动程序应 生成并发送 BRB_L2CA_REGISTER_SERVER 请求。
+配置文件驱动程序注册自身后，它应 生成并发送BRB_REGISTER_PSM 请求，以便蓝牙驱动程序堆栈接受来自 PSM 的连接。
+如果成功，当远程设备尝试在特定 PSM 上创建与配置文件驱动程序的 L2CAP 连接时，蓝牙驱动程序堆栈可以通知配置文件驱动程序。
+配置文件驱动程序可以指定 _BRB_L2CA_REGISTER_SERVER 结构的 Psm 成员（这意味着 PSM 未指定），配置文件驱动程序随后会发出 BRB_REGISTER_PSM BRB 来获取动态 PSM 以注册连接通知。 有关 PSM 的详细信息，请参阅 _BRB_PSM。
+
+≦ 67 ≧
+配置文件驱动程序自行注册后，当远程设备尝试通过调用 L2CAP 回调函数 配置文件驱动程序实现并在 IndicationCallback 成员中指定时，蓝牙驱动程序堆栈可以通知它。
+有关 L2CAP 服务器和 PSM 的详细信息，请参阅 接受蓝牙配置文件驱动程序中的 L2CAP 连接。
+当配置文件驱动程序收到连接尝试的通知时，它应 生成并发送
+BRB_L2CA_OPEN_CHANNEL_RESPONSE BRB 接受或拒绝连接尝试。 有关接受或拒绝
+L2CAP 连接尝试的详细信息，请参阅 _BRB_L2CA_OPEN_CHANNEL 结构。建立连接后，配置文件驱动程序可以发出其他 BRB 来与远程设备通信。
+若要停止接收远程连接通知，配置文件驱动程序应 生成并发送 BRB_L2CA_UNREGISTER_SERVER 请求。
+虽然此过程允许配置文件驱动程序接受传入的连接请求，但它不会使用 SDP 自动播发服务。 若要使用 SDP 播发服务，配置文件驱动程序必须使用 SDP API 提交 SDP 记录。 有
+关使用 SDP 播发服务的详细信息，请参阅 与 SDP 服务器通信。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 BRB_HEADER
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+BRB_L2CA_REGISTER_SERVER BRB_L2CA_UNREGISTER_SERVER L2CAP 回调函数
+ObDereferenceObject ObReferenceObject
+展开表
+
+≦ 68 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 69 ≧
+_BRB_L2CA_UNREGISTER_SERVER结构
+（bthddi.h）项目2025/02/06
+配置文件驱动程序使用_BRB_L2CA_UNREGISTER_SERVER结构将自身注销为能够从远程蓝牙设备接收 L2CAP 连接的服务器。
+语法 C++
+struct _BRB_L2CA_UNREGISTER_SERVER {   BRB_HEADER Hdr;
+  BTH_ADDR   BtAddress;
+  PVOID      ServerHandle;
+  USHORT     Psm;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 BtAddress
+远程设备的地址。 ServerHandle
+要注销的 L2CAP 服务器的句柄，如之前从上一个服务器返回的那样
+BRB_L2CA_REGISTER_SERVER 请求。 Psm
+在前面指定的协议/服务多路复用器（PSM） BRB_L2CA_REGISTER_SERVER 请求。言论
+若要将自身注销为 L2CAP 服务器，配置文件驱动程序应 生成并发送 BRB_L2CA_UNREGISTER_SERVER 请求。
+
+≦ 70 ≧
+要求要求
+最低支持的客户端标头
+另请参阅 BRB_HEADER
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+BRB_L2CA_UNREGISTER_SERVER_BRB_L2CA_REGISTER_SERVER
+ﾉ
+展开表
+
+≦ 71 ≧
+_BRB_L2CA_UPDATE_CHANNEL结构
+（bthddi.h）项目2025/02/06
+_BRB_L2CA_UPDATE_CHANNEL结构描述对打开的 L2CAP 通道到远程设备的链接特征的更新，或确定某些通道属性何时发生更改。
+语法 C++
+struct _BRB_L2CA_UPDATE_CHANNEL {   BRB_HEADER           Hdr;
+  BTH_ADDR             BtAddress;
+  L2CAP_CHANNEL_HANDLE ChannelHandle;   ULONG                NewChannelFlags;
+  ULONG                FailedChannelFlags;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 BtAddress
+远程设备的蓝牙地址。 ChannelHandle
+蓝牙驱动程序堆栈返回的 L2CAP 通道句柄，以响应之前 BRB_L2CA_OPEN_CHANNEL 或
+BRB_L2CA_OPEN_CHANNEL_RESPONSE 请求。 NewChannelFlags
+标志值的组合，指定通道的更新要求。 此成员应设置为CF_ROLE_EITHER。 FailedChannelFlags
+NewChannelFlags 中的标志或标志 蓝牙驱动程序堆栈无法遵循的成员。 仅当 BRB 调用失败时，此成员才包含信息。
+
+≦ 72 ≧
+言论
+若要检索 L2CAP 通道的当前设置，配置文件驱动程序应 生成并发送 BRB_L2CA_UPDATE_CHANNEL 请求。
+然后，配置文件驱动程序可以确定某些通道属性是否已更改。 此外，如果未设置 CF_LINK_PASSIVE_MODE标志，BRB 将尝试将当前通道设置更改为远程设备。
+BRB_L2CA_UPDATE_CHANNEL 的主要用途是确定是否已为连接启用身份验证或加密。在某些情况下，可以在不指定身份验证的配置文件驱动程序的情况下建立 L2CAP 连接，但由于用户做出的选择，身份验证会自动进行。 在这种情况下，在建立连接时和身份验
+证和加密开始工作之间经过一段时间。 在身份验证和加密完成之前，将阻止对 BRB_L2CA_UPDATE_CHANNEL 的调用。
+通过生成和发送 BRB_L2CA_UPDATE_CHANNEL 请求，配置文件驱动程序可以在身份验
+证之前避免使用连接。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 BRB_HEADER
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+BRB_L2CA_OPEN_CHANNEL
+BRB_L2CA_OPEN_CHANNEL_RESPONSE
+BRB_L2CA_UPDATE_CHANNEL 反馈
+此页面是否有帮助？
+是
+否
+展开表
+
+≦ 73 ≧
+提供产品反馈 
+| 在 Microsoft Q&A 获取帮助
+
+≦ 74 ≧
+_BRB_PSM结构（bthddi.h）项目2025/02/06
+_BRB_PSM结构描述用于注册或注销的协议/服务多路复用器（PSM）。
+语法 C++
+struct _BRB_PSM {   BRB_HEADER Hdr;   USHORT     Psm;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 Psm
+当_BRB_PSM结构作为 BRB_REGISTER_PSM BRB 调用的输入传递时，这是配置文件驱动程序尝试注册的 PSM。 如果配置文件驱动程序将此值设置为零，则会动态生成 PSM。 如果配置文件驱动程序在 BRB_REGISTER_PSM 输入上指定了零，则在此成员的输出中包含已注册的 PSM。
+当_BRB_PSM结构作为 BRB_UNREGISTER_PSM BRB 调用的输入传递时，这是配置文件驱动程序尝试注销的 PSM。 此值必须是当前注册的 PSM。 有关有效 PSM 值的详细信息，请参阅“备注”部分。
+某些 PSM 保留供 Windows 使用： SDP：0x01
+RFCOMM：0x03 HID 控件：0x11 HID 数据：0x13 BNEP：0x0F
+
+≦ 75 ≧
+言论
+若要注册 PSM，配置文件驱动程序应 生成并发送BRB_REGISTER_PSM 请求。
+注册 PSM 后，配置文件驱动程序可以从远程设备接收连接通知，并且可以生成和发送 BRB_L2CA_OPEN_CHANNEL_RESPONSE 接受传入连接的请求。
+配置文件驱动程序可以指定特定的 PSM，也可以通过在 Psm 成员中指定PSM_INVALID来请求动态生成 PSM。 如果配置文件驱动程序指定PSM_INVALID，则分配的 PSM 将在结构的 Psm 成员中返回。
+蓝牙驱动程序堆栈为以下配置文件注册 PSM：HCRP、HID、PAN、SDP 和 RFCOMM。有关 L2CAP 服务器和 PSM 的详细信息，请参阅 接受蓝牙配置文件驱动程序中的 L2CAP 连接。
+配置文件驱动程序无法注册已由另一个驱动程序注册的 PSM。 如果尝试执行此作，将返回STATUS_ALREADY_COMMITTED错误。 BRB_REGISTER_PSM 请求对 SDP 记录没有影
+响。 注册 PSM 后，驱动程序可以通过发送 PSM 通过 SDP 播发 PSM IOCTL_BTH_SDP_SUBMIT_RECORD IOCTL。
+若要注销以前注册的 PSM，配置文件驱动程序应 生成并发送BRB_UNREGISTER_PSM 请求。 配置文件驱动程序必须指定当前已注册的 PSM。 如果配置文件驱动程序在 Psm 成员中发送值为零的BRB_REGISTER_PSM请求，则应在BRB_UNREGISTER_PSM请求中传递动态分配的 PSM 值。
+BRB_UNREGISTER_PSM 请求对尝试连接到 PSM 的 SDP 记录没有影响。 配置文件驱动程
+序可以通过发送 来删除相关的 SDP 记录 IOCTL_BTH_SDP_REMOVE_RECORD IOCTL。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 BRB_HEADER
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+BRB_L2CA_OPEN_CHANNEL_RESPONSE
+展开表
+
+≦ 76 ≧
+BRB_REGISTER_PSM BRB_UNREGISTER_PSM
+IOCTL_BTH_SDP_REMOVE_RECORD IOCTL_BTH_SDP_SUBMIT_RECORD
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 77 ≧
+_BRB_SCO_CLOSE_CHANNEL结构
+（bthddi.h）项目2025/02/06
+_BRB_SCO_CLOSE_CHANNEL结构描述了目前开放的上海合作组织通道即将关闭。
+语法 C++
+struct _BRB_SCO_CLOSE_CHANNEL {   BRB_HEADER         Hdr;
+  BTH_ADDR           BtAddress;
+  SCO_CHANNEL_HANDLE ChannelHandle;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 BtAddress
+远程设备的蓝牙地址。 ChannelHandle
+要关闭的 SCO 通道的句柄。言论
+若要关闭 SCO 通道，配置文件驱动程序应 生成并发送BRB_SCO_CLOSE_CHANNEL 请求。
+可以为本地或远程启动的通道发出 BRB_SCO_CLOSE_CHANNEL 请求。 如果配置文件驱
+动程序与单个远程设备具有多个 SCO 连接，则必须单独关闭每个设备。要求
+
+≦ 78 ≧
+要求
+最低支持的客户端标头
+另请参阅 BRB_HEADER
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+BRB_SCO_CLOSE_CHANNEL 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 79 ≧
+_BRB_SCO_FLUSH_CHANNEL结构
+（bthddi.h）项目2025/02/06
+_BRB_SCO_FLUSH_CHANNEL结构描述 SCO 通道的刷新作。
+语法 C++
+struct _BRB_SCO_FLUSH_CHANNEL {   BRB_HEADER         Hdr;
+  BTH_ADDR           BtAddress;
+  SCO_CHANNEL_HANDLE ChannelHandle;
+  ULONG              FlushFlags;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 BtAddress
+远程设备的蓝牙地址。 ChannelHandle
+要刷新的 SCO 通道的句柄。 FlushFlags
+可以使用逻辑 OR作组合有效标志
+SCO_FLUSH_DIRECTION_OUT SCO_FLUSH_DIRECTION_IN 言论
+
+≦ 80 ≧
+若要刷新 SCO 通道，配置文件驱动程序应 生成并发送BRB_SCO_FLUSH_CHANNEL 请求。
+所有挂起的数据传输 IRP 都将使用STATUS_REQUEST_ABORTED完成。 正在进行的 IRP 将正常完成，成功或失败，具体取决于蓝牙驱动程序堆栈是否能够将数据传输到远程设备或
+从远程设备传输数据。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 BRB_HEADER
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+BRB_SCO_FLUSH_CHANNEL 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 81 ≧
+_BRB_SCO_GET_CHANNEL_INFO结构
+（bthddi.h）项目2025/02/06
+_BRB_SCO_GET_CHANNEL_INFO结构描述了 SCO 通道的设置和统计信息。
+语法 C++
+struct _BRB_SCO_GET_CHANNEL_INFO {   BRB_HEADER                Hdr;
+  BTH_ADDR                  BtAddress;
+  SCO_CHANNEL_HANDLE        ChannelHandle;   ULONG                     InfoFlags;
+  ULONG                     TransmitBandwidth;   ULONG                     ReceiveBandwidth;
+  USHORT                    MaxLatency;   USHORT                    PacketType;
+  USHORT                    ContentFormat;   USHORT                    Reserved;
+  SCO_RETRANSMISSION_EFFORT RetransmissionEffort;   ULONG                     ChannelFlags;
+  CONNECTION_HANDLE         HciConnectionHandle;   SCO_LINK_TYPE             LinkType;
+  BASEBAND_CHANNEL_INFO     BasebandInfo;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 BtAddress
+远程设备的蓝牙地址。 ChannelHandle
+要查询的 SCO 通道的句柄。 InfoFlags
+一个标志，用于确定基带信息是否可用于 SCO 通道。 定义了以下标志：
+
+≦ 82 ≧
+旗
+SCO_INFO_BASEBAND_AVAILABLE TransmitBandwidth
+通道的传输带宽（以字节/秒为单位）。 ReceiveBandwidth
+通道的接收带宽（以字节/秒为单位）。 MaxLatency
+描述
+如果已设置，则基带设置可用于 SCO 通道。
+ﾉ
+展开表
+一个值，表示同步间隔和 SCO 窗口的大小（以毫秒为单位）的上限。 下表中列出了可能的值。
+ﾉ
+值
+0x0000 0x0003 要0xFFFE的0x0004 0xFFFF
+PacketType
+描述
+保留以供将来使用。通道的延迟值范围。
+通道没有首选 MaxLatency 设置。
+展开表
+标志或标志的组合，指示 SCO 通道支持的数据包类型。 这些 SCO 数据包类型由蓝牙 SIG 定义。 有关这些标志的详细信息，请参阅蓝牙规范。 可能的值包括：
+SCO_HV1 SCO_HV2 SCO_HV3 SCO_EV3 SCO_EV4 SCO_EV5
+ContentFormat
+通道的音频语音设置。 使用以下定义解码此成员： SCO_VS_AIR_CODING_DATA
+SCO_VS_AIR_CODING_FORMAT_ALAW SCO_VS_AIR_CODING_FORMAT_CVSD SCO_VS_AIR_CODING_FORMAT_MASK
+
+≦ 83 ≧
+SCO_VS_AIR_CODING_FORMAT_MULAW
+SCO_VS_IN_CODING_ALAW SCO_VS_IN_CODING_LINEAR SCO_VS_IN_CODING_MASK SCO_VS_IN_CODING_MULAW SCO_VS_IN_DATA_FORMAT_1C SCO_VS_IN_DATA_FORMAT_2C
+SCO_VS_IN_DATA_FORMAT_MASK SCO_VS_IN_DATA_FORMAT_SM SCO_VS_IN_DATA_FORMAT_US SCO_VS_IN_SAMPLE_SIZE_8BIT SCO_VS_IN_SAMPLE_SIZE_16BIT SCO_VS_IN_SAMPLE_SIZE_MASK SCO_VS_PCM_BIT_POS_MASK
+SCO_VS_SETTING_DEFAULT Reserved
+保留以供将来使用。 请勿使用。 RetransmissionEffort
+确定通道重新传输策略的 SCO_RETRANSMISSION_EFFORT 值。 ChannelFlags
+指定通道打开方式的标志。 下表中列出了有效的标志值。
+旗
+SCO_CF_LINK_AUTHENTICATED
+SCO_CF_LINK_ENCRYPTED SCO_CF_LINK_SUPPRESS_PIN HciConnectionHandle
+描述
+必须对链接进行身份验证。
+必须对链接进行加密。 设置此标志还会设置 SCO_CF_LINK_AUTHENTICATED标志。
+配置文件驱动程序指示不提示用户输入 PIN 的首选项。
+主机控制器接口的连接句柄用于 SCO 连接。 LinkType
+与主机控制器接口关联的 SCO_LINK_TYPE。
+ﾉ
+展开表
+
+≦ 84 ≧
+BasebandInfo
+包含 SCO 连接信息的 BASEBAND_CHANNEL_INFO 结构。 此信息仅适用于使用 1.2 蓝牙同步命
+令建立的链接。言论
+若要获取 SCO 通道的设置和统计信息，配置文件驱动程序应 生成并发送
+BRB_SCO_GET_CHANNEL_INFO 请求。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+BASEBAND_CHANNEL_INFO BRB_HEADER
+BRB_SCO_GET_CHANNEL_INFO SCO_LINK_TYPE
+SCO_RETRANSMISSION_EFFORT
+展开表
+
+≦ 85 ≧
+_BRB_SCO_GET_SYSTEM_INFO结构
+（bthddi.h）项目2025/02/06
+_BRB_SCO_GET_SYSTEM_INFO结构描述有关本地系统对 SCO 连接的支持的信息。
+语法 C++
+struct _BRB_SCO_GET_SYSTEM_INFO {   BRB_HEADER Hdr;
+  ULONG      Features;
+  ULONG      MaxChannels;   ULONG      TransferUnit;   USHORT     PacketTypes;   USHORT     DataFormats;
+  ULONG      Reserved;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 Features
+标志或标志的组合，指示系统支持哪些 SCO 功能。 可能的值包括：
+SCO_FEATURE_ESCO_LINKS SCO_FEATURE_SCO_LINKS
+MaxChannels
+系统支持的最大活动 SCO 通道数。 如果不存在限制或限制未知，则此成员设置为0xFFFF。 TransferUnit
+每个请求的最小数据传输速度（以毫秒为单位）。 如果此值为变量或未知，则设置为0xFFFF。 PacketTypes
+标志或标志的组合，指示本地系统支持的 SCO 数据包的类型。 这些 SCO 数据包类型由蓝牙 SIG 定义。 有关这些标志的详细信息，请参阅蓝牙规范。 可能的值包括：
+
+≦ 86 ≧
+SCO_HV1 SCO_HV2 SCO_HV3 SCO_EV3 SCO_EV4 SCO_EV5
+DataFormats
+标志或标志的组合，指示本地系统支持的语音编码数据格式。 可能的值包括：
+SCO_DATA_FORMAT_A_LAW_LOG SCO_DATA_FORMAT_CVSD
+SCO_DATA_FORMAT_MU_LAW_LOG SCO_DATA_FORMAT_TRANSPARENT
+Reserved
+保留以供将来使用。 请勿使用。言论
+若要获取本地系统对 SCO 连接的支持，配置文件驱动程序应 生成并发送 BRB_SCO_GET_SYSTEM_INFO 请求。
+更高级别的配置文件驱动程序可以生成和发送 BRB_SCO_GET_SYSTEM_INFO 请求，以确定本地蓝牙驱动程序堆栈是否支持 SCO 连接、系统支持的最大 SCO 通道数，以及用于打开与远程设备
+的 SCO 连接的其他有用信息。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 BRB_HEADER
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+展开表
+
+≦ 87 ≧
+BRB_SCO_GET_SYSTEM_INFO
+
+≦ 88 ≧
+_BRB_SCO_OPEN_CHANNEL结构
+（bthddi.h）项目2025/02/06
+_BRB_SCO_OPEN_CHANNEL结构描述要向远程设备打开的 SCO 通道，或者从配置文件驱动程序接受或拒绝远程设备发起的传入 SCO 连接请求的响应。
+语法 C++
+struct _BRB_SCO_OPEN_CHANNEL {
+  BRB_HEADER                 Hdr;
+  BTH_ADDR                   BtAddress;
+  ULONG                      TransmitBandwidth;   ULONG                      ReceiveBandwidth;
+  USHORT                     MaxLatency;   USHORT                     PacketType;
+  USHORT                     ContentFormat;   USHORT                     Reserved;
+  SCO_RETRANSMISSION_EFFORT  RetransmissionEffort;
+  ULONG                      ChannelFlags;   ULONG                      CallbackFlags;   PFNSCO_INDICATION_CALLBACK Callback;
+  PVOID                      CallbackContext;   PVOID                      ReferenceObject;   SCO_CHANNEL_HANDLE         ChannelHandle;
+  UCHAR                      Response;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 BtAddress
+要打开 SCO 通道的远程设备的蓝牙地址。 TransmitBandwidth
+要分配给 SCO 通道的传输带宽（以字节/秒为单位）。
+
+≦ 89 ≧
+ReceiveBandwidth
+要分配给 SCO 通道的接收带宽（以字节/秒为单位）。 MaxLatency
+一个值，该值表示同步间隔和 （e）SCO 窗口大小的上限（以毫秒为单位）。 下表中列出了可能的值。
+ﾉ
+值
+0x0000 0x0003 要0xFFFE的0x0004 0xFFFF
+PacketType
+说明
+保留以供将来使用。
+通道的可能 MaxLatency 值的范围。通道没有首选 MaxLatency 设置。
+展开表
+指示 SCO 连接支持的数据包类型的标志或标志的组合。 这些 SCO 数据包类型由蓝牙 SIG 定义。 有关这些标志的详细信息，请参阅蓝牙规范。 可能的值包括：
+SCO_HV1 SCO_HV2 SCO_HV3 SCO_EV3 SCO_EV4 SCO_EV5 ContentFormat
+通道的音频语音设置。 使用以下定义对此成员进行编码： SCO_VS_AIR_CODING_DATA
+SCO_VS_AIR_CODING_FORMAT_ALAW SCO_VS_AIR_CODING_FORMAT_CVSD
+
+≦ 90 ≧
+SCO_VS_AIR_CODING_FORMAT_MASK SCO_VS_AIR_CODING_FORMAT_MULAW
+SCO_VS_IN_CODING_ALAW SCO_VS_IN_CODING_LINEAR SCO_VS_IN_CODING_MASK SCO_VS_IN_CODING_MULAW SCO_VS_IN_DATA_FORMAT_1C SCO_VS_IN_DATA_FORMAT_2C
+SCO_VS_IN_DATA_FORMAT_MASK SCO_VS_IN_DATA_FORMAT_SM SCO_VS_IN_DATA_FORMAT_US SCO_VS_IN_SAMPLE_SIZE_8BIT SCO_VS_IN_SAMPLE_SIZE_16BIT SCO_VS_IN_SAMPLE_SIZE_MASK SCO_VS_PCM_BIT_POS_MASK
+SCO_VS_SETTING_DEFAULT Reserved
+保留以供将来使用。 请勿使用。 RetransmissionEffort
+一个 SCO_RETRANSMISSION_EFFORT 用于确定通道重新传输策略的枚举值。 ChannelFlags
+指定要打开的通道的要求的标志。 下表中列出了有效的标志值：
+标志
+SCO_CF_LINK_AUTHENTICATED
+SCO_CF_LINK_ENCRYPTED SCO_CF_LINK_SUPPRESS_PIN CallbackFlags
+说明
+必须对链接进行身份验证。
+必须对链接进行加密。 设置此标志还会设置 SCO_CF_LINK_AUTHENTICATED标志。
+ﾉ
+配置文件驱动程序指示不提示用户输入 PIN 的首选项。
+展开表
+一个标志，指定何时应将分配给 回调 成员的函数发送到客户端。 目前，只有一个有效标志：
+
+≦ 91 ≧
+标志
+SCO_CALLBACK_DISCONNECT Callback
+说明
+ﾉ
+当远程设备断开连接时，应通知配置文件驱动程序。
+展开表
+SCO 回调函数 由配置文件驱动程序实现，蓝牙驱动程序堆栈应调用以通知配置文件驱动
+程序对 SCO 连接所做的任何更改。 CallbackContext
+要传递给 Callback 成员中指定的回调函数的上下文。 配置文件驱动程序定义此值。 ReferenceObject
+指向要传递给 ObReferenceObject 和 ObDereferenceObject 的对象的指针，该对象保留
+其引用计数。 ChannelHandle
+如果打开的通道请求成功完成，则标识 SCO 通道的句柄。 Response
+一个标志，指示本地服务器是接受还是拒绝传入的 SCO 连接。 仅当生成和发送
+BRB_SCO_OPEN_CHANNEL_RESPONSE 请求时，才使用此成员。 下表中列出了有效的标志值。
+ﾉ
+旗
+SCO_CONNECT_RSP_RESPONSE_SUCCESS
+SCO_CONNECT_RSP_RESPONSE_NO_RESOURCES SCO_CONNECT_RSP_RESPONSE_SECURITY_BLOCK SCO_CONNECT_RSP_RESPONSE_BAD_BD_ADDR
+言论
+描述
+本地服务器接受 SCO 连接请求。
+展开表
+由于资源不足，本地服务器拒绝 SCO 连接请求。
+本地服务器拒绝 SCO 连接请求，因为请求不符合安全要求。
+本地服务器拒绝 SCO 连接请求，因为它不接受来自指定蓝牙设备地址的连接。
+
+≦ 92 ≧
+若要打开 SCO 通道，配置文件驱动程序应 生成并发送BRB_SCO_OPEN_CHANNEL 请求。如果在请求之前不存在到远程设备的异步无连接链接，蓝牙驱动程序堆栈会在创建 SCO 通道之前创建一个。
+若要接受或拒绝远程设备启动的传入 SCO 连接请求，配置文件驱动程序应 生成并发送
+BRB_SCO_OPEN_CHANNEL_RESPONSE
+ 请求。
+当蓝牙驱动程序堆栈调用配置文件驱动程序的 SCO 回调函数 时，配置文件驱动程序应生成并发送 BRB_SCO_OPEN_CHANNEL_RESPONSE 请求，并在回调函数的 指示 参数中传递 ScoIndicationRemoteConnect。
+配置文件驱动程序指定是否应通过将此结构的 响应 成员中存储适当的值来接受连接。 在
+此上下文中，本地系统是服务器。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 BRB_HEADER
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+BRB_SCO_OPEN_CHANNEL
+BRB_SCO_OPEN_CHANNEL_RESPONSE
+ObDereferenceObject ObReferenceObject SCO 回调函数
+SCO_RETRANSMISSION_EFFORT 反馈
+展开表
+
+≦ 93 ≧
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 94 ≧
+_BRB_SCO_REGISTER_SERVER结构
+（bthddi.h）项目2025/02/06
+配置文件驱动程序使用_BRB_SCO_REGISTER_SERVER结构将自身注册为能够从远程蓝牙设备接收 SCO 连接的服务器。
+语法 C++
+struct _BRB_SCO_REGISTER_SERVER {   BRB_HEADER                 Hdr;
+  BTH_ADDR                   BtAddress;   ULONG                      Reserved;
+  ULONG                      IndicationFlags;
+  PFNSCO_INDICATION_CALLBACK IndicationCallback;
+  PVOID                      IndicationCallbackContext;   PVOID                      ReferenceObject;
+  SCO_SERVER_HANDLE          ServerHandle;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 BtAddress
+要接收通知的远程蓝牙设备的地址。 Reserved
+保留以供将来使用。 请勿使用。 IndicationFlags
+一个标志，指示何时应调用在 IndicationCallback 成员中指定的回调函数。 定义了以下标志。
+ﾉ
+标志
+说明
+展开表
+
+≦ 95 ≧
+SCO_INDICATION_SCO_REQUEST SCO_INDICATION_ESCO_REQUEST
+IndicationCallback
+如果有任何传入的 SCO 连接，请通知配置文件驱动程序。如果有任何传入的 eSCO 连接，请通知配置文件驱动程序。
+由配置文件驱动程序实现的 SCO 回调函数，蓝牙驱动程序堆栈应调用该函数来通知配置文件驱
+动程序传入的 SCO 连接。 IndicationCallbackContext
+传递给在 IndicationCallback 成员中定义的函数的上下文。 ReferenceObject
+指向要传递给 ObReferenceObject 和 ObDereferenceObject 函数以保持引用计数的对象指针。配置文件驱动程序应以某种方式提供此对象，只要驱动程序堆栈可以调用 IndicationCallback 成员中指定的回调函数，蓝牙驱动程序堆栈就可以增加对象的计数。 当配置文件驱动程序 生成并
+发送 时，蓝牙驱动程序堆栈将减少对象的引用计数 BRB_SCO_UNREGISTER_SERVER 请求。 ServerHandle
+成功返回的 SCO 服务器的句柄。 当配置文件驱动程序不应再收到远程连接指示时，它应将此句
+柄传递给 BRB_SCO_UNREGISTER_SERVER。言论
+若要将自身注册为 SCO 服务器，配置文件驱动程序应 生成并发送BRB_SCO_REGISTER_SERVER 请求。
+如果成功，当远程设备尝试创建与配置文件驱动程序的 SCO 连接时，蓝牙驱动程序堆栈可以通知配置文件驱动程序。
+配置文件驱动程序自行注册后，当远程设备尝试通过调用 SCO 回调函数 配置文件驱动程序实现
+并在 IndicationCallback 成员中指定时，蓝牙驱动程序堆栈可以通知它。当配置文件驱动程序收到连接尝试的通知时，它应 生成并发送
+BRB_SCO_OPEN_CHANNEL_RESPONSE
+ 请求接受或拒绝连接尝试。 有关接受或拒绝 SCO 连
+接尝试的详细信息，请参阅 _BRB_SCO_OPEN_CHANNEL 结构。
+建立连接后，配置文件驱动程序可以发出其他 BRB 来与远程设备通信。
+若要停止接收远程连接通知，配置文件驱动程序应 生成并发送 BRB_SCO_UNREGISTER_SERVER 请求。
+
+≦ 96 ≧
+要求要求
+最低支持的客户端标头
+另请参阅 BRB_HEADER
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+BRB_SCO_REGISTER_SERVER BRB_SCO_UNREGISTER_SERVER
+ObDereferenceObject ObReferenceObject SCO 回调函数
+ﾉ
+展开表
+
+≦ 97 ≧
+_BRB_SCO_TRANSFER结构（bthddi.h）项目2025/02/06
+_BRB_SCO_TRANSFER结构描述从中读取时序数据的缓冲区，或将数据写入 SCO 通道。
+语法 C++
+struct _BRB_SCO_TRANSFER {   BRB_HEADER         Hdr;
+  BTH_ADDR           BtAddress;
+  SCO_CHANNEL_HANDLE ChannelHandle;   ULONG              TransferFlags;
+  ULONG              BufferSize;   PVOID              Buffer;
+  PMDL               BufferMDL;   ULONGLONG          DataTag;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 BtAddress
+远程设备的蓝牙地址。 ChannelHandle
+蓝牙驱动程序堆栈为响应早期 BRB_SCO_OPEN_CHANNEL 或
+BRB_SCO_OPEN_CHANNEL_RESPONSE 请求而返回的 SCO 通道句柄。 TransferFlags
+指定 BRB 的基本行为的标志。 下表中列出了有效的标志值。
+ﾉ
+展开表
+
+≦ 98 ≧
+旗
+SCO_TRANSFER_DIRECTION_IN SCO_TRANSFER_DIRECTION_OUT
+BufferSize
+描述
+如果设置了此位，BRB 将通过 SCO 通道从远程设备读取时序数据。
+如果设置了此位，BRB 将通过 SCO 通道将时序数据写入远程设备。
+Buffer 描述的输入缓冲区的大小（以字节为单位） 此结构的成员。 Buffer
+指向输入缓冲区的指针。 不使用 Buffer 成员时，此值应 NULL。 BufferMDL
+指向 MDL 输入缓冲区的指针。 不使用 BufferMDL 成员时，此值应 NULL。
+DataTag SCO 写入
+言论
+若要从区域数据读取或向 SCO 连接写入时序数据，配置文件驱动程序应 生成并发送 BRB_SCO_TRANSFER 请求。
+每个 SCO 连接都是双向的，可以同时读取和写入。
+读取 BRB 将保持挂起状态，直到数据到达或配置文件驱动程序刷新它们为止。 建议高级驱动程序随时至少打开两个挂起的读取 BR，以接受来自远程设备的传入数据。
+蓝牙驱动程序堆栈不会为传入的时序数据提供任何缓冲。 因此，完成一个读取 IRP 和下一个读取 IRP 之间的小差距可能会导致数据丢失。
+如果 Buffer 和 BufferMDL 包含非NULL 值，则 BufferMDL 优先。要求
+ﾉ
+展开表
+
+≦ 99 ≧
+要求
+最低支持的客户端标头
+另请参阅 BRB_HEADER
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+BRB_SCO_OPEN_CHANNEL
+BRB_SCO_OPEN_CHANNEL_RESPONSE
+BRB_SCO_TRANSFER 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 100 ≧
+_BRB_SCO_UNREGISTER_SERVER结构
+（bthddi.h）项目2025/02/06
+配置文件驱动程序使用 _BRB_SCO_UNREGISTER_SERVER 结构将自身注销为能够从远程蓝牙设备接收 SCO 连接的服务器。
+语法 C++
+struct _BRB_SCO_UNREGISTER_SERVER {   BRB_HEADER Hdr;
+  BTH_ADDR   BtAddress;
+  PVOID      ServerHandle;};
+成员 Hdr
+包含有关当前 BRB 的信息的 BRB_HEADER 结构。 BtAddress
+远程设备的地址。 ServerHandle
+从BRB_SCO_REGISTER_SERVER之前获取的 SCO 服务器的注销句柄。言论
+若要将自身注销为 SCO 服务器，配置文件驱动程序应 生成并发送
+BRB_SCO_UNREGISTER_SERVER 请求。要求
+ﾉ
+展开表
+
+≦ 101 ≧
+要求
+最低支持的客户端标头
+另请参阅 BRB_HEADER
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+BRB_SCO_UNREGISTER_SERVER
+
+≦ 102 ≧
+ACL_MODE枚举 （bthddi.h）项目2025/02/06
+ACL_MODE枚举类型用于列出 ACL 连接的可能状态。
+语法 C++
+typedef enum _ACL_MODE {
+  ACL_MODE_ACTIVE,   ACL_MODE_HOLD,   ACL_MODE_SNIFF,   ACL_MODE_PARK,
+  ACL_MODE_ENTER_ACTIVE,   ACL_MODE_ENTER_HOLD,   ACL_MODE_ENTER_SNIFF,   ACL_MODE_ENTER_PARK,
+  ACL_DISCONNECTED} ACL_MODE;
+常数  
+ACL_MODE_ACTIVE
+此值指示 ACL 处于活动状态。 ACL_MODE_HOLD
+此值指示 ACL 处于保留状态。 ACL_MODE_SNIFF
+此值指示 ACL 处于嗅探状态。 ACL_MODE_PARK
+此值指示 ACL 处于寄存状态。 ACL_MODE_ENTER_ACTIVE
+此值指示 ACL 正在进入活动状态。 ACL_MODE_ENTER_HOLD
+此值指示 ACL 正在进入保留状态。
+ﾉ
+展开表
+
+≦ 103 ≧
+ 
+ACL_MODE_ENTER_SNIFF
+此值指示 ACL 正在进入嗅探状态。 ACL_MODE_ENTER_PARK
+此值指示 ACL 正在进入寄存状态。 ACL_DISCONNECTED
+此值指示 ACL 已断开连接。言论
+_BRB_ACL_GET_MODE 结构使用此枚举。要求
+要求
+最低支持的客户端标头
+另请参阅_BRB_ACL_GET_MODE
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 104 ≧
+BASEBAND_CHANNEL_INFO结构
+（bthddi.h）项目2025/02/06
+BASEBAND_CHANNEL_INFO结构描述在BRB_GET_CHANNEL_INFO BRB 完成后由 SCO 链接使用的基带通道的输出信息。
+语法 C++
+typedef struct _BASEBAND_CHANNEL_INFO {
+  UCHAR  Transmission_Interval;   UCHAR  Retransmission_Window;   UCHAR  AirMode;
+  USHORT Rx_Packet_Length;   USHORT Tx_Packet_Length;
+} BASEBAND_CHANNEL_INFO, *PBASEBAND_CHANNEL_INFO; 成员
+Transmission_Interval
+连续两个 SCO 实例之间的已用时间（以槽为单位）。 对于 SCO 链接，此成员将返回零。
+Retransmission_Window
+eSCO 通道可用于重新传输请求的时间长度（在槽中）。 对于 SCO 链接，此成员将返回
+零。 AirMode
+基带通道使用的空中模式数据格式。 可能的值包括：
+A-LAW 日志 CVSD
+MU-LAW LOG 透明数据
+Rx_Packet_Length
+接收方向 eSCO 有效负载的大小（以字节为单位）。 对于 SCO 链接，此成员将返回零。
+
+≦ 105 ≧
+Tx_Packet_Length
+传输方向 eSCO 有效负载的大小（以字节为单位）。 对于 SCO 链接，此成员将返回零。言论
+配置文件驱动程序通过 BasebandInfo 成员访问BASEBAND_CHANNEL_INFO结构
+_BRB_SCO_GET_CHANNEL_INFO 结构。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+_BRB_SCO_GET_CHANNEL_INFO 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 106 ≧
+BRB 结构 （bthddi.h）项目2025/02/06
+配置文件驱动程序使用蓝牙请求块（BRB）将请求发送到蓝牙驱动程序堆栈。 BRB 结构定义可发送到蓝牙设备的所有受支持命令的格式。
+语法 C++
+typedef struct _BRB {
+  union {#if ...
+    _BRB_HEADER                             BrbHeader;#else
+    struct _BRB_HEADER                      BrbHeader;
+#endif#if ...
+    _BRB_GET_DEVICE_INTERFACE_STRING        BrbGetDeviceInterfaceString;#else
+    struct _BRB_GET_DEVICE_INTERFACE_STRING BrbGetDeviceInterfaceString;
+#endif#if ...
+    _BRB_GET_LOCAL_BD_ADDR                  BrbGetLocalBdAddress;#else
+    struct _BRB_GET_LOCAL_BD_ADDR           BrbGetLocalBdAddress;
+#endif#if ...
+    _BRB_ACL_GET_MODE                       BrbAclGetMode;#else
+    struct _BRB_ACL_GET_MODE                BrbAclGetMode;
+#endif#if ...
+    _BRB_ACL_ENTER_ACTIVE_MODE              BrbAclEnterActiveMode;#else
+    struct _BRB_ACL_ENTER_ACTIVE_MODE       BrbAclEnterActiveMode;
+#endif#if ...
+    _BRB_PSM                                BrbPsm;#else
+    struct _BRB_PSM                         BrbPsm;
+#endif#if ...
+    _BRB_L2CA_REGISTER_SERVER               BrbL2caRegisterServer;#else
+    struct _BRB_L2CA_REGISTER_SERVER        BrbL2caRegisterServer;
+#endif#if ...
+    _BRB_L2CA_UNREGISTER_SERVER             BrbL2caUnregisterServer;#else
+    struct _BRB_L2CA_UNREGISTER_SERVER      BrbL2caUnregisterServer;
+
+≦ 107 ≧
+#endif#if ...
+    _BRB_L2CA_OPEN_CHANNEL                  BrbL2caOpenChannel;#else
+    struct _BRB_L2CA_OPEN_CHANNEL           BrbL2caOpenChannel;
+#endif#if ...
+    _BRB_L2CA_CLOSE_CHANNEL                 BrbL2caCloseChannel;#else
+    struct _BRB_L2CA_CLOSE_CHANNEL          BrbL2caCloseChannel;
+#endif#if ...
+    _BRB_L2CA_PING                          BrbL2caPing;#else
+    struct _BRB_L2CA_PING                   BrbL2caPing;
+#endif#if ...
+    _BRB_L2CA_ACL_TRANSFER                  BrbL2caAclTransfer;#else
+    struct _BRB_L2CA_ACL_TRANSFER           BrbL2caAclTransfer;
+#endif#if ...
+    _BRB_L2CA_UPDATE_CHANNEL                BrbL2caUpdateChannel;#else
+    struct _BRB_L2CA_UPDATE_CHANNEL         BrbL2caUpdateChannel;
+#endif#if ...
+    _BRB_L2CA_OPEN_ENHANCED_CHANNEL         BrbL2caOpenEnhancedChannel;#else
+    struct _BRB_L2CA_OPEN_ENHANCED_CHANNEL  BrbL2caOpenEnhancedChannel;
+#endif#if ...
+    _BRB_SCO_REGISTER_SERVER                BrbScoRegisterServer;#else
+    struct _BRB_SCO_REGISTER_SERVER         BrbScoRegisterServer;
+#endif#if ...
+    _BRB_SCO_UNREGISTER_SERVER              BrbScoUnregisterServer;#else
+    struct _BRB_SCO_UNREGISTER_SERVER       BrbScoUnregisterServer;
+#endif#if ...
+    _BRB_SCO_OPEN_CHANNEL                   BrbScoOpenChannel;#else
+    struct _BRB_SCO_OPEN_CHANNEL            BrbScoOpenChannel;
+#endif#if ...
+    _BRB_SCO_CLOSE_CHANNEL                  BrbScoCloseChannel;#else
+    struct _BRB_SCO_CLOSE_CHANNEL           BrbScoCloseChannel;
+#endif#if ...
+    _BRB_SCO_FLUSH_CHANNEL                  BrbScoFlushChannel;#else
+    struct _BRB_SCO_FLUSH_CHANNEL           BrbScoFlushChannel;
+
+≦ 108 ≧
+#endif#if ...
+    _BRB_SCO_TRANSFER                       BrbScoTransfer;#else
+    struct _BRB_SCO_TRANSFER                BrbScoTransfer;
+#endif#if ...
+    _BRB_SCO_GET_CHANNEL_INFO               BrbScoGetChannelInfo;#else
+    struct _BRB_SCO_GET_CHANNEL_INFO        BrbScoGetChannelInfo;
+#endif#if ...
+    _BRB_SCO_GET_SYSTEM_INFO                BrbScoGetSystemInfo;#else
+    struct _BRB_SCO_GET_SYSTEM_INFO         BrbScoGetSystemInfo;
+#endif   };
+} BRB, *PBRB;
+成员 BrbHeader
+描述有关发送到蓝牙设备的请求的基本信息。 有关详细信息，请参阅 BRB_HEADER。 BrbGetDeviceInterfaceString
+定义用于获取当前蓝牙设备对象的接口字符串的命令的格式。 有关获取设备接口字符串的详细
+信息，请参阅 _BRB_GET_DEVICE_INTERFACE_STRING。 BrbGetLocalBdAddress
+定义返回本地蓝牙无线电地址的命令的格式。 有关获取本地蓝牙设备地址的详细信息，请参阅
+_BRB_GET_LOCAL_BD_ADDR。 BrbAclGetMode
+定义用于获取当前 ACL 模式的命令的格式。 有关获取当前 ACL 模式的详细信息，请参阅
+_BRB_ACL_GET_MODE。 BrbAclEnterActiveMode
+定义用于进入活动 ACL 模式的命令的格式。 有关进入活动 ACL 模式的详细信息，请参阅
+_BRB_ACL_ENTER_ACTIVE_MODE。 BrbPsm
+
+≦ 109 ≧
+定义注册和注销 L2CAP 蓝牙设备连接到的协议/服务多路复用器（PSM）的命令的格式。 有关
+PSM 的详细信息，请参阅 _BRB_PSM。 BrbL2caRegisterServer
+定义用于注册 L2CAP 服务器的命令的格式。 有关注册 L2CAP 服务器的详细信息，请参阅
+_BRB_L2CA_REGISTER_SERVER。 BrbL2caUnregisterServer
+定义命令取消注册以前注册的 L2CAP 服务器的格式。 有关注销 L2CAP 服务器的详细信息，请
+参阅 _BRB_L2CA_UNREGISTER_SERVER。 BrbL2caOpenChannel
+定义 L2CAP 打开通道的格式和发送到蓝牙设备的 L2CAP 开放通道响应命令。 有关打开 L2CAP
+通道的详细信息，请参阅 _BRB_L2CA_OPEN_CHANNEL。 BrbL2caCloseChannel
+定义发送到蓝牙设备的 L2CAP 关闭通道命令的格式。 有关关闭 L2CAP 通道的详细信息，请参
+阅 _BRB_L2CA_CLOSE_CHANNEL。 BrbL2caPing
+定义通过 L2CAP 连接向远程蓝牙设备发送L2CAP_EchoReq消息并从远程蓝牙设备接收 L2CAP_EchoRsp消息的命令的格式。 有关 ping L2CAP 连接的详细信息，请参阅
+_BRB_L2CA_PING。 BrbL2caAclTransfer
+定义通过 L2CAP 连接到蓝牙设备的读取和写入作的命令的格式。 有关 ACL 传输的详细信息，请
+参阅 _BRB_L2CA_ACL_TRANSFER。 BrbL2caUpdateChannel
+定义将 L2CAP 通道的设置更新为蓝牙设备的命令的格式。 有关更新 L2CAP 通道的详细信息，
+请参阅 _BRB_L2CA_UPDATE_CHANNEL。 BrbL2caOpenEnhancedChannel
+定义增强的 L2CAP 开放通道的格式和发送到蓝牙设备的增强型 L2CAP 开放通道响应命令。 有关打开增强型 L2CAP 通道的详细信息，请参阅 _BRB_L2CA_OPEN_ENHANCED_CHANNEL。 此
+成员存在于 Windows 8 及更高版本的 Windows 中。 BrbScoRegisterServer
+
+≦ 110 ≧
+定义用于注册 SCO 服务器的命令的格式。 有关注册 SCO 服务器的详细信息，请参阅
+_BRB_SCO_REGISTER_SERVER。 BrbScoUnregisterServer
+定义命令取消注册以前注册的 SCO 服务器的格式。 有关注销 SCO 服务器的详细信息，请参阅
+_BRB_SCO_UNREGISTER_SERVER。 BrbScoOpenChannel
+定义发送到蓝牙设备的 SCO 开放通道和 SCO 开放通道响应命令的格式。 有关打开 SCO 频道的
+详细信息，请参阅 _BRB_SCO_OPEN_CHANNEL。 BrbScoCloseChannel
+定义发送到蓝牙设备的 SCO 关闭通道命令的格式。 有关关闭 SCO 频道的详细信息，请参阅
+_BRB_SCO_CLOSE_CHANNEL。 BrbScoFlushChannel
+定义 SCO 刷新通道命令的格式。 有关刷新 SCO 通道的详细信息，请参阅
+_BRB_SCO_FLUSH_CHANNEL。 BrbScoTransfer
+定义从蓝牙设备读取时序数据或将数据写入 SCO 通道的命令的格式。 有关详细信息，请参阅
+_BRB_SCO_TRANSFER。 BrbScoGetChannelInfo
+定义将 SCO 通道设置读取到蓝牙设备的命令的格式。 有关 SCO 传输的详细信息，请参阅
+_BRB_SCO_GET_CHANNEL_INFO。 BrbScoGetSystemInfo
+定义读取本地系统的 SCO 设置的命令的格式。 有关获取本地 SCO 设置的详细信息，请参阅
+_BRB_SCO_GET_SYSTEM_INFO。要求
+ﾉ
+要求
+最低支持的客户端
+价值
+Windows Vista 及更高版本中的版本：_Supported。
+展开表
+
+≦ 111 ≧
+要求标头
+另请参阅 BRB_HEADER
+价值
+bthddi.h （包括 Bthddi.h）
+_BRB_ACL_ENTER_ACTIVE_MODE_BRB_ACL_GET_MODE
+_BRB_GET_DEVICE_INTERFACE_STRING
+_BRB_GET_LOCAL_BD_ADDR_BRB_L2CA_ACL_TRANSFER_BRB_L2CA_CLOSE_CHANNEL_BRB_L2CA_OPEN_CHANNEL_BRB_L2CA_PING
+_BRB_L2CA_REGISTER_SERVER_BRB_L2CA_UNREGISTER_SERVER_BRB_L2CA_UPDATE_CHANNEL_BRB_PSM
+_BRB_SCO_CLOSE_CHANNEL_BRB_SCO_FLUSH_CHANNEL_BRB_SCO_GET_CHANNEL_INFO_BRB_SCO_GET_SYSTEM_INFO_BRB_SCO_OPEN_CHANNEL_BRB_SCO_REGISTER_SERVER_BRB_SCO_TRANSFER
+_BRB_SCO_UNREGISTER_SERVER
+
+≦ 112 ≧
+BRB_HEADER结构（bthddi.h）项目2025/02/06
+BRB_HEADER结构包含有关蓝牙请求块（BRB）的标头信息，包括有关蓝牙驱动程序堆栈用于确定要处理的 BRB 类型的 BRB 类型的信息。
+语法 C++
+typedef struct _BRB_HEADER {   LIST_ENTRY ListEntry;
+  ULONG      Length;   USHORT     Version;   USHORT     Type;
+  ULONG      BthportFlags;
+  NTSTATUS   Status;   BTHSTATUS  BtStatus;
+  PVOID      Context[BTHPORT_CONTEXT_SIZE];
+  PVOID      ClientContext[BTHPORT_CONTEXT_SIZE];   ULONG      Reserved[BTHPORT_RESERVED_FIELD_SIZE];} BRB_HEADER;
+成员 ListEntry
+BRB 的当前所有者用于将 BRB 置于队列中的LIST_ENTRY结构。 Length
+BRB 的大小（以字节为单位）包括BRB_HEADER结构。 BthAllocateBrb、BthInitializeBrb
+和 BthReuseBrb 函数会自动设置此成员。 Version
+仅供内部使用。 请勿使用。 Type
+蓝牙请求块类型。 BthAllocateBrb、BthInitializeBrb 和 BthReuseBrb 函数会自动设置此成员。可能的值包括：
+BRB_HCI_GET_LOCAL_BD_ADDR
+
+≦ 113 ≧
+BRB_L2CA_REGISTER_SERVER BRB_L2CA_UNREGISTER_SERVER BRB_L2CA_OPEN_CHANNEL
+BRB_L2CA_OPEN_CHANNEL_RESPONSE
+BRB_L2CA_CLOSE_CHANNEL BRB_L2CA_ACL_TRANSFER BRB_L2CA_UPDATE_CHANNEL BRB_L2CA_PING
+BRB_REGISTER_PSM BRB_UNREGISTER_PSM
+BRB_SCO_REGISTER_SERVER BRB_SCO_UNREGISTER_SERVER BRB_SCO_OPEN_CHANNEL
+BRB_SCO_OPEN_CHANNEL_RESPONSE
+BRB_SCO_CLOSE_CHANNEL BRB_SCO_TRANSFER
+BRB_SCO_GET_CHANNEL_INFO BRB_SCO_GET_SYSTEM_INFO BRB_SCO_FLUSH_CHANNEL BRB_ACL_GET_MODE
+BRB_ACL_ENTER_ACTIVE_MODE
+BRB_GET_DEVICE_INTERFACE_STRING
+BthportFlags
+仅供内部使用。 请勿使用。 Status
+BRB 调用完成时传递的 NTSTATUS 代码。 BtStatus
+与传入 状态 成员中的 NTSTATUS 代码相对应的蓝牙状态代码（BTSTATUS）。 可能的值包括：
+BTH_ERROR_SUCCESS
+BTH_ERROR_ACL_CONNECTION_ALREADY_EXISTS
+BTH_ERROR_AUTHENTICATION_FAILURE BTH_ERROR_COMMAND_DISALLOWED BTH_ERROR_CONNECTION_TIMEOUT
+BTH_ERROR_ENCRYPTION_MODE_NOT_ACCEPTABLE BTH_ERROR_HARDWARE_FAILURE
+
+≦ 114 ≧
+BTH_ERROR_HOST_REJECTED_LIMITED_RESOURCES BTH_ERROR_HOST_REJECTED_PERSONAL_DEVICE BTH_ERROR_HOST_REJECTED_SECURITY_REASONS
+BTH_ERROR_HOST_TIMEOUT BTH_ERROR_INSTANT_PASSED
+BTH_ERROR_INVALID_HCI_PARAMETER BTH_ERROR_INVALID_LMP_PARAMETERS BTH_ERROR_KEY_MISSING
+BTH_ERROR_LMP_PDU_NOT_ALLOWED BTH_ERROR_LMP_RESPONSE_TIMEOUT
+BTH_ERROR_LMP_TRANSACTION_COLLISION
+BTH_ERROR_LOCAL_HOST_TERMINATED_CONNECTION BTH_ERROR_MAX_NUMBER_OF_CONNECTIONS
+BTH_ERROR_MAX_NUMBER_OF_SCO_CONNECTIONS
+BTH_ERROR_MEMORY_FULL BTH_ERROR_NO_CONNECTION BTH_ERROR_PAGE_TIMEOUT
+BTH_ERROR_PAIRING_NOT_ALLOWED
+BTH_ERROR_PAIRING_WITH_UNIT_KEY_NOT_SUPPORTED
+BTH_ERROR_QOS_IS_NOT_SUPPORTED BTH_ERROR_REMOTE_LOW_RESOURCES BTH_ERROR_REMOTE_POWERING_OFF
+BTH_ERROR_REMOTE_USER_ENDED_CONNECTION BTH_ERROR_REPEATED_ATTEMPTS
+BTH_ERROR_ROLE_CHANGE_NOT_ALLOWED
+BTH_ERROR_SCO_AIRMODE_REJECTED BTH_ERROR_SCO_INTERVAL_REJECTED BTH_ERROR_SCO_OFFSET_REJECTED
+BTH_ERROR_UKNOWN_LMP_PDU BTH_ERROR_UNIT_KEY_NOT_USED
+BTH_ERROR_UNKNOWN_HCI_COMMAND BTH_ERROR_UNSPECIFIED_ERROR
+BTH_ERROR_UNSUPPORTED_FEATURE_OR_PARAMETER
+BTH_ERROR_UNSUPPORTED_LMP_PARM_VALUE BTH_ERROR_UNSUPPORTED_REMOTE_FEATURE
+Context[BTHPORT_CONTEXT_SIZE] 仅供内部使用。 请勿使用。
+ClientContext[BTHPORT_CONTEXT_SIZE]
+
+≦ 115 ≧
+与 BRB 调用关联的客户端上下文。 调用方可以使用此成员来存储指针或其他信息。 Reserved[BTHPORT_RESERVED_FIELD_SIZE]
+保留以供将来使用。 请勿使用。言论
+BRB_HEADER结构包含有关指定 BRB 的常见类型信息。 BRB_HEADER结构由用作输入缓冲区的所有 BRB 结构使用 IOCTL_INTERNAL_BTH_SUBMIT_BRB IOCTL。
+配置文件驱动程序不应修改BRB_HEADER结构的任何成员，ClientContext除外。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 BthAllocateBrb BthInitializeBrb BthReuseBrb
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 116 ≧
+BRB_TYPE枚举 （bthddi.h）项目2025/02/06
+BRB_TYPE 枚举类型用于确定配置文件驱动程序 生成并 BRB 时蓝牙请求块。
+语法 C++
+typedef enum _BRB_TYPE {
+  BRB_HCI_GET_LOCAL_BD_ADDR,   BRB_L2CA_REGISTER_SERVER,   BRB_L2CA_UNREGISTER_SERVER,   BRB_L2CA_OPEN_CHANNEL,
+  BRB_L2CA_OPEN_CHANNEL_RESPONSE,
+  BRB_L2CA_CLOSE_CHANNEL,   BRB_L2CA_ACL_TRANSFER,   BRB_L2CA_UPDATE_CHANNEL,   BRB_L2CA_PING,
+  BRB_L2CA_INFO_REQUEST,
+  BRB_REGISTER_PSM,   BRB_UNREGISTER_PSM,
+  BRB_SCO_REGISTER_SERVER,   BRB_SCO_UNREGISTER_SERVER,   BRB_SCO_OPEN_CHANNEL,
+  BRB_SCO_OPEN_CHANNEL_RESPONSE,
+  BRB_SCO_CLOSE_CHANNEL,   BRB_SCO_TRANSFER,
+  BRB_SCO_GET_CHANNEL_INFO,   BRB_SCO_GET_SYSTEM_INFO,   BRB_SCO_FLUSH_CHANNEL,
+  BRB_SCO_OPEN_UNMANAGED_CHANNEL,
+  BRB_SCO_OPEN_UNMANAGED_CHANNEL_RESPONSE,   BRB_L2CA_OPEN_ENHANCED_CHANNEL,
+  BRB_L2CA_OPEN_ENHANCED_CHANNEL_RESPONSE,   BRB_ACL_GET_MODE,
+  BRB_ACL_ENTER_ACTIVE_MODE,   BRB_STORED_LINK_KEY,
+  BRB_GET_DEVICE_INTERFACE_STRING} BRB_TYPE;
+常数
+ﾉ
+展开表
+
+≦ 117 ≧
+ 
+BRB_HCI_GET_LOCAL_BD_ADDR
+此值声明 a BRB 类型
+BRB_HCI_GET_LOCAL_BD_ADDR。 BRB_L2CA_REGISTER_SERVER
+此值声明 a BRB 类型
+BRB_L2CA_REGISTER_SERVER。 BRB_L2CA_UNREGISTER_SERVER
+此值声明 a BRB 类型
+BRB_L2CA_UNREGISTER_SERVER。 BRB_L2CA_OPEN_CHANNEL
+此值声明 a BRB 类型
+BRB_L2CA_OPEN_CHANNEL。 BRB_L2CA_OPEN_CHANNEL_RESPONSE
+此值声明 a BRB 类型
+BRB_L2CA_OPEN_CHANNEL_RESPONSE。 BRB_L2CA_CLOSE_CHANNEL
+此值声明 a BRB 类型
+BRB_L2CA_CLOSE_CHANNEL。 BRB_L2CA_ACL_TRANSFER
+此值声明 a BRB 类型
+BRB_L2CA_ACL_TRANSFER。 BRB_L2CA_UPDATE_CHANNEL
+此值声明 a BRB 类型
+BRB_L2CA_UPDATE_CHANNEL。
+BRB_L2CA_PING 此值声明 a BRB 类型
+BRB_L2CA_PING。
+
+≦ 118 ≧
+ 
+BRB_L2CA_INFO_REQUEST
+仅供内部使用。 请勿使用。 BRB_REGISTER_PSM
+此值声明 a BRB 类型
+BRB_REGISTER_PSM。 BRB_UNREGISTER_PSM
+此值声明 a BRB 类型
+BRB_UNREGISTER_PSM。 BRB_SCO_REGISTER_SERVER
+此值声明 a BRB 类型
+BRB_SCO_REGISTER_SERVER。 BRB_SCO_UNREGISTER_SERVER
+此值声明 a BRB 类型
+BRB_SCO_UNREGISTER_SERVER。 BRB_SCO_OPEN_CHANNEL
+此值声明 a BRB 类型
+BRB_SCO_OPEN_CHANNEL。 BRB_SCO_OPEN_CHANNEL_RESPONSE
+此值声明 a BRB 类型
+BRB_SCO_OPEN_CHANNEL_RESPONSE。 BRB_SCO_CLOSE_CHANNEL
+此值声明 a BRB 类型
+BRB_SCO_CLOSE_CHANNEL。 BRB_SCO_TRANSFER
+此值声明 a BRB 类型
+BRB_SCO_TRANSFER。 BRB_SCO_GET_CHANNEL_INFO 此值声明 a
+
+≦ 119 ≧
+ 
+BRB 类型
+BRB_SCO_GET_CHANNEL_INFO。 BRB_SCO_GET_SYSTEM_INFO
+此值声明 a BRB 类型
+BRB_SCO_GET_SYSTEM_INFO。 BRB_SCO_FLUSH_CHANNEL
+此值声明 a BRB 类型
+BRB_SCO_FLUSH_CHANNEL。 BRB_SCO_OPEN_UNMANAGED_CHANNEL
+此值声明 a BRB 类型
+BRB_SCO_OPEN_CHANNEL。
+BRB_SCO_OPEN_UNMANAGED_CHANNEL_RESPONSE
+此值声明 a BRB 类型
+BRB_SCO_OPEN_CHANNEL_RESPONSE。 BRB_L2CA_OPEN_ENHANCED_CHANNEL
+此值声明 a BRB 类型
+BRB_L2CA_OPEN_CHANNEL。 此值存在于 Windows 8 及更高版本的 Windows 中。 BRB_L2CA_OPEN_ENHANCED_CHANNEL_RESPONSE
+此值声明 a BRB 类型
+BRB_L2CA_OPEN_CHANNEL_RESPONSE。 此值存在于 Windows 8 及更高版本的 Windows 中。 BRB_ACL_GET_MODE
+BRB_ACL_ENTER_ACTIVE_MODE
+此值声明 a BRB 类型
+BRB_ACL_ENTER_ACTIVE_MODE. BRB_STORED_LINK_KEY
+仅供内部使用。 请勿使用。
+BRB_GET_DEVICE_INTERFACE_STRING
+此值声明 a BRB 类型
+
+≦ 120 ≧
+ 
+BRB_GET_DEVICE_INTERFACE_STRING。言论
+BRB 的类型是在 BRB_HEADER 结构的 Type 成员中指定的。 BthAllocateBrb 和
+BthInitializeBrb 函数会自动设置 类型 成员。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 BRB
+BRB_HEADER BthAllocateBrb BthInitializeBrb
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+IOCTL_INTERNAL_BTH_SUBMIT_BRB 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 121 ≧
+BRB_VERSION枚举 （bthddi.h）项目2025/02/06
+保留供内部使用。
+语法 C++
+typedef enum _BRB_VERSION {
+  BLUETOOTH_V1,   BLUETOOTH_V2} BRB_VERSION;
+常数  
+BLUETOOTH_V1 保留。
+BLUETOOTH_V2
+保留。要求
+要求
+最低支持的客户端标头
+另请参阅 BRB
+BRB_HEADER
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+ﾉﾉ
+展开表展开表
+
+≦ 122 ≧
+BthAllocateBrb BthInitializeBrb
+IOCTL_INTERNAL_BTH_SUBMIT_BRB 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 123 ≧
+BTH_ENUMERATOR_INFO结构
+（bthddi.h）项目2025/02/06
+BTH_ENUMERATOR_INFO结构包含有关基础设备和导致即插即用（PnP）管理器加载配置文件驱动程序的服务的信息。
+语法 C++
+typedef struct _BTH_ENUMERATOR_INFO {   ENUMERATOR_TYPE   EnumeratorType;
+  ENUMERATOR_ACTION Action;   ULONG             Port;   ULONG             Flags;   GUID              Guid;
+  ULONG             InstanceId;
+  WCHAR             InstanceIdStr[BTH_MAX_SERVICE_NAME_SIZE];
+  USHORT            Vid;   USHORT            Pid;   USHORT            Mfg;
+  USHORT            LocalMfg;   USHORT            VidType;
+  WCHAR             ServiceName[BTH_MAX_SERVICE_NAME_SIZE];
+  CHAR              SdpPriLangServiceName[BTH_MAX_SERVICE_NAME_SIZE];
+  WCHAR             DeviceString[BTH_MAX_SERVICE_NAME_SIZE];} BTH_ENUMERATOR_INFO, *PBTH_ENUMERATOR_INFO;
+成员
+EnumeratorType
+保留供蓝牙驱动程序堆栈使用。 请勿使用。 Action
+保留供蓝牙驱动程序堆栈使用。 请勿使用。 Port
+如果枚举是由连接请求引起的，则此成员包含设备的端口号。 否则，此值是未定义的。对于 L2CAP 连接请求，端口号还标识要连接的协议/服务多路复用器（PSM）。 对于 RFCOMM 连接请求，这是 RFCOMM 数据链接连接标识符（DLCI）。
+
+≦ 124 ≧
+Flags
+指示请求方向的标志。 可能的值包括：
+BTH_ENUMERATORFL_INCOMING BTH_ENUMERATORFL_OUTGOING BTH_ENUMERATORFL_REENUM
+Guid
+枚举协议或服务类 GUID。 此值通常是从加载配置文件驱动程序的 INF 文件中获取的。 InstanceId
+如果设置了BTH_ENUMERATORFL_INCOMING标志，则为协议或服务的实例 ID。 InstanceIdStr[BTH_MAX_SERVICE_NAME_SIZE]
+如果设置了BTH_ENUMERATORFL_OUTGOING标志，协议或服务的实例 ID。 Vid
+从 SDP 获取的远程设备的供应商 ID。 Pid
+从 SDP 获取的远程设备的产品 ID。 Mfg
+从 SDP 获取的远程设备的制造商 ID。 LocalMfg
+从 HCI 获得的本地无线电制造商。 VidType
+从 SDP 获取的远程设备供应商 ID 类型。 ServiceName[BTH_MAX_SERVICE_NAME_SIZE] 用于本地服务的服务名称。
+SdpPriLangServiceName[BTH_MAX_SERVICE_NAME_SIZE] 用于远程服务的标识符。
+
+≦ 125 ≧
+DeviceString[BTH_MAX_SERVICE_NAME_SIZE]
+远程设备的设备字符串。言论
+这 IOCTL_INTERNAL_BTHENUM_GET_ENUMINFO 调用的输出缓冲区包含有关基础设备和
+导致即插即用（PnP）管理器加载配置文件驱动程序的服务的信息。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+ENUMERATOR_ACTION ENUMERATOR_TYPE
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+IOCTL_INTERNAL_BTHENUM_GET_ENUMINFO 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 126 ≧
+BTH_PROFILE_DRIVER_INTERFACE结构
+（bthddi.h）项目2025/02/06
+BTH_PROFILE_DRIVER_INTERFACE结构提供用于分配、释放、初始化和重用 BRB 的函数，并确定当前安装的蓝牙版本。
+语法 C++
+typedef struct _BTH_PROFILE_DRIVER_INTERFACE {
+  INTERFACE                             Interface;
+  PFNBTH_ALLOCATE_BRB                   BthAllocateBrb;   PFNBTH_FREE_BRB                       BthFreeBrb;
+  PFNBTH_INITIALIZE_BRB                 BthInitializeBrb;   PFNBTH_REUSE_BRB                      BthReuseBrb;
+  PFNBTH_IS_BLUETOOTH_VERSION_AVAILABLE IsBluetoothVersionAvailable;} BTH_PROFILE_DRIVER_INTERFACE, *PBTH_PROFILE_DRIVER_INTERFACE;
+成员 Interface
+描述配置文件驱动程序使用的 BTH_PROFILE_DRIVER_INTERFACE 接口的结构。 有关此
+结构的详细信息，请参阅 INTERFACE。 BthAllocateBrb
+指向 BthAllocateBrb 函数的指针。 BthFreeBrb
+指向 BthFreeBrb 函数的指针。 BthInitializeBrb
+指向 BthInitializeBrb 函数的指针。 BthReuseBrb
+指向 BthReuseBrb 函数的指针。
+
+≦ 127 ≧
+IsBluetoothVersionAvailable
+指向 IsBluetoothVersionAvailable 函数。言论
+配置文件驱动程序应指定 GUID_BTHDDI_PROFILE_DRIVER_INTERFACE GUID，以便从蓝牙驱动程序堆栈查询BTH_PROFILE_DRIVER_INTERFACE结构的实例。
+除 接口 成员外，此结构的所有成员都是函数指针。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 BthAllocateBrb BthFreeBrb BthInitializeBrb BthReuseBrb 接口
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+IsBluetoothVersionAvailable 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 128 ≧
+CHANNEL_CONFIG_PARAMETERS结构
+（bthddi.h）项目2025/02/06
+CHANNEL_CONFIG_PARAMETERS结构包含 L2CAP 通道的入站和出站方向的配置参数。
+语法 C++
+typedef struct _CHANNEL_CONFIG_PARAMETERS {
+  ULONG                Flags;   CO_MTU               Mtu;
+  CO_FLUSHTO           FlushTO;
+  ULONG                NumExtraOptions;
+  PL2CAP_CONFIG_OPTION ExtraOptions;   L2CAP_FLOWSPEC       Flow;
+} CHANNEL_CONFIG_PARAMETERS, *PCHANNEL_CONFIG_PARAMETERS;
+成员 Flags
+标志或标志的组合，指定此结构的成员包含数据。 下表中列出了有效的标志值。
+ﾉ
+旗
+CFG_EXTRA CFG_FLUSHTO CFG_MTU CFG_QOS
+Mtu
+描述
+如果设置，则 ExtraOptions 成员包含数据。如果已设置，则 FlushTO 成员包含数据。
+如果设置，则 Mtu 成员包含数据。如果设置，则 Flow 成员包含数据。
+指定通道方向的消息传输单位。 FlushTO
+指定通道方向的刷新超时。
+展开表
+
+≦ 129 ≧
+NumExtraOptions
+ExtraOptions 成员中指定的数组中指定的项数。 ExtraOptions
+ExtraOptions 成员中指定的数组中指定的项数。 Flow
+指定通道方向的 QoS 设置。要求
+要求
+最低支持的客户端标头
+另请参阅
+L2CAP_CONFIG_OPTION
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+ﾉ
+展开表
+
+≦ 130 ≧
+CHANNEL_CONFIG_PARAMETERS_ENHA
+NCED结构（bthddi.h）项目2025/02/06
+CHANNEL_CONFIG_PARAMETERS_ENHANCED结构描述 L2CAP 通道的入站和出站方向的
+配置参数。语法 C++
+typedef struct _CHANNEL_CONFIG_PARAMETERS_ENHANCED {
+  ULONG                                 Flags;   CO_MTU                                Mtu;
+  CO_FLUSHTO                            FlushTO;
+  ULONG                                 NumExtraOptions;
+  PL2CAP_CONFIG_OPTION                  ExtraOptions;   L2CAP_FLOWSPEC                        Flow;
+  L2CAP_RETRANSMISSION_AND_FLOW_CONTROL RetransmissionAndFlow;   CO_FCS                                Fcs;
+  L2CAP_EXTENDED_FLOW_SPEC              ExtendedFlowSpec;   CO_EXTENDED_WINDOW_SIZE               ExtendedWindowSize;
+} CHANNEL_CONFIG_PARAMETERS_ENHANCED, *PCHANNEL_CONFIG_PARAMETERS_ENHANCED;
+成员 Flags
+CFG_XXX标志的组合。 Mtu
+方向的 MTU。 FlushTO
+方向的刷新超时 NumExtraOptions
+ExtraOptions 数组中的元素数 ExtraOptions
+
+≦ 131 ≧
+额外选项数组 Flow
+方向的 QOS
+RetransmissionAndFlow 方向的重新传输和流 Fcs
+帧检查序列
+ExtendedFlowSpec
+L2CAP 通道的扩展流规范。 此成员保留。 请勿使用。 ExtendedWindowSize
+扩展窗口大小。 此成员保留。 请勿使用。要求
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows 8 及更高版本中的版本：_Supported
+bthddi.h （包括 Bthddi.h） 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 132 ≧
+CHANNEL_CONFIG_RESULTS结构
+（bthddi.h）项目2025/02/06
+CHANNEL_CONFIG_RESULTS结构包含用于 L2CAP 通道入站和出站方向的任何额外选项的配置参数和缓冲区大小。
+语法 C++
+typedef struct _CHANNEL_CONFIG_RESULTS {   CHANNEL_CONFIG_PARAMETERS Params;
+  ULONG                     ExtraOptionsBufferSize;} CHANNEL_CONFIG_RESULTS, *PCHANNEL_CONFIG_RESULTS;
+成员 Params
+一个 CHANNEL_CONFIG_PARAMETERS 结构，该结构包含指定通道方向的参数。 ExtraOptionsBufferSize
+缓冲区中检索指定方向的当前额外选项所需的大小（以字节为单位）。言论
+CHANNEL_CONFIG_RESULTS结构在 InResults 中传递， OutResults_BRB_L2CA_OPEN_CHANNEL 结构的成员。
+要求
+ﾉ
+要求
+最低支持的客户端
+价值
+Windows Vista 及更高版本中的版本：_Supported。
+展开表
+
+≦ 133 ≧
+要求标头
+另请参阅
+价值
+bthddi.h （包括 Bthddi.h）
+CHANNEL_CONFIG_PARAMETERS
+_BRB_L2CA_OPEN_CHANNEL 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 134 ≧
+CHANNEL_CONFIG_RESULTS_ENHANCE
+D结构（bthddi.h）项目2025/02/06
+CHANNEL_CONFIG_RESULTS_ENHANCED结构描述 L2CAP 通道入站和出站方向的任何额外选项的配置参数和缓冲区大小。
+语法 C++
+typedef struct _CHANNEL_CONFIG_RESULTS_ENHANCED {   CHANNEL_CONFIG_PARAMETERS_ENHANCED Params;
+  ULONG                              ExtraOptionsBufferSize;
+} CHANNEL_CONFIG_RESULTS_ENHANCED, *PCHANNEL_CONFIG_RESULTS_ENHANCED;
+成员 Params
+通道的给定方向的通道参数 ExtraOptionsBufferSize
+检索给定方向的当前额外选项所需的缓冲区量要求
+ﾉ
+要求
+最低支持的客户端
+标头反馈
+价值
+Windows 8 及更高版本中的版本：_Supported bthddi.h （包括 Bthddi.h）
+展开表
+
+≦ 135 ≧
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 136 ≧
+CO_HEADER结构（bthddi.h）项目2025/02/06
+CO_HEADER结构用于指定 L2CAP_CONFIG_OPTION 结构的 标头 成员的值。
+语法 C++
+typedef struct _CO_HEADER {
+  CO_TYPE   Type;   CO_LENGTH Length;} CO_HEADER;
+成员 Type
+存储在L2CAP_CONFIG_OPTION结构中的特定于供应商的选项的类型。 这可以接受选项
+或提示。 Length
+L2CAP_CONFIG_OPTION结构中存储的特定于供应商的选项的大小（以字节为单位）。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+L2CAP_CONFIG_OPTION
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+展开表
+
+≦ 137 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 138 ≧
+CODING_FORMAT枚举 （bthddi.h）项目2025/02/06
+此枚举仅用于内部使用。
+语法 C++
+typedef enum _CODING_FORMAT {
+  ScoCodingFormatULaw,   ScoCodingFormatALaw,   ScoCodingFormatCVSD,
+  ScoCodingFormatTransparent,   ScoCodingFormatLinearPCM,   ScoCodingFormatMSBC,
+  ScoCodingFormatVendorSpecific} CODING_FORMAT, *PCODING_FORMAT;
+常数  
+ScoCodingFormatULaw ScoCodingFormatALaw ScoCodingFormatCVSD
+ScoCodingFormatTransparent ScoCodingFormatLinearPCM ScoCodingFormatMSBC
+ScoCodingFormatVendorSpecific 要求
+ﾉﾉ
+展开表展开表
+
+≦ 139 ≧
+要求标头
+价值
+bthddi.h （包括 Bthddi.h）
+
+≦ 140 ≧
+ENUMERATOR_ACTION枚举
+（bthddi.h）项目2025/02/06
+保留供内部使用。
+语法 C++
+typedef enum _ENUMERATOR_ACTION {
+  ENUMERATOR_ACTION_CREATE,   ENUMERATOR_ACTION_REMOVE,   ENUMERATOR_ACTION_DESTROY,   ENUMERATOR_ACTION_MAX
+} ENUMERATOR_ACTION, *PENUMERATOR_ACTION;
+常数  
+ENUMERATOR_ACTION_CREATE 保留。
+ENUMERATOR_ACTION_REMOVE 保留。
+ENUMERATOR_ACTION_DESTROY 保留。
+ENUMERATOR_ACTION_MAX
+保留。要求
+ﾉﾉ
+展开表展开表
+
+≦ 141 ≧
+要求
+最低支持的客户端标头
+另请参阅 BRB
+BRB_HEADER BthAllocateBrb BthInitializeBrb
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+IOCTL_INTERNAL_BTH_SUBMIT_BRB 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 142 ≧
+ENUMERATOR_TYPE枚举 （bthddi.h）项目2025/02/06
+ENUMERATOR_TYPE枚举类型用于确定枚举设备是与服务还是协议相关联。 ENUMERATOR_TYPE枚举仅供内部使用，不应由配置文件驱动程序使用。
+语法 C++
+typedef enum _ENUMERATOR_TYPE {
+  ENUMERATOR_TYPE_PROTOCOL,   ENUMERATOR_TYPE_SERVICE,   ENUMERATOR_TYPE_DEVICE,   ENUMERATOR_TYPE_MAX
+} ENUMERATOR_TYPE, *PENUMERATOR_TYPE;
+常数  
+ENUMERATOR_TYPE_PROTOCOL 仅供内部使用。 请勿使用。
+ENUMERATOR_TYPE_SERVICE
+应为配置文件驱动程序指定此值。 有关此值如何的详细信息 used，请参阅
+BTH_ENUMERATOR_INFO。
+ENUMERATOR_TYPE_DEVICE ENUMERATOR_TYPE_MAX
+仅供内部使用。 请勿使用。言论
+ﾉ
+展开表
+此枚举中的值作为 BTH_ENUMERATOR_INFO 结构的 EnumeratorType 成员返回，该成员
+BTH_ENUMERATOR_INFO 结构 IOCTL_INTERNAL_BTHENUM_GET_ENUMINFO 在其输出缓冲区中返回。
+
+≦ 143 ≧
+要求要求
+最低支持的客户端标头
+另请参阅
+BTH_ENUMERATOR_INFO
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+IOCTL_INTERNAL_BTHENUM_GET_ENUMINFO
+ﾉ
+展开表
+
+≦ 144 ≧
+INDICATION_CODE枚举 （bthddi.h）项目2025/02/06
+INDICATION_CODE枚举类型向配置文件驱动程序指示发生了哪种类型的 L2CAP 事件。
+语法 C++
+typedef enum _INDICATION_CODE {   IndicationAddReference,
+  IndicationReleaseReference,   IndicationRemoteConnect,
+  IndicationRemoteDisconnect,
+  IndicationRemoteConfigRequest,   IndicationRemoteConfigResponse,   IndicationFreeExtraOptions,
+  IndicationRecvPacket,   IndicationPairDevice,   IndicationUnpairDevice,
+  IndicationUnpersonalizeDevice,   IndicationRemoteConnectLE
+} INDICATION_CODE, *PINDICATION_CODE; 常数
+ﾉ
+ 
+IndicationAddReference
+指示配置文件驱动程序添加对其设备对象的引用，因为它可能在 处调用任何时间。
+IndicationReleaseReference
+指示配置文件驱动程序释放对其设备对象的引用，并且不会调用时间越长。
+IndicationRemoteConnect
+向服务器配置文件驱动程序指示远程设备正在连接到的 PSM
+之前注册的配置文件驱动程序。 配置文件驱动程序接受或拒绝此请求生成和发送
+BRB_L2CA_OPEN_CHANNEL_RESPONSE请求。 传递此指示代码时，配置文件驱动程序
+应使用在 中传递给它的参数 Connect 成员
+展开表
+
+≦ 145 ≧
+ 
+INDICATION_PARAMETERS结构。 IndicationRemoteDisconnect
+向已注册的配置文件驱动程序指示远程设备从本地无线电断开连接。
+传递此指示代码时，配置文件驱动程序应使用传递给它的参数在
+断开连接 INDICATION_PARAMETERS结构的成员。 IndicationRemoteConfigRequest
+向客户端配置文件驱动程序指示远程设备正在执行配置请求。传递此指示代码时，配置文件驱动程序应使用传递给它的参数在
+ConfigRequest INDICATION_PARAMETERS结构的成员。 IndicationRemoteConfigResponse
+向客户端配置文件驱动程序指示远程设备正在响应配置请求。 传递此指示代码后，配置文件驱动程序应使用参数在
+ConfigResponse INDICATION_PARAMETERS结构的成员。 IndicationFreeExtraOptions
+保留以供将来使用。 请勿使用。 IndicationRecvPacket
+向已注册的配置文件驱动程序指示已在指定的 PSM 上收到数据包。 这配置文件驱动程序可以使用此事件来确定何时需要发出读取
+BRB_L2CA_ACL_TRANSFTER BRB。 需要从远程设备读取的配置文件驱动程序也可以忽略此通知并始终保持读取 BRB 挂起状态。 传递此指示代码时，<
+配置文件驱动程序应使用在 中传递给它的参数 RecvPacket 成员
+INDICATION_PARAMETERS结构。 IndicationPairDevice
+向已注册的驱动程序指示本地无线电已绑定到特定远程收音机。
+IndicationUnpairDevice
+向已注册的驱动程序指示本地无线电不再绑定到特定远程收音机。
+IndicationUnpersonalizeDevice
+向已注册的驱动程序指示指定的远程无线电已从 列表中删除个人设备。
+IndicationRemoteConnectLE
+向服务器配置文件驱动程序指示低能（LE）远程设备正在连接到该设备的 PSM 之前注册的配置文件驱动程序。 配置文件驱动程序接受或拒绝此请求
+
+≦ 146 ≧
+ 
+生成和发送
+BRB_L2CA_OPEN_CHANNEL_RESPONSE请求。 传递此指示代码时，配置文件驱动程序
+应使用在 中传递给它的参数 Connect 成员
+INDICATION_PARAMETERS结构。 此值存在于 Windows 8 及更高版本的 Windows 中。言论
+此枚举中的值将传递给配置文件驱动程序的 L2CAP 回调函数 以通知事件。要求
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+BRB_L2CA_REGISTER_SERVER INDICATION_PARAMETERS
+IOCTL_INTERNAL_BTH_SUBMIT_BRB L2CAP 回调函数
+ﾉ
+展开表
+
+≦ 147 ≧
+L2CAP_CONFIG_OPTION结构（bthddi.h）项目2025/02/06
+L2CAP_CONFIG_OPTION结构的数组用于指定 ExtraOptions 成员
+CHANNEL_CONFIG_PARAMETERS、_BRB_L2CA_OPEN_CHANNEL和 INDICATION_PARAMETERS
+结构的值。语法 C++
+typedef struct _L2CAP_CONFIG_OPTION {   CO_HEADER Header;
+  VOID      *DynamicBuffer;   UCHAR     FixedBuffer[4];   USHORT    Flags;
+} L2CAP_CONFIG_OPTION, *PL2CAP_CONFIG_OPTION;
+成员 Header
+一个 CO_HEADER 结构，用于指定有关特定于供应商的配置选项的信息。 DynamicBuffer
+指向包含配置文件驱动程序或远程设备定义的附加 L2CAP 通道参数的缓冲区的指针。 标志 成员
+设置为CO_DYNAMIC，以指示此成员包含额外的参数。 FixedBuffer[4]
+包含配置文件驱动程序或远程设备定义的附加 L2CAP 通道参数（如果它们适合 4 个字节）的缓
+冲区。 标志 成员设置为CO_FIXED，以指示此成员包含额外的参数。 Flags
+标志的组合，用于确定此结构的缓冲区成员中的哪一个包含参数。 可以同时设置多个标志。 下表中列出了有效的标志值。
+ﾉ
+旗
+CO_DYNAMIC
+描述
+如果设置，则 DynamicBuffer 成员指向额外参数。
+展开表
+
+≦ 148 ≧
+CO_FIXED 要求
+要求
+最低支持的客户端标头
+另请参阅
+如果已设置，则 FixedBuffer 成员包含额外的参数。
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+CHANNEL_CONFIG_PARAMETERS
+INDICATION_PARAMETERS_BRB_L2CA_OPEN_CHANNEL
+ﾉ
+展开表
+
+≦ 149 ≧
+L2CAP_CONFIG_RANGE结构
+（bthddi.h）项目2025/02/06
+L2CAP_CONFIG_RANGE结构用于在传入请求期间为 FlushTO_BRB_L2CA_OPEN_CHANNEL 成员指定一系列可能的值。
+语法 C++
+typedef struct _L2CAP_CONFIG_RANGE {
+  USHORT Min;   USHORT Max;
+} L2CAP_CONFIG_RANGE, *PL2CAP_CONFIG_RANGE;
+成员 Min
+本地系统可以接受的最小值。 Max
+本地系统可以接受的最大值。言论
+L2CAP_CONFIG_RANGE结构包含当远程设备联系配置文件驱动程序请求 L2CAP 连接时，配置文件驱动程序用来协商刷新超时的值范围。 配置文件驱动程序生成并发送
+BRB_L2CA_OPEN_CHANNEL_RESPONSE 请求以接受或拒绝请求设备发送的设置。 如果请求设备发送的首选值位于此结构的 Min 指定的范围内，并且 Max 成员指定，则接受 FlushTO 设置。 如果配置文件驱动程序拒绝设置太长，则配置文件驱动程序会响应 Max
+成员的值，则它将接受的最大设置。 如果此值属于远程设备请求的范围，则接受 FlushTO 值。 否则，配置文件驱动程序将拒绝 FlushTO 值，并且连接尝试失败。
+如果配置文件驱动程序拒绝远程设备的首选超时值太短，则配置文件驱动程序会响应 Min 成员值的值，则它将接受的最小设置。 如果配置文件驱动程序的最小刷新超时超出远程设备请求的范围，则配置文件驱动程序接受 FlushTO 值。 否则，配置文件驱动程序将拒绝 FlushTO 值，并且连接尝试失败。
+
+≦ 150 ≧
+当配置文件驱动程序尝试使用 BRB_L2CA_OPEN_CHANNEL 请求打开远程设备的出站通道时，配置文件驱动程序会单独协商这些值，这与刷新超时设置分开。 有关值范围的详
+细信息，请参阅 L2CAP_CONFIG_VALUE_RANGE。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+L2CAP_CONFIG_VALUE_RANGE_BRB_L2CA_OPEN_CHANNEL
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 151 ≧
+L2CAP_CONFIG_VALUE_RANGE结构
+（bthddi.h）项目2025/02/06
+L2CAP_CONFIG_VALUE_RANGE结构用于指定 Mtu 和 FlushTO_BRB_L2CA_OPEN_CHANNEL 结构的成员的值。
+语法 C++
+typedef struct _L2CAP_CONFIG_VALUE_RANGE {   USHORT Min;
+  USHORT Preferred;   USHORT Max;
+} L2CAP_CONFIG_VALUE_RANGE, *PL2CAP_CONFIG_VALUE_RANGE;
+成员 Min
+本地系统将接受的最小值。 Preferred
+本地系统请求远程设备接受的理想值。 Max
+本地系统将接受的最大值。言论
+对于 FlushTO 成员设置，L2CAP_CONFIG_VALUE_RANGE结构包含 首选 成员中配置文件
+驱动程序的理想刷新超时值，以及由 Min 和 Max 成员指定的一系列可接受的值。配置文件驱动程序使用 BRB_L2CA_OPEN_CHANNEL 请求将这些设置发送到尝试创建 L2CAP 连接的远程设备。 如果配置文件驱动程序发送 首选 值落在远程设备指定的范围内，则接受 FlushTO 设置。 如果远程设备拒绝设置太长，则远程设备会以接受的最大设
+
+≦ 152 ≧
+置进行响应。 如果远程设备的最大刷新超时在 Min 和 Max 成员定义的范围内，则接受 FlushTO 值。 否则，远程设备将拒绝 FlushTO 值，并且连接尝试失败。
+如果远程设备拒绝配置文件驱动程序的 首选 成员值太短，则远程设备会以接受的最低设置进行响应。 如果远程设备的最小刷新超时值在 Min 和 Max 成员定义的范围内，则接受 FlushTO 值。 否则，远程设备将拒绝 FlushTO 值，并且连接尝试失败。
+当远程设备尝试创建到配置文件驱动程序的入站 L2CAP 通道时，配置文件驱动程序会单独协商这些值，这与它发送到蓝牙驱动程序堆栈的刷新超时设置分开。 有关 L2CAP 配置范围的详细信息，请参阅 L2CAP_CONFIG_RANGE。
+对于 Mtu 成员设置，此结构 为入站和出站连接提供首选、最小和 最大 设置。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+_BRB_L2CA_OPEN_CHANNEL 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 153 ≧
+L2CAP_DISCONNECT_REASON枚举
+（bthddi.h）项目2025/02/06
+L2CAP_DISCONNECT_REASON枚举类型提供 L2CAP 通道断开连接的原因。
+语法 C++
+typedef enum _L2CAP_DISCONNECT_REASON {   HciDisconnect,
+  L2capDisconnectRequest,
+  RadioPoweredDown,   HardwareRemoval
+} L2CAP_DISCONNECT_REASON;
+常数  
+HciDisconnect
+该值为蓝牙驱动程序堆栈收到的配置文件驱动程序指定
+断开与主机控制器接口（HCI）层的连接通知。 L2capDisconnectRequest
+此值指定已从 接收断开连接请求的配置文件驱动程序远程设备。
+RadioPoweredDown
+此值指定本地无线电已关闭的配置文件驱动程序。 HardwareRemoval
+此值为本地无线电的物理位置的配置文件驱动程序指定
+删除。言论
+此枚举中的值用作 INDICATION_PARAMETERS 结构的 Reason 成员。
+ﾉ
+展开表
+硬件限制可能会阻止蓝牙驱动程序堆栈区分 RadioPoweredDown 和 HardwareRemoval 事件。
+
+≦ 154 ≧
+目前，HciDisconnect 和 L2capDisconnectRequest 是蓝牙驱动程序堆栈传递给 L2CAP 回调函数的
+唯一值。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+版本：_Supported Windows Vista 及更高版本的 Windows。 bthddi.h （包括 Bthddi.h）
+INDICATION_PARAMETERS
+展开表
+
+≦ 155 ≧
+L2CAP_EXTENDED_FLOW_SPEC结构
+（bthddi.h）项目2025/02/06
+L2CAP_EXTENDED_FLOW_SPEC保留供将来使用。
+语法 C++
+typedef struct _L2CAP_EXTENDED_FLOW_SPEC {
+  UCHAR  Identifier;   UCHAR  ServiceType;   USHORT MaxSDUSize;
+  ULONG  SDUInterArrivalTime;
+  ULONG  AccessLatency;   ULONG  FlushTimeout;
+} L2CAP_EXTENDED_FLOW_SPEC, *PL2CAP_EXTENDED_FLOW_SPEC;
+成员 Identifier
+保留。 请勿使用。 ServiceType
+保留。 请勿使用。 MaxSDUSize
+保留。 请勿使用。 SDUInterArrivalTime 保留。 请勿使用。 AccessLatency
+保留。 请勿使用。 FlushTimeout
+
+≦ 156 ≧
+保留。 请勿使用。
+要求要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows 8 及更高版本中的版本：_Supported
+bthddi.h （包括 Bthddi.h） 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 157 ≧
+L2CAP_FLOWSPEC结构（bthddi.h）项目2025/02/06
+此结构保留供将来使用。
+语法 C++
+typedef struct _L2CAP_FLOWSPEC {   UCHAR Flags;
+  UCHAR ServiceType;   ULONG TokenRate;
+  ULONG TokenBucketSize;   ULONG PeakBandwidth;   ULONG Latency;
+  ULONG DelayVariation;
+} L2CAP_FLOWSPEC, *PL2CAP_FLOWSPEC;
+成员 Flags 保留。
+ServiceType
+保留。 TokenRate 保留。
+TokenBucketSize 保留。
+PeakBandwidth
+保留。 Latency 保留。
+
+≦ 158 ≧
+DelayVariation
+保留。要求
+要求
+最低支持的客户端标头
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+ﾉ
+展开表
+
+≦ 159 ≧
+L2CAP_RETRANSMISSION_AND_FLOW_
+CONTROL结构（bthddi.h）项目2025/02/06
+L2CAP_RETRANSMISSION_AND_FLOW_CONTROL结构描述了增强的重新传输模式和流式传输模式的配置参数。
+语法 C++
+typedef struct _L2CAP_RETRANSMISSION_AND_FLOW_CONTROL {   UCHAR  Mode;
+  UCHAR  TxWindowSize;   UCHAR  MaxTransmit;
+  USHORT RetransmissionTO;
+  USHORT MonitorTO;   USHORT MaxPDUSize;
+} L2CAP_RETRANSMISSION_AND_FLOW_CONTROL, *PL2CAP_RETRANSMISSION_AND_FLOW_CONTROL;
+成员 Mode
+增强型 L2CAP 通道的请求模式。 TxWindowSize
+用于增强重新传输模式的传输窗口的大小。 成员的值仅在与增强的重新传输模式一起使
+用且在流式处理模式下被忽略时才有效。 有效值范围为 1 到 63。 MaxTransmit
+发生错误时，将重新传输单个 I/S 帧的次数。 此成员的值仅适用于增强的重新传输模
+式，在流模式下被忽略。 最小值为 1。 RetransmissionTO
+重新传输超时值。 配置文件驱动程序应将此值设置为 0。 MonitorTO
+
+≦ 160 ≧
+监视超时。 配置文件驱动程序应将此值设置为 0。 MaxPDUSize
+最大 PDU 大小。要求
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows 8 及更高版本中的版本：_Supported
+bthddi.h （包括 Bthddi.h） 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 161 ≧
+PCM_DATA_FORMAT枚举 （bthddi.h）项目2025/02/06
+此枚举仅用于内部使用。
+语法 C++
+typedef enum _PCM_DATA_FORMAT {   ScoPCMCFormatNA,
+  ScoPCMFormat1sComplement,   ScoPCMFormat2sComplement,   ScoPCMFormatSignMagnitude,   ScoPCMFormatUnsigned
+} PCM_DATA_FORMAT, *PPCM_DATA_FORMAT;
+常数  
+ScoPCMCFormatNA
+ScoPCMFormat1sComplement ScoPCMFormat2sComplement ScoPCMFormatSignMagnitude
+ScoPCMFormatUnsigned 要求
+要求标头
+价值
+bthddi.h （包括 Bthddi.h）
+ﾉﾉ
+展开表展开表
+
+≦ 162 ≧
+PFNBTH_ALLOCATE_BRB回调函数
+（bthddi.h）项目2025/02/06
+BthAllocateBrb 函数分配指定类型的蓝牙请求块（BRB）。
+语法 C++
+PFNBTH_ALLOCATE_BRB PfnbthAllocateBrb;
+PBRB PfnbthAllocateBrb(   [in] BRB_TYPE brbType,
+  [in] ULONG tag)
+{...}
+参数[in] brbType
+指定用于初始化 BRB 的 BRB_TYPE 枚举中的值。[in] tag
+指定唯一标识执行内存分配的驱动程序的 4 字节池标记。 有关池标记的详细信息，请参阅
+ExAllocatePoolWithTag。返回值
+BthAllocateBrb 返回指向新分配的 BRB 的指针;如果系统内存不足，NULL。言论
+配置文件驱动程序在查询蓝牙驱动程序堆栈以获取BTHDDI_PROFILE_DRIVER_INTERFACE驱动程序接口实例时，获取指向 BthAllocateBrb 函数的指针。 有关查询蓝牙驱动程序堆栈的详细信
+息，请参阅 查询蓝牙接口。要求
+
+≦ 163 ≧
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅 BRB_TYPE
+ExAllocatePoolWithTag 池标记
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+bthddi.h （包括 Bthddi.h） <= DISPATCH_LEVEL
+ﾉ
+展开表
+
+≦ 164 ≧
+PFNBTH_FREE_BRB回调函数 （bthddi.h）项目2025/02/06
+BthFreeBrb 函数释放了以前使用 BthAllocateBrb分配的蓝牙请求块（BRB）。
+语法 C++
+PFNBTH_FREE_BRB PfnbthFreeBrb; void PfnbthFreeBrb(
+  [in] PBRB pBrb)
+{...}
+参数[in] pBrb
+指向要释放的 BRB 的指针。
+返回值没有
+言论
+配置文件驱动程序在查询BTHDDI_PROFILE_DRIVER_INTERFACE驱动程序接口实例的蓝牙驱动程序堆栈时，获取指向 BthFreeBrb 函数的指针。 有关查询蓝牙驱动程序堆栈的详细信息，请参阅
+查询蓝牙接口。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+展开表
+
+≦ 165 ≧
+要求标头 IRQL
+价值
+bthddi.h （包括 Bthddi.h） <= DISPATCH_LEVEL
+
+≦ 166 ≧
+PFNBTH_INITIALIZE_BRB回调函数
+（bthddi.h）项目2025/02/06
+BthInitializeBrb 函数初始化在本地堆栈上分配的蓝牙请求块（BRB）。
+语法 C++
+PFNBTH_INITIALIZE_BRB PfnbthInitializeBrb;
+void PfnbthInitializeBrb(   [in, out] PBRB pBrb,
+  [in]      BRB_TYPE brbType)
+{...} 参数
+[in, out] pBrb
+指向要初始化的 BRB 的指针。[in] brbType
+指定用于初始化 BRB 的 BRB_TYPE 枚举中的值。
+返回值没有
+言论
+配置文件驱动程序应使用 BthInitializeBrb 进行基于堆栈的分配，例如在函数开头声明变量。
+不需要为使用 BthAllocateBrb分配的 BRB 调用此函数。
+
+≦ 167 ≧
+配置文件驱动程序在查询蓝牙驱动程序堆栈以获取BTHDDI_PROFILE_DRIVER_INTERFACE 驱动程序接口实例时，获取指向 BthInitializeBrb 函数的指针。 有关查询蓝牙驱动程序堆
+栈的详细信息，请参阅 查询蓝牙接口。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅 BRB_TYPE
+BthAllocateBrb 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+bthddi.h （包括 Bthddi.h） <= DISPATCH_LEVEL
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 168 ≧
+PFNBTH_IS_BLUETOOTH_VERSION_AVAILA
+BLE回调函数 （bthddi.h）项目2025/02/06
+IsBluetoothVersionAvailable 函数检查作系统是否支持给定的蓝牙版本。
+语法 C++
+PFNBTH_IS_BLUETOOTH_VERSION_AVAILABLE PfnbthIsBluetoothVersionAvailable; BOOLEAN PfnbthIsBluetoothVersionAvailable(
+  [in] UCHAR MajorVersion,   [in] UCHAR MinorVersion)
+{...} 参数
+[in] MajorVersion
+此参数指定请求的蓝牙的主要版本号。[in] MinorVersion
+此参数指定请求的蓝牙的次要版本号。返回值
+IsBluetoothVersionAvailable 如果作系统提供的蓝牙版本大于或等于所请求的蓝牙版本号，则返
+回 TRUE。言论
+蓝牙配置文件驱动程序应在执行所有蓝牙版本不支持的任何作之前调用此函数。要求
+
+≦ 169 ≧
+要求
+最低支持的客户端目标平台
+标头 IRQL
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+bthddi.h （包括 Bthddi.h） <= DISPATCH_LEVEL
+ﾉ
+展开表
+
+≦ 170 ≧
+PFNBTH_REUSE_BRB回调函数
+（bthddi.h）项目2025/02/06
+BthReuseBrb 函数重新初始化要重复使用的蓝牙请求块（BRB）。
+语法 C++
+PFNBTH_REUSE_BRB PfnbthReuseBrb;
+void PfnbthReuseBrb(   [in, out] PBRB pBrb,
+  [in]      BRB_TYPE brbType)
+{...} 参数
+[in, out] pBrb
+指向要重复使用的 BRB 的指针。[in] brbType
+指定用于初始化 BRB 的 BRB_TYPE 枚举中的值。
+返回值没有
+言论
+配置文件驱动程序在查询BTHDDI_PROFILE_DRIVER_INTERFACE驱动程序接口实例的蓝牙驱动程序堆栈时，获取指向 BthReuseBrb 函数的指针。 有关查询蓝牙驱动程序堆栈的详
+细信息，请参阅 查询蓝牙接口。要求
+
+≦ 171 ≧
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+BRB_TYPE 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+bthddi.h （包括 Bthddi.h） <= DISPATCH_LEVEL
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 172 ≧
+PFNBTHPORT_INDICATION_CALLBACK
+回调函数 （bthddi.h）项目2025/02/06
+配置文件驱动程序实现 L2CAP 回调函数，以便为蓝牙驱动程序堆栈提供一种机制，以通知来自远程设备的传入 L2CAP 连接请求，以及对当前打开的 L2CAP 连接状态所做的任何
+更改。语法 C++
+PFNBTHPORT_INDICATION_CALLBACK PfnbthportIndicationCallback;
+void PfnbthportIndicationCallback(   [in] PVOID Context,
+  [in] INDICATION_CODE Indication,
+  [in] PINDICATION_PARAMETERS Parameters)
+{...}
+参数[in] Context
+对于传入远程连接请求指示，这是配置文件驱动程序在 IndicationCallbackContext 成员中指定的上下文配置文件驱动程序注册回调函数时 _BRB_L2CA_REGISTER_SERVER 结构。对于对现有 L2CAP 连接的更改，这是生成并发送 _BRB_L2CA_OPEN_CHANNEL BRB 时由
+配置文件驱动程序指定的 CallbackContext 成员。[in] Indication
+指示 L2CAP 事件的类型的 INDICATION_CODE 值。[in] Parameters
+包含特定于事件的参数的 INDICATION_PARAMETERS 结构。
+返回值没有
+
+≦ 173 ≧
+言论
+配置文件驱动程序在以下两种情况下注册其 L2CAP 回调函数：
+1. 当配置文件驱动程序充当服务器时，它将使用 IndicationCallback 成员注册 L2CAP 回调函数 _BRB_L2CA_REGISTER_SERVER 结构。 然后，当远程设备尝试联系它时，蓝牙驱动程序堆栈可以通知配置文件驱动程序。
+2. 当配置文件驱动程序充当客户端并尝试使用 BRB_L2CA_OPEN_CHANNEL BRB 连接到远程设备时，配置文件 驱动程序使用 Callback 成员注册其 L2CAP 回调函数，该_BRB_L2CA_OPEN_CHANNEL函数是在配置文件驱动程序生成并发送
+BRB_L2CA_OPEN_CHANNEL 或 BRB_L2CA_OPEN_CHANNEL_RESPONSE 请求。
+配置文件驱动程序注册其 L2CAP 回调函数后，回调函数仅与 BRB 打开的通道相关联。 蓝牙驱动程序堆栈可以调用 L2CAP 回调函数，以通知配置文件驱动程序通过打开通道向远程设备发生的作。 配置文件驱动程序可以注册单个回调函数，以将通道通知作为客户端处理，并将连接通知作为服务器进行处理。
+根据蓝牙驱动程序堆栈通过 指示 参数传递给配置文件驱动程序 L2CAP 回调函数
+INDICATION_CODE 枚举的值解释 参数中保存的 INDICATION_PARAMETERS 结构。 对于大多数通知，有一个与事件对应的INDICATION_PARAMETERS联合成员，其中包含特定于
+事件的参数。要求
+ﾉ
+要求
+最低支持的客户端
+目标平台
+标头 IRQL
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+bthddi.h （包括 Bthddi.h）
+展开表
+开发人员应将此函数编码为在 IRQL = DISPATCH_LEVEL（如果回调函数无法访问分页内存），或者 IRQL = PASSIVE_LEVEL（如果回调函数必须访问分页内存）
+另请参阅 INDICATION_CODE
+INDICATION_PARAMETERS
+
+≦ 174 ≧
+_BRB_L2CA_OPEN_CHANNEL_BRB_L2CA_REGISTER_SERVER
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 175 ≧
+PFNBTHPORT_INDICATION_CALLBACK_EN
+HANCED回调函数 （bthddi.h）项目2025/02/06
+配置文件驱动程序实现增强的 L2CAP 回调函数，以向蓝牙驱动程序堆栈提供一种机制，以通知配置文件驱动程序对当前打开的 L2CAP 或 eL2CAP 连接的状态所做的任何更改。
+语法 C++
+PFNBTHPORT_INDICATION_CALLBACK_ENHANCED PfnbthportIndicationCallbackEnhanced;
+void PfnbthportIndicationCallbackEnhanced(   [in] PVOID Context,
+  [in] INDICATION_CODE Indication,
+  [in] PINDICATION_PARAMETERS_ENHANCED Parameters)
+{...}
+参数[in] Context
+对于对现有 L2CAP 连接的更改，这是生成并发送 _BRB_L2CA_OPEN_ENHANCED_CHANNEL 结
+构时由配置文件驱动程序指定的 CallbackContext 成员。[in] Indication
+指示 L2CAP 事件的类型的 INDICATION_CODE 值。[in] Parameters
+包含特定于事件的参数的 INDICATION_PARAMETERS_ENHANCED 结构。
+返回值没有
+言论
+
+≦ 176 ≧
+配置文件驱动程序通过在配置文件驱动程序尝试使用 BRB_L2CA_OPEN_ENHANCED_CHANNEL 或 BRB_L2CA_OPEN_ENHANCED_CHANNEL_RESPONSE BR 连接到远程设备时，在
+_BRB_L2CA_OPEN_ENHANCED_CHANNEL结构的 Callback 成员中指定回调函数来注册其 L2CAP 或 eL2CAP 回调函数。
+配置文件驱动程序注册其 L2CAP 回调函数后，回调函数仅与 BRB 打开的增强通道相关联。 蓝牙驱动程序堆栈可以调用 L2CAP 回调函数，以通知配置文件驱动程序通过打开的增强通道向远程设备执行的作。 配置文件驱动程序可以注册单个回调函数以将 L2CAP 通道通知作为客户端进行处理。
+根据蓝牙驱动程序堆栈通过 指示 参数传递给配置文件驱动程序增强 L2CAP 回调函数
+INDICATION_CODE 枚举的值解释 参数 参数中保存的 INDICATION_PARAMETERS_ENHANCED 结构。 对于大多数通知，有一个与事件对应的INDICATION_PARAMETERS_ENHANCED联合成
+员，其中包含特定于事件的参数。要求
+ﾉ
+要求
+最低支持的客户端
+目标平台标头
+价值
+在 Windows 8 及更高版本的 Windows 中受支持。桌面
+bthddi.h （包括 Bthddi.h）
+展开表
+
+≦ 177 ≧
+PFNSCO_INDICATION_CALLBACK回调函数
+（bthddi.h）项目2025/02/06
+配置文件驱动程序实现 SCO 回调函数，以提供蓝牙驱动程序堆栈的机制，以通知配置文件驱动程序从远程设备传入的 SCO 连接请求，以及对当前打开的 SCO 连接状态的任何更改。
+语法 C++
+PFNSCO_INDICATION_CALLBACK PfnscoIndicationCallback;
+void PfnscoIndicationCallback(   [in] PVOID Context,
+  [in] SCO_INDICATION_CODE Indication,
+  [in] PSCO_INDICATION_PARAMETERS Parameters)
+{...}
+参数[in] Context
+对于传入远程连接请求指示，这是配置文件驱动程序在配置文件驱动程序注册回调函数时
+_BRB_SCO_REGISTER_SERVER 结构 IndicationCallbackContext 成员指定的上下文。 对于现有 SCO 连接的更改，这是生成并发送 BRB_SCO_OPEN_CHANNEL BRB 时由配置文件驱动程序指定
+的 CallbackContext 成员。[in] Indication
+指示 SCO 事件的类型的 SCO_INDICATION_CODE 值。[in] Parameters
+一个 SCO_INDICATION_PARAMETERS 结构，该结构包含基于传递给 指示 参数的值的参数信息。
+返回值没有
+
+≦ 178 ≧
+言论
+BtAddress 成员在 Parameters 参数中传递的SCO_INDICATION_PARAMETERS结构中找到的成员表示远程设备的蓝牙地址。
+可以通过两种方式注册 PFNSCO_INDICATION_CALLBACK 函数。
+在第一种情况下，配置文件驱动程序充当服务器，并且必须通过 _BRB_SCO_REGISTER_SERVER 结构的 IndicationCallback 成员注册此回调函数。 然后，当远程设备尝试联系该驱动程序时，蓝牙驱动程序堆栈可以调用此函数来通知配置文件驱动程序。
+第二种情况下，配置文件驱动程序充当客户端，并尝试使用 BRB_SCO_OPEN_CHANNEL BRB 连接到远程设备。 PFNSCO_INDICATION_CALLBACK 回调函数通过 回调 通过指定的 BRB 传递的
+_BRB_SCO_OPEN_CHANNEL 结构成员注册，其中一个通过 IOCTL_INTERNAL_BTH_SUBMIT_BRB。
+注册后，回调函数仅与 BRB 打开的通道相关联，并且该函数会通知通过打开通道向远程设备发生的作的配置文件驱动程序。 配置文件驱动程序可以注册单个函数，以将通道通知作为客户端处理，并将通知作为服务器_BRB_SCO_REGISTER_SERVER。
+Parameters 参数中保存的SCO_INDICATION_PARAMETERS结构根据通过 指示 参数传递给回调函数的SCO_INDICATION_CODE值进行解释。 对于大多数通知，有一个与事件对应的
+SCO_INDICATION_PARAMETERS联合成员，其中包含特定于事件的参数。要求
+ﾉ
+要求
+最低支持的
+客户端目标平台标头 IRQL
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+bthddi.h （包括 Bthddi.h）
+展开表
+开发人员应将此函数编码为在 IRQL = DISPATCH_LEVEL（如果回调函数无法访问分页内存），或者 IRQL = PASSIVE_LEVEL（如果回调函数必须访问分页内存）
+另请参阅
+BRB_SCO_OPEN_CHANNEL
+
+≦ 179 ≧
+IOCTL_INTERNAL_BTH_SUBMIT_BRB SCO_INDICATION_CODE
+SCO_INDICATION_PARAMETERS_BRB_SCO_REGISTER_SERVER
+
+≦ 180 ≧
+SCO_DISCONNECT_REASON枚举
+（bthddi.h）项目2025/02/06
+SCO_DISCONNECT_REASON枚举类型提供 SCO 通道已断开连接的原因。
+语法 C++
+typedef enum _SCO_DISCONNECT_REASON {   ScoHciDisconnect,
+  ScoDisconnectRequest,   ScoRadioPoweredDown,   ScoHardwareRemoval
+} SCO_DISCONNECT_REASON, *PSCO_DISCONNECT_REASON;
+常数  
+ScoHciDisconnect
+此值指定蓝牙驱动程序堆栈已接收的配置文件驱动程序
+断开与主机控制器接口（HCI）层的连接通知。 ScoDisconnectRequest
+此值指定已从 接收断开连接请求的配置文件驱动程序远程设备。
+ScoRadioPoweredDown
+此值指定已关闭本地无线电的配置文件驱动程序。 ScoHardwareRemoval
+此值指定本地无线电在物理上已为配置文件驱动程序
+删除。言论
+此枚举中的值用作 原因 成员 SCO_INDICATION_PARAMETERS 结构。
+ﾉ
+展开表
+
+≦ 181 ≧
+硬件限制可能会阻止蓝牙驱动程序堆栈区分 ScoRadioPoweredDown 和 ScoHardwareRemoval 事件。
+目前，ScoHciDisconnect 是蓝牙驱动程序堆栈传递给 SCO 回调函数的唯一值。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 SCO 回调函数
+价值
+版本：_Supported Windows Vista 及更高版本的 Windows。 bthddi.h （包括 Bthddi.h）
+SCO_INDICATION_PARAMETERS
+展开表
+
+≦ 182 ≧
+SCO_INDICATION_CODE枚举 （bthddi.h）项目2025/02/06
+SCO_INDICATION_CODE枚举类型描述传入的 SCO 连接或绑定状态更改的类型。 蓝牙驱动程序堆栈在配置文件驱动程序的 SCO 回调函数的 指示 参数中传递此枚举中的值。
+语法 C++
+typedef enum _SCO_INDICATION_CODE {   ScoIndicationAddReference,
+  ScoIndicationReleaseReference,
+  ScoIndicationRemoteConnect,   ScoIndicationRemoteDisconnect
+} SCO_INDICATION_CODE, *PSCO_INDICATION_CODE; 常数
+ﾉ
+ 
+ScoIndicationAddReference
+此值指示配置文件驱动程序应向其设备对象添加一个引用。 ScoIndicationReleaseReference
+此值指示配置文件驱动程序可以释放对其设备的一个引用对象。
+ScoIndicationRemoteConnect
+此值向配置文件驱动程序指示远程设备正在尝试连接到本地设备
+收音机。 配置文件驱动程序接受或拒绝此请求生成和发送
+BRB_SCO_OPEN_CHANNEL_RESPONSE ScoIndicationRemoteDisconnect
+请求。
+此值向配置文件驱动程序指示远程设备正在从本地断开连接
+收音机。要求
+展开表
+
+≦ 183 ≧
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+BRB_SCO_REGISTER_SERVER
+IOCTL_INTERNAL_BTH_SUBMIT_BRB SCO 回调函数
+ﾉ
+展开表
+
+≦ 184 ≧
+SCO_INDICATION_PARAMETERS 结构
+(bthddi.h) 项目2024/02/26
+SCO_INDICATION_PARAMETERS 结构描述有关 SCO 连接或断开连接通知的指示参数。
+语法 C++
+typedef struct _SCO_INDICATION_PARAMETERS {   SCO_CHANNEL_HANDLE ConnectionHandle;
+  BTH_ADDR           BtAddress;   union {
+    struct {       struct {
+        SCO_LINK_TYPE LinkType;
+      } Request;     } Connect;     struct {
+      SCO_DISCONNECT_REASON Reason;       BOOLEAN               CloseNow;
+    } Disconnect;   } Parameters;
+} SCO_INDICATION_PARAMETERS, *PSCO_INDICATION_PARAMETERS; 成员
+ConnectionHandle
+与远程设备的连接句柄。 此句柄仅对通过已建立的 SCO 连接到达的通知有效。 BtAddress
+远程设备的蓝牙地址。 Parameters
+以下字段的联合。 Parameters.Connect
+包含 ScoIndicationRemoteConnectSCO_INDICATION_CODE 事件参数 的结构 。 Parameters.Connect.Request
+
+≦ 185 ≧
+包含 SCO 连接请求的参数的结构。 Parameters.Connect.Request.LinkType
+SCO_LINK_TYPE 枚举中的值，指示传入连接的类型。 Parameters.Disconnect
+包含 ScoIndicationRemoteDisconnectSCO_INDICATION_CODE 事件参数的结构。 Parameters.Disconnect.Reason
+一个SCO_DISCONNECT_REASON值，该值指示 SCO 连接终止的原因。 Parameters.Disconnect.CloseNow
+一个布尔值，配置文件驱动程序可以设置为指示是否关闭与远程设备的 SCO 连接。 如果要关闭
+连接，则值为 TRUE。 否则，值为 FALSE。注解
+配置文件驱动程序的 SCO 回调函数 应以不同的方式处理通知，具体取决于蓝牙驱动程序堆栈在回调函数的 指示 参数中传递的值。
+当蓝牙驱动程序堆栈通过 ScoIndicationRemoteConnect 时，回调函数应使用参数联合的 Connect 成员。
+当蓝牙驱动程序堆栈通过 ScoIndicationRemoteDisconnect 时，回调函数应使用 Parameters 联
+合的 Disconnect 成员。要求
+ﾉ
+要求
+最低受支持的客户端标头
+另请参阅 SCO 回调函数
+值
+版本：Windows Vista 及更高版本中的 _Supported。 bthddi.h (包括 Bthddi.h)
+展开表
+
+≦ 186 ≧
+SCO_DISCONNECT_REASON
+
+≦ 187 ≧
+SCO_LINK_TYPE枚举 （bthddi.h）项目2025/02/06
+SCO_LINK_TYPE枚举类型描述处理 ScoIndicationRemoteConnect 指示事件时 SCO 连接使用的
+链接类型。语法 C++
+typedef enum _SCO_LINK_TYPE {
+  ScoLinkType,   eScoLinkType
+} SCO_LINK_TYPE, *PSCO_LINK_TYPE; 常数
+ﾉ
+ 
+ScoLinkType
+此值指示连接使用的链接是 SCO 链接。 eScoLinkType
+此值指示连接使用的链接是 eSCO 链接。言论
+SCO_INDICATION_PARAMETERS 结构使用此枚举。要求
+ﾉ
+要求
+最低支持的客户端标头
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+展开表展开表
+
+≦ 188 ≧
+另请参阅
+SCO_INDICATION_PARAMETERS
+
+≦ 189 ≧
+SCO_RETRANSMISSION_EFFORT枚举
+（bthddi.h）项目2025/02/06
+SCO_RETRANSMISSION_EFFORT枚举类型用于确定 SCO 通道的重新传输策略。
+语法 C++
+typedef enum _SCO_RETRANSMISSION_EFFORT {   SCO_RETRANSMISSION_NONE,
+  SCO_RETRANSMISSION_MIN1_POWER,   SCO_RETRANSMISSION_MIN1_QUALITY,   SCO_RETRANSMISSION_DONT_CARE
+} SCO_RETRANSMISSION_EFFORT, *PSCO_RETRANSMISSION_EFFORT; 常数
+ﾉ
+ 
+SCO_RETRANSMISSION_NONE
+配置文件驱动程序指定不应在通道上重新传输。 SCO_RETRANSMISSION_MIN1_POWER
+配置文件驱动程序指定通道上应至少有一次重新传输。 任何
+应针对能耗优化所执行的重新传输。 SCO_RETRANSMISSION_MIN1_QUALITY
+配置文件驱动程序指定通道上应至少有一次重新传输。 任何
+应针对链接质量优化所执行的重新传输。 SCO_RETRANSMISSION_DONT_CARE
+配置文件驱动程序指定可以进行重新传输，但不是必需的。要求
+ﾉ
+展开表展开表
+
+≦ 190 ≧
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthddi.h （包括 Bthddi.h）
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 191 ≧
+bthioctl.h 标头项目2023/08/07
+bltooth 使用此标头。 有关详细信息，请参阅：
+蓝牙
+bthioctl.h 包含以下编程接口：
+IOCTL  
+IOCTL_BTH_DISCONNECT_DEVICE
+ﾉ
+展开表
+配置文件驱动程序使用 IOCTL_BTH_DISCONNECT_DEVICE 请求操作系统断开指定的远程设备的连接。 IOCTL_BTH_GET_DEVICE_INFO
+IOCTL_BTH_GET_DEVICE_INFO请求返回有关所有缓存的、以前发现的已启用蓝牙的远程无线电的信息。 IOCTL_BTH_GET_LOCAL_INFO
+IOCTL_BTH_GET_LOCAL_INFO请求返回有关本地蓝牙系统和无线电的信息。 IOCTL_BTH_GET_RADIO_INFO
+IOCTL_BTH_GET_RADIO_INFO请求获取有关指定远程无线电的信息。 IOCTL_BTH_HCI_VENDOR_COMMAND
+IOCTL_BTH_HCI_VENDOR_COMMAND请求允许蓝牙应用程序将特定于供应商的命令发送到无线电。 IOCTL_BTH_SDP_ATTRIBUTE_SEARCH
+IOCTL_BTH_SDP_ATTRIBUTE_SEARCH请求获取指定 SDP 记录的属性。 IOCTL_BTH_SDP_CONNECT
+IOCTL_BTH_SDP_CONNECT请求创建与远程蓝牙设备上的 SDP 服务的连接。 IOCTL_BTH_SDP_DISCONNECT
+IOCTL_BTH_SDP_DISCONNECT请求关闭与远程 SDP 服务器的连接。 IOCTL_BTH_SDP_REMOVE_RECORD
+
+≦ 192 ≧
+ 
+IOCTL_BTH_SDP_REMOVE_RECORD请求会删除配置文件驱动程序之前提交的本地 SDP 记录。 本地服务器将不再向远程设备提供此记录。
+IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SEARCH
+IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SEARCH请求将 SDP 服务和属性搜索合并到单个操作中。 这允许调
+用方直接从远程设备获取 SDP 记录。 IOCTL_BTH_SDP_SERVICE_SEARCH
+IOCTL_BTH_SDP_SERVICE_SEARCH请求联系具有 SDP 请求的远程设备，以获取特定服务类的 SDP 记录的句柄。
+IOCTL_BTH_SDP_SUBMIT_RECORD
+IOCTL_BTH_SDP_SUBMIT_RECORD请求允许配置文件驱动程序将 SDP 记录添加到本地 SDP 服务器，从而允许客户端播发本地计算机上可用的服务。
+IOCTL_BTH_SDP_SUBMIT_RECORD_WITH_INFO
+IOCTL_BTH_SDP_SUBMIT_RECORD_WITH_INFO请求将 SDP 记录以及不属于 SDP 记录本身的属性添加到本地 SDP 服务器。
+IOCTL_INTERNAL_BTH_SUBMIT_BRB
+配置文件驱动程序使用 IOCTL_INTERNAL_BTH_SUBMIT_BRB 将蓝牙请求块 (BRB) 提交到蓝牙驱动程序堆栈。
+IOCTL_INTERNAL_BTHENUM_GET_DEVINFO
+IOCTL_INTERNAL_BTHENUM_GET_DEVINFO请求返回有关导致即插即用 (PnP) 管理器加载配置文件驱动程序的当前实例的远程设备的信息。
+IOCTL_INTERNAL_BTHENUM_GET_ENUMINFO
+IOCTL_INTERNAL_BTHENUM_GET_ENUMINFO请求获取导致即插即用 (PnP) 管理器加载配置文件驱动程序
+的基础设备和服务的信息。结构
+ﾉ
+ 
+BTH_COMMAND_HEADER
+BTH_COMMAND_HEADER 结构指定特定于供应商的 HCI 命令的标头信息。
+展开表
+
+≦ 193 ≧
+ 
+BTH_DEVICE_INFO_LIST
+BTH_DEVICE_INFO_LIST 结构包含有关所有缓存的、以前发现的远程设备的输出信息。 BTH_LOCAL_RADIO_INFO
+BTH_LOCAL_RADIO_INFO结构包含有关本地蓝牙系统和无线电的信息。 BTH_RADIO_INFO
+BTH_RADIO_INFO结构包含有关远程无线电的信息。 BTH_SDP_ATTRIBUTE_SEARCH_REQUEST
+BTH_SDP_ATTRIBUTE_SEARCH_REQUEST结构包含与 SDP 属性搜索相关的信息。 BTH_SDP_CONNECT
+BTH_SDP_CONNECT结构包含有关本地蓝牙系统和远程 SDP 服务器之间的连接的输入和输出信息。 此结构
+作为IOCTL_BTH_SDP_CONNECT的输入缓冲区和输出缓冲区传递。 BTH_SDP_DISCONNECT
+BTH_SDP_DISCONNECT结构包含有关要终止的远程 SDP 连接的连接句柄的输入信息。 此结构作为
+IOCTL_BTH_SDP_DISCONNECT的输入缓冲区传递。 BTH_SDP_RECORD
+BTH_SDP_RECORD结构包含有关要添加到本地 SDP 服务器的 SDP 记录的信息。 BTH_SDP_SERVICE_ATTRIBUTE_SEARCH_REQUEST
+BTH_SDP_SERVICE_ATTRIBUTE_SEARCH_REQUEST结构包含与 SDP 服务和属性搜索组合相关的信息。 此结
+构作为输入缓冲区传递到 IOCTL IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SEARCH。 BTH_SDP_SERVICE_SEARCH_REQUEST
+BTH_SDP_SERVICE_SEARCH_REQUEST结构包含与 SDP 服务搜索相关的信息。 BTH_SDP_STREAM_RESPONSE
+BTH_SDP_STREAM_RESPONSE 结构包含有关 SDP 记录的信息。 BTH_VENDOR_EVENT_INFO
+BTH_VENDOR_EVENT_INFO 结构指定与 GUID_BLUETOOTH_HCI_VENDOR_EVENT GUID 关联的缓冲区。 BTH_VENDOR_PATTERN
+
+≦ 194 ≧
+ 
+BTH_VENDOR_PATTERN结构指定供应商模式。 BTH_VENDOR_SPECIFIC_COMMAND
+BTH_VENDOR_SPECIFIC_COMMAND 结构指定特定于蓝牙供应商的命令。
+
+≦ 195 ≧
+BTH_COMMAND_HEADER结构
+（bthioctl.h）项目2025/02/06
+BTH_COMMAND_HEADER结构指定特定于供应商的 HCI 命令的标头信息。
+语法 C++
+typedef struct _BTH_COMMAND_HEADER {   USHORT OpCode;
+  UCHAR  TotalParameterLength;
+} BTH_COMMAND_HEADER, *PBTH_COMMAND_HEADER;
+成员 OpCode
+一个 USHORT 值，该值指定命令的作代码。 TotalParameterLength
+命令有效负载的大小（以字节为单位），该有效负载是遵循BTH_COMMAND_HEADER结
+构的数据。言论
+BTH_COMMAND_HEADER结构指定 HciHeader 成员中的标头信息
+BTH_VENDOR_SPECIFIC_COMMAND 结构。 它还提供输出的标头信息
+IOCTL_BTH_HCI_VENDOR_COMMAND IOCTL。要求
+ﾉ
+要求
+最低支持的客户端
+价值
+版本：_Available Windows Vista 及更高版本的 Windows。
+展开表
+
+≦ 196 ≧
+要求标头
+另请参阅
+价值
+bthioctl.h （包括 Bthioctl.h）
+BTH_VENDOR_SPECIFIC_COMMAND IOCTL_BTH_HCI_VENDOR_COMMAND
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 197 ≧
+BTH_DEVICE_INFO_LIST结构（bthioctl.h）项目2025/02/06
+BTH_DEVICE_INFO_LIST结构包含有关所有缓存的、以前发现的远程设备的输出信息。
+语法 C++
+typedef struct _BTH_DEVICE_INFO_LIST {
+  ULONG           numOfDevices;   BTH_DEVICE_INFO deviceList[1];
+} BTH_DEVICE_INFO_LIST, *PBTH_DEVICE_INFO_LIST;
+成员 numOfDevices
+已发现的设备数。 deviceList[1]
+BTH_DEVICE_INFO 结构的开放式数组。 每个结构都包含有关以前发现的远程设备的信息。言论
+IOCTL_BTH_GET_DEVICE_INFO 调用的输出缓冲区包含以前发现的所有缓存远程设备的列表。 BTH_DEVICE_INFO_LIST结构的 numOfDevices 成员返回可用的BTH_DEVICE_INFO结构总数。 如
+果调用驱动程序传入较小的缓冲区，将只返回一部分可用结构。要求
+ﾉ
+要求
+最低支持的客户端标头
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthioctl.h （包括 Bthioctl.h）
+展开表
+
+≦ 198 ≧
+另请参阅 BTH_DEVICE_INFO
+IOCTL_BTH_GET_DEVICE_INFO
+
+≦ 199 ≧
+BTH_LOCAL_RADIO_INFO结构
+（bthioctl.h）项目2025/02/06
+BTH_LOCAL_RADIO_INFO结构包含有关本地蓝牙系统和无线电的信息。
+语法 C++
+typedef struct _BTH_LOCAL_RADIO_INFO {
+  BTH_DEVICE_INFO localInfo;   ULONG           flags;
+  USHORT          hciRevision;   UCHAR           hciVersion;   BTH_RADIO_INFO  radioInfo;
+} BTH_LOCAL_RADIO_INFO, *PBTH_LOCAL_RADIO_INFO;
+成员 localInfo
+包含有关本地无线电信息的 BTH_DEVICE_INFO 结构。 flags
+指示本地无线电状态的标志。 可以同时设置这两个标志。 可能的值包括：
+LOCAL_RADIO_DISCOVERABLE LOCAL_RADIO_CONNECTABLE hciRevision
+主机控制器接口的次要版本（HCI）。 hciVersion
+HCI 的主要版本。 radioInfo
+包含有关本地无线电设备的信息的 BTH_RADIO_INFO 结构。
+
+≦ 200 ≧
+言论
+IOCTL_BTH_GET_LOCAL_INFO 调用的输出缓冲区包含有关本地蓝牙系统和无线电的信息。
+要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 BTH_DEVICE_INFO BTH_RADIO_INFO
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthioctl.h （包括 Bthioctl.h）
+IOCTL_BTH_GET_LOCAL_INFO 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 201 ≧
+BTH_RADIO_INFO结构（bthioctl.h）项目2025/02/06
+BTH_RADIO_INFO结构包含有关远程无线电的信息。
+语法 C++
+typedef struct _BTH_RADIO_INFO {   ULONGLONG lmpSupportedFeatures;   USHORT    mfg;
+  USHORT    lmpSubversion;   UCHAR     lmpVersion;
+} BTH_RADIO_INFO, *PBTH_RADIO_INFO; 成员
+lmpSupportedFeatures
+本地无线电支持的链接管理协议（LMP）功能的位图。 mfg
+制造商的标识。 lmpSubversion
+本地无线电使用的 LMP 的次要版本号。 lmpVersion
+本地无线电使用的 LMP 的主要版本号。言论
+BTH_RADIO_INFO结构作为 IOCTL_BTH_GET_LOCAL_INFO输出缓冲区的一部分返回。 本
+地无线电信息在 radioInfoBTH_LOCAL_RADIO_INFO 结构的成员中返回。要求
+
+≦ 202 ≧
+要求
+最低支持的客户端标头
+另请参阅
+BTH_LOCAL_RADIO_INFO
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthioctl.h （包括 Bthioctl.h）
+IOCTL_BTH_GET_LOCAL_INFO 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 203 ≧
+BTH_SDP_ATTRIBUTE_SEARCH_REQUEST
+结构（bthioctl.h）项目2025/02/06
+BTH_SDP_ATTRIBUTE_SEARCH_REQUEST结构包含与 SDP 属性搜索相关的信息。
+语法 C++
+typedef struct _BTH_SDP_ATTRIBUTE_SEARCH_REQUEST {   HANDLE_SDP_TYPE   HANDLE_SDP_FIELD_NAME;
+  ULONG             searchFlags;   ULONG             recordHandle;   SdpAttributeRange range[1];
+} BTH_SDP_ATTRIBUTE_SEARCH_REQUEST, *PBTH_SDP_ATTRIBUTE_SEARCH_REQUEST; 成员
+HANDLE_SDP_FIELD_NAME
+连接请求或HANDLE_SDP_LOCAL返回的句柄。 searchFlags
+SDP_SEARCH_Xxx标志的组合。 recordHandle
+远程 SDP 服务器从对 IOCTL_BTH_SDP_SERVICE_SEARCH IOCTL 的上一次调用返回的记录
+句柄。 range[1]
+SdpAttributeRange 类型的结构的可变长度数组，其中包含要搜索的 SDP 属性的范围。
+范围数组必须按升序数字。言论
+此结构作为输入缓冲区传递到 IOCTL_BTH_SDP_ATTRIBUTE_SEARCH IOCTL。
+
+≦ 204 ≧
+蓝牙驱动程序堆栈通过检查IOCTL_BTH_SDP_ATTRIBUTE_SEARCH输入缓冲区的长度来确定 范围内的数组项数 成员。 因此，必须计算调用 IOCTL_BTH_SDP_SERVICE_SEARCH 时
+传递的 Parameters.DeviceIoControl.InputBufferLength 成员的确切值。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthioctl.h （包括 Bthioctl.h）
+IOCTL_BTH_SDP_ATTRIBUTE_SEARCH IOCTL_BTH_SDP_CONNECT
+IOCTL_BTH_SDP_SERVICE_SEARCH SdpAttributeRange
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 205 ≧
+BTH_SDP_CONNECT结构（bthioctl.h）项目2025/02/06
+BTH_SDP_CONNECT结构包含有关本地蓝牙系统和远程 SDP 服务器之间的连接的输入和输出信息。 此结构作为 IOCTL_BTH_SDP_CONNECT的输入缓冲区和输出缓冲区传递。
+语法 C++
+typedef struct _BTH_SDP_CONNECT {
+  BTH_ADDR        bthAddress;   ULONG           fSdpConnect;
+  HANDLE_SDP_TYPE HANDLE_SDP_FIELD_NAME;   UCHAR           requestTimeout;
+} BTH_SDP_CONNECT, *PBTH_SDP_CONNECT;
+成员 bthAddress
+本地系统连接到的远程 SDP 服务器的地址。 此地址不能指向本地无线电。 fSdpConnect
+一个标志或标志的组合，用于确定如何处理连接请求。 下表中列出了有效的标志值。
+ﾉ
+旗
+SDP_CONNECT_ALLOW_PIN
+SDP_CONNECT_CACHE HANDLE_SDP_FIELD_NAME
+描述
+如果已请求，请与远程设备执行固定交换。请求从 SDP 记录的本地缓存中提供服务。
+当连接请求返回时，这会指定与远程服务器的 SDP 连接的句柄。 requestTimeout
+展开表
+此 SDP 通道上请求的超时（以秒为单位）。 如果请求超时，则必须关闭由HANDLE_SDP表示的
+SDP 连接。 此字段的值由SDP_REQUEST_TO_MIN和SDP_REQUEST_MAX绑定。 如果指定了 SDP_REQUEST_TO_DEFAULT，则超时为 30 秒。
+
+≦ 206 ≧
+要求要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthioctl.h （包括 Bthioctl.h）
+IOCTL_BTH_SDP_CONNECT
+ﾉ
+展开表
+
+≦ 207 ≧
+BTH_SDP_DISCONNECT结构（bthioctl.h）项目2025/02/06
+BTH_SDP_DISCONNECT结构包含有关要终止的远程 SDP 连接的连接句柄的输入信息。 此结构作为 IOCTL_BTH_SDP_DISCONNECT的输入缓冲区传递。
+语法 C++
+typedef struct _BTH_SDP_DISCONNECT {
+  HANDLE_SDP_TYPE HANDLE_SDP_FIELD_NAME;
+} BTH_SDP_DISCONNECT, *PBTH_SDP_DISCONNECT; 成员
+HANDLE_SDP_FIELD_NAME
+当连接请求返回时，这会指定与远程服务器的 SDP 连接的句柄。要求
+ﾉ
+要求标头
+另请参阅
+价值
+bthioctl.h （包括 Bthioctl.h）
+BTH_SDP_CONNECT
+IOCTL_BTH_SDP_CONNECT IOCTL_BTH_SDP_DISCONNECT
+展开表
+
+≦ 208 ≧
+BTH_SDP_RECORD结构（bthioctl.h）项目2025/02/06
+BTH_SDP_RECORD结构包含要添加到本地 SDP 服务器的 SDP 记录的相关信息。
+语法 C++
+typedef struct _BTH_SDP_RECORD {
+  ULONG fSecurity;   ULONG fOptions;
+  ULONG fCodService;   ULONG recordLength;   UCHAR record[1];
+} BTH_SDP_RECORD, *PBTH_SDP_RECORD;
+成员 fSecurity
+指定 SDP 记录的安全属性的标志的组合。 下表中列出了有效的标志值。
+旗
+SERVICE_SECURITY_AUTHENTICATE SERVICE_SECURITY_AUTHORIZE
+SERVICE_SECURITY_ENCRYPT_OPTIONAL SERVICE_SECURITY_ENCRYPT_REQUIRED
+SERVICE_SECURITY_NONE fOptions
+描述
+ﾉ
+只有经过身份验证的客户端才能访问此记录。只有经过授权的客户端才能访问此记录。
+加密是可选的，用于访问此记录。访问此记录需要加密。
+访问此记录不需要任何安全性。
+指定 SDP 记录的发布选项的标志的组合。 下表中列出了有效的标志值。
+ﾉ
+旗
+描述
+展开表展开表
+
+≦ 209 ≧
+SERVICE_OPTION_DO_NOT_PUBLISH SERVICE_OPTION_NO_PUBLIC_BROWSE
+fCodService
+可能的值包括：
+COD_SERVICE_AUDIO
+COD_SERVICE_CAPTURING
+该记录应输入到本地 SDP 服务器，但不应发布到远程系统。如果特别请求，则记录应可获取，但不应使用 SDP 浏览组进行浏览。
+COD_SERVICE_INFORMATION COD_SERVICE_LIMITED
+COD_SERVICE_NETWORKING COD_SERVICE_OBJECT_XFER COD_SERVICE_POSITIONING COD_SERVICE_RENDERING COD_SERVICE_TELEPHONY recordLength
+记录的大小（以字节为单位）。 record[1]
+SDP 记录的原始流格式。 第一个字节在此结构中定义，其后有整个记录。言论
+此结构作为输入缓冲区和输出缓冲区传递 IOCTL_BTH_SDP_SUBMIT_RECORD_WITH_INFO。
+
+≦ 210 ≧
+要求要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthioctl.h （包括 Bthioctl.h）
+IOCTL_BTH_SDP_SUBMIT_RECORD_WITH_INFO
+ﾉ
+展开表
+
+≦ 211 ≧
+BTH_SDP_SERVICE_ATTRIBUTE_SEARCH_
+REQUEST结构（bthioctl.h）项目2025/02/06
+BTH_SDP_SERVICE_ATTRIBUTE_SEARCH_REQUEST结构包含与合并的 SDP 服务和属性搜索相关的信息。 此结构作为输入缓冲区传递到
+IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SEARCH IOCTL。
+语法 C++
+typedef struct _BTH_SDP_SERVICE_ATTRIBUTE_SEARCH_REQUEST {
+  HANDLE_SDP_TYPE   HANDLE_SDP_FIELD_NAME;   ULONG             searchFlags;
+  SdpQueryUuid      uuids[MAX_UUIDS_IN_QUERY];   SdpAttributeRange range[1];
+} BTH_SDP_SERVICE_ATTRIBUTE_SEARCH_REQUEST, *PBTH_SDP_SERVICE_ATTRIBUTE_SEARCH_REQUEST;
+成员
+HANDLE_SDP_FIELD_NAME
+连接请求或HANDLE_SDP_LOCAL返回的句柄。 searchFlags
+SDP_SEARCH_Xxx标志的组合。 uuids[MAX_UUIDS_IN_QUERY]
+表示要查询的服务的 UUID 数组。 每个条目可以是 2 字节、4 字节或 16 字节类型，最多可以有 12 个条目。 如果 UUID 条目包含所有零，则可以在使用所有 12 个条目之前终止
+该数组。 range[1]
+SdpAttributeRange 的可变长度数组 结构，其中包含要搜索的 SDP 属性的范围。言论
+
+≦ 212 ≧
+蓝牙驱动程序堆栈通过检查IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SEARCH输入缓冲区的长度来确定 范围 成员中的数组项数。 因此，必须精确计算调用 IOCTL 时传递的
+Parameters.DeviceIoControl.InputBufferLength 成员。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthioctl.h （包括 Bthioctl.h）
+IOCTL_BTH_SDP_CONNECT
+IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SEARCH SdpAttributeRange
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 213 ≧
+BTH_SDP_SERVICE_SEARCH_REQUEST结
+构（bthioctl.h）项目2025/02/06
+BTH_SDP_SERVICE_SEARCH_REQUEST结构包含与 SDP 服务搜索相关的信息。
+语法 C++
+typedef struct _BTH_SDP_SERVICE_SEARCH_REQUEST {   HANDLE_SDP_TYPE HANDLE_SDP_FIELD_NAME;
+  SdpQueryUuid    uuids[MAX_UUIDS_IN_QUERY];
+} BTH_SDP_SERVICE_SEARCH_REQUEST, *PBTH_SDP_SERVICE_SEARCH_REQUEST; 成员
+HANDLE_SDP_FIELD_NAME
+连接请求或HANDLE_SDP_LOCAL返回的句柄。 uuids[MAX_UUIDS_IN_QUERY]
+表示要查询的服务的 UUID 数组。 每个条目可以是 2 字节、4 字节或 16 字节类型，最多可以有 12 个条目。 如果 UUID 条目包含所有零，则可以在使用所有 12 个条目之前终止
+该数组。言论
+此结构作为输入缓冲区传递到 IOCTL_BTH_SDP_SERVICE_SEARCH IOCTL。要求
+ﾉ
+要求
+最低支持的客户端
+价值
+Windows Vista 及更高版本中的版本：_Supported。
+展开表
+
+≦ 214 ≧
+要求标头
+另请参阅
+价值
+bthioctl.h （包括 Bthioctl.h）
+IOCTL_BTH_SDP_CONNECT
+IOCTL_BTH_SDP_SERVICE_SEARCH 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 215 ≧
+BTH_SDP_STREAM_RESPONSE结构
+（bthioctl.h）项目2025/02/06
+BTH_SDP_STREAM_RESPONSE结构包含有关 SDP 记录的信息。
+语法 C++
+typedef struct _BTH_SDP_STREAM_RESPONSE {
+  ULONG requiredSize;   ULONG responseSize;   UCHAR response[1];
+} BTH_SDP_STREAM_RESPONSE, *PBTH_SDP_STREAM_RESPONSE;
+成员 requiredSize
+整个 SDP 记录的大小（以字节为单位）。 如果输出缓冲区太小而无法容纳整个记录，则此值非常有用。
+responseSize
+遵循此结构的原始 SDP 记录流的大小（以字节为单位）。 response[1]
+SDP 记录流的第一个字节。言论
+此结构使用原始流返回到 的输出缓冲区 IOCTL_BTH_SDP_ATTRIBUTE_SEARCH 和 IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SEARCH IOCTL。
+此结构中包含 requiredSize 和 responseSize 成员，因为原始 SDP 记录流不包含这些字段。要求
+
+≦ 216 ≧
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthioctl.h （包括 Bthioctl.h）
+IOCTL_BTH_SDP_ATTRIBUTE_SEARCH
+IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SEARCH
+ﾉ
+展开表
+
+≦ 217 ≧
+BTH_VENDOR_EVENT_INFO结构
+（bthioctl.h）项目2025/02/06
+BTH_VENDOR_EVENT_INFO结构指定与GUID_BLUETOOTH_HCI_VENDOR_EVENT GUID 关联的缓冲区。
+语法 C++
+typedef struct _BTH_VENDOR_EVENT_INFO {
+  BTH_ADDR BthAddress;   ULONG    EventSize;
+  UCHAR    EventInfo[1];
+} BTH_VENDOR_EVENT_INFO, *PBTH_VENDOR_EVENT_INFO;
+成员 BthAddress
+与事件关联的本地无线电的地址。 EventSize
+事件缓冲区的大小（以字节为单位）。 大小包括事件标头。 EventInfo[1]
+事件缓冲区的 UCHAR 数组。 缓冲区包括事件标头。言论
+BTH_VENDOR_EVENT_INFO结构包含与GUID_BLUETOOTH_HCI_VENDOR_EVENT事件关联的数据。
+注册GUID_BTHPORT_DEVICE_INTERFACE GUID 通知的应用程序或驱动程序接收
+WM_DEVICECHANGE消息，该消息 wParam 设置为DBT_CUSTOMEVENT，事件 GUID 设置为GUID_BLUETOOTH_HCI_VENDOR_EVENT。
+
+≦ 218 ≧
+要求要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+价值
+版本：_Available Windows Vista 及更高版本的 Windows。 bthioctl.h （包括 Bthioctl.h）
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 219 ≧
+BTH_VENDOR_PATTERN结构
+（bthioctl.h）项目2025/02/06
+BTH_VENDOR_PATTERN结构指定供应商模式。
+语法 C++
+typedef struct _BTH_VENDOR_PATTERN {
+  UCHAR Offset;   UCHAR Size;
+  UCHAR Pattern[1];
+} BTH_VENDOR_PATTERN, *PBTH_VENDOR_PATTERN;
+成员 Offset
+从事件数据开头开始的模式偏移量（以字节为单位），不包括事件标头。 Size
+模式的大小（以字节为单位）。 Pattern[1]
+包含模式数据的缓冲区。言论
+BTH_VENDOR_PATTERN结构指定供应商模式 BTH_VENDOR_SPECIFIC_COMMAND 结构。
+模式列表可以立即遵循BTH_VENDOR_SPECIFIC_COMMAND结构 数据 成员中指定的特定于供应商的命令数据。
+如果特定于供应商的命令不遵循标准 HCI 流控制，并且生成特定于供应商的事件来响应特定于供应商的命令，则需要模式。
+
+≦ 220 ≧
+要求要求
+最低支持的客户端标头
+另请参阅
+价值
+版本：_Available Windows Vista 及更高版本的 Windows。 bthioctl.h （包括 Bthioctl.h）
+BTH_VENDOR_SPECIFIC_COMMAND 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 221 ≧
+BTH_VENDOR_SPECIFIC_COMMAND结构
+（bthioctl.h）项目2025/02/06
+BTH_VENDOR_SPECIFIC_COMMAND结构指定特定于蓝牙供应商的命令。
+语法 C++
+typedef struct _BTH_VENDOR_SPECIFIC_COMMAND {
+  ULONG              ManufacturerId;   UCHAR              LmpVersion;
+  BOOLEAN            MatchAnySinglePattern;
+  BTH_COMMAND_HEADER HciHeader;   UCHAR              Data[1];
+} BTH_VENDOR_SPECIFIC_COMMAND, *PBTH_VENDOR_SPECIFIC_COMMAND; 成员
+ManufacturerId
+无线电的制造商标识符。 具有此制造商标识符的无线电可以接收特定于供应商的命令。 LmpVersion
+包含链接管理协议 （LMP） 版本的 UCHAR。 如果单选的 LMP 版本大于此值，则命令将发送到无线电。 否则，无线电不会接收命令。 如果 LmpVersion 为零，则所有无线电都将接收特定于供应商的命令。
+MatchAnySinglePattern
+一个 BOOLEAN 值，该值指定 数据 成员中的所有模式是否必须匹配，或者只有一个模式必须与特定于供应商的命令关联事件。 如果没有与特定于供应商的命令关联的模式，则忽略此成员。如果 MatchAnySinglePatternFALSE，则所有模式都必须匹配才能将事件与命令相关联。 如果
+MatchAnySinglePatternTRUE，则匹配任何模式会将事件与命令相关联。 HciHeader
+一个 BTH_COMMAND_HEADER 结构，其中包含有关特定于供应商的命令的信息，其中包括作代码和缓冲区长度。 缓冲区长度应仅包括要发送到无线电的数据的大小。 它不应包含模式的大小。
+
+≦ 222 ≧
+Data[1]
+一个 UCHAR 数组，其中包含 HciHeader 成员中指定的命令的数据和模式。 使用
+BTH_VENDOR_PATTERN 结构指定模式。言论
+此BTH_VENDOR_SPECIFIC_COMMAND结构指定输入缓冲区
+IOCTL_BTH_HCI_VENDOR_COMMAND IOCTL。 此 IOCTL 可用于将特定于供应商的命令发送到蓝牙无线电。
+若要指定 HCI 命令数据的大小，请在BTH_VENDOR_SPECIFIC_COMMAND结构的 HciHeader 成员中使用 BTH_COMMAND_HEADER 结构中的 TotalParameterLength 成员。
+如果特定于供应商的命令不遵循标准 HCI 流控制，并且生成特定于供应商的事件来响应特定于供应商的命令，则需要模式。
+如果需要模式，则模式遵循将数据发送到 数据 成员缓冲区中的无线电。 每个模式都以 BTH_VENDOR_PATTERN 结构开头。
+如果指定了此类模式，则 TotalParameterLength 成员不应包含模式的大小。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+版本：_Available Windows Vista 及更高版本的 Windows。 bthioctl.h （包括 Bthioctl.h）
+BTH_COMMAND_HEADER BTH_VENDOR_PATTERN
+IOCTL_BTH_HCI_VENDOR_COMMAND
+展开表
+
+≦ 223 ≧
+IOCTL_BTH_DISCONNECT_DEVICE IOCTL
+（bthioctl.h）项目2025/02/06
+配置文件驱动程序使用IOCTL_BTH_DISCONNECT_DEVICE请求作系统断开指定的远程设备的连接。
+主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+AssociatedIrp.SystemBuffer 成员包含要断开连接的远程设备的地址。
+输入缓冲区长度缓冲区中地址的长度。
+输出缓冲区没有。
+输出缓冲区长度
+没有。状态块
+STATUS_BLOCK结构 成员 信息设置为零，因为蓝牙驱动程序堆栈不返回此 IOCTL 的数据。
+Status 成员设置为下表中的值之一。
+ﾉ
+状态值
+STATUS_SUCCESS
+描述
+IOCTL 已成功完成。
+展开表
+
+≦ 224 ≧
+STATUS_DEVICE_NOT_CONNECTED 言论
+指定的远程设备未连接。
+调用IOCTL_BTH_DISCONNECT_DEVICE强制断开与远程设备的连接，而不考虑任何 L2CAP 和 SCO 连接的状态。 在 ACL 连接断开连接之前，所有活动 SCO 连接都将断开连接。 挂
+起的数据传输可能会失败。要求
+ﾉ
+要求
+最低支持的客户端
+标头 IRQL
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows Vista 及更高版本中的版本：_Supported。
+bthioctl.h （包括 Bthioctl.h） <= PASSIVE_LEVEL
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 225 ≧
+IOCTL_BTH_GET_DEVICE_INFO IOCTL
+（bthioctl.h）项目2025/02/06
+IOCTL_BTH_GET_DEVICE_INFO请求返回有关所有缓存的、以前发现的已启用蓝牙的远程
+无线电的信息。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+AssociatedIrp.SystemBuffer 成员指向 BTH_DEVICE_INFO_LIST 结构的缓冲区。输入缓冲区长度
+BTH_DEVICE_INFO_LIST 结构的长度输出缓冲区
+AssociatedIrp.SystemBuffer 成员指向保存 BTH_DEVICE_INFO_LIST 结构的缓冲区。 BTH_DEVICE_INFO_LIST结构的 numOfDevices 成员包含有信息和 BTH_DEVICE_INFO 结
+构的数组的设备数;每个设备的一个数组条目。输出缓冲区长度
+如果传递的输出缓冲区的大小不是完全 sizeof(BTH_DEVICE_INFO_LIST)  加上正确的 sizeof(BTH_DEVICE_INFO) 倍数，则请求将失败并STATUS_INVALID_BUFFER_SIZE。
+状态块
+如果请求成功，则STATUS_BLOCK结构 信息 成员设置为包含设备数组信息的缓冲区的大小（以字节为单位）。 BTH_DEVICE_INFO_LIST结构包含第一个BTH_DEVICE_INFO结构的
+存储，因此如果未返回任何设备，则 信息 成员设置为第一个结构的大小。 Status 成员设置为下表中的值之一。
+
+≦ 226 ≧
+状态值
+STATUS_SUCCESS
+STATUS_INVALID_PARAMETER STATUS_INVALID_BUFFER_SIZE
+言论
+描述
+IOCTL 已成功完成。
+传入的输入缓冲区 NULL。输出缓冲区大小不正确。
+ﾉ
+展开表
+IOCTL_BTH_GET_DEVICE_INFO IOCTL 提供有关以前发现的所有远程无线电的信息。
+BTH_DEVICE_INFO_LIST结构的 numOfDevices 成员返回 IOCTL 返回的BTH_DEVICE_INFO 结构总数。 如果调用驱动程序传入的缓冲区小于 numOfDevices 成员的值，则仅返回可用结构的一部分。 蓝牙驱动程序开发人员应首先使用小型缓冲区（例如
+sizeof(BTH_DEVICE_INFO_LIST) ）调用IOCTL_BTH_GET_DEVICE_INFO，然后使用返回的 numOfDevices 成员正确调整缓冲区的大小，以便后续调用。
+BTH_DEVICE_INFO_LIST结构包括第一个BTH_DEVICE_INFO结构的存储。 使用以下公式计算调用IOCTL_BTH_GET_DEVICE_INFO的正确缓冲区大小：
+Buffer=sizeof(BTH_DEVICE_INFO_LIST)+(NumOfDevices-1)*sizeof(BTH_DEVICE_INFO) 。要求
+ﾉ
+要求
+最低支持的客户端
+标头 IRQL
+另请参阅 BTH_DEVICE_INFO
+BTH_DEVICE_INFO_LIST
+价值
+Windows Vista 及更高版本中的版本：_Supported。
+bthioctl.h （包括 Bthioctl.h） <= PASSIVE_LEVEL
+展开表
+
+≦ 227 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 228 ≧
+IOCTL_BTH_GET_LOCAL_INFO IOCTL
+（bthioctl.h）项目2025/02/06
+IOCTL_BTH_GET_LOCAL_INFO请求返回有关本地蓝牙系统和无线电的信息。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+AssociatedIrp.SystemBuffer 成员指向 BTH_LOCAL_RADIO_INFO 结构的缓冲区。输入缓冲区长度
+BTH_LOCAL_RADIO_INFO 结构的长度。输出缓冲区
+AssociatedIrp.SystemBuffer 成员指向保存 BTH_LOCAL_RADIO_INFO 结构的缓冲区。 缓冲区包
+含有关本地无线电的信息，包括 BTH_DEVICE_INFO 结构和 BTH_RADIO_INFO 结构。输出缓冲区长度
+BTH_LOCAL_RADIO_INFO 结构的长度。状态块
+STATUS_BLOCK结构 信息 成员设置为输出缓冲区的大小（以字节为单位）。
+STATUS_BLOCK结构的 状态 成员始终设置为STATUS_SUCCESS。要求
+ﾉ
+展开表
+
+≦ 229 ≧
+要求
+最低支持的客户端
+标头 IRQL
+另请参阅 BTH_DEVICE_INFO
+BTH_LOCAL_RADIO_INFO BTH_RADIO_INFO
+价值
+Windows Vista 及更高版本中的版本：_Supported。
+bthioctl.h （包括 Bthioctl.h） <= PASSIVE_LEVEL
+
+≦ 230 ≧
+IOCTL_BTH_GET_RADIO_INFO IOCTL
+(bthioctl.h) 项目2024/02/22
+IOCTL_BTH_GET_RADIO_INFO请求获取有关指定远程无线电的信息。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+AssociatedIrp.SystemBuffer 成员指定要查询的远程无线电的蓝牙地址。输入缓冲区长度
+缓冲区的长度。输出缓冲区
+AssociatedIrp.SystemBuffer 成员指向保存BTH_RADIO_INFO结构的缓冲区。 此结构包含有关远程无线电对链接管理协议 (LMP) 的功能支持、无线电的制造商 ID 及其 LMP 版本的信息。
+输出缓冲区长度
+BTH_RADIO_INFO 结构的长度。状态块
+如果请求成功，STATUS_BLOCK结构的 Information 成员将设置为输出缓冲区的大小（以
+字节为单位）。 否则， 信息 成员设置为零。 Status 成员设置为下表中的值之一。
+ﾉ
+状态值
+说明
+展开表
+
+≦ 231 ≧
+STATUS_SUCCESS
+STATUS_DEVICE_NOT_CONNECTED 注解
+IOCTL 已成功完成。
+未连接指定设备的设备对象。
+IOCTL_BTH_GET_RADIO_INFO IOCTL 返回的信息与IOCTL_BTH_GET_LOCAL_INFO IOCTL
+类似，但对于远程蓝牙无线电。要求
+ﾉ
+要求
+最低受支持的客户端
+标头 IRQL
+另请参阅 BTH_RADIO_INFO
+值
+版本：Windows Vista 及更高版本中_Supported。
+bthioctl.h (包括 Bthioctl.h) <= PASSIVE_LEVEL
+展开表
+
+≦ 232 ≧
+IOCTL_BTH_HCI_VENDOR_COMMAND
+IOCTL （bthioctl.h）项目2025/02/06
+IOCTL_BTH_HCI_VENDOR_COMMAND请求允许蓝牙应用程序将特定于供应商的命令发送
+到无线电。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+AssociatedIrp.SystemBuffer 成员指向 BTH_VENDOR_SPECIFIC_COMMAND 结构。 该结构包含制造商标识符、链接管理协议（LMP）版本、HCI 命令标头以及关联的供应商命令
+数据，其中包括可选模式数据，以匹配命令的事件。输入缓冲区长度
+BTH_VENDOR_SPECIFIC_COMMAND 结构的长度。输出缓冲区
+AssociatedIrp.SystemBuffer 成员指向包含从无线电返回的事件数据的缓冲区。
+EventInfoBTH_VENDOR_EVENT_INFO 结构的成员中提供了数据。 typedef struct _BTH_VENDOR_EVENT_INFO {
+  BTH_ADDR BthAddress;   ULONG    EventSize;
+  UCHAR    EventInfo[1];
+} BTH_VENDOR_EVENT_INFO, *PBTH_VENDOR_EVENT_INFO;
+EventSize 成员提供从无线电返回的特定于供应商的事件数据的大小。输出缓冲区长度
+BTH_VENDOR_EVENT_INFO 结构的长度。
+
+≦ 233 ≧
+状态块
+如果请求成功，则 信息 STATUS_BLOCK结构的成员设置为保存命令响应的缓冲区的大小（以字节为单位）。
+Status 成员设置为下表中的值之一。
+ﾉ
+状态值
+STATUS_SUCCESS
+STATUS_BUFFER_TOO_SMALL STATUS_INVALID_PARAMETER STATUS_PRIVILEGE_NOT_HELD
+STATUS_INSUFFICIENT_RESOURCES 言论
+描述
+IOCTL 已成功完成。
+传递的输入缓冲区太小。传递的输入缓冲区无效。调用方没有所需的权限。内存不足，无法处理请求。
+展开表
+IOCTL_BTH_HCI_VENDOR_COMMAND请求提供了一种机制，允许供应商创建特定于其蓝牙无线电的命令。
+制造商 ID 和链接管理协议 （LMP） 版本值 BTH_VENDOR_SPECIFIC_COMMAND 结构有助于防止将特定于供应商的命令发送到错误的无线电。 LMP 版本使供应商能够将特定于供应商的命令发送到具有匹配 LMP 版本的无线电。 如果 LMP 版本为零，则来自该供应商的所有无线电都将接收特定于供应商的命令。
+如果特定于供应商的命令不遵循标准 HCI 流控制，并且生成特定于供应商的事件来响应特定于供应商的命令，则需要模式。
+如果需要模式，该命令应遵循事件中存在的模式 BTH_VENDOR_PATTERN 结构。 这些模式允许蓝牙驱动程序堆栈将特定于供应商的事件与相应的特定于供应商的命令匹配。
+BTH_VENDOR_PATTERN结构指定了遵循BTH_VENDOR_SPECIFIC_COMMAND结构 数据成员中指定的特定于供应商的命令数据的此类模式。 遵循命令的所有模式的最大总大小不应大于 255。
+警告 提交IOCTL_BTH_HCI_VENDOR_COMMAND的过程必须具有
+SE_LOAD_DRIVER_NAME权限。 在系统或管理员上下文中运行的进程可以使用 SDK
+
+≦ 234 ≧
+ 
+LookupPrivilegeValue 和 AdjustTokenPrivileges 函数来提升其特权。 下面的代码示例演示如何获取此权限。 请注意，该示例不演示错误处理。
+HANDLE procToken; LUID luid;
+TOKEN_PRIVILEGES tp;
+OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &procToken);
+LookupPrivilegeValue(NULL, SE_LOAD_DRIVER_NAME, &luid); Tp.PrivilegeCount = 1;
+Tp.privileges[0].Luid = luid;
+Tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+AdjustTokenPrivileges(procToken, FALSE, &tp, sizeof(TOKEN_PRIVILEGES), (PTOKEN_PRIVILEGES) NULL, (PDWORD)NULL);
+由于此命令而生成的事件将复制到输出缓冲区（包括事件标头）。要求
+ﾉ
+要求
+最低支持的客户端
+标头 IRQL
+另请参阅
+价值
+展开表
+版本：_Available Microsoft Windows Vista SP2 及更高版本的作系统版本。
+bthioctl.h （包括 Bthioctl.h） <= PASSIVE_LEVEL
+BTH_COMMAND_HEADER BTH_VENDOR_PATTERN
+BTH_VENDOR_SPECIFIC_COMMAND
+
+≦ 235 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 236 ≧
+IOCTL_BTH_SDP_ATTRIBUTE_SEARCH
+IOCTL （bthioctl.h）项目2025/02/06
+IOCTL_BTH_SDP_ATTRIBUTE_SEARCH请求获取指定 SDP 记录的属性。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+AssociatedIrp.SystemBuffer 成员包含 a BTH_SDP_ATTRIBUTE_SEARCH_REQUEST 结构，
+用于指定要搜索的属性的远程计算机范围和其他键成员。输入缓冲区长度
+a 的长度 BTH_SDP_ATTRIBUTE_SEARCH_REQUEST 结构。输出缓冲区
+AssociatedIrp.SystemBuffer 成员指向一个缓冲区，该缓冲区包含一个 BTH_SDP_STREAM_RESPONSE 结构，后跟可变长度的原始 SDP 流。
+输出缓冲区长度
+BTH_SDP_STREAM_RESPONSE 结构的长度。状态块
+如果请求成功，STATUS_BLOCK结构的 信息 成员将设置为 BTH_SDP_STREAM_RESPONSE
+的大小或输出缓冲区的大小（以较小者为准）。 否则，信息 成员设置为零。 Status 成员设置为下表中的值之一。
+ﾉ
+状态值
+描述
+展开表
+
+≦ 237 ≧
+STATUS_SUCCESS
+STATUS_DEVICE_NOT_CONNECTED STATUS_INSUFFICIENT_RESOURCES
+STATUS_INVALID_BUFFER_SIZE STATUS_INVALID_PARAMETER
+STATUS_REQUEST_NOT_ACCEPTED
+STATUS_TOO_MANY_GUIDS_REQUESTED 言论
+IOCTL 已成功完成。
+SDP 服务所在的设备未连接。没有足够的内存来完成此作。输出缓冲区大小不正确。
+输入缓冲区中的值之一无效。 SDP 服务拒绝了请求。
+SDP 服务无法处理在输入缓冲区中传递的 GUID 数。
+在大多数情况下，配置文件驱动程序可以通过调用 来合并 SDP 服务和属性搜索
+IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SEARCH IOCTL。 如果配置文件驱动程序必须减少通过蓝牙链接传输的 SDP 流量量，或者使用少量消息传输单元（MTU）从 SDP 服务器提取信息，则配置文件驱动程序应调用 IOCTL_BTH_SDP_SERVICE_SEARCH IOCTL 来执行服务搜索。 然后，配置文件驱动程序应调用 IOCTL_BTH_SDP_ATTRIBUTE_SEARCH IOCTL 来执行属性搜索。
+输出缓冲区中返回的BTH_SDP_STREAM_RESPONSE结构包含有关整个 SDP 记录的大小、原始 SDP 记录流的大小（以字节为单位）的信息，该流之后
+BTH_SDP_STREAM_RESPONSE结构以及该流的第一个字节。 可变长度流是搜索返回的
+SDP 记录属性。要求
+ﾉ
+要求
+最低支持的客户端
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。
+bthioctl.h （包括 Bthioctl.h） <= PASSIVE_LEVEL
+BTH_SDP_ATTRIBUTE_SEARCH_REQUEST
+展开表
+
+≦ 238 ≧
+BTH_SDP_STREAM_RESPONSE
+IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SEARCH
+IOCTL_BTH_SDP_SERVICE_SEARCH 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 239 ≧
+IOCTL_BTH_SDP_CONNECT IOCTL
+(bthioctl.h) 项目2024/02/22
+IOCTL_BTH_SDP_CONNECT请求创建与远程蓝牙设备上的 SDP 服务的连接。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+AssociatedIrp.SystemBuffer 成员包含一个BTH_SDP_CONNECT结构，该结构指定远程 SDP 服务
+器的地址、请求的超时设置以及特定于连接的其他信息。输入缓冲区长度
+BTH_SDP_CONNECT结构的长度。输出缓冲区
+AssociatedIrp.SystemBuffer 成员包含一个BTH_SDP_CONNECT结构，该结构保存与远程服务器的 SDP 连接句柄。
+输出缓冲区长度
+BTH_SDP_CONNECT结构的长度。状态块
+如果请求成功，STATUS_BLOCK 结构的 Information 成员将设置为输出缓冲区的大小（以字节为
+单位）。 否则， 信息 成员设置为零。 Status 成员设置为下表中的值之一。
+ﾉ
+状态值
+STATUS_SUCCESS
+说明
+IOCTL 已成功完成。
+展开表
+
+≦ 240 ≧
+STATUS_DEVICE_BUSY
+STATUS_DEVICE_NOT_CONNECTED STATUS_INSUFFICIENT_RESOURCES STATUS_INVALID_PARAMETER
+STATUS_PENDING 注解
+HCI 层当前无法接受请求。
+如果指定了缓存连接，则没有可用的缓存记录。 否则，连接在完成之前已取消。
+没有足够的内存可用于处理请求。
+在输入缓冲区中找到的部分结构不正确。系统当前无法响应，但会很快尝试。
+IOCTL_BTH_SDP_CONNECT请求允许配置文件驱动程序获取与远程设备的 SDP 连接句柄。 获取 SDP 连接句柄后，配置文件驱动程序可以将它传递给其他 SDP IOCTL 接口，以收集有关远程设备的 SDP 服务器的信息。 SDP 查询完成后，配置文件驱动程序必须使用
+IOCTL_BTH_SDP_DISCONNECT 关闭 SDP 连接。要求
+ﾉ
+要求
+最低受支持的客户端
+标头 IRQL
+另请参阅 BTH_SDP_CONNECT
+值
+版本：Windows Vista 及更高版本中的 _Supported。
+bthioctl.h (包括 Bthioctl.h) <= PASSIVE_LEVEL
+IOCTL_BTH_SDP_DISCONNECT
+展开表
+
+≦ 241 ≧
+IOCTL_BTH_SDP_DISCONNECT IOCTL
+（bthioctl.h）项目2025/02/06
+IOCTL_BTH_SDP_DISCONNECT请求关闭与远程 SDP 服务器的连接。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+AssociatedIrp.SystemBuffer 成员包含一个 BTH_SDP_DISCONNECT 结构，该结构指定要
+终止的远程 SDP 连接的连接句柄。输入缓冲区长度
+BTH_SDP_DISCONNECT 结构的长度。
+输出缓冲区没有。
+输出缓冲区长度
+没有。状态块
+STATUS_BLOCK结构 信息 成员设置为零。 Status 成员设置为下表中的值之一。
+ﾉ
+状态值
+STATUS_SUCCESS
+STATUS_DEVICE_NOT_CONNECTED
+描述
+IOCTL 已成功完成。
+指定的 SDP 服务器已断开连接。
+展开表
+
+≦ 242 ≧
+STATUS_INVALID_PARAMETER 言论
+在输入缓冲区中传递的连接句柄无效。
+不再需要 SDP 连接时，IOCTL_BTH_SDP_CONNECT 的调用方必须发出
+IOCTL_BTH_SDP_DISCONNECT IOCTL。 调用IOCTL_BTH_SDP_DISCONNECT后，指定的
+SDP 句柄不再有效。要求
+ﾉ
+要求
+最低支持的客户端
+标头 IRQL
+另请参阅
+BTH_SDP_DISCONNECT
+价值
+Windows Vista 及更高版本中的版本：_Supported。
+bthioctl.h （包括 Bthioctl.h） <= PASSIVE_LEVEL
+IOCTL_BTH_SDP_CONNECT 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 243 ≧
+IOCTL_BTH_SDP_REMOVE_RECORD
+IOCTL （bthioctl.h）项目2025/02/06
+IOCTL_BTH_SDP_REMOVE_RECORD请求删除以前提交的配置文件驱动程序的本地 SDP 记
+录。 本地服务器将不再向远程设备提供此记录。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+AssociatedIrp.SystemBuffer 成员包含从中删除 SDP 记录的 SDP 连接句柄。 这必须是从调用 IOCTL_BTH_SDP_SUBMIT_RECORD 返回的句柄或
+IOCTL_BTH_SDP_SUBMIT_RECORD_WITH_INFO。 此上下文中来自其他源的句柄无效。输入缓冲区长度
+缓冲区的长度。输出缓冲区没有。
+输出缓冲区长度
+没有。状态块
+STATUS_BLOCK结构 信息 成员设置为零。 Status 成员设置为下表中的值之一。
+ﾉ
+状态值
+描述
+展开表
+
+≦ 244 ≧
+STATUS_SUCCESS
+STATUS_DEVICE_NOT_CONNECTED STATUS_INVALID_PARAMETER
+STATUS_NOT_FOUND 言论
+IOCTL 已成功完成。
+远程 SDP 服务器已断开连接。
+在输入缓冲区中传递的 SDP 连接句柄无效。找不到在输入缓冲区中传递的 SDP 连接句柄。
+如果使用IOCTL_BTH_SDP_SUBMIT_RECORD_WITH_INFO发布要删除的记录，则表示设置了设备（CoD）位的类。 在这种情况下，调用IOCTL_BTH_SDP_REMOVE_RECORD可能会导致清除 CoD 位。 如果另一个客户端已设置这些位，但尚未调用此 IOCTL，则这些位将
+保持设置。要求
+ﾉ
+要求
+最低支持的客户端
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。
+bthioctl.h （包括 Bthioctl.h） <= PASSIVE_LEVEL
+IOCTL_BTH_SDP_SUBMIT_RECORD
+IOCTL_BTH_SDP_SUBMIT_RECORD_WITH_INFO 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 245 ≧
+IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SE
+ARCH IOCTL （bthioctl.h）项目2025/02/06
+IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SEARCH请求将 SDP 服务和属性搜索合并为单个
+作。 这允许调用方直接从远程设备获取 SDP 记录。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+AssociatedIrp.SystemBuffer 成员包含 IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SEARCH
+结构，用于指定要搜索的远程 SDP 服务器的连接句柄、GUID 数组和属性值范围。输入缓冲区长度
+的长度 IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SEARCH 结构。输出缓冲区
+AssociatedIrp.SystemBuffer 成员指向一个缓冲区，该缓冲区保存
+BTH_SDP_STREAM_RESPONSE 结构，后跟原始 SDP 记录流。输出缓冲区长度
+BTH_SDP_STREAM_RESPONSE 结构的长度。状态块
+如果请求成功，则 信息 STATUS_BLOCK结构的成员设置为 SDP 响应流的大小（以字节为
+单位），或输出缓冲区的大小（以较小者为准）。 否则，信息 成员设置为零。 Status 成员设置为下表中的值之一。
+ﾉ
+状态值
+描述
+展开表
+
+≦ 246 ≧
+STATUS_SUCCESS
+STATUS_DEVICE_NOT_CONNECTED STATUS_INSUFFICIENT_RESOURCES
+STATUS_INVALID_BUFFER_SIZE STATUS_INVALID_PARAMETER
+STATUS_REQUEST_NOT_ACCEPTED
+STATUS_TOO_MANY_GUIDS_REQUESTED 言论
+IOCTL 已成功完成。
+SDP 服务所在的设备未连接。没有足够的内存来完成此作。输出缓冲区大小不正确。
+输入缓冲区中的值之一无效。 SDP 服务拒绝了请求。
+SDP 服务无法处理在输入缓冲区中传递的 GUID 数。
+配置文件驱动程序获取 SDP 记录后，它可以使用 SDP 函数对其进行分析。 指向这些函数
+的指针由 BTHDDI_SDP_PARSE_INTERFACE 接口。要求
+ﾉ
+要求
+最低支持的客户端
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。
+bthioctl.h （包括 Bthioctl.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_PARSE_INTERFACE BTH_SDP_STREAM_RESPONSE
+IOCTL_BTH_SDP_SERVICE_ATTRIBUTE_SEARCH 反馈
+此页面是否有帮助？
+是
+否
+展开表
+
+≦ 247 ≧
+提供产品反馈 
+| 在 Microsoft Q&A 获取帮助
+
+≦ 248 ≧
+IOCTL_BTH_SDP_SERVICE_SEARCH
+IOCTL (bthioctl.h) 项目2025/02/07
+IOCTL_BTH_SDP_SERVICE_SEARCH请求联系具有 SDP 请求的远程设备，以获取特定服务
+类的 SDP 记录的句柄。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+AssociatedIrp.SystemBuffer 成员包含 BTH_SDP_SERVICE_SEARCH_REQUEST 结构，用于
+指定要搜索的远程 SDP 服务器的连接句柄和 GUID 数组。输入缓冲区长度
+的长度 BTH_SDP_SERVICE_SEARCH_REQUEST 结构/ 输出缓冲区
+AssociatedIrp.SystemBuffer 成员指向包含无符号长整数值的可变长度数组的缓冲区。 每
+个值表示远程 SDP 服务记录。输出缓冲区长度
+调用方可以通过将 STATUS_BLOCK 结构的 sizeof(ULONG) Information 成员除以 来确定此
+数组的长度。状态块
+如果请求成功，STATUS_BLOCK 结构的 Information 成员将设置为输出缓冲区的大小（以
+字节为单位）。 否则， 信息 成员设置为零。 Status 成员设置为下表中的值之一。
+ﾉ
+展开表
+
+≦ 249 ≧
+状态值
+STATUS_SUCCESS
+STATUS_DEVICE_NOT_CONNECTED STATUS_INSUFFICIENT_RESOURCES
+STATUS_INVALID_BUFFER_SIZE STATUS_INVALID_PARAMETER
+STATUS_REQUEST_NOT_ACCEPTED
+STATUS_TOO_MANY_GUIDS_REQUESTED 要求
+要求
+最低受支持的客户端
+标头 IRQL
+另请参阅
+值
+说明
+IOCTL 已成功完成。
+SDP 服务所在的设备未连接。没有足够的内存来完成此操作。输出缓冲区大小不正确。
+输入缓冲区中的某个值无效。 SDP 服务拒绝了请求。
+SDP 服务无法处理在输入缓冲区中传递的 GUID 数。
+ﾉ
+版本：Windows Vista 及更高版本中的 _Supported。
+bthioctl.h (包括 Bthioctl.h) <= PASSIVE_LEVEL
+BTH_SDP_SERVICE_SEARCH_REQUEST 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 250 ≧
+IOCTL_BTH_SDP_SUBMIT_RECORD
+IOCTL （bthioctl.h）项目2025/02/06
+IOCTL_BTH_SDP_SUBMIT_RECORD请求允许配置文件驱动程序将 SDP 记录添加到本地 SDP 服务器，从而允许客户端在本地计算机上播发服务。 配置文件驱动程序调用
+IOCTL_BTH_SDP_REMOVE_RECORD 停止在本地 SDP 服务器上播发服务器。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+AssociatedIrp.SystemBuffer 成员指定要播发的记录的原始 SDP 流。
+输入缓冲区长度流的长度。
+输出缓冲区
+AssociatedIrp.SystemBuffer 成员指向保存 SDP 记录句柄的缓冲区。 此句柄只能由
+IOCTL_BTH_SDP_REMOVE_RECORD用于删除IOCTL_BTH_SDP_SUBMIT_RECORD提交的记录。
+输出缓冲区长度
+缓冲区的长度。状态块
+如果请求成功，则STATUS_BLOCK结构 信息 成员设置为 IOCTL 返回的句柄的大小（以字
+节为单位）。 否则，信息 成员设置为零。 Status 成员设置为下表中的值之一。
+ﾉ
+展开表
+
+≦ 251 ≧
+状态值
+STATUS_SUCCESS
+STATUS_INSUFFICIENT_RESOURCES
+STATUS_INVALID_BUFFER_SIZE STATUS_INVALID_PARAMETER
+要求
+要求
+最低支持的客户端
+标头 IRQL
+另请参阅
+价值
+描述
+IOCTL 已成功完成。
+分配的内存不足，无法处理此请求。输出缓冲区大小不正确。
+传递给输入缓冲区的流无效。
+Windows Vista 及更高版本中的版本：_Supported。
+bthioctl.h （包括 Bthioctl.h） <= PASSIVE_LEVEL
+IOCTL_BTH_SDP_REMOVE_RECORD 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 252 ≧
+IOCTL_BTH_SDP_SUBMIT_RECORD_WITH_I
+NFO IOCTL （bthioctl.h）项目2025/02/06
+IOCTL_BTH_SDP_SUBMIT_RECORD_WITH_INFO请求将 SDP 记录添加到本地 SDP 服务器以及不属于 SDP 记录本身的属性。 此调用成功完成后，配置文件驱动程序可以播发本地计算机上可用的服务。 配置文件驱动程序调用 IOCTL_BTH_SDP_REMOVE_RECORD 停止在本地 SDP 服务器上
+播发服务。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+AssociatedIrp.SystemBuffer 成员包含一个 BTH_SDP_RECORD 结构，该结构指定要添加的 SDP
+记录、其大小、记录所需的安全性以及记录的发布选项。 结构后跟原始 SDP 记录。输入缓冲区长度
+BTH_SDP_RECORD 结构的长度。输出缓冲区
+AssociatedIrp.SystemBuffer 成员指向保存 SDP 记录句柄的缓冲区。 此句柄只能由
+IOCTL_BTH_SDP_REMOVE_RECORD用于删除IOCTL_BTH_SDP_SUBMIT_RECORD_WITH_INFO提交的记录。
+输出缓冲区长度 SDP 记录的句柄长度。
+状态块
+如果请求成功，则STATUS_BLOCK结构 信息 成员设置为 IOCTL 返回的句柄的大小（以字节为单
+位）。 否则，信息 成员设置为零。 Status 成员设置为下表中的值之一：
+
+≦ 253 ≧
+状态值
+STATUS_SUCCESS
+STATUS_INSUFFICIENT_RESOURCES
+STATUS_INVALID_BUFFER_SIZE STATUS_INVALID_PARAMETER
+要求
+要求
+最低支持的客户端
+标头 IRQL
+另请参阅 BTH_SDP_RECORD
+价值
+描述
+IOCTL 已成功完成。
+分配的内存不足，无法处理此请求。输出缓冲区大小不正确。
+ﾉ
+展开表
+传递给输入缓冲区或传递给输入缓冲区的流的成员无效。
+ﾉ
+Windows Vista 及更高版本中的版本：_Supported。
+bthioctl.h （包括 Bthioctl.h） <= PASSIVE_LEVEL
+IOCTL_BTH_SDP_SUBMIT_RECORD
+展开表
+
+≦ 254 ≧
+IOCTL_INTERNAL_BTH_SUBMIT_BRB
+IOCTL （bthioctl.h）项目2025/02/06
+配置文件驱动程序使用 IOCTL_INTERNAL_BTH_SUBMIT_BRB 将蓝牙请求块（BRB）提交
+到蓝牙驱动程序堆栈。主要代码
+IRP_MJ_INTERNAL_DEVICE_CONTROL 输入缓冲区
+Parameters.Others.Argument1 成员指向与配置文件驱动程序要颁发的 BRB 对应的结构的实例。 以下列表描述了对应于特定 BRB 的结构。
+ﾉ
+蓝牙请求块 （BRB）
+BRB_HCI_GET_LOCAL_BD_ADDR BRB_L2CA_REGISTER_SERVER BRB_L2CA_UNREGISTER_SERVER BRB_L2CA_OPEN_CHANNEL
+BRB_L2CA_OPEN_CHANNEL_RESPONSE
+BRB_L2CA_CLOSE_CHANNEL BRB_L2CA_ACL_TRANSFER BRB_L2CA_UPDATE_CHANNEL BRB_L2CA_PING
+BRB_REGISTER_PSM BRB_UNREGISTER_PSM
+BRB_SCO_REGISTER_SERVER BRB_SCO_UNREGISTER_SERVER
+相应的结构
+_BRB_GET_LOCAL_BD_ADDR_BRB_L2CA_REGISTER_SERVER_BRB_L2CA_UNREGISTER_SERVER
+_BRB_L2CA_OPEN_CHANNEL_BRB_L2CA_OPEN_CHANNEL_BRB_L2CA_CLOSE_CHANNEL_BRB_L2CA_ACL_TRANSFER_BRB_L2CA_UPDATE_CHANNEL_BRB_L2CA_PING
+_BRB_PSM_BRB_PSM
+_BRB_SCO_REGISTER_SERVER_BRB_SCO_UNREGISTER_SERVER
+展开表
+
+≦ 255 ≧
+BRB_SCO_OPEN_CHANNEL
+BRB_SCO_OPEN_CHANNEL_RESPONSE
+BRB_SCO_CLOSE_CHANNEL BRB_SCO_TRANSFER
+BRB_SCO_GET_CHANNEL_INFO BRB_SCO_GET_SYSTEM_INFO BRB_SCO_FLUSH_CHANNEL BRB_ACL_GET_MODE
+BRB_ACL_ENTER_ACTIVE_MODE
+BRB_GET_DEVICE_INTERFACE_STRING 输入缓冲区长度
+结构的长度。输出缓冲区
+_BRB_SCO_OPEN_CHANNEL_BRB_SCO_OPEN_CHANNEL_BRB_SCO_CLOSE_CHANNEL_BRB_SCO_TRANSFER
+_BRB_SCO_GET_CHANNEL_INFO_BRB_SCO_GET_SYSTEM_INFO_BRB_SCO_FLUSH_CHANNEL_BRB_ACL_GET_MODE
+_BRB_ACL_ENTER_ACTIVE_MODE
+_BRB_GET_DEVICE_INTERFACE_STRING
+如果 BRB 返回输出，Parameters->Others.Argument1 指向作为输入传递的相同 BRB。
+输出在关联的 BRB 结构的成员或 BRB 结构中指定的缓冲区中返回。输出缓冲区长度
+结构的长度状态块
+如果请求成功，则 信息STATUS_BLOCK 结构的成员设置为已提交的蓝牙请求块的大小
+（以字节为单位）。 否则，信息 成员设置为零。 Status 成员设置为下表中的值之一。
+ﾉ
+状态值
+STATUS_SUCCESS
+描述
+IOCTL 已成功完成。
+展开表
+
+≦ 256 ≧
+STATUS_INVALID_DEVICE_REQUEST
+STATUS_INVALID_PARAMETER STATUS_INVALID_BUFFER_SIZE或 STATUS_BUFFER_TOO_SMALL STATUS_NOT_IMPLEMENTED STATUS_NOT_SUPPORTED
+STATUS_PENDING 言论
+通过 BRB 结构发送到远程设备的请求无效。
+一个或多个输入参数无效。提供的缓冲区的长度太小。
+堆栈尚未实现处理 BRB 所需的模块。
+堆栈不支持此 BRB。 BRB 处于挂起状态。
+配置文件驱动程序使用 BR 来处理大多数输入、输出和连接任务。 为这些任务定义了许多 BRB，每个 BLOB 都使用特定的相应结构。 所有 BRB 共享一个公共标头，其中包含 BRB 的类型。 蓝牙驱动程序堆栈使用 BRB 标头正确解释 BRB 的其余部分。 有关 BRB 标头的详细信息，请参阅 BRB_HEADER 结构。
+若要详细了解配置文件驱动程序如何使用 BRB 与蓝牙驱动程序堆栈通信，请参阅 生成和发送 BRB。
+必须在 IRQL <= PASSIVE_LEVEL 调用这些 BRB。要求
+ﾉ
+要求
+最低支持的客户端
+标头 IRQL
+另请参阅 BRB_HEADER BRB_TYPE 生成和发送 BRB
+价值
+Windows Vista 及更高版本中的版本：_Supported。
+bthioctl.h （include BthIoctl.h） <= PASSIVE_LEVEL
+展开表
+
+≦ 257 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 258 ≧
+IOCTL_INTERNAL_BTHENUM_GET_DEVINFO
+IOCTL (bthioctl.h) 项目2024/02/26
+IOCTL_INTERNAL_BTHENUM_GET_DEVINFO请求返回有关导致即插即用 (PnP) 管理器加载配置
+文件驱动程序当前实例的远程设备的信息。主要代码
+IRP_MJ_INTERNAL_DEVICE_CONTROL
+输入缓冲区无。
+输入缓冲区长度无。
+输出缓冲区
+AssociatedIrp.SystemBuffer 成员指向保存BTH_DEVICE_INFO结构的缓冲区，该结构包含有关设
+备状态、设备地址和设备类的信息， (CoD) 。输出缓冲区长度
+BTH_DEVICE_INFO 结构的长度。状态块
+如果请求成功，STATUS_BLOCK结构的 Information 成员将设置为输出缓冲区的大小（以字节为
+单位）。 否则， 信息 成员设置为零。 Status 成员设置为下表中的值之一。
+ﾉ
+状态值
+STATUS_SUCCESS
+说明
+IOCTL 已成功完成。
+展开表
+
+≦ 259 ≧
+STATUS_INVALID_BUFFER_SIZE
+要求要求
+最低受支持的客户端
+标头 IRQL
+另请参阅 BTH_DEVICE_INFO
+值
+输出缓冲区大小不正确。
+版本：Windows Vista 及更高版本中_Supported。
+bthioctl.h (包括 Bthioctl.h) <= PASSIVE_LEVEL
+ﾉ
+展开表
+
+≦ 260 ≧
+IOCTL_INTERNAL_BTHENUM_GET_ENUMIN
+FO IOCTL （bthioctl.h）项目2025/02/06
+IOCTL_INTERNAL_BTHENUM_GET_ENUMINFO请求获取有关导致即插即用（PnP）管理器加载配
+置文件驱动程序的基础设备和服务的信息。主要代码
+IRP_MJ_INTERNAL_DEVICE_CONTROL
+输入缓冲区没有。
+输入缓冲区长度没有。
+输出缓冲区
+AssociatedIrp.SystemBuffer 成员指向一个缓冲区，该缓冲区包含有关枚举的类型和作的信息以
+及有关远程设备的信息的 BTH_ENUMERATOR_INFO 结构。输出缓冲区长度
+BTH_ENUMERATOR_INFO 结构的长度。状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。 否则，状态 相应的错误条件
+作为 NTSTATUS 代码。要求
+ﾉ
+展开表
+
+≦ 261 ≧
+要求
+最低支持的客户端
+标头 IRQL
+另请参阅
+BTH_ENUMERATOR_INFO
+价值
+Windows Vista 及更高版本中的版本：_Supported。
+bthioctl.h （包括 Bthioctl.h） <= PASSIVE_LEVEL
+
+≦ 262 ≧
+bthsdpddi.h 标头项目2023/08/07
+bltooth 使用此标头。 有关详细信息，请参阅：
+蓝牙
+bthsdpddi.h 包含以下编程接口：
+回调函数  
+PBYTESWAPUINT128
+蓝牙 SdpByteSwapUint128 函数用于反转无符号 128 位整数的字节顺序。 PBYTESWAPUINT64
+蓝牙 SdpByteSwapUint64 函数用于反转无符号 64 位整数的字节顺序。 PBYTESWAPUUID128
+蓝牙 SdpByteSwapUuid128 函数用于反转 128 位通用唯一标识符的字节顺序 (UUID) 。 PCONVERTSTREAMTOTREE
+ﾉ
+展开表
+Bluetooth SdpConvertStreamToTree 函数用于创建 Microsoft 专有的基于树的 SDP 记录表示形式，同时不
+修改原始的基于流的表示形式。 PCONVERTTREETOSTREAM
+Bluetooth SdpConvertTreeToStream 函数用于从树表示形式生成 SDP 记录的原始字节流表示形式。 原始字
+节流版本适用于在本地 SDP 服务器上发布。 PGETNEXTELEMENT
+蓝牙 SdpGetNextElement 函数用于循环访问在 SDP 记录流中找到的条目。 PRETRIEVEUINT64
+蓝牙 SdpRetrieveUint64 函数用于从 SDP 流复制未对齐的 64 位整数。 PRETRIEVEUUID128
+蓝牙 SdpRetrieveUuid128 函数用于从 SDP 流复制未对齐的 128 位通用唯一标识符 (UUID) 。
+
+≦ 263 ≧
+ 
+PVALIDATESTREAM
+蓝牙 SdpValidateStream 函数用于分析原始 SDP 记录并确定它是否包含错误。
+结构  
+BTHDDI_SDP_NODE_INTERFACE
+ﾉ
+展开表
+BTHDDI_SDP_NODE_INTERFACE 结构提供用于操作 SDP 记录的函数，包括将它们与分析驱动程序可以更轻
+松地分析的树表示形式进行转换。 BTHDDI_SDP_PARSE_INTERFACE
+BTHDDI_SDP_PARSE_INTERFACE 结构提供用于分析 SDP 记录的函数。
+
+≦ 264 ≧
+BTHDDI_SDP_NODE_INTERFACE结构
+（bthsdpddi.h）项目2025/02/06
+BTHDDI_SDP_NODE_INTERFACE结构提供用于作 SDP 记录的函数，包括将它们转换为分析驱动程序的树表示形式，以便更轻松地分析这些记录。
+语法 C++
+typedef struct _BTHDDI_SDP_NODE_INTERFACE {   INTERFACE                  Interface;
+  PCREATENODETREEROOT        SdpCreateNodeTree;   PFREETREE                  SdpFreeTree;
+  PCREATENODENIL             SdpCreateNodeNil;
+  PCREATENODEBOOLEAN         SdpCreateNodeBoolean;   PCREATENODEUINT8           SdpCreateNodeUint8;   PCREATENODEUINT16          SdpCreateNodeUint16;   PCREATENODEUINT32          SdpCreateNodeUint32;   PCREATENODEUINT64          SdpCreateNodeUint64;   PCREATENODEUINT128         SdpCreateNodeUint128;
+  PCREATENODEINT8            SdpCreateNodeInt8;   PCREATENODEINT16           SdpCreateNodeInt16;   PCREATENODEINT32           SdpCreateNodeInt32;   PCREATENODEINT64           SdpCreateNodeInt64;   PCREATENODEINT128          SdpCreateNodeInt128;   PCREATENODEUUID16          SdpCreateNodeUuid16;   PCREATENODEUUID32          SdpCreateNodeUuid32;   PCREATENODEUUID128         SdpCreateNodeUuid128;   PCREATENODESTRING          SdpCreateNodeString;   PCREATENODEURL             SdpCreateNodeUrl;
+  PCREATENODEALTERNATIVE     SdpCreateNodeAlternative;
+  PCREATENODESEQUENCE        SdpCreateNodeSequence;   PADDATTRIBUTETOTREEE       SdpAddAttributeToTree;
+  PAPPENDNODETOCONTAINERNODE SdpAppendNodeToContainerNode;} BTHDDI_SDP_NODE_INTERFACE, *PBTHDDI_SDP_NODE_INTERFACE;
+成员 Interface
+描述配置文件驱动程序使用的 BTHDDI_SDP_NODE_INTERFACE 接口的结构。 有关此结构的详
+细信息，请参阅 INTERFACE。 SdpCreateNodeTree
+
+≦ 265 ≧
+指向 SdpCreateNodeTree 函数的指针。 SdpFreeTree
+指向 SdpFreeTree 函数 的指针。 SdpCreateNodeNil
+指向 SdpCreateNodeNil 函数的指针。 SdpCreateNodeBoolean
+指向 SdpCreateNodeBoolean 函数的指针。 SdpCreateNodeUint8
+指向 SdpCreateNodeUInt8 函数的指针。 SdpCreateNodeUint16
+指向 SdpCreateNodeUInt16 函数的指针。 SdpCreateNodeUint32
+指向 SdpCreateNodeUInt32 函数的指针。 SdpCreateNodeUint64
+指向 SdpCreateNodeUInt64 函数的指针。 SdpCreateNodeUint128
+指向 SdpCreateNodeUInt128 函数的指针。 SdpCreateNodeInt8
+指向 SdpCreateNodeInt8 函数的指针。 SdpCreateNodeInt16
+指向 SdpCreateNodeInt16 函数的指针。 SdpCreateNodeInt32
+指向 SdpCreateNodeInt32 函数的指针。 SdpCreateNodeInt64
+指向 SdpCreateNodeInt64 函数的指针。
+
+≦ 266 ≧
+SdpCreateNodeInt128
+指向 SdpCreateNodeInt128 函数的指针。 SdpCreateNodeUuid16
+指向 SdpCreateNodeUUID16 函数的指针。 SdpCreateNodeUuid32
+指向 SdpCreateNodeUUID32 函数的指针。 SdpCreateNodeUuid128
+指向 SdpCreateNodeUUID128 函数的指针。 SdpCreateNodeString
+指向 SdpCreateNodeString 函数的指针。 SdpCreateNodeUrl
+指向 SdpCreateNodeUrl 函数的指针。 SdpCreateNodeAlternative
+指向 SdpCreateNodeAlternative 函数。 SdpCreateNodeSequence
+指向 SdpCreateNodeSequence 函数。 SdpAddAttributeToTree
+指向 SdpAddAttributeToTree 函数。 SdpAppendNodeToContainerNode
+指向 SdpAppendNodeToContainerNode 函数。言论
+配置文件驱动程序应指定 GUID_BTHDDI_SDP_NODE_INTERFACE GUID，以便从蓝牙驱动程序
+堆栈查询BTHDDI_SDP_NODE_INTERFACE结构的实例。除 接口 成员外，此结构的所有成员都是函数指针。
+
+≦ 267 ≧
+要求要求
+最低支持的客户端标头
+另请参阅接口
+SdpAddAttributeToTree
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthsdpddi.h （包括 BthSdpddi.h）
+SdpAppendNodeToContainerNode
+SdpCreateNodeAlternative SdpCreateNodeBoolean SdpCreateNodeInt128 SdpCreateNodeInt16 SdpCreateNodeInt32 SdpCreateNodeInt64 SdpCreateNodeInt8 SdpCreateNodeNil
+SdpCreateNodeSequence
+SdpCreateNodeString SdpCreateNodeTree SdpCreateNodeUInt128 SdpCreateNodeUInt16 SdpCreateNodeUInt32 SdpCreateNodeUInt64
+ﾉ
+展开表
+
+≦ 268 ≧
+SdpCreateNodeUInt8 SdpCreateNodeUUID128 SdpCreateNodeUUID16 SdpCreateNodeUUID32
+SdpCreateNodeUrl SdpFreeTree
+
+≦ 269 ≧
+BTHDDI_SDP_PARSE_INTERFACE结构
+（bthsdpddi.h）项目2025/02/06
+BTHDDI_SDP_PARSE_INTERFACE结构提供用于分析 SDP 记录的函数。
+语法 C++
+typedef struct _BTHDDI_SDP_PARSE_INTERFACE {   INTERFACE            Interface;
+  PVALIDATESTREAM      SdpValidateStream;
+  PCONVERTSTREAMTOTREE SdpConvertStreamToTree;   PCONVERTTREETOSTREAM SdpConvertTreeToStream;   PFREETREE            SdpFreeTree;
+  PBYTESWAPUUID128     SdpByteSwapUuid128;   PBYTESWAPUINT128     SdpByteSwapUint128;   PBYTESWAPUINT64      SdpByteSwapUint64;   PRETRIEVEUUID128     SdpRetrieveUuid128;   PRETRIEVEUINT128     SdpRetrieveUint128;   PRETRIEVEUINT64      SdpRetrieveUint64;
+  PFINDATTRIBUTEINTREE SdpFindAttributeInTree;   PGETNEXTELEMENT      SdpGetNextElement;
+  pReservedFunction    Reserved1;   pReservedFunction    Reserved2;   pReservedFunction    Reserved3;   pReservedFunction    Reserved4;
+} BTHDDI_SDP_PARSE_INTERFACE, *PBTHDDI_SDP_PARSE_INTERFACE;
+成员 Interface
+描述配置文件驱动程序使用的 BTHDDI_SDP_NODE_INTERFACE 接口的结构。 有关此结
+构的详细信息，请参阅 INTERFACE。 SdpValidateStream
+指向 SdpValidateStream 函数的指针。 SdpConvertStreamToTree
+指向 SdpConvertStreamToTree 函数。
+
+≦ 270 ≧
+SdpConvertTreeToStream
+指向 SdpConvertTreeToStream 函数。 SdpFreeTree
+指向 SdpFreeTree 函数的指针。 SdpByteSwapUuid128
+指向 SdpByteSwapUuid128 函数的指针。 SdpByteSwapUint128
+指向 SdpByteSwapUint128 函数的指针。 SdpByteSwapUint64
+指向 SdpByteSwapUint64 函数的指针。 SdpRetrieveUuid128
+指向 SdpRetrieveUuid128 函数的指针。 SdpRetrieveUint128
+指向 SdpRetrieveUint128 函数的指针。 SdpRetrieveUint64
+指向 SdpRetrieveUint64 函数的指针。 SdpFindAttributeInTree
+指向 SdpFindAttributeInTree 函数。 SdpGetNextElement
+指向 SdpGetNextElement 函数的指针。 Reserved1
+保留以供将来使用。 请勿使用。 Reserved2
+保留以供将来使用。 请勿使用。 Reserved3
+
+≦ 271 ≧
+保留以供将来使用。 请勿使用。 Reserved4
+保留以供将来使用。 请勿使用。言论
+配置文件驱动程序应指定 GUID_BTHDDI_SDP_PARSE_INTERFACE GUID，以便从蓝牙驱动程序堆栈查询BTHDDI_SDP_PARSE_INTERFACE结构的实例。
+除 接口 成员外，此结构的所有成员都是函数指针。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅接口
+SdpByteSwapUint128 SdpByteSwapUint64 SdpByteSwapUuid128
+SdpConvertStreamToTree SdpConvertTreeToStream SdpFindAttributeInTree SdpFreeTree
+SdpGetNextElement SdpRetrieveUint128
+价值
+Windows Vista 及更高版本中的版本：_Supported。 bthsdpddi.h （包括 BthSdpddi.h）
+展开表
+
+≦ 272 ≧
+SdpRetrieveUint64 SdpRetrieveUuid128 SdpValidateStream
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 273 ≧
+PBYTESWAPUINT128回调函数
+（bthsdpddi.h）项目2025/02/06
+蓝牙 SdpByteSwapUint128 函数用于反转无符号 128 位整数的字节顺序。
+语法 C++
+PBYTESWAPUINT128 Pbyteswapuint128; void Pbyteswapuint128(
+  PSDP_ULARGE_INTEGER_16 pInUint128,   PSDP_ULARGE_INTEGER_16 pOutUint128)
+{...}
+参数 pInUint128
+指向无符号 128 位整数的指针，用于反转字节顺序。 pOutUint128
+指向接收转换后的 128 位整数的变量的指针。
+返回值没有
+言论
+SdpByteSwapUint128 函数始终反转在 pInUint128 参数中传递的值的字节顺序。 蓝牙设备驱动程序的编写器可以使用此函数将本地计算机上的字节顺序中的无符号 128 位整数值转换为计算机连接到的网络的字节顺序。
+蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_PARSE_INTERFACE获取指向此函数的指针。
+
+≦ 274 ≧
+要求要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+bthsdpddi.h （包括 BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_PARSE_INTERFACE 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 275 ≧
+PBYTESWAPUINT64回调函数
+（bthsdpddi.h）项目2025/02/06
+蓝牙 SdpByteSwapUint64 函数用于反转无符号 64 位整数的字节顺序。
+语法 C++
+PBYTESWAPUINT64 Pbyteswapuint64; ULONGLONG Pbyteswapuint64(
+  ULONGLONG uint64)
+{...}
+参数 uint64
+要反转字节顺序的无符号 64 位整数。返回值
+SdpByteSwapUint64 返回转换的无符号 64 位整数。言论
+SdpByteSwapUint64 函数始终反转 uint64 参数中传递的值的字节顺序。 蓝牙设备驱动程序的编写器可以使用此函数将本地计算机上的字节顺序中的无符号 64 位整数值转换为计算机连接到的网络的字节顺序。
+蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_PARSE_INTERFACE获取指向此函数的指针。要求
+ﾉ
+展开表
+
+≦ 276 ≧
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+bthsdpddi.h （包括 BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_PARSE_INTERFACE
+
+≦ 277 ≧
+PBYTESWAPUUID128回调函数
+（bthsdpddi.h）项目2025/02/06
+蓝牙 SdpByteSwapUuid128 函数用于反转 128 位通用唯一标识符（UUID）的字节顺序。
+语法 C++
+PBYTESWAPUUID128 Pbyteswapuuid128; void Pbyteswapuuid128(
+  GUID *pUuidFrom,   GUID *pUuiidTo)
+{...}
+参数 pUuidFrom
+指向要反转字节顺序的 128 位 GUID 的指针。 pUuiidTo
+指向转换后的 128 位 GUID 的指针。
+返回值没有
+言论
+SdpByteSwapUuid128 函数始终反转 pUuidFrom 参数指向的值的字节顺序。 使用此函数
+可将 128 位 GUID 值从本地计算机上的字节顺序转换为计算机连接到的网络的字节顺序。
+蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_PARSE_INTERFACE获取指向此函数的指针。
+
+≦ 278 ≧
+要求要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+bthsdpddi.h （包括 BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_PARSE_INTERFACE 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 279 ≧
+PCONVERTSTREAMTOTREE 回调函数
+（bthsdpddi.h）项目2025/02/06
+蓝牙 SdpConvertStreamToTree 函数用于创建 SDP 记录的Microsoft专有基于树的表示形式，同时使原始基于流的表示形式未修改。
+语法 C++
+PCONVERTSTREAMTOTREE Pconvertstreamtotree; NTSTATUS Pconvertstreamtotree(
+  PUCHAR Stream,   ULONG Size,
+  PSDP_TREE_ROOT_NODE *Node,
+  ULONG tag)
+{...}
+参数 Stream
+要转换为基于树的表示形式的 SDP 记录流。 Size
+源 SDP 记录流的大小。 Node
+指向 SDP_TREE_ROOT_NODE 结构的指针，该结构充当 SDP 记录的基于 SDP 树的根表示
+形式。 tag
+指定用于唯一标识执行内存分配的驱动程序的 4 字节 池标记。 有关池标记的详细信息，请参阅 ExAllocatePoolWithTag。
+
+≦ 280 ≧
+返回值
+可能的返回值包括： STATUS_SUCCESS
+STATUS_INSUFFICIENT_RESOURCES
+STATUS_INVALID_PARAMETER 言论
+由于可以通过评估指针来遍历树，因此 SdpConvertStreamToTree 函数可以使配置文件驱动程序更轻松地从 SDP 记录中提取信息。
+由调用 SdpConvertStreamToTree 函数产生的 SDP 记录的树表示形式包括一系列相互关联的 SDP_NODE 结构。 根节点包含单个SDP_TREE_ROOT_NODE结构。
+每个SDP_NODE结构都包含一个 SDP_NODE_HEADER 结构和一个 SDP_NODE_DATA 联合。 标头指定数据类型，蓝牙配置文件驱动程序可以通过 LIST_ENTRY 系统结构访问指向对等SDP_NODE结构的链接。 通过评估此结构的 Node.hdr.Link.Flink 和
+Node.hdr.Link.Blink ，驱动程序可以获取树中对等节点的地址。 请记住，LIST_ENTRY结
+构中的指针保存指向其他LIST_ENTRY结构的地址，蓝牙驱动程序必须使用 CONTAINING_RECORD 内存管理器宏来提取包含节点记录的地址。
+通过使用 SDP_NODE_DATA 联合的 序列 和 替代 成员，配置文件驱动程序可以访问树的子元素。 如果节点的数据类型 SDP_TYPE_SEQUENCE，则节点是 SDP 序列。 如果节点的数据类型 SDP_TYPE_ALTERNATIVE，则节点是 SDP 替代序列。 在第一种情况下，序列成员有效，并包含访问与序列对应的树部分所需的信息。 第二种情况下，备用成员有效，包含访问与替代项对应的树部分所需的信息。 使用时，序列 或 备用 成员包含用于访问序列或备用节点的额外SDP_NODE_HEADER结构。 例如，node->u.sequence.Flink 指向节点所表示序列的第一个成员的LIST_ENTRY结构。
+数据联合的其余成员包含从 SDP 流中提取的实际数据。 对于大多数类型，数据直接存在于结构中。 但是，对于字符串和 URL，向实际数据提供指针。 字符串的内存由
+SdpConvertStreamToTree 函数调用分配，并且必须通过为树调用 SdpFreeTree 函数来释放该字符串。
+蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_PARSE_INTERFACE获取指向此函数的指针。
+要求
+ﾉ
+展开表
+
+≦ 281 ≧
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+bthsdpddi.h （包括 BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_PARSE_INTERFACE CONTAINING_RECORD
+LIST_ENTRY SDP_NODE
+SDP_NODE_DATA SDP_NODE_HEADER SDP_TREE_ROOT_NODE
+SdpFreeTree 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 282 ≧
+PCONVERTTREETOSTREAM 回调函数
+（bthsdpddi.h）项目2025/02/06
+蓝牙 SdpConvertTreeToStream 函数用于从树表示形式生成 SDP 记录的原始字节流表示形式。 原始字节流版本适用于在本地 SDP 服务器上发布。
+语法 C++
+PCONVERTTREETOSTREAM Pconverttreetostream;
+NTSTATUS Pconverttreetostream(   PSDP_TREE_ROOT_NODE Root,
+  PUCHAR *Stream,   PULONG Size,
+  ULONG tag)
+{...}
+参数 Root
+要转换为基于流的表示形式的 SDP 记录的基于树的表示形式的根节点。 Stream
+指向接收转换后的 SDP 流的缓冲区的指针。 Size
+要接收转换的 SDP 流的长度的无符号长整数的地址。 tag
+指定用于唯一标识执行内存分配的驱动程序的 4 字节 池标记。 有关池标记的详细信息，
+请参阅 ExAllocatePoolWithTag。返回值
+
+≦ 283 ≧
+可能的返回值包括： STATUS_SUCCESS
+STATUS_INSUFFICIENT_RESOURCES
+STATUS_INVALID_PARAMETER 言论
+SdpConvertTreeToStream 函数作为 SdpConvertStreamToTree 函数执行相反的作。 它从特定于Microsoft的树结构生成完整的本机 SDP 记录。 驱动程序开发人员可能会发现，将 SDP 记录构建为树，然后在发布之前将其转换为流更为方便。
+SdpConvertTreeToStream 分配必要的内存来存储 SDP 记录的流版本。 不再需要内存时，调用方负责使用 ExFreePool 驱动程序支持例程释放内存。
+蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_PARSE_INTERFACE获取指向此函数的指针。
+要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+bthsdpddi.h （包括 BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_PARSE_INTERFACE ExFreePool
+SdpConvertStreamToTree 反馈
+展开表
+
+≦ 284 ≧
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 285 ≧
+PGETNEXTELEMENT 回调函数
+（bthsdpddi.h）项目2025/02/06
+蓝牙 SdpGetNextElement 函数用于循环访问 SDP 记录流中找到的条目。
+语法 C++
+PGETNEXTELEMENT Pgetnextelement;
+void Pgetnextelement(   PUCHAR Stream,
+  ULONG StreamSize,
+  PUCHAR CurrentElement,   PUCHAR *NextElement,   PULONG NextElementSize)
+{...}
+参数 Stream
+指向要循环访问的 SDP 记录流的指针。 StreamSize
+指示 SDP 流大小的无符号长整数。 CurrentElement
+指向 SDP 流中当前所选条目的指针。 此参数可以采用 NULL 值。 NextElement
+指向未签名字符变量的指针，该变量接收 SDP 容器流中下一项的地址。 NextElementSize
+指向接收 SDP 容器流中下一项大小的无符号长整数变量的指针。
+
+≦ 286 ≧
+返回值没有
+言论
+SdpGetNextElement 函数直接在未分析的流上运行，并且不需要调用方从 SDP 记录的流表示形式转换为基于树的表示形式。
+SdpGetNextElement 函数循环访问容器流的主要条目，但不循环访问给定条目的任何子条目。若要循环访问子项调用，SdpGetNextElement 使用从上一个调用获取的 NextElement 参数进行迭代。
+调用此函数时，CurrentElement 参数设置为 NULL 返回容器流中的第一个条目。
+蓝牙配置文件驱动程序可以通过 获取指向此函数的指针 BTHDDI_SDP_PARSE_INTERFACE 结构。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+bthsdpddi.h （包括 BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_PARSE_INTERFACE
+展开表
+
+≦ 287 ≧
+PRETRIEVEUINT64回调函数
+（bthsdpddi.h）项目2025/02/06
+蓝牙 SdpRetrieveUint64 函数用于从 SDP 流复制未对齐的 64 位整数。
+语法 C++
+PRETRIEVEUINT64 Pretrieveuint64;
+void Pretrieveuint64(   PUCHAR Stream,
+  PULONGLONG pUint16)
+{...}
+参数 Stream
+指向无对齐 64 位整数的源地址的指针。 pUint16
+指向对齐变量的地址的指针，用于接收 64 位整数。
+返回值没有
+言论
+SdpRetrieveUint64 函数不搜索要复制的无对齐整数。 Stream 参数必须指定要提取的无符号整数的确切地址。
+某些处理器体系结构要求在内存中对齐值，如果尝试访问未对齐的值，则会生成错误。 无论处理器对齐规则如何构造 SDP 记录。 当 SDP 记录存储在内存中时，它们可能包含根据本地处理器的对齐规则不对齐的元素。
+
+≦ 288 ≧
+SdpRetrieveUint64 函数安全地复制具有对齐要求的计算机上的无对齐整数，并在没有要求的计
+算机上有效地复制无对齐整数。 此外，此函数适用于正确对齐的整数。此函数对字节顺序没有影响。
+蓝牙配置文件驱动程序可以通过 获取指向此函数的指针 BTHDDI_SDP_PARSE_INTERFACE 结构。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+bthsdpddi.h （包括 BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_PARSE_INTERFACE
+展开表
+
+≦ 289 ≧
+PRETRIEVEUUID128回调函数
+（bthsdpddi.h）项目2025/02/06
+蓝牙 SdpRetrieveUuid128 函数用于从 SDP 流复制未对齐的 128 位通用标识符（UUID）。
+语法 C++
+PRETRIEVEUUID128 Pretrieveuuid128; void Pretrieveuuid128(
+  PUCHAR Stream,   GUID *uuid128)
+{...}
+参数 Stream
+指向未对齐的 128 位 UUID 的指针。 uuid128
+指向对齐变量的指针，用于接收 128 位 UUID。
+返回值没有
+言论
+SdpRetrieveUuid128 函数不搜索要复制的 UUID。 Stream 参数必须指定要提取的 UUID 的确切地址。
+某些处理器体系结构要求在内存中对齐值，如果尝试访问未对齐的值，则会生成错误。无论处理器对齐规则如何构造 SDP 记录。 当 SDP 记录存储在内存中时，它们可能包含根
+
+≦ 290 ≧
+据本地处理器的对齐规则不对齐的元素。
+SdpRetrieveUuid128 函数安全地将 UUID 复制到具有对齐要求的计算机上，并有效地将
+UUID 复制到没有要求的计算机上。 此外，此函数适用于正确对齐的 UUID。此函数对字节顺序没有影响。
+蓝牙配置文件驱动程序可以通过 获取指向此函数的指针 BTHDDI_SDP_PARSE_INTERFACE
+结构。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+bthsdpddi.h （包括 BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_PARSE_INTERFACE 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 291 ≧
+PVALIDATESTREAM 回调函数
+（bthsdpddi.h）项目2025/02/06
+蓝牙 SdpValidateStream 函数用于分析原始 SDP 记录并确定它是否包含错误。
+语法 C++
+PVALIDATESTREAM Pvalidatestream; NTSTATUS Pvalidatestream(
+  PUCHAR Stream,   ULONG Size,
+  PULONG_PTR ErrorByte)
+{...}
+参数 Stream
+指向要验证的原始 SDP 流的指针。 Size
+一个无符号长整数，指示要验证的 SDP 流的大小。 ErrorByte
+指向一个变量的指针，该变量接收包含错误的 SDP 记录中的第一个字节的地址。 地址是绝对的。
+返回值
+可能的返回值包括： STATUS_SUCCESS
+STATUS_INVALID_PARAMETER 言论
+
+≦ 292 ≧
+SdpValidateStream 函数在成功时不执行任何作。 失败时，它会确定指定 SDP 记录中第一个错误的位置。
+蓝牙配置文件驱动程序应使用此函数来验证来自外部源的所有 SDP 流。 其他 SDP 函数可能无法执行完整的数据验证。
+蓝牙配置文件驱动程序可以通过 获取指向此函数的指针 BTHDDI_SDP_PARSE_INTERFACE 结构。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+bthsdpddi.h （包括 BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_PARSE_INTERFACE
+展开表
+
+≦ 293 ≧
+bthxddi.h 标头项目2023/08/07
+bltooth 使用此标头。 有关详细信息，请参见:
+蓝牙
+bthxddi.h 包含以下编程接口：
+IOCTL  
+IOCTL_BTHX_GET_VERSION
+配置文件驱动程序使用 IOCTL_BTHX_GET_VERSION 获取传输驱动程序支持的版本。 IOCTL_BTHX_QUERY_CAPABILITIES
+IOCTL_BTHX_QUERY_CAPABILITIES用于查询传输驱动程序的功能。 IOCTL_BTHX_READ_HCI
+IOCTL_BTHX_READ_HCI用于从传输层读取蓝牙 ACL 数据和事件。 IOCTL_BTHX_SET_VERSION
+IOCTL_BTHX_SET_VERSION用于通知传输驱动程序正在使用的扩展性接口的版本。 IOCTL_BTHX_WRITE_HCI
+IOCTL_BTHX_WRITE_HCI用于将蓝牙 ACL 数据和命令写入传输层。
+结构  
+BTHX_CAPABILITIES
+BTHX_CAPABILITIES结构描述了蓝牙可扩展传输驱动程序的功能。 BTHX_HCI_READ_WRITE_CONTEXT
+BTHX_HCI_READ_WRITE_CONTEXT 结构用作IOCTL_BTHX_READ_HCI和IOCTL_BTHX_WRITE_HCI IOCTL 的输入/输出结构。
+
+≦ 294 ≧
+ 
+BTHX_VERSION
+BTHX_VERSION 结构描述传输驱动程序支持的一个或多个版本。
+枚举  
+BTHX_HCI_PACKET_TYPE
+BTHX_HCI_PACKET_TYPE枚举列出了从蓝牙堆栈发送到传输驱动程序的不同类型的数据包。 BTHX_SCO_SUPPORT
+BTHX_SCO_SUPPORT 枚举列出了传输驱动程序支持的不同类型的 SCO。
+
+≦ 295 ≧
+BTHX_CAPABILITIES结构 （bthxddi.h）项目2025/02/06
+BTHX_CAPABILITIES结构描述了蓝牙可扩展传输驱动程序的功能。
+语法 C++
+typedef struct _BTHX_CAPABILITIES {
+  ULONG            MaxAclTransferInSize;   BTHX_SCO_SUPPORT ScoSupport;
+  ULONG            MaxScoChannels;
+  BOOLEAN          IsDeviceIdleCapable;   BOOLEAN          IsDeviceWakeCapable;} BTHX_CAPABILITIES, *PBTHX_CAPABILITIES;
+成员
+MaxAclTransferInSize
+传输层可以接受的 ACL 数据包的最大大小（以字节为单位）。 ScoSupport
+支持的 SCO 类型。 这必须设置为 ScoSupportHCIBypass。 MaxScoChannels
+支持的最大 SCO 通道数。 这必须设置为 1。 IsDeviceIdleCapable
+设备是否支持空闲/睡眠电源状态。 如果设备可以支持空闲（处于低负载周期状态），则
+为 TRUE，否则为 FALSE。 IsDeviceWakeCapable
+设备是否支持远程唤醒。 如果设备支持从睡眠中唤醒系统，则为 TRUE，否则为 FALSE。要求
+
+≦ 296 ≧
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+版本：从 Windows 8 开始_Supported。
+bthxddi.h （包括 BthXDDI.h） 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 297 ≧
+BTHX_HCI_PACKET_TYPE枚举 （bthxddi.h）项目2025/02/06
+BTHX_HCI_PACKET_TYPE枚举列出了从蓝牙堆栈发送到传输驱动程序的不同类型的数据包。
+语法 C++
+typedef enum _BTHX_HCI_PACKET_TYPE {
+  HciPacketCommand,   HciPacketAclData,   HciPacketEvent
+} BTHX_HCI_PACKET_TYPE; 常数
+ﾉ
+ 
+HciPacketCommand 数据包表示命令。
+HciPacketAclData
+数据包表示 ACL 数据。
+HciPacketEvent 数据包表示事件。言论
+展开表
+IOCTL_BTHX_HCI_READ和IOCTL_BTHX_HCI_WRITE IOCTL 用于从传输驱动程序读取/写入数据。
+BTHX_HCI_PACKET_TYPE枚举用于指定与读/写关联的数据包类型。要求
+ﾉ
+要求
+最低支持的客户端
+价值
+版本：从 Windows 8 开始_Supported。
+展开表
+
+≦ 298 ≧
+要求标头
+另请参阅
+IOCTL_BTHX_HCI_READ IOCTL_BTHX_HCI_WRITE
+价值
+bthxddi.h （包括 BthXDDI.h）
+
+≦ 299 ≧
+BTHX_HCI_READ_WRITE_CONTEXT结构
+（bthxddi.h）项目2025/02/06
+IOCTL_BTHX_HCI_READ 和 IOCTL_BTHX_HCI_WRITE 用于输入和输出 BTHX_HCI_READ_WRITE_CONTEXT 结构。
+语法 C++
+typedef struct _BTHX_HCI_READ_WRITE_CONTEXT {
+  ULONG DataLen;   UCHAR Type;
+  UCHAR Data[1];
+} BTHX_HCI_READ_WRITE_CONTEXT, *PBTHX_HCI_READ_WRITE_CONTEXT;
+成员 DataLen
+数据 字段中包含的数据长度（以字节为单位）。 Type
+数据包化数据的类型。 Data[1]
+要读取/写入的实际数据。言论
+BTHX_HCI_READ_WRITE_CONTEXT 结构是一个输入参数，用于 IOCTL_BTHX_HCI_WRITE 并指定与写入关联的数据包的类型。 它还指定要在 数据 成员中写入的数据。
+此结构还用作 IOCTL_BTHX_HCI_READ 的输出参数，并指定数据包的类型和与读取关联的数据。
+此结构打包到 1 字节边界。要求
+
+≦ 300 ≧
+要求
+最低支持的客户端标头
+另请参阅
+IOCTL_BTHX_HCI_WRITE IOCTL_BTHX_HCI_READ
+价值
+版本：从 Windows 8 开始_Supported。 bthxddi.h （包括 BthXDDI.h）
+ﾉ
+展开表
+
+≦ 301 ≧
+BTHX_SCO_SUPPORT枚举 （bthxddi.h）项目2025/02/06
+BTHX_SCO_SUPPORT枚举列出了传输驱动程序支持的不同类型的 SCO。
+语法 C++
+typedef enum _BTHX_SCO_SUPPORT {
+  ScoSupportNone,   ScoSupportHCI,
+  ScoSupportHCIBypass
+} BTHX_SCO_SUPPORT, *PBTHX_SCO_SUPPORT; 常数
+ﾉ
+ 
+ScoSupportNone 不支持 SCO。
+ScoSupportHCI
+SCO 数据通过 HCI 层（堆栈）。 ScoSupportHCIBypass
+SCO 数据不会通过 HCI 层，而是通过 I2S 通道等旁带机制。言论
+展开表
+开始后，蓝牙堆栈将通过发送 IOCTL_BTHX_QUERY_CAPABILITIES IOCTL 来查询传输驱动程序的功能。
+此 IOCTL 的输出缓冲区由包含BTHX_SCO_SUPPORT结构的 BTHX_CAPABILITIES 结构定义。
+传输驱动程序必须指定 ScoSupportHCIBypass。要求
+
+≦ 302 ≧
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+版本：从 Windows 8 开始_Supported。
+bthxddi.h （包括 BthXDDI.h） 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 303 ≧
+BTHX_VERSION结构（bthxddi.h）项目2025/02/06
+BTHX_VERSION结构描述传输驱动程序支持的版本或版本。
+语法 C++
+typedef struct _BTHX_VERSION {   ULONG Version;
+} BTHX_VERSION, *PBTHX_VERSION;
+成员 Version
+支持的版本的位掩码。 目前，BTHX_DDI_VERSION_1是唯一受支持的版本。要求
+要求
+最低支持的客户端标头
+价值
+版本：从 Windows 8 开始_Supported。 bthxddi.h （包括 BthXDDI.h）
+ﾉ
+展开表
+
+≦ 304 ≧
+IOCTL_BTHX_GET_VERSION IOCTL
+（bthxddi.h）项目2025/02/06
+配置文件驱动程序使用IOCTL_BTHX_GET_VERSION获取传输驱动程序支持的版本。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有。
+输入缓冲区长度没有。
+输出缓冲区
+配置文件驱动程序应使用 KMDF 及其 WdfRequestRetrieveOutputMemory 方法来检索输出参数。 例如，若要获取输出缓冲区：
+Status = WdfRequestRetrieveOutputMemory(_Request, &ReqOutMemory); 缓冲区描述 BTHX_VERSION 结构。
+有关详细信息，请参阅 WDK 蓝牙示例。输出缓冲区长度
+缓冲区的长度是 BTHX_VERSION 结构的大小。状态块
+STATUS_BLOCK结构的 信息 成员设置为保存BTHX_VERSION结构的缓冲区的大小（以字节为单位）。
+Status 成员设置为下表中的值之一。
+
+≦ 305 ≧
+ 
+状态值
+STATUS_SUCCESS
+描述
+IOCTL 已成功完成。
+任何不成功的 NT 状态代码都阻止驱动程序加载。言论
+IOCTL_BTHX_GET_VERSION是同步作。
+ﾉ
+展开表
+传输驱动程序可以返回它在BTHX_VERSION结构中支持的一个或多个版本。 如果未设置
+版本，Windows 将卸载蓝牙堆栈。要求
+ﾉ
+要求
+最低支持的客户端
+标头 IRQL
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始支持。 bthxddi.h
+<= PASSIVE_LEVEL
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 306 ≧
+IOCTL_BTHX_QUERY_CAPABILITIES
+IOCTL （bthxddi.h）项目2025/02/06
+IOCTL_BTHX_QUERY_CAPABILITIES用于查询传输驱动程序的功能。主要代码
+IRP_MJ_DEVICE_CONTROL
+输入缓冲区没有。
+输入缓冲区长度没有。
+输出缓冲区
+AssociatedIrp.SystemBuffer 成员指向保存 BTHX_CAPABILITIES 结构的缓冲区。输出缓冲区长度
+缓冲区的长度是 BTHX_CAPABILITIES 结构的大小。状态块
+STATUS_BLOCK结构 信息 成员设置为结构的大小。 Status 成员设置为下表中的值之一。
+ﾉ
+状态值
+STATUS_SUCCESS 言论
+描述
+IOCTL 已成功完成。
+展开表
+
+≦ 307 ≧
+在启动期间，蓝牙堆栈会发送IOCTL_BTHX_QUERY_CAPABILITIES来查询传输驱动程序的功能。
+这是此 IOCTL 的同步调用和失败，可防止 Windows 加载蓝牙堆栈。此 IOCTL 的输出缓冲区由BTHX_CAPABILITIES结构定义。
+MaxScoChannels 成员必须设置为 1。 ScoSupport 成员必须设置为
+ScoSupportHCIBypass。 无法执行此作可防止加载堆栈。要求
+ﾉ
+要求
+最低支持的客户端
+标头 IRQL
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始支持。 bthxddi.h
+<= DISPATCH_LEVEL
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 308 ≧
+IOCTL_BTHX_READ_HCI IOCTL
+（bthxddi.h）项目2025/02/06
+IOCTL_BTHX_READ_HCI用于从传输层读取蓝牙 ACL 数据和事件。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+配置文件驱动程序应使用 KMDF 及其 WdfRequestRetrieveInputMemory 方法来检索输入参数。 例如，若要获取输出缓冲区：
+Status = WdfRequestRetrieveInputMemory(_Request, &ReqInMemory);
+有关详细信息，请参阅 WDK 蓝牙示例。输入缓冲区长度
+缓冲区描述表示读取类型的 UCHAR。 缓冲区的长度是 UCHAR 的大小。输出缓冲区
+配置文件驱动程序应使用 KMDF 及其 WdfRequestRetrieveOutputMemory 方法来检索输入参数。 例如，若要获取输出缓冲区：
+Status = WdfRequestRetrieveOutputMemory(_Request, &ReqOutMemory);
+有关详细信息，请参阅 WDK 蓝牙示例。输出缓冲区长度
+AssociatedIrp.SystemBuffer 成员指向一个缓冲区，该缓冲区保存
+BTHX_HCI_READ_WRITE_CONTEXT 结构和与读取关联的其他数据。 缓冲区必须足够大，才能容纳最大事件或 ACL 数据包，具体取决于其数据包类型。
+对于事件数据包，它FIELD_OFFSET（BTHX_HCI_READ_WRITE_CONTEXT，数据）+257，其中 257 是 2 字节事件标头和 255 字节事件数据的总和。
+
+≦ 309 ≧
+对于 ACL 数据包，它为 FIELD_OFFSET（BTHX_HCI_READ_WRITE_CONTEXT，Data） + MaxAclTransferInSize，其中 MaxAclTransferInSize 是从具有
+IOCTL_BTHX_QUERY_CAPABILITIES的传输驱动程序返回的BTHX_CAPABILITIES值。状态块
+STATUS_BLOCK结构 信息 成员设置为返回的数据字节数。 Status 成员设置为下表中的值之一。
+ﾉ
+状态值
+STATUS_SUCCESS STATUS_CANCELLED
+言论
+输入缓冲区指向正在读取的数据包的类型。
+描述
+IOCTL 已成功完成。 IOCTL 已取消。
+展开表
+输出缓冲区指向一个BTHX_HCI_READ_WRITE_CONTEXT结构，该结构 DataLen 成员指定数据 成员中的字节数。 类型 成员必须设置为与输入数据包类型相同的类型。
+STATUS_BLOCK 信息 成员应设置为 FIELD_OFFSET（BTHX_HCI_READ_WRITE_CONTEXT， Data） + DataLen。
+ACL 读取的 Data 成员的最大大小由 MaxAclTransferInSize（在 BTHX_CAPABILITIES 结构中指定的）确定。 事件 数据 成员的最大大小为 255。
+此 IOCTL 应仅在正常作下返回STATUS_SUCCESS。 不应返回特定于传输的错误。 仅当已
+取消此 IOCTL 时，IOCTL 才应返回STATUS_CANCELLED。要求
+ﾉ
+要求
+最低支持的客户端标头
+价值
+从 Windows 8 开始支持。 bthxddi.h
+展开表
+
+≦ 310 ≧
+要求 IRQL
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+<= PASSIVE_LEVEL
+| 在 Microsoft Q&A 获取帮助
+
+≦ 311 ≧
+IOCTL_BTHX_SET_VERSION IOCTL
+（bthxddi.h）项目2025/02/06
+IOCTL_BTHX_SET_VERSION用于通知传输驱动程序正在使用的扩展性接口的版本。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+配置文件驱动程序应使用 KMDF 及其 WdfRequestRetrieveInputMemory 方法来检索输入参数。 例如，若要获取输入缓冲区：
+Status = WdfRequestRetrieveInputMemory(_Request, &ReqInMemory); 缓冲区描述 BTHX_VERSION 结构。
+有关详细信息，请参阅 WDK 蓝牙示例。输入缓冲区长度
+缓冲区的长度是 BTHX_VERSION 结构的大小。
+输出缓冲区没有。
+输出缓冲区长度
+没有。状态块
+STATUS_BLOCK结构 成员 信息设置为零，因为蓝牙驱动程序堆栈不返回此 IOCTL 的数据。
+Status 成员设置为下表中的值之一。
+
+≦ 312 ≧
+ 
+状态值
+STATUS_SUCCESS
+描述
+IOCTL 已成功完成。
+任何不成功的 NT 状态代码都阻止驱动程序加载。言论
+IOCTL_BTHX_SET_VERSION是同步作。
+将仅选择一个版本并设置。要求
+要求
+最低支持的客户端
+标头 IRQL
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始支持。 bthxddi.h
+<= PASSIVE_LEVEL
+| 在 Microsoft Q&A 获取帮助
+ﾉﾉ
+展开表展开表
+
+≦ 313 ≧
+IOCTL_BTHX_WRITE_HCI IOCTL
+（bthxddi.h）项目2025/02/06
+IOCTL_BTHX_WRITE_HCI用于将蓝牙 ACL 数据和命令写入传输层。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+配置文件驱动程序应使用 KMDF 及其 WdfRequestRetrieveInputMemory 方法来检索输入参数。 例如，若要获取输入缓冲区：
+Status = WdfRequestRetrieveInputMemory(_Request, &ReqInMemory);
+缓冲区描述一个 BTHX_HCI_READ_WRITE_CONTEXT 结构，该结构指定写入类型和与写入关联的数据。
+有关详细信息，请参阅 WDK 蓝牙示例。输入缓冲区长度
+缓冲区的长度是 BTHX_HCI_READ_WRITE_CONTEXT 结构的大小。输出缓冲区
+配置文件驱动程序应使用 KMDF 及其 WdfRequestRetrieveOutputMemory 方法来检索输入参数。 例如，若要获取输出缓冲区：
+Status = WdfRequestRetrieveOutputMemory(_Request, &ReqOutMemory);
+缓冲区描述为 BTHX_HCI_READ_WRITE_CONTEXT 结构中指定的输入数据写入的字节数的 ULONG。
+有关详细信息，请参阅 WDK 蓝牙示例。输出缓冲区长度
+缓冲区的长度是 ULONG 的大小。
+
+≦ 314 ≧
+状态块
+如果请求成功，则 信息 STATUS_BLOCK结构的成员设置为输出参数中的字节数。 Status 成员设置为下表中的值之一。
+ﾉ
+状态值
+STATUS_SUCCESS 言论
+描述
+IOCTL 已成功完成。
+展开表
+蓝牙堆栈发送IOCTL_BTHX_WRITE_HCI以将 HCI ACL 数据和 HCI 命令写入控制器。
+输入缓冲区指向BTHX_HCI_READ_WRITE_CONTEXT结构，其 DataLen 成员指定 数据 成员
+中的字节数。 类型 成员是根据数据包是命令数据包还是 ACL 数据包进行设置。要求
+ﾉ
+要求
+最低支持的客户端
+标头 IRQL
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始支持。 bthxddi.h
+<= DISPATCH_LEVEL
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 315 ≧
+sdplib.h 标头项目2023/08/07
+bltooth 使用此标头。 有关详细信息，请参阅：
+蓝牙
+sdplib.h 包含以下编程接口：
+函数  
+SdpAddAttributeToTree
+蓝牙 SdpAddAttributeToTree 函数用于将 SDP 属性节点附加到 SDP 记录的顶层。 SdpAppendNodeToContainerNode
+蓝牙 SdpAppendNodeToContainerNode 函数用于将 SDP 节点附加到序列或备用 SDP 节点。 SdpCreateNodeAlternative
+Bluetooth SdpCreateNodeAlternative 函数用于创建空的备用序列 SDP 节点。 SdpCreateNodeBoolean
+ﾉ
+Bluetooth SdpCreateNodeBoolean 函数用于将SDP_NODE结构分配给布尔类型并对其进行初始化。 SdpCreateNodeInt128
+Bluetooth SdpCreateNodeInt128 函数用于将SDP_NODE结构分配和初始化为 128 位整数类型。 SdpCreateNodeInt16
+Bluetooth SdpCreateNodeInt16 函数用于将SDP_NODE结构分配和初始化为 16 位整数类型。 SdpCreateNodeInt32
+Bluetooth SdpCreateNodeInt32 函数用于将SDP_NODE结构分配和初始化为 32 位整数类型。 SdpCreateNodeInt64
+Bluetooth SdpCreateNodeInt64 函数用于将SDP_NODE结构分配和初始化为 64 位整数类型。 SdpCreateNodeInt8
+展开表
+
+≦ 316 ≧
+ 
+蓝牙 SdpCreateNodeInt8 函数用于将SDP_NODE结构分配和初始化为 8 位整数类型。 SdpCreateNodeNil
+Bluetooth SdpCreateNodeNil 函数用于将SDP_NODE结构分配给空节点类型并对其进行初始化。 SdpCreateNodeSequence
+Bluetooth SdpCreateNodeSequence 函数用于创建空序列 SDP 节点。 SdpCreateNodeString
+Bluetooth SdpCreateNodeString 函数用于将SDP_NODE结构分配给字符串类型并对其进行初始化。 SdpCreateNodeTree
+Bluetooth SdpCreateNodeTree 函数用于分配空根SDP_TREE_ROOT_NODE结构。 SdpCreateNodeUInt128
+蓝牙 SdpCreateNodeUInt128 函数用于将SDP_NODE结构分配给无符号 128 位整数类型并对其进行初始化。
+SdpCreateNodeUInt16
+Bluetooth SdpCreateNodeUInt16 函数用于将SDP_NODE结构分配给无符号 16 位整数类型并对其进行初始化。
+SdpCreateNodeUInt32
+Bluetooth SdpCreateNodeUInt32 函数用于将SDP_NODE结构分配给无符号 32 位整数类型并对其进行初始化。
+SdpCreateNodeUInt64
+Bluetooth SdpCreateNodeUInt64 函数用于将SDP_NODE结构分配给无符号 64 位整数类型并对其进行初始化。
+SdpCreateNodeUInt8
+Bluetooth SdpCreateNodeUInt8 函数用于将SDP_NODE结构分配给无符号 8 位整数类型并对其进行初始化。
+SdpCreateNodeUrl
+Bluetooth SdpCreateNodeUrl 函数用于向 URL 类型分配和初始化SDP_NODE结构。 SdpCreateNodeUUID128
+
+≦ 317 ≧
+ 
+Bluetooth SdpCreateNodeUUID128 函数用于将SDP_NODE结构分配给 128 位 UUID 类型并对其进行初始化。
+SdpCreateNodeUUID16
+蓝牙 SdpCreateNodeUUID16 函数用于将SDP_NODE结构分配给 16 位 UUID 类型并对其进行初始化。 SdpCreateNodeUUID32
+蓝牙 SdpCreateNodeUUID32 函数用于为 32 位 UUID 类型分配和初始化SDP_NODE结构。 SdpFindAttributeInTree
+蓝牙 SdpFindAttributeInTree 函数用于在 SDP 记录的基于树的表示形式中查找指定的属性节点。 SdpFreeTree
+蓝牙 SdpFreeTree 函数用于释放为 SDP 记录的基于树的表示形式分配的内存。
+
+≦ 318 ≧
+SdpAddAttributeToTree 函数
+（sdplib.h）项目2025/02/07
+蓝牙 SdpAddAttributeToTree 函数用于将 SDP 属性节点附加到 SDP 记录的顶层。
+语法 C++
+NTSTATUS SdpAddAttributeToTree(
+       PSDP_TREE_ROOT_NODE        Tree,
+  [in] USHORT                     AttribId,
+       __drv_aliasesMem PSDP_NODE AttribValue,
+  [in] ULONG                      tag);
+参数 Tree
+SdpAddAttributeToTree 函数附加 SDP 属性节点的 SDP 记录的顶层。[in] AttribId
+要附加的属性的标识符。 AttribValue
+指向要添加为特性的 SDP 节点的指针。[in] tag
+指定用于唯一标识执行内存分配的驱动程序的 4 字节 池标记。 有关池标记的详细信息，
+请参阅 ExAllocatePoolWithTag。返回值
+可能的返回值包括：
+
+≦ 319 ≧
+言论
+蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_NODE_INTERFACE获取指向此函数的指针。
+有关树结构的详细信息，请参阅 将 SDP 记录转换为树结构。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 320 ≧
+SdpAppendNodeToContainerNode 函数
+（sdplib.h）项目2025/02/07
+蓝牙 SdpAppendNodeToContainerNode 函数用于将 SDP 节点附加到序列或备用 SDP 节点。
+语法 C++
+NTSTATUS SdpAppendNodeToContainerNode(
+  [in] PSDP_NODE                  Parent,
+       __drv_aliasesMem PSDP_NODE Node);
+参数[in] Parent
+SdpAppendNodeToContainerNode 函数将子节点添加到的 SDP 序列或备用节点。 Node
+要添加到父节点的 SDP 节点。返回值
+可能的返回值包括：言论
+使用 SdpAppendNodeToContainerNode 函数将任何类型的 SDP_NODE 插入序列或备用节点，包括其他序列。
+请勿使用此函数将属性节点附加到 SDP 记录的顶层。 调用 SdpAddAttributeToTree 函数来执行该作。 有关树结构的详细信息，请参阅 将 SDP 记录转换为树结构。
+蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_NODE_INTERFACE获取指向此函数的指针。要求
+
+≦ 321 ≧
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SdpAddAttributeToTree
+ﾉ
+展开表
+
+≦ 322 ≧
+SdpCreateNodeAlternative 函数
+（sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeAlternative 函数用于创建空的备用序列 SDP 节点。
+语法 C++
+PSDP_NODE SdpCreateNodeAlternative(
+  [in] ULONG tag);
+参数[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配 SDP_NODE 结构的指针。 如果未成功，此函数将返回
+NULL 。言论
+通过调用 SdpCreateNodeAlternative 函数创建备用序列节点后，蓝牙驱动程序可以调用
+SdpAppendNodeToContainerNode 函数，将其他节点插入备用序列节点或将新的备用序列节点添加到另一个备用序列节点。
+可以通过调用 SdpAddAttributeToTree 函数，将备用序列节点添加为 SDP 记录的顶级属性。蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_NODE_INTERFACE获取指向此函数的指针。
+要求
+ﾉ
+展开表
+
+≦ 323 ≧
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SdpAddAttributeToTree
+SdpAppendNodeToContainerNode
+
+≦ 324 ≧
+SdpCreateNodeBoolean 函数
+（sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeBoolean 函数用于向布尔类型分配和初始化 SDP_NODE 结构。
+语法 C++
+PSDP_NODE SdpCreateNodeBoolean(
+  [in] SDP_BOOLEAN bVal,   [in] ULONG       tag);
+参数[in] bVal
+用于初始化SDP_NODE结构的布尔值。[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_NODE结构的指针。 如果未成功，此函数将返
+回 NULL 。言论
+与 SdpCreateNodeBoolean 函数关联的数据将复制到节点中，并且可以随时释放原始数据。
+蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_NODE_INTERFACE获取指向此函数的指针。
+要求
+
+≦ 325 ≧
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE
+SDP_NODE 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 326 ≧
+SdpCreateNodeInt128 函数 （sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeInt128 函数用于向 128 位整数类型分配和初始化 SDP_NODE 结构。
+语法 C++
+PSDP_NODE SdpCreateNodeInt128(
+       PSDP_LARGE_INTEGER_16 uil16Val,
+  [in] ULONG                 tag);
+参数 uil16Val
+用于初始化SDP_NODE结构的 128 位整数值。[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_NODE结构的指针。 如果未成功，此函数将返
+回 NULL 。言论
+SdpCreateNodeInt128 函数分配 SDP_NODE 结构后，它会通过以下方式初始化结构。它可确保适当设置SDP_NODE结构的数据类型和数据大小字段。
+它可确保将关联的 SDP_NODE_HEADER 结构的指针成员初始化为指向节点本身。 这会创建一个仅包含一个元素的有效列表。
+它可确保传递给函数的 值 参数复制到与SDP_NODE结构关联的 SDP_NODE_DATA 联合的相应元素。
+
+≦ 327 ≧
+与 SdpCreateNodeInt128 函数关联的数据将复制到节点中，并且可以随时释放原始数据。
+蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_NODE_INTERFACE获取指向此函数的指针。
+要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SDP_NODE_DATA SDP_NODE_HEADER
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 328 ≧
+SdpCreateNodeInt16 函数 （sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeInt16 函数用于向 16 位整数类型分配和初始化 SDP_NODE 结构。
+语法 C++
+PSDP_NODE SdpCreateNodeInt16(
+  [in] SHORT sVal,   [in] ULONG tag);
+参数[in] sVal
+用于初始化SDP_NODE结构的 16 位整数值。[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_NODE结构的指针。 如果未成功，此函数将返
+回 NULL 。言论
+SdpCreateNodeInt16 函数分配 SDP_NODE 结构后，它将通过以下方式初始化结构。它可确保适当设置SDP_NODE结构的数据类型和数据大小字段。
+它可确保将关联的 SDP_NODE_HEADER 结构的指针成员初始化为指向节点本身。 这会创建一个仅包含一个元素的有效列表。
+它可确保传递给函数的 值 参数复制到与SDP_NODE结构关联的 SDP_NODE_DATA 联合的相应元素。
+
+≦ 329 ≧
+与 SdpCreateNodeInt16 函数关联的数据将复制到节点中，并且可以随时释放原始数据。
+蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_NODE_INTERFACE获取指向此函数的指针。
+要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SDP_NODE_DATA SDP_NODE_HEADER
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 330 ≧
+SdpCreateNodeInt32 函数 （sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeInt32 函数用于向 32 位整数类型分配和初始化 SDP_NODE 结构。
+语法 C++
+PSDP_NODE SdpCreateNodeInt32(
+  [in] LONG  lVal,   [in] ULONG tag);
+参数[in] lVal
+用于初始化SDP_NODE结构的 32 位整数值。[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_NODE结构的指针。 如果未成功，此函数将返
+回 NULL 。言论
+SdpCreateNodeInt32 函数分配 SDP_NODE 结构后，它会通过以下方式初始化结构。它可确保适当设置SDP_NODE结构的数据类型和数据大小字段。
+它可确保将关联的 SDP_NODE_HEADER 结构的指针成员初始化为指向节点本身。 这会创建一个仅包含一个元素的有效列表。
+它可确保传递给函数的 值 参数复制到与SDP_NODE结构关联的 SDP_NODE_DATA 联合的相应元素。
+
+≦ 331 ≧
+与 SdpCreateNodeInt32 函数关联的数据将复制到节点中，并且可以随时释放原始数据。
+蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_NODE_INTERFACE获取指向此函数的指针。
+要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SDP_NODE_DATA SDP_NODE_HEADER
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 332 ≧
+SdpCreateNodeInt64 函数 （sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeInt64 函数用于向 64 位整数类型分配和初始化 SDP_NODE 结构。
+语法 C++
+PSDP_NODE SdpCreateNodeInt64(        LONGLONG llVal,
+  [in] ULONG    tag);
+参数 llVal
+用于初始化SDP_NODE结构的 64 位整数值。[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_NODE结构的指针。 如果未成功，此函数将返
+回 NULL 。言论
+SdpCreateNodeInt64 函数分配 SDP_NODE 结构后，它会通过以下方式初始化结构。它可确保适当设置SDP_NODE结构的数据类型和数据大小字段。
+它可确保将关联的 SDP_NODE_HEADER 结构的指针成员初始化为指向节点本身。 这会创建一个仅包含一个元素的有效列表。
+它可确保传递给函数的 值 参数复制到与SDP_NODE结构关联的 SDP_NODE_DATA 联合的相应元素。
+
+≦ 333 ≧
+与 SdpCreateNodeInt64 函数关联的数据将复制到节点中，并且可以随时释放原始数据。
+蓝牙配置文件驱动程序可以通过 获取指向此函数的指针 BTHDDI_SDP_NODE_INTERFACE
+结构。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SDP_NODE_DATA SDP_NODE_HEADER
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 334 ≧
+SdpCreateNodeInt8 函数 （sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeInt8 函数用于向 8 位整数类型分配和初始化 SDP_NODE 结构。
+语法 C++
+PSDP_NODE SdpCreateNodeInt8(
+  [in] CHAR  cVal,   [in] ULONG tag);
+参数[in] cVal
+用于初始化 SDP_NODE 结构的 8 位整数值。[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_NODE结构的指针。 如果未成功，此函数将返
+回 NULL 。言论
+SdpCreateNodeInt8 函数分配 SDP_NODE 结构后，它会通过以下方式初始化结构。它可确保适当设置SDP_NODE结构的数据类型和数据大小字段。
+它可确保将关联的 SDP_NODE_HEADER 结构的指针成员初始化为指向节点本身。 这会创建一个仅包含一个元素的有效列表。
+它可确保传递给函数的 值 参数复制到与SDP_NODE结构关联的 SDP_NODE_DATA 联合的相应元素。
+
+≦ 335 ≧
+与 SdpCreateNodeInt8 函数关联的数据将复制到节点中，并且可以随时释放原始数据。蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_NODE_INTERFACE获取指向此函数的指针。
+要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SDP_NODE_DATA SDP_NODE_HEADER
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 336 ≧
+SdpCreateNodeNil 函数 （sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeNil 函数用于向空节点类型分配和初始化 SDP_NODE 结构。
+语法 C++
+PSDP_NODE SdpCreateNodeNil(
+  [in] ULONG tag);
+参数[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_NODE结构的指针。 如果未成功，此函数将返
+回 NULL 。言论
+蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_NODE_INTERFACE获取指向此函数的指针。
+要求
+ﾉ
+要求
+最低支持的客户端目标平台
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+展开表
+
+≦ 337 ≧
+要求标头 IRQL
+另请参阅
+价值
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE
+SDP_NODE 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 338 ≧
+SdpCreateNodeSequence 函数
+（sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeSequence 函数用于创建空序列 SDP 节点。
+语法 C++
+PSDP_NODE SdpCreateNodeSequence(
+  [in] ULONG tag);
+参数[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配 SDP_NODE 结构的指针。 如果未成功，此函数将返
+回 NULL 。言论
+通过调用 SdpCreateNodeSequence 函数创建序列节点后，蓝牙驱动程序可以调用
+SdpAppendNodeToContainerNode 函数，将其他节点插入序列节点或将新序列节点添加到另一个序列节点。
+可以通过调用 SdpAddAttributeToTree 函数，将序列节点添加为 SDP 记录的顶级属性。要求
+ﾉ
+展开表
+
+≦ 339 ≧
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅 SDP_NODE
+SdpAddAttributeToTree
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+SdpAppendNodeToContainerNode 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 340 ≧
+SdpCreateNodeString 函数 （sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeString 函数用于向字符串类型分配和初始化 SDP_NODE 结构。
+语法 C++
+PSDP_NODE SdpCreateNodeString(   [in] PCHAR string,
+       ULONG stringLength,
+  [in] ULONG tag);
+参数[in] string
+指向用于初始化SDP_NODE结构的字符串值的指针。 stringLength
+一个包含字符串长度的无符号长整数值。[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_NODE结构的指针。 如果未成功，此函数将返
+回 NULL 。言论
+SdpCreateNodeString 函数分配 SDP_NODE 结构后，它通过以下方式初始化结构。它可确保适当设置SDP_NODE结构的数据类型和数据大小字段。
+
+≦ 341 ≧
+它可确保将关联的 SDP_NODE_HEADER 结构的指针成员初始化为指向节点本身。 这会创建一个仅包含一个元素的有效列表。
+它可确保传递给函数的 值 参数复制到与SDP_NODE结构关联的 SDP_NODE_DATA 联合的相应元素。
+与 SdpCreateNodeString 函数关联的数据将复制到节点中，并且可以随时释放原始数据。
+蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_NODE_INTERFACE获取指向此函数的指针。
+要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SDP_NODE_DATA SDP_NODE_HEADER
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 342 ≧
+SdpCreateNodeTree 函数 （sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeTree 函数用于分配空根 SDP_TREE_ROOT_NODE 结构。
+语法 C++
+PSDP_TREE_ROOT_NODE SdpCreateNodeTree(
+  [in] ULONG tag);
+参数[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_TREE_ROOT_NODE结构的指针。 如果未成功，
+此函数将返回 NULL 。言论
+调用 SdpCreateNodeTree 函数是生成 SDP 树的第一步。 蓝牙配置文件驱动程序使用此
+函数分配根节点后，可以使用对指向该函数的其他函数的调用来填充该节点 BTHDDI_SDP_NODE_INTERFACE 结构。
+不再需要 SDP 树时，蓝牙配置文件驱动程序应通过调用 SdpFreeTree 函数来销毁它。 SdpFreeTree 释放已附加到它的根节点和所有子节点。 只要这些结构不再是树或其他列表的一部分，就可以调用 ExFreePool 驱动程序支持例程来释放单个 SDP_NODE 结构。
+蓝牙配置文件驱动程序可以通过BTHDDI_SDP_NODE_INTERFACE结构获取指向此函数的指针。
+要求
+
+≦ 343 ≧
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE
+ExFreePool SDP_NODE
+SDP_TREE_ROOT_NODE
+SdpFreeTree 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 344 ≧
+SdpCreateNodeUInt128 函数
+（sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeUInt128 函数用于将 SDP_NODE 结构分配给无符号 128 位整数类型。
+语法 C++
+PSDP_NODE SdpCreateNodeUInt128(
+  [in] PSDP_ULARGE_INTEGER_16 puli16Val,
+  [in] ULONG                  tag);
+参数
+[in] puli16Val
+用于初始化SDP_NODE结构的无符号 128 位整数值。[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_NODE结构的指针。 如果未成功，此函数将返
+回 NULL 。言论
+SdpCreateNodeUInt128 函数分配 SDP_NODE 结构后，它通过以下方式初始化结构。它可确保适当设置SDP_NODE结构的数据类型和数据大小字段。
+它可确保将关联的 SDP_NODE_HEADER 结构的指针成员初始化为指向节点本身。 这会创建一个仅包含一个元素的有效列表。
+
+≦ 345 ≧
+它可确保传递给函数的 值 参数复制到与SDP_NODE结构关联的 SDP_NODE_DATA 联合的相应元素。
+与 SdpCreateNodeUInt128 函数关联的数据将复制到节点中，并且可以随时释放原始数据。
+蓝牙配置文件驱动程序可以通过 获取指向此函数的指针 BTHDDI_SDP_NODE_INTERFACE
+结构。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SDP_NODE_DATA SDP_NODE_HEADER
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 346 ≧
+SdpCreateNodeUInt16 函数 （sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeUInt16 函数用于将 SDP_NODE 结构分配给无符号 16 位整数类型。
+语法 C++
+PSDP_NODE SdpCreateNodeUInt16(   [in] USHORT usVal,
+  [in] ULONG  tag);
+参数[in] usVal
+用于初始化SDP_NODE结构的无符号 16 位整数值。[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_NODE结构的指针。 如果未成功，此函数将返
+回 NULL 。言论
+SdpCreateNodeUInt16 函数分配 SDP_NODE 结构后，它会通过以下方式初始化结构。它可确保适当设置SDP_NODE结构的数据类型和数据大小字段。
+它可确保将关联的 SDP_NODE_HEADER 结构的指针成员初始化为指向节点本身。 这会创建一个仅包含一个元素的有效列表。
+它可确保传递给函数的 值 参数复制到与SDP_NODE结构关联的 SDP_NODE_DATA 联合的相应元素。
+
+≦ 347 ≧
+与 SdpCreateNodeUInt16 函数关联的数据将复制到节点中，并且可以随时释放原始数据。
+蓝牙配置文件驱动程序可以通过 获取指向此函数的指针 BTHDDI_SDP_NODE_INTERFACE
+结构。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SDP_NODE_DATA SDP_NODE_HEADER
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 348 ≧
+SdpCreateNodeUInt32 函数 （sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeUInt32 函数用于向无符号 32 位整数类型分配和初始化 SDP_NODE 结构。
+语法 C++
+PSDP_NODE SdpCreateNodeUInt32(   [in] ULONG ulVal,
+  [in] ULONG tag);
+参数[in] ulVal
+用于初始化SDP_NODE结构的无符号 32 位整数值。[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_NODE结构的指针。 如果未成功，此函数将返回 NULL。
+言论
+SdpCreateNodeUInt32 函数分配 SDP_NODE 结构后，它会通过以下方式初始化结构。它可确保适当设置SDP_NODE结构的数据类型和数据大小字段。
+它可确保将关联的 SDP_NODE_HEADER 结构的指针成员初始化为指向节点本身。 这会创建一个仅包含一个元素的有效列表。
+它可确保传递给函数的 值 参数复制到与SDP_NODE结构关联的 SDP_NODE_DATA 联合的相应元素。
+与 SdpCreateNodeUInt32 函数关联的数据将复制到节点中，并且可以随时释放原始数据。
+
+≦ 349 ≧
+蓝牙配置文件驱动程序可以通过 获取指向此函数的指针 BTHDDI_SDP_NODE_INTERFACE 结构。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SDP_NODE_DATA SDP_NODE_HEADER
+展开表
+
+≦ 350 ≧
+SdpCreateNodeUInt64 函数 （sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeUInt64 函数用于向无符号 64 位整数类型分配和初始化 SDP_NODE 结构。
+语法 C++
+PSDP_NODE SdpCreateNodeUInt64(   [in] ULONGLONG ullVal,
+  [in] ULONG     tag);
+参数[in] ullVal
+用于初始化SDP_NODE结构的无符号 64 位整数值。[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_NODE结构的指针。 如果未成功，此函数将返回 NULL。
+言论
+SdpCreateNodeUInt64 函数分配 SDP_NODE 结构后，它会通过以下方式初始化结构。它可确保适当设置SDP_NODE结构的数据类型和数据大小字段。
+它可确保将关联的 SDP_NODE_HEADER 结构的指针成员初始化为指向节点本身。 这会创建一个仅包含一个元素的有效列表。
+它可确保传递给函数的 值 参数复制到与SDP_NODE结构关联的 SDP_NODE_DATA 联合的相应元素。
+与 SdpCreateNodeUInt64 函数关联的数据将复制到节点中，并且可以随时释放原始数据。
+
+≦ 351 ≧
+蓝牙配置文件驱动程序可以通过 获取指向此函数的指针 BTHDDI_SDP_NODE_INTERFACE 结构。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SDP_NODE_DATA SDP_NODE_HEADER
+展开表
+
+≦ 352 ≧
+SdpCreateNodeUInt8 函数 （sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeUInt8 函数用于将 SDP_NODE 结构分配给无符号的 8 位整数类型。
+语法 C++
+PSDP_NODE SdpCreateNodeUInt8(   [in] UCHAR ucVal,
+  [in] ULONG tag);
+参数[in] ucVal
+用于初始化SDP_NODE结构的无符号 8 位整数值。[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_NODE结构的指针。 如果未成功，此函数将返回 NULL。
+言论
+SdpCreateNodeUInt8 函数分配 SDP_NODE 结构后，它会通过以下方式初始化结构。它可确保适当设置SDP_NODE结构的数据类型和数据大小字段。
+它可确保将关联的 SDP_NODE_HEADER 结构的指针成员初始化为指向节点本身。 这会创建一个仅包含一个元素的有效列表。
+它可确保传递给函数的 值 参数复制到与SDP_NODE结构关联的 SDP_NODE_DATA 联合的相应元素。
+与 SdpCreateNodeUInt8 函数关联的数据将复制到节点中，并且可以随时释放原始数据。
+
+≦ 353 ≧
+蓝牙配置文件驱动程序可以通过 获取指向此函数的指针 BTHDDI_SDP_NODE_INTERFACE 结构。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SDP_NODE_DATA SDP_NODE_HEADER
+展开表
+
+≦ 354 ≧
+SdpCreateNodeUrl 函数 （sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeUrl 函数用于向 URL 类型分配和初始化 SDP_NODE 结构。
+语法 C++
+PSDP_NODE SdpCreateNodeUrl(   [in] PCHAR url,
+       ULONG urlLength,
+  [in] ULONG tag);
+参数[in] url
+指向用于初始化SDP_NODE结构的 URL 值的指针。 urlLength
+保留 URL 长度的无符号长整数值。[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_NODE结构的指针。 如果未成功，此函数将返
+回 NULL 。言论
+SdpCreateNodeUrl 函数分配 SDP_NODE 结构后，它会通过以下方式初始化结构。它可确保适当设置SDP_NODE结构的数据类型和数据大小字段。
+
+≦ 355 ≧
+它可确保将关联的 SDP_NODE_HEADER 结构的指针成员初始化为指向节点本身。 这会创建一个仅包含一个元素的有效列表。
+它可确保传递给函数的 值 参数复制到与SDP_NODE结构关联的 SDP_NODE_DATA 联合的相应元素。
+与 SdpCreateNodeUrl 函数关联的数据将复制到节点中，并且可以随时释放原始数据。蓝牙配置文件驱动程序可以通过 获取指向此函数的指针 BTHDDI_SDP_NODE_INTERFACE
+结构。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SDP_NODE_DATA SDP_NODE_HEADER
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 356 ≧
+SdpCreateNodeUUID128 函数 （sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeUUID128 函数用于向 128 位 UUID 类型分配和初始化 SDP_NODE 结构。
+语法 C++
+PSDP_NODE SdpCreateNodeUUID128(        const GUID *uuid,
+  [in] ULONG      tag);
+参数 uuid
+指向用于初始化SDP_NODE结构的 128 位 UUID 值的指针。[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_NODE结构的指针。 如果未成功，此函数将返回 NULL。
+言论
+SdpCreateNodeUUID128 函数分配 SDP_NODE 结构后，它会通过以下方式初始化结构。它可确保适当设置SDP_NODE结构的数据类型和数据大小字段。
+它可确保将关联的 SDP_NODE_HEADER 结构的指针成员初始化为指向节点本身。 这会创建一个仅包含一个元素的有效列表。
+它可确保传递给函数的 值 参数复制到与SDP_NODE结构关联的 SDP_NODE_DATA 联合的相应元素。
+与 SdpCreateNodeUUID128 函数关联的数据将复制到节点中，并且可以随时释放原始数据。
+
+≦ 357 ≧
+蓝牙配置文件驱动程序可以通过 获取指向此函数的指针 BTHDDI_SDP_NODE_INTERFACE 结构。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SDP_NODE_DATA SDP_NODE_HEADER
+展开表
+
+≦ 358 ≧
+SdpCreateNodeUUID16 函数
+（sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeUUID16 函数用于向 16 位 UUID 类型分配和初始化 SDP_NODE 结构。
+语法 C++
+PSDP_NODE SdpCreateNodeUUID16(        USHORT uuidVal2,
+  [in] ULONG  tag);
+参数 uuidVal2
+用于初始化SDP_NODE结构的 16 位 UUID 值。[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_NODE结构的指针。 如果未成功，此函数将返
+回 NULL 。言论
+SdpCreateNodeUUID16 函数分配 SDP_NODE 结构后，它通过以下方式初始化结构。它可确保适当设置SDP_NODE结构的数据类型和数据大小字段。
+它可确保将关联的 SDP_NODE_HEADER 结构的指针成员初始化为指向节点本身。 这会创建一个仅包含一个元素的有效列表。
+
+≦ 359 ≧
+它可确保传递给函数的 值 参数复制到与SDP_NODE结构关联的 SDP_NODE_DATA 联合的相应元素。
+与 SdpCreateNodeUUID16 函数关联的数据将复制到节点中，并且可以随时释放原始数据。
+蓝牙配置文件驱动程序可以通过 获取指向此函数的指针 BTHDDI_SDP_NODE_INTERFACE
+结构。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SDP_NODE_DATA SDP_NODE_HEADER
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 360 ≧
+SdpCreateNodeUUID32 函数 （sdplib.h）项目2025/02/07
+蓝牙 SdpCreateNodeUUID32 函数用于向 32 位 UUID 类型分配和初始化 SDP_NODE 结构。
+语法 C++
+PSDP_NODE SdpCreateNodeUUID32(        ULONG uuidVal4,
+  [in] ULONG tag);
+参数 uuidVal4
+用于初始化SDP_NODE结构的 32 位 UUID 值。[in] tag
+要与节点关联的配置文件驱动程序定义标记。返回值
+如果成功，此函数将返回指向新分配SDP_NODE结构的指针。 如果未成功，此函数将返回 NULL。
+言论
+SdpCreateNodeUUID32 函数分配 SDP_NODE 结构后，它会通过以下方式初始化结构。它可确保适当设置SDP_NODE结构的数据类型和数据大小字段。
+它可确保将关联的 SDP_NODE_HEADER 结构的指针成员初始化为指向节点本身。 这会创建一个仅包含一个元素的有效列表。
+它可确保传递给函数的 值 参数复制到与SDP_NODE结构关联的 SDP_NODE_DATA 联合的相应元素。
+与 SdpCreateNodeUUID32 函数关联的数据将复制到节点中，并且可以随时释放原始数据。
+
+≦ 361 ≧
+蓝牙配置文件驱动程序可以通过 获取指向此函数的指针 BTHDDI_SDP_NODE_INTERFACE 结构。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SDP_NODE_DATA SDP_NODE_HEADER
+展开表
+
+≦ 362 ≧
+SdpFindAttributeInTree 函数 （sdplib.h）项目2025/02/07
+蓝牙 SdpFindAttributeInTree 函数用于在基于树的 SDP 记录表示形式中找到指定的属性节点。
+语法 C++
+NTSTATUS SdpFindAttributeInTree(   [in] PSDP_TREE_ROOT_NODE Tree,
+  [in] USHORT              AttribId,        PSDP_NODE           *Attribute);
+参数[in] Tree
+要搜索的 SDP 记录的基于树的表示形式的根节点。[in] AttribId
+要查找的属性节点的标识符。 Attribute
+指向接收定位属性节点地址的变量的指针。返回值
+可能的返回值包括：言论
+SdpFindAttributeInTree 函数返回树中请求的节点的地址;它不执行副本。 此节点指针在释放它引用的 SDP 树之前有效。
+蓝牙配置文件驱动程序可以通过 获取指向此函数的指针 BTHDDI_SDP_PARSE_INTERFACE 结构。要求
+
+≦ 363 ≧
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_PARSE_INTERFACE
+ﾉ
+展开表
+
+≦ 364 ≧
+SdpFreeTree 函数 （sdplib.h）项目2025/02/07
+蓝牙 SdpFreeTree 函数用于释放为基于树的 SDP 记录表示形式分配的内存。
+语法 C++
+NTSTATUS SdpFreeTree(
+  [in] PSDP_TREE_ROOT_NODE Tree);
+参数[in] Tree
+要释放的基于 SDP 树的表示形式的根节点。返回值
+可能的返回值包括：言论
+当不再需要基于树的 SDP 记录表示形式时，调用方应执行 SdpFreeTree 调用。
+SdpCreateNodeTree 和 SdpConvertStreamToTree 函数为其创建的 SDP 记录的树表示形式分配内存。 SdpFreeTree 函数释放分配给这些函数创建的 SDP_TREE_ROOT_NODE 结构的内存，以及与树表示形式关联的所有 SDP_NODE 结构。
+蓝牙配置文件驱动程序可以通过 获取指向 SdpFreeTree 函数的指针
+BTHDDI_SDP_NODE_INTERFACE 结构。要求
+ﾉ
+展开表
+
+≦ 365 ≧
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+Windows Vista 及更高版本中的版本：_Supported。桌面
+sdplib.h （include BthSdpddi.h） <= PASSIVE_LEVEL
+BTHDDI_SDP_NODE_INTERFACE SDP_NODE
+SDP_TREE_ROOT_NODE SdpConvertStreamToTree
+SdpCreateNodeTree 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 366 ≧
+sdpnode.h 标头项目2023/08/07
+bltooth 使用此标头。 有关详细信息，请参阅：
+蓝牙
+sdpnode.h 包含以下编程接口：
+结构  
+SDP_NODE
+SDP_NODE 结构保存有关 SDP 记录的基于树的表示形式的元素的信息。 SDP_NODE_DATA
+SDP_NODE_DATA联合在 SDP 记录的基于树的表示形式中保存元素的数据。 SDP_NODE_HEADER
+SDP_NODE_HEADER结构保存有关 SDP 记录的基于树的表示形式的元素的信息。 SDP_TREE_ROOT_NODE
+SDP_TREE_ROOT_NODE结构是 SDP 记录的基于树的表示形式的根元素。
+ﾉ
+展开表
+
+≦ 367 ≧
+SDP_NODE结构（sdpnode.h）项目2025/02/07
+SDP_NODE结构包含有关基于树的 SDP 记录表示形式的元素的信息。
+语法 C++
+typedef struct _SDP_NODE {   SDP_NODE_HEADER hdr;
+  ULONG           DataSize;   SDP_NODE_DATA   u;
+  PVOID           Reserved;} SDP_NODE, *PSDP_NODE;
+成员 hdr
+包含指向对等SDP_NODE结构和当前节点数据类型的链接的 SDP_NODE_HEADER 结构。 DataSize
+u 成员中持有的 SDP_NODE_DATA 联合的大小（以字节为单位）。 u
+一个SDP_NODE_DATA联合，其中包含与 SDP 记录的节点关联的数据。 Reserved
+保留以供将来使用。 请勿使用。言论
+SDP 记录的树表示形式的每个SDP_NODE结构都包含SDP_NODE_HEADER结构和 SDP_NODE_DATA联合。
+标头指定数据类型。 驱动程序开发人员可以通过调用标头 LIST_ENTRY 结构来访问对等 SDP_NODE结构的链接。 通过评估 Node.hdr.Link.Flink 和 Node.hdr.Link.Blink ，驱动程序可以获取树中对等节点的地址。 请记住，LIST_ENTRY 指针包含其他LIST_ENTRY结构
+
+≦ 368 ≧
+的地址，配置文件驱动程序必须使用 CONTAINING_RECORD 内存管理器宏来提取包含节
+点记录的地址。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 LIST_ENTRY SDP_NODE_DATA
+SDP_NODE_HEADER 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows Vista 及更高版本中的版本：_Supported。 sdpnode.h （包括 Sdpnode.h）
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 369 ≧
+SDP_NODE_DATA union （sdpnode.h）项目2025/02/07
+SDP_NODE_DATA联合保存基于树的 SDP 记录表示形式的元素的数据。
+语法 C++
+typedef union _SDP_NODE_DATA {   SDP_LARGE_INTEGER_16  int128;   SDP_ULARGE_INTEGER_16 uint128;   GUID                  uuid128;   ULONG                 uuid32;   USHORT                uuid16;   LONGLONG              int64;   ULONGLONG             uint64;   LONG                  int32;   ULONG                 uint32;   SHORT                 int16;   USHORT                uint16;   CHAR                  int8;   UCHAR                 uint8;   SDP_BOOLEAN           boolean;   PCHAR                 string;   PCHAR                 url;
+  SDP_NODE_HEADER       sequence;
+  SDP_NODE_HEADER       alternative;   ISdpNodeContainer     *container;   struct {
+    PUCHAR stream;
+    ULONG  streamLength;   };
+} SDP_NODE_DATA, *PSDP_NODE_DATA;
+成员 int128
+128 位整数的联合成员。 uint128
+无符号 128 位整数的联合成员。 uuid128
+
+≦ 370 ≧
+128 位通用唯一标识符（UUID）的联合成员。 uuid32
+32 位 UUID 的联合成员。 uuid16
+16 位 UUID 的联合成员。 int64
+64 位整数的联合成员。 uint64
+无符号 64 位整数的联合成员。 int32
+32 位整数的联合成员。 uint32
+无符号 32 位整数的联合成员。 int16
+16 位整数的联合成员。 uint16
+无符号 16 位整数的联合成员。 int8
+为 8 位整数保留的联合。 uint8
+无符号 8 位整数的联合成员。 boolean
+布尔值的联合成员。 string
+字符串值的联合成员。
+
+≦ 371 ≧
+url
+URL 值的联合成员。 sequence
+引用序列元素的 SDP_NODE_HEADER 结构。 alternative
+引用备用列表序列元素的SDP_NODE_HEADER结构。 container
+指向用户模式特定接口的指针列表。 stream
+生成当前 SDP 节点的原始 SDP 流的一部分的地址。 streamLength
+生成当前 SDP 节点的原始 SDP 流部分的长度。言论
+SDP 记录的树表示形式的每个 SDP_NODE 结构都包含SDP_NODE_HEADER结构和 SDP_NODE_DATA联合。
+标头指定数据类型。 驱动程序开发人员可以通过调用标头 LIST_ENTRY 结构来访问对等 SDP_NODE 结构的链接。 通过评估 Node.hdr.Link.Flink 和 Node.hdr.Link.Blink ，驱动程序可以获取树中对等节点的地址。 请记住，LIST_ENTRY 指针包含其他LIST_ENTRY结构的地址，配置文件驱动程序必须使用 CONTAINING_RECORD 内存管理器宏提取包含节点记录的地址。
+未命名的结构包含 128 位整数的联合成员。要求
+ﾉ
+要求
+最低支持的客户端
+价值
+Windows Vista 及更高版本中的版本：_Supported。
+展开表
+
+≦ 372 ≧
+要求标头
+另请参阅
+价值
+sdpnode.h （包括 Sdpnode.h）
+SDP_NODE_HEADER
+SDP_NODE LIST_ENTRY
+CONTAINING_RECORD 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 373 ≧
+SDP_NODE_HEADER结构（sdpnode.h）项目2025/02/07
+SDP_NODE_HEADER结构包含有关基于树的 SDP 记录表示形式的元素的信息。
+语法 C++
+typedef struct _SDP_NODE_HEADER {
+  LIST_ENTRY Link;   USHORT     Type;
+  USHORT     SpecificType;
+} SDP_NODE_HEADER, *PSDP_NODE_HEADER;
+成员 Link
+当此结构是 SDP_NODE 结构的一部分时，用于链接对等 SDP 记录节点的链接列表结构。 当标
+头 u.sequence 或 单个SDP_NODE结构的一部分时，此成员用于链接节点的第一个子级。 Type
+在SDP_NODE结构的 u 成员中持有的 SDP_NODE_DATA 联合的数据类型。 SpecificType
+与与 SDP 记录元素关联的 SDP_NODE_DATA 联合关联的数据类型的额外信息。言论
+SDP 记录的树表示形式的每个SDP_NODE结构都包含SDP_NODE_HEADER结构和 SDP_NODE_DATA 联合。
+标头指定数据类型。 驱动程序开发人员可以通过调用标头 LIST_ENTRY 结构来访问对等
+SDP_NODE结构的链接。 通过评估 Node.hdr.Link.Flink 和 Node.hdr.Link.Blink ，驱动程序可以获取树中对等节点的地址。 请记住，LIST_ENTRY 指针包含其他LIST_ENTRY结构的地址，配置
+文件驱动程序必须使用 CONTAINING_RECORD 内存管理器宏提取包含节点记录的地址。要求
+
+≦ 374 ≧
+要求
+最低支持的客户端标头
+另请参阅
+CONTAINING_RECORD
+LIST_ENTRY SDP_NODE
+SDP_NODE_DATA
+价值
+Windows Vista 及更高版本中的版本：_Supported。 sdpnode.h （包括 Sdpnode.h）
+ﾉ
+展开表
+
+≦ 375 ≧
+SDP_TREE_ROOT_NODE结构（sdpnode.h）项目2025/02/07
+SDP_TREE_ROOT_NODE结构是 SDP 记录的基于树的表示形式的根元素。
+语法 C++
+typedef struct _SDP_TREE_ROOT_NODE {   SDP_NODE RootNode;
+} SDP_TREE_ROOT_NODE, *PSDP_TREE_ROOT_NODE;
+成员 RootNode
+一个 SDP_NODE 结构，表示基于树的 SDP 记录表示形式的根节点。言论
+多个 SDP 函数在生成基于树的 SDP 记录或将原始 SDP 记录流转换为基于树的记录时访问或输出此结构。
+SdpAddAttributeToTree 函数将包含 SDP 属性信息的SDP_NODE结构添加到现有 SDP_TREE_ROOT_NODE结构。
+SdpConvertStreamToTree 函数将此结构输出为从流转换为基于树的结构的 SDP 记录的根元素。
+SdpConvertTreeToStream 函数在将 SDP 记录的基于树的表示形式转换为流时，使用现有的 SDP_TREE_ROOT_NODE结构作为输入。
+SdpCreateNodeTree 函数创建空SDP_TREE_ROOT_NODE结构。 这是创建 SDP 记录作为树的第
+一步。 SDP 树完成后，使用 SDP 播发其服务的配置文件驱动程序可以使用 SdpConvertTreeToStream 函数将树转换为 SDP 记录流。
+SdpFindAttributeInTree 函数搜索 SDP 属性值的填充SDP_TREE_ROOT_NODE结构。要求
+ﾉ
+展开表
+
+≦ 376 ≧
+要求
+最低支持的客户端标头
+另请参阅 SDP_NODE
+SdpAddAttributeToTree SdpConvertStreamToTree SdpConvertTreeToStream
+SdpCreateNodeTree SdpFindAttributeInTree
+价值
+Windows Vista 及更高版本中的版本：_Supported。 sdpnode.h （包括 Sdpnode.h）
+

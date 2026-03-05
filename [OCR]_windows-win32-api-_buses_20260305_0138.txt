@@ -1,0 +1,3142 @@
+2026-03-05 01:38:16
+
+≦ 1 ≧
+USB 驱动程序参考项目2023/08/22
+USB 驱动程序参考技术概述。
+若要开发 USB 驱动程序参考，需要以下标头：
+genericusbfnioctl.h
+usbuser.h winusb.h winusbio.h
+有关此技术的编程指南，请参阅：
+USB 驱动程序参考
+IOCTL  
+IOCTL_GENERICUSBFN_ACTIVATE_USB_BUS
+告知我们有关下载 PDF 体验的信息。
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以通知 GenericUSBFn.sys 激活通用串行
+总线 (USB) 。 激活后，总线将准备好处理总线事件和处理流量。 IOCTL_GENERICUSBFN_BUS_EVENT_NOTIFICATION
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，用于注册通用串行总线 (USB) 事件。 IOCTL_GENERICUSBFN_CONTROL_STATUS_HANDSHAKE_IN
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以请求在 IN 方向的终结点 0 上进行零长度控制状态握手。
+IOCTL_GENERICUSBFN_CONTROL_STATUS_HANDSHAKE_OUT
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以在终结点 0 上的 OUT 方向上完成零长度控制状态握手。
+IOCTL_GENERICUSBFN_DEACTIVATE_USB_BUS 此 IOCTL 代码受 nevtot 支持。
+IOCTL_GENERICUSBFN_GET_CLASS_INFO
+
+≦ 2 ≧
+ 
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以检索有关注册表中配置的设备的可用管道的信息。
+IOCTL_GENERICUSBFN_GET_CLASS_INFO_EX
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以检索有关注册表中配置的设备的可用管道的信息。
+IOCTL_GENERICUSBFN_GET_INTERFACE_DESCRIPTOR_SET
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以获取设备上函数的整个接口描述符集。此 IOCTL 请求不会检索整个设备的接口描述符集。通用串行总线 (USB) 接口描述符为设备上的函数设置。
+IOCTL_GENERICUSBFN_GET_PIPE_STATE
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以获取指定的通用串行总线的状态(USB) 管道。
+IOCTL_GENERICUSBFN_REGISTER_USB_STRING
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，用于注册字符串描述符。通用串行总线(USB) 字符串描述符。
+IOCTL_GENERICUSBFN_SET_PIPE_STATE
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，用于设置指定的通用串行总线的状态(USB) 管道。
+IOCTL_GENERICUSBFN_TRANSFER_IN
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以在与输入缓冲区中的指定管道 ID 相对
+应的终结点上发出 IN 方向传输。 (IOCTL_GENERICUSBFN_TRANSFER_IN) IOCTL_GENERICUSBFN_TRANSFER_IN_APPEND_ZERO_PKT
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以在与输入缓冲区中的指定管道 ID 相对
+应的终结点上发出 IN 方向传输。 (IOCTL_GENERICUSBFN_TRANSFER_IN_APPEND_ZERO_PKT) IOCTL_GENERICUSBFN_TRANSFER_OUT
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以在与输入缓冲区中的指定管道 ID 相对
+应的终结点上发出 OUT 方向传输。 IOCTL_GET_HCD_DRIVERKEY_NAME
+IOCTL_GET_HCD_DRIVERKEY_NAME I/O 控制请求在注册表中检索 USB 主机控制器驱动程序的驱动程序密钥名称。
+
+≦ 3 ≧
+ 
+IOCTL_USB_DIAGNOSTIC_MODE_OFF
+IOCTL_USB_DIAGNOSTIC_MODE_OFF I/O 控件已弃用。 请勿使用。 IOCTL_USB_DIAGNOSTIC_MODE_ON
+IOCTL_USB_DIAGNOSTIC_MODE_ON I/O 控件已弃用。 请勿使用。 IOCTL_USB_GET_ROOT_HUB_NAME
+IOCTL_USB_GET_ROOT_HUB_NAME I/O 控制请求与 USB_ROOT_HUB_NAME 结构一起使用，以检
+索根中心的符号链接名称。IOCTL_USB_GET_ROOT_HUB_NAME是用户模式 I/O 控制请求。 IOCTL_USB_USER_REQUEST
+IOCTL_USB_USER_REQUEST I/O 控制请求可用于用户模式应用程序和内核模式驱动程序。
+枚举  
+USB_USER_ERROR_CODE
+USB_USER_ERROR_CODE枚举列出了 USB 用户模式请求失败时报告的错误代码。 WDMUSB_POWER_STATE
+WDMUSB_POWER_STATE枚举指示主机控制器或根集线器的电源状态。
+函数  
+WinUsb_AbortPipe
+WinUsb_AbortPipe函数中止管道的所有挂起传输。 这是一个同步操作。 WinUsb_ControlTransfer
+WinUsb_ControlTransfer函数通过默认控制终结点传输控制数据。 WinUsb_FlushPipe
+WinUsb_FlushPipe 函数放弃在管道中缓存的任何数据。 这是一个同步操作。
+
+≦ 4 ≧
+ 
+WinUsb_Free
+WinUsb_Free 函数释放WinUsb_Initialize分配的所有资源。 这是一个同步操作。 WinUsb_GetAdjustedFrameNumber
+WinUsb_GetAdjustedFrameNumber函数根据帧号值和时间戳计算当前 USB 帧编号。 WinUsb_GetAssociatedInterface
+WinUsb_GetAssociatedInterface 函数检索关联接口的句柄。 这是一个同步操作。 WinUsb_GetCurrentAlternateSetting
+WinUsb_GetCurrentAlternateSetting 函数获取接口的当前备用接口设置。 这是一个同步操作。 WinUsb_GetCurrentFrameNumber
+WinUsb_GetCurrentFrameNumber函数获取总线的当前帧编号。 WinUsb_GetCurrentFrameNumberAndQpc
+WinUsb_GetCurrentFrameNumberAndQpc函数检索系统查询性能计数器 (QPC) 与帧和微帧同步的值。
+WinUsb_GetDescriptor
+WinUsb_GetDescriptor 函数返回请求的描述符。 这是一个同步操作。 WinUsb_GetOverlappedResult
+WinUsb_GetOverlappedResult 函数检索对指定文件执行重叠操作的结果。 WinUsb_GetPipePolicy
+WinUsb_GetPipePolicy 函数检索与设备上的终结点关联的特定管道的策略。 这是一个同步操作。 WinUsb_GetPowerPolicy
+WinUsb_GetPowerPolicy 函数检索设备的电源策略。 这是一个同步操作。 WinUsb_Initialize
+WinUsb_Initialize 函数为文件句柄指定的设备创建 WinUSB 句柄。 WinUsb_QueryDeviceInformation
+WinUsb_QueryDeviceInformation 函数获取有关与 WinUSB 接口句柄关联的物理设备的信息。
+
+≦ 5 ≧
+ 
+WinUsb_QueryInterfaceSettings
+WinUsb_QueryInterfaceSettings 函数检索特定接口句柄的指定备用接口设置的接口描述符。 WinUsb_QueryPipe
+WinUsb_QueryPipe函数检索有关接口的指定终结点和关联管道的信息。 WinUsb_QueryPipeEx
+WinUsb_QueryPipeEx函数检索有关接口的指定终结点和关联管道的扩展信息。 WinUsb_ReadIsochPipe
+WinUsb_ReadIsochPipe函数从常时等量 OUT 终结点读取数据。 WinUsb_ReadIsochPipeAsap
+WinUsb_ReadIsochPipeAsap函数提交从常时等量 OUT 终结点读取数据的请求。 WinUsb_ReadPipe
+WinUsb_ReadPipe函数从指定的管道读取数据。 WinUsb_RegisterIsochBuffer
+WinUsb_RegisterIsochBuffer函数注册要用于常时等量传输的缓冲区。 WinUsb_ResetPipe
+WinUsb_ResetPipe函数重置数据切换并清除管道上的停止条件。 WinUsb_SetCurrentAlternateSetting
+WinUsb_SetCurrentAlternateSetting 函数设置接口的备用设置。 WinUsb_SetPipePolicy
+WinUsb_SetPipePolicy 函数为与设备上的终结点关联的特定管道设置策略。 这是一个同步操作。 WinUsb_SetPowerPolicy
+WinUsb_SetPowerPolicy 函数设置设备的电源策略。 WinUsb_StartTrackingForTimeSync
+WinUsb_StartTrackingForTimeSync 函数启动 USB 驱动程序堆栈中的时间同步功能，该功能可获取 USB 总线帧和微帧的关联系统 QPC 时间。
+
+≦ 6 ≧
+ 
+WinUsb_StopTrackingForTimeSync
+WinUsb_StopTrackingForTimeSync函数是 USB 驱动程序堆栈中时间同步功能的首要功能，用于获
+取 USB 总线帧和微帧的关联系统 QPC 时间。 WinUsb_UnregisterIsochBuffer
+WinUsb_UnregisterIsochBuffer函数释放WinUsb_RegisterIsochBuffer为常量传输分配的所有资源。
+这是一个同步操作。 WinUsb_WriteIsochPipe
+WinUsb_WriteIsochPipe 函数从指定的帧编号开始，将调用方提供的缓冲区的内容写入常时等量 OUT 终结点。
+WinUsb_WriteIsochPipeAsap
+WinUsb_WriteIsochPipeAsap提交将缓冲区内容写入常时常量 OUT 终结点的请求。 WinUsb_ReadPipe
+WinUsb_WritePipe函数将数据写入管道。
+结构  
+USB_BANDWIDTH_INFO
+USB_BANDWIDTH_INFO 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索有关已分配带宽的信息。
+USB_BUS_STATISTICS_0
+USB_BUS_STATISTICS_0 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索总线统计信息。
+USB_CLOSE_RAW_DEVICE_PARAMETERS
+不支持此结构。 USB_CLOSE_RAW_DEVICE_PARAMETERS结构与IOCTL_USB_USER_REQUEST I/O 控
+制请求一起使用，以关闭对总线上设备的原始访问。 USB_CONTROLLER_INFO_0
+USB_CONTROLLER_INFO_0 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索有关 USB 主控制器的信息。
+
+≦ 7 ≧
+ 
+USB_DRIVER_VERSION_PARAMETERS
+USB_DRIVER_VERSION_PARAMETERS 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索版本信息。
+USB_PASS_THRU_PARAMETERS
+USB_PASS_THRU_PARAMETERS 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以将
+特定于供应商的命令传递给主机控制器微型端口驱动程序。 USB_POWER_INFO
+USB_POWER_INFO结构与IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索主机控制器电
+源策略为指示的系统电源状态指定的设备电源状态。 USB_UNICODE_NAME
+USB_UNICODE_NAME 结构包含一个 Unicode 字符串，该字符串指定符号链接名称。 USBUSER_BANDWIDTH_INFO_REQUEST
+USBUSER_BANDWIDTH_INFO_REQUEST结构与IOCTL_USB_USER_REQUEST I/O 控制请求一起使
+用，以检索有关已分配带宽的信息。 USBUSER_BUS_STATISTICS_0_REQUEST
+USBUSER_BUS_STATISTICS_0_REQUEST 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索总线统计信息。
+USBUSER_CONTROLLER_UNICODE_NAME
+USBUSER_CONTROLLER_UNICODE_NAME 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求结合使
+用，以检索 USB 主机控制器驱动程序密钥名称。 USBUSER_GET_DRIVER_VERSION
+USBUSER_GET_DRIVER_VERSION 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以读
+取驱动程序和接口版本信息。 USBUSER_PASS_THRU_REQUEST
+USBUSER_PASS_THRU_REQUEST 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求结合使用，以将
+特定于供应商的命令发送到主机控制器微型端口驱动程序。 USBUSER_POWER_INFO_REQUEST
+USBUSER_POWER_INFO_REQUEST 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求结合使用，以检索有关特定系统状态与主机控制器和根集线器电源状态的关系的电源策略信息。
+
+≦ 8 ≧
+ 
+USBUSER_REQUEST_HEADER
+USBUSER_REQUEST_HEADER结构与IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以将用户
+模式请求发送到 USB 主控制器驱动程序。 WINUSB_PIPE_INFORMATION
+WINUSB_PIPE_INFORMATION 结构包含WinUsb_QueryPipe例程检索的管道信息。 WINUSB_PIPE_INFORMATION_EX
+WINUSB_PIPE_INFORMATION_EX 结构包含WinUsb_QueryPipeEx例程检索的管道信息。 WINUSB_SETUP_PACKET
+WINUSB_SETUP_PACKET 结构描述 USB 设置数据包。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 9 ≧
+genericusbfnioctl.h 标头项目2023/08/24
+USB 驱动程序引用使用此标头。 有关详细信息，请参阅：
+USB 驱动程序参考
+genericusbfnioctl.h 包含以下编程接口：
+IOCTL  
+IOCTL_GENERICUSBFN_ACTIVATE_USB_BUS
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以通知 GenericUSBFn.sys 激活通用串行
+总线 (USB) 。 激活后，总线将准备好处理总线事件并处理流量。 IOCTL_GENERICUSBFN_BUS_EVENT_NOTIFICATION
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以注册通用串行总线 (USB) 事件。 IOCTL_GENERICUSBFN_CONTROL_STATUS_HANDSHAKE_IN
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以在 IN 方向上的终结点 0 上请求零长度控制状态握手。
+IOCTL_GENERICUSBFN_CONTROL_STATUS_HANDSHAKE_OUT
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以在 OUT 方向上的终结点 0 上完成零长度控制状态握手。
+IOCTL_GENERICUSBFN_DEACTIVATE_USB_BUS 此 IOCTL 代码受 nevtot 支持。
+IOCTL_GENERICUSBFN_GET_CLASS_INFO
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以检索有关注册表中配置的设备的可用管道的信息。
+IOCTL_GENERICUSBFN_GET_CLASS_INFO_EX
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以检索注册表中配置的设备可用管道的相关信息。
+
+≦ 10 ≧
+ 
+IOCTL_GENERICUSBFN_GET_INTERFACE_DESCRIPTOR_SET
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以获取设备上函数的整个接口描述符集。此 IOCTL 请求不会检索为整个设备设置的接口描述符。通用串行总线 (USB) 接口描述符为设备上的函数设置。
+IOCTL_GENERICUSBFN_GET_PIPE_STATE
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以获取指定的通用串行总线 (USB) 管道的状态。
+IOCTL_GENERICUSBFN_REGISTER_USB_STRING
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，用于注册字符串描述符。通用串行总线(USB) 字符串描述符。
+IOCTL_GENERICUSBFN_SET_PIPE_STATE
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，用于设置指定的通用串行总线 (USB) 管道的状态。
+IOCTL_GENERICUSBFN_TRANSFER_IN
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以在与输入缓冲区中的指定管道 ID 对应
+的终结点上发出 IN 方向传输。 (IOCTL_GENERICUSBFN_TRANSFER_IN) IOCTL_GENERICUSBFN_TRANSFER_IN_APPEND_ZERO_PKT
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以在与输入缓冲区中的指定管道 ID 对应
+的终结点上发出 IN 方向传输。 (IOCTL_GENERICUSBFN_TRANSFER_IN_APPEND_ZERO_PKT) IOCTL_GENERICUSBFN_TRANSFER_OUT
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以在与输入缓冲区中的指定管道 ID 对应
+的终结点上发出 OUT 方向传输。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 11 ≧
+IOCTL_GENERICUSBFN_ACTIVATE_USB_B
+US IOCTL (genericusbfnioctl.h) 项目2023/08/24
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以通知 GenericUSBFn.sys 激活通用串行总线 (USB) 。 激活后，总线将准备好处理总线事件并处理流量。
+输入缓冲区 NULL。
+输入缓冲区长度无。
+输出缓冲区 NULL。
+输出缓冲区长度无。
+备注
+如果此 I/O 控制代码 (同步调用 IOCTL) ，请将 lpOverlapped 参数设置为 NULL。 如果异
+步调用此 IOCTL，请将 lpOverlapped 参数分配给指向包含事件对象的句柄的 OVERLAPPED 结构的指针。 事件对象在操作完成时发出信号。
+返回值是指示操作成功或失败的 BOOL 值。 TRUE 表示成功，否则为 FALSE。要求
+ 
+标头
+ 
+genericusbfnioctl.h (包括 GenericUsbFnIoctl.h)
+
+≦ 12 ≧
+另请参阅 DeviceIoControl
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 13 ≧
+IOCTL_GENERICUSBFN_BUS_EVENT_NO TIFICATION IOCTL (genericusbfnioctl.h) 项目2023/08/24
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以注册通用串行总线 (USB) 事件。 完成此请求后，可以接收有关事件（例如端口类型更改或收到非标准设置数据包）的通知。 输出缓冲区中包含的 USBFN_NOTIFICATION 结构指定发生了哪个事件以及任
+何关联的数据。输入缓冲区 NULL。
+输入缓冲区长度无。
+输出缓冲区 NULL。
+输出缓冲区长度无。
+备注
+如果此 I/O 控制代码 (同步调用 IOCTL) ，请将 lpOverlapped 参数设置为 NULL。 如果异
+步调用此 IOCTL，请将 lpOverlapped 参数分配给指向包含事件对象的句柄的 OVERLAPPED 结构的指针。 事件对象在操作完成时发出信号。
+返回值是指示操作成功或失败的 BOOL 值。 TRUE 表示成功，否则为 FALSE。要求
+ 
+标头
+ 
+genericusbfnioctl.h (包括 GenericUsbFnIoctl.h)
+
+≦ 14 ≧
+另请参阅 DeviceIoControl
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 15 ≧
+IOCTL_GENERICUSBFN_CONTROL_STAT US_HANDSHAKE_IN IOCTL
+(genericusbfnioctl.h) 项目2024/02/29
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以在 IN 方向上的终结点 0 上
+请求零长度控制状态握手。输入缓冲区
+指定终结点 0 的管道 ID 的 USBFNPIPEID 。
+输入缓冲区长度 USBFNPIPEID 的大小。
+输出缓冲区 NULL。
+输出缓冲区长度无。
+备注
+如果此 I/O 控制代码 (同步调用 IOCTL) ，请将 lpOverlapped 参数设置为 NULL。 如果异
+步调用此 IOCTL，请将 lpOverlapped 参数分配给指向包含事件对象的句柄的 OVERLAPPED 结构的指针。 事件对象在操作完成时发出信号。
+返回值是指示操作成功或失败的 BOOL 值。 TRUE 表示成功，否则为 FALSE。要求
+ﾉ
+展开表
+
+≦ 16 ≧
+要求 Header
+另请参阅 DeviceIoControl
+值
+genericusbfnioctl.h (包括 GenericUsbFnIoctl.h)
+IOCTL_GENERICUSBFN_CONTROL_STATUS_HANDSHAKE_OUT 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 17 ≧
+IOCTL_GENERICUSBFN_CONTROL_STAT US_HANDSHAKE_OUT IOCTL
+(genericusbfnioctl.h) 项目2024/02/29
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以在终结点 0 上的 OUT 方向
+上完成零长度控制状态握手。输入缓冲区
+指定终结点 0 的管道 ID 的 USBFNPIPEID 。
+输入缓冲区长度 USBFNPIPEID 的大小。
+输出缓冲区 NULL。
+输出缓冲区长度无。
+备注
+如果此 I/O 控制代码 (IOCTL) 同步调用，请将 lpOverlapped 参数设置为 NULL。 如果异步调用此 IOCTL，请将 lpOverlapped 参数分配给指向包含事件对象的句柄的 OVERLAPPED 结构的指针。 事件对象在操作完成时发出信号。
+返回值是指示操作成功或失败的 BOOL 值。 TRUE 表示成功，否则为 FALSE。要求
+ﾉ
+展开表
+
+≦ 18 ≧
+要求 Header
+另请参阅 DeviceIoControl
+值
+genericusbfnioctl.h (包括 GenericUsbFnIoctl.h)
+IOCTL_GENERICUSBFN_CONTROL_STATUS_HANDSHAKE_IN 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 19 ≧
+IOCTL_GENERICUSBFN_DEACTIVATE_US
+B_BUS IOCTL (genericusbfnioctl.h) 项目2024/03/13
+此 IOCTL 代码受 nevtot 支持。
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，此请求通知 GenericUSBFn.sys 停用通用串行总线 (USB) 。 停用后，总线无法再处理总线事件并处理流量。
+输入缓冲区 NULL。
+输入缓冲区长度无。
+输出缓冲区 NULL。
+输出缓冲区长度无。
+备注
+如果此 I/O 控制代码 (IOCTL) 同步调用，请将 lpOverlapped 参数设置为 NULL。 如果异步调用此 IOCTL，请将 lpOverlapped 参数分配给指向包含事件对象的句柄的 OVERLAPPED 结构的指针。 事件对象在操作完成时发出信号。
+返回值是指示操作成功或失败的 BOOL 值。 TRUE 表示成功，否则为 FALSE。要求
+ﾉ
+展开表
+
+≦ 20 ≧
+要求 Header
+另请参阅 DeviceIoControl
+值
+genericusbfnioctl.h (包括 GenericUsbFnIoctl.h)
+IOCTL_GENERICUSBFN_ACTIVATE_USB_BUS 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 21 ≧
+IOCTL_GENERICUSBFN_GET_CLASS_INF
+O IOCTL (genericusbfnioctl.h) 项目2023/08/24
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以检索有关注册表中配置的设备的可用管道的信息。
+输入缓冲区 NULL。
+输入缓冲区长度无。
+输出缓冲区
+提供有关设备可用管道信息的 USBFN_CLASS_INFORMATION_PACKET 。输出缓冲区长度
+USBFN_CLASS_INFORMATION_PACKET结构的大小。注解
+如果此 I/O 控制代码 (同步调用 IOCTL) ，请将 lpOverlapped 参数设置为 NULL。 如果异
+步调用此 IOCTL，请将 lpOverlapped 参数分配给指向包含事件对象的句柄的 OVERLAPPED 结构的指针。 事件对象在操作完成时发出信号。
+返回值是指示操作成功或失败的 BOOL 值。 TRUE 表示成功，否则为 FALSE。要求
+ 
+标头
+ 
+genericusbfnioctl.h (包括 GenericUsbFnIoctl.h)
+
+≦ 22 ≧
+另请参阅 DeviceIoControl
+IOCTL_GENERICUSBFN_GET_CLASS_INFO_EX 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 23 ≧
+IOCTL_GENERICUSBFN_GET_CLASS_INF
+O_EX IOCTL (genericusbfnioctl.h) 项目2024/02/28
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以检索有关注册表中配置的设备的可用管道的信息。
+输入缓冲区 NULL。
+输入缓冲区长度无。
+输出缓冲区
+一个 USBFN_CLASS_INFORMATION_PACKET_EX ，提供有关设备可用管道的信息。输出缓冲区长度
+USBFN_CLASS_INFORMATION_PACKET_EX结构的大小。注解
+如果此 I/O 控制代码 (IOCTL) 同步调用，请将 lpOverlapped 参数设置为 NULL。 如果异步调用此 IOCTL，请将 lpOverlapped 参数分配给指向包含事件对象的句柄的 OVERLAPPED 结构的指针。 事件对象在操作完成时发出信号。
+返回值是指示操作成功或失败的 BOOL 值。 TRUE 表示成功，否则为 FALSE。要求
+ﾉ
+要求 Header
+值
+genericusbfnioctl.h (包括 GenericUsbFnIoctl.h)
+展开表
+
+≦ 24 ≧
+另请参阅 DeviceIoControl
+IOCTL_GENERICUSBFN_GET_CLASS_INFO 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 25 ≧
+IOCTL_GENERICUSBFN_GET_INTERFACE_
+DESCRIPTOR_SET IOCTL(genericusbfnioctl.h) 项目2024/02/29
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以获取设备上函数的整个通用串行总线 (USB) 接口描述符集。
+注意 此 IOCTL 请求不会检索整个设备的接口描述符集。  
+输入缓冲区
+指向 USBFN_INTERFACE_INFO 结构的指针。输入缓冲区长度
+USBFN_INTERFACE_INFO结构的大小。输出缓冲区
+指向包含USBFN_INTERFACE_INFO结构的缓冲区 的 指针。 UFX (USB 函数类扩展) 使用整
+个接口描述符集（包括其终结点描述符）填充结构。输出缓冲区长度
+USBFN_INTERFACE_INFO的大小。注解
+必须在发送 IOCTL_GENERICUSBFN_ACTIVATE_USB_BUS 请求后发送此请求。
+整个接口描述符的长度是可变的。 类驱动程序可能需要发送此 IOCTL 请求两次才能获取整个描述符集。
+如果整个描述符集的长度大于指定的输出缓冲区长度，则 UFX 会将
+USBFN_INTERFACE_INFO的 Size 成员设置为实际缓冲区长度，并且请求失败并
+
+≦ 26 ≧
+STATUS_BUFFER_TOO_SMALL。 然后，驱动程序必须分配 由 Size 指定的长度的输出缓冲区，并重新发送请求。
+如果此 I/O 控制代码 (IOCTL) 同步调用，请将 lpOverlapped 参数设置为 NULL。 如果异步调用此 IOCTL，请将 lpOverlapped 参数分配给指向包含事件对象的句柄的 OVERLAPPED 结构的指针。 事件对象在操作完成时发出信号。
+返回值是指示操作成功或失败的 BOOL 值。 TRUE 表示成功，否则为 FALSE。要求
+ﾉ
+要求 Header
+另请参阅 DeviceIoControl
+反馈
+值
+genericusbfnioctl.h (包括 GenericUsbFnIoctl.h)
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 27 ≧
+IOCTL_GENERICUSBFN_GET_PIPE_STATE
+IOCTL (genericusbfnioctl.h) 项目2024/03/05
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以获取指定的通用串行总线的
+状态 (USB) 管道。输入缓冲区
+一个 USBFNPIPEID，指定要检索其状态信息的管道的 ID。
+输入缓冲区长度 USBFNPIPEID 的大小。
+输出缓冲区
+包含一个 BOOLEAN 值，该值指定指定的管道是否停止。 如果指定的管道已停止，则值
+为 TRUE;否则为 FALSE。输出缓冲区长度
+输出缓冲区的大小（以字节为单位）。注解
+如果此 I/O 控制代码 (IOCTL) 同步调用，请将 lpOverlapped 参数设置为 NULL。 如果异步调用此 IOCTL，请将 lpOverlapped 参数分配给指向包含事件对象的句柄的 OVERLAPPED 结构的指针。 事件对象在操作完成时发出信号。
+返回值是指示操作成功或失败的 BOOL 值。 TRUE 表示成功，否则为 FALSE。要求
+ﾉ
+展开表
+
+≦ 28 ≧
+要求 Header
+另请参阅 DeviceIoControl
+值
+genericusbfnioctl.h (包括 GenericUsbFnIoctl.h)
+IOCTL_GENERICUSBFN_SET_PIPE_STATE 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 29 ≧
+IOCTL_GENERICUSBFN_REGISTER_USB_S
+TRING IOCTL (genericusbfnioctl.h) 项目2023/08/24
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，用于注册通用串行总线 (USB)
+字符串描述符。输入缓冲区
+指向缓冲区的指针，该缓冲区包含带有 USB 字符串描述符 的 USBFN_USB_STRING 结构。
+输入缓冲区长度
+USBFN_USB_STRING结构的大小。
+输出缓冲区 NULL。
+输出缓冲区长度无。
+备注
+必须在发送IOCTL_GENERICUSBFN_ACTIVATE_USB_BUS请求后发送 此 请求。
+如果此 I/O 控制代码 (同步调用 IOCTL) ，请将 lpOverlapped 参数设置为 NULL。 如果异
+步调用此 IOCTL，请将 lpOverlapped 参数分配给指向包含事件对象的句柄的 OVERLAPPED 结构的指针。 事件对象在操作完成时发出信号。
+返回值是指示操作成功或失败的 BOOL 值。 TRUE 表示成功，否则为 FALSE。要求
+ 
+标头
+ 
+genericusbfnioctl.h (包括 GenericUsbFnIoctl.h)
+
+≦ 30 ≧
+另请参阅 DeviceIoControl
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 31 ≧
+IOCTL_GENERICUSBFN_SET_PIPE_STATE
+IOCTL (genericusbfnioctl.h) 项目2024/02/28
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，用于设置指定的通用串行总线
+(USB) 管道的状态。输入缓冲区
+一个 USBFNPIPEID ，指定要配置的管道的 ID。
+输入缓冲区长度 USBFNPIPEID 的大小。
+输出缓冲区
+包含一个布尔值，该值指定指定管道是否停止。 如果指定的管道停止，则值为 TRUE;否则为 FALSE。
+输出缓冲区长度
+输出缓冲区的大小（以字节为单位）。注解
+停止时，管道会将 STALL 事务数据包发送到主机。 有关详细信息，请参阅 USB 规范。如果此 I/O 控制代码 (同步调用 IOCTL) ，请将 lpOverlapped 参数设置为 NULL。 如果异
+步调用此 IOCTL，请将 lpOverlapped 参数分配给指向包含事件对象的句柄的 OVERLAPPED 结构的指针。 事件对象在操作完成时发出信号。
+返回值是指示操作成功或失败的 BOOL 值。 TRUE 表示成功，否则为 FALSE。要求
+ﾉ
+展开表
+
+≦ 32 ≧
+要求 Header
+另请参阅 DeviceIoControl
+值
+genericusbfnioctl.h (包括 GenericUsbFnIoctl.h)
+IOCTL_GENERICUSBFN_GET_PIPE_STATE 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 33 ≧
+IOCTL_GENERICUSBFN_TRANSFER_IN
+IOCTL (genericusbfnioctl.h) 项目2024/02/26
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以在与输入缓冲区中的指定管
+道 ID 相对应的终结点上发出 IN 方向传输。输入缓冲区
+一个 USBFNPIPEID，指定要在上执行传输的管道的 ID。
+输入缓冲区长度 USBFNPIPEID 的大小。
+输出缓冲区
+要发送到主机的数据。 从主机的角度来看，数据是从 IN 方向发送的，表示从设备到主机的出站传输。
+输出缓冲区长度
+输出缓冲区的大小（以字节为单位）。注解
+如果此 I/O 控制代码 (IOCTL) 同步调用，请将 lpOverlapped 参数设置为 NULL。 如果异步调用此 IOCTL，请将 lpOverlapped 参数分配给指向包含事件对象的句柄的 OVERLAPPED 结构的指针。 事件对象在操作完成时发出信号。
+返回值是指示操作成功或失败的 BOOL 值。 TRUE 表示成功，否则为 FALSE。要求
+ﾉ
+展开表
+
+≦ 34 ≧
+要求 Header
+另请参阅 DeviceIoControl
+值
+genericusbfnioctl.h (包括 GenericUsbFnIoctl.h)
+IOCTL_GENERICUSBFN_TRANSFER_IN_APPEND_ZERO_PKT
+IOCTL_GENERICUSBFN_TRANSFER_OUT 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 35 ≧
+IOCTL_GENERICUSBFN_TRANSFER_IN_A PPEND_ZERO_PKT IOCTL
+(genericusbfnioctl.h) 项目2024/02/28
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以在与输入缓冲区中的指定管道 ID 对应的终结点上发出 IN 方向传输。 成功发送输出缓冲区中的数据并且传输有效负载大小是终结点最大数据包大小的倍数后，将自动追加长度为零长度的数据包。 这应该
+用于与通用串行总线 (USB) 传输相对应的最后一个 I/O 请求。输入缓冲区
+一个 USBFNPIPEID，指定要进行传输的管道的 ID。
+输入缓冲区长度 USBFNPIPEID 的大小。
+输出缓冲区
+要发送到主机的数据。输出缓冲区长度
+输出缓冲区的大小（以字节为单位）。注解
+如果此 I/O 控制代码 (同步调用 IOCTL) ，请将 lpOverlapped 参数设置为 NULL。 如果异
+步调用此 IOCTL，请将 lpOverlapped 参数分配给指向包含事件对象的句柄的 OVERLAPPED 结构的指针。 事件对象在操作完成时发出信号。
+返回值是指示操作成功或失败的 BOOL 值。 TRUE 表示成功，否则为 FALSE。要求
+ﾉ
+展开表
+
+≦ 36 ≧
+要求 Header
+另请参阅 DeviceIoControl
+值
+genericusbfnioctl.h (包括 GenericUsbFnIoctl.h)
+IOCTL_GENERICUSBFN_TRANSFER_IN IOCTL_GENERICUSBFN_TRANSFER_OUT
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 37 ≧
+IOCTL_GENERICUSBFN_TRANSFER_OUT
+IOCTL (genericusbfnioctl.h) 项目2024/02/29
+此 I/O 控制代码 (IOCTL) 由用户模式服务或应用程序发送，以在与输入缓冲区中的指定管
+道 ID 相对应的终结点上发出 OUT 方向传输。输入缓冲区
+一个 USBFNPIPEID，指定要在上执行传输的管道的 ID。
+输入缓冲区长度 USBFNPIPEID 的大小。
+输出缓冲区从主机接收的数据。
+输出缓冲区长度
+输出缓冲区的大小（以字节为单位）。注解
+如果此 I/O 控制代码 (IOCTL) 同步调用，请将 lpOverlapped 参数设置为 NULL。 如果异步调用此 IOCTL，请将 lpOverlapped 参数分配给指向包含事件对象的句柄的 OVERLAPPED 结构的指针。 事件对象在操作完成时发出信号。
+返回值是指示操作成功或失败的 BOOL 值。 TRUE 表示成功，否则为 FALSE。要求
+ﾉ
+要求 Header
+值
+genericusbfnioctl.h (包括 GenericUsbFnIoctl.h)
+展开表
+
+≦ 38 ≧
+另请参阅 DeviceIoControl
+IOCTL_GENERICUSBFN_TRANSFER_IN
+IOCTL_GENERICUSBFN_TRANSFER_IN_APPEND_ZERO_PKT 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 39 ≧
+usbuser.h 标头项目2023/08/26
+USB 驱动程序参考使用此标头。 有关详细信息，请参阅：
+USB 驱动程序参考
+usbuser.h 包含以下编程接口：
+IOCTL  
+IOCTL_GET_HCD_DRIVERKEY_NAME
+IOCTL_GET_HCD_DRIVERKEY_NAME I/O 控制请求在注册表中检索 USB 主机控制器驱动程序的驱动程序密钥名称。
+IOCTL_USB_DIAGNOSTIC_MODE_OFF
+IOCTL_USB_DIAGNOSTIC_MODE_OFF I/O 控件已弃用。 请勿使用。 IOCTL_USB_DIAGNOSTIC_MODE_ON
+IOCTL_USB_DIAGNOSTIC_MODE_ON I/O 控件已弃用。 请勿使用。 IOCTL_USB_GET_ROOT_HUB_NAME
+IOCTL_USB_GET_ROOT_HUB_NAME I/O 控制请求与 USB_ROOT_HUB_NAME 结构一起使用，以检
+索根中心的符号链接名称。IOCTL_USB_GET_ROOT_HUB_NAME是用户模式 I/O 控制请求。 IOCTL_USB_USER_REQUEST
+IOCTL_USB_USER_REQUEST I/O 控制请求可用于用户模式应用程序和内核模式驱动程序。
+结构  
+USB_BANDWIDTH_INFO
+USB_BANDWIDTH_INFO结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索有关已分配带宽的信息。
+
+≦ 40 ≧
+ 
+USB_BUS_STATISTICS_0
+USB_BUS_STATISTICS_0 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索总线统计信息。
+USB_CLOSE_RAW_DEVICE_PARAMETERS
+不支持此结构。 USB_CLOSE_RAW_DEVICE_PARAMETERS结构与 IOCTL_USB_USER_REQUEST I/O 控
+制请求一起使用，以关闭对总线上设备的原始访问。 USB_CONTROLLER_INFO_0
+USB_CONTROLLER_INFO_0 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索有关 USB 主机控制器的信息。
+USB_DRIVER_VERSION_PARAMETERS
+USB_DRIVER_VERSION_PARAMETERS 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索版本信息。
+USB_PASS_THRU_PARAMETERS
+USB_PASS_THRU_PARAMETERS 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，将特
+定于供应商的命令传递给主机控制器微型端口驱动程序。 USB_POWER_INFO
+USB_POWER_INFO结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索主机控制器
+电源策略为指示的系统电源状态指定的设备电源状态。 USB_UNICODE_NAME
+USB_UNICODE_NAME 结构包含一个 Unicode 字符串，该字符串指定符号链接名称。 USBUSER_BANDWIDTH_INFO_REQUEST
+USBUSER_BANDWIDTH_INFO_REQUEST结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使
+用，以检索有关已分配带宽的信息。 USBUSER_BUS_STATISTICS_0_REQUEST
+USBUSER_BUS_STATISTICS_0_REQUEST 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索总线统计信息。
+USBUSER_CONTROLLER_UNICODE_NAME
+USBUSER_CONTROLLER_UNICODE_NAME 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求结合使用，以检索 USB 主机控制器驱动程序密钥名称。
+
+≦ 41 ≧
+ 
+USBUSER_GET_DRIVER_VERSION
+USBUSER_GET_DRIVER_VERSION 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以读
+取驱动程序和接口版本信息。 USBUSER_PASS_THRU_REQUEST
+USBUSER_PASS_THRU_REQUEST 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求结合使用，将特
+定于供应商的命令发送到主机控制器微型端口驱动程序。 USBUSER_POWER_INFO_REQUEST
+USBUSER_POWER_INFO_REQUEST 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求结合使用，以
+检索有关特定系统状态与主机控制器和根中心的电源状态关系的电源策略信息。 USBUSER_REQUEST_HEADER
+USBUSER_REQUEST_HEADER 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以将用户模式请求发送到 USB 主机控制器驱动程序。
+枚举  
+USB_USER_ERROR_CODE
+USB_USER_ERROR_CODE枚举列出了 USB 用户模式请求失败时报告的错误代码。 WDMUSB_POWER_STATE
+WDMUSB_POWER_STATE枚举指示主机控制器或根集线器的电源状态。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 42 ≧
+IOCTL_GET_HCD_DRIVERKEY_NAME
+IOCTL (usbuser.h) 项目2023/08/26
+IOCTL_GET_HCD_DRIVERKEY_NAME I/O 控制请求检索 USB 主机控制器驱动程序的注册表中的驱动程序密钥名称。
+IOCTL_GET_HCD_DRIVERKEY_NAME 是用户模式 I/O 控制请求。 此请求面向 USB 主机控制器 (GUID_DEVINTERFACE_USB_HOST_CONTROLLER) 。
+输入缓冲区无。
+输入缓冲区长度无。
+输出缓冲区
+AssociatedIrp.SystemBuffer 成员指定调用方分配的缓冲区的地址，该缓冲区包含
+USB_HCD_DRIVERKEY_NAME结构。 在输出时，此结构保存驱动程序密钥名称。 有关详
+细信息，请参阅“备注”。输出缓冲区长度
+此缓冲区的大小在 Parameters.DeviceIoControl.OutputBufferLength 成员中指定。注解
+若要在注册表中获取驱动程序密钥名称，必须执行以下任务：
+1. 声明 USB_HCD_DRIVERKEY_NAME类型的变量。 2. 通过在输出参数中指定变量的地址和大小，发送
+IOCTL_GET_HCD_DRIVERKEY_NAME 请求。 返回时，USB_HCD_DRIVERKEY_NAME
+的 ActualLength 成员包含分配缓冲区以保存用驱动程序密钥名称填充的 USB_HCD_DRIVERKEY_NAME所需的长度。
+3. 为缓冲区分配内存以保存 USB_HCD_DRIVERKEY_NAME 结构。 缓冲区的大小必须是接收的 ActualLength 值。
+
+≦ 43 ≧
+4. 通过在输出参数中传递指向分配的缓冲区及其大小的指针，发送
+IOCTL_GET_HCD_DRIVERKEY_NAME 请求。 返回时，USB_HCD_DRIVERKEY_NAME 的 DriverKeyName 成员是一个以 null 结尾的 Unicode 字符串，其中包含与主机控制器驱动程序关联的驱动程序密钥的名称。
+以下示例代码演示如何发送 IOCTL_GET_HCD_DRIVERKEY_NAME I/O 控制请求。
+C++/*++
+Routine Description:
+This routine prints the name of the driver key associated with
+the specified host controller driver. Arguments:
+HCD - Handle for host controller driver.
+Return Value: Boolean that indicates success or failure.--*/
+BOOL GetHCDDriverKeyName (HANDLE  HCD){
+    BOOL                    success;     ULONG                   nBytes;
+    USB_HCD_DRIVERKEY_NAME  driverKeyName;     PUSB_HCD_DRIVERKEY_NAME driverKeyNameW;
+    driverKeyNameW = NULL;
+    // 1. Get the length of the name of the driver key.     success = DeviceIoControl(HCD,
+        IOCTL_GET_HCD_DRIVERKEY_NAME,
+        NULL,         0,
+        &driverKeyName,
+        sizeof(driverKeyName),
+        &nBytes,         NULL);
+    if (!success)      {
+        printf("First IOCTL_GET_HCD_DRIVERKEY_NAME request failed\n");
+        goto GetHCDDriverKeyNameDone;     }
+    //2. Get the length of the driver key name.     nBytes = driverKeyName.ActualLength;
+
+≦ 44 ≧
+    if (nBytes <= sizeof(driverKeyName))      {
+        printf("Incorrect length received by  IOCTL_GET_HCD_DRIVERKEY_NAME.\n");
+        goto GetHCDDriverKeyNameDone;     }
+    // 3. Allocate memory for a USB_HCD_DRIVERKEY_NAME     //    to hold the driver key name.
+    driverKeyNameW = (PUSB_HCD_DRIVERKEY_NAME) malloc(nBytes);
+    if (driverKeyNameW == NULL)      {
+        printf("Failed to allocate memory.\n");
+        goto GetHCDDriverKeyNameDone;     }
+    // Get the name of the driver key of the device attached to     // the specified port.
+    success = DeviceIoControl(HCD,
+        IOCTL_GET_HCD_DRIVERKEY_NAME,
+        NULL,         0,
+        driverKeyNameW,
+        nBytes,         &nBytes,         NULL);
+    if (!success)      {
+        printf("Second IOCTL_GET_HCD_DRIVERKEY_NAME request failed.\n");
+        goto GetHCDDriverKeyNameDone;     }
+    // print the driver key name. 
+    printf("Driver Key Name: %s.\n", driverKeyNameW->DriverKeyName);
+GetHCDDriverKeyNameDone:     // Cleanup.
+    // Free the allocated memory for USB_HCD_DRIVERKEY_NAME.
+    if (driverKeyNameW != NULL)      {
+        free(driverKeyNameW);         driverKeyNameW = NULL;     }
+    return success;}
+
+≦ 45 ≧
+要求   标头
+另请参阅
+ 
+usbuser.h (包括 Usbioctl.h)
+USB_HCD_DRIVERKEY_NAME 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 46 ≧
+IOCTL_USB_DIAGNOSTIC_MODE_OFF
+IOCTL (usbuser.h) 项目2024/03/03
+IOCTL_USB_DIAGNOSTIC_MODE_OFF I/O 控件已弃用。 请勿使用。要求
+ﾉ
+要求 Header
+反馈
+此页面是否有帮助？
+提供产品反馈 
+值
+usbuser.h (包括 Usbioctl.h)
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 47 ≧
+IOCTL_USB_DIAGNOSTIC_MODE_ON
+IOCTL (usbuser.h) 项目2024/03/03
+IOCTL_USB_DIAGNOSTIC_MODE_ON I/O 控件已弃用。 请勿使用。要求
+ﾉ
+要求 Header
+反馈
+此页面是否有帮助？
+提供产品反馈 
+值
+usbuser.h (包括 Usbioctl.h)
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 48 ≧
+IOCTL_USB_GET_ROOT_HUB_NAME
+IOCTL (usbuser.h) 项目2024/03/03
+IOCTL_USB_GET_ROOT_HUB_NAME I/O 控制请求与 USB_ROOT_HUB_NAME 结构一起使用，以检索根中心的符号链接名称。
+IOCTL_USB_GET_ROOT_HUB_NAME 是用户模式 I/O 控制请求。 此请求面向 USB 主机控制器 (GUID_DEVINTERFACE_USB_HOST_CONTROLLER) 。
+输入缓冲区无。
+输入缓冲区长度无。
+输出缓冲区
+在输出中， AssociatedIrp.SystemBuffer 成员指向包含根中心的符号链接名称 的
+USB_ROOT_HUB_NAME 结构。 检索到的字符串中不包含前导“\xxx\ ”文本。输出缓冲区长度
+USB_ROOT_HUB_NAME结构的大小。要求
+ﾉ
+要求 Header
+另请参阅
+USB_ROOT_HUB_NAME
+值
+usbuser.h (包括 Usbioctl.h)
+展开表
+
+≦ 49 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 50 ≧
+IOCTL_USB_USER_REQUEST IOCTL
+(usbuser.h) 项目2023/08/26
+IOCTL_USB_USER_REQUEST I/O 控制请求可用于用户模式应用程序和内核模式驱动程序。
+IOCTL_USB_USER_REQUEST 是用户模式 I/O 控制请求。 此请求面向 USB 主机控制器(GUID_DEVINTERFACE_USB_HOST_CONTROLLER) 。
+调用方可以指定以下任何请求代码： USBUSER_CLEAR_ROOTPORT_FEATURE 请勿使用此请求。
+USBUSER_GET_CONTROLLER_DRIVER_KEY
+在 USB_UNICODE_NAME类型的 Unicode 字符串中报告主机控制器驱动程序密钥。 始终启用此请求。
+USBUSER_GET_CONTROLLER_INFO_0
+检索描述主机控制器 的USB_CONTROLLER_INFO_0 结构。 始终启用此请求。
+USBUSER_GET_ROOTPORT_STATUS 请勿使用此请求。
+USBUSER_GET_ROOTHUB_SYMBOLIC_NAME
+报告 USB_UNICODE_NAME类型的 Unicode 字符串中的根中心符号名称。 始终启用此请求。
+USBUSER_INVALID_REQUEST 请勿使用此请求。
+USBUSER_OP_CLOSE_RAW_DEVICE 请勿使用此请求。
+USBUSER_OP_OPEN_RAW_DEVICE 请勿使用此请求。
+USBUSER_OP_MASK_DEVONLY_API 请勿使用此请求。
+USBUSER_OP_MASK_HCTEST_API 请勿使用此请求。
+USBUSER_OP_RAW_RESET_PORT 请勿使用此请求。
+USBUSER_OP_SEND_ONE_PACKET 请勿使用此请求。
+USBUSER_OP_SEND_RAW_COMMAND 请勿使用此请求。
+USBUSER_SET_ROOTPORT_FEATURE
+
+≦ 51 ≧
+请勿使用此请求。
+USBUSER_PASS_THRU
+将 USB_PASS_THRU_PARAMETERS结构定义的 特定于供应商的命令发送到主机控制器微型端口驱动程序。 始终启用此请求。
+USBUSER_GET_BANDWIDTH_INFORMATION
+检索包含已分配带宽相关信息 的USB_BANDWIDTH_INFO 结构。 始终启用此请求。 USBUSER_GET_POWER_STATE_MAP
+检索包含主机控制器和根中心的电源状态信息的 USB_POWER_INFO 结构。 始终启用此请求。
+USBUSER_GET_BUS_STATISTICS_0
+检索包含总线统计信息 的USB_BUS_STATISTICS_0 结构。 始终启用此请求。
+USBUSER_GET_BUS_STATISTICS_0_AND_RESET 请勿使用此请求。
+USBUSER_GET_USB_DRIVER_INFORMATION
+检索指示驱动程序版本、USB 堆栈和关联接口的 USB_DRIVER_VERSION_PARAMETERS 结构。 始终启用此请求。
+USBUSER_GET_USB2_HW_VERSION
+请勿使用此请求。输入缓冲区
+Irp-AssociatedIrp.SystemBuffer> 中的缓冲区包含定义请求
+(USBUSER_REQUEST_HEADER) 的用户请求标头结构。 在标头结构之后是一个包含请求参
+数的结构。 有关与每个请求对应的参数结构的详细信息，请参阅每个请求的说明。输入缓冲区长度
+USBUSER_REQUEST_HEADER结构的大小。输出缓冲区
+参数结构紧跟在 Irp-AssociatedIrp.SystemBuffer> 的 USBUSER_REQUEST_HEADER 结构
+后面。 对于某些用户请求，当请求完成时，参数结构将包含输出数据。输出缓冲区长度
+参数结构的长度。要求
+
+≦ 52 ≧
+ 
+标头
+另请参阅
+ 
+usbuser.h (包括 Usbuser.h)
+USBUSER_REQUEST_HEADER
+USB_BANDWIDTH_INFO USB_CONTROLLER_INFO_0
+USB_DRIVER_VERSION_PARAMETERS USB_PASS_THRU_PARAMETERS
+USB_POWER_INFO USB_UNICODE_NAME
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 53 ≧
+(usbuser.h) USB_BANDWIDTH_INFO 结构
+项目2023/08/26
+USB_BANDWIDTH_INFO结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索有关已分配带宽的信息。
+语法 C++
+typedef struct _USB_BANDWIDTH_INFO {   ULONG DeviceCount;
+  ULONG TotalBusBandwidth;   ULONG Total32secBandwidth;
+  ULONG AllocedBulkAndControl;   ULONG AllocedIso;
+  ULONG AllocedInterrupt_1ms;   ULONG AllocedInterrupt_2ms;   ULONG AllocedInterrupt_4ms;   ULONG AllocedInterrupt_8ms;   ULONG AllocedInterrupt_16ms;   ULONG AllocedInterrupt_32ms;
+} USB_BANDWIDTH_INFO, *PUSB_BANDWIDTH_INFO;
+成员 DeviceCount
+总线上的设备数。 TotalBusBandwidth
+分配的带宽量（以位/毫秒为单位）。 Total32secBandwidth
+每个 32 毫秒时间段中分配的带宽位量。 AllocedBulkAndControl
+为批量和控制传输分配的带宽量（以每 32 毫秒的位为单位）。
+
+≦ 54 ≧
+AllocedIso
+为常量传输分配的带宽量（以每 32 毫秒的位为单位）。 AllocedInterrupt_1ms
+当时间段为 1 毫秒时，为中断事务分配的带宽量（以位为单位）。 AllocedInterrupt_2ms
+当时间段为 2 毫秒时，为中断事务分配的带宽量（以位为单位）。 AllocedInterrupt_4ms
+当时间段为 4 毫秒时，为中断事务分配的带宽量（以位为单位）。 AllocedInterrupt_8ms
+当时间段为 8 毫秒时，为中断事务分配的带宽量（以位为单位）。 AllocedInterrupt_16ms
+当时间段为 16 毫秒时，为中断事务分配的带宽量（以位为单位）。 AllocedInterrupt_32ms
+当时间段为 32 毫秒时，为中断事务分配的带宽量（以位为单位）。注解
+USB_BANDWIDTH_INFO结构与USBUSER_GET_BANDWIDTH_INFORMATION用户模式请求一起使用。 有关此请求的说明，请参阅 IOCTL_USB_USER_REQUEST。
+在 Windows 8 中，此请求成功完成。 但是，从基础 USB 3.0 驱动程序堆栈检索的值并不
+反映有关已分配带宽的实际信息。 这是因为 xHCI 控制器不会公开带宽信息。要求
+ 
+标头
+另请参阅
+ 
+usbuser.h (包括 Usbuser.h)
+
+≦ 55 ≧
+IOCTL_USB_USER_REQUEST
+USB 结构反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 56 ≧
+usbuser.h) (USB_BUS_STATISTICS_0 结构项目2023/08/26
+USB_BUS_STATISTICS_0 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索总线统计信息。
+语法 C++
+typedef struct _USB_BUS_STATISTICS_0 {   ULONG         DeviceCount;
+  LARGE_INTEGER CurrentSystemTime;   ULONG         CurrentUsbFrame;
+  ULONG         BulkBytes;   ULONG         IsoBytes;
+  ULONG         InterruptBytes;   ULONG         ControlDataBytes;   ULONG         PciInterruptCount;   ULONG         HardResetCount;   ULONG         WorkerSignalCount;   ULONG         CommonBufferBytes;   ULONG         WorkerIdleTimeMs;   BOOLEAN       RootHubEnabled;
+  UCHAR         RootHubDevicePowerState;   UCHAR         Unused;
+  UCHAR         NameIndex;
+} USB_BUS_STATISTICS_0, *PUSB_BUS_STATISTICS_0;
+成员 DeviceCount
+总线上的设备数。 CurrentSystemTime 当前系统时间。 CurrentUsbFrame
+当前 USB 帧的编号。 BulkBytes
+
+≦ 57 ≧
+大容量传输数据的数量（以字节为单位）。 IsoBytes
+常时常量数据的数量（以字节为单位）。 InterruptBytes
+中断数据的数量（以字节为单位）。 ControlDataBytes
+控制数据的数量（以字节为单位）。 PciInterruptCount
+中断数据的数量（以字节为单位）。 HardResetCount
+已发生的硬总线重置数。 WorkerSignalCount
+工作线程发出完成任务信号的次数。 CommonBufferBytes
+公共缓冲区传输的字节数。 WorkerIdleTimeMs
+工作线程处于空闲状态的时间（以毫秒为单位）。 RootHubEnabled
+一个布尔值，指示是否启用根中心。 如果 为 TRUE，则启用根中心。 如果 为 FALSE，则禁用根中心。
+RootHubDevicePowerState
+根中心设备的电源状态。 此成员可以具有以下任何值：
+值 0 1
+含义
+D0 电源状态 D1 电源状态
+
+≦ 58 ≧
+2 3
+Unused
+D2 电源状态 D3 电源状态
+如果此成员为 1，则总线处于活动状态。 如果为 0，则总线处于非活动状态。 NameIndex
+用于为中心 PDO 生成符号链接名称的索引。 此符号链接格式为 USBPDO-n，其中 n 是
+NameIndex 中的值。注解
+USB_BUS_STATISTICS_0结构与USBUSER_BUS_STATISTICS_0用户模式请求一起使用。 有关此请求的说明，请参阅 IOCTL_USB_USER_REQUEST。
+在 Windows 8 中，此请求成功完成。 但是，从基础 USB 3.0 驱动程序堆栈检索的值并不
+反映实际的总线统计信息。要求
+ 
+标头
+另请参阅
+ 
+usbuser.h (包括 Usbuser.h)
+IOCTL_USB_USER_REQUEST
+USB 结构反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 59 ≧
+usbuser.h)
+(USB_CLOSE_RAW_DEVICE_PARAMETER
+S 结构项目2023/08/26
+不支持此结构。
+USB_CLOSE_RAW_DEVICE_PARAMETERS结构与IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以关闭对总线上设备的原始访问。
+语法 C++
+typedef struct _USB_CLOSE_RAW_DEVICE_PARAMETERS {   ULONG xxx;
+} USB_CLOSE_RAW_DEVICE_PARAMETERS, *PUSB_CLOSE_RAW_DEVICE_PARAMETERS;
+成员 xxx 保留。注解
+USB_CLOSE_RAW_DEVICE_PARAMETERS结构用于USBUSER_OP_CLOSE_RAW_DEVICE用户
+模式请求。 有关此请求的说明，请参阅 IOCTL_USB_USER_REQUEST。要求
+ 
+标头
+另请参阅
+ 
+usbuser.h (包括 Usbuser.h)
+
+≦ 60 ≧
+IOCTL_USB_USER_REQUEST 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 61 ≧
+usbuser.h) (USB_CONTROLLER_INFO_0
+结构项目2024/03/03
+USB_CONTROLLER_INFO_0 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索有关 USB 主机控制器的信息。
+语法 C++
+typedef struct _USB_CONTROLLER_INFO_0 {
+  ULONG                 PciVendorId;   ULONG                 PciDeviceId;   ULONG                 PciRevision;
+  ULONG                 NumberOfRootPorts;   USB_CONTROLLER_FLAVOR ControllerFlavor;   ULONG                 HcFeatureFlags;
+} USB_CONTROLLER_INFO_0, *PUSB_CONTROLLER_INFO_0;
+成员 PciVendorId
+与主机控制器设备关联的供应商标识符。 PciDeviceId
+与主机控制器关联的设备标识符。 PciRevision
+主机控制器设备的修订号。 NumberOfRootPorts
+主控制器具有的根集线器端口数。
+注意在 Windows 8 中，USB 3.0 驱动程序堆栈在报告的 NumberOfRootPorts 值中
+不包括 SuperSpeed 集线器的数量。  
+
+≦ 62 ≧
+ControllerFlavor
+一个USB_CONTROLLER_FLAVOR类型的枚举器，用于指定控制器的类型。 HcFeatureFlags
+以下主机控制器功能标志的某种组合的按位 OR。
+主机控制器功能
+USB_HC_FEATURE_FLAG_PORT_POWER_SWITCHING USB_HC_FEATURE_FLAG_SEL_SUSPEND
+USB_HC_FEATURE_LEGACY_BIOS  
+含义
+ﾉ
+展开表
+在主控制器上启用电源切换。 此标志允许为热插拔设备供电。
+在主控制器上启用了选择性挂起。主机控制器具有旧版 BIOS。
+注意在 Windows 8中，基础 USB 3.0 驱动程序堆栈不会在 HcFeatureFlags 中设置任
+何主机控制器功能标志。  
+注解
+USB_CONTROLLER_INFO_0 结构与USBUSER_GET_CONTROLLER_INFO_0用户模式请求一
+起使用。 有关此请求的说明，请参阅 IOCTL_USB_USER_REQUEST。要求
+ﾉ
+要求 Header
+另请参阅
+值
+usbuser.h (包括 Usbuser.h)
+IOCTL_USB_USER_REQUEST USB_CONTROLLER_FLAVOR
+展开表
+
+≦ 63 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 64 ≧
+USB_DRIVER_VERSION_PARAMETERS 结
+构 (usbuser.h) 项目2024/03/03
+USB_DRIVER_VERSION_PARAMETERS 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索版本信息。
+语法 C++
+typedef struct _USB_DRIVER_VERSION_PARAMETERS {   ULONG   DriverTrackingCode;
+  ULONG   USBDI_Version;   ULONG   USBUSER_Version;   BOOLEAN CheckedPortDriver;
+  BOOLEAN CheckedMiniportDriver;   USHORT  USB_Version;
+} USB_DRIVER_VERSION_PARAMETERS, *PUSB_DRIVER_VERSION_PARAMETERS; 成员
+DriverTrackingCode
+一个跟踪代码，用于标识 USB 堆栈的修订。 USBDI_Version
+USB 堆栈支持的 USB 驱动程序接口的版本。 USBUSER_Version
+USB 堆栈支持的 USB 用户界面版本。 CheckedPortDriver
+一个布尔值，指示是否已加载主控制器驱动程序的选中版本。 如果 为 TRUE，则加载主
+控制器驱动程序的检查版本。 如果 为 FALSE，则不会加载选中的版本。 CheckedMiniportDriver
+一个布尔值，指示是否已加载已检查版本的主机控制器微型端口驱动程序。 如果 为
+TRUE，则加载已检查版本的主机控制器微型端口驱动程序。 如果 为 FALSE，则不会加载
+
+≦ 65 ≧
+选中的版本。 USB_Version
+USB 堆栈支持的 USB 版本。 值为 0x0110 表示 USB 堆栈支持版本 1.1。 值为 0x0200 表
+示 USB 堆栈支持版本 2.0。注解
+USB_DRIVER_VERSION_PARAMETERS结构与USBUSER_GET_USB_DRIVER_VERSION用户
+模式请求一起使用。 有关此请求的说明，请参阅 IOCTL_USB_USER_REQUEST。要求
+ﾉ
+要求 Header
+另请参阅
+值
+usbuser.h (包括 Usbuser.h)
+IOCTL_USB_USER_REQUEST
+USB 结构反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 66 ≧
+USB_PASS_THRU_PARAMETERS 结构
+(usbuser.h) 项目2024/03/13
+USB_PASS_THRU_PARAMETERS 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，将特定于供应商的命令传递给主机控制器微型端口驱动程序。
+语法 C++
+typedef struct _USB_PASS_THRU_PARAMETERS {   GUID  FunctionGUID;
+  ULONG ParameterLength;   UCHAR Parameters[4];
+} USB_PASS_THRU_PARAMETERS, *PUSB_PASS_THRU_PARAMETERS;
+成员 FunctionGUID
+标识主机控制器微型端口驱动程序的操作的 GUID。 ParameterLength
+USB_PASS_THRU_PARAMETERS结构的大小（以字节为单位）。 Parameters[4]
+包含命令的参数数据的可变长度数组。注解
+USB_PASS_THRU_PARAMETERS 结构与USBUSER_PASS_THRU用户模式请求一起使用。
+有关此请求的详细信息，请参阅 IOCTL_USB_USER_REQUEST。要求
+ﾉ
+展开表
+
+≦ 67 ≧
+要求 Header
+另请参阅
+值
+usbuser.h (包括 Usbuser.h)
+IOCTL_USB_USER_REQUEST
+USB 结构反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 68 ≧
+USB_POWER_INFO 结构 (usbuser.h) 项目2023/08/26
+USB_POWER_INFO结构与IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索主机控制器电源策略为指示的系统电源状态指定的设备电源状态。
+语法 C++
+typedef struct _USB_POWER_INFO {   WDMUSB_POWER_STATE SystemState;
+  WDMUSB_POWER_STATE HcDevicePowerState;
+  WDMUSB_POWER_STATE HcDeviceWake;   WDMUSB_POWER_STATE HcSystemWake;
+  WDMUSB_POWER_STATE RhDevicePowerState;
+  WDMUSB_POWER_STATE RhDeviceWake;   WDMUSB_POWER_STATE RhSystemWake;
+  WDMUSB_POWER_STATE LastSystemSleepState;
+  BOOLEAN            CanWakeup;   BOOLEAN            IsPowered;
+} USB_POWER_INFO, *PUSB_POWER_INFO;
+成员 SystemState
+输入时， WDMUSB_POWER_STATE类型的枚举器值，该值指定系统电源状态。 HcDevicePowerState
+输出时， WDMUSB_POWER_STATE类型的枚举器值，该值指定主机控制器的设备电源状态。
+HcDeviceWake
+输出时， WDMUSB_POWER_STATE类型的枚举器值，该值指定主机控制器是否处于唤醒状态。
+HcSystemWake
+输出时， WDMUSB_POWER_STATE类型的枚举器值，该值指定主机控制器是否可以唤醒系统。
+
+≦ 69 ≧
+RhDevicePowerState
+输出时， WDMUSB_POWER_STATE类型的枚举器值，该值指定根集线器的设备电源状态。
+RhDeviceWake
+输出时， WDMUSB_POWER_STATE类型的枚举器值，该值指定根中心是否处于唤醒状态。
+RhSystemWake
+输出时， WDMUSB_POWER_STATE类型的枚举器值，该值指定根中心是否可以唤醒系统。
+LastSystemSleepState
+输出时， WDMUSB_POWER_STATE类型的枚举器值，该值指定上次系统睡眠状态。 CanWakeup
+一个布尔值，指示主机控制器设备是否可以从指定的系统电源状态唤醒系统。 如果 为 TRUE，则主机控制器设备可以唤醒系统。 如果 为 FALSE，则主机控制器无法唤醒系统。
+IsPowered
+一个布尔值，指示主机控制器在处于指定系统电源状态时是否通电。 如果 为 TRUE，则
+为主机控制器供电。 如果 为 FALSE，则主机控制器未通电。注解
+USB_POWER_INFO结构与USBUSER_GET_POWER_STATE_MAP用户模式请求一起使用。
+有关此请求的详细信息，请参阅 IOCTL_USB_USER_REQUEST。要求
+ 
+标头
+另请参阅
+ 
+usbuser.h (包括 Usbuser.h)
+IOCTL_USB_USER_REQUEST
+
+≦ 70 ≧
+USB 结构反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 71 ≧
+usbuser.h) (USB_UNICODE_NAME 结构项目2024/03/03
+USB_UNICODE_NAME 结构包含一个 Unicode 字符串，该字符串指定符号链接名称。
+语法 C++
+typedef struct _USB_UNICODE_NAME {   ULONG Length;
+  WCHAR String[1];
+} USB_UNICODE_NAME, *PUSB_UNICODE_NAME;
+成员 Length
+字符串的长度（以字节为单位）。 String[1]
+指向字符串的指针。要求
+ﾉ
+要求 Header
+另请参阅
+USB 结构反馈
+值
+usbuser.h (包括 Usbuser.h)
+展开表
+
+≦ 72 ≧
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 73 ≧
+USB_USER_ERROR_CODE 枚举
+(usbuser.h) 项目2023/08/26
+USB_USER_ERROR_CODE枚举列出了 USB 用户模式请求在失败时报告的错误代码。
+语法 C++
+typedef enum _USB_USER_ERROR_CODE {
+  UsbUserSuccess = 0,   UsbUserNotSupported,
+  UsbUserInvalidRequestCode,   UsbUserFeatureDisabled,
+  UsbUserInvalidHeaderParameter,   UsbUserInvalidParameter,
+  UsbUserMiniportError,   UsbUserBufferTooSmall,   UsbUserErrorNotMapped,
+  UsbUserDeviceNotStarted,   UsbUserNoDeviceConnected} USB_USER_ERROR_CODE;
+常量  
+UsbUserSuccess 值： 0
+用户请求成功。
+UsbUserNotSupported 不支持用户请求。
+UsbUserInvalidRequestCode
+用户请求代码无效。 UsbUserFeatureDisabled
+用户请求指定的功能被禁用。 UsbUserInvalidHeaderParameter 用户请求包含无效的标头参数。
+
+≦ 74 ≧
+ 
+UsbUserInvalidParameter 用户请求包含无效参数。
+UsbUserMiniportError
+由于微型端口驱动程序错误，用户请求失败。 UsbUserBufferTooSmall
+用户请求失败，因为数据缓冲区太小。 UsbUserErrorNotMapped
+USB 堆栈无法将错误映射到此枚举中列出的错误之一。
+UsbUserDeviceNotStarted 设备未启动。
+UsbUserNoDeviceConnected
+设备未连接。要求
+ 
+标头
+另请参阅 USB 常量和枚举
+反馈
+此页面是否有帮助？
+ 
+usbuser.h (包括 Usbuser.h)
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 75 ≧
+(usbuser.h)
+USBUSER_BANDWIDTH_INFO_REQUEST
+结构项目2024/03/03
+USBUSER_BANDWIDTH_INFO_REQUEST 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索有关已分配带宽的信息。
+语法 C++
+typedef struct _USBUSER_BANDWIDTH_INFO_REQUEST {   USBUSER_REQUEST_HEADER Header;
+  USB_BANDWIDTH_INFO     BandwidthInformation;
+} USBUSER_BANDWIDTH_INFO_REQUEST, *PUSBUSER_BANDWIDTH_INFO_REQUEST;
+成员 Header
+一个USBUSER_REQUEST_HEADER结构，用于指定输入时IOCTL_USB_USER_REQUEST的用
+户模式请求，并在输出中提供缓冲区和状态信息。 BandwidthInformation
+报告带宽分配信息的 USB_BANDWIDTH_INFO 结构。注解
+USBUSER_BANDWIDTH_INFO_REQUEST结构与
+USBUSER_GET_BANDWIDTH_INFORMATION用户模式请求一起使用。 有关此请求的详细
+信息，请参阅 IOCTL_USB_USER_REQUEST。要求
+ﾉ
+展开表
+
+≦ 76 ≧
+要求 Header
+另请参阅
+值
+usbuser.h (包括 Usbuser.h)
+IOCTL_USB_USER_REQUEST USB 结构
+USBUSER_REQUEST_HEADER
+USB_BANDWIDTH_INFO 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 77 ≧
+USBUSER_BUS_STATISTICS_0_REQUEST
+结构 (usbuser.h) 项目2023/08/26
+USBUSER_BUS_STATISTICS_0_REQUEST 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以检索总线统计信息。
+语法 C++
+typedef struct _USBUSER_BUS_STATISTICS_0_REQUEST {   USBUSER_REQUEST_HEADER Header;
+  USB_BUS_STATISTICS_0   BusStatistics0;
+} USBUSER_BUS_STATISTICS_0_REQUEST, *PUSBUSER_BUS_STATISTICS_0_REQUEST;
+成员 Header
+一个USBUSER_REQUEST_HEADER结构，用于指定输入时IOCTL_USB_USER_REQUEST的用
+户模式请求，并在输出中提供缓冲区和状态信息。 BusStatistics0
+报告总线统计信息 的USB_BUS_STATISTICS_0 结构。注解
+USBUSER_BUS_STATISTICS_0_REQUEST结构与USBUSER_GET_BUS_STATISTICS_0用户模
+式请求一起使用。 有关此请求的详细信息，请参阅 IOCTL_USB_USER_REQUEST。要求
+ 
+标头
+ 
+usbuser.h (包括 Usbuser.h)
+
+≦ 78 ≧
+另请参阅
+IOCTL_USB_USER_REQUEST USB 结构
+USBUSER_REQUEST_HEADER
+USB_BUS_STATISTICS_0 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 79 ≧
+usbuser.h)
+(USBUSER_CONTROLLER_UNICODE_NA
+ME 结构项目2024/03/03
+USBUSER_CONTROLLER_UNICODE_NAME 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求结合使用，以检索 USB 主机控制器驱动程序密钥名称。
+语法 C++
+typedef struct _USBUSER_CONTROLLER_UNICODE_NAME {   USBUSER_REQUEST_HEADER Header;
+  USB_UNICODE_NAME       UnicodeName;
+} USBUSER_CONTROLLER_UNICODE_NAME, *PUSBUSER_CONTROLLER_UNICODE_NAME;
+成员 Header
+包含 USBUSER_REQUEST_HEADER 类型的结构，该结构指定输入到
+IOCTL_USB_USER_REQUEST时的用户模式请求，并提供输出的缓冲区和状态信息。 UnicodeName
+包含 USB_UNICODE_NAME类型的 Unicode 字符串，用于报告主机控制器的驱动程序密
+钥名称。注解
+USBUSER_CONTROLLER_UNICODE_NAME结构与
+USBUSER_GET_CONTROLLER_DRIVER_KEY用户模式请求结合使用。 有关此请求的说明，
+请参阅 IOCTL_USB_USER_REQUEST。要求
+
+≦ 80 ≧
+要求 Header
+另请参阅
+值
+usbuser.h (包括 Usbuser.h)
+IOCTL_USB_USER_REQUEST USB 结构
+USBUSER_REQUEST_HEADER
+USB_UNICODE_NAME 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 81 ≧
+USBUSER_GET_DRIVER_VERSION 结构
+(usbuser.h) 项目2023/08/26
+USBUSER_GET_DRIVER_VERSION 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以读取驱动程序和接口版本信息。
+语法 C++
+typedef struct _USBUSER_GET_DRIVER_VERSION {   USBUSER_REQUEST_HEADER        Header;
+  USB_DRIVER_VERSION_PARAMETERS Parameters;
+} USBUSER_GET_DRIVER_VERSION, *PUSBUSER_GET_DRIVER_VERSION;
+成员 Header
+一个USBUSER_REQUEST_HEADER结构，用于指定输入时IOCTL_USB_USER_REQUEST的用
+户模式请求，并提供有关输出的缓冲区和状态信息。 Parameters
+一个USB_DRIVER_VERSION_PARAMETERS结构，用于指定与此请求关联的参数。注解
+USBUSER_GET_DRIVER_VERSION结构与USBUSER_GET_USB_DRIVER_VERSION用户模式
+请求一起使用。 有关此请求的详细信息，请参阅 IOCTL_USB_USER_REQUEST。要求
+ 
+标头
+ 
+usbuser.h (包括 Usbuser.h)
+
+≦ 82 ≧
+另请参阅
+IOCTL_USB_USER_REQUEST USB 结构
+USBUSER_REQUEST_HEADER
+USB_DRIVER_VERSION_PARAMETERS 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 83 ≧
+USBUSER_PASS_THRU_REQUEST 结构
+(usbuser.h) 项目2024/03/13
+USBUSER_PASS_THRU_REQUEST结构与 IOCTL_USB_USER_REQUEST I/O 控制请求结合使用，以将特定于供应商的命令发送到主机控制器微型端口驱动程序。
+语法 C++
+typedef struct _USBUSER_PASS_THRU_REQUEST {
+  USBUSER_REQUEST_HEADER   Header;   USB_PASS_THRU_PARAMETERS PassThru;
+} USBUSER_PASS_THRU_REQUEST, *PUSBUSER_PASS_THRU_REQUEST;
+成员 Header
+包含 USBUSER_REQUEST_HEADER 类型的结构，该结构指定输入到
+IOCTL_USB_USER_REQUEST时的用户模式请求，并提供输出的缓冲区和状态信息。 PassThru
+包含 USB_PASS_THRU_PARAMETERS 类型的结构，该结构指定与此请求关联的参数。注解
+USBUSER_PASS_THRU_REQUEST 结构与USBUSER_PASS_THRU用户模式请求结合使用。
+有关此请求的说明，请参阅 IOCTL_USB_USER_REQUEST。要求
+ﾉ
+要求 Header
+值
+usbuser.h (包括 Usbuser.h)
+展开表
+
+≦ 84 ≧
+另请参阅
+IOCTL_USB_USER_REQUEST
+USB 结构反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 85 ≧
+USBUSER_POWER_INFO_REQUEST 结构
+(usbuser.h) 项目2024/03/13
+USBUSER_POWER_INFO_REQUEST 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求结合使用，以检索有关特定系统状态与主机控制器和根中心的电源状态关系的电源策略信息。
+语法 C++
+typedef struct _USBUSER_POWER_INFO_REQUEST {   USBUSER_REQUEST_HEADER Header;
+  USB_POWER_INFO         PowerInformation;
+} USBUSER_POWER_INFO_REQUEST, *PUSBUSER_POWER_INFO_REQUEST;
+成员 Header
+包含 USBUSER_REQUEST_HEADER 类型的结构，该结构指定IOCTL_USB_USER_REQUEST
+输入时的用户模式 请求，并提供输出的缓冲区和状态信息。 PowerInformation
+包含 类型为 USB_POWER_INFO 的结构，该结构指定与此请求关联的参数。注解
+USBUSER_POWER_INFO_REQUEST结构与USBUSER_GET_POWER_STATE_MAP用户模式请
+求结合使用。 有关此请求的说明，请参阅 IOCTL_USB_USER_REQUEST。要求
+ﾉ
+展开表
+
+≦ 86 ≧
+要求 Header
+另请参阅
+值
+usbuser.h (包括 Usbuser.h)
+IOCTL_USB_USER_REQUEST
+USB 结构反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 87 ≧
+usbuser.h) (USBUSER_REQUEST_HEADER
+结构项目2024/03/13
+USBUSER_REQUEST_HEADER结构与IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以将用户模式请求发送到 USB 主控制器驱动程序。
+语法 C++
+typedef struct _USBUSER_REQUEST_HEADER {   ULONG               UsbUserRequest;
+  USB_USER_ERROR_CODE UsbUserStatusCode;   ULONG               RequestBufferLength;   ULONG               ActualBufferLength;
+} USBUSER_REQUEST_HEADER, *PUSBUSER_REQUEST_HEADER; 成员
+UsbUserRequest
+用户模式请求。 有关此成员可能值的列表和说明，请参阅 IOCTL_USB_USER_REQUEST。 UsbUserStatusCode
+端口驱动程序返回的状态代码。 RequestBufferLength
+数据缓冲区的大小（以字节为单位）。 输入和输出使用相同的缓冲区。 ActualBufferLength
+请求检索的数据的大小（以字节为单位）。注解
+USBUSER_REQUEST_HEADER 结构与 IOCTL_USB_USER_REQUEST I/O 控制请求一起使用，以将用户模式请求发送到 USB 端口驱动程序。
+
+≦ 88 ≧
+要求要求 Header
+另请参阅
+值
+usbuser.h (包括 Usbuser.h)
+IOCTL_USB_USER_REQUEST
+USB 结构反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 89 ≧
+WDMUSB_POWER_STATE 枚举
+(usbuser.h) 项目2024/03/03
+WDMUSB_POWER_STATE枚举指示主机控制器或根集线器的电源状态。
+语法 C++
+typedef enum _WDMUSB_POWER_STATE {   WdmUsbPowerNotMapped = 0,
+  WdmUsbPowerSystemUnspecified = 100,
+  WdmUsbPowerSystemWorking,   WdmUsbPowerSystemSleeping1,   WdmUsbPowerSystemSleeping2,   WdmUsbPowerSystemSleeping3,   WdmUsbPowerSystemHibernate,   WdmUsbPowerSystemShutdown,
+  WdmUsbPowerDeviceUnspecified = 200,
+  WdmUsbPowerDeviceD0,   WdmUsbPowerDeviceD1,   WdmUsbPowerDeviceD2,   WdmUsbPowerDeviceD3} WDMUSB_POWER_STATE;
+常量  
+WdmUsbPowerNotMapped 值： 0
+未映射电源状态信息。
+WdmUsbPowerSystemUnspecified 值： 100
+电源状态信息不可用。 WdmUsbPowerSystemWorking 系统处于工作状态。
+ﾉ
+展开表
+
+≦ 90 ≧
+ 
+WdmUsbPowerSystemSleeping1 系统处于 S1 电源状态。
+WdmUsbPowerSystemSleeping2 系统处于 S2 电源状态。
+WdmUsbPowerSystemSleeping3 系统处于 S3 电源状态。
+WdmUsbPowerSystemHibernate 系统处于休眠状态。
+WdmUsbPowerSystemShutdown 系统已关闭。
+WdmUsbPowerDeviceUnspecified 值： 200
+未指定设备。
+WdmUsbPowerDeviceD0
+主控制器处于 D0 电源状态。 WdmUsbPowerDeviceD1
+主控制器处于 D1 电源状态。 WdmUsbPowerDeviceD2
+主机控制器处于 D2 电源状态。 WdmUsbPowerDeviceD3
+主机控制器处于 D3 电源状态。注解
+USB 堆栈使用 WDMUSB_POWER_STATE 枚举在收到 USBUSER_GET_POWER_STATE_MAP 请求后报告主机控制器的电源状态。 有关此请求的详细信息，请参阅
+IOCTL_USB_USER_REQUEST。要求
+ﾉ
+要求 Header
+值
+usbuser.h (包括 Usbuser.h)
+展开表
+
+≦ 91 ≧
+另请参阅
+IOCTL_USB_USER_REQUEST
+USB 常量和枚举反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 92 ≧
+winusb.h 标头项目2023/08/27
+USB 驱动程序参考使用此标头。 有关详细信息，请参阅：
+USB 驱动程序参考
+winusb.h 包含以下编程接口：
+函数  
+WinUsb_AbortPipe
+WinUsb_AbortPipe函数中止管道的所有挂起传输。 这是一个同步操作。 WinUsb_ControlTransfer
+WinUsb_ControlTransfer函数通过默认控制终结点传输控制数据。 WinUsb_FlushPipe
+WinUsb_FlushPipe 函数放弃在管道中缓存的任何数据。 这是一个同步操作。 WinUsb_Free
+WinUsb_Free 函数释放WinUsb_Initialize分配的所有资源。 这是一个同步操作。 WinUsb_GetAdjustedFrameNumber
+WinUsb_GetAdjustedFrameNumber函数根据帧号值和时间戳计算当前 USB 帧编号。 WinUsb_GetAssociatedInterface
+WinUsb_GetAssociatedInterface 函数检索关联接口的句柄。 这是一个同步操作。 WinUsb_GetCurrentAlternateSetting
+WinUsb_GetCurrentAlternateSetting 函数获取接口的当前备用接口设置。 这是一个同步操作。 WinUsb_GetCurrentFrameNumber
+WinUsb_GetCurrentFrameNumber函数获取总线的当前帧编号。 WinUsb_GetCurrentFrameNumberAndQpc
+
+≦ 93 ≧
+ 
+WinUsb_GetCurrentFrameNumberAndQpc函数检索系统查询性能计数器 (QPC) 与帧和微帧同步的值。
+WinUsb_GetDescriptor
+WinUsb_GetDescriptor 函数返回请求的描述符。 这是一个同步操作。 WinUsb_GetOverlappedResult
+WinUsb_GetOverlappedResult 函数检索对指定文件执行重叠操作的结果。 WinUsb_GetPipePolicy
+WinUsb_GetPipePolicy 函数检索与设备上的终结点关联的特定管道的策略。 这是一个同步操作。 WinUsb_GetPowerPolicy
+WinUsb_GetPowerPolicy 函数检索设备的电源策略。 这是一个同步操作。 WinUsb_Initialize
+WinUsb_Initialize 函数为文件句柄指定的设备创建 WinUSB 句柄。 WinUsb_QueryDeviceInformation
+WinUsb_QueryDeviceInformation 函数获取有关与 WinUSB 接口句柄关联的物理设备的信息。 WinUsb_QueryInterfaceSettings
+WinUsb_QueryInterfaceSettings 函数检索特定接口句柄的指定备用接口设置的接口描述符。 WinUsb_QueryPipe
+WinUsb_QueryPipe 函数检索有关接口的指定终结点和关联管道的信息。 WinUsb_QueryPipeEx
+WinUsb_QueryPipeEx 函数检索有关指定终结点和接口的关联管道的扩展信息。 WinUsb_ReadIsochPipe
+WinUsb_ReadIsochPipe 函数从常时等量 OUT 终结点读取数据。 WinUsb_ReadIsochPipeAsap
+WinUsb_ReadIsochPipeAsap 函数提交从常时等量 OUT 终结点读取数据的请求。 WinUsb_ReadPipe
+WinUsb_ReadPipe 函数从指定管道读取数据。
+
+≦ 94 ≧
+ 
+WinUsb_RegisterIsochBuffer
+WinUsb_RegisterIsochBuffer 函数注册要用于常量传输的缓冲区。 WinUsb_ResetPipe
+WinUsb_ResetPipe 函数重置数据切换并清除管道上的停止条件。 WinUsb_SetCurrentAlternateSetting
+WinUsb_SetCurrentAlternateSetting 函数设置接口的备用设置。 WinUsb_SetPipePolicy
+WinUsb_SetPipePolicy 函数为与设备上的终结点关联的特定管道设置策略。 这是一个同步操作。 WinUsb_SetPowerPolicy
+WinUsb_SetPowerPolicy 函数为设备设置电源策略。 WinUsb_StartTrackingForTimeSync
+WinUsb_StartTrackingForTimeSync函数在 USB 驱动程序堆栈中启动时间同步功能，获取 USB 总线
+帧和微帧的关联系统 QPC 时间。 WinUsb_StopTrackingForTimeSync
+WinUsb_StopTrackingForTimeSync 函数在 USB 驱动程序堆栈中提供时间同步功能，可获取 USB 总
+线帧和微帧的关联系统 QPC 时间。 WinUsb_UnregisterIsochBuffer
+WinUsb_UnregisterIsochBuffer 函数释放WinUsb_RegisterIsochBuffer为常时等量传输分配的所有资
+源。 这是一个同步操作。 WinUsb_WriteIsochPipe
+WinUsb_WriteIsochPipe 函数从指定的帧号开始，将调用方提供的缓冲区的内容写入常时等量 OUT 终结点。
+WinUsb_WriteIsochPipeAsap
+WinUsb_WriteIsochPipeAsap提交将缓冲区内容写入常时等量 OUT 终结点的请求。 WinUsb_ReadPipe
+WinUsb_WritePipe 函数将数据写入管道。
+
+≦ 95 ≧
+结构  
+WINUSB_SETUP_PACKET
+WINUSB_SETUP_PACKET 结构描述 USB 设置数据包。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 96 ≧
+WinUsb_AbortPipe 函数 (winusb.h) 项目2023/08/27
+WinUsb_AbortPipe函数中止管道的所有挂起传输。 这是一个同步操作。
+语法 C++
+BOOL WinUsb_AbortPipe(
+  [in] WINUSB_INTERFACE_HANDLE InterfaceHandle,
+  [in] UCHAR                   PipeID);
+参数
+[in] InterfaceHandle
+接口的不透明句柄，该接口包含与管道关联的终结点。
+若要中止与第一个接口中的终结点关联的管道上的传输，请使用 WinUsb_Initialize返回的句柄。 对于所有其他接口，请使用WinUsb_GetAssociatedInterface检索的目标接口的句柄。
+[in] PipeID
+控件管道的标识符 (ID) 。 PipeID 参数是一个 8 位值，由 7 位地址和方向位组成。 此参数
+对应于终结点描述符中的 bEndpointAddress 字段。返回值
+如果操作成功，WinUsb_AbortPipe返回 TRUE。 否则，此例程返回 FALSE，调用方可以
+通过调用 GetLastError 检索记录的错误。 GetLastError 可能会返回以下错误代码。
+返回代码
+ERROR_INVALID_HANDLE
+说明
+调用 方在InterfaceHandle 参数中传递 NULL。
+
+≦ 97 ≧
+要求   目标平台标头 Library DLL
+另请参阅 WinUSB
+WinUSB 函数 WinUsb_Free
+WinUsb_Initialize 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+ﾄ否
+
+≦ 98 ≧
+WinUsb_ControlTransfer 函数 (winusb.h) 项目2023/08/27
+WinUsb_ControlTransfer 函数通过默认控制终结点传输控制数据。
+语法 C++
+BOOL WinUsb_ControlTransfer(
+  [in]            WINUSB_INTERFACE_HANDLE InterfaceHandle,
+  [in]            WINUSB_SETUP_PACKET     SetupPacket,   [out]           PUCHAR                  Buffer,
+  [in]            ULONG                   BufferLength,
+  [out, optional] PULONG                  LengthTransferred,
+  [in, optional]  LPOVERLAPPED            Overlapped);
+参数
+[in] InterfaceHandle
+所选配置中接口的不透明句柄。
+若要将控制请求的接收方指定为整个设备或第一个接口，请使用 WinUsb_Initialize返回的句柄。 对于所有其他接口，通过调用 WinUsb_GetAssociatedInterface 获取目标接口的
+句柄，然后通过指定获取的接口句柄来调用 WinUsb_ControlTransfer 。[in] SetupPacket
+WINUSB_SETUP_PACKET 类型的 8 字节安装数据包。[out] Buffer
+调用方分配的缓冲区，其中包含要传输的数据。 此缓冲区的长度不能超过 4KB。[in] BufferLength
+要传输的字节数，不包括设置数据包。 此数字必须小于或等于 Buffer 的大小（以字节为单位）。
+[out, optional] LengthTransferred
+
+≦ 99 ≧
+指向接收实际传输字节数的 ULONG 变量的指针。 如果应用程序不希望在数据阶段传输
+任何数据， (BufferLength 为零) ， 则 LengthTransferred 可以为 NULL。[in, optional] Overlapped
+指向用于异步操作的 OVERLAPPED 结构的可选指针。 如果指定此参数，
+WinUsb_ControlTransfer 立即返回，并在操作完成时发出事件信号。 如果未提供
+Overlapped ， 则 WinUsb_ControlTransfer 函数会同步传输数据。返回值
+如果操作成功，WinUsb_ControlTransfer返回 TRUE。 否则，此例程返回 FALSE，调用方
+可以通过调用 GetLastError 检索记录的错误。 GetLastError 可以返回以下错误代码之一。
+返回代码
+ERROR_INVALID_HANDLE
+ERROR_NOT_ENOUGH_MEMORY 注解
+说明
+调用方在 InterfaceHandle 参数中传递 NULL。指示内存不足，无法执行操作。
+控制请求始终由主机发送到 USB 设备的默认终结点，但请求的接收者可以是整个设备、接口或所选备用设置中的终结点。 在 WinUsb_ControlTransfer 调用中，应用程序必须通过两个参数指示收件人： InterfaceHandle 和 SetupPacket。
+如果控制请求的接收方是整个设备、第一个接口或该接口中的任何终结点，则应用程序必须使用 WinUsb_Initialize返回的句柄。 如果接收方是任何其他接口或其终结点，则应用程序必须通过调用 WinUsb_GetAssociatedInterface 获取与目标接口关联的 WinUSB 句柄，然后通过指定获取的接口句柄来调用 WinUsb_ControlTransfer 。
+根据官方 USB 规范的第 9.3 节，控制传输的设置令牌包含有关请求的信息。 对于 WinUSB 应用程序，使用 WINUSB_SETUP_PACKET 结构描述该设置令牌。
+在设置令牌中， bmRequestType 和 wIndex 字段用于指示请求的收件人。 这些字段分别对应于WINUSB_SETUP_PACKET的 RequestType 和 Index 成员。
+RequestType 的最低两位表示请求的接收方。 接收者可以是供应商请求) 的设备、接口、终结点或其他 (。 Index 的较低 字节表示收件人的设备定义的索引，具体取决于收件人。 Index 的值取决于请求的类型。 例如，对于标准控制请求，该值为 0，或指示接口或终结
+
+≦ 100 ≧
+点编号。 对于某些类型的标准请求（例如获取字符串描述符的GET_DESCRIPTOR请求）， Index 值指示语言 ID。
+如果收件人是设备，则应用程序必须设置 RequestType 和 Index 值。 RequestType 值的最低两位必须为 0。 Index 值的较低字节取决于请求的类型。 InterfaceHandle 必须是 WinUsb_Initialize返回的 WinUSB 句柄。
+如果请求的接收方是接口，则应用程序必须将 RequestType 的最低两位设置为0x01。 应用程序不需要为任何类型的请求设置 索引 的较低字节。 对于标准、类和供应商请求， Winusb.sys 将值设置为目标接口的接口编号。 InterfaceHandle 必须与目标接口相关联。应用程序可以通过调用 WinUsb_GetAssociatedInterface 来获取该句柄。
+如果接收方是终结点，则应用程序必须将 RequestType 的最低两位设置为 0x02，并将 Index 的较低字节设置为终结点地址。 在这种情况下， InterfaceHandle 与包含终结点的接口相关联。 应用程序可以通过调用 WinUsb_GetAssociatedInterface 来获取该句柄。
+要求
+ 
+目标平台
+标头 Library DLL
+另请参阅
+WINUSB_SETUP_PACKET WinUSB
+WinUSB 函数
+WinUsb_Initialize 反馈
+此页面是否有帮助？
+ﾂ是
+ 
+通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+ﾄ否
+
+≦ 101 ≧
+在 Microsoft Q&A 获取帮助
+
+≦ 102 ≧
+WinUsb_FlushPipe 函数 (winusb.h) 项目2023/08/27
+WinUsb_FlushPipe 函数放弃在管道中缓存的任何数据。 这是一个同步操作。
+语法 C++
+BOOL WinUsb_FlushPipe(
+  [in] WINUSB_INTERFACE_HANDLE InterfaceHandle,
+  [in] UCHAR                   PipeID);
+参数
+[in] InterfaceHandle
+与指定管道的终结点关联的接口的不透明句柄。 若要清除管道中与第一个 (默认) 接口上的终结点关联的数据，请使用 WinUsb_Initialize 返回的句柄。 对于所有其他接口，请使
+用目标接口的句柄， WinUsb_GetAssociatedInterface检索。[in] PipeID
+控件管道的标识符 (ID) 。 PipeID 参数是一个 8 位值，由 7 位地址和方向位组成。 此参数
+对应于终结点描述符中的 bEndpointAddress 字段。返回值
+如果操作成功，WinUsb_FlushPipe返回 TRUE。 否则，此例程返回 FALSE，调用方可以
+通过调用 GetLastError 检索记录的错误。 GetLastError 可以返回以下错误代码。
+返回代码
+ERROR_INVALID_HANDLE 要求
+说明
+调用方在 InterfaceHandle 参数中传递 NULL。
+
+≦ 103 ≧
+ 
+目标平台
+标头 Library DLL
+另请参阅 WinUSB
+WinUSB 函数
+WinUsb_Initialize 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+ﾄ否
+
+≦ 104 ≧
+WinUsb_Free 函数 (winusb.h) 项目2024/03/04
+WinUsb_Free函数释放WinUsb_Initialize分配的所有资源。 这是一个同步操作。
+语法 C++
+BOOL WinUsb_Free(
+  [in] WINUSB_INTERFACE_HANDLE InterfaceHandle);
+参数
+[in] InterfaceHandle
+所选配置中接口的不透明句柄。 该句柄必须由先前调用 WinUsb_Initialize 或
+WinUsb_GetAssociatedInterface 创建。返回值
+WinUsb_Free 返回 TRUE。要求
+ﾉ
+要求
+目标平台
+标头 Library DLL
+另请参阅
+值通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+展开表
+
+≦ 105 ≧
+WinUSB
+WinUSB 函数
+WinUsb_Initialize 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 106 ≧
+WinUsb_GetAdjustedFrameNumber 函
+数 (winusb.h) 项目2023/08/27
+WinUsb_GetAdjustedFrameNumber函数根据帧号值和时间戳计算当前 USB 帧编号。
+语法 C++
+BOOL WinUsb_GetAdjustedFrameNumber(
+  [in, out] PULONG        CurrentFrameNumber,
+  [in]      LARGE_INTEGER TimeStamp);
+参数
+[in, out] CurrentFrameNumber
+要调整的帧编号。[in] TimeStamp
+返回帧编号时记录的时间戳。返回值
+如果操作成功，WinUsb_GetAdjustedFrameNumber返回 TRUE。 否则，此函数返回
+FALSE，调用方可以通过调用 GetLastError 检索记录的错误。要求
+ 
+最低受支持的客户端最低受支持的服务器目标平台
+ 
+Windows 8.1
+Windows Server 2012 R2 通用
+
+≦ 107 ≧
+ 
+标头 Library DLL
+另请参阅
+ 
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+发送来自 UWP 桌面应用的 USB 常时等量传输
+WinUSB 函数反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 108 ≧
+WinUsb_GetAssociatedInterface 函数
+(winusb.h) 项目2024/03/04
+WinUsb_GetAssociatedInterface函数检索关联接口的句柄。 这是一个同步操作。
+语法 C++
+BOOL WinUsb_GetAssociatedInterface(
+  [in]  WINUSB_INTERFACE_HANDLE  InterfaceHandle,
+  [in]  UCHAR                    AssociatedInterfaceIndex,   [out] PWINUSB_INTERFACE_HANDLE AssociatedInterfaceHandle);
+参数
+[in] InterfaceHandle
+设备上第一个 (默认) 接口的不透明句柄， 由 WinUsb_Initialize 返回。[in] AssociatedInterfaceIndex
+指定要检索的关联接口的索引。 值为 0 表示第一个关联的接口，值为 1 表示第二个关联的接口，依依此。
+[out] AssociatedInterfaceHandle
+关联接口的句柄。 调用方必须将此接口句柄传递给 Winusb.dll 公开的 WinUSB 函数 。
+若要关闭此句柄，请调用 WinUsb_Free。返回值
+如果操作成功，WinUsb_GetAssociatedInterface返回 TRUE。 否则，此例程返回 FALSE，调用方可以通过调用 GetLastError 检索记录的错误。
+ﾉ
+返回代码
+说明
+展开表
+
+≦ 109 ≧
+ERROR_ALREADY_EXISTS ERROR_INVALID_HANDLE
+ERROR_INVALID_PARAMETER ERROR_NO_MORE_ITEMS
+ERROR_NOT_ENOUGH_MEMORY 注解
+WinUsb_GetAssociatedInterface 已返回
+AssociatedInterfaceIndex 指定的接口的句柄。调用 方在InterfaceHandle 参数中传递 NULL。
+传递的 AssociatedInterfaceIndex 值检查整数溢出失败。
+指定的 AssociatedInterfaceIndex 值不存在接口。指示内存不足，无法执行操作。
+WinUsb_GetAssociatedInterface例程检索不透明句柄。
+第一个关联的接口是紧跟在处理WinUsb_Initialize例程检索的接口之后的接口。必须通过调用 WinUsb_Free 释放WinUsb_GetAssociatedInterface 返回 的句柄。
+WinUsb_GetAssociatedInterface 的调用方只能为每个接口检索一个句柄。 如果调用方尝
+试检索同一接口的多个句柄，则例程将失败并出现错误ERROR_ALREADY_EXISTS。要求
+ﾉ
+要求
+目标平台
+标头 Library DLL
+另请参阅 WinUSB
+WinUSB 函数
+WinUsb_Initialize
+值通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+展开表
+
+≦ 110 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 111 ≧
+WinUsb_GetCurrentAlternateSetting 函
+数 (winusb.h) 项目2023/08/27
+WinUsb_GetCurrentAlternateSetting 函数获取接口的当前备用接口设置。 这是一个同步
+操作。语法 C++
+BOOL WinUsb_GetCurrentAlternateSetting(
+  [in]  WINUSB_INTERFACE_HANDLE InterfaceHandle,
+  [out] PUCHAR                  SettingNumber);
+参数
+[in] InterfaceHandle
+所选配置中接口的不透明句柄。 若要获取设备上第一个 (默认) 接口中的当前备用设置，请使用 WinUsb_Initialize 返回的接口句柄。 对于所有其他接口，请使用
+WinUsb_GetAssociatedInterface检索的目标接口的句柄。[out] SettingNumber
+指向无符号字符的指针，该字符接收指示当前备用设置的整数。返回值
+如果操作成功，WinUsb_GetCurrentAlternateSetting返回 TRUE。 否则，此例程返回
+FALSE，调用方可以通过调用 GetLastError 检索记录的错误。 GetLastError 可能会返回以下错误代码。
+返回代码
+ERROR_INVALID_HANDLE
+说明
+调用 方在InterfaceHandle 参数中传递 NULL。
+
+≦ 112 ≧
+要求   目标平台标头 Library DLL
+另请参阅 WinUSB
+WinUSB 函数
+WinUsb_Initialize 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+ﾄ否
+
+≦ 113 ≧
+WinUsb_GetCurrentFrameNumber函数
+(winusb.h) 项目2024/03/04
+WinUsb_GetCurrentFrameNumber函数获取总线的当前帧编号。
+语法 C++
+BOOL WinUsb_GetCurrentFrameNumber(
+  [in]  WINUSB_INTERFACE_HANDLE InterfaceHandle,
+  [out] PULONG                  CurrentFrameNumber,
+  [out] LARGE_INTEGER           *TimeStamp);
+参数
+[in] InterfaceHandle
+CreateFile 返回的设备句柄。[out] CurrentFrameNumber
+当前帧编号值。[out] TimeStamp
+读取当前帧时的时间戳值。返回值
+如果操作成功，WinUsb_GetCurrentFrameNumber返回 TRUE。 否则，此函数返回
+FALSE，调用方可以通过调用 GetLastError 检索记录的错误。注解
+调用方可将 PerformanceCount 与 Win32 函数 QueryPerformanceCounter 返回的值进行比较，以确定读取帧编号后转换回用户模式是否有延迟。 然后，调用方可以根据需要调整起始帧编号。
+
+≦ 114 ≧
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows 8.1
+Windows Server 2012 R2 通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+发送来自 UWP 桌面应用的 USB 常时等量传输
+WinUSB 函数反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 115 ≧
+WinUsb_GetCurrentFrameNumberAndQ
+pc 函数 (winusb.h) 项目2024/03/13
+WinUsb_GetCurrentFrameNumberAndQpc函数检索系统查询性能计数器 (QPC) 与帧和微帧同步的值。
+语法 C++
+BOOL WinUsb_GetCurrentFrameNumberAndQpc(
+  [in] WINUSB_INTERFACE_HANDLE                             InterfaceHandle,
+  [in] PUSB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION FrameQpcInfo);
+参数
+[in] InterfaceHandle
+在上一次调用 WinUsb_Initialize 中检索到 的不透明句柄。[in] FrameQpcInfo
+指向 USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION 结构的指针。输出时， CurrentQueryPerformanceCounter 设置为 USB 驱动程序堆栈预测的系统 QPC 值 (微秒) 。 （可选）在输入时，调用方可以指定要检索其 QPC 值的帧和微帧编号。
+在输出时， QueryPerformanceCounterAtInputFrameOrMicroFrame 成员设置为该帧或
+微帧的 QPC 值。返回值
+如果操作成功，WinUsb_GetCurrentFrameNumberAndQpc返回 TRUE。 否则，此例程
+返回 FALSE，调用方可以通过调用 GetLastError 检索记录的错误。 GetLastError 可能会返回以下错误代码之一。
+ﾉ
+展开表
+
+≦ 116 ≧
+返回代码
+ERROR_INVALID_HANDLE
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 WinUSB
+WinUSB 函数
+WinUsb_Initialize
+WinUsb_StartTrackingForTimeSync 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+说明
+调用方在 InterfaceHandle 或 FrameQpcInfo 参数中传递 NULL。
+ﾉ
+值
+Windows 10
+Windows Server 2016 通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 117 ≧
+WinUsb_GetDescriptor 函数 (winusb.h) 项目2024/03/13
+WinUsb_GetDescriptor函数返回请求的描述符。 这是一个同步操作。
+语法 C++
+BOOL WinUsb_GetDescriptor(
+  [in]  WINUSB_INTERFACE_HANDLE InterfaceHandle,   [in]  UCHAR                   DescriptorType,   [in]  UCHAR                   Index,
+  [in]  USHORT                  LanguageID,   [out] PUCHAR                  Buffer,
+  [in]  ULONG                   BufferLength,
+  [out] PULONG                  LengthTransferred);
+参数
+[in] InterfaceHandle
+所选配置中接口的不透明句柄。
+若要检索设备或配置描述符，请使用 WinUsb_Initialize返回的句柄。
+若要检索第一个接口的接口描述符，请使用 WinUsb_Initialize返回的句柄。
+若要在第一个接口中检索终结点的终结点描述符，请使用 WinUsb_Initialize返回的句柄。若要检索所有其他接口及其相关终结点的描述符，请使用目标接口的句柄（由
+WinUsb_GetAssociatedInterface 检索）。[in] DescriptorType
+一个 值，该值指定要返回的描述符的类型。 此参数对应于标准设备描述符的 bDescriptorType 字段，其值在 通用串行总线 规范中介绍。 其中一些值列在
+_URB_CONTROL_DESCRIPTOR_REQUEST 结构的 DescriptorType 成员的说明中。[in] Index
+描述符索引。 有关描述符索引的说明，请参阅 通用串行总线 规范 (www.usb.org
+) 。
+
+≦ 118 ≧
+[in] LanguageID
+一个 值，该值指定语言标识符（如果请求的描述符是字符串描述符）。[out] Buffer
+调用方分配的缓冲区，用于接收请求的描述符。[in] BufferLength
+Buffer 的长度（以字节为单位）。
+[out] LengthTransferred 复制到 Buffer 中的字节数。返回值
+如果操作成功，WinUsb_GetDescriptor返回 TRUE。 否则，此例程返回 FALSE，调用方
+可以通过调用 GetLastError 检索记录的错误。 GetLastError 可能会返回以下错误代码。
+ﾉ
+返回代码
+ERROR_INVALID_HANDLE 注解
+说明
+调用 方在InterfaceHandle 参数中传递 NULL。
+展开表
+如果 Buffer 参数指向的输出缓冲区足够大， WinUsb_GetDescriptor 会在输出缓冲区中创
+建指定描述符的副本。 如果缓冲区不够大，无法保存描述符数据，则不会复制任何数据。 描述符是在 WinUsb_Initialize 调用期间创建的，或者此时可以从设备检索它。
+要求
+ﾉ
+要求
+目标平台
+值通用
+展开表
+
+≦ 119 ≧
+要求标头 Library DLL
+另请参阅 WinUSB
+WinUSB 函数
+WinUsb_Initialize
+值
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+_URB_CONTROL_DESCRIPTOR_REQUEST 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 120 ≧
+WinUsb_GetOverlappedResult 函数
+(winusb.h) 项目2024/03/13
+WinUsb_GetOverlappedResult函数检索对指定文件执行的重叠操作的结果。
+语法 C++
+BOOL WinUsb_GetOverlappedResult(
+  [in]  WINUSB_INTERFACE_HANDLE InterfaceHandle,   [in]  LPOVERLAPPED            lpOverlapped,
+  [out] LPDWORD                 lpNumberOfBytesTransferred,
+  [in]  BOOL                    bWait);
+参数
+[in] InterfaceHandle
+设备上第一个接口的不透明句柄， 由 WinUsb_Initialize 返回。[in] lpOverlapped
+指向在启动重叠操作时指定的 OVERLAPPED 结构的指针。[out] lpNumberOfBytesTransferred
+指向变量的指针，该变量接收读取或写入操作实际传输的字节数。[in] bWait
+如果此参数为 TRUE，则函数在操作完成之前不会返回。 如果此参数为 FALSE 且操作仍处于挂起状态，则函数返回 FALSE，GetLastError 函数返回ERROR_IO_INCOMPLETE。
+返回值
+如果函数成功，则返回值为除零以外的任何数字。 如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。
+
+≦ 121 ≧
+注解
+此函数与 Win32 API 例程 GetOverlappedResult 类似，但有一个区别 ，调用方传递从 WinUsb_Initialize 返回的接口句柄，而不是传递从 CreateFile 返回的文件句柄。 如果传递了相应的句柄，调用方可以使用任一 API 例程。 WinUsb_GetOverlappedResult 函数从接口句柄中提取文件句柄，然后调用 GetOverlappedResult。
+WinUsb_GetOverlappedResult函数报告的结果是指定句柄的最后一个重叠操作中提供指定 OVERLAPPED 结构的结果，以及操作结果挂起的结果。 当启动操作的函数返回
+FALSE，并且 GetLastError 例程返回ERROR_IO_PENDING时，指示挂起的操作。 当 I/O 操作挂起时，启动该操作的函数会将 OVERLAPPED 结构的 hEvent 成员重置为未签名状态。 然后，当挂起的操作完成时，系统将事件对象设置为信号状态。
+调用方可以指定在 OVERLAPPED 结构中手动重置事件对象。 如果使用自动重置事件对象，则不得在启动重叠操作和调用WinUsb_GetOverlappedResult之间的间隔内，在任何其他等待操作中指定 事件句柄。 例如，事件对象有时在等待操作完成的某个等待例程中指定。 当等待例程返回时，系统会将自动重置事件的状态设置为未签名，并且连续调用将 bWait 参数设置为 TRUE 的WinUsb_GetOverlappedResult会导致函数无限期地被阻止。
+如果 bWait 参数为 TRUE， 则WinUsb_GetOverlappedResult 通过等待事件对象处于信号状态来确定挂起的操作是否已完成。
+如果 OVERLAPPED 结构的 hEvent 成员为 NULL，则系统使用文件句柄的状态在操作完成时发出信号。 请勿将文件句柄用于此目的。 最好使用事件对象，因为对同一文件执行多个并发重叠操作时可能会出现混淆。 在这种情况下，你无法知道哪个操作导致对象状
+态被发出信号。要求
+ﾉ
+要求
+目标平台
+标头 Library DLL
+另请参阅
+值通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+展开表
+
+≦ 122 ≧
+WinUSB
+WinUSB 函数
+WinUsb_Initialize
+_URB_CONTROL_DESCRIPTOR_REQUEST 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 123 ≧
+WinUsb_GetPipePolicy 函数 (winusb.h) 项目2023/08/27
+WinUsb_GetPipePolicy函数检索与设备上的终结点关联的特定管道的策略。 这是一个同
+步操作。语法 C++
+BOOL WinUsb_GetPipePolicy(
+  [in]      WINUSB_INTERFACE_HANDLE InterfaceHandle,   [in]      UCHAR                   PipeID,
+  [in]      ULONG                   PolicyType,   [in, out] PULONG                  ValueLength,
+  [out]     PVOID                   Value);
+参数
+[in] InterfaceHandle
+接口的不透明句柄，该接口包含与管道关联的终结点。
+若要查询与第一个接口中的终结点关联的管道，请使用 WinUsb_Initialize 返回的句柄。对于所有其他接口，请使用WinUsb_GetAssociatedInterface检索的目标接口的句柄。
+[in] PipeID
+由 7 位地址和方向位组成的 8 位值。 此参数对应于终结点描述符中的
+bEndpointAddress 字段。[in] PolicyType
+指定要检索的策略参数的 ULONG 变量。 检索策略参数的当前值 Value 参数。 有关管道
+策略的行为的信息，请参阅 用于管道策略修改的 WinUSB 函数。[in, out] ValueLength
+指向 Value 指向的缓冲区的大小（以字节为单位）的指针。 输出时， ValueLength 接收
+复制到 Value 缓冲区的数据的大小（以字节为单位）。[out] Value
+
+≦ 124 ≧
+指向接收指定管道策略值的缓冲区的指针。返回值
+如果操作成功，WinUsb_GetPipePolicy返回 TRUE。 否则，此例程返回 FALSE，调用方
+可以通过调用 GetLastError 检索记录的错误。 GetLastError 可能会返回以下错误代码。
+返回代码
+ERROR_INVALID_HANDLE
+要求   目标平台标头 Library DLL
+另请参阅 WinUSB
+WinUSB 函数
+ 
+通用
+说明
+调用 方在InterfaceHandle 参数中传递 NULL。
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+用于修改管道策略的 WinUSB 函数
+WinUsb_Initialize WinUsb_ReadPipe WinUsb_ReadPipe
+反馈
+此页面是否有帮助？
+
+≦ 125 ≧
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 126 ≧
+WinUsb_GetPowerPolicy 函数 (winusb.h) 项目2023/08/27
+WinUsb_GetPowerPolicy 函数检索设备的电源策略。 这是一个同步操作。
+语法 C++
+BOOL WinUsb_GetPowerPolicy(
+  [in]      WINUSB_INTERFACE_HANDLE InterfaceHandle,
+  [in]      ULONG                   PolicyType,   [in, out] PULONG                  ValueLength,
+  [out]     PVOID                   Value);
+参数
+[in] InterfaceHandle
+设备上第一个接口的不透明句柄， WinUsb_Initialize返回。[in] PolicyType
+一个 值，该值指定要在 Value 中检索的电源策略参数。 下表描述了 Winusbio.h 中定义的符号常量。
+策略类型
+AUTO_SUSPEND(0x81)
+SUSPEND_DELAY(0x83)
+说明
+如果调用方指定AUTO_SUSPEND的电源策略， WinUsb_GetPowerPolicy 在 Value 参数中返回自动挂起策略参数的值。
+如果 Value 为 TRUE (即非零) ，则当没有传输挂起或唯一挂起的传输是中断或批量终结点上的 IN 传输时，USB 堆栈会挂起设备。
+DefaultIdleState 注册表值的值确定自动挂起策略参数的默认值。 Value 参数必须指向 UCHAR 变量。
+如果调用方指定SUSPEND_DELAY的电源策略， WinUsb_GetPowerPolicy 在 Value 中返回暂停延迟策略参数 的值。
+挂起延迟策略参数指定 WinUSB 驱动程序在任何传输后必须等待的最短时间（以毫秒为单位），然后才能暂停设备。
+
+≦ 127 ≧
+值 必须指向 ULONG 变量。
+[in, out] ValueLength
+指向 Value 缓冲区大小的指针。 输出时， ValueLength 接收复制到 Value 缓冲区的数据
+的大小。[out] Value
+接收指定电源策略参数的缓冲区。 有关详细信息，请参阅 PolicyType。返回值
+如果操作成功，WinUsb_GetPowerPolicy返回 TRUE。 否则，此例程返回 FALSE，调用方
+可以通过调用 GetLastError 检索记录的错误。 GetLastError 可以返回以下错误代码。
+返回代码
+ERROR_INVALID_HANDLE
+要求   目标平台标头 Library DLL
+另请参阅 WinUSB
+WinUSB 函数
+WinUSB 电源管理 WinUsb_Initialize
+ 
+通用
+说明
+调用方在 InterfaceHandle 参数中传递 NULL。
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+
+≦ 128 ≧
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 129 ≧
+WinUsb_Initialize 函数 (winusb.h) 项目2024/03/13
+WinUsb_Initialize 函数为文件句柄指定的设备创建 WinUSB 句柄。
+语法 C++
+BOOL WinUsb_Initialize(
+  [in]  HANDLE                   DeviceHandle,   [out] PWINUSB_INTERFACE_HANDLE InterfaceHandle);
+参数
+[in] DeviceHandle
+CreateFile 返回的设备句柄。 WinUSB 使用重叠的 I/O，因此必须在 CreateFile 调用的 dwFlagsAndAttributes 参数中指定FILE_FLAG_OVERLAPPED，以便 DeviceHandle 具有
+WinUsb_Initialize正常运行所需的特征。[out] InterfaceHandle
+接收设备上第一个 (默认) 接口的不透明句柄。 在默认接口上执行操作的其他 WinUSB 例
+程需要此句柄。 若要释放句柄，请调用 WinUSB_Free 函数。返回值
+如果操作成功，WinUsb_Initialize返回 TRUE。 否则，此例程返回 FALSE，调用方可以通
+过调用 GetLastError 检索记录的错误。 GetLastError 可以返回以下错误代码。
+ﾉ
+返回代码
+ERROR_INVALID_HANDLE
+ERROR_NOT_ENOUGH_MEMORY
+说明
+展开表
+调用方在 DeviceHandle 参数中传递了 NULL 或无效句柄;FILE_FLAG_OVERLAPPED未在文件句柄中设置。
+指示内存不足，无法执行操作。
+
+≦ 130 ≧
+ERROR_BAD_DEVICE 注解
+指示找不到设备的默认接口描述符。
+调用 WinUsb_Initialize 时，接口的策略设置将重置为默认值。
+WinUsb_Initialize调用会查询基础 USB 堆栈中各种描述符，并分配足够的内存来存储检索到的描述符数据。
+WinUsb_Initialize 先检索设备描述符，然后获取关联的配置描述符。 调用从配置描述符派生关联的接口描述符，并将其存储在数组中。 数组中的接口由从零开始的索引标识。索引值为 0 表示第一个接口 (默认接口) ，值为 1 表示第二个关联的接口，依此。
+WinUsb_Initialize 分析终结点描述符的默认接口描述符，并缓存关联管道或特定于状态的数据等信息。 InterfaceHandle 参数中收到的句柄是指向为数组中的第一个接口分配的内存块的指针。
+如果应用程序想要在设备上使用另一个接口，则必须调用
+WinUsb_GetAssociatedInterface，指定接口的索引，并检索为指定接口分配的内存块的句柄。
+要求
+ﾉ
+要求
+目标平台
+标头 Library DLL
+另请参阅 WinUSB
+WinUSB 函数 WinUSB_Free
+值通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+展开表
+
+≦ 131 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 132 ≧
+WinUsb_QueryDeviceInformation 函数
+(winusb.h) 项目2023/08/27
+WinUsb_QueryDeviceInformation 函数获取有关与 WinUSB 接口句柄关联的物理设备的
+信息。语法 C++
+BOOL WinUsb_QueryDeviceInformation(
+  [in]      WINUSB_INTERFACE_HANDLE InterfaceHandle,   [in]      ULONG                   InformationType,   [in, out] PULONG                  BufferLength,
+  [out]     PVOID                   Buffer);
+参数
+[in] InterfaceHandle
+设备上第一个接口的不透明句柄， WinUsb_Initialize返回。[in] InformationType
+一个 值，该值指定要检索的接口信息值。
+输入时， InformationType 必须具有以下值：DEVICE_SPEED (0x01) 。[in, out] BufferLength
+最多读取的字节数。 此数字必须小于或等于 Buffer 的大小（以字节为单位）。 在输出
+时， BufferLength 设置为复制到 Buffer 的实际字节数。[out] Buffer
+一个调用方分配的缓冲区，用于接收请求的值。
+如果 InformationType 是DEVICE_SPEED，则成功返回时， Buffer 指示设备的运行速度。 0x03表示高速或更高;0x01表示全速或更低。
+
+≦ 133 ≧
+返回值
+如果操作成功，WinUsb_QueryDeviceInformation返回 TRUE。 否则，此例程返回
+FALSE，调用方可以通过调用 GetLastError 检索记录的错误。 GetLastError 可以返回以下错误代码。
+返回代码
+ERROR_INVALID_HANDLE
+要求   目标平台标头 Library DLL
+另请参阅 WinUSB
+WinUSB 函数
+WinUsb_Initialize 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+通用
+说明
+调用方在 InterfaceHandle 参数中传递 NULL。
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+ﾄ否
+
+≦ 134 ≧
+WinUsb_QueryInterfaceSettings 函数
+(winusb.h) 项目2023/08/27
+WinUsb_QueryInterfaceSettings 函数检索特定接口句柄的指定备用接口设置的接口描述符。
+语法 C++
+BOOL WinUsb_QueryInterfaceSettings(
+  [in]  WINUSB_INTERFACE_HANDLE   InterfaceHandle,
+  [in]  UCHAR                     AlternateInterfaceNumber,   [out] PUSB_INTERFACE_DESCRIPTOR UsbAltInterfaceDescriptor);
+参数
+[in] InterfaceHandle
+所选配置中接口的不透明句柄。
+若要检索第一个接口的设置，请使用 WinUsb_Initialize返回的句柄。 对于所有其他接
+口，请使用目标接口的句柄， WinUsb_GetAssociatedInterface检索。[in] AlternateInterfaceNumber
+一个 值，该值指示要返回哪些备用设置。 值为 0 表示第一个备用设置，值 1 表示第二个备用设置，依此。
+[out] UsbAltInterfaceDescriptor
+指向调用方分配 的USB_INTERFACE_DESCRIPTOR 结构的指针，该结构包含有关
+AlternateSettingNumber 指定的接口的信息。返回值
+如果操作成功，WinUsb_QueryInterfaceSettings返回 TRUE。 否则，它将返回 FALSE，调用方可以通过调用 GetLastError 检索记录的错误。
+
+≦ 135 ≧
+GetLastError 可以返回以下错误代码。
+返回代码
+ERROR_INVALID_HANDLE ERROR_NO_MORE_ITEMS
+注解
+说明
+调用方在 InterfaceHandle 参数中传递 NULL。找不到指定的备用接口。
+WinUsb_QueryInterfaceSettings 分析之前由 WinUsb_Initialize 检索的配置描述符。 有关详细信息，请参阅 WinUsb_Initialize的“备注”部分。
+WinUsb_QueryInterfaceSettings调用在接口数组中搜索由调用方在
+AlternateSettingNumber 中传递的接口索引指定的备用接口。 如果找到指定的接口，函数将填充调用方分配 的USB_INTERFACE_DESCRIPTOR 结构。 如果未找到指定的接口，则
+调用将失败并显示ERROR_NO_MORE_ITEMS代码。要求
+ 
+目标平台
+标头 Library DLL
+另请参阅
+ 
+通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+USB_INTERFACE_DESCRIPTOR WinUSB
+WinUSB 函数
+WinUsb_Initialize 反馈
+
+≦ 136 ≧
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 137 ≧
+WinUsb_QueryPipe 函数 (winusb.h) 项目2024/03/13
+WinUsb_QueryPipe函数检索有关接口的指定终结点和关联管道的信息。
+语法 C++
+BOOL WinUsb_QueryPipe(
+  [in]  WINUSB_INTERFACE_HANDLE  InterfaceHandle,
+  [in]  UCHAR                    AlternateInterfaceNumber,   [in]  UCHAR                    PipeIndex,
+  [out] PWINUSB_PIPE_INFORMATION PipeInformation);
+参数
+[in] InterfaceHandle
+接口的不透明句柄，该接口包含与管道关联的终结点。
+若要查询与第一个接口中的终结点关联的管道，请使用 WinUsb_Initialize 返回的句柄。对于所有其他接口，请使用WinUsb_GetAssociatedInterface检索的目标接口的句柄。
+[in] AlternateInterfaceNumber
+一个 值，该值指定要为其返回信息的备用接口。[in] PipeIndex
+一个 值，该值指定要返回相关信息的管道。 此值与终结点描述符中的
+bEndpointAddress 字段不同。 PipeIndex 值为 0 表示与接口关联的第一个终结点，值为 1 表示第二个终结点，依此。 PipeIndex 必须小于接口描述符的 bNumEndpoints 字段中的值。
+[out] PipeInformation
+在输出上指向调用方分配 的WINUSB_PIPE_INFORMATION 结构的指针，该结构包含管道信息。
+返回值
+
+≦ 138 ≧
+如果操作成功，WinUsb_QueryPipe返回 TRUE。 否则，此函数返回 FALSE，调用方可以
+通过调用 GetLastError 检索记录的错误。 GetLastError 可能会返回以下错误代码。
+ﾉ
+返回代码
+ERROR_INVALID_HANDLE
+ERROR_INVALID_PARAMETER
+ERROR_NO_MORE_ITEMS 注解
+说明
+调用 方在InterfaceHandle 参数中传递 NULL。
+展开表
+调用方在 PipeInformation 参数中传递 NULL;找不到
+InterfaceHandle 中指定的句柄的接口描述符。 PipeIndex 参数中传递的值大于接口描述符的
+bNumEndpoints 值;找不到指定接口的终结点描述符。
+WinUsb_QueryPipe 函数不会检索有关控制管道的信息。
+USB 设备上的每个接口可以有多个终结点。 为了与其中每个终结点通信，总线驱动程序会为接口上的每个终结点创建管道。 管道索引从零开始。 因此，对于 n 个终结点，管道的索引是从 n-1 设置的。 WinUsb_QueryPipe 分析配置描述符以获取调用方指定的接口。 它会在接口描述符中搜索与调用方指定的管道关联的终结点描述符。 如果找到终结点，该函数将使用终结点描述符中的信息填充调用方分配 的
+WINUSB_PIPE_INFORMATION 结构。要求
+ﾉ
+要求
+目标平台
+标头 Library DLL
+另请参阅
+值通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+展开表
+
+≦ 139 ≧
+WINUSB_PIPE_INFORMATION WinUSB
+WinUSB 函数
+WinUsb_Initialize 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 140 ≧
+WinUsb_QueryPipeEx 函数 (winusb.h) 项目2023/08/27
+WinUsb_QueryPipeEx 函数检索有关指定终结点和接口的关联管道的扩展信息。
+语法 C++
+BOOL WinUsb_QueryPipeEx(
+  [in]  WINUSB_INTERFACE_HANDLE     InterfaceHandle,
+  [in]  UCHAR                       AlternateSettingNumber,   [in]  UCHAR                       PipeIndex,
+  [out] PWINUSB_PIPE_INFORMATION_EX PipeInformationEx);
+参数
+[in] InterfaceHandle
+接口的不透明句柄，该接口包含与管道关联的终结点。
+若要查询与第一个接口中的终结点关联的管道，请使用 WinUsb_Initialize返回的句柄。对于所有其他接口，请使用目标接口的句柄， WinUsb_GetAssociatedInterface检索。
+[in] AlternateSettingNumber
+一个 值，该值指定要返回其信息的备用接口。[in] PipeIndex
+一个 值，该值指定要返回相关信息的管道。 此值与终结点描述符中的
+bEndpointAddress 字段不同。 PipeIndex 值为 0 表示与接口关联的第一个终结点，值为 1 表示第二个终结点，依此。 PipeIndex 必须小于接口描述符的 bNumEndpoints 字段中的值。
+[out] PipeInformationEx
+指向调用方分配 的包含 管道信息的WINUSB_PIPE_INFORMATION_EX结构的指针。返回值
+
+≦ 141 ≧
+如果操作成功，WinUsb_QueryPipeEx返回 TRUE。 否则，此函数返回 FALSE，调用方可
+以通过调用 GetLastError 检索记录的错误。 GetLastError 可以返回以下错误代码。
+返回代码
+ERROR_INVALID_HANDLE
+ERROR_INVALID_PARAMETER
+ERROR_NO_MORE_ITEMS 注解
+说明
+调用方在 InterfaceHandle 参数中传递 NULL。
+调用方在 PipeInformation 参数中传递了 NULL;找不到
+InterfaceHandle 中指定的句柄的接口描述符。在 PipeIndex 参数中传递的值大于接口描述符的
+bNumEndpoints 值;找不到指定接口的终结点描述符。
+WinUsb_QueryPipeEx 函数不检索有关控件管道的信息。要求
+ 
+目标平台
+标头 Library DLL
+另请参阅
+ 
+通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+发送来自 UWP 桌面应用的 USB 常时等量传输
+WINUSB_PIPE_INFORMATION WinUSB
+WinUSB 函数
+WinUsb_Initialize
+
+≦ 142 ≧
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 143 ≧
+WinUsb_ReadIsochPipe 函数 (winusb.h) 项目2024/03/04
+WinUsb_ReadIsochPipe函数从常时等量 IN 终结点读取数据。
+语法 C++
+BOOL WinUsb_ReadIsochPipe(
+  [in]           WINUSB_ISOCH_BUFFER_HANDLE  BufferHandle,
+  [in]           ULONG                       Offset,   [in]           ULONG                       Length,
+  [in, out]      PULONG                      FrameNumber,
+  [in]           ULONG                       NumberOfPackets,
+  [out]          PUSBD_ISO_PACKET_DESCRIPTOR IsoPacketDescriptors,
+  [in, optional] LPOVERLAPPED                Overlapped);
+参数
+[in] BufferHandle
+上一次调用WinUsb_RegisterIsochBuffer注册的传输缓冲区的不透明句柄。[in] Offset
+缓冲区中相对于开始传输的偏移量。[in] Length
+传输缓冲区的长度（以字节为单位）。[in, out] FrameNumber
+输入时，指示传输的起始帧编号。 在输出中，包含传输中使用的最后一帧之后的帧的帧编号。
+[in] NumberOfPackets
+保存传输缓冲区所需的常时常量数据包总数。 还指示 IsoPacketDescriptors 指向的数组中的元素数。
+[out] IsoPacketDescriptors
+
+≦ 144 ≧
+USBD_ISO_PACKET_DESCRIPTOR 结构的数组。 传输完成后，每个元素都包含常时常量数据包的状态和大小。
+[in, optional] Overlapped
+指向用于异步操作 的 OVERLAPPED 结构的指针。返回值
+如果操作成功，WinUsb_ReadIsochPipe返回 TRUE。 否则，此函数返回 FALSE，调用方
+可以通过调用 GetLastError 检索记录的错误。注解
+WinUsb_ReadIsochPipe 将传输缓冲区数据包化，以便在每 1 毫秒间隔内，主机可以接收每个间隔允许的最大字节数。 最大字节数由完整终结点和高速终结点的终结点描述符指定，以及 SuperSpeed 终结点的终结点配套描述符指定。 如果调用方提交多个读取请求以从设备流式传输数据，则传输大小应是 (WinUsb_QueryPipeEx) * 8 / interval 返回的每个间隔最大 字节数的 倍数。
+由于基础内核模式接口中使用的传输打包，应用程序或驱动程序的最低延迟通知间隔为 1
+毫秒。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows 8.1
+Windows Server 2012 R2 通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+展开表
+
+≦ 145 ≧
+发送来自 UWP 桌面应用的 USB 常时等量传输
+WinUSB 函数反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 146 ≧
+WinUsb_ReadIsochPipeAsap 函数
+(winusb.h) 项目2023/06/22
+WinUsb_ReadIsochPipeAsap 函数提交从常时等量 IN 终结点读取数据的请求。
+语法 C++
+BOOL WinUsb_ReadIsochPipeAsap(
+
+  [in]           WINUSB_ISOCH_BUFFER_HANDLE  BufferHandle,
+
+  [in]           ULONG                       Offset,
+   [in]           ULONG                       Length,
+
+  [in]           BOOL                        ContinueStream,
+   [in]           ULONG                       NumberOfPackets,
+
+                 PUSBD_ISO_PACKET_DESCRIPTOR IsoPacketDescriptors,
+
+  [in, optional] LPOVERLAPPED                Overlapped
+);
+
+参数
+[in] BufferHandle
+传输缓冲区的不透明句柄，该句柄由上一次调用 WinUsb_RegisterIsochBuffer注册。[in] Offset
+相对于开始传输的缓冲区偏移量。[in] Length
+传输缓冲区的长度（以字节为单位）。[in] ContinueStream
+指示仅当传输可以安排在上一个挂起的传输之后的第一帧时，才应提交传输。[in] NumberOfPackets
+保存传输缓冲区所需的常时等量数据包总数。 还指示 IsoPacketDescriptors 指向的数组中的元素数。
+
+≦ 147 ≧
+IsoPacketDescriptors
+一个USBD_ISO_PACKET_DESCRIPTOR数组，用于接收传输中每个常时等量数据包的详细信息。
+[in, optional] Overlapped
+指向用于异步操作 的 OVERLAPPED 结构的指针。返回值
+如果操作成功，WinUsb_ReadIsochPipeAsap返回 TRUE。 否则，此函数返回 FALSE，调用方可以通过调用 GetLastError 检索记录的错误。
+如果调用方将 ContinueStream 设置为 TRUE，则如果Winusb.sys无法计划传输以在不删除
+一个或多个帧的情况下继续流，则传输将失败。备注
+WinUsb_ReadIsochPipeAsap 允许 USB 驱动程序堆栈选择传输的起始帧编号。 如果终结点上已挂起一个或多个传输，则传输将紧跟在当前挂起的最后一个传输的最后一个帧编号之后安排传输。
+WinUsb_ReadIsochPipeAsap 将传输缓冲区数据包化，以便在每个间隔内，主机可以接收每个间隔允许的最大字节数。 最大字节数由完整终结点和高速终结点的终结点描述符指定，以及 SuperSpeed 终结点的终结点配套描述符指定。
+如果调用方提交多个读取请求以从设备流式传输数据，则传输大小应是WinUsb_QueryPipeEx) * 8 / 间隔返回的每个间隔 (最大 字节数的倍数。
+由于基础内核模式接口中使用的传输打包，应用程序或驱动程序的最低延迟通知间隔为 1
+毫秒。要求
+ 
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+ 
+Windows 8.1
+Windows Server 2012 R2 通用
+winusb.h (包括 Winusb.h)
+
+≦ 148 ≧
+ 
+Library DLL
+请参阅
+ 
+Winusb.lib Winusb.dll
+发送来自 UWP 桌面应用的 USB 常时等量传输
+WinUSB 函数反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 149 ≧
+WinUsb_ReadPipe 函数 (winusb.h) 项目2024/03/13
+WinUsb_ReadPipe 函数从指定管道读取数据。
+语法 C++
+BOOL WinUsb_ReadPipe(
+  [in]            WINUSB_INTERFACE_HANDLE InterfaceHandle,
+  [in]            UCHAR                   PipeID,   [out]           PUCHAR                  Buffer,
+  [in]            ULONG                   BufferLength,
+  [out, optional] PULONG                  LengthTransferred,
+  [in, optional]  LPOVERLAPPED            Overlapped);
+参数
+[in] InterfaceHandle
+接口的不透明句柄，其中包含与管道关联的终结点。
+若要从与第一个接口中的终结点关联的管道读取数据，请使用 WinUsb_Initialize 返回的句柄。 对于所有其他接口，请使用目标接口的句柄， WinUsb_GetAssociatedInterface检索。
+[in] PipeID
+PipeID 对应于终结点描述符中的 bEndpointAddress 字段。 有关此字段布局的信息，请
+参阅 USB 技术
+“通用串行总线规范修订版 2.0”中的表 9-13。 在 bEndpointAddress 字
+段中，位 7 指示终结点的方向：0 表示 OUT;1 用于 IN。[out] Buffer
+调用方分配的缓冲区，用于接收读取的数据。[in] BufferLength
+最多读取的字节数。 此数字必须小于或等于 Buffer 的大小（以字节为单位）。[out, optional] LengthTransferred
+
+≦ 150 ≧
+指向 ULONG 变量的指针，该变量接收复制到 缓冲区的实际字节数。 有关详细信息，请参阅“备注”。
+[in, optional] Overlapped
+指向用于异步操作的 OVERLAPPED 结构的可选指针。 如果指定此参数，
+WinUsb_ReadPipe 会立即返回，而不是同步等待操作完成，然后再返回。 操作完成时，
+会发出事件信号。返回值
+如果操作成功，WinUsb_ReadPipe返回 TRUE。 否则，此函数返回 FALSE，调用方可以
+通过调用 GetLastError 检索记录的错误。 GetLastError 可以返回以下错误代码。
+ﾉ
+返回代码
+ERROR_INVALID_HANDLE ERROR_IO_PENDING
+ERROR_NOT_ENOUGH_MEMORY
+ERROR_SEM_TIMEOUT 注解
+说明
+调用方在 InterfaceHandle 参数中传递 NULL。
+展开表
+重叠的 I/O 操作正在进行中，但尚未完成。 如果重叠的操作无法立即完成，则函数返回 FALSE，GetLastError 函数返回ERROR_IO_PENDING，表示操作正在后台执行。 调用 WinUsb_GetOverlappedResult 以检查操作的成功或失败。
+内存不足，无法执行操作。
+由 USB 堆栈中的 WinUsb_ReadPipe 启动的读取操作在操作完成之前超时。
+如果设备返回的数据大于最大传输长度，WinUSB 会将请求划分为最大传输长度的较小请求，并按顺序提交它们。 如果传输长度不是终结点最大数据包大小的倍数， (可通过
+WINUSB_PIPE_INFORMATION 结构的 MaximumPacketSize 成员) 检索，则 WinUSB 会将传输大小增加到下一个 MaximumPacketSize 倍数。
+USB 数据包大小不考虑读取请求的传输。 如果设备响应的数据包对于客户端缓冲区来说太大，则读取请求的行为对应于管道上设置的策略类型。 如果管道的策略类型
+ALLOW_PARTIAL_READS，则 WinUSB 会将剩余数据添加到下一次传输的开头。 如果未设置ALLOW_PARTIAL_READS，读取请求将失败。 有关策略类型的详细信息，请参阅 用于管道策略修改的 WinUSB 函数。
+
+≦ 151 ≧
+如果应用程序将重叠参数 (同步操作) 传递 NULL，则应用程序必须确保 LengthTransferred 不是 NULL，即使读取操作不生成输出数据也是如此。
+如果 重叠 不是 NULL (异步操作) ，则可以将 LengthTransferred 设置为 NULL。 对于重叠操作 (如果 LengthTransferred 是非 NULL 值) ，则在WinUsb_ReadPipe返回后在
+LengthTransferred 中接收的值在重叠操作完成之前毫无意义。 若要检索从管道读取的实际字节数，请调用 WinUsb_GetOverlappedResult。
+如果终结点中没有可用的数据， (管道为空) ， 则WinUsb_ReadPipe 在管道中存在数据之前不会返回。 如果出现错误情况或应用程序指定的超时过期， WinUsb_ReadPipe 始终返回 FALSE。 若要确定该返回值的实际原因，请始终调用 GetLastError。 例如，在这些情况下， GetLastError 错误值指示实际原因：
+如果应用程序在管道策略中指定了超时值，并且该超时过期， WinUsb_ReadPipe 返回 FALSE，GetLastError 将返回ERROR_SEM_TIMEOUT。
+如果在从管道读取数据时出现错误情况， WinUsb_ReadPipe 返回 FALSE， GetLastError 返回ERROR_GEN_FAILURE。
+要求
+ﾉ
+要求
+目标平台
+标头 Library DLL
+另请参阅 WinUSB
+WinUSB 函数
+WinUsb_Initialize 反馈
+值通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+展开表
+
+≦ 152 ≧
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 153 ≧
+WinUsb_RegisterIsochBuffer 函数
+(winusb.h) 项目2024/03/04
+WinUsb_RegisterIsochBuffer 函数注册要用于等时等时传输的缓冲区。
+语法 C++
+BOOL WinUsb_RegisterIsochBuffer(
+  [in]  WINUSB_INTERFACE_HANDLE     InterfaceHandle,
+  [in]  UCHAR                       PipeID,   [in]  PUCHAR                      Buffer,
+  [in]  ULONG                       BufferLength,
+  [out] PWINUSB_ISOCH_BUFFER_HANDLE IsochBufferHandle);
+参数
+[in] InterfaceHandle
+所选配置中接口的不透明句柄。 该句柄必须由先前调用 WinUsb_Initialize 或
+WinUsb_GetAssociatedInterface 创建。[in] PipeID
+派生自终结点描述符中 bEndpointAddress 字段的位 3...0。[in] Buffer
+指向要注册的传输缓冲区的指针。[in] BufferLength
+缓冲区指向的传输缓冲区的长度（以字节为单位）。[out] IsochBufferHandle
+接收已注册缓冲区的不透明句柄。 执行常量传输的其他 WinUSB 函数需要此句柄。 若要释放句柄，请调用 WinUsb_UnregisterIsochBuffer 函数。
+
+≦ 154 ≧
+返回值
+如果操作成功，WinUsb_RegisterIsochBuffer返回 TRUE。 否则，此函数返回 FALSE，调用方可以通过调用 GetLastError 检索记录的错误。
+如果调用方将 ContinueStream 设置为 TRUE，则如果 Winusb.sys 无法计划传输以在不删
+除一个或多个帧的情况下继续流，则传输将失败。注解
+在向缓冲区发起或从缓冲区发起常时等量传输之前，调用方必须使用
+WinUsb_RegisterIsochBuffer 注册缓冲区。 此调用允许 Winusb.sys 预先映射缓冲区，并
+在之后锁定缓冲区，以便使用 缓冲区进行所有后续传输。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows 8.1
+Windows Server 2012 R2 通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+发送来自 UWP 桌面应用的 USB 常时等量传输 WinUSB 函数
+WinUsb_UnregisterIsochBuffer 反馈
+展开表
+
+≦ 155 ≧
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 156 ≧
+WinUsb_ResetPipe 函数 (winusb.h) 项目2023/08/27
+WinUsb_ResetPipe 函数重置数据切换并清除管道上的停止条件。
+语法 C++
+BOOL WinUsb_ResetPipe(
+  [in] WINUSB_INTERFACE_HANDLE InterfaceHandle,
+  [in] UCHAR                   PipeID);
+参数
+[in] InterfaceHandle
+接口的不透明句柄，其中包含与管道关联的终结点。
+若要重置与第一个接口中的终结点关联的管道，请使用 WinUsb_Initialize返回的句柄。对于所有其他接口，请使用目标接口的句柄， WinUsb_GetAssociatedInterface检索。
+[in] PipeID
+控件管道的标识符 (ID) 。 PipeID 参数是一个 8 位值，由 7 位地址和方向位组成。 此参数
+对应于终结点描述符中的 bEndpointAddress 字段。返回值
+如果操作成功，WinUsb_ResetPipe返回 TRUE。 否则，此函数返回 FALSE，调用方可以
+通过调用 GetLastError 检索记录的错误。 GetLastError 可以返回以下错误代码。
+返回代码
+ERROR_INVALID_HANDLE 要求
+说明
+调用方在 InterfaceHandle 参数中传递 NULL。
+
+≦ 157 ≧
+ 
+目标平台
+标头 Library DLL
+另请参阅 WinUSB
+WinUSB 函数
+WinUsb_Initialize 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+ﾄ否
+
+≦ 158 ≧
+WinUsb_SetCurrentAlternateSetting 函
+数 (winusb.h) 项目2023/08/27
+WinUsb_SetCurrentAlternateSetting 函数设置接口的备用设置。
+语法 C++
+BOOL WinUsb_SetCurrentAlternateSetting(
+  [in] WINUSB_INTERFACE_HANDLE InterfaceHandle,
+  [in] UCHAR                   SettingNumber);
+参数
+[in] InterfaceHandle
+接口的不透明句柄，用于定义要设置的备用设置。
+若要在设备上的第一个接口中设置备用设置，请使用 WinUsb_Initialize 返回的接口句柄。 对于所有其他接口，请使用目标接口的句柄， WinUsb_GetAssociatedInterface检索。
+[in] SettingNumber
+包含在 USB_INTERFACE_DESCRIPTOR 结构的 bAlternateSetting 成员中的值。 此结构由
+WinUsb_QueryInterfaceSettings 例程填充。返回值
+如果操作成功，WinUsb_SetCurrentAlternateSetting返回 TRUE。 否则，此函数返回
+FALSE，调用方可以通过调用 GetLastError 检索记录的错误。 GetLastError 可以返回以下错误代码。
+返回代码
+ERROR_INVALID_HANDLE
+说明
+调用方在 InterfaceHandle 参数中传递 NULL。
+
+≦ 159 ≧
+注解
+如果接口上存在未完成的 I/O 请求，WinUsb_SetCurrentAlternateSetting失败。要求
+ 
+目标平台
+标头 Library DLL
+另请参阅
+ 
+通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+USB_INTERFACE_DESCRIPTOR WinUSB
+WinUSB 函数
+WinUsb_Initialize
+WinUsb_QueryInterfaceSettings 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 160 ≧
+WinUsb_SetPipePolicy 函数 (winusb.h) 项目2023/08/27
+WinUsb_SetPipePolicy 函数为与设备上的终结点关联的特定管道设置策略。 这是一个同
+步操作。语法 C++
+BOOL WinUsb_SetPipePolicy(
+  [in] WINUSB_INTERFACE_HANDLE InterfaceHandle,   [in] UCHAR                   PipeID,
+  [in] ULONG                   PolicyType,   [in] ULONG                   ValueLength,
+  [in] PVOID                   Value);
+参数
+[in] InterfaceHandle
+接口的不透明句柄，该接口包含与管道关联的终结点。
+若要在第一个接口中为与终结点关联的管道设置策略，请使用 WinUsb_Initialize返回的句柄。 对于所有其他接口，请使用WinUsb_GetAssociatedInterface检索的目标接口的句柄。
+[in] PipeID
+由 7 位地址和方向位组成的 8 位值。 此参数对应于终结点描述符中的
+bEndpointAddress 字段。[in] PolicyType
+指定要更改的策略参数的 ULONG 变量。 Value 参数包含 winusbio.h 中定义的策略参数的新值。 有关如何使用每个管道策略和结果行为的信息，请参阅 用于管道策略修改的
+WinUSB 函数。[in] ValueLength
+Value 处缓冲区的大小（以字节 为单位）。
+
+≦ 161 ≧
+[in] Value
+PolicyType 指定的策略参数的新值。 此输入参数的大小取决于要更改的策略。 有关此参
+数大小的信息，请参阅 PolicyType 参数的说明。返回值
+如果操作成功，WinUsb_SetPipePolicy返回 TRUE。 否则，此函数返回 FALSE，调用方可
+以通过调用 GetLastError 检索记录的错误。 GetLastError 可能会返回以下错误代码。
+返回代码
+ERROR_INVALID_HANDLE
+ERROR_INVALID_PARAMETER ERROR_NOT_ENOUGH_MEMORY 要求
+ 
+目标平台
+标头 Library DLL
+另请参阅 WinUSB
+WinUSB 函数
+ 
+通用
+说明
+调用 方在InterfaceHandle 参数中传递 NULL。
+调用方为 ValueLength 参数中的策略参数缓冲区传递了无效大小。
+指示内存不足，无法执行操作。
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+用于修改管道策略的 WinUSB 函数
+WinUsb_GetPipePolicy WinUsb_Initialize
+
+≦ 162 ≧
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 163 ≧
+WinUsb_SetPowerPolicy 函数 (winusb.h) 项目2023/08/27
+WinUsb_SetPowerPolicy 函数设置设备的电源策略。
+语法 C++
+BOOL WinUsb_SetPowerPolicy(
+  [in] WINUSB_INTERFACE_HANDLE InterfaceHandle,
+  [in] ULONG                   PolicyType,   [in] ULONG                   ValueLength,
+  [in] PVOID                   Value);
+参数
+[in] InterfaceHandle
+设备上第一个 (默认) 接口的不透明句柄， WinUsb_Initialize返回。[in] PolicyType
+一个 值，该值指定要设置的电源策略。 下表描述了 winusbio.h 中定义的符号常量。
+策略参数
+AUTO_SUSPEND(0x81)
+SUSPEND_DELAY(0x83)
+说明
+指定自动挂起策略类型;power policy 参数必须由调用方在 Value 参数中指定。对于自动挂起， Value 参数必须指向 UCHAR 变量。
+如果 Value (非零) 为 TRUE ，则如果设备处于空闲状态，则 USB 堆栈会暂停设备。 如果没有挂起的传输，或者唯一挂起的传输是中断或批量终结点的 IN 传输，则设备处于空闲状态。
+默认值由 DefaultIdleState 注册表设置中设置的值确定。 默认情况下，此值为 TRUE。
+指定 suspend-delay 策略类型;power policy 参数必须由调用方在 Value 参数中指定。
+对于暂停延迟， 值 必须指向 ULONG 变量。
+值 指定 WinUSB 驱动程序在传输后必须等待的最短时间（以毫秒为单位），然后才能暂停设备。
+
+≦ 164 ≧
+[in] ValueLength
+默认值由 DefaultIdleTimeout 注册表设置中设置的值确定。 默认情况下，此值为 5 秒。
+Value 处缓冲区的大小（以字节为单位）。[in] Value
+电源策略参数的新值。 Value 的数据类型和值取决于 PolicyType 中传递的电源策略的类
+型。 有关详细信息，请参阅 PolicyType。返回值
+如果操作成功，WinUsb_SetPowerPolicy返回 TRUE。 否则，此函数返回 FALSE，调用方
+可以通过调用 GetLastError 检索记录的错误。 GetLastError 可以返回以下错误代码。
+返回代码
+ERROR_INVALID_HANDLE
+ERROR_INVALID_PARAMETER ERROR_NOT_ENOUGH_MEMORY 注解
+说明
+调用方在 InterfaceHandle 参数中传递 NULL。
+调用方为 ValueLength 参数中的策略参数缓冲区传递了无效大小。
+指示内存不足，无法执行操作。
+以下列表汇总了更改对电源管理状态的影响：
+所有管道句柄、接口句柄、锁和备用设置都会跨电源管理事件保留。
+当设备传输到低功耗状态时，正在进行的任何传输将暂停，并在设备还原到工作状态时恢复。
+设备和系统必须处于工作状态，客户端才能还原特定于设备的配置。 客户端可以通过WM_POWERBROADCAST消息确定设备和系统是否处于工作状态。
+客户端可以通过调用 WinUsb_SetPowerPolicy 来指示接口处于空闲状态。要求
+
+≦ 165 ≧
+ 
+目标平台
+标头 Library DLL
+另请参阅 WinUSB
+WinUSB 函数
+WinUSB 电源管理 WinUsb_Initialize
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+ﾄ否
+
+≦ 166 ≧
+WINUSB_SETUP_PACKET 结构 (winusb.h) 项目2024/03/04
+WINUSB_SETUP_PACKET 结构描述 USB 设置数据包。
+语法 C++
+typedef struct _WINUSB_SETUP_PACKET {   UCHAR  RequestType;
+  UCHAR  Request;   USHORT Value;   USHORT Index;   USHORT Length;
+} WINUSB_SETUP_PACKET, *PWINUSB_SETUP_PACKET;
+成员 RequestType
+请求类型。 分配给此成员的值在通用串行总线 (USB) 规范第 9.3 节的表 9.2 中定义
+(www.usb.org Request
+) 。
+设备请求。 分配给此成员的值在通用串行总线 (USB) 规范的第 9.4 节的表 9.3 中定义。 Value
+此成员的含义因请求而异。 有关此成员的说明，请参阅通用串行总线 (USB) 规范。 Index
+此成员的含义因请求而异。 有关此成员的说明，请参阅通用串行总线 (USB) 规范。 Length
+要传输的字节数。注解
+WinUsb_ControlTransfer例程的调用方必须传入WINUSB_SETUP_PACKET结构。
+
+≦ 167 ≧
+要求要求 Header
+另请参阅 USB 结构
+值
+winusb.h (包括 Winusbio.h)
+WinUsb_ControlTransfer 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 168 ≧
+WinUsb_StartTrackingForTimeSync 函数
+(winusb.h) 项目2023/08/27
+WinUsb_StartTrackingForTimeSync 函数在 USB 驱动程序堆栈中启动时间同步功能，获取 USB 总线帧和微帧的关联系统 QPC 时间。
+语法 C++
+BOOL WinUsb_StartTrackingForTimeSync(
+  [in] WINUSB_INTERFACE_HANDLE                       InterfaceHandle,   [in] PUSB_START_TRACKING_FOR_TIME_SYNC_INFORMATION StartTrackingInfo);
+参数
+[in] InterfaceHandle
+在对 WinUsb_Initialize 的上一次调用中检索到 的不透明句柄。[in] StartTrackingInfo
+指向 USB_START_TRACKING_FOR_TIME_SYNC_INFORMATION 结构的指针。 将
+TimeTrackingHandle 设置为 INAVLID_HANDLE。 如果最长 2.048 秒的初始启动延迟可容忍，请将 IsStartupDelayTolerable 设置为 TRUE。 FALSE，注册延迟，直到 USB 驱动程
+序堆栈能够检测到有效的帧或微帧边界。返回值
+如果操作成功，WinUsb_StartTrackingForTimeSync返回 TRUE。 否则，此例程返回
+FALSE，调用方可以通过调用 GetLastError 检索记录的错误。 GetLastError 可以返回以下错误代码之一。
+返回代码
+ERROR_INVALID_HANDLE
+说明
+调用方在 InterfaceHandle 或 StartTrackingInfo 参数中传递了 NULL。
+
+≦ 169 ≧
+要求  
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 WinUSB
+WinUSB 函数
+WinUsb_Initialize 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+ 
+Windows 10
+Windows Server 2016 通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+
+≦ 170 ≧
+WinUsb_StopTrackingForTimeSync函数
+(winusb.h) 项目2024/03/13
+WinUsb_StopTrackingForTimeSync 函数停止 USB 驱动程序堆栈中的时间同步功能，该功能获取 USB 总线帧和微帧的关联系统 QPC 时间。
+语法 C++
+BOOL WinUsb_StopTrackingForTimeSync(
+  [in] WINUSB_INTERFACE_HANDLE                      InterfaceHandle,   [in] PUSB_STOP_TRACKING_FOR_TIME_SYNC_INFORMATION StopTrackingInfo);
+参数
+[in] InterfaceHandle
+在上一次调用 WinUsb_Initialize 中检索到 的不透明句柄。[in] StopTrackingInfo
+指向 USB_STOP_TRACKING_FOR_TIME_SYNC_INFORMATION 结构的指针。 将
+TimeTrackingHandle 设置为在对 WinUsb_StartTrackingForTimeSync的上一次调用中收到
+的句柄。返回值
+如果操作成功，WinUsb_StopTrackingForTimeSync返回 TRUE。 否则，此例程返回
+FALSE，调用方可以通过调用 GetLastError 检索记录的错误。 GetLastError 可能会返回以下错误代码之一。
+ﾉ
+返回代码
+ERROR_INVALID_HANDLE
+说明
+展开表
+调用方在 InterfaceHandle 或 StopTrackingInfo 参数中传递
+
+≦ 171 ≧
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 WinUSB
+WinUSB 函数
+WinUsb_Initialize
+WinUsb_StartTrackingForTimeSync 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+了 NULL。
+值
+Windows 10
+Windows Server 2016 通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 172 ≧
+WinUsb_UnregisterIsochBuffer 函数
+(winusb.h) 项目2023/08/27
+WinUsb_UnregisterIsochBuffer 函数释放WinUsb_RegisterIsochBuffer为常量传输分配的所有资源。 这是一个同步操作。
+语法 C++
+BOOL WinUsb_UnregisterIsochBuffer(
+  [in] WINUSB_ISOCH_BUFFER_HANDLE IsochBufferHandle);
+参数
+[in] IsochBufferHandle
+传输缓冲区的不透明句柄，该句柄由上一次调用 WinUsb_RegisterIsochBuffer注册。返回值
+如果操作成功，WinUsb_UnregisterIsochBuffer返回 TRUE。 否则，此函数返回 FALSE，
+调用方可以通过调用 GetLastError 检索记录的错误。注解
+调用方必须确保在调用 WinUsb_UnregisterIsochBuffer之前，当前没有正在使用缓冲区的挂起传输。 如果存在挂起的传输， WinUsb_UnregisterIsochBuffer 阻止这些传输完成。
+要求
+ 
+最低受支持的客户端
+ 
+Windows 8.1
+
+≦ 173 ≧
+ 
+最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+ 
+Windows Server 2012 R2 通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+发送来自 UWP 桌面应用的 USB 常时等量传输 WinUSB 函数
+WinUsb_RegisterIsochBuffer 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 174 ≧
+WinUsb_WriteIsochPipe 函数 (winusb.h) 项目2024/03/04
+WinUsb_WriteIsochPipe 函数从指定的帧编号开始，将调用方提供的缓冲区的内容写入常时等量 OUT 终结点。
+语法 C++
+BOOL WinUsb_WriteIsochPipe(
+  [in]           WINUSB_ISOCH_BUFFER_HANDLE BufferHandle,
+  [in]           ULONG                      Offset,   [in]           ULONG                      Length,
+  [in, out]      PULONG                     FrameNumber,   [in, optional] LPOVERLAPPED               Overlapped);
+参数
+[in] BufferHandle
+上一次调用WinUsb_RegisterIsochBuffer注册的传输缓冲区的不透明句柄。[in] Offset
+缓冲区中相对于开始传输的偏移量。[in] Length
+传输缓冲区的长度（以字节为单位）。[in, out] FrameNumber
+输入时，指示传输的起始帧编号。 在输出中，包含传输中使用的最后一帧之后的帧的帧编号。
+[in, optional] Overlapped
+指向用于异步操作 的 OVERLAPPED 结构的指针。返回值
+
+≦ 175 ≧
+如果操作成功，WinUsb_WriteIsochPipe返回 TRUE。 否则，此函数返回 FALSE，调用方
+可以通过调用 GetLastError 检索记录的错误。注解
+WinUsb_WriteIsochPipe 将传输缓冲区数据包化，以便在每 1 毫秒间隔内，主机可以发送每个间隔允许的最大字节数。 最大字节数由完整终结点和高速终结点的终结点描述符指定，以及 SuperSpeed 终结点的终结点配套描述符指定。 如果调用方提交多个写入请求以将数据流式传输到设备，则传输大小应是 (WinUsb_QueryPipeEx) * 8 / interval 返回的每个间隔最大 字节数的 倍数。
+由于基础内核模式接口中使用的传输打包，应用程序或驱动程序的最低延迟通知间隔为 1
+毫秒。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows 8.1
+Windows Server 2012 R2 通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+发送来自 UWP 桌面应用的 USB 常时等量传输
+WinUSB 函数反馈
+此页面是否有帮助？
+是
+否
+展开表
+
+≦ 176 ≧
+提供产品反馈 
+| 在 Microsoft Q&A 获取帮助
+
+≦ 177 ≧
+WinUsb_WriteIsochPipeAsap 函数
+(winusb.h) 项目2024/03/13
+WinUsb_WriteIsochPipeAsap提交将缓冲区内容写入常时等量 OUT 终结点的请求。
+语法 C++
+BOOL WinUsb_WriteIsochPipeAsap(
+  [in]           WINUSB_ISOCH_BUFFER_HANDLE BufferHandle,
+  [in]           ULONG                      Offset,   [in]           ULONG                      Length,
+  [in]           BOOL                       ContinueStream,
+  [in, optional] LPOVERLAPPED               Overlapped);
+参数
+[in] BufferHandle
+传输缓冲区的不透明句柄，该句柄由上一次调用 WinUsb_RegisterIsochBuffer注册。[in] Offset
+相对于开始传输的缓冲区偏移量。[in] Length
+传输缓冲区的长度（以字节为单位）。[in] ContinueStream
+指示仅当传输可以安排在上一个挂起的传输之后的第一帧时，才应提交传输。[in, optional] Overlapped
+指向用于异步操作 的 OVERLAPPED 结构的指针。返回值
+
+≦ 178 ≧
+如果操作成功，WinUsb_WriteIsochPipeAsap返回 TRUE。 否则，此函数返回 FALSE，调用方可以通过调用 GetLastError 检索记录的错误。
+如果调用方将 ContinueStream 设置为 TRUE，则如果 Winusb.sys 无法计划传输以在不删
+除一个或多个帧的情况下继续流，则传输将失败。注解
+WinUsb_WriteIsochPipeAsap 允许 USB 驱动程序堆栈选择传输的起始帧编号。 如果终结点上已挂起一个或多个传输，则传输将紧跟在当前挂起的最后一个传输的最后一个帧编号之后安排传输。
+WinUsb_WriteIsochPipeAsap 对传输缓冲区进行数据包化，以便在每 1 毫秒间隔内，主机可以发送每个间隔允许的最大字节数。 最大字节数由完整终结点和高速终结点的终结点描述符指定，以及 SuperSpeed 终结点的终结点配套描述符指定。 如果调用方提交多
+个写入请求以将数据流式传输到设备，则传输大小应是WinUsb_QueryPipeEx) * 8 / interval 返回的每个间隔 ( 最大字节数的倍数。
+由于基础内核模式接口中使用的传输打包，应用程序或驱动程序的最低延迟通知间隔为 1
+毫秒。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+值
+Windows 8.1
+Windows Server 2012 R2 通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+发送来自 UWP 桌面应用的 USB 常时等量传输 WinUSB 函数
+展开表
+
+≦ 179 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 180 ≧
+WinUsb_WritePipe 函数 (winusb.h) 项目2024/03/13
+WinUsb_WritePipe函数将数据写入管道。
+语法 C++
+BOOL WinUsb_WritePipe(
+  [in]            WINUSB_INTERFACE_HANDLE InterfaceHandle,
+  [in]            UCHAR                   PipeID,   [in]            PUCHAR                  Buffer,
+  [in]            ULONG                   BufferLength,
+  [out, optional] PULONG                  LengthTransferred,
+  [in, optional]  LPOVERLAPPED            Overlapped);
+参数
+[in] InterfaceHandle
+接口的不透明句柄，该接口包含与管道关联的终结点。
+若要写入与第一个接口中的终结点关联的管道，请使用 WinUsb_Initialize 返回的句柄。对于所有其他接口，请使用WinUsb_GetAssociatedInterface检索的目标接口的句柄。
+[in] PipeID
+PipeID 对应于终结点描述符中的 bEndpointAddress 字段。 有关此字段的布局的信息，
+请参阅 USB Technology
+ 上“通用串行总线规范修订版 2.0”中的表 9-13。 在
+bEndpointAddress 字段中，位 7 指示终结点的方向：0 表示 OUT;1 用于 IN。[in] Buffer
+调用方分配的缓冲区，其中包含要写入的数据。[in] BufferLength
+要写入的字节数。 此数字必须小于或等于 Buffer 的大小（以字节为单位）。[out, optional] LengthTransferred
+
+≦ 181 ≧
+指向 ULONG 变量的指针，该变量接收写入管道的实际字节数。 有关详细信息，请参阅“备注”。
+[in, optional] Overlapped
+指向 OVERLAPPED 结构的可选指针，用于异步操作。 如果指定此参数，
+WinUsb_WritePipe 将立即返回 ，并在操作完成时向事件发出信号。返回值
+如果操作成功，WinUsb_WritePipe返回 TRUE。 否则，此函数返回 FALSE，调用方可以
+通过调用 GetLastError 检索记录的错误。 GetLastError 可能会返回以下错误代码。
+ﾉ
+返回代码
+ERROR_INVALID_HANDLE ERROR_IO_PENDING
+ERROR_NOT_ENOUGH_MEMORY
+ERROR_SEM_TIMEOUT 注解
+说明
+调用 方在InterfaceHandle 参数中传递 NULL。
+展开表
+指示重叠的 I/O 操作正在进行，但尚未完成。 如果无法立即完成重叠的操作，则函数返回 FALSE，GetLastError 函数返回ERROR_IO_PENDING，指示操作正在后台执行。 调用 WinUsb_GetOverlappedResult 以检查操作的成功或失败。
+指示内存不足，无法执行操作。
+USB 堆栈中 WinUsb_WritePipe 启动的写入操作在操作完成之前超时。
+若要创建写入请求，应用程序必须分配缓冲区，用要写入设备的数据填充缓冲区，并通过
+调用 WinUsb_WritePipe 将缓冲区发送到主机控制器。如果设置了RAW_IO，则以下限制适用于缓冲区的大小：
+缓冲区长度必须是最大终结点数据包大小的倍数。
+长度必须小于或等于 WinUsb_GetPipePolicy检索MAXIMUM_TRANSFER_SIZE的值。
+如果未将RAW_IO设置为管道的策略类型，则缓冲区的大小没有限制。 如果缓冲区的大小大于 MAXIMUM_TRANSFER_SIZE 报告的最大传输长度，WinUSB 会将请求划分为较小的请求，并将它们串行提交到主机控制器。
+
+≦ 182 ≧
+包含零长度数据的写入请求在 USB 堆栈中向下转发。
+如果应用程序) 同步操作 (重叠参数中传递 NULL，则它必须确保 LengthTransferred 不为 NULL，即使操作不生成输出数据也是如此。
+如果 Overlapped (异步操作) 不为 NULL ，则可以将 LengthTransferred 设置为 NULL。 对于重叠操作 (如果 LengthTransferred 是非 NULL 值) ，则在WinUsb_WritePipe返回后在 LengthTransferred 中收到的值在重叠操作完成之前毫无意义。 若要检索返回的实际字节
+数，请调用 WinUsb_GetOverlappedResult。要求
+ﾉ
+要求
+目标平台
+标头 Library DLL
+另请参阅 WinUSB
+WinUSB 函数
+WinUsb_Initialize 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值通用
+winusb.h (包括 Winusb.h)
+Winusb.lib Winusb.dll
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 183 ≧
+winusbio.h 标头项目2023/08/27
+USB 驱动程序引用使用此标头。 有关详细信息，请参阅：
+USB 驱动程序参考
+winusbio.h 包含以下编程接口：
+结构  
+WINUSB_PIPE_INFORMATION
+WINUSB_PIPE_INFORMATION 结构包含WinUsb_QueryPipe例程检索的管道信息。 WINUSB_PIPE_INFORMATION_EX
+WINUSB_PIPE_INFORMATION_EX 结构包含WinUsb_QueryPipeEx例程检索的管道信息。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 184 ≧
+WINUSB_PIPE_INFORMATION 结构
+(winusbio.h) 项目2024/03/04
+WINUSB_PIPE_INFORMATION 结构包含WinUsb_QueryPipe例程检索的管道信息。
+语法 C++
+typedef struct _WINUSB_PIPE_INFORMATION {
+  USBD_PIPE_TYPE PipeType;   UCHAR          PipeId;
+  USHORT         MaximumPacketSize;   UCHAR          Interval;
+} WINUSB_PIPE_INFORMATION, *PWINUSB_PIPE_INFORMATION;
+成员 PipeType
+指定管道类型的 USBD_PIPE_TYPE类型枚举值。 PipeId
+管道标识符 (ID) 。 MaximumPacketSize
+在管道上传输的数据包的最大大小（以字节为单位）。
+Interval 管道间隔。要求
+ﾉ
+展开表
+
+≦ 185 ≧
+要求 Header
+另请参阅 USB 结构
+USBD_PIPE_TYPE WinUsb_QueryPipe
+反馈
+此页面是否有帮助？
+提供产品反馈 
+值
+winusbio.h (包括 Winusbio.h)
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 186 ≧
+WINUSB_PIPE_INFORMATION_EX 结构
+(winusbio.h) 项目2023/08/27
+WINUSB_PIPE_INFORMATION_EX 结构包含WinUsb_QueryPipeEx例程检索的管道信息。
+语法 C++
+typedef struct _WINUSB_PIPE_INFORMATION_EX {
+  USBD_PIPE_TYPE PipeType;   UCHAR          PipeId;
+  USHORT         MaximumPacketSize;   UCHAR          Interval;
+  ULONG          MaximumBytesPerInterval;
+} WINUSB_PIPE_INFORMATION_EX, *PWINUSB_PIPE_INFORMATION_EX;
+成员 PipeType
+一个 USBD_PIPE_TYPE类型的枚举值，该值指定管道类型。 PipeId
+管道标识符 (ID) 。 MaximumPacketSize
+在管道上传输的数据包的最大大小（以字节为单位）。
+Interval 管道间隔。
+MaximumBytesPerInterval
+可在单个间隔内传输的最大字节数。 此值可能大于高带宽、高速周期终结点和超高速定
+期终结点（如常时等量终结点）上的 MaximumPacketSize 值。要求
+
+≦ 187 ≧
+ 
+标头
+另请参阅 USB 结构
+USBD_PIPE_TYPE
+ 
+winusbio.h (包括 Winusbio.h)
+WinUsb_QueryPipe 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+

@@ -1,0 +1,1096 @@
+告知我们有关下载 PDF 体验的信息。
+Kernel-Mode 驱动程序参考项目2023/08/26
+Kernel-Mode 驱动程序参考技术概述。
+若要开发 Kernel-Mode 驱动程序参考，需要以下标头：
+ntdef.h
+有关此技术的编程指南，请参阅：
+内核模式驱动程序参考
+枚举  
+COMPARTMENT_ID
+COMPARTMENT_ID枚举指示网络路由舱标识符。
+函数  
+FIELD_OFFSET
+FIELD_OFFSET宏返回已知结构类型中命名字段的字节偏移量。 (FIELD_OFFSET 宏) FIELD_OFFSET
+FIELD_OFFSET宏返回已知结构类型中命名字段的字节偏移量。 (FIELD_OFFSET 宏) InitializeObjectAttributes
+InitializeObjectAttributes 宏初始化不透明的OBJECT_ATTRIBUTES结构，该结构将对象句柄的属性指
+定为打开句柄的例程。 NtCurrentTeb
+NtCurrentTeb 例程返回指向当前线程的线程环境块 (TEB) 的指针。 RtlIsEcCode
+返回一个值，该值指示提供的指针指向的代码是否是 ARM 仿真兼容 (ARM64EC) 。
+结构  
+LIST_ENTRY
+LIST_ENTRY 结构描述双链接列表中的条目，或用作此类列表的标头。 LUID
+LUID 结构是一种不透明结构，它指定保证在本地计算机上唯一的标识符。 有关详细信息，请参阅
+Microsoft Windows SDK 文档中的 LUID 参考页。 OBJECT_ATTRIBUTES
+OBJECT_ATTRIBUTES 结构指定可通过创建对象和/或返回句柄的例程应用于对象或对象句柄的属性。
+SINGLE_LIST_ENTRY
+SINGLE_LIST_ENTRY结构描述单独链接列表中的条目，或用作此类列表的标头。 STRING
+ANSI_STRING 结构定义用于 ANSI 字符串的计数字符串。 UNICODE_STRING
+UNICODE_STRING 结构用于定义 Unicode 字符串。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+evntrace.h 标头项目2023/03/11
+此标头由多种技术使用。 有关详细信息，请参阅：
+事件跟踪
+内核模式驱动程序参考 evntrace.h 包含以下编程接口：
+函数  
+CloseTrace 
+
+CloseTrace 函数关闭使用 OpenTrace 创建的跟踪处理会话。 ControlTraceA 
+
+ControlTraceA (ANSI) 函数 (evntrace.h) 刷新、查询、更新或停止指定的事件跟踪会话。 ControlTraceW 
+
+ControlTraceW (Unicode) 函数 (evntrace.h) 刷新、查询、更新或停止指定的事件跟踪会话。 CreateTraceInstanceId 
+
+基于 RegisterTraceGuids 的 (“Classic”) 事件提供程序使用 CreateTraceInstanceId 函数创建唯一的事务标识符并将其映射到注册句柄。 然后，提供程序可以在调用 TraceEventInstance 函数时使用事务标识符。
+EnableTrace 
+
+跟踪会话控制器调用 EnableTrace 来配置 ETW 事件提供程序将事件记录到跟踪会话的方式。
+EnableTraceEx2 函数取代此函数。 EnableTraceEx 
+
+跟踪会话控制器调用 EnableTraceEx 来配置 ETW 事件提供程序将事件记录到跟踪会话的方式。
+EnableTraceEx2 函数取代此函数。 EnableTraceEx2 
+
+跟踪会话控制器调用 EnableTraceEx2 来配置 ETW 事件提供程序将事件记录到跟踪会话的方式。
+ 
+EnumerateTraceGuids 
+
+检索有关计算机上当前运行的事件跟踪提供程序的信息。 EnumerateTraceGuidsEx 函数取代此函数。
+EnumerateTraceGuidsEx 
+
+检索有关计算机上当前运行的事件跟踪提供程序的信息。 FlushTraceA 
+
+FlushTraceA (ANSI) 函数 (evntrace.h) 会导致事件跟踪会话立即为指定会话传递缓冲事件。 FlushTraceW 
+
+FlushTraceW (Unicode) 函数 (evntrace.h) 导致事件跟踪会话立即为指定会话传递缓冲事件。 GetTraceEnableFlags 
+
+基于 RegisterTraceGuids 的 (“Classic”) 事件提供程序使用 GetTraceEnableFlags 函数检索跟踪控制器指定的启用标志，以指示要跟踪的事件类别。 提供程序从其 ControlCallback 函数调用此函数。
+GetTraceEnableLevel 
+
+基于 RegisterTraceGuids 的 (“Classic”) 事件提供程序使用 GetTraceEnableLevel 函数检索由跟踪控制器指定的启用级别，以指示要跟踪的事件级别。 提供程序从其 ControlCallback 函数调用此函数。
+GetTraceLoggerHandle 
+
+基于 RegisterTraceGuids 的 (“Classic”) 事件提供程序使用 GetTraceLoggerHandle 函数检索它应向
+其写入事件的事件跟踪会话的句柄。 提供程序从其 ControlCallback 函数调用此函数。 OpenTraceA 
+
+OpenTraceA (ANSI) 函数 (evntrace.h) 打开 ETW 跟踪处理句柄，以使用 ETW 实时跟踪会话或 ETW 日志文件中的事件。
+OpenTraceFromBufferStream 
+
+创建不直接附加到任何文件或活动会话的跟踪处理会话。 OpenTraceFromFile 
+
+创建跟踪处理会话以处理 Tracelog .etl 文件。 OpenTraceFromRealTimeLogger 
+
+打开 ETW 跟踪处理句柄，以使用 ETW 实时跟踪会话或 ETW 日志文件中的事件。
+ 
+OpenTraceFromRealTimeLoggerWithAllocationOptions 
+
+创建附加到活动实时 ETW 会话的跟踪处理会话。 OpenTraceW 
+
+OpenTraceW (Unicode) 函数 (evntrace.h) 打开 ETW 跟踪处理句柄，以使用 ETW 实时跟踪会话或
+ETW 日志文件中的事件。 ProcessTrace 
+
+将事件从一个或多个跟踪处理会话传送给使用者。 ProcessTraceAddBufferToBufferStream 
+
+为 OpenTraceFromBufferStream 创建的处理会话提供 ETW 跟踪缓冲区。 ProcessTraceBufferDecrementReference 
+
+释放对由 ProcessTraceBufferIncrementReference 添加的 Buffer 的引用。 ProcessTraceBufferIncrementReference 
+
+在提供的缓冲区上的 BufferCallback 期间调用，以防止释放它，直到调用方使用它。 QueryAllTracesA 
+
+QueryAllTracesA (ANSI) 函数 (evntrace.h) 函数检索调用方可以查询的所有事件跟踪会话的属性和统计信息。
+QueryAllTracesW 
+
+QueryAllTracesW (Unicode) 函数 (evntrace.h) 函数检索调用方可以查询的所有事件跟踪会话的属性
+和统计信息。 QueryTraceA 
+
+QueryTraceA (ANSI) 函数 (evntrace.h) 检索指定事件跟踪会话的属性设置和会话统计信息。 QueryTraceProcessingHandle 
+
+检索有关 OpenTrace 打开的 ETW 跟踪处理会话的信息。 QueryTraceW 
+
+QueryTraceW (Unicode) 函数 (evntrace.h) 检索指定事件跟踪会话的属性设置和会话统计信息。
+ 
+RegisterTraceGuidsA 
+
+RegisterTraceGuidsA (ANSI) 函数 (evntrace.h) 是一个过时的函数，新代码应使用提供的替代方法。 RegisterTraceGuidsW 
+
+RegisterTraceGuidsW (Unicode) 函数 (evntrace.h) 已过时，新代码应使用提供的替代方法。 RemoveTraceCallback 
+
+RemoveTraceCallback 函数阻止 EventCallback 函数接收事件跟踪类的事件。 此函数已过时。 SetTraceCallback 
+
+SetTraceCallback 函数指定用于处理指定事件跟踪类的事件的 EventCallback 函数。 此函数已过时。
+StartTraceA 
+
+StartTrace 函数启动事件跟踪会话。 (ANSI) StartTraceW 
+
+StartTrace 函数启动事件跟踪会话。 (Unicode) StopTraceA 
+
+StopTraceA (ANSI) 函数 (evntrace.h) 停止指定的事件跟踪会话。 ControlTrace 函数取代此函数。 StopTraceW 
+
+StopTraceW (Unicode) 函数 (evntrace.h) 停止指定的事件跟踪会话。 ControlTrace 函数取代此函数。
+TraceEvent 
+
+基于 RegisterTraceGuids 的 (“Classic”) 事件提供程序使用 TraceEvent 函数将结构化事件发送到事件跟踪会话。
+TraceEventInstance 
+
+基于 RegisterTraceGuids 的 (“Classic”) 事件提供程序使用 TraceEventInstance 函数将结构化事件发
+送到具有实例标识符的事件跟踪会话。 TraceMessage 
+
+基于 RegisterTraceGuids 的 (“Classic”) 事件提供程序使用 TraceMessage 函数将基于消息 (基于 TMF 的 WPP) 事件发送到事件跟踪会话。
+ 
+TraceMessageVa 
+
+基于 RegisterTraceGuids 的 (“Classic”) 事件提供程序使用 TraceMessageVa 函数将基于消息 (TMF 的
+WPP) 事件发送到使用va_list参数的事件跟踪会话。 TraceQueryInformation 
+
+提供有关事件跟踪会话的信息。 TraceSetInformation 
+
+配置事件跟踪会话设置。 UnregisterTraceGuids 
+
+注销使用 RegisterTraceGuids 注册 (的 Windows 2000 样式) ETW 事件跟踪提供程序的“经典”。 UpdateTraceA 
+
+UpdateTraceA (ANSI) 函数 (evntrace.h) 更新指定事件跟踪会话的属性设置。 UpdateTraceW 
+
+UpdateTraceW (Unicode) 函数 (evntrace.h) 更新指定事件跟踪会话的属性设置。
+回调函数  
+PETW_BUFFER_CALLBACK 
+
+将由 ProcessTrace 调用的 BufferCallback 的函数定义。 PETW_BUFFER_COMPLETION_CALLBACK 
+
+使用缓冲区完成 ProcessTraceAddBufferToBufferStream 时将触发的回调的函数定义。 此回调通常
+应根据需要释放缓冲区 PEVENT_CALLBACK 
+
+ETW 事件使用者实现此回调以接收来自跟踪处理会话的事件。 EventRecordCallback 回调取代此回调。
+PEVENT_RECORD_CALLBACK 
+
+ETW 事件使用者实现此回调以接收来自跟踪处理会话的事件。 PEVENT_RECORD_CALLBACK类型定义指向此回调函数的指针。 EventRecordCallback 是应用程序定义的函数名称的占位符。
+ 
+PEVENT_TRACE_BUFFER_CALLBACKA 
+
+PEVENT_TRACE_BUFFER_CALLBACKA (ANSI) (evntrace.h) 函数获取有关 ETW 在跟踪处理会话期间
+发送的每个事件缓冲区的统计信息。 PEVENT_TRACE_BUFFER_CALLBACKW 
+
+PEVENT_TRACE_BUFFER_CALLBACKW (Unicode) (evntrace.h) 函数获取有关 ETW 在跟踪处理会话期
+间发送的每个事件缓冲区的统计信息。 WMIDPREQUEST 
+
+基于 RegisterTraceGuids 的 (“Classic”) 事件提供程序实现此函数以接收来自控制器的通知。
+WMIDPREQUEST 类型定义指向此回调函数的指针。 ControlCallback 是应用程序定义的函数名称的
+占位符。結構  
+CLASSIC_EVENT_ID 
+
+标识要为其启用调用堆栈跟踪的内核事件。 ENABLE_TRACE_PARAMETERS 
+
+包含用于通过 EnableTraceEx2 启用提供程序的信息。 ENABLE_TRACE_PARAMETERS_V1 
+
+包含用于通过 EnableTraceEx2 启用提供程序的信息。 此结构已过时。 ETW_BUFFER_CALLBACK_INFORMATION 
+
+作为 ConsumerInfo 参数提供给 BufferCallback，并提供有关当前处理会话的详细信息。 ETW_BUFFER_CONTEXT 
+
+提供有关事件的上下文信息。
+ETW_BUFFER_HEADER 
+ ETW 缓冲区的标头结构。
+ 
+ETW_OPEN_TRACE_OPTIONS 
+
+为 OpenTraceFromBufferStream、OpenTraceFromFile、OpenTraceFromRealTimeLogger、
+OpenTraceFromRealTimeLoggerWithAllocationOptions 函数提供配置参数。 ETW_TRACE_PARTITION_INFORMATION 
+
+包含从 ETW 跟踪拉取的分区信息。 EVENT_INSTANCE_HEADER 
+
+EVENT_INSTANCE_HEADER 结构包含 TraceEventInstance 编写的所有事件通用的标准事件跟踪信息。
+EVENT_INSTANCE_INFO 
+
+EVENT_INSTANCE_INFO结构将唯一事务标识符映射到 TraceEventInstance 的已注册事件跟踪类。 EVENT_TRACE 
+
+EVENT_TRACE结构用于将事件信息传递给事件跟踪使用者。 EVENT_TRACE_HEADER 
+
+EVENT_TRACE_HEADER结构包含 TraceEvent 编写的所有事件通用的标准事件跟踪信息。 EVENT_TRACE_LOGFILEA 
+
+EVENT_TRACE_LOGFILEA (ANSI) 结构 (evntrace.h) 存储有关跟踪数据源的信息。 EVENT_TRACE_LOGFILEW 
+
+EVENT_TRACE_LOGFILEW (Unicode) 结构 (evntrace.h) 存储有关跟踪数据源的信息。 EVENT_TRACE_PROPERTIES 
+
+EVENT_TRACE_PROPERTIES结构包含有关事件跟踪会话的信息，并与 StartTrace 和 ControlTrace 等 API 一起使用。
+EVENT_TRACE_PROPERTIES_V2 
+
+EVENT_TRACE_PROPERTIES_V2 结构包含有关事件跟踪会话的信息，并与 StartTrace 和
+ControlTrace 等 API 一起使用。 MOF_FIELD 
+
+可以使用MOF_FIELD结构将事件数据追加到EVENT_TRACE_HEADER或EVENT_INSTANCE_HEADER结构。
+ 
+TRACE_ENABLE_INFO 
+
+定义会话以及会话用于启用提供程序的信息。 TRACE_GUID_INFO 
+
+由 EnumerateTraceGuidsEx 返回。 定义启用提供程序的会话列表的标头。 TRACE_GUID_PROPERTIES 
+
+由 EnumerateTraceGuids 返回。 包含有关事件跟踪提供程序的信息。 TRACE_GUID_REGISTRATION 
+
+与 RegisterTraceGuids 一起使用以注册事件跟踪类。 TRACE_LOGFILE_HEADER 
+
+TRACE_LOGFILE_HEADER 结构包含有关事件跟踪会话及其事件的信息。 TRACE_PERIODIC_CAPTURE_STATE_INFO 
+
+与 TraceQueryInformation 和 TraceSetInformation 一起使用，以获取或设置与定期捕获状态相关的信息。
+TRACE_PROVIDER_INSTANCE_INFO 
+
+定义提供程序 GUID 的实例。 TRACE_VERSION_INFO 
+
+确定 TraceLogging 会话的版本信息。
+枚举  
+ETW_PROCESS_HANDLE_INFO_TYPE 
+ 指定将在跟踪处理会话上执行的操作。
+ETW_PROCESS_TRACE_MODES 
+ 指定支持的进程跟踪模式。
+ 
+TRACE_QUERY_INFO_CLASS 
+
+与 EnumerateTraceGuidsEx 和 TraceSetInformation 一起使用可指定跟踪信息的类型。
+ktmtypes.h 标头项目2023/08/24
+此标头由多种技术使用。 有关详细信息，请参阅：
+数据访问和存储
+内核模式驱动程序参考
+ktmtypes.h 包含以下编程接口：
+结构  
+TRANSACTION_NOTIFICATION 包含与事务通知关联的数据。
+TRANSACTION_NOTIFICATION_RECOVERY_ARGUMENT
+指示要恢复的事务。 此结构随恢复通知一起发送。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+ntdef.h 标头项目2023/08/26
+此标头由多种技术使用。 有关详细信息，请参阅：
+可安装文件系统 DDI 参考内核模式驱动程序参考
+ntdef.h 包含以下编程接口：
+函数  
+CONTAINING_RECORD
+CONTAINING_RECORD 宏返回结构实例的基址，给定包含结构中的字段的类型和地址。 FIELD_OFFSET
+FIELD_OFFSET宏返回已知结构类型中命名字段的字节偏移量。 (FIELD_OFFSET 宏) InitializeObjectAttributes
+InitializeObjectAttributes 宏初始化不透明的OBJECT_ATTRIBUTES结构，该结构将对象句柄的属性指定为打开句柄的例程。
+结构  
+LIST_ENTRY
+LIST_ENTRY 结构描述双链接列表中的条目，或用作此类列表的标头。 LUID
+LUID 结构是一种不透明结构，它指定保证在本地计算机上唯一的标识符。 有关详细信息，请参阅
+Microsoft Windows SDK 文档中的 LUID 参考页。 OBJECT_ATTRIBUTES
+OBJECT_ATTRIBUTES 结构指定可通过创建对象和/或返回句柄的例程应用于对象或对象句柄的属性。
+ 
+SINGLE_LIST_ENTRY
+SINGLE_LIST_ENTRY结构描述单独链接列表中的条目，或用作此类列表的标头。 STRING
+ANSI_STRING 结构定义用于 ANSI 字符串的计数字符串。 UNICODE_STRING
+UNICODE_STRING 结构用于定义 Unicode 字符串。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+FIELD_OFFSET宏 (ntdef.h) 项目2024/02/29
+FIELD_OFFSET宏返回已知结构类型中命名字段的字节偏移量。
+语法 C++
+void FIELD_OFFSET(
+  [in]  type,   [in]  field);
+参数[in] type
+指定包含 Field 的已知结构类型的名称。[in] field
+指定 类型为 Type 的结构中的字段的名称。
+返回值无
+备注
+由设备驱动程序编写器用于以符号方式确定已知结构类型中已知字段的偏移量。要求
+ﾉ
+要求
+最低受支持的客户端
+值
+从 Windows 2000 开始可用。
+展开表
+要求
+目标平台
+标头 IRQL
+另请参阅
+值桌面
+ntdef.h (包括 Ntdef.h、Wdm.h、Ntddk.h、Miniport.h、Minitape.h、Scsi.h、
+Storport.h) 任何级别
+CONTAINING_RECORD 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+InitializeObjectAttributes 宏 (ntdef.h) 项目2023/08/25
+InitializeObjectAttributes 宏初始化不透明的OBJECT_ATTRIBUTES结构，该结构指定打开句柄的例程的对象句柄的属性。
+语法 C++
+VOID InitializeObjectAttributes(
+  [out]          POBJECT_ATTRIBUTES   p,   [in]           PUNICODE_STRING      n,   [in]           ULONG                a,   [in]           HANDLE               r,   [in, optional] PSECURITY_DESCRIPTOR s);
+parameters p
+指向要初始化 OBJECT_ATTRIBUTES 结构的指针。 n
+指向 Unicode 字符串的指针，该字符串包含要为其打开句柄的对象的名称。 这必须是完
+全限定的对象名称，或者 RootDirectory 参数指定的对象目录的相对路径名。 a
+指定以下一个或多个标志：
+标志
+OBJ_INHERIT
+OBJ_PERMANENT OBJ_EXCLUSIVE
+描述
+此句柄可由当前进程的子进程继承。
+此标志仅适用于在对象管理器中命名的对象。 默认情况下，关闭所有打开的句柄时，会删除此类对象。 如果指定了此标志，则不会在关闭所有打开的句柄时删除对象。 驱动程序可以使用
+ZwMakeTemporaryObject 删除永久对象。只能为此对象打开一个句柄。
+标志
+OBJ_CASE_INSENSITIVE OBJ_OPENIF
+OBJ_KERNEL_HANDLE
+OBJ_FORCE_ACCESS_CHECK r
+描述
+如果指定了此标志，则当将 ObjectName 参数与现有对象的名称匹配时，将使用不区分大小写的比较。 否则，将使用默认系统设置比较对象名称。
+如果将此标志指定给创建对象的例程，并且该对象已存在，则该例程应打开该对象。 否则，创建对象的例程将返回 NTSTATUS 代码
+STATUS_OBJECT_NAME_COLLISION。指定只能在内核模式下访问句柄。
+打开句柄的例程应强制对对象执行所有访问检查，即使该句柄是在内核模式下打开的。
+ObjectName 参数中指定的路径名的根对象目录的句柄。 如果 ObjectName 是完全限定的对象名称，则 RootDirectory 为 NULL。 使用 ZwCreateDirectoryObject
+ZwCreateDirectoryObject 获取对象目录的句柄。 s
+指定要在创建对象时应用于对象的安全描述符。 此参数是可选的。 驱动程序可以指定 NULL 以接受对象的默认安全性。 有关更多信息，请参见下面的“备注”部分。
+返回值无
+备注
+InitializeObjectAttributes 初始化 OBJECT_ATTRIBUTES 结构，该结构指定要打开的对象
+句柄的属性。 然后，调用方可以将指向此结构的指针传递给实际打开句柄的例程。在系统进程以外的进程上下文中运行的驱动程序例程必须为 Attributes 参数设置
+OBJ_KERNEL_HANDLE标志。 此标志将针对该对象打开的句柄的使用限制为仅在内核模式
+下运行的进程。 否则，运行驱动程序的上下文的进程可以访问句柄。请注意，InitializeObjectAttributes 始终将 OBJECT_ATTRIBUTES 的
+SecurityQualityOfService 成员设置为 NULL。 需要非 NULL 值的驱动程序可以直接设置
+SecurityQualityOfService 。要求
+ 
+目标平台标头
+请参阅 ExCreateCallback IoCreateFile
+ 
+桌面
+ntdef.h (包括 Wdm.h、Ntddk.h、Ntdef.h)
+OBJECT_ATTRIBUTES PsCreateSystemThread SECURITY_DESCRIPTOR UNICODE_STRING
+ZwCreateDirectoryObject
+ZwCreateFile ZwCreateKey
+ZwMakeTemporaryObject
+ZwOpenFile ZwOpenKey
+ZwOpenSection
+ZwOpenSymbolicLinkObject 反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+LIST_ENTRY 结构 (ntdef.h) 项目2024/03/05
+LIST_ENTRY结构描述双链接列表中的条目，或用作此类列表的标头。
+语法 C++
+typedef struct _LIST_ENTRY {   struct _LIST_ENTRY *Flink;   struct _LIST_ENTRY *Blink;
+} LIST_ENTRY, *PLIST_ENTRY, PRLIST_ENTRY;
+成员 Flink
+对于用作列表项 的LIST_ENTRY 结构， Flink 成员指向列表中的下一个条目，如果列表中没有下一个条目，则指向列表标题。
+对于用作列表标头 的LIST_ENTRY 结构， Flink 成员指向列表中的第一个条目，如果列表
+为空，则指向LIST_ENTRY结构本身。 Blink
+对于用作列表项 的LIST_ENTRY 结构，Blink 成员指向列表中的上一个条目，如果列表中没有上一项，则 Blink 成员指向列表标题。
+对于用作列表标头 的LIST_ENTRY 结构， Blink 成员指向列表中的最后一个条目，如果列
+表为空，则指向 LIST_ENTRY 结构本身。注解
+描述列表头 的LIST_ENTRY 结构必须已通过调用 InitializeListHead 进行初始化。
+驱动程序可以访问LIST_ENTRY的 Flink 或 Blink 成员，但这些成员只能由为此提供的系统例程进行更新。
+有关如何使用LIST_ENTRY结构实现双链接列表的详细信息，请参阅 Singly 和 Doubly Linked Lists。
+要求要求 Header
+另请参阅
+值
+ntdef.h (包括 Wdm.h、Ntddk.h)
+ExInterlockedInsertHeadList ExInterlockedInsertTailList ExInterlockedRemoveHeadList
+InitializeListHead InsertHeadList InsertTailList IsListEmpty
+RemoveEntryList RemoveHeadList RemoveTailList
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+(ntdef.h) 的 LUID 结构项目2024/02/29
+LUID 结构是不透明的结构，它指定保证在本地计算机上唯一的标识符。 有关详细信息，请参阅 Microsoft Windows SDK 文档中的 LUID 参考页。
+语法 C++
+typedef struct _LUID {
+  ULONG LowPart;   LONG  HighPart;} LUID, *PLUID;
+成员 LowPart HighPart 要求
+ﾉ
+要求 Header
+另请参阅
+值
+ntdef.h (包括 Wdm.h、Ntddk.h、Ntifs.h)
+RtlConvertLongToLuid RtlConvertUlongToLuid
+RtlEqualLuid RtlIsZeroLuid
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+OBJECT_ATTRIBUTES 结构 (ntdef.h) 项目2023/08/26
+OBJECT_ATTRIBUTES 结构指定可通过创建对象和/或返回对象的句柄的例程应用于对象或对象句柄的属性。
+语法 C++
+typedef struct _OBJECT_ATTRIBUTES {   ULONG           Length;
+  HANDLE          RootDirectory;
+  PUNICODE_STRING ObjectName;   ULONG           Attributes;
+  PVOID           SecurityDescriptor;
+  PVOID           SecurityQualityOfService;} OBJECT_ATTRIBUTES;
+成员 Length
+此结构中包含的数据的字节数。 InitializeObjectAttributes 宏将此成员设置为 sizeof
+(OBJECT_ATTRIBUTES) 。 RootDirectory
+ObjectName 成员指定的路径名的根对象目录的可选句柄。 如果 RootDirectory 为 NULL ， ObjectName 必须指向包含目标对象的完整路径的完全限定对象名称。 如果
+RootDirectory 为非NULL ， 则 ObjectName 指定相对于 RootDirectory 目录的对象名称。
+RootDirectory 句柄可以引用文件系统目录或对象管理器命名空间中的对象目录。 ObjectName
+指向 Unicode 字符串 的指针，该字符串包含要为其打开句柄的对象的名称。 这必须是完
+全限定的对象名称，或者是 RootDirectory 成员指定的目录的相对路径名。 Attributes
+指定对象句柄属性的标志的位掩码。 此成员可以包含下表中的一个或多个标志。
+标志
+OBJ_INHERIT
+OBJ_PERMANENT OBJ_EXCLUSIVE
+OBJ_CASE_INSENSITIVE
+OBJ_OPENIF OBJ_OPENLINK
+OBJ_KERNEL_HANDLE
+OBJ_FORCE_ACCESS_CHECK OBJ_DONT_REPARSE
+含义
+此句柄可由当前进程的子进程继承。
+此标志仅适用于在对象管理器中命名的对象。 默认情况下，关闭所有打开的句柄时，会删除此类对象。如果指定了此标志，则不会在关闭所有打开的句柄时删除对象。 驱动程序可以使用
+ZwMakeTemporaryObject 例程使永久对象成为非永久性对象。
+如果设置了此标志并将 OBJECT_ATTRIBUTES 结构传递给创建对象的例程，则可以以独占方式访问该对象。 也就是说，一旦进程向对象打开此类句柄，其他任何进程都不能打开此对象的句柄。
+如果设置了此标志，并将 OBJECT_ATTRIBUTES 结构传递给创建对象句柄的例程，则调用方请求对创建句柄的进程上下文的对象进行独占访问。 仅当创建对象时设置了 OBJ_EXCLUSIVE 标志时，才能授予此请求。
+如果指定了此标志，在将 ObjectName 成员指向的名称与现有对象的名称进行匹配时，将使用不区分大小写的比较。 否则，将使用默认系统设置比较对象名称。
+如果使用对象句柄将此标志指定为创建对象的例程，如果该对象已存在，则例程应打开该对象。 否则，
+创建 对象的例程将返回 NTSTATUS 代码 STATUS_OBJECT_NAME_COLLISION。
+如果将设置了此标志的对象句柄传递给打开对象的例程，并且如果对象是符号链接对象，则例程应打开符号链接对象本身，而不是符号链接引用的对象 (这是) 的默认行为。
+句柄是在系统进程上下文中创建的，只能从内核模式访问。
+打开句柄的例程应强制实施对象的所有访问检查，即使句柄是在内核模式下打开的。
+如果设置了此标志，则分析关联对象的名称时不会遵循任何重新分析点。 如果遇到任何重新分析，则尝试将失败并返回
+STATUS_REPARSE_POINT_ENCOUNTERED 结果。这可用于确定在安全方案中，对象路径中是否存在任何重新分析点。
+标志
+OBJ_IGNORE_IMPERSONATED_DEVICEMAP
+OBJ_VALID_ATTRIBUTES SecurityDescriptor
+含义
+设备映射是 DOS 设备名称与系统中设备之间的映射，在解析 DOS 名称时使用。 系统中的每个用户都存在单独的设备映射，用户可以管理自己的设备映射。 通常在模拟期间，将使用模拟用户的设备映射。 但是，设置此标志时，将改用进程用户的设备
+映射。保留。
+指定创建对象时对象的安全描述符 (SECURITY_DESCRIPTOR) 。 如果 SecurityDescriptor
+为 NULL ，则对象将接收默认安全设置。 有关 新对象，请参阅 DACL。 SecurityQualityOfService
+创建对象时要应用于对象的可选服务质量。 用于指示动态或静态) (安全模拟级别和上下
+文跟踪模式。 目前， InitializeObjectAttributes 宏将此成员设置为 NULL 。注解
+使用 InitializeObjectAttributes 宏初始化 OBJECT_ATTRIBUTES 结构的成员。 请注意， InitializeObjectAttributes 将 SecurityQualityOfService 成员初始化为 NULL 。 如果必须指定非NULL  值，请在初始化后设置 SecurityQualityOfService 成员。
+若要将此结构中包含的属性应用于对象或对象句柄，请将指向此结构的指针传递给访问对象或返回对象句柄的例程，例如 ZwCreateFile 或 ZwCreateDirectoryObject。
+此结构的所有成员都是只读的。 如果此结构的成员是指针，则此成员指向的对象也是只读的。 只读成员和对象可用于获取相关信息，但不得修改。 若要设置此结构的成员，请使用 InitializeObjectAttributes 宏。
+在系统进程以外的进程上下文中运行的驱动程序例程必须使用 InitializeObjectAttributes 宏 ) 为 Attributes 成员 (设置OBJ_KERNEL_HANDLE标志。 这会将为该对象打开的句柄的使用限制为仅在内核模式下运行的进程。 否则，运行驱动程序的上下文的进程可以访问
+句柄。要求
+ 
+标头
+ 
+ntdef.h (包括 D3dkmthk.h、Ntdef.h、Wdm.h、Ntddk.h、Ntifs.h、Fltkernel.h)
+另请参阅
+FltCreateCommunicationPort
+FltCreateFile FltCreateFileEx FltCreateFileEx2
+InitializeObjectAttributes
+IoCreateFile IoCreateFileEx
+IoCreateFileSpecifyDeviceObjectHint ZwCreateDirectoryObject
+ZwCreateFile 新对象的 DACL
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+SINGLE_LIST_ENTRY 结构 (ntdef.h) 项目2024/02/29
+SINGLE_LIST_ENTRY结构描述单独链接列表中的条目，或用作此类列表的标题。
+语法 C++
+typedef struct _SINGLE_LIST_ENTRY {   struct _SINGLE_LIST_ENTRY *Next;
+} SINGLE_LIST_ENTRY, *PSINGLE_LIST_ENTRY;
+成员 Next
+对于充当列表条目 的SINGLE_LIST_ENTRY ， “下一个 ”成员指向列表中的下一个条目;如果列表中没有下一个条目，则为 NULL 。 对于充当列表标头的SINGLE_LIST_ENTRY，
+Next 成员指向列表中的第一个条目，如果列表为空，则为 NULL。注解
+如果将 SINGLE_LIST_ENTRY 结构用作列表头，请将结构的 Next 成员初始化为 NULL。驱动程序可以访问SINGLE_LIST_ENTRY的 Next 成员，但除了初始化列表头) Next 之外，(只能由为此目的提供的系统例程进行更新。
+有关如何使用 SINGLE_LIST_ENTRY 结构实现单一链接列表的详细信息，请参阅 Singly 和
+Doubly Linked Lists。要求
+ﾉ
+要求 Header
+值
+ntdef.h (包括 Wdm.h、Ntddk.h)
+展开表
+另请参阅
+ExInterlockedPopEntryList ExInterlockedPushEntryList
+PopEntryList PushEntryList
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+string 结构 (ntdef.h) 项目2024/03/13
+ANSI_STRING 结构定义用于 ANSI 字符串的计数字符串。
+语法 C++
+typedef struct _STRING {   USHORT Length;
+  USHORT MaximumLength;
+  PCHAR  Buffer;} STRING;
+成员 Length
+Buffer 指向的缓冲区中存储的字符串的长度（以字节为单位）。 MaximumLength
+Buffer 指向的缓冲区的长度（以字节为单位）。 Buffer
+指向用于包含字符串的缓冲区的指针。注解
+ANSI_STRING 结构用于传递 ANSI 字符串。 使用 RtlInitAnsiString 例程初始化 ANSI_STRING。
+如果字符串以 null 结尾， 则 Length不包括终止 NULL。
+MaximumLength 用于指示 Buffer 的长度，以便在字符串传递给转换例程（如
+RtlUnicodeStringToAnsiString）时，返回的字符串不会超过缓冲区大小。要求
+要求 Header
+另请参阅 OEM_STRING
+值
+ntdef.h (包括 Wdm.h、Ntddk.h)
+RtlAnsiStringToUnicodeSize RtlAnsiStringToUnicodeString
+RtlFreeAnsiString RtlInitAnsiString
+RtlUnicodeStringToAnsiSize RtlUnicodeStringToAnsiString
+UNICODE_STRING 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+UNICODE_STRING 结构 (ntdef.h) 项目2024/02/29
+UNICODE_STRING 结构用于定义 Unicode 字符串。语法
+typedef struct _UNICODE_STRING {   USHORT Length;
+  USHORT MaximumLength;   PWSTR  Buffer;
+} UNICODE_STRING, *PUNICODE_STRING;
+成员 Length
+存储在 Buffer 中的字符串的长度（以字节为单位）。 MaximumLength
+Buffer 的长度（以字节为单位）。 Buffer
+指向用于包含宽字符字符串的缓冲区的指针。注解
+UNICODE_STRING 结构用于传递 Unicode 字符串。 使用 RtlUnicodeStringInit 或
+RtlUnicodeStringInitEx 初始化 UNICODE_STRING 结构。如果字符串以 null 结尾， 则 Length 不包括尾随 null 字符。
+MaximumLength 用于指示 Buffer 的长度，以便在字符串传递给转换例程（如
+RtlAnsiStringToUnicodeString）时，返回的字符串不会超过缓冲区大小。要求
+要求 Header
+另请参阅 ANSI_STRING OEM_STRING
+值
+ntdef.h (包括 Wdm.h、Ntddk.h、Ntdef.h)
+RtlAnsiStringToUnicodeSize RtlAnsiStringToUnicodeString
+RtlFreeUnicodeString RtlInitUnicodeString
+RtlUnicodeStringToAnsiSize RtlUnicodeStringToAnsiString
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+winnt.h 标头项目2024/07/19
+此标头由多种技术使用。 有关详细信息，请参阅：
+应用程序安装和服务备份
+数据访问和存储开发人员说明 DXGI
+硬件计数器分析
+适用于 Windows 应用程序 的 国际化 Kernel-Mode 驱动程序参考
+菜单和其他资源安全和标识
+System Services Windows Shell
+Windows Management Instrumentation Windows 运行时C++参考
+winnt.h 包含以下编程接口：
+功能  
+_InlineInterlockedAdd
+对指定的 LONG 值执行原子加法操作。 使用获取内存排序语义执行该操作。_InlineInterlockedAdd64
+对指定的 LONG64 值执行原子加法运算。_interlockedbittestandreset
+测试指定的 LONG 值的指定位并将其设置为 0。 该操作是原子操作。_interlockedbittestandreset64
+测试指定的 LONG64 值的指定位，并将其设置为 0。 该操作是原子操作。
+ﾉ
+展开表
+ 
+_interlockedbittestandset
+测试指定的 LONG 值的指定位并将其设置为 1。 该操作是原子操作。_interlockedbittestandset64
+测试指定的 LONG64 值的指定位，并将其设置为 1。 该操作是原子操作。 C_ASSERT
+在编译时检查断言。 FIELD_OFFSET
+FIELD_OFFSET宏返回已知结构类型中命名字段的字节偏移量。 （FIELD_OFFSET宏） GetCurrentFiber
+检索当前光纤的地址。 GetFiberData
+检索与当前光纤关联的光纤数据。 Int32x32To64
+将两个有符号 32 位整数相乘，返回有符号 64 位整数结果。 Int64ShllMod32
+对无符号 64 位整数值执行左逻辑移位运算。 该函数为 0-31 范围内的左逻辑移位提供了改进的移位代码。
+Int64ShraMod32
+对有符号 64 位整数值执行右算术移位运算。 该函数为右算术移位提供了改进的移位代码，其中班
+次计数在 0-31 范围内。 Int64ShrlMod32
+对无符号 64 位整数值执行右逻辑移位运算。 该函数为右逻辑移位提供了改进的移位代码，其中班
+次计数在 0-31 范围内。 InterlockedAdd
+对指定的 LONG 值执行原子加法操作。 InterlockedAnd
+ 
+对指定的 LONG 值执行原子 AND 操作。 InterlockedAnd16
+对指定的 SHORT 值执行原子 AND 操作。 InterlockedAnd64
+对指定的 LONGLONG 值执行原子 AND 操作。 InterlockedAnd8
+对指定的字符值执行原子 AND 操作。 InterlockedCompareExchange
+对指定值执行原子比较和交换操作。 该函数根据比较结果将两个指定的 32 位值进行比较，并与另一个 32 位值交换。
+InterlockedCompareExchange128
+对指定值执行原子比较和交换操作。 该函数根据比较的结果比较两个指定的 128 位值，并与另一个 128 位值交换。
+InterlockedCompareExchange16
+对指定值执行原子比较和交换操作。 该函数根据比较结果将两个指定的 16 位值进行比较，并与另一个 16 位值交换。
+InterlockedCompareExchange64
+对指定值执行原子比较和交换操作。 该函数根据比较的结果比较两个指定的 64 位值，并与另一个 64 位值交换。
+InterlockedCompareExchangePointer
+对指定值执行原子比较和交换操作。 该函数根据比较的结果比较两个指定的指针值，并与另一个指针值交换。
+InterlockedDecrement
+将指定的 32 位变量的值递减（减少一个），作为原子操作。 InterlockedDecrement16
+将指定的 16 位变量的值递减（减少一个）作为原子操作。 InterlockedDecrement64
+ 
+将指定的 64 位变量的值递减（减少 1），作为原子操作。 InterlockedExchange
+将 32 位变量设置为指定值作为原子操作。 InterlockedExchange16
+将 16 位变量设置为指定值作为原子操作。 InterlockedExchange64
+将 64 位变量设置为指定值作为原子操作。 InterlockedExchange8
+将 8 位变量设置为指定值作为原子操作。 InterlockedExchangeAdd
+执行两个 32 位值的原子加法。 InterlockedExchangeAdd64 执行两个 64 位值的原子加法。 InterlockedExchangePointer 以原子方式交换一对地址。 InterlockedIncrement
+将指定的 32 位变量的值递增（一个）作为原子操作。 InterlockedIncrement16
+将指定的 16 位变量的值递增（一个）作为原子操作。 InterlockedIncrement64
+将指定的 64 位变量的值递增（一个）作为原子操作。 InterlockedOr
+对指定的 LONG 值执行原子 OR 操作。 InterlockedOr16
+对指定的 SHORT 值执行原子 OR 操作。
+ 
+InterlockedOr64
+对指定的 LONGLONG 值执行原子 OR 操作。 InterlockedOr8
+对指定的字符值执行原子 OR 操作。 InterlockedXor
+对指定的 LONG 值执行原子 XOR 操作。 InterlockedXor16
+对指定的 SHORT 值执行原子 XOR 操作。 InterlockedXor64
+对指定的 LONGLONG 值执行原子 XOR 操作。 InterlockedXor8
+对指定的字符值执行原子 XOR 操作。 IsReparseTagMicrosoft
+确定重新分析点标记是否指示重新分析点Microsoft。 IsReparseTagNameSurrogate
+确定标记的关联重新分析点是否是另一个命名实体的代理项（例如装载的文件夹）。 LANGIDFROMLCID
+从区域设置标识符检索语言标识符。 MAKELANGID
+从主要语言标识符和子语言标识符创建语言标识符。 MAKELCID
+从语言标识符和排序顺序标识符创建区域设置标识符。 MAKESORTLCID
+从语言标识符、排序顺序标识符和排序版本构造区域设置标识符（LCID）。 MemoryBarrier
+ 
+创建一个硬件内存屏障（围栏），防止 CPU 重新排序读取和写入操作。 它还可能阻止编译器重新
+排序读取和写入操作。 Multiply128
+将两个 64 位整数相乘以生成 128 位整数。 MultiplyExtract128
+将两个 64 位整数相乘以生成 128 位整数，将乘积向右移动指定位数，并返回结果的低 64 位。 MultiplyHigh
+将两个 64 位整数相乘以生成 128 位整数，并获取高 64 位。 NtCurrentTeb
+NtCurrentTeb 例程返回指向当前线程的线程环境块（TEB）的指针。 PopulationCount64
+计算 64 位无符号整数中的一位（总体计数）。 PreFetchCacheLine
+向处理器指示在不久的将来需要缓存行。 PRIMARYLANGID
+从语言标识符中提取主要语言标识符。 RtlAddFunctionTable
+将动态函数表添加到动态函数表列表。 （RtlAddFunctionTable） RtlAddGrowableFunctionTable
+通知系统动态函数表，该表表示包含代码的内存区域。 RtlCaptureContext
+检索调用方上下文中的上下文记录。 RtlCaptureStackBackTrace
+RtlCaptureStackBackTrace 例程通过走上堆栈并记录每个帧的信息来捕获堆栈回溯。
+RtlConvertDeviceFamilyInfoToString 检索设备系列信息的字符串表示形式。
+ 
+RtlDeleteFunctionTable
+从动态函数表列表中删除动态函数表。 RtlDeleteGrowableFunctionTable
+通知系统以前报告的动态函数表不再使用。 RtlFirstEntrySList
+检索单向链接列表中的第一个条目。 对列表的访问在多处理器系统上同步。 RtlGrowFunctionTable
+报告动态函数表的大小已增加。 RtlInitializeSListHead
+初始化单向链接列表的头。 （RtlInitializeSListHead） RtlInstallFunctionTableCallback
+将动态函数表添加到动态函数表列表。 （RtlInstallFunctionTableCallback） RtlInterlockedFlushSList
+从单项链接列表中删除所有项。 对列表的访问在多处理器系统上同步。
+（RtlInterlockedFlushSList） RtlInterlockedPopEntrySList
+从单项链接列表的前面删除项。 对列表的访问在多处理器系统上同步。
+（RtlInterlockedPopEntrySList） RtlInterlockedPushEntrySList
+在单向链接列表的前面插入项。 对列表的访问在多处理器系统上同步。
+（RtlInterlockedPushEntrySList） RtlIsEcCode
+返回一个值，该值指示所提供的指针指向的代码是否与 ARM 仿真兼容（ARM64EC）。 RtlLookupFunctionEntry
+在活动函数表中搜索对应于指定电脑值的条目。 RtlPcToFileHeader
+ 
+检索包含指定电脑值的图像的基址。 RtlQueryDepthSList
+检索指定单项链接列表中的条目数。 （RtlQueryDepthSList） RtlRestoreContext
+将调用方上下文还原到指定的上下文记录。 RtlUnwind
+启动过程调用帧的展开。 （RtlUnwind） RtlUnwind2
+启动过程调用帧的展开。 （RtlUnwind2） RtlUnwindEx
+启动过程调用帧的展开。 RtlVirtualUnwind
+检索指定函数上下文之前的函数的调用上下文。 ShiftLeft128
+向左移动 128 位。 ShiftRight128
+向右移动 128 位。 SORTIDFROMLCID
+从区域设置标识符检索排序顺序标识符。 SORTVERSIONFROMLCID
+从区域设置标识符检索排序版本。 SUBLANGID
+从语言标识符中提取子语言标识符。 TEXT
+在编译期间由预处理器指令定义 UNICODE 时，将字符串标识为 Unicode。 否则，宏会将字符串标识为 ANSI 字符串。
+ 
+TpDestroyCallbackEnviron
+删除指定的回调环境。 当不再需要回调环境来创建新的线程池对象时调用此函数。（TpDestroyCallbackEnviron）
+TpInitializeCallbackEnviron 初始化线程池的回调环境。
+TpSetCallbackActivationContext 将激活上下文分配给回调环境。 TpSetCallbackCleanupGroup
+将指定的清理组与指定的回调环境相关联。 （TpSetCallbackCleanupGroup） TpSetCallbackFinalizationCallback
+指示在回调环境完成时要调用的函数。 TpSetCallbackLongFunction
+指示与此回调环境关联的回调可能无法快速返回。 （TpSetCallbackLongFunction）
+TpSetCallbackNoActivationContext 指示回调环境没有激活上下文。 TpSetCallbackPersistent
+指定回调应在持久性线程上运行。 （TpSetCallbackPersistent） TpSetCallbackPriority
+指定回调函数相对于同一线程池中的其他工作项的优先级。 （TpSetCallbackPriority） TpSetCallbackRaceWithDll
+确保只要存在未完成的回调，指定的 DLL 将保持加载状态。 （TpSetCallbackRaceWithDll）
+TpSetCallbackThreadpool 将线程池分配给回调环境。 UInt32x32To64
+将两个无符号 32 位整数相乘，返回无符号 64 位整数结果。
+ 
+UnsignedMultiply128
+将两个无符号 64 位整数相乘以生成无符号 128 位整数。 UnsignedMultiplyExtract128
+将两个无符号 64 位整数相乘以生成无符号 128 位整数，将产品向右移动指定位数，并返回结果的低 64 位。
+UnsignedMultiplyHigh
+将两个 64 位整数相乘以生成 128 位整数，并获取高无符号 64 位。 VER_SET_CONDITION
+设置 64 位值的位，以指示要用于指定操作系统版本属性的比较运算符。 此宏用于生成
+VerifyVersionInfo 函数的 dwlConditionMask 参数。 VerSetConditionMask
+设置 64 位值的位，以指示要用于指定操作系统版本属性的比较运算符。 此函数用于生成
+VerifyVersionInfo 函数的 dwlConditionMask 参数。 YieldProcessor
+向处理器发出信号，向等待它们的线程提供资源。回调函数
+ﾉ
+ 
+PAPCFUNC
+应用程序定义的完成例程。 调用 QueueUserAPC 函数时指定此地址。 PFLS_CALLBACK_FUNCTION
+展开表
+应用程序定义的函数。 如果 FLS 槽正在使用中，则会在光纤删除、线程退出以及释放 FLS 索引时调用 FlsCallback。
+PSECURE_MEMORY_CACHE_CALLBACK
+以前向 AddSecureMemoryCacheCallback 函数注册的应用程序定义函数，该函数在释放安全内存范围或更改其保护时调用。
+ 
+PVECTORED_EXCEPTION_HANDLER
+用作向量异常处理程序的应用程序定义函数。 RTL_UMS_SCHEDULER_ENTRY_POINT
+与 UMS 完成列表关联的应用程序定义用户模式计划（UMS）计划程序入口点函数。
+结构  
+ACCESS_ALLOWED_ACE
+ﾉ
+展开表
+为控制对对象的访问的任意访问控制列表（DACL）定义访问控制项（ACE）。 允许访问的 ACE 允
+许访问由安全标识符（SID）标识的特定受托人的对象。 ACCESS_ALLOWED_CALLBACK_ACE
+ACCESS_ALLOWED_CALLBACK_ACE结构为控制对对象的访问的任意访问控制列表定义访问控制项。
+ACCESS_ALLOWED_CALLBACK_OBJECT_ACE
+定义访问控制项（ACE），该条目控制允许访问对象、属性集或属性。 ACCESS_ALLOWED_OBJECT_ACE
+定义访问控制项（ACE），该条目控制允许访问对象、属性集或属性。 ACCESS_DENIED_ACE
+为控制对对象的访问的任意访问控制列表（DACL）定义访问控制项（ACE）。 拒绝访问的 ACE 拒
+绝访问由安全标识符 （SID） 标识的特定受托人对对象的访问。 ACCESS_DENIED_CALLBACK_ACE
+ACCESS_DENIED_CALLBACK_ACE结构为控制对对象的访问的任意访问控制列表定义访问控制项。 ACCESS_DENIED_CALLBACK_OBJECT_ACE
+ACCESS_DENIED_CALLBACK_OBJECT_ACE结构定义访问控制项，该条目控制拒绝访问对象、属性集或属性。
+ 
+ACCESS_DENIED_OBJECT_ACE
+定义访问控制项（ACE），该条目控制拒绝对对象、属性集或属性的访问。 ACE_HEADER
+定义访问控制项的类型和大小（ACE）。 ACL
+访问控制列表（ACL）的标头。 ACL_REVISION_INFORMATION 包含有关 ACL 结构的修订信息。 ACL_SIZE_INFORMATION
+包含有关 ACL 结构大小的信息。
+ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION
+QueryActCtxW 函数使用ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION结构。 ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION
+QueryActCtxW 函数使用ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION结构。 ACTIVATION_CONTEXT_DETAILED_INFORMATION
+QueryActCtxW 函数使用ACTIVATION_CONTEXT_DETAILED_INFORMATION结构。 ACTIVATION_CONTEXT_QUERY_INDEX
+QueryActCtxW 函数使用ACTIVATION_CONTEXT_QUERY_INDEX结构。 ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION
+QueryActCtxW 函数使用ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION结构。
+ADMINISTRATOR_POWER_POLICY 表示管理员替代电源策略设置。 ARM64_NT_CONTEXT
+包含特定于处理器的寄存器数据。 系统使用 CONTEXT 结构来执行各种内部操作。C ASSEMBLY_FILE_DETAILED_INFORMATION
+ 
+QueryActCtxW 函数使用ASSEMBLY_FILE_DETAILED_INFORMATION结构。 BATTERY_REPORTING_SCALE
+包含IOCTL_BATTERY_QUERY_STATUS报告的电池容量的粒度。
+CACHE_DESCRIPTOR 描述缓存属性。
+CACHE_RELATIONSHIP
+描述缓存属性。 此结构与 GetLogicalProcessorInformationEx 函数一起使用。
+CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE 指定完全限定的二进制名称。
+CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE
+指定声明安全属性的OCTET_STRING值类型。 CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1
+定义在连续内存中定义的资源属性，以便在序列化的安全描述符中暂留。 CLAIM_SECURITY_ATTRIBUTE_V1
+定义可与令牌或授权上下文关联的安全属性。 CLAIM_SECURITY_ATTRIBUTES_INFORMATION 定义声明的安全属性。
+COMPATIBILITY_CONTEXT_ELEMENT
+queryActCtxW 函数将COMPATIBILITY_CONTEXT_ELEMENT结构用作
+ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION结构的一部分。 CONTEXT
+包含特定于处理器的寄存器数据。 系统使用 CONTEXT 结构来执行各种内部操作。 （上下文） ENCLAVE_CREATE_INFO_SGX
+包含在 enclave 类型ENCLAVE_TYPE_SGX时用于创建 enclave 的特定于体系结构的信息，该信息指
+定 Intel Software Guard Extensions （SGX） 体系结构扩展的 enclave。 ENCLAVE_CREATE_INFO_VBS
+ 
+包含在 enclave 类型ENCLAVE_TYPE_VBS时用于创建 enclave 的特定于体系结构的信息，该信息指
+定基于虚拟化的安全性 （VBS） enclave。 ENCLAVE_INIT_INFO_SGX
+包含在 enclave 类型ENCLAVE_TYPE_SGX时用于初始化 enclave 的特定于体系结构的信息，该信息
+指定 Intel Software Guard Extensions （SGX） 体系结构扩展的 enclave。 ENCLAVE_INIT_INFO_VBS
+包含在 enclave 类型ENCLAVE_TYPE_VBS时用于初始化 enclave 的特定于体系结构的信息，该信息
+指定基于虚拟化的安全性 （VBS） enclave。 EVENTLOGRECORD
+包含有关 ReadEventLog 函数返回的事件记录的信息。 EXCEPTION_POINTERS
+包含异常时与计算机无关的异常描述的异常记录，以及具有与计算机相关的处理器上下文说明的上下文记录。
+EXCEPTION_RECORD
+描述异常。 （EXCEPTION_RECORD） EXCEPTION_RECORD64
+描述异常。E FILE_ID_128
+定义 128 位文件标识符。
+FILE_NOTIFY_EXTENDED_INFORMATION
+描述 ReadDirectoryChangesExW 函数找到的更改。 FILE_NOTIFY_INFORMATION
+描述 ReadDirectoryChangesW 函数找到的更改。 FILE_SEGMENT_ELEMENT
+FILE_SEGMENT_ELEMENT结构表示散点/收集读/写操作的段缓冲区结构。 FPO_DATA
+ 
+表示使用帧指针遗漏（FPO）优化时 x86 计算机上的函数的堆栈帧布局。 该结构用于查找调用帧的基数。
+GENERIC_MAPPING
+定义通用访问权限到对象的特定和标准访问权限的映射。 GROUP_AFFINITY
+表示处理器组特定的相关性，例如线程的相关性。 GROUP_RELATIONSHIP
+表示有关处理器组的信息。 此结构与 GetLogicalProcessorInformationEx 函数一起使用。
+HARDWARE_COUNTER_DATA 包含硬件计数器值。
+HEAP_OPTIMIZE_RESOURCES_INFORMATION
+指定使用 HeapSetInformation 启动的 HeapOptimizeResources 操作的标志。 IMAGE_COFF_SYMBOLS_HEADER
+表示 COFF 符号标头。 IMAGE_DATA_DIRECTORY 表示数据目录。
+IMAGE_DEBUG_DIRECTORY 表示调试目录格式。
+IMAGE_ENCLAVE_CONFIG32
+为运行 32 位 Windows 的系统定义 enclave 配置的格式。 （32 位） IMAGE_ENCLAVE_CONFIG64
+为运行 32 位 Windows 的系统定义 enclave 配置的格式。 （64 位） IMAGE_ENCLAVE_IMPORT
+定义 enclave 可以导入的图像数组中的条目。
+IMAGE_FILE_HEADER 表示 COFF 标头格式。
+ 
+IMAGE_FUNCTION_ENTRY
+表示函数表中的一个条目。 （IMAGE_FUNCTION_ENTRY）
+IMAGE_FUNCTION_ENTRY64 表示函数表中的一个条目。我
+IMAGE_LOAD_CONFIG_DIRECTORY32 包含映像的加载配置数据。 （32 位） IMAGE_LOAD_CONFIG_DIRECTORY64 包含映像的加载配置数据。 （64 位） IMAGE_NT_HEADERS32
+表示 PE 标头格式。 （32 位） IMAGE_NT_HEADERS64
+表示 PE 标头格式。 （64 位） IMAGE_OPTIONAL_HEADER32 表示可选的标头格式。 （32 位） IMAGE_OPTIONAL_HEADER64 表示可选的标头格式。 （64 位）
+IMAGE_SECTION_HEADER 表示图像节标头格式。 IO_COUNTERS
+包含进程或作业对象的 I/O 记帐信息。
+JOBOBJECT_ASSOCIATE_COMPLETION_PORT 包含用于将完成端口与作业关联的信息。
+JOBOBJECT_BASIC_ACCOUNTING_INFORMATION 包含作业对象的基本会计信息。
+JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION
+ 
+包含作业对象的基本会计和 I/O 会计信息。 JOBOBJECT_BASIC_LIMIT_INFORMATION 包含作业对象的基本限制信息。
+JOBOBJECT_BASIC_PROCESS_ID_LIST 包含作业对象的进程标识符列表。 JOBOBJECT_BASIC_UI_RESTRICTIONS 包含作业对象的基本用户界面限制。
+JOBOBJECT_CPU_RATE_CONTROL_INFORMATION
+包含作业对象的 CPU 速率控制信息。 此结构由 SetInformationJobObject 和
+QueryInformationJobObject 函数与 JobObjectCpuRateControlInformation 信息类一起使用。 JOBOBJECT_END_OF_JOB_TIME_INFORMATION
+指定系统在超出作业结束时间限制时将执行的操作。
+JOBOBJECT_EXTENDED_LIMIT_INFORMATION 包含作业对象的基本和扩展限制信息。
+JOBOBJECT_LIMIT_VIOLATION_INFORMATION
+包含有关作业对象已超出的资源通知限制的信息。 此结构与 QueryInformationJobObject 函数与
+JobObjectLimitViolationInformation 信息类一起使用。 JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2
+包含有关作业对象已超出的资源通知限制的扩展信息。 此结构与 QueryInformationJobObject 函数
+与 JobObjectLimitViolationInformation2 信息类一起使用。 JOBOBJECT_NET_RATE_CONTROL_INFORMATION
+包含用于控制作业的网络流量的信息。 此结构由 SetInformationJobObject 和
+QueryInformationJobObject 函数与 JobObjectNetRateControlInformation 信息类一起使用。 JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION
+包含有关作业对象的通知限制的信息。 此结构由 SetInformationJobObject 和
+QueryInformationJobObject 函数与 JobObjectNotificationLimitInformation 信息类一起使用。 JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2
+ 
+包含有关作业对象的通知限制的扩展信息。 此结构由 SetInformationJobObject 和
+QueryInformationJobObject 函数与 JobObjectNotificationLimitInformation2 信息类一起使用。 JOBOBJECT_SECURITY_LIMIT_INFORMATION
+包含作业对象的安全限制。 LARGE_INTEGER
+LARGE_INTEGER结构表示 64 位有符号整数值。 （LARGE_INTEGER联盟（温特.h）） LDT_ENTRY
+描述符表中的条目。 此结构仅在基于 x86 的系统上有效。 LUID
+描述适配器的本地标识符。 （LUID） LUID_AND_ATTRIBUTES
+表示本地唯一标识符（LUID）及其属性。 MEM_ADDRESS_REQUIREMENTS
+指定作为扩展参数的一部分的最低和最高基址和对齐方式，该函数用于管理虚拟内存。 MEM_EXTENDED_PARAMETER
+表示用于管理虚拟内存的函数的扩展参数。 MEMORY_BASIC_INFORMATION
+包含有关进程虚拟地址空间中一系列页面的信息。 MESSAGE_RESOURCE_BLOCK
+包含有关消息字符串的信息，其中包含 LowId 和 HighId 成员指示的范围中的标识符。 MESSAGE_RESOURCE_DATA
+包含有关格式文本的信息，这些文本显示为错误消息或在消息表资源的消息框中显示。 MESSAGE_RESOURCE_ENTRY
+包含消息表资源的错误消息或消息框显示文本。 NUMA_NODE_RELATIONSHIP
+ 
+表示有关处理器组中 NUMA 节点的信息。 此结构与 GetLogicalProcessorInformationEx 函数一起使用。
+OBJECT_TYPE_LIST
+标识对象类型层次结构中的对象类型元素。 OSVERSIONINFOA
+包含操作系统版本信息。 （ANSI） OSVERSIONINFOEXA
+包含操作系统版本信息。 这些信息包括主要版本号和次要版本号、内部版本号、平台标识符，以及
+有关系统上安装的产品套件和最新 Service Pack 的信息。 （ANSI） OSVERSIONINFOEXW
+包含操作系统版本信息。 这些信息包括主要版本号和次要版本号、内部版本号、平台标识符，以及
+有关系统上安装的产品套件和最新 Service Pack 的信息。 （Unicode） OSVERSIONINFOW
+包含操作系统版本信息。 （Unicode） PERFORMANCE_DATA
+包含你请求的线程分析和硬件计数器数据。 POWER_ACTION_POLICY
+包含用于设置系统电源状态的信息。
+PRIVILEGE_SET 指定一组特权。
+PROCESS_DYNAMIC_EH_CONTINUATION_TARGET 包含动态异常处理延续目标。
+PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE
+包含与用户模式硬件强制堆栈保护（HSP）相关的各种功能使用的动态强制地址范围。 PROCESS_MITIGATION_ASLR_POLICY
+包含地址空间随机化布局（ASLR）的进程缓解策略设置。
+ 
+PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY
+包含用于加载映像的过程缓解策略设置，具体取决于映像的签名。 PROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY
+包含控制流防护（CFG）的进程缓解策略设置。 PROCESS_MITIGATION_DEP_POLICY
+包含用于数据执行防护（DEP）的进程缓解策略设置。 PROCESS_MITIGATION_DYNAMIC_CODE_POLICY
+包含用于限制动态代码生成和修改的进程缓解策略设置。
+PROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY 包含旧扩展点 DLL 的进程缓解策略设置。
+PROCESS_MITIGATION_FONT_DISABLE_POLICY 包含用于加载非系统字体的进程缓解策略设置。 PROCESS_MITIGATION_IMAGE_LOAD_POLICY
+包含用于从远程设备加载图像的进程缓解策略设置。 PROCESS_MITIGATION_REDIRECTION_TRUST_POLICY 包含???.的进程缓解策略设置
+PROCESS_MITIGATION_SIDE_CHANNEL_ISOLATION_POLICY
+此数据结构提供与旁通道缓解相关的进程策略的状态。 这可以包括涉及推理执行和页面组合的侧通道攻击。
+PROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY 用于对无效的句柄引用施加新行为。
+PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY 用于对进程可以调用哪些系统调用施加限制。
+PROCESS_MITIGATION_USER_SHADOW_STACK_POLICY
+包含用户模式硬件强制堆栈保护（HSP）的进程缓解策略设置。
+ 
+PROCESSOR_GROUP_INFO
+表示处理器组中处理器的数量和相关性。 PROCESSOR_NUMBER
+表示处理器组中的逻辑处理器。 PROCESSOR_POWER_POLICY
+包含有关处理器性能控制和 C 状态的信息。 PROCESSOR_POWER_POLICY_INFO
+包含有关处理器 C 状态策略设置的信息。 PROCESSOR_RELATIONSHIP
+表示有关处理器组中相关性的信息。 此结构与 GetLogicalProcessorInformationEx 函数一起使用。 QUOTA_LIMITS
+描述用户可用的系统资源量。 REPARSE_GUID_DATA_BUFFER 包含有关重新分析点的信息。 RUNTIME_FUNCTION
+表示 64 位 Windows 上的函数表中的一个条目。
+SECURITY_CAPABILITIES 定义应用容器的安全功能。 SECURITY_DESCRIPTOR
+包含与对象关联的安全信息。 SECURITY_QUALITY_OF_SERVICE 包含用于支持客户端模拟的信息。 SID
+用于唯一标识用户或组。 SID_AND_ATTRIBUTES
+ 
+表示安全标识符（SID）及其属性。 SID_AND_ATTRIBUTES_HASH
+指定安全标识符（SID）的指定数组的哈希值。 SID_IDENTIFIER_AUTHORITY
+表示安全标识符（SID）的顶级颁发机构。 SINGLE_LIST_ENTRY
+表示单向链接列表中的项。S SLIST_ENTRY
+表示单向链接列表中的项。 （SLIST_ENTRY） SYSTEM_ALARM_ACE
+SYSTEM_ALARM_ACE结构保留供将来使用。 SYSTEM_ALARM_CALLBACK_ACE
+SYSTEM_ALARM_CALLBACK_ACE结构保留供将来使用。 SYSTEM_ALARM_CALLBACK_OBJECT_ACE
+SYSTEM_ALARM_CALLBACK_OBJECT_ACE结构保留供将来使用。 SYSTEM_ALARM_OBJECT_ACE
+SYSTEM_ALARM_OBJECT_ACE结构保留供将来使用。 SYSTEM_AUDIT_ACE
+为系统访问控制列表（SACL）定义访问控制项（ACE），该条目指定哪种类型的访问会导致系统级通知。
+SYSTEM_AUDIT_CALLBACK_ACE
+SYSTEM_AUDIT_CALLBACK_ACE结构定义系统访问控制列表的访问控制条目，该条目指定了哪种类型的访问会导致系统级通知。
+SYSTEM_AUDIT_CALLBACK_OBJECT_ACE
+SYSTEM_AUDIT_CALLBACK_OBJECT_ACE结构定义系统访问控制列表的访问控制项。 SYSTEM_AUDIT_OBJECT_ACE
+ 
+为系统访问控制列表（SACL）定义访问控制项（ACE）。 SYSTEM_BATTERY_STATE
+包含有关系统电池的当前状态的信息。 SYSTEM_CPU_SET_INFORMATION
+GetSystemCpuSetInformation 返回此结构。 它用于枚举系统上的 CPU 集并确定其当前状态。 SYSTEM_LOGICAL_PROCESSOR_INFORMATION
+描述指定处理器集之间的关系。 此结构与 GetLogicalProcessorInformation 函数一起使用。 SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX
+包含有关逻辑处理器和相关硬件关系的信息。 GetLogicalProcessorInformationEx 函数使用此结构。
+SYSTEM_MANDATORY_LABEL_ACE
+为系统访问控制列表（SACL）定义访问控制项（ACE），该条目指定安全对象必需的访问级别和策略。
+SYSTEM_POWER_CAPABILITIES 包含有关系统电源功能的信息。 SYSTEM_POWER_LEVEL
+包含有关系统电池耗尽策略设置的信息。 SYSTEM_POWER_POLICY
+包含有关当前系统电源策略的信息。 SYSTEM_RESOURCE_ATTRIBUTE_ACE
+为系统访问控制列表（SACL）定义一个访问控制项（ACE），该条目指定安全对象的系统资源属性。
+SYSTEM_SCOPED_POLICY_ID_ACE
+为系统访问控制列表（SACL）定义访问控制项（ACE），该条目指定安全对象的范围策略标识符。 TAPE_ERASE
+描述要擦除的分区。
+ 
+TAPE_GET_DRIVE_PARAMETERS
+描述磁带机。 它由 GetTapeParameters 函数使用。 TAPE_GET_MEDIA_PARAMETERS
+描述磁带驱动器中的磁带。 它由 GetTapeParametersfunction 使用。
+TAPE_GET_POSITION 描述磁带的位置。 TAPE_PREPARE
+介绍如何准备磁带。
+TAPE_SET_DRIVE_PARAMETERS
+描述磁带机。 它由 SetTapeParametersfunction 使用。 TAPE_SET_MEDIA_PARAMETERS
+描述磁带驱动器中的磁带。 它由 SetTapeParametersfunction 使用。 TAPE_SET_POSITION
+描述磁带的位置和位置。 TAPE_WRITE_MARKS
+描述要写入的磁带标记的类型和数量。 TOKEN_ACCESS_INFORMATION
+指定执行访问检查所需的令牌中的所有信息。
+TOKEN_APPCONTAINER_INFORMATION 指定应用容器所需的令牌中的所有信息。 TOKEN_AUDIT_POLICY
+指定令牌的每个用户审核策略。 TOKEN_CONTROL
+包含标识访问令牌的信息。 TOKEN_DEFAULT_DACL
+ 
+指定自由访问控制列表（DACL）。
+TOKEN_DEVICE_CLAIMS 定义令牌的设备声明。 TOKEN_ELEVATION
+指示令牌是否具有提升的权限。 TOKEN_GROUPS
+包含有关访问令牌中的组安全标识符（SID）的信息。 TOKEN_GROUPS_AND_PRIVILEGES
+包含有关访问令牌中的组安全标识符（SID）和特权的信息。 TOKEN_LINKED_TOKEN
+包含令牌的句柄。 此令牌链接到 GetTokenInformation 函数查询的令牌，或由 SetTokenInformation 函数设置。
+TOKEN_MANDATORY_LABEL 指定令牌的必需完整性级别。 TOKEN_MANDATORY_POLICY 指定令牌的强制完整性策略。 TOKEN_ORIGIN
+包含有关登录会话的源的信息。 TOKEN_OWNER
+包含将应用于新创建的对象的默认所有者安全标识符（SID）。 TOKEN_PRIMARY_GROUP
+为访问令牌指定组安全标识符（SID）。 TOKEN_PRIVILEGES
+包含有关访问令牌的一组特权的信息。 TOKEN_SOURCE
+标识访问令牌的源。
+ 
+TOKEN_STATISTICS
+包含有关访问令牌的信息。 TOKEN_USER
+标识与访问令牌关联的用户。
+TOKEN_USER_CLAIMS 定义令牌的用户声明。 ULARGE_INTEGER
+ULARGE_INTEGER结构表示 64 位无符号整数值。 （ULARGE_INTEGER工会（winnt.h）） UMS_CREATE_THREAD_ATTRIBUTES
+指定用户模式计划 （UMS） 工作线程的属性。 WOW64_CONTEXT
+表示 WOW64 上的上下文帧。 WOW64_FLOATING_SAVE_AREA
+表示 WOW64 上的 80387 保存区域。 WOW64_LDT_ENTRY
+介绍 64 位系统上 32 位线程的描述符表中的条目。 此结构仅在 64 位系统上有效。枚举
+ﾉ
+ 
+ACL_INFORMATION_CLASS
+展开表
+包含一个值，该值指定要分配给访问控制列表或从访问控制列表中检索的信息类型（ACL）。 ACTCTX_COMPATIBILITY_ELEMENT_TYPE
+ACTCTX_COMPATIBILITY_ELEMENT_TYPE枚举描述应用程序清单中的兼容性元素。
+ 
+ACTCTX_REQUESTED_RUN_LEVEL
+ACTCTX_REQUESTED_RUN_LEVEL枚举描述激活上下文请求的运行级别。 AUDIT_EVENT_TYPE
+定义指示正在审核的对象类型的值。 AccessCheckByTypeAndAuditAlarm 和
+AccessCheckByTypeResultListAndAuditAlarm 函数使用这些值。 COMPARTMENT_ID
+COMPARTMENT_ID枚举指示网络路由隔离舱标识符。
+FIRMWARE_TYPE 指定固件类型。
+HARDWARE_COUNTER_TYPE
+定义要分析的硬件计数器的类型。 HEAP_INFORMATION_CLASS
+指定要设置或检索的堆信息的类。
+JOB_OBJECT_NET_RATE_CONTROL_FLAGS 指定网络速率控制的计划策略的类型。 LOGICAL_PROCESSOR_RELATIONSHIP
+表示在相应SYSTEM_LOGICAL_PROCESSOR_INFORMATION或
+SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX结构中标识的处理器集之间的关系。
+MANDATORY_LEVEL 列出可能的安全级别。
+MEM_EXTENDED_PARAMETER_TYPE
+定义用于文件映射到地址空间的扩展参数的值。 POWER_ACTION
+定义用于指定系统电源操作类型的值。 POWER_PLATFORM_ROLE
+指示 OEM 的首选电源管理配置文件。
+ 
+PROCESS_MITIGATION_POLICY
+表示不同的进程缓解策略。 PROCESSOR_CACHE_TYPE
+表示在相应CACHE_DESCRIPTOR结构中标识的处理器缓存的类型。 SECURITY_IMPERSONATION_LEVEL
+包含指定安全模拟级别的值。 安全模拟级别控制服务器进程可以代表客户端进程执行操作的程度。 SID_NAME_USE
+包含指定安全标识符类型（SID）的值。 SYSTEM_POWER_CONDITION
+由GUID_ACDC_POWER_SOURCE电源事件用来指示当前电源。 SYSTEM_POWER_STATE
+定义用于指定系统电源状态的值。 TOKEN_ELEVATION_TYPE
+指示 GetTokenInformation 函数或 SetTokenInformation 函数设置的令牌的提升类型。 TOKEN_INFORMATION_CLASS
+包含一个值，该值指定要分配给访问令牌或从访问令牌检索的信息类型。 TOKEN_TYPE
+包含区分主令牌和模拟令牌的值。 TRANSACTION_OUTCOME
+定义 KTM 可以分配给事务的结果（结果）。 USER_ACTIVITY_PRESENCE
+根据检测到的活动指定用户是否存在电源管理。 WELL_KNOWN_SID_TYPE
+常用安全标识符（SID）的列表。 程序可以将这些值传递给 CreateWellKnownSid 函数，以便从此列表中创建 SID。
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+COMPARTMENT_ID 枚举 (winnt.h) 项目2024/03/04
+COMPARTMENT_ID枚举指示网络路由隔离区标识符。
+语法 C++
+typedef enum {
+  UNSPECIFIED_COMPARTMENT_ID = 0,   DEFAULT_COMPARTMENT_ID
+} COMPARTMENT_ID, *PCOMPARTMENT_ID;
+常量  
+UNSPECIFIED_COMPARTMENT_ID 值： 0
+指示路由舱未定义。 DEFAULT_COMPARTMENT_ID
+指示默认路由舱。要求
+要求 Header
+反馈
+此页面是否有帮助？
+是
+否
+值
+winnt.h
+ﾉﾉ
+展开表展开表
+提供产品反馈 
+| 在 Microsoft Q&A 获取帮助
+FIELD_OFFSET宏 (winnt.h) 项目2024/03/13
+FIELD_OFFSET宏返回已知结构类型中命名字段的字节偏移量。
+语法 C++
+void FIELD_OFFSET(
+  [in]  type,   [in]  field);
+参数[in] type
+指定包含 Field 的已知结构类型的名称。[in] field
+指定 类型为 Type 的结构中的字段的名称。
+返回值无
+备注
+由设备驱动程序编写器用于以符号方式确定已知结构类型中已知字段的偏移量。要求
+ﾉ
+要求
+最低受支持的客户端
+值
+从 Windows 2000 开始可用。
+展开表
+要求
+目标平台
+标头 IRQL
+另请参阅
+值桌面
+winnt.h (包括 Ntdef.h、Wdm.h、Ntddk.h、Miniport.h、Minitape.h、Scsi.h、
+Storport.h) 任何级别
+CONTAINING_RECORD 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ntCurrentTeb 函数 (winnt.h) 项目2024/03/04
+NtCurrentTeb 例程返回指向当前线程的线程环境块 (TEB) 的指针。
+语法 C++
+_TEB * NtCurrentTeb(); 返回值
+指向当前线程的线程环境块的指针。要求
+要求
+最低受支持的客户端
+目标平台标头
+另请参阅 NtXxx 例程
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+在 Windows 7 和更高版本的 Windows 中可用。
+通用 winnt.h
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+RtlIsEcCode 函数 (winnt.h) 项目2024/03/04
+返回一个值，该值指示提供的指针指向的代码是否与 ARM 仿真兼容 (ARM64EC) 。
+语法 C++
+NTSYSAPI BOOLEAN RtlIsEcCode(
+  DWORD64 CodePointer);
+参数 CodePointer
+ULONG64表示指向要查询的代码的指针。返回值
+如果代码与 ARM 仿真兼容，则为 TRUE;否则为 FALSE。要求
+ﾉ
+要求 Header DLL
+反馈
+此页面是否有帮助？
+提供产品反馈 
+值
+winnt.h
+api-ms-win-core-rtlsupport-l1-2-2.dll
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表

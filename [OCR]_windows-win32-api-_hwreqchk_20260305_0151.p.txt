@@ -1,0 +1,357 @@
+告知我们有关下载 PDF 体验的信息。
+硬件要求计算器 (HWREQCHK) 项目2023/06/02
+硬件要求评估程序 (HWREQCHK) 是一组 API，开发人员可以使用这些 API 获取有关硬件
+设备的信息，并确定计算机是否有资格运行特定版本的Windows 11或更高版本。若要针对 HWREQCHK 进行开发，需要以下标头：
+hwreqchkapi.h
+有关此技术的编程指南，请参阅：
+HWREQCHK API 概述 HWREQCHK 示例
+有关常规 Win32 编程指南，请参阅：
+错误处理调试帮助库动态链接库事件日志记录进程和线程
+枚举  
+HWREQCHK_CPU_VENDOR 
+ 指示 CPU 供应商。
+HWREQCHK_PRODUCT_TYPE 
+ 指示产品类型。
+HWREQCHK_TARGET_RELEASE 
+ 指示目标 Windows 版本。
+函数  
+ 
+EvaluateHardwareRequirement 
+
+评估特定要求并返回通过或失败结果，通知调用方设备是否满足硬件要求。 GetHardwareRequirements 
+
+返回所有产品类型的已定义硬件要求的集合。 GetHardwareRequirementSystemInfo 
+
+提供用于评估和比较给定硬件要求的实际硬件设备系统信息。
+GetLatestHardwareRequirement 
+ 返回给定产品类型的最新定义要求。
+结构  
+HWREQCHK_DEVICE_HARDWARE_EVALUATION 
+ 包含单个硬件要求检查的结果。
+HWREQCHK_DEVICE_HARDWARE_REQUIREMENT 
+ 包含单个硬件要求检查的结果。
+HWREQCHK_DEVICE_HARDWARE_SYSINFO 
+
+提供有关设备硬件的信息。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+hwreqchkapi.h 标头
+项目2023/06/02） 重要
+某些信息与预发行产品相关，该产品在商业发布之前可能会进行重大修改。 对于此处提供的信息，Microsoft 不作任何明示或暗示的担保。
+硬件要求计算器 (HWREQCHK) 库是一组 API，调用方可以使用这些 API 获取有关硬件设备的信息，并确定计算机是否有资格运行特定版本的Windows 11 (和操作系统的新版本)
+可用。 API 查询各种硬件属性并评估规则以确定资格。 hwreqchkapi.h 包含以下编程接口：
+函数  
+EvaluateHardwareRequirement 
+
+评估特定要求并返回通过或失败结果，通知调用方设备是否满足硬件要求。 GetHardwareRequirements 
+
+返回所有产品类型的已定义硬件要求的集合。 GetHardwareRequirementSystemInfo 
+
+提供用于评估和比较给定硬件要求的实际硬件设备系统信息。
+GetLatestHardwareRequirement 
+ 返回给定产品类型的最新定义要求。
+结构  
+HWREQCHK_DEVICE_HARDWARE_EVALUATION 
+ 包含单个硬件要求检查的结果。
+ 
+HWREQCHK_DEVICE_HARDWARE_REQUIREMENT 
+ 包含单个硬件要求检查的结果。
+HWREQCHK_DEVICE_HARDWARE_SYSINFO 
+ 提供有关设备硬件的信息。
+枚举  
+HWREQCHK_CPU_VENDOR 
+ 指示 CPU 供应商。
+HWREQCHK_PRODUCT_TYPE 
+ 指示产品类型。
+HWREQCHK_TARGET_RELEASE 
+
+指示目标 Windows 版本。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+EvaluateHardwareRequirement 函数(hwreqchkapi.h)
+项目2023/06/02） 重要
+某些信息与预发行产品相关，在商业发布之前，该产品可能会进行实质性修改。 对于此处提供的信息，Microsoft 不作任何明示或暗示的担保。
+此 API 评估特定要求并返回通过或失败结果，通知调用方设备是否满足硬件要求。
+语法 C++
+HRESULT EvaluateHardwareRequirement(
+  const HWREQCHK_DEVICE_HARDWARE_REQUIREMENT *hardwareRequirement,   BOOL                                       *evaluationResult,
+  HWREQCHK_DEVICE_HARDWARE_EVALUATION        **constraintsEvaluated,
+  ULONG                                      *constraintEvaluationCount);
+参数
+hardwareRequirement
+指定要对其进行评估的单个特定要求。 evaluationResult
+计算结果。 如果设备满足硬件要求，则返回 值 TRUE  ;否则，值为 FALSE 。 constraintsEvaluated
+一个可选 out  值，返回用于评估特定 hardwareRequirement 的约束列表。 数组中的每个
+HWREQCHK_DEVICE_HARDWARE_EVALUATION 都表示已计算的单个约束。７ 备注
+在内部，API 使用 CoTaskMemAlloc 为此参数分配内存，调用方负责使用
+CoTaskMemFree 释放内存。 constraintEvaluationCount
+在 constraintsEvaluated 中返回的计算的约束数。返回值
+返回一个 HRESULT  值，该值指示调用成功或失败。要求
+ 
+标头 Library DLL
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+hwreqchkapi.h
+HWREQCHK。自由 HWREQCHK.DLL
+ﾄ否
+GetHardwareRequirements 函数(hwreqchkapi.h)
+项目2023/06/02） 重要
+某些信息与预发行产品相关，在商业发布之前，该产品可能会进行实质性修改。 对
+于此处提供的信息，Microsoft 不作任何明示或暗示的担保。此 API 返回所有产品类型的已定义硬件要求的集合。
+语法 C++
+HRESULT GetHardwareRequirements(
+  HWREQCHK_DEVICE_HARDWARE_REQUIREMENT **deviceHardwareRequirements,
+  ULONG                                *requirementCount);
+参数
+deviceHardwareRequirements
+返回所有定义的硬件要求的列表。 返回的任何硬件要求都可用于评估硬件要求。７ 备注
+在内部，API 使用 CoTaskMemAlloc 为此参数分配内存，调用方负责使用
+CoTaskMemFree 释放内存。 requirementCount
+deviceHardwareRequirements 中返回的
+HWREQCHK_DEVICE_HARDWARE_REQUIREMENT项数。返回值
+返回一个 HRESULT  值，该值指示调用成功或失败。要求
+ 
+标头 Library DLL
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+hwreqchkapi.h
+HWREQCHK。自由 HWREQCHK.DLL
+ﾄ否
+GetHardwareRequirementSystemInfo 函数 (hwreqchkapi.h)
+项目2023/06/02） 重要
+某些信息与预发行产品相关，在商业发布之前，该产品可能会进行实质性修改。 对于此处提供的信息，Microsoft 不作任何明示或暗示的担保。
+此 API 返回用于根据给定硬件要求进行评估和比较的实际硬件设备系统信息。
+语法 C++
+HRESULT GetHardwareRequirementSystemInfo(
+  HWREQCHK_DEVICE_HARDWARE_SYSINFO *deviceHardwareSystemInfo);
+参数
+deviceHardwareSystemInfo
+提供用于根据定义的硬件要求进行评估的当前设备硬件和处理器信息。返回值
+返回一个 HRESULT  值，该值指示调用成功或失败。要求
+ 
+标头 Library DLL
+ 
+hwreqchkapi.h
+HWREQCHK。自由 HWREQCHK.DLL
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+getLatestHardwareRequirement 函数(hwreqchkapi.h)
+项目2024/02/29） 重要
+某些信息与预发行产品相关，该产品在商业发布之前可能会进行重大修改。 对于此
+处提供的信息，Microsoft 不作任何明示或暗示的担保。此 API 返回给定产品类型的最新定义要求。
+语法 C++
+HRESULT GetLatestHardwareRequirement(
+  HWREQCHK_PRODUCT_TYPE                productType,
+  HWREQCHK_DEVICE_HARDWARE_REQUIREMENT *deviceHardwareRequirement);
+参数 productType
+指定应为其返回最新定义的硬件要求的产品类型。 每个定义的产品类型枚举值可以有一
+个或多个与硬件要求关联的 OS 版本。 deviceHardwareRequirement
+给定 productType 的最新定义硬件要求。返回值
+返回一个 HRESULT  值，该值指示调用是成功还是失败。要求
+要求 Header Library DLL
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+hwreqchkapi.h
+HWREQCHK。自由 HWREQCHK.DLL
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+HWREQCHK_CPU_VENDOR 枚举(hwreqchkapi.h)
+项目2024/02/28） 重要
+某些信息与预发行产品相关，该产品在商业发布之前可能会进行重大修改。 对于此
+处提供的信息，Microsoft 不作任何明示或暗示的担保。指示 CPU 供应商。
+语法 C++
+typedef enum HWREQCHK_CPU_VENDOR {
+  HWREQCHK_CPU_VENDOR_OTHER,   HWREQCHK_CPU_VENDOR_AMD,   HWREQCHK_CPU_VENDOR_INTEL,
+  HWREQCHK_CPU_VENDOR_QUALCOMM} ;
+常量
+ﾉ
+ 
+HWREQCHK_CPU_VENDOR_OTHER CPU 由另一个供应商制造。
+HWREQCHK_CPU_VENDOR_AMD CPU 由 AMD 制造。
+HWREQCHK_CPU_VENDOR_INTEL CPU 由 Intel 制造。
+HWREQCHK_CPU_VENDOR_QUALCOMM CPU 由高通制造。
+展开表
+要求要求 Header
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+hwreqchkapi.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+HWREQCHK_DEVICE_HARDWARE_EVAL UATION 结构 (hwreqchkapi.h)
+项目2023/06/02） 重要
+某些信息与预发行产品相关，该产品在商业发布之前可能会进行重大修改。 对于此
+处提供的信息，Microsoft 不作任何明示或暗示的担保。包含单个规则检查的结果。
+语法 C++
+typedef struct HWREQCHK_DEVICE_HARDWARE_EVALUATION {   WCHAR RuleName[HWREQCHK_MAX_HARDWARE_RULE_NAME];   BOOL  Succeeded;
+} HWREQCHK_DEVICE_HARDWARE_EVALUATION; 成员
+RuleName[HWREQCHK_MAX_HARDWARE_RULE_NAME]
+正在检查的当前规则的名称。 RuleName 的最大大小为 64，由
+HWREQCHK_MAX_HARDWARE_RULE_NAME 定义。 Succeeded
+指示是否满足规则的要求。要求
+ 
+标头
+ 
+hwreqchkapi.h
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+HWREQCHK_DEVICE_HARDWARE_REQU IREMENT 结构 (hwreqchkapi.h)
+项目2025/02/20） 重要
+某些信息与预发行产品相关，该产品在商业发布之前可能会进行重大修改。 对于此
+处提供的信息，Microsoft 不作任何明示或暗示的担保。包含单个硬件要求检查的结果。
+语法 C++
+typedef struct HWREQCHK_DEVICE_HARDWARE_REQUIREMENT {
+  HWREQCHK_TARGET_RELEASE TargetRelease;   HWREQCHK_PRODUCT_TYPE   ProductType;   ULONG                   Revision;
+  BOOL                    IsLatestRequirementForProductType;   WCHAR                   
+RequirementName[HWREQCHK_MAX_HARDWARE_REQUIREMENT_NAME];} HWREQCHK_DEVICE_HARDWARE_REQUIREMENT;
+成员 TargetRelease
+一个 HWREQCHK_TARGET_RELEASE 值，该值指示所检查的设备的目标版本。 ProductType
+一个HWREQCHK_PRODUCT_TYPE值，该值指示所检查的设备的产品类型。 Revision
+硬件要求的修订号。
+IsLatestRequirementForProductType
+指示硬件要求是否为当前产品类型的最新修订版。
+RequirementName[HWREQCHK_MAX_HARDWARE_REQUIREMENT_NAME] 硬件要求的名称。 RequirementName 的最大大小为 64，由
+HWREQCHK_MAX_HARDWARE_REQUIREMENT_NAME 定义。要求
+要求 Header
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+hwreqchkapi.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+HWREQCHK_DEVICE_HARDWARE_SYSIN FO 结构 (hwreqchkapi.h)
+项目2023/06/02） 重要
+某些信息与预发行产品相关，该产品在商业发布之前可能会进行重大修改。 对于此
+处提供的信息，Microsoft 不作任何明示或暗示的担保。提供有关设备硬件的信息。
+语法 C++
+typedef struct HWREQCHK_DEVICE_HARDWARE_SYSINFO {   BOOL                       SSE2ProcessorSupport;   BOOL                       NXProcessorSupport;
+  BOOL                       CompareExchange128Support;
+  BOOL                       LahfSahfSupport;   BOOL                       PrefetchWSupport;
+  BOOL                       ArmV81ProcessorSupport;   BOOL                       SecureBootCapable;
+  ULONG                      TpmVersion;   ULONG                      RamMB;
+  ULONG                      SystemDiskSizeMB;   ULONG                      CpuMhz;
+  ULONG                      CpuCoreCount;
+  ULONG                      CpuFamily;   ULONG                      CpuModel;
+  ULONG                      CpuStepping;
+  ULONG                      Platform;   HWREQCHK_CPU_VENDOR        CpuVendor;
+  ULONG                      Architecture;
+  WCHAR                      ProcessorName[HWREQCHK_MAX_PROPERTY_VALUE];   BOOL                       IsServer;
+  WLDP_WINDOWS_LOCKDOWN_MODE LockdownMode;   ULONG                      ProductOS;
+  WCHAR                      ProductName[HWREQCHK_MAX_PROPERTY_VALUE];} HWREQCHK_DEVICE_HARDWARE_SYSINFO;
+成员
+SSE2ProcessorSupport
+指示设备是否支持 SSE2 指令集。 NXProcessorSupport
+指示设备是否支持 NX 指令集。 CompareExchange128Support
+指示设备是否支持 CompareExchange128 指令。 LahfSahfSupport
+指示设备是否支持 LAHF/SAHF 指令。 PrefetchWSupport
+指示设备是否支持 PREFETCHW 指令。 ArmV81ProcessorSupport
+指示设备是否支持 ARMv8.1 指令集。 SecureBootCapable
+指示设备是否能够在安全启动模式下运行。 TpmVersion
+受信任的平台模块的版本 (TPM) 。 RamMB
+RAM 量（以兆字节为单位）。 SystemDiskSizeMB
+系统磁盘的大小（以 MB 为单位）。 CpuMhz
+CPU 的时钟速度。 CpuCoreCount
+CPU 中的核心数。
+CpuFamily CPU 系列。 CpuModel
+CPU 的模型。 CpuStepping
+CPU 的步进值。 Platform
+CPU 的平台。 CpuVendor
+处理器供应商。 Architecture
+CPU 的体系结构。
+ProcessorName[HWREQCHK_MAX_PROPERTY_VALUE]
+处理器的名称。 ProcessorName 的最大大小为 256，由
+HWREQCHK_MAX_PROPERTY_VALUE 定义。 IsServer
+指示设备是否为服务器。 LockdownMode
+指示设备是否处于锁定模式。 ProductOS
+指定产品的操作系统。
+ProductName[HWREQCHK_MAX_PROPERTY_VALUE]
+当前设备的产品名称。 ProductName 的最大大小为 256，由
+HWREQCHK_MAX_PROPERTY_VALUE 定义。要求
+ 
+标头反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+hwreqchkapi.h ﾄ否
+HWREQCHK_PRODUCT_TYPE 枚举(hwreqchkapi.h)
+项目2024/02/29） 重要
+某些信息与预发行产品相关，在商业发布之前，该产品可能会进行实质性修改。 对
+于此处提供的信息，Microsoft 不作任何明示或暗示的担保。指示产品类型。 此值用于确定要检查的硬件要求集。
+语法 C++
+typedef enum HWREQCHK_PRODUCT_TYPE {
+  HWREQCHK_PRODUCT_INVALID,   HWREQCHK_PRODUCT_DEFAULT,   HWREQCHK_PRODUCT_DESKTOP,   HWREQCHK_PRODUCT_SERVER,
+  HWREQCHK_PRODUCT_IOTENTERPRISE,   HWREQCHK_PRODUCT_IOT,
+  HWREQCHK_PRODUCT_IOTENTERPRISE_LTSC} ;
+常量
+ﾉ
+ 
+HWREQCHK_PRODUCT_INVALID 产品类型无效。
+HWREQCHK_PRODUCT_DEFAULT 默认产品类型。
+HWREQCHK_PRODUCT_DESKTOP 产品是台式机。
+HWREQCHK_PRODUCT_SERVER 产品是服务器。
+展开表
+ 
+HWREQCHK_PRODUCT_IOTENTERPRISE
+该产品是企业 IoT 设备。 HWREQCHK_PRODUCT_IOT 该产品是 IoT 设备。
+要求要求 Header
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+值
+hwreqchkapi.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+HWREQCHK_TARGET_RELEASE 枚举(hwreqchkapi.h)
+项目2023/06/02） 重要
+某些信息与预发行产品相关，该产品在商业发布之前可能会进行重大修改。 对于此处提供的信息，Microsoft 不作任何明示或暗示的担保。
+指示目标版本。 这用于指定一组给定硬件要求的 Windows 版本。
+语法 C++
+typedef enum HWREQCHK_TARGET_RELEASE {   HWREQCHK_TARGET_RELEASE_INVALID,
+  HWREQCHK_TARGET_RELEASE_WIN11_VNEXT,   HWREQCHK_TARGET_RELEASE_WIN11_21H2,   HWREQCHK_TARGET_RELEASE_WIN11_22H2,   HWREQCHK_TARGET_RELEASE_SRV2022_21H2} ;
+常量  
+HWREQCHK_TARGET_RELEASE_INVALID 目标版本无效。
+HWREQCHK_TARGET_RELEASE_WIN11_VNEXT 目标版本是 Windows 11 的未来版本。
+HWREQCHK_TARGET_RELEASE_WIN11_21H2 目标版本为 Windows 11 版本 21H2。
+HWREQCHK_TARGET_RELEASE_WIN11_22H2 目标版本为 Windows 11 版本 22H2。
+HWREQCHK_TARGET_RELEASE_SRV2022_21H2
+目标版本为 Windows Server 2022 版本 21H2。
+要求   标头
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+hwreqchkapi.h ﾄ否

@@ -1,0 +1,173 @@
+2026-03-05 02:01:52
+
+≦ 1 ≧
+告知我们有关下载 PDF 体验的信息。
+Windows HTTP Services (WinHTTP) 项目2023/08/22
+Windows HTTP Services (WinHTTP) 技术概述。
+若要 (WinHTTP) 开发 Windows HTTP 服务，需要以下标头：
+winhttp.h
+有关此技术的编程指南，请参阅：
+Windows HTTP Services (WinHTTP)
+结构  
+WINHTTP_SECURITY_INFO
+WINHTTP_SECURITY_INFO结构包含 HTTP 请求的各种计时信息。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 2 ≧
+winhttp.h 标头项目2023/08/27
+此标头由 Windows HTTP 服务 (WinHTTP) 使用。 有关详细信息，请参阅：
+Windows HTTP Services (WinHTTP) winhttp.h 包含以下编程接口：
+函数  
+WinHttpAddRequestHeaders
+将一个或多个 HTTP 请求标头添加到 HTTP 请求句柄。 (WinHttpAddRequestHeaders) WinHttpAddRequestHeadersEx
+将一个或多个 HTTP 请求标头添加到 HTTP 请求句柄，从而允许使用单独的名称/值字符串。 WinHttpCheckPlatform
+WinHttpCheckPlatform 函数确定此版本的 Microsoft Windows HTTP Services (WinHTTP) 是否支持当前平台。
+WinHttpCloseHandle
+WinHttpCloseHandle 函数关闭单个 HINTERNET 句柄。 WinHttpConnect
+WinHttpConnect 函数指定 HTTP 请求的初始目标服务器，并将 HINTERNET 连接句柄返回到该初始
+目标的 HTTP 会话。 WinHttpCrackUrl
+WinHttpCrackUrl 函数将 URL 分隔为其组件部分，例如主机名和路径。 WinHttpCreateProxyResolver
+创建供 WinHttpGetProxyForUrlEx 使用的句柄。 WinHttpCreateUrl
+从组件部件（如主机名和路径）创建 URL。
+
+≦ 3 ≧
+ 
+WinHttpDetectAutoProxyConfigUrl 查找代理自动配置 (PAC) 文件的 URL。 WinHttpFreeProxyResult
+WinHttpFreeProxyResult 函数释放从先前调用 WinHttpGetProxyResult 中检索到的数据。 WinHttpFreeProxySettingsEx
+释放从先前调用 WinHttpGetProxySettingsResultEx 中检索到的数据。 WinHttpFreeQueryConnectionGroupResult
+释放先前调用 WinHttpQueryConnectionGroup 分配的内存。 WinHttpGetDefaultProxyConfiguration
+从注册表中检索默认的 WinHTTP 代理配置。 WinHttpGetIEProxyConfigForCurrentUser 检索当前用户的 Internet Explorer 代理配置。 WinHttpGetProxyForUrl
+检索指定 URL 的代理数据。 (WinHttpGetProxyForUrl) WinHttpGetProxyForUrlEx
+检索指定 URL 的代理数据。 (WinHttpGetProxyForUrlEx) WinHttpGetProxyResult
+WinHttpGetProxyResult 函数检索调用 WinHttpGetProxyForUrlEx 的结果。
+WinHttpGetProxySettingsEx 检索扩展代理设置。
+WinHttpGetProxySettingsResultEx
+检索调用 WinHttpGetProxySettingsEx 的结果。 WinHttpOpen
+为应用程序初始化 WinHTTP 函数的使用，并返回 WinHTTP 会话句柄。 WinHttpOpenRequest
+
+≦ 4 ≧
+ 
+WinHttpOpenRequest 函数创建 HTTP 请求句柄。 WinHttpQueryAuthSchemes
+WinHttpQueryAuthSchemes 函数返回服务器支持的授权方案。
+WinHttpQueryConnectionGroup 检索 http 连接及其 GUID的枚举。 WinHttpQueryDataAvailable
+返回可使用 WinHttpReadData 读取的数据量（以字节为单位）。 WinHttpQueryHeaders
+WinHttpQueryHeaders 函数检索与 HTTP 请求关联的标头信息。 WinHttpQueryHeadersEx
+检索与 HTTP 请求关联的标头信息;提供了一种检索已分析标头名称和值字符串的方法。 WinHttpQueryOption
+WinHttpQueryOption 函数查询指定句柄上的 Internet 选项。 WinHttpReadData
+WinHttpReadData 函数从 WinHttpOpenRequest 函数打开的句柄读取数据。 WinHttpReadDataEx
+从 WinHttpOpenRequest 函数打开的句柄读取数据。 WinHttpReceiveResponse
+WinHttpReceiveResponse 函数等待接收 WinHttpSendRequest 发起的 HTTP 请求的响应。 WinHttpRegisterProxyChangeNotification
+注册 WinHTTP 在有效代理设置更改时调用的回调函数。
+WinHttpResetAutoProxy 重置自动代理。
+WinHttpSendRequest
+将指定的请求发送到 HTTP 服务器。 (WinHttpSendRequest)
+
+≦ 5 ≧
+ 
+WinHttpSetCredentials
+WinHttpSetCredentials 函数将所需的授权凭据传递给服务器。 WinHttpSetDefaultProxyConfiguration
+在注册表中设置默认的 WinHTTP 代理配置。 WinHttpSetOption
+WinHttpSetOption 函数设置 Internet 选项。 WinHttpSetStatusCallback
+WinHttpSetStatusCallback 函数设置 WinHTTP 可以在操作过程中进行进度时调用的回调函数。 WinHttpSetTimeouts
+设置 HTTP 事务涉及的超时。 WinHttpTimeFromSystemTime
+根据 HTTP 版本 1.0 规范设置日期和时间的格式。 (WinHttpTimeFromSystemTime) WinHttpTimeToSystemTime
+WinHttpTimeToSystemTime 函数采用 HTTP 时间/日期字符串并将其转换为 SYSTEMTIME 结构。 WinHttpUnregisterProxyChangeNotification
+取消注册通过调用 WinHttpRegisterProxyChangeNotification 注册的回调函数。
+WinHttpWebSocketClose 关闭 WebSocket 连接。
+WinHttpWebSocketCompleteUpgrade
+完成由 WinHttpSendRequest 启动的 WebSocket 握手。 WinHttpWebSocketQueryCloseStatus
+检索服务器发送的关闭状态。 WinHttpWebSocketReceive 从 WebSocket 连接接收数据。 WinHttpWebSocketSend
+
+≦ 6 ≧
+ 
+通过 WebSocket 连接发送数据。 WinHttpWebSocketShutdown
+将关闭帧发送到 WebSocket 服务器以关闭发送通道，但使接收通道保持打开状态。 WinHttpWriteData
+WinHttpWriteData 函数将请求数据写入 HTTP 服务器。
+回调函数  
+WINHTTP_PROXY_CHANGE_CALLBACK 表示应用程序定义的代理更改回调函数。 WINHTTP_STATUS_CALLBACK
+表示应用程序定义的状态回调函数。
+结构  
+HTTP_VERSION_INFO
+HTTP_VERSION_INFO 结构包含全局 HTTP 版本。 URL_COMPONENTS
+URL_COMPONENTS 结构包含 URL 的组成部分。 此结构与 WinHttpCrackUrl 和 WinHttpCreateUrl 函数一起使用。
+WINHTTP_ASYNC_RESULT
+WINHTTP_ASYNC_RESULT 结构包含调用异步函数的结果。 此结构与WINHTTP_STATUS_CALLBACK 原型一起使用。
+WINHTTP_AUTOPROXY_OPTIONS
+WINHTTP_AUTOPROXY_OPTIONS 结构用于向 WinHttpGetProxyForURL 函数指示是指定代理自动配置 (PAC) 文件的 URL，还是通过 DHCP 或 DNS 查询自动查找对网络的 URL。
+
+≦ 7 ≧
+ 
+WINHTTP_CERTIFICATE_INFO
+WINHTTP_CERTIFICATE_INFO 结构包含从服务器返回的证书信息。 WinHttpQueryOption 函数使用此结构。
+WINHTTP_CONNECTION_GROUP 表示连接组。
+WINHTTP_CONNECTION_INFO
+WINHTTP_CONNECTION_INFO 结构包含生成响应的请求的源和目标 IP 地址。 WINHTTP_CREDS
+包含用于服务器和代理身份验证的用户凭据信息。 (WINHTTP_CREDS) WINHTTP_CREDS_EX
+包含用于服务器和代理身份验证的用户凭据信息。 (WINHTTP_CREDS_EX) WINHTTP_CURRENT_USER_IE_PROXY_CONFIG
+WINHTTP_CURRENT_USER_IE_PROXY_CONFIG结构包含 Internet Explorer 代理配置信息。 WINHTTP_EXTENDED_HEADER
+将 HTTP 请求标头表示为名称/值字符串对。
+WINHTTP_HEADER_NAME 表示 HTTP 请求标头名称。
+WINHTTP_HOST_CONNECTION_GROUP 表示连接组的集合。
+WINHTTP_MATCH_CONNECTION_GUID
+表示用于连接匹配的连接的 GUID。 WINHTTP_PROXY_INFO
+WINHTTP_PROXY_INFO 结构包含会话或默认代理配置。 WINHTTP_PROXY_RESULT
+WINHTTP_PROXY_RESULT 结构包含 WinHttpGetProxyResult 提供的代理结果条目的集合。
+
+≦ 8 ≧
+ 
+WINHTTP_PROXY_RESULT_ENTRY
+WINHTTP_PROXY_RESULT_ENTRY 结构包含调用 WinHttpGetProxyResult 的结果条目。 WINHTTP_PROXY_SETTINGS_EX
+WINHTTP_PROXY_SETTINGS_EX 结构表示扩展代理设置。 WINHTTP_PROXY_SETTINGS_PARAM
+WINHTTP_PROXY_SETTINGS_PARAM 结构表示扩展代理设置。 WINHTTP_QUERY_CONNECTION_GROUP_RESULT
+表示主机连接组的集合。 WINHTTP_REQUEST_STATS
+WINHTTP_REQUEST_STATS结构包含请求的各种统计信息。 WINHTTP_REQUEST_TIMES
+WINHTTP_REQUEST_TIMES结构包含 HTTP 请求的各种计时信息。 WINHTTP_SECURITY_INFO
+WINHTTP_SECURITY_INFO 结构包含 HTTP 请求的各种计时信息。 WINHTTP_WEB_SOCKET_ASYNC_RESULT
+WINHTTP_WEB_SOCKET_ASYNC_RESULT包括 WebSocket 操作的结果状态。 WINHTTP_WEB_SOCKET_STATUS
+WINHTTP_WEB_SOCKET_STATUS枚举包括 WebSocket 操作的状态。
+枚举  
+WINHTTP_PROXY_SETTINGS_TYPE
+定义为扩展代理设置 API 指定代理设置类型的常量。 WINHTTP_REQUEST_STAT_ENTRY
+WINHTTP_REQUEST_STAT_ENTRY枚举列出了可用的请求统计信息类型。
+
+≦ 9 ≧
+ 
+WINHTTP_REQUEST_TIME_ENTRY
+WINHTTP_REQUEST_TIME_ENTRY枚举列出了可用的请求计时信息类型。 WINHTTP_WEB_SOCKET_BUFFER_TYPE
+WINHTTP_WEB_SOCKET_BUFFER_TYPE 枚举包括 WebSocket 缓冲区的类型。 WINHTTP_WEB_SOCKET_CLOSE_STATUS
+WINHTTP_WEB_SOCKET_CLOSE_STATUS枚举包括 WebSocket 关闭操作的状态。 WINHTTP_WEB_SOCKET_OPERATION
+WINHTTP_WEB_SOCKET_OPERATION 枚举包括 WebSocket 操作类型。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+
+≦ 10 ≧
+WINHTTP_SECURITY_INFO 结构
+(winhttp.h) 项目2023/08/27
+WINHTTP_SECURITY_INFO 结构包含请求的 SChannel 连接和密码信息。
+语法 C++
+typedef struct _WINHTTP_SECURITY_INFO {
+  SecPkgContext_ConnectionInfo ConnectionInfo;   SecPkgContext_CipherInfo     CipherInfo;
+} WINHTTP_SECURITY_INFO, *PWINHTTP_SECURITY_INFO; 成员
+ConnectionInfo
+包含 请求的 SChannel 连接信息的SecPkgContext_ConnectionInfo。 CipherInfo
+包含 请求的 SChannel 密码信息的SecPkgContext_CipherInfo。注解
+此结构与 WinHttpQueryOption 一起使用，通过指定
+WINHTTP_OPTION_SECURITY_INFO 标志来检索请求的安全信息。要求
+ 
+最低受支持的客户端最低受支持的服务器标头
+ 
+Windows 10内部版本 20348 Windows 10内部版本 20348 winhttp.h
+
+≦ 11 ≧
+另请参阅 WinHttpQueryOption
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+

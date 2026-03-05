@@ -1,0 +1,3240 @@
+ACPI 项目2024/05/23
+ACPI 技术概述。
+若要针对 ACPI 进行开发，需要以下标头：
+acpiioct.h acpitabl.h oprghdlr.h
+有关编程指南，请参阅 ACPI。
+IOCTL  
+IOCTL_ACPI_ACQUIRE_GLOBAL_LOCK
+告知我们有关下载 PDF 体验的信息。
+ﾉ
+IOCTL_ACPI_ACQUIRE_GLOBAL_LOCK设备控制请求保留供内部使用。 IOCTL_ACPI_ASYNC_EVAL_METHOD
+展开表
+设备的驱动程序可以使用IOCTL_ACPI_ASYNC_EVAL_METHOD设备控制请求异步评估设备支持的 ACPI 控制方法。
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX
+设备的驱动程序可以使用IOCTL_ACPI_ASYNC_EVAL_METHOD_EX设备控制请求异步评估设备的子设备支持的 ACPI 控制方法。
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V1
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V1控制代码异步评估设备支持的 ACPI 控制方法。 IOCTL_ACPI_ASYNC_EVAL_METHOD_V1_EX
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V1_EX控制代码异步评估设备支持的 ACPI 控制方法。 IOCTL_ACPI_ASYNC_EVAL_METHOD_V2
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V2控制代码以异步方式评估设备支持的 ACPI 控制方法。 IOCTL_ACPI_ASYNC_EVAL_METHOD_V2_EX
+ 
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V2_EX控件代码以异步方式评估设备支持的 ACPI 控制方法。 IOCTL_ACPI_ENUM_CHILDREN
+IOCTL_ACPI_ENUM_CHILDREN设备控制请求可用于枚举此请求发送到的设备 ACPI 命名空间中的设
+备或命名子对象的路径和名称。 IOCTL_ACPI_EVAL_METHOD
+设备的驱动程序可以使用IOCTL_ACPI_EVAL_METHOD设备控制请求同步评估设备支持的 ACPI 控制方法。
+IOCTL_ACPI_EVAL_METHOD_EX
+设备的驱动程序可以使用IOCTL_ACPI_EVAL_METHOD_EX设备控制请求同步评估设备命名空间中子
+设备支持的 ACPI 控制方法。 IOCTL_ACPI_EVAL_METHOD_V1
+IOCTL_ACPI_EVAL_METHOD_V1控制代码同步评估设备支持的 ACPI 控制方法。 IOCTL_ACPI_EVAL_METHOD_V1_EX
+IOCTL_ACPI_EVAL_METHOD_V1_EX控制代码同步评估设备支持的 ACPI 控制方法。 IOCTL_ACPI_EVAL_METHOD_V2
+IOCTL_ACPI_EVAL_METHOD_V2控制代码同步评估设备支持的 ACPI 控制方法。 IOCTL_ACPI_EVAL_METHOD_V2_EX
+IOCTL_ACPI_EVAL_METHOD_V2_EX控制代码同步评估设备支持的 ACPI 控制方法。 IOCTL_ACPI_GET_DEVICE_INFORMATION
+设备的驱动程序可以使用IOCTL_ACPI_GET_DEVICE_INFORMATION设备控制请求来获取有关其设备的精细标识信息。
+IOCTL_ACPI_GET_DEVICE_SPECIFIC_DATA
+IOCTL_ACPI_GET_DEVICE_SPECIFIC_DATA控制代码用于获取特定于设备的数据。 IOCTL_ACPI_RELEASE_GLOBAL_LOCK
+IOCTL_ACPI_RELEASE_GLOBAL_LOCK设备控制请求保留供内部使用。枚举
+ 
+ACPI_PLD_EDGE
+描述关节边缘位 10：12,24：26。 ACPI_PLD_HORIZONTAL_POSITION
+描述水平位置位 72：73。 ACPI_PLD_JOINT_TYPE 描述关节类型位 6：9。 ACPI_PLD_ORIENTATION
+描述方向位 78。 ACPI_PLD_PANEL
+描述面板表面位 67：69。
+ACPI_PLD_ROTATION 描述旋转位 115：118。 ACPI_PLD_SHAPE
+描述形状位 74：77。
+ACPI_PLD_VERTICAL_POSITION
+描述垂直位置位 70：71。 HSP_PROTOCOL_ID
+本主题介绍HSP_PROTOCOL_ID枚举。 IVRS_BLOCK_TYPE
+枚举 I/O 虚拟化报告结构 (IVRS) 块类型。 IVRS_TABLE_TYPE
+枚举 I/O 虚拟化硬件定义 (IVHD) 项类型。 NFIT_STRUCTURE_TYPE
+介绍 NVDIMM 固件接口表 (NFIT) 结构类型。
+ﾉ
+展开表
+ 
+SRAT_ENTRY_TYPE
+本主题介绍SRAT_ENTRY_TYPE枚举。
+函数  
+ACPI_OP_REGION_CALLBACK
+描述ACPI_OP_REGION_CALLBACK回调函数。 ACPI_OP_REGION_HANDLER
+ﾉ
+展开表
+ACPI 设备函数驱动程序提供ACPI_OP_REGION_HANDLER类型的例程，以便 ACPI 驱动程序能够访问设备的操作区域。
+DeRegisterOpRegionHandler
+DeRegisterOpRegionHandler 例程使用 ACPI 驱动程序取消注册操作区域处理程序。 HMAT_ENTRY_LENGTH
+HMAT_ENTRY_LENGTH 宏返回HMAT_ENTRY结构中类型的大小。
+PROC_TOPOLOGY_NODE_CACHE_TYPE_DATA 定义处理器拓扑节点缓存类型数据宏。
+PROC_TOPOLOGY_NODE_CACHE_TYPE_INSTRUCTION 定义处理器拓扑节点缓存类型指令宏。
+PROC_TOPOLOGY_NODE_CACHE_TYPE_UNIFIED
+定义处理器拓扑节点缓存类型统一宏。 RegisterOpRegionHandler
+RegisterOpRegionHandler 例程向 ACPI 驱动程序注册操作区域处理程序。结构
+ 
+ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER
+ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER 结构包含来自 IOCTL_ACPI_GET_DEVICE_INFORMATION 控件方法的输出参数。
+ACPI_ENUM_CHILD
+ﾉ
+展开表
+ACPI_ENUM_CHILD 结构是 ACPI_ENUM_CHILDREN_OUTPUT_BUFFER 结构的成员，包含 ACPI 命名空间中对象的完整路径和名称。
+ACPI_ENUM_CHILDREN_INPUT_BUFFER
+ACPI_ENUM_CHILDREN_INPUT_BUFFER 结构用作IOCTL_ACPI_ENUM_CHILDREN请求的输入。 结构
+指定要在发送请求的设备命名空间中枚举的子对象。 ACPI_ENUM_CHILDREN_OUTPUT_BUFFER
+ACPI_ENUM_CHILDREN_OUTPUT_BUFFER 结构包含 ACPI 命名空间中的对象名称数组。 ACPI_EVAL_INPUT_BUFFER_COMPLEX_V1
+ACPI_EVAL_INPUT_BUFFER_COMPLEX结构用作IOCTL_ACPI_EVAL_METHOD请求和 IOCTL_ACPI_ASYNC_EVAL_METHOD请求的输入。 结构提供控件方法的名称和
+ACPI_METHOD_ARGUMENT结构的输入数组。 ACPI_EVAL_INPUT_BUFFER_COMPLEX_V1_EX
+ACPI_EVAL_INPUT_BUFFER_COMPLEX_EX 结构用作IOCTL_ACPI_EVAL_METHOD_EX请求和
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX请求的输入。 ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2
+本主题介绍ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2结构。 ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2_EX
+本主题介绍ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2_EX结构。 ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V1
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER 结构用作IOCTL_ACPI_EVAL_METHOD请求和
+IOCTL_ACPI_ASYNC_EVAL_METHOD请求的输入。 结构提供控件方法和 ULONG 类型的输入参数的名称。
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V1_EX
+ 
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_EX结构用作IOCTL_ACPI_EVAL_METHOD_EX请求和
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX请求的输入。 ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2
+本主题介绍ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2结构。 ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2_EX
+本主题介绍ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2_EX结构。 ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING结构用作IOCTL_ACPI_EVAL_METHOD请求和
+IOCTL_ACPI_ASYNC_EVAL_METHOD请求的输入。 结构提供控件方法和作为 ASCII 字符串的输入参数的名称。
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1_EX
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_EX 结构用作IOCTL_ACPI_EVAL_METHOD_EX请求和
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX请求的输入。 ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2
+本主题介绍ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2结构。 ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2_EX
+本主题介绍ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2_EX结构。 ACPI_EVAL_INPUT_BUFFER_V1
+ACPI_EVAL_INPUT_BUFFER结构用作IOCTL_ACPI_EVAL_METHOD请求和
+IOCTL_ACPI_ASYNC_EVAL_METHOD请求的输入。 结构提供不采用输入参数的控件方法的名称。 ACPI_EVAL_INPUT_BUFFER_V1_EX
+ACPI_EVAL_INPUT_BUFFER_EX结构用作IOCTL_ACPI_EVAL_METHOD_EX请求和
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX请求的输入。 ACPI_EVAL_INPUT_BUFFER_V2
+本主题介绍ACPI_EVAL_INPUT_BUFFER_V2结构。 ACPI_EVAL_INPUT_BUFFER_V2_EX
+本主题介绍ACPI_EVAL_INPUT_BUFFER_V2_EX结构。 ACPI_EVAL_OUTPUT_BUFFER_V1
+ 
+ACPI_EVAL_OUTPUT_BUFFER 结构包含 ACPI 控制方法的输出参数。 ACPI_EVAL_OUTPUT_BUFFER_V2
+本主题介绍ACPI_EVAL_OUTPUT_BUFFER_V2结构。 ACPI_GET_DEVICE_SPECIFIC_DATA
+ACPI_GET_DEVICE_SPECIFIC_DATA 结构包含IOCTL_ACPI_GET_DEVICE_SPECIFIC_DATA控件方法的输入参数。
+ACPI_MANIPULATE_GLOBAL_LOCK_BUFFER
+本主题介绍ACPI_MANIPULATE_GLOBAL_LOCK_BUFFER结构。 ACPI_METHOD_ARGUMENT_V1
+ACPI_METHOD_ARGUMENT 结构包含 ACPI 控制方法的输入或输出参数的值。 ACPI_METHOD_ARGUMENT_V2
+本主题介绍ACPI_METHOD_ARGUMENT_V2结构。 ACPI_PDTT
+定义 ACPI 处理器调试触发器表 (PDTT) 结构。 ACPI_PLD_CONTAINER_BUFFER
+定义 ACPI 物理位置描述符 (PLD) 容器缓冲区结构。 ACPI_PLD_INTERFACE_CLASS_BUFFER
+介绍 ACPI PLD 接口类描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展，128 位) 。 ACPI_PLD_INTERFACE_INSTANCE_ANSI_BUFFER
+介绍 ACPI PLD 接口实例 ANSI 描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展，128 位) 。
+ACPI_PLD_INTERFACE_INSTANCE_GUID_BUFFER
+介绍 ACPI PLD 接口实例 GUID 描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展，128 位) 。
+ACPI_PLD_INTERFACE_INSTANCE_UNICODE_BUFFER
+介绍 ACPI PLD 接口实例 Unicode 描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展， 128 位) 。
+ 
+ACPI_PLD_JOINT_BUFFER
+介绍 ACPI PLD 联合描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展，128 位) 。 ACPI_PLD_SPATIAL_BUFFER
+介绍 ACPI PLD 空间描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展，128 位) 。 ASPT_ENTRY
+本主题介绍 AMD 安全处理器表 (ASPT) 使用的ASPT_ENTRY联合。 ASPT_ENTRY_HEADER
+本主题介绍 AMD 安全处理器表 (ASPT) 使用的ASPT_ENTRY_HEADER结构。 BBRT_TABLE
+定义启动后台资源表。 ECDT
+本主题介绍 ECDT 结构。 GIC_ITS
+本主题介绍GIC_ITS结构。 HMAT_ENTRY
+HMAT_ENTRY 结构包含异类内存属性表 (HMAT) 表的信息。 HMAT_TABLE
+定义_HMAT_TABLE结构。 IVHD_ACPI_DEVICE_ENTRY
+定义 I/O 虚拟化硬件定义 (IVHD) ACPI 设备入口结构。 IVRS_IVINFO
+定义 I/O 虚拟化结构 (IVRS) I/O 虚拟化结构。
+LPI_STATE_DESCRIPTOR 定义 LPI 状态描述符。 LPI_STATE_FLAGS
+ 
+将 LPI 状态标志定义为结构或整数。 LPIT
+定义 LPI ACPI 表。 MHSP_CHANNEL
+本主题介绍 Microsoft HSP ACPI 表使用的MHSP_CHANNEL结构。 MHSP_TABLE
+描述MHSP_TABLE结构。
+NFIT_PLATFORM_CAPABILITIES
+介绍 NVDIMM 固件接口表 (NFIT) 平台功能结构。 最初在 ACPI 6.2 错误 A 中定义。 PCC_REDUCED_1_SUBSPACE
+包含有关 ACPI 平台通信通道 (PCC) 减少 HW 类型 1 子空间的信息。 PCC_REDUCED_2_SUBSPACE
+包含有关 ACPI 平台通信通道 (PCC) 减少 HW 类型 2 子空间的信息。 PDTT_PCC_SUBCHANNEL_INDENTIFIER
+定义处理器属性拓扑表 (PPTT) 平台通信通道 (PCC) 子通道标识符结构。 PPTT
+定义处理器属性拓扑表 (PPTT) 结构。 PRM_HANDLER_INFORMATION
+定义PRM_HANDLER_INFORMATION结构。 PRM_MODULE_INFORMATION
+定义PRM_MODULE_INFORMATION结构。 PRMT_TABLE
+定义PRMT_TABLE结构。
+PROC_TOPOLOGY_CACHE_ATTRIBUTES 定义处理器拓扑缓存属性结构。
+ 
+PROC_TOPOLOGY_CACHE_FLAGS 定义处理器拓扑缓存标志结构。
+PROC_TOPOLOGY_NODE 定义处理器拓扑节点结构。
+PROC_TOPOLOGY_NODE_FLAGS 定义处理器拓扑节点标志结构。 SATC
+本主题介绍 SATC 结构。
+SDEV_SECURE_ACPI_INFO_ENTRY
+定义安全 ACPI 设备的信息条目，以便在安全设备表中使用。 SDEV_SECURE_RESOURCE_ID_ENTRY
+定义安全 ACPI 设备的资源 ID 条目，以便在安全设备表中使用。 SDEV_SECURE_RESOURCE_MEMORY_ENTRY
+定义安全 ACPI 设备的资源内存条目，以便在安全设备表中使用。 SPMI_DESCRIPTION_TABLE
+定义SPMI_DESCRIPTION_TABLE结构。反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+acpiioct.h 标头项目2023/08/07
+acpi 使用此标头。 有关详细信息，请参阅：
+ACPI
+acpiioct.h 包含以下编程接口：
+IOCTL  
+IOCTL_ACPI_ACQUIRE_GLOBAL_LOCK
+IOCTL_ACPI_ACQUIRE_GLOBAL_LOCK设备控制请求保留仅供内部使用。 IOCTL_ACPI_ASYNC_EVAL_METHOD
+ﾉ
+展开表
+设备的驱动程序可以使用IOCTL_ACPI_ASYNC_EVAL_METHOD设备控制请求异步评估设备支持的 ACPI 控制方法。
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX
+设备的驱动程序可以使用IOCTL_ACPI_ASYNC_EVAL_METHOD_EX设备控制请求异步评估设备的子设备支持的 ACPI 控制方法。
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V1
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V1控制代码异步评估设备支持的 ACPI 控制方法。 IOCTL_ACPI_ASYNC_EVAL_METHOD_V1_EX
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V1_EX控制代码异步评估设备支持的 ACPI 控制方法。 IOCTL_ACPI_ASYNC_EVAL_METHOD_V2
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V2控制代码异步评估设备支持的 ACPI 控制方法。 IOCTL_ACPI_ASYNC_EVAL_METHOD_V2_EX
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V2_EX控制代码异步评估设备支持的 ACPI 控制方法。 IOCTL_ACPI_ENUM_CHILDREN
+ 
+IOCTL_ACPI_ENUM_CHILDREN设备控制请求可用于枚举此请求发送到的设备 ACPI 命名空间中的设备或命
+名子对象的路径和名称。 IOCTL_ACPI_EVAL_METHOD
+设备的驱动程序可以使用IOCTL_ACPI_EVAL_METHOD设备控制请求同步评估设备支持的 ACPI 控制方法。 IOCTL_ACPI_EVAL_METHOD_EX
+设备的驱动程序可以使用IOCTL_ACPI_EVAL_METHOD_EX设备控制请求同步评估设备命名空间中子设备支持的 ACPI 控制方法。
+IOCTL_ACPI_EVAL_METHOD_V1
+IOCTL_ACPI_EVAL_METHOD_V1控制代码同步评估设备支持的 ACPI 控制方法。 IOCTL_ACPI_EVAL_METHOD_V1_EX
+IOCTL_ACPI_EVAL_METHOD_V1_EX控制代码同步评估设备支持的 ACPI 控制方法。 IOCTL_ACPI_EVAL_METHOD_V2
+IOCTL_ACPI_EVAL_METHOD_V2控制代码同步评估设备支持的 ACPI 控制方法。 IOCTL_ACPI_EVAL_METHOD_V2_EX
+IOCTL_ACPI_EVAL_METHOD_V2_EX控制代码同步评估设备支持的 ACPI 控制方法。 IOCTL_ACPI_GET_DEVICE_INFORMATION
+设备的驱动程序可以使用IOCTL_ACPI_GET_DEVICE_INFORMATION设备控制请求来获取有关其设备的精细标识信息。
+IOCTL_ACPI_GET_DEVICE_SPECIFIC_DATA
+IOCTL_ACPI_GET_DEVICE_SPECIFIC_DATA控制代码用于获取特定于设备的数据。 IOCTL_ACPI_RELEASE_GLOBAL_LOCK
+IOCTL_ACPI_RELEASE_GLOBAL_LOCK设备控制请求保留仅供内部使用。结构
+ﾉ
+展开表
+ 
+ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER
+ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER 结构包含来自 IOCTL_ACPI_GET_DEVICE_INFORMATION 控
+制方法的输出参数。 ACPI_ENUM_CHILD
+ACPI_ENUM_CHILD 结构是 ACPI_ENUM_CHILDREN_OUTPUT_BUFFER 结构的成员，包含 ACPI 命名空间中对象的完整路径和名称。
+ACPI_ENUM_CHILDREN_INPUT_BUFFER
+ACPI_ENUM_CHILDREN_INPUT_BUFFER 结构用作IOCTL_ACPI_ENUM_CHILDREN请求的输入。 结构指定要
+在请求发送到的设备命名空间中枚举哪些子对象。 ACPI_ENUM_CHILDREN_OUTPUT_BUFFER
+ACPI_ENUM_CHILDREN_OUTPUT_BUFFER 结构包含 ACPI 命名空间中的对象名称数组。 ACPI_EVAL_INPUT_BUFFER_COMPLEX_V1
+ACPI_EVAL_INPUT_BUFFER_COMPLEX结构用作IOCTL_ACPI_EVAL_METHOD请求和
+IOCTL_ACPI_ASYNC_EVAL_METHOD请求的输入。 结构提供控件方法和ACPI_METHOD_ARGUMENT结构的输入数组的名称。
+ACPI_EVAL_INPUT_BUFFER_COMPLEX_V1_EX
+ACPI_EVAL_INPUT_BUFFER_COMPLEX_EX结构用作IOCTL_ACPI_EVAL_METHOD_EX请求和
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX请求的输入。 ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2
+本主题介绍ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2结构。 ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2_EX
+本主题介绍ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2_EX结构。 ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V1
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER 结构用作IOCTL_ACPI_EVAL_METHOD请求和
+IOCTL_ACPI_ASYNC_EVAL_METHOD请求的输入。 结构提供控件方法和 ULONG 类型的输入参数的名称。 ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V1_EX
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_EX结构用作IOCTL_ACPI_EVAL_METHOD_EX请求和 IOCTL_ACPI_ASYNC_EVAL_METHOD_EX请求的输入。
+ 
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2
+本主题介绍ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2结构。 ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2_EX
+本主题介绍ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2_EX结构。 ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING结构用作IOCTL_ACPI_EVAL_METHOD请求和
+IOCTL_ACPI_ASYNC_EVAL_METHOD请求的输入。 结构提供控件方法和作为 ASCII 字符串的输入参数的名称。
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1_EX
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_EX结构用作IOCTL_ACPI_EVAL_METHOD_EX请求和
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX请求的输入。 ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2
+本主题介绍ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2结构。 ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2_EX
+本主题介绍ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2_EX结构。 ACPI_EVAL_INPUT_BUFFER_V1
+ACPI_EVAL_INPUT_BUFFER结构用作IOCTL_ACPI_EVAL_METHOD请求和IOCTL_ACPI_ASYNC_EVAL_METHOD
+请求的输入。 结构提供不采用输入参数的控件方法的名称。 ACPI_EVAL_INPUT_BUFFER_V1_EX
+ACPI_EVAL_INPUT_BUFFER_EX 结构用作IOCTL_ACPI_EVAL_METHOD_EX请求和
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX请求的输入。 ACPI_EVAL_INPUT_BUFFER_V2
+本主题介绍ACPI_EVAL_INPUT_BUFFER_V2结构。 ACPI_EVAL_INPUT_BUFFER_V2_EX
+本主题介绍ACPI_EVAL_INPUT_BUFFER_V2_EX结构。 ACPI_EVAL_OUTPUT_BUFFER_V1
+ACPI_EVAL_OUTPUT_BUFFER 结构包含 ACPI 控制方法的输出参数。
+ 
+ACPI_EVAL_OUTPUT_BUFFER_V2
+本主题介绍ACPI_EVAL_OUTPUT_BUFFER_V2结构。 ACPI_GET_DEVICE_SPECIFIC_DATA
+ACPI_GET_DEVICE_SPECIFIC_DATA 结构包含IOCTL_ACPI_GET_DEVICE_SPECIFIC_DATA控件方法的输入参数。
+ACPI_MANIPULATE_GLOBAL_LOCK_BUFFER
+本主题介绍ACPI_MANIPULATE_GLOBAL_LOCK_BUFFER结构。 ACPI_METHOD_ARGUMENT_V1
+ACPI_METHOD_ARGUMENT 结构包含 ACPI 控制方法的输入或输出参数的值。 ACPI_METHOD_ARGUMENT_V2
+本主题介绍ACPI_METHOD_ARGUMENT_V2结构。
+ACPI_DEVICE_INFORMATION_OUTPUT_BUF
+FER结构（acpiioct.h）项目2025/02/06
+ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER结构包含来自 IOCTL_ACPI_GET_DEVICE_INFORMATION控件方法的输出参数。
+语法 C++
+typedef struct _ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER {
+  ULONG  Signature;   USHORT Size;
+  UCHAR  Revision;   UCHAR  Reserved0;
+  USHORT VendorIdStringOffset;   USHORT VendorStringLength;   USHORT DeviceIdStringOffset;
+  USHORT SubSystemIdStringOffset;   USHORT SubSystemStringLength;   USHORT SubDeviceIdStringOffset;
+  USHORT InstanceIdLength;   USHORT InstanceIdOffset;   USHORT BaseClassCode;
+  USHORT HardwareRevision;
+  UCHAR  ProgrammingInterface;   UCHAR  Reserved1;
+  USHORT SubClassCode;
+} ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER, *PACPI_DEVICE_INFORMATION_OUTPUT_BUFFER;
+成员 Signature
+返回此缓冲区的 IOCTL 的唯一标识符。 用于验证。 Size
+ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER结构的大小（以字节为单位）。 Revision
+ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER结构的修订。
+Reserved0
+保留。 请勿使用。 VendorIdStringOffset
+从此结构的开头到 VendorIDString 成员的开头的偏移量。 此字符串唯一标识制造商和设备本身。
+VendorStringLength
+VendorIDString 成员的长度。 DeviceIdStringOffset
+从此结构的开头到 DeviceIDString 成员的开头的偏移量。 此字符串唯一标识设备。 SubSystemIdStringOffset
+从此结构的开头到 SubSystemIDString 成员的开头的偏移量。 此字符串唯一标识设备集成到的
+制造商和子系统（芯片或板）。 SubSystemStringLength
+SubSystemIDString 成员的长度。 SubDeviceIdStringOffset
+从此结构的开头到 DeviceIDString 成员的开头的偏移量。 此字符串唯一标识子系统。 InstanceIdLength
+InstanceIDString 成员的长度。 InstanceIdOffset
+从此结构的开头到 InstanceIDString 成员的开头的偏移量。 此字符串唯一标识平台上所有此类
+设备中的设备。 BaseClassCode
+标识设备的类的数字。
+有关详细信息，请参阅 外围组件互连特殊兴趣组（PCI-SIG） HardwareRevision
+标识设备硬件修订版的数字。
+ 基类代码定义的规范。
+ProgrammingInterface
+标识设备的编程接口的数字。
+有关详细信息，请参阅 外围组件互连特殊兴趣组（PCI-SIG） Reserved1
+保留。 请勿使用。 SubClassCode
+标识设备的子类的数字。
+有关详细信息，请参阅 外围组件互连特殊兴趣组（PCI-SIG）言论
+ 类编程接口定义的规范。  子类代码定义的规范。
+在ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER后面追加的 SubSystemIdString、 VendorIdString 和 InstanceIdString 字符串，如下所示：
+BYTE[SubVendorStringLength+1] SubSystemIdString
+长度为 SubSystemStringLength 的字符串，其中包含子系统的制造商和子系统标识符。
+BYTE[VendorIdStringOffset+1] VendorIdString VendorStringLength 字符串，其中包含设备的制造商和设备标识符。
+BYTE[InstanceIdOffset+1] InstanceIdString
+长度 InstanceIDLength 字符串，其中包含一个数字，用于在平台上的所有此类设备中唯一标识设备（即具有相同供应商、设备、SubsystemVendor 和 SubsystemDevice ID 的所有设备）。
+要求
+ﾉ
+要求
+最低支持的客户端标头
+价值
+Windows 8 及更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+展开表
+另请参阅
+IOCTL_ACPI_GET_DEVICE_INFORMATION
+ACPI_ENUM_CHILD结构（acpiioct.h）项目2025/02/06
+ACPI_ENUM_CHILD结构是 ACPI_ENUM_CHILDREN_OUTPUT_BUFFER 结构的成员，包含 ACPI 命名空间中对象的完整路径和名称。
+语法 C++
+typedef struct _ACPI_ENUM_CHILD {   ULONG Flags;
+  ULONG NameLength;
+  CHAR  Name[ANYSIZE_ARRAY];} ACPI_ENUM_CHILD;
+成员 Flags
+如果枚举子对象具有子对象，ACPI 驱动程序设置为ACPI_OBJECT_HAS_CHILDREN的标志
+值;否则，ACPI 驱动程序不会设置此值。 NameLength
+Name 数组包含的 ASCII 字符串中的字符数（包括以 NULL 结尾的字符）。 Name[ANYSIZE_ARRAY]
+一个以 NULL 结尾的 ASCII 字符串，其中包含 ACPI 命名空间中对象的路径和名称。 有关
+路径和名称格式的详细信息，请参阅本主题后面的“备注”部分。言论
+设备的驱动程序使用 IOCTL_ACPI_ENUM_CHILDREN 请求来枚举设备的子对象。 枚举的子对象可以是设备或提供的名称的任何对象。 此请求返回一个
+ACPI_ENUM_CHILDREN_OUTPUT_BUFFER结构，其中包括包含ACPI_ENUM_CHILD结构的数组的 Children 成员。
+Name 成员中包含的路径和名称采用 ACPI 命名空间中对象完全限定的路径和名称的标准格式。 例如，假设名为“ABCD”的设备是 ACPI 命名空间根目录的直接子级，设备“ABCD”
+具有名为“CHLD”的子设备，而子设备“CHLD”具有名为“_FOO”的直接子对象。 在这种情况下，名称 将包含“\ABCD”。CHLD._FOO。
+有关如何枚举设备的子对象的信息，请参阅 枚举子设备和控制方法。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 和更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+ACPI_ENUM_CHILDREN_OUTPUT_BUFFER
+IOCTL_ACPI_ENUM_CHILDREN 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+ACPI_ENUM_CHILDREN_INPUT_BUFFER结
+构（acpiioct.h）项目2025/02/06
+ACPI_ENUM_CHILDREN_INPUT_BUFFER结构用作 IOCTL_ACPI_ENUM_CHILDREN 请求的输入。该结构指定要在请求发送到的设备命名空间中枚举的子对象。
+语法 C++
+typedef struct _ACPI_ENUM_CHILDREN_INPUT_BUFFER {
+  ULONG Signature;   ULONG Flags;
+  ULONG NameLength;
+  CHAR  Name[ANYSIZE_ARRAY];
+} ACPI_ENUM_CHILDREN_INPUT_BUFFER, *PACPI_ENUM_CHILDREN_INPUT_BUFFER;
+成员 Signature
+输入缓冲区的签名，必须设置为ACPI_ENUM_CHILDREN_INPUT_BUFFER_SIGNATURE。 Flags
+确定 ACPI 驱动程序枚举的对象（如本主题后面的“备注”部分中所述）的标志。 NameLength
+名称 数组包含的 ASCII 字符数（包括 NULL 终止符）。 Name[ANYSIZE_ARRAY]
+以 NULL 结尾的四个字符 ASCII 字符串，其中包含 ACPI 驱动程序用来将枚举限制为同名的子对
+象的名称。 有关如何提供对象名称的详细信息，请参阅本主题后面的“备注”部分。言论
+IOCTL_ACPI_ENUM_CHILDREN 支持以下类型的枚举，具体取决于在相应的 ACPI_ENUM_CHILDREN_INPUT_BUFFER结构中设置 标志 成员的方式：
+有关如何枚举设备的子对象的信息，请参阅 枚举子设备和控制方法。要求
+要求
+最低支持的客户端标头
+另请参阅
+IOCTL_ACPI_ENUM_CHILDREN
+价值
+Windows Vista 和更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+ﾉ
+展开表
+ACPI_ENUM_CHILDREN_OUTPUT_BUFFE
+R结构（acpiioct.h）项目2025/02/06
+ACPI_ENUM_CHILDREN_OUTPUT_BUFFER结构包含 ACPI 命名空间中的对象名称数组。
+语法 C++
+typedef struct _ACPI_ENUM_CHILDREN_OUTPUT_BUFFER {   ULONG           Signature;
+  ULONG           NumberOfChildren;
+  ACPI_ENUM_CHILD Children[ANYSIZE_ARRAY];} ACPI_ENUM_CHILDREN_OUTPUT_BUFFER;
+成员 Signature
+输出缓冲区的签名，必须设置为ACPI_ENUM_CHILDREN_OUTPUT_BUFFER_SIGNATURE。 NumberOfChildren
+Children 数组中类型 ACPI_ENUM_CHILD 的元素数。 Children[ANYSIZE_ARRAY]
+ACPI_ENUM_CHILD类型的元素数组。 每个ACPI_ENUM_CHILD结构都包含 ACPI 命名空间
+中对象的路径和名称。言论
+设备的驱动程序使用 IOCTL_ACPI_ENUM_CHILDREN 请求来枚举设备的子对象。 枚举的子对象可以是设备或提供的名称的任何对象。 此请求返回一个
+ACPI_ENUM_CHILDREN_OUTPUT_BUFFER结构，其中包括包含 ACPI_ENUM_CHILD 结构的数组的 Children 成员。
+有关如何枚举设备的子对象的信息，请参阅 枚举子设备和控制方法。
+要求要求
+最低支持的客户端标头
+另请参阅 ACPI_ENUM_CHILD
+价值
+Windows Vista 和更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+IOCTL_ACPI_ENUM_CHILDREN 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+ACPI_EVAL_INPUT_BUFFER_COMPLEX_V
+1结构（acpiioct.h）项目2025/02/06
+ACPI_EVAL_INPUT_BUFFER_COMPLEX结构用作 IOCTL_ACPI_EVAL_METHOD 请求和 IOCTL_ACPI_ASYNC_EVAL_METHOD 请求的输入。 该结构提供控件方法的名称和 ACPI_METHOD_ARGUMENT 结构的输入数组。
+语法 C++
+typedef struct _ACPI_EVAL_INPUT_BUFFER_COMPLEX_V1 {
+  ULONG                   Signature;   union {
+    UCHAR MethodName[4];
+    ULONG MethodNameAsUlong;   } DUMMYUNIONNAME;
+  ULONG                   Size;
+  ULONG                   ArgumentCount;
+  ACPI_METHOD_ARGUMENT_V1 Argument[ANYSIZE_ARRAY];
+} ACPI_EVAL_INPUT_BUFFER_COMPLEX_V1, *PACPI_EVAL_INPUT_BUFFER_COMPLEX_V1,  ACPI_EVAL_INPUT_BUFFER_COMPLEX, *PACPI_EVAL_INPUT_BUFFER_COMPLEX;
+成员 Signature
+复杂输入缓冲区的签名，必须设置为ACPI_EVAL_INPUT_BUFFER_COMPLEX_SIGNATURE。 DUMMYUNIONNAME
+DUMMYUNIONNAME.MethodName[4]
+包含方法名称的四元素 ASCII 字符数组。 例如，“ABCD”。 DUMMYUNIONNAME.MethodNameAsUlong
+一个类型为 ULONG 的值，该值包含格式 （ULONG） （'DCBA'）中方法的名称，其中方
+法名称为四元素 ASCII 字符数组“ABCD”。 Size
+参数 数组包含的字节数。 ArgumentCount
+参数 数组包含的可变长度ACPI_METHOD_ARGUMENT结构的数目。 参数 数组最多可以容纳七个参数结构。
+Argument[ANYSIZE_ARRAY]
+ACPI_METHOD_ARGUMENT结构的数组。言论
+如果设备支持名为“ABCD”的控件方法（采用参数数组作为输入），则设备的驱动程序可
+以通过向设备发送IOCTL_ACPI_EVAL_METHOD请求或向设备发送 IOCTL_ACPI_ASYNC_EVAL_METHOD请求并设置输入
+ACPI_EVAL_INPUT_BUFFER_COMPLEX结构的成员来评估方法，如下所示：
+将 签名 设置为ACPI_EVAL_INPUT_BUFFER_COMPLEX_SIGNATURE。
+将 MethodName 设置为“ABCD”或 MethodNameAsUlong 为 （ULONG）（“DCBA”）。
+将 大小 设置为 参数 数组中的字节数。
+将 参数 计数设置为 参数 数组中的参数数。
+将 参数 设置为ACPI_METHOD_ARGUMENT结构的数组。有关如何使用此结构的详细信息，请参阅 评估 ACPI 控制方法。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+ACPI_METHOD_ARGUMENT
+价值
+Windows 2000 及更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+IOCTL_ACPI_ASYNC_EVAL_METHOD
+展开表
+IOCTL_ACPI_EVAL_METHOD 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ACPI_EVAL_INPUT_BUFFER_COMPLEX_V
+1_EX结构（acpiioct.h）项目2025/02/06
+ACPI_EVAL_INPUT_BUFFER_COMPLEX_EX结构用作 IOCTL_ACPI_EVAL_METHOD_EX 请求和 IOCTL_ACPI_ASYNC_EVAL_METHOD_EX 请求的输入。 该结构在 ACPI 命名空间中提供控件方法的路径和名称，以及 ACPI_METHOD_ARGUMENT 结构的输入参数数组。
+语法 C++
+typedef struct _ACPI_EVAL_INPUT_BUFFER_COMPLEX_V1_EX {   ULONG                   Signature;
+  CHAR                    MethodName[256];   ULONG                   Size;
+  ULONG                   ArgumentCount;
+  ACPI_METHOD_ARGUMENT_V1 Argument[ANYSIZE_ARRAY];} ACPI_EVAL_INPUT_BUFFER_COMPLEX_V1_EX, 
+*PACPI_EVAL_INPUT_BUFFER_COMPLEX_V1_EX, ACPI_EVAL_INPUT_BUFFER_COMPLEX_EX, *PACPI_EVAL_INPUT_BUFFER_COMPLEX_EX;
+成员 Signature
+扩展的复杂输入缓冲区的签名，该缓冲区必须设置为 ACPI_EVAL_INPUT_BUFFER_COMPLEX_SIGNATURE_EX。
+MethodName[256]
+一个以 NULL 结尾的 ASCII 字符串，其中包含 ACPI 命名空间中控件方法的路径和名称。字符串可以包含的最大字符数（包括 NULL 终止符）为 256。
+有关如何提供控件方法的路径和名称的详细信息，请参阅本主题后面的“备注”部分。 Size
+参数 数组包含的字节数。 ArgumentCount
+参数 数组包含的可变长度ACPI_METHOD_ARGUMENT结构的数目。 参数 数组最多可以容纳七个参数结构。
+Argument[ANYSIZE_ARRAY]
+ACPI_METHOD_ARGUMENT结构的数组。言论
+设备的驱动程序可以使用IOCTL_ACPI_EVAL_METHOD_EX请求或
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX请求来评估设备子对象的控件方法。 如果该方法采用复杂的参数数组，则这些请求采用输入ACPI_EVAL_INPUT_BUFFER_COMPLEX_EX结构，如下所示：
+将 签名 设置为ACPI_EVAL_INPUT_BUFFER_COMPLEX_SIGNATURE_EX。
+将 MethodName 设置为 NULL 终止的字符串，该字符串向 ACPI 命名空间中的控制方法提供完整路径和名称，或者将计算请求发送到的设备的方法的路径和名称。
+例如，假设请求发送到名为“ABCD”的设备，这是 ACPI 命名空间根目录的直接子级，“ABCD”设备支持名为“CHLD”的子设备，“CHLD”设备支持名为“_FOO”的方法。在这种情况下，评估请求可以提供“\ABCD”。CHLD._FOO，它是 ACPI 命名空间中控
+件方法的完全限定路径和名称，或“CHLD._FOO”，它是与 ACPI 命名空间中的“ABCD”设备相对的控件方法的路径和名称。
+有关如何在 ACPI 命名空间中获取控件方法的完全限定路径和名称的详细信息，请参阅 枚举子设备和控制方法。
+Size 设置为 Argument 数组中的字节数。
+ArgumentCount 设置为 Argument 数组中的参数数。参数 设置为ACPI_METHOD_ARGUMENT结构的数组。
+有关如何使用此结构的详细信息，请参阅 评估 ACPI 控制方法。要求
+ﾉ
+要求
+最低支持的客户端标头
+价值
+Windows Vista 和更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+展开表
+另请参阅
+ACPI_METHOD_ARGUMENT
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX
+IOCTL_ACPI_EVAL_METHOD_EX 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ACPI_EVAL_INPUT_BUFFER_COMPLEX_V
+2结构（acpiioct.h）项目2025/02/06
+本主题介绍 ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2 结构。
+语法 C++
+typedef struct _ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2 {
+  ULONG                   Signature;   union {
+    UCHAR MethodName[4];
+    ULONG MethodNameAsUlong;   } DUMMYUNIONNAME;
+  ULONG                   Size;
+  ULONG                   ArgumentCount;
+  ACPI_METHOD_ARGUMENT_V2 Argument[ANYSIZE_ARRAY];
+} ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2, *PACPI_EVAL_INPUT_BUFFER_COMPLEX_V2;
+成员 Signature
+定义 ULONG 成员 签名。 DUMMYUNIONNAME
+定义 DUMMYUNIONNAME的方法名称成员。 DUMMYUNIONNAME.MethodName[4]
+定义 DUMMYUNIONNAME 的方法名称成员。MethodName. DUMMYUNIONNAME.MethodNameAsUlong
+定义 DUMMYUNIONNAME 的方法名称成员。MethodNameAsUlong。 Size
+定义 ULONG 成员 大小。
+ArgumentCount
+定义 ULONG 成员 ArgumentCount。 Argument[ANYSIZE_ARRAY]
+定义 ACPI_METHOD_ARGUMENT_V2 成员 Argument[ANYSIZE_ARRAY]。要求
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows 10 版本 1709 及更高版本。
+acpiioct.h （include Acpiioct.h） 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+ACPI_EVAL_INPUT_BUFFER_COMPLEX_V
+2_EX结构（acpiioct.h）项目2025/02/06
+本主题介绍 ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2_EX 结构。
+语法 C++
+typedef struct _ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2_EX {   ULONG                   Signature;
+  CHAR                    MethodName[256];   ULONG                   Size;
+  ULONG                   ArgumentCount;
+  ACPI_METHOD_ARGUMENT_V2 Argument[ANYSIZE_ARRAY];
+} ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2_EX, *PACPI_EVAL_INPUT_BUFFER_COMPLEX_V2_EX;
+成员 Signature
+定义 ULONG 成员 签名。 MethodName[256]
+NULL 终止的名称字符串。 Size
+定义 ULONG 成员 大小。 ArgumentCount
+定义 ULONG 成员 ArgumentCount。 Argument[ANYSIZE_ARRAY]
+定义 ACPI_METHOD_ARGUMENT_V2 成员 Argument[ANYSIZE_ARRAY]。要求
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows 10 版本 1709 及更高版本。
+acpiioct.h （include Acpiioct.h） 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTE
+GER_V1结构（acpiioct.h）项目2025/02/06
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER结构用作 IOCTL_ACPI_EVAL_METHOD 请求
+和 IOCTL_ACPI_ASYNC_EVAL_METHOD 请求的输入。 该结构提供控件方法的名称和 ULONG 类型的输入参数。
+语法 C++
+typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V1 {
+  ULONG Signature;   union {
+    UCHAR MethodName[4];
+    ULONG MethodNameAsUlong;   } DUMMYUNIONNAME;
+  ULONG IntegerArgument;
+} ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V1, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V1, 
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER;
+成员 Signature
+整数输入缓冲区的签名，必须设置为
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_SIGNATURE。 DUMMYUNIONNAME
+DUMMYUNIONNAME.MethodName[4]
+包含控件方法名称的四元素 ASCII 字符数组，例如“ABCD”。 DUMMYUNIONNAME.MethodNameAsUlong
+一个类型为 ULONG 的值，该值包含格式 （ULONG） （'DCBA'）中方法的名称，其中方
+法名称为四元素 ASCII 字符数组“ABCD”。 IntegerArgument
+作为输入传递给控件方法的 ULONG 类型的参数值。言论
+如果设备支持名为 ABCD 的控件方法（采用 ULONG 类型的一个整数参数），则设备的驱动程序可以通过向设备发送IOCTL_EVAL_METHOD请求或
+IOCTL_ACPI_ASYNC_EVAL_METHOD请求来评估该方法，并设置输入 ACPI_EVAL_INPUT_BUFFER结构的成员，如下所示：
+将 签名 设置为ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_SIGNATURE。将 MethodName 设置为“ABCD”或 MethodNameAsUlong 为 （ULONG）（“DCBA”）。
+将 integerArgument 设置为输入整数值。
+有关如何使用此结构的详细信息，请参阅 评估 ACPI 控制方法。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows 2000 及更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+IOCTL_ACPI_ASYNC_EVAL_METHOD
+IOCTL_ACPI_EVAL_METHOD 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTE
+GER_V1_EX结构（acpiioct.h）项目2025/02/06
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_EX结构用作
+IOCTL_ACPI_EVAL_METHOD_EX 请求和 IOCTL_ACPI_ASYNC_EVAL_METHOD_EX 请求的输入。 该结构在 ACPI 命名空间中提供控件方法的路径和名称，以及ULONG64类型的输入
+参数。语法 C++
+typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V1_EX {   ULONG   Signature;
+  CHAR    MethodName[256];   ULONG64 IntegerArgument;
+} ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V1_EX, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V1_EX, 
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_EX, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_EX;
+成员 Signature
+扩展整数输入缓冲区的签名，必须设置为
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_SIGNATURE_EX。 MethodName[256]
+一个以 NULL 结尾的 ASCII 字符串，其中包含 ACPI 命名空间中控件方法的路径和名称。字符串可以包含的最大字符数（包括 NULL 终止符）为 256。 有关如何提供控件方法的
+路径和名称的详细信息，请参阅本主题后面的“备注”部分。 IntegerArgument
+作为输入传递给控件方法的ULONG64类型的参数值。言论
+设备的驱动程序可以使用IOCTL_ACPI_EVAL_METHOD_EX请求或
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX请求来评估设备子对象的控件方法。 如果该方法采用单个整数输入参数，则这些请求采用输入
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_EX结构，如下所示：
+将 签名 设置为ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_SIGNATURE_EX。
+将 MethodName 设置为 NULL 终止的字符串，该字符串向 ACPI 命名空间中的控制方法提供完整路径和名称，或与计算请求发送到的设备相对的方法的路径和名称。
+例如，假设请求发送到名为“ABCD”的设备，这是 ACPI 命名空间根目录的直接子级，“ABCD”设备支持名为“CHLD”的子设备，“CHLD”设备支持名为“_FOO”的方法。在这种情况下，评估请求可以提供“\ABCD”。CHLD._FOO，它是 ACPI 命名空间中控
+件方法的完全限定路径和名称，或“CHLD._FOO”，它是与 ACPI 命名空间中的“ABCD”设备相对的控件方法的路径和名称。
+有关如何在 ACPI 命名空间中获取控件方法的完全限定路径和名称的详细信息，请参阅 枚举子设备和控制方法。
+将 integerArgument 设置为输入整数值。
+有关如何使用此结构的详细信息，请参阅 评估 ACPI 控制方法。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 和更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX
+IOCTL_ACPI_EVAL_METHOD_EX 反馈
+此页面是否有帮助？
+是
+否
+展开表
+提供产品反馈 
+| 在 Microsoft Q&A 获取帮助
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTE
+GER_V2结构（acpiioct.h）项目2025/02/06
+本主题介绍 ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2 结构。
+语法 C++
+typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2 {
+  ULONG Signature;   union {
+    UCHAR MethodName[4];
+    ULONG MethodNameAsUlong;   } DUMMYUNIONNAME;
+  ULONG IntegerArgument;
+} ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2;
+成员 Signature
+定义 ULONG 成员 签名。 DUMMYUNIONNAME
+定义 DUMMYUNIONNAME的方法名称成员。 DUMMYUNIONNAME.MethodName[4]
+DUMMYUNIONNAME.MethodNameAsUlong IntegerArgument
+定义 ULONG 成员 IntegerArgument。要求
+ﾉ
+展开表
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows 10 版本 1709 及更高版本。
+acpiioct.h （include Acpiioct.h） 否
+| 在 Microsoft Q&A 获取帮助
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGE
+R_V2_EX结构（acpiioct.h）项目2025/02/06
+本主题介绍 ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2_EX 结构。
+语法 C++
+typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2_EX {   ULONG   Signature;
+  CHAR    MethodName[256];   ULONG64 IntegerArgument;
+} ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2_EX, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2_EX;
+成员 Signature
+定义 ULONG 成员 签名。 MethodName[256]
+NULL 终止的名称字符串。 IntegerArgument
+定义 IntegerArgument ULONG64 成员。要求
+ﾉ
+要求
+最低支持的客户端标头
+价值
+Windows 10 版本 1709 及更高版本。 acpiioct.h （include Acpiioct.h）
+展开表
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING
+_V1结构（acpiioct.h）项目2025/02/06
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING结构用作 IOCTL_ACPI_EVAL_METHOD 请求和
+IOCTL_ACPI_ASYNC_EVAL_METHOD 请求的输入。 该结构提供控件方法的名称和作为 ASCII 字符串的输入参数。
+语法 C++
+typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1 {
+  ULONG Signature;   union {
+    UCHAR MethodName[4];
+    ULONG MethodNameAsUlong;
+  } DUMMYUNIONNAME;   ULONG StringLength;
+  UCHAR String[ANYSIZE_ARRAY];
+} ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1, 
+*PACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1, ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING;
+成员 Signature
+字符串输入缓冲区的签名，必须设置为
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_SIGNATURE。 DUMMYUNIONNAME
+DUMMYUNIONNAME.MethodName[4]
+此联合成员是包含方法名称的四元素 ASCII 字符数组。 例如，“ABCD”。 DUMMYUNIONNAME.MethodNameAsUlong
+此联合成员是一个 ULONG 类型的变量，该变量包含格式 （ULONG） （'DCBA'）中方法的名
+称，其中方法名称为四元素 ASCII 字符数组“ABCD”。 StringLength
+字符串 提供的字符数组中的 ASCII 字符数。 String[ANYSIZE_ARRAY]
+一个 ASCII 字符串，其中包含由 StringLength指定的字符数。 该字符串不包含 NULL 终止符。言论
+如果设备支持名为 ABCD 的控件方法（采用 ASCII 字符串作为输入），则设备的驱动程序可以通过向设备发送IOCTL_ACPI_EVAL_METHOD请求或向设备发送IOCTL_ACPI_ASYNC_EVAL_METHOD 请求并设置输入ACPI_EVAL_INPUT_BUFFER结构的成员来评估该方法，如下所示：
+将 签名 设置为ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_SIGNATURE。
+将 MethodName 设置为“ABCD”或 MethodNameAsUlong 为 （ULONG）（“DCBA”）。
+将 StringLength 设置为由 String提供的字符数。将 字符串 设置为输入字符串。
+有关如何使用此结构的详细信息，请参阅 评估 ACPI 控制方法。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows 2000 及更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+IOCTL_ACPI_ASYNC_EVAL_METHOD IOCTL_ACPI_EVAL_METHOD
+展开表
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRI
+NG_V1_EX结构（acpiioct.h）项目2025/02/06
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_EX结构用作 IOCTL_ACPI_EVAL_METHOD_EX 请求和 IOCTL_ACPI_ASYNC_EVAL_METHOD_EX 请求的输入。 该结构在 ACPI 命名空间中提供控件方法的路径和名称，以及 ASCII 字符串的输入参数。
+语法 C++
+typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1_EX {   ULONG Signature;
+  CHAR  MethodName[256];   ULONG StringLength;
+  UCHAR String[ANYSIZE_ARRAY];
+} ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1_EX, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1_EX, 
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_EX, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_EX;
+成员 Signature
+必须设置为ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_SIGNATURE_EX的扩展字符串输
+入缓冲区的签名。 MethodName[256]
+一个以 NULL 结尾的 ASCII 字符串，其中包含 ACPI 命名空间中控件方法的路径和名称。字符串可以包含的最大字符数（包括 NULL 终止符）为 256。 有关如何提供控件方法的
+路径和名称的详细信息，请参阅本主题后面的“备注”部分。 StringLength
+字符串 提供的字符数组中的 ASCII 字符数。 String[ANYSIZE_ARRAY]
+一个 ASCII 字符数组，其中包含由 StringLength指定的字符数。 字符数组不包含 NULL
+终止符。言论
+设备的驱动程序可以使用IOCTL_ACPI_EVAL_METHOD_EX请求或
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX请求来评估设备子对象的控件方法。 如果该方法采用单个字符串输入参数，则这些请求采用输入ACPI_EVAL_INPUT_BUFFER_STRING_EX结构，如下所示：
+将 签名 设置为ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_SIGNATURE_EX。
+将 MethodName 设置为 NULL 终止的字符串，该字符串向 ACPI 命名空间中的控制方法提供完整路径和名称，或与计算请求发送到的设备相对的方法的路径和名称。
+例如，假设请求发送到名为“ABCD”的设备，这是 ACPI 命名空间根目录的直接子级，“ABCD”设备支持名为“CHLD”的子设备，“CHLD”设备支持名为“_FOO”的方法。在这种情况下，评估请求可以提供“\ABCD”。CHLD._FOO，它是 ACPI 命名空间中控
+件方法的完全限定路径和名称，或“CHLD._FOO”，它是与 ACPI 命名空间中的“ABCD”设备相对的控件方法的路径和名称。
+有关如何在 ACPI 命名空间中获取控件方法的完全限定路径和名称的详细信息，请参阅 枚举子设备和控制方法。
+将 StringLength 设置为 String中的字符数。将 字符串 设置为输入字符串。
+有关如何使用此结构的详细信息，请参阅 评估 ACPI 控制方法。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 和更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX IOCTL_ACPI_EVAL_METHOD_EX
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING
+_V2结构（acpiioct.h）项目2025/02/06
+本主题介绍 ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2 结构。
+语法 C++
+typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2 {
+  ULONG Signature;   union {
+    UCHAR MethodName[4];
+    ULONG MethodNameAsUlong;
+  } DUMMYUNIONNAME;   ULONG StringLength;
+  UCHAR String[ANYSIZE_ARRAY];
+} ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2;
+成员 Signature
+定义 ULONG 成员 签名。 DUMMYUNIONNAME
+定义 DUMMYUNIONNAME的方法名称成员。 DUMMYUNIONNAME.MethodName[4]
+定义 DUMMYUNIONNAME 的方法名称成员。MethodName. DUMMYUNIONNAME.MethodNameAsUlong
+定义 DUMMYUNIONNAME 的方法名称成员。MethodNameAsUlong。 StringLength
+定义 ULONG 成员 StringLength。 String[ANYSIZE_ARRAY]
+定义 UCHAR 成员 String[ANYSIZE_ARRAY]。要求
+要求
+最低支持的客户端标头
+价值
+Windows 10 版本 1709 及更高版本。 acpiioct.h （include Acpiioct.h）
+ﾉ
+展开表
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING
+_V2_EX结构（acpiioct.h）项目2025/02/06
+本主题介绍 ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2_EX 结构。
+语法 C++
+typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2_EX {   ULONG Signature;
+  CHAR  MethodName[256];   ULONG StringLength;
+  UCHAR String[ANYSIZE_ARRAY];
+} ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2_EX, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2_EX;
+成员 Signature
+定义 ULONG 成员 签名。 MethodName[256]
+NULL 终止的名称字符串。 StringLength
+定义 ULONG 成员 StringLength。 String[ANYSIZE_ARRAY]
+定义 UCHAR 成员 String[ANYSIZE_ARRAY]。要求
+ﾉ
+展开表
+要求
+最低支持的客户端标头
+价值
+Windows 10 版本 1709 及更高版本。 acpiioct.h （include Acpiioct.h）
+ACPI_EVAL_INPUT_BUFFER_V1结构
+（acpiioct.h）项目2025/02/06
+ACPI_EVAL_INPUT_BUFFER结构用作 IOCTL_ACPI_EVAL_METHOD 请求和
+IOCTL_ACPI_ASYNC_EVAL_METHOD 请求的输入。 该结构提供不采用输入参数的控件方
+法的名称。语法 C++
+typedef struct _ACPI_EVAL_INPUT_BUFFER_V1 {
+  ULONG Signature;   union {
+    UCHAR MethodName[4];
+    ULONG MethodNameAsUlong;   } DUMMYUNIONNAME;
+} ACPI_EVAL_INPUT_BUFFER_V1, *PACPI_EVAL_INPUT_BUFFER_V1,  ACPI_EVAL_INPUT_BUFFER, *PACPI_EVAL_INPUT_BUFFER;
+成员 Signature
+不包含参数的输入缓冲区的签名，该参数必须设置为
+ACPI_EVAL_INPUT_BUFFER_SIGNATURE。 DUMMYUNIONNAME
+DUMMYUNIONNAME.MethodName[4]
+包含控件方法名称的四元素 ASCII 字符数组，例如“ABCD”。 DUMMYUNIONNAME.MethodNameAsUlong
+一个类型为 ULONG 的值，该值包含格式 （ULONG） （'DCBA'）中方法的名称，其中方
+法名称为四元素 ASCII 字符数组“ABCD”。言论
+如果设备支持名为“ABCD”的控件方法，则设备驱动程序可以通过向设备发送
+IOCTL_ACPI_EVAL_METHOD请求或向设备发送IOCTL_ACPI_ASYNC_EVAL_METHOD请求并设置输入ACPI_EVAL_INPUT_BUFFER结构的成员来评估该方法，如下所示：
+将 签名 设置为ACPI_EVAL_INPUT_BUFFER_SIGNATURE。
+将 MethodName 设置为“ABCD”或 MethodNameAsUlong 为 （ULONG）（“DCBA”）。
+有关如何使用此结构的详细信息，请参阅 评估 ACPI 控制方法。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows 2000 及更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+IOCTL_ACPI_ASYNC_EVAL_METHOD
+IOCTL_ACPI_EVAL_METHOD 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+ACPI_EVAL_INPUT_BUFFER_V1_EX结构
+（acpiioct.h）项目2025/02/06
+ACPI_EVAL_INPUT_BUFFER_EX结构用作 IOCTL_ACPI_EVAL_METHOD_EX 请求和
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX 请求的输入。 该结构在不使用输入参数的 ACPI 命名空间中提供控件方法的路径和名称。
+语法 C++
+typedef struct _ACPI_EVAL_INPUT_BUFFER_V1_EX {   ULONG Signature;
+  CHAR  MethodName[256];
+} ACPI_EVAL_INPUT_BUFFER_V1_EX, *PACPI_EVAL_INPUT_BUFFER_V1_EX,  ACPI_EVAL_INPUT_BUFFER_EX, *PACPI_EVAL_INPUT_BUFFER_EX;
+成员 Signature
+不包含参数的输入缓冲区的签名，该参数必须设置为
+ACPI_EVAL_INPUT_BUFFER_SIGNATURE_EX。 MethodName[256]
+一个以 NULL 结尾的 ASCII 字符串，其中包含 ACPI 命名空间中控件方法的路径和名称。 字符串可以包含的最大字符数（包括 NULL 终止符）为 256。 有关如何提供控件方法的路径和名称的
+详细信息，请参阅本主题后面的“备注”部分。言论
+设备的驱动程序可以使用IOCTL_ACPI_EVAL_METHOD_EX请求或
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX请求来评估设备子对象的控件方法。 如果该方法不采用输入参数，则这些请求采用输入ACPI_EVAL_INPUT_BUFFER_EX结构，如下所示：
+将 签名 设置为ACPI_EVAL_INPUT_BUFFER_SIGNATURE_EX。
+将 MethodName 设置为 NULL 终止的字符串，该字符串向 ACPI 命名空间中的控制方法提供完整路径和名称，或与计算请求发送到的设备相对的方法的路径和名称。
+例如，假设请求发送到名为“ABCD”的设备，该设备是 ACPI 命名空间根目录的直接子级，“ABCD”设备支持名为“CHLD”的子设备，而“CHLD”设备支持名为“_FOO”的方法。 在这种情况下，评估请求可以提供“\ABCD”。CHLD._FOO，它是 ACPI 命名空间中控件方法的完全限定路径和名称，或“CHLD._FOO”，它是与 ACPI 命名空间中的“ABCD”设备相对的控件方法的路径和名称。
+有关如何在 ACPI 命名空间中获取控件方法的完全限定路径和名称的详细信息，请参阅 枚举子设备和控制方法。
+有关如何使用此结构的详细信息，请参阅 评估 ACPI 控制方法。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 和更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX IOCTL_ACPI_EVAL_METHOD_EX
+展开表
+ACPI_EVAL_INPUT_BUFFER_V2结构
+（acpiioct.h）项目2025/02/06
+本主题介绍 ACPI_EVAL_INPUT_BUFFER_V2 结构。
+语法 C++
+typedef struct _ACPI_EVAL_INPUT_BUFFER_V2 {
+  ULONG Signature;   union {
+    UCHAR MethodName[4];
+    ULONG MethodNameAsUlong;   } DUMMYUNIONNAME;
+} ACPI_EVAL_INPUT_BUFFER_V2, *PACPI_EVAL_INPUT_BUFFER_V2;
+成员 Signature
+定义 ULONG 成员 签名。 DUMMYUNIONNAME
+定义 DUMMYUNIONNAME的方法名称成员。 DUMMYUNIONNAME.MethodName[4]
+DUMMYUNIONNAME.MethodNameAsUlong 要求
+要求
+最低支持的客户端标头
+价值
+Windows 10 版本 1709 及更高版本。 acpiioct.h （include Acpiioct.h）
+ﾉ
+展开表
+ACPI_EVAL_INPUT_BUFFER_V2_EX结构
+（acpiioct.h）项目2025/02/06
+本主题介绍 ACPI_EVAL_INPUT_BUFFER_V2_EX 结构。
+语法 C++
+typedef struct _ACPI_EVAL_INPUT_BUFFER_V2_EX {   ULONG Signature;
+  CHAR  MethodName[256];
+} ACPI_EVAL_INPUT_BUFFER_V2_EX, *PACPI_EVAL_INPUT_BUFFER_V2_EX;
+成员 Signature
+定义 ULONG 成员 签名。 MethodName[256]
+NULL 终止的名称字符串。要求
+ﾉ
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+是
+价值
+Windows 10 版本 1709 及更高版本。
+acpiioct.h （include Acpiioct.h） 否
+展开表
+提供产品反馈 
+| 在 Microsoft Q&A 获取帮助
+ACPI_EVAL_OUTPUT_BUFFER_V1结构
+（acpiioct.h）项目2025/02/06
+ACPI_EVAL_OUTPUT_BUFFER 结构包含 ACPI 控件方法的输出参数。
+语法 C++
+typedef struct _ACPI_EVAL_OUTPUT_BUFFER_V1 {   ULONG                   Signature;
+  ULONG                   Length;   ULONG                   Count;
+  ACPI_METHOD_ARGUMENT_V1 Argument[ANYSIZE_ARRAY];
+} ACPI_EVAL_OUTPUT_BUFFER_V1, ACPI_EVAL_OUTPUT_BUFFER, *PACPI_EVAL_OUTPUT_BUFFER;
+成员 Signature
+输出缓冲区的签名，必须设置为ACPI_EVAL_OUTPUT_BUFFER_SIGNATURE。 Length
+输出缓冲区的大小（以字节为单位）。 此大小包括输出缓冲区开头
+ACPI_EVAL_OUTPUT_BUFFER 结构的存储，以及 参数 数组中数据可能需要的任何其他存
+储，这些存储将扩展到 ACPI_EVAL_OUTPUT_BUFFER 结构的末尾。 Count
+参数 数组包含的 ACPI_METHOD_ARGUMENT 结构数。 Argument[ANYSIZE_ARRAY]
+ACPI_METHOD_ARGUMENT 结构的数组。 有关详细信息，请参阅“备注”。言论
+以下 ACPI IOCTLs 从 ACPI_EVAL_OUTPUT_BUFFER 结构中的 ACPI 控制方法返回输出参数：
+IOCTL_ACPI_ASYNC_EVAL_METHOD IOCTL_ACPI_ASYNC_EVAL_METHOD_EX
+IOCTL_ACPI_EVAL_METHOD IOCTL_ACPI_EVAL_METHOD_EX
+通常，参数 成员是一个或多个 ACPI_METHOD_ARGUMENT 结构的数组的开头。 如果数组包含多个 ACPI_METHOD_ARGUMENT 结构，则其他结构遵循
+ACPI_EVAL_OUTPUT_BUFFER 结构的末尾。 但是，仅当这些结构的 DataLength 成员的值大于 （ULONG）大小时，这些 ACPI_METHOD_ARGUMENT 结构才会形成真正的数组。 对于某些类型的数据，其中一个或多个结构中的 DataLength 值可以大于
+（ULONG）的大小，在这种情况下，相邻 ACPI_METHOD_ARGUMENT 结构之间的偏移量可能会有所不同。
+有关如何使用 ACPI_EVAL_OUTPUT_BUFFER 结构从 ACPI 控件方法检索输出参数的详细
+信息，请参阅 评估 ACPI 控制方法。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+ACPI_METHOD_ARGUMENT 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 2000 开始可用。 acpiioct.h （include Acpiioct.h）
+| 在 Microsoft Q&A 获取帮助
+展开表
+ACPI_EVAL_OUTPUT_BUFFER_V2结构
+（acpiioct.h）项目2025/02/06
+本主题介绍 ACPI_EVAL_OUTPUT_BUFFER_V2 结构。
+语法 C++
+typedef struct _ACPI_EVAL_OUTPUT_BUFFER_V2 {   ULONG                   Signature;
+  ULONG                   Length;   ULONG                   Count;
+  ACPI_METHOD_ARGUMENT_V2 Argument[ANYSIZE_ARRAY];} ACPI_EVAL_OUTPUT_BUFFER_V2;
+成员 Signature
+定义 ULONG 成员 签名。 Length
+定义 ULONG 成员 长度。 Count
+定义 ULONG 成员 计数。 Argument[ANYSIZE_ARRAY]
+定义 ACPI_METHOD_ARGUMENT_V2 成员 Argument[ANYSIZE_ARRAY]。要求
+ﾉ
+展开表
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows 10 版本 1709 及更高版本。
+acpiioct.h （include Acpiioct.h） 否
+| 在 Microsoft Q&A 获取帮助
+ACPI_GET_DEVICE_SPECIFIC_DATA结构
+（acpiioct.h）项目2025/02/06
+ACPI_GET_DEVICE_SPECIFIC_DATA结构包含IOCTL_ACPI_GET_DEVICE_SPECIFIC_DATA控件方法的
+输入参数。语法 C++
+typedef struct _ACPI_GET_DEVICE_SPECIFIC_DATA {
+  ULONG Signature;   GUID  Section;
+  ULONG PropertyNameLength;
+  UCHAR PropertyName[ANYSIZE_ARRAY];
+} ACPI_GET_DEVICE_SPECIFIC_DATA, *PACPI_GET_DEVICE_SPECIFIC_DATA;
+成员 Signature
+IOCTL 的唯一标识符。 Section
+调用方指定的 GUID。 PropertyNameLength 属性名称的长度。
+PropertyName[ANYSIZE_ARRAY]
+指定属性名称。 如果未指定，则返回 PropertyNameLength 和 PropertyName。 如果指定了
+PropertyName，则仅返回 PropertyName 的值。要求
+ﾉ
+展开表
+要求标头
+价值
+acpiioct.h （include Acpiioct.h）
+ACPI_MANIPULATE_GLOBAL_LOCK_BUFF
+ER结构（acpiioct.h）项目2025/02/06
+本主题介绍 ACPI_MANIPULATE_GLOBAL_LOCK_BUFFER 结构。
+语法 C++
+typedef struct _ACPI_MANIPULATE_GLOBAL_LOCK_BUFFER {
+  ULONG Signature;   PVOID LockObject;
+} ACPI_MANIPULATE_GLOBAL_LOCK_BUFFER, *PACPI_MANIPULATE_GLOBAL_LOCK_BUFFER;
+成员 Signature
+定义 ULONG 成员 签名。 LockObject
+定义 lockObject PVOID 成员。要求
+ﾉ
+要求标头
+反馈
+价值
+acpiioct.h （include Acpiioct.h）
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+ACPI_METHOD_ARGUMENT_V1结构
+（acpiioct.h）项目2025/02/06
+ACPI_METHOD_ARGUMENT结构包含 ACPI 控件方法的输入或输出参数的值。
+语法 C++
+typedef struct _ACPI_METHOD_ARGUMENT_V1 {   USHORT Type;
+  USHORT DataLength;   union {
+    ULONG Argument;
+    UCHAR Data[ANYSIZE_ARRAY];   } DUMMYUNIONNAME;
+} ACPI_METHOD_ARGUMENT_V1, ACPI_METHOD_ARGUMENT;
+成员 Type
+方法参数的类型，由下列方法之一指定：
+ACPI_METHOD_ARGUMENT_INTEGER 参数 包含 ULONG 类型的整数值。
+ACPI_METHOD_ARGUMENT_STRING
+Data 数组包含以 NULL 结尾的 ASCII 字符串，DataLength 提供字符串中的字符数，包括 NULL 终止符。
+ACPI_METHOD_ARGUMENT_BUFFER
+Data 数组包含自定义数据，DataLength 提供包含自定义数据的连续数组元素数，从 Data[0] 元素开始。
+ACPI_METHOD_ARGUMENT_PACKAGE
+Data 数组包含 ACPI 包描述符，DataLength 提供包含包描述符的连续数组元素数，从
+Data[0] 元素开始。 DataLength
+包含参数数据的 Data 数组中的 UCHAR 元素数。 DUMMYUNIONNAME
+DUMMYUNIONNAME.Argument ULONG 类型的参数值。
+DUMMYUNIONNAME.Data[ANYSIZE_ARRAY]
+包含参数数据的 UCHAR 类型的值的数组。言论
+ACPI_EVAL_OUTPUT_BUFFER结构包括ACPI_METHOD_ARGUMENT结构的 参数 数组。 以下 IOCTL 评估控制方法，并在 ACPI_EVAL_OUTPUT_BUFFER 结构中返回输出参数：
+IOCTL_ACPI_ASYNC_EVAL_METHOD IOCTL_ACPI_ASYNC_EVAL_METHOD_EX
+IOCTL_ACPI_EVAL_METHOD IOCTL_ACPI_EVAL_METHOD_EX
+ACPI_METHOD_ARGUMENT结构还用于向控制方法提供复杂输入参数的数组。
+ACPI_EVAL_INPUT_BUFFER_COMPLEX 和 ACPI_EVAL_INPUT_BUFFER_COMPLEX_EX 结构包括ACPI_METHOD_ARGUMENT类型的 参数 数组。
+有关如何使用ACPI_METHOD_ARGUMENT结构向 ACPI 控制方法提供和检索参数数据的详
+细信息，请参阅 评估 ACPI 控制方法。要求
+ﾉ
+展开表
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows 2000 及更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+ACPI_EVAL_INPUT_BUFFER_COMPLEX ACPI_EVAL_INPUT_BUFFER_COMPLEX_EX
+ACPI_EVAL_OUTPUT_BUFFER 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ACPI_METHOD_ARGUMENT_V2结构
+（acpiioct.h）项目2025/02/06
+本主题介绍 ACPI_METHOD_ARGUMENT_V2 结构。
+语法 C++
+typedef struct _ACPI_METHOD_ARGUMENT_V2 {   USHORT Type;
+  ULONG  DataLength;   union {
+    ULONG Argument;
+    UCHAR Data[ANYSIZE_ARRAY];   } DUMMYUNIONNAME;
+} ACPI_METHOD_ARGUMENT_V2;
+成员 Type
+定义 USHORT 成员 类型。 DataLength
+定义 USHORT 成员 DataLength。 DUMMYUNIONNAME
+定义 DUMMYUNIONNAME的成员。 DUMMYUNIONNAME.Argument
+DUMMYUNIONNAME.Data[ANYSIZE_ARRAY] 要求
+ﾉ
+展开表
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows 10 版本 1709 及更高版本。
+acpiioct.h （include Acpiioct.h） 否
+| 在 Microsoft Q&A 获取帮助
+IOCTL_ACPI_ACQUIRE_GLOBAL_LOCK
+IOCTL （acpiioct.h）项目2025/02/06
+IOCTL_ACPI_ACQUIRE_GLOBAL_LOCK设备控制请求仅供内部使用。主要代码
+IRP_MJ_DEVICE_CONTROL 要求
+ﾉ
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows Vista 和更高版本的 Windows。
+acpiioct.h （include Acpiioct.h） 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IOCTL_ACPI_ASYNC_EVAL_METHOD IOCTL
+（acpiioct.h）项目2025/02/06
+设备的驱动程序可以使用IOCTL_ACPI_ASYNC_EVAL_METHOD设备控制请求来异步评估设备支持的 ACPI 控制方法。 驱动程序应调用 IoBuildDeviceIoControlRequest，并传递以下输入和输出参
+数来生成此请求。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+设置 IoBuildDeviceIoControlRequest 输入参数，如下所示：
+IoControlCode 设置为IOCTL_ACPI_ASYNC_EVAL_METHOD。
+DeviceObject 设置为指向设备的物理设备对象（PDO）的指针。
+InputBuffer 设置为指向输入缓冲区结构的指针，该结构取决于要传递给控制方法的输入参数的类型。 有关此 IOCTL 支持的输入参数类型的详细信息，请参阅本主题后面的“备注”部分。
+InputBufferLength 设置为输入缓冲区的大小（以字节为单位）InputBuffer。
+OutputBufferLength 提供 OutputBuffer提供的输出缓冲区的大小（以字节为单位）。
+InternalDeviceIoControl 设置为 FALSE。事件 设置为 NULL。
+输入缓冲区长度
+InputBufferLength 设置为输入缓冲区的大小（以字节为单位）InputBuffer。输出缓冲区
+设置 IoBuildDeviceIoControlRequest 输出参数，如下所示：
+OutputBuffer 提供指向包含控件方法输出参数的 ACPI_EVAL_OUTPUT_BUFFER 结构的指针。
+IoStatusBlock 设置为 IO_STATUS_BLOCK 结构。输出缓冲区长度
+OutputBufferLength 提供 OutputBuffer提供的输出缓冲区的大小（以字节为单位）。状态块
+如果请求成功，IoStatusBlock->状态 设置为 STATUS_SUCCESS;否则，状态 成员将设置为错误代码。 如果输出缓冲区不够大以包含输出缓冲区标头，则 状态 成员设置为
+STATUS_BUFFER_TOO_SMALL。 如果输出缓冲区足够大以包含输出缓冲区标头，但不足以包含控制方法中的所有输出参数，则 状态 成员设置为STATUS_BUFFER_OVERFLOW，OutputBuffer->Length 设置为输出缓冲区的所需长度。
+如果请求成功，则 IoStatusBlock->信息 成员设置为输出缓冲区中返回的字节数;否则，信息 成员
+设置为零。言论
+设备的驱动程序可以使用IOCTL_ACPI_ASYNC_EVAL_METHOD异步评估设备支持的控制方法。例如，如果设备在 ACPI 命名空间中名为“ABCD”，而“ABCD”设备支持名为“_FOO”的方法，则此
+IOCTL 可用于评估控制方法“_FOO”，方法是将请求发送到“ABCD”设备并提供控制方法名称“_FOO”。
+IOCTL_ACPI_ASYNC_EVAL_METHOD支持以下类型的输入缓冲区结构： ACPI_EVAL_INPUT_BUFFER
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING ACPI_EVAL_INPUT_BUFFER_COMPLEX
+控件方法的输出参数在 OutBuffer 指针提供的可变长度 ACPI_EVAL_OUTPUT_BUFFER 结构中返回。 ACPI_EVAL_OUTPUT_BUFFER包括可变长度 ACPI_METHOD_ARGUMENT 结构的数组，每个结构都返回输出参数。
+有关如何同步评估 ACPI 控制方法的信息，请参阅 IOCTL_ACPI_EVAL_METHOD、 IOCTL_ACPI_EVAL_METHOD_EX和 同步评估 ACPI 控制方法。
+IOCTL_ACPI_ASYNC_EVAL_METHOD只能在 IRQL <= DISPATCH_LEVEL中使用。要求
+ﾉ
+展开表
+要求
+最低支持的客户端标头
+另请参阅
+ACPI_EVAL_INPUT_BUFFER
+价值
+Windows Vista 和更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+ACPI_EVAL_INPUT_BUFFER_COMPLEX
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING
+ACPI_EVAL_OUTPUT_BUFFER ACPI_METHOD_ARGUMENT IOCTL_ACPI_EVAL_METHOD IOCTL_ACPI_EVAL_METHOD_EX
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX
+IOCTL （acpiioct.h）项目2025/02/06
+设备的驱动程序可以使用IOCTL_ACPI_ASYNC_EVAL_METHOD_EX设备控制请求来异步评估设备子设备支持的 ACPI 控制方法。 驱动程序应调用 IoBuildDeviceIoControlRequest，并传递以下输
+入和输出参数来生成此请求。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+设置 IoBuildDeviceIoControlRequest 输入参数，如下所示：
+IoControlCode 设置为IOCTL_ACPI_ASYNC_EVAL_METHOD_EX。 DeviceObject 设置为指向设备的物理设备对象（PDO）的指针。
+InputBuffer 设置为指向输入缓冲区结构的指针，该结构取决于要传递给控制方法的输入参数的类型。 有关此 IOCTL 支持的类型输入参数的详细信息，请参阅本主题后面的“备注”部分。
+InputBufferLength 设置为输入缓冲区的大小（以字节为单位）InputBuffer。
+OutputBufferLength 提供 OutputBuffer提供的输出缓冲区的大小（以字节为单位）。
+InternalDeviceIoControl 设置为 FALSE。事件 设置为 NULL。
+输入缓冲区长度
+InputBufferLength 设置为输入缓冲区的大小（以字节为单位）InputBuffer。输出缓冲区
+设置 IoBuildDeviceIoControlRequest 输出参数，如下所示：
+OutputBuffer 提供指向包含控件方法输出参数的 ACPI_EVAL_OUTPUT_BUFFER 结构的指针。
+IoStatusBlock 设置为 IO_STATUS_BLOCK 结构。输出缓冲区长度
+OutputBufferLength 提供 OutputBuffer提供的输出缓冲区的大小（以字节为单位）。状态块
+如果请求成功，IoStatusBlock->状态 设置为 STATUS_SUCCESS;否则，状态 成员将设置为错误代码。 如果输出缓冲区不够大以包含输出缓冲区标头，则 状态 成员设置为
+STATUS_BUFFER_TOO_SMALL。 如果输出缓冲区足够大以包含输出缓冲区标头，但不足以包含控制方法中的所有输出参数，则 状态 成员设置为STATUS_BUFFER_OVERFLOW，OutputBuffer->Length 设置为输出缓冲区的所需长度。
+如果请求成功，则 IoStatusBlock->信息 成员设置为输出缓冲区中返回的字节数;否则，信息 成员
+设置为零。言论
+设备的驱动程序可以使用IOCTL_ACPI_ASYNC_EVAL_METHOD_EX异步评估设备命名空间中子对象支持的控件方法。 此请求提供的控制方法的路径和名称必须是 ACPI 命名空间中方法的完全限定路径和名称，或者是与请求发送到的设备相对的方法的路径和名称。 例如，假设名为“ABCD” 的设备是 ACPI 命名空间根目录的直接子级，“ABCD”设备支持名为“CHLD”的子设备，并且
+“CHLD”设备支持名为“_FOO”的方法。 在这种情况下，为了评估“_FOO”方法，驱动程序将评估请求发送到“ABCD”设备，并提供路径和名称“\ABCD”。CHLD._FOO，它是 ACPI 命名空间中完全限定的路径和名称，或路径和名称“CHLD._FOO”，它是与 ACPI 命名空间中的“ABCD”设备相对的路径和名称。
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX支持以下类型的输入缓冲区结构： ACPI_EVAL_INPUT_BUFFER_EX
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_EX ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_EX ACPI_EVAL_INPUT_BUFFER_COMPLEX_EX
+控件方法的输出参数在 OutBuffer 指针提供的可变长度 ACPI_EVAL_OUTPUT_BUFFER 结构中返回。 ACPI_EVAL_OUTPUT_BUFFER包括可变长度 ACPI_METHOD_ARGUMENT 结构的数组，每个结构返回输出参数。
+有关如何同步评估 ACPI 控件方法的信息，请参阅 IOCTL_ACPI_EVAL_METHOD、 IOCTL_ACPI_EVAL_METHOD_EX和 同步评估 ACPI 控制方法。
+IOCTL_ACPI_ASYNC_EVAL_METHOD_EX只能用于 IRQL <= DISPATCH_LEVEL。
+要求要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 和更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+ACPI_EVAL_INPUT_BUFFER_COMPLEX_EX ACPI_EVAL_INPUT_BUFFER_EX
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_EX ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_EX
+ACPI_EVAL_OUTPUT_BUFFER ACPI_METHOD_ARGUMENT IOCTL_ACPI_EVAL_METHOD IOCTL_ACPI_EVAL_METHOD_EX
+ﾉ
+展开表
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V1
+IOCTL （acpiioct.h）项目2025/02/06
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V1 控制代码异步评估设备支持的 ACPI 控制方法。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+一个输入缓冲区结构，该结构取决于要传递给控制方法的输入参数的类型。输入缓冲区长度
+输入缓冲区的大小（以字节为单位）。输出缓冲区
+包含控件方法的输出参数的输出缓冲区结构。输出缓冲区长度
+输出缓冲区的大小（以字节为单位）。状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。 否则，状态 相应的错
+误条件作为 NTSTATUS 代码。要求
+ﾉ
+要求
+最低支持的客户端
+价值
+Windows 10 版本 1709 及更高版本。
+展开表
+要求标头
+另请参阅
+在驱动程序中创建 IOCTL 请求
+价值
+acpiioct.h （include Acpiioct.h）
+WdfIoTargetSendInternalIoctlOthersSynchronously WdfIoTargetSendInternalIoctlSynchronously
+WdfIoTargetSendIoctlSynchronously 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V1_EX
+IOCTL （acpiioct.h）项目2025/02/06
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V1_EX 控制代码异步评估设备支持的 ACPI 控制方法。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+一个输入缓冲区结构，该结构取决于要传递给控制方法的输入参数的类型。输入缓冲区长度
+输入缓冲区的大小（以字节为单位）。输出缓冲区
+包含控件方法的输出参数的输出缓冲区结构。输出缓冲区长度
+输出缓冲区的大小（以字节为单位）。状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。 否则，状态 相应的错误条件
+作为 NTSTATUS 代码。要求
+ﾉ
+要求
+最低支持的客户端标头
+价值
+Windows 10 版本 1709 及更高版本。 acpiioct.h （include Acpiioct.h）
+展开表
+另请参阅
+在驱动程序中创建 IOCTL 请求
+WdfIoTargetSendInternalIoctlOthersSynchronously
+WdfIoTargetSendInternalIoctlSynchronously WdfIoTargetSendIoctlSynchronously
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V2
+IOCTL （acpiioct.h）项目2025/02/06
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V2 控制代码异步评估设备支持的 ACPI 控制方法。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+一个输入缓冲区结构，该结构取决于要传递给控制方法的输入参数的类型。输入缓冲区长度
+输入缓冲区的大小（以字节为单位）。输出缓冲区
+包含控件方法的输出参数的输出缓冲区结构。输出缓冲区长度
+输出缓冲区的大小（以字节为单位）。状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。 否则，状态 相应的错
+误条件作为 NTSTATUS 代码。要求
+ﾉ
+要求
+最低支持的客户端
+价值
+Windows 10 版本 1709 及更高版本。
+展开表
+要求标头
+另请参阅
+在驱动程序中创建 IOCTL 请求
+价值
+acpiioct.h （include Acpiioct.h）
+WdfIoTargetSendInternalIoctlOthersSynchronously WdfIoTargetSendInternalIoctlSynchronously
+WdfIoTargetSendIoctlSynchronously 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V2_EX
+IOCTL （acpiioct.h）项目2025/02/06
+IOCTL_ACPI_ASYNC_EVAL_METHOD_V2_EX 控制代码异步评估设备支持的 ACPI 控制方法。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+一个输入缓冲区结构，该结构取决于要传递给控制方法的输入参数的类型。输入缓冲区长度
+输入缓冲区的大小（以字节为单位）。输出缓冲区
+包含控件方法的输出参数的输出缓冲区结构。输出缓冲区长度
+输出缓冲区的大小（以字节为单位）。状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。 否则，状态 相应的错误条件
+作为 NTSTATUS 代码。要求
+ﾉ
+要求
+最低支持的客户端标头
+价值
+Windows 10 版本 1709 及更高版本。 acpiioct.h （include Acpiioct.h）
+展开表
+另请参阅
+在驱动程序中创建 IOCTL 请求
+WdfIoTargetSendInternalIoctlOthersSynchronously
+WdfIoTargetSendInternalIoctlSynchronously WdfIoTargetSendIoctlSynchronously
+IOCTL_ACPI_ENUM_CHILDREN IOCTL
+(acpiioct.h) 项目2023/08/07
+IOCTL_ACPI_ENUM_CHILDREN设备控制请求可用于枚举此请求发送到的设备 ACPI 命名空间中的设备或命名子对象的路径和名称。 驱动程序应调用 IoBuildDeviceIoControlRequest 并传递以
+下输入和输出参数来生成此请求。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+按如下所示设置 IoBuildDeviceIoControlRequest 输入参数：
+IoControlCode 设置为 IOCTL_ACPI_ENUM_CHILDREN。
+DeviceObject 设置为指向物理设备对象的指针， (设备的 PDO) 。
+InputBuffer 设置为指向可变长度 ACPI_ENUM_CHILDREN_INPUT_BUFFER 结构的指针。 InputBufferLength 设置为 InputBuffer 提供的输入缓冲区的大小（以字节为单位）。 OutputBufferLength 提供 OutputBuffer 提供的输出缓冲区的大小（以字节为单位）。 InternalDeviceIoControl 设置为 FALSE。
+事件 设置为指向调用方分配和初始化的事件对象的指针。输入缓冲区长度
+InputBufferLength 设置为 InputBuffer 提供的输入缓冲区的大小（以字节为单位）。输出缓冲区
+按如下所示设置 IoBuildDeviceIoControlRequest 输出参数：
+OutputBuffer 提供指向可变长度 ACPI_ENUM_CHILDREN_OUTPUT_BUFFER 结构的指针，
+其中 ACPI 驱动程序返回枚举子设备的路径和名称。 IoStatusBlock 设置为 IO_STATUS_BLOCK 结构。
+输出缓冲区长度
+OutputBufferLength 提供 OutputBuffer 提供的输出缓冲区的大小（以字节为单位）。
+状态块
+如果请求成功，则 IoStatusBlock-Status> 设置为 STATUS_SUCCESS;否则，Status 成员设置为错误代码。 如果输出缓冲区的大小不足以包含缓冲区标头，则 Status 成员设置为
+STATUS_BUFFER_TOO_SMALL。 如果输出缓冲区足够大，足以包含输出缓冲区标头，但不足以
+包含所有枚举子对象的路径和名称，则 Status 成员设置为 STATUS_BUFFER_OVERFLOW， OutputBuffer-NumberOfChildren> 设置为输出缓冲区的所需长度。
+如果请求成功，IoStatusBlock-Information> 成员将设置为输出缓冲区中返回的字节数;否则，信
+息成员设置为零。注解
+IOCTL_ACPI_ENUM_CHILDREN返回一个可变长度ACPI_ENUM_CHILDREN_OUTPUT_BUFFER结构，该结构包含可变长度 ACPI_ENUM_CHILD 结构的数组，其中每个结构返回请求发送到的设备的 ACPI 命名空间中的对象的完全限定路径和名称。 此请求枚举的对象取决于提供的输入结构 ACPI_ENUM_CHILDREN_INPUT_BUFFER的 Flags 成员的设置，如下所示：
+如果驱动程序分配的输出缓冲区不够大，无法返回所有请求的子名称，则 ACPI 驱动程序不会返回任何子名称，并将请求IO_STATUS_BLOCK 的 Status 成员设置为
+STATUS_BUFFER_OVERFLOW。 在这种情况下，如果输出缓冲区 的大小（以 字节为单位）至少
+为 (ACPI_ENUM_CHILDREN_OUTPUT_BUFFER_SIGNATURE) ，则 ACPI 驱动程序还会将 NumberOfChildren 设置为检索请求的路径和名称所需的大小（以字节为单位）。
+驱动程序通常使用两个IOCTL_ACPI_ENUM_CHILDREN请求的序列来枚举感兴趣的子对象。 驱动程序发送第一个请求以获取包含所有请求对象的路径和名称所需的输出缓冲区的大小。 驱动程序发送第二个请求，以返回输出缓冲区中对象的路径和名称。
+有关如何枚举设备的子设备的详细信息，请参阅 枚举子设备和控制方法。 IOCTL_ACPI_ENUM_CHILDREN只能在 IRQL< DISPATCH_LEVEL中使用。
+要求
+ﾉ
+要求
+最低受支持的客户端标头
+值
+Windows Vista 和更高版本的 Windows。 acpiioct.h (包括 Acpiioct.h)
+展开表
+另请参阅 ACPI_ENUM_CHILD
+ACPI_ENUM_CHILDREN_INPUT_BUFFER ACPI_ENUM_CHILDREN_OUTPUT_BUFFER
+IOCTL_ACPI_EVAL_METHOD IOCTL
+（acpiioct.h）项目2025/02/06
+设备的驱动程序可以使用IOCTL_ACPI_EVAL_METHOD设备控制请求同步评估设备支持的 ACPI 控制方法。 驱动程序应调用 IoBuildDeviceIoControlRequest，并传递以下输入和输
+出参数来生成此请求。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+设置 IoBuildDeviceIoControlRequest 输入参数，如下所示：
+IoControlCode 设置为IOCTL_ACPI_EVAL_METHOD。
+DeviceObject 设置为指向设备的物理设备对象（PDO）的指针。
+InputBuffer 设置为指向输入缓冲区结构的指针，该结构取决于要传递给控制方法的输入参数的类型。 有关此 IOCTL 支持的输入参数类型的详细信息，请参阅本主题后面的“备注”部分。
+InputBufferLength 设置为输入缓冲区的大小（以字节为单位）InputBuffer。 OutputBufferLength 提供 OutputBuffer提供的输出缓冲区的大小（以字节为单位）。
+InternalDeviceIoControl 设置为 FALSE。
+事件 设置为指向调用方分配和初始化的事件对象的指针。输入缓冲区长度
+InputBufferLength 设置为输入缓冲区的大小（以字节为单位）InputBuffer。输出缓冲区
+设置 IoBuildDeviceIoControlRequest 输出参数，如下所示：
+OutputBuffer 提供指向包含控件方法输出参数的 ACPI_EVAL_OUTPUT_BUFFER 结构的指针。
+IoStatusBlock 设置为 IO_STATUS_BLOCK 结构。
+输出缓冲区长度
+OutputBufferLength 提供 OutputBuffer提供的输出缓冲区的大小（以字节为单位）。状态块
+如果请求成功，IoStatusBlock->状态 设置为 STATUS_SUCCESS;否则，状态 成员将设置为错误代码。 如果输出缓冲区不够大以包含输出缓冲区标头，则 状态 成员设置为
+STATUS_BUFFER_TOO_SMALL。 如果输出缓冲区足够大以包含输出缓冲区标头，但不足以包含控制方法中的所有输出参数，则 状态 成员设置为STATUS_BUFFER_OVERFLOW， OutputBuffer->Length 设置为输出缓冲区的所需长度。
+如果请求成功，则 IoStatusBlock->信息 成员设置为输出缓冲区中返回的字节数;否则，信
+息 成员设置为零。言论
+设备的驱动程序可以使用IOCTL_ACPI_EVAL_METHOD同步评估设备支持的控制方法。 例如，如果设备在 ACPI 命名空间中名为“ABCD”，而“ABCD”设备支持名为“_FOO”的方法，则此 IOCTL 可用于评估控制方法“_FOO”，方法是将请求发送到“ABCD”设备并提供控制方法名称“_FOO”。
+IOCTL_ACPI_EVAL_METHOD支持以下类型的输入缓冲区结构： ACPI_EVAL_INPUT_BUFFER
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING ACPI_EVAL_INPUT_BUFFER_COMPLEX
+控件方法的输出参数在 OutBuffer 指针提供的可变长度 ACPI_EVAL_OUTPUT_BUFFER 结构中返回。 ACPI_EVAL_OUTPUT_BUFFER包括可变长度 ACPI_METHOD_ARGUMENT 结构的数组，每个结构都返回输出参数。
+有关如何同步评估控件方法的详细信息，请参阅 同步评估 ACPI 控制方法。从 Windows Server 2008 和 Windows Vista 开始，驱动程序还可以使用
+IOCTL_ACPI_EVAL_METHOD_EX 请求同步评估不是设备的直接子对象的控制方法。
+有关如何从 Windows Server 2008 和 Windows Vista 异步评估 ACPI 控制方法的信息，请参阅 IOCTL_ACPI_ASYNC_EVAL_METHOD 和 IOCTL_ACPI_ASYNC_EVAL_METHOD_EX。
+IOCTL_ACPI_EVAL_METHOD只能在 IRQL < DISPATCH_LEVEL 中使用。要求
+要求
+最低支持的客户端标头
+另请参阅
+ACPI_EVAL_INPUT_BUFFER
+价值
+Windows 2000 及更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+ACPI_EVAL_INPUT_BUFFER_COMPLEX
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING
+ACPI_EVAL_OUTPUT_BUFFER ACPI_METHOD_ARGUMENT
+IOCTL_ACPI_ASYNC_EVAL_METHOD IOCTL_ACPI_ASYNC_EVAL_METHOD_EX
+IOCTL_ACPI_EVAL_METHOD_EX 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IOCTL_ACPI_EVAL_METHOD_EX IOCTL
+（acpiioct.h）项目2025/02/06
+设备的驱动程序可以使用IOCTL_ACPI_EVAL_METHOD_EX设备控制请求同步评估设备命名空间中子设备支持的 ACPI 控制方法。 驱动程序应调用 IoBuildDeviceIoControlRequest，
+并传递以下输入和输出参数来生成此请求。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+设置 IoBuildDeviceIoControlRequest 输入参数，如下所示：
+IoControlCode 设置为IOCTL_ACPI_EVAL_METHOD_EX。
+DeviceObject 设置为指向设备的物理设备对象（PDO）的指针。
+InputBuffer 设置为指向输入缓冲区结构的指针，该结构取决于要传递给控制方法的输入参数的类型。 有关此 IOCTL 支持的类型输入参数的详细信息，请参阅本主题后面的“备注”部分。
+InputBufferLength 设置为输入缓冲区的大小（以字节为单位）InputBuffer。 OutputBufferLength 提供 OutputBuffer提供的输出缓冲区的大小（以字节为单位）。
+InternalDeviceIoControl 设置为 FALSE。
+事件 设置为指向调用方分配和初始化的事件对象的指针。输入缓冲区长度
+InputBufferLength 设置为输入缓冲区的大小（以字节为单位）InputBuffer。输出缓冲区
+设置 IoBuildDeviceIoControlRequest 输出参数，如下所示：
+OutputBuffer 提供指向包含控件方法输出参数的 ACPI_EVAL_OUTPUT_BUFFER 结构的指针。
+IoStatusBlock 设置为指向 IO_STATUS_BLOCK 结构的指针。
+输出缓冲区长度
+OutputBufferLength 提供 OutputBuffer提供的输出缓冲区的大小（以字节为单位）。状态块
+如果请求成功，IoStatusBlock->状态 设置为 STATUS_SUCCESS;否则，状态 成员将设置为错误代码。 如果输出缓冲区不够大以包含输出缓冲区标头，则 状态 成员设置为
+STATUS_BUFFER_TOO_SMALL。 如果输出缓冲区足够大以包含输出缓冲区标头，但不足以包含控制方法中的所有输出参数，则 状态 成员设置为STATUS_BUFFER_OVERFLOW， OutputBuffer->Length 设置为输出缓冲区的所需长度。
+如果请求成功，则 IoStatusBlock->信息 成员设置为输出缓冲区中返回的字节数;否则，信
+息 成员设置为零。言论
+设备的驱动程序可以使用IOCTL_ACPI_EVAL_METHOD_EX同步评估设备命名空间中子对象支持的控件方法。 此请求提供的控制方法的路径和名称必须是 ACPI 命名空间中方法的完全限定路径和名称，或者是与请求发送到的设备相对的方法的路径和名称。 例如，假设名为“ABCD”的设备是 ACPI 命名空间根目录的直接子级，“ABCD”设备支持名为“CHLD”的子设备，并且“CHLD”设备支持名为“_FOO”的方法。 在这种情况下，为了评估“_FOO”方
+法，驱动程序将评估请求发送到“ABCD”设备，并提供路径和名称“\ABCD”。 CHLD._FOO，它是 ACPI 命名空间中完全限定的路径和名称，或路径和名称“CHLD._FOO”，它是与 ACPI 命名空间中的“ABCD”设备相对的路径和名称。
+IOCTL_ACPI_EVAL_METHOD_EX支持以下类型的输入缓冲区结构： ACPI_EVAL_INPUT_BUFFER_EX
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_EX ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_EX ACPI_EVAL_INPUT_BUFFER_COMPLEX_EX
+控件方法的输出参数在 OutBuffer 指针提供的可变长度 ACPI_EVAL_OUTPUT_BUFFER 结构中返回。 ACPI_EVAL_OUTPUT_BUFFER包括可变长度 ACPI_METHOD_ARGUMENT 结构的数组，每个结构返回输出参数。
+有关如何同步评估控件方法的详细信息，请参阅 同步评估 ACPI 控制方法。
+驱动程序还可以使用 IOCTL_ACPI_EVAL_METHOD 请求来同步评估作为设备的直接子对象的控制方法。
+有关如何从 Windows Server 2008 和 Windows Vista 异步评估 ACPI 控制方法的信息，请参阅 IOCTL_ACPI_ASYNC_EVAL_METHOD 和 IOCTL_ACPI_ASYNC_EVAL_METHOD_EX。
+IOCTL_ACPI_EVAL_METHOD_EX只能在 IRQL < DISPATCH_LEVEL 中使用。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows Vista 和更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+ACPI_EVAL_INPUT_BUFFER_COMPLEX_EX ACPI_EVAL_INPUT_BUFFER_EX
+ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_EX ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_EX ACPI_EVAL_OUTPUT_BUFFER
+IOCTL_ACPI_ASYNC_EVAL_METHOD IOCTL_ACPI_ASYNC_EVAL_METHOD_EX
+IOCTL_ACPI_EVAL_METHOD 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+IOCTL_ACPI_EVAL_METHOD_V1 IOCTL
+（acpiioct.h）项目2025/02/06
+IOCTL_ACPI_EVAL_METHOD_V1 控制代码同步评估设备支持的 ACPI 控制方法。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+一个输入缓冲区结构，该结构取决于要传递给控制方法的输入参数的类型。输入缓冲区长度
+输入缓冲区的大小（以字节为单位）。输出缓冲区
+包含控件方法的输出参数的输出缓冲区结构。输出缓冲区长度
+输出缓冲区的大小（以字节为单位）。状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。 否则，状态 相应的错
+误条件作为 NTSTATUS 代码。要求
+ﾉ
+要求
+最低支持的客户端
+价值
+Windows 10 版本 1709 及更高版本。
+展开表
+要求标头
+另请参阅
+在驱动程序中创建 IOCTL 请求
+价值
+acpiioct.h （include Acpiioct.h）
+WdfIoTargetSendInternalIoctlOthersSynchronously WdfIoTargetSendInternalIoctlSynchronously
+WdfIoTargetSendIoctlSynchronously 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IOCTL_ACPI_EVAL_METHOD_V1_EX IOCTL
+（acpiioct.h）项目2025/02/06
+IOCTL_ACPI_EVAL_METHOD_V1_EX 控制代码同步评估设备支持的 ACPI 控制方法。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+一个输入缓冲区结构，该结构取决于要传递给控制方法的输入参数的类型。输入缓冲区长度
+输入缓冲区的大小（以字节为单位）。输出缓冲区
+包含控件方法的输出参数的输出缓冲区结构。输出缓冲区长度
+输出缓冲区的大小（以字节为单位）。状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。 否则，状态 相应的错误条件
+作为 NTSTATUS 代码。要求
+ﾉ
+要求
+最低支持的客户端标头
+价值
+Windows 10 版本 1709 及更高版本。 acpiioct.h （include Acpiioct.h）
+展开表
+另请参阅
+在驱动程序中创建 IOCTL 请求
+WdfIoTargetSendInternalIoctlOthersSynchronously
+WdfIoTargetSendInternalIoctlSynchronously WdfIoTargetSendIoctlSynchronously
+IOCTL_ACPI_EVAL_METHOD_V2 IOCTL
+（acpiioct.h）项目2025/02/06
+IOCTL_ACPI_EVAL_METHOD_V2 控制代码同步评估设备支持的 ACPI 控制方法。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+一个输入缓冲区结构，该结构取决于要传递给控制方法的输入参数的类型。输入缓冲区长度
+输入缓冲区的大小（以字节为单位）。输出缓冲区
+包含控件方法的输出参数的输出缓冲区结构。输出缓冲区长度
+输出缓冲区的大小（以字节为单位）。状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。 否则，状态 相应的错
+误条件作为 NTSTATUS 代码。要求
+ﾉ
+要求
+最低支持的客户端
+价值
+Windows 10 版本 1709 及更高版本。
+展开表
+要求标头
+另请参阅
+在驱动程序中创建 IOCTL 请求
+价值
+acpiioct.h （include Acpiioct.h）
+WdfIoTargetSendInternalIoctlOthersSynchronously WdfIoTargetSendInternalIoctlSynchronously
+WdfIoTargetSendIoctlSynchronously 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IOCTL_ACPI_EVAL_METHOD_V2_EX
+IOCTL （acpiioct.h）项目2025/02/06
+IOCTL_ACPI_EVAL_METHOD_V2_EX 控制代码同步评估设备支持的 ACPI 控制方法。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+一个输入缓冲区结构，该结构取决于要传递给控制方法的输入参数的类型。输入缓冲区长度
+输入缓冲区的大小（以字节为单位）。输出缓冲区
+包含控件方法的输出参数的输出缓冲区结构。输出缓冲区长度
+输出缓冲区的大小（以字节为单位）。状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。 否则，状态 相应的错
+误条件作为 NTSTATUS 代码。要求
+ﾉ
+要求
+最低支持的客户端
+价值
+Windows 10 版本 1709 及更高版本。
+展开表
+要求标头
+另请参阅
+在驱动程序中创建 IOCTL 请求
+价值
+acpiioct.h （include Acpiioct.h）
+WdfIoTargetSendInternalIoctlOthersSynchronously WdfIoTargetSendInternalIoctlSynchronously
+WdfIoTargetSendIoctlSynchronously 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IOCTL_ACPI_GET_DEVICE_INFORMATION
+IOCTL （acpiioct.h）项目2025/02/06
+设备的驱动程序可以使用IOCTL_ACPI_GET_DEVICE_INFORMATION设备控制请求获取有关其设备的精细标识信息。 此 IOCTL 通常由支持设备多个版本或修订的驱动程序使用，并且需要检查构成设备的 HW ID 字符串的组件部件来标识确切的设备。 驱动程序应调用
+IoBuildDeviceIoControlRequest，并传递以下输入和输出参数来生成此请求。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+设置 IoBuildDeviceIoControlRequest 输入参数，如下所示：
+IoControlCode 设置为IOCTL_ACPI_GET_DEVICE_INFORMATION。 DeviceObject 设置为指向设备的物理设备对象（PDO）的指针。
+InputBuffer 设置为指向输入缓冲区结构的指针，该结构取决于要传递给控制方法的输入参数的类型。 有关此 IOCTL 支持的输入参数类型的详细信息，请参阅本主题后面的“备注”部分。
+InputBufferLength 设置为输入缓冲区的大小（以字节为单位）InputBuffer。
+OutputBufferLength 提供 OutputBuffer提供的输出缓冲区的大小（以字节为单位）。
+InternalDeviceIoControl 设置为 FALSE。事件 设置为 NULL。
+输入缓冲区长度
+InputBufferLength 设置为输入缓冲区的大小（以字节为单位）InputBuffer。输出缓冲区
+设置 IoBuildDeviceIoControlRequest 输出参数，如下所示：
+OutputBuffer 提供指向包含控件方法输出参数的
+ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER 结构的指针。 IoStatusBlock 设置为 IO_STATUS_BLOCK 结构。
+输出缓冲区长度
+OutputBufferLength 提供 OutputBuffer提供的输出缓冲区的大小（以字节为单位）。状态块
+如果请求成功，IoStatusBlock->状态 设置为 STATUS_SUCCESS;否则，状态 成员将设置为错误代码。 如果输出缓冲区不够大以包含输出缓冲区标头，则 状态 成员设置为
+STATUS_BUFFER_TOO_SMALL。 如果输出缓冲区足够大以包含输出缓冲区标头，但不足以包含控制方法中的所有输出参数，则 状态 成员设置为STATUS_BUFFER_OVERFLOW，OutputBuffer->Length 设置为输出缓冲区的所需长度。
+如果请求成功，则 IoStatusBlock->信息 成员设置为输出缓冲区中返回的字节数;否则，信息 成员
+设置为零。言论
+设备的驱动程序可以使用IOCTL_ACPI_GET_DEVICE_INFORMATION获取有关其设备的精细标识信息。 此 IOCTL 通常用于支持设备多个硬件版本或修订的驱动程序，并且需要检查构成设备的 HW ID 字符串的组件部件来标识确切的设备。 例如，驱动程序可能支持相同设备的不同修订，其中编程接口的某些方面或设备的行为不同。 驱动程序可以确切地确定它正在运行的修订。
+请求的输出参数在 OutBuffer 指针提供的可变长度
+ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER 结构中返回。
+ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER包括可变长度数组的数组，每个数组分别返回表示子系统 ID 字符串、供应商 ID 字符串和实例 ID 字符串的输出参数。
+IOCTL_ACPI_GET_DEVICE_INFORMATION只能在 IRQL <= DISPATCH_LEVEL 中使用。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+Windows 8 及更高版本的 Windows。 acpiioct.h （include Acpiioct.h）
+ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER
+展开表
+IOCTL_ACPI_GET_DEVICE_SPECIFIC_DATA
+IOCTL （acpiioct.h）项目2025/02/06
+IOCTL_ACPI_GET_DEVICE_SPECIFIC_DATA 控制代码用于获取设备特定的数据。主要代码
+IRP_MJ_DEVICE_CONTROL 输入缓冲区
+一个输入缓冲区结构，该结构取决于要传递给控制方法的输入参数的类型。输入缓冲区长度
+输入缓冲区的大小（以字节为单位）。输出缓冲区
+包含控件方法的输出参数的输出缓冲区结构。输出缓冲区长度
+输出缓冲区的大小（以字节为单位）。状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。 否则，状态 相应的错误条件
+作为 NTSTATUS 代码。要求
+ﾉ
+要求标头
+价值
+acpiioct.h （include Acpiioct.h）
+展开表
+另请参阅
+在驱动程序中创建 IOCTL 请求
+WdfIoTargetSendInternalIoctlOthersSynchronously
+WdfIoTargetSendInternalIoctlSynchronously WdfIoTargetSendIoctlSynchronously
+IOCTL_ACPI_RELEASE_GLOBAL_LOCK
+IOCTL （acpiioct.h）项目2025/02/06
+IOCTL_ACPI_RELEASE_GLOBAL_LOCK设备控制请求仅供内部使用。主要代码
+IRP_MJ_DEVICE_CONTROL 状态块
+Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。否则，状态为相应的错误条件作为 NTSTATUS 代码。
+有关详细信息，请参阅 NTSTATUS 值。要求
+ﾉ
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows Vista 和更高版本的 Windows。
+acpiioct.h （include Acpiioct.h） 否
+| 在 Microsoft Q&A 获取帮助
+展开表
+acpitabl.h 标头项目2024/05/23
+ACPI 使用此标头。
+有关详细信息，请参阅：
+ACPI
+acpitabl.h 包含以下编程接口：
+函数  
+HMAT_ENTRY_LENGTH
+HMAT_ENTRY_LENGTH宏返回HMAT_ENTRY结构中类型的大小。
+PROC_TOPOLOGY_NODE_CACHE_TYPE_DATA 定义处理器拓扑节点缓存类型数据宏。
+PROC_TOPOLOGY_NODE_CACHE_TYPE_INSTRUCTION 定义处理器拓扑节点缓存类型指令宏。
+PROC_TOPOLOGY_NODE_CACHE_TYPE_UNIFIED 定义处理器拓扑节点缓存类型统一宏。
+结构  
+ACPI_PDTT
+定义 ACPI 处理器调试触发器表 (PDTT) 结构。 ACPI_PLD_CONTAINER_BUFFER
+ﾉﾉ
+展开表展开表
+ 
+定义 ACPI 物理位置描述符 (PLD) 容器缓冲区结构。 ACPI_PLD_INTERFACE_CLASS_BUFFER
+介绍 ACPI PLD 接口类描述符缓冲区、修订版 1 (Microsoft 自定义 PLD 缓冲区扩展、128 位) 。 ACPI_PLD_INTERFACE_INSTANCE_ANSI_BUFFER
+介绍 ACPI PLD 接口实例 ANSI 描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展，128 位) 。
+ACPI_PLD_INTERFACE_INSTANCE_GUID_BUFFER
+介绍 ACPI PLD 接口实例 GUID 描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展，128 位) 。
+ACPI_PLD_INTERFACE_INSTANCE_UNICODE_BUFFER
+介绍 ACPI PLD 接口实例 Unicode 描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展， 128 位) 。
+ACPI_PLD_JOINT_BUFFER
+介绍 ACPI PLD 联合描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展，128 位) 。 ACPI_PLD_SPATIAL_BUFFER
+介绍 ACPI PLD 空间描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展，128 位) 。 ASPT_ENTRY
+本主题介绍 AMD 安全处理器表 (ASPT) 使用的ASPT_ENTRY联合。 ASPT_ENTRY_HEADER
+本主题介绍 AMD 安全处理器表 (ASPT) 使用的ASPT_ENTRY_HEADER结构。 BBRT_TABLE
+定义启动后台资源表。 ECDT
+本主题介绍 ECDT 结构。 GIC_ITS
+本主题介绍GIC_ITS结构。
+ 
+HMAT_ENTRY
+HMAT_ENTRY 结构包含该表的异类内存属性表 (HMAT) 信息。 HMAT_TABLE
+定义_HMAT_TABLE结构。 IVHD_ACPI_DEVICE_ENTRY
+定义 I/O 虚拟化硬件定义 (IVHD) ACPI 设备入口结构。 IVRS_IVINFO
+定义 I/O 虚拟化结构 (IVRS) I/O 虚拟化结构。
+LPI_STATE_DESCRIPTOR 定义 LPI 状态描述符。 LPI_STATE_FLAGS
+将 LPI 状态标志定义为结构或整数。 LPIT
+定义 LPI ACPI 表。 MHSP_CHANNEL
+本主题介绍 Microsoft HSP ACPI 表使用的MHSP_CHANNEL结构。 MHSP_TABLE
+描述MHSP_TABLE结构。
+NFIT_PLATFORM_CAPABILITIES
+介绍 NFIT) 平台功能结构 (NVDIMM 固件接口表。 最初在 ACPI 6.2 勘误表 A 中定义。 PCC_REDUCED_1_SUBSPACE
+包含有关 ACPI 平台信道 (PCC) 减少 HW 的类型 1 子空间的信息。 PCC_REDUCED_2_SUBSPACE
+包含有关 ACPI 平台信道 (PCC) 减少 HW 的类型 2 子空间的信息。 PDTT_PCC_SUBCHANNEL_INDENTIFIER
+ 
+定义处理器属性拓扑表 (PPTT) 平台信道 (PCC) 子通道标识符结构。 PPTT
+定义处理器属性拓扑表 (PPTT) 结构。 PRM_HANDLER_INFORMATION
+定义PRM_HANDLER_INFORMATION结构。 PRM_MODULE_INFORMATION
+定义PRM_MODULE_INFORMATION结构。 PRMT_TABLE
+定义PRMT_TABLE结构。
+PROC_TOPOLOGY_CACHE_ATTRIBUTES
+定义处理器拓扑缓存属性结构。 PROC_TOPOLOGY_CACHE_FLAGS 定义处理器拓扑缓存标志结构。
+PROC_TOPOLOGY_NODE 定义处理器拓扑节点结构。
+PROC_TOPOLOGY_NODE_FLAGS 定义处理器拓扑节点标志结构。 SATC
+本主题介绍 SATC 结构。
+SDEV_SECURE_ACPI_INFO_ENTRY
+定义要在安全设备表中使用的安全 ACPI 设备的信息条目。 SDEV_SECURE_RESOURCE_ID_ENTRY
+定义安全 ACPI 设备的资源 ID 条目，以便在安全设备表中使用。 SDEV_SECURE_RESOURCE_MEMORY_ENTRY
+为要在安全设备表中使用的安全 ACPI 设备定义资源内存条目。
+ 
+SPMI_DESCRIPTION_TABLE
+定义SPMI_DESCRIPTION_TABLE结构。
+枚举  
+ACPI_PLD_EDGE
+描述关节边缘位 10：12,24：26。 ACPI_PLD_HORIZONTAL_POSITION
+描述水平位置位 72：73。 ACPI_PLD_JOINT_TYPE 描述关节类型位 6：9。 ACPI_PLD_ORIENTATION
+描述方向位 78。 ACPI_PLD_PANEL
+描述面板表面位 67：69。
+ACPI_PLD_ROTATION 描述旋转位 115：118。 ACPI_PLD_SHAPE
+描述形状位 74：77。
+ACPI_PLD_VERTICAL_POSITION
+描述垂直位置位 70：71。 HSP_PROTOCOL_ID
+本主题介绍HSP_PROTOCOL_ID枚举。
+ﾉ
+展开表
+ 
+IVRS_BLOCK_TYPE
+枚举 I/O 虚拟化报告结构 (IVRS) 块类型。 IVRS_TABLE_TYPE
+枚举 I/O 虚拟化硬件定义 (IVHD) 项类型。 NFIT_STRUCTURE_TYPE
+介绍 NVDIMM 固件接口表 (NFIT) 结构类型。 SRAT_ENTRY_TYPE
+本主题介绍SRAT_ENTRY_TYPE枚举。反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ACPI_PDTT结构（acpitabl.h）项目2025/02/06
+定义 ACPI 处理器调试触发器表 （PDTT） 结构。
+语法 C++
+typedef struct _ACPI_PDTT {   DESCRIPTION_HEADER Header;
+  UCHAR              TriggerCount;   UCHAR              Reserved[3];   ULONG              TriggerOffset;} ACPI_PDTT, *PACPI_PDTT;
+成员 Header
+TriggerCount Reserved[3]
+保留以供将来使用。
+TriggerOffset 要求
+要求标头
+价值
+acpitabl.h
+ﾉ
+展开表
+ACPI_PLD_CONTAINER_BUFFER结构
+（acpitabl.h）项目2025/02/06
+定义 ACPI 物理位置描述符（PLD）容器缓冲区结构。
+语法 C++
+typedef struct _ACPI_PLD_CONTAINER_BUFFER {   GUID ContainerId;
+} ACPI_PLD_CONTAINER_BUFFER, *PACPI_PLD_CONTAINER_BUFFER;
+成员 ContainerId
+ContainerId 字段。要求
+ﾉ
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+acpitabl.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+ACPI_PLD_EDGE枚举 （acpitabl.h）项目2025/02/06
+描述关节边缘位 10：12,24：26。
+语法 C++
+typedef enum _ACPI_PLD_EDGE {   AcpiPldEdgeTop,
+  AcpiPldEdgeBottom,   AcpiPldEdgeLeft,   AcpiPldEdgeRight,   AcpiPldEdgeUnknown
+} ACPI_PLD_EDGE, *PACPI_PLD_EDGE;
+常数  
+AcpiPldEdgeTop 值为 0。
+AcpiPldEdgeBottom 值为 1。
+AcpiPldEdgeLeft 值为 2。
+AcpiPldEdgeRight 值为 3。
+AcpiPldEdgeUnknown
+值为 4。要求
+ﾉﾉ
+展开表展开表
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+acpitabl.h
+| 在 Microsoft Q&A 获取帮助
+ACPI_PLD_HORIZONTAL_POSITION枚举
+（acpitabl.h）项目2025/02/06
+描述水平位置位 72：73。
+语法 C++
+typedef enum _ACPI_PLD_HORIZONTAL_POSITION {
+  AcpiPldHPosLeft,   AcpiPldHPosCenter,   AcpiPldHPosRight
+} ACPI_PLD_HORIZONTAL_POSITION, *PACPI_PLD_HORIZONTAL_POSITION; 常数
+ﾉ
+ 
+AcpiPldHPosLeft 值为 0。
+AcpiPldHPosCenter 值为 1。
+AcpiPldHPosRight
+值为 2。要求
+ﾉ
+要求标头
+价值
+acpitabl.h
+展开表展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ACPI_PLD_INTERFACE_CLASS_BUFFER结
+构（acpitabl.h）项目2025/02/06
+介绍 ACPI PLD 接口类描述符缓冲区，修订版 1（Microsoft自定义 PLD 缓冲区扩展，128
+位）。语法 C++
+typedef struct _ACPI_PLD_INTERFACE_CLASS_BUFFER {   GUID ClassGuid;
+} ACPI_PLD_INTERFACE_CLASS_BUFFER, *PACPI_PLD_INTERFACE_CLASS_BUFFER;
+成员 ClassGuid
+ACPI_PLD_INTERFACE_CLASS_BUFFER结构的 ClassGuid 字段。言论
+GUID 的定义如下： C++
+DEFINE_GUID(ACPI_PLD_INTERFACE_CLASS_BUFFER_GUID,
+    0x1facec76, 0x96a8, 0x4d9e, 0x84, 0x6e, 0x3a, 0x6d, 0x68, 0x7c, 0x32,  0xfc);
+要求
+ﾉ
+要求标头
+价值
+acpitabl.h
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ACPI_PLD_INTERFACE_INSTANCE_ANSI_
+BUFFER结构（acpitabl.h）项目2025/02/06
+介绍 ACPI PLD 接口实例 ANSI 描述符缓冲区，修订版 1（Microsoft自定义 PLD 缓冲区扩展，128 位）。
+语法 C++
+typedef struct _ACPI_PLD_INTERFACE_INSTANCE_ANSI_BUFFER {   CHAR ReferenceString[16];
+} ACPI_PLD_INTERFACE_INSTANCE_ANSI_BUFFER, *PACPI_PLD_INTERFACE_INSTANCE_ANSI_BUFFER;
+成员
+ReferenceString[16]
+ACPI_PLD_INTERFACE_INSTANCE_ANSI_BUFFER结构的 ReferenceString 字段。言论
+GUID 的定义如下： C++
+DEFINE_GUID(ACPI_PLD_INTERFACE_INSTANCE_ANSI_BUFFER_GUID,
+    0x1facea4b, 0xda66, 0x484c, 0xba, 0x5b, 0x51, 0x27, 0xe0, 0x5f, 0x95,  0xb2);
+要求
+ﾉ
+要求标头
+价值
+acpitabl.h
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ACPI_PLD_INTERFACE_INSTANCE_GUID_
+BUFFER结构（acpitabl.h）项目2025/02/06
+介绍 ACPI PLD 接口实例 GUID 描述符缓冲区，修订版 1（Microsoft自定义 PLD 缓冲区扩展，128 位）。
+语法 C++
+typedef struct _ACPI_PLD_INTERFACE_INSTANCE_GUID_BUFFER {   GUID ReferenceGuid;
+} ACPI_PLD_INTERFACE_INSTANCE_GUID_BUFFER, *PACPI_PLD_INTERFACE_INSTANCE_GUID_BUFFER;
+成员 ReferenceGuid
+ACPI_PLD_INTERFACE_INSTANCE_GUID_BUFFER结构的 ReferenceString 字段。言论
+GUID 的定义如下： C++
+DEFINE_GUID(ACPI_PLD_INTERFACE_INSTANCE_GUID_BUFFER_GUID,
+    0x1face9db, 0x2530, 0x4248, 0x8e, 0xe3, 0x51, 0x05, 0x3a, 0xef, 0x47,  0xc2);
+要求
+ﾉ
+要求标头
+价值
+acpitabl.h
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ACPI_PLD_INTERFACE_INSTANCE_UNICODE
+_BUFFER结构（acpitabl.h）项目2025/02/06
+介绍 ACPI PLD 接口实例 Unicode 描述符缓冲区，修订版 1（Microsoft自定义 PLD 缓冲区扩展，128 位）。
+语法 C++
+typedef struct _ACPI_PLD_INTERFACE_INSTANCE_UNICODE_BUFFER {   WCHAR ReferenceString[8];
+} ACPI_PLD_INTERFACE_INSTANCE_UNICODE_BUFFER, *PACPI_PLD_INTERFACE_INSTANCE_UNICODE_BUFFER;
+成员
+ReferenceString[8]
+ACPI_PLD_INTERFACE_INSTANCE_UNICODE_BUFFER结构的 ReferenceString 字段。言论
+GUID 的定义如下： C++
+DEFINE_GUID(ACPI_PLD_INTERFACE_INSTANCE_UNICODE_BUFFER_GUID,
+    0x1face3f6, 0x1a60, 0x4686, 0x98, 0x33, 0xec, 0x84, 0x02, 0xd4, 0x3b, 0x04); 要求
+ﾉ
+要求标头
+价值
+acpitabl.h
+展开表
+ACPI_PLD_JOINT_BUFFER结构
+（acpitabl.h）项目2025/02/06
+介绍 ACPI PLD 联合描述符缓冲区，修订版 1（Microsoft自定义 PLD 缓冲区扩展，128
+位）。语法 C++
+typedef struct _ACPI_PLD_JOINT_BUFFER {
+  UINT32 Revision : 5;   UINT32 JointType : 4;   UINT32 SourceEdge : 3;
+  UINT32 TargetCabinetNumber : 8;
+  UINT32 TargetPanel : 3;   UINT32 TargetEdge : 3;   UINT32 Reserved1 : 5;
+  UINT32 MovementOrientation : 1;   UINT32 ForwardMovementRange : 16;   UINT32 BackwardMovementRange : 16;
+  UINT32 HorizontalOffset : 16;   UINT32 VerticalOffset : 16;
+  UINT32 GapOffset : 16;   UINT32 Rotation : 9;   UINT32 Reserved2 : 7;
+} ACPI_PLD_JOINT_BUFFER, *PACPI_PLD_JOINT_BUFFER;
+成员 Revision JointType SourceEdge
+TargetCabinetNumber
+TargetPanel TargetEdge Reserved1
+MovementOrientation ForwardMovementRange BackwardMovementRange
+HorizontalOffset VerticalOffset
+GapOffset Rotation Reserved2 言论
+GUID 的定义如下： C++
+DEFINE_GUID(ACPI_PLD_JOINT_BUFFER_GUID,
+    0xf01cfc40, 0x3c75, 0x4523, 0x9e, 0x44, 0x21, 0x5c, 0xb1, 0x54, 0xbd,  0xa6);
+要求
+ﾉ
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+acpitabl.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+ACPI_PLD_JOINT_TYPE枚举 （acpitabl.h）项目2025/02/06
+描述关节类型位 6：9。
+语法 C++
+typedef enum _ACPI_PLD_JOINT_TYPE {
+  AcpiPldJointTypeFixed,   AcpiPldJointTypePlanar,   AcpiPldJointTypeHinge,   AcpiPldJointTypePivot,   AcpiPldJointTypeSwivel
+} ACPI_PLD_JOINT_TYPE, *PACPI_PLD_JOINT_TYPE; 常数
+ﾉ
+ 
+AcpiPldJointTypeFixed 值为 0。
+AcpiPldJointTypePlanar 值为 1。
+AcpiPldJointTypeHinge 值为 2。
+AcpiPldJointTypePivot 值为 3。
+AcpiPldJointTypeSwivel
+值为 4。要求
+ﾉ
+展开表展开表
+要求标头
+价值
+acpitabl.h
+ACPI_PLD_ORIENTATION枚举（acpitabl.h）
+项目2025/02/06 描述方向位 78。
+语法 C++
+typedef enum _ACPI_PLD_ORIENTATION {
+  AcpiPldOrientationHorizontal,   AcpiPldOrientationVertical
+} ACPI_PLD_ORIENTATION, *PACPI_PLD_ORIENTATION;
+常数  
+AcpiPldOrientationHorizontal 值为 0。
+AcpiPldOrientationVertical
+值为 1。要求
+要求标头
+价值
+acpitabl.h
+ﾉﾉ
+展开表展开表
+ACPI_PLD_PANEL枚举 （acpitabl.h）项目2025/02/06
+描述面板表面位 67：69。
+语法 C++
+typedef enum _ACPI_PLD_PANEL {   AcpiPldPanelTop,
+  AcpiPldPanelBottom,   AcpiPldPanelLeft,   AcpiPldPanelRight,   AcpiPldPanelFront,   AcpiPldPanelBack,   AcpiPldPanelUnknown
+} ACPI_PLD_PANEL, *PACPI_PLD_PANEL;
+常数  
+AcpiPldPanelTop 值为 0。
+AcpiPldPanelBottom 值为 1。
+AcpiPldPanelLeft 值为 2。
+AcpiPldPanelRight 值为 3。
+AcpiPldPanelFront 值为 4。
+AcpiPldPanelBack 值为 5。
+AcpiPldPanelUnknown 值为 6。
+ﾉ
+展开表
+要求要求标头
+价值
+acpitabl.h
+ﾉ
+展开表
+ACPI_PLD_ROTATION枚举 （acpitabl.h）项目2025/02/06
+描述旋转位 115：118。
+语法 C++
+typedef enum _ACPI_PLD_ROTATION {
+  AcpiPldRotation0,   AcpiPldRotation45,   AcpiPldRotation90,   AcpiPldRotation135,   AcpiPldRotation180,   AcpiPldRotation225,   AcpiPldRotation270,   AcpiPldRotation315
+} ACPI_PLD_ROTATION, *PACPI_PLD_ROTATION; 常数
+ﾉ
+ 
+AcpiPldRotation0 值为 0。
+AcpiPldRotation45 值为 1。
+AcpiPldRotation90 值为 2。
+AcpiPldRotation135 值为 3。
+AcpiPldRotation180 值为 4。
+AcpiPldRotation225 值为 5。
+AcpiPldRotation270 值为 6。
+展开表
+ 
+AcpiPldRotation315
+值为 7。要求
+要求标头
+价值
+acpitabl.h
+ﾉ
+展开表
+ACPI_PLD_SHAPE枚举 （acpitabl.h）项目2025/02/06
+描述形状位 74：77。
+语法 C++
+typedef enum _ACPI_PLD_SHAPE {
+  AcpiPldShapeRound,   AcpiPldShapeOval,   AcpiPldShapeSquare,   AcpiPldShapeVRect,   AcpiPldShapeHRect,   AcpiPldShapeVTrap,   AcpiPldShapeHTrap,   AcpiPldShapeUnknown,   AcpiPldShapeChamfered
+} ACPI_PLD_SHAPE, *PACPI_PLD_SHAPE; 常数
+ﾉ
+ 
+AcpiPldShapeRound 值为 0。
+AcpiPldShapeOval 值为 1。
+AcpiPldShapeSquare 值为 2。
+AcpiPldShapeVRect 值为 3。
+AcpiPldShapeHRect 值为 4。
+AcpiPldShapeVTrap 值为 5。
+展开表
+ 
+AcpiPldShapeHTrap 值为 6。
+AcpiPldShapeUnknown 值为 7。
+AcpiPldShapeChamfered
+值为 8。要求
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+acpitabl.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+ACPI_PLD_SPATIAL_BUFFER结构
+（acpitabl.h）项目2025/02/06
+介绍 ACPI PLD 空间描述符缓冲区，修订版 1（Microsoft自定义 PLD 缓冲区扩展，128 位）。
+语法 C++
+typedef struct _ACPI_PLD_SPATIAL_BUFFER {   UINT32 Revision : 5;
+  UINT32 RollRotation : 9;   UINT32 PitchRotation : 9;   UINT32 YawRotation : 9;
+  UINT32 Width : 16;   UINT32 Height : 16;   UINT32 Length : 16;
+  UINT32 HorizontalOffset : 16;   UINT32 VerticalOffset : 16;   UINT32 DepthOffset : 16;
+} ACPI_PLD_SPATIAL_BUFFER, *PACPI_PLD_SPATIAL_BUFFER;
+成员 Revision
+RollRotation PitchRotation YawRotation
+Width Height Length
+HorizontalOffset VerticalOffset DepthOffset
+言论 C++
+DEFINE_GUID(ACPI_PLD_SPATIAL_BUFFER_GUID,
+    0x59af1a1f, 0xaba4, 0x4bb8, 0x81, 0xef, 0x55, 0x93, 0x8e, 0x9b, 0xc5, 0x3a); 要求
+ﾉ
+要求标头
+价值
+acpitabl.h
+展开表
+ACPI_PLD_VERTICAL_POSITION枚举
+（acpitabl.h）项目2025/02/06
+描述垂直位置位 70：71。
+语法 C++
+typedef enum _ACPI_PLD_VERTICAL_POSITION {
+  AcpiPldVPosUpper,   AcpiPldVPosCenter,   AcpiPldVPosLower
+} ACPI_PLD_VERTICAL_POSITION, *PACPI_PLD_VERTICAL_POSITION; 常数
+ﾉ
+ 
+AcpiPldVPosUpper 值为 0。
+AcpiPldVPosCenter 值为 1。
+AcpiPldVPosLower
+值为 2。要求
+ﾉ
+要求标头
+价值
+acpitabl.h
+展开表展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ASPT_ENTRY union （acpitabl.h）项目2025/02/06
+本主题介绍 AMD 安全处理器表（ASPT）使用的 ASPT_ENTRY 联合。
+语法 C++
+typedef union _ASPT_ENTRY {
+  ASPT_ENTRY_HEADER                    Header;
+  ASPT_ENTRY_ASP_GLOBAL_REGISTERS_V1   AspGlobalRegistersV1;   ASPT_ENTRY_SEV_MAILBOX_REGISTERS_V1  SevMailboxRegistersV1;   ASPT_ENTRY_ACPI_MAILBOX_REGISTERS_V1 AcpiMailboxRegistersV1;   ASPT_ENTRY_ASP_GLOBAL_REGISTERS_V2   AspGlobalRegistersV2;   ASPT_ENTRY_SEV_MAILBOX_REGISTERS_V2  SevMailboxRegistersV2;   ASPT_ENTRY_ACPI_MAILBOX_REGISTERS_V2 AcpiMailboxRegistersV2;} ASPT_ENTRY, *PASPT_ENTRY;
+成员 Header
+定义 ASPT_ENTRY_HEADER 成员 标头。
+AspGlobalRegistersV1 SevMailboxRegistersV1 AcpiMailboxRegistersV1 AspGlobalRegistersV2 SevMailboxRegistersV2 AcpiMailboxRegistersV2 要求
+ﾉ
+展开表
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+Windows 11 版本 22H2
+acpitabl.h （include Acpitabl.h）
+| 在 Microsoft Q&A 获取帮助
+ASPT_ENTRY_HEADER结构（acpitabl.h）项目2025/02/06
+本主题介绍 AMD 安全处理器表 （ASPT） 使用的 ASPT_ENTRY_HEADER 结构。
+语法 C++
+typedef struct _ASPT_ENTRY_HEADER {
+  UINT16 Type;   UINT16 Length;
+} ASPT_ENTRY_HEADER, *PASPT_ENTRY_HEADER;
+成员 Type
+定义 UINT16 成员 类型。 Length
+定义 UINT16 成员 长度。要求
+ﾉ
+要求
+最低支持的客户端标头
+价值
+Windows 11 版本 22H2
+acpitabl.h （include Acpitabl.h）
+展开表
+BBRT_TABLE结构（acpitabl.h）项目2025/02/06
+定义启动后台资源表。
+语法 C++
+typedef struct _BBRT_TABLE {   DESCRIPTION_HEADER Header;
+  ULONG              Background;   ULONG              Foreground;} BBRT_TABLE, *PBBRT_TABLE;
+成员 Header 标头。 Background 背景值。 Foreground 前景值。要求
+要求标头
+价值
+acpitabl.h （include Acpitabl.h）
+ﾉ
+展开表
+ECDT 结构 （acpitabl.h）项目2025/02/06
+本主题介绍 ECDT 结构。
+语法 C++
+typedef struct {
+  DESCRIPTION_HEADER Header;   GEN_ADDR           Control;
+  GEN_ADDR           Data;   ULONG              Uid;
+  UCHAR              GpeBit;
+  CHAR               Id[ANYSIZE_ARRAY];} ECDT, *PECDT;
+成员 Header
+定义 DESCRIPTION_HEADER 成员 标头。 Control
+定义控件 GEN_ADDR 成员。 Data
+定义数据 GEN_ADDR 成员。 Uid
+定义 ULONG 成员 Uid。 GpeBit
+定义 UCHAR 成员 GpeBit。
+Id[ANYSIZE_ARRAY] 定义 CHAR 成员 ID。
+要求要求标头
+反馈
+价值
+acpitabl.h （include Acpitabl.h）
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+GIC_ITS结构（acpitabl.h）项目2025/02/06
+本主题介绍 GIC_ITS 结构。
+语法 C++
+typedef struct _GIC_ITS {
+  UCHAR     Type;   UCHAR     Length;
+  USHORT    Reserved1;   ULONG     Identifier;
+  ULONGLONG PhysicalAddress;
+  ULONG     Reserved2;} GIC_ITS;
+成员 Type
+定义 UCHAR 成员 类型。 Length
+定义 UCHAR 成员 长度。 Reserved1
+保留以供将来使用。 Identifier
+定义 ULONG 成员 标识符。 PhysicalAddress
+定义 ULONGLONG 成员 PhysicalAddress。 Reserved2
+保留以供将来使用。
+要求要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+价值
+Windows 10 版本 1709 及更高版本。
+acpitabl.h （include Acpitabl.h） 否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+HMAT_ENTRY结构（acpitabl.h）项目2025/02/06
+HMAT_ENTRY 结构包含表的异类内存属性表（HMAT）信息。 该结构可以包含三种
+HMAT 类型之一：内存子系统地址范围（MSAR）、系统区域延迟和带宽信息（SLLBI）或内存端缓存信息（MSCI）。
+语法 C++
+typedef struct _HMAT_ENTRY {   USHORT Type;
+  USHORT Reserved;   ULONG  Length;   union {
+    struct {       union {
+        struct {
+          USHORT ProcessorProximityDomainValid : 1;
+          USHORT Reserved0 : 1;           USHORT Reserved1 : 1;           USHORT Reserved : 13;
+        } DUMMYSTRUCTNAME;         USHORT AsUSHort;       } Flags;
+      USHORT    Reserved1;
+      ULONG     ProcessorProximityDomain;       ULONG     MemoryProximityDomain;
+      ULONG     Reserved2;       ULONGLONG Reserved3;       ULONGLONG Reserved4;
+    } Msar;     struct {       union {
+        struct {
+          UCHAR MemoryHierarchy : 4;
+          UCHAR MinTransferSizeToAchieveValues : 1;           UCHAR NonSequentialTransfers : 1;
+          UCHAR Reserved : 2;         } DUMMYSTRUCTNAME;
+        UCHAR AsUChar;       } Flags;
+      UCHAR     DataType;
+      UCHAR     MinTransferSize;       UCHAR     Reserved1;
+      ULONG     NumberOfInitiatorProximityDomains;
+      ULONG     NumberOfTargetProximityDomains;       ULONG     Reserved2;
+      ULONGLONG EntryBaseUnit;
+    } Sllbi;     struct {
+      ULONG     MemoryProximityDomain;       ULONG     Reserved1;
+      ULONGLONG MemorySideCacheSize;       union {
+        struct {
+          ULONG TotalCacheLevels : 4;           ULONG CacheLevel : 4;
+          ULONG CacheAssociativity : 4;           ULONG WritePolicy : 4;
+          ULONG CacheLineSize : 16;         } DUMMYSTRUCTNAME;
+        ULONG AsULong;       } CacheAttributes;       USHORT    Reserved2;
+      USHORT    NumberOfSmBiosHandles;     } Msci;
+  } DUMMYUNIONNAME;
+} HMAT_ENTRY, *PHMAT_ENTRY;
+成员 Type
+包含 HMAT 表类型的 USHORT 值。 Reserved
+保留以供将来使用。 Length
+包含表大小的 ULONG 值。 DUMMYUNIONNAME
+定义 DUMMYUNIONNAME 联合。
+DUMMYUNIONNAME.Msar 定义 Msar 结构。
+DUMMYUNIONNAME.Msar.Flags 定义 标志 联合。
+DUMMYUNIONNAME.Msar.Flags.DUMMYSTRUCTNAME
+定义 DUMMYSTRUCTNAME 结构。
+DUMMYUNIONNAME.Msar.Flags.DUMMYSTRUCTNAME.ProcessorProximityDomainValid
+定义 USHORT 成员 ProcessorProximityDomainValid。 DUMMYUNIONNAME.Msar.Flags.DUMMYSTRUCTNAME.Reserved0 保留以供将来使用。
+DUMMYUNIONNAME.Msar.Flags.DUMMYSTRUCTNAME.Reserved1 保留以供将来使用。
+DUMMYUNIONNAME.Msar.Flags.DUMMYSTRUCTNAME.Reserved 保留以供将来使用。
+DUMMYUNIONNAME.Msar.Flags.AsUSHort
+定义 USHORT 成员 AsUSHort。 DUMMYUNIONNAME.Msar.Reserved1 保留以供将来使用。
+DUMMYUNIONNAME.Msar.ProcessorProximityDomain 定义 ULONG 成员 ProcessorProximityDomain。
+DUMMYUNIONNAME.Msar.MemoryProximityDomain 定义 ULONG 成员 MemoryProximityDomain。
+DUMMYUNIONNAME.Msar.Reserved2 保留以供将来使用。
+DUMMYUNIONNAME.Msar.Reserved3 保留以供将来使用。
+DUMMYUNIONNAME.Msar.Reserved4
+保留以供将来使用。 DUMMYUNIONNAME.Sllbi 定义 Sllbi 联合。
+DUMMYUNIONNAME.Sllbi.Flags 定义 标志 联合。
+DUMMYUNIONNAME.Sllbi.Flags.DUMMYSTRUCTNAME 定义 DUMMYSTRUCTNAME 结构。
+DUMMYUNIONNAME.Sllbi.Flags.DUMMYSTRUCTNAME.MemoryHierarchy 定义 UCHAR 成员 MemoryHierarchy。
+DUMMYUNIONNAME.Sllbi.Flags.DUMMYSTRUCTNAME.MinTransferSizeToAchieveValues 定义 UCHAR 成员 MinTransferSizeToAchieveValues。
+DUMMYUNIONNAME.Sllbi.Flags.DUMMYSTRUCTNAME.NonSequentialTransfers 定义 UCHAR 成员 NonSequentialTransfers。
+DUMMYUNIONNAME.Sllbi.Flags.DUMMYSTRUCTNAME.Reserved 保留以供将来使用。
+DUMMYUNIONNAME.Sllbi.Flags.AsUChar
+定义 UCHAR 成员 AsUChar。 DUMMYUNIONNAME.Sllbi.DataType 定义 dataType UCHAR 成员。
+DUMMYUNIONNAME.Sllbi.MinTransferSize 定义 UCHAR 成员 MinTransferSize。
+DUMMYUNIONNAME.Sllbi.Reserved1 保留以供将来使用。
+DUMMYUNIONNAME.Sllbi.NumberOfInitiatorProximityDomains 定义 ULONG 成员 NumberOfInitiatorProximityDomains。
+DUMMYUNIONNAME.Sllbi.NumberOfTargetProximityDomains 定义 ULONG 成员 NumberOfTargetProximityDomains。 DUMMYUNIONNAME.Sllbi.Reserved2
+保留以供将来使用。
+DUMMYUNIONNAME.Sllbi.EntryBaseUnit
+定义 ULONGLONG 成员 EntryBaseUnit。
+DUMMYUNIONNAME.Msci 定义 msci 联合。
+DUMMYUNIONNAME.Msci.MemoryProximityDomain 定义 ULONG 成员 MemoryProximityDomain。
+DUMMYUNIONNAME.Msci.Reserved1 保留以供将来使用。
+DUMMYUNIONNAME.Msci.MemorySideCacheSize
+定义 ULONGLONG 成员 MemorySideCacheSize。
+DUMMYUNIONNAME.Msci.CacheAttributes 定义 CacheAttributes 联合。
+DUMMYUNIONNAME.Msci.CacheAttributes.DUMMYSTRUCTNAME 定义 DUMMYSTRUCTNAME 结构。
+DUMMYUNIONNAME.Msci.CacheAttributes.DUMMYSTRUCTNAME.TotalCacheLevels 定义 TotalCacheLevels ULONG 成员。
+DUMMYUNIONNAME.Msci.CacheAttributes.DUMMYSTRUCTNAME.CacheLevel 定义 ULONG 成员 CacheLevel。
+DUMMYUNIONNAME.Msci.CacheAttributes.DUMMYSTRUCTNAME.CacheAssociativity 定义 ULONG 成员 CacheAssociativity。
+DUMMYUNIONNAME.Msci.CacheAttributes.DUMMYSTRUCTNAME.WritePolicy 定义 ULONG 成员 WritePolicy。
+DUMMYUNIONNAME.Msci.CacheAttributes.DUMMYSTRUCTNAME.CacheLineSize 定义 ULONG 成员 CacheLineSize。
+DUMMYUNIONNAME.Msci.CacheAttributes.AsULong
+定义 ULONG 成员 AsULong。 DUMMYUNIONNAME.Msci.Reserved2 保留以供将来使用。
+DUMMYUNIONNAME.Msci.NumberOfSmBiosHandles
+定义 numberOfSmBiosHandles USHORT 成员。要求
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+acpitabl.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+HMAT_ENTRY_LENGTH宏（acpitabl.h）项目2025/02/06
+HMAT_ENTRY_LENGTH 宏返回HMAT_ENTRY结构中类型的大小。
+语法 C++
+void HMAT_ENTRY_LENGTH(
+   _Type);
+参数_Type
+_Type 参数指定HMAT_ENTRY表类型：内存子系统地址范围（MSAR）、系统区域延迟和带宽信息（SLLBI）或内存端缓存信息（MSCI）。
+返回值没有
+要求
+ﾉ
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+acpitabl.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+HMAT_TABLE结构（acpitabl.h）项目2025/02/06
+定义_HMAT_TABLE结构。
+语法 C++
+typedef struct _HMAT_TABLE {   DESCRIPTION_HEADER Header;   ULONG              Reserved;} HMAT_TABLE, *PHMAT_TABLE;
+成员 Header
+异类内存属性表（HMAT）开头的DESCRIPTION_HEADER结构。 Reserved
+保留以供将来使用。要求
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+acpitabl.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+HSP_PROTOCOL_ID枚举 （acpitabl.h）项目2025/02/06
+本主题介绍 HSP_PROTOCOL_ID 枚举。
+语法 C++
+typedef enum _HSP_PROTOCOL_ID {
+  HspTableProtocolInvalid,   HspTableProtocolACPI
+} HSP_PROTOCOL_ID, *PHSP_PROTOCOL_ID; 常数
+ﾉ
+ 
+HspTableProtocolInvalid
+定义值为 0 的 HspTableProtocolInvalid 常量。 HspTableProtocolACPI
+定义值为 1 的 HspTableProtocolACPI 常量。 这表示基于 AMD ACPI 的邮箱协议。要求
+ﾉ
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+价值
+Windows 11 版本 22H2
+acpitabl.h （include Acpitabl.h）
+展开表展开表
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+IVHD_ACPI_DEVICE_ENTRY结构
+（acpitabl.h）项目2025/02/06
+定义 I/O 虚拟化硬件定义 （IVHD） ACPI 设备入口结构。
+语法 C++
+typedef struct _IVHD_ACPI_DEVICE_ENTRY {   UINT8  Type;
+  UINT16 DeviceId;   union {
+    UINT8 AsUINT8;     struct {
+      UINT8 INITPass : 1;       UINT8 ExtIntPass : 1;       UINT8 NMIPass : 1;       UINT8 ReservedZ0 : 1;       UINT8 SysMgt : 2;
+      UINT8 LINT0Pass : 1;       UINT8 LINT1Pass : 1;
+    } DUMMYSTRUCTNAME;   } DataSetting;
+  UINT64 HardwareId;   UINT64 CompatibleId;
+  UINT8  UniqueIdFormat;   UINT8  UniqueIdLength;
+} IVHD_ACPI_DEVICE_ENTRY, *PIVHD_ACPI_DEVICE_ENTRY;
+成员 Type DeviceId
+DataSetting
+DataSetting.AsUINT8
+DataSetting.DUMMYSTRUCTNAME
+DataSetting.DUMMYSTRUCTNAME.INITPass
+DataSetting.DUMMYSTRUCTNAME.ExtIntPass DataSetting.DUMMYSTRUCTNAME.NMIPass
+DataSetting.DUMMYSTRUCTNAME.ReservedZ0 DataSetting.DUMMYSTRUCTNAME.SysMgt
+DataSetting.DUMMYSTRUCTNAME.LINT0Pass DataSetting.DUMMYSTRUCTNAME.LINT1Pass
+HardwareId CompatibleId
+UniqueIdFormat UniqueIdLength 要求
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+acpitabl.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+IVRS_BLOCK_TYPE枚举 （acpitabl.h）项目2025/02/06
+枚举 I/O 虚拟化报告结构（IVRS）块类型。
+语法 C++
+typedef enum _IVRS_BLOCK_TYPE {   IommuDefinitionBlockTypeIvhd,   IommuDefinitionBlockType11Ivhd,   IommuDefinitionBlockTypeIvmdAll,
+  IommuDefinitionBlockTypeIvmdSpecified,   IommuDefinitionBlockTypeIvmdRange,
+  IommuDefinitionBlockType40Ivhd} IVRS_BLOCK_TYPE;
+常数  
+IommuDefinitionBlockTypeIvhd 值为 0x10。
+IommuDefinitionBlockType11Ivhd 值为0x11。
+IommuDefinitionBlockTypeIvmdAll 值为0x20。
+IommuDefinitionBlockTypeIvmdSpecified 值为0x21。
+IommuDefinitionBlockTypeIvmdRange 值为 0x22。
+IommuDefinitionBlockType40Ivhd
+值为0x40。要求
+ﾉ
+展开表
+要求标头
+价值
+acpitabl.h
+ﾉ
+展开表
+IVRS_IVINFO union （acpitabl.h）项目2025/02/06
+定义 I/O 虚拟化报告结构（IVRS）I/O 虚拟化结构。
+语法 C++
+typedef union _IVRS_IVINFO {
+  UINT32 AsUINT32;   struct {
+    UINT32 EFRSup : 1;
+    UINT32 DmaGuardOptIn : 1;     UINT32 ReservedZ0 : 3;
+    UINT32 GVASize : 3;     UINT32 PASize : 7;     UINT32 VASize : 7;
+    UINT32 HtAtsResv : 1;     UINT32 ReservedZ1 : 9;   } DUMMYSTRUCTNAME;
+} IVRS_IVINFO, *PIVRS_IVINFO;
+成员 AsUINT32
+DUMMYSTRUCTNAME
+DUMMYSTRUCTNAME.EFRSup
+DUMMYSTRUCTNAME.DmaGuardOptIn DUMMYSTRUCTNAME.ReservedZ0
+DUMMYSTRUCTNAME.GVASize DUMMYSTRUCTNAME.PASize DUMMYSTRUCTNAME.VASize
+DUMMYSTRUCTNAME.HtAtsResv DUMMYSTRUCTNAME.ReservedZ1
+要求要求标头
+价值
+acpitabl.h
+ﾉ
+展开表
+IVRS_TABLE_TYPE枚举 （acpitabl.h）项目2025/02/06
+枚举 I/O 虚拟化硬件定义（IVHD）条目类型。
+语法 C++
+typedef enum _IVHD_ENTRY_TYPE {
+  IvhdEntryTypePad4,   IvhdEntryTypeAll,
+  IvhdEntryTypeSelect,
+  IvhdEntryTypeStartRange,   IvhdEntryTypeEndRange,   IvhdEntryTypePad8,
+  IvhdEntryTypeAliasSelect,
+  IvhdEntryTypeAliasStartRange,   IvhdEntryTypeExtendedSelect,
+  IvhdEntryTypeExtendedStartRange,   IvhdEntryTypeSpecialDevice,
+  IvhdEntryTypeAcpiDevice} IVRS_TABLE_TYPE;
+常数  
+IvhdEntryTypePad4 值为 0。
+IvhdEntryTypeAll 值为 1。
+IvhdEntryTypeSelect 值为 2。
+IvhdEntryTypeStartRange 值为 3。
+IvhdEntryTypeEndRange 值为 4。
+IvhdEntryTypePad8
+ﾉ
+展开表
+ 
+值为 64。
+IvhdEntryTypeAliasSelect 值为 66。
+IvhdEntryTypeAliasStartRange 值为 67。
+IvhdEntryTypeExtendedSelect 值为 70。
+IvhdEntryTypeExtendedStartRange 值为 71。
+IvhdEntryTypeSpecialDevice 值为 72。
+IvhdEntryTypeAcpiDevice 值为 0xF0。
+要求要求标头
+价值
+acpitabl.h
+ﾉ
+展开表
+LPI_STATE_DESCRIPTOR结构
+（acpitabl.h）项目2025/02/06
+定义 LPI 状态描述符。
+语法 C++
+typedef struct _LPI_STATE_DESCRIPTOR {
+  ULONG           Type;   ULONG           Length;   USHORT          UniqueId;
+  UCHAR           Reserved[2];   LPI_STATE_FLAGS Flags;
+  GEN_ADDR        EntryTrigger;
+  ULONG           Residency;   ULONG           Latency;
+  GEN_ADDR        ResidencyCounter;
+  ULONGLONG       ResidencyCounterFrequency;
+} LPI_STATE_DESCRIPTOR, *PLPI_STATE_DESCRIPTOR;
+成员 Type 类型。 Length 长度。 UniqueId 唯一 ID。 Reserved[2]
+保留。 Flags
+状态标志。
+EntryTrigger 条目触发器。
+Residency 驻留值。 Latency 延迟值。
+ResidencyCounter 驻留计数器。
+ResidencyCounterFrequency
+驻留计数器频率。要求
+要求标头
+反馈
+价值
+acpitabl.h （include Acpitabl.h）
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+LPI_STATE_FLAGS union （acpitabl.h）项目2025/02/06
+将 LPI 状态标志定义为结构或整数。
+语法 C++
+typedef union _LPI_STATE_FLAGS {   struct {
+    ULONG Disabled : 1;
+    ULONG CounterUnavailable : 1;
+    ULONG Reserved : 30;   };
+  ULONG  AsUlong;
+} LPI_STATE_FLAGS, *PLPI_STATE_FLAGS;
+成员 Disabled
+定义 ULONG 成员 禁用。 CounterUnavailable
+定义 ULONG 成员 CounterUnavailable。 Reserved
+保留以供将来使用。 AsUlong
+定义 ULONG 成员 AsUlong。要求
+要求标头
+价值
+acpitabl.h （include Acpitabl.h）
+ﾉ
+展开表
+LPIT 结构 （acpitabl.h）项目2025/02/06
+定义 LPI ACPI 表。
+语法 C++
+typedef struct _LPIT {
+  DESCRIPTION_HEADER   Header;
+  LPI_STATE_DESCRIPTOR LpiStates[ANYSIZE_ARRAY];} LPIT, *PLPIT;
+成员 Header 标头。
+LpiStates[ANYSIZE_ARRAY]
+状态数组。要求
+要求标头
+反馈
+价值
+acpitabl.h （include Acpitabl.h）
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+MHSP_CHANNEL结构（acpitabl.h）项目2025/02/06
+本主题介绍 Microsoft HSP ACPI 表使用的 MHSP_CHANNEL 结构。
+语法 C++
+typedef struct _MHSP_CHANNEL {   UINT64 ChannelBaseAddress;
+  UINT64 RequestDoorbellAddress;   UINT64 ReplyDoorbellAddress;
+  UINT32 ChannelSize;   UINT32 IrqResource;
+  UINT32 ChannelParameters[2];} MHSP_CHANNEL, *PMHSP_CHANNEL;
+成员
+ChannelBaseAddress
+定义 channelBaseAddress UINT64成员。 RequestDoorbellAddress
+定义 requestDoorbellAddress UINT64成员。 ReplyDoorbellAddress
+定义 UINT64 成员 ReplyDoorbellAddress。 ChannelSize
+定义 UINT32 成员 ChannelSize。 IrqResource
+定义 IrqResource UINT32 成员。 ChannelParameters[2]
+定义 UINT32 成员 ChannelParameters。
+要求要求
+最低支持的客户端标头
+价值
+Windows 11 版本 22H2
+acpitabl.h （include Acpitabl.h）
+ﾉ
+展开表
+MHSP_TABLE结构（acpitabl.h）项目2025/02/06
+描述 MHSP_TABLE 结构。
+语法 C++
+typedef struct _MHSP_TABLE {   DESCRIPTION_HEADER Header;
+  UINT32             ProtocolId;   MHSP_CHANNEL       Channels[4];} MHSP_TABLE, *PMHSP_TABLE;
+成员 Header
+定义 DESCRIPTION_HEADER 成员 标头。 ProtocolId
+定义 UINT32 成员 ProtocolId。 Channels[4]
+定义 MHSP_CHANNEL 成员 频道。要求
+要求
+最低支持的客户端
+标头反馈
+价值
+Windows 11 版本 22H2
+acpitabl.h （include Acpitabl.h）
+ﾉ
+展开表
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+NFIT_PLATFORM_CAPABILITIES结构
+（acpitabl.h）项目2025/02/06
+介绍 NVDIMM 固件接口表 （NFIT） 平台功能结构。 最初在 ACPI 6.2 Errata A 中定义。
+语法 C++
+typedef struct _NFIT_PLATFORM_CAPABILITIES {   NFIT_STRUCT_HEADER Header;
+  UCHAR              HighestValidCapability;
+  UCHAR              Reserved[3];   union {
+    ULONG AsUlong;     struct {
+      ULONG CpuCacheFlushOnPowerLoss : 1;       ULONG MemCtrlrFlushOnPowerLoss : 1;
+      ULONG PmemHardwareMirroring : 1;     } u;
+  } Capabilities;
+  UCHAR              Reserved1[4];
+} NFIT_PLATFORM_CAPABILITIES, *PNFIT_PLATFORM_CAPABILITIES;
+成员 Header
+定义 NFIT_STRUCT_HEADER 成员 标头。 HighestValidCapability
+定义 UCHAR 成员 HighestValidCapability。 Reserved[3]
+保留以供将来使用。 Capabilities
+定义联合成员 功能。 Capabilities.AsUlong
+定义 ULONG 成员 AsUlong。
+Capabilities.u 定义结构成员 u。
+Capabilities.u.CpuCacheFlushOnPowerLoss
+定义 ULONG 成员 CpuCacheFlushOnPowerLoss。 Capabilities.u.MemCtrlrFlushOnPowerLoss
+定义 ULONG 成员 MemCtrlrFlushOnPowerLoss。 Capabilities.u.PmemHardwareMirroring
+定义 ULONG 成员 PmemHardwareMirroring。 Reserved1[4]
+保留以供将来使用。要求
+要求标头
+价值
+acpitabl.h （include Acpitabl.h）
+ﾉ
+展开表
+NFIT_STRUCTURE_TYPE枚举 （acpitabl.h）项目2025/02/06
+介绍 NVDIMM 固件接口表 （NFIT） 结构类型。
+语法 C++
+typedef enum _NFIT_STRUCTURE_TYPE {   NfitSystemPhysicalAddressRange,
+  NfitNvdimmRegionMapping,   NfitInterleave,
+  NfitSmbiosManagementInformation,   NfitNvdimmControlRegion,
+  NfitNvdimmBlockDataWindowRegion,   NfitFlushHintAddress,
+  NfitPlatformCapabilities,   NfitMaximum
+} NFIT_STRUCTURE_TYPE, *PNFIT_STRUCTURE_TYPE; 常数
+ﾉ
+ 
+NfitSystemPhysicalAddressRange 值为 0。
+NfitNvdimmRegionMapping 值为 1。
+NfitInterleave 值为 2。
+NfitSmbiosManagementInformation 值为 3。
+NfitNvdimmControlRegion 值为 4。
+NfitNvdimmBlockDataWindowRegion 值为 5。
+NfitFlushHintAddress
+展开表
+ 
+值为 6。
+NfitPlatformCapabilities
+值为 7。 NfitMaximum
+要求要求标头
+价值
+acpitabl.h
+ﾉ
+展开表
+PCC_REDUCED_1_SUBSPACE结构
+（acpitabl.h）项目2025/02/06
+PCC_REDUCED_1_SUBSPACE 结构包含有关 ACPI 平台通信通道 （PCC） HW 减少类型 1 子空间的信息。
+语法 C++
+typedef struct _PCC_REDUCED_1_SUBSPACE {   PCC_SUBSPACE_HEADER Header;
+  ULONG               PlatformInterruptGsiv;   union {
+    struct {
+      UCHAR PlatformInterruptPolarity : 1;       UCHAR PlatformInterruptMode : 1;
+      UCHAR Reserved1 : 6;     };
+    UCHAR PlatformInterruptFlags;   };
+  UCHAR               Reserved2;   PHYSICAL_ADDRESS    BaseAddress;   ULONGLONG           Length;
+  GEN_ADDR            DoorbellRegister;   ULONGLONG           DoorbellPreserve;
+  ULONGLONG           DoorbellWrite;   ULONG               NominalLatency;
+  ULONG               MaximumPeriodicAccessRate;
+  USHORT              MinimumRequestTurnaroundTime;} PCC_REDUCED_1_SUBSPACE, *PPCC_REDUCED_1_SUBSPACE;
+成员 Header
+PCC_SUBSPACE_HEADER 标头。 PlatformInterruptGsiv
+PCC 平台全局系统中断向量（GSIV）。 PlatformInterruptPolarity
+PCC 平台中断极性值（PCC_PLATFORM_INTERRUPT_POLARITY_XXX之一）。 PlatformInterruptMode
+PCC 平台中断模式（必须 PCC_PLATFORM_INTERRUPT_MODE_EDGE_TRIGGERED）。 Reserved1
+保留以供将来使用。 PlatformInterruptFlags PCC 平台中断标志。 Reserved2
+保留以供将来使用。 BaseAddress
+PHYSICAL_ADDRESS 基址。
+Length 长度值。
+DoorbellRegister
+GEN_ADDR 门铃寄存器。
+DoorbellPreserve 门铃保留面具。 DoorbellWrite 门铃写掩码。 NominalLatency 名义延迟值。
+MaximumPeriodicAccessRate 最大定期访问速率值。
+MinimumRequestTurnaroundTime 最小请求周转时间值。
+要求要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+Windows 10 版本 2004
+acpitabl.h （include Acpitabl.h）
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+PCC_REDUCED_2_SUBSPACE结构
+（acpitabl.h）项目2025/02/06
+PCC_REDUCED_2_SUBSPACE 结构包含有关 ACPI 平台通信通道 （PCC） HW 减少类型 2 子空间的信息。
+语法 C++
+typedef struct _PCC_REDUCED_2_SUBSPACE {   PCC_SUBSPACE_HEADER Header;
+  ULONG               PlatformInterruptGsiv;   union {
+    struct {
+      UCHAR PlatformInterruptPolarity : 1;       UCHAR PlatformInterruptMode : 1;
+      UCHAR Reserved1 : 6;     };
+    UCHAR PlatformInterruptFlags;   };
+  UCHAR               Reserved2;   PHYSICAL_ADDRESS    BaseAddress;   ULONGLONG           Length;
+  GEN_ADDR            DoorbellRegister;   ULONGLONG           DoorbellPreserve;
+  ULONGLONG           DoorbellWrite;   ULONG               NominalLatency;
+  ULONG               MaximumPeriodicAccessRate;
+  USHORT              MinimumRequestTurnaroundTime;   GEN_ADDR            PlatformInterruptAckRegister;   ULONGLONG           PlatformInterruptAckPreserve;   ULONGLONG           PlatformInterruptAckWrite;
+} PCC_REDUCED_2_SUBSPACE, *PPCC_REDUCED_2_SUBSPACE;
+成员 Header
+PCC_SUBSPACE_HEADER 标头。 PlatformInterruptGsiv
+PCC 平台全局系统中断向量（GSIV）。
+PlatformInterruptPolarity
+PCC 平台中断极性值（PCC_PLATFORM_INTERRUPT_POLARITY_XXX之一）。 PlatformInterruptMode
+PCC 平台中断模式（必须 PCC_PLATFORM_INTERRUPT_MODE_EDGE_TRIGGERED）。 Reserved1
+保留以供将来使用。 PlatformInterruptFlags PCC 平台中断标志。 Reserved2
+保留以供将来使用。 BaseAddress
+PHYSICAL_ADDRESS 基址。
+Length 长度值。
+DoorbellRegister
+GEN_ADDR 门铃寄存器。
+DoorbellPreserve 门铃保留面具。 DoorbellWrite 门铃写掩码。 NominalLatency 名义延迟值。
+MaximumPeriodicAccessRate 最大定期访问速率值。
+MinimumRequestTurnaroundTime
+最小请求周转时间值。
+PlatformInterruptAckRegister
+GEN_ADDR 平台中断确认寄存器。 PlatformInterruptAckPreserve
+平台中断确认保留掩码。 PlatformInterruptAckWrite
+平台中断写入掩码。要求
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+Windows 10 版本 2004
+acpitabl.h （include Acpitabl.h）
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+PDTT_PCC_SUBCHANNEL_INDENTIFIER结构
+（acpitabl.h）项目2025/02/06
+定义处理器属性拓扑表（PPTT）平台通信通道（PCC）子通道标识符结构。
+语法 C++
+typedef struct _PDTT_PCC_SUBCHANNEL_INDENTIFIER {
+  UCHAR SubChannelId;   UCHAR Runtime : 1;
+  UCHAR WaitCompletion : 1;   UCHAR Reserved : 6;
+} PDTT_PCC_SUBCHANNEL_INDENTIFIER, *PPDTT_PCC_SUBCHANNEL_INDENTIFIER;
+成员 SubChannelId Runtime
+WaitCompletion Reserved
+保留以供将来使用。要求
+ﾉ
+要求标头
+价值
+acpitabl.h
+展开表
+PPTT 结构 （acpitabl.h）项目2025/02/06
+定义处理器属性拓扑表 （PPTT） 结构。
+语法 C++
+typedef struct _PPTT {
+  DESCRIPTION_HEADER Header;
+  PROC_TOPOLOGY_NODE HierarchyNodes[ANYSIZE_ARRAY];} PPTT, *PPPTT;
+成员 Header
+定义 DESCRIPTION_HEADER 成员 标头。 HierarchyNodes[ANYSIZE_ARRAY]
+定义 hierarchyNodes PROC_TOPOLOGY_NODE 成员。要求
+要求标头
+价值
+acpitabl.h （include Acpitabl.h）
+ﾉ
+展开表
+PRM_HANDLER_INFORMATION结构
+（acpitabl.h）项目2025/02/06
+定义 PRM_HANDLER_INFORMATION 结构。
+语法 C++
+typedef struct _PRM_HANDLER_INFORMATION {
+  USHORT  Revision;   USHORT  Length;
+  GUID    Identifier;
+  ULONG64 PhysicalAddress;
+  ULONG64 StaticBufferPhysicalAddress;   ULONG64 AcpiParameterPhysicalAddress;
+} PRM_HANDLER_INFORMATION, *PPRM_HANDLER_INFORMATION;
+成员 Revision Length Identifier
+PhysicalAddress
+StaticBufferPhysicalAddress AcpiParameterPhysicalAddress 要求
+要求
+支持的最低服务器标头
+价值
+Windows Server 2022
+acpitabl.h （include Acpitabl.h）
+ﾉ
+展开表
+PRM_MODULE_INFORMATION结构
+（acpitabl.h）项目2025/02/06
+定义 PRM_MODULE_INFORMATION 结构。
+语法 C++
+typedef struct _PRM_MODULE_INFORMATION {
+  USHORT  Revision;   USHORT  Length;
+  GUID    Identifier;   USHORT  MajorVersion;   USHORT  MinorVersion;   USHORT  HandlerCount;   ULONG   HandlerOffset;
+  ULONG64 MmioRangesPhysicalAddress;
+} PRM_MODULE_INFORMATION, *PPRM_MODULE_INFORMATION;
+成员 Revision Length Identifier
+MajorVersion MinorVersion HandlerCount HandlerOffset
+MmioRangesPhysicalAddress 要求
+ﾉ
+展开表
+要求
+支持的最低服务器标头
+价值
+Windows Server 2022
+acpitabl.h （include Acpitabl.h）
+PRMT_TABLE结构（acpitabl.h）项目2025/02/06
+定义 PRMT_TABLE 结构。
+语法 C++
+typedef struct _PRMT_TABLE {   DESCRIPTION_HEADER Header;
+  GUID               PlatformGuid;
+  ULONG              ModuleInfoOffset;   ULONG              ModuleInfoCount;} PRMT_TABLE, *PPRMT_TABLE;
+成员 Header
+PlatformGuid
+ModuleInfoOffset ModuleInfoCount 要求
+要求
+支持的最低服务器标头
+价值
+Windows Server 2022
+acpitabl.h （include Acpitabl.h）
+ﾉ
+展开表
+PROC_TOPOLOGY_CACHE_ATTRIBUTES
+union （acpitabl.h）项目2025/02/06
+定义处理器拓扑缓存属性结构。
+语法 C++
+typedef union _PROC_TOPOLOGY_CACHE_ATTRIBUTES {   struct {
+    UCHAR ReadAllocate : 1;     UCHAR WriteAllocate : 1;
+    UCHAR CacheType : 2;     UCHAR WritePolicy : 1;     UCHAR Reserved : 3;   };
+  UCHAR  AsUCHAR;
+} PROC_TOPOLOGY_CACHE_ATTRIBUTES, *PPROC_TOPOLOGY_CACHE_ATTRIBUTES;
+成员 ReadAllocate WriteAllocate CacheType WritePolicy Reserved
+保留以供将来使用。
+AsUCHAR 要求
+ﾉ
+展开表
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+acpitabl.h
+| 在 Microsoft Q&A 获取帮助
+PROC_TOPOLOGY_CACHE_FLAGS union
+（acpitabl.h）项目2025/02/06
+定义处理器拓扑缓存标志结构。
+语法 C++
+typedef union _PROC_TOPOLOGY_CACHE_FLAGS {   struct {
+    ULONG SizeValid : 1;     ULONG SetsValid : 1;
+    ULONG AssociativityValid : 1;     ULONG AllocationTypeValid : 1;
+    ULONG CacheTypeValid : 1;     ULONG WritePolicyValid : 1;     ULONG LineSizeValid : 1;     ULONG CacheIdValid : 1;
+    ULONG Reserved : 24;   };
+  ULONG  AsULONG;
+} PROC_TOPOLOGY_CACHE_FLAGS, *PPROC_TOPOLOGY_CACHE_FLAGS;
+成员 SizeValid
+定义 ULONG 成员 SizeValid。 SetsValid
+定义 ULONG 成员 SetsValid。 AssociativityValid
+定义 ULONG 成员 AssociativityValid。 AllocationTypeValid
+定义 ULONG 成员 AllocationTypeValid CacheTypeValid
+定义 ULONG 成员 CacheTypeValid。 WritePolicyValid
+定义 ULONG 成员 WritePolicyValid。 LineSizeValid
+定义 ULONG 成员 LineSizeValid。 CacheIdValid
+定义 ULONG 成员 CacheIdValid。 Reserved
+保留以供将来使用。 AsULONG
+定义 ULONG 成员 AsULONG。要求
+要求标头
+价值
+acpitabl.h （include Acpitabl.h）
+ﾉ
+展开表
+PROC_TOPOLOGY_NODE结构（acpitabl.h）项目2025/02/06
+定义处理器拓扑节点结构。
+语法 C++
+typedef struct _PROC_TOPOLOGY_NODE {   struct {
+    UCHAR Type;     UCHAR Length;
+    UCHAR Reserved[2];   };
+  union {
+    struct {
+      PROC_TOPOLOGY_NODE_FLAGS Flags;       ULONG                    Parent;
+      ULONG                    ACPIProcessorId;
+      ULONG                    NumberPrivateResources;
+      ULONG                    PrivateResources[ANYSIZE_ARRAY];
+    } HierarchyNode;     struct {
+      PROC_TOPOLOGY_CACHE_FLAGS      Flags;
+      ULONG                          NextLevelCacheOffset;
+      ULONG                          Size;       ULONG                          Sets;
+      UCHAR                          Associativity;
+      PROC_TOPOLOGY_CACHE_ATTRIBUTES Attributes;       USHORT                         LineSize;       ULONG                          CacheId;
+    } CacheNode;     struct {
+      ULONG   Vendor;       ULONG64 Level1;       ULONG64 Level2;       USHORT  Major;       USHORT  Minor;       USHORT  Spin;
+    } IdNode;   };
+} PROC_TOPOLOGY_NODE, *PPROC_TOPOLOGY_NODE;
+成员 Type
+定义 UCHAR 成员 类型。 Length
+定义 UCHAR 成员 长度。
+Reserved[2] HierarchyNode
+定义 HierarchyNode 成员结构。 HierarchyNode.Flags
+定义 PROC_TOPOLOGY_NODE_FLAGS 成员 标志。
+HierarchyNode.Parent 定义 ULONG 成员 父。
+HierarchyNode.ACPIProcessorId
+定义 ACPIProcessorIdULONG 成员。 HierarchyNode.NumberPrivateResources
+HierarchyNode.PrivateResources[ANYSIZE_ARRAY]
+定义 ULONG 成员 PrivateResources。 CacheNode
+定义 CacheNode 成员结构。 CacheNode.Flags
+定义 PROC_TOPOLOGY_CACHE_FLAGS 成员 标志。 CacheNode.NextLevelCacheOffset
+定义 ULONG 成员 NextLevelCacheOffset。 CacheNode.Size
+定义 ULONG 成员 大小。 CacheNode.Sets
+定义 ULONG 成员 集。
+CacheNode.Associativity 定义 UCHAR 成员 关联性。 CacheNode.Attributes
+定义 PROC_TOPOLOGY_CACHE_ATTRIBUTES 成员 属性。 CacheNode.LineSize
+定义 USHORT 成员 LineSize。 CacheNode.CacheId
+定义 ULONG 成员 CacheId。 IdNode
+定义 IdNode 成员结构。 IdNode.Vendor
+定义 ULONG 成员 Vendor。 IdNode.Level1
+定义 ULONG64 成员 Level1。 IdNode.Level2
+定义 level2 ULONG64 成员。 IdNode.Major
+定义 usHORT Major 成员。 IdNode.Minor
+定义 USHORT 成员 Minor。 IdNode.Spin
+定义 USHORT 成员 Spin。要求
+要求标头
+价值
+acpitabl.h （include Acpitabl.h）
+ﾉ
+展开表
+PROC_TOPOLOGY_NODE_CACHE_TYPE_DAT
+A宏（acpitabl.h）项目2025/02/06
+定义处理器拓扑节点缓存类型数据宏。
+语法 C++
+void PROC_TOPOLOGY_NODE_CACHE_TYPE_DATA(
+   CacheType);
+参数 CacheType
+CacheType 参数。返回值没有
+要求
+ﾉ
+要求标头
+价值
+acpitabl.h
+展开表
+PROC_TOPOLOGY_NODE_CACHE_TYPE_INS
+TRUCTION宏 （acpitabl.h）项目2025/02/06
+定义处理器拓扑节点缓存类型指令宏。
+语法 C++
+void PROC_TOPOLOGY_NODE_CACHE_TYPE_INSTRUCTION(
+   CacheType);
+参数 CacheType
+CacheType 参数。返回值没有
+要求
+ﾉ
+要求标头
+价值
+acpitabl.h
+展开表
+PROC_TOPOLOGY_NODE_CACHE_TYPE_
+UNIFIED宏（acpitabl.h）项目2025/02/06
+定义处理器拓扑节点缓存类型统一宏。
+语法 C++
+void PROC_TOPOLOGY_NODE_CACHE_TYPE_UNIFIED(
+   CacheType);
+参数 CacheType
+CacheType 参数。返回值没有
+要求
+ﾉ
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+acpitabl.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+PROC_TOPOLOGY_NODE_FLAGS union
+（acpitabl.h）项目2025/02/06
+定义处理器拓扑节点标志结构。
+语法 C++
+typedef union _PROC_TOPOLOGY_NODE_FLAGS {   struct {
+    ULONG PhysicalPackage : 1;
+    ULONG ACPIProcessorIdValid : 1;
+    ULONG ProcessorIsThread : 1;     ULONG IsLeaf : 1;
+    ULONG IdenticalImplementation : 1;
+    ULONG Reserved : 27;   };
+  ULONG  AsULONG;
+} PROC_TOPOLOGY_NODE_FLAGS, *PPROC_TOPOLOGY_NODE_FLAGS; 成员
+PhysicalPackage
+ACPIProcessorIdValid
+ProcessorIsThread IsLeaf
+IdenticalImplementation Reserved
+保留以供将来使用。
+AsULONG 要求
+要求标头
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+acpitabl.h
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+SATC 结构 （acpitabl.h）项目2025/02/06
+本主题介绍 SATC 结构。
+语法 C++
+typedef struct _SATC {   UCHAR       Flags;   UCHAR       Reserved;
+  USHORT      SegmentNumber;
+  DEVICESCOPE DeviceScope[ANYSIZE_ARRAY];} SATC, *PSATC;
+成员 Flags
+定义 UCHAR 成员 标志。 Reserved
+保留以供将来使用。 SegmentNumber
+定义 USHORT 成员 SegmentNumber。 DeviceScope[ANYSIZE_ARRAY]
+DeviceScope定义 DEVICESCOPE 成员。要求
+要求
+最低支持的客户端标头
+价值
+Windows 11
+acpitabl.h （include Acpitabl.h）
+ﾉ
+展开表
+SDEV_SECURE_ACPI_INFO_ENTRY结构
+（acpitabl.h）项目2025/02/06
+_SDEV_SECURE_ACPI_INFO_ENTRY 结构定义用于安全设备表中的安全 ACPI 设备的信息条目。
+语法 C++
+typedef struct _SDEV_SECURE_ACPI_INFO_ENTRY {   SDEV_ENTRY_HEADER Header;
+  USHORT            IdentifierOffset;   USHORT            IdentifierLength;   USHORT            VendorInfoOffset;   USHORT            VendorInfoLength;
+  USHORT            SecureResourcesOffset;   USHORT            SecureResourcesLength;
+} SDEV_SECURE_ACPI_INFO_ENTRY, *PSDEV_SECURE_ACPI_INFO_ENTRY;
+成员 Header
+SDEV_ENTRY_HEADER 标头。
+IdentifierOffset 标识符偏移值。 IdentifierLength 标识符的长度。 VendorInfoOffset
+供应商信息偏移值。 VendorInfoLength 供应商信息的长度。 SecureResourcesOffset
+安全资源偏移值。
+SecureResourcesLength 安全资源信息的长度。
+要求要求
+最低支持的客户端标头
+价值
+Windows 10 版本 2004
+acpitabl.h （include Acpitabl.h）
+ﾉ
+展开表
+SDEV_SECURE_RESOURCE_ID_ENTRY结构
+（acpitabl.h）项目2025/02/06
+_SDEV_SECURE_RESOURCE_ID_ENTRY 结构定义安全 ACPI 设备的资源 ID 条目，以便在安全设备表中使用。
+语法 C++
+typedef struct _SDEV_SECURE_RESOURCE_ID_ENTRY {   SDEV_ENTRY_HEADER Header;
+  USHORT            HardwareIdentifierOffset;   USHORT            HardwareIdentifierLength;   USHORT            SubsystemIdentifierOffset;   USHORT            SubsystemIdentifierLength;   USHORT            HardwareRevision;
+  UCHAR             HardwareRevisionPresent;
+} SDEV_SECURE_RESOURCE_ID_ENTRY, *PSDEV_SECURE_RESOURCE_ID_ENTRY;
+成员 Header
+SDEV_ENTRY_HEADER 标头。
+HardwareIdentifierOffset 硬件标识符偏移值。
+HardwareIdentifierLength 硬件标识符长度值。
+SubsystemIdentifierOffset 子系统标识符偏移值。
+SubsystemIdentifierLength
+子系统标识符长度值。 HardwareRevision
+硬件修订值。
+HardwareRevisionPresent 硬件修订的现值。
+要求要求
+最低支持的客户端标头
+价值
+Windows 10 版本 2004
+acpitabl.h （include Acpitabl.h）
+ﾉ
+展开表
+SDEV_SECURE_RESOURCE_MEMORY_ENTR
+Y结构（acpitabl.h）项目2025/02/06
+_SDEV_SECURE_RESOURCE_MEMORY_ENTRY 结构定义安全 ACPI 设备的资源内存条目，以便在安全设备表中使用。
+语法 C++
+typedef struct _SDEV_SECURE_RESOURCE_MEMORY_ENTRY {
+  SDEV_ENTRY_HEADER Header;   ULONG             Reserved;
+  ULONGLONG         MemoryAddressBase;   ULONGLONG         MemoryAddressLength;
+} SDEV_SECURE_RESOURCE_MEMORY_ENTRY, *PSDEV_SECURE_RESOURCE_MEMORY_ENTRY;
+成员 Header
+SDEV_ENTRY_HEADER 标头。 Reserved
+保留以供将来使用。 MemoryAddressBase 内存地址基值。
+MemoryAddressLength 内存地址长度值。要求
+ﾉ
+展开表
+要求
+最低支持的客户端标头
+价值
+Windows 10 版本 2004
+acpitabl.h （include Acpitabl.h）
+SPMI_DESCRIPTION_TABLE结构
+（acpitabl.h）项目2025/02/06
+定义 SPMI_DESCRIPTION_TABLE 结构。
+语法 C++
+typedef struct _SPMI_DESCRIPTION_TABLE {   DESCRIPTION_HEADER Header;
+  UINT8              InterfaceType;   UINT8              Reserved1;
+  UINT16             SpecificationRevision;   struct {
+    UINT8 GpeSupported : 1;     UINT8 ApicInterrupt : 1;
+    UINT8 Reserved : 6;   } InterruptType;
+  UINT8              Gpe;
+  UINT8              Reserved2;
+  UINT8              PciDeviceFlag;
+  UINT32             GlobalSystemInterrupt;   GEN_ADDR           BaseAddress;
+  UINT8              PciSegmentGroupNumber;   UINT8              PciBusNumber;
+  UINT8              PciDeviceNumber;   UINT8              PciFunctionNumber;   UINT8              Reserved3;
+} SPMI_DESCRIPTION_TABLE, *PSPMI_DESCRIPTION_TABLE;
+成员 Header
+InterfaceType Reserved1
+保留以供将来使用。 SpecificationRevision
+InterruptType
+InterruptType.GpeSupported InterruptType.ApicInterrupt
+InterruptType.Reserved 保留以供将来使用。 Gpe
+Reserved2
+保留以供将来使用。 PciDeviceFlag
+GlobalSystemInterrupt BaseAddress
+PciSegmentGroupNumber PciBusNumber
+PciDeviceNumber PciFunctionNumber Reserved3
+保留以供将来使用。
+要求要求
+支持的最低服务器标头
+价值
+Windows Server 2022
+acpitabl.h （include Acpitabl.h）
+ﾉ
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+SRAT_ENTRY_TYPE枚举（acpitabl.h）项目2025/02/06
+本主题介绍 SRAT_ENTRY_TYPE 枚举。
+语法 C++
+typedef enum {
+  SratProcessorLocalAPIC,   SratMemory,
+  SratProcessorLocalX2APIC,
+  SratGicc,   SratGicIts,
+  SratGenericInitiator,
+  SratGenericPort} SRAT_ENTRY_TYPE;
+常数
+ﾉ
+ 
+SratProcessorLocalAPIC
+定义 SratProcessorLocalAPIC 常量。 SratMemory
+定义 SratMemory 常量。 SratProcessorLocalX2APIC
+定义 SratProcessorLocalX2APIC 常量。 SratGicc
+定义 SratGicc 常量。 SratGicIts
+定义 SratGicIts 常量。 SratGenericInitiator
+定义 SratGenericInitiator 常量。 SratGenericPort
+定义 SratGenericPort 常量。
+展开表
+要求要求标头
+反馈
+价值
+acpitabl.h （include Acpitabl.h）
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+oprghdlr.h 标头项目2023/08/07
+acpi 使用此标头。 有关详细信息，请参阅：
+ACPI
+oprghdlr.h 包含以下编程接口：
+函数  
+DeRegisterOpRegionHandler
+DeRegisterOpRegionHandler 例程使用 ACPI 驱动程序取消注册操作区域处理程序。 RegisterOpRegionHandler
+RegisterOpRegionHandler 例程向 ACPI 驱动程序注册操作区域处理程序。
+回调函数  
+ACPI_OP_REGION_CALLBACK
+描述ACPI_OP_REGION_CALLBACK回调函数。 ACPI_OP_REGION_HANDLER
+ACPI 设备函数驱动程序提供ACPI_OP_REGION_HANDLER类型的例程，以便 ACPI 驱动程序能够访问设备的操作区域。
+ACPI_OP_REGION_CALLBACK回调函数
+（oprghdlr.h）项目2025/02/07
+语法 C++
+//Declaration
+ACPI_OP_REGION_CALLBACK AcpiOpRegionCallback;// Definition
+VOID AcpiOpRegionCallback(
+    PVOID Context)
+{...}
+参数 Context
+Context定义 PVOID 参数。
+返回值没有
+要求
+ﾉ
+要求标头
+价值
+oprghdlr.h
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ACPI_OP_REGION_HANDLER回调函数
+（oprghdlr.h）项目2025/02/07
+ACPI_OP_REGION_HANDLER类型的例程由 ACPI 设备函数驱动程序提供，以便 ACPI 驱动程序 访问设备的作区域。
+语法 C++
+ACPI_OP_REGION_HANDLER AcpiOpRegionHandler;
+NTSTATUS AcpiOpRegionHandler(   ULONG AccessType,
+  PVOID OperationRegionObject,   ULONG Address,
+  ULONG Size,   PULONG Data,
+  ULONG_PTR Context,
+  PACPI_OP_REGION_CALLBACK CompletionHandler,
+  PVOID CompletionContext)
+{...}
+参数 AccessType
+指定以下访问类型之一：
+ﾉ
+访问类型
+ACPI_OPREGION_WRITE ACPI_OPREGION_READ
+OperationRegionObject
+描述
+写入作区域内存缓冲区。从作区域内存缓冲区读取。
+指定作区域处理程序 RegisterOpRegionHandler 返回的作区域对象。
+展开表
+Address
+指定作区域内存缓冲区中的字节偏移量。 根据访问类型，数据会传输到此内存位置或从
+此内存位置传输数据。 Size
+指定要访问的字节数。 Data
+指向与访问关联的 ACPI 驱动程序提供的数据缓冲区的指针。 对于读取访问，字节将从作区域内存缓冲区传输到数据缓冲区。 对于写入访问，字节将从数据缓冲区传输到作区域
+内存缓冲区。 Context
+指向函数驱动程序在注册作区域处理程序时指定的相同作区域上下文的指针。
+CompletionHandler 保留供内部使用。 CompletionContext 保留供内部使用。返回值
+返回以下状态值之一：
+ﾉ
+返回代码
+STATUS_SUCCESS
+STATUS_INVALID_DEVICE_REQUEST
+STATUS_Xxx 言论
+描述
+访问成功。
+访问类型无效。发生内部错误。
+展开表
+当 ACPI 驱动程序调用作区域处理程序时，它指定 地址 和 大小 的值，以确保访问位于 ACPI 设备的 ACPI BIOS 中定义的作区域中。 ACPI 设备函数驱动程序必须确保它分配的作
+区域内存缓冲区至少与 ACPI 设备定义的作区域一样大（以字节为单位）。有关作区域处理程序的详细信息，请参阅 支持作区域。
+ACPI_OP_REGION_HANDLER类型的例程在调用方 IRQL 上运行。
+有关作区域约束的详细信息，请参阅 高级配置和电源接口（ACPI）规范要求
+要求
+目标平台标头
+另请参阅
+价值桌面
+oprghdlr.h （包括 Oprghdlr.h）
+DeRegisterOpRegionHandler 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+。
+ﾉ
+展开表
+DeRegisterOpRegionHandler 函数
+（oprghdlr.h）项目2025/02/07
+DeRegisterOpRegionHandler 例程使用 ACPI 驱动程序取消注册作区域处理程序。
+语法 C++
+NTSTATUS DeRegisterOpRegionHandler(   [in] PDEVICE_OBJECT DeviceObject,
+  [in] PVOID          OperationRegionObject);
+参数
+[in] DeviceObject
+指向物理设备对象（PDO）的指针，该对象表示定义作区域的 ACPI 设备。[in] OperationRegionObject
+指定作区域处理程序 RegisterOpRegionHandler 返回的作区域对象。返回值
+返回以下状态值之一。
+ﾉ
+返回代码
+STATUS_SUCCESS
+STATUS_INSUFFICIENT_RESOURCES
+STATUS_Xxx 言论
+描述
+作区域处理程序已成功注册。例程无法分配必要的系统资源。发生内部错误。
+展开表
+此例程与 RegisterOpRegionHandler结合使用。 若要取消注册作区域处理程序，调用方必须在注册作区域处理程序时指定由 RegisterOpRegionHandler 返回的作区域对象。
+有关作区域的详细信息，请参阅 支持作区域。要求
+ﾉ
+要求
+目标平台
+标头库 IRQL
+另请参阅
+价值普遍
+oprghdlr.h （包括 Oprghdlr.h）
+Oprghdlr.lib PASSIVE_LEVEL
+ACPI_OP_REGION_HANDLER RegisterOpRegionHandler
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+RegisterOpRegionHandler 函数
+（oprghdlr.h）项目2025/02/07
+RegisterOpRegionHandler 例程向 ACPI 驱动程序注册作区域处理程序。
+语法 C++
+NTSTATUS RegisterOpRegionHandler(
+  [in]  PDEVICE_OBJECT          DeviceObject,   [in]  ULONG                   AccessType,   [in]  ULONG                   RegionSpace,
+  [in]  PACPI_OP_REGION_HANDLER Handler,   [in]  PVOID                   Context,   [in]  ULONG                   Flags,
+  [out] PVOID                   *OperationRegionObject);
+参数
+[in] DeviceObject
+指向 物理设备对象（PDO） 的指针，该对象表示定义作区域的 ACPI 设备。[in] AccessType
+指定ACPI_OPREGION_ACCESS_AS_COOKED。[in] RegionSpace
+指定以下类型的区域空间之一。
+区域空间标识符
+ACPI_OPREGION_REGION_SPACE_MEMORY ACPI_OPREGION_REGION_SPACE_IO
+ACPI_OPREGION_REGION_SPACE_PCI_CONFIG
+描述
+系统内存 I/O 空间 PCI 配置
+ﾉ
+展开表
+区域空间标识符
+ACPI_OPREGION_REGION_SPACE_EC ACPI_OPREGION_REGION_SPACE_SMB
+ACPI_OPREGION_REGION_SPACE_CMOS_CONFIG ACPI_OPREGION_REGION_SPACE_PCIBARTARGET
+供应商定义的值从0x80到0xFF[in] Handler
+描述
+嵌入式控制器系统管理总线 2016 年 1
+PCI 基址寄存器供应商定义
+指向 ACPI_OP_REGION_HANDLER类型化作区域处理程序（由 ACPI 设备函数驱动程序提
+供）的指针。[in] Context
+指向特定于设备的作区域上下文的指针（由 ACPI 设备函数驱动程序提供）。[in] Flags
+保留供内部使用。
+[out] OperationRegionObject
+指向调用方分配的缓冲区的指针，在输出中，该缓冲区包含指向 ACPI 驱动程序为作区域
+创建的作区域对象的指针。返回值
+返回以下状态值之一：
+ﾉ
+返回代码
+STATUS_SUCCESS
+STATUS_ACPI_INVALID_DATA
+STATUS_INSUFFICIENT_RESOURCES STATUS_Xxx
+描述
+作区域处理程序已成功注册。指定的信息无效。
+例程无法分配必要的系统资源。发生内部错误。
+展开表
+言论
+由 上下文 指定的作区域上下文特定于设备，并且仅由函数驱动程序使用。 通常，上下文是 功能设备对象 （FDO）的设备扩展。 ACPI 驱动程序在调用作区域处理程序时将此上下文传回函数驱动程序。 作区域对象仅由函数驱动程序用于在取消注册作区域处理程序时唯一标识作区域。
+有关作区域的详细信息，请参阅 支持作区域。要求
+ﾉ
+要求
+目标平台
+标头库 IRQL
+另请参阅
+价值普遍
+oprghdlr.h （包括 Oprghdlr.h）
+Oprghdlr.lib PASSIVE_LEVEL
+ACPI_OP_REGION_HANDLER DeRegisterOpRegionHandler
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表

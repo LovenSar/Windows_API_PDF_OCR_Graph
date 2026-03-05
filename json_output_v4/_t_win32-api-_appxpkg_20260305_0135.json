@@ -1,0 +1,2087 @@
+{
+  "_schema": "windows_api_kg_v4.0",
+  "_generated_at": "2026-03-05T08:07:00Z",
+  "_content_hash": "1c42e911a627",
+  "document": {
+    "document_id": "win32-api::appxpkg",
+    "title": "打包、部署和查询 Windows 应用商店应用",
+    "domain": "win32-api",
+    "topic": "appxpkg",
+    "source_file": "[OCR]_windows-win32-api-_appxpkg_20260305_0135.txt",
+    "ocr_timestamp": "2026-03-05T01:35:00",
+    "headers_referenced": [
+      "appmodel.h",
+      "appxpackaging.h"
+    ],
+    "total_entities": 81
+  },
+  "entities": [
+    {
+      "id": "windows::APPX_BUNDLE_FOOTPRINT_FILE_TYPE",
+      "name": "APPX_BUNDLE_FOOTPRINT_FILE_TYPE",
+      "entity_type": "enum",
+      "description": "枚举中的有效值。 捆绑包不包含指定类型的占用空间文件。 GetFootprintFile 可以为",
+      "syntax": "typedef enum APPX_BUNDLE_FOOTPRINT_FILE_TYPE {   APPX_BUNDLE_FOOTPRINT_FILE_TYPE_FIRST,",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 33
+    },
+    {
+      "id": "windows::APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE",
+      "name": "APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE",
+      "entity_type": "enum",
+      "description": "指定 IAppxBundleManifestPackageInfo 对象的包类型。 APPX_CAPABILITIES 指定包请求的功能或特权。 APPX_COMPRESSION_OPTION 指定用于将文件存储在包中的压缩程度。 APPX_ENCRYPTED_PACKAGE_OPTIONS 加密的应用包选项。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPX_CAPABILITIES",
+        "APPX_COMPRESSION_OPTION",
+        "APPX_ENCRYPTED_PACKAGE_OPTIONS"
+      ],
+      "confidence": 0.75,
+      "_source_line": 33
+    },
+    {
+      "id": "windows::APPX_FOOTPRINT_FILE_TYPE",
+      "name": "APPX_FOOTPRINT_FILE_TYPE",
+      "entity_type": "enum",
+      "description": "指定包中的占用空间文件的类型。 APPX_PACKAGE_ARCHITECTURE 指定包支持的处理器体系结构。 （APPX_PACKAGE_ARCHITECTURE） APPX_PACKAGE_ARCHITECTURE2 指定包支持的处理器体系结构。 （APPX_PACKAGE_ARCHITECTURE2） APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS 更新清单时应用清单验证的选项。",
+      "syntax": "typedef enum APPX_FOOTPRINT_FILE_TYPE {",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPX_PACKAGE_ARCHITECTURE",
+        "APPX_PACKAGE_ARCHITECTURE2"
+      ],
+      "confidence": 0.85,
+      "_source_line": 37
+    },
+    {
+      "id": "windows::APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION",
+      "name": "APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION",
+      "entity_type": "enum",
+      "description": "更新应用包时要使用的选项。 CreatePackageDependencyOptions 定义使用 TryCreatePackageDependency 函数创建包依赖项时可以应用的选项。 PackageDependencyLifetimeKind 指定指示用于定义包依赖项生存期的项目类型的值。 PackageDependencyProcessorArchitectures 定义使用 TryCreatePackageDependency 函数创建的框架包依赖项的处理器体系结构。 PackageOrigin 指定包的源。 PackagePathType 指示要检索的包文件夹的类型。 功能 AddAutomaticFile 将文件添加到内容组映射中的自动内容组。 AddAutomaticGroup 将自动内容组添加到内容组映射。 AddExternalPackageReference 将对外部包的引用添加到包捆绑包。 AddExternalPackageReference 将包捆绑包中的引用添加到外部应用包。 AddExternalPackageReference 将加密包捆绑包中的引用添加到外部应用包。 （IAppxEncryptedBundleWriter2.AddExternalPackageReference） AddExternalPackageReference 将加密包捆绑包中的引用添加到外部应用包。 （IAppxEncryptedBundleWriter3.AddExternalPackageReference） AddPackageDependency 将以前定义的 PackageDependency 解析为特定包，并将其添加到调用进程的包图。 添加依赖项后，其他代码加载方法（如 LoadLibrary 和 CoCreateInstance）可以在解析的包中找到二进制文件。 AddPackageReference 在应用捆绑包中添加对可选应用包或有效负载文件的引用。 （IAppxBundleWriter3.AddPackageReference） AddPackageReference 在应用捆绑包中添加对可选应用包或有效负载文件的引用。 （IAppxBundleWriter4.AddPackageReference） AddPayloadFile 将新的有效负载文件添加到应用包。 AddPayloadFileEncrypted 将新的加密有效负载文件添加到 appx 包。 AddPayloadFiles 将一个或多个有效负载文件添加到应用包。 AddPayloadFilesEncrypted 将一个或多个有效负载文件添加到加密的应用包。 AddPayloadPackage 将新的应用包添加到捆绑包。 （IAppxBundleWriter.AddPayloadPackage） AddPayloadPackage 将新的应用包添加到捆绑包。 （IAppxBundleWriter4.AddPayloadPackage） AddPayloadPackageEncrypted 将新的有效负载包加密到捆绑包。 （IAppxEncryptedBundleWriter.AddPayloadPackageEncrypted） AddPayloadPackageEncrypted 将新的有效负载包加密到捆绑包。 （IAppxEncryptedBundleWriter3.AddPayloadPackageEncrypted） AppPolicyGetClrCompat 检索一个值，该值指示进程的应用程序类型，以便确定是否启用专用反射和/或使托管对象敏捷。 AppPolicyGetCreateFileAccess 检索一个值，该值指示进程对 IO 设备（文件、文件流、目录、物理磁盘、卷、控制台缓冲区、磁 带驱动器、通信资源、mailslot 和管道）具有完全或受限的访问权限。 AppPolicyGetLifecycleManagement 检索一个值，该值指示进程生命周期管理器（PLM）是否可以挂起/恢复进程。 AppPolicyGetMediaFoundationCodecLoading 检索一个值，该值指示进程的策略是否允许它加载非 Windows（第三方）插件。 可以使用该值决 定是否允许非 Windows（第三方）插件。 AppPolicyGetProcessTerminationMethod 检索用于结束进程的方法。 AppPolicyGetShowDeveloperDiagnostic 检索用于向用户显示开发人员信息（如断言）的过程的方法。 AppPolicyGetThreadInitializationType 检索应在 beginthread[ex] 创建线程时自动为进程执行的初始化类型。 AppPolicyGetWindowingModel 检索一个值，该值指示进程是使用基于 CoreWindow 还是基于 HWND 的开窗模型。 可以使用该值 来决定如何注册窗口状态更改通知（大小更改、可见性已更改等）。关闭 通过在包末尾写入占用空间文件来完成捆绑包，并关闭编写器的输出流。（IAppxBundleWriter.Close） 关闭 通过在包末尾写入占用空间文件来完成捆绑包，并关闭编写器的输出流。 （IAppxBundleWriter3.Close）关闭 将捆绑清单和块映射占用文件写入捆绑包。关闭 关闭并完成写入的包流。关闭 在应用包末尾写入占用空间文件，并关闭包编写器对象的输出流。关闭 关闭包编写器对象的输出流。 ClosePackageInfo 关闭对指定包信息的引用。 ComparePublisher 将指定的发布服务器与清单中定义的发布者进行比较。 CreateAppInstallerReader 创建 IAppInstallerReader 的实例，其中包含用于指定应用安装程序文件的预期摘要的可选参数。 CreateBlockMapReader 从 IStream 提供的内容创建只读块映射对象模型。 CreateBundleManifestReader 从独立流创建只读捆绑清单对象以 AppxBundleManifest.xml。 CreateBundleReader 创建从 IStream 对象读取其内容的只读捆绑对象。 CreateBundleReader2 创建一个只读捆绑对象，该对象从 IStream 对象读取其内容，并具有一个可选参数，用于指定捆绑包的预期摘要。 CreateBundleWriter 创建可向其添加应用包的仅写捆绑包对象。 CreateContentGroupMapReader 创建 IAppxContentGroupMapReader。 CreateContentGroupMapWriter 创建 IAppxContentGroupMapWriter。 CreateDeltaPackage 根据更新包和基线包中的差异创建增量包。 CreateDeltaPackageUsingBaselineBlockMap 根据更新包和基线块映射中的差异创建增量包。 CreateEncryptedBundleReader 创建可向其添加加密 Windows 应用包的只读捆绑包对象。 CreateEncryptedBundleReader2 创建可向其添加加密 Windows 应用包的只读捆绑包对象，并指定用于指定加密捆绑包的预期摘要的可选参数。 CreateEncryptedBundleWriter 创建可向其添加加密 Windows 应用包的仅写捆绑包对象。（IAppxEncryptionFactory.CreateEncryptedBundleWriter） CreateEncryptedBundleWriter 创建可向其添加加密 Windows 应用包的仅写捆绑包对象。（IAppxEncryptionFactory3.CreateEncryptedBundleWriter） CreateEncryptedPackageReader 创建用于读取加密包的 IAppxPackageReader 的新实例。 CreateEncryptedPackageReader2 创建用于读取加密包的 IAppxPackageReader 的新实例，其中包含用于指定包预期摘要的可选参数。 CreateEncryptedPackageWriter 创建 IAppxEncryptedPackageWriter 的新实例。 （IAppxEncryptionFactory.CreateEncryptedPackageWriter） CreateEncryptedPackageWriter 创建 IAppxEncryptedPackageWriter 的新实例。 （IAppxEncryptionFactory2.CreateEncryptedPackageWriter） CreateEncryptedPackageWriter 创建 IAppxEncryptedPackageWriter 的新实例。 （IAppxEncryptionFactory3.CreateEncryptedPackageWriter） CreateManifestReader 从 IStream 提供的内容创建只读清单对象模型。 CreateManifestReader2 从 IStream 提供的内容创建只读清单对象模型，并提供一个可选参数，用于指定清单的预期摘要。 CreatePackageReader 从 IStream 提供的内容创建只读包读取器。 此方法不验证数字签名。 CreatePackageReader2 从 IStream 提供的内容创建只读包读取器，并提供一个可选参数，用于指定包的预期摘要。 CreatePackageWriter 创建可向其添加文件的仅写包对象。 CreateSourceContentGroupMapReader 创建 IAppxSourceContentGroupMapReader。 CreateValidatedBlockMapReader 从 IStream 提供的内容和数字签名创建只读块映射对象模型。 DecryptBundle 从加密的 Windows 应用包创建未加密的 Windows 应用捆绑包。 DecryptPackage 从加密的 Windows 应用包创建未加密的 Windows 应用包。 DeletePackageDependency 使用 TryCreatePackageDependency 方法删除之前创建的框架包依赖项的安装时间引用。 如果其他 应用不依赖于框架包，此方法会通知 OS 删除框架包是安全的。 EncryptBundle 从未加密的 Windows 应用包创建加密的 Windows 应用捆绑包。 （IAppxEncryptionFactory.EncryptBundle） EncryptBundle 从未加密的 Windows 应用包创建加密的 Windows 应用捆绑包。 （IAppxEncryptionFactory3.EncryptBundle） EncryptPackage 从未加密的 Windows 应用包创建加密的 Windows 应用包。 （IAppxEncryptionFactory.EncryptPackage） EncryptPackage 从未加密的 Windows 应用包创建加密的 Windows 应用包。 （IAppxEncryptionFactory3.EncryptPackage） EncryptPackage 从未加密的 Windows 应用包创建加密的 Windows 应用包。 （IAppxEncryptionFactory4.EncryptPackage） FindPackagesByPackageFamily 查找具有当前用户的指定系列名称的包。 FormatApplicationUserModelId 从包系列名称和包相对应用程序 ID（PRAID）构造应用程序用户模型 ID。 GetApplications 获取循环访问清单中定义的应用程序的枚举器。 GetApplicationUserModelId 获取指定进程的应用程序用户模型 ID。 GetApplicationUserModelIdFromToken 获取指定令牌的应用程序用户模型 ID。 GetAppUserModelId 获取应用程序用户模型标识符。 GetArchitecture 获取清单中定义的处理器体系结构。 （IAppxManifestPackageId.GetArchitecture） GetArchitecture2 获取清单中定义的处理器体系结构。 （IAppxManifestPackageId2.GetArchitecture2） GetAutomaticGroups 从内容组映射中获取自动内容组。 GetAutomaticGroups 从源内容组映射中获取自动内容组。 GetBlockMap 从捆绑包中检索只读块映射对象。 GetBlockMap 检索包的块映射对象模型。 GetBlocks 检索用于遍历块映射中列出的文件的块的枚举器。 GetBoolValue 获取 properties 节中指定布尔元素的值。 GetCapabilities 获取包请求的功能列表。 GetCompressedSize 检索块的压缩大小。 GetCompressionOption 检索用于将文件存储在包中的压缩选项。 GetContentType 检索文件的内容类型。 GetCurrent 获取枚举器当前位置的块。 GetCurrent 获取枚举器当前位置的文件。 GetCurrent 获取枚举器当前位置的可选捆绑信息。 GetCurrent 获取枚举器当前位置的 <Package> 元素。 GetCurrent 从位于枚举器当前位置的内容组获取文件。 GetCurrent 获取枚举器当前位置的内容组。 GetCurrent 获取枚举器当前位置的有效负载文件。 GetCurrent 获取位于枚举器的当前位置的应用程序。 GetCurrent 获取枚举器当前位置的设备功能。 GetCurrent 获取枚举器当前位置的 <MainPackageDependency> 元素。 GetCurrent 获取枚举器当前位置的依赖项包。 GetCurrent 获取枚举器当前位置的资源。 GetCurrentApplicationUserModelId 获取当前进程的应用程序用户模型 ID。 GetCurrentPackageFamilyName 获取调用进程的包系列名称。 GetCurrentPackageFullName 获取调用进程的包全名。 GetCurrentPackageId 获取调用进程的包标识符（ID）。 GetCurrentPackageInfo 获取调用进程的包信息。 （GetCurrentPackageInfo） GetCurrentPackageInfo2 获取调用进程的包信息。 （GetCurrentPackageInfo2） GetCurrentPackagePath 获取调用进程的包路径。 （GetCurrentPackagePath） GetCurrentPackagePath2 获取调用进程的包路径。 （GetCurrentPackagePath2） GetDeviceCapabilities 获取循环访问清单中定义的设备功能的枚举器。 GetDigest 接收指向 LPWSTR 的指针，其中包含由关联接口管理的应用打包对象对象的摘要表示形式。 GetFile 检索与块映射中具有指定文件名的文件对应的数据。 GetFileName 检索 <OptionalBundle>的文件名属性。 GetFileName 检索包的文件名属性。 GetFiles 检索用于遍历块映射中列出的文件的枚举器。 GetFiles 从内容组获取文件。 GetFootprintFile 从捆绑包中检索指定的占用空间文件类型。 GetFootprintFile 从包中检索占用空间文件。 GetHasCurrent 确定枚举器当前位置是否存在块。 GetHasCurrent 确定枚举器当前位置是否有文件。 （IAppxBlockMapFilesEnumerator.GetHasCurrent） GetHasCurrent 确定枚举器当前位置是否存在可选捆绑信息。 GetHasCurrent 确定枚举器中是否有更多元素。 GetHasCurrent 确定枚举器当前位置是否有文件。 （IAppxContentGroupFilesEnumerator.GetHasCurrent） GetHasCurrent 确定枚举器当前位置是否存在内容组。 GetHasCurrent 确定枚举器当前位置是否存在有效负载文件。 GetHasCurrent 确定枚举器当前位置是否有应用程序。 GetHasCurrent 确定枚举器当前位置是否有设备功能。 GetHasCurrent 确定枚举器当前位置是否存在 <MainPackageDependency> 元素。 GetHasCurrent 确定枚举器当前位置是否存在包依赖项。 GetHasCurrent 确定枚举器当前位置是否存在资源。 GetHash 检索块的哈希值。 GetHashMethod 检索用于在块映射中创建块哈希的哈希算法的 URI。 GetIdForPackageDependencyContext 返回指定上下文句柄的包依赖项。 GetIsDefaultApplicablePackage 确定应用包是否为默认适用的包。 GetIsNonQualifiedResourcePackage 确定应用包是否为非限定的资源包。 GetIsNonQualifiedResourcePackage 查询应用包是否为非限定的资源包。 GetIsOptionalPackage 确定包是否为可选包。 GetIsPackageReference 确定包是存储在应用捆绑包中，还是它是对包的引用。 GetLocalFileHeaderSize 检索关联 zip 文件项的 zip 本地文件标头的大小。 GetMainPackageDependencies 获取主包依赖项枚举器。 GetMainPackageName 从可选包中获取主包名称。 GetManifest 从捆绑包中检索只读清单对象。 GetManifest 检索包的应用清单的对象模型。 GetMaxMajorVersionTested 返回测试为与当前包兼容的包的最大主版本号。 GetMaxVersionTested 获取从 AppxManifest.xml测试的最大版本。 GetMinVersion 获取当前包具有依赖项的包的最低版本。 GetMinVersion 从 AppxManifest.xml获取目标设备系列的最低版本。 GetName 检索关联的 zip 文件项的名称。 GetName 获取内容组的名称。 GetName 检索文件的名称，包括相对于包根目录的路径。 GetName 从 AppxManifest.xml获取主包依赖项的名称。 GetName 获取当前包具有依赖项的包的名称。 GetName 获取清单中定义的包的名称。 GetName 从 AppxManifest.xml.获取目标设备系列的名称。 GetOffset 检索包相对于捆绑包开头的偏移量。 GetOptionalBundles 检索表示根 <Bundle> 元素下的 <OptionalBundles> 元素的对象。 GetPackageApplicationIds 获取指定包中的应用 ID。 GetPackageDependencies 获取循环访问清单中定义的依赖项的枚举器。 GetPackageFamilyName 从 AppxManifest.xml获取主包依赖项的包系列名称。 GetPackageFamilyName 获取包系列名称。 GetPackageFamilyName 获取指定进程的包系列名称。 GetPackageFamilyNameFromToken 获取指定令牌的包系列名称。 GetPackageFullName 获取包全名。 GetPackageFullName 获取指定进程的包全名。 GetPackageFullNameFromToken 获取指定令牌的包全名。 GetPackageId 检索一个对象，该对象表示 <OptionalBundle>的标识。 GetPackageId 检索表示应用包标识的对象。 GetPackageId 检索一个对象，该对象表示根 <Bundle> 元素下的 <Identity> 元素。 GetPackageId 获取清单中定义的包标识符。 GetPackageId 获取指定进程的包标识符（ID）。 GetPackageInfo 获取指定包的包信息。 （GetPackageInfo） GetPackageInfo2 获取指定包的包信息。 （GetPackageInfo2） GetPackageInfoItems 检索捆绑包中的可选包。 GetPackageInfoItems 检索 <包> 元素下的所有 <包> 元素的枚举数。 GetPackagePath 获取指定包的路径。 GetPackagePathByFullName 获取指定包的路径。 （GetPackagePathByFullName） GetPackagePathByFullName2 获取指定包的路径。 （GetPackagePathByFullName2） GetPackagesByPackageFamily 获取具有当前用户的指定系列名称的包。 GetPackageType 检索由包信息表示的包的类型。 GetPayloadFile 从包中检索有效负载文件。 GetPayloadFiles 检索循环访问包中的有效负载文件的枚举器。 GetPayloadPackage 检索具有指定文件名的有效负载包的 appx 文件对象。 GetPayloadPackages 检索循环访问捆绑包中所有有效负载包的列表的枚举器。 GetPrerequisite 获取包清单中定义的指定先决条件。 GetProperties 获取清单中定义的包的属性。 GetPublisher 从 AppxManifest.xml获取主包依赖项的发布者。 GetPublisher 获取生成当前包所依赖包的发布者的名称。 GetPublisher 获取清单中定义的包发布者的名称。 GetQualifiedResources 获取一个枚举器，该枚举器循环访问清单中定义的限定资源。 GetRequiredGroup 从内容组映射中获取所需的内容组。 GetRequiredGroup 从源内容组映射中获取所需的内容组。 GetResolvedPackageFullNameForPackageDependency 返回要解析包依赖项时使用的包全名。 此函数不会将包添加到进程图。 GetResourceId 获取清单中定义的包资源标识符。 GetResources 检索循环访问应用包清单中定义的所有 <资源> 元素的枚举器。 GetResources 获取循环访问清单中定义的资源的枚举器。 GetSize 检索包的大小（以字节为单位）。 GetSize 检索文件未压缩的大小。 GetStagedPackageOrigin 获取指定包的源。 GetStagedPackagePathByFullName 获取指定暂存包的路径。 （GetStagedPackagePathByFullName） GetStagedPackagePathByFullName2 获取指定暂存包的路径。 （GetStagedPackagePathByFullName2） GetStream 检索表示块映射的 XML 内容的只读流。 GetStream 获取不带任何预处理的原始 XML 文档。 GetStream 获取包含文件未压缩内容的只读流。 GetStream 获取清单读取器分析并读取的原始 XML。 GetStringValue 获取清单的应用程序元数据部分中字符串元素的值。 GetStringValue 获取 properties 节中指定字符串元素的值。 GetUncompressedSize 检索关联 zip 文件项的未压缩大小。 GetVersion 获取清单中定义的包的版本。 GetXmlDom 获取应用安装程序文件的 XML DOM。 MoveNext 将枚举器的位置前进到下一个块。 MoveNext 将枚举器的位置前进到下一个文件。 （IAppxBlockMapFilesEnumerator.MoveNext） MoveNext 将枚举器的位置推进到下一组可选捆绑包信息。 MoveNext 将枚举器的位置推进到下一个 <Package> 元素。 MoveNext 将枚举器的位置前进到下一个文件。 （IAppxContentGroupFilesEnumerator.MoveNext） MoveNext 将枚举器的位置推进到下一个内容组。 MoveNext 将枚举器的位置推进到下一个有效负载文件。 MoveNext 将枚举器的位置推进到下一个应用程序。 MoveNext 将枚举器的位置提升到下一个设备功能。 MoveNext 将枚举器的位置推进到下一 <MainPackageDependency> 元素。 MoveNext 将枚举器的位置推进到下一个包依赖项。 MoveNext 将枚举器的位置推进到下一个资源。 OpenPackageInfoByFullName 打开指定包的包信息。 PackageFamilyNameFromFullName 获取指定包全名的包系列名称。 PackageFamilyNameFromId 获取指定包标识符的包系列名称。 PackageFullNameFromId 获取指定包标识符的包全名（ID）。 PackageIdFromFullName 获取指定包全名的包标识符（ID）。 PackageNameAndPublisherIdFromFamilyName 获取指定包系列名称的包名称和发布者标识符（ID）。 ParseApplicationUserModelId 将应用程序用户模型 ID 解构为其包系列名称和包相对应用程序 ID（PRAID）。 RemovePackageDependency 从当前进程的包图中删除解析的包依赖项（即使用 AddPackageDependency 函数添加的框架包依赖项的运行时引用）。 TryCreatePackageDependency 使用指定的包系列名称、最低版本和其他条件为当前应用的框架包依赖项创建安装时间引用。 UpdateEncryptedPackage 更新加密的应用包。 UpdatePackage 更新应用包。 UpdatePackageManifest 更新应用包清单。 ValidateFileHash 根据此块映射文件的块元素中存储的哈希验证文件的内容。 VerifyApplicationUserModelId 验证应用程序用户模型 ID 是否在语法上有效。 VerifyPackageFamilyName 验证包系列名称是否在语法上有效。 VerifyPackageFullName 验证包全名是否在语法上有效。 VerifyPackageId 验证包 ID 是否在语法上有效。 VerifyPackageRelativeApplicationId 验证包相对应用程序 ID 是否在语法上有效。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "Close",
+        "CoCreateInstance",
+        "GetFile",
+        "GetName",
+        "GetResources",
+        "GetSize",
+        "GetStream",
+        "Identity",
+        "LoadLibrary"
+      ],
+      "confidence": 0.75,
+      "_source_line": 45
+    },
+    {
+      "id": "windows::APPX_ENCRYPTED_EXEMPTIONS",
+      "name": "APPX_ENCRYPTED_EXEMPTIONS",
+      "entity_type": "struct",
+      "description": "从 Windows 应用包加密中免除的文件。 APPX_ENCRYPTED_PACKAGE_SETTINGS 加密的 Windows 应用包的设置。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPX_ENCRYPTED_PACKAGE_SETTINGS"
+      ],
+      "confidence": 0.75,
+      "_source_line": 481
+    },
+    {
+      "id": "windows::APPX_ENCRYPTED_PACKAGE_SETTINGS2",
+      "name": "APPX_ENCRYPTED_PACKAGE_SETTINGS2",
+      "entity_type": "struct",
+      "description": "加密的 Windows 应用包设置。 APPX_KEY_INFO Windows 应用包密钥信息。 APPX_PACKAGE_SETTINGS 表示用于创建包的包设置。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPX_PACKAGE_SETTINGS"
+      ],
+      "confidence": 0.75,
+      "_source_line": 483
+    },
+    {
+      "id": "windows::APPX_PACKAGE_SETTINGS",
+      "name": "APPX_PACKAGE_SETTINGS",
+      "entity_type": "struct",
+      "description": "结构的指定 hashMethod 成员不是有效的哈希算法 URI。 哈希值为 SHA1 。 在对编写器对象调用 Close 方法之前，不能保证 IAppxPackageWriter 的实现会将数据写 入输出流。 在编写器从其 Close 方法返回之前，其他线程不应访问 outputStream。示例 有关示例，请参阅 如何创建应用包。",
+      "syntax": "typedef struct APPX_PACKAGE_SETTINGS {\nBOOL forceZip32;   IUri *hashMethod;\n} APPX_PACKAGE_SETTINGS;\n成员 forceZip32 类型： BOOL\n如果包创建为 Zip32，则为 TRUE;如果包创建为 Zip64，则为 FALSE。 默认值为 Zip64。\nhashMethod 类型： IUri*\n要用于包的块映射的哈希算法 URI。\ntypedef struct APPX_PACKAGE_WRITER_PAYLOAD_STREAM {\nIStream                 *inputStream;   LPCWSTR                 fileName;\nLPCWSTR                 contentType;",
+      "parameters": [
+        {
+          "name": "blockMapStream",
+          "direction": "in",
+          "description": "类型： IStream* 传送块映射 XML 以供读取的流。 流必须支持 Read、 Seek 和 Stat。"
+        },
+        {
+          "name": "signatureFileName",
+          "direction": "in",
+          "description": "类型： LPCWSTR 包含用于验证输入流内容的数字签名的文件。"
+        },
+        {
+          "name": "blockMapReader",
+          "direction": "out, retval",
+          "description": "类型： IAppxBlockMapReader** 块映射读取器。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果方法成功，则返回 S_OK。 否则，它将返回一个错误代码，其中包括但不限于以下代码。 此方法可能会返回从使用的基础验证 API 传递的错误。 例如，如果签名无法读取、无效或与 blockMapStream 的内容不匹配，此方法可能会返回“Crypto 和 WinTrust 错误代码 (0x8009xxxx、0x800bxxxx) 。 返回代码"
+      },
+      "remarks": "将 forceZip32 设置为 TRUE 以保持与旧版 ZIP 工具的兼容性。 hashMethod 的可能值为： http://www.w3.org/2001/04/xmlenc#sha256 http://www.w3.org/2001/04/xmldsig-more#sha384 http://www.w3.org/2001/04/xmlenc#sha512",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "Close"
+      ],
+      "confidence": 1.0,
+      "_source_line": 491
+    },
+    {
+      "id": "windows::APPX_PACKAGE_WRITER_PAYLOAD_STREAM",
+      "name": "APPX_PACKAGE_WRITER_PAYLOAD_STREAM",
+      "entity_type": "struct",
+      "description": "包含要写入应用包的文件的数据和元数据。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 492
+    },
+    {
+      "id": "windows::PACKAGE_ID",
+      "name": "PACKAGE_ID",
+      "entity_type": "struct",
+      "description": "packageId;} PACKAGE_INFO; 成员 reserved 类型： UINT32 保留值；请勿使用。 flags 类型： UINT32 包的属性。 path 类型： PWSTR 包的位置。 packageFullName 类型： PWSTR 包全名。 packageFamilyName 类型： PWSTR 包系列名称。 packageId 类型：",
+      "syntax": "typedef struct PACKAGE_VERSION {   union {\nUINT64 Version;     struct {\nUSHORT Revision;\nUSHORT Build;       USHORT Minor;       USHORT Major;\n} DUMMYSTRUCTNAME;\n} DUMMYUNIONNAME;} PACKAGE_VERSION;\ntypedef enum PackageDependencyLifetimeKind {\nPackageDependencyLifetimeKind_Process,   PackageDependencyLifetimeKind_FilePath,\nPackageDependencyLifetimeKind_RegistryKey} ;",
+      "remarks": "有关字符串大小限制的信息，请参阅 标识常量。",
+      "members": [
+        {
+          "name": "DUMMYUNIONNAME",
+          "type": "USHORT 包的修订版本号。",
+          "description": "DUMMYUNIONNAME.Version 类型： UINT64 以单个整型值表示的包的完整版本号。 DUMMYUNIONNAME.DUMMYSTRUCTNAME DUMMYUNIONNAME.DUMMYSTRUCTNAME.Revision DUMMYUNIONNAME.DUMMYSTRUCTNAME.Build 类型： USHORT 包的内部版本号。 DUMMYUNIONNAME.DUMMYSTRUCTNAME.Minor 类型： USHORT 包的次要版本号。 DUMMYUNIONNAME.DUMMYSTRUCTNAME.Major 类型： USHORT 包的主版本号。"
+        }
+      ],
+      "header": "appmodel.h",
+      "deprecated": true,
+      "cross_references": [],
+      "confidence": 0.95,
+      "_source_line": 492
+    },
+    {
+      "id": "windows::PACKAGE_VERSION",
+      "name": "PACKAGE_VERSION",
+      "entity_type": "struct",
+      "description": "version; PWSTR name; PWSTR publisher; PWSTR resourceId; PWSTR publisherId;} PACKAGE_ID; 成员 reserved 类型： UINT32 保留值；请勿使用。 processorArchitecture 类型： UINT32 包的处理器体系结构。 此成员必须是与 ProcessorArchitecture 枚举值匹配的 PROCESSOR_ARCHITECTURE_... 常量的值之一。 这包括：",
+      "header": "appmodel.h",
+      "deprecated": true,
+      "cross_references": [
+        "PACKAGE_ID",
+        "ProcessorArchitecture"
+      ],
+      "confidence": 0.75,
+      "_source_line": 495
+    },
+    {
+      "id": "windows::PACKAGEDEPENDENCY_CONTEXT",
+      "name": "PACKAGEDEPENDENCY_CONTEXT",
+      "entity_type": "enum",
+      "description": "packageDependencyContext, PWSTR *packageDependencyId);",
+      "parameters": [
+        {
+          "name": "rank",
+          "type": "INT32",
+          "description": "用于将解析包添加到调用方包图的排名。 有关详细信息，请参阅备注。 options 类型：AddPackageDependencyOptions 添加包依赖项时要应用的选项。 packageDependencyContext 类型：PACKAGEDEPENDENCY_CONTEXT* 添加的包依赖项的句柄。 此句柄在传递给 RemovePackageDependency之前有效。 packageFullName 类型：PCWSTR* 此方法返回时，包含指向以 null 结尾的 Unicode 字符串的指针的地址，该字符串指定依赖项解析到的包的全名。 调用方负责释放此资源，只需调用 HeapFree即可释放该资源。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果函数成功，则返回 ERROR_SUCCESS。 否则，该函数将返回错误代码。 可能的错误代码包括以下内容。 返回代码"
+      },
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.9,
+      "_source_line": 642
+    },
+    {
+      "id": "windows::E_INVALIDARG",
+      "name": "E_INVALIDARG",
+      "entity_type": "enum",
+      "description": "言论 描述 packageDependencyId 或 packageDependencyContext 参数在输入时为 NULL。 调用此方法会将框架包依赖项解析为系统上的特定包。 它还通知作系统框架包正在使用中，并并行处理任何版本更新（有效地延迟卸载或其他为旧版本提供服务，直到应用使用完毕）。 包解析特定于用户，可以为系统上的不同用户返回不同的值。 每次成功 AddPackageDependency 调用都会将解析的包添加到调用进程的包图（即使已存在）。 API 未应用重复检测或筛选（即包中的多个引用不有害）。 解析完成后，包依赖项会一直为该用户解析，直到通过 RemovePackageDependency 删除该用户的所有进程的最后一个引用，否则进程将终止。 此方法成功返回后，应用可以激活类型并使用框架包中的内容，直到调用 removePackageDependency 。 如果包图中存在多个包，其级别与调用 AddPackageDependency相同，则解析的包将（默认情况下）添加到同一排名的其他包之后。 若要在相同排名的其他包之前添加包，请为 选项 参数指定 AddPackageDependencyOptions_PrependIfRankCollision。 有关详细信息，请参阅 使用动态依赖项 API 在运行时引用 MSIX 包。",
+      "syntax": "HRESULT GetProperties(\n[out, retval] IAppxManifestProperties **packageProperties);\nHRESULT GetResources(\n[out, retval] IAppxManifestResourcesEnumerator **resources);\nHRESULT GetStream(\n[out, retval] IStream **manifestStream);\nHRESULT GetQualifiedResources(\n[out, retval] IAppxManifestQualifiedResourcesEnumerator **resources);\nHRESULT GetMainPackageDependencies(\n[out, retval] IAppxManifestMainPackageDependenciesEnumerator\n**mainPackageDependencies);\nHRESULT GetIsNonQualifiedResourcePackage(\n[out, retval] BOOL *isNonQualifiedResourcePackage);\nHRESULT GetCurrent(\n[out, retval] LPWSTR *resource);\nHRESULT GetHasCurrent(\n[out, retval] BOOL *hasCurrent);\nHRESULT MoveNext(\n[out, retval] BOOL *hasNext);\nHRESULT GetMaxVersionTested(\n[out, retval] UINT64 *maxVersionTested);\nHRESULT GetMinVersion(\n[out, retval] UINT64 *minVersion);\nHRESULT GetName(\n[out, retval] LPWSTR *name);\nHRESULT CreateDeltaPackage(\n[in] IStream *updatedPackageStream,   [in] IStream *baselinePackageStream,\n[in] IStream *deltaPackageStream);\nHRESULT CreateDeltaPackageUsingBaselineBlockMap(\n[in] IStream *updatedPackageStream,   [in] IStream *baselineBlockMapStream,   [in] LPCWSTR baselinePackageFullName,\n[in] IStream *deltaPackageStream);\nHRESULT UpdateEncryptedPackage(\n[in] IStream                                   *baselineEncryptedPackageStream,\n[in] IStream                                   *deltaPackageStream,   [in] APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION updateOption,\n[in] const APPX_ENCRYPTED_PACKAGE_SETTINGS2    *settings,   [in] const APPX_KEY_INFO                       *keyInfo);\nHRESULT UpdatePackage(\n[in] IStream                                   *baselinePackageStream,   [in] IStream                                   *deltaPackageStream,\n[in] APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION updateOption);\nHRESULT UpdatePackageManifest(\n[in] IStream                                             *packageStream,\n[in] IStream                                             *updatedManifestStream,\n[in] BOOL                                                 isPackageEncrypted,\n[in] APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS options);\nHRESULT GetBlockMap(\n[out, retval] IAppxBlockMapReader **blockMapReader);\nHRESULT GetFootprintFile(\n[in]          APPX_FOOTPRINT_FILE_TYPE type,   [out, retval] IAppxFile                **file);",
+      "parameters": [
+        {
+          "name": "packageProperties",
+          "direction": "out, retval",
+          "description": "类型： IAppxManifestProperties** 包的属性，如清单所述。"
+        },
+        {
+          "name": "resources",
+          "direction": "out, retval",
+          "type": "IAppxManifestResourcesEnumerator** 循环访问资源的枚举器。",
+          "description": ""
+        },
+        {
+          "name": "manifestStream",
+          "direction": "out, retval",
+          "description": "类型： IStream** 表示清单的 XML 内容的只读流。"
+        },
+        {
+          "name": "resources",
+          "direction": "out, retval",
+          "type": "IAppxManifestQualifiedResourcesEnumerator** 循环访问限定资源的枚举器。",
+          "description": ""
+        },
+        {
+          "name": "mainPackageDependencies",
+          "direction": "out, retval",
+          "description": "main包依赖项枚举器。"
+        },
+        {
+          "name": "isNonQualifiedResourcePackage",
+          "direction": "out, retval",
+          "description": "如果包是非限定的资源包，则为 True;否则为 False。"
+        },
+        {
+          "name": "resource",
+          "direction": "out, retval",
+          "description": "类型： LPWSTR* 当前资源。返回值类型： HRESULT 如果方法成功，则返回 S_OK。 否则，它将返回一个错误代码，该错误代码包括但不限于下表中的代码。 返回代码 E_BOUNDS"
+        },
+        {
+          "name": "hasCurrent",
+          "direction": "out, retval",
+          "description": "类型： BOOL* 如果枚举器的当前位置引用项，则为 TRUE;如果枚举器已传递集合中的最后一项，则为 FALSE。"
+        },
+        {
+          "name": "hasNext",
+          "direction": "out, retval",
+          "description": "类型： BOOL* 如果枚举器成功前进，则为 TRUE 如果枚举器已通过集合的末尾，则为 FALSE。"
+        },
+        {
+          "name": "maxVersionTested",
+          "direction": "out, retval",
+          "description": "测试的最大版本属性。"
+        },
+        {
+          "name": "minVersion",
+          "direction": "out, retval",
+          "description": "最低版本。"
+        },
+        {
+          "name": "name",
+          "direction": "out, retval",
+          "description": "目标设备系列名称。"
+        },
+        {
+          "name": "updatedPackageStream",
+          "direction": "in",
+          "description": "提供更新的应用包内容的 IStream 。[in] baselinePackageStream 提供基线应用包内容的 IStream 。[in] deltaPackageStream 一个 IStream ，它提供应用包) 增量 (差异的内容。"
+        },
+        {
+          "name": "updatedPackageStream",
+          "direction": "in",
+          "description": "提供更新的应用包内容的 IStream 。[in] baselineBlockMapStream 提供基线块映射内容的 IStream 。"
+        },
+        {
+          "name": "baselinePackageFullName",
+          "direction": "in",
+          "description": "基线应用包的全名。"
+        },
+        {
+          "name": "deltaPackageStream",
+          "direction": "in",
+          "description": "一个 IStream ，它提供应用包) 增量 (差异的内容。"
+        },
+        {
+          "name": "baselineEncryptedPackageStream",
+          "direction": "in",
+          "description": "提供基线加密应用包内容的 IStream 。[in] deltaPackageStream 提供增量 (差异) 应用包的内容的 IStream 。[in] updateOption 更新选项。[in] settings 加密的应用包设置。[in] keyInfo 应用包密钥信息。"
+        },
+        {
+          "name": "baselinePackageStream",
+          "direction": "in",
+          "description": "提供基线应用包内容的 IStream 。[in] deltaPackageStream 提供增量 (差异) 应用包的内容的 IStream 。[in] updateOption 更新选项。"
+        },
+        {
+          "name": "packageStream",
+          "direction": "in",
+          "description": "一个 IStream ，提供与要更新的清单关联的应用包的内容。[in] updatedManifestStream 提供更新的应用包清单内容的 IStream 。[in] isPackageEncrypted 用于指定包是否加密的标志。[in] options 应用包清单验证的选项。"
+        },
+        {
+          "name": "blockMapReader",
+          "direction": "out, retval",
+          "description": "类型： IAppxBlockMapReader** 包的块映射的对象模型。"
+        },
+        {
+          "name": "type",
+          "direction": "in",
+          "type": "APPX_FOOTPRINT_FILE_TYPE 要检索的占用文件的类型。",
+          "description": ""
+        },
+        {
+          "name": "file",
+          "direction": "out, retval",
+          "description": "类型： IAppxFile** 对应于 类型为的占用文件的文件对象。"
+        }
+      ],
+      "return_value": {
+        "type": "LONG",
+        "description": "如果该函数成功，则返回 ERROR_SUCCESS。 否则，该函数将返回错误代码。 可能的错误代码包括以下内容。 返回代码"
+      },
+      "remarks": "使用清单中的 Properties 元素指定 属性 。示例 有关示例，请参阅 快速入门：读取应用包清单信息。 资源是使用清单中的 Resources 元素指定的。 使用完 resources 对象后，调用 IUnknown：：Release 方法。 原始 XML 流是整个源流，可能包含清单读取者忽略的其他命名空间中的元素和属性。 例如，XML 流可能具有其他命名空间中的元素，这些元素在 Package 元素的 IgnorableNamespaces 属性中标记，但未经过验证。 因此，应将此 XML 视为不受信任。 建议使用打包 API 从清单中获取信息，而不是分析原始 XML。如果分析 XML，则必须包括 XML 数据验证和 XML 安全测试。 使用完 manifestStream 对象后，调用 IUnknown：：Release 方法。 要求",
+      "requirements": {
+        "header": "appxpackaging.h",
+        "target_platform": "Windows",
+        "min_client": "Windows 8",
+        "min_server": "Windows Server 2012 R2 [仅限桌面应用]"
+      },
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [
+        "Release"
+      ],
+      "confidence": 1.0,
+      "_source_line": 663
+    },
+    {
+      "id": "windows::ERROR_INSUFFICIENT_BUFFER",
+      "name": "ERROR_INSUFFICIENT_BUFFER",
+      "entity_type": "constant",
+      "description": "注解 令牌没有应用程序标识。 缓冲区不够大，无法保存数据。 所需的大小由 applicationUserModelIdLength 指定。 有关字符串大小限制的信息，请参阅 标识常量。 示例 C++ /**************************************************** ** Copyright (C) Microsoft. All rights reserved. ** ****************************************************/ #define _UNICODE 1#define UNICODE 1 #include <Windows.h>#include <appmodel.h>#include <appmodelp.h> #include <malloc.h>#include <stdlib.h>#include <stdio.h> int ShowUsage(); void",
+      "syntax": "LONG FormatApplicationUserModelId(\n[in]            PCWSTR packageFamilyName,\n[in]            PCWSTR packageRelativeApplicationId,   [in, out]       UINT32 *applicationUserModelIdLength,\n[out, optional] PWSTR  applicationUserModelId);",
+      "parameters": [
+        {
+          "name": "packageFamilyName",
+          "direction": "in",
+          "type": "PCWSTR 包系列名称。",
+          "description": ""
+        },
+        {
+          "name": "packageRelativeApplicationId",
+          "direction": "in",
+          "description": "类型： PCWSTR 相对于包的应用 ID (PRAID) 。"
+        },
+        {
+          "name": "applicationUserModelIdLength",
+          "direction": "in, out",
+          "description": "类型： UINT32* 指向变量的指针，该变量保存应用用户模型 ID 字符串中 WCHAR) 字符数 (，其中包括 null 终止符。 首先，将 NULL 传递给 applicationUserModelId 以获取字符数。 使用此数字为 applicationUserModelId 分配内存空间。 然后传递此内存空间的地址以填充 applicationUserModelId。"
+        },
+        {
+          "name": "applicationUserModelId",
+          "direction": "out, optional",
+          "type": "PWSTR",
+          "description": "指向接收应用用户模型 ID 字符串（包括 null 终止符）的内存空间的指针。"
+        }
+      ],
+      "return_value": {
+        "type": "LONG",
+        "description": "如果该函数成功，则返回 ERROR_SUCCESS。 否则，该函数将返回错误代码。 可能的错误代码包括以下内容。 返回代码"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "appmodel.h",
+        "library": "Kernel32.lib",
+        "dll": "Kernel32.dll",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 1.0,
+      "_source_line": 1437
+    },
+    {
+      "id": "windows::ERROR_INVALID_PARAMETER",
+      "name": "ERROR_INVALID_PARAMETER",
+      "entity_type": "constant",
+      "description": "ERROR_INSUFFICIENT_BUFFER 要求",
+      "syntax": "LONG GetApplicationUserModelId(   [in]      HANDLE hProcess,\n[in, out] UINT32 *applicationUserModelIdLength,\n[out]     PWSTR  applicationUserModelId);",
+      "parameters": [
+        {
+          "name": "packageFullName",
+          "direction": "in",
+          "type": "PCWSTR 暂暂包的全名。",
+          "description": ""
+        },
+        {
+          "name": "pathLength",
+          "direction": "in, out",
+          "description": "类型： UINT32* 指向包含包路径字符串中 WCHAR) 字符数 (的变量的指针，其中包含 null 终止符。 首先，将 NULL 传递给 路径 以获取字符数。 使用此数字为 路径分配内存空间。 然后传递此内存空间的地址以填充 路径。"
+        },
+        {
+          "name": "path",
+          "direction": "out, optional",
+          "description": "类型： PWSTR 指向接收包路径字符串（包括 null 终止符）的内存空间的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "如果该函数成功，则返回 ERROR_SUCCESS。 否则，该函数将返回错误代码。 可能的错误代码包括以下内容。 返回代码 说明"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "appmodel.h",
+        "library": "Kernel32.lib",
+        "dll": "Kernel32.dll",
+        "min_client": "Windows 8",
+        "min_server": "Windows Server 2012 R2 [桌面应用 |UWP 应用]"
+      },
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [
+        "ERROR_INSUFFICIENT_BUFFER"
+      ],
+      "confidence": 0.9,
+      "_source_line": 1485
+    },
+    {
+      "id": "windows::APPMODEL_ERROR_NO_APPLICATION",
+      "name": "APPMODEL_ERROR_NO_APPLICATION",
+      "entity_type": "constant",
+      "description": "ERROR_INSUFFICIENT_BUFFER 说明 进程没有应用程序标识。 缓冲区不够大，无法保存数据。 所需大小由 applicationUserModelIdLength 指定。",
+      "remarks": "有关字符串大小限制的信息，请参阅 标识常量。 示例 C++ #define _UNICODE 1#define UNICODE 1 #include <Windows.h>#include <appmodel.h>#include <malloc.h>#include <stdio.h> int __cdecl wmain(){ UINT32 length = 0; LONG rc = GetCurrentApplicationUserModelId(&length, NULL); if (rc != ERROR_INSUFFICIENT_BUFFER) { if (rc == APPMODEL_ERROR_NO_APPLICATION) wprintf(L\"Desktop application\\n\"); else",
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [
+        "Desktop",
+        "ERROR_INSUFFICIENT_BUFFER"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1530
+    },
+    {
+      "id": "windows::wprintf",
+      "name": "wprintf",
+      "entity_type": "constant",
+      "description": "L\"Usage: PackageIdFromFullName <[flags]fullname> [<[flags]fullname>...]\\n\" L\"flags:\\n\" L\" ? = Basic information (PACKAGE_INFORMATION_BASIC)\\n\" L\" * = Full information (PACKAGE_INFORMATION_FULL)\\n\" L\"Default = Basic\\n\"); return 1;} int __cdecl wmain(__in int argc, __in_ecount(argc) WCHAR * argv[]){ if (argc <= 1) return ShowUsage(); for (int i=1; i<argc; ++i) { PCWSTR fullName = argv[i]; UINT32 flags = PACKAGE_INFORMATION_BASIC; if (*fullName != L'\\0') { if (*fullName == L'?') { flags = PACKAGE_INFORMATION_BASIC; ++fullName; } else if (*fullName == L'*') { flags =",
+      "syntax": "LONG PackageNameAndPublisherIdFromFamilyName(   [in]            PCWSTR packageFamilyName,   [in, out]       UINT32 *packageNameLength,   [out, optional] PWSTR  packageName,\n[in, out]       UINT32 *packagePublisherIdLength,\n[out, optional] PWSTR  packagePublisherId);",
+      "parameters": [
+        {
+          "name": "packageId",
+          "direction": "in",
+          "type": "const PACKAGE_ID* 包 ID。",
+          "description": ""
+        },
+        {
+          "name": "packageFullNameLength",
+          "direction": "in, out",
+          "description": "类型： UINT32* 输入时， packageFullName 缓冲区的大小（以字符为单位）。 输出时，返回包全名的大小（以字符为单位），包括 null 终止符。"
+        },
+        {
+          "name": "packageFullName",
+          "direction": "out, optional",
+          "description": "类型： PWSTR 包全名。返回值类型： LONG 如果函数成功，则返回 ERROR_SUCCESS。 否则，函数将返回错误代码。 可能的错误代码包括以下内容。 返回代码"
+        }
+      ],
+      "return_value": {
+        "type": "LONG",
+        "description": "如果该函数成功，则返回 ERROR_SUCCESS。 否则，该函数将返回错误代码。 可能的错误代码包括以下内容。 返回代码 说明"
+      },
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [
+        "Basic",
+        "PACKAGE_INFORMATION_FULL"
+      ],
+      "confidence": 0.7,
+      "_source_line": 1541
+    },
+    {
+      "id": "windows::ShowProcessApplicationUserModelId",
+      "name": "ShowProcessApplicationUserModelId",
+      "entity_type": "constant",
+      "description": "pid, process);",
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 1553
+    },
+    {
+      "id": "windows::CloseHandle",
+      "name": "CloseHandle",
+      "entity_type": "constant",
+      "description": "process); } } } return 0;} void ShowProcessApplicationUserModelId(__in const UINT32 pid, __in HANDLE process){",
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [
+        "ShowProcessApplicationUserModelId"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1556
+    },
+    {
+      "id": "windows::free",
+      "name": "free",
+      "entity_type": "constant",
+      "description": "applicationUserModelId);} 要求要求目标平台标头 Library DLL 是 否 值 Windows appmodel.h Kernel32.lib Kernel32.dll getCurrentApplicationUserModelId 函数 获取当前进程的 应用程序用户模型 ID 。",
+      "syntax": "typedef enum PackageOrigin {\nPackageOrigin_Unknown,   PackageOrigin_Unsigned,\nPackageOrigin_Inbox,   PackageOrigin_Store,\nPackageOrigin_DeveloperUnsigned,   PackageOrigin_DeveloperSigned,\nPackageOrigin_LineOfBusiness} ;",
+      "parameters": [
+        {
+          "name": "hProcess",
+          "direction": "in",
+          "description": "类型： 句柄 具有 PROCESS_QUERY_INFORMATION 或 PROCESS_QUERY_LIMITED_INFORMATION 访问权限的进程句柄。 有关详细信息，请参阅 进程安全性和访问权限。"
+        },
+        {
+          "name": "packageFullNameLength",
+          "direction": "in, out",
+          "description": "类型： UINT32* 输入时， packageFullName 缓冲区的大小（以字符为单位）。 输出时，返回包全名的大小（以字符为单位），包括 null 终止符。"
+        },
+        {
+          "name": "packageFullName",
+          "direction": "out, optional",
+          "description": "类型： PWSTR 包全名。返回值类型： LONG 如果函数成功，则返回 ERROR_SUCCESS。 否则，函数将返回错误代码。 可能的错误代码包括以下内容。 返回代码"
+        }
+      ],
+      "return_value": {
+        "description": "如果函数成功，则返回 ERROR_SUCCESS。 否则，函数将返回错误代码。 可能的错误代码包括以下内容。 返回代码 说明"
+      },
+      "requirements": {
+        "header": "appmodel.h",
+        "library": "Kernel32.lib",
+        "target_platform": "Windows",
+        "dll": "Kernel32.dll",
+        "min_client": "Windows 8 [桌面应用 |UWP 应用]",
+        "min_server": "Windows Server 2012 [桌面应用 |UWP 应用]"
+      },
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 1574
+    },
+    {
+      "id": "windows::GetLastError",
+      "name": "GetLastError",
+      "entity_type": "constant",
+      "description": "), pid); else { HANDLE token; if (!OpenProcessToken(process, TOKEN_QUERY, &token))",
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [
+        "OpenProcessToken"
+      ],
+      "confidence": 0.6,
+      "_source_line": 1649
+    },
+    {
+      "id": "windows::APPMODEL_ERROR_NO_PACKAGE",
+      "name": "APPMODEL_ERROR_NO_PACKAGE",
+      "entity_type": "constant",
+      "description": "ERROR_INSUFFICIENT_BUFFER 要求",
+      "syntax": "LONG GetCurrentPackageInfo2(   const UINT32    flags,\nPackagePathType packagePathType,   UINT32          *bufferLength,\nBYTE            *buffer,   UINT32          *count);\n参数 flags\n类型： const UINT32\n指定如何检索包信息的包 常量 。 支持 PACKAGE_FILTER_* 标志。 packagePathType\n类型： PackagePathType\n指示要为原始安装文件夹或可变文件夹) (包检索的文件夹路径的类型。\nbufferLength 类型： UINT32*\n输入时， 缓冲区的大小（以字节为单位）。 输出时返回的结构数组的大小（以字节为单\n位）。 buffer\n类型： BYTE*\n包信息，表示为 PACKAGE_INFO 结构的数组。 count\n类型： UINT32*\n缓冲区中的结构数。",
+      "parameters": [
+        {
+          "name": "packageInfoReference",
+          "direction": "in",
+          "type": "PACKAGE_INFO_REFERENCE",
+          "description": "对包信息的引用。[in] flags 类型： const UINT32 指定如何检索包信息的包 常量 。"
+        },
+        {
+          "name": "bufferLength",
+          "direction": "in, out",
+          "description": "类型： UINT32* 输入时， 缓冲区的大小（以字节为单位）。 输出时，返回的包信息的大小（以字节为单位）。"
+        },
+        {
+          "name": "buffer",
+          "direction": "out, optional",
+          "description": "类型： BYTE* 包信息，表示为 PACKAGE_INFO 结构的数组。"
+        },
+        {
+          "name": "count",
+          "direction": "out, optional",
+          "type": "UINT32* 缓冲区中的包数。",
+          "description": ""
+        }
+      ],
+      "return_value": {
+        "type": "LONG",
+        "description": "如果该函数成功，则返回 ERROR_SUCCESS。 否则，该函数将返回错误代码。 可能的错误代码包括以下内容。 返回代码"
+      },
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [
+        "ERROR_INSUFFICIENT_BUFFER"
+      ],
+      "confidence": 0.9,
+      "_source_line": 1769
+    },
+    {
+      "id": "windows::ShowProcessPackageFamilyName",
+      "name": "ShowProcessPackageFamilyName",
+      "entity_type": "constant",
+      "description": "pid, process);",
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 2252
+    },
+    {
+      "id": "windows::ShowProcessPackageFullName",
+      "name": "ShowProcessPackageFullName",
+      "entity_type": "constant",
+      "description": "pid, process);",
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.4,
+      "_source_line": 2437
+    },
+    {
+      "id": "windows::PACKAGE_INFO_REFERENCE",
+      "name": "PACKAGE_INFO_REFERENCE",
+      "entity_type": "constant",
+      "description": "packageInfoReference, const UINT32 flags, PackagePathType packagePathType, UINT32 *bufferLength, BYTE *buffer, UINT32 *count);",
+      "parameters": [
+        {
+          "name": "packageInfoReference",
+          "type": "PACKAGE_INFO_REFERENCE",
+          "description": "对包信息的引用。 flags 类型： const UINT32 指定如何检索包信息的包 常量 。 packagePathType 类型： PackagePathType 指示要为原始安装文件夹或可变文件夹) (包检索的文件夹路径的类型。 bufferLength 类型： UINT32* 输入时， 缓冲区的大小（以字节为单位）。 输出时返回的包信息的大小（以字节为单位）。 buffer 类型： BYTE* 包信息，表示为 PACKAGE_INFO 结构的数组。 count 类型： UINT32* 缓冲区中的包数。"
+        }
+      ],
+      "return_value": {
+        "type": "LONG",
+        "description": "如果该函数成功，则返回 ERROR_SUCCESS。 否则，该函数将返回错误代码。 可能的错误代码包括以下内容。 返回代码"
+      },
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.9,
+      "_source_line": 2665
+    },
+    {
+      "id": "windows::ERROR_NOT_FOUND",
+      "name": "ERROR_NOT_FOUND",
+      "entity_type": "constant",
+      "description": "注解 说明 缓冲区不够大，无法保存数据。 所需的大小由 bufferLength 指定。未为用户安装包。 如果 标志 指定 PACKAGE_INFORMATION_BASIC，则检索以下字段： name processorArchitecture publisherId resourceId version 如果 标志 指定 PACKAGE_INFORMATION_FULL，则检索以下字段： name processorArchitecture publisher publisherId resourceId version 仅当为 当前 用户安装并可访问 packageFullName 对应的包时，",
+      "syntax": "typedef struct PACKAGE_ID {   UINT32          reserved;\nUINT32          processorArchitecture;",
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [
+        "PACKAGE_ID",
+        "PACKAGE_INFORMATION_FULL",
+        "Server"
+      ],
+      "confidence": 0.85,
+      "_source_line": 3122
+    },
+    {
+      "id": "windows::PROCESSOR_ARCHITECTURE_AMD64",
+      "name": "PROCESSOR_ARCHITECTURE_AMD64",
+      "entity_type": "constant",
+      "description": "PROCESSOR_ARCHITECTURE_ARM PROCESSOR_ARCHITECTURE_ARM64 PROCESSOR_ARCHITECTURE_INTEL",
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [
+        "PROCESSOR_ARCHITECTURE_INTEL"
+      ],
+      "confidence": 0.75,
+      "_source_line": 3154
+    },
+    {
+      "id": "windows::PROCESSOR_ARCHITECTURE_NEUTRAL",
+      "name": "PROCESSOR_ARCHITECTURE_NEUTRAL",
+      "entity_type": "constant",
+      "description": "PROCESSOR_ARCHITECTURE_UNKNOWN version 类型： PACKAGE_VERSION 包的版本。 name 类型： PWSTR 包的名称。 publisher 类型： PWSTR 包的发布者。 如果包没有发布者，则此成员为 NULL。 resourceId 类型： PWSTR 资源标识符 (包的 ID) 。 如果包没有资源 ID，则此成员为 NULL。 publisherId 类型： PWSTR 发布者标识符 (包的 ID) 。 如果包没有发布者 ID，则此成员为 NULL。",
+      "syntax": "typedef struct PACKAGE_INFO {   UINT32     reserved;\nUINT32     flags;   PWSTR      path;\nPWSTR      packageFullName;   PWSTR      packageFamilyName;",
+      "remarks": "有关字符串大小限制的信息，请参阅 标识常量。",
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [
+        "PACKAGE_VERSION",
+        "Server"
+      ],
+      "confidence": 0.85,
+      "_source_line": 3156
+    },
+    {
+      "id": "windows::FullNameToFamilyName",
+      "name": "FullNameToFamilyName",
+      "entity_type": "constant",
+      "description": "argv[i]); return 0;} void FullNameToFamilyName(__in PCWSTR fullName){",
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 3374
+    },
+    {
+      "id": "windows::ZeroMemory",
+      "name": "ZeroMemory",
+      "entity_type": "constant",
+      "description": "&packageId, sizeof(packageId)); packageId.name = argv[1]; if (!ParseVersion(argv[2], &packageId.version)) return 2; if (!ParseArchitecture(argv[3], &packageId.processorArchitecture)) return 3; packageId.resourceId = argv[4]; packageId.publisher = argv[5]; UINT32 length = 0; LONG rc = PackageFamilyNameFromId(&packageId, &length, NULL); if (rc == ERROR_SUCCESS) {",
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [
+        "ERROR_SUCCESS"
+      ],
+      "confidence": 0.6,
+      "_source_line": 3455
+    },
+    {
+      "id": "windows::PACKAGE_INFORMATION_FULL",
+      "name": "PACKAGE_INFORMATION_FULL",
+      "entity_type": "constant",
+      "description": "请求才会成功。 如果包全名在语法上正确，但不对应于为当前用户安装且可供当前用户访问的包，则函数将返回 ERROR_NOT_FOUND。 有关字符串大小限制的信息，请参阅 标识常量。示例 C++ #define _UNICODE 1#define UNICODE 1 #include <Windows.h>#include <appmodel.h>#include <malloc.h>#include <stdio.h> int ShowUsage(); void FullNameToId(__in PCWSTR fullName, __in const UINT32 flags); void ShowPackageId(__in const",
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [
+        "ERROR_NOT_FOUND",
+        "FullNameToId",
+        "ShowPackageId"
+      ],
+      "confidence": 0.75,
+      "_source_line": 3690
+    },
+    {
+      "id": "windows::FullNameToId",
+      "name": "FullNameToId",
+      "entity_type": "constant",
+      "description": "fullName, flags); } return 0;} void FullNameToId(__in PCWSTR fullName, __in const UINT32 flags) {",
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 3717
+    },
+    {
+      "id": "windows::ShowPackageId",
+      "name": "ShowPackageId",
+      "entity_type": "constant",
+      "description": "(PACKAGE_ID *) buffer); }",
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [
+        "PACKAGE_ID"
+      ],
+      "confidence": 0.5,
+      "_source_line": 3739
+    },
+    {
+      "id": "windows::FamilyNameToNameAndPublisherId",
+      "name": "FamilyNameToNameAndPublisherId",
+      "entity_type": "constant",
+      "description": "argv[i]); return 0;} void FamilyNameToNameAndPublisherId(__in PCWSTR familyName){",
+      "header": "appmodel.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 3815
+    },
+    {
+      "id": "windows::APPX_COMPRESSION_OPTION",
+      "name": "APPX_COMPRESSION_OPTION",
+      "entity_type": "enum",
+      "description": "compressionOption;} APPX_PACKAGE_WRITER_PAYLOAD_STREAM; 成员 inputStream 有效负载文件的源。 fileName 有效负载文件的名称。 contentType 有效负载文件的内容类型。 compressionOption 包中文件使用的压缩程度。",
+      "syntax": "HRESULT GetXmlDom(\n[out] IXMLDOMDocument **dom);\nHRESULT GetCompressedSize(   [out, retval] UINT32 *size);\nHRESULT GetHash(\n[out]         UINT32 *bufferSize,\n[out, retval] BYTE   **buffer);\nHRESULT GetCurrent(\n[out, retval] IAppxBlockMapBlock **block);\nHRESULT GetHasCurrent(\n[out, retval] BOOL *hasCurrent);\nHRESULT MoveNext(\n[out, retval] BOOL *hasNext);\nHRESULT GetBlocks(\n[out, retval] IAppxBlockMapBlocksEnumerator **blocks);\nHRESULT GetLocalFileHeaderSize(   [out, retval] UINT32 *lfhSize);\nHRESULT GetName(\n[out, retval] LPWSTR *name);\nHRESULT GetUncompressedSize(   [out, retval] UINT64 *size);\nHRESULT ValidateFileHash(\n[in]          IStream *fileStream,\n[out, retval] BOOL    *isValid);\nHRESULT GetCurrent(\n[out, retval] IAppxBlockMapFile **file);\nHRESULT GetHasCurrent(\n[out, retval] BOOL *hasCurrent);\nHRESULT MoveNext(\n[out, retval] BOOL *hasCurrent);\nHRESULT GetFile(\n[in]          LPCWSTR           filename,\n[out, retval] IAppxBlockMapFile **file);\nHRESULT GetFiles(\n[out, retval] IAppxBlockMapFilesEnumerator **enumerator);\nHRESULT GetHashMethod(\n[out, retval] IUri **hashMethod);\nHRESULT GetStream(\n[out, retval] IStream **blockMapStream);\nHRESULT CreateBundleManifestReader(\n[in]          IStream                   *inputStream,\n[out, retval] IAppxBundleManifestReader **manifestReader);",
+      "parameters": [
+        {
+          "name": "dom",
+          "direction": "out",
+          "description": "接收指向 IXMLDOMDocument 的指针，该指针表示应用安装程序文件的 XML DOM。"
+        },
+        {
+          "name": "size",
+          "direction": "out, retval",
+          "description": "类型： UINT32* 块的压缩大小（以字节为单位）。"
+        },
+        {
+          "name": "bufferSize",
+          "direction": "out",
+          "description": "类型： UINT32* 缓冲区的长度。"
+        },
+        {
+          "name": "buffer",
+          "direction": "out, retval",
+          "description": "类型： BYTE** 表示块的哈希值的字节序列。"
+        },
+        {
+          "name": "block",
+          "direction": "out, retval",
+          "type": "IAppxBlockMapBlock**",
+          "description": "当前块。返回值类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，它将返回一个错误代码，该代码包括但不限于下表中的错误代码。 返回代码 E_BOUNDS"
+        },
+        {
+          "name": "hasCurrent",
+          "direction": "out, retval",
+          "description": "类型： BOOL* 如果枚举器的当前位置引用项，则为 TRUE;如果枚举器已传递集合中的最后一项，则为 FALSE。"
+        },
+        {
+          "name": "hasNext",
+          "direction": "out, retval",
+          "description": "类型： BOOL* 如果枚举器成功前进，则为 TRUE 如果枚举器已通过集合的末尾，则为 FALSE。"
+        },
+        {
+          "name": "blocks",
+          "direction": "out, retval",
+          "type": "IAppxBlockMapBlocksEnumerator** 用于遍历块的枚举器。",
+          "description": ""
+        },
+        {
+          "name": "lfhSize",
+          "direction": "out, retval",
+          "description": "类型： UINT32* 在有效的应用包中， lfhSize 对应于关联 zip 文件项的 zip 本地文件标头的大小。"
+        },
+        {
+          "name": "name",
+          "direction": "out, retval",
+          "description": "类型： LPWSTR* 在有效的应用包中， name 对应于关联的 zip 文件项的名称。"
+        },
+        {
+          "name": "size",
+          "direction": "out, retval",
+          "description": "类型： UINT64* 在有效的应用包中， size 是关联 zip 文件项的未压缩大小。"
+        },
+        {
+          "name": "fileStream",
+          "direction": "in",
+          "description": "类型： IStream* 包含文件内容的流。 流必须支持 Read、 Seek 和 Stat。如果这些方法失败，则其错误代码可能会传递给此方法并由此方法返回。"
+        },
+        {
+          "name": "isValid",
+          "direction": "out, retval",
+          "description": "类型： BOOL* 如果文件哈希验证，则为 TRUE;否则为 FALSE。"
+        },
+        {
+          "name": "file",
+          "direction": "out, retval",
+          "type": "IAppxBlockMapFile**",
+          "description": "当前文件。返回值类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，它将返回一个错误代码，该代码包括但不限于下表中的错误代码。 返回代码 E_BOUNDS"
+        },
+        {
+          "name": "hasCurrent",
+          "direction": "out, retval",
+          "description": "类型： BOOL* 如果枚举器的当前位置引用项，则为 TRUE;如果枚举器已传递集合中的最后一项，则为 FALSE。"
+        },
+        {
+          "name": "hasCurrent",
+          "direction": "out, retval",
+          "description": "类型： BOOL* 如果枚举器成功前进，则为 TRUE 如果枚举器已通过集合的末尾，则为 FALSE。"
+        },
+        {
+          "name": "filename",
+          "direction": "in",
+          "type": "LPCWSTR 文件的名称。",
+          "description": ""
+        },
+        {
+          "name": "file",
+          "direction": "out, retval",
+          "type": "IAppxBlockMapFile** 有关文件的属性和块的数据。",
+          "description": ""
+        },
+        {
+          "name": "enumerator",
+          "direction": "out, retval",
+          "type": "IAppxBlockMapFilesEnumerator** 块映射中列出的所有文件的枚举器。",
+          "description": ""
+        },
+        {
+          "name": "hashMethod",
+          "direction": "out, retval",
+          "description": "类型： IUri** 此块映射中使用的哈希算法。"
+        },
+        {
+          "name": "blockMapStream",
+          "direction": "out, retval",
+          "description": "类型： IStream** 一个只读流，表示块映射的 XML 内容。"
+        },
+        {
+          "name": "inputStream",
+          "direction": "in",
+          "type": "IAppxBundleManifestReader**",
+          "description": "类型： IStream* 传递清单 XML 以供读取的输入流。 流必须支持 Read、 Seek 和 Stat。如果这些方法失 败，则其错误代码可能会传递给此方法并由此方法返回。[out, retval] manifestReader 清单读取器。返回值类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，它将返回一个错误代码，该代码包括但不限于下表中的错误代码。 返回代码"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果成功，则返回 S_OK。 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果方法成功，则返回 S_OK。 否则，它将返回错误代码。 请注意，当枚举器首次通过集合的末尾时， hasNext = FALSE，但 该方法成功并返回 S_OK。 但是，如果在已通过集合的末尾之后随后调用另一个 MoveNext，并且之前收到 hasNext = FALSE，则该方法将返回E_BOUNDS。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，它将返回错误代码。 请注意，当枚举器首次通过集合末尾时， hasNext = FALSE，但该方法成功并返回 S_OK。 但是，如果随后在集合结束之后调用另一个 MoveNext，并且之前收到 hasNext = FALSE，则该方法将返回E_BOUNDS。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，它将返回一个错误代码，该代码包括但不限于下表中的错误代码。 返回代码 说明 HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND) 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+      },
+      "remarks": "通过调用 IAppxFactory3：：CreateAppInstallerReader 获取此接口的实例。 每个 Block 元素都有一个属性，表示块的哈希值和压缩大小。 有关代码示例，请参阅 查询应用包和应用清单示例要求 。 此大小对应于块的压缩大小。 size 值对应于块映射中 Block 元素的 Size 属性。 缓冲区值对应于 Block 元素的 Hash 属性。 调用方负责解除分配用于 缓冲区的内存。 使用 CoTaskMemFree 函数解除分配内存。 要求",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "appxpackaging.h",
+        "min_client": "Windows 8 [仅限桌面应用]",
+        "min_server": "Windows Server 2012 [仅限桌面应用]"
+      },
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPX_PACKAGE_WRITER_PAYLOAD_STREAM",
+        "CoTaskMemFree"
+      ],
+      "confidence": 1.0,
+      "_source_line": 4398
+    },
+    {
+      "id": "windows::APPX_PACKAGE_ARCHITECTURE2",
+      "name": "APPX_PACKAGE_ARCHITECTURE2",
+      "entity_type": "enum",
+      "description": "指定包支持的处理器体系结构。 (APPX_PACKAGE_ARCHITECTURE2) APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS 更新清单时用于应用清单验证的选项。",
+      "syntax": "typedef enum APPX_PACKAGE_ARCHITECTURE2 {",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 4409
+    },
+    {
+      "id": "windows::APPX_BUNDLE_FOOTPRINT_FILE_TYPE_MANIFEST",
+      "name": "APPX_BUNDLE_FOOTPRINT_FILE_TYPE_MANIFEST",
+      "entity_type": "enum",
+      "description": ", APPX_BUNDLE_FOOTPRINT_FILE_TYPE_BLOCKMAP, APPX_BUNDLE_FOOTPRINT_FILE_TYPE_SIGNATURE,",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPX_BUNDLE_FOOTPRINT_FILE_TYPE_BLOCKMAP",
+        "APPX_BUNDLE_FOOTPRINT_FILE_TYPE_SIGNATURE"
+      ],
+      "confidence": 0.75,
+      "_source_line": 4422
+    },
+    {
+      "id": "windows::APPX_BUNDLE_FOOTPRINT_FILE_TYPE_LAST",
+      "name": "APPX_BUNDLE_FOOTPRINT_FILE_TYPE_LAST",
+      "entity_type": "enum",
+      "description": "捆绑包的最后一个占用空间文件，即捆绑包签名。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 4423
+    },
+    {
+      "id": "windows::APPX_BUNDLE_FOOTPRINT_FILE_TYPE_FIRST",
+      "name": "APPX_BUNDLE_FOOTPRINT_FILE_TYPE_FIRST",
+      "entity_type": "constant",
+      "description": "捆绑包的第一个占用空间文件，即捆绑包清单。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 4427
+    },
+    {
+      "id": "windows::APPX_BUNDLE_FOOTPRINT_FILE_TYPE_SIGNATURE",
+      "name": "APPX_BUNDLE_FOOTPRINT_FILE_TYPE_SIGNATURE",
+      "entity_type": "constant",
+      "description": "类型返回此错误。 Windows 8.1 [仅限桌面应用] Windows Server 2012 R2 [仅限桌面应用] Windows appxpackaging.h 否 IAppxBundleReader：：GetManifest 方 从捆绑中检索只读清单对象。",
+      "syntax": "HRESULT GetManifest(\n[out, retval] IAppxBundleManifestReader **manifestReader);\nHRESULT GetPayloadPackage(\n[in]          LPCWSTR   fileName,\n[out, retval] IAppxFile **payloadPackage);",
+      "parameters": [
+        {
+          "name": "manifestReader",
+          "direction": "out, retval",
+          "type": "IAppxBundleManifestReader** 捆绑清单的对象模型。",
+          "description": ""
+        },
+        {
+          "name": "fileName",
+          "direction": "in",
+          "type": "LPCWSTR",
+          "description": "要检索的有效负载文件的名称。[out, retval] payloadPackage 类型： IAppxFile** 与 fileName 对应的有效负载文件对象。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果方法成功，则返回 S_OK。 否则，它将返回一个错误代码，该错误代码包括但不限于下表中的代码。 返回代码"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 8",
+        "min_server": "Windows Server 2012 R2 [仅限桌面应用]"
+      },
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 1.0,
+      "_source_line": 4431
+    },
+    {
+      "id": "windows::APPX_BUNDLE_PAYLOAD_PACKAGE_TYP",
+      "name": "APPX_BUNDLE_PAYLOAD_PACKAGE_TYP",
+      "entity_type": "constant",
+      "description": "指定 IAppxBundleManifestPackageInfo 对象的包 类型。",
+      "syntax": "typedef enum APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE {   APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE_APPLICATION,",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 4453
+    },
+    {
+      "id": "windows::APPX_CAPABILITIES",
+      "name": "APPX_CAPABILITIES",
+      "entity_type": "constant",
+      "description": "枚举指定包在包清单中声明的权限。 如果未显式声明某个功能，则默认为无法访问该功能。 如果声明了某个功能，则包可能仍然没有特定功能，原因如 下：系统中不存在该功能，或者存在限制该功能的其他安全策略。",
+      "syntax": "typedef enum APPX_CAPABILITIES {   APPX_CAPABILITY_INTERNET_CLIENT,",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 4482
+    },
+    {
+      "id": "windows::APPX_CAPABILITY_DOCUMENTS_LIBRARY",
+      "name": "APPX_CAPABILITY_DOCUMENTS_LIBRARY",
+      "entity_type": "constant",
+      "description": ", APPX_CAPABILITY_PICTURES_LIBRARY,",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 4489
+    },
+    {
+      "id": "windows::APPX_CAPABILITY_VIDEOS_LIBRARY",
+      "name": "APPX_CAPABILITY_VIDEOS_LIBRARY",
+      "entity_type": "constant",
+      "description": ", APPX_CAPABILITY_MUSIC_LIBRARY,",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 4490
+    },
+    {
+      "id": "windows::APPX_CAPABILITY_ENTERPRISE_AUTHENTICATION",
+      "name": "APPX_CAPABILITY_ENTERPRISE_AUTHENTICATION",
+      "entity_type": "constant",
+      "description": ", APPX_CAPABILITY_SHARED_USER_CERTIFICATES,",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 4491
+    },
+    {
+      "id": "windows::APPX_CAPABILITY_REMOVABLE_STORAGE",
+      "name": "APPX_CAPABILITY_REMOVABLE_STORAGE",
+      "entity_type": "constant",
+      "description": "可移动存储，如外部硬盘或 U 盘或 MTP 便携式设备，包括添加、更改或删除特定文件的功能。 此 包只能访问它在清单中声明的文件类型。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 4492
+    },
+    {
+      "id": "windows::APPX_CAPABILITY_INTERNET_CLIENT",
+      "name": "APPX_CAPABILITY_INTERNET_CLIENT",
+      "entity_type": "constant",
+      "description": "用于与 Internet 的传出连接的 Internet 连接。 APPX_CAPABILITY_INTERNET_CLIENT_SERVER Internet 连接，包括来自 Internet 的传入未经请求的连接 - 应用可以通过防火墙向计算机发送或从 计算机发送信息。 如果声明了此功能，则无需声明 APPX_CAPABILITY_INTERNET_CLIENT 。 APPX_CAPABILITY_PRIVATE_NETWORK_CLIENT_SERVER 家庭或工作网络 – 应用可以向计算机和同一网络上的其他计算机发送信息或从中发送信息。 APPX_CAPABILITY_DOCUMENTS_LIBRARY 文档库，包括添加、更改或删除文件的功能。 包只能访问它在清单中声明的文件类型。 该应用程 序不能访问家庭组计算机上的文档库。 APPX_CAPABILITY_PICTURES_LIBRARY 你的图片库，包括添加、更改或删除文件的功能。 此功能还包括家庭组计算机上的图片库，以及本 地连接的媒体服务器上的图片文件类型。 APPX_CAPABILITY_VIDEOS_LIBRARY 视频库，包括添加、更改或删除文件的功能。 此功能还包括家庭组计算机上的视频库，以及本地连 接的媒体服务器上的视频文件类型。 APPX_CAPABILITY_MUSIC_LIBRARY 音乐库和播放列表，包括添加、更改或删除文件的功能。 此功能还包括家庭组计算机上的音乐库中 的音乐库和播放列表，以及本地连接的媒体服务器上的音乐文件类型。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPX_CAPABILITY_DOCUMENTS_LIBRARY",
+        "APPX_CAPABILITY_INTERNET_CLIENT_SERVER",
+        "APPX_CAPABILITY_PRIVATE_NETWORK_CLIENT_SERVER",
+        "APPX_CAPABILITY_VIDEOS_LIBRARY"
+      ],
+      "confidence": 0.75,
+      "_source_line": 4495
+    },
+    {
+      "id": "windows::APPX_COMPRESSION_OPTION_NONE",
+      "name": "APPX_COMPRESSION_OPTION_NONE",
+      "entity_type": "constant",
+      "description": ", APPX_COMPRESSION_OPTION_NORMAL, APPX_COMPRESSION_OPTION_MAXIMUM, APPX_COMPRESSION_OPTION_FAST,",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPX_COMPRESSION_OPTION_FAST",
+        "APPX_COMPRESSION_OPTION_MAXIMUM",
+        "APPX_COMPRESSION_OPTION_NORMAL"
+      ],
+      "confidence": 0.75,
+      "_source_line": 4540
+    },
+    {
+      "id": "windows::APPX_ENCRYPTED_PACKAGE_OPTIONS",
+      "name": "APPX_ENCRYPTED_PACKAGE_OPTIONS",
+      "entity_type": "constant",
+      "description": "加密的应用包选项。",
+      "syntax": "typedef enum APPX_ENCRYPTED_PACKAGE_OPTIONS {   APPX_ENCRYPTED_PACKAGE_OPTION_NONE,",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 4594
+    },
+    {
+      "id": "windows::APPX_ENCRYPTED_PACKAGE_OPTION_DIFFUSION",
+      "name": "APPX_ENCRYPTED_PACKAGE_OPTION_DIFFUSION",
+      "entity_type": "constant",
+      "description": ", APPX_ENCRYPTED_PACKAGE_OPTION_PAGE_HASHING} ;",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPX_ENCRYPTED_PACKAGE_OPTION_PAGE_HASHING"
+      ],
+      "confidence": 0.65,
+      "_source_line": 4599
+    },
+    {
+      "id": "windows::APPX_ENCRYPTED_PACKAGE_OPTION_PAGE_HASHING",
+      "name": "APPX_ENCRYPTED_PACKAGE_OPTION_PAGE_HASHING",
+      "entity_type": "constant",
+      "description": "用于添加页面哈希的选项。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "appxpackaging.h",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 4605
+    },
+    {
+      "id": "windows::APPX_ENCRYPTED_PACKAGE_SETTINGS",
+      "name": "APPX_ENCRYPTED_PACKAGE_SETTINGS",
+      "entity_type": "constant",
+      "description": "加密的 Windows 应用包的设置。",
+      "syntax": "typedef struct APPX_ENCRYPTED_PACKAGE_SETTINGS {   UINT32  keyLength;\nLPCWSTR encryptionAlgorithm;   BOOL    useDiffusion;\nIUri    *blockMapHashAlgorithm;} APPX_ENCRYPTED_PACKAGE_SETTINGS;\n成员 keyLength 密钥长度。\nencryptionAlgorithm 使用的加密算法。 useDiffusion\nTrue 是使用扩散，否则为 false。\nblockMapHashAlgorithm 块映射哈希算法的 URI。\ntypedef struct APPX_ENCRYPTED_PACKAGE_SETTINGS2 {   UINT32  keyLength;\nLPCWSTR encryptionAlgorithm;\nIUri    *blockMapHashAlgorithm;   DWORD   options;\n} APPX_ENCRYPTED_PACKAGE_SETTINGS2;\n成员 keyLength 密钥长度。\nencryptionAlgorithm 使用的加密算法。\nblockMapHashAlgorithm 块映射哈希算法的 URI。 options\n加密包的其他选项。 选项来自 APPX_ENCRYPTED_PACKAGE_OPTIONS 枚举。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "appxpackaging.h",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 4626
+    },
+    {
+      "id": "windows::APPX_FOOTPRINT_FILE_TYPE_MANIFEST",
+      "name": "APPX_FOOTPRINT_FILE_TYPE_MANIFEST",
+      "entity_type": "constant",
+      "description": ", APPX_FOOTPRINT_FILE_TYPE_BLOCKMAP, APPX_FOOTPRINT_FILE_TYPE_SIGNATURE,",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPX_FOOTPRINT_FILE_TYPE_BLOCKMAP",
+        "APPX_FOOTPRINT_FILE_TYPE_SIGNATURE"
+      ],
+      "confidence": 0.75,
+      "_source_line": 4689
+    },
+    {
+      "id": "windows::APPX_FOOTPRINT_FILE_TYPE_CODEINTEGRITY",
+      "name": "APPX_FOOTPRINT_FILE_TYPE_CODEINTEGRITY",
+      "entity_type": "constant",
+      "description": ", APPX_FOOTPRINT_FILE_TYPE_CONTENTGROUPMAP} ;",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPX_FOOTPRINT_FILE_TYPE_CONTENTGROUPMAP"
+      ],
+      "confidence": 0.65,
+      "_source_line": 4690
+    },
+    {
+      "id": "windows::APPX_FOOTPRINT_FILE_TYPE_SIGNATURE",
+      "name": "APPX_FOOTPRINT_FILE_TYPE_SIGNATURE",
+      "entity_type": "constant",
+      "description": "和 APPX_FOOTPRINT_FILE_TYPE_CODEINTEGRITY 类型返回此错误。 Windows 8 [仅限桌面应用] Windows Server 2012 [仅限桌面应用] Windows appxpackaging.h IAppxPackageReader：：GetPayloadFile IAppxPackageReader：：GetPayloadFiles 是 否 IAppxPackageReader：：GetManifest 方 检索包的应用清单的对象模型。",
+      "syntax": "HRESULT GetManifest(\n[out, retval] IAppxManifestReader **manifestReader);\nHRESULT GetPayloadFile(\n[in]          LPCWSTR   fileName,\n[out, retval] IAppxFile **file);",
+      "parameters": [
+        {
+          "name": "manifestReader",
+          "direction": "out, retval",
+          "description": "类型： IAppxManifestReader** 应用清单的对象模型。"
+        },
+        {
+          "name": "fileName",
+          "direction": "in",
+          "type": "LPCWSTR",
+          "description": "要检索的有效负载文件的名称。"
+        },
+        {
+          "name": "file",
+          "direction": "out, retval",
+          "description": "类型： IAppxFile** 对应于 fileName 的文件对象。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果方法成功，则返回 S_OK。 否则，它将返回一个错误代码，该错误代码包括但不限于下表中的代码。 返回代码"
+      },
+      "remarks": "使用 IAppxFactory 创建包读取器时，将验证包应用清单。示例 有关示例，请参阅 快速入门：读取应用包清单信息。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPX_FOOTPRINT_FILE_TYPE_CODEINTEGRITY",
+        "Server"
+      ],
+      "confidence": 1.0,
+      "_source_line": 4694
+    },
+    {
+      "id": "windows::APPX_FOOTPRINT_FILE_TYPE_CONTENTGROUPMAP",
+      "name": "APPX_FOOTPRINT_FILE_TYPE_CONTENTGROUPMAP",
+      "entity_type": "constant",
+      "description": "用于流式安装的内容组映射。",
+      "syntax": "typedef struct APPX_KEY_INFO {\nUINT32 keyLength;   UINT32 keyIdLength;\nBYTE   *key;   BYTE   *keyId;} APPX_KEY_INFO;\n成员 keyLength\n密钥的长度。 keyIdLength\n密钥 ID 的长度。 key\n应用包密钥。 keyId\n应用包密钥 ID。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "appxpackaging.h",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.65,
+      "_source_line": 4695
+    },
+    {
+      "id": "windows::APPX_PACKAGE_ARCHITECTURE",
+      "name": "APPX_PACKAGE_ARCHITECTURE",
+      "entity_type": "constant",
+      "description": "枚举 指定包支持的处理器体系结构。",
+      "syntax": "typedef enum APPX_PACKAGE_ARCHITECTURE {",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 4748
+    },
+    {
+      "id": "windows::APPX_PACKAGE_ARCHITECTURE_X86",
+      "name": "APPX_PACKAGE_ARCHITECTURE_X86",
+      "entity_type": "constant",
+      "description": ", APPX_PACKAGE_ARCHITECTURE_ARM, APPX_PACKAGE_ARCHITECTURE_X64,",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPX_PACKAGE_ARCHITECTURE_ARM",
+        "APPX_PACKAGE_ARCHITECTURE_X64"
+      ],
+      "confidence": 0.75,
+      "_source_line": 4753
+    },
+    {
+      "id": "windows::APPX_PACKAGE_ARCHITECTURE_NEUTRAL",
+      "name": "APPX_PACKAGE_ARCHITECTURE_NEUTRAL",
+      "entity_type": "constant",
+      "description": "任何处理器体系结构。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 4754
+    },
+    {
+      "id": "windows::APPX_PACKAGE_ARCHITECTURE_ARM64",
+      "name": "APPX_PACKAGE_ARCHITECTURE_ARM64",
+      "entity_type": "constant",
+      "description": "64 位 ARM 处理器体系结构。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 4755
+    },
+    {
+      "id": "windows::APPX_PACKAGE_ARCHITECTURE_ARM",
+      "name": "APPX_PACKAGE_ARCHITECTURE_ARM",
+      "entity_type": "constant",
+      "description": "ARM 处理器体系结构。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 4760
+    },
+    {
+      "id": "windows::APPX_PACKAGE_ARCHITECTURE_X64",
+      "name": "APPX_PACKAGE_ARCHITECTURE_X64",
+      "entity_type": "constant",
+      "description": "x64 处理器体系结构。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 4761
+    },
+    {
+      "id": "windows::APPX_PACKAGE_ARCHITECTURE2_X86",
+      "name": "APPX_PACKAGE_ARCHITECTURE2_X86",
+      "entity_type": "constant",
+      "description": ", APPX_PACKAGE_ARCHITECTURE2_ARM, APPX_PACKAGE_ARCHITECTURE2_X64,",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPX_PACKAGE_ARCHITECTURE2_X64"
+      ],
+      "confidence": 0.75,
+      "_source_line": 4789
+    },
+    {
+      "id": "windows::APPX_PACKAGE_ARCHITECTURE2_NEUTRAL",
+      "name": "APPX_PACKAGE_ARCHITECTURE2_NEUTRAL",
+      "entity_type": "constant",
+      "description": ", APPX_PACKAGE_ARCHITECTURE2_ARM64,",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPX_PACKAGE_ARCHITECTURE2_ARM64"
+      ],
+      "confidence": 0.65,
+      "_source_line": 4790
+    },
+    {
+      "id": "windows::APPX_PACKAGE_ARCHITECTURE2_X86_ON_ARM64",
+      "name": "APPX_PACKAGE_ARCHITECTURE2_X86_ON_ARM64",
+      "entity_type": "constant",
+      "description": "在 64 位 ARM 处理器上运行的 32 位应用包。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 4791
+    },
+    {
+      "id": "windows::APPX_PACKAGE_ARCHITECTURE2_UNKNOWN",
+      "name": "APPX_PACKAGE_ARCHITECTURE2_UNKNOWN",
+      "entity_type": "constant",
+      "description": "未知的应用包体系结构。 要求",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 4792
+    },
+    {
+      "id": "windows::APPX_PACKAGE_ARCHITECTURE2_X64",
+      "name": "APPX_PACKAGE_ARCHITECTURE2_X64",
+      "entity_type": "constant",
+      "description": "x64、64 位处理器体系结构。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 4797
+    },
+    {
+      "id": "windows::APPX_PACKAGE_ARCHITECTURE2_ARM64",
+      "name": "APPX_PACKAGE_ARCHITECTURE2_ARM64",
+      "entity_type": "constant",
+      "description": "64 位 ARM 处理器体系结构。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 4799
+    },
+    {
+      "id": "windows::APPX_PACKAGE_EDITOR_UPDATE_PACK",
+      "name": "APPX_PACKAGE_EDITOR_UPDATE_PACK",
+      "entity_type": "constant",
+      "description": "AGE_OPTION 枚举 (appxpackaging.h) 项目2024/03/05 更新应用包时要使用的选项。",
+      "syntax": "typedef enum APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS {   APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_NONE,",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 4822
+    },
+    {
+      "id": "windows::APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_SKIP_VALIDATION",
+      "name": "APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_SKIP_VALIDATION",
+      "entity_type": "constant",
+      "description": "跳过应用包清单验证。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 4827
+    },
+    {
+      "id": "windows::APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_LOCALIZED",
+      "name": "APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTION_LOCALIZED",
+      "entity_type": "constant",
+      "description": "应用包清单已本地化。",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 10 [仅限桌面应用]"
+      },
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 4828
+    },
+    {
+      "id": "windows::APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION_APPEND_DELTA",
+      "name": "APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION_APPEND_DELTA",
+      "entity_type": "constant",
+      "description": "追加基线包和更新包的增量 (差异) 。",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.55,
+      "_source_line": 4864
+    },
+    {
+      "id": "windows::APPX_E_INVALID_MANIFEST",
+      "name": "APPX_E_INVALID_MANIFEST",
+      "entity_type": "constant",
+      "description": "注解 说明 编写器已关闭。 输入流包含无效的清单。 只有在将所有有效负载文件添加到包后，才应调用 Close 方法。 示例 有关示例，请参阅 如何创建应用包。",
+      "syntax": "HRESULT GetFileName(\n[out, retval] LPWSTR *fileName);\nHRESULT GetPackageId(\n[out, retval] IAppxManifestPackageId **packageId);\nHRESULT GetPackageInfoItems(\n[out, retval] IAppxBundleManifestPackageInfoEnumerator **packageInfoItems\n);\nHRESULT GetCurrent(\n[out, retval] IAppxBundleManifestOptionalBundleInfo **optionalBundle);\nHRESULT GetHasCurrent(\n[out, retval] BOOL *hasCurrent);\nHRESULT MoveNext(\n[out, retval] BOOL *hasNext);\nHRESULT GetFileName(\n[out, retval] LPWSTR *fileName);\nHRESULT GetOffset(\n[out, retval] UINT64 *offset);\nHRESULT GetPackageId(\n[out, retval] IAppxManifestPackageId **packageId);\nHRESULT GetPackageType(\n[out, retval] APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE *packageType);\nHRESULT GetResources(\n[out, retval] IAppxManifestQualifiedResourcesEnumerator **resources);\nHRESULT GetSize(\n[out, retval] UINT64 *size);\nHRESULT GetIsDefaultApplicablePackage(\n[out, retval] BOOL *isDefaultApplicablePackage);\nHRESULT GetIsNonQualifiedResourcePackage(\n[out, retval] BOOL *isNonQualifiedResourcePackage);\nHRESULT GetIsPackageReference(\n[out, retval] BOOL *isPackageReference);\nHRESULT GetCurrent(\n[out, retval] IAppxBundleManifestPackageInfo **packageInfo);\nHRESULT GetHasCurrent(\n[out, retval] BOOL *hasCurrent);\nHRESULT MoveNext(\n[out, retval] BOOL *hasNext);\nHRESULT GetPackageId(\n[out, retval] IAppxManifestPackageId **packageId);\nHRESULT GetPackageInfoItems(\n[out, retval] IAppxBundleManifestPackageInfoEnumerator **packageInfoItems);\nHRESULT GetStream(\n[out, retval] IStream **manifestStream);\nHRESULT GetOptionalBundles(\n[out, retval] IAppxBundleManifestOptionalBundleInfoEnumerator\n**optionalBundles);\nHRESULT GetBlockMap(\n[out, retval] IAppxBlockMapReader **blockMapReader);\nHRESULT GetFootprintFile(\n[in]          APPX_BUNDLE_FOOTPRINT_FILE_TYPE fileType,\n[out, retval] IAppxFile                       **footprintFile);",
+      "parameters": [
+        {
+          "name": "fileName",
+          "direction": "out, retval",
+          "description": "类型： LPWSTR* 一个字符串，其中包含包的文件名。"
+        },
+        {
+          "name": "packageId",
+          "direction": "out, retval",
+          "description": "包标识符。"
+        },
+        {
+          "name": "packageInfoItems",
+          "direction": "out, retval",
+          "type": "IAppxBundleManifestPackageInfoEnumerator**",
+          "description": "捆绑包的 OptionalBundle> 元素中<所有有效负载包的枚举器。"
+        },
+        {
+          "name": "optionalBundle",
+          "direction": "out, retval",
+          "description": "可选捆绑信息。"
+        },
+        {
+          "name": "hasCurrent",
+          "direction": "out, retval",
+          "description": "如果枚举器的当前位置引用项，则为 TRUE;如果枚举器已传递集合中的最后一项，则为 FALSE。"
+        },
+        {
+          "name": "hasNext",
+          "direction": "out, retval",
+          "description": "类型： BOOL* 如果枚举器成功前进，则为 TRUE 如果枚举器已通过集合的末尾，则为 FALSE。"
+        },
+        {
+          "name": "fileName",
+          "direction": "out, retval",
+          "description": "类型： LPWSTR* 一个字符串，其中包含包的文件名。"
+        },
+        {
+          "name": "offset",
+          "direction": "out, retval",
+          "description": "类型： UINT64* 包的偏移量（以字节为单位）。"
+        },
+        {
+          "name": "packageId",
+          "direction": "out, retval",
+          "type": "IAppxManifestPackageId**",
+          "description": "包标识符。返回值类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        },
+        {
+          "name": "packageType",
+          "direction": "out, retval",
+          "type": "APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE*",
+          "description": "包的类型。返回值类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        },
+        {
+          "name": "resources",
+          "direction": "out, retval",
+          "type": "IAppxManifestQualifiedResourcesEnumerator** 循环访问资源的枚举器。",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "direction": "out, retval",
+          "description": "类型： UINT64* 包的大小（以字节为单位）。"
+        },
+        {
+          "name": "isDefaultApplicablePackage",
+          "direction": "out, retval",
+          "description": "如果包是默认的适用包，则为 True;否则为 False。"
+        },
+        {
+          "name": "isNonQualifiedResourcePackage",
+          "direction": "out, retval",
+          "description": "如果包是非限定的资源包，则为 True;否则为 False。"
+        },
+        {
+          "name": "isPackageReference",
+          "direction": "out, retval",
+          "description": "如果捆绑包中的包是对包的引用，则为 True;如果捆绑包中的包存储在应用程序包中，则 为 False。"
+        },
+        {
+          "name": "packageInfo",
+          "direction": "out, retval",
+          "type": "IAppxBundleManifestPackageInfo** 当前的 <Package> 元素。",
+          "description": ""
+        },
+        {
+          "name": "hasCurrent",
+          "direction": "out, retval",
+          "description": "类型： BOOL* 如果枚举器的当前位置引用项，则为 TRUE;如果枚举器已传递集合中的最后一项，则为 FALSE。"
+        },
+        {
+          "name": "hasNext",
+          "direction": "out, retval",
+          "description": "类型： BOOL* 如果枚举器成功前进，则为 TRUE 如果枚举器已通过集合的末尾，则为 FALSE。"
+        },
+        {
+          "name": "packageId",
+          "direction": "out, retval",
+          "type": "IAppxManifestPackageId**",
+          "description": "包标识符。返回值类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        },
+        {
+          "name": "packageInfoItems",
+          "direction": "out, retval",
+          "type": "IAppxBundleManifestPackageInfoEnumerator** 捆绑包的 Packages> 元素中<所有有效负载包的枚举器。",
+          "description": ""
+        },
+        {
+          "name": "manifestStream",
+          "direction": "out, retval",
+          "description": "类型： IStream** 表示清单的 XML 内容的只读流。"
+        },
+        {
+          "name": "optionalBundles",
+          "direction": "out, retval",
+          "description": "可选捆绑包。"
+        },
+        {
+          "name": "blockMapReader",
+          "direction": "out, retval",
+          "description": "类型： IAppxBlockMapReader** 捆绑包中包的块映射的对象模型。"
+        },
+        {
+          "name": "fileType",
+          "direction": "in",
+          "type": "APPX_BUNDLE_FOOTPRINT_FILE_TYPE",
+          "description": "要检索的占用空间文件的类型。[out, retval] footprintFile 类型： IAppxFile** 对应于 fileType 的占用空间文件的文件对象。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果方法成功，则返回 S_OK。 否则，它将返回一个错误代码，该错误代码包括但不限于下表中的代码。 返回代码"
+      },
+      "remarks": "说明 由 *inputStream8 传递的 ZIP 文件是交错 OPC 包。 inputStream 提供的 OPC 包包含 OPC 包/部件关系。如果存在 CI 目录， 则 inputStream 提供的 OPC 包没有清单、块映射或签名文件。 捆绑清单无效。捆绑清单无效。 对象的摘要与 expectedDigest 中提供的摘要不匹配。 通过调用 IAppxDigestProvider：：GetDigest 获取 expecteDigest 参数的摘要字符串。 可以将 GetFileName 输出的包文件名传递给 IAppxBundleReader：：GetPayloadPackage 方法，以访问包的内容。 使用完文件名后，使用 CoTaskMemFree 函数释放为 fileName 分配的内存。 使用完 packageId 对象后，调用 IUnknown：：Release 方法。 默认适用的包是包含默认 MRT 限定资源的包。 例如，默认适用的包可以是英语语言资源，如果没有其他合适的备用语言可用，则默认应安装这些资源。 有关应用资源的详细信息，请参阅 应用资源和资源管理系统。 非限定资源包是包含未使用任何语言、缩放或其他限定符限定的资源的包。 其中一个示例可能是包含所有音乐文件的包。 有关应用资源的详细信息，请参阅 应用资源和资源管理系统。 说明 枚举器已传递集合中的最后一项。 默认情况下，枚举器的位置指向第一个元素。 因此，对于至少包含一个元素的新构造枚举器，IAppxBundleManifestPackageInfoEnumerator：：GetHasCurrent 返回 TRUE， GetCurrent 返回第一个元素。 使用完 packageId 对象后，调用 IUnknown：：Release 方法。 原始 XML 流是整个源流，可能包含清单读取器忽略的其他命名空间中的元素和属性。 例如，XML 流可能具有其他命名空间中的元素，这些元素已在 Package 元素的 IgnorableNamespaces 属性中标记，但未经过验证。 因此，建议不要在没有安全测试的 情况下信任或分析此 XML。 可以使用 IAppxBundleFactory 接口的 CreateBundleReader 方法检索 IAppxBundleReader 对象。 通过 IAppxBundleReader，可以检索捆绑包中包含的占用空间文件（例如捆绑包的清 单、块映射和签名）和应用包。",
+      "requirements": {
+        "header": "appxpackaging.h",
+        "target_platform": "Windows",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "Close",
+        "CoTaskMemFree",
+        "Release",
+        "Server"
+      ],
+      "confidence": 1.0,
+      "_source_line": 5805
+    },
+    {
+      "id": "windows::APPX_E_INTERLEAVING_NOT_ALLOWED",
+      "name": "APPX_E_INTERLEAVING_NOT_ALLOWED",
+      "entity_type": "constant",
+      "description": "APPX_E_RELATIONSHIPS_NOT_ALLOWED APPX_E_MISSING_REQUIRED_FILE",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPX_E_RELATIONSHIPS_NOT_ALLOWED"
+      ],
+      "confidence": 0.75,
+      "_source_line": 5842
+    },
+    {
+      "id": "windows::HRESULT_FROM_WIN32",
+      "name": "HRESULT_FROM_WIN32",
+      "entity_type": "constant",
+      "description": "(ERROR_CRC) (0x80070017) 流是否以前已读取，并且其 CRC 无效。 从返回的 IStream 的 Read 和 CopyTo 方法返回值 [致命]如果已读取整个流并且发现其 CRC 无效，则HRESULT_FROM_WIN32 (ERROR_CRC)(0x80070017)",
+      "syntax": "HRESULT GetPayloadFiles(\n[out, retval] IAppxFilesEnumerator **filesEnumerator);\nHRESULT AddPayloadFile(\n[in] LPCWSTR                 fileName,\n[in] LPCWSTR                 contentType,\n[in] APPX_COMPRESSION_OPTION compressionOption,\n[in] IStream                 *inputStream);",
+      "parameters": [
+        {
+          "name": "filesEnumerator",
+          "direction": "out, retval",
+          "description": "类型： IAppxFilesEnumerator** 包中所有有效负载文件的枚举器。"
+        },
+        {
+          "name": "fileName",
+          "direction": "in",
+          "type": "LPCWSTR",
+          "description": "有效负载文件的名称。 文件名路径必须相对于包的根目录。"
+        },
+        {
+          "name": "contentType",
+          "direction": "in",
+          "type": "APPX_COMPRESSION_OPTION 用于在包中存储 fileName 的压缩类型。",
+          "description": "类型： LPCWSTR 指定 fileName内容类型[in] compressionOption 的字符串。"
+        },
+        {
+          "name": "inputStream",
+          "direction": "in",
+          "description": "类型： IStream* 提供 fileName 内容的 IStream。 流必须支持 Read、 Seek 和 Stat。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果方法成功，则返回 S_OK。 否则，它将返回一个错误代码，该错误代码包括但不限于下表中的代码。 错误 OPC 代码，除了OPC_E_DUPLICATE_PART可能会导致。 如果方法失败，捆绑包编写器将在失败状态中关闭，并且无法再使用。 返回代码"
+      },
+      "remarks": "可以将文件对象的流传递到 IAppxFactory：：CreatePackageReader 中，以通过 appx 文 件获取包读取器对象。 可以使用 IAppxBundleFactory 接口的 CreateBundleWriter 方法检索 IAppxBundleWriter 对象。 只能将应用包添加到编写器。 编写器自动生成占用空间文件，例如捆绑包的清单和块映射。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "appxpackaging.h",
+        "min_client": "Windows 8 [仅限桌面应用]",
+        "min_server": "Windows Server 2012 [仅限桌面应用]"
+      },
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "Close",
+        "CopyTo",
+        "Server"
+      ],
+      "confidence": 1.0,
+      "_source_line": 7042
+    },
+    {
+      "id": "windows::OPC_E_DUPLICATE_PART",
+      "name": "OPC_E_DUPLICATE_PART",
+      "entity_type": "constant",
+      "description": "注解 说明 编写器已关闭。 指定的文件名不是有效的文件名，或者是占用空间文件的保留名称。 指定的文件名已在捆绑包中使用。 当 AddPayloadFile 方法成功时，指定 fileName 的内容将写入包，并在包块映射中创建相应的条目。 AddPayloadPackage 从 packageStream 读取应用包的内容，并使用给定 的 fileName 将内容存储在捆绑包中。 如果出现以下问题，AddPayloadPackage 可能会失败： packageStream 未提供有效的应用包 packageStream 提供的应用包与已添加到捆绑包的应用包位于不同的包系列中 packageStream 提供的应用包面向的体系结构不能与已添加到捆绑包的另一个应用包位于同一捆绑包中 packageStream 提供的应用包具有一个块映射，该映射使用的哈希方法与已添加到捆绑包的应用包不同 fileName 不是有效的文件名，是保留名称，或者已被添加到捆绑包的另一个应用包使用",
+      "syntax": "HRESULT Close();",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果方法成功，则返回 S_OK。 否则，它将返回一个错误代码，该错误代码包括但不限于下表中的代码。 返回代码"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 8 [仅限桌面应用]",
+        "min_server": "Windows Server 2012 [仅限桌面应用]"
+      },
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "Close",
+        "Server"
+      ],
+      "confidence": 0.9,
+      "_source_line": 7150
+    },
+    {
+      "id": "windows::APPX_E_DIGEST_MISMATCH",
+      "name": "APPX_E_DIGEST_MISMATCH",
+      "entity_type": "constant",
+      "description": "注解 说明 inputStream 提供的 ZIP 文件是交错 OPC 包。 inputStream 提供的 OPC 包包含 OPC 包/部件关系。存在 CI 目录时， inputStream 提供的 OPC 包没有清 单、块映射或签名文件。包清单无效。 包块映射无效，ZIP 中心目录中的文件列表与块映射中的文件列表不匹配，或者 ZIP 中心目录中列出的文件大小与块映射中列出的文件和块大小不匹配。 对象的摘要与 expectedDigest 中提供的摘要不匹配。 CreatePackageReader2 方法通过流立即检索应用包的占用元素并验证其内容。 仅当 OPC 包和所有占用元素 (包括 ZIP 中心目录、清单、[Content_Types].xml 和块映射) 有效时，此方法才成功。 通过调用 IAppxDigestProvider：：GetDigest 获取 expecteDigest 参数的摘要字符串。示例 有关示例，请参阅 快速入门：提取应用包内容 和 快速入门：读取应用包清单信息。",
+      "syntax": "HRESULT CreateEncryptedPackageReader2(\nIStream             *inputStream,   const APPX_KEY_INFO *keyInfo,\nLPCWSTR             expectedDigest,   IAppxPackageReader  **packageReader);\n参数 inputStream\n用于读取加密包的流。 keyInfo\n包含用于解密包的基本加密密钥和密钥 ID 的密钥信息。 基密钥用于派生每个文件的加密\n密钥。 如果此参数为 null，则使用全局测试密钥和密钥 ID。 expectedDigest\n包含预期摘要的 LPCWSTR，包文件的哈希表示形式。 packageReader\n创建的包读取器。",
+      "parameters": [
+        {
+          "name": "inputStream",
+          "direction": "in",
+          "description": "传递清单 XML 以供读取的输入流。 流必须支持 ISequentialStream：：Read、 IStream：：Seek 和 IStream：：Stat。如果这些方法失败，则其错误代码可能会传递给此方法并由此方法返回。"
+        },
+        {
+          "name": "expectedDigest",
+          "direction": "in,optional",
+          "description": "包含预期摘要的 LPCWSTR，清单文件的哈希表示形式。"
+        },
+        {
+          "name": "manifestReader",
+          "direction": "out",
+          "description": "创建的清单读取器。"
+        }
+      ],
+      "return_value": {
+        "description": "如果该方法成功，则返回 S_OK。 否则，它将返回一个错误代码，该代码包括但不限于下表中的错误代码。 返回代码"
+      },
+      "remarks": "IAppxFactory 接口提供工厂方法来创建应用包的读取器和编写器，以及为包外部的块映射和清单创建读取器的方法。 示例 有关示例，请参阅： 如何创建应用包 快速入门：提取应用包内容 快速入门：读取应用包清单信息要求",
+      "requirements": {
+        "header": "appxpackaging.h",
+        "target_platform": "Windows",
+        "min_client": "Windows 8 [仅限桌面应用]",
+        "min_server": "Windows Server 2012 [仅限桌面应用]"
+      },
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 1.0,
+      "_source_line": 9103
+    },
+    {
+      "id": "windows::APPX_E_INVALID_BLOCKMAP",
+      "name": "APPX_E_INVALID_BLOCKMAP",
+      "entity_type": "constant",
+      "description": "注解 说明 blockMapStream 不包含块映射在语法上有效的 XML。 当块映射单独存在于应用包外部时，使用此方法。 块映射对象提供对块映射 XML 中的所有数据元素和属性的访问。 fileName 参数应包含磁盘上的包数字签名 (.p7x) 文件的路径。 如果此参数不为 NULL， 此方法将验证签名文件的格式，并针对签名验证 blockMapStream 的内容。",
+      "syntax": "HRESULT CreateContentGroupMapReader(\n[in]          IStream                    *inputStream,\n[out, retval] IAppxContentGroupMapReader **contentGroupMapReader);\nHRESULT CreateContentGroupMapWriter(\nIStream                    *stream,\n[out, retval] IAppxContentGroupMapWriter **contentGroupMapWriter);\n参数 stream\n接收内容组映射的流。\n[out, retval] contentGroupMapWriter 为内容组映射提供只写对象模型。\nHRESULT CreateSourceContentGroupMapReader(\n[in]          IStream                          *inputStream,\n[out, retval] IAppxSourceContentGroupMapReader **reader);\nHRESULT CreateAppInstallerReader(\n[in]           IStream                 *inputStream,   [in, optional] LPCWSTR                 expectedDigest,\n[out]          IAppxAppInstallerReader **appInstallerReader);",
+      "parameters": [
+        {
+          "name": "inputStream",
+          "direction": "in",
+          "description": "传送内容组映射 XML 以供读取的流。[out, retval] contentGroupMapReader 内容组映射读取器。"
+        },
+        {
+          "name": "inputStream",
+          "direction": "in",
+          "description": "传送源内容组映射 XML 以供读取的流。"
+        },
+        {
+          "name": "reader",
+          "direction": "out, retval",
+          "description": "返回值 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        },
+        {
+          "name": "inputStream",
+          "direction": "in",
+          "description": "提供应用安装程序文件内容的 IStream 。[in, optional] expectedDigest 包含预期摘要的 LPCWSTR，应用安装程序文件的哈希表示形式。[out] appInstallerReader 接收创建的 IAppInstallerReader 实例。"
+        }
+      ],
+      "return_value": {
+        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 如果该方法成功，则它会返回 S_OK。 否则，它将返回一个错误代码，该代码包括但不限于下表中的错误代码。 返回代码"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "appxpackaging.h",
+        "min_client": "Windows 10 [仅限桌面应用]",
+        "min_server": "Windows Server 2016 [仅限桌面应用]"
+      },
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 1.0,
+      "_source_line": 9215
+    },
+    {
+      "id": "windows::APPX_E_RELATIONSHIPS_NOT_ALLOWED",
+      "name": "APPX_E_RELATIONSHIPS_NOT_ALLOWED",
+      "entity_type": "constant",
+      "description": "APPX_E_MISSING_REQUIRED_FILE",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 9294
+    },
+    {
+      "id": "windows::APPX_E_CORRUPT_CONTENT",
+      "name": "APPX_E_CORRUPT_CONTENT",
+      "entity_type": "constant",
+      "description": "(0x80080206) 如果由于 zip 文件损坏而无法在 (解压缩文件内容)",
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 9872
+    },
+    {
+      "id": "windows::APPX_E_BLOCK_HASH_INVALID",
+      "name": "APPX_E_BLOCK_HASH_INVALID",
+      "entity_type": "constant",
+      "description": "(0x80080207) 此文件块的内容是否与块映射中的哈希不一致",
+      "syntax": "HRESULT GetCurrent(\n[out, retval] IAppxFile **file);\nHRESULT GetHasCurrent(\n[out, retval] BOOL *hasCurrent);\nHRESULT MoveNext(\n[out, retval] BOOL *hasNext);\nHRESULT GetAppUserModelId(\n[out, retval] LPWSTR *appUserModelId);\nHRESULT GetStringValue(\n[in]          LPCWSTR name,   [out, retval] LPWSTR  *value);",
+      "parameters": [
+        {
+          "name": "file",
+          "direction": "out, retval",
+          "description": "类型： IAppxFile** 当前有效负载文件。"
+        },
+        {
+          "name": "hasCurrent",
+          "direction": "out, retval",
+          "description": "类型： BOOL* 如果当前位置引用有效负载文件，则为 TRUE;如果枚举器已通过集合的末尾，则为 FALSE。"
+        },
+        {
+          "name": "hasNext",
+          "direction": "out, retval",
+          "description": "类型： BOOL* 如果枚举器成功前进，则为 TRUE 如果枚举器已通过集合的末尾，则为 FALSE。"
+        },
+        {
+          "name": "appUserModelId",
+          "direction": "out, retval",
+          "type": "LPWSTR* 用户模型标识符。",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "direction": "in",
+          "type": "LPCWSTR",
+          "description": "要从应用程序元数据获取的元素或属性值的名称。 支持的名称包括： AppListEntry BackgroundColor DefaultSize 说明 DisplayName EntryPoint 可执行文件 ForegroundText ID LockScreenLogo LockScreenNotification 徽标 MinWidth ShortName SmallLogo Square150x150Logo Square30x30Logo Square310x310Logo Square44x44Logo Square70x70Logo Square71x71Logo StartPage Tall150x310Logo VisualGroup WideLogo Wide310x150Logo 请参阅 架构 ，确定从清单中读取这些值的位置。"
+        },
+        {
+          "name": "value",
+          "direction": "out, retval",
+          "description": "类型： LPWSTR* 请求的元素或特性的值。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。 否则，它将返回一个错误代码，该代码包括但不限于下表中的错误代码。 返回代码 E_BOUNDS 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，它将返回错误代码。 请注意，当枚举器首次通过集合末尾时， hasNext = FALSE，但该方法成功并返回 S_OK。 但是，如果随后在集合结束之后调用另一个 MoveNext，并且之前收到 hasNext = FALSE，则该方法将返回E_BOUNDS。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+      },
+      "remarks": "返回的 流 是只读的且可克隆的。 有效负载文件的验证是“延迟的”。首次调用文件的 GetStream 方法时，会验证相应的 zip 文件项的本地文件标头和数据描述符，并可能导致 GetStream 失败。 对同一文件上的 GetStream 的后续调用不会重复这些验证。 仅当按顺序完整读取流时，才会验证 zip 文件项的 CRC 校验和。 为有效负载文件返回的 IStream 实例针对顺序访问进行了优化。 虽然支持对流的随机访问，但这种随机访问可能速度较慢且占用更多 CPU。 建议尽可能对这些流进行单次顺序读取。 支持多次读取同一范围，但不建议出于性能要求;如果此类范围的使用方案需要缓 存，请考虑缓存此类范围。 若要获取占用空间文件，请使用 IAppxPackageReader：：GetFootprintFile 方法。 说明 枚举器已传递集合中的最后一项。 返回的枚举数可以为空。 在这种情况下，对 GetHasCurrent 的 调用将返回 false。 如果枚举器不为空，则指向第一个元素，此方法返回第一项。 随后，用户应使用 MoveNext 在项之间移动，并在使用 GetCurrent 访问项之前调用 GetHasCurrent。 调用方必须使用 CoTaskMemFree 函数释放为 appUserModelId 分配的内存。 如果 name 参数不是清单中某个元素或属性的受支持名称，则此方法返回",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "appxpackaging.h",
+        "min_client": "Windows 8 [仅限桌面应用]",
+        "min_server": "Windows Server 2012 [仅限桌面应用]"
+      },
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "CoTaskMemFree",
+        "GetStream",
+        "Server"
+      ],
+      "confidence": 0.9,
+      "_source_line": 9874
+    },
+    {
+      "id": "windows::CoTaskMemFree",
+      "name": "CoTaskMemFree",
+      "entity_type": "constant",
+      "description": "deviceCapability);} } 要求",
+      "syntax": "HRESULT GetCurrent(\n[out, retval] LPWSTR *deviceCapability);\nHRESULT GetHasCurrent(\n[retval] BOOL *hasCurrent);\nHRESULT MoveNext(\n[retval] BOOL *hasNext);\nHRESULT GetCurrent(\n[out, retval] IAppxManifestMainPackageDependency **mainPackageDependency);\nHRESULT GetHasCurrent(\n[out, retval] BOOL *hasCurrent);\nHRESULT MoveNext(\n[out, retval] BOOL *hasNext);\nHRESULT GetName(\n[out, retval] LPWSTR *name);\nHRESULT GetPackageFamilyName(\n[out, retval] LPWSTR *packageFamilyName);\nHRESULT GetPublisher(\n[out, retval] LPWSTR *publisher);\nHRESULT GetIsOptionalPackage(\n[out, retval] BOOL *isOptionalPackage);\nHRESULT GetMainPackageName(\n[out, retval] LPWSTR *mainPackageName);\nHRESULT GetCurrent(\n[out, retval] IAppxManifestPackageDependency **dependency);\nHRESULT GetHasCurrent(\n[out, retval] BOOL *hasCurrent);\nHRESULT MoveNext(\n[out, retval] BOOL *hasNext);\nHRESULT GetMinVersion(\n[out] UINT64 *minVersion);\nHRESULT GetName(\n[out] LPWSTR *name);\nHRESULT GetPublisher(\n[out] LPWSTR *publisher);\nHRESULT GetMaxMajorVersionTested(\n[out] UINT16 *maxMajorVersionTested);\nHRESULT ComparePublisher(\n[in]          LPCWSTR other,   [out, retval] BOOL    *isSame);\nHRESULT GetArchitecture(\n[out, retval] APPX_PACKAGE_ARCHITECTURE *architecture);\nHRESULT GetName(\n[out, retval] LPWSTR *name);\nHRESULT GetPackageFamilyName(\n[out, retval] LPWSTR *packageFamilyName);\nHRESULT GetPackageFullName(\n[out, retval] LPWSTR *packageFullName);\nHRESULT GetPublisher(\n[out, retval] LPWSTR *publisher);\nHRESULT GetResourceId(\n[out, retval] LPWSTR *resourceId);\nHRESULT GetVersion(\n[out, retval] UINT64 *packageVersion);\nHRESULT GetArchitecture2(\n[out, retval] APPX_PACKAGE_ARCHITECTURE2 *architecture);\nHRESULT GetBoolValue(\n[in]          LPCWSTR name,   [out, retval] BOOL    *value);\nHRESULT GetStringValue(\n[in]          LPCWSTR name,   [out, retval] LPWSTR  *value);\nHRESULT GetApplications(\n[out, retval] IAppxManifestApplicationsEnumerator **applications);\nHRESULT GetCapabilities(\n[out, retval] APPX_CAPABILITIES *capabilities);\nHRESULT GetDeviceCapabilities(\n[out, retval] IAppxManifestDeviceCapabilitiesEnumerator\n**deviceCapabilities);\nHRESULT GetPackageDependencies(\n[out, retval] IAppxManifestPackageDependenciesEnumerator **dependencies);\nHRESULT GetPackageId(\n[out, retval] IAppxManifestPackageId **packageId);\nHRESULT GetPrerequisite(\n[in]          LPCWSTR name,   [out, retval] UINT64  *value);",
+      "parameters": [
+        {
+          "name": "deviceCapability",
+          "direction": "out, retval",
+          "type": "LPWSTR* 当前设备功能。",
+          "description": ""
+        },
+        {
+          "name": "hasCurrent",
+          "direction": "retval",
+          "description": "类型： BOOL* 如果枚举器的当前位置引用项，则为 TRUE;如果枚举器已传递集合中的最后一项，则为 FALSE。"
+        },
+        {
+          "name": "hasNext",
+          "direction": "retval",
+          "description": "类型： BOOL* 如果枚举器成功前进，则为 TRUE 如果枚举器已通过集合的末尾，则为 FALSE。"
+        },
+        {
+          "name": "mainPackageDependency",
+          "direction": "out, retval",
+          "description": "当前 <MainPackageDependency> 元素。"
+        },
+        {
+          "name": "hasCurrent",
+          "direction": "out, retval",
+          "description": "如果枚举器的当前位置引用项，则为 TRUE;如果枚举器已传递集合中的最后一项，则为 FALSE。"
+        },
+        {
+          "name": "hasNext",
+          "direction": "out, retval",
+          "description": "类型： BOOL* 如果枚举器成功前进，则为 TRUE 如果枚举器已通过集合的末尾，则为 FALSE。"
+        },
+        {
+          "name": "name",
+          "direction": "out, retval",
+          "description": "main包依赖项的名称。"
+        },
+        {
+          "name": "packageFamilyName",
+          "direction": "out, retval",
+          "description": "main包依赖项的包系列名称。"
+        },
+        {
+          "name": "publisher",
+          "direction": "out, retval",
+          "description": "main包依赖项的发布者。"
+        },
+        {
+          "name": "isOptionalPackage",
+          "direction": "out, retval",
+          "description": "如果包是可选的，则为 True;否则为 false。"
+        },
+        {
+          "name": "mainPackageName",
+          "direction": "out, retval",
+          "description": "main包名称。"
+        },
+        {
+          "name": "dependency",
+          "direction": "out, retval",
+          "type": "IAppxManifestPackageDependency** 当前依赖项包。",
+          "description": ""
+        },
+        {
+          "name": "hasCurrent",
+          "direction": "out, retval",
+          "description": "类型： BOOL* 如果枚举器的当前位置引用项，则为 TRUE;如果枚举器已传递集合中的最后一项，则为 FALSE。"
+        },
+        {
+          "name": "hasNext",
+          "direction": "out, retval",
+          "description": "类型： BOOL* 如果枚举器成功前进，则为 TRUE 如果枚举器已通过集合的末尾，则为 FALSE。"
+        },
+        {
+          "name": "minVersion",
+          "direction": "out",
+          "description": "类型： UINT64* 包的最低版本。"
+        },
+        {
+          "name": "name",
+          "direction": "out",
+          "type": "LPWSTR*",
+          "description": "包的名称。返回值类型： HRESULT 如果方法成功，则返回 S_OK。"
+        },
+        {
+          "name": "publisher",
+          "direction": "out",
+          "description": "类型： LPWSTR* 发行者的名称。"
+        },
+        {
+          "name": "maxMajorVersionTested",
+          "direction": "out",
+          "description": "经测试与当前包兼容的依赖项包的最大主版本号。"
+        },
+        {
+          "name": "other",
+          "direction": "in",
+          "type": "LPCWSTR",
+          "description": "要比较的发布者名称。[out, retval] isSame 类型： BOOL* 如果指定的发布服务器与包发布者匹配，则为 TRUE;否则为 FALSE。"
+        },
+        {
+          "name": "architecture",
+          "direction": "out, retval",
+          "type": "APPX_PACKAGE_ARCHITECTURE* 为包指定的体系结构。",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "direction": "out, retval",
+          "description": "类型： LPWSTR* 包的名称。返回值类型： HRESULT 如果方法成功，则返回 S_OK。"
+        },
+        {
+          "name": "packageFamilyName",
+          "direction": "out, retval",
+          "type": "LPWSTR* 包系列名称。",
+          "description": ""
+        },
+        {
+          "name": "packageFullName",
+          "direction": "out, retval",
+          "description": "类型： LPWSTR* 包全名。返回值类型： HRESULT 如果方法成功，则返回 S_OK。"
+        },
+        {
+          "name": "publisher",
+          "direction": "out, retval",
+          "type": "LPWSTR* 包的发布者。",
+          "description": ""
+        },
+        {
+          "name": "resourceId",
+          "direction": "out, retval",
+          "type": "LPWSTR* 包的资源标识符。",
+          "description": ""
+        },
+        {
+          "name": "packageVersion",
+          "direction": "out, retval",
+          "description": "类型： UINT64* 包的版本。返回值类型： HRESULT 如果该方法成功，则返回 S_OK。"
+        },
+        {
+          "name": "architecture",
+          "direction": "out, retval",
+          "type": "APPX_PACKAGE_ARCHITECTURE2* 为包指定的体系结构。",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "direction": "in",
+          "type": "LPCWSTR",
+          "description": "布尔元素的名称。 有效值包括：“Framework” Windows 8.1 及更高版本的“ResourcePackage”"
+        },
+        {
+          "name": "value",
+          "direction": "out, retval",
+          "description": "类型： BOOL* 指定布尔元素的值。"
+        },
+        {
+          "name": "name",
+          "direction": "in",
+          "type": "LPCWSTR",
+          "description": "字符串元素的名称。 有效值包括：“说明” “DisplayName”“徽标” “PublisherDisplayName”[out, retval] value 类型： LPWSTR* 指定元素的值。"
+        },
+        {
+          "name": "applications",
+          "direction": "out, retval",
+          "type": "IAppxManifestApplicationsEnumerator** 循环访问应用程序的枚举器。",
+          "description": ""
+        },
+        {
+          "name": "capabilities",
+          "direction": "out, retval",
+          "description": "类型： APPX_CAPABILITIES* 包请求的功能列表。 这是枚举值的按位组合。"
+        },
+        {
+          "name": "deviceCapabilities",
+          "direction": "out, retval",
+          "type": "IAppxManifestDeviceCapabilitiesEnumerator** 循环访问设备功能的枚举器。",
+          "description": ""
+        },
+        {
+          "name": "dependencies",
+          "direction": "out, retval",
+          "type": "IAppxManifestPackageDependenciesEnumerator** 循环访问依赖项的枚举器。",
+          "description": ""
+        },
+        {
+          "name": "packageId",
+          "direction": "out, retval",
+          "type": "IAppxManifestPackageId**",
+          "description": "包标识符。返回值类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        },
+        {
+          "name": "name",
+          "direction": "in",
+          "type": "LPCWSTR",
+          "description": "先决条件的名称，“OSMinVersion”或“OSMaxVersionTested”。"
+        },
+        {
+          "name": "value",
+          "direction": "out, retval",
+          "description": "类型： UINT64* 指定的先决条件。 在清单中，点三表示形式为 Major.Minor.AppPlatform。 这将转换为 64 位值，如下所示：最高顺序字包含主要版本。 下一个单词包含 Minor 版本。 下一个单词包含可选的 AppPlatform 版本（如果指定）。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果方法成功，则返回 S_OK。 否则，它将返回一个错误代码，该错误代码包括但不限于下表中的代码。 返回代码 E_BOUNDS 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，它将返回错误代码。 请注意，当枚举器首次通过集合末尾时， hasNext = FALSE，但该方法成功并返回 S_OK。 但是，如果随后在集合结束之后调用另一个 MoveNext，并且之前收到 hasNext = FALSE，则该方法将返回E_BOUNDS。 如果方法成功，则返回 S_OK。 否则，它将返回一个错误代码，该错误代码包括但不限于下表中的代码。 返回代码 E_BOUNDS 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果方法成功，则返回 S_OK。 否则，它将返回错误代码。 注意 当枚举器首次通过集合的末尾时， hasNext = FALSE，但 该方法成功并返回 S_OK。 但是，如果在已通过集合的末尾之后随后调用另一个 MoveNext，并且之前 收到 hasNext = FALSE，则该方法将返回E_BOUNDS。 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，它将返回一个错误代码，该代码包括但不限于下表中的错误代码。 返回代码 E_BOUNDS 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，它将返回错误代码。 请注意，当枚举器首次通过集合末尾时， hasNext = FALSE，但该方法成功并返回 S_OK。 但是，如果随后在集合结束之后调用另一个 MoveNext，并且之前收到 hasNext = FALSE，则该方法将返回E_BOUNDS。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果方法成功，则返回 S_OK。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果方法成功，则返回 S_OK。 类型： HRESULT 如果方法成功，则返回 S_OK。 类型： HRESULT 如果该方法成功，则返回 S_OK。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 此方法可以返回其中一个值。 返回代码 说明"
+      },
+      "remarks": "说明 枚举器已传递集合中的最后一项。 调用方必须使用 CoTaskMemFree 函数释放为 deviceCapability 分配的内存。 返回的枚举器可以为空。 在这种情况下，对 GetHasCurrent 的 调用返回 false。 如果枚 举器不为空，它将指向第一个元素，此方法将返回第一个项。 随后，用户应使用 MoveNext 在项中移动，并在使用 GetCurrent 访问项之前调用 GetHasCurrent。 可以使用 IAppxManifestReader：：GetPackageDependencies 方法检索此对象。 说明 枚举器已传递集合中的最后一项。 返回的枚举数可以为空。 在这种情况下，对 GetHasCurrent 的 调用将返回 false。 如果枚举器不为空，则指向第一个元素，此方法返回第一项。 随后，用户应使用 MoveNext 在项之间移动，并在使用 GetCurrent 访问项之前调用 GetHasCurrent。 依赖项包是当前包所依赖的包，如使用 PackageDependency 元素在包清单中指定的那样。 如果未为依赖项定义最低版本，此方法返回S_OK，minVersion 为 0。 版本是使用包清单中 PackageDependency 元素的 MinVersion 属性指定的。 清单中的规范以象限表示法表示： major。minor。build。修订 此方法将此表示法转换为 UINT64 值，如下所示： 高序字包含主版本 下一个单词包含次要版本下一个单词包含内部版本号低序字包含修订 要求",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "appxpackaging.h",
+        "min_client": "Windows 8 [仅限桌面应用]",
+        "min_server": "Windows Server 2012 [仅限桌面应用]"
+      },
+      "header": "appxpackaging.h",
+      "deprecated": false,
+      "cross_references": [
+        "APPX_CAPABILITIES",
+        "GetName",
+        "GetResources",
+        "GetStream",
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 10317
+    }
+  ]
+}

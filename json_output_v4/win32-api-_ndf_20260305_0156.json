@@ -1,0 +1,1937 @@
+{
+  "_schema": "windows_api_kg_v4.0",
+  "_generated_at": "2026-03-05T08:07:20Z",
+  "_content_hash": "e8114dc28f86",
+  "document": {
+    "document_id": "win32-api::ndf",
+    "title": "网络诊断框架",
+    "domain": "win32-api",
+    "topic": "ndf",
+    "source_file": "[OCR]_windows-win32-api-_ndf_20260305_0156.p.txt",
+    "ocr_timestamp": "2026-03-05T01:56:00",
+    "headers_referenced": [
+      "ndattrib.h",
+      "ndfapi.h",
+      "ndhelper.h"
+    ],
+    "total_entities": 101
+  },
+  "entities": [
+    {
+      "id": "windows::ATTRIBUTE_TYPE",
+      "name": "ATTRIBUTE_TYPE",
+      "entity_type": "enum",
+      "description": "type; union { BOOL Boolean; char Char; byte Byte; short Short; WORD Word; int Int; DWORD DWord; LONGLONG Int64; ULONGLONG UInt64; LPWSTR PWStr; GUID Guid;",
+      "syntax": "typedef struct tagHYPOTHESIS {\nLPWSTR            pwszClassName;   LPWSTR            pwszDescription;   ULONG             celt;",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "Byte",
+        "Guid",
+        "Word"
+      ],
+      "confidence": 0.85,
+      "_source_line": 8
+    },
+    {
+      "id": "windows::DIAGNOSIS_STATUS",
+      "name": "DIAGNOSIS_STATUS",
+      "entity_type": "enum",
+      "description": "枚举描述提交到帮助程序类的假设的结果，在该类中已确定组件的运行状况。",
+      "syntax": "typedef enum tagDIAGNOSIS_STATUS {   DS_NOT_IMPLEMENTED = 0,",
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 9
+    },
+    {
+      "id": "windows::PROBLEM_TYPE",
+      "name": "PROBLEM_TYPE",
+      "entity_type": "enum",
+      "description": "枚举描述帮助程序类指示存在的问题类型。",
+      "syntax": "typedef enum tagPROBLEM_TYPE {   PT_INVALID = 0,",
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 11
+    },
+    {
+      "id": "windows::REPAIR_RISK",
+      "name": "REPAIR_RISK",
+      "entity_type": "enum",
+      "description": "枚举指定修复更改是否是永久性的，以及是否可以撤消这些更改。",
+      "syntax": "typedef enum __MIDL___MIDL_itf_ndattrib_0000_0000_0002 {   RR_NOROLLBACK = 0,",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 12
+    },
+    {
+      "id": "windows::REPAIR_SCOPE",
+      "name": "REPAIR_SCOPE",
+      "entity_type": "enum",
+      "description": "枚举描述给定修复的修改范围。",
+      "syntax": "typedef enum tagREPAIR_SCOPE {",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 13
+    },
+    {
+      "id": "windows::REPAIR_STATUS",
+      "name": "REPAIR_STATUS",
+      "entity_type": "enum",
+      "description": "枚举描述帮助程序类尝试修复选项的结果。反馈",
+      "syntax": "typedef enum tagREPAIR_STATUS {   RS_NOT_IMPLEMENTED = 0,",
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 14
+    },
+    {
+      "id": "windows::UI_INFO_TYPE",
+      "name": "UI_INFO_TYPE",
+      "entity_type": "enum",
+      "description": "type; union { LPWSTR pwzNull; ShellCommandInfo ShellInfo; LPWSTR pwzHelpUrl; LPWSTR pwzDui; }; } UiInfo, *PUiInfo; 成员 type 类型： UI_INFO_TYPE 用户界面的类型 (UI) 使用。 这可以是以下成员中显示的值之一。 pwzNull 类型： LPWSTR 不需要其他 UI。 类型设置为 UIT_NONE 时使用。 ShellInfo 类型： ShellCommandInfo 执行 shell 命令。 类型设置为",
+      "syntax": "typedef enum __MIDL___MIDL_itf_ndattrib_0000_0000_0003 {",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "ShellCommandInfo",
+        "UiInfo"
+      ],
+      "confidence": 0.85,
+      "_source_line": 15
+    },
+    {
+      "id": "windows::GetAttributeInfo",
+      "name": "GetAttributeInfo",
+      "entity_type": "enum",
+      "description": "方法检索帮助程序类扩展所需的键参数列表。 GetAttributes 检索有关帮助程序类扩展已诊断的问题的其他信息。 GetCacheTime 指定诊断和修复操作的缓存结果过期的时间。 GetDiagnosticsInfo 使帮助程序类扩展实例能够提供估计值。 GetDownStreamHypotheses 要求帮助程序类扩展生成假设。 GetHigherHypotheses 针对高利用率的可能原因生成假设。 GetKeyAttributes 检索帮助程序类扩展的键属性。 GetLifeTime 检索帮助程序类扩展实例的生存期。 GetLowerHypotheses 为本地组件中运行状况较低的可能原因生成假设。 GetRepairInfo 检索帮助程序类扩展针对给定问题类型的修复信息。 GetUpStreamHypotheses 为上游网络组件中高利用率的可能原因生成假设。 HighUtilization 检查相应的组件是否得到高度利用。初始化",
+      "syntax": "HRESULT GetAttributeInfo(\n[out] ULONG               *pcelt,\n[out] HelperAttributeInfo **pprgAttributeInfos);",
+      "parameters": [
+        {
+          "name": "pcelt",
+          "direction": "out",
+          "description": "指向 pprgAttributeInfos 指向的数组中的元素计数的指针。[out] pprgAttributeInfos 指向包含帮助程序类键参数的 HelperAttributeInfo 结构的数组的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "返回代码 S_OK"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndhelper.h",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetAttributes",
+        "GetCacheTime",
+        "GetDiagnosticsInfo",
+        "GetDownStreamHypotheses",
+        "GetHigherHypotheses",
+        "GetKeyAttributes",
+        "GetLifeTime",
+        "GetLowerHypotheses",
+        "GetRepairInfo",
+        "GetUpStreamHypotheses",
+        "HighUtilization"
+      ],
+      "confidence": 0.85,
+      "_source_line": 22
+    },
+    {
+      "id": "windows::Initialize",
+      "name": "Initialize",
+      "entity_type": "enum",
+      "description": "方法将属性从假设传递到帮助程序类扩展。 帮助程序类应存储这些参数，以便在main 诊断函数中使用。 必须在任何诊断函数之前调用此方法。 INetDiagHelper：：LowHealth 检查被诊断的组件是否正常。 INetDiagHelper：：Repair 执行由输入参数指定的修复。 INetDiagHelper：：SetLifeTime 帮助程序类扩展可以将诊断限制为该时间段内的事件。 INetDiagHelper：：Validate 修复成功完成后由 NDF 调用。",
+      "syntax": "HRESULT Initialize(\n[in] ULONG               celt,",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndhelper.h",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [
+        "LowHealth",
+        "Repair"
+      ],
+      "confidence": 0.7,
+      "_source_line": 35
+    },
+    {
+      "id": "windows::NdfCreateConnectivityIncident",
+      "name": "NdfCreateConnectivityIncident",
+      "entity_type": "enum",
+      "description": "诊断一般 Internet 连接问题。 NdfCreateDNSIncident 诊断解析特定主机名时的名称解析问题。 NdfCreateGroupingIncident 创建会话来诊断对等分组功能问题。 NdfCreateInboundIncident 创建会话以诊断特定应用程序或服务的入站连接。 NdfCreateIncident 测试合并到其应用程序中的 NDF 功能。 NdfCreateNetConnectionIncident 使用 NetConnection 帮助程序类诊断连接问题。 NdfCreatePnrpIncident 创建一个会话来诊断对等名称解析协议 (PNRP) 服务的问题。 NdfCreateSharingIncident 诊断访问特定网络共享时的网络问题。 NdfCreateWebIncident 诊断 Web 连接问题。 (NdfCreateWebIncident) NdfCreateWebIncidentEx 诊断 Web 连接问题。 (NdfCreateWebIncidentEx) NdfCreateWinSockIncident 提供对 Microsoft 提供的 Winsock 帮助程序类的访问权限。 NdfDiagnoseIncident 在不显示用户界面的情况下诊断事件的根本原因。",
+      "syntax": "void NdfCreateConnectivityIncident(\n[out] NDFHANDLE *handle);",
+      "parameters": [
+        {
+          "name": "handle",
+          "direction": "out",
+          "type": "NDFHANDLE*",
+          "description": "网络诊断框架事件的句柄。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "可能的返回值包括但不限于以下内容。 返回代码 S_OK"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "NdfCreateDNSIncident",
+        "NdfCreateGroupingIncident",
+        "NdfCreateInboundIncident",
+        "NdfCreateIncident",
+        "NdfCreateNetConnectionIncident",
+        "NdfCreatePnrpIncident",
+        "NdfCreateSharingIncident",
+        "NdfCreateWebIncident",
+        "NdfCreateWebIncidentEx",
+        "NdfCreateWinSockIncident",
+        "NdfDiagnoseIncident"
+      ],
+      "confidence": 0.85,
+      "_source_line": 40
+    },
+    {
+      "id": "windows::NdfCreateNetConnectionIncident",
+      "name": "NdfCreateNetConnectionIncident",
+      "entity_type": "enum",
+      "description": "使用 NetConnection 帮助程序类诊断连接问题。 NdfCreatePnrpIncident 创建一个会话来诊断对等名称解析协议 (PNRP) 服务的问题。 NdfCreateSharingIncident 诊断访问特定网络共享时的网络问题。 NdfCreateWebIncident 诊断 Web 连接问题。 (NdfCreateWebIncident) NdfCreateWebIncidentEx 诊断 Web 连接问题。 (NdfCreateWebIncidentEx) NdfCreateWinSockIncident 提供对 Microsoft 提供的 Winsock 帮助程序类的访问权限。 NdfDiagnoseIncident 在不显示用户界面的情况下诊断事件的根本原因。 NdfExecuteDiagnosis",
+      "syntax": "void NdfCreateNetConnectionIncident(   [out] NDFHANDLE *handle,\nGUID      id);\nparameters[out] handle\n类型： NDFHANDLE*\n网络诊断框架事件的句柄。 id\n类型： GUID\n调用方要为其创建事件的网络接口的标识符。\n如果调用方不想指定接口，可以使用 NULL GUID {00000000-0000-0000-0000-000000000000}。 系统将尝试根据系统的当前状态确定最合适的接口。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "可能的返回值包括但不限于以下内容。 返回代码 说明 S_OK"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "NdfCreatePnrpIncident",
+        "NdfCreateSharingIncident",
+        "NdfCreateWebIncident",
+        "NdfCreateWebIncidentEx",
+        "NdfCreateWinSockIncident",
+        "NdfDiagnoseIncident",
+        "NdfExecuteDiagnosis"
+      ],
+      "confidence": 0.75,
+      "_source_line": 46
+    },
+    {
+      "id": "windows::NdfExecuteDiagnosis",
+      "name": "NdfExecuteDiagnosis",
+      "entity_type": "enum",
+      "description": "函数用于诊断已发生的事件的根本原因。 NdfGetTraceFile 用于检索包含事件跟踪日志 (ETL) 文件的路径，该文件包含诊断会话中 Windows (ETW) 事件跟踪。 NdfRepairIncident 修复事件而不显示用户界面。重新确认LowHealth 用于在诊断假设后和检索修复之前添加第二个低运行状况传递。 Repair 执行输入参数指定的修复。 ReproduceFailure 由网络诊断框架 (NDF) 使用。 此方法保留供系统使用。 (INetDiagHelperEx.ReproduceFailure) SetLifeTime 帮助程序类扩展可以将其诊断限制为该时间段内的事件。 SetUtilities 由网络诊断框架 (NDF) 使用。 此方法保留供系统使用。 (INetDiagHelperEx.SetUtilities) 验证 修复成功完成后由 NDF 调用。",
+      "syntax": "void NdfExecuteDiagnosis(   NDFHANDLE handle,\nHWND      hwnd);\n参数 handle\n类型： NDFHANDLE\n网络诊断框架事件的句柄。 hwnd\n类型：HWND\n用于显示诊断信息的窗口的句柄。 如果指定，则 NDF UI 是窗口的模式。 如果 为 NULL，则 UI\n为非模式。返回值类型： HRESULT\n可能的返回值包括但不限于以下值。\n返回代码 S_OK",
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "NdfGetTraceFile",
+        "NdfRepairIncident",
+        "Repair"
+      ],
+      "confidence": 0.7,
+      "_source_line": 54
+    },
+    {
+      "id": "windows::DIAG_SOCKADDR",
+      "name": "DIAG_SOCKADDR",
+      "entity_type": "struct",
+      "description": "结构存储参与 Windows 套接字通信的计算机的 Internet 协议 (IP) 地址。",
+      "syntax": "typedef struct tagSOCK_ADDR {   USHORT family;\nCHAR   data[126];\n} DIAG_SOCKADDR, *PDIAG_SOCK_ADDR;\n成员 family\n类型： USHORT 套接字地址组。 data[126]\n类型： CHAR[126]\n所有不同套接字地址结构的最大大小。",
+      "remarks": "此数据结构设计为用作 SOCKADDR 结构。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndattrib.h",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 73
+    },
+    {
+      "id": "windows::DiagnosticsInfo",
+      "name": "DiagnosticsInfo",
+      "entity_type": "struct",
+      "description": "结构包含估计的诊断时间，以及用于调用的标志。 HelperAttributeInfo",
+      "syntax": "typedef struct tagDiagnosticsInfo {\nlong  cost;   ULONG flags;\n} DiagnosticsInfo, *PDiagnosticsInfo;\n成员 cost\n类型： long\n诊断完成所需的时间（以秒为单位）。 值为零或负值表示成本可忽略不计。 任何正值都\n会导致引擎调整整体诊断过程。 flags\n类型： ULONG\n保留。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndhelper.h",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [
+        "HelperAttributeInfo"
+      ],
+      "confidence": 0.6,
+      "_source_line": 76
+    },
+    {
+      "id": "windows::HELPER_ATTRIBUTE",
+      "name": "HELPER_ATTRIBUTE",
+      "entity_type": "struct",
+      "description": "结构包含所有 NDF 支持的数据类型。 HelperAttributeInfo",
+      "syntax": "typedef struct tagHELPER_ATTRIBUTE {   LPWSTR         pwszName;",
+      "parameters": [
+        {
+          "name": "celt",
+          "direction": "in",
+          "description": "指向HELPER_ATTRIBUTE数组中的元素计数 的 指针。 rgAttributes 对 HELPER_ATTRIBUTE数组的 引用。"
+        }
+      ],
+      "return_value": {
+        "description": "返回代码 S_OK"
+      },
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "HelperAttributeInfo"
+      ],
+      "confidence": 0.9,
+      "_source_line": 77
+    },
+    {
+      "id": "windows::HelperAttributeInfo",
+      "name": "HelperAttributeInfo",
+      "entity_type": "struct",
+      "description": "结构包含帮助程序属性的名称及其类型。假设 HYPOTHESIS 结构包含用于向 NDF 提交另一个帮助程序类的假设的数据。 HypothesisResult 包含有关从帮助程序类返回的假设的信息。",
+      "syntax": "typedef struct tagHelperAttributeInfo {\nLPWSTR         pwszName;   ATTRIBUTE_TYPE type;\n} HelperAttributeInfo, *PHelperAttributeInfo;\n成员 pwszName\n类型： [字符串] LPWSTR\n指向包含帮助程序属性名称的以 null 结尾的字符串的指针。 type\n类型： ATTRIBUTE_TYPE 帮助程序属性的类型。",
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [
+        "HypothesisResult"
+      ],
+      "confidence": 0.7,
+      "_source_line": 79
+    },
+    {
+      "id": "windows::LIFE_TIME",
+      "name": "LIFE_TIME",
+      "entity_type": "struct",
+      "description": "结构。 在类型为 AT_LIFE_TIME 时使用。 Address 类型： DIAG_SOCKADDR IPv4 或 IPv6 地址。 在类型为 AT_SOCKADDR 时使用。 OctetString 类型：",
+      "syntax": "typedef struct tagLIFE_TIME {\nFILETIME startTime;   FILETIME endTime;\n} LIFE_TIME, *PLIFE_TIME;\n成员 startTime\n类型： FILETIME\n问题实例开始的时间。 endTime\n类型： FILETIME\n问题实例结束的时间。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndattrib.h",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "AT_LIFE_TIME",
+        "AT_SOCKADDR",
+        "Address",
+        "DIAG_SOCKADDR"
+      ],
+      "confidence": 0.85,
+      "_source_line": 82
+    },
+    {
+      "id": "windows::OCTET_STRING",
+      "name": "OCTET_STRING",
+      "entity_type": "struct",
+      "description": "OctetString; }; } HELPER_ATTRIBUTE, *PHELPER_ATTRIBUTE; 成员 pwszName 类型： [string] LPWSTR 指向包含属性名称的以 null 结尾的字符串的指针。 type 类型：",
+      "syntax": "typedef struct tagOCTET_STRING {\nDWORD dwLength;   BYTE  *lpValue;\n} OCTET_STRING, *POCTET_STRING;\n成员 dwLength\n类型：DWORD 数据的长度。 lpValue\n类型： [size_is (dwLength) ]BYTE* 指向包含数据的字节数组的指针。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndattrib.h",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "HELPER_ATTRIBUTE",
+        "PHELPER_ATTRIBUTE"
+      ],
+      "confidence": 0.85,
+      "_source_line": 82
+    },
+    {
+      "id": "windows::RepairInfo",
+      "name": "RepairInfo",
+      "entity_type": "struct",
+      "description": "结构包含特定修复选项所需的数据。 RepairInfoEx 包含可用于帮助解决事件根本原因的详细修复信息。 RootCauseInfo 包含有关事件的根本原因的详细信息。 ShellCommandInfo",
+      "syntax": "typedef struct tagRepairInfo {   GUID         guid;\nLPWSTR       pwszClassName;   LPWSTR       pwszDescription;   DWORD        sidType;\nlong         cost;   ULONG        flags;   REPAIR_SCOPE scope;   REPAIR_RISK  risk;   UiInfo       UiInfo;\nint          rootCauseIndex;} RepairInfo, *PRepairInfo;\n成员 guid\n此修复的唯一 GUID。 pwszClassName\n指向以用户友好方式包含帮助程序类名称的以 null 结尾的字符串的指针。 pwszDescription\n指向以用户友好方式描述修复的以 null 结尾的字符串的指针。 sidType\n如果修复需要某些用户上下文或权限，则WELL_KNOWN_SID_TYPE之一。 cost\n执行修复所需的秒数。 flags\n有关修复的其他信息。值",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "RepairInfoEx",
+        "RootCauseInfo",
+        "ShellCommandInfo"
+      ],
+      "confidence": 0.7,
+      "_source_line": 84
+    },
+    {
+      "id": "windows::ShellCommandInfo",
+      "name": "ShellCommandInfo",
+      "entity_type": "struct",
+      "description": "结构包含启动手动修复选项的其他应用程序所需的数据。 UiInfo",
+      "syntax": "typedef struct tagShellCommandInfo {\nLPWSTR pwszOperation;   LPWSTR pwszFile;\nLPWSTR pwszParameters;   LPWSTR pwszDirectory;   ULONG  nShowCmd;\n} ShellCommandInfo, *PShellCommandInfo;\n成员 pwszOperation\n类型： [字符串] LPWSTR\n指向包含要执行的操作的以 null 结尾的字符串的指针。 指定操作的可用谓词集取决于特定的文件或文件夹。 通常，对象的快捷菜单中可用的操作是可用的谓词。 有关详细信\n息，请参见“备注”部分。 pwszFile\n类型： [字符串] LPWSTR\n指向以 null 结尾的字符串的指针，该字符串指定要对其执行指定谓词的文件或对象。 若要指定 Shell 命名空间对象，请传递完全限定分析名称。 请注意，并非所有对象都支持所\n有谓词。 例如，并非所有文档类型都支持“print”谓词。 pwszParameters\n类型： [字符串] LPWSTR\n指向以 null 结尾的字符串的指针，该字符串指定要传递给应用程序的参数（仅当 pwszFile 参数指定可执行文件时）。 此字符串的格式由要调用的谓词决定。 如果 pwszFile 指定文档文件， 则 pwszParameters 应为 NULL。\npwszDirectory\n类型： [字符串] LPWSTR\n指向以 null 结尾的字符串的指针，该字符串指定默认目录。 nShowCmd\n类型： ULONG\n指定应用程序在打开时如何显示应用程序的标志。 如果 pwszFile 指定文档文件，则标志\n将直接传递到关联的应用程序。 由应用程序决定如何处理它。",
+      "remarks": "对于手动修复选项，调用方可以使用此结构调用 ShellExecute 函数，以启动可帮助用户修复问题的其他应用程序。 以下谓词用于与 pwszOperation 相关联。 术语编辑 探讨找到打开 打印空 要求",
+      "requirements": {
+        "header": "ndattrib.h",
+        "target_platform": "Windows",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "UiInfo"
+      ],
+      "confidence": 0.6,
+      "_source_line": 87
+    },
+    {
+      "id": "windows::UiInfo",
+      "name": "UiInfo",
+      "entity_type": "struct",
+      "description": "结构。 rootCauseIndex 要求",
+      "syntax": "typedef struct tagUiInfo {",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 88
+    },
+    {
+      "id": "windows::AT_INVALID",
+      "name": "AT_INVALID",
+      "entity_type": "enum",
+      "description": "值： 0 无效的属性。 AT_BOOLEAN 一个 true 或 false 值。 AT_INT8 8 位有符号整数。 AT_UINT8 8 位无符号整数。",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "AT_INT8"
+      ],
+      "confidence": 0.75,
+      "_source_line": 124
+    },
+    {
+      "id": "windows::AT_INT8",
+      "name": "AT_INT8",
+      "entity_type": "enum",
+      "description": ", AT_UINT8, AT_INT16, AT_UINT16, AT_INT32, AT_UINT32, AT_INT64, AT_UINT64, AT_STRING, AT_GUID,",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "AT_GUID",
+        "AT_INT16"
+      ],
+      "confidence": 0.75,
+      "_source_line": 125
+    },
+    {
+      "id": "windows::AT_LIFE_TIME",
+      "name": "AT_LIFE_TIME",
+      "entity_type": "enum",
+      "description": ", AT_SOCKADDR,",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "AT_SOCKADDR"
+      ],
+      "confidence": 0.55,
+      "_source_line": 126
+    },
+    {
+      "id": "windows::AT_OCTET_STRING",
+      "name": "AT_OCTET_STRING",
+      "entity_type": "enum",
+      "description": "} ATTRIBUTE_TYPE;",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "ATTRIBUTE_TYPE"
+      ],
+      "confidence": 0.55,
+      "_source_line": 127
+    },
+    {
+      "id": "windows::AT_INT16",
+      "name": "AT_INT16",
+      "entity_type": "constant",
+      "description": "16 位带符号整数。 AT_UINT16 16 位无符号整数。 AT_INT32 32 位带符号整数。 AT_UINT32 32 位无符号整数。 AT_INT64 64 位带符号整数。 AT_UINT64 64 位无符号整数。 AT_STRING 一个字符串。 AT_GUID GUID 结构。",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "AT_GUID"
+      ],
+      "confidence": 0.75,
+      "_source_line": 137
+    },
+    {
+      "id": "windows::AT_SOCKADDR",
+      "name": "AT_SOCKADDR",
+      "entity_type": "constant",
+      "description": "IPv4 或 IPv6 地址。 AT_OCTET_STRING 一个字节数组。 要求",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "AT_OCTET_STRING"
+      ],
+      "confidence": 0.65,
+      "_source_line": 146
+    },
+    {
+      "id": "windows::True",
+      "name": "True",
+      "entity_type": "constant",
+      "description": "或 False 值。 在类型为 AT_BOOLEAN 时使用。 Char 类型： char 字符值。 在类型为 AT_INT8 时使用。 Byte 类型： 字节 一个 byte 值。 在类型为 AT_UINT8 时使用。 Short 类型： short 16 位有符号值。 在类型为 AT_INT16 时使用 Word 类型： WORD 一个 2 字节的无符号值。 在类型为 AT_UINT16 时使用。 Int 类型： int 一个 4 字节的有符号值。 在类型为 AT_INT32 时使用。 DWord 类型：DWORD 一个 4 字节的无符号值。 在类型为 AT_UINT32 时使用。 Int64 类型： LONGLONG 64 位带符号整数值。 在类型为 AT_INT64 时使用。 UInt64 类型： ULONGLONG 64 位无符号整数值。 在类型为 AT_UINT64 时使用。 PWStr 类型： LPWSTR 以 null 结尾的字符串值。 在类型为 AT_STRING 时使用。 Guid 类型： GUID GUID 结构。 在类型为 AT_GUID 时使用。 LifeTime 类型：",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "AT_GUID",
+        "AT_INT16",
+        "AT_INT8",
+        "Byte",
+        "False",
+        "Guid",
+        "Word"
+      ],
+      "confidence": 0.6,
+      "_source_line": 199
+    },
+    {
+      "id": "windows::CopyHelperAttribute",
+      "name": "CopyHelperAttribute",
+      "entity_type": "constant",
+      "description": "FreeHelperAttributes 是 否",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 235
+    },
+    {
+      "id": "windows::RR_ROLLBACK",
+      "name": "RR_ROLLBACK",
+      "entity_type": "constant",
+      "description": ", RR_NORISK } REPAIR_RISK; 常量",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "REPAIR_RISK"
+      ],
+      "confidence": 0.65,
+      "_source_line": 293
+    },
+    {
+      "id": "windows::RR_NOROLLBACK",
+      "name": "RR_NOROLLBACK",
+      "entity_type": "constant",
+      "description": "值： 0 修复执行无法撤消的永久性更改。 RR_ROLLBACK 修复执行可撤消的永久性更改。 RR_NORISK 修复不执行永久性更改。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndattrib.h",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "RR_ROLLBACK"
+      ],
+      "confidence": 0.75,
+      "_source_line": 297
+    },
+    {
+      "id": "windows::RS_SYSTEM",
+      "name": "RS_SYSTEM",
+      "entity_type": "constant",
+      "description": "值： 0 修复效果是系统范围的。 RS_USER 修复效果特定于用户。 RS_APPLICATION 修复效果特定于应用程序。 RS_PROCESS 修复效果特定于进程。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndattrib.h",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "RS_APPLICATION"
+      ],
+      "confidence": 0.75,
+      "_source_line": 318
+    },
+    {
+      "id": "windows::RS_APPLICATION",
+      "name": "RS_APPLICATION",
+      "entity_type": "constant",
+      "description": ", RS_PROCESS } REPAIR_SCOPE, *PREPAIR_SCOPE;",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "REPAIR_SCOPE"
+      ],
+      "confidence": 0.65,
+      "_source_line": 319
+    },
+    {
+      "id": "windows::RF_WORKAROUND",
+      "name": "RF_WORKAROUND",
+      "entity_type": "constant",
+      "description": "RF_USER_ACTION",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 357
+    },
+    {
+      "id": "windows::RF_USER_CONFIRMATION",
+      "name": "RF_USER_CONFIRMATION",
+      "entity_type": "constant",
+      "description": "RF_INFORMATION_ONLY",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 358
+    },
+    {
+      "id": "windows::RF_VALIDATE_HELPTOPIC",
+      "name": "RF_VALIDATE_HELPTOPIC",
+      "entity_type": "constant",
+      "description": "RF_REPRO",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 359
+    },
+    {
+      "id": "windows::RF_CONTACT_ADMIN",
+      "name": "RF_CONTACT_ADMIN",
+      "entity_type": "constant",
+      "description": "RF_RESERVED 含义 指示修复是解决问题的解决方法。 例如，有时重置网络接口可以解决间歇性问题，但不能直接解决特定问题，因此将其视为解决方法。 NDF 将在解决方法之前向用户显示非解决方法。 指示修复会提示用户在 NDF 外部执行手动任务。指示不应自动执行修复。 而是提示用户选择修复。 指示修复由用户的可操作信息组成。 对于仅信息修复，不会发生修复和验证会话。 指示修复向用户提供信息以及帮助主题。 与 无法验证的 RF_INFORMATION_ONLY 修复不同，可以在诊断会话中执行和验证此修复。 注意 仅适用于 Windows 7、Windows Server 2008 R2 及更高版本。 指示修复会提示用户重现其问题。 同时，帮助程序类可能已启用更详细的日志记录或其他后台机制来帮助检测故障。 注意 仅适用于 Windows 7、Windows Server 2008 R2 及更高版本。 指示修复会提示用户联系其网络管理员以解决问题。注意 仅适用于 Windows 7、Windows Server 2008 R2 及更高版本。 预留给系统使用。 注意 仅适用于 Windows 7、Windows Server 2008 R2 及更高版本。",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 360
+    },
+    {
+      "id": "windows::RF_RESERVED_CA",
+      "name": "RF_RESERVED_CA",
+      "entity_type": "constant",
+      "description": "RF_RESERVED_LNI scope 留待将来使用。 risk 留待将来使用。",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 377
+    },
+    {
+      "id": "windows::RepairInfoEx",
+      "name": "RepairInfoEx",
+      "entity_type": "constant",
+      "description": "*pRepairs; USHORT repairCount; } RootCauseInfo, *PRootCauseInfo; 成员 pwszDescription 类型： LPWSTR 描述导致事件的问题的字符串。 rootCauseID 类型： GUID 与标识的问题相对应的 GUID。 rootCauseFlags 类型：DWORD 一个数值，提供有关问题的详细信息。 值",
+      "syntax": "typedef struct tagRepairInfoEx {   RepairInfo repair;\nUSHORT     repairRank;\n} RepairInfoEx, *PRepairInfoEx;\n成员 repair\n类型： RepairInfo 详细的修复信息。 repairRank\n类型： USHORT\n相对于与事件关联的 RootCauseInfo 结构中的其他修复的修复的排名。 排名为 1 的修复预期与问题更相关，因此将是尝试的第一次修复。 无论其等级如何，都不能保证任何单\n个修复的成功。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndattrib.h",
+        "min_client": "Windows 7 [仅限桌面应用]",
+        "min_server": "Windows Server 2008 R2 [仅限桌面应用]"
+      },
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "RepairInfo",
+        "RootCauseInfo"
+      ],
+      "confidence": 0.7,
+      "_source_line": 404
+    },
+    {
+      "id": "windows::RootCauseInfo",
+      "name": "RootCauseInfo",
+      "entity_type": "constant",
+      "description": "结构的集合，其中包含根本原因的详细说明。 如果诊断成功，此参数将同时包含诊断会话中标识的叶根本原因和具有可用修复的任何非叶根本原因。 如果诊断不成功，则应忽略此参数的内容。 稍后应释放分配给这些结构的内存。 有关如何执行此操作的示例，请参阅 Microsoft Windows 网络诊断示例。 dwWait 类型：DWORD 终止诊断例程之前等待的时间长度（以毫秒为单位）。 如果不需要超时，则 INFINITE 可以传递 给此参数。 dwFlags 类型：DWORD 可能的值： 值",
+      "syntax": "typedef struct tagRootCauseInfo {   LPWSTR       pwszDescription;   GUID         rootCauseID;\nDWORD        rootCauseFlags;\nGUID         networkInterfaceID;",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 423
+    },
+    {
+      "id": "windows::RCF_ISLEAF",
+      "name": "RCF_ISLEAF",
+      "entity_type": "constant",
+      "description": "0x1 含义 根本原因对应于诊断树中的叶。 叶的根本原因更有可能更接近用户尝试诊断的问题。",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 444
+    },
+    {
+      "id": "windows::RCF_ISTHIRDPARTY",
+      "name": "RCF_ISTHIRDPARTY",
+      "entity_type": "constant",
+      "description": "0x4 networkInterfaceID 类型： GUID 根本原因对应于",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 450
+    },
+    {
+      "id": "windows::DS_CONFIRMED",
+      "name": "DS_CONFIRMED",
+      "entity_type": "constant",
+      "description": "的节点。 已确认的低运行状况问题更有可能与用户尝试诊断的问题相对应。 根本原因来自第三方帮助程序类扩展，而不是本机 Windows 帮助程序类。 发生问题的网络接口的 GUID。 如果问题不是特定于接口的，则此值为零 (0) 。 pRepairs 类型：",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "DIAGNOSIS_STATUS",
+        "RepairInfoEx",
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 453
+    },
+    {
+      "id": "windows::UIT_INVALID",
+      "name": "UIT_INVALID",
+      "entity_type": "constant",
+      "description": "值： 0 UIT_NONE 值：1 不存在其他修复接口。",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 529
+    },
+    {
+      "id": "windows::UIT_SHELL_COMMAND",
+      "name": "UIT_SHELL_COMMAND",
+      "entity_type": "constant",
+      "description": "执行 shell 命令。",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 530
+    },
+    {
+      "id": "windows::UIT_HELP_PANE",
+      "name": "UIT_HELP_PANE",
+      "entity_type": "constant",
+      "description": ", UIT_DUI } UI_INFO_TYPE;",
+      "header": "ndattrib.h",
+      "deprecated": false,
+      "cross_references": [
+        "UIT_DUI",
+        "UI_INFO_TYPE"
+      ],
+      "confidence": 0.65,
+      "_source_line": 531
+    },
+    {
+      "id": "windows::NdfCancelIncident",
+      "name": "NdfCancelIncident",
+      "entity_type": "function",
+      "description": "用于取消以前对现有事件调用的不需要的函数。 NdfCloseIncident 用于在解决 NDF) 事件后关闭网络诊断框架 (。",
+      "syntax": "void NdfCancelIncident(   [in] NDFHANDLE Handle);",
+      "parameters": [
+        {
+          "name": "Handle",
+          "direction": "in",
+          "type": "NDFHANDLE",
+          "description": "网络诊断框架事件的句柄。 此句柄应与现有事件的句柄匹配。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "可能的返回值包括但不限于以下内容。 返回代码 S_OK S_OK以外的任何结果都应解释为错误。"
+      },
+      "remarks": "说明 操作成功。 使用此 API 之前，应用程序必须调用事件创建函数，例如 NdfCreateWebIncident。",
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "NdfCloseIncident",
+        "NdfCreateWebIncident"
+      ],
+      "confidence": 0.85,
+      "_source_line": 593
+    },
+    {
+      "id": "windows::NdfRepairIncident",
+      "name": "NdfRepairIncident",
+      "entity_type": "function",
+      "description": "等函数的调用。 调用 NdfCancelIncident 时，NDF 将尽快停止诊断/修复， 而不是 (调用其他函数，除非已从这些函数返回结果，在这种情况下 ，NdfCancelIncident 将) 不起作用。",
+      "syntax": "void NdfRepairIncident(\n[in] NDFHANDLE    Handle,\n[in] RepairInfoEx *RepairEx,\nDWORD        dwWait);",
+      "parameters": [
+        {
+          "name": "Handle",
+          "direction": "in",
+          "type": "NDFHANDLE",
+          "description": "网络诊断框架事件的句柄。 此句柄应与传递给 NdfDiagnoseIncident 的句柄匹配。[in] RepairEx 类型： RepairInfoEx* 结构 (从 NdfDiagnoseIncident) 获取，指示要执行的特定修复。 稍后应释放分配给这些结构的内存。 有关如何执行此操作的示例，请参阅 Microsoft Windows 网络诊断示例。 dwWait 类型：DWORD 终止诊断例程之前等待的时间长度（以毫秒为单位）。 如果不需要超时，可以向此参数传递 INFINITE。"
+        }
+      ],
+      "return_value": {
+        "description": "可能的返回值包括但不限于以下值。 返回代码 S_OK"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "NdfCancelIncident"
+      ],
+      "confidence": 0.85,
+      "_source_line": 634
+    },
+    {
+      "id": "windows::NdfCloseIncident",
+      "name": "NdfCloseIncident",
+      "entity_type": "function",
+      "description": "应该用于在事件解决后将其关闭，因为 NdfCancelIncident 实际上不会关闭事 件本身。",
+      "syntax": "void NdfCloseIncident(   [in] NDFHANDLE handle);",
+      "parameters": [
+        {
+          "name": "handle",
+          "direction": "in",
+          "type": "NDFHANDLE",
+          "description": "正在关闭的 NDF 事件的句柄。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "可能的返回值包括但不限于以下值。 返回代码 S_OK"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndfapi.h",
+        "library": "Ndfapi.lib",
+        "dll": "Ndfapi.dll",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "NdfCancelIncident"
+      ],
+      "confidence": 0.75,
+      "_source_line": 636
+    },
+    {
+      "id": "windows::NdfCreateWinSockIncident",
+      "name": "NdfCreateWinSockIncident",
+      "entity_type": "function",
+      "description": "NdfExecuteDiagnosis 值 说明 操作成功。 没有足够的内存可用于完成此操作。一个或多个参数无效。 helperClassName 为 NULL。 Windows Vista [仅限桌面应用] Windows Server 2008 [仅限桌面应用] Windows ndfapi.h Ndfapi.lib Ndfapi.dll",
+      "syntax": "void NdfCreateWinSockIncident(                  SOCKET    sock,   [in, optional] LPCWSTR   host,                  USHORT    port,   [in, optional] LPCWSTR   appId,\n[in, optional] SID       *userId,   [out]          NDFHANDLE *handle);\n参数 sock\n类型： SOCKET\n标识连接的套接字的描述符。\n[in, optional] host 类型： LPCWSTR\n指向本地主机的指针。 port\n类型： USHORT\n提供 Winsock 访问的端口。\n[in, optional] appId 类型： LPCWSTR\n与应用程序关联的唯一标识符。[in, optional] userId\n类型： SID*\n与用户关联的唯一标识符。[out] handle\n类型： NDFHANDLE*\n网络诊断框架事件的句柄。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "可能的返回值包括但不限于以下内容。 返回代码 S_OK"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "NdfExecuteDiagnosis",
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.75,
+      "_source_line": 671
+    },
+    {
+      "id": "windows::E_ABORT",
+      "name": "E_ABORT",
+      "entity_type": "function",
+      "description": "说明 操作成功。 没有足够的内存可用于完成此操作。 未正确提供一个或多个参数。此可选方法未实现。 调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。 帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。",
+      "syntax": "HRESULT Validate(\n[in]  PROBLEM_TYPE  problem,\n[out] long          *pDeferredTime,\n[out] REPAIR_STATUS *pStatus);",
+      "parameters": [
+        {
+          "name": "problem",
+          "direction": "in",
+          "description": "帮助程序类先前已诊断的 PROBLEM_TYPE 。[out] pDeferredTime 一个指针，指向无法立即启动诊断时要延迟的时间（以秒为单位）。 仅当 pStatus 成员设置为"
+        }
+      ],
+      "remarks": "生成帮助程序类扩展时不需要此方法。 生存期数据用于限制问题实例的时间范围。 这在进行基于历史记录的诊断（例如跟踪和日志记录）时特别有用，这些诊断可用于将诊断范围缩小到指定时间间隔内发生的事件。 例如，Windows 筛选平台 (WFP) 帮助程序类使用生存期通过检查跟踪日志来确定阻止数据包的 筛选器。 默认情况下，帮助程序类实例的生存期继承其依赖帮助程序类实例的生存期。",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows Vista [仅限桌面应用]"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.95,
+      "_source_line": 686
+    },
+    {
+      "id": "windows::E_OUTOFMEMORY",
+      "name": "E_OUTOFMEMORY",
+      "entity_type": "function",
+      "description": "E_INVALIDARG 说明 操作成功。 没有足够的内存可用于完成此操作。未正确提供一个或多个参数。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndfapi.h",
+        "library": "Ndfapi.lib",
+        "dll": "Ndfapi.dll",
+        "min_client": "Windows 8 [仅限桌面应用]",
+        "min_server": "Windows Server 2012 [仅限桌面应用]"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "E_INVALIDARG"
+      ],
+      "confidence": 0.75,
+      "_source_line": 687
+    },
+    {
+      "id": "windows::NdfCreateDNSIncident",
+      "name": "NdfCreateDNSIncident",
+      "entity_type": "function",
+      "description": "函数诊断解析特定主机名时的名称解析问题。",
+      "syntax": "void NdfCreateDNSIncident(   [in]  LPCWSTR   hostname,         WORD      queryType,\n[out] NDFHANDLE *handle);",
+      "parameters": [
+        {
+          "name": "hostname",
+          "direction": "in",
+          "type": "LPCWSTR",
+          "description": "存在名称解析问题的主机名。 queryType 类型： WORD 发生问题时查询的记录类型的数值表示形式。 有关详细信息以及记录集类型及其数值表示形式的完整列表，请参阅 windns.h 头文件。 此参数应设置为 DNS_TYPE_ZERO ，以便进行泛型 DNS 解析诊断。[out] handle 类型： NDFHANDLE* 网络诊断框架事件的句柄。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "可能的返回值包括但不限于以下值。 返回代码 S_OK"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 704
+    },
+    {
+      "id": "windows::NdfCreateGroupingIncident",
+      "name": "NdfCreateGroupingIncident",
+      "entity_type": "function",
+      "description": "函数创建一个会话来诊断对等分组功能问题。",
+      "syntax": "HRESULT NdfCreateGroupingIncident(\n[in, optional] LPCWSTR             CloudName,   [in, optional] LPCWSTR             GroupName,   [in, optional] LPCWSTR             Identity,   [in, optional] LPCWSTR             Invitation,   [in, optional] SOCKET_ADDRESS_LIST *Addresses,\n[in, optional] LPCWSTR             appId,   [out]          NDFHANDLE           *handle);",
+      "parameters": [
+        {
+          "name": "CloudName",
+          "direction": "in, optional",
+          "description": "类型： LPCWSTR 创建组的云) PNRP (对等名称解析协议的名称。 如果 为 NULL，则会话不会尝试诊断与 PNRP 相关的问题。"
+        },
+        {
+          "name": "GroupName",
+          "direction": "in, optional",
+          "description": "类型： LPCWSTR 要诊断的组的名称。 如果 为 NULL，则会话不会尝试诊断与组可用性相关的问题。"
+        },
+        {
+          "name": "Identity",
+          "direction": "in, optional",
+          "description": "类型： LPCWSTR 对等方用于访问组的标识。 如果 为 NULL，则会话不会尝试诊断与组在 PNRP 中注册的能力相关的问题。"
+        },
+        {
+          "name": "Invitation",
+          "direction": "in, optional",
+          "description": "类型： LPCWSTR 由另一对等方授予的 XML 邀请。 邀请方调用 PeerGroupCreateInvitation 或"
+        }
+      ],
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 735
+    },
+    {
+      "id": "windows::PeerGroupIssueCredentials",
+      "name": "PeerGroupIssueCredentials",
+      "entity_type": "function",
+      "description": "时，将创建邀请。 如果存在此值，则将检查邀请以确保其格式和过期时间有效。 [in, optional] Addresses 类型： SOCKET_ADDRESS_LIST* 应用程序尝试连接到的对等方的地址的可选列表。 如果使用此参数，帮助程序类将诊断与这些地址的连接。 [in, optional] appId 类型： LPCWSTR 调用应用程序的应用程序 ID。[out] handle 类型： NDFHANDLE* 网络诊断框架事件的句柄。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "可能的返回值包括但不限于以下值。 返回代码 S_OK"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "SOCKET_ADDRESS_LIST"
+      ],
+      "confidence": 0.65,
+      "_source_line": 750
+    },
+    {
+      "id": "windows::NDF_E_BAD_PARAM",
+      "name": "NDF_E_BAD_PARAM",
+      "entity_type": "function",
+      "description": "注解 执行的诊断级别取决于提供的参数。 说明 操作成功。 未正确提供一个或多个参数。 如果未指定参数，NDF 将验证分组服务状态、对等服务的状态 (PNRP 和Identity Manager)，以及 Windows 时钟同步。 如果指定 了 CloudName，NDF 将验证该云中的分组功能。 如果指定 了 GroupName，NDF 将验证该名称是否可以在 PNRP (解析，或者在无法) 解析该名称时调用 PNRP 帮助程序类，并验证用于分组的防火墙设置。 如果指定 了 Identity，NDF 将验证 PNRP 是否能够使用此标识注册 GroupName 。 如果此操作失败，将调用 PNRP 帮助程序类。 如果指定了 邀请 ，则 GroupName 将从邀请 (如果未同时指定 GroupName) 并且 NDF 将验证邀请的格式和状态。 如果指定了 “地址” ，NDF 将验证 Windows 是否可以连接到其中最多三个地址。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndfapi.h",
+        "library": "Ndfapi.lib",
+        "dll": "Ndfapi.dll",
+        "min_client": "Windows 7 [仅限桌面应用]",
+        "min_server": "Windows Server 2008 R2 [仅限桌面应用]"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "GroupName",
+        "Identity",
+        "Manager"
+      ],
+      "confidence": 0.75,
+      "_source_line": 762
+    },
+    {
+      "id": "windows::NdfCreateInboundIncident",
+      "name": "NdfCreateInboundIncident",
+      "entity_type": "function",
+      "description": "函数创建会话来诊断特定应用程序或服务的入站连接。",
+      "syntax": "void NdfCreateInboundIncident(\n[in, optional] LPCWSTR                applicationID,\n[in, optional] LPCWSTR                serviceID,   [in, optional] SID                    *userID,\n[in, optional] const SOCKADDR_STORAGE *localTarget,\nIPPROTO                protocol,                  DWORD                  dwFlags,   [out]          NDFHANDLE              *handle);",
+      "parameters": [
+        {
+          "name": "applicationID",
+          "direction": "in, optional",
+          "description": "类型： LPCWSTR 接收入站流量的应用程序的完全限定路径。"
+        },
+        {
+          "name": "serviceID",
+          "direction": "in, optional",
+          "description": "类型： LPCWSTR 接收入站流量的 Windows 服务。 dll，-28502 (文件/打印共享) dll，-28752 (远程桌面) dll，-32752 (Network Discovery)"
+        },
+        {
+          "name": "userID",
+          "direction": "in, optional",
+          "type": "const SOCKADDR_STORAGE",
+          "description": "类型： SID* 接收流量的应用程序的 SID。 如果 为 NULL，则会自动使用调用方 SID。[in, optional] localTarget 一种SOCKADDR_STORAGE结构，用于将诊断限制为发到特定 IP 地址的流量。 如果 为 NULL， 则所有流量都将包含在诊断中。 protocol 类型： IPPROTO 应诊断的协议。 例如，IPPROTO_TCP将用于指示 TCP/IP 协议。 dwFlags 类型：DWORD 可能的值："
+        }
+      ],
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 783
+    },
+    {
+      "id": "windows::NDF_INBOUND_FLAG_EDGETRAVERSAL",
+      "name": "NDF_INBOUND_FLAG_EDGETRAVERSAL",
+      "entity_type": "function",
+      "description": "指示如果本地网络上的两个网关都在专用访问范围内，应将配置视为不正常，而不是仅当两个网 关都是 Internet 网关设备 (IGD) 时才认为配置正常。 NDF_INBOUND_FLAG_HEALTHCHECK 如果未诊断任何入站流量问题，则立即结束会话，而不是启用详细跟踪并允许用户重现其问题进 行第二次诊断。[out] handle 类型： NDFHANDLE* 指向网络诊断框架事件的句柄的指针。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "可能的返回值包括但不限于以下内容。 返回代码 说明 S_OK"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.8,
+      "_source_line": 805
+    },
+    {
+      "id": "windows::E_INVALIDARG",
+      "name": "E_INVALIDARG",
+      "entity_type": "function",
+      "description": "E_ACCESSDENIED E_ABORT 操作成功。 没有足够的内存可用于完成此操作。未正确提供一个或多个参数。 调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。 帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。",
+      "remarks": "生成帮助程序类扩展时，需要使用 LowHealth 方法。 如果 LowHealth 返回DS_CONFIRMED，ppwszDescription 还将包含诊断结果的用户友好说明。如果 pStatus 返回DS_DEFERRED，则 out 参数 pDeferredTime 包含此诊断需要延迟 的秒数。 确认 LowHealth 时，如果问题可能是由其他组件引起的，还可以选择在 GetLowerHypotheses 方法中为其他帮助程序类生成假设。 如果未确认，NDF 可能会通过调用 HighUtilization 进一步诊断问题。 如果 LowHealth 无法诊断问题，但无法确认组件是否正常，则 LowHealth 也可能返回 DS_INDETERMINATE 。 在这种情况下，如果未确认其他假设，NDF 会将它视为 DS_CONFIRMED 。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndhelper.h",
+        "library": "Ndfapi.lib",
+        "dll": "Ndfapi.dll",
+        "min_client": "Windows 7 [仅限桌面应用]",
+        "min_server": "Windows Server 2008 R2 [仅限桌面应用]"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "DS_CONFIRMED",
+        "DS_INDETERMINATE",
+        "E_ABORT",
+        "E_ACCESSDENIED",
+        "GetLowerHypotheses",
+        "HighUtilization",
+        "LowHealth"
+      ],
+      "confidence": 0.75,
+      "_source_line": 819
+    },
+    {
+      "id": "windows::NdfCreateIncident",
+      "name": "NdfCreateIncident",
+      "entity_type": "function",
+      "description": "应用程序开发人员在内部使用 NdfCreateIncident 函数来测试合并到其应用程序中的 NDF 功能。",
+      "syntax": "void NdfCreateIncident(\n[in]  LPCWSTR          helperClassName,         ULONG            celt,\n[in]  HELPER_ATTRIBUTE *attributes,\n[out] NDFHANDLE        *handle);",
+      "parameters": [
+        {
+          "name": "helperClassName",
+          "direction": "in",
+          "type": "ULONG",
+          "description": "类型： LPCWSTR 要用于事件诊断的帮助程序类的名称。 celt 特性数组中的元素计数。[in] attributes 类型： HELPER_ATTRIBUTE* 适用的 HELPER_ATTRIBUTE 结构。[out] handle 类型： NDFHANDLE* 网络诊断框架事件的句柄。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "可能的返回值包括但不限于以下值。 返回代码 S_OK"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 832
+    },
+    {
+      "id": "windows::NdfCreatePnrpIncident",
+      "name": "NdfCreatePnrpIncident",
+      "entity_type": "function",
+      "description": "函数创建一个会话，用于诊断对等名称解析协议 (PNRP) 服务的问题。",
+      "syntax": "void NdfCreatePnrpIncident(\n[in]           LPCWSTR   cloudname,   [in, optional] LPCWSTR   peername,\n[in]           BOOL      diagnosePublish,\n[in, optional] LPCWSTR   appId,   [out]          NDFHANDLE *handle);",
+      "parameters": [
+        {
+          "name": "cloudname",
+          "direction": "in",
+          "description": "类型： LPCWSTR 要诊断的云的名称。"
+        },
+        {
+          "name": "peername",
+          "direction": "in, optional",
+          "description": "类型： LPCWSTR PNRP 可以尝试解析的对等节点的可选名称。 结果将用于帮助诊断任何问题。"
+        },
+        {
+          "name": "diagnosePublish",
+          "direction": "in",
+          "description": "类型： BOOL 指定帮助程序类是否应验证节点是否可以发布 ID。 如果 为 FALSE，则会跳过此诊断步骤。"
+        },
+        {
+          "name": "appId",
+          "direction": "in, optional",
+          "type": "NDFHANDLE*",
+          "description": "类型： LPCWSTR 调用应用程序的应用程序 ID。[out] handle 网络诊断框架事件的句柄。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "可能的返回值包括但不限于以下内容。 返回代码 S_OK"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 901
+    },
+    {
+      "id": "windows::NdfCreateSharingIncident",
+      "name": "NdfCreateSharingIncident",
+      "entity_type": "function",
+      "description": "函数诊断访问特定网络共享时的网络问题。",
+      "syntax": "void NdfCreateSharingIncident(\n[in]  LPCWSTR   UNCPath,   [out] NDFHANDLE *handle);",
+      "parameters": [
+        {
+          "name": "UNCPath",
+          "direction": "in",
+          "type": "LPCWSTR",
+          "description": "完整的 UNC 字符串 (，例如，存在连接问题的共享资产的“\\server\\folder\\file.ext”) 。[out] handle 类型： NDFHANDLE* 网络诊断框架事件的句柄。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "可能的返回值包括但不限于以下值。 返回代码 S_OK"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 939
+    },
+    {
+      "id": "windows::NdfCreateWebIncident",
+      "name": "NdfCreateWebIncident",
+      "entity_type": "function",
+      "description": "值 说明 操作成功。 基础诊断或修复操作已取消。 没有足够的内存可用于完成此操作。一个或多个参数无效。 Windows Vista [仅限桌面应用] Windows Server 2008 [仅限桌面应用] Windows ndfapi.h Ndfapi.lib Ndfapi.dll",
+      "syntax": "void NdfCreateWebIncident(   [in]  LPCWSTR   url,\n[out] NDFHANDLE *handle);",
+      "parameters": [
+        {
+          "name": "url",
+          "direction": "in",
+          "type": "LPCWSTR",
+          "description": "出现连接问题的 URL。[out] handle 类型： NDFHANDLE* 网络诊断框架事件的句柄。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "可能的返回值包括但不限于以下内容。 返回代码 S_OK"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.85,
+      "_source_line": 971
+    },
+    {
+      "id": "windows::NdfCreateWebIncidentEx",
+      "name": "NdfCreateWebIncidentEx",
+      "entity_type": "function",
+      "description": "函数诊断有关特定 URL 的 Web 连接问题。 与 NdfCreateWebIncident 函数相比，此函数可以更好地控制基础诊断。",
+      "syntax": "void NdfCreateWebIncidentEx(   [in]  LPCWSTR   url,\n[in]  BOOL      useWinHTTP,   [in]  LPWSTR    moduleName,\n[out] NDFHANDLE *handle);",
+      "parameters": [
+        {
+          "name": "url",
+          "direction": "in",
+          "type": "LPCWSTR",
+          "description": "出现连接问题的 URL。"
+        },
+        {
+          "name": "useWinHTTP",
+          "direction": "in",
+          "description": "类型： BOOL 如果将使用 WinHTTP API 执行诊断，则为 TRUE;如果使用 WinInet API，则为 FALSE。"
+        },
+        {
+          "name": "moduleName",
+          "direction": "in",
+          "type": "NDFHANDLE*",
+          "description": "类型： LPWSTR 检查特定于应用程序的筛选规则时使用的模块名称 (例如“C：\\Program Files\\Internet Explorer\\iexplorer.exe”) 。 如果 为 NULL，则诊断期间会自动检测到该值。[out] handle 网络诊断框架事件的句柄。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "可能的返回值包括但不限于以下值。 返回代码 S_OK"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "NdfCreateWebIncident"
+      ],
+      "confidence": 0.85,
+      "_source_line": 1004
+    },
+    {
+      "id": "windows::NdfDiagnoseIncident",
+      "name": "NdfDiagnoseIncident",
+      "entity_type": "function",
+      "description": "函数在不显示用户界面的情况下诊断事件的根本原因。",
+      "syntax": "void NdfDiagnoseIncident(\n[in]  NDFHANDLE     Handle,\n[out] ULONG         *RootCauseCount,   [out] RootCauseInfo **RootCauses,\nDWORD         dwWait,         DWORD         dwFlags);",
+      "parameters": [
+        {
+          "name": "Handle",
+          "direction": "in",
+          "type": "NDFHANDLE",
+          "description": "网络诊断框架事件的句柄。"
+        },
+        {
+          "name": "RootCauseCount",
+          "direction": "out",
+          "type": "RootCauseInfo**",
+          "description": "类型： ULONG* 可能导致此事件的根本原因的数目。 如果诊断不成功，则应忽略此参数的内容。[out] RootCauses"
+        }
+      ],
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 1077
+    },
+    {
+      "id": "windows::E_HANDLE",
+      "name": "E_HANDLE",
+      "entity_type": "function",
+      "description": "说明 操作成功。句柄 无效。 要求",
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.55,
+      "_source_line": 1104
+    },
+    {
+      "id": "windows::WAIT_TIMEOUT",
+      "name": "WAIT_TIMEOUT",
+      "entity_type": "function",
+      "description": "注解 含义 在诊断期间启用网络跟踪。 诊断结果将包含在 NdfGetTraceFile 返回的事件跟踪日志 (ETL) 文件中。 对返回的根本原因应用筛选，使其与内置脚本诊断行为保持一致。 如果没有此标志，则不会筛选根本原因。 此标志必须由调用方设置，因此现有调用方除非显式指定此标志，否则不会看到行为更改。 注意仅适用于 Windows 8 和 Windows Server 2012。 说明 操作成功。 NDF 事件句柄无效。 诊断例程已终止，因为它所花费的时间长于 dwWait 中指定的超时时间。 此函数适用于未显示用户界面或未使用标准 Windows 体验的方案， (与媒体中心和嵌入式应用程序) 一样。 NdfExecuteDiagnosis 将启动诊断用户界面，应在使用标准 Windows 体验的方案 中使用。 可以调用 NdfExecuteDiagnosis 或 NdfDiagnoseIncident，但不能同时调用 NdfExecuteDiagnoseIncident。 在使用此 API 之前，应用程序必须调用事件创建函数（例如 NdfCreateWebIncident）来启动 NDF 诊断过程。 然后，应用程序调用 NdfDiagnoseIncident 来诊断问题。 如果诊断进程识别出一些可能的修复，应用程序可以调用 NdfRepairIncident 来修复问题，而无需显示用户界面。 如果应用程序想要取消正在进行的 NdfDiagnoseIncident 调用，可以选择从单独的线程调用",
+      "remarks": "仅当 NdfDiagnoseIncident 用于诊断时，才能调用 NdfRepairIncident。 在未显示用户界面或未 使用标准 Windows 体验的情况下，通常 (媒体中心和嵌入式应用程序) 。 使用 NdfExecuteDiagnosis 时，不应调用 NdfRepairIncident。 在使用此 API 之前，应用程序必须调用事件创建函数（如 NdfCreateWebIncident）来开始 NDF 诊断过程。 然后，应用程序调用 NdfDiagnoseIncident 来诊断问题。 如果诊断进程识别出一些可能的修复，应用程序可以调用 NdfRepairIncident 来修复问题，而无需显示用户界面。 如果应用程序想要取消正在进行的 NdfRepairIncident 调用，可以选择从单独的线程调用 NdfCancelIncident。 最后，应用程序调用 NdfCloseIncident。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndfapi.h",
+        "min_client": "Windows 7 [仅限桌面应用]",
+        "min_server": "Windows Server 2008 R2 [仅限桌面应用]"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "NdfCancelIncident",
+        "NdfCloseIncident",
+        "NdfCreateWebIncident",
+        "NdfDiagnoseIncident",
+        "NdfExecuteDiagnosis",
+        "NdfGetTraceFile",
+        "NdfRepairIncident",
+        "RootCauseInfo",
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1105
+    },
+    {
+      "id": "windows::NdfGetTraceFile",
+      "name": "NdfGetTraceFile",
+      "entity_type": "function",
+      "description": "函数用于检索包含事件跟踪日志的路径 (ETL) 文件，该文件包含 Windows(ETW) 诊断会话中的事件跟踪。",
+      "syntax": "void NdfGetTraceFile(\n[in]  NDFHANDLE Handle,\n[out] LPCWSTR   *TraceFileLocation);",
+      "parameters": [
+        {
+          "name": "Handle",
+          "direction": "in",
+          "type": "NDFHANDLE",
+          "description": "网络诊断框架事件的句柄。 此句柄应与现有事件的句柄匹配。[out] TraceFileLocation 类型： LPCWSTR* 跟踪文件的位置。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "可能的返回值包括但不限于以下值。 返回代码 S_OK S_OK以外的任何结果都应解释为错误。 说明 操作成功。"
+      },
+      "remarks": "无法对已关闭的事件调用此函数。 ETL 文件包含诊断的组件、组件配置信息和诊断结果等信息。 有关 ETL 文件的详细信息，请参 阅 Windows 7 中的网络跟踪。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndfapi.h",
+        "library": "Ndfapi.lib",
+        "dll": "Ndfapi.dll",
+        "min_client": "Windows 7 [仅限桌面应用]",
+        "min_server": "Windows Server 2008 R2 [仅限桌面应用]"
+      },
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.85,
+      "_source_line": 1185
+    },
+    {
+      "id": "windows::NDF_E_VALIDATION",
+      "name": "NDF_E_VALIDATION",
+      "entity_type": "function",
+      "description": "E_HANDLE",
+      "header": "ndfapi.h",
+      "deprecated": false,
+      "cross_references": [
+        "E_HANDLE"
+      ],
+      "confidence": 0.55,
+      "_source_line": 1237
+    },
+    {
+      "id": "windows::DS_DEFERRED",
+      "name": "DS_DEFERRED",
+      "entity_type": "enum",
+      "description": "时，使用此方法。[out] pStatus 指向从诊断返回 的DIAGNOSIS_STATUS 的指针。",
+      "return_value": {
+        "description": "返回代码 说明 S_OK"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.8,
+      "_source_line": 1299
+    },
+    {
+      "id": "windows::DS_NOT_IMPLEMENTED",
+      "name": "DS_NOT_IMPLEMENTED",
+      "entity_type": "enum",
+      "description": "值： 0 帮助程序类未实现 DS_CONFIRMED 帮助程序类已确认其组件中存在问题。 DS_REJECTED 帮助程序类已确定不存在问题。 DS_INDETERMINATE 帮助程序类无法确定是否存在问题。 DS_DEFERRED 帮助程序类目前无法执行诊断。 DS_PASSTHROUGH 帮助程序类已确定要进一步调查的假设，但未确定其自己的组件中的任何问题。 等效于 DS_INDETERMINATE，但如果未确认假设，则稍后将更新为 DS_REJECTED 。 注意 仅适用于 Windows 7、Windows Server 2008 R2 及更高版本。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndhelper.h",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [
+        "DS_CONFIRMED",
+        "DS_DEFERRED",
+        "DS_INDETERMINATE",
+        "Server"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1303
+    },
+    {
+      "id": "windows::PHELPER_ATTRIBUTE",
+      "name": "PHELPER_ATTRIBUTE",
+      "entity_type": "enum",
+      "description": "rgAttributes;} HYPOTHESIS, *PHYPOTHESIS; 成员 pwszClassName 类型： [string] LPWSTR 指向包含帮助程序类名称的以 null 结尾的字符串的指针。 pwszDescription 类型： [string] LPWSTR 指向以 null 结尾的字符串的指针，该字符串包含传递给帮助程序类的数据的用户友好说 明。 celt 类型： ULONG 此假设中的属性计数。 rgAttributes 类型： [size_is (celt) ]PHELPER_ATTRIBUTE[ ] 指向包含此假设的关键属性的",
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [
+        "HELPER_ATTRIBUTE",
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1384
+    },
+    {
+      "id": "windows::HypothesisResult",
+      "name": "HypothesisResult",
+      "entity_type": "enum",
+      "description": "结构包含有关从帮助程序类返回的假设的信息。 该假设是通过调用 GetLowerHypotheses 获得的。",
+      "syntax": "typedef struct tagHypothesisResult {\nHYPOTHESIS       hypothesis;   DIAGNOSIS_STATUS pathStatus;} HypothesisResult;\n成员 hypothesis\n类型： HYPOTHESIS 特定假设的信息。 pathStatus\n类型： DIAGNOSIS_STATUS\n子帮助程序类及其子级的状态。\n如果假设或其任何子项在调用 LowHealth 时指示DS_CONFIRMED，则将DS_CONFIRMED 此值。 如果此类调用中不存在任何问题，则将 DS_REJECTED该值。 如果组件的运行状况\n不明确，将 DS_INDETERMINATE 该值。",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 7 [仅限桌面应用]",
+        "min_server": "Windows Server 2008 R2 [仅限桌面应用]"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetLowerHypotheses"
+      ],
+      "confidence": 0.7,
+      "_source_line": 1409
+    },
+    {
+      "id": "windows::LowHealth",
+      "name": "LowHealth",
+      "entity_type": "enum",
+      "description": "反馈 是 值 ndhelper.h 否 INetDiagHelper 接口 (ndhelper.h) 项目2024/03/05 INetDiagHelper 接口提供的方法可捕获和提供与诊断和解决网络相关问题相关的信息。继承 INetDiagHelper 接口继承自 IUnknown 接口。 INetDiagHelper 还具有以下类型的成员：方法 INetDiagHelper 接口具有这些方法。 INetDiagHelper：：Cancel 取消正在进行的诊断或修复。 INetDiagHelper：：Cleanup 允许帮助程序类扩展在诊断或修复操作后清理资源。 INetDiagHelper：：GetAttributes 检索有关帮助程序类扩展已诊断的问题的其他信息。 INetDiagHelper：：GetCacheTime 指定诊断和修复操作的缓存结果过期的时间。 INetDiagHelper：：GetDiagnosticsInfo 启用 Helper 类扩展实例以提供估计值。 INetDiagHelper：：GetDownStreamHypotheses 要求帮助程序类扩展生成假设。 INetDiagHelper：：GetHigherHypotheses 生成高利用率的可能原因的假设。 INetDiagHelper：：GetKeyAttributes 检索帮助程序类扩展的键属性。 INetDiagHelper：：GetLifeTime 检索帮助程序类扩展实例的生存期。 INetDiagHelper：：GetLowerHypotheses 针对本地组件中运行状况不佳的可能原因生成假设。 INetDiagHelper：：GetRepairInfo 检索帮助程序类扩展针对给定问题类型的修复信息。 INetDiagHelper：：GetUpStreamHypotheses 为上游网络组件中高利用率的可能原因生成假设。 INetDiagHelper：：HighUtilization 检查相应的组件是否得到高度利用。 INetDiagHelper：：Initialize",
+      "syntax": "HRESULT LowHealth(\n[in]  LPCWSTR          pwszInstanceDescription,\n[out] LPWSTR           *ppwszDescription,   [out] long             *pDeferredTime,\n[out] DIAGNOSIS_STATUS *pStatus);",
+      "parameters": [
+        {
+          "name": "pwszInstanceDescription",
+          "direction": "in",
+          "description": "指向以 null 结尾的字符串的指针，其中包含所诊断信息的用户友好说明。 例如，如果类要诊断 IP 地址的连接问题， 则 pwszInstanceDescription 参数将包含主机名。[out] ppwszDescription 指向以 null 结尾的字符串的指针，其中包含发现组件不正常时发现的问题的说明。[out] pDeferredTime 一个指针，指向如果诊断无法立即启动，则延迟的时间（以秒为单位）。 当 pStatus 参数设置为"
+        }
+      ],
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [
+        "Cancel",
+        "Cleanup",
+        "GetAttributes",
+        "GetCacheTime",
+        "GetDiagnosticsInfo",
+        "GetDownStreamHypotheses",
+        "GetHigherHypotheses",
+        "GetKeyAttributes",
+        "GetLifeTime",
+        "GetLowerHypotheses",
+        "GetRepairInfo",
+        "GetUpStreamHypotheses",
+        "HighUtilization",
+        "Initialize"
+      ],
+      "confidence": 0.8,
+      "_source_line": 1429
+    },
+    {
+      "id": "windows::Cancel",
+      "name": "Cancel",
+      "entity_type": "enum",
+      "description": "方法取消正在进行的诊断或修复。",
+      "syntax": "HRESULT Cancel(); 返回值\n返回代码 S_OK",
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 1476
+    },
+    {
+      "id": "windows::Cleanup",
+      "name": "Cleanup",
+      "entity_type": "enum",
+      "description": "方法允许帮助程序类扩展在诊断或修复操作后清理资源。",
+      "syntax": "HRESULT Cleanup(); 返回值\n返回代码 S_OK",
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1503
+    },
+    {
+      "id": "windows::GetAttributes",
+      "name": "GetAttributes",
+      "entity_type": "enum",
+      "description": "方法检索有关帮助程序类扩展已诊断的问题的其他信息。",
+      "syntax": "HRESULT GetAttributes(\n[out] ULONG            *pcelt,\n[out] HELPER_ATTRIBUTE **pprgAttributes);",
+      "parameters": [
+        {
+          "name": "pcelt",
+          "direction": "out",
+          "description": "指向HELPER_ATTRIBUTE数组中的元素计数 的 指针。[out] pprgAttributes 指向HELPER_ATTRIBUTE结构的数组 的 指针。"
+        }
+      ],
+      "return_value": {
+        "description": "返回代码 S_OK"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1530
+    },
+    {
+      "id": "windows::E_ACCESSDENIED",
+      "name": "E_ACCESSDENIED",
+      "entity_type": "enum",
+      "description": "E_ABORT 说明 操作成功。 没有足够的内存可用于完成此操作。 未正确提供一个或多个参数。此可选方法未实现。 调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。 帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。",
+      "syntax": "HRESULT ReconfirmLowHealth(\n[in]  ULONG            celt,\n[in]  HypothesisResult *pResults,\n[out] LPWSTR           *ppwszUpdatedDescription,\n[out] DIAGNOSIS_STATUS *pUpdatedStatus);\nHRESULT ReproduceFailure();\n返回值此方法不返回值。\nHRESULT SetUtilities(\n[in] INetDiagHelperUtilFactory *pUtilities);",
+      "parameters": [
+        {
+          "name": "celt",
+          "direction": "in",
+          "description": "pResults 指向的 HypothesisResult 结构的数目。[in] pResults 指向 HypothesisResult 结构的指针 (s) 包含通过 GetLowerHypotheses 方法获取的 HYPOTHESIS 信息以及该假设的状态。 包括由帮助程序类调用 GetLowerHypotheses 生成的每个假设的一个 HypothesisResult 结构。"
+        },
+        {
+          "name": "ppwszUpdatedDescription",
+          "direction": "out",
+          "description": "正在诊断的事件的更新说明。[out] pUpdatedStatus 一个DIAGNOSIS_STATUS值，该值指示事件的状态。"
+        },
+        {
+          "name": "pUtilities",
+          "direction": "in",
+          "description": "预留给系统使用。 返回值此方法不返回值。"
+        }
+      ],
+      "return_value": {
+        "description": "返回代码 S_OK"
+      },
+      "remarks": "生成帮助程序类扩展时不需要此方法。 此方法仅在遇到妨碍验证的失败时返回错误代码。 如有必要， pStatus 参数是传达组件仍处于低 运行状况的预期方式。 DS_REJECTED 用于指示问题已解决。 生成帮助程序类扩展时不需要此方法。 此方法保留供系统使用。 此方法保留供系统使用。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndhelper.h",
+        "min_client": "Windows 7 [仅限桌面应用]",
+        "min_server": "Windows Server 2008 R2 [仅限桌面应用]"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [
+        "E_ABORT"
+      ],
+      "confidence": 1.0,
+      "_source_line": 1541
+    },
+    {
+      "id": "windows::werperameter",
+      "name": "werperameter",
+      "entity_type": "enum",
+      "description": "类型：AT_UINT32)",
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.25,
+      "_source_line": 1555
+    },
+    {
+      "id": "windows::werfile",
+      "name": "werfile",
+      "entity_type": "enum",
+      "description": "类型：AT_STRING) rootcauseid (类型：AT_GUID) 要求",
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [
+        "AT_GUID"
+      ],
+      "confidence": 0.35,
+      "_source_line": 1556
+    },
+    {
+      "id": "windows::AT_GUID",
+      "name": "AT_GUID",
+      "entity_type": "enum",
+      "description": "类型的 HelperAttribute，并将 pszName 参数设置为 rootcauseid，并将 Guid 字段设置为标识所遇到的特定问题的 GUID，则可以改进对 NDF 中遇到的问题的分析。 这些 GUID 由帮助程序扩展自定义定义。 Windows Vista [仅限桌面应用] Windows Server 2008 [仅限桌面应用] Windows ndhelper.h INetDiagHelper：：GetCacheTime 方法",
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetCacheTime",
+        "Guid",
+        "Server",
+        "Vista"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1567
+    },
+    {
+      "id": "windows::GetCacheTime",
+      "name": "GetCacheTime",
+      "entity_type": "enum",
+      "description": "方法指定诊断和修复操作的缓存结果过期的时间。",
+      "syntax": "HRESULT GetCacheTime(\n[out] FILETIME *pCacheTime);",
+      "parameters": [
+        {
+          "name": "pCacheTime",
+          "direction": "out",
+          "description": "指向 FILETIME 结构的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "返回代码 S_OK"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1575
+    },
+    {
+      "id": "windows::GetDiagnosticsInfo",
+      "name": "GetDiagnosticsInfo",
+      "entity_type": "enum",
+      "description": "方法使 Helper 类扩展实例能够估计诊断可能需要多长时间。",
+      "syntax": "HRESULT GetDiagnosticsInfo(\n[out] DiagnosticsInfo **ppInfo);",
+      "parameters": [
+        {
+          "name": "ppInfo",
+          "direction": "out",
+          "description": "指向 DiagnosticsInfo 结构的指针的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "返回代码 S_OK"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1610
+    },
+    {
+      "id": "windows::GetDownStreamHypotheses",
+      "name": "GetDownStreamHypotheses",
+      "entity_type": "enum",
+      "description": "方法要求帮助程序类扩展针对它所依赖的下游网络组件中运行状况不佳的可能原因生成假设。",
+      "syntax": "HRESULT GetDownStreamHypotheses(   [out] ULONG      *pcelt,\n[out] HYPOTHESIS **pprgHypotheses);",
+      "parameters": [
+        {
+          "name": "pcelt",
+          "direction": "out",
+          "description": "指向 HYPOTHESIS 数组中元素计数的指针。[out] pprgHypotheses 指向 HYPOTHESIS 结构数组的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "返回代码 S_OK"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1639
+    },
+    {
+      "id": "windows::GetHigherHypotheses",
+      "name": "GetHigherHypotheses",
+      "entity_type": "enum",
+      "description": "方法要求帮助程序类扩展针对依赖它的本地组件中高利用率的可能原因 生成假设。",
+      "syntax": "HRESULT GetHigherHypotheses(   [out] ULONG      *pcelt,\n[out] HYPOTHESIS **pprgHypotheses);",
+      "parameters": [
+        {
+          "name": "pcelt",
+          "direction": "out",
+          "description": "指向 HYPOTHESIS 数组中元素计数的指针。[out] pprgHypotheses 指向 HYPOTHESIS 结构数组的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "返回代码 S_OK"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1676
+    },
+    {
+      "id": "windows::GetKeyAttributes",
+      "name": "GetKeyAttributes",
+      "entity_type": "enum",
+      "description": "方法检索帮助程序类扩展的键属性。",
+      "syntax": "HRESULT GetKeyAttributes(\n[out] ULONG            *pcelt,\n[out] HELPER_ATTRIBUTE **pprgAttributes);",
+      "parameters": [
+        {
+          "name": "pcelt",
+          "direction": "out",
+          "description": "指向HELPER_ATTRIBUTE数组中的元素计数 的 指针。[out] pprgAttributes 指向HELPER_ATTRIBUTE结构的数组 的 指针。"
+        }
+      ],
+      "return_value": {
+        "description": "返回代码 S_OK"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1709
+    },
+    {
+      "id": "windows::GetLifeTime",
+      "name": "GetLifeTime",
+      "entity_type": "enum",
+      "description": "方法检索帮助程序类扩展实例的生存期。",
+      "syntax": "HRESULT GetLifeTime(\n[out] LIFE_TIME *pLifeTime);",
+      "parameters": [
+        {
+          "name": "pLifeTime",
+          "direction": "out",
+          "description": "指向 LIFE_TIME 结构的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "返回代码 S_OK"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 1743
+    },
+    {
+      "id": "windows::GetLowerHypotheses",
+      "name": "GetLowerHypotheses",
+      "entity_type": "enum",
+      "description": "方法要求帮助程序类扩展针对依赖它的本地组件中运行状况不佳的可能原因生成假设。",
+      "syntax": "HRESULT GetLowerHypotheses(   [out] ULONG      *pcelt,\n[out] HYPOTHESIS **pprgHypotheses);",
+      "parameters": [
+        {
+          "name": "pcelt",
+          "direction": "out",
+          "description": "指向 HYPOTHESIS 数组中元素计数的指针。[out] pprgHypotheses 指向 HYPOTHESIS 数组的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "返回代码 S_OK"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1779
+    },
+    {
+      "id": "windows::GetRepairInfo",
+      "name": "GetRepairInfo",
+      "entity_type": "enum",
+      "description": "方法检索帮助程序类扩展针对给定问题类型的修复信息。",
+      "syntax": "HRESULT GetRepairInfo(\n[in]  PROBLEM_TYPE problem,   [out] ULONG        *pcelt,   [out] RepairInfo   **ppInfo);",
+      "parameters": [
+        {
+          "name": "problem",
+          "direction": "in",
+          "description": "一个PROBLEM_TYPE值，该值指定帮助程序类先前已诊断的问题类型。[out] pcelt 指向 RepairInfo 数组中元素计数的指针。[out] ppInfo 指向 RepairInfo 结构数组的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "返回代码 S_OK"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1812
+    },
+    {
+      "id": "windows::GetUpStreamHypotheses",
+      "name": "GetUpStreamHypotheses",
+      "entity_type": "enum",
+      "description": "方法要求帮助程序类扩展针对依赖它的上游网络组件中高利用率的可能原因生成假设。",
+      "syntax": "HRESULT GetUpStreamHypotheses(   [out] ULONG      *pcelt,\n[out] HYPOTHESIS **pprgHypotheses);",
+      "parameters": [
+        {
+          "name": "pcelt",
+          "direction": "out",
+          "description": "指向 HYPOTHESIS 数组中元素计数的指针。[out] pprgHypotheses 指向 HYPOTHESIS 数组的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "返回代码 S_OK"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.75,
+      "_source_line": 1845
+    },
+    {
+      "id": "windows::HighUtilization",
+      "name": "HighUtilization",
+      "entity_type": "enum",
+      "description": "方法使 Helper 类扩展能够检查相应的组件是否高度利用。",
+      "syntax": "HRESULT HighUtilization(\n[in]  LPCWSTR          pwszInstanceDescription,\n[out] LPWSTR           *ppwszDescription,   [out] long             *pDeferredTime,\n[out] DIAGNOSIS_STATUS *pStatus);",
+      "parameters": [
+        {
+          "name": "pwszInstanceDescription",
+          "direction": "in",
+          "description": "指向以 null 结尾的字符串的指针，其中包含所诊断信息的用户友好说明。 例如，如果类要诊断 IP 地址的连接问题， 则 pwszInstanceDescription 参数将包含主机名。[out] ppwszDescription 指向以 null 结尾的字符串的指针，其中包含高利用率诊断结果的说明。[out] pDeferredTime 一个指针，指向如果诊断无法立即启动，则延迟的时间（以秒为单位）。 当 pStatus 参数设置为"
+        }
+      ],
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.7,
+      "_source_line": 1879
+    },
+    {
+      "id": "windows::Repair",
+      "name": "Repair",
+      "entity_type": "enum",
+      "description": "方法执行由输入参数指定的修复。",
+      "syntax": "HRESULT Repair(\n[in]  RepairInfo    *pInfo,\n[out] long          *pDeferredTime,\n[out] REPAIR_STATUS *pStatus);",
+      "parameters": [
+        {
+          "name": "pInfo",
+          "direction": "in",
+          "description": "指向 RepairInfo 结构的指针。[out] pDeferredTime 指向无法立即启动修复时延迟的时间（以秒为单位）的指针。 仅当 pStatus 参数设置为"
+        }
+      ],
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 1996
+    },
+    {
+      "id": "windows::CreateUtilityInstance",
+      "name": "CreateUtilityInstance",
+      "entity_type": "method",
+      "description": "网络诊断框架 (NDF) 使用 CreateUtilityInstance 方法。 此方法保留供系统使用。",
+      "syntax": "HRESULT CreateUtilityInstance(   [in]  REFIID riid,\n[out] void   **ppvObject);",
+      "parameters": [
+        {
+          "name": "riid",
+          "direction": "in",
+          "description": "预留给系统使用。[out] ppvObject 预留给系统使用。 返回值此方法不返回值。"
+        }
+      ],
+      "remarks": "此方法保留供系统使用。",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 7 [仅限桌面应用]"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [
+        "Server"
+      ],
+      "confidence": 0.8,
+      "_source_line": 2270
+    },
+    {
+      "id": "windows::PT_LOW_HEALTH",
+      "name": "PT_LOW_HEALTH",
+      "entity_type": "method",
+      "description": "值：1 组件本身存在低运行状况问题。 在此组件所依赖的本地组件中未发现任何问题。",
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2298
+    },
+    {
+      "id": "windows::PT_DOWN_STREAM_HEALTH",
+      "name": "PT_DOWN_STREAM_HEALTH",
+      "entity_type": "method",
+      "description": "= 4, PT_HIGH_UTILIZATION = 8, PT_HIGHER_UTILIZATION = 16,",
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [
+        "PT_HIGHER_UTILIZATION",
+        "PT_HIGH_UTILIZATION"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2299
+    },
+    {
+      "id": "windows::PT_UP_STREAM_UTILIZATION",
+      "name": "PT_UP_STREAM_UTILIZATION",
+      "entity_type": "method",
+      "description": "值： 32 组件高利用率问题的原因上游依赖于它的网络组件。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndhelper.h",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2300
+    },
+    {
+      "id": "windows::PT_LOWER_HEALTH",
+      "name": "PT_LOWER_HEALTH",
+      "entity_type": "constant",
+      "description": "值： 2 此组件所依赖的本地组件中存在低运行状况问题。",
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2305
+    },
+    {
+      "id": "windows::PT_HIGH_UTILIZATION",
+      "name": "PT_HIGH_UTILIZATION",
+      "entity_type": "constant",
+      "description": "值： 8 组件的资源被高度利用。 在此组件所依赖的本地组件中未发现高利用率。",
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2309
+    },
+    {
+      "id": "windows::PT_HIGHER_UTILIZATION",
+      "name": "PT_HIGHER_UTILIZATION",
+      "entity_type": "constant",
+      "description": "值： 16 组件高利用率问题的原因来自依赖它的本地组件。",
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2314
+    },
+    {
+      "id": "windows::RS_REPAIRED",
+      "name": "RS_REPAIRED",
+      "entity_type": "constant",
+      "description": ", RS_UNREPAIRED, RS_DEFERRED, RS_USER_ACTION}",
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2335
+    },
+    {
+      "id": "windows::RS_NOT_IMPLEMENTED",
+      "name": "RS_NOT_IMPLEMENTED",
+      "entity_type": "constant",
+      "description": "值： 0 帮助程序类未实现修复选项。 RS_REPAIRED 帮助程序类修复了问题。 RS_UNREPAIRED 帮助程序类尝试修复问题，但验证表明修复操作未成功。 RS_DEFERRED 此时，帮助程序类无法执行修复。 RS_USER_ACTION 帮助程序类需要用户执行操作，然后才能继续修复。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "ndhelper.h",
+        "min_client": "Windows Vista [仅限桌面应用]",
+        "min_server": "Windows Server 2008 [仅限桌面应用]"
+      },
+      "header": "ndhelper.h",
+      "deprecated": false,
+      "cross_references": [
+        "RS_REPAIRED"
+      ],
+      "confidence": 0.75,
+      "_source_line": 2337
+    }
+  ]
+}

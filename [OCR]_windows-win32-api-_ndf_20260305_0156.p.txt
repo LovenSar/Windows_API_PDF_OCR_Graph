@@ -1,0 +1,2355 @@
+网络诊断框架项目2023/08/22
+网络诊断框架技术概述。
+若要开发网络诊断框架，需要以下标头：
+ndattrib.h ndfapi.h ndhelper.h
+有关此技术的编程指南，请参阅：
+网络诊断框架
+枚举  
+ATTRIBUTE_TYPE
+ATTRIBUTE_TYPE枚举定义帮助程序属性的可能值。 DIAGNOSIS_STATUS
+告知我们有关下载 PDF 体验的信息。
+DIAGNOSIS_STATUS枚举描述提交到帮助程序类的假设的结果，在该类中已确定组件的运行状况。 PROBLEM_TYPE
+PROBLEM_TYPE枚举描述帮助程序类指示存在的问题类型。 REPAIR_RISK
+REPAIR_RISK枚举指定修复更改是否持久，以及是否可以撤消这些更改。 REPAIR_SCOPE
+REPAIR_SCOPE 枚举描述给定修复的修改范围。 REPAIR_STATUS
+REPAIR_STATUS枚举描述帮助程序类尝试修复选项的结果。 UI_INFO_TYPE
+UI_INFO_TYPE枚举标识执行用户界面任务的修复。
+函数   取消
+取消正在进行的诊断或修复。清理
+允许帮助程序类扩展在诊断或修复操作后清理资源。 CreateUtilityInstance
+由网络诊断框架 (NDF) 使用。 此方法保留供系统使用。
+(INetDiagHelperUtilFactory.CreateUtilityInstance) GetAttributeInfo
+GetAttributeInfo 方法检索帮助程序类扩展所需的键参数列表。 GetAttributes
+检索有关帮助程序类扩展已诊断的问题的其他信息。 GetCacheTime
+指定诊断和修复操作的缓存结果过期的时间。 GetDiagnosticsInfo
+使帮助程序类扩展实例能够提供估计值。 GetDownStreamHypotheses
+要求帮助程序类扩展生成假设。 GetHigherHypotheses
+针对高利用率的可能原因生成假设。 GetKeyAttributes
+检索帮助程序类扩展的键属性。 GetLifeTime
+检索帮助程序类扩展实例的生存期。 GetLowerHypotheses
+ 
+为本地组件中运行状况较低的可能原因生成假设。 GetRepairInfo
+检索帮助程序类扩展针对给定问题类型的修复信息。 GetUpStreamHypotheses
+为上游网络组件中高利用率的可能原因生成假设。 HighUtilization
+检查相应的组件是否得到高度利用。初始化
+Initialize 方法将属性从假设传递到帮助程序类扩展。 帮助程序类应存储这些参数，以便在main 诊
+断函数中使用。 必须在任何诊断函数之前调用此方法。 LowHealth
+检查被诊断的组件是否正常。 NdfCancelIncident
+用于取消以前对现有事件调用的不需要的函数。 NdfCloseIncident
+用于在解决 NDF) 事件后关闭网络诊断框架 (。
+NdfCreateConnectivityIncident 诊断一般 Internet 连接问题。 NdfCreateDNSIncident
+诊断解析特定主机名时的名称解析问题。 NdfCreateGroupingIncident
+创建会话来诊断对等分组功能问题。 NdfCreateInboundIncident
+创建会话以诊断特定应用程序或服务的入站连接。 NdfCreateIncident
+测试合并到其应用程序中的 NDF 功能。
+ 
+NdfCreateNetConnectionIncident
+使用 NetConnection 帮助程序类诊断连接问题。 NdfCreatePnrpIncident
+创建一个会话来诊断对等名称解析协议 (PNRP) 服务的问题。 NdfCreateSharingIncident
+诊断访问特定网络共享时的网络问题。 NdfCreateWebIncident
+诊断 Web 连接问题。 (NdfCreateWebIncident) NdfCreateWebIncidentEx
+诊断 Web 连接问题。 (NdfCreateWebIncidentEx) NdfCreateWinSockIncident
+提供对 Microsoft 提供的 Winsock 帮助程序类的访问权限。 NdfDiagnoseIncident
+在不显示用户界面的情况下诊断事件的根本原因。 NdfExecuteDiagnosis
+NdfExecuteDiagnosis 函数用于诊断已发生的事件的根本原因。 NdfGetTraceFile
+用于检索包含事件跟踪日志 (ETL) 文件的路径，该文件包含诊断会话中 Windows (ETW) 事件跟踪。 NdfRepairIncident
+修复事件而不显示用户界面。重新确认LowHealth
+用于在诊断假设后和检索修复之前添加第二个低运行状况传递。 Repair
+执行输入参数指定的修复。 ReproduceFailure
+ 
+由网络诊断框架 (NDF) 使用。 此方法保留供系统使用。 (INetDiagHelperEx.ReproduceFailure) SetLifeTime
+帮助程序类扩展可以将其诊断限制为该时间段内的事件。 SetUtilities
+由网络诊断框架 (NDF) 使用。 此方法保留供系统使用。 (INetDiagHelperEx.SetUtilities) 验证
+修复成功完成后由 NDF 调用。
+接口  
+INetDiagHelper
+INetDiagHelper 接口提供用于捕获和提供与诊断和解决网络相关问题相关的信息的方法。 INetDiagHelperEx
+提供在 INetDiagHelper 接口上扩展的方法，以捕获和提供与诊断和解决网络相关问题相关的信息。
+INetDiagHelperInfo
+INetDiagHelperInfo 接口提供一个方法，当 NDF 需要验证它是否具有帮助程序类的必要信息并且
+它已选择正确的帮助程序类时，该网络诊断框架 (NDF) 调用该方法。 INetDiagHelperUtilFactory
+提供网络诊断框架 (NDF) 使用的保留方法。
+结构  
+DIAG_SOCKADDR
+存储参与 Windows 套接字通信的计算机的 Internet 协议 (IP) 地址。
+ 
+DiagnosticsInfo
+DiagnosticsInfo 结构包含估计的诊断时间，以及用于调用的标志。 HELPER_ATTRIBUTE
+HELPER_ATTRIBUTE 结构包含所有 NDF 支持的数据类型。 HelperAttributeInfo
+HelperAttributeInfo 结构包含帮助程序属性的名称及其类型。假设
+HYPOTHESIS 结构包含用于向 NDF 提交另一个帮助程序类的假设的数据。 HypothesisResult
+包含有关从帮助程序类返回的假设的信息。 LIFE_TIME
+LIFE_TIME结构包含开始时间和结束时间。 OCTET_STRING
+OCTET_STRING 结构包含指向字节数据字符串的指针。 RepairInfo
+RepairInfo 结构包含特定修复选项所需的数据。 RepairInfoEx
+包含可用于帮助解决事件根本原因的详细修复信息。 RootCauseInfo
+包含有关事件的根本原因的详细信息。 ShellCommandInfo
+ShellCommandInfo 结构包含启动手动修复选项的其他应用程序所需的数据。 UiInfo
+UiInfo 结构用于向用户显示修复消息。
+反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+ndattrib.h 标头项目2023/08/25
+此标头由网络诊断框架使用。 有关详细信息，请参阅：
+网络诊断框架
+ndattrib.h 包含以下编程接口：
+结构  
+DIAG_SOCKADDR
+存储参与 Windows 套接字通信的计算机的 Internet 协议 (IP) 地址。 HELPER_ATTRIBUTE
+HELPER_ATTRIBUTE 结构包含所有 NDF 支持的数据类型。 LIFE_TIME
+LIFE_TIME结构包含开始时间和结束时间。 OCTET_STRING
+OCTET_STRING 结构包含指向字节数据字符串的指针。 RepairInfo
+RepairInfo 结构包含特定修复选项所需的数据。 RepairInfoEx
+包含可用于帮助解决事件根本原因的详细修复信息。 RootCauseInfo
+包含有关事件的根本原因的详细信息。 ShellCommandInfo
+ShellCommandInfo 结构包含启动手动修复选项的其他应用程序所需的数据。 UiInfo
+ 
+UiInfo 结构用于向用户显示修复消息。
+枚举  
+ATTRIBUTE_TYPE
+ATTRIBUTE_TYPE枚举定义帮助程序属性的可能值。 REPAIR_RISK
+REPAIR_RISK枚举指定修复更改是否持久，以及是否可以撤消这些更改。 REPAIR_SCOPE
+REPAIR_SCOPE 枚举描述给定修复的修改范围。 UI_INFO_TYPE
+UI_INFO_TYPE枚举标识执行用户界面任务的修复。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+ATTRIBUTE_TYPE 枚举 (ndattrib.h) 项目2024/02/29
+ATTRIBUTE_TYPE枚举定义帮助程序属性的可能值。
+语法 C++
+typedef enum tagATTRIBUTE_TYPE {
+  AT_INVALID = 0,   AT_BOOLEAN,
+  AT_INT8,   AT_UINT8,   AT_INT16,   AT_UINT16,   AT_INT32,   AT_UINT32,   AT_INT64,   AT_UINT64,   AT_STRING,   AT_GUID,
+  AT_LIFE_TIME,   AT_SOCKADDR,
+  AT_OCTET_STRING} ATTRIBUTE_TYPE;
+常量  
+AT_INVALID 值： 0
+无效的属性。 AT_BOOLEAN
+一个 true 或 false 值。 AT_INT8
+8 位有符号整数。 AT_UINT8
+8 位无符号整数。
+ﾉ
+展开表
+ 
+AT_INT16
+16 位带符号整数。 AT_UINT16
+16 位无符号整数。 AT_INT32
+32 位带符号整数。 AT_UINT32
+32 位无符号整数。 AT_INT64
+64 位带符号整数。 AT_UINT64
+64 位无符号整数。 AT_STRING
+一个字符串。 AT_GUID
+GUID 结构。 AT_LIFE_TIME LifeTime 结构。
+AT_SOCKADDR
+IPv4 或 IPv6 地址。 AT_OCTET_STRING 一个字节数组。
+要求要求
+最低受支持的客户端最低受支持的服务器标头
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] ndattrib.h
+ﾉ
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+DIAG_SOCKADDR 结构 (ndattrib.h) 项目2023/08/25
+DIAG_SOCKADDR结构存储参与 Windows 套接字通信的计算机的 Internet 协议 (IP) 地址。
+语法 C++
+typedef struct tagSOCK_ADDR {   USHORT family;
+  CHAR   data[126];
+} DIAG_SOCKADDR, *PDIAG_SOCK_ADDR;
+成员 family
+类型： USHORT 套接字地址组。 data[126]
+类型： CHAR[126]
+所有不同套接字地址结构的最大大小。注解
+此数据结构设计为用作 SOCKADDR 结构。要求
+ 
+最低受支持的客户端最低受支持的服务器
+ 
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+ 
+标头反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ 
+ndattrib.h (包括 NDHelper.h) ﾄ否
+HELPER_ATTRIBUTE 结构 (ndattrib.h) 项目2024/02/29
+HELPER_ATTRIBUTE 结构包含所有 NDF 支持的数据类型。
+语法 C++
+typedef struct tagHELPER_ATTRIBUTE {   LPWSTR         pwszName;
+  ATTRIBUTE_TYPE type;   union {
+    BOOL          Boolean;
+    char          Char;     byte          Byte;     short         Short;     WORD          Word;     int           Int;     DWORD         DWord;     LONGLONG      Int64;     ULONGLONG     UInt64;     LPWSTR        PWStr;     GUID          Guid;
+    LIFE_TIME     LifeTime;     DIAG_SOCKADDR Address;
+    OCTET_STRING  OctetString;   };
+} HELPER_ATTRIBUTE, *PHELPER_ATTRIBUTE;
+成员 pwszName
+类型： [string] LPWSTR
+指向包含属性名称的以 null 结尾的字符串的指针。 type
+类型： ATTRIBUTE_TYPE 帮助程序属性的类型。 Boolean
+类型： BOOL
+True 或 False 值。 在类型为 AT_BOOLEAN 时使用。 Char
+类型： char
+字符值。 在类型为 AT_INT8 时使用。 Byte
+类型： 字节
+一个 byte 值。 在类型为 AT_UINT8 时使用。 Short
+类型： short
+16 位有符号值。 在类型为 AT_INT16 时使用 Word
+类型： WORD
+一个 2 字节的无符号值。 在类型为 AT_UINT16 时使用。 Int
+类型： int
+一个 4 字节的有符号值。 在类型为 AT_INT32 时使用。 DWord
+类型：DWORD
+一个 4 字节的无符号值。 在类型为 AT_UINT32 时使用。 Int64
+类型： LONGLONG
+64 位带符号整数值。 在类型为 AT_INT64 时使用。 UInt64
+类型： ULONGLONG
+64 位无符号整数值。 在类型为 AT_UINT64 时使用。 PWStr
+类型： LPWSTR
+以 null 结尾的字符串值。 在类型为 AT_STRING 时使用。 Guid
+类型： GUID
+GUID 结构。 在类型为 AT_GUID 时使用。 LifeTime
+类型： LIFE_TIME
+LIFE_TIME结构。 在类型为 AT_LIFE_TIME 时使用。 Address
+类型： DIAG_SOCKADDR
+IPv4 或 IPv6 地址。 在类型为 AT_SOCKADDR 时使用。 OctetString
+类型： OCTET_STRING
+未定义类型的字节数组。 在类型为 AT_OCTET_STRING 时使用。要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] ndattrib.h
+ﾉ
+展开表
+ATTRIBUTE_TYPE
+CopyHelperAttribute FreeHelperAttributes
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+LIFE_TIME 结构 (ndattrib.h) 项目2024/02/29
+LIFE_TIME结构包含开始时间和结束时间。
+语法 C++
+typedef struct tagLIFE_TIME {
+  FILETIME startTime;   FILETIME endTime;
+} LIFE_TIME, *PLIFE_TIME;
+成员 startTime
+类型： FILETIME
+问题实例开始的时间。 endTime
+类型： FILETIME
+问题实例结束的时间。要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] ndattrib.h
+ﾉ
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+OCTET_STRING 结构 (ndattrib.h) 项目2024/03/13
+OCTET_STRING 结构包含指向字节数据字符串的指针。
+语法 C++
+typedef struct tagOCTET_STRING {
+  DWORD dwLength;   BYTE  *lpValue;
+} OCTET_STRING, *POCTET_STRING;
+成员 dwLength
+类型：DWORD 数据的长度。 lpValue
+类型： [size_is (dwLength) ]BYTE* 指向包含数据的字节数组的指针。
+要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] ndattrib.h
+ﾉ
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+REPAIR_RISK 枚举 (ndattrib.h) 项目2024/03/05
+REPAIR_RISK枚举指定修复更改是否是永久性的，以及是否可以撤消这些更改。
+语法 C++
+typedef enum __MIDL___MIDL_itf_ndattrib_0000_0000_0002 {   RR_NOROLLBACK = 0,
+  RR_ROLLBACK,   RR_NORISK
+} REPAIR_RISK; 常量
+ﾉ
+ 
+RR_NOROLLBACK 值： 0
+修复执行无法撤消的永久性更改。 RR_ROLLBACK
+修复执行可撤消的永久性更改。 RR_NORISK
+修复不执行永久性更改。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] ndattrib.h
+展开表展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+REPAIR_SCOPE 枚举 (ndattrib.h) 项目2024/03/05
+REPAIR_SCOPE枚举描述给定修复的修改范围。
+语法 C++
+typedef enum tagREPAIR_SCOPE {
+  RS_SYSTEM = 0,   RS_USER,
+  RS_APPLICATION,   RS_PROCESS
+} REPAIR_SCOPE, *PREPAIR_SCOPE;
+常量  
+RS_SYSTEM 值： 0
+修复效果是系统范围的。 RS_USER
+修复效果特定于用户。 RS_APPLICATION
+修复效果特定于应用程序。 RS_PROCESS
+修复效果特定于进程。要求
+要求
+最低受支持的客户端
+值
+Windows Vista [仅限桌面应用]
+ﾉﾉ
+展开表展开表
+要求
+最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Server 2008 [仅限桌面应用] ndattrib.h
+否
+| 在 Microsoft Q&A 获取帮助
+RepairInfo 结构 (ndattrib.h) 项目2024/02/29
+RepairInfo 结构包含特定修复选项所需的数据。
+语法 C++
+typedef struct tagRepairInfo {   GUID         guid;
+  LPWSTR       pwszClassName;   LPWSTR       pwszDescription;   DWORD        sidType;
+  long         cost;   ULONG        flags;   REPAIR_SCOPE scope;   REPAIR_RISK  risk;   UiInfo       UiInfo;
+  int          rootCauseIndex;} RepairInfo, *PRepairInfo;
+成员 guid
+此修复的唯一 GUID。 pwszClassName
+指向以用户友好方式包含帮助程序类名称的以 null 结尾的字符串的指针。 pwszDescription
+指向以用户友好方式描述修复的以 null 结尾的字符串的指针。 sidType
+如果修复需要某些用户上下文或权限，则WELL_KNOWN_SID_TYPE之一。 cost
+执行修复所需的秒数。 flags
+有关修复的其他信息。值
+RF_WORKAROUND RF_USER_ACTION
+RF_USER_CONFIRMATION RF_INFORMATION_ONLY
+RF_VALIDATE_HELPTOPIC RF_REPRO
+RF_CONTACT_ADMIN RF_RESERVED
+含义
+ﾉ
+展开表
+指示修复是解决问题的解决方法。 例如，有时重置网络接口可以解决间歇性问题，但不能直接解决特定问题，因此将其视为解决方法。 NDF 将在解决方法之前向用户显示非解决方法。
+指示修复会提示用户在 NDF 外部执行手动任务。指示不应自动执行修复。 而是提示用户选择修复。
+指示修复由用户的可操作信息组成。 对于仅信息修复，不会发生修复和验证会话。
+指示修复向用户提供信息以及帮助主题。 与 无法验证的 RF_INFORMATION_ONLY 修复不同，可以在诊断会话中执行和验证此修复。
+注意 仅适用于 Windows 7、Windows Server
+2008 R2 及更高版本。  
+指示修复会提示用户重现其问题。 同时，帮助程序类可能已启用更详细的日志记录或其他后台机制来帮助检测故障。
+注意 仅适用于 Windows 7、Windows Server
+2008 R2 及更高版本。  
+指示修复会提示用户联系其网络管理员以解决问题。注意 仅适用于 Windows 7、Windows Server
+2008 R2 及更高版本。  
+预留给系统使用。
+注意 仅适用于 Windows 7、Windows Server 2008 R2 及更高版本。
+RF_RESERVED_CA RF_RESERVED_LNI
+scope
+留待将来使用。 risk
+留待将来使用。 UiInfo
+UiInfo 结构。 rootCauseIndex
+要求要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CopyRepairInfo
+值
+ 
+预留给系统使用。
+注意 仅适用于 Windows 7、Windows Server
+2008 R2 及更高版本。  
+预留给系统使用。
+注意 仅适用于 Windows 7、Windows Server
+2008 R2 及更高版本。  
+ﾉ
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] ndattrib.h
+展开表
+FreeRepairInfos
+UiInfo 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+RepairInfoEx 结构 (ndattrib.h) 项目2024/02/29
+包含可用于帮助解决事件根本原因的详细修复信息。
+语法 C++
+typedef struct tagRepairInfoEx {   RepairInfo repair;
+  USHORT     repairRank;
+} RepairInfoEx, *PRepairInfoEx;
+成员 repair
+类型： RepairInfo 详细的修复信息。 repairRank
+类型： USHORT
+相对于与事件关联的 RootCauseInfo 结构中的其他修复的修复的排名。 排名为 1 的修复预期与问题更相关，因此将是尝试的第一次修复。 无论其等级如何，都不能保证任何单
+个修复的成功。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用] ndattrib.h
+展开表
+另请参阅 FreeRepairInfoExs RepairInfo
+RootCauseInfo 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+RootCauseInfo 结构 (ndattrib.h) 项目2024/03/13
+包含有关事件的根本原因的详细信息。
+语法 C++
+typedef struct tagRootCauseInfo {   LPWSTR       pwszDescription;   GUID         rootCauseID;
+  DWORD        rootCauseFlags;
+  GUID         networkInterfaceID;
+  RepairInfoEx *pRepairs;   USHORT       repairCount;
+} RootCauseInfo, *PRootCauseInfo; 成员
+pwszDescription 类型： LPWSTR
+描述导致事件的问题的字符串。
+rootCauseID 类型： GUID
+与标识的问题相对应的 GUID。
+rootCauseFlags 类型：DWORD
+一个数值，提供有关问题的详细信息。
+值
+RCF_ISLEAF 0x1
+含义
+ﾉ
+展开表
+根本原因对应于诊断树中的叶。 叶的根本原因更有可能更接近用户尝试诊断的问题。
+RCF_ISCONFIRMED 0x2
+RCF_ISTHIRDPARTY 0x4
+networkInterfaceID 类型： GUID
+根本原因对应于 DIAGNOSIS_STATUS 值为
+DS_CONFIRMED 的节点。 已确认的低运行状况问题更有可能与用户尝试诊断的问题相对应。
+根本原因来自第三方帮助程序类扩展，而不是本机 Windows 帮助程序类。
+发生问题的网络接口的 GUID。 如果问题不是特定于接口的，则此值为零 (0) 。 pRepairs
+类型： RepairInfoEx*
+可用于尝试解决问题的修复。 repairCount
+类型： USHORT 可用的修复次数。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 CopyRootCauseInfo DIAGNOSIS_STATUS FreeRootCauseInfos RepairInfoEx
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用] ndattrib.h
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+shellCommandInfo 结构 (ndattrib.h) 项目2024/03/05
+ShellCommandInfo 结构包含启动手动修复选项的其他应用程序所需的数据。
+语法 C++
+typedef struct tagShellCommandInfo {
+  LPWSTR pwszOperation;   LPWSTR pwszFile;
+  LPWSTR pwszParameters;   LPWSTR pwszDirectory;   ULONG  nShowCmd;
+} ShellCommandInfo, *PShellCommandInfo;
+成员 pwszOperation
+类型： [字符串] LPWSTR
+指向包含要执行的操作的以 null 结尾的字符串的指针。 指定操作的可用谓词集取决于特定的文件或文件夹。 通常，对象的快捷菜单中可用的操作是可用的谓词。 有关详细信
+息，请参见“备注”部分。 pwszFile
+类型： [字符串] LPWSTR
+指向以 null 结尾的字符串的指针，该字符串指定要对其执行指定谓词的文件或对象。 若要指定 Shell 命名空间对象，请传递完全限定分析名称。 请注意，并非所有对象都支持所
+有谓词。 例如，并非所有文档类型都支持“print”谓词。 pwszParameters
+类型： [字符串] LPWSTR
+指向以 null 结尾的字符串的指针，该字符串指定要传递给应用程序的参数（仅当 pwszFile 参数指定可执行文件时）。 此字符串的格式由要调用的谓词决定。 如果 pwszFile 指定文档文件， 则 pwszParameters 应为 NULL。
+pwszDirectory
+类型： [字符串] LPWSTR
+指向以 null 结尾的字符串的指针，该字符串指定默认目录。 nShowCmd
+类型： ULONG
+指定应用程序在打开时如何显示应用程序的标志。 如果 pwszFile 指定文档文件，则标志
+将直接传递到关联的应用程序。 由应用程序决定如何处理它。注解
+对于手动修复选项，调用方可以使用此结构调用 ShellExecute 函数，以启动可帮助用户修复问题的其他应用程序。
+以下谓词用于与 pwszOperation 相关联。
+ﾉ
+术语编辑
+探讨找到打开
+打印空
+要求要求
+最低受支持的客户端
+值
+说明
+展开表
+启动编辑器并打开文档进行编辑。 如果 pwszFile 不是文档文件，则函数将失败。
+浏览 pwszFile 参数指定的文件夹。启动从指定目录开始的搜索。
+打开 pwszFile 参数指定的文件。 该文件可以是可执行文件、文档文件或文件夹。
+打印 由 pwszFile 参数指定的文档文件。 如果 pwszFile 不
+是文档文件，则函数将失败。在其他动词不适用时使用。
+ﾉ
+Windows Vista [仅限桌面应用]
+展开表
+要求
+最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Server 2008 [仅限桌面应用] ndattrib.h
+否
+| 在 Microsoft Q&A 获取帮助
+UI_INFO_TYPE 枚举 (ndattrib.h) 项目2024/02/29
+UI_INFO_TYPE枚举标识执行用户界面任务的修复。
+语法 C++
+typedef enum __MIDL___MIDL_itf_ndattrib_0000_0000_0003 {
+  UIT_INVALID = 0,   UIT_NONE = 1,
+  UIT_SHELL_COMMAND,
+  UIT_HELP_PANE,   UIT_DUI
+} UI_INFO_TYPE;
+常量  
+UIT_INVALID
+值： 0 UIT_NONE 值：1
+不存在其他修复接口。
+UIT_SHELL_COMMAND 执行 shell 命令。
+UIT_HELP_PANE 启动帮助窗格。
+UIT_DUI 直接 UI。
+要求
+ﾉﾉ
+展开表展开表
+要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] ndattrib.h
+否
+| 在 Microsoft Q&A 获取帮助
+uiInfo 结构 (ndattrib.h) 项目2025/02/21
+UiInfo 结构用于向用户显示修复消息。
+语法 C++
+typedef struct tagUiInfo {
+  UI_INFO_TYPE type;   union {
+    LPWSTR           pwzNull;     ShellCommandInfo ShellInfo;     LPWSTR           pwzHelpUrl;
+    LPWSTR           pwzDui;   };
+} UiInfo, *PUiInfo;
+成员 type
+类型： UI_INFO_TYPE
+用户界面的类型 (UI) 使用。 这可以是以下成员中显示的值之一。 pwzNull
+类型： LPWSTR
+不需要其他 UI。 类型设置为 UIT_NONE 时使用。 ShellInfo
+类型： ShellCommandInfo
+执行 shell 命令。 类型设置为 UIT_SHELL_COMMAND 时使用。 pwzHelpUrl
+类型： LPWSTR
+启动帮助窗格。 类型设置为 UIT_HELP_PANE 时使用。
+pwzDui
+类型： LPWSTR
+使用直接用户界面。 类型设置为 UIT_DUI 时使用。要求
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 FreeUiInfo UI_INFO_TYPE
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] ndattrib.h
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+ndfapi.h 标头项目2023/08/25
+此标头由网络诊断框架使用。 有关详细信息，请参阅：
+网络诊断框架
+ndfapi.h 包含以下编程接口：
+函数  
+NdfCancelIncident
+用于取消以前对现有事件调用的不需要的函数。 NdfCloseIncident
+用于在解决 NDF) 事件后关闭网络诊断框架 (。
+NdfCreateConnectivityIncident 诊断一般 Internet 连接问题。 NdfCreateDNSIncident
+诊断解析特定主机名时的名称解析问题。 NdfCreateGroupingIncident
+创建会话来诊断对等分组功能问题。 NdfCreateInboundIncident
+创建会话以诊断特定应用程序或服务的入站连接。 NdfCreateIncident
+测试合并到其应用程序中的 NDF 功能。 NdfCreateNetConnectionIncident
+使用 NetConnection 帮助程序类诊断连接问题。 NdfCreatePnrpIncident
+ 
+创建一个会话来诊断对等名称解析协议 (PNRP) 服务的问题。 NdfCreateSharingIncident
+诊断访问特定网络共享时的网络问题。 NdfCreateWebIncident
+诊断 Web 连接问题。 (NdfCreateWebIncident) NdfCreateWebIncidentEx
+诊断 Web 连接问题。 (NdfCreateWebIncidentEx) NdfCreateWinSockIncident
+提供对 Microsoft 提供的 Winsock 帮助程序类的访问权限。 NdfDiagnoseIncident
+在不显示用户界面的情况下诊断事件的根本原因。 NdfExecuteDiagnosis
+NdfExecuteDiagnosis 函数用于诊断已发生的事件的根本原因。 NdfGetTraceFile
+用于检索包含事件跟踪日志 (ETL) 文件的路径，该文件包含诊断会话中 Windows (ETW) 事件跟踪。 NdfRepairIncident
+修复事件而不显示用户界面。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+NdfCancelIncident 函数 (ndfapi.h) 项目2024/02/29
+NdfCancelIncident 函数用于取消以前对现有事件调用的不需要的函数。
+语法 C++
+void NdfCancelIncident(   [in] NDFHANDLE Handle);
+参数[in] Handle
+类型： NDFHANDLE
+网络诊断框架事件的句柄。 此句柄应与现有事件的句柄匹配。
+返回值类型： HRESULT
+可能的返回值包括但不限于以下内容。
+返回代码
+S_OK  
+S_OK以外的任何结果都应解释为错误。注解
+说明
+操作成功。
+使用此 API 之前，应用程序必须调用事件创建函数，例如 NdfCreateWebIncident。
+ﾉ
+NdfCancelIncident 主要用于取消对先前已调用但不再需要的 NdfDiagnoseIncident 或
+展开表
+NdfRepairIncident 等函数的调用。 调用 NdfCancelIncident 时，NDF 将尽快停止诊断/修复，
+而不是 (调用其他函数，除非已从这些函数返回结果，在这种情况下 ，NdfCancelIncident 将) 不起作用。
+NdfCloseIncident 应该用于在事件解决后将其关闭，因为 NdfCancelIncident 实际上不会关闭事
+件本身。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用]
+Windows ndfapi.h Ndfapi.lib Ndfapi.dll
+展开表
+NdfCloseIncident 函数 (ndfapi.h) 项目2024/02/29
+NdfCloseIncident 函数用于在解决后关闭网络诊断框架 (NDF) 事件。
+语法 C++
+void NdfCloseIncident(   [in] NDFHANDLE handle);
+参数[in] handle
+类型： NDFHANDLE
+正在关闭的 NDF 事件的句柄。
+返回值类型： HRESULT
+可能的返回值包括但不限于以下值。
+返回代码
+S_OK 要求
+要求
+最低受支持的客户端最低受支持的服务器
+值
+说明
+操作成功。
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+ﾉﾉ
+展开表展开表
+要求
+目标平台
+标头 Library DLL
+另请参阅 NdfCreateIncident
+NdfCreateWinSockIncident NdfExecuteDiagnosis
+值
+Windows ndfapi.h Ndfapi.lib Ndfapi.dll
+NdfCreateConnectivityIncident 函数
+(ndfapi.h) 项目2024/03/13
+NdfCreateConnectivityIncident 函数诊断一般 Internet 连接问题。
+语法 C++
+void NdfCreateConnectivityIncident(
+  [out] NDFHANDLE *handle);
+参数[out] handle
+类型： NDFHANDLE*
+网络诊断框架事件的句柄。
+返回值类型： HRESULT
+可能的返回值包括但不限于以下内容。
+返回代码 S_OK
+E_ABORT
+E_OUTOFMEMORY NDF_E_BAD_PARAM
+要求
+说明
+操作成功。
+基础诊断或修复操作已取消。
+没有足够的内存可用于完成此操作。该句柄无效。
+ﾉ
+展开表
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndfapi.h Ndfapi.lib Ndfapi.dll
+ﾉ
+展开表
+NdfCreateDNSIncident 函数 (ndfapi.h) 项目2024/03/13
+NdfCreateDNSIncident 函数诊断解析特定主机名时的名称解析问题。
+语法 C++
+void NdfCreateDNSIncident(   [in]  LPCWSTR   hostname,         WORD      queryType,
+  [out] NDFHANDLE *handle);
+参数[in] hostname
+类型： LPCWSTR
+存在名称解析问题的主机名。 queryType
+类型： WORD
+发生问题时查询的记录类型的数值表示形式。 有关详细信息以及记录集类型及其数值表示形式的完整列表，请参阅 windns.h 头文件。
+此参数应设置为 DNS_TYPE_ZERO ，以便进行泛型 DNS 解析诊断。[out] handle
+类型： NDFHANDLE*
+网络诊断框架事件的句柄。
+返回值类型： HRESULT
+可能的返回值包括但不限于以下值。
+返回代码 S_OK
+E_ABORT
+E_OUTOFMEMORY NDF_E_BAD_PARAM
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+说明
+操作成功。
+基础诊断或修复操作已取消。
+没有足够的内存可用于完成此操作。一个或多个参数无效。
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndfapi.h Ndfapi.lib Ndfapi.dll
+ﾉﾉ
+展开表展开表
+NdfCreateGroupingIncident 函数 (ndfapi.h) 项目2024/02/29
+NdfCreateGroupingIncident 函数创建一个会话来诊断对等分组功能问题。
+语法 C++
+HRESULT NdfCreateGroupingIncident(
+  [in, optional] LPCWSTR             CloudName,   [in, optional] LPCWSTR             GroupName,   [in, optional] LPCWSTR             Identity,   [in, optional] LPCWSTR             Invitation,   [in, optional] SOCKET_ADDRESS_LIST *Addresses,
+  [in, optional] LPCWSTR             appId,   [out]          NDFHANDLE           *handle);
+参数
+[in, optional] CloudName 类型： LPCWSTR
+创建组的云) PNRP (对等名称解析协议的名称。 如果 为 NULL，则会话不会尝试诊断与 PNRP 相关的问题。
+[in, optional] GroupName 类型： LPCWSTR
+要诊断的组的名称。 如果 为 NULL，则会话不会尝试诊断与组可用性相关的问题。
+[in, optional] Identity 类型： LPCWSTR
+对等方用于访问组的标识。 如果 为 NULL，则会话不会尝试诊断与组在 PNRP 中注册的能力相关的问题。
+[in, optional] Invitation 类型： LPCWSTR
+由另一对等方授予的 XML 邀请。 邀请方调用 PeerGroupCreateInvitation 或
+PeerGroupIssueCredentials 时，将创建邀请。 如果存在此值，则将检查邀请以确保其格式和过期时间有效。
+[in, optional] Addresses
+类型： SOCKET_ADDRESS_LIST*
+应用程序尝试连接到的对等方的地址的可选列表。 如果使用此参数，帮助程序类将诊断与这些地址的连接。
+[in, optional] appId 类型： LPCWSTR
+调用应用程序的应用程序 ID。[out] handle
+类型： NDFHANDLE*
+网络诊断框架事件的句柄。
+返回值类型： HRESULT
+可能的返回值包括但不限于以下值。
+ﾉ
+返回代码 S_OK
+NDF_E_BAD_PARAM 注解
+执行的诊断级别取决于提供的参数。
+说明
+操作成功。
+未正确提供一个或多个参数。
+展开表
+如果未指定参数，NDF 将验证分组服务状态、对等服务的状态 (PNRP 和Identity Manager)，以及 Windows 时钟同步。
+如果指定 了 CloudName，NDF 将验证该云中的分组功能。
+如果指定 了 GroupName，NDF 将验证该名称是否可以在 PNRP (解析，或者在无法) 解析该名称时调用 PNRP 帮助程序类，并验证用于分组的防火墙设置。
+如果指定 了 Identity，NDF 将验证 PNRP 是否能够使用此标识注册 GroupName 。 如果此操作失败，将调用 PNRP 帮助程序类。
+如果指定了 邀请 ，则 GroupName 将从邀请 (如果未同时指定 GroupName) 并且 NDF 将验证邀请的格式和状态。
+如果指定了 “地址” ，NDF 将验证 Windows 是否可以连接到其中最多三个地址。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用]
+Windows ndfapi.h Ndfapi.lib Ndfapi.dll
+展开表
+NdfCreateInboundIncident 函数 (ndfapi.h) 项目2024/03/05
+NdfCreateInboundIncident 函数创建会话来诊断特定应用程序或服务的入站连接。
+语法 C++
+void NdfCreateInboundIncident(
+  [in, optional] LPCWSTR                applicationID,
+  [in, optional] LPCWSTR                serviceID,   [in, optional] SID                    *userID,
+  [in, optional] const SOCKADDR_STORAGE *localTarget,
+                 IPPROTO                protocol,                  DWORD                  dwFlags,   [out]          NDFHANDLE              *handle);
+参数
+[in, optional] applicationID 类型： LPCWSTR
+接收入站流量的应用程序的完全限定路径。
+[in, optional] serviceID 类型： LPCWSTR
+接收入站流量的 Windows 服务。 dll，-28502 (文件/打印共享) dll，-28752 (远程桌面)
+dll，-32752 (Network Discovery)
+[in, optional] userID 类型： SID*
+接收流量的应用程序的 SID。 如果 为 NULL，则会自动使用调用方 SID。[in, optional] localTarget
+类型： const SOCKADDR_STORAGE
+一种SOCKADDR_STORAGE结构，用于将诊断限制为发到特定 IP 地址的流量。 如果 为 NULL，
+则所有流量都将包含在诊断中。 protocol
+类型： IPPROTO
+应诊断的协议。 例如，IPPROTO_TCP将用于指示 TCP/IP 协议。 dwFlags
+类型：DWORD 可能的值：
+NDF_INBOUND_FLAG_EDGETRAVERSAL
+指示如果本地网络上的两个网关都在专用访问范围内，应将配置视为不正常，而不是仅当两个网
+关都是 Internet 网关设备 (IGD) 时才认为配置正常。 NDF_INBOUND_FLAG_HEALTHCHECK
+如果未诊断任何入站流量问题，则立即结束会话，而不是启用详细跟踪并允许用户重现其问题进
+行第二次诊断。[out] handle
+类型： NDFHANDLE*
+指向网络诊断框架事件的句柄的指针。
+返回值类型： HRESULT
+可能的返回值包括但不限于以下内容。
+ﾉ
+返回代码
+说明
+展开表
+S_OK
+E_INVALIDARG 注解
+操作成功。
+未正确提供一个或多个参数。
+必须指定 applicationID 或 serviceID ，但不能同时指定这两者。要求
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用]
+Windows ndfapi.h Ndfapi.lib Ndfapi.dll
+ﾉ
+展开表
+NdfCreateIncident 函数 (ndfapi.h) 项目2024/03/09
+应用程序开发人员在内部使用 NdfCreateIncident 函数来测试合并到其应用程序中的 NDF 功能。
+语法 C++
+void NdfCreateIncident(
+  [in]  LPCWSTR          helperClassName,         ULONG            celt,
+  [in]  HELPER_ATTRIBUTE *attributes,
+  [out] NDFHANDLE        *handle);
+参数
+[in] helperClassName 类型： LPCWSTR
+要用于事件诊断的帮助程序类的名称。 celt
+类型： ULONG
+特性数组中的元素计数。[in] attributes
+类型： HELPER_ATTRIBUTE*
+适用的 HELPER_ATTRIBUTE 结构。[out] handle
+类型： NDFHANDLE*
+网络诊断框架事件的句柄。返回值
+类型： HRESULT
+可能的返回值包括但不限于以下值。
+返回代码 S_OK
+E_OUTOFMEMORY NDF_E_BAD_PARAM
+NDF_E_NOHELPERCLASS 要求
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 NdfCloseIncident
+NdfCreateWinSockIncident NdfExecuteDiagnosis
+值
+说明
+操作成功。
+没有足够的内存可用于完成此操作。一个或多个参数无效。
+helperClassName 为 NULL。
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndfapi.h Ndfapi.lib Ndfapi.dll
+ﾉﾉ
+展开表展开表
+NdfCreateNetConnectionIncident 函数
+(ndfapi.h) 项目2023/08/25
+NdfCreateNetConnectionIncident 函数使用 NetConnection 帮助程序类诊断连接问题。
+语法 C++
+void NdfCreateNetConnectionIncident(   [out] NDFHANDLE *handle,
+        GUID      id);
+parameters[out] handle
+类型： NDFHANDLE*
+网络诊断框架事件的句柄。 id
+类型： GUID
+调用方要为其创建事件的网络接口的标识符。
+如果调用方不想指定接口，可以使用 NULL GUID {00000000-0000-0000-0000-000000000000}。 系统将尝试根据系统的当前状态确定最合适的接口。
+返回值类型： HRESULT
+可能的返回值包括但不限于以下内容。
+ﾉ
+返回代码
+说明
+展开表
+S_OK
+E_ABORT
+E_OUTOFMEMORY NDF_E_BAD_PARAM
+要求  
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+ 
+操作成功。
+基础诊断或修复操作已取消。
+没有足够的内存可用于完成此操作。该句柄无效。
+Windows 8 [仅限桌面应用]
+Windows Server 2012 [仅限桌面应用]
+Windows ndfapi.h Ndfapi.lib Ndfapi.dll
+ﾉ
+展开表
+NdfCreatePnrpIncident 函数 (ndfapi.h) 项目2024/03/05
+NdfCreatePnrpIncident 函数创建一个会话，用于诊断对等名称解析协议 (PNRP) 服务的问题。
+语法 C++
+void NdfCreatePnrpIncident(
+  [in]           LPCWSTR   cloudname,   [in, optional] LPCWSTR   peername,
+  [in]           BOOL      diagnosePublish,
+  [in, optional] LPCWSTR   appId,   [out]          NDFHANDLE *handle);
+参数
+[in] cloudname 类型： LPCWSTR 要诊断的云的名称。
+[in, optional] peername 类型： LPCWSTR
+PNRP 可以尝试解析的对等节点的可选名称。 结果将用于帮助诊断任何问题。
+[in] diagnosePublish 类型： BOOL
+指定帮助程序类是否应验证节点是否可以发布 ID。 如果 为 FALSE，则会跳过此诊断步骤。
+[in, optional] appId 类型： LPCWSTR
+调用应用程序的应用程序 ID。[out] handle
+类型： NDFHANDLE*
+网络诊断框架事件的句柄。
+返回值类型： HRESULT
+可能的返回值包括但不限于以下内容。
+返回代码 S_OK
+NDF_E_BAD_PARAM 注解
+说明
+操作成功。
+未正确提供一个或多个参数。
+ﾉ
+展开表
+执行的诊断级别取决于提供的参数。 将诊断 PNRP 服务的可用性和 IPv6 网络类的可用性，如果提供了某些参数，则将执行其他诊断。
+如果指定 了 peername，NDF 将验证该对等方在 PNRP 网络中的可用性。如果指定了 diagnosePublish，NDF 将验证在 PNRP 中发布名称的能力。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用]
+Windows ndfapi.h Ndfapi.lib Ndfapi.dll
+展开表
+NdfCreateSharingIncident 函数 (ndfapi.h) 项目2024/03/05
+NdfCreateSharingIncident 函数诊断访问特定网络共享时的网络问题。
+语法 C++
+void NdfCreateSharingIncident(
+  [in]  LPCWSTR   UNCPath,   [out] NDFHANDLE *handle);
+参数[in] UNCPath
+类型： LPCWSTR
+完整的 UNC 字符串 (，例如，存在连接问题的共享资产的“\server\folder\file.ext”) 。[out] handle
+类型： NDFHANDLE*
+网络诊断框架事件的句柄。
+返回值类型： HRESULT
+可能的返回值包括但不限于以下值。
+ﾉ
+返回代码 S_OK
+E_ABORT
+E_OUTOFMEMORY
+说明
+操作成功。
+基础诊断或修复操作已取消。
+没有足够的内存可用于完成此操作。
+展开表
+NDF_E_BAD_PARAM
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+一个或多个参数无效。
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndfapi.h Ndfapi.lib Ndfapi.dll
+ﾉ
+展开表
+NdfCreateWebIncident 函数 (ndfapi.h) 项目2024/02/29
+NdfCreateWebIncident 函数诊断有关特定 URL 的 Web 连接问题。
+语法 C++
+void NdfCreateWebIncident(   [in]  LPCWSTR   url,
+  [out] NDFHANDLE *handle);
+参数[in] url
+类型： LPCWSTR
+出现连接问题的 URL。[out] handle
+类型： NDFHANDLE*
+网络诊断框架事件的句柄。
+返回值类型： HRESULT
+可能的返回值包括但不限于以下内容。
+返回代码 S_OK
+E_ABORT
+E_OUTOFMEMORY
+说明
+操作成功。
+基础诊断或修复操作已取消。
+没有足够的内存可用于完成此操作。
+ﾉ
+展开表
+NDF_E_BAD_PARAM
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+一个或多个参数无效。
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndfapi.h Ndfapi.lib Ndfapi.dll
+ﾉ
+展开表
+ndfCreateWebIncidentEx 函数 (ndfapi.h) 项目2024/02/29
+NdfCreateWebIncidentEx 函数诊断有关特定 URL 的 Web 连接问题。 与 NdfCreateWebIncident 函数相比，此函数可以更好地控制基础诊断。
+语法 C++
+void NdfCreateWebIncidentEx(   [in]  LPCWSTR   url,
+  [in]  BOOL      useWinHTTP,   [in]  LPWSTR    moduleName,
+  [out] NDFHANDLE *handle);
+参数[in] url
+类型： LPCWSTR
+出现连接问题的 URL。
+[in] useWinHTTP 类型： BOOL
+如果将使用 WinHTTP API 执行诊断，则为 TRUE;如果使用 WinInet API，则为 FALSE。
+[in] moduleName 类型： LPWSTR
+检查特定于应用程序的筛选规则时使用的模块名称 (例如“C：\Program Files\Internet
+Explorer\iexplorer.exe”) 。 如果 为 NULL，则诊断期间会自动检测到该值。[out] handle
+类型： NDFHANDLE*
+网络诊断框架事件的句柄。
+返回值类型： HRESULT
+可能的返回值包括但不限于以下值。
+返回代码 S_OK
+E_ABORT
+E_OUTOFMEMORY NDF_E_BAD_PARAM
+要求
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅
+NdfCreateWebIncident
+值
+说明
+操作成功。
+基础诊断或修复操作已取消。
+没有足够的内存可用于完成此操作。一个或多个参数无效。
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndfapi.h Ndfapi.lib Ndfapi.dll
+ﾉﾉ
+展开表展开表
+NdfCreateWinSockIncident 函数 (ndfapi.h) 项目2024/03/05
+NdfCreateWinSockIncident 函数提供对 Microsoft 提供的 Winsock 帮助程序类的访问权限。
+语法 C++
+void NdfCreateWinSockIncident(                  SOCKET    sock,   [in, optional] LPCWSTR   host,                  USHORT    port,   [in, optional] LPCWSTR   appId,
+  [in, optional] SID       *userId,   [out]          NDFHANDLE *handle);
+参数 sock
+类型： SOCKET
+标识连接的套接字的描述符。
+[in, optional] host 类型： LPCWSTR
+指向本地主机的指针。 port
+类型： USHORT
+提供 Winsock 访问的端口。
+[in, optional] appId 类型： LPCWSTR
+与应用程序关联的唯一标识符。[in, optional] userId
+类型： SID*
+与用户关联的唯一标识符。[out] handle
+类型： NDFHANDLE*
+网络诊断框架事件的句柄。
+返回值类型： HRESULT
+可能的返回值包括但不限于以下内容。
+返回代码 S_OK
+E_OUTOFMEMORY NDF_E_BAD_PARAM
+E_INVALIDARG 要求
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+说明
+操作成功。
+没有足够的内存可用于完成此操作。
+一个或多个参数无效。一个或多个参数无效。
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndfapi.h Ndfapi.lib Ndfapi.dll
+ﾉﾉ
+展开表展开表
+另请参阅 NdfCloseIncident NdfCreateIncident NdfExecuteDiagnosis
+NdfDiagnoseIncident 函数 (ndfapi.h) 项目2023/08/25
+NdfDiagnoseIncident 函数在不显示用户界面的情况下诊断事件的根本原因。
+语法 C++
+void NdfDiagnoseIncident(
+  [in]  NDFHANDLE     Handle,
+  [out] ULONG         *RootCauseCount,   [out] RootCauseInfo **RootCauses,
+        DWORD         dwWait,         DWORD         dwFlags);
+参数[in] Handle
+类型： NDFHANDLE
+网络诊断框架事件的句柄。
+[out] RootCauseCount 类型： ULONG*
+可能导致此事件的根本原因的数目。 如果诊断不成功，则应忽略此参数的内容。[out] RootCauses
+类型： RootCauseInfo**
+RootCauseInfo 结构的集合，其中包含根本原因的详细说明。 如果诊断成功，此参数将同时包含诊断会话中标识的叶根本原因和具有可用修复的任何非叶根本原因。 如果诊断不成功，则应忽略此参数的内容。
+稍后应释放分配给这些结构的内存。 有关如何执行此操作的示例，请参阅 Microsoft Windows
+网络诊断示例。 dwWait
+类型：DWORD
+终止诊断例程之前等待的时间长度（以毫秒为单位）。 如果不需要超时，则 INFINITE 可以传递
+给此参数。 dwFlags
+类型：DWORD 可能的值：
+ﾉ
+值
+NDF_ADD_CAPTURE_TRACE 0x0001
+NDF_APPLY_INCLUSION_LIST_FILTER 0x0002
+返回值类型： HRESULT
+可能的返回值包括但不限于以下内容。
+返回代码 S_OK
+E_HANDLE
+WAIT_TIMEOUT 注解
+含义
+展开表
+在诊断期间启用网络跟踪。 诊断结果将包含在 NdfGetTraceFile 返回的事件跟踪日志 (ETL) 文件中。
+对返回的根本原因应用筛选，使其与内置脚本诊断行为保持一致。 如果没有此标志，则不会筛选根本原因。 此标志必须由调用方设置，因此现有调用方除非显式指定此标志，否则不会看到行为更改。
+注意仅适用于 Windows 8 和 Windows Server
+2012。  
+ﾉ
+说明
+操作成功。
+NDF 事件句柄无效。
+展开表
+诊断例程已终止，因为它所花费的时间长于 dwWait 中指定的超时时间。
+此函数适用于未显示用户界面或未使用标准 Windows 体验的方案， (与媒体中心和嵌入式应用程序) 一样。 NdfExecuteDiagnosis 将启动诊断用户界面，应在使用标准 Windows 体验的方案
+中使用。 可以调用 NdfExecuteDiagnosis 或 NdfDiagnoseIncident，但不能同时调用 NdfExecuteDiagnoseIncident。
+在使用此 API 之前，应用程序必须调用事件创建函数（例如 NdfCreateWebIncident）来启动 NDF 诊断过程。 然后，应用程序调用 NdfDiagnoseIncident 来诊断问题。 如果诊断进程识别出一些可能的修复，应用程序可以调用 NdfRepairIncident 来修复问题，而无需显示用户界面。 如果应用程序想要取消正在进行的 NdfDiagnoseIncident 调用，可以选择从单独的线程调用
+NdfCancelIncident。 最后，应用程序调用 NdfCloseIncident。下表显示了一些根本原因及其相应修复的示例。
+ﾉ
+根本原因 GUID{4DA030B8-86E5-
+4b6a-A879-2FFF8443B527}
+{60372FD2-AD60-45c2-BD83-
+6B827FC438DF}{245A9D66-AE9C-4518-A5B4-
+655752B0A5BD}
+要求要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+修复 GUID
+{1296DFF0-D04E-4be1-A512-
+90F04DDFA3E6}{07d37f7b-fa5e-
+4443-bda7-ab107b29afb6}
+{07d37f7b-fa5e-
+4443-bda7-ab107b29afb9}
+值
+根本原因说明
+网络电缆未正确插入或可能损坏。
+%InterfaceName% 适配器已禁用。
+%InterfaceName%“” 没有有效的 IP 配置。
+Windows 7 [仅限桌面应用]
+修复说明
+展开表
+将以太网电缆插入此计算机。\n以太网电缆看起来像电话电缆，但两端有较大的连接器。 将此电缆插入计算机背面或一侧的开口。\n确保电缆的另一端已插入路由器。 如果这不起作用，请尝试使用其他电缆。
+启用 %FriendlyInterfaceName% 适配器。
+重置“%InterfaceName%”“适配器。\n这有时可以解决间歇性问题。
+ﾉ
+Windows Server 2008 R2 [仅限桌面应用]
+Windows ndfapi.h
+展开表
+要求 Library DLL
+另请参阅 NdfExecuteDiagnosis NdfGetTraceFile RootCauseInfo
+值
+Ndfapi.lib Ndfapi.dll
+NdfExecuteDiagnosis 函数 (ndfapi.h) 项目2024/02/29
+NdfExecuteDiagnosis 函数用于诊断已发生的事件的根本原因。
+语法 C++
+void NdfExecuteDiagnosis(   NDFHANDLE handle,
+  HWND      hwnd);
+参数 handle
+类型： NDFHANDLE
+网络诊断框架事件的句柄。 hwnd
+类型：HWND
+用于显示诊断信息的窗口的句柄。 如果指定，则 NDF UI 是窗口的模式。 如果 为 NULL，则 UI
+为非模式。返回值类型： HRESULT
+可能的返回值包括但不限于以下值。
+ﾉ
+返回代码 S_OK
+E_HANDLE
+说明
+操作成功。句柄 无效。
+展开表
+要求要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+另请参阅 NdfCloseIncident NdfCreateIncident
+NdfCreateWinSockIncident
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndfapi.h Ndfapi.lib Ndfapi.dll
+ﾉ
+展开表
+NdfGetTraceFile 函数 (ndfapi.h) 项目2024/03/09
+NdfGetTraceFile 函数用于检索包含事件跟踪日志的路径 (ETL) 文件，该文件包含 Windows(ETW) 诊断会话中的事件跟踪。
+语法 C++
+void NdfGetTraceFile(
+  [in]  NDFHANDLE Handle,
+  [out] LPCWSTR   *TraceFileLocation);
+参数[in] Handle
+类型： NDFHANDLE
+网络诊断框架事件的句柄。 此句柄应与现有事件的句柄匹配。[out] TraceFileLocation
+类型： LPCWSTR* 跟踪文件的位置。
+返回值类型： HRESULT
+可能的返回值包括但不限于以下值。
+ﾉ
+返回代码
+S_OK  
+S_OK以外的任何结果都应解释为错误。
+说明
+操作成功。
+展开表
+注解
+无法对已关闭的事件调用此函数。
+ETL 文件包含诊断的组件、组件配置信息和诊断结果等信息。 有关 ETL 文件的详细信息，请参
+阅 Windows 7 中的网络跟踪。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+标头 Library DLL
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用]
+Windows ndfapi.h Ndfapi.lib Ndfapi.dll
+展开表
+NdfRepairIncident 函数 (ndfapi.h) 项目2024/03/13
+NdfRepairIncident 函数修复事件而不显示用户界面。
+语法 C++
+void NdfRepairIncident(
+  [in] NDFHANDLE    Handle,
+  [in] RepairInfoEx *RepairEx,
+       DWORD        dwWait);
+参数[in] Handle
+类型： NDFHANDLE
+网络诊断框架事件的句柄。 此句柄应与传递给 NdfDiagnoseIncident 的句柄匹配。[in] RepairEx
+类型： RepairInfoEx*
+结构 (从 NdfDiagnoseIncident) 获取，指示要执行的特定修复。
+稍后应释放分配给这些结构的内存。 有关如何执行此操作的示例，请参阅 Microsoft Windows
+网络诊断示例。 dwWait
+类型：DWORD
+终止诊断例程之前等待的时间长度（以毫秒为单位）。 如果不需要超时，可以向此参数传递
+INFINITE。返回值
+可能的返回值包括但不限于以下值。
+ 
+返回代码 S_OK
+NDF_E_VALIDATION E_HANDLE
+WAIT_TIMEOUT
+说明
+修复成功。
+ﾉ
+展开表
+修复已成功执行，但 NDF 验证仍发现连接问题。 如果返回此值，则应通过调用 NdfCloseIncident 关闭会话，并创建另一个
+会话以继续诊断。 NDF 事件句柄无效。
+修复操作已终止，因为它所花费的时间超过了 dwWait 中指定的超时时间。
+如果修复无法执行，则返回其他失败代码。 在这种情况下，客户端可以使用不同的修复再次调
+用 NdfRepairIncident 。注解
+仅当 NdfDiagnoseIncident 用于诊断时，才能调用 NdfRepairIncident。 在未显示用户界面或未
+使用标准 Windows 体验的情况下，通常 (媒体中心和嵌入式应用程序) 。 使用 NdfExecuteDiagnosis 时，不应调用 NdfRepairIncident。
+在使用此 API 之前，应用程序必须调用事件创建函数（如 NdfCreateWebIncident）来开始 NDF 诊断过程。 然后，应用程序调用 NdfDiagnoseIncident 来诊断问题。 如果诊断进程识别出一些可能的修复，应用程序可以调用 NdfRepairIncident 来修复问题，而无需显示用户界面。 如果应用程序想要取消正在进行的 NdfRepairIncident 调用，可以选择从单独的线程调用
+NdfCancelIncident。 最后，应用程序调用 NdfCloseIncident。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用]
+Windows ndfapi.h
+展开表
+要求 Library DLL
+另请参阅 NdfDiagnoseIncident RepairInfoEx
+值
+Ndfapi.lib Ndfapi.dll
+ndhelper.h 标头项目2023/08/25
+此标头由网络诊断框架使用。 有关详细信息，请参阅：
+网络诊断框架
+ndhelper.h 包含以下编程接口：
+接口  
+INetDiagHelper
+INetDiagHelper 接口提供用于捕获和提供与诊断和解决网络相关问题相关的信息的方法。 INetDiagHelperEx
+提供在 INetDiagHelper 接口上扩展的方法，以捕获和提供与诊断和解决网络相关问题相关的信息。
+INetDiagHelperInfo
+INetDiagHelperInfo 接口提供一个方法，当 NDF 需要验证它是否具有帮助程序类的必要信息并且
+它已选择正确的帮助程序类时，该网络诊断框架 (NDF) 调用该方法。 INetDiagHelperUtilFactory
+提供网络诊断框架 (NDF) 使用的保留方法。
+结构  
+DiagnosticsInfo
+DiagnosticsInfo 结构包含估计的诊断时间，以及用于调用的标志。 HelperAttributeInfo
+HelperAttributeInfo 结构包含帮助程序属性的名称及其类型。假设
+ 
+HYPOTHESIS 结构包含用于向 NDF 提交另一个帮助程序类的假设的数据。 HypothesisResult
+包含有关从帮助程序类返回的假设的信息。
+枚举  
+DIAGNOSIS_STATUS
+DIAGNOSIS_STATUS枚举描述提交到帮助程序类的假设的结果，在该类中已确定组件的运行状况。 PROBLEM_TYPE
+PROBLEM_TYPE枚举描述帮助程序类指示存在的问题类型。 REPAIR_STATUS
+REPAIR_STATUS枚举描述帮助程序类尝试修复选项的结果。反馈
+此页面是否有帮助？
+ﾂ是
+在 Microsoft Q&A 获取帮助
+ﾄ否
+DIAGNOSIS_STATUS 枚举 (ndhelper.h) 项目2024/03/05
+DIAGNOSIS_STATUS枚举描述提交到帮助程序类的假设的结果，其中已确定组件的运行
+状况。语法 C++
+typedef enum tagDIAGNOSIS_STATUS {   DS_NOT_IMPLEMENTED = 0,
+  DS_CONFIRMED,   DS_REJECTED,
+  DS_INDETERMINATE,
+  DS_DEFERRED,   DS_PASSTHROUGH
+} DIAGNOSIS_STATUS; 常量
+ﾉ
+ 
+DS_NOT_IMPLEMENTED 值： 0
+帮助程序类未实现 DS_CONFIRMED
+帮助程序类已确认其组件中存在问题。 DS_REJECTED
+帮助程序类已确定不存在问题。 DS_INDETERMINATE
+帮助程序类无法确定是否存在问题。 DS_DEFERRED
+帮助程序类目前无法执行诊断。 DS_PASSTHROUGH
+帮助程序类已确定要进一步调查的假设，但未确定其自己的组件中的任何问题。
+展开表
+ 
+等效于 DS_INDETERMINATE，但如果未确认假设，则稍后将更新为 DS_REJECTED 。
+注意 仅适用于 Windows 7、Windows Server 2008 R2 及更高版本。  
+要求
+要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] ndhelper.h
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+DiagnosticsInfo 结构 (ndhelper.h) 项目2024/03/05
+DiagnosticsInfo 结构包含诊断时间的估计值，以及用于调用的标志。
+语法 C++
+typedef struct tagDiagnosticsInfo {
+  long  cost;   ULONG flags;
+} DiagnosticsInfo, *PDiagnosticsInfo;
+成员 cost
+类型： long
+诊断完成所需的时间（以秒为单位）。 值为零或负值表示成本可忽略不计。 任何正值都
+会导致引擎调整整体诊断过程。 flags
+类型： ULONG
+保留。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] ndhelper.h
+展开表
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+HelperAttributeInfo 结构 (ndhelper.h) 项目2024/03/05
+HelperAttributeInfo 结构包含帮助程序属性的名称及其类型。
+语法 C++
+typedef struct tagHelperAttributeInfo {
+  LPWSTR         pwszName;   ATTRIBUTE_TYPE type;
+} HelperAttributeInfo, *PHelperAttributeInfo;
+成员 pwszName
+类型： [字符串] LPWSTR
+指向包含帮助程序属性名称的以 null 结尾的字符串的指针。 type
+类型： ATTRIBUTE_TYPE 帮助程序属性的类型。
+要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] ndhelper.h
+展开表
+ATTRIBUTE_TYPE HELPER_ATTRIBUTE
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+HYPOTHESIS 结构 (ndhelper.h) 项目2024/03/05
+HYPOTHESIS 结构包含用于向 NDF 提交另一个帮助程序类的假设的数据。 帮助程序类的名称、帮助程序类所需的参数数以及传递给帮助程序类的参数都包含在此结构中。
+语法 C++
+typedef struct tagHYPOTHESIS {
+  LPWSTR            pwszClassName;   LPWSTR            pwszDescription;   ULONG             celt;
+  PHELPER_ATTRIBUTE rgAttributes;} HYPOTHESIS, *PHYPOTHESIS;
+成员 pwszClassName
+类型： [string] LPWSTR
+指向包含帮助程序类名称的以 null 结尾的字符串的指针。 pwszDescription
+类型： [string] LPWSTR
+指向以 null 结尾的字符串的指针，该字符串包含传递给帮助程序类的数据的用户友好说
+明。 celt
+类型： ULONG
+此假设中的属性计数。 rgAttributes
+类型： [size_is (celt) ]PHELPER_ATTRIBUTE[ ]
+指向包含此假设的关键属性的 HELPER_ATTRIBUTE 结构的数组的指针。
+要求要求
+最低受支持的客户端最低受支持的服务器标头
+另请参阅 HELPER_ATTRIBUTE
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] ndhelper.h
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+HypothesisResult 结构 (ndhelper.h) 项目2024/02/29
+HypothesisResult 结构包含有关从帮助程序类返回的假设的信息。 该假设是通过调用 GetLowerHypotheses 获得的。
+语法 C++
+typedef struct tagHypothesisResult {
+  HYPOTHESIS       hypothesis;   DIAGNOSIS_STATUS pathStatus;} HypothesisResult;
+成员 hypothesis
+类型： HYPOTHESIS 特定假设的信息。 pathStatus
+类型： DIAGNOSIS_STATUS
+子帮助程序类及其子级的状态。
+如果假设或其任何子项在调用 LowHealth 时指示DS_CONFIRMED，则将DS_CONFIRMED 此值。 如果此类调用中不存在任何问题，则将 DS_REJECTED该值。 如果组件的运行状况
+不明确，将 DS_INDETERMINATE 该值。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用]
+展开表
+要求标头
+另请参阅 DIAGNOSIS_STATUS GetLowerHypotheses 假设
+LowHealth 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+ndhelper.h 否
+| 在 Microsoft Q&A 获取帮助
+INetDiagHelper 接口 (ndhelper.h) 项目2024/03/05
+INetDiagHelper 接口提供的方法可捕获和提供与诊断和解决网络相关问题相关的信息。继承
+INetDiagHelper 接口继承自 IUnknown 接口。 INetDiagHelper 还具有以下类型的成员：方法
+INetDiagHelper 接口具有这些方法。
+ﾉ
+ 
+INetDiagHelper：：Cancel 取消正在进行的诊断或修复。 INetDiagHelper：：Cleanup
+允许帮助程序类扩展在诊断或修复操作后清理资源。 INetDiagHelper：：GetAttributes
+检索有关帮助程序类扩展已诊断的问题的其他信息。 INetDiagHelper：：GetCacheTime
+指定诊断和修复操作的缓存结果过期的时间。
+INetDiagHelper：：GetDiagnosticsInfo 启用 Helper 类扩展实例以提供估计值。
+INetDiagHelper：：GetDownStreamHypotheses 要求帮助程序类扩展生成假设。
+INetDiagHelper：：GetHigherHypotheses
+生成高利用率的可能原因的假设。 INetDiagHelper：：GetKeyAttributes
+展开表
+ 
+检索帮助程序类扩展的键属性。 INetDiagHelper：：GetLifeTime
+检索帮助程序类扩展实例的生存期。
+INetDiagHelper：：GetLowerHypotheses
+针对本地组件中运行状况不佳的可能原因生成假设。 INetDiagHelper：：GetRepairInfo
+检索帮助程序类扩展针对给定问题类型的修复信息。 INetDiagHelper：：GetUpStreamHypotheses
+为上游网络组件中高利用率的可能原因生成假设。
+INetDiagHelper：：HighUtilization 检查相应的组件是否得到高度利用。 INetDiagHelper：：Initialize
+Initialize 方法将属性从假设传递到帮助程序类扩展。 帮助程序类应存储这些参数，以便在main 诊断函数中使用。 必须在任何诊断函数之前调用此方法。
+INetDiagHelper：：LowHealth 检查被诊断的组件是否正常。
+INetDiagHelper：：Repair 执行由输入参数指定的修复。 INetDiagHelper：：SetLifeTime
+帮助程序类扩展可以将诊断限制为该时间段内的事件。
+INetDiagHelper：：Validate 修复成功完成后由 NDF 调用。
+要求
+ﾉ
+展开表
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+INetDiagHelper：：Cancel 方法
+(ndhelper.h) 项目2024/03/09
+Cancel 方法取消正在进行的诊断或修复。
+语法 C++
+HRESULT Cancel(); 返回值
+返回代码 S_OK
+E_OUTOFMEMORY E_ACCESSDENIED
+E_ABORT  
+说明
+操作成功。
+没有足够的内存可用于完成此操作。
+调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。注解
+生成帮助程序类扩展时，需要使用 Cancel 方法。要求
+要求
+最低受支持的客户端
+值
+Windows Vista [仅限桌面应用]
+ﾉﾉ
+展开表展开表
+要求
+最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelper
+值
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+INetDiagHelper：：Cleanup 方法
+(ndhelper.h) 项目2024/03/09
+Cleanup 方法允许帮助程序类扩展在诊断或修复操作后清理资源。
+语法 C++
+HRESULT Cleanup(); 返回值
+返回代码 S_OK
+E_OUTOFMEMORY E_ACCESSDENIED
+E_ABORT  
+说明
+操作成功。
+没有足够的内存可用于完成此操作。
+调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。注解
+生成帮助程序类扩展时需要 Cleanup 方法。要求
+要求
+最低受支持的客户端
+值
+Windows Vista [仅限桌面应用]
+ﾉﾉ
+展开表展开表
+要求
+最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelper
+值
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+INetDiagHelper：：GetAttributes 方法
+(ndhelper.h) 项目2024/02/29
+GetAttributes 方法检索有关帮助程序类扩展已诊断的问题的其他信息。
+语法 C++
+HRESULT GetAttributes(
+  [out] ULONG            *pcelt,
+  [out] HELPER_ATTRIBUTE **pprgAttributes);
+参数[out] pcelt
+指向HELPER_ATTRIBUTE数组中的元素计数 的 指针。[out] pprgAttributes
+指向HELPER_ATTRIBUTE结构的数组 的 指针。返回值
+返回代码 S_OK
+E_OUTOFMEMORY
+E_INVALIDARG E_NOTIMPL
+E_ACCESSDENIED
+E_ABORT  
+说明
+操作成功。
+没有足够的内存可用于完成此操作。
+未正确提供一个或多个参数。此可选方法未实现。
+调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。
+ﾉ
+展开表
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。注解
+生成帮助程序类扩展时不需要此方法。
+在诊断和修复过程中，帮助程序类可以选择性地将属性返回到 NDF，以改善 NDF 对诊断的处理。 可返回到 NDF 的预定义属性如下所示。
+ﾉ
+术语
+werperameter (类型：AT_UINT32)
+werfile (类型：AT_STRING) rootcauseid (类型：AT_GUID)
+要求要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelper
+值
+说明
+展开表
+诊断失败时，特定于 WER 的其他帮助程序类 Windows 错误报告 (的可选属性) 存储桶参数。
+一个可选属性，用于将特定于帮助程序类的文件添加到 Windows 错误报告 (WER) 报表。
+帮助程序类通常可以同时诊断多个问题。 如果扩展返回
+AT_GUID 类型的 HelperAttribute，并将 pszName 参数设置为 rootcauseid，并将 Guid 字段设置为标识所遇到的特定问题的 GUID，则可以改进对 NDF 中遇到的问题的分析。 这些 GUID 由帮助程序扩展自定义定义。
+ﾉ
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+展开表
+INetDiagHelper：：GetCacheTime 方法
+(ndhelper.h) 项目2024/02/29
+GetCacheTime 方法指定诊断和修复操作的缓存结果过期的时间。
+语法 C++
+HRESULT GetCacheTime(
+  [out] FILETIME *pCacheTime);
+参数
+[out] pCacheTime
+指向 FILETIME 结构的指针。返回值
+ﾉ
+返回代码 S_OK
+E_OUTOFMEMORY
+E_INVALIDARG E_NOTIMPL
+E_ACCESSDENIED
+E_ABORT  
+说明
+操作成功。
+没有足够的内存可用于完成此操作。
+未正确提供一个或多个参数。此可选方法未实现。
+调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。注解
+展开表
+生成帮助程序类扩展时不需要此方法。
+默认行为是返回当前时间，以便不缓存结果。 设置缓存时间可以提高诊断效率，因为除非缓存时间已过期，否则 NDF 不会调用扩展来重新诊断问题。
+FILETIME 结构是一个 64 位值，表示自 1601 年 1 月 1 日 (UTC) 以来的 100 纳秒间隔数。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelper
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+展开表
+INetDiagHelper：：GetDiagnosticsInfo 方
+法 (ndhelper.h) 项目2024/02/29
+GetDiagnosticsInfo 方法使 Helper 类扩展实例能够估计诊断可能需要多长时间。
+语法 C++
+HRESULT GetDiagnosticsInfo(
+  [out] DiagnosticsInfo **ppInfo);
+参数[out] ppInfo
+指向 DiagnosticsInfo 结构的指针的指针。返回值
+ﾉ
+返回代码 S_OK
+E_OUTOFMEMORY
+E_INVALIDARG E_ACCESSDENIED
+E_ABORT  
+说明
+操作成功。
+没有足够的内存可用于完成此操作。未正确提供一个或多个参数。
+调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。注解
+展开表
+生成帮助程序类扩展时，需要 GetDiagnosticsInfo 方法。要求
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelper
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+ﾉ
+展开表
+INetDiagHelper：：
+GetDownStreamHypotheses 方法
+(ndhelper.h) 项目2024/02/29
+GetDownStreamHypotheses 方法要求帮助程序类扩展针对它所依赖的下游网络组件中运行状况不佳的可能原因生成假设。
+语法 C++
+HRESULT GetDownStreamHypotheses(   [out] ULONG      *pcelt,
+  [out] HYPOTHESIS **pprgHypotheses);
+参数[out] pcelt
+指向 HYPOTHESIS 数组中元素计数的指针。[out] pprgHypotheses
+指向 HYPOTHESIS 结构数组的指针。返回值
+ﾉ
+返回代码 S_OK
+E_OUTOFMEMORY
+E_INVALIDARG E_NOTIMPL
+E_ACCESSDENIED
+说明
+操作成功。
+没有足够的内存可用于完成此操作。
+未正确提供一个或多个参数。此可选方法未实现。
+调用方没有足够的权限来执行诊断或修复操作。
+展开表
+ 
+E_ABORT
+诊断或修复操作已取消。
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。注解
+生成帮助程序类扩展时不需要此方法。要求
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelper
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+ﾉ
+展开表
+INetDiagHelper：：GetHigherHypotheses
+方法 (ndhelper.h) 项目2024/03/05
+GetHigherHypotheses 方法要求帮助程序类扩展针对依赖它的本地组件中高利用率的可能原因
+生成假设。语法 C++
+HRESULT GetHigherHypotheses(   [out] ULONG      *pcelt,
+  [out] HYPOTHESIS **pprgHypotheses);
+参数[out] pcelt
+指向 HYPOTHESIS 数组中元素计数的指针。[out] pprgHypotheses
+指向 HYPOTHESIS 结构数组的指针。返回值
+ﾉ
+返回代码 S_OK
+E_OUTOFMEMORY
+E_INVALIDARG E_NOTIMPL
+E_ACCESSDENIED E_ABORT
+说明
+操作成功。
+没有足够的内存可用于完成此操作。
+未正确提供一个或多个参数。此可选方法未实现。
+调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。
+展开表
+ 
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。注解
+生成帮助程序类扩展时不需要此方法。要求
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelper
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+ﾉ
+展开表
+INetDiagHelper：：GetKeyAttributes 方法
+(ndhelper.h) 项目2024/02/29
+GetKeyAttributes 方法检索帮助程序类扩展的键属性。
+语法 C++
+HRESULT GetKeyAttributes(
+  [out] ULONG            *pcelt,
+  [out] HELPER_ATTRIBUTE **pprgAttributes);
+参数[out] pcelt
+指向HELPER_ATTRIBUTE数组中的元素计数 的 指针。[out] pprgAttributes
+指向HELPER_ATTRIBUTE结构的数组 的 指针。返回值
+ﾉ
+返回代码 S_OK
+E_OUTOFMEMORY
+E_INVALIDARG E_NOTIMPL
+E_ACCESSDENIED
+E_ABORT  
+说明
+操作成功。
+没有足够的内存可用于完成此操作。
+未正确提供一个或多个参数。此可选方法未实现。
+调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。
+展开表
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。注解
+生成帮助程序类扩展时不需要此方法。要求
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelper
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+ﾉ
+展开表
+INetDiagHelper：：GetLifeTime 方法
+(ndhelper.h) 项目2024/03/05
+GetLifeTime 方法检索帮助程序类扩展实例的生存期。
+语法 C++
+HRESULT GetLifeTime(
+  [out] LIFE_TIME *pLifeTime);
+参数
+[out] pLifeTime
+指向 LIFE_TIME 结构的指针。返回值
+返回代码 S_OK
+E_OUTOFMEMORY
+E_INVALIDARG E_NOTIMPL
+E_ACCESSDENIED
+E_ABORT  
+说明
+操作成功。
+没有足够的内存可用于完成此操作。
+未正确提供一个或多个参数。此可选方法未实现。
+调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。注解
+ﾉ
+展开表
+生成帮助程序类扩展时不需要此方法。
+生存期数据用于限制问题实例的时间范围。 这在进行基于历史记录的诊断（例如跟踪和日志记录）时特别有用，这些诊断可用于将诊断范围缩小到指定时间间隔内发生的事件。
+例如，Windows 筛选平台 (WFP) 帮助程序类使用生存期通过检查跟踪日志来确定阻止数据包的
+筛选器。 默认情况下，帮助程序类实例的生存期继承其依赖帮助程序类实例的生存期。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelper
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+展开表
+INetDiagHelper：：GetLowerHypotheses
+方法 (ndhelper.h) 项目2024/03/13
+GetLowerHypotheses 方法要求帮助程序类扩展针对依赖它的本地组件中运行状况不佳的可能原因生成假设。
+语法 C++
+HRESULT GetLowerHypotheses(   [out] ULONG      *pcelt,
+  [out] HYPOTHESIS **pprgHypotheses);
+参数[out] pcelt
+指向 HYPOTHESIS 数组中元素计数的指针。[out] pprgHypotheses
+指向 HYPOTHESIS 数组的指针。返回值
+ﾉ
+返回代码 S_OK
+E_OUTOFMEMORY
+E_INVALIDARG E_NOTIMPL
+E_ACCESSDENIED E_ABORT
+说明
+操作成功。
+没有足够的内存可用于完成此操作。
+未正确提供一个或多个参数。此可选方法未实现。
+调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。
+展开表
+ 
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。注解
+生成帮助程序类扩展时不需要此方法。要求
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelper
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+ﾉ
+展开表
+INetDiagHelper：：GetRepairInfo 方法
+(ndhelper.h) 项目2024/02/29
+GetRepairInfo 方法检索帮助程序类扩展针对给定问题类型的修复信息。
+语法 C++
+HRESULT GetRepairInfo(
+  [in]  PROBLEM_TYPE problem,   [out] ULONG        *pcelt,   [out] RepairInfo   **ppInfo);
+参数[in] problem
+一个PROBLEM_TYPE值，该值指定帮助程序类先前已诊断的问题类型。[out] pcelt
+指向 RepairInfo 数组中元素计数的指针。[out] ppInfo
+指向 RepairInfo 结构数组的指针。返回值
+ﾉ
+返回代码 S_OK
+E_OUTOFMEMORY
+E_INVALIDARG E_NOTIMPL
+说明
+操作成功。
+没有足够的内存可用于完成此操作。
+未正确提供一个或多个参数。此可选方法未实现。
+展开表
+ 
+E_ACCESSDENIED E_ABORT
+调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。注解
+生成帮助程序类扩展时不需要此方法。要求
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelper
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+ﾉ
+展开表
+INetDiagHelper：：
+GetUpStreamHypotheses 方法 (ndhelper.h) 项目2024/03/13
+GetUpStreamHypotheses 方法要求帮助程序类扩展针对依赖它的上游网络组件中高利用率的可能原因生成假设。
+语法 C++
+HRESULT GetUpStreamHypotheses(   [out] ULONG      *pcelt,
+  [out] HYPOTHESIS **pprgHypotheses);
+参数[out] pcelt
+指向 HYPOTHESIS 数组中元素计数的指针。[out] pprgHypotheses
+指向 HYPOTHESIS 数组的指针。返回值
+ﾉ
+返回代码 S_OK
+E_OUTOFMEMORY
+E_INVALIDARG E_NOTIMPL
+E_ACCESSDENIED E_ABORT
+说明
+操作成功。
+没有足够的内存可用于完成此操作。
+未正确提供一个或多个参数。此可选方法未实现。
+调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。
+展开表
+ 
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。注解
+生成帮助程序类扩展时不需要此方法。要求
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelper
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+ﾉ
+展开表
+INetDiagHelper：：HighUtilization 方法
+(ndhelper.h) 项目2024/03/05
+HighUtilization 方法使 Helper 类扩展能够检查相应的组件是否高度利用。
+语法 C++
+HRESULT HighUtilization(
+  [in]  LPCWSTR          pwszInstanceDescription,
+  [out] LPWSTR           *ppwszDescription,   [out] long             *pDeferredTime,
+  [out] DIAGNOSIS_STATUS *pStatus);
+参数
+[in] pwszInstanceDescription
+指向以 null 结尾的字符串的指针，其中包含所诊断信息的用户友好说明。 例如，如果类要诊断
+IP 地址的连接问题， 则 pwszInstanceDescription 参数将包含主机名。[out] ppwszDescription
+指向以 null 结尾的字符串的指针，其中包含高利用率诊断结果的说明。[out] pDeferredTime
+一个指针，指向如果诊断无法立即启动，则延迟的时间（以秒为单位）。 当 pStatus 参数设置为
+DS_DEFERRED 时，使用此方法。[out] pStatus
+指向从诊断返回 的DIAGNOSIS_STATUS 的指针。返回值
+ﾉ
+返回代码
+说明
+展开表
+ 
+S_OK
+E_OUTOFMEMORY
+E_INVALIDARG E_NOTIMPL
+E_ACCESSDENIED E_ABORT
+操作成功。
+没有足够的内存可用于完成此操作。
+未正确提供一个或多个参数。此可选方法未实现。
+调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。注解
+生成帮助程序类扩展时不需要此方法。要求
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelper
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+ﾉ
+展开表
+INetDiagHelper：：Initialize 方法
+(ndhelper.h) 项目2024/02/29
+Initialize 方法将属性从假设传递到帮助程序类扩展。 帮助程序类应存储这些参数，以便在main 诊断函数中使用。 必须在任何诊断函数之前调用此方法。
+语法 C++
+HRESULT Initialize(
+  [in] ULONG               celt,
+       HELPER_ATTRIBUTE [] rgAttributes);
+参数[in] celt
+指向HELPER_ATTRIBUTE数组中的元素计数 的 指针。 rgAttributes
+对 HELPER_ATTRIBUTE数组的 引用。返回值
+ﾉ
+返回代码 S_OK
+E_OUTOFMEMORY
+E_INVALIDARG E_ACCESSDENIED
+E_ABORT  
+说明
+操作成功。
+没有足够的内存可用于完成此操作。未正确提供一个或多个参数。
+调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。
+展开表
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。注解
+生成帮助程序类扩展时需要 Initialize 方法。要求
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelper
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+ﾉ
+展开表
+INetDiagHelper：：LowHealth 方法
+(ndhelper.h) 项目2024/03/13
+LowHealth 方法使帮助程序类扩展能够检查被诊断的组件是否正常。
+语法 C++
+HRESULT LowHealth(
+  [in]  LPCWSTR          pwszInstanceDescription,
+  [out] LPWSTR           *ppwszDescription,   [out] long             *pDeferredTime,
+  [out] DIAGNOSIS_STATUS *pStatus);
+参数
+[in] pwszInstanceDescription
+指向以 null 结尾的字符串的指针，其中包含所诊断信息的用户友好说明。 例如，如果类要诊断
+IP 地址的连接问题， 则 pwszInstanceDescription 参数将包含主机名。[out] ppwszDescription
+指向以 null 结尾的字符串的指针，其中包含发现组件不正常时发现的问题的说明。[out] pDeferredTime
+一个指针，指向如果诊断无法立即启动，则延迟的时间（以秒为单位）。 当 pStatus 参数设置为
+DS_DEFERRED 时，使用此方法。[out] pStatus
+指向从诊断返回 的DIAGNOSIS_STATUS 的指针。返回值
+ﾉ
+返回代码
+说明
+展开表
+ 
+S_OK
+E_OUTOFMEMORY
+E_INVALIDARG E_ACCESSDENIED E_ABORT
+操作成功。
+没有足够的内存可用于完成此操作。未正确提供一个或多个参数。
+调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。注解
+生成帮助程序类扩展时，需要使用 LowHealth 方法。
+如果 LowHealth 返回DS_CONFIRMED，ppwszDescription 还将包含诊断结果的用户友好说明。如果 pStatus 返回DS_DEFERRED，则 out 参数 pDeferredTime 包含此诊断需要延迟 的秒数。
+确认 LowHealth 时，如果问题可能是由其他组件引起的，还可以选择在 GetLowerHypotheses 方法中为其他帮助程序类生成假设。 如果未确认，NDF 可能会通过调用 HighUtilization 进一步诊断问题。
+如果 LowHealth 无法诊断问题，但无法确认组件是否正常，则 LowHealth 也可能返回 DS_INDETERMINATE 。 在这种情况下，如果未确认其他假设，NDF 会将它视为
+DS_CONFIRMED 。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+展开表
+INetDiagHelper
+INetDiagHelper：：Repair 方法
+(ndhelper.h) 项目2024/03/09
+Repair 方法执行由输入参数指定的修复。
+语法 C++
+HRESULT Repair(
+  [in]  RepairInfo    *pInfo,
+  [out] long          *pDeferredTime,
+  [out] REPAIR_STATUS *pStatus);
+参数[in] pInfo
+指向 RepairInfo 结构的指针。[out] pDeferredTime
+指向无法立即启动修复时延迟的时间（以秒为单位）的指针。 仅当 pStatus 参数设置为
+DS_DEFERRED 时，这才有效。[out] pStatus
+指向从修复返回 的REPAIR_STATUS 的指针。返回值
+ﾉ
+返回代码 S_OK
+E_OUTOFMEMORY E_INVALIDARG
+说明
+操作成功。
+没有足够的内存可用于完成此操作。未正确提供一个或多个参数。
+展开表
+ 
+E_NOTIMPL
+E_ACCESSDENIED E_ABORT
+此可选方法未实现。
+调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。注解
+生成帮助程序类扩展时不需要此方法。要求
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelper
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+ﾉ
+展开表
+INetDiagHelper：：SetLifeTime 方法
+(ndhelper.h) 项目2024/02/29
+NDF 调用 SetLifeTime 方法，将感兴趣的开始时间和结束时间设置为诊断，以便帮助程序类扩展可以将其诊断限制为该时间段内的事件。
+语法 C++
+HRESULT SetLifeTime(
+  [in] LIFE_TIME lifeTime);
+参数[in] lifeTime
+LIFE_TIME结构。返回值
+ﾉ
+返回代码 S_OK
+E_OUTOFMEMORY
+E_INVALIDARG E_NOTIMPL
+E_ACCESSDENIED
+E_ABORT  
+说明
+操作成功。
+没有足够的内存可用于完成此操作。
+未正确提供一个或多个参数。此可选方法未实现。
+调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。
+展开表
+注解
+生成帮助程序类扩展时不需要此方法。要求
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelper
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+ﾉ
+展开表
+INetDiagHelper：：Validate 方法
+(ndhelper.h) 项目2025/02/21
+在成功完成修复后，NDF 会调用 Validate 方法，以验证之前诊断的问题是否已修复。
+语法 C++
+HRESULT Validate(
+  [in]  PROBLEM_TYPE  problem,
+  [out] long          *pDeferredTime,
+  [out] REPAIR_STATUS *pStatus);
+参数[in] problem
+帮助程序类先前已诊断的 PROBLEM_TYPE 。[out] pDeferredTime
+一个指针，指向无法立即启动诊断时要延迟的时间（以秒为单位）。 仅当 pStatus 成员设置为
+DS_DEFERRED 时才使用。[out] pStatus
+指向从诊断返回 的DIAGNOSIS_STATUS 的指针。返回值
+ﾉ
+返回代码 S_OK
+E_OUTOFMEMORY E_INVALIDARG
+说明
+操作成功。
+没有足够的内存可用于完成此操作。未正确提供一个或多个参数。
+展开表
+ 
+E_NOTIMPL
+E_ACCESSDENIED E_ABORT
+此可选方法未实现。
+调用方没有足够的权限来执行诊断或修复操作。诊断或修复操作已取消。
+帮助程序类扩展可能会返回特定于函数中遇到的故障的 HRESULTS。注解
+生成帮助程序类扩展时不需要此方法。
+此方法仅在遇到妨碍验证的失败时返回错误代码。 如有必要， pStatus 参数是传达组件仍处于低
+运行状况的预期方式。 DS_REJECTED 用于指示问题已解决。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelper
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+展开表
+INetDiagHelperEx 接口 (ndhelper.h) 项目2024/03/05
+INetDiagHelperEx 接口提供在 INetDiagHelper 接口上扩展的方法，以捕获和提供与诊断和解决
+网络相关问题相关的信息。继承
+INetDiagHelperEx 接口继承自 IUnknown 接口。 INetDiagHelperEx 还具有以下类型的成员：方法
+INetDiagHelperEx 接口具有以下方法。
+ﾉ
+ 
+INetDiagHelperEx：：ReconfirmLowHealth
+用于在诊断假设后和检索修复之前添加第二个低运行状况传递。 INetDiagHelperEx：：ReproduceFailure
+由网络诊断框架 (NDF) 使用。 此方法保留供系统使用。 (INetDiagHelperEx.ReproduceFailure) INetDiagHelperEx：：SetUtilities
+由网络诊断框架 (NDF) 使用。 此方法保留供系统使用。 (INetDiagHelperEx.SetUtilities) 要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用]
+Windows ndhelper.h
+展开表展开表
+另请参阅 INetDiagHelper
+INetDiagHelperEx：：ReconfirmLowHealth
+方法 (ndhelper.h) 项目2024/02/29
+在诊断假设后和检索修复之前， 使用 ReconfirmLowHealth 方法添加第二个低运行状况阶段。此方法允许帮助程序类查看诊断结果并根据需要更改诊断。 仅当诊断未被拒绝并生成假设时，才调用 方法。
+语法 C++
+HRESULT ReconfirmLowHealth(
+  [in]  ULONG            celt,
+  [in]  HypothesisResult *pResults,
+  [out] LPWSTR           *ppwszUpdatedDescription,
+  [out] DIAGNOSIS_STATUS *pUpdatedStatus);
+参数[in] celt
+pResults 指向的 HypothesisResult 结构的数目。[in] pResults
+指向 HypothesisResult 结构的指针 (s) 包含通过 GetLowerHypotheses 方法获取的 HYPOTHESIS 信息以及该假设的状态。 包括由帮助程序类调用 GetLowerHypotheses 生成的每个假设的一个 HypothesisResult 结构。
+[out] ppwszUpdatedDescription 正在诊断的事件的更新说明。[out] pUpdatedStatus
+一个DIAGNOSIS_STATUS值，该值指示事件的状态。返回值
+可能的返回值包括但不限于以下值。
+ 
+返回代码 S_OK
+说明
+操作成功。
+除 S_OK 之外的任何结果都将解释为错误，并将导致函数结果被丢弃。注解
+生成帮助程序类扩展时不需要此方法。要求
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 DIAGNOSIS_STATUS HypothesisResult INetDiagHelperEx
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用]
+Windows ndhelper.h
+ﾉﾉ
+展开表展开表
+INetDiagHelperEx：：ReproduceFailure 方
+法 (ndhelper.h) 项目2024/02/29
+网络诊断框架 (NDF) 使用 ReproduceFailure 方法。 此方法保留供系统使用。
+语法 C++
+HRESULT ReproduceFailure();
+返回值此方法不返回值。
+备注
+此方法保留供系统使用。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelperEx
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用]
+Windows ndhelper.h
+展开表
+INetDiagHelperEx：：SetUtilities 方法
+(ndhelper.h) 项目2024/02/29
+网络诊断框架 (NDF) 使用 SetUtilities 方法。 此方法保留供系统使用。
+语法 C++
+HRESULT SetUtilities(
+  [in] INetDiagHelperUtilFactory *pUtilities);
+参数
+[in] pUtilities 预留给系统使用。
+返回值此方法不返回值。
+备注
+此方法保留供系统使用。要求
+要求
+最低受支持的客户端最低受支持的服务器目标平台
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用] Windows
+ﾉ
+展开表
+要求标头
+另请参阅 INetDiagHelperEx
+值
+ndhelper.h
+INetDiagHelperInfo 接口 (ndhelper.h) 项目2025/02/21
+INetDiagHelperInfo 接口提供网络诊断框架 (NDF) 在需要验证它是否具有帮助程序类的必要信
+息以及它选择正确的帮助程序类时调用的方法。继承
+INetDiagHelperInfo 接口继承自 IUnknown 接口。 INetDiagHelperInfo 还具有以下类型的成员：
+方法
+INetDiagHelperInfo 接口具有这些方法。
+ﾉ
+ 
+INetDiagHelperInfo：：GetAttributeInfo
+GetAttributeInfo 方法检索帮助程序类扩展所需的关键参数列表。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+展开表展开表
+INetDiagHelperInfo：：GetAttributeInfo 方
+法 (ndhelper.h) 项目2024/03/05
+GetAttributeInfo 方法检索帮助程序类扩展所需的键参数列表。
+语法 C++
+HRESULT GetAttributeInfo(
+  [out] ULONG               *pcelt,
+  [out] HelperAttributeInfo **pprgAttributeInfos);
+参数[out] pcelt
+指向 pprgAttributeInfos 指向的数组中的元素计数的指针。[out] pprgAttributeInfos
+指向包含帮助程序类键参数的 HelperAttributeInfo 结构的数组的指针。返回值
+ﾉ
+返回代码 S_OK
+E_OUTOFMEMORY
+E_INVALIDARG E_ACCESSDENIED  
+说明
+操作成功。
+没有足够的内存可用于完成此操作。未正确提供一个或多个参数。
+调用方没有足够的权限来执行诊断或修复操作。
+帮助程序类扩展可能会返回特定于诊断或修复的 HRESULTS。
+展开表
+注解
+NDF 使用键参数列表来确定扩展是否有足够的信息可用于执行诊断。 如果调用扩展的假设缺少
+键属性，则不会调用该扩展。 此调用不会返回可选属性。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+另请参阅 INetDiagHelperInfo
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用]
+Windows ndhelper.h
+展开表
+INetDiagHelperUtilFactory 接口
+(ndhelper.h) 项目2024/02/29
+INetDiagHelperUtilFactory 接口提供网络诊断框架 (NDF) 使用的保留方法。 此接口保留供系统
+使用。继承
+INetDiagHelperUtilFactory 接口继承自 IUnknown 接口。 INetDiagHelperUtilFactory 也具有以
+下类型的成员：方法
+INetDiagHelperUtilFactory 接口具有这些方法。
+ﾉ
+ 
+INetDiagHelperUtilFactory：：CreateUtilityInstance
+展开表
+由网络诊断框架 (NDF) 使用。 此方法保留供系统使用。 (INetDiagHelperUtilFactory.CreateUtilityInstance) 注解
+此接口保留供系统使用。要求
+ﾉ
+要求
+最低受支持的客户端最低受支持的服务器
+目标平台标头
+值
+Windows 7 [仅限桌面应用]
+Windows Server 2008 R2 [仅限桌面应用]
+Windows ndhelper.h
+展开表
+INetDiagHelperUtilFactory：：
+CreateUtilityInstance 方法 (ndhelper.h) 项目2024/02/29
+网络诊断框架 (NDF) 使用 CreateUtilityInstance 方法。 此方法保留供系统使用。
+语法 C++
+HRESULT CreateUtilityInstance(   [in]  REFIID riid,
+  [out] void   **ppvObject);
+参数[in] riid
+预留给系统使用。[out] ppvObject 预留给系统使用。
+返回值此方法不返回值。
+备注
+此方法保留供系统使用。要求
+要求
+最低受支持的客户端
+值
+Windows 7 [仅限桌面应用]
+ﾉ
+展开表
+要求
+最低受支持的服务器
+目标平台标头
+另请参阅
+INetDiagHelperUtilFactory
+值
+Windows Server 2008 R2 [仅限桌面应用]
+Windows ndhelper.h
+PROBLEM_TYPE 枚举 (ndhelper.h) 项目2024/02/29
+PROBLEM_TYPE 枚举描述帮助程序类指示存在的问题类型。
+语法 C++
+typedef enum tagPROBLEM_TYPE {   PT_INVALID = 0,
+  PT_LOW_HEALTH = 1,   PT_LOWER_HEALTH = 2,
+  PT_DOWN_STREAM_HEALTH = 4,   PT_HIGH_UTILIZATION = 8,   PT_HIGHER_UTILIZATION = 16,
+  PT_UP_STREAM_UTILIZATION = 32} PROBLEM_TYPE;
+常量  
+PT_INVALID 值： 0
+PT_LOW_HEALTH 值：1
+组件本身存在低运行状况问题。 在此组件所依赖的本地组件中未发现任何问题。
+PT_LOWER_HEALTH 值： 2
+此组件所依赖的本地组件中存在低运行状况问题。
+PT_DOWN_STREAM_HEALTH 值： 4
+低运行状况问题在于此组件依赖的现成组件。
+PT_HIGH_UTILIZATION 值： 8
+组件的资源被高度利用。 在此组件所依赖的本地组件中未发现高利用率。
+ﾉ
+展开表
+ 
+PT_HIGHER_UTILIZATION 值： 16
+组件高利用率问题的原因来自依赖它的本地组件。
+PT_UP_STREAM_UTILIZATION 值： 32
+组件高利用率问题的原因上游依赖于它的网络组件。要求
+要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] ndhelper.h
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+REPAIR_STATUS 枚举 (ndhelper.h) 项目2024/03/13
+REPAIR_STATUS枚举描述帮助程序类尝试修复选项的结果。
+语法 C++
+typedef enum tagREPAIR_STATUS {   RS_NOT_IMPLEMENTED = 0,
+  RS_REPAIRED,   RS_UNREPAIRED,   RS_DEFERRED,   RS_USER_ACTION} REPAIR_STATUS;
+常量  
+RS_NOT_IMPLEMENTED 值： 0
+帮助程序类未实现修复选项。 RS_REPAIRED
+帮助程序类修复了问题。 RS_UNREPAIRED
+帮助程序类尝试修复问题，但验证表明修复操作未成功。 RS_DEFERRED
+此时，帮助程序类无法执行修复。 RS_USER_ACTION
+帮助程序类需要用户执行操作，然后才能继续修复。要求
+ﾉﾉ
+展开表展开表
+要求
+最低受支持的客户端最低受支持的服务器
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+值
+Windows Vista [仅限桌面应用]
+Windows Server 2008 [仅限桌面应用] ndhelper.h
+否
+| 在 Microsoft Q&A 获取帮助

@@ -1,0 +1,61 @@
+驱动程序安装项目2025/03/22
+驱动程序安装技术的概述。
+若要开发驱动程序安装，需要以下标头：
+avc.h
+有关编程指南，请参阅 驱动程序安装。
+告知我们有关下载 PDF 体验的信息。
+avc.h 标头项目2025/03/22
+devinst 使用此标头。 有关详细信息，请参阅：
+驱动程序安装
+avc.h 包含以下编程接口：
+IOCTLs  
+IOCTL_AVC_BUS_RESET
+IOCTL_AVC_BUS_RESET I/O 控件代码允许调用方完成之前的任何
+ﾉ
+展开表
+IOCTL_AVC_UPDATE_VIRTUAL_SUBUNIT_INFO，并IOCTL_AVC_REMOVE_VIRTUAL_SUBUNIT_INFO不使用
+AVC_SUBUNIT_ADDR_TRIGGERBUSRESET标志的控制请求。 IOCTL_AVC_CLASS
+IOCTL_AVC_CLASS I/O 控制代码仅在内核模式下受支持，IRP_MJ_INTERNAL_DEVICE_CONTROL
+dispatch.Avc.sys支持两个设备接口，具体取决于实例类型（对等或虚拟）。 IOCTL_AVC_REMOVE_VIRTUAL_SUBUNIT_INFO
+IOCTL_AVC_REMOVE_VIRTUAL_SUBUNIT_INFO I/O 控件代码控制虚拟子单元的枚举。 IOCTL_AVC_UPDATE_VIRTUAL_SUBUNIT_INFO
+IOCTL_AVC_UPDATE_VIRTUAL_SUBUNIT_INFO I/O 控件代码控制虚拟子单元的枚举。回调函数
+ﾉ
+ 
+PFNAVCINTERSECTHANDLER
+AV/C 相交处理程序确定数据范围是否兼容。
+展开表
+结构  
+AVC_COMMAND_IRB
+AVC_COMMAND_IRB结构定义包含 AV/C 命令和响应对的结构。 AVC_EXT_PLUG_COUNTS
+AVC_EXT_PLUG_COUNTS结构描述子单元上的外部插件数。 AVC_IRB
+AVC_IRB结构是存储函数编号的 I/O 请求块（IRB）标头结构。 AVC_MULTIFUNC_IRB
+AVC_MULTIFUNC_IRB结构包含联合中的其他 AV/C 相关结构。 AVC_PEER_DO_LIST
+AVC_PEER_DO_LIST描述 avc.sys的所有非虚拟（对等）实例。 AVC_PEER_DO_LOCATOR
+AVC_PEER_DO_LOCATOR描述 avc.sys的非虚拟（对等）实例。 AVC_PIN_COUNT
+AVC_PIN_COUNT结构指定 AV/C 子单元设备上的引脚数。 AVC_PIN_DESCRIPTOR
+AVC_PIN_DESCRIPTOR结构描述 AV/C 子单元设备上的引脚。 AVC_PIN_ID
+AVC_PIN_ID结构描述子单元上的引脚。 AVC_PRECONNECT_INFO
+ﾉ
+展开表
+AVC_PRECONNECT_INFO结构指定 AV/C 子单元设备上指定指定引脚 ID（从零开始偏移量）的预连接信息。
+AVC_SETCONNECT_INFO
+AVC_SETCONNECT_INFO结构用于初始化子单元驱动程序并建立引脚连接。
+ 
+AVC_SUBUNIT_ADDR_SPEC
+AVC_SUBUNIT_ADDR_SPEC结构与 avc.sys 虚拟实例一起使用，用于描述虚拟子单元地址。 AVC_SUBUNIT_INFO_BLOCK
+AVC_SUBUNIT_INFO_BLOCK结构描述子单位信息。 AVC_UNIQUE_ID
+AVC_UNIQUE_ID描述 AV/C 单元的唯一 ID。 AVCCONNECTINFO
+AVCCONNECTINFO 结构用于初始化子单元驱动程序并建立引脚连接。 AVCPRECONNECTINFO
+AVCPRECONNECTINFO 结构用于初始化子单元驱动程序并建立引脚连接。
+枚举  
+AVC_FUNCTION
+AVC_FUNCTION枚举类型用于指定 AV/C 子单位函数。 AvcCommandType
+ﾉ
+展开表
+AvcCommandType 枚举类型用于通过AVC_FUNCTION_COMMAND或AVC_FUNCTION_GET_REQUEST函数
+代码指示子单元驱动程序向其 AV/C 子单元发出的命令类型。 AvcResponseCode
+AvcResponseCode 枚举类型用于通过AVC_FUNCTION_COMMAND或AVC_FUNCTION_SEND_RESPONSE函
+数代码指示子单元驱动程序从其 AV/C 子单元收到的响应类型。 AvcSubunitType
+AvcSubunitType 枚举类型用于指示 AV/C 子单位的类型。 KSPIN_FLAG_AVC
+ 
+KSPIN_FLAG_AVC枚举类型用于连接管理和AVC_FUNCTION_GET_CONNECTINFO函数代码。

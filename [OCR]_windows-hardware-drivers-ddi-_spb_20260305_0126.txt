@@ -1,0 +1,2504 @@
+2026-03-05 01:26:42
+
+≦ 1 ≧
+简单外围总线 （SPB）项目2025/03/22
+简单外围总线（SPB）技术的概述。
+若要开发简单外围总线（SPB），需要以下标头：
+spb.h spbcx.h reshub.h pwmutil.h
+有关编程指南，请参阅 简单外围总线（SPB）。
+枚举  
+SPB_MULTI_SPI_TRANSFER_MODE
+告知我们有关下载 PDF 体验的信息。
+ﾉ
+展开表
+SPB_MULTI_SPI_TRANSFER_MODE枚举指定总线驱动程序用来与外围设备通信的多 SPI 传输类型。 SPB_REQUEST_SEQUENCE_POSITION
+SPB_REQUEST_SEQUENCE_POSITION枚举指示 I/O 请求在 I/O 传输序列的传输列表中的位置。 SPB_REQUEST_TYPE
+SPB_REQUEST_TYPE枚举指定客户端请求的 SPB作的类型。 SPB_TRANSFER_BUFFER_FORMAT
+SPB_TRANSFER_BUFFER_FORMAT枚举指定由SPB_TRANSFER_BUFFER结构描述的缓冲区的格式。 SPB_TRANSFER_DIRECTION
+SPB_TRANSFER_DIRECTION枚举描述 I/O 传输序列中单个传输的方向（读取或写入）。 SpbIoctl
+定义值以指示类型 I/O 控件请求。
+
+≦ 2 ≧
+功能  
+EVT_SPB_CONTROLLER_LOCK
+ﾉ
+展开表
+SPB 控制器驱动程序的 EvtSpbControllerLock 事件回调函数锁定 SPB 控制器，以便在总线上访问单个目标设备。
+EVT_SPB_CONTROLLER_OTHER
+SPB 控制器驱动程序的 EvtSpbControllerIoOther 事件回调函数处理未由其他事件回调函数或 SPB
+框架扩展（SpbCx）处理的设备 I/O 控制请求。 EVT_SPB_CONTROLLER_READ
+SPB 控制器驱动程序的 EvtSpbControllerIoRead 事件回调函数将数据从指定的目标设备读取到随读取请求提供的缓冲区中。
+EVT_SPB_CONTROLLER_SEQUENCE
+SPB 控制器驱动程序的 EvtSpbControllerIoSequence 事件回调函数执行指定目标设备与随序列请求
+提供的缓冲区之间的数据传输序列。 EVT_SPB_CONTROLLER_UNLOCK
+SPB 控制器驱动程序的 EvtSpbControllerUnlock 事件回调函数解锁 SPB 控制器，SPB 控制器由先前
+对 EvtSpbControllerLock 事件回调函数的调用锁定。 EVT_SPB_CONTROLLER_WRITE
+SPB 控制器驱动程序的 EvtSpbControllerIoWrite 事件回调函数从随写入请求提供的缓冲区将数据写入指定的目标设备。
+EVT_SPB_TARGET_CONNECT
+SPB 控制器驱动程序的 EvtSpbTargetConnect 事件回调函数打开与总线上目标设备的连接。 EVT_SPB_TARGET_DISCONNECT
+SPB 控制器驱动程序的 EvtSpbTargetDisconnect 事件回调函数关闭了与目标设备的连接，该设备以
+前是通过调用驱动程序的 EvtSpbTargetConnect 事件回调函数打开的。 PwmParsePinPath
+分析脉冲宽度调节（PWM）控制器命名空间下的引脚路径，以验证其格式并提取引脚号。
+
+≦ 3 ≧
+ 
+SPB_CONNECTION_PARAMETERS_INIT
+SPB_CONNECTION_PARAMETERS_INIT函数初始化SPB_CONNECTION_PARAMETERS结构。 SPB_CONTROLLER_CONFIG_INIT
+SPB_CONTROLLER_CONFIG_INIT函数初始化SPB_CONTROLLER_CONFIG结构。 SPB_MULTI_SPI_READ_TRANSFER_INIT
+SPB_MULTI_SPI_READ_TRANSFER_INIT函数初始化SPB_MULTI_SPI_READ_TRANSFER结构。 SPB_MULTI_SPI_TRANSFER_INIT
+SPB_MULTI_SPI_TRANSFER_INIT函数初始化SPB_MULTI_SPI_TRANSFER结构。 SPB_MULTI_SPI_WRITE_TRANSFER_INIT
+SPB_MULTI_SPI_WRITE_TRANSFER_INIT函数初始化SPB_MULTI_SPI_WRITE_TRANSFER结构。 SPB_REQUEST_PARAMETERS_INIT
+SPB_REQUEST_PARAMETERS_INIT函数初始化SPB_REQUEST_PARAMETERS结构。 SPB_TRANSFER_DESCRIPTOR_INIT
+SPB_TRANSFER_DESCRIPTOR_INIT函数初始化SPB_TRANSFER_DESCRIPTOR结构。 SPB_TRANSFER_LIST_ENTRY_INIT_BUFFER_LIST
+SPB_TRANSFER_LIST_ENTRY_INIT_BUFFER_LIST函数返回一个SPB_TRANSFER_LIST_ENTRY结构，该结构初始化以描述散点收集列表。SPB_TRANSFER_LIST_ENTRY_INIT_BUFFER_LIST函数返回初始化
+以描述散点收集列表的SPB_TRANSFER_LIST_ENTRY结构。 SPB_TRANSFER_LIST_ENTRY_INIT_MDL
+SPB_TRANSFER_LIST_ENTRY_INIT_MDL函数返回一个SPB_TRANSFER_LIST_ENTRY结构，该结构初始化为使用 MDL 描述数据缓冲区。
+SPB_TRANSFER_LIST_ENTRY_INIT_NON_PAGED
+SPB_TRANSFER_LIST_ENTRY_INIT_NON_PAGED函数返回一个SPB_TRANSFER_LIST_ENTRY结构，该
+结构初始化以描述非分页内存中的简单数据缓冲区。 SPB_TRANSFER_LIST_ENTRY_INIT_SIMPLE
+SPB_TRANSFER_LIST_ENTRY_INIT_SIMPLE函数返回初始化以描述简单数据缓冲区的
+SPB_TRANSFER_LIST_ENTRY结构。SPB_TRANSFER_LIST_ENTRY_INIT_SIMPLE函数返回初始化以描述简单数据缓冲区的SPB_TRANSFER_LIST_ENTRY结构。
+
+≦ 4 ≧
+ 
+SPB_TRANSFER_LIST_INIT
+SPB_TRANSFER_LIST_INIT函数初始化SPB_TRANSFER_LIST结构。 SpbControllerSetIoOtherCallback
+SpbControllerSetIoOtherCallback 方法注册 SPB 控制器驱动程序的 EvtSpbControllerIoOther 回调函数。
+SpbControllerSetRequestAttributes
+SpbControllerSetRequestAttributes 方法设置将用于 SPB 框架扩展 （SpbCx） 传递给 SPB 控制器
+驱动程序的所有 SPBREQUEST 对象的对象属性。 SpbControllerSetTargetAttributes
+SpbControllerSetTargetAttributes 方法设置将用于 SPB 框架扩展 （SpbCx） 传递给 SPB 控制器驱
+动程序的所有 SPBTARGET 对象的对象属性。 SpbDeviceInitConfig
+SpbDeviceInitConfig 方法将 SPB 框架扩展 （SpbCx） 附加到要创建的 WDFDEVICE （FDO 或
+PDO） 对象的 I/O 请求链。 SpbDeviceInitialize
+SpbDeviceInitialize 方法在此驱动程序创建关联的设备对象后完成 SPB 控制器驱动程序的初始化。 SpbRequestCaptureIoOtherTransferList
+SpbRequestCaptureIoOtherTransferList 方法检索自定义 IOCTL 请求的输入缓冲区中的
+SPB_TRANSFER_LIST结构。 SpbRequestComplete
+SpbRequestComplete 方法完成 I/O 请求并提供完成状态。 SpbRequestGetController
+SpbRequestGetController 方法将 WDFDEVICE 句柄返回到发送到指定 I/O 请求的 SPB 控制器的设备对象。
+SpbRequestGetParameters
+SpbRequestGetParameters 方法从 I/O 请求中检索一组特定于 SPB 的参数值。 SpbRequestGetTarget
+SpbRequestGetTarget 方法从指定的 I/O 请求中检索 SPBTARGET 句柄。
+
+≦ 5 ≧
+ 
+SpbRequestGetTransferParameters
+SpbRequestGetTransferParameters 方法检索 I/O 传输序列中单个传输的传输参数。 SpbTargetGetConnectionParameters
+SpbTargetGetConnectionParameters 方法检索总线上目标设备的连接参数。 SpbTargetGetFileObject
+SpbTargetGetFileObject 方法接受作为输入参数、打开的目标设备的 SPBTARGET 句柄，并将
+WDFFILEOBJECT 句柄返回到此目标。结构
+ﾉ
+ 
+PNP_SERIAL_BUS_DESCRIPTOR
+展开表
+PNP_SERIAL_BUS_DESCRIPTOR结构描述目标设备与串行总线（I2C、SPI 或 UART）的物理连接。 RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER
+RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER结构包含连接到串行总线（I2C、SPI 或
+UART）的目标设备的连接属性。 SPB_CONNECTION_PARAMETERS
+SPB_CONNECTION_PARAMETERS结构包含简单外围总线上目标设备的连接参数。 SPB_CONTROLLER_CONFIG
+SPB_CONTROLLER_CONFIG结构包含 SPB 控制器驱动程序的配置设置。 SPB_MULTI_SPI_READ_TRANSFER
+SPB_MULTI_SPI_READ_TRANSFER结构描述在多 SPI（例如双 SPI 或 Quad SPI）模式下执行的读取作。
+SPB_MULTI_SPI_TRANSFER
+SPB_MULTI_SPI_TRANSFER结构描述了一个 SPI I/O作，该作将使用多 SPI 传输模式（如双 SPI 或 Quad SPI）执行。
+
+≦ 6 ≧
+ 
+SPB_MULTI_SPI_TRANSFER_HEADER
+SPB_MULTI_SPI_TRANSFER_HEADER结构描述在多 SPI（例如双 SPI 或 Quad SPI）模式下执行的 SPI 传输。
+SPB_MULTI_SPI_WRITE_TRANSFER
+SPB_MULTI_SPI_WRITE_TRANSFER结构描述在多 SPI（例如双 SPI 或 Quad SPI）模式下执行的写入作。
+SPB_TRANSFER_BUFFER
+SPB_TRANSFER_BUFFER结构描述 I/O 传输序列中单个传输的数据缓冲区。 SPB_TRANSFER_BUFFER_LIST_ENTRY
+SPB_TRANSFER_BUFFER_LIST_ENTRY结构描述一个简单的传输缓冲区，或一个或多个传输缓冲区数组中的元素。
+SPB_TRANSFER_DESCRIPTOR
+SPB_TRANSFER_DESCRIPTOR结构描述 I/O 传输序列中的单个传输。 SPB_TRANSFER_LIST
+SPB_TRANSFER_LIST结构描述 I/O 传输序列。 SPB_TRANSFER_LIST_ENTRY
+SPB_TRANSFER_LIST_ENTRY结构描述 I/O 传输序列中的单个传输。反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 7 ≧
+pwmutil.h 标头项目2025/03/22
+此标头提供脉冲宽度调节器（PWM）帮助程序例程，供内核模式驱动程序使用。 驱动程序应使用函数分析并验证引脚路径并提取引脚号。
+若要提供对脉冲宽度调节（PWM）控制器的访问，该控制器是 SoC 的一部分，并且内存映射到 SoC 地址空间，需要编写内核模式驱动程序。 有关详细信息，请参阅 [SoC PWM 模块的 PWM 驱动程序]（/windows-hardware/drivers/spb/pulse-width-controller driver？branch=spb）。
+应用可以通过发送 [PWM IOCTLs 请求]（/windows-hardware/drivers/spb/pulse-width-controller driver#pwm-ioctl-requests）将请求发送到控制器驱动程序。
+pwmutil.h 包含以下编程接口：功能
+ﾉ
+ 
+PwmParsePinPath
+分析脉冲宽度调节（PWM）控制器命名空间下的引脚路径，以验证其格式并提取引脚号。
+展开表
+
+≦ 8 ≧
+PwmParsePinPath 函数 （pwmutil.h）项目2025/02/07
+分析脉冲宽度调节（PWM）控制器命名空间下的引脚路径，以验证其格式并提取引脚号。
+语法 C++
+NTSTATUS PwmParsePinPath(
+  [in]            UNICODE_STRING *PinPath,   [out, optional] ULONG          *PinNumber);
+参数[in] PinPath
+指向将路径固定为 Unicode 字符串的指针。[out, optional] PinNumber
+指向接收引脚编号的变量的指针。返回值
+PwmParsePinPath 返回以下值：
+ﾉ
+返回代码
+STATUS_SUCCESS
+STATUS_INVALID_PARAMETER
+STATUS_NO_SUCH_FILE 言论
+描述
+从提供的引脚路径成功提取的引脚路径。
+指定的引脚路径指针无效或其 Unicode 字符串无效。指定的引脚路径不构成有效的引脚路径。
+引脚路径必须是以 pin 号结尾的 Unicode 字符串，如下所示：...<PinNumber>。
+展开表
+
+≦ 9 ≧
+要求要求
+最低支持的客户端支持的最低服务器目标平台
+最低 KMDF 版本最低 UMDF 版本
+标头库 DLL
+价值
+Windows 10 版本 1709 Windows Server 2016
+窗户 1.19 2.19
+pwmutil.h （包括 Pwm.h） NtosKrnl.lib
+NtosKrnl.exe（内核模式）
+ﾉ
+展开表
+
+≦ 10 ≧
+reshub.h 标头项目2025/03/22
+简单外围总线（SPB） 驱动程序使用此标头。
+有关编程指南，请参阅 简单外围总线（SPB）驱动程序设计指南。 reshub.h 包含以下编程接口：
+结构  
+PNP_SERIAL_BUS_DESCRIPTOR
+ﾉ
+PNP_SERIAL_BUS_DESCRIPTOR结构描述目标设备与串行总线（I2C、SPI 或 UART）的物理连接。 RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER
+展开表
+RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER结构包含连接到串行总线（I2C、SPI 或 UART）的目标设备的连接属性。
+
+≦ 11 ≧
+PNP_SERIAL_BUS_DESCRIPTOR结构
+（reshub.h）项目2025/02/07
+PNP_SERIAL_BUS_DESCRIPTOR 结构描述目标设备与串行总线（I2C、SPI 或 UART）的物
+理连接。语法 C++
+typedef struct _PNP_SERIAL_BUS_DESCRIPTOR {   UCHAR  Tag;
+  USHORT Length;
+  UCHAR  RevisionId;
+  UCHAR  ResourceSourceIndex;
+  UCHAR  SerialBusType;   UCHAR  GeneralFlags;
+  USHORT TypeSpecificFlags;
+  UCHAR  TypeSpecificRevisionId;   USHORT TypeDataLength;
+} PNP_SERIAL_BUS_DESCRIPTOR, *PPNP_SERIAL_BUS_DESCRIPTOR;
+成员 Tag
+串行总线类型。 此成员设置为0x8e串行总线（I2C、SPI 或 UART）连接。 有关详细信
+息，请参阅 ACPI 5.0 规范 Length
+中串行总线连接描述符的说明。
+串行总线连接描述符的长度（以字节为单位）。 为了与 ACPI 5.0 规范一致，
+PNP_SERIAL_BUS_DESCRIPTOR 结构的 Length 成员中的字节计数等于结构大小，减去标记 中的三个字节，并在结构开头 长度 成员，以及遵循结构的总线类型特定数据和资源源字符串的字节数。 资源源字符串（必需字段）的最小大小为两个字节（对于一个字符的资源源名称和终止 null）。 因此，最小有效 长度 值为 11。 有关详细信息，请参阅
+ACPI 5.0 规范。 RevisionId
+
+≦ 12 ≧
+串行总线连接描述符的修订 ID。 此成员设置为在 Reshub.h 头文件中定义的
+SERIAL_BUS_DESCRIPTOR_REVISION常量。 ResourceSourceIndex
+保留以供将来使用。 此成员未使用，并且设置为零。 SerialBusType
+串行总线类型。 此成员设置为 1（对于 I2C）、2（对于 SPI），或 3（对于 UART）。 其他值要么保留供将来使用，要么由硬件供应商定义。 有关详细信息，请参阅 ACPI 5.0 规范。
+GeneralFlags
+所有串行总线类型通用的标志。 位 0 是从属模式标志。 如果此位设置为 1，则此连接的通信由总线控制器启动;否则，通信由目标设备启动。 位 1 是使用者/生成者标志，始终设
+置为 1。 当前未定义其他标志位。 有关详细信息，请参阅 ACPI 5.0 规范。 TypeSpecificFlags
+特定于串行总线类型的标志。 对于 I2C 总线，如果连接使用 10 位地址，则设置位 0;否则，连接使用 7 位地址。 目前没有为 I2C 定义其他标志位。 有关详细信息，请参阅 ACPI 5.0 规范。
+TypeSpecificRevisionId
+此结构的变体的修订 ID，该变体用于 标记 成员指定的串行总线类型（I2C、SPI 和 UART）。 每个串行总线类型通过添加特定于总线类型的字段来扩展
+PNP_SERIAL_BUS_DESCRIPTOR 结构。 有关详细信息，请参阅 ACPI 5.0 规范。 TypeDataLength
+遵循 PNP_SERIAL_BUS_DESCRIPTOR 结构的总线类型特定数据的长度（以字节为单
+位）。 此长度值包括 TypeDataLength 成员和资源源字符串开头之间的数据，但不包括
+资源源字符串。 有关详细信息，请参阅 ACPI 5.0 规范。言论
+此结构定义串行总线连接描述符中的数据字段，如 ACPI 5.0 规范的第 6.4.3.8.2 节中所述。 此描述符描述与连接到串行总线（I2C、SPI 或 UART）的目标设备的总线连接。
+例如，对于 I2C 总线上的设备，PNP_SERIAL_BUS_DESCRIPTOR 结构（及其特定于总线类型的扩展）指定设备的总线地址、地址模式（7 位或 10 位），以及访问设备时运行总
+
+≦ 13 ≧
+线时钟的频率。 有关显示 I2C 控制器驱动程序如何从结构中提取此信息的代码示例，请参阅 如何获取设备的连接设置。
+Reshub.h 头文件中的 PNP_SERIAL_BUS_DESCRIPTOR 结构定义前面是 Pshpack1.h 头文件的 include 语句，该语句将编译器配置为将相邻结构成员打包到字节边界，而不会干预间隙。 然后，软件可以将打包的结构覆盖到串行总线连接描述符的内存映像上，以访问此描述符的各个字段。 结构的 USHORT 成员可能无法与内存中的字节边界对齐。
+USHORT 成员中的字节以小端顺序存储 x86、x64 和 ARM 处理器体系结构。要求
+ﾉ
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始支持。 reshub.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 14 ≧
+RH_QUERY_CONNECTION_PROPERTIES_
+OUTPUT_BUFFER结构（reshub.h）项目2025/02/07
+RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER 结构包含连接到串行总线（I2C、SPI 或 UART）的目标设备的连接属性。
+语法 C++
+typedef struct _RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER {   ULONG Version;
+  ULONG PropertiesLength;
+  UCHAR ConnectionProperties[ANYSIZE_ARRAY];
+} RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER, *PRH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER;
+成员 Version
+此结构的版本号。 此成员设置为在 Reshub.h 头文件中定义的
+RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_VERSION常量。 PropertiesLength
+以 ConnectionProperties 数组元素 0 开头的串行总线连接描述符的大小（以字节为单位）。
+ConnectionProperties[ANYSIZE_ARRAY]
+串行总线连接描述符的第一个字节。 此字节紧跟描述符的剩余字节。 PropertiesLength 成员指定描述符占用的字节总数。 ConnectionProperties 成员的定义使用 ntdef.h 头文
+件定义为 1 的ANYSIZE_ARRAY常量。 有关详细信息，请参阅“备注”。言论
+ConnectionPropertiesRH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER 结构的成员包含目标设备的串行总线连接描述符的第一个字节。 描述符中的剩余字节紧跟内存
+
+≦ 15 ≧
+中的此成员。 为 RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER 结构分配的缓冲区足够大，足以包含此结构以及扩展至结构末尾的串行总线连接描述符的剩余字节。
+ACPI 5.0 规范
+中介绍了串行总线连接描述符的格式。 为方便起见，Reshub.h 头文件定
+义了 PNP_SERIAL_BUS_DESCRIPTOR 结构，使驱动程序能够访问此描述符中的值。
+SPB 控制器驱动程序调用 SpbTargetGetConnectionParameters 方法，以获取 简单外围总线（通常为 IーC 或 SPI）上目标设备的连接参数。 此方法将连接参数写入
+SPB_CONNECTION_PARAMETERS 结构，并且此结构的 ConnectionParameters 成员是指向 RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER 结构的指针。
+有关使用 RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER 结构的代码示例，
+请参阅 如何获取设备的连接设置。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+SPB_CONNECTION_PARAMETERS SpbTargetGetConnectionParameters
+PNP_SERIAL_BUS_DESCRIPTOR 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始支持。 reshub.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 16 ≧
+spb.h 标头项目2023/08/07
+spb 使用此标头。 有关详细信息，请参阅：
+简单外设总线 (SPB) spb.h 包含以下编程接口：
+函数  
+SPB_MULTI_SPI_READ_TRANSFER_INIT
+SPB_MULTI_SPI_READ_TRANSFER_INIT 函数初始化SPB_MULTI_SPI_READ_TRANSFER结构。 SPB_MULTI_SPI_TRANSFER_INIT
+SPB_MULTI_SPI_TRANSFER_INIT 函数初始化SPB_MULTI_SPI_TRANSFER结构。 SPB_MULTI_SPI_WRITE_TRANSFER_INIT
+SPB_MULTI_SPI_WRITE_TRANSFER_INIT 函数初始化SPB_MULTI_SPI_WRITE_TRANSFER结构。 SPB_TRANSFER_LIST_ENTRY_INIT_BUFFER_LIST
+SPB_TRANSFER_LIST_ENTRY_INIT_BUFFER_LIST 函数返回一个SPB_TRANSFER_LIST_ENTRY结构，该结构已初始化以描述散点-收集列表。SPB_TRANSFER_LIST_ENTRY_INIT_BUFFER_LIST 函数返回一个
+SPB_TRANSFER_LIST_ENTRY结构，该结构已初始化以描述散点-收集列表。 SPB_TRANSFER_LIST_ENTRY_INIT_MDL
+SPB_TRANSFER_LIST_ENTRY_INIT_MDL 函数返回一个SPB_TRANSFER_LIST_ENTRY结构，该结构已初始化为使用 MDL 来描述数据缓冲区。
+SPB_TRANSFER_LIST_ENTRY_INIT_NON_PAGED
+SPB_TRANSFER_LIST_ENTRY_INIT_NON_PAGED 函数返回一个SPB_TRANSFER_LIST_ENTRY结构，该
+结构已初始化以描述非分页内存中的简单数据缓冲区。 SPB_TRANSFER_LIST_ENTRY_INIT_SIMPLE
+SPB_TRANSFER_LIST_ENTRY_INIT_SIMPLE 函数返回一个SPB_TRANSFER_LIST_ENTRY结构，该结构
+已初始化以描述简单的数据缓冲区。SPB_TRANSFER_LIST_ENTRY_INIT_SIMPLE 函数返回一个 SPB_TRANSFER_LIST_ENTRY结构，该结构已初始化以描述简单的数据缓冲区。
+
+≦ 17 ≧
+ 
+SPB_TRANSFER_LIST_INIT
+SPB_TRANSFER_LIST_INIT 函数初始化SPB_TRANSFER_LIST结构。
+结构  
+SPB_MULTI_SPI_READ_TRANSFER
+SPB_MULTI_SPI_READ_TRANSFER 结构描述了在多 SPI (（例如双 SPI 或四 SPI) 模式）中执行的读取操作。
+SPB_MULTI_SPI_TRANSFER
+SPB_MULTI_SPI_TRANSFER结构描述了使用多 SPI 传输模式（如双 SPI 或四 SPI）执行的 SPI I/O 操作。
+SPB_MULTI_SPI_TRANSFER_HEADER
+SPB_MULTI_SPI_TRANSFER_HEADER结构描述了在多 SPI (（例如双 SPI 或四 SPI) 模式）中执行的 SPI 传输。
+SPB_MULTI_SPI_WRITE_TRANSFER
+SPB_MULTI_SPI_WRITE_TRANSFER结构描述了在多 SPI (（例如双 SPI 或四 SPI) 模式）中执行的写入操作。
+SPB_TRANSFER_BUFFER
+SPB_TRANSFER_BUFFER 结构描述了 I/O 传输序列中单个传输的数据缓冲区。 SPB_TRANSFER_BUFFER_LIST_ENTRY
+SPB_TRANSFER_BUFFER_LIST_ENTRY 结构描述一个简单的传输缓冲区，或者一个或多个传输缓冲区数组中的元素。
+SPB_TRANSFER_LIST
+SPB_TRANSFER_LIST 结构描述 I/O 传输序列。 SPB_TRANSFER_LIST_ENTRY
+SPB_TRANSFER_LIST_ENTRY 结构描述 I/O 传输序列中的单个传输。
+
+≦ 18 ≧
+枚举  
+SPB_MULTI_SPI_TRANSFER_MODE
+SPB_MULTI_SPI_TRANSFER_MODE 枚举指定总线驱动程序用于与外围设备通信的一种多 SPI 传输。 SPB_TRANSFER_BUFFER_FORMAT
+SPB_TRANSFER_BUFFER_FORMAT枚举指定由SPB_TRANSFER_BUFFER结构描述的缓冲区的格式。 SPB_TRANSFER_DIRECTION
+SPB_TRANSFER_DIRECTION枚举描述 I/O 传输序列中单个传输 (读取或写入) 的方向。 SpbIoctl
+定义值以指示类型 I/O 控制请求。
+
+≦ 19 ≧
+SPB_MULTI_SPI_READ_TRANSFER结构
+（spb.h）项目2025/02/07
+SPB_MULTI_SPI_READ_TRANSFER 结构描述在多 SPI（例如双 SPI 或 Quad SPI）模式下执行的读取作。 它由一个 SPB_MULTI_SPI_TRANSFER 结构组成，其中包含传输的参数和第一个写入阶段，以及传输的读取阶段的附加传输阶段结构。
+语法 C++
+typedef struct SPB_MULTI_SPI_READ_TRANSFER {
+  SPB_MULTI_SPI_TRANSFER  SpiTransfer;   SPB_TRANSFER_LIST_ENTRY ExtraTransfer;
+} SPB_MULTI_SPI_READ_TRANSFER, *PSPB_MULTI_SPI_READ_TRANSFER;
+成员 SpiTransfer
+包含传输参数和写入阶段缓冲区的 SPB_MULTI_SPI_TRANSFER 结构。 ExtraTransfer
+额外的 SPB_TRANSFER_LIST_ENTRY 结构，包含传输作的读取阶段缓冲区。言论
+使用 SPB_MULTI_SPI_READ_TRANSFER_INIT初始化后，外围驱动程序可以访问
+SpiTransfer.TransferPhases[] 的成员来配置传输缓冲区。要求
+ﾉ
+要求标头
+价值 spb.h
+展开表
+
+≦ 20 ≧
+另请参阅
+SPB_MULTI_SPI_TRANSFER
+SPB_MULTI_SPI_READ_TRANSFER_INIT
+
+≦ 21 ≧
+SPB_MULTI_SPI_READ_TRANSFER_INIT函
+数 （spb.h）项目2025/02/07
+SPB_MULTI_SPI_READ_TRANSFER_INIT 函数初始化 SPB_MULTI_SPI_READ_TRANSFER 结构。
+语法 C++
+void SPB_MULTI_SPI_READ_TRANSFER_INIT(
+  SPB_MULTI_SPI_READ_TRANSFER *SpiTransfer,   SPB_MULTI_SPI_TRANSFER_MODE Mode,
+  ULONG                       WritePhaseSingleSpiByteCount,
+  ULONG                       WaitCycleByteCount);
+参数 SpiTransfer
+指向要初始化 SPB_MULTI_SPI_READ_TRANSFER 结构的指针。 Mode
+SPB_MULTI_SPI_TRANSFER_MODE 枚举值，指定总线驱动程序用来与外围设备通信的多 SPI 传输的线路模式。
+WritePhaseSingleSpiByteCount
+写入阶段开始时要以单 SPI 模式传输的字节计数，然后行模式切换到此结构的 Mode 成
+员中指定的模式。 WaitCycleByteCount
+表示为字节数的等待周期数，表示多 SPI 传输周期，例如 1 字节 => 8 位 = 在四 SPI 模式下> 2 个时钟周期，介于写入阶段和传输的读取阶段之间。 这些等待周期字节应存在，
+以及 WritePhaseBuffer 末尾未定义的值。返回值
+
+≦ 22 ≧
+没有言论
+SPB_MULTI_SPI_READ_TRANSFER_INIT 函数应用于初始化多 SPI 读取传输。 它使用读取
+作所需的两个传输阶段初始化 SPB_MULTI_SPI_READ_TRANSFER 结构。要求
+ﾉ
+要求标头
+另请参阅
+SPB_MULTI_SPI_TRANSFER
+SPB_MULTI_SPI_READ_TRANSFER SPB_MULTI_SPI_TRANSFER_HEADER
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+价值 spb.h
+展开表
+
+≦ 23 ≧
+SPB_MULTI_SPI_TRANSFER结构
+（spb.h）项目2025/02/07
+SPB_MULTI_SPI_TRANSFER 结构描述了一个 SPI I/O作，该作将使用多 SPI 传输模式（如双 SPI 或 Quad SPI）执行。
+语法 C++
+typedef struct SPB_MULTI_SPI_TRANSFER {   SPB_MULTI_SPI_TRANSFER_HEADER Header;
+  ULONG                         TransferPhaseCount;   SPB_TRANSFER_LIST_ENTRY       TransferPhases[1];} SPB_MULTI_SPI_TRANSFER, *PSPB_MULTI_SPI_TRANSFER;
+成员 Header
+包含传输参数的 SPB_MULTI_SPI_TRANSFER_HEADER 结构。 TransferPhaseCount
+传输结构中存在的传输阶段数。 对于读取作，应将其设置为 2（表示读取阶段，然后是
+写入阶段）。 对于写入作，应将其设置为 1（仅表示写入阶段）。 TransferPhases[1]
+一个由 SPB_TRANSFER_LIST_ENTRY 结构构成的数组，表示传输的阶段。言论
+如果直接使用此结构（而不是 SPB_MULTI_SPI_WRITE_TRANSFER 或
+SPB_MULTI_SPI_READ_TRANSFER），则必须使用 SPB_MULTI_SPI_TRANSFER_INIT 帮助程序函数对其进行初始化。
+此结构（和关联的标头）允许指定以下内容：
+双或象限 SPI 传输模式。
+
+≦ 24 ≧
+一个或两个传输阶段 - 写入 阶段，后跟可选的 读取 阶段。
+在切换到指定的多 SPI 模式之前，在 写入 阶段开始时要传输的可变字节数。
+其中提供了 读取 阶段，写入 和 读取 阶段之间的可变数量的 等待 周期数 -时钟周期，其中不传输任何数据。
+以下限制适用于此结构：
+请求中的 TransferPhases 结构必须正好包含一两个条目。 第一个条目描述包含要写入到设备的数据的缓冲区。 第二个可选条目描述用于保存从设备读取的数据的缓冲区。
+这些 TransferPhases 的方向应分别设置为 SpbTransferDirectionToDevice 和 SpbTransferDirectionFromDevice。
+传输列表中的每个 SPB_TRANSFER_LIST_ENTRY 结构都必须指定 DelayInUs 值为零。
+要求
+ﾉ
+要求标头
+另请参阅
+SPB_MULTI_SPI_TRANSFER_INIT 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+价值 spb.h
+展开表
+
+≦ 25 ≧
+SPB_MULTI_SPI_TRANSFER_HEADER结构
+（spb.h）项目2025/02/07
+SPB_MULTI_SPI_TRANSFER_HEADER 结构描述在多 SPI（例如双 SPI 或 Quad SPI）模式下执行的 SPI 传输。 控制器驱动程序应访问此结构，以检索多 SPI 传输的参数。
+语法 C++
+typedef struct SPB_MULTI_SPI_TRANSFER_HEADER {
+  ULONG                       Size;   SPB_MULTI_SPI_TRANSFER_MODE Mode;
+  ULONG                       WritePhaseSingleSpiByteCount;   ULONG                       WaitCycleByteCount;
+} SPB_MULTI_SPI_TRANSFER_HEADER, *PSPB_MULTI_SPI_TRANSFER_HEADER;
+成员 Size
+父 SPB_MULTI_SPI_TRANSFER 结构的大小（以字节为单位）不包括父结构后面的任何其
+他 TransferPhases 条目。 Mode
+SPB_MULTI_SPI_TRANSFER_MODE 枚举值，指定总线驱动程序用来与外围设备通信的多 SPI 传输的线路模式。
+WritePhaseSingleSpiByteCount
+写入阶段开始时要以单 SPI 模式传输的字节计数，然后行模式切换到此结构的 Mode 成
+员中指定的模式。 WaitCycleByteCount
+表示为字节数（表示多 SPI 传输周期（例如 1 字节 => 8 位 => 2 个时钟周期）之间的写
+入阶段和传输的读取阶段之间的等待周期数。 这些等待周期字节应存在，以及 WritePhaseBuffer 末尾未定义的值。
+
+≦ 26 ≧
+言论
+外围驱动程序应使用 SPB_MULTI_SPI_READ_TRANSFER_INIT、
+SPB_MULTI_SPI_WRITE_TRANSFER_INIT或 SPB_MULTI_SPI_TRANSFER_INIT 函数来初始化 SPB_MULTI_SPI_TRANSFER 的标头，不应直接访问。 控制器驱动程序访问此结构以检
+索多 SPI 传输的参数。要求
+ﾉ
+要求标头
+另请参阅
+SPB_MULTI_SPI_TRANSFER
+SPB_MULTI_SPI_READ_TRANSFER
+价值 spb.h
+SPB_MULTI_SPI_READ_TRANSFER_INIT SPB_MULTI_SPI_WRITE_TRANSFER
+SPB_MULTI_SPI_WRITE_TRANSFER_INIT 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 27 ≧
+SPB_MULTI_SPI_TRANSFER_INIT 函数
+（spb.h）项目2025/02/07
+SPB_MULTI_SPI_TRANSFER_INIT 函数初始化 SPB_MULTI_SPI_TRANSFER 结构。
+语法 C++
+void SPB_MULTI_SPI_TRANSFER_INIT(
+  SPB_MULTI_SPI_TRANSFER      *SpiTransfer,   SPB_MULTI_SPI_TRANSFER_MODE Mode,
+  ULONG                       TransferPhaseCount,
+  ULONG                       WritePhaseSingleSpiByteCount,
+  ULONG                       WaitCycleByteCount);
+参数 SpiTransfer
+指向要初始化的 SPB_MULTI_SPI_TRANSFER 结构的指针。 此结构包括单个传输阶段 - 使用此函
+数初始化双阶段读取作时，应提供额外的传输阶段。 Mode
+SPB_MULTI_SPI_TRANSFER_MODE 枚举值，指定总线驱动程序用来与外围设备通信的多 SPI 传
+输的线路模式。 TransferPhaseCount
+多 SPI 传输中的阶段数。 对于读取作，应将其设置为 2，表示读取阶段，然后是写入阶段。 对
+于写入作，应将其设置为 1，仅表示写入阶段。 WritePhaseSingleSpiByteCount
+写入阶段开始时要以单 SPI 模式传输的字节计数，然后行模式切换到此结构的 Mode 成员中指定的模式。
+WaitCycleByteCount
+
+≦ 28 ≧
+表示为字节数的等待周期数，表示多 SPI 传输周期，例如 1 字节 => 8 位 = 在四 SPI 模式下> 2
+个时钟周期，介于写入阶段和传输的读取阶段之间。 这些等待周期字节应存在，以及 WritePhaseBuffer 末尾未定义的值。 如果传输没有读取阶段，则应将其设置为 0。
+返回值没有
+言论
+通常，不应直接调用此函数，而是 SPB_MULTI_SPI_READ_TRANSFER_INIT 或
+SPB_MULTI_SPI_WRITE_TRANSFER_INIT 适当地使用。要求
+ﾉ
+要求标头
+另请参阅
+SPB_MULTI_SPI_TRANSFER_MODE SPB_MULTI_SPI_TRANSFER
+SPB_MULTI_SPI_READ_TRANSFER
+SPB_MULTI_SPI_READ_TRANSFER_INIT SPB_MULTI_SPI_WRITE_TRANSFER
+SPB_MULTI_SPI_WRITE_TRANSFER_INIT
+价值 spb.h
+展开表
+
+≦ 29 ≧
+SPB_MULTI_SPI_TRANSFER_MODE枚举
+（spb.h）项目2025/02/07
+SPB_MULTI_SPI_TRANSFER_MODE 枚举指定总线驱动程序用来与外围设备通信的多 SPI
+传输类型。语法 C++
+typedef enum SPB_MULTI_SPI_TRANSFER_MODE {
+  SpbMultiSpiTransferModeInvalid,   SpbMultiSpiTransferModeDualSpi,   SpbMultiSpiTransferModeQuadSpi,   SpbMultiSpiTransferModeMax
+}  *PSPB_MULTI_SPI_TRANSFER_MODE; 常数
+ﾉ
+ 
+SpbMultiSpiTransferModeInvalid 保留供作系统使用。
+SpbMultiSpiTransferModeDualSpi
+传输应在控制器的 Dual-SPI 传输模式下传输。 SpbMultiSpiTransferModeQuadSpi
+传输应在控制器的 Quad-SPI 传输模式下传输。 SpbMultiSpiTransferModeMax
+保留供作系统使用。言论
+SPB_MULTI_SPI_TRANSFER_HEADER 结构的 模式 成员是一个 SPB_MULTI_SPI_TRANSFER_MODE 枚举值。
+展开表
+
+≦ 30 ≧
+要求要求标头
+另请参阅
+SPB_MULTI_SPI_TRANSFER 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+价值 spb.h
+ﾉ
+展开表
+
+≦ 31 ≧
+SPB_MULTI_SPI_WRITE_TRANSFER结构
+（spb.h）项目2025/02/07
+SPB_MULTI_SPI_WRITE_TRANSFER 结构描述在多 SPI（例如双 SPI 或 Quad SPI）模式下执行的写入作。 它由包含传输参数和写入阶段的 SPB_MULTI_SPI_TRANSFER 结构组成。
+语法 C++
+typedef struct SPB_MULTI_SPI_WRITE_TRANSFER {   SPB_MULTI_SPI_TRANSFER SpiTransfer;
+} SPB_MULTI_SPI_WRITE_TRANSFER, *PSPB_MULTI_SPI_WRITE_TRANSFER;
+成员 SpiTransfer
+包含传输参数和写入阶段缓冲区的 SPB_MULTI_SPI_TRANSFER 结构。言论
+使用 SPB_MULTI_SPI_WRITE_TRANSFER_INIT初始化后，外围驱动程序可以访问
+SpiTransfer.TransferPhases[] 来配置传输缓冲区。要求
+ﾉ
+要求标头
+另请参阅
+SPB_MULTI_SPI_TRANSFER
+价值 spb.h
+SPB_MULTI_SPI_WRITE_TRANSFER_INIT
+展开表
+
+≦ 32 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 33 ≧
+SPB_MULTI_SPI_WRITE_TRANSFER_INIT函数
+（spb.h）项目2025/02/07
+SPB_MULTI_SPI_WRITE_TRANSFER_INIT 函数初始化 SPB_MULTI_SPI_WRITE_TRANSFER 结构。
+语法 C++
+void SPB_MULTI_SPI_WRITE_TRANSFER_INIT(
+  SPB_MULTI_SPI_WRITE_TRANSFER *SpiTransfer,   SPB_MULTI_SPI_TRANSFER_MODE  Mode,
+  ULONG                        WritePhaseSingleSpiByteCount,
+  ULONG                        WaitCycleByteCount);
+参数 SpiTransfer
+指向要初始化的 SPB_MULTI_SPI_WRITE_TRANSFER 结构的指针。 Mode
+SPB_MULTI_SPI_TRANSFER_MODE 枚举值，指定总线驱动程序用来与外围设备通信的多 SPI 传输的线路模式。
+WritePhaseSingleSpiByteCount
+写入阶段开始时要以单 SPI 模式传输的字节计数，然后行模式切换到此结构的 Mode 成员中指定的模式。
+WaitCycleByteCount
+表示为传输的写入阶段和读取阶段之间的字节数的等待周期数。 对于写入作（单阶段），应将
+其设置为 0。返回值没有
+
+≦ 34 ≧
+言论
+SPB_MULTI_SPI_WRITE_TRANSFER_INIT 函数应用于初始化多 SPI 写入传输。 它使用写入作所
+需的单一传输阶段初始化 SPB_MULTI_SPI_WRITE_TRANSFER 结构。要求
+ﾉ
+要求标头
+另请参阅
+SPB_MULTI_SPI_TRANSFER
+SPB_MULTI_SPI_WRITE_TRANSFER SPB_MULTI_SPI_TRANSFER_HEADER
+价值 spb.h
+展开表
+
+≦ 35 ≧
+SPB_TRANSFER_BUFFER结构（spb.h）项目2025/02/07
+SPB_TRANSFER_BUFFER 结构描述了 I/O 传输序列中单个传输的数据缓冲区。
+语法 C++
+typedef struct SPB_TRANSFER_BUFFER {   SPB_TRANSFER_BUFFER_FORMAT Format;   union {
+    SPB_TRANSFER_BUFFER_LIST_ENTRY Simple;     struct {
+      PSPB_TRANSFER_BUFFER_LIST_ENTRY List;       ULONG                           ListCe;     } BufferList;
+    PMDL                           Mdl;   };
+} SPB_TRANSFER_BUFFER, *PSPB_TRANSFER_BUFFER;
+成员 Format
+缓冲区格式。 此成员设置为以下 SPB_TRANSFER_BUFFER_FORMAT 枚举值之一：
+SpbTransferBufferFormatSimple SpbTransferBufferFormatList
+SpbTransferBufferFormatSimpleNonPaged SpbTransferBufferFormatMdl
+SpbTransferBufferFormatMdl 是仅对 SPB 控制器驱动程序的客户端请求的 I/O 传输序列
+（内核模式组件）的有效值。 Simple
+一个SPB_TRANSFER_BUFFER_LIST_ENTRY结构，指定简单传输缓冲区的基址和长度。 如果 FormatSpbTransferBufferFormatSimple 或
+SpbTransferBufferFormatSimpleNonPaged，请使用此联合成员。
+SpbTransferBufferFormatSimpleNonPaged 格式仅由内核模式客户端使用。 BufferList
+
+≦ 36 ≧
+由缓冲区描述符数组组成的散点收集列表。 如果 FormatSpbTransferBufferFormatList，
+请使用此联合成员。 BufferList.List
+指向描述散点收集列表中的缓冲区的 SPB_TRANSFER_BUFFER_LIST_ENTRY 结构的数组的指针。
+BufferList.ListCe
+List 数组中的元素数。 Mdl
+指向描述缓冲区的 MDL 的指针。 此成员仅由内核模式客户端使用。 如果
+FormatSpbTransferBufferFormatMdl，请使用此联合成员。 有关详细信息，请参阅“备
+注”。言论
+此结构由 SPB_TRANSFER_LIST_ENTRY 结构用来描述传输缓冲区。
+此结构的 Mdl 成员只能由作为内核模式组件的 SPB 控制器驱动程序的客户端使用。 用户
+模式客户端不得使用此成员。 有关 MDL 的详细信息，请参阅 使用 MDL。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+价值
+从 Windows 8 开始支持。 spb.h
+SPB_TRANSFER_BUFFER_FORMAT SPB_TRANSFER_BUFFER_LIST_ENTRY SPB_TRANSFER_LIST_ENTRY
+展开表
+
+≦ 37 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 38 ≧
+SPB_TRANSFER_BUFFER_FORMAT枚举
+（spb.h）项目2025/02/07
+SPB_TRANSFER_BUFFER_FORMAT 枚举指定由 SPB_TRANSFER_BUFFER 结构描述的缓冲
+区的格式。语法 C++
+typedef enum SPB_TRANSFER_BUFFER_FORMAT {
+  SpbTransferBufferFormatInvalid,   SpbTransferBufferFormatSimple,   SpbTransferBufferFormatList,
+  SpbTransferBufferFormatSimpleNonPaged,
+  SpbTransferBufferFormatMdl,   SpbTransferBufferFormatMax
+}  *PSPB_TRANSFER_BUFFER_FORMAT; 常数
+ﾉ
+ 
+SpbTransferBufferFormatInvalid 保留供作系统使用。
+SpbTransferBufferFormatSimple
+传输缓冲区由简单的用户模式或内核模式指针和长度描述。 SpbTransferBufferFormatList
+传输缓冲区由指向缓冲区列表的指针和列表中缓冲区数的计数来描述。 SpbTransferBufferFormatSimpleNonPaged
+展开表
+传输缓冲区由简单的用户模式或内核模式指针和长度描述。 缓冲区驻留在非分页内存中。 仅当源
+自 I/O 请求的客户端是内核模式驱动程序时，此格式值才有效。 SpbTransferBufferFormatMdl
+传输缓冲区由指向 MDL 的指针描述。 仅当源自 I/O 请求的客户端是内核模式驱动程序时，此格式值才有效。
+
+≦ 39 ≧
+ 
+SpbTransferBufferFormatMax
+保留供作系统使用。言论
+SPB_TRANSFER_BUFFER 结构的 Format 成员是一个 SPB_TRANSFER_BUFFER_FORMAT
+枚举值。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+SPB_TRANSFER_BUFFER 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始支持。 spb.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 40 ≧
+SPB_TRANSFER_BUFFER_LIST_ENTRY结构
+（spb.h）项目2025/02/07
+SPB_TRANSFER_BUFFER_LIST_ENTRY 结构描述一个简单的传输缓冲区，或一个或多个传输缓冲区数组中的元素。
+语法 C++
+typedef struct SPB_TRANSFER_BUFFER_LIST_ENTRY {
+  PVOID Buffer;   ULONG BufferCb;
+} SPB_TRANSFER_BUFFER_LIST_ENTRY, *PSPB_TRANSFER_BUFFER_LIST_ENTRY;
+成员 Buffer
+传输缓冲区的虚拟地址。 对于 SPB 控制器驱动程序在用户模式下运行的客户端请求的传输，此
+缓冲区必须完全驻留在用户模式内存中。 BufferCb
+缓冲区 指向的传输缓冲区的大小（以字节为单位）。言论
+若要为总线上的目标设备请求 I/O 传输序列，SPB 控制器驱动程序的客户端（外围驱动程序）会发送描述序列的 IOCTL_SPB_EXECUTE_SEQUENCE 请求。 序列中的传输由 SPB_TRANSFER_LIST 结构描述，后跟一个或多个 SPB_TRANSFER_LIST_ENTRY 结构的数组。 此数组中的每个元素描述序列中的单个传输，每个元素都包含一个 SPB_TRANSFER_BUFFER 结构，该结构描述用于传输的缓冲区。
+如果缓冲区格式 SpbTransferBufferFormatSimple，则 SPB_TRANSFER_BUFFER 结构包含一个描述地址和长度指定的简单缓冲区的单个 SPB_TRANSFER_BUFFER_LIST_ENTRY 结构。 如果缓冲区格式 SpbTransferBufferFormatList，则缓冲区是散点收集列表，SPB_TRANSFER_BUFFER 结构包含指向描述列表的 SPB_TRANSFER_BUFFER_LIST_ENTRY 数组的指针。
+
+≦ 41 ≧
+要求要求
+最低支持的客户端标头
+另请参阅
+IOCTL_SPB_EXECUTE_SEQUENCE
+SPB_TRANSFER_BUFFER SPB_TRANSFER_LIST
+SPB_TRANSFER_LIST_ENTRY
+价值
+从 Windows 8 开始支持。 spb.h
+ﾉ
+展开表
+
+≦ 42 ≧
+SPB_TRANSFER_DIRECTION枚举 （spb.h）项目2025/02/07
+SPB_TRANSFER_DIRECTION 枚举描述 I/O 传输序列中单个传输的方向（读取或写入）。
+语法 C++
+typedef enum SPB_TRANSFER_DIRECTION {   SpbTransferDirectionNone,
+  SpbTransferDirectionFromDevice,   SpbTransferDirectionToDevice,   SpbTransferDirectionMax
+}  *PSPB_TRANSFER_DIRECTION; 常数
+ﾉ
+ 
+SpbTransferDirectionNone 数据传输方向未定义。
+SpbTransferDirectionFromDevice
+数据传输方向是从设备传输到系统内存（从设备读取）。 SpbTransferDirectionToDevice
+数据传输方向是从系统内存到设备（写入设备）。 SpbTransferDirectionMax
+保留供作系统使用。言论
+展开表
+此枚举中的值指示 I/O 传输序列中单个传输的方向。 IOCTL_SPB_EXECUTE_SEQUENCE I/O 控制请求的输入缓冲区是指定序列传输列表的 SPB_TRANSFER_LIST 结构。 每个传输由包含传输参数（包括传输方向）的 SPB_TRANSFER_LIST_ENTRY 结构描述。 传输方向
+SpbTransferDirectionFromDevice 进行读取作，并且 SpbTransferDirectionToDevice 进行写入作。
+
+≦ 43 ≧
+SPB 控制器驱动程序可以调用 SpbRequestGetParameters 方法，从 I/O 请求中检索一组特定于 SPB 的参数。 其中一个参数是一个 SPB_TRANSFER_DIRECTION 枚举值，指示上一个 I/O 请求的传输方向。 SPB 控制器驱动程序可以使用此方向值来确定当前读取或写入（IRP_MJ_READ 还是 IRP_MJ_WRITE）请求是否需要更改总线上的传输方向。
+此外，SpbRequestGetParameters 检索一个位置值，该值指示多请求序列传输列表中的读取或写入请求的相对位置。 如果读取请求或写入请求的位置值为
+SpbRequestSequencePositionSingle 或 SpbRequestSequencePositionFirst，则上一次传输的方向值 SpbTransferDirectionNone（即，没有以前的传输方向）。 对于具有位置值为
+SpbRequestSequencePositionMiddle 或 SpbRequestSequencePositionLast的读取或写入请求，方向值指示上一次传输是读取还是写入。 对于解锁（IOCTL_SPB_UNLOCK_CONTROLLER）请求，其位置值为 SpbRequestSequencePositionLast，方向值指示序列中的最后一次传输是读取还是写入。
+锁（IOCTL_SPB_LOCK_CONTROLLER）请求没有以前的方向。 同样，传递给
+EvtSpbControllerIoOther 的 I/O 控制请求 回调函数没有以前的方向。 对于其中任一请求，
+SpbRequestGetParameters 检索的上一个方向值 SpbTransferDirectionNone。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+EvtSpbControllerIoOther
+IOCTL_SPB_EXECUTE_SEQUENCE IOCTL_SPB_LOCK_CONTROLLER IOCTL_SPB_UNLOCK_CONTROLLER
+IRP_MJ_READ IRP_MJ_WRITE
+SPB_TRANSFER_LIST
+SPB_TRANSFER_LIST_ENTRY SpbRequestGetParameters
+价值
+从 Windows 8 开始支持。 spb.h
+展开表
+
+≦ 44 ≧
+SPB_TRANSFER_LIST结构 （spb.h）项目2025/02/07
+SPB_TRANSFER_LIST 结构描述 I/O 传输序列。
+语法 C++
+typedef struct SPB_TRANSFER_LIST {   ULONG                   Size;
+  ULONG                   Reserved;
+  ULONG                   TransferCount;   SPB_TRANSFER_LIST_ENTRY Transfers[1];} SPB_TRANSFER_LIST, *PSPB_TRANSFER_LIST;
+成员 Size
+SPB_TRANSFER_LIST 结构的大小（以字节为单位）。 此大小值不包括任何 传输 可能遵循此结构的数组元素。 如果将新成员添加到此结构的未来版本，则可以使用 Size 值来确
+定正在使用哪个版本的 SPB_TRANSFER_LIST 结构。 Reserved
+保留供作系统使用。 设置为零。 TransferCount
+传输 数组中的元素数。 此数组包含至少一个元素。 Transfers[1]
+此成员是 SPB_TRANSFER_LIST_ENTRY 结构数组中的第一个元素。 每个数组元素描述 I/O
+传输序列中的单个传输。 如果数组包含多个元素，则其他数组元素紧跟内存中的 SPB_TRANSFER_LIST 结构。 传输按数组中出现的顺序执行，从第一个元素开始。
+言论
+IOCTL_SPB_EXECUTE_SEQUENCE 请求的输入缓冲区以 SPB_TRANSFER_LIST 结构开头。请求的 I/O 传输序列中的第一个传输是在此结构的 传输 成员中指定的。 如果序列包含多
+
+≦ 45 ≧
+个传输，则描述附加传输的数组元素紧跟 SPB_TRANSFER_LIST 结构。
+IOCTL_SPB_FULL_DUPLEX 请求的输入缓冲区以 SPB_TRANSFER_LIST 结构开头。 此请求的 SPB_TRANSFER_LIST 结构始终指定两个缓冲区。 第一个缓冲区由此结构的 传输 成员描述，其中包含要写入到设备的数据。 第二个缓冲区（由紧跟在 SPB_TRANSFER_LIST 结构后面的数组元素描述）用于保存从设备读取的数据。
+如果 SPB 控制器驱动程序支持使用输入或输出缓冲区的自定义 I/O 控件（IOCTL）请求，请使用 SPB_TRANSFER_LIST 结构来描述这些缓冲区。 有关详细信息，请参阅 使用自定
+义 IOCTL SPB_TRANSFER_LIST 结构。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+IOCTL_SPB_EXECUTE_SEQUENCE
+IOCTL_SPB_FULL_DUPLEX SPB_TRANSFER_LIST_ENTRY
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始支持。 spb.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 46 ≧
+SPB_TRANSFER_LIST_ENTRY结构（spb.h）项目2025/02/07
+SPB_TRANSFER_LIST_ENTRY 结构描述 I/O 传输序列中的单个传输。
+语法 C++
+typedef struct SPB_TRANSFER_LIST_ENTRY {
+  SPB_TRANSFER_DIRECTION Direction;   ULONG                  DelayInUs;   SPB_TRANSFER_BUFFER    Buffer;
+} SPB_TRANSFER_LIST_ENTRY, *PSPB_TRANSFER_LIST_ENTRY;
+成员 Direction
+传输的方向。 此成员设置为以下 SPB_TRANSFER_DIRECTION 枚举值之一：
+SpbTransferDirectionFromDevice SpbTransferDirectionToDevice
+DelayInUs
+此传输开始前的可选延迟（以微秒为单位）。 有关详细信息，请参阅
+SPB_TRANSFER_DESCRIPTOR中的 DelayInUs 成员的说明。 Buffer
+此传输的缓冲区。 此成员使用以下缓冲区格式之一：简单缓冲区、散点收集列表或（对于内核
+模式客户端）MDL。 有关缓冲区格式的详细信息，请参阅 SPB_TRANSFER_BUFFER。言论
+若要为总线上的目标设备请求 I/O 传输序列，SPB 控制器驱动程序的客户端（外围驱动程序）发送描述序列的 IOCTL_SPB_EXECUTE_SEQUENCE 请求。 序列中的传输由 SPB_TRANSFER_LIST 结构描述，后跟一个或多个 SPB_TRANSFER_LIST_ENTRY 结构的数组。 此数组中的每个元素描述序列中的单个传输。
+
+≦ 47 ≧
+要求要求
+最低支持的客户端标头
+另请参阅
+IOCTL_SPB_EXECUTE_SEQUENCE SPB_TRANSFER_BUFFER
+SPB_TRANSFER_DESCRIPTOR SPB_TRANSFER_DIRECTION SPB_TRANSFER_LIST
+价值
+从 Windows 8 开始支持。 spb.h
+ﾉ
+展开表
+
+≦ 48 ≧
+SPB_TRANSFER_LIST_ENTRY_INIT_BUFFER_L
+IST函数 （spb.h）项目2025/02/07
+SPB_TRANSFER_LIST_ENTRY_INIT_BUFFER_LIST 函数返回一个 SPB_TRANSFER_LIST_ENTRY 结构，该结构初始化以描述散点收集列表。
+语法 C++
+SPB_TRANSFER_LIST_ENTRY SPB_TRANSFER_LIST_ENTRY_INIT_BUFFER_LIST(
+  [in] SPB_TRANSFER_DIRECTION            Direction,   [in] ULONG                             DelayInUs,   [in] SPB_TRANSFER_BUFFER_LIST_ENTRY [] BufferList,   [in] ULONG                             BufferListCe);
+参数
+[in] Direction
+传输的方向。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY 结构的 Direction 成员。[in] DelayInUs
+可选延迟（以微秒为单位）。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY 结构的
+DelayInUs 成员。[in] BufferList
+指向描述散点收集列表的 SPB_TRANSFER_BUFFER_LIST_ENTRY 结构的数组的指针。 该函数将此值写入 buffer.BufferList.ListSPB_TRANSFER_LIST_ENTRY 结构的成员。 有关详细信息，请参阅
+SPB_TRANSFER_BUFFER中 BufferList.List 成员的说明。[in] BufferListCe
+BufferList指向的散点收集列表中的缓冲区数。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY 结构的 Buffer.BufferList.ListCe 成员。 有关详细信息，请参阅 SPB_TRANSFER_BUFFER中的
+BufferList.ListCe 成员的说明。返回值
+
+≦ 49 ≧
+SPB_TRANSFER_LIST_ENTRY_INIT_BUFFER_LIST 返回初始化 SPB_TRANSFER_LIST_ENTRY 结构。
+言论
+此初始化函数返回 SPB_TRANSFER_LIST_ENTRY类型的未命名局部变量。 此变量的存储在调用方堆栈帧中分配，在堆栈帧保留在范围内时有效。
+SPB_TRANSFER_LIST_ENTRY_INIT_BUFFER_LIST 将 SPB_TRANSFER_LIST_ENTRY 结构的
+Buffer.Format 成员设置为 SpbTransferBufferFormatList。 有关缓冲区格式的详细信息，请参阅
+SPB_TRANSFER_BUFFER_FORMAT。要求
+ﾉ
+要求
+目标平台
+标头 IRQL
+另请参阅
+SPB_TRANSFER_BUFFER
+SPB_TRANSFER_BUFFER_FORMAT SPB_TRANSFER_BUFFER_LIST_ENTRY SPB_TRANSFER_LIST_ENTRY
+价值桌面 spb.h
+任何 IRQL
+展开表
+
+≦ 50 ≧
+SPB_TRANSFER_LIST_ENTRY_INIT_MDL函数
+（spb.h）项目2025/02/07
+SPB_TRANSFER_LIST_ENTRY_INIT_MDL 函数返回初始化为使用 MDL 描述数据缓冲区的 SPB_TRANSFER_LIST_ENTRY 结构。
+语法 C++
+SPB_TRANSFER_LIST_ENTRY SPB_TRANSFER_LIST_ENTRY_INIT_MDL(
+  [in] SPB_TRANSFER_DIRECTION Direction,   [in] ULONG                  DelayInUs,
+  [in] PMDL                   Mdl);
+参数
+[in] Direction
+传输的方向。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY 结构的 Direction 成员。[in] DelayInUs
+可选延迟（以微秒为单位）。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY 结构的
+DelayInUs 成员。[in] Mdl
+指向描述数据缓冲区的 MDL 的指针。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY 结构的
+Buffer.Mdl 成员。 有关详细信息，请参阅 SPB_TRANSFER_BUFFER中 Mdl 成员的说明。返回值
+SPB_TRANSFER_LIST_ENTRY_INIT_MDL 返回初始化 SPB_TRANSFER_LIST_ENTRY 结构。言论
+此初始化函数返回 SPB_TRANSFER_LIST_ENTRY类型的未命名局部变量。 此变量的存储在调用方堆栈帧中分配，在堆栈帧保留在范围内时有效。
+
+≦ 51 ≧
+SPB_TRANSFER_LIST_ENTRY_INIT_MDL 将 SPB_TRANSFER_LIST_ENTRY 结构的 Buffer.Format 成员设置为 SpbTransferBufferFormatMdl。 有关缓冲区格式的详细信息，请参阅
+SPB_TRANSFER_BUFFER_FORMAT。要求
+ﾉ
+要求
+目标平台
+标头 IRQL
+另请参阅
+SPB_TRANSFER_BUFFER
+SPB_TRANSFER_BUFFER_FORMAT SPB_TRANSFER_LIST_ENTRY
+价值桌面 spb.h
+任何 IRQL
+展开表
+
+≦ 52 ≧
+SPB_TRANSFER_LIST_ENTRY_INIT_NON_PA
+GED 函数 （spb.h）项目2025/02/07
+SPB_TRANSFER_LIST_ENTRY_INIT_NON_PAGED 函数返回一个 SPB_TRANSFER_LIST_ENTRY 结构，该结构初始化以描述非分页内存中的简单数据缓冲区。
+语法 C++
+SPB_TRANSFER_LIST_ENTRY SPB_TRANSFER_LIST_ENTRY_INIT_NON_PAGED(
+  [in] SPB_TRANSFER_DIRECTION Direction,   [in] ULONG                  DelayInUs,
+  [in] PVOID                  Buffer,   [in] ULONG                  BufferCb);
+参数
+[in] Direction
+传输的方向。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY 结构的 Direction 成员。[in] DelayInUs
+可选延迟（以微秒为单位）。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY 结构的
+DelayInUs 成员。[in] Buffer
+指向数据缓冲区的指针。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY 结构的
+Buffer.Simple.Buffer 成员。 有关详细信息，请参阅 SPB_TRANSFER_BUFFER_LIST_ENTRY中的
+Buffer 成员的说明。[in] BufferCb
+Buffer指向的缓冲区的大小（以字节为单位）。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY
+结构的 Buffer.Simple.BufferCb 成员。 有关详细信息，请参阅 SPB_TRANSFER_BUFFER_LIST_ENTRY中的 BufferCb 成员的说明。
+返回值
+
+≦ 53 ≧
+SPB_TRANSFER_LIST_ENTRY_INIT_NON_PAGED 返回初始化 SPB_TRANSFER_LIST_ENTRY 结构。
+言论
+此初始化函数返回 SPB_TRANSFER_LIST_ENTRY类型的未命名局部变量。 此变量的存储在调用方堆栈帧中分配，在堆栈帧保留在范围内时有效。
+SPB_TRANSFER_LIST_ENTRY_INIT_NON_PAGED 将 SPB_TRANSFER_LIST_ENTRY 结构的
+Buffer.Format 成员设置为 SpbTransferBufferFormatSimpleNonPaged。 有关缓冲区格式的详
+细信息，请参阅 SPB_TRANSFER_BUFFER_FORMAT。要求
+ﾉ
+要求
+目标平台
+标头 IRQL
+另请参阅
+SPB_TRANSFER_BUFFER_FORMAT SPB_TRANSFER_BUFFER_LIST_ENTRY SPB_TRANSFER_LIST_ENTRY
+价值桌面 spb.h
+任何 IRQL
+展开表
+
+≦ 54 ≧
+SPB_TRANSFER_LIST_ENTRY_INIT_SIMPLE函
+数 （spb.h）项目2025/02/07
+SPB_TRANSFER_LIST_ENTRY_INIT_SIMPLE 函数返回一个 SPB_TRANSFER_LIST_ENTRY 结构，该结构初始化用于描述简单的数据缓冲区。
+语法 C++
+SPB_TRANSFER_LIST_ENTRY SPB_TRANSFER_LIST_ENTRY_INIT_SIMPLE(
+  [in] SPB_TRANSFER_DIRECTION Direction,   [in] ULONG                  DelayInUs,
+  [in] PVOID                  Buffer,   [in] ULONG                  BufferCb);
+参数
+[in] Direction
+传输的方向。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY 结构的 Direction 成员。[in] DelayInUs
+可选延迟（以微秒为单位）。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY 结构的
+DelayInUs 成员。[in] Buffer
+指向数据缓冲区的指针。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY 结构的
+Buffer.Simple.Buffer 成员。 有关详细信息，请参阅 SPB_TRANSFER_BUFFER_LIST_ENTRY中的
+Buffer 成员的说明。[in] BufferCb
+Buffer指向的缓冲区的大小（以字节为单位）。 该函数将此值写入 SPB_TRANSFER_LIST_ENTRY
+结构的 Buffer.Simple.BufferCb 成员。 有关详细信息，请参阅 SPB_TRANSFER_BUFFER_LIST_ENTRY中的 BufferCb 成员的说明。
+返回值
+
+≦ 55 ≧
+SPB_TRANSFER_LIST_ENTRY_INIT_SIMPLE 返回初始化 SPB_TRANSFER_LIST_ENTRY 结构。言论
+此初始化函数返回 SPB_TRANSFER_LIST_ENTRY类型的未命名局部变量。 此变量的存储在调用方堆栈帧中分配，在堆栈帧保留在范围内时有效。
+SPB_MDL_TRANSFER_ENTRY 将 SPB_TRANSFER_LIST_ENTRY 结构的 Buffer.Format 成员设置为 SpbTransferBufferFormatSimple。 有关缓冲区格式的详细信息，请参阅
+SPB_TRANSFER_BUFFER_FORMAT。要求
+ﾉ
+要求
+目标平台
+标头 IRQL
+另请参阅
+SPB_TRANSFER_BUFFER_FORMAT SPB_TRANSFER_BUFFER_LIST_ENTRY SPB_TRANSFER_LIST_ENTRY
+价值桌面 spb.h
+任何 IRQL
+展开表
+
+≦ 56 ≧
+SPB_TRANSFER_LIST_INIT 函数 （spb.h）项目2025/02/07
+SPB_TRANSFER_LIST_INIT 函数初始化 SPB_TRANSFER_LIST 结构。
+语法 C++
+void SPB_TRANSFER_LIST_INIT(
+  [out] SPB_TRANSFER_LIST *TransferList,   [in]  ULONG             TransferCount);
+参数
+[out] TransferList
+指向要初始化的 SPB_TRANSFER_LIST 结构的指针。[in] TransferCount
+传输列表中的条目数。 该函数将此值写入 SPB_TRANSFER_LIST 结构的 TransferCount 成员。
+返回值没有
+言论
+若要初始化 SPB_TRANSFER_LIST 结构 传输 数组中的元素，请使用
+SPB_TRANSFER_LIST_ENTRY_INIT_SIMPLE、SPB_TRANSFER_LIST_ENTRY_INIT_NON_PAGED或
+SPB_TRANSFER_LIST_ENTRY_INIT_BUFFER_LIST 函数。要求
+ﾉ
+展开表
+
+≦ 57 ≧
+要求
+目标平台标头
+另请参阅
+SPB_TRANSFER_LIST
+SPB_TRANSFER_LIST_ENTRY_INIT_BUFFER_LIST SPB_TRANSFER_LIST_ENTRY_INIT_NON_PAGED SPB_TRANSFER_LIST_ENTRY_INIT_SIMPLE
+价值桌面 spb.h
+
+≦ 58 ≧
+SpbIoctl 枚举 （spb.h）项目2025/02/07
+定义值以指示类型 I/O 控件请求。
+语法 C++
+typedef enum SpbIoctl {
+  IOCTL_SPB_LOCK_CONTROLLER,   IOCTL_SPB_UNLOCK_CONTROLLER,   IOCTL_SPB_EXECUTE_SEQUENCE,   IOCTL_SPB_LOCK_CONNECTION,   IOCTL_SPB_UNLOCK_CONNECTION,   IOCTL_SPB_FULL_DUPLEX,
+  IOCTL_SPB_MULTI_SPI_TRANSFER}  *PSpbIoctl;
+常数  
+IOCTL_SPB_LOCK_CONTROLLER
+ﾉ
+展开表
+客户端（外围驱动程序）使用 IOCTL_SPB_LOCK_CONTROLLER 控制代码来锁定 SPB 控制器。 当控
+制器锁定时，客户端只使用总线来访问锁定的指定目标设备。 IOCTL_SPB_UNLOCK_CONTROLLER
+客户端（外围驱动程序）使用 IOCTL_SPB_UNLOCK_CONTROLLER I/O 控制代码来解锁 SPB 控制
+器。 客户端以前锁定了控制器，以独占使用总线来访问总线上的目标设备。 IOCTL_SPB_EXECUTE_SEQUENCE
+IOCTL_SPB_EXECUTE_SEQUENCE I/O 控制代码使 SPB 控制器驱动程序的客户端（外围驱动程序）能够将传输序列（读取和写入）作为一个具有一个 I/O 请求的原子作执行。 总线上的指定设备是序列中所有传输的目标。
+IOCTL_SPB_LOCK_CONNECTION
+客户端（外围驱动程序）使用 IOCTL_SPB_LOCK_CONNECTION 控制代码获取与另一个客户端共享的 SPB 连接目标设备上的连接锁。 当客户端持有连接锁时，此客户端对设备具有独占访问权限。
+IOCTL_SPB_UNLOCK_CONNECTION
+客户端（外围驱动程序）使用 IOCTL_SPB_UNLOCK_CONNECTION I/O 控制代码释放与另一个客户
+
+≦ 59 ≧
+ 
+端共享的 SPB 连接目标设备上的连接锁。 客户端以前发送了一个 IOCTL_SPB_LOCK_CONNECTION
+请求来获取对设备的独占访问权限。 IOCTL_SPB_FULL_DUPLEX
+客户端（外围驱动程序）使用 IOCTL_SPB_FULL_DUPLEX 控制代码来请求全双工 I/O作。 可以同时
+读取和写入数据的总线（如 SPI）的控制器支持全双工 I/O作。 IOCTL_SPB_MULTI_SPI_TRANSFER
+客户端（外围驱动程序）使用 IOCTL_SPB_MULTI_SPI_TRANSFER 控制代码来请求 SPI I/O作，以使用多 SPI 传输模式（例如双 SPI 或 Quad SPI）。 支持在双或四次 SPI 线路模式下传输数据的 SPI 总
+线的控制器支持多 SPI I/O作。要求
+ﾉ
+要求
+最低支持的客户端
+标头反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始支持。 spb.h
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 60 ≧
+spbcx.h 标头项目2023/08/07
+spb 使用此标头。 有关详细信息，请参阅：
+简单外设总线 (SPB)
+spbcx.h 包含以下编程接口：
+函数  
+SPB_CONNECTION_PARAMETERS_INIT
+SPB_CONNECTION_PARAMETERS_INIT 函数初始化SPB_CONNECTION_PARAMETERS结构。 SPB_CONTROLLER_CONFIG_INIT
+SPB_CONTROLLER_CONFIG_INIT 函数初始化SPB_CONTROLLER_CONFIG结构。 SPB_REQUEST_PARAMETERS_INIT
+SPB_REQUEST_PARAMETERS_INIT 函数初始化SPB_REQUEST_PARAMETERS结构。 SPB_TRANSFER_DESCRIPTOR_INIT
+SPB_TRANSFER_DESCRIPTOR_INIT 函数初始化SPB_TRANSFER_DESCRIPTOR结构。 SpbControllerSetIoOtherCallback
+SpbControllerSetIoOtherCallback 方法注册 SPB 控制器驱动程序的 EvtSpbControllerIoOther 回调函数。
+SpbControllerSetRequestAttributes
+SpbControllerSetRequestAttributes 方法设置对象属性，这些属性将用于 SPB 框架扩展 (SpbCx) 传
+递到 SPB 控制器驱动程序的所有 SPBREQUEST 对象。 SpbControllerSetTargetAttributes
+SpbControllerSetTargetAttributes 方法设置对象属性，这些属性将用于 SPB 框架扩展 (SpbCx) 传递
+到 SPB 控制器驱动程序的所有 SPBTARGET 对象。 SpbDeviceInitConfig
+
+≦ 61 ≧
+ 
+SpbDeviceInitConfig 方法将 SPB 框架扩展 (SpbCx) 附加到要创建的 WDFDEVICE (FDO 或 PDO) 对
+象的 I/O 请求链。 SpbDeviceInitialize
+SpbDeviceInitialize 方法在此驱动程序创建关联的设备对象后完成 SPB 控制器驱动程序的初始化。 SpbRequestCaptureIoOtherTransferList
+SpbRequestCaptureIoOtherTransferList 方法检索自定义 IOCTL 请求的输入缓冲区中的
+SPB_TRANSFER_LIST结构。 SpbRequestComplete
+SpbRequestComplete 方法完成 I/O 请求并提供完成状态。 SpbRequestGetController
+SpbRequestGetController 方法将 WDFDEVICE 句柄返回到指定 I/O 请求发送到的 SPB 控制器的设备对象。
+SpbRequestGetParameters
+SpbRequestGetParameters 方法从 I/O 请求中检索一组特定于 SPB 的参数值。 SpbRequestGetTarget
+SpbRequestGetTarget 方法从指定的 I/O 请求检索 SPBTARGET 句柄。 SpbRequestGetTransferParameters
+SpbRequestGetTransferParameters 方法检索 I/O 传输序列中单个传输的传输参数。 SpbTargetGetConnectionParameters
+SpbTargetGetConnectionParameters 方法检索总线上目标设备的连接参数。 SpbTargetGetFileObject
+SpbTargetGetFileObject 方法接受打开的目标设备的 SPBTARGET 句柄作为输入参数，并将 WDFFILEOBJECT 句柄返回到此目标。
+回调函数  
+EVT_SPB_CONTROLLER_LOCK
+
+≦ 62 ≧
+ 
+SPB 控制器驱动程序的 EvtSpbControllerLock 事件回调函数锁定 SPB 控制器，以便访问总线上的单个目标设备。
+EVT_SPB_CONTROLLER_OTHER
+SPB 控制器驱动程序的 EvtSpbControllerIoOther 事件回调函数处理设备 I/O 控制请求，这些请求不
+由其他事件回调函数或 SPB 框架扩展 (SpbCx) 处理。 EVT_SPB_CONTROLLER_READ
+SPB 控制器驱动程序的 EvtSpbControllerIoRead 事件回调函数将数据从指定目标设备读取到随读取请求一起提供的缓冲区中。
+EVT_SPB_CONTROLLER_SEQUENCE
+SPB 控制器驱动程序的 EvtSpbControllerIoSequence 事件回调函数在指定目标设备和随序列请求提
+供的缓冲区之间执行一系列数据传输。 EVT_SPB_CONTROLLER_UNLOCK
+SPB 控制器驱动程序的 EvtSpbControllerUnlock 事件回调函数解锁 SPB 控制器，SPB 控制器已由先
+前调用 EvtSpbControllerLock 事件回调函数锁定。 EVT_SPB_CONTROLLER_WRITE
+SPB 控制器驱动程序的 EvtSpbControllerIoWrite 事件回调函数将数据从随写入请求提供的缓冲区写入指定的目标设备。
+EVT_SPB_TARGET_CONNECT
+SPB 控制器驱动程序的 EvtSpbTargetConnect 事件回调函数会打开与总线上目标设备的连接。 EVT_SPB_TARGET_DISCONNECT
+SPB 控制器驱动程序的 EvtSpbTargetDisconnect 事件回调函数关闭与目标设备的连接，该连接以前是通过调用驱动程序的 EvtSpbTargetConnect 事件回调函数打开的。
+结构  
+SPB_CONNECTION_PARAMETERS
+SPB_CONNECTION_PARAMETERS结构包含简单外围总线上目标设备的连接参数。 SPB_CONTROLLER_CONFIG
+
+≦ 63 ≧
+ 
+SPB_CONTROLLER_CONFIG 结构包含 SPB 控制器驱动程序的配置设置。 SPB_TRANSFER_DESCRIPTOR
+SPB_TRANSFER_DESCRIPTOR 结构描述 I/O 传输序列中的单个传输。
+枚举  
+SPB_REQUEST_SEQUENCE_POSITION
+SPB_REQUEST_SEQUENCE_POSITION枚举指示 I/O 请求在 I/O 传输序列的传输列表中的位置。 SPB_REQUEST_TYPE
+SPB_REQUEST_TYPE枚举指定客户端正在请求的 SPB 操作的类型。
+
+≦ 64 ≧
+EVT_SPB_CONTROLLER_LOCK回调函数
+（spbcx.h）项目2025/02/07
+SPB 控制器驱动程序的 EvtSpbControllerLock 事件回调函数锁定 SPB 控制器，以便访问总线上的单个目标设备。
+语法 C++
+EVT_SPB_CONTROLLER_LOCK EvtSpbControllerLock;
+void EvtSpbControllerLock(   [in] WDFDEVICE Controller,   [in] SPBTARGET Target,
+  [in] SPBREQUEST LockRequest)
+{...} 参数
+[in] Controller
+表示 SPB 控制器的 框架设备对象的 WDFDEVICE 句柄。[in] Target
+SPBTARGET 此 I/O 请求的目标句柄。 目标是附加到总线的外围设备或端口。 SPB 框架扩展（SpbCx）以前将此句柄分配给 EvtSpbTargetConnect 回调中打开了与目标的连接。
+[in] LockRequest
+SPBREQUEST I/O 控制请求的句柄来锁定控制器。 SPB 控制器驱动程序必须通过执行请求的作或返回错误状态来完成此请求。 有关详细信息，请参阅 备注。
+返回值没有
+
+≦ 65 ≧
+言论
+SpbCx 管理 SPB 控制器的 I/O 队列。 如果 SPB 控制器驱动程序注册
+EvtSpbControllerLock 回调函数，则当控制器的客户端（外围驱动程序）向总线上的目标发送 IOCTL_SPB_LOCK_CONTROLLER 请求时，SpbCx 将调用此函数。 LockRequest 参数值是封装此请求的句柄。
+EvtSpbControllerLock 和 EvtSpbControllerUnlock 函数执行互补作。 这两个函数都是可选的。 如果 SPB 控制器驱动程序实现 EvtSpbControllerUnlock 函数，则不需要驱动程序来实现 EvtSpbControllerLock 函数，但可能这样做。 但是，如果 SPB 控制器驱动程序实现 EvtSpbControllerLock 函数，则它还必须实现 EvtSpbControllerUnlock 函数。 有关详细信息，请参阅 SPB_CONTROLLER_CONFIG中的备注。
+当锁生效时，控制器不得允许访问除 LockRequest 参数指定的目标以外的总线上的目标。如果 SPB 控制器驱动程序需要更改其控制器的模式以暂时替代正常的目标选择机制，则可以在 EvtSpbControllerLock 回调期间执行此作。 如果此模式更改涉及长时间延迟或要求驱动程序等待设备中断，驱动程序应启动模式更改，然后从回调返回而不延迟。 稍后，驱动程序可以在计时器 DPC 或中断 DPC 中完成锁定作。
+如果锁作在 DPC 中完成，SPB 控制器驱动程序应之前已分配锁作所需的所有资源。
+EvtSpbControllerLock 回调必须避免锁定请求失败。 如果启用 驱动程序验证程序，此类故障将触发验证程序陷阱，该陷阱将报告给即插即用管理器，控制器已失败。 SpbCx 会忽略锁请求失败，并且不会尝试处理或缓解失败。
+EvtSpbControllerLock 函数不返回值。 相反，SPB 控制器驱动程序指示锁作的状态，该状
+态为由 LockRequest 参数标识的 I/O 请求的完成状态。 将完成状态设置为 STATUS_SUCCESS。
+SpbCx 调用 EvtSpbControllerUnlock 事件回调函数来解锁以前由 EvtSpbControllerLock 回调锁定的控制器。
+若要注册 EvtSpbControllerLock 回调函数，请调用 SpbDeviceInitialize 方法。
+有关 EvtSpbControllerLock 函数的详细信息，请参阅 处理 Client-Implemented 序列。例子
+若要定义 EvtSpbControllerLock 回调函数，必须先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+
+≦ 66 ≧
+例如，若要定义名为 MyEvtSpbControllerLock 的 EvtSpbControllerLock 回调函数，请使用
+EVT_SPB_CONTROLLER_LOCK函数类型，如以下代码示例所示： C++
+EVT_SPB_CONTROLLER_LOCK  MyEvtSpbControllerLock;
+然后，按如下所示实现回调函数： C++
+_Use_decl_annotations_ VOID
+  MyEvtSpbControllerLock(     WDFDEVICE Controller,     SPBTARGET Target,
+    SPBREQUEST LockRequest
+    ){ ... }
+EVT_SPB_CONTROLLER_LOCK函数类型在 Spbcx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。
+Use_decl_annotations 批注可确保使用应用于头文件中EVT_SPB_CONTROLLER_LOCK函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类
+型声明函数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+EvtSpbControllerUnlock EvtSpbTargetConnect
+价值
+从 Windows 8 开始支持。
+桌面 spbcx.h
+在 IRQL <调用 = DISPATCH_LEVEL。
+展开表
+
+≦ 67 ≧
+IOCTL_SPB_EXECUTE_SEQUENCE IOCTL_SPB_LOCK_CONTROLLER
+SPBREQUEST SPBTARGET
+SPB_CONTROLLER_CONFIG SpbDeviceInitialize
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 68 ≧
+EVT_SPB_CONTROLLER_OTHER回调函数
+（spbcx.h）项目2025/02/07
+SPB 控制器驱动程序的 EvtSpbControllerIoOther 事件回调函数处理未由其他事件回调函数或 SPB 框架扩展（SpbCx）处理的设备 I/O 控制请求。
+语法 C++
+EVT_SPB_CONTROLLER_OTHER EvtSpbControllerOther;
+void EvtSpbControllerOther(   [in] WDFDEVICE Controller,
+  [in] SPBTARGET Target,   [in] SPBREQUEST Request,
+  [in] size_t OutputBufferLength,   [in] size_t InputBufferLength,
+  [in] ULONG IoControlCode)
+{...} 参数
+[in] Controller
+表示 SPB 控制器的 框架设备对象的 WDFDEVICE 句柄。[in] Target
+SPBTARGET 此 I/O 请求的目标句柄。 目标是附加到总线的外围设备或端口。 SPB 框架扩展
+（SpbCx）以前将此句柄分配给 EvtSpbTargetConnect 回调中打开了与目标的连接。[in] Request
+SPBREQUEST I/O 请求的句柄。 SPB 控制器驱动程序必须完成此请求。 有关详细信息，请参阅“备注”。
+[in] OutputBufferLength
+如果输出缓冲区随请求一起提供，则输出缓冲区的长度（以字节为单位）。[in] InputBufferLength
+
+≦ 69 ≧
+如果输入缓冲区随请求一起提供，则输入缓冲区的长度（以字节为单位）。[in] IoControlCode
+请求的 I/O 控制代码（IOCTL）。 此值是 SPB 框架扩展 （SpbCx） 无法识别的 IOCTL。 有关详细信息，请参阅“备注”。
+返回值没有
+言论
+SpbCx 管理 SPB 控制器的 I/O 队列。 如果 SPB 控制器驱动程序注册 EvtSpbControllerIoOther 回调函数，SpbCx 会在 SpbCx 不支持的设备 I/O 控制请求到达控制器的 I/O 队列时调用此函数。 Request 参数值是封装此请求的句柄。 SPB 控制器驱动程序必须通过执行请求的作或返回错误状态来完成此请求。 如果驱动程序不支持指定的 IOCTL，驱动程序应返回
+STATUS_NOT_SUPPORTED错误状态。 有关 SpbCx 支持的 IOCTL 列表，请参阅 SpbCx I/O 控制代码。
+EvtSpbControllerIoOther 回调允许将特定于总线或特定于驱动程序的命令作为 IOCTL 调度到 SPB 控制器驱动程序。 例如，客户端（外围驱动程序）可能使用这些 IOCTL 来协调特定于总线的作，例如在 SPI 总线上与目标设备进行全双工数据交换。 此类 IOCTL 受到与 SpbCx 支持的 IOCTL 相同的流控制。
+EvtSpbControllerIoOther 回调函数类似于 EvtIoDeviceControl，并采用类似的方式处理 IOCTL。有关 WDF 驱动程序如何处理 I/O 请求的一般信息，请参阅 框架请求对象。
+EvtSpbControllerIoOther 回调不返回状态值。 相反，SPB 控制器驱动程序指示在 I/O 请求的完成状态中请求的作的状态。
+如果无法立即完成 I/O 请求，则回调函数应返回，而无需等待 SPB 控制器驱动程序完成处理请求。 SPB 控制器驱动程序稍后可以异步完成请求。
+EvtSpbControllerIoOther 函数必须验证它从用户模式客户端接收的 I/O 控件请求中的参数值。 对于除 EvtSpbControllerIoOther以外的所有 EvtSpbXxx 回调函数，SpbCx 会在调用函数之前验证用户模式参数。
+若要注册 EvtSpbControllerIoOther 回调函数，请调用 SpbControllerSetIoOther 方法。例子
+
+≦ 70 ≧
+若要定义 EvtSpbControllerIoOther 回调函数，必须首先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助
+于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 MyEvtSpbControllerIoOther 的 EvtSpbControllerIoOther 回调函数，请使用 EVT_SPB_CONTROLLER_OTHER函数类型，如以下代码示例所示：
+EVT_SPB_CONTROLLER_OTHER  MyEvtSpbControllerIoOther; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ VOID
+  MyEvtSpbControllerIoOther(     WDFDEVICE Controller,
+    SPBTARGET Target,     SPBREQUEST Request,
+    size_t OutputBufferLength,     size_t InputBufferLength,     ULONG IoControlCode
+    ){ ... }
+EVT_SPB_CONTROLLER_OTHER函数类型在 Spbcx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。
+Use_decl_annotations 批注可确保使用应用于头文件中EVT_SPB_CONTROLLER_OTHER函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函
+数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端
+目标平台标头
+价值
+从 Windows 8 开始支持。
+桌面 spbcx.h
+展开表
+
+≦ 71 ≧
+要求 IRQL
+另请参阅 EvtIoDeviceControl EvtSpbTargetConnect
+SPBREQUEST SPBTARGET
+SpbControllerSetIoOther
+价值
+在 IRQL <调用 = DISPATCH_LEVEL。
+
+≦ 72 ≧
+EVT_SPB_CONTROLLER_READ回调函数
+（spbcx.h）项目2025/02/07
+SPB 控制器驱动程序的 EvtSpbControllerIoRead 事件回调函数将数据从指定的目标设备读取到随读取请求提供的缓冲区中。
+语法 C++
+EVT_SPB_CONTROLLER_READ EvtSpbControllerRead;
+void EvtSpbControllerRead(   [in] WDFDEVICE Controller,
+  [in] SPBTARGET Target,   [in] SPBREQUEST Request,
+  [in] size_t Length)
+{...} 参数
+[in] Controller
+表示 SPB 控制器的 框架设备对象的 WDFDEVICE 句柄。[in] Target
+SPBTARGET 此 I/O 请求的目标句柄。 目标是附加到总线的外围设备或端口。 SPB 框架扩展（SpbCx）以前将此句柄分配给 EvtSpbTargetConnect 回调中打开了与目标的连接。
+[in] Request
+SPBREQUEST I/O 请求的句柄。 SPB 控制器驱动程序必须通过执行请求的作或返回错误状
+态来完成此请求。 有关详细信息，请参阅 备注。[in] Length
+要从目标设备读取的字节数。
+
+≦ 73 ≧
+返回值没有
+言论
+SpbCx 管理 SPB 控制器的 I/O 队列。 SpbCx 调用 SPB 控制器驱动程序的
+EvtSpbControllerIoRead 回调函数时，SPB 控制器的客户端（外围驱动程序）向附加到总线的目标设备发送 IRP_MJ_READ 请求。 Request 参数值是封装此请求的句柄。
+EvtSpbControllerIoRead 回调不返回状态值。 相反，SPB 控制器驱动程序指示 I/O 请求完成状态中的读取作的状态。
+EvtSpbControllerIoRead 回调是异步的。 也就是说，回调函数应启动请求的读取作，然后返回，而无需等待作完成。 稍后，SPB 控制器驱动程序在中断 DPC 或计时器 DPC 期间完成读取请求。
+如果读取作完全完成，SPB 控制器驱动程序应将完成状态设置为STATUS_SUCCESS。 如果目标设备指示它可以提供一些但并非所有请求的数据，SPB 控制器驱动程序应检索尽可能多的可用数据，指定检索的数据字节数，并将 I/O 请求中的完成状态设置为
+2
+STATUS_SUCCESS。 此类部分完成的读取作不能发生在 SPI 或 I C 总线上，但可能发生在另一种类型的总线上。
+如果读取作因线路干扰、控制器硬件错误或驱动程序错误而失败，SPB 控制器驱动程序应在 I/O 请求中将完成状态设置为适当的错误代码。 并非所有总线都为目标设备提供一种
+机制来报告传输错误或部分完成的传输，并非所有控制器都能够检测这些情况。若要注册 EvtSpbControllerIoRead 回调函数，请调用 SpbDeviceInitialize 方法。
+例子
+若要定义 EvtSpbControllerIoRead 回调函数，必须首先提供一个函数声明来标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 MyEvtSpbControllerIoRead 的 EvtSpbControllerIoRead 回调函数，请
+使用EVT_SPB_CONTROLLER_READ函数类型，如以下代码示例所示： C++
+EVT_SPB_CONTROLLER_READ  MyEvtSpbControllerIoRead;
+
+≦ 74 ≧
+然后，按如下所示实现回调函数： C++
+_Use_decl_annotations_ VOID
+  MyEvtSpbControllerIoRead(     WDFDEVICE Controller,
+    SPBTARGET Target,     SPBREQUEST Request,     size_t Length
+    ){ ... }
+EVT_SPB_CONTROLLER_READ函数类型在 Spbcx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。
+Use_decl_annotations 批注可确保使用应用于头文件中EVT_SPB_CONTROLLER_READ函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类
+型声明函数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+价值
+从 Windows 8 开始支持。
+桌面 spbcx.h
+在 IRQL <调用 = DISPATCH_LEVEL。
+EvtSpbControllerIoSequence EvtSpbTargetConnect
+IOCTL_SPB_EXECUTE_SEQUENCE
+IRP_MJ_READ SPBREQUEST SPBTARGET
+SpbDeviceInitialize
+展开表
+
+≦ 75 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 76 ≧
+EVT_SPB_CONTROLLER_SEQUENCE回调
+函数 （spbcx.h）项目2025/02/07
+SPB 控制器驱动程序的 EvtSpbControllerIoSequence 事件回调函数执行指定目标设备和随序列请求提供的缓冲区之间的数据传输序列。
+语法 C++
+EVT_SPB_CONTROLLER_SEQUENCE EvtSpbControllerSequence;
+void EvtSpbControllerSequence(   [in] WDFDEVICE Controller,
+  [in] SPBTARGET Target,   [in] SPBREQUEST Request,   [in] ULONG TransferCount)
+{...} 参数
+[in] Controller
+表示 SPB 控制器的 框架设备对象的 WDFDEVICE 句柄。[in] Target
+SPBTARGET 此 I/O 请求的目标句柄。 目标是附加到总线的外围设备或端口。 SPB 框架扩展（SpbCx）以前将此句柄分配给 EvtSpbTargetConnect 回调中打开了与目标的连接。
+[in] Request
+SPBREQUEST I/O 请求的句柄。 SPB 控制器驱动程序必须通过执行请求的作或返回错误状
+态来完成此请求。 有关详细信息，请参阅 备注。[in] TransferCount
+此 I/O 传输序列中的单个传输数。 每个单独的传输都是一个简单的读取或写入作。
+
+≦ 77 ≧
+返回值没有
+言论
+SpbCx 管理 SPB 控制器的 I/O 队列。 当 SPB 控制器的客户端（外围驱动程序）向附加到总线的目标设备发送 IOCTL_SPB_EXECUTE_SEQUENCE 请求时，SpbCx 调用 SPB 控制器的 EvtSpbControllerIoSequence 回调函数。 Request 参数值是封装此请求的句柄。
+EvtSpbControllerIoSequence 回调不返回状态值。 相反，SPB 控制器驱动程序指示 I/O 请求完成状态中序列作的状态。
+EvtSpbControllerIoSequence 回调是异步的。 也就是说，回调函数应启动请求的序列（或序列的第一部分）作，然后返回，而无需等待作完成。 稍后，SPB 控制器驱动程序继续处理请求或在中断 DPC 或计时器 DPC 期间完成请求。
+SPB 控制器驱动程序可以从 I/O 请求中检索参数值，以确定序列中传输的最大长度。 驱动程序可以使用此长度来分配 DMA 资源，该资源可以用于序列中的每个传输。
+SPB 控制器驱动程序可以调用 SpbRequestGetTransferParameters 方法来检索序列中每个传输的控制参数和数据缓冲区。 缓冲区是一个 WDFMEMORY 对象，在当前实现中封装链式 MDL。 有关链接的 MDL 的详细信息，请参阅 使用 MDL。
+SPB 控制器应保留为整个序列作选择的目标设备。 如果目标是由设备选择行选择的，则可以从序列中的第一个传输开始持续断言该行，直到最后一次传输结束。 此行最早可以在序列开头的锁定作进行断言，并且可以保持断言状态，直到序列末尾的解锁作为止。
+可以为序列中的每个传输指定可选延迟。 SPB 控制器驱动程序负责在启动传输之前至少延迟该微秒数。 如果序列中的第一次传输具有关联的延迟，驱动程序应首先传输地址或断言目标设备的设备选择行，然后在开始数据传输之前延迟指定时间。 在此延迟期间，目标应保持选中状态，但控制器不应在总线上运行时钟。
+如果目标设备在序列中的传输过程中发出 NACK 信号，SPB 控制器将停止序列。 （也就是说，控制器不会重试失败的传输，也不会尝试在序列中执行剩余传输。如果发生这种情况，SPB 控制器驱动程序应将 I/O 请求的完成状态设置为STATUS_SUCCESS，将 I/O 状态块中的 信息 字段设置为实际传输的字节数（不包括接收 NACK 的传输中丢失的数据），并完成请求。
+仅当发生以下情况之一时，SPB 控制器驱动程序才应使用错误状态代码完成 I/O 请求：
+2
+SPB 控制器无法选择目标设备（例如，当控制器传输地址字节时，I C 总线上的目标设备向 NACK 发出信号）。
+
+≦ 78 ≧
+SPB 控制器驱动程序在处理序列作时从对 WDF 或 WDM 服务的调用中获取错误状态。
+若要注册 EvtSpbControllerIoSequence 回调函数，请调用 SpbDeviceInitialize 方法。例子
+若要定义 EvtSpbControllerIoSequence 回调函数，必须先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 MyEvtSpbControllerIoSequence 的 EvtSpbControllerIoSequence 回调
+函数，请使用EVT_SPB_CONTROLLER_SEQUENCE函数类型，如以下代码示例所示： C++
+EVT_SPB_CONTROLLER_SEQUENCE  MyEvtSpbControllerIoSequence;
+然后，按如下所示实现回调函数： C++
+_Use_decl_annotations_ VOID
+  MyEvtSpbControllerIoSequence(     WDFDEVICE Controller,
+    SPBTARGET Target,     SPBREQUEST Request,     ULONG TransferCount
+    ){ ... }
+EVT_SPB_CONTROLLER_SEQUENCE函数类型在 Spbcx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中EVT_SPB_CONTROLLER_SEQUENCE 函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角
+色类型声明函数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+ﾉ
+展开表
+
+≦ 79 ≧
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+EvtSpbTargetConnect
+价值
+从 Windows 8 开始支持。
+桌面 spbcx.h
+在 IRQL <调用 = DISPATCH_LEVEL。
+IOCTL_SPB_EXECUTE_SEQUENCE
+IRP_MJ_READ IRP_MJ_WRITE SPBREQUEST SPBTARGET
+SpbDeviceInitialize
+SpbRequestGetTransferParameters 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 80 ≧
+EVT_SPB_CONTROLLER_UNLOCK回调函
+数 （spbcx.h）项目2025/02/07
+SPB 控制器驱动程序的 EvtSpbControllerUnlock 事件回调函数可解锁 SPB 控制器，该控制器由先前对 EvtSpbControllerLock 事件回调函数的调用锁定。
+语法 C++
+EVT_SPB_CONTROLLER_UNLOCK EvtSpbControllerUnlock;
+void EvtSpbControllerUnlock(   [in] WDFDEVICE Controller,   [in] SPBTARGET Target,
+  [in] SPBREQUEST UnlockRequest)
+{...} 参数
+[in] Controller
+表示 SPB 控制器的 框架设备对象的 WDFDEVICE 句柄。[in] Target
+SPBTARGET 此 I/O 请求的目标句柄。 目标是附加到总线的外围设备或端口。 SPB 框架扩展（SpbCx）以前将此句柄分配给 EvtSpbTargetConnect 回调中打开了与目标的连接。
+[in] UnlockRequest
+SPBREQUEST I/O 控制请求的句柄来解锁控制器。 SPB 控制器驱动程序必须通过执行请求的作或返回错误状态来完成此请求。 有关详细信息，请参阅 备注。
+返回值没有
+
+≦ 81 ≧
+言论
+SpbCx 管理 SPB 控制器的 I/O 队列。 当控制器的客户端（外围驱动程序）向总线上的目
+标发送 IOCTL_SPB_UNLOCK_CONTROLLER 请求时，SpbCx 将调用此函数。 UnlockRequest 参数值是封装此请求的句柄。
+EvtSpbControllerLock 和 EvtSpbControllerUnlock 函数执行互补作。 这两个函数都是可选的。 如果 SPB 控制器驱动程序实现 EvtSpbControllerUnlock 函数，则不需要驱动程序来实现 EvtSpbControllerLock 函数，但可能这样做。 但是，如果 SPB 控制器驱动程序实现 EvtSpbControllerLock 函数，则它还必须实现 EvtSpbControllerUnlock 函数。 有关详细信息，请参阅 SPB_CONTROLLER_CONFIG中的备注。
+如果 SPB 控制器驱动程序需要更改其控制器的模式以还原正常目标选择，则可以在
+EvtSpbControllerUnlock 回调期间执行此作。 如果此模式更改涉及长时间延迟或要求驱动程序等待设备中断，驱动程序应启动模式更改，然后从回调返回而不延迟。 稍后，驱动程序可以在中断 DPC 或计时器 DPC 中完成解锁请求。
+EvtSpbControllerUnlock 回调必须避免解锁请求失败。 如果启用 驱动程序验证程序，此类故障将触发验证程序陷阱，该陷阱将报告给即插即用管理器，控制器已失败。 SpbCx 会忽略解锁请求失败，并且不会尝试处理或缓解失败。
+EvtSpbControllerUnlock 函数不返回值。 相反，SPB 控制器驱动程序指示 UnlockRequest 参数标识的 I/O 请求完成状态中的解锁作的状态。 将完成状态设置为STATUS_SUCCESS。
+若要注册 EvtSpbControllerUnlock 回调函数，请调用 SpbDeviceInitialize 方法。
+有关 EvtSpbControllerUnlock 函数的详细信息，请参阅 处理 Client-Implemented 序列。例子
+若要定义 EvtSpbControllerUnlock 回调函数，必须首先提供一个函数声明来标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 MyEvtSpbControllerUnlock 的 EvtSpbControllerUnlock 回调函数，请
+使用EVT_SPB_CONTROLLER_UNLOCK函数类型，如以下代码示例所示： C++
+EVT_SPB_CONTROLLER_UNLOCK  MyEvtSpbControllerUnlock; 然后，按如下所示实现回调函数：
+
+≦ 82 ≧
+C++
+_Use_decl_annotations_ VOID
+  MyEvtSpbControllerUnlock(     WDFDEVICE Controller,     SPBTARGET Target,
+    SPBREQUEST UnlockRequest
+    ){ ... }
+EVT_SPB_CONTROLLER_UNLOCK函数类型在 Spbcx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。
+Use_decl_annotations 批注可确保使用应用于头文件中EVT_SPB_CONTROLLER_UNLOCK函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色
+类型声明函数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+EvtSpbControllerLock EvtSpbTargetConnect
+价值
+从 Windows 8 开始支持。
+桌面 spbcx.h
+在 IRQL <调用 = DISPATCH_LEVEL。
+IOCTL_SPB_UNLOCK_CONTROLLER SPBTARGET
+SPB_CONTROLLER_CONFIG SpbDeviceInitialize
+反馈
+展开表
+
+≦ 83 ≧
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 84 ≧
+EVT_SPB_CONTROLLER_WRITE回调函数
+（spbcx.h）项目2025/02/07
+SPB 控制器驱动程序的 EvtSpbControllerIoWrite 事件回调函数从随写入请求提供的缓冲区将数据写入指定的目标设备。
+语法 C++
+EVT_SPB_CONTROLLER_WRITE EvtSpbControllerWrite;
+void EvtSpbControllerWrite(   [in] WDFDEVICE Controller,
+  [in] SPBTARGET Target,   [in] SPBREQUEST Request,
+  [in] size_t Length)
+{...} 参数
+[in] Controller
+表示 SPB 控制器的 框架设备对象的 WDFDEVICE 句柄。[in] Target
+SPBTARGET 此 I/O 请求的目标句柄。 目标是附加到总线的外围设备或端口。 SPB 框架扩展（SpbCx）以前将此句柄分配给 EvtSpbTargetConnect 回调中打开了与目标的连接。
+[in] Request
+SPBREQUEST I/O 请求的句柄。 SPB 控制器驱动程序必须通过执行请求的作或返回错误状
+态来完成此请求。 有关详细信息，请参阅 备注。[in] Length
+要写入目标设备的字节数。
+
+≦ 85 ≧
+返回值没有
+言论
+SpbCx 管理 SPB 控制器的 I/O 队列。 SpbCx 调用 SPB 控制器驱动程序的
+EvtSpbControllerIoWrite 回调函数时，SPB 控制器的客户端（外围驱动程序）向附加到总线的目标设备发送 IRP_MJ_WRITE 请求。 Request 参数值是封装此请求的句柄。
+EvtSpbControllerIoWrite 回调不返回状态值。 相反，SPB 控制器驱动程序指示在 I/O 请求的完成状态中写入作的状态。
+EvtSpbControllerIoWrite 回调是异步的。 也就是说，回调函数应启动请求的写入作，然后返回，而无需等待作完成。 稍后，SPB 控制器驱动程序在中断 DPC 或计时器 DPC 期间完成写入请求。
+EvtSpbControllerIoWrite 回调不返回状态值。 相反，SPB 控制器驱动程序指示在 I/O 请求的完成状态中写入作的状态。
+如果写入作完全完成，回调函数应将完成状态设置为STATUS_SUCCESS。 如果目标设备指示在传输完成之前无法再接受任何数据，驱动程序应将完成状态设置为STATUS_SUCCESS 并指定传输的字节数。
+如果在写入作期间发生传输错误，驱动程序应在 I/O 请求中将完成状态设置为适当的错误代码。 并非所有总线都为目标设备提供一种机制来报告传输错误或部分完成的传输，并非所有控制器都能够检测这些情况。
+若要注册 EvtSpbControllerIoWrite 回调函数，请调用 SpbDeviceInitialize 方法。例子
+若要定义 EvtSpbControllerIoWrite 回调函数，必须先提供一个函数声明来标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函
+数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义 EvtSpbControllerIoWrite 名为 MyEvtSpbControllerIoWrite 的回调函数，
+请使用EVT_SPB_CONTROLLER_WRITE函数类型，如以下代码示例所示： C++
+EVT_SPB_CONTROLLER_WRITE  MyEvtSpbControllerIoWrite;
+
+≦ 86 ≧
+然后，按如下所示实现回调函数： C++
+_Use_decl_annotations_ VOID
+  MyEvtSpbControllerIoWrite(     WDFDEVICE Controller,
+    SPBTARGET Target,     SPBREQUEST Request,     size_t Length
+    ){ ... }
+EVT_SPB_CONTROLLER_WRITE函数类型在 Spbcx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。
+Use_decl_annotations 批注可确保使用应用于头文件中EVT_SPB_CONTROLLER_WRITE函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类
+型声明函数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+EvtSpbControllerIoRead EvtSpbTargetConnect
+价值
+从 Windows 8 开始支持。
+桌面 spbcx.h
+在 IRQL <调用 = DISPATCH_LEVEL。
+IOCTL_SPB_EXECUTE_SEQUENCE
+IRP_MJ_WRITE SPBREQUEST SPBTARGET
+SpbDeviceInitialize
+展开表
+
+≦ 87 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 88 ≧
+EVT_SPB_TARGET_CONNECT回调函数
+（spbcx.h）项目2025/02/07
+SPB 控制器驱动程序的 EvtSpbTargetConnect 事件回调函数打开与总线上目标设备的连接。
+语法 C++
+EVT_SPB_TARGET_CONNECT EvtSpbTargetConnect;
+NTSTATUS EvtSpbTargetConnect(   [in] WDFDEVICE Controller,
+  [in] SPBTARGET Target)
+{...} 参数
+[in] Controller
+表示 SPB 控制器的 框架设备对象的 WDFDEVICE 句柄。[in] Target
+要打开的目标 SPBTARGET 句柄。 目标是附加到总线的外围设备或端口。返回值
+如果驱动程序成功打开到目标的连接，EvtSpbTargetConnect 将返回STATUS_SUCCESS。 否则，
+该函数将返回相应的 NTSTATUS 错误代码。言论
+SPB 控制器驱动程序对此函数的实现是可选的。
+SPB 框架扩展 （SpbCx） 管理 SPB 控制器的 I/O 队列。 如果 SPB 控制器驱动程序注册
+EvtSpbTargetConnect 回调函数，则当控制器的客户端（外围驱动程序）发送 IRP_MJ_CREATE 请求以在总线上打开与目标设备的连接时，SpbCx 将调用此函数。 如果 EvtSpbTargetConnect 函数
+
+≦ 89 ≧
+返回错误代码，SpbCx 将失败 IRP_MJ_CREATE 请求。 成功打开与目标的连接的客户端对目标具有独占访问权限，直到连接关闭。
+调用 SpbTargetGetConnectionParameters 方法以获取目标设备的连接参数。 SPB 控制器驱动程序通常从驱动程序的 EvtSpbTargetConnect 函数调用此方法。
+SpbTargetGetConnectionParameters 将连接参数写入调用方提供的
+SPB_CONNECTION_PARAMETERS 结构。 此结构的 ConnectionParameters 成员是指向包含目标设备的连接设置的缓冲区的指针。 驱动程序使用这些设置将 SPB 控制器配置为与设备通信。有关详细信息，请参阅 如何获取设备的连接设置。
+EvtSpbTargetConnect 回调函数从请求连接到目标的客户端线程的上下文中同步调用。
+SpbCx 调用 EvtSpbTargetDisconnect 回调函数以关闭以前由 EvtSpbTargetConnect 回调打开的目标连接。
+若要注册 EvtSpbTargetConnect 回调函数，请调用 SpbDeviceInitialize 方法。例子
+若要定义 EvtSpbTargetConnect 回调函数，必须先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于
+驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 MyEvtSpbTargetConnect 的 EvtSpbTargetConnect 回调函数，请使用 EVT_SPB_TARGET_CONNECT函数类型，如以下代码示例所示：
+EVT_SPB_TARGET_CONNECT  MyEvtSpbTargetConnect; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ NTSTATUS
+  MyEvtSpbTargetConnect(     WDFDEVICE Controller,     SPBTARGET Target
+    ){ ... }
+EVT_SPB_TARGET_CONNECT函数类型在 Spbcx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations
+
+≦ 90 ≧
+批注可确保使用应用于头文件中EVT_SPB_TARGET_CONNECT函数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色类型声明函数。 有关
+Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅
+EvtSpbTargetDisconnect
+IRP_MJ_CREATE SPBTARGET
+SPB_CONNECTION_PARAMETERS SpbDeviceInitialize
+价值
+从 Windows 8 开始支持。
+桌面 spbcx.h
+在PASSIVE_LEVEL调用。
+展开表
+
+≦ 91 ≧
+EVT_SPB_TARGET_DISCONNECT回调函数
+（spbcx.h）项目2025/02/07
+SPB 控制器驱动程序的 EvtSpbTargetDisconnect 事件回调函数关闭了与目标设备的连接，而目标设备以前是通过调用驱动程序的 EvtSpbTargetConnect 事件回调函数打开的。
+语法 C++
+EVT_SPB_TARGET_DISCONNECT EvtSpbTargetDisconnect;
+void EvtSpbTargetDisconnect(   [in] WDFDEVICE Controller,
+  [in] SPBTARGET Target)
+{...} 参数
+[in] Controller
+表示 SPB 控制器的 框架设备对象的 WDFDEVICE 句柄。[in] Target
+要关闭的目标 SPBTARGET 句柄。 目标是附加到总线的外围设备或端口。 SPB 框架扩展（SpbCx）以前将此句柄分配给 EvtSpbTargetConnect 回调中打开了与目标的连接。
+返回值没有
+言论
+SPB 控制器驱动程序对此函数的实现是可选的。
+SpbCx 管理 SPB 控制器的 I/O 队列。 如果 SPB 控制器驱动程序注册
+EvtSpbTargetDisconnect 回调函数，则当控制器驱动程序的客户端（外围驱动程序）发送
+
+≦ 92 ≧
+IRP_MJ_CLOSE 请求以关闭 SPBTARGET 句柄时，SpbCx 将调用此函数。 此句柄表示客户端在上一个 IRP_MJ_CREATE 请求中打开的总线上与目标设备的连接。 如果
+EvtSpbTargetDisconnect 函数返回错误代码，SpbCx 将失败 IRP_MJ_CLOSE 请求。
+EvtSpbTargetDisconnect 函数在客户端启动的所有 I/O作结束后以及客户端解锁控制器后（如果客户端以前锁定了控制器）之后，从客户端的关闭线程的上下文中同步调用。
+如果 SPB 控制器驱动程序已分配 I/O 请求并将其发送到目标设备的 I/O 请求链中的下一个较低驱动程序，EvtSpbTargetDisconnect 函数应在返回之前取消这些请求。
+EvtSpbTargetDisconnect 回调返回后，可以随时调用客户端驱动程序的 DispatchCleanup
+和 CreateProcessNotifyEx 回调例程。 当客户端驱动程序的进程退出时，其 CreateProcessNotifyEx 例程在最后一个线程退出进程之前被调用。
+若要注册 EvtSpbTargetDisconnect 回调函数，请调用 SpbDeviceInitialize 方法。例子
+若要定义 EvtSpbTargetDisconnect 回调函数，必须首先提供一个函数声明，用于标识要定义的回调函数的类型。 Windows 为驱动程序提供一组回调函数类型。 使用回调函数类型声明函数有助于 驱动程序代码分析、静态驱动程序验证程序（SDV）和其他验证工具查找错误，这是为 Windows作系统编写驱动程序的要求。
+例如，若要定义名为 MyEvtSpbTargetDisconnect 的 EvtSpbTargetDisconnect 回调函数，请使用EVT_SPB_TARGET_DISCONNECT函数类型，如以下代码示例所示：
+EVT_SPB_TARGET_DISCONNECT  MyEvtSpbTargetDisconnect; 然后，按如下所示实现回调函数：
+_Use_decl_annotations_ VOID
+  MyEvtSpbTargetDisconnect(     WDFDEVICE Controller,     SPBTARGET Target
+    ){ ... }
+EVT_SPB_TARGET_DISCONNECT函数类型在 Spbcx.h 头文件中定义。 若要在运行代码分析工具时更准确地识别错误，请务必将 Use_decl_annotations 注释添加到函数定义。 Use_decl_annotations 批注可确保使用应用于头文件中EVT_SPB_TARGET_DISCONNECT函
+
+≦ 93 ≧
+数类型的批注。 有关函数声明要求的详细信息，请参阅 使用 KMDF 驱动程序的函数角色
+类型声明函数。 有关 Use_decl_annotations的详细信息，请参阅 批注函数行为。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头 IRQL
+另请参阅 EvtSpbTargetConnect IRP_MJ_CLOSE IRP_MJ_CREATE SPBTARGET
+SpbDeviceInitialize 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始支持。
+桌面 spbcx.h
+在PASSIVE_LEVEL调用。
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 94 ≧
+SPB_CONNECTION_PARAMETERS结构
+（spbcx.h）项目2025/02/07
+SPB_CONNECTION_PARAMETERS 结构包含 简单外围总线上目标设备的连接参数。
+语法 C++
+typedef struct _SPB_CONNECTION_PARAMETERS {   USHORT Size;
+  PCWSTR ConnectionTag;
+  PVOID  ConnectionParameters;
+} SPB_CONNECTION_PARAMETERS, *PSPB_CONNECTION_PARAMETERS;
+成员 Size
+此结构的大小（以字节为单位）。 SpbTargetGetConnectionParameters 方法使用 Size 值来确定正在使用哪种版本的此结构。 使用 SPB_CONNECTION_PARAMETERS_INIT 函数初
+始化此成员。 有关详细信息，请参阅以下“备注”部分。 ConnectionTag
+指向此目标的连接标记的指针。 连接标记是一个不透明的字符串，其中包含一个连接 ID，用于标识目标设备与总线的连接。 有关详细信息，请参阅 SPB-Connected 外围设备连接 ID。
+ConnectionParameters
+指向此目标的连接参数的指针。 此成员指向一个内存缓冲区，该缓冲区包含 SPB 控制器驱动程序需要与目标通信的目标特定参数。 有关详细信息，请参阅以下“备注”部分。
+言论
+此结构包含有关目标设备与总线的连接的信息。 当客户端（外围驱动程序）打开与目标设备的逻辑连接时，SPB 控制器驱动程序将检索设备的连接设置并存储这些设置。 稍
+
+≦ 95 ≧
+后，为了响应从客户端到设备的 I/O 请求，SPB 控制器驱动程序使用连接设置将控制器配置为通过总线访问设备。
+例如，I2C 总线上设备的连接设置包括：
+目标设备的总线相对地址。
+用于访问目标设备的地址位数。
+用于访问目标设备的总线时钟频率。
+SPB_CONNECTION_PARAMETERS 结构的 ConnectionParameters 成员是指向包含总线上目标设备的连接设置的缓冲区的指针。 有关使用 ConnectionParameters 成员获取这些连接参数的代码示例，请参阅 如何获取设备的连接设置。
+调用 SpbTargetGetConnectionParameters 方法以获取表示目标设备的 SPBTARGET 句柄的连接参数。 此方法将连接参数写入调用方提供的 SPB_CONNECTION_PARAMETERS 结
+构。 将此结构传递给 SpbTargetGetConnectionParameters之前，请通过调用 SPB_CONNECTION_PARAMETERS_INIT 函数初始化结构。
+若要代表客户端（外围驱动程序）打开连接，SPB 框架扩展（SpbCx）调用 SPB 控制器驱动程序的 EvtSpbTargetConnect 回调函数。 若要关闭连接，SpbCx 调用 SPB 控制器驱动程序的 EvtSpbTargetDisconnect 回调函数。 SPB 控制器驱动程序通常从驱动程序的
+EvtSpbTargetConnectConnect 函数调用 SpbTargetGetConnectionParameters。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅 EvtSpbTargetConnect EvtSpbTargetDisconnect
+价值
+从 Windows 8 开始支持。 spbcx.h
+RH_QUERY_CONNECTION_PROPERTIES_OUTPUT_BUFFER
+SPB_CONNECTION_PARAMETERS_INIT SpbTargetGetConnectionParameters
+展开表
+
+≦ 96 ≧
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 97 ≧
+SPB_CONNECTION_PARAMETERS_INIT函数
+（spbcx.h）项目2025/02/07
+SPB_CONNECTION_PARAMETERS_INIT 函数初始化 SPB_CONNECTION_PARAMETERS 结构。
+语法 C++
+void SPB_CONNECTION_PARAMETERS_INIT(
+  [out] SPB_CONNECTION_PARAMETERS *Parameters);
+参数
+[out] Parameters
+指向要初始化的 SPB_CONNECTION_PARAMETERS 结构的指针。
+返回值没有
+言论
+SPB 控制器驱动程序必须使用此函数来初始化 SPB_CONNECTION_PARAMETERS 结构，然后再将此结构作为输出参数传递给 SpbTargetGetConnectionParameters 方法。 此方法将总线上目标
+设备的连接参数写入到此结构。要求
+ﾉ
+要求
+目标平台标头
+价值桌面 spbcx.h
+展开表
+
+≦ 98 ≧
+要求 IRQL
+另请参阅
+SPB_CONNECTION_PARAMETERS SpbTargetGetConnectionParameters
+价值
+任何 IRQL
+
+≦ 99 ≧
+SPB_CONTROLLER_CONFIG结构（spbcx.h）项目2025/02/07
+SPB_CONTROLLER_CONFIG 结构包含 SPB 控制器驱动程序的配置设置。
+语法 C++
+typedef struct _SPB_CONTROLLER_CONFIG {   ULONG                       Size;
+  WDF_IO_QUEUE_DISPATCH_TYPE  ControllerDispatchType;   WDF_TRI_STATE               PowerManaged;
+  PFN_SPB_TARGET_CONNECT      EvtSpbTargetConnect;
+  PFN_SPB_TARGET_DISCONNECT   EvtSpbTargetDisconnect;   PFN_SPB_CONTROLLER_LOCK     EvtSpbControllerLock;   PFN_SPB_CONTROLLER_UNLOCK   EvtSpbControllerUnlock;
+  PFN_SPB_CONTROLLER_READ     EvtSpbIoRead;   PFN_SPB_CONTROLLER_WRITE    EvtSpbIoWrite;
+  PFN_SPB_CONTROLLER_SEQUENCE EvtSpbIoSequence;} SPB_CONTROLLER_CONFIG, *PSPB_CONTROLLER_CONFIG;
+成员 Size
+此结构的大小（以字节为单位）。 SpbDeviceInitialize 方法使用此参数值来确定正在使用的结构版本。
+ControllerDispatchType
+控制器驱动程序的 I/O 队列的调度类型。 将此成员设置为 WdfIoQueueDispatchSequential 或
+WdfIoQueueDispatchParallel，但不能 WdfIoQueueDispatchManual。 SPB_CONTROLLER_CONFIG_INIT 函数将此成员初始化为其默认值，
+WdfIoQueueDispatchSequential。 有关这些调度类型的详细信息，请参阅 I/O 队列的示例用法。在从属模式下运行的控制器驱动程序应将此成员设置为 WdfIoQueueDispatchParallel。 例如， 2
+2
+I C 控制器可能作为外围设备附加到 SPI 总线。 此设备充当 I C 总线的主控形状，但属于 SPI 总
+线的下属。 PowerManaged
+控制器驱动程序的 I/O 队列是否应由电源管理。 将此成员设置为 WdfTrue 以指示队列应进行电源管理。 将此成员设置为 WdfFalse，以指示不应对队列进行电源管理。 如果此成员设置为
+
+≦ 100 ≧
+WdfDefault，则除非驱动程序调用 WdfFdoInitSetFilter 方法（该方法将调用方标识为较高级别或较低级别的筛选器驱动程序），否则队列将受到电源管理。 SPB_CONTROLLER_CONFIG_INIT 函数将此成员初始化为 WdfDefault。
+当 I/O 请求在电源管理的队列中可用时，框架仅当设备处于工作状态（D0）时，才会将请求传
+送到驱动程序。 有关详细信息，请参阅 I/O 队列的电源管理。 EvtSpbTargetConnect
+指向 EvtSpbTargetConnect 回调函数的指针。 此函数由 SPB 控制器驱动程序实现。
+EvtSpbTargetConnect 成员是可选的，可以为 NULL。 EvtSpbTargetDisconnect
+指向 EvtSpbTargetDisconnect 回调函数的指针。 此函数由 SPB 控制器驱动程序实现。
+EvtSpbTargetDisconnect 成员是可选的，可以为 NULL。 EvtSpbControllerLock
+指向 EvtSpbControllerLock 回调函数的指针。 此函数由 SPB 控制器驱动程序实现。
+EvtSpbControllerLock 成员是可选的，可以为 NULL。 有关 EvtSpbControllerLock 函数的详细信
+息，请参阅 处理 Client-Implemented 序列。 EvtSpbControllerUnlock
+指向 EvtSpbControllerUnlock 回调函数的指针。 此函数由 SPB 控制器驱动程序实现。 此成员是可选的，可以是 NULL。 有关 EvtSpbControllerUnlock 函数的详细信息，请参阅 处理 Client-
+Implemented 序列。 EvtSpbIoRead
+指向 EvtSpbControllerIoRead 回调函数的指针。 此函数由 SPB 控制器驱动程序实现。 此成员不
+是可选的，不能为 NULL。 EvtSpbIoWrite
+指向 EvtSpbControllerIoWrite 回调函数的指针。 此函数由 SPB 控制器驱动程序实现。 此成员不
+是可选的，不能为 NULL。 EvtSpbIoSequence
+指向 EvtSpbControllerIoSequence 回调函数的指针。 此函数由 SPB 控制器驱动程序实现。 此成
+员不是可选的，不能为 NULL。言论
+
+≦ 101 ≧
+SpbDeviceInitialize 方法使用此结构中的信息来完成 SPB 控制器的初始化。 将此结构传递给
+SpbDeviceInitialize之前，请调用 SPB_CONTROLLER_CONFIG_INIT 函数以将其默认值初始化为其
+默认值，并根据需要使用特定于 SPB 控制器驱动程序的信息覆盖这些默认值。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+EvtSpbControllerIoRead
+EvtSpbControllerIoSequence
+EvtSpbControllerIoWrite EvtSpbControllerLock EvtSpbControllerUnlock EvtSpbTargetConnect EvtSpbTargetDisconnect
+IOCTL_SPB_EXECUTE_SEQUENCE IOCTL_SPB_LOCK_CONTROLLER IOCTL_SPB_UNLOCK_CONTROLLER
+IRP_MN_READ IRP_MN_WRITE
+SPB_CONTROLLER_CONFIG_INIT SpbDeviceInitialize
+SpbRequestGetParameters WdfFdoInitSetFilter
+价值
+从 Windows 8 开始支持。 spbcx.h
+展开表
+
+≦ 102 ≧
+SPB_CONTROLLER_CONFIG_INIT函数
+（spbcx.h）项目2025/02/07
+SPB_CONTROLLER_CONFIG_INIT 函数初始化 SPB_CONTROLLER_CONFIG 结构。
+语法 C++
+void SPB_CONTROLLER_CONFIG_INIT(
+  [out] SPB_CONTROLLER_CONFIG *Config);
+参数[out] Config
+指向要初始化的 SPB_CONTROLLER_CONFIG 结构的指针。
+返回值没有
+言论
+SPB 控制器驱动程序必须使用此函数初始化 SPB_CONTROLLER_CONFIG 结构，然后再将此结构作为输入参数传递给 SpbDeviceInitialize 方法。 此方法完成 SPB 框架扩展
+（SpbCx）的初始化。要求
+ﾉ
+要求
+目标平台
+价值桌面
+展开表
+
+≦ 103 ≧
+要求标头 IRQL
+另请参阅
+SPB_CONTROLLER_CONFIG
+SpbDeviceInitialize 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+价值 spbcx.h 任何 IRQL
+
+≦ 104 ≧
+SPB_REQUEST_PARAMETERS_INIT函数
+（spbcx.h）项目2025/02/07
+SPB_REQUEST_PARAMETERS_INIT 函数初始化 SPB_REQUEST_PARAMETERS 结构。
+语法 C++
+void SPB_REQUEST_PARAMETERS_INIT(
+  [out] SPB_REQUEST_PARAMETERS *Parameters);
+参数
+[out] Parameters
+指向要初始化的 SPB_REQUEST_PARAMETERS 结构的指针。
+返回值没有
+言论
+SPB 控制器驱动程序必须使用此函数初始化 SPB_REQUEST_PARAMETERS 结构，然后再将此结构作为输出参数传递给 SpbRequestGetParameters 方法。 此方法将特定于 SPB 的参数从 I/O 请
+求写入到此结构。要求
+ﾉ
+要求
+目标平台标头
+价值桌面 spbcx.h
+展开表
+
+≦ 105 ≧
+要求 IRQL
+另请参阅
+SPB_REQUEST_PARAMETERS SpbRequestGetParameters
+价值
+任何 IRQL
+
+≦ 106 ≧
+SPB_REQUEST_SEQUENCE_POSITION枚举
+（spbcx.h）项目2025/02/07
+SPB_REQUEST_SEQUENCE_POSITION 枚举指示 I/O 请求在 I/O 传输序列的传输列表中的位置。
+语法 C++
+typedef enum _SPB_REQUEST_SEQUENCE_POSITION {
+  SpbRequestSequencePositionInvalid,   SpbRequestSequencePositionSingle,   SpbRequestSequencePositionFirst,
+  SpbRequestSequencePositionContinue,
+  SpbRequestSequencePositionLast,   SpbRequestSequencePositionMax
+} SPB_REQUEST_SEQUENCE_POSITION, *PSPB_REQUEST_SEQUENCE_POSITION; 常数
+ﾉ
+ 
+SpbRequestSequencePositionInvalid 仅供内部使用。
+SpbRequestSequencePositionSingle
+展开表
+单传输 I/O 请求。 此请求是不属于序列的读取或写入（IRP_MJ_READ 或 IRP_MJ_WRITE）请求，或者是包含单个传输的序列的 IOCTL_SPB_EXECUTE_SEQUENCE I/O 控制请求。
+控制器应在执行传输之前选择目标，并在传输完成后释放目标。 SpbRequestSequencePositionFirst
+序列中的第一个 I/O 请求。 此请求是紧跟锁（IOCTL_SPB_LOCK_CONTROLLER）I/O 控制请求的读取或写入请求，用于发出序列的开始信号。
+控制器应在执行此传输之前选择目标，目标应在传输完成后保持选中状态。 SpbRequestSequencePositionContinue
+序列中间的 I/O 请求。 此请求是读取或写入请求，既不是序列中的第一个传输，也不是最后一个传输请求。
+在某些情况下，SPB 框架扩展（SpbCx）无法将上次传输标识为 SpbRequestSequencePositionContinue
+
+≦ 107 ≧
+ 
+而不是 SpbRequestSequencePositionLast。 有关详细信息，请参阅以下“备注”部分。控制器应在启动此传输之前已选择目标，并且目标应在传输完成后保持选中状态。 SpbRequestSequencePositionLast
+序列中的最后一个 I/O 请求。 此请求是在解锁（IOCTL_SPB_UNLOCK_CONTROLLER）I/O 控制请求之前立即发出信号序列结束的读取或写入请求。
+在某些情况下，SpbCx 无法将上次传输标识为 SpbRequestSequencePositionContinue 而不是 SpbRequestSequencePositionLast。 有关详细信息，请参阅以下“备注”部分。
+控制器应在启动此传输之前选择目标，并在传输完成后释放目标。 SpbRequestSequencePositionMax
+仅供内部使用。言论
+SPB 控制器的客户端（外围驱动程序）可以通过向总线上的目标设备发送一系列读取和写入请求来执行 I/O 传输序列。 序列中的每个读取或写入请求都占据序列传输列表中的位置。
+SPB_REQUEST_SEQUENCE_POSITION 枚举中的值指示此列表中读取和写入请求的相对位置。
+SpbRequestGetParameters 方法从 I/O 请求中检索特定于 SPB 的参数值，并将其写入 SPB_REQUEST_PARAMETERS 结构。 这些参数中包含一个
+SPB_REQUEST_SEQUENCE_POSITION 枚举值，该值指示 I/O 请求在 I/O 传输序列中的位置，该请求是它的一部分。
+如果调用 SpbRequestGetParameters 以检索不属于序列的 I/O 请求的位置值，此方法会将适当的 SPB_REQUEST_SEQUENCE_POSITION 枚举值分配给请求。
+对于读取和写入请求，位置值设置为以下值之一：SpbRequestSequencePositionSingle、
+SpbRequestSequencePositionFirst、SpbRequestSequencePositionContinue或 SpbRequestSequencePositionLast。
+如果客户端发送不属于序列的简单读取或写入（IRP_MJ_READ 或 IRP_MJ_WRITE）请求，则位置值设置为 SpbRequestSequencePositionSingle。
+如果客户端发送锁（IOCTL_SPB_LOCK_CONTROLLER）请求来向序列的开始发出信号，则序列中第一个传输（读取或写入请求）的位置值 SpbRequestSequencePositionFirst，序列中剩余传输的位置值 SpbRequestSequencePositionContinue。 在这种情况下，SpbCx 无法将
+SpbRequestSequencePositionLast 分配给最后一次传输，因为它不知道客户端发送了最后一个读取或写入请求，直到客户端发送结束序列的解锁（IOCTL_SPB_UNLOCK_CONTROLLER）请求。
+
+≦ 108 ≧
+对于锁定请求，位置值设置为 SpbRequestSequencePositionFirst。 对于解锁请求，位置值设置为 SpbRequestSequencePositionLast。
+某些控制器可能支持特殊作，例如，同时读取和写入目标设备的全双工总线传输。 客户端可以通过锁定控制器并发送一系列自定义 I/O 请求来执行自定义序列作，SpbCx 会将这些请求传递给 SPB 控制器驱动程序的 EvtSpbControllerIoOther 回调函数。 在这种情况下，序列中第一个自定义 I/O 请求的位置值 SpbRequestSequencePositionFirst，序列中其余自定义 I/O 请求的位置
+值 SpbRequestSequencePositionContinue。 当客户端解锁控制器时，序列将结束。 如果 EvtSpbControllerIoOther 回调函数收到不属于序列的自定义 I/O 请求，则此请求的位置值 SpbRequestSequencePositionSingle。
+对于 SpbRequestSequencePositionLast的位置值，SPB_REQUEST_PARAMETERS 结构的 长度成员可以为 0，以指示目标应仅释放，并且不应传输任何 I/O 数据（或者等效），以指示应发生 0 字节传输（如果控制器无法在不运行时钟的情况下释放设备）。
+对于 SpbRequestSequencePositionContinue 和 SpbRequestSequencePositionLast的位置值，传输方向可能已从上一次传输变化，SPB 控制器驱动程序可能需要指示总线上可能出现的方向更
+2
+改（例如，I C 控制器发出新的 START 条件）。 有关传输方向的详细信息，请参阅
+SPB_TRANSFER_DIRECTION。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+EvtSpbControllerIoSequence IOCTL_SPB_LOCK_CONTROLLER IOCTL_SPB_UNLOCK_CONTROLLER
+IRP_MJ_READ IRP_MJ_WRITE
+SPB_REQUEST_PARAMETERS SPB_TRANSFER_DIRECTION SpbRequestGetParameters
+价值
+从 Windows 8 开始支持。 spbcx.h （包括 Spb.h）
+展开表
+
+≦ 109 ≧
+SPB_REQUEST_TYPE枚举 （spbcx.h）项目2025/02/07
+SPB_REQUEST_TYPE 枚举指定客户端请求的 SPB作的类型。
+语法 C++
+typedef enum _SPB_REQUEST_TYPE {   SpbRequestTypeUndefined,
+  SpbRequestTypeRead,   SpbRequestTypeWrite,
+  SpbRequestTypeSequence,
+  SpbRequestTypeLockController,   SpbRequestTypeUnlockController,   SpbRequestTypeLockConnection,   SpbRequestTypeUnlockConnection,
+  SpbRequestTypeOther,   SpbRequestTypeMax
+} SPB_REQUEST_TYPE, *PSPB_REQUEST_TYPE; 常数
+ﾉ
+ 
+SpbRequestTypeUndefined
+仅供内部使用。 SpbRequestTypeRead
+展开表
+读取作。 读取数据的传输方向是从目标设备到客户端（外围驱动程序）。 仅当 SPB 控制器驱动程
+序注册 EvtSpbControllerIoRead 回调函数时，SPB 控制器驱动程序才会看到此类型的请求。 SpbRequestTypeWrite
+写入作。 写入数据的传输方向是从客户端到目标设备的。 仅当 SPB 控制器驱动程序注册
+EvtSpbControllerIoWrite 回调函数时，SPB 控制器驱动程序才会接收此类型的请求。 SpbRequestTypeSequence
+一系列传输（读取和写入）作合并到单个请求中。 仅当 SPB 控制器驱动程序注册
+EvtSpbControllerIoSequence 回调函数时，SPB 控制器驱动程序才会接收此类型的请求。 否则，
+SPB 框架扩展（SpbCx）会将 I/O 传输序列转换为一系列 SpbRequestTypeRead 和 SpbRequestTypeWrite 类型的 I/O 请求，并将这些请求发送到 SPB 控制器驱动程序的 EvtSpbControllerIoRead，EvtSpbControllerIoWrite 回调函数。
+
+≦ 110 ≧
+ 
+SpbRequestTypeLockController
+以独占方式锁定控制器的请求，用于将总线传输到指定目标设备或从指定目标设备传输。 仅当 SPB 控制器驱动程序注册 EvtSpbControllerLock 回调函数时，SPB 控制器驱动程序才会接收此类型的请求。
+SpbRequestTypeUnlockController
+解锁指定目标设备的控制器的请求。 SPB 控制器驱动程序通过其 EvtSpbControllerUnlock 回调函数接收此类型的请求。
+SpbRequestTypeLockConnection
+锁定指定目标设备以供客户端独占使用的请求。 此请求完全由 SpbCx 处理。 SPB 控制器驱动程序
+不对此类请求执行任何处理。 有关详细信息，请参阅 IOCTL_SPB_LOCK_CONNECTION。 SpbRequestTypeUnlockConnection
+解锁指定目标设备的请求。 此请求完全由 SpbCx 处理。 SPB 控制器驱动程序不对此类请求执行任
+何处理。 有关详细信息，请参阅 IOCTL_SPB_UNLOCK_CONNECTION。 SpbRequestTypeOther
+客户端（外围驱动程序）发送到总线上目标设备的未知 I/O 控件（IOCTL）请求。 调用 WdfRequestGetParameters 方法来检索此请求的参数;对于此调用，请使用 Request 参数的
+SPBREQUEST 句柄。 仅当 SPB 控制器驱动程序注册 EvtSpbControllerIoOther 回调函数时，SPB 控制器驱动程序才会接收此类型的请求。 否则，SpbCx 会拒绝未知的 IOCTL 请求。
+SpbRequestTypeMax 仅供内部使用。言论
+SPB_REQUEST_PARAMETERS 结构包含 SPB_REQUEST_TYPE 枚举值。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+EvtSpbControllerIoOther
+价值
+从 Windows 8 开始支持。 spbcx.h （包括 Spb.h）
+展开表
+
+≦ 111 ≧
+EvtSpbControllerIoRead
+EvtSpbControllerIoSequence
+EvtSpbControllerIoWrite EvtSpbControllerLock EvtSpbControllerUnlock
+IOCTL_SPB_LOCK_CONNECTION IOCTL_SPB_UNLOCK_CONNECTION
+SPB_REQUEST_PARAMETERS WdfRequestGetParameters
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 112 ≧
+SPB_TRANSFER_DESCRIPTOR结构
+（spbcx.h）项目2025/02/07
+SPB_TRANSFER_DESCRIPTOR 结构描述 I/O 传输序列中的单个传输。
+语法 C++
+typedef struct SPB_TRANSFER_DESCRIPTOR {   USHORT                 Size;
+  SPB_TRANSFER_DIRECTION Direction;
+  size_t                 TransferLength;   ULONG                  DelayInUs;
+} SPB_TRANSFER_DESCRIPTOR, *PSPB_TRANSFER_DESCRIPTOR;
+成员 Size
+整个结构的大小（以字节为单位）。 用于版本控制。 Direction
+传输的方向。 此成员设置为以下 SPB_TRANSFER_DIRECTION 枚举值之一：
+SpbTransferDirectionFromDevice SpbTransferDirectionToDevice
+TransferLength
+要传输的数据字节数。 DelayInUs
+此传输开始前的可选延迟（以微秒为单位）。 有关详细信息，请参阅以下“备注”部分。言论
+SpbRequestGetTransferParameters 方法使用此结构。 在将 SPB_TRANSFER_DESCRIPTOR 结构传递给此方法之前，请通过调用 SPB_TRANSFER_DESCRIPTOR_INIT 函数来初始化结构。
+
+≦ 113 ≧
+DelayInUs 成员指定传输开始前的延迟。 在某些情况下，外围驱动程序可能需要在序列中的两次连续传输之间插入延迟。 例如，如果写入目标设备指定所请求的信息类型，则此设备可能需要时间来处理请求，然后才能读取信息。 此外，外围驱动程序可能需要在序列中的第一次传输之前指定延迟。 在这种情况下，控制器必须在第一次传输开始前将地址或断言设备选择行应用
+于目标设备，以指定延迟间隔。要求
+ﾉ
+要求
+最低支持的客户端标头
+另请参阅
+SPB_TRANSFER_DESCRIPTOR_INIT SPB_TRANSFER_DIRECTION
+SpbRequestGetTransferParameters
+价值
+从 Windows 8 开始支持。 spbcx.h
+展开表
+
+≦ 114 ≧
+SPB_TRANSFER_DESCRIPTOR_INIT函数
+（spbcx.h）项目2025/02/07
+SPB_TRANSFER_DESCRIPTOR_INIT 函数初始化 SPB_TRANSFER_DESCRIPTOR 结构。
+语法 C++
+void SPB_TRANSFER_DESCRIPTOR_INIT(
+  [out] SPB_TRANSFER_DESCRIPTOR *Descriptor);
+参数
+[out] Descriptor
+指向要初始化的 SPB_TRANSFER_DESCRIPTOR 结构的指针。
+返回值没有
+言论
+SPB 控制器驱动程序必须使用此函数初始化 SPB_TRANSFER_DESCRIPTOR 结构，然后再将此结构作为输出参数传递给 SpbRequestGetTransferParameters 方法。 此方法将 I/O 传
+输序列中单个传输的传输参数写入到此结构。要求
+ﾉ
+要求
+目标平台
+价值桌面
+展开表
+
+≦ 115 ≧
+要求标头 IRQL
+另请参阅
+SPB_TRANSFER_DESCRIPTOR
+SpbRequestGetTransferParameters 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+价值 spbcx.h 任何 IRQL
+
+≦ 116 ≧
+SpbControllerSetIoOtherCallback 函数
+（spbcx.h）项目2025/02/07
+SpbControllerSetIoOtherCallback 方法注册 SPB 控制器驱动程序的 EvtSpbControllerIoOther 回调函数。
+语法 C++
+void SpbControllerSetIoOtherCallback(
+  [in]           WDFDEVICE                    FxDevice,
+  [in]           PFN_SPB_CONTROLLER_OTHER     EvtSpbControllerIoOther,
+  [in, optional] PFN_WDF_IO_IN_CALLER_CONTEXT EvtIoInCallerContext);
+参数[in] FxDevice
+表示 SPB 控制器的设备对象的 WDFDEVICE 句柄。[in] EvtSpbControllerIoOther
+指向 EvtSpbControllerIoOther 回调函数的指针。 SPB 控制器驱动程序实现此函数。 SPB 框架扩展 （SpbCx） 调用此函数，以将 I/O 控制请求传递给控制器驱动程序。 有关传递
+给此函数的 I/O 请求类型的详细信息，请参阅以下“备注”部分。[in, optional] EvtIoInCallerContext
+指向 EvtIoInCallerContext 的指针 回调函数，该函数在 I/O 控制请求首次到达控制器的 I/O 队列时调用，请求包含 SPB 框架扩展 （SpbCx） 无法识别的 IOCTL 代码。 此回调在请求发起方的进程上下文中运行，并且可以预处理稍后将由 EvtSpbControllerIoOther 回调处理的请求。 此参数是可选的，如果不需要此类预处理，则可以指定为 NULL。 有关详细信息，请参阅以下“备注”部分。
+返回值没有
+
+≦ 117 ≧
+言论
+此方法为 SPB 控制器驱动程序提供了一种方法，用于声明对特定于总线或特定于驱动程序的自定义 I/O 控制代码（IOCTL）的支持。 如果 SPB 控制器驱动程序不调用此方法， SpbCx 将拒绝所有此类 I/O 控制请求，SPB 控制器驱动程序永远不会看到它们。
+SpbCx 管理 SPB 控制器的 I/O 队列。 默认情况下，如果 SpbCx 收到具有不支持的 IOCTL
+的 I/O 控制请求，SpbCx 会以错误状态代码完成请求 STATUS_INVALID_DEVICE_REQUEST。
+但是，通过调用 SpbControllerSetIoOtherCallback，SPB 控制器驱动程序声明了对 SPB 框架扩展（SpbCx）不支持的 I/O 控制请求的支持。 在这种情况下，当 SpbCx 收到具有不支持的 IOCTL 代码的 I/O 控制请求时，SpbCx 调用 EvtSpbControllerIoOther 函数，以
+将请求传递给 SPB 控制器驱动程序进行处理。 SPB 控制器驱动程序负责完成请求。有关 SpbCx 支持的 IOCTL 列表，请参阅 SpbCx I/O 控制代码。
+可选的 EvtIoInCallerContext 回调函数在请求发起方的进程上下文中运行，并且可以在将请求传递给 EvtSpbControllerIoOther 回调函数之前预处理依赖于上下文的请求参数（如缓冲区指针）。 调用 EvtIoInCallerContext 函数时，SPB 控制器驱动程序在上一次调用中请求 SpbControllerSetRequestAttributes 的任何按请求上下文都将分配并分配给请求。
+SPB 控制器驱动程序必须先调用此方法，然后才能 提交 设备对象，也就是说，在从
+EvtDriverDeviceAdd 返回之前， 回调或将 PDO 添加到控制器的子列表中。 子列表表示附
+加到总线的设备。 有关详细信息，请参阅 枚举总线上的设备。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头库 IRQL
+另请参阅
+价值
+从 Windows 8 开始可用。
+普遍 spbcx.h
+Spbcxstubs.lib PASSIVE_LEVEL
+展开表
+
+≦ 118 ≧
+EvtIoInCallerContext
+EvtSpbControllerIoOther
+SpbControllerSetRequestAttributes 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 119 ≧
+SpbControllerSetRequestAttributes 函数
+（spbcx.h）项目2025/02/07
+SpbControllerSetRequestAttributes 方法设置将用于 SPB 框架扩展 （SpbCx） 传递给 SPB 控制器驱动程序的所有 SPBREQUEST 对象的对象属性。
+语法 C++
+void SpbControllerSetRequestAttributes(   [in] WDFDEVICE              FxDevice,
+  [in] PWDF_OBJECT_ATTRIBUTES RequestAttributes);
+参数[in] FxDevice
+表示 SPB 控制器的设备对象的 WDFDEVICE 句柄。[in] RequestAttributes
+指向调用方分配的 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构包含 SPB 控制器的 SPBREQUEST 对象的属性。
+返回值没有
+言论
+在设备初始化期间，SPB 控制器驱动程序可以调用此方法来设置 SPBREQUEST 对象的默认属性。 此后，SpbCx 将这些属性分配给它向总线上的目标设备传递（或转发）的任何 I/O 请求。
+RequestAttributes 指向 WDF_OBJECT_ATTRIBUTES 结构。 调用方以前必须调用 WDF_OBJECT_ATTRIBUTES_INIT 函数来初始化此结构。 在此调用之后，但在调用
+
+≦ 120 ≧
+SpbControllerSetRequestAttributes之前，调用方可以更改此结构的以下成员的值：
+EvtCleanupCallback EvtDestroyCallback ContextSizeOverride ContextTypeInfo
+SpbControllerSetRequestAttributes 将这些值用作 SPBREQUEST 对象的默认属性。 但是，驱动程序无法更改 ExecutionLevel、SynchronizationScope和 ParentObject 成员中包含的默认属性值。 这些成员必须与 WDF_OBJECT_ATTRIBUTES_INIT 函数初始化这些成员的值保持不变。
+WDF_OBJECT_ATTRIBUTES_INIT 初始化 EvtCleanupCallback，EvtDestroyCallback 成员 NULL。 如果更改这些默认值以注册 EvtCleanupCallback 或 EvtDestroyCallback 回调函数，则每次 I/O 请求到达 SPB 控制器队列时都会调用此函数，该队列由 SpbCx 管理。 此类 I/O 请求会导致 EvtCleanupCallback 或 EvtDestroyCallback 函数调用，即使 SpbCx 从不向 SPB 控制器驱动程序显示请求（因为请求在到达队列后取消，但在传递给驱动程序之前）。
+SPB 控制器驱动程序必须先调用 SpbControllerSetRequestAttributes，然后才能 提交 设备对象，也就是说，在从 EvtDriverDeviceAdd 回调返回之前，或将 PDO 添加到控制器的子列表中。 子列表表示附加到总线的设备。 有关详细信息，请参阅 枚举总线上的设备。
+要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头库 IRQL
+另请参阅 EvtDriverDeviceAdd
+WDF_OBJECT_ATTRIBUTES
+价值
+从 Windows 8 开始可用。
+普遍 spbcx.h
+Spbcxstubs.lib PASSIVE_LEVEL
+展开表
+
+≦ 121 ≧
+WDF_OBJECT_ATTRIBUTES_INIT 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 122 ≧
+SpbControllerSetTargetAttributes 函数
+（spbcx.h）项目2025/02/07
+SpbControllerSetTargetAttributes 方法设置将用于 SPB 框架扩展 （SpbCx） 传递给 SPB 控制器驱动程序的所有 SPBTARGET 对象的对象属性。
+语法 C++
+void SpbControllerSetTargetAttributes(   [in] WDFDEVICE              FxDevice,
+  [in] PWDF_OBJECT_ATTRIBUTES ObjectAttributes);
+参数[in] FxDevice
+表示 SPB 控制器的设备对象的 WDFDEVICE 句柄。[in] ObjectAttributes
+指向调用方分配的 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构包含控制器 SPBTARGET 对象的属性。
+返回值没有
+言论
+SPB 控制器驱动程序调用此方法来设置 SPBTARGET 对象的默认属性。 SPB 框架扩展（SpbCx） 在控制器的客户端（外围设备）打开的总线上的任何目标设备上设置这些属性。
+ObjectAttributes 指向 WDF_OBJECT_ATTRIBUTES 结构。 调用方以前必须调用 WDF_OBJECT_ATTRIBUTES_INIT 函数来初始化此结构。 在此调用之后，但在调用
+
+≦ 123 ≧
+SpbControllerSetTargetAttributes之前，调用方可以更改此结构的以下成员的值：
+EvtCleanupCallback EvtDestroyCallback ContextSizeOverride ContextTypeInfo
+SpbControllerSetTargetAttributes 将这些值用作 SPBTARGET 对象的默认属性。 但是，驱动程序无法更改 ExecutionLevel、SynchronizationScope和 ParentObject 成员中包含的默认属性值。 这些成员必须与 WDF_OBJECT_ATTRIBUTES_INIT 函数初始化的值保持不变。
+SPB 控制器驱动程序必须先调用此方法，然后才能 提交 设备对象，也就是说，在从
+EvtDriverDeviceAdd 返回之前， 回调或将 PDO 添加到控制器的子列表中。 子列表表示
+附加到总线的设备。 有关详细信息，请参阅 枚举总线上的设备。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头库 IRQL
+另请参阅 EvtDriverDeviceAdd
+WDF_OBJECT_ATTRIBUTES
+WDF_OBJECT_ATTRIBUTES_INIT 反馈
+价值
+从 Windows 8 开始可用。
+普遍 spbcx.h
+Spbcxstubs.lib PASSIVE_LEVEL
+展开表
+
+≦ 124 ≧
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 125 ≧
+SpbDeviceInitConfig 函数 （spbcx.h）项目2025/02/07
+SpbDeviceInitConfig 方法将 SPB 框架扩展 （SpbCx） 附加到要创建的 WDFDEVICE（FDO 或 PDO） 对象的 I/O 请求链。
+语法 C++
+NTSTATUS SpbDeviceInitConfig(
+  [in, out] WDFDEVICE_INIT *DeviceInit);
+参数
+[in, out] DeviceInit
+指向要配置的 WDFDEVICE_INIT 结构的指针。返回值
+SpbDeviceInitConfig 如果调用成功，则返回STATUS_SUCCESS。 可能的返回值包括以下错误代码。
+ﾉ
+返回代码
+STATUS_INSUFFICIENT_RESOURCES 言论
+描述
+无法分配所需的系统资源。
+展开表
+此方法将 SpbCx 的配置信息与要创建的设备对象（PDO 或 FDO）的 WDFDEVICE_INIT 结构相关联。 驱动程序的 EvtDriverDeviceAdd 回调例程应在调用 WdfDeviceCreate 方法创
+建设备对象之前调用 SpbDeviceInitConfig。例子
+
+≦ 126 ≧
+下面的代码示例演示如何使用 SpbDeviceInitConfig 方法将 SpbCx 框架扩展的配置信息
+与 WDFDEVICE_INIT 结构相关联。//
+// FxDeviceInit is a pointer to a WDFDEVICE_INIT structure that comes as a// parameter for an EvtDriverDeviceAdd handler, or from WdfPdoInitAllocate.//
+status = SpbDeviceInitConfig(FxDeviceInit);
+if (!NT_SUCCESS(status)){
+    return status;
+}// 
+// Set WDF and SpbCx device-level configuration options.
+//...//
+// Call WdfDeviceCreate//
+status = WdfDeviceCreate(&FxDeviceInit,...); 要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头库 IRQL
+另请参阅
+价值
+从 Windows 8 开始可用。
+普遍 spbcx.h
+Spbcxstubs.lib PASSIVE_LEVEL
+展开表
+
+≦ 127 ≧
+EvtDriverDeviceAdd WDFDEVICE_INIT WdfDeviceCreate WdfPdoInitAllocate
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+
+≦ 128 ≧
+SpbDeviceInitialize 函数 （spbcx.h）项目2025/02/07
+SpbDeviceInitialize 方法在此驱动程序创建关联的设备对象后完成 SPB 控制器驱动程序
+的初始化。语法 C++
+NTSTATUS SpbDeviceInitialize(
+  [in] WDFDEVICE              FxDevice,
+  [in] PSPB_CONTROLLER_CONFIG Config);
+参数[in] FxDevice
+表示 SPB 控制器的设备对象的 WDFDEVICE 句柄。[in] Config
+指向包含 SPB 控制器驱动程序的设备配置信息的 SPB_CONTROLLER_CONFIG 结构的指
+针。 此结构必须由 SPB_CONTROLLER_CONFIG_INIT 函数初始化。返回值
+SpbDeviceInitialize 如果成功，则返回STATUS_SUCCESS。 否则，它将返回适当的
+NTSTATUS 错误代码。言论
+SPB 控制器驱动程序调用此方法，将事件回调函数注册到 SPB 框架扩展 （SpbCx），并指定要用于控制器 I/O 队列的传输模式。 SpbDeviceInitialize 创建所有控制器的内部数据结构，包括 I/O 队列。
+SPB 控制器驱动程序必须先调用此方法，然后才能 提交 设备对象，也就是说，在从
+EvtDriverDeviceAdd 返回之前， 回调或将 PDO 添加到控制器的子列表中。 子列表表示附加到总线的设备。 有关详细信息，请参阅 枚举总线上的设备。
+
+≦ 129 ≧
+SpbDeviceInitialize 返回后，控制器可以处理 I/O 请求，但 SPB 控制器驱动程序可以根据需要继续配置控制器设置，然后再提交设备对象。
+如果 配置 指向的结构未正确填写，驱动程序验证程序 将引发错误。 有关 配置 参数的要
+求的详细信息，请参阅 SPB_CONTROLLER_CONFIG。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头库 IRQL
+另请参阅
+EvtChildListCreateDevice EvtDriverDeviceAdd
+SPB_CONTROLLER_CONFIG
+SPB_CONTROLLER_CONFIG_INIT 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始可用。
+普遍 spbcx.h
+Spbcxstubs.lib PASSIVE_LEVEL
+| 在 Microsoft Q&A 获取帮助
+展开表
+
+≦ 130 ≧
+SpbRequestCaptureIoOtherTransferList
+函数 （spbcx.h）项目2025/02/07
+SpbRequestCaptureIoOtherTransferList 方法检索自定义 IOCTL 请求的输入缓冲区中的 SPB_TRANSFER_LIST 结构。
+语法 C++
+NTSTATUS SpbRequestCaptureIoOtherTransferList(
+  SPBREQUEST Request);
+参数 Request
+SPBREQUEST 自定义 IOCTL 请求的句柄。 SPB 控制器驱动程序以前通过其注册的 事件回
+调函数之一接收此句柄。返回值
+如果调用成功，SpbRequestCaptureIoOtherTransferList 返回STATUS_SUCCESS。 可能的返回值包括以下错误代码。
+ﾉ
+返回值
+STATUS_INVALID_PARAMETER
+STATUS_INSUFFICIENT_RESOURCES 言论
+描述
+展开表
+SPBREQUEST 参数无效或请求中的 SPB_TRANSFER_LIST 结构格式不正确。
+无法分配此作所需的系统资源。
+
+≦ 131 ≧
+必须在缓冲区地址有效的进程上下文中调用此方法。 通常，SPB 控制器驱动程序从 EvtIoInCallerContext 事件回调函数中调用此方法，驱动程序将其作为输入参数提供给 SpbControllerSetIoOtherCallback 方法。
+SPB 控制器驱动程序可以调用此方法的最大 IRQL 取决于 I/O 请求的发起方是在用户模式下还是在内核模式下运行。 如果请求源自用户模式，驱动程序必须在PASSIVE_LEVEL调用此方法。 如果请求源自内核模式，驱动程序必须在 IRQL <= DISPATCH_LEVEL 调用此方法。 驱动程序可以调用 WdfRequestGetRequestorMode 方法来确定发起者的模式。 但是，此调用通常是不必要的，因为驱动程序可以依赖 SPB 框架扩展（SpbCx）在适当的
+IRQL 中调用驱动程序的 EvtIoInCallerContext 函数。例子
+以下代码示例演示 SPB 控制器驱动程序的 EvtIoInCallerContext 事件回调函数如何使用 SpbRequestCaptureIoOtherTransferList 方法从自定义 IOCTL 请求获取 I/O 缓冲区或缓
+冲区。 VOID
+EvtIoInCallerContext(
+    _In_  WDFDEVICE   SpbController,     _In_  WDFREQUEST  FxRequest
+    ) {
+    NTSTATUS status;     //
+    // NOTE: The driver should check for custom IOCTLs that this     // driver handles. If an IOCTL is not recognized, mark the     // request as STATUS_NOT_SUPPORTED, and complete the request.     //
+    status = SpbRequestCaptureIoOtherTransferList((SPBREQUEST)FxRequest);     //
+    // If the preceding call fails, the driver must complete the
+    // request instead of queueing the request.     //
+    if (!NT_SUCCESS(status))     {
+        goto exit;     }
+    status = WdfDeviceEnqueueRequest(SpbController, FxRequest);
+    if (!NT_SUCCESS(status))     {
+
+≦ 132 ≧
+        goto exit;
+    } exit:
+    if (!NT_SUCCESS(status))     {
+        WdfRequestComplete(FxRequest, status);
+    }}
+要求
+要求
+最低支持的客户端目标平台
+标头库 IRQL
+另请参阅 EvtIoInCallerContext SPBREQUEST
+SPB_TRANSFER_LIST
+SpbControllerSetIoOtherCallback WdfRequestGetRequestorMode
+反馈
+此页面是否有帮助？
+是
+否
+价值
+从 Windows 8 开始可用。
+普遍 spbcx.h
+Spbcxstubs.lib 请参阅“备注”。
+ﾉ
+展开表
+
+≦ 133 ≧
+提供产品反馈 
+| 在 Microsoft Q&A 获取帮助
+
+≦ 134 ≧
+SpbRequestComplete 函数 （spbcx.h）项目2025/02/07
+SpbRequestComplete 方法完成 I/O 请求并提供完成状态。
+语法 C++
+void SpbRequestComplete(   [in] SPBREQUEST Request,
+  [in] NTSTATUS   CompletionStatus);
+参数[in] Request
+SPBREQUEST I/O 请求的句柄来完成。 SPB 控制器驱动程序以前通过其注册的 事件回调函数之一接收此句柄。
+[in] CompletionStatus
+表示请求完成状态的 NTSTATUS 值。 有效状态值包括但不限于以下各项：
+STATUS_SUCCESS I/O 请求已成功完成。
+STATUS_CANCELLED I/O 请求已取消。
+STATUS_UNSUCCESSFUL
+驱动程序在处理 I/O 请求时遇到错误。
+返回值没有
+
+≦ 135 ≧
+言论
+控制器驱动程序调用此方法以完成以前在以下回调之一期间收到的 I/O 请求：
+EvtSpbControllerIoOtherEvtSpbControllerIoReadEvtSpbControllerIoSequenceEvtSpbControllerI oWrite 调用 SpbRequestComplete，而不是 WdfRequestComplete 方法，以完成上述列表中的回调函数收到的 I/O 请求。
+如果调用方提供无效的 SPBREQUEST 句柄，则会发生 bug 检查。
+调用 SpbRequestComplete 表示处理 I/O 请求的最后阶段。 此方法返回时，请求 句柄值不再有效。
+要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头库 IRQL
+另请参阅
+EvtSpbControllerIoOther EvtSpbControllerIoRead
+EvtSpbControllerIoSequence
+EvtSpbControllerIoWrite SPBREQUEST
+WdfRequestComplete
+价值
+从 Windows 8 开始可用。
+普遍 spbcx.h
+Spbcxstubs.lib
+<= DISPATCH_LEVEL
+展开表
+
+≦ 136 ≧
+SpbRequestGetController 函数 （spbcx.h）项目2025/02/07
+SpbRequestGetController 方法将 WDFDEVICE 句柄返回到发送到指定 I/O 请求的 SPB 控制器的
+设备对象。语法 C++
+WDFDEVICE SpbRequestGetController(
+  [in] SPBREQUEST SpbRequest);
+参数
+[in] SpbRequest
+SPBREQUEST 从中检索 WDFDEVICE 句柄的 I/O 请求的句柄。 SPB 控制器驱动程序以前通过其
+注册的 事件回调函数之一接收此句柄。返回值
+SpbRequestGetController 返回 I/O 请求发送到的 WDFDEVICE 句柄。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头库 IRQL
+价值
+从 Windows 8 开始可用。
+普遍 spbcx.h
+Spbcxstubs.lib
+<= DISPATCH_LEVEL
+展开表
+
+≦ 137 ≧
+另请参阅 SPBREQUEST
+
+≦ 138 ≧
+SpbRequestGetParameters 函数
+（spbcx.h）项目2025/02/07
+SpbRequestGetParameters 方法从 I/O 请求中检索一组特定于 SPB 的参数值。
+语法 C++
+void SpbRequestGetParameters(
+  [in]  SPBREQUEST             SpbRequest,   [out] SPB_REQUEST_PARAMETERS *Parameters);
+参数
+[in] SpbRequest
+SPBREQUEST I/O 请求的句柄。 SPB 控制器驱动程序以前通过其注册的 事件回调函数之一接收此句柄。
+[out] Parameters
+指向调用方分配 SPB_REQUEST_PARAMETERS 结构的指针，该方法从 I/O 请求写入 SPB 特定的参数值。 调用方以前必须通过调用 SPB_REQUEST_PARAMETERS_INIT 函数来初始化此结构。
+返回值没有
+言论
+SpbRequestGetParameters 类似于 WdfRequestGetParameters 方法，但只检索特定于 SPB 的信息。 SPB 控制器驱动程序可以调用 SpbRequestGetParameters 从 SPB 框架扩展（SpbCx）接收的 I/O 请求中检索特定于 SPB 的信息。 SPB 控制器驱动程序可以调用
+WdfRequestGetParameters，以从接收的 I/O 请求中检索泛型请求参数。例子
+
+≦ 139 ≧
+下面的代码示例演示如何使用 SpbRequestGetParameters 从 I/O 请求中检索特定于 SPB 的参
+数。 spbRequest 变量包含 I/O 请求的 SPBREQUEST 句柄。 SPB_REQUEST_PARAMETERS parameters;
+SPB_REQUEST_PARAMETERS_INIT(&parameters);
+SpbRequestGetParameters(spbRequest, &parameters); 要求
+ﾉ
+要求
+最低支持的客户端目标平台
+标头库 IRQL
+另请参阅 SPBREQUEST
+SPB_REQUEST_PARAMETERS
+SPB_REQUEST_PARAMETERS_INIT WdfRequestGetParameters
+价值
+从 Windows 8 开始可用。
+普遍 spbcx.h
+Spbcxstubs.lib
+<= DISPATCH_LEVEL
+展开表
+
+≦ 140 ≧
+SpbRequestGetTarget 函数 （spbcx.h）项目2025/02/07
+SpbRequestGetTarget 方法从指定的 I/O 请求中检索 SPBTARGET 句柄。
+语法 C++
+SPBTARGET SpbRequestGetTarget(   [in] SPBREQUEST SpbRequest);
+参数
+[in] SpbRequest
+SPBREQUEST I/O 请求的句柄。 SPB 控制器驱动程序以前通过其注册的 事件回调函数之
+一接收此句柄。返回值
+SpbRequestGetTarget 返回一个 SPBTARGET 句柄，该句柄针对指定的 I/O 请求在总线上
+的目标设备。言论
+返回的 SPBTARGET 句柄保证在相应的 I/O 请求完成之前保持有效。要求
+ﾉ
+要求
+最低支持的客户端目标平台
+价值
+从 Windows 8 开始可用。普遍
+展开表
+
+≦ 141 ≧
+要求标头库 IRQL
+另请参阅 SPBREQUEST SPBTARGET
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值 spbcx.h
+Spbcxstubs.lib
+<= DISPATCH_LEVEL
+| 在 Microsoft Q&A 获取帮助
+
+≦ 142 ≧
+SpbRequestGetTransferParameters 函数
+（spbcx.h）项目2025/02/07
+SpbRequestGetTransferParameters 方法检索 I/O 传输序列中单个传输的传输参数。
+语法 C++
+void SpbRequestGetTransferParameters(
+  [in]            SPBREQUEST              SpbRequest,   [in]            ULONG                   Index,
+  [out, optional] SPB_TRANSFER_DESCRIPTOR *TransferDescriptor,
+  [out, optional] PMDL                    *TransferBuffer);
+参数
+[in] SpbRequest
+SPBREQUEST 从中检索传输参数的 I/O 请求的句柄。 此参数必须是
+IOCTL_SPB_EXECUTE_SEQUENCE 请求的句柄。[in] Index
+I/O 传输序列中传输的索引。 有关详细信息，请参阅以下“备注”部分。[out, optional] TransferDescriptor
+指向调用方分配 SPB_TRANSFER_DESCRIPTOR 结构的指针，该方法将传输参数写入其中。 TransferDescriptor 参数是可选的，如果调用方不需要传输参数，则可以指定为
+NULL。 有关详细信息，请参阅 备注 部分。[out, optional] TransferBuffer
+指向方法将指针写入到描述传输缓冲区中物理内存的 MDL（或 MDL 链）的位置的指针。调用方不得修改此 MDL 的内容。 此参数是可选的，如果不需要 MDL，则可以设置为
+NULL。 有关详细信息，请参阅以下“备注”部分。返回值
+
+≦ 143 ≧
+没有言论
+若要请求 I/O 传输序列，SPB 控制器驱动程序的客户端（外围驱动程序）发送包含序列中
+传输列表的 IOCTL_SPB_EXECUTE_SEQUENCE 请求。 控制器驱动程序可以调用 SpbRequestGetTransferParameters 以获取有关序列中特定传输的信息。
+Index 参数是标识序列中特定传输的索引。 如果 N 是序列中的传输数，则有效索引范围为 0 到 N–1。 若要确定序列中的传输数，请调用 SpbRequestGetParameters 方法。 此方法检索包含请求参数的 SPB_TRANSFER_DESCRIPTOR 结构。 此结构的 TransferCount 成员指定序列中的传输数。
+如果 TransferDescriptor 为非 NULL，则调用方必须在调用
+SpbRequestGetTransferParameters之前调用 SPB_TRANSFER_DESCRIPTOR_INIT 函数来初始化结构。 初始化结构后，可以根据需要多次重复使用该结构，而无需重新初始化。
+TransferBuffer 是可选指针，SpbRequestGetTransferParameters 将指针写入描述传输缓冲区的物理页面布局的 MDL。 传输缓冲区可由单个 MDL 或 MDL 链描述。 由一个 MDL 描述的简单缓冲区由一个连续的虚拟内存块组成。 如果将传输缓冲区格式化为散点收集列表，则缓冲区中的每个连续虚拟内存块都由 MDL 链中的 MDL 描述。 有关 MDL 的详细信息，请参阅 使用 MDL。
+例子 C++//
+// Note that this snippet shows a transfer completing synchronously. This// is a horrible thing for a driver to do, but demonstrates the DDI nicely.//
+WDF_REQUEST_PARAMETERS parameters; WDF_TRANSFER_DESCRIPTOR transfer;
+WDF_REQUEST_PARAMETERS_INIT(&parameters); WDF_TRANSFER_DESCRIPTOR_INIT(&transfer);
+SpbRequestGetParameters(request, &parameters);
+for (ULONG i = 0; i < parameters.SequenceCount; i += 1){
+    WDFMEMORY buffer;
+    SpbRequestGetTransferParameters(request, i, &transfer, &buffer);
+
+≦ 144 ≧
+    MyDriverPerformTransfer(deviceContext, 
+                            request,                             transfer,                             buffer);}
+要求
+要求
+最低支持的客户端目标平台
+标头库 IRQL
+另请参阅
+IOCTL_SPB_EXECUTE_SEQUENCE SPBREQUEST
+SPB_TRANSFER_DESCRIPTOR
+价值
+从 Windows 8 开始可用。
+普遍 spbcx.h
+Spbcxstubs.lib
+<= DISPATCH_LEVEL
+SPB_TRANSFER_DESCRIPTOR_INIT SpbRequestGetParameters
+反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 145 ≧
+SpbTargetGetConnectionParameters 函
+数 （spbcx.h）项目2025/02/07
+SpbTargetGetConnectionParameters 方法检索总线上目标设备的连接参数。
+语法 C++
+void SpbTargetGetConnectionParameters(
+  [in]  SPBTARGET                 Target,
+  [out] SPB_CONNECTION_PARAMETERS *ConnectionParameters);
+参数[in] Target
+SPBTARGET 要为其检索连接参数的目标设备的句柄。[out] ConnectionParameters
+指向调用方分配 SPB_CONNECTION_PARAMETERS 结构的指针，该方法将连接参数写入其中。 调用方之前必须调用 SPB_CONNECTION_PARAMETERS_INIT 函数来初始化此结构。
+返回值没有
+言论
+此方法检索 SPB 控制器驱动程序在总线上访问指定目标设备所需的一组连接参数。 有关详细信息，请参阅 SPB_CONNECTION_PARAMETERS。
+成功打开与目标的连接的客户端（外围驱动程序）具有该目标的独占用途。 SPB 框架扩展（SpbCx）调用控制器驱动程序的 EvtSpbTargetConnect， EvtSpbTargetDisconnect 回调函数来打开和关闭连接。
+
+≦ 146 ≧
+如果使用有效的 SPBTARGET 句柄调用 SpbTargetGetConnectionParameters ，
+SpbTargetGetConnectionParameters 将不会失败。要求
+要求
+最低支持的客户端目标平台
+标头库 IRQL
+另请参阅 EvtSpbTargetConnect
+EvtSpbTargetDisconnect SPBTARGET
+SPB_CONNECTION_PARAMETERS
+SPB_CONNECTION_PARAMETERS_INIT 反馈
+此页面是否有帮助？
+提供产品反馈 
+是
+否
+价值
+从 Windows 8 开始可用。
+普遍 spbcx.h
+Spbcxstubs.lib
+<= DISPATCH_LEVEL
+| 在 Microsoft Q&A 获取帮助
+ﾉ
+展开表
+
+≦ 147 ≧
+SpbTargetGetFileObject 函数 （spbcx.h）项目2025/02/07
+SpbTargetGetFileObject 方法接受作为输入参数的 SPBTARGET 句柄，并将 WDFFILEOBJECT 句柄返回到此目标。
+语法 C++
+WDFFILEOBJECT SpbTargetGetFileObject(
+  [in] SPBTARGET Target);
+参数[in] Target
+SPBTARGET 总线上目标设备的句柄。返回值
+SpbTargetGetFileObject 将 WDFFILEOBJECT 句柄返回到总线上打开的目标设备。 如果与目标的
+连接由 EvtSpbTargetDisconnect 事件回调关闭，该方法将返回 NULL。言论
+控制器驱动程序可以调用此方法，以获取对总线上打开的目标设备的 WDFFILEOBJECT 句柄。然后，SPB 控制器驱动程序可以将此句柄用作需要此类句柄的 WDF 方法的输入参数。
+SpbTargetGetFileObject 仅当目标的 WDFFILEOBJECT 句柄已关闭但关闭之前，SPB 控制器驱动程序才对 SBPTARGET 对象返回 NULL，以延长其生存期。
+如果连接已关闭，并且 SPB 控制器驱动程序没有对 SPBTARGET 对象的引用，则 SBPTARGET 句柄不再有效。 将无效句柄传递给 SpbTargetGetFileObject 会导致 bug 检查。
+SpbTargetGetFileObject 返回 WDFFILEOBJECT 句柄后，不能保证目标连接将保持打开状态，除非另一个对象（例如，活动 I/O 请求）保留对 WDFFILEOBJECT 对象的引用，以防止其意外关闭。 此方法最有用，因此，在保证目标连接处于打开状态时，很可能调用此方法。 通常，此类调用发生在 EvtSpbTargetConnect 和 EvtSpbTargetDisconnect 回调期间，以及处理 I/O 请求期间。
+
+≦ 148 ≧
+要求要求
+最低支持的客户端目标平台
+标头库 IRQL
+另请参阅 EvtSpbTargetConnect
+EvtSpbTargetDisconnect SPBTARGET
+价值
+从 Windows 8 开始可用。
+普遍 spbcx.h
+Spbcxstubs.lib
+<= DISPATCH_LEVEL
+ﾉ
+展开表
+
