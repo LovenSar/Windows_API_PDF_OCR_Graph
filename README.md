@@ -15,7 +15,7 @@
 `pipeline.py` 的统一流程：
 
 1. **Phase-0 文件发现与配对**
-   - 扫描 `[OCR]_*.p.txt` 与 `[OCR]_*.txt`
+   - 扫描工作区根目录和 `OCR_raw/` 下的 `[OCR]_*.p.txt` 与 `[OCR]_*.txt`
    - 自动按同名文档配对（双源）
 
 2. **Phase-1 正则提取（双趟）**
@@ -34,6 +34,7 @@
 
 5. **Phase-4 输出与报告**
    - 输出实体 JSON、`global_entity_index.json`、`global_edges.json`
+   - 同步输出精简消费格式：`global_entity_index_v41.json`、`global_edges_v41.json`
    - 输出提取与精炼报告、断点文件
 
 ```mermaid
@@ -102,6 +103,86 @@ graph TD
     class Phase_3 refine_phase;
     class Phase_4 execute_phase;
 ```
+
+### 2.1) 精炼知识图谱核心思路（交接必读）
+我们当前的设计不是“让 LLM 从头生成图谱”，而是“先稳定提取，再可控增量修正”：
+
+1. **双源择优优先于 LLM 纠错**
+   - 先用 `.p.txt` / `.txt` 双源抽取并打分选优，减少把 OCR 噪声直接喂给 LLM。
+
+2. **先构建可解释的基线图，再做增强**
+   - 基线边：`references`（来自 `cross_references`）。
+   - 增强边（v4.1）：从函数 `parameters.type` / `return_value.type` 自动补 `parameter_type` / `uses` / `return_type` / `returns`。
+   - 这样可以明确区分“文本显式引用”与“语义签名推断”。
+
+3. **类型标准化是建边前置条件**
+   - `entity_type` 在入图前统一归一（异常值归 `unknown`），避免建边与统计口径漂移。
+
+4. **LLM 只输出“图操作指令”，不直接写最终图**
+   - 允许操作：`update_field` / `add_edge` / `delete_edge` / `add_node` / `delete_node` / `merge_into`。
+   - 由执行器统一落地并重建邻接关系，保证过程可审计、可回放。
+
+5. **全流程可恢复**
+   - 提取断点：`json_output_v4/_checkpoint.json`
+   - 精炼断点：`json_output_v4/_llm_checkpoint.json`
+   - 操作日志：`json_output_v4/_llm_operations.jsonl`
+   - 报告文件：`json_output_v4/_extraction_report.json`、`json_output_v4/_refinement_report.json`
+
+### 2.2) 重新开始工作的推荐顺序
+```bash
+# 1) 先重建提取图（含 v4.1 自动签名建边）
+python pipeline.py --phase extract --force
+
+# 2) 估算精炼成本（不调用 LLM）
+python pipeline.py --phase refine --dry-run
+
+# 3) 从断点续跑精炼（已有断点时）
+python pipeline.py --phase refine --resume
+
+# 4) 大规模数据建议分批跑（示例：先低置信度）
+python pipeline.py --phase refine --min-confidence 0.6 --max-entities 3000
+```
+
+长任务建议放到 `tmux`：
+```bash
+mkdir -p logs
+tmux new -s kg_refine "python pipeline.py --phase refine > logs/kg_refine.log 2>&1"
+```
+
+### 2.3) 故障排查（中断 / 限流 / 断点异常）
+1. **提取阶段扫不到文件（显示 0 对）**
+   - 先确认输入目录有 `[OCR]_*.txt` 文件：`ls OCR_raw | head`
+   - 再确认日志里是否识别到文档对数量。
+
+2. **精炼跑不动或速度过慢**
+   - 先 dry-run 估算规模：`python pipeline.py --phase refine --dry-run`
+   - 大任务改分批：`python pipeline.py --phase refine --min-confidence 0.6 --max-entities 3000`
+   - 降低并发/速率：调整 `llm_config.json` 的 `max_workers`、`requests_per_min`。
+
+3. **API 限流或网络波动**
+   - 查看日志是否出现 429/5xx 重试信息。
+   - 降低 `requests_per_min`，必要时降低 `batch_size` 与 `max_workers`。
+   - 使用 `tmux` 挂后台，避免终端断开导致任务中止。
+
+4. **断点恢复行为不符合预期**
+   - `--resume` 会读取 `json_output_v4/_llm_checkpoint.json`。
+   - 若你希望从头重跑精炼，先备份再清理：
+     - `cp json_output_v4/_llm_checkpoint.json json_output_v4/_llm_checkpoint.json.bak`
+     - `cp json_output_v4/_llm_operations.jsonl json_output_v4/_llm_operations.jsonl.bak`
+     - 然后执行不带 `--resume` 的 `python pipeline.py --phase refine`
+
+5. **输出结果与预期不一致**
+   - 对照检查：`global_entity_index.json` / `global_edges.json` 与 `global_*_v41.json`
+   - 报告优先看：`_extraction_report.json`、`_refinement_report.json`
+   - 重点确认 `auto_signature_edges`、`global_edges`、`total_entities` 等指标。
+
+当前基线快照（`2026-03-14`，见 `_extraction_report.json`）：
+- 文档对：`70`
+- 全局实体：`23606`
+- 全局边：`41037`
+- v4.1 自动签名新增边：`240`
+- LLM 双源裁决次数：`0`
+
 ---
 
 ### 3) 使用的数据与模型
@@ -111,8 +192,8 @@ graph TD
 - 当前目录中采用双源文件（`.p.txt` + `.txt`）进行互补与选优
 
 #### 大模型配置（来自 `llm_config.json`）
-- **主模型**：`deepseek-v3-250324`
-- **备用本地模型**：`qwen3:1.7b`（Ollama）
+- **主模型**：以 `model_name` 为准（当前配置示例：`gpt-5.4`）
+- **备用本地模型**：`ollama.model_name`（默认示例：`qwen3:1.7b`）
 
 ---
 
@@ -162,7 +243,7 @@ Main script: `pipeline.py`
 Unified pipeline in `pipeline.py`:
 
 1. **Phase-0: File discovery & pairing**
-   - Scans `[OCR]_*.p.txt` and `[OCR]_*.txt`
+   - Scans both workspace root and `OCR_raw/` for `[OCR]_*.p.txt` and `[OCR]_*.txt`
    - Pairs two OCR variants of the same document
 
 2. **Phase-1: Regex extraction (two-pass)**
@@ -181,6 +262,7 @@ Unified pipeline in `pipeline.py`:
 
 5. **Phase-4: Output & reports**
    - Writes entity JSONs, `global_entity_index.json`, `global_edges.json`
+   - Also writes compact v4.1 artifacts: `global_entity_index_v41.json`, `global_edges_v41.json`
    - Writes extraction/refinement reports and checkpoints
 
 ```mermaid
@@ -252,6 +334,71 @@ graph TD
 
 ---
 
+### 2.1) Core Refinement Strategy (Handoff Notes)
+Our design is intentionally "extract first, refine later", not "LLM generates everything from scratch":
+
+1. Use dual-source winner selection (`.p.txt` vs `.txt`) before LLM refinement.
+2. Build a transparent baseline graph first (`references` edges), then add v4.1 signature edges from function parameter/return types.
+3. Normalize `entity_type` before graph construction to keep edge logic and metrics stable.
+4. Let LLM output auditable graph operations (patches), and apply them via a deterministic executor.
+5. Keep the process restartable with checkpoints and operation logs.
+
+### 2.2) Restart Playbook
+```bash
+# Rebuild extraction graph (with v4.1 signature enrichment)
+python pipeline.py --phase extract --force
+
+# Estimate refinement cost without LLM calls
+python pipeline.py --phase refine --dry-run
+
+# Resume refinement from checkpoint
+python pipeline.py --phase refine --resume
+
+# Run refinement in slices (recommended for long jobs)
+python pipeline.py --phase refine --min-confidence 0.6 --max-entities 3000
+```
+
+### 2.3) Troubleshooting (Interruptions / Rate Limits / Checkpoints)
+1. **Extraction finds 0 pairs**
+   - Verify OCR inputs exist: `ls OCR_raw | head`
+   - Confirm pair count in extraction logs.
+
+2. **Refinement is too slow**
+   - Estimate first: `python pipeline.py --phase refine --dry-run`
+   - Run in slices: `python pipeline.py --phase refine --min-confidence 0.6 --max-entities 3000`
+   - Tune `max_workers` and `requests_per_min` in `llm_config.json`.
+
+3. **Rate limiting or unstable network**
+   - Check logs for 429/5xx retries.
+   - Reduce `requests_per_min`, and if needed, `batch_size` and `max_workers`.
+   - Use `tmux` for long-running jobs.
+
+4. **Unexpected resume behavior**
+   - `--resume` reads `json_output_v4/_llm_checkpoint.json`.
+   - To restart refinement from scratch, back up then clear checkpoint artifacts:
+     - `cp json_output_v4/_llm_checkpoint.json json_output_v4/_llm_checkpoint.json.bak`
+     - `cp json_output_v4/_llm_operations.jsonl json_output_v4/_llm_operations.jsonl.bak`
+     - then run `python pipeline.py --phase refine` (without `--resume`)
+
+5. **Output does not match expectation**
+   - Compare `global_entity_index.json` / `global_edges.json` with `global_*_v41.json`.
+   - Check `_extraction_report.json` and `_refinement_report.json` first.
+   - Focus on `auto_signature_edges`, `global_edges`, and `total_entities`.
+
+Key state files:
+- `json_output_v4/_checkpoint.json` (extraction checkpoint)
+- `json_output_v4/_llm_checkpoint.json` (refinement checkpoint)
+- `json_output_v4/_llm_operations.jsonl` (operation log)
+- `json_output_v4/_extraction_report.json` / `json_output_v4/_refinement_report.json` (reports)
+
+Current baseline snapshot (`2026-03-14`, from `_extraction_report.json`):
+- document pairs: `70`
+- global entities: `23606`
+- global edges: `41037`
+- v4.1 auto signature edges added: `240`
+
+---
+
 ### 3) Data and Models
 
 #### Data
@@ -259,8 +406,8 @@ graph TD
 - Dual-source OCR variants (`.p.txt` + `.txt`) are used for complementary quality selection
 
 #### LLM config (from `llm_config.json`)
-- **Primary model**: `deepseek-v3-250324`
-- **Fallback local model**: `qwen3:1.7b` (Ollama)
+- **Primary model**: value from `model_name` (current config example: `gpt-5.4`)
+- **Fallback local model**: value from `ollama.model_name` (default example: `qwen3:1.7b`)
 
 > Keep API keys local and do not commit secrets to public repositories.
 

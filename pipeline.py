@@ -52,6 +52,27 @@ LLM_CONFIG_FILE = os.path.join(WORKSPACE, "llm_config.json")
 MIN_DESC_LENGTH = 8
 SCHEMA_VERSION  = "windows_api_kg_v4.0"
 
+# KG v4.1 增强（并入主流水线）
+ALLOWED_ENTITY_TYPES = {
+    "function", "structure", "struct", "enum", "callback", "macro",
+    "constant", "typedef", "union", "interface", "ioctl", "event",
+    "method", "property", "notification", "oid", "enum_value",
+    "error_code", "parameter", "application", "enum_member",
+    "function_pointer", "flags", "structure_member", "field", "message",
+    "technology", "attribute", "unknown",
+}
+TYPE_NODE_KINDS = {
+    "structure", "enum", "enum_value", "union",
+    "typedef", "constant", "macro", "flags", "error_code",
+}
+C_IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
+C_KEYWORDS = {
+    "const", "volatile", "signed", "unsigned", "struct", "enum",
+    "union", "class", "typedef", "static", "extern", "inline",
+    "__in", "__out", "__inout", "_in_", "_out_", "_inout_",
+}
+POINTER_TRIM_RE = re.compile(r"[\s\*]+")
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s", datefmt="%H:%M:%S")
 log = logging.getLogger("pipeline")
 
@@ -242,6 +263,146 @@ def infer_entity_type(name, current_type):
     for pat, inferred in TYPE_INFER_RULES:
         if pat.search(name): return inferred
     return current_type
+
+def normalize_entity_type(et: str) -> str:
+    if not et:
+        return "unknown"
+    et = str(et).strip().lower()
+    if et in ("struct", "structure"):
+        return "structure"
+    if et in ("enumvalue", "enum_value"):
+        return "enum_value"
+    if et not in ALLOWED_ENTITY_TYPES:
+        return "unknown"
+    return et
+
+def tokenize_type_string(type_text: str) -> List[str]:
+    if not type_text:
+        return []
+    text = POINTER_TRIM_RE.sub(" ", type_text).strip()
+    tokens = []
+    for part in text.replace(",", " ").split():
+        token = part.strip().strip("()[]{};")
+        if not token or token.lower() in C_KEYWORDS:
+            continue
+        if C_IDENTIFIER_RE.match(token):
+            tokens.append(token)
+    return tokens
+
+def build_existing_edge_set(edges: List[dict]) -> Set[Tuple[str, str, str]]:
+    existing = set()
+    for edge in edges:
+        src = edge.get('source') or edge.get('from')
+        tgt = edge.get('target') or edge.get('to')
+        edge_type = edge.get('type') or edge.get('edge_type') or 'unknown'
+        if not src or not tgt:
+            continue
+        existing.add((src, tgt, edge_type))
+        existing.add((tgt, src, edge_type))
+    return existing
+
+def enrich_edges_by_signature(file_entity_lists: Dict[str, List[dict]], all_entity_map: Dict[str, dict], all_edges: List[dict]) -> int:
+    """基于 function.parameters/return_value 自动补全 function -> type 边。"""
+    name_to_types = defaultdict(set)
+    for name, info in all_entity_map.items():
+        name_to_types[name].add(normalize_entity_type((info or {}).get('type')))
+
+    existing = build_existing_edge_set(all_edges)
+    added = 0
+
+    def find_type_targets(type_name: str) -> List[str]:
+        if type_name not in name_to_types:
+            return []
+        return [type_name] if any(t in TYPE_NODE_KINDS for t in name_to_types[type_name]) else []
+
+    for out_name, entity_list in file_entity_lists.items():
+        for ent in entity_list:
+            if normalize_entity_type(ent.get('entity_type')) != 'function':
+                continue
+            source_name = ent.get('name')
+            if not source_name:
+                continue
+
+            for param in ent.get('parameters') or []:
+                p_type = param.get('type')
+                if not isinstance(p_type, str):
+                    continue
+                for token in tokenize_type_string(p_type):
+                    for target_name in find_type_targets(token):
+                        for edge_type in ('parameter_type', 'uses'):
+                            key = (source_name, target_name, edge_type)
+                            if key in existing:
+                                continue
+                            all_edges.append({
+                                'source': source_name,
+                                'target': target_name,
+                                'type': edge_type,
+                                'source_file': out_name,
+                            })
+                            existing.add(key)
+                            existing.add((target_name, source_name, edge_type))
+                            added += 1
+
+            rv = ent.get('return_value')
+            if isinstance(rv, dict):
+                rv_type = rv.get('type')
+            elif isinstance(rv, str):
+                rv_type = rv
+            else:
+                rv_type = None
+            if not isinstance(rv_type, str):
+                continue
+
+            for token in tokenize_type_string(rv_type):
+                for target_name in find_type_targets(token):
+                    for edge_type in ('return_type', 'returns'):
+                        key = (source_name, target_name, edge_type)
+                        if key in existing:
+                            continue
+                        all_edges.append({
+                            'source': source_name,
+                            'target': target_name,
+                            'type': edge_type,
+                            'source_file': out_name,
+                        })
+                        existing.add(key)
+                        existing.add((target_name, source_name, edge_type))
+                        added += 1
+
+    return added
+
+def build_entity_list_v41_from_map(all_entity_map: Dict[str, dict]) -> List[dict]:
+    entities = []
+    for name, info in sorted(all_entity_map.items()):
+        if not name:
+            continue
+        info = info or {}
+        entities.append({
+            'id': info.get('id') or f"windows::{name}",
+            'name': name,
+            'entity_type': normalize_entity_type(info.get('type')),
+        })
+    return entities
+
+def build_entity_list_v41_from_graph_entities(graph_entities: Dict[str, dict]) -> List[dict]:
+    entities = []
+    for eid, ent in graph_entities.items():
+        name = ent.get('name')
+        if not name:
+            continue
+        entities.append({
+            'id': eid,
+            'name': name,
+            'entity_type': normalize_entity_type(ent.get('entity_type')),
+        })
+    entities.sort(key=lambda x: x['name'])
+    return entities
+
+def save_global_v41_artifacts(output_dir: str, entities: List[dict], edges: List[dict]):
+    with open(os.path.join(output_dir, 'global_entity_index_v41.json'), 'w', encoding='utf-8') as f:
+        json.dump({'entities': entities}, f, ensure_ascii=False, indent=2)
+    with open(os.path.join(output_dir, 'global_edges_v41.json'), 'w', encoding='utf-8') as f:
+        json.dump({'edges': edges}, f, ensure_ascii=False, indent=2)
 
 # ── 置信度 ────────────────────────────────────────────────
 def compute_confidence(entity):
@@ -744,9 +905,23 @@ def score_entity_list(entity_list: list) -> dict:
 
 def build_file_pairs(workspace):
     """构建 .p.txt / .txt 文件对"""
-    all_files = sorted(f for f in os.listdir(workspace) if f.startswith('[OCR]') and f.endswith('.txt'))
-    p_files = {f[:-6]:f for f in all_files if f.endswith('.p.txt')}   # base→fname
-    t_files = {f[:-4]:f for f in all_files if not f.endswith('.p.txt')}  # base→fname
+    p_files = {}
+    t_files = {}
+    source_dirs = [workspace, os.path.join(workspace, "OCR_raw")]
+    for src_dir in source_dirs:
+        if not os.path.isdir(src_dir):
+            continue
+        rel_prefix = "" if os.path.abspath(src_dir) == os.path.abspath(workspace) else f"{os.path.basename(src_dir)}/"
+        all_files = sorted(
+            f for f in os.listdir(src_dir)
+            if f.startswith('[OCR]') and f.endswith('.txt')
+        )
+        for f in all_files:
+            rel_path = f"{rel_prefix}{f}"
+            if f.endswith('.p.txt'):
+                p_files.setdefault(f[:-6], rel_path)  # base -> relative path
+            else:
+                t_files.setdefault(f[:-4], rel_path)  # base -> relative path
     bases = sorted(set(p_files.keys()) | set(t_files.keys()))
     pairs = []
     for b in bases:
@@ -1398,7 +1573,8 @@ async def phase_extract(args, llm_config=None):
             new_ckpt_hashes[src_file] = fh
 
             # 输出名
-            out_name = src_file.replace('[OCR]_windows-', '')
+            src_base = os.path.basename(src_file)
+            out_name = src_base.replace('[OCR]_windows-', '')
             if out_name.endswith('.p.txt'): out_name = out_name[:-6] + '.json'
             elif out_name.endswith('.txt'): out_name = out_name[:-4] + '.json'
 
@@ -1549,6 +1725,10 @@ async def phase_extract(args, llm_config=None):
             src = e.get('name', '')
             for ref in e.get('cross_references', []):
                 all_edges.append({'source': src, 'target': ref, 'type': 'references', 'source_file': out_name})
+    ref_edges = len(all_edges)
+    signature_edges = enrich_edges_by_signature(file_entity_lists, all_entity_map, all_edges)
+    if signature_edges:
+        log.info(f"  参数/返回值自动建边: +{signature_edges} (references={ref_edges} -> total={len(all_edges)})")
 
     # ── 保存全局索引 ──
     idx_doc = OrderedDict([
@@ -1568,6 +1748,7 @@ async def phase_extract(args, llm_config=None):
     ])
     with open(os.path.join(OUTPUT_DIR, 'global_edges.json'), 'w', encoding='utf-8') as f:
         json.dump(edges_doc, f, ensure_ascii=False, indent=2)
+    save_global_v41_artifacts(OUTPUT_DIR, build_entity_list_v41_from_map(all_entity_map), all_edges)
 
     # ── 保存断点 ──
     save_extract_checkpoint({
@@ -1588,6 +1769,7 @@ async def phase_extract(args, llm_config=None):
               '_generated_at':datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
               'total_pairs':len(pairs),'total_entities':total_entities,'total_errors':total_errors,
               'global_entities':len(all_entity_map),'global_edges':len(all_edges),
+              'auto_signature_edges':signature_edges,
               'llm_compare_count':len(llm_compare_queue),'quality_decisions':quality_decisions}
     with open(os.path.join(OUTPUT_DIR,'_extraction_report.json'),'w',encoding='utf-8') as f:
         json.dump(report,f,ensure_ascii=False,indent=2)
@@ -1727,6 +1909,7 @@ def save_refined_graph(graph, output_dir, exec_stats):
         json.dump({'_schema':'api_edges_v4.0_refined',
                    '_generated_at':datetime.now(timezone.utc).isoformat(),
                    'total_edges':len(graph.edges),'edges':graph.edges},f,ensure_ascii=False,indent=2)
+    save_global_v41_artifacts(output_dir, build_entity_list_v41_from_graph_entities(graph.entities), graph.edges)
     # 报告
     with open(os.path.join(output_dir,'_refinement_report.json'),'w',encoding='utf-8') as f:
         json.dump({'_schema':'refinement_report_v4.0','_generated_at':datetime.now(timezone.utc).isoformat(),
