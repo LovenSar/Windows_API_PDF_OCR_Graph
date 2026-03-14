@@ -1,26 +1,13 @@
 {
-  "_schema": "windows_api_kg_v4.0",
-  "_generated_at": "2026-03-05T08:07:24Z",
-  "_content_hash": "b546ad28a50e",
-  "document": {
-    "document_id": "win32-api::tbs",
-    "title": "TPM 基本服务",
-    "domain": "win32-api",
-    "topic": "tbs",
-    "source_file": "[OCR]_windows-win32-api-_tbs_20260305_0200.p.txt",
-    "ocr_timestamp": "2026-03-05T02:00:00",
-    "headers_referenced": [
-      "tbs.h"
-    ],
-    "total_entities": 35
-  },
+  "_schema": "windows_api_kg_v4.0_refined",
+  "_generated_at": "2026-03-06T08:42:00.892796+00:00",
   "entities": [
     {
       "id": "windows::TBS_CONTEXT_PARAMS",
       "name": "TBS_CONTEXT_PARAMS",
       "entity_type": "struct",
-      "description": "contextParams; contextParams.version = TBS_CONTEXT_VERSION_ONE; result = Tbsi_Context_Create(&contextParams, &hContext); if (result == TBS_SUCCESS) { UINT32 iLogSize = TBS_IN_OUT_BUF_SIZE_MAX; BYTE* pLogBuffer = new BYTE[iLogSize]; result = Tbsi_Get_TCG_Log(hContext, pLogBuffer, &iLogSize); }}",
-      "syntax": "typedef struct tdTBS_CONTEXT_PARAMS {   UINT32 version;\n} TBS_CONTEXT_PARAMS, *PTBS_CONTEXT_PARAMS;\n成员 version\nTBS 上下文实现的版本。 此参数必须TBS_CONTEXT_VERSION_ONE。",
+      "description": "Specifies the version of the TBS context implementation.",
+      "syntax": "typedef struct tdTBS_CONTEXT_PARAMS {\n  UINT32 version;\n} TBS_CONTEXT_PARAMS, *PTBS_CONTEXT_PARAMS;",
       "requirements": {
         "target_platform": "Windows",
         "header": "tbs.h",
@@ -41,8 +28,8 @@
       "id": "windows::TBS_CONTEXT_PARAMS2",
       "name": "TBS_CONTEXT_PARAMS2",
       "entity_type": "struct",
-      "description": "指定 TBS 上下文实现的版本。 如果应用程序适用于这两个版本的 TPM，则必须使用此结构。 仅与 TPM 2.0 交互的应用程序应传递指向 TBS_CONTEXT_PARAMS2 结构的指针， 版本设置为 TPM_VERSION_20，includeTpm20 设置为 1。 与 TPM 1.2 和 TPM 2.0 交互的应用程序应传递指向 TBS_CONTEXT_PARAMS2 结构的指针， 版本 设置为 TPM_VERSION_20，includeTpm20 设置为 1，includeTpm12 设置为 1。",
-      "syntax": "typedef struct tdTBS_CONTEXT_PARAMS2 {\nUINT32 version;   union {\nstruct {\nUINT32 requestRaw : 1;       UINT32 includeTpm12 : 1;       UINT32 includeTpm20 : 1;     };\nUINT32 asUINT32;   };\n} TBS_CONTEXT_PARAMS2, *PTBS_CONTEXT_PARAMS2;\n成员 version\nTBS 上下文实现的版本。 必须将其设置为 TPM_VERSION_20。\nrequestRaw includeTpm12 includeTpm20 asUINT32\n用于访问一个变量中的所有位。\n要求要求\n最低受支持的客户端最低受支持的服务器\n标头反馈\n是\n值\nWindows 8 [仅限桌面应用]\nWindows Server 2012 [仅限桌面应用] tbs.h\n否\nTbsi_Context_Create 函数 (tbs.h) 项目2024/03/02\n创建可用于将命令传递给 TBS 的上下文句柄。",
+      "description": "指定TBS上下文实现的版本。如果应用程序适用于这两个版本的TPM，则必须使用此结构。仅与TPM 2.0交互的应用程序应传递指向TBS_CONTEXT_PARAMS2结构的指针，版本设置为TPM_VERSION_20，includeTpm20设置为1。与TPM 1.2和TPM 2.0交互的应用程序应传递指向TBS_CONTEXT_PARAMS2结构的指针，版本设置为TPM_VERSION_20，includeTpm20设置为1，includeTpm12设置为1。",
+      "syntax": "typedef struct tdTBS_CONTEXT_PARAMS2 {\n  UINT32 version;\n  union {\n    struct {\n      UINT32 requestRaw : 1;\n      UINT32 includeTpm12 : 1;\n      UINT32 includeTpm20 : 1;\n    };\n    UINT32 asUINT32;\n  };\n} TBS_CONTEXT_PARAMS2, *PTBS_CONTEXT_PARAMS2;",
       "header": "tbs.h",
       "deprecated": false,
       "cross_references": [
@@ -84,8 +71,8 @@
     {
       "id": "windows::TBS_E_BAD_PARAMETER",
       "name": "TBS_E_BAD_PARAMETER",
-      "entity_type": "struct",
-      "description": "2150121474 (0x80284002)",
+      "entity_type": "constant",
+      "description": "Indicates one or more parameter values are not valid",
       "header": "tbs.h",
       "deprecated": false,
       "cross_references": [],
@@ -95,9 +82,9 @@
     {
       "id": "windows::TBS_E_INTERNAL_ERROR",
       "name": "TBS_E_INTERNAL_ERROR",
-      "entity_type": "struct",
-      "description": "2150121473 (0x80284001)",
-      "remarks": "可从内核模式调用此函数。 说明 函数成功。 出现内部软件错误。 注意 如果返回TBS_E_INTERNAL_ERROR，则系统事件日志可能包含来自 TBS 事件源的事件 ID 16385，错误代码0x80070032。 这可能表示硬件平台未向操作系统提供 TCG 事件日志。 有时，可以通过从平台制造商安装 BIOS 升级来解决此问 题。 必须使用管理权限运行此函数。 此函数通过未指定的值扩展 PCR[12]，并在 TPM 中递增事件计数器。 这两个操作都是必需的，因此，在从此处向前创建的所有引号中，信任都会断开。 由于 PCR 在休眠时重置，并且扩展到 PCR[12]，然后会消失，事件计数器中的间隙将指示日志链断开。 因此，WBCL 文件在 TPM 启动后的剩余时间内不会反映 TPM 的当前状态，并且远程系统将无法在系统的安全状态中形成信任。 请注意，反恶意软件系统可能会执行其他修正或警报，但如果支持证明，则失效步骤至关重要。 当计算机进入休眠状态并随后恢复时，以前的 PCR 范围将丢失，断开的信任将不再反映在 PCR 测量中。 为了解决此问题， Tbsi_Revoke_Attestation 函数还会递增位于 TPM 中的单调事件计数器。 进一步的 TPM 证明验证将注意到存档的 WBCL 日志的启动计数器值有差距。 发现此类差距后，证明验证代码应无法通过验证，就像日志中不存在其他必需事件时一样。 请注意， TPM 中的计数器无法回滚，无法在事后构造缺少的 WBCL。",
+      "entity_type": "constant",
+      "description": "Trusted Base Services (TBS) internal error code (0x80284001)",
+      "remarks": "Indicates an internal software error in TBS. When this error occurs, check system event logs for TBS event source (ID 16385) which may indicate missing TCG event logs from hardware platform. BIOS upgrade from manufacturer may resolve this issue.",
       "requirements": {
         "target_platform": "Windows",
         "header": "tbs.h",
@@ -115,8 +102,8 @@
     {
       "id": "windows::TBS_E_INVALID_CONTEXT_PARAM",
       "name": "TBS_E_INVALID_CONTEXT_PARAM",
-      "entity_type": "struct",
-      "description": "说明 函数成功。 一个或多个参数值无效。出现内部软件错误。 尝试创建 TBS 上下文时传递了无效的上下文参数。 2150121479 (0x80284007)",
+      "entity_type": "constant",
+      "description": "尝试创建 TBS 上下文时传递了无效的上下文参数。错误码值: 2150121479 (0x80284007)",
       "header": "tbs.h",
       "deprecated": false,
       "cross_references": [],
@@ -126,9 +113,9 @@
     {
       "id": "windows::TBS_E_INVALID_OUTPUT_POINTER",
       "name": "TBS_E_INVALID_OUTPUT_POINTER",
-      "entity_type": "struct",
-      "description": "2150121475 (0x80284003) TBS_E_SERVICE_DISABLED 2150121488 (0x80284010)",
-      "remarks": "说明 函数成功。 一个或多个参数值无效。出现内部软件错误。 尝试创建 TBS 上下文时传递了无效的上下文参数。指定的输出指针无效。 有关详细信息，请参阅 TCG 物理状态接口规范要求",
+      "entity_type": "constant",
+      "description": "Invalid output pointer error code (0x80284010)",
+      "remarks": "The specified output pointer is invalid. For more information, see TCG Physical Presence Interface Specification.",
       "requirements": {
         "target_platform": "Windows",
         "header": "tbs.h",
@@ -144,48 +131,10 @@
       "_source_line": 132
     },
     {
-      "id": "windows::TBS_E_SERVICE_NOT_RUNNING",
-      "name": "TBS_E_SERVICE_NOT_RUNNING",
-      "entity_type": "struct",
-      "description": "2150121480 (0x80284008)",
-      "header": "tbs.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 134
-    },
-    {
-      "id": "windows::TBS_E_SERVICE_START_PENDING",
-      "name": "TBS_E_SERVICE_START_PENDING",
-      "entity_type": "struct",
-      "description": "2150121483 (0x8028400B)",
-      "header": "tbs.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 135
-    },
-    {
-      "id": "windows::TBS_E_TOO_MANY_TBS_CONTEXTS",
-      "name": "TBS_E_TOO_MANY_TBS_CONTEXTS",
-      "entity_type": "struct",
-      "description": "2150121481 (0x80284009) TBS_E_TPM_NOT_FOUND 2150121487 (0x8028400F)",
-      "remarks": "指定的输出指针无效。已禁用 TBS 服务。 TBS 服务未运行，无法启动。 TBS 服务已启动，但尚未运行。 由于打开的上下文太多，无法创建新上下文。 在此计算机上找不到兼容的受信任的平台模块 (TPM) 安全设备。 可以提供 TBS_CONTEXT_PARAMS 结构，版本字段设置为 TPM_VERSION_12。 与版本 2.0 TPM 交互的应用程序会将指针传递到 TBS_CONTEXT_PARAMS2 结构，版本字段设置为",
-      "header": "tbs.h",
-      "deprecated": false,
-      "cross_references": [
-        "TBS_CONTEXT_PARAMS",
-        "TBS_CONTEXT_PARAMS2",
-        "TBS_E_TPM_NOT_FOUND"
-      ],
-      "confidence": 0.75,
-      "_source_line": 136
-    },
-    {
       "id": "windows::TPM_VERSION_20",
       "name": "TPM_VERSION_20",
-      "entity_type": "struct",
-      "description": "。 将保留字段设置为 0，将 includeTPm20 字段设置为 1。 如果应用程序已准备好与版本 1.2 TPM 交互，并在系统没有版本 2.0 TPM) 的情况下 (，请将 includeTpm12 字段设置为 1。 如果系统上不存在 TPM，或者 TPM 版本与调用方请求的版本不匹配， Tbsi_Context_Create 将返回TBS_E_TPM_NOT_FOUND (0x8028400) 错误代码。 应用程序必须为这两个版本检查，并且 能够与任一 TPM 交互。",
+      "entity_type": "constant",
+      "description": "TPM 2.0版本标识符。将保留字段设置为0，将includeTPm20字段设置为1。如果应用程序需要与TPM 1.2交互，请将includeTpm12字段设置为1。如果系统上不存在TPM或版本不匹配，Tbsi_Context_Create将返回TBS_E_TPM_NOT_FOUND(0x8028400)错误。",
       "requirements": {
         "target_platform": "Windows",
         "header": "tbs.h",
@@ -201,35 +150,10 @@
       "_source_line": 144
     },
     {
-      "id": "windows::TBS_OWNERAUTH_TYPE_ENDORSEMENT",
-      "name": "TBS_OWNERAUTH_TYPE_ENDORSEMENT",
-      "entity_type": "struct",
-      "description": "4 含义 所有者授权已满。注意 仅限 TPM 1.2 所有者授权是管理员。 注意 仅限 TPM 1.2 所有者授权是用户。注意 仅限 TPM 1.2 所有者授权是认可授权。",
-      "header": "tbs.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 173
-    },
-    {
-      "id": "windows::TBS_OWNERAUTH_TYPE_STORAGE_20",
-      "name": "TBS_OWNERAUTH_TYPE_STORAGE_20",
-      "entity_type": "struct",
-      "description": "13 [out, optional] pOutputBuf 注意 TPM 2.0 及更高版本所有者授权是认可授权。注意 TPM 2.0 及更高版本所有者授权是管理员。 指向用于接收 TPM 所有者授权信息的缓冲区的指针。[in, out] pOutputBufLen 输入时指定输出缓冲区的大小（以字节为单位）的整数。 成功返回后，此值设置为 TPM ownerAuth 的实际大小（以字节为单位）。",
-      "return_value": {
-        "description": "如果函数成功，该函数将返回 TBS_SUCCESS。 如果函数失败，它将返回指示错误的 TBS 返回代码。 返回代码/值 TBS_SUCCESS 0 (0x0)"
-      },
-      "header": "tbs.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.8,
-      "_source_line": 182
-    },
-    {
       "id": "windows::TBS_E_OWNERAUTH_NOT_FOUND",
       "name": "TBS_E_OWNERAUTH_NOT_FOUND",
-      "entity_type": "struct",
-      "description": "2150121493 (0x80284015) TBS_E_BAD_PARAMETER 2150121474 (0x80284002)",
+      "entity_type": "constant",
+      "description": "Error code (0x80284015) indicating the requested TPM ownerAuth value was not found",
       "remarks": "说明 函数成功。 找不到请求的 TPM ownerAuth 值。 请求的 TPM ownerAuth 值与 TPM 版本不匹配。 还有其他授权值（也称为委派 Blob）派生自完整的 TPM ownerAuth，允许执行一部分 TPM 功能。 管理员可以配置应通过组策略本地存储在注册表中的 ownerAuth 级别，并从此 API 调用中获取相同的级别。 如果通过 组策略 启用 ownerAuth 的 Active Directory 备份，则默认级别的 ownerAuth 设置为委托，这意味着从本地注册表中删除完全所有者身份验证并存储在 Active Directory 中。 在这种情 况下，只有委派 Blob 存储在注册表中。 不过，可以将 ownerAuth 存储的级别显式配置为“完 全”，从而使 TPM ownerAuth 在注册表中本地可用。",
       "requirements": {
         "target_platform": "Windows",
@@ -250,50 +174,10 @@
       "_source_line": 192
     },
     {
-      "id": "windows::TBS_E_INSUFFICIENT_BUFFER",
-      "name": "TBS_E_INSUFFICIENT_BUFFER",
-      "entity_type": "struct",
-      "description": "2150121477 (0x80284005) TBS_E_BUFFER_TOO_LARGE 2150121486 (0x8028400E) TBS_E_TPM_NOT_FOUND 2150121487 (0x8028400F)",
-      "header": "tbs.h",
-      "deprecated": false,
-      "cross_references": [
-        "TBS_E_BUFFER_TOO_LARGE",
-        "TBS_E_TPM_NOT_FOUND"
-      ],
-      "confidence": 0.75,
-      "_source_line": 235
-    },
-    {
-      "id": "windows::TBS_E_DEACTIVATED",
-      "name": "TBS_E_DEACTIVATED",
-      "entity_type": "struct",
-      "description": "2150121494 (0x80284016)",
-      "remarks": "函数成功。 出现内部软件错误。 注意 如果返回TBS_E_INTERNAL_ERROR，则系统事件日志可能包含 TBS 事件源的事件 ID 16385，错误代码0x80070032。 这可能表示硬件平台未向操作系统提供 TCG 事件日志。 有时，可以通过安装平台制造商提供的 BIOS 升级来解决此问题。 指定的输出指针无效。 指定的上下文句柄不引用有效的上下文。 输出缓冲区太小。输出缓冲区太大。 在此计算机上找不到兼容的受信任平台模块 (TPM) 安全设备。 TPM) 安全设备的受信任平台模块 (已停用。 Windows Vista SP1 和 Windows Server 2008： 此返回值不可用。 Tbsi_Get_TCG_Log函数返回系统的 TCG 事件日志，缓冲区大小取决于事件数。 Windows 10： 该函数可能会返回使用与不同哈希算法兼容的格式的日志，具体取决于硬件功能和固件设置。 此日志将除第一个事件之外的每个事件格式化为TCG_PCR_EVENT2结构： typedef struct {",
-      "header": "tbs.h",
-      "deprecated": false,
-      "cross_references": [
-        "Server",
-        "Vista"
-      ],
-      "confidence": 0.65,
-      "_source_line": 237
-    },
-    {
-      "id": "windows::TCG_PCRINDEX",
-      "name": "TCG_PCRINDEX",
-      "entity_type": "struct",
-      "description": "PCRIndex; TCG_EVENTTYPE EventType;",
-      "header": "tbs.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 251
-    },
-    {
       "id": "windows::TPML_DIGEST_VALUES",
       "name": "TPML_DIGEST_VALUES",
       "entity_type": "struct",
-      "description": "Digests; UINT32 EventSize; UINT8 Event[EventSize]; } TCG_PCR_EVENT2; typedef struct { UINT32 Count;",
+      "description": "A structure that contains an array of digest values. Typically used in TPM (Trusted Platform Module) related operations.",
       "header": "tbs.h",
       "deprecated": false,
       "cross_references": [
@@ -305,8 +189,8 @@
     {
       "id": "windows::TPMT_HA",
       "name": "TPMT_HA",
-      "entity_type": "struct",
-      "description": "Digests; } TPML_DIGEST_VALUES; typedef struct { UINT16 HashAlg; UINT8 Digest[size_varies_with_algorithm];} TPMT_HA; 日志将第一个事件格式化为 TCG_PCR_EVENT 结构，稍后将在此备注部分进行介绍。 下表描述了此结构中第一个事件的成员的值。",
+      "entity_type": "structure",
+      "description": "Structure representing a hash algorithm and its digest. Contains HashAlg (hash algorithm identifier) and Digest (variable-sized hash value).",
       "header": "tbs.h",
       "deprecated": false,
       "cross_references": [
@@ -319,8 +203,8 @@
     {
       "id": "windows::TCG_PCR_EVENT",
       "name": "TCG_PCR_EVENT",
-      "entity_type": "struct",
-      "description": "成员 PCRIndex EventType 摘要式 EventSize",
+      "entity_type": "structure",
+      "description": "Contains information about a TCG (Trusted Computing Group) PCR (Platform Configuration Register) event. Members include PCRIndex, EventType, and EventSize.",
       "header": "tbs.h",
       "deprecated": false,
       "cross_references": [
@@ -330,75 +214,10 @@
       "_source_line": 261
     },
     {
-      "id": "windows::EV_NO_ACTION",
-      "name": "EV_NO_ACTION",
-      "entity_type": "event",
-      "description": "20 字节的零 事件成员的大小 具有 类型TCG_EfiSpecIdEventStruct 下面显示了 TCG_PCR_EVENT 结构的 Event 成员用于第一个日志事件的 TCG_EfiSpecIdEventStruct 结构的语法。 typedef struct { BYTE[16] Signature; UINT32 PlatformClass; UINT8 SpecVersionMinor; UINT8 SpecVersionMajor; UINT8 SpecErrata; UINT8 UintNSize; UINT32 NumberOfAlgorithms; TCG_EfiSpecIdEventAlgorithmSize DigestSizes[NumberOfAlgorithms]; UINT8 VendorInfoSize; UINT8 VendorInfo[VendorInfoSize]; } TCG_EfiSpecIdEventStruct; typedef struct { UINT16 HashAlg; UINT16 DigestSize; } TCG_EfiSpecIdEventAlgorithmSize; 当日志使用与不同哈希算法兼容的格式时，TCG_EfiSpecIdEventStruct 结构的 Signature 成员设置为以 null 结尾的 ASCII 字符串“Spec ID Event03”。 第一个事件中的 DigestSizes 数组包含日志使用的不同哈希算法的摘要大小。 当分析程序检查 TCG_PCR_EVENT2类型的事件时，分析程序可以分析 TPML_DIGEST_VALUES 成员，而无需提供有关所有哈希算法的信息。 第一个事件中的摘要大小允许分析程序跳过存在的摘要的正确字节数。 如果 Signature 成员未设置为以 null 结尾的 ASCII 字符串“Spec ID Event03”，则日志中的事件的类型 为 TCG_PCR_EVENT，并且 TCG_EfiSpecIdEventStruct 结构不包含 NumberOfAlgorithms 和 DigestSizes 成员。 与不同哈希算法兼容的日志格式允许平台和操作系统使用 SHA1、SHA256 或其他哈希算法。 如 果平台支持 SHA256 哈希算法，并且 使用与不同哈希算法兼容的日志格式，则平台使用 SHA256 算法而不是 SHA1。 Windows Vista SP1 和 Windows Server 2008： 函数直接从 ACPI 表返回日志，并返回整个 ACPI 分配的缓冲区，包括任何事件后未使用的缓冲区。 TCG 事件日志中 Windows 定义的事件是 {Type， Length， Value} 的元组。 可以使用 TCG PC 客 户端规范 范 中的以下TCG_PCR_EVENT结构分析日志。可以使用 TPM PCP 工具包和 TPM 中的信息在日志事件列表之间创建关联。 typedef struct {",
-      "header": "tbs.h",
-      "deprecated": false,
-      "cross_references": [
-        "Length",
-        "Server",
-        "TCG_PCR_EVENT",
-        "TPML_DIGEST_VALUES",
-        "Vista"
-      ],
-      "confidence": 0.75,
-      "_source_line": 265
-    },
-    {
-      "id": "windows::TCG_DIGEST",
-      "name": "TCG_DIGEST",
-      "entity_type": "event",
-      "description": "Digest; UINT32 EventSize; UINT8 Event[EventSize];} TCG_PCR_EVENT; 主规 pOutputBuf 参数所需的内存大小应为 TBS_IN_OUT_BUF_SIZE_MAX 中的常量（在 Tbs.h 头文件 中定义），或者应通过调用长度为零的Tbsi_Get_TCG_Log函数来获取所需的缓冲区大小。 Windows Vista SP1 和 Windows Server 2008： 不支持调用长度为零的缓冲区的 Tbsi_Get_TCG_Log 函数以获取所需的缓冲区大小。 建议对 pOutputBuf 参数的内存大小使用 Tbs.h 头文件中定义的常量TBS_IN_OUT_BUF_SIZE_MAX。示例 C++ #include <windows.h>#include <tbs.h> #pragma comment(lib, \"Tbs.lib\") void main(){",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "tbs.h",
-        "library": "Tbs.lib",
-        "dll": "Tbs.dll",
-        "min_client": "Windows 10"
-      },
-      "header": "tbs.h",
-      "deprecated": false,
-      "cross_references": [
-        "EventSize",
-        "Server",
-        "TCG_PCR_EVENT",
-        "Vista"
-      ],
-      "confidence": 0.75,
-      "_source_line": 292
-    },
-    {
-      "id": "windows::TBS_HCONTEXT",
-      "name": "TBS_HCONTEXT",
-      "entity_type": "event",
-      "description": "hContext;",
-      "header": "tbs.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.55,
-      "_source_line": 304
-    },
-    {
-      "id": "windows::TBS_TCGLOG_SRTM_RESUME",
-      "name": "TBS_TCGLOG_SRTM_RESUME",
-      "entity_type": "event",
-      "description": "3 [out, optional] pbOutput 含义 与当前会话的 PCR 0-15 关联的日志 (启动或恢复) 。与当前会话的 PCR 17-22 关联的日志 (启动或恢复) 。与最新干净启动会话的 PCR 0-15 关联的日志。 与 PCR 0-15 关联的日志，用于从休眠中恢复的最新恢复。 指向接收和存储 WBCL 的缓冲区的指针。 设置为 NULL 以估计输入时 ，当由印刷品输出 指向的 位置也为 0 时，估计所需的缓冲区。[in, out] pcbOutput 指向无符号长整数的指针，该整数指定输出缓冲区的大小（以字节为单位）。 成功时，包含 pOutput 指向的数据的大小（以字节为单位）。 失败时，不包含值。 注意如果 pbOutput 为 NULL 且由TBS_E_BUFFER_TOO_SMALL输出指向的位置为 0，则该函数将 返回。 在这种情况下， pbOutput 将指向所需的 pbOutput 大小。",
-      "return_value": {
-        "description": "返回代码/值 TBS_SUCCESS 0 (0x0)"
-      },
-      "header": "tbs.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.8,
-      "_source_line": 332
-    },
-    {
       "id": "windows::TBS_E_TPM_NOT_FOUND",
       "name": "TBS_E_TPM_NOT_FOUND",
-      "entity_type": "event",
-      "description": "2150121487 (0x8028400F) 说明 函数成功。 一个或多个参数值无效。 在此计算机上找不到兼容的受信任的平台模块 (TPM) 安全设备。 要求",
+      "entity_type": "constant",
+      "description": "Error code 2150121487 (0x8028400F). Indicates that no compatible Trusted Platform Module (TPM) security device was found on this computer.",
       "header": "tbs.h",
       "deprecated": false,
       "cross_references": [],
@@ -408,8 +227,8 @@
     {
       "id": "windows::TBS_E_INVALID_CONTEXT",
       "name": "TBS_E_INVALID_CONTEXT",
-      "entity_type": "event",
-      "description": "2150121476 (0x80284004)",
+      "entity_type": "constant",
+      "description": "Error code indicating the specified context handle does not reference a valid context",
       "remarks": "说明 函数成功。 出现内部软件错误。 指定的上下文句柄不引用有效的上下文。 当上下文句柄关闭时，与上下文句柄关联的结构将被归零，这可确保后续尝试使用该句柄将导致 错误。 将刷新在此上下文下创建的所有对象。",
       "requirements": {
         "target_platform": "Windows",
@@ -428,9 +247,9 @@
     {
       "id": "windows::TBS_E_IOERROR",
       "name": "TBS_E_IOERROR",
-      "entity_type": "event",
-      "description": "2150121478 (0x80284006)",
-      "remarks": "说明 函数成功。 出现内部软件错误。 指定的上下文句柄不引用有效的上下文。与 TPM 通信时出错。 取消命令时，TBS 会向命令发送一条消息，指示命令已取消。",
+      "entity_type": "constant",
+      "description": "Trusted Platform Module Base Services I/O error (error code 2150121478/0x80284006)",
+      "remarks": "Indicates an I/O error occurred while communicating with the TPM. When canceling a command, TBS sends a message to the command indicating it was canceled.",
       "requirements": {
         "target_platform": "Windows",
         "header": "tbs.h",
@@ -446,61 +265,15 @@
       "_source_line": 541
     },
     {
-      "id": "windows::Locality",
-      "name": "Locality",
-      "entity_type": "event",
-      "description": "0。 这是当前唯一支持的区域。 locality 1。 locality 2。位置三。位置四。 4 (0x4) [in] Priority 命令应具有的优先级。 此参数的取值可为下列值之一： 值",
-      "header": "tbs.h",
-      "deprecated": false,
-      "cross_references": [
-        "Priority"
-      ],
-      "confidence": 0.6,
-      "_source_line": 603
-    },
-    {
-      "id": "windows::TBS_COMMAND_PRIORITY_LOW",
-      "name": "TBS_COMMAND_PRIORITY_LOW",
-      "entity_type": "event",
-      "description": "100 (0x64)",
-      "header": "tbs.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.55,
-      "_source_line": 611
-    },
-    {
-      "id": "windows::TBS_COMMAND_PRIORITY_NORMAL",
-      "name": "TBS_COMMAND_PRIORITY_NORMAL",
-      "entity_type": "event",
-      "description": "200 (0xC8)",
-      "header": "tbs.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.55,
-      "_source_line": 612
-    },
-    {
       "id": "windows::TBS_COMMAND_PRIORITY_SYSTEM",
       "name": "TBS_COMMAND_PRIORITY_SYSTEM",
-      "entity_type": "event",
-      "description": "400 (0x190)",
+      "entity_type": "enum",
+      "description": "System priority level for TPM commands",
       "header": "tbs.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.55,
       "_source_line": 613
-    },
-    {
-      "id": "windows::TBS_COMMAND_PRIORITY_HIGH",
-      "name": "TBS_COMMAND_PRIORITY_HIGH",
-      "entity_type": "event",
-      "description": "300 (0x12C)",
-      "header": "tbs.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.55,
-      "_source_line": 614
     },
     {
       "id": "windows::TBS_COMMAND_PRIORITY_MAX",
@@ -517,22 +290,11 @@
       "_source_line": 615
     },
     {
-      "id": "windows::TBS_E_BUFFER_TOO_LARGE",
-      "name": "TBS_E_BUFFER_TOO_LARGE",
-      "entity_type": "event",
-      "description": "2150121486 (0x8028400E)",
-      "header": "tbs.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 632
-    },
-    {
       "id": "windows::TPM_DEVICE_INFO",
       "name": "TPM_DEVICE_INFO",
-      "entity_type": "event",
-      "description": "提供有关 TPM 版本的信息。",
-      "syntax": "typedef struct _TPM_DEVICE_INFO {\nUINT32 structVersion;   UINT32 tpmVersion;\nUINT32 tpmInterfaceType;   UINT32 tpmImpRevision;\n} TPM_DEVICE_INFO, *PTPM_DEVICE_INFO;\n成员 structVersion\nTBS 上下文实现的版本。 此参数必须设置为 TPM_VERSION_20。 tpmVersion\nTPM 版本。 将设置为 TPM_VERSION_12 或 TPM_VERSION_20。\ntpmInterfaceType 预留\ntpmImpRevision 预留",
+      "entity_type": "structure",
+      "description": "包含TPM设备版本信息的结构体。",
+      "syntax": "typedef struct _TPM_DEVICE_INFO {\n  UINT32 structVersion;\n  UINT32 tpmVersion;\n  UINT32 tpmInterfaceType;\n  UINT32 tpmImpRevision;\n} TPM_DEVICE_INFO, *PTPM_DEVICE_INFO;",
       "requirements": {
         "target_platform": "Windows",
         "header": "tbs.h",

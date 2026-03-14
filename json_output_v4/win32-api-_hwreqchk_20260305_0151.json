@@ -1,25 +1,12 @@
 {
-  "_schema": "windows_api_kg_v4.0",
-  "_generated_at": "2026-03-05T08:07:14Z",
-  "_content_hash": "2cc85a582e7c",
-  "document": {
-    "document_id": "win32-api::hwreqchk",
-    "title": "硬件要求计算器 (HWREQCHK)",
-    "domain": "win32-api",
-    "topic": "hwreqchk",
-    "source_file": "[OCR]_windows-win32-api-_hwreqchk_20260305_0151.p.txt",
-    "ocr_timestamp": "2026-03-05T01:51:00",
-    "headers_referenced": [
-      "hwreqchkapi.h"
-    ],
-    "total_entities": 29
-  },
+  "_schema": "windows_api_kg_v4.0_refined",
+  "_generated_at": "2026-03-06T08:42:00.881950+00:00",
   "entities": [
     {
       "id": "windows::HWREQCHK_CPU_VENDOR",
       "name": "HWREQCHK_CPU_VENDOR",
       "entity_type": "enum",
-      "description": "枚举(hwreqchkapi.h) 某些信息与预发行产品相关，该产品在商业发布之前可能会进行重大修改。 对于此 处提供的信息，Microsoft 不作任何明示或暗示的担保。指示 CPU 供应商。",
+      "description": "枚举(hwreqchkapi.h) 指示 CPU 供应商。某些信息与预发行产品相关，该产品在商业发布之前可能会进行重大修改。对于此处提供的信息，Microsoft 不作任何明示或暗示的担保。",
       "syntax": "typedef enum HWREQCHK_CPU_VENDOR {",
       "header": "hwreqchkapi.h",
       "deprecated": false,
@@ -31,7 +18,7 @@
       "id": "windows::HWREQCHK_PRODUCT_TYPE",
       "name": "HWREQCHK_PRODUCT_TYPE",
       "entity_type": "enum",
-      "description": "枚举(hwreqchkapi.h) 某些信息与预发行产品相关，在商业发布之前，该产品可能会进行实质性修改。 对 于此处提供的信息，Microsoft 不作任何明示或暗示的担保。指示产品类型。 此值用于确定要检查的硬件要求集。",
+      "description": "枚举类型 (hwreqchkapi.h)，用于指示产品类型以确定要检查的硬件要求集。注意：某些信息与预发行产品相关，在商业发布前可能进行实质性修改。",
       "syntax": "typedef enum HWREQCHK_PRODUCT_TYPE {",
       "header": "hwreqchkapi.h",
       "deprecated": false,
@@ -43,7 +30,7 @@
       "id": "windows::HWREQCHK_TARGET_RELEASE",
       "name": "HWREQCHK_TARGET_RELEASE",
       "entity_type": "enum",
-      "description": "TargetRelease; HWREQCHK_PRODUCT_TYPE ProductType; ULONG Revision; BOOL IsLatestRequirementForProductType; WCHAR RequirementName[HWREQCHK_MAX_HARDWARE_REQUIREMENT_NAME];}",
+      "description": "Enumeration specifying the target release type for hardware requirement checks",
       "syntax": "typedef enum HWREQCHK_TARGET_RELEASE {   HWREQCHK_TARGET_RELEASE_INVALID,",
       "members": [
         {
@@ -65,8 +52,8 @@
       "id": "windows::EvaluateHardwareRequirement",
       "name": "EvaluateHardwareRequirement",
       "entity_type": "function",
-      "description": "评估特定要求并返回通过或失败结果，通知调用方设备是否满足硬件要求。 GetHardwareRequirements 返回所有产品类型的已定义硬件要求的集合。 GetHardwareRequirementSystemInfo 提供用于评估和比较给定硬件要求的实际硬件设备系统信息。",
-      "syntax": "HRESULT EvaluateHardwareRequirement(\nconst HWREQCHK_DEVICE_HARDWARE_REQUIREMENT *hardwareRequirement,   BOOL                                       *evaluationResult,",
+      "description": "Evaluates a specific hardware requirement and returns pass/fail result indicating whether the device meets the requirement. Works in conjunction with GetHardwareRequirements (returns defined hardware requirements collection) and GetHardwareRequirementSystemInfo (provides actual hardware info for comparison).",
+      "syntax": "HRESULT EvaluateHardwareRequirement(\n    _In_ const HWREQCHK_DEVICE_HARDWARE_REQUIREMENT *hardwareRequirement,\n    _Out_ BOOL *evaluationResult\n);",
       "header": "hwreqchkapi.h",
       "deprecated": false,
       "cross_references": [
@@ -77,21 +64,10 @@
       "_source_line": 19
     },
     {
-      "id": "windows::GetLatestHardwareRequirement",
-      "name": "GetLatestHardwareRequirement",
-      "entity_type": "function",
-      "description": "返回给定产品类型的最新定义要求。",
-      "header": "hwreqchkapi.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.4,
-      "_source_line": 26
-    },
-    {
       "id": "windows::HWREQCHK_DEVICE_HARDWARE_EVALUATION",
       "name": "HWREQCHK_DEVICE_HARDWARE_EVALUATION",
       "entity_type": "struct",
-      "description": "都表示已计算的单个约束。７ 备注 在内部，API 使用 CoTaskMemAlloc 为此参数分配内存，调用方负责使用",
+      "description": "表示已计算的单个约束。在内部，API使用CoTaskMemAlloc为此参数分配内存，调用方负责释放内存。",
       "parameters": [
         {
           "name": "hardwareRequirement",
@@ -104,13 +80,14 @@
         "CoTaskMemAlloc"
       ],
       "confidence": 0.85,
-      "_source_line": 29
+      "_source_line": 29,
+      "syntax": "typedef struct HWREQCHK_DEVICE_HARDWARE_EVALUATION {   WCHAR RuleName[HWREQCHK_MAX_HARDWARE_RULE_NAME];   BOOL  Succeeded;\n} HWREQCHK_DEVICE_HARDWARE_EVALUATION; 成员\nRuleName[HWREQCHK_MAX_HARDWARE_RULE_NAME]\n正在检查的当前规则的名称。 RuleName 的最大大小为 64，由"
     },
     {
       "id": "windows::HWREQCHK_DEVICE_HARDWARE_REQUIREMENT",
       "name": "HWREQCHK_DEVICE_HARDWARE_REQUIREMENT",
       "entity_type": "struct",
-      "description": "*deviceHardwareRequirement); 参数 productType 指定应为其返回最新定义的硬件要求的产品类型。 每个定义的产品类型枚举值可以有一 个或多个与硬件要求关联的 OS 版本。 deviceHardwareRequirement 给定 productType 的最新定义硬件要求。",
+      "description": "Specifies the latest defined hardware requirements for a given product type. Each product type enumeration value can have one or more OS versions associated with hardware requirements.",
       "parameters": [
         {
           "name": "deviceHardwareRequirements",
@@ -128,14 +105,15 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.9,
-      "_source_line": 31
+      "_source_line": 31,
+      "syntax": "typedef struct HWREQCHK_DEVICE_HARDWARE_REQUIREMENT {"
     },
     {
       "id": "windows::HWREQCHK_DEVICE_HARDWARE_SYSINFO",
       "name": "HWREQCHK_DEVICE_HARDWARE_SYSINFO",
       "entity_type": "struct",
-      "description": "*deviceHardwareSystemInfo);",
-      "syntax": "HRESULT GetLatestHardwareRequirement(",
+      "description": "包含设备硬件和系统信息的数据结构，用于硬件要求检查。",
+      "syntax": "typedef struct HWREQCHK_DEVICE_HARDWARE_SYSINFO { ... };",
       "parameters": [
         {
           "name": "deviceHardwareSystemInfo",
@@ -156,52 +134,10 @@
       "_source_line": 33
     },
     {
-      "id": "windows::CoTaskMemFree",
-      "name": "CoTaskMemFree",
-      "entity_type": "enum",
-      "description": "释放内存。 requirementCount deviceHardwareRequirements 中返回的 HWREQCHK_DEVICE_HARDWARE_REQUIREMENT项数。",
-      "return_value": {
-        "description": "返回一个 HRESULT 值，该值指示调用成功或失败。"
-      },
-      "requirements": {
-        "header": "hwreqchkapi.h",
-        "dll": "HWREQCHK.DLL"
-      },
-      "header": "hwreqchkapi.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 91
-    },
-    {
-      "id": "windows::GetHardwareRequirements",
-      "name": "GetHardwareRequirements",
-      "entity_type": "enum",
-      "description": "函数(hwreqchkapi.h) 某些信息与预发行产品相关，在商业发布之前，该产品可能会进行实质性修改。 对 于此处提供的信息，Microsoft 不作任何明示或暗示的担保。此 API 返回所有产品类型的已定义硬件要求的集合。",
-      "syntax": "HRESULT GetHardwareRequirements(",
-      "header": "hwreqchkapi.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.7,
-      "_source_line": 104
-    },
-    {
-      "id": "windows::GetHardwareRequirementSystemInfo",
-      "name": "GetHardwareRequirementSystemInfo",
-      "entity_type": "enum",
-      "description": "函数 (hwreqchkapi.h) 某些信息与预发行产品相关，在商业发布之前，该产品可能会进行实质性修改。 对于此处提供的信息，Microsoft 不作任何明示或暗示的担保。 此 API 返回用于根据给定硬件要求进行评估和比较的实际硬件设备系统信息。",
-      "syntax": "HRESULT GetHardwareRequirementSystemInfo(",
-      "header": "hwreqchkapi.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.7,
-      "_source_line": 130
-    },
-    {
       "id": "windows::HWREQCHK_CPU_VENDOR_OTHER",
       "name": "HWREQCHK_CPU_VENDOR_OTHER",
       "entity_type": "enum",
-      "description": ", HWREQCHK_CPU_VENDOR_AMD, HWREQCHK_CPU_VENDOR_INTEL,",
+      "description": "Represents CPU vendors other than AMD or Intel",
       "header": "hwreqchkapi.h",
       "deprecated": false,
       "cross_references": [
@@ -215,7 +151,7 @@
       "id": "windows::HWREQCHK_CPU_VENDOR_QUALCOMM",
       "name": "HWREQCHK_CPU_VENDOR_QUALCOMM",
       "entity_type": "enum",
-      "description": "CPU 由高通制造。 要求要求 Header 是 否 值 hwreqchkapi.h",
+      "description": "CPU由高通制造。定义在hwreqchkapi.h头文件中",
       "header": "hwreqchkapi.h",
       "deprecated": false,
       "cross_references": [],
@@ -237,7 +173,7 @@
       "id": "windows::HWREQCHK_CPU_VENDOR_INTEL",
       "name": "HWREQCHK_CPU_VENDOR_INTEL",
       "entity_type": "constant",
-      "description": "CPU 由 Intel 制造。",
+      "description": "标识CPU由Intel制造的常量值",
       "header": "hwreqchkapi.h",
       "deprecated": false,
       "cross_references": [],
@@ -245,22 +181,10 @@
       "_source_line": 189
     },
     {
-      "id": "windows::HWREQCHK_DEVICE_HARDWARE_EVAL",
-      "name": "HWREQCHK_DEVICE_HARDWARE_EVAL",
-      "entity_type": "constant",
-      "description": "UATION 结构 (hwreqchkapi.h) 某些信息与预发行产品相关，该产品在商业发布之前可能会进行重大修改。 对于此 处提供的信息，Microsoft 不作任何明示或暗示的担保。包含单个规则检查的结果。",
-      "syntax": "typedef struct HWREQCHK_DEVICE_HARDWARE_EVALUATION {   WCHAR RuleName[HWREQCHK_MAX_HARDWARE_RULE_NAME];   BOOL  Succeeded;\n} HWREQCHK_DEVICE_HARDWARE_EVALUATION; 成员\nRuleName[HWREQCHK_MAX_HARDWARE_RULE_NAME]\n正在检查的当前规则的名称。 RuleName 的最大大小为 64，由",
-      "header": "hwreqchkapi.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.85,
-      "_source_line": 203
-    },
-    {
       "id": "windows::HWREQCHK_MAX_HARDWARE_RULE_NAME",
       "name": "HWREQCHK_MAX_HARDWARE_RULE_NAME",
       "entity_type": "constant",
-      "description": "定义。 Succeeded 指示是否满足规则的要求。",
+      "description": "Maximum length for hardware rule names.",
       "requirements": {
         "header": "hwreqchkapi.h"
       },
@@ -271,22 +195,10 @@
       "_source_line": 212
     },
     {
-      "id": "windows::HWREQCHK_DEVICE_HARDWARE_REQU",
-      "name": "HWREQCHK_DEVICE_HARDWARE_REQU",
-      "entity_type": "constant",
-      "description": "IREMENT 结构 (hwreqchkapi.h) 某些信息与预发行产品相关，该产品在商业发布之前可能会进行重大修改。 对于此 处提供的信息，Microsoft 不作任何明示或暗示的担保。包含单个硬件要求检查的结果。",
-      "syntax": "typedef struct HWREQCHK_DEVICE_HARDWARE_REQUIREMENT {",
-      "header": "hwreqchkapi.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.85,
-      "_source_line": 223
-    },
-    {
       "id": "windows::IsLatestRequirementForProductType",
       "name": "IsLatestRequirementForProductType",
       "entity_type": "constant",
-      "description": "指示硬件要求是否为当前产品类型的最新修订版。 RequirementName[HWREQCHK_MAX_HARDWARE_REQUIREMENT_NAME] 硬件要求的名称。 RequirementName 的最大大小为 64，由 HWREQCHK_MAX_HARDWARE_REQUIREMENT_NAME 定义。",
+      "description": "指示硬件要求是否为当前产品类型的最新修订版。RequirementName的最大大小为64，由HWREQCHK_MAX_HARDWARE_REQUIREMENT_NAME定义。",
       "requirements": {
         "header": "hwreqchkapi.h"
       },
@@ -299,42 +211,10 @@
       "_source_line": 236
     },
     {
-      "id": "windows::HWREQCHK_DEVICE_HARDWARE_SYSIN",
-      "name": "HWREQCHK_DEVICE_HARDWARE_SYSIN",
-      "entity_type": "constant",
-      "description": "FO 结构 (hwreqchkapi.h) 某些信息与预发行产品相关，该产品在商业发布之前可能会进行重大修改。 对于此 处提供的信息，Microsoft 不作任何明示或暗示的担保。提供有关设备硬件的信息。",
-      "syntax": "typedef struct HWREQCHK_DEVICE_HARDWARE_SYSINFO {   BOOL                       SSE2ProcessorSupport;   BOOL                       NXProcessorSupport;\nBOOL                       CompareExchange128Support;\nBOOL                       LahfSahfSupport;   BOOL                       PrefetchWSupport;\nBOOL                       ArmV81ProcessorSupport;   BOOL                       SecureBootCapable;\nULONG                      TpmVersion;   ULONG                      RamMB;\nULONG                      SystemDiskSizeMB;   ULONG                      CpuMhz;\nULONG                      CpuCoreCount;\nULONG                      CpuFamily;   ULONG                      CpuModel;\nULONG                      CpuStepping;\nULONG                      Platform;   HWREQCHK_CPU_VENDOR        CpuVendor;\nULONG                      Architecture;\nWCHAR                      ProcessorName[HWREQCHK_MAX_PROPERTY_VALUE];   BOOL                       IsServer;",
-      "header": "hwreqchkapi.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.85,
-      "_source_line": 251
-    },
-    {
-      "id": "windows::WLDP_WINDOWS_LOCKDOWN_MODE",
-      "name": "WLDP_WINDOWS_LOCKDOWN_MODE",
-      "entity_type": "constant",
-      "description": "LockdownMode; ULONG ProductOS; WCHAR ProductName[HWREQCHK_MAX_PROPERTY_VALUE];}",
-      "members": [
-        {
-          "name": "SSE2ProcessorSupport",
-          "description": "指示设备是否支持 SSE2 指令集。 NXProcessorSupport 指示设备是否支持 NX 指令集。 CompareExchange128Support 指示设备是否支持 CompareExchange128 指令。 LahfSahfSupport 指示设备是否支持 LAHF/SAHF 指令。 PrefetchWSupport 指示设备是否支持 PREFETCHW 指令。 ArmV81ProcessorSupport 指示设备是否支持 ARMv8.1 指令集。 SecureBootCapable 指示设备是否能够在安全启动模式下运行。 TpmVersion 受信任的平台模块的版本 (TPM) 。 RamMB RAM 量（以兆字节为单位）。 SystemDiskSizeMB 系统磁盘的大小（以 MB 为单位）。 CpuMhz CPU 的时钟速度。 CpuCoreCount CPU 中的核心数。"
-        }
-      ],
-      "header": "hwreqchkapi.h",
-      "deprecated": false,
-      "cross_references": [
-        "HWREQCHK_MAX_PROPERTY_VALUE",
-        "ProductName"
-      ],
-      "confidence": 0.85,
-      "_source_line": 268
-    },
-    {
       "id": "windows::CpuFamily",
       "name": "CpuFamily",
       "entity_type": "constant",
-      "description": "CPU 系列。 CpuModel CPU 的模型。 CpuStepping CPU 的步进值。 Platform CPU 的平台。 CpuVendor 处理器供应商。 Architecture CPU 的体系结构。 ProcessorName[HWREQCHK_MAX_PROPERTY_VALUE] 处理器的名称。 ProcessorName 的最大大小为 256，由",
+      "description": "CPU系列标识符",
       "header": "hwreqchkapi.h",
       "deprecated": false,
       "cross_references": [
@@ -347,7 +227,7 @@
       "id": "windows::HWREQCHK_MAX_PROPERTY_VALUE",
       "name": "HWREQCHK_MAX_PROPERTY_VALUE",
       "entity_type": "constant",
-      "description": "定义。 IsServer 指示设备是否为服务器。 LockdownMode 指示设备是否处于锁定模式。 ProductOS 指定产品的操作系统。 ProductName[HWREQCHK_MAX_PROPERTY_VALUE] 当前设备的产品名称。 ProductName 的最大大小为 256，由 定义。",
+      "description": "指定产品名称属性的最大长度值，定义为256",
       "requirements": {
         "header": "hwreqchkapi.h"
       },
@@ -363,7 +243,7 @@
       "id": "windows::HWREQCHK_PRODUCT_INVALID",
       "name": "HWREQCHK_PRODUCT_INVALID",
       "entity_type": "constant",
-      "description": ", HWREQCHK_PRODUCT_DEFAULT, HWREQCHK_PRODUCT_DESKTOP, HWREQCHK_PRODUCT_SERVER,",
+      "description": "Invalid product type for hardware requirement checking",
       "header": "hwreqchkapi.h",
       "deprecated": false,
       "cross_references": [
@@ -378,7 +258,7 @@
       "id": "windows::HWREQCHK_PRODUCT_IOTENTERPRISE",
       "name": "HWREQCHK_PRODUCT_IOTENTERPRISE",
       "entity_type": "constant",
-      "description": "该产品是企业 IoT 设备。 HWREQCHK_PRODUCT_IOT 该产品是 IoT 设备。 要求要求 Header 是 否 值 hwreqchkapi.h",
+      "description": "该产品是企业 IoT 设备。HWREQCHK_PRODUCT_IOT 该产品是 IoT 设备。Header: hwreqchkapi.h",
       "header": "hwreqchkapi.h",
       "deprecated": false,
       "cross_references": [],
@@ -389,7 +269,7 @@
       "id": "windows::HWREQCHK_TARGET_RELEASE_WIN11_VNEXT",
       "name": "HWREQCHK_TARGET_RELEASE_WIN11_VNEXT",
       "entity_type": "constant",
-      "description": ", HWREQCHK_TARGET_RELEASE_WIN11_21H2, HWREQCHK_TARGET_RELEASE_WIN11_22H2, HWREQCHK_TARGET_RELEASE_SRV2022_21H2} ;",
+      "description": "Windows 11 vNext release target for hardware requirement checks",
       "header": "hwreqchkapi.h",
       "deprecated": false,
       "cross_references": [
@@ -404,7 +284,7 @@
       "id": "windows::HWREQCHK_TARGET_RELEASE_WIN11_21H2",
       "name": "HWREQCHK_TARGET_RELEASE_WIN11_21H2",
       "entity_type": "constant",
-      "description": "目标版本为 Windows 11 版本 21H2。",
+      "description": "Specifies Windows 11 version 21H2 as the target release version for hardware requirement checks.",
       "header": "hwreqchkapi.h",
       "deprecated": false,
       "cross_references": [],
@@ -415,7 +295,7 @@
       "id": "windows::HWREQCHK_TARGET_RELEASE_WIN11_22H2",
       "name": "HWREQCHK_TARGET_RELEASE_WIN11_22H2",
       "entity_type": "constant",
-      "description": "目标版本为 Windows 11 版本 22H2。",
+      "description": "Specifies Windows 11 version 22H2 as the target release version.",
       "header": "hwreqchkapi.h",
       "deprecated": false,
       "cross_references": [],
@@ -426,7 +306,7 @@
       "id": "windows::HWREQCHK_TARGET_RELEASE_SRV2022_21H2",
       "name": "HWREQCHK_TARGET_RELEASE_SRV2022_21H2",
       "entity_type": "constant",
-      "description": "目标版本为 Windows Server 2022 版本 21H2。",
+      "description": "Target release version constant for Windows Server 2022 version 21H2.",
       "header": "hwreqchkapi.h",
       "deprecated": false,
       "cross_references": [

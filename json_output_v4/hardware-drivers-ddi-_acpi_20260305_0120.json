@@ -1,21 +1,6 @@
 {
-  "_schema": "windows_api_kg_v4.0",
-  "_generated_at": "2026-03-05T08:06:48Z",
-  "_content_hash": "e24fe0b01f4c",
-  "document": {
-    "document_id": "hardware-drivers-ddi::acpi",
-    "title": "ACPI",
-    "domain": "hardware-drivers-ddi",
-    "topic": "acpi",
-    "source_file": "[OCR]_windows-hardware-drivers-ddi-_acpi_20260305_0120.p.txt",
-    "ocr_timestamp": "2026-03-05T01:20:00",
-    "headers_referenced": [
-      "acpiioct.h",
-      "acpitabl.h",
-      "oprghdlr.h"
-    ],
-    "total_entities": 204
-  },
+  "_schema": "windows_api_kg_v4.0_refined",
+  "_generated_at": "2026-03-06T08:42:00.385174+00:00",
   "entities": [
     {
       "id": "windows::IOCTL_ACPI_ACQUIRE_GLOBAL_LOCK",
@@ -32,8 +17,8 @@
       "id": "windows::IOCTL_ACPI_ASYNC_EVAL_METHOD",
       "name": "IOCTL_ACPI_ASYNC_EVAL_METHOD",
       "entity_type": "ioctl",
-      "description": "请求来评估该方法，并设置输入 ACPI_EVAL_INPUT_BUFFER结构的成员，如下所示： 将 签名 设置为ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_SIGNATURE。将 MethodName 设置为“ABCD”或 MethodNameAsUlong 为 （ULONG）（“DCBA”）。 将 integerArgument 设置为输入整数值。 有关如何使用此结构的详细信息，请参阅 评估 ACPI 控制方法。",
-      "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1 {\nULONG Signature;   union {\nUCHAR MethodName[4];\nULONG MethodNameAsUlong;\n} DUMMYUNIONNAME;   ULONG StringLength;\nUCHAR String[ANYSIZE_ARRAY];\n} ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1,\n*PACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1, ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING;",
+      "description": "IOCTL请求用于异步评估ACPI方法。需要设置ACPI_EVAL_INPUT_BUFFER结构的成员：将Signature设置为ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_SIGNATURE；MethodName设置为\"ABCD\"或MethodNameAsUlong设置为(ULONG)(\"DCBA\")；integerArgument设置为输入整数值。",
+      "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER {\n  ULONG Signature;\n  union {\n    UCHAR MethodName[4];\n    ULONG MethodNameAsUlong;\n  } DUMMYUNIONNAME;\n  ULONG IntegerArgument;\n} ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER;",
       "members": [
         {
           "name": "Signature",
@@ -50,8 +35,8 @@
       "id": "windows::IOCTL_ACPI_ASYNC_EVAL_METHOD_EX",
       "name": "IOCTL_ACPI_ASYNC_EVAL_METHOD_EX",
       "entity_type": "ioctl",
-      "description": "请求来评估设备子对象的控件方法。 如果该方法采用单个字符串输入参数，则这些请求采用输入ACPI_EVAL_INPUT_BUFFER_STRING_EX结构，如下所示： 将 签名 设置为ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_SIGNATURE_EX。 将 MethodName 设置为 NULL 终止的字符串，该字符串向 ACPI 命名空间中的控制方法提供完整路径和名称，或与计算请求发送到的设备相对的方法的路径和名称。 例如，假设请求发送到名为“ABCD”的设备，这是 ACPI 命名空间根目录的直接子级，“ABCD”设备支持名为“CHLD”的子设备，“CHLD”设备支持名为“_FOO”的方法。在这种情况下，评估请求可以提供“\\ABCD”。CHLD._FOO，它是 ACPI 命名空间中控 件方法的完全限定路径和名称，或“CHLD._FOO”，它是与 ACPI 命名空间中的“ABCD”设备相对的控件方法的路径和名称。 有关如何在 ACPI 命名空间中获取控件方法的完全限定路径和名称的详细信息，请参阅 枚举子设备和控制方法。 将 StringLength 设置为 String中的字符数。将 字符串 设置为输入字符串。 有关如何使用此结构的详细信息，请参阅 评估 ACPI 控制方法。",
-      "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_V1_EX {   ULONG Signature;\nCHAR  MethodName[256];\n} ACPI_EVAL_INPUT_BUFFER_V1_EX, *PACPI_EVAL_INPUT_BUFFER_V1_EX,  ACPI_EVAL_INPUT_BUFFER_EX, *PACPI_EVAL_INPUT_BUFFER_EX;",
+      "description": "请求来评估设备子对象的控件方法。如果该方法采用单个字符串输入参数，则这些请求采用输入ACPI_EVAL_INPUT_BUFFER_STRING_EX结构。将Signature设置为ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_SIGNATURE_EX。将MethodName设置为NULL终止的字符串，该字符串向ACPI命名空间中的控制方法提供完整路径和名称。例如，请求发送到名为'ABCD'的设备，这是ACPI命名空间根目录的直接子级，'ABCD'设备支持名为'CHLD'的子设备，'CHLD'设备支持名为'_FOO'的方法。在这种情况下，评估请求可以提供'\\ABCD.CHLD._FOO'，它是ACPI命名空间中控件方法的完全限定路径和名称，或'CHLD._FOO'，它是与ACPI命名空间中的'ABCD'设备相对的控件方法的路径和名称。",
+      "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_V1_EX {\n  ULONG Signature;\n  CHAR MethodName[256];\n} ACPI_EVAL_INPUT_BUFFER_V1_EX, *PACPI_EVAL_INPUT_BUFFER_V1_EX, ACPI_EVAL_INPUT_BUFFER_EX, *PACPI_EVAL_INPUT_BUFFER_EX;",
       "members": [
         {
           "name": "Signature",
@@ -79,7 +64,7 @@
       "id": "windows::IOCTL_ACPI_ASYNC_EVAL_METHOD_V1_EX",
       "name": "IOCTL_ACPI_ASYNC_EVAL_METHOD_V1_EX",
       "entity_type": "ioctl",
-      "description": "控制代码异步评估设备支持的 ACPI 控制方法。",
+      "description": "用于异步评估设备支持的ACPI控制方法的IOCTL控制代码。",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [],
@@ -112,7 +97,7 @@
       "id": "windows::IOCTL_ACPI_ENUM_CHILDREN",
       "name": "IOCTL_ACPI_ENUM_CHILDREN",
       "entity_type": "ioctl",
-      "description": "返回一个可变长度ACPI_ENUM_CHILDREN_OUTPUT_BUFFER结构，该结构包含可变长度 ACPI_ENUM_CHILD 结构的数组，其中每个结构返回请求发送到的设备的 ACPI 命名空间中的对象的完全限定路径和名称。 此请求枚举的对象取决于提供的输入结构 ACPI_ENUM_CHILDREN_INPUT_BUFFER的 Flags 成员的设置，如下所示： 如果驱动程序分配的输出缓冲区不够大，无法返回所有请求的子名称，则 ACPI 驱动程序不会返回任何子名称，并将请求IO_STATUS_BLOCK 的 Status 成员设置为",
+      "description": "返回一个可变长度的ACPI_ENUM_CHILDREN_OUTPUT_BUFFER结构，包含ACPI_ENUM_CHILD结构数组。每个结构提供设备ACPI命名空间中对象的完全限定路径和名称。枚举的对象取决于ACPI_ENUM_CHILDREN_INPUT_BUFFER的Flags成员设置。如果输出缓冲区不足，ACPI驱动不会返回任何子名称，并将IO_STATUS_BLOCK的Status成员设置为STATUS_BUFFER_TOO_SMALL。",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [
@@ -126,7 +111,7 @@
       "id": "windows::IOCTL_ACPI_EVAL_METHOD_EX",
       "name": "IOCTL_ACPI_EVAL_METHOD_EX",
       "entity_type": "ioctl",
-      "description": "请求同步评估不是设备的直接子对象的控制方法。 有关如何从 Windows Server 2008 和 Windows Vista 异步评估 ACPI 控制方法的信息，请参阅 IOCTL_ACPI_ASYNC_EVAL_METHOD 和 IOCTL_ACPI_ASYNC_EVAL_METHOD_EX。",
+      "description": "请求同步评估不是设备的直接子对象的ACPI控制方法。有关异步评估ACPI控制方法的信息，请参阅IOCTL_ACPI_ASYNC_EVAL_METHOD和IOCTL_ACPI_ASYNC_EVAL_METHOD_EX。",
       "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V1_EX {   ULONG   Signature;\nCHAR    MethodName[256];   ULONG64 IntegerArgument;\n} ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V1_EX, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V1_EX,",
       "header": "acpiioct.h",
       "deprecated": false,
@@ -154,7 +139,7 @@
       "id": "windows::IOCTL_ACPI_EVAL_METHOD_V1_EX",
       "name": "IOCTL_ACPI_EVAL_METHOD_V1_EX",
       "entity_type": "ioctl",
-      "description": "控制代码同步评估设备支持的 ACPI 控制方法。",
+      "description": "控制代码用于同步评估设备支持的ACPI控制方法(V1扩展版本)。",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [],
@@ -165,7 +150,7 @@
       "id": "windows::IOCTL_ACPI_EVAL_METHOD_V2",
       "name": "IOCTL_ACPI_EVAL_METHOD_V2",
       "entity_type": "ioctl",
-      "description": "控制代码同步评估设备支持的 ACPI 控制方法。",
+      "description": "控制代码用于同步评估设备支持的ACPI控制方法（版本2）。",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [],
@@ -176,7 +161,7 @@
       "id": "windows::IOCTL_ACPI_EVAL_METHOD_V2_EX",
       "name": "IOCTL_ACPI_EVAL_METHOD_V2_EX",
       "entity_type": "ioctl",
-      "description": "控制代码同步评估设备支持的 ACPI 控制方法。",
+      "description": "控制代码用于同步评估设备支持的ACPI控制方法(V2扩展版本)。",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [],
@@ -187,7 +172,7 @@
       "id": "windows::IOCTL_ACPI_GET_DEVICE_INFORMATION",
       "name": "IOCTL_ACPI_GET_DEVICE_INFORMATION",
       "entity_type": "ioctl",
-      "description": "设备的驱动程序可以使用IOCTL_ACPI_GET_DEVICE_INFORMATION设备控制请求获取有关其设备的精细标识信息。 此 IOCTL 通常由支持设备多个版本或修订的驱动程序使用，并且需要检查构成设备的 HW ID 字符串的组件部件来标识确切的设备。 驱动程序应调用 IoBuildDeviceIoControlRequest，并传递以下输入和输出参数来生成此请求。",
+      "description": "设备的驱动程序可以使用IOCTL_ACPI_GET_DEVICE_INFORMATION设备控制请求获取有关其设备的精细标识信息。此IOCTL通常由支持设备多个版本或修订的驱动程序使用，需要检查构成设备HW ID字符串的组件部件来标识确切的设备。驱动程序应调用IoBuildDeviceIoControlRequest并传递相应参数来生成此请求。",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [
@@ -200,7 +185,7 @@
       "id": "windows::IOCTL_ACPI_GET_DEVICE_SPECIFIC_DATA",
       "name": "IOCTL_ACPI_GET_DEVICE_SPECIFIC_DATA",
       "entity_type": "ioctl",
-      "description": "控制代码用于获取特定于设备的数据。",
+      "description": "IOCTL控制代码，用于从ACPI设备获取设备特定的数据。",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [],
@@ -211,7 +196,7 @@
       "id": "windows::IOCTL_ACPI_RELEASE_GLOBAL_LOCK",
       "name": "IOCTL_ACPI_RELEASE_GLOBAL_LOCK",
       "entity_type": "ioctl",
-      "description": "设备控制请求保留仅供内部使用。结构",
+      "description": "设备控制请求用于释放ACPI全局锁（保留仅供内部使用）",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [],
@@ -221,9 +206,9 @@
     {
       "id": "windows::ACPI_PLD_EDGE",
       "name": "ACPI_PLD_EDGE",
-      "entity_type": "ioctl",
-      "description": "描述关节边缘位 10：12,24：26。 ACPI_PLD_HORIZONTAL_POSITION 描述水平位置位 72：73。 ACPI_PLD_JOINT_TYPE 描述关节类型位 6：9。 ACPI_PLD_ORIENTATION 描述方向位 78。 ACPI_PLD_PANEL 描述面板表面位 67：69。",
-      "syntax": "typedef enum _ACPI_PLD_EDGE {   AcpiPldEdgeTop,\nAcpiPldEdgeBottom,   AcpiPldEdgeLeft,   AcpiPldEdgeRight,   AcpiPldEdgeUnknown\n} ACPI_PLD_EDGE, *PACPI_PLD_EDGE;\n常数",
+      "entity_type": "enum",
+      "description": "描述ACPI PLD(Physical Location Descriptor)中边缘位置的枚举值。",
+      "syntax": "typedef enum _ACPI_PLD_EDGE {\n  AcpiPldEdgeTop,\n  AcpiPldEdgeBottom,\n  AcpiPldEdgeLeft,\n  AcpiPldEdgeRight,\n  AcpiPldEdgeUnknown\n} ACPI_PLD_EDGE, *PACPI_PLD_EDGE;",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [
@@ -238,9 +223,9 @@
     {
       "id": "windows::ACPI_PLD_ROTATION",
       "name": "ACPI_PLD_ROTATION",
-      "entity_type": "ioctl",
-      "description": "描述旋转位 115：118。",
-      "syntax": "typedef enum _ACPI_PLD_ROTATION {\nAcpiPldRotation0,   AcpiPldRotation45,   AcpiPldRotation90,   AcpiPldRotation135,   AcpiPldRotation180,   AcpiPldRotation225,   AcpiPldRotation270,   AcpiPldRotation315\n} ACPI_PLD_ROTATION, *PACPI_PLD_ROTATION; 常数",
+      "entity_type": "enum",
+      "description": "Specifies rotation bits 115:118 in ACPI PLD structure.",
+      "syntax": "typedef enum _ACPI_PLD_ROTATION {\n  AcpiPldRotation0,\n  AcpiPldRotation45,\n  AcpiPldRotation90,\n  AcpiPldRotation135,\n  AcpiPldRotation180,\n  AcpiPldRotation225,\n  AcpiPldRotation270,\n  AcpiPldRotation315\n} ACPI_PLD_ROTATION, *PACPI_PLD_ROTATION;",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -250,9 +235,9 @@
     {
       "id": "windows::ACPI_PLD_SHAPE",
       "name": "ACPI_PLD_SHAPE",
-      "entity_type": "ioctl",
-      "description": "描述形状位 74：77。",
-      "syntax": "typedef enum _ACPI_PLD_SHAPE {\nAcpiPldShapeRound,   AcpiPldShapeOval,   AcpiPldShapeSquare,   AcpiPldShapeVRect,   AcpiPldShapeHRect,   AcpiPldShapeVTrap,   AcpiPldShapeHTrap,   AcpiPldShapeUnknown,   AcpiPldShapeChamfered\n} ACPI_PLD_SHAPE, *PACPI_PLD_SHAPE; 常数",
+      "entity_type": "enum",
+      "description": "定义ACPI PLD(Physical Location Descriptor)中描述设备形状的枚举类型",
+      "syntax": "typedef enum _ACPI_PLD_SHAPE {\n  AcpiPldShapeRound,\n  AcpiPldShapeOval,\n  AcpiPldShapeSquare,\n  AcpiPldShapeVRect,\n  AcpiPldShapeHRect,\n  AcpiPldShapeVTrap,\n  AcpiPldShapeHTrap,\n  AcpiPldShapeUnknown,\n  AcpiPldShapeChamfered\n} ACPI_PLD_SHAPE, *PACPI_PLD_SHAPE;",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -263,7 +248,7 @@
       "id": "windows::ACPI_PLD_VERTICAL_POSITION",
       "name": "ACPI_PLD_VERTICAL_POSITION",
       "entity_type": "ioctl",
-      "description": "描述垂直位置位 70：71。 HSP_PROTOCOL_ID 本主题介绍HSP_PROTOCOL_ID枚举。 IVRS_BLOCK_TYPE 枚举 I/O 虚拟化报告结构 (IVRS) 块类型。 IVRS_TABLE_TYPE 枚举 I/O 虚拟化硬件定义 (IVHD) 项类型。 NFIT_STRUCTURE_TYPE 介绍 NVDIMM 固件接口表 (NFIT) 结构类型。",
+      "description": "描述ACPI PLD(物理位置描述符)中的垂直位置位(70:71)",
       "syntax": "typedef enum _ACPI_PLD_VERTICAL_POSITION {\nAcpiPldVPosUpper,   AcpiPldVPosCenter,   AcpiPldVPosLower\n} ACPI_PLD_VERTICAL_POSITION, *PACPI_PLD_VERTICAL_POSITION; 常数",
       "header": "acpitabl.h",
       "deprecated": false,
@@ -279,9 +264,9 @@
     {
       "id": "windows::SRAT_ENTRY_TYPE",
       "name": "SRAT_ENTRY_TYPE",
-      "entity_type": "ioctl",
-      "description": "本主题介绍 SRAT_ENTRY_TYPE 枚举。",
-      "syntax": "typedef enum {\nSratProcessorLocalAPIC,   SratMemory,\nSratProcessorLocalX2APIC,\nSratGicc,   SratGicIts,\nSratGenericInitiator,\nSratGenericPort} SRAT_ENTRY_TYPE;\n常数",
+      "entity_type": "enum",
+      "description": "SRAT_ENTRY_TYPE枚举定义了系统资源关联表(SRAT)中的条目类型。",
+      "syntax": "typedef enum { SratProcessorLocalAPIC, SratMemory, SratProcessorLocalX2APIC, SratGicc, SratGicIts, SratGenericInitiator, SratGenericPort } SRAT_ENTRY_TYPE;",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -291,9 +276,9 @@
     {
       "id": "windows::ACPI_OP_REGION_CALLBACK",
       "name": "ACPI_OP_REGION_CALLBACK",
-      "entity_type": "function",
-      "description": "描述ACPI_OP_REGION_CALLBACK回调函数。 ACPI_OP_REGION_HANDLER ACPI 设备函数驱动程序提供ACPI_OP_REGION_HANDLER类型的例程，以便 ACPI 驱动程序能够访问设备的操作区域。",
-      "syntax": "//Declaration",
+      "entity_type": "callback",
+      "description": "ACPI_OP_REGION_CALLBACK回调函数用于ACPI驱动程序访问设备的操作区域。ACPI设备函数驱动程序提供此回调以便ACPI驱动程序能够与设备交互。",
+      "syntax": "typedef NTSTATUS (*ACPI_OP_REGION_CALLBACK)(_In_ PVOID Context);",
       "parameters": [
         {
           "name": "Context",
@@ -312,7 +297,7 @@
       "id": "windows::DeRegisterOpRegionHandler",
       "name": "DeRegisterOpRegionHandler",
       "entity_type": "function",
-      "description": "例程使用 ACPI 驱动程序取消注册操作区域处理程序。 RegisterOpRegionHandler",
+      "description": "取消注册ACPI操作区域处理程序的例程。",
       "syntax": "NTSTATUS DeRegisterOpRegionHandler(   [in] PDEVICE_OBJECT DeviceObject,\n[in] PVOID          OperationRegionObject);",
       "parameters": [
         {
@@ -322,7 +307,7 @@
         }
       ],
       "return_value": {
-        "description": "返回以下状态值之一。 返回代码"
+        "description": "返回NTSTATUS状态码。"
       },
       "header": "oprghdlr.h",
       "deprecated": false,
@@ -333,21 +318,9 @@
       "_source_line": 60
     },
     {
-      "id": "windows::HMAT_ENTRY_LENGTH",
-      "name": "HMAT_ENTRY_LENGTH",
-      "entity_type": "function",
-      "description": "宏返回HMAT_ENTRY结构中类型的大小。",
-      "syntax": "void HMAT_ENTRY_LENGTH(\n_Type);\n参数_Type",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 61
-    },
-    {
       "id": "windows::PROC_TOPOLOGY_NODE_CACHE_TYPE_DATA",
       "name": "PROC_TOPOLOGY_NODE_CACHE_TYPE_DATA",
-      "entity_type": "function",
+      "entity_type": "macro",
       "description": "定义处理器拓扑节点缓存类型数据宏。",
       "header": "acpitabl.h",
       "deprecated": false,
@@ -356,21 +329,10 @@
       "_source_line": 63
     },
     {
-      "id": "windows::PROC_TOPOLOGY_NODE_CACHE_TYPE_INSTRUCTION",
-      "name": "PROC_TOPOLOGY_NODE_CACHE_TYPE_INSTRUCTION",
-      "entity_type": "function",
-      "description": "定义处理器拓扑节点缓存类型指令宏。",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.55,
-      "_source_line": 64
-    },
-    {
       "id": "windows::PROC_TOPOLOGY_NODE_CACHE_TYPE_UNIFIED",
       "name": "PROC_TOPOLOGY_NODE_CACHE_TYPE_UNIFIED",
-      "entity_type": "function",
-      "description": "定义处理器拓扑节点缓存类型统一宏。 RegisterOpRegionHandler",
+      "entity_type": "macro",
+      "description": "定义处理器拓扑节点缓存类型统一宏",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [
@@ -383,7 +345,7 @@
       "id": "windows::RegisterOpRegionHandler",
       "name": "RegisterOpRegionHandler",
       "entity_type": "function",
-      "description": "例程向 ACPI 驱动程序注册操作区域处理程序。结构",
+      "description": "向ACPI驱动程序注册操作区域处理程序的例程。",
       "syntax": "NTSTATUS RegisterOpRegionHandler(\n[in]  PDEVICE_OBJECT          DeviceObject,   [in]  ULONG                   AccessType,   [in]  ULONG                   RegionSpace,\n[in]  PACPI_OP_REGION_HANDLER Handler,   [in]  PVOID                   Context,   [in]  ULONG                   Flags,\n[out] PVOID                   *OperationRegionObject);",
       "parameters": [
         {
@@ -401,8 +363,8 @@
     {
       "id": "windows::ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER",
       "name": "ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER",
-      "entity_type": "function",
-      "description": "包括可变长度数组的数组，每个数组分别返回表示子系统 ID 字符串、供应商 ID 字符串和实例 ID 字符串的输出参数。 IOCTL_ACPI_GET_DEVICE_INFORMATION只能在 IRQL <= DISPATCH_LEVEL 中使用。",
+      "entity_type": "structure",
+      "description": "包含ACPI设备信息的输出缓冲区结构体，包括可变长度数组，用于返回子系统ID字符串、供应商ID字符串和实例ID字符串等设备信息。",
       "syntax": "typedef struct _ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER {\nULONG  Signature;   USHORT Size;\nUCHAR  Revision;   UCHAR  Reserved0;\nUSHORT VendorIdStringOffset;   USHORT VendorStringLength;   USHORT DeviceIdStringOffset;\nUSHORT SubSystemIdStringOffset;   USHORT SubSystemStringLength;   USHORT SubDeviceIdStringOffset;\nUSHORT InstanceIdLength;   USHORT InstanceIdOffset;   USHORT BaseClassCode;\nUSHORT HardwareRevision;\nUCHAR  ProgrammingInterface;   UCHAR  Reserved1;\nUSHORT SubClassCode;\n} ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER, *PACPI_DEVICE_INFORMATION_OUTPUT_BUFFER;",
       "members": [
         {
@@ -419,31 +381,9 @@
       "_source_line": 69
     },
     {
-      "id": "windows::ACPI_ENUM_CHILD",
-      "name": "ACPI_ENUM_CHILD",
-      "entity_type": "function",
-      "description": "结构是 ACPI_ENUM_CHILDREN_OUTPUT_BUFFER 结构的成员，包含 ACPI 命名空间中对象的完整路径和名称。",
-      "syntax": "typedef struct _ACPI_ENUM_CHILD {   ULONG Flags;\nULONG NameLength;\nCHAR  Name[ANYSIZE_ARRAY];} ACPI_ENUM_CHILD;",
-      "remarks": "设备的驱动程序使用 IOCTL_ACPI_ENUM_CHILDREN 请求来枚举设备的子对象。 枚举的子对象可以是设备或提供的名称的任何对象。 此请求返回一个",
-      "members": [
-        {
-          "name": "Flags",
-          "description": "如果枚举子对象具有子对象，ACPI 驱动程序设置为ACPI_OBJECT_HAS_CHILDREN的标志 值;否则，ACPI 驱动程序不会设置此值。 NameLength Name 数组包含的 ASCII 字符串中的字符数（包括以 NULL 结尾的字符）。 Name[ANYSIZE_ARRAY] 一个以 NULL 结尾的 ASCII 字符串，其中包含 ACPI 命名空间中对象的路径和名称。 有关 路径和名称格式的详细信息，请参阅本主题后面的“备注”部分。"
-        }
-      ],
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [
-        "ACPI_ENUM_CHILDREN_OUTPUT_BUFFER",
-        "IOCTL_ACPI_ENUM_CHILDREN"
-      ],
-      "confidence": 0.95,
-      "_source_line": 71
-    },
-    {
       "id": "windows::ACPI_ENUM_CHILDREN_INPUT_BUFFER",
       "name": "ACPI_ENUM_CHILDREN_INPUT_BUFFER",
-      "entity_type": "function",
+      "entity_type": "structure",
       "description": "结构用作IOCTL_ACPI_ENUM_CHILDREN请求的输入。 结构指定要 在请求发送到的设备命名空间中枚举哪些子对象。",
       "syntax": "typedef struct _ACPI_ENUM_CHILDREN_INPUT_BUFFER {\nULONG Signature;   ULONG Flags;\nULONG NameLength;\nCHAR  Name[ANYSIZE_ARRAY];\n} ACPI_ENUM_CHILDREN_INPUT_BUFFER, *PACPI_ENUM_CHILDREN_INPUT_BUFFER;",
       "members": [
@@ -461,22 +401,29 @@
     {
       "id": "windows::ACPI_ENUM_CHILDREN_OUTPUT_BUFFER",
       "name": "ACPI_ENUM_CHILDREN_OUTPUT_BUFFER",
-      "entity_type": "function",
-      "description": "结构，其中包括包含ACPI_ENUM_CHILD结构的数组的 Children 成员。 Name 成员中包含的路径和名称采用 ACPI 命名空间中对象完全限定的路径和名称的标准格式。 例如，假设名为“ABCD”的设备是 ACPI 命名空间根目录的直接子级，设备“ABCD” 具有名为“CHLD”的子设备，而子设备“CHLD”具有名为“_FOO”的直接子对象。 在这种情况下，名称 将包含“\\ABCD”。CHLD._FOO。 有关如何枚举设备的子对象的信息，请参阅 枚举子设备和控制方法。",
-      "syntax": "typedef struct _ACPI_ENUM_CHILDREN_OUTPUT_BUFFER {   ULONG           Signature;\nULONG           NumberOfChildren;",
+      "entity_type": "structure",
+      "description": "包含ACPI_ENUM_CHILD结构数组的结构体。Children成员包含子设备信息，Name成员包含ACPI命名空间中对象的完全限定路径名称（格式如：\\ABCD.CHLD._FOO）。",
+      "syntax": "typedef struct _ACPI_ENUM_CHILDREN_OUTPUT_BUFFER {\n  ULONG Signature;\n  ULONG NumberOfChildren;\n  ACPI_ENUM_CHILD Children[];\n}",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [
         "Children"
       ],
       "confidence": 0.85,
-      "_source_line": 78
+      "_source_line": 78,
+      "remarks": "设备的驱动程序使用 IOCTL_ACPI_ENUM_CHILDREN 请求来枚举设备的子对象。 枚举的子对象可以是设备或提供的名称的任何对象。 此请求返回一个",
+      "members": [
+        {
+          "name": "Flags",
+          "description": "如果枚举子对象具有子对象，ACPI 驱动程序设置为ACPI_OBJECT_HAS_CHILDREN的标志 值;否则，ACPI 驱动程序不会设置此值。 NameLength Name 数组包含的 ASCII 字符串中的字符数（包括以 NULL 结尾的字符）。 Name[ANYSIZE_ARRAY] 一个以 NULL 结尾的 ASCII 字符串，其中包含 ACPI 命名空间中对象的路径和名称。 有关 路径和名称格式的详细信息，请参阅本主题后面的“备注”部分。"
+        }
+      ]
     },
     {
       "id": "windows::ACPI_EVAL_INPUT_BUFFER_COMPLEX",
       "name": "ACPI_EVAL_INPUT_BUFFER_COMPLEX",
-      "entity_type": "function",
-      "description": "结构的成员来评估方法，如下所示： 将 签名 设置为ACPI_EVAL_INPUT_BUFFER_COMPLEX_SIGNATURE。 将 MethodName 设置为“ABCD”或 MethodNameAsUlong 为 （ULONG）（“DCBA”）。 将 大小 设置为 参数 数组中的字节数。 将 参数 计数设置为 参数 数组中的参数数。 将 参数 设置为ACPI_METHOD_ARGUMENT结构的数组。有关如何使用此结构的详细信息，请参阅 评估 ACPI 控制方法。",
+      "entity_type": "structure",
+      "description": "用于评估ACPI控制方法的输入缓冲区结构。包含方法签名、方法名、参数大小和参数计数等信息。",
       "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_COMPLEX_V1 {\nULONG                   Signature;   union {\nUCHAR MethodName[4];\nULONG MethodNameAsUlong;   } DUMMYUNIONNAME;\nULONG                   Size;\nULONG                   ArgumentCount;",
       "header": "acpiioct.h",
       "deprecated": false,
@@ -485,28 +432,10 @@
       "_source_line": 79
     },
     {
-      "id": "windows::ACPI_METHOD_ARGUMENT",
-      "name": "ACPI_METHOD_ARGUMENT",
-      "entity_type": "function",
-      "description": "反馈 是 否 价值 从 Windows 2000 开始可用。 acpiioct.h （include Acpiioct.h）",
-      "syntax": "typedef struct _ACPI_METHOD_ARGUMENT_V1 {   USHORT Type;\nUSHORT DataLength;   union {\nULONG Argument;\nUCHAR Data[ANYSIZE_ARRAY];   } DUMMYUNIONNAME;\n} ACPI_METHOD_ARGUMENT_V1, ACPI_METHOD_ARGUMENT;",
-      "members": [
-        {
-          "name": "Type",
-          "description": "方法参数的类型，由下列方法之一指定："
-        }
-      ],
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.95,
-      "_source_line": 80
-    },
-    {
       "id": "windows::ACPI_EVAL_INPUT_BUFFER_COMPLEX_EX",
       "name": "ACPI_EVAL_INPUT_BUFFER_COMPLEX_EX",
-      "entity_type": "function",
-      "description": "结构用作 IOCTL_ACPI_EVAL_METHOD_EX 请求和 IOCTL_ACPI_ASYNC_EVAL_METHOD_EX 请求的输入。 该结构在 ACPI 命名空间中提供控件方法的路径和名称，以及",
+      "entity_type": "structure",
+      "description": "This structure is used as input for IOCTL_ACPI_EVAL_METHOD_EX and IOCTL_ACPI_ASYNC_EVAL_METHOD_EX requests. It provides the path and name of a control method in the ACPI namespace, along with method arguments.",
       "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_COMPLEX_V1_EX {   ULONG                   Signature;\nCHAR                    MethodName[256];   ULONG                   Size;\nULONG                   ArgumentCount;",
       "header": "acpiioct.h",
       "deprecated": false,
@@ -520,7 +449,7 @@
     {
       "id": "windows::ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2",
       "name": "ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2",
-      "entity_type": "function",
+      "entity_type": "structure",
       "description": "本主题介绍ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2结构。 ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2_EX 本主题介绍ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2_EX结构。",
       "header": "acpiioct.h",
       "deprecated": false,
@@ -531,8 +460,8 @@
     {
       "id": "windows::ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER",
       "name": "ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER",
-      "entity_type": "function",
-      "description": "ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING ACPI_EVAL_INPUT_BUFFER_COMPLEX 控件方法的输出参数在 OutBuffer 指针提供的可变长度 ACPI_EVAL_OUTPUT_BUFFER 结构中返回。 ACPI_EVAL_OUTPUT_BUFFER包括可变长度 ACPI_METHOD_ARGUMENT 结构的数组，每个结构都返回输出参数。 有关如何同步评估 ACPI 控制方法的信息，请参阅 IOCTL_ACPI_EVAL_METHOD、 IOCTL_ACPI_EVAL_METHOD_EX和 同步评估 ACPI 控制方法。",
+      "entity_type": "structure",
+      "description": "Represents a simple integer input buffer for ACPI control method evaluation. Contains method signature, name and integer argument.",
       "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V1 {\nULONG Signature;   union {\nUCHAR MethodName[4];\nULONG MethodNameAsUlong;   } DUMMYUNIONNAME;\nULONG IntegerArgument;\n} ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V1, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V1,",
       "members": [
         {
@@ -556,8 +485,8 @@
     {
       "id": "windows::ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_EX",
       "name": "ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_EX",
-      "entity_type": "function",
-      "description": "结构，如下所示： 将 签名 设置为ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_SIGNATURE_EX。 将 MethodName 设置为 NULL 终止的字符串，该字符串向 ACPI 命名空间中的控制方法提供完整路径和名称，或与计算请求发送到的设备相对的方法的路径和名称。 例如，假设请求发送到名为“ABCD”的设备，这是 ACPI 命名空间根目录的直接子级，“ABCD”设备支持名为“CHLD”的子设备，“CHLD”设备支持名为“_FOO”的方法。在这种情况下，评估请求可以提供“\\ABCD”。CHLD._FOO，它是 ACPI 命名空间中控 件方法的完全限定路径和名称，或“CHLD._FOO”，它是与 ACPI 命名空间中的“ABCD”设备相对的控件方法的路径和名称。 有关如何在 ACPI 命名空间中获取控件方法的完全限定路径和名称的详细信息，请参阅 枚举子设备和控制方法。 将 integerArgument 设置为输入整数值。 有关如何使用此结构的详细信息，请参阅 评估 ACPI 控制方法。",
+      "entity_type": "structure",
+      "description": "用于评估ACPI控制方法的扩展简单整数输入缓冲区结构。必须将Signature设置为ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_SIGNATURE_EX。MethodName应设置为NULL终止的字符串，提供ACPI命名空间中控制方法的完整路径或相对路径。integerArgument包含输入整数值。",
       "members": [
         {
           "name": "Signature",
@@ -573,18 +502,27 @@
     {
       "id": "windows::ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2",
       "name": "ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2",
-      "entity_type": "function",
-      "description": "本主题介绍ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2结构。 ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2_EX 本主题介绍ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2_EX结构。",
+      "entity_type": "structure",
+      "description": "ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2结构用于向ACPI设备发送简单整数参数",
       "header": "acpiioct.h",
       "deprecated": false,
-      "cross_references": [],
+      "cross_references": [
+        "ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2"
+      ],
       "confidence": 0.75,
-      "_source_line": 90
+      "_source_line": 90,
+      "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2 {\nULONG Signature;   union {\nUCHAR MethodName[4];\nULONG MethodNameAsUlong;   } DUMMYUNIONNAME;\nULONG IntegerArgument;\n} ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2;",
+      "members": [
+        {
+          "name": "Signature",
+          "description": "定义 ULONG 成员 签名。 DUMMYUNIONNAME 定义 DUMMYUNIONNAME的方法名称成员。 DUMMYUNIONNAME.MethodName[4] DUMMYUNIONNAME.MethodNameAsUlong IntegerArgument 定义 ULONG 成员 IntegerArgument。"
+        }
+      ]
     },
     {
       "id": "windows::ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING",
       "name": "ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING",
-      "entity_type": "function",
+      "entity_type": "structure",
       "description": "本主题介绍 ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2_EX 结构。",
       "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2_EX {   ULONG Signature;\nCHAR  MethodName[256];   ULONG StringLength;\nUCHAR String[ANYSIZE_ARRAY];\n} ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2_EX, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2_EX;",
       "members": [
@@ -607,9 +545,9 @@
     {
       "id": "windows::ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_EX",
       "name": "ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_EX",
-      "entity_type": "function",
-      "description": "结构用作 IOCTL_ACPI_EVAL_METHOD_EX 请求和 IOCTL_ACPI_ASYNC_EVAL_METHOD_EX 请求的输入。 该结构在 ACPI 命名空间中提供控件方法的路径和名称，以及 ASCII 字符串的输入参数。",
-      "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1_EX {   ULONG Signature;\nCHAR  MethodName[256];   ULONG StringLength;\nUCHAR String[ANYSIZE_ARRAY];\n} ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1_EX, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1_EX,",
+      "entity_type": "structure",
+      "description": "该结构用作 IOCTL_ACPI_EVAL_METHOD_EX 请求和 IOCTL_ACPI_ASYNC_EVAL_METHOD_EX 请求的输入。在 ACPI 命名空间中提供控件方法的路径和名称，以及 ASCII 字符串的输入参数。",
+      "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1_EX { ULONG Signature; CHAR MethodName[256]; ULONG StringLength; UCHAR String[ANYSIZE_ARRAY]; } ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1_EX, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V1_EX;",
       "remarks": "设备的驱动程序可以使用IOCTL_ACPI_EVAL_METHOD_EX请求或",
       "members": [
         {
@@ -629,8 +567,8 @@
     {
       "id": "windows::ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2",
       "name": "ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2",
-      "entity_type": "function",
-      "description": "本主题介绍ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2结构。 ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2_EX 本主题介绍ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2_EX结构。",
+      "entity_type": "structure",
+      "description": "ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2结构用于ACPI评估输入缓冲",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [],
@@ -640,8 +578,8 @@
     {
       "id": "windows::ACPI_EVAL_INPUT_BUFFER",
       "name": "ACPI_EVAL_INPUT_BUFFER",
-      "entity_type": "function",
-      "description": "结构用作IOCTL_ACPI_EVAL_METHOD请求和IOCTL_ACPI_ASYNC_EVAL_METHOD 请求的输入。 结构提供不采用输入参数的控件方法的名称。",
+      "entity_type": "structure",
+      "description": "Used as input buffer for IOCTL_ACPI_EVAL_METHOD and IOCTL_ACPI_ASYNC_EVAL_METHOD requests. Contains the name of a control method that takes no input arguments.",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [],
@@ -649,23 +587,10 @@
       "_source_line": 100
     },
     {
-      "id": "windows::ACPI_EVAL_INPUT_BUFFER_EX",
-      "name": "ACPI_EVAL_INPUT_BUFFER_EX",
-      "entity_type": "function",
-      "description": "结构用作 IOCTL_ACPI_EVAL_METHOD_EX 请求和",
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [
-        "IOCTL_ACPI_EVAL_METHOD_EX"
-      ],
-      "confidence": 0.65,
-      "_source_line": 102
-    },
-    {
       "id": "windows::ACPI_EVAL_INPUT_BUFFER_V2",
       "name": "ACPI_EVAL_INPUT_BUFFER_V2",
-      "entity_type": "function",
-      "description": "本主题介绍ACPI_EVAL_INPUT_BUFFER_V2结构。 ACPI_EVAL_INPUT_BUFFER_V2_EX 本主题介绍ACPI_EVAL_INPUT_BUFFER_V2_EX结构。",
+      "entity_type": "structure",
+      "description": "ACPI_EVAL_INPUT_BUFFER_V2结构用于ACPI评估输入缓冲区。",
       "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_V2 {\nULONG Signature;   union {\nUCHAR MethodName[4];\nULONG MethodNameAsUlong;   } DUMMYUNIONNAME;\n} ACPI_EVAL_INPUT_BUFFER_V2, *PACPI_EVAL_INPUT_BUFFER_V2;",
       "members": [
         {
@@ -689,9 +614,9 @@
     {
       "id": "windows::ACPI_EVAL_OUTPUT_BUFFER",
       "name": "ACPI_EVAL_OUTPUT_BUFFER",
-      "entity_type": "function",
-      "description": "结构的末尾。 但是，仅当这些结构的 DataLength 成员的值大于 （ULONG）大小时，这些 ACPI_METHOD_ARGUMENT 结构才会形成真正的数组。 对于某些类型的数据，其中一个或多个结构中的 DataLength 值可以大于 （ULONG）的大小，在这种情况下，相邻 ACPI_METHOD_ARGUMENT 结构之间的偏移量可能会有所不同。 有关如何使用",
-      "syntax": "typedef struct _ACPI_EVAL_OUTPUT_BUFFER_V1 {   ULONG                   Signature;\nULONG                   Length;   ULONG                   Count;",
+      "entity_type": "structure",
+      "description": "ACPI_EVAL_OUTPUT_BUFFER结构用于存储ACPI控制方法的输出参数。当DataLength成员的值大于ULONG大小时，会形成ACPI_METHOD_ARGUMENT结构数组。",
+      "syntax": "typedef struct _ACPI_EVAL_OUTPUT_BUFFER_V1 {\n    ULONG Signature;\n    ULONG Length;\n    ULONG Count;\n    ACPI_METHOD_ARGUMENT Argument[ANYSIZE_ARRAY];\n} ACPI_EVAL_OUTPUT_BUFFER, *PACPI_EVAL_OUTPUT_BUFFER;",
       "remarks": "以下 ACPI IOCTLs 从 ACPI_EVAL_OUTPUT_BUFFER 结构中的 ACPI 控制方法返回输出参数：",
       "header": "acpiioct.h",
       "deprecated": false,
@@ -704,8 +629,8 @@
     {
       "id": "windows::ACPI_EVAL_OUTPUT_BUFFER_V2",
       "name": "ACPI_EVAL_OUTPUT_BUFFER_V2",
-      "entity_type": "function",
-      "description": "结构 本主题介绍 ACPI_EVAL_OUTPUT_BUFFER_V2 结构。",
+      "entity_type": "structure",
+      "description": "ACPI_EVAL_OUTPUT_BUFFER_V2 structure contains output buffer information for ACPI evaluation.",
       "syntax": "typedef struct _ACPI_EVAL_OUTPUT_BUFFER_V2 {   ULONG                   Signature;\nULONG                   Length;   ULONG                   Count;",
       "header": "acpiioct.h",
       "deprecated": false,
@@ -735,21 +660,10 @@
       "_source_line": 109
     },
     {
-      "id": "windows::ACPI_MANIPULATE_GLOBAL_LOCK_BUFFER",
-      "name": "ACPI_MANIPULATE_GLOBAL_LOCK_BUFFER",
-      "entity_type": "function",
-      "description": "本主题介绍ACPI_MANIPULATE_GLOBAL_LOCK_BUFFER结构。",
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 110
-    },
-    {
       "id": "windows::ACPI_METHOD_ARGUMENT_V2",
       "name": "ACPI_METHOD_ARGUMENT_V2",
-      "entity_type": "function",
-      "description": "本主题介绍ACPI_METHOD_ARGUMENT_V2结构。 ACPI_PDTT 定义 ACPI 处理器调试触发器表 (PDTT) 结构。 ACPI_PLD_CONTAINER_BUFFER 定义 ACPI 物理位置描述符 (PLD) 容器缓冲区结构。 ACPI_PLD_INTERFACE_CLASS_BUFFER 介绍 ACPI PLD 接口类描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展，128 位) 。 ACPI_PLD_INTERFACE_INSTANCE_ANSI_BUFFER 介绍 ACPI PLD 接口实例 ANSI 描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展，128 位) 。",
+      "entity_type": "structure",
+      "description": "ACPI_METHOD_ARGUMENT_V2结构定义ACPI方法参数的格式。",
       "syntax": "typedef struct _ACPI_METHOD_ARGUMENT_V2 {   USHORT Type;\nULONG  DataLength;   union {\nULONG Argument;\nUCHAR Data[ANYSIZE_ARRAY];   } DUMMYUNIONNAME;\n} ACPI_METHOD_ARGUMENT_V2;",
       "members": [
         {
@@ -776,8 +690,8 @@
     {
       "id": "windows::ACPI_PLD_INTERFACE_INSTANCE_GUID_BUFFER",
       "name": "ACPI_PLD_INTERFACE_INSTANCE_GUID_BUFFER",
-      "entity_type": "function",
-      "description": "介绍 ACPI PLD 接口实例 GUID 描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展，128 位) 。",
+      "entity_type": "constant",
+      "description": "ACPI PLD interface instance GUID descriptor buffer (Microsoft custom PLD buffer extension, 128-bit)",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -785,21 +699,10 @@
       "_source_line": 118
     },
     {
-      "id": "windows::ACPI_PLD_INTERFACE_INSTANCE_UNICODE_BUFFER",
-      "name": "ACPI_PLD_INTERFACE_INSTANCE_UNICODE_BUFFER",
-      "entity_type": "function",
-      "description": "介绍 ACPI PLD 接口实例 Unicode 描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展， 128 位) 。",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 120
-    },
-    {
       "id": "windows::ACPI_PLD_JOINT_BUFFER",
       "name": "ACPI_PLD_JOINT_BUFFER",
-      "entity_type": "function",
-      "description": "介绍 ACPI PLD 联合描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展，128 位) 。 ACPI_PLD_SPATIAL_BUFFER 介绍 ACPI PLD 空间描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展，128 位) 。 ASPT_ENTRY 本主题介绍 AMD 安全处理器表 (ASPT) 使用的ASPT_ENTRY联合。 ASPT_ENTRY_HEADER 本主题介绍 AMD 安全处理器表 (ASPT) 使用的ASPT_ENTRY_HEADER结构。 BBRT_TABLE 定义启动后台资源表。 ECDT 本主题介绍 ECDT 结构。 GIC_ITS 本主题介绍GIC_ITS结构。",
+      "entity_type": "structure",
+      "description": "ACPI PLD联合描述符缓冲区，修订版1 (Microsoft自定义PLD缓冲区扩展，128位)",
       "syntax": "typedef struct _ACPI_PLD_JOINT_BUFFER {\nUINT32 Revision : 5;   UINT32 JointType : 4;   UINT32 SourceEdge : 3;\nUINT32 TargetCabinetNumber : 8;\nUINT32 TargetPanel : 3;   UINT32 TargetEdge : 3;   UINT32 Reserved1 : 5;\nUINT32 MovementOrientation : 1;   UINT32 ForwardMovementRange : 16;   UINT32 BackwardMovementRange : 16;\nUINT32 HorizontalOffset : 16;   UINT32 VerticalOffset : 16;\nUINT32 GapOffset : 16;   UINT32 Rotation : 9;   UINT32 Reserved2 : 7;\n} ACPI_PLD_JOINT_BUFFER, *PACPI_PLD_JOINT_BUFFER;",
       "header": "acpitabl.h",
       "deprecated": false,
@@ -816,8 +719,8 @@
     {
       "id": "windows::HMAT_ENTRY",
       "name": "HMAT_ENTRY",
-      "entity_type": "function",
-      "description": "结构包含表的异类内存属性表（HMAT）信息。 该结构可以包含三种 HMAT 类型之一：内存子系统地址范围（MSAR）、系统区域延迟和带宽信息（SLLBI）或内存端缓存信息（MSCI）。",
+      "entity_type": "structure",
+      "description": "包含异类内存属性表(HMAT)信息的结构体。该结构可以表示三种HMAT类型之一：内存子系统地址范围(MSAR)、系统区域延迟和带宽信息(SLLBI)或内存端缓存信息(MSCI)。",
       "syntax": "typedef struct _HMAT_ENTRY {   USHORT Type;\nUSHORT Reserved;   ULONG  Length;   union {\nstruct {       union {\nstruct {\nUSHORT ProcessorProximityDomainValid : 1;\nUSHORT Reserved0 : 1;           USHORT Reserved1 : 1;           USHORT Reserved : 13;\n} DUMMYSTRUCTNAME;         USHORT AsUSHort;       } Flags;\nUSHORT    Reserved1;\nULONG     ProcessorProximityDomain;       ULONG     MemoryProximityDomain;\nULONG     Reserved2;       ULONGLONG Reserved3;       ULONGLONG Reserved4;\n} Msar;     struct {       union {\nstruct {\nUCHAR MemoryHierarchy : 4;\nUCHAR MinTransferSizeToAchieveValues : 1;           UCHAR NonSequentialTransfers : 1;\nUCHAR Reserved : 2;         } DUMMYSTRUCTNAME;\nUCHAR AsUChar;       } Flags;\nUCHAR     DataType;\nUCHAR     MinTransferSize;       UCHAR     Reserved1;\nULONG     NumberOfInitiatorProximityDomains;\nULONG     NumberOfTargetProximityDomains;       ULONG     Reserved2;\nULONGLONG EntryBaseUnit;\n} Sllbi;     struct {\nULONG     MemoryProximityDomain;       ULONG     Reserved1;\nULONGLONG MemorySideCacheSize;       union {\nstruct {\nULONG TotalCacheLevels : 4;           ULONG CacheLevel : 4;\nULONG CacheAssociativity : 4;           ULONG WritePolicy : 4;\nULONG CacheLineSize : 16;         } DUMMYSTRUCTNAME;\nULONG AsULong;       } CacheAttributes;       USHORT    Reserved2;\nUSHORT    NumberOfSmBiosHandles;     } Msci;\n} DUMMYUNIONNAME;\n} HMAT_ENTRY, *PHMAT_ENTRY;",
       "members": [
         {
@@ -837,8 +740,8 @@
     {
       "id": "windows::HMAT_TABLE",
       "name": "HMAT_TABLE",
-      "entity_type": "function",
-      "description": "定义_HMAT_TABLE结构。 IVHD_ACPI_DEVICE_ENTRY 定义 I/O 虚拟化硬件定义 (IVHD) ACPI 设备入口结构。 IVRS_IVINFO 定义 I/O 虚拟化结构 (IVRS) I/O 虚拟化结构。",
+      "entity_type": "structure",
+      "description": "定义异类内存属性表(HMAT)结构",
       "syntax": "typedef struct _HMAT_TABLE {   DESCRIPTION_HEADER Header;   ULONG              Reserved;} HMAT_TABLE, *PHMAT_TABLE;",
       "members": [
         {
@@ -861,8 +764,8 @@
     {
       "id": "windows::LPI_STATE_DESCRIPTOR",
       "name": "LPI_STATE_DESCRIPTOR",
-      "entity_type": "function",
-      "description": "LpiStates[ANYSIZE_ARRAY];} LPIT, *PLPIT;",
+      "entity_type": "structure",
+      "description": "Describes Low Power Idle (LPI) state characteristics",
       "syntax": "typedef struct _LPI_STATE_DESCRIPTOR {\nULONG           Type;   ULONG           Length;   USHORT          UniqueId;\nUCHAR           Reserved[2];   LPI_STATE_FLAGS Flags;",
       "requirements": {
         "header": "acpitabl.h"
@@ -876,8 +779,8 @@
     {
       "id": "windows::LPI_STATE_FLAGS",
       "name": "LPI_STATE_FLAGS",
-      "entity_type": "function",
-      "description": "将 LPI 状态标志定义为结构或整数。 LPIT 定义 LPI ACPI 表。 MHSP_CHANNEL 本主题介绍 Microsoft HSP ACPI 表使用的MHSP_CHANNEL结构。 MHSP_TABLE 描述MHSP_TABLE结构。",
+      "entity_type": "typedef",
+      "description": "定义LPI状态标志的联合体类型，包含位域结构和ULONG整型两种表示方式",
       "syntax": "typedef union _LPI_STATE_FLAGS {   struct {\nULONG Disabled : 1;\nULONG CounterUnavailable : 1;\nULONG Reserved : 30;   };\nULONG  AsUlong;\n} LPI_STATE_FLAGS, *PLPI_STATE_FLAGS;\ntypedef struct _LPIT {",
       "members": [
         {
@@ -900,8 +803,8 @@
     {
       "id": "windows::NFIT_PLATFORM_CAPABILITIES",
       "name": "NFIT_PLATFORM_CAPABILITIES",
-      "entity_type": "function",
-      "description": "介绍 NVDIMM 固件接口表 (NFIT) 平台功能结构。 最初在 ACPI 6.2 错误 A 中定义。 PCC_REDUCED_1_SUBSPACE 包含有关 ACPI 平台通信通道 (PCC) 减少 HW 类型 1 子空间的信息。 PCC_REDUCED_2_SUBSPACE 包含有关 ACPI 平台通信通道 (PCC) 减少 HW 类型 2 子空间的信息。 PDTT_PCC_SUBCHANNEL_INDENTIFIER 定义处理器属性拓扑表 (PPTT) 平台通信通道 (PCC) 子通道标识符结构。 PPTT 定义处理器属性拓扑表 (PPTT) 结构。 PRM_HANDLER_INFORMATION 定义PRM_HANDLER_INFORMATION结构。 PRM_MODULE_INFORMATION 定义PRM_MODULE_INFORMATION结构。 PRMT_TABLE 定义PRMT_TABLE结构。",
+      "entity_type": "structure",
+      "description": "描述NVDIMM固件接口表(NFIT)平台功能结构，最初在ACPI 6.2中定义。包含平台能力标志位字段。",
       "syntax": "typedef struct _NFIT_PLATFORM_CAPABILITIES {   NFIT_STRUCT_HEADER Header;\nUCHAR              HighestValidCapability;\nUCHAR              Reserved[3];   union {\nULONG AsUlong;     struct {\nULONG CpuCacheFlushOnPowerLoss : 1;       ULONG MemCtrlrFlushOnPowerLoss : 1;\nULONG PmemHardwareMirroring : 1;     } u;\n} Capabilities;\nUCHAR              Reserved1[4];\n} NFIT_PLATFORM_CAPABILITIES, *PNFIT_PLATFORM_CAPABILITIES;",
       "members": [
         {
@@ -928,8 +831,8 @@
     {
       "id": "windows::PROC_TOPOLOGY_CACHE_ATTRIBUTES",
       "name": "PROC_TOPOLOGY_CACHE_ATTRIBUTES",
-      "entity_type": "function",
-      "description": "Attributes; USHORT LineSize; ULONG CacheId; } CacheNode; struct { ULONG Vendor; ULONG64 Level1; ULONG64 Level2; USHORT Major; USHORT Minor; USHORT Spin; } IdNode; }; }",
+      "entity_type": "structure",
+      "description": "Union structure containing cache attributes for processor topology",
       "syntax": "typedef union _PROC_TOPOLOGY_CACHE_ATTRIBUTES {   struct {\nUCHAR ReadAllocate : 1;     UCHAR WriteAllocate : 1;\nUCHAR CacheType : 2;     UCHAR WritePolicy : 1;     UCHAR Reserved : 3;   };\nUCHAR  AsUCHAR;\n} PROC_TOPOLOGY_CACHE_ATTRIBUTES, *PPROC_TOPOLOGY_CACHE_ATTRIBUTES;",
       "members": [
         {
@@ -953,8 +856,8 @@
     {
       "id": "windows::PROC_TOPOLOGY_CACHE_FLAGS",
       "name": "PROC_TOPOLOGY_CACHE_FLAGS",
-      "entity_type": "function",
-      "description": "Flags; ULONG NextLevelCacheOffset; ULONG Size; ULONG Sets; UCHAR Associativity;",
+      "entity_type": "typedef",
+      "description": "Processor topology cache flags union type",
       "syntax": "typedef union _PROC_TOPOLOGY_CACHE_FLAGS {   struct {\nULONG SizeValid : 1;     ULONG SetsValid : 1;\nULONG AssociativityValid : 1;     ULONG AllocationTypeValid : 1;\nULONG CacheTypeValid : 1;     ULONG WritePolicyValid : 1;     ULONG LineSizeValid : 1;     ULONG CacheIdValid : 1;\nULONG Reserved : 24;   };\nULONG  AsULONG;\n} PROC_TOPOLOGY_CACHE_FLAGS, *PPROC_TOPOLOGY_CACHE_FLAGS;",
       "members": [
         {
@@ -978,8 +881,8 @@
     {
       "id": "windows::PROC_TOPOLOGY_NODE",
       "name": "PROC_TOPOLOGY_NODE",
-      "entity_type": "function",
-      "description": "HierarchyNodes[ANYSIZE_ARRAY];} PPTT, *PPPTT;",
+      "entity_type": "structure",
+      "description": "Processor topology node structure used in ACPI tables",
       "syntax": "typedef struct _PROC_TOPOLOGY_NODE {   struct {\nUCHAR Type;     UCHAR Length;\nUCHAR Reserved[2];   };\nunion {\nstruct {",
       "members": [
         {
@@ -999,8 +902,8 @@
     {
       "id": "windows::PROC_TOPOLOGY_NODE_FLAGS",
       "name": "PROC_TOPOLOGY_NODE_FLAGS",
-      "entity_type": "function",
-      "description": "Flags; ULONG Parent; ULONG ACPIProcessorId; ULONG NumberPrivateResources; ULONG PrivateResources[ANYSIZE_ARRAY]; } HierarchyNode; struct {",
+      "entity_type": "typedef",
+      "description": "Union representing processor topology node flags",
       "syntax": "typedef union _PROC_TOPOLOGY_NODE_FLAGS {   struct {\nULONG PhysicalPackage : 1;\nULONG ACPIProcessorIdValid : 1;\nULONG ProcessorIsThread : 1;     ULONG IsLeaf : 1;\nULONG IdenticalImplementation : 1;\nULONG Reserved : 27;   };\nULONG  AsULONG;\n} PROC_TOPOLOGY_NODE_FLAGS, *PPROC_TOPOLOGY_NODE_FLAGS; 成员",
       "header": "acpitabl.h",
       "deprecated": false,
@@ -1014,8 +917,8 @@
     {
       "id": "windows::SDEV_SECURE_ACPI_INFO_ENTRY",
       "name": "SDEV_SECURE_ACPI_INFO_ENTRY",
-      "entity_type": "function",
-      "description": "定义安全 ACPI 设备的信息条目，以便在安全设备表中使用。 SDEV_SECURE_RESOURCE_ID_ENTRY 定义安全 ACPI 设备的资源 ID 条目，以便在安全设备表中使用。 SDEV_SECURE_RESOURCE_MEMORY_ENTRY 定义安全 ACPI 设备的资源内存条目，以便在安全设备表中使用。 SPMI_DESCRIPTION_TABLE 定义SPMI_DESCRIPTION_TABLE结构。反馈 是 否",
+      "entity_type": "structure",
+      "description": "定义安全ACPI设备的信息条目，用于在安全设备表中使用",
       "syntax": "typedef struct _SDEV_SECURE_ACPI_INFO_ENTRY {   SDEV_ENTRY_HEADER Header;\nUSHORT            IdentifierOffset;   USHORT            IdentifierLength;   USHORT            VendorInfoOffset;   USHORT            VendorInfoLength;\nUSHORT            SecureResourcesOffset;   USHORT            SecureResourcesLength;\n} SDEV_SECURE_ACPI_INFO_ENTRY, *PSDEV_SECURE_ACPI_INFO_ENTRY;",
       "members": [
         {
@@ -1033,58 +936,10 @@
       "_source_line": 156
     },
     {
-      "id": "windows::Reserved0",
-      "name": "Reserved0",
-      "entity_type": "ioctl",
-      "description": "保留。 请勿使用。 VendorIdStringOffset 从此结构的开头到 VendorIDString 成员的开头的偏移量。 此字符串唯一标识制造商和设备本身。",
-      "header": "acpiioct.h",
-      "deprecated": true,
-      "cross_references": [
-        "VendorIDString"
-      ],
-      "confidence": 0.6,
-      "_source_line": 262
-    },
-    {
-      "id": "windows::VendorIDString",
-      "name": "VendorIDString",
-      "entity_type": "ioctl",
-      "description": "成员的长度。 DeviceIdStringOffset 从此结构的开头到 DeviceIDString 成员的开头的偏移量。 此字符串唯一标识设备。 SubSystemIdStringOffset 从此结构的开头到 SubSystemIDString 成员的开头的偏移量。 此字符串唯一标识设备集成到的 制造商和子系统（芯片或板）。 SubSystemStringLength",
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [
-        "SubSystemIDString"
-      ],
-      "confidence": 0.6,
-      "_source_line": 266
-    },
-    {
-      "id": "windows::SubSystemIDString",
-      "name": "SubSystemIDString",
-      "entity_type": "ioctl",
-      "description": "成员的长度。 SubDeviceIdStringOffset 从此结构的开头到 DeviceIDString 成员的开头的偏移量。 此字符串唯一标识子系统。 InstanceIdLength",
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.6,
-      "_source_line": 270
-    },
-    {
-      "id": "windows::InstanceIDString",
-      "name": "InstanceIDString",
-      "entity_type": "ioctl",
-      "description": "成员的长度。 InstanceIdOffset 从此结构的开头到 InstanceIDString 成员的开头的偏移量。 此字符串唯一标识平台上所有此类 设备中的设备。 BaseClassCode 标识设备的类的数字。 有关详细信息，请参阅 外围组件互连特殊兴趣组（PCI-SIG） HardwareRevision 标识设备硬件修订版的数字。 基类代码定义的规范。",
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.6,
-      "_source_line": 272
-    },
-    {
       "id": "windows::ProgrammingInterface",
       "name": "ProgrammingInterface",
-      "entity_type": "ioctl",
-      "description": "标识设备的编程接口的数字。 有关详细信息，请参阅 外围组件互连特殊兴趣组（PCI-SIG） Reserved1 保留。 请勿使用。 SubClassCode 标识设备的子类的数字。 有关详细信息，请参阅 外围组件互连特殊兴趣组（PCI-SIG）",
+      "entity_type": "structure",
+      "description": "标识设备的编程接口的数字。有关详细信息，请参阅外围组件互连特殊兴趣组(PCI-SIG)。",
       "remarks": "类编程接口定义的规范。 子类代码定义的规范。 在ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER后面追加的 SubSystemIdString、 VendorIdString 和 InstanceIdString 字符串，如下所示： BYTE[SubVendorStringLength+1] SubSystemIdString 长度为 SubSystemStringLength 的字符串，其中包含子系统的制造商和子系统标识符。 BYTE[VendorIdStringOffset+1] VendorIdString VendorStringLength 字符串，其中包含设备的制造商和设备标识符。 BYTE[InstanceIdOffset+1] InstanceIdString 长度 InstanceIDLength 字符串，其中包含一个数字，用于在平台上的所有此类设备中唯一标识设备（即具有相同供应商、设备、SubsystemVendor 和 SubsystemDevice ID 的所有设备）。",
       "requirements": {
         "header": "acpiioct.h",
@@ -1103,8 +958,8 @@
     {
       "id": "windows::Children",
       "name": "Children",
-      "entity_type": "ioctl",
-      "description": "数组中类型 ACPI_ENUM_CHILD 的元素数。 Children[ANYSIZE_ARRAY]",
+      "entity_type": "structure",
+      "description": "数组中类型ACPI_ENUM_CHILD的元素数。Children[ANYSIZE_ARRAY]",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [
@@ -1116,8 +971,8 @@
     {
       "id": "windows::ACPI_EVAL_INPUT_BUFFER_COMPLEX_V",
       "name": "ACPI_EVAL_INPUT_BUFFER_COMPLEX_V",
-      "entity_type": "ioctl",
-      "description": "本主题介绍 ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2_EX 结构。",
+      "entity_type": "structure",
+      "description": "Structure used for ACPI complex evaluation input buffer (version 2). Contains method signature, name, size and argument count.",
       "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_COMPLEX_V2 {\nULONG                   Signature;   union {\nUCHAR MethodName[4];\nULONG MethodNameAsUlong;   } DUMMYUNIONNAME;\nULONG                   Size;\nULONG                   ArgumentCount;",
       "header": "acpiioct.h",
       "deprecated": false,
@@ -1126,35 +981,10 @@
       "_source_line": 385
     },
     {
-      "id": "windows::ACPI_METHOD_ARGUMENT_V1",
-      "name": "ACPI_METHOD_ARGUMENT_V1",
-      "entity_type": "ioctl",
-      "description": "Argument[ANYSIZE_ARRAY];} ACPI_EVAL_INPUT_BUFFER_COMPLEX_V1_EX, *PACPI_EVAL_INPUT_BUFFER_COMPLEX_V1_EX, ACPI_EVAL_INPUT_BUFFER_COMPLEX_EX, *PACPI_EVAL_INPUT_BUFFER_COMPLEX_EX;",
-      "remarks": "如果设备支持名为“ABCD”的控件方法（采用参数数组作为输入），则设备的驱动程序可 以通过向设备发送IOCTL_ACPI_EVAL_METHOD请求或向设备发送 IOCTL_ACPI_ASYNC_EVAL_METHOD请求并设置输入",
-      "members": [
-        {
-          "name": "Signature",
-          "description": "扩展的复杂输入缓冲区的签名，该缓冲区必须设置为 ACPI_EVAL_INPUT_BUFFER_COMPLEX_SIGNATURE_EX。"
-        },
-        {
-          "name": "MethodName[256]",
-          "description": "一个以 NULL 结尾的 ASCII 字符串，其中包含 ACPI 命名空间中控件方法的路径和名称。字符串可以包含的最大字符数（包括 NULL 终止符）为 256。 有关如何提供控件方法的路径和名称的详细信息，请参阅本主题后面的“备注”部分。 Size 参数 数组包含的字节数。 ArgumentCount 参数 数组包含的可变长度ACPI_METHOD_ARGUMENT结构的数目。 参数 数组最多可以容纳七个参数结构。 Argument[ANYSIZE_ARRAY] ACPI_METHOD_ARGUMENT结构的数组。"
-        }
-      ],
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [
-        "ACPI_EVAL_INPUT_BUFFER_COMPLEX_EX",
-        "ACPI_EVAL_INPUT_BUFFER_COMPLEX_V1_EX"
-      ],
-      "confidence": 0.85,
-      "_source_line": 395
-    },
-    {
       "id": "windows::IOCTL_ACPI_EVAL_METHOD",
       "name": "IOCTL_ACPI_EVAL_METHOD",
       "entity_type": "ioctl",
-      "description": "请求或向设备发送IOCTL_ACPI_ASYNC_EVAL_METHOD请求并设置输入ACPI_EVAL_INPUT_BUFFER结构的成员来评估该方法，如下所示： 将 签名 设置为ACPI_EVAL_INPUT_BUFFER_SIGNATURE。 将 MethodName 设置为“ABCD”或 MethodNameAsUlong 为 （ULONG）（“DCBA”）。 有关如何使用此结构的详细信息，请参阅 评估 ACPI 控制方法。",
+      "description": "用于请求或向设备发送IOCTL_ACPI_ASYNC_EVAL_METHOD请求并设置输入ACPI_EVAL_INPUT_BUFFER结构的成员来评估ACPI方法。需要将签名设置为ACPI_EVAL_INPUT_BUFFER_SIGNATURE，MethodName设置为\"ABCD\"或MethodNameAsUlong为(ULONG)(\"DCBA\")。",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [],
@@ -1164,8 +994,8 @@
     {
       "id": "windows::ArgumentCount",
       "name": "ArgumentCount",
-      "entity_type": "ioctl",
-      "description": "定义 ULONG 成员 ArgumentCount。 Argument[ANYSIZE_ARRAY] 定义 ACPI_METHOD_ARGUMENT_V2 成员 Argument[ANYSIZE_ARRAY]。",
+      "entity_type": "structure",
+      "description": "定义ULONG类型的ArgumentCount成员和ACPI_METHOD_ARGUMENT_V2类型的Argument[ANYSIZE_ARRAY]数组成员",
       "requirements": {
         "header": "acpiioct.h",
         "target_platform": "Windows",
@@ -1183,7 +1013,7 @@
       "id": "windows::ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_SIGNATURE",
       "name": "ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_SIGNATURE",
       "entity_type": "ioctl",
-      "description": "。 DUMMYUNIONNAME DUMMYUNIONNAME.MethodName[4] 包含控件方法名称的四元素 ASCII 字符数组，例如“ABCD”。 DUMMYUNIONNAME.MethodNameAsUlong 一个类型为 ULONG 的值，该值包含格式 （ULONG） （'DCBA'）中方法的名称，其中方 法名称为四元素 ASCII 字符数组“ABCD”。 IntegerArgument 作为输入传递给控件方法的 ULONG 类型的参数值。",
+      "description": "constant",
       "remarks": "如果设备支持名为 ABCD 的控件方法（采用 ULONG 类型的一个整数参数），则设备的驱动程序可以通过向设备发送IOCTL_EVAL_METHOD请求或",
       "header": "acpiioct.h",
       "deprecated": false,
@@ -1194,9 +1024,9 @@
     {
       "id": "windows::ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_SIGNATURE_EX",
       "name": "ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_SIGNATURE_EX",
-      "entity_type": "ioctl",
-      "description": "。 MethodName[256] 一个以 NULL 结尾的 ASCII 字符串，其中包含 ACPI 命名空间中控件方法的路径和名称。字符串可以包含的最大字符数（包括 NULL 终止符）为 256。 有关如何提供控件方法的 路径和名称的详细信息，请参阅本主题后面的“备注”部分。 IntegerArgument 作为输入传递给控件方法的ULONG64类型的参数值。",
-      "remarks": "设备的驱动程序可以使用IOCTL_ACPI_EVAL_METHOD_EX请求或",
+      "entity_type": "structure",
+      "description": "ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_SIGNATURE_EX structure contains information for evaluating an ACPI control method that takes a single integer argument. MethodName[256] is a NULL-terminated ASCII string containing the path and name of the control method in the ACPI namespace (max 256 chars including NULL terminator). IntegerArgument is a ULONG64 value passed as input to the control method.",
+      "remarks": "Device drivers can use this structure with IOCTL_ACPI_EVAL_METHOD_EX request to evaluate ACPI control methods.",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [],
@@ -1204,59 +1034,11 @@
       "_source_line": 583
     },
     {
-      "id": "windows::GER_V2",
-      "name": "GER_V2",
-      "entity_type": "ioctl",
-      "description": "本主题介绍 ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2 结构。",
-      "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2 {\nULONG Signature;   union {\nUCHAR MethodName[4];\nULONG MethodNameAsUlong;   } DUMMYUNIONNAME;\nULONG IntegerArgument;\n} ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2;",
-      "members": [
-        {
-          "name": "Signature",
-          "description": "定义 ULONG 成员 签名。 DUMMYUNIONNAME 定义 DUMMYUNIONNAME的方法名称成员。 DUMMYUNIONNAME.MethodName[4] DUMMYUNIONNAME.MethodNameAsUlong IntegerArgument 定义 ULONG 成员 IntegerArgument。"
-        }
-      ],
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "acpiioct.h",
-        "min_client": "Windows 10"
-      },
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [
-        "ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2"
-      ],
-      "confidence": 0.85,
-      "_source_line": 612
-    },
-    {
-      "id": "windows::R_V2_EX",
-      "name": "R_V2_EX",
-      "entity_type": "ioctl",
-      "description": "本主题介绍 ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2_EX 结构。",
-      "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2_EX {   ULONG   Signature;\nCHAR    MethodName[256];   ULONG64 IntegerArgument;\n} ACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2_EX, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_INTEGER_V2_EX;",
-      "members": [
-        {
-          "name": "Signature",
-          "description": "定义 ULONG 成员 签名。 MethodName[256] NULL 终止的名称字符串。 IntegerArgument 定义 IntegerArgument ULONG64 成员。"
-        }
-      ],
-      "requirements": {
-        "header": "acpiioct.h",
-        "target_platform": "Windows",
-        "min_client": "Windows 10"
-      },
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.95,
-      "_source_line": 639
-    },
-    {
       "id": "windows::ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_SIGNATURE",
       "name": "ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_SIGNATURE",
-      "entity_type": "ioctl",
-      "description": "。 DUMMYUNIONNAME DUMMYUNIONNAME.MethodName[4] 此联合成员是包含方法名称的四元素 ASCII 字符数组。 例如，“ABCD”。 DUMMYUNIONNAME.MethodNameAsUlong 此联合成员是一个 ULONG 类型的变量，该变量包含格式 （ULONG） （'DCBA'）中方法的名 称，其中方法名称为四元素 ASCII 字符数组“ABCD”。 StringLength 字符串 提供的字符数组中的 ASCII 字符数。 String[ANYSIZE_ARRAY] 一个 ASCII 字符串，其中包含由 StringLength指定的字符数。 该字符串不包含 NULL 终止符。",
-      "remarks": "如果设备支持名为 ABCD 的控件方法（采用 ASCII 字符串作为输入），则设备的驱动程序可以通过向设备发送IOCTL_ACPI_EVAL_METHOD请求或向设备发送IOCTL_ACPI_ASYNC_EVAL_METHOD 请求并设置输入ACPI_EVAL_INPUT_BUFFER结构的成员来评估该方法，如下所示： 将 签名 设置为ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_SIGNATURE。 将 MethodName 设置为“ABCD”或 MethodNameAsUlong 为 （ULONG）（“DCBA”）。 将 StringLength 设置为由 String提供的字符数。将 字符串 设置为输入字符串。 有关如何使用此结构的详细信息，请参阅 评估 ACPI 控制方法。",
+      "entity_type": "constant",
+      "description": "Signature for ACPI_EVAL_INPUT_BUFFER structure when evaluating a simple string method.",
+      "remarks": "If a device supports a control method named ABCD that takes an ASCII string as input, the device's driver can evaluate the method by sending an IOCTL_ACPI_EVAL_METHOD request or IOCTL_ACPI_ASYNC_EVAL_METHOD request to the device and setting the members of the ACPI_EVAL_INPUT_BUFFER structure as follows: Set Signature to ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_SIGNATURE. Set MethodName to 'ABCD' or MethodNameAsUlong to (ULONG)('DCBA'). Set StringLength to the number of characters provided by String. Set String to the input string.",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [],
@@ -1266,8 +1048,8 @@
     {
       "id": "windows::_V2",
       "name": "_V2",
-      "entity_type": "ioctl",
-      "description": "本主题介绍 ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2 结构。",
+      "entity_type": "structure",
+      "description": "ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2结构体用于传递简单字符串输入参数",
       "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2 {\nULONG Signature;   union {\nUCHAR MethodName[4];\nULONG MethodNameAsUlong;\n} DUMMYUNIONNAME;   ULONG StringLength;\nUCHAR String[ANYSIZE_ARRAY];\n} ACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2, *PACPI_EVAL_INPUT_BUFFER_SIMPLE_STRING_V2;",
       "members": [
         {
@@ -1292,8 +1074,8 @@
       "id": "windows::ACPI_EVAL_INPUT_BUFFER_SIGNATURE",
       "name": "ACPI_EVAL_INPUT_BUFFER_SIGNATURE",
       "entity_type": "ioctl",
-      "description": "。 DUMMYUNIONNAME DUMMYUNIONNAME.MethodName[4] 包含控件方法名称的四元素 ASCII 字符数组，例如“ABCD”。 DUMMYUNIONNAME.MethodNameAsUlong 一个类型为 ULONG 的值，该值包含格式 （ULONG） （'DCBA'）中方法的名称，其中方 法名称为四元素 ASCII 字符数组“ABCD”。",
-      "remarks": "如果设备支持名为“ABCD”的控件方法，则设备驱动程序可以通过向设备发送",
+      "description": "包含控件方法名称的四元素ASCII字符数组，例如'ABCD'。也可以表示为ULONG类型的值，格式为(ULONG)('DCBA')，其中方法名称为四元素ASCII字符数组'ABCD'。",
+      "remarks": "如果设备支持名为'ABCD'的控件方法，则设备驱动程序可以通过向设备发送此IOCTL签名来调用该方法。",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [],
@@ -1303,8 +1085,8 @@
     {
       "id": "windows::ACPI_EVAL_INPUT_BUFFER_SIGNATURE_EX",
       "name": "ACPI_EVAL_INPUT_BUFFER_SIGNATURE_EX",
-      "entity_type": "ioctl",
-      "description": "。 MethodName[256] 一个以 NULL 结尾的 ASCII 字符串，其中包含 ACPI 命名空间中控件方法的路径和名称。 字符串可以包含的最大字符数（包括 NULL 终止符）为 256。 有关如何提供控件方法的路径和名称的 详细信息，请参阅本主题后面的“备注”部分。",
+      "entity_type": "structure",
+      "description": "MethodName[256] - A NULL-terminated ASCII string containing the path and name of a control method in the ACPI namespace. The string can contain a maximum of 256 characters (including the NULL terminator). For details on how to provide the path and name of the control method, see the Remarks section.",
       "remarks": "设备的驱动程序可以使用IOCTL_ACPI_EVAL_METHOD_EX请求或",
       "header": "acpiioct.h",
       "deprecated": false,
@@ -1315,8 +1097,8 @@
     {
       "id": "windows::ACPI_EVAL_INPUT_BUFFER_V2_EX",
       "name": "ACPI_EVAL_INPUT_BUFFER_V2_EX",
-      "entity_type": "ioctl",
-      "description": "结构 本主题介绍 ACPI_EVAL_INPUT_BUFFER_V2_EX 结构。",
+      "entity_type": "structure",
+      "description": "ACPI_EVAL_INPUT_BUFFER_V2_EX 结构用于与 ACPI 方法交互的输入缓冲区。",
       "syntax": "typedef struct _ACPI_EVAL_INPUT_BUFFER_V2_EX {   ULONG Signature;\nCHAR  MethodName[256];\n} ACPI_EVAL_INPUT_BUFFER_V2_EX, *PACPI_EVAL_INPUT_BUFFER_V2_EX;",
       "members": [
         {
@@ -1338,8 +1120,8 @@
     {
       "id": "windows::ACPI_MANIPULATE_GLOBAL_LOCK_BUFF",
       "name": "ACPI_MANIPULATE_GLOBAL_LOCK_BUFF",
-      "entity_type": "ioctl",
-      "description": "本主题介绍 ACPI_MANIPULATE_GLOBAL_LOCK_BUFFER 结构。",
+      "entity_type": "structure",
+      "description": "ACPI_MANIPULATE_GLOBAL_LOCK_BUFFER结构用于操作ACPI全局锁，包含签名和锁对象成员。",
       "syntax": "typedef struct _ACPI_MANIPULATE_GLOBAL_LOCK_BUFFER {\nULONG Signature;   PVOID LockObject;\n} ACPI_MANIPULATE_GLOBAL_LOCK_BUFFER, *PACPI_MANIPULATE_GLOBAL_LOCK_BUFFER;",
       "members": [
         {
@@ -1372,24 +1154,13 @@
     {
       "id": "windows::ACPI_METHOD_ARGUMENT_STRING",
       "name": "ACPI_METHOD_ARGUMENT_STRING",
-      "entity_type": "ioctl",
+      "entity_type": "structure",
       "description": "Data 数组包含以 NULL 结尾的 ASCII 字符串，DataLength 提供字符串中的字符数，包括 NULL 终止符。",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
       "_source_line": 991
-    },
-    {
-      "id": "windows::ACPI_METHOD_ARGUMENT_BUFFER",
-      "name": "ACPI_METHOD_ARGUMENT_BUFFER",
-      "entity_type": "ioctl",
-      "description": "Data 数组包含自定义数据，DataLength 提供包含自定义数据的连续数组元素数，从 Data[0] 元素开始。",
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 993
     },
     {
       "id": "windows::ACPI_METHOD_ARGUMENT_PACKAGE",
@@ -1403,95 +1174,10 @@
       "_source_line": 995
     },
     {
-      "id": "windows::IRP_MJ_DEVICE_CONTROL",
-      "name": "IRP_MJ_DEVICE_CONTROL",
-      "entity_type": "ioctl",
-      "description": "输入缓冲区 一个输入缓冲区结构，该结构取决于要传递给控制方法的输入参数的类型。输入缓冲区长度 输入缓冲区的大小（以字节为单位）。输出缓冲区 包含控件方法的输出参数的输出缓冲区结构。输出缓冲区长度 输出缓冲区的大小（以字节为单位）。状态块 Irp->IoStatus.Status 设置为STATUS_SUCCESS（如果请求成功）。 否则，状态 相应的错 误条件作为 NTSTATUS 代码。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "acpiioct.h",
-        "min_client": "Windows Vista"
-      },
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 1052
-    },
-    {
-      "id": "windows::IoControlCode",
-      "name": "IoControlCode",
-      "entity_type": "ioctl",
-      "description": "设置为IOCTL_ACPI_GET_DEVICE_INFORMATION。 DeviceObject 设置为指向设备的物理设备对象（PDO）的指针。",
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [
-        "DeviceObject"
-      ],
-      "confidence": 0.6,
-      "_source_line": 1071
-    },
-    {
-      "id": "windows::DeviceObject",
-      "name": "DeviceObject",
-      "entity_type": "ioctl",
-      "description": "设置为指向物理设备对象的指针， (设备的 PDO) 。",
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.5,
-      "_source_line": 1072
-    },
-    {
-      "id": "windows::InputBuffer",
-      "name": "InputBuffer",
-      "entity_type": "ioctl",
-      "description": "设置为指向可变长度 ACPI_ENUM_CHILDREN_INPUT_BUFFER 结构的指针。 InputBufferLength 设置为 InputBuffer 提供的输入缓冲区的大小（以字节为单位）。 OutputBufferLength 提供 OutputBuffer 提供的输出缓冲区的大小（以字节为单位）。",
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [
-        "ACPI_ENUM_CHILDREN_INPUT_BUFFER",
-        "InputBufferLength",
-        "OutputBuffer",
-        "OutputBufferLength"
-      ],
-      "confidence": 0.6,
-      "_source_line": 1073
-    },
-    {
-      "id": "windows::InputBufferLength",
-      "name": "InputBufferLength",
-      "entity_type": "ioctl",
-      "description": "设置为输入缓冲区的大小（以字节为单位）InputBuffer。 OutputBufferLength 提供 OutputBuffer提供的输出缓冲区的大小（以字节为单位）。",
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [
-        "InputBuffer",
-        "OutputBufferLength"
-      ],
-      "confidence": 0.6,
-      "_source_line": 1074
-    },
-    {
-      "id": "windows::OutputBufferLength",
-      "name": "OutputBufferLength",
-      "entity_type": "ioctl",
-      "description": "提供 OutputBuffer 提供的输出缓冲区的大小（以字节为单位）。 状态块 如果请求成功，则 IoStatusBlock-Status> 设置为 STATUS_SUCCESS;否则，Status 成员设置为错误代码。 如果输出缓冲区的大小不足以包含缓冲区标头，则 Status 成员设置为",
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [
-        "IoStatusBlock",
-        "OutputBuffer",
-        "STATUS_SUCCESS"
-      ],
-      "confidence": 0.6,
-      "_source_line": 1075
-    },
-    {
       "id": "windows::InternalDeviceIoControl",
       "name": "InternalDeviceIoControl",
-      "entity_type": "ioctl",
-      "description": "设置为 FALSE。 事件 设置为指向调用方分配和初始化的事件对象的指针。输入缓冲区长度",
+      "entity_type": "function",
+      "description": "InternalDeviceIoControl is an IOCTL function used for internal device control operations.",
       "header": "acpiioct.h",
       "deprecated": false,
       "cross_references": [],
@@ -1499,108 +1185,11 @@
       "_source_line": 1076
     },
     {
-      "id": "windows::OutputBuffer",
-      "name": "OutputBuffer",
-      "entity_type": "ioctl",
-      "description": "提供指向可变长度 ACPI_ENUM_CHILDREN_OUTPUT_BUFFER 结构的指针， 其中 ACPI 驱动程序返回枚举子设备的路径和名称。",
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [
-        "ACPI_ENUM_CHILDREN_OUTPUT_BUFFER"
-      ],
-      "confidence": 0.6,
-      "_source_line": 1080
-    },
-    {
-      "id": "windows::IoStatusBlock",
-      "name": "IoStatusBlock",
-      "entity_type": "ioctl",
-      "description": "设置为指向 IO_STATUS_BLOCK 结构的指针。 输出缓冲区长度",
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [
-        "IO_STATUS_BLOCK"
-      ],
-      "confidence": 0.5,
-      "_source_line": 1081
-    },
-    {
-      "id": "windows::STATUS_BUFFER_TOO_SMALL",
-      "name": "STATUS_BUFFER_TOO_SMALL",
-      "entity_type": "ioctl",
-      "description": "。 如果输出缓冲区足够大，足以包含输出缓冲区标头，但不足以 包含所有枚举子对象的路径和名称，则 Status 成员设置为 STATUS_BUFFER_OVERFLOW， OutputBuffer-NumberOfChildren> 设置为输出缓冲区的所需长度。 如果请求成功，IoStatusBlock-Information> 成员将设置为输出缓冲区中返回的字节数;否则，信 息成员设置为零。",
-      "remarks": "设备的驱动程序可以使用IOCTL_ACPI_ASYNC_EVAL_METHOD_EX异步评估设备命名空间中子对象支持的控件方法。 此请求提供的控制方法的路径和名称必须是 ACPI 命名空间中方法的完全限定路径和名称，或者是与请求发送到的设备相对的方法的路径和名称。 例如，假设名为“ABCD” 的设备是 ACPI 命名空间根目录的直接子级，“ABCD”设备支持名为“CHLD”的子设备，并且 “CHLD”设备支持名为“_FOO”的方法。 在这种情况下，为了评估“_FOO”方法，驱动程序将评估请求发送到“ABCD”设备，并提供路径和名称“\\ABCD”。CHLD._FOO，它是 ACPI 命名空间中完全限定的路径和名称，或路径和名称“CHLD._FOO”，它是与 ACPI 命名空间中的“ABCD”设备相对的路径和名称。",
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [
-        "IoStatusBlock",
-        "OutputBuffer",
-        "STATUS_BUFFER_OVERFLOW"
-      ],
-      "confidence": 0.75,
-      "_source_line": 1084
-    },
-    {
-      "id": "windows::WdfIoTargetSendInternalIoctlOthersSynchronously",
-      "name": "WdfIoTargetSendInternalIoctlOthersSynchronously",
-      "entity_type": "ioctl",
-      "description": "WdfIoTargetSendInternalIoctlSynchronously",
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [
-        "WdfIoTargetSendInternalIoctlSynchronously"
-      ],
-      "confidence": 0.5,
-      "_source_line": 1164
-    },
-    {
-      "id": "windows::WdfIoTargetSendIoctlSynchronously",
-      "name": "WdfIoTargetSendIoctlSynchronously",
-      "entity_type": "ioctl",
-      "description": "反馈 是 否",
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.4,
-      "_source_line": 1165
-    },
-    {
-      "id": "windows::WdfIoTargetSendInternalIoctlSynchronously",
-      "name": "WdfIoTargetSendInternalIoctlSynchronously",
-      "entity_type": "ioctl",
-      "description": "WdfIoTargetSendIoctlSynchronously",
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [
-        "WdfIoTargetSendIoctlSynchronously"
-      ],
-      "confidence": 0.5,
-      "_source_line": 1190
-    },
-    {
-      "id": "windows::STATUS_BUFFER_OVERFLOW",
-      "name": "STATUS_BUFFER_OVERFLOW",
-      "entity_type": "ioctl",
-      "description": "。 在这种情况下，如果输出缓冲区 的大小（以 字节为单位）至少 为 (ACPI_ENUM_CHILDREN_OUTPUT_BUFFER_SIGNATURE) ，则 ACPI 驱动程序还会将 NumberOfChildren 设置为检索请求的路径和名称所需的大小（以字节为单位）。 驱动程序通常使用两个IOCTL_ACPI_ENUM_CHILDREN请求的序列来枚举感兴趣的子对象。 驱动程序发送第一个请求以获取包含所有请求对象的路径和名称所需的输出缓冲区的大小。 驱动程序发送第二个请求，以返回输出缓冲区中对象的路径和名称。 有关如何枚举设备的子设备的详细信息，请参阅 枚举子设备和控制方法。",
-      "requirements": {
-        "header": "acpiioct.h",
-        "target_platform": "Windows",
-        "min_client": "Windows Vista"
-      },
-      "header": "acpiioct.h",
-      "deprecated": false,
-      "cross_references": [
-        "ACPI_ENUM_CHILD"
-      ],
-      "confidence": 0.75,
-      "_source_line": 1263
-    },
-    {
       "id": "windows::ACPI_PDTT",
       "name": "ACPI_PDTT",
       "entity_type": "struct",
-      "description": "定义 ACPI 处理器调试触发器表 (PDTT) 结构。 ACPI_PLD_CONTAINER_BUFFER 定义 ACPI 物理位置描述符 (PLD) 容器缓冲区结构。 ACPI_PLD_INTERFACE_CLASS_BUFFER 介绍 ACPI PLD 接口类描述符缓冲区、修订版 1 (Microsoft 自定义 PLD 缓冲区扩展、128 位) 。 ACPI_PLD_INTERFACE_INSTANCE_ANSI_BUFFER 介绍 ACPI PLD 接口实例 ANSI 描述符缓冲区，修订版 1 (Microsoft 自定义 PLD 缓冲区扩展，128 位) 。",
-      "syntax": "typedef struct _ACPI_PDTT {   DESCRIPTION_HEADER Header;\nUCHAR              TriggerCount;   UCHAR              Reserved[3];   ULONG              TriggerOffset;} ACPI_PDTT, *PACPI_PDTT;",
+      "description": "定义 ACPI 处理器调试触发器表 (PDTT) 结构。",
+      "syntax": "typedef struct _ACPI_PDTT {\n  DESCRIPTION_HEADER Header;\n  UCHAR TriggerCount;\n  UCHAR Reserved[3];\n  ULONG TriggerOffset;\n} ACPI_PDTT, *PACPI_PDTT;",
       "members": [
         {
           "name": "Header",
@@ -1620,9 +1209,9 @@
     {
       "id": "windows::SPMI_DESCRIPTION_TABLE",
       "name": "SPMI_DESCRIPTION_TABLE",
-      "entity_type": "struct",
-      "description": "结构 定义 SPMI_DESCRIPTION_TABLE 结构。",
-      "syntax": "typedef struct _SPMI_DESCRIPTION_TABLE {   DESCRIPTION_HEADER Header;\nUINT8              InterfaceType;   UINT8              Reserved1;\nUINT16             SpecificationRevision;   struct {\nUINT8 GpeSupported : 1;     UINT8 ApicInterrupt : 1;\nUINT8 Reserved : 6;   } InterruptType;\nUINT8              Gpe;\nUINT8              Reserved2;\nUINT8              PciDeviceFlag;\nUINT32             GlobalSystemInterrupt;   GEN_ADDR           BaseAddress;\nUINT8              PciSegmentGroupNumber;   UINT8              PciBusNumber;\nUINT8              PciDeviceNumber;   UINT8              PciFunctionNumber;   UINT8              Reserved3;\n} SPMI_DESCRIPTION_TABLE, *PSPMI_DESCRIPTION_TABLE;",
+      "entity_type": "structure",
+      "description": "Defines the SPMI (Serial Power Management Interface) Description Table structure.",
+      "syntax": "typedef struct _SPMI_DESCRIPTION_TABLE {\n  DESCRIPTION_HEADER Header;\n  UINT8 InterfaceType;\n  UINT8 Reserved1;\n  UINT16 SpecificationRevision;\n  struct {\n    UINT8 GpeSupported : 1;\n    UINT8 ApicInterrupt : 1;\n    UINT8 Reserved : 6;\n  } InterruptType;\n  UINT8 Gpe;\n  UINT8 Reserved2;\n  UINT8 PciDeviceFlag;\n  UINT32 GlobalSystemInterrupt;\n  GEN_ADDR BaseAddress;\n  UINT8 PciSegmentGroupNumber;\n  UINT8 ...",
       "members": [
         {
           "name": "Header",
@@ -1639,8 +1228,8 @@
       "id": "windows::IVRS_BLOCK_TYPE",
       "name": "IVRS_BLOCK_TYPE",
       "entity_type": "enum",
-      "description": "枚举 I/O 虚拟化报告结构 (IVRS) 块类型。 IVRS_TABLE_TYPE 枚举 I/O 虚拟化硬件定义 (IVHD) 项类型。 NFIT_STRUCTURE_TYPE 介绍 NVDIMM 固件接口表 (NFIT) 结构类型。",
-      "syntax": "typedef enum _IVRS_BLOCK_TYPE {   IommuDefinitionBlockTypeIvhd,   IommuDefinitionBlockType11Ivhd,   IommuDefinitionBlockTypeIvmdAll,\nIommuDefinitionBlockTypeIvmdSpecified,   IommuDefinitionBlockTypeIvmdRange,\nIommuDefinitionBlockType40Ivhd} IVRS_BLOCK_TYPE;\n常数",
+      "description": "枚举 I/O 虚拟化报告结构 (IVRS) 块类型。",
+      "syntax": "typedef enum _IVRS_BLOCK_TYPE {\n  IommuDefinitionBlockTypeIvhd,\n  IommuDefinitionBlockType11Ivhd,\n  IommuDefinitionBlockTypeIvmdAll,\n  IommuDefinitionBlockTypeIvmdSpecified,\n  IommuDefinitionBlockTypeIvmdRange,\n  IommuDefinitionBlockType40Ivhd\n} IVRS_BLOCK_TYPE;",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [
@@ -1651,31 +1240,9 @@
       "_source_line": 1626
     },
     {
-      "id": "windows::TriggerCount",
-      "name": "TriggerCount",
-      "entity_type": "enum",
-      "description": "Reserved[3] 保留以供将来使用。",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.5,
-      "_source_line": 1642
-    },
-    {
-      "id": "windows::TriggerOffset",
-      "name": "TriggerOffset",
-      "entity_type": "enum",
-      "description": "要求 要求标头 价值 acpitabl.h",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.5,
-      "_source_line": 1644
-    },
-    {
       "id": "windows::ACPI_PLD_CONTAINER_BUFFER",
       "name": "ACPI_PLD_CONTAINER_BUFFER",
-      "entity_type": "enum",
+      "entity_type": "structure",
       "description": "结构 定义 ACPI 物理位置描述符（PLD）容器缓冲区结构。",
       "syntax": "typedef struct _ACPI_PLD_CONTAINER_BUFFER {   GUID ContainerId;\n} ACPI_PLD_CONTAINER_BUFFER, *PACPI_PLD_CONTAINER_BUFFER;",
       "members": [
@@ -1697,8 +1264,8 @@
       "id": "windows::ACPI_PLD_HORIZONTAL_POSITION",
       "name": "ACPI_PLD_HORIZONTAL_POSITION",
       "entity_type": "enum",
-      "description": "枚举 描述水平位置位 72：73。",
-      "syntax": "typedef enum _ACPI_PLD_HORIZONTAL_POSITION {\nAcpiPldHPosLeft,   AcpiPldHPosCenter,   AcpiPldHPosRight\n} ACPI_PLD_HORIZONTAL_POSITION, *PACPI_PLD_HORIZONTAL_POSITION; 常数",
+      "description": "枚举类型，描述ACPI PLD(Physical Location Descriptor)的水平位置，对应位72:73",
+      "syntax": "typedef enum _ACPI_PLD_HORIZONTAL_POSITION {\n  AcpiPldHPosLeft,\n  AcpiPldHPosCenter,\n  AcpiPldHPosRight\n} ACPI_PLD_HORIZONTAL_POSITION, *PACPI_PLD_HORIZONTAL_POSITION;",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -1708,8 +1275,8 @@
     {
       "id": "windows::ACPI_PLD_INTERFACE_CLASS_BUFFER",
       "name": "ACPI_PLD_INTERFACE_CLASS_BUFFER",
-      "entity_type": "enum",
-      "description": "结 介绍 ACPI PLD 接口类描述符缓冲区，修订版 1（Microsoft自定义 PLD 缓冲区扩展，128 位）。",
+      "entity_type": "structure",
+      "description": "ACPI PLD接口类描述符缓冲区，修订版1（Microsoft自定义PLD缓冲区扩展，128位）",
       "syntax": "typedef struct _ACPI_PLD_INTERFACE_CLASS_BUFFER {   GUID ClassGuid;\n} ACPI_PLD_INTERFACE_CLASS_BUFFER, *PACPI_PLD_INTERFACE_CLASS_BUFFER;",
       "remarks": "GUID 的定义如下： C++",
       "members": [
@@ -1725,24 +1292,10 @@
       "_source_line": 1717
     },
     {
-      "id": "windows::DEFINE_GUID",
-      "name": "DEFINE_GUID",
-      "entity_type": "enum",
-      "description": "(ACPI_PLD_INTERFACE_INSTANCE_UNICODE_BUFFER_GUID, 0x1face3f6, 0x1a60, 0x4686, 0x98, 0x33, 0xec, 0x84, 0x02, 0xd4, 0x3b, 0x04); 要求 要求标头 价值 acpitabl.h",
-      "requirements": {
-        "header": "acpitabl.h"
-      },
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 1726
-    },
-    {
       "id": "windows::ACPI_PLD_INTERFACE_INSTANCE_ANSI",
       "name": "ACPI_PLD_INTERFACE_INSTANCE_ANSI",
-      "entity_type": "enum",
-      "description": "_ 介绍 ACPI PLD 接口实例 ANSI 描述符缓冲区，修订版 1（Microsoft自定义 PLD 缓冲区扩展，128 位）。",
+      "entity_type": "structure",
+      "description": "描述 ACPI PLD 接口实例 ANSI 描述符缓冲区，修订版 1（Microsoft自定义 PLD 缓冲区扩展，128 位）。",
       "syntax": "typedef struct _ACPI_PLD_INTERFACE_INSTANCE_ANSI_BUFFER {   CHAR ReferenceString[16];\n} ACPI_PLD_INTERFACE_INSTANCE_ANSI_BUFFER, *PACPI_PLD_INTERFACE_INSTANCE_ANSI_BUFFER;",
       "remarks": "GUID 的定义如下： C++",
       "members": [
@@ -1760,8 +1313,8 @@
     {
       "id": "windows::ACPI_PLD_INTERFACE_INSTANCE_GUID",
       "name": "ACPI_PLD_INTERFACE_INSTANCE_GUID",
-      "entity_type": "enum",
-      "description": "_ 介绍 ACPI PLD 接口实例 GUID 描述符缓冲区，修订版 1（Microsoft自定义 PLD 缓冲区扩展，128 位）。",
+      "entity_type": "structure",
+      "description": "描述 ACPI PLD 接口实例 GUID 描述符缓冲区，修订版 1（Microsoft自定义 PLD 缓冲区扩展，128 位）。",
       "syntax": "typedef struct _ACPI_PLD_INTERFACE_INSTANCE_GUID_BUFFER {   GUID ReferenceGuid;\n} ACPI_PLD_INTERFACE_INSTANCE_GUID_BUFFER, *PACPI_PLD_INTERFACE_INSTANCE_GUID_BUFFER;",
       "remarks": "GUID 的定义如下： C++",
       "members": [
@@ -1796,23 +1349,10 @@
       "_source_line": 1788
     },
     {
-      "id": "windows::TargetPanel",
-      "name": "TargetPanel",
-      "entity_type": "enum",
-      "description": "TargetEdge Reserved1",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [
-        "Reserved1"
-      ],
-      "confidence": 0.4,
-      "_source_line": 1818
-    },
-    {
       "id": "windows::MovementOrientation",
       "name": "MovementOrientation",
       "entity_type": "enum",
-      "description": "ForwardMovementRange BackwardMovementRange",
+      "description": "Specifies movement orientation ranges",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -1820,36 +1360,11 @@
       "_source_line": 1819
     },
     {
-      "id": "windows::HorizontalOffset",
-      "name": "HorizontalOffset",
-      "entity_type": "enum",
-      "description": "VerticalOffset DepthOffset",
-      "remarks": "C++",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.5,
-      "_source_line": 1820
-    },
-    {
-      "id": "windows::GapOffset",
-      "name": "GapOffset",
-      "entity_type": "enum",
-      "description": "Rotation Reserved2 言论 GUID 的定义如下： C++",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [
-        "Reserved2"
-      ],
-      "confidence": 0.5,
-      "_source_line": 1821
-    },
-    {
       "id": "windows::ACPI_PLD_JOINT_TYPE",
       "name": "ACPI_PLD_JOINT_TYPE",
       "entity_type": "enum",
-      "description": "描述关节类型位 6：9。",
-      "syntax": "typedef enum _ACPI_PLD_JOINT_TYPE {\nAcpiPldJointTypeFixed,   AcpiPldJointTypePlanar,   AcpiPldJointTypeHinge,   AcpiPldJointTypePivot,   AcpiPldJointTypeSwivel\n} ACPI_PLD_JOINT_TYPE, *PACPI_PLD_JOINT_TYPE; 常数",
+      "description": "描述关节类型位6:9的枚举类型，用于ACPI平台位置描述符(PLD)",
+      "syntax": "typedef enum _ACPI_PLD_JOINT_TYPE {\n  AcpiPldJointTypeFixed,\n  AcpiPldJointTypePlanar,\n  AcpiPldJointTypeHinge,\n  AcpiPldJointTypePivot,\n  AcpiPldJointTypeSwivel\n} ACPI_PLD_JOINT_TYPE, *PACPI_PLD_JOINT_TYPE;",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -1860,8 +1375,8 @@
       "id": "windows::ACPI_PLD_ORIENTATION",
       "name": "ACPI_PLD_ORIENTATION",
       "entity_type": "enum",
-      "description": "枚举（acpitabl.h）",
-      "syntax": "typedef enum _ACPI_PLD_ORIENTATION {\nAcpiPldOrientationHorizontal,   AcpiPldOrientationVertical\n} ACPI_PLD_ORIENTATION, *PACPI_PLD_ORIENTATION;\n常数",
+      "description": "Specifies the orientation of a device in ACPI Platform Location Descriptor (PLD)",
+      "syntax": "typedef enum _ACPI_PLD_ORIENTATION {\n  AcpiPldOrientationHorizontal,\n  AcpiPldOrientationVertical\n} ACPI_PLD_ORIENTATION, *PACPI_PLD_ORIENTATION;",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -1872,8 +1387,8 @@
       "id": "windows::ACPI_PLD_PANEL",
       "name": "ACPI_PLD_PANEL",
       "entity_type": "enum",
-      "description": "描述面板表面位 67：69。",
-      "syntax": "typedef enum _ACPI_PLD_PANEL {   AcpiPldPanelTop,\nAcpiPldPanelBottom,   AcpiPldPanelLeft,   AcpiPldPanelRight,   AcpiPldPanelFront,   AcpiPldPanelBack,   AcpiPldPanelUnknown\n} ACPI_PLD_PANEL, *PACPI_PLD_PANEL;\n常数",
+      "description": "描述面板表面位置位67：69",
+      "syntax": "typedef enum _ACPI_PLD_PANEL {\n  AcpiPldPanelTop,\n  AcpiPldPanelBottom,\n  AcpiPldPanelLeft,\n  AcpiPldPanelRight,\n  AcpiPldPanelFront,\n  AcpiPldPanelBack,\n  AcpiPldPanelUnknown\n} ACPI_PLD_PANEL, *PACPI_PLD_PANEL;",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -1884,7 +1399,7 @@
       "id": "windows::AcpiPldPanelUnknown",
       "name": "AcpiPldPanelUnknown",
       "entity_type": "enum",
-      "description": "值为 6。 要求要求标头 价值 acpitabl.h",
+      "description": "ACPI PLD (Physical Location Descriptor) panel position value 6 indicating unknown panel position. Header: acpitabl.h",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -1894,8 +1409,8 @@
     {
       "id": "windows::ACPI_PLD_SPATIAL_BUFFER",
       "name": "ACPI_PLD_SPATIAL_BUFFER",
-      "entity_type": "enum",
-      "description": "结构 介绍 ACPI PLD 空间描述符缓冲区，修订版 1（Microsoft自定义 PLD 缓冲区扩展，128 位）。",
+      "entity_type": "structure",
+      "description": "ACPI PLD空间描述符缓冲区结构体，Microsoft自定义PLD缓冲区扩展(128位)，修订版1",
       "syntax": "typedef struct _ACPI_PLD_SPATIAL_BUFFER {   UINT32 Revision : 5;\nUINT32 RollRotation : 9;   UINT32 PitchRotation : 9;   UINT32 YawRotation : 9;\nUINT32 Width : 16;   UINT32 Height : 16;   UINT32 Length : 16;\nUINT32 HorizontalOffset : 16;   UINT32 VerticalOffset : 16;   UINT32 DepthOffset : 16;\n} ACPI_PLD_SPATIAL_BUFFER, *PACPI_PLD_SPATIAL_BUFFER;",
       "members": [
         {
@@ -1913,7 +1428,7 @@
       "id": "windows::RollRotation",
       "name": "RollRotation",
       "entity_type": "enum",
-      "description": "PitchRotation YawRotation",
+      "description": "Enumeration representing rotation types including PitchRotation and YawRotation",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -1921,23 +1436,10 @@
       "_source_line": 1957
     },
     {
-      "id": "windows::Width",
-      "name": "Width",
-      "entity_type": "enum",
-      "description": "Height Length",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [
-        "Length"
-      ],
-      "confidence": 0.4,
-      "_source_line": 1958
-    },
-    {
       "id": "windows::ASPT_ENTRY",
       "name": "ASPT_ENTRY",
-      "entity_type": "enum",
-      "description": "本主题介绍 AMD 安全处理器表（ASPT）使用的 ASPT_ENTRY 联合。",
+      "entity_type": "union",
+      "description": "AMD安全处理器表（ASPT）使用的ASPT_ENTRY联合类型。",
       "syntax": "typedef union _ASPT_ENTRY {",
       "header": "acpitabl.h",
       "deprecated": false,
@@ -1948,8 +1450,8 @@
     {
       "id": "windows::ASPT_ENTRY_HEADER",
       "name": "ASPT_ENTRY_HEADER",
-      "entity_type": "enum",
-      "description": "本主题介绍 AMD 安全处理器表 （ASPT） 使用的 ASPT_ENTRY_HEADER 结构。",
+      "entity_type": "structure",
+      "description": "AMD安全处理器表(ASPT)使用的ASPT_ENTRY_HEADER结构",
       "syntax": "typedef struct _ASPT_ENTRY_HEADER {\nUINT16 Type;   UINT16 Length;\n} ASPT_ENTRY_HEADER, *PASPT_ENTRY_HEADER;",
       "members": [
         {
@@ -1992,7 +1494,7 @@
       "id": "windows::AspGlobalRegistersV1",
       "name": "AspGlobalRegistersV1",
       "entity_type": "enum",
-      "description": "SevMailboxRegistersV1 AcpiMailboxRegistersV1 AspGlobalRegistersV2 SevMailboxRegistersV2 AcpiMailboxRegistersV2 要求",
+      "description": "Enumeration for ASP (AMD Secure Processor) global registers version 1",
       "requirements": {
         "target_platform": "Windows",
         "header": "acpitabl.h",
@@ -2007,9 +1509,9 @@
     {
       "id": "windows::BBRT_TABLE",
       "name": "BBRT_TABLE",
-      "entity_type": "enum",
-      "description": "定义启动后台资源表。",
-      "syntax": "typedef struct _BBRT_TABLE {   DESCRIPTION_HEADER Header;\nULONG              Background;   ULONG              Foreground;} BBRT_TABLE, *PBBRT_TABLE;\n成员 Header 标头。 Background 背景值。 Foreground 前景值。\ntypedef struct {",
+      "entity_type": "structure",
+      "description": "定义启动背景资源表(Boot Background Resource Table)的结构体。",
+      "syntax": "typedef struct _BBRT_TABLE {\n  DESCRIPTION_HEADER Header;\n  ULONG Background;\n  ULONG Foreground;\n} BBRT_TABLE, *PBBRT_TABLE;",
       "requirements": {
         "header": "acpitabl.h"
       },
@@ -2022,8 +1524,8 @@
     {
       "id": "windows::DESCRIPTION_HEADER",
       "name": "DESCRIPTION_HEADER",
-      "entity_type": "enum",
-      "description": "Header; GEN_ADDR Control;",
+      "entity_type": "structure",
+      "description": "Header structure for ACPI table description",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [
@@ -2034,38 +1536,10 @@
       "_source_line": 2045
     },
     {
-      "id": "windows::GEN_ADDR",
-      "name": "GEN_ADDR",
-      "entity_type": "enum",
-      "description": "DoorbellRegister; ULONGLONG DoorbellPreserve; ULONGLONG DoorbellWrite; ULONG NominalLatency; ULONG MaximumPeriodicAccessRate; USHORT MinimumRequestTurnaroundTime; GEN_ADDR PlatformInterruptAckRegister; ULONGLONG PlatformInterruptAckPreserve; ULONGLONG PlatformInterruptAckWrite; }",
-      "members": [
-        {
-          "name": "Header",
-          "description": "定义 DESCRIPTION_HEADER 成员 标头。 Control 定义控件 GEN_ADDR 成员。 Data 定义数据 GEN_ADDR 成员。 Uid 定义 ULONG 成员 Uid。 GpeBit 定义 UCHAR 成员 GpeBit。 Id[ANYSIZE_ARRAY] 定义 CHAR 成员 ID。 要求要求标头 价值 acpitabl.h （include Acpitabl.h） 是 否"
-        }
-      ],
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "acpitabl.h",
-        "min_client": "Windows 10"
-      },
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [
-        "DoorbellPreserve",
-        "DoorbellRegister",
-        "MaximumPeriodicAccessRate",
-        "MinimumRequestTurnaroundTime",
-        "PlatformInterruptAckRegister"
-      ],
-      "confidence": 0.85,
-      "_source_line": 2046
-    },
-    {
       "id": "windows::GIC_ITS",
       "name": "GIC_ITS",
-      "entity_type": "enum",
-      "description": "本主题介绍 GIC_ITS 结构。",
+      "entity_type": "structure",
+      "description": "描述GIC中断转换服务(ITS)的结构体",
       "syntax": "typedef struct _GIC_ITS {\nUCHAR     Type;   UCHAR     Length;\nUSHORT    Reserved1;   ULONG     Identifier;\nULONGLONG PhysicalAddress;\nULONG     Reserved2;} GIC_ITS;",
       "members": [
         {
@@ -2100,8 +1574,8 @@
       "id": "windows::HSP_PROTOCOL_ID",
       "name": "HSP_PROTOCOL_ID",
       "entity_type": "enum",
-      "description": "本主题介绍 HSP_PROTOCOL_ID 枚举。",
-      "syntax": "typedef enum _HSP_PROTOCOL_ID {\nHspTableProtocolInvalid,   HspTableProtocolACPI\n} HSP_PROTOCOL_ID, *PHSP_PROTOCOL_ID; 常数",
+      "description": "Defines the HSP (Hardware Scatter/Gather Protocol) protocol identifiers.",
+      "syntax": "typedef enum _HSP_PROTOCOL_ID {\n    HspTableProtocolInvalid,\n    HspTableProtocolACPI\n} HSP_PROTOCOL_ID, *PHSP_PROTOCOL_ID;",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -2112,7 +1586,7 @@
       "id": "windows::HspTableProtocolInvalid",
       "name": "HspTableProtocolInvalid",
       "entity_type": "enum",
-      "description": "定义值为 0 的 HspTableProtocolInvalid 常量。 HspTableProtocolACPI 定义值为 1 的 HspTableProtocolACPI 常量。 这表示基于 AMD ACPI 的邮箱协议。",
+      "description": "定义值为 0 的 HspTableProtocolInvalid 常量。HspTableProtocolACPI 定义值为 1 的常量，表示基于 AMD ACPI 的邮箱协议。",
       "requirements": {
         "target_platform": "Windows",
         "header": "acpitabl.h",
@@ -2127,8 +1601,8 @@
     {
       "id": "windows::IVHD_ACPI_DEVICE_ENTRY",
       "name": "IVHD_ACPI_DEVICE_ENTRY",
-      "entity_type": "enum",
-      "description": "结构 定义 I/O 虚拟化硬件定义 （IVHD） ACPI 设备入口结构。",
+      "entity_type": "structure",
+      "description": "定义 I/O 虚拟化硬件定义 (IVHD) ACPI 设备入口结构。",
       "syntax": "typedef struct _IVHD_ACPI_DEVICE_ENTRY {   UINT8  Type;\nUINT16 DeviceId;   union {\nUINT8 AsUINT8;     struct {\nUINT8 INITPass : 1;       UINT8 ExtIntPass : 1;       UINT8 NMIPass : 1;       UINT8 ReservedZ0 : 1;       UINT8 SysMgt : 2;\nUINT8 LINT0Pass : 1;       UINT8 LINT1Pass : 1;\n} DUMMYSTRUCTNAME;   } DataSetting;\nUINT64 HardwareId;   UINT64 CompatibleId;\nUINT8  UniqueIdFormat;   UINT8  UniqueIdLength;\n} IVHD_ACPI_DEVICE_ENTRY, *PIVHD_ACPI_DEVICE_ENTRY;",
       "header": "acpitabl.h",
       "deprecated": false,
@@ -2137,32 +1611,10 @@
       "_source_line": 2255
     },
     {
-      "id": "windows::DataSetting",
-      "name": "DataSetting",
-      "entity_type": "enum",
-      "description": ".AsUINT8 .DUMMYSTRUCTNAME .DUMMYSTRUCTNAME.INITPass .DUMMYSTRUCTNAME.ExtIntPass DataSetting.DUMMYSTRUCTNAME.NMIPass .DUMMYSTRUCTNAME.ReservedZ0 DataSetting.DUMMYSTRUCTNAME.SysMgt .DUMMYSTRUCTNAME.LINT0Pass DataSetting.DUMMYSTRUCTNAME.LINT1Pass",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.6,
-      "_source_line": 2269
-    },
-    {
-      "id": "windows::HardwareId",
-      "name": "HardwareId",
-      "entity_type": "enum",
-      "description": "CompatibleId",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.4,
-      "_source_line": 2276
-    },
-    {
       "id": "windows::UniqueIdFormat",
       "name": "UniqueIdFormat",
       "entity_type": "enum",
-      "description": "UniqueIdLength 要求 要求标头 是 否 价值 acpitabl.h",
+      "description": "Specifies the format of a unique ID in ACPI tables",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -2173,7 +1625,7 @@
       "id": "windows::IommuDefinitionBlockTypeIvhd",
       "name": "IommuDefinitionBlockTypeIvhd",
       "entity_type": "enum",
-      "description": "值为 0x10。",
+      "description": "Specifies the IVHD (I/O Virtualization Hardware Definition) block type with value 0x10 in ACPI tables.",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -2184,7 +1636,7 @@
       "id": "windows::IommuDefinitionBlockTypeIvmdRange",
       "name": "IommuDefinitionBlockTypeIvmdRange",
       "entity_type": "enum",
-      "description": "值为 0x22。",
+      "description": "Specifies the IOMMU definition block type IVMD range enumeration value (0x22).",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -2194,8 +1646,8 @@
     {
       "id": "windows::IVRS_IVINFO",
       "name": "IVRS_IVINFO",
-      "entity_type": "enum",
-      "description": "定义 I/O 虚拟化报告结构（IVRS）I/O 虚拟化结构。",
+      "entity_type": "union",
+      "description": "定义 I/O 虚拟化报告结构（IVRS）的 I/O 虚拟化信息联合体",
       "syntax": "typedef union _IVRS_IVINFO {\nUINT32 AsUINT32;   struct {\nUINT32 EFRSup : 1;\nUINT32 DmaGuardOptIn : 1;     UINT32 ReservedZ0 : 3;\nUINT32 GVASize : 3;     UINT32 PASize : 7;     UINT32 VASize : 7;\nUINT32 HtAtsResv : 1;     UINT32 ReservedZ1 : 9;   } DUMMYSTRUCTNAME;\n} IVRS_IVINFO, *PIVRS_IVINFO;",
       "members": [
         {
@@ -2217,8 +1669,8 @@
       "id": "windows::IVRS_TABLE_TYPE",
       "name": "IVRS_TABLE_TYPE",
       "entity_type": "enum",
-      "description": "枚举 I/O 虚拟化硬件定义（IVHD）条目类型。",
-      "syntax": "typedef enum _IVHD_ENTRY_TYPE {\nIvhdEntryTypePad4,   IvhdEntryTypeAll,\nIvhdEntryTypeSelect,\nIvhdEntryTypeStartRange,   IvhdEntryTypeEndRange,   IvhdEntryTypePad8,\nIvhdEntryTypeAliasSelect,\nIvhdEntryTypeAliasStartRange,   IvhdEntryTypeExtendedSelect,\nIvhdEntryTypeExtendedStartRange,   IvhdEntryTypeSpecialDevice,\nIvhdEntryTypeAcpiDevice} IVRS_TABLE_TYPE;\n常数",
+      "description": "枚举I/O虚拟化硬件定义(IVHD)条目类型，用于描述ACPI IVRS表中的设备条目类型。",
+      "syntax": "typedef enum _IVHD_ENTRY_TYPE {\n  IvhdEntryTypePad4,\n  IvhdEntryTypeAll,\n  IvhdEntryTypeSelect,\n  IvhdEntryTypeStartRange,\n  IvhdEntryTypeEndRange,\n  IvhdEntryTypePad8,\n  IvhdEntryTypeAliasSelect,\n  IvhdEntryTypeAliasStartRange,\n  IvhdEntryTypeExtendedSelect,\n  IvhdEntryTypeExtendedStartRange,\n  IvhdEntryTypeSpecialDevice,\n  IvhdEntryTypeAcpiDevice\n} IVRS_TABLE_TYPE;",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -2229,7 +1681,7 @@
       "id": "windows::IvhdEntryTypeAcpiDevice",
       "name": "IvhdEntryTypeAcpiDevice",
       "entity_type": "enum",
-      "description": "值为 0xF0。 要求要求标头 价值 acpitabl.h",
+      "description": "值为 0xF0。要求头文件 acpitabl.h",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -2237,23 +1689,10 @@
       "_source_line": 2358
     },
     {
-      "id": "windows::Residency",
-      "name": "Residency",
-      "entity_type": "enum",
-      "description": "驻留值。 Latency 延迟值。",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [
-        "Latency"
-      ],
-      "confidence": 0.4,
-      "_source_line": 2380
-    },
-    {
       "id": "windows::ResidencyCounterFrequency",
       "name": "ResidencyCounterFrequency",
-      "entity_type": "enum",
-      "description": "驻留计数器频率。",
+      "entity_type": "constant",
+      "description": "Specifies the frequency of residency counters in ACPI tables.",
       "requirements": {
         "header": "acpitabl.h"
       },
@@ -2264,33 +1703,10 @@
       "_source_line": 2382
     },
     {
-      "id": "windows::MHSP_CHANNEL",
-      "name": "MHSP_CHANNEL",
-      "entity_type": "enum",
-      "description": "本主题介绍 Microsoft HSP ACPI 表使用的 MHSP_CHANNEL 结构。",
-      "syntax": "typedef struct _MHSP_CHANNEL {   UINT64 ChannelBaseAddress;\nUINT64 RequestDoorbellAddress;   UINT64 ReplyDoorbellAddress;\nUINT32 ChannelSize;   UINT32 IrqResource;\nUINT32 ChannelParameters[2];} MHSP_CHANNEL, *PMHSP_CHANNEL;",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 2434
-    },
-    {
-      "id": "windows::ChannelBaseAddress",
-      "name": "ChannelBaseAddress",
-      "entity_type": "enum",
-      "description": "定义 channelBaseAddress UINT64成员。 RequestDoorbellAddress 定义 requestDoorbellAddress UINT64成员。 ReplyDoorbellAddress 定义 UINT64 成员 ReplyDoorbellAddress。 ChannelSize 定义 UINT32 成员 ChannelSize。 IrqResource 定义 IrqResource UINT32 成员。 ChannelParameters[2] 定义 UINT32 成员 ChannelParameters。 要求",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.6,
-      "_source_line": 2442
-    },
-    {
       "id": "windows::MHSP_TABLE",
       "name": "MHSP_TABLE",
-      "entity_type": "enum",
-      "description": "描述 MHSP_TABLE 结构。",
+      "entity_type": "structure",
+      "description": "Defines the MHSP_TABLE structure containing ACPI table header, protocol ID and channel array.",
       "syntax": "typedef struct _MHSP_TABLE {   DESCRIPTION_HEADER Header;\nUINT32             ProtocolId;   MHSP_CHANNEL       Channels[4];} MHSP_TABLE, *PMHSP_TABLE;",
       "members": [
         {
@@ -2314,7 +1730,7 @@
       "name": "NFIT_STRUCTURE_TYPE",
       "entity_type": "enum",
       "description": "介绍 NVDIMM 固件接口表 （NFIT） 结构类型。",
-      "syntax": "typedef enum _NFIT_STRUCTURE_TYPE {   NfitSystemPhysicalAddressRange,\nNfitNvdimmRegionMapping,   NfitInterleave,\nNfitSmbiosManagementInformation,   NfitNvdimmControlRegion,\nNfitNvdimmBlockDataWindowRegion,   NfitFlushHintAddress,\nNfitPlatformCapabilities,   NfitMaximum\n} NFIT_STRUCTURE_TYPE, *PNFIT_STRUCTURE_TYPE; 常数",
+      "syntax": "typedef enum _NFIT_STRUCTURE_TYPE {\n  NfitSystemPhysicalAddressRange,\n  NfitNvdimmRegionMapping,\n  NfitInterleave,\n  NfitSmbiosManagementInformation,\n  NfitNvdimmControlRegion,\n  NfitNvdimmBlockDataWindowRegion,\n  NfitFlushHintAddress,\n  NfitPlatformCapabilities,\n  NfitMaximum\n} NFIT_STRUCTURE_TYPE, *PNFIT_STRUCTURE_TYPE;",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -2325,7 +1741,7 @@
       "id": "windows::NfitPlatformCapabilities",
       "name": "NfitPlatformCapabilities",
       "entity_type": "enum",
-      "description": "值为 7。 NfitMaximum 要求要求标头 价值 acpitabl.h",
+      "description": "NFIT platform capabilities enumeration. Maximum value is 7.",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -2335,8 +1751,8 @@
     {
       "id": "windows::PCC_REDUCED_1_SUBSPACE",
       "name": "PCC_REDUCED_1_SUBSPACE",
-      "entity_type": "enum",
-      "description": "结构包含有关 ACPI 平台通信通道 （PCC） HW 减少类型 1 子空间的信息。",
+      "entity_type": "structure",
+      "description": "包含有关 ACPI 平台通信通道 (PCC) HW 减少类型 1 子空间的信息的结构体。",
       "syntax": "typedef struct _PCC_REDUCED_1_SUBSPACE {   PCC_SUBSPACE_HEADER Header;\nULONG               PlatformInterruptGsiv;   union {\nstruct {\nUCHAR PlatformInterruptPolarity : 1;       UCHAR PlatformInterruptMode : 1;\nUCHAR Reserved1 : 6;     };\nUCHAR PlatformInterruptFlags;   };\nUCHAR               Reserved2;   PHYSICAL_ADDRESS    BaseAddress;   ULONGLONG           Length;",
       "header": "acpitabl.h",
       "deprecated": false,
@@ -2347,8 +1763,8 @@
     {
       "id": "windows::PCC_SUBSPACE_HEADER",
       "name": "PCC_SUBSPACE_HEADER",
-      "entity_type": "enum",
-      "description": "标头。 PlatformInterruptGsiv PCC 平台全局系统中断向量（GSIV）。 PlatformInterruptPolarity PCC 平台中断极性值（PCC_PLATFORM_INTERRUPT_POLARITY_XXX之一）。 PlatformInterruptMode PCC 平台中断模式（必须 PCC_PLATFORM_INTERRUPT_MODE_EDGE_TRIGGERED）。 Reserved1 保留以供将来使用。 PlatformInterruptFlags PCC 平台中断标志。 Reserved2 保留以供将来使用。 BaseAddress",
+      "entity_type": "structure",
+      "description": "PCC subspace header structure containing platform interrupt information fields",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [
@@ -2360,21 +1776,10 @@
       "_source_line": 2552
     },
     {
-      "id": "windows::DoorbellPreserve",
-      "name": "DoorbellPreserve",
-      "entity_type": "enum",
-      "description": "门铃保留面具。 DoorbellWrite 门铃写掩码。 NominalLatency 名义延迟值。",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.5,
-      "_source_line": 2562
-    },
-    {
       "id": "windows::MaximumPeriodicAccessRate",
       "name": "MaximumPeriodicAccessRate",
-      "entity_type": "enum",
-      "description": "最大定期访问速率值。",
+      "entity_type": "constant",
+      "description": "Specifies the maximum periodic access rate for ACPI tables.",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -2385,7 +1790,7 @@
       "id": "windows::MinimumRequestTurnaroundTime",
       "name": "MinimumRequestTurnaroundTime",
       "entity_type": "enum",
-      "description": "最小请求周转时间值。 要求",
+      "description": "最小请求周转时间值",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -2395,7 +1800,7 @@
     {
       "id": "windows::PCC_REDUCED_2_SUBSPACE",
       "name": "PCC_REDUCED_2_SUBSPACE",
-      "entity_type": "enum",
+      "entity_type": "structure",
       "description": "结构包含有关 ACPI 平台通信通道 （PCC） HW 减少类型 2 子空间的信息。",
       "syntax": "typedef struct _PCC_REDUCED_2_SUBSPACE {   PCC_SUBSPACE_HEADER Header;\nULONG               PlatformInterruptGsiv;   union {\nstruct {\nUCHAR PlatformInterruptPolarity : 1;       UCHAR PlatformInterruptMode : 1;\nUCHAR Reserved1 : 6;     };\nUCHAR PlatformInterruptFlags;   };\nUCHAR               Reserved2;   PHYSICAL_ADDRESS    BaseAddress;   ULONGLONG           Length;",
       "header": "acpitabl.h",
@@ -2408,7 +1813,7 @@
       "id": "windows::PlatformInterruptPolarity",
       "name": "PlatformInterruptPolarity",
       "entity_type": "enum",
-      "description": "PCC 平台中断极性值（PCC_PLATFORM_INTERRUPT_POLARITY_XXX之一）。 PlatformInterruptMode PCC 平台中断模式（必须 PCC_PLATFORM_INTERRUPT_MODE_EDGE_TRIGGERED）。 Reserved1 保留以供将来使用。 PlatformInterruptFlags PCC 平台中断标志。 Reserved2 保留以供将来使用。 BaseAddress",
+      "description": "PCC平台中断极性值（PCC_PLATFORM_INTERRUPT_POLARITY_XXX之一）",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [
@@ -2421,8 +1826,8 @@
     {
       "id": "windows::PDTT_PCC_SUBCHANNEL_INDENTIFIER",
       "name": "PDTT_PCC_SUBCHANNEL_INDENTIFIER",
-      "entity_type": "enum",
-      "description": "结构 定义处理器属性拓扑表（PPTT）平台通信通道（PCC）子通道标识符结构。",
+      "entity_type": "structure",
+      "description": "定义处理器属性拓扑表(PPTT)平台通信通道(PCC)子通道标识符的结构体。",
       "syntax": "typedef struct _PDTT_PCC_SUBCHANNEL_INDENTIFIER {\nUCHAR SubChannelId;   UCHAR Runtime : 1;\nUCHAR WaitCompletion : 1;   UCHAR Reserved : 6;\n} PDTT_PCC_SUBCHANNEL_INDENTIFIER, *PPDTT_PCC_SUBCHANNEL_INDENTIFIER;",
       "header": "acpitabl.h",
       "deprecated": false,
@@ -2433,9 +1838,9 @@
     {
       "id": "windows::WaitCompletion",
       "name": "WaitCompletion",
-      "entity_type": "enum",
+      "entity_type": "typedef",
       "description": "Reserved 保留以供将来使用。",
-      "syntax": "typedef struct _PPTT {",
+      "syntax": "typedef enum _WaitCompletion { Reserved } WaitCompletion;",
       "requirements": {
         "header": "acpitabl.h"
       },
@@ -2448,8 +1853,8 @@
     {
       "id": "windows::PRM_HANDLER_INFORMATION",
       "name": "PRM_HANDLER_INFORMATION",
-      "entity_type": "enum",
-      "description": "结构 定义 PRM_HANDLER_INFORMATION 结构。",
+      "entity_type": "structure",
+      "description": "定义PRM_HANDLER_INFORMATION结构体，包含Platform Runtime Mechanism (PRM)处理程序的信息",
       "syntax": "typedef struct _PRM_HANDLER_INFORMATION {\nUSHORT  Revision;   USHORT  Length;\nGUID    Identifier;\nULONG64 PhysicalAddress;\nULONG64 StaticBufferPhysicalAddress;   ULONG64 AcpiParameterPhysicalAddress;\n} PRM_HANDLER_INFORMATION, *PPRM_HANDLER_INFORMATION;",
       "header": "acpitabl.h",
       "deprecated": false,
@@ -2476,8 +1881,8 @@
     {
       "id": "windows::PRM_MODULE_INFORMATION",
       "name": "PRM_MODULE_INFORMATION",
-      "entity_type": "enum",
-      "description": "结构 定义 PRM_MODULE_INFORMATION 结构。",
+      "entity_type": "structure",
+      "description": "定义 PRM_MODULE_INFORMATION 结构，包含平台运行时机制(PRM)模块的信息。",
       "syntax": "typedef struct _PRM_MODULE_INFORMATION {\nUSHORT  Revision;   USHORT  Length;\nGUID    Identifier;   USHORT  MajorVersion;   USHORT  MinorVersion;   USHORT  HandlerCount;   ULONG   HandlerOffset;\nULONG64 MmioRangesPhysicalAddress;\n} PRM_MODULE_INFORMATION, *PPRM_MODULE_INFORMATION;",
       "header": "acpitabl.h",
       "deprecated": false,
@@ -2486,23 +1891,10 @@
       "_source_line": 2677
     },
     {
-      "id": "windows::MajorVersion",
-      "name": "MajorVersion",
-      "entity_type": "enum",
-      "description": "MinorVersion HandlerCount HandlerOffset",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [
-        "MinorVersion"
-      ],
-      "confidence": 0.5,
-      "_source_line": 2687
-    },
-    {
       "id": "windows::PRMT_TABLE",
       "name": "PRMT_TABLE",
-      "entity_type": "enum",
-      "description": "定义 PRMT_TABLE 结构。",
+      "entity_type": "structure",
+      "description": "定义PRMT_TABLE结构体，用于描述平台运行时管理表。",
       "syntax": "typedef struct _PRMT_TABLE {   DESCRIPTION_HEADER Header;\nGUID               PlatformGuid;\nULONG              ModuleInfoOffset;   ULONG              ModuleInfoCount;} PRMT_TABLE, *PPRMT_TABLE;",
       "members": [
         {
@@ -2517,38 +1909,11 @@
       "_source_line": 2696
     },
     {
-      "id": "windows::ModuleInfoOffset",
-      "name": "ModuleInfoOffset",
-      "entity_type": "enum",
-      "description": "ModuleInfoCount 要求",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "acpitabl.h",
-        "min_server": "Windows Server 2022"
-      },
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.4,
-      "_source_line": 2704
-    },
-    {
-      "id": "windows::AsUCHAR",
-      "name": "AsUCHAR",
-      "entity_type": "enum",
-      "description": "要求 要求标头 是 否 价值 acpitabl.h",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.5,
-      "_source_line": 2723
-    },
-    {
       "id": "windows::PROC_TOPOLOGY_NODE_CACHE_TYPE_DAT",
       "name": "PROC_TOPOLOGY_NODE_CACHE_TYPE_DAT",
       "entity_type": "enum",
-      "description": "定义处理器拓扑节点缓存类型数据宏。",
-      "syntax": "void PROC_TOPOLOGY_NODE_CACHE_TYPE_DATA(\nCacheType);",
+      "description": "定义处理器拓扑节点缓存类型的枚举值。",
+      "syntax": "typedef enum PROC_TOPOLOGY_NODE_CACHE_TYPE_DATA { ... };",
       "parameters": [
         {
           "name": "CacheType",
@@ -2565,7 +1930,7 @@
       "id": "windows::CacheType",
       "name": "CacheType",
       "entity_type": "enum",
-      "description": "参数。返回值没有",
+      "description": "Specifies the type of cache in ACPI tables",
       "requirements": {
         "header": "acpitabl.h"
       },
@@ -2578,8 +1943,8 @@
     {
       "id": "windows::PROC_TOPOLOGY_NODE_CACHE_TYPE_INS",
       "name": "PROC_TOPOLOGY_NODE_CACHE_TYPE_INS",
-      "entity_type": "enum",
-      "description": "定义处理器拓扑节点缓存类型指令宏。",
+      "entity_type": "macro",
+      "description": "定义处理器拓扑节点缓存类型指令的宏。",
       "syntax": "void PROC_TOPOLOGY_NODE_CACHE_TYPE_INSTRUCTION(\nCacheType);",
       "parameters": [
         {
@@ -2597,8 +1962,8 @@
       "id": "windows::PROC_TOPOLOGY_NODE_CACHE_TYPE",
       "name": "PROC_TOPOLOGY_NODE_CACHE_TYPE",
       "entity_type": "enum",
-      "description": "_ 定义处理器拓扑节点缓存类型统一宏。",
-      "syntax": "void PROC_TOPOLOGY_NODE_CACHE_TYPE_UNIFIED(\nCacheType);",
+      "description": "定义处理器拓扑节点缓存类型的枚举。",
+      "syntax": "typedef enum PROC_TOPOLOGY_NODE_CACHE_TYPE { ... };",
       "parameters": [
         {
           "name": "CacheType",
@@ -2612,21 +1977,10 @@
       "_source_line": 2844
     },
     {
-      "id": "windows::PhysicalPackage",
-      "name": "PhysicalPackage",
-      "entity_type": "enum",
-      "description": "ACPIProcessorIdValid",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.4,
-      "_source_line": 2876
-    },
-    {
       "id": "windows::IdenticalImplementation",
       "name": "IdenticalImplementation",
       "entity_type": "enum",
-      "description": "Reserved 保留以供将来使用。",
+      "description": "Reserved for future use (保留以供将来使用)",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -2636,8 +1990,8 @@
     {
       "id": "windows::AsULONG",
       "name": "AsULONG",
-      "entity_type": "enum",
-      "description": "要求 要求标头 是 否 价值 acpitabl.h 本主题介绍 SATC 结构。",
+      "entity_type": "structure",
+      "description": "SATC structure typedef alias",
       "syntax": "typedef struct _SATC {   UCHAR       Flags;   UCHAR       Reserved;\nUSHORT      SegmentNumber;\nDEVICESCOPE DeviceScope[ANYSIZE_ARRAY];} SATC, *PSATC;",
       "members": [
         {
@@ -2657,34 +2011,10 @@
       "_source_line": 2881
     },
     {
-      "id": "windows::SDEV_ENTRY_HEADER",
-      "name": "SDEV_ENTRY_HEADER",
-      "entity_type": "enum",
-      "description": "Header; ULONG Reserved; ULONGLONG MemoryAddressBase; ULONGLONG MemoryAddressLength; } SDEV_SECURE_RESOURCE_MEMORY_ENTRY, *PSDEV_SECURE_RESOURCE_MEMORY_ENTRY;",
-      "members": [
-        {
-          "name": "Header",
-          "description": ""
-        }
-      ],
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "acpitabl.h",
-        "min_client": "Windows 10"
-      },
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [
-        "MemoryAddressLength"
-      ],
-      "confidence": 0.85,
-      "_source_line": 2920
-    },
-    {
       "id": "windows::IdentifierOffset",
       "name": "IdentifierOffset",
       "entity_type": "enum",
-      "description": "标识符偏移值。 IdentifierLength 标识符的长度。 VendorInfoOffset 供应商信息偏移值。 VendorInfoLength 供应商信息的长度。 SecureResourcesOffset 安全资源偏移值。",
+      "description": "Specifies offset values for various ACPI table identifiers. Contains fields for identifier length, vendor information offset/length, and secure resources offset.",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -2692,21 +2022,10 @@
       "_source_line": 2921
     },
     {
-      "id": "windows::SecureResourcesLength",
-      "name": "SecureResourcesLength",
-      "entity_type": "enum",
-      "description": "安全资源信息的长度。 要求",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.4,
-      "_source_line": 2924
-    },
-    {
       "id": "windows::SDEV_SECURE_RESOURCE_ID_ENTRY",
       "name": "SDEV_SECURE_RESOURCE_ID_ENTRY",
-      "entity_type": "enum",
-      "description": "结构 _SDEV_SECURE_RESOURCE_ID_ENTRY 结构定义安全 ACPI 设备的资源 ID 条目，以便在安全设备表中使用。",
+      "entity_type": "structure",
+      "description": "结构体 _SDEV_SECURE_RESOURCE_ID_ENTRY 定义安全 ACPI 设备的资源 ID 条目，用于安全设备表中。",
       "syntax": "typedef struct _SDEV_SECURE_RESOURCE_ID_ENTRY {   SDEV_ENTRY_HEADER Header;\nUSHORT            HardwareIdentifierOffset;   USHORT            HardwareIdentifierLength;   USHORT            SubsystemIdentifierOffset;   USHORT            SubsystemIdentifierLength;   USHORT            HardwareRevision;\nUCHAR             HardwareRevisionPresent;\n} SDEV_SECURE_RESOURCE_ID_ENTRY, *PSDEV_SECURE_RESOURCE_ID_ENTRY;",
       "members": [
         {
@@ -2721,21 +2040,10 @@
       "_source_line": 2932
     },
     {
-      "id": "windows::HardwareIdentifierOffset",
-      "name": "HardwareIdentifierOffset",
-      "entity_type": "enum",
-      "description": "硬件标识符偏移值。",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.4,
-      "_source_line": 2942
-    },
-    {
       "id": "windows::HardwareIdentifierLength",
       "name": "HardwareIdentifierLength",
       "entity_type": "enum",
-      "description": "硬件标识符长度值。",
+      "description": "Specifies the length of hardware identifiers in ACPI tables.",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -2743,21 +2051,10 @@
       "_source_line": 2943
     },
     {
-      "id": "windows::SubsystemIdentifierOffset",
-      "name": "SubsystemIdentifierOffset",
-      "entity_type": "enum",
-      "description": "子系统标识符偏移值。",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.4,
-      "_source_line": 2944
-    },
-    {
       "id": "windows::SubsystemIdentifierLength",
       "name": "SubsystemIdentifierLength",
       "entity_type": "enum",
-      "description": "子系统标识符长度值。 HardwareRevision 硬件修订值。",
+      "description": "子系统标识符长度值",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -2768,7 +2065,7 @@
       "id": "windows::HardwareRevisionPresent",
       "name": "HardwareRevisionPresent",
       "entity_type": "enum",
-      "description": "硬件修订的现值。 要求",
+      "description": "表示硬件修订的当前值",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -2778,7 +2075,7 @@
     {
       "id": "windows::SDEV_SECURE_RESOURCE_MEMORY_ENTR",
       "name": "SDEV_SECURE_RESOURCE_MEMORY_ENTR",
-      "entity_type": "enum",
+      "entity_type": "structure",
       "description": "_SDEV_SECURE_RESOURCE_MEMORY_ENTRY 结构定义安全 ACPI 设备的资源内存条目，以便在安全设备表中使用。",
       "syntax": "typedef struct _SDEV_SECURE_RESOURCE_MEMORY_ENTRY {",
       "header": "acpitabl.h",
@@ -2791,7 +2088,7 @@
       "id": "windows::InterfaceType",
       "name": "InterfaceType",
       "entity_type": "enum",
-      "description": "Reserved1 保留以供将来使用。 SpecificationRevision",
+      "description": "Specifies the interface type for ACPI tables",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [
@@ -2804,7 +2101,7 @@
       "id": "windows::InterruptType",
       "name": "InterruptType",
       "entity_type": "enum",
-      "description": ".GpeSupported InterruptType.ApicInterrupt .Reserved 保留以供将来使用。 Gpe",
+      "description": "Specifies the type of interrupt. Values: GpeSupported, ApicInterrupt, Reserved (for future use)",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -2812,43 +2109,10 @@
       "_source_line": 2994
     },
     {
-      "id": "windows::Reserved2",
-      "name": "Reserved2",
-      "entity_type": "enum",
-      "description": "保留以供将来使用。 PciDeviceFlag",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.5,
-      "_source_line": 2997
-    },
-    {
-      "id": "windows::GlobalSystemInterrupt",
-      "name": "GlobalSystemInterrupt",
-      "entity_type": "enum",
-      "description": "BaseAddress",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.4,
-      "_source_line": 2999
-    },
-    {
-      "id": "windows::PciSegmentGroupNumber",
-      "name": "PciSegmentGroupNumber",
-      "entity_type": "enum",
-      "description": "PciBusNumber",
-      "header": "acpitabl.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.4,
-      "_source_line": 3000
-    },
-    {
       "id": "windows::PciDeviceNumber",
       "name": "PciDeviceNumber",
       "entity_type": "enum",
-      "description": "PciFunctionNumber Reserved3 保留以供将来使用。 要求要求 支持的最低服务器标头 价值 Windows Server 2022 acpitabl.h （include Acpitabl.h） 是 否",
+      "description": "Reserved for future use.",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [
@@ -2861,8 +2125,8 @@
     {
       "id": "windows::SratProcessorLocalAPIC",
       "name": "SratProcessorLocalAPIC",
-      "entity_type": "enum",
-      "description": "定义 SratProcessorLocalAPIC 常量。 SratMemory 定义 SratMemory 常量。 SratProcessorLocalX2APIC 定义 SratProcessorLocalX2APIC 常量。 SratGicc 定义 SratGicc 常量。 SratGicIts 定义 SratGicIts 常量。 SratGenericInitiator 定义 SratGenericInitiator 常量。 SratGenericPort 定义 SratGenericPort 常量。 要求要求标头 价值 acpitabl.h （include Acpitabl.h） 是 否",
+      "entity_type": "constant",
+      "description": "定义 SRAT (System Resource Affinity Table) 处理器本地 APIC 相关的常量。包含 SRAT 表中不同类型的资源关联描述符。",
       "header": "acpitabl.h",
       "deprecated": false,
       "cross_references": [],
@@ -2870,27 +2134,10 @@
       "_source_line": 3028
     },
     {
-      "id": "windows::Context",
-      "name": "Context",
-      "entity_type": "callback",
-      "description": "定义 PVOID 参数。",
-      "return_value": {
-        "description": "没有"
-      },
-      "requirements": {
-        "header": "oprghdlr.h"
-      },
-      "header": "oprghdlr.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.45,
-      "_source_line": 3069
-    },
-    {
       "id": "windows::ACPI_OP_REGION_HANDLER",
       "name": "ACPI_OP_REGION_HANDLER",
       "entity_type": "callback",
-      "description": "AcpiOpRegionHandler; NTSTATUS AcpiOpRegionHandler( ULONG AccessType, PVOID OperationRegionObject, ULONG Address, ULONG Size, PULONG Data,",
+      "description": "The ACPI_OP_REGION_HANDLER callback function is called by the ACPI driver to handle operations on an operation region. Parameters: AccessType - Specifies the type of access (read/write), OperationRegionObject - Pointer to the operation region object, Address - Address within the operation region, Size - Size of the operation in bytes, Data - Pointer to the data buffer for the operation.",
       "header": "oprghdlr.h",
       "deprecated": false,
       "cross_references": [
@@ -2902,23 +2149,10 @@
       "_source_line": 3083
     },
     {
-      "id": "windows::ULONG_PTR",
-      "name": "ULONG_PTR",
-      "entity_type": "callback",
-      "description": "Context,",
-      "header": "oprghdlr.h",
-      "deprecated": false,
-      "cross_references": [
-        "Context"
-      ],
-      "confidence": 0.55,
-      "_source_line": 3091
-    },
-    {
       "id": "windows::PACPI_OP_REGION_CALLBACK",
       "name": "PACPI_OP_REGION_CALLBACK",
       "entity_type": "callback",
-      "description": "CompletionHandler, PVOID CompletionContext) {...}",
+      "description": "ACPI operation region callback function type.",
       "parameters": [
         {
           "name": "AccessType",
@@ -2937,7 +2171,7 @@
       "id": "windows::ACPI_OPREGION_WRITE",
       "name": "ACPI_OPREGION_WRITE",
       "entity_type": "callback",
-      "description": "ACPI_OPREGION_READ",
+      "description": "Callback function for writing to an ACPI operation region",
       "header": "oprghdlr.h",
       "deprecated": false,
       "cross_references": [],
@@ -2947,8 +2181,8 @@
     {
       "id": "windows::OperationRegionObject",
       "name": "OperationRegionObject",
-      "entity_type": "callback",
-      "description": "描述 写入作区域内存缓冲区。从作区域内存缓冲区读取。 指定作区域处理程序 RegisterOpRegionHandler 返回的作区域对象。",
+      "entity_type": "structure",
+      "description": "表示操作区域内存缓冲区的对象。用于写入操作区域内存缓冲区或从中读取数据。由RegisterOpRegionHandler返回的操作区域对象。",
       "header": "oprghdlr.h",
       "deprecated": false,
       "cross_references": [
@@ -2956,45 +2190,6 @@
       ],
       "confidence": 0.6,
       "_source_line": 3100
-    },
-    {
-      "id": "windows::Address",
-      "name": "Address",
-      "entity_type": "callback",
-      "description": "指定作区域内存缓冲区中的字节偏移量。 根据访问类型，数据会传输到此内存位置或从 此内存位置传输数据。 Size 指定要访问的字节数。 Data 指向与访问关联的 ACPI 驱动程序提供的数据缓冲区的指针。 对于读取访问，字节将从作区域内存缓冲区传输到数据缓冲区。 对于写入访问，字节将从数据缓冲区传输到作区域 内存缓冲区。",
-      "return_value": {
-        "description": "返回以下状态值之一： 返回代码"
-      },
-      "header": "oprghdlr.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 3105
-    },
-    {
-      "id": "windows::STATUS_INVALID_DEVICE_REQUEST",
-      "name": "STATUS_INVALID_DEVICE_REQUEST",
-      "entity_type": "callback",
-      "description": "STATUS_Xxx 言论 描述 访问成功。 访问类型无效。发生内部错误。 当 ACPI 驱动程序调用作区域处理程序时，它指定 地址 和 大小 的值，以确保访问位于 ACPI 设备的 ACPI BIOS 中定义的作区域中。 ACPI 设备函数驱动程序必须确保它分配的作 区域内存缓冲区至少与 ACPI 设备定义的作区域一样大（以字节为单位）。有关作区域处理程序的详细信息，请参阅 支持作区域。",
-      "header": "oprghdlr.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 3117
-    },
-    {
-      "id": "windows::STATUS_INSUFFICIENT_RESOURCES",
-      "name": "STATUS_INSUFFICIENT_RESOURCES",
-      "entity_type": "callback",
-      "description": "STATUS_Xxx 言论 描述 作区域处理程序已成功注册。例程无法分配必要的系统资源。发生内部错误。 此例程与 RegisterOpRegionHandler结合使用。 若要取消注册作区域处理程序，调用方必须在注册作区域处理程序时指定由",
-      "remarks": "由 上下文 指定的作区域上下文特定于设备，并且仅由函数驱动程序使用。 通常，上下文是 功能设备对象 （FDO）的设备扩展。 ACPI 驱动程序在调用作区域处理程序时将此上下文传回函数驱动程序。 作区域对象仅由函数驱动程序用于在取消注册作区域处理程序时唯一标识作区域。 有关作区域的详细信息，请参阅 支持作区域。",
-      "header": "oprghdlr.h",
-      "deprecated": false,
-      "cross_references": [
-        "PASSIVE_LEVEL"
-      ],
-      "confidence": 0.75,
-      "_source_line": 3155
     },
     {
       "id": "windows::ACPI_OPREGION_REGION_SPACE_MEMORY",
@@ -3010,8 +2205,8 @@
     {
       "id": "windows::ACPI_OPREGION_REGION_SPACE_PCI_CONFIG",
       "name": "ACPI_OPREGION_REGION_SPACE_PCI_CONFIG",
-      "entity_type": "callback",
-      "description": "描述 系统内存 I/O 空间 PCI 配置 区域空间标识符",
+      "entity_type": "constant",
+      "description": "ACPI操作区域空间标识符，用于PCI配置空间",
       "header": "oprghdlr.h",
       "deprecated": false,
       "cross_references": [],
@@ -3019,21 +2214,10 @@
       "_source_line": 3193
     },
     {
-      "id": "windows::ACPI_OPREGION_REGION_SPACE_EC",
-      "name": "ACPI_OPREGION_REGION_SPACE_EC",
-      "entity_type": "callback",
-      "description": "ACPI_OPREGION_REGION_SPACE_SMB",
-      "header": "oprghdlr.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 3199
-    },
-    {
       "id": "windows::ACPI_OPREGION_REGION_SPACE_CMOS_CONFIG",
       "name": "ACPI_OPREGION_REGION_SPACE_CMOS_CONFIG",
-      "entity_type": "callback",
-      "description": "ACPI_OPREGION_REGION_SPACE_PCIBARTARGET 供应商定义的值从0x80到0xFF[in] Handler 描述 嵌入式控制器系统管理总线 2016 年 1 PCI 基址寄存器供应商定义 指向 ACPI_OP_REGION_HANDLER类型化作区域处理程序（由 ACPI 设备函数驱动程序提 供）的指针。[in] Context 指向特定于设备的作区域上下文的指针（由 ACPI 设备函数驱动程序提供）。[in] Flags 保留供内部使用。 [out]",
+      "entity_type": "constant",
+      "description": "ACPI operation region space type constant for CMOS configuration space",
       "return_value": {
         "description": "返回以下状态值之一： 返回代码"
       },

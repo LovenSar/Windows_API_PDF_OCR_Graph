@@ -1,32 +1,12 @@
 {
-  "_schema": "windows_api_kg_v4.0",
-  "_generated_at": "2026-03-05T08:06:54Z",
-  "_content_hash": "f54d623695f4",
-  "document": {
-    "document_id": "hardware-drivers-ddi::sensors",
-    "title": "传感器",
-    "domain": "hardware-drivers-ddi",
-    "topic": "sensors",
-    "source_file": "[OCR]_windows-hardware-drivers-ddi-_sensors_20260305_0125.p.txt",
-    "ocr_timestamp": "2026-03-05T01:25:00",
-    "headers_referenced": [
-      "math3dhelper.h",
-      "sensorsclassextension.h",
-      "sensorscx.h",
-      "sensorscxfuncenum.h",
-      "sensorsdef.h",
-      "sensorsdriversutils.h",
-      "sensorsstructures.h",
-      "sensorsutils.h"
-    ],
-    "total_entities": 207
-  },
+  "_schema": "windows_api_kg_v4.0_refined",
+  "_generated_at": "2026-03-06T08:42:00.781812+00:00",
   "entities": [
     {
       "id": "windows::ACTIVITY_STATE",
       "name": "ACTIVITY_STATE",
       "entity_type": "enum",
-      "description": "此枚举表示活动检测传感器报告的活动状态。轴 定义 3D 坐标。",
+      "description": "此枚举表示活动检测传感器报告的活动状态。",
       "syntax": "typedef enum ACTIVITY_STATE {   ActivityState_Unknown,\nActivityState_Stationary,   ActivityState_Fidgeting,\nActivityState_Walking,   ActivityState_Running,   ActivityState_InVehicle,   ActivityState_Biking,\nActivityState_Idle,   ActivityState_Max,\nActivityState_Force_Dword} ;\n常数\nActivityState_Unknown\n传感器无法准确确定当前活动。\nActivityState_Stationary 指示传感器当前固定。 ActivityState_Fidgeting\n将当前活动描述为“fidgeting”。 ActivityState_Walking\n将当前活动描述为“步行”。 ActivityState_Running\n将当前活动描述为“正在运行”。 ActivityState_InVehicle\n将当前活动描述为“在车辆中行驶”。\nActivityState_Biking\n将当前活动描述为“骑自行车”。 ActivityState_Idle\n将当前活动描述为“空闲”。 ActivityState_Max\n指示当前活动状态正在生成最大传感器值。 在此方案中，传感器不会指示活动是什么。 ActivityState_Force_Dword\n用于强制ACTIVITY_STATE枚举到 32 位数据类型（DWORD）。",
       "remarks": "有关使用此枚举的传感器数据字段的详细信息，请参阅 活动检测传感器数据字段。",
       "header": "sensorsdef.h",
@@ -39,7 +19,7 @@
       "id": "windows::LOCATION_DESIRED_ACCURACY",
       "name": "LOCATION_DESIRED_ACCURACY",
       "entity_type": "enum",
-      "description": "枚举类型定义 SENSOR_PROPERTY_LOCATION_DESIRED_ACCURACY 属性的值。",
+      "description": "Specifies the desired accuracy levels for location sensor data, used with SENSOR_PROPERTY_LOCATION_DESIRED_ACCURACY property.",
       "header": "math3dhelper.h",
       "deprecated": false,
       "cross_references": [
@@ -52,8 +32,8 @@
       "id": "windows::MAGNETOMETER_ACCURACY",
       "name": "MAGNETOMETER_ACCURACY",
       "entity_type": "enum",
-      "description": "枚举 此枚举表示磁力计的准确性状态。",
-      "syntax": "typedef enum MAGNETOMETER_ACCURACY {   MagnetometerAccuracy_Unknown,\nMagnetometerAccuracy_Unreliable,   MagnetometerAccuracy_Approximate,\nMagnetometerAccuracy_High} ;\n常数\nMagnetometerAccuracy_Unknown 指示无法确定磁力计的准确性。\nMagnetometerAccuracy_Unreliable\n指示磁力计读数不可靠。 应用程序可以选择提示用户校准指南针，以提高准确性。 MagnetometerAccuracy_Approximate\n指示磁力计读数是近似值。 MagnetometerAccuracy_High 指示磁力计精度设置为高。",
+      "description": "此枚举表示磁力计的准确性状态。",
+      "syntax": "typedef enum MAGNETOMETER_ACCURACY {\n  MagnetometerAccuracy_Unknown,\n  MagnetometerAccuracy_Unreliable,\n  MagnetometerAccuracy_Approximate,\n  MagnetometerAccuracy_High\n};",
       "requirements": {
         "target_platform": "Windows",
         "header": "sensorsdef.h",
@@ -70,8 +50,8 @@
       "id": "windows::MagnetometerAccuracy",
       "name": "MagnetometerAccuracy",
       "entity_type": "enum",
-      "description": "指定磁力计的准确性。 SensorConnectionType",
-      "syntax": "typedef enum MagnetometerAccuracy {   MAGNETOMETER_ACCURACY_UNKNOWN,",
+      "description": "指定磁力计的准确性级别。",
+      "syntax": "typedef enum MagnetometerAccuracy {\n  MAGNETOMETER_ACCURACY_UNKNOWN,\n  MAGNETOMETER_ACCURACY_UNRELIABLE,\n  MAGNETOMETER_ACCURACY_APPROXIMATE,\n  MAGNETOMETER_ACCURACY_HIGH\n};",
       "header": "math3dhelper.h",
       "deprecated": false,
       "cross_references": [
@@ -84,9 +64,9 @@
       "id": "windows::PEDOMETER_STEP_TYPE",
       "name": "PEDOMETER_STEP_TYPE",
       "entity_type": "enum",
-      "description": "此枚举表示计步器报告的步长类型。 PEDOMETER_STEP_TYPE_COUNT 此枚举表示计步器可以检测到的步长类型数。",
-      "syntax": "typedef enum PEDOMETER_STEP_TYPE {\nPedometerStepType_Unknown,   PedometerStepType_Walking,   PedometerStepType_Running,   PedometerStepType_Max,\nPedometerStepType_Force_Dword} ;\n常数\nPedometerStepType_Unknown\npedometer 无法确定步骤类型。\nPedometerStepType_Walking 指示与步行关联的步骤类型。 PedometerStepType_Running 指示与运行关联的步骤类型。\nPedometerStepType_Max\n指示步骤类型正在生成最大传感器值。 在此方案中，计步表不报告步骤类型。 PedometerStepType_Force_Dword\n用于强制PEDOMETER_STEP_TYPE枚举到 32 位数据类型（DWORD）。",
-      "remarks": "有关使用此枚举的传感器数据字段的详细信息，请参阅 Pedometer 数据字段。 要求要求标头",
+      "description": "此枚举表示计步器报告的步长类型。",
+      "syntax": "typedef enum PEDOMETER_STEP_TYPE {\n  PedometerStepType_Unknown,\n  PedometerStepType_Walking,\n  PedometerStepType_Running,\n  PedometerStepType_Max,\n  PedometerStepType_Force_Dword\n};",
+      "remarks": "有关使用此枚举的传感器数据字段的详细信息，请参阅 Pedometer 数据字段。\n要求标头: sensorsdef.h",
       "header": "sensorsdef.h",
       "deprecated": false,
       "cross_references": [
@@ -100,8 +80,8 @@
       "id": "windows::PROXIMITY_SENSOR_CAPABILITIES",
       "name": "PROXIMITY_SENSOR_CAPABILITIES",
       "entity_type": "enum",
-      "description": "枚举值指示邻近感应传感器的功能。",
-      "syntax": "typedef enum PROXIMITY_SENSOR_CAPABILITIES {   Proximity_Sensor_Human_Presence_Capable,   Proximity_Sensor_Human_Engagement_Capable,\nProximity_Sensor_Human_Head_Azimuth_Capable,   Proximity_Sensor_Human_Head_Altitude_Capable,\nProximity_Sensor_Human_Head_Roll_Capable,   Proximity_Sensor_Human_Head_Pitch_Capable,   Proximity_Sensor_Human_Head_Yaw_Capable,\nProximity_Sensor_Human_Identification_Capable,   Proximity_Sensor_Multi_Person_Detection_Capable,\nProximity_Sensor_Supported_Capabilities} ;\n常数\nProximity_Sensor_Human_Presence_Capable 传感器可以检测人的存在。\nProximity_Sensor_Human_Engagement_Capable 传感器可以检测用户是否参与系统。\nProximity_Sensor_Human_Head_Azimuth_Capable 传感器可以检测用户的头部的方位。\nProximity_Sensor_Human_Head_Altitude_Capable 传感器可以检测用户头部的高度。\nProximity_Sensor_Human_Head_Roll_Capable 传感器可以检测用户的头部滚动。\nProximity_Sensor_Human_Head_Pitch_Capable 传感器可以检测用户的头部间距。\nProximity_Sensor_Human_Head_Yaw_Capable 传感器可以检测用户的头部偏航。\nProximity_Sensor_Human_Identification_Capable 传感器可以识别人员。\nProximity_Sensor_Multi_Person_Detection_Capable 传感器可以检测是否存在多个人员。\nProximity_Sensor_Supported_Capabilities\n指示支持所有功能。",
+      "description": "枚举类型，指示邻近感应传感器支持的各种功能能力。",
+      "syntax": "typedef enum PROXIMITY_SENSOR_CAPABILITIES {\n  Proximity_Sensor_Human_Presence_Capable,\n  Proximity_Sensor_Human_Engagement_Capable,\n  Proximity_Sensor_Human_Head_Azimuth_Capable,\n  Proximity_Sensor_Human_Head_Altitude_Capable,\n  Proximity_Sensor_Human_Head_Roll_Capable,\n  Proximity_Sensor_Human_Head_Pitch_Capable,\n  Proximity_Sensor_Human_Head_Yaw_Capable,\n  Proximity_Sensor_Human_Identification_Capable,\n  Proximity_Sensor_Multi_Person_Detection_Capable,\n  Proximity_Sensor_Supported_Capabilities\n};",
       "requirements": {
         "header": "sensorsdef.h"
       },
@@ -115,8 +95,8 @@
       "id": "windows::SENSOR_CONNECTION_TYPES",
       "name": "SENSOR_CONNECTION_TYPES",
       "entity_type": "enum",
-      "description": "枚举 定义传感器设备连接的类型。",
-      "syntax": "typedef enum SENSOR_CONNECTION_TYPES {\nSensorConnectionType_Integrated,   SensorConnectionType_Attached,   SensorConnectionType_External} ;\n常数\nSensorConnectionType_Integrated\n传感器设备内置于计算机中。 SensorConnectionType_Attached\n传感器设备连接到计算机，例如通过外围设备。 SensorConnectionType_External\n传感器设备通过外部方式进行连接，例如通过网络连接。",
+      "description": "定义传感器设备连接类型的枚举",
+      "syntax": "typedef enum SENSOR_CONNECTION_TYPES {\n    SensorConnectionType_Integrated,\n    SensorConnectionType_Attached,\n    SensorConnectionType_External\n};",
       "requirements": {
         "header": "sensorsdef.h"
       },
@@ -130,8 +110,8 @@
       "id": "windows::SENSOR_STATE",
       "name": "SENSOR_STATE",
       "entity_type": "enum",
-      "description": "此枚举表示传感器的有效状态。 SensorConnectionType",
-      "syntax": "typedef enum SENSOR_STATE {   SensorState_Initializing,\nSensorState_Idle,   SensorState_Active,   SensorState_Error} ;\n常数\nSensorState_Initializing 指示传感器正在初始化。\nSensorState_Idle\n指示传感器处于空闲状态 SensorState_Active\n指示传感器处于活动状态。 SensorState_Error\n指示传感器处于错误状态。",
+      "description": "此枚举表示传感器的有效状态。",
+      "syntax": "typedef enum SENSOR_STATE {\n  SensorState_Initializing,\n  SensorState_Idle,\n  SensorState_Active,\n  SensorState_Error\n};",
       "requirements": {
         "target_platform": "Windows",
         "header": "sensorsdef.h",
@@ -144,13 +124,14 @@
         "SensorConnectionType"
       ],
       "confidence": 0.75,
-      "_source_line": 28
+      "_source_line": 28,
+      "remarks": "此枚举还定义用于 SENSOR_PROPERTY_STATE 属性的值。"
     },
     {
       "id": "windows::SensorConnectionType",
       "name": "SensorConnectionType",
       "entity_type": "enum",
-      "description": "枚举类型定义 SENSOR_CONNECTION_TYPE 属性的值。 SENSORSCXFUNCENUM",
+      "description": "枚举类型定义 SENSOR_CONNECTION_TYPE 属性的值。用于传感器连接类型分类。",
       "syntax": "typedef enum __MIDL___MIDL_itf_windowssensorclassextension_0000_0000_0002 {",
       "header": "math3dhelper.h",
       "deprecated": false,
@@ -162,7 +143,7 @@
       "id": "windows::_SENSORSCXFUNCENUM",
       "name": "_SENSORSCXFUNCENUM",
       "entity_type": "enum",
-      "description": "枚举包含所有 WDF API 函数的列表。 SENSORSCXFUNCENUM 枚举（sensorscxfuncenum.h）项目2025/02/07",
+      "description": "枚举包含所有 WDF 传感器类扩展(SensorsCx) API 函数的索引值。定义在 sensorscxfuncenum.h 头文件中",
       "syntax": "typedef enum _SENSORSCXFUNCENUM {\nSensorsCxDeviceInitConfigTableIndex,   SensorsCxDeviceInitializeTableIndex,   SensorsCxSensorCreateTableIndex,\nSensorsCxSensorInitializeTableIndex,   SensorsCxSensorDataReadyTableIndex,\nSensorsCxDeviceGetSensorListTableIndex,\nSensorsCxSensorHistoryRetrievalCompletedTableIndex,\nSensorsCxStateChangeTableIndex,   SensorscxFunctionTableNumEntries} SENSORSCXFUNCENUM;\n常数",
       "header": "sensorscxfuncenum.h",
       "deprecated": false,
@@ -171,30 +152,10 @@
       "_source_line": 31
     },
     {
-      "id": "windows::SensorState",
-      "name": "SensorState",
-      "entity_type": "enum",
-      "description": "枚举类型指定传感器的当前操作状态。 ISensorClassExtension 接口（sensorsclassextension.h）项目2025/02/07 ISensorClassExtension 接口提供传感器驱动程序用来通过传感器类扩展对象与传感器平台（因此 客户端应用程序）通信的方法。遗产 ISensorClassExtension 接口继承自 IUnknown 接口。 ISensorClassExtension 也有以下类型的成员： 方法方法 ISensorClassExtension 接口具有这些方法。 ISensorClassExtension：：CleanupFile 对于指定的应用程序，ISensorClassExtension：：CleanupFile 方法通知类扩展，该句柄关闭并取消所有挂起的 I/O 请求。 ISensorClassExtension：：Initialize ISensorClassExtension：：Initialize 方法初始化传感器类扩展对象。 ISensorClassExtension：:P ostEvent ISensorClassExtension：:P ostEvent 方法在传感器类扩展中引发一个或多个驱动程序事件。 ISensorClassExtension：:P ostStateChange ISensorClassExtension：:P ostStateChange 方法通知传感器类扩展有关传感器作状态的变化。 ISensorClassExtension：:P rocessIoControl ISensorClassExtension：:P rocessControl 方法将 Windows 可移植设备 （WPD） I/O 控制请求发送到传感器类扩展进行处理。 ISensorClassExtension：：Uninitialize ISensorClassExtension：：Uninitialize 方法未初始化传感器类扩展对象。",
-      "syntax": "HRESULT ProcessIoControl(   IWDFIoRequest *pRequest);\n参数 pRequest\n指向表示 UMDF 请求对象的 IWDFIoRequest 接口的指针。",
-      "return_value": {
-        "description": "此方法返回 HRESULT。 可能的值包括但不限于以下值之一。 返回代码 S_OK"
-      },
-      "requirements": {
-        "header": "sensorsclassextension.h"
-      },
-      "header": "math3dhelper.h",
-      "deprecated": false,
-      "cross_references": [
-        "Initialize"
-      ],
-      "confidence": 0.75,
-      "_source_line": 32
-    },
-    {
       "id": "windows::CollectionsListAllocateBufferAndSerialize",
       "name": "CollectionsListAllocateBufferAndSerialize",
-      "entity_type": "enum",
-      "description": "此例程分配缓冲区，然后序列化传感器集合列表。 CollectionsListCopyAndMarshall 此例程将集合列表从源复制到目标并封送。 CollectionsListDeserializeFromBuffer 此例程从输入缓冲区反序列化集合列表。 CollectionsListGetFillableCount 返回一定大小的SENSOR_COLLECTION_LIST缓冲区可以容纳的元素数。 CollectionsListGetMarshalledSize 返回用于序列化和封送集合列表（包括嵌入内存）所需的大小。 CollectionsListGetMarshalledSizeWithoutSerialization 返回整个集合列表的大小，包括嵌入指针指向的内存块的大小。 CollectionsListGetSerializedSize 此例程返回两个大小中的较大值，以提供足够的缓冲区大小，以适应跨可以具有不同位值的进程传递集合列表。",
+      "entity_type": "function",
+      "description": "分配缓冲区并序列化传感器集合列表。",
       "syntax": "NTSTATUS CollectionsListAllocateBufferAndSerialize(\n[in]  const PSENSOR_COLLECTION_LIST SourceCollection,\n[out] ULONG                         *pTargetBufferSizeInBytes,\n[out] BYTE                          **pTargetBuffer);",
       "parameters": [
         {
@@ -227,63 +188,10 @@
       "_source_line": 39
     },
     {
-      "id": "windows::CollectionsListMarshall",
-      "name": "CollectionsListMarshall",
-      "entity_type": "enum",
-      "description": "此例程类似于 CollectionsListCopyAndMarshall，只不过它就地封送集合列表。 CollectionsListSerializeToBuffer 此例程将集合列表序列化为调用方分配的缓冲区。 CollectionsListSortSubscribedActivitiesByConfidence 此例程在某些情况下重新排列活动数据收集。",
-      "syntax": "NTSTATUS CollectionsListMarshall(\n[in] PSENSOR_COLLECTION_LIST Target);",
-      "parameters": [
-        {
-          "name": "Target",
-          "direction": "in",
-          "description": "指向集合列表的指针。"
-        }
-      ],
-      "return_value": {
-        "description": "如果源集合列表不够大，无法容纳封送/平展列表，则此函数将失败并 STATUS_BUFFER_TOO_SMALL。 否则返回STATUS_SUCCESS。"
-      },
-      "requirements": {
-        "header": "sensorsutils.h"
-      },
-      "header": "sensorsutils.h",
-      "deprecated": false,
-      "cross_references": [
-        "CollectionsListCopyAndMarshall",
-        "CollectionsListSerializeToBuffer",
-        "CollectionsListSortSubscribedActivitiesByConfidence"
-      ],
-      "confidence": 0.85,
-      "_source_line": 47
-    },
-    {
-      "id": "windows::CollectionsListUpdateMarshalledPointer",
-      "name": "CollectionsListUpdateMarshalledPointer",
-      "entity_type": "enum",
-      "description": "此例程更新嵌入的指针。 CVEC3D 传感器驱动程序开发中使用的 3d 矢量类。 CVEC3D 传感器驱动程序开发中使用的 3d 向量类，具有 3d 向量参数。 CVEC3D 传感器驱动程序开发中使用的 3d 向量类构造函数，具有 float 参数。 EvaluateActivityThresholds 此例程确定新的传入活动数据是否满足阈值。",
-      "syntax": "NTSTATUS CollectionsListUpdateMarshalledPointer(\n[in/out] PSENSOR_COLLECTION_LIST Collection);",
-      "parameters": [
-        {
-          "name": "Collection",
-          "direction": "in/out",
-          "description": "指向传感器集合列表的指针。"
-        }
-      ],
-      "return_value": {
-        "description": "如果以下情况，则此函数返回STATUS_INVALID_PARAMETER： 集合为 null。"
-      },
-      "header": "sensorsutils.h",
-      "deprecated": false,
-      "cross_references": [
-        "EvaluateActivityThresholds"
-      ],
-      "confidence": 0.85,
-      "_source_line": 51
-    },
-    {
       "id": "windows::EVT_SENSOR_DRIVER_CANCEL_HISTORY_RETRIEVAL",
       "name": "EVT_SENSOR_DRIVER_CANCEL_HISTORY_RETRIEVAL",
-      "entity_type": "enum",
-      "description": "EvtSensorDriverCancelHistoryRetrieval; NTSTATUS EvtSensorDriverCancelHistoryRetrieval( SENSOROBJECT Sensor, PULONG pBytesWritten) {...}",
+      "entity_type": "callback",
+      "description": "Callback function to cancel sensor history retrieval.",
       "parameters": [
         {
           "name": "Sensor",
@@ -349,8 +257,8 @@
     {
       "id": "windows::EVT_SENSOR_DRIVER_ENABLE_WAKE",
       "name": "EVT_SENSOR_DRIVER_ENABLE_WAKE",
-      "entity_type": "enum",
-      "description": "EvtSensorDriverEnableWake; NTSTATUS EvtSensorDriverEnableWake( [in] SENSOROBJECT Sensor) {...}",
+      "entity_type": "callback",
+      "description": "传感器驱动程序启用唤醒功能的回调函数。",
       "parameters": [
         {
           "name": "Sensor",
@@ -361,7 +269,7 @@
       "return_value": {
         "description": "成功完成后，此函数将返回STATUS_SUCCESS。 注释 类扩展（CX）仅使用NT_SUCCESS宏来确定对驱动程序 Evt 函数的调用是否成 功，但如果函数失败或未返回STATUS_SUCCESS，则不采取任何作。"
       },
-      "remarks": "此 DDSI 函数不必强制由驱动程序实现，因为预期某些传感器驱动程序不关心在传感器上启用唤醒。 如果未实现启用调用，将忽略并返回STATUS_SUCCESS。 这主要是因为 PKEY_Sensor_WakeCapable今天实现，由某些传感器（如加速计和邻近感应传感器）使用，为了实现向后兼容性，实现此 DDSI 是可选的。 要求要求目标平台标头 IRQL 是 否 价值窗户 sensorscx.h requires_same",
+      "remarks": "此 DDSI 函数不必强制由驱动程序实现，因为预期某些传感器驱动程序不关心在传感器上启用唤醒。如果未实现启用调用，将忽略并返回STATUS_SUCCESS。这主要是因为 PKEY_Sensor_WakeCapable今天实现，由某些传感器（如加速计和邻近感应传感器）使用，为了实现向后兼容性，实现此 DDSI 是可选的。",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [],
@@ -371,8 +279,8 @@
     {
       "id": "windows::EVT_SENSOR_DRIVER_GET_DATA_FIELD_PROPERTIES",
       "name": "EVT_SENSOR_DRIVER_GET_DATA_FIELD_PROPERTIES",
-      "entity_type": "enum",
-      "description": "EvtSensorDriverGetDataFieldProperties; NTSTATUS EvtSensorDriverGetDataFieldProperties( [in] SENSOROBJECT Sensor, [in] const PROPERTYKEY *pDataField, [in, out, optional] PSENSOR_COLLECTION_LIST pProperties, [out] PULONG pSize) {...}",
+      "entity_type": "callback",
+      "description": "A callback function that retrieves the properties of a sensor data field.",
       "parameters": [
         {
           "name": "Sensor",
@@ -419,8 +327,8 @@
     {
       "id": "windows::EVT_SENSOR_DRIVER_GET_DATA_THRESHOLDS",
       "name": "EVT_SENSOR_DRIVER_GET_DATA_THRESHOLDS",
-      "entity_type": "enum",
-      "description": "EvtSensorDriverGetDataThresholds; NTSTATUS EvtSensorDriverGetDataThresholds( [in] SENSOROBJECT Sensor, [out] PSENSOR_COLLECTION_LIST pThresholds, PULONG pSize) {...}",
+      "entity_type": "function",
+      "description": "NTSTATUS EvtSensorDriverGetDataThresholds([in] SENSOROBJECT Sensor, [out] PSENSOR_COLLECTION_LIST pThresholds, PULONG pSize)",
       "parameters": [
         {
           "name": "Sensor",
@@ -439,8 +347,8 @@
     {
       "id": "windows::EVT_SENSOR_DRIVER_GET_SUPPORTED_DATA_FIELDS",
       "name": "EVT_SENSOR_DRIVER_GET_SUPPORTED_DATA_FIELDS",
-      "entity_type": "enum",
-      "description": "EvtSensorDriverGetSupportedDataFields; NTSTATUS EvtSensorDriverGetSupportedDataFields( [in] SENSOROBJECT Sensor, [in, out, optional] PSENSOR_PROPERTY_LIST pDataFields, [out] PULONG pSize) {...}",
+      "entity_type": "callback",
+      "description": "Callback function prototype for getting supported sensor data fields.",
       "parameters": [
         {
           "name": "Sensor",
@@ -456,7 +364,7 @@
       "return_value": {
         "description": "成功完成后，此函数将返回STATUS_SUCCESS。类扩展（CX）仅使用NT_SUCCESS宏来确定对驱动程序的 Evt 函数的调用是否成功，但如果 函数失败或未返回STATUS_SUCCESS，则不采取任何作。"
       },
-      "remarks": "此函数必须由驱动程序实现，并由类扩展调用。",
+      "remarks": "This callback function must be implemented by the driver and is called by the class extension.",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [],
@@ -464,34 +372,10 @@
       "_source_line": 67
     },
     {
-      "id": "windows::EVT_SENSOR_DRIVER_SET_BATCH_LATENCY",
-      "name": "EVT_SENSOR_DRIVER_SET_BATCH_LATENCY",
-      "entity_type": "enum",
-      "description": "EvtSensorDriverSetBatchLatency; NTSTATUS EvtSensorDriverSetBatchLatency( [in] SENSOROBJECT Sensor, [in] ULONG BatchLatencyMs) {...}",
-      "parameters": [
-        {
-          "name": "Sensor",
-          "direction": "in",
-          "description": "对传感器对象的引用。[in] BatchLatencyMs 批处理延迟（以毫秒为单位）。"
-        }
-      ],
-      "return_value": {
-        "description": "成功完成后，此函数将返回STATUS_SUCCESS。 注释 类扩展（CX）仅使用NT_SUCCESS宏来确定对驱动程序 Evt 函数的调用是否成功， 但如果函数失败或未返回STATUS_SUCCESS，则不采取任何作。"
-      },
-      "remarks": "驱动程序可以将批处理延迟设置为小于或等于 BatchLatencyMs的值，具体取决于缓冲区可用性。 有关数据批处理传感器驱动程序必须报告的传感器属性的信息，请参阅 常见传感器属性。 请务必注意，由于数据批处理，传感器数据传输方法和事件没有隐含的更改。 当数据批处理延迟过期时，驱动程序将调用 SensorsCxSensorDataReady 重复传递所有缓冲的数据样本，一次一个。 发送数据示例及其 PKEY_SensorData_Timestamp 数据字段中的时间戳信息。 时间戳信息（数据类型VT_FILETIME）显示样本的拍摄时间。 有关VT_FILETIME数据类型的详细信息，请参阅 MSDN PROPVARIANT 结构。",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [
-        "SensorsCxSensorDataReady"
-      ],
-      "confidence": 0.9,
-      "_source_line": 68
-    },
-    {
       "id": "windows::EVT_SENSOR_DRIVER_SET_DATA_THRESHOLDS",
       "name": "EVT_SENSOR_DRIVER_SET_DATA_THRESHOLDS",
-      "entity_type": "enum",
-      "description": "EvtSensorDriverSetDataThresholds; NTSTATUS EvtSensorDriverSetDataThresholds( [in] SENSOROBJECT Sensor, [in] PSENSOR_COLLECTION_LIST pThresholds) {...}",
+      "entity_type": "callback",
+      "description": "Callback function that sets data thresholds for a sensor driver.",
       "parameters": [
         {
           "name": "Sensor",
@@ -512,36 +396,10 @@
       "_source_line": 69
     },
     {
-      "id": "windows::EVT_SENSOR_DRIVER_START_HISTORY_RETRIEVAL",
-      "name": "EVT_SENSOR_DRIVER_START_HISTORY_RETRIEVAL",
-      "entity_type": "enum",
-      "description": "EvtSensorDriverStartHistoryRetrieval; NTSTATUS EvtSensorDriverStartHistoryRetrieval( [in] SENSOROBJECT Sensor, [in, out] PSENSOR_COLLECTION_LIST pHistory, [in] ULONG HistorySizeInBytes) {...}",
-      "parameters": [
-        {
-          "name": "Sensor",
-          "direction": "in",
-          "description": "对传感器对象的引用。[in, out] pHistory 指向传感器集合列表的指针。[in] HistorySizeInBytes pHistory的大小（以字节为单位）。"
-        }
-      ],
-      "return_value": {
-        "description": "返回 NTSTATUS。"
-      },
-      "requirements": {
-        "header": "sensorscx.h"
-      },
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [
-        "PSENSOR_COLLECTION_LIST"
-      ],
-      "confidence": 0.9,
-      "_source_line": 71
-    },
-    {
       "id": "windows::EVT_SENSOR_DRIVER_START_SENSOR",
       "name": "EVT_SENSOR_DRIVER_START_SENSOR",
-      "entity_type": "enum",
-      "description": "EvtSensorDriverStartSensor; NTSTATUS EvtSensorDriverStartSensor( SENSOROBJECT Sensor) {...}",
+      "entity_type": "callback",
+      "description": "传感器驱动程序启动传感器的回调函数。",
       "parameters": [
         {
           "name": "Sensor",
@@ -562,104 +420,9 @@
       "_source_line": 71
     },
     {
-      "id": "windows::EVT_SENSOR_DRIVER_START_SENSOR_HISTORY",
-      "name": "EVT_SENSOR_DRIVER_START_SENSOR_HISTORY",
-      "entity_type": "enum",
-      "description": "EvtSensorDriverStartSensorHistory; NTSTATUS EvtSensorDriverStartSensorHistory( [in] SENSOROBJECT Sensor) {...}",
-      "parameters": [
-        {
-          "name": "Sensor",
-          "direction": "in",
-          "description": "对传感器对象的引用。"
-        }
-      ],
-      "return_value": {
-        "description": "返回 NTSTATUS。"
-      },
-      "requirements": {
-        "header": "sensorscx.h"
-      },
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.9,
-      "_source_line": 73
-    },
-    {
-      "id": "windows::EVT_SENSOR_DRIVER_START_STATE_CHANGE_NOTIFICATION",
-      "name": "EVT_SENSOR_DRIVER_START_STATE_CHANGE_NOTIFICATION",
-      "entity_type": "enum",
-      "description": "EvtSensorDriverStartStateChangeNotification; NTSTATUS EvtSensorDriverStartStateChangeNotification( [in] SENSOROBJECT Sensors) {...}",
-      "parameters": [
-        {
-          "name": "Sensors",
-          "direction": "in",
-          "description": "保存有关传感器驱动程序处理的传感器的信息。"
-        }
-      ],
-      "return_value": {
-        "description": "如果成功完成，则返回STATUS_SUCCESS。"
-      },
-      "requirements": {
-        "header": "sensorscx.h"
-      },
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.9,
-      "_source_line": 74
-    },
-    {
-      "id": "windows::EVT_SENSOR_DRIVER_STOP_SENSOR",
-      "name": "EVT_SENSOR_DRIVER_STOP_SENSOR",
-      "entity_type": "enum",
-      "description": "EvtSensorDriverStopSensor; NTSTATUS EvtSensorDriverStopSensor( SENSOROBJECT Sensor) {...}",
-      "parameters": [
-        {
-          "name": "Sensor",
-          "description": "对传感器对象的引用。"
-        }
-      ],
-      "return_value": {
-        "description": "成功完成后，此函数将返回STATUS_SUCCESS。 注释 类扩展（CX）仅使用NT_SUCCESS宏来确定对驱动程序 Evt 函数的调用是否成功，但如果 函数失败或未返回STATUS_SUCCESS，则不采取任何作。"
-      },
-      "remarks": "此函数必须由驱动程序实现，并由类扩展调用。",
-      "requirements": {
-        "header": "sensorscx.h"
-      },
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.9,
-      "_source_line": 75
-    },
-    {
-      "id": "windows::EVT_SENSOR_DRIVER_STOP_SENSOR_HISTORY",
-      "name": "EVT_SENSOR_DRIVER_STOP_SENSOR_HISTORY",
-      "entity_type": "enum",
-      "description": "EvtSensorDriverStopSensorHistory; NTSTATUS EvtSensorDriverStopSensorHistory( SENSOROBJECT Sensor) {...}",
-      "parameters": [
-        {
-          "name": "Sensor",
-          "description": "对传感器对象的引用。"
-        }
-      ],
-      "return_value": {
-        "description": "返回 NTSTATUS。"
-      },
-      "requirements": {
-        "header": "sensorscx.h"
-      },
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.9,
-      "_source_line": 76
-    },
-    {
       "id": "windows::EVT_SENSOR_DRIVER_STOP_STATE_CHANGE_NOTIFICATION",
       "name": "EVT_SENSOR_DRIVER_STOP_STATE_CHANGE_NOTIFICATION",
-      "entity_type": "enum",
+      "entity_type": "callback",
       "description": "EvtSensorDriverStopStateChangeNotification; NTSTATUS EvtSensorDriverStopStateChangeNotification( SENSOROBJECT Sensors) {...}",
       "parameters": [
         {
@@ -682,9 +445,9 @@
     {
       "id": "windows::FloatEq",
       "name": "FloatEq",
-      "entity_type": "enum",
-      "description": "此函数测试与 FLOAT_TOLERANCE = 0.00001 的相等性。 如果两个数字之间的差异小于 FLOAT_TOLERANCE，则 x 将被视为等于 y。",
-      "syntax": "bool FloatEq(\nfloat x,   float y);\n参数 x\nx 值。 y\ny 值。",
+      "entity_type": "function",
+      "description": "Tests equality with FLOAT_TOLERANCE = 0.00001. If the difference between two numbers is less than FLOAT_TOLERANCE, x will be considered equal to y.",
+      "syntax": "bool FloatEq(float x, float y);",
       "return_value": {
         "description": "此函数返回 bool。"
       },
@@ -702,8 +465,8 @@
     {
       "id": "windows::GetMethodArgumentFromAcpi",
       "name": "GetMethodArgumentFromAcpi",
-      "entity_type": "enum",
-      "description": "函数使用提供的方法名称读取请求的 ACPI 条目。 GetPerformanceTime 此例程以毫秒为单位计算系统时间。 GetRotationMatrixFromAcpi",
+      "entity_type": "function",
+      "description": "使用提供的方法名称读取请求的ACPI条目",
       "syntax": "NTSTATUS GetMethodArgumentFromAcpi(   WDFDEVICE Device,\nPSZ       MethodName,\nUCHAR     MethodNameLength,   BYTE      *MethodArgument,\nULONG     MethodArgumentLength);",
       "parameters": [
         {
@@ -726,8 +489,8 @@
     {
       "id": "windows::GetRotationMatrixFromAcpi",
       "name": "GetRotationMatrixFromAcpi",
-      "entity_type": "enum",
-      "description": "函数从 ACPI 条目读取旋转矩阵。",
+      "entity_type": "function",
+      "description": "从ACPI条目读取旋转矩阵的函数。",
       "syntax": "NTSTATUS GetRotationMatrixFromAcpi(   WDFDEVICE Device,\nPSZ       MethodName,\nUCHAR     MethodNameLength,   PVEC3D    RotationMatrix,\nULONG     RotationMatrixEntries);",
       "parameters": [
         {
@@ -752,8 +515,8 @@
       "id": "windows::I2C_REQUEST_SIZE",
       "name": "I2C_REQUEST_SIZE",
       "entity_type": "enum",
-      "description": "宏定义 I2C 请求大小。 I2CSensorReadRegister I2CSensorReadRegister 函数通过 I2C 读取设备注册 () 。 I2CSensorWriteRegister I2CSensorWriteRegister 函数通过 I2C 将 () 写入设备寄存器。初始化 ISensorClassExtension：：Initialize 方法初始化传感器类扩展对象。 InitPropVariantFromCLSIDArray 此例程从给定的 GUID 数组初始化 PROPVARIANT。 InitPropVariantFromFloat 此例程使用给定的 float 初始化 PROPVARIANT。 InitTransformationMatrix",
-      "syntax": "void I2C_REQUEST_SIZE(\nDataByteLength);",
+      "description": "宏定义 I2C 请求大小。",
+      "syntax": "",
       "header": "sensorsdriversutils.h",
       "deprecated": false,
       "cross_references": [
@@ -766,39 +529,10 @@
       "_source_line": 83
     },
     {
-      "id": "windows::InitTransformationMatrix",
-      "name": "InitTransformationMatrix",
-      "entity_type": "enum",
-      "description": "函数从 ACPI 条目读取旋转矩阵。 IsCollectionListSame 此例程比较两个集合列表，以查看它们是否相同。 IsGUIDPresentInList 此例程在 GUID 列表中查找 GUID。 IsKeyPresentInCollectionList 此例程确定集合列表中是否存在键。 IsKeyPresentInPropertyList 此例程确定属性列表中是否存在键。",
-      "syntax": "NTSTATUS InitTransformationMatrix(   WDFDEVICE Device,\nPVEC3D    RotationMatrix,\nULONG     RotationMatrixEntryCount);",
-      "parameters": [
-        {
-          "name": "Device",
-          "description": "提供 WDF 设备对象。 RotationMatrix 提供读取旋转矩阵的 VEC3D 缓冲区。 RotationMatrixEntryCount 提供 RotationMatrix 可以保留的元素数。"
-        }
-      ],
-      "return_value": {
-        "description": "此函数返回 NTSTATUS。"
-      },
-      "requirements": {
-        "header": "sensorsdriversutils.h"
-      },
-      "header": "sensorsdriversutils.h",
-      "deprecated": false,
-      "cross_references": [
-        "IsCollectionListSame",
-        "IsGUIDPresentInList",
-        "IsKeyPresentInCollectionList",
-        "IsKeyPresentInPropertyList"
-      ],
-      "confidence": 0.85,
-      "_source_line": 90
-    },
-    {
       "id": "windows::IsSensorSubscribed",
       "name": "IsSensorSubscribed",
-      "entity_type": "enum",
-      "description": "函数（sensorsutils.h）",
+      "entity_type": "function",
+      "description": "Determines if a sensor is currently subscribed",
       "syntax": "BOOLEAN IsSensorSubscribed(",
       "header": "sensorsutils.h",
       "deprecated": false,
@@ -809,8 +543,8 @@
     {
       "id": "windows::MILLISECONDS_FROM_100NANOSECONDS",
       "name": "MILLISECONDS_FROM_100NANOSECONDS",
-      "entity_type": "enum",
-      "description": "此宏将时间（以 100 纳秒为单位）转换为毫秒。 MILLISECONDS_TO_100NANOSECONDS 此宏将时间（以毫秒为单位）转换为 100 纳秒单位。 PropertiesListCopy 此例程将属性列表从源复制到目标。 PropertiesListGetFillableCount 返回一定大小的属性列表缓冲区可能保留的元素数。 PropKeyFindKeyGetBool 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取 BOOL 值。 PropKeyFindKeyGetDouble 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取双精度浮点值。 PropKeyFindKeyGetFileTime 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取 FILETIME 值。 PropKeyFindKeyGetFloat 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取单精度浮点值。 PropKeyFindKeyGetGuid 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取 GUID 值。 PropKeyFindKeyGetInt32 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取 INT32 值。 PropKeyFindKeyGetInt64 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取 INT64 值。 PropKeyFindKeyGetNthInt64 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取第 n 个 INT64 值。 PropKeyFindKeyGetNthUlong 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取第 n 个 ULONG 值。",
+      "entity_type": "macro",
+      "description": "此宏将时间（以100纳秒为单位）转换为毫秒",
       "header": "sensorsutils.h",
       "deprecated": false,
       "cross_references": [
@@ -828,14 +562,19 @@
         "PropertiesListGetFillableCount"
       ],
       "confidence": 0.75,
-      "_source_line": 97
+      "_source_line": 97,
+      "syntax": "#define MILLISECONDS_FROM_100NANOSECONDS(durationNanoS) ((durationNanoS) / (1000 * 10))\n参数 durationNanoS\n要转换为毫秒的 100 纳秒单位的持续时间。",
+      "return_value": {
+        "description": "没有"
+      },
+      "remarks": "获取表示时间长度（以毫秒为单位）的 LONGLONG。"
     },
     {
       "id": "windows::OnClientUnsubscribeFromEvents",
       "name": "OnClientUnsubscribeFromEvents",
-      "entity_type": "enum",
-      "description": "方法 ISensorDriver：：OnClientUnsubscribeFromEvents 方法通知传感器驱动程序客户端应用程序不再请求事件通知。",
-      "syntax": "HRESULT OnClientUnsubscribeFromEvents(\nIWDFFile *pClientFile,   LPWSTR   pwszSensorID);\n参数 pClientFile\n指向 IWDFFile 接口的指针，该接口表示请求取消事件通知的应用程序的文件对象。 pwszSensorID\n包含客户端应用程序请求取消事件通知的传感器 ID 的 LPWSTR。\nHRESULT OnGetDataFields(\nIWDFFile                     *pClientFile,   LPWSTR                       pwszSensorID,   IPortableDeviceKeyCollection *pDataFields,   IPortableDeviceValues        **ppDataValues);\n参数 pClientFile\n指向 IWDFFile 接口的指针，该接口表示请求数据的应用程序的文件对象。 pwszSensorID\n包含客户端应用程序从中请求数据的传感器的 ID 的 LPWSTR。 pDataFields\n指向 IPortableDeviceKeyCollection 的指针，其中包含表示所请求的数据字段的 PROPERTYKEY 值列表。\nppDataValues\n接收请求数据的 IPortableDeviceValues 指针的地址。",
+      "entity_type": "function",
+      "description": "ISensorDriver::OnClientUnsubscribeFromEvents方法通知传感器驱动程序客户端应用程序不再请求事件通知",
+      "syntax": "HRESULT OnClientUnsubscribeFromEvents(IWDFFile *pClientFile, LPWSTR pwszSensorID);",
       "return_value": {
         "description": "如果作成功，此方法将返回S_OK。 否则，此方法返回在 Winerror.h 中定义的错误代码之一。 此方法返回 HRESULT。 可能的值包括但不限于以下值之一。 返回代码 S_OK"
       },
@@ -849,26 +588,10 @@
       "_source_line": 103
     },
     {
-      "id": "windows::OnGetDataFields",
-      "name": "OnGetDataFields",
-      "entity_type": "enum",
-      "description": "ISensorDriver：：OnGetDataFields 方法检索当前传感器数据。 OnGetProperties ISensorDriver：：OnGetProperties 方法从指定传感器检索指定属性的值。 OnGetSupportedDataFields ISensorDriver：：OnGetSupportedDataFields 方法检索指定传感器可以提供的数据字段列表。 OnGetSupportedEvents ISensorDriver：：OnGetSupportedEvents 方法检索指定传感器可以引发的事件列表。 OnGetSupportedProperties ISensorDriver：：OnGetSupportedProperties 方法检索指定传感器提供的属性列表。 OnGetSupportedSensorObjects ISensorDriver：：OnGetSupportedSensorObjects 方法检索驱动程序提供的传感器列表。 OnProcessWpdMessage ISensorDriver：：OnProcessWpdMessage 方法处理 Windows Portable Device (WPD) ISensorClassExtension：:P rocessIoControl 方法未在内部处理的命令。 OnSetProperties ISensorDriver：：OnSetProperties 方法指定指定属性列表的值。 operator+= 赋值运算符 +。 operator-= 赋值运算符 -.",
-      "header": null,
-      "deprecated": false,
-      "cross_references": [
-        "OnGetSupportedDataFields",
-        "OnGetSupportedProperties",
-        "OnGetSupportedSensorObjects",
-        "OnProcessWpdMessage"
-      ],
-      "confidence": 0.5,
-      "_source_line": 105
-    },
-    {
       "id": "windows::ParseRotationMatrixEntry",
       "name": "ParseRotationMatrixEntry",
-      "entity_type": "enum",
-      "description": "函数分析一个包含三个浮点的字符串。 TranslateAxes",
+      "entity_type": "function",
+      "description": "解析包含三个浮点数的字符串表示的旋转矩阵条目",
       "syntax": "NTSTATUS ParseRotationMatrixEntry(\n[in]  PUCHAR RotationEntry,   [in]  USHORT Length,\n[out] PVEC3D Data);",
       "parameters": [
         {
@@ -894,8 +617,8 @@
     {
       "id": "windows::PFN_SENSORSCXDEVICEGETSENSORLIST",
       "name": "PFN_SENSORSCXDEVICEGETSENSORLIST",
-      "entity_type": "enum",
-      "description": "PfnSensorscxdevicegetsensorlist; NTSTATUS * PfnSensorscxdevicegetsensorlist( PSENSORSCX_DRIVER_GLOBALS DriverGlobals, WDFDEVICE FxDevice, SENSOROBJECT *pSensorList, PULONG pListCount) {...}",
+      "entity_type": "callback",
+      "description": "Callback function prototype for Sensor Class Extension device sensor list retrieval. Parameters: DriverGlobals - driver global definitions, FxDevice - WDFDEVICE handle to sensor framework device object, pSensorList - list of sensor instances, pListCount - count of SENSOROBJECTS in pSensorList.",
       "parameters": [
         {
           "name": "DriverGlobals",
@@ -919,8 +642,8 @@
     {
       "id": "windows::PFN_SENSORSCXDEVICEINITCONFIG",
       "name": "PFN_SENSORSCXDEVICEINITCONFIG",
-      "entity_type": "enum",
-      "description": "PfnSensorscxdeviceinitconfig; NTSTATUS * PfnSensorscxdeviceinitconfig( PSENSORSCX_DRIVER_GLOBALS DriverGlobals, PWDFDEVICE_INIT pFxDeviceInit,",
+      "entity_type": "typedef",
+      "description": "Function pointer type for SensorsCxDeviceInitConfig callback. Defines the prototype for initializing a sensor device.",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [
@@ -933,8 +656,8 @@
     {
       "id": "windows::PFN_SENSORSCXDEVICEINITIALIZE",
       "name": "PFN_SENSORSCXDEVICEINITIALIZE",
-      "entity_type": "enum",
-      "description": "PfnSensorscxdeviceinitialize; NTSTATUS * PfnSensorscxdeviceinitialize( PSENSORSCX_DRIVER_GLOBALS DriverGlobals, WDFDEVICE FxDevice,",
+      "entity_type": "callback",
+      "description": "Function pointer type for SensorsCxDeviceInitialize callback. Parameters: DriverGlobals (PSENSORSCX_DRIVER_GLOBALS), FxDevice (WDFDEVICE). Returns: NTSTATUS.",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [
@@ -946,8 +669,8 @@
     {
       "id": "windows::PFN_SENSORSCXSENSORCREATE",
       "name": "PFN_SENSORSCXSENSORCREATE",
-      "entity_type": "enum",
-      "description": "PfnSensorscxsensorcreate; NTSTATUS * PfnSensorscxsensorcreate(",
+      "entity_type": "callback",
+      "description": "Function pointer type for SensorsCxSensorCreate callback",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [],
@@ -957,8 +680,8 @@
     {
       "id": "windows::PFN_SENSORSCXSENSORDATAREADY",
       "name": "PFN_SENSORSCXSENSORDATAREADY",
-      "entity_type": "enum",
-      "description": "PfnSensorscxsensordataready; VOID * PfnSensorscxsensordataready(",
+      "entity_type": "callback",
+      "description": "Callback function pointer type for sensor data ready notification",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [],
@@ -968,10 +691,10 @@
     {
       "id": "windows::PFN_SENSORSCXSENSORHISTORYRETRIEVALCOMPLETED",
       "name": "PFN_SENSORSCXSENSORHISTORYRETRIEVALCOMPLETED",
-      "entity_type": "enum",
-      "description": "PfnSensorscxsensorhistoryretrievalcompleted; VOID * PfnSensorscxsensorhistoryretrievalcompleted( [in] PSENSORSCX_DRIVER_GLOBALS DriverGlobals, [in] SENSOROBJECT Sensor, [in] ULONG BytesWritten, [in] NTSTATUS InStatus) {...} 参数 [in] DriverGlobals 驱动程序的全局定义。[in] Sensor 对传感器对象的引用。[in] BytesWritten 写入传感器对象的历史记录的字节数。[in] InStatus 传感器对象的当前状态。",
+      "entity_type": "callback",
+      "description": "Callback function type for sensor history retrieval completion notification. Parameters: [in] DriverGlobals - Driver global definitions. [in] Sensor - Reference to sensor object. [in] BytesWritten - Number of bytes written to sensor history. [in] InStatus - Current status of sensor object.",
       "return_value": {
-        "description": "此函数返回具有不同值的 NTSTATUS。 可能返回的一些值包括： 如果函数成功完成，则返回STATUS_SUCCESS。 如果函数未成功完成，则返回STATUS_UNSUCCESSFUL。 如果任何 _In_ 参数为 NULL，则返回STATUS_INVALID_PARAMETER。"
+        "description": "This callback does not return a value (VOID)."
       },
       "requirements": {
         "header": "sensorscx.h"
@@ -988,8 +711,8 @@
     {
       "id": "windows::PFN_SENSORSCXSENSORINITIALIZE",
       "name": "PFN_SENSORSCXSENSORINITIALIZE",
-      "entity_type": "enum",
-      "description": "PfnSensorscxsensorinitialize; NTSTATUS * PfnSensorscxsensorinitialize( PSENSORSCX_DRIVER_GLOBALS DriverGlobals, SENSOROBJECT Sensor,",
+      "entity_type": "callback",
+      "description": "Function pointer type for the SensorsCxSensorInitialize callback. Parameters: DriverGlobals (PSENSORSCX_DRIVER_GLOBALS), Sensor (SENSOROBJECT). Returns NTSTATUS.",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [
@@ -999,27 +722,10 @@
       "_source_line": 127
     },
     {
-      "id": "windows::PFN_SENSORSCXSTATECHANGE",
-      "name": "PFN_SENSORSCXSTATECHANGE",
-      "entity_type": "enum",
-      "description": "用于初始化传感器状态更改。 PostEvent ISensorClassExtension：:P ostEvent 方法在传感器类扩展中引发一个或多个驱动程序事件。 PostStateChange ISensorClassExtension：:P ostStateChange 方法通知传感器类扩展传感器的操作状态发生更改。 ProcessIoControl ISensorClassExtension：:P rocessControl 方法将 Windows Portable Devices (WPD) I/O 控制请求发送到传 感器类扩展进行处理。 PropertiesListCopy 此例程将属性列表从源复制到目标。 PropertiesListGetFillableCount 返回一定大小的属性列表缓冲区可以容纳的元素数。 PropKeyFindKeyGetBool 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取 BOOL 值。 PropKeyFindKeyGetDouble 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取双精度浮点值。 PropKeyFindKeyGetFileTime 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取 FILETIME 值。",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [
-        "PropKeyFindKeyGetBool",
-        "PropKeyFindKeyGetDouble",
-        "PropKeyFindKeyGetFileTime",
-        "PropertiesListCopy",
-        "PropertiesListGetFillableCount"
-      ],
-      "confidence": 0.75,
-      "_source_line": 128
-    },
-    {
       "id": "windows::PropKeyFindKeyGetFloat",
       "name": "PropKeyFindKeyGetFloat",
-      "entity_type": "enum",
-      "description": "此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取单精度浮点值。 PropKeyFindKeyGetGuid 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取 GUID 值。 PropKeyFindKeyGetInt32 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取 INT32 值。 PropKeyFindKeyGetInt64 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取 INT64 值。 PropKeyFindKeyGetNthInt64 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取第 n 个 INT64 值。 PropKeyFindKeyGetNthUlong 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取第 n 个 ULONG 值。 PropKeyFindKeyGetNthUshort 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取第 n 个 USHORT 值。 PropKeyFindKeyGetPropVariant 此例程基于 PROPERTYKEY 从集合列表中查找 PROPVARIANT。 PropKeyFindKeyGetUlong 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取 ULONG 值。 PropKeyFindKeyGetUshort 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取 USHORT 值。 PropKeyFindKeySetPropVariant 此例程基于 PROPERTYKEY 在集合列表中查找并设置 PROPVARIANT。 PropVariantGetInformation 此例程获取 PROPVARIANT 的偏移量、大小、位置指针和 DEVPROPTYPE。 RealModulo 计算 x 和 y 之间的模块化值。",
+      "entity_type": "function",
+      "description": "基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取单精度浮点值。",
       "syntax": "NTSTATUS PropKeyFindKeyGetFloat(\n[in]  const SENSOR_COLLECTION_LIST *pList,   [in]  const PROPERTYKEY            *pKey,\n[out] FLOAT                        *pRetValue);",
       "parameters": [
         {
@@ -1056,8 +762,8 @@
     {
       "id": "windows::SENSOR_COLLECTION_LIST_CALCULATE_MAX_COUNT",
       "name": "SENSOR_COLLECTION_LIST_CALCULATE_MAX_COUNT",
-      "entity_type": "enum",
-      "description": "此函数计算SENSOR_COLLECTION_LIST结构中SENSOR_VALUE_PAIR元素的数目。 SENSOR_COLLECTION_LIST_INIT 此函数初始化SENSOR_COLLECTION_LIST 结构。 SENSOR_COLLECTION_LIST_SIZE 此函数返回SENSOR_COLLECTION_LIST结构的大小。 SENSOR_CONFIG_INIT 此函数初始化SENSOR_CONFIG结构。 SENSOR_CONTROLLER_CONFIG_INIT 此函数初始化SENSOR_CONTROLLER_CONFIG结构。 SENSOR_PROPERTY_LIST_CALCULATE_MAX_COUNT 此函数计算 PROPERTYKEY 元素的数目。 SENSOR_PROPERTY_LIST_INIT 此函数初始化 SENSOR_PROPERTY_LIST 结构。",
+      "entity_type": "macro",
+      "description": "Calculates the maximum number of SENSOR_VALUE_PAIR elements in a SENSOR_COLLECTION_LIST structure.",
       "requirements": {
         "target_platform": "Windows",
         "header": "sensorsdef.h",
@@ -1076,13 +782,24 @@
         "SENSOR_PROPERTY_LIST_INIT"
       ],
       "confidence": 0.75,
-      "_source_line": 154
+      "_source_line": 154,
+      "syntax": "ULONG SENSOR_COLLECTION_LIST_CALCULATE_MAX_COUNT(\n[in] PSENSOR_COLLECTION_LIST pCollectionList);",
+      "return_value": {
+        "description": "SENSOR_COLLECTION_LIST_CALCULATE_MAX_COUNT 函数返回 ULONG 值。"
+      },
+      "parameters": [
+        {
+          "name": "pCollectionList",
+          "direction": "in",
+          "description": "指向 SENSOR_COLLECTION_LIST 结构的指针。"
+        }
+      ]
     },
     {
       "id": "windows::SENSOR_PROPERTY_LIST_SIZE",
       "name": "SENSOR_PROPERTY_LIST_SIZE",
-      "entity_type": "enum",
-      "description": "此函数返回属性列表的大小。 SensorCollectionGetAt 此例程返回与提供的传感器集合列表中的第 n 个元素关联的 PROPERTYKEY 和 PROPVARIANT。 SensorsCxDeviceGetSensorList 此函数返回与 WDFDEVICE 关联的传感器实例列表。",
+      "entity_type": "macro",
+      "description": "计算传感器属性列表大小的宏",
       "syntax": "ULONG SENSOR_PROPERTY_LIST_SIZE(\n[in] ULONG Count);",
       "parameters": [
         {
@@ -1109,8 +826,8 @@
     {
       "id": "windows::SensorsCxDeviceInitConfig",
       "name": "SensorsCxDeviceInitConfig",
-      "entity_type": "enum",
-      "description": "此函数配置传感器设备。 SensorsCxDeviceInitialize 此函数初始化类扩展中的传感器。 SensorsCxSensorCreate 此函数在 类扩展中创建传感器的实例。 SensorsCxSensorDataReady 此函数通知类扩展驱动程序已检索数据。",
+      "entity_type": "function",
+      "description": "配置传感器设备",
       "syntax": "NTSTATUS SensorsCxDeviceInitConfig(\n[in, out] PWDFDEVICE_INIT        pFxDeviceInit,   [in, out] PWDF_OBJECT_ATTRIBUTES pFdoAttributes,\n[in]      ULONG                  Flags);",
       "parameters": [
         {
@@ -1138,8 +855,8 @@
     {
       "id": "windows::SensorsCxSensorCreate",
       "name": "SensorsCxSensorCreate",
-      "entity_type": "enum",
-      "description": "将失败。 如果 pSensorAttributes->ParentObject 为 NULL， 则类扩展 （CX） 将设置为 FxDevice。 当 SensorsCxSensorCreate 时，传感器类扩展会为每个传感器写入一组属性。 有关这些 属性的信息，请参阅枚举属性。",
+      "entity_type": "function",
+      "description": "Creates a sensor object in the class extension (CX). If pSensorAttributes->ParentObject is NULL, the CX will set it to FxDevice. The sensor class extension writes a set of properties for each sensor when SensorsCxSensorCreate is called.",
       "syntax": "NTSTATUS SensorsCxSensorCreate(\n[in]  WDFDEVICE              FxDevice,\n[in]  PWDF_OBJECT_ATTRIBUTES pSensorAttributes,\n[out] PSENSOROBJECT          pSensor);",
       "parameters": [
         {
@@ -1161,7 +878,7 @@
       "id": "windows::SensorsCxSensorHistoryRetrievalCompleted",
       "name": "SensorsCxSensorHistoryRetrievalCompleted",
       "entity_type": "enum",
-      "description": "函数指示历史记录检索已完成。 SensorsCxSensorInitialize 此函数设置传感器的枚举属性。",
+      "description": "通知传感器类扩展历史记录检索已完成",
       "syntax": "void SensorsCxSensorHistoryRetrievalCompleted(   SENSOROBJECT Sensor,\nULONG        BytesWritten,\nNTSTATUS     InStatus);",
       "parameters": [
         {
@@ -1186,8 +903,8 @@
     {
       "id": "windows::SensorsCxStateChange",
       "name": "SensorsCxStateChange",
-      "entity_type": "enum",
-      "description": "用于初始化状态更改。 SerializationBufferAllocate 用于分配序列化缓冲区的导出内存分配函数。 SerializationBufferFree 用于释放序列化缓冲区的导出内存分配函数。 TranslateAxes",
+      "entity_type": "function",
+      "description": "用于初始化传感器状态更改的函数",
       "syntax": "void SensorsCxStateChange(   [in] SENSOROBJECT Sensor,   [in] SENSOR_STATE State);",
       "parameters": [
         {
@@ -1213,22 +930,10 @@
       "_source_line": 173
     },
     {
-      "id": "windows::TranslateAxes",
-      "name": "TranslateAxes",
-      "entity_type": "enum",
-      "description": "函数将旋转矩阵应用于给定样本。 Uninitialize ISensorClassExtension：：Uninitialize 方法取消初始化传感器类扩展对象。",
-      "syntax": "void TranslateAxes(\nVEC3D *RotationMatrix,\nULONG RotationMatrixEntryCount,   VEC3D *Data,\nULONG DataCount);",
-      "header": "sensorsdriversutils.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.7,
-      "_source_line": 176
-    },
-    {
       "id": "windows::I2C_REQUEST",
       "name": "I2C_REQUEST",
       "entity_type": "interface",
-      "description": "I2C 请求。 MATRIX3X3 定义 3x3 矩阵。四 一个 结构，表示用于简单 3D 旋转操作的 4 维向量。 SENSOR_COLLECTION_LIST 此结构包含每个传感器的所有SENSOR_VALUE_PAIR结构的列表。 此结构通过调用 ReadFile 返回。 SENSOR_CONFIG 此结构包含传感器驱动程序传递给有关每个传感器的类扩展的信息。 SENSOR_CONTROLLER_CONFIG 此结构包含指向回调函数的指针，这些回调函数必须由驱动程序实现，并传递给要调用的类扩展。 SENSOR_PROPERTY_LIST 了解此结构如何包含每个传感器的所有SENSOR_VALUE_PAIR结构的列表。 此结构通过调用 ReadFile 返回。",
+      "description": "Represents an I2C request structure containing register address and data value.",
       "syntax": "typedef struct _I2C_REQUEST {   UCHAR RegAddress;\nUCHAR Value[I2C_MAX_DATA_LENGTH];} I2C_REQUEST, *PI2C_REQUEST;",
       "requirements": {
         "header": "sensorsdriversutils.h"
@@ -1248,7 +953,7 @@
       "id": "windows::SENSOR_VALUE_PAIR",
       "name": "SENSOR_VALUE_PAIR",
       "entity_type": "interface",
-      "description": "此结构将 Sensor 属性部分中列出的属性键与每个键表示的数据配对。 VEC3D 定义 3D 矢量。",
+      "description": "This structure pairs property keys listed in the Sensor property section with the data represented by each key.",
       "syntax": "typedef struct SENSOR_VALUE_PAIR {\nPROPERTYKEY Key;   PROPVARIANT Value;\n} SENSOR_VALUE_PAIR, *PSENSOR_VALUE_PAIR;",
       "remarks": "Value 是传感器类扩展 （CX） 支持的 VT 类型之一（VARTYPE）： VT_I1 VT_UI1 VT_I2 VT_UI2 VT_I4 VT_UI4 VT_INT VT_UINT VT_R4 VT_BOOL VT_DATE",
       "members": [
@@ -1283,8 +988,8 @@
     {
       "id": "windows::FLOAT_TOLERANCE",
       "name": "FLOAT_TOLERANCE",
-      "entity_type": "unknown",
-      "description": "类型 FLOAT FLOAT FLOAT FLOAT 传感器使用此标头。 有关详细信息，请参阅： 传感器 math3dhelper.h 包含以下编程接口：",
+      "entity_type": "constant",
+      "description": "浮点数的容差值，用于传感器计算。",
       "header": "math3dhelper.h",
       "deprecated": false,
       "cross_references": [],
@@ -1294,11 +999,11 @@
     {
       "id": "windows::RealModulo",
       "name": "RealModulo",
-      "entity_type": "class",
-      "description": "计算 x 和 y 之间的模块化值。",
-      "syntax": "float RealModulo(\nfloat x,   float y);\n参数 x\nx 坐标。 y\ny 坐标。",
+      "entity_type": "function",
+      "description": "计算两个浮点数的模运算结果。",
+      "syntax": "float RealModulo(float x, float y);",
       "return_value": {
-        "description": "此函数返回浮点数。"
+        "description": "返回x除以y的浮点余数。"
       },
       "requirements": {
         "header": "math3dhelper.h"
@@ -1310,93 +1015,10 @@
       "_source_line": 342
     },
     {
-      "id": "windows::E_POINTER",
-      "name": "E_POINTER",
-      "entity_type": "interface",
-      "description": "HRESULT_FROM_WIN32（ERROR_CAN_NOT_COMPLETE）",
-      "syntax": "HRESULT Initialize(\nIUnknown *pWdfDeviceUnknown,   IUnknown *pSensorDriverUnknown);",
-      "parameters": [
-        {
-          "name": "pWdfDeviceUnknown",
-          "description": "实现 IWDFDevice 接口的驱动程序类的 IUnknown 指针。 pSensorDriverUnknown 实现 ISensorDriver 回调接口的对象的 IUnknown 指针。"
-        }
-      ],
-      "return_value": {
-        "description": "此方法返回 HRESULT。 可能的值包括但不限于以下值之一。 请参阅“备注”。 返回代码 S_OK"
-      },
-      "remarks": "描述 方法成功。 所需的指针参数为 NULL。类扩展未初始化。 还可以通过 SENSOR_PROPERTY_STATE 属性键获取传感器状态信息。例子 以下示例代码演示发布状态更改事件的函数。 C++ HRESULT PostStateEvent(){ // Validate that we have a pointer to the class extension. HRESULT hr = (NULL == m_spSensorCXT) ? E_UNEXPECTED : S_OK ; if (SUCCEEDED(hr)) {",
-      "header": "math3dhelper.h",
-      "deprecated": false,
-      "cross_references": [
-        "ERROR_CAN_NOT_COMPLETE",
-        "E_UNEXPECTED",
-        "HRESULT_FROM_WIN32",
-        "Initialize"
-      ],
-      "confidence": 0.9,
-      "_source_line": 417
-    },
-    {
-      "id": "windows::HRESULT_FROM_WIN32",
-      "name": "HRESULT_FROM_WIN32",
-      "entity_type": "interface",
-      "description": "（ERROR_ALREADY_EXISTS） HRESULT_FROM_WIN32 （ERROR_ALREADY_INITIALIZED） 说明 方法成功。 参数为 NULL 或缺少 IWDFDevice 接口。 类扩展已初始化。类扩展已初始化。 返回代码 （ERROR_NOT_FOUND）",
-      "syntax": "HRESULT OnGetProperties(\nIWDFFile                     *pClientFile,   LPWSTR                       pwszSensorID,   IPortableDeviceKeyCollection *pProperties,\nIPortableDeviceValues        **ppPropertyValues);\n参数 pClientFile\n指向 IWDFFile 接口的指针，该接口表示请求属性值的应用程序的文件对象。 pwszSensorID\n包含客户端应用程序从中请求属性值的传感器的 ID 的 LPWSTR。 pProperties\n指向 IPortableDeviceKeyCollection 的指针，其中包含表示所请求的属性的 PROPERTYKEY 值列表。\nppPropertyValues\n接收所请求属性值的 IPortableDeviceValues 指针的地址。",
-      "parameters": [
-        {
-          "name": "pwszSensorID",
-          "direction": "in",
-          "description": "LPWSTR，其中包含驱动程序为其引发事件的传感器的 ID。[in] state SensorState 指示新状态的值。"
-        }
-      ],
-      "return_value": {
-        "description": "此方法返回 HRESULT。 可能的值包括但不限于以下值之一。 返回代码 S_OK S_FALSE 描述 方法成功。 该方法成功，但当前未订阅任何客户端程序的事件。 如果未订阅任何客户端，请不要发布事件。 返回代码"
-      },
-      "remarks": "UMDF 通过 IQueueCallbackDeviceIoControl：：OnDeviceIoControl向传感器驱动程序发送 I/O 控制请求。 建议调用 ProcessIoControl，将所有 WPD 请求转发到传感器类扩展进行处理。 可以使用 WPD 宏IS_WPD_IOCTL来确定给定控件代码是否特定于 WPD。 传感器 API 和位置 API 的客户端仅发送 WPD IOCTLs，该 ID 始终可由传感器类扩展处理。 处理 I/O 控制请求后，传感器类扩展会使用驱动程序的回调接口（ISensorDriver）根据需 要提供通知。 默认情况下，传感器类扩展不处理的 WPD 请求通过 ISensorDriver：： OnProcessWpdMessage发送到驱动程序。 驱动程序不得完成它转发到传感器类扩展的 I/O 控制请求。 描述 方法成功。 类扩展未初始化。 通常情况下，在驱动程序卸载时，你将取消初始化传感器类扩展。 建议在 IPnpCallbackHardware：：OnReleaseHardware中由 UMDF 调用时执行非初始化步骤。如果出于某种原因必须释放和取消初始化传感器类扩展，则必须在调用 ISensorClassExtension：：Uninitialize之前调用 IWDFIoQueue：:D rainSynchronously。可以通过在 WDF 设备对象上调用 IWDFDevice：：GetDefaultIoQueue 来检索队列接口。 然后，调用 IWDFIoQueue：:D rainSynchronously 来处理所有排队的请求。 调用 IWDFIoQueue：:D rainSynchronously 阻止新请求的队列，因此在重新初始化类扩展 后，必须调用 IWDFIoQueue：：Start。 传感器类扩展仅在用户已授予访问驱动程序的指定客户端应用程序的权限时调用此方法。 如果 用户撤销此权限，类扩展会立即针对同一应用程序/传感器对调用 ISensorDriver：： OnClientDisconnect。 类扩展始终在 ISensorDriver：：OnSetProperties 或 ISensorDriver：：OnGetDataFields 特定传感器之前调用此方法。 建议维护连接的应用程序的引用计数，以帮助预测何时可以调用这三种方法。 如果未连接任何客户端应用程序，则可能需要通过采取措施来降低能耗来更改驱动程序的行为。 可以使用 pClientFile 提供的指针值（指向的地址）作为一种 ID 来跟踪连接的应用程序。 但是，必须为每个传感器单独跟踪这些 ID，而不是针对每个设备，因为类扩展可以为同一设备上多个传感器提供相同的指针值。 有关如何使用此方法的详细信息，请参阅 筛选数据。 传感器类扩展在以下实例中调用此方法： 应用程序正常关闭。 用户撤销应用程序访问包含指定传感器的设备的权限。 从调用 ISensorClassExtension：：CleanupFile 完成清理工作。可以使用此调用作为信号来更新已连接应用程序的列表和引用计数。 有关如何使用此方法的详细信息，请参阅 筛选数据。例子 以下示例代码演示 ISensorDriver：：OnClientDisconnect的实现。 此函数使用名为",
-      "requirements": {
-        "header": "sensorsclassextension.h"
-      },
-      "header": "math3dhelper.h",
-      "deprecated": false,
-      "cross_references": [
-        "ERROR_ALREADY_EXISTS",
-        "ERROR_NOT_FOUND",
-        "OnGetDataFields"
-      ],
-      "confidence": 1.0,
-      "_source_line": 448
-    },
-    {
-      "id": "windows::E_INVALIDARG",
-      "name": "E_INVALIDARG",
-      "entity_type": "interface",
-      "description": "E_POINTER",
-      "header": "math3dhelper.h",
-      "deprecated": false,
-      "cross_references": [
-        "E_POINTER"
-      ],
-      "confidence": 0.55,
-      "_source_line": 496
-    },
-    {
-      "id": "windows::E_ACCESS_DENIED",
-      "name": "E_ACCESS_DENIED",
-      "entity_type": "interface",
-      "description": "E_POINTER",
-      "header": "math3dhelper.h",
-      "deprecated": false,
-      "cross_references": [
-        "E_POINTER"
-      ],
-      "confidence": 0.55,
-      "_source_line": 587
-    },
-    {
       "id": "windows::Clients",
       "name": "Clients",
       "entity_type": "interface",
-      "description": "的 ATL 简单映射来跟踪连接的客户端。 有关如何将连接的客户端添加到映射的示例，请参阅 ISensorDriver：：OnClientConnect。",
+      "description": "ATL简单映射来跟踪连接的客户端。有关如何将连接的客户端添加到映射的示例，请参阅ISensorDriver::OnClientConnect。",
       "header": "math3dhelper.h",
       "deprecated": false,
       "cross_references": [],
@@ -1406,8 +1028,8 @@
     {
       "id": "windows::ClientData",
       "name": "ClientData",
-      "entity_type": "interface",
-      "description": "结构定义如下。 C++ // Struct to keep track of connected client status. struct ClientData{ BOOL bListening; // Client is listening to events. ULONG ulInterval; // Interval requested by client.}; 函数定义如下。 C++ HRESULT CSensorDdi:: OnClientDisconnect( __in IWDFFile* pClientFile, __in LPWSTR pwszSensorID ){ if(NULL == pClientFile || NULL == pwszSensorID) { return E_POINTER; } HRESULT hr = S_OK; * pCD = NULL; BOOL bRet = FALSE; // Find this client in the map. pCD =",
+      "entity_type": "structure",
+      "description": "Struct to keep track of connected client status.",
       "header": "math3dhelper.h",
       "deprecated": false,
       "cross_references": [
@@ -1423,13 +1045,11 @@
       "id": "windows::OnClientSubscribeToEvents",
       "name": "OnClientSubscribeToEvents",
       "entity_type": "interface",
-      "description": "方法 ISensorDriver：：OnClientSubscribeToEvents 方法通知传感器驱动程序授权客户端应用程序请求事件通知。",
-      "syntax": "HRESULT OnClientSubscribeToEvents(\nIWDFFile *pClientFile,   LPWSTR   pwszSensorID);\n参数 pClientFile\n指向 IWDFFile 接口的指针，该接口表示请求事件通知的应用程序的文件对象。 pwszSensorID\n包含客户端应用程序请求事件通知的传感器 ID 的 LPWSTR。",
-      "return_value": {
-        "description": "如果作成功，此方法将返回S_OK。 否则，此方法返回在 Winerror.h 中定义的错误代码之一。"
-      },
+      "description": "ISensorDriver::OnClientSubscribeToEvents方法通知传感器驱动程序授权客户端应用程序请求事件通知。",
+      "syntax": "HRESULT OnClientSubscribeToEvents(IWDFFile *pClientFile, LPWSTR pwszSensorID);",
+      "return_value": "sensors.h",
       "remarks": "当客户端应用程序请求事件通知时，驱动程序会将所有事件引发到指定对象 ID 的传感器类扩展。 然后，类扩展将这些事件作为应用程序的事件通知转发到传感器 API。 可以维护每个传感器的连接应用程序的引用计数，以避免在不需要时进行事件回调。 平台定义的事件在 sensors.h 中定义。 有关如何使用此方法的详细信息，请参阅 筛选数据。",
-      "header": "math3dhelper.h",
+      "header": "sensors.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
@@ -1439,13 +1059,13 @@
       "id": "windows::OnGetSupportedDataFields",
       "name": "OnGetSupportedDataFields",
       "entity_type": "interface",
-      "description": "方法 ISensorDriver：：OnGetSupportedDataFields 方法检索指定传感器可以提供的数据字段 列表。",
-      "syntax": "HRESULT OnGetSupportedDataFields(\nLPWSTR                       pwszSensorID,\nIPortableDeviceKeyCollection **ppSupportedDataFields);\n参数 pwszSensorID\n包含客户端应用程序从中请求数据字段列表的传感器的 ID 的 LPWSTR。 ppSupportedDataFields\nIPortableDeviceKeyCollection 指针的地址，该指针接收表示支持的数据字段的\nPROPERTYKEY 值列表。\nHRESULT OnGetSupportedEvents(   LPWSTR pwszSensorID,\nGUID   **ppSupportedEvents,\nULONG  *pulEventCount);\n参数 pwszSensorID\n包含客户端应用程序从中请求事件列表的传感器的 ID 的 LPWSTR。 ppSupportedEvents\n接收受支持事件 ID 数组的 GUID 指针的地址。 如果驱动程序不支持事件，则返回包含其值设置\n为GUID_NULL的单个 GUID 的缓冲区。 pulEventCount\nULONG 的地址，该地址接收通过 ppSupportedEvents 返回的缓冲区中的事件 ID 计数。 如果驱\n动程序不支持事件，请将此值设置为零。",
+      "description": "ISensorDriver::OnGetSupportedDataFields 方法检索指定传感器可以提供的数据字段列表。",
+      "syntax": "HRESULT OnGetSupportedDataFields(LPWSTR pwszSensorID, IPortableDeviceKeyCollection **ppSupportedDataFields);",
       "return_value": {
-        "description": "如果作成功，此方法将返回S_OK。 否则，此方法返回在 Winerror.h 中定义的错误代码之一。 如果作成功，此方法将返回S_OK。 否则，此方法返回在 Winerror.h 中定义的错误代码之一。"
+        "description": "如果操作成功，此方法将返回S_OK。否则，此方法返回在Winerror.h中定义的错误代码之一。"
       },
       "remarks": "数据字段包含传感器生成的数据，而不是描述传感器设备的属性。 平台定义的数据字段在 sensors.h 中定义。 所有驱动程序都必须支持SENSOR_DATA_TYPE_TIMESTAMP作为所需数据字段。 IPortableDeviceKeyCollection 记录在 Windows 可移植设备中。 事件 ID 由 GUID表示。 平台定义的事件在 sensors.h 中定义。 必须使用 CoTaskMemAlloc 创建事件 ID 缓冲区。 传感器类扩展释放此内存。 要求要求目标平台标头库",
-      "header": "math3dhelper.h",
+      "header": "sensors.h",
       "deprecated": false,
       "cross_references": [
         "CoTaskMemAlloc"
@@ -1456,14 +1076,14 @@
     {
       "id": "windows::OnGetSupportedProperties",
       "name": "OnGetSupportedProperties",
-      "entity_type": "interface",
-      "description": "方法 ISensorDriver：：OnGetSupportedProperties 方法检索指定传感器提供的属性列表。",
-      "syntax": "HRESULT OnGetSupportedProperties(\nLPWSTR                       pwszSensorID,\nIPortableDeviceKeyCollection **ppSupportedProperties);\n参数 pwszSensorID\n包含客户端应用程序从中请求属性列表的传感器的 ID 的 LPWSTR。 ppSupportedProperties\nIPortableDeviceKeyCollection 指针的地址，该指针接收表示受支持属性的 PROPERTYKEY 值列表。",
+      "entity_type": "method",
+      "description": "ISensorDriver::OnGetSupportedProperties 方法检索指定传感器提供的属性列表。",
+      "syntax": "HRESULT OnGetSupportedProperties(LPWSTR pwszSensorID, IPortableDeviceKeyCollection **ppSupportedProperties);",
       "return_value": {
-        "description": "如果作成功，此方法将返回S_OK。 否则，此方法返回在 Winerror.h 中定义的错误代码之一。"
+        "description": "如果操作成功，此方法将返回S_OK。否则返回Winerror.h中定义的错误代码之一。"
       },
-      "remarks": "属性描述传感器设备，而不是包含传感器生成的数据的数据字段。 平台定义的属性在 sensors.h 中定义。 此集合中返回的每个 IPortableDeviceKeyCollection 对象都必须包含所需属性的 PROPERTYKEY，如 传感器属性 参考部分中所述。 IPortableDeviceKeyCollection 记录在 Windows 可移植设备中。 要求要求目标平台标头库",
-      "header": "math3dhelper.h",
+      "remarks": "属性描述传感器设备本身，而非传感器生成的数据字段。平台定义的属性在sensors.h中定义。返回的IPortableDeviceKeyCollection对象必须包含所需属性的PROPERTYKEY。",
+      "header": "sensors.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
@@ -1472,8 +1092,8 @@
     {
       "id": "windows::OnGetSupportedSensorObjects",
       "name": "OnGetSupportedSensorObjects",
-      "entity_type": "interface",
-      "description": "方法 ISensorDriver：：OnGetSupportedSensorObjects 方法检索驱动程序提供的传感器列表。",
+      "entity_type": "method",
+      "description": "ISensorDriver接口的OnGetSupportedSensorObjects方法，用于检索驱动程序支持的传感器对象列表。",
       "syntax": "HRESULT OnGetSupportedSensorObjects(\nIPortableDeviceValuesCollection **ppSensorObjectCollection);",
       "parameters": [
         {
@@ -1494,8 +1114,8 @@
       "id": "windows::OnProcessWpdMessage",
       "name": "OnProcessWpdMessage",
       "entity_type": "interface",
-      "description": "ISensorDriver：：OnProcessWpdMessage 方法处理 ISensorClassExtension：:P rocessIoControl 方法不在内部处理的 Windows 可移植设备（WPD） 命令。",
-      "syntax": "HRESULT OnProcessWpdMessage(\nIUnknown *pUnkPortableDeviceValuesParams,   IUnknown *pUnkPortableDeviceValuesResults);\nHRESULT OnSetProperties(\n[in]  IWDFFile              *pClientFile,   [in]  LPWSTR                pwszSensorID,\n[in]  IPortableDeviceValues *pPropertiesToSet,\n[out] IPortableDeviceValues **ppResults);",
+      "description": "ISensorDriver::OnProcessWpdMessage 方法处理 ISensorClassExtension::ProcessIoControl 方法不处理的 Windows 可移植设备(WPD)命令。",
+      "syntax": "HRESULT OnProcessWpdMessage(IUnknown *pUnkPortableDeviceValuesParams, IUnknown *pUnkPortableDeviceValuesResults);",
       "parameters": [
         {
           "name": "pUnkPortableDeviceValuesParams",
@@ -1508,9 +1128,9 @@
         }
       ],
       "return_value": {
-        "description": "如果作成功，此方法将返回S_OK。 否则，此方法返回在 Winerror.h 中定义的错误代码之一。 如果作成功，此方法将返回S_OK。 否则，此方法返回在 Winerror.h 中定义的错误代码之一。"
+        "description": "成功时返回 S_OK，失败时返回 Winerror.h 中定义的错误代码"
       },
-      "remarks": "此方法使你能够以特定于设备的方式扩展 WPD 命令和接口。 要求要求目标平台标头库 属性描述传感器设备，而不是包含传感器生成的数据的数据字段。 平台定义的属性在 sensors.h 中定义。 通过 pPropertiesToSet 提供的属性列表通常是通过 ISensorDriver：：OnGetSupportedProperties 返回的列表的子集。 但是，传感器类扩展不会在客户端应用程序上强制实施此条件。 传感器类扩展负责释放此方法返回的任何 PROPVARIANT 结构。 IPortableDeviceValues 记录在 Windows 可移植设备中。 注意 仅当用户在 位置和其他传感器 控制面板中启用了传感器时，才会调用此方法。",
+      "remarks": "此方法允许以设备特定方式扩展 WPD 命令和接口。仅当用户在控制面板中启用了传感器时才会调用此方法。",
       "header": "math3dhelper.h",
       "deprecated": false,
       "cross_references": [
@@ -1522,14 +1142,14 @@
     {
       "id": "windows::LOCATION_DESIRED_ACCURACY_DEFAULT",
       "name": "LOCATION_DESIRED_ACCURACY_DEFAULT",
-      "entity_type": "interface",
+      "entity_type": "constant",
       "description": "指示传感器应使用可以优化电源和其他此类成本注意事项的准确性。 LOCATION_DESIRED_ACCURACY_HIGH 指示传感器应提供可能的最高准确度报告。 这包括使用可能收取费用的服务，或者消耗更高级别的电池电 源或连接带宽。",
       "requirements": {
         "target_platform": "Windows",
         "header": "sensorsclassextension.h",
         "min_client": "Windows 7"
       },
-      "header": "math3dhelper.h",
+      "header": "sensorsclassextension.h",
       "deprecated": false,
       "cross_references": [
         "LOCATION_DESIRED_ACCURACY_HIGH"
@@ -1538,23 +1158,10 @@
       "_source_line": 1040
     },
     {
-      "id": "windows::MAGNETOMETER_ACCURACY_UNRELIABLE",
-      "name": "MAGNETOMETER_ACCURACY_UNRELIABLE",
-      "entity_type": "interface",
-      "description": ", MAGNETOMETER_ACCURACY_APPROXIMATE,",
-      "header": "math3dhelper.h",
-      "deprecated": false,
-      "cross_references": [
-        "MAGNETOMETER_ACCURACY_APPROXIMATE"
-      ],
-      "confidence": 0.65,
-      "_source_line": 1059
-    },
-    {
       "id": "windows::MAGNETOMETER_ACCURACY_UNKNOWN",
       "name": "MAGNETOMETER_ACCURACY_UNKNOWN",
-      "entity_type": "interface",
-      "description": "准确性当前不可用，通常是因为驱动程序无法报告它。 MAGNETOMETER_ACCURACY_UNRELIABLE 报告的值高度不准确。 每当返回此值时，应用应始终要求用户校准设备。 MAGNETOMETER_ACCURACY_APPROXIMATE 实际值和报告值不同，但对于某些应用程序而言可能足够准确。 只需相对值的应用（如虚拟现实应 用）即可继续，而无需额外的校准。",
+      "entity_type": "enum",
+      "description": "Indicates magnetometer accuracy is currently unavailable, typically because the driver cannot report it. Applications should request device calibration when this value is returned.",
       "remarks": "支持磁力计准确度的设备驱动程序应只报告 MAGNETOMETER_ACCURACY_UNRELIABLE、",
       "header": "math3dhelper.h",
       "deprecated": false,
@@ -1568,14 +1175,14 @@
     {
       "id": "windows::MAGNETOMETER_ACCURACY_APPROXIMATE",
       "name": "MAGNETOMETER_ACCURACY_APPROXIMATE",
-      "entity_type": "interface",
-      "description": "和 MAGNETOMETER_ACCURACY_HIGH 值。 需要校准的应用可能会定期要求用户校准设备。 建议每 10 分钟执行此作一次。",
+      "entity_type": "constant",
+      "description": "Indicates approximate magnetometer accuracy level. Applications requiring calibration may periodically prompt users to calibrate the device.",
       "requirements": {
         "target_platform": "Windows",
         "header": "sensorsclassextension.h",
         "min_client": "Windows 8"
       },
-      "header": "math3dhelper.h",
+      "header": "sensorsclassextension.h",
       "deprecated": false,
       "cross_references": [
         "MAGNETOMETER_ACCURACY_HIGH"
@@ -1584,65 +1191,28 @@
       "_source_line": 1071
     },
     {
-      "id": "windows::SENSOR_CONNECTION_TYPE_PC_INTEGRATED",
-      "name": "SENSOR_CONNECTION_TYPE_PC_INTEGRATED",
-      "entity_type": "interface",
-      "description": ", SENSOR_CONNECTION_TYPE_PC_ATTACHED, SENSOR_CONNECTION_TYPE_PC_EXTERNAL}",
-      "header": "math3dhelper.h",
-      "deprecated": false,
-      "cross_references": [
-        "SENSOR_CONNECTION_TYPE_PC_ATTACHED"
-      ],
-      "confidence": 0.75,
-      "_source_line": 1090
-    },
-    {
       "id": "windows::SENSOR_CONNECTION_TYPE_PC_ATTACHED",
       "name": "SENSOR_CONNECTION_TYPE_PC_ATTACHED",
-      "entity_type": "interface",
+      "entity_type": "constant",
       "description": "指示传感器已连接到计算机，例如通过外围设备。 SENSOR_CONNECTION_TYPE_PC_EXTERNAL 指示传感器通过外部方式（例如通过网络连接）进行连接。",
       "requirements": {
         "target_platform": "Windows",
         "header": "sensorsclassextension.h",
         "min_client": "Windows 7"
       },
-      "header": "math3dhelper.h",
+      "header": "sensorsclassextension.h",
       "deprecated": false,
-      "cross_references": [],
+      "cross_references": [
+        "SENSOR_CONNECTION_TYPE_PC_ATTACHED"
+      ],
       "confidence": 0.75,
       "_source_line": 1095
     },
     {
-      "id": "windows::SENSOR_STATE_MIN",
-      "name": "SENSOR_STATE_MIN",
-      "entity_type": "interface",
-      "description": ", SENSOR_STATE_READY,",
-      "header": "math3dhelper.h",
-      "deprecated": false,
-      "cross_references": [
-        "SENSOR_STATE_READY"
-      ],
-      "confidence": 0.65,
-      "_source_line": 1112
-    },
-    {
-      "id": "windows::SENSOR_STATE_NOT_AVAILABLE",
-      "name": "SENSOR_STATE_NOT_AVAILABLE",
-      "entity_type": "interface",
-      "description": ", SENSOR_STATE_NO_DATA,",
-      "header": "math3dhelper.h",
-      "deprecated": false,
-      "cross_references": [
-        "SENSOR_STATE_NO_DATA"
-      ],
-      "confidence": 0.65,
-      "_source_line": 1113
-    },
-    {
       "id": "windows::SENSOR_STATE_INITIALIZING",
       "name": "SENSOR_STATE_INITIALIZING",
-      "entity_type": "interface",
-      "description": "指示传感器尚未准备好使用。 再试一次。 SENSOR_STATE_ACCESS_DENIED 保留。 请勿在驱动程序代码中使用。",
+      "entity_type": "enum",
+      "description": "Indicates the sensor is not ready for use. Try again later. SENSOR_STATE_ACCESS_DENIED is reserved. Do not use in driver code.",
       "header": "math3dhelper.h",
       "deprecated": false,
       "cross_references": [],
@@ -1665,8 +1235,8 @@
     {
       "id": "windows::SENSOR_STATE_READY",
       "name": "SENSOR_STATE_READY",
-      "entity_type": "interface",
-      "description": "指示传感器已准备就绪。 SENSOR_STATE_NOT_AVAILABLE 指示传感器当前不可用。",
+      "entity_type": "enum",
+      "description": "指示传感器已准备就绪的状态常量",
       "header": "math3dhelper.h",
       "deprecated": false,
       "cross_references": [
@@ -1678,33 +1248,21 @@
     {
       "id": "windows::SENSOR_STATE_NO_DATA",
       "name": "SENSOR_STATE_NO_DATA",
-      "entity_type": "interface",
+      "entity_type": "constant",
       "description": "指示没有可用数据。",
       "header": "math3dhelper.h",
       "deprecated": false,
-      "cross_references": [],
+      "cross_references": [
+        "SENSOR_STATE_NO_DATA"
+      ],
       "confidence": 0.55,
       "_source_line": 1122
-    },
-    {
-      "id": "windows::SENSOR_STATE_ERROR",
-      "name": "SENSOR_STATE_ERROR",
-      "entity_type": "interface",
-      "description": "指示发生了未指定的错误。 SENSOR_STATE_MAX 保留。",
-      "remarks": "此枚举还定义用于 SENSOR_PROPERTY_STATE 属性的值。",
-      "header": "math3dhelper.h",
-      "deprecated": false,
-      "cross_references": [
-        "SENSOR_STATE_MAX"
-      ],
-      "confidence": 0.65,
-      "_source_line": 1128
     },
     {
       "id": "windows::SENSOR_CONFIG_INIT",
       "name": "SENSOR_CONFIG_INIT",
       "entity_type": "function",
-      "description": "此函数初始化SENSOR_CONFIG结构。 SENSOR_CONTROLLER_CONFIG_INIT 此函数初始化SENSOR_CONTROLLER_CONFIG结构。 SensorsCxDeviceGetSensorList 此函数返回与 WDFDEVICE 关联的传感器实例列表。",
+      "description": "此函数初始化SENSOR_CONFIG结构。",
       "syntax": "void SENSOR_CONFIG_INIT(\n[out] PSENSOR_CONFIG pConfig);",
       "parameters": [
         {
@@ -1735,20 +1293,35 @@
       "id": "windows::SENSOR_CONFIG",
       "name": "SENSOR_CONFIG",
       "entity_type": "struct",
-      "description": "此结构包含传感器驱动程序传递给有关每个传感器的类扩展的信息。 SENSOR_CONTROLLER_CONFIG 此结构包含指向回调函数的指针，这些回调函数必须由驱动程序实现，并传递给要调用的类扩展。",
-      "syntax": "typedef struct _SENSOR_CONFIG {   ULONG                   Size;",
+      "description": "This structure contains information that sensor drivers pass to the class extension about each sensor.",
+      "syntax": "typedef struct _SENSOR_CONFIG {\n  ULONG Size;",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [
         "SENSOR_CONTROLLER_CONFIG"
       ],
       "confidence": 0.85,
-      "_source_line": 1198
+      "_source_line": 1198,
+      "return_value": {
+        "description": "此函数返回具有不同值的 NTSTATUS。 可能返回的一些值包括： 如果函数成功完成，则返回STATUS_SUCCESS。 如果函数未成功完成，则返回STATUS_UNSUCCESSFUL。 如果任何 In 参数为 NULL，则返回STATUS_INVALID_PARAMETER。 调用 SensorsCxSensorDataReady 的任何客户端都必须确保在调用之前启动 SensorsCxSensorDataReady。 在启动传感器之前调用 SensorsCxSensorDataReady 可能会导致传感器类扩展无响应。"
+      },
+      "parameters": [
+        {
+          "name": "DriverGlobals",
+          "description": "驱动程序的全局定义。 Sensor 对传感器对象的引用。 pSensorData 指向传感器属性列表的指针。"
+        }
+      ],
+      "members": [
+        {
+          "name": "Size",
+          "description": "此结构的分配大小（以字节为单位）。 pEnumerationList 枚举列表。 有关详细信息，请参阅 SENSOR_COLLECTION_LIST。"
+        }
+      ]
     },
     {
       "id": "windows::EVT_SENSOR_DRIVER_CLEAR_SENSOR_HIST",
       "name": "EVT_SENSOR_DRIVER_CLEAR_SENSOR_HIST",
-      "entity_type": "struct",
+      "entity_type": "event",
       "description": "清除传感器中迄今记录的历史记录。",
       "header": "sensorscx.h",
       "deprecated": false,
@@ -1757,21 +1330,10 @@
       "_source_line": 1224
     },
     {
-      "id": "windows::EVT_SENSOR_DRIVER_DEVICE_IO_CONT",
-      "name": "EVT_SENSOR_DRIVER_DEVICE_IO_CONT",
-      "entity_type": "struct",
-      "description": "用于处理 IOCTL 的回调。",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.55,
-      "_source_line": 1240
-    },
-    {
       "id": "windows::EVT_SENSOR_DRIVER_DEVICE_IO_CONTROL",
       "name": "EVT_SENSOR_DRIVER_DEVICE_IO_CONTROL",
-      "entity_type": "struct",
-      "description": "EvtSensorDriverDeviceIoControl; NTSTATUS EvtSensorDriverDeviceIoControl( SENSOROBJECT Sensor, WDFREQUEST Request, size_t OutputBufferLength, size_t InputBufferLength, ULONG IoControlCode) {...}",
+      "entity_type": "callback",
+      "description": "Sensor driver's device I/O control callback function. Signature: NTSTATUS EvtSensorDriverDeviceIoControl(SENSOROBJECT Sensor, WDFREQUEST Request, size_t OutputBufferLength, size_t InputBufferLength, ULONG IoControlCode)",
       "parameters": [
         {
           "name": "Sensor",
@@ -1789,36 +1351,9 @@
       "_source_line": 1244
     },
     {
-      "id": "windows::OutputBufferLength",
-      "name": "OutputBufferLength",
-      "entity_type": "struct",
-      "description": "输出缓冲区长度。 InputBufferLength 输入缓冲区长度。",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [
-        "InputBufferLength"
-      ],
-      "confidence": 0.5,
-      "_source_line": 1252
-    },
-    {
-      "id": "windows::IoControlCode",
-      "name": "IoControlCode",
-      "entity_type": "struct",
-      "description": "I/O 控件代码。",
-      "return_value": {
-        "description": "返回 NTSTATUS。"
-      },
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.45,
-      "_source_line": 1253
-    },
-    {
       "id": "windows::EVT_SENSOR_DRIVER_GET_DATA_FIELD",
       "name": "EVT_SENSOR_DRIVER_GET_DATA_FIELD",
-      "entity_type": "struct",
+      "entity_type": "callback",
       "description": "此回调函数返回与传感器关联的给定数据字段的属性。",
       "header": "sensorscx.h",
       "deprecated": false,
@@ -1829,7 +1364,7 @@
     {
       "id": "windows::EVT_SENSOR_DRIVER_GET_DATA_THRES",
       "name": "EVT_SENSOR_DRIVER_GET_DATA_THRES",
-      "entity_type": "struct",
+      "entity_type": "callback",
       "description": "此回调函数返回与传感器关联的阈值。",
       "header": "sensorscx.h",
       "deprecated": false,
@@ -1841,16 +1376,14 @@
       "id": "windows::SENSOR_COLLECTION_LIST",
       "name": "SENSOR_COLLECTION_LIST",
       "entity_type": "struct",
-      "description": "结构 此结构包含每个传感器的所有 SENSOR_VALUE_PAIR 结构的列表。 此结构通过调用 ReadFile 返回。",
-      "syntax": "typedef struct SENSOR_COLLECTION_LIST {   ULONG             AllocatedSizeInBytes;\nULONG             Count;   SENSOR_VALUE_PAIR List[1];\n} SENSOR_COLLECTION_LIST, *PSENSOR_COLLECTION_LIST; 成员",
-      "return_value": {
-        "description": "成功完成后，此函数将返回STATUS_SUCCESS。 注释 类扩展（CX）仅使用NT_SUCCESS宏来确定对驱动程序 Evt 函数的调用是否成功，但如果函数失败或未返回STATUS_SUCCESS，则不采取任何作。"
-      },
-      "remarks": "此函数必须由驱动程序实现，并由类扩展调用。",
+      "description": "此结构包含每个传感器的所有SENSOR_VALUE_PAIR结构的列表。通过调用ReadFile返回。",
+      "syntax": "typedef struct SENSOR_COLLECTION_LIST {\n  ULONG AllocatedSizeInBytes;\n  ULONG Count;\n  SENSOR_VALUE_PAIR List[1];\n} SENSOR_COLLECTION_LIST, *PSENSOR_COLLECTION_LIST;",
+      "return_value": null,
+      "remarks": null,
       "requirements": {
         "header": "sensorsdef.h"
       },
-      "header": "sensorscx.h",
+      "header": "sensorsdef.h",
       "deprecated": false,
       "cross_references": [
         "SENSOR_VALUE_PAIR"
@@ -1861,8 +1394,8 @@
     {
       "id": "windows::EVT_SENSOR_DRIVER_GET_PROPERTIES",
       "name": "EVT_SENSOR_DRIVER_GET_PROPERTIES",
-      "entity_type": "struct",
-      "description": "EvtSensorDriverGetProperties; NTSTATUS EvtSensorDriverGetProperties( [in] SENSOROBJECT Sensor, [in, out, optional] PSENSOR_COLLECTION_LIST pProperties, [out] PULONG pSize) {...}",
+      "entity_type": "callback",
+      "description": "EvtSensorDriverGetProperties callback function. Retrieves sensor properties.",
       "parameters": [
         {
           "name": "Sensor",
@@ -1893,8 +1426,8 @@
     {
       "id": "windows::TA_FIELDS",
       "name": "TA_FIELDS",
-      "entity_type": "struct",
-      "description": "此回调函数返回指定传感器支持的数据字段列表。 有关数据字段的详细信息，请参阅 传感器数 据字段。",
+      "entity_type": "structure",
+      "description": "此结构体包含指定传感器支持的数据字段列表。有关数据字段的详细信息，请参阅传感器数据字段。",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [],
@@ -1905,8 +1438,8 @@
       "id": "windows::SENSOR_PROPERTY_LIST",
       "name": "SENSOR_PROPERTY_LIST",
       "entity_type": "struct",
-      "description": "结构 此结构包含每个传感器的所有 SENSOR_VALUE_PAIR 结构的列表。 此结构通过调用 ReadFile 返回。",
-      "syntax": "typedef struct SENSOR_PROPERTY_LIST {   ULONG       AllocatedSizeInBytes;\nULONG       Count;   PROPERTYKEY List[1];\n} SENSOR_PROPERTY_LIST, *PSENSOR_PROPERTY_LIST; 成员",
+      "description": "此结构包含传感器属性列表，包含AllocatedSizeInBytes、Count和List数组成员。通过ReadFile调用返回。",
+      "syntax": "typedef struct SENSOR_PROPERTY_LIST {\n  ULONG AllocatedSizeInBytes;\n  ULONG Count;\n  PROPERTYKEY List[1];\n} SENSOR_PROPERTY_LIST, *PSENSOR_PROPERTY_LIST;",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [
@@ -1918,7 +1451,7 @@
     {
       "id": "windows::EVT_SENSOR_DRIVER_SET_BATCH_LATE",
       "name": "EVT_SENSOR_DRIVER_SET_BATCH_LATE",
-      "entity_type": "struct",
+      "entity_type": "callback",
       "description": "此回调函数设置指定传感器的批处理延迟。",
       "header": "sensorscx.h",
       "deprecated": false,
@@ -1929,8 +1462,8 @@
     {
       "id": "windows::EVT_SENSOR_DRIVER_SET_DATA_INTER",
       "name": "EVT_SENSOR_DRIVER_SET_DATA_INTER",
-      "entity_type": "struct",
-      "description": "此回调函数设置指定传感器的数据间隔。",
+      "entity_type": "callback",
+      "description": "Callback function that sets the data interval for a specified sensor.",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [],
@@ -1940,8 +1473,8 @@
     {
       "id": "windows::EVT_SENSOR_DRIVER_SET_DATA_INTERVAL",
       "name": "EVT_SENSOR_DRIVER_SET_DATA_INTERVAL",
-      "entity_type": "struct",
-      "description": "EvtSensorDriverSetDataInterval; NTSTATUS EvtSensorDriverSetDataInterval( [in] SENSOROBJECT Sensor, [in] ULONG DataRateMs) {...}",
+      "entity_type": "callback",
+      "description": "Sensor driver callback function that sets the data interval for a sensor.",
       "parameters": [
         {
           "name": "Sensor",
@@ -1952,7 +1485,7 @@
       "return_value": {
         "description": "成功完成后，此函数将返回STATUS_SUCCESS。 注释 类扩展（CX）仅使用NT_SUCCESS宏来确定对驱动程序 Evt 函数的调用是否成功， 但如果函数失败或未返回STATUS_SUCCESS，则不采取任何作。"
       },
-      "remarks": "此函数必须由驱动程序实现，并由类扩展调用。 要求要求目标平台标头 IRQL 是 否 价值窗户 sensorscx.h requires_same",
+      "remarks": "This function must be implemented by the driver and called by the class extension. Target platform: Windows. Header: sensorscx.h",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [],
@@ -1962,7 +1495,7 @@
     {
       "id": "windows::EVT_SENSOR_DRIVER_SET_DATA_THRESHO",
       "name": "EVT_SENSOR_DRIVER_SET_DATA_THRESHO",
-      "entity_type": "struct",
+      "entity_type": "callback",
       "description": "此回调函数设置与传感器关联的一个或多个数据字段的阈值。",
       "header": "sensorscx.h",
       "deprecated": false,
@@ -1973,8 +1506,8 @@
     {
       "id": "windows::EVT_SENSOR_DRIVER_START_HISTORY_RET",
       "name": "EVT_SENSOR_DRIVER_START_HISTORY_RET",
-      "entity_type": "struct",
-      "description": "开始检索传感器中迄今记录的历史记录。",
+      "entity_type": "callback",
+      "description": "Callback function for starting retrieval of sensor history records.",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [],
@@ -1982,21 +1515,10 @@
       "_source_line": 1536
     },
     {
-      "id": "windows::EVT_SENSOR_DRIVER_START_SENSOR_HIST",
-      "name": "EVT_SENSOR_DRIVER_START_SENSOR_HIST",
-      "entity_type": "struct",
-      "description": "开始在传感器中记录历史记录。",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.55,
-      "_source_line": 1582
-    },
-    {
       "id": "windows::EVT_SENSOR_DRIVER_START_STATE_CHAN",
       "name": "EVT_SENSOR_DRIVER_START_STATE_CHAN",
-      "entity_type": "struct",
-      "description": "GE_NOTIFICATION回调函数 （sensorscx.h）项目2025/02/07 用于启动状态更改通知。",
+      "entity_type": "callback",
+      "description": "Callback function for starting state change notifications.",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [],
@@ -2006,8 +1528,8 @@
     {
       "id": "windows::EVT_SENSOR_DRIVER_STOP_SENSOR_HIST",
       "name": "EVT_SENSOR_DRIVER_STOP_SENSOR_HIST",
-      "entity_type": "struct",
-      "description": "停止在传感器中记录历史记录。",
+      "entity_type": "callback",
+      "description": "传感器驱动程序回调函数，用于停止在传感器中记录历史数据。",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [],
@@ -2015,41 +1537,10 @@
       "_source_line": 1635
     },
     {
-      "id": "windows::EVT_SENSOR_DRIVER_STOP_STATE_CHA",
-      "name": "EVT_SENSOR_DRIVER_STOP_STATE_CHA",
-      "entity_type": "struct",
-      "description": "NGE_NOTIFICATION回调函数 用于停止状态更改通知。",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 1651
-    },
-    {
-      "id": "windows::PWDF_OBJECT_ATTRIBUTES",
-      "name": "PWDF_OBJECT_ATTRIBUTES",
-      "entity_type": "struct",
-      "description": "pSensorAttributes, PSENSOROBJECT pSensor) {...}",
-      "parameters": [
-        {
-          "name": "DriverGlobals",
-          "description": "驱动程序的全局定义。 pFxDeviceInit 对WDFDEVICE_INIT的引用。 pFdoAttributes 对WDF_OBJECT_ATTRIBUTES的引用。 Flags 传感器驱动程序的标志。 保留设置为 0。"
-        }
-      ],
-      "return_value": {
-        "description": "成功完成后，此函数将返回STATUS_SUCCESS。 提供无效参数或此函数失败时，将返回 STATUS_INVALID_PARAMETER。 此函数还可以返回其他 NTSTATUS 值。"
-      },
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.8,
-      "_source_line": 1706
-    },
-    {
       "id": "windows::PSENSOR_CONTROLLER_CONFIG",
       "name": "PSENSOR_CONTROLLER_CONFIG",
-      "entity_type": "struct",
-      "description": "pSensorConfig) {...}",
+      "entity_type": "structure",
+      "description": "Sensor controller configuration structure containing driver-specific settings and callback functions.",
       "parameters": [
         {
           "name": "DriverGlobals",
@@ -2071,8 +1562,8 @@
     {
       "id": "windows::PSENSORSCX_DRIVER_GLOBALS",
       "name": "PSENSORSCX_DRIVER_GLOBALS",
-      "entity_type": "struct",
-      "description": "DriverGlobals, SENSOROBJECT Sensor, SENSOR_STATE State) {...}",
+      "entity_type": "structure",
+      "description": "Sensors Class Extension driver global variables structure",
       "parameters": [
         {
           "name": "DriverGlobals",
@@ -2091,42 +1582,10 @@
       "_source_line": 1749
     },
     {
-      "id": "windows::PSENSOR_COLLECTION_LIST",
-      "name": "PSENSOR_COLLECTION_LIST",
-      "entity_type": "struct",
-      "description": "pEnumerationList;} SENSOR_CONFIG, *PSENSOR_CONFIG;",
-      "parameters": [
-        {
-          "name": "DriverGlobals",
-          "description": "驱动程序的全局定义。 Sensor 对传感器对象的引用。 pSensorData 指向传感器属性列表的指针。"
-        }
-      ],
-      "return_value": {
-        "description": "此函数返回具有不同值的 NTSTATUS。 可能返回的一些值包括： 如果函数成功完成，则返回STATUS_SUCCESS。 如果函数未成功完成，则返回STATUS_UNSUCCESSFUL。 如果任何 In 参数为 NULL，则返回STATUS_INVALID_PARAMETER。 调用 SensorsCxSensorDataReady 的任何客户端都必须确保在调用之前启动 SensorsCxSensorDataReady。 在启动传感器之前调用 SensorsCxSensorDataReady 可能会导致传感器类扩展无响应。"
-      },
-      "members": [
-        {
-          "name": "Size",
-          "description": "此结构的分配大小（以字节为单位）。 pEnumerationList 枚举列表。 有关详细信息，请参阅 SENSOR_COLLECTION_LIST。"
-        }
-      ],
-      "requirements": {
-        "header": "sensorsutils.h"
-      },
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [
-        "PSENSOR_CONFIG",
-        "SENSOR_CONFIG"
-      ],
-      "confidence": 0.8,
-      "_source_line": 1770
-    },
-    {
       "id": "windows::PFN_SENSORSCXSENSORHISTORYRETRIEV",
       "name": "PFN_SENSORSCXSENSORHISTORYRETRIEV",
-      "entity_type": "struct",
-      "description": "指示历史记录检索已完成。",
+      "entity_type": "callback",
+      "description": "传感器历史记录检索完成时的回调函数。",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [],
@@ -2159,92 +1618,35 @@
     {
       "id": "windows::SENSOR_CONTROLLER_CONFIG",
       "name": "SENSOR_CONTROLLER_CONFIG",
-      "entity_type": "struct",
-      "description": "结构 此结构包含指向回调函数的指针，这些函数必须由驱动程序实现，并传递给要调用的类扩展。",
+      "entity_type": "structure",
+      "description": "此结构包含传感器控制器配置信息，包括指向必须由驱动程序实现并传递给类扩展的回调函数的指针。",
       "syntax": "typedef struct _SENSOR_CONTROLLER_CONFIG {\nULONG                                             Size;",
       "header": "sensorscx.h",
       "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 1900
-    },
-    {
-      "id": "windows::WDF_TRI_STATE",
-      "name": "WDF_TRI_STATE",
-      "entity_type": "struct",
-      "description": "DriverIsPowerPolicyOwner;",
-      "header": "sensorscx.h",
-      "deprecated": false,
       "cross_references": [
-        "DriverIsPowerPolicyOwner"
-      ],
-      "confidence": 0.65,
-      "_source_line": 1906
-    },
-    {
-      "id": "windows::PFN_SENSOR_DRIVER_START_SENSOR",
-      "name": "PFN_SENSOR_DRIVER_START_SENSOR",
-      "entity_type": "struct",
-      "description": "EvtSensorStart; PFN_SENSOR_DRIVER_STOP_SENSOR EvtSensorStop;",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [
-        "EvtSensorStart"
+        "EvtSensorEnableWake",
+        "PSENSOR_CONTROLLER_CONFIG",
+        "SENSOR_CONTROLLER_CONFIG"
       ],
       "confidence": 0.75,
-      "_source_line": 1907
-    },
-    {
-      "id": "windows::PFN_SENSOR_DRIVER_GET_SUPPORTED_DATA_FIELDS",
-      "name": "PFN_SENSOR_DRIVER_GET_SUPPORTED_DATA_FIELDS",
-      "entity_type": "struct",
-      "description": "EvtSensorGetSupportedDataFields;",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [
-        "EvtSensorGetSupportedDataFields"
-      ],
-      "confidence": 0.65,
-      "_source_line": 1908
+      "_source_line": 1900,
+      "members": [
+        {
+          "name": "Size",
+          "description": "此结构的分配大小（以字节为单位）。"
+        }
+      ]
     },
     {
       "id": "windows::PFN_SENSOR_DRIVER_GET_DATA_FIELD_PROPERTIES",
       "name": "PFN_SENSOR_DRIVER_GET_DATA_FIELD_PROPERTIES",
-      "entity_type": "struct",
-      "description": "EvtSensorGetDataFieldProperties;",
+      "entity_type": "callback",
+      "description": "Callback function for getting sensor data field properties",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
       "_source_line": 1909
-    },
-    {
-      "id": "windows::PFN_SENSOR_DRIVER_GET_DATA_INTERVAL",
-      "name": "PFN_SENSOR_DRIVER_GET_DATA_INTERVAL",
-      "entity_type": "struct",
-      "description": "EvtSensorGetDataInterval; PFN_SENSOR_DRIVER_SET_DATA_INTERVAL EvtSensorSetDataInterval; PFN_SENSOR_DRIVER_GET_DATA_THRESHOLDS EvtSensorGetDataThresholds; PFN_SENSOR_DRIVER_SET_DATA_THRESHOLDS EvtSensorSetDataThresholds;",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [
-        "EvtSensorGetDataInterval",
-        "EvtSensorGetDataThresholds",
-        "EvtSensorSetDataThresholds"
-      ],
-      "confidence": 0.75,
-      "_source_line": 1910
-    },
-    {
-      "id": "windows::PFN_SENSOR_DRIVER_GET_PROPERTIES",
-      "name": "PFN_SENSOR_DRIVER_GET_PROPERTIES",
-      "entity_type": "struct",
-      "description": "EvtSensorGetProperties; PFN_SENSOR_DRIVER_DEVICE_IO_CONTROL EvtSensorDeviceIoControl; PFN_SENSOR_DRIVER_START_SENSOR_HISTORY EvtSensorStartHistory; PFN_SENSOR_DRIVER_STOP_SENSOR_HISTORY EvtSensorStopHistory; PFN_SENSOR_DRIVER_CLEAR_SENSOR_HISTORY EvtSensorClearHistory;",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [
-        "EvtSensorStartHistory"
-      ],
-      "confidence": 0.75,
-      "_source_line": 1911
     },
     {
       "id": "windows::PFN_SENSOR_DRIVER_START_HISTORY_RETRIEVAL",
@@ -2258,17 +1660,6 @@
       ],
       "confidence": 0.65,
       "_source_line": 1912
-    },
-    {
-      "id": "windows::PFN_SENSOR_DRIVER_CANCEL_HISTORY_RETRIEVAL",
-      "name": "PFN_SENSOR_DRIVER_CANCEL_HISTORY_RETRIEVAL",
-      "entity_type": "struct",
-      "description": "EvtSensorCancelHistoryRetrieval;",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 1913
     },
     {
       "id": "windows::PFN_SENSOR_DRIVER_SET_BATCH_LATENCY",
@@ -2286,8 +1677,8 @@
     {
       "id": "windows::PFN_SENSOR_DRIVER_START_STATE_CHANGE_NOTIFICATION",
       "name": "PFN_SENSOR_DRIVER_START_STATE_CHANGE_NOTIFICATION",
-      "entity_type": "struct",
-      "description": "EvtSensorStartStateChangeNotification;",
+      "entity_type": "callback",
+      "description": "Callback function pointer type for sensor driver state change notifications",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [],
@@ -2297,96 +1688,13 @@
     {
       "id": "windows::PFN_SENSOR_DRIVER_STOP_STATE_CHANGE_NOTIFICATION",
       "name": "PFN_SENSOR_DRIVER_STOP_STATE_CHANGE_NOTIFICATION",
-      "entity_type": "struct",
-      "description": "EvtSensorStopStateChangeNotification;",
+      "entity_type": "callback",
+      "description": "Callback function type for sensor driver stop state change notifications",
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
       "_source_line": 1916
-    },
-    {
-      "id": "windows::PFN_SENSOR_DRIVER_ENABLE_WAKE",
-      "name": "PFN_SENSOR_DRIVER_ENABLE_WAKE",
-      "entity_type": "struct",
-      "description": "EvtSensorEnableWake; PFN_SENSOR_DRIVER_DISABLE_WAKE EvtSensorDisableWake;} SENSOR_CONTROLLER_CONFIG, *PSENSOR_CONTROLLER_CONFIG;",
-      "members": [
-        {
-          "name": "Size",
-          "description": "此结构的分配大小（以字节为单位）。"
-        }
-      ],
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [
-        "EvtSensorEnableWake",
-        "PSENSOR_CONTROLLER_CONFIG",
-        "SENSOR_CONTROLLER_CONFIG"
-      ],
-      "confidence": 0.85,
-      "_source_line": 1917
-    },
-    {
-      "id": "windows::DriverIsPowerPolicyOwner",
-      "name": "DriverIsPowerPolicyOwner",
-      "entity_type": "struct",
-      "description": "指示驱动程序是否拥有电源策略。 此值必须是 WdfFalse、WdfUseDefault 或 WdfTrue。 要让合作伙伴利用基于 pep 的电源管理，必须将此标志设置为 WdfFalse 或 WdfUseDefault，并删除其 ACPI 表中的任何_PSx方法。 EvtSensorStart 此回调函数基于驱动程序指定的默认属性或类扩展设置的属性启动传感器。 EvtSensorStop 此回调函数停止传感器。",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [
-        "EvtSensorStart"
-      ],
-      "confidence": 0.6,
-      "_source_line": 1920
-    },
-    {
-      "id": "windows::EvtSensorGetSupportedDataFields",
-      "name": "EvtSensorGetSupportedDataFields",
-      "entity_type": "struct",
-      "description": "此回调函数返回指定传感器支持的数据字段列表。 EvtSensorGetDataFieldProperties 此回调函数返回与传感器关联的给定数据字段的属性。 EvtSensorGetDataInterval 此回调函数返回指定传感器的数据间隔。 EvtSensorSetDataInterval 此回调函数设置指定传感器的数据间隔。 EvtSensorGetDataThresholds 此回调函数返回与传感器关联的阈值。",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [
-        "EvtSensorGetDataInterval",
-        "EvtSensorGetDataThresholds"
-      ],
-      "confidence": 0.6,
-      "_source_line": 1925
-    },
-    {
-      "id": "windows::EvtSensorSetDataThresholds",
-      "name": "EvtSensorSetDataThresholds",
-      "entity_type": "struct",
-      "description": "此回调函数停止传感器。 EvtSensorGetProperties 此回调函数返回给定传感器的属性。 EvtSensorDeviceIoControl 此回调函数处理类扩展外部的 IOCTL。 注意 如果驱动程序需要对 IRP 进行排队，则必须将 IRP 复制到驱动程序拥有的 IoQueue。这将阻止驱动程序的所有 IRP 停止，直到完成。",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.6,
-      "_source_line": 1931
-    },
-    {
-      "id": "windows::EvtSensorStartHistory",
-      "name": "EvtSensorStartHistory",
-      "entity_type": "struct",
-      "description": "EvtSensorStopHistory EvtSensorClearHistory",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.5,
-      "_source_line": 1936
-    },
-    {
-      "id": "windows::EvtSensorStartHistoryRetrieval",
-      "name": "EvtSensorStartHistoryRetrieval",
-      "entity_type": "struct",
-      "description": "EvtSensorCancelHistoryRetrieval EvtSensorSetBatchLatency 此回调函数设置指定传感器的批处理延迟。 EvtSensorStartStateChangeNotification EvtSensorStopStateChangeNotification",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [
-        "EvtSensorSetBatchLatency"
-      ],
-      "confidence": 0.6,
-      "_source_line": 1937
     },
     {
       "id": "windows::EvtSensorEnableWake",
@@ -2403,32 +1711,25 @@
       "_source_line": 1939
     },
     {
-      "id": "windows::EvtSensorStart",
-      "name": "EvtSensorStart",
-      "entity_type": "struct",
-      "description": "EvtSensorStop",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.4,
-      "_source_line": 1942
-    },
-    {
       "id": "windows::EvtSensorGetDataInterval",
       "name": "EvtSensorGetDataInterval",
-      "entity_type": "struct",
+      "entity_type": "function",
       "description": "EvtSensorSetDataInterval",
       "header": "sensorscx.h",
       "deprecated": false,
-      "cross_references": [],
+      "cross_references": [
+        "EvtSensorGetDataInterval",
+        "EvtSensorGetDataThresholds",
+        "EvtSensorSetDataThresholds"
+      ],
       "confidence": 0.5,
       "_source_line": 1944
     },
     {
       "id": "windows::EvtSensorGetDataThresholds",
       "name": "EvtSensorGetDataThresholds",
-      "entity_type": "struct",
-      "description": "EvtSensorSetDataThresholds EvtSensorGetProperties 成功完成后，每个函数将返回STATUS_SUCCESS。 注释 类扩展（CX）仅使用NT_SUCCESS宏来确定对驱动程序 Evt 函数的调用是否成功，但如果函数失败或未返回STATUS_SUCCESS，则不采取任何作。",
+      "entity_type": "function",
+      "description": "Retrieves sensor data thresholds. Returns STATUS_SUCCESS on successful completion. Note: The class extension (CX) uses the NT_SUCCESS macro to determine if the call to the driver Evt function was successful, but takes no action if the function fails or does not return STATUS_SUCCESS.",
       "requirements": {
         "target_platform": "Windows",
         "header": "sensorscx.h",
@@ -2444,34 +1745,10 @@
       "_source_line": 1945
     },
     {
-      "id": "windows::SENSOR_CONTROLLER_CONFIG_INIT",
-      "name": "SENSOR_CONTROLLER_CONFIG_INIT",
-      "entity_type": "struct",
-      "description": "函数 此函数初始化 SENSOR_CONTROLLER_CONFIG 结构。",
-      "syntax": "void SENSOR_CONTROLLER_CONFIG_INIT(\n[out] PSENSOR_CONTROLLER_CONFIG pConfig);",
-      "parameters": [
-        {
-          "name": "pConfig",
-          "direction": "out",
-          "description": "指向新 SENSOR_CONTROLLER_CONFIG 结构的指针。"
-        }
-      ],
-      "return_value": {
-        "description": "没有"
-      },
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [
-        "SENSOR_CONTROLLER_CONFIG"
-      ],
-      "confidence": 0.9,
-      "_source_line": 1957
-    },
-    {
       "id": "windows::SensorsCxDeviceGetSensorList",
       "name": "SensorsCxDeviceGetSensorList",
-      "entity_type": "struct",
-      "description": "函数 此函数返回与 WDFDEVICE 关联的传感器实例列表。",
+      "entity_type": "function",
+      "description": "此函数返回与WDFDEVICE关联的传感器实例列表。",
       "syntax": "NTSTATUS SensorsCxDeviceGetSensorList(   [in]      WDFDEVICE    FxDevice,\n[out]     SENSOROBJECT *pSensorList,\n[in, out] PULONG       pListCount);",
       "parameters": [
         {
@@ -2493,15 +1770,17 @@
       },
       "header": "sensorscx.h",
       "deprecated": false,
-      "cross_references": [],
+      "cross_references": [
+        "SensorsCxDeviceGetSensorList"
+      ],
       "confidence": 0.75,
       "_source_line": 1975
     },
     {
       "id": "windows::SensorsCxDeviceInitialize",
       "name": "SensorsCxDeviceInitialize",
-      "entity_type": "struct",
-      "description": "函数 此函数初始化类扩展中的传感器。",
+      "entity_type": "function",
+      "description": "此函数初始化传感器类扩展中的传感器设备。",
       "syntax": "NTSTATUS SensorsCxDeviceInitialize(\n[in] WDFDEVICE                 FxDevice,\n[in] PSENSOR_CONTROLLER_CONFIG pSensorConfig);",
       "parameters": [
         {
@@ -2523,21 +1802,10 @@
       "_source_line": 2022
     },
     {
-      "id": "windows::WDF_OBJECT_ATTRIBUTES",
-      "name": "WDF_OBJECT_ATTRIBUTES",
-      "entity_type": "struct",
-      "description": "反馈 是 否 价值桌面 sensorscx.h",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 2069
-    },
-    {
       "id": "windows::SensorsCxSensorDataReady",
       "name": "SensorsCxSensorDataReady",
-      "entity_type": "struct",
-      "description": "函数 此函数通知类扩展驱动程序已检索数据。",
+      "entity_type": "function",
+      "description": "此函数通知类扩展驱动程序已检索传感器数据。",
       "syntax": "void SensorsCxSensorDataReady(\n[in] SENSOROBJECT            Sensor,\n[in] PSENSOR_COLLECTION_LIST pSensorData);",
       "parameters": [
         {
@@ -2559,23 +1827,10 @@
       "_source_line": 2078
     },
     {
-      "id": "windows::EvtSensorSetBatchLatency",
-      "name": "EvtSensorSetBatchLatency",
-      "entity_type": "struct",
-      "description": "SENSOR_COLLECTION_LIST 传感器属性 是 否 价值桌面 sensorscx.h",
-      "header": "sensorscx.h",
-      "deprecated": false,
-      "cross_references": [
-        "SENSOR_COLLECTION_LIST"
-      ],
-      "confidence": 0.6,
-      "_source_line": 2095
-    },
-    {
       "id": "windows::SensorsCxSensorInitialize",
       "name": "SensorsCxSensorInitialize",
-      "entity_type": "struct",
-      "description": "函数 此函数设置传感器的枚举属性。 有关传感器属性的详细信息，请参阅 枚举属性。",
+      "entity_type": "function",
+      "description": "Initializes sensor enumeration properties. For details about sensor properties, see enumeration properties.",
       "syntax": "NTSTATUS SensorsCxSensorInitialize(   [in] SENSOROBJECT   Sensor,\n[in] PSENSOR_CONFIG pSensorConfig);",
       "parameters": [
         {
@@ -2610,24 +1865,10 @@
       "_source_line": 2186
     },
     {
-      "id": "windows::SensorsCxDeviceInitializeTableIndex",
-      "name": "SensorsCxDeviceInitializeTableIndex",
-      "entity_type": "enum",
-      "description": "请参阅 SensorsCxDeviceInitialize。 SensorsCxSensorCreateTableIndex 请参阅 SensorsCxSensorCreate。",
-      "header": "sensorscxfuncenum.h",
-      "deprecated": false,
-      "cross_references": [
-        "SensorsCxDeviceInitialize",
-        "SensorsCxSensorCreate"
-      ],
-      "confidence": 0.6,
-      "_source_line": 2187
-    },
-    {
       "id": "windows::SensorsCxSensorInitializeTableIndex",
       "name": "SensorsCxSensorInitializeTableIndex",
       "entity_type": "enum",
-      "description": "请参阅 SensorsCxSensorInitialize。 SensorsCxSensorDataReadyTableIndex 请参阅 SensorsCxSensorDataReady。",
+      "description": "Enumeration index for SensorsCxSensorInitialize function table.",
       "header": "sensorscxfuncenum.h",
       "deprecated": false,
       "cross_references": [
@@ -2638,23 +1879,10 @@
       "_source_line": 2188
     },
     {
-      "id": "windows::SensorsCxDeviceGetSensorListTableIndex",
-      "name": "SensorsCxDeviceGetSensorListTableIndex",
-      "entity_type": "enum",
-      "description": "请参阅 SensorsCxDeviceGetSensorList。",
-      "header": "sensorscxfuncenum.h",
-      "deprecated": false,
-      "cross_references": [
-        "SensorsCxDeviceGetSensorList"
-      ],
-      "confidence": 0.5,
-      "_source_line": 2189
-    },
-    {
       "id": "windows::SensorsCxSensorHistoryRetrievalCompletedTableIndex",
       "name": "SensorsCxSensorHistoryRetrievalCompletedTableIndex",
       "entity_type": "enum",
-      "description": "请参阅 SensorsCxSensorHistoryRetrievalCompleted。",
+      "description": "Enumeration used by SensorsCxSensorHistoryRetrievalCompleted function.",
       "header": "sensorscxfuncenum.h",
       "deprecated": false,
       "cross_references": [
@@ -2667,7 +1895,7 @@
       "id": "windows::SensorsCxStateChangeTableIndex",
       "name": "SensorsCxStateChangeTableIndex",
       "entity_type": "enum",
-      "description": "请参阅 SensorsCxStateChange。",
+      "description": "枚举类型，用于标识传感器类扩展(Class Extension)的状态变化表索引。",
       "header": "sensorscxfuncenum.h",
       "deprecated": false,
       "cross_references": [
@@ -2680,7 +1908,7 @@
       "id": "windows::HUMAN_PRESENCE_DETECTION_TYPE",
       "name": "HUMAN_PRESENCE_DETECTION_TYPE",
       "entity_type": "enum",
-      "description": "枚举值指示人类存在检测硬件的类型。",
+      "description": "指定人类存在检测硬件的类型枚举值。",
       "header": "sensorsdef.h",
       "deprecated": false,
       "cross_references": [],
@@ -2691,7 +1919,7 @@
       "id": "windows::HUMAN_PRESENCE_DETECTION_TYPE_COUNT",
       "name": "HUMAN_PRESENCE_DETECTION_TYPE_COUNT",
       "entity_type": "enum",
-      "description": "枚举表示HUMAN_PRESENCE_DETECTION_TYPE枚 举中人类存在检测类型的数量。 MAGNETOMETER_ACCURACY 此枚举表示磁力计的准确性状态。 PEDOMETER_STEP_TYPE 此枚举表示计步器报告的步长类型。 PEDOMETER_STEP_TYPE_COUNT 此枚举表示计步器可以检测到的步长类型数。",
+      "description": "枚举表示HUMAN_PRESENCE_DETECTION_TYPE枚举中人类存在检测类型的数量。",
       "header": "sensorsdef.h",
       "deprecated": false,
       "cross_references": [
@@ -2707,7 +1935,7 @@
       "name": "PEDOMETER_STEP_TYPE_COUNT",
       "entity_type": "enum",
       "description": "枚举 此枚举表示可由计步器检测到的步骤类型数。",
-      "syntax": "typedef enum PEDOMETER_STEP_TYPE_COUNT {\nPedometerStepTypeCount} ;\n常数",
+      "syntax": "typedef enum PEDOMETER_STEP_TYPE_COUNT { PedometerStepTypeCount };",
       "header": "sensorsdef.h",
       "deprecated": false,
       "cross_references": [],
@@ -2715,21 +1943,10 @@
       "_source_line": 2337
     },
     {
-      "id": "windows::Pedometer",
-      "name": "Pedometer",
-      "entity_type": "enum",
-      "description": "数据字段反馈 是 否",
-      "header": "sensorsdef.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.4,
-      "_source_line": 2338
-    },
-    {
       "id": "windows::PedometerStepTypeCount",
       "name": "PedometerStepTypeCount",
       "entity_type": "enum",
-      "description": "可以检测的步骤类型数。",
+      "description": "表示可以检测的计步器步数类型数量。",
       "header": "sensorsdef.h",
       "deprecated": false,
       "cross_references": [],
@@ -2737,68 +1954,10 @@
       "_source_line": 2355
     },
     {
-      "id": "windows::AllocatedSizeInBytes",
-      "name": "AllocatedSizeInBytes",
-      "entity_type": "enum",
-      "description": "表示列表中分配的元素数。 Count 表示列表中的已用条目数。 List[1] PROPERTYKEY 值的列表。",
-      "remarks": "请注意，List[1] 参数是可变大小的缓冲区。 第一个元素是一个占位符，可能无法准确显示缓冲区大小。",
-      "header": "sensorsdef.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.6,
-      "_source_line": 2411
-    },
-    {
-      "id": "windows::SENSOR_COLLECTION_LIST_INIT",
-      "name": "SENSOR_COLLECTION_LIST_INIT",
-      "entity_type": "enum",
-      "description": "函数 此函数初始化 SENSOR_COLLECTION_LIST 结构。",
-      "syntax": "void SENSOR_COLLECTION_LIST_INIT(\n[out] PSENSOR_COLLECTION_LIST pCollectionList,   [in]  ULONG                   CollectionListSize);",
-      "parameters": [
-        {
-          "name": "pCollectionList",
-          "direction": "out",
-          "description": "指向 SENSOR_COLLECTION_LIST的指针。[in] CollectionListSize"
-        }
-      ],
-      "header": "sensorsdef.h",
-      "deprecated": false,
-      "cross_references": [
-        "SENSOR_COLLECTION_LIST"
-      ],
-      "confidence": 0.85,
-      "_source_line": 2416
-    },
-    {
-      "id": "windows::SENSOR_COLLECTION_LIST_CALCULATE",
-      "name": "SENSOR_COLLECTION_LIST_CALCULATE",
-      "entity_type": "enum",
-      "description": "此函数计算 SENSOR_COLLECTION_LIST 结构中的 SENSOR_VALUE_PAIR 元素数。",
-      "syntax": "ULONG SENSOR_COLLECTION_LIST_CALCULATE_MAX_COUNT(\n[in] PSENSOR_COLLECTION_LIST pCollectionList);",
-      "parameters": [
-        {
-          "name": "pCollectionList",
-          "direction": "in",
-          "description": "指向 SENSOR_COLLECTION_LIST 结构的指针。"
-        }
-      ],
-      "return_value": {
-        "description": "SENSOR_COLLECTION_LIST_CALCULATE_MAX_COUNT 函数返回 ULONG 值。"
-      },
-      "header": "sensorsdef.h",
-      "deprecated": false,
-      "cross_references": [
-        "SENSOR_COLLECTION_LIST",
-        "SENSOR_VALUE_PAIR"
-      ],
-      "confidence": 1.0,
-      "_source_line": 2431
-    },
-    {
       "id": "windows::SENSOR_COLLECTION_LIST_SIZE",
       "name": "SENSOR_COLLECTION_LIST_SIZE",
-      "entity_type": "enum",
-      "description": "函数 此函数返回 SENSOR_COLLECTION_LIST 结构的大小。",
+      "entity_type": "macro",
+      "description": "宏定义，用于计算SENSOR_COLLECTION_LIST结构的大小",
       "syntax": "ULONG SENSOR_COLLECTION_LIST_SIZE(\n[in] ULONG Count);",
       "parameters": [
         {
@@ -2816,10 +1975,15 @@
       "_source_line": 2474
     },
     {
-      "id": "windows::AX_COUNT",
-      "name": "AX_COUNT",
+      "id": "windows::SENSOR_PROPERTY_LIST_CALCULATE_MAX_COUNT",
+      "name": "SENSOR_PROPERTY_LIST_CALCULATE_MAX_COUNT",
       "entity_type": "enum",
-      "description": "此函数计算 PROPERTYKEY 元素的数目。",
+      "description": "表示 PROPERTYKEY 元素最大数量的 ULONG 值",
+      "header": "sensorsdef.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.65,
+      "_source_line": 2551,
       "syntax": "ULONG SENSOR_PROPERTY_LIST_CALCULATE_MAX_COUNT(\n[in] PSENSOR_PROPERTY_LIST pPropertyList);",
       "parameters": [
         {
@@ -2827,113 +1991,13 @@
           "direction": "in",
           "description": "指向 SENSOR_PROPERTY_LIST 结构的指针。"
         }
-      ],
-      "header": "sensorsdef.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.85,
-      "_source_line": 2543
-    },
-    {
-      "id": "windows::SENSOR_PROPERTY_LIST_CALCULATE_MAX_COUNT",
-      "name": "SENSOR_PROPERTY_LIST_CALCULATE_MAX_COUNT",
-      "entity_type": "enum",
-      "description": "函数返回表示 PROPERTYKEY 元素 数的 ULONG 值。",
-      "header": "sensorsdef.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 2551
-    },
-    {
-      "id": "windows::SENSOR_PROPERTY_LIST_INIT",
-      "name": "SENSOR_PROPERTY_LIST_INIT",
-      "entity_type": "enum",
-      "description": "函数 此函数初始化 SENSOR_PROPERTY_LIST 结构。",
-      "syntax": "void SENSOR_PROPERTY_LIST_INIT(\n[out] PSENSOR_PROPERTY_LIST pPropertyList,   [in]  ULONG                 PropertyListSize);",
-      "parameters": [
-        {
-          "name": "pPropertyList",
-          "direction": "out",
-          "description": "PROPERTYKEY 元素的列表。"
-        },
-        {
-          "name": "PropertyListSize",
-          "direction": "in",
-          "description": "pPropertyList 的大小。"
-        }
-      ],
-      "return_value": {
-        "description": "没有"
-      },
-      "requirements": {
-        "header": "sensorsdef.h"
-      },
-      "header": "sensorsdef.h",
-      "deprecated": false,
-      "cross_references": [
-        "SENSOR_PROPERTY_LIST"
-      ],
-      "confidence": 0.9,
-      "_source_line": 2567
-    },
-    {
-      "id": "windows::VT_FILETIME",
-      "name": "VT_FILETIME",
-      "entity_type": "enum",
-      "description": "VT_CLSID VT_LPWSTR 要求",
-      "header": "sensorsdef.h",
-      "deprecated": false,
-      "cross_references": [
-        "VT_LPWSTR"
-      ],
-      "confidence": 0.65,
-      "_source_line": 2640
-    },
-    {
-      "id": "windows::DataByteLength",
-      "name": "DataByteLength",
-      "entity_type": "function",
-      "description": "要设置为 I2C 请求大小的长度。",
-      "syntax": "NTSTATUS I2CSensorReadRegister(\nWDFIOTARGET I2CIoTarget,   UCHAR       RegAddress,\nBYTE        *Buffer,   ULONG       BufferCb);\nNTSTATUS I2CSensorWriteRegister(\nWDFIOTARGET I2CIoTarget,   UCHAR       RegAddress,   BYTE        *RegValue,   size_t      RegLength);",
-      "parameters": [
-        {
-          "name": "I2CIoTarget",
-          "description": "提供 WDF I2C I/O 目标句柄。 RegAddress 提供要从中读取的 I2C 注册地址。 Buffer 提供一个缓冲区，用于读取寄存器的内容。 BufferCb 提供缓冲区的大小。 I2CIoTarget 提供 WDF I2C I/O 目标句柄。 RegAddress 提供要写入的 I2C 寄存器地址。 RegValue 提供要写入的值。 RegLength RegValue 数组中包含的字节数。"
-        }
-      ],
-      "return_value": {
-        "description": "没有 此函数返回 NTSTATUS。 此函数返回 NTSTATUS。"
-      },
-      "requirements": {
-        "header": "sensorsdriversutils.h"
-      },
-      "header": "sensorsdriversutils.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 2742
-    },
-    {
-      "id": "windows::RotationMatrix",
-      "name": "RotationMatrix",
-      "entity_type": "function",
-      "description": "提供在其中存储旋转矩阵的 VEC3D 缓冲区。 RotationMatrixEntryCount 提供 RotationMatrix 保留的元素数。 Data 提供用于存储输入数据的 VEC3D 缓冲区，并在其中返回转换的数据。 DataCount 提供数据保存的元素数。",
-      "return_value": {
-        "description": "没有"
-      },
-      "remarks": "调用方负责在调用此函数之前保存/还原浮点上下文。 要求要求标头 价值 sensorsdriversutils.h",
-      "header": "sensorsdriversutils.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 2835
+      ]
     },
     {
       "id": "windows::AXIS_X",
       "name": "AXIS_X",
-      "entity_type": "struct",
-      "description": ", AXIS_Y, AXIS_Z, AXIS_MAX } AXIS, *PAXIS; 常数 AXIS_X X 轴。 AXIS_Y Y 轴。",
+      "entity_type": "enum",
+      "description": "表示X轴的枚举值",
       "header": "sensorsstructures.h",
       "deprecated": false,
       "cross_references": [
@@ -2944,48 +2008,10 @@
       "_source_line": 2865
     },
     {
-      "id": "windows::AXIS_MAX",
-      "name": "AXIS_MAX",
-      "entity_type": "struct",
-      "description": "坐标的最大数目。",
-      "syntax": "typedef struct {   union {\nstruct {\nfloat A11;       float A12;       float A13;       float A21;       float A22;       float A23;       float A31;       float A32;       float A33;     };\nstruct {\nVEC3D V1;       VEC3D V2;       VEC3D V3;     };\nfloat M[3][3];   };\n} MATRIX3X3, *PMATRIX3X3;\ntypedef struct {\nfloat X;   float Y;   float Z;   float W;\n} QUATERNION, *PQUATERNION;\ntypedef struct {\nfloat X;   float Y;   float Z;\n} VEC3D, *PVEC3D;",
-      "remarks": "旋转围绕由矢量 v= [X， Y， Z] 构成的轴，并且角度为 ？，我们有： W=cos（theta/2） |v|=sin（theta/2） 要求要求标头 价值 sensorsstructures.h 是 否 VEC3D 结构（sensorsstructures.h） 项目2025/02/07 定义 3D 向量。",
-      "members": [
-        {
-          "name": "A11",
-          "description": "位置 A 11 A12 位置 A 12 A13 定位 A 13"
-        },
-        {
-          "name": "A21",
-          "description": "。。。 位置 A 21 A22 位置 A 22 A23 位置 A 23 A31 位置 A 31 A32 位置 A 32 A33 位置 A 33"
-        },
-        {
-          "name": "V1",
-          "description": "。。。。。。 矢量 V1。 V2 矢量 V2。 V3 矢量 V3。 M[3] 矩阵。 要求要求标头 价值 sensorsstructures.h 是 否 QUATERNION 结构 （sensorsstructures.h）项目2025/02/07 表示用于简单三维旋转作的四维向量的结构。"
-        },
-        {
-          "name": "X",
-          "description": "水平向量。 Y 垂直向量。 Z Z 轴上的向量。 W"
-        },
-        {
-          "name": "X",
-          "description": "沿 x 轴的方向。 Y 沿 x 轴的方向。 Z 沿 x 轴的方向。"
-        }
-      ],
-      "requirements": {
-        "header": "sensorsstructures.h"
-      },
-      "header": "sensorsstructures.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 2869
-    },
-    {
       "id": "windows::CollectionsListSerializeToBuffer",
       "name": "CollectionsListSerializeToBuffer",
       "entity_type": "function",
-      "description": "此例程将集合列表序列化为调用方分配的缓冲区。 CollectionsListSortSubscribedActivitiesByConfidence 此例程在某些情况下重新排列活动数据收集。 CollectionsListUpdateMarshalledPointer 此例程更新嵌入的指针。 EvaluateActivityThresholds 此例程确定新的传入活动数据是否满足阈值。 GetPerformanceTime 此例程以毫秒为单位计算系统时间。 InitPropVariantFromCLSIDArray 此例程从给定的 GUID 数组初始化 PROPVARIANT。 InitPropVariantFromFloat 此例程使用给定的 float 初始化 PROPVARIANT。 IsCollectionListSame 此例程比较两个集合列表，以查看它们是否相同。 IsGUIDPresentInList 此例程在 GUID 列表中查找 GUID。 IsKeyPresentInCollectionList 此例程确定集合列表中是否存在键。 IsKeyPresentInPropertyList 此例程确定属性列表中是否存在键。",
+      "description": "此例程将集合列表序列化为调用方分配的缓冲区。",
       "syntax": "NTSTATUS CollectionsListSerializeToBuffer(\n[in]  const PSENSOR_COLLECTION_LIST SourceCollection,\n[in]  ULONG                         TargetBufferSizeInBytes,\n[out] BYTE                          *TargetBuffer);",
       "parameters": [
         {
@@ -3026,7 +2052,7 @@
       "id": "windows::PropKeyFindKeyGetNthUshort",
       "name": "PropKeyFindKeyGetNthUshort",
       "entity_type": "function",
-      "description": "此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取第 n 个 USHORT 值。 PropKeyFindKeyGetPropVariant 此例程根据 PROPERTYKEY 从集合列表中查找 PROPVARIANT。 PropKeyFindKeyGetUlong 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取 ULONG 值。 PropKeyFindKeyGetUshort 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取 USHORT 值。 PropKeyFindKeySetPropVariant 此例程基于 PROPERTYKEY 在集合列表中查找和设置 PROPVARIANT。 PropVariantGetInformation 此例程获取 PROPVARIANT 的偏移量、大小、位置指针和 DEVPROPTYPE。 SensorCollectionGetAt 此例程返回与提供的传感器集合列表中的第 n 个元素关联的 PROPERTYKEY 和 PROPVARIANT。 SerializationBufferAllocate 用于分配序列化缓冲区的导出内存分配函数。 SerializationBufferFree 用于释放序列化缓冲区的导出内存分配函数。",
+      "description": "此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取第 n 个 USHORT 值。",
       "syntax": "NTSTATUS PropKeyFindKeyGetNthUshort(\n[in]  const SENSOR_COLLECTION_LIST *pList,   [in]  const PROPERTYKEY            *pKey,\n[in]  const UINT32                 Occurrence,   [out] USHORT                       *pRetValue);",
       "parameters": [
         {
@@ -3060,8 +2086,8 @@
       "id": "windows::CollectionsListCopyAndMarshall",
       "name": "CollectionsListCopyAndMarshall",
       "entity_type": "function",
-      "description": "函数 此例程将集合列表从源复制到目标并封送。",
-      "syntax": "NTSTATUS CollectionsListCopyAndMarshall(\n[in]  PSENSOR_COLLECTION_LIST       Target,   [out] const PSENSOR_COLLECTION_LIST Source);",
+      "description": "此函数将传感器集合列表从源复制到目标并进行数据封送处理。",
+      "syntax": "NTSTATUS CollectionsListCopyAndMarshall([in] PSENSOR_COLLECTION_LIST Target, [in] const PSENSOR_COLLECTION_LIST Source);",
       "parameters": [
         {
           "name": "Target",
@@ -3070,7 +2096,7 @@
         }
       ],
       "return_value": {
-        "description": "此函数返回 NTSTATUS。"
+        "description": "返回 NTSTATUS 状态码表示操作结果"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3085,7 +2111,7 @@
       "id": "windows::CollectionsListDeserializeFromBuffer",
       "name": "CollectionsListDeserializeFromBuffer",
       "entity_type": "function",
-      "description": "函数 此例程从输入缓冲区反序列化集合列表。",
+      "description": "从输入缓冲区反序列化集合列表。",
       "syntax": "NTSTATUS CollectionsListDeserializeFromBuffer(\n[in]     ULONG                   SourceBufferSizeInBytes,\n[in]     const BYTE              *SourceBuffer,   [in/out] PSENSOR_COLLECTION_LIST TargetCollection);",
       "parameters": [
         {
@@ -3095,7 +2121,7 @@
         }
       ],
       "return_value": {
-        "description": "此函数返回 NTSTATUS。"
+        "description": "返回NTSTATUS状态码。"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3110,7 +2136,7 @@
       "id": "windows::CollectionsListGetFillableCount",
       "name": "CollectionsListGetFillableCount",
       "entity_type": "function",
-      "description": "函数 返回SENSOR_COLLECTION_LIST缓冲区可能容纳的元素数。",
+      "description": "返回SENSOR_COLLECTION_LIST缓冲区可以容纳的最大元素数量。",
       "syntax": "ULONG CollectionsListGetFillableCount(\nULONG BufferSizeBytes);",
       "header": "sensorsutils.h",
       "deprecated": false,
@@ -3122,7 +2148,7 @@
       "id": "windows::BufferSizeBytes",
       "name": "BufferSizeBytes",
       "entity_type": "function",
-      "description": "缓冲区的大小（以字节为单位）。",
+      "description": "Specifies the size of the buffer in bytes for sensor data collection.",
       "return_value": {
         "description": "BufferSizeBytes 大小的SENSOR_COLLECTION_LIST可接受的SENSOR_VALUE_PAIR数。"
       },
@@ -3139,7 +2165,7 @@
       "id": "windows::CollectionsListGetMarshalledSize",
       "name": "CollectionsListGetMarshalledSize",
       "entity_type": "function",
-      "description": "函数 为了兼容，维护此例程。 它返回容纳序列化和封送集合列表（包括嵌入内存）所需的大小。 它执行与 CollectionsListGetSerializedSize相同的作。",
+      "description": "为了向后兼容而保留的函数。返回序列化和封送处理集合列表(包括嵌入内存)所需的大小。功能与CollectionsListGetSerializedSize相同。",
       "syntax": "ULONG CollectionsListGetMarshalledSize(\n[in] const PSENSOR_COLLECTION_LIST Collection);",
       "parameters": [
         {
@@ -3164,8 +2190,8 @@
       "id": "windows::CollectionsListGetMarshalledSizeWithoutSe",
       "name": "CollectionsListGetMarshalledSizeWithoutSe",
       "entity_type": "function",
-      "description": "rialization 函数 （sensorsutils.h）项目2025/02/07 此例程返回整个集合列表的大小，包括嵌入指针指向的内存块的大小。",
-      "syntax": "ULONG CollectionsListGetMarshalledSizeWithoutSerialization(\n[in] const PSENSOR_COLLECTION_LIST Collection);",
+      "description": "此函数返回整个集合列表的大小，包括嵌入指针指向的内存块的大小。",
+      "syntax": "ULONG CollectionsListGetMarshalledSizeWithoutSerialization([in] const PSENSOR_COLLECTION_LIST Collection);",
       "parameters": [
         {
           "name": "Collection",
@@ -3189,7 +2215,7 @@
       "id": "windows::CollectionsListGetSerializedSize",
       "name": "CollectionsListGetSerializedSize",
       "entity_type": "function",
-      "description": "函数 此例程返回两个大小的较大值，以提供足够的缓冲区大小，以适应跨可以具有不同位值的进程传递集合列表（例如 32 位 <-> 64 位）： 1. 整个集合列表的体系结构无关的大小，包括嵌入指针指向的内存块的大小。 2. 集合列表的 RPC 序列化大小。",
+      "description": "此函数返回两个大小的较大值，以确保缓冲区足够大以适应跨进程传递集合列表（如32位<->64位）：1)整个集合列表的体系结构无关大小（包括指针指向的内存块），2)集合列表的RPC序列化大小。",
       "syntax": "ULONG CollectionsListGetSerializedSize(\n[in] const PSENSOR_COLLECTION_LIST Collection);",
       "parameters": [
         {
@@ -3214,7 +2240,7 @@
       "id": "windows::CollectionsListSortSubscribedActivitiesByC",
       "name": "CollectionsListSortSubscribedActivitiesByC",
       "entity_type": "function",
-      "description": "此例程重新排列以下项的活动数据收集： 1. 删除未订阅的状态 2. 基于从高到低置信度对状态进行排序 3. 如果有多个具有相同置信度的状态，请使用状态优先顺序。 如果满足以下条件之一，则例程返回并出错： 状态无效，或者 置信度为 0 或大于 100，或具有相同状态的多个条目 Ｕ 注意 此例程假定集合列表中没有嵌入的指针。",
+      "description": "此例程重新排列活动数据收集：1. 删除未订阅的状态 2. 基于从高到低置信度对状态进行排序 3. 如果有相同置信度的状态，使用状态优先顺序。如果满足以下条件之一则返回错误：状态无效，置信度为0或大于100，或存在相同状态的多个条目。注意：此例程假定集合列表中没有嵌入指针。",
       "syntax": "NTSTATUS CollectionsListSortSubscribedActivitiesByConfidence(\n[in] PSENSOR_COLLECTION_LIST thresholds,   [in] PSENSOR_COLLECTION_LIST pCollection);",
       "parameters": [
         {
@@ -3233,63 +2259,35 @@
       "_source_line": 3198
     },
     {
-      "id": "windows::Collection",
-      "name": "Collection",
-      "entity_type": "function",
-      "description": "的 AllocatedSizeInBytes 成员小于可接受的最小大小（以字节为单位）。 pCollection 包含传感器集合列表的 3 个元素（1 个时间戳和一对状态和置信度）。 正确排序集合列表时返回STATUS_SUCCESS。",
-      "requirements": {
-        "header": "sensorsutils.h"
-      },
-      "header": "sensorsutils.h",
-      "deprecated": false,
-      "cross_references": [
-        "AllocatedSizeInBytes"
-      ],
-      "confidence": 0.6,
-      "_source_line": 3216
-    },
-    {
       "id": "windows::EvaluateActivityThresholds",
       "name": "EvaluateActivityThresholds",
       "entity_type": "function",
-      "description": "函数 此例程确定新的传入活动数据是否满足阈值。请注意，必须对示例进行排序和筛选。 使用",
+      "description": "Determines if new incoming activity data meets specified thresholds. Note that samples must be sorted and filtered.",
       "header": "sensorsutils.h",
       "deprecated": false,
-      "cross_references": [],
+      "cross_references": [
+        "EvaluateActivityThresholds"
+      ],
       "confidence": 0.5,
-      "_source_line": 3243
-    },
-    {
-      "id": "windows::CollectionsListSortSubscribedActivitiesByConfidence",
-      "name": "CollectionsListSortSubscribedActivitiesByConfidence",
-      "entity_type": "function",
-      "description": "函数对数据进行排序和筛选。",
-      "syntax": "BOOLEAN EvaluateActivityThresholds(\n[in] PSENSOR_COLLECTION_LIST newSample,   [in] PSENSOR_COLLECTION_LIST oldSample,   [in] PSENSOR_COLLECTION_LIST thresholds);",
+      "_source_line": 3243,
+      "syntax": "NTSTATUS CollectionsListUpdateMarshalledPointer(\n[in/out] PSENSOR_COLLECTION_LIST Collection);",
+      "return_value": {
+        "description": "如果以下情况，则此函数返回STATUS_INVALID_PARAMETER： 集合为 null。"
+      },
       "parameters": [
         {
-          "name": "newSample",
-          "direction": "in",
-          "description": "作为传感器集合列表的传入活动数据。[in] oldSample 上次报告的活动数据，作为传感器集合列表。[in] thresholds 活动检测阈值，作为传感器集合列表。"
+          "name": "Collection",
+          "direction": "in/out",
+          "description": "指向传感器集合列表的指针。"
         }
-      ],
-      "return_value": {
-        "description": "如果成功，则此函数返回 TRUE，否则返回 FALSE。"
-      },
-      "requirements": {
-        "header": "sensorsutils.h"
-      },
-      "header": "sensorsutils.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 3246
+      ]
     },
     {
       "id": "windows::GetPerformanceTime",
       "name": "GetPerformanceTime",
       "entity_type": "function",
-      "description": "函数 此例程以毫秒为单位计算系统时间。 时间源是性能计数器。",
-      "syntax": "NTSTATUS GetPerformanceTime(\n[out] PULONG TimeMs);",
+      "description": "此函数以毫秒为单位计算系统时间，时间源来自性能计数器。",
+      "syntax": "NTSTATUS GetPerformanceTime(_Out_ PULONG TimeMs);",
       "parameters": [
         {
           "name": "TimeMs",
@@ -3313,7 +2311,7 @@
       "id": "windows::InitPropVariantFromCLSIDArray",
       "name": "InitPropVariantFromCLSIDArray",
       "entity_type": "function",
-      "description": "函数 此例程从给定的 GUID 数组初始化 PROPVARIANT。 例程负责使用 CoTaskMemAlloc 为 CLSID 数组分配内存。",
+      "description": "此函数从给定的GUID数组初始化PROPVARIANT。函数负责使用CoTaskMemAlloc为CLSID数组分配内存。",
       "syntax": "HRESULT InitPropVariantFromCLSIDArray(\n[in]  GUID        *members,   [in]  ULONG       size,\n[out] PROPVARIANT *ppropvar);",
       "parameters": [
         {
@@ -3340,7 +2338,7 @@
       "id": "windows::InitPropVariantFromFloat",
       "name": "InitPropVariantFromFloat",
       "entity_type": "function",
-      "description": "函数 此例程使用给定的 float 初始化 PROPVARIANT。",
+      "description": "Initializes a PROPVARIANT structure with a specified float value.",
       "syntax": "HRESULT InitPropVariantFromFloat(\n[in]  FLOAT       fltVal,   [out] PROPVARIANT *ppropvar);",
       "parameters": [
         {
@@ -3355,7 +2353,7 @@
       "requirements": {
         "header": "sensorsutils.h"
       },
-      "header": "sensorsutils.h",
+      "header": "Propvarutil.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
@@ -3365,7 +2363,7 @@
       "id": "windows::IsCollectionListSame",
       "name": "IsCollectionListSame",
       "entity_type": "function",
-      "description": "函数 此例程比较两个集合列表，并确定它们是否相同。",
+      "description": "此函数比较两个传感器集合列表，并确定它们是否相同",
       "syntax": "BOOLEAN IsCollectionListSame(\n[in] const PSENSOR_COLLECTION_LIST ListA,   [in] const PSENSOR_COLLECTION_LIST ListB);",
       "parameters": [
         {
@@ -3390,7 +2388,7 @@
       "id": "windows::IsGUIDPresentInList",
       "name": "IsGUIDPresentInList",
       "entity_type": "function",
-      "description": "函数 此例程在 GUID 列表中查找 GUID。",
+      "description": "此函数在GUID列表中查找指定的GUID",
       "syntax": "BOOLEAN IsGUIDPresentInList(   [in] const GUID  *guidArray,   [in] const ULONG arrayLength,   [in] const GUID  *guidElem);",
       "parameters": [
         {
@@ -3415,7 +2413,7 @@
       "id": "windows::IsKeyPresentInCollectionList",
       "name": "IsKeyPresentInCollectionList",
       "entity_type": "function",
-      "description": "函数 此例程确定集合列表中是否存在键。",
+      "description": "Determines whether a key exists in a sensor collection list.",
       "syntax": "BOOLEAN IsKeyPresentInCollectionList(   [in] PSENSOR_COLLECTION_LIST pList,   [in] const PROPERTYKEY       *pKey);",
       "parameters": [
         {
@@ -3425,7 +2423,7 @@
         }
       ],
       "return_value": {
-        "description": "如果键存在，则此函数返回 TRUE。"
+        "description": "Returns TRUE if the key is found in the collection list, FALSE otherwise."
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3440,7 +2438,7 @@
       "id": "windows::IsKeyPresentInPropertyList",
       "name": "IsKeyPresentInPropertyList",
       "entity_type": "function",
-      "description": "函数 此例程确定属性列表中是否存在键。",
+      "description": "Determines whether a specified key exists in a property list.",
       "syntax": "BOOLEAN IsKeyPresentInPropertyList(   [in] PSENSOR_PROPERTY_LIST pList,   [in] const PROPERTYKEY     *pKey);",
       "parameters": [
         {
@@ -3462,31 +2460,15 @@
       "_source_line": 3376
     },
     {
-      "id": "windows::MILLISECONDS_FROM_100NANOSECON",
-      "name": "MILLISECONDS_FROM_100NANOSECON",
-      "entity_type": "function",
-      "description": "此宏将 100 纳秒单位中的时间转换为毫秒。",
-      "syntax": "#define MILLISECONDS_FROM_100NANOSECONDS(durationNanoS) ((durationNanoS) / (1000 * 10))\n参数 durationNanoS\n要转换为毫秒的 100 纳秒单位的持续时间。",
-      "return_value": {
-        "description": "没有"
-      },
-      "remarks": "获取表示时间长度（以毫秒为单位）的 LONGLONG。",
-      "header": "sensorsutils.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.8,
-      "_source_line": 3406
-    },
-    {
       "id": "windows::MILLISECONDS_TO_100NANOSECONDS",
       "name": "MILLISECONDS_TO_100NANOSECONDS",
-      "entity_type": "function",
-      "description": "此宏将时间（以毫秒为单位）转换为 100 纳秒单位。",
-      "syntax": "#define MILLISECONDS_TO_100NANOSECONDS(durationMs) ((durationMs) * 1000 *  10)\n参数 durationMs\n转换为 100 纳秒单位的持续时间（以毫秒为单位）。",
+      "entity_type": "macro",
+      "description": "Converts time in milliseconds to 100-nanosecond units.",
+      "syntax": "#define MILLISECONDS_TO_100NANOSECONDS(durationMs) ((durationMs) * 1000 * 10)",
       "return_value": {
         "description": "没有"
       },
-      "remarks": "获取表示以纳秒为单位的时间长度的 ULONGLONG。",
+      "remarks": "Returns a ULONGLONG representing the time duration in 100-nanosecond units.",
       "header": "sensorsutils.h",
       "deprecated": false,
       "cross_references": [],
@@ -3497,7 +2479,7 @@
       "id": "windows::PropertiesListCopy",
       "name": "PropertiesListCopy",
       "entity_type": "function",
-      "description": "函数 此例程将属性列表从源复制到目标。",
+      "description": "Copies a sensor property list from source to destination.",
       "syntax": "NTSTATUS PropertiesListCopy(\n[in] PSENSOR_PROPERTY_LIST       Target,   [in] const PSENSOR_PROPERTY_LIST Source);",
       "parameters": [
         {
@@ -3519,8 +2501,8 @@
       "id": "windows::PropertiesListGetFillableCount",
       "name": "PropertiesListGetFillableCount",
       "entity_type": "function",
-      "description": "函数 返回属性列表缓冲区可能保留的元素数。",
-      "syntax": "ULONG PropertiesListGetFillableCount(\nULONG BufferSizeBytes);",
+      "description": "返回属性列表缓冲区可容纳的最大元素数量",
+      "syntax": "ULONG PropertiesListGetFillableCount(_In_ ULONG BufferSizeBytes);",
       "header": "sensorsutils.h",
       "deprecated": false,
       "cross_references": [],
@@ -3531,7 +2513,7 @@
       "id": "windows::PropKeyFindKeyGetBool",
       "name": "PropKeyFindKeyGetBool",
       "entity_type": "function",
-      "description": "函数 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取 BOOL 值。",
+      "description": "从传感器集合列表中根据PROPERTYKEY查找并获取BOOL值。",
       "syntax": "NTSTATUS PropKeyFindKeyGetBool(\n[in]  const SENSOR_COLLECTION_LIST *pList,   [in]  const PROPERTYKEY            *pKey,\n[out] BOOL                         *pRetValue);",
       "parameters": [
         {
@@ -3553,7 +2535,7 @@
       "id": "windows::PropKeyFindKeyGetDouble",
       "name": "PropKeyFindKeyGetDouble",
       "entity_type": "function",
-      "description": "函数 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取双精度浮点值。",
+      "description": "此函数基于给定的PROPERTYKEY从SENSOR_COLLECTION_LIST中的PROPVARIANT获取双精度浮点值。",
       "syntax": "NTSTATUS PropKeyFindKeyGetDouble(\n[in]  const SENSOR_COLLECTION_LIST *pList,   [in]  const PROPERTYKEY            *pKey,\n[out] double                       *pRetValue);",
       "parameters": [
         {
@@ -3563,7 +2545,7 @@
         }
       ],
       "return_value": {
-        "description": "此函数返回一个表示： 如果 pList、pKey 或 pRetValue 为 nullptr，则为 STATUS_INVALID_PARAMETER。 如果找不到 pKey 标识的元素，则STATUS_NOT_FOUND。如果函数成功，STATUS_SUCCESS。"
+        "description": "返回NTSTATUS值：STATUS_INVALID_PARAMETER(参数为nullptr)，STATUS_NOT_FOUND(未找到元素)，STATUS_SUCCESS(成功)"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3578,7 +2560,7 @@
       "id": "windows::PropKeyFindKeyGetFileTime",
       "name": "PropKeyFindKeyGetFileTime",
       "entity_type": "function",
-      "description": "函数 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取 FILETIME 值。",
+      "description": "此函数基于PROPERTYKEY从PROPVARIANT集合列表中获取FILETIME值",
       "syntax": "NTSTATUS PropKeyFindKeyGetFileTime(\n[in]  const SENSOR_COLLECTION_LIST *pList,   [in]  const PROPERTYKEY            *pKey,\n[out] FILETIME                     *pRetValue);",
       "parameters": [
         {
@@ -3613,7 +2595,7 @@
         }
       ],
       "return_value": {
-        "description": "此函数返回 NTSTATUS。"
+        "description": "返回 NTSTATUS 状态码，成功时返回 STATUS_SUCCESS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3678,7 +2660,7 @@
       "id": "windows::PropKeyFindKeyGetNthInt64",
       "name": "PropKeyFindKeyGetNthInt64",
       "entity_type": "function",
-      "description": "函数 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取第 n 个 INT64 值。",
+      "description": "此函数基于指定的PROPERTYKEY从PROPVARIANT集合列表中获取第n个INT64值。",
       "syntax": "NTSTATUS PropKeyFindKeyGetNthInt64(\n[in]  const SENSOR_COLLECTION_LIST *pList,   [in]  const PROPERTYKEY            *pKey,\n[in]  const UINT32                 Occurrence,   [out] INT64                        *pRetValue);",
       "parameters": [
         {
@@ -3725,7 +2707,7 @@
       "id": "windows::PropKeyFindKeyGetPropVariant",
       "name": "PropKeyFindKeyGetPropVariant",
       "entity_type": "function",
-      "description": "函数 此例程基于 PROPERTYKEY 从集合列表中查找 PROPVARIANT。",
+      "description": "此函数基于给定的PROPERTYKEY从传感器集合列表中查找对应的PROPVARIANT值。",
       "syntax": "NTSTATUS PropKeyFindKeyGetPropVariant(\n[in]     const SENSOR_COLLECTION_LIST *pList,   [in]     const PROPERTYKEY            *pKey,\n[in]     BOOLEAN                      TypeCheck,\n[in/out] PROPVARIANT                  *pValue);",
       "parameters": [
         {
@@ -3735,7 +2717,7 @@
         }
       ],
       "return_value": {
-        "description": "此函数返回以下 NTSTATUS 代码之一： 如果 pList、pKey 或 pValue 为 nullptr，则 STATUS_INVALID_PARAMETER STATUS_INVALID_PARAMETER。 如果找不到与 propertyKey 关联的元素，则STATUS_NOT_FOUND。 STATUS_SUCCESS成功。"
+        "description": "返回NTSTATUS状态码：STATUS_INVALID_PARAMETER(参数无效)、STATUS_NOT_FOUND(未找到匹配项)或STATUS_SUCCESS(成功)"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3775,7 +2757,7 @@
       "id": "windows::PropKeyFindKeyGetUshort",
       "name": "PropKeyFindKeyGetUshort",
       "entity_type": "function",
-      "description": "函数 此例程基于 PROPERTYKEY 从集合列表中的 PROPVARIANT 获取 USHORT 值。",
+      "description": "此函数基于PROPERTYKEY从SENSOR_COLLECTION_LIST中的PROPVARIANT获取USHORT值",
       "syntax": "NTSTATUS PropKeyFindKeyGetUshort(\n[in]  const SENSOR_COLLECTION_LIST *pList,   [in]  const PROPERTYKEY            *pKey,\n[out] USHORT                       *pRetValue);",
       "parameters": [
         {
@@ -3800,7 +2782,7 @@
       "id": "windows::PropKeyFindKeySetPropVariant",
       "name": "PropKeyFindKeySetPropVariant",
       "entity_type": "function",
-      "description": "函数 此例程基于 PROPERTYKEY 查找并设置集合列表中的 PROPVARIANT。",
+      "description": "基于PROPERTYKEY查找并设置SENSOR_COLLECTION_LIST中的PROPVARIANT值。",
       "syntax": "NTSTATUS PropKeyFindKeySetPropVariant(   [in] SENSOR_COLLECTION_LIST *pList,   [in] const PROPERTYKEY      *pKey,\n[in] BOOLEAN                TypeCheck,\n[in] PROPVARIANT            *pValue);",
       "parameters": [
         {
@@ -3810,7 +2792,7 @@
         }
       ],
       "return_value": {
-        "description": "此函数返回以下 NTSTATUS 代码之一： 如果 pList、pKey 或 pValue 为 nullptr，则 STATUS_INVALID_PARAMETER STATUS_INVALID_PARAMETER。 如果找不到与 propertyKey 关联的元素，则STATUS_NOT_FOUND。"
+        "description": "返回NTSTATUS代码：STATUS_INVALID_PARAMETER(参数无效)、STATUS_NOT_FOUND(未找到匹配项)或STATUS_SUCCESS(成功)"
       },
       "header": "sensorsutils.h",
       "deprecated": false,
@@ -3819,21 +2801,10 @@
       "_source_line": 3786
     },
     {
-      "id": "windows::STATUS_SUCCESS",
-      "name": "STATUS_SUCCESS",
-      "entity_type": "function",
-      "description": "成功。 要求要求标头 价值 sensorsutils.h",
-      "header": "sensorsutils.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 3801
-    },
-    {
       "id": "windows::PropVariantGetInformation",
       "name": "PropVariantGetInformation",
       "entity_type": "function",
-      "description": "函数 此例程获取 PROPVARIANT 的偏移量、大小、位置指针和 DEVPROPTYPE。",
+      "description": "此函数获取 PROPVARIANT 结构的偏移量、大小、位置指针和 DEVPROPTYPE 信息。",
       "syntax": "NTSTATUS PropVariantGetInformation(\n[in]  const PROPVARIANT *PropVariantValue,   [out] ULONG             *PropVariantOffset,   [out] ULONG             *PropVariantSize,\n[out] PVOID             *PropVariantPointer,\n[out] DEVPROPTYPE       *RemappedType);",
       "parameters": [
         {
@@ -3858,7 +2829,7 @@
         }
       ],
       "return_value": {
-        "description": "如果 PROPVARIANT 不是受支持的类型，则此函数返回STATUS_NOT_SUPPORTED，否则 STATUS_SUCCESS。"
+        "description": "如果操作成功返回 STATUS_SUCCESS，如果 PROPVARIANT 不是受支持的类型则返回 STATUS_NOT_SUPPORTED"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3873,7 +2844,7 @@
       "id": "windows::SensorCollectionGetAt",
       "name": "SensorCollectionGetAt",
       "entity_type": "function",
-      "description": "函数 此例程返回与提供的传感器集合列表中的第 n 个元素关联的 PROPERTYKEY 和 PROPVARIANT。",
+      "description": "此函数返回传感器集合列表中指定索引处的PROPERTYKEY和PROPVARIANT值。",
       "syntax": "NTSTATUS SensorCollectionGetAt(\n[in]  UINT32                  Index,\n[in]  PSENSOR_COLLECTION_LIST pSensorsList,\n[out] PROPERTYKEY             *pKey,   [out] PROPVARIANT             *pValue);",
       "parameters": [
         {
@@ -3888,7 +2859,7 @@
         }
       ],
       "return_value": {
-        "description": "如果未找到，此函数将返回STATUS_NOT_FOUND，否则STATUS_SUCCESS。"
+        "description": "成功返回STATUS_SUCCESS，未找到指定索引则返回STATUS_NOT_FOUND。"
       },
       "header": "sensorsutils.h",
       "deprecated": false,
@@ -3900,7 +2871,7 @@
       "id": "windows::SerializationBufferAllocate",
       "name": "SerializationBufferAllocate",
       "entity_type": "function",
-      "description": "函数 导出了用于分配序列化缓冲区的内存分配函数。",
+      "description": "导出了用于分配序列化缓冲区的内存分配函数。",
       "syntax": "NTSTATUS SerializationBufferAllocate(   [in]     ULONG SizeInBytes,\n[in/out] BYTE  **pBuffer);",
       "parameters": [
         {
@@ -3925,7 +2896,7 @@
       "id": "windows::SerializationBufferFree",
       "name": "SerializationBufferFree",
       "entity_type": "function",
-      "description": "函数 导出的内存分配函数用于释放序列化缓冲区。",
+      "description": "导出的内存分配函数用于释放序列化缓冲区。",
       "syntax": "void SerializationBufferFree(\n[in] BYTE *Buffer);",
       "parameters": [
         {

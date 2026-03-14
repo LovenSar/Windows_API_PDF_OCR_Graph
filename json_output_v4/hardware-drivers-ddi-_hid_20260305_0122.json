@@ -1,33 +1,12 @@
 {
-  "_schema": "windows_api_kg_v4.0",
-  "_generated_at": "2026-03-05T08:06:50Z",
-  "_content_hash": "0ed4c04ae853",
-  "document": {
-    "document_id": "hardware-drivers-ddi::hid",
-    "title": "人机接口设备 (HID)",
-    "domain": "hardware-drivers-ddi",
-    "topic": "hid",
-    "source_file": "[OCR]_windows-hardware-drivers-ddi-_hid_20260305_0122.p.txt",
-    "ocr_timestamp": "2026-03-05T01:22:00",
-    "headers_referenced": [
-      "hidclass.h",
-      "hidpddi.h",
-      "hidpi.h",
-      "hidport.h",
-      "hidsdi.h",
-      "hidspicx.h",
-      "kbdmou.h",
-      "ntdd8042.h",
-      "vhf.h"
-    ],
-    "total_entities": 171
-  },
+  "_schema": "windows_api_kg_v4.0_refined",
+  "_generated_at": "2026-03-06T08:42:00.633874+00:00",
   "entities": [
     {
       "id": "windows::IOCTL_HID_ACTIVATE_DEVICE",
       "name": "IOCTL_HID_ACTIVATE_DEVICE",
       "entity_type": "ioctl",
-      "description": "请求会激活 HIDClass 设备，以便为 I/O作做好准备。 有关 HIDClass 设备的常规信息，请参阅 HID 集合。",
+      "description": "请求会激活HIDClass设备，以便为I/O操作做好准备。有关HIDClass设备的常规信息，请参阅HID集合。",
       "header": "hidport.h",
       "deprecated": false,
       "cross_references": [],
@@ -51,7 +30,7 @@
       "id": "windows::IOCTL_HID_GET_STRING",
       "name": "IOCTL_HID_GET_STRING",
       "entity_type": "ioctl",
-      "description": "使用两个输入缓冲区。 IRP 的 I/O 堆栈位置中的 Parameters.DeviceIoControl.OutputBufferLength 指示 irp- >UserBuffer 锁定输出缓冲区的大小（以字节为单位）。 如果输出缓冲区不够大，无法容纳整个以 NULL 结尾的嵌入字符串，则请求在输出缓冲区中不返回任何内容。 嵌入字符串中可能的最大字符数特定于设备。 对于 USB 设备，最大字符串长度为 126 宽字符（不包括终止 NULL 字符）。 IRP 的 I/O 堆栈位置中的 Parameters.DeviceIoControl.Type3InputBuffer 包含复合值。两个最重要的字节包含要检索的字符串的语言 ID。 两个最小有效字节包含以下三个常量值之一：",
+      "description": "Retrieves a string from a HID device. Uses two input buffers. The OutputBufferLength in IRP's I/O stack location indicates the size (in bytes) of the locked output buffer (irp->UserBuffer). If the output buffer is not large enough to hold the entire NULL-terminated embedded string, nothing is returned. Maximum string length is device-specific (126 wide characters for USB devices, excluding NULL terminator). The Type3InputBuffer contains a composite value: high-order 2 bytes specify language ID, low-order 2 bytes specify one of three constant values.",
       "requirements": {
         "header": "hidclass.h"
       },
@@ -65,23 +44,10 @@
       "_source_line": 20
     },
     {
-      "id": "windows::IOCTL_UMDF_GET_PHYSICAL_DESCRIPTOR",
-      "name": "IOCTL_UMDF_GET_PHYSICAL_DESCRIPTOR",
-      "entity_type": "ioctl",
-      "description": "IOCTL_UMDF_HID_GET_FEATURE",
-      "header": "hidport.h",
-      "deprecated": false,
-      "cross_references": [
-        "IOCTL_UMDF_HID_GET_FEATURE"
-      ],
-      "confidence": 0.65,
-      "_source_line": 21
-    },
-    {
       "id": "windows::IOCTL_UMDF_HID_GET_INPUT_REPORT",
       "name": "IOCTL_UMDF_HID_GET_INPUT_REPORT",
       "entity_type": "ioctl",
-      "description": "IOCTL IOCTL_UMDF_HID_SET_FEATURE IOCTL",
+      "description": "IO control code for getting input report from HID device in UMDF",
       "header": "hidport.h",
       "deprecated": false,
       "cross_references": [
@@ -94,7 +60,7 @@
       "id": "windows::IOCTL_UMDF_HID_SET_OUTPUT_REPORT",
       "name": "IOCTL_UMDF_HID_SET_OUTPUT_REPORT",
       "entity_type": "ioctl",
-      "description": "控制代码将输出报告发送到顶级集合。 HID 类驱动程序 IOCTL HID 类驱动程序处理 IOCTL 以支持顶级集合。 尽管用户应用程序可以使用 HIDClass 支持例程HidD_Xxx与 HID 类驱动程序通信，但内核模式驱动程序必 须发送本节中所述的相应设备控制请求。输入和输出参数特定于请求。 完成请求后，I/O 状态块成员的设置如下： Status 成员由 HID 类驱动程序为其处理的所有请求设置。 如每个 IOCTL 所述，信息成员由类驱动程序或较低级别的驱动程序设置。 通常，当较低级别的驱动程序向设备传输数据时，较低级别的驱动程序会将“信息”设置为传输的字节数。 但是，HID 类驱动程序可能会返回不同的值。 主题",
+      "description": "控制代码将输出报告发送到顶级集合。HID类驱动程序处理此IOCTL以支持顶级集合。内核模式驱动程序必须发送此设备控制请求。输入和输出参数特定于请求。完成请求后，I/O状态块成员的设置如下：Status成员由HID类驱动程序设置；Information成员由类驱动程序或较低级别的驱动程序设置（通常设置为传输的字节数）。",
       "header": "hidport.h",
       "deprecated": false,
       "cross_references": [],
@@ -138,7 +104,7 @@
       "id": "windows::IOCTL_HID_READ_REPORT",
       "name": "IOCTL_HID_READ_REPORT",
       "entity_type": "ioctl",
-      "description": "通常用于持续完成设备发送的输入报告。 此 IOCTL 由 HID 类驱动程序 （HIDCLASS） 以乒乓球方式发送。 换句话说，一旦满足请求（已完成），就可以将另一个请求发送到设备，从而持续报告数据。 这是一种“异步”机制，例如，设备可以使用它将数据发 送到主机，这些更改发生时的状态更改。",
+      "description": "用于持续接收设备发送的输入报告。此IOCTL由HID类驱动程序(HIDCLASS)以乒乓缓冲方式发送，当一个请求完成后立即发送下一个请求，实现持续数据报告。这是一种异步机制，允许设备在状态变化时将数据发送到主机。",
       "header": "hidport.h",
       "deprecated": false,
       "cross_references": [],
@@ -160,37 +126,12 @@
       "id": "windows::IOCTL_UMDF_HID_GET_FEATURE",
       "name": "IOCTL_UMDF_HID_GET_FEATURE",
       "entity_type": "ioctl",
-      "description": "控制代码将 功能报告 发送到 HIDClass 设备。",
+      "description": "控制代码用于从HIDClass设备获取功能报告。",
       "header": "hidport.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
       "_source_line": 36
-    },
-    {
-      "id": "windows::IOCTL_GET_NUM_DEVICE_INPUT_BUFFERS",
-      "name": "IOCTL_GET_NUM_DEVICE_INPUT_BUFFERS",
-      "entity_type": "ioctl",
-      "description": "IOCTL_SET_NUM_DEVICE_INPUT_BUFFERS 是 否 HidD_GetPhysicalDescriptor函数 HidD_GetPhysicalDescriptor 例程返回 顶级集合 标识集合物理设备的 物理描述符。 物理描述符 用于指示人体的物理部分用于激活设备上的控件。 例如，物理描述符 可能指示使用右手拇指激活按钮 5。 请注意，物理描述符 是完全可选的。 它们增加了复杂性，为大多数设备提供了很少的回报。 但是，某些设备（尤其是具有大量相同控件（例如按钮）的设备会发现，物理描述符 帮助不同的应用程序以更一致的方式将这些控件分配功能。 有关详细信息，请参阅 HID 规范",
-      "parameters": [
-        {
-          "name": "HidDeviceObject",
-          "direction": "in",
-          "description": "指定顶级集合的打开句柄。[out] Buffer 指向调用方分配的缓冲区的指针，该缓冲区的例程用于返回请求的物理描述符。[in] BufferLength 指定缓冲区 缓冲区的长度（以字节为单位）。"
-        }
-      ],
-      "return_value": {
-        "description": "HidD_GetPhysicalDescriptor 如果成功，则返回 true true;否则，它将返回 FALSE。 使用 GetLastError 获取扩展的错误信息。"
-      },
-      "remarks": "只有用户模式应用程序才能调用 HidD_GetPhysicalDescriptor。 内核模式驱动程序可以使用 IOCTL_GET_PHYSICAL_DESCRIPTOR 请求。 有关详细信息，请参阅 HID 集合。",
-      "header": "hidclass.h",
-      "deprecated": false,
-      "cross_references": [
-        "IOCTL_GET_PHYSICAL_DESCRIPTOR",
-        "IOCTL_SET_NUM_DEVICE_INPUT_BUFFERS"
-      ],
-      "confidence": 0.9,
-      "_source_line": 48
     },
     {
       "id": "windows::IOCTL_HID_DEVICERESET_NOTIFICATION",
@@ -199,7 +140,9 @@
       "description": "HID 客户端驱动程序将IOCTL_HID_DEVICERESET_NOTIFICATION请求发送到 HID 类驱动程序，以等待设备启动的重置事件。",
       "header": "hidclass.h",
       "deprecated": false,
-      "cross_references": [],
+      "cross_references": [
+        "IOCTL_HID_DEVICERESET_NOTIFICATION"
+      ],
       "confidence": 0.75,
       "_source_line": 49
     },
@@ -220,8 +163,8 @@
       "id": "windows::IOCTL_HID_GET_COLLECTION_DESCRIPTOR",
       "name": "IOCTL_HID_GET_COLLECTION_DESCRIPTOR",
       "entity_type": "ioctl",
-      "description": "IOCTL_HID_GET_COLLECTION_INFORMATION_HIDP_PREPARSED_DATA 对于指定的报表，HidP_GetData 例程返回一组 HIDP_DATA 结构，用于标识当前设置为 ON（1）的所有 HID 控件按钮 数据索引以及与所有 HID 控件值关联的数据索引和数据。",
-      "syntax": "NTSTATUS HidP_GetData(\n[in]      HIDP_REPORT_TYPE     ReportType,   [out]     PHIDP_DATA           DataList,   [in, out] PULONG               DataLength,\n[in]      PHIDP_PREPARSED_DATA PreparsedData,   [in]      PCHAR                Report,\n[in]      ULONG                ReportLength);",
+      "description": "IOCTL_HID_GET_COLLECTION_DESCRIPTOR is used to retrieve the collection descriptor for a HID device.",
+      "syntax": "DeviceIoControl(hDevice, IOCTL_HID_GET_COLLECTION_DESCRIPTOR, NULL, 0, pCollectionDescriptor, cbCollectionDescriptor, pcbReturned, NULL)",
       "parameters": [
         {
           "name": "ReportType",
@@ -230,9 +173,9 @@
         }
       ],
       "return_value": {
-        "description": "HidP_GetData 返回以下状态值之一： 返回代码"
+        "description": "Returns TRUE if successful, or FALSE otherwise."
       },
-      "remarks": "只有用户模式应用程序才能调用 HidD_GetProductString。 内核模式驱动程序可以使用 IOCTL_HID_GET_PRODUCT_STRING 请求。 嵌入字符串中可能的最大字符数特定于设备。 对于 USB 设备，最大字符串长度为 126 宽字符（不包括终止 NULL 字符）。 iProduct 特定接口 USB_DEVICE_DESCRIPTOR 结构的成员由 USB 通用类通用父驱动程序 根据以下规则设置： 如果接口 USB_INTERFACE_DESCRIPTOR 结构的 iInterface 成员为非零，则接口",
+      "remarks": "This IOCTL is typically used by kernel-mode drivers to retrieve HID collection descriptor information.",
       "header": "hidclass.h",
       "deprecated": false,
       "cross_references": [
@@ -248,7 +191,7 @@
       "id": "windows::IOCTL_HID_GET_DRIVER_CONFIG",
       "name": "IOCTL_HID_GET_DRIVER_CONFIG",
       "entity_type": "ioctl",
-      "description": "请求检索驱动程序配置。 IOCTL_HID_GET_FEATURE请求返回与顶级集合关联的功能报告。",
+      "description": "请求检索HID驱动程序的配置信息。",
       "header": "hidclass.h",
       "deprecated": false,
       "cross_references": [],
@@ -259,7 +202,7 @@
       "id": "windows::IOCTL_HID_GET_HARDWARE_ID",
       "name": "IOCTL_HID_GET_HARDWARE_ID",
       "entity_type": "ioctl",
-      "description": "IOCTL IOCTL_HID_GET_INDEXED_STRING IOCTL IOCTL_HID_GET_INPUT_REPORT IOCTL",
+      "description": "IOCTL code for retrieving hardware ID from HID device",
       "header": "hidclass.h",
       "deprecated": false,
       "cross_references": [
@@ -273,7 +216,7 @@
       "id": "windows::IOCTL_HID_GET_MANUFACTURER_STRING",
       "name": "IOCTL_HID_GET_MANUFACTURER_STRING",
       "entity_type": "ioctl",
-      "description": "请求获取 顶级集合的 嵌入式字符串，用于标识设备的制造商。 检索到的字符串是以人可读格式结尾的 NULL 终止宽字符字符串。 有关 HIDClass 设备的常规信息，请参阅 HID 集合。",
+      "description": "请求获取顶级集合的嵌入式字符串，用于标识设备的制造商。检索到的字符串是以NULL结尾的宽字符字符串（Unicode格式）。有关HIDClass设备的更多信息，请参阅HID集合。",
       "header": "hidclass.h",
       "deprecated": false,
       "cross_references": [],
@@ -284,8 +227,8 @@
       "id": "windows::IOCTL_GET_PHYSICAL_DESCRIPTOR",
       "name": "IOCTL_GET_PHYSICAL_DESCRIPTOR",
       "entity_type": "ioctl",
-      "description": "请求获取顶级集合的物理描述符。 HID 客户端驱动程序将IOCTL_HID_DEVICERESET_NOTIFICATION请求 发送到 HID 类驱动程序，以等待设备启动的重置事件。 IOCTL_HID_DISABLE_SECURE_READ请求取消 HID 集合的 IOCTL_HID_ENABLE_SECURE_READ请求。",
-      "syntax": "BOOLEAN HidD_GetPreparsedData(\n[in]  HANDLE               HidDeviceObject,   [out] PHIDP_PREPARSED_DATA *PreparsedData);",
+      "description": "请求获取顶级集合的物理描述符。HID客户端驱动程序使用此IOCTL来获取设备的物理描述符。",
+      "syntax": "DeviceIoControl(\\n  [in] HANDLE HidDeviceObject,\\n  [in] DWORD IoControlCode,\\n  [in] LPVOID InBuffer,\\n  [in] DWORD InBufferSize,\\n  [out] LPVOID OutBuffer,\\n  [in] DWORD OutBufferSize,\\n  [out] LPDWORD BytesReturned,\\n  [in] LPOVERLAPPED Overlapped\\n);",
       "parameters": [
         {
           "name": "HidDeviceObject",
@@ -293,10 +236,8 @@
           "description": "指定顶级集合的打开句柄。[out] PreparsedData 指向例程分配缓冲区的地址的指针，该缓冲区包含集合在 _HIDP_PREPARSED_DATA 结构 中的预分析数据。"
         }
       ],
-      "return_value": {
-        "description": "HidD_GetPreparsedData 如果成功，则返回 true ;否则，它将返回 FALSE。 使用 GetLastError 获取扩展的错误信息。"
-      },
-      "remarks": "只有用户模式应用程序才能调用 HidD_GetPreparsedData。 内核模式驱动程序可以使用 IOCTL_HID_GET_COLLECTION_DESCRIPTOR 请求。 当应用程序不再需要预先分析的数据时，它应调用 HidD_FreePreparsedData 来释放预分析的数据缓冲区。 有关详细信息，请参阅 HID 集合。 要求",
+      "return_value": "此IOCTL用于获取HID设备的物理描述符。只有用户模式应用程序可以使用此IOCTL。内核模式驱动程序应使用其他方法。",
+      "remarks": "此IOCTL用于获取HID设备的物理描述符。只有用户模式应用程序可以使用此IOCTL。内核模式驱动程序应使用其他方法。",
       "header": "hidclass.h",
       "deprecated": false,
       "cross_references": [
@@ -334,7 +275,7 @@
       "name": "IOCTL_HID_FLUSH_QUEUE",
       "entity_type": "ioctl",
       "description": "反馈 是 否 HidD_FreePreparsedData函数 HidD_FreePreparsedData 例程释放 HID 类驱动程序分配的资源，这些资源用于保存 顶级集合的预先分析的数据。",
-      "syntax": "BOOLEAN HidD_FreePreparsedData(\n[in] PHIDP_PREPARSED_DATA PreparsedData);\nBOOLEAN HidD_GetAttributes(\n[in]  HANDLE           HidDeviceObject,\n[out] PHIDD_ATTRIBUTES Attributes);",
+      "syntax": "DeviceIoControl(hDevice, IOCTL_HID_FLUSH_QUEUE, NULL, 0, NULL, 0, &bytesReturned, NULL);",
       "parameters": [
         {
           "name": "PreparsedData",
@@ -347,10 +288,8 @@
           "description": "指定顶级集合的打开句柄。[out] Attributes 指向调用方分配 HIDD_ATTRIBUTES 结构的指针，该结构返回由 HidDeviceObject指定的 集合的属性。"
         }
       ],
-      "return_value": {
-        "description": "如果成功，则 HidD_FreePreparsedData 返回 true true。 否则，如果缓冲区不是预先分 析的数据缓冲区，则返回 FALSE。 使用 GetLastError 获取扩展的错误信息。 如果成功，则 HidD_GetAttributes 返回 true true;否则，它将返回 FALSE。"
-      },
-      "remarks": "只有用户模式应用程序才能调用 HidD_FreePreparsedData。若要获取集合的预分析数据，请使用 HidD_GetPreparsedData。 有关详细信息，请参阅 HID 集合。 只有用户模式应用程序才能调用 HidD_GetAttributes。 内核模式驱动程序可以使用 IOCTL_HID_GET_COLLECTION_INFORMATION。 有关详细信息，请参阅 HID 集合。",
+      "return_value": "此IOCTL用于清除HID设备的输入队列。通常在需要丢弃所有待处理输入时使用。",
+      "remarks": "此IOCTL用于清除HID设备的输入队列。通常在需要丢弃所有待处理输入时使用。",
       "requirements": {
         "target_platform": "Windows",
         "min_client": "在 Windows 2000 及更高版本的 Windows 中可用"
@@ -367,8 +306,8 @@
       "id": "windows::IOCTL_HID_GET_COLLECTION_INFORMATION",
       "name": "IOCTL_HID_GET_COLLECTION_INFORMATION",
       "entity_type": "ioctl",
-      "description": "请求获取顶 级集合的HID_COLLECTION_INFORMATION结构。 IOCTL_HID_GET_DEVICE_ATTRIBUTES请求在",
-      "syntax": "BOOLEAN HidD_GetFeature(\n[in]  HANDLE HidDeviceObject,   [out] PVOID  ReportBuffer,\n[in]  ULONG  ReportBufferLength);",
+      "description": "请求获取顶级集合的HID_COLLECTION_INFORMATION结构。",
+      "syntax": "NTSTATUS IoControlCode(\\n  [in] HANDLE HidDeviceObject,\\n  [out] PHID_COLLECTION_INFORMATION CollectionInformation\\n);",
       "parameters": [
         {
           "name": "HidDeviceObject",
@@ -400,7 +339,7 @@
       "id": "windows::IOCTL_HID_GET_FEATURE",
       "name": "IOCTL_HID_GET_FEATURE",
       "entity_type": "ioctl",
-      "description": "请求返回与顶级集合关联的功能报告。 IOCTL_HID_GET_HARDWARE_ID请求获取顶级集合的即插即用硬件 ID。",
+      "description": "请求返回与顶级集合关联的功能报告。",
       "header": "hidclass.h",
       "deprecated": false,
       "cross_references": [],
@@ -411,7 +350,7 @@
       "id": "windows::IOCTL_HID_GET_INDEXED_STRING",
       "name": "IOCTL_HID_GET_INDEXED_STRING",
       "entity_type": "ioctl",
-      "description": "请求从 顶级集合获取指定的嵌入字符串。 检索到的字 符串是以人可读格式结尾的 NULL 终止宽字符字符串。有关 HIDClass 设备的常规信息，请参阅 HID 集合。",
+      "description": "请求从顶级集合获取指定的嵌入字符串。检索到的字符串是以NULL结尾的宽字符字符串，采用人类可读格式。有关HIDClass设备的更多信息，请参阅HID集合。",
       "header": "hidclass.h",
       "deprecated": false,
       "cross_references": [],
@@ -422,14 +361,14 @@
       "id": "windows::IOCTL_HID_GET_INPUT_REPORT",
       "name": "IOCTL_HID_GET_INPUT_REPORT",
       "entity_type": "ioctl",
-      "description": "请求从 顶级集合获取输入报告。 有关 HIDClass 设备的常规信息，请参阅 HID 集合。",
+      "description": "请求从顶级集合获取输入报告。有关HIDClass设备的常规信息，请参阅HID集合。",
       "requirements": {
         "target_platform": "Windows",
         "header": "hidsdi.h",
         "library": "Hid.lib",
         "min_client": "Windows XP"
       },
-      "header": "hidclass.h",
+      "header": "hidsdi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
@@ -439,7 +378,7 @@
       "id": "windows::IOCTL_HID_GET_MS_GENRE_DESCRIPTOR",
       "name": "IOCTL_HID_GET_MS_GENRE_DESCRIPTOR",
       "entity_type": "ioctl",
-      "description": "请求用于检索设备的 流派Microsoft OS 1.0 功 能描述符。 此描述符正在考虑将来版本的 Windows，目前没有可用的规范。",
+      "description": "请求用于检索设备的Microsoft OS 1.0功能描述符。此描述符正在考虑用于未来版本的Windows，目前没有可用的规范。",
       "header": "hidclass.h",
       "deprecated": false,
       "cross_references": [],
@@ -450,7 +389,7 @@
       "id": "windows::IOCTL_HID_GET_POLL_FREQUENCY_MSEC",
       "name": "IOCTL_HID_GET_POLL_FREQUENCY_MSEC",
       "entity_type": "ioctl",
-      "description": "请求获取 顶级集合的当前轮询频率（以毫秒为单位）。 有关 HIDClass 设备的常规信息，请参阅 HID 集合。",
+      "description": "请求获取HID设备顶级集合的当前轮询频率（以毫秒为单位）。关于HIDClass设备的更多信息，请参考HID集合文档。",
       "header": "hidclass.h",
       "deprecated": false,
       "cross_references": [],
@@ -458,42 +397,10 @@
       "_source_line": 73
     },
     {
-      "id": "windows::IOCTL_HID_GET_SERIALNUMBER_STRING",
-      "name": "IOCTL_HID_GET_SERIALNUMBER_STRING",
-      "entity_type": "ioctl",
-      "description": "反馈 是 否 HidD_GetInputReport函数 （hidsdi.h）项目2025/02/07 HidD_GetInputReport 例程从 顶级集合返回输入报告。 仅使用此例程获取集合的当前状态。 如果应用程序尝试使用此例程持续获取输入报告，则报表可能会丢失。 有关详细信息，请参阅 的用户模式应用程序获取 HID 报告。",
-      "syntax": "BOOLEAN HidD_GetInputReport(\n[in]  HANDLE HidDeviceObject,   [out] PVOID  ReportBuffer,\n[in]  ULONG  ReportBufferLength);",
-      "parameters": [
-        {
-          "name": "HidDeviceObject",
-          "direction": "in",
-          "description": "顶级集合的打开句柄。[out] ReportBuffer 指向调用方分配的输入报表缓冲区的指针，调用方使用该缓冲区指定 HID 报表 ID， HidD_GetInputReport 用于返回指定的输入报表。 有关此参数的详细信息，请参阅“备注”部分。[in] ReportBufferLength 报表缓冲区的大小（以字节为单位）。 报表缓冲区必须足够大，才能保存输入报表以及一个指 定报表 ID 的其他字节。 如果未使用报表 ID，则 ID 值为零。"
-        }
-      ],
-      "return_value": {
-        "description": "如果成功，HidD_GetInputReport 返回 true true;否则，它将返回 FALSE。 使用 GetLastError 获 取扩展的错误信息。"
-      },
-      "remarks": "由从 HidP_GetCaps 调用返回的顶级集合 HIDP_CAPS 结构的 InputReportByteLength 成员指定 正确的 reportBufferLength。 在调用 HidD_GetInputReport 例程之前，调用方必须执行以下作： 如果 顶级集合 包含报表 ID，则调用方必须将 ReportBuffer 参数的第一个字节设置为非零报表 ID。 如果 顶级集合 不包含报表 ID，则调用方必须将 ReportBuffer 参数的第一个字节设置为零。 输入报表在 ReportBuffer 参数中返回。 根据报表 ID，调用方通过调用以下函数之一来分析报表： HidP_GetButtonCaps HidP_GetData HidP_GetExtendedAttributes HidP_GetScaledUsageValue HidP_GetSpecificButtonCaps HidP_GetSpecificValueCaps HidP_GetUsages HidP_GetUsagesEx HidP_GetUsageValue HidP_GetUsageValueArray HidP_GetValueCaps 有关如何分析 HID 报表的示例，请参阅 HClient 示例应用程序。 只有用户模式应用程序才能调用 HidD_GetInputReport。 内核模式驱动程序可以使用",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "hidsdi.h",
-        "library": "Hid.lib",
-        "dll": "Hid.dll",
-        "min_client": "在 Windows 2000 及更高版本的 Windows 中可用"
-      },
-      "header": "hidclass.h",
-      "deprecated": false,
-      "cross_references": [
-        "HIDP_CAPS"
-      ],
-      "confidence": 1.0,
-      "_source_line": 74
-    },
-    {
       "id": "windows::IOCTL_HID_SET_DRIVER_CONFIG",
       "name": "IOCTL_HID_SET_DRIVER_CONFIG",
       "entity_type": "ioctl",
-      "description": "请求设置驱动程序配置。 IOCTL_HID_SET_FEATURE请求将功能报告发送到顶级集合。",
+      "description": "Sets the driver configuration for HID devices. This IOCTL is used to configure HID driver settings.",
       "header": "hidclass.h",
       "deprecated": false,
       "cross_references": [],
@@ -504,8 +411,8 @@
       "id": "windows::IOCTL_HID_SET_OUTPUT_REPORT",
       "name": "IOCTL_HID_SET_OUTPUT_REPORT",
       "entity_type": "ioctl",
-      "description": "请求将输出报告发送到顶级集合。 IOCTL_HID_SET_POLL_FREQUENCY_MSEC请求为顶级集合设置轮询频率（以毫秒为单位）。 在轮询设备上执行不规则的机会性读取的用户模式应用程序或内核模式驱动程序必须提供 0 的轮询间隔。 在这种情况下，IOCTL_HID_SET_POLL_FREQUENCY_MSEC实际上不会更改设备的轮询频率;但如果报表数据在读取时未过时，则使用指示集合的最新报表数据立即完成读取。 如果报表数据已过时，则会立即刷新，无需等待轮询间隔过期，并且使用新数据完成读取。 如果 IRP 中提供的轮询间隔值不为零，则必须 >为 =",
-      "syntax": "BOOLEAN HidD_GetManufacturerString(\n[in]  HANDLE HidDeviceObject,   [out] PVOID  Buffer,\n[in]  ULONG  BufferLength);",
+      "description": "请求将输出报告发送到HID设备的顶级集合。",
+      "syntax": "NTSTATUS DeviceIoControl(\n  [in] HANDLE       hDevice,\n  [in] DWORD        dwIoControlCode,\n  [in] LPVOID       lpInBuffer,\n  [in] DWORD        nInBufferSize,\n  [out] LPVOID      lpOutBuffer,\n  [in] DWORD        nOutBufferSize,\n  [out] LPDWORD     lpBytesReturned,\n  [in] LPOVERLAPPED lpOverlapped\n);",
       "parameters": [
         {
           "name": "HidGuid",
@@ -514,9 +421,9 @@
         }
       ],
       "return_value": {
-        "description": "如果返回整个以 NULL 结尾的嵌入式字符串，HidD_HidD_GetManufacturerString返回 TRUE TRUE。 否则，例程返回 FALSE。 使用 GetLastError 获取扩展的错误信息。"
+        "description": "如果操作成功返回非零值，否则返回零。调用GetLastError可获取扩展错误信息。"
       },
-      "remarks": "只有用户模式应用程序才能调用 HidD_SetNumInputBuffers。 内核模式驱动程序必须使用 IOCTL_SET_NUM_DEVICE_INPUT_BUFFERS 请求。 如果 HidD_SetNumInputBuffers 返回 FALSE，并且 Microsoft Win32 GetLastError 函数指示提供了无效参数，则 NumberBuffers 的值无效。 HID 类驱动程序至少需要两个输入缓冲区。 在 Windows 2000 上，HID 类驱动程序支持的最大输入缓冲区数为 200，在 Windows XP 及更高版本上，HID 类驱动程序支持的最大输入缓冲区数为 512。 输入缓冲区的默认数目为 32。 有关详细信息，请参阅 HID 集合。",
+      "remarks": "此IOCTL用于将输出报告发送到HID设备。用户模式应用程序和内核模式驱动程序都可以使用此控制代码。",
       "requirements": {
         "target_platform": "Windows",
         "min_client": "在 Windows 2000 及更高版本的 Windows 中可用"
@@ -535,7 +442,7 @@
       "id": "windows::IOCTL_HID_SET_POLL_FREQUENCY_MSEC",
       "name": "IOCTL_HID_SET_POLL_FREQUENCY_MSEC",
       "entity_type": "ioctl",
-      "description": "请求为 顶级集合设置轮询频率（以毫秒为单位）。 在轮询设备上执行不规则机会读取的用户模式应用程序或内核模式驱动程序必须提供 0 的轮询间隔。 在这种情况下，IOCTL_HID_SET_POLL_FREQUENCY_MSEC实际上不会更改设备的轮询频率;但是，如果读取报表数据时报表数据不过时，则读取会立即完成，其中包含所指示集合的最新报表数据。 如果报表数据已过时，则会立即刷新该数据，而无需等待轮询间隔的过期，并且已使用新数据完成读取。 如果 IRP 中提供的轮询间隔的值不是零，则必须 >=",
+      "description": "请求为顶级集合设置轮询频率（以毫秒为单位）。在轮询设备上执行不规则机会读取的用户模式应用程序或内核模式驱动程序必须提供0的轮询间隔。这种情况下，IOCTL_HID_SET_POLL_FREQUENCY_MSEC不会更改设备的轮询频率；但如果读取报表数据时数据不过时，读取会立即完成并包含最新报表数据。如果报表数据已过时，会立即刷新数据而无需等待轮询间隔过期。如果IRP中提供的轮询间隔值不为零，则必须大于等于最小值。",
       "header": "hidclass.h",
       "deprecated": true,
       "cross_references": [],
@@ -546,8 +453,8 @@
       "id": "windows::IOCTL_SET_NUM_DEVICE_INPUT_BUFFERS",
       "name": "IOCTL_SET_NUM_DEVICE_INPUT_BUFFERS",
       "entity_type": "ioctl",
-      "description": "请求设置 顶级集合的输入报告队列的缓冲区数。 每个输入报告队列都作为环形缓冲区实现。 如果集合将数据传输到 HID 类驱动程序的速度比驱动程序更快地读取它，则某些数据可能会丢失。 若要防止此类丢失，可以使用 IOCTL_SET_NUM_DEVICE_INPUT_BUFFERS请求来调整输入报告队列包含的缓冲区数。 HID 类驱动程序至少需要两个输入缓冲区。 在 Windows 2000 上，HID 类驱动程序支持的最大输入缓冲区数为 200，在 Windows XP 及更高版本上，HID 类驱动程序支持的最大 输入缓冲区数为 512。 输入缓冲区的默认数目为 32。有关 HIDClass 设备的常规信息，请参阅 HID 集合。",
-      "syntax": "BOOLEAN HidD_SetOutputReport(   [in] HANDLE HidDeviceObject,   [in] PVOID  ReportBuffer,\n[in] ULONG  ReportBufferLength);",
+      "description": "请求设置顶级集合的输入报告队列的缓冲区数。每个输入报告队列都作为环形缓冲区实现。如果集合将数据传输到HID类驱动程序的速度比驱动程序读取速度快，则可能丢失数据。使用此IOCTL可调整输入报告队列的缓冲区数。HID类驱动程序至少需要两个输入缓冲区。Windows 2000最大支持200个缓冲区，Windows XP及更高版本支持512个缓冲区。默认缓冲区数为32。",
+      "syntax": "BOOL DeviceIoControl(\\n  [in] HANDLE hDevice,\\n  [in] DWORD dwIoControlCode,\\n  [in, optional] LPVOID lpInBuffer,\\n  [in] DWORD nInBufferSize,\\n  [out, optional] LPVOID lpOutBuffer,\\n  [in] DWORD nOutBufferSize,\\n  [out] LPDWORD lpBytesReturned,\\n  [in, out, optional] LPOVERLAPPED lpOverlapped\\n);",
       "parameters": [
         {
           "name": "HidDeviceObject",
@@ -555,10 +462,8 @@
           "description": "顶级集合的打开句柄。[in] ReportBuffer 指向调用方分配的输出报表缓冲区的指针，调用方使用该缓冲区指定报表 ID。 有关此参数的详细信息，请参阅 备注 部分。[in] ReportBufferLength 报表缓冲区的大小（以字节为单位）。 报表缓冲区必须足够大，才能保存输出报表以及 一个指定非零报表 ID 的其他字节。 如果未使用报表 ID，则 ID 值为零。"
         }
       ],
-      "return_value": {
-        "description": "如果 HidD_SetOutputReport 成功，则返回 true ;否则，它将返回 FALSE。 使用 GetLastError 获取扩展的错误信息。"
-      },
-      "remarks": "正确 ReportBufferLength 是由从 HidP_GetCaps 调用返回的顶级集合 HIDP_CAPS 结构的 OutputReportByteLength 成员指定的。 在调用 HidD_SetOutputReport 例程之前，调用方必须执行以下作： 如果 顶级集合 包含报表 ID，则调用方必须将 ReportBuffer 参数的第一个字节设置为非零报表 ID。 如果 顶级集合 不包含报表 ID，则调用方必须将 ReportBuffer 参数的第一个字节设置为零。 输出报表由 ReportBuffer 参数引用。 根据报表 ID，调用方通过调用以下函数之一来准备报表： HidP_SetData HidP_SetScaledUsageValue HidP_SetUsages HidP_SetUsageValue HidP_SetUsageValueArray 有关如何准备和 HID 报表并将其发送到 顶级集合的示例，请参阅 HClient 示例应用程序。 只有用户模式应用程序才能调用 HidD_SetOutputReport。 内核模式驱动程序可以使用 IOCTL_HID_SET_OUTPUT_REPORT 请求。",
+      "return_value": "此IOCTL用于调整HID设备的输入报告缓冲区数量。最小支持2个缓冲区，Windows 2000最大200个，Windows XP及更高版本最大512个。默认值为32个缓冲区。",
+      "remarks": "此IOCTL用于调整HID设备的输入报告缓冲区数量。最小支持2个缓冲区，Windows 2000最大200个，Windows XP及更高版本最大512个。默认值为32个缓冲区。",
       "requirements": {
         "target_platform": "Windows",
         "header": "hidsdi.h",
@@ -579,7 +484,7 @@
       "id": "windows::IOCTL_HID_GET_PRODUCT_STRING",
       "name": "IOCTL_HID_GET_PRODUCT_STRING",
       "entity_type": "ioctl",
-      "description": "请求获取 顶级集合的 嵌入式字符串，用于标识制造 商的产品。 检索到的字符串是以人可读格式结尾的 NULL 终止宽字符字符串。有关 HIDClass 设备的常规信息 [HID Collections（/windows- hardware/drivers/hid/hid/hid-collections）。",
+      "description": "请求获取顶级集合的嵌入式字符串，用于标识制造商的产品。检索到的字符串是以NULL结尾的宽字符字符串，采用人类可读格式。有关HIDClass设备的更多信息，请参考HID Collections文档。",
       "header": "hidclass.h",
       "deprecated": false,
       "cross_references": [],
@@ -590,7 +495,7 @@
       "id": "windows::IOCTL_HID_SET_FEATURE",
       "name": "IOCTL_HID_SET_FEATURE",
       "entity_type": "ioctl",
-      "description": "、IOCTL_HID_WRITE_REPORT IOCTL_HID_GET_INPUT_REPORT 请求。 若要支持此类操作，HID 源驱动程序必须实现 EvtVhfAsyncOperation 回调函数，并在调用 WdfDeviceCreate 后，在驱动程序调用 VhfCreate 函数时将其注册到 Virtual HID Framework(VHF) 。 例如，对于 GetFeature，驱动程序必须实现 EvtVhfAsyncOperation，并将",
+      "description": "IOCTL_HID_SET_FEATURE control code is used to set a feature report on a HID device. To support this operation, HID source drivers must implement the EvtVhfAsyncOperation callback function and register it with the Virtual HID Framework (VHF) when calling VhfCreate after WdfDeviceCreate.",
       "header": "hidclass.h",
       "deprecated": false,
       "cross_references": [
@@ -605,7 +510,7 @@
     {
       "id": "windows::MIN_POLL_INTERVAL_MSEC",
       "name": "MIN_POLL_INTERVAL_MSEC",
-      "entity_type": "unknown",
+      "entity_type": "constant",
       "description": "且 <= MAX_POLL_INTERVAL_MSEC。如果有多个顶级集合，轮询可能会受到限制。 有关 HIDClass 设备的常规信息，请参阅 HID 集合。 客户端使用IOCTL_HID_SET_S0_IDLE_TIMEOUT请求来通知 HID 类驱动程序客户端的首选空闲超时值。",
       "header": null,
       "deprecated": false,
@@ -627,8 +532,8 @@
     {
       "id": "windows::HIDD_CONFIGURATION",
       "name": "HIDD_CONFIGURATION",
-      "entity_type": "unknown",
-      "description": "结构保留供内部系统使用。 C++ typedef struct _HIDD_CONFIGURATION { PVOID cookie; ULONG size; ULONG RingBufferSize; } HIDD_CONFIGURATION, *PHIDD_CONFIGURATION; 在 Hidsdi.h 中声明的标头。 HidD_GetConfiguration HidD_GetConfiguration例程保留供内部系统使用。 C++ BOOLEAN __stdcall",
+      "entity_type": "structure",
+      "description": "Represents HID device configuration structure reserved for internal system use. Contains cookie pointer, size and ring buffer size fields.",
       "header": null,
       "deprecated": false,
       "cross_references": [],
@@ -638,8 +543,8 @@
     {
       "id": "windows::HIDP_KEYBOARD_DIRECTION",
       "name": "HIDP_KEYBOARD_DIRECTION",
-      "entity_type": "unknown",
-      "description": "枚举类型保留供内部系统使用。 C++ typedef enum _HIDP_KEYBOARD_DIRECTION { HidP_Keyboard_Break, HidP_Keyboard_Make }",
+      "entity_type": "enum",
+      "description": "枚举类型，表示键盘按键方向。C++ typedef enum _HIDP_KEYBOARD_DIRECTION { HidP_Keyboard_Break, HidP_Keyboard_Make }",
       "header": null,
       "deprecated": false,
       "cross_references": [],
@@ -649,8 +554,8 @@
     {
       "id": "windows::HIDP_KEYBOARD_MODIFIER_STATE",
       "name": "HIDP_KEYBOARD_MODIFIER_STATE",
-      "entity_type": "unknown",
-      "description": "结构保留供内部系统使用。 C++ typedef struct _HIDP_KEYBOARD_MODIFIER_STATE { union { struct { ULONG LeftControl: 1; ULONG LeftShift: 1; ULONG LeftAlt: 1; ULONG LeftGUI: 1; ULONG RightControl: 1; ULONG RightShift: 1; ULONG RightAlt: 1; ULONG RigthGUI: 1; ULONG CapsLock: 1; ULONG ScollLock: 1; ULONG NumLock: 1; ULONG Reserved: 21; }; ULONG ul; }; }",
+      "entity_type": "structure",
+      "description": "Represents the keyboard modifier state for HID devices. Contains bitfields for various keyboard modifier keys.",
       "header": null,
       "deprecated": false,
       "cross_references": [],
@@ -660,8 +565,8 @@
     {
       "id": "windows::HIDP_REPORT_IDS",
       "name": "HIDP_REPORT_IDS",
-      "entity_type": "struct",
-      "description": "结构保留供内部系统使用。 C++ typedef struct _HIDP_REPORT_IDS { UCHAR ReportID; UCHAR CollectionNumber; USHORT InputLength; USHORT OutputLength; USHORT FeatureLength; } HIDP_REPORT_IDS, *PHIDP_REPORT_IDS; 在 Hidpddi.h 中声明的标头。 HidP_SysPowerCaps HidP_SysPowerCaps例程保留供内部系统使用。 C++ NTSTATUS",
+      "entity_type": "structure",
+      "description": "结构保留供内部系统使用。typedef struct _HIDP_REPORT_IDS { UCHAR ReportID; UCHAR CollectionNumber; USHORT InputLength; USHORT OutputLength; USHORT FeatureLength; } HIDP_REPORT_IDS, *PHIDP_REPORT_IDS; 在Hidpddi.h中声明。",
       "syntax": "typedef struct _HIDP_REPORT_IDS {   UCHAR  ReportID;\nUCHAR  CollectionNumber;\nUSHORT InputLength;   USHORT OutputLength;   USHORT FeatureLength;\n} HIDP_REPORT_IDS, *PHIDP_REPORT_IDS;",
       "members": [
         {
@@ -676,23 +581,10 @@
       "_source_line": 99
     },
     {
-      "id": "windows::PHIDP_INSERT_SCANCODES",
-      "name": "PHIDP_INSERT_SCANCODES",
-      "entity_type": "unknown",
-      "description": "PHIDP_REPORT_DESCRIPTOR DeviceObjectState DeviceObjectState 枚举类型保留供系统内部使用。 C++ enum DeviceObjectState { DeviceObjectStarted, DeviceObjectStopped, DeviceObjectRemoved}; 在 Hidclass.h 中声明的标头。",
-      "header": null,
-      "deprecated": false,
-      "cross_references": [
-        "PHIDP_REPORT_DESCRIPTOR"
-      ],
-      "confidence": 0.5,
-      "_source_line": 101
-    },
-    {
       "id": "windows::HID_DRIVER_CONFIG",
       "name": "HID_DRIVER_CONFIG",
-      "entity_type": "unknown",
-      "description": "结构保留供内部系统使用。 C++ typedef struct _HID_DRIVER_CONFIG { ULONG Size; ULONG RingBufferSize; } HID_DRIVER_CONFIG, *PHID_DRIVER_CONFIG; 在 Hidclass.h 中声明的标头。",
+      "entity_type": "structure",
+      "description": "HID驱动配置结构体，包含Size和RingBufferSize字段。在Hidclass.h头文件中声明。",
       "header": null,
       "deprecated": false,
       "cross_references": [],
@@ -703,10 +595,8 @@
       "id": "windows::PHIDP_GETCAPS",
       "name": "PHIDP_GETCAPS",
       "entity_type": "function",
-      "description": "PhidpGetcaps; NTSTATUS PhidpGetcaps( [in] PHIDP_PREPARSED_DATA PreparsedData, [out] PHIDP_CAPS Capabilities) {...} 参数 [in] PreparsedData 指向顶级集合 预先分析的数据的指针。[out] Capabilities 指向调用方分配的缓冲区的指针，该缓冲区由例程用来返回集合的HIDP_CAPS结构。",
-      "return_value": {
-        "description": "HidP_GetCaps 返回以下状态值之一： 返回代码"
-      },
+      "description": "Retrieves the capabilities of a HID device. NTSTATUS PhidpGetcaps([in] PHIDP_PREPARSED_DATA PreparsedData, [out] PHIDP_CAPS Capabilities); Parameters: [in] PreparsedData - Pointer to a top-level collection's preparsed data. [out] Capabilities - Pointer to a caller-allocated buffer that receives the HIDP_CAPS structure.",
+      "return_value": "Returns NTSTATUS code indicating success or failure of the operation.",
       "header": "hidclass.h",
       "deprecated": false,
       "cross_references": [
@@ -718,8 +608,8 @@
     {
       "id": "windows::HID_INTERFACE_NOTIFY_PNP",
       "name": "HID_INTERFACE_NOTIFY_PNP",
-      "entity_type": "unknown",
-      "description": "结构保留供内部系统使用。 C++ typedef struct _HID_INTERFACE_NOTIFY_PNP {#ifndef __cplusplus INTERFACE;#else INTERFACE i;#endif",
+      "entity_type": "structure",
+      "description": "结构保留供内部系统使用。typedef struct _HID_INTERFACE_NOTIFY_PNP",
       "header": null,
       "deprecated": false,
       "cross_references": [],
@@ -729,8 +619,8 @@
     {
       "id": "windows::PHID_STATUS_CHANGE",
       "name": "PHID_STATUS_CHANGE",
-      "entity_type": "unknown",
-      "description": "例程保留供内部系统使用。 C++ typedef VOID (*PHID_STATUS_CHANGE)( PVOID Context, enum DeviceObjectState State ); 在 Hidclass.h 中声明的标头。",
+      "entity_type": "callback",
+      "description": "HID设备状态改变回调函数。typedef VOID (*PHID_STATUS_CHANGE)(PVOID Context, enum DeviceObjectState State); 在Hidclass.h中声明。",
       "header": null,
       "deprecated": false,
       "cross_references": [
@@ -742,8 +632,8 @@
     {
       "id": "windows::HidD_GetConfiguration",
       "name": "HidD_GetConfiguration",
-      "entity_type": "unknown",
-      "description": "IN HANDLE HidDeviceObject, OUT PHIDD_CONFIGURATION Configuration, IN ULONG ConfigurationLength ); 在 Hidsdi.h 中声明的标头。 HidD_GetMsGenreDescriptor HidD_GetMsGenreDescriptor例程保留供内部系统使用。 C++ BOOLEAN __stdcall",
+      "entity_type": "function",
+      "description": "Retrieves the configuration of a HID device. Declared in hidsdi.h.",
       "header": null,
       "deprecated": false,
       "cross_references": [],
@@ -753,8 +643,8 @@
     {
       "id": "windows::HidD_GetMsGenreDescriptor",
       "name": "HidD_GetMsGenreDescriptor",
-      "entity_type": "unknown",
-      "description": "IN HANDLE HidDeviceObject, OUT PVOID Buffer, IN ULONG BufferLength ); 在 Hidsdi.h 中声明的标头。 HidD_SetConfiguration HidD_SetConfiguration例程保留供内部系统使用。 C++ BOOLEAN __stdcall",
+      "entity_type": "function",
+      "description": "Retrieves the Microsoft genre descriptor for a HID device. Declared in Hidsdi.h.",
       "header": null,
       "deprecated": false,
       "cross_references": [
@@ -767,8 +657,8 @@
     {
       "id": "windows::HidD_SetConfiguration",
       "name": "HidD_SetConfiguration",
-      "entity_type": "unknown",
-      "description": "IN HANDLE HidDeviceObject, IN PHIDD_CONFIGURATION Configuration, IN ULONG ConfigurationLength ); 在 Hidsdi.h 中声明的标头。",
+      "entity_type": "function",
+      "description": "Sets the configuration of a HID device. Declared in Hidsdi.h header.",
       "header": null,
       "deprecated": false,
       "cross_references": [],
@@ -778,8 +668,8 @@
     {
       "id": "windows::HIDP_COLLECTION_DESC",
       "name": "HIDP_COLLECTION_DESC",
-      "entity_type": "struct",
-      "description": "结构数组中集合的索引。 这是一个基于 1 的值。 Reserved[15] 保留供内部系统使用。 必须为 0。 InputLength 此集合的输入报表的最大长度。 OutputLength 此集合的输出报表的最大长度。 FeatureLength 此集合的功能报告的最大长度。 PreparsedDataLength PreparsedData指向的预分析数据的长度。 PreparsedData 指向包含顶级集合预分析数据的 _HIDP_PREPARSED_DATA 结构的指针。",
+      "entity_type": "structure",
+      "description": "描述HID设备集合的结构体。包含使用情况页、使用情况ID、集合索引、保留字段、输入/输出/功能报告的最大长度，以及预分析数据相关信息。",
       "syntax": "typedef struct _HIDP_COLLECTION_DESC {\nUSAGE                UsagePage;   USAGE                Usage;\nUCHAR                CollectionNumber;\nUCHAR                Reserved[15];   USHORT               InputLength;   USHORT               OutputLength;   USHORT               FeatureLength;\nUSHORT               PreparsedDataLength;   PHIDP_PREPARSED_DATA PreparsedData;\n} HIDP_COLLECTION_DESC, *PHIDP_COLLECTION_DESC;",
       "members": [
         {
@@ -794,30 +684,10 @@
       "_source_line": 154
     },
     {
-      "id": "windows::PHIDP_PREPARSED_DATA",
-      "name": "PHIDP_PREPARSED_DATA",
-      "entity_type": "struct",
-      "description": "PreparsedData; } HIDP_COLLECTION_DESC, *PHIDP_COLLECTION_DESC; 在 Hidpddi.h 中声明的标头。",
-      "parameters": [
-        {
-          "name": "ReportType",
-          "description": ""
-        }
-      ],
-      "header": "hidpi.h",
-      "deprecated": false,
-      "cross_references": [
-        "HIDP_COLLECTION_DESC",
-        "PHIDP_COLLECTION_DESC"
-      ],
-      "confidence": 0.85,
-      "_source_line": 161
-    },
-    {
       "id": "windows::HIDP_DEVICE_DESC",
       "name": "HIDP_DEVICE_DESC",
-      "entity_type": "struct",
-      "description": "包含以链接列表的形式填充在集合说明中的设备说明块。 HidP_GetCollectionDescription使用此结构。",
+      "entity_type": "structure",
+      "description": "包含以链接列表的形式填充在集合说明中的设备说明块。HidP_GetCollectionDescription使用此结构。",
       "syntax": "typedef struct _HIDP_DEVICE_DESC {",
       "header": "hidpddi.h",
       "deprecated": false,
@@ -826,38 +696,11 @@
       "_source_line": 164
     },
     {
-      "id": "windows::PHIDP_COLLECTION_DESC",
-      "name": "PHIDP_COLLECTION_DESC",
-      "entity_type": "struct",
-      "description": "CollectionDesc; ULONG CollectionDescLength; PHIDP_REPORT_IDS ReportIDs; ULONG ReportIDsLength; HIDP_GETCOLDESC_DBG Dbg; } HIDP_DEVICE_DESC, *PHIDP_DEVICE_DESC; 在 Hidpddi.h 中声明的标头。 HidP_FreeCollectionDescription HidP_FreeCollectionDescription例程保留供内部系统使用。 C++ VOID",
-      "header": "hidpddi.h",
-      "deprecated": false,
-      "cross_references": [
-        "HIDP_DEVICE_DESC",
-        "HIDP_GETCOLDESC_DBG"
-      ],
-      "confidence": 0.75,
-      "_source_line": 166
-    },
-    {
-      "id": "windows::HidP_FreeCollectionDescription",
-      "name": "HidP_FreeCollectionDescription",
-      "entity_type": "unknown",
-      "description": "IN PHIDP_DEVICE_DESC DeviceDescription ); 在 Hidpddi.h 中声明的标头。",
-      "header": null,
-      "deprecated": false,
-      "cross_references": [
-        "DeviceDescription"
-      ],
-      "confidence": 0.35,
-      "_source_line": 173
-    },
-    {
       "id": "windows::HIDP_GETCOLDESC_DBG",
       "name": "HIDP_GETCOLDESC_DBG",
       "entity_type": "struct",
-      "description": "结构保留供内部系统使用。 C++ typedef struct _HIDP_GETCOLDESC_DBG { ULONG BreakOffset; ULONG ErrorCode; ULONG Args[6]; }",
-      "syntax": "typedef struct _HIDP_GETCOLDESC_DBG {\nULONG BreakOffset;   ULONG ErrorCode;   ULONG Args[6];\n} HIDP_GETCOLDESC_DBG, *PHIDP_GETCOLDESC_DBG;\nNTSTATUS HidP_GetCollectionDescription(\n[in]  PHIDP_REPORT_DESCRIPTOR ReportDesc,   [in]  ULONG                   DescLength,   [in]  POOL_TYPE               PoolType,\n[out] PHIDP_DEVICE_DESC       DeviceDescription);",
+      "description": "结构保留供内部系统使用。包含HID解析错误的调试信息。",
+      "syntax": "typedef struct _HIDP_GETCOLDESC_DBG {\n  ULONG BreakOffset;\n  ULONG ErrorCode;\n  ULONG Args[6];\n} HIDP_GETCOLDESC_DBG, *PHidoP_GETCOLDESC_DBG;",
       "parameters": [
         {
           "name": "ReportDesc",
@@ -886,24 +729,10 @@
       "_source_line": 176
     },
     {
-      "id": "windows::HidP_SysPowerCaps",
-      "name": "HidP_SysPowerCaps",
-      "entity_type": "unknown",
-      "description": "IN PHIDP_PREPARSED_DATA Ppd, OUT PULONG OutputBuffer ); 在 Hidpddi.h 中声明的标头。 HidP_SysPowerEvent HidP_SysPowerEvent例程保留供内部系统使用。 C++ NTSTATUS",
-      "header": null,
-      "deprecated": false,
-      "cross_references": [
-        "OutputBuffer",
-        "PHIDP_PREPARSED_DATA"
-      ],
-      "confidence": 0.35,
-      "_source_line": 207
-    },
-    {
       "id": "windows::HidP_SysPowerEvent",
       "name": "HidP_SysPowerEvent",
-      "entity_type": "unknown",
-      "description": "IN PCHAR HidPacket, IN USHORT HidPacketLength, IN PHIDP_PREPARSED_DATA Ppd, OUT PULONG OutputBuffer ); 在 Hidpddi.h 中声明的标头。 HidP_TranslateUsageAndPagesToI8042ScanCodes HidP_TranslateUsageAndPagesToI8042ScanCodes例程保留供内部系统使用。 C++ NTSTATUS __stdcall",
+      "entity_type": "function",
+      "description": "Translates HID usages and usage pages to I8042 scan codes. This routine is reserved for internal system use. Declared in Hidpddi.h.",
       "header": null,
       "deprecated": false,
       "cross_references": [
@@ -916,8 +745,8 @@
     {
       "id": "windows::HidP_TranslateUsageAndPagesToI8042ScanCodes",
       "name": "HidP_TranslateUsageAndPagesToI8042ScanCodes",
-      "entity_type": "unknown",
-      "description": "IN PUSAGE_AND_PAGE ChangedUsageList, IN ULONG UsageListLength, IN HIDP_KEYBOARD_DIRECTION KeyAction, IN OUT PHIDP_KEYBOARD_MODIFIER_STATE ModifierState, IN",
+      "entity_type": "function",
+      "description": "Translates HID usages and pages to I8042 scan codes",
       "header": null,
       "deprecated": false,
       "cross_references": [
@@ -929,8 +758,8 @@
     {
       "id": "windows::PHIDP_REPORT_DESCRIPTOR",
       "name": "PHIDP_REPORT_DESCRIPTOR",
-      "entity_type": "unknown",
-      "description": "数据类型保留供内部系统使用。 C++ typedef PUCHAR PHIDP_REPORT_DESCRIPTOR; 在 Hidpi.h 中声明的标头。 回调函数标题",
+      "entity_type": "typedef",
+      "description": "Pointer to HID report descriptor data type. Defined as PUCHAR typedef in Hidpi.h.",
       "header": null,
       "deprecated": false,
       "cross_references": [],
@@ -941,7 +770,7 @@
       "id": "windows::EVT_VHF_ASYNC_OPERATION",
       "name": "EVT_VHF_ASYNC_OPERATION",
       "entity_type": "callback",
-      "description": "EvtVhfAsyncOperation; void EvtVhfAsyncOperation( [in] PVOID VhfClientContext, [in] VHFOPERATIONHANDLE VhfOperationHandle, [in, optional] PVOID VhfOperationContext, [in] PHID_XFER_PACKET HidTransferPacket) {...} 参数 [in] VhfClientContext 指向 HID 源驱动程序定义的缓冲区的不透明指针，驱动程序传递到提供给 VhfCreate 以创建虚 拟 HID 设备的VHF_CONFIG结构中。[in] VhfOperationHandle 唯一标识此异步操作的不透明句柄。[in, optional] VhfOperationContext 指向可由 HID 源驱动程序用于维护操作的缓冲区的指针。 缓冲区的大小由提供给 VhfCreate 的",
+      "description": "The EvtVhfAsyncOperation callback function is used for asynchronous operations in Virtual HID Framework (VHF).\n\nParameters:\n- [in] VhfClientContext: An opaque pointer to a HID source driver-defined buffer passed in the VHF_CONFIG structure provided to VhfCreate.\n- [in] VhfOperationHandle: An opaque handle that uniquely identifies this asynchronous operation.\n- [in, optional] VhfOperationContext: A pointer to a buffer that the HID source driver can use to maintain operation state.\n- [in] HidTransferPacket: Pointer to a HID transfer packet structure.",
       "header": "vhf.h",
       "deprecated": false,
       "cross_references": [],
@@ -954,7 +783,7 @@
       "entity_type": "callback",
       "description": "EvtVhfReadyForNextReadReport; void EvtVhfReadyForNextReadReport( [in] PVOID VhfClientContext) {...} 参数 [in] VhfClientContext 指向驱动程序在上一次调用中传递给 VhfCreate 以创建虚拟 HID 设备的 HID 源驱动程序定义的上下文结构的指针。",
       "return_value": {
-        "description": "没有"
+        "description": "无返回值"
       },
       "remarks": "虚拟 HID 框架 （VHF） 调用此回调函数，以通知 HID 源驱动程序可以提交缓冲区以获取 HID 输入报告。 调用回调后，HID 源驱动程序必须仅调用 VhfReadReportSubmit 一次。 如果 HID 输入报表的一部分仍在挂起，驱动程序必须等待 VHF 调用 EvtVhfReadyForNextReadReport，然后驱动程序才能再次调用 VhfReadReportSubmit。 如果 HID 源驱动程序未实现此回调函数，VHF 将使用 HID 读取（输入）报告的默认缓冲策略。",
       "header": "vhf.h",
@@ -967,7 +796,7 @@
       "id": "windows::PI8042_ISR_WRITE_PORT",
       "name": "PI8042_ISR_WRITE_PORT",
       "entity_type": "function",
-      "description": "回调只能由 PI8042_KEYBOARD_ISR 回调或 PI8042_MOUSE_ISR 回调调用。 I8042prt 为相应 I8042prt 设备 ISR 中的设备调用供应商提供的 ISR 回调。 I8042prt 指定 IsrWritePortINTERNAL_I8042_HOOK_KEYBOARD 结构的成员（I8042prt 与 IOCTL_INTERNAL_I8042_HOOK_KEYBOARD 请求一起使用）中的键盘写入端口回调。 I8042prt 指定 IsrWritePort I8042prt 与 IOCTL_INTERNAL_I8042_HOOK_KEYBOARD 请求一起使用的",
+      "description": "Callback function that can only be called by PI8042_KEYBOARD_ISR or PI8042_MOUSE_ISR callbacks. I8042prt calls this vendor-provided ISR callback for the device in the corresponding device ISR. I8042prt specifies this as the keyboard write port callback in the INTERNAL_I8042_HOOK_KEYBOARD structure (used with IOCTL_INTERNAL_I8042_HOOK_KEYBOARD request).",
       "parameters": [
         {
           "name": "Context",
@@ -976,7 +805,7 @@
         }
       ],
       "return_value": {
-        "description": "没有"
+        "description": "None"
       },
       "header": "ntdd8042.h",
       "deprecated": false,
@@ -992,11 +821,11 @@
       "id": "windows::PI8042_KEYBOARD_INITIALIZATION_ROUTINE",
       "name": "PI8042_KEYBOARD_INITIALIZATION_ROUTINE",
       "entity_type": "callback",
-      "description": "Pi8042KeyboardInitializationRoutine; NTSTATUS Pi8042KeyboardInitializationRoutine( [in] PVOID InitializationContext, [in] PVOID SynchFuncContext, [in] PI8042_SYNCH_READ_PORT ReadPort, [in] PI8042_SYNCH_WRITE_PORT WritePort, [out] PBOOLEAN TurnTranslationOn) {...} 参数 [in] InitializationContext 指向提供回调的驱动程序的筛选器设备对象的指针。[in] SynchFuncContext 指向 ReadPort 和 Writeport 所指向的回调的上下文的指针。[in] ReadPort 指向从端口读取的 PI8042_SYNCH_READ_PORT 回调的指针。[in] WritePort 指向写入端口的 PI8042_SYNCH_WRITE_PORT 回调的指针。[out] TurnTranslationOn 指定是打开还是关闭翻译。 如果 TranslationOn为 TRUE，则打开翻译;否则，将关闭翻译。",
+      "description": "PI8042_KEYBOARD_INITIALIZATION_ROUTINE is a callback function used for keyboard initialization. NTSTATUS Pi8042KeyboardInitializationRoutine([in] PVOID InitializationContext, [in] PVOID SynchFuncContext, [in] PI8042_SYNCH_READ_PORT ReadPort, [in] PI8042_SYNCH_WRITE_PORT WritePort, [out] PBOOLEAN TurnTranslationOn). Parameters: [in] InitializationContext - Pointer to the filter device object of the driver providing the callback. [in] SynchFuncContext - Pointer to the context for the ReadPort and WritePort callbacks. [in] ReadPort - Pointer to PI8042_SYNCH_READ_PORT callback for reading from port. [in] WritePort - Pointer to PI8042_SYNCH_WRITE_PORT callback for writing to port. [out] TurnTranslationOn - Specifies whether to turn translation on (TRUE) or off (FALSE).",
       "return_value": {
-        "description": "PI8042_KEYBOARD_INITIALIZATION_ROUTINE回调返回适当的 NTSTATUS 代码。"
+        "description": "Returns an appropriate NTSTATUS code."
       },
-      "remarks": "高级键盘筛选器驱动程序可以提供PI8042_KEYBOARD_INITIALIZATION_ROUTINE回调。 如果高级键盘筛选器驱动程序提供初始化回调，则 I8042prt 在 I8042prt 初始化键盘时调用筛选器初始化回调。 默认键盘初始化包括以下作：重置键盘、设置类型化速率和延迟，并设置发光 二重体（LED）。",
+      "remarks": "Advanced keyboard filter drivers can provide PI8042_KEYBOARD_INITIALIZATION_ROUTINE callback. If provided, I8042prt calls this callback during keyboard initialization. Default keyboard initialization includes: resetting keyboard, setting typematic rate and delay, and setting LED states.",
       "header": "ntdd8042.h",
       "deprecated": false,
       "cross_references": [
@@ -1012,11 +841,11 @@
       "id": "windows::PI8042_KEYBOARD_ISR",
       "name": "PI8042_KEYBOARD_ISR",
       "entity_type": "function",
-      "description": "Pi8042KeyboardIsr; BOOLEAN Pi8042KeyboardIsr( [in] PVOID IsrContext, [in] PKEYBOARD_INPUT_DATA CurrentInput, [in] POUTPUT_PACKET CurrentOutput, [in] UCHAR StatusByte, [in] PUCHAR Byte, [out] PBOOLEAN ContinueProcessing, [in] PKEYBOARD_SCAN_STATE ScanState) {...} 参数 [in] IsrContext 指向提供回调的驱动程序的筛选器设备对象的指针。[in] CurrentInput 指向 ISR 正在构造的输入 KEYBOARD_INPUT_DATA 结构的指针。[in] CurrentOutput 指向 OUTPUT_PACKET 结构的指针，该结构指定要写入硬件设备的字节数组。[in] StatusByte 指定发生中断时从 I/O 端口 60 读取的状态字节。[in] Byte 指定发生中断时从 I/O 端口 64 读取的数据字节。 [out] ContinueProcessing 指定，如果 TRUE，则在此回调完成后，I8042prt 键盘 ISR 中的处理将继续。 否则，处理不会继续。 [in] ScanState 指向",
+      "description": "BOOLEAN Pi8042KeyboardIsr([in] PVOID IsrContext, [in] PKEYBOARD_INPUT_DATA CurrentInput, [in] POUTPUT_PACKET CurrentOutput, [in] UCHAR StatusByte, [in] PUCHAR Byte, [out] PBOOLEAN ContinueProcessing, [in] PKEYBOARD_SCAN_STATE ScanState);\n\n[in] IsrContext - 指向提供回调的驱动程序的筛选器设备对象的指针\n[in] CurrentInput - 指向ISR正在构造的输入KEYBOARD_INPUT_DATA结构的指针\n[in] CurrentOutput - 指向OUTPUT_PACKET结构的指针，指定要写入硬件设备的字节数组\n[in] StatusByte - 发生中断时从I/O端口60读取的状态字节\n[in] Byte - 发生中断时从I/O端口64读取的数据字节\n[out] ContinueProcessing - 如果TRUE，则在此回调完成后继续处理；否则停止处理\n[in] ScanState - 指向键盘扫描状态结构的指针",
       "return_value": {
-        "description": "如果 I8042prt 键盘 ISR 应继续，则PI8042_KEYBOARD_ISR回调返回 true;否则，它返回 FALSE。"
+        "description": "如果I8042prt键盘ISR应继续处理则返回TRUE，否则返回FALSE"
       },
-      "remarks": "如果 I8042prt 键盘 ISR 的默认作足够，则不需要PI8042_KEYBOARD_ISR回调。 可选的供应商提供的上层键盘筛选器驱动程序可以提供PI8042_KEYBOARD_ISR回调。 I8042prt ISR 在验证中断并读取扫描代码后调用回调。 PI8042_KEYBOARD_ISR回调在 I8042prt 键盘 ISR 的 IRQL 的内核模式下运行。",
+      "remarks": "如果I8042prt键盘ISR的默认操作足够则不需要此回调。可选的上层键盘筛选器驱动程序可提供此回调。回调在验证中断并读取扫描代码后被调用，在内核模式下运行。",
       "header": "ntdd8042.h",
       "deprecated": false,
       "cross_references": [
@@ -1031,7 +860,7 @@
       "id": "windows::PI8042_SYNCH_READ_PORT",
       "name": "PI8042_SYNCH_READ_PORT",
       "entity_type": "function",
-      "description": "PI8042_SYNCH_WRITE_PORT PSERVICE_CALLBACK_ROUTINE I/O 控制代码标题 说明 如果 HID 源驱动程序想要支持四个异步操作之一来获取和设置 HID 报表，则它实现此事件回调。 HID 源驱动程序实现此事件回调，以释放可能将驱动程序分配给虚拟 HID 设备的资源。 HID 源驱动程序实现此事件回调函数以将其缓冲方案用于 HID 输入 报告，并希望在下一个报告可以提交到 VHF 时收到通知。 HidP_GetCaps例程返回顶级集合的HIDP_CAPS结构。",
+      "description": "Synchronously reads a port from an i8042 controller.",
       "parameters": [
         {
           "name": "Context",
@@ -1052,11 +881,11 @@
       "id": "windows::PI8042_MOUSE_ISR",
       "name": "PI8042_MOUSE_ISR",
       "entity_type": "function",
-      "description": "Pi8042MouseIsr; BOOLEAN Pi8042MouseIsr( [in] PVOID IsrContext, [in] PMOUSE_INPUT_DATA CurrentInput, [in] POUTPUT_PACKET CurrentOutput, [in] UCHAR StatusByte, [in] PUCHAR Byte, [in, out] PBOOLEAN ContinueProcessing, [in] PMOUSE_STATE MouseState, [in] PMOUSE_RESET_SUBSTATE ResetSubState) {...} 参数 [in] IsrContext 指向提供此回调的驱动程序的筛选器设备对象的指针。[in] CurrentInput 指向 ISR 正在构造的输入 MOUSE_INPUT_DATA 结构的指针。[in] CurrentOutput 指向 OUTPUT_PACKET 结构的指针，该结构指定要写入硬件设备的字节数组。[in] StatusByte 指定发生中断时从 I/O 端口 60 读取的状态字节。[in] Byte 指定发生中断时从 I/O 端口 64 读取的数据字节。[in, out] ContinueProcessing 指定，如果 TRUE，则在此回调完成后，I8042prt 鼠标 ISR 中的处理将继续。 否则，处理不会继续。 [in] MouseState 指向",
+      "description": "BOOLEAN Pi8042MouseIsr([in] PVOID IsrContext, [in] PMOUSE_INPUT_DATA CurrentInput, [in] POUTPUT_PACKET CurrentOutput, [in] UCHAR StatusByte, [in] PUCHAR Byte, [in, out] PBOOLEAN ContinueProcessing, [in] PMouseState MouseState, [in] PMOUSE_RESET_SUBSTATE ResetSubState); I8042端口鼠标中断服务例程回调函数。参数说明：[in] IsrContext 指向提供此回调的驱动程序的筛选器设备对象的指针。[in] CurrentInput 指向ISR正在构造的输入MOUSE_INPUT_DATA结构的指针。[in] CurrentOutput 指向OUTPUT_PACKET结构的指针，该结构指定要写入硬件设备的字节数组。[in] StatusByte 指定发生中断时从I/O端口60读取的状态字节。[in] Byte 指定发生中断时从I/O端口64读取的数据字节。[in, out] ContinueProcessing 指定如果TRUE，则在此回调完成后I8042prt鼠标ISR中的处理将继续，否则处理不会继续。[in] MouseState 指向鼠标状态结构的指针。[in] ResetSubState 指向鼠标重置子状态结构的指针。",
       "return_value": {
         "description": "如果 I8042prt 鼠标 ISR 应继续，则PI8042_MOUSE_ISR回调返回 TRUE;否则，它返回 FALSE。"
       },
-      "remarks": "如果 I8042prt 鼠标 ISR 的默认作足够，则不需要PI8042_MOUSE_ISR回调。 高级键盘筛选器驱动程序可以提供鼠标 ISR 回调。 I8042prt 鼠标 ISR 验证中断后，它会调用鼠标 ISR 回调。 若要重置鼠标，I8042prt 会经历一系列作子状态，每个子状态由",
+      "remarks": "如果I8042prt鼠标ISR的默认操作足够，则不需要PI8042_MOUSE_ISR回调。高级键盘筛选器驱动程序可以提供鼠标ISR回调。I8042prt鼠标ISR验证中断后，它会调用鼠标ISR回调。若要重置鼠标，I8042prt会经历一系列操作子状态，每个子状态由ResetSubState参数指示。",
       "header": "ntdd8042.h",
       "deprecated": false,
       "cross_references": [
@@ -1070,8 +899,8 @@
     {
       "id": "windows::PI8042_QUEUE_PACKET",
       "name": "PI8042_QUEUE_PACKET",
-      "entity_type": "function",
-      "description": "回调只能由 PI8042_KEYBOARD_ISR 回调或PI8042_MOUSE_ISR 回调调用。 I8042prt 在相应的 I8042prt 设备 ISR 中调用供应商提供的 ISR 回调。 I8042prt 指定 QueueKeyboardPacket I8042prt 与 IOCTL_INTERNAL_I8042_HOOK_KEYBOARD 请求一起使用的 INTERNAL_I8042_HOOK_KEYBOARD 结构成员中的键盘的队列数据包回调。 I8042prt 指定 QueueMousePacket I8042prt 与 IOCTL_INTERNAL_I8042_HOOK_MOUSE 请求一 起使用的 INTERNAL_I8042_HOOK_MOUSE 结构成员中的鼠标的队列数据包回调。",
+      "entity_type": "callback",
+      "description": "用于处理键盘或鼠标设备数据包的回调函数。只能由PI8042_KEYBOARD_ISR或PI8042_MOUSE_ISR回调调用。I8042prt在相应的设备ISR中调用此回调。",
       "parameters": [
         {
           "name": "Context",
@@ -1097,10 +926,10 @@
     {
       "id": "windows::HID_DEVICE_ATTRIBUTES",
       "name": "HID_DEVICE_ATTRIBUTES",
-      "entity_type": "struct",
-      "description": "结构的大小。状态块 HID 微型驱动程序设置 Irp->IoStatus的以下字段： 信息 设置为从设备传输的字节数。 如果传输已完成且未出错，状态 设置为STATUS_SUCCESS。 否则，它设置为适当的 NTSTATUS 错误代码。 要求要求标头",
+      "entity_type": "structure",
+      "description": "Contains attributes of a HID device. Used by the HID class driver when sending IOCTL_HID_GET_DEVICE_ATTRIBUTES requests to HID minidrivers.",
       "syntax": "typedef struct _HID_DEVICE_ATTRIBUTES {   ULONG  Size;\nUSHORT VendorID;   USHORT ProductID;\nUSHORT VersionNumber;   USHORT Reserved[11];\n} HID_DEVICE_ATTRIBUTES, *PHID_DEVICE_ATTRIBUTES;",
-      "remarks": "HID 类驱动程序使用此结构在向 HID 微型驱动程序发送 IOCTL_HID_GET_DEVICE_ATTRIBUTES 请求时获取设备属性。 要求要求标头",
+      "remarks": "HID class driver uses this structure to get device attributes when sending IOCTL_HID_GET_DEVICE_ATTRIBUTES requests to HID minidrivers.",
       "members": [
         {
           "name": "Size",
@@ -1141,7 +970,7 @@
       "id": "windows::IOCTL_INTERNAL_I8042_CONTROLLER_WRITE_BUFFER",
       "name": "IOCTL_INTERNAL_I8042_CONTROLLER_WRITE_BUFFER",
       "entity_type": "ioctl",
-      "description": "不支持IOCTL_INTERNAL_I8042_CONTROLLER_WRITE_BUFFER请求。",
+      "description": "Internal IOCTL code for writing buffer to i8042 keyboard controller",
       "header": "ntdd8042.h",
       "deprecated": false,
       "cross_references": [],
@@ -1152,7 +981,7 @@
       "id": "windows::IOCTL_INTERNAL_I8042_HOOK_KEYBOARD",
       "name": "IOCTL_INTERNAL_I8042_HOOK_KEYBOARD",
       "entity_type": "ioctl",
-      "description": "请求执行以下作：将初始化回调例程添加到 I8042prt 键盘初始化例程Adds ISR 回调例程到 I8042prt 键盘 ISR 初始化和 ISR 回调是可选的，由 PS/2 样式键盘设备的高级筛选器驱动程序提供。I8042prt 收到IOCTL_INTERNAL_KEYBOARD_CONNECT请求后，它会向键盘设备堆栈顶部发送同步IOCTL_INTERNAL_I8042_HOOK_KEYBOARD请求。Kbfiltr 收到挂钩键盘请求后， Kbfiltr 按以下方式筛选请求：保存传递给 Kbfiltr 的上层信息，其中包括上层设备对象的上下文、指向初始化回调的指针，以及指向 ISR callback 的指针，使用自己的 I8042prt 上下文和指向 Kbfiltr ISR 回调可以使用的回调的指针来替代上层信息， 请参阅以下主题：I8042prt Callback RoutinesKbfiltr Callback 例程。",
+      "description": "This IOCTL request adds initialization callback routines to the I8042prt keyboard initialization routines. It allows adding ISR callback routines to the I8042prt keyboard ISR initialization. These callbacks are optional and provided by upper-level filter drivers for PS/2-style keyboard devices. After I8042prt receives an IOCTL_INTERNAL_KEYBOARD_CONNECT request, it sends a synchronous IOCTL_INTERNAL_I8042_HOOK_KEYBOARD request to the top of the keyboard device stack. When Kbfiltr receives this hook keyboard request, it filters the request by: saving the upper-level information passed to Kbfiltr (including context of upper device object, pointer to initialization callback, and pointer to ISR callback), then replacing it with its own I8042prt context and pointers to callbacks that Kbfiltr ISR can use.",
       "header": "kbdmou.h",
       "deprecated": false,
       "cross_references": [
@@ -1165,7 +994,7 @@
       "id": "windows::IOCTL_INTERNAL_I8042_HOOK_MOUSE",
       "name": "IOCTL_INTERNAL_I8042_HOOK_MOUSE",
       "entity_type": "ioctl",
-      "description": "请求将 ISR 回调例程添加到 I8042prt 鼠标 ISR。 ISR 回调是可选的，由高级鼠标筛选器驱动程序提供。 I8042prt 在收到 IOCTL_INTERNAL_MOUSE_CONNECT 请求后发送此请求。 I8042prt 向鼠标设 备堆栈顶部发送同步IOCTL_INTERNAL_I8042_HOOK_MOUSE请求。在 Moufiltr 收到挂钩鼠标请求后，它会按以下方式筛选请求： 保存传递给 Moufiltr 的上层信息，其中包括上层设备对象的上下文和指向 ISR 回调的指针将上层信息替换为其自己的信息 保存 I8042prt 的上下文和指向 Moufiltr ISR 回调可以使用的回调的指针有关此请求和回调的详细信息，请参阅以下主题： I8042prt 回调例程穆菲尔回调例程",
+      "description": "请求将ISR回调例程添加到I8042prt鼠标ISR。ISR回调是可选的，由高级鼠标筛选器驱动程序提供。I8042prt在收到IOCTL_INTERNAL_MOUSE_CONNECT请求后发送此请求。I8042prt向鼠标设备堆栈顶部发送同步IOCTL_INTERNAL_I8042_HOOK_MOUSE请求。在Moufiltr收到挂钩鼠标请求后，它会按以下方式筛选请求：保存传递给Moufiltr的上层信息（包括上层设备对象的上下文和指向ISR回调的指针），将上层信息替换为其自己的信息，保存I8042prt的上下文和指向Moufiltr ISR回调可以使用的回调的指针。",
       "header": "ntdd8042.h",
       "deprecated": false,
       "cross_references": [
@@ -1189,7 +1018,7 @@
       "id": "windows::IOCTL_INTERNAL_I8042_KEYBOARD_WRITE_BUFFER",
       "name": "IOCTL_INTERNAL_I8042_KEYBOARD_WRITE_BUFFER",
       "entity_type": "ioctl",
-      "description": "请求将数据写入 i8042 端口控制器，以控制键盘设备的作。 筛选器驱动程序可以使用此请求来控制键盘的作。 I8042prt 同步写入缓冲区请求和其他写入 i8042 端口控制器的键盘请求，包括",
+      "description": "请求将数据写入i8042端口控制器，以控制键盘设备的操作。筛选器驱动程序可以使用此请求来控制键盘的操作。I8042prt同步写入缓冲区请求和其他写入i8042端口控制器的键盘请求。",
       "header": "ntdd8042.h",
       "deprecated": false,
       "cross_references": [],
@@ -1200,7 +1029,7 @@
       "id": "windows::IOCTL_INTERNAL_I8042_MOUSE_WRITE_BUFFER",
       "name": "IOCTL_INTERNAL_I8042_MOUSE_WRITE_BUFFER",
       "entity_type": "ioctl",
-      "description": "请求将数据写入 i8042 端口控制器，以控制鼠标设备的作。 高级筛选器驱动程序可以使用此请求来控制鼠标的作。 I8042prt 将写入缓冲区请求彼此同步。 I8042prt 将实际写入数据与鼠标 ISR 同步。",
+      "description": "请求将数据写入 i8042 端口控制器，以控制鼠标设备的操作。高级筛选器驱动程序可以使用此请求来控制鼠标的操作。I8042prt 将写入缓冲区请求彼此同步，并将实际写入数据与鼠标 ISR 同步。",
       "header": "ntdd8042.h",
       "deprecated": false,
       "cross_references": [],
@@ -1211,7 +1040,7 @@
       "id": "windows::IOCTL_INTERNAL_KEYBOARD_CONNECT",
       "name": "IOCTL_INTERNAL_KEYBOARD_CONNECT",
       "entity_type": "ioctl",
-      "description": "请求将 Kbdclass 服务连接到键盘设备。 Kbdclass 在打开键盘设备之前，将此请求发送到键盘设备堆栈。 Kbfiltr 收到键盘连接请求后，Kbfiltr 将按以下方式筛选连接请求： 保存 Kbdclass 的 CONNECT_DATA （Kbdclass） 结构的副本，该结构通过 Kbdclass 传递给筛选器驱动程序 将自己的连接信息替换为类驱动程序连接信息 将IOCTL_INTERNAL_KEYBOARD_CONNECT请求向下发送设备堆栈如果请求未成功，Kbfiltr 会以适当的错误状态完成请求。 Kbfiltr 为筛选器服务回调例程提供了一个模板，该例程可以补充 KeyboardClassServiceCallback（Kbdclass 类服务回调例程）的作。 筛选器服务回调可以 筛选从设备输入缓冲区传输到类数据队列的输入数据。有关 Kbdclass 服务连接的详细信息，请参阅以下主题： Kbdclass 类服务回调例程 Kbfiltr 回调例程",
+      "description": "请求将Kbdclass服务连接到键盘设备。Kbdclass在打开键盘设备之前发送此请求到键盘设备堆栈。Kbfiltr收到请求后：1)保存Kbdclass的CONNECT_DATA结构副本 2)替换为类驱动程序连接信息 3)向下传递IOCTL_INTERNAL_KEYBOARD_CONNECT请求。如果失败，Kbfiltr以错误状态完成请求。Kbfiltr提供筛选器服务回调例程模板，可补充KeyboardClassServiceCallback功能。",
       "header": "kbdmou.h",
       "deprecated": false,
       "cross_references": [
@@ -1225,7 +1054,7 @@
       "id": "windows::IOCTL_INTERNAL_MOUSE_CONNECT",
       "name": "IOCTL_INTERNAL_MOUSE_CONNECT",
       "entity_type": "ioctl",
-      "description": "请求将 Mouclass 服务连接到鼠标设备。 在打开鼠标设备之前，Mouclass 会将此请求发送到设备堆栈。 在 Moufiltr 收到鼠标连接请求后，它会按以下方式筛选请求： 1. 保存传递给穆菲尔的 CONNECT_DATA（Mouclass） 结构的副本 2. 将自己的连接信息替换为类驱动程序连接信息 3. 将IOCTL_INTERNAL_MOUSE_CONNECT请求向下发送设备堆栈如果请求未成功，则 Moufiltr 会以适当的错误状态完成请求。 Moufiltr 为筛选器服务回调例程提供了一个模板，该例程可以补充 MouseClassServiceCallback（Mouclass 服务回调例程）的作。 筛选器服务回调可以筛选 从设备输入缓冲区传输到类驱动程序数据队列的输入数据。有关 Mouclass 服务连接的详细信息，请参阅以下主题： I8042prt 回调例程穆菲尔回调例程",
+      "description": "请求将Mouclass服务连接到鼠标设备。在打开鼠标设备之前，Mouclass会将此请求发送到设备堆栈。在Moufiltr收到鼠标连接请求后，它会按以下方式筛选请求：1.保存传递给Moufiltr的CONNECT_DATA(Mouclass)结构的副本 2.将自己的连接信息替换为类驱动程序连接信息 3.将IOCTL_INTERNAL_MOUSE_CONNECT请求向下发送设备堆栈。如果请求未成功，则Moufiltr会以适当的错误状态完成请求。Moufiltr为筛选器服务回调例程提供了一个模板，该例程可以补充MouseClassServiceCallback(Mouclass服务回调例程)的作用。筛选器服务回调可以筛选从设备输入缓冲区传输到类驱动程序数据队列的输入数据。",
       "header": "kbdmou.h",
       "deprecated": false,
       "cross_references": [
@@ -1240,7 +1069,7 @@
       "id": "windows::IOCTL_INTERNAL_KEYBOARD_DISCONNECT",
       "name": "IOCTL_INTERNAL_KEYBOARD_DISCONNECT",
       "entity_type": "ioctl",
-      "description": "请求已完成，状态为STATUS_NOT_IMPLEMENTED。 请注意， 即插即用键盘可由即插即用管理器添加或删除。",
+      "description": "Requests keyboard disconnection. Note that Plug and Play keyboards can be added or removed by the Plug and Play Manager.",
       "header": "kbdmou.h",
       "deprecated": false,
       "cross_references": [],
@@ -1251,7 +1080,7 @@
       "id": "windows::IOCTL_INTERNAL_MOUSE_DISCONNECT",
       "name": "IOCTL_INTERNAL_MOUSE_DISCONNECT",
       "entity_type": "ioctl",
-      "description": "请求由 Moufiltr 完成，错误状态为STATUS_NOT_IMPLEMENTED。",
+      "description": "内部鼠标设备断开连接的IOCTL请求，由Moufiltr驱动处理，错误状态为STATUS_NOT_IMPLEMENTED。",
       "header": "kbdmou.h",
       "deprecated": false,
       "cross_references": [],
@@ -1273,7 +1102,7 @@
       "id": "windows::IOCTL_UMDF_HID_SET_FEATURE",
       "name": "IOCTL_UMDF_HID_SET_FEATURE",
       "entity_type": "ioctl",
-      "description": "反馈 是 否 价值 hidport.h",
+      "description": "HID class driver IOCTL to set a feature report. Defined in hidport.h",
       "header": "hidport.h",
       "deprecated": false,
       "cross_references": [],
@@ -1281,38 +1110,11 @@
       "_source_line": 415
     },
     {
-      "id": "windows::HIDP_REPORT_TYPE",
-      "name": "HIDP_REPORT_TYPE",
-      "entity_type": "ioctl",
-      "description": "枚举中的值。 UsagePage 给定使用情况引用的使用情况页。 LinkCollection （可选）此值可用于区分可能具有相同 UsagePage 和 Usage 但存在于不同集合中的两个字段。如果 LinkCollection 值 HIDP_LINK_COLLECTION_UNSPECIFIED，则会返回与 UsagePage 匹配的第一个按钮数组，无论位置如何，都会返回 Usage。 如果 LinkCollection 值",
-      "syntax": "NTSTATUS HidP_SetUsages(\n[in]      HIDP_REPORT_TYPE     ReportType,   [in]      USAGE                UsagePage,\n[in]      USHORT               LinkCollection,\n[in, out] PUSAGE               UsageList,   [in, out] PULONG               UsageLength,\n[in]      PHIDP_PREPARSED_DATA PreparsedData,   [in]      PCHAR                Report,\n[in]      ULONG                ReportLength);",
-      "parameters": [
-        {
-          "name": "ReportType",
-          "direction": "in",
-          "description": "指定一个 HIDP_REPORT_TYPE 枚举器值，该值指示位于 报表的报表的类型。[in] UsagePage 为 UsageList指定的用法指定 使用情况页。[in] LinkCollection 指定包含用法的 链接集合。 如果 LinkCollection 为非零，则例程仅设置此链接集合中的用法（如果存在）。 如果 LinkCollection 为零，则例程将设置与 PreparsedData关联的 顶 级 集合中每个指定用法的第一个用法。[in, out] UsageList 指向使用情况数组的指针。[in, out] UsageLength 指定在输入时，UsageList中的使用情况数。 有关输出值的信息，请参阅“备注”部分。"
-        },
-        {
-          "name": "PreparsedData",
-          "direction": "in",
-          "description": "指向与位于报表 报表关联的顶级集合 预先分析的数据的指针。[in] Report 指向报表的指针。[in] ReportLength 指定位于报表 报表处的报表的大小（以字节为单位），该大小必须与 HidP_GetCaps 集 合 HIDP_CAPS 结构中返回的指定报表类型的报表长度相等。"
-        }
-      ],
-      "return_value": {
-        "description": "HidP_GetButtonCaps 返回以下状态值之一： 返回代码 描述"
-      },
-      "header": "hidpi.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 1.0,
-      "_source_line": 419
-    },
-    {
       "id": "windows::KEYBOARD_SCAN_STATE",
       "name": "KEYBOARD_SCAN_STATE",
-      "entity_type": "ioctl",
+      "entity_type": "enum",
       "description": "枚举类型指示来自键盘的输入字节的扫描状态。",
-      "syntax": "typedef enum _KEYBOARD_SCAN_STATE {\nNormal,   GotE0,   GotE1\n} KEYBOARD_SCAN_STATE, *PKEYBOARD_SCAN_STATE;\n常数   Normal\n指示当前字节是 普通 扫描代码（无xtended 代码）。 GotE0\n指示当前字节是 E0 扩展扫描代码。 GotE1\n指示当前字节是 E1 扩展扫描代码。",
+      "syntax": "typedef enum _KEYBOARD_SCAN_STATE { Normal, GotE0, GotE1 } KEYBOARD_SCAN_STATE, *PKEYBOARD_SCAN_STATE;",
       "remarks": "此枚举类型用作可选 KbFilter_IsrHook 例程的输入，该例程可由供应商提供的键盘筛选器驱动程 序提供。",
       "header": "ntdd8042.h",
       "deprecated": false,
@@ -1323,8 +1125,8 @@
     {
       "id": "windows::MOUSE_STATE",
       "name": "MOUSE_STATE",
-      "entity_type": "ioctl",
-      "description": "枚举类型标识鼠标输入的当前状态。反馈 是 否",
+      "entity_type": "enum",
+      "description": "枚举类型标识鼠标输入的当前状态。",
       "syntax": "typedef enum _MOUSE_STATE {\nMouseIdle,   XMovement,   YMovement,   ZMovement,\nMouseExpectingACK,   MouseResetting\n} MOUSE_STATE, *PMOUSE_STATE;\n常数\nMouseIdle\n指示鼠标中的下一个输入字节应该是一个状态字节，用于指定 x 和 y 移动的按钮状态和符号和溢出位。\nXMovement\n指示鼠标中的下一个输入字节应该是指定 x 方向移动数据的字节。 YMovement\n指示鼠标中的下一个输入字节应该是指定 y 方向移动数据的字节。 ZMovement\n指示鼠标中的下一个输入字节应该是一个字节，用于指定 z 方向（由滚轮鼠标生成）的移动数据。 MouseExpectingACK\n指示鼠标中的下一个输入字节应该是启用鼠标命令的确认。 MouseResetting\n指示 I8042prt 正在重置鼠标。",
       "remarks": "MOUSE_STATE枚举器用作 PI8042_MOUSE_ISR 回调的输入。",
       "requirements": {
@@ -1341,7 +1143,7 @@
     {
       "id": "windows::EVT_HIDSPICX_NOTIFY_POWERDOWN",
       "name": "EVT_HIDSPICX_NOTIFY_POWERDOWN",
-      "entity_type": "function",
+      "entity_type": "callback",
       "description": "详细了解：EVT_HIDSPICX_NOTIFY_POWERDOWN EVT_HIDSPICX_RESETDEVICE 详细了解：EVT_HIDSPICX_RESETDEVICE EVT_VHF_ASYNC_OPERATION 如果 HID 源驱动程序想要支持获取和设置 HID 报表的四个异步操作之一，它将实现此事件回调。 EVT_VHF_CLEANUP HID 源驱动程序实现此事件回调，以释放可能将驱动程序分配给虚拟 HID 设备的资源。 EVT_VHF_READY_FOR_NEXT_READ_REPORT HID 源驱动程序实现此事件回调函数以将其缓冲方案用于 HID 输入报告，并希望在可以将下一个报告提交到 VHF 时收到通知。 HidD_FlushQueue HidD_FlushQueue例程删除顶级集合的输入队列中所有挂起的输入报告。 HidD_FreePreparsedData HidD_FreePreparsedData例程释放 HID 类驱动程序分配的资源，用于保存顶级集合的预分析数据。 HidD_GetAttributes HidD_GetAttributes例程返回指定顶级集合的属性。 HidD_GetFeature HidD_GetFeature例程从指定的顶级集合返回特征报告。 HidD_GetHidGuid HidD_GetHidGuid例程返回 HIDClass 设备的设备接口GUID。 HidD_GetIndexedString HidD_GetIndexedString例程从顶级集合返回指定的嵌入字符串。 HidD_GetInputReport HidD_GetInputReport例程返回顶级集合中的输入报告。 HidD_GetManufacturerString HidD_GetManufacturerString例程返回标识制造商的顶级集合的嵌入字符串。 HidD_GetNumInputBuffers HidD_GetNumInputBuffers例程返回 HID 类驱动程序用于从指定的顶级集合中对输入报表进行排队的环形缓冲区的当 前大小（以报告数为单位）。 HidD_GetPhysicalDescriptor HidD_GetPhysicalDescriptor例程返回顶级集合的嵌入字符串，该集合标识集合的物理设备。 HidD_GetPreparsedData HidD_GetPreparsedData例程返回顶级集合的预先分析数据。 HidD_GetProductString HidD_GetProductString例程返回标识制造商产品的顶级集合的嵌入字符串。 HidD_GetSerialNumberString HidD_GetSerialNumberString例程返回顶级集合的嵌入字符串，该集合标识集合的物理设备的序列号。 HidD_SetFeature HidD_SetFeature例程将功能报告发送到顶级集合。 HidD_SetNumInputBuffers HidD_SetNumInputBuffers例程设置 HID 类驱动程序环缓冲区可以为指定的顶级集合保留的最大输入报告数。 HidD_SetOutputReport HidD_SetOutputReport例程将输出报告发送到顶级集合。 HidP_GetButtonArray HidP_GetButtonArray返回指定报表的HIDP_BUTTON_ARRAY_DATA结构的数组。 HidP_GetButtonCaps HidP_GetButtonCaps例程返回一个按钮功能数组，该数组描述指定类型 HID 报表的顶级集合中的所有 HID 控件按钮。 HidP_GetButtons HidP_GetButtons宏是HHidP_GetUsages函数的助记键别名。 HidP_GetButtonsEx HidP_GetButtonsEx宏是HidP_GetUsagesEx函数的助记键别名。 HidP_GetCaps HidP_GetCaps例程返回顶级集合的HIDP_CAPS结构。 此例程位于 hidpi.h 中。 HidP_GetCollectionDescription 使用集合说明和指定报表描述符的相应报表 ID 信息填充设备说明块。 HidP_GetData 对于指定的报表，HidP_GetData例程返回HIDP_DATA结构的数组，这些结构标识当前设置为 ON (1) 的所有 HID 控件 按钮的数据索引，以及与所有 HID 控件值关联的数据索引。 HidP_GetExtendedAttributes HidP_GetExtendedAttributes例程返回 HID 控件的扩展属性。 HidP_GetLinkCollectionNodes HidP_GetLinkCollectionNodes例程返回顶级集合的链接集合数组。 HidP_GetScaledUsageValue HidP_GetScaledUsageValue例程返回从 HID 报表中提取的 HID 控件值的有符号和缩放结果。 HidP_GetSpecificButtonCaps HidP_GetSpecificButtonCaps例程返回一个按钮功能数组，该数组描述顶级集合中满足指定选择条件的所有 HID 控件按钮。 HidP_GetSpecificValueCaps HidP_GetSpecificValueCaps例程返回值功能数组，该数组描述满足指定选择条件的所有 HID 控件值。 HidP_GetUsages HidP_GetUsages例程返回指定使用情况页上的所有 HID 控件按钮用法的列表，并在 HID 报表中设置为 ON。 HidP_GetUsagesEx HidP_GetUsagesEx例程返回 HID 报表中设置为 ON 的所有 HID 控件按钮用法的列表。 HidP_GetUsageValue HidP_GetUsageValue例程提取与与 HID 报表中的选择条件匹配的 HID 控件值关联的数据。 HidP_GetUsageValueArray HidP_GetUsageValueArray例程从 HID 报表中提取与 HID 控件使用值数组关联的数据。 HidP_GetValueCaps HidP_GetValueCaps例程返回值功能数组，该数组描述指定类型 HID 报表的顶级集合中的所有 HID 控件值。 HidP_GetVersion HidP_GetVersion 函数是返回 HID API 版本的仅标头实现。 HidP_InitializeReportForID HidP_InitializeReportForID例程初始化 HID 报告。 HidP_MaxDataListLength HidP_MaxDataListLength例程返回HidP_GetData可为指定类型的 HID 报表和指定的顶级集合返回的最大HIDP_DATA 结构数。 HidP_MaxUsageListLength HidP_MaxUsageListLength例程返回指定类型 HID 报表和指定顶级集合HidP_GetUsages可以返回的最大 HID 用法数。 HidP_SetButtonArray HidP_SetButtonArray 函数通过HIDP_BUTTON_ARRAY_DATA结构数组设置按钮的状态。 HidP_SetButtons HidP_SetButtons宏是 HidP_SetUsages 函数的助记键别名。 HidP_SetData HidP_SetData例程在 HID 报表中设置一组指定的 HID 控制按钮和值用法。 HidP_SetScaledUsageValue HidP_SetScaledUsageValue例程将有符号和缩放的物理数字转换为 HID 用法的逻辑值，并在指定的 HID 报表中设置用法值。 HidP_SetUsages HidP_SetUsages例程将 HID 报表中的指定 HID 控件按钮设置为 ON (1) 。 HidP_SetUsageValue HidP_SetUsageValue例程在指定的 HID 报表中设置 HID 控件值。 HidP_SetUsageValueArray HidP_SetUsageValueArray例程在指定的 HID 报表中设置 HID 控件使用值数组。 HidP_TranslateUsagesToI8042ScanCodes HidP_TranslateUsagesToI8042ScanCodes例程将HID_USAGE_PAGE_KEYBOARD使用情况页上的 HID 用法列表映射到 各自的 PS/2 扫描代码 (扫描代码集 1) 。 HidP_UnsetButtons HidP_UnsetButtons宏是HidP_UnsetUsages函数的助记键别名。 HidP_UnsetUsages HidP_UnsetUsages例程在 HID 报表中将指定的 HID 控制按钮用法设置为 OFF (零) 。 HidP_UsageAndPageListDifference HidP_UsageAndPageListDifference 函数返回两个用法列表之间的差异。 HidP_UsageListDifference HidP_UsageListDifference例程返回两个 HID 用法数组之间的差异。 HidRegisterMinidriver HID 微型驱动程序在初始化期间调用 HidRegisterMinidriver 例程，以向 HID 类驱动程序注册。 HIDSPICX_DEVICE_CONFIG_INIT 详细了解：HIDSPICX_DEVICE_CONFIG_INIT HidSpiCxDeviceConfigure 详细了解：HidSpiCxDeviceConfigure HidSpiCxDeviceInitConfig 详细了解：HidSpiCxDeviceInitConfig HidSpiCxNotifyDeviceReset 详细了解：HidSpiCxNotifyDeviceReset",
       "parameters": [
         {
@@ -1369,7 +1171,17 @@
         "WAIT_WAKE"
       ],
       "confidence": 0.9,
-      "_source_line": 424
+      "_source_line": 424,
+      "members": [
+        {
+          "name": "Size",
+          "description": "此字段由 HIDSPICX_DEVICE_CONFIG_INIT 函数设置。 EvtResetDevice 指向客户端驱动程序实现 EVT_HIDSPICX_RESETDEVICE 回调函数的指针。 EvtNotifyPowerDown 指向客户端驱动程序实现 EVT_HIDSPICX_NOTIFY_POWERDOWN 回调函数的指针。 InputReportQueue WDFQUEUE 客户端创建的、非电源管理的队列的句柄，用于接收来自 HID SPI 类扩展的 输入报告请求。 OutputReportQueue WDFQUEUE 客户端创建的、非电源管理的队列的句柄，用于接收来自 HID SPI 类扩展的输出报告请求。"
+        },
+        {
+          "name": "NumberOfInputReportRequestsToPend",
+          "description": "可选： 指定在给定时间在输入报表队列中放置的请求数。 如果为零，则类扩展将选择默 认值。 Reserved 必须为零，不应由客户端驱动程序显式设置。"
+        }
+      ]
     },
     {
       "id": "windows::PI8042_SYNCH_WRITE_PORT",
@@ -1394,11 +1206,9 @@
     {
       "id": "windows::PSERVICE_CALLBACK_ROUTINE",
       "name": "PSERVICE_CALLBACK_ROUTINE",
-      "entity_type": "function",
-      "description": "PserviceCallbackRoutine; void PserviceCallbackRoutine( [in] PVOID NormalContext, [in] PVOID SystemArgument1, [in] PVOID SystemArgument2, [in, out] PVOID SystemArgument3) {...} 参数 [in] NormalContext 指向类设备对象的指针。[in] SystemArgument1 指向端口设备的输入数据缓冲区中的第一个键盘输入数据包的指针。[in] SystemArgument2 指向键盘输入数据包的指针，该数据包紧跟端口设备的输入数据缓冲区中的最后一个数据包。 [in, out] SystemArgument3 指向由例程传输的键盘输入数据包数的指针。",
-      "return_value": {
-        "description": "没有言论 键盘类服务回调 下面是键盘类服务回调例程的定义。 Kbdclass 使用 IOCTL_INTERNAL_KEYBOARD_CONNECT 请求将其类服务回调连接到键盘 设备。 在此调用中，驱动程序在 CONNECT_DATA 结构中设置其实现。/* DeviceObject [in] Pointer to the class device object. InputDataStart [in] Pointer to the first keyboard input data packet in the input data buffer of the port device. InputDataEnd [in] Pointer to the keyboard input data packet that immediately follows the last data packet in the input data buffer of the port device. InputDataConsumed [in, out] Pointer to the number of keyboard input data packets that are transferred by the routine.*/ VOID KeyboardClassServiceCallback( _In_ PDEVICE_OBJECT DeviceObject, _In_ PKEYBOARD_INPUT_DATA InputDataStart, _In_ PKEYBOARD_INPUT_DATA InputDataEnd, _Inout_ PULONG InputDataConsumed); KeyboardClassServiceCallback 将输入数据从设备的输入缓冲区传输到类数据队列。 此例程由函数驱动程序的 ISR 调度完成例程调用。 KeyboardClassServiceCallback 可由高级键盘筛选器驱动程序提供的筛选器服务回调进行补充。 筛选器服务回调筛选传输到类数据队列的键盘数据。 例如，筛选器服务回调可以删除、转换或插入数据。 Kbfiltr（代码库中的示例筛选器驱动程序）包括 KbFilter_ServiceCallback，这是键盘筛选器服务回调的模板。鼠标类服务回调 下面是 MouseClassServiceCallback 例程是 Mouclass 提供的类服务回调例程。 驱动程序使用 IOCTL_INTERNAL_MOUSE_CONNECT 请求将其类服务回调连接到鼠标设备。 在此 调用中，驱动程序在 CONNECT_DATA 结构中设置其实现。/* DeviceObject [in] Pointer to the class device object. InputDataStart [in] Pointer to the first mouse input data packet in the input buffer of the port device. InputDataEnd [in] Pointer to the mouse input data packet that immediately follows the last data packet in the input data buffer of the port device. InputDataConsumed [in, out] Pointer to the number of mouse input data packets that are transferred by the routine.*/ VOID MouseClassServiceCallback( _In_ PDEVICE_OBJECT DeviceObject, _In_ PMOUSE_INPUT_DATA InputDataStart, _In_ PMOUSE_INPUT_DATA InputDataEnd, _Inout_ PULONG InputDataConsumed );); MouseClassServiceCallback 将输入数据从设备的输入缓冲区传输到类数据队列。 此例程由函数驱动程序的 ISR 调度完成例程调用。 MouseClassServiceCallback 可由高级鼠标筛选器驱动程序提供的筛选器服务回调进行补充。 筛选器服务回调可以筛选传输到类数据队列的鼠标数据。 例如，筛选器服务回调可以删除、转换或插入数据。 Moufiltr，WDK 中的示例筛选器驱动程序包括 MouFilter_ServiceCallback，这是筛选器服务回调的模板。"
-      },
+      "entity_type": "callback",
+      "description": "A service callback routine for keyboard and mouse input. Parameters: [in] NormalContext - Pointer to the class device object. [in] SystemArgument1 - Pointer to the first input data packet in the input buffer. [in] SystemArgument2 - Pointer to the input data packet following the last data packet. [in, out] SystemArgument3 - Pointer to the number of input data packets transferred.",
+      "return_value": "None (VOID)",
       "header": "kbdmou.h",
       "deprecated": false,
       "cross_references": [],
@@ -1408,8 +1218,8 @@
     {
       "id": "windows::VHF_CONFIG_INIT",
       "name": "VHF_CONFIG_INIT",
-      "entity_type": "function",
-      "description": "使用 VHF_CONFIG_INIT 函数初始化 HID 源驱动程序分配的 VHF_CONFIG 结构的所需成员。 VhfAsyncOperationComplete HID 源驱动程序调用此方法来设置异步操作的结果。 VhfCreate HID 源驱动程序调用此方法来创建虚拟 HID 设备。 VhfDelete HID 源设备驱动程序调用此方法以删除 VHF 设备。 VhfReadReportSubmit HID 源驱动程序调用此方法将 HID 读取 (输入) 报告提交到虚拟 HID 框架 (VHF) 。 VhfStart HID 源驱动程序调用此方法以启动虚拟 HID 设备。",
+      "entity_type": "macro",
+      "description": "Initializes required members of VHF_CONFIG structure allocated by HID source driver.",
       "syntax": "FORCEINLINE VOID",
       "header": "vhf.h",
       "deprecated": false,
@@ -1423,9 +1233,9 @@
       "id": "windows::CONNECT_DATA",
       "name": "CONNECT_DATA",
       "entity_type": "struct",
-      "description": "结构。输入缓冲区长度 Parameters.DeviceIoControl.InputBufferLength 成员设置为大于或等于CONNECT_DATA 结构的大小（以字节为单位）的值。输出缓冲区 Parameters.DeviceIoControl.Type3InputBuffer 成员指向由 Moufiltr 设置的",
+      "description": "结构体用于键盘和鼠标类驱动程序的连接请求。输入缓冲区长度 Parameters.DeviceIoControl.InputBufferLength 成员需要设置为大于或等于 CONNECT_DATA 结构的大小（以字节为单位）。输出缓冲区 Parameters.DeviceIoControl.Type3InputBuffer 成员指向由 Moufiltr 设置的缓冲区。",
       "syntax": "typedef struct _CONNECT_DATA {\nIN PDEVICE_OBJECT ClassDeviceObject;\nIN PVOID          ClassService;} CONNECT_DATA, *PCONNECT_DATA;",
-      "remarks": "键盘类驱动程序将此结构与 IOCTL_INTERNAL_KEYBOARD_CONNECT 请求配合使用;鼠标 类驱动程序使用 IOCTL_INTERNAL_MOUSE_CONNECT 。",
+      "remarks": "键盘类驱动程序将此结构与 IOCTL_INTERNAL_KEYBOARD_CONNECT 请求配合使用；鼠标类驱动程序使用 IOCTL_INTERNAL_MOUSE_CONNECT。",
       "members": [
         {
           "name": "ClassDeviceObject",
@@ -1449,9 +1259,9 @@
     {
       "id": "windows::HID_COLLECTION_INFORMATION",
       "name": "HID_COLLECTION_INFORMATION",
-      "entity_type": "struct",
-      "description": "结构的大小。状态块 HID 类驱动程序设置 Irp->IoStatus的以下字段： 如果成功检索数据，则 信息 设置为 大小（HID_COLLECTION_INFORMATION）。 如果传输已完成且未出错，状态 设置为STATUS_SUCCESS。 否则，它设置为适当的 NTSTATUS 错误代码。",
-      "syntax": "typedef struct _HID_COLLECTION_INFORMATION {\nULONG   DescriptorSize;   BOOLEAN Polled;\nUCHAR   Reserved1[1];\nUSHORT  VendorID;   USHORT  ProductID;\nUSHORT  VersionNumber;\n} HID_COLLECTION_INFORMATION, *PHID_COLLECTION_INFORMATION; 成员\nDescriptorSize\n指定集合 预分析数据的大小（以字节为单位）。 Polled\n指示如果 TRUE，则 HID 类驱动程序必须轮询设备才能接收数据。 否则，如果 轮询FALSE，则\n设备使用异步中断向主机发出信号，表明设备有 HID 报告要发送到主机。 Reserved1[1]\n保留供内部系统使用。 VendorID\n指定 HID 设备的供应商 ID。 ProductID\n指定 HID 设备的产品 ID。 VersionNumber\n指定 HID 设备的制造商修订号。",
+      "entity_type": "structure",
+      "description": "Contains information about a HID collection descriptor. The HID class driver sets Irp->IoStatus fields: Information is set to sizeof(HID_COLLECTION_INFORMATION) if data is successfully retrieved, Status is set to STATUS_SUCCESS if transfer completes without error.",
+      "syntax": "typedef struct _HID_COLLECTION_INFORMATION {\n  ULONG DescriptorSize;\n  BOOLEAN Polled;\n  UCHAR Reserved1[1];\n  USHORT VendorID;\n  USHORT ProductID;\n  USHORT VersionNumber;\n} HID_COLLECTION_INFORMATION, *PHID_COLLECTION_INFORMATION;",
       "remarks": "内核模式驱动程序可以使用 IOCTL_HID_GET_COLLECTION_INFORMATION 来获取集合的 HID_COLLECTION_INFORMATION 结构。",
       "requirements": {
         "header": "hidclass.h"
@@ -1467,9 +1277,9 @@
     {
       "id": "windows::HID_DESCRIPTOR",
       "name": "HID_DESCRIPTOR",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构表示 HIDClass 设备的 HID 描述符。",
-      "syntax": "typedef struct _HID_DESCRIPTOR {\nUCHAR                     bLength;\nUCHAR                     bDescriptorType;\nUSHORT                    bcdHID;       UCHAR                     bCountry;\nUCHAR                     bNumDescriptors;   struct {\nUCHAR  bReportType;         USHORT wReportLength;   } _HID_DESCRIPTOR_DESC_LIST;\n_HID_DESCRIPTOR_DESC_LIST DescriptorList[1];} HID_DESCRIPTOR, *PHID_DESCRIPTOR;\n成员 bLength\nbDescriptorType\nbcdHID bCountry\nbNumDescriptors\n_HID_DESCRIPTOR_DESC_LIST\n_HID_DESCRIPTOR_DESC_LIST.bReportType_HID_DESCRIPTOR_DESC_LIST.wReportLength\n[1] DescriptorList[1] 言论\nHID 类驱动程序使用 IOCTL_HID_GET_DEVICE_DESCRIPTOR 请求从 HID 微型驱动程序获取设备的 HID 描述符。\n有关 HID 描述符的信息，请参阅位于 USB 实现者论坛网站\n准 人机接口设备类定义（HID）。",
+      "syntax": "typedef struct _HID_DESCRIPTOR {\n    UCHAR bLength;\n    UCHAR bDescriptorType;\n    USHORT bcdHID;\n    UCHAR bCountry;\n    UCHAR bNumDescriptors;\n    struct {\n        UCHAR bReportType;\n        USHORT wReportLength;\n    } _HID_DESCRIPTOR_DESC_LIST;\n    _HID_DESCRIPTOR_DESC_LIST DescriptorList[1];\n} HID_DESCRIPTOR, *PHID_DESCRIPTOR;",
       "header": "hidport.h",
       "deprecated": false,
       "cross_references": [],
@@ -1479,8 +1289,8 @@
     {
       "id": "windows::HID_DEVICE_EXTENSION",
       "name": "HID_DEVICE_EXTENSION",
-      "entity_type": "struct",
-      "description": "结构由 HID 微型驱动程序用作 HIDClass 设备的功能设备对象的设备扩展的布局。",
+      "entity_type": "structure",
+      "description": "该结构由HID微型驱动程序用作HIDClass设备的功能设备对象的设备扩展布局。",
       "syntax": "typedef struct _HID_DEVICE_EXTENSION {   PDEVICE_OBJECT PhysicalDeviceObject;   PDEVICE_OBJECT NextDeviceObject;\nPVOID          MiniDeviceExtension;\n} HID_DEVICE_EXTENSION, *PHID_DEVICE_EXTENSION; 成员\nPhysicalDeviceObject\n指向 HID 设备的物理设备对象的指针。 NextDeviceObject\n指向 HID 设备堆栈中功能设备对象正下方的设备对象的指针。 MiniDeviceExtension\n指向设备扩展中特定于微型驱动程序的部分的指针。",
       "header": "hidport.h",
       "deprecated": false,
@@ -1491,8 +1301,8 @@
     {
       "id": "windows::HID_MINIDRIVER_REGISTRATION",
       "name": "HID_MINIDRIVER_REGISTRATION",
-      "entity_type": "struct",
-      "description": "结构包含 HID 微型驱动程序向类驱动程序注册时 HID 微型驱动程序传递给 HID 客 户端驱动程序的注册信息。 HID_XFER_PACKET hidclass 中的HID_XFER_PACKET结构。he 包含 HID 类驱动程序通过 I/O 请求获取或设置报告的 HID 报告的相关信息。",
+      "entity_type": "structure",
+      "description": "包含HID微型驱动程序向类驱动程序注册时传递给HID客户端驱动程序的注册信息",
       "syntax": "typedef struct _HID_MINIDRIVER_REGISTRATION {   ULONG           Revision;",
       "header": "hidport.h",
       "deprecated": false,
@@ -1506,9 +1316,9 @@
       "id": "windows::HID_XFER_PACKET",
       "name": "HID_XFER_PACKET",
       "entity_type": "struct",
-      "description": "结构的大小。 输出缓冲区没有。 输出缓冲区长度 没有。状态块 HID 类驱动程序设置以下 Irp->IoStatus 字段： 信息 设置为零。 如果传输已完成且未出错，状态 设置为STATUS_SUCCESS。 否则，它设置为适当的 NTSTATUS 错误代码。 微型驱动程序处理 向设备执行 I/O 的 HID 微型驱动程序设置以下 Irp->IoStatus 字段： 信息 设置为传输到设备的字节数。 如果传输已完成且未出错，状态 设置为STATUS_SUCCESS。 否则，它设置为适当的 NTSTATUS 错误代码。 调用此 IOCTL 执行 I/O 的其他驱动程序的 HID 微型驱动程序应确保状态块的 信息 字段正确，并 且不会更改 状态 字段的内容。",
+      "description": "HID_XFER_PACKET结构用于指定HID报表信息。包含以下成员：reportBuffer指向报表缓冲区，reportBufferLen指定报表长度，reportId指定报表ID（可选，未使用时设为0）。",
       "syntax": "typedef struct _HID_XFER_PACKET {   PUCHAR reportBuffer;\nULONG  reportBufferLen;   UCHAR  reportId;\n} HID_XFER_PACKET, *PHID_XFER_PACKET;\n成员 reportBuffer\n指向报表缓冲区的指针。 reportBufferLen\n指定报表长度 reportBuffer。 reportId\n指定 reportBuffer中包含的报表的报表 ID。 此参数是可选的，如果未指定，则应设置为零。",
-      "remarks": "当 HID 类驱动程序使用 I/O 请求获取或设置报表时，HID 类驱动程序使用此结构来指定 有关 HID 报表的信息。",
+      "remarks": "HID类驱动程序使用此结构通过I/O请求获取或设置HID报表。",
       "requirements": {
         "header": "vhf.h"
       },
@@ -1523,7 +1333,7 @@
       "name": "HIDD_ATTRIBUTES",
       "entity_type": "struct",
       "description": "结构包含有关 HIDClass 设备的供应商信息。",
-      "syntax": "typedef struct _HIDD_ATTRIBUTES {   ULONG  Size;\nUSHORT VendorID;   USHORT ProductID;\nUSHORT VersionNumber;\n} HIDD_ATTRIBUTES, *PHIDD_ATTRIBUTES;\nBOOLEAN HidD_FlushQueue(\n[in] HANDLE HidDeviceObject);",
+      "syntax": "typedef struct _HIDD_ATTRIBUTES {\n  ULONG Size;\n  USHORT VendorID;\n  USHORT ProductID;\n  USHORT VersionNumber;\n} HIDD_ATTRIBUTES, *PHIDD_ATTRIBUTES;",
       "parameters": [
         {
           "name": "HidDeviceObject",
@@ -1534,7 +1344,7 @@
       "return_value": {
         "description": "如果成功刷新队列，HidD_FlushQueue 返回 true。 否则，它将返回 FALSE。 使用 GetLastError 获取扩展的错误信息。"
       },
-      "remarks": "HidD_GetAttributes调用方使用此结构获取设备的供应商信息。 在 HIDClass 支持例程中使用HIDD_ATTRIBUTES结构之前，调用方必须设置 大小 成员。 只有用户模式应用程序才能调用 HidD_FlushQueue。 内核模式驱动程序可以使用",
+      "remarks": "HidD_GetAttributes调用方使用此结构获取设备的供应商信息。在HIDClass支持例程中使用HIDD_ATTRIBUTES结构之前，调用方必须设置Size成员。",
       "members": [
         {
           "name": "Size",
@@ -1551,7 +1361,7 @@
       "id": "windows::HIDP_BUTTON_ARRAY_DATA",
       "name": "HIDP_BUTTON_ARRAY_DATA",
       "entity_type": "struct",
-      "description": "HIDP_LINK_COLLECTION_NODE",
+      "description": "Contains data about a button array in a HID (Human Interface Device) report.",
       "syntax": "typedef struct _HIDP_BUTTON_ARRAY_DATA {\nUSHORT  ArrayIndex;   BOOLEAN On;\n} HIDP_BUTTON_ARRAY_DATA, *PHIDP_BUTTON_ARRAY_DATA;",
       "members": [
         {
@@ -1571,7 +1381,7 @@
       "id": "windows::HIDP_BUTTON_CAPS",
       "name": "HIDP_BUTTON_CAPS",
       "entity_type": "struct",
-      "description": "的 ReportCount 字段。 此缓冲区由调用方提供。 ButtonDataLength 作为输入，此参数指定 ButtonData 参数的长度（以数组元素数而不是字节数为单位）。 作为输出，如果返回HIDP_STATUS_SUCCESS，则此值设置为指示函数填充的数组元素的数量。 可返回的最大 HIDP_BUTTON_ARRAY_DATA 结构数由HIDP_BUTTON_CAPS决定。ReportCount。 如果 返回HIDP_STATUS_BUFFER_TOO_SMALL，则此值包含成功完成请求所需的数组元素数。 PreparsedData HIDCLASS返回的预先分析的数据。 Report 报告数据包。 第一个字节必须是 reportId 。 如果从系统读取报表，则会正确设置此设置。 ReportLength 给定报告数据包的长度（以字节为单位）。",
+      "description": "Describes the capabilities of HID (Human Interface Device) buttons. Contains fields for usage pages, report IDs, range indicators, and other button-related attributes.",
       "syntax": "typedef struct _HIDP_BUTTON_CAPS {\nUSAGE   UsagePage;   UCHAR   ReportID;   BOOLEAN IsAlias;   USHORT  BitField;\nUSHORT  LinkCollection;   USAGE   LinkUsage;\nUSAGE   LinkUsagePage;   BOOLEAN IsRange;\nBOOLEAN IsStringRange;\nBOOLEAN IsDesignatorRange;\nBOOLEAN IsAbsolute;   USHORT  ReportCount;   USHORT  Reserved2;   ULONG   Reserved[9];   union {\nstruct {\nUSAGE  UsageMin;       USAGE  UsageMax;       USHORT StringMin;       USHORT StringMax;\nUSHORT DesignatorMin;       USHORT DesignatorMax;       USHORT DataIndexMin;       USHORT DataIndexMax;\n} Range;     struct {\nUSAGE  Usage;\nUSAGE  Reserved1;       USHORT StringIndex;       USHORT Reserved2;\nUSHORT DesignatorIndex;\nUSHORT Reserved3;       USHORT DataIndex;       USHORT Reserved4;\n} NotRange;   };\n} HIDP_BUTTON_CAPS, *PHIDP_BUTTON_CAPS;",
       "parameters": [
         {
@@ -1621,7 +1431,7 @@
       "id": "windows::HIDP_CAPS",
       "name": "HIDP_CAPS",
       "entity_type": "struct",
-      "description": "HidP_GetCaps 价值 Hid.dll",
+      "description": "Contains information about a top-level collection's capability returned by HidP_GetCaps function from hid.dll",
       "syntax": "typedef struct _HIDP_CAPS {   USAGE  Usage;\nUSAGE  UsagePage;\nUSHORT InputReportByteLength;   USHORT OutputReportByteLength;   USHORT FeatureReportByteLength;   USHORT Reserved[17];\nUSHORT NumberLinkCollectionNodes;\nUSHORT NumberInputButtonCaps;   USHORT NumberInputValueCaps;   USHORT NumberInputDataIndices;   USHORT NumberOutputButtonCaps;   USHORT NumberOutputValueCaps;   USHORT NumberOutputDataIndices;   USHORT NumberFeatureButtonCaps;   USHORT NumberFeatureValueCaps;   USHORT NumberFeatureDataIndices;} HIDP_CAPS, *PHIDP_CAPS;",
       "remarks": "HIDClass 支持例程的调用方 当调用例程需要输入、报告类型的大小、链接收集节点数、 控制功能数或数据索引数时，使用此结构中提供的信息。",
       "members": [
@@ -1652,9 +1462,9 @@
       "id": "windows::HIDP_DATA",
       "name": "HIDP_DATA",
       "entity_type": "struct",
-      "description": "结构包含有关 HID 控件 数据索引的信息 和 HID 报表中的值。",
+      "description": "包含HID控件数据索引和报表值信息的结构体",
       "syntax": "typedef struct _HIDP_DATA {\nUSHORT DataIndex;   USHORT Reserved;   union {\nULONG   RawValue;\nBOOLEAN On;   };\n} HIDP_DATA, *PHIDP_DATA;",
-      "remarks": "请参阅 按数据索引提取和设置控制数据。",
+      "remarks": "用于按数据索引提取和设置控制数据。Reserved字段仅供系统内部使用。",
       "members": [
         {
           "name": "DataIndex",
@@ -1706,7 +1516,10 @@
       "remarks": "有关返回值的详细信息，请参阅 HidP_UnsetUsages。",
       "header": "hidpi.h",
       "deprecated": false,
-      "cross_references": [],
+      "cross_references": [
+        "HIDP_EXTENDED_ATTRIBUTES",
+        "HIDP_UNKNOWN_TOKEN"
+      ],
       "confidence": 1.0,
       "_source_line": 544
     },
@@ -1714,8 +1527,8 @@
       "id": "windows::HIDP_LINK_COLLECTION_NODE",
       "name": "HIDP_LINK_COLLECTION_NODE",
       "entity_type": "struct",
-      "description": "HidP_GetCaps _HIDP_PREPARSED_DATA 是 否 HidP_GetScaledUsageValue函数 HidP_GetScaledUsageValue 例程返回从 HID 报表中提取的 HID 控件值的有符号和缩放 结果。",
-      "syntax": "NTSTATUS HidP_GetScaledUsageValue(\n[in]  HIDP_REPORT_TYPE     ReportType,   [in]  USAGE                UsagePage,\n[in]  USHORT               LinkCollection,   [in]  USAGE                Usage,\n[out] PLONG                UsageValue,\n[in]  PHIDP_PREPARSED_DATA PreparsedData,   [in]  PCHAR                Report,\n[in]  ULONG                ReportLength);",
+      "description": "The HIDP_LINK_COLLECTION_NODE structure describes a link collection node in a HID report.",
+      "syntax": "typedef struct _HIDP_LINK_COLLECTION_NODE {\n  USAGE  LinkUsage;\n  USAGE  LinkUsagePage;\n  USHORT Parent;\n  USHORT NumberOfChildren;\n  USHORT NextSibling;\n  USHORT FirstChild;\n  ULONG  CollectionType;\n  BOOLEAN IsAlias;\n  UCHAR  Reserved;\n  PVOID  UserContext;\n} HIDP_LINK_COLLECTION_NODE;",
       "parameters": [
         {
           "name": "ReportType",
@@ -1731,7 +1544,7 @@
       "return_value": {
         "description": "HidP_GetScaledUsageValue 返回以下状态值之一： 返回代码"
       },
-      "remarks": "HidP_GetLinkCollectionNodes 例程返回顶级集合的链接集合数组。 链接集合节点中指定 的索引是集合的链接集合数组中的索引。",
+      "remarks": "The HidP_GetLinkCollectionNodes routine returns an array of link collections for a top-level collection. The index specified in a link collection node is an index into the link collection array of the collection.",
       "members": [
         {
           "name": "LinkUsage",
@@ -1748,7 +1561,7 @@
       "id": "windows::HIDP_UNKNOWN_TOKEN",
       "name": "HIDP_UNKNOWN_TOKEN",
       "entity_type": "struct",
-      "description": "旨在与 HIDP_EXTENDED_ATTRIBUTES 结构一起使用。 HidP_GetExtendedAttributes 返回一个HIDP_EXTENDED_ATTRIBUTES结构，该结构包含 结构的可变长度数组。",
+      "description": "用于与HIDP_EXTENDED_ATTRIBUTES结构一起使用。HidP_GetExtendedAttributes函数返回的HIDP_EXTENDED_ATTRIBUTES结构包含此结构的可变长度数组。表示HID解析器遇到的未知令牌。",
       "syntax": "typedef struct _HIDP_UNKNOWN_TOKEN {   UCHAR Token;\nUCHAR Reserved[3];   ULONG BitField;\n} HIDP_UNKNOWN_TOKEN, *PHIDP_UNKNOWN_TOKEN;",
       "members": [
         {
@@ -1770,8 +1583,8 @@
     {
       "id": "windows::HIDP_VALUE_CAPS",
       "name": "HIDP_VALUE_CAPS",
-      "entity_type": "struct",
-      "description": "HidP_GetButtonCaps HidP_GetCaps HidP_GetLinkCollectionNodes HidP_GetSpecificButtonCaps HidP_GetSpecificValueCaps HidP_GetValueCaps 是 否",
+      "entity_type": "structure",
+      "description": "The HIDP_VALUE_CAPS structure describes the capability of HID control values. Clients retrieve an array of these structures by calling HidP_GetValueCaps or HidP_GetSpecificValueCaps.",
       "syntax": "typedef struct _HIDP_VALUE_CAPS {\nUSAGE   UsagePage;   UCHAR   ReportID;   BOOLEAN IsAlias;   USHORT  BitField;\nUSHORT  LinkCollection;   USAGE   LinkUsage;\nUSAGE   LinkUsagePage;   BOOLEAN IsRange;\nBOOLEAN IsStringRange;\nBOOLEAN IsDesignatorRange;   BOOLEAN IsAbsolute;\nBOOLEAN HasNull;   UCHAR   Reserved;   USHORT  BitSize;\nUSHORT  ReportCount;   USHORT  Reserved2[5];\nULONG   UnitsExp;   ULONG   Units;\nLONG    LogicalMin;   LONG    LogicalMax;   LONG    PhysicalMin;   LONG    PhysicalMax;   union {\nstruct {\nUSAGE  UsageMin;       USAGE  UsageMax;       USHORT StringMin;       USHORT StringMax;\nUSHORT DesignatorMin;       USHORT DesignatorMax;       USHORT DataIndexMin;       USHORT DataIndexMax;\n} Range;     struct {\nUSAGE  Usage;\nUSAGE  Reserved1;       USHORT StringIndex;       USHORT Reserved2;\nUSHORT DesignatorIndex;       USHORT Reserved3;\nUSHORT DataIndex;       USHORT Reserved4;\n} NotRange;   };\n} HIDP_VALUE_CAPS, *PHIDP_VALUE_CAPS;",
       "remarks": "客户端通过调用 HidP_GetValueCaps 或 HidP_GetSpecificValueCaps 获取值功能数组。 这些例程 返回调用方分配的缓冲区中的HIDP_VALUE_CAPS结构的数组。 所需的缓冲区长度在 HidP_GetCaps 返回的 HIDP_CAPS 结构中指定。 有关 HID 控件值的功能的信息，请参阅集合功能和值功能数组。",
       "members": [
@@ -1795,8 +1608,8 @@
     {
       "id": "windows::HIDSPICX_DEVICE_CONFIG",
       "name": "HIDSPICX_DEVICE_CONFIG",
-      "entity_type": "struct",
-      "description": "HIDSPICX_REPORT 是 否 价值 Windows 11 hidspicx.h HidSpiCxDeviceInitConfig 函数 客户端驱动程序必须在 EVT_WDF_DRIVER_DEVICE_ADD 回调中调用 HidSpiCxDeviceInitConfig，然后才能调用 WdfDeviceCreate。",
+      "entity_type": "structure",
+      "description": "HIDSPICX_DEVICE_CONFIG structure contains configuration information for HID SPI devices. Client drivers must call HidSpiCxDeviceInitConfig in EVT_WDF_DRIVER_DEVICE_ADD callback before calling WdfDeviceCreate.",
       "syntax": "typedef struct _HIDSPICX_DEVICE_CONFIG {   ULONG                         Size;",
       "header": "hidspicx.h",
       "deprecated": false,
@@ -1811,8 +1624,8 @@
     {
       "id": "windows::INTERNAL_I8042_HOOK_KEYBOARD",
       "name": "INTERNAL_I8042_HOOK_KEYBOARD",
-      "entity_type": "struct",
-      "description": "I8042prt 使用INTERNAL_I8042_HOOK_KEYBOARD连接可选回调例程，以补充键盘初始化和键盘 ISR。 回调可由可选的供应商提供的上层筛选器驱动程序提供。 INTERNAL_I8042_HOOK_MOUSE I8042prt 使用INTERNAL_I8042_HOOK_MOUSE来连接补充鼠标 ISR作的可选回调例程。 回调可由可 选的供应商提供的上层筛选器驱动程序提供。",
+      "entity_type": "structure",
+      "description": "I8042prt使用INTERNAL_I8042_HOOK_KEYBOARD结构连接可选回调例程，以补充键盘初始化和键盘ISR。回调可由可选的供应商提供的上层筛选器驱动程序提供。",
       "syntax": "typedef struct _INTERNAL_I8042_HOOK_KEYBOARD {\nOUT PVOID                                  Context;\nOUT PI8042_KEYBOARD_INITIALIZATION_ROUTINE InitializationRoutine;\nOUT PI8042_KEYBOARD_ISR                    IsrRoutine;   IN PI8042_ISR_WRITE_PORT                   IsrWritePort;\nIN PI8042_QUEUE_PACKET                     QueueKeyboardPacket;   IN PVOID                                   CallContext;\n} INTERNAL_I8042_HOOK_KEYBOARD, *PINTERNAL_I8042_HOOK_KEYBOARD;",
       "remarks": "此结构仅用于 IOCTL_INTERNAL_I8042_HOOK_KEYBOARD 请求。 上下文、初始化Routine，IsrRoutine 可由供应商提供的、高级筛选器驱动程序提供。 IsrWritePort、QueueKeyboardPacket和 CallContext 由 I8042prt 提供。",
       "members": [
@@ -1841,7 +1654,7 @@
       "id": "windows::INTERNAL_I8042_HOOK_MOUSE",
       "name": "INTERNAL_I8042_HOOK_MOUSE",
       "entity_type": "struct",
-      "description": "结构。输入缓冲区长度 Parameters.DeviceIoControl.Type3InputBuffer 指向由 I8042prt 最初分配和设置的 INTERNAL_I8042_HOOK_MOUSE结构。 输出缓冲区没有 输出缓冲区长度没有 状态块 状态 成员设置为以下值之一： STATUS_INVALID_PARAMETER Parameters.DeviceIoControl.InputBufferLength 小于INTERNAL_I8042_HOOK_MOUSE结构的大小（以字节为单位）。",
+      "description": "Structure used for IOCTL_INTERNAL_I8042_HOOK_MOUSE requests. Contains callback function pointers for mouse ISR handling.",
       "syntax": "typedef struct _INTERNAL_I8042_HOOK_MOUSE {   OUT PVOID                Context;\nOUT PI8042_MOUSE_ISR     IsrRoutine;   IN PI8042_ISR_WRITE_PORT IsrWritePort;\nIN PI8042_QUEUE_PACKET   QueueMousePacket;   IN PVOID                 CallContext;\n} INTERNAL_I8042_HOOK_MOUSE, *PINTERNAL_I8042_HOOK_MOUSE;",
       "remarks": "此结构仅用于 IOCTL_INTERNAL_I8042_HOOK_MOUSE 请求。 上下文、初始化Routine，IsrRoutine 可由供应商提供的、高级筛选器驱动程序提供。 IsrWritePort、QueueMousePacket和 CallContext 由 I8042prt 提供。",
       "members": [
@@ -1867,8 +1680,8 @@
     {
       "id": "windows::INTERNAL_I8042_START_INFORMATION",
       "name": "INTERNAL_I8042_START_INFORMATION",
-      "entity_type": "struct",
-      "description": "结构的输入缓冲区。输入缓冲区长度 Parameters.DeviceIoControl.InputBufferLength 指定INTERNAL_I8042_START_INFORMATION结构的大小（以字节为单位）。 输出缓冲区没有 输出缓冲区长度没有 状态块 信息 成员设置为零。 状态 成员设置为STATUS_SUCCESS。",
+      "entity_type": "structure",
+      "description": "Structure containing start information for I8042 keyboard/mouse devices. The input buffer length Parameters.DeviceIoControl.InputBufferLength specifies the size (in bytes) of INTERNAL_I8042_START_INFORMATION structure.",
       "syntax": "typedef struct _INTERNAL_I8042_START_INFORMATION {   ULONG       Size;\nPKINTERRUPT InterruptObject;   ULONG       Reserved[8];\n} INTERNAL_I8042_START_INFORMATION, *PINTERNAL_I8042_START_INFORMATION;",
       "remarks": "此结构用于 IOCTL_INTERNAL_I8042_KEYBOARD_START_INFORMATION 和 IOCTL_INTERNAL_I8042_MOUSE_START_INFORMATION 请求。",
       "members": [
@@ -1894,8 +1707,8 @@
     {
       "id": "windows::OUTPUT_PACKET",
       "name": "OUTPUT_PACKET",
-      "entity_type": "struct",
-      "description": "包含有关由 I8042prt 写入键盘或鼠标设备的数据的信息。枚举",
+      "entity_type": "structure",
+      "description": "Contains information about data written to keyboard or mouse devices by I8042prt.",
       "syntax": "typedef struct _OUTPUT_PACKET {   PUCHAR         Bytes;\nULONG          CurrentByte;   ULONG          ByteCount;   TRANSMIT_STATE State;\n} OUTPUT_PACKET, *POUTPUT_PACKET;",
       "remarks": "此结构用于 PI8042_KEYBOARD_ISR 回调例程和 PI8042_MOUSE_ISR 回调例程。",
       "members": [
@@ -1917,12 +1730,10 @@
       "id": "windows::USAGE_AND_PAGE",
       "name": "USAGE_AND_PAGE",
       "entity_type": "struct",
-      "description": "结构指定 HID 控件 使用情况页 和 使用情况 ID。",
+      "description": "结构体指定 HID 控件的使用情况页(Usage Page)和使用情况 ID(Usage ID)。",
       "syntax": "typedef struct _USAGE_AND_PAGE {   USAGE Usage;\nUSAGE UsagePage;\n} USAGE_AND_PAGE, *PUSAGE_AND_PAGE;",
-      "return_value": {
-        "description": "BOOLEAN HidP_IsSameUsageAndPage 返回以下状态值之一： TRUE 使用情况 u1 与 u2 用法相同。 FALSE 使用情况 u1 不同于 u2 使用情况。 根据 USB HID 标准的定义，扩展用法是 32 位无符号值。 高阶 16 位指定 使用情况页，低序 16 位指定 使用情况 ID。 有关详细信息，请参阅 HID 集合。"
-      },
-      "remarks": "HidP_IsSameUsageAndPage 宏确定两个 扩展用法（由 USAGE_AND_PAGE 结构表示）是否相等。 BOOLEAN HidP_IsSameUsageAndPage(",
+      "return_value": "",
+      "remarks": "用于表示 HID 设备的扩展用法(Extended Usage)，其中高16位为使用情况页，低16位为使用情况 ID。",
       "members": [
         {
           "name": "Usage",
@@ -1939,12 +1750,12 @@
       "id": "windows::VHF_CONFIG",
       "name": "VHF_CONFIG",
       "entity_type": "struct",
-      "description": "的 EvtVhfAsyncOperationGetFeature 成员设置为已实现函数的函数指针。 当 VHF 获取设置或查询 HID 报表的请求时，VHF 会调用以前注册的 EvtVhfAsyncOperation 回调函数，并启动异步操作。 每个操作都由 VHF 设置的 VHFOPERATIONHANDLE 句柄标识。 如果驱动程序在初始化期间在 VHF_CONFIG的 OperationContextSize 成员中指定了非零值，则 VHF 在调用 EvtVhfAsyncOperation 时，会分配该大小的缓冲区，并在 VhfOperationContext 参数中传递指向该缓冲区的指针。 HidTransferPacket 是此操作的传输缓冲区，它指向包含特定于 HID 报表的详细信息的 VHF 分配结构。 例如，如果操作为 GetFeature，则完成后，HID 源驱动程序将使用请求的 HID 功能报告填充缓冲区。 操作完成后，HID 源调用 VhfAsyncOperationComplete 来报告完成状态。",
+      "description": "EvtVhfAsyncOperationGetFeature member is set to a function pointer of an implemented function. When VHF receives a request to set or query HID reports, VHF calls the previously registered EvtVhfAsyncOperation callback function and initiates an asynchronous operation. Each operation is identified by a VHFOPERATIONHANDLE handle set by VHF. If the driver specifies a non-zero value in the OperationContextSize member of VHF_CONFIG during initialization, VHF allocates a buffer of that size when calling EvtVhfAsyncOperation and passes a pointer to that buffer in the VhfOperationContext parameter. HidTransferPacket is the transfer buffer for this operation, pointing to a VHF-allocated structure containing HID report details.",
       "syntax": "typedef struct _VHF_CONFIG {\nULONG                               Size;\nPVOID                               VhfClientContext;\nULONG                               OperationContextSize;#ifdef _KERNEL_MODE",
       "return_value": {
         "description": "无"
       },
-      "remarks": "HID 源驱动程序可以支持四种类型的异步操作： GetFeature、 SetFeature、 WriteReport、 GetInputReport。 注意这些操作类似于 HID 传输微型驱动程序实现的IOCTL_HID_GET_FEATURE、",
+      "remarks": "HID source drivers can support four types of asynchronous operations: GetFeature, SetFeature, WriteReport, GetInputReport. These operations are similar to the IOCTL_HID_GET_FEATURE implemented by HID transfer minidrivers.",
       "requirements": {
         "min_client": "Windows 10"
       },
@@ -1955,125 +1766,10 @@
       "_source_line": 562
     },
     {
-      "id": "windows::IRP_MJ_DEVICE_CONTROL",
-      "name": "IRP_MJ_DEVICE_CONTROL",
-      "entity_type": "struct",
-      "description": "输入缓冲区 IRP 的 I/O 堆栈位置中的 Parameters.DeviceIoControl.InputBufferLength 指示 Irp->AssociatedIrp.SystemBuffer指向的位置输入缓冲区的大小（以字节为单位）。 参数.DeviceIoControl.OutputBufferLength IRP 的 I/O 堆栈位置指示输出缓冲区的大小（以字节为单位）。 如果输出缓冲区不够大，无法容纳整个以 NULL 结尾的嵌入字符串，则请求在输出缓冲区中不返回任何内容。 微型驱动程序处理：IOCTL_HID_GET_INDEXED_STRING使用两个输入缓冲区。 IRP 的 I/O 堆栈位置中的 Parameters.DeviceIoControl.OutputBufferLength 指示 Irp->MdlAddress指向的位置的输出缓冲区的大小（以字节为单位）。 如果输出缓冲区不够大，无法容纳整个以 NULL 结尾的嵌入字符串，则请求在输出缓冲区中不返回任何内容。嵌入字符串中可能的最大字符数特定于设备。 对于 USB 设备，最大字符串长度为 126 宽字符（不包括终止 NULL 字符）。 Parameters.DeviceIoControl.Type3InputBuffer 包含一个 INT 值，该值描述要检索的字符串。 INT 值最重要的两个字节包含语言 ID（例如，值为 1033 表示英语）。 INT 值中 最小有效两个字节包含字符串索引。输入缓冲区长度 Parameters.DeviceIoControl.InputBufferLength 必须 >= sizeof（ULONG），并且它应包含要检索的字符串的索引。 对于 Parameters.DeviceIoControl.OutputBufferLength，嵌入字符串中可能的最大字符数特定于设备。 对于 USB 设备，最大字符串长度为 126 宽字符（不包括终止 NULL 字 符）。 输出缓冲区 Irp->MdlAddress 指向缓冲区以接收检索到的字符串（以 NULL 结尾的宽字符串）。 微型驱动程序处理：Irp->MdlAddress 指向缓冲区以接收检索的字符串（以 NULL 终止的宽字符串）。 请注意，与大多数 HID 微型驱动程序的设备控制 IRP 不同，此 IRP 不使用 METHOD_NEITHER缓冲。 具体而言，它必须与输出缓冲区由 Irp->UserBuffer标识的",
-      "remarks": "_HIDP_PREPARSED_DATA 结构包含 顶级集合预分析的数据。 typedef struct _HIDP_PREPARSED_DATA * PHIDP_PREPARSED_DATA; 用户模式应用程序调用 HidD_GetPreparsedData，以在可变长度_HIDP_PREPARSED_DATA结构中获取顶级集合的预分析数据。 内核模式驱动程序使用 IOCTL_HID_GET_COLLECTION_DESCRIPTOR 请求获取指向顶级集合的预分析数据的指针。 _HIDP_PREPARSED_DATA结构的内部结构保留供内部系统使用。",
-      "requirements": {
-        "header": "hidport.h"
-      },
-      "header": "hidclass.h",
-      "deprecated": false,
-      "cross_references": [
-        "DeviceIoControl",
-        "IOCTL_HID_GET_COLLECTION_DESCRIPTOR",
-        "InputBufferLength",
-        "OutputBufferLength",
-        "PHIDP_PREPARSED_DATA"
-      ],
-      "confidence": 0.75,
-      "_source_line": 674
-    },
-    {
-      "id": "windows::IOCTL_HID_DEVICERESET_NOTIFICATIO",
-      "name": "IOCTL_HID_DEVICERESET_NOTIFICATIO",
-      "entity_type": "struct",
-      "description": "HID 客户端驱动程序将 IOCTL_HID_DEVICERESET_NOTIFICATION 请求发送到 HID 类驱动程序，等待设备启动的重置事件。 此请求也可以由 HID 类驱动程序发送到 HID Minidriver，等待设备启动的重置事件。每次只允许一个设备重置通知请求。 HID 微型驱动程序可以通过在 INF 文件中添加注册表值来启用此功能。 设备硬件密钥下的 DeviceResetNotificationEnabled 必须设置为 1 才能启用该功能。 下面是一个示例： [hidi2c_Device.NT.HW] AddReg = hidi2c_Device.Filter.AddReg, hidi2c_Device.Configuration.AddReg... [hidi2c_Device.Configuration.AddReg]... HKR,,\"DeviceResetNotificationEnabled\",0x00010001,1",
-      "header": "hidclass.h",
-      "deprecated": false,
-      "cross_references": [
-        "IOCTL_HID_DEVICERESET_NOTIFICATION"
-      ],
-      "confidence": 0.75,
-      "_source_line": 718
-    },
-    {
-      "id": "windows::HIDP_STATUS_SUCCESS",
-      "name": "HIDP_STATUS_SUCCESS",
-      "entity_type": "struct",
-      "description": "描述 例程已成功返回指定集合的链接集合数组。",
-      "header": "hidclass.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 1343
-    },
-    {
-      "id": "windows::HIDP_STATUS_INVALID_PREPARSED_DATA",
-      "name": "HIDP_STATUS_INVALID_PREPARSED_DATA",
-      "entity_type": "struct",
-      "description": "言论 例程已成功返回功能数据。预先分析的数据无效。 HidP_GetButtonCaps 返回指定报表类型的顶级集合中所有按钮的功能。 ButtonCapsLength 应设置为由 HidP_GetCaps返回的 HIDP_CAPS 结构的 NumberXxxButtonCaps 成员的值，其中 Xxx 指定报表类型。 若要获取按钮功能的子集，请通过 使用情况、使用情况页或 链接集合选择，请使用 HidP_GetSpecificButtonCaps。 有关集合功能的详细信息，请参阅 获取集合信息。",
-      "syntax": "#define HidP_GetButtons(Rty, UPa, LCo, ULi, ULe, Ppd, Rep, RLe) \\         HidP_GetUsages(Rty, UPa, LCo, ULi, ULe, Ppd, Rep, RLe)\n#define HidP_GetButtonsEx(Rty, LCo, BLi, ULe, Ppd, Rep, RLe) \\          HidP_GetUsagesEx(Rty, LCo, BLi, ULe, Ppd, Rep, RLe)\nNTSTATUS HidP_GetCaps(\n[in]  PHIDP_PREPARSED_DATA PreparsedData,   [out] PHIDP_CAPS           Capabilities);",
-      "parameters": [
-        {
-          "name": "Rty",
-          "direction": "in",
-          "description": "指定标识报表类型的 HIDP_REPORT_TYPE 枚举器值。[in] UPa 指定按钮用法 使用情况页。 例程仅返回有关此使用情况页上的按钮的信息。[in] LCo 指定按钮用法 链接集合。 如果 LCo 为非零，则例程仅返回有关此链接集合包含的按钮的信息;否则，如果 LCo 为零，则例程将返回与 ppd ppd关联的 顶级 集合中的所有按钮的相 关信息。[out] ULi 指向调用方分配的缓冲区的指针，该例程用于返回设置为 ON 的所有按钮的用法，并属 于由 UPa指定的使用页。[in, out] ULe 指定 ULi 缓冲区的输入长度（以数组元素为单位）。 指定在输出时，在指定使用情况页 上设置为 ON 的按钮数。[in] Ppd 指向顶级集合 预先分析的数据的指针。[out] Rep 指向报表的指针。[in] RLe 指定位于 Rep的报告的长度（以字节为单位）。"
-        },
-        {
-          "name": "Rty",
-          "direction": "in",
-          "description": "指定标识报表类型的 HIDP_REPORT_TYPE 枚举器值。[in] LCo 指定按钮用法 链接集合。 如果 LCo 为非零，则例程仅返回有关此链接集合包含的按钮的信息;否 则，如果 LCo 为零，则例程将返回与 ppd ppd关联的 顶级 集合中的所有按钮的相关信息。[in, out] BLi 指向调用方分配的缓冲区的指针，该缓冲区例程用于返回使用情况和 使用情况页 设置为 ON （1）的每个按钮的标识符。[in, out] ULe 指定 BLi 缓冲区的输入、长度（以数组元素为单位）。 指定输出中当前设置为 ON 的数字用法。"
-        },
-        {
-          "name": "Ppd",
-          "direction": "in",
-          "description": "指向顶级集合 预先分析的数据的指针。[in] Rep 指向包含按钮数据的报表的指针。[in] RLe 指定位于 Rep的报告的长度（以字节为单位）。"
-        },
-        {
-          "name": "PreparsedData",
-          "direction": "in",
-          "description": "指向顶级集合 预先分析的数据的指针。[out] Capabilities 指向调用方分配的缓冲区的指针，该缓冲区由例程用来返回集合的HIDP_CAPS结构。"
-        }
-      ],
-      "return_value": {
-        "description": "没有 没有 HidP_GetCaps 返回以下状态值之一： 返回代码"
-      },
-      "remarks": "在使用 HidP_GetButtonArray 或 HidP_SetButtonArray之前，在运行时调用 HidP_GetVersion。 HidP_GetButtonArray 和 HidP_SetButtonArray 函数仅在 HidP_GetVersion 返回两个或更大值的作系统上可用。 API 版本 2 对应于 Windows 11。 HidP_GetVersion 可以安全地调用下层系统，因为它是仅标头实现。",
-      "requirements": {
-        "target_platform": "Windows",
-        "min_client": "在 Windows 2000 及更高版本的 Windows 中可用",
-        "header": "hidpi.h"
-      },
-      "header": "hidclass.h",
-      "deprecated": false,
-      "cross_references": [
-        "HIDP_CAPS",
-        "PASSIVE_LEVEL"
-      ],
-      "confidence": 1.0,
-      "_source_line": 1344
-    },
-    {
-      "id": "windows::STATUS_NO_DATA_DETECTED",
-      "name": "STATUS_NO_DATA_DETECTED",
-      "entity_type": "struct",
-      "description": "STATUS_COULD_NOT_INTERPRET",
-      "header": "hidpddi.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 1474
-    },
-    {
-      "id": "windows::STATUS_INSUFFICIENT_RESOURCES",
-      "name": "STATUS_INSUFFICIENT_RESOURCES",
-      "entity_type": "struct",
-      "description": "STATUS_ILLEGAL_INSTRUCTION",
-      "header": "hidpddi.h",
-      "deprecated": false,
-      "cross_references": [
-        "STATUS_ILLEGAL_INSTRUCTION"
-      ],
-      "confidence": 0.65,
-      "_source_line": 1476
-    },
-    {
       "id": "windows::HIDP_STATUS_INVALID_REPORT_TYPE",
       "name": "HIDP_STATUS_INVALID_REPORT_TYPE",
-      "entity_type": "struct",
-      "description": "言论 描述 成功分析报表描述符并分配了描述设备所需的内存块。未能在报表描述符中找到顶级集合。 报告描述符中检测到错误。 请参阅 HIDP_DEVICE_DESC 结构的 Dbg 字段中的错误代码。 当报表描述符需要更多数据时，找到报告描述符的末尾。未能分配内存。 未能分析报表描述符中的项。在描述符中找到 0 的报告 ID。 对于由 ReportDesc 参数指定的原始报表描述符，HidP_GetCollectionDescription 填充 DeviceDescription 块，其中包含由调用方分配的集合描述符链接列表以及给定报表描述符描述的 相应报告 ID 信息。 收集信息和 ReportID 信息的内存是根据 PoolType 值分配的。",
+      "entity_type": "enum",
+      "description": "表示HID解析器遇到无效报表类型时返回的状态码",
       "remarks": "描述 已成功初始化报表。预先分析的数据无效。 报表的指定长度不等于指定报表类型的集合的报表长度。报表类型无效。 指定的报表 ID 无效。 初始化 HID 报表会将所有控件数据设置为零，或者控件的 null 值，由 USB HID 标准定义。 （发 送或接收 null 值表示不应修改控件的当前值。 HidP_InitializeReportForID 执行以下作： 将所有按钮和值的位字段设置为零，不带 null 值。 将具有 null 值的所有控件的位字段设置为其相应的 null 值。 有关详细信息，请参阅 HID 集合。",
       "requirements": {
         "target_platform": "Windows",
@@ -2089,27 +1785,39 @@
         "PoolType"
       ],
       "confidence": 0.75,
-      "_source_line": 1477
-    },
-    {
-      "id": "windows::PHIDP_UNKNOWN_TOKEN",
-      "name": "PHIDP_UNKNOWN_TOKEN",
-      "entity_type": "struct",
-      "description": "GlobalUnknowns; ULONG Data[1]; } HIDP_EXTENDED_ATTRIBUTES, *PHIDP_EXTENDED_ATTRIBUTES; 成员 NumGlobalUnknowns 指定 数据指定的列表中的 HIDP_UNKNOWN_TOKEN 结构数。 Reserved[3] 仅供内部系统使用。 GlobalUnknowns 仅供内部系统使用。 Data[1] 指定 HidP_GetExtendedAttributes 返回 HIDP_UNKNOWN_TOKEN 结构的可变长度数组的 内存位置。",
-      "header": "hidpi.h",
-      "deprecated": false,
-      "cross_references": [
-        "HIDP_EXTENDED_ATTRIBUTES",
-        "HIDP_UNKNOWN_TOKEN"
-      ],
-      "confidence": 0.75,
-      "_source_line": 1784
+      "_source_line": 1477,
+      "syntax": "NTSTATUS HidP_SetUsageValueArray(\n[in]      HIDP_REPORT_TYPE     ReportType,   [in]      USAGE                UsagePage,\n[in]      USHORT               LinkCollection,   [in]      USAGE                Usage,\n[in]      PCHAR                UsageValue,\n[in]      USHORT               UsageValueByteLength,\n[in]      PHIDP_PREPARSED_DATA PreparsedData,   [in, out] PCHAR                Report,\n[in]      ULONG                ReportLength);",
+      "return_value": {
+        "description": "HidP_SetUsageValueArray 返回以下状态值之一： 返回代码"
+      },
+      "parameters": [
+        {
+          "name": "ReportType",
+          "direction": "in",
+          "description": "指定一个 HIDP_REPORT_TYPE 枚举器值，该值指示位于 报表的 HID 报表的类型。[in] UsagePage 指定使用情况 使用情况页。[in] LinkCollection 指定包含用法的 链接集合。 如果 LinkCollection 为非零，则例程仅设置此链接集合中的用法 （如果存在）。 如果 LinkCollection 为零，则例程将设置它在与 PreparsedData关联的 顶级集合中查找的第一个用法。"
+        },
+        {
+          "name": "Usage",
+          "direction": "in",
+          "description": "指定用法。"
+        },
+        {
+          "name": "UsageValue",
+          "direction": "in",
+          "description": "指向调用方分配的缓冲区的指针，该缓冲区包含与使用值数组关联的数据。"
+        },
+        {
+          "name": "UsageValueByteLength",
+          "direction": "in",
+          "description": "指定 UsageValue 缓冲区的长度（以字节为单位）。[in] PreparsedData 指向顶级 预分析数据的指针。[in, out] Report 指向 HID 报表的指针。[in] ReportLength 指定位于报表 报表的 HID 报表的大小（以字节为单位），该报表类型必须与集合 HIDP_CAPS 结构中返回的指定报表 HidP_GetCaps 类型的报表长度相等。"
+        }
+      ]
     },
     {
       "id": "windows::PHIDP_BUTTON_ARRAY_DATA",
       "name": "PHIDP_BUTTON_ARRAY_DATA",
-      "entity_type": "struct",
-      "description": "ButtonData, PUSHORT ButtonDataLength,",
+      "entity_type": "structure",
+      "description": "Structure containing button array data for HID devices",
       "header": "hidpi.h",
       "deprecated": false,
       "cross_references": [
@@ -2123,9 +1831,7 @@
       "name": "HIDP_LINK_COLLECTION_ROOT",
       "entity_type": "struct",
       "description": "，则根集合中第一个找到的按钮数组将返回与 UsagePage 匹 配，并返回 Usage。 Usage 将设置其按钮数组 HidP_SetButtonArray 的用法。 ButtonData 要设置为按钮数组的值的缓冲区。 ButtonDataLength ButtonData 缓冲区中的元素数。 PreparsedData 从 HIDCLASS返回的已分析数据。 Report 报告数据包。 第一个字节 必须是 ReportId。 ReportLength 给定报告数据包的长度（以字节为单位）。",
-      "return_value": {
-        "description": "HidP_SetButtonArray 返回以下状态值之一： 返回代码"
-      },
+      "return_value": "",
       "header": "hidpi.h",
       "deprecated": false,
       "cross_references": [
@@ -2135,22 +1841,9 @@
       "_source_line": 1820
     },
     {
-      "id": "windows::HIDP_STATUS_NOT_BUTTON_ARRAY",
-      "name": "HIDP_STATUS_NOT_BUTTON_ARRAY",
-      "entity_type": "struct",
-      "description": "HIDP_STATUS_BUFFER_TOO_SMALL",
-      "header": "hidpi.h",
-      "deprecated": false,
-      "cross_references": [
-        "HIDP_STATUS_BUFFER_TOO_SMALL"
-      ],
-      "confidence": 0.65,
-      "_source_line": 1836
-    },
-    {
       "id": "windows::HIDP_STATUS_INCOMPATIBLE_REPORT_ID",
       "name": "HIDP_STATUS_INCOMPATIBLE_REPORT_ID",
-      "entity_type": "struct",
+      "entity_type": "constant",
       "description": "言论 描述 例程已成功返回值。指定的报表类型无效。指定的报表长度无效。 集合返回了非法的逻辑或物理值。 若要提取集合返回的值，请调用 HidP_GetUsageValue。 集合中缩放值的当前状态小于逻辑最小值或大于逻辑最大值，缩放值具有 NULL 状态。 集合中缩放值数据的当前状态小于逻辑最小值或大于逻辑最大值。 指定的使用情况、使用情况页或链接集合在指定的顶级集合支持的任何报表中都找不到。 指定的值不包含在指定的报表中，但包含在指定的顶级集合支持的另一个报表中。 缩放值是指根据特定参数（如敏感度和设备范围）修改的原始 HID 数据的调整输出。 此调整允许对设备预期使用的数据进行更有意义的解释。 若要进一步了解 HID 报表的解释方式和缩放值的重要性，请参阅 解释 HID 报告。 PreparsedData、UsageValue提供的调用方分配的缓冲区，并且必须从非分页池分配 报表。 用户模式应用程序和内核模式驱动程序必须使用 HidP_GetUsageValueArray 来提取 使用值数组的数据。 如果例程返回状态HIDP_STATUS_BAD_LOG_PHY_VALUES，应用程序或驱动程序可以调用 HidP_GetUsageValue 来提取原始使用情况数据。 有关详细信息，请参阅 HID 集合。",
       "syntax": "NTSTATUS HidP_GetSpecificButtonCaps(\n[in]      HIDP_REPORT_TYPE     ReportType,   [in]      USAGE                UsagePage,\n[in]      USHORT               LinkCollection,   [in]      USAGE                Usage,\n[out]     PHIDP_BUTTON_CAPS    ButtonCaps,\n[in, out] PUSHORT              ButtonCapsLength,\n[in]      PHIDP_PREPARSED_DATA PreparsedData);",
       "parameters": [
@@ -2203,8 +1896,8 @@
     {
       "id": "windows::HIDP_STATUS_BUFFER_TOO_SMALL",
       "name": "HIDP_STATUS_BUFFER_TOO_SMALL",
-      "entity_type": "struct",
-      "description": "言论 描述 已成功返回所有控件数据。 由 ReportType 指定的报表类型无效 PreparsedData 指定的预分析数据无效 HID 报表的大小（以字节为单位）不等于集合为指定报表类 型的 HIDP_CAPS 结构中指定的长度。顶级集合没有指定类型的报表。 DataList 数组太小，无法描述所有按钮、当前设置为 ON 以及 HID 报表中的所有值。 用户模式应用程序和内核模式驱动程序调用 HidP_MaxDataListLength，以确定 HidP_GetData 可以返回的最大HIDP_DATA结构数。 HidP_GetData 不返回 使用值数组的数据。 有关详细信息，请参阅 HID 集合。",
+      "entity_type": "enum",
+      "description": "表示HID解析缓冲区过小的状态码",
       "syntax": "NTSTATUS HidP_GetExtendedAttributes(\n[in]      HIDP_REPORT_TYPE          ReportType,   [in]      USHORT                    DataIndex,\n[in]      PHIDP_PREPARSED_DATA      PreparsedData,   [out]     PHIDP_EXTENDED_ATTRIBUTES Attributes,\n[in, out] PULONG                    LengthAttributes);",
       "parameters": [
         {
@@ -2252,56 +1945,10 @@
       "_source_line": 2062
     },
     {
-      "id": "windows::HIDP_UNKNOWN_TOKEN_HIDP_PREPARSED_DATA",
-      "name": "HIDP_UNKNOWN_TOKEN_HIDP_PREPARSED_DATA",
-      "entity_type": "struct",
-      "description": "HidP_GetLinkCollectionNodes函数 HidP_GetLinkCollectionNodes 例程返回 顶级集合的链接集合数组。",
-      "syntax": "NTSTATUS HidP_GetLinkCollectionNodes(\n[out]     PHIDP_LINK_COLLECTION_NODE LinkCollectionNodes,\n[in, out] PULONG                     LinkCollectionNodesLength,\n[in]      PHIDP_PREPARSED_DATA       PreparsedData);",
-      "parameters": [
-        {
-          "name": "LinkCollectionNodes",
-          "direction": "out",
-          "description": "指向调用方分配的HIDP_LINK_COLLECTION_NODE结构的数组的指针，其中 HidP_GetLinkCollectionNodes 返回顶级集合的链接集合数组。[in, out] LinkCollectionNodesLength 指定 LinkCollectionNodes 缓冲区的输入、长度（以数组元素为单位）。 输出时，例程将 LinkCollectionNodesLength 设置为数组中设置的条目数。[in] PreparsedData 指向此例程返回链接集合数组的顶级集合的预分析数据的指针。"
-        }
-      ],
-      "return_value": {
-        "description": "HidP_GetLinkCollectionNodes 返回以下状态代码之一： 返回代码"
-      },
-      "header": "hidpi.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 1.0,
-      "_source_line": 2083
-    },
-    {
-      "id": "windows::HIDP_STATUS_NULL",
-      "name": "HIDP_STATUS_NULL",
-      "entity_type": "struct",
-      "description": "言论 描述 例程已成功设置使用值。 使用具有阻止缩放的非法逻辑或物理范围。 指定的物理值在范围外，用法不具有 null 值。报表长度无效。 指定的报表类型无效。 指定的报表中不存在该用法，但它确实存在于指定类型的其他报表中。 预先分析的数据无效。 指定报表类型的任何报表中不存在此用法。 指定的物理值在范围外，用法具有 null 值，例程设置 null 值。 缩放值是指根据特定参数（如敏感度和设备范围）修改的原始 HID 数据的调整输出。 此调整允许对设备预期使用的数据进行更有意义的解释。 若要进一步了解 HID 报表的解释方式和缩放值的重要性，请参阅 解释 HID 报告。 HidP_SetScaledUsageValue 设置符号位。 如果例程返回HIDP_STATUS_INCOMPATIBLE_REPORT_ID，则指定的报表包含使用情况。但是，用户模式应用程序或内核模式驱动程序可以在零初始化的报表中设置使用情况。请参阅 初始化 HID 报表。 有关详细信息，请参阅 HID 集合。",
-      "header": "hidpi.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 2156
-    },
-    {
-      "id": "windows::HIDP_STATUS_VALUE_OUT_OF_RANGE",
-      "name": "HIDP_STATUS_VALUE_OUT_OF_RANGE",
-      "entity_type": "struct",
-      "description": "HIDP_STATUS_USAGE_NOT_FOUND",
-      "header": "hidpi.h",
-      "deprecated": false,
-      "cross_references": [
-        "HIDP_STATUS_USAGE_NOT_FOUND"
-      ],
-      "confidence": 0.65,
-      "_source_line": 2157
-    },
-    {
       "id": "windows::HIDP_STATUS_USAGE_NOT_FOUND",
       "name": "HIDP_STATUS_USAGE_NOT_FOUND",
-      "entity_type": "struct",
-      "description": "言论 描述 例程已成功返回值数据。报表长度无效。 指定的报表类型无效。 该集合包含指定类型的报表中指定使用情况页上的值，但指 定报表中没有此类用法。预先分析的数据无效。 集合不包含指定报表类型的任何报表中指定使用情况页上的值。 HidP_GetUsageValue 不对值进行签名或缩放。 若要提取有符号值，请使用 HidP_GetScaledUsageValue。 若要手动分配符号位，可以从值 HIDP_VALUE_CAPS 结构中的信息确定符号位的位置。 HidP_GetUsageValue 旨在提取其报表计数为 1 的使用情况的使用情况值。 如果指定的使用情况的报表计数大于 1，则使用情况是 使用值数组的一部分。 HidP_GetUsageValue 仅返回使用 情况值数组中的第一个数据项。 若要提取使用情况值数组中的所有数据项，请使用 HidP_GetUsageValueArray。 有关详细信息，请参阅 HID 集合。 要求",
+      "entity_type": "enum",
+      "description": "表示在HID报表中未找到指定用法时的状态码",
       "syntax": "NTSTATUS HidP_UsageAndPageListDifference(\n[in, reads]   PUSAGE_AND_PAGE PreviousUsageList,   [in, reads]   PUSAGE_AND_PAGE CurrentUsageList,\n[out, writes] PUSAGE_AND_PAGE BreakUsageList,   [out, writes] PUSAGE_AND_PAGE MakeUsageList,   [in]          ULONG           UsageListLength);\nNTSTATUS HidP_UsageListDifference(   [in]  PUSAGE PreviousUsageList,   [in]  PUSAGE CurrentUsageList,\n[out] PUSAGE BreakUsageList,   [out] PUSAGE MakeUsageList,   [in]  ULONG  UsageListLength);",
       "parameters": [
         {
@@ -2343,21 +1990,10 @@
       "_source_line": 2275
     },
     {
-      "id": "windows::HIDP_INVALID_REPORT_LENGTH",
-      "name": "HIDP_INVALID_REPORT_LENGTH",
-      "entity_type": "struct",
-      "description": "HIDP_INVALID_REPORT_TYPE HIDP_STATUS_NOT_VALUE_ARRAY",
-      "header": "hidpi.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 2328
-    },
-    {
       "id": "windows::HIDP_STATUS_DATA_INDEX_OUT_OF_RANGE",
       "name": "HIDP_STATUS_DATA_INDEX_OUT_OF_RANGE",
-      "entity_type": "struct",
-      "description": "描述 报告数据包中的按钮数组已成功设置 ReportType 无效 PreparsedData 无效 报表数据包的长度不等于 给定的 reportTypeHIDP_CAPS 结构中指定的长度 此设备上没有给定的 reportType 报表类型指定的控件不是按钮数组 指定的使用情况页、使用情况和链接集合存在于报表中，其报表 ID 不同于传入的报表 此 ReportType 的任何报表中都不存在使用情况页、使用情况和链接集合组合 提供",
+      "entity_type": "enum",
+      "description": "表示HID报告数据索引超出范围的错误状态码",
       "remarks": "HidP_SetButtonArray 设置在指定的 LinkCollection内找到的第一个按钮数组的按钮状态，并为指定的 报表提供的 使用情况。 调用方应使用 HidP_GetVersion 来确定此函数是否可用。 仅当 HidP_GetVersion 返回两个或更大的值时，HidP_SetButtonArray 才可用。 API 版本 2 对应于 Windows 11。 当描述主项的用法序列中的最后一个用法时，必须重复一个按钮数组，因为定义的用法少于为给定主项声明的 ReportCount。 在这种情况下，将为该使用情况分配单个 HIDP_BUTTON_CAPS，并将 HIDP_BUTTON_CAPS 的 ReportCount 设置为反映使用情况引用的字段数。 描述按钮数组的 HIDP_BUTTON_CAPS 将始终 ReportCount 大于 1。 如果 ReportCount 等于一个，则它不是按钮数组，不能与 HidP_SetButtonArray一起使用。 有关详细信息，请参阅 HidP_SetUsages。",
       "header": "hidpi.h",
       "deprecated": false,
@@ -2405,8 +2041,8 @@
     {
       "id": "windows::HIDP_STATUS_BAD_LOG_PHY_VALUES",
       "name": "HIDP_STATUS_BAD_LOG_PHY_VALUES",
-      "entity_type": "struct",
-      "description": "HIDP_STATUS_VALUE_OUT_OF_RANGE HIDP_STATUS_INVALID_REPORT_LENGTH HIDP_STATUS_INVALID_REPORT_TYPE",
+      "entity_type": "enum",
+      "description": "Indicates the HID report contains bad logical or physical values",
       "header": "hidpi.h",
       "deprecated": false,
       "cross_references": [
@@ -2418,153 +2054,10 @@
       "_source_line": 2928
     },
     {
-      "id": "windows::HIDP_STATUS_INVALID_REPORT_LENGTH",
-      "name": "HIDP_STATUS_INVALID_REPORT_LENGTH",
-      "entity_type": "struct",
-      "description": "HIDP_STATUS_INVALID_REPORT_TYPE HIDP_STATUS_INCOMPATIBLE_REPORT_ID",
-      "syntax": "NTSTATUS HidP_SetUsageValueArray(\n[in]      HIDP_REPORT_TYPE     ReportType,   [in]      USAGE                UsagePage,\n[in]      USHORT               LinkCollection,   [in]      USAGE                Usage,\n[in]      PCHAR                UsageValue,\n[in]      USHORT               UsageValueByteLength,\n[in]      PHIDP_PREPARSED_DATA PreparsedData,   [in, out] PCHAR                Report,\n[in]      ULONG                ReportLength);",
-      "parameters": [
-        {
-          "name": "ReportType",
-          "direction": "in",
-          "description": "指定一个 HIDP_REPORT_TYPE 枚举器值，该值指示位于 报表的 HID 报表的类型。[in] UsagePage 指定使用情况 使用情况页。[in] LinkCollection 指定包含用法的 链接集合。 如果 LinkCollection 为非零，则例程仅设置此链接集合中的用法 （如果存在）。 如果 LinkCollection 为零，则例程将设置它在与 PreparsedData关联的 顶级集合中查找的第一个用法。"
-        },
-        {
-          "name": "Usage",
-          "direction": "in",
-          "description": "指定用法。"
-        },
-        {
-          "name": "UsageValue",
-          "direction": "in",
-          "description": "指向调用方分配的缓冲区的指针，该缓冲区包含与使用值数组关联的数据。"
-        },
-        {
-          "name": "UsageValueByteLength",
-          "direction": "in",
-          "description": "指定 UsageValue 缓冲区的长度（以字节为单位）。[in] PreparsedData 指向顶级 预分析数据的指针。[in, out] Report 指向 HID 报表的指针。[in] ReportLength 指定位于报表 报表的 HID 报表的大小（以字节为单位），该报表类型必须与集合 HIDP_CAPS 结构中返回的指定报表 HidP_GetCaps 类型的报表长度相等。"
-        }
-      ],
-      "return_value": {
-        "description": "HidP_SetUsageValueArray 返回以下状态值之一： 返回代码"
-      },
-      "remarks": "描述 例程已成功设置使用值。 指定的报表中不存在该用法，但它确实存在于指定类型的其他报表中。 预先分析的数据无效。没有指定类型的报表。 指定报表类型的任何报表中不存在此用法。报表长度无效。 指定的报表类型无效。 HidP_SetUsageValue 例程不对值进行签名。 用户模式应用程序或内核模式驱动程序必须在此值的 HIDP_VALUE_CAPS 结构中提供的位置对值进行签名，或调用 HidP_SetScaledUsageValue。 有关详细信息，请参阅 HID 集合。",
-      "header": "hidpi.h",
-      "deprecated": false,
-      "cross_references": [
-        "HIDP_STATUS_INCOMPATIBLE_REPORT_ID",
-        "HIDP_STATUS_INVALID_REPORT_TYPE",
-        "HIDP_VALUE_CAPS"
-      ],
-      "confidence": 1.0,
-      "_source_line": 2994
-    },
-    {
-      "id": "windows::HIDP_STATUS_NOT_IMPLEMENTED",
-      "name": "HIDP_STATUS_NOT_IMPLEMENTED",
-      "entity_type": "struct",
-      "description": "HIDP_STATUS_USAGE_NOT_FOUND",
-      "syntax": "NTSTATUS HidP_TranslateUsagesToI8042ScanCodes(\n[in]           PUSAGE                        ChangedUsageList,   [in]           ULONG                         UsageListLength,   [in]           HIDP_KEYBOARD_DIRECTION       KeyAction,\n[in, out]      PHIDP_KEYBOARD_MODIFIER_STATE ModifierState,\n[in]           PHIDP_INSERT_SCANCODES        InsertCodesProcedure,\n[in, optional] PVOID                         InsertCodesContext);",
-      "parameters": [
-        {
-          "name": "ChangedUsageList",
-          "direction": "in",
-          "description": "指向键盘（按钮）用法列表的指针。 翻译用法例程将零解释为结束使用列表的分隔符。[in] UsageListLength 指定更改的使用情况列表中可能的最大使用量。[in] KeyAction 标识指定更改使用情况列表的关键方向。 typedef enum _HIDP_KEYBOARD_DIRECTION { HidP_Keyboard_Break, HidP_Keyboard_Make } HIDP_KEYBOARD_DIRECTION; HidP_Keyboard_Break 指定 断 方向（键向上）。 更改的使用情况列表包含设置为 OFF 的用法，这些用法以前设置为 ON（对应于以前关闭但现在已关闭的键）。 HidPKeyboard_Make 指定 方向（向下键）。 更改的使用情况列表包含设置为 ON 的用法，这些用法以前设置为 OFF （对应于以前启动但现在已关闭的键）。[in, out] ModifierState 指向调用方维护供翻译用法例程使用的_HIDP_KEYBOARD_MODIFIER_STATE结构的指针。 修饰符状态结构标识键盘修饰符键的状态。 typedef struct _HIDP_KEYBOARD_MODIFIER_STATE { union { struct { ULONG LeftControl: 1; ULONG LeftShift: 1; ULONG LeftAlt: 1; ULONG LeftGUI: 1; ULONG RightControl: 1; ULONG RightShift: 1; ULONG RightAlt: 1; ULONG RigthGUI: 1; ULONG CapsLock: 1; ULONG ScollLock: 1; ULONG NumLock: 1; ULONG Reserved: 21; }; ULONG ul;}; 修饰符状态结构的每个成员都标识相应的用法是设置为 ON （1） 还是 OFF （零）。有关修饰符状态结构如何与翻译用法例程一起使用的详细信息，请参阅“备注”部分。[in] InsertCodesProcedure 指向调用方提供的PHIDP_INSERT_SCANCODES类型的回调例程的指针，转换用法例程使用该例程将映射的扫描代码返回到翻译用法例程的调用方。 typedef BOOLEAN (*PHIDP_INSERT_SCANCODES)( IN PVOID Context, IN PCHAR NewScanCodes, IN ULONG Length ); 上下文 指向翻译用法例程调用方上下文的指针。 转换用法例程将 InsertCodesContext 指针传递给 InsertCodesProcedure 例程。 NewScanCodes 指向翻译用法例程返回给翻译用法例程调用方扫描代码的第一个字节的指针。长度 指定扫描代码的长度（以字节为单位）。 扫描代码不能超过四个字节。[in, optional] InsertCodesContext 指向转换用法例程传递给 InsertCodesProcedure 例程的调用方定义的上下文的指针。"
-        }
-      ],
-      "return_value": {
-        "description": "HidP_TranslateUsagesToI8042ScanCodes 返回以下状态值之一： 返回代码"
-      },
-      "remarks": "描述 例程已成功设置使用值。报表长度无效。 指定的报表类型无效。 UsageValue 缓冲区的大小（以字节为单位）。 指定的报表中不存在该用法，但它确实存在于指定类型的其他报表中。 指定的用法不是使用值数组。 预先分析的数据无效。没有指定类型的报表。 为使用值数组指定的数据字段的报告大小不是八位的倍数。指定报表类型的任何报表中不存在此用法。 UsageValue 缓冲区所需的大小（以字节为单位）通过将 BitSize 乘以一起，ReportCount 使用值数组 HIDP_VALUE_CAPS 结构的成员，并将结果向上舍入到最近的字节。 HidP_SetUsageValueArray 仅支持使用值数组，其中数组的每个数据字段是 8 位的倍数。调用方必须设置 UsageValue 缓冲区，就像报表中应一样。 有关详细信息，请参阅 HID 集合。",
-      "header": "hidpi.h",
-      "deprecated": false,
-      "cross_references": [
-        "DISPATCH_LEVEL",
-        "HIDP_STATUS_USAGE_NOT_FOUND",
-        "HIDP_VALUE_CAPS",
-        "HID_USAGE_PAGE_KEYBOARD"
-      ],
-      "confidence": 0.9,
-      "_source_line": 3105
-    },
-    {
-      "id": "windows::HIDP_STATUS_I8042_TRANS_UNKNOWN",
-      "name": "HIDP_STATUS_I8042_TRANS_UNKNOWN",
-      "entity_type": "struct",
-      "description": "言论 描述 转换使用情况例程已成功映射已更改使用情况列表中的所有有效用法。 已更改的使用情况列表中的用法映射到无效的键盘扫描代码。 HidP_TranslateUsagesToI8042ScanCodes 按更改的使用情况列表中的键盘按钮用法按列表中发生的顺序映射，从 ChangedUsageList 处的值开始。 转换用法例程成功映射使用情况后，它使用调用方 InsertCodesProcedure 例程将相应的扫描代码返回到调用方。 转换用法例程继续映射列表中的使用情况，直到发生以下情况之一：列表中的使用量值为零;它映射由 UsageListLength指定的使用情况数;用法映射到无效的键盘扫描代码。 HidP_TranslateUsagesToI8042ScanCodes 主要用于处理循环中，该循环会反复确定当前使用情况列表（当前设置为 ON 的用法），将它们与以前的使用列表（以前设置为 ON 的用法）进行比较，并映射当前和以前的使用列表之间的差异，以便进行扫描代码和中断扫描代码。 以下作演示如何使用翻译用法例程。 在开始处理循环之前，处理代码通常会分配并初始化以下数据： 以前的使用情况列表、当前使用情况列表、中断使用情况列表和使用情况列表。 每个列表都是零初始化的用法数组。 为了确保处理代码映射可在连续 HID 输入报表之间更改的所有用法，处理代码必须将每个列表中的元素数设置为 HidP_GetUsages 可以为",
-      "header": "hidpi.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 3175
-    },
-    {
-      "id": "windows::HID_USAGE_PAGE_KEYBOARD",
-      "name": "HID_USAGE_PAGE_KEYBOARD",
-      "entity_type": "struct",
-      "description": "使用情况页返回的最大使用量。 此数字是使用 HidP_MaxUsageListLength获取的。 由零初始化的_HIDP_KEYBOARD_MODIFIER_STATE结构供翻译用法例程使用。 在处理循环中，代码必须维护此结构，以供翻译用法例程使用。 处理代码可以读取修饰键的状态，但代码不得修改结构。 转换用法例程使用此结构来维护有关修饰键状态的内部信息。 初始化所需结构后，处理循环的每个迭代通常包含以下作序列： 1. 调用 HidP_GetUsages 以获取设置为 ON 的使用情况的当前使用情况列表。 将 get usages 例程的 UsagePage 输入参数设置为HID_USAGE_PAGE_KEYBOARD。 2. 调用 HidP_UsageListDifference 将当前使用情况列表与以前的使用情况列表进行比较。 使用情况列表差异例程返回中断使用情况列表和使用情况列表。 3. 调用翻译用法例程，将 ChangedUsageList 设置为中断使用情况列表，KeyAction HidP_KeyboardBreak，ModifierState 转换用法例程的处理代码维护的结构。 转换用法例程使用 InsertCodesProcedure回调例程将中断扫描代码返回到处理循环。 4. 调用翻译用法例程，将 ChangedUsageList 设置为“生成使用情况”列表，KeyAction 为 HidP_KeyboardMake，ModifierState 转换用法例程的处理代码维护的结构。 转换用法例程 使用 InsertCodesProcedure回调例程将生成扫描代码返回到处理循环。 5. 将以前的使用情况列表更新为当前使用情况列表。 有关 HID 用法与 PS/2 键盘扫描代码之间的映射的信息，请参阅 密钥支持和扫描代码要求",
-      "requirements": {
-        "target_platform": "Windows",
-        "min_client": "在 Windows 2000 及更高版本的 Windows 中可用"
-      },
-      "header": "hidpi.h",
-      "deprecated": false,
-      "cross_references": [
-        "DISPATCH_LEVEL"
-      ],
-      "confidence": 0.75,
-      "_source_line": 3185
-    },
-    {
-      "id": "windows::HIDP_STATUS_BUTTON_NOT_PRESSED",
-      "name": "HIDP_STATUS_BUTTON_NOT_PRESSED",
-      "entity_type": "struct",
-      "description": "HIDP_STATUS_INCOMPATIBLE_REPORT_ID",
-      "header": "hidpi.h",
-      "deprecated": false,
-      "cross_references": [
-        "HIDP_STATUS_INCOMPATIBLE_REPORT_ID"
-      ],
-      "confidence": 0.65,
-      "_source_line": 3295
-    },
-    {
-      "id": "windows::PDRIVER_OBJECT",
-      "name": "PDRIVER_OBJECT",
-      "entity_type": "ioctl",
-      "description": "DriverObject; PUNICODE_STRING RegistryPath; ULONG DeviceExtensionSize; BOOLEAN DevicesArePolled; UCHAR Reserved[3]; }",
-      "syntax": "NTSTATUS HidRegisterMinidriver(\n[in] PHID_MINIDRIVER_REGISTRATION MinidriverRegistration);",
-      "parameters": [
-        {
-          "name": "MinidriverRegistration",
-          "direction": "in",
-          "description": "指向调用方分配的缓冲区的指针，该缓冲区包含微型驱动程序的初始化 HID_MINIDRIVER_REGISTRATION 结构。"
-        }
-      ],
-      "return_value": {
-        "description": "HidRegisterMinidriver 返回以下 NTSTATUS 代码之一： 返回代码"
-      },
-      "remarks": "当 HID 微型驱动程序调用 HidRegisterMinidriver时，它使用此结构将信息传递给 HID 类驱动程序。 在设置成员之前，微型驱动程序必须从零初始化此结构。 微型驱动程序将 driverObject 成员 和 RegistryPath 设置为驱动程序对象和注册表路径参数，这些参数作为系统提供的参数传递 给其 DriverEntry 例程。 修订 应设置为HID_REVISION。",
-      "members": [
-        {
-          "name": "Revision",
-          "description": "指定此微型驱动程序支持的 HID 版本。 DriverObject 指向微型驱动程序的 DRIVER_OBJECT的指针。 RegistryPath 指向微型驱动程序的注册表路径的指针。 DeviceExtensionSize 指定微型驱动程序请求设备扩展的长度（以字节为单位）。 DevicesArePolled 指定必须轮询此微型驱动程序支持的总线上的设备才能从设备获取数据。 Reserved[3] 保留供内部系统使用。"
-        }
-      ],
-      "header": "hidport.h",
-      "deprecated": false,
-      "cross_references": [
-        "DriverEntry",
-        "PUNICODE_STRING"
-      ],
-      "confidence": 1.0,
-      "_source_line": 3633
-    },
-    {
       "id": "windows::STATUS_REVISION_MISMATCH",
       "name": "STATUS_REVISION_MISMATCH",
-      "entity_type": "ioctl",
-      "description": "言论 描述 指示例程已完成且未出错，微型驱动程序现已注册到 HID 类驱动程序。 指示系统内存不足，无法注册微型驱动程序。 指示此版本的 HID 类驱动程序不支持 MinidriverRegistration-> 修订版中提供的 HID 修订号。 在调用此例程之前，HID 微型驱动程序必须初始化 MinidriverRegistration中提供的",
+      "entity_type": "constant",
+      "description": "Indicates a version mismatch between the HID class driver and minidriver.",
       "header": "hidport.h",
       "deprecated": false,
       "cross_references": [],
@@ -2572,21 +2065,10 @@
       "_source_line": 3667
     },
     {
-      "id": "windows::HID_STRING_ID_IMANUFACTURER",
-      "name": "HID_STRING_ID_IMANUFACTURER",
-      "entity_type": "ioctl",
-      "description": "HID_STRING_ID_IPRODUCT",
-      "header": "hidport.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 3810
-    },
-    {
       "id": "windows::HID_STRING_ID_ISERIALNUMBER",
       "name": "HID_STRING_ID_ISERIALNUMBER",
-      "entity_type": "ioctl",
-      "description": "HID 微型驱动程序确定这三个常量中的哪一个存在于输入缓冲区的下两个字节中，然后它必须从设备描述符中检索相应的字符串索引。 设备描述符信息存储在与设备关联的顶级集合的设备扩展中。 请务必不要将这三个常量与 ID 的实际字符串索引混淆。 这些常量表示可在其中找到相应字符串索引的设备描述符中的偏移量。 例如，HID_STRING_ID_IMANUFACTURER指示在找到制造商 ID 索引的设备描述符中的位置。 反过来，此索引充当制造商 ID 的可读形式的字符串描述符的偏移量。 输入缓冲区长度 OutputBufferLength 的大小和 Type3InputBuffer的大小。输出缓冲区 HID 微型驱动程序使用请求的字符串（以 NULL 结尾的宽字符字符串）在 Irp- >UserBuffer 填充缓冲区。输出缓冲区长度 UserBuffer的大小。状态块 对设备执行 I/O 的 HID 微型驱动程序设置以下 Irp->IoStatus字段： 信息 设置为从设备传输的字节数。 如果传输已完成且未出错，状态 设置为STATUS_SUCCESS。 否则，它设置为适当的 NTSTATUS 错误代码。 通过此 IOCTL 调用其他驱动程序的 HID 微型驱动程序将 I/O 执行到其设备，应确保状态 块的 信息 字段正确，并且不会更改 状态 字段的内容。",
+      "entity_type": "constant",
+      "description": "HID字符串ID常量，表示设备描述符中串行号字符串索引的位置。不要与实际的字符串索引混淆，这个常量表示的是描述符中的偏移量位置。",
       "header": "hidport.h",
       "deprecated": false,
       "cross_references": [
@@ -2594,19 +2076,6 @@
       ],
       "confidence": 0.75,
       "_source_line": 3811
-    },
-    {
-      "id": "windows::SIZE_T",
-      "name": "SIZE_T",
-      "entity_type": "ioctl",
-      "description": "outBufferSize; FxRequest->GetDeviceIoControlParameters(NULL, NULL, &outBufferSize); reportId = (UCHAR)outBufferSize; 输入缓冲区长度没有。 输出缓冲区没有。 输出缓冲区长度 通过调用 IWDFIoRequest：：GetOutputMemory检索的缓冲区的大小。状态块 对设备执行 I/O 的 HID 微型驱动程序还必须： 调用 IWDFRequest：：SetInformation 以设置传输到设备的字节数。 调用 IWDFRequest：：Complete，S_OK以完成请求而不出错。 否则，请设置相应的 HRESULT 错误代码。",
-      "header": "hidport.h",
-      "deprecated": false,
-      "cross_references": [
-        "Complete"
-      ],
-      "confidence": 0.75,
-      "_source_line": 3999
     },
     {
       "id": "windows::GUID_DEVINTERFACE_HID",
@@ -2637,22 +2106,11 @@
       "_source_line": 4267
     },
     {
-      "id": "windows::USB_DEVICE_DESCRIPTOR",
-      "name": "USB_DEVICE_DESCRIPTOR",
-      "entity_type": "function",
-      "description": "结构的 iProduct 成员设置为USB_INTERFACE_DESCRIPTOR结构的 iInterface 成员。 如果接口由 USB 接口关联描述符 分组，并且接口的接口关联描述符的 iFunction 成员为非 零，则接口USB_DEVICE_DESCRIPTOR结构的 iProduct 成员设置为接口关联描述符 iFunction 成员。 如果提供的缓冲区未 <= 4093 字节（2^12 – 3），则调用可能会失败（具体取决于基础协议， HID/Bluetooth/SPI），错误代码ERROR_GEN_FAILURE（0x0000001f） 有关详细信息，请参阅 HID 集合。",
-      "header": "hidsdi.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 4295
-    },
-    {
       "id": "windows::HIDSPICX_DEVICE_CONFIG_INIT",
       "name": "HIDSPICX_DEVICE_CONFIG_INIT",
-      "entity_type": "struct",
-      "description": "了解以下内容的详细信息：HIDSPICX_DEVICE_CONFIG_INIT HidSpiCxDeviceConfigure 了解以下内容的详细信息：HidSpiCxDeviceConfigure HidSpiCxDeviceInitConfig 了解以下内容的详细信息：HidSpiCxDeviceInitConfig HidSpiCxNotifyDeviceReset 了解以下内容的详细信息：HidSpiCxNotifyDeviceReset",
-      "syntax": "NTSTATUS HidSpiCxDeviceConfigure(\n[in] WDFDEVICE               Device,\n[in] PHIDSPICX_DEVICE_CONFIG DeviceConfiguration);",
+      "entity_type": "macro",
+      "description": "Initializes a HIDSPICX_DEVICE_CONFIG structure.",
+      "syntax": "",
       "parameters": [
         {
           "name": "Device",
@@ -2660,10 +2118,8 @@
           "description": "从上一次调用 WdfDeviceCreate获取的客户端驱动程序的框架设备对象的句柄。[in] DeviceConfiguration 指向初始化 HIDSPICX_DEVICE_CONFIG 结构的指针，指定要用于类扩展和客户端驱动程 序之间通信的回调和队列的详细信息。"
         }
       ],
-      "return_value": {
-        "description": "NTSTATUS 指示类扩展是否能够成功配置设备。"
-      },
-      "remarks": "类扩展初始化内部状态，返回是否成功。 客户端驱动程序可以在进行此回调之前或之后创建默认队列，以便处理类扩展未处理的 IOCTL。 客户端驱动程序不应尝试获取电源策略所有权来配置电源策略设置。 HidClass 和 HidSpiCx 负责管理设备的电源策略。",
+      "return_value": {},
+      "remarks": "",
       "header": "hidspicx.h",
       "deprecated": false,
       "cross_references": [],
@@ -2671,48 +2127,9 @@
       "_source_line": 4707
     },
     {
-      "id": "windows::PASSIVE_LEVEL",
-      "name": "PASSIVE_LEVEL",
-      "entity_type": "struct",
-      "description": "使用虚拟 HID 框架（VHF） 编写 HID 源驱动程序 HID 源设备驱动程序调用此方法以删除 VHF 设备。",
-      "syntax": "void VhfDelete(\n[in] VHFHANDLE VhfHandle,\n[in] BOOLEAN   Wait);\nNTSTATUS VhfReadReportSubmit(\n[in] VHFHANDLE        VhfHandle,\n[in] PHID_XFER_PACKET HidTransferPacket);\nNTSTATUS VhfStart(\n[in] VHFHANDLE VhfHandle);",
-      "parameters": [
-        {
-          "name": "VhfHandle",
-          "direction": "in",
-          "description": "HID 源驱动程序在上一次调用中收到的虚拟 HID 设备的句柄，VhfCreate。[in] Wait 在删除设备后同步返回 TRUE。 在这种情况下，虚拟 HID 框架（VHF）不会返回，直到设备报告为 PnP 管理器缺失，EvtVhfCleanup 回调函数返回。 FALSE 是保留的，不应传递。 有关详细信息，请参阅“备注”。"
-        },
-        {
-          "name": "VhfHandle",
-          "direction": "in",
-          "description": "HID 源驱动程序在上一次调用中收到的虚拟 HID 设备的句柄，VhfCreate。[in] HidTransferPacket 指向描述 HID 报表的 HID_XFER_PACKET 结构的指针。"
-        },
-        {
-          "name": "VhfHandle",
-          "direction": "in",
-          "description": "HID 源驱动程序在上一次调用中收到的虚拟 HID 设备的句柄，VhfCreate。"
-        }
-      ],
-      "return_value": {
-        "description": "没有 如果 VhfReadReportSubmit 调用成功，该方法将返回STATUS_SUCCESS。 否则，NTSTATUS 值。 如果 VhfStart 调用成功，该方法将返回STATUS_SUCCESS。 否则，NTSTATUS 值。"
-      },
-      "remarks": "在调用 VhfDelete 之前，HID 源驱动程序必须停止为虚拟 HID Framework （VHF） 发起新请求。 若要同步调用 VhfDelete，请在PASSIVE_LEVEL调用，Wait 参数设置为 TRUE。 在这种情况下，在完成删除后，它会同步返回。 如果 HID 源驱动程序使用 VHF 注册了 EvtVhfCleanup 回调函数，则会在 VhfDelete 返回之前调用该回调。 可以在同一线程上调用该函数。 VhfDelete 不能以异步方式（Wait 参数设置为 FALSE）或高于 PASSIVE_LEVEL 的任何 IRQL 调用。 这样做可能会导致未定义的行为。 KMDF 驱动程序何时应调用此函数没有任何限制。 建议从与 VhfCreate 调用匹配的函数中调用它。 例如，如果从 EvtDriverDeviceAdd调用 VhfCreate，则从 EvtDeviceCleanupCallback同步 调用 VhfDelete。 VhfDelete 可以在 VHFHANDLE 上调用，而无需之前调用 VhfStart。 HID 源驱动程序可以选择实现其缓冲策略，或让虚拟 HID 框架（VHF）处理缓冲。如果驱动程序使用自己的缓冲策略，则必须在调用 VhfCreate中实现并注册 EvtVhfReadyForNextReadReport 回调函数。 在 VHF 调用 EvtVhfReadyForNextReadReport后，它必须仅调用 VhfReadSubmit 一次。 调用回调后，驱动程序可以重复使用 HidTransferPacket指 向的传输缓冲区。 在再次调用此方法之前，驱动程序必须等待 VHF 下次调用 EvtVhfReadyForNextReadReport。 如果 HID 源驱动程序未实现 EvtVhfReadyForNextReadReport 回调，则调用此方法没有限制。 VHF 使用默认缓冲策略。 驱动程序可以在调用返回后重复使用传输缓冲区。 要求要求目标平台标头库 IRQL 在源驱动程序调用 VhfStart之前，虚拟 HID 框架（VHF）不会调用 HID 源驱动程序实现的任何 回调函数。 在 VhfStart 返回之前，可以调用回调。 此调用成功后，驱动程序可以调用 VhfDelete。 VhfAsyncOperationComplete 和 VhfReadReportSubmit 可以在 VhfStart 返回之前调用（例 如，在调用的回调中）。",
-      "requirements": {
-        "header": "vhf.h",
-        "library": "VhfKm.lib"
-      },
-      "header": "hidspicx.h",
-      "deprecated": false,
-      "cross_references": [
-        "Framework"
-      ],
-      "confidence": 1.0,
-      "_source_line": 4757
-    },
-    {
       "id": "windows::EVT_HIDSPICX_RESETDEVICE",
       "name": "EVT_HIDSPICX_RESETDEVICE",
-      "entity_type": "struct",
+      "entity_type": "callback",
       "description": "EvtHidspicxResetdevice; NTSTATUS EvtHidspicxResetdevice( WDFDEVICE Device) {...}",
       "parameters": [
         {
@@ -2738,8 +2155,8 @@
     {
       "id": "windows::PFN_HIDSPICX_RESETDEVICE",
       "name": "PFN_HIDSPICX_RESETDEVICE",
-      "entity_type": "struct",
-      "description": "EvtResetDevice;",
+      "entity_type": "callback",
+      "description": "Callback function prototype for HIDSPICX device reset operation",
       "header": "hidspicx.h",
       "deprecated": false,
       "cross_references": [],
@@ -2747,43 +2164,10 @@
       "_source_line": 4790
     },
     {
-      "id": "windows::PFN_HIDSPICX_NOTIFY_POWERDOWN",
-      "name": "PFN_HIDSPICX_NOTIFY_POWERDOWN",
-      "entity_type": "struct",
-      "description": "EvtNotifyPowerDown; WDFQUEUE InputReportQueue; WDFQUEUE OutputReportQueue; ULONG NumberOfInputReportRequestsToPend; ULONG Reserved; }",
-      "parameters": [
-        {
-          "name": "DeviceConfig",
-          "description": "指向客户端驱动程序分配 HIDSPICX_DEVICE_CONFIG 结构的指针。 EvtResetDevice 指向客户端驱动程序实现 EVT_HIDSPICX_RESETDEVICE 回调函数的指针。 EvtNotifyPowerDown 指向客户端驱动程序实现 EVT_HIDSPICX_NOTIFY_POWERDOWN 回调函数的指针。 InputReportQueue WDFQUEUE 客户端创建的、非电源管理的队列的句柄，用于接收来自 HID SPI 类扩展的 输入报告请求。 OutputReportQueue WDFQUEUE 客户端创建的、非电源管理的队列的句柄，用于接收来自 HID SPI 类扩展的输出报告请求。"
-        }
-      ],
-      "return_value": {
-        "description": "没有"
-      },
-      "remarks": "在将 HIDSPICX_DEVICE_CONFIG 结构指针传递给 HidSpiCxDeviceConfigure 函数之前， 必须先通过对此宏的调用来初始化它。",
-      "members": [
-        {
-          "name": "Size",
-          "description": "此字段由 HIDSPICX_DEVICE_CONFIG_INIT 函数设置。 EvtResetDevice 指向客户端驱动程序实现 EVT_HIDSPICX_RESETDEVICE 回调函数的指针。 EvtNotifyPowerDown 指向客户端驱动程序实现 EVT_HIDSPICX_NOTIFY_POWERDOWN 回调函数的指针。 InputReportQueue WDFQUEUE 客户端创建的、非电源管理的队列的句柄，用于接收来自 HID SPI 类扩展的 输入报告请求。 OutputReportQueue WDFQUEUE 客户端创建的、非电源管理的队列的句柄，用于接收来自 HID SPI 类扩展的输出报告请求。"
-        },
-        {
-          "name": "NumberOfInputReportRequestsToPend",
-          "description": "可选： 指定在给定时间在输入报表队列中放置的请求数。 如果为零，则类扩展将选择默 认值。 Reserved 必须为零，不应由客户端驱动程序显式设置。"
-        }
-      ],
-      "header": "hidspicx.h",
-      "deprecated": false,
-      "cross_references": [
-        "HIDSPICX_DEVICE_CONFIG"
-      ],
-      "confidence": 0.9,
-      "_source_line": 4791
-    },
-    {
       "id": "windows::PHIDSPICX_DEVICE_CONFIG",
       "name": "PHIDSPICX_DEVICE_CONFIG",
       "entity_type": "struct",
-      "description": "DeviceConfig, PFN_HIDSPICX_RESETDEVICE EvtResetDevice,",
+      "description": "Contains device configuration information for HIDSPICX devices",
       "header": "hidspicx.h",
       "deprecated": false,
       "cross_references": [
@@ -2795,8 +2179,8 @@
     {
       "id": "windows::HIDSPICX_DRIVER_GLOBALS",
       "name": "HIDSPICX_DRIVER_GLOBALS",
-      "entity_type": "struct",
-      "description": "结构 框架在内部使用 HIDSPICX_DRIVER_GLOBALS 结构。 请勿使用。",
+      "entity_type": "structure",
+      "description": "Structure used internally by the framework. Do not use.",
       "syntax": "typedef struct _HIDSPICX_DRIVER_GLOBALS {   ULONG Reserved;\n} HIDSPICX_DRIVER_GLOBALS, *PHIDSPICX_DRIVER_GLOBALS;\n成员 Reserved 保留。",
       "requirements": {
         "header": "hidspicx.h",
@@ -2829,97 +2213,10 @@
       "_source_line": 4870
     },
     {
-      "id": "windows::EVT_WDF_DRIVER_DEVICE_ADD",
-      "name": "EVT_WDF_DRIVER_DEVICE_ADD",
-      "entity_type": "struct",
-      "description": "WdfDeviceCreate HidSpiCxNotifyDeviceReset 函数 通知类扩展重置设备的要求。",
-      "syntax": "void HidSpiCxNotifyDeviceReset(\nWDFDEVICE Device);",
-      "parameters": [
-        {
-          "name": "Device",
-          "description": "从上一次调用 WdfDeviceCreate获取的客户端驱动程序的框架设备对象的句柄。"
-        }
-      ],
-      "return_value": {
-        "description": "没有"
-      },
-      "remarks": "客户端驱动程序可以随时在设备处于状态或转换为 D0 时调用 HidSpiCxNotifyDeviceReset 函数。 然后，类扩展将调用设备的 EVT_HIDSPICX_RESETDEVICE 回调。 然后，类扩展重新初始化设备。",
-      "requirements": {
-        "target_platform": "Windows",
-        "min_client": "Windows 11"
-      },
-      "header": "hidspicx.h",
-      "deprecated": false,
-      "cross_references": [
-        "EVT_HIDSPICX_RESETDEVICE",
-        "WdfDeviceCreate"
-      ],
-      "confidence": 1.0,
-      "_source_line": 4912
-    },
-    {
-      "id": "windows::PWDFDEVICE_INIT",
-      "name": "PWDFDEVICE_INIT",
-      "entity_type": "struct",
-      "description": "DeviceInit);",
-      "parameters": [
-        {
-          "name": "DeviceInit",
-          "description": "指向客户端在其 EVT_WDF_DRIVER_DEVICE_ADD 例程中接收的 WDFDEVICE_INIT 对象的指针。"
-        }
-      ],
-      "return_value": {
-        "description": "NTSTATUS 指示类扩展是否能够成功初始化结构。"
-      },
-      "remarks": "类扩展初始化设备的专用即插即用和电源挂钩。",
-      "requirements": {
-        "header": "hidspicx.h",
-        "target_platform": "Windows",
-        "min_client": "Windows 11"
-      },
-      "header": "hidspicx.h",
-      "deprecated": false,
-      "cross_references": [
-        "DeviceInit"
-      ],
-      "confidence": 0.7,
-      "_source_line": 4928
-    },
-    {
-      "id": "windows::STATUS_NOT_IMPLEMENTED",
-      "name": "STATUS_NOT_IMPLEMENTED",
-      "entity_type": "constant",
-      "description": "。 （请注意，即插即用鼠标设备可由即插即用管理器添加或删除。",
-      "header": "kbdmou.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 4984
-    },
-    {
-      "id": "windows::IRP_MJ_INTERNAL_DEVICE_CONTROL",
-      "name": "IRP_MJ_INTERNAL_DEVICE_CONTROL",
-      "entity_type": "callback",
-      "description": "输入缓冲区 Parameters.DeviceIoControl.Type3InputBuffer 指向INTERNAL_I8042_HOOK_KEYBOARD结构。 此结构包括以下成员：输入缓冲区长度 Parameters.DeviceIoControl.InputBufferLength 成员设置为大于或等于 INTERNAL_I8042_HOOK_KEYBOARD 结构的大小（以字节为单位）的值。 输出缓冲区 没有 输出缓冲区长度没有 状态块 状态 成员设置为以下值之一： STATUS_INVALID_PARAMETER Parameters.DeviceIoControl.InputBufferLength 小于INTERNAL_I8042_HOOK_KEYBOARD结构的大小（以字节为单位）。",
-      "requirements": {
-        "header": "ntdd8042.h"
-      },
-      "header": "kbdmou.h",
-      "deprecated": false,
-      "cross_references": [
-        "DeviceIoControl",
-        "INTERNAL_I8042_HOOK_KEYBOARD",
-        "InputBufferLength",
-        "STATUS_INVALID_PARAMETER"
-      ],
-      "confidence": 0.75,
-      "_source_line": 5031
-    },
-    {
       "id": "windows::STATUS_SHARING_VIOLATION",
       "name": "STATUS_SHARING_VIOLATION",
       "entity_type": "constant",
-      "description": "Moufiltr 已连接（筛选器驱动程序仅支持一个连接请求）。",
+      "description": "The process cannot access the file because it is being used by another process (sharing violation).",
       "header": "kbdmou.h",
       "deprecated": false,
       "cross_references": [],
@@ -2927,23 +2224,10 @@
       "_source_line": 5042
     },
     {
-      "id": "windows::KEYBOARD_INPUT_DATA",
-      "name": "KEYBOARD_INPUT_DATA",
-      "entity_type": "callback",
-      "description": "KEYBOARD_SCAN_STATE KbFilter_IsrHook",
-      "header": "kbdmou.h",
-      "deprecated": false,
-      "cross_references": [
-        "KEYBOARD_SCAN_STATE"
-      ],
-      "confidence": 0.65,
-      "_source_line": 5194
-    },
-    {
       "id": "windows::IOCTL_INTERNAL_I8042_CONTROLLER",
       "name": "IOCTL_INTERNAL_I8042_CONTROLLER",
-      "entity_type": "callback",
-      "description": "_ WRITE_BUFFER IOCTL （ntdd8042.h）项目2025/02/07 不支持IOCTL_INTERNAL_I8042_CONTROLLER_WRITE_BUFFER请求。",
+      "entity_type": "ioctl",
+      "description": "Internal IOCTL for I8042 controller (ntdd8042.h). Note: IOCTL_INTERNAL_I8042_CONTROLLER_WRITE_BUFFER request is not supported.",
       "header": "ntdd8042.h",
       "deprecated": false,
       "cross_references": [],
@@ -2951,23 +2235,10 @@
       "_source_line": 5358
     },
     {
-      "id": "windows::IOCTL_KEYBOARD_SET_INDICATORS",
-      "name": "IOCTL_KEYBOARD_SET_INDICATORS",
-      "entity_type": "callback",
-      "description": "和 IOCTL_KEYBOARD_SET_TYPEMATIC。 I8042prt 使用键盘 ISR 同步实际写入数据。",
-      "header": "ntdd8042.h",
-      "deprecated": false,
-      "cross_references": [
-        "IOCTL_KEYBOARD_SET_TYPEMATIC"
-      ],
-      "confidence": 0.75,
-      "_source_line": 5463
-    },
-    {
       "id": "windows::STATUS_IO_TIMEOUT",
       "name": "STATUS_IO_TIMEOUT",
-      "entity_type": "callback",
-      "description": "言论 描述 例程已成功将字节写入 i8042 端口。硬件尚未准备好进行写入访问。",
+      "entity_type": "constant",
+      "description": "I/O操作超时状态码。表示硬件尚未准备好进行写入访问。",
       "header": "ntdd8042.h",
       "deprecated": false,
       "cross_references": [],
@@ -2977,8 +2248,8 @@
     {
       "id": "windows::MOUSE_RESET_SUBSTATE",
       "name": "MOUSE_RESET_SUBSTATE",
-      "entity_type": "callback",
-      "description": "枚举值标识。 有关如何 I8042prt 重置鼠标和相应的鼠标重置子 状态的详细信息，请参阅 ntdd8042.h 中MOUSE_RESET_SUBSTATE的文档。",
+      "entity_type": "enum",
+      "description": "枚举值标识，用于I8042prt重置鼠标和相应的鼠标重置子状态。详细信息请参阅ntdd8042.h中MOUSE_RESET_SUBSTATE的文档。",
       "requirements": {
         "header": "ntdd8042.h"
       },
@@ -2996,9 +2267,9 @@
       "id": "windows::EVT_VHF_CLEANUP",
       "name": "EVT_VHF_CLEANUP",
       "entity_type": "callback",
-      "description": "EvtVhfCleanup; void EvtVhfCleanup( [in] PVOID VhfClientContext) {...} 参数 [in] VhfClientContext 指向驱动程序在上一次调用中传递给 VhfCreate 以创建虚拟 HID 设备的 HID 源驱动程序定义的上下文结构的指针。",
+      "description": "EvtVhfCleanup回调函数，用于清理虚拟HID设备资源。函数原型：void EvtVhfCleanup([in] PVOID VhfClientContext)。参数[in] VhfClientContext指向驱动程序在上一次调用中传递给VhfCreate以创建虚拟HID设备的HID源驱动程序定义的上下文结构的指针。",
       "return_value": {
-        "description": "没有"
+        "description": "无返回值"
       },
       "remarks": "若要删除虚拟 HID 设备，HID 源驱动程序调用 VhfDelete。 如果回调函数由 HID 源驱动程序实现，该调用会导致虚拟 HID 框架（VHF）调用以前注册的 EvtVhfCleanup。 当驱动程序调用 Wait 设置为 TRUE 的 VhfDelete 时，EvtVhfCleanup 在 VhfDelete 返回之前调用。 如果 Wait 为 FALSE，则可能会在 VhfDelete 之前或之后调用它，VhfDelete 返回。 调用使 HID 源驱动程序有机会在删除该设备时释放为虚拟 HID 设备分配的资源。此回调函数返回后，HID 源驱动程序不得将 VHFHANDLE 用于虚拟 HID 设备（由 VhfCreate创建）。 在调用此回调函数之前，VHF 确保没有挂起的异步作。 要求",
       "header": "vhf.h",
@@ -3008,24 +2279,10 @@
       "_source_line": 5878
     },
     {
-      "id": "windows::PDEVICE_OBJECT",
-      "name": "PDEVICE_OBJECT",
-      "entity_type": "unknown",
-      "description": "DeviceObject;#else HANDLE FileHandle;#endif USHORT VendorID; USHORT ProductID; USHORT VersionNumber; GUID ContainerID; USHORT InstanceIDLength; _Field_size_bytes_full_(InstanceIDLength) PWSTR InstanceID; USHORT ReportDescriptorLength; _Field_size_full_(ReportDescriptorLength) PUCHAR ReportDescriptor;",
-      "header": "vhf.h",
-      "deprecated": false,
-      "cross_references": [
-        "DeviceObject",
-        "FileHandle"
-      ],
-      "confidence": 0.6,
-      "_source_line": 6012
-    },
-    {
       "id": "windows::PEVT_VHF_READY_FOR_NEXT_READ_REPORT",
       "name": "PEVT_VHF_READY_FOR_NEXT_READ_REPORT",
-      "entity_type": "unknown",
-      "description": "EvtVhfReadyForNextReadReport; PEVT_VHF_ASYNC_OPERATION EvtVhfAsyncOperationGetFeature; PEVT_VHF_ASYNC_OPERATION EvtVhfAsyncOperationSetFeature; PEVT_VHF_ASYNC_OPERATION EvtVhfAsyncOperationWriteReport;",
+      "entity_type": "callback",
+      "description": "Callback function pointer type for Virtual HID Framework (VHF) ready for next read report event",
       "header": "vhf.h",
       "deprecated": false,
       "cross_references": [
@@ -3038,7 +2295,7 @@
       "id": "windows::PEVT_VHF_ASYNC_OPERATION",
       "name": "PEVT_VHF_ASYNC_OPERATION",
       "entity_type": "unknown",
-      "description": "EvtVhfAsyncOperationGetInputReport; PEVT_VHF_CLEANUP EvtVhfCleanup; USHORT HardwareIDsLength; _Field_size_bytes_full_(HardwareIDsLength) PWSTR HardwareIDs;}",
+      "description": "Structure representing Virtual HID Framework (VHF) asynchronous operation configuration",
       "members": [
         {
           "name": "Size",
@@ -3062,8 +2319,8 @@
     {
       "id": "windows::PVHF_CONFIG",
       "name": "PVHF_CONFIG",
-      "entity_type": "unknown",
-      "description": "Config, #ifdef _KERNEL_MODE _In_",
+      "entity_type": "typedef",
+      "description": "Pointer to VHF_CONFIG structure",
       "header": "vhf.h",
       "deprecated": false,
       "cross_references": [
@@ -3071,46 +2328,6 @@
       ],
       "confidence": 0.5,
       "_source_line": 6073
-    },
-    {
-      "id": "windows::_In_reads_bytes_",
-      "name": "_In_reads_bytes_",
-      "entity_type": "unknown",
-      "description": "ReportDescriptorLength) PUCHAR ReportDescriptor )",
-      "syntax": "NTSTATUS VhfAsyncOperationComplete(\n[in] VHFOPERATIONHANDLE VhfOperationHandle,\n[in] NTSTATUS           CompletionStatus);\nNTSTATUS VhfCreate(\n[in]  PVHF_CONFIG VhfConfig,   [out] VHFHANDLE   *VhfHandle);",
-      "parameters": [
-        {
-          "name": "Config",
-          "direction": "out",
-          "description": "指向要初始化 的VHF_CONFIG 结构的指针。[in] DeviceObject 指向 HID 源驱动程序 的 DEVICE_OBJECT 结构的指针。 通过调用 WdfDeviceWdmGetDeviceObject 并传递驱动程序在 WdfDeviceCreate 调用中收到的 WDFDEVICE 句柄来获取该指针。 用户模式驱动程序会改为提供 FileHandle。 有关详细信息，请参阅 VHF_CONFIG。[in] ReportDescriptorLength 由 ReportDescriptor 包含在缓冲区指针中的 HID 报表 描述符的长度。 ReportDescriptor 指向包含 HID 报表描述符的 HID 源驱动程序分配缓冲区的指针。"
-        },
-        {
-          "name": "VhfOperationHandle",
-          "direction": "in",
-          "description": "虚拟 HID 框架（VHF）设置的作句柄。 此句柄在 EvtVhfAsyncOperation的 VhfOperationHandle 参数中传递给 HID 源驱动程序。[in] CompletionStatus 如果作成功，该方法将返回STATUS_SUCCESS。 否则，NTSTATUS 值。"
-        },
-        {
-          "name": "VhfConfig",
-          "direction": "in",
-          "description": "指向 VHF_CONFIG 结构的指针。[out] VhfHandle 新虚拟 HID 设备的句柄。"
-        }
-      ],
-      "return_value": {
-        "description": "无 如果 VhfAsyncOperationComplete 调用成功，该方法将返回STATUS_SUCCESS。 否则， NTSTATUS 值。 如果 VhfCreate 调用成功，该方法将返回STATUS_SUCCESS。 否则，NTSTATUS 值。"
-      },
-      "remarks": "HID 源驱动程序可以从事件回调或稍后从 EvtVhfAsyncOperation 回调返回后调用。 此方法在验证 VHF_CONFIG 结构和创建虚拟 HID 设备后同步返回。 虚拟 HID 设备仅报告给 PnP。 此方法返回之前，设备初始化、安装和启动可能无法完成。 Kernel-Mode Driver Framework （KMDF） 驱动程序可以通过调用 WdfDeviceCreate，在成功创建自己的设备对象后随时调用 VhfCreate。 驱动程序可以在其 EvtDriverDeviceAdd、 EvtDevicePrepareHardware、EvtDeviceD0Entry、EvtDeviceSelfManagedIoInit中执行此作。在 HID 源驱动程序调用 VhfStart之前，VHF 不会调用在 VHF_CONFIG 中指定的任何回调函数。",
-      "header": "vhf.h",
-      "deprecated": false,
-      "cross_references": [
-        "DISPATCH_LEVEL",
-        "EvtDevicePrepareHardware",
-        "EvtDriverDeviceAdd",
-        "Framework",
-        "VHF_CONFIG",
-        "WdfDeviceCreate"
-      ],
-      "confidence": 0.65,
-      "_source_line": 6080
     }
   ]
 }

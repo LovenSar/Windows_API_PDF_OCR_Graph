@@ -1,39 +1,193 @@
 {
-  "_schema": "windows_api_kg_v4.0",
-  "_generated_at": "2026-03-05T08:07:25Z",
-  "_content_hash": "0e64b6136114",
-  "document": {
-    "document_id": "win32-api::wic",
-    "title": "Windows 图像处理组件",
-    "domain": "win32-api",
-    "topic": "wic",
-    "source_file": "[OCR]_windows-win32-api-_wic_20260305_0201.p.txt",
-    "ocr_timestamp": "2026-03-05T02:01:00",
-    "headers_referenced": [
-      "wincodec.h",
-      "wincodecsdk.h"
-    ],
-    "total_entities": 191
-  },
+  "_schema": "windows_api_kg_v4.0_refined",
+  "_generated_at": "2026-03-06T08:42:00.804391+00:00",
   "entities": [
     {
-      "id": "windows::AddWriter",
-      "name": "AddWriter",
+      "id": "windows::Initialize",
+      "name": "Initialize",
       "entity_type": "function",
-      "description": "通过为其添加 IWICMetadataWriter 来添加顶级元数据块。 CanConvert 确定是否可以将源像素格式转换为目标像素格式。 CanConvert 查询格式转换器是否可以从一种格式转换为另一种格式。 ClearIndexing 从已使用 IWICJpegFrameDecode：：SetIndexing 编制索引的 JPEG 中删除索引。克隆 创建当前 IWICEnumMetadataItem 的副本。提交 提交图像的所有更改并关闭流。提交 将帧提交到图像。提交 完成对图像流的元数据更改。 CopyBlocks 请求像素数据，因为它以本机方式存储在 DDS 文件中。",
-      "header": null,
+      "description": "初始化平面源格式转换器并指定交错输出像素格式",
+      "syntax": "HRESULT Initialize(\n  [in] IWICBitmapSource **ppPlanes,\n  [in] UINT cPlanes,\n  [in] REFWICPixelFormatGUID dstFormat,\n  [in] WICBitmapDitherType dither,\n  [in] IWICPalette *pIPalette,\n  [in] double alphaThresholdPercent,\n  [in] WICBitmapPaletteType paletteTranslate\n);",
+      "parameters": [
+        {
+          "name": "ppPlanes",
+          "direction": "in",
+          "type": "IWICBitmapSource**",
+          "description": "表示图像平面的 IWICBitmapSource 数组。 cPlanes 类型： UINT 平面参数指定的分量平面数。 dstFormat 类型： REFWICPixelFormatGUID 目标交错像素格式。 dither 类型： WICBitmapDitherType 用于转换的 WICBitmapDitherType 。 pIPalette 类型： IWICPalette* 用于转换的调色板。 alphaThresholdPercent 类型： double 用于转换的 alpha 阈值。 paletteTranslate 类型： WICBitmapPaletteType 用于转换的调色板转换类型。"
+        },
+        {
+          "name": "uFrameNum",
+          "direction": "in",
+          "type": "WICProgressOperation 正在报告进度的操作。",
+          "description": "类型： ULONG 当前帧编号。[in] operation"
+        },
+        {
+          "name": "dblProgress",
+          "direction": "in",
+          "description": "类型： double 范围从 的进度值为 0.0 到 1.0。 0.0 表示操作的开始。 1.0 表示操作结束。"
+        },
+        {
+          "name": "pnLevel",
+          "direction": "out, retval",
+          "description": "类型： UINT* 指示指定的当前级别。"
+        },
+        {
+          "name": "pcLevels",
+          "direction": "out, retval",
+          "description": "类型： UINT* 指示 CODEC 支持的级别数。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "成功时返回S_OK，失败时返回HRESULT错误代码"
+      },
+      "remarks": "仅当图像经过渐进式编码时，才能对其进行渐进式解码。 渐进式图像会自动以最高 (最佳质量) 渐进级别启动。 调用方必须手动将解码器设置为较低的渐进级别。 如果编解码器不支持渐进式级别解码，则返回E_NOTIMPL。 级别始终默认为最高渐进级别。 若要解码较低的渐进级别，必须先调用 SetCurrentLevel。 用户不应使用此函数来循环访问渐进式 JPEG 图像的渐进级别。 JPEG 渐进级别由映像确定，没有固定级别计数。 使用此方法将强制应用程序等待下载所有渐进级别后才能返 回。 相反，应用程序应使用以下代码循环访问渐进式 JPEG 映像的渐进级别。示例 IWICProgressiveLevelControl *pProgressive = NULL; HRESULT hr = (pBitmapFrame->QueryInterface(",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "wincodec.h",
+        "dll": "Windowscodecs.dll",
+        "min_client": "Windows 7",
+        "min_server": "Windows Server 2008 R2"
+      },
+      "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [
-        "ClearIndexing"
+        "CopyPixels",
+        "QueryInterface",
+        "RegisterProgressNotification",
+        "Server"
       ],
+      "confidence": 0.6,
+      "_source_line": 8544
+    },
+    {
+      "id": "windows::GetChannelCount",
+      "name": "GetChannelCount",
+      "entity_type": "function",
+      "description": "Retrieves the number of channels contained in a pixel format.",
+      "syntax": "HRESULT GetChannelCount(\n[out] UINT *puiChannelCount);",
+      "parameters": [
+        {
+          "name": "puiChannelCount",
+          "direction": "out",
+          "description": "类型： UINT* 接收通道计数的指针。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "wincodec.h",
+        "library": "Windowscodecs.lib",
+        "min_client": "Windows XP",
+        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
+      },
+      "header": "wincodec.h",
+      "deprecated": false,
+      "cross_references": [],
       "confidence": 0.5,
-      "_source_line": 78
+      "_source_line": 7951
+    },
+    {
+      "id": "windows::QueryInterface",
+      "name": "QueryInterface",
+      "entity_type": "method",
+      "description": "QueryInterface is a standard COM method used to query for interfaces on COM objects. It is inherited from IUnknown and is used to retrieve specific interfaces like IWICBitmapFrameDecode, IWICBitmapScaler, IWICBitmapFlipRotator, and IWICColorTransform.",
+      "remarks": "使用 IWICPlanarBitmapFrameEncode 对 YCbCr 数据进行编码与使用 IWICBitmapFrameEncode 对交错数据进行编码相似，但不完全相同。 平面接口仅公开写入平面帧图像数据的功能，应继续使用帧编码接口来设置元数据或缩略图，并在操作结束时提交。 要求",
+      "requirements": {
+        "target_platform": "Windows",
+        "min_client": "Windows 8",
+        "min_server": "Windows Server 2012 R2 [桌面应用 |UWP 应用]"
+      },
+      "header": "wincodec.h",
+      "deprecated": false,
+      "cross_references": [
+        "CopyPixels",
+        "Server"
+      ],
+      "confidence": 0.45,
+      "_source_line": 8145
+    },
+    {
+      "id": "windows::CreateInstance",
+      "name": "CreateInstance",
+      "entity_type": "enum",
+      "description": "创建新的 IWICBitmapDecoder 实例。",
+      "syntax": "HRESULT CreateInstance(\n[out] IWICMetadataWriter **ppIWriter);\nHRESULT GetHeader(\n[in]      REFGUID           guidContainerFormat,\n[in]      UINT              cbSize,   [in, out] WICMetadataHeader *pHeader,   [in, out] UINT              *pcbActual);",
+      "parameters": [
+        {
+          "name": "ppIWriter",
+          "direction": "out",
+          "type": "IWICMetadataWriter**",
+          "description": "接收指向元数据编写器的指针的指针。"
+        },
+        {
+          "name": "guidContainerFormat",
+          "direction": "in",
+          "description": "类型： REFGUID 要获取其标头的格式容器 GUID。"
+        },
+        {
+          "name": "cbSize",
+          "direction": "in",
+          "type": "WICMetadataHeader*",
+          "description": "类型： UINT pHeader 缓冲区的大小。[in, out] pHeader 接收 WICMetadataHeader 的指针。"
+        },
+        {
+          "name": "pcbActual",
+          "direction": "in, out",
+          "description": "类型： UINT* 标头的实际大小。"
+        }
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+      },
+      "remarks": "IWICBitmapFipRotator 按像素请求数据，而 WIC 编解码器按扫描线提供数据。 如果没有缓冲，这会导致翻转器对象表现出 n² 行为。 这是因为转换后的图像中的每个像素都需要在文件中解码整个扫描线。 建议使用 IWICBitmap 缓冲图像，或使用 Direct2D 翻转/旋转 图像。",
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "wincodecsdk.h",
+        "library": "Windowscodecs.lib",
+        "dll": "Windowscodecs.dll",
+        "min_client": "Windows XP",
+        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
+      },
+      "header": "wincodec.h",
+      "deprecated": false,
+      "cross_references": [
+        "Direct2D"
+      ],
+      "confidence": 0.75,
+      "_source_line": 1683
+    },
+    {
+      "id": "windows::Alpha",
+      "name": "Alpha",
+      "entity_type": "constant",
+      "description": "行为未指定，必须由读取器确定。 WICDdsAlphaModeStraight 值： 0x1 alpha 数据是直的。 WICDdsAlphaModePremultiplied 值： 0x2 alpha 数据是预乘的。 WICDdsAlphaModeOpaque 值： 0x3 alpha 数据不透明 (UNORM 值为 1) 。 这可由合规的读取器用作性能优化。 例如，混合操作可以转换为副本。 WICDdsAlphaModeCustom 值： 0x4 alpha 通道包含非 alpha 的自定义数据。",
+      "header": "wincodec.h",
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.6,
+      "_source_line": 9805
+    },
+    {
+      "id": "windows::CreateStream",
+      "name": "CreateStream",
+      "entity_type": "function",
+      "description": "创建 IWICStream 类的新实例。",
+      "header": null,
+      "deprecated": false,
+      "cross_references": [],
+      "confidence": 0.5,
+      "_source_line": 144
     },
     {
       "id": "windows::CopyPalette",
       "name": "CopyPalette",
       "entity_type": "function",
-      "description": "复制解码器的 IWICPalette 。 CopyPalette 检索索引像素格式的颜色表。 CopyPixels 指示对象生成像素。 CopyPixels 使用提供的输入参数复制像素数据。 CopyPixels 将像素复制到目标平面中。 由提供的输入参数配置。 CopyScan 直接从 WIC 解码器帧的输出流检索压缩的 JPEG 扫描的副本。 CreateBitmap 创建 IWICBitmap 对象。 CreateBitmapClipper 创建 IWICBitmapClipper 对象的新实例。 CreateBitmapFlipRotator 创建 IWICBitmapFlipRotator 对象的新实例。",
+      "description": "Copies a palette from an IWICPalette object.",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -57,7 +211,7 @@
       "id": "windows::CreateBitmapFromHBITMAP",
       "name": "CreateBitmapFromHBITMAP",
       "entity_type": "function",
-      "description": "从位图句柄创建 IWICBitmap。 CreateBitmapFromHICON 从图标句柄创建 IWICBitmap。 CreateBitmapFromMemory 从内存块创建 IWICBitmap。 CreateBitmapFromSource 从 IWICBitmapSource 创建 IWICBitmap。 CreateBitmapFromSourceRect 从 IWICBitmapSource 的指定矩形创建 IWICBitmap。 CreateBitmapScaler 创建 IWICBitmapScaler 的新实例。 CreateColorContext 创建 IWICColorContext 类的新实例。 CreateColorTransformer 创建 IWICColorTransform 类的新实例。 CreateComponentEnumerator 创建指定组件类型的 IEnumUnknown 对象。 CreateComponentInfo 为给定组件类标识符创建 IWICComponentInfo 类的新实例， (CLSID) 。 CreateDecoder 创建 IWICBitmapDecoder 的新实例。 CreateDecoderFromFileHandle 基于给定的文件句柄创建 IWICBitmapDecoder 的新实例。 CreateDecoderFromFilename 基于给定文件创建 IWICBitmapDecoder 类的新实例。 CreateDecoderFromStream 基于给定的 IStream 创建 IWICBitmapDecoder 类的新实例。 CreateEncoder 创建 IWICBitmapEncoder 类的新实例。",
+      "description": "从位图句柄创建 IWICBitmap。",
       "syntax": "HRESULT CreateBitmapFromHBITMAP(\n[in]  HBITMAP                     hBitmap,   [in]  HPALETTE                    hPalette,   [in]  WICBitmapAlphaChannelOption options,\n[out] IWICBitmap                  **ppIBitmap);",
       "parameters": [
         {
@@ -100,8 +254,8 @@
       "id": "windows::CreateEncoderPropertyBag",
       "name": "CreateEncoderPropertyBag",
       "entity_type": "function",
-      "description": "方法 创建编码器属性包。",
-      "syntax": "HRESULT CreateEncoderPropertyBag(\n[in]  PROPBAG2      *ppropOptions,   [in]  UINT          cCount,\n[out] IPropertyBag2 **ppIPropertyBag);\nHRESULT CreateMetadataReader(\n[in]  REFGUID            guidMetadataFormat,   [in]  const GUID         *pguidVendor,\n[in]  DWORD              dwOptions,   [in]  IStream            *pIStream,   [out] IWICMetadataReader **ppIReader);",
+      "description": "创建编码器属性包。",
+      "syntax": "HRESULT CreateEncoderPropertyBag([in] PROPBAG2 *ppropOptions, [in] UINT cCount, [out] IPropertyBag2 **ppIPropertyBag);",
       "parameters": [
         {
           "name": "ppropOptions",
@@ -142,7 +296,7 @@
       ],
       "return_value": {
         "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回S_OK。否则，将返回HRESULT错误代码。"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -162,7 +316,7 @@
       "id": "windows::CreateFastMetadataEncoderFromDecoder",
       "name": "CreateFastMetadataEncoderFromDecoder",
       "entity_type": "function",
-      "description": "基于给定的 IWICBitmapDecoder 创建快速元数据编码器的新实例。 CreateFastMetadataEncoderFromFrameDecode 基于给定的图像帧创建快速元数据编码器的新实例。 CreateFormatConverter 创建 IWICFormatConverter 类的新实例。 CreateImageEncoder 创建新的图像编码器对象。 CreateInstance 创建新的 IWICBitmapDecoder 实例。 CreateInstance 创建新的 IWICBitmapEncoder 实例。 CreateInstance 创建新的 IWICFormatConverter 实例。 CreateInstance 创建 IWICMetadataReader 的实例。 CreateInstance 创建 IWICMetadataWriter 的实例。 CreateMetadataReader 基于给定参数创建 IWICMetadataReader。 (IWICComponentFactory.CreateMetadataReader) CreateMetadataReaderFromContainer 基于给定参数创建 IWICMetadataReader。 (IWICComponentFactory.CreateMetadataReaderFromContainer) CreateMetadataWriter 基于给定参数创建 IWICMetadataWriter。",
+      "description": "基于给定的 IWICBitmapDecoder 创建快速元数据编码器的新实例。",
       "header": null,
       "deprecated": false,
       "cross_references": [
@@ -178,7 +332,7 @@
       "id": "windows::CreateMetadataWriterFromReader",
       "name": "CreateMetadataWriterFromReader",
       "entity_type": "function",
-      "description": "从给定的 IWICMetadataReader 创建 IWICMetadataWriter。 CreateNewFrame 创建新的 IWICBitmapFrameEncode 实例。",
+      "description": "从给定的IWICMetadataReader创建IWICMetadataWriter。",
       "syntax": "HRESULT CreateMetadataWriterFromReader(   [in]  IWICMetadataReader *pIReader,   [in]  const GUID         *pguidVendor,   [out] IWICMetadataWriter **ppIWriter);",
       "parameters": [
         {
@@ -218,7 +372,7 @@
       "id": "windows::CreateNewFrame",
       "name": "CreateNewFrame",
       "entity_type": "function",
-      "description": "创建要编码的新帧。 CreatePalette 创建 IWICPalette 类的新实例。",
+      "description": "创建要编码的新帧。",
       "syntax": "HRESULT CreateNewFrame(\n[out]     IWICBitmapFrameEncode **ppIFrameEncode,   [in, out] IPropertyBag2         **ppIEncoderOptions);",
       "parameters": [
         {
@@ -260,7 +414,7 @@
       "id": "windows::CreateQueryReaderFromBlockReader",
       "name": "CreateQueryReaderFromBlockReader",
       "entity_type": "function",
-      "description": "从给定的 IWICMetadataBlockReader 创建 IWICMetadataQueryReader。 CreateQueryWriter 创建查询编写器的新实例。",
+      "description": "从给定的IWICMetadataBlockReader创建IWICMetadataQueryReader。",
       "syntax": "HRESULT CreateQueryReaderFromBlockReader(\n[in]  IWICMetadataBlockReader *pIBlockReader,   [out] IWICMetadataQueryReader **ppIQueryReader);",
       "parameters": [
         {
@@ -294,8 +448,8 @@
       "id": "windows::CreateQueryWriterFromBlockWriter",
       "name": "CreateQueryWriterFromBlockWriter",
       "entity_type": "function",
-      "description": "从给定的 IWICMetadataBlockWriter 创建 IWICMetadataQueryWriter。 CreateQueryWriterFromReader 基于给定的查询读取器创建查询编写器的新实例。 查询编写器将预先填充来自查询读取器的元数据。",
-      "syntax": "HRESULT CreateQueryWriterFromBlockWriter(\n[in]  IWICMetadataBlockWriter *pIBlockWriter,   [out] IWICMetadataQueryWriter **ppIQueryWriter);\nHRESULT GetContainerFormat(\n[out] GUID *pguidContainerFormat);\nHRESULT GetCount(\n[out] UINT *pcCount);",
+      "description": "从给定的 IWICMetadataBlockWriter 创建 IWICMetadataQueryWriter。查询编写器将预先填充来自块写入器的元数据。",
+      "syntax": "HRESULT CreateQueryWriterFromBlockWriter([in] IWICMetadataBlockWriter *pIBlockWriter, [out] IWICMetadataQueryWriter **ppIQueryWriter);",
       "parameters": [
         {
           "name": "pIBlockWriter",
@@ -316,7 +470,7 @@
       ],
       "return_value": {
         "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果成功则返回 S_OK，否则返回错误代码"
       },
       "remarks": "IWICMetadataBlockReader 和 IWICMetadataBlockWriter 仅在根级别运行;也就是说，它们分别提供对顶级元数据块的读取和写入访问权限。 它们分别由 IWICBitmapFrameDecode 和 IWICBitmapFrameEncode 实现。 若要处理不在层次结构顶层的任何元数据块，请使用 IWICMetadataReader 或 IWICMetadataWriter。 注意 编解码器的解码器和编码器实现此接口以公开所有顶级元数据块的枚举。 当编解码器分析图像流时，它会调用 CreateMetadataReaderFromContainer 等服务来实例化任何被识别为能够嵌入解码器容器格式的块的元数据读取器。 元数据读取器集合通过此接口公开。 有关详细信息，请参阅 如何编写 WIC-Enabled 编解码器。",
       "requirements": {
@@ -337,38 +491,10 @@
       "_source_line": 141
     },
     {
-      "id": "windows::CreateStream",
-      "name": "CreateStream",
-      "entity_type": "function",
-      "description": "创建 IWICStream 类的新实例。 DoesRequireFixedSize 确定元数据处理程序是否需要固定大小。 DoesRequireFullStream 确定处理程序是否需要完整流。 DoesSupportAnimation 检索一个值，该值指示编解码器是否支持动画。",
-      "header": null,
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.5,
-      "_source_line": 144
-    },
-    {
-      "id": "windows::DoesSupportChromakey",
-      "name": "DoesSupportChromakey",
-      "entity_type": "function",
-      "description": "检索一个值，该值指示编解码器是否支持色度。 DoesSupportIndexing 检索一个值，该值指示此解码器是否支持索引编制，以便进行高效的随机访问。 DoesSupportLossless 检索一个值，该值指示编解码器是否支持无损格式。 DoesSupportMultiframe 检索一个值，该值指示编解码器是否支持多帧图像。 DoesSupportPadding 确定元数据处理程序是否支持填充。 DoesSupportTransform 确定 IWICBitmapSourceTransform 接口的实现是否原生支持特定转换选项。 DoesSupportTransform 使用此方法可确定是否支持所需的平面输出，并允许调用方选择优化的代码路径（如果支持）。 GetAcHuffmanTable 检索指定扫描和表的 AC Huffman 表的副本。 (IWICJpegFrameDecode.GetAcHuffmanTable) GetAcHuffmanTable 检索指定扫描和表的 AC Huffman 表的副本。 (IWICJpegFrameEncode.GetAcHuffmanTable) GetAuthor 检索组件的作者的姓名。 GetBitsPerPixel 获取像素格式 (BPP) 的位数。 GetChannelCount 获取像素格式包含的通道数。 GetChannelMask 获取像素格式的通道掩码。 GetClosestPixelFormat 在给定所需格式的情况下，检索 IWICBitmapSourceTransform 实现可以本机复制像素的最接近的像素格式。",
-      "header": null,
-      "deprecated": false,
-      "cross_references": [
-        "DoesSupportTransform",
-        "GetAcHuffmanTable",
-        "GetChannelCount",
-        "GetChannelMask",
-        "Huffman"
-      ],
-      "confidence": 0.5,
-      "_source_line": 150
-    },
-    {
       "id": "windows::GetClosestSize",
       "name": "GetClosestSize",
       "entity_type": "function",
-      "description": "返回实现可以本机缩放到给定所需维度的最接近的维度。 GetCLSID 检索组件的类标识符 (CLSID) GetColorContext 获取像素格式的 IWICColorContext。 GetColorContexts 检索图像的 IWICColorContext 对象。 GetColorContexts 检索与图像帧关联的 IWICColorContext。 GetColorCount 检索颜色表中的颜色数。",
+      "description": "返回实现可以本机缩放到给定所需维度的最接近的维度。",
       "header": null,
       "deprecated": false,
       "cross_references": [
@@ -382,7 +508,7 @@
       "id": "windows::GetColorManagementVersion",
       "name": "GetColorManagementVersion",
       "entity_type": "function",
-      "description": "检索编解码器支持的颜色管理版本号。 GetColors 使用内部颜色表中的颜色填充所提供的颜色数组。 应根据 GetColorCount 的返回结果调整颜色数组的大小。",
+      "description": "检索颜色管理系统的版本号。使用两阶段调用模式：首次调用确定所需缓冲区大小，第二次调用获取实际版本信息。",
       "syntax": "HRESULT GetColorManagementVersion(\n[in]      UINT  cchColorManagementVersion,   [in, out] WCHAR *wzColorManagementVersion,\n[in, out] UINT  *pcchActual);",
       "parameters": [
         {
@@ -405,7 +531,7 @@
         "type": "HRESULT",
         "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
       },
-      "remarks": "此方法的使用模式是两个调用过程。 第一次调用通过将 cchColorManagementVersion 设置为 ，wzColorManagementVersion NULL 设置为 0 来检索检索完整颜色管理版本号所需的缓冲区大小。 此调用将 pcchActual 设置为所需的缓冲区大小。 确定所需的缓冲区大小 后，将 cchColorManagementVersion 设置为缓冲区大小并将 wzColorManagementVersion 设置为适当大小的缓冲区的第二次 GetColorManagementVersion 调用将检索像素格式。",
+      "remarks": "此方法采用两阶段调用模式：\n1. 首次调用时设置cchColorManagementVersion=0和wzColorManagementVersion=NULL以获取所需缓冲区大小\n2. 第二次调用分配适当大小的缓冲区后获取实际版本信息",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -424,7 +550,7 @@
       "id": "windows::GetComponentType",
       "name": "GetComponentType",
       "entity_type": "function",
-      "description": "检索组件的 WICComponentType。 GetContainerFormat 检索与编解码器关联的容器 GUID。 GetContainerFormat 检索映像的容器格式。 GetContainerFormat 检索编码器的容器格式。 GetContainerFormat 获取元数据查询读取器容器格式。 GetContainerFormat 检索解码器的容器格式。 GetContainerFormats 检索元数据处理程序支持的容器格式。 GetContrast 获取原始图像的对比度值。 GetCount 检索顶级元数据块的数量。 GetCount 获取读取器中的元数据项数。 GetCurrentLevel 获取解码器的当前渐进级别。 GetCurrentParameterSet 获取当前参数集。 GetDataPointer 获取指向锁定矩形中左上角像素的指针。 GetDcHuffmanTable 检索指定扫描和表的 DC Huffman 表的副本。 (IWICJpegFrameDecode.GetDcHuffmanTable) GetDcHuffmanTable 检索指定扫描和表的 DC Huffman 表的副本。 (IWICJpegFrameEncode.GetDcHuffmanTable)",
+      "description": "检索组件的 WICComponentType。",
       "syntax": "HRESULT GetComponentType(\n[out] WICComponentType *pType);",
       "parameters": [
         {
@@ -462,8 +588,8 @@
       "id": "windows::GetDecoderInfo",
       "name": "GetDecoderInfo",
       "entity_type": "function",
-      "description": "检索图像的 IWICBitmapDecoderInfo。 GetDeviceManufacturer 检索与编解码器关联的设备制造商的名称。 GetDeviceManufacturer 检索元数据处理程序的设备制造商。 GetDeviceModels 检索与编解码器关联的设备模型的逗号分隔列表。 GetDeviceModels 检索支持元数据处理程序的设备模型。 GetEncoderInfo 检索编码器的 IWICBitmapEncoderInfo。 GetEnumerator 获取元数据层次结构中当前相对位置上所有元数据项的枚举器。 GetEnumerator 检索表示每个顶级元数据块的 IWICMetadataReader 对象的枚举。 GetEnumerator 获取所有元数据项的枚举器。 GetExifColorSpace 检索 (EXIF) 颜色空间颜色上下文的可交换图像文件。 GetExposureCompensation 获取原始图像的曝光补偿停止值。 GetFileExtensions 检索与编解码器关联的文件扩展名的逗号分隔列表。 GetFormatGUID 获取像素格式 GUID。 GetFormatInfo 获取有关存储 DDS 图像的格式的信息。 GetFrame 检索图像的指定帧。 GetFrame 检索 DDS 图像的指定帧。 GetFrameCount 检索图像中的帧总数。 GetFrameHeader 从整个帧中检索标头数据。 GetFriendlyName 检索组件的友好名称，该名称是组件可读的显示名称。 GetGamma 获取原始图像的当前伽玛设置。 GetHeader 获取元数据编写器的元数据标头。 GetKelvinRangeInfo 获取有关原始图像的当前开氏度范围的信息。 GetLevelCount 获取 CODEC 支持的渐进式解码级别数。 GetLocation 检索相对于根元数据块的当前路径。 GetMetadataByName 检索元数据查询表达式标识的元数据块或项。",
-      "syntax": "HRESULT GetDecoderInfo(\n[out] IWICBitmapDecoderInfo **ppIDecoderInfo);\nHRESULT GetFrame(\n[in]  UINT                  index,\n[out] IWICBitmapFrameDecode **ppIBitmapFrame);\nHRESULT GetFrameCount(   [out] UINT *pCount);",
+      "description": "检索图像的 IWICBitmapDecoderInfo。",
+      "syntax": "HRESULT GetDecoderInfo([out] IWICBitmapDecoderInfo **ppIDecoderInfo);",
       "parameters": [
         {
           "name": "ppIDecoderInfo",
@@ -483,10 +609,7 @@
           "description": "类型： UINT* 一个指针，用于接收图像中的帧总数。"
         }
       ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
+      "return_value": "HRESULT GetDecoderInfo([out] IWICBitmapDecoderInfo **ppIDecoderInfo);",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -520,7 +643,7 @@
       "id": "windows::GetMetadataFormat",
       "name": "GetMetadataFormat",
       "entity_type": "function",
-      "description": "检索元数据处理程序的元数据格式。 GetMetadataFormat 获取与读取器关联的元数据格式。 GetMetadataHandlerInfo 获取与读取器关联的元数据处理程序信息。 GetMetadataQueryReader 从解码器检索元数据查询读取器。",
+      "description": "Retrieves the metadata format of a metadata handler. This function gets the metadata format associated with a reader.",
       "header": null,
       "deprecated": false,
       "cross_references": [
@@ -534,7 +657,7 @@
       "id": "windows::GetMetadataQueryReader",
       "name": "GetMetadataQueryReader",
       "entity_type": "function",
-      "description": "检索帧的元数据查询读取器。 GetMetadataQueryWriter 检索编码器的元数据查询编写器。 GetMetadataQueryWriter 获取编码器帧的元数据查询编写器。 GetMetadataQueryWriter 检索元数据查询编写器以快速进行元数据编码。 GetMimeTypes 检索与编解码器关联的以逗号分隔的 mime 类型的序列。 GetNamedWhitePoint 获取原始图像的命名白点。 GetNoiseReduction 获取原始图像的降噪值。 GetNumericRepresentation TBD (IWICPixelFormatInfo2.GetNumericRepresentation) GetParameters 获取特定于 DDS 的数据。 (IWICDdsDecoder.GetParameters) GetParameters 获取特定于 DDS 的数据。 (IWICDdsEncoder.GetParameters) GetPatterns 检索解码器支持的文件模式签名。 GetPatterns 获取与元数据读取器关联的元数据模式。 GetPersistOptions 获取使用流初始化组件时使用的持久化选项。 GetPixelFormat 获取像素锁定区域的 像素格式。 这可用于计算锁定区域中每个像素的字节数。 GetPixelFormat 检索位图源的像素格式。 GetPixelFormats 检索编解码器支持的像素格式。 GetPixelFormats 检索表示转换器支持的像素格式的 GUID 列表。",
+      "description": "检索帧的元数据查询读取器。",
       "syntax": "HRESULT GetMetadataQueryReader(\n[out] IWICMetadataQueryReader **ppIMetadataQueryReader);",
       "parameters": [
         {
@@ -569,8 +692,8 @@
       "id": "windows::GetPreferredVendorGUID",
       "name": "GetPreferredVendorGUID",
       "entity_type": "function",
-      "description": "获取首选供应商 GUID。 GetPreview 检索预览图像（如果支持）。 GetProfileBytes 检索颜色上下文配置文件。 GetQuantizationTable 检索量化表的副本。 (IWICJpegFrameDecode.GetQuantizationTable)",
-      "syntax": "HRESULT GetPreferredVendorGUID(\n[out] GUID *pguidPreferredVendor);\nHRESULT GetStream(\n[out] IStream **ppIStream);\nHRESULT RefreshStream();\nHRESULT WICGetMetadataContentSize(\n[in]  REFGUID            guidContainerFormat,\n[in]  IWICMetadataWriter *pIWriter,   [out] ULARGE_INTEGER     *pcbSize);\nHRESULT WICMatchMetadataContent(\n[in]  REFGUID    guidContainerFormat,\n[in]  const GUID *pguidVendor,   [in]  IStream    *pIStream,\n[out] GUID       *pguidMetadataFormat);\ntypedef enum WICMetadataCreationOptions {\nWICMetadataCreationDefault = 0,   WICMetadataCreationAllowUnknown,\nWICMetadataCreationFailUnknown = 0x10000,\nWICMetadataCreationMask = 0xffff0000} ;",
+      "description": "获取首选供应商 GUID。",
+      "syntax": "HRESULT GetPreferredVendorGUID([out] GUID *pguidPreferredVendor);",
       "parameters": [
         {
           "name": "pguidPreferredVendor",
@@ -602,7 +725,7 @@
       ],
       "return_value": {
         "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果此函数成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -624,7 +747,7 @@
       "id": "windows::GetQuantizationTable",
       "name": "GetQuantizationTable",
       "entity_type": "function",
-      "description": "检索量化表的副本。 (IWICJpegFrameEncode.GetQuantizationTable) GetReaderByIndex 检索指定顶级元数据块的 IWICMetadataReader。 GetRenderMode 获取当前 WICRawRenderMode。 GetResolution 检索像素与物理世界度量之间的采样率。 GetRotation 获取当前旋转角度。 GetSaturation 获取原始图像的饱和度值。 GetScanHeader 从具有指定索引的扫描 (SOS) 标记中检索参数。 GetSharpness 获取原始图像的锐度值。 GetSigningStatus 检索组件的签名状态。 GetSize 检索锁定矩形的宽度和高度（以像素为单位）。 GetSize 检索位图的像素宽度和高度。 GetSizeInBlocks 获取 DDS 图像的宽度和高度（以块为单位）。 GetSpecVersion 检索组件的规范版本。 GetStream 获取组件持有的流。 GetStride 提供对内存的步幅值的访问权限。 GetThumbnail 检索图像的位图缩略图（如果存在） GetThumbnail 检索帧的小预览（如果受编解码器支持）。 GetTint 获取原始图像的色调值。 GetToneCurve 获取原始图像的色调曲线。 GetType 检索颜色上下文类型。 (IWICColorContext.GetType) GetType 检索描述调色板的 WICBitmapPaletteType。 GetValue 获取元数据项值。 GetValueByIndex 获取给定索引处的元数据项。",
+      "description": "检索量化表的副本。 (IWICJpegFrameEncode.GetQuantizationTable)",
       "syntax": "HRESULT GetQuantizationTable(\nUINT                         scanIndex,         UINT                         tableIndex,\n[out] DXGI_JPEG_QUANTIZATION_TABLE *pQuantizationTable);\n参数 scanIndex 类型： UINT\n要检索数据的扫描的从零开始的索引。\ntableIndex 类型： UINT\n要检索的量化表的索引。 可以通过使用 IWICJpegFrameDecode：：GetScanHeader 检索\n扫描标头来确定给定扫描的有效索引。[out] pQuantizationTable\n类型： DXGI_JPEG_QUANTIZATION_TABLE* 接收表数据的指针。 此参数不能为 NULL。",
       "return_value": {
         "type": "HRESULT",
@@ -652,8 +775,8 @@
       "id": "windows::GetVendorGUID",
       "name": "GetVendorGUID",
       "entity_type": "function",
-      "description": "检索供应商 GUID。 GetVersion 检索组件的版本。",
-      "syntax": "HRESULT GetVendorGUID(\n[out] GUID *pguidVendor);\nHRESULT GetVersion(\n[in]      UINT  cchVersion,   [in, out] WCHAR *wzVersion,   [out]     UINT  *pcchActual);",
+      "description": "检索供应商GUID。",
+      "syntax": "HRESULT GetVendorGUID([out] GUID *pguidVendor);",
       "parameters": [
         {
           "name": "pguidVendor",
@@ -700,7 +823,7 @@
       "name": "GetWhitePointKelvin",
       "entity_type": "function",
       "description": "获取原始图像的白点开尔文温度。",
-      "syntax": "HRESULT GetWhitePointKelvin(\n[out] UINT *pWhitePointKelvin);\nHRESULT GetWhitePointRGB(\n[out] UINT *pRed,   [out] UINT *pGreen,   [out] UINT *pBlue);\nHRESULT LoadParameterSet(\n[in] WICRawParameterSet ParameterSet);",
+      "syntax": "HRESULT GetWhitePointKelvin([out] UINT *pWhitePointKelvin);",
       "parameters": [
         {
           "name": "pWhitePointKelvin",
@@ -731,7 +854,7 @@
       ],
       "return_value": {
         "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -748,26 +871,10 @@
       "_source_line": 277
     },
     {
-      "id": "windows::GetWhitePointRGB",
-      "name": "GetWhitePointRGB",
-      "entity_type": "function",
-      "description": "获取白点 RGB 值。 GetWriterByIndex 检索驻留在指定索引处的 IWICMetadataWriter。 HasAlpha 指示调色板是否包含非不透明 (即 alpha 小于 1) 的条目。初始化 使用提供的参数初始化位图剪辑器。初始化 使用提供的流初始化解码器。初始化 使用 IStream 初始化编码器，该 IStream 告知编码器在何处对位进行编码。初始化 使用提供的参数初始化位图翻转旋转器。初始化 使用给定属性初始化帧编码器。初始化 使用提供的参数初始化位图缩放器。初始化 使用 IWICBitmapSource 初始化 IWICColorTransform，并将其从一个 IWICColorContext 转换为另一 个 IWICColorContext。初始化 初始化格式转换器。 初始化 使用平面源初始化格式转换器，并指定交错输出像素格式。 InitializeCustom 将调色板初始化为提供的自定义颜色条目。 InitializeFromBitmap 使用基于引用位图的计算优化值初始化调色板。 InitializeFromBlockReader 从给定的 IWICMetadataBlockReader 初始化 IWICMetadataBlockWriter。 这将使用元数据块读取器 中的所有元数据预填充元数据块编写器。 InitializeFromExifColorSpace 使用可交换图像文件 (EXIF) 颜色空间初始化颜色上下文。 InitializeFromFilename 初始化给定文件中的颜色上下文。",
-      "header": null,
-      "deprecated": false,
-      "cross_references": [
-        "GetWriterByIndex",
-        "InitializeFromBitmap",
-        "InitializeFromExifColorSpace",
-        "InitializeFromFilename"
-      ],
-      "confidence": 0.5,
-      "_source_line": 279
-    },
-    {
       "id": "windows::InitializeFromFilename",
       "name": "InitializeFromFilename",
       "entity_type": "function",
-      "description": "从特定文件初始化流。 InitializeFromIStream 从另一个流初始化流。 访问权限继承自基础流。 InitializeFromIStreamRegion 将流初始化为另一个流的子流。 InitializeFromMemory 从内存块初始化颜色上下文。 InitializeFromMemory 初始化流以将内存块视为流。 流不能增长到超过缓冲区大小。 InitializeFromPalette 基于给定的调色板初始化调色板。",
+      "description": "从指定文件初始化流。访问权限继承自基础流。",
       "syntax": "HRESULT InitializeFromFilename(\n[in] LPCWSTR wzFilename);",
       "parameters": [
         {
@@ -776,7 +883,7 @@
           "description": "类型： LPCWSTR 文件的名称。返回值类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
         }
       ],
-      "remarks": "初始化颜色上下文后，无法重新初始化它。",
+      "remarks": "初始化颜色上下文后无法重新初始化。此函数与InitializeFromIStream、InitializeFromIStreamRegion和InitializeFromMemory等函数属于同一系列。",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [
@@ -798,28 +905,11 @@
       "_source_line": 307
     },
     {
-      "id": "windows::IsBlackWhite",
-      "name": "IsBlackWhite",
-      "entity_type": "function",
-      "description": "检索一个值，该值描述调色板是否为黑白。 IsGrayscale 检索一个值，该值描述调色板是否为灰度。 LoadEx 使用给定参数从输入流加载数据。 LoadParameterSet 设置所需的 WICRawParameterSet 选项。 Lock 提供对位图的矩形区域的访问权限。 MatchesMimeType 检索一个值，该值指示给定的 mime 类型是否与编解码器的 mime 类型匹配。 MatchesPattern 检索一个值，该值指示编解码器是否识别指定流中的模式。 MatchesPattern 确定流是否包含元数据项模式。下一页 高级枚举中的当前位置。通知 用于原始图像参数更改通知的应用程序定义的回调方法。通知 仅出于合规性而记录 Notify 方法;不建议使用它，将来可能会更改或不可用。 请改用 RegisterProgressNotification。 PFNProgressNotification 进行编解码器组件进度时调用的应用程序定义的回调函数。 QueryCapability 根据指定的流检索解码器的功能。 QueryRawCapabilitiesInfo 检索有关原始图像支持的功能的信息。 RefreshStream 通知组件它所持有的流的内容可能已更改。 组件应通过从流中弄脏任何缓存信息来响应。",
-      "header": null,
-      "deprecated": false,
-      "cross_references": [
-        "MatchesMimeType",
-        "MatchesPattern",
-        "QueryCapability",
-        "QueryRawCapabilitiesInfo",
-        "RegisterProgressNotification"
-      ],
-      "confidence": 0.5,
-      "_source_line": 309
-    },
-    {
       "id": "windows::RegisterProgressNotification",
       "name": "RegisterProgressNotification",
       "entity_type": "function",
-      "description": "注册进度通知回调函数。 RemoveMetadataByName 使用元数据查询表达式从特定位置删除元数据项。 RemoveValue 删除与给定参数匹配的元数据项。 RemoveValueByIndex 删除指定索引处的元数据项。 RemoveWriterByIndex 从指定的索引位置删除元数据编写器。重置 将当前位置重置为枚举的开头。 SaveEx 使用给定参数将 IWICPersistStream 保存到给定的输入 IStream。 SetColorContexts 设置编码器的 IWICColorContext 对象。 SetColorContexts 将给定数目的 IWICColorContext 配置文件设置为帧。 SetContrast 设置原始图像的对比度值。 SetCurrentLevel 指定要在下一次调用 CopyPixels 时检索的级别。",
-      "syntax": "typedef enum WICProgressOperation {\nWICProgressOperationCopyPixels = 0x1,   WICProgressOperationWritePixels = 0x2,   WICProgressOperationAll = 0xffff,",
+      "description": "注册进度通知回调函数。",
+      "syntax": "HRESULT RegisterProgressNotification(WICProgressNotificationCallback *pCallback, DWORD dwFlags, DWORD *pdwCookie);",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [
@@ -834,7 +924,7 @@
       "id": "windows::SetDestinationColorContext",
       "name": "SetDestinationColorContext",
       "entity_type": "function",
-      "description": "方法 设置目标颜色上下文。",
+      "description": "Sets the destination color context for image processing.",
       "syntax": "HRESULT SetDestinationColorContext(\n[in] IWICColorContext *pColorContext);",
       "parameters": [
         {
@@ -866,7 +956,7 @@
       "id": "windows::SetExposureCompensation",
       "name": "SetExposureCompensation",
       "entity_type": "function",
-      "description": "设置曝光补偿停止值。 SetGamma 设置所需的伽玛值。 SetIndexing 启用 JPEG 的索引编制，以便进行高效的随机访问。 SetMetadataByName 将元数据项设置为特定位置。 SetNamedWhitePoint 设置原始文件的命名白点。 SetNoiseReduction 设置原始图像的降噪值。 SetNotificationCallback 设置通知回调方法。 SetPalette 为调色板修改提供访问权限。 SetPalette 设置图像的全局调色板。",
+      "description": "设置曝光补偿停止值。",
       "syntax": "HRESULT SetExposureCompensation(\n[in] double ev);\nHRESULT SetGamma(   [in] double Gamma);",
       "parameters": [
         {
@@ -884,7 +974,7 @@
       ],
       "return_value": {
         "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。"
       },
       "remarks": "建议使用编解码器报告，即使外部范围限制的结果质量不完美，也支持此方法。",
       "requirements": {
@@ -908,28 +998,11 @@
       "_source_line": 340
     },
     {
-      "id": "windows::SetPalette",
-      "name": "SetPalette",
-      "entity_type": "function",
-      "description": "设置索引像素格式的 IWICPalette。 SetParameters 设置特定于 DDS 的数据。 SetPixelFormat 请求编码器使用指定的像素格式。 SetPreview 设置图像的全局预览。 SetRenderMode 设置当前 WICRawRenderMode。 SetResolution 更改图像的物理分辨率。 SetResolution 设置输出图像的物理分辨率。 SetRotation 设置所需的旋转角度。 SetSaturation 设置原始图像的饱和度值。 SetSharpness 设置原始图像的锐度值。 SetSize 设置帧的输出图像尺寸。 SetThumbnail 设置图像的全局缩略图。 SetThumbnail 设置帧缩略图（如果编解码器支持）。 SetTint 设置原始图像的色调值。 SetToneCurve 设置原始图像的色调曲线。 SetValue 设置给定的元数据项。 SetValueByIndex 将元数据项设置为指定的索引。",
-      "header": null,
-      "deprecated": false,
-      "cross_references": [
-        "SetPixelFormat",
-        "SetSize",
-        "SetThumbnail",
-        "SetValue",
-        "SetValueByIndex"
-      ],
-      "confidence": 0.5,
-      "_source_line": 351
-    },
-    {
       "id": "windows::SetWhitePointKelvin",
       "name": "SetWhitePointKelvin",
       "entity_type": "function",
-      "description": "设置白点开氏值。 SetWhitePointRGB 设置白点 RGB 值。 SetWriterByIndex 替换指定索引位置上的元数据编写器。 Skip 跳到给定数量的对象。 SupportsTransparency 返回格式是否支持透明像素。 WICConvertBitmapSource 从给定的 IWICBitmapSource 中获取所需像素格式的 IWICBitmapSource。 WICCreateBitmapFromSection 返回由 Windows 图形设备接口 (GDI) 节句柄的像素支持的 IWICBitmapSource。 (WICCreateBitmapFromSection) WICCreateBitmapFromSectionEx 返回由 Windows 图形设备接口 (GDI) 节句柄的像素支持的 IWICBitmapSource。 (WICCreateBitmapFromSectionEx) WICGetMetadataContentSize 返回指定的 IWICMetadataWriter 包含的元数据内容的大小。 返回的大小将考虑标头和元数据的长度。 WICMapGuidToShortName 获取与给定 GUID 关联的短名称。 WICMapSchemaToName 获取与给定架构关联的名称。 WICMapShortNameToGuid 获取与给定短名称关联的 GUID。 WICMatchMetadataContent 获取指定容器格式和供应商的元数据格式 GUID，该格式与给定流中的内容最匹配。 WICSerializeMetadataContent 将元数据写入给定流。 WriteFrame 将图像编码为 IWICBitmapFrameEncode 提供的帧。 WriteFrameThumbnail 将图像编码为 IWICBitmapFrameEncode 提供的帧的缩略图。 WritePixels 将扫描行数据从调用方提供的缓冲区复制到 IWICBitmapFrameEncode 对象。 WritePixels 将源平面中的行写入编码格式。 (IWICPlanarBitmapFrameEncode.WritePixels) WriteScan 将扫描数据写入 JPEG 帧。 WriteSource 对位图源进行编码。 WriteSource 将源平面中的行写入编码格式。 (IWICPlanarBitmapFrameEncode.WriteSource) WriteThumbnail 将给定图像编码为给定 WIC 位图编码器的缩略图。",
-      "syntax": "HRESULT SetWhitePointKelvin(   [in] UINT WhitePointKelvin);\nHRESULT SetWhitePointRGB(\n[in] UINT Red,   [in] UINT Green,   [in] UINT Blue);\nHRESULT Notify(\n[in] UINT NotificationMask);\nHRESULT Clone(\n[out] IWICEnumMetadataItem **ppIEnumMetadataItem);\nHRESULT Next(\n[in]                ULONG       celt,\n[in, out]           PROPVARIANT *rgeltSchema,   [in, out]           PROPVARIANT *rgeltId,\n[in, out, optional] PROPVARIANT *rgeltValue,   [out, optional]     ULONG       *pceltFetched);\nHRESULT Reset();\nHRESULT Skip(\n[in] ULONG celt);",
+      "description": "设置白点开氏值。",
+      "syntax": "HRESULT SetWhitePointKelvin([in] UINT WhitePointKelvin);",
       "parameters": [
         {
           "name": "WhitePointKelvin",
@@ -983,7 +1056,7 @@
       ],
       "return_value": {
         "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回S_OK。否则，将返回HRESULT错误代码。"
       },
       "remarks": "编解码器实施者应忠实地调整原始图像本身支持的范围内的色温。 对于本机支持范围之外的值，编解码器实施者应尽最大努力在该色温下提供图像的表示形式。 如果值超过定义的可接受范围，编解码器实现程序应返回 WINCODEC_ERR_VALUEOUTOFRANGE 。 编解码器实现者必须确保与其他白点设置方法（如 SetWhitePointRGB）的正确互操作性。 例如，如果调用方通过 SetNamedWhitePoint 设置白点，则编解码器实施者可能希 望禁用读回相应的开尔文温度。 在编解码器实现者希望由于先前调用而拒绝给定操作的 特定情况下，应返回 WINCODEC_ERR_WRONGSTATE 。 由于其他白点设置方法 (例如 SetWhitePointKelvin) ，编解码器实现者必须小心以确保适当的互操作性。 例如，如果调用方通过命名白点设置，则编解码器实现者可能希望禁用读回相应的开氏温度。 在编解码器实现者希望由于以前的调用而拒绝给定操作的特定情 况下，应返回 WINCODEC_ERR_WRONGSTATE 。 必须使用 WICDecodeMetadataCacheOnDemand 值创建解码器，才能执行就地元数据更新。 使用 WICDecodeMetadataCacheOnLoad 选项会导致解码器释放执行元数据更新所需的文件流。 并非所有元数据格式都支持快速元数据编码。 支持元数据的本机元数据处理程序是 IFD、Exif、XMP 和 GPS。 如果快速元数据编码器失败，则需要对图像进行完全重新编码才能添加元数据。示例 下面演示如何从图像帧获取快速元数据编码器，并使用其查询编写器编写元数据项。 C++ IWICFastMetadataEncoder *pFME = NULL; IWICMetadataQueryWriter *pFMEQW = NULL; hr = pFactory->CreateFastMetadataEncoderFromFrameDecode(pFrameDecode, &pFME); if (SUCCEEDED(hr)){ } hr = pFME->GetMetadataQueryWriter(&pFMEQW); if (SUCCEEDED(hr)){ // Add additional metadata } PROPVARIANT value;",
       "requirements": {
@@ -1052,195 +1125,6 @@
       "_source_line": 656
     },
     {
-      "id": "windows::CLSCTX_INPROC_SERVER",
-      "name": "CLSCTX_INPROC_SERVER",
-      "entity_type": "enum",
-      "description": ", IID_IWICImagingFactory, (LPVOID*)&pFactory ); if (SUCCEEDED(hr)) { hr = pFactory->CreateBitmap(uiWidth, uiHeight, formatGUID, WICBitmapCacheOnDemand, &pBitmap); } if (SUCCEEDED(hr)) { hr = pBitmap->Lock(&rcLock, WICBitmapLockWrite, &pLock); if (SUCCEEDED(hr)) { UINT cbBufferSize = 0; UINT cbStride = 0; BYTE *pv = NULL; // Retrieve the stride. hr = pLock->GetStride(&cbStride); if (SUCCEEDED(hr)) { hr = pLock->GetDataPointer(&cbBufferSize, &pv); } if (SUCCEEDED(hr)) { // Access the bitmap memory starting at pv, where // each row begins cbStride bytes after the start // of the preceding row. } // Release the bitmap lock. pLock->Release(); } } if (pBitmap) { pBitmap->Release(); } if (pFactory) { pFactory->Release(); } return hr;",
-      "syntax": "HRESULT GetPixelFormat(\n[out] WICPixelFormatGUID *pPixelFormat);\nHRESULT GetSize(\n[in, out] UINT *puiWidth,   [in, out] UINT *puiHeight);\nHRESULT GetStride(\n[in, out] UINT *pcbStride);\nHRESULT Initialize(\n[in] IWICBitmapSource           *pISource,   [in] UINT                       uiWidth,   [in] UINT                       uiHeight,\n[in] WICBitmapInterpolationMode mode);\nHRESULT CopyPalette(\n[in] IWICPalette *pIPalette);",
-      "parameters": [
-        {
-          "name": "pPixelFormat",
-          "direction": "out",
-          "type": "WICPixelFormatGUID*",
-          "description": "接收锁定区域的像素格式 GUID 的指针。"
-        },
-        {
-          "name": "puiWidth",
-          "direction": "in, out",
-          "description": "类型： UINT* 一个接收锁定矩形宽度的指针。"
-        },
-        {
-          "name": "puiHeight",
-          "direction": "in, out",
-          "description": "类型： UINT* 一个指针，用于接收锁定矩形的高度。"
-        },
-        {
-          "name": "pcbStride",
-          "direction": "in, out",
-          "type": "UINT* 返回值类型： HRESULT",
-          "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-        },
-        {
-          "name": "pISource",
-          "direction": "in",
-          "type": "IWICBitmapSource*",
-          "description": "输入位图源。[in] uiWidth 类型： UINT 目标宽度。[in] uiHeight 类型： UINT 目标高度。[in] mode 类型： WICBitmapInterpolationMode 缩放时要使用的 WICBitmapInterpolationMode 。"
-        },
-        {
-          "name": "pIPalette",
-          "direction": "in",
-          "type": "IWICPalette*",
-          "description": "IWICPalette。 可以使用 CreatePalette 方法创建调色板。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 返回以下值之一。 返回代码"
-      },
-      "remarks": "请注意，步幅值特定于 IWICBitmapLock，而不是位图。 例如，位图同一矩形上的两个连 续锁可能会返回不同的指针和步幅值，具体取决于内部实现。 图像可以缩放到更大的大小;但是，即使使用复杂的缩放算法，图像中也只有如此多的信息，并且随着纵向扩展，项目往往会恶化。 每次调用 CopyPixels 时，缩放器都会重新应用重新采样算法。 如果要对缩放的图像进行动画处理，则应创建缩放后的图像一次并缓存在新位图中，之后可能会释放 IWICBitmapScaler 。 这样，缩放算法（相对于绘图来说可能计算成本高昂）仅执行一次，结果显示多次。 缩放器经过优化，使用正确缩放图像所需的最小内存量。 缩放器可用于通过调用具有表示图像输出带的不同矩形的 CopyPixel ，以增量方式 (条带) 生成图像的各个部分。 重新采样通常需要源图像中的重叠矩形，因此可能需要多次从源位图请求相同的像素。 从某些图像解码器无序请求扫描行可能会显著降低性能。 因此，缩放器经过优化，可处理扫描线的连续水平带 (矩形宽度等于位图宽度) 。 在这种情况下，将重新使用上一个垂直相邻矩形中的累加器，以避免来自源的重复扫描行请求。 这意味着，如果按顺序请求带区，则来自缩放器的带状输出可能具有更好的性能。 当然，如果缩放器仅用于生成单个矩形输出，则无需担心，因为缩放器将在内部按正确的顺序请求扫描线。 无法多次初始化 IWICBitmapScaler。 例如，缩放多帧图像中的每个帧时，必须为每个帧 创建并初始化一个新的 IWICBitmapScaler 。示例 有关使用 IWICBitmapScaler 的示例，请参阅 如何缩放位图源 主题。 此接口提供了一种访问位图、解码器、格式转换器和缩放器的常用方法并将其链接在一起。 实现此接口的组件可以在图形中连接在一起，以拉取图像处理数据。 此接口仅定义可读性或能够生成像素的概念。 修改位图或写入位图被视为特定于位图的 专用化，这些位图具有存储，并在子代接口 IWICBitmap 中定义。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "Access",
-        "CopyPixel",
-        "CopyPixels",
-        "CreateBitmap",
-        "Release"
-      ],
-      "confidence": 1.0,
-      "_source_line": 697
-    },
-    {
-      "id": "windows::ZeroMemory",
-      "name": "ZeroMemory",
-      "entity_type": "enum",
-      "description": "pv, cbBufferSize); // Release the bitmap lock. pLock->Release(); } } if (pBitmap) { pBitmap->Release(); } if (pFactory) { pFactory->Release(); } return hr;",
-      "syntax": "HRESULT SetPalette(\n[in] IWICPalette *pIPalette);\nHRESULT SetResolution(\n[in] double dpiX,   [in] double dpiY);\nHRESULT Initialize(\n[in] IWICBitmapSource *pISource,\n[in] const WICRect    *prc);\nHRESULT DoesSupportAnimation(\n[out] BOOL *pfSupportAnimation);\nHRESULT DoesSupportChromakey(\n[out] BOOL *pfSupportChromakey);\nHRESULT DoesSupportLossless(\n[out] BOOL *pfSupportLossless);\nHRESULT DoesSupportMultiframe(\n[out] BOOL *pfSupportMultiframe);",
-      "parameters": [
-        {
-          "name": "pIPalette",
-          "direction": "in",
-          "type": "IWICPalette* 用于转换的调色板。",
-          "description": ""
-        },
-        {
-          "name": "dpiX",
-          "direction": "in",
-          "type": "double 水平分辨率。[in] dpiY",
-          "description": "类型： double 垂直分辨率。"
-        },
-        {
-          "name": "pISource",
-          "direction": "in",
-          "type": "IWICBitmapSource*",
-          "description": "输入位图源。[in] prc 类型： const WICRect* 要剪辑的位图源的矩形。"
-        },
-        {
-          "name": "pfSupportAnimation",
-          "direction": "out",
-          "description": "类型： BOOL* 如果编解码器支持包含计时信息的图像，则接收 TRUE ;否则为 FALSE。"
-        },
-        {
-          "name": "pfSupportChromakey",
-          "direction": "out",
-          "description": "类型： BOOL* 如果编解码器支持色度，则接收 TRUE ;否则为 FALSE。"
-        },
-        {
-          "name": "pfSupportLossless",
-          "direction": "out",
-          "description": "类型： BOOL* 如果编解码器支持无损格式，则接收 TRUE ;否则为 FALSE。"
-        },
-        {
-          "name": "pfSupportMultiframe",
-          "direction": "out",
-          "description": "类型： BOOL* 如果编解码器支持多帧图像，则接收 TRUE ;否则为 FALSE。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "此方法不会影响位图中存储的实际像素或样本。 而是修改了采样率的解释。 这意味着宽度为 96 像素的 96 DPI 图像为 1 英寸。 如果将物理分辨率修改为 48 DPI，则位图被视为 2 英寸宽，但像素数相同。 如果分辨率小于 REAL_EPSILON (1.192092896e-07F) 返回错误代码 WINCODEC_ERR_INVALIDPARAMETER 。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "Release",
-        "Server",
-        "Vista",
-        "WINCODEC_ERR_INVALIDPARAMETER"
-      ],
-      "confidence": 0.85,
-      "_source_line": 711
-    },
-    {
-      "id": "windows::GetContainerFormat",
-      "name": "GetContainerFormat",
-      "entity_type": "enum",
-      "description": "检索与编解码器关联的容器 GUID。",
-      "syntax": "HRESULT GetContainerFormat(\n[out] GUID *pguidContainerFormat);\nHRESULT GetEnumerator(\n[out] IEnumString **ppIEnumString);\nHRESULT GetLocation(\n[in]      UINT  cchMaxLength,   [in, out] WCHAR *wzNamespace,\n[out]     UINT  *pcchActualLength);",
-      "parameters": [
-        {
-          "name": "pguidContainerFormat",
-          "direction": "out",
-          "description": "类型： GUID* 接收 cointainer 格式 GUID 的指针。"
-        },
-        {
-          "name": "ppIEnumString",
-          "direction": "out",
-          "description": "类型： IEnumString** 指向变量的指针，该变量接收指向枚举器的 IEnumString 接口的指针，该枚举器包含可在当前 IWICMetadataQueryReader 中使用的查询字符串。"
-        },
-        {
-          "name": "cchMaxLength",
-          "direction": "in",
-          "description": "类型： UINT wzNamespace 缓冲区的长度。"
-        },
-        {
-          "name": "wzNamespace",
-          "direction": "in, out",
-          "description": "类型： WCHAR* 接收当前命名空间位置的指针。"
-        },
-        {
-          "name": "pcchActualLength",
-          "direction": "out",
-          "description": "类型： UINT* 检索当前命名空间位置所需的实际缓冲区长度。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "此方法的使用模式为两个调用过程。 第一个调用通过将 cchDeviceManufacturer 设置为，wzDeviceManufacturer NULL 设置为 0 来检索检索全色管理版本号所需的缓冲区大小。此调用将 pcchActual 设置为所需的缓冲区大小。 确定所需的缓冲区大小后，第二次 GetDeviceManufacturer 调用将 cchDeviceManufacturer 设置为缓冲区大小， wzDeviceManufacturer 设置为适当大小的缓冲区将检索像素格式。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 1015
-    },
-    {
       "id": "windows::GetDeviceModels",
       "name": "GetDeviceModels",
       "entity_type": "enum",
@@ -1295,7 +1179,7 @@
     {
       "id": "windows::GetFileExtensions",
       "name": "GetFileExtensions",
-      "entity_type": "enum",
+      "entity_type": "function",
       "description": "检索与编解码器关联的文件扩展名的逗号分隔列表。",
       "syntax": "HRESULT GetFileExtensions(\n[in]      UINT  cchFileExtensions,   [in, out] WCHAR *wzFileExtensions,\n[in, out] UINT  *pcchActual);",
       "parameters": [
@@ -1336,8 +1220,8 @@
     {
       "id": "windows::GetMimeTypes",
       "name": "GetMimeTypes",
-      "entity_type": "enum",
-      "description": "检索与编解码器关联的以逗号分隔的 mime 类型的序列。",
+      "entity_type": "function",
+      "description": "检索与编解码器关联的以逗号分隔的MIME类型序列。使用两阶段调用模式：首次调用获取所需缓冲区大小，第二次调用获取实际数据。",
       "syntax": "HRESULT GetMimeTypes(\n[in]  UINT  cchMimeTypes,   [out] WCHAR *wzMimeTypes,   [out] UINT  *pcchActual);",
       "parameters": [
         {
@@ -1360,7 +1244,7 @@
         "type": "HRESULT",
         "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
       },
-      "remarks": "此方法的使用模式为两个调用过程。 第一次调用通过将 cchMimeTypes 设置为 并将 wzMimeTypes NULL 设置为 0 来检索检索完整颜色管理版本号所需的缓冲区大小。 此调用将 pcchActual 设置为所需的缓冲区大小。 确定所需的缓冲区大小后，将 cchMimeTypes 设置为缓冲区大小，wzMimeTypes 设置为适当大小的缓冲区的第二个 GetMimeTypes 调 用将检索像素格式。",
+      "remarks": "此方法采用两阶段调用模式：首次调用时设置cchMimeTypes为0且wzMimeTypes为NULL以获取所需缓冲区大小，第二次调用使用适当大小的缓冲区获取实际MIME类型数据。",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -1378,7 +1262,7 @@
     {
       "id": "windows::GetPixelFormats",
       "name": "GetPixelFormats",
-      "entity_type": "enum",
+      "entity_type": "function",
       "description": "检索表示转换器支持的像素格式的 GUID 列表。",
       "syntax": "HRESULT GetPixelFormats(\n[in]      UINT               cFormats,\n[in, out] WICPixelFormatGUID *pPixelFormatGUIDs,\n[out]     UINT               *pcActual);\nHRESULT WriteFrame(\n[in] ID2D1Image               *pImage,\n[in] IWICBitmapFrameEncode    *pFrameEncode,\n[in] const WICImageParameters *pImageParameters);",
       "parameters": [
@@ -1428,8 +1312,8 @@
     {
       "id": "windows::MatchesMimeType",
       "name": "MatchesMimeType",
-      "entity_type": "enum",
-      "description": "检索一个值，该值指示给定的 mime 类型是否与编解码器的 mime 类型匹配。",
+      "entity_type": "function",
+      "description": "Determines whether a given mime type matches the codec's mime type.",
       "syntax": "HRESULT MatchesMimeType(\n[in]  LPCWSTR wzMimeType,   [out] BOOL    *pfMatches);",
       "parameters": [
         {
@@ -1452,26 +1336,6 @@
       "cross_references": [],
       "confidence": 0.75,
       "_source_line": 1202
-    },
-    {
-      "id": "windows::E_NOTIMPL",
-      "name": "E_NOTIMPL",
-      "entity_type": "enum",
-      "description": "注解 编解码器不实现此方法。 注意 Windows 提供的编解码器不实现此方法，并返回E_NOTIMPL。",
-      "remarks": "Windows 提供的编解码器不支持此接口。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 1219
     },
     {
       "id": "windows::ProgressNotificationCallback",
@@ -1519,47 +1383,6 @@
       ],
       "confidence": 0.85,
       "_source_line": 1258
-    },
-    {
-      "id": "windows::CLSID_WIC",
-      "name": "CLSID_WIC",
-      "entity_type": "enum",
-      "description": "BmpEncoder CLSID_WICGifEncoder CLSID_WICHeifEncoder CLSID_WICJpegEncoder CLSID_WICPngEncoder CLSID_WICTiffEncoder CLSID_WICWmpEncoder CLSID 0x69be8bb4、0xd66d、0x47c8、0x86、0x5a、0xed、0x15、0x89、 0x43、0x37、0x82 0x114f5598、0xb22、0x40a0、0x86、0xa1、0xc8、0x3e、0xa4、 0x95、0xad、0xbd 0x0dbecec1、0x9eb3、0x4860、0x9c、0x6f、0xdd、0xbe、0x86、 0x63、0x45、0x75 0x1a34f5c1、0x4a5a、0x46dc、0xb6、0x44、0x1f、0x45、0x67、 0xe7、0xa6、0x76 0x27949969、0x876a、0x41d7、0x94、0x47、0x56、0x8f、0x6a、 0x35、0xa4、0xdc 0x0131be10、0x2001、0x4c5f、0xa9、0xb0、0xcc、0x88、0xfa、 0xb6、0x4c、0xe8 0xac4ce3cb、0xe1c1、0x44cd、0x82、0x15、0x5a、0x16、0x65、 0x50、0x9e、0xc2 此外，此接口可能进行子类化，以支持作为扩展性模型的一部分的第三方编解码器。 请参阅 AITCodec 示例编解码器。",
-      "syntax": "HRESULT CopyPalette(\n[in] IWICPalette *pIPalette);",
-      "parameters": [
-        {
-          "name": "pIPalette",
-          "direction": "in",
-          "type": "IWICPalette*",
-          "description": "解码器的全局调色板要复制到的IWICPalette 。 在调用 CopyPalette 之前，使用 CreatePalette 创建目标面板。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "若要完成图像，必须调用帧 Commit 和编码器 Commit 。 但是，仅在提交所有帧后调用编码器 Commit 方法。 提交编码器后，无法将其重新初始化或与另一个流一起重复使用。 必须创建新的编码器接口，例如，使用 IWICImagingFactory：：CreateEncoder。 要使编码器 提交 成功，必须至少调用 IWICBitmapEncoder：：Initialize ，并调用 IWICBitmapFrameEncode：：WriteSource 或 IWICBitmapFrameEncode：： WritePixels。 IWICBitmapFrameEncode：：WriteSource 指定对图像数据进行编码所需的所有参数。如果像素格式) 索引，则 IWICBitmapFrameEncode：：WritePixels 还要求调用 IWICBitmapFrameEncode：：SetSize、IWICBitmapFrameEncode：：SetPixelFormat 和 IWICBitmapFrameEncode：：SetPalette (。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "Commit",
-        "Initialize",
-        "SetPalette",
-        "SetPixelFormat",
-        "SetSize",
-        "WritePixels",
-        "WriteSource"
-      ],
-      "confidence": 1.0,
-      "_source_line": 1322
     },
     {
       "id": "windows::GetColorContexts",
@@ -1631,54 +1454,9 @@
       "_source_line": 1381
     },
     {
-      "id": "windows::WINCODEC_ERR_UNSUPPORTEDOPERATION",
-      "name": "WINCODEC_ERR_UNSUPPORTEDOPERATION",
-      "entity_type": "enum",
-      "description": "。 Png最多支持设置一个颜色上下文，并且将忽略其他颜色上下文。 此上下文必须是 WICColorContextProfile，用于对 PNG 文件中的 iCCP、gAMA 和 cHRM 区块进行编码。 JPEG、TIFF、JPEG-XR支持设置一个 WICColorContextProfile 和一个 WICColorContextExifColorSpace 。 用户不能提供每种颜色上下文中的多个，因为 除每种类型的最后一个上下文之外的所有上下文都将被忽略。 在 JPEG 中， WICColorContextProfile 编码为 JPEG APP2 ICC 元数据块。 在 TIFF 和 JPEG-XR 中， WICColorContextProfile 被编码为 IFD ICC 配置文件元数据块， (IFD 标记0x8773) 。 在所有三种格式中， WICColorContextExifColorSpace 将编码为 EXIF 颜色空间元数据块， (EXIF 标记0xA001) 。",
-      "syntax": "HRESULT GetPreview(\n[out] IWICBitmapSource **ppIBitmapSource);\nHRESULT GetThumbnail(\n[out] IWICBitmapSource **ppIThumbnail);\nHRESULT Initialize(\n[in] IStream          *pIStream,   [in] WICDecodeOptions cacheOptions);",
-      "parameters": [
-        {
-          "name": "ppIBitmapSource",
-          "direction": "out",
-          "type": "IWICBitmapSource**",
-          "description": "如果支持，则接收指向预览位图的指针。"
-        },
-        {
-          "name": "ppIThumbnail",
-          "direction": "out",
-          "type": "IWICBitmapSource**",
-          "description": "接收指向缩略图的 IWICBitmapSource 的指针。"
-        },
-        {
-          "name": "pIStream",
-          "direction": "in",
-          "type": "IStream* 用于初始化的流。",
-          "description": "流包含编码的像素，每次 IWICBitmapFrameDecode 接口上的 CopyPixels 方法 (请参阅调 用 GetFrame) 时解码这些像素。[in] cacheOptions 类型： WICDecodeOptions 用于初始化 的 WICDecodeOptions 。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "并非所有格式都支持预览。 只有本机 Microsoft Windows 数字照片 (WDP) 编解码器支持 预览。 返回的缩略图可以是任意大小，因此调用方应将缩略图缩放到所需的大小。 Windows 提供的唯一支持缩略图的图像格式是 JPEG、TIFF 和 JPEG-XR。 如果缩略图不可用，则会返 回 WINCODEC_ERR_CODECNOTHUMBNAIL。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 1.0,
-      "_source_line": 1531
-    },
-    {
       "id": "windows::QueryCapability",
       "name": "QueryCapability",
-      "entity_type": "enum",
+      "entity_type": "function",
       "description": "根据指定的流检索解码器的功能。",
       "syntax": "HRESULT QueryCapability(   [in]  IStream *pIStream,\n[out] DWORD   *pdwCapability);",
       "parameters": [
@@ -1711,121 +1489,11 @@
       "_source_line": 1635
     },
     {
-      "id": "windows::CreateInstance",
-      "name": "CreateInstance",
-      "entity_type": "enum",
-      "description": "创建新的 IWICBitmapDecoder 实例。",
-      "syntax": "HRESULT CreateInstance(\n[out] IWICMetadataWriter **ppIWriter);\nHRESULT GetHeader(\n[in]      REFGUID           guidContainerFormat,\n[in]      UINT              cbSize,   [in, out] WICMetadataHeader *pHeader,   [in, out] UINT              *pcbActual);",
-      "parameters": [
-        {
-          "name": "ppIWriter",
-          "direction": "out",
-          "type": "IWICMetadataWriter**",
-          "description": "接收指向元数据编写器的指针的指针。"
-        },
-        {
-          "name": "guidContainerFormat",
-          "direction": "in",
-          "description": "类型： REFGUID 要获取其标头的格式容器 GUID。"
-        },
-        {
-          "name": "cbSize",
-          "direction": "in",
-          "type": "WICMetadataHeader*",
-          "description": "类型： UINT pHeader 缓冲区的大小。[in, out] pHeader 接收 WICMetadataHeader 的指针。"
-        },
-        {
-          "name": "pcbActual",
-          "direction": "in, out",
-          "description": "类型： UINT* 标头的实际大小。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "IWICBitmapFipRotator 按像素请求数据，而 WIC 编解码器按扫描线提供数据。 如果没有缓冲，这会导致翻转器对象表现出 n² 行为。 这是因为转换后的图像中的每个像素都需要在文件中解码整个扫描线。 建议使用 IWICBitmap 缓冲图像，或使用 Direct2D 翻转/旋转 图像。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodecsdk.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "Direct2D"
-      ],
-      "confidence": 0.75,
-      "_source_line": 1683
-    },
-    {
-      "id": "windows::MatchesPattern",
-      "name": "MatchesPattern",
-      "entity_type": "enum",
-      "description": "检索一个值，该值指示编解码器是否识别指定流中的模式。",
-      "syntax": "HRESULT MatchesPattern(\n[in]  REFGUID guidContainerFormat,\n[in]  IStream *pIStream,   [out] BOOL    *pfMatches);\nHRESULT RemoveValue(\n[in] const PROPVARIANT *pvarSchema,\n[in] const PROPVARIANT *pvarId);\nHRESULT RemoveValueByIndex(\n[in] UINT nIndex);\nHRESULT SetValue(\n[in] const PROPVARIANT *pvarSchema,\n[in] const PROPVARIANT *pvarId,   [in] const PROPVARIANT *pvarValue);",
-      "parameters": [
-        {
-          "name": "guidContainerFormat",
-          "direction": "in",
-          "description": "类型： REFGUID 元数据项的容器格式。"
-        },
-        {
-          "name": "pIStream",
-          "direction": "in",
-          "description": "类型： IStream* 要搜索元数据模式的流。"
-        },
-        {
-          "name": "pfMatches",
-          "direction": "out",
-          "description": "类型： BOOL* 如果流包含模式，则接收 TRUE 的指针;否则为 FALSE 。"
-        },
-        {
-          "name": "pvarSchema",
-          "direction": "in",
-          "type": "const PROPVARIANT* 指向元数据架构属性的指针。[in] pvarId",
-          "description": "类型： const PROPVARIANT* 指向元数据 ID 属性的指针。"
-        },
-        {
-          "name": "nIndex",
-          "direction": "in",
-          "description": "类型： UINT 要删除的元数据项的索引。"
-        },
-        {
-          "name": "pvarSchema",
-          "direction": "in",
-          "type": "const PROPVARIANT*",
-          "description": "指向元数据项的架构属性的指针。[in] pvarId 类型： const PROPVARIANT* 指向元数据项的 id 属性的指针。[in] pvarValue 类型： const PROPVARIANT* 指向要设置的元数据值的指针"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "此接口有许多具体实现，表示平台提供的每个标准编码器，包括位图 (BMP) ， 便携式网络图形 (PNG) 、联合摄影专家组 (JPEG) 、图形交换格式 (GIF) 、标记图像文件格式 (TIFF) 和 Microsoft Windows 数字照片 (WDP) 。 下表包含每个本机编码器的类标识符 (CLSID)。 CLSID 名称",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodecsdk.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 1743
-    },
-    {
       "id": "windows::GetMetadataQueryWriter",
       "name": "GetMetadataQueryWriter",
-      "entity_type": "enum",
-      "description": "方法 检索编码器的元数据查询编写器。",
-      "syntax": "HRESULT GetMetadataQueryWriter(\n[out] IWICMetadataQueryWriter **ppIMetadataQueryWriter);\nHRESULT Initialize(\n[in] IStream                     *pIStream,   [in] WICBitmapEncoderCacheOption cacheOption);",
+      "entity_type": "function",
+      "description": "检索编码器的元数据查询编写器。",
+      "syntax": "HRESULT GetMetadataQueryWriter([out] IWICMetadataQueryWriter **ppIMetadataQueryWriter);",
       "parameters": [
         {
           "name": "ppIMetadataQueryWriter",
@@ -1865,61 +1533,10 @@
       "_source_line": 1936
     },
     {
-      "id": "windows::SetColorContexts",
-      "name": "SetColorContexts",
-      "entity_type": "enum",
-      "description": "将给定数目 的 IWICColorContext 配置文件设置为帧。",
-      "syntax": "HRESULT SetColorContexts(\n[in] UINT             cCount,\n[in] IWICColorContext **ppIColorContext);\nHRESULT SetPalette(\n[in] IWICPalette *pIPalette);\nHRESULT SetPreview(\n[in] IWICBitmapSource *pIPreview);\nHRESULT SetThumbnail(\n[in] IWICBitmapSource *pIThumbnail);",
-      "parameters": [
-        {
-          "name": "cCount",
-          "direction": "in",
-          "type": "IWICColorContext**",
-          "description": "类型： UINT 要设置的 IWICColorContext 数。[in] ppIColorContext 一个指针， 一个 IWICColorContext 指针，其中包含要为编码器设置的颜色上下文。"
-        },
-        {
-          "name": "pIPalette",
-          "direction": "in",
-          "type": "IWICPalette*",
-          "description": "要用作全局调色板的 IWICPalette 。"
-        },
-        {
-          "name": "pIPreview",
-          "direction": "in",
-          "type": "IWICBitmapSource*",
-          "description": "要用作全局预览版的 IWICBitmapSource 。"
-        },
-        {
-          "name": "pIThumbnail",
-          "direction": "in",
-          "type": "IWICBitmapSource*",
-          "description": "要设置为全局缩略图的 IWICBitmapSource 。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果成功，则返回 S_OK，否则返回错误值。 如果编码器不支持该功能，则返回WINCODEC_ERR_UNSUPPORTEDOPERATION。 类型： HRESULT 如果成功，则返回 S_OK，否则返回错误值。 如果编码器不支持该功能，则返回WINCODEC_ERR_UNSUPPORTEDOPERATION。 类型： HRESULT 如果成功，则返回 S_OK，否则返回错误值。 如果编码器不支持该功能，则返回WINCODEC_ERR_UNSUPPORTEDOPERATION。"
-      },
-      "remarks": "只有 GIF 图像支持可选的全局调色板，在向图像添加任何帧之前，必须设置全局调色板。 只需为索引像素格式设置调色板。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 1999
-    },
-    {
       "id": "windows::WriteSource",
       "name": "WriteSource",
-      "entity_type": "enum",
-      "description": "在将源图像转换为编码器像素格式时使用指定的调色板。 如果未指定调色 板，将在首次调用 WriteSource 时生成调 色板。",
+      "entity_type": "method",
+      "description": "将源图像平面写入编码器帧。必须在调用Initialize、SetSize和SetPixelFormat之后使用。",
       "syntax": "HRESULT WriteSource(\n[in] IWICBitmapSource **ppPlanes,\nUINT             cPlanes,        WICRect          *prcSource);",
       "parameters": [
         {
@@ -1955,65 +1572,10 @@
       "_source_line": 2519
     },
     {
-      "id": "windows::WINCODEC_ERR_WRONGSTATE",
-      "name": "WINCODEC_ERR_WRONGSTATE",
-      "entity_type": "enum",
-      "description": "注解 说明成功。 未调用 IWICBitmapFrameEncode：：Initialize 方法。 编码器可能不支持请求的像素格式。 否则， SetPixelFormat 返回 pPixelFormat 指向的内存块中最近的匹配项。 如果返回的像素格式与请求的格式不匹配，则必须使用 IWICFormatConverter 对象来转换像素数据。",
-      "syntax": "HRESULT SetResolution(\n[in] double dpiX,   [in] double dpiY);\nHRESULT SetSize(\n[in] UINT uiWidth,   [in] UINT uiHeight);\nHRESULT SetThumbnail(\n[in] IWICBitmapSource *pIThumbnail);",
-      "parameters": [
-        {
-          "name": "dpiX",
-          "direction": "in",
-          "type": "double 水平分辨率值。[in] dpiY",
-          "description": "类型： double 垂直分辨率值。"
-        },
-        {
-          "name": "uiWidth",
-          "direction": "in",
-          "description": "类型： UINT 输出图像的宽度。"
-        },
-        {
-          "name": "uiHeight",
-          "direction": "in",
-          "description": "类型： UINT 输出图像的高度。返回值类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-        },
-        {
-          "name": "pIThumbnail",
-          "direction": "in",
-          "type": "IWICBitmapSource* 要用作缩略图的位图源。",
-          "description": ""
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果成功，则返回 S_OK，否则返回错误值。 如果编码器不支持该功能，则返回WINCODEC_ERR_UNSUPPORTEDOPERATION。"
-      },
-      "remarks": "Windows 图像处理组件 (WIC) 不会由于 DPI 分辨率值而执行任何特殊处理。 例如，从 IWICBitmapSource：：CopyPixels 返回的数据不会按 DPI 缩放。 应用必须处理 DPI 分辨率。 要求",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "CopyPixels",
-        "Initialize",
-        "Server",
-        "SetPixelFormat",
-        "Vista"
-      ],
-      "confidence": 1.0,
-      "_source_line": 2549
-    },
-    {
       "id": "windows::WritePixels",
       "name": "WritePixels",
-      "entity_type": "enum",
-      "description": "或 WriteSource 后调用 SetThumbnail，则不会将缩略图添加到编码文件中。 BMP、PNG不支持设置缩略图。 此函数将返回",
+      "entity_type": "function",
+      "description": "Writes pixel data to the frame encoder. If SetThumbnail is called after WritePixels or WriteSource, the thumbnail won't be added to the encoded file. BMP and PNG formats don't support thumbnails.",
       "syntax": "HRESULT WritePixels(\nUINT           lineCount,   [in] WICBitmapPlane *pPlanes,\nUINT           cPlanes);\n参数 lineCount 类型： UINT\n要编码的行数。 有关 WIC Jpeg 特定行计数限制，请参阅“备注”部分。[in] pPlanes\n类型： WICBitmapPlane*\n指定编码的每个组件平面的源缓冲区。 cPlanes\n类型： UINT\npPlanes 参数指定的分量平面数。",
       "return_value": {
         "type": "HRESULT",
@@ -2037,8 +1599,8 @@
     {
       "id": "windows::Jpeg",
       "name": "Jpeg",
-      "entity_type": "enum",
-      "description": "支持设置缩略图。 源图像将重新编码为 8bpp 或 24bpp JPEG，并将写入 JPEG 的 APP1 元数据块。",
+      "entity_type": "constant",
+      "description": "Specifies JPEG thumbnail support. The source image will be re-encoded as 8bpp or 24bpp JPEG and written to the JPEG's APP1 metadata block.",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -2046,120 +1608,10 @@
       "_source_line": 2638
     },
     {
-      "id": "windows::Tiff",
-      "name": "Tiff",
-      "entity_type": "enum",
-      "description": "支持设置缩略图。 源图像将重新编码为 TIFF，并写入帧的 SubIFD 块。 JPEG-XR支持设置缩略图。 源图像将重新编码为额外的 8bpp 或 24bpp 帧。",
-      "syntax": "HRESULT WritePixels(   [in] UINT lineCount,   [in] UINT cbStride,\n[in] UINT cbBufferSize,\n[in] BYTE *pbPixels);",
-      "parameters": [
-        {
-          "name": "lineCount",
-          "direction": "in",
-          "description": "类型： UINT 要编码的行数。[in] cbStride 类型： UINT 图像像素的步幅。[in] cbBufferSize 类型： UINT 像素缓冲区的大小。"
-        },
-        {
-          "name": "pbPixels",
-          "direction": "in",
-          "description": "类型： BYTE* 指向像素缓冲区的指针。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "可能的返回值包括以下内容。 返回代码 S_OK"
-      },
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.85,
-      "_source_line": 2639
-    },
-    {
-      "id": "windows::WINCODEC_ERR_CODECTOOMANYSCANLINES",
-      "name": "WINCODEC_ERR_CODECTOOMANYSCANLINES",
-      "entity_type": "enum",
-      "description": "注解 说明成功。 lineCount 的值大于图像中的扫描行数。 连续 的 WritePixel 调用 假定为输出映像中的顺序扫描行访问。",
-      "syntax": "HRESULT WriteSource(\n[in] IWICBitmapSource *pIBitmapSource,\n[in] WICRect          *prc);",
-      "parameters": [
-        {
-          "name": "pIBitmapSource",
-          "direction": "in",
-          "type": "IWICBitmapSource*",
-          "description": "要编码的位图源。[in] prc 类型： WICRect* 位图源的大小矩形。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "如果在调用 WriteSource 之前未调用 SetSize，则使用中国中提供的大小（如果不是 NULL）。 否则，将使用 pIBitmapSource 中给定的 IWICBitmapSource 的大小。 如果在调用 WriteSource 之前未调用 SetPixelFormat，则使用 pIBitmapSource 中给定的 IWICBitmapSource 的像素格式。 如果在调用 WriteSource 之前未调用 SetResolution，则使用 pIBitmapSource 的像素格式。 如果在调用 WriteSource 之前未调用 SetPalette，则会为目标像素格式编制索引，并且 pIBitmapSource 的像素格式与编码器帧的像素格式匹配，则使用 pIBitmapSource 像素格式。 对 GIF 图像进行编码时，如果设置了全局调色板，并且帧级调色板不是由用户或自定义独立软件供应商 (ISV) GIF 编解码器直接设置的，则即使 pIBitmapSource 具有帧级调色板， WriteSource 也将使用该全局调色板对帧进行编码。 从 Windows Vista 开始，只要累积的总源矩形高度与通过 SetSize 设置的相同，就可以进行重复的 WriteSource 调用。 从Windows 8.1开始，源 rect 必须至少是通过 SetSize 设置的维度。 如果源矩形宽度超过 SetSize 宽度，将忽略右侧的额外像素。 如果源矩形高度超过剩余未填充的高度，将忽略 底部的额外扫描行。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "SetPalette",
-        "SetPixelFormat",
-        "SetSize",
-        "Vista",
-        "WriteSource"
-      ],
-      "confidence": 1.0,
-      "_source_line": 2673
-    },
-    {
-      "id": "windows::WINCODEC_ERR_PALETTEUNAVAILABLE",
-      "name": "WINCODEC_ERR_PALETTEUNAVAILABLE",
-      "entity_type": "method",
-      "description": "S_OK 注解 说明 调色板不可用。 已成功复制调色板。 如果 IWICBitmapSource 是 IWICBitmapFrameDecode，则如果帧级调色板不可用，该函数可能会返回图像的全局调色板。 也可以使用",
-      "syntax": "HRESULT CopyPixels(\n[in]  const WICRect *prc,\n[in]  UINT          cbStride,\n[in]  UINT          cbBufferSize,\n[out] BYTE          *pbBuffer);",
-      "parameters": [
-        {
-          "name": "prc",
-          "direction": "in",
-          "type": "const WICRect*",
-          "description": "要复制的矩形。 NULL 值指定整个位图。"
-        },
-        {
-          "name": "cbStride",
-          "direction": "in",
-          "description": "类型： UINT 位图的步幅"
-        },
-        {
-          "name": "cbBufferSize",
-          "direction": "in",
-          "type": "UINT 缓冲区的大小。[out] pbBuffer 类型： BYTE*",
-          "description": "指向缓冲区的指针。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 1.0,
-      "_source_line": 2989
-    },
-    {
       "id": "windows::CopyPixels",
       "name": "CopyPixels",
       "entity_type": "method",
-      "description": "是两个main图像处理例程之一， (另一个是 Lock) 触发实际处理。 它指示对象根据其算法生成像素 -这可能涉及解码存储在磁盘上的 JPEG 的一部分，复制内存块，甚至分析计算复杂梯度。 算法完全依赖于实现 接口的对象。 调用方可以使用 prc 参数将操作限制为感兴趣的矩形 (ROI) 。 ROI 子矩形必须完全包含在位图的边界中。 指定 NULL ROI 意味着应返回整个位图。 调用方控制内存管理，必须为复制结果提供输出缓冲区 (pbBuffer) ，以及缓冲区的边界(cbBufferSize) 。 cbStride 参数定义输出缓冲区中两个垂直相邻像素之间的字节计数。 调用方必须确保有足够的缓冲区根据位图的宽度、高度和像素格式以及提供给 copy 方法的子矩形来完成调用。 如果调用方需要执行昂贵 IWICBitmapSource （如 JPEG）的多个副本，建议先创建内存中 IWICBitmap 。 编解码器开发人员备注 被调用方只能写入输出缓冲区 (每行的第一个 (prc-Width>*bitsperpixel+7) /8 字节，在这 种情况下，行是 cbStride 字节) 的连续字符串。",
+      "description": "CopyPixels是两个主要图像处理例程之一（另一个是Lock），触发实际处理。它指示对象根据其算法生成像素，这可能涉及解码存储在磁盘上的JPEG的一部分，复制内存块，甚至分析计算复杂梯度。算法完全依赖于实现接口的对象。调用方可以使用prc参数将操作限制为感兴趣的矩形（ROI）。ROI子矩形必须完全包含在位图的边界中。指定NULL ROI意味着应返回整个位图。调用方控制内存管理，必须为复制结果提供输出缓冲区（pbBuffer），以及缓冲区的边界（cbBufferSize）。cbStride参数定义输出缓冲区中两个垂直相邻像素之间的字节计数。调用方必须确保有足够的缓冲区根据位图的宽度、高度和像素格式以及提供给copy方法的子矩形来完成调用。如果调用方需要执行昂贵IWICBitmapSource（如JPEG）的多个副本，建议先创建内存中IWICBitmap。",
       "syntax": "HRESULT CopyPixels(\n[in]  const WICRect             *prc,\n[in]  UINT                      uiWidth,   [in]  UINT                      uiHeight,\n[in]  WICPixelFormatGUID        *pguidDstFormat,\n[in]  WICBitmapTransformOptions dstTransform,   [in]  UINT                      nStride,\n[in]  UINT                      cbBufferSize,\n[out] BYTE                      *pbBuffer);\nHRESULT DoesSupportTransform(\n[in]  WICBitmapTransformOptions dstTransform,   [out] BOOL                      *pfIsSupported);\nHRESULT GetClosestPixelFormat(\n[in, out] WICPixelFormatGUID *pguidDstFormat);\nHRESULT GetClosestSize(\n[in, out] UINT *puiWidth,   [in, out] UINT *puiHeight);",
       "parameters": [
         {
@@ -2224,7 +1676,7 @@
       ],
       "return_value": {
         "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回S_OK。否则，将返回HRESULT错误代码。"
       },
       "remarks": "编解码器开发人员备注 如果为 prc 传入 NULL，则复制整个映像。 有关此方法的编解码器开发人员实现详细信息，请参阅 实现 IWICBitmapSourceTransform。 请求多个转换操作时，结果取决于操作的执行顺序。 为了确保编解码器之间的可预测性和一致性，所有编解码器必须以相同的顺序执行这些操作。 这些操作的建议顺序为： 1. 缩放 2. Crop 3. 翻转/旋转 像素格式转换可以随时执行，因为它不会影响其他转换。 第一个参数 prc 用于指定剪裁图像所需的区域。 按照约定，缩放是在剪裁之前执行的，因此，如果要缩放和剪裁图像，则应在缩放图像后确定感兴趣的区域。 如果指定 了 dstTransform ，则步幅是转换后的步幅，并且基于 CopyPixels 调用中指定的 pixelFormat，而不是原始帧的像素格式。 Windows 提供的编解码器提供以下级别的支持： BMP、ICO、GIF、TIFF：未实现 IWICBitmapSourceTransform。 JPEG、PNG：仅) (WICBitmapTransformRotate0 的普通支持。 JPEG-XR：支持所有转换/旋转。 Windows 提供的编解码器提供以下支持： BMP、ICO、GIF、TIFF：未实现 IWICBitmapSourceTransform。 JPEG、PNG、JPEG-XR：普通支持 (始终返回与 IWICBitmapFrameDecode：： GetPixelFormat) 相同的值。 Windows 提供的编解码器为本机缩放提供以下支持： BMP、ICO、GIF、TIFF：未实现 IWICBitmapSourceTransform。 PNG：不支持缩放。 JPEG：本机纵向缩减 8、4 或 2。 JPEG-XR：按 2 的幂对原始图像进行本机缩放。 颜色上下文是颜色配置文件的抽象。 可以从文件 (（如“sRGB Color Space Profile.icm”) ）加载配置文件，也可以从内存缓冲区中读取，也可以由 EXIF 颜色空间定义。 可以通过调用 GetColorDirectoryW 获取系统颜色配置文件目录。 初始化颜色上下文后，无法重新初始化它。",
       "requirements": {
@@ -2249,9 +1701,9 @@
     {
       "id": "windows::GetExifColorSpace",
       "name": "GetExifColorSpace",
-      "entity_type": "method",
-      "description": "检索 (EXIF) 颜色空间颜色上下文的可交换图像文件。",
-      "syntax": "HRESULT GetExifColorSpace(\n[out] UINT *pValue);",
+      "entity_type": "function",
+      "description": "检索EXIF(可交换图像文件格式)中的颜色空间信息。",
+      "syntax": "HRESULT GetExifColorSpace([out] UINT *pValue);",
       "parameters": [
         {
           "name": "pValue",
@@ -2266,60 +1718,10 @@
       "_source_line": 3341
     },
     {
-      "id": "windows::Adobe",
-      "name": "Adobe",
-      "entity_type": "method",
-      "description": "RGB 颜色空间。未使用。 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。",
-      "syntax": "HRESULT GetProfileBytes(   [in]      UINT cbBuffer,   [in, out] BYTE *pbBuffer,   [out]     UINT *pcbActual);\nHRESULT GetType(\n[out] WICColorContextType *pType);",
-      "parameters": [
-        {
-          "name": "cbBuffer",
-          "direction": "in",
-          "description": "类型： UINT pbBuffer 缓冲区的大小。"
-        },
-        {
-          "name": "pbBuffer",
-          "direction": "in, out",
-          "description": "类型： BYTE* 接收颜色上下文配置文件的指针。"
-        },
-        {
-          "name": "pcbActual",
-          "direction": "out",
-          "description": "类型： UINT* 一个指针，用于接收检索整个颜色上下文配置文件所需的实际缓冲区大小。"
-        },
-        {
-          "name": "pType",
-          "direction": "out",
-          "type": "WICColorContextType*",
-          "description": "接收颜色上下文的 WICColorContextType 的指针。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "仅当 IWICColorContext：：GetType 指示 WICColorContextExifColorSpace 时，才应使用 此方法。 仅当上下文类型为 WICColorContextProfile 时，才使用此方法。 如果 pbBuffer 设置为 NULL ，则调用此方法将导致它返回 所需的缓冲区大小（以 pbActual 为单位）。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "GetType"
-      ],
-      "confidence": 0.85,
-      "_source_line": 3353
-    },
-    {
       "id": "windows::InitializeFromExifColorSpace",
       "name": "InitializeFromExifColorSpace",
       "entity_type": "method",
-      "description": "方法 使用可交换图像文件 (EXIF) 颜色空间初始化颜色上下文。",
+      "description": "使用可交换图像文件(EXIF)颜色空间初始化颜色上下文的方法。",
       "syntax": "HRESULT InitializeFromExifColorSpace(\n[in] UINT value);",
       "parameters": [
         {
@@ -2330,7 +1732,7 @@
       ],
       "return_value": {
         "type": "HRESULT",
-        "description": "含义 sRGB 颜色空间。"
+        "description": "如果方法成功则返回S_OK，否则返回错误代码。"
       },
       "header": "wincodec.h",
       "deprecated": false,
@@ -2339,25 +1741,11 @@
       "_source_line": 3430
     },
     {
-      "id": "windows::GetColorDirectoryW",
-      "name": "GetColorDirectoryW",
-      "entity_type": "method",
-      "description": "IWICColorContext 是 值 Windows XP SP2、Windows Vista [桌面应用 |UWP 应用] Windows Server 2008 [桌面应用 | UWP 应用] Windows wincodec.h Windowscodecs.lib Windowscodecs.dll 否 IWICColorContext：：",
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "Server",
-        "Vista"
-      ],
-      "confidence": 0.6,
-      "_source_line": 3480
-    },
-    {
       "id": "windows::InitializeFromMemory",
       "name": "InitializeFromMemory",
       "entity_type": "method",
       "description": "从内存块初始化颜色上下文。",
-      "syntax": "HRESULT InitializeFromMemory(   [in] const BYTE *pbBuffer,   [in] UINT       cbBufferSize);\nHRESULT Initialize(\n[in] IWICBitmapSource      *pIBitmapSource,   [in] IWICColorContext      *pIContextSource,   [in] IWICColorContext      *pIContextDest,\n[in] REFWICPixelFormatGUID pixelFmtDest);",
+      "syntax": "HRESULT InitializeFromMemory([in] const BYTE *pbBuffer, [in] UINT cbBufferSize);",
       "parameters": [
         {
           "name": "pbBuffer",
@@ -2379,9 +1767,9 @@
       ],
       "return_value": {
         "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。"
       },
-      "remarks": "初始化颜色上下文后，无法重新初始化它。 IWICColorTransform 是一种图像管道组件，它知道如何通过颜色转换从给定 IWICBitmapSource 获取的像素。 通过以给定输出像素格式将颜色从源颜色上下文映射到目标颜色上下文来定义颜色转换。 初始化后，无法重新初始化颜色转换。 因此，颜色转换不能与多个源或不同的参数一起 使用。 pIContextSource 和 pixelFmtDest 参数当前支持的格式为：",
+      "remarks": "初始化颜色上下文后，无法重新初始化它。IWICColorTransform 是一种图像管道组件，它知道如何通过颜色转换从给定 IWICBitmapSource 获取的像素。通过以给定输出像素格式将颜色从源颜色上下文映射到目标颜色上下文来定义颜色转换。初始化后，无法重新初始化颜色转换。因此，颜色转换不能与多个源或不同的参数一起使用。",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -2397,198 +1785,11 @@
       "_source_line": 3492
     },
     {
-      "id": "windows::GUID_WIC",
-      "name": "GUID_WIC",
-      "entity_type": "method",
-      "description": "PixelFormat32bppBGRA); } if (SUCCEEDED(hr)) { UINT uiWidth = 0, uiHeight = 0; UINT cbStride = 0; UINT cbBufferSize = 0; BYTE *pbBuffer = NULL; hr = pColorTransform->GetSize(&uiWidth, &uiHeight); if (SUCCEEDED(hr)) { WICRect rc = { 0 }; rc.X = 0; rc.Y = 0; rc.Width = uiWidth; rc.Height = 1; // scanline for (UINT i = 0; SUCCEEDED(hr) && (i < uiHeight); i++) { hr = pColorTransform->CopyPixels(&rc, cbStride, cbBufferSize - (rc.Y * cbStride), pbBuffer); pbBuffer += cbStride; rc.Y += 1; } } } if (pFactory) { pFactory->Release(); } if (pDecoder) { pDecoder->Release(); } if (pBitmapFrame) { pBitmapFrame->Release(); } if (pContextSrc) { pContextSrc->Release(); } if (pContextDst) { pContextDst->Release(); } if (pColorTransform) { pColorTransform->Release(); } return hr;",
-      "syntax": "HRESULT DoesSupportTransform(\n[in, out] UINT                      *puiWidth,   [in, out] UINT                      *puiHeight,             WICBitmapTransformOptions dstTransform,\nWICPlanarOptions          dstPlanarOptions,   [in]      const WICPixelFormatGUID  *pguidDstFormats,\n[out]     WICBitmapPlaneDescription *pPlaneDescriptions,             UINT                      cPlanes,\n[out]     BOOL                      *pfIsSupported);",
-      "parameters": [
-        {
-          "name": "cchAuthor",
-          "direction": "in",
-          "description": "类型： UINT wzAuthor 缓冲区的大小。"
-        },
-        {
-          "name": "wzAuthor",
-          "direction": "in, out",
-          "description": "类型： WCHAR* 接收组件作者姓名的指针。 字符串的区域设置取决于编解码器在安装时写入注册表的值。 对于内置组件，这些字符串始终为英语。"
-        },
-        {
-          "name": "pcchActual",
-          "direction": "out",
-          "description": "类型： UINT* 接收组件作者姓名的实际长度的指针。 作者姓名是可选的;如果组件未指定作者姓名，则返回的长度为 0。"
-        },
-        {
-          "name": "pclsid",
-          "direction": "out",
-          "description": "类型： CLSID* 接收组件的 CLSID 的指针。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "如果 cchAuthor 为 0 且 wzAuthor 为 NULL，则将在 pccchActual 中返回所需的缓冲区大小。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "CopyPixels",
-        "GetSize",
-        "Release",
-        "Width"
-      ],
-      "confidence": 1.0,
-      "_source_line": 3567
-    },
-    {
-      "id": "windows::IID_IWIC",
-      "name": "IID_IWIC",
-      "entity_type": "method",
-      "description": "ProgressiveLevelControl, (void**) &pProgressive)); if (SUCCEEDED(hr)){ for (UINT uCurrentLevel = 0; SUCCEEDED(hr); uCurrentLevel++) { hr = pProgressive->SetCurrentLevel(uCurrentLevel); if (WINCODEC_ERR_INVALIDPROGRESSIVELEVEL == hr) { // No more levels break; } if (SUCCEEDED(hr)) { // Output the current level hr = pBitmapFrame->CopyPixels(...); } }} if (pProgressive){ pProgressive->Release();}",
-      "syntax": "HRESULT InitializeFromFilename(   [in] LPCWSTR wzFileName,\n[in] DWORD   dwDesiredAccess);",
-      "parameters": [
-        {
-          "name": "nLevel",
-          "direction": "in",
-          "description": "类型： UINT 指定要下一步返回的级别。 如果大于支持的级别总数，将返回错误。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "调用不必请求支持的每个级别。 如果调用方请求级别 1，但没有以前请求的级别 0，则下一次调用 CopyPixels 返回的位将包括这两个级别。 如果请求的级别无效，则返回的错误 WINCODEC_ERR_INVALIDPROGRESSIVELEVEL。示例 用户应使用此方法循环访问渐进 JPEG 图像的渐进级别，而不是 GetCurrentLevel 方法。 JPEG 渐进式级别由映像确定，没有固定的级别计数。 使用 GetCurrentLevel 方法将强制 应用程序等待下载所有渐进级别，然后才能返回。 相反，应用程序应使用以下代码循环访问渐进式 JPEG 映像的渐进级别。 IWICProgressiveLevelControl *pProgressive = NULL; HRESULT hr = (pBitmapFrame->QueryInterface(",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows 7",
-        "min_server": "Windows Server 2008 R2"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "CopyPixels",
-        "QueryInterface",
-        "Release"
-      ],
-      "confidence": 1.0,
-      "_source_line": 3584
-    },
-    {
-      "id": "windows::GENERIC_READ",
-      "name": "GENERIC_READ",
-      "entity_type": "method",
-      "description": ", WICDecodeMetadataCacheOnDemand, &pDecoder); } // Get the frame count. if (SUCCEEDED(hr)) { hr = pDecoder->GetFrameCount(&uiFrameCount); } if (SUCCEEDED(hr) && (uiFrameCount > 0)) { IWICBitmapSource *pSource = NULL; hr = pDecoder->GetFrame(0, &pBitmapFrameDecode); if (SUCCEEDED(hr)) { pSource = pBitmapFrameDecode; pSource->AddRef(); hr = pSource->GetSize(&uiWidth, &uiHeight); } if (SUCCEEDED(hr)) { hr = pSource->GetPixelFormat(&pixelFormat); } if (SUCCEEDED(hr)) { if (!IsEqualGUID(pixelFormat, GUID_WICPixelFormat128bppPRGBAFloat)) { hr = WICConvertBitmapSource(GUID_WICPixelFormat128bppPRGBAFloat, pSource, &pConverter); if (SUCCEEDED(hr)) { pSource->Release(); // the converter has a reference to the source pSource = NULL; // so we don't need it anymore. pSource = pConverter; // let's treat the 128bppPABGR converter as the source } } if (piConverter) { UINT cbStride = uiWidth * sizeof(float) * 4; UINT cbBufferSize = cbStride; float *pixels = new float[cbBufferSize / sizeof(float)]; if (pixels) { WICRect rc; rc.X = 0; rc.Y = 0; rc.Width = uiWidth; rc.Height = 1; for (UINT i = 0; SUCCEEDED(hr) && i < uiHeight; i++) { hr = pSource->CopyPixels(&rc, cbStride, cbBufferSize, reinterpret_cast<BYTE*>(pixels)); // Do something with the scanline here... rc.Y++; } delete[] pixels; } else { hr = E_OUTOFMEMORY; } pConverter->Release(); } } } if (pBitmapFrameDecode) { pBitmapFrameDecode->Release(); } if (pDecoder) { pDecoder->Release(); } if (pFactory) { pFactory->Release(); } return hr; 要求",
-      "syntax": "HRESULT WICCreateBitmapFromSection(   [in]  UINT                  width,   [in]  UINT                  height,\nREFWICPixelFormatGUID pixelFormat,\n[in]  HANDLE                hSection,   [in]  UINT                  stride,   [in]  UINT                  offset,\n[out] IWICBitmap            **ppIBitmap);\nHRESULT WICCreateBitmapFromSectionEx(   [in]  UINT                  width,   [in]  UINT                  height,\nREFWICPixelFormatGUID pixelFormat,\n[in]  HANDLE                hSection,   [in]  UINT                  stride,   [in]  UINT                  offset,\n[in]  WICSectionAccessLevel desiredAccessLevel,\n[out] IWICBitmap            **ppIBitmap);\ntypedef enum WICDdsAlphaMode {   WICDdsAlphaModeUnknown = 0,\nWICDdsAlphaModeStraight = 0x1,\nWICDdsAlphaModePremultiplied = 0x2,\nWICDdsAlphaModeOpaque = 0x3,   WICDdsAlphaModeCustom = 0x4,",
-      "parameters": [
-        {
-          "name": "width",
-          "direction": "in",
-          "description": "类型： UINT 位图像素的宽度。"
-        },
-        {
-          "name": "height",
-          "direction": "in",
-          "type": "REFWICPixelFormatGUID 位图的像素格式。",
-          "description": "类型： UINT 位图像素的高度。 pixelFormat"
-        },
-        {
-          "name": "hSection",
-          "direction": "in",
-          "description": "类型： HANDLE 节句柄。 这是 CreateFileMapping 函数返回的文件映射对象句柄。"
-        },
-        {
-          "name": "stride",
-          "direction": "in",
-          "description": "类型： UINT 每个扫描线的字节计数。"
-        },
-        {
-          "name": "offset",
-          "direction": "in",
-          "type": "IWICBitmap** 接收位图的指针。",
-          "description": "类型： UINT 部分的偏移量。[out] ppIBitmap"
-        },
-        {
-          "name": "width",
-          "direction": "in",
-          "description": "类型： UINT 位图像素的宽度。"
-        },
-        {
-          "name": "height",
-          "direction": "in",
-          "type": "REFWICPixelFormatGUID 位图的像素格式。",
-          "description": "类型： UINT 位图像素的高度。 pixelFormat"
-        },
-        {
-          "name": "hSection",
-          "direction": "in",
-          "description": "类型： HANDLE 节句柄。 这是 CreateFileMapping 函数返回的文件映射对象句柄。"
-        },
-        {
-          "name": "stride",
-          "direction": "in",
-          "description": "类型： UINT 每个扫描线的字节计数。"
-        },
-        {
-          "name": "offset",
-          "direction": "in",
-          "description": "类型： UINT 部分的偏移量。"
-        },
-        {
-          "name": "desiredAccessLevel",
-          "direction": "in",
-          "type": "WICSectionAccessLevel",
-          "description": "所需的访问级别。[out] ppIBitmap 类型： IWICBitmap** 接收位图的指针。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "IWICStream 接口方法无法提供文件共享选项。 若要为图像创建共享文件流，请使用 SHCreateStreamOnFileEx 函数。 然后，可以使用此流通过 CreateDecoderFromStream 方法创建 IWICBitmapDecoder。示例 此示例演示如何使用 InitializeFromFilename 创建图像解码器。 C++ IWICImagingFactory *pFactory = NULL; IWICStream *pStream = NULL; IWICBitmapDecoder *pDecoder = NULL; HRESULT hr = CoCreateInstance(",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]",
-        "dll": "Windowscodecs.dll"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "AddRef",
-        "CoCreateInstance",
-        "CopyPixels",
-        "CreateDecoderFromStream",
-        "E_OUTOFMEMORY",
-        "GetFrame",
-        "GetFrameCount",
-        "GetPixelFormat",
-        "GetSize",
-        "InitializeFromFilename",
-        "IsEqualGUID",
-        "Release",
-        "Width"
-      ],
-      "confidence": 1.0,
-      "_source_line": 3588
-    },
-    {
       "id": "windows::GetFriendlyName",
       "name": "GetFriendlyName",
       "entity_type": "method",
       "description": "检索组件的友好名称，该名称是组件的用户可读显示名称。",
-      "syntax": "HRESULT GetFriendlyName(\n[in]      UINT  cchFriendlyName,   [in, out] WCHAR *wzFriendlyName,\n[out]     UINT  *pcchActual);",
+      "syntax": "HRESULT GetFriendlyName([in] UINT cchFriendlyName, [in, out] WCHAR *wzFriendlyName, [out] UINT *pcchActual);",
       "parameters": [
         {
           "name": "cchFriendlyName",
@@ -2610,7 +1811,7 @@
         "type": "HRESULT",
         "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
       },
-      "remarks": "如果 cchFriendlyName 为 0 且 wzFriendlyName 为 NULL，则将在 pccchActual 中返回所 需的缓冲区大小。",
+      "remarks": "如果 cchFriendlyName 为 0 且 wzFriendlyName 为 NULL，则将在 pcchActual 中返回所需的缓冲区大小。",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -2629,7 +1830,7 @@
       "id": "windows::GetSigningStatus",
       "name": "GetSigningStatus",
       "entity_type": "method",
-      "description": "检索组件的签名状态。",
+      "description": "Retrieves the signing status of a Windows Imaging Component (WIC).",
       "syntax": "HRESULT GetSigningStatus(\n[out] DWORD *pStatus);",
       "parameters": [
         {
@@ -2643,7 +1844,7 @@
         "type": "HRESULT",
         "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
       },
-      "remarks": "WIC 未使用签名。 因此，所有组件 WICComponentSigned。 此函数可用于确定组件是没有二进制组件，还是已添加到注册表中的禁用组件列表。",
+      "remarks": "WIC does not use signing. Therefore, all components are considered WICComponentSigned. This function can be used to determine if a component is either unsigned binary or has been added to the registry's disabled components list.",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -2660,7 +1861,7 @@
     {
       "id": "windows::GetSpecVersion",
       "name": "GetSpecVersion",
-      "entity_type": "method",
+      "entity_type": "function",
       "description": "检索组件的规范版本。",
       "syntax": "HRESULT GetSpecVersion(\n[in]      UINT  cchSpecVersion,   [in, out] WCHAR *wzSpecVersion,\n[out]     UINT  *pcchActual);",
       "parameters": [
@@ -2675,7 +1876,7 @@
           "description": "类型： WCHAR* 此方法返回时，包含组件的规范版本的区域性固定字符串。 版本形式为 NN.NN.NN.NN。[out] pcchActual 类型： UINT* 接收组件规范版本的实际长度的指针。 规范版本是可选的;如果组件未指定值，则返回的 长度为 0。返回值类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
         }
       ],
-      "remarks": "所有内置组件都返回“1.0.0.0”，像素格式除外，没有规范版本。 如果 cchAuthor 为 0 且 wzAuthor 为 NULL，则将在 pccchActual 中返回所需的缓冲区大小。",
+      "remarks": "内置组件通常返回\"1.0.0.0\"，像素格式除外。如果cchSpecVersion为0且wzSpecVersion为NULL，pcchActual将返回所需的缓冲区大小。",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -2694,7 +1895,7 @@
       "id": "windows::GetFormatInfo",
       "name": "GetFormatInfo",
       "entity_type": "method",
-      "description": "获取有关存储 DDS 图像的格式的信息。",
+      "description": "获取有关存储DDS(DirectDraw Surface)图像的格式信息",
       "syntax": "HRESULT GetFormatInfo(\n[out] WICDdsFormatInfo *pFormatInfo);",
       "parameters": [
         {
@@ -2725,7 +1926,7 @@
       "name": "GetSizeInBlocks",
       "entity_type": "method",
       "description": "获取 DDS 图像的宽度和高度（以块为单位）。",
-      "syntax": "HRESULT GetSizeInBlocks(\n[out] UINT *pWidthInBlocks,   [out] UINT *pHeightInBlocks);\nHRESULT GetContrast(\n[out] double *pContrast);",
+      "syntax": "HRESULT GetSizeInBlocks([out] UINT *pWidthInBlocks, [out] UINT *pHeightInBlocks);",
       "parameters": [
         {
           "name": "pWidthInBlocks",
@@ -2784,7 +1985,7 @@
       "id": "windows::GetCurrentParameterSet",
       "name": "GetCurrentParameterSet",
       "entity_type": "method",
-      "description": "方法 获取当前参数集。",
+      "description": "获取当前参数集的接口方法。",
       "syntax": "HRESULT GetCurrentParameterSet(\n[out] IPropertyBag2 **ppCurrentParameterSet);",
       "parameters": [
         {
@@ -2795,7 +1996,7 @@
       ],
       "return_value": {
         "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "成功返回 S_OK，失败返回错误代码如 E_POINTER 或 E_OUTOFMEMORY。"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2815,7 +2016,7 @@
       "name": "GetExposureCompensation",
       "entity_type": "method",
       "description": "方法 获取原始图像的曝光补偿停止值。",
-      "syntax": "HRESULT GetExposureCompensation(\n[out] double *pEV);\nHRESULT GetGamma(\n[out] double *pGamma);",
+      "syntax": "HRESULT GetExposureCompensation([out] double *pEV);",
       "parameters": [
         {
           "name": "pEV",
@@ -2832,7 +2033,7 @@
       ],
       "return_value": {
         "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2852,7 +2053,7 @@
       "id": "windows::GetKelvinRangeInfo",
       "name": "GetKelvinRangeInfo",
       "entity_type": "method",
-      "description": "获取有关原始图像的当前开氏度范围的信息。",
+      "description": "获取原始图像的当前开氏温度范围信息",
       "syntax": "HRESULT GetKelvinRangeInfo(   [out] UINT *pMinKelvinTemp,   [out] UINT *pMaxKelvinTemp,\n[out] UINT *pKelvinTempStepValue);",
       "parameters": [
         {
@@ -2887,7 +2088,7 @@
     {
       "id": "windows::GetNamedWhitePoint",
       "name": "GetNamedWhitePoint",
-      "entity_type": "method",
+      "entity_type": "function",
       "description": "获取原始图像的命名白点。",
       "syntax": "HRESULT GetNamedWhitePoint(\n[out] WICNamedWhitePoint *pWhitePoint);",
       "parameters": [
@@ -2918,80 +2119,11 @@
       "_source_line": 4443
     },
     {
-      "id": "windows::GetNoiseReduction",
-      "name": "GetNoiseReduction",
-      "entity_type": "method",
-      "description": "获取原始图像的降噪值。",
-      "syntax": "HRESULT GetNoiseReduction(\n[out] double *pNoiseReduction);\nHRESULT GetRenderMode(\n[out] WICRawRenderMode *pRenderMode);\nHRESULT GetRotation(\n[out] double *pRotation);\nHRESULT GetSaturation(\n[out] double *pSaturation);\nHRESULT GetSharpness(\n[out] double *pSharpness);\nHRESULT GetTint(\n[out] double *pTint);\nHRESULT GetToneCurve(\n[in]  UINT            cbToneCurveBufferSize,   [out] WICRawToneCurve *pToneCurve,\n[out] UINT            *pcbActualToneCurveBufferSize);",
-      "parameters": [
-        {
-          "name": "pNoiseReduction",
-          "direction": "out",
-          "description": "类型： double* 一个指针，用于接收原始图像的降噪值。 默认值为“as-shot”设置（如果存在）或 0.0。降噪值范围为 0.0 到 1.0。 0.0 下限表示没有应用于图像的降噪，而 1.0 上限表示可以应用的完整最高降噪量。"
-        },
-        {
-          "name": "pRenderMode",
-          "direction": "out",
-          "type": "WICRawRenderMode*",
-          "description": "接收当前 WICRawRenderMode 的指针。"
-        },
-        {
-          "name": "pRotation",
-          "direction": "out",
-          "description": "类型： double* 接收当前旋转角度的指针。"
-        },
-        {
-          "name": "pSaturation",
-          "direction": "out",
-          "description": "类型： double* 一个指针，用于接收原始图像的饱和度值。 默认值为“即拍”设置。 饱和度的值范围为 0.0 到 1.0。 值 0.0 表示具有完全去饱和图像的图像，而值为 1.0 表示可应用的饱和度最高。"
-        },
-        {
-          "name": "pSharpness",
-          "direction": "out",
-          "description": "类型： double* 一个指针，用于接收原始图像的锐度值。 默认值为“即拍”设置。 锐度的值范围为 0.0 到 1.0。 0.0 下限表示不对图像应用任何锐化，而 1.0 上限表示可以应用的最高锐度量。"
-        },
-        {
-          "name": "pTint",
-          "direction": "out",
-          "type": "double*",
-          "description": "接收原始图像的色调值的指针。 默认值为“as-shot”设置（如果存在）或 0.0。 锐度的值范围为 -1.0 到 +1.0。 -1.0 下限表示图像的完全绿色偏差，而 1.0 上限表示完全洋红色偏差。"
-        },
-        {
-          "name": "cbToneCurveBufferSize",
-          "direction": "in",
-          "type": "WICRawToneCurve*",
-          "description": "类型： UINT pToneCurve 缓冲区的大小。[out] pToneCurve 接收原始图像的 WICRawToneCurve 的指针。"
-        },
-        {
-          "name": "pcbActualToneCurveBufferSize",
-          "direction": "out",
-          "description": "类型： UINT* 一个指针，用于接收获取音调曲线结构所需的大小。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 4468
-    },
-    {
       "id": "windows::QueryRawCapabilitiesInfo",
       "name": "QueryRawCapabilitiesInfo",
       "entity_type": "method",
       "description": "方法 检索有关原始图像支持的功能的信息。",
-      "syntax": "HRESULT QueryRawCapabilitiesInfo(\n[out] WICRawCapabilitiesInfo *pInfo);\nHRESULT SetContrast(   [in] double Contrast);",
+      "syntax": "HRESULT QueryRawCapabilitiesInfo([out] WICRawCapabilitiesInfo *pInfo);",
       "parameters": [
         {
           "name": "pInfo",
@@ -3042,7 +2174,7 @@
         "type": "HRESULT",
         "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
       },
-      "remarks": "如果原始图像不支持命名白点，或者原始文件包含此 API 不支持的命名白点，则编解码器实现者仍应将此功能标记为受支持。 如果原始图像不支持命名的白点，应尽力将图像调整为命名的白点，即使它不是原始文件的预定义白点也是如此。 如果原始文件包含此 API 不支持的命名白点，则编解码器实现程序应支持 API 中的命名白点。 由于其他白点设置方法 (例如 SetWhitePointKelvin) ，编解码器实现者必须小心以确保适当的互操作性。 例如，如果调用方通过命名白点设置，则编解码器实现者可能希望禁用读回相应的开氏温度。 在编解码器实现者希望由于以前的调用而拒绝给定操作的特定情 况下，应返回 WINCODEC_ERR_WRONGSTATE 。",
+      "remarks": "如果原始图像不支持命名白点，或者原始文件包含此API不支持的命名白点，编解码器实现者仍应将此功能标记为受支持。如果原始图像不支持命名白点，应尽力将图像调整为指定的白点。如果原始文件包含不支持的命名白点，编解码器应支持API中的命名白点。由于其他白点设置方法(如SetWhitePointKelvin)，编解码器实现者必须确保适当的互操作性。例如，如果通过命名白点设置，可能需禁用读回相应的开氏温度。在特定情况下，若因先前调用而需拒绝操作，应返回WINCODEC_ERR_WRONGSTATE。",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -3065,7 +2197,7 @@
       "name": "SetNoiseReduction",
       "entity_type": "method",
       "description": "设置原始图像的降噪值。",
-      "syntax": "HRESULT SetNoiseReduction(   [in] double NoiseReduction);",
+      "syntax": "HRESULT SetNoiseReduction([in] double NoiseReduction);",
       "parameters": [
         {
           "name": "NoiseReduction",
@@ -3075,9 +2207,9 @@
       ],
       "return_value": {
         "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回S_OK。否则，将返回HRESULT错误代码。"
       },
-      "remarks": "编解码器实现者必须确定上限范围值表示的内容，并且必须确定如何将该值映射到其图像 处理例程。",
+      "remarks": "编解码器实现者必须确定上限范围值表示的内容，并且必须确定如何将该值映射到其图像处理例程。",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -3096,8 +2228,8 @@
       "id": "windows::SetNotificationCallback",
       "name": "SetNotificationCallback",
       "entity_type": "method",
-      "description": "方法 设置通知回调方法。",
-      "syntax": "HRESULT SetNotificationCallback(\n[in] IWICDevelopRawNotificationCallback *pCallback);\nHRESULT SetRenderMode(\n[in] WICRawRenderMode RenderMode);\nHRESULT SetRotation(   [in] double Rotation);\nHRESULT SetSaturation(   [in] double Saturation);\nHRESULT SetSharpness(   [in] double Sharpness);\nHRESULT SetTint(   [in] double Tint);\nHRESULT SetToneCurve(\n[in] UINT                  cbToneCurveSize,\n[in] const WICRawToneCurve *pToneCurve);",
+      "description": "设置WIC开发原始图像处理的通知回调方法。",
+      "syntax": "HRESULT SetNotificationCallback([in] IWICDevelopRawNotificationCallback *pCallback);",
       "parameters": [
         {
           "name": "pCallback",
@@ -3141,9 +2273,9 @@
       ],
       "return_value": {
         "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果成功返回S_OK，否则返回错误代码"
       },
-      "remarks": "编解码器实现者必须确定上限范围值表示的内容，并且必须确定如何将该值映射到其图像 处理例程。 编解码器实现者必须确定上限范围值表示的内容，并且必须确定如何将该值映射到其图像 处理例程。 编解码器实现者必须确定外部范围值表示的内容，并且必须确定如何将值映射到其图像处 理例程。",
+      "remarks": "编解码器实现者需要确定如何将参数值映射到图像处理例程。",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -3159,117 +2291,11 @@
       "_source_line": 4937
     },
     {
-      "id": "windows::PropVariantInit",
-      "name": "PropVariantInit",
-      "entity_type": "method",
-      "description": "&value); value.vt = VT_UI2; value.uiVal = 99; hr = pFMEQW->SetMetadataByName(L\"/app1/ifd/{ushort=18249}\", &value); PropVariantClear(&value); if (SUCCEEDED(hr)){ hr = pFME->Commit(); }",
-      "syntax": "HRESULT Commit();\nHRESULT GetMetadataQueryWriter(\n[out] IWICMetadataQueryWriter **ppIMetadataQueryWriter);\nHRESULT CanConvert(\n[in]  REFWICPixelFormatGUID srcPixelFormat,   [in]  REFWICPixelFormatGUID dstPixelFormat,   [out] BOOL                  *pfCanConvert);\nHRESULT Initialize(\n[in] IWICBitmapSource      *pISource,   [in] REFWICPixelFormatGUID dstFormat,   [in] WICBitmapDitherType   dither,\n[in] IWICPalette           *pIPalette,\n[in] double                alphaThresholdPercent,\n[in] WICBitmapPaletteType  paletteTranslate);",
-      "parameters": [
-        {
-          "name": "ppIMetadataQueryWriter",
-          "direction": "out",
-          "type": "IWICMetadataQueryWriter**",
-          "description": "此方法返回时，包含指向快速元数据编码器的元数据查询编写器的指针。"
-        },
-        {
-          "name": "srcPixelFormat",
-          "direction": "in",
-          "type": "REFWICPixelFormatGUID 源像素格式。",
-          "description": ""
-        },
-        {
-          "name": "dstPixelFormat",
-          "direction": "in",
-          "type": "REFWICPixelFormatGUID",
-          "description": "目标像素格式。[out] pfCanConvert 类型： BOOL* 一个指针，它接收一个值，该值指示是否可以将源像素格式转换为目标像素格式。"
-        },
-        {
-          "name": "pISource",
-          "direction": "in",
-          "type": "IWICBitmapSource*",
-          "description": "要转换的输入位图[in] dstFormat 类型： REFWICPixelFormatGUID 目标像素格式 GUID。[in] dither 类型： WICBitmapDitherType 用于转换的 WICBitmapDitherType 。[in] pIPalette 类型： IWICPalette* 用于转换的调色板。"
-        },
-        {
-          "name": "alphaThresholdPercent",
-          "direction": "in",
-          "type": "WICBitmapPaletteType 用于转换的调色板转换类型。",
-          "description": "类型： double 用于转换的 alpha 阈值。[in] paletteTranslate"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "如果提交失败并返回 WINCODEC_ERR_STREAMNOTAVAILABLE，请确保使用 WICDecodeMetadataCacheOnDemand 选项加载了图像解码器。 使用 WICDecodeMetadataCacheOnLoad 选项创建解码器时，不支持快速元数据编码器。如果提交因任何原因而失败，则需要重新编码图像，以确保将新的元数据添加到映像。 如果没有预定义的调色板，必须先创建一个。 使用 InitializeFromBitmap 创建调色板对象，然后将其与其他参数一起传入。 dither、 pIPalette、 alphaThresholdPercent 和 paletteTranslate 用于在转换为减小位深度格式时减少颜色损失。 对于不需要这些设置的转换，应使用以下参数值： dither 设置为 WICBitmapDitherTypeNone， pIPalette 设置为 NULL， alphaThresholdPercent 设置为 0.0f， paletteTranslate 设置为 WICBitmapPaletteTypeCustom。 使用有序抖动时涉及的基本算法需要固定调色板（在 WICBitmapPaletteType 枚举中按特定顺序找到）。 通常，为输出提供的实际调色板可能具有不同的顺序或实际颜色的一些轻微变化。 使用 Microsoft Windows 调色板时就是这种情况，该调色板在 Windows.To 提供的版本之间略有差异，因此会向格式转换器提供调色板和调色板转换。 pIPalette 是要使用的实际目标调色板，调色板Translate 是固定的调色板。 转换完成后，使用最接近的颜色匹配算法将颜色从固定调色板映射到 pIPalette 中的实际颜色。 如果 pIPalette 中的颜色与 paletteTranslate 中的颜色不匹配，则映射可能会产生不良结果。 WICBitmapDitherTypeOrdered4x4 可用于从 8 位格式到 5 位或 6 位格式的格式转换，因为无法准确转换颜色数据。 WICBitmapDitherTypeErrorDiffusion 选择误差扩散算法，可与任何调色板一起使用。 如果提供了任意调色板，则应将 WICBitmapPaletteCustom 作为 paletteTranslate 传入。 与有序抖动算法相比，误差扩散通常提供优越的结果，尤其是在与 IWICPalette 上优化的调色板生成功能结合使用时。 将具有 alpha 通道的位图（例如可移植网络图形 (PNG) ）转换为 8bpp 时，通常忽略 alpha 通道。 原始位图中透明的任何像素在最终输出中显示为黑色，因为透明和黑色的像素值在各自的格式中均为零。 某些 8bpp 内容可以包含 alpha 颜色;例如，图形交换格式 (GIF) 格式允许将单个调色板条目用作透明颜色。 对于此类内容， alphaThresholdPercent 指定应映射到透明颜色的透明 度百分比。 由于 alpha 值与像素的不透明度 (透明度) 成正比， 因此 alphaThresholdPercent 指示映射到完全透明颜色的不透明度级别。 例如，9.8% 表示 alpha 值小于 25 的任何像素都将映射到透明颜色。 值 100% 将所有不完全不透明的像素映射到透明颜色。 请注意，调色板应提供透明颜色。 否则，“透明”颜 色将是最接近零的颜色-通常是黑色。示例 以下示例将图像帧转换为没有抖变或 alpha 阈值的 32bppPBGRA 格式。 Direct2D 要求位图源采用 32bppPBGRA 格式进行呈现。 有关演示如何使用 IWICFormatConverter 的完整 示例，请参阅 使用 Direct2D 的 WIC 图像查看器示例。 C++ HRESULT hr = S_OK; IWICBitmapDecoder *pIDecoder = NULL; IWICBitmapFrameDecode *pIDecoderFrame = NULL; IWICFormatConverter *pIFormatConverter = NULL; // Create the decoder. hr = m_pIWICFactory->CreateDecoderFromFilename( L\"turtle.jpg\", // Image to be decoded NULL, // Do not prefer a particular vendor GENERIC_READ, // Desired read access to the file WICDecodeMetadataCacheOnDemand, // Cache metadata when needed &pIDecoder // Pointer to the decoder ); // Retrieve the first bitmap frame. if (SUCCEEDED(hr)){ hr = pIDecoder->GetFrame(0, &pIDecoderFrame);} // Create the flip/rotator. if (SUCCEEDED(hr)){ hr = m_pIWICFactory->CreateFormatConverter(&pIFormatConverter);} // Initialize the format converter. if (SUCCEEDED(hr)){ hr = pIFormatConverter->Initialize( pIDecoderFrame, // Input source to convert GUID_WICPixelFormat32bppPBGRA, // Destination pixel format WICBitmapDitherTypeNone, // Specified dither pattern NULL, // Specify a particular palette 0.f, // Alpha threshold WICBitmapPaletteTypeCustom // Palette translation type );} //Create render target and D2D bitmap from IWICBitmapSource if (SUCCEEDED(hr)){ hr = CreateDeviceResources(hWnd);} if (SUCCEEDED(hr)){ // Need to release the previous D2DBitmap if there is one SafeRelease(&m_pD2DBitmap); hr = m_pRT->CreateBitmapFromWicBitmap(pIFormatConverter, NULL, &m_pD2DBitmap);}",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "Alpha",
-        "Commit",
-        "CreateDecoderFromFilename",
-        "CreateFormatConverter",
-        "Destination",
-        "Direct2D",
-        "GENERIC_READ",
-        "GetFrame",
-        "Initialize",
-        "InitializeFromBitmap",
-        "PropVariantClear",
-        "SafeRelease",
-        "Server",
-        "SetMetadataByName",
-        "VT_UI2",
-        "Vista"
-      ],
-      "confidence": 0.85,
-      "_source_line": 5372
-    },
-    {
-      "id": "windows::SafeRelease",
-      "name": "SafeRelease",
-      "entity_type": "method",
-      "description": "&pIDecoderFrame); SafeRelease(&pIDecoder);",
-      "syntax": "HRESULT CreateInstance(\n[out] IWICFormatConverter **ppIConverter);",
-      "parameters": [
-        {
-          "name": "ppIConverter",
-          "direction": "out",
-          "type": "IWICFormatConverter**",
-          "description": "接收新的 IWICFormatConverter 实例的 指针。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 5576
-    },
-    {
       "id": "windows::WriteFrameThumbnail",
       "name": "WriteFrameThumbnail",
       "entity_type": "method",
       "description": "方法 将图像编码为 IWICBitmapFrameEncode 提供的帧的缩略图。",
-      "syntax": "HRESULT WriteFrameThumbnail(\n[in] ID2D1Image               *pImage,\n[in] IWICBitmapFrameEncode    *pFrameEncode,\n[in] const WICImageParameters *pImageParameters);\nHRESULT WriteThumbnail(\n[in] ID2D1Image               *pImage,   [in] IWICBitmapEncoder        *pEncoder,\n[in] const WICImageParameters *pImageParameters);\nHRESULT CreateBitmap(\n[in]  UINT                       uiWidth,   [in]  UINT                       uiHeight,\n[in]  REFWICPixelFormatGUID      pixelFormat,   [in]  WICBitmapCreateCacheOption option,\n[out] IWICBitmap                 **ppIBitmap);",
+      "syntax": "HRESULT WriteFrameThumbnail([in] ID2D1Image *pImage, [in] IWICBitmapFrameEncode *pFrameEncode, [in] const WICImageParameters *pImageParameters);",
       "parameters": [
         {
           "name": "pImage",
@@ -3292,9 +2318,9 @@
       ],
       "return_value": {
         "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 含义 在初始化时为位图分配系统内存。 首次使用位图时为位图分配系统内存。此选项对此方法无效，不应使用。 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回S_OK。否则，将返回HRESULT错误代码"
       },
-      "remarks": "传入的映像必须在 IWICImagingFactory2：：CreateImageEncoder 中的同一设备上创 建。 如果未指定 pImageParameters ，将假定一组有用的默认值，有关详细信息，请参阅 WICImageParameters 。 在调用此 API 之前，必须正确且独立地设置 IWICBitmapFrameEncode 。 必须在 IWICImagingFactory2：：CreateImageEncoder 中的同一设备上创建传入的映 像。 如果未在 pImageParameters 指向的变量中指定其他参数，编码器将使用一组有用的默认值。 有关这些默认值的信息，请参阅 WICImageParameters。 在调用 WriteThumbnail 之前，必须为要设置缩略图的编码器设置 IWICBitmapEncoder 接口。 如果 WriteThumbnail 失败，它可能会从编码器返回E_OUTOFMEMORY、 D2DERR_WRONG_RESOURCE_DOMAIN或其他错误代码。",
+      "remarks": "传入的映像必须在IWICImagingFactory2::CreateImageEncoder中的同一设备上创建。如果未指定pImageParameters，将假定一组有用的默认值，有关详细信息，请参阅WICImageParameters。在调用此API之前，必须正确且独立地设置IWICBitmapFrameEncode。",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -3367,8 +2393,8 @@
     {
       "id": "windows::CreateBitmapFlipRotator",
       "name": "CreateBitmapFlipRotator",
-      "entity_type": "method",
-      "description": "方法 创建 IWICBitmapFlipRotator 对象的新实例。",
+      "entity_type": "function",
+      "description": "Creates a new instance of IWICBitmapFlipRotator object.",
       "syntax": "HRESULT CreateBitmapFlipRotator(\n[out] IWICBitmapFlipRotator **ppIBitmapFlipRotator);",
       "parameters": [
         {
@@ -3400,7 +2426,7 @@
       "id": "windows::CreateBitmapFromHICON",
       "name": "CreateBitmapFromHICON",
       "entity_type": "method",
-      "description": "方法 从图标句柄创建 IWICBitmap 。",
+      "description": "从图标句柄创建 IWICBitmap 对象的方法。",
       "syntax": "HRESULT CreateBitmapFromHICON(   [in]  HICON      hIcon,\n[out] IWICBitmap **ppIBitmap);",
       "parameters": [
         {
@@ -3431,8 +2457,8 @@
     {
       "id": "windows::CreateBitmapFromMemory",
       "name": "CreateBitmapFromMemory",
-      "entity_type": "method",
-      "description": "方法 从内存块创建 IWICBitmap 。",
+      "entity_type": "function",
+      "description": "从内存块创建 IWICBitmap。",
       "syntax": "HRESULT CreateBitmapFromMemory(\n[in]  UINT                  uiWidth,   [in]  UINT                  uiHeight,\n[in]  REFWICPixelFormatGUID pixelFormat,   [in]  UINT                  cbStride,\n[in]  UINT                  cbBufferSize,\n[in]  BYTE                  *pbBuffer,   [out] IWICBitmap            **ppIBitmap);",
       "parameters": [
         {
@@ -3508,7 +2534,7 @@
       "id": "windows::CreateBitmapFromSourceRect",
       "name": "CreateBitmapFromSourceRect",
       "entity_type": "method",
-      "description": "方法 从 IWICBitmapSource 的指定矩形创建 IWICBitmap。",
+      "description": "从IWICBitmapSource接口的指定矩形区域创建新的IWICBitmap",
       "syntax": "HRESULT CreateBitmapFromSourceRect(\n[in]  IWICBitmapSource *pIBitmapSource,\n[in]  UINT             x,   [in]  UINT             y,\n[in]  UINT             width,   [in]  UINT             height,\n[out] IWICBitmap       **ppIBitmap);",
       "parameters": [
         {
@@ -3578,8 +2604,8 @@
     {
       "id": "windows::CreateColorContext",
       "name": "CreateColorContext",
-      "entity_type": "method",
-      "description": "创建 IWICColorContext 类的新实例。",
+      "entity_type": "function",
+      "description": "Creates a new instance of the IWICColorContext interface.",
       "syntax": "HRESULT CreateColorContext(\n[out] IWICColorContext **ppIWICColorContext);",
       "parameters": [
         {
@@ -3608,7 +2634,7 @@
     {
       "id": "windows::CreateColorTransformer",
       "name": "CreateColorTransformer",
-      "entity_type": "method",
+      "entity_type": "function",
       "description": "方法 创建 IWICColorTransform 类的新实例。",
       "syntax": "HRESULT CreateColorTransformer(\n[out] IWICColorTransform **ppIWICColorTransform);",
       "parameters": [
@@ -3640,7 +2666,7 @@
       "name": "CreateComponentEnumerator",
       "entity_type": "method",
       "description": "方法 创建指定组件类型的 IEnumUnknown 对象。",
-      "syntax": "HRESULT CreateComponentEnumerator(   [in]  DWORD        componentTypes,   [in]  DWORD        options,\n[out] IEnumUnknown **ppIEnumUnknown);\nHRESULT CreateComponentInfo(\n[in]  REFCLSID          clsidComponent,\n[out] IWICComponentInfo **ppIInfo);\nHRESULT CreateDecoder(\n[in]          REFGUID           guidContainerFormat,\n[in]          const GUID        *pguidVendor,   [out, retval] IWICBitmapDecoder **ppIDecoder);",
+      "syntax": "HRESULT CreateComponentEnumerator([in] DWORD componentTypes, [in] DWORD options, [out] IEnumUnknown **ppIEnumUnknown);",
       "parameters": [
         {
           "name": "componentTypes",
@@ -3673,9 +2699,9 @@
       ],
       "return_value": {
         "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回S_OK。否则，将返回HRESULT错误代码"
       },
-      "remarks": "必须单独枚举组件类型。 不支持组件类型和 WICAllComponent 的组合 。 其他值可能同时适用于 guidContainerFormat 和 pguidVendor ，具体取决于已安装的已启 用 WIC 的编码器。 列出的值是操作系统本机支持的那些值。",
+      "remarks": "必须单独枚举组件类型。不支持组件类型和WICAllComponent的组合",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -3728,8 +2754,8 @@
     {
       "id": "windows::CreateDecoderFromFilename",
       "name": "CreateDecoderFromFilename",
-      "entity_type": "method",
-      "description": "方法 基于给定文件创建 IWICBitmapDecoder 类的新实例。",
+      "entity_type": "function",
+      "description": "基于给定文件创建 IWICBitmapDecoder 接口的新实例。",
       "syntax": "HRESULT CreateDecoderFromFilename(\n[in]          LPCWSTR           wzFilename,   [in]          const GUID        *pguidVendor,\n[in]          DWORD             dwDesiredAccess,   [in]          WICDecodeOptions  metadataOptions,\n[out, retval] IWICBitmapDecoder **ppIDecoder);",
       "parameters": [
         {
@@ -3759,7 +2785,7 @@
       "name": "CreateDecoderFromStream",
       "entity_type": "method",
       "description": "方法 基于给定的 IStream 创建 IWICBitmapDecoder 类的新实例。",
-      "syntax": "HRESULT CreateDecoderFromStream(\n[in]          IStream           *pIStream,\n[in]          const GUID        *pguidVendor,\n[in]          WICDecodeOptions  metadataOptions,\n[out, retval] IWICBitmapDecoder **ppIDecoder);\nHRESULT CreateEncoder(\n[in]           REFGUID           guidContainerFormat,\n[in, optional] const GUID        *pguidVendor,   [out, retval]  IWICBitmapEncoder **ppIEncoder);",
+      "syntax": "HRESULT CreateDecoderFromStream(\n  [in]          IStream           *pIStream,\n  [in]          const GUID        *pguidVendor,\n  [in]          WICDecodeOptions  metadataOptions,\n  [out, retval] IWICBitmapDecoder **ppIDecoder\n);",
       "parameters": [
         {
           "name": "pIStream",
@@ -3807,7 +2833,7 @@
       "id": "windows::CreateFastMetadataEncoderFromDecod",
       "name": "CreateFastMetadataEncoderFromDecod",
       "entity_type": "method",
-      "description": "基于给定的 IWICBitmapDecoder 创建快速元数据编码器的新实例。",
+      "description": "基于给定的 IWICBitmapDecoder 创建快速元数据编码器的新实例。Windows 提供的编解码器仅在帧级别支持快速元数据编码。",
       "syntax": "HRESULT CreateFastMetadataEncoderFromDecoder(   [in]  IWICBitmapDecoder       *pIDecoder,\n[out] IWICFastMetadataEncoder **ppIFastEncoder);",
       "parameters": [
         {
@@ -3839,8 +2865,8 @@
     {
       "id": "windows::Decode",
       "name": "Decode",
-      "entity_type": "method",
-      "description": "基于给定的图像帧创建快速元数据编码器的新实例。",
+      "entity_type": "function",
+      "description": "基于给定的图像帧解码器创建快速元数据编码器的新实例。",
       "syntax": "HRESULT CreateFastMetadataEncoderFromFrameDecode(   [in]  IWICBitmapFrameDecode   *pIFrameDecoder,   [out] IWICFastMetadataEncoder **ppIFastEncoder);",
       "parameters": [
         {
@@ -3862,43 +2888,6 @@
       ],
       "confidence": 0.75,
       "_source_line": 6502
-    },
-    {
-      "id": "windows::PropVariantClear",
-      "name": "PropVariantClear",
-      "entity_type": "method",
-      "description": "&value);} 以下代码演示如何获取查询读取器，并使用它来检索嵌套的元数据块。// Get the query reader if (SUCCEEDED(hr)){ hr = pFrameDecode->GetMetadataQueryReader(&pQueryReader);} if (SUCCEEDED(hr)){ // Get the embedded IFD reader hr = pQueryReader->GetMetadataByName(L\"/app1/ifd\", &value); if (value.vt == VT_UNKNOWN) { hr = value.punkVal->QueryInterface(IID_IWICMetadataQueryReader, (void **)&pEmbedReader); }",
-      "syntax": "typedef enum WICHeifProperties {   WICHeifOrientation = 0x1,\nWICHeifProperties_FORCE_DWORD = 0x7fffffff} ;",
-      "parameters": [
-        {
-          "name": "wzName",
-          "direction": "in",
-          "type": "LPCWSTR",
-          "description": "要删除的元数据项的名称。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "GetMetadataByName",
-        "GetMetadataQueryReader",
-        "QueryInterface",
-        "VT_UNKNOWN"
-      ],
-      "confidence": 0.85,
-      "_source_line": 6526
     },
     {
       "id": "windows::CreateFormatConverter",
@@ -3980,7 +2969,7 @@
       "name": "CreateQueryWriterFromReader",
       "entity_type": "method",
       "description": "方法 基于给定的查询读取器创建查询编写器的新实例。 查询编写器将预先填充来自查询读取器的元数据。",
-      "syntax": "HRESULT CreateQueryWriterFromReader(\n[in]  IWICMetadataQueryReader *pIQueryReader,   [in]  const GUID              *pguidVendor,   [out] IWICMetadataQueryWriter **ppIQueryWriter);\nHRESULT CreateStream(\n[out] IWICStream **ppIWICStream);",
+      "syntax": "HRESULT CreateQueryWriterFromReader([in] IWICMetadataQueryReader *pIQueryReader, [in] const GUID *pguidVendor, [out] IWICMetadataQueryWriter **ppIQueryWriter);",
       "parameters": [
         {
           "name": "pIQueryReader",
@@ -4002,7 +2991,7 @@
       ],
       "return_value": {
         "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回S_OK。否则，将返回HRESULT错误代码"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -4065,8 +3054,8 @@
       "id": "windows::ClearIndexing",
       "name": "ClearIndexing",
       "entity_type": "method",
-      "description": "从已使用 IWICJpegFrameDecode：：SetIndexing 编制索引的 JPEG 中删除索引。",
-      "syntax": "HRESULT ClearIndexing();\nHRESULT CopyScan(\nUINT scanIndex,         UINT scanOffset,         UINT cbScanData,   [out] BYTE *pbScanData,\n[out] UINT *pcbScanDataActual);\n参数 scanIndex 类型： UINT\n要检索数据的扫描的从零开始的索引。\nscanOffset 类型： UINT\n要开始复制的扫描数据中的字节位置。 在第一次调用时使用 0。 如果输出缓冲区大小不足以存储整个扫描，则此偏移量允许你从上一个复制操作的末尾恢复复制。\ncbScanData 类型： UINT\npbScanData 数组的大小（以字节为单位）。\n[out] pbScanData 类型： BYTE*\n接收表数据的指针。 此参数不能为 NULL。\n[out] pcbScanDataActual 类型： UINT*\n一个指针，用于接收实际复制到 pbScanData 中的扫描数据的大小。 返回的大小可能小于 cbScanData 的大小。 此参数可以为 NULL。",
+      "description": "从已使用 IWICJpegFrameDecode::SetIndexing 编制索引的 JPEG 中删除索引。",
+      "syntax": "HRESULT ClearIndexing();",
       "return_value": {
         "type": "HRESULT",
         "description": "成功完成后返回S_OK。 类型： HRESULT 此方法可以返回其中一个值。"
@@ -4083,13 +3072,10 @@
       "id": "windows::WINCODEC_ERR_INVALIDJPEGSCANINDEX",
       "name": "WINCODEC_ERR_INVALIDJPEGSCANINDEX",
       "entity_type": "method",
-      "description": "说明 操作成功。 指定的扫描索引无效。",
-      "syntax": "HRESULT DoesSupportIndexing(   BOOL *pfIndexingSupported);",
-      "return_value": {
-        "type": "HRESULT",
-        "description": "在成功完成时返回S_OK。"
-      },
-      "remarks": "仅某些 JPEG 类型支持索引编制。 调用此方法要求",
+      "description": "指定的JPEG扫描索引无效的错误码",
+      "syntax": "",
+      "return_value": "",
+      "remarks": "仅某些JPEG类型支持索引编制",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [
@@ -4101,9 +3087,9 @@
     {
       "id": "windows::GetAcHuffmanTable",
       "name": "GetAcHuffmanTable",
-      "entity_type": "method",
+      "entity_type": "function",
       "description": "检索指定扫描和表的 AC Huffman 表的副本。",
-      "syntax": "HRESULT GetAcHuffmanTable(\nUINT                       scanIndex,         UINT                       tableIndex,\n[out] DXGI_JPEG_AC_HUFFMAN_TABLE *pAcHuffmanTable);\n参数 scanIndex 类型： UINT\n要检索数据的扫描的从零开始的索引。\ntableIndex 类型： UINT\n要检索的 AC Huffman 表的索引。[out] pAcHuffmanTable\n类型： DXGI_JPEG_AC_HUFFMAN_TABLE* 接收表数据的指针。 此参数不能为 NULL。",
+      "syntax": "HRESULT GetAcHuffmanTable(\n  UINT scanIndex,\n  UINT tableIndex,\n  [out] DXGI_JPEG_AC_HUFFMAN_TABLE *pAcHuffmanTable\n);",
       "return_value": {
         "type": "HRESULT",
         "description": "此方法可以返回其中一个值。"
@@ -4119,9 +3105,9 @@
     {
       "id": "windows::GetScanHeader",
       "name": "GetScanHeader",
-      "entity_type": "method",
-      "description": "检索扫描标头来确定给定扫描的有效索引。[out] pAcHuffmanTable 类型： DXGI_JPEG_AC_HUFFMAN_TABLE* 接收表数据的指针。 此参数不能为 NULL。",
-      "syntax": "HRESULT GetScanHeader(\nUINT              scanIndex,   [out] WICJpegScanHeader *pScanHeader);\n参数 scanIndex 类型： UINT\n要检索其标头数据的扫描的索引。[out] pScanHeader\n类型： WICJpegScanHeader* 接收帧标头数据的指针。\nHRESULT SetIndexing(\nWICJpegIndexingOptions options,\nUINT                   horizontalIntervalSize);\n参数 options\n类型： WICJpegIndexingOptions\n一个 值，该值指定是应立即生成索引还是推迟到将来调用 IWICBitmapSource：： CopyPixels。\nhorizontalIntervalSize 类型： UINT\n索引的粒度（以像素为单位）。",
+      "entity_type": "function",
+      "description": "检索扫描标头来确定给定扫描的有效索引。",
+      "syntax": "HRESULT GetScanHeader(UINT scanIndex, [out] WICJpegScanHeader *pScanHeader);",
       "return_value": {
         "type": "HRESULT",
         "description": "此方法可以返回其中一个值。"
@@ -4136,11 +3122,11 @@
     {
       "id": "windows::GetDcHuffmanTable",
       "name": "GetDcHuffmanTable",
-      "entity_type": "method",
+      "entity_type": "function",
       "description": "检索指定扫描和表的 DC Huffman 表的副本。",
-      "syntax": "HRESULT GetDcHuffmanTable(\nUINT                       scanIndex,         UINT                       tableIndex,\n[out] DXGI_JPEG_DC_HUFFMAN_TABLE *pDcHuffmanTable);\n参数 scanIndex 类型： UINT\n要检索数据的扫描的从零开始的索引。\ntableIndex 类型： UINT\n要检索的 DC Huffman 表的索引。 可以通过使用 IWICJpegFrameDecode：：",
+      "syntax": "HRESULT GetDcHuffmanTable(\n  UINT scanIndex,\n  UINT tableIndex,\n  [out] DXGI_JPEG_DC_HUFFMAN_TABLE *pDcHuffmanTable\n);",
       "return_value": {
-        "description": "此方法可以返回其中一个值。"
+        "description": "如果成功返回S_OK，否则返回错误代码"
       },
       "header": "wincodec.h",
       "deprecated": false,
@@ -4180,34 +3166,10 @@
       "_source_line": 6951
     },
     {
-      "id": "windows::Huffman",
-      "name": "Huffman",
-      "entity_type": "method",
-      "description": "和量化表的访问权限。继承 IWICJpegFrameEncode 接口继承自 IUnknown 接口。 IWICJpegFrameEncode 也具有以 下类型的成员：方法 IWICJpegFrameEncode 接口具有这些方法。 IWICJpegFrameEncode：：GetAcHuffmanTable 检索指定扫描和表的 AC Huffman 表的副本。 (IWICJpegFrameEncode.GetAcHuffmanTable) IWICJpegFrameEncode：：GetDcHuffmanTable 检索指定扫描和表的 DC Huffman 表的副本。 (IWICJpegFrameEncode.GetDcHuffmanTable) IWICJpegFrameEncode：：GetQuantizationTable 检索量化表的副本。 (IWICJpegFrameEncode.GetQuantizationTable) IWICJpegFrameEncode：：WriteScan 将扫描数据写入 JPEG 帧。",
-      "remarks": "通过在 Windows 提供的 IWICBitmapFrameEncoder 接口上为 JPEG 编码器调用 IUnknown：：QueryInterface 来获取此接口。 与解码器相比，WIC JPEG 编码器支持的 JPEG 功能子集更小。 编码器仅限于单个扫描。 对于渐进式编码或平面组件数据，它不支持对多扫描图像进行编码。 编码器支持两个量化表、两个 AC Huffman 表和两个 DC Huffman 表。 luma 表用于 Y 通道，对于 YCCK，则用于黑色通道。 色度表用于 CbCr 通道。编码器支持灰色编码、YCbCr (RGB) 和 YCCK (CMYK) 。 编码器支持 4 个固定组件子采样、4：2：0、4：2：2、4：4：0 和 4：4：4。 此子采样仅色度。 编码器不支持重启标记。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "min_client": "Windows 10 [仅限桌面应用]",
-        "min_server": "Windows Server 2016 [仅限桌面应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "GetAcHuffmanTable",
-        "GetDcHuffmanTable",
-        "GetQuantizationTable",
-        "QueryInterface",
-        "WriteScan"
-      ],
-      "confidence": 0.6,
-      "_source_line": 7081
-    },
-    {
       "id": "windows::WriteScan",
       "name": "WriteScan",
       "entity_type": "method",
-      "description": "可以多次调用。 每次调用都会将指定的扫描数据追加到以前的任何扫描数据。 通过调用 IWICBitmapFrameEncode：：Commit 完成扫描。 在首次调用此方法之前，必须完成对设置编码器参数或图像元数据的调用，这些调用将在 生成的 JPEG 文件中扫描数据之前完成。 这包括对 IWICBitmapFrameEncode：： SetColorContexts 、 IWICBitmapFrameEncode：：SetPalette、 IWICBitmapFrameEncode：：SetPixelFormat、 IWICBitmapFrameEncode：： SetResolution 和 IWICBitmapFrameEncode：：SetThumbnail 的调用。 IWICBitmapFrameEncode：：SetSize 是必需的，因为它没有编码图像大小的默认值。",
+      "description": "可以多次调用。每次调用都会将指定的扫描数据追加到以前的任何扫描数据。通过调用 IWICBitmapFrameEncode::Commit 完成扫描。在首次调用此方法之前，必须完成对设置编码器参数或图像元数据的调用，这些调用将在生成的 JPEG 文件中扫描数据之前完成。这包括对 IWICBitmapFrameEncode::SetColorContexts、IWICBitmapFrameEncode::SetPalette、IWICBitmapFrameEncode::SetPixelFormat、IWICBitmapFrameEncode::SetResolution 和 IWICBitmapFrameEncode::SetThumbnail 的调用。IWICBitmapFrameEncode::SetSize 是必需的，因为它没有编码图像大小的默认值。",
       "remarks": "元数据查询读取器使用元数据查询表达式来访问嵌入的元数据。 有关元数据查询语言的详细信息，请参阅 元数据查询语言概述。 查询读取器的优点是能够在一个步骤中访问元数据项。 查询读取器还提供在 GetEnumerator 方法的帮助下遍历整个元数据层次结构集的方法。但是，不建议使用此方法，因为 IWICMetadataBlockReader 和 IWICMetadataReader 提 供了更方便、更便宜的方式。示例 以下代码演示如何获取查询读取器并使用它来检索元数据项。// Get the query reader if (SUCCEEDED(hr)){ hr = pFrameDecode->GetMetadataQueryReader(&pQueryReader);} if (SUCCEEDED(hr)){ hr = pQueryReader->GetMetadataByName(L\"/app1/ifd/{ushort=18249}\", &value);",
       "header": "wincodec.h",
       "deprecated": false,
@@ -4271,8 +3233,8 @@
     {
       "id": "windows::RemoveMetadataByName",
       "name": "RemoveMetadataByName",
-      "entity_type": "method",
-      "description": "使用元数据查询表达式删除元数据。 有关元数据查询语言的详细信息，请参阅 元数据查询语言概述。 如果元数据项是元数据块，则会将其从元数据层次结构中删除。",
+      "entity_type": "function",
+      "description": "Removes metadata items based on a metadata query expression. For details about the metadata query language, see Metadata Query Language Overview. If the metadata item is a metadata block, it will be removed from the metadata hierarchy.",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -4305,7 +3267,7 @@
         "type": "HRESULT",
         "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
       },
-      "remarks": "如果 WICBitmapPaletteType 不是 WICBitmapPaletteCustom，则会根据上表自动生成颜 色。 如果用户随后更改调色板条目，则 WICBitmapPalette 通过该操作将设置为 Custom。",
+      "remarks": "如果设置的值是嵌套元数据块，则使用变体类型和VT_UNKNOWN pvarValue指向新元数据块的IWICMetadataQueryWriter。元数据项的排序由查询编写器自行决定，因为未指定相对位置。",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -4326,7 +3288,7 @@
       "id": "windows::InitializeFromBitmap",
       "name": "InitializeFromBitmap",
       "entity_type": "method",
-      "description": "的 fAddTransparentColor 参数将在颜色集合的末尾添加透明颜色（如果其大小小于 256），否则索引 255 将替换为透明颜色。 如果使用预定义的调色板类型，它将更改为 BitmapPaletteTypeCustom，因为它不再与预定义的调色板匹配。 调色板接口是辅助图像处理接口，因为它不直接涉及位图和像素;而是为索引位图提供索引颜色转换。 对于每像素 M 位的索引像素格式： (调色板中的颜色数) 大于 2^M。 传统上，调色板的基本操作是从字节 (或较小的) 索引转换为 32bpp 颜色值。 这通常通过颜色值的 256 个条目表来实现。 示例 C++ IWICImagingFactory *pFactory = NULL; IWICBitmapDecoder *pDecoder = NULL; IWICBitmapFrameDecode *pBitmapFrameDecode = NULL; IWICPalette *pPalette = NULL; UINT uiFrameCount = 0; HRESULT hr = CoCreateInstance(",
+      "description": "Initializes a palette from a bitmap. The fAddTransparentColor parameter adds a transparent color at the end of the color collection if its size is less than 256, otherwise index 255 will be replaced with the transparent color. If using a predefined palette type, it will be changed to BitmapPaletteTypeCustom as it no longer matches predefined palettes. Palette interfaces assist image processing by providing indexed color conversion for indexed bitmaps.",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [
@@ -4336,85 +3298,9 @@
       "_source_line": 7550
     },
     {
-      "id": "windows::GetChannelCount",
-      "name": "GetChannelCount",
-      "entity_type": "unknown",
-      "description": "获取像素格式包含的通道数。",
-      "syntax": "HRESULT GetChannelCount(\n[out] UINT *puiChannelCount);",
-      "parameters": [
-        {
-          "name": "puiChannelCount",
-          "direction": "out",
-          "description": "类型： UINT* 接收通道计数的指针。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.5,
-      "_source_line": 7951
-    },
-    {
-      "id": "windows::GetChannelMask",
-      "name": "GetChannelMask",
-      "entity_type": "unknown",
-      "description": "获取像素格式的通道掩码。",
-      "syntax": "HRESULT GetChannelMask(\n[in]      UINT uiChannelIndex,   [in]      UINT cbMaskBuffer,   [in, out] BYTE *pbMaskBuffer,\n[out]     UINT *pcbActual);",
-      "parameters": [
-        {
-          "name": "uiChannelIndex",
-          "direction": "in",
-          "description": "类型： UINT 要检索的通道掩码的索引。"
-        },
-        {
-          "name": "cbMaskBuffer",
-          "direction": "in",
-          "description": "类型： UINT pbMaskBuffer 缓冲区的大小。"
-        },
-        {
-          "name": "pbMaskBuffer",
-          "direction": "in, out",
-          "description": "类型： BYTE* 指向掩码缓冲区的指针。"
-        },
-        {
-          "name": "pcbActual",
-          "direction": "out",
-          "description": "类型： UINT* 获取通道掩码所需的实际缓冲区大小。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "如果分别为 cbMaskBuffer 和 pbMaskBuffer 传递了 0 和 NULL，则所需的缓冲区大小将通 过印刷品返回。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.5,
-      "_source_line": 7979
-    },
-    {
       "id": "windows::GetColorContext",
       "name": "GetColorContext",
-      "entity_type": "unknown",
+      "entity_type": "function",
       "description": "获取像素格式的 IWICColorContext。",
       "syntax": "HRESULT GetColorContext(\n[out] IWICColorContext **ppIColorContext);",
       "parameters": [
@@ -4446,9 +3332,9 @@
     {
       "id": "windows::GetFormatGUID",
       "name": "GetFormatGUID",
-      "entity_type": "unknown",
-      "description": "获取像素格式 GUID。",
-      "syntax": "HRESULT GetFormatGUID(   [out] GUID *pFormat);",
+      "entity_type": "function",
+      "description": "Retrieves the pixel format GUID.",
+      "syntax": "HRESULT GetFormatGUID([out] GUID *pFormat);",
       "parameters": [
         {
           "name": "pFormat",
@@ -4476,8 +3362,8 @@
     {
       "id": "windows::GetNumericRepresentation",
       "name": "GetNumericRepresentation",
-      "entity_type": "unknown",
-      "description": "方法 检索像素格式的 WICPixelFormatNumericRepresentation 。",
+      "entity_type": "method",
+      "description": "检索像素格式的WICPixelFormatNumericRepresentation枚举值。",
       "syntax": "HRESULT GetNumericRepresentation(\n[out] WICPixelFormatNumericRepresentation *pNumericRepresentation);",
       "parameters": [
         {
@@ -4507,7 +3393,7 @@
     {
       "id": "windows::SupportsTransparency",
       "name": "SupportsTransparency",
-      "entity_type": "unknown",
+      "entity_type": "function",
       "description": "返回格式是否支持透明像素。",
       "syntax": "HRESULT SupportsTransparency(\n[out] BOOL *pfSupportsTransparency);",
       "parameters": [
@@ -4536,39 +3422,6 @@
       "_source_line": 8112
     },
     {
-      "id": "windows::QueryInterface",
-      "name": "QueryInterface",
-      "entity_type": "unknown",
-      "description": "可用于从 Windows 提供的 IWICBitmapFrameDecode 实现中获取此接口，这些实现适用于 JPEG 解码器、 IWICBitmapScaler、 IWICBitmapFlipRotator 和 IWICColorTransform。继承 IWICPlanarBitmapSourceTransform 接口继承自 IUnknown 接口。 IWICPlanarBitmapSourceTransform 还具有以下类型的成员：方法 IWICPlanarBitmapSourceTransform 接口包含以下方法。 IWICPlanarBitmapSourceTransform：：CopyPixels 将像素复制到目标平面中。 由提供的输入参数配置。 IWICPlanarBitmapSourceTransform：:D oesSupportTransform 使用此方法可确定是否支持所需的平面输出，并允许调用方选择优化的代码路径（如果支持）。",
-      "remarks": "使用 IWICPlanarBitmapFrameEncode 对 YCbCr 数据进行编码与使用 IWICBitmapFrameEncode 对交错数据进行编码相似，但不完全相同。 平面接口仅公开写入平面帧图像数据的功能，应继续使用帧编码接口来设置元数据或缩略图，并在操作结束时提交。 要求",
-      "requirements": {
-        "target_platform": "Windows",
-        "min_client": "Windows 8",
-        "min_server": "Windows Server 2012 R2 [桌面应用 |UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "CopyPixels",
-        "Server"
-      ],
-      "confidence": 0.45,
-      "_source_line": 8145
-    },
-    {
-      "id": "windows::Subsampling",
-      "name": "Subsampling",
-      "entity_type": "unknown",
-      "description": "4:2:0 4:2:2 4:4:4 4:4:0 行计数限制 2 的倍数，除非调用涵盖图像的最后一个扫描 线任意 任意 2 的倍数，除非调用涵盖图像的最后一个扫描线 色度平面宽度 lumaWidth / 2 向上舍入到最接近的整数。 lumaWidth / 2 向上舍入到最接近的整数。 任意任意 色度平面高度 lumaHeight / 2 向上舍入到最接近的整数。 任意任意 llumaHeight / 2 向上舍入到最接近的整数。 必须对完整扫描线宽度进行编码，并且位图源的宽度必须与其平面配置匹配。 此外，如果通过 IWICBitmapFrameEncode：：SetPixelFormat 设置像素格式，则必须",
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "SetPixelFormat"
-      ],
-      "confidence": 0.45,
-      "_source_line": 8199
-    },
-    {
       "id": "windows::DoesSupportTransform",
       "name": "DoesSupportTransform",
       "entity_type": "unknown",
@@ -4585,149 +3438,11 @@
       "_source_line": 8358
     },
     {
-      "id": "windows::Initialize",
-      "name": "Initialize",
-      "entity_type": "unknown",
-      "description": "使用平面源初始化格式转换器，并指定交错输出像素格式。",
-      "syntax": "HRESULT Initialize(\n[in] IWICBitmapSource      **ppPlanes,\nUINT                  cPlanes,        REFWICPixelFormatGUID dstFormat,        WICBitmapDitherType   dither,\nIWICPalette           *pIPalette,\ndouble                alphaThresholdPercent,\nWICBitmapPaletteType  paletteTranslate);\nHRESULT Notify(\n[in] ULONG                uFrameNum,   [in] WICProgressOperation operation,   [in] double               dblProgress);\nHRESULT GetCurrentLevel(\n[out, retval] UINT *pnLevel);\nHRESULT GetLevelCount(\n[out, retval] UINT *pcLevels);",
-      "parameters": [
-        {
-          "name": "ppPlanes",
-          "direction": "in",
-          "type": "IWICBitmapSource**",
-          "description": "表示图像平面的 IWICBitmapSource 数组。 cPlanes 类型： UINT 平面参数指定的分量平面数。 dstFormat 类型： REFWICPixelFormatGUID 目标交错像素格式。 dither 类型： WICBitmapDitherType 用于转换的 WICBitmapDitherType 。 pIPalette 类型： IWICPalette* 用于转换的调色板。 alphaThresholdPercent 类型： double 用于转换的 alpha 阈值。 paletteTranslate 类型： WICBitmapPaletteType 用于转换的调色板转换类型。"
-        },
-        {
-          "name": "uFrameNum",
-          "direction": "in",
-          "type": "WICProgressOperation 正在报告进度的操作。",
-          "description": "类型： ULONG 当前帧编号。[in] operation"
-        },
-        {
-          "name": "dblProgress",
-          "direction": "in",
-          "description": "类型： double 范围从 的进度值为 0.0 到 1.0。 0.0 表示操作的开始。 1.0 表示操作结束。"
-        },
-        {
-          "name": "pnLevel",
-          "direction": "out, retval",
-          "description": "类型： UINT* 指示指定的当前级别。"
-        },
-        {
-          "name": "pcLevels",
-          "direction": "out, retval",
-          "description": "类型： UINT* 指示 CODEC 支持的级别数。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "仅当图像经过渐进式编码时，才能对其进行渐进式解码。 渐进式图像会自动以最高 (最佳质量) 渐进级别启动。 调用方必须手动将解码器设置为较低的渐进级别。 如果编解码器不支持渐进式级别解码，则返回E_NOTIMPL。 级别始终默认为最高渐进级别。 若要解码较低的渐进级别，必须先调用 SetCurrentLevel。 用户不应使用此函数来循环访问渐进式 JPEG 图像的渐进级别。 JPEG 渐进级别由映像确定，没有固定级别计数。 使用此方法将强制应用程序等待下载所有渐进级别后才能返 回。 相反，应用程序应使用以下代码循环访问渐进式 JPEG 映像的渐进级别。示例 IWICProgressiveLevelControl *pProgressive = NULL; HRESULT hr = (pBitmapFrame->QueryInterface(",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows 7",
-        "min_server": "Windows Server 2008 R2"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "CopyPixels",
-        "QueryInterface",
-        "RegisterProgressNotification",
-        "Server"
-      ],
-      "confidence": 0.6,
-      "_source_line": 8544
-    },
-    {
-      "id": "windows::IID_PPV_ARGS",
-      "name": "IID_PPV_ARGS",
-      "entity_type": "constant",
-      "description": "(&pFactory)); // Create the stream. if (SUCCEEDED(hr)) { hr = pFactory->CreateStream(&pStream); } // Initialize the stream from a specific file. if (SUCCEEDED(hr)) { hr = pStream->InitializeFromFilename(L\"test.jpg\", GENERIC_READ); } // Create a JPEG decoder. // Since the stream is created from the JPEG file, an explicit JPEG decoder // can be created using the generic IWICImagingFactory::CreateDecoder method. // However, use IWICImagingFactory::CreateDecoderFromStream method to auto // detect the stream and instantiate the appropriate codec. if (SUCCEEDED(hr)) { hr = pFactory->CreateDecoder( GUID_ContainerFormatJpeg, // Explicitly create a JPEG decoder. NULL, // No preferred vendor. &pDecoder); // Pointer to the decoder. } // Initialize the decoder if (SUCCEEDED(hr)) { hr = pDecoder->Initialize( pStream, // The stream to use. WICDecodeMetadataCacheOnDemand); //",
-      "syntax": "HRESULT InitializeFromIStream(\n[in] IStream *pIStream);",
-      "parameters": [
-        {
-          "name": "pIStream",
-          "direction": "in",
-          "description": "类型： IStream* 初始化流。返回值类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-        }
-      ],
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "CreateDecoderFromStream",
-        "CreateStream",
-        "GENERIC_READ",
-        "Initialize",
-        "InitializeFromFilename"
-      ],
-      "confidence": 0.95,
-      "_source_line": 8830
-    },
-    {
-      "id": "windows::InitializeFromIStreamRegion",
-      "name": "InitializeFromIStreamRegion",
-      "entity_type": "unknown",
-      "description": "方法 将流初始化为另一个流的子流。",
-      "syntax": "HRESULT InitializeFromIStreamRegion(\n[in] IStream        *pIStream,   [in] ULARGE_INTEGER ulOffset,   [in] ULARGE_INTEGER ulMaxSize);\nHRESULT InitializeFromMemory(\n[in] WICInProcPointer pbBuffer,\n[in] DWORD            cbBufferSize);\nPFNProgressNotification Pfnprogressnotification; HRESULT Pfnprogressnotification(\nLPVOID pvData,   ULONG uFrameNum,\nWICProgressOperation operation,\ndouble dblProgress)\n{...}\n参数 pvData\n类型： LPVOID\n传递给回调函数的组件数据。 uFrameNum\n类型： ULONG 当前帧编号。 operation\n类型： WICProgressOperation 组件正在执行的当前操作。\ndblProgress 类型： double\n进度值。 范围为 0.0 到 1.0。\ntypedef enum WIC8BIMIptcDigestProperties {   WIC8BIMIptcDigestPString = 0x1,\nWIC8BIMIptcDigestIptcDigest = 0x2,\nWIC8BIMIptcDigestProperties_FORCE_DWORD = 0x7fffffff} ;",
-      "parameters": [
-        {
-          "name": "pIStream",
-          "direction": "in",
-          "type": "ULARGE_INTEGER 用于创建新流的流偏移量。[in] ulMaxSize",
-          "description": "类型： IStream* 指向输入流的指针。[in] ulOffset 类型： ULARGE_INTEGER 流的最大大小。"
-        },
-        {
-          "name": "pbBuffer",
-          "direction": "in",
-          "description": "类型： BYTE* 指向用于初始化流的缓冲区的指针。"
-        },
-        {
-          "name": "cbBufferSize",
-          "direction": "in",
-          "description": "类型：DWORD 缓冲区的大小。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果此回调函数成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "流具有自己的流位置，独立于基础流，但仅限于某个区域。 所有搜寻位置都相对于子区 域。 允许多个可写子流重叠同一范围，但不建议这样做。 应尽可能避免使用此方法。 调用方负责确保内存块在使用 InitializeFromMemory 时在流的生存期内有效。 此行为的解决方法是创建 IStream 并使用 InitializeFromIStream 创建 IWICStream。 如果需要可增长的内存流，请使用 CreateStreamOnHGlobal。 可以通过返回 WINCODEC_ERR_ABORTED 来取消操作。若要注册回调函数，请查询编码器或解码器以获取 IWICBitmapCodecProgressNotification 接口，并调用 RegisterProgressNotification。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "CreateStreamOnHGlobal",
-        "InitializeFromMemory",
-        "RegisterProgressNotification"
-      ],
-      "confidence": 0.5,
-      "_source_line": 8912
-    },
-    {
       "id": "windows::WICBITMAPALPHACHANNELOPTIONS_FORCE_DWORD",
       "name": "WICBITMAPALPHACHANNELOPTIONS_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "值： 0x7fffffff Sentinel 值。",
-      "syntax": "typedef enum WICBitmapCreateCacheOption {   WICBitmapNoCache = 0,\nWICBitmapCacheOnDemand = 0x1,   WICBitmapCacheOnLoad = 0x2,",
+      "description": "Sentinel value for WICBitmapAlphaChannelOptions enum (0x7fffffff)",
+      "syntax": "typedef enum WICBitmapAlphaChannelOptions {\n  WICBITMAPALPHACHANNELOPTIONS_FORCE_DWORD = 0x7fffffff\n}",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -4744,8 +3459,8 @@
       "id": "windows::WICBITMAPCREATECACHEOPTION_FORCE_DWORD",
       "name": "WICBITMAPCREATECACHEOPTION_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "值： 0x7fffffff 注解 当 pixelFormat 是 Windows 映像组件提供的本机像素格式时，IWICImagingFactory 接口的 CreateBitmap 不支持 WICBitmapNoCache， (WIC) 。",
-      "syntax": "typedef enum WICBitmapDecoderCapabilities {\nWICBitmapDecoderCapabilitySameEncoder = 0x1,\nWICBitmapDecoderCapabilityCanDecodeAllImages = 0x2,   WICBitmapDecoderCapabilityCanDecodeSomeImages = 0x4,   WICBitmapDecoderCapabilityCanEnumerateMetadata = 0x8,   WICBitmapDecoderCapabilityCanDecodeThumbnail = 0x10,   WICBITMAPDECODERCAPABILITIES_FORCE_DWORD = 0x7fffffff} ;",
+      "description": "Forces the enumeration to be compiled to 32 bits in size. Value: 0x7fffffff",
+      "syntax": "typedef enum WICBitmapCreateCacheOptions { WICBitmapNoCache = 0, WICBitmapCacheOnDemand = 0x1, WICBitmapCacheOnLoad = 0x2, WICBITMAPCREATECACHEOPTION_FORCE_DWORD = 0x7fffffff };",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -4761,25 +3476,10 @@
       "_source_line": 9142
     },
     {
-      "id": "windows::WICBITMAPDECODERCAPABILITIES_FORCE_DWORD",
-      "name": "WICBITMAPDECODERCAPABILITIES_FORCE_DWORD",
-      "entity_type": "constant",
-      "description": "值： 0x7fffffff 要求",
-      "syntax": "typedef enum WICBitmapDitherType {\nWICBitmapDitherTypeNone = 0,   WICBitmapDitherTypeSolid = 0,\nWICBitmapDitherTypeOrdered4x4 = 0x1,   WICBitmapDitherTypeOrdered8x8 = 0x2,   WICBitmapDitherTypeOrdered16x16 = 0x3,   WICBitmapDitherTypeSpiral4x4 = 0x4,   WICBitmapDitherTypeSpiral8x8 = 0x5,\nWICBitmapDitherTypeDualSpiral4x4 = 0x6,   WICBitmapDitherTypeDualSpiral8x8 = 0x7,   WICBitmapDitherTypeErrorDiffusion = 0x8,",
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "Server",
-        "Vista"
-      ],
-      "confidence": 0.65,
-      "_source_line": 9183
-    },
-    {
       "id": "windows::WICBITMAPDITHERTYPE_FORCE_DWORD",
       "name": "WICBITMAPDITHERTYPE_FORCE_DWORD",
-      "entity_type": "constant",
-      "description": "= 0x7fffffff} ;",
+      "entity_type": "enum",
+      "description": "Forces this enumeration to compile to 32 bits in size.",
       "syntax": "typedef enum WICBitmapEncoderCacheOption {\nWICBitmapEncoderCacheInMemory = 0,   WICBitmapEncoderCacheTempFile = 0x1,   WICBitmapEncoderNoCache = 0x2,",
       "header": "wincodec.h",
       "deprecated": false,
@@ -4791,8 +3491,8 @@
       "id": "windows::WICBITMAPENCODERCACHEOPTION_FORCE_DWORD",
       "name": "WICBITMAPENCODERCACHEOPTION_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "= 0x7fffffff} ;",
-      "syntax": "typedef enum WICBitmapInterpolationMode {\nWICBitmapInterpolationModeNearestNeighbor = 0,\nWICBitmapInterpolationModeLinear = 0x1,   WICBitmapInterpolationModeCubic = 0x2,   WICBitmapInterpolationModeFant = 0x3,\nWICBitmapInterpolationModeHighQualityCubic = 0x4,   WICBITMAPINTERPOLATIONMODE_FORCE_DWORD = 0x7fffffff} ;",
+      "description": "Force enumeration to 32-bit size",
+      "syntax": "WICBITMAPENCODERCACHEOPTION_FORCE_DWORD = 0x7fffffff",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -4800,22 +3500,11 @@
       "_source_line": 9246
     },
     {
-      "id": "windows::Fant",
-      "name": "Fant",
-      "entity_type": "constant",
-      "description": "重新采样算法。 目标像素值计算为映射到新像素的所有像素的加权平均值。 WICBitmapInterpolationModeHighQualityCubic 值： 0x4 一种高质量的双二次内插算法。 目标像素值是使用更密集的采样计算的 内核比常规三次方。 根据比例系数调整内核的大小，使其适合按大于 2 的因子进行缩减。 注意从 Windows 10 开始支持此值。",
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.6,
-      "_source_line": 9288
-    },
-    {
       "id": "windows::WICBITMAPINTERPOLATIONMODE_FORCE_DWORD",
       "name": "WICBITMAPINTERPOLATIONMODE_FORCE_DWORD",
-      "entity_type": "constant",
-      "description": "值： 0x7fffffff",
-      "syntax": "typedef enum WICBitmapLockFlags {\nWICBitmapLockRead = 0x1,   WICBitmapLockWrite = 0x2,",
+      "entity_type": "macro",
+      "description": "Special constant value (0x7fffffff) used to force enumeration to DWORD size",
+      "syntax": "#define WICBITMAPINTERPOLATIONMODE_FORCE_DWORD 0x7fffffff",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -4826,8 +3515,8 @@
       "id": "windows::WICBITMAPLOCKFLAGS_FORCE_DWORD",
       "name": "WICBITMAPLOCKFLAGS_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "值： 0x7fffffff 要求",
-      "syntax": "typedef enum WICBitmapPaletteType {   WICBitmapPaletteTypeCustom = 0,\nWICBitmapPaletteTypeMedianCut = 0x1,   WICBitmapPaletteTypeFixedBW = 0x2,\nWICBitmapPaletteTypeFixedHalftone8 = 0x3,   WICBitmapPaletteTypeFixedHalftone27 = 0x4,   WICBitmapPaletteTypeFixedHalftone64 = 0x5,   WICBitmapPaletteTypeFixedHalftone125 = 0x6,   WICBitmapPaletteTypeFixedHalftone216 = 0x7,   WICBitmapPaletteTypeFixedWebPalette,\nWICBitmapPaletteTypeFixedHalftone252 = 0x8,   WICBitmapPaletteTypeFixedHalftone256 = 0x9,\nWICBitmapPaletteTypeFixedGray4 = 0xa,   WICBitmapPaletteTypeFixedGray16 = 0xb,   WICBitmapPaletteTypeFixedGray256 = 0xc,",
+      "description": "Force enumeration to a DWORD value (0x7fffffff)",
+      "syntax": "typedef enum WICBitmapLockFlags {\n  WICBITMAPLOCKFLAGS_FORCE_DWORD = 0x7fffffff\n}",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -4844,7 +3533,7 @@
       "id": "windows::WICBITMAPPALETTETYPE_FORCE_DWORD",
       "name": "WICBITMAPPALETTETYPE_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "= 0x7fffffff} ;",
+      "description": "Forces this enumeration to compile to 32 bits in size",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -4852,49 +3541,10 @@
       "_source_line": 9343
     },
     {
-      "id": "windows::ULARGE_INTEGER",
-      "name": "ULARGE_INTEGER",
-      "entity_type": "constant",
-      "description": "Position; ULONG Length; BYTE *Pattern; BYTE *Mask; BOOL EndOfStream;} WICBitmapPattern;",
-      "syntax": "typedef struct WICBitmapPlane {   WICPixelFormatGUID Format;\nBYTE               *pbBuffer;   UINT               cbStride;\nUINT               cbBufferSize;} WICBitmapPlane;\ntypedef struct WICBitmapPlaneDescription {\nWICPixelFormatGUID Format;   UINT               Width;   UINT               Height;} WICBitmapPlaneDescription;\ntypedef enum WICBitmapTransformOptions {   WICBitmapTransformRotate0 = 0,\nWICBitmapTransformRotate90 = 0x1,   WICBitmapTransformRotate180 = 0x2,   WICBitmapTransformRotate270 = 0x3,\nWICBitmapTransformFlipHorizontal = 0x8,   WICBitmapTransformFlipVertical = 0x10,",
-      "members": [
-        {
-          "name": "Position",
-          "type": "ULARGE_INTEGER 模式位于 文件中的偏移量。 Length",
-          "description": "类型： ULONG 模式长度。 Pattern 类型： BYTE* 实际模式。 Mask 类型： BYTE* 模式掩码。 EndOfStream 类型： BOOL 流的末尾。 要求"
-        },
-        {
-          "name": "Format",
-          "type": "WICPixelFormatGUID",
-          "description": "描述平面的像素格式。 pbBuffer 类型： BYTE* 指向保存平面像素组件的缓冲区的指针。 cbStride 类型： UINT pbData 指向的缓冲区的步幅。 Stride 指示从一个扫描线的开头到下一个扫描线的开头的 字节总数。 cbBufferSize 类型： UINT pbBuffer 指向的缓冲区的总大小。 要求"
-        },
-        {
-          "name": "Format",
-          "description": "描述平面的像素格式。 Width 平面的组件宽度。 Height 平面的组件高度。"
-        }
-      ],
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "min_client": "Windows 8",
-        "min_server": "Windows Server 2012 R2 [桌面应用 |UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "CopyPixels",
-        "Length",
-        "Position",
-        "Server"
-      ],
-      "confidence": 0.95,
-      "_source_line": 9393
-    },
-    {
       "id": "windows::WICBITMAPTRANSFORMOPTIONS_FORCE_DWORD",
       "name": "WICBITMAPTRANSFORMOPTIONS_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "= 0x7fffffff} ;",
+      "description": "Forces this enumeration to compile to 32 bits in size.",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -4905,8 +3555,8 @@
       "id": "windows::WICCOMPONENTENUMERATEOPTIONS_FORCE_DWORD",
       "name": "WICCOMPONENTENUMERATEOPTIONS_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "= 0x7fffffff} ;",
-      "syntax": "typedef enum WICComponentSigning {\nWICComponentSigned = 0x1,   WICComponentUnsigned = 0x2,   WICComponentSafe = 0x4,\nWICComponentDisabled = 0x80000000,",
+      "description": "Forces the enumeration option to be a DWORD value",
+      "syntax": "#define WICCOMPONENTENUMERATEOPTIONS_FORCE_DWORD 0x7fffffff",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -4917,8 +3567,8 @@
       "id": "windows::WICCOMPONENTSIGNING_FORCE_DWORD",
       "name": "WICCOMPONENTSIGNING_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "= 0x7fffffff} ;",
-      "syntax": "typedef enum WICComponentType {\nWICDecoder = 0x1,   WICEncoder = 0x2,\nWICPixelFormatConverter = 0x4,\nWICMetadataReader = 0x8,   WICMetadataWriter = 0x10,\nWICPixelFormat = 0x20,   WICAllComponents = 0x3f,",
+      "description": "Forces enumeration to be a DWORD size",
+      "syntax": "WICCOMPONENTSIGNING_FORCE_DWORD = 0x7fffffff",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -4932,44 +3582,11 @@
       "_source_line": 9569
     },
     {
-      "id": "windows::WICCOMPONENTTYPE_FORCE_DWORD",
-      "name": "WICCOMPONENTTYPE_FORCE_DWORD",
-      "entity_type": "constant",
-      "description": "= 0x7fffffff} ;",
-      "syntax": "HRESULT WICConvertBitmapSource(\n[in]  REFWICPixelFormatGUID dstFormat,\n[in]  IWICBitmapSource      *pISrc,   [out] IWICBitmapSource      **ppIDst);",
-      "parameters": [
-        {
-          "name": "dstFormat",
-          "direction": "in",
-          "type": "REFWICPixelFormatGUID",
-          "description": "要转换为的像素格式。[in] pISrc 类型： IWICBitmapSource* 源位图。"
-        },
-        {
-          "name": "ppIDst",
-          "direction": "out",
-          "type": "IWICBitmapSource**",
-          "description": "指向 null 初始化的目标位图指针的指针。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果此函数成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "如果 pISrc 位图已采用所需格式，则会将 pISrc 复制到目标位图指针并添加引用。 但是，如果它不是所需的格式， WICConvertBitmapSource 将实例化 dstFormat 格式转换器并 使用 pISrc 对其进行初始化。示例 以下示例将 IWICBitmapSource 转换为 GUID_WICPixelFormat128bppPRGBAFloat 像素 格式。 C++ IWICImagingFactory *pFactory = NULL; IWICBitmapDecoder *pDecoder = NULL; IWICBitmapFrameDecode *pBitmapFrameDecode = NULL; IWICBitmapSource *pConverter = NULL; UINT uiFrameCount = 0; UINT uiWidth = 0, uiHeight = 0; WICPixelFormatGUID pixelFormat; // Create the image factory. HRESULT hr = CoCreateInstance(CLSID_WICImagingFactory, NULL,",
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "CoCreateInstance"
-      ],
-      "confidence": 0.8,
-      "_source_line": 9596
-    },
-    {
       "id": "windows::WICDDSALPHAMODE_FORCE_DWORD",
       "name": "WICDDSALPHAMODE_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "值： 0x7fffffff 要求",
-      "syntax": "typedef enum WICDdsDimension {\nWICDdsTexture1D = 0,   WICDdsTexture2D = 0x1,   WICDdsTexture3D = 0x2,   WICDdsTextureCube = 0x3,",
+      "description": "Force enumeration to 32-bit size (0x7fffffff)",
+      "syntax": "",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -4977,21 +3594,10 @@
       "_source_line": 9800
     },
     {
-      "id": "windows::Alpha",
-      "name": "Alpha",
-      "entity_type": "constant",
-      "description": "行为未指定，必须由读取器确定。 WICDdsAlphaModeStraight 值： 0x1 alpha 数据是直的。 WICDdsAlphaModePremultiplied 值： 0x2 alpha 数据是预乘的。 WICDdsAlphaModeOpaque 值： 0x3 alpha 数据不透明 (UNORM 值为 1) 。 这可由合规的读取器用作性能优化。 例如，混合操作可以转换为副本。 WICDdsAlphaModeCustom 值： 0x4 alpha 通道包含非 alpha 的自定义数据。",
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.6,
-      "_source_line": 9805
-    },
-    {
       "id": "windows::WICDDSTEXTURE_FORCE_DWORD",
       "name": "WICDDSTEXTURE_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "= 0x7fffffff} ;",
+      "description": "Force enumeration to compile to 32-bit size",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -5003,7 +3609,7 @@
       "name": "D3D11_RESOURCE_DIMENSION_TEXTURE2D",
       "entity_type": "constant",
       "description": "。 使用 ID3D11Device：：CreateTexture2D 时，它们由结构 D3D11_TEXTURE2D_DESC 中的标志 D3D11_RESOURCE_MISC_TEXTURECUBE进行区分。",
-      "syntax": "typedef struct WICDdsFormatInfo {   DXGI_FORMAT DxgiFormat;\nUINT        BytesPerBlock;\nUINT        BlockWidth;   UINT        BlockHeight;} WICDdsFormatInfo;",
+      "syntax": "",
       "members": [
         {
           "name": "DxgiFormat",
@@ -5021,21 +3627,10 @@
       "_source_line": 9848
     },
     {
-      "id": "windows::DXGI_FORMAT",
-      "name": "DXGI_FORMAT",
-      "entity_type": "constant",
-      "description": "BytesPerBlock 类型： UINT 单个块的大小（以字节为单位）。 对于不基于块 的DXGI_FORMAT 值，该值等于单个像素的大小（以字节为单位）。",
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 9870
-    },
-    {
       "id": "windows::BlockWidth",
       "name": "BlockWidth",
       "entity_type": "constant",
-      "description": "类型： UINT 单个块的宽度（以像素为单位）。 对于不基于块 的DXGI_FORMAT 值，该值为 1。",
+      "description": "类型：UINT，单个块的宽度（以像素为单位）。对于不基于块的DXGI_FORMAT值，该值为1。",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -5043,86 +3638,10 @@
       "_source_line": 9872
     },
     {
-      "id": "windows::BlockHeight",
-      "name": "BlockHeight",
-      "entity_type": "constant",
-      "description": "类型： UINT 单个块的高度（以像素为单位）。 对于不基于块 的DXGI_FORMAT 值，该值为 1。 要求",
-      "syntax": "typedef struct WICDdsParameters {\nUINT            Width;   UINT            Height;   UINT            Depth;\nUINT            MipLevels;   UINT            ArraySize;   DXGI_FORMAT     DxgiFormat;   WICDdsDimension Dimension;   WICDdsAlphaMode AlphaMode;} WICDdsParameters;",
-      "members": [
-        {
-          "name": "Width",
-          "type": "UINT",
-          "description": "最大 mip 大小 (mip 级别为 0 的纹理宽度（以像素为单位），) 。 Height 类型： UINT 最大 mip 大小 (mip 级别 0 的纹理的高度（以像素为单位）) 。 当 DDS 图像包含一维纹 理时，此值等于 1。 Depth 类型： UINT 3D 纹理中的切片数。 这相当于 3D 纹理的最大 mip 大小 (mip 级别 0) 的深度（以像素为 单位）。 当 DDS 图像包含一维或二维纹理时，此值等于 1。 MipLevels 类型： UINT DDS 映像中包含的 mip 级别数。"
-        }
-      ],
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "DXGI_FORMAT",
-        "Server"
-      ],
-      "confidence": 0.8,
-      "_source_line": 9874
-    },
-    {
-      "id": "windows::ArraySize",
-      "name": "ArraySize",
-      "entity_type": "constant",
-      "description": "类型： UINT DDS 图像中数组中的纹理数。 DxgiFormat 类型： DXGI_FORMAT DDS 像素数据的 DXGI_FORMAT 。 Dimension 类型： WICDdsDimension 指定 DDS 图像中包含的数据的维度类型 (1D、2D、3D 或立方体纹理) 。",
-      "syntax": "typedef enum WICDecodeOptions {\nWICDecodeMetadataCacheOnDemand = 0,   WICDecodeMetadataCacheOnLoad = 0x1,",
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "DXGI_FORMAT",
-        "Server"
-      ],
-      "confidence": 0.7,
-      "_source_line": 9907
-    },
-    {
-      "id": "windows::WICMETADATACACHEOPTION_FORCE_DWORD",
-      "name": "WICMETADATACACHEOPTION_FORCE_DWORD",
-      "entity_type": "constant",
-      "description": "值： 0x7fffffff 要求",
-      "syntax": "typedef enum WICGifApplicationExtensionProperties {\nWICGifApplicationExtensionApplication = 0x1,   WICGifApplicationExtensionData = 0x2,\nWICGifApplicationExtensionProperties_FORCE_DWORD = 0x7fffffff} ;",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 9930
-    },
-    {
-      "id": "windows::VT_VECTOR",
-      "name": "VT_VECTOR",
-      "entity_type": "constant",
-      "description": "] 指示签名属性。 [VT_BOOL]指示全局颜色表标志。 如果存在全局颜色表，则为 TRUE;否则为 FALSE。 WICGifLogicalScreenDescriptorColorResolution 值： 0x5 [VT_UI1]指示以每像素位为单位的颜色分辨率。 WICGifLogicalScreenDescriptorSortFlag 值： 0x6 [VT_BOOL]指示排序的颜色表标志。 如果对表进行排序，则为 TRUE;否则为 FALSE。 WICGifLogicalScreenDescriptorGlobalColorTableSize 值： 0x7 [VT_UI1]指示用于计算全局颜色表中包含的字节数的值。若要计算颜色表的实际大小，请将 2 提高到字段的值 + 1。 WICGifLogicalScreenDescriptorBackgroundColorIndex 值： 0x8 [VT_UI1]指示颜色表中用于背景的索引， (图像) 中未定义的像素。 WICGifLogicalScreenDescriptorPixelAspectRatio 值： 0x9 [VT_UI1]指示用于计算纵横比近似值的因子。 WICGifLogicalScreenDescriptorProperties_FORCE_DWORD 值： 0x7fffffff 要求",
-      "syntax": "typedef struct WICJpegScanHeader {   UINT  cComponents;\nUINT  RestartInterval;\nDWORD ComponentSelectors;   DWORD HuffmanTableIndices;\nBYTE  StartSpectralSelection;   BYTE  EndSpectralSelection;\nBYTE  SuccessiveApproximationHigh;   BYTE  SuccessiveApproximationLow;} WICJpegScanHeader;\n成员 cComponents\n扫描中的组件数。 RestartInterval\n扫描中的重置标记的间隔。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "min_server": "Windows Server 2008 R2",
-        "min_client": "Windows 7"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "VT_BOOL",
-        "VT_UI1"
-      ],
-      "confidence": 0.85,
-      "_source_line": 9974
-    },
-    {
       "id": "windows::WICHEIFCOMPRESSIONOPTION_FORCE_DWORD",
       "name": "WICHEIFCOMPRESSIONOPTION_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "要求要求 Header 是 否 值 wincodec.h WICHeifHdrProperties 枚举 指定高效图像格式 (HEIF) 图像的 HDR 属性。",
+      "description": "WICHeifHdrProperties 枚举的一部分，用于指定高效图像格式 (HEIF) 图像的 HDR 属性。",
       "syntax": "typedef enum WICHeifHdrProperties {\nWICHeifHdrMaximumLuminanceLevel = 0x1,\nWICHeifHdrMaximumFrameAverageLuminanceLevel = 0x2,\nWICHeifHdrMinimumMasteringDisplayLuminanceLevel = 0x3,   WICHeifHdrMaximumMasteringDisplayLuminanceLevel = 0x4,   WICHeifHdrCustomVideoPrimaries = 0x5,\nWICHeifHdrProperties_FORCE_DWORD = 0x7fffffff} ;",
       "header": "wincodec.h",
       "deprecated": false,
@@ -5131,26 +3650,11 @@
       "_source_line": 10160
     },
     {
-      "id": "windows::throw_hresult",
-      "name": "throw_hresult",
-      "entity_type": "constant",
-      "description": "E_INVALIDARG); } PROPVARIANT variantId = {}; PROPVARIANT variantValue = {}; variantId.vt = VT_UI4; variantId.uiVal = WICHeifHdrMaximumLuminanceLevel; if (SUCCEEDED(metadataReader->GetValue(nullptr, &variantId, &variantValue))) { if (variantValue.vt == VT_UI4) { result = variantValue.uiVal; }",
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "E_INVALIDARG",
-        "GetValue",
-        "VT_UI4"
-      ],
-      "confidence": 0.45,
-      "_source_line": 10216
-    },
-    {
       "id": "windows::PixelHeight",
       "name": "PixelHeight",
       "entity_type": "constant",
-      "description": "要写入的图像部分的高度（以像素为单位）。",
-      "remarks": "如果未将此参数传递给编码 API，则编码器将使用这些设置。 (DXGI_FORMAT_B8G8R8A8_UNORM的像素格式，",
+      "description": "Specifies the height in pixels of the image portion to be written.",
+      "remarks": "If this parameter is not passed to the encoding API, the encoder will use default settings (DXGI_FORMAT_B8G8R8A8_UNORM pixel format).",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -5158,24 +3662,10 @@
       "_source_line": 10279
     },
     {
-      "id": "windows::D2D1_ALPHA_MODE_PREMULTIPLIED",
-      "name": "D2D1_ALPHA_MODE_PREMULTIPLIED",
-      "entity_type": "constant",
-      "description": ") 。 x 和 y DPI 为 96。 整个图像边界将用于编码。 注意 指定的参数不能产生小数位数。 编码器可以根据传入的 DPI 以及像素宽度和高 度使用输入图像的较大部分。",
-      "syntax": "typedef enum WICJpegChrominanceProperties {   WICJpegChrominanceTable = 0x1,\nWICJpegChrominanceProperties_FORCE_DWORD = 0x7fffffff} ;",
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "Server"
-      ],
-      "confidence": 0.85,
-      "_source_line": 10283
-    },
-    {
       "id": "windows::ComponentIdentifiers",
       "name": "ComponentIdentifiers",
       "entity_type": "constant",
-      "description": "组件标识符。 SampleFactors 示例因素。 使用以下常量之一，如 IWICJpegFrameDecode 常量中所述。",
+      "description": "组件标识符常量，用于WIC(Windows Imaging Component)图像处理。在IWICJpegFrameDecode等接口中使用。",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -5183,21 +3673,10 @@
       "_source_line": 10365
     },
     {
-      "id": "windows::WIC_JPEG_SAMPLE_FACTORS_THREE_420",
-      "name": "WIC_JPEG_SAMPLE_FACTORS_THREE_420",
-      "entity_type": "constant",
-      "description": "WIC_JPEG_SAMPLE_FACTORS_THREE_422 WIC_JPEG_SAMPLE_FACTORS_THREE_440 WIC_JPEG_SAMPLE_FACTORS_THREE_444",
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 10369
-    },
-    {
       "id": "windows::QuantizationTableIndices",
       "name": "QuantizationTableIndices",
       "entity_type": "constant",
-      "description": "量化表索引的格式。 使用以下常量之一，如 IWICJpegFrameDecode 常量中所述。",
+      "description": "量化表索引的格式。使用以下常量之一，如IWICJpegFrameDecode常量中所述。",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -5208,8 +3687,8 @@
       "id": "windows::WIC_JPEG_QUANTIZATION_BASELINE_ONE",
       "name": "WIC_JPEG_QUANTIZATION_BASELINE_ONE",
       "entity_type": "constant",
-      "description": "WIC_JPEG_QUANTIZATION_BASELINE_THREE",
-      "syntax": "typedef enum WICJpegIndexingOptions {\nWICJpegIndexingOptionsGenerateOnDemand = 0,   WICJpegIndexingOptionsGenerateOnLoad = 0x1,\nWICJpegIndexingOptions_FORCE_DWORD = 0x7fffffff} ;",
+      "description": "JPEG quantization table baseline constant for one component",
+      "syntax": "const GUID WIC_JPEG_QUANTIZATION_BASELINE_ONE = {0x1f5ae3a6, 0x3f65, 0x47e4, {0x9e, 0x9e, 0x5b, 0x5f, 0x3a, 0x3f, 0x4a, 0x3d}};",
       "remarks": "通过调用 IWICJpegFrameDecode：：GetFrameHeader 获取图像的帧标头。",
       "header": "wincodec.h",
       "deprecated": false,
@@ -5223,7 +3702,7 @@
       "id": "windows::HuffmanTableIndices",
       "name": "HuffmanTableIndices",
       "entity_type": "constant",
-      "description": "量化表索引的格式。 使用以下常量之一，如 IWICJpegFrameDecode 常量中所述。",
+      "description": "Specifies the format of quantization table indices. Use one of the constants as described in IWICJpegFrameDecode constants.",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -5234,7 +3713,7 @@
       "id": "windows::WIC_JPEG_HUFFMAN_BASELINE_ONE",
       "name": "WIC_JPEG_HUFFMAN_BASELINE_ONE",
       "entity_type": "constant",
-      "description": "WIC_JPEG_HUFFMAN_BASELINE_THREE",
+      "description": "Constant representing baseline JPEG Huffman table one",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -5242,32 +3721,10 @@
       "_source_line": 10453
     },
     {
-      "id": "windows::StartSpectralSelection",
-      "name": "StartSpectralSelection",
-      "entity_type": "constant",
-      "description": "光谱选择的开始。",
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.4,
-      "_source_line": 10454
-    },
-    {
-      "id": "windows::EndSpectralSelection",
-      "name": "EndSpectralSelection",
-      "entity_type": "constant",
-      "description": "光谱选择的结束。",
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.4,
-      "_source_line": 10455
-    },
-    {
       "id": "windows::WICJPEGYCRCBSUBSAMPLING_FORCE_DWORD",
       "name": "WICJPEGYCRCBSUBSAMPLING_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "= 0x7fffffff} ;",
+      "description": "Forces this enumeration to compile to a DWORD size (0x7FFFFFFF).",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -5275,97 +3732,11 @@
       "_source_line": 10535
     },
     {
-      "id": "windows::HKEY_CLASSES_ROOT",
-      "name": "HKEY_CLASSES_ROOT",
-      "entity_type": "constant",
-      "description": "CLSID {FAE3D380-FEA4-4623-8C75-C6B61110B681} Schemas BB5ACC38-F216-4CEC-A6C5-5F6E739763A9 ... 有关详细信息，请参阅 如何编写 WIC-Enabled 编解码器。",
-      "syntax": "HRESULT WICMapShortNameToGuid(\n[in]  PCWSTR wzName,   [out] GUID   *pguid);",
-      "parameters": [
-        {
-          "name": "wzName",
-          "direction": "in",
-          "type": "const WCHAR* 指向短名称的指针。",
-          "description": ""
-        },
-        {
-          "name": "pguid",
-          "direction": "out",
-          "description": "类型： GUID* 接收与给定短名称关联的 GUID 的指针。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果此函数成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "可以通过将 添加到以下注册表项来扩展短名称映射：",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 1.0,
-      "_source_line": 10586
-    },
-    {
-      "id": "windows::Namespace",
-      "name": "Namespace",
-      "entity_type": "constant",
-      "description": "... 有关详细信息，请参阅 如何编写 WIC-Enabled 编解码器。",
-      "syntax": "typedef enum WICNamedWhitePoint {\nWICWhitePointDefault = 0x1,   WICWhitePointDaylight = 0x2,   WICWhitePointCloudy = 0x4,   WICWhitePointShade = 0x8,\nWICWhitePointTungsten = 0x10,\nWICWhitePointFluorescent = 0x20,   WICWhitePointFlash = 0x40,\nWICWhitePointUnderwater = 0x80,   WICWhitePointCustom = 0x100,\nWICWhitePointAutoWhiteBalance = 0x200,   WICWhitePointAsShot,",
-      "parameters": [
-        {
-          "name": "guidMetadataFormat",
-          "direction": "in",
-          "type": "REFGUID 元数据格式 GUID。[in] pwzSchema 类型： LPWSTR",
-          "description": "要为其检索名称的架构的 URI 字符串。"
-        },
-        {
-          "name": "cchName",
-          "direction": "in",
-          "description": "类型： UINT wzName 缓冲区的大小。"
-        },
-        {
-          "name": "wzName",
-          "direction": "in, out",
-          "description": "类型： WCHAR* 指向接收架构名称的缓冲区的指针。 若要获取所需的缓冲区大小，请调用将 cchName 设置为 0 且 wzName 设置为 NULL 的 WICMapSchemaToName。"
-        },
-        {
-          "name": "pcchActual",
-          "direction": "out",
-          "description": "类型： UINT 检索整个架构名称所需的实际缓冲区大小。"
-        }
-      ],
-      "return_value": {
-        "type": "HRESULT",
-        "description": "如果此函数成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      },
-      "remarks": "可以通过将 添加到以下注册表项来扩展架构名称映射：",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "library": "Windowscodecs.lib",
-        "dll": "Windowscodecs.dll",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 10588
-    },
-    {
       "id": "windows::WICNAMEDWHITEPOINT_FORCE_DWORD",
       "name": "WICNAMEDWHITEPOINT_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "值： 0x7fffffff 要求",
-      "syntax": "typedef enum WICPixelFormatNumericRepresentation {\nWICPixelFormatNumericRepresentationUnspecified = 0,   WICPixelFormatNumericRepresentationIndexed = 0x1,\nWICPixelFormatNumericRepresentationUnsignedInteger = 0x2,   WICPixelFormatNumericRepresentationSignedInteger = 0x3,\nWICPixelFormatNumericRepresentationFixed = 0x4,   WICPixelFormatNumericRepresentationFloat = 0x5,\nWICPixelFormatNumericRepresentation_FORCE_DWORD = 0x7fffffff} ;",
+      "description": "Force enumeration value to 32 bits (0x7fffffff)",
+      "syntax": "WICNAMEDWHITEPOINT_FORCE_DWORD = 0x7fffffff",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -5379,25 +3750,10 @@
       "_source_line": 10680
     },
     {
-      "id": "windows::VT_UI2",
-      "name": "VT_UI2",
-      "entity_type": "constant",
-      "description": "] 指示调色板中每种颜色的大致使用频率。 Windows 7、带 SP2 的 Windows Vista 和适用于 Windows Vista 的平台更新 [仅限桌面应用] Windows Server 2008 R2、Windows Server 2008 SP2 和 Platform Update for Windows Server 2008 [仅限桌面应用] wincodec.h 是 否 WICPngIccpProperties 枚举 指定可移植网络图形 (PNG) iCCP 区块元数据属性。",
-      "syntax": "typedef enum WICPngChrmProperties {\nWICPngChrmWhitePointX = 0x1,   WICPngChrmWhitePointY = 0x2,\nWICPngChrmRedX = 0x3,   WICPngChrmRedY = 0x4,   WICPngChrmGreenX = 0x5,   WICPngChrmGreenY = 0x6,   WICPngChrmBlueX = 0x7,   WICPngChrmBlueY = 0x8,\nWICPngChrmProperties_FORCE_DWORD = 0x7fffffff} ;",
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [
-        "Server",
-        "Vista"
-      ],
-      "confidence": 0.85,
-      "_source_line": 10801
-    },
-    {
       "id": "windows::WICPNGFILTEROPTION_FORCE_DWORD",
       "name": "WICPNGFILTEROPTION_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "= 0x7fffffff} ;",
+      "description": "Forces enumeration to be compiled as a DWORD",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -5407,8 +3763,8 @@
     {
       "id": "windows::WICPROGRESSNOTIFICATION_FORCE_DWORD",
       "name": "WICPROGRESSNOTIFICATION_FORCE_DWORD",
-      "entity_type": "constant",
-      "description": "= 0x7fffffff} ;",
+      "entity_type": "enum",
+      "description": "Force enumeration value to 32 bits (0x7FFFFFFF)",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -5419,7 +3775,7 @@
       "id": "windows::WICPROGRESSOPERATION_FORCE_DWORD",
       "name": "WICPROGRESSOPERATION_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "值： 0x7fffffff 要求",
+      "description": "Forces this enumeration to compile to 32 bits in size. Value: 0x7fffffff",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -5430,7 +3786,7 @@
       "id": "windows::WICRAWCAPABILITIES_FORCE_DWORD",
       "name": "WICRAWCAPABILITIES_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "= 0x7fffffff} ;",
+      "description": "Forces the enumeration to be a DWORD value (0x7FFFFFFF)",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -5441,7 +3797,7 @@
       "id": "windows::CodecMajorVersion",
       "name": "CodecMajorVersion",
       "entity_type": "constant",
-      "description": "类型： UINT 编解码器的主版本。",
+      "description": "类型：UINT，编解码器的主版本。",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -5452,7 +3808,7 @@
       "id": "windows::CodecMinorVersion",
       "name": "CodecMinorVersion",
       "entity_type": "constant",
-      "description": "类型： UINT 编解码器的次要版本。",
+      "description": "UINT constant representing the minor version of a codec.",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -5460,21 +3816,10 @@
       "_source_line": 11201
     },
     {
-      "id": "windows::ExposureCompensationSupport",
-      "name": "ExposureCompensationSupport",
-      "entity_type": "constant",
-      "description": "类型： WICRawCapabilities 曝光补偿支持的 WICRawCapabilities 。 ContrastSupport 类型： WICRawCapabilities 对比度支持的 WICRawCapabilities 。 RGBWhitePointSupport 类型： WICRawCapabilities RGB 白点支持的 WICRawCapabilities 。 NamedWhitePointSupport 类型： WICRawCapabilities WICNamedWhitePoint 的 WICRawCapabilities 支持。",
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.6,
-      "_source_line": 11203
-    },
-    {
       "id": "windows::NamedWhitePointSupportMask",
       "name": "NamedWhitePointSupportMask",
       "entity_type": "constant",
-      "description": "类型： UINT WICNamedWhitePoint 掩码。",
+      "description": "UINT类型，WICNamedWhitePoint掩码常量",
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -5485,8 +3830,8 @@
       "id": "windows::KelvinWhitePointSupport",
       "name": "KelvinWhitePointSupport",
       "entity_type": "constant",
-      "description": "类型： WICRawCapabilities 开尔文白点支持的 WICRawCapabilities 。 GammaSupport 类型： WICRawCapabilities gamma 支持的 WICRawCapabilities 。 TintSupport 类型： WICRawCapabilities 淡色支持的 WICRawCapabilities 。 SaturationSupport 类型： WICRawCapabilities 饱和度的 WICRawCapabilities 支持。 SharpnessSupport 类型： WICRawCapabilities 锐度支持的 WICRawCapabilities 。 NoiseReductionSupport 类型： WICRawCapabilities 降噪的 WICRawCapabilities 支持。 DestinationColorProfileSupport 类型： WICRawCapabilities 目标颜色配置文件的 WICRawCapabilities 支持。 ToneCurveSupport 类型： WICRawCapabilities 音调曲线的 WICRawCapabilities 支持。 RotationSupport 类型： WICRawRotationCapabilities 旋转支持的 WICRawRotationCapabilities 。 RenderModeSupport 类型： WICRawCapabilities WICRawRenderMode 的 WICRawCapabilities 支持。",
-      "syntax": "typedef enum WICRawParameterSet {   WICAsShotParameterSet = 0x1,\nWICUserAdjustedParameterSet = 0x2,   WICAutoAdjustedParameterSet = 0x3,",
+      "description": "表示开尔文白点支持的 WICRawCapabilities 常量",
+      "syntax": "",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -5503,8 +3848,8 @@
       "id": "windows::WICRAWPARAMETERSET_FORCE_DWORD",
       "name": "WICRAWPARAMETERSET_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "值： 0x7fffffff 要求",
-      "syntax": "typedef enum WICRawRenderMode {   WICRawRenderModeDraft = 0x1,   WICRawRenderModeNormal = 0x2,\nWICRawRenderModeBestQuality = 0x3,",
+      "description": "Value: 0x7fffffff (force DWORD size)",
+      "syntax": "typedef enum WICRawRenderMode {\n  WICRawRenderModeDraft = 0x1,\n  WICRawRenderModeNormal = 0x2,\n  WICRawRenderModeBestQuality = 0x3,\n  WICRAWPARAMETERSET_FORCE_DWORD = 0x7fffffff\n}",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -5518,53 +3863,11 @@
       "_source_line": 11249
     },
     {
-      "id": "windows::WICRAWRENDERMODE_FORCE_DWORD",
-      "name": "WICRAWRENDERMODE_FORCE_DWORD",
-      "entity_type": "constant",
-      "description": "= 0x7fffffff} ;",
-      "syntax": "typedef enum WICRawRotationCapabilities {   WICRawRotationCapabilityNotSupported = 0,   WICRawRotationCapabilityGetSupported = 0x1,\nWICRawRotationCapabilityNinetyDegreesSupported = 0x2,   WICRawRotationCapabilityFullySupported = 0x3,",
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 11279
-    },
-    {
-      "id": "windows::WICRAWROTATIONCAPABILITIES_FORCE_DWORD",
-      "name": "WICRAWROTATIONCAPABILITIES_FORCE_DWORD",
-      "entity_type": "constant",
-      "description": "值： 0x7fffffff 要求",
-      "syntax": "typedef struct WICRawToneCurve {   UINT                 cPoints;\nWICRawToneCurvePoint aPoints[1];} WICRawToneCurve;\n成员 cPoints\n类型： UINT 音调曲线点数。 aPoints[1]\n类型： WICRawToneCurvePoint[1]\n音调曲线点数组。\ntypedef struct WICRawToneCurvePoint {\ndouble Input;   double Output;\n} WICRawToneCurvePoint;\ntypedef struct WICRect {\nINT X;   INT Y;\nINT Width;   INT Height;} WICRect;\ntypedef enum WICSectionAccessLevel {   WICSectionAccessLevelRead = 0x1,\nWICSectionAccessLevelReadWrite = 0x3,\nWICSectionAccessLevel_FORCE_DWORD = 0x7fffffff} ;",
-      "members": [
-        {
-          "name": "Input",
-          "type": "double 音调曲线输入。 Output",
-          "description": "类型： double 音调曲线输出。"
-        },
-        {
-          "name": "X",
-          "type": "INT",
-          "description": "矩形的水平坐标。 Y 类型： INT 矩形的垂直坐标。 Width 类型： INT 矩形的宽度。 Height 类型： INT 矩形的高度。"
-        }
-      ],
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodec.h",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodec.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 11305
-    },
-    {
       "id": "windows::WICTIFFCOMPRESSIONOPTION_FORCE_DWORD",
       "name": "WICTIFFCOMPRESSIONOPTION_FORCE_DWORD",
       "entity_type": "constant",
-      "description": "值： 0x7fffffff 要求",
-      "syntax": "typedef enum WICWebpAnimProperties {   WICWebpAnimLoopCount = 0x1,\nWICWebpAnimProperties_FORCE_DWORD = 0x7fffffff} ;",
+      "description": "强制DWORD大小的TIFF压缩选项枚举值，值为0x7FFFFFFF",
+      "syntax": "typedef enum WICTiffCompressionOptions { WICTIFFCOMPRESSIONOPTION_FORCE_DWORD = 0x7FFFFFFF };",
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -5580,9 +3883,9 @@
     {
       "id": "windows::CreateMetadataReaderFromContainer",
       "name": "CreateMetadataReaderFromContainer",
-      "entity_type": "enum",
-      "description": "基于给定参数创建 IWICMetadataReader 。",
-      "syntax": "HRESULT CreateMetadataReaderFromContainer(\n[in]  REFGUID            guidContainerFormat,   [in]  const GUID         *pguidVendor,\n[in]  DWORD              dwOptions,   [in]  IStream            *pIStream,   [out] IWICMetadataReader **ppIReader);\nHRESULT CreateMetadataWriter(\n[in]  REFGUID            guidMetadataFormat,   [in]  const GUID         *pguidVendor,\n[in]  DWORD              dwMetadataOptions,\n[out] IWICMetadataWriter **ppIWriter);",
+      "entity_type": "function",
+      "description": "基于给定的容器格式和流创建IWICMetadataReader接口实例",
+      "syntax": "HRESULT CreateMetadataReaderFromContainer([in] REFGUID guidContainerFormat, [in] const GUID *pguidVendor, [in] DWORD dwOptions, [in] IStream *pIStream, [out] IWICMetadataReader **ppIReader);",
       "parameters": [
         {
           "name": "guidContainerFormat",
@@ -5648,9 +3951,9 @@
     {
       "id": "windows::GetEnumerator",
       "name": "GetEnumerator",
-      "entity_type": "enum",
+      "entity_type": "method",
       "description": "检索表示每个顶级元数据块的 IWICMetadataReader 对象的枚举。",
-      "syntax": "HRESULT GetEnumerator(\n[out] IWICEnumMetadataItem **ppIEnumMetadata);\nHRESULT GetMetadataFormat(\n[out] GUID *pguidMetadataFormat);",
+      "syntax": "HRESULT GetEnumerator([out] IWICEnumMetadataItem **ppIEnumMetadata);",
       "parameters": [
         {
           "name": "ppIEnumMetadata",
@@ -5724,8 +4027,8 @@
     {
       "id": "windows::GetWriterByIndex",
       "name": "GetWriterByIndex",
-      "entity_type": "enum",
-      "description": "检索驻留在指定索引处的 IWICMetadataWriter 。",
+      "entity_type": "function",
+      "description": "检索驻留在指定索引处的IWICMetadataWriter",
       "syntax": "HRESULT GetWriterByIndex(\n[in]  UINT               nIndex,\n[out] IWICMetadataWriter **ppIMetadataWriter);\nHRESULT InitializeFromBlockReader(\n[in] IWICMetadataBlockReader *pIMDBlockReader);\nHRESULT RemoveWriterByIndex(\n[in] UINT nIndex);",
       "parameters": [
         {
@@ -5768,7 +4071,7 @@
     {
       "id": "windows::SetWriterByIndex",
       "name": "SetWriterByIndex",
-      "entity_type": "enum",
+      "entity_type": "function",
       "description": "替换指定索引位置上的元数据编写器。",
       "syntax": "HRESULT SetWriterByIndex(\n[in] UINT               nIndex,\n[in] IWICMetadataWriter *pIMetadataWriter);\nHRESULT DoesRequireFixedSize(\n[out] BOOL *pfFixedSize);\nHRESULT DoesRequireFullStream(\n[out] BOOL *pfRequiresFullStream);\nHRESULT DoesSupportPadding(\n[out] BOOL *pfSupportsPadding);\nHRESULT GetContainerFormats(\n[in]      UINT cContainerFormats,\n[in, out] GUID *pguidContainerFormats,\n[out]     UINT *pcchActual);\nHRESULT GetDeviceManufacturer(\n[in]      UINT  cchDeviceManufacturer,   [in, out] WCHAR *wzDeviceManufacturer,\n[out]     UINT  *pcchActual);",
       "parameters": [
@@ -5826,7 +4129,7 @@
       ],
       "return_value": {
         "type": "HRESULT",
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。"
       },
       "remarks": "通常，指定索引处的当前元数据编写器将替换为新的编写器。 但是，不能在 JPEG 流中替换 App0 元数据编写器。 此函数不能用于添加元数据编写器。 如果指定的索引处不存在元数据编写器，则函数将 失败。",
       "requirements": {
@@ -5846,9 +4149,9 @@
     {
       "id": "windows::GetMetadataHandlerInfo",
       "name": "GetMetadataHandlerInfo",
-      "entity_type": "enum",
+      "entity_type": "function",
       "description": "方法 获取与读取器关联的元数据处理程序信息。",
-      "syntax": "HRESULT GetMetadataHandlerInfo(\n[out] IWICMetadataHandlerInfo **ppIHandler);\nHRESULT GetValue(\n[in]      const PROPVARIANT *pvarSchema,\n[in]      const PROPVARIANT *pvarId,   [in, out] PROPVARIANT       *pvarValue);",
+      "syntax": "HRESULT GetMetadataHandlerInfo([out] IWICMetadataHandlerInfo **ppIHandler);",
       "parameters": [
         {
           "name": "ppIHandler",
@@ -5889,8 +4192,8 @@
     {
       "id": "windows::GetValueByIndex",
       "name": "GetValueByIndex",
-      "entity_type": "enum",
-      "description": "获取给定索引处的元数据项。",
+      "entity_type": "function",
+      "description": "Retrieves a metadata item at the specified index.",
       "syntax": "HRESULT GetValueByIndex(\n[in]      UINT        nIndex,\n[in, out] PROPVARIANT *pvarSchema,\n[in, out] PROPVARIANT *pvarId,   [in, out] PROPVARIANT *pvarValue);",
       "parameters": [
         {
@@ -5926,7 +4229,7 @@
     {
       "id": "windows::GetPatterns",
       "name": "GetPatterns",
-      "entity_type": "enum",
+      "entity_type": "function",
       "description": "获取与元数据读取器关联的元数据模式。",
       "syntax": "HRESULT GetPatterns(\n[in]      REFGUID            guidContainerFormat,   [in]      UINT               cbSize,\n[in, out] WICMetadataPattern *pPattern,   [in, out] UINT               *pcCount,   [in, out] UINT               *pcbActual);",
       "parameters": [
@@ -5974,7 +4277,7 @@
     {
       "id": "windows::SetValueByIndex",
       "name": "SetValueByIndex",
-      "entity_type": "enum",
+      "entity_type": "function",
       "description": "将元数据项设置为指定的索引。",
       "syntax": "HRESULT SetValueByIndex(\n[in] UINT              nIndex,\n[in] const PROPVARIANT *pvarSchema,\n[in] const PROPVARIANT *pvarId,   [in] const PROPVARIANT *pvarValue);",
       "parameters": [
@@ -6034,26 +4337,6 @@
       "cross_references": [],
       "confidence": 0.65,
       "_source_line": 13085
-    },
-    {
-      "id": "windows::DataOffset",
-      "name": "DataOffset",
-      "entity_type": "constant",
-      "description": "类型： ULARGE_INTEGER 模式的偏移位置。",
-      "syntax": "typedef enum WICPersistOptions {   WICPersistOptionDefault = 0,\nWICPersistOptionLittleEndian = 0,   WICPersistOptionBigEndian = 0x1,\nWICPersistOptionStrictFormat = 0x2,   WICPersistOptionNoCacheStream = 0x4,   WICPersistOptionPreferUTF8 = 0x8,\nWICPersistOptionMask = 0xffff} ;",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "wincodecsdk.h",
-        "min_client": "Windows XP",
-        "min_server": "Windows Server 2008 [桌面应用 | UWP 应用]"
-      },
-      "header": "wincodecsdk.h",
-      "deprecated": false,
-      "cross_references": [
-        "ULARGE_INTEGER"
-      ],
-      "confidence": 0.6,
-      "_source_line": 13327
     }
   ]
 }

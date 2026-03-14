@@ -1,17 +1,6 @@
 {
-  "_schema": "windows_api_kg_v4.0",
-  "_generated_at": "2026-03-05T08:06:50Z",
-  "_content_hash": "69ed34e6447c",
-  "document": {
-    "document_id": "hardware-drivers-ddi::gpiobtn",
-    "title": "硬件通知",
-    "domain": "hardware-drivers-ddi",
-    "topic": "gpiobtn",
-    "source_file": "[OCR]_windows-hardware-drivers-ddi-_gpiobtn_20260305_0122.p.txt",
-    "ocr_timestamp": "2026-03-05T01:22:00",
-    "headers_referenced": [],
-    "total_entities": 28
-  },
+  "_schema": "windows_api_kg_v4.0_refined",
+  "_generated_at": "2026-03-06T08:42:00.632686+00:00",
   "entities": [
     {
       "id": "windows::HWN_CLX_EXPORT_INDEX",
@@ -29,7 +18,7 @@
       "id": "windows::HWN_CLIENT_GET_STATE",
       "name": "HWN_CLIENT_GET_STATE",
       "entity_type": "enum",
-      "description": "由客户端驱动程序实现以获取硬件通知组件状态。 当用户请求状态信息时会调用它。 HWN_CLIENT_INITIALIZE_DEVICE 由客户端驱动程序实现，并因调用EVT_WDF_DEVICE_PREPARE_HARDWARE而调用。 HWN_CLIENT_QUERY_DEVICE_INFORMATION 由客户端驱动程序实现以检索硬件通知组件属性。 HWN_CLIENT_SET_STATE 由客户端驱动程序实现以设置硬件通知组件状态。 当用户想要更改驱动程序的状态时，将调用它。 HWN_CLIENT_START_DEVICE 由客户端驱动程序实现以启动硬件通知组件。 调用EVT_WDF_DEVICE_D0_ENTRY时调用它。 HWN_CLIENT_STOP_DEVICE 由客户端驱动程序实现以启动硬件通知组件。 调用EVT_WDF_DEVICE_D0_EXIT时调用它。 HWN_CLIENT_UNINITIALIZE_DEVICE 由客户端驱动程序实现，并在调用EVT_WDF_DEVICE_RELEASE_HARDWARE时调用。 此回调函数取消初始 化硬件通知组件。结构",
+      "description": "由客户端驱动程序实现以获取硬件通知组件状态。当用户请求状态信息时会调用它。",
       "parameters": [
         {
           "name": "Context",
@@ -53,8 +42,8 @@
     {
       "id": "windows::HwNProcessAddDevicePostDeviceCreate",
       "name": "HwNProcessAddDevicePostDeviceCreate",
-      "entity_type": "unknown",
-      "description": "创建 I/O 队列。 应在调用客户端驱动程序的EVT_WDF_DRIVER_DEVICE_ADD回调函数并创建设备对象后调用它。",
+      "entity_type": "function",
+      "description": "Creates I/O queues. Should be called after the client driver's EVT_WDF_DRIVER_DEVICE_ADD callback function is invoked and the device object is created.",
       "header": "hwnclx.h",
       "deprecated": false,
       "cross_references": [],
@@ -64,8 +53,8 @@
     {
       "id": "windows::HwNProcessAddDevicePreDeviceCreate",
       "name": "HwNProcessAddDevicePreDeviceCreate",
-      "entity_type": "enum",
-      "description": "函 向 Windows Driver Foundation（WDF）提供设备准备/发布和进入/退出回调，以便将设备转换为不同的状态。 当 WDF 调用驱动程序的 EVT_WDF_DRIVER_DEVICE_ADD 例程，但在创建设备对象之前，客户端驱动程序应调用此函数。",
+      "entity_type": "function",
+      "description": "向Windows Driver Foundation（WDF）提供设备准备/发布和进入/退出回调，以便将设备转换为不同的状态。当WDF调用驱动程序的EVT_WDF_DRIVER_DEVICE_ADD例程，但在创建设备对象之前，客户端驱动程序应调用此函数。",
       "syntax": "FORCEINLINE NTSTATUS  HwNProcessAddDevicePreDeviceCreate(   _In_  WDFDRIVER               Driver,\n_In_  PWDFDEVICE_INIT         DeviceInit,   _Out_ PWDF_OBJECT_ATTRIBUTES  FdoAttributes);",
       "parameters": [
         {
@@ -95,8 +84,8 @@
     {
       "id": "windows::HwNRegisterClient",
       "name": "HwNRegisterClient",
-      "entity_type": "enum",
-      "description": "使用类扩展注册硬件通知客户端驱动程序及其回调函数。 HwNUnregisterClient 使用类扩展注销硬件通知客户端驱动程序及其回调函数。 卸载客户端驱动程序时，应调用此函数。回调函数",
+      "entity_type": "function",
+      "description": "Registers a hardware notification client driver and its callback functions using the class extension. This function should be called when unloading the client driver.",
       "syntax": "FORCEINLINE NTSTATUS  HwNRegisterClient(\n_In_    WDFDRIVER                        Driver,\n_Inout_ PHWN_CLIENT_REGISTRATION_PACKET  RegistrationPacket,\n_In_    PUNICODE_STRING                  RegistryPath);",
       "parameters": [
         {
@@ -121,14 +110,15 @@
         "HwNUnregisterClient"
       ],
       "confidence": 0.85,
-      "_source_line": 26
+      "_source_line": 26,
+      "remarks": "通过设置 HWN_CLIENT_REGISTRATION_PACKET 的相应成员，然后调用 HwNRegisterClient来注册此回调函数的实现。 如果 InputBuffer 为 NULL，则输出缓冲区将用于存储 HWN_HEADER 结构，其中包含驱动程序实现的硬件通知的所有设置。 硬件通知组件的设置存储在 HWN_SETTINGS 结构中。 HWN_HEADER 结构的 HwNSettingsInfo 字段包含 HWN_SETTINGS 结构的数组。 如果 InputBuffer 不为 null 且格式正确，则它将包含一个或多个 HWN_SETTINGS 结构的 HWN_HEADER。 请求的硬件通知组件的 ID 存储在 HWN_SETTINGS 结构的 HwNId 字段中。 其余设置应为有效设置或零。 如果 OutputBuffer 不足以包含请求的所有设置，则此函数不应将任何内容写入 OutputBuffer。 此外，它应将 BytesRead 设置为 0 并返回错误。"
     },
     {
       "id": "windows::CLIENT_DEVICE_INFORMATION",
       "name": "CLIENT_DEVICE_INFORMATION",
-      "entity_type": "enum",
-      "description": "硬件通知回调HWN_CLIENT_QUERY_DEVICE_INFORMATION使用CLIENT_DEVICE_INFORMATION结构返回 客户端设备驱动程序提供的硬件通知总数。 HWN_CLIENT_REGISTRATION_PACKET 注册客户端驱动程序时传递给类扩展的硬件通知客户端驱动程序注册数据包。 包含版本信息和客户端驱动程序回调函数。",
-      "syntax": "typedef struct _CLIENT_DEVICE_INFORMATION {\nUSHORT  Version;   USHORT  Size;\nUSHORT  TotalHwNs;\n} CLIENT_DEVICE_INFORMATION, CLIENT_DEVICE_INFORMATION;",
+      "entity_type": "structure",
+      "description": "CLIENT_DEVICE_INFORMATION结构包含客户端设备驱动程序提供的硬件通知信息。该结构在硬件通知回调HWN_CLIENT_QUERY_DEVICE_INFORMATION中使用，用于返回硬件通知总数。",
+      "syntax": "typedef struct _CLIENT_DEVICE_INFORMATION {\n  USHORT Version;\n  USHORT Size;\n  USHORT TotalHwNs;\n} CLIENT_DEVICE_INFORMATION;",
       "members": [
         {
           "name": "Version",
@@ -152,8 +142,8 @@
     {
       "id": "windows::HWN_CLIENT_REGISTRATION_PACKET",
       "name": "HWN_CLIENT_REGISTRATION_PACKET",
-      "entity_type": "enum",
-      "description": "和 框架对象上下文空间。[in] ResourcesRaw 处理框架资源列表对象，该对象标识即插即用管理器分配给设备的原始硬件资源。[in] ResourcesTranslated 处理框架资源列表对象，该对象标识即插即用管理器分配给设备的已转换硬件资源。",
+      "entity_type": "structure",
+      "description": "Contains client registration information for hardware notifications.",
       "syntax": "typedef struct _HWN_CLIENT_REGISTRATION_PACKET {   USHORT                                Version;   USHORT                                Size;\nULONG                                 DeviceContextSize;   ULONG                                 Reserved;",
       "return_value": {
         "description": "如果作成功，则返回STATUS_SUCCESS。 否则，返回相应的 NTSTATUS 错误代码。"
@@ -174,76 +164,15 @@
       "_source_line": 113
     },
     {
-      "id": "windows::OutputBufferLength",
-      "name": "OutputBufferLength",
-      "entity_type": "enum",
-      "description": "必须足够大，才能包含所有请求的设置。 有关详细信息，请参 阅“备注”。 [in] OutputBufferLength",
-      "header": "hwnclx.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.6,
-      "_source_line": 116
-    },
-    {
-      "id": "windows::OutputBuffer",
-      "name": "OutputBuffer",
-      "entity_type": "enum",
-      "description": "的大小（以字节为单位）。[in] InputBuffer",
-      "header": "hwnclx.h",
-      "deprecated": false,
-      "cross_references": [
-        "InputBuffer"
-      ],
-      "confidence": 0.5,
-      "_source_line": 119
-    },
-    {
-      "id": "windows::InputBufferLength",
-      "name": "InputBufferLength",
-      "entity_type": "enum",
-      "description": "字节的缓冲区，该缓冲区包含 HWN_HEADER 一个或多个",
-      "header": "hwnclx.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.5,
-      "_source_line": 120
-    },
-    {
       "id": "windows::HWN_SETTINGS",
       "name": "HWN_SETTINGS",
-      "entity_type": "enum",
-      "description": "结构，其中请求的硬件通知组件的 ID 存储在 HwNId 字段中。 此缓冲区可以为 NULL。 [in]",
+      "entity_type": "structure",
+      "description": "包含硬件通知组件ID的结构，HwNId字段存储请求的硬件通知组件ID。此缓冲区可以为NULL。",
       "header": "hwnclx.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
       "_source_line": 121
-    },
-    {
-      "id": "windows::InputBuffer",
-      "name": "InputBuffer",
-      "entity_type": "enum",
-      "description": "的大小（以字节为单位）。[out] BytesRead 指向指示函数读取的字节数的变量的指针。",
-      "return_value": {
-        "description": "如果作成功，则返回STATUS_SUCCESS。 否则，返回相应的 NTSTATUS 错误代码。"
-      },
-      "remarks": "通过设置 HWN_CLIENT_REGISTRATION_PACKET 的相应成员，然后调用 HwNRegisterClient来注册此回调函数的实现。 如果 InputBuffer 为 NULL，则输出缓冲区将用于存储 HWN_HEADER 结构，其中包含驱动程序实现的硬件通知的所有设置。 硬件通知组件的设置存储在 HWN_SETTINGS 结构中。 HWN_HEADER 结构的 HwNSettingsInfo 字段包含 HWN_SETTINGS 结构的数组。 如果 InputBuffer 不为 null 且格式正确，则它将包含一个或多个 HWN_SETTINGS 结构的 HWN_HEADER。 请求的硬件通知组件的 ID 存储在 HWN_SETTINGS 结构的 HwNId 字段中。 其余设置应为有效设置或零。 如果 OutputBuffer 不足以包含请求的所有设置，则此函数不应将任何内容写入 OutputBuffer。 此外，它应将 BytesRead 设置为 0 并返回错误。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "hwnclx.h",
-        "min_client": "Windows 10",
-        "min_server": "Windows Server 2016"
-      },
-      "header": "hwnclx.h",
-      "deprecated": false,
-      "cross_references": [
-        "BytesRead",
-        "HWN_CLIENT_REGISTRATION_PACKET",
-        "HWN_SETTINGS",
-        "OutputBuffer"
-      ],
-      "confidence": 0.55,
-      "_source_line": 123
     },
     {
       "id": "windows::HWN_CLIENT_INITIALIZE_DEVICE",
@@ -267,41 +196,10 @@
       "_source_line": 148
     },
     {
-      "id": "windows::HWN_CLIENT_QUERY_DEVICE_INFORMATI",
-      "name": "HWN_CLIENT_QUERY_DEVICE_INFORMATI",
-      "entity_type": "enum",
-      "description": "由客户端驱动程序实现以检索硬件通知组件属性。",
-      "header": "hwnclx.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 177
-    },
-    {
-      "id": "windows::HWN_CLIENT_QUERY_DEVICE_INFORMATION",
-      "name": "HWN_CLIENT_QUERY_DEVICE_INFORMATION",
-      "entity_type": "enum",
-      "description": "HwnClientQueryDeviceInformation; NTSTATUS HwnClientQueryDeviceInformation( [in] PVOID Context, [out] PCLIENT_DEVICE_INFORMATION Information) {...}",
-      "parameters": [
-        {
-          "name": "Context",
-          "direction": "in",
-          "description": "指向客户端驱动程序上下文信息的指针。 此内存空间可供客户端驱动程序使用。 它通过 WdfDeviceCreate分配为框架对象上下文空间的一部分。 有关详细信息，请参阅"
-        }
-      ],
-      "header": "hwnclx.h",
-      "deprecated": false,
-      "cross_references": [
-        "Context"
-      ],
-      "confidence": 0.85,
-      "_source_line": 181
-    },
-    {
       "id": "windows::PHWN_CLIENT_INITIALIZE_DEVICE",
       "name": "PHWN_CLIENT_INITIALIZE_DEVICE",
       "entity_type": "enum",
-      "description": "ClientInitializeDevice; PHWN_CLIENT_UNINITIALIZE_DEVICE ClientUnInitializeDevice;",
+      "description": "Enumeration value for client device initialization",
       "header": "hwnclx.h",
       "deprecated": false,
       "cross_references": [
@@ -314,66 +212,12 @@
       "id": "windows::PHWN_CLIENT_QUERY_DEVICE_INFORMATION",
       "name": "PHWN_CLIENT_QUERY_DEVICE_INFORMATION",
       "entity_type": "enum",
-      "description": "ClientQueryDeviceInformation;",
+      "description": "Specifies the type of device information being queried",
       "header": "hwnclx.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
       "_source_line": 209
-    },
-    {
-      "id": "windows::PHWN_CLIENT_START_DEVICE",
-      "name": "PHWN_CLIENT_START_DEVICE",
-      "entity_type": "enum",
-      "description": "ClientStartDevice; PHWN_CLIENT_STOP_DEVICE ClientStopDevice; PHWN_CLIENT_SET_STATE ClientSetHwNState; PHWN_CLIENT_GET_STATE ClientGetHwNState; }",
-      "members": [
-        {
-          "name": "Version",
-          "description": "此结构的版本。 Size 此结构的大小。 DeviceContextSize 驱动程序定义的上下文结构的大小。 Reserved 保留。"
-        }
-      ],
-      "header": "hwnclx.h",
-      "deprecated": false,
-      "cross_references": [
-        "ClientStartDevice"
-      ],
-      "confidence": 0.85,
-      "_source_line": 210
-    },
-    {
-      "id": "windows::ClientInitializeDevice",
-      "name": "ClientInitializeDevice",
-      "entity_type": "enum",
-      "description": "指向客户端驱动程序实现 HWN_CLIENT_INITIALIZE_DEVICE 回调函数的指针。 ClientUnInitializeDevice 指向客户端驱动程序实现 HWN_CLIENT_UNINITIALIZE_DEVICE 回调函数的指针。 ClientQueryDeviceInformation 指向客户端驱动程序实现",
-      "header": "hwnclx.h",
-      "deprecated": false,
-      "cross_references": [
-        "HWN_CLIENT_INITIALIZE_DEVICE",
-        "HWN_CLIENT_UNINITIALIZE_DEVICE"
-      ],
-      "confidence": 0.6,
-      "_source_line": 217
-    },
-    {
-      "id": "windows::ClientStartDevice",
-      "name": "ClientStartDevice",
-      "entity_type": "enum",
-      "description": "指向客户端驱动程序实现 HWN_CLIENT_START_DEVICE 回调函数的指针。 ClientStopDevice 指向客户端驱动程序实现 HWN_CLIENT_STOP_DEVICE 回调函数的指针。 ClientSetHwNState 指向客户端驱动程序实现 HWN_CLIENT_SET_STATE 回调函数的指针。 ClientGetHwNState 指向客户端驱动程序实现",
-      "requirements": {
-        "header": "hwnclx.h",
-        "target_platform": "Windows",
-        "min_client": "Windows 10",
-        "min_server": "Windows Server 2016"
-      },
-      "header": "hwnclx.h",
-      "deprecated": false,
-      "cross_references": [
-        "HWN_CLIENT_SET_STATE",
-        "HWN_CLIENT_START_DEVICE",
-        "HWN_CLIENT_STOP_DEVICE"
-      ],
-      "confidence": 0.6,
-      "_source_line": 221
     },
     {
       "id": "windows::HWN_CLIENT_SET_STATE",
@@ -397,30 +241,6 @@
       ],
       "confidence": 0.85,
       "_source_line": 239
-    },
-    {
-      "id": "windows::Buffer",
-      "name": "Buffer",
-      "entity_type": "enum",
-      "description": "的大小（以字节为单位）。[out] BytesWritten 指向指示函数写入的字节数的变量的指针。",
-      "return_value": {
-        "description": "如果作成功，则返回STATUS_SUCCESS。 否则，返回相应的 NTSTATUS 错误代码。"
-      },
-      "remarks": "通过设置 HWN_CLIENT_REGISTRATION_PACKET 的相应成员，然后调用 HwNRegisterClient来注 册此回调函数的实现。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "hwnclx.h",
-        "min_client": "Windows 10",
-        "min_server": "Windows Server 2016"
-      },
-      "header": "hwnclx.h",
-      "deprecated": false,
-      "cross_references": [
-        "BytesWritten",
-        "HWN_CLIENT_REGISTRATION_PACKET"
-      ],
-      "confidence": 0.55,
-      "_source_line": 252
     },
     {
       "id": "windows::HWN_CLIENT_START_DEVICE",
@@ -456,7 +276,7 @@
     {
       "id": "windows::HWN_CLIENT_STOP_DEVICE",
       "name": "HWN_CLIENT_STOP_DEVICE",
-      "entity_type": "enum",
+      "entity_type": "callback",
       "description": "HwnClientStopDevice; NTSTATUS HwnClientStopDevice( [in] PVOID Context) {...}",
       "parameters": [
         {
@@ -487,8 +307,8 @@
     {
       "id": "windows::HWN_CLIENT_UNINITIALIZE_DEVICE",
       "name": "HWN_CLIENT_UNINITIALIZE_DEVICE",
-      "entity_type": "enum",
-      "description": "HwnClientUninitializeDevice; NTSTATUS HwnClientUninitializeDevice( [in] WDFDEVICE Device, [in] PVOID Context) {...}",
+      "entity_type": "function",
+      "description": "Uninitializes a hardware notification client device. This callback function is called when a hardware notification client device is being uninitialized.",
       "parameters": [
         {
           "name": "Device",
@@ -513,7 +333,7 @@
       "id": "windows::RegisterClientIndex",
       "name": "RegisterClientIndex",
       "entity_type": "enum",
-      "description": "导出表中 HwNRegisterClient 硬件通知的位置。 UnregisterClientIndex 导出表中 HwNUnregisterClient 硬件通知的位置。 AddDevicePreDeviceCreateIndex 导出表中 HwNProcessAddDevicePreDeviceCreate 硬件通知的位置。 AddDevicePostDeviceCreateIndex 导出表中",
+      "description": "Defines indexes for hardware notification positions in export tables. Contains values for RegisterClientIndex (HwNRegisterClient), UnregisterClientIndex (HwNUnregisterClient), AddDevicePreDeviceCreateIndex (HwNProcessAddDevicePreDeviceCreate), and AddDevicePostDeviceCreateIndex.",
       "requirements": {
         "header": "hwnclx.h",
         "target_platform": "Windows",
@@ -533,8 +353,8 @@
     {
       "id": "windows::HwNProcessAddDevicePostDeviceCreat",
       "name": "HwNProcessAddDevicePostDeviceCreat",
-      "entity_type": "enum",
-      "description": "创建 I/O 队列。 应在调用客户端驱动程序的 EVT_WDF_DRIVER_DEVICE_ADD 回调函数并创建设备对象后调用它。",
+      "entity_type": "function",
+      "description": "创建I/O队列。应在调用客户端驱动程序的EVT_WDF_DRIVER_DEVICE_ADD回调函数并创建设备对象后调用。",
       "syntax": "FORCEINLINE NTSTATUS  HwNProcessAddDevicePostDeviceCreate(\n_In_ WDFDRIVER  Driver,   _In_ WDFDEVICE  Device,\n_In_ LPGUID     DeviceGuid);",
       "parameters": [
         {
@@ -564,7 +384,7 @@
     {
       "id": "windows::HwNUnregisterClient",
       "name": "HwNUnregisterClient",
-      "entity_type": "enum",
+      "entity_type": "function",
       "description": "使用类扩展注销硬件通知客户端驱动程序及其回调函数。 卸载客户端驱动程序时，应调用此函数。",
       "syntax": "FORCEINLINE NTSTATUS  HwNUnregisterClient(\n_In_ WDFDRIVER  Driver);",
       "parameters": [

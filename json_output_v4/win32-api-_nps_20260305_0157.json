@@ -1,25 +1,41 @@
 {
-  "_schema": "windows_api_kg_v4.0",
-  "_generated_at": "2026-03-05T08:07:21Z",
-  "_content_hash": "e8f2e32ae6fa",
-  "document": {
-    "document_id": "win32-api::nps",
-    "title": "网络策略服务器",
-    "domain": "win32-api",
-    "topic": "nps",
-    "source_file": "[OCR]_windows-win32-api-_nps_20260305_0157.p.txt",
-    "ocr_timestamp": "2026-03-05T01:57:00",
-    "headers_referenced": [
-      "authif.h"
-    ],
-    "total_entities": 420
-  },
+  "_schema": "windows_api_kg_v4.0_refined",
+  "_generated_at": "2026-03-06T08:42:00.726756+00:00",
   "entities": [
+    {
+      "id": "windows::GetProperty",
+      "name": "GetProperty",
+      "entity_type": "method",
+      "description": "Retrieves the value of a specified property.",
+      "syntax": "HRESULT GetProperty(   [in]  LONG    Id,\n[out] VARIANT *pValue);",
+      "parameters": [
+        {
+          "name": "Id",
+          "direction": "in",
+          "description": "指定现有属性的 ID。[out] pValue 指向包含属性值的 VARIANT 的指针。"
+        }
+      ],
+      "return_value": {
+        "description": "如果该方法成功，则返回值 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
+      },
+      "requirements": {
+        "target_platform": "Windows",
+        "header": "sdoias.h",
+        "min_server": "Windows Server 2008"
+      },
+      "header": "sdoias.h",
+      "deprecated": false,
+      "cross_references": [
+        "GetPropertyInfo"
+      ],
+      "confidence": 0.75,
+      "_source_line": 142
+    },
     {
       "id": "windows::AUTHENTICATION_TYPE",
       "name": "AUTHENTICATION_TYPE",
       "entity_type": "enum",
-      "description": "枚举类型的值用于指定身份验证方法。 CLIENTPROPERTIES CLIENTPROPERTIES 类型的值枚举 RADIUS 客户端的属性。 SDO 计算机是 RADIUS 服务器。 CONDITIONPROPERTIES CONDITIONPROPERTIES 枚举类型的值指定网络访问策略的属性 (NAP) 条件。 DICTIONARYPROPERTIES DICTIONARYPROPERTIES 属性类型的值枚举与属性字典关联的属性。 IASCOMMONPROPERTIES IASCOMMONPROPERTIES 枚举类型的值枚举所有 SDO 对象中存在的属性。 IASCOMPONENTPROPERTIES IASCOMPONENTPROPERTIES 枚举类型的值枚举 SDO 对象的标识符。 IASDATASTORE IASDATASTORE 枚举的值指示 SDO 数据的可能存储位置。 IASDOMAINTYPE IASDOMAINTYPE 枚举类型的值指定 SDO 计算机是否是域的一部分，如果是，则指定域的类型。 IASOSTYPE IASOSTYPE 枚举类型的值指定客户端请求身份验证的操作系统类型， (SDO 计算机) 正在运行。 IASPROPERTIES IASPROPERTIES 枚举类型的值枚举与 NPS 相关的属性。",
+      "description": "枚举类型，用于指定身份验证方法。包含多种与RADIUS服务器、网络访问策略(NAP)条件、属性字典等相关的子枚举类型。",
       "syntax": "typedef enum _AUTHENTICATION_TYPE {",
       "header": "sdoias.h",
       "deprecated": false,
@@ -31,7 +47,7 @@
       "id": "windows::MS_ATTRIBUTE_IDENTITY_TYPE",
       "name": "MS_ATTRIBUTE_IDENTITY_TYPE",
       "entity_type": "enum",
-      "description": "的不同可能值。 NAMESPROPERTIES NAMESPROPERTIES 枚举类型的值枚举与请求网络访问的用户的名称相关的属性。 NAPPROPERTIES NAPPROPERTIES 枚举类型的值指定网络访问策略 (NAP) 的属性。",
+      "description": "Specifies the type of identity attributes for network access requests. Possible values include NAMESPROPERTIES (attributes related to user names) and NAPPROPERTIES (Network Access Policy attributes).",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -42,7 +58,7 @@
       "id": "windows::NEW_LOG_FILE_FREQUENCY",
       "name": "NEW_LOG_FILE_FREQUENCY",
       "entity_type": "enum",
-      "description": "枚举类型的值指定创建新日志文件的频率。 NTEVENTLOGPROPERTIES NTEVENTLOGPROPERTIES 枚举类型的值枚举枚举应记录在 NT 事件日志中的事件类型。 NTSAMPROPERTIES NTSAMPROPERTIES 枚举类型的值指定与 NT 安全帐户管理器 (SAM) 相关的属性。 POLICYPROPERTIES POLICYPROPERTIES 枚举类型的值枚举网络访问策略 (NAP) 的属性。 PROFILEPROPERTIES PROFILEPROPERTIES 枚举类型枚举与配置文件关联的属性。 PROTOCOLPROPERTIES PROTOCOLPROPERTIES 枚举类型的值枚举身份验证协议的属性。 RADIUSPROPERTIES RADIUSPROPERTIES 枚举类型的值枚举 Microsoft RADIUS 协议 SDO 的属性。 RADIUSPROXYPROPERTIES RADIUSPROXYPROPERTIES 枚举类型中的值枚举与 RADIUS 代理服务相关的属性。 RADIUSSERVERGROUPPROPERTIES RADIUSSERVERGROUPPROPERTIES 枚举类型中的值枚举 RADIUS 服务器组的属性。 RADIUSSERVERPROPERTIES RADIUSSERVERPROPERTIES 枚举类型的值枚举为 SDO 计算机的 RADIUS 服务器的属性。 REMEDIATIONSERVERGROUPPROPERTIES REMEDIATIONSERVERGROUPPROPERTIES 枚举类型的值枚举修正服务器组的属性。 REMEDIATIONSERVERPROPERTIES REMEDIATIONSERVERPROPERTIES 枚举类型的值枚举枚举修正服务器的属性。 REMEDIATIONSERVERSPROPERTIES REMEDIATIONSERVERSPROPERTIES 枚举类型的值枚举一组修正服务器组的属性。",
+      "description": "枚举类型的值指定创建新日志文件的频率。",
       "syntax": "typedef enum _NEW_LOG_FILE_FREQUENCY {   IAS_LOGGING_UNLIMITED_SIZE = 0,",
       "header": "sdoias.h",
       "deprecated": false,
@@ -54,7 +70,7 @@
       "id": "windows::RADIUS_ACTION",
       "name": "RADIUS_ACTION",
       "entity_type": "enum",
-      "description": "注意 从 Windows Server 2008 开始， (IAS) 的 Internet 身份验证服务 (NPS) 重命名为网络策略服务器。 本主题的内容适用于 IAS 和 NPS。 在整个文本中，NPS 用于引 用服务的所有版本，包括最初称为 IAS 的版本。",
+      "description": "Specifies the action to take for RADIUS authentication requests. Note: Starting with Windows Server 2008, Internet Authentication Service (IAS) was renamed to Network Policy Server (NPS).",
       "syntax": "typedef enum _RADIUS_ACTION {\nraContinue,   raReject,   raAccept\n} RADIUS_ACTION, *PRADIUS_ACTION;",
       "header": "authif.h",
       "deprecated": false,
@@ -68,7 +84,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_TYPE",
       "name": "RADIUS_ATTRIBUTE_TYPE",
       "entity_type": "enum",
-      "description": "枚举 (authif.h) Internet 身份验证服务 (IAS) 自 Windows Server 2008 起 (NPS) 重命名为网络策略服务器。 本主题的内容适用于 IAS 和 NPS。 在整个文本中，NPS 用于引用服务的所有版本，包括最初称为 IAS 的版本。",
+      "description": "枚举类型定义RADIUS协议中的属性类型，用于Internet身份验证服务(IAS)和网络策略服务器(NPS)。定义在authif.h头文件中。",
       "syntax": "typedef enum _RADIUS_ATTRIBUTE_TYPE {\nratMinimum,   ratUserName,\nratUserPassword,   ratCHAPPassword,   ratNASIPAddress,   ratNASPort,\nratServiceType,\nratFramedProtocol,   ratFramedIPAddress,   ratFramedIPNetmask,   ratFramedRouting,\nratFilterId,   ratFramedMTU,\nratFramedCompression,\nratLoginIPHost,   ratLoginService,   ratLoginPort,\nratReplyMessage,   ratCallbackNumber,\nratCallbackId,   ratFramedRoute,\nratFramedIPXNetwork,\nratState,   ratClass,\nratVendorSpecific,   ratSessionTimeout,   ratIdleTimeout,\nratTerminationAction,   ratCalledStationId,   ratCallingStationId,   ratNASIdentifier,\nratProxyState,\nratLoginLATService,\nratLoginLATNode,   ratLoginLATGroup,\nratFramedAppleTalkLink,\nratFramedAppleTalkNetwork,   ratFramedAppleTalkZone,\nratAcctStatusType,   ratAcctDelayTime,   ratAcctInputOctets,   ratAcctOutputOctets,   ratAcctSessionId,   ratAcctAuthentic,   ratAcctSessionTime,   ratAcctInputPackets,   ratAcctOutputPackets,\nratAcctTerminationCause,\nratCHAPChallenge,   ratNASPortType,\nratPortLimit,   ratTunnelType,   ratMediumType,\nratTunnelPassword,\nratTunnelPrivateGroupID,   ratNASIPv6Address,\nratFramedInterfaceId,   ratFramedIPv6Prefix,\nratLoginIPv6Host,   ratFramedIPv6Route,   ratFramedIPv6Pool,   ratCode,\nratIdentifier,\nratAuthenticator,   ratSrcIPAddress,\nratSrcPort,   ratProvider,\nratStrippedUserName,\nratFQUserName,   ratPolicyName,   ratUniqueId,\nratExtensionState,   ratEAPTLV,\nratRejectReasonCode,\nratCRPPolicyName,   ratProviderName,\nratClearTextPassword,   ratSrcIPv6Address,\nratCertificateThumbprint} RADIUS_ATTRIBUTE_TYPE;",
       "header": "authif.h",
       "deprecated": false,
@@ -82,8 +98,8 @@
       "id": "windows::RADIUS_AUTHENTICATION_PROVIDER",
       "name": "RADIUS_AUTHENTICATION_PROVIDER",
       "entity_type": "enum",
-      "description": "注意 从 Windows Server 2008 开始， (IAS) 的 Internet 身份验证服务 (NPS) 重命名为网络策略服务器。 本主题的内容适用于 IAS 和 NPS。 在整个文本中，NPS 用于引 用服务的所有版本，包括最初称为 IAS 的版本。",
-      "syntax": "typedef enum _RADIUS_AUTHENTICATION_PROVIDER {\nrapUnknown,   rapUsersFile,   rapProxy,\nrapWindowsNT,\nrapMCIS,   rapODBC,   rapNone\n} RADIUS_AUTHENTICATION_PROVIDER; 常量\nrapUnknown\n身份验证提供程序未知。 rapUsersFile\n用户的文件提供身份验证信息。 rapProxy\n身份验证由 RADIUS 代理服务器提供。\nrapWindowsNT\n身份验证由 Windows 域身份验证提供。 rapMCIS\n身份验证由 Microsoft 商业 Internet 系统 (MCIS) 数据库提供。 rapODBC\n身份验证由开放式数据库连接 (ODBC) 兼容数据库提供。 rapNone\n访问未经身份验证。",
+      "description": "从 Windows Server 2008 开始，Internet 身份验证服务 (IAS) 重命名为网络策略服务器 (NPS)。本主题内容适用于 IAS 和 NPS。NPS 用于引用服务的所有版本，包括最初称为 IAS 的版本。",
+      "syntax": "typedef enum _RADIUS_AUTHENTICATION_PROVIDER {\n  rapUnknown,\n  rapUsersFile,\n  rapProxy,\n  rapWindowsNT,\n  rapMCIS,\n  rapODBC,\n  rapNone\n} RADIUS_AUTHENTICATION_PROVIDER;",
       "header": "authif.h",
       "deprecated": false,
       "cross_references": [
@@ -96,8 +112,8 @@
       "id": "windows::RADIUS_CODE",
       "name": "RADIUS_CODE",
       "entity_type": "enum",
-      "description": "注意 从 Windows Server 2008 开始， (IAS) 的 Internet 身份验证服务 (NPS) 重命名 为网络策略服务器。 本主题的内容适用于 IAS 和 NPS。",
-      "syntax": "typedef enum _RADIUS_CODE {   rcUnknown,\nrcAccessRequest,   rcAccessAccept,   rcAccessReject,\nrcAccountingRequest,   rcAccountingResponse,\nrcAccessChallenge,   rcDiscard\n} RADIUS_CODE; 常量\nrcUnknown\n无法识别数据包类型。 这用于指示请求的处置不是由此扩展 DLL 设置的。 rcAccessRequest\nRADIUS Access-Request 数据包。 请参阅\n有关详细信息，请参阅 RFC 2865 rcAccessAccept\n。\nRADIUS Access-Accept 数据包。 请参阅\n有关详细信息，请参阅 RFC 2865 rcAccessReject\n。\nRADIUS Access-Reject 数据包。 请参阅\n有关详细信息，请参阅 RFC 2865 rcAccountingRequest\n。\nRADIUS Accounting-Request 数据包。 请参阅\n有关详细信息，请参阅 RFC 2866 rcAccountingResponse\n。\nRADIUS Accounting-Response 数据包。 请参阅\n有关详细信息，请参阅 RFC 2866 rcAccessChallenge\n。\nRADIUS Access-Challenge 数据包。 请参阅\n有关详细信息，请参阅 RFC 2865 rcDiscard\n数据包已被丢弃。\n要求要求\n最低受支持的客户端最低受支持的服务器标头\n另请参阅关于 NPS 扩展 GetResponse NPS 扩展枚举 NPS 扩展参考\n。",
+      "description": "RADIUS协议数据包类型的枚举定义，用于网络策略服务器(NPS)和Internet身份验证服务(IAS)",
+      "syntax": "typedef enum _RADIUS_CODE {\n  rcUnknown,\n  rcAccessRequest,\n  rcAccessAccept,\n  rcAccessReject,\n  rcAccountingRequest,\n  rcAccountingResponse,\n  rcAccessChallenge,\n  rcDiscard\n} RADIUS_CODE;",
       "header": "authif.h",
       "deprecated": false,
       "cross_references": [
@@ -110,8 +126,8 @@
       "id": "windows::RADIUS_DATA_TYPE",
       "name": "RADIUS_DATA_TYPE",
       "entity_type": "enum",
-      "description": "注意 从 Windows Server 2008 开始， (IAS) 的 Internet 身份验证服务 (NPS) 重命名 为网络策略服务器。 本主题的内容适用于 IAS 和 NPS。",
-      "syntax": "typedef enum _RADIUS_DATA_TYPE {\nrdtUnknown,   rdtString,   rdtAddress,   rdtInteger,   rdtTime,\nrdtIpv6Address\n} RADIUS_DATA_TYPE; 常量\nrdtUnknown\n值是指向未知数据类型的指针。 rdtString\n特性的值是指向字符串的指针。 rdtAddress\n属性的值是表示地址的 32 位 DWORD 值。 rdtInteger\n属性的值是表示整数的 32 位 DWORD 值。 rdtTime\n属性的值是表示时间的 32 位 DWORD 值。\nrdtIpv6Address\n属性的值是表示 IPv6 地址的 BYTE* 值。\n要求要求\n最低受支持的客户端最低受支持的服务器标头\n另请参阅关于 NPS 扩展 NPS 扩展枚举 NPS 扩展参考",
+      "description": "Specifies the data type used in RADIUS attributes. Note: Starting with Windows Server 2008, Internet Authentication Service (IAS) was renamed to Network Policy Server (NPS).",
+      "syntax": "typedef enum _RADIUS_DATA_TYPE {\n  rdtUnknown,\n  rdtString,\n  rdtAddress,\n  rdtInteger,\n  rdtTime,\n  rdtIpv6Address\n} RADIUS_DATA_TYPE;\n\nConstants:\nrdtUnknown - Pointer to unknown data type\nrdtString - Pointer to string\nrdtAddress - 32-bit DWORD representing address\nrdtInteger - 32-bit DWORD representing integer\nrdtTime - 32-bit DWORD representing time\nrdtIpv6Address - BYTE* representing IPv6 address",
       "header": "authif.h",
       "deprecated": false,
       "cross_references": [
@@ -124,8 +140,8 @@
       "id": "windows::RADIUS_EXTENSION_POINT",
       "name": "RADIUS_EXTENSION_POINT",
       "entity_type": "enum",
-      "description": "枚举 注意 Internet 身份验证服务 (IAS) 自 Windows Server 2008 起 (NPS) 重命名为网络策 略服务器。 本主题的内容适用于 IAS 和 NPS。 当可以调用 RadiusExtensionProcess2 函数时，RADIUS_EXTENSION_POINT枚举枚举 RADIUS 请求进程中的可能点。",
-      "syntax": "typedef enum _RADIUS_EXTENSION_POINT {\nrepAuthentication,   repAuthorization\n} RADIUS_EXTENSION_POINT; 常量\nrepAuthentication 指示",
+      "description": "枚举类型，定义了RADIUS请求处理过程中可能调用的扩展点。注意：Internet身份验证服务(IAS)从Windows Server 2008起更名为网络策略服务器(NPS)。本内容适用于IAS和NPS。",
+      "syntax": "typedef enum _RADIUS_EXTENSION_POINT {\n  repAuthentication,\n  repAuthorization\n} RADIUS_EXTENSION_POINT;",
       "header": "authif.h",
       "deprecated": false,
       "cross_references": [
@@ -139,7 +155,7 @@
       "id": "windows::RADIUS_REJECT_REASON_CODE",
       "name": "RADIUS_REJECT_REASON_CODE",
       "entity_type": "enum",
-      "description": "枚举定义可能的 RADIUS 数据包拒绝代码。 RADIUSPROPERTIES RADIUSPROPERTIES 枚举类型的值枚举 Microsoft RADIUS 协议 SDO 的属性。 RADIUSPROXYPROPERTIES RADIUSPROXYPROPERTIES 枚举类型中的值枚举与 RADIUS 代理服务相关的属性。 RADIUSSERVERGROUPPROPERTIES RADIUSSERVERGROUPPROPERTIES 枚举类型中的值枚举 RADIUS 服务器组的属性。 RADIUSSERVERPROPERTIES RADIUSSERVERPROPERTIES 枚举类型的值枚举 RADIUS 服务器的属性（即 SDO 计算机）。 REMEDIATIONSERVERGROUPPROPERTIES REMEDIATIONSERVERGROUPPROPERTIES 枚举类型的值枚举修正服务器组的属性。 REMEDIATIONSERVERPROPERTIES REMEDIATIONSERVERPROPERTIES 枚举类型的值枚举修正服务器的属性。 REMEDIATIONSERVERSPROPERTIES REMEDIATIONSERVERSPROPERTIES 枚举类型的值枚举一组修正服务器组的属性。",
+      "description": "枚举定义可能的 RADIUS 数据包拒绝代码。",
       "syntax": "typedef enum _RADIUS_REJECT_REASON_CODE {   rrrcUndefined = 0,\nrrrcAccountUnknown = 1,   rrrcAccountDisabled = 2,   rrrcAccountExpired = 3,\nrrrcAuthenticationFailure = 4} RADIUS_REJECT_REASON_CODE;",
       "header": "authif.h",
       "deprecated": false,
@@ -151,7 +167,7 @@
       "id": "windows::SERVICE_TYPE",
       "name": "SERVICE_TYPE",
       "entity_type": "enum",
-      "description": "枚举类型的值指定从 SDO API 管理的服务的类型。",
+      "description": "枚举类型，指定由 SDO API 管理的服务类型。",
       "syntax": "typedef enum _SERVICE_TYPE {",
       "header": "sdoias.h",
       "deprecated": false,
@@ -163,7 +179,7 @@
       "id": "windows::SHV_COMBINATION_TYPE",
       "name": "SHV_COMBINATION_TYPE",
       "entity_type": "enum",
-      "description": "枚举类型指定系统运行状况验证程序 (SHV) 组合的类型。 SHVTEMPLATEPROPERTIES SHVTEMPLATEPROPERTIES 枚举类型的值枚举系统运行状况验证程序 (SHV) 模板的属性。 USERPROPERTIES USERPROPERTIES 枚举类型的值枚举 SDO API 支持的用户属性。 VENDORPROPERTIES VENDORPROPERTIES 枚举类型的值指定供应商集合中对象的属性。反馈 (sdoias.h) 的 ACCOUNTINGPROPERTIES 注意 从 Windows Server 2008 开始， (IAS) 的 Internet 身份验证服务 (NPS) 重命名为网络策略服务器。 本主题的内容适用于 IAS 和 NPS。 在整个文本中，NPS 用于引 用服务的所有版本，包括最初称为 IAS 的版本。 ACCOUNTINGPROPERTIES 类型的值枚举控制记录的数据包类型和日志文件的特征的属性。",
+      "description": "枚举类型指定系统运行状况验证程序 (SHV) 组合的类型。",
       "syntax": "typedef enum _SHV_COMBINATION_TYPE {   SHV_COMBINATION_TYPE_ALL_PASS = 0,   SHV_COMBINATION_TYPE_ALL_FAIL,",
       "header": "sdoias.h",
       "deprecated": false,
@@ -174,65 +190,10 @@
       "_source_line": 98
     },
     {
-      "id": "windows::Apply",
-      "name": "Apply",
-      "entity_type": "enum",
-      "description": "方法将调用 ISdo：:P utProperty 方法所做的更改写入永久性存储。 ISdo：：get__NewEnum get__NewEnum 方法检索服务器数据对象的 IEnumVARIANT 接口 (SDO) 属性。 ISdo：：GetProperty",
-      "syntax": "HRESULT Apply(); 返回值\n如果方法成功，则返回值为 S_OK。\n如果方法失败，则返回值为以下错误代码之一。\nHRESULT get__NewEnum(\n[out] IUnknown **ppEnumVARIANT);",
-      "parameters": [
-        {
-          "name": "ppEnumVARIANT",
-          "direction": "out",
-          "description": "指向成功返回时指向 IUnknown 接口指针的指针的指针。 使用此 IUnknown 接口指针及其 QueryInterface 方法获取 IEnumVARIANT 接口。"
-        }
-      ],
-      "return_value": {
-        "description": "如果该方法成功，则返回值 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
-      },
-      "remarks": "若要取消 ISdo：:P utProperty 所做的更改，请调用 ISdo：：Restore。 注意 此方法名称中的“get”和“NewEnum”之间使用了两个下划线。",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "GetProperty",
-        "Restore"
-      ],
-      "confidence": 0.85,
-      "_source_line": 113
-    },
-    {
-      "id": "windows::Attach",
-      "name": "Attach",
-      "entity_type": "enum",
-      "description": "方法附加到 SDO 计算机。 附加到 SDO 计算机是第一步，即使用 SDO API 管理该计算机。 ISdoMachine：：GetAttachedComputer",
-      "syntax": "HRESULT Attach(\n[in] BSTR bstrComputerName);",
-      "parameters": [
-        {
-          "name": "bstrComputerName",
-          "direction": "in",
-          "description": "指定包含要附加到的计算机的名称的 BSTR 变量。 如果此参数指定 NULL 字符串，则附加本地 计算机。"
-        }
-      ],
-      "return_value": {
-        "description": "如果该方法成功，则返回值 S_OK。如果已附加计算机，则返回值 E_FAIL。该方法还可能返回以下错误代码之一。"
-      },
-      "remarks": "使用 ISdoMachine：：GetAttachedComputer 方法确定计算机是否已附加。",
-      "requirements": {
-        "target_platform": "Windows",
-        "min_server": "Windows Server 2008"
-      },
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "GetAttachedComputer"
-      ],
-      "confidence": 0.85,
-      "_source_line": 115
-    },
-    {
       "id": "windows::CreateAttribute",
       "name": "CreateAttribute",
-      "entity_type": "enum",
-      "description": "方法创建一个新的属性对象，并返回一个 IDispatch 接口。 ISdoDictionaryOld：：EnumAttributes EnumAttributes 方法检索指定特性的值。 ISdoDictionaryOld：：EnumAttributeValues",
+      "entity_type": "function",
+      "description": "创建一个新的属性对象，并返回一个 IDispatch 接口",
       "syntax": "HRESULT CreateAttribute(   [in]  ATTRIBUTEID Id,\n[out] IDispatch   **ppAttributeObject);",
       "parameters": [
         {
@@ -260,8 +221,8 @@
     {
       "id": "windows::EnumAttributes",
       "name": "EnumAttributes",
-      "entity_type": "enum",
-      "description": "方法检索指定特性的值。 EnumAttributeValues",
+      "entity_type": "method",
+      "description": "Retrieves the values of specified attributes.",
       "syntax": "HRESULT EnumAttributes(   [in, out] VARIANT *Id,\n[out]     VARIANT *pValues);",
       "parameters": [
         {
@@ -304,9 +265,9 @@
     {
       "id": "windows::GetAttachedComputer",
       "name": "GetAttachedComputer",
-      "entity_type": "enum",
-      "description": "方法检索当前作为 SDO 计算机附加的计算机的名称。 ISdoMachine：：GetDictionarySDO",
-      "syntax": "HRESULT GetAttachedComputer(   [out] BSTR *bstrComputerName);\nparameters[out] bstrComputerName\n指向接收当前附加 SDO 计算机的计算机名称的 BSTR 的指针。",
+      "entity_type": "function",
+      "description": "Retrieves the name of the computer currently attached as an SDO computer.",
+      "syntax": "HRESULT GetAttachedComputer([out] BSTR *bstrComputerName);",
       "return_value": {
         "description": "如果方法成功，则返回值为 S_OK。 如果当前未附加任何计算机，则返回值 E_FAIL。 方法还可能返回以下错误代码之一。"
       },
@@ -327,8 +288,8 @@
     {
       "id": "windows::GetAttributeID",
       "name": "GetAttributeID",
-      "entity_type": "enum",
-      "description": "方法检索指定属性的 ID。 GetAttributeInfo",
+      "entity_type": "function",
+      "description": "检索指定属性的ID。与GetAttributeInfo方法相关。",
       "syntax": "HRESULT GetAttributeID(\n[in]  BSTR        bstrAttributeName,\n[out] ATTRIBUTEID *pId);",
       "parameters": [
         {
@@ -349,35 +310,10 @@
       "_source_line": 133
     },
     {
-      "id": "windows::GetAttributeInfo",
-      "name": "GetAttributeInfo",
-      "entity_type": "enum",
-      "description": "检索指定属性的信息。 GetDictionarySDO",
-      "syntax": "HRESULT GetAttributeInfo(   [in]  ATTRIBUTEID Id,\n[in]  VARIANT     *pInfoIDs,   [out] VARIANT     *pInfoValues);",
-      "parameters": [
-        {
-          "name": "Id",
-          "direction": "in",
-          "description": "指定属性的 ID。[in] pInfoIDs 指向信息 ID 数组的指针。 此指针不能为 NULL。[out] pInfoValues 指向信息值的 SAFEARRAY 的指针。"
-        }
-      ],
-      "return_value": {
-        "description": "如果该方法成功，则返回值 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
-      },
-      "remarks": "尽管服务器数据对象 (SDO) 公开此方法，但你不需要它即可使用 SDO。 不建议使用此方法。 要求",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "GetDictionarySDO"
-      ],
-      "confidence": 0.75,
-      "_source_line": 135
-    },
-    {
       "id": "windows::GetDictionarySDO",
       "name": "GetDictionarySDO",
-      "entity_type": "enum",
-      "description": "方法检索属性字典 SDO 的接口。 ISdoMachine：：GetDomainType",
+      "entity_type": "function",
+      "description": "检索属性字典 SDO 的接口方法。需要先使用 ISdoMachine::Attach 方法附加到 SDO 计算机。",
       "syntax": "HRESULT GetDictionarySDO(\n[out] IUnknown **ppDictionarySDO);",
       "parameters": [
         {
@@ -406,8 +342,8 @@
     {
       "id": "windows::GetDomainType",
       "name": "GetDomainType",
-      "entity_type": "enum",
-      "description": "检索 SDO 计算机所在的域的类型。 ISdoMachine：：GetOSType",
+      "entity_type": "method",
+      "description": "Retrieves the domain type of the computer where the SDO is located. This method is part of the ISdoMachine interface.",
       "syntax": "HRESULT GetDomainType(\n[out] IASDOMAINTYPE *eDomainType);",
       "parameters": [
         {
@@ -436,7 +372,7 @@
     {
       "id": "windows::GetOSType",
       "name": "GetOSType",
-      "entity_type": "enum",
+      "entity_type": "method",
       "description": "方法检索 SDO 计算机上运行的操作系统的类型。 ISdoMachine：：GetServiceSDO",
       "syntax": "HRESULT GetOSType(\n[out] IASOSTYPE *eOSType);\nparameters[out] eOSType\n指向 IASOSTYPE 变量的指针，该变量接收 SDO 计算机上的操作系统的类型。",
       "return_value": {
@@ -459,39 +395,10 @@
       "_source_line": 140
     },
     {
-      "id": "windows::GetProperty",
-      "name": "GetProperty",
-      "entity_type": "enum",
-      "description": "方法检索指定属性的值。 ISdo：：GetPropertyInfo",
-      "syntax": "HRESULT GetProperty(   [in]  LONG    Id,\n[out] VARIANT *pValue);",
-      "parameters": [
-        {
-          "name": "Id",
-          "direction": "in",
-          "description": "指定现有属性的 ID。[out] pValue 指向包含属性值的 VARIANT 的指针。"
-        }
-      ],
-      "return_value": {
-        "description": "如果该方法成功，则返回值 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
-      },
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "sdoias.h",
-        "min_server": "Windows Server 2008"
-      },
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "GetPropertyInfo"
-      ],
-      "confidence": 0.75,
-      "_source_line": 142
-    },
-    {
       "id": "windows::GetPropertyInfo",
       "name": "GetPropertyInfo",
-      "entity_type": "enum",
-      "description": "方法检索指向指定属性的 ISdoPropertyInfo 接口的指针。警告： 不支持 ISdoPropertyInfo 接口，不建议使用此方法访问它。",
+      "entity_type": "function",
+      "description": "检索指向指定属性的ISdoPropertyInfo接口的指针。警告：不支持ISdoPropertyInfo接口，不建议使用此方法访问它。",
       "syntax": "HRESULT GetPropertyInfo(   [in]  LONG     Id,\n[out] IUnknown **ppPropertyInfo);",
       "parameters": [
         {
@@ -513,9 +420,9 @@
     {
       "id": "windows::GetServiceSDO",
       "name": "GetServiceSDO",
-      "entity_type": "enum",
-      "description": "方法检索指定服务的服务器数据对象 (SDO) 。 ISdoMachine：：GetUserSDO",
-      "syntax": "HRESULT GetServiceSDO(\n[in]  IASDATASTORE eDataStore,\n[in]  BSTR         bstrServiceName,   [out] IUnknown     **ppServiceSDO);\nparameters[in] eDataStore\n指定 IASDATASTORE 枚举类型中的值。[in] bstrServiceName\n指定包含服务名称的 BSTR 。 此参数是以下值之一。“IAS”\n网络策略服务器\n注意 Internet 身份验证服务 (IAS) 从 Windows Server 2008 开始重命名为网络策略服务器。\n“RemoteAccess”\n远程访问服务器[out] ppServiceSDO\n指向指向 IUnknown 接口指针的指针的指针。 使用此 IUnknown 接口的 QueryInterface 方法获\n取 ISdoServiceControl 对象的 IDispatch 接口。",
+      "entity_type": "function",
+      "description": "Retrieves the Service Data Object (SDO) for a specified service.",
+      "syntax": "HRESULT GetServiceSDO([in] IASDATASTORE eDataStore, [in] BSTR bstrServiceName, [out] IUnknown **ppServiceSDO);",
       "return_value": {
         "description": "如果该方法成功，则返回值 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
       },
@@ -538,7 +445,7 @@
     {
       "id": "windows::GetServiceStatus",
       "name": "GetServiceStatus",
-      "entity_type": "enum",
+      "entity_type": "method",
       "description": "方法检索通过 SDO 管理的服务的状态。 ISdoServiceControl：：ResetService",
       "syntax": "HRESULT GetServiceStatus(\n[out] LONG *status);",
       "parameters": [
@@ -559,8 +466,8 @@
     {
       "id": "windows::GetUserSDO",
       "name": "GetUserSDO",
-      "entity_type": "enum",
-      "description": "方法检索指向指定用户的服务器数据对象 (SDO) 的接口。 ISdoMachine：：IsDirectoryAvailable IsDirectoryAvailable 方法测试 Active Directory 服务在 SDO 计算机上是否可用。",
+      "entity_type": "function",
+      "description": "Retrieves an interface pointer to the Server Data Object (SDO) for a specified user.",
       "syntax": "HRESULT GetUserSDO(\n[in]  IASDATASTORE eDataStore,   [in]  BSTR         bstrUserName,   [out] IUnknown     **ppUserSDO);",
       "parameters": [
         {
@@ -590,38 +497,10 @@
       "_source_line": 150
     },
     {
-      "id": "windows::IsDirectoryAvailable",
-      "name": "IsDirectoryAvailable",
-      "entity_type": "enum",
-      "description": "方法测试 Active Directory 服务是否在 SDO 计算机上可用。",
-      "syntax": "HRESULT IsDirectoryAvailable(\n[out] VARIANT_BOOL *boolDirectoryAvailable);",
-      "parameters": [
-        {
-          "name": "boolDirectoryAvailable",
-          "direction": "out",
-          "description": "指定 Active Directory 是否可用。 如果 Active Directory 可用，则此参数为 TRUE。 否则为 FALSE。"
-        }
-      ],
-      "return_value": {
-        "description": "如果该方法成功，则返回值 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
-      },
-      "remarks": "在调用此方法之前，请使用 ISdoMachine：：Attach 方法附加到 SDO 计算机。 重要 始终返回当前实现中的 VARIANT_FALSE 。",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "Active",
-        "Attach",
-        "Directory",
-        "VARIANT_FALSE"
-      ],
-      "confidence": 0.75,
-      "_source_line": 152
-    },
-    {
       "id": "windows::IsNameUnique",
       "name": "IsNameUnique",
-      "entity_type": "enum",
-      "description": "方法测试指定的名称在集合中是否唯一。 ISdoCollection：：Item",
+      "entity_type": "function",
+      "description": "测试指定的名称在集合中是否唯一。",
       "syntax": "HRESULT IsNameUnique(\n[in]  BSTR         bstrName,\n[out] VARIANT_BOOL *pBool);\nparameters[in] bstrName\n指定要测试的名称。[out] pBool\n指向 VARIANT 的指针，指定名称是否唯一。 如果名称唯一，则返回的值VARIANT_TRUE，否则\nVARIANT_FALSE。",
       "return_value": {
         "description": "如果该方法成功，则返回值 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
@@ -642,156 +521,10 @@
       "_source_line": 154
     },
     {
-      "id": "windows::Item",
-      "name": "Item",
-      "entity_type": "enum",
-      "description": "方法从集合中检索指定的项。 ISdoCollection：：Reload",
-      "syntax": "HRESULT Item(\n[in]  VARIANT   *Name,   [out] IDispatch **pItem);",
-      "parameters": [
-        {
-          "name": "Name",
-          "direction": "in",
-          "description": "指向 VARIANT 的指针。 将对象的名称存储在此 VARIANT 的 BSTR 中。[out] pItem 指向接口指针的指针，该指针接收对象的 IDispatch 接口的地址。"
-        }
-      ],
-      "return_value": {
-        "description": "如果该方法成功，则返回值 S_OK。 如果在集合中找不到该对象，则返回值 DISP_E_MEMBERNOTFOUND。 否则，如果方法失败，则返回值为以下错误代码之一。"
-      },
-      "remarks": "这两个参数都不能为 NULL。",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "Reload"
-      ],
-      "confidence": 0.75,
-      "_source_line": 158
-    },
-    {
-      "id": "windows::PRADIUS_EXTENSION_FREE_ATTRIBUTES",
-      "name": "PRADIUS_EXTENSION_FREE_ATTRIBUTES",
-      "entity_type": "enum",
-      "description": "回 注意 从 Windows Server 2008 开始， (IAS) 的 Internet 身份验证服务 (NPS) 重命名为网络策略服务器。 本主题的内容适用于 IAS 和 NPS。 在整个文本中，NPS 用于引用服务的所有 版本，包括最初称为 IAS 的版本。",
-      "header": "authif.h",
-      "deprecated": false,
-      "cross_references": [
-        "Server"
-      ],
-      "confidence": 0.75,
-      "_source_line": 159
-    },
-    {
-      "id": "windows::RadiusExtensionFreeAttributes",
-      "name": "RadiusExtensionFreeAttributes",
-      "entity_type": "enum",
-      "description": "函数是应用程序定义的函数，由 NPS 调用，以释放 RadiusExtensionProcessEx 返回的属性占用的内存。",
-      "header": "authif.h",
-      "deprecated": false,
-      "cross_references": [
-        "RadiusExtensionProcessEx"
-      ],
-      "confidence": 0.6,
-      "_source_line": 161
-    },
-    {
-      "id": "windows::RadiusExtensionProcessEx",
-      "name": "RadiusExtensionProcessEx",
-      "entity_type": "enum",
-      "description": "函数。 可以通过将其与 RADIUS_CODE 枚举值进行比较来解释其内容。 ratIdentifier 指定请求标识符。 这是一个扩展的只读属性。 ratAuthenticator 指定请求验证器。 这是一个扩展的只读属性。 ratSrcIPAddress 指定源 IP 地址。 这是一个扩展的只读属性。 ratSrcPort 指定源 IP 端口。 这是一个扩展的只读属性。 ratProvider 指定身份验证提供程序。 此属性的值取自 RADIUS_AUTHENTICATION_PROVIDER 枚举类型。 这是 一个扩展的只读属性。 ratStrippedUserName 指定删除了域的用户名。 有关详细信息 ，请参阅用户标识属性 。 这是一个扩展属性。 ratFQUserName 指定完全限定的用户名。 有关详细信息 ，请参阅用户标识属性 。 这是一个扩展属性。 ratPolicyName 指定远程访问策略名称。 这是一个扩展属性。 ratUniqueId 指定请求的唯一 ID。 这是一个只读属性。 ratExtensionState 此属性用于在扩展之间传递状态信息。 ratEAPTLV 指定 EAP-TLV 数据包。 有关 EAP-TLV 数据包格式的详细信息，请参阅 IETF EAP RFC 3748 ratRejectReasonCode 指定 RADIUS 拒绝的原因代码。 有关详细信息，请参阅 RADIUS_REJECT_REASON_CODE。 ratCRPPolicyName 指定与此 RADIUS 数据包匹配的连接请求策略名称。 ratProviderName 指定请求转发的远程 RADIUS 服务器组名称。 。 如果 ratProvider 指示的身份验证是代理，则扩展 DLL 可以更改 ratProviderName ，以指示应将请 求转发到哪个远程服务器组。 ratClearTextPassword 以明文形式指定用户密码。 为了支持使用 PEAP-MSChapv2 的授权数据库，扩展 DLL 从数据库中检索用户密码并将其发送到 NPS。 ratSrcIPv6Address 源 IPv6 地址。 它不是标准 RADIUS 属性。 它对应于内部属性 IAS_ATTRIBUTE_CLIENT_IPv6_ADDRESS。 这是一个只读属性。 ratCertificateThumbprint 指定证书指纹。 它不是标准 RADIUS 属性。 它对应于内部属性 IAS_ATTRIBUTE_CERTIFICATE_THUMBPRINT。 这是一个扩展属性。",
-      "return_value": {
-        "description": "如果函数成功，则返回值 NO_ERROR。 如果函数失败，则返回值应为 WinError.h 中的相应错误代码。"
-      },
-      "remarks": "如果返回值除 NO_ERROR之外的任何值，NPS 将放弃请求。 NPS 支持多个扩展 DLL。 NPS 为注册表中列出的每个 DLL 调用 RadiusExtensionProcessEx 。 有关详细信息 ，请参阅设置扩展 DLL。 NPS 调用 RadiusExtensionFreeAttributes 以释放 由 RadiusExtensionProcessEx 返回的属性数组占 用的内存。 因此，如果实现 RadiusExtensionProcessEx，还必须实现 RadiusExtensionFreeAttributes。 有关使用此函数的详细信息，请参阅 NPS 扩展过程。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "authif.h",
-        "min_server": "Windows Server 2008"
-      },
-      "header": "authif.h",
-      "deprecated": false,
-      "cross_references": [
-        "IAS_ATTRIBUTE_CERTIFICATE_THUMBPRINT",
-        "RADIUS_AUTHENTICATION_PROVIDER",
-        "RADIUS_CODE",
-        "RADIUS_REJECT_REASON_CODE",
-        "RadiusExtensionFreeAttributes"
-      ],
-      "confidence": 0.65,
-      "_source_line": 162
-    },
-    {
-      "id": "windows::PRADIUS_EXTENSION_INIT",
-      "name": "PRADIUS_EXTENSION_INIT",
-      "entity_type": "enum",
-      "description": "PradiusExtensionInit; DWORD PradiusExtensionInit(){...}",
-      "return_value": {
-        "description": "如果函数成功，则返回值为 NO_ERROR 。 如果函数失败，则返回值应为 WinError.h 中的相应错误 代码。"
-      },
-      "remarks": "否则 NO_ERROR 返回值将导致 NPS 无法启动。 RadiusExtensionInit 是一个可选函数。 RADIUS 扩展 DLL 不需要实现 RadiusExtensionInit。",
-      "header": "authif.h",
-      "deprecated": false,
-      "cross_references": [
-        "NO_ERROR",
-        "RadiusExtensionInit"
-      ],
-      "confidence": 0.8,
-      "_source_line": 162
-    },
-    {
-      "id": "windows::RadiusExtensionInit",
-      "name": "RadiusExtensionInit",
-      "entity_type": "enum",
-      "description": "函数是应用程序定义的函数，在服务启动时由 NPS 调用。 使用 RadiusExtensionInit 对扩展 DLL 执行任何初始化操作。",
-      "header": "authif.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.6,
-      "_source_line": 164
-    },
-    {
-      "id": "windows::PRADIUS_EXTENSION_PROCESS",
-      "name": "PRADIUS_EXTENSION_PROCESS",
-      "entity_type": "enum",
-      "description": "回调函数 注意 从 Windows Server 2008 开始， (IAS) 的 Internet 身份验证服务 (NPS) 重命名为网络策略服务器。 本主题的内容适用于 IAS 和 NPS。 在整个文本中，NPS 用于引用服务的所有 版本，包括最初称为 IAS 的版本。",
-      "parameters": [
-        {
-          "name": "pAttrs",
-          "direction": "in",
-          "description": "指向请求中 属性 数组的指针。 数组由 dwAttrType 设置为 ratMinimum 的属性终止。 这些属性应被视为只读;不应由 RadiusExtensionProcess 修改它们。 此外，在 RadiusExtensionProcess 返回后，不应以任何方式引用这些属性。[out] pfAction 指向 RADIUS_ACTION 类型的值的指针，最初设置为 raContinue。 此参数指定 NPS 在响应 Access-Request 时应执行的操作。"
-        }
-      ],
-      "return_value": {
-        "description": "如果函数成功，则返回值 NO_ERROR。 如果函数失败，则返回值应为 Winerror.h 中的相应错误代码。"
-      },
-      "remarks": "如果返回值除 NO_ERROR之外的任何值，NPS 将放弃请求。 NPS 支持多个扩展 DLL。 NPS 为注册表中列出的每个 DLL 调用 RadiusExtensionProcess 。 有关详细信息 ，请参阅设置扩展 DLL。 扩展 DLL 可以导出 RadiusExtensionProcessEx 而不是 RadiusExtensionProcess。 扩展 DLL 可以导出 RadiusExtensionProcess2。 有关使用此函数的详细信息，请参阅 NPS 扩展过程。",
-      "header": "authif.h",
-      "deprecated": false,
-      "cross_references": [
-        "RadiusExtensionProcess",
-        "RadiusExtensionProcess2",
-        "RadiusExtensionProcessEx",
-        "Server"
-      ],
-      "confidence": 0.9,
-      "_source_line": 165
-    },
-    {
-      "id": "windows::RadiusExtensionProcess",
-      "name": "RadiusExtensionProcess",
-      "entity_type": "enum",
-      "description": "函数是应用程序定义的函数，由 NPS 针对 NPS 从网络访问服务器接收的 每个身份验证或会计数据包调用， (NAS) 。 PRADIUS_EXTENSION_PROCESS_2 应用程序定义函数，由 NPS 针对 NPS 接收的每个身份验证或会计数据包调用。",
-      "header": "authif.h",
-      "deprecated": false,
-      "cross_references": [
-        "PRADIUS_EXTENSION_PROCESS_2"
-      ],
-      "confidence": 0.6,
-      "_source_line": 167
-    },
-    {
       "id": "windows::RadiusExtensionTerm",
       "name": "RadiusExtensionTerm",
-      "entity_type": "enum",
-      "description": "函数是应用程序定义的函数，在卸载扩展 DLL 之前由 NPS 调用。 使用 RadiusExtensionTerm 对扩展 DLL 执行任何清理操作。",
+      "entity_type": "callback",
+      "description": "应用程序定义的函数，在卸载扩展DLL之前由NPS调用。用于执行扩展DLL的任何清理操作。",
       "header": "authif.h",
       "deprecated": false,
       "cross_references": [],
@@ -801,8 +534,8 @@
     {
       "id": "windows::PutProperty",
       "name": "PutProperty",
-      "entity_type": "enum",
-      "description": "方法设置指定属性的值。 ISdo：：ResetProperty",
+      "entity_type": "function",
+      "description": "设置指定属性的值。",
       "syntax": "HRESULT PutProperty(   [in] LONG    Id,\n[in] VARIANT *pValue);",
       "parameters": [
         {
@@ -825,73 +558,10 @@
       "_source_line": 178
     },
     {
-      "id": "windows::Reload",
-      "name": "Reload",
-      "entity_type": "enum",
-      "description": "方法从基础数据存储重新加载集合中的所有对象。 ISdoCollection：：Remove Remove 方法从集合中删除指定的项。 ISdoCollection：：RemoveAll",
-      "syntax": "HRESULT Add(\n[in]      BSTR      bstrName,   [in, out] IDispatch **ppItem);\nHRESULT get__NewEnum(\n[out] IUnknown **ppEnumVARIANT);\nHRESULT get_Count(   [out] long *pCount);",
-      "parameters": [
-        {
-          "name": "bstrName",
-          "direction": "in",
-          "description": "指定 SDO 对象的名称。 此参数可以为 NULL。[in, out] ppItem 指向要添加的 Item 的 IDispatch 接口指针的指针。 此参数不得为 NULL。"
-        },
-        {
-          "name": "ppEnumVARIANT",
-          "direction": "out",
-          "description": "指向 IUnknown 接口指针的指针。 成功返回 IUnknown 接口指针时，指向 IEnumVARIANT 接口。 此参数不得为 NULL。"
-        },
-        {
-          "name": "pCount",
-          "direction": "out",
-          "description": "指向包含集合中项数的 LONG 的指针。"
-        }
-      ],
-      "return_value": {
-        "description": "如果方法成功，则返回值为 S_OK。 如果方法失败，则返回值为以下错误代码之一。 如果方法成功，则返回值为 S_OK。 如果方法失败，则返回值为以下错误代码之一。 如果该方法成功，则返回值 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
-      },
-      "remarks": "若要获取集合，请调用 ISdo：：GetProperty，并指定集合的 属性。 有关详细信息，请参阅 检 索集合。 如果指定要添加的对象的名称，请通过调用 ISdoCollection：：IsNameUnique 来确保该名称是唯一的。 如果未指定 bstrName 参数， ISdoCollection：：Add 将从 ppItem 参数指定的对象获取它。 在调用此方法之前初始化 SDO。 注意 此方法名称中的“get”和“NewEnum”之间使用了两个下划线。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "sdoias.h",
-        "dll": "Iassdo.dll",
-        "min_server": "Windows Server 2008"
-      },
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "GetProperty",
-        "IsNameUnique",
-        "RemoveAll"
-      ],
-      "confidence": 0.85,
-      "_source_line": 180
-    },
-    {
-      "id": "windows::RemoveAll",
-      "name": "RemoveAll",
-      "entity_type": "enum",
-      "description": "方法从集合中删除所有项。 ResetProperty",
-      "syntax": "HRESULT RemoveAll(); 返回值\n如果方法成功，则返回值为 S_OK。\n如果方法失败，则返回值为以下错误代码之一。",
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "sdoias.h",
-        "dll": "Iassdo.dll",
-        "min_server": "Windows Server 2008"
-      },
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "ResetProperty"
-      ],
-      "confidence": 0.6,
-      "_source_line": 184
-    },
-    {
       "id": "windows::ResetProperty",
       "name": "ResetProperty",
-      "entity_type": "enum",
-      "description": "方法将指定的属性重置为其默认值。 ISdo：：Restore",
+      "entity_type": "function",
+      "description": "将指定的属性重置为其默认值。",
       "syntax": "HRESULT ResetProperty(\nLONG Id);",
       "parameters": [
         {
@@ -917,9 +587,9 @@
     {
       "id": "windows::ResetService",
       "name": "ResetService",
-      "entity_type": "enum",
-      "description": "方法重置由 SDO API 管理的服务。 重置服务会导致服务刷新其数据。 ISdoServiceControl：：StartService",
-      "syntax": "HRESULT ResetService(); 返回值\n如果该方法成功，则返回值 S_OK。\n如果方法失败，则返回值为以下错误代码之一。",
+      "entity_type": "function",
+      "description": "Resets a service managed by the SDO API. Resetting a service causes the service to refresh its data.",
+      "syntax": "HRESULT ResetService();",
       "remarks": "数据刷新在上次调用 ISdoServiceControl：：ResetService 后 5 秒开始。 完成刷新所需的时间 取决于 SDO 配置数据库中的对象数。",
       "header": "sdoias.h",
       "deprecated": false,
@@ -980,8 +650,8 @@
       "id": "windows::RADIUS_ATTRIBUTE",
       "name": "RADIUS_ATTRIBUTE",
       "entity_type": "enum",
-      "description": "中的值字段是指针。 有关详细信息，请参阅 RFC 2865 ratProxyState 。 指定代理服务器在转发身份验证请求时包含的值。 此类型的 RADIUS_ATTRIBUTE 中的值字段是指 针。 有关详细信息，请参阅 RFC 2865 ratLoginLATService 。 此属性当前不用于 Windows 上的身份验证。 有关详细信息，请参阅 RFC 2865 ratLoginLATNode 此属性当前不用于 Windows 上的身份验证。 有关详细信息，请参阅 RFC 2865 ratLoginLATGroup 此属性当前不用于 Windows 上的身份验证。 有关详细信息，请参阅 RFC 2865 ratFramedAppleTalkLink 。 。 。 指定作为另一个路由器的用户的 AppleTalk 网络编号。 此类型的 RADIUS_ATTRIBUTE 中的值字段为 32 位整型值。 有关详细信息，请参阅 RFC 2865 ratFramedAppleTalkNetwork 。 指定 NAS 应用于为用户分配 AppleTalk 节点的 AppleTalk 网络编号。 仅当用户不是另一个路由器 时，才使用此属性。 此类型的 RADIUS_ATTRIBUTE 中的值字段是 32 位整型值。 有关详细信息， 请参阅 RFC 2865 。 ratFramedAppleTalkZone 指定用户的 AppleTalk 默认区域。 此类型的 RADIUS_ATTRIBUTE 中的值字段是指针。 有关详细信 息，请参阅 RFC 2865 ratAcctStatusType 。 指定记帐提供程序应为用户启动或停止记帐。 此类型的 RADIUS_ATTRIBUTE 中的值字段是 32 位整 型值。 有关详细信息，请参阅 RFC 2866 ratAcctDelayTime 。 指定客户端尝试发送当前请求的时间长度。 此类型的 RADIUS_ATTRIBUTE 中的值字段是 32 位整型 值。 有关详细信息，请参阅 RFC 2866 ratAcctInputOctets 。 指定在当前记帐会话期间收到的八进制数。 此类型的 RADIUS_ATTRIBUTE 中的值字段是 32 位整型 值。 有关详细信息，请参阅 RFC 2866 ratAcctOutputOctets 。 指定在当前记帐会话期间发送的八进制数。 此类型的 RADIUS_ATTRIBUTE 中的值字段是 32 位整型 值。 有关详细信息，请参阅 RFC 2866 ratAcctSessionId 。 指定一个值，用于在日志文件中识别匹配的开始和停止记录。 开始和停止记录在 ratAcctStatusType 属性中发送。 此类型的 RADIUS_ATTRIBUTE 中的值字段是指针。 有关详细信 息，请参阅 RFC 2866 ratAcctAuthentic 。 向记帐提供程序指定如何对用户进行身份验证。 此类型的 RADIUS_ATTRIBUTE 中的值字段是 32 位 整型值。 有关详细信息，请参阅 RFC 2866 ratAcctSessionTime 。 指定当前记帐会话中已过的秒数。 此类型的 RADIUS_ATTRIBUTE 中的值字段是 32 位整型值。 有 关详细信息，请参阅 RFC 2866 ratAcctInputPackets 。 指定在当前记帐会话期间收到的数据包数。 此类型的 RADIUS_ATTRIBUTE 中的值字段是 32 位整型 值。 有关详细信息，请参阅 RFC 2866 ratAcctOutputPackets 。 指定在当前记帐会话期间发送的数据包数。 此类型的 RADIUS_ATTRIBUTE 中的值字段是 32 位整型 值。 有关详细信息，请参阅 RFC 2866 ratAcctTerminationCause 。 指定当前记帐会话的终止方式。 此类型的 RADIUS_ATTRIBUTE 中的值字段是 32 位整型值。 有关 详细信息，请参阅 RFC 2866 。 ratCHAPChallenge 指定 NAS 向 CHAP 用户发送的 CHAP 质询。 此类型的 RADIUS_ATTRIBUTE 中的值字段是指针。 有关详细信息，请参阅 RFC 2865 ratNASPortType 。 指定用户要连接的端口的类型，例如异步、ISDN、虚拟。 此类型的 RADIUS_ATTRIBUTE 中的值字 段是 32 位整型值。 有关详细信息，请参阅 RFC 2865 ratPortLimit 。 指定 NAS 应提供给用户用于多链接会话的端口数。 此类型的 RADIUS_ATTRIBUTE 中的值字段是 32 位整型值。 有关详细信息，请参阅 RFC 2865 ratTunnelType 指定要在隧道发起程序) 的情况下 (使用的隧道协议或隧道终止符) (使用的隧道协议。 有关详细信 息，请参阅 RFC 2868 ratMediumType 。 指定在为协议（如 L2TP）创建隧道时使用的传输介质，这些协议可对多个传输进行操作。 有关详 细信息，请参阅 RFC 2868 ratTunnelPassword 。 可能包含用于向远程服务器进行身份验证的密码。 它只能包含在 Access-Accept 数据包中。 ratTunnelPrivateGroupID 指定特定隧道会话的组 ID。 ratNASIPv6Address 指定请求用户身份验证的 NAS 的 IPv6 地址。 它对于 RADIUS 服务器范围内的 NAS 应是唯一的。 它仅在 Access-Request 数据包中使用。 有关详细信息，请参阅 RFC 3162 Address 部分。 ratFramedInterfaceId 中的 NAS-IPv6- 指定要为用户配置的 IPv6 接口标识符。 它可以在 Access-Accept 数据包中使用。 有关详细信息， 请参阅 RFC 3162 中的 Framed-Interface-Id 部分。 ratFramedIPv6Prefix 指定要为用户配置的 IPv6 前缀 (和相应的路由) 。 它可以在 Access-Accept 数据包中使用，并且可 以多次出现。 有关详细信息，请参阅 RFC 3162 ratLoginIPv6Host 中的 Framed-IPv6-Prefix 部分。 指定在包含 ratLoginService 属性时用于连接用户的系统。 它可以在 Access-Accept 数据包中使 用。 有关详细信息，请参阅 RFC 3162 ratFramedIPv6Route 中的 Login-IPv6-Host 部分。 指定要在 NAS 上为用户配置的路由信息。 它在 Access-Accept 数据包中使用，可以多次出现。 有 关详细信息，请参阅 RFC 3162 ratFramedIPv6Pool 中的 Framed-IPv6-Route 部分。 指定应用于为用户分配 IPv6 前缀的已分配池的名称。 如果 NAS 不支持多个前缀池，则 NAS 必须 忽略此属性。 有关详细信息，请参阅 RFC 3162 ratCode 中的 Framed-IPv6-Pool 部分。 指定请求类型代码。 这是一个扩展的只读属性，仅用于",
-      "syntax": "typedef struct _RADIUS_ATTRIBUTE {\nDWORD            dwAttrType;   RADIUS_DATA_TYPE fDataType;\nDWORD            cbDataLength;   union {\nDWORD      dwValue;     const BYTE *lpValue;   };\n} RADIUS_ATTRIBUTE, *PRADIUS_ATTRIBUTE;\n成员 dwAttrType\n存储 RADIUS_ATTRIBUTE_TYPE 枚举中的值。 此值指定 由 RADIUS_ATTRIBUTE 结构表示\n的属性的类型。 fDataType\n存储 RADIUS_DATA_TYPE 枚举中的值。 此值指定存储在包含 dwValue 和 lpValue 成员的\n联合中的值的类型。 cbDataLength\n存储数据的长度（以字节为单位）。 仅当使用 lpValue 成员时，才使用 cbDataLength\n成员。 dwValue\n存储 DWORD 类型的值。 如果 fDataType 成员指定 rdtAddress、rdtInteger 或 rdtTime，则使用 dwValue 成员。\n注意 在 Windows Server 2008 中，将 fDataType 指定为 rdtAddress 时，dwValue 的字节顺序格式以网络字节顺序 (big-endian) 表示。 以前的 Windows 版本表示使用\nlittle-endian 格式的网络寻址。\nlpValue\n存储多字节数据值。 如果 fDataType 成员指定 rdtUnknown、rdtIpv6Address 或\nrdtString，则使用 lpValue 成员。",
+      "description": "RADIUS_ATTRIBUTE枚举定义了RADIUS协议中的各种属性类型。包含代理状态(ratProxyState)、登录LAT服务(ratLoginLATService)、AppleTalk网络(ratFramedAppleTalkLink/Network/Zone)等属性。各属性类型对应的值字段可能是指针或32位整型值，具体参考RFC 2865和RFC 2866标准。",
+      "syntax": "typedef struct _RADIUS_ATTRIBUTE {\n  DWORD dwAttrType;\n  RADIUS_DATA_TYPE fDataType;\n  DWORD cbDataLength;\n  union {\n    DWORD dwValue;\n    const BYTE *lpValue;\n  };\n} RADIUS_ATTRIBUTE, *PRADIUS_ATTRIBUTE;",
       "header": "authif.h",
       "deprecated": false,
       "cross_references": [
@@ -998,8 +668,8 @@
     {
       "id": "windows::RADIUS_ATTRIBUTE_ARRAY",
       "name": "RADIUS_ATTRIBUTE_ARRAY",
-      "entity_type": "enum",
-      "description": "结构 注意 从 Windows Server 2008 开始， (IAS) 的 Internet 身份验证服务 (NPS) 重命名为网络策略服务器。 本主题的内容适用于 IAS 和 NPS。 在整个文本中，NPS 用于引 用服务的所有版本，包括最初称为 IAS 的版本。",
+      "entity_type": "structure",
+      "description": "Represents an array of RADIUS attributes. Note: Starting with Windows Server 2008, Internet Authentication Service (IAS) was renamed to Network Policy Server (NPS).",
       "syntax": "typedef struct _RADIUS_ATTRIBUTE_ARRAY {   DWORD                  cbSize;",
       "header": "authif.h",
       "deprecated": false,
@@ -1013,7 +683,7 @@
       "id": "windows::RADIUS_EXTENSION_CONTROL_BLOCK",
       "name": "RADIUS_EXTENSION_CONTROL_BLOCK",
       "entity_type": "enum",
-      "description": "中包含的请求或响应中添加、修改或删除这些属性。 ratCode ratIdentifier ratAuthenticator ratSrcIPAddress ratSrcPort ratProvider ratUniqueId ratSrcIPv6Address NPS 支持多个扩展 DLL。 NPS 为注册表中列出的每个 DLL 调用 RadiusExtensionProcess2 。 有关详细信息 ，请参阅设置扩展 DLL。 导出 RadiusExtensionProcess2 的 NPS 扩展 DLL 不需要导出",
+      "description": "Contains RADIUS extension control information used by NPS extension DLLs to process RADIUS requests/responses.",
       "syntax": "typedef struct _RADIUS_EXTENSION_CONTROL_BLOCK {   DWORD                    cbSize;\nDWORD                    dwVersion;   RADIUS_EXTENSION_POINT   repPoint;",
       "requirements": {
         "header": "authif.h",
@@ -1031,8 +701,8 @@
     {
       "id": "windows::RADIUS_VSA_FORMAT",
       "name": "RADIUS_VSA_FORMAT",
-      "entity_type": "enum",
-      "description": "结构表示 RADIUS 供应商特定属性的字符串部分的格式。反馈",
+      "entity_type": "structure",
+      "description": "表示 RADIUS 供应商特定属性的字符串部分的格式结构。",
       "syntax": "typedef struct _RADIUS_VSA_FORMAT {\nBYTE VendorId[4];   BYTE VendorType;   BYTE VendorLength;\nBYTE AttributeSpecific[1];} RADIUS_VSA_FORMAT;",
       "remarks": "当 dwAttrType 成员具有值 ratVendorSpecific 时，RADIUS_VSA_FORMAT 结构可用于解释 RADIUS_ATTRIBUTE 结构的 lpValue 成员。 有关 RADIUS 供应商特定的属性的说明，请参阅 RFC 2865 RADIUS 供应商特定属性的示例，请参阅 RFC 2548 要求",
       "members": [
@@ -1057,8 +727,8 @@
     {
       "id": "windows::PRADIUS_ATTRIBUTE",
       "name": "PRADIUS_ATTRIBUTE",
-      "entity_type": "enum",
-      "description": "pAttrs) {...} 参数 pAttrs 指向属性数组的指针。 RadiusExtensionFreeAttributes 函数应解除分配这些属性占用的内存。在上一次对",
+      "entity_type": "typedef",
+      "description": "Pointer to RADIUS_ATTRIBUTE structure. Used in RadiusExtensionFreeAttributes function to point to an array of attributes that need to be deallocated.",
       "return_value": {
         "description": "无"
       },
@@ -1073,24 +743,6 @@
       "_source_line": 271
     },
     {
-      "id": "windows::PRADIUS_EXTENSION_PROCESS_2",
-      "name": "PRADIUS_EXTENSION_PROCESS_2",
-      "entity_type": "enum",
-      "description": "PradiusExtensionProcess2; DWORD PradiusExtensionProcess2( [in, out] PRADIUS_EXTENSION_CONTROL_BLOCK pECB) {...} 参数 [in, out] pECB 指向 RADIUS_EXTENSION_CONTROL_BLOCK 结构的指针。 此结构的成员包含值和函数指针， 这些值和函数指针使 NPS 扩展 DLL 能够处理 RADIUS 数据包。",
-      "return_value": {
-        "description": "如果函数成功，则返回值 NO_ERROR。 如果函数失败，则返回值应为 WinError.h 中的相应错误代码。"
-      },
-      "remarks": "如果返回值除 NO_ERROR之外的任何值，NPS 将放弃请求。 以下属性是只读的。 实现 RadiusExtensionProcess2 的扩展 DLL 无法在",
-      "header": "authif.h",
-      "deprecated": false,
-      "cross_references": [
-        "RADIUS_EXTENSION_CONTROL_BLOCK",
-        "RadiusExtensionProcess2"
-      ],
-      "confidence": 0.8,
-      "_source_line": 345
-    },
-    {
       "id": "windows::RadiusExtensionProcess2",
       "name": "RadiusExtensionProcess2",
       "entity_type": "enum",
@@ -1101,13 +753,24 @@
         "RadiusExtensionProcess"
       ],
       "confidence": 0.6,
-      "_source_line": 349
+      "_source_line": 349,
+      "return_value": {
+        "description": "如果函数成功，则返回值 NO_ERROR。 如果函数失败，则返回值应为 WinError.h 中的相应错误代码。"
+      },
+      "remarks": "如果返回值除 NO_ERROR之外的任何值，NPS 将放弃请求。 以下属性是只读的。 实现 RadiusExtensionProcess2 的扩展 DLL 无法在",
+      "parameters": [
+        {
+          "name": "pAttrs",
+          "direction": "in",
+          "description": "指向请求中 属性 数组的指针。 数组由 dwAttrType 设置为 ratMinimum 的属性终止。 这些属性应被视为只读;不应由 RadiusExtensionProcess 修改它们。 此外，在 RadiusExtensionProcess 返回后，不应以任何方式引用这些属性。[out] pfAction 指向 RADIUS_ACTION 类型的值的指针，最初设置为 raContinue。 此参数指定 NPS 在响应 Access-Request 时应执行的操作。"
+        }
+      ]
     },
     {
       "id": "windows::PRADIUS_EXTENSION_PROCESS_EX",
       "name": "PRADIUS_EXTENSION_PROCESS_EX",
-      "entity_type": "enum",
-      "description": "回调函 注意 从 Windows Server 2008 开始， (IAS) 的 Internet 身份验证服务 (NPS) 重命名为网络策略服务器。 本主题的内容适用于 IAS 和 NPS。 在整个文本中，NPS 用于引用服务的所有 版本，包括最初称为 IAS 的版本。",
+      "entity_type": "callback",
+      "description": "从 Windows Server 2008 开始，Internet 身份验证服务 (IAS) 重命名为网络策略服务器 (NPS)。本主题内容适用于 IAS 和 NPS。在整个文本中，NPS 用于引用服务的所有版本，包括最初称为 IAS 的版本。",
       "parameters": [
         {
           "name": "pInAttrs",
@@ -1126,8 +789,8 @@
     {
       "id": "windows::PRADIUS_EXTENSION_TERM",
       "name": "PRADIUS_EXTENSION_TERM",
-      "entity_type": "enum",
-      "description": "回调函数 ７ 备注 Internet 身份验证服务 (IAS) 自 Windows Server 2008 起 (NPS) 重命名为网络策略服务器。本主题的内容适用于 IAS 和 NPS。 在整个文本中，NPS 用于引用服务的所有版本，包括最初称为 IAS 的版本。",
+      "entity_type": "callback",
+      "description": "回调函数。备注：Internet身份验证服务(IAS)自Windows Server 2008起(NPS)重命名为网络策略服务器。本主题内容适用于IAS和NPS。在整个文本中，NPS用于引用服务的所有版本，包括最初称为IAS的版本。",
       "return_value": {
         "description": "无"
       },
@@ -1146,46 +809,10 @@
       "_source_line": 418
     },
     {
-      "id": "windows::DWORD",
-      "name": "DWORD",
-      "entity_type": "constant",
-      "description": ")(_RADIUS_EXTENSION_CONTROL_BLOCK *This,RADIUS_CODE rcResponseType) * SetResponseType; } RADIUS_EXTENSION_CONTROL_BLOCK, *PRADIUS_EXTENSION_CONTROL_BLOCK; 成员 cbSize 指定结构的大小。 dwVersion 指定 结构的版本。 repPoint 指定 类型为",
-      "header": "authif.h",
-      "deprecated": false,
-      "cross_references": [
-        "RADIUS_CODE",
-        "RADIUS_EXTENSION_CONTROL_BLOCK",
-        "SetResponseType"
-      ],
-      "confidence": 0.45,
-      "_source_line": 516
-    },
-    {
-      "id": "windows::GetRequest",
-      "name": "GetRequest",
-      "entity_type": "constant",
-      "description": "函数返回 RADIUS 请求过程中收到的属性以及描述请求状态的任何内部属性。 无论请求的当前处置如何，扩展 DLL 都可以使用 GetResponse 检索和修改任何有效响应类型的属性。 例如，扩展 DLL 可以将 响应类型设置为 rcAccessAccept，但仍会将属性添加到在 rcAccessReject 的情况下返回的属性。 在此示例中，扩展 DLL (rcAccessAccept 指定的响应) 可能会在进一步处理过程中被重写。 为了修改属性，扩展 DLL 使用作为 RADIUS_ATTRIBUTE_ARRAY 结构的成员提供的函数。此 指向 RADIUS_EXTENSION_CONTROL_BLOCK 结构的指针。 NPS 在调用 RadiusExtensionProcess2 函数时，向扩展 DLL 传递指向此结构的指针。 rcResponseType 指定响应类型。 此参数必须是 RADIUS_CODE 枚举类型枚举的值之一。 否则，函数将失 败，返回 NULL。 SetResponseType 指向 NPS 提供的 SetResponseType 函数的指针。 NPS 设置此成员的值。 SetResponseType 函数设置请求的最终处置。 请注意，扩展 DLL 设置的处置可在进一步处理期间重写。 例如，扩展 DLL 可以将响应类型设置为 rcAccessAccept，但在进一步处理期间，可以将响应更改为 rcAccessReject。 此 指向 RADIUS_EXTENSION_CONTROL_BLOCK 结构的指针。 NPS 在调用 RadiusExtensionProcess2 函数时，向扩展 DLL 传递指向此结构的指针。 rcResponseType 指定响应类型。 此参数必须是包含在RADIUS_CODE枚举类型中的值之一，并且与 RADIUS_EXTENSION_CONTROL_BLOCK 结构的 rcRequestType 成员相关。 如果 rcRequestType 等于 rcAccessRequest，则此值可以是 rcAccessAccept、 rcAccessReject、 rcAccessChallenge 或 rcDiscard。 如果 rcRequestType 等于 rcAccountingRequest，则此值可以是 rcAccountingResponse 或 rcDiscard。 否则，函 数将失败，返回 ERROR_INVALID_PARAMETER。",
-      "remarks": "扩展 DLL 不得修改此结构。 应通过调用作为此结构的成员提供的函数来更改特性数组。此结构由导出 RadiusExtensionProcess2 的扩展 DLL 使用。 向数组添加特性的函数：添加InsertAt 复制调用方提供的 RADIUS_ATTRIBUTE 结构的内容。 因此，导出",
-      "header": "authif.h",
-      "deprecated": false,
-      "cross_references": [
-        "ERROR_INVALID_PARAMETER",
-        "GetResponse",
-        "RADIUS_ATTRIBUTE",
-        "RADIUS_ATTRIBUTE_ARRAY",
-        "RADIUS_CODE",
-        "RADIUS_EXTENSION_CONTROL_BLOCK",
-        "RadiusExtensionProcess2",
-        "SetResponseType"
-      ],
-      "confidence": 0.6,
-      "_source_line": 527
-    },
-    {
       "id": "windows::AttributeAt",
       "name": "AttributeAt",
       "entity_type": "constant",
-      "description": "函数返回指向数组中指定属性的常数指针。此 指向 RADIUS_ATTRIBUTE_ARRAY 结构的指针，该结构表示要从中检索指定属性的属性数组。",
+      "description": "指向数组中指定属性的常量指针。该指针指向 RADIUS_ATTRIBUTE_ARRAY 结构，表示要从中检索指定属性的属性数组。",
       "header": "authif.h",
       "deprecated": false,
       "cross_references": [
@@ -1195,52 +822,10 @@
       "_source_line": 530
     },
     {
-      "id": "windows::GetSize",
-      "name": "GetSize",
-      "entity_type": "constant",
-      "description": "函数返回属性数组的大小，而不是最大索引。 由于属性数组使用从零开始的索 引，因此数组的大小比最大索引大 1。此 指向 RADIUS_ATTRIBUTE_ARRAY 结构的指针，该结构表示要检索其大小的属性数组。 GetRequest 和 GetResponse 函数返回指向RADIUS_ATTRIBUTE_ARRAY结构的指针。 InsertAt 指向 NPS 提供的 InsertAt 函数的指针。 NPS 设置成员的值。 InsertAt 函数在数组中的指定索引处插入指定的属性。 当 InsertAt 函数将新属性插入数组时，它会递增此索引处预先存在的属性的索引。 同样，它会在更高的索引处递增任何预先存在的属性的索引。 若要将属性追加到属性数组的末尾，请使用 Add 函数。此 指向 RADIUS_ATTRIBUTE_ARRAY 结构的指针，该结构表示要在其中插入指定属性的属性数组。",
-      "header": "authif.h",
-      "deprecated": false,
-      "cross_references": [
-        "GetRequest",
-        "GetResponse",
-        "RADIUS_ATTRIBUTE_ARRAY"
-      ],
-      "confidence": 0.6,
-      "_source_line": 536
-    },
-    {
-      "id": "windows::SetAt",
-      "name": "SetAt",
-      "entity_type": "constant",
-      "description": "函数将指定索引处的属性替换为指定的属性。此 指向 RADIUS_ATTRIBUTE_ARRAY 结构的指针，该结构表示包含要替换的属性的属性数组。",
-      "header": "authif.h",
-      "deprecated": false,
-      "cross_references": [
-        "RADIUS_ATTRIBUTE_ARRAY"
-      ],
-      "confidence": 0.6,
-      "_source_line": 555
-    },
-    {
-      "id": "windows::PRADIUS_ATTRIBUTE_ARRAY",
-      "name": "PRADIUS_ATTRIBUTE_ARRAY",
-      "entity_type": "constant",
-      "description": "()(_RADIUS_EXTENSION_CONTROL_BLOCK *This,RADIUS_CODE rcResponseType) * GetResponse;",
-      "header": "authif.h",
-      "deprecated": false,
-      "cross_references": [
-        "GetResponse",
-        "RADIUS_CODE"
-      ],
-      "confidence": 0.75,
-      "_source_line": 999
-    },
-    {
       "id": "windows::GetResponse",
       "name": "GetResponse",
-      "entity_type": "constant",
-      "description": "指向 NPS 提供的 GetResponse 函数的指针。 NPS 设置此成员的值。",
+      "entity_type": "function_pointer",
+      "description": "Pointer to the GetResponse function provided by NPS. NPS sets the value of this member.",
       "header": "authif.h",
       "deprecated": false,
       "cross_references": [],
@@ -1248,47 +833,10 @@
       "_source_line": 1016
     },
     {
-      "id": "windows::SetResponseType",
-      "name": "SetResponseType",
-      "entity_type": "constant",
-      "description": "反馈 Windows Server 2008 authif.h",
-      "header": "authif.h",
-      "deprecated": false,
-      "cross_references": [
-        "Server"
-      ],
-      "confidence": 0.5,
-      "_source_line": 1044
-    },
-    {
-      "id": "windows::WhqlProvider",
-      "name": "WhqlProvider",
-      "entity_type": "unknown",
-      "description": "提供程序 Windows Installer 提供程序 wlbsprov 适用于 NFS 的 WMI 提供程序 sdoias.h 包含以下编程接口： 接口 ISdo 使用 ISdo 接口存储、检索和更新服务器数据对象 (SDO) 信息。 ISdoCollection 使用 ISdoCollection 接口操作 SDO 对象的集合。 ISdoDictionaryOld 使用 ISdoDictionaryOld 接口可操作远程访问拨入用户服务字典 (RADIUS) 属性。 ISdoMachine 使用 ISdoMachine 接口附加到 SDO 计算机，获取有关 SDO 计算机的信息，并获取指向其他 SDO 对象的接口。 ISdoServiceControl 使用 ISdoServiceControl 接口控制在 SDO 计算机上管理的服务。枚举 ACCOUNTINGPROPERTIES ACCOUNTINGPROPERTIES 类型的值枚举控制所记录的数据包类型以及日志文件的特征的属性。 ATTRIBUTEFILTER NPS 字典属性的用例。 ATTRIBUTEID ATTRIBUTEID 枚举类型枚举 SDO API 支持的 RADIUS 属性。 ATTRIBUTEINFO ATTRIBUTEINFO 类型的值枚举指定属性的特征。 ATTRIBUTEPROPERTIES ATTRIBUTEPROPERTIES 类型的值枚举 RADIUS 字典属性的属性。 ATTRIBUTERESTRICTIONS ATTRIBUTERESTRICTIONS 枚举类型的值指定对如何使用特定属性的限制。 ATTRIBUTESYNTAX ATTRIBUTESYNTAX 枚举类型中的每个值都指定可能的属性语法。",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.45,
-      "_source_line": 1152
-    },
-    {
-      "id": "windows::PROPERTY_ACCOUNTING_LOG_ACCOUNTING_INTERIM",
-      "name": "PROPERTY_ACCOUNTING_LOG_ACCOUNTING_INTERIM",
-      "entity_type": "constant",
-      "description": ", PROPERTY_ACCOUNTING_LOG_AUTHENTICATION,",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "PROPERTY_ACCOUNTING_LOG_AUTHENTICATION"
-      ],
-      "confidence": 0.65,
-      "_source_line": 1262
-    },
-    {
       "id": "windows::PROPERTY_ACCOUNTING_LOG_OPEN_NEW_FREQUENCY",
       "name": "PROPERTY_ACCOUNTING_LOG_OPEN_NEW_FREQUENCY",
       "entity_type": "constant",
-      "description": "指定创建新日志文件的频率。 此属性从 中获取值",
+      "description": "Specifies the frequency for creating new log files.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1299,7 +847,7 @@
       "id": "windows::PROPERTY_ACCOUNTING_LOG_OPEN_NEW_SIZE",
       "name": "PROPERTY_ACCOUNTING_LOG_OPEN_NEW_SIZE",
       "entity_type": "constant",
-      "description": ", PROPERTY_ACCOUNTING_LOG_FILE_DIRECTORY, PROPERTY_ACCOUNTING_LOG_IAS1_FORMAT,",
+      "description": "Specifies the size for new accounting log files when opened",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1312,7 +860,7 @@
       "id": "windows::PROPERTY_ACCOUNTING_LOG_ENABLE_LOGGING",
       "name": "PROPERTY_ACCOUNTING_LOG_ENABLE_LOGGING",
       "entity_type": "constant",
-      "description": ", PROPERTY_ACCOUNTING_LOG_DELETE_IF_FULL, PROPERTY_ACCOUNTING_SQL_MAX_SESSIONS,",
+      "description": "Accounting log enable logging property constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1334,21 +882,10 @@
       "_source_line": 1266
     },
     {
-      "id": "windows::PROPERTY_ACCOUNTING_DISCARD_REQUEST_ON_FAILURE",
-      "name": "PROPERTY_ACCOUNTING_DISCARD_REQUEST_ON_FAILURE",
-      "entity_type": "constant",
-      "description": "} ACCOUNTINGPROPERTIES;",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 1267
-    },
-    {
       "id": "windows::PROPERTY_ACCOUNTING_LOG_ACCOUNTING",
       "name": "PROPERTY_ACCOUNTING_LOG_ACCOUNTING",
       "entity_type": "constant",
-      "description": "指定是否记录记帐数据包。",
+      "description": "指定是否记录记帐数据包的标志常量",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1384,7 +921,7 @@
       "id": "windows::PROPERTY_ACCOUNTING_LOG_FILE_DIRECTORY",
       "name": "PROPERTY_ACCOUNTING_LOG_FILE_DIRECTORY",
       "entity_type": "constant",
-      "description": "日志文件所在的目录的文件系统路径。 此路径不包括文件名。 它还不包括尾随反斜杠。 PROPERTY_ACCOUNTING_LOG_IAS1_FORMAT 指定日志应采用 NPS 格式还是数据库可转换格式。 此属性可以具有以下值。 值 0 (VARIANT_FALSE) 0xFFFF (VARIANT_TRUE)",
+      "description": "Specifies the filesystem path of the directory containing log files (excluding filename and trailing backslash). PROPERTY_ACCOUNTING_LOG_IAS1_FORMAT determines whether logs use NPS format or database-compatible format. Possible values: 0 (VARIANT_FALSE) or 0xFFFF (VARIANT_TRUE).",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1397,7 +934,7 @@
       "id": "windows::PROPERTY_ACCOUNTING_LOG_DELETE_IF_FULL",
       "name": "PROPERTY_ACCOUNTING_LOG_DELETE_IF_FULL",
       "entity_type": "constant",
-      "description": "导致记帐日志在已满时被删除。",
+      "description": "指定当记账日志已满时是否自动删除日志",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1407,8 +944,8 @@
     {
       "id": "windows::PROPERTY_ACCOUNTING_SQL_MAX_SESSIONS",
       "name": "PROPERTY_ACCOUNTING_SQL_MAX_SESSIONS",
-      "entity_type": "constant",
-      "description": "最大并发 SQL Server 会话数。",
+      "entity_type": "property",
+      "description": "Specifies the maximum number of concurrent SQL Server sessions.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1421,7 +958,7 @@
       "id": "windows::ATTRIBUTE_FILTER_VPN_DIALUP",
       "name": "ATTRIBUTE_FILTER_VPN_DIALUP",
       "entity_type": "constant",
-      "description": "= 0x1, ATTRIBUTE_FILTER_IEEE_802_1x = 0x2} ATTRIBUTEFILTER;",
+      "description": "VPN/Dialup attribute filter constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1432,8 +969,8 @@
       "id": "windows::ATTRIBUTE_FILTER_IEEE_802",
       "name": "ATTRIBUTE_FILTER_IEEE_802",
       "entity_type": "constant",
-      "description": "_1x 值： 0x2 要求",
-      "syntax": "typedef enum _ATTRIBUTEID {   ATTRIBUTE_UNDEFINED = 0,   ATTRIBUTE_MIN_VALUE = 1,",
+      "description": "IEEE 802.1x 认证属性过滤器常量，值为 0x2",
+      "syntax": "typedef enum _ATTRIBUTEID {\n  ATTRIBUTE_UNDEFINED = 0,\n  ATTRIBUTE_MIN_VALUE = 1,\n  ATTRIBUTE_FILTER_IEEE_802 = 0x2\n}",
       "requirements": {
         "header": "sdoias.h",
         "target_platform": "Windows",
@@ -1449,7 +986,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_USER_PASSWORD",
       "name": "RADIUS_ATTRIBUTE_USER_PASSWORD",
       "entity_type": "constant",
-      "description": ", RADIUS_ATTRIBUTE_CHAP_PASSWORD, RADIUS_ATTRIBUTE_NAS_IP_ADDRESS, RADIUS_ATTRIBUTE_NAS_PORT,",
+      "description": "RADIUS protocol attribute type for user password",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1464,7 +1001,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_SERVICE_TYPE",
       "name": "RADIUS_ATTRIBUTE_SERVICE_TYPE",
       "entity_type": "constant",
-      "description": "指定用户请求的服务类型或要提供的服务类型。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "Specifies the type of service requested by or provided to the user. For details, see RFC 2865.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1475,7 +1012,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_FRAMED_PROTOCOL",
       "name": "RADIUS_ATTRIBUTE_FRAMED_PROTOCOL",
       "entity_type": "constant",
-      "description": ", RADIUS_ATTRIBUTE_FRAMED_IP_ADDRESS, RADIUS_ATTRIBUTE_FRAMED_IP_NETMASK, RADIUS_ATTRIBUTE_FRAMED_ROUTING = 10,",
+      "description": "RADIUS协议中用于表示帧协议的属性类型常量",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1490,7 +1027,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_FILTER_ID",
       "name": "RADIUS_ATTRIBUTE_FILTER_ID",
       "entity_type": "constant",
-      "description": "指定请求身份验证的用户的筛选器列表。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "Specifies the filter list for user authentication requests. For more information, see RFC 2865.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1512,7 +1049,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_LOGIN_IP_HOST",
       "name": "RADIUS_ATTRIBUTE_LOGIN_IP_HOST",
       "entity_type": "constant",
-      "description": ", RADIUS_ATTRIBUTE_LOGIN_SERVICE, RADIUS_ATTRIBUTE_LOGIN_TCP_PORT,",
+      "description": "RADIUS attribute constant for login IP host",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1523,23 +1060,10 @@
       "_source_line": 1354
     },
     {
-      "id": "windows::RADIUS_ATTRIBUTE_UNASSIGNED1",
-      "name": "RADIUS_ATTRIBUTE_UNASSIGNED1",
-      "entity_type": "constant",
-      "description": ", RADIUS_ATTRIBUTE_REPLY_MESSAGE,",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "RADIUS_ATTRIBUTE_REPLY_MESSAGE"
-      ],
-      "confidence": 0.65,
-      "_source_line": 1355
-    },
-    {
       "id": "windows::RADIUS_ATTRIBUTE_CALLBACK_NUMBER",
       "name": "RADIUS_ATTRIBUTE_CALLBACK_NUMBER",
       "entity_type": "constant",
-      "description": ", RADIUS_ATTRIBUTE_CALLBACK_ID = 20,",
+      "description": "RADIUS attribute constant representing callback number",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1552,7 +1076,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_UNASSIGNED2",
       "name": "RADIUS_ATTRIBUTE_UNASSIGNED2",
       "entity_type": "constant",
-      "description": "此值当前未分配。 此类型的 中的值字段也是未定义的。 RADIUS_ATTRIBUTE_FRAMED_ROUTE 指定要在 NAS 上为用户配置的路由信息。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "此值当前未分配。此类型的值字段也是未定义的。RADIUS_ATTRIBUTE_FRAMED_ROUTE指定要在NAS上为用户配置的路由信息。有关详细信息，请参阅RFC 2865。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1563,7 +1087,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_FRAMED_IPX_NETWORK",
       "name": "RADIUS_ATTRIBUTE_FRAMED_IPX_NETWORK",
       "entity_type": "constant",
-      "description": "指定要为用户配置的 IPX 网络编号。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "Specifies the IPX network number to be configured for the user. For more information, see RFC 2865.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1574,7 +1098,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_STATE",
       "name": "RADIUS_ATTRIBUTE_STATE",
       "entity_type": "constant",
-      "description": "指定服务器提供给客户端的状态信息。 请参阅 有关此值的详细信息，请参阅 RFC 2865 RADIUS_ATTRIBUTE_CLASS 。 此类型的 中的值字段是指针。 指定由身份验证提供程序提供给 NAS 的值。 NAS 在与会计提供程序通信时应使用此值。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "Specifies state information provided by the server to the client. Refer to RFC 2865 RADIUS_ATTRIBUTE_CLASS for details. The value field of this type is a pointer. Specifies a value provided by the authentication provider to the NAS. The NAS should use this value when communicating with the accounting provider. See RFC 2865 for details.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1585,7 +1109,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_VENDOR_SPECIFIC",
       "name": "RADIUS_ATTRIBUTE_VENDOR_SPECIFIC",
       "entity_type": "constant",
-      "description": ", RADIUS_ATTRIBUTE_SESSION_TIMEOUT, RADIUS_ATTRIBUTE_IDLE_TIMEOUT,",
+      "description": "Vendor-specific RADIUS attribute type",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1599,7 +1123,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_TERMINATION_ACTION",
       "name": "RADIUS_ATTRIBUTE_TERMINATION_ACTION",
       "entity_type": "constant",
-      "description": "指定服务器在连接终止时执行的操作。 有关此值的详细信息，请参阅上述引用的文件。 此类型的值字段为 32 位整型值。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "Specifies the action the server should take when terminating a connection. The value field is a 32-bit integer. Defined in RFC 2865.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1610,7 +1134,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_CALLED_STATION_ID",
       "name": "RADIUS_ATTRIBUTE_CALLED_STATION_ID",
       "entity_type": "constant",
-      "description": "值： 30 指定用户拨打以连接到 NAS 的号码。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "值为30，指定用户拨打以连接到NAS(网络接入服务器)的号码。详细信息请参阅RFC 2865。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1621,7 +1145,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_NAS_IDENTIFIER",
       "name": "RADIUS_ATTRIBUTE_NAS_IDENTIFIER",
       "entity_type": "constant",
-      "description": "指定 NAS 标识符。 Access-Request 应指定 NAS 标识符或 NAS IP 地址。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "Specifies the NAS identifier. An Access-Request should specify either NAS identifier or NAS IP address. For details, see RFC 2865.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1634,7 +1158,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_LOGIN_LAT_SERVICE",
       "name": "RADIUS_ATTRIBUTE_LOGIN_LAT_SERVICE",
       "entity_type": "constant",
-      "description": "指定当前不用于 Windows 上的身份验证的属性。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "指定不用于Windows身份验证的RADIUS属性。详细信息请参阅RFC 2865。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1645,7 +1169,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_LOGIN_LAT_NODE",
       "name": "RADIUS_ATTRIBUTE_LOGIN_LAT_NODE",
       "entity_type": "constant",
-      "description": "指定当前不用于 Windows 上的身份验证的属性。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "Specifies an attribute currently not used for authentication on Windows. For more information, see RFC 2865.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1656,7 +1180,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_FRAMED_APPLETALK_LINK",
       "name": "RADIUS_ATTRIBUTE_FRAMED_APPLETALK_LINK",
       "entity_type": "constant",
-      "description": ", RADIUS_ATTRIBUTE_FRAMED_APPLETALK_NET, RADIUS_ATTRIBUTE_FRAMED_APPLETALK_ZONE, RADIUS_ATTRIBUTE_ACCT_STATUS_TYPE = 40,",
+      "description": "RADIUS attribute constant for Framed AppleTalk Link",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1671,7 +1195,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_ACCT_DELAY_TIME",
       "name": "RADIUS_ATTRIBUTE_ACCT_DELAY_TIME",
       "entity_type": "constant",
-      "description": ", RADIUS_ATTRIBUTE_ACCT_INPUT_OCTETS, RADIUS_ATTRIBUTE_ACCT_OUTPUT_OCTETS, RADIUS_ATTRIBUTE_ACCT_SESSION_ID, RADIUS_ATTRIBUTE_ACCT_AUTHENTIC, RADIUS_ATTRIBUTE_ACCT_SESSION_TIME, RADIUS_ATTRIBUTE_ACCT_INPUT_PACKETS, RADIUS_ATTRIBUTE_ACCT_OUTPUT_PACKETS, RADIUS_ATTRIBUTE_ACCT_TERMINATE_CAUSE,",
+      "description": "RADIUS accounting delay time attribute",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1691,7 +1215,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_ACCT_MULTI_SSN_ID",
       "name": "RADIUS_ATTRIBUTE_ACCT_MULTI_SSN_ID",
       "entity_type": "constant",
-      "description": "= 50, RADIUS_ATTRIBUTE_ACCT_LINK_COUNT = 51, RADIUS_ATTRIBUTE_CHAP_CHALLENGE = 60,",
+      "description": "RADIUS accounting attribute for multi-SSN ID (value = 50)",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1705,7 +1229,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_NAS_PORT_TYPE",
       "name": "RADIUS_ATTRIBUTE_NAS_PORT_TYPE",
       "entity_type": "constant",
-      "description": "指定用户连接的端口的类型，例如异步、ISDN、虚拟。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "Specifies the type of port the user is connected to (e.g. Async, ISDN, Virtual). See RFC 2865 for details.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1716,7 +1240,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_LOGIN_LAT_PORT",
       "name": "RADIUS_ATTRIBUTE_LOGIN_LAT_PORT",
       "entity_type": "constant",
-      "description": "指定当前不用于 Windows 上的身份验证的属性。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "Specifies an attribute not currently used for authentication on Windows. For details, see RFC 2865.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1727,7 +1251,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_TUNNEL_MEDIUM_TYPE",
       "name": "RADIUS_ATTRIBUTE_TUNNEL_MEDIUM_TYPE",
       "entity_type": "constant",
-      "description": "指定在为这些协议创建隧道时要使用的传输介质， (例如 L2TP) ，这些协议可以通过多个传输运行。 以下列表列出了有效的介质类型。 中等类型值 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 说明",
+      "description": "Specifies the transport medium to use when creating tunnels for protocols (e.g. L2TP) that can operate over multiple transports. Valid medium type values: 1-15",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1738,7 +1262,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_ACCT_TUNNEL_CONN",
       "name": "RADIUS_ATTRIBUTE_ACCT_TUNNEL_CONN",
       "entity_type": "constant",
-      "description": "指定分配给隧道的标识符 会话。 有关详细信息，请参阅 RFC 2867 。",
+      "description": "指定分配给隧道会话的标识符。有关详细信息，请参阅RFC 2867。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1773,7 +1297,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_ARAP_SECURITY_DATA",
       "name": "RADIUS_ATTRIBUTE_ARAP_SECURITY_DATA",
       "entity_type": "constant",
-      "description": "指定要用于 ARAP 安全模块的数据。 有关详细信息，请参阅 RFC 2869 。",
+      "description": "Specifies the data to be used for ARAP security module. For more information, see RFC 2869.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1784,7 +1308,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_PROMPT",
       "name": "RADIUS_ATTRIBUTE_PROMPT",
       "entity_type": "constant",
-      "description": "值： 76 指定 NAS 是否应回显用户对质询的响应。 有关详细信息，请参阅 RFC 2869 。",
+      "description": "值为76，指定NAS是否应回显用户对质询的响应。详细信息请参阅RFC 2869。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1806,7 +1330,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_SIGNATURE",
       "name": "RADIUS_ATTRIBUTE_SIGNATURE",
       "entity_type": "constant",
-      "description": "值： 80 指定要包含在 CHAP、EAP 或 ARAP 数据包中的签名。 有关详细信息，请参阅 RFC 2869 。",
+      "description": "Value: 80. Specifies the signature to be included in CHAP, EAP or ARAP packets. For more information, see RFC 2869.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1817,7 +1341,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_TUNNEL_PVT_GROUP_ID",
       "name": "RADIUS_ATTRIBUTE_TUNNEL_PVT_GROUP_ID",
       "entity_type": "constant",
-      "description": ", RADIUS_ATTRIBUTE_TUNNEL_ASSIGNMENT_ID, RADIUS_ATTRIBUTE_TUNNEL_PREFERENCE,",
+      "description": "RADIUS tunnel attribute constant representing Private Group ID",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1831,7 +1355,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_ACCT_INTERIM_INTERVAL",
       "name": "RADIUS_ATTRIBUTE_ACCT_INTERIM_INTERVAL",
       "entity_type": "constant",
-      "description": "值： 85 指示此特定会话的每个临时更新之间的秒数。 此值只能显示在 Access-Accept 消息中。 有关详细信息，请参阅 RFC 2866 。",
+      "description": "Value: 85. Indicates the number of seconds between each interim update for this session. This value can only appear in Access-Accept messages. For details, see RFC 2866.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1845,7 +1369,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_NAS_I",
       "name": "RADIUS_ATTRIBUTE_NAS_I",
       "entity_type": "constant",
-      "description": "Pv6_ADDRESS 值： 95 指定请求用户身份验证的 NAS 的 IPv6 地址。 它对于 RADIUS 服务器范围内的 NAS 应是唯一的。 它仅在 Access-Request 数据包中使用。 有关详细信息，请参阅 RFC 3162 Address 部分。",
+      "description": "值：95，指定请求用户身份验证的NAS的IPv6地址。对于RADIUS服务器范围内的NAS应是唯一的。仅在Access-Request数据包中使用。详细信息请参阅RFC 3162 Address部分。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1859,7 +1383,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_LOGIN_I",
       "name": "RADIUS_ATTRIBUTE_LOGIN_I",
       "entity_type": "constant",
-      "description": "Pv6_HOST 指定用于连接 的系统 user，当包含 ratLoginService 属性时。 它可能是在 Access-Accept 数据包中使用。 有关详细信息，请参阅 RFC 3162 中的 Login-IPv6-Host 部分。",
+      "description": "指定用于IPv6连接的系统用户，当包含ratLoginService属性时。可能在Access-Accept数据包中使用。详细信息请参阅RFC 3162中的Login-IPv6-Host部分。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1873,7 +1397,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_FRAMED_I",
       "name": "RADIUS_ATTRIBUTE_FRAMED_I",
       "entity_type": "constant",
-      "description": "Pv6_PREFIX 指定 IPv6 前缀 (和相应的路由) 要为用户配置。 它可用于 Access-Accept 数据包 和 可以出现多次。 有关详细信息，请参阅 RFC 3162 中的 NAS-IPv6- 中的 Framed-IPv6-Prefix 部分。",
+      "description": "Specifies IPv6 prefix (and corresponding route) to be configured for user. Can be used in Access-Accept packets and may appear multiple times. See Framed-IPv6-Prefix section in RFC 3162 for details.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1887,7 +1411,7 @@
       "id": "windows::IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_IP_ADDRESS",
       "name": "IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_IP_ADDRESS",
       "entity_type": "constant",
-      "description": "值： 0x1000 此属性保留供系统使用。",
+      "description": "Value: 0x1000. This attribute is reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1898,7 +1422,7 @@
       "id": "windows::IAS_ATTRIBUTE_SAVED_RADIUS_CALLBACK_NUMBER",
       "name": "IAS_ATTRIBUTE_SAVED_RADIUS_CALLBACK_NUMBER",
       "entity_type": "constant",
-      "description": ", IAS_ATTRIBUTE_NP_CALLING_STATION_ID,",
+      "description": "IAS attribute for saved RADIUS callback number",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1911,7 +1435,7 @@
       "id": "windows::IAS_ATTRIBUTE_SAVED_NP_CALLING_STATION_ID",
       "name": "IAS_ATTRIBUTE_SAVED_NP_CALLING_STATION_ID",
       "entity_type": "constant",
-      "description": ", IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_ROUTE,",
+      "description": "Saved network policy calling station ID attribute for IAS (Internet Authentication Service)",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1924,7 +1448,7 @@
       "id": "windows::IAS_ATTRIBUTE_IGNORE_USER_DIALIN_PROPERTIES",
       "name": "IAS_ATTRIBUTE_IGNORE_USER_DIALIN_PROPERTIES",
       "entity_type": "constant",
-      "description": "指定忽略用户的拨入属性。 IAS_ATTRIBUTE_NP_TIME_OF_DAY 允许用户连接的时间段和星期数。 IAS_ATTRIBUTE_NP_CALLED_STATION_ID 用户拨打的电话号码。",
+      "description": "指定忽略用户的拨入属性",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1937,7 +1461,7 @@
       "id": "windows::IAS_ATTRIBUTE_NP_ALLOWED_PORT_TYPES",
       "name": "IAS_ATTRIBUTE_NP_ALLOWED_PORT_TYPES",
       "entity_type": "constant",
-      "description": "= 0x1008, IAS_ATTRIBUTE_NP_AUTHENTICATION_TYPE,",
+      "description": "Specifies the allowed port types for Network Policy (value = 0x1008)",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1950,7 +1474,7 @@
       "id": "windows::IAS_ATTRIBUTE_NP_ALLOWED_EAP_TYPE",
       "name": "IAS_ATTRIBUTE_NP_ALLOWED_EAP_TYPE",
       "entity_type": "constant",
-      "description": "连接允许的 EAP 加密模式。 IAS_ATTRIBUTE_SHARED_SECRET 此属性保留供系统使用。",
+      "description": "指定网络策略允许的 EAP 加密类型。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1961,7 +1485,7 @@
       "id": "windows::IAS_ATTRIBUTE_CLIENT_IP_ADDRESS",
       "name": "IAS_ATTRIBUTE_CLIENT_IP_ADDRESS",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "Specifies the client IP address attribute. This attribute is reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -1972,7 +1496,7 @@
       "id": "windows::IAS_ATTRIBUTE_CLIENT_PACKET_HEADER",
       "name": "IAS_ATTRIBUTE_CLIENT_PACKET_HEADER",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。 IAS_ATTRIBUTE_TOKEN_GROUPS 此属性保留供系统使用。",
+      "description": "此属性保留供系统使用。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1985,7 +1509,7 @@
       "id": "windows::IAS_ATTRIBUTE_TOKEN_GROUPS",
       "name": "IAS_ATTRIBUTE_TOKEN_GROUPS",
       "entity_type": "constant",
-      "description": ", IAS_ATTRIBUTE_ALLOW_DIALIN,",
+      "description": "IAS_ATTRIBUTE_TOKEN_GROUPS constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -1998,7 +1522,7 @@
       "id": "windows::IAS_ATTRIBUTE_REQUEST_ID",
       "name": "IAS_ATTRIBUTE_REQUEST_ID",
       "entity_type": "constant",
-      "description": "= 0x1010, IAS_ATTRIBUTE_MANIPULATION_TARGET, IAS_ATTRIBUTE_MANIPULATION_RULE, IAS_ATTRIBUTE_ORIGINAL_USER_NAME, IAS_ATTRIBUTE_CLIENT_VENDOR_TYPE,",
+      "description": "RADIUS attribute constant representing request ID (value = 0x1010)",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2012,7 +1536,7 @@
       "id": "windows::IAS_ATTRIBUTE_CLIENT_UDP_PORT",
       "name": "IAS_ATTRIBUTE_CLIENT_UDP_PORT",
       "entity_type": "constant",
-      "description": ", MS_ATTRIBUTE_CHAP_CHALLENGE, MS_ATTRIBUTE_CHAP_RESPONSE,",
+      "description": "Specifies the UDP port number used by the client",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2025,7 +1549,7 @@
       "id": "windows::MS_ATTRIBUTE_CHAP_DOMAIN",
       "name": "MS_ATTRIBUTE_CHAP_DOMAIN",
       "entity_type": "constant",
-      "description": "值： 0x1018 此属性保留供系统使用。 MS_ATTRIBUTE_CHAP_ERROR 此属性保留供系统使用。",
+      "description": "值：0x1018 此属性保留供系统使用。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2038,7 +1562,7 @@
       "id": "windows::MS_ATTRIBUTE_CHAP_ERROR",
       "name": "MS_ATTRIBUTE_CHAP_ERROR",
       "entity_type": "constant",
-      "description": ", MS_ATTRIBUTE_CHAP_CPW1, MS_ATTRIBUTE_CHAP_CPW2,",
+      "description": "CHAP authentication error attribute constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2052,7 +1576,7 @@
       "id": "windows::MS_ATTRIBUTE_CHAP_LM_ENC_PW",
       "name": "MS_ATTRIBUTE_CHAP_LM_ENC_PW",
       "entity_type": "constant",
-      "description": ", MS_ATTRIBUTE_CHAP_NT_ENC_PW, MS_ATTRIBUTE_CHAP_MPPE_KEYS,",
+      "description": "Microsoft CHAP LM encrypted password attribute",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2063,23 +1587,10 @@
       "_source_line": 1399
     },
     {
-      "id": "windows::IAS_ATTRIBUTE_AUTHENTICATION_TYPE",
-      "name": "IAS_ATTRIBUTE_AUTHENTICATION_TYPE",
-      "entity_type": "constant",
-      "description": ", IAS_ATTRIBUTE_CLIENT_NAME = 0x1020, IAS_ATTRIBUTE_NT4_ACCOUNT_NAME,",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "IAS_ATTRIBUTE_NT4_ACCOUNT_NAME"
-      ],
-      "confidence": 0.75,
-      "_source_line": 1400
-    },
-    {
       "id": "windows::IAS_ATTRIBUTE_FULLY_QUALIFIED_USER_NAME",
       "name": "IAS_ATTRIBUTE_FULLY_QUALIFIED_USER_NAME",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。 IAS_ATTRIBUTE_NTGROUPS 指定用于策略条件的组。",
+      "description": "Specifies the fully qualified user name for policy conditions.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2090,7 +1601,7 @@
       "id": "windows::IAS_ATTRIBUTE_EAP_FRIENDLY_NAME",
       "name": "IAS_ATTRIBUTE_EAP_FRIENDLY_NAME",
       "entity_type": "constant",
-      "description": ", IAS_ATTRIBUTE_AUTH_PROVIDER_TYPE,",
+      "description": "EAP authentication friendly name attribute",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2103,7 +1614,7 @@
       "id": "windows::MS_ATTRIBUTE_ACCT_AUTH_TYPE",
       "name": "MS_ATTRIBUTE_ACCT_AUTH_TYPE",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。 MS_ATTRIBUTE_ACCT_EAP_TYPE 此属性保留供系统使用。",
+      "description": "此属性保留供系统使用。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2114,7 +1625,7 @@
       "id": "windows::IAS_ATTRIBUTE_PACKET_TYPE",
       "name": "IAS_ATTRIBUTE_PACKET_TYPE",
       "entity_type": "constant",
-      "description": "= 0x1028, IAS_ATTRIBUTE_AUTH_PROVIDER_NAME, IAS_ATTRIBUTE_ACCT_PROVIDER_TYPE, IAS_ATTRIBUTE_ACCT_PROVIDER_NAME,",
+      "description": "Packet type attribute constant with value 0x1028",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2128,7 +1639,7 @@
       "id": "windows::MS_ATTRIBUTE_MPPE_SEND_KEY",
       "name": "MS_ATTRIBUTE_MPPE_SEND_KEY",
       "entity_type": "constant",
-      "description": ", MS_ATTRIBUTE_MPPE_RECV_KEY, IAS_ATTRIBUTE_REASON_CODE, MS_ATTRIBUTE_FILTER,",
+      "description": "Microsoft attribute for MPPE send key",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2142,7 +1653,7 @@
       "id": "windows::MS_ATTRIBUTE_CHAP2_RESPONSE",
       "name": "MS_ATTRIBUTE_CHAP2_RESPONSE",
       "entity_type": "constant",
-      "description": "值： 0x1030 此属性保留供系统使用。 MS_ATTRIBUTE_CHAP2_SUCCESS 此属性保留供系统使用。",
+      "description": "值：0x1030。此属性保留供系统使用。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2153,7 +1664,7 @@
       "id": "windows::MS_ATTRIBUTE_CHAP2_CPW",
       "name": "MS_ATTRIBUTE_CHAP2_CPW",
       "entity_type": "constant",
-      "description": ", MS_ATTRIBUTE_RAS_VENDOR, MS_ATTRIBUTE_RAS_VERSION, IAS_ATTRIBUTE_NP_NAME,",
+      "description": "Microsoft CHAPv2 Change Password attribute constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2168,7 +1679,7 @@
       "id": "windows::MS_ATTRIBUTE_PRIMARY_DNS_SERVER",
       "name": "MS_ATTRIBUTE_PRIMARY_DNS_SERVER",
       "entity_type": "constant",
-      "description": "请参阅 RFC) (注释请求 2548 ，Microsoft 供应商特定的 RADIUS 属性。",
+      "description": "Microsoft vendor-specific RADIUS attribute. Refer to RFC 2548.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2179,7 +1690,7 @@
       "id": "windows::MS_ATTRIBUTE_PRIMARY_NBNS_SERVER",
       "name": "MS_ATTRIBUTE_PRIMARY_NBNS_SERVER",
       "entity_type": "constant",
-      "description": "值： 0x1038 请参阅 RFC) (注释请求 2548 ，Microsoft 供应商特定的 RADIUS 属性。",
+      "description": "Value: 0x1038. Microsoft vendor-specific RADIUS attribute. See RFC 2548 for details.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2190,7 +1701,7 @@
       "id": "windows::IAS_ATTRIBUTE_PROXY_POLICY_NAME",
       "name": "IAS_ATTRIBUTE_PROXY_POLICY_NAME",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "此属性保留供系统内部使用。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2201,7 +1712,7 @@
       "id": "windows::IAS_ATTRIBUTE_PROVIDER_TYPE",
       "name": "IAS_ATTRIBUTE_PROVIDER_TYPE",
       "entity_type": "constant",
-      "description": ", IAS_ATTRIBUTE_PROVIDER_NAME,",
+      "description": "Constant representing the provider type attribute in IAS (Internet Authentication Service)",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2214,7 +1725,7 @@
       "id": "windows::IAS_ATTRIBUTE_REMOTE_SERVER_ADDRESS",
       "name": "IAS_ATTRIBUTE_REMOTE_SERVER_ADDRESS",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "Reserved for system use. Specifies the remote server address in IAS (Internet Authentication Service) attributes.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2225,7 +1736,7 @@
       "id": "windows::IAS_ATTRIBUTE_GENERATE_CLASS_ATTRIBUTE",
       "name": "IAS_ATTRIBUTE_GENERATE_CLASS_ATTRIBUTE",
       "entity_type": "constant",
-      "description": "指定 NPS 是否自动生成类属性。 默认情况下，NPS 自动生成类属性。",
+      "description": "Specifies whether NPS automatically generates class attributes. By default, NPS auto-generates class attributes.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2236,7 +1747,7 @@
       "id": "windows::MS_ATTRIBUTE_RAS_CLIENT_VERSION",
       "name": "MS_ATTRIBUTE_RAS_CLIENT_VERSION",
       "entity_type": "constant",
-      "description": "值： 0x1040 指定生成请求的客户端的版本。",
+      "description": "值为0x1040，用于指定生成请求的RAS客户端版本。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2269,7 +1780,7 @@
       "id": "windows::MS_ATTRIBUTE_QUARANTINE_IPFILTER",
       "name": "MS_ATTRIBUTE_QUARANTINE_IPFILTER",
       "entity_type": "constant",
-      "description": "指定当连接处于受限状态时路由和远程访问服务使用的 IP 流量筛选器。 MS_ATTRIBUTE_QUARANTINE_SESSION_TIMEOUT 指定连接在断开连接之前可以保持受限状态) (的时间（以秒为单位）。",
+      "description": "指定当连接处于受限状态时路由和远程访问服务使用的IP流量筛选器。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2282,7 +1793,7 @@
       "id": "windows::MS_ATTRIBUTE_QUARANTINE_SESSION_TIMEOUT",
       "name": "MS_ATTRIBUTE_QUARANTINE_SESSION_TIMEOUT",
       "entity_type": "constant",
-      "description": ", MS_ATTRIBUTE_USER_SECURITY_IDENTITY,",
+      "description": "Specifies the quarantine session timeout attribute",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2321,7 +1832,7 @@
       "id": "windows::IAS_ATTRIBUTE_NP_PEAPUPFRONT_ENABLED",
       "name": "IAS_ATTRIBUTE_NP_PEAPUPFRONT_ENABLED",
       "entity_type": "constant",
-      "description": ", IAS_ATTRIBUTE_CERTIFICATE_EKU = 8097, IAS_ATTRIBUTE_EAP_CONFIG,",
+      "description": "Network Policy attribute for PEAP UP-front authentication enablement",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2345,7 +1856,7 @@
       "id": "windows::IAS_ATTRIBUTE_PEAP_FAST_ROAMED_SESSION",
       "name": "IAS_ATTRIBUTE_PEAP_FAST_ROAMED_SESSION",
       "entity_type": "constant",
-      "description": "值： 8100 此属性保留供系统使用。 IAS_ATTRIBUTE_EAP_TYPEID 此属性保留供系统使用。",
+      "description": "值：8100。此属性保留供系统使用。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2358,7 +1869,7 @@
       "id": "windows::IAS_ATTRIBUTE_EAP_TYPEID",
       "name": "IAS_ATTRIBUTE_EAP_TYPEID",
       "entity_type": "constant",
-      "description": ", MS_ATTRIBUTE_EAP_TLV,",
+      "description": "EAP type identifier attribute used in IAS (Internet Authentication Service)",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2371,7 +1882,7 @@
       "id": "windows::IAS_ATTRIBUTE_REJECT_REASON_CODE",
       "name": "IAS_ATTRIBUTE_REJECT_REASON_CODE",
       "entity_type": "constant",
-      "description": ", IAS_ATTRIBUTE_PROXY_EAP_CONFIG,",
+      "description": "Constant representing the reject reason code attribute in IAS (Internet Authentication Service)",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2384,7 +1895,7 @@
       "id": "windows::IAS_ATTRIBUTE_EAP_SESSION",
       "name": "IAS_ATTRIBUTE_EAP_SESSION",
       "entity_type": "constant",
-      "description": ", IAS_ATTRIBUTE_IS_REPLAY,",
+      "description": "EAP session attribute constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2397,7 +1908,7 @@
       "id": "windows::IAS_ATTRIBUTE_CLEAR_TEXT_PASSWORD",
       "name": "IAS_ATTRIBUTE_CLEAR_TEXT_PASSWORD",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。 MS_ATTRIBUTE_IDENTITY_TYPE 指定要执行的标识类型检查。 MS_ATTRIBUTE_SERVICE_CLASS 指定哪个 DHCP 作用域组对应于请求访问的客户端。",
+      "description": "This attribute is reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2410,7 +1921,7 @@
       "id": "windows::MS_ATTRIBUTE_QUARANTINE_USER_CLASS",
       "name": "MS_ATTRIBUTE_QUARANTINE_USER_CLASS",
       "entity_type": "constant",
-      "description": "值： 8110 特定于供应商的属性，用于携带 RFC 3004 护 (NAP) 用户类。",
+      "description": "值：8110 特定于供应商的属性，用于携带RFC 3004 (NAP)用户类。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2418,24 +1929,10 @@
       "_source_line": 1429
     },
     {
-      "id": "windows::MS_ATTRIBUTE_QUARANTINE_STATE",
-      "name": "MS_ATTRIBUTE_QUARANTINE_STATE",
-      "entity_type": "constant",
-      "description": ", IAS_ATTRIBUTE_OVERRIDE_RAP_AUTH, IAS_ATTRIBUTE_PEAP_CHANNEL_UP, IAS_ATTRIBUTE_NAME_MAPPED,",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "IAS_ATTRIBUTE_OVERRIDE_RAP_AUTH",
-        "IAS_ATTRIBUTE_PEAP_CHANNEL_UP"
-      ],
-      "confidence": 0.75,
-      "_source_line": 1430
-    },
-    {
       "id": "windows::IAS_ATTRIBUTE_POLICY_ENFORCED",
       "name": "IAS_ATTRIBUTE_POLICY_ENFORCED",
       "entity_type": "constant",
-      "description": ", IAS_ATTRIBUTE_MACHINE_NTGROUPS, IAS_ATTRIBUTE_USER_NTGROUPS,",
+      "description": "Policy enforcement attribute constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2449,7 +1946,7 @@
       "id": "windows::IAS_ATTRIBUTE_MACHINE_TOKEN_GROUPS",
       "name": "IAS_ATTRIBUTE_MACHINE_TOKEN_GROUPS",
       "entity_type": "constant",
-      "description": ", IAS_ATTRIBUTE_USER_TOKEN_GROUPS,",
+      "description": "Constant representing machine token groups attribute in IAS (Internet Authentication Service)",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2462,7 +1959,7 @@
       "id": "windows::MS_ATTRIBUTE_QUARANTINE_GRACE_TIME",
       "name": "MS_ATTRIBUTE_QUARANTINE_GRACE_TIME",
       "entity_type": "constant",
-      "description": "值： 8120 指定主机必须符合网络策略的时间量。 IAS_ATTRIBUTE_QUARANTINE_URL 此属性保留给系统使用。",
+      "description": "值：8120，指定主机必须符合网络策略的时间量。IAS_ATTRIBUTE_QUARANTINE_URL此属性保留给系统使用。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2473,7 +1970,7 @@
       "id": "windows::IAS_ATTRIBUTE_QUARANTINE_FIXUP_SERVERS",
       "name": "IAS_ATTRIBUTE_QUARANTINE_FIXUP_SERVERS",
       "entity_type": "constant",
-      "description": ", MS_ATTRIBUTE_NOT_QUARANTINE_CAPABLE,",
+      "description": "Attribute indicating quarantine fixup servers",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2486,7 +1983,7 @@
       "id": "windows::IAS_ATTRIBUTE_QUARANTINE_SYSTEM_HEALTH_RESULT",
       "name": "IAS_ATTRIBUTE_QUARANTINE_SYSTEM_HEALTH_RESULT",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "This attribute is reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2497,7 +1994,7 @@
       "id": "windows::IAS_ATTRIBUTE_QUARANTINE_SYSTEM_HEALTH_VALIDATORS",
       "name": "IAS_ATTRIBUTE_QUARANTINE_SYSTEM_HEALTH_VALIDATORS",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。 IAS_ATTRIBUTE_MACHINE_NAME 此属性保留供系统使用。",
+      "description": "此属性保留供系统使用。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2508,7 +2005,7 @@
       "id": "windows::IAS_ATTRIBUTE_NT4_MACHINE_NAME",
       "name": "IAS_ATTRIBUTE_NT4_MACHINE_NAME",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "This attribute is reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2519,7 +2016,7 @@
       "id": "windows::IAS_ATTRIBUTE_QUARANTINE_SESSION_HANDLE",
       "name": "IAS_ATTRIBUTE_QUARANTINE_SESSION_HANDLE",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "This attribute is reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2530,7 +2027,7 @@
       "id": "windows::IAS_ATTRIBUTE_FULLY_QUALIFIED_MACHINE_NAME",
       "name": "IAS_ATTRIBUTE_FULLY_QUALIFIED_MACHINE_NAME",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "This attribute is reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2541,7 +2038,7 @@
       "id": "windows::IAS_ATTRIBUTE_QUARANTINE_FIXUP_SERVERS_CONFIGURATION",
       "name": "IAS_ATTRIBUTE_QUARANTINE_FIXUP_SERVERS_CONFIGURATION",
       "entity_type": "constant",
-      "description": "= 8130, IAS_ATTRIBUTE_CLIENT_QUARANTINE_COMPATIBLE,",
+      "description": "Value = 8130",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2554,7 +2051,7 @@
       "id": "windows::MS_ATTRIBUTE_NETWORK_ACCESS_SERVER_TYPE",
       "name": "MS_ATTRIBUTE_NETWORK_ACCESS_SERVER_TYPE",
       "entity_type": "constant",
-      "description": "指定网络访问服务器的访问类型 (NAS) 。 NAS 可能会将此属性发送到 RADIUS 服务器，以在 Access-Request 消息中指示此 NAS 的类型。",
+      "description": "指定网络访问服务器(NAS)的类型。NAS可能将此属性发送到RADIUS服务器，在Access-Request消息中指示NAS类型。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2578,7 +2075,7 @@
       "id": "windows::IAS_ATTRIBUTE_QUARANTINE_UPDATE_NON_COMPLIANT",
       "name": "IAS_ATTRIBUTE_QUARANTINE_UPDATE_NON_COMPLIANT",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "This attribute is reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2589,7 +2086,7 @@
       "id": "windows::IAS_ATTRIBUTE_REQUEST_START_TIME",
       "name": "IAS_ATTRIBUTE_REQUEST_START_TIME",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。 MS_ATTRIBUTE_MACHINE_NAME 特定于供应商的属性，用于传达请求网络访问的客户端的计算机名称。",
+      "description": "Specifies the start time of the request. This attribute is reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2600,7 +2097,7 @@
       "id": "windows::IAS_ATTRIBUTE_CLIENT_I",
       "name": "IAS_ATTRIBUTE_CLIENT_I",
       "entity_type": "constant",
-      "description": "Pv6_ADDRESS 此属性保留供系统使用。",
+      "description": "此属性保留供系统使用。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2611,7 +2108,7 @@
       "id": "windows::IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_INTERFACE_ID",
       "name": "IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_INTERFACE_ID",
       "entity_type": "constant",
-      "description": "值： 8140 此属性保留供系统使用。",
+      "description": "此属性保留供系统使用。值为8140。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2622,7 +2119,7 @@
       "id": "windows::IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_I",
       "name": "IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_I",
       "entity_type": "constant",
-      "description": "Pv6_PREFIX, IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_IPv6_ROUTE,",
+      "description": "IAS attribute constant for saved RADIUS framed IPv6 prefix",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2630,21 +2127,10 @@
       "_source_line": 1447
     },
     {
-      "id": "windows::MS_ATTRIBUTE_QUARANTINE_GRACE_TIME_CONFIGURATION",
-      "name": "MS_ATTRIBUTE_QUARANTINE_GRACE_TIME_CONFIGURATION",
-      "entity_type": "constant",
-      "description": ", MS_ATTRIBUTE_IPv6_FILTER = 8144,",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 1448
-    },
-    {
       "id": "windows::MS_ATTRIBUTE_IPV4_REMEDIATION_SERVERS",
       "name": "MS_ATTRIBUTE_IPV4_REMEDIATION_SERVERS",
       "entity_type": "constant",
-      "description": ", MS_ATTRIBUTE_IPV6_REMEDIATION_SERVERS,",
+      "description": "Constant for IPv4 remediation servers attribute",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2655,7 +2141,7 @@
       "id": "windows::IAS_ATTRIBUTE_PROXY_RETRY_COUNT",
       "name": "IAS_ATTRIBUTE_PROXY_RETRY_COUNT",
       "entity_type": "constant",
-      "description": ", IAS_ATTRIBUTE_MACHINE_INVENTORY, IAS_ATTRIBUTE_ABSOLUTE_TIME,",
+      "description": "Specifies the proxy retry count for IAS (Internet Authentication Service)",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2669,7 +2155,7 @@
       "id": "windows::MS_ATTRIBUTE_QUARANTINE_SOH",
       "name": "MS_ATTRIBUTE_QUARANTINE_SOH",
       "entity_type": "constant",
-      "description": "值： 8150 供应商特定的属性，仅用于在不使用 EAP 时携带运行状况声明 (SoH) 信息。 RADIUS 服务器可以在 Access-Accept 消息中将其发送到网络访问服务器 (NAS) 。",
+      "description": "供应商特定的属性(值:8150)，仅用于在不使用EAP时携带运行状况声明(SoH)信息。RADIUS服务器可以在Access-Accept消息中将其发送到网络访问服务器(NAS)。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2683,7 +2169,7 @@
       "id": "windows::IAS_ATTRIBUTE_EAP_TYPES_CONFIGURED_IN_PROXYPOLICY",
       "name": "IAS_ATTRIBUTE_EAP_TYPES_CONFIGURED_IN_PROXYPOLICY",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "This attribute is reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2694,7 +2180,7 @@
       "id": "windows::MS_ATTRIBUTE_HCAP_LOCATION_GROUP_NAME",
       "name": "MS_ATTRIBUTE_HCAP_LOCATION_GROUP_NAME",
       "entity_type": "constant",
-      "description": "特定于供应商的属性，用于指定 HCAP 实体的位置组名称。 MS_ATTRIBUTE_EXTENDED_QUARANTINE_STATE 为请求访问此 NAS 的用户指定其他隔离状态信息。",
+      "description": "特定于供应商的属性，用于指定HCAP实体的位置组名称。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2705,7 +2191,7 @@
       "id": "windows::MS_ATTRIBUTE_HCAP_USER_GROUPS",
       "name": "MS_ATTRIBUTE_HCAP_USER_GROUPS",
       "entity_type": "constant",
-      "description": "值： 8155 NAS 可以使用此属性将请求网络访问的用户的组名称传递给 RADIUS 服务器，然后 RADIUS 服务器 可能会使用此信息做出身份验证或授权决策。 IAS_ATTRIBUTE_SAVED_MACHINE_HEALTHCHECK_ONLY 此属性保留供系统使用。",
+      "description": "可以使用此属性将请求网络访问的用户的组名称传递给RADIUS服务器，然后RADIUS服务器可能会使用此信息做出身份验证或授权决策。值为8155。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2718,7 +2204,7 @@
       "id": "windows::IAS_ATTRIBUTE_SAVED_MACHINE_HEALTHCHECK_ONLY",
       "name": "IAS_ATTRIBUTE_SAVED_MACHINE_HEALTHCHECK_ONLY",
       "entity_type": "constant",
-      "description": ", IAS_ATTRIBUTE_POLICY_EVALUATED_SHV,",
+      "description": "Constant for IAS attribute indicating saved machine healthcheck only",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2731,7 +2217,7 @@
       "id": "windows::MS_ATTRIBUTE_RAS_CORRELATION_ID",
       "name": "MS_ATTRIBUTE_RAS_CORRELATION_ID",
       "entity_type": "constant",
-      "description": ", MS_ATTRIBUTE_HCAP_USER_NAME,",
+      "description": "RAS correlation ID attribute constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2744,7 +2230,7 @@
       "id": "windows::IAS_ATTRIBUTE_NT4_HCAP_ACCOUNT_NAME",
       "name": "IAS_ATTRIBUTE_NT4_HCAP_ACCOUNT_NAME",
       "entity_type": "constant",
-      "description": "= 8160, IAS_ATTRIBUTE_USER_TOKEN_SID,",
+      "description": "Constant value 8160 representing NT4 HCAP account name attribute",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2757,7 +2243,7 @@
       "id": "windows::IAS_ATTRIBUTE_MACHINE_TOKEN_SID",
       "name": "IAS_ATTRIBUTE_MACHINE_TOKEN_SID",
       "entity_type": "constant",
-      "description": ", IAS_ATTRIBUTE_MACHINE_VALIDATED, MS_ATTRIBUTE_USER_IPv4_ADDRESS,",
+      "description": "Constant representing the machine token SID attribute in IAS (Internet Authentication Service)",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2767,23 +2253,10 @@
       "_source_line": 1458
     },
     {
-      "id": "windows::MS_ATTRIBUTE_USER_I",
-      "name": "MS_ATTRIBUTE_USER_I",
-      "entity_type": "constant",
-      "description": "Pv6_ADDRESS = 8165, MS_ATTRIBUTE_TSG_DEVICE_REDIRECTION,",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "MS_ATTRIBUTE_TSG_DEVICE_REDIRECTION"
-      ],
-      "confidence": 0.75,
-      "_source_line": 1459
-    },
-    {
       "id": "windows::IAS_ATTRIBUTE_ACCEPT_REASON_CODE",
       "name": "IAS_ATTRIBUTE_ACCEPT_REASON_CODE",
       "entity_type": "constant",
-      "description": ", IAS_ATTRIBUTE_LOGGING_RESULT,",
+      "description": "IAS RADIUS attribute constant indicating the accept reason code",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2796,7 +2269,7 @@
       "id": "windows::IAS_ATTRIBUTE_SERVER_IP_ADDRESS",
       "name": "IAS_ATTRIBUTE_SERVER_IP_ADDRESS",
       "entity_type": "constant",
-      "description": ", IAS_ATTRIBUTE_SERVER_IPv6_ADDRESS,",
+      "description": "Constant representing the server IP address attribute in IAS (Internet Authentication Service)",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2807,7 +2280,7 @@
       "id": "windows::MS_ATTRIBUTE_RAS_ROUTING_DOMAIN_ID",
       "name": "MS_ATTRIBUTE_RAS_ROUTING_DOMAIN_ID",
       "entity_type": "constant",
-      "description": "= 8172, MS_ATTRIBUTE_AZURE_POLICY_ID,",
+      "description": "= 8172",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2817,8 +2290,8 @@
     {
       "id": "windows::RAS_ATTRIBUTE_ENCRYPTION_TYPE",
       "name": "RAS_ATTRIBUTE_ENCRYPTION_TYPE",
-      "entity_type": "constant",
-      "description": ", RAS_ATTRIBUTE_ENCRYPTION_POLICY, RAS_ATTRIBUTE_BAP_REQUIRED,",
+      "entity_type": "enum",
+      "description": "Specifies the encryption type attribute for RAS (Remote Access Service).",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2832,7 +2305,7 @@
       "id": "windows::RAS_ATTRIBUTE_BAP_LINE_DOWN_TIME",
       "name": "RAS_ATTRIBUTE_BAP_LINE_DOWN_TIME",
       "entity_type": "constant",
-      "description": ", RAS_ATTRIBUTE_BAP_LINE_DOWN_LIMIT} ATTRIBUTEID;",
+      "description": "Bandwidth Allocation Protocol (BAP) line down time attribute",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2843,7 +2316,7 @@
       "id": "windows::ATTRIBUTE_UNDEFINED",
       "name": "ATTRIBUTE_UNDEFINED",
       "entity_type": "constant",
-      "description": "值： 0 指定一个等于零的值，并用作属性数组中的 NULL 终止符。",
+      "description": "值为0，用作属性数组中的NULL终止符",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2854,7 +2327,7 @@
       "id": "windows::ATTRIBUTE_MIN_VALUE",
       "name": "ATTRIBUTE_MIN_VALUE",
       "entity_type": "constant",
-      "description": "值：1 指定此枚举类型的值的最小值。 RADIUS_ATTRIBUTE_USER_NAME 指定要进行身份验证的用户的名称。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "Specifies the minimum value for this enumeration type. Value: 1",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2878,7 +2351,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_NAS_IP_ADDRESS",
       "name": "RADIUS_ATTRIBUTE_NAS_IP_ADDRESS",
       "entity_type": "constant",
-      "description": "指定网络访问服务器 (NAS) IP 地址。 Access-Request 应指定 NAS IP 地址或 NAS 标识符。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "指定网络访问服务器(NAS)IP地址。Access-Request应指定NAS IP地址或NAS标识符。详细信息请参阅RFC 2865。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -2924,7 +2397,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_FRAMED_ROUTING",
       "name": "RADIUS_ATTRIBUTE_FRAMED_ROUTING",
       "entity_type": "constant",
-      "description": "值： 10 指定作为网络路由器的用户的路由方法。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "Specifies the routing method for users acting as network routers. Value: 10. For more information, see RFC 2865.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2957,7 +2430,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_LOGIN_TCP_PORT",
       "name": "RADIUS_ATTRIBUTE_LOGIN_TCP_PORT",
       "entity_type": "constant",
-      "description": "指定要将用户连接到的端口。 仅当 存在 raatLoginService 属性时，此属性才存在。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "Specifies the port to which the user is to be connected. This attribute is only present when the raatLoginService attribute exists. For more information, see RFC 2865.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2968,7 +2441,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_REPLY_MESSAGE",
       "name": "RADIUS_ATTRIBUTE_REPLY_MESSAGE",
       "entity_type": "constant",
-      "description": "指定要向用户显示的消息。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "Specifies the message to be displayed to the user. For more information, see RFC 2865.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -2979,7 +2452,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_CALLBACK_ID",
       "name": "RADIUS_ATTRIBUTE_CALLBACK_ID",
       "entity_type": "constant",
-      "description": "值： 20 指定要回调的位置。 此属性的值由 NAS 解释。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "Value: 20. Specifies the location to be called back. This attribute's value is interpreted by the NAS. For more information, see RFC 2865.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3012,7 +2485,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_CALLING_STATION_ID",
       "name": "RADIUS_ATTRIBUTE_CALLING_STATION_ID",
       "entity_type": "constant",
-      "description": "指定用户从中调用的号码。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "RADIUS协议属性，指定用户从中调用的电话号码。对应RFC 2865标准中的Calling-Station-Id属性。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3023,7 +2496,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_PROXY_STATE",
       "name": "RADIUS_ATTRIBUTE_PROXY_STATE",
       "entity_type": "constant",
-      "description": "指定转发身份验证请求时代理服务器包含的值。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "Specifies the value included by proxy servers when forwarding authentication requests. For more information, see RFC 2865.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3034,7 +2507,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_LOGIN_LAT_GROUP",
       "name": "RADIUS_ATTRIBUTE_LOGIN_LAT_GROUP",
       "entity_type": "constant",
-      "description": "指定当前不用于 Windows 上的身份验证的属性。 有关详细信息，请参阅 RFC 2865 。",
+      "description": "指定当前不用于Windows身份验证的RADIUS属性。有关详细信息，请参阅RFC 2865。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3071,7 +2544,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_ACCT_STATUS_TYPE",
       "name": "RADIUS_ATTRIBUTE_ACCT_STATUS_TYPE",
       "entity_type": "constant",
-      "description": "值： 40 指定记帐提供程序应为用户启动还是停止记帐。 有关详细信息，请参阅 RFC 2866 。",
+      "description": "Value: 40. Specifies whether the accounting provider should start or stop accounting for a user. For more information, see RFC 2866.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3082,7 +2555,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_ACCT_INPUT_OCTETS",
       "name": "RADIUS_ATTRIBUTE_ACCT_INPUT_OCTETS",
       "entity_type": "constant",
-      "description": "指定在当前会计会话期间收到的八进制数。 有关详细信息，请参阅 RFC 2866 。",
+      "description": "指定在当前计费会话期间接收的字节数。详细信息请参阅RFC 2866。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3093,7 +2566,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_ACCT_OUTPUT_OCTETS",
       "name": "RADIUS_ATTRIBUTE_ACCT_OUTPUT_OCTETS",
       "entity_type": "constant",
-      "description": "指定在当前会计会话期间发送的八进制数。 有关详细信息，请参阅 RFC 2866 。",
+      "description": "指定在当前会计会话期间发送的八位字节数。有关详细信息，请参阅RFC 2866。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3104,7 +2577,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_ACCT_SESSION_ID",
       "name": "RADIUS_ATTRIBUTE_ACCT_SESSION_ID",
       "entity_type": "constant",
-      "description": "指定一个值，以启用日志文件中匹配的开始记录和停止记录的标识。 开始和停止记录在 raatAcctStatusType 属性 中发送。 有关详细信息，请参阅 RFC 2866 。",
+      "description": "Specifies a value to enable matching of start and stop records in log files. Start and stop records are sent in the raatAcctStatusType attribute. For more information, see RFC 2866.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3148,7 +2621,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_ACCT_OUTPUT_PACKETS",
       "name": "RADIUS_ATTRIBUTE_ACCT_OUTPUT_PACKETS",
       "entity_type": "constant",
-      "description": "指定在当前会计会话期间发送的数据包数。 有关详细信息，请参阅 RFC 2866 。",
+      "description": "Specifies the number of packets sent during the current accounting session. For more information, see RFC 2866.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3170,7 +2643,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_ACCT_LINK_COUNT",
       "name": "RADIUS_ATTRIBUTE_ACCT_LINK_COUNT",
       "entity_type": "constant",
-      "description": "值： 51 如果当前记帐会话使用多链接连接，则指定链接数。 有关详细信息，请参阅 RFC 2866 。",
+      "description": "Value: 51. Specifies the number of links if the current accounting session uses multilink connections. For more information, see RFC 2866.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3203,7 +2676,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_TUNNEL_TYPE",
       "name": "RADIUS_ATTRIBUTE_TUNNEL_TYPE",
       "entity_type": "constant",
-      "description": "指定使用的隧道协议。 以下列表列出了有效的隧道类型。 隧道类型值 1 2 3 4 5 6 7 8 9 10 11 12 说明 点对点隧道协议 (PPTP) 第二层转发 (L2F) 第二层隧道协议 (L2TP)",
+      "description": "Specifies the tunneling protocol used. Valid tunnel types: 1-PPTP, 2-L2F, 3-L2TP",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3211,43 +2684,10 @@
       "_source_line": 1693
     },
     {
-      "id": "windows::Ascend",
-      "name": "Ascend",
-      "entity_type": "constant",
-      "description": "Tunnel 管理协议 (ATMP) 虚拟隧道协议 (VTP) 隧道模式下的 IP 身份验证标头 IP 中 IP 封装 (IP-IP) 最小 IP 内封装 (MIN-IP-IP) 隧道模式下的 IP 封装安全有效负载 (ESP) 泛型路由封装 (GRE) Bay Dial Virtual Services (DVS) IP 中的 IP 隧道",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.6,
-      "_source_line": 1701
-    },
-    {
-      "id": "windows::IPv4",
-      "name": "IPv4",
-      "entity_type": "constant",
-      "description": "IP 版本 4) IPv6 (IP 版本 6) OSI 网络服务接入点 (NSAP) 信号协议 (请参阅 ISO 8348 和ITU-T X.213) 。 High-Level 数据链路控制 (HDLC) 协议 (8 位多滴) 博尔特·贝拉内克和纽曼公司 (BBN) 报告1822 IEEE 802 (包括所有 802 媒体和以太网“规范格式”) E.163 普通老电话服务 (锅) E.164 交换多元数据服务 (SMDS) 、帧中继、异步传输模式 (ATM) F.69 (Telex) X.121 (X.25，帧中继) 网间数据包交换 (IPX)",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.45,
-      "_source_line": 1715
-    },
-    {
-      "id": "windows::AppleTalk",
-      "name": "AppleTalk",
-      "entity_type": "constant",
-      "description": "Decnet IV 班扬葡萄树 具有 NSAP 格式子地址的 E.164",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.5,
-      "_source_line": 1723
-    },
-    {
       "id": "windows::RADIUS_ATTRIBUTE_TUNNEL_CLIENT_ENDPT",
       "name": "RADIUS_ATTRIBUTE_TUNNEL_CLIENT_ENDPT",
       "entity_type": "constant",
-      "description": "指定隧道发起方端的地址。",
+      "description": "RADIUS属性常量，指定隧道客户端端点地址。用于RADIUS协议中的隧道属性配置。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3258,7 +2698,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_TUNNEL_SERVER_ENDPT",
       "name": "RADIUS_ATTRIBUTE_TUNNEL_SERVER_ENDPT",
       "entity_type": "constant",
-      "description": "指定隧道的服务器端的地址。",
+      "description": "Specifies the server endpoint address for RADIUS tunneling.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3269,7 +2709,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_TUNNEL_PASSWORD",
       "name": "RADIUS_ATTRIBUTE_TUNNEL_PASSWORD",
       "entity_type": "constant",
-      "description": "用于向远程服务器进行身份验证的密码。",
+      "description": "Specifies the tunnel password attribute in RADIUS authentication.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3302,7 +2742,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_PASSWORD_RETRY",
       "name": "RADIUS_ATTRIBUTE_PASSWORD_RETRY",
       "entity_type": "constant",
-      "description": "指定允许用户访问的密码重试次数。 此类型的值字段是一个 32 位整型值。",
+      "description": "指定允许用户密码重试次数的RADIUS认证属性。该属性的值字段为32位整型。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3313,7 +2753,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_CONNECT_INFO",
       "name": "RADIUS_ATTRIBUTE_CONNECT_INFO",
       "entity_type": "constant",
-      "description": "指定有关用户正在使用的连接类型的信息。 有关详细信息，请参阅 RFC 2869 。",
+      "description": "Specifies information about the type of connection being used by the user. For more information, see RFC 2869.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3335,7 +2775,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_TUNNEL_ASSIGNMENT_ID",
       "name": "RADIUS_ATTRIBUTE_TUNNEL_ASSIGNMENT_ID",
       "entity_type": "constant",
-      "description": "指定会话分配到的隧道。",
+      "description": "Specifies the tunnel assignment ID for RADIUS attributes.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3346,7 +2786,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_TUNNEL_PREFERENCE",
       "name": "RADIUS_ATTRIBUTE_TUNNEL_PREFERENCE",
       "entity_type": "constant",
-      "description": "当将多个隧道属性集返回到隧道发起程序时，分配给每个隧道的相对首选项。 RADIUS_ATTRIBUTE_ARAP_CHALLENGE_RESPONSE 指定对 Apple 远程访问协议 (ARAP) 质询的响应。 在 ARAP 中，服务器或客户端响应质询。 有关详细信息，请参阅 RFC 2869 。",
+      "description": "当将多个隧道属性集返回到隧道发起程序时，分配给每个隧道的相对首选项。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -3359,7 +2799,7 @@
       "id": "windows::RADIUS_ATTRIBUTE_FRAMED_INTERFACE_ID",
       "name": "RADIUS_ATTRIBUTE_FRAMED_INTERFACE_ID",
       "entity_type": "constant",
-      "description": "指定要为 的 IPv6 接口标识符 为用户配置。 它可以在 Access-Accept 数据包中使用。 有关详细信息，请参阅 RFC 3162 中的 Framed-Interface-Id 部分。",
+      "description": "Specifies the IPv6 interface identifier to be configured for the user. It can be used in Access-Accept packets. For more information, see the Framed-Interface-Id section in RFC 3162.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -3373,7 +2813,7 @@
       "id": "windows::IAS_ATTRIBUTE_NP_CALLING_STATION_ID",
       "name": "IAS_ATTRIBUTE_NP_CALLING_STATION_ID",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "This attribute is reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3384,7 +2824,7 @@
       "id": "windows::IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_ROUTE",
       "name": "IAS_ATTRIBUTE_SAVED_RADIUS_FRAMED_ROUTE",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "This attribute is reserved for system use. It stores the RADIUS framed route information.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3395,7 +2835,7 @@
       "id": "windows::IAS_ATTRIBUTE_NP_AUTHENTICATION_TYPE",
       "name": "IAS_ATTRIBUTE_NP_AUTHENTICATION_TYPE",
       "entity_type": "constant",
-      "description": "连接允许的身份验证类型。",
+      "description": "指定网络策略允许的身份验证类型常量",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3417,7 +2857,7 @@
       "id": "windows::IAS_ATTRIBUTE_MANIPULATION_TARGET",
       "name": "IAS_ATTRIBUTE_MANIPULATION_TARGET",
       "entity_type": "constant",
-      "description": "应用属性操作规则的目标数据。 属性操作以前称为“领域处理”。 有关属性操作的详细信息，请参 阅 Internet 身份验证服务的联机帮助。 IAS_ATTRIBUTE_MANIPULATION_RULE 要应用于由 Manipulation-Target 属性指定的数据的操作规则。 有关属性操作的详细信息，请参阅 Internet 身份验证服务的联机帮助。 IAS_ATTRIBUTE_ORIGINAL_USER_NAME 此属性保留供系统使用。",
+      "description": "应用属性操作规则的目标数据。属性操作以前称为'领域处理'。有关属性操作的详细信息，请参阅Internet身份验证服务的联机帮助。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3428,7 +2868,7 @@
       "id": "windows::IAS_ATTRIBUTE_CLIENT_VENDOR_TYPE",
       "name": "IAS_ATTRIBUTE_CLIENT_VENDOR_TYPE",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "Reserved for system use. Specifies the vendor type of the RADIUS client.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3439,7 +2879,7 @@
       "id": "windows::MS_ATTRIBUTE_CHAP_CHALLENGE",
       "name": "MS_ATTRIBUTE_CHAP_CHALLENGE",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。 MS_ATTRIBUTE_CHAP_RESPONSE 此属性保留供系统使用。",
+      "description": "此属性保留供系统使用。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3450,7 +2890,7 @@
       "id": "windows::MS_ATTRIBUTE_CHAP_CPW1",
       "name": "MS_ATTRIBUTE_CHAP_CPW1",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "Reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3482,8 +2922,8 @@
     {
       "id": "windows::MS_ATTRIBUTE_CHAP_MPPE_KEYS",
       "name": "MS_ATTRIBUTE_CHAP_MPPE_KEYS",
-      "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "entity_type": "macro",
+      "description": "Reserved for system use. Specifies CHAP MPPE keys attribute.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3494,7 +2934,7 @@
       "id": "windows::IAS_ATTRIBUTE_NT4_ACCOUNT_NAME",
       "name": "IAS_ATTRIBUTE_NT4_ACCOUNT_NAME",
       "entity_type": "constant",
-      "description": "或 IAS_ATTRIBUTE_NT4_HCAP_ACCOUNT_NAME 的 SID 无论后面的 是用户帐户还是计算机帐户。",
+      "description": "Specifies the SID for either IAS_ATTRIBUTE_NT4_ACCOUNT_NAME or IAS_ATTRIBUTE_NT4_HCAP_ACCOUNT_NAME, regardless of whether it's a user account or computer account.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -3507,7 +2947,7 @@
       "id": "windows::IAS_ATTRIBUTE_AUTH_PROVIDER_TYPE",
       "name": "IAS_ATTRIBUTE_AUTH_PROVIDER_TYPE",
       "entity_type": "constant",
-      "description": "要使用的身份验证提供程序的类型。",
+      "description": "Specifies the type of authentication provider to be used by the IAS RADIUS server.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3529,7 +2969,7 @@
       "id": "windows::IAS_ATTRIBUTE_ACCT_PROVIDER_TYPE",
       "name": "IAS_ATTRIBUTE_ACCT_PROVIDER_TYPE",
       "entity_type": "constant",
-      "description": "要使用的记帐提供程序的类型。 IAS_ATTRIBUTE_ACCT_PROVIDER_NAME 提供记帐的 RADIUS 服务器的名称。",
+      "description": "Specifies the type of accounting provider to be used. Related to IAS_ATTRIBUTE_ACCT_PROVIDER_NAME which specifies the name of the RADIUS server providing accounting.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3540,7 +2980,7 @@
       "id": "windows::IAS_ATTRIBUTE_REASON_CODE",
       "name": "IAS_ATTRIBUTE_REASON_CODE",
       "entity_type": "constant",
-      "description": "指定 MS-CHAP 原因失败代码。 在“失败数据包消息”字段中返回此属性。 有关详细信息，请参阅请求注释 (RFC) 2433 .",
+      "description": "Specifies the MS-CHAP failure reason code. This attribute is returned in the 'Failure Packet Message' field. For more information, see Request for Comments (RFC) 2433.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3551,7 +2991,7 @@
       "id": "windows::MS_ATTRIBUTE_FILTER",
       "name": "MS_ATTRIBUTE_FILTER",
       "entity_type": "constant",
-      "description": "请参阅 RFC) (注释请求 2548 ，Microsoft 供应商特定的 RADIUS 属性。",
+      "description": "Microsoft vendor-specific RADIUS attribute. Refer to RFC 2548.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3562,7 +3002,7 @@
       "id": "windows::MS_ATTRIBUTE_RAS_VENDOR",
       "name": "MS_ATTRIBUTE_RAS_VENDOR",
       "entity_type": "constant",
-      "description": "请参阅 RFC) (注释请求 2548 ，Microsoft 供应商特定的 RADIUS 属性。",
+      "description": "Microsoft vendor-specific RADIUS attribute as defined in RFC 2548.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3573,7 +3013,7 @@
       "id": "windows::MS_ATTRIBUTE_RAS_VERSION",
       "name": "MS_ATTRIBUTE_RAS_VERSION",
       "entity_type": "constant",
-      "description": "请参阅 RFC) (注释请求 2548 ，Microsoft 供应商特定的 RADIUS 属性。",
+      "description": "Microsoft vendor-specific RADIUS attribute. Refer to RFC 2548 for details.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3584,7 +3024,7 @@
       "id": "windows::IAS_ATTRIBUTE_NP_NAME",
       "name": "IAS_ATTRIBUTE_NP_NAME",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "Network Policy Name attribute (reserved for system use)",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3595,7 +3035,7 @@
       "id": "windows::MS_ATTRIBUTE_SECONDARY_DNS_SERVER",
       "name": "MS_ATTRIBUTE_SECONDARY_DNS_SERVER",
       "entity_type": "constant",
-      "description": "请参阅 RFC) (注释请求 2548 ，Microsoft 供应商特定的 RADIUS 属性。",
+      "description": "Microsoft vendor-specific RADIUS attribute. See RFC 2548.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3606,7 +3046,7 @@
       "id": "windows::MS_ATTRIBUTE_SECONDARY_NBNS_SERVER",
       "name": "MS_ATTRIBUTE_SECONDARY_NBNS_SERVER",
       "entity_type": "constant",
-      "description": "请参阅 RFC) (注释请求 2548 ，Microsoft 供应商特定的 RADIUS 属性。",
+      "description": "Microsoft vendor-specific RADIUS attribute. See RFC 2548.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3628,7 +3068,7 @@
       "id": "windows::MS_ATTRIBUTE_RAS_CLIENT_NAME",
       "name": "MS_ATTRIBUTE_RAS_CLIENT_NAME",
       "entity_type": "constant",
-      "description": "指定生成请求的客户端的名称。",
+      "description": "Specifies the name of the client generating the request (RAS client name attribute).",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3639,7 +3079,7 @@
       "id": "windows::IAS_ATTRIBUTE_EXTENSION_STATE",
       "name": "IAS_ATTRIBUTE_EXTENSION_STATE",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "This attribute is reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3650,7 +3090,7 @@
       "id": "windows::IAS_ATTRIBUTE_SESSION_TIMEOUT",
       "name": "IAS_ATTRIBUTE_SESSION_TIMEOUT",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "Specifies the session timeout attribute for IAS (Internet Authentication Service) RADIUS server.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3661,7 +3101,7 @@
       "id": "windows::MS_ATTRIBUTE_USER_SECURITY_IDENTITY",
       "name": "MS_ATTRIBUTE_USER_SECURITY_IDENTITY",
       "entity_type": "constant",
-      "description": "指定请求访问的用户的 SID。",
+      "description": "Specifies the SID of the user requesting access.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3683,7 +3123,7 @@
       "id": "windows::IAS_ATTRIBUTE_CERTIFICATE_EKU",
       "name": "IAS_ATTRIBUTE_CERTIFICATE_EKU",
       "entity_type": "constant",
-      "description": "值： 8097 此属性保留供系统使用。 IAS_ATTRIBUTE_EAP_CONFIG 此属性保留供系统使用。",
+      "description": "值：8097。此属性保留供系统使用。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3694,7 +3134,7 @@
       "id": "windows::MS_ATTRIBUTE_EAP_TLV",
       "name": "MS_ATTRIBUTE_EAP_TLV",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "This attribute is reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3705,7 +3145,7 @@
       "id": "windows::IAS_ATTRIBUTE_PROXY_EAP_CONFIG",
       "name": "IAS_ATTRIBUTE_PROXY_EAP_CONFIG",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。 IAS_ATTRIBUTE_EAP_SESSION 此属性保留供系统使用。",
+      "description": "此属性保留供系统使用。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -3718,7 +3158,7 @@
       "id": "windows::IAS_ATTRIBUTE_IS_REPLAY",
       "name": "IAS_ATTRIBUTE_IS_REPLAY",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "This attribute is reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3740,7 +3180,7 @@
       "id": "windows::IAS_ATTRIBUTE_PEAP_CHANNEL_UP",
       "name": "IAS_ATTRIBUTE_PEAP_CHANNEL_UP",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。 IAS_ATTRIBUTE_NAME_MAPPED 此属性保留供系统使用。",
+      "description": "此属性保留供系统使用。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3751,7 +3191,7 @@
       "id": "windows::IAS_ATTRIBUTE_MACHINE_NTGROUPS",
       "name": "IAS_ATTRIBUTE_MACHINE_NTGROUPS",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "This attribute is reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3762,7 +3202,7 @@
       "id": "windows::IAS_ATTRIBUTE_USER_NTGROUPS",
       "name": "IAS_ATTRIBUTE_USER_NTGROUPS",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "此属性保留供系统使用。表示用户的NT组信息。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3773,7 +3213,7 @@
       "id": "windows::IAS_ATTRIBUTE_USER_TOKEN_GROUPS",
       "name": "IAS_ATTRIBUTE_USER_TOKEN_GROUPS",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。 中指定的特殊 DHCP 用户类的名称，称为网络访问保",
+      "description": "This attribute is reserved for system use. Specifies the name of a special DHCP user class for network access protection.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3784,7 +3224,7 @@
       "id": "windows::MS_ATTRIBUTE_NOT_QUARANTINE_CAPABLE",
       "name": "MS_ATTRIBUTE_NOT_QUARANTINE_CAPABLE",
       "entity_type": "constant",
-      "description": "特定于供应商的属性，指定客户端是否能够将其状态报告给网络访问服务器 (NAS) 。 必须是以下值之一。 值 0 1 含义 客户端 (SoH) 发送了健康声明。客户端未发送 SoH。",
+      "description": "特定于供应商的属性，指定客户端是否能够将其状态报告给网络访问服务器(NAS)。必须是以下值之一：0表示客户端发送了健康声明(SoH)，1表示客户端未发送SoH。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3795,7 +3235,7 @@
       "id": "windows::IAS_ATTRIBUTE_CLIENT_QUARANTINE_COMPATIBLE",
       "name": "IAS_ATTRIBUTE_CLIENT_QUARANTINE_COMPATIBLE",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "This attribute is reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3806,7 +3246,7 @@
       "id": "windows::IAS_ATTRIBUTE_QUARANTINE_SESSION_ID",
       "name": "IAS_ATTRIBUTE_QUARANTINE_SESSION_ID",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "Reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3817,7 +3257,7 @@
       "id": "windows::MS_ATTRIBUTE_AFW_PROTECTION_LEVEL",
       "name": "MS_ATTRIBUTE_AFW_PROTECTION_LEVEL",
       "entity_type": "constant",
-      "description": "特定于供应商的属性，用作请求访问的客户端动态选择预配置 IPsec 策略的提示。",
+      "description": "特定于Microsoft供应商的属性，用于客户端动态选择预配置IPsec策略的提示。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3828,7 +3268,7 @@
       "id": "windows::MS_ATTRIBUTE_I",
       "name": "MS_ATTRIBUTE_I",
       "entity_type": "constant",
-      "description": "Pv6_FILTER 值： 8144 特定于供应商的属性，用于限制终结点客户端的入站和/或出站访问。 MS_ATTRIBUTE_IPV4_REMEDIATION_SERVERS 指定隔离客户端应可访问的服务器列表，以便它可以自行修正。 MS_ATTRIBUTE_IPV6_REMEDIATION_SERVERS 指定隔离客户端应可访问的服务器列表，以便它可以自行修正。",
+      "description": "IPv6_FILTER value: 8144. Vendor-specific attribute used to restrict inbound and/or outbound access for endpoint clients. Related to remediation server attributes for isolated clients.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -3841,7 +3281,7 @@
       "id": "windows::IAS_ATTRIBUTE_MACHINE_INVENTORY",
       "name": "IAS_ATTRIBUTE_MACHINE_INVENTORY",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "This attribute is reserved for system use.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3852,7 +3292,7 @@
       "id": "windows::IAS_ATTRIBUTE_ABSOLUTE_TIME",
       "name": "IAS_ATTRIBUTE_ABSOLUTE_TIME",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "此属性保留供系统使用。表示绝对时间值的IAS属性常量。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3863,7 +3303,7 @@
       "id": "windows::IAS_ATTRIBUTE_SOH_CARRIER_EAPTLV",
       "name": "IAS_ATTRIBUTE_SOH_CARRIER_EAPTLV",
       "entity_type": "constant",
-      "description": "此属性保留供系统使用。",
+      "description": "Reserved for system use. Specifies the Statement of Health (SoH) carrier EAP TLV attribute.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3874,7 +3314,7 @@
       "id": "windows::IAS_ATTRIBUTE_POLICY_EVALUATED_SHV",
       "name": "IAS_ATTRIBUTE_POLICY_EVALUATED_SHV",
       "entity_type": "constant",
-      "description": "此属性的多个实例可以一次出现。",
+      "description": "Indicates that multiple instances of this attribute can appear at once.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3896,7 +3336,7 @@
       "id": "windows::MS_ATTRIBUTE_TSG_DEVICE_REDIRECTION",
       "name": "MS_ATTRIBUTE_TSG_DEVICE_REDIRECTION",
       "entity_type": "constant",
-      "description": "TS 网关设备重定向标志的供应商特定属性。",
+      "description": "Terminal Services Gateway设备重定向标志的供应商特定属性常量。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3904,21 +3344,10 @@
       "_source_line": 2027
     },
     {
-      "id": "windows::IAS_ATTRIBUTE_SERVER_I",
-      "name": "IAS_ATTRIBUTE_SERVER_I",
-      "entity_type": "constant",
-      "description": "Pv6_ADDRESS TBD",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.55,
-      "_source_line": 2032
-    },
-    {
       "id": "windows::RAS_ATTRIBUTE_ENCRYPTION_POLICY",
       "name": "RAS_ATTRIBUTE_ENCRYPTION_POLICY",
-      "entity_type": "constant",
-      "description": "指定加密是“允许”、“必需”还是“无” (不允许) 。 有关详细信息，请参阅 RFC 2548 。",
+      "entity_type": "enum",
+      "description": "指定加密策略，可选值为'允许'、'必需'或'无'(不允许)。遵循RFC 2548标准。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3929,8 +3358,8 @@
       "id": "windows::RAS_ATTRIBUTE_BAP_REQUIRED",
       "name": "RAS_ATTRIBUTE_BAP_REQUIRED",
       "entity_type": "constant",
-      "description": "指定是否需要带宽分配协议 (BAP) 。 RAS_ATTRIBUTE_BAP_LINE_DOWN_TIME 容量利用率计算的时间（以秒为单位）。 RAS_ATTRIBUTE_BAP_LINE_DOWN_LIMIT 此用户的线路中断的已利用容量百分比。",
-      "syntax": "typedef enum _ATTRIBUTEINFO {\nNAME = 1,   SYNTAX,\nRESTRICTIONS,   DESCRIPTION,\nVENDORID,   LDAPNAME,   VENDORTYPE\n} ATTRIBUTEINFO;\n常量   NAME 值：1\n属性名。 SYNTAX The\n属性的语法。 RESTRICTIONS\n对属性的使用方式的限制。\nDESCRIPTION 属性的说明。\nVENDORID\n供应商特定属性的供应商 ID (VSA) 。 LDAPNAME\n轻型目录访问协议 (LDAP) 属性的名称。 VENDORTYPE\n供应商特定属性的属性类型 (VSA) 。\ntypedef enum _ATTRIBUTEPROPERTIES {   PROPERTY_ATTRIBUTE_ID,",
+      "description": "指定是否需要带宽分配协议(BAP)",
+      "syntax": "",
       "requirements": {
         "header": "sdoias.h",
         "target_platform": "Windows",
@@ -3948,7 +3377,7 @@
       "id": "windows::PROPERTY_ATTRIBUTE_VENDOR_ID",
       "name": "PROPERTY_ATTRIBUTE_VENDOR_ID",
       "entity_type": "constant",
-      "description": "供应商特定属性的供应商 ID (VSA) 。 PROPERTY_ATTRIBUTE_VENDOR_TYPE_ID 供应商特定属性的供应商特定类型 ID (VSA) 。",
+      "description": "供应商特定属性的供应商ID(VSA)。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -3961,7 +3390,7 @@
       "id": "windows::PROPERTY_ATTRIBUTE_VENDOR_TYPE_ID",
       "name": "PROPERTY_ATTRIBUTE_VENDOR_TYPE_ID",
       "entity_type": "constant",
-      "description": ", PROPERTY_ATTRIBUTE_IS_ENUMERABLE,",
+      "description": "Property attribute vendor type ID constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -3974,7 +3403,7 @@
       "id": "windows::PROPERTY_ATTRIBUTE_ENUM_NAMES",
       "name": "PROPERTY_ATTRIBUTE_ENUM_NAMES",
       "entity_type": "constant",
-      "description": ", PROPERTY_ATTRIBUTE_ENUM_VALUES, PROPERTY_ATTRIBUTE_SYNTAX,",
+      "description": "Property attribute flag indicating the property has enumerated names.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -3988,7 +3417,7 @@
       "id": "windows::PROPERTY_ATTRIBUTE_ALLOW_MULTIPLE",
       "name": "PROPERTY_ATTRIBUTE_ALLOW_MULTIPLE",
       "entity_type": "constant",
-      "description": "指定是否允许此属性的多个实例。",
+      "description": "Specifies whether multiple instances of this property are allowed.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -3999,7 +3428,7 @@
       "id": "windows::PROPERTY_ATTRIBUTE_ALLOW_LOG_ORDINAL",
       "name": "PROPERTY_ATTRIBUTE_ALLOW_LOG_ORDINAL",
       "entity_type": "constant",
-      "description": ", PROPERTY_ATTRIBUTE_ALLOW_IN_PROFILE, PROPERTY_ATTRIBUTE_ALLOW_IN_CONDITION,",
+      "description": "Property attribute flag allowing logging ordinal values",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4012,7 +3441,7 @@
       "id": "windows::PROPERTY_ATTRIBUTE_DISPLAY_NAME",
       "name": "PROPERTY_ATTRIBUTE_DISPLAY_NAME",
       "entity_type": "constant",
-      "description": ", PROPERTY_ATTRIBUTE_VALUE,",
+      "description": "Display name attribute for property",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4025,7 +3454,7 @@
       "id": "windows::PROPERTY_ATTRIBUTE_ALLOW_IN_PROXY_PROFILE",
       "name": "PROPERTY_ATTRIBUTE_ALLOW_IN_PROXY_PROFILE",
       "entity_type": "constant",
-      "description": ", PROPERTY_ATTRIBUTE_ALLOW_IN_PROXY_CONDITION,",
+      "description": "Property attribute flag indicating the property is allowed in proxy profiles",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4038,7 +3467,7 @@
       "id": "windows::PROPERTY_ATTRIBUTE_ALLOW_IN_VPNDIALUP",
       "name": "PROPERTY_ATTRIBUTE_ALLOW_IN_VPNDIALUP",
       "entity_type": "constant",
-      "description": "由 NPS 用户界面用于标记是否在 VPN 方案的配置文件中使用属性。 PROPERTY_ATTRIBUTE_ALLOW_IN_8021X 由 NPS 用户界面用于标记是否在 802.1X 方案的配置文件中使用属性。 PROPERTY_ATTRIBUTE_ENUM_FILTERS 由筛选器配置属性 MS_ATTRIBUTE_FILTER 和 MS_ATTRIBUTE_QUARANTINE_IPFILTER使用。 有关详 细信息，请参阅 RFC 2548 注解 中的 MS-Filter 部分。 DICTIONARYPROPERTIES 枚举类型包含特性集合属性， PROPERTY_DICTIONARY_ATTRIBUTES_COLLECTION。",
+      "description": "由 NPS 用户界面用于标记是否在 VPN 方案的配置文件中使用属性。",
       "syntax": "typedef enum _ATTRIBUTERESTRICTIONS {   MULTIVALUED = 0x1,\nALLOWEDINPROFILE = 0x2,   ALLOWEDINCONDITION = 0x4,\nALLOWEDINPROXYPROFILE = 0x8,\nALLOWEDINPROXYCONDITION = 0x10,   ALLOWEDINVPNDIALUP = 0x20,\nALLOWEDIN8021X = 0x40} ATTRIBUTERESTRICTIONS;",
       "header": "sdoias.h",
       "deprecated": false,
@@ -4051,21 +3480,10 @@
       "_source_line": 2098
     },
     {
-      "id": "windows::PROPERTY_ATTRIBUTE_ENUM_FILTERS",
-      "name": "PROPERTY_ATTRIBUTE_ENUM_FILTERS",
-      "entity_type": "constant",
-      "description": "} ATTRIBUTEPROPERTIES;",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 2099
-    },
-    {
       "id": "windows::PROPERTY_ATTRIBUTE_IS_ENUMERABLE",
       "name": "PROPERTY_ATTRIBUTE_IS_ENUMERABLE",
       "entity_type": "constant",
-      "description": "指定属性是否可枚举。",
+      "description": "Specifies whether the property is enumerable.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4076,7 +3494,7 @@
       "id": "windows::PROPERTY_ATTRIBUTE_ENUM_VALUES",
       "name": "PROPERTY_ATTRIBUTE_ENUM_VALUES",
       "entity_type": "constant",
-      "description": "可枚举属性的值。",
+      "description": "Specifies the values for an enumerable property.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4087,7 +3505,7 @@
       "id": "windows::PROPERTY_ATTRIBUTE_SYNTAX",
       "name": "PROPERTY_ATTRIBUTE_SYNTAX",
       "entity_type": "constant",
-      "description": "指定特性的语法。",
+      "description": "Specifies the syntax of a property attribute.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4098,7 +3516,7 @@
       "id": "windows::PROPERTY_ATTRIBUTE_ALLOW_IN_PROFILE",
       "name": "PROPERTY_ATTRIBUTE_ALLOW_IN_PROFILE",
       "entity_type": "constant",
-      "description": "指定是否允许在网络访问策略 (NAP) 配置文件中使用此属性。 PROPERTY_ATTRIBUTE_ALLOW_IN_CONDITION 指定网络访问策略 (NAP) 条件中是否允许此属性。",
+      "description": "Specifies whether this property is allowed in Network Access Protection (NAP) profiles.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4109,7 +3527,7 @@
       "id": "windows::PROPERTY_ATTRIBUTE_ALLOW_IN_PROXY_CONDITION",
       "name": "PROPERTY_ATTRIBUTE_ALLOW_IN_PROXY_CONDITION",
       "entity_type": "constant",
-      "description": "指定网络请求代理的 NAP 条件中是否允许属性。",
+      "description": "Specifies whether the property is allowed in NAP conditions for network proxy requests.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4120,7 +3538,7 @@
       "id": "windows::IAS_SYNTAX_BOOLEAN",
       "name": "IAS_SYNTAX_BOOLEAN",
       "entity_type": "constant",
-      "description": "值：1 属性的类型为 Boolean。 IAS_SYNTAX_INTEGER 属性的类型为 integer。",
+      "description": "值：1，表示属性的类型为Boolean",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4131,7 +3549,7 @@
       "id": "windows::IAS_SYNTAX_ENUMERATOR",
       "name": "IAS_SYNTAX_ENUMERATOR",
       "entity_type": "constant",
-      "description": ", IAS_SYNTAX_INETADDR, IAS_SYNTAX_STRING,",
+      "description": "Enumerator for IAS syntax types",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4145,7 +3563,7 @@
       "id": "windows::IAS_SYNTAX_OCTETSTRING",
       "name": "IAS_SYNTAX_OCTETSTRING",
       "entity_type": "constant",
-      "description": "特性是字符串) 字节 (八位字节。 IAS_SYNTAX_UTCTIME 属性是协调世界时格式的时间。 IAS_SYNTAX_PROVIDERSPECIFIC 属性及其类型特定于供应商。",
+      "description": "表示属性为字节串(八位字节)类型的语法常量。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4158,7 +3576,7 @@
       "id": "windows::IAS_SYNTAX_PROVIDERSPECIFIC",
       "name": "IAS_SYNTAX_PROVIDERSPECIFIC",
       "entity_type": "constant",
-      "description": ", IAS_SYNTAX_UNSIGNEDINTEGER,",
+      "description": "Provider-specific syntax type constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4171,7 +3589,7 @@
       "id": "windows::IAS_SYNTAX_INETADDR6",
       "name": "IAS_SYNTAX_INETADDR6",
       "entity_type": "constant",
-      "description": "} ATTRIBUTESYNTAX;",
+      "description": "Internet Protocol version 6 (IPv6) address syntax constant for Internet Authentication Service (IAS) attributes.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4182,7 +3600,7 @@
       "id": "windows::IAS_SYNTAX_INETADDR",
       "name": "IAS_SYNTAX_INETADDR",
       "entity_type": "constant",
-      "description": "属性是 Internet 地址。",
+      "description": "Specifies that the attribute is an Internet address.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4193,7 +3611,7 @@
       "id": "windows::IAS_SYNTAX_STRING",
       "name": "IAS_SYNTAX_STRING",
       "entity_type": "constant",
-      "description": "属性是文本字符串。",
+      "description": "表示属性为文本字符串类型的常量",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4204,7 +3622,7 @@
       "id": "windows::IAS_SYNTAX_UNSIGNEDINTEGER",
       "name": "IAS_SYNTAX_UNSIGNEDINTEGER",
       "entity_type": "constant",
-      "description": "特性的类型为无符号整数。",
+      "description": "表示特性的数据类型为无符号整数(unsigned integer)。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4215,7 +3633,7 @@
       "id": "windows::IAS_AUTH_INVALID",
       "name": "IAS_AUTH_INVALID",
       "entity_type": "constant",
-      "description": "值： 0 将授权类型指定为无效。 IAS_AUTH_PAP 将授权类型指定为 PAP。 IAS_AUTH_MD5CHAP 将授权类型指定为MD5CHAP。 IAS_AUTH_MSCHAP 将授权类型指定为 MSCHAP。 IAS_AUTH_MSCHAP2 将授权类型指定为MSCHAP2。",
+      "description": "Specifies an invalid authentication type with value 0. Related constants: IAS_AUTH_PAP (PAP authentication), IAS_AUTH_MD5CHAP (MD5CHAP authentication), IAS_AUTH_MSCHAP (MSCHAP authentication), IAS_AUTH_MSCHAP2 (MSCHAP2 authentication).",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4225,22 +3643,11 @@
       "_source_line": 2226
     },
     {
-      "id": "windows::IAS_AUTH_MD5CHAP",
-      "name": "IAS_AUTH_MD5CHAP",
-      "entity_type": "constant",
-      "description": ", IAS_AUTH_MSCHAP, IAS_AUTH_MSCHAP2,",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 2227
-    },
-    {
       "id": "windows::IAS_AUTH_EAP",
       "name": "IAS_AUTH_EAP",
       "entity_type": "constant",
-      "description": "将授权类型指定为 EAP。 IAS_AUTH_ARAP 将授权类型指定为 PEAP。 IAS_AUTH_NONE 指定没有授权类型。 IAS_AUTH_CUSTOM 将授权类型指定为自定义。 IAS_AUTH_MSCHAP_CPW 将授权类型指定为 MSCHAP_CPW。 IAS_AUTH_MSCHAP2_CPW 将授权类型指定为 MSCHAP2_CPW。 IAS_AUTH_PEAP 将授权类型指定为 PEAP。 要求",
-      "syntax": "typedef enum _CLIENTPROPERTIES {",
+      "description": "将授权类型指定为 EAP。",
+      "syntax": "",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4253,7 +3660,7 @@
       "id": "windows::IAS_AUTH_MSCHAP_CPW",
       "name": "IAS_AUTH_MSCHAP_CPW",
       "entity_type": "constant",
-      "description": ", IAS_AUTH_MSCHAP2_CPW, IAS_AUTH_PEAP }",
+      "description": "Microsoft CHAP password change authentication type constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4264,7 +3671,7 @@
       "id": "windows::PROPERTY_CLIENT_REQUIRE_SIGNATURE",
       "name": "PROPERTY_CLIENT_REQUIRE_SIGNATURE",
       "entity_type": "constant",
-      "description": "指定 RADIUS 服务器是否检查数字签名。 注意 如果客户端和服务器使用可扩展身份验证协议 (EAP) ，则无论此属性如何， 它们都会使用数字签名。",
+      "description": "指定RADIUS服务器是否检查数字签名。注意：如果客户端和服务器使用可扩展身份验证协议(EAP)，则无论此属性如何，它们都会使用数字签名。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4275,7 +3682,7 @@
       "id": "windows::PROPERTY_CLIENT_NAS_MANUFACTURER",
       "name": "PROPERTY_CLIENT_NAS_MANUFACTURER",
       "entity_type": "constant",
-      "description": "网络访问服务器的制造商 (NAS) ，即 RADIUS 客户端。",
+      "description": "指定网络访问服务器(NAS)的制造商，即RADIUS客户端。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4286,7 +3693,7 @@
       "id": "windows::PROPERTY_CLIENT_QUARANTINE_COMPATIBLE",
       "name": "PROPERTY_CLIENT_QUARANTINE_COMPATIBLE",
       "entity_type": "constant",
-      "description": "由 NPS 用户界面用于指示 RADIUS 客户端是否可以接收特定于 NAP 的隔离属性。 PROPERTY_CLIENT_ENABLED 指定是否启用 RADIUS 客户端。 如果未启用 RADIUS 客户端，则存在配置，但 NPS 未应用该配置。",
+      "description": "Indicates whether a RADIUS client can receive NAP-specific quarantine attributes. Used by NPS user interface.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4294,22 +3701,10 @@
       "_source_line": 2271
     },
     {
-      "id": "windows::PROPERTY_CLIENT_SECRET_TEMPLATE_GUID",
-      "name": "PROPERTY_CLIENT_SECRET_TEMPLATE_GUID",
-      "entity_type": "constant",
-      "description": "} CLIENTPROPERTIES;",
-      "syntax": "typedef enum _CONDITIONPROPERTIES {",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 2272
-    },
-    {
       "id": "windows::PROPERTY_CLIENT_UNUSED",
       "name": "PROPERTY_CLIENT_UNUSED",
       "entity_type": "constant",
-      "description": "此值指示此时未使用 属性。 PROPERTY_CLIENT_SHARED_SECRET RADIUS 客户端和 RADIUS 服务器共享的机密。",
+      "description": "Indicates that the property is currently unused.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4322,7 +3717,7 @@
       "id": "windows::PROPERTY_CLIENT_ADDRESS",
       "name": "PROPERTY_CLIENT_ADDRESS",
       "entity_type": "constant",
-      "description": "RADIUS 客户端的 IP 地址。",
+      "description": "表示RADIUS客户端的IP地址的属性常量",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4330,28 +3725,10 @@
       "_source_line": 2287
     },
     {
-      "id": "windows::PROPERTY_CONDITION_TEXT",
-      "name": "PROPERTY_CONDITION_TEXT",
-      "entity_type": "constant",
-      "description": "} CONDITIONPROPERTIES;",
-      "syntax": "typedef enum _DICTIONARYPROPERTIES {",
-      "remarks": "POLICYPROPERTIES 枚举类型包含值PROPERTY_POLICY_CONDITIONS_COLLECTION，该 值是条件集合的 属性。",
-      "requirements": {
-        "header": "sdoias.h",
-        "target_platform": "Windows",
-        "min_server": "Windows Server 2008"
-      },
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 2311
-    },
-    {
       "id": "windows::PROPERTY_DICTIONARY_ATTRIBUTES_COLLECTION",
       "name": "PROPERTY_DICTIONARY_ATTRIBUTES_COLLECTION",
       "entity_type": "constant",
-      "description": "所有可能属性的集合。",
+      "description": "Specifies the collection of all possible attributes in a property dictionary.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4362,8 +3739,8 @@
       "id": "windows::PROPERTY_DICTIONARY_LOCATION",
       "name": "PROPERTY_DICTIONARY_LOCATION",
       "entity_type": "constant",
-      "description": "} DICTIONARYPROPERTIES;",
-      "syntax": "typedef enum _IASCOMMONPROPERTIES {",
+      "description": "Specifies the location of property dictionary",
+      "syntax": "#define PROPERTY_DICTIONARY_LOCATION",
       "remarks": "字典是所有可能属性的集合。 它包括一些保留供系统使用的属性。",
       "requirements": {
         "header": "sdoias.h",
@@ -4380,7 +3757,7 @@
       "id": "windows::PROPERTY_SDO_RESERVED",
       "name": "PROPERTY_SDO_RESERVED",
       "entity_type": "constant",
-      "description": "值： 0 此属性被保留。",
+      "description": "Reserved property with value 0",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4391,7 +3768,7 @@
       "id": "windows::PROPERTY_SDO_CLASS",
       "name": "PROPERTY_SDO_CLASS",
       "entity_type": "constant",
-      "description": "SDO 对象的程序 ID。",
+      "description": "Specifies the programmatic identifier (ProgID) for SDO objects.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4402,7 +3779,7 @@
       "id": "windows::PROPERTY_SDO_NAME",
       "name": "PROPERTY_SDO_NAME",
       "entity_type": "constant",
-      "description": "SDO 对象的名称。",
+      "description": "Specifies the name property of a Security Descriptor Object (SDO).",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4413,7 +3790,7 @@
       "id": "windows::PROPERTY_SDO_DESCRIPTION",
       "name": "PROPERTY_SDO_DESCRIPTION",
       "entity_type": "constant",
-      "description": "留待将来使用。 PROPERTY_SDO_ID 留待将来使用。",
+      "description": "Reserved for future use. Related to PROPERTY_SDO_ID which is also reserved.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4426,7 +3803,7 @@
       "id": "windows::PROPERTY_SDO_DATASTORE_NAME",
       "name": "PROPERTY_SDO_DATASTORE_NAME",
       "entity_type": "constant",
-      "description": "对象的数据存储的名称。",
+      "description": "指定安全描述符对象(SDO)的数据存储名称的属性常量。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4437,8 +3814,8 @@
       "id": "windows::PROPERTY_SDO_START",
       "name": "PROPERTY_SDO_START",
       "entity_type": "constant",
-      "description": "值： 0x400 指示 USERPROPERTIES 的开头。",
-      "syntax": "typedef enum _IASCOMPONENTPROPERTIES {   PROPERTY_COMPONENT_ID,",
+      "description": "值：0x400，指示USERPROPERTIES的开头。",
+      "syntax": "typedef enum _IASCOMPONENTPROPERTIES {\n  PROPERTY_COMPONENT_ID,\n  PROPERTY_SDO_START = 0x400\n}",
       "remarks": "以下代码片段检索 SDO 对象的名称（如果存在）。 变量 pSdo 是指向 ISdo 接口的指 针。 C++ HRESULT hr; _variant_t vtItemName; hr = pSdo->GetProperty(PROPERTY_SDO_NAME, &vtItemName);",
       "header": "sdoias.h",
       "deprecated": false,
@@ -4453,7 +3830,7 @@
       "id": "windows::PROPERTY_COMPONENT_PROG_ID",
       "name": "PROPERTY_COMPONENT_PROG_ID",
       "entity_type": "constant",
-      "description": "SDO 对象的程序 ID。",
+      "description": "指定SDO(Service Data Object)对象的程序标识符(ProgID)。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4461,26 +3838,10 @@
       "_source_line": 2424
     },
     {
-      "id": "windows::PROPERTY_COMPONENT_START",
-      "name": "PROPERTY_COMPONENT_START",
-      "entity_type": "constant",
-      "description": "} IASCOMPONENTPROPERTIES;",
-      "syntax": "typedef enum _IASDATASTORE {",
-      "remarks": "以下代码片段演示如何获取 SDO 对象的组件 ID。 变量 pSdo 指向 ISdo 接口。 C++ HRESULT hr; _variant_t vtProperty; hr = pSdo->GetProperty(PROPERTY_COMPONENT_ID, &vtProperty); 要求",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "GetProperty",
-        "PROPERTY_COMPONENT_ID"
-      ],
-      "confidence": 0.75,
-      "_source_line": 2425
-    },
-    {
       "id": "windows::PROPERTY_COMPONENT_ID",
       "name": "PROPERTY_COMPONENT_ID",
       "entity_type": "constant",
-      "description": "SDO 对象的组件 ID。",
+      "description": "Specifies the component ID for an SDO (Security Descriptor Object) object.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4491,8 +3852,8 @@
       "id": "windows::DATA_STORE_LOCAL",
       "name": "DATA_STORE_LOCAL",
       "entity_type": "constant",
-      "description": "值： 0 SDO 数据存储在本地 SDO 计算机上。 DATA_STORE_DIRECTORY SDO 数据存储在 Active Directory 中。",
-      "syntax": "typedef enum _DOMAINTYPE {   DOMAIN_TYPE_NONE = 0,",
+      "description": "值为0，表示SDO数据存储在本地SDO计算机上。DATA_STORE_DIRECTORY表示SDO数据存储在Active Directory中。",
+      "syntax": "",
       "remarks": "不能使用此枚举类型来指定 SDO 数据的存储位置。",
       "requirements": {
         "target_platform": "Windows",
@@ -4511,7 +3872,7 @@
       "id": "windows::DOMAIN_TYPE_NT4",
       "name": "DOMAIN_TYPE_NT4",
       "entity_type": "constant",
-      "description": ", DOMAIN_TYPE_NT5, DOMAIN_TYPE_MIXED } IASDOMAINTYPE, *PIASDOMAINTYPE; 常量",
+      "description": "NT4 domain type constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4524,7 +3885,7 @@
       "id": "windows::DOMAIN_TYPE_NONE",
       "name": "DOMAIN_TYPE_NONE",
       "entity_type": "constant",
-      "description": "值： 0 SDO 计算机在独立模式下运行。",
+      "description": "值为0，表示计算机在独立模式下运行。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4535,8 +3896,8 @@
       "id": "windows::DOMAIN_TYPE_NT5",
       "name": "DOMAIN_TYPE_NT5",
       "entity_type": "constant",
-      "description": "SDO 计算机是在本机模式下运行的 Windows 域的一部分。 DOMAIN_TYPE_MIXED SDO 计算机是混合模式下运行的 Windows 域的一部分。",
-      "syntax": "typedef enum _IASOSTYPE {",
+      "description": "Specifies that the computer is part of a Windows domain running in native mode.",
+      "syntax": "#define DOMAIN_TYPE_NT5",
       "requirements": {
         "target_platform": "Windows",
         "header": "sdoias.h",
@@ -4549,51 +3910,10 @@
       "_source_line": 2491
     },
     {
-      "id": "windows::SYSTEM_TYPE_NT4_WORKSTATION",
-      "name": "SYSTEM_TYPE_NT4_WORKSTATION",
-      "entity_type": "constant",
-      "description": "值： 0 不支持。",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.55,
-      "_source_line": 2511
-    },
-    {
-      "id": "windows::SYSTEM_TYPE_NT5_WORKSTATION",
-      "name": "SYSTEM_TYPE_NT5_WORKSTATION",
-      "entity_type": "constant",
-      "description": ", SYSTEM_TYPE_NT6_WORKSTATION, SYSTEM_TYPE_NT6_1_WORKSTATION, SYSTEM_TYPE_NT6_2_WORKSTATION, SYSTEM_TYPE_NT6_3_WORKSTATION, SYSTEM_TYPE_NT10_0_WORKSTATION,",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "SYSTEM_TYPE_NT6_1_WORKSTATION",
-        "SYSTEM_TYPE_NT6_3_WORKSTATION",
-        "SYSTEM_TYPE_NT6_WORKSTATION"
-      ],
-      "confidence": 0.75,
-      "_source_line": 2512
-    },
-    {
-      "id": "windows::SYSTEM_TYPE_NT4_SERVER",
-      "name": "SYSTEM_TYPE_NT4_SERVER",
-      "entity_type": "constant",
-      "description": ", SYSTEM_TYPE_NT5_SERVER, SYSTEM_TYPE_NT6_SERVER, SYSTEM_TYPE_NT6_1_SERVER, SYSTEM_TYPE_NT6_2_SERVER, SYSTEM_TYPE_NT6_3_SERVER, SYSTEM_TYPE_NT10_0_SERVER} IASOSTYPE, *PIASOSTYPE;",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "SYSTEM_TYPE_NT5_SERVER",
-        "SYSTEM_TYPE_NT6_1_SERVER",
-        "SYSTEM_TYPE_NT6_SERVER"
-      ],
-      "confidence": 0.75,
-      "_source_line": 2513
-    },
-    {
       "id": "windows::SYSTEM_TYPE_NT6_WORKSTATION",
       "name": "SYSTEM_TYPE_NT6_WORKSTATION",
       "entity_type": "constant",
-      "description": "SDO 计算机正在运行 Windows Vista。",
+      "description": "Indicates the system is running Windows Vista (NT6 workstation version)",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4603,32 +3923,10 @@
       "_source_line": 2518
     },
     {
-      "id": "windows::SYSTEM_TYPE_NT6_1_WORKSTATION",
-      "name": "SYSTEM_TYPE_NT6_1_WORKSTATION",
-      "entity_type": "constant",
-      "description": "SYSTEM_TYPE_NT6_2_WORKSTATION",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 2520
-    },
-    {
-      "id": "windows::SYSTEM_TYPE_NT6_3_WORKSTATION",
-      "name": "SYSTEM_TYPE_NT6_3_WORKSTATION",
-      "entity_type": "constant",
-      "description": "SYSTEM_TYPE_NT10_0_WORKSTATION",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 2522
-    },
-    {
       "id": "windows::SYSTEM_TYPE_NT6_SERVER",
       "name": "SYSTEM_TYPE_NT6_SERVER",
       "entity_type": "constant",
-      "description": "SDO 计算机正在运行 Windows Server 2008。",
+      "description": "Indicates the system is running Windows Server 2008 (NT 6.x family)",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4638,27 +3936,10 @@
       "_source_line": 2525
     },
     {
-      "id": "windows::SYSTEM_TYPE_NT6_1_SERVER",
-      "name": "SYSTEM_TYPE_NT6_1_SERVER",
-      "entity_type": "constant",
-      "description": "SYSTEM_TYPE_NT6_2_SERVER SYSTEM_TYPE_NT6_3_SERVER SYSTEM_TYPE_NT10_0_SERVER",
-      "syntax": "typedef enum _IASPROPERTIES {",
-      "requirements": {
-        "header": "sdoias.h",
-        "target_platform": "Windows",
-        "min_server": "Windows Server 2008"
-      },
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.85,
-      "_source_line": 2527
-    },
-    {
       "id": "windows::PROPERTY_IAS_RADIUSSERVERGROUPS_COLLECTION",
       "name": "PROPERTY_IAS_RADIUSSERVERGROUPS_COLLECTION",
-      "entity_type": "constant",
-      "description": "RADIUS 服务器组的集合。",
+      "entity_type": "property",
+      "description": "表示RADIUS服务器组的集合属性常量",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4669,7 +3950,7 @@
       "id": "windows::PROPERTY_IAS_POLICIES_COLLECTION",
       "name": "PROPERTY_IAS_POLICIES_COLLECTION",
       "entity_type": "constant",
-      "description": ", PROPERTY_IAS_PROFILES_COLLECTION, PROPERTY_IAS_PROTOCOLS_COLLECTION, PROPERTY_IAS_AUDITORS_COLLECTION,",
+      "description": "IAS policies collection property constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4684,7 +3965,7 @@
       "id": "windows::PROPERTY_IAS_REQUESTHANDLERS_COLLECTION",
       "name": "PROPERTY_IAS_REQUESTHANDLERS_COLLECTION",
       "entity_type": "constant",
-      "description": ", PROPERTY_IAS_PROXYPOLICIES_COLLECTION, PROPERTY_IAS_PROXYPROFILES_COLLECTION,",
+      "description": "PROPERTY_IAS_REQUESTHANDLERS_COLLECTION constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4697,7 +3978,7 @@
       "id": "windows::PROPERTY_IAS_REMEDIATIONSERVERGROUPS_COLLECTION",
       "name": "PROPERTY_IAS_REMEDIATIONSERVERGROUPS_COLLECTION",
       "entity_type": "constant",
-      "description": "由 NPS 用户界面的修正服务器设置使用。 PROPERTY_IAS_SHVTEMPLATES_COLLECTION 由 NPS 用户界面的系统运行状况验证程序模板设置使用。",
+      "description": "由NPS用户界面的修正服务器设置使用",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4707,21 +3988,10 @@
       "_source_line": 2548
     },
     {
-      "id": "windows::PROPERTY_IAS_SHVTEMPLATES_COLLECTION",
-      "name": "PROPERTY_IAS_SHVTEMPLATES_COLLECTION",
-      "entity_type": "constant",
-      "description": "} IASPROPERTIES;",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.55,
-      "_source_line": 2549
-    },
-    {
       "id": "windows::PROPERTY_IAS_PROFILES_COLLECTION",
       "name": "PROPERTY_IAS_PROFILES_COLLECTION",
       "entity_type": "constant",
-      "description": "网络访问策略的配置文件集合。",
+      "description": "表示网络访问策略(IAS)的配置文件集合的属性常量",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4732,7 +4002,7 @@
       "id": "windows::PROPERTY_IAS_PROTOCOLS_COLLECTION",
       "name": "PROPERTY_IAS_PROTOCOLS_COLLECTION",
       "entity_type": "constant",
-      "description": "NPS 使用的协议集合。",
+      "description": "Network Policy Server (NPS) 使用的协议集合常量",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4743,7 +4013,7 @@
       "id": "windows::PROPERTY_IAS_AUDITORS_COLLECTION",
       "name": "PROPERTY_IAS_AUDITORS_COLLECTION",
       "entity_type": "constant",
-      "description": "NPS 使用的审核员集合。",
+      "description": "用于NPS(网络策略服务器)的审核员集合属性",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4764,8 +4034,8 @@
     {
       "id": "windows::IDENTITY_TYPE",
       "name": "IDENTITY_TYPE",
-      "entity_type": "constant",
-      "description": "枚举类型定义MS_ATTRIBUTE_IDENTITY_TYPE的不同可能值。",
+      "entity_type": "enum",
+      "description": "定义MS_ATTRIBUTE_IDENTITY_TYPE枚举的可能值",
       "syntax": "typedef enum _IDENTITY_TYPE {   IAS_IDENTITY_NO_DEFAULT = 0x1} IDENTITY_TYPE;",
       "header": "sdoias.h",
       "deprecated": false,
@@ -4777,7 +4047,7 @@
       "id": "windows::IAS_IDENTITY_NO_DEFAULT",
       "name": "IAS_IDENTITY_NO_DEFAULT",
       "entity_type": "constant",
-      "description": "值： 0x1 要求",
+      "description": "Value: 0x1 (Requests no default identity)",
       "requirements": {
         "header": "sdoias.h",
         "target_platform": "Windows",
@@ -4790,28 +4060,10 @@
       "_source_line": 2588
     },
     {
-      "id": "windows::VT_EMPTY",
-      "name": "VT_EMPTY",
-      "entity_type": "constant",
-      "description": "变体。[out] pValuesDesc 成功返回时，指向可枚举属性的值说明的 SAFEARRAY 。 如果该属性不可枚举，则指向 变体。",
-      "return_value": {
-        "description": "如果方法成功，则返回值为 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
-      },
-      "remarks": "即使属性不可枚举，返回值也是S_OK。 要求",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "GetAttributeID",
-        "Server"
-      ],
-      "confidence": 0.8,
-      "_source_line": 3075
-    },
-    {
       "id": "windows::SERVICE_RUNNING",
       "name": "SERVICE_RUNNING",
       "entity_type": "constant",
-      "description": "服务已启动并运行。",
+      "description": "表示服务已启动并正在运行的状态常量。",
       "return_value": {
         "description": "如果该方法成功，则返回值 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
       },
@@ -4828,9 +4080,9 @@
     {
       "id": "windows::PROPERTY_NAMES_REALMS",
       "name": "PROPERTY_NAMES_REALMS",
-      "entity_type": "constant",
-      "description": "注意 指定 VARIANT 数组中的一组“搜索文本”和“替换文本”对。 这相当于 Windows XP 中的属性操 作。 有关领域功能和正则表达式用法的更多文档，请参阅 IAS 联机帮助。",
-      "syntax": "typedef enum _NAPPROPERTIES {",
+      "entity_type": "enum",
+      "description": "Specifies a set of 'search text' and 'replace text' pairs in VARIANT arrays. Equivalent to property operations in Windows XP. For more documentation on realm functionality and regex usage, refer to IAS online help.",
+      "syntax": "typedef enum _NAPPROPERTIES {\n    PROPERTY_NAMES_REALMS\n} NAPPROPERTIES;",
       "requirements": {
         "header": "sdoias.h",
         "target_platform": "Windows",
@@ -4846,7 +4098,7 @@
       "id": "windows::PROPERTY_NAP_POLICIES_COLLECTION",
       "name": "PROPERTY_NAP_POLICIES_COLLECTION",
       "entity_type": "constant",
-      "description": ", PROPERTY_SHV_TEMPLATES_COLLECTION} NAPPROPERTIES;",
+      "description": "Network Access Protection (NAP) policies collection property constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4872,7 +4124,7 @@
       "id": "windows::IAS_LOGGING_DAILY",
       "name": "IAS_LOGGING_DAILY",
       "entity_type": "constant",
-      "description": ", IAS_LOGGING_WEEKLY, IAS_LOGGING_MONTHLY,",
+      "description": "Specifies daily logging interval for IAS (Internet Authentication Service)",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4883,7 +4135,7 @@
       "id": "windows::IAS_LOGGING_UNLIMITED_SIZE",
       "name": "IAS_LOGGING_UNLIMITED_SIZE",
       "entity_type": "constant",
-      "description": "值： 0 允许日志文件无限制地增长。 不要定期创建新的日志文件。 IAS_LOGGING_DAILY 每天创建新的日志文件。 IAS_LOGGING_WEEKLY 每周创建新的日志文件。 IAS_LOGGING_MONTHLY 每月创建新的日志文件。",
+      "description": "Value: 0. Allows log files to grow without limit. Does not create new log files periodically.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4896,7 +4148,7 @@
       "id": "windows::PROPERTY_EVENTLOG_LOG_APPLICATION_EVENTS",
       "name": "PROPERTY_EVENTLOG_LOG_APPLICATION_EVENTS",
       "entity_type": "constant",
-      "description": "指定在 Windows 事件日志中报告 NPS 错误事件的方式。 在 Windows XP 中，没有与此属性对应的 UI 元素",
+      "description": "Specifies how NPS error events are reported in Windows Event Log. In Windows XP, there is no corresponding UI element for this property.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4904,22 +4156,11 @@
       "_source_line": 3586
     },
     {
-      "id": "windows::PROPERTY_EVENTLOG_LOG_DEBUG",
-      "name": "PROPERTY_EVENTLOG_LOG_DEBUG",
-      "entity_type": "constant",
-      "description": "} NTEVENTLOGPROPERTIES;",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 3587
-    },
-    {
       "id": "windows::PROPERTY_EVENTLOG_LOG_MALFORMED",
       "name": "PROPERTY_EVENTLOG_LOG_MALFORMED",
       "entity_type": "constant",
-      "description": "指定是否记录丢弃和拒绝的数据包。 PROPERTY_EVENTLOG_LOG_DEBUG 指定是否记录成功的身份验证。",
-      "syntax": "typedef enum _NTSAMPROPERTIES {",
+      "description": "Specifies whether to log malformed packets.",
+      "syntax": "",
       "requirements": {
         "header": "sdoias.h",
         "target_platform": "Windows",
@@ -4938,7 +4179,7 @@
       "name": "PROPERTY_NTSAM_ALLOW_LM_AUTHENTICATION",
       "entity_type": "constant",
       "description": "指定是否允许 NT LAN Manager (NTLM) 身份验证。",
-      "syntax": "typedef enum _POLICYPROPERTIES {   PROPERTY_POLICY_CONSTRAINT,",
+      "syntax": "",
       "requirements": {
         "header": "sdoias.h",
         "target_platform": "Windows",
@@ -4956,7 +4197,7 @@
       "id": "windows::PROPERTY_POLICY_MERIT",
       "name": "PROPERTY_POLICY_MERIT",
       "entity_type": "constant",
-      "description": ", PROPERTY_POLICY_UNUSED0, PROPERTY_POLICY_UNUSED1,",
+      "description": "Policy merit property constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4970,7 +4211,7 @@
       "id": "windows::PROPERTY_POLICY_PROFILE_NAME",
       "name": "PROPERTY_POLICY_PROFILE_NAME",
       "entity_type": "constant",
-      "description": "指定配置文件名称。 系统使用此属性将策略与 profile。",
+      "description": "指定配置文件名称。系统使用此属性将策略与配置文件关联。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -4981,7 +4222,7 @@
       "id": "windows::PROPERTY_POLICY_ENABLED",
       "name": "PROPERTY_POLICY_ENABLED",
       "entity_type": "constant",
-      "description": ", PROPERTY_POLICY_SOURCETAG} POLICYPROPERTIES;",
+      "description": "Indicates whether policy is enabled",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -4994,7 +4235,7 @@
       "id": "windows::PROPERTY_POLICY_CONSTRAINT",
       "name": "PROPERTY_POLICY_CONSTRAINT",
       "entity_type": "constant",
-      "description": "包含条件的所有文本的字符串。请勿使用此属性访问条件;使用 请改为PROPERTY_POLICY_CONDITIONS_COLLECTION 。 PROPERTY_POLICY_MERIT 指定此策略相对于其他策略的相对位置。 在 UI 中，UI 中最高的策略的功绩值为 1，下一个下一个策略的功绩值为 2，等等。 首次创建 对象时，不能设置策略的优点值。 新策略对象始终为 应用于同一优点位置。 若要对策略进行排序，请创建策略对象并设置其值。 应用对 对象的所有更改，然后设置适当的优点值并应用更改。",
+      "description": "Specifies policy constraint properties. Do not use this property directly to access conditions; use PROPERTY_POLICY_CONDITIONS_COLLECTION instead.",
       "header": "sdoias.h",
       "deprecated": true,
       "cross_references": [
@@ -5007,7 +4248,7 @@
       "id": "windows::PROPERTY_POLICY_ACTION",
       "name": "PROPERTY_POLICY_ACTION",
       "entity_type": "constant",
-      "description": "指定与策略关联的配置文件的名称。 当前未使用此属性。 使用 请改为PROPERTY_POLICY_PROFILE_NAME 。 PROPERTY_POLICY_CONDITIONS_COLLECTION 指定此网络访问策略的条件。",
+      "description": "Specifies the name of the profile associated with a policy. This property is currently unused. Use PROPERTY_POLICY_PROFILE_NAME instead. PROPERTY_POLICY_CONDITIONS_COLLECTION specifies the conditions for this network access policy.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5021,7 +4262,7 @@
       "name": "PROPERTY_POLICY_SOURCETAG",
       "entity_type": "constant",
       "description": "由 NPS 用户界面用于标记一组仅适用于指定类型的 RADIUS 的策略 客户端 (或源) 。 例如，由“DHCP 服务器”标记的策略。",
-      "syntax": "typedef enum _PROFILEPROPERTIES {",
+      "syntax": "",
       "remarks": "若要创建新策略，必须指定策略的唯一名称、要与策略关联的配置文件，以及策略的条件 集合。 策略的名称和配置文件的名称应相同。",
       "header": "sdoias.h",
       "deprecated": false,
@@ -5032,35 +4273,11 @@
       "_source_line": 3657
     },
     {
-      "id": "windows::PROPERTY_PROFILE_ATTRIBUTES_COLLECTION",
-      "name": "PROPERTY_PROFILE_ATTRIBUTES_COLLECTION",
-      "entity_type": "constant",
-      "description": ", PROPERTY_PROFILE_IPFILTER_TEMPLATE_GUID} PROFILEPROPERTIES;",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "PROPERTY_PROFILE_IPFILTER_TEMPLATE_GUID"
-      ],
-      "confidence": 0.75,
-      "_source_line": 3681
-    },
-    {
-      "id": "windows::PROPERTY_PROTOCOL_START",
-      "name": "PROPERTY_PROTOCOL_START",
-      "entity_type": "constant",
-      "description": "} PROTOCOLPROPERTIES;",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 3705
-    },
-    {
       "id": "windows::PROPERTY_PROTOCOL_REQUEST_HANDLER",
       "name": "PROPERTY_PROTOCOL_REQUEST_HANDLER",
       "entity_type": "constant",
-      "description": "该值保留供系统使用。 PROPERTY_PROTOCOL_START 此值为默认值。",
-      "syntax": "typedef enum _RADIUSPROPERTIES {   PROPERTY_RADIUS_ACCOUNTING_PORT,",
+      "description": "该值保留供系统使用。PROPERTY_PROTOCOL_START为此属性的默认值。",
+      "syntax": "",
       "requirements": {
         "header": "sdoias.h",
         "target_platform": "Windows",
@@ -5078,7 +4295,7 @@
       "id": "windows::PROPERTY_RADIUS_AUTHENTICATION_PORT",
       "name": "PROPERTY_RADIUS_AUTHENTICATION_PORT",
       "entity_type": "constant",
-      "description": ", PROPERTY_RADIUS_CLIENTS_COLLECTION, PROPERTY_RADIUS_VENDORS_COLLECTION} RADIUSPROPERTIES;",
+      "description": "Specifies the RADIUS authentication port property",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5091,7 +4308,7 @@
       "id": "windows::PROPERTY_RADIUS_ACCOUNTING_PORT",
       "name": "PROPERTY_RADIUS_ACCOUNTING_PORT",
       "entity_type": "constant",
-      "description": "用于 RADIUS 记帐的 TCP 端口。",
+      "description": "Specifies the TCP port used for RADIUS accounting.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -5102,7 +4319,7 @@
       "id": "windows::PROPERTY_RADIUS_CLIENTS_COLLECTION",
       "name": "PROPERTY_RADIUS_CLIENTS_COLLECTION",
       "entity_type": "constant",
-      "description": "此 RADIUS 服务器的客户端集合。 PROPERTY_RADIUS_VENDORS_COLLECTION 此 RADIUS 服务器的供应商集合。",
+      "description": "此 RADIUS 服务器的客户端集合。",
       "syntax": "typedef enum _RADIUSPROXYPROPERTIES {   PROPERTY_RADIUSPROXY_SERVERGROUPS} RADIUSPROXYPROPERTIES;",
       "header": "sdoias.h",
       "deprecated": false,
@@ -5115,9 +4332,9 @@
     {
       "id": "windows::PROPERTY_RADIUSPROXY_SERVERGROUPS",
       "name": "PROPERTY_RADIUSPROXY_SERVERGROUPS",
-      "entity_type": "constant",
+      "entity_type": "property",
       "description": "RADIUS 代理服务器组的集合。",
-      "syntax": "typedef enum _RADIUSSERVERGROUPPROPERTIES {",
+      "syntax": "",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5130,8 +4347,8 @@
       "id": "windows::PROPERTY_RADIUSSERVERGROUP_SERVERS_COLLECTION",
       "name": "PROPERTY_RADIUSSERVERGROUP_SERVERS_COLLECTION",
       "entity_type": "constant",
-      "description": "} RADIUSSERVERGROUPPROPERTIES;",
-      "syntax": "typedef enum _RADIUSSERVERPROPERTIES {",
+      "description": "Constant representing RADIUS server group servers collection property",
+      "syntax": "",
       "remarks": "IASPROPERTIES 枚举类型包含值 PROPERTY_IAS_RADIUSSERVERGROUPS_COLLECTION， 该值对应于 RADIUS 服务器组的集合。",
       "requirements": {
         "header": "sdoias.h",
@@ -5150,7 +4367,7 @@
       "id": "windows::PROPERTY_RADIUSSERVER_AUTH_PORT",
       "name": "PROPERTY_RADIUSSERVER_AUTH_PORT",
       "entity_type": "constant",
-      "description": ", PROPERTY_RADIUSSERVER_AUTH_SECRET, PROPERTY_RADIUSSERVER_ACCT_PORT, PROPERTY_RADIUSSERVER_ACCT_SECRET, PROPERTY_RADIUSSERVER_ADDRESS,",
+      "description": "Specifies the authentication port number for RADIUS server",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5166,7 +4383,7 @@
       "id": "windows::PROPERTY_RADIUSSERVER_PRIORITY",
       "name": "PROPERTY_RADIUSSERVER_PRIORITY",
       "entity_type": "constant",
-      "description": ", PROPERTY_RADIUSSERVER_WEIGHT, PROPERTY_RADIUSSERVER_TIMEOUT, PROPERTY_RADIUSSERVER_MAX_LOST, PROPERTY_RADIUSSERVER_BLACKOUT,",
+      "description": "Specifies the priority of the RADIUS server",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5180,8 +4397,8 @@
       "id": "windows::PROPERTY_RADIUSSERVER_AUTH_SECRET_TEMPLATE_GUID",
       "name": "PROPERTY_RADIUSSERVER_AUTH_SECRET_TEMPLATE_GUID",
       "entity_type": "constant",
-      "description": ", PROPERTY_RADIUSSERVER_ACCT_SECRET_TEMPLATE_GUID} RADIUSSERVERPROPERTIES;",
-      "syntax": "typedef enum _REMEDIATIONSERVERGROUPPROPERTIES {",
+      "description": "Property GUID for RADIUS server authentication secret template",
+      "syntax": "",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -5203,7 +4420,7 @@
       "id": "windows::PROPERTY_RADIUSSERVER_ACCT_PORT",
       "name": "PROPERTY_RADIUSSERVER_ACCT_PORT",
       "entity_type": "constant",
-      "description": "用于发送和接收 RADIUS 身份验证数据包的 UDP 端口的逗号分隔列表。",
+      "description": "指定RADIUS服务器用于发送和接收计费(Accounting)数据包的UDP端口号",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -5214,7 +4431,7 @@
       "id": "windows::PROPERTY_RADIUSSERVER_ACCT_SECRET",
       "name": "PROPERTY_RADIUSSERVER_ACCT_SECRET",
       "entity_type": "constant",
-      "description": "用于记帐的共享机密。",
+      "description": "用于RADIUS服务器记帐功能的共享机密",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -5225,7 +4442,7 @@
       "id": "windows::PROPERTY_RADIUSSERVER_ADDRESS",
       "name": "PROPERTY_RADIUSSERVER_ADDRESS",
       "entity_type": "constant",
-      "description": "服务器的 IP 地址，或与服务器对应的 DNS 名称。 PROPERTY_RADIUSSERVER_FORWARD_ACCT_ONOFF 指定是否转发（即代理）记帐数据包。 PROPERTY_RADIUSSERVER_PRIORITY 指定服务器的优先级。 优先级越低，优先级越高。 PROPERTY_RADIUSSERVER_WEIGHT 指定服务器的权重。 如果两个服务器具有相同的优先级，则使用权重来确定使用哪个服务器。",
+      "description": "服务器的IP地址，或与服务器对应的DNS名称",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5239,7 +4456,7 @@
       "id": "windows::PROPERTY_RADIUSSERVER_TIMEOUT",
       "name": "PROPERTY_RADIUSSERVER_TIMEOUT",
       "entity_type": "constant",
-      "description": "指定服务器的超时。",
+      "description": "指定RADIUS服务器的超时时间（以秒为单位）。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -5250,7 +4467,7 @@
       "id": "windows::PROPERTY_RADIUSSERVER_MAX_LOST",
       "name": "PROPERTY_RADIUSSERVER_MAX_LOST",
       "entity_type": "constant",
-      "description": "在服务器被视为不可用之前，可以连续删除的数据包数。 PROPERTY_RADIUSSERVER_BLACKOUT 在检查不可用的服务器是否再次可用之前等待的秒数。 PROPERTY_RADIUSSERVER_SEND_SIGNATURE 指定 RFC 3579 证。 的 Message-Authenticator 属性是否由服务器发送。 它始终发送用于 EAP 身份验",
+      "description": "在服务器被视为不可用之前，可以连续丢失的数据包数",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5261,23 +4478,11 @@
       "_source_line": 3830
     },
     {
-      "id": "windows::PROPERTY_REMEDIATIONSERVERGROUP_SERVERS_COLLECTION",
-      "name": "PROPERTY_REMEDIATIONSERVERGROUP_SERVERS_COLLECTION",
-      "entity_type": "constant",
-      "description": "} REMEDIATIONSERVERGROUPPROPERTIES;",
-      "syntax": "typedef enum _REMEDIATIONSERVERPROPERTIES {",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 3856
-    },
-    {
       "id": "windows::PROPERTY_REMEDIATIONSERVER_ADDRESS",
       "name": "PROPERTY_REMEDIATIONSERVER_ADDRESS",
       "entity_type": "constant",
-      "description": "修正服务器的 IP 地址值。 在网络策略服务器 (NPS) 用户界面中使用。 PROPERTY_REMEDIATIONSERVER_FRIENDLY_NAME 修正服务器的主机名。 在 NPS 用户界面中使用。",
-      "syntax": "typedef enum _REMEDIATIONSERVERSPROPERTIES {",
+      "description": "修正服务器的IP地址值。在网络策略服务器(NPS)用户界面中使用。",
+      "syntax": "",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5287,32 +4492,10 @@
       "_source_line": 3882
     },
     {
-      "id": "windows::PROPERTY_REMEDIATIONSERVER_FRIENDLY_NAME",
-      "name": "PROPERTY_REMEDIATIONSERVER_FRIENDLY_NAME",
-      "entity_type": "constant",
-      "description": "} REMEDIATIONSERVERPROPERTIES;",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 3884
-    },
-    {
-      "id": "windows::PROPERTY_REMEDIATIONSERVERS_SERVERGROUPS",
-      "name": "PROPERTY_REMEDIATIONSERVERS_SERVERGROUPS",
-      "entity_type": "constant",
-      "description": "} REMEDIATIONSERVERSPROPERTIES;",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.65,
-      "_source_line": 3910
-    },
-    {
       "id": "windows::SERVICE_TYPE_IAS",
       "name": "SERVICE_TYPE_IAS",
       "entity_type": "constant",
-      "description": "值： 0 该服务是 Internet 身份验证服务 (IAS) 或网络策略服务器 (NPS) 。 注意 从 Windows Server 2008 开始，Internet 身份验证服务已重命名为网络策略 服务器。",
+      "description": "该服务是Internet身份验证服务(IAS)或网络策略服务器(NPS)。值为0。注意：从Windows Server 2008开始，IAS已重命名为NPS。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5322,23 +4505,10 @@
       "_source_line": 3931
     },
     {
-      "id": "windows::SERVICE_TYPE_MAX",
-      "name": "SERVICE_TYPE_MAX",
-      "entity_type": "constant",
-      "description": "} SERVICE_TYPE;",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [
-        "SERVICE_TYPE"
-      ],
-      "confidence": 0.55,
-      "_source_line": 3933
-    },
-    {
       "id": "windows::SERVICE_TYPE_RAS",
       "name": "SERVICE_TYPE_RAS",
       "entity_type": "constant",
-      "description": "该服务是远程访问服务。 SERVICE_TYPE_RAMGMTSVC 该服务是远程访问管理服务。 SERVICE_TYPE_MAX 使用此常量来测试值是否在范围内。 要求",
+      "description": "该服务是远程访问服务。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5354,7 +4524,7 @@
       "id": "windows::SHV_COMBINATION_TYPE_ONE_OR_MORE_PASS",
       "name": "SHV_COMBINATION_TYPE_ONE_OR_MORE_PASS",
       "entity_type": "constant",
-      "description": ", SHV_COMBINATION_TYPE_ONE_OR_MORE_FAIL,",
+      "description": "Specifies that one or more passes are required for SHV combination type",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -5365,7 +4535,7 @@
       "id": "windows::SHV_COMBINATION_TYPE_ONE_OR_MORE_TRANSITIONAL",
       "name": "SHV_COMBINATION_TYPE_ONE_OR_MORE_TRANSITIONAL",
       "entity_type": "constant",
-      "description": ", SHV_COMBINATION_TYPE_ONE_OR_MORE_UNKNOWN,",
+      "description": "Specifies one or more transitional combinations for SHV (System Health Validator)",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5378,7 +4548,7 @@
       "id": "windows::SHV_COMBINATION_TYPE_MAX",
       "name": "SHV_COMBINATION_TYPE_MAX",
       "entity_type": "constant",
-      "description": "} SHV_COMBINATION_TYPE;",
+      "description": "Maximum value for SHV_COMBINATION_TYPE enumeration",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5391,8 +4561,8 @@
       "id": "windows::SHV_COMBINATION_TYPE_ONE_OR_MORE_UNKNOWN",
       "name": "SHV_COMBINATION_TYPE_ONE_OR_MORE_UNKNOWN",
       "entity_type": "constant",
-      "description": "SHV_COMBINATION_TYPE_MAX 使用此常量来测试值是否在范围内。",
-      "syntax": "typedef enum _SHVTEMPLATEPROPERTIES {",
+      "description": "Specifies that one or more unknown SHV combinations are allowed.",
+      "syntax": "",
       "requirements": {
         "header": "sdoias.h",
         "target_platform": "Windows",
@@ -5410,7 +4580,7 @@
       "id": "windows::PROPERTY_SHV_COMBINATION_TYPE",
       "name": "PROPERTY_SHV_COMBINATION_TYPE",
       "entity_type": "constant",
-      "description": ", PROPERTY_SHV_LIST,",
+      "description": "Property identifier for SHV combination type",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -5418,27 +4588,10 @@
       "_source_line": 3992
     },
     {
-      "id": "windows::PROPERTY_SHVCONFIG_LIST",
-      "name": "PROPERTY_SHVCONFIG_LIST",
-      "entity_type": "constant",
-      "description": "} SHVTEMPLATEPROPERTIES;",
-      "syntax": "typedef enum _USERPROPERTIES {",
-      "requirements": {
-        "header": "sdoias.h",
-        "target_platform": "Windows",
-        "min_server": "Windows Server 2008"
-      },
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.75,
-      "_source_line": 3993
-    },
-    {
       "id": "windows::PROPERTY_USER_CALLING_STATION_ID",
       "name": "PROPERTY_USER_CALLING_STATION_ID",
       "entity_type": "constant",
-      "description": "用户必须从中调用的号码。",
+      "description": "标识用户必须从中调用的电话号码的常量属性。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -5449,7 +4602,7 @@
       "id": "windows::PROPERTY_USER_SAVED_CALLING_STATION_ID",
       "name": "PROPERTY_USER_SAVED_CALLING_STATION_ID",
       "entity_type": "constant",
-      "description": ", PROPERTY_USER_RADIUS_CALLBACK_NUMBER, PROPERTY_USER_RADIUS_FRAMED_ROUTE,",
+      "description": "User saved calling station ID property constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5474,7 +4627,7 @@
       "id": "windows::PROPERTY_USER_SAVED_RADIUS_CALLBACK_NUMBER",
       "name": "PROPERTY_USER_SAVED_RADIUS_CALLBACK_NUMBER",
       "entity_type": "constant",
-      "description": ", PROPERTY_USER_SAVED_RADIUS_FRAMED_ROUTE,",
+      "description": "PROPERTY_USER_SAVED_RADIUS_CALLBACK_NUMBER constant",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5487,7 +4640,7 @@
       "id": "windows::PROPERTY_USER_SAVED_RADIUS_FRAMED_IP_ADDRESS",
       "name": "PROPERTY_USER_SAVED_RADIUS_FRAMED_IP_ADDRESS",
       "entity_type": "constant",
-      "description": "禁用静态 IP 地址时存储在用户界面中的静态 IP 地址。 PROPERTY_USER_ALLOW_DIALIN 指定是允许、拒绝还是由策略确定拨入。 PROPERTY_USER_SERVICE_TYPE 指定是否为此用户启用回调。 请参阅 有关 此属性的可能值的详细信息，RAS_USER_1。",
+      "description": "禁用静态IP地址时存储在用户界面中的静态IP地址。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5500,7 +4653,7 @@
       "id": "windows::PROPERTY_USER_ALLOW_DIALIN",
       "name": "PROPERTY_USER_ALLOW_DIALIN",
       "entity_type": "constant",
-      "description": ", PROPERTY_USER_SERVICE_TYPE,",
+      "description": "Specifies whether dial-in is allowed for a user account",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -5511,7 +4664,7 @@
       "id": "windows::PROPERTY_USER_RADIUS_FRAMED_IPV6_ROUTE",
       "name": "PROPERTY_USER_RADIUS_FRAMED_IPV6_ROUTE",
       "entity_type": "constant",
-      "description": "指定要为其配置的路由信息 NAS 上的用户。 有关详细信息，请参阅 RFC 3162 PROPERTY_USER_SAVED_RADIUS_FRAMED_IPV6_ROUTE 指定保存的路由信息 NAS 上的用户。 有关详细信息，请参阅 RFC 3162",
+      "description": "Specifies the route information to be configured for a user on the NAS. For more information, see RFC 3162.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5524,7 +4677,7 @@
       "id": "windows::PROPERTY_USER_SAVED_RADIUS_FRAMED_IPV6_ROUTE",
       "name": "PROPERTY_USER_SAVED_RADIUS_FRAMED_IPV6_ROUTE",
       "entity_type": "constant",
-      "description": ", PROPERTY_USER_RADIUS_FRAMED_INTERFACE_ID,",
+      "description": "Property identifier for user saved RADIUS framed IPv6 route",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5537,7 +4690,7 @@
       "id": "windows::PROPERTY_USER_SAVED_RADIUS_FRAMED_INTERFACE_ID",
       "name": "PROPERTY_USER_SAVED_RADIUS_FRAMED_INTERFACE_ID",
       "entity_type": "constant",
-      "description": ", PROPERTY_USER_RADIUS_FRAMED_IPV6_PREFIX,",
+      "description": "Property identifier for user saved RADIUS framed interface ID",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5547,21 +4700,10 @@
       "_source_line": 4025
     },
     {
-      "id": "windows::PROPERTY_USER_SAVED_RADIUS_FRAMED_IPV6_PREFIX",
-      "name": "PROPERTY_USER_SAVED_RADIUS_FRAMED_IPV6_PREFIX",
-      "entity_type": "constant",
-      "description": "} USERPROPERTIES;",
-      "header": "sdoias.h",
-      "deprecated": false,
-      "cross_references": [],
-      "confidence": 0.55,
-      "_source_line": 4026
-    },
-    {
       "id": "windows::PROPERTY_USER_RADIUS_CALLBACK_NUMBER",
       "name": "PROPERTY_USER_RADIUS_CALLBACK_NUMBER",
       "entity_type": "constant",
-      "description": "要回调此用户的数字。",
+      "description": "Specifies the callback number for RADIUS authentication.",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -5572,7 +4714,7 @@
       "id": "windows::PROPERTY_USER_RADIUS_FRAMED_ROUTE",
       "name": "PROPERTY_USER_RADIUS_FRAMED_ROUTE",
       "entity_type": "constant",
-      "description": "指定分配给此用户的静态路由。",
+      "description": "指定分配给此用户的静态路由。该常量用于RADIUS协议中的Framed-Route属性。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -5583,7 +4725,7 @@
       "id": "windows::PROPERTY_USER_SAVED_RADIUS_FRAMED_ROUTE",
       "name": "PROPERTY_USER_SAVED_RADIUS_FRAMED_ROUTE",
       "entity_type": "constant",
-      "description": "禁用静态路由时存储在用户界面中的路由。",
+      "description": "当禁用静态路由时，存储在用户界面中的路由配置。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
@@ -5594,7 +4736,7 @@
       "id": "windows::PROPERTY_USER_RADIUS_FRAMED_INTERFACE_ID",
       "name": "PROPERTY_USER_RADIUS_FRAMED_INTERFACE_ID",
       "entity_type": "constant",
-      "description": "用于 IPv6。 指定要为 的接口标识符 为用户配置。 有关详细信息，请参阅 RFC 3162 PROPERTY_USER_SAVED_RADIUS_FRAMED_INTERFACE_ID 中的 Framed-IPv6-Route 部分。 中的 Framed-IPv6-Route 部分。 中的 Framed-Interface-Id 部分。 用于 IPv6。 指定用户的已保存接口标识符。 有关详细信息，请参阅 RFC 3162 Interface-Id 部分。",
+      "description": "用于IPv6。指定要为用户配置的接口标识符。有关详细信息，请参阅RFC 3162中的Framed-Interface-Id部分。",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5608,8 +4750,8 @@
       "id": "windows::PROPERTY_USER_RADIUS_FRAMED_IPV6_PREFIX",
       "name": "PROPERTY_USER_RADIUS_FRAMED_IPV6_PREFIX",
       "entity_type": "constant",
-      "description": "指定 IPv6 前缀 (和相应的路由) 为用户配置 。 有关详细信息，请参阅 RFC 3162 PROPERTY_USER_SAVED_RADIUS_FRAMED_IPV6_PREFIX 指定 IPv6 前缀 (和相应的路由) 为用户保存。 有关详细信息，请参阅 RFC 3162 注解 中的 Framed- 中的 Framed-IPv6-Prefix 部分。 中的 Framed-IPv6-Prefix 部分。 可用于用户对象的属性取决于用户对象的存储位置。 要求",
-      "syntax": "typedef enum _VENDORPROPERTIES {",
+      "description": "指定IPv6前缀(和相应的路由)为用户配置。有关详细信息，请参阅RFC 3162中的Framed-IPv6-Prefix部分。可用于用户对象的属性取决于用户对象的存储位置。",
+      "syntax": "",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [
@@ -5624,7 +4766,7 @@
       "id": "windows::PROPERTY_NAS_VENDOR_ID",
       "name": "PROPERTY_NAS_VENDOR_ID",
       "entity_type": "constant",
-      "description": "Internet 号码分配机构 (IANA) 分配给此供应商的 SMI 网络管理专用企业代码。",
+      "description": "Internet号码分配机构(IANA)分配给供应商的SMI网络管理专用企业代码",
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],

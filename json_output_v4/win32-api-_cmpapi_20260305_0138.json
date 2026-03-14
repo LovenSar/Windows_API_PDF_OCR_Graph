@@ -1,29 +1,18 @@
 {
-  "_schema": "windows_api_kg_v4.0",
-  "_generated_at": "2026-03-05T08:07:01Z",
-  "_content_hash": "a92b67c6263f",
-  "document": {
-    "document_id": "win32-api::cmpapi",
-    "title": "压缩 API",
-    "domain": "win32-api",
-    "topic": "cmpapi",
-    "source_file": "[OCR]_windows-win32-api-_cmpapi_20260305_0138.p.txt",
-    "ocr_timestamp": "2026-03-05T01:38:00",
-    "headers_referenced": [
-      "compressapi.h"
-    ],
-    "total_entities": 26
-  },
+  "_schema": "windows_api_kg_v4.0_refined",
+  "_generated_at": "2026-03-06T08:42:00.852821+00:00",
   "entities": [
     {
       "id": "windows::COMPRESS_INFORMATION_CLASS",
       "name": "COMPRESS_INFORMATION_CLASS",
       "entity_type": "enum",
-      "description": "枚举 此枚举的值标识要设置或检索的信息类的类型。",
-      "syntax": "typedef enum {",
+      "description": "此枚举的值标识要设置或检索的信息类的类型。",
+      "syntax": "typedef enum COMPRESS_INFORMATION_CLASS {",
       "header": "compressapi.h",
       "deprecated": false,
-      "cross_references": [],
+      "cross_references": [
+        "COMPRESS_INFORMATION_CLASS"
+      ],
       "confidence": 0.75,
       "_source_line": 7
     },
@@ -31,7 +20,7 @@
       "id": "windows::CloseCompressor",
       "name": "CloseCompressor",
       "entity_type": "function",
-      "description": "调用 以关闭打开的COMPRESSOR_HANDLE。 CloseDecompressor 调用 以关闭打开的DECOMPRESSOR_HANDLE。压缩 获取信息块并压缩它。 CreateCompressor 生成新的COMPRESSOR_HANDLE。 CreateDecompressor 生成新的DECOMPRESSOR_HANDLE。 解 压缩 获取一个压缩信息块并解压缩它。 QueryCompressorInformation 查询压缩器以获取特定压缩算法的信息。 QueryDecompressorInformation 使用此函数可查询有关特定压缩算法的信息。 ResetCompressor 准备压缩器以压缩新流。 ResetDecompressor 准备解压缩器以解压缩新流。 SetCompressorInformation 为特定压缩算法设置压缩器中的信息。 SetDecompressorInformation 为特定压缩算法设置解压缩器中的信息。",
+      "description": "关闭打开的COMPRESSOR_HANDLE。这是CreateCompressor返回的压缩器句柄。",
       "syntax": "BOOL CloseCompressor(\n[in] COMPRESSOR_HANDLE CompressorHandle);",
       "parameters": [
         {
@@ -72,26 +61,30 @@
     {
       "id": "windows::COMPRESS_ALLOCATION_ROUTINES",
       "name": "COMPRESS_ALLOCATION_ROUTINES",
-      "entity_type": "struct",
-      "description": "结构中的可选内存分配和解除分配例程。 [out] DecompressorHandle 如果函数成功，则为指定解压缩器的句柄。",
+      "entity_type": "typedef",
+      "description": "Defines optional memory allocation and deallocation routines for compression operations.",
       "syntax": "typedef struct _COMPRESS_ALLOCATION_ROUTINES {",
-      "return_value": {
-        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。"
-      },
-      "remarks": "如果压缩算法由于某种内部原因而失败，则可以ERROR_FUNCTION_FAILED来自 GetLastError 的错误。 如果系统找不到与指定名称和版本匹配的压缩算法，则可以 ERROR_NOT_SUPPORTED错误。",
+      "return_value": null,
+      "remarks": "If the compression algorithm fails for some internal reason, GetLastError may return ERROR_FUNCTION_FAILED. If the system cannot find a compression algorithm matching the specified name and version, it may return ERROR_NOT_SUPPORTED.",
       "header": "compressapi.h",
       "deprecated": false,
       "cross_references": [
         "GetLastError"
       ],
       "confidence": 0.9,
-      "_source_line": 27
+      "_source_line": 27,
+      "members": [
+        {
+          "name": "Allocate",
+          "description": "分配内存的回调。 Free 解除分配内存的回调。 UserContext 指向用户定义的分配或解除分配例程的上下文信息的指针。"
+        }
+      ]
     },
     {
       "id": "windows::CloseDecompressor",
       "name": "CloseDecompressor",
-      "entity_type": "enum",
-      "description": "调用 以关闭打开 的DECOMPRESSOR_HANDLE。",
+      "entity_type": "function",
+      "description": "关闭已打开的DECOMPRESSOR_HANDLE。",
       "syntax": "BOOL CloseDecompressor(\n[in] DECOMPRESSOR_HANDLE DecompressorHandle);",
       "parameters": [
         {
@@ -103,7 +96,7 @@
       "return_value": {
         "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。"
       },
-      "remarks": "如果压缩算法由于某种内部原因而失败，则可以ERROR_FUNCTION_FAILED来自 GetLastError 的错误。 如果系统找不到压缩算法句柄，则可以 ERROR_INVALID_HANDLE错误。",
+      "remarks": "如果压缩算法由于某种内部原因而失败，则GetLastError可能返回ERROR_FUNCTION_FAILED。如果系统找不到压缩算法句柄，则可能返回ERROR_INVALID_HANDLE。",
       "requirements": {
         "target_platform": "Windows",
         "header": "compressapi.h",
@@ -123,8 +116,8 @@
     {
       "id": "windows::Compress",
       "name": "Compress",
-      "entity_type": "enum",
-      "description": "获取并压缩信息块。",
+      "entity_type": "function",
+      "description": "压缩指定的数据块。",
       "syntax": "BOOL Compress(\n[in]  COMPRESSOR_HANDLE CompressorHandle,   [in]  LPCVOID           UncompressedData,\n[in]  SIZE_T            UncompressedDataSize,   [out] PVOID             CompressedBuffer,\n[in]  SIZE_T            CompressedBufferSize,\n[out] PSIZE_T           CompressedDataSize);",
       "parameters": [
         {
@@ -142,8 +135,8 @@
     {
       "id": "windows::CreateCompressor",
       "name": "CreateCompressor",
-      "entity_type": "enum",
-      "description": "返回的压缩器的句柄。[in] UncompressedData 包含要压缩的信息块。 UncompressedDataSize 提供未压缩块的大小（以字节为单位）。[in] UncompressedDataSize 未压缩信息的大小（以字节为单位）。[out] CompressedBuffer 接收压缩信息的缓冲区。 Buffer 的最大大小（以字节为单位）由 CompressedBufferSize 提供。[in] CompressedBufferSize 接收压缩信息的缓冲区的最大大小（以字节为单位）。[out] CompressedDataSize 接收的压缩信息的实际大小（以字节为单位）。",
+      "entity_type": "function",
+      "description": "Creates a new compressor and returns its handle.",
       "syntax": "BOOL CreateCompressor(\n[in]           DWORD                         Algorithm,\n[in, optional] PCOMPRESS_ALLOCATION_ROUTINES AllocationRoutines,\n[out]          PCOMPRESSOR_HANDLE            CompressorHandle);",
       "parameters": [
         {
@@ -170,8 +163,8 @@
     {
       "id": "windows::CompressedDataSize",
       "name": "CompressedDataSize",
-      "entity_type": "enum",
-      "description": "参数接收的大小为 CompressedBuffer 保证该输入缓冲区成功所需的大小。 可以将 CompressedBufferSize 设置为零，以确定要分配的输出缓冲区的大小。",
+      "entity_type": "constant",
+      "description": "Specifies the size required for the input buffer to ensure successful operation with CompressedBuffer. Can be set to zero to determine the required size for the output buffer allocation.",
       "requirements": {
         "target_platform": "Windows",
         "header": "compressapi.h",
@@ -187,35 +180,10 @@
       "_source_line": 132
     },
     {
-      "id": "windows::PFN_COMPRESS_ALLOCATE",
-      "name": "PFN_COMPRESS_ALLOCATE",
-      "entity_type": "enum",
-      "description": "Allocate; PFN_COMPRESS_FREE Free; PVOID UserContext; } COMPRESS_ALLOCATION_ROUTINES, *PCOMPRESS_ALLOCATION_ROUTINES;",
-      "members": [
-        {
-          "name": "Allocate",
-          "description": "分配内存的回调。 Free 解除分配内存的回调。 UserContext 指向用户定义的分配或解除分配例程的上下文信息的指针。"
-        }
-      ],
-      "requirements": {
-        "target_platform": "Windows",
-        "header": "compressapi.h",
-        "min_client": "Windows 8 [桌面应用 |UWP 应用]",
-        "min_server": "Windows Server 2012 [桌面应用 |UWP 应用]"
-      },
-      "header": "compressapi.h",
-      "deprecated": false,
-      "cross_references": [
-        "COMPRESS_ALLOCATION_ROUTINES"
-      ],
-      "confidence": 0.85,
-      "_source_line": 150
-    },
-    {
       "id": "windows::COMPRESS_INFORMATION_CLASS_INVALID",
       "name": "COMPRESS_INFORMATION_CLASS_INVALID",
       "entity_type": "enum",
-      "description": "= 0, COMPRESS_INFORMATION_CLASS_BLOCK_SIZE,",
+      "description": "Invalid value for COMPRESS_INFORMATION_CLASS enumeration",
       "header": "compressapi.h",
       "deprecated": false,
       "cross_references": [
@@ -225,23 +193,10 @@
       "_source_line": 172
     },
     {
-      "id": "windows::COMPRESS_INFORMATION_CLASS_LEVEL",
-      "name": "COMPRESS_INFORMATION_CLASS_LEVEL",
-      "entity_type": "enum",
-      "description": "} COMPRESS_INFORMATION_CLASS;",
-      "header": "compressapi.h",
-      "deprecated": false,
-      "cross_references": [
-        "COMPRESS_INFORMATION_CLASS"
-      ],
-      "confidence": 0.65,
-      "_source_line": 173
-    },
-    {
       "id": "windows::COMPRESS_INFORMATION_CLASS_BLOCK_SIZE",
       "name": "COMPRESS_INFORMATION_CLASS_BLOCK_SIZE",
       "entity_type": "constant",
-      "description": "自定义块大小。 指定的值可能介于 65536 到 67108864 个字节之间。 此值只能与 LZMS 压缩算法一起使 用。 建议最小大小为 1 MB，以获得更好的压缩比。 此类型的信息类的大小为 (DWORD) 。 COMPRESS_INFORMATION_CLASS_LEVEL 所需的压缩级别。 默认值为 (DWORD) 0。 (DWORD) 1 的值可以通过稍微慢一点的压缩速度来提高压缩比。 此值只能与 XPRESS 压缩算法或具有 Huffman 编码压缩算法的 XPRESS 一起使用。 此类型的信息类的 大小为 (DWORD) 。",
+      "description": "Specifies the custom block size for compression. Valid values range from 65536 to 67108864 bytes. This value can only be used with the LZMS compression algorithm. A minimum size of 1 MB is recommended for better compression ratio. The size of this information class is (DWORD).",
       "requirements": {
         "target_platform": "Windows",
         "header": "compressapi.h",
@@ -261,7 +216,7 @@
       "id": "windows::COMPRESS_ALGORITHM_LZMS",
       "name": "COMPRESS_ALGORITHM_LZMS",
       "entity_type": "constant",
-      "description": "5 [in, optional] AllocationRoutines 含义 MSZIP 压缩算法 XPRESS 压缩算法 使用 Huffman 编码的 XPRESS 压缩算法 LZMS 压缩算法",
+      "description": "LZMS compression algorithm constant",
       "header": "compressapi.h",
       "deprecated": false,
       "cross_references": [
@@ -271,37 +226,10 @@
       "_source_line": 211
     },
     {
-      "id": "windows::CreateDecompressor",
-      "name": "CreateDecompressor",
-      "entity_type": "constant",
-      "description": "返回的解压缩器的句柄。[in] CompressedData 包含要解压缩的信息块。 压缩块的大小（以字节为单位）由 CompressedDataSize 提供。[in] CompressedDataSize 压缩信息的大小（以字节为单位）。[out] UncompressedBuffer 接收未压缩信息的缓冲区。 缓冲区的大小（以字节为单位）由 UncompressedBufferSize 提供。[in] UncompressedBufferSize 接收未压缩信息的缓冲区的大小（以字节为单位）。[out] UncompressedDataSize 接收的未压缩信息的实际大小（以字节为单位）。",
-      "syntax": "BOOL CreateDecompressor(\n[in]           DWORD                         Algorithm,\n[in, optional] PCOMPRESS_ALLOCATION_ROUTINES AllocationRoutines,   [out]          PDECOMPRESSOR_HANDLE          DecompressorHandle);",
-      "parameters": [
-        {
-          "name": "Algorithm",
-          "direction": "in",
-          "description": "此解压缩程序要使用的压缩算法和模式的类型。 此参数可以具有下列值之一（可选）与 COMPRESS_RAW 标志组合。 使用“按位 OR”运算符包含 COMPRESS_RAW 并创建块模式解压缩器。 如果未包含 COMPRESS_RAW ，压缩 API 将创建缓冲区模式解压缩器。 有关选择压缩算法和模式的详细信息，请参阅 使用压缩 API。 值"
-        }
-      ],
-      "return_value": {
-        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。"
-      },
-      "remarks": "如果 CompressedData 指向的压缩数据块已损坏，则函数可能会失败，并且可能会",
-      "header": "compressapi.h",
-      "deprecated": false,
-      "cross_references": [
-        "CompressedDataSize",
-        "UncompressedBufferSize",
-        "UncompressedDataSize"
-      ],
-      "confidence": 0.85,
-      "_source_line": 236
-    },
-    {
       "id": "windows::Decompress",
       "name": "Decompress",
-      "entity_type": "constant",
-      "description": "获取压缩信息块并将其解压缩。",
+      "entity_type": "function",
+      "description": "Decompresses a compressed data block using the specified decompressor handle.",
       "syntax": "BOOL Decompress(\n[in]  DECOMPRESSOR_HANDLE DecompressorHandle,   [in]  LPCVOID             CompressedData,\n[in]  SIZE_T              CompressedDataSize,   [out] PVOID               UncompressedBuffer,\n[in]  SIZE_T              UncompressedBufferSize,\n[out] PSIZE_T             UncompressedDataSize);",
       "parameters": [
         {
@@ -320,7 +248,7 @@
       "id": "windows::ERROR_BAD_COMPRESSION_BUFFER",
       "name": "ERROR_BAD_COMPRESSION_BUFFER",
       "entity_type": "constant",
-      "description": "来自 GetLastError 的错误。 该函数也可能生成与原始数据不匹配的未压缩数据块。 建议压缩器和解压缩器不要使用 COMPRESS_RAW 标志。 如果使用 COMPRESS_RAW 标志创建压缩器，则还必须使用 COMPRESS_RAW 标志创建解压缩器。 如果使用 COMPRESS_RAW 标志创建压缩器和解压缩器，则 UncompressedBufferSize 的值必须完全等于未压缩数据的原始大小，而不仅仅是输出缓冲区的大小。 这意味着，使用",
+      "description": "Indicates the compression buffer is invalid or corrupted. Occurs when using COMPRESS_RAW flag with mismatched uncompressed buffer sizes between compressor and decompressor.",
       "header": "compressapi.h",
       "deprecated": false,
       "cross_references": [
@@ -335,7 +263,7 @@
       "id": "windows::COMPRESS_RAW",
       "name": "COMPRESS_RAW",
       "entity_type": "constant",
-      "description": "标志时，应保存未压缩数据的确切原始大小，以及压缩数据和压缩大小。 如果 UncompressedBufferSize 不等于未压缩数据的原始大小，则未压缩的数据将与原始数据不匹配。 在这种情况下，函数可以返回成功，也可以返回 ERROR_BAD_COMPRESSION_BUFFER。 如果未使用 COMPRESS_RAW 标志， 则 UncompressedBufferSize 不需要完全等于未压缩数据的原始大小。 在这种情况下， UncompressedDataSize 返回未压缩数据的原始大小。 如果",
+      "description": "Specifies that the exact original size of uncompressed data should be preserved along with compressed data and its size. If UncompressedBufferSize does not match the original size, uncompressed data may not match the original data, and the function may return either success or ERROR_BAD_COMPRESSION_BUFFER. When this flag is not used, UncompressedBufferSize does not need to exactly match the original size, and UncompressedDataSize will return the original size.",
       "header": "compressapi.h",
       "deprecated": false,
       "cross_references": [
@@ -350,7 +278,7 @@
       "id": "windows::UncompressedBufferSize",
       "name": "UncompressedBufferSize",
       "entity_type": "constant",
-      "description": "小于原始数据大小，则函数将失败，并将 UncompressedDataSize 设置为原始数据的大小，ERROR_INSUFFICIENT_BUFFER来自 GetLastError的错误。 若要确定 UncompressedBuffer 需要有多大，请在 将 UncompressedBufferSize 设置为零的情况下调用 函数。 在这种情况下，函数将失败，并将 UncompressedDataSize 设置为原始数据的大小，并且 getLastError 的错误 ERROR_INSUFFICIENT_BUFFER。 请注意，函数返回的原始大小是从缓冲区本身中提取的，应将其视为不受信任，并针对合理的限制进行测试。 如果在将",
+      "description": "Specifies the size of uncompressed buffer. If smaller than original data size, function will fail with ERROR_INSUFFICIENT_BUFFER and set UncompressedDataSize to original data size. To determine required buffer size, call function with UncompressedBufferSize set to zero.",
       "header": "compressapi.h",
       "deprecated": false,
       "cross_references": [
@@ -361,23 +289,10 @@
       "_source_line": 301
     },
     {
-      "id": "windows::ERROR_INSUFFICIENT_BUFFER",
-      "name": "ERROR_INSUFFICIENT_BUFFER",
-      "entity_type": "constant",
-      "description": "来自 GetLastError 的错误。 如果失败，函数将返回 ，并将",
-      "header": "compressapi.h",
-      "deprecated": false,
-      "cross_references": [
-        "GetLastError"
-      ],
-      "confidence": 0.65,
-      "_source_line": 304
-    },
-    {
       "id": "windows::UncompressedDataSize",
       "name": "UncompressedDataSize",
       "entity_type": "constant",
-      "description": "设置为一个值，你可以使用该值来避免为压缩数据分配太大的缓冲区。必须知道原始数据的最大可能大小才能使用此方法。 如果将 CompressedDataSize 设置为零，并将 UncompressedBufferSize 设置为原始未压缩数据的最大可能大小， 则 Decompress 函数将按所述失败， UncompressedDataSize 的值将设置为压缩数据缓冲区的最大大小。 如果压缩算法由于某种内部原因而失败，则可以ERROR_FUNCTION_FAILED来自 GetLastError 的错误。 如果系统找不到压缩算法句柄，则可以 ERROR_INVALID_HANDLE错误。 如果输出缓冲区太小，无法容纳未压缩的数据，则可能会",
+      "description": "Specifies a value used to avoid allocating excessively large buffers for compressed data. Requires knowing the maximum possible size of original uncompressed data.",
       "requirements": {
         "target_platform": "Windows",
         "header": "compressapi.h",
@@ -400,8 +315,8 @@
     {
       "id": "windows::QueryCompressorInformation",
       "name": "QueryCompressorInformation",
-      "entity_type": "constant",
-      "description": "函数 查询压缩器以获取特定压缩算法的信息。",
+      "entity_type": "function",
+      "description": "查询压缩器以获取特定压缩算法的信息。",
       "syntax": "BOOL QueryCompressorInformation(\n[in]  COMPRESSOR_HANDLE          CompressorHandle,\n[in]  COMPRESS_INFORMATION_CLASS CompressInformationClass,   [out] PVOID                      CompressInformation,\n[in]  SIZE_T                     CompressInformationSize);",
       "parameters": [
         {
@@ -420,7 +335,7 @@
       "id": "windows::CompressInformationSize",
       "name": "CompressInformationSize",
       "entity_type": "constant",
-      "description": "提供。[in] CompressInformationSize 信息的最大大小（以字节为单位）。",
+      "description": "指定压缩信息的最大大小（以字节为单位）",
       "return_value": {
         "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。"
       },
@@ -444,8 +359,8 @@
     {
       "id": "windows::QueryDecompressorInformation",
       "name": "QueryDecompressorInformation",
-      "entity_type": "constant",
-      "description": "函数 使用此函数查询有关特定压缩算法的信息。",
+      "entity_type": "function",
+      "description": "使用此函数查询有关特定压缩算法的信息。",
       "syntax": "BOOL QueryDecompressorInformation(\n[in]  DECOMPRESSOR_HANDLE        DecompressorHandle,\n[in]  COMPRESS_INFORMATION_CLASS CompressInformationClass,   [out] PVOID                      CompressInformation,\n[in]  SIZE_T                     CompressInformationSize);",
       "parameters": [
         {
@@ -463,7 +378,7 @@
     {
       "id": "windows::ResetCompressor",
       "name": "ResetCompressor",
-      "entity_type": "constant",
+      "entity_type": "function",
       "description": "准备压缩器以压缩新流。 压缩器对象保留使用 SetCompressorInformation 设置的属性。 生成的块序列独立于以前的块。",
       "syntax": "BOOL ResetCompressor(\n[in] COMPRESSOR_HANDLE CompressorHandle);",
       "parameters": [
@@ -497,7 +412,7 @@
     {
       "id": "windows::ResetDecompressor",
       "name": "ResetDecompressor",
-      "entity_type": "constant",
+      "entity_type": "function",
       "description": "准备解压缩器以解压缩新流。",
       "syntax": "BOOL ResetDecompressor(\n[in] DECOMPRESSOR_HANDLE DecompressorHandle);",
       "parameters": [
@@ -530,8 +445,8 @@
     {
       "id": "windows::SetCompressorInformation",
       "name": "SetCompressorInformation",
-      "entity_type": "constant",
-      "description": "函数 为特定压缩算法设置压缩器中的信息。",
+      "entity_type": "function",
+      "description": "为特定压缩算法设置压缩器中的信息。",
       "syntax": "BOOL SetCompressorInformation(\n[in] COMPRESSOR_HANDLE          CompressorHandle,\n[in] COMPRESS_INFORMATION_CLASS CompressInformationClass,   [in] LPCVOID                    CompressInformation,\n[in] SIZE_T                     CompressInformationSize);",
       "parameters": [
         {
@@ -566,8 +481,8 @@
     {
       "id": "windows::SetDecompressorInformation",
       "name": "SetDecompressorInformation",
-      "entity_type": "constant",
-      "description": "函数 为特定压缩算法设置解压缩器中的信息。",
+      "entity_type": "function",
+      "description": "为特定压缩算法设置解压缩器中的信息。",
       "syntax": "BOOL SetDecompressorInformation(\n[in] DECOMPRESSOR_HANDLE        DecompressorHandle,\n[in] COMPRESS_INFORMATION_CLASS CompressInformationClass,   [in] LPCVOID                    CompressInformation,\n[in] SIZE_T                     CompressInformationSize);",
       "parameters": [
         {
