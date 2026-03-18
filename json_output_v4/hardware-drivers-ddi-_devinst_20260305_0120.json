@@ -1,25 +1,12 @@
 {
-  "_schema": "windows_api_kg_v4.0",
-  "_generated_at": "2026-03-14T10:56:27Z",
-  "_content_hash": "4e8fb3361b5e",
-  "document": {
-    "document_id": "hardware-drivers-ddi::devinst",
-    "title": "驱动程序安装",
-    "domain": "hardware-drivers-ddi",
-    "topic": "devinst",
-    "source_file": "[OCR]_windows-hardware-drivers-ddi-_devinst_20260305_0120.p.txt",
-    "ocr_timestamp": "2026-03-05T01:20:00",
-    "headers_referenced": [
-      "avc.h"
-    ],
-    "total_entities": 24
-  },
+  "_schema": "windows_api_kg_v4.0_refined",
+  "_generated_at": "2026-03-18T03:25:19.950414+00:00",
   "entities": [
     {
       "id": "windows::IOCTL_AVC_BUS_RESET",
       "name": "IOCTL_AVC_BUS_RESET",
       "entity_type": "ioctl",
-      "description": "I/O 控件代码允许调用方完成之前的任何",
+      "description": "AV/C 类驱动程序支持的 I/O 控制代码，用于在 1394 总线上执行总线复位，并允许调用方完成此前挂起的总线请求。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
@@ -30,18 +17,19 @@
       "id": "windows::IOCTL_AVC_UPDATE_VIRTUAL_SUBUNIT_INFO",
       "name": "IOCTL_AVC_UPDATE_VIRTUAL_SUBUNIT_INFO",
       "entity_type": "ioctl",
-      "description": "I/O 控件代码控制虚拟子单元的枚举。回调函数 PFNAVCINTERSECTHANDLER AV/C 相交处理程序确定数据范围是否兼容。",
+      "description": "用于更新虚拟 AV/C 子单元信息的 I/O 控制代码。该 IOCTL 由 AVC 类/驱动相关组件使用，以通知或刷新虚拟子单元的枚举与配置信息。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 16
+      "_source_line": 16,
+      "remarks": "当前描述中包含与“PFNAVCINTERSECTHANDLER”相关的无关 OCR 混入内容，应移除。该实体为 IOCTL 常量，不是回调函数。"
     },
     {
       "id": "windows::AVC_SUBUNIT_ADDR_TRIGGERBUSRESET",
       "name": "AVC_SUBUNIT_ADDR_TRIGGERBUSRESET",
-      "entity_type": "ioctl",
-      "description": "标志的控制请求。",
+      "entity_type": "constant",
+      "description": "AV/C 子单元地址标志之一，用于在控制请求中指示 TriggerBusReset。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
@@ -52,20 +40,21 @@
       "id": "windows::IOCTL_AVC_CLASS",
       "name": "IOCTL_AVC_CLASS",
       "entity_type": "ioctl",
-      "description": "I/O 控制代码仅在内核模式下受支持，IRP_MJ_INTERNAL_DEVICE_CONTROL dispatch.Avc.sys支持两个设备接口，具体取决于实例类型（对等或虚拟）。",
+      "description": "AV/C 类驱动程序支持的内部 I/O 控制代码，仅可在内核模式下通过 IRP_MJ_INTERNAL_DEVICE_CONTROL 请求使用。 Avc.sys 根据实例类型（对等实例或虚拟实例）支持两类设备接口。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [
         "IRP_MJ_INTERNAL_DEVICE_CONTROL"
       ],
       "confidence": 0.75,
-      "_source_line": 17
+      "_source_line": 17,
+      "remarks": "这是供内核模式驱动程序使用的内部设备控制代码，不适用于用户模式 DeviceIoControl 调用。相关请求通过 IRP_MJ_INTERNAL_DEVICE_CONTROL 分派到 Avc.sys。"
     },
     {
       "id": "windows::IOCTL_AVC_REMOVE_VIRTUAL_SUBUNIT_INFO",
       "name": "IOCTL_AVC_REMOVE_VIRTUAL_SUBUNIT_INFO",
       "entity_type": "ioctl",
-      "description": "I/O 控件代码控制虚拟子单元的枚举。",
+      "description": "I/O 控制代码，用于移除或删除虚拟子单元信息。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
@@ -75,8 +64,8 @@
     {
       "id": "windows::AVC_COMMAND_IRB",
       "name": "AVC_COMMAND_IRB",
-      "entity_type": "struct",
-      "description": "结构定义包含 AV/C 命令和响应对的结构。",
+      "entity_type": "structure",
+      "description": "表示一个 AV/C 命令 IRB（I/O 请求块）的结构，包含 AV/C 命令及其对应的响应数据。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
@@ -86,8 +75,8 @@
     {
       "id": "windows::AVC_EXT_PLUG_COUNTS",
       "name": "AVC_EXT_PLUG_COUNTS",
-      "entity_type": "struct",
-      "description": "结构描述子单元上的外部插件数。",
+      "entity_type": "structure",
+      "description": "AV/C 扩展单元描述符中外部插头（external plugs）数量信息的结构。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
@@ -97,8 +86,8 @@
     {
       "id": "windows::AVC_IRB",
       "name": "AVC_IRB",
-      "entity_type": "struct",
-      "description": "结构是存储函数编号的 I/O 请求块（IRB）标头结构。",
+      "entity_type": "structure",
+      "description": "AV/C I/O 请求块（IRB）的头部结构，用于标识请求的功能编号，并作为其他 AV/C IRB 结构的公共头。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
@@ -108,8 +97,8 @@
     {
       "id": "windows::AVC_MULTIFUNC_IRB",
       "name": "AVC_MULTIFUNC_IRB",
-      "entity_type": "struct",
-      "description": "结构包含联合中的其他 AV/C 相关结构。",
+      "entity_type": "structure",
+      "description": "AV/C (Audio/Video Control) 多功能 I/O 请求块结构。该结构封装一个联合体，用于表示多种 AV/C 请求或响应相关的子结构。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
@@ -119,8 +108,8 @@
     {
       "id": "windows::AVC_PEER_DO_LIST",
       "name": "AVC_PEER_DO_LIST",
-      "entity_type": "struct",
-      "description": "描述 avc.sys的所有非虚拟（对等）实例。",
+      "entity_type": "structure",
+      "description": "描述 avc.sys 的所有非虚拟（对等）设备对象实例的结构。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
@@ -130,8 +119,8 @@
     {
       "id": "windows::AVC_PEER_DO_LOCATOR",
       "name": "AVC_PEER_DO_LOCATOR",
-      "entity_type": "struct",
-      "description": "描述 avc.sys的非虚拟（对等）实例。",
+      "entity_type": "structure",
+      "description": "描述 avc.sys 的非虚拟（对等）实例的定位信息。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
@@ -141,8 +130,8 @@
     {
       "id": "windows::AVC_PIN_COUNT",
       "name": "AVC_PIN_COUNT",
-      "entity_type": "struct",
-      "description": "结构指定 AV/C 子单元设备上的引脚数。",
+      "entity_type": "structure",
+      "description": "指定 AV/C 子单元设备上的引脚数量的结构。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
@@ -152,8 +141,8 @@
     {
       "id": "windows::AVC_PIN_DESCRIPTOR",
       "name": "AVC_PIN_DESCRIPTOR",
-      "entity_type": "struct",
-      "description": "结构描述 AV/C 子单元设备上的引脚。",
+      "entity_type": "structure",
+      "description": "描述 AV/C 子单元设备上引脚的结构。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
@@ -163,8 +152,8 @@
     {
       "id": "windows::AVC_PIN_ID",
       "name": "AVC_PIN_ID",
-      "entity_type": "struct",
-      "description": "结构描述子单元上的引脚。",
+      "entity_type": "structure",
+      "description": "标识 AVC 描述符单元上的引脚（pin）的结构。通常用于指定描述符中的引脚编号或相关引脚标识信息。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
@@ -174,8 +163,8 @@
     {
       "id": "windows::AVC_PRECONNECT_INFO",
       "name": "AVC_PRECONNECT_INFO",
-      "entity_type": "struct",
-      "description": "结构指定 AV/C 子单元设备上指定指定引脚 ID（从零开始偏移量）的预连接信息。",
+      "entity_type": "structure",
+      "description": "指定 AV/C 子单元设备上某个指定引脚 ID（从零开始的偏移量）的预连接信息的结构。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
@@ -185,8 +174,8 @@
     {
       "id": "windows::AVC_SETCONNECT_INFO",
       "name": "AVC_SETCONNECT_INFO",
-      "entity_type": "struct",
-      "description": "结构用于初始化子单元驱动程序并建立引脚连接。",
+      "entity_type": "structure",
+      "description": "AV/C 子单元驱动程序使用的结构，用于初始化驱动并建立引脚连接。通常在与 AV/C 设备和流引脚连接相关的上下文中使用。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
@@ -196,8 +185,8 @@
     {
       "id": "windows::AVC_SUBUNIT_ADDR_SPEC",
       "name": "AVC_SUBUNIT_ADDR_SPEC",
-      "entity_type": "struct",
-      "description": "结构与 avc.sys 虚拟实例一起使用，用于描述虚拟子单元地址。",
+      "entity_type": "structure",
+      "description": "与 avc.sys 虚拟实例配合使用的结构，用于描述虚拟子单元地址。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
@@ -207,8 +196,8 @@
     {
       "id": "windows::AVC_SUBUNIT_INFO_BLOCK",
       "name": "AVC_SUBUNIT_INFO_BLOCK",
-      "entity_type": "struct",
-      "description": "结构描述子单位信息。",
+      "entity_type": "structure",
+      "description": "表示 AVC 子单元信息块的结构。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
@@ -218,8 +207,8 @@
     {
       "id": "windows::AVC_UNIQUE_ID",
       "name": "AVC_UNIQUE_ID",
-      "entity_type": "struct",
-      "description": "描述 AV/C 单元的唯一 ID。 AVCCONNECTINFO AVCCONNECTINFO 结构用于初始化子单元驱动程序并建立引脚连接。 AVCPRECONNECTINFO AVCPRECONNECTINFO 结构用于初始化子单元驱动程序并建立引脚连接。",
+      "entity_type": "structure",
+      "description": "描述 AV/C 单元的唯一标识符。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],
@@ -230,7 +219,7 @@
       "id": "windows::AVC_FUNCTION",
       "name": "AVC_FUNCTION",
       "entity_type": "enum",
-      "description": "枚举类型用于指定 AV/C 子单位函数。 AvcCommandType",
+      "description": "枚举类型，用于指定 AV/C 子单元函数。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [
@@ -243,7 +232,7 @@
       "id": "windows::AvcCommandType",
       "name": "AvcCommandType",
       "entity_type": "enum",
-      "description": "枚举类型用于通过AVC_FUNCTION_COMMAND或AVC_FUNCTION_GET_REQUEST函数 代码指示子单元驱动程序向其 AV/C 子单元发出的命令类型。 AvcResponseCode",
+      "description": "枚举类型，指示子单元驱动程序通过 AVC_FUNCTION_COMMAND 或 AVC_FUNCTION_GET_REQUEST 函数代码向其 AV/C 子单元发出的命令类型。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [
@@ -256,7 +245,7 @@
       "id": "windows::AvcResponseCode",
       "name": "AvcResponseCode",
       "entity_type": "enum",
-      "description": "枚举类型用于通过AVC_FUNCTION_COMMAND或AVC_FUNCTION_SEND_RESPONSE函 数代码指示子单元驱动程序从其 AV/C 子单元收到的响应类型。 AvcSubunitType",
+      "description": "枚举类型，用于通过 AVC_FUNCTION_COMMAND 或 AVC_FUNCTION_SEND_RESPONSE 函数代码指示子单元驱动程序从其 AV/C 子单元接收到的响应类型。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [
@@ -279,8 +268,8 @@
     {
       "id": "windows::KSPIN_FLAG_AVC",
       "name": "KSPIN_FLAG_AVC",
-      "entity_type": "enum",
-      "description": "枚举类型用于连接管理和AVC_FUNCTION_GET_CONNECTINFO函数代码。",
+      "entity_type": "constant",
+      "description": "指示连接管理和 AVC_FUNCTION_GET_CONNECTINFO 功能代码使用的标志常量。定义于 avc.h。",
       "header": "avc.h",
       "deprecated": false,
       "cross_references": [],

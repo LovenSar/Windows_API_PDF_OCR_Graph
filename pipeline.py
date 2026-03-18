@@ -942,7 +942,7 @@ class LLMProviderConfig:
     api_base_url: str; api_key: str; model_name: str
     batch_size: int = 10; max_workers: int = 4
     requests_per_min: int = 60; max_retries: int = 3
-    retry_backoff_base: float = 0.5
+    retry_backoff_base: float = 0.5; timeout: int = 600
 
 def load_llm_config(provider='deepseek'):
     if not os.path.exists(LLM_CONFIG_FILE):
@@ -958,12 +958,12 @@ def load_llm_config(provider='deepseek'):
             max_workers=min(raw.get('max_workers',4),2),
             requests_per_min=min(raw.get('requests_per_min',60),30),
             max_retries=raw.get('max_retries',3),
-            retry_backoff_base=raw.get('retry_backoff_base',0.5))
+            retry_backoff_base=raw.get("retry_backoff_base",0.5), timeout=raw.get("timeout", 600))
     return LLMProviderConfig(
         api_base_url=raw['api_base_url'], api_key=raw['api_key'], model_name=raw['model_name'],
         batch_size=raw.get('batch_size',10), max_workers=raw.get('max_workers',4),
         requests_per_min=raw.get('requests_per_min',60), max_retries=raw.get('max_retries',3),
-        retry_backoff_base=raw.get('retry_backoff_base',0.5))
+        retry_backoff_base=raw.get('retry_backoff_base',0.5), timeout=raw.get('timeout', 600))
 
 class AsyncRateLimiter:
     def __init__(self, rpm):
@@ -979,7 +979,7 @@ class LLMClient:
         self.config = config; self.rl = rate_limiter; self._session = None
         self.total_calls=0; self.tokens_in=0; self.tokens_out=0; self.errors=0
     async def __aenter__(self):
-        self._session = aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=120,connect=30))
+        self._session = aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=self.config.timeout, connect=30))
         return self
     async def __aexit__(self,*a):
         if self._session: await self._session.close()
@@ -1330,15 +1330,58 @@ def _fallback_parse_compare_from_text(text: str):
     }
 
 def parse_llm_response(raw_text):
+    """解析 LLM 响应，支持多种思考标签格式和中文思考文本"""
     if not raw_text: return None
-    text = re.sub(r"<think>.*?</think>","",raw_text.strip(),flags=re.DOTALL).strip()
+    
+    text = raw_text.strip()
+    
+    # 清理各种思考过程标签
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL | re.IGNORECASE).strip()
+    text = re.sub(r"<thought>.*?</thought>", "", text, flags=re.DOTALL | re.IGNORECASE).strip()
+    text = re.sub(r"<reasoning>.*?</reasoning>", "", text, flags=re.DOTALL | re.IGNORECASE).strip()
+    
+    # 处理中文思考开头：找到第一个 { 的位置
+    if text.startswith("好的") or text.startswith("让我") or text.startswith("首先") or text.startswith("我"):
+        brace_idx = text.find("{")
+        if 0 < brace_idx < 800:
+            text = text[brace_idx:]
+    
     obj = _robust_json_load(text)
     if isinstance(obj, dict):
         return _validate_response(obj)
+    
     fb_obj = _fallback_parse_response_from_text(text)
     if isinstance(fb_obj, dict):
         return _validate_response(fb_obj)
-    log.warning(f"无法解析 LLM 响应: {text[:200]}...")
+    
+    # 最后尝试从思考文本提取字段
+    fb_obj2 = _extract_fields_from_thought(text)
+    if fb_obj2:
+        return _validate_response(fb_obj2)
+    
+    log.warning(f"无法解析 LLM 响应：{text[:300]}...")
+    return None
+
+def _extract_fields_from_thought(text):
+    """从思考文本中提取关键字段"""
+    verdict_match = re.search(r'裁决 [：:]\s*(keep|delete|merge|保留 | 删除 | 合并)', text, re.I)
+    verdict = 'keep'
+    if verdict_match:
+        v = verdict_match.group(1).lower()
+        if '删' in v or v == 'delete': verdict = 'delete'
+        elif '合' in v or v == 'merge': verdict = 'merge'
+    
+    conf_match = re.search(r'置信度 [：:]\s*([0-9.]+)', text, re.I)
+    conf = 0.5
+    if conf_match:
+        try: conf = float(conf_match.group(1))
+        except: pass
+    
+    summary_match = re.search(r'(?:总结 | 摘要 | 结论 | 综上 | 判断 | 因此)[:：\s]+([^\n。]+)', text, re.I)
+    summary = summary_match.group(1).strip()[:200] if summary_match else ''
+    
+    if verdict or conf != 0.5 or summary:
+        return {'verdict': verdict, 'confidence': conf, 'summary': summary, 'operations': []}
     return None
 
 def _validate_response(obj):
