@@ -4,48 +4,152 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Windows API Knowledge Graph Viewer</title>
+<script>
+(function(){
+  try{
+    var t=localStorage.getItem("graph-viewer-theme");
+    if(t==="dark"||t==="light"||t==="system")document.documentElement.setAttribute("data-theme",t);
+    else document.documentElement.setAttribute("data-theme","dark");
+  }catch(e){document.documentElement.setAttribute("data-theme","dark");}
+})();
+</script>
 <style>
 :root {
   --bg: #0d1117; --surface: #161b22; --border: #30363d;
   --text: #e6edf3; --text-muted: #8b949e; --accent: #58a6ff;
   --danger: #f85149; --success: #3fb950; --warn: #d29922; --radius: 6px;
   --glass: rgba(22,27,34,.88);
+  --input-bg: rgba(13,17,23,.6);
+  --btn-ghost-bg: rgba(13,17,23,.5);
+  --hover-tab-bg: rgba(255,255,255,.03);
+  --footer-fade: linear-gradient(180deg,transparent,rgba(13,17,23,.95) 20%);
+  --shadow-float: 0 8px 32px rgba(0,0,0,.5);
+  --modal-scrim: rgba(0,0,0,.6);
+  --attr-item-border: rgba(48,54,61,.5);
+  --ocr-dl-bg: rgba(31,111,235,0.2);
+  --graph-muted-node: #21262d;
+  --graph-canvas-bg: #0d1117;
+  --depth-blob-a: rgba(88,166,255,0.38);
+  --depth-blob-b: rgba(139,92,246,0.22);
+  --depth-blob-c: rgba(63,185,80,0.12);
+  --depth-blob-d: rgba(210,168,255,0.1);
+  --depth-vignette: radial-gradient(ellipse 92% 88% at var(--depth-fx,50%) var(--depth-fy,48%), transparent 0%, transparent 42%, rgba(0,0,0,0.22) 100%);
+  /* 与 JS cubicBezierUI(0.22,0.85,0.32,1) 对齐的全局过渡曲线 */
+  --ease-bez: cubic-bezier(0.22, 0.85, 0.32, 1);
+  --ease-bez-sym: cubic-bezier(0.32, 0, 0.68, 1);
 }
+html[data-theme="light"] {
+  --bg: #f6f8fa; --surface: #ffffff; --border: #d0d7de;
+  --text: #1f2328; --text-muted: #656d76; --accent: #0969da;
+  --danger: #cf222e; --success: #1a7f37; --warn: #9a6700;
+  --glass: rgba(255,255,255,.92);
+  --input-bg: rgba(255,255,255,.85);
+  --btn-ghost-bg: rgba(246,248,250,.9);
+  --hover-tab-bg: rgba(0,0,0,.04);
+  --footer-fade: linear-gradient(180deg,transparent,rgba(246,248,250,.96) 20%);
+  --shadow-float: 0 8px 28px rgba(31,35,40,.12);
+  --modal-scrim: rgba(31,35,40,.45);
+  --attr-item-border: rgba(208,215,222,.9);
+  --ocr-dl-bg: rgba(9,105,218,0.12);
+  --graph-muted-node: #d0d7de;
+  --graph-canvas-bg: #f6f8fa;
+  --depth-blob-a: rgba(9,105,218,0.28);
+  --depth-blob-b: rgba(130,80,200,0.16);
+  --depth-blob-c: rgba(26,127,55,0.1);
+  --depth-blob-d: rgba(9,105,218,0.08);
+  --depth-vignette: radial-gradient(ellipse 92% 88% at var(--depth-fx,50%) var(--depth-fy,48%), transparent 0%, transparent 45%, rgba(31,35,40,0.06) 100%);
+}
+@media (prefers-color-scheme: light) {
+  html[data-theme="system"] {
+    --bg: #f6f8fa; --surface: #ffffff; --border: #d0d7de;
+    --text: #1f2328; --text-muted: #656d76; --accent: #0969da;
+    --danger: #cf222e; --success: #1a7f37; --warn: #9a6700;
+    --glass: rgba(255,255,255,.92);
+    --input-bg: rgba(255,255,255,.85);
+    --btn-ghost-bg: rgba(246,248,250,.9);
+    --hover-tab-bg: rgba(0,0,0,.04);
+    --footer-fade: linear-gradient(180deg,transparent,rgba(246,248,250,.96) 20%);
+    --shadow-float: 0 8px 28px rgba(31,35,40,.12);
+    --modal-scrim: rgba(31,35,40,.45);
+    --attr-item-border: rgba(208,215,222,.9);
+    --ocr-dl-bg: rgba(9,105,218,0.12);
+    --graph-muted-node: #d0d7de;
+    --graph-canvas-bg: #f6f8fa;
+    --depth-blob-a: rgba(9,105,218,0.28);
+    --depth-blob-b: rgba(130,80,200,0.16);
+    --depth-blob-c: rgba(26,127,55,0.1);
+    --depth-blob-d: rgba(9,105,218,0.08);
+    --depth-vignette: radial-gradient(ellipse 92% 88% at var(--depth-fx,50%) var(--depth-fy,48%), transparent 0%, transparent 45%, rgba(31,35,40,0.06) 100%);
+  }
+}
+html, body { transition: background-color .28s var(--ease-bez), color .28s var(--ease-bez); }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; background:var(--bg); color:var(--text); overflow:hidden; height:100vh; }
 #app { position:relative; height:100vh; width:100vw; }
 
-/* ══ Graph (full-screen base layer) ══ */
-#graph-container { position:absolute; inset:0; background:var(--bg); }
-#graph-3d { width:100%; height:100%; }
-#progress-bar { position:absolute; top:0; left:0; right:0; height:3px; z-index:20; pointer-events:none; }
-#progress-fill { height:100%; background:var(--accent); width:0%; transition:width .3s; border-radius:0 2px 2px 0; }
+/* ══ Graph (full-screen base layer) + 景深模糊光晕（画布下半透明透出）══ */
+#graph-container { position:absolute; inset:0; background:var(--bg); isolation:isolate; }
+#graph-depth-bg {
+  position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+  --depth-fx:50%; --depth-fy:48%; --depth-zoom-mul:1;
+}
+.graph-depth-blob {
+  position:absolute; width:min(78vmin,780px); height:min(78vmin,780px);
+  margin:0; border-radius:50%; transform:translate(-50%,-50%);
+  filter:blur(68px); -webkit-filter:blur(68px);
+  opacity:0.92; mix-blend-mode:normal;
+  transition:left 1.35s var(--ease-bez-sym), top 1.35s var(--ease-bez-sym), transform 1.45s var(--ease-bez-sym), opacity 1s var(--ease-bez);
+}
+.graph-depth-blob.b1 { left:calc(var(--depth-fx) - 20%); top:calc(var(--depth-fy) - 14%); background:radial-gradient(circle,var(--depth-blob-a) 0%,transparent 70%); transform:translate(-50%,-50%) scale(calc(1.05 * var(--depth-zoom-mul))); }
+.graph-depth-blob.b2 { left:calc(var(--depth-fx) + 24%); top:calc(var(--depth-fy) + 18%); background:radial-gradient(circle,var(--depth-blob-b) 0%,transparent 72%); width:min(62vmin,560px); height:min(62vmin,560px); transform:translate(-50%,-50%) scale(calc(0.92 * var(--depth-zoom-mul))); filter:blur(78px); -webkit-filter:blur(78px); opacity:0.88; }
+.graph-depth-blob.b3 { left:calc(var(--depth-fx) + 6%); top:calc(var(--depth-fy) - 22%); background:radial-gradient(circle,var(--depth-blob-c) 0%,transparent 75%); width:min(48vmin,420px); height:min(48vmin,420px); transform:translate(-50%,-50%) scale(calc(0.78 * var(--depth-zoom-mul))); filter:blur(52px); -webkit-filter:blur(52px); opacity:0.75; }
+.graph-depth-blob.b4 { left:calc(var(--depth-fx) - 26%); top:calc(var(--depth-fy) + 20%); background:radial-gradient(circle,var(--depth-blob-d) 0%,transparent 74%); width:min(54vmin,500px); height:min(54vmin,500px); transform:translate(-50%,-50%) scale(calc(0.85 * var(--depth-zoom-mul))); filter:blur(60px); -webkit-filter:blur(60px); opacity:0.7; }
+#graph-depth-vignette {
+  position:absolute; inset:0; z-index:2; pointer-events:none;
+  background:var(--depth-vignette);
+  transition:background 1.2s var(--ease-bez-sym);
+}
+#graph-3d { position:absolute; inset:0; z-index:1; width:100%; height:100%; min-width:100%; min-height:100%; }
+#graph-3d .force-graph-container { position:absolute !important; inset:0 !important; width:100% !important; height:100% !important; }
+.tree-lock-btn { position:absolute; top:12px; left:326px; z-index:15; width:32px; height:32px; padding:0; display:none; align-items:center; justify-content:center; font-size:16px; background:var(--glass); backdrop-filter:blur(8px); border:1px solid var(--border); border-radius:var(--radius); color:var(--text-muted); cursor:pointer; transition:background .2s var(--ease-bez),color .2s var(--ease-bez),border-color .2s var(--ease-bez); }
+.tree-lock-btn:hover { background:var(--input-bg); color:var(--accent); border-color:var(--accent); }
+.tree-lock-btn.visible { display:flex; }
+@media (max-width:400px){ .tree-lock-btn { left:12px; } }
+@media (prefers-reduced-motion:reduce){
+  .graph-depth-blob{transition-duration:0.01ms !important;}
+  #graph-depth-vignette{transition-duration:0.01ms !important;}
+}
 #controls-hint { position:absolute; top:56px; right:10px; background:var(--glass); border:1px solid var(--border); border-radius:var(--radius); padding:6px 10px; font-size:10px; color:var(--text-muted); z-index:10; line-height:1.5; pointer-events:none; }
-#stats-bar { position:absolute; bottom:10px; left:10px; background:var(--glass); border:1px solid var(--border); border-radius:var(--radius); padding:5px 10px; font-size:10px; color:var(--text-muted); display:flex; gap:12px; z-index:10; flex-wrap:wrap; }
+#node-load-footer { position:absolute; bottom:0; left:0; right:0; z-index:25; background:var(--footer-fade); padding:6px 12px 8px; pointer-events:none; display:none; }
+#node-load-footer .nlf-inner { max-width:100%; margin:0 auto; }
+#node-load-footer .nlf-sub { font-size:10px; color:var(--text-muted); opacity:.85; }
+#stats-bar { position:absolute; bottom:0; left:0; background:var(--glass); border:1px solid var(--border); border-top-right-radius:var(--radius); border-bottom:0; border-left:0; padding:5px 10px; font-size:10px; color:var(--text-muted); display:flex; gap:12px; z-index:30; flex-wrap:wrap; }
 #loading { position:absolute; inset:0; display:flex; justify-content:center; align-items:center; background:var(--bg); z-index:300; flex-direction:column; gap:16px; }
 #loading .spinner { width:48px; height:48px; border:3px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin .8s linear infinite; }
 @keyframes spin { to { transform:rotate(360deg); } }
 #loading .load-text { color:var(--text-muted); font-size:14px; }
 
 /* ══ Floating sidebar (glass overlay, left) ══ */
-#sidebar { position:absolute; top:0; left:0; bottom:0; width:320px; background:var(--glass); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-right:1px solid var(--border); display:flex; flex-direction:column; z-index:40; transition:transform .25s ease, opacity .25s ease; overflow:hidden; }
+#sidebar { position:absolute; top:0; left:0; bottom:0; width:320px; background:var(--glass); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-right:1px solid var(--border); display:flex; flex-direction:column; z-index:40; transition:transform .32s var(--ease-bez), opacity .32s var(--ease-bez); overflow:hidden; }
 #sidebar.collapsed { transform:translateX(-100%); opacity:0; pointer-events:none; }
-#sidebar-toggle { position:absolute; top:12px; left:12px; z-index:45; width:28px; height:28px; background:var(--glass); backdrop-filter:blur(8px); border:1px solid var(--border); border-radius:var(--radius); color:var(--text-muted); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:12px; transition:background .2s,color .2s; }
+/* 展开时按钮移到侧栏右侧，避免盖住侧栏左上角导致「点侧栏却点到关闭」 */
+#sidebar-toggle { position:absolute; top:12px; left:12px; z-index:45; width:28px; height:28px; background:var(--glass); backdrop-filter:blur(8px); border:1px solid var(--border); border-radius:var(--radius); color:var(--text-muted); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:12px; transition:background .22s var(--ease-bez),color .22s var(--ease-bez),left .32s var(--ease-bez); }
+#sidebar-toggle.panel-open { left:332px; }
 #sidebar-toggle:hover { background:var(--surface); color:var(--accent); }
 #sidebar-header { padding:8px 10px; border-bottom:1px solid var(--border); }
 #sidebar-header-top { display:flex; align-items:center; gap:6px; }
 #sidebar-header h1 { font-size:13px; font-weight:600; flex:1; white-space:nowrap; }
-.mode-badge { font-size:10px; padding:2px 7px; border-radius:10px; font-weight:600; cursor:pointer; user-select:none; transition:all .2s; }
+.mode-badge { font-size:10px; padding:2px 7px; border-radius:10px; font-weight:600; cursor:pointer; user-select:none; transition:transform .22s var(--ease-bez),opacity .22s var(--ease-bez),box-shadow .22s var(--ease-bez); }
 .mode-badge.is3d { background:#1f6feb; color:#fff; }
 .mode-badge.is2d { background:#238636; color:#fff; }
 .header-actions { display:flex; align-items:center; gap:4px; margin-top:5px; flex-wrap:wrap; }
-.header-actions button { padding:3px 8px; font-size:11px; background:rgba(13,17,23,.6); border:1px solid var(--border); color:var(--text); border-radius:var(--radius); cursor:pointer; white-space:nowrap; transition:border-color .15s,color .15s; }
+.header-actions button { padding:3px 8px; font-size:11px; background:var(--input-bg); border:1px solid var(--border); color:var(--text); border-radius:var(--radius); cursor:pointer; white-space:nowrap; transition:border-color .2s var(--ease-bez),color .2s var(--ease-bez); }
 .header-actions button:hover { border-color:var(--accent); color:var(--accent); }
 
 /* View tabs */
 .view-tabs { display:flex; border-bottom:1px solid var(--border); }
-.view-tab { flex:1; padding:6px 4px; text-align:center; font-size:11px; font-weight:500; cursor:pointer; border-bottom:2px solid transparent; color:var(--text-muted); transition:all .15s; white-space:nowrap; }
-.view-tab:hover { color:var(--text); background:rgba(255,255,255,.03); }
+.view-tab { flex:1; padding:6px 4px; text-align:center; font-size:11px; font-weight:500; cursor:pointer; border-bottom:2px solid transparent; color:var(--text-muted); transition:color .2s var(--ease-bez),background .2s var(--ease-bez),border-color .2s var(--ease-bez); white-space:nowrap; }
+.view-tab:hover { color:var(--text); background:var(--hover-tab-bg); }
 .view-tab.active { color:var(--accent); border-bottom-color:var(--accent); }
 .view-tab .tab-icon { font-size:13px; display:block; margin-bottom:1px; }
 
@@ -54,9 +158,11 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,s
 .filter-row { padding:5px 12px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:6px; font-size:11px; }
 .filter-row label { color:var(--text-muted); white-space:nowrap; min-width:70px; }
 .filter-row input[type=range] { flex:1; accent-color:var(--accent); cursor:pointer; }
-.filter-row select { flex:1; padding:3px 6px; background:rgba(13,17,23,.6); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:11px; cursor:pointer; }
+.filter-row select { flex:1; padding:3px 6px; background:var(--input-bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:11px; cursor:pointer; }
 .filter-row select:focus { border-color:var(--accent); outline:none; }
 .filter-row .val-display { min-width:32px; text-align:right; color:var(--accent); font-weight:600; font-size:10px; }
+.filter-row.tree-root-row label { flex:1; cursor:pointer; }
+.filter-row.tree-root-row input[type=checkbox] { width:16px; height:16px; cursor:pointer; flex:0 0 auto; accent-color:var(--accent); }
 .preset-preview { padding:3px 12px 6px; border-bottom:1px solid var(--border); font-size:10px; color:var(--text-muted); line-height:1.4; }
 .preset-preview .tag { display:inline-block; padding:0 5px; border-radius:3px; font-size:9px; margin:1px 1px; }
 
@@ -64,7 +170,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,s
 #graph-actions { position:absolute; top:10px; right:10px; z-index:30; display:flex; align-items:center; gap:8px; background:var(--glass); backdrop-filter:blur(8px); border:1px solid var(--border); border-radius:var(--radius); padding:6px 8px; }
 #graph-actions .group { display:flex; align-items:center; gap:4px; }
 #graph-actions .divider { width:1px; height:16px; background:var(--border); }
-.graph-actions button { padding:3px 8px; font-size:11px; background:rgba(13,17,23,.5); border:1px solid var(--border); color:var(--text); border-radius:var(--radius); cursor:pointer; white-space:nowrap; transition:border-color .15s,color .15s; }
+.graph-actions button { padding:3px 8px; font-size:11px; background:var(--btn-ghost-bg); border:1px solid var(--border); color:var(--text); border-radius:var(--radius); cursor:pointer; white-space:nowrap; transition:border-color .2s var(--ease-bez),color .2s var(--ease-bez); }
 .graph-actions button:hover { border-color:var(--accent); color:var(--accent); }
 .graph-actions button:disabled { opacity:.4; cursor:default; }
 .graph-actions button.btn-analysis { border-color:#9e6a03; color:#d29922; }
@@ -73,46 +179,64 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,s
 .graph-actions button.btn-create:hover { background:#238636; color:#fff; }
 
 /* ══ Graph bottom-right file actions ══ */
-#file-actions { position:absolute; bottom:10px; right:10px; z-index:30; display:flex; align-items:center; gap:4px; background:var(--glass); backdrop-filter:blur(8px); border:1px solid var(--border); border-radius:var(--radius); padding:5px 8px; }
-#file-actions button { padding:3px 8px; font-size:11px; background:rgba(13,17,23,.5); border:1px solid var(--border); color:var(--text); border-radius:var(--radius); cursor:pointer; white-space:nowrap; transition:border-color .15s,color .15s; }
+#file-actions { position:absolute; bottom:0; right:0; z-index:31; display:flex; align-items:center; gap:4px; background:var(--glass); backdrop-filter:blur(8px); border:1px solid var(--border); border-top-left-radius:var(--radius); border-bottom:0; border-right:0; padding:5px 8px; }
+#file-actions button { padding:3px 8px; font-size:11px; background:var(--btn-ghost-bg); border:1px solid var(--border); color:var(--text); border-radius:var(--radius); cursor:pointer; white-space:nowrap; transition:border-color .2s var(--ease-bez),color .2s var(--ease-bez); }
 #file-actions button:hover { border-color:var(--accent); color:var(--accent); }
 #file-actions button.btn-persist { border-color:#1f6feb; color:#58a6ff; }
 #file-actions button.btn-persist:hover { background:#1f6feb; color:#fff; }
 
-/* ══ Floating search (top-center) ══ */
-#search-overlay { position:absolute; top:0; left:0; right:0; bottom:0; z-index:100; background:rgba(0,0,0,.4); display:none; justify-content:center; padding-top:12vh; }
-#search-overlay.show { display:flex; }
-#search-panel { width:520px; max-height:60vh; background:var(--surface); border:1px solid var(--border); border-radius:10px; box-shadow:0 16px 48px rgba(0,0,0,.6); display:flex; flex-direction:column; overflow:hidden; }
-#search-bar { display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--border); }
-#search-bar input { flex:1; padding:8px 12px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:14px; outline:none; }
+/* ══ 全屏搜索（树状 Top Connected）══ */
+#search-overlay { position:fixed; inset:0; z-index:100; background:var(--surface); display:flex; flex-direction:column; opacity:0; visibility:hidden; pointer-events:none; transition:opacity .28s var(--ease-bez), visibility 0s linear .28s; }
+#search-overlay.show { opacity:1; visibility:visible; pointer-events:auto; transition:opacity .28s var(--ease-bez), visibility 0s linear 0s; }
+#search-panel { flex:1; display:flex; flex-direction:column; overflow:hidden; transform:translateY(-8px); opacity:0; transition:transform .32s var(--ease-bez), opacity .32s var(--ease-bez); }
+#search-overlay.show #search-panel { transform:translateY(0); opacity:1; }
+#search-bar { display:flex; justify-content:center; align-items:center; padding:22px 28px 20px; border-bottom:1px solid var(--border); flex-shrink:0; }
+.search-bar-inner { display:flex; align-items:center; gap:18px; width:100%; max-width:min(1280px,96vw); }
+#search-bar input { flex:1; min-width:0; padding:14px 20px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:16px; outline:none; }
 #search-bar input:focus { border-color:var(--accent); }
-#search-bar .hint { font-size:10px; color:var(--text-muted); white-space:nowrap; }
-#search-filters { display:flex; gap:6px; padding:8px 16px; border-bottom:1px solid var(--border); flex-wrap:wrap; align-items:center; }
-#search-filters label { font-size:10px; color:var(--text-muted); }
-#search-filters select,#search-filters input { padding:3px 6px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:11px; }
-#search-filters input[type=number] { width:60px; }
-#search-results { flex:1; overflow-y:auto; max-height:40vh; }
-.search-item { padding:8px 16px; cursor:pointer; font-size:12px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); }
-.search-item:hover { background:var(--bg); }
-.search-item .type-badge { color:var(--text-muted); font-size:10px; }
-#search-trigger { position:absolute; top:12px; left:50%; transform:translateX(-50%); z-index:35; padding:6px 20px; background:var(--glass); backdrop-filter:blur(8px); border:1px solid var(--border); border-radius:20px; color:var(--text-muted); font-size:12px; cursor:pointer; display:flex; align-items:center; gap:8px; transition:border-color .2s,color .2s; }
+#search-bar .hint { font-size:12px; color:var(--text-muted); flex-shrink:0; }
+#search-bar .btn-close { padding:10px 22px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:13px; cursor:pointer; flex-shrink:0; }
+#search-bar .btn-close:hover { border-color:var(--accent); color:var(--accent); }
+#search-view-tabs { display:flex; justify-content:center; padding:0 28px 16px; border-bottom:1px solid var(--border); flex-shrink:0; }
+.search-view-tabs-inner { display:flex; gap:8px; width:100%; max-width:min(1280px,96vw); }
+#search-view-tabs .view-tab { flex:1; padding:14px 12px; min-width:0; min-height:52px; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:13px; }
+#search-view-tabs .view-tab .tab-icon { font-size:16px; margin-bottom:3px; }
+#search-results { flex:1; overflow-y:auto; padding:16px 28px 24px; }
+#search-results-inner { max-width:min(1280px,96vw); margin:0 auto; }
+.search-tree-row { display:flex; align-items:center; padding:6px 0; font-size:12px; cursor:pointer; border-bottom:1px solid var(--border); transition:background .15s var(--ease-bez); }
+.search-tree-row:hover { background:var(--bg); }
+.search-tree-row.l1 { padding-left:0; }
+.search-tree-row.l2 { padding-left:24px; }
+.search-tree-row .node-name { flex:0 1 34%; max-width:min(320px,38vw); min-width:72px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.search-tree-row .search-row-desc { flex:1; min-width:64px; margin:0 10px; font-size:11px; line-height:1.35; color:var(--text-muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.search-tree-row .search-row-desc--empty { opacity:.45; font-style:italic; }
+.search-tree-row .search-row-meta { display:flex; align-items:center; flex-shrink:0; gap:6px; }
+.search-tree-row .type-badge { color:var(--text-muted); font-size:10px; flex-shrink:0; }
+.search-tree-row .deg-badge { font-weight:600; color:var(--accent); flex-shrink:0; }
+#search-trigger { position:absolute; top:12px; left:50%; transform:translateX(-50%); z-index:35; padding:6px 20px; background:var(--glass); backdrop-filter:blur(8px); border:1px solid var(--border); border-radius:20px; color:var(--text-muted); font-size:12px; cursor:pointer; display:flex; align-items:center; gap:8px; transition:border-color .24s var(--ease-bez),color .24s var(--ease-bez),box-shadow .24s var(--ease-bez); }
 #search-trigger:hover { border-color:var(--accent); color:var(--text); }
 #search-trigger kbd { font-size:10px; padding:1px 5px; background:var(--bg); border:1px solid var(--border); border-radius:3px; font-family:inherit; }
 
 /* ══ Floating Detail Panel ══ */
-#float-detail { position:absolute; bottom:50px; right:12px; width:360px; max-height:60vh; background:var(--glass); backdrop-filter:blur(12px); border:1px solid var(--border); border-radius:8px; z-index:50; display:none; flex-direction:column; box-shadow:0 8px 32px rgba(0,0,0,.5); }
-#float-detail.show { display:flex; }
-#float-header { display:flex; align-items:center; justify-content:space-between; padding:8px 12px; border-bottom:1px solid var(--border); }
-#float-header h3 { font-size:13px; color:var(--accent); margin:0; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-#float-close { background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:16px; padding:2px 6px; border-radius:4px; }
+#float-detail { position:absolute; bottom:88px; right:12px; width:360px; max-height:60vh; min-height:0; background:var(--glass); backdrop-filter:blur(12px); border:1px solid var(--border); border-radius:8px; z-index:50; display:flex; flex-direction:column; box-shadow:var(--shadow-float); opacity:0; visibility:hidden; pointer-events:none; transform:translateY(18px) scale(.98); transition:opacity .34s var(--ease-bez), transform .36s var(--ease-bez), visibility 0s linear .36s; }
+#float-detail.show { opacity:1; visibility:visible; pointer-events:auto; transform:translateY(0) scale(1); transition:opacity .34s var(--ease-bez), transform .36s var(--ease-bez), visibility 0s linear 0s; }
+#float-detail.maximized { position:fixed; top:48px; left:10px; right:10px; bottom:10px; width:auto !important; max-height:none !important; height:auto !important; z-index:110; transform:none; }
+#float-detail.maximized #float-content { flex:1; min-height:0; max-height:none; }
+#float-header { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 12px; border-bottom:1px solid var(--border); flex-shrink:0; }
+#float-header h3 { font-size:13px; color:var(--accent); margin:0; flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.float-header-actions { display:flex; align-items:center; gap:2px; flex-shrink:0; }
+.panel-win-btn { display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; padding:0; background:transparent; border:1px solid var(--border); border-radius:4px; color:var(--text-muted); cursor:pointer; flex-shrink:0; }
+.panel-win-btn:hover { border-color:var(--accent); color:var(--accent); }
+.panel-win-btn svg { display:block; }
+#float-close { background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:16px; padding:2px 6px; border-radius:4px; width:auto; height:auto; }
 #float-close:hover { background:var(--bg); color:var(--danger); }
-#float-content { overflow-y:auto; padding:10px 12px; font-size:12px; flex:1; }
+#float-content { overflow-y:auto; padding:10px 12px; font-size:12px; flex:1; min-height:0; }
 #float-content .detail-row { display:flex; gap:6px; padding:2px 0; border-bottom:1px solid var(--border); }
 #float-content .detail-row .label { color:var(--text-muted); min-width:60px; font-size:11px; }
 #float-content .detail-row .value { word-break:break-all; font-size:11px; }
 #float-content .attr-section { margin-top:8px; }
 #float-content .attr-section h4 { font-size:11px; color:var(--text-muted); margin-bottom:4px; text-transform:uppercase; letter-spacing:.3px; }
-#float-content .attr-item { font-size:11px; padding:2px 0; border-bottom:1px solid rgba(48,54,61,.5); cursor:pointer; display:flex; justify-content:space-between; }
+#float-content .attr-item { font-size:11px; padding:2px 0; border-bottom:1px solid var(--attr-item-border); cursor:pointer; display:flex; justify-content:space-between; }
 #float-content .attr-item:hover { color:var(--accent); }
 #float-content .attr-item .atype { color:var(--text-muted); font-size:10px; }
 .edge-list { max-height:200px; overflow-y:auto; }
@@ -124,18 +248,44 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,s
 .float-actions button { font-size:10px; padding:2px 6px; background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:var(--radius); cursor:pointer; }
 .float-actions button:hover { border-color:var(--accent); color:var(--accent); }
 .float-actions button.danger:hover { border-color:var(--danger); color:var(--danger); }
+.ocr-source-block { margin-top:10px; padding-top:8px; border-top:1px solid var(--border); }
+.ocr-source-block h4 { font-size:12px; color:var(--accent); margin-bottom:6px; }
+.ocr-context-wrap { margin-top:6px; }
+pre.ocr-context { margin:0; padding:8px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); font-size:10px; line-height:1.45; white-space:pre-wrap; word-break:break-word; max-height:220px; overflow-y:auto; color:var(--text-muted); }
+a.ocr-dl { display:inline-block; margin:6px 8px 0 0; font-size:11px; padding:4px 10px; background:var(--ocr-dl-bg); border:1px solid var(--accent); color:var(--accent); border-radius:var(--radius); text-decoration:none; }
+a.ocr-dl:hover { background:var(--accent); color:#fff; }
+
+/* ══ LLM 对话框（左下角，不遮挡 float-detail）══ */
+#llm-dialog { position:absolute; bottom:88px; left:12px; width:340px; max-height:50vh; min-height:0; background:var(--glass); backdrop-filter:blur(12px); border:1px solid var(--border); border-radius:8px; z-index:45; display:flex; flex-direction:column; box-shadow:var(--shadow-float); opacity:0; visibility:hidden; pointer-events:none; transform:translateY(18px) scale(.98); transition:opacity .34s var(--ease-bez), transform .36s var(--ease-bez), visibility 0s linear .36s; }
+#llm-dialog.show { opacity:1; visibility:visible; pointer-events:auto; transform:translateY(0) scale(1); transition:opacity .34s var(--ease-bez), transform .36s var(--ease-bez), visibility 0s linear 0s; }
+#llm-dialog.maximized { position:fixed; top:48px; left:10px; right:10px; bottom:10px; width:auto !important; max-height:none !important; height:auto !important; z-index:111; transform:none; }
+#llm-dialog.maximized .llm-content { flex:1; min-height:0; max-height:none; }
+#llm-dialog .llm-header { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 12px; border-bottom:1px solid var(--border); flex-shrink:0; }
+#llm-dialog .llm-header h3 { font-size:12px; color:var(--accent); margin:0; flex:1; min-width:0; }
+#llm-dialog .llm-header-actions { display:flex; align-items:center; gap:2px; flex-shrink:0; }
+#llm-dialog .llm-close { background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:14px; padding:2px 6px; border-radius:4px; width:auto; height:auto; }
+#llm-dialog .llm-close:hover { background:var(--bg); color:var(--danger); }
+#llm-dialog .llm-content { overflow-y:auto; padding:10px 12px; font-size:11px; flex:1; min-height:0; white-space:pre-wrap; word-break:break-word; }
+#llm-dialog .llm-content .loading { color:var(--text-muted); }
+#llm-dialog .llm-content pre { margin:6px 0; padding:8px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); font-size:10px; overflow-x:auto; }
+#llm-dialog .llm-content code { font-size:10px; }
 
 /* ══ Modals ══ */
-.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:200; justify-content:center; align-items:center; }
-.modal-overlay.show { display:flex; }
-.modal { background:var(--surface); border:1px solid var(--border); border-radius:8px; width:500px; max-height:80vh; overflow-y:auto; padding:20px; }
-.modal h2 { font-size:16px; margin-bottom:16px; }
+.modal-overlay { display:flex; position:fixed; inset:0; background:var(--modal-scrim); z-index:200; justify-content:center; align-items:center; opacity:0; visibility:hidden; pointer-events:none; transition:opacity .32s var(--ease-bez), visibility 0s linear .32s; }
+.modal-overlay.show { opacity:1; visibility:visible; pointer-events:auto; transition:opacity .32s var(--ease-bez), visibility 0s linear 0s; }
+.modal { background:var(--surface); border:1px solid var(--border); border-radius:8px; width:500px; max-height:80vh; min-height:0; overflow:hidden; padding:20px; display:flex; flex-direction:column; transform:translateY(16px) scale(.96); opacity:0; transition:transform .38s var(--ease-bez), opacity .36s var(--ease-bez); }
+.modal-overlay.show .modal { transform:translateY(0) scale(1); opacity:1; }
+.modal.maximized { width:calc(100vw - 28px) !important; max-width:none !important; max-height:calc(100vh - 28px) !important; height:auto !important; }
+.modal-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:16px; flex-shrink:0; }
+.modal-head h2 { font-size:16px; margin:0; flex:1; min-width:0; line-height:1.3; }
+.modal-body-scroll { flex:1; min-height:0; overflow-y:auto; }
+.modal .btn-row { flex-shrink:0; margin-top:16px; }
 .modal .form-group { margin-bottom:12px; }
 .modal label { display:block; font-size:12px; color:var(--text-muted); margin-bottom:4px; }
 .modal input,.modal select,.modal textarea { width:100%; padding:6px 10px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:13px; }
 .modal textarea { min-height:60px; resize:vertical; }
 .modal .btn-row { display:flex; gap:8px; justify-content:flex-end; margin-top:16px; }
-.modal .btn-row button { padding:6px 16px; border-radius:var(--radius); border:1px solid var(--border); cursor:pointer; font-size:13px; }
+.modal .btn-row button { padding:6px 16px; border-radius:var(--radius); border:1px solid var(--border); cursor:pointer; font-size:13px; transition:border-color .2s var(--ease-bez),background .2s var(--ease-bez),color .2s var(--ease-bez),transform .2s var(--ease-bez); }
 .btn-primary { background:var(--accent)!important; color:#fff!important; border-color:var(--accent)!important; }
 .btn-cancel { background:var(--bg)!important; color:var(--text)!important; }
 .eval-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
@@ -145,6 +295,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,s
 .eval-card .metric-value.good { color:var(--success); }
 .eval-card .metric-value.warn { color:var(--warn); }
 .eval-card .metric-value.bad { color:var(--danger); }
+#modal-eval .modal { width:600px; max-height:85vh; }
 ::-webkit-scrollbar { width:5px; }
 ::-webkit-scrollbar-track { background:transparent; }
 ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
@@ -154,21 +305,33 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,s
 <div id="app">
   <!-- Graph: full-screen base layer -->
   <div id="graph-container">
-    <div id="progress-bar"><div id="progress-fill"></div></div>
+    <div id="graph-depth-bg" aria-hidden="true">
+      <div class="graph-depth-blob b1"></div>
+      <div class="graph-depth-blob b2"></div>
+      <div class="graph-depth-blob b3"></div>
+      <div class="graph-depth-blob b4"></div>
+    </div>
     <div id="graph-3d"></div>
+    <div id="graph-depth-vignette" aria-hidden="true"></div>
+    <button type="button" id="btn-tree-unlock" class="tree-lock-btn" title="点击释放树形根，恢复力导向布局" aria-label="释放树形根">&#x1F512;</button>
     <div id="controls-hint"></div>
     <div id="stats-bar">
-      <span id="stat-nodes">Nodes: -</span>
-      <span id="stat-edges">Edges: -</span>
-      <span id="stat-visible">Visible: -</span>
+      <span id="stat-nodes">Nodes: <span id="stat-nodes-val">-</span></span>
+      <span id="stat-edges">Edges: <span id="stat-edges-val">-</span></span>
+      <span id="stat-visible">Visible: <span id="stat-visible-val">-</span></span>
       <span id="stat-fps" style="color:var(--success)">FPS: -</span>
       <span id="stat-mem" style="color:var(--success)">Mem: -</span>
+    </div>
+    <div id="node-load-footer" aria-live="polite">
+      <div class="nlf-inner">
+        <div class="nlf-sub" id="nlf-sub"></div>
+      </div>
     </div>
     <div id="loading"><div class="spinner"></div><div class="load-text" id="load-text">Loading knowledge graph...</div></div>
   </div>
 
   <!-- Top-left: sidebar toggle -->
-  <button id="sidebar-toggle" title="Toggle panel (`)">&#x2630;</button>
+  <button id="sidebar-toggle" class="panel-open" title="Toggle panel (`)">&#x2715;</button>
 
   <!-- Top-center: search trigger -->
   <button id="search-trigger">&#x1F50D; Search entities... <kbd>Ctrl K</kbd></button>
@@ -203,7 +366,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,s
       </div>
       <div class="header-actions">
         <button id="btn-fit">&#x26F6; Reset</button>
-        <button id="btn-perf" style="border-color:#8b5cf6;color:#a78bfa">&#x23F1; Perf</button>
+        <button id="btn-perf" style="border-color:#8b5cf6;color:#a78bfa" title="单击：快速放大/缩小；双击：沿边导航；右键：Perf 测试">&#x1F50D; Nav</button>
       </div>
     </div>
     <div class="view-tabs" id="view-tabs">
@@ -213,6 +376,14 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,s
       <div class="view-tab" data-mode="raw"><span class="tab-icon">&#x2726;</span>Raw</div>
     </div>
     <div id="sidebar-controls">
+      <div class="filter-row">
+        <label title="明亮 / 暗黑 / 跟随系统（prefers-color-scheme）">外观主题</label>
+        <select id="theme-select">
+          <option value="dark">暗黑 Dark</option>
+          <option value="light">明亮 Light</option>
+          <option value="system">跟随系统 System</option>
+        </select>
+      </div>
       <div class="filter-row">
         <label>视图方案</label>
         <select id="preset-select">
@@ -226,6 +397,14 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,s
         </select>
       </div>
       <div class="preset-preview" id="preset-desc"></div>
+      <div class="filter-row tree-root-row">
+        <label for="chk-tree-root-view" title="点击节点后以该点为根树形排布，1～3 层邻居显示名称">树形根视图</label>
+        <input type="checkbox" id="chk-tree-root-view">
+      </div>
+      <div class="filter-row tree-root-row">
+        <label for="chk-llm-insight" title="开启后，选中节点时自动请求 LLM 上下文并展开左下角「AI 解读」面板">AI 解读</label>
+        <input type="checkbox" id="chk-llm-insight">
+      </div>
       <div class="filter-row"><label>Min degree</label><input type="range" id="degree-slider" min="0" max="50" value="0" step="1"><span class="val-display" id="degree-val">0</span></div>
       <div class="filter-row"><label>Edge opacity</label><input type="range" id="edge-opacity-slider" min="5" max="100" value="45" step="5"><span class="val-display" id="edge-opacity-val">45%</span></div>
       <div class="filter-row"><label>Node size</label><input type="range" id="node-size-slider" min="20" max="200" value="100" step="10"><span class="val-display" id="node-size-val">100%</span></div>
@@ -234,46 +413,34 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,s
       <div id="mem-bar" style="padding:3px 12px;border-bottom:1px solid var(--border);font-size:10px;color:var(--text-muted);display:flex;align-items:center;gap:5px;">
         <span>RAM:</span>
         <div style="flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden;">
-          <div id="mem-fill" style="height:100%;background:var(--success);border-radius:3px;width:0%;transition:width .5s,background .5s;"></div>
+          <div id="mem-fill" style="height:100%;background:var(--success);border-radius:3px;width:0%;transition:background .5s var(--ease-bez);"></div>
         </div>
         <span id="mem-text">-</span>
       </div>
     </div>
   </div>
 
-  <!-- Floating search overlay -->
+  <!-- 全屏搜索（树状 Top Connected） -->
   <div id="search-overlay">
     <div id="search-panel">
       <div id="search-bar">
-        <input type="text" id="search-input" placeholder="Search entities by name..." autofocus>
-        <span class="hint">ESC to close</span>
+        <div class="search-bar-inner">
+          <input type="text" id="search-input" placeholder="筛选实体名称（留空显示 Top Connected）..." autofocus>
+          <span class="hint">ESC 关闭</span>
+          <button type="button" class="btn-close" id="search-close">关闭</button>
+        </div>
       </div>
-      <div id="search-filters">
-        <label>Type:</label>
-        <select id="filter-type">
-          <option value="">All</option>
-          <option value="function">function</option>
-          <option value="structure">structure</option>
-          <option value="enum">enum</option>
-          <option value="macro">macro</option>
-          <option value="callback">callback</option>
-          <option value="constant">constant</option>
-          <option value="typedef">typedef</option>
-          <option value="union">union</option>
-          <option value="ioctl">ioctl</option>
-          <option value="unknown">unknown</option>
-        </select>
-        <label>Min deg:</label>
-        <input type="number" id="filter-min-deg" value="0" min="0">
-        <label>Sort:</label>
-        <select id="filter-sort">
-          <option value="relevance">Relevance</option>
-          <option value="degree-desc">Degree ↓</option>
-          <option value="degree-asc">Degree ↑</option>
-          <option value="name">Name A-Z</option>
-        </select>
+      <div id="search-view-tabs" class="view-tabs">
+        <div class="search-view-tabs-inner">
+          <div class="view-tab" data-mode="function"><span class="tab-icon">&#x0192;</span>Function</div>
+          <div class="view-tab" data-mode="structure"><span class="tab-icon">&#x2756;</span>Structure</div>
+          <div class="view-tab" data-mode="macro"><span class="tab-icon">#</span>Macro</div>
+          <div class="view-tab" data-mode="raw"><span class="tab-icon">&#x2726;</span>Raw</div>
+        </div>
       </div>
-      <div id="search-results"></div>
+      <div id="search-results">
+        <div id="search-results-inner"></div>
+      </div>
     </div>
   </div>
 
@@ -281,56 +448,94 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,s
   <div id="float-detail">
     <div id="float-header">
       <h3 id="float-title">Details</h3>
-      <button id="float-close">&#x2715;</button>
+      <div class="float-header-actions">
+        <button type="button" class="panel-win-btn" id="float-max" title="最大化" aria-label="最大化"></button>
+        <button type="button" id="float-close">&#x2715;</button>
+      </div>
     </div>
     <div id="float-content"></div>
+  </div>
+
+  <!-- LLM 对话框（左下角，供大模型上下文解读/示例代码） -->
+  <div id="llm-dialog">
+    <div class="llm-header">
+      <h3>AI 解读</h3>
+      <div class="llm-header-actions">
+        <button type="button" class="panel-win-btn" id="llm-max" title="最大化" aria-label="最大化"></button>
+        <button type="button" class="llm-close" id="llm-close">&#x2715;</button>
+      </div>
+    </div>
+    <div class="llm-content" id="llm-content"></div>
   </div>
 </div>
 
 <!-- Modals -->
 <div class="modal-overlay" id="modal-add-node"><div class="modal">
-  <h2>Create Node</h2>
-  <div class="form-group"><label>Name</label><input id="new-node-name"></div>
-  <div class="form-group"><label>Type</label><input id="new-node-type" placeholder="function, structure..."></div>
-  <div class="form-group"><label>Description</label><textarea id="new-node-desc"></textarea></div>
+  <div class="modal-head"><h2>Create Node</h2><button type="button" class="panel-win-btn modal-max-btn" title="最大化" aria-label="最大化"></button></div>
+  <div class="modal-body-scroll">
+    <div class="form-group"><label>Name</label><input id="new-node-name"></div>
+    <div class="form-group"><label>Type</label><input id="new-node-type" placeholder="function, structure..."></div>
+    <div class="form-group"><label>Description</label><textarea id="new-node-desc"></textarea></div>
+  </div>
   <div class="btn-row"><button class="btn-cancel" onclick="closeModal('modal-add-node')">Cancel</button><button class="btn-primary" id="btn-confirm-add-node">Create</button></div>
 </div></div>
 <div class="modal-overlay" id="modal-add-edge"><div class="modal">
-  <h2>Create Edge</h2>
-  <div class="form-group"><label>Source</label><input id="new-edge-source"></div>
-  <div class="form-group"><label>Target</label><input id="new-edge-target"></div>
-  <div class="form-group"><label>Type</label><input id="new-edge-type" placeholder="references, uses_type..."></div>
+  <div class="modal-head"><h2>Create Edge</h2><button type="button" class="panel-win-btn modal-max-btn" title="最大化" aria-label="最大化"></button></div>
+  <div class="modal-body-scroll">
+    <div class="form-group"><label>Source</label><input id="new-edge-source"></div>
+    <div class="form-group"><label>Target</label><input id="new-edge-target"></div>
+    <div class="form-group"><label>Type</label><input id="new-edge-type" placeholder="references, uses_type..."></div>
+  </div>
   <div class="btn-row"><button class="btn-cancel" onclick="closeModal('modal-add-edge')">Cancel</button><button class="btn-primary" id="btn-confirm-add-edge">Create</button></div>
 </div></div>
 <div class="modal-overlay" id="modal-edit-node"><div class="modal">
-  <h2>Edit Node</h2>
-  <div class="form-group"><label>Name (readonly)</label><input id="edit-node-name" readonly></div>
-  <div class="form-group"><label>Type</label><input id="edit-node-type"></div>
-  <div class="form-group"><label>Description</label><textarea id="edit-node-desc"></textarea></div>
+  <div class="modal-head"><h2>Edit Node</h2><button type="button" class="panel-win-btn modal-max-btn" title="最大化" aria-label="最大化"></button></div>
+  <div class="modal-body-scroll">
+    <div class="form-group"><label>Name (readonly)</label><input id="edit-node-name" readonly></div>
+    <div class="form-group"><label>Type</label><input id="edit-node-type"></div>
+    <div class="form-group"><label>Description</label><textarea id="edit-node-desc"></textarea></div>
+  </div>
   <div class="btn-row"><button class="btn-cancel" onclick="closeModal('modal-edit-node')">Cancel</button><button class="btn-primary" id="btn-confirm-edit-node">Save</button></div>
 </div></div>
 <div class="modal-overlay" id="modal-branch"><div class="modal">
-  <h2>Branch Management</h2>
-  <div class="form-group"><label>Save new branch</label><input id="branch-name" placeholder="branch name"></div>
-  <button class="btn-primary" id="btn-confirm-save-branch" style="margin-bottom:16px">Save Branch</button>
-  <h3 style="margin-bottom:8px">Existing Branches</h3>
-  <div id="branch-list" style="max-height:200px;overflow-y:auto"></div>
+  <div class="modal-head"><h2>Branch Management</h2><button type="button" class="panel-win-btn modal-max-btn" title="最大化" aria-label="最大化"></button></div>
+  <div class="modal-body-scroll">
+    <div class="form-group"><label>Save new branch</label><input id="branch-name" placeholder="branch name"></div>
+    <button class="btn-primary" id="btn-confirm-save-branch" style="margin-bottom:16px">Save Branch</button>
+    <h3 style="margin-bottom:8px">Existing Branches</h3>
+    <div id="branch-list" style="max-height:200px;overflow-y:auto"></div>
+  </div>
   <div class="btn-row"><button class="btn-cancel" onclick="closeModal('modal-branch')">Close</button></div>
 </div></div>
 <div class="modal-overlay" id="modal-eval"><div class="modal" style="width:600px">
-  <h2>Graph Evaluation Report</h2>
-  <div id="eval-content"><div style="text-align:center;padding:20px;color:var(--text-muted)">Computing...</div></div>
+  <div class="modal-head"><h2>Graph Evaluation Report</h2><button type="button" class="panel-win-btn modal-max-btn" title="最大化" aria-label="最大化"></button></div>
+  <div class="modal-body-scroll" id="eval-content"><div style="text-align:center;padding:20px;color:var(--text-muted)">Computing...</div></div>
   <div class="btn-row">
     <button id="btn-eval-refresh" class="btn-primary">Re-evaluate</button>
     <button class="btn-cancel" onclick="closeModal('modal-eval')">Close</button>
   </div>
 </div></div>
 
-<script src="https://unpkg.com/force-graph@1.46.0/dist/force-graph.min.js"></script>
-<script src="https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.min.js"></script>
+<script src="/force-graph.min.js"></script>
+<script src="/three.min.js"></script>
+<script src="/3d-force-graph.min.js"></script>
+<script src="/d3.min.js"></script>
 <script>
 (function(){
 "use strict";
+
+if(typeof ForceGraph==="undefined"){
+  var ld0=document.getElementById("loading");
+  if(ld0)ld0.innerHTML="<div style=\"color:var(--danger);font-size:15px\">画布库未加载（ForceGraph）</div><div style=\"color:var(--text-muted);font-size:12px;margin-top:8px\">请确认已用最新代码重新 <code>go run</code> / 编译启动，且 static 内含 force-graph.min.js。</div>";
+  throw new Error("ForceGraph missing");
+}
+if(typeof d3==="undefined"||typeof d3.forceCollide!=="function"){
+  console.warn("graph-viewer: d3.min.js 未加载，节点将仅靠斥力/链长分离，可能出现重叠。请把 d3.min.js 放入 static。");
+}
+if(typeof THREE==="undefined"||typeof ForceGraph3D==="undefined"){
+  var ld1=document.getElementById("loading");
+  if(ld1)ld1.innerHTML="<div style=\"color:var(--danger);font-size:15px\">3D 库未加载（Three.js / 3d-force-graph）</div><div style=\"color:var(--text-muted);font-size:12px;margin-top:8px\">默认 2D 仍可尝试使用；若需 3D，请检查 static 下 three.min.js 与 3d-force-graph.min.js。</div>";
+}
 
 var BUDGET_3D=500, BUDGET_2D=1500;
 var FPS_TARGET=30, FPS_EXPAND=34, FPS_SHRINK=24;
@@ -343,6 +548,7 @@ var VIEW_MODES={
   raw:{label:"Raw",primary:null,desc:"原始全量数据"}
 };
 var currentViewMode="function";
+var lastEvalReport=null,evalRerenderTimer=null;
 
 var COLOR_SCHEMES={
   github:{function:"#58a6ff",structure:"#3fb950",enum:"#d29922",callback:"#bc8cff",macro:"#f78166",constant:"#8b949e",typedef:"#79c0ff",method:"#d2a8ff",ioctl:"#ff7b72",property:"#7ee787",union:"#ffa657",interface:"#a5d6ff",unknown:"#484f58"},
@@ -355,17 +561,17 @@ var COLOR_SCHEMES={
 };
 
 var PRESETS={
-  balanced:{label:"均衡",desc:"默认方案",scheme:"github",nodeMul:1.0,nodeOp:0.85,edgeOp:0.45,edgeW:0.35,edgeHW:2.0,edgeBase:"#8899aa",hlColor:"#58a6ff",linkDist:25,charge:-10,bg:"#0d1117"},
-  edgeFocus:{label:"边聚焦",desc:"加粗边，缩小节点",scheme:"muted",nodeMul:0.55,nodeOp:0.6,edgeOp:0.75,edgeW:0.8,edgeHW:3.0,edgeBase:"#6699cc",hlColor:"#ffdd57",linkDist:30,charge:-15,bg:"#0a0e14"},
-  nodeFocus:{label:"节点聚焦",desc:"放大节点，弱化边",scheme:"vivid",nodeMul:1.6,nodeOp:0.95,edgeOp:0.12,edgeW:0.1,edgeHW:1.5,edgeBase:"#445566",hlColor:"#58a6ff",linkDist:35,charge:-20,bg:"#0d1117"},
-  highContrast:{label:"高对比",desc:"纯黑背景+高亮色",scheme:"bright",nodeMul:1.1,nodeOp:1.0,edgeOp:0.8,edgeW:0.55,edgeHW:2.5,edgeBase:"#aabbcc",hlColor:"#ff4444",linkDist:25,charge:-12,bg:"#000000"},
-  minimal:{label:"极简",desc:"柔和色调+留白",scheme:"pastel",nodeMul:0.5,nodeOp:0.5,edgeOp:0.15,edgeW:0.08,edgeHW:1.0,edgeBase:"#334455",hlColor:"#88bbff",linkDist:50,charge:-35,bg:"#0a0e14"},
-  neon:{label:"霓虹",desc:"赛博朋克",scheme:"neon",nodeMul:0.85,nodeOp:1.0,edgeOp:0.55,edgeW:0.45,edgeHW:2.5,edgeBase:"#6633ff",hlColor:"#ff00ff",linkDist:28,charge:-12,bg:"#050510"},
-  dense:{label:"密集",desc:"极小节点+紧密",scheme:"mono",nodeMul:0.3,nodeOp:0.7,edgeOp:0.2,edgeW:0.08,edgeHW:1.0,edgeBase:"#556677",hlColor:"#58a6ff",linkDist:10,charge:-3,bg:"#0d1117"}
+  balanced:{label:"均衡",desc:"默认方案",scheme:"github",nodeMul:1.0,nodeOp:0.85,edgeOp:0.45,edgeW:0.35,edgeHW:2.0,edgeBase:"#8899aa",hlColor:"#58a6ff",linkDist:42,charge:-38,bg:"#0d1117"},
+  edgeFocus:{label:"边聚焦",desc:"加粗边，缩小节点",scheme:"muted",nodeMul:0.55,nodeOp:0.6,edgeOp:0.75,edgeW:0.8,edgeHW:3.0,edgeBase:"#6699cc",hlColor:"#ffdd57",linkDist:38,charge:-42,bg:"#0a0e14"},
+  nodeFocus:{label:"节点聚焦",desc:"放大节点，弱化边",scheme:"vivid",nodeMul:1.6,nodeOp:0.95,edgeOp:0.12,edgeW:0.1,edgeHW:1.5,edgeBase:"#445566",hlColor:"#58a6ff",linkDist:48,charge:-52,bg:"#0d1117"},
+  highContrast:{label:"高对比",desc:"纯黑背景+高亮色",scheme:"bright",nodeMul:1.1,nodeOp:1.0,edgeOp:0.8,edgeW:0.55,edgeHW:2.5,edgeBase:"#aabbcc",hlColor:"#ff4444",linkDist:40,charge:-36,bg:"#000000"},
+  minimal:{label:"极简",desc:"柔和色调+留白",scheme:"pastel",nodeMul:0.5,nodeOp:0.5,edgeOp:0.15,edgeW:0.08,edgeHW:1.0,edgeBase:"#334455",hlColor:"#88bbff",linkDist:58,charge:-48,bg:"#0a0e14"},
+  neon:{label:"霓虹",desc:"赛博朋克",scheme:"neon",nodeMul:0.85,nodeOp:1.0,edgeOp:0.55,edgeW:0.45,edgeHW:2.5,edgeBase:"#6633ff",hlColor:"#ff00ff",linkDist:40,charge:-34,bg:"#050510"},
+  dense:{label:"密集",desc:"极小节点+紧密",scheme:"mono",nodeMul:0.3,nodeOp:0.7,edgeOp:0.2,edgeW:0.08,edgeHW:1.0,edgeBase:"#556677",hlColor:"#58a6ff",linkDist:16,charge:-12,bg:"#0d1117"}
 };
 
 var myGraph=null, allNodes=[], allLinks=[], nodeIndex={};
-var selectedNode=null, highlightNodes=new Set(), highlightLinks=new Set();
+var selectedNode=null, highlightNodes=new Set(), highlightLinks=new Set(), highlightNodeIds=new Set(), highlightLinkKeys=new Set();
 var minDegree=0, userMinDegree=0, is3D=false;
 var memLimitMB=512, autoThrottleActive=false, lastSystemMem=null;
 var currentPresetKey="balanced", currentPreset=PRESETS.balanced;
@@ -373,9 +579,170 @@ var currentScheme=COLOR_SCHEMES[currentPreset.scheme];
 var edgeOpacity=currentPreset.edgeOp, nodeSizeMul=currentPreset.nodeMul, edgeWidth=currentPreset.edgeW;
 var progressiveTimer=null, isProgressing=false, simDone=false;
 var perfTestRunning=false, perfResultUntil=0;
-var autoRefreshBusy=false, AUTO_REFRESH_MS=10000;
+var autoRefreshBusy=false, AUTO_REFRESH_MS=0;
+var isFetchingGraph=false;
+var treeRootViewEnabled=false;
+var treeRootLocked=false;
+var treeLayoutRootId=null;
+var treeDepthMap={};
+var treeAnimating=false;
+var treeAnimFrame=0;
+var TREE_LABEL_DEPTH=3;
+var TREE_FADE_NODE_THRESHOLD=56;
+var treeAnimLinkMul=1;
+
+var THEME_STORAGE_KEY="graph-viewer-theme";
+var LLM_INSIGHT_STORAGE_KEY="graph-viewer-llm-insight";
+var llmInsightEnabled=false;
+function effectiveThemeIsLight(){
+  var t=document.documentElement.getAttribute("data-theme")||"system";
+  if(t==="light")return true;
+  if(t==="dark")return false;
+  try{return window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches;}catch(e){return false;}
+}
+function getThemeGraphBg(){
+  var p=currentPreset||PRESETS.balanced;
+  if(effectiveThemeIsLight()){
+    var v=(typeof getComputedStyle!=="undefined")?getComputedStyle(document.documentElement).getPropertyValue("--graph-canvas-bg").trim():"";
+    return v||"#f6f8fa";
+  }
+  return p.bg;
+}
+/** 画布清屏色（略透明，透出下层高斯光晕景深） */
+function getGraphDepthClearColor(){
+  return effectiveThemeIsLight()?"rgba(246,248,250,0.4)":"rgba(13,17,23,0.42)";
+}
+var graphDepthParallaxTid=null;
+function scheduleGraphDepthParallaxUpdate(){
+  if(graphDepthParallaxTid)return;
+  graphDepthParallaxTid=setTimeout(function(){
+    graphDepthParallaxTid=null;
+    updateGraphDepthParallax();
+  },95);
+}
+function updateGraphDepthParallax(){
+  var el=document.getElementById("graph-depth-bg");
+  if(!el||!myGraph)return;
+  var d=myGraph.graphData();
+  if(!d||!d.nodes||!d.nodes.length)return;
+  var sx=0,sy=0,c=0;
+  d.nodes.forEach(function(n){
+    if(n.x===undefined||!isFinite(n.x)||n.y===undefined||!isFinite(n.y))return;
+    sx+=n.x;sy+=n.y;c++;
+  });
+  if(!c)return;
+  sx/=c;sy/=c;
+  var spr=108+Math.min(150,Math.floor(d.nodes.length/22));
+  var fx=50+(sx/spr)*30;
+  var fy=46+(sy/spr)*26;
+  fx=Math.max(15,Math.min(85,fx));
+  fy=Math.max(13,Math.min(81,fy));
+  el.style.setProperty("--depth-fx",fx+"%");
+  el.style.setProperty("--depth-fy",fy+"%");
+  var zm=1;
+  if(!is3D&&typeof myGraph.zoom==="function"){
+    var k=myGraph.zoom();
+    zm=0.8+Math.min(0.38,0.24*Math.log(Math.max(0.28,k)));
+  }else if(is3D){
+    var cam=myGraph.camera(),ctr=myGraph.controls();
+    if(cam&&ctr&&ctr.target){
+      var dx=cam.position.x-ctr.target.x,dy=cam.position.y-ctr.target.y,dz=cam.position.z-ctr.target.z;
+      var dist=Math.sqrt(dx*dx+dy*dy+dz*dz)||1;
+      zm=0.76+Math.min(0.45,0.12*Math.log(Math.max(25,dist)/55));
+    }
+  }
+  zm=Math.max(0.72,Math.min(1.42,zm));
+  el.style.setProperty("--depth-zoom-mul",String(zm));
+}
+function graphMutedNodeColor(){
+  var v=(typeof getComputedStyle!=="undefined")?getComputedStyle(document.documentElement).getPropertyValue("--graph-muted-node").trim():"";
+  return v||"#21262d";
+}
+function syncGraphCanvasTheme(){
+  if(!myGraph)return;
+  refreshGraphStyle();
+  if(is3D&&myGraph.refresh)myGraph.refresh();
+}
+function applyGraphTheme(mode){
+  if(mode!=="dark"&&mode!=="light"&&mode!=="system")mode="system";
+  document.documentElement.setAttribute("data-theme",mode);
+  try{localStorage.setItem(THEME_STORAGE_KEY,mode);}catch(e){}
+  if(!myGraph)return;
+  if(is3D&&treeRootViewEnabled&&treeLayoutRootId){
+    var sel=selectedNode;
+    var cur=myGraph.graphData();
+    if(cur){cur.nodes.forEach(function(n){if(nodeIndex[n.id]){nodeIndex[n.id].x=n.x;nodeIndex[n.id].y=n.y;nodeIndex[n.id].z=n.z||0;}});}
+    destroyGraph();createGraph();
+    if(sel)setTimeout(function(){selectNode(sel);},80);
+  }else{
+    syncGraphCanvasTheme();
+  }
+}
+function onSystemColorSchemeChange(){
+  if((document.documentElement.getAttribute("data-theme")||"system")!=="system")return;
+  if(!myGraph)return;
+  if(is3D&&treeRootViewEnabled&&treeLayoutRootId){
+    var sel=selectedNode;
+    var cur=myGraph.graphData();
+    if(cur){cur.nodes.forEach(function(n){if(nodeIndex[n.id]){nodeIndex[n.id].x=n.x;nodeIndex[n.id].y=n.y;nodeIndex[n.id].z=n.z||0;}});}
+    destroyGraph();createGraph();
+    if(sel)setTimeout(function(){selectNode(sel);},80);
+  }else{
+    syncGraphCanvasTheme();
+  }
+}
+function initThemeUi(){
+  var sel=document.getElementById("theme-select");
+  if(!sel)return;
+  var stored=null;
+  try{stored=localStorage.getItem(THEME_STORAGE_KEY);}catch(e){}
+  var cur=document.documentElement.getAttribute("data-theme")||(stored&&stored!=="null"?stored:"dark");
+  if(cur!=="dark"&&cur!=="light"&&cur!=="system")cur="dark";
+  document.documentElement.setAttribute("data-theme",cur);
+  sel.value=cur;
+  sel.addEventListener("change",function(){applyGraphTheme(this.value);});
+  if(window.matchMedia){
+    var mq=window.matchMedia("(prefers-color-scheme: light)");
+    if(mq.addEventListener)mq.addEventListener("change",onSystemColorSchemeChange);
+    else if(mq.addListener)mq.addListener(onSystemColorSchemeChange);
+  }
+}
+function initLlmInsightUi(){
+  var chk=document.getElementById("chk-llm-insight");
+  if(!chk)return;
+  var stored=null;
+  try{stored=localStorage.getItem(LLM_INSIGHT_STORAGE_KEY);}catch(e){}
+  llmInsightEnabled=stored==="1"||stored==="true";
+  chk.checked=llmInsightEnabled;
+  chk.addEventListener("change",function(e){
+    llmInsightEnabled=e.target.checked;
+    try{localStorage.setItem(LLM_INSIGHT_STORAGE_KEY,llmInsightEnabled?"1":"0");}catch(err){}
+    if(!llmInsightEnabled){hideLlmDialog();clearLlmPanel();}
+    else if(selectedNode)loadLlmContextForNode(selectedNode);
+  });
+}
 
 function getColor(t){return currentScheme[t]||currentScheme.unknown||"#484f58";}
+
+/**
+ * 画布箭头语义：调用者 → 被调用者；容器/父 → 成员/子（大 → 小）。
+ * 数据里常见「子 belongs_to / member_of 父」写成 source=子,target=父，显示时交换为 父→子。
+ */
+var EDGE_SWAP_FOR_DISPLAY=new Set([
+  "member_of","belongs_to","belongs_to_header","belongs_to_domain",
+  "extends","implements","implements_interface","subtype_of","part_of","child_of"
+]);
+function orientEdgeForDisplay(src,tgt,edgeType){
+  var rawEt=edgeType!=null&&edgeType!==""?String(edgeType):"unknown";
+  var et=rawEt.toLowerCase();
+  if(EDGE_SWAP_FOR_DISPLAY.has(et))
+    return{source:tgt,target:src,edgeType:rawEt};
+  return{source:src,target:tgt,edgeType:rawEt};
+}
+function linkFromApiEdge(e){
+  var t=(e.attributes&&e.attributes.type)!=null?e.attributes.type:((e.type!=null)?e.type:"unknown");
+  return orientEdgeForDisplay(e.source,e.target,t);
+}
 function getBudget(){return is3D?BUDGET_3D:BUDGET_2D;}
 
 /* ══ FPS ══ */
@@ -401,17 +768,197 @@ document.addEventListener("wheel",function(){lastInteraction=performance.now();}
 function isUserActive(){if(document.hidden)return false;if(performance.now()-graphReadyAt<8000)return false;return performance.now()-lastInteraction<5000||!simDone;}
 
 function adaptiveQuality(){
-  if(!myGraph||isProgressing||perfTestRunning||!isUserActive()||!simDone)return;
+  if(!myGraph||isProgressing||perfTestRunning||treeAnimating||treeLayoutRootId||!isUserActive()||!simDone)return;
   if(fpsHistory.length<3)return;var avg=getAvgFPS();if(avg<3)return;
-  if(avg<FPS_SHRINK){var step=avg<8?10:avg<15?5:avg<20?3:2;var next=Math.min(minDegree+step,50);if(next!==minDegree){minDegree=next;userMinDegree=next;document.getElementById("degree-slider").value=next;document.getElementById("degree-val").textContent=next;applyFilter();}}
+  if(avg<FPS_SHRINK){var step=avg<8?10:avg<15?5:avg<20?3:2;var next=Math.min(minDegree+step,50);if(next!==minDegree){var dv=document.getElementById("degree-val");animateNumberSpan(parseInt(dv.textContent,10)||0,next,dv,320,"deg-ui");minDegree=next;userMinDegree=next;document.getElementById("degree-slider").value=next;applyFilter();}}
   else if(!calibrationDone&&simDone&&avg>=FPS_TARGET){calibrationDone=true;if(minDegree>0)startProgressiveReveal(0);}
 }
 
 /* ══ Helpers ══ */
-function updateHint(){document.getElementById("controls-hint").innerHTML=is3D?"Left-drag: Rotate | Right-drag: Pan | Scroll: Zoom":"Drag: Pan | Scroll: Zoom | Click: Select";}
+function escHtml(s){if(s==null||s===undefined)return"";return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function updateHint(){
+  var base=is3D?"Left-drag: Rotate | Right-drag: Pan | Scroll: Zoom":"Drag: Pan | Scroll: Zoom | Click: Select";
+  var tr=treeRootViewEnabled?" | 树形根:开":"";
+  document.getElementById("controls-hint").innerHTML=base+tr;
+}
 function updateBadge(){var b=document.getElementById("mode-badge");b.textContent=is3D?"3D":"2D";b.className="mode-badge "+(is3D?"is3d":"is2d");}
-function api(path,opts){opts=opts||{};return fetch(path,{headers:{"Content-Type":"application/json"},method:opts.method||"GET",body:opts.body}).then(function(r){if(!r.ok)return r.text().then(function(t){throw new Error(t);});return r.json();});}
-function setProgress(pct){document.getElementById("progress-fill").style.width=Math.min(100,pct)+"%";}
+function api(path,opts){
+  opts=opts||{};
+  var ctrl,tid;
+  if(opts.timeoutMs&&typeof AbortController!=="undefined"){
+    ctrl=new AbortController();
+    tid=setTimeout(function(){try{ctrl.abort();}catch(e){}},opts.timeoutMs);
+  }
+  return fetch(path,{headers:{"Content-Type":"application/json"},method:opts.method||"GET",body:opts.body,signal:ctrl?ctrl.signal:undefined}).then(function(r){
+    if(tid)clearTimeout(tid);
+    if(!r.ok)return r.text().then(function(t){throw new Error(t);});
+    return r.json();
+  }).catch(function(e){
+    if(tid)clearTimeout(tid);
+    if(e&&e.name==="AbortError")throw new Error("请求超时 ("+Math.round((opts.timeoutMs||0)/1000)+"s): "+path);
+    throw e;
+  });
+}
+
+/* ══ 全局三次贝塞尔缓动（与 CSS --ease-bez 控制点一致）══ */
+var UI_BEZ_X1=0.22,UI_BEZ_Y1=0.85,UI_BEZ_X2=0.32,UI_BEZ_Y2=1;
+function cubicBezierEasing(t,x1,y1,x2,y2){
+  if(t<=0)return 0;if(t>=1)return 1;
+  function sx(u){var w=1-u;return 3*w*w*u*x1+3*w*u*u*x2+u*u*u;}
+  function sy(u){var w=1-u;return 3*w*w*u*y1+3*w*u*u*y2+u*u*u;}
+  var lo=0,hi=1,i;
+  for(i=0;i<16;i++){var mid=(lo+hi)/2;if(sx(mid)<t)lo=mid;else hi=mid;}
+  return sy((lo+hi)/2);
+}
+function cubicBezierUI(t){return cubicBezierEasing(t,UI_BEZ_X1,UI_BEZ_Y1,UI_BEZ_X2,UI_BEZ_Y2);}
+
+var countAnimRafs={};
+function animateNumberSpan(from,to,spanEl,ms,rafKey){
+  if(!spanEl)return;
+  from=+from;if(!isFinite(from))from=0;
+  to=+to;if(!isFinite(to))to=0;
+  if(from===to){spanEl.textContent=to.toLocaleString();return;}
+  if(countAnimRafs[rafKey]){cancelAnimationFrame(countAnimRafs[rafKey]);countAnimRafs[rafKey]=0;}
+  var t0=performance.now();
+  function tick(now){
+    var u=Math.min(1,(now-t0)/(ms||400));
+    var e=cubicBezierUI(u);
+    var v=Math.round(from+(to-from)*e);
+    spanEl.textContent=v.toLocaleString();
+    if(u<1)countAnimRafs[rafKey]=requestAnimationFrame(tick);
+    else{countAnimRafs[rafKey]=0;spanEl.textContent=to.toLocaleString();}
+  }
+  countAnimRafs[rafKey]=requestAnimationFrame(tick);
+}
+var lastStatNodes=-1,lastStatEdges=-1,lastStatVis=-1;
+function updateStatsBarNumbers(nodesN,edgesN,visN,ms){
+  ms=ms||440;
+  var sn=document.getElementById("stat-nodes-val");
+  var se=document.getElementById("stat-edges-val");
+  var sv=document.getElementById("stat-visible-val");
+  if(lastStatNodes<0){
+    lastStatNodes=nodesN;lastStatEdges=edgesN;lastStatVis=visN;
+    if(sn)sn.textContent=nodesN.toLocaleString();
+    if(se)se.textContent=edgesN.toLocaleString();
+    if(sv)sv.textContent=visN.toLocaleString();
+    return;
+  }
+  animateNumberSpan(lastStatNodes,nodesN,sn,ms,"st-n");
+  animateNumberSpan(lastStatEdges,edgesN,se,ms,"st-e");
+  animateNumberSpan(lastStatVis,visN,sv,ms,"st-v");
+  lastStatNodes=nodesN;lastStatEdges=edgesN;lastStatVis=visN;
+}
+var STATS_POLL_MS=25000;
+function pollStatsFromServer(){
+  api("/api/stats",{timeoutMs:8000}).then(function(r){
+    var nodesN=typeof r.total_entities==="number"?r.total_entities:lastStatNodes>=0?lastStatNodes:0;
+    var edgesN=typeof r.total_edges==="number"?r.total_edges:lastStatEdges>=0?lastStatEdges:0;
+    var d=currentViewMode==="raw"?buildFilteredData():buildViewData();
+    var visN=d.nodes.length;
+    updateStatsBarNumbers(nodesN,edgesN,visN,380);
+  }).catch(function(){});
+}
+
+var graphCamRaf=0;
+function cancelGraphCamAnim(){if(graphCamRaf){cancelAnimationFrame(graphCamRaf);graphCamRaf=0;}}
+function tweenGraphZoom2d(k1,ms){
+  if(!myGraph||is3D)return;
+  cancelGraphCamAnim();
+  var k0=myGraph.zoom();
+  if(Math.abs(k0-k1)<1e-4)return;
+  var t0=performance.now();
+  function tick(now){
+    var u=Math.min(1,(now-t0)/(ms||800));
+    var e=cubicBezierUI(u);
+    myGraph.zoom(k0+(k1-k0)*e,0);
+    if(u<1)graphCamRaf=requestAnimationFrame(tick);
+    else{graphCamRaf=0;scheduleGraphDepthParallaxUpdate();}
+  }
+  graphCamRaf=requestAnimationFrame(tick);
+}
+function tweenGraphCamera3d(ex,ey,ez,lx,ly,lz,ms){
+  if(!myGraph||!is3D)return;
+  cancelGraphCamAnim();
+  var cam=myGraph.camera();
+  if(!cam)return;
+  var sx=cam.position.x,sy=cam.position.y,sz=cam.position.z;
+  var ctr=myGraph.controls();
+  var t0=performance.now();
+  function tick(now){
+    var u=Math.min(1,(now-t0)/(ms||800));
+    var e=cubicBezierUI(u);
+    cam.position.set(sx+(ex-sx)*e,sy+(ey-sy)*e,sz+(ez-sz)*e);
+    cam.updateMatrixWorld();
+    if(ctr){if(ctr.target)ctr.target.set(lx,ly,lz);if(ctr.update)ctr.update();}
+    if(myGraph.refresh)myGraph.refresh();
+    if(u<1)graphCamRaf=requestAnimationFrame(tick);
+    else{graphCamRaf=0;scheduleGraphDepthParallaxUpdate();}
+  }
+  graphCamRaf=requestAnimationFrame(tick);
+}
+/** 2D：同时贝塞尔插值视图中心与缩放，便于树形根视图收束后框住整棵树 */
+function tweenGraphCenterZoom2d(cx0,cy0,cx1,cy1,k0,k1,ms){
+  if(!myGraph||is3D)return;
+  cancelGraphCamAnim();
+  var t0=performance.now();
+  function tick(now){
+    var u=Math.min(1,(now-t0)/(ms||900));
+    var e=cubicBezierUI(u);
+    var cx=cx0+(cx1-cx0)*e,cy=cy0+(cy1-cy0)*e,k=k0+(k1-k0)*e;
+    myGraph.centerAt(cx,cy,0);
+    myGraph.zoom(k,0);
+    if(u<1)graphCamRaf=requestAnimationFrame(tick);
+    else{graphCamRaf=0;scheduleGraphDepthParallaxUpdate();}
+  }
+  graphCamRaf=requestAnimationFrame(tick);
+}
+
+var memUiAnimRaf=0,lastMemPctShown=-1;
+function memBarColorForPct(p){
+  return p<60?"var(--success)":p<85?"var(--warn)":"var(--danger)";
+}
+function animateMemBarAndText(targetPct,targetMB,ms){
+  var fill=document.getElementById("mem-fill");
+  var txt=document.getElementById("mem-text");
+  if(!fill)return;
+  targetPct=Math.max(0,Math.min(100,+targetPct||0));
+  targetMB=+targetMB||0;
+  if(memUiAnimRaf){cancelAnimationFrame(memUiAnimRaf);memUiAnimRaf=0;}
+  var p0=lastMemPctShown>=0?lastMemPctShown:0;
+  var m0=0;
+  if(txt)try{m0=parseFloat(String(txt.textContent).split("MB")[0])||0;}catch(e){m0=0;}
+  var t0=performance.now();
+  function tick(now){
+    var u=Math.min(1,(now-t0)/(ms||520));
+    var e=cubicBezierUI(u);
+    var p=Math.round(p0+(targetPct-p0)*e);
+    var mb=m0+(targetMB-m0)*e;
+    fill.style.width=p+"%";
+    fill.style.background=memBarColorForPct(p);
+    if(txt)txt.textContent=Math.round(mb)+"MB / "+memLimitMB+"MB";
+    if(u<1)memUiAnimRaf=requestAnimationFrame(tick);
+    else{memUiAnimRaf=0;fill.style.width=targetPct+"%";fill.style.background=memBarColorForPct(targetPct);if(txt)txt.textContent=Math.round(targetMB)+"MB / "+memLimitMB+"MB";lastMemPctShown=targetPct;}
+  }
+  memUiAnimRaf=requestAnimationFrame(tick);
+}
+
+function getViewDatasetAtMinDegree(md){
+  var prev=minDegree;
+  minDegree=md;
+  try{return currentViewMode==="raw"?buildFilteredData():buildViewData();}
+  finally{minDegree=prev;}
+}
+function parseLocaleInt(s){return parseInt(String(s||"").replace(/,/g,""),10)||0;}
+function updateNodeLoadFooter(){
+  var sub=document.getElementById("nlf-sub");
+  if(!sub)return;
+  if(allNodes.length===0){
+    sub.textContent=isFetchingGraph?"正在从服务器加载图谱数据…":"暂无数据";
+    return;
+  }
+  if(myGraph&&!simDone){sub.textContent="力导向布局模拟中，节点位置仍在收敛…";}
+  else{sub.textContent="";}
+}
 function renderPresetDesc(){
   var p=currentPreset,scheme=COLOR_SCHEMES[p.scheme],tags="";
   ["function","structure","enum","callback","macro"].forEach(function(k){tags+="<span class='tag' style='background:"+scheme[k]+";color:#000;font-weight:600'>"+k+"</span>";});
@@ -439,100 +986,831 @@ function computeIndirectEdges(visSet,primaryTypes){
 }
 function calcInitialMinDegree(){var vm=VIEW_MODES[currentViewMode];var pool=vm.primary?allNodes.filter(function(n){return vm.primary.has(n.entityType);}):allNodes;var budget=getBudget();if(pool.length<=budget)return 0;var sorted=pool.slice().sort(function(a,b){return b.degree-a.degree;});return Math.max(1,sorted[Math.min(budget,sorted.length-1)].degree);}
 function buildFilteredData(){var nodes=allNodes.filter(function(n){return n.degree>=minDegree;});var visSet=new Set(nodes.map(function(n){return n.id;}));var links=allLinks.filter(function(l){var s=typeof l.source==="object"?l.source.id:l.source;var t=typeof l.target==="object"?l.target.id:l.target;return visSet.has(s)&&visSet.has(t);});return{nodes:nodes,links:links};}
-function applyFilter(){if(!myGraph)return;var d=currentViewMode==="raw"?buildFilteredData():buildViewData();myGraph.graphData(d);updateVisibleStats(d);}
-function updateVisibleStats(d){document.getElementById("stat-visible").textContent="Visible: "+d.nodes.length.toLocaleString();}
+/** 与主视图相同的可见子图内，按边计无向度数，取 Top N（含 via:* 合成边） */
+function computeViewTopConnected(limit){
+  limit=limit||20;
+  if(!allNodes||!allNodes.length)return[];
+  var d=currentViewMode==="raw"?buildFilteredData():buildViewData();
+  var nodeSet=new Set(d.nodes.map(function(n){return n.id;}));
+  var deg={};
+  d.nodes.forEach(function(n){deg[n.id]=0;});
+  (d.links||[]).forEach(function(l){
+    var s=typeof l.source==="object"?l.source.id:l.source;
+    var t=typeof l.target==="object"?l.target.id:l.target;
+    if(!nodeSet.has(s)||!nodeSet.has(t))return;
+    if(deg[s]!==undefined)deg[s]++;
+    if(deg[t]!==undefined)deg[t]++;
+  });
+  var arr=d.nodes.map(function(n){return{name:n.id,type:n.entityType,degree:deg[n.id]||0};});
+  arr.sort(function(a,b){return b.degree-a.degree;});
+  return arr.length<=limit?arr:arr.slice(0,limit);
+}
+/** 获取节点在可见子图内的邻居，按度数降序，最多 limit 个 */
+function getNeighborsOfNode(nodeId,limit){
+  limit=limit||5;
+  if(!allNodes||!nodeIndex[nodeId])return[];
+  var d=currentViewMode==="raw"?buildFilteredData():buildViewData();
+  var nodeSet=new Set(d.nodes.map(function(n){return n.id;}));
+  if(!nodeSet.has(nodeId))return[];
+  var deg={};
+  d.nodes.forEach(function(n){deg[n.id]=0;});
+  (d.links||[]).forEach(function(l){
+    var s=typeof l.source==="object"?l.source.id:l.source;
+    var t=typeof l.target==="object"?l.target.id:l.target;
+    if(!nodeSet.has(s)||!nodeSet.has(t))return;
+    if(deg[s]!==undefined)deg[s]++;
+    if(deg[t]!==undefined)deg[t]++;
+  });
+  var adj=new Map();
+  (d.links||[]).forEach(function(l){
+    var s=typeof l.source==="object"?l.source.id:l.source;
+    var t=typeof l.target==="object"?l.target.id:l.target;
+    if(!nodeSet.has(s)||!nodeSet.has(t))return;
+    if(s===nodeId||t===nodeId){var o=s===nodeId?t:s;if(nodeIndex[o])adj.set(o,deg[o]||0);}
+  });
+  var arr=[];
+  adj.forEach(function(dg,id){arr.push({name:id,type:(nodeIndex[id]&&nodeIndex[id].entityType)||"unknown",degree:dg});});
+  arr.sort(function(a,b){return b.degree-a.degree;});
+  return arr.length<=limit?arr:arr.slice(0,limit);
+}
+function scheduleEvalRerenderIfOpen(){
+  if(!document.getElementById("modal-eval").classList.contains("show")||!lastEvalReport)return;
+  clearTimeout(evalRerenderTimer);
+  evalRerenderTimer=setTimeout(function(){
+    evalRerenderTimer=null;
+    if(document.getElementById("modal-eval").classList.contains("show")&&lastEvalReport)renderEval(lastEvalReport);
+  },400);
+}
+function applyFilter(){
+  if(!myGraph)return;
+  if(treeLayoutRootId)releaseTreeGeometryOnly();
+  var d=currentViewMode==="raw"?buildFilteredData():buildViewData();
+  if(selectedNode&&!d.nodes.some(function(n){return n.id===selectedNode;}))deselectNode();
+  if(selectedNode){
+    var pinNode=d.nodes.filter(function(n){return n.id===selectedNode;})[0];
+    if(pinNode&&pinNode.x!==undefined){
+      pinNode.fx=pinNode.x;
+      pinNode.fy=pinNode.y;
+      pinNode.fz=pinNode.z||0;
+    }
+  }
+  myGraph.graphData(d);
+  refreshGraphStyle();
+  updateVisibleStats(d);
+  updateNodeLoadFooter();
+  scheduleEvalRerenderIfOpen();
+  if(selectedNode){
+    var node=nodeIndex[selectedNode];
+    if(node){
+      highlightNodes.clear();
+      highlightLinks.clear();
+      highlightNodeIds.clear();
+      highlightLinkKeys.clear();
+      highlightNodes.add(node);
+      highlightNodeIds.add(selectedNode);
+      var cur=myGraph.graphData();
+      cur.links.forEach(function(l){
+        var sId=l.source.id||l.source,tId=l.target.id||l.target;
+        if(sId===selectedNode||tId===selectedNode){
+          highlightLinks.add(l);
+          highlightLinkKeys.add(linkKey(l));
+          var oId=sId===selectedNode?tId:sId;
+          highlightNodeIds.add(oId);
+          if(nodeIndex[oId])highlightNodes.add(nodeIndex[oId]);
+        }
+      });
+      refreshGraphStyle();
+      if(node.x!==undefined){
+        if(is3D){
+          var camD=80;
+          tweenGraphCamera3d(node.x+camD,node.y+camD*0.5,node.z+camD,node.x,node.y,node.z,880);
+        }else{
+          myGraph.centerAt(node.x,node.y,0);
+          tweenGraphZoom2d(6,780);
+        }
+      }
+    }
+  }
+  scheduleGraphDepthParallaxUpdate();
+}
+function updateVisibleStats(d){
+  var v=d.nodes.length;
+  var sv=document.getElementById("stat-visible-val");
+  if(!sv)return;
+  if(lastStatVis<0){sv.textContent=v.toLocaleString();lastStatVis=v;return;}
+  animateNumberSpan(lastStatVis,v,sv,360,"st-v");
+  lastStatVis=v;
+}
 function recalcNodeVals(){allNodes.forEach(function(n){n.color=getColor(n.entityType);n.val=Math.max(0.3,Math.log2(n.degree+1)*0.4)*nodeSizeMul;});}
 
+/* ══ Tree root view (BFS 分层 + 空间三次贝塞尔 + 时间轴 cubicBezierUI) ══ */
+function cubicBezierScalar(t,p0,p1,p2,p3){var u=1-t;return u*u*u*p0+3*u*u*t*p1+3*u*t*t*p2+t*t*t*p3;}
+function bezierControlPoint3D(a,b){
+  var mx=(a.x+b.x)/2,my=(a.y+b.y)/2,mz=((a.z||0)+(b.z||0))/2;
+  var dx=b.x-a.x,dy=b.y-a.y,dz=(b.z||0)-(a.z||0);
+  var len=Math.sqrt(dx*dx+dy*dy+dz*dz)||1;
+  var bend=(Math.abs(dx)+Math.abs(dy)+Math.abs(dz)+100)*0.22;
+  var px=-dy/len*bend,py=dx/len*bend,pz=dz*0.12;
+  return{p1:{x:a.x+dx*0.34+px,y:a.y+dy*0.34+py,z:(a.z||0)+dz*0.34+pz},p2:{x:b.x-dx*0.34+px,y:b.y-dy*0.34+py,z:(b.z||0)-dz*0.34+pz}};
+}
+function buildAdjUndirected(data){
+  var adj=new Map();
+  function add(u,v){if(!adj.has(u))adj.set(u,new Set());if(!adj.has(v))adj.set(v,new Set());adj.get(u).add(v);adj.get(v).add(u);}
+  data.links.forEach(function(l){var s=l.source.id||l.source,t=l.target.id||l.target;if(s&&t)add(s,t);});
+  return adj;
+}
+function computeTreeDepthLayers(rootId,adj,visibleSet){
+  var depth={},q=[rootId];
+  depth[rootId]=0;
+  for(var qi=0;qi<q.length;qi++){
+    var u=q[qi],nb=adj.get(u);
+    if(!nb)continue;
+    nb.forEach(function(v){
+      if(!visibleSet.has(v)||depth[v]!==undefined)return;
+      depth[v]=depth[u]+1;q.push(v);
+    });
+  }
+  var maxD=0;
+  visibleSet.forEach(function(id){if(depth[id]!==undefined)maxD=Math.max(maxD,depth[id]);});
+  var orphanL=maxD+1;
+  visibleSet.forEach(function(id){if(depth[id]===undefined)depth[id]=orphanL;});
+  var layers={};
+  visibleSet.forEach(function(id){var d=depth[id];if(!layers[d])layers[d]=[];layers[d].push(id);});
+  var maxLayer=0;
+  Object.keys(layers).forEach(function(k){maxLayer=Math.max(maxLayer,parseInt(k,10)||0);});
+  return{depth:depth,layers:layers,maxD:maxLayer};
+}
+function computeTargetPositionsTree(layers,container){
+  var W=Math.min((container&&container.offsetWidth||800)*0.9,960);
+  var H=Math.min((container&&container.offsetHeight||600)*0.84,640);
+  var maxD=0;
+  Object.keys(layers).forEach(function(k){maxD=Math.max(maxD,parseInt(k,10)||0);});
+  var layerGap=Math.max(58,Math.min(96,H/Math.max(maxD+1,1)));
+  var targets={};
+  var rootY=is3D?H/2-48:-H/2+48;
+  var minNodeSpacing=is3D?48:42;
+  for(var d=0;d<=maxD;d++){
+    if(!layers[d])continue;
+    var ids=layers[d].slice().sort();
+    var n=ids.length;
+    var y=is3D?rootY-d*layerGap:rootY+d*layerGap;
+    var availableWidth=W*0.95;
+    var requiredWidth=n*minNodeSpacing;
+    var spacing=requiredWidth<=availableWidth?minNodeSpacing:Math.max(minNodeSpacing*0.6,availableWidth/Math.max(n,1));
+    for(var i=0;i<n;i++){
+      var x=(i-(n-1)/2)*spacing;
+      targets[ids[i]]={x:x,y:y,z:is3D?d*68:0};
+    }
+  }
+  return targets;
+}
+function capturePositionsMap(nodes){
+  var m={};
+  nodes.forEach(function(n){m[n.id]={x:n.x||0,y:n.y||0,z:n.z||0};});
+  return m;
+}
+function updateTreeLockButtonVisibility(){
+  var btn=document.getElementById("btn-tree-unlock");
+  if(btn)btn.classList.toggle("visible",!!(treeRootViewEnabled&&treeLayoutRootId&&treeRootLocked));
+}
+function releaseTreeGeometryOnly(){
+  if(treeAnimFrame){cancelAnimationFrame(treeAnimFrame);treeAnimFrame=0;}
+  treeAnimating=false;
+  treeLayoutRootId=null;
+  treeDepthMap={};
+  treeAnimLinkMul=1;
+  treeRootLocked=false;
+  updateTreeLockButtonVisibility();
+  if(!myGraph)return;
+  var d=myGraph.graphData();
+  d.nodes.forEach(function(n){n.fx=n.fy=n.fz=undefined;delete n._treeFade;});
+  applySimulationForces(myGraph);
+  if(myGraph.resumeAnimation)myGraph.resumeAnimation();
+  if(myGraph.d3ReheatSimulation)myGraph.d3ReheatSimulation();
+  refreshGraphStyle();
+}
+function makeTreeLabelSprite(node){
+  if(typeof THREE==="undefined")return null;
+  if(!treeRootViewEnabled||!treeLayoutRootId)return null;
+  var dep=treeDepthMap[node.id];
+  if(dep===undefined||dep>TREE_LABEL_DEPTH||node.id===treeLayoutRootId)return null;
+  var text=String(node.name||node.id||"").slice(0,44);
+  var c=document.createElement("canvas"),ctx=c.getContext("2d");
+  ctx.font="bold 26px system-ui,sans-serif";
+  var tw=Math.min(900,Math.ceil(ctx.measureText(text).width)+20);
+  c.width=tw;c.height=44;
+  ctx.font="bold 26px system-ui,sans-serif";
+  if(effectiveThemeIsLight()){
+    ctx.fillStyle="rgba(255,255,255,0.96)";
+    ctx.strokeStyle="rgba(9,105,218,0.85)";
+  }else{
+    ctx.fillStyle="rgba(13,17,23,0.94)";
+    ctx.strokeStyle="rgba(88,166,255,0.9)";
+  }
+  ctx.lineWidth=2;
+  ctx.fillRect(0,0,tw,44);
+  ctx.strokeRect(1,1,tw-2,42);
+  ctx.fillStyle=effectiveThemeIsLight()?"#1f2328":"#e6edf3";
+  ctx.fillText(text,10,30);
+  var tex=new THREE.CanvasTexture(c);
+  tex.needsUpdate=true;
+  var mat=new THREE.SpriteMaterial({map:tex,depthTest:false,transparent:true,opacity:0.98});
+  var sp=new THREE.Sprite(mat);
+  sp.scale.set(tw*0.11,44*0.11,1);
+  sp.position.set(0,-(Math.sqrt(node.val||1)*2+8),0);
+  return sp;
+}
+function runTreeLayoutFromRoot(rootId){
+  if(!treeRootViewEnabled||!myGraph)return;
+  var data=myGraph.graphData();
+  var has=false;
+  data.nodes.forEach(function(n){if(n.id===rootId)has=true;});
+  if(!has)return;
+  if(treeAnimFrame){cancelAnimationFrame(treeAnimFrame);treeAnimFrame=0;}
+  cancelGraphCamAnim();
+  var visibleSet=new Set(data.nodes.map(function(n){return n.id;}));
+  var adj=buildAdjUndirected(data);
+  var pack=computeTreeDepthLayers(rootId,adj,visibleSet);
+  treeDepthMap=pack.depth;
+  treeLayoutRootId=rootId;
+  var container=document.getElementById("graph-3d");
+  var targets=computeTargetPositionsTree(pack.layers,container);
+  var starts=capturePositionsMap(data.nodes);
+  var bez={};
+  data.nodes.forEach(function(n){
+    var s=starts[n.id]||{x:0,y:0,z:0};
+    var e=targets[n.id]||s;
+    var c=bezierControlPoint3D(s,e);
+    bez[n.id]={p0:s,p1:c.p1,p2:c.p2,p3:e};
+  });
+  var N=data.nodes.length;
+  var useFade=N>=TREE_FADE_NODE_THRESHOLD;
+  var T_MOVE0=useFade?0.2:0;
+  var T_MOVE1=useFade?0.86:1;
+  var TOT=useFade?1560:1040;
+  var moveMs=Math.max(380,Math.round(TOT*(T_MOVE1-T_MOVE0)));
+  var minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity,minZ=0,maxZ=0;
+  Object.keys(targets).forEach(function(id){
+    var t=targets[id];
+    minX=Math.min(minX,t.x);maxX=Math.max(maxX,t.x);
+    minY=Math.min(minY,t.y);maxY=Math.max(maxY,t.y);
+    var zz=t.z||0;minZ=Math.min(minZ,zz);maxZ=Math.max(maxZ,zz);
+  });
+  if(!isFinite(minX)){minX=maxX=minY=maxY=0;minZ=maxZ=0;}
+  var tcx=(minX+maxX)/2,tcy=(minY+maxY)/2,tcz=(minZ+maxZ)/2;
+  var spanY=Math.max(96,maxY-minY+120);
+  var spanX=Math.max(96,maxX-minX+100);
+  var ch=container.offsetHeight||540,cw=container.offsetWidth||800;
+  var k0=!is3D&&myGraph.zoom?myGraph.zoom():1;
+  var k1=Math.min(7.2,Math.max(0.42,Math.min(cw*0.44/(spanX*4.2+1),ch*0.5/(spanY*4.2+1))));
+  var sRoot=starts[rootId]||{x:0,y:0,z:0};
+  if(!is3D)tweenGraphCenterZoom2d(sRoot.x,sRoot.y,tcx,tcy,k0,k1,moveMs);
+  else{
+    var camD=Math.max(100,Math.min(240,spanY*1.1+spanX*0.55));
+    tweenGraphCamera3d(tcx+camD*0.78,tcy+camD*0.52,tcz+camD,tcx,tcy,tcz,moveMs);
+  }
+  treeAnimating=true;
+  treeAnimLinkMul=1;
+  myGraph.d3Force("charge").strength(0);
+  myGraph.d3Force("link").distance(38);
+  if(myGraph.pauseAnimation)myGraph.pauseAnimation();
+  var t0=performance.now();
+  function tick(now){
+    var u=Math.min(1,(now-t0)/TOT);
+    var mul=1,linkMul=1,posK;
+    if(useFade){
+      if(u<T_MOVE0){
+        var fe=cubicBezierUI(u/Math.max(1e-6,T_MOVE0));
+        mul=linkMul=1-fe*(1-0.07);
+        posK=0;
+      }else if(u<=T_MOVE1){
+        mul=linkMul=0.07;
+        posK=cubicBezierUI((u-T_MOVE0)/Math.max(1e-6,T_MOVE1-T_MOVE0));
+      }else{
+        var fi=cubicBezierUI((u-T_MOVE1)/Math.max(1e-6,1-T_MOVE1));
+        mul=linkMul=0.07+fi*(1-0.07);
+        posK=1;
+      }
+    }else{
+      posK=cubicBezierUI(u);
+    }
+    treeAnimLinkMul=linkMul;
+    var needsStyleRefresh=false;
+    var frameCount=Math.floor((now-t0)/16.67);
+    data.nodes.forEach(function(n){
+      var B=bez[n.id];
+      if(!B)return;
+      var fd=mul;
+      if(n.id===rootId&&useFade&&u>=T_MOVE0&&u<T_MOVE1)fd=Math.max(fd,0.38);
+      var oldFade=n._treeFade;
+      n._treeFade=fd;
+      if(oldFade!==fd)needsStyleRefresh=true;
+      if(useFade&&u<T_MOVE0){
+        n.x=B.p0.x;n.y=B.p0.y;n.z=B.p0.z||0;
+      }else{
+        n.x=cubicBezierScalar(posK,B.p0.x,B.p1.x,B.p2.x,B.p3.x);
+        n.y=cubicBezierScalar(posK,B.p0.y,B.p1.y,B.p2.y,B.p3.y);
+        n.z=cubicBezierScalar(posK,B.p0.z||0,B.p1.z||0,B.p2.z||0,B.p3.z||0);
+      }
+    });
+    if(needsStyleRefresh||frameCount%8===0)refreshGraphStyle();
+    if(u<1)treeAnimFrame=requestAnimationFrame(tick);
+    else{
+      treeAnimFrame=0;
+      treeAnimating=false;
+      treeAnimLinkMul=1;
+      treeRootLocked=true;
+      updateTreeLockButtonVisibility();
+      data.nodes.forEach(function(n){
+        delete n._treeFade;
+        var e=targets[n.id];
+        if(e){n.x=e.x;n.y=e.y;n.z=e.z||0;n.fx=e.x;n.fy=e.y;if(is3D)n.fz=e.z||0;}
+        else{n.fx=n.x;n.fy=n.y;if(is3D)n.fz=n.z||0;}
+      });
+      refreshGraphStyle();
+      if(myGraph.resumeAnimation)myGraph.resumeAnimation();
+      if(is3D&&myGraph.refresh)myGraph.refresh();
+      scheduleGraphDepthParallaxUpdate();
+    }
+  }
+  treeAnimFrame=requestAnimationFrame(tick);
+}
+
 /* ══ Progressive reveal ══ */
-function startProgressiveReveal(td){stopProgressiveReveal();if(minDegree<=td)return;isProgressing=true;var total=minDegree-td;progressiveTimer=setInterval(function(){if(minDegree<=td){stopProgressiveReveal();return;}var avg=getAvgFPS();if(avg<FPS_SHRINK){userMinDegree=minDegree;stopProgressiveReveal();return;}if(avg<FPS_EXPAND)return;minDegree=Math.max(td,minDegree-PROGRESSIVE_STEP);document.getElementById("degree-slider").value=minDegree;document.getElementById("degree-val").textContent=minDegree;setProgress(Math.round((total-(minDegree-td))/total*100));applyFilter();},PROGRESSIVE_INTERVAL);}
-function stopProgressiveReveal(){if(progressiveTimer){clearInterval(progressiveTimer);progressiveTimer=null;}isProgressing=false;setProgress(100);setTimeout(function(){setProgress(0);},800);}
+function startProgressiveReveal(td){stopProgressiveReveal();if(minDegree<=td)return;isProgressing=true;updateNodeLoadFooter();progressiveTimer=setInterval(function(){if(minDegree<=td){stopProgressiveReveal();return;}var avg=getAvgFPS();if(avg<FPS_SHRINK){userMinDegree=minDegree;stopProgressiveReveal();return;}if(avg<FPS_EXPAND)return;var prevD=minDegree;minDegree=Math.max(td,minDegree-PROGRESSIVE_STEP);var dv=document.getElementById("degree-val");animateNumberSpan(prevD,minDegree,dv,360,"deg-ui");document.getElementById("degree-slider").value=minDegree;applyFilter();updateNodeLoadFooter();},PROGRESSIVE_INTERVAL);}
+function stopProgressiveReveal(){if(progressiveTimer){clearInterval(progressiveTimer);progressiveTimer=null;}isProgressing=false;updateNodeLoadFooter();}
+
+/* ══ 滚轮缩放（时间轴 cubicBezierUI），2D/3D ══ */
+var WHEEL_ZOOM_MS=340,WHEEL_ZOOM_SENS=0.0018;
+var graphWheelState={raf2d:null,raf3d:null,anim2d:null,anim3d:null,installed:false};
+function cancelSmoothWheelZoom(){
+  if(graphWheelState.raf2d){cancelAnimationFrame(graphWheelState.raf2d);graphWheelState.raf2d=null;}
+  if(graphWheelState.raf3d){cancelAnimationFrame(graphWheelState.raf3d);graphWheelState.raf3d=null;}
+  graphWheelState.anim2d=null;
+  graphWheelState.anim3d=null;
+}
+function tickWheelZoom2d(ts){
+  var a=graphWheelState.anim2d;
+  if(!a||!myGraph||is3D){graphWheelState.raf2d=null;return;}
+  var u=Math.min(1,(ts-a.t0)/WHEEL_ZOOM_MS);
+  var e=cubicBezierUI(u);
+  var k=a.k0+(a.k1-a.k0)*e;
+  myGraph.zoom(k,0);
+  if(u<1)graphWheelState.raf2d=requestAnimationFrame(tickWheelZoom2d);
+  else{graphWheelState.raf2d=null;graphWheelState.anim2d=null;scheduleGraphDepthParallaxUpdate();}
+}
+function tickWheelZoom3d(ts){
+  var a=graphWheelState.anim3d;
+  if(!a||!myGraph||!is3D){graphWheelState.raf3d=null;return;}
+  var cam=myGraph.camera();
+  if(!cam){graphWheelState.raf3d=null;return;}
+  var u=Math.min(1,(ts-a.t0)/WHEEL_ZOOM_MS);
+  var e=cubicBezierUI(u);
+  var d=a.d0+(a.d1-a.d0)*e;
+  cam.position.set(a.tx+a.dx*d,a.ty+a.dy*d,a.tz+a.dz*d);
+  cam.updateMatrixWorld();
+  var ctr=myGraph.controls();
+  if(ctr&&ctr.update)ctr.update();
+  if(is3D&&myGraph.refresh)myGraph.refresh();
+  if(u<1)graphWheelState.raf3d=requestAnimationFrame(tickWheelZoom3d);
+  else{graphWheelState.raf3d=null;graphWheelState.anim3d=null;scheduleGraphDepthParallaxUpdate();}
+}
+function queueWheelZoom2d(kEnd){
+  if(!myGraph||is3D)return;
+  var now=performance.now();
+  var k=myGraph.zoom();
+  if(graphWheelState.anim2d&&graphWheelState.raf2d){
+    var u=Math.min(1,(now-graphWheelState.anim2d.t0)/WHEEL_ZOOM_MS);
+    var e=cubicBezierUI(u);
+    k=graphWheelState.anim2d.k0+(graphWheelState.anim2d.k1-graphWheelState.anim2d.k0)*e;
+    cancelAnimationFrame(graphWheelState.raf2d);
+    graphWheelState.raf2d=null;
+  }
+  kEnd=Math.max(myGraph.minZoom(),Math.min(myGraph.maxZoom(),kEnd));
+  graphWheelState.anim2d={k0:k,k1:kEnd,t0:now};
+  graphWheelState.raf2d=requestAnimationFrame(tickWheelZoom2d);
+}
+function queueWheelZoom3d(distEnd){
+  if(!myGraph||!is3D)return;
+  var cam=myGraph.camera();
+  var ctr=myGraph.controls();
+  if(!cam||!ctr||!ctr.target)return;
+  var tx=ctr.target.x,ty=ctr.target.y,tz=ctr.target.z;
+  var px=cam.position.x,py=cam.position.y,pz=cam.position.z;
+  var ox=px-tx,oy=py-ty,oz=pz-tz;
+  var dist=Math.sqrt(ox*ox+oy*oy+oz*oz);
+  if(dist<1e-6)return;
+  var now=performance.now();
+  var dx,dy,dz;
+  if(graphWheelState.anim3d&&graphWheelState.raf3d){
+    var u=Math.min(1,(now-graphWheelState.anim3d.t0)/WHEEL_ZOOM_MS);
+    var e=cubicBezierUI(u);
+    dist=graphWheelState.anim3d.d0+(graphWheelState.anim3d.d1-graphWheelState.anim3d.d0)*e;
+    dx=graphWheelState.anim3d.dx;dy=graphWheelState.anim3d.dy;dz=graphWheelState.anim3d.dz;
+    cancelAnimationFrame(graphWheelState.raf3d);
+    graphWheelState.raf3d=null;
+  }else{
+    dx=ox/dist;dy=oy/dist;dz=oz/dist;
+  }
+  distEnd=Math.max(25,Math.min(12000,distEnd));
+  graphWheelState.anim3d={d0:dist,d1:distEnd,t0:now,tx:tx,ty:ty,tz:tz,dx:dx,dy:dy,dz:dz};
+  graphWheelState.raf3d=requestAnimationFrame(tickWheelZoom3d);
+}
+function onGraphWheelZoom(e){
+  if(!myGraph)return;
+  var gc=document.getElementById("graph-3d");
+  if(!gc||!gc.contains(e.target))return;
+  e.preventDefault();
+  var factor=Math.exp(-e.deltaY*WHEEL_ZOOM_SENS);
+  if(is3D){
+    var cam=myGraph.camera();
+    var ctr=myGraph.controls();
+    if(!cam||!ctr||!ctr.target)return;
+    var tx=ctr.target.x,ty=ctr.target.y,tz=ctr.target.z;
+    var px=cam.position.x,py=cam.position.y,pz=cam.position.z;
+    var ox=px-tx,oy=py-ty,oz=pz-tz;
+    var dist=Math.sqrt(ox*ox+oy*oy+oz*oz)||1;
+    queueWheelZoom3d(dist*factor);
+  }else{
+    var k=myGraph.zoom();
+    queueWheelZoom2d(k*factor);
+  }
+}
+function ensureGraphWheelListener(){
+  if(graphWheelState.installed)return;
+  var gc=document.getElementById("graph-3d");
+  if(!gc)return;
+  gc.addEventListener("wheel",onGraphWheelZoom,{passive:false});
+  graphWheelState.installed=true;
+}
 
 /* ══ Graph creation ══ */
+function linkKey(l){var s=l.source.id||l.source,t=l.target.id||l.target;return s+"|"+t+"|"+(l.edgeType||"");}
+function linkStrokeColor(l,p){
+  if(highlightLinks.has(l)||highlightLinkKeys.has(linkKey(l)))return p.hlColor;
+  var lm=(typeof treeAnimLinkMul==="number"&&treeAnimLinkMul<0.999)?Math.max(0,Math.min(1,treeAnimLinkMul)):1;
+  if(l._synthetic){var hex=Math.round(edgeOpacity*0.5*255*lm).toString(16).padStart(2,"0");return"#667788"+hex;}
+  var hex2=Math.round(edgeOpacity*255*lm).toString(16).padStart(2,"0");return p.edgeBase+hex2;
+}
+function linkDirectionalArrowLen(l){
+  if(l._synthetic)return 0;
+  var et=String(l.edgeType||"").toLowerCase();
+  if(et.indexOf("via:")===0)return 0;
+  if(et==="semantically_related"||et==="related_to"||et==="associated_with"||et==="similar_to")return 0;
+  return is3D?4.5:6.0;
+}
+/** 具名 accessor：勿用 myGraph.nodeColor(myGraph.nodeColor())，部分版本会返回链式对象导致卡死/异常 */
+function graphNodeColorAccessor(n){
+  var muted=graphMutedNodeColor();
+  if(highlightNodeIds.size>0||highlightNodes.size>0)return (highlightNodeIds.has(n.id)||highlightNodes.has(n))?n.color:muted;
+  return n.color;
+}
+function graphLinkColorAccessor(l){return linkStrokeColor(l,currentPreset);}
+function graphLinkArrowColorAccessor(l){return linkStrokeColor(l,currentPreset);}
+function graphLinkWidthAccessor(l){
+  var p=currentPreset;
+  return highlightLinks.has(l)||highlightLinkKeys.has(linkKey(l))?p.edgeHW:l._synthetic?edgeWidth*0.5:edgeWidth;
+}
+/** 与 nodeRelSize / 3D 球半径一致，并加 padding，供 d3.forceCollide 使用 */
+function nodeCollisionRadius(n){
+  var rel=is3D?5.2:4;
+  if(treeAnimating&&typeof n._treeFade==="number")rel*=Math.max(0.15,Math.min(1,n._treeFade));
+  var pad=is3D?10:7;
+  return Math.sqrt(Math.max(0.01,n.val||1))*rel+pad;
+}
+function tree2dNodeRelSize(n){
+  var b=4;
+  if(treeAnimating&&typeof n._treeFade==="number")return Math.max(0.04,b*n._treeFade);
+  return b;
+}
+function applySimulationForces(g){
+  var p=currentPreset;
+  var linkDist=p.linkDist*(is3D?1.32:1);
+  var charge=p.charge*(is3D?1.12:1);
+  var distMax=is3D?340:240;
+  var ch=g.d3Force("charge");
+  if(ch&&typeof ch.strength==="function"){
+    ch.strength(charge);
+    if(typeof ch.distanceMax==="function")ch.distanceMax(distMax);
+  }
+  var lk=g.d3Force("link");
+  if(lk&&typeof lk.distance==="function")lk.distance(linkDist);
+  if(typeof d3!=="undefined"&&typeof d3.forceCollide==="function"){
+    g.d3Force("collide",d3.forceCollide(nodeCollisionRadius).strength(is3D?0.72:0.9).iterations(is3D?1:2));
+  }
+}
 function configureGraph(g,container){
   var p=currentPreset;simDone=false;var initData=currentViewMode==="raw"?buildFilteredData():buildViewData();
-  g.graphData(initData).backgroundColor(p.bg).nodeVal("val")
-    .nodeColor(function(n){if(highlightNodes.size>0)return highlightNodes.has(n)?n.color:"#21262d";return n.color;})
+  g.graphData(initData).backgroundColor(getGraphDepthClearColor()).nodeVal("val")
+    .nodeColor(graphNodeColorAccessor)
     .nodeLabel(function(n){return"<b style='color:"+n.color+"'>"+n.name+"</b><br>["+n.entityType+"] deg:"+n.degree;})
-    .linkColor(function(l){if(highlightLinks.has(l))return p.hlColor;if(l._synthetic){var hex=Math.round(edgeOpacity*0.5*255).toString(16).padStart(2,"0");return"#667788"+hex;}var hex2=Math.round(edgeOpacity*255).toString(16).padStart(2,"0");return p.edgeBase+hex2;})
-    .linkWidth(function(l){return highlightLinks.has(l)?p.edgeHW:l._synthetic?edgeWidth*0.5:edgeWidth;})
+    .linkColor(graphLinkColorAccessor)
+    .linkDirectionalArrowLength(linkDirectionalArrowLen)
+    .linkDirectionalArrowRelPos(0.95)
+    .linkDirectionalArrowColor(graphLinkArrowColorAccessor)
+    .linkWidth(graphLinkWidthAccessor)
     .onNodeHover(function(n){container.style.cursor=n?"pointer":"default";}).onLinkHover(null)
     .onNodeClick(function(n){if(n)selectNode(n.id);})
-    .onBackgroundClick(function(){deselectNode();hideFloatDetail();})
-    .warmupTicks(0).cooldownTicks(60).d3AlphaDecay(0.08).d3VelocityDecay(0.4)
-    .onEngineStop(function(){simDone=true;fpsHistory=[];});
-  g.d3Force("charge").strength(p.charge).distanceMax(120);g.d3Force("link").distance(p.linkDist);return g;
+    .onBackgroundClick(function(){if(floatDetailMaximized||llmDialogMaximized)return;deselectNode();hideFloatDetail();})
+    .warmupTicks(0).cooldownTicks(100).d3AlphaDecay(0.065).d3VelocityDecay(0.38)
+    .onEngineStop(function(){simDone=true;fpsHistory=[];updateNodeLoadFooter();scheduleGraphDepthParallaxUpdate();});
+  applySimulationForces(g);return g;
+}
+function resizeGraph(){
+  if(!myGraph)return;
+  var container=document.getElementById("graph-3d");
+  var w=container.offsetWidth,h=container.offsetHeight;
+  if(w<=0||h<=0){
+    var parent=container.parentElement;
+    if(parent){w=parent.offsetWidth||w;h=parent.offsetHeight||h;}
+    if(w<=0||h<=0){w=window.innerWidth||800;h=window.innerHeight||600;}
+  }
+  if(w>0&&h>0){myGraph.width(w);myGraph.height(h);if(is3D&&myGraph.refresh)myGraph.refresh();}
+  scheduleGraphDepthParallaxUpdate();
 }
 function createGraph(){
   var container=document.getElementById("graph-3d");container.innerHTML="";var p=currentPreset;fpsHistory=[];
-  if(is3D){myGraph=ForceGraph3D()(container);configureGraph(myGraph,container);myGraph.nodeOpacity(p.nodeOp).nodeResolution(4).linkOpacity(1.0).enableNavigationControls(true).linkHoverPrecision(0).linkDirectionalParticles(0);}
-  else{myGraph=ForceGraph()(container);configureGraph(myGraph,container);myGraph.nodeRelSize(4).linkDirectionalParticles(0).linkLabel(function(l){var s=l.source.id||l.source,t=l.target.id||l.target;return s+" \u2192 "+t+"<br>["+l.edgeType+"]";}).nodeCanvasObjectMode(function(){return"after";}).nodeCanvasObject(function(node,ctx,globalScale){if(globalScale>4&&node.degree>=15){var r=Math.sqrt(node.val||1)*2+2;ctx.font=Math.max(2.5,10/globalScale)+"px sans-serif";ctx.fillStyle="rgba(230,237,243,0.7)";ctx.textAlign="center";ctx.fillText(node.name,node.x,node.y+r+8/globalScale);}});}
-  updateHint();updateBadge();updateVisibleStats(currentViewMode==="raw"?buildFilteredData():buildViewData());
+  if(is3D&&(typeof ForceGraph3D==="undefined"||typeof THREE==="undefined")){is3D=false;updateBadge();updateHint();}
+  if(treeAnimFrame){cancelAnimationFrame(treeAnimFrame);treeAnimFrame=0;}
+  treeAnimating=false;
+  if(is3D){myGraph=ForceGraph3D()(container);resizeGraph();configureGraph(myGraph,container);var nodeOpVal=p.nodeOp||0.85;if(nodeOpVal<=0||nodeOpVal>1)nodeOpVal=0.85;myGraph.nodeOpacity(nodeOpVal).nodeResolution(4).linkOpacity(1.0).enableNavigationControls(true).linkHoverPrecision(0).linkDirectionalParticles(0);if(typeof myGraph.nodeRelSize==="function"){myGraph.nodeRelSize(function(n){return Math.sqrt(Math.max(0.01,n.val||1))*5.2;});}var _ctr=myGraph.controls();if(_ctr&&_ctr.zoomSpeed!==undefined)_ctr.zoomSpeed=0;if(typeof myGraph.nodeThreeObjectExtend==="function"&&treeRootViewEnabled&&treeLayoutRootId){myGraph.nodeThreeObjectExtend(function(node){return makeTreeLabelSprite(node);});}}
+  else{myGraph=ForceGraph()(container);configureGraph(myGraph,container);if(typeof myGraph.enableZoomInteraction==="function")myGraph.enableZoomInteraction(false);myGraph.nodeRelSize(tree2dNodeRelSize).linkDirectionalParticles(0).linkLabel(function(l){var s=l.source.id||l.source,t=l.target.id||l.target;return s+" \u2192 "+t+"<br>["+l.edgeType+"]";}).nodeCanvasObjectMode(function(){return"replace";}).nodeCanvasObject(function(node,ctx,globalScale){
+    var r=Math.sqrt(Math.max(0.01,node.val||1))*tree2dNodeRelSize(node);
+    var isHighlighted=highlightNodeIds.has(node.id)||highlightNodes.has(node);
+    var fillColor=(highlightNodeIds.size>0||highlightNodes.size>0)&&!isHighlighted?graphMutedNodeColor():node.color;
+    ctx.fillStyle=fillColor;
+    ctx.beginPath();
+    ctx.arc(node.x,node.y,r,0,2*Math.PI);
+    ctx.fill();
+    if(isHighlighted){
+      ctx.strokeStyle=node.color;
+      ctx.lineWidth=Math.max(1,2/globalScale);
+      ctx.stroke();
+    }
+    var showTreeLbl=treeRootViewEnabled&&treeLayoutRootId&&treeDepthMap[node.id]!==undefined&&treeDepthMap[node.id]<=TREE_LABEL_DEPTH&&node.id!==treeLayoutRootId&&node.x!==undefined;
+    if(showTreeLbl){
+      var fs=Math.max(5,11/globalScale);
+      ctx.font="600 "+fs+"px system-ui,sans-serif";
+      ctx.textAlign="center";
+      var txt=String(node.name||"").slice(0,42);
+      var m=ctx.measureText(txt),pad=4/globalScale,h=fs+4/globalScale,w=m.width+pad*2;
+      var px=node.x,py=node.y+r+fs/globalScale+2;
+      if(effectiveThemeIsLight()){
+        ctx.fillStyle="rgba(255,255,255,0.94)";
+        ctx.strokeStyle="rgba(9,105,218,0.82)";
+      }else{
+        ctx.fillStyle="rgba(13,17,23,0.92)";
+        ctx.strokeStyle="rgba(88,166,255,0.88)";
+      }
+      ctx.lineWidth=Math.max(1,1.5/globalScale);
+      ctx.beginPath();
+      if(typeof ctx.roundRect==="function")ctx.roundRect(px-w/2,py-h,w,h,3/globalScale);
+      else ctx.rect(px-w/2,py-h,w,h);
+      ctx.fill();ctx.stroke();
+      ctx.fillStyle=effectiveThemeIsLight()?"#1f2328":"#e6edf3";
+      ctx.fillText(txt,px,py-2/globalScale);
+    }
+    if(!treeRootViewEnabled&&globalScale>4&&node.degree>=15){var r2=Math.sqrt(node.val||1)*2+2;ctx.font=Math.max(2.5,10/globalScale)+"px sans-serif";ctx.fillStyle=effectiveThemeIsLight()?"rgba(31,35,40,0.72)":"rgba(230,237,243,0.7)";ctx.textAlign="center";ctx.fillText(node.name,node.x,node.y+r2+8/globalScale);}
+  }).nodePointerAreaPaint(function(node,color,ctx){var r=Math.sqrt(Math.max(0.01,node.val||1))*tree2dNodeRelSize(node);ctx.fillStyle=color;ctx.beginPath();ctx.arc(node.x,node.y,r,0,2*Math.PI);ctx.fill();});}
+  requestAnimationFrame(function(){resizeGraph();});
+  setTimeout(function(){resizeGraph();if(is3D&&myGraph&&myGraph.refresh)myGraph.refresh();refreshGraphStyle();},100);
+  ensureGraphWheelListener();
+  updateHint();updateBadge();updateVisibleStats(currentViewMode==="raw"?buildFilteredData():buildViewData());updateNodeLoadFooter();
 }
-function destroyGraph(){if(myGraph){if(myGraph._destructor)myGraph._destructor();else document.getElementById("graph-3d").innerHTML="";myGraph=null;}}
-function switchMode(){stopProgressiveReveal();var cur=myGraph?myGraph.graphData():null;if(cur){cur.nodes.forEach(function(n){if(nodeIndex[n.id]){nodeIndex[n.id].x=n.x;nodeIndex[n.id].y=n.y;nodeIndex[n.id].z=n.z||0;}});}destroyGraph();is3D=!is3D;var nd=calcInitialMinDegree();minDegree=nd;userMinDegree=0;document.getElementById("degree-slider").value=minDegree;document.getElementById("degree-val").textContent=minDegree;calibrationDone=false;fpsHistory=[];createGraph();}
-function switchViewMode(mode){if(mode===currentViewMode)return;currentViewMode=mode;document.querySelectorAll(".view-tab").forEach(function(t){t.classList.toggle("active",t.dataset.mode===mode);});stopProgressiveReveal();hideFloatDetail();deselectNode();var nd=calcInitialMinDegree();minDegree=nd;userMinDegree=0;document.getElementById("degree-slider").value=minDegree;document.getElementById("degree-val").textContent=minDegree;calibrationDone=false;fpsHistory=[];graphReadyAt=performance.now();if(myGraph){var cur=myGraph.graphData();if(cur){cur.nodes.forEach(function(n){if(nodeIndex[n.id]){nodeIndex[n.id].x=n.x;nodeIndex[n.id].y=n.y;nodeIndex[n.id].z=n.z||0;}});}destroyGraph();createGraph();}var vm=VIEW_MODES[mode];document.getElementById("stat-nodes").textContent="Nodes: "+(vm.primary?allNodes.filter(function(n){return vm.primary.has(n.entityType);}).length:allNodes.length).toLocaleString();}
-function applyPreset(key){var p=PRESETS[key];if(!p)return;currentPresetKey=key;currentPreset=p;currentScheme=COLOR_SCHEMES[p.scheme];edgeOpacity=p.edgeOp;nodeSizeMul=p.nodeMul;edgeWidth=p.edgeW;document.getElementById("edge-opacity-slider").value=Math.round(p.edgeOp*100);document.getElementById("edge-opacity-val").textContent=Math.round(p.edgeOp*100)+"%";document.getElementById("node-size-slider").value=Math.round(p.nodeMul*100);document.getElementById("node-size-val").textContent=Math.round(p.nodeMul*100)+"%";document.getElementById("edge-width-slider").value=Math.round(p.edgeW*100);document.getElementById("edge-width-val").textContent=p.edgeW.toFixed(2);recalcNodeVals();renderPresetDesc();if(myGraph){var cur=myGraph.graphData();if(cur){cur.nodes.forEach(function(n){if(nodeIndex[n.id]){nodeIndex[n.id].x=n.x;nodeIndex[n.id].y=n.y;nodeIndex[n.id].z=n.z||0;}});}destroyGraph();createGraph();}}
+function destroyGraph(){cancelSmoothWheelZoom();cancelGraphCamAnim();if(treeAnimFrame){cancelAnimationFrame(treeAnimFrame);treeAnimFrame=0;}treeAnimating=false;if(myGraph){if(myGraph._destructor)myGraph._destructor();else document.getElementById("graph-3d").innerHTML="";myGraph=null;}}
+function switchMode(){stopProgressiveReveal();releaseTreeGeometryOnly();var cur=myGraph?myGraph.graphData():null;if(cur){cur.nodes.forEach(function(n){if(nodeIndex[n.id]){nodeIndex[n.id].x=n.x;nodeIndex[n.id].y=n.y;nodeIndex[n.id].z=n.z||0;}});}destroyGraph();is3D=!is3D;var nd=calcInitialMinDegree();minDegree=nd;userMinDegree=0;document.getElementById("degree-slider").value=minDegree;document.getElementById("degree-val").textContent=minDegree;calibrationDone=false;fpsHistory=[];createGraph();}
+function switchViewMode(mode){if(mode===currentViewMode)return;currentViewMode=mode;document.querySelectorAll(".view-tab").forEach(function(t){t.classList.toggle("active",t.dataset.mode===mode);});stopProgressiveReveal();releaseTreeGeometryOnly();hideFloatDetail();deselectNode();var nd=calcInitialMinDegree();minDegree=nd;userMinDegree=0;document.getElementById("degree-slider").value=minDegree;document.getElementById("degree-val").textContent=minDegree;calibrationDone=false;fpsHistory=[];graphReadyAt=performance.now();if(myGraph){var cur=myGraph.graphData();if(cur){cur.nodes.forEach(function(n){if(nodeIndex[n.id]){nodeIndex[n.id].x=n.x;nodeIndex[n.id].y=n.y;nodeIndex[n.id].z=n.z||0;}});}destroyGraph();createGraph();}var vm=VIEW_MODES[mode];var dvis=currentViewMode==="raw"?buildFilteredData():buildViewData();var poolN=vm.primary?allNodes.filter(function(n){return vm.primary.has(n.entityType);}).length:allNodes.length;updateStatsBarNumbers(poolN,allLinks.length,dvis.nodes.length,420);if(document.getElementById("modal-eval").classList.contains("show")&&lastEvalReport)renderEval(lastEvalReport);}
+function applyPreset(key){var p=PRESETS[key];if(!p)return;currentPresetKey=key;currentPreset=p;currentScheme=COLOR_SCHEMES[p.scheme];edgeOpacity=p.edgeOp;nodeSizeMul=p.nodeMul;edgeWidth=p.edgeW;document.getElementById("edge-opacity-slider").value=Math.round(p.edgeOp*100);document.getElementById("edge-opacity-val").textContent=Math.round(p.edgeOp*100)+"%";document.getElementById("node-size-slider").value=Math.round(p.nodeMul*100);document.getElementById("node-size-val").textContent=Math.round(p.nodeMul*100)+"%";document.getElementById("edge-width-slider").value=Math.round(p.edgeW*100);document.getElementById("edge-width-val").textContent=p.edgeW.toFixed(2);recalcNodeVals();renderPresetDesc();if(myGraph){releaseTreeGeometryOnly();var cur=myGraph.graphData();if(cur){cur.nodes.forEach(function(n){if(nodeIndex[n.id]){nodeIndex[n.id].x=n.x;nodeIndex[n.id].y=n.y;nodeIndex[n.id].z=n.z||0;}});}destroyGraph();createGraph();}}
 
 /* ══ Load ══ */
 function loadGraph(){
+  isFetchingGraph=true;
+  updateNodeLoadFooter();
   document.getElementById("load-text").textContent="Fetching graph data...";
-  return api("/api/graph").then(function(raw){
+  return api("/api/graph",{timeoutMs:180000}).then(function(raw){
+    if(!raw||!Array.isArray(raw.nodes)||!Array.isArray(raw.edges))throw new Error("Invalid /api/graph response");
     document.getElementById("load-text").textContent="Processing "+raw.nodes.length+" nodes...";
     allNodes=raw.nodes.map(function(n){var deg=n.attributes.degree||0,t=n.attributes.type||"unknown";return{id:n.key,name:n.key,entityType:t,degree:deg,file:n.attributes.file||"",description:n.attributes.description||"",color:getColor(t),val:Math.max(0.3,Math.log2(deg+1)*0.4)*nodeSizeMul};});
-    allLinks=raw.edges.map(function(e){return{source:e.source,target:e.target,edgeType:(e.attributes||{}).type||"unknown"};});
+    allLinks=raw.edges.map(linkFromApiEdge);
     nodeIndex={};allNodes.forEach(function(n){nodeIndex[n.id]=n;});
+    isFetchingGraph=false;
+    updateNodeLoadFooter();
     var initDeg=calcInitialMinDegree();minDegree=initDeg;userMinDegree=0;document.getElementById("degree-slider").value=minDegree;document.getElementById("degree-val").textContent=minDegree;renderPresetDesc();
-    setTimeout(function(){calibrationDone=false;graphReadyAt=performance.now();createGraph();document.getElementById("loading").style.display="none";var vm=VIEW_MODES[currentViewMode];document.getElementById("stat-nodes").textContent="Nodes: "+(vm.primary?allNodes.filter(function(n){return vm.primary.has(n.entityType);}).length:allNodes.length).toLocaleString();document.getElementById("stat-edges").textContent="Edges: "+allLinks.length.toLocaleString();},60);
-  });
+    setTimeout(function(){
+      try{
+        if(treeAnimFrame){cancelAnimationFrame(treeAnimFrame);treeAnimFrame=0;}
+        treeAnimating=false;treeLayoutRootId=null;treeDepthMap={};calibrationDone=false;graphReadyAt=performance.now();
+        createGraph();
+        var vm=VIEW_MODES[currentViewMode];var dvis=currentViewMode==="raw"?buildFilteredData():buildViewData();var poolN=vm.primary?allNodes.filter(function(n){return vm.primary.has(n.entityType);}).length:allNodes.length;updateStatsBarNumbers(poolN,allLinks.length,dvis.nodes.length,520);updateNodeLoadFooter();
+        var okLd=document.getElementById("loading");
+        if(okLd)okLd.style.display="none";
+      }catch(err){
+        console.error("createGraph failed",err);
+        var ld=document.getElementById("loading");
+        if(ld)ld.innerHTML="<div style='color:var(--danger);font-size:15px'>画布初始化失败</div><div style='color:var(--text-muted);font-size:12px;margin-top:8px'>"+escHtml(String(err&&err.message||err))+"</div><div style='color:var(--text-muted);font-size:11px;margin-top:10px'>请强制刷新 (Ctrl+Shift+R) 或检查是否可访问 unpkg CDN（Three.js / force-graph）。</div>";
+      }
+    },60);
+  }).catch(function(e){isFetchingGraph=false;updateNodeLoadFooter();throw e;});
 }
 
-/* ══ Float detail ══ */
+loadGraph().catch(function(e){
+  isFetchingGraph=false;
+  updateNodeLoadFooter();
+  var ld=document.getElementById("loading");
+  if(ld)ld.innerHTML="<div style='color:var(--danger);font-size:16px'>Failed to load</div><div style='color:var(--text-muted)'>"+escHtml(String(e&&e.message||e))+"</div>";
+});
+
+/* ══ Float detail + 最大化（最大化时仅标题栏 ✕ / 模态 Cancel·Close 可关）══ */
+var WIN_MAX_SVG='<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="2" y="2" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.25"/></svg>';
+var WIN_REST_SVG='<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="4" y="5" width="7" height="7" rx="0.8" stroke="currentColor" stroke-width="1.25"/><rect x="2" y="2" width="7" height="7" rx="0.8" stroke="currentColor" stroke-width="1.25"/></svg>';
+var floatDetailMaximized=false, llmDialogMaximized=false;
+function syncFloatMaxBtn(){
+  var btn=document.getElementById("float-max");
+  if(!btn)return;
+  btn.innerHTML=floatDetailMaximized?WIN_REST_SVG:WIN_MAX_SVG;
+  btn.title=floatDetailMaximized?"还原":"最大化";
+  btn.setAttribute("aria-pressed",floatDetailMaximized?"true":"false");
+}
+function setFloatDetailMaximized(on){
+  floatDetailMaximized=!!on;
+  var el=document.getElementById("float-detail");
+  if(el)el.classList.toggle("maximized",floatDetailMaximized);
+  syncFloatMaxBtn();
+}
+function syncLlmMaxBtn(){
+  var btn=document.getElementById("llm-max");
+  if(!btn)return;
+  btn.innerHTML=llmDialogMaximized?WIN_REST_SVG:WIN_MAX_SVG;
+  btn.title=llmDialogMaximized?"还原":"最大化";
+  btn.setAttribute("aria-pressed",llmDialogMaximized?"true":"false");
+}
+function setLlmDialogMaximized(on){
+  llmDialogMaximized=!!on;
+  var el=document.getElementById("llm-dialog");
+  if(el)el.classList.toggle("maximized",llmDialogMaximized);
+  syncLlmMaxBtn();
+}
+function syncModalMaxBtn(btn,isMax){
+  if(!btn)return;
+  btn.innerHTML=isMax?WIN_REST_SVG:WIN_MAX_SVG;
+  btn.title=isMax?"还原":"最大化";
+  btn.setAttribute("aria-pressed",isMax?"true":"false");
+}
+function initPanelMaximizeButtons(){
+  syncFloatMaxBtn();
+  syncLlmMaxBtn();
+  document.querySelectorAll(".modal-max-btn").forEach(function(b){syncModalMaxBtn(b,false);});
+}
 function showFloatDetail(){document.getElementById("float-detail").classList.add("show");}
-function hideFloatDetail(){document.getElementById("float-detail").classList.remove("show");}
-function selectNode(name){selectedNode=name;var node=nodeIndex[name];if(!node)return;highlightNodes.clear();highlightLinks.clear();highlightNodes.add(node);var cur=myGraph.graphData();cur.links.forEach(function(l){var sId=l.source.id||l.source,tId=l.target.id||l.target;if(sId===name||tId===name){highlightLinks.add(l);var oId=sId===name?tId:sId;if(nodeIndex[oId])highlightNodes.add(nodeIndex[oId]);}});refreshGraphStyle();if(node.x!==undefined){if(is3D){var d=80;myGraph.cameraPosition({x:node.x+d,y:node.y+d*0.5,z:node.z+d},{x:node.x,y:node.y,z:node.z},1000);}else{myGraph.centerAt(node.x,node.y,800);myGraph.zoom(6,800);}}api("/api/node?name="+encodeURIComponent(name)).then(function(d){renderFloatDetail(d);showFloatDetail();}).catch(function(e){document.getElementById("float-content").innerHTML="<div style='color:var(--danger)'>"+e.message+"</div>";showFloatDetail();});}
-function deselectNode(){selectedNode=null;highlightNodes.clear();highlightLinks.clear();refreshGraphStyle();}
-function refreshGraphStyle(){if(!myGraph)return;myGraph.nodeColor(myGraph.nodeColor());myGraph.linkColor(myGraph.linkColor());myGraph.linkWidth(myGraph.linkWidth());myGraph.linkDirectionalParticles(myGraph.linkDirectionalParticles());}
+function hideFloatDetail(){setFloatDetailMaximized(false);document.getElementById("float-detail").classList.remove("show");}
+function showLlmDialog(){document.getElementById("llm-dialog").classList.add("show");}
+function hideLlmDialog(){setLlmDialogMaximized(false);document.getElementById("llm-dialog").classList.remove("show");}
+function clearLlmPanel(){var llmEl=document.getElementById("llm-content");if(llmEl)llmEl.innerHTML="";}
+function loadLlmContextForNode(name){
+  var llmEl=document.getElementById("llm-content");
+  llmEl.innerHTML="<span class='loading'>加载上下文…</span>";
+  showLlmDialog();
+  fetch("/api/node/context?name="+encodeURIComponent(name)).then(function(r){if(!r.ok)throw new Error(r.statusText);return r.text();}).then(function(txt){var parts=txt.split(/(```[\s\S]*?```)/);var frag=document.createDocumentFragment();parts.forEach(function(p){if(p.startsWith("```")){var pre=document.createElement("pre");pre.textContent=p.replace(/^```\w*\n?|```$/g,"").trim();pre.style.margin="6px 0";frag.appendChild(pre);}else if(p){var div=document.createElement("div");div.textContent=p;div.style.whiteSpace="pre-wrap";div.style.marginBottom="4px";frag.appendChild(div);}});llmEl.innerHTML="";llmEl.appendChild(frag);}).catch(function(e){llmEl.innerHTML="<span style='color:var(--danger)'>"+e.message+"</span>";});
+}
+function selectNode(name){var oldSelected=selectedNode;selectedNode=name;var node=nodeIndex[name];if(!node)return;highlightNodes.clear();highlightLinks.clear();highlightNodeIds.clear();highlightLinkKeys.clear();highlightNodes.add(node);highlightNodeIds.add(name);var cur=myGraph.graphData();cur.links.forEach(function(l){var sId=l.source.id||l.source,tId=l.target.id||l.target;if(sId===name||tId===name){highlightLinks.add(l);highlightLinkKeys.add(linkKey(l));var oId=sId===name?tId:sId;highlightNodeIds.add(oId);if(nodeIndex[oId])highlightNodes.add(nodeIndex[oId]);}});refreshGraphStyle();if(node.x!==undefined){node.fx=node.x;node.fy=node.y;node.fz=node.z||0;if(!treeRootViewEnabled){if(is3D){var camD=80;tweenGraphCamera3d(node.x+camD,node.y+camD*0.5,node.z+camD,node.x,node.y,node.z,880);}else{var oldNode=oldSelected&&oldSelected!==name&&nodeIndex[oldSelected]?nodeIndex[oldSelected]:null;var cx0=oldNode&&oldNode.x!==undefined?oldNode.x:0;var cy0=oldNode&&oldNode.y!==undefined?oldNode.y:0;var k0=myGraph.zoom();tweenGraphCenterZoom2d(cx0,cy0,node.x,node.y,k0,6,720);}}}api("/api/node?name="+encodeURIComponent(name)).then(function(d){renderFloatDetail(d);showFloatDetail();}).catch(function(e){document.getElementById("float-content").innerHTML="<div style='color:var(--danger)'>"+e.message+"</div>";showFloatDetail();});if(llmInsightEnabled)loadLlmContextForNode(name);else{hideLlmDialog();clearLlmPanel();}if(treeRootViewEnabled&&!treeRootLocked)setTimeout(function(){runTreeLayoutFromRoot(name);},40);}
+function deselectNode(){selectedNode=null;highlightNodes.clear();highlightLinks.clear();highlightNodeIds.clear();highlightLinkKeys.clear();if(!treeRootLocked)releaseTreeGeometryOnly();refreshGraphStyle();hideLlmDialog();clearLlmPanel();}
+function unlockTreeRoot(){treeRootLocked=false;releaseTreeGeometryOnly();}
+function refreshGraphStyle(){
+  if(!myGraph)return;
+  myGraph.backgroundColor(getGraphDepthClearColor());
+  myGraph.nodeColor(graphNodeColorAccessor);
+  myGraph.linkColor(graphLinkColorAccessor);
+  myGraph.linkWidth(graphLinkWidthAccessor);
+  myGraph.linkDirectionalParticles(0);
+  if(typeof myGraph.linkDirectionalArrowLength==="function")myGraph.linkDirectionalArrowLength(linkDirectionalArrowLen);
+  if(typeof myGraph.linkDirectionalArrowRelPos==="function")myGraph.linkDirectionalArrowRelPos(0.95);
+  if(typeof myGraph.linkDirectionalArrowColor==="function")myGraph.linkDirectionalArrowColor(graphLinkArrowColorAccessor);
+  if(!is3D&&typeof myGraph.nodeRelSize==="function")myGraph.nodeRelSize(tree2dNodeRelSize);
+  if(is3D&&typeof myGraph.nodeOpacity==="function"){
+    var p=currentPreset||PRESETS.balanced;
+    var isTreeAnim=treeAnimating&&treeLayoutRootId;
+    if(!isTreeAnim){
+      var d=myGraph.graphData();
+      if(d&&d.nodes){
+        d.nodes.forEach(function(n){if(n._treeFade!==undefined)delete n._treeFade;});
+      }
+      var nodeOpVal=p.nodeOp||0.85;
+      if(nodeOpVal<=0||nodeOpVal>1)nodeOpVal=0.85;
+      myGraph.nodeOpacity(nodeOpVal);
+    }else{
+      myGraph.nodeOpacity(function(n){var b=p.nodeOp||0.85;if(typeof n._treeFade==="number")return Math.max(0.02,b*n._treeFade);return b;});
+    }
+  }
+  scheduleGraphDepthParallaxUpdate();
+}
 function renderFloatDetail(d){
   var info=d.info||{},vm=VIEW_MODES[currentViewMode];document.getElementById("float-title").textContent=d.name;
   var h="<div class='detail-row'><span class='label'>Type</span><span class='value'>"+(info.type||"unknown")+"</span></div>";
   h+="<div class='detail-row'><span class='label'>Degree</span><span class='value'>"+d.degree+"</span></div>";
   h+="<div class='detail-row'><span class='label'>File</span><span class='value'>"+(info.file||"-")+"</span></div>";
   if(info.description&&info.description!=="-")h+="<div class='detail-row'><span class='label'>Desc</span><span class='value'>"+info.description+"</span></div>";
+  if(d.ocr){
+    var o=d.ocr;
+    h+="<div class='detail-section ocr-source-block'><h4>OCR 原始文本</h4>";
+    if(o.source_line)h+="<div class='detail-row'><span class='label'>来源行号</span><span class='value'><strong>#"+o.source_line+"</strong>（从 1 计数，与提取时一致）</span></div>";
+    if(o.json_file)h+="<div class='detail-row'><span class='label'>图谱 JSON</span><span class='value'>"+escHtml(o.json_file)+"</span></div>";
+    if(o.stem&&(o.p_filename||o.t_filename)){var fnJoin=[o.p_filename,o.t_filename].filter(Boolean);h+="<div class='detail-row'><span class='label'>OCR 文件名</span><span class='value'>"+escHtml(fnJoin.join(" / "))+"</span></div>";}
+    if(o.context)h+="<div class='ocr-context-wrap'><div style='font-size:10px;color:var(--text-muted);margin-bottom:4px'>原文摘录（当前行标为 &gt;）</div><pre class='ocr-context'>"+escHtml(o.context)+"</pre></div>";
+    if(!o.ocr_dir_ok)h+="<div style='color:var(--warn);font-size:11px;margin-top:6px'>服务器未找到 OCR_raw 目录，请用 <code style='font-size:10px'>--ocr /path/to/OCR_raw</code> 启动 graph_viewer。</div>";
+    else{
+      if(o.has_p_txt)h+="<a class='ocr-dl' href=\"/api/ocr/download?base="+encodeURIComponent(o.stem)+"&variant=p\" download>"+escHtml(o.p_filename||"download.p.txt")+"</a>";
+      if(o.has_t_txt)h+="<a class='ocr-dl' href=\"/api/ocr/download?base="+encodeURIComponent(o.stem)+"&variant=t\" download>"+escHtml(o.t_filename||"download.txt")+"</a>";
+      if(!o.has_p_txt&&!o.has_t_txt)h+="<div style='color:var(--text-muted);font-size:11px;margin-top:6px'>未在 OCR_raw 中找到对应文件（期望 <code>[OCR]_windows-"+escHtml(o.stem)+".p.txt</code> 等）。</div>";
+    }
+    h+="</div>";
+  }
   h+="<div class='float-actions'><button onclick=\"openEditNode('"+d.name.replace(/'/g,"\\'")+"')\">Edit</button><button class='danger' onclick=\"deleteNode('"+d.name.replace(/'/g,"\\'")+"')\">Delete</button></div>";
   if(currentViewMode!=="raw"&&vm.primary){var attrs={},rels=[];(d.edges_out||[]).forEach(function(e){var tn=nodeIndex[e.target];if(tn&&!vm.primary.has(tn.entityType)){var cat=e.type||"related";if(!attrs[cat])attrs[cat]=[];attrs[cat].push({name:e.target,type:tn.entityType});}else{rels.push({dir:"out",name:e.target,type:e.type});}});(d.edges_in||[]).forEach(function(e){var sn=nodeIndex[e.source];if(sn&&!vm.primary.has(sn.entityType)){var cat=e.type||"related";if(!attrs[cat])attrs[cat]=[];attrs[cat].push({name:e.source,type:sn.entityType});}else{rels.push({dir:"in",name:e.source,type:e.type});}});var attrKeys=Object.keys(attrs);if(attrKeys.length){h+="<div class='attr-section'><h4>Attributes</h4>";attrKeys.forEach(function(k){h+="<div style='color:var(--text-muted);font-size:10px;margin-top:4px;text-transform:uppercase'>"+k+"</div>";attrs[k].slice(0,20).forEach(function(a){h+="<div class='attr-item' onclick=\"focusNode('"+a.name.replace(/'/g,"\\'")+"')\"><span>"+a.name+"</span><span class='atype'>"+a.type+"</span></div>";});if(attrs[k].length>20)h+="<div style='color:var(--text-muted);font-size:10px'>...+"+(attrs[k].length-20)+" more</div>";});h+="</div>";}if(rels.length){h+="<div class='attr-section'><h4>Relations ("+rels.length+")</h4><div class='edge-list'>";rels.slice(0,40).forEach(function(r){h+="<div class='edge-item' onclick=\"focusNode('"+r.name.replace(/'/g,"\\'")+"')\"><span>"+(r.dir==="out"?"\u2192":"\u2190")+" "+r.name+"</span><span class='atype'>"+r.type+"</span></div>";});if(rels.length>40)h+="<div style='color:var(--text-muted);font-size:10px'>...+"+(rels.length-40)+" more</div>";h+="</div></div>";}
   }else{if(d.edges_out&&d.edges_out.length){h+="<div class='detail-section'><h4>Out ("+d.edges_out.length+")</h4><div class='edge-list'>";d.edges_out.slice(0,60).forEach(function(e){h+="<div class='edge-item' onclick=\"focusNode('"+e.target.replace(/'/g,"\\'")+"')\"><span>\u2192 "+e.target+"</span><span class='atype'>"+e.type+"</span></div>";});if(d.edges_out.length>60)h+="<div style='color:var(--text-muted);font-size:10px'>..."+(d.edges_out.length-60)+" more</div>";h+="</div></div>";}if(d.edges_in&&d.edges_in.length){h+="<div class='detail-section'><h4>In ("+d.edges_in.length+")</h4><div class='edge-list'>";d.edges_in.slice(0,60).forEach(function(e){h+="<div class='edge-item' onclick=\"focusNode('"+e.source.replace(/'/g,"\\'")+"')\"><span>\u2190 "+e.source+"</span><span class='atype'>"+e.type+"</span></div>";});if(d.edges_in.length>60)h+="<div style='color:var(--text-muted);font-size:10px'>..."+(d.edges_in.length-60)+" more</div>";h+="</div></div>";}}
   document.getElementById("float-content").innerHTML=h;
 }
 
-/* ══ Search ══ */
-function openSearch(){document.getElementById("search-overlay").classList.add("show");document.getElementById("search-input").focus();}
-function closeSearch(){document.getElementById("search-overlay").classList.remove("show");document.getElementById("search-input").value="";document.getElementById("search-results").innerHTML="";}
-var searchTimer;
-function doSearch(){
-  clearTimeout(searchTimer);var q=document.getElementById("search-input").value.trim();
-  if(!q){document.getElementById("search-results").innerHTML="";return;}
-  searchTimer=setTimeout(function(){
-    api("/api/search?q="+encodeURIComponent(q)).then(function(res){
-      var el=document.getElementById("search-results");
-      if(!res||!res.length){el.innerHTML="<div style='padding:12px 16px;color:var(--text-muted);font-size:12px'>No results</div>";return;}
-      var ft=document.getElementById("filter-type").value;
-      var fmd=parseInt(document.getElementById("filter-min-deg").value)||0;
-      var fs=document.getElementById("filter-sort").value;
-      var filtered=res.filter(function(r){return(!ft||r.type===ft)&&r.degree>=fmd;});
-      if(fs==="degree-desc")filtered.sort(function(a,b){return b.degree-a.degree;});
-      else if(fs==="degree-asc")filtered.sort(function(a,b){return a.degree-b.degree;});
-      else if(fs==="name")filtered.sort(function(a,b){return a.name.localeCompare(b.name);});
-      if(!filtered.length){el.innerHTML="<div style='padding:12px 16px;color:var(--text-muted);font-size:12px'>No matches with current filters</div>";return;}
-      el.innerHTML=filtered.slice(0,50).map(function(r){return"<div class='search-item' onclick=\"focusNode('"+r.name.replace(/'/g,"\\'")+"')\"><span>"+r.name+"</span><span class='type-badge'>"+r.type+" ("+r.degree+")</span></div>";}).join("");
-    }).catch(function(){});
-  },200);
+/* ══ Search（全屏树状 Top Connected）══ */
+var searchLoadedCount=20;
+var searchLoadStep=20;
+function openSearch(){
+  document.getElementById("search-overlay").classList.add("show");
+  document.querySelectorAll("#search-view-tabs .view-tab").forEach(function(t){t.classList.toggle("active",t.dataset.mode===currentViewMode);});
+  document.getElementById("search-input").focus();
+  searchLoadedCount=20;
+  renderSearchTree();
 }
+function closeSearch(){document.getElementById("search-overlay").classList.remove("show");document.getElementById("search-input").value="";}
+function searchRowDescHtml(nodeId){
+  function htmlEsc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+  function attrEsc(s){return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");}
+  var n=nodeIndex[nodeId];
+  var full="",display="",empty=true;
+  if(n){
+    var d=(n.description||"").trim();
+    if(d&&d!=="-"&&d.toLowerCase()!=="unknown"){
+      empty=false;
+      full=d;
+      display=d.length>160?d.slice(0,157)+"\u2026":d;
+    }else if((n.file||"").trim()){
+      empty=false;
+      full=(n.file||"").trim();
+      display=full.split(/[/\\]/).pop()||full;
+      if(display.length>160)display=display.slice(0,157)+"\u2026";
+    }
+  }
+  if(empty)display="\u2014";
+  var cls="search-row-desc"+(empty?" search-row-desc--empty":"");
+  var tit=!empty&&full?attrEsc(full):"";
+  return "<span class=\""+cls+"\""+(tit?" title=\""+tit+"\"":"")+">"+htmlEsc(display)+"</span>";
+}
+function searchRowMetaHtml(t,deg){
+  function he(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+  return "<span class='search-row-meta'><span class='type-badge'>["+he(t)+"]</span><span class='deg-badge'>"+he(deg)+"</span></span>";
+}
+function renderSearchTree(){
+  var scrollRoot=document.getElementById("search-results");
+  var el=document.getElementById("search-results-inner");
+  if(!el||!scrollRoot)return;
+  var q=document.getElementById("search-input").value.trim().toLowerCase();
+  var topList=computeViewTopConnected(9999);
+  if(q){topList=topList.filter(function(r){return r.name.toLowerCase().indexOf(q)>=0;});}
+  var shown=topList.slice(0,searchLoadedCount);
+  if(!shown.length){el.innerHTML="<div style='padding:24px;color:var(--text-muted);font-size:13px'>无匹配节点</div>";return;}
+  var html="";
+  function jsEsc(s){return String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,"\\\"");}
+  function htmlEsc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+  shown.forEach(function(r){
+    var neighbors=getNeighborsOfNode(r.name,9999);
+    var hasKids=neighbors.length>0;
+    html+="<div class='search-tree-row l1' onclick=\"focusNode('"+jsEsc(r.name)+"')\">";
+    html+="<span class='node-name'>"+htmlEsc(r.name)+"</span>"+searchRowDescHtml(r.name)+searchRowMetaHtml(r.type,r.degree)+"</div>";
+    if(hasKids){
+      neighbors.forEach(function(nb){
+        html+="<div class='search-tree-row l2' onclick=\"focusNode('"+jsEsc(nb.name)+"')\"><span class='node-name'>"+htmlEsc(nb.name)+"</span>"+searchRowDescHtml(nb.name)+searchRowMetaHtml(nb.type,nb.degree)+"</div>";
+      });
+    }
+  });
+  html+="<div id='search-load-more' style='padding:16px;text-align:center;color:var(--text-muted);font-size:11px'>"+(topList.length>searchLoadedCount?"滚动加载更多 · 已显示 "+searchLoadedCount+" / "+topList.length:"")+"</div>";
+  el.innerHTML=html;
+  var loadMore=document.getElementById("search-load-more");
+  if(loadMore&&topList.length>searchLoadedCount){var obs=new IntersectionObserver(function(entries){if(entries[0].isIntersecting){searchLoadedCount+=searchLoadStep;renderSearchTree();}},{root:scrollRoot,threshold:0.1});obs.observe(loadMore);}
+}
+var searchTimer;
+function doSearch(){clearTimeout(searchTimer);searchTimer=setTimeout(function(){searchLoadedCount=20;renderSearchTree();},150);}
 document.getElementById("search-input").addEventListener("input",doSearch);
-document.getElementById("filter-type").addEventListener("change",doSearch);
-document.getElementById("filter-min-deg").addEventListener("input",doSearch);
-document.getElementById("filter-sort").addEventListener("change",doSearch);
+document.querySelectorAll("#search-view-tabs .view-tab").forEach(function(tab){
+  tab.addEventListener("click",function(){
+    var mode=this.dataset.mode;
+    if(mode===currentViewMode)return;
+    switchViewMode(mode);
+    document.querySelectorAll("#search-view-tabs .view-tab").forEach(function(t){t.classList.toggle("active",t.dataset.mode===mode);});
+    searchLoadedCount=20;
+    renderSearchTree();
+  });
+});
 document.getElementById("search-trigger").addEventListener("click",openSearch);
-document.getElementById("search-overlay").addEventListener("click",function(e){if(e.target===this)closeSearch();});
+document.getElementById("search-close").addEventListener("click",closeSearch);
 window.focusNode=function(name){closeSearch();selectNode(name);};
 window.switchViewMode=switchViewMode;
 
@@ -540,22 +1818,58 @@ window.switchViewMode=switchViewMode;
 document.querySelectorAll(".view-tab").forEach(function(tab){tab.addEventListener("click",function(){switchViewMode(this.dataset.mode);});});
 
 /* ══ Sidebar toggle ══ */
+var sidebarToggleEl=document.getElementById("sidebar-toggle");
+function setSidebarOpenUi(open){
+  if(open){sidebarToggleEl.classList.add("panel-open");sidebarToggleEl.innerHTML="&#x2715;";}
+  else{sidebarToggleEl.classList.remove("panel-open");sidebarToggleEl.innerHTML="&#x2630;";}
+}
+function collapseSidebar(){var sb=document.getElementById("sidebar");if(!sb.classList.contains("collapsed")){sb.classList.add("collapsed");setSidebarOpenUi(false);}}
 document.getElementById("sidebar-toggle").addEventListener("click",function(ev){
   ev.stopPropagation();var sb=document.getElementById("sidebar");var isCollapsed=sb.classList.contains("collapsed");
-  if(isCollapsed){sb.classList.remove("collapsed");this.innerHTML="&#x2715;";}
-  else{sb.classList.add("collapsed");this.innerHTML="&#x2630;";}
+  if(isCollapsed){sb.classList.remove("collapsed");setSidebarOpenUi(true);}
+  else{collapseSidebar();}
+});
+document.addEventListener("click",function(ev){
+  var sb=document.getElementById("sidebar");
+  if(sb.classList.contains("collapsed"))return;
+  if(sb.contains(ev.target))return;
+  if(sidebarToggleEl.contains(ev.target))return;
+  collapseSidebar();
 });
 
 /* ══ Float detail close ══ */
 document.getElementById("float-close").addEventListener("click",function(){hideFloatDetail();deselectNode();});
+document.getElementById("float-max").addEventListener("click",function(e){e.stopPropagation();setFloatDetailMaximized(!floatDetailMaximized);});
+document.getElementById("llm-close").addEventListener("click",hideLlmDialog);
+document.getElementById("llm-max").addEventListener("click",function(e){e.stopPropagation();setLlmDialogMaximized(!llmDialogMaximized);});
+document.addEventListener("click",function(e){
+  var t=e.target.closest(".modal-max-btn");
+  if(!t)return;
+  e.preventDefault();
+  var modal=t.closest(".modal");
+  if(!modal)return;
+  var now=modal.classList.toggle("maximized");
+  syncModalMaxBtn(t,now);
+});
+initPanelMaximizeButtons();
 
 /* ══ Sliders ══ */
 document.getElementById("degree-slider").addEventListener("input",function(e){var v=parseInt(e.target.value);userMinDegree=v;minDegree=v;document.getElementById("degree-val").textContent=v;stopProgressiveReveal();applyFilter();});
-document.getElementById("edge-opacity-slider").addEventListener("input",function(e){edgeOpacity=parseInt(e.target.value)/100;document.getElementById("edge-opacity-val").textContent=parseInt(e.target.value)+"%";if(myGraph)myGraph.linkColor(myGraph.linkColor());});
+document.getElementById("edge-opacity-slider").addEventListener("input",function(e){edgeOpacity=parseInt(e.target.value)/100;document.getElementById("edge-opacity-val").textContent=parseInt(e.target.value)+"%";if(myGraph)refreshGraphStyle();});
 document.getElementById("node-size-slider").addEventListener("input",function(e){nodeSizeMul=parseInt(e.target.value)/100;document.getElementById("node-size-val").textContent=parseInt(e.target.value)+"%";recalcNodeVals();applyFilter();});
 document.getElementById("edge-width-slider").addEventListener("input",function(e){edgeWidth=parseInt(e.target.value)/100;document.getElementById("edge-width-val").textContent=edgeWidth.toFixed(2);if(myGraph)myGraph.linkWidth(myGraph.linkWidth());});
 document.getElementById("mem-limit-slider").addEventListener("input",function(e){memLimitMB=parseInt(e.target.value);document.getElementById("mem-limit-val").textContent=memLimitMB+"MB";});
+initThemeUi();
+initLlmInsightUi();
 document.getElementById("preset-select").addEventListener("change",function(e){applyPreset(e.target.value);});
+document.getElementById("chk-tree-root-view").addEventListener("change",function(e){
+  treeRootViewEnabled=e.target.checked;
+  if(!treeRootViewEnabled)releaseTreeGeometryOnly();
+  if(myGraph)refreshGraphStyle();
+  if(is3D&&myGraph&&myGraph.refresh)myGraph.refresh();
+  updateHint();
+});
+document.getElementById("btn-tree-unlock").addEventListener("click",function(){unlockTreeRoot();});
 
 /* ══ Toolbar ══ */
 document.getElementById("btn-undo").onclick=function(){api("/api/undo",{method:"POST"}).then(function(){return reloadGraphData();}).catch(function(e){alert(e.message);});};
@@ -574,20 +1888,115 @@ document.getElementById("btn-eval").onclick=function(){
   refreshEvalContent();
 };
 document.getElementById("btn-eval-refresh").onclick=function(){
-  this.disabled=true;
-  this.textContent="Re-evaluating...";
-  refreshEvalContent().finally(function(){
-    document.getElementById("btn-eval-refresh").disabled=false;
-    document.getElementById("btn-eval-refresh").textContent="Re-evaluate";
+  var btn=this;
+  btn.disabled=true;
+  btn.textContent="Re-evaluating...";
+  reloadGraphData().catch(function(){}).then(function(){
+    return refreshEvalContent();
+  }).finally(function(){
+    btn.disabled=false;
+    btn.textContent="Re-evaluate";
   });
 };
-document.getElementById("btn-fit").onclick=function(){if(is3D)myGraph.cameraPosition({x:0,y:0,z:600},{x:0,y:0,z:0},800);else{myGraph.centerAt(0,0,800);myGraph.zoom(1,800);}deselectNode();hideFloatDetail();};
+document.getElementById("btn-fit").onclick=function(){if(!myGraph)return;if(is3D)tweenGraphCamera3d(0,0,600,0,0,0,820);else{myGraph.centerAt(0,0,0);tweenGraphZoom2d(1,820);}deselectNode();hideFloatDetail();};
 document.getElementById("mode-badge").onclick=function(){switchMode();};
-document.getElementById("btn-perf").onclick=function(){runPerfTest();};
+var quickZoomLevel=0;
+var navTourTimer=null,navTourCurrentId=null;
+
+function getOutgoingTargets(nodeId){
+  var d=currentViewMode==="raw"?buildFilteredData():buildViewData();
+  var nodeSet=new Set(d.nodes.map(function(n){return n.id;}));
+  if(!nodeSet.has(nodeId))return[];
+  var out=[];
+  (d.links||[]).forEach(function(l){
+    var s=typeof l.source==="object"?l.source.id:l.source;
+    var t=typeof l.target==="object"?l.target.id:l.target;
+    if(s!==nodeId||!nodeSet.has(t))return;
+    var n=nodeIndex[t];
+    if(n&&n.x!==undefined)out.push({id:t,node:n});
+  });
+  return out;
+}
+
+function cycleQuickZoom(){
+  if(!myGraph)return;
+  cancelGraphCamAnim();
+  quickZoomLevel=(quickZoomLevel+1)%3;
+  var k2d=[1,3,6][quickZoomLevel];
+  if(is3D){
+    var cam=myGraph.camera(),ctr=myGraph.controls();
+    if(!cam||!ctr||!ctr.target)return;
+    var tx=ctr.target.x,ty=ctr.target.y,tz=ctr.target.z;
+    var px=cam.position.x,py=cam.position.y,pz=cam.position.z;
+    var dx=px-tx,dy=py-ty,dz=pz-tz;
+    var dist=Math.sqrt(dx*dx+dy*dy+dz*dz)||1;
+    var dArr=[400,150,80];
+    var distEnd=dArr[quickZoomLevel];
+    var scale=distEnd/dist;
+    cam.position.set(tx+dx*scale,ty+dy*scale,tz+dz*scale);
+    cam.updateMatrixWorld();
+    if(ctr&&ctr.update)ctr.update();
+    if(myGraph.refresh)myGraph.refresh();
+  }else{
+    myGraph.zoom(k2d,0);
+  }
+  scheduleGraphDepthParallaxUpdate();
+}
+
+function stopNavTour(){
+  if(navTourTimer){clearInterval(navTourTimer);navTourTimer=null;}
+  navTourCurrentId=null;
+  var btn=document.getElementById("btn-perf");
+  if(btn)btn.textContent="\u1F50D Nav";
+}
+
+function advanceNavTour(){
+  var cur=navTourCurrentId;
+  var d=currentViewMode==="raw"?buildFilteredData():buildViewData();
+  var visSet=new Set(d.nodes.map(function(n){return n.id;}));
+  if(!cur||!visSet.has(cur)){
+    var first=d.nodes[0];
+    if(!first){stopNavTour();return;}
+    cur=first.id;
+  }
+  var out=getOutgoingTargets(cur);
+  var next=null;
+  if(out.length>0){
+    next=out[Math.floor(Math.random()*out.length)];
+  }else{
+    var neighbors=getNeighborsOfNode(cur,20);
+    if(neighbors.length>0)next={id:neighbors[0].name,node:nodeIndex[neighbors[0].name]};
+  }
+  if(!next||!next.node){stopNavTour();return;}
+  navTourCurrentId=next.id;
+  selectNode(next.id);
+}
+
+function startNavTour(){
+  if(navTourTimer){stopNavTour();return;}
+  navTourCurrentId=selectedNode||null;
+  var btn=document.getElementById("btn-perf");
+  if(btn)btn.textContent="\u23F8 \u5BFC\u822A\u4E2D";
+  advanceNavTour();
+  navTourTimer=setInterval(advanceNavTour,2200);
+}
+function isNavTourActive(){return navTourTimer!==null;}
+
+var btnPerfZoomPending=null;
+document.getElementById("btn-perf").onclick=function(e){
+  if(e.detail===2){
+    if(btnPerfZoomPending){clearTimeout(btnPerfZoomPending);btnPerfZoomPending=null;}
+    startNavTour();
+    return;
+  }
+  if(btnPerfZoomPending)clearTimeout(btnPerfZoomPending);
+  btnPerfZoomPending=setTimeout(function(){btnPerfZoomPending=null;cycleQuickZoom();},280);
+};
+document.getElementById("btn-perf").addEventListener("contextmenu",function(e){e.preventDefault();runPerfTest();});
 
 /* ══ Perf Test ══ */
 function runPerfTest(){if(!myGraph)return;var btn=document.getElementById("btn-perf");btn.disabled=true;if(!simDone){btn.textContent="Wait...";var w=setInterval(function(){if(simDone){clearInterval(w);startPerfAnimation(btn);}},200);setTimeout(function(){clearInterval(w);if(!simDone)startPerfAnimation(btn);},5000);}else startPerfAnimation(btn);}
-function startPerfAnimation(btn){btn.textContent="Testing...";perfTestRunning=true;var dur=3000,start=performance.now(),frames=0,minFps=Infinity,sf=0,ss=start;var d=currentViewMode==="raw"?buildFilteredData():buildViewData();function tick(){var now=performance.now(),elapsed=now-start;frames++;sf++;if(now-ss>=500){var cur=Math.round(sf*1000/(now-ss));if(cur<minFps)minFps=cur;sf=0;ss=now;var el=document.getElementById("stat-fps");el.textContent="FPS: "+cur;el.style.color=cur>=FPS_TARGET?"var(--success)":cur>=FPS_SHRINK?"var(--warn)":"var(--danger)";}if(elapsed>=dur){perfTestRunning=false;var avg=Math.round(frames*1000/elapsed);btn.disabled=false;btn.textContent="\u23F1 Perf";var mf=minFps===Infinity?avg:minFps;var pass=mf>=30;var msg=(is3D?"3D":"2D")+" "+currentViewMode+" | "+d.nodes.length+"n | Avg:"+avg+" Min:"+mf+" | "+(pass?"\u2705":"\u274C");document.getElementById("stat-fps").textContent=msg;document.getElementById("stat-fps").style.color=pass?"var(--success)":"var(--danger)";perfResultUntil=performance.now()+10000;console.log("=== Perf ===",msg);return;}var t=elapsed/dur;if(is3D){var angle=t*Math.PI*2;var r=300+Math.sin(t*Math.PI*6)*100;myGraph.cameraPosition({x:r*Math.cos(angle),y:r*Math.sin(angle)*0.4,z:r*Math.sin(angle)});}else{myGraph.centerAt(Math.sin(t*Math.PI*4)*200,Math.sin(t*Math.PI*4)*100);myGraph.zoom(Math.max(0.5,2+Math.sin(t*Math.PI*6)*1.5));}requestAnimationFrame(tick);}requestAnimationFrame(tick);}
+function startPerfAnimation(btn){btn.textContent="Testing...";perfTestRunning=true;var dur=3000,start=performance.now(),frames=0,minFps=Infinity,sf=0,ss=start;var d=currentViewMode==="raw"?buildFilteredData():buildViewData();function tick(){var now=performance.now(),elapsed=now-start;frames++;sf++;if(now-ss>=500){var cur=Math.round(sf*1000/(now-ss));if(cur<minFps)minFps=cur;sf=0;ss=now;var el=document.getElementById("stat-fps");el.textContent="FPS: "+cur;el.style.color=cur>=FPS_TARGET?"var(--success)":cur>=FPS_SHRINK?"var(--warn)":"var(--danger)";}if(elapsed>=dur){perfTestRunning=false;var avg=Math.round(frames*1000/elapsed);btn.disabled=false;btn.textContent="\u1F50D Nav";var mf=minFps===Infinity?avg:minFps;var pass=mf>=30;var msg=(is3D?"3D":"2D")+" "+currentViewMode+" | "+d.nodes.length+"n | Avg:"+avg+" Min:"+mf+" | "+(pass?"\u2705":"\u274C");document.getElementById("stat-fps").textContent=msg;document.getElementById("stat-fps").style.color=pass?"var(--success)":"var(--danger)";perfResultUntil=performance.now()+10000;console.log("=== Perf ===",msg);return;}var tLin=Math.min(1,elapsed/dur);var t=cubicBezierUI(tLin);if(is3D){var angle=t*Math.PI*2;var r=300+Math.sin(t*Math.PI*6)*100;myGraph.cameraPosition({x:r*Math.cos(angle),y:r*Math.sin(angle)*0.4,z:r*Math.sin(angle)});}else{myGraph.centerAt(Math.sin(t*Math.PI*4)*200,Math.sin(t*Math.PI*4)*100);myGraph.zoom(Math.max(0.5,2+Math.sin(t*Math.PI*6)*1.5));}requestAnimationFrame(tick);}requestAnimationFrame(tick);}
 
 /* ══ CRUD ══ */
 document.getElementById("btn-confirm-add-node").onclick=function(){var name=document.getElementById("new-node-name").value.trim(),type=document.getElementById("new-node-type").value.trim()||"unknown",desc=document.getElementById("new-node-desc").value.trim();if(!name)return alert("Name required");api("/api/node/create",{method:"POST",body:JSON.stringify({name:name,type:type,description:desc})}).then(function(){closeModal("modal-add-node");return reloadGraphData();}).catch(function(e){alert(e.message);});};
@@ -602,10 +2011,96 @@ function loadBranches(){return api("/api/branches").then(function(bs){var el=doc
 window.loadBranch=function(name){if(!confirm("Load branch \""+name+"\"?"))return;api("/api/branch/load",{method:"POST",body:JSON.stringify({name:name})}).then(function(){closeModal("modal-branch");return reloadGraphData();}).catch(function(e){alert(e.message);});};
 
 /* ══ Eval ══ */
-function renderEval(r){var rc=function(v,g,w){return v<=g?"good":v<=w?"warn":"bad";};var pct=function(v){return(v*100).toFixed(1)+"%";};document.getElementById("eval-content").innerHTML="<div style='margin-bottom:12px;font-size:12px;color:var(--text-muted)'>"+r.timestamp+"</div><div class='eval-grid'><div class='eval-card'><div class='metric-name'>Total Entities</div><div class='metric-value'>"+r.total_entities.toLocaleString()+"</div></div><div class='eval-card'><div class='metric-name'>Total Edges</div><div class='metric-value'>"+r.total_edges.toLocaleString()+"</div></div><div class='eval-card'><div class='metric-name'>Isolated (all)</div><div class='metric-value "+rc(r.isolated_rate,.05,.15)+"'>"+pct(r.isolated_rate)+"</div></div><div class='eval-card'><div class='metric-name'>Isolated (semantic)</div><div class='metric-value "+rc(r.weak_isolated_rate,.1,.25)+"'>"+pct(r.weak_isolated_rate)+"</div></div><div class='eval-card'><div class='metric-name'>Largest Component</div><div class='metric-value'>"+pct(r.largest_component_ratio)+"</div></div><div class='eval-card'><div class='metric-name'>Avg Degree</div><div class='metric-value'>"+r.avg_degree.toFixed(2)+"</div></div><div class='eval-card'><div class='metric-name'>Median Degree</div><div class='metric-value'>"+r.median_degree+"</div></div><div class='eval-card'><div class='metric-name'>Edge Density</div><div class='metric-value'>"+r.edge_info_density.toFixed(2)+"</div></div><div class='eval-card'><div class='metric-name'>Components</div><div class='metric-value'>"+r.component_count.toLocaleString()+"</div></div><div class='eval-card'><div class='metric-name'>Singletons</div><div class='metric-value "+rc(r.singleton_count/r.total_entities,.1,.25)+"'>"+r.singleton_count.toLocaleString()+"</div></div></div><h3 style='margin-top:16px;margin-bottom:8px;font-size:13px'>Entity Types</h3><div style='max-height:160px;overflow-y:auto'>"+(r.entity_type_distribution||[]).map(function(t){return"<div style='display:flex;justify-content:space-between;font-size:12px;padding:2px 0;border-bottom:1px solid var(--border)'><span style='color:"+getColor(t.type)+"'>"+t.type+"</span><span>"+t.count.toLocaleString()+"</span></div>";}).join("")+"</div><h3 style='margin-top:16px;margin-bottom:8px;font-size:13px'>Top Connected</h3><div style='max-height:200px;overflow-y:auto'>"+(r.top_connected_nodes||[]).map(function(n){return"<div style='display:flex;justify-content:space-between;font-size:12px;padding:2px 0;border-bottom:1px solid var(--border);cursor:pointer' onclick=\"focusNode('"+n.name.replace(/'/g,"\\'")+"')\"><span>"+n.name+"</span><span style='color:var(--text-muted)'>["+n.type+"] "+n.degree+"</span></div>";}).join("")+"</div>";}
+function formatEvalTime(iso){
+  try{
+    var d=new Date(iso);
+    if(isNaN(d.getTime()))return{local:String(iso),iso:String(iso)};
+    return{
+      local:d.toLocaleString("zh-CN",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}),
+      iso:String(iso)
+    };
+  }catch(e){return{local:String(iso),iso:String(iso)};}
+}
+function renderEval(r){
+  lastEvalReport=r;
+  var rc=function(v,g,w){return v<=g?"good":v<=w?"warn":"bad";};
+  var pct=function(v){return(v*100).toFixed(1)+"%";};
+  var te=Math.max(r.total_entities||0,1);
+  var singRate=(r.singleton_count||0)/te;
+  var ft=formatEvalTime(r.timestamp||"");
+  var vmLabel=VIEW_MODES[currentViewMode]?VIEW_MODES[currentViewMode].label:currentViewMode;
+  var topList=computeViewTopConnected(20);
+  var typeRow=function(t){
+    return "<div style='display:flex;justify-content:space-between;font-size:12px;padding:2px 0;border-bottom:1px solid var(--border)'><span style='color:"+getColor(t.type)+"'>"+escHtml(t.type)+"</span><span>"+(t.count||0).toLocaleString()+"</span></div>";
+  };
+  var topRow=function(n){
+    return "<div style='display:flex;justify-content:space-between;font-size:12px;padding:2px 0;border-bottom:1px solid var(--border);cursor:pointer' onclick='focusNode("+JSON.stringify(n.name)+")'><span>"+escHtml(n.name)+"</span><span style='color:var(--text-muted)'>["+escHtml(n.type)+"] "+(n.degree||0)+"</span></div>";
+  };
+  var h="";
+  h+="<div class='eval-report-header' style='margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)'>";
+  h+="<div style='font-size:14px;font-weight:600;margin-bottom:6px;color:var(--accent)'>上次更新时间</div>";
+  h+="<div style='font-size:15px;font-weight:600;margin-bottom:4px'>"+escHtml(ft.local)+"</div>";
+  h+="<div style='font-size:11px;color:var(--text-muted)'>RFC3339："+escHtml(ft.iso)+"</div>";
+  h+="<div style='font-size:11px;color:var(--text-muted);margin-top:8px;line-height:1.45'>除文末「Top Connected」外，以下指标基于服务端<strong>全量</strong>图（<strong>所有实体类型</strong>、全部未删除边）。「Top Connected」随左侧<strong>主视图</strong>（Function / Structure / Macro / Raw）、<strong>最小度阈值</strong>与<strong>节点预算</strong>与画布一致。</div>";
+  h+="</div>";
+  h+="<div class='eval-grid'>";
+  h+="<div class='eval-card'><div class='metric-name'>Total Entities</div><div class='metric-value'>"+(r.total_entities||0).toLocaleString()+"</div></div>";
+  h+="<div class='eval-card'><div class='metric-name'>Total Edges</div><div class='metric-value'>"+(r.total_edges||0).toLocaleString()+"</div></div>";
+  h+="<div class='eval-card'><div class='metric-name'>Connected Nodes</div><div class='metric-value'>"+(r.connected_nodes||0).toLocaleString()+"</div></div>";
+  h+="<div class='eval-card'><div class='metric-name'>Isolated (count)</div><div class='metric-value "+rc((r.isolated_nodes||0)/te,.05,.15)+"'>"+(r.isolated_nodes||0).toLocaleString()+"</div></div>";
+  h+="<div class='eval-card'><div class='metric-name'>Isolated (all)</div><div class='metric-value "+rc(r.isolated_rate,.05,.15)+"'>"+pct(r.isolated_rate||0)+"</div></div>";
+  h+="<div class='eval-card'><div class='metric-name'>Weak iso. (count)</div><div class='metric-value'>"+(r.weak_isolated_nodes||0).toLocaleString()+"</div></div>";
+  h+="<div class='eval-card'><div class='metric-name'>Isolated (semantic)</div><div class='metric-value "+rc(r.weak_isolated_rate,.1,.25)+"'>"+pct(r.weak_isolated_rate||0)+"</div></div>";
+  h+="<div class='eval-card'><div class='metric-name'>Largest Component</div><div class='metric-value'>"+pct(r.largest_component_ratio||0)+"</div></div>";
+  h+="<div class='eval-card'><div class='metric-name'>Avg Degree</div><div class='metric-value'>"+(r.avg_degree!=null?r.avg_degree.toFixed(2):"—")+"</div></div>";
+  h+="<div class='eval-card'><div class='metric-name'>Median Degree</div><div class='metric-value'>"+(r.median_degree!=null?r.median_degree:"—")+"</div></div>";
+  h+="<div class='eval-card'><div class='metric-name'>Max Degree</div><div class='metric-value'>"+(r.max_degree!=null?r.max_degree:"—")+"</div></div>";
+  h+="<div class='eval-card'><div class='metric-name'>Edges / Node</div><div class='metric-value'>"+(r.edge_info_density!=null?r.edge_info_density.toFixed(2):"—")+"</div></div>";
+  h+="<div class='eval-card'><div class='metric-name'>Network Density</div><div class='metric-value'>"+(r.network_density!=null?r.network_density.toExponential(2):"—")+"</div></div>";
+  h+="<div class='eval-card'><div class='metric-name'>Components</div><div class='metric-value'>"+(r.component_count||0).toLocaleString()+"</div></div>";
+  h+="<div class='eval-card'><div class='metric-name'>Singletons</div><div class='metric-value "+rc(singRate,.1,.25)+"'>"+(r.singleton_count||0).toLocaleString()+"</div></div>";
+  h+="</div>";
+  h+="<h3 style='margin-top:16px;margin-bottom:8px;font-size:13px'>Entity Types（全量分布）</h3>";
+  h+="<div style='max-height:160px;overflow-y:auto'>"+(r.entity_type_distribution||[]).map(typeRow).join("")+"</div>";
+  h+="<h3 style='margin-top:16px;margin-bottom:8px;font-size:13px'>Edge Types</h3>";
+  h+="<div style='max-height:140px;overflow-y:auto'>"+(r.edge_type_distribution||[]).map(typeRow).join("")+"</div>";
+  h+="<h3 style='margin-top:16px;margin-bottom:8px;font-size:13px'>Semantic Isolated by Entity Type</h3>";
+  h+="<div style='max-height:140px;overflow-y:auto'>"+(r.isolated_by_type||[]).map(typeRow).join("")+"</div>";
+  h+="<h3 style='margin-top:16px;margin-bottom:8px;font-size:13px'>Top Connected（主视图："+escHtml(vmLabel)+"）</h3>";
+  h+="<div style='font-size:11px;color:var(--text-muted);margin:-4px 0 8px;line-height:1.45'>按当前可见子图中的边计无向度数（含 <code style='font-size:10px'>via:*</code> 合成边），与画布当前子图一致。</div>";
+  h+="<div style='max-height:200px;overflow-y:auto'>"+(topList.length?topList.map(topRow).join(""):"<div style='font-size:12px;color:var(--text-muted)'>当前视图下无可见节点或无边。</div>")+"</div>";
+  document.getElementById("eval-content").innerHTML=h;
+  requestAnimationFrame(function(){
+    var root=document.getElementById("eval-content");
+    if(!root)return;
+    var i=0;
+    root.querySelectorAll(".eval-card .metric-value").forEach(function(el){
+      var raw=String(el.textContent||"").replace(/,/g,"").trim();
+      if(!/^[\d]+$/.test(raw))return;
+      var target=parseInt(raw,10);
+      animateNumberSpan(0,target,el,560,"evm"+(i++));
+    });
+  });
+}
 
 /* ══ Reload ══ */
-function reloadGraphData(){return api("/api/graph").then(function(raw){allNodes=raw.nodes.map(function(n){var deg=n.attributes.degree||0,t=n.attributes.type||"unknown";var old=nodeIndex[n.key];return{id:n.key,name:n.key,entityType:t,degree:deg,file:n.attributes.file||"",description:n.attributes.description||"",color:getColor(t),val:Math.max(0.3,Math.log2(deg+1)*0.4)*nodeSizeMul,x:old?old.x:undefined,y:old?old.y:undefined,z:old?old.z:undefined};});allLinks=raw.edges.map(function(e){return{source:e.source,target:e.target,edgeType:(e.attributes||{}).type||"unknown"};});nodeIndex={};allNodes.forEach(function(n){nodeIndex[n.id]=n;});applyFilter();document.getElementById("stat-nodes").textContent="Nodes: "+allNodes.length.toLocaleString();document.getElementById("stat-edges").textContent="Edges: "+allLinks.length.toLocaleString();updateHistoryButtons();});}
+function reloadGraphData(){
+  isFetchingGraph=true;
+  updateNodeLoadFooter();
+  return api("/api/graph",{timeoutMs:180000}).then(function(raw){
+    allNodes=raw.nodes.map(function(n){var deg=n.attributes.degree||0,t=n.attributes.type||"unknown";var old=nodeIndex[n.key];return{id:n.key,name:n.key,entityType:t,degree:deg,file:n.attributes.file||"",description:n.attributes.description||"",color:getColor(t),val:Math.max(0.3,Math.log2(deg+1)*0.4)*nodeSizeMul,x:old?old.x:undefined,y:old?old.y:undefined,z:old?old.z:undefined};});
+    allLinks=raw.edges.map(linkFromApiEdge);
+    nodeIndex={};allNodes.forEach(function(n){nodeIndex[n.id]=n;});
+    isFetchingGraph=false;
+    applyFilter();
+    var vmr=VIEW_MODES[currentViewMode];
+    var dvisr=currentViewMode==="raw"?buildFilteredData():buildViewData();
+    var poolNr=vmr.primary?allNodes.filter(function(n){return vmr.primary.has(n.entityType);}).length:allNodes.length;
+    updateStatsBarNumbers(poolNr,allLinks.length,dvisr.nodes.length,480);
+    updateHistoryButtons();
+    updateNodeLoadFooter();
+  }).catch(function(e){isFetchingGraph=false;updateNodeLoadFooter();throw e;});
+}
 function updateHistoryButtons(){api("/api/history").then(function(h){document.getElementById("btn-undo").disabled=h.undo===0;document.getElementById("btn-redo").disabled=h.redo===0;}).catch(function(){});}
 function autoRefreshPageData(){
   if(autoRefreshBusy||perfTestRunning)return;
@@ -620,28 +2115,59 @@ function autoRefreshPageData(){
   });
 }
 
-window.openModal=function(id){document.getElementById(id).classList.add("show");};
-window.closeModal=function(id){document.getElementById(id).classList.remove("show");};
+window.openModal=function(id){var el=document.getElementById(id);if(el){var m=el.querySelector(".modal");if(m){m.classList.remove("maximized");var mb=el.querySelector(".modal-max-btn");if(mb)syncModalMaxBtn(mb,false);}el.classList.add("show");}};
+window.closeModal=function(id){var el=document.getElementById(id);if(el){var m=el.querySelector(".modal");if(m)m.classList.remove("maximized");var mb=el.querySelector(".modal-max-btn");if(mb)syncModalMaxBtn(mb,false);el.classList.remove("show");}};
+/* 点击遮罩（非 .modal 内容区）关闭弹窗；最大化时不可点遮罩关闭 */
+document.querySelectorAll(".modal-overlay").forEach(function(ov){
+  ov.addEventListener("click",function(e){
+    if(e.target!==ov)return;
+    var m=ov.querySelector(".modal");
+    if(m&&m.classList.contains("maximized"))return;
+    closeModal(ov.id);
+  });
+});
 
 document.addEventListener("keydown",function(e){
   if((e.ctrlKey||e.metaKey)&&e.key==="k"){e.preventDefault();var so=document.getElementById("search-overlay");if(so.classList.contains("show"))closeSearch();else openSearch();return;}
   if(e.ctrlKey&&e.key==="z"){e.preventDefault();document.getElementById("btn-undo").click();}
   if(e.ctrlKey&&e.key==="y"){e.preventDefault();document.getElementById("btn-redo").click();}
   if(e.key==="`"&&!e.ctrlKey&&!e.altKey){e.preventDefault();document.getElementById("sidebar-toggle").click();}
-  if(e.key==="Escape"){var so=document.getElementById("search-overlay");if(so.classList.contains("show")){closeSearch();return;}document.querySelectorAll(".modal-overlay.show").forEach(function(m){m.classList.remove("show");});hideFloatDetail();if(myGraph)deselectNode();}
+  if(e.key==="Escape"){
+    var so=document.getElementById("search-overlay");
+    if(so.classList.contains("show")){closeSearch();return;}
+    if(document.querySelector(".modal-overlay.show .modal.maximized"))return;
+    var openModals=document.querySelectorAll(".modal-overlay.show");
+    if(openModals.length){
+      openModals.forEach(function(mo){
+        var modal=mo.querySelector(".modal");
+        if(modal){modal.classList.remove("maximized");var b=mo.querySelector(".modal-max-btn");if(b)syncModalMaxBtn(b,false);}
+        mo.classList.remove("show");
+      });
+      return;
+    }
+    if(floatDetailMaximized||llmDialogMaximized)return;
+    hideFloatDetail();
+    if(myGraph)deselectNode();
+  }
 });
 
 /* ══ Memory ══ */
 function getJSHeapMB(){if(window.performance&&performance.memory)return Math.round(performance.memory.usedJSHeapSize/(1024*1024));return null;}
-function pollMemory(){api("/api/system/memory").then(function(sysMem){lastSystemMem=sysMem;var jsHeap=getJSHeapMB(),goMB=sysMem.go_alloc_mb||0,totalUsedMB=goMB+(jsHeap||0);var pct=Math.min(100,Math.round(totalUsedMB/memLimitMB*100));var fill=document.getElementById("mem-fill");fill.style.width=pct+"%";fill.style.background=pct<60?"var(--success)":pct<85?"var(--warn)":"var(--danger)";document.getElementById("mem-text").textContent=totalUsedMB+"MB / "+memLimitMB+"MB";var sysUsedPct=sysMem.system_used_pct||0;var statEl=document.getElementById("stat-mem");statEl.textContent="Go:"+goMB+"MB"+(jsHeap!==null?" JS:"+jsHeap+"MB":"")+" Sys:"+sysUsedPct+"%";statEl.style.color=(sysUsedPct>90||pct>85)?"var(--danger)":(sysUsedPct>75||pct>60)?"var(--warn)":"var(--success)";if(totalUsedMB>memLimitMB*0.9||(sysMem.system_avail_mb||9999)<500){if(!autoThrottleActive){autoThrottleActive=true;autoReduceNodes();}}else if(totalUsedMB<memLimitMB*0.6&&autoThrottleActive){autoThrottleActive=false;}}).catch(function(){});}
-function autoReduceNodes(){stopProgressiveReveal();var next=Math.min(minDegree+2,50);minDegree=next;userMinDegree=next;document.getElementById("degree-slider").value=next;document.getElementById("degree-val").textContent=next;applyFilter();setTimeout(function(){if(autoThrottleActive){var jsHeap=getJSHeapMB()||0,goMB=lastSystemMem?lastSystemMem.go_alloc_mb:0;if(jsHeap+goMB>memLimitMB*0.85)autoReduceNodes();}},3000);}
+function pollMemory(){api("/api/system/memory").then(function(sysMem){lastSystemMem=sysMem;var jsHeap=getJSHeapMB(),goMB=sysMem.go_alloc_mb||0,totalUsedMB=goMB+(jsHeap||0);var pct=Math.min(100,Math.round(totalUsedMB/memLimitMB*100));animateMemBarAndText(pct,totalUsedMB,540);var sysUsedPct=sysMem.system_used_pct||0;var statEl=document.getElementById("stat-mem");statEl.textContent="Go:"+goMB+"MB"+(jsHeap!==null?" JS:"+jsHeap+"MB":"")+" Sys:"+sysUsedPct+"%";statEl.style.color=(sysUsedPct>90||pct>85)?"var(--danger)":(sysUsedPct>75||pct>60)?"var(--warn)":"var(--success)";if(totalUsedMB>memLimitMB*0.9||(sysMem.system_avail_mb||9999)<500){if(!autoThrottleActive){autoThrottleActive=true;autoReduceNodes();}}else if(totalUsedMB<memLimitMB*0.6&&autoThrottleActive){autoThrottleActive=false;}}).catch(function(){});}
+function autoReduceNodes(){stopProgressiveReveal();var next=Math.min(minDegree+2,50);var dv=document.getElementById("degree-val");animateNumberSpan(parseInt(dv.textContent,10)||0,next,dv,320,"deg-ui");minDegree=next;userMinDegree=next;document.getElementById("degree-slider").value=next;applyFilter();setTimeout(function(){if(autoThrottleActive){var jsHeap=getJSHeapMB()||0,goMB=lastSystemMem?lastSystemMem.go_alloc_mb:0;if(jsHeap+goMB>memLimitMB*0.85)autoReduceNodes();}},3000);}
+
+/* ══ Resize ══ */
+window.addEventListener("resize",function(){resizeGraph();});
+var resizeObs=typeof ResizeObserver!=="undefined"?new ResizeObserver(function(){resizeGraph();}):null;
+if(resizeObs){var gc=document.getElementById("graph-container");if(gc)resizeObs.observe(gc);}
 
 /* ══ Init ══ */
-loadGraph().catch(function(e){document.getElementById("loading").innerHTML="<div style='color:var(--danger);font-size:16px'>Failed to load</div><div style='color:var(--text-muted)'>"+e.message+"</div>";});
 setInterval(updateHistoryButtons,5000);
 setInterval(pollMemory,3000);
-setInterval(autoRefreshPageData,AUTO_REFRESH_MS);
+setInterval(pollStatsFromServer,STATS_POLL_MS);
+if(AUTO_REFRESH_MS>0)setInterval(autoRefreshPageData,AUTO_REFRESH_MS);
 setTimeout(pollMemory,2000);
+setTimeout(pollStatsFromServer,3000);
 })();
 </script>
 </body>

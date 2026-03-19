@@ -18,7 +18,9 @@ from collections import defaultdict, OrderedDict
 from datetime import datetime, timezone
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-OUT_DIR = os.path.join(THIS_DIR, "json_output_v4")
+ROOT_DIR = os.path.dirname(THIS_DIR)
+OUT_DIR = os.path.join(ROOT_DIR, "json_output_v4")
+MAX_DESC_IN_GLOBAL_INDEX = 8000
 
 ALLOWED_ENTITY_TYPES = {
     "function", "structure", "enum", "callback", "macro",
@@ -36,6 +38,13 @@ _TYPE_SYNONYMS = {
     "flag":        "flags",
     "enumvalue":   "enum_value",
 }
+
+
+def _truncate_desc(text):
+    if not text:
+        return ""
+    text = str(text).replace("\n", " ").strip()
+    return text if len(text) <= MAX_DESC_IN_GLOBAL_INDEX else text[: MAX_DESC_IN_GLOBAL_INDEX] + "..."
 
 
 def normalize_entity_type(et):
@@ -145,11 +154,15 @@ def main():
             eid = ent.get("id", "")
             if not name or not eid:
                 continue
-            idx[name] = {
+            row = {
                 "id": eid,
                 "file": os.path.basename(fp),
                 "type": ent.get("entity_type", "unknown"),
             }
+            desc = _truncate_desc(ent.get("description") or "")
+            if desc:
+                row["description"] = desc
+            idx[name] = row
 
     idx_sorted = OrderedDict(sorted(idx.items()))
     idx_doc = OrderedDict([

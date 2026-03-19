@@ -25,6 +25,10 @@ Windows_API_PDF_OCR_Graph/
 │   ├── export_graph.py       # Neo4j / GraphML / GEXF 导出
 │   └── assess_isolated_nodes.py  # 孤立节点快速评估
 │
+├── graph_viewer/              # 图谱可视化 + MCP 服务器
+│   ├── main.go                # HTTP 服务（端口 10086）
+│   └── mcp_server/            # MCP 服务器（stdio，供 Cursor 等接入）
+│
 ├── OCR_raw/                  # 输入：OCR 文本（.p.txt + .txt 双源）
 ├── json_output_v4/           # 输出：实体 JSON + 全局索引 + 边 + 报告
 ├── exports/                  # 导出：Neo4j CSV / GraphML / GEXF
@@ -34,8 +38,19 @@ Windows_API_PDF_OCR_Graph/
 ├── requirements.txt          # Python 依赖
 ├── llm_config_example.json   # LLM 配置模板（不含密钥）
 ├── entity_aliases.json       # 实体别名表
+├── example.graphy.json       # 图谱节点/边格式模板（任意 KG 可依此接入 viewer）
 └── README.md                 # 完整文档
 ```
+
+### 图谱可视化数据模板（example.graphy.json）
+
+根目录的 `example.graphy.json` 定义了本系统对「节点 + 边」的数据约定，便于任意知识图谱接入：
+
+- **graph_api**：`GET /api/graph` 的响应形状（节点需 `key` + `attributes.type/degree/file/description`，边需 `source`/`target` + `attributes.type` 或 `type`）。
+- **file_format**：从目录加载时需 `global_entity_index.json`（entities 字典）+ `global_edges.json`（edges 数组）。
+- **example**：最小可运行示例，可供其他项目复制后改写。
+
+只要数据符合该模板（或由后端转换为该格式），即可用 `graph_viewer` 加载与展示。
 
 ## 核心数据流
 

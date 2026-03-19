@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"embed"
 	"encoding/json"
 	"flag"
@@ -13,16 +14,16 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"runtime"
 	"sort"
 	"strings"
 	"sync"
-	"syscall"
+	"sync/atomic"
 	"time"
-	"unsafe"
 )
 
-//go:embed static/*
+//go:embed static
 var staticFS embed.FS
 
 // ── data models ──
@@ -91,11 +92,125 @@ type BranchSnapshot struct {
 // ── app state ──
 
 type App struct {
-	graph    *Graph
-	history  *History
-	branches map[string]*BranchSnapshot
-	branchMu sync.RWMutex
-	dataDir  string
+	graphPtr         atomic.Pointer[Graph]
+	history          *History
+	branches         map[string]*BranchSnapshot
+	branchMu         sync.RWMutex
+	dataDir          string
+	ocrDir           string
+	reloadSkipUntil  atomic.Int64 // unix nano: skip auto-reload until (after handleSave)
+}
+
+func (app *App) getGraph() *Graph {
+	return app.graphPtr.Load()
+}
+
+// 与 pipeline 输出 JSON 基名匹配的 OCR 文件 stem（防止路径穿越）
+var ocrBaseStemRe = regexp.MustCompile(`^[a-zA-Z0-9][a-zA-Z0-9_.-]*$`)
+
+func readEntitySourceLine(dataDir, jsonBasename, entityName string) int {
+	if jsonBasename == "" || entityName == "" {
+		return 0
+	}
+	fp := filepath.Join(dataDir, jsonBasename)
+	raw, err := os.ReadFile(fp)
+	if err != nil {
+		return 0
+	}
+	var doc struct {
+		Entities []json.RawMessage `json:"entities"`
+	}
+	if json.Unmarshal(raw, &doc) != nil {
+		return 0
+	}
+	for _, er := range doc.Entities {
+		var e struct {
+			Name string `json:"name"`
+			SL   int    `json:"_source_line"`
+		}
+		if json.Unmarshal(er, &e) != nil {
+			continue
+		}
+		if e.Name == entityName {
+			return e.SL
+		}
+	}
+	return 0
+}
+
+func readOCRLineContext(absPath string, line1 int, before, after int) string {
+	if line1 < 1 || before < 0 || after < 0 {
+		return ""
+	}
+	f, err := os.Open(absPath)
+	if err != nil {
+		return ""
+	}
+	defer f.Close()
+	sc := bufio.NewScanner(f)
+	// 放宽单行长度（OCR 行可能很长）
+	const maxLine = 1024 * 512
+	buf := make([]byte, 0, 64*1024)
+	sc.Buffer(buf, maxLine)
+	start := line1 - before
+	if start < 1 {
+		start = 1
+	}
+	end := line1 + after
+	var b strings.Builder
+	n := 0
+	for sc.Scan() {
+		n++
+		if n < start {
+			continue
+		}
+		if n > end {
+			break
+		}
+		prefix := " "
+		if n == line1 {
+			prefix = ">"
+		}
+		line := sc.Text()
+		if len(line) > 2000 {
+			line = line[:2000] + "…"
+		}
+		fmt.Fprintf(&b, "%s %5d | %s\n", prefix, n, line)
+	}
+	return strings.TrimSpace(b.String())
+}
+
+func safeOCRFile(ocrDir, baseStem, variant string) (absPath string, downloadName string, ok bool) {
+	if !ocrBaseStemRe.MatchString(baseStem) {
+		return "", "", false
+	}
+	var fn string
+	switch variant {
+	case "p":
+		fn = "[OCR]_windows-" + baseStem + ".p.txt"
+	case "t":
+		fn = "[OCR]_windows-" + baseStem + ".txt"
+	default:
+		return "", "", false
+	}
+	full := filepath.Join(ocrDir, fn)
+	root, err := filepath.Abs(ocrDir)
+	if err != nil {
+		return "", "", false
+	}
+	clean, err := filepath.Abs(full)
+	if err != nil {
+		return "", "", false
+	}
+	rel, err := filepath.Rel(root, clean)
+	if err != nil || rel == ".." || strings.HasPrefix(rel, ".."+string(filepath.Separator)) {
+		return "", "", false
+	}
+	st, err := os.Stat(clean)
+	if err != nil || st.IsDir() {
+		return "", "", false
+	}
+	return clean, fn, true
 }
 
 // ── graph methods ──
@@ -230,7 +345,7 @@ func (h *History) Sizes() (int, int) {
 // ── apply / revert operations ──
 
 func (app *App) applyOp(op Operation) {
-	g := app.graph
+	g := app.getGraph()
 	switch op.Kind {
 	case OpAddNode:
 		g.Entities[op.NodeName] = op.NewNode
@@ -257,7 +372,7 @@ func (app *App) applyOp(op Operation) {
 }
 
 func (app *App) revertOp(op Operation) {
-	g := app.graph
+	g := app.getGraph()
 	switch op.Kind {
 	case OpAddNode:
 		delete(g.Entities, op.NodeName)
@@ -322,7 +437,7 @@ type NodeDegree struct {
 }
 
 func (app *App) evaluate() *EvalReport {
-	g := app.graph
+	g := app.getGraph()
 	g.mu.RLock()
 	defer g.mu.RUnlock()
 
@@ -522,7 +637,7 @@ func mapToSortedCounts(m map[string]int) []TypeCount {
 // ── HTTP handlers ──
 
 func (app *App) handleGetGraph(w http.ResponseWriter, r *http.Request) {
-	g := app.graph
+	g := app.getGraph()
 	g.mu.RLock()
 	defer g.mu.RUnlock()
 
@@ -584,16 +699,16 @@ func (app *App) handleGetNode(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "missing ?name=", 400)
 		return
 	}
-	g := app.graph
+	g := app.getGraph()
 	g.mu.RLock()
-	defer g.mu.RUnlock()
-
 	info, ok := g.Entities[name]
 	if !ok {
+		g.mu.RUnlock()
 		http.Error(w, "node not found", 404)
 		return
 	}
-
+	infoVal := *info
+	deg := g.Degree(name)
 	neighbors := g.Neighbors(name)
 	neighborList := make([]string, 0, len(neighbors))
 	for n := range neighbors {
@@ -613,16 +728,154 @@ func (app *App) handleGetNode(w http.ResponseWriter, r *http.Request) {
 			edgesIn = append(edgesIn, g.Edges[i])
 		}
 	}
+	g.mu.RUnlock()
+
+	ocr := app.buildOCRInfo(name, &infoVal)
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"name":      name,
-		"info":      info,
-		"degree":    g.Degree(name),
+		"info":      &infoVal,
+		"degree":    deg,
 		"neighbors": neighborList,
 		"edges_out": edgesOut,
 		"edges_in":  edgesIn,
+		"ocr":       ocr,
 	})
+}
+
+func (app *App) handleGetNodeContext(w http.ResponseWriter, r *http.Request) {
+	name := r.URL.Query().Get("name")
+	if name == "" {
+		http.Error(w, "missing ?name=", 400)
+		return
+	}
+	g := app.getGraph()
+	g.mu.RLock()
+	info, ok := g.Entities[name]
+	if !ok {
+		g.mu.RUnlock()
+		http.Error(w, "node not found", 404)
+		return
+	}
+	infoVal := *info
+	deg := g.Degree(name)
+	neighbors := g.Neighbors(name)
+	neighborList := make([]string, 0, len(neighbors))
+	for n := range neighbors {
+		neighborList = append(neighborList, n)
+	}
+	sort.Strings(neighborList)
+	edgesOut := make([]Edge, 0)
+	edgesIn := make([]Edge, 0)
+	for _, i := range g.adjOut[name] {
+		if g.Edges[i].Source != "\x00DEL" {
+			edgesOut = append(edgesOut, g.Edges[i])
+		}
+	}
+	for _, i := range g.adjIn[name] {
+		if g.Edges[i].Source != "\x00DEL" {
+			edgesIn = append(edgesIn, g.Edges[i])
+		}
+	}
+	g.mu.RUnlock()
+	ocr := app.buildOCRInfo(name, &infoVal)
+
+	var sb strings.Builder
+	sb.WriteString(fmt.Sprintf("# %s\n\n", name))
+	sb.WriteString(fmt.Sprintf("**类型**: %s\n", infoVal.Type))
+	sb.WriteString(fmt.Sprintf("**度数**: %d\n", deg))
+	if infoVal.Desc != "" {
+		sb.WriteString(fmt.Sprintf("**描述**: %s\n", infoVal.Desc))
+	}
+	if infoVal.File != "" {
+		sb.WriteString(fmt.Sprintf("**来源文件**: %s\n", infoVal.File))
+	}
+	sb.WriteString("\n## 出边\n")
+	for _, e := range edgesOut {
+		sb.WriteString(fmt.Sprintf("- %s --[%s]--> %s\n", e.Source, e.Type, e.Target))
+	}
+	sb.WriteString("\n## 入边\n")
+	for _, e := range edgesIn {
+		sb.WriteString(fmt.Sprintf("- %s --[%s]--> %s\n", e.Source, e.Type, e.Target))
+	}
+	sb.WriteString("\n## 邻居\n")
+	sb.WriteString(strings.Join(neighborList, ", "))
+	sb.WriteString("\n")
+	if ctx, ok := ocr["context"].(string); ok && ctx != "" {
+		sb.WriteString("\n## OCR 原文上下文\n```\n")
+		sb.WriteString(ctx)
+		sb.WriteString("\n```\n")
+	}
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	w.Write([]byte(sb.String()))
+}
+
+func (app *App) buildOCRInfo(entityName string, info *EntityInfo) map[string]interface{} {
+	out := map[string]interface{}{
+		"json_file":   "",
+		"stem":        "",
+		"source_line": 0,
+		"has_p_txt":   false,
+		"has_t_txt":   false,
+		"p_filename":  "",
+		"t_filename":  "",
+		"context":     "",
+		"ocr_dir_ok":  app.ocrDir != "",
+	}
+	if info == nil || info.File == "" {
+		return out
+	}
+	jsonBase := filepath.Base(info.File)
+	stem := strings.TrimSuffix(jsonBase, ".json")
+	out["json_file"] = jsonBase
+	out["stem"] = stem
+	if stem == "" || !ocrBaseStemRe.MatchString(stem) {
+		return out
+	}
+	sl := readEntitySourceLine(app.dataDir, jsonBase, entityName)
+	out["source_line"] = sl
+	if app.ocrDir == "" {
+		return out
+	}
+	if pPath, pName, pOk := safeOCRFile(app.ocrDir, stem, "p"); pOk {
+		out["has_p_txt"] = true
+		out["p_filename"] = pName
+		if sl > 0 {
+			out["context"] = readOCRLineContext(pPath, sl, 2, 5)
+		}
+	}
+	if _, tName, tOk := safeOCRFile(app.ocrDir, stem, "t"); tOk {
+		out["has_t_txt"] = true
+		out["t_filename"] = tName
+	}
+	if out["context"] == "" && sl > 0 {
+		if tPath, _, tOk := safeOCRFile(app.ocrDir, stem, "t"); tOk {
+			out["context"] = readOCRLineContext(tPath, sl, 2, 5)
+		}
+	}
+	return out
+}
+
+func (app *App) handleOCRDownload(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	if app.ocrDir == "" {
+		http.Error(w, "OCR directory not configured", http.StatusNotFound)
+		return
+	}
+	base := r.URL.Query().Get("base")
+	variant := r.URL.Query().Get("variant")
+	path, fn, ok := safeOCRFile(app.ocrDir, base, variant)
+	if !ok {
+		http.Error(w, "file not found", http.StatusNotFound)
+		return
+	}
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	w.Header().Set("Content-Disposition", fmt.Sprintf(`attachment; filename="%s"`, strings.ReplaceAll(fn, `"`, ``)))
+	http.ServeFile(w, r, path)
 }
 
 func (app *App) handleSearch(w http.ResponseWriter, r *http.Request) {
@@ -631,7 +884,7 @@ func (app *App) handleSearch(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode([]string{})
 		return
 	}
-	g := app.graph
+	g := app.getGraph()
 	g.mu.RLock()
 	defer g.mu.RUnlock()
 
@@ -669,7 +922,7 @@ func (app *App) handleCreateNode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	g := app.graph
+	g := app.getGraph()
 	g.mu.Lock()
 	defer g.mu.Unlock()
 
@@ -698,7 +951,7 @@ func (app *App) handleUpdateNode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	g := app.graph
+	g := app.getGraph()
 	g.mu.Lock()
 	defer g.mu.Unlock()
 
@@ -734,7 +987,7 @@ func (app *App) handleDeleteNode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	g := app.graph
+	g := app.getGraph()
 	g.mu.Lock()
 	defer g.mu.Unlock()
 
@@ -767,7 +1020,7 @@ func (app *App) handleCreateEdge(w http.ResponseWriter, r *http.Request) {
 		req.Type = "related_to"
 	}
 
-	g := app.graph
+	g := app.getGraph()
 	g.mu.Lock()
 	defer g.mu.Unlock()
 
@@ -792,7 +1045,7 @@ func (app *App) handleUpdateEdge(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	g := app.graph
+	g := app.getGraph()
 	g.mu.Lock()
 	defer g.mu.Unlock()
 
@@ -820,7 +1073,7 @@ func (app *App) handleDeleteEdge(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	g := app.graph
+	g := app.getGraph()
 	g.mu.Lock()
 	defer g.mu.Unlock()
 
@@ -845,7 +1098,7 @@ func (app *App) handleUndo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	g := app.graph
+	g := app.getGraph()
 	g.mu.Lock()
 	defer g.mu.Unlock()
 
@@ -864,7 +1117,7 @@ func (app *App) handleRedo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	g := app.graph
+	g := app.getGraph()
 	g.mu.Lock()
 	defer g.mu.Unlock()
 
@@ -897,7 +1150,7 @@ func (app *App) handleSaveBranch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	g := app.graph
+	g := app.getGraph()
 	g.mu.RLock()
 
 	entsCopy := make(map[string]*EntityInfo, len(g.Entities))
@@ -952,7 +1205,7 @@ func (app *App) handleLoadBranch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	g := app.graph
+	g := app.getGraph()
 	g.mu.Lock()
 	g.Entities = make(map[string]*EntityInfo, len(snap.Entities))
 	for k, v := range snap.Entities {
@@ -986,6 +1239,25 @@ func (app *App) handleListBranches(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(list)
 }
 
+// ── stats (lightweight counts for stats bar) ──
+
+func (app *App) handleStats(w http.ResponseWriter, r *http.Request) {
+	g := app.getGraph()
+	g.mu.RLock()
+	defer g.mu.RUnlock()
+	liveEdges := 0
+	for _, e := range g.Edges {
+		if e.Source != "\x00DEL" {
+			liveEdges++
+		}
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"total_entities": len(g.Entities),
+		"total_edges":    liveEdges,
+	})
+}
+
 // ── evaluate ──
 
 func (app *App) handleEvaluate(w http.ResponseWriter, r *http.Request) {
@@ -994,10 +1266,77 @@ func (app *App) handleEvaluate(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(report)
 }
 
+// ── hot reload from disk (pipeline / external edits) ──
+
+func (app *App) reloadBranchesFromDisk() {
+	app.branchMu.Lock()
+	defer app.branchMu.Unlock()
+	app.branches = make(map[string]*BranchSnapshot)
+	branchDir := filepath.Join(app.dataDir, "_branches")
+	entries, err := os.ReadDir(branchDir)
+	if err != nil {
+		return
+	}
+	for _, e := range entries {
+		if strings.HasSuffix(e.Name(), ".json") {
+			data, _ := os.ReadFile(filepath.Join(branchDir, e.Name()))
+			var snap BranchSnapshot
+			if json.Unmarshal(data, &snap) == nil {
+				app.branches[snap.Name] = &snap
+			}
+		}
+	}
+}
+
+func (app *App) reloadGraphFromDisk() {
+	newG, err := loadGraph(app.dataDir)
+	if err != nil {
+		log.Printf("Auto-reload: skipped (%v)", err)
+		return
+	}
+	app.graphPtr.Store(newG)
+	app.history = NewHistory()
+	app.reloadBranchesFromDisk()
+	log.Printf("Auto-reload: graph from disk (%d entities, %d edges)", len(newG.Entities), len(newG.Edges))
+}
+
+func startGraphAutoReload(app *App, interval time.Duration) {
+	idxPath := filepath.Join(app.dataDir, "global_entity_index.json")
+	edgePath := filepath.Join(app.dataDir, "global_edges.json")
+	sti, err1 := os.Stat(idxPath)
+	ste, err2 := os.Stat(edgePath)
+	if err1 != nil || err2 != nil {
+		log.Printf("Auto-reload: cannot stat data files, watcher disabled")
+		return
+	}
+	lastIdx, lastEdge := sti.ModTime(), ste.ModTime()
+	go func() {
+		t := time.NewTicker(interval)
+		defer t.Stop()
+		for range t.C {
+			sti, err1 := os.Stat(idxPath)
+			ste, err2 := os.Stat(edgePath)
+			if err1 != nil || err2 != nil {
+				continue
+			}
+			idxMT, edgeMT := sti.ModTime(), ste.ModTime()
+			if idxMT.Equal(lastIdx) && edgeMT.Equal(lastEdge) {
+				continue
+			}
+			if time.Now().UnixNano() < app.reloadSkipUntil.Load() {
+				continue
+			}
+			lastIdx, lastEdge = idxMT, edgeMT
+			app.reloadGraphFromDisk()
+		}
+	}()
+	log.Printf("Auto-reload: polling %s + %s every %v", filepath.Base(idxPath), filepath.Base(edgePath), interval)
+}
+
 // ── save ──
 
 func (app *App) handleSave(w http.ResponseWriter, r *http.Request) {
-	g := app.graph
+	g := app.getGraph()
 	g.mu.RLock()
 
 	// Save entities
@@ -1024,43 +1363,23 @@ func (app *App) handleSave(w http.ResponseWriter, r *http.Request) {
 	edgeData, _ := json.MarshalIndent(edgeObj, "", "  ")
 	g.mu.RUnlock()
 
-	os.WriteFile(filepath.Join(app.dataDir, "global_entity_index.json"), entData, 0644)
-	os.WriteFile(filepath.Join(app.dataDir, "global_edges.json"), edgeData, 0644)
+	if err := os.WriteFile(filepath.Join(app.dataDir, "global_entity_index.json"), entData, 0644); err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+	if err := os.WriteFile(filepath.Join(app.dataDir, "global_edges.json"), edgeData, 0644); err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+	// 避免保存后立即触发自动重载（内容与内存一致）
+	app.reloadSkipUntil.Store(time.Now().Add(4 * time.Second).UnixNano())
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{"status": "saved"})
 }
 
 // ── System memory API ──
-
-type memoryStatusEx struct {
-	dwLength                uint32
-	dwMemoryLoad            uint32
-	ullTotalPhys            uint64
-	ullAvailPhys            uint64
-	ullTotalPageFile        uint64
-	ullAvailPageFile        uint64
-	ullTotalVirtual         uint64
-	ullAvailVirtual         uint64
-	ullAvailExtendedVirtual uint64
-}
-
-func getSystemMemory() (totalMB, availMB, usedPercent uint64, err error) {
-	kernel32 := syscall.NewLazyDLL("kernel32.dll")
-	globalMemoryStatusEx := kernel32.NewProc("GlobalMemoryStatusEx")
-
-	var memStatus memoryStatusEx
-	memStatus.dwLength = uint32(unsafe.Sizeof(memStatus))
-
-	ret, _, callErr := globalMemoryStatusEx.Call(uintptr(unsafe.Pointer(&memStatus)))
-	if ret == 0 {
-		return 0, 0, 0, callErr
-	}
-	totalMB = memStatus.ullTotalPhys / (1024 * 1024)
-	availMB = memStatus.ullAvailPhys / (1024 * 1024)
-	usedPercent = uint64(memStatus.dwMemoryLoad)
-	return totalMB, availMB, usedPercent, nil
-}
+// getSystemMemory: Windows impl in memory_windows.go, stub in memory_other.go
 
 func (app *App) handleSystemMemory(w http.ResponseWriter, r *http.Request) {
 	var ms runtime.MemStats
@@ -1118,9 +1437,12 @@ func openBrowser(url string) {
 }
 
 func main() {
-	port := flag.Int("port", 0, "HTTP port (0 = auto)")
+	port := flag.Int("port", 10086, "HTTP port")
 	dataDir := flag.String("data", "", "Path to json_output_v4 directory")
+	ocrDirFlag := flag.String("ocr", "", "Path to OCR_raw (default: <parent of data>/OCR_raw)")
 	noBrowser := flag.Bool("no-browser", false, "Don't open browser automatically")
+	autoReload := flag.Bool("auto-reload", false, "Reload graph when global_entity_index.json / global_edges.json change on disk")
+	reloadInterval := flag.Duration("reload-interval", 2*time.Second, "How often to check data files for changes")
 	flag.Parse()
 
 	if *dataDir == "" {
@@ -1144,17 +1466,31 @@ func main() {
 	absData, _ := filepath.Abs(*dataDir)
 	log.Printf("Data directory: %s", absData)
 
+	absOCR := ""
+	if *ocrDirFlag != "" {
+		absOCR, _ = filepath.Abs(*ocrDirFlag)
+	} else {
+		absOCR = filepath.Join(filepath.Dir(absData), "OCR_raw")
+	}
+	if st, err := os.Stat(absOCR); err != nil || !st.IsDir() {
+		log.Printf("OCR_raw not available at %s — source downloads/snippets disabled (use --ocr)", absOCR)
+		absOCR = ""
+	} else {
+		log.Printf("OCR directory: %s", absOCR)
+	}
+
 	graph, err := loadGraph(absData)
 	if err != nil {
 		log.Fatalf("Failed to load graph: %v", err)
 	}
 
 	app := &App{
-		graph:    graph,
 		history:  NewHistory(),
 		branches: make(map[string]*BranchSnapshot),
 		dataDir:  absData,
+		ocrDir:   absOCR,
 	}
+	app.graphPtr.Store(graph)
 
 	// load existing branches
 	branchDir := filepath.Join(absData, "_branches")
@@ -1170,11 +1506,16 @@ func main() {
 		}
 	}
 
+	if *autoReload {
+		startGraphAutoReload(app, *reloadInterval)
+	}
+
 	mux := http.NewServeMux()
 
 	// API routes
 	mux.HandleFunc("/api/graph", app.handleGetGraph)
 	mux.HandleFunc("/api/node", app.handleGetNode)
+	mux.HandleFunc("/api/node/context", app.handleGetNodeContext)
 	mux.HandleFunc("/api/search", app.handleSearch)
 	mux.HandleFunc("/api/node/create", app.handleCreateNode)
 	mux.HandleFunc("/api/node/update", app.handleUpdateNode)
@@ -1188,15 +1529,16 @@ func main() {
 	mux.HandleFunc("/api/branch/save", app.handleSaveBranch)
 	mux.HandleFunc("/api/branch/load", app.handleLoadBranch)
 	mux.HandleFunc("/api/branches", app.handleListBranches)
+	mux.HandleFunc("/api/stats", app.handleStats)
 	mux.HandleFunc("/api/evaluate", app.handleEvaluate)
 	mux.HandleFunc("/api/save", app.handleSave)
 	mux.HandleFunc("/api/system/memory", app.handleSystemMemory)
+	mux.HandleFunc("/api/ocr/download", app.handleOCRDownload)
 
 	// Static files
 	staticSub, _ := fs.Sub(staticFS, "static")
 	mux.Handle("/", http.FileServer(http.FS(staticSub)))
 
-	// Find available port
 	addr := fmt.Sprintf(":%d", *port)
 	ln, err := net.Listen("tcp", addr)
 	if err != nil {

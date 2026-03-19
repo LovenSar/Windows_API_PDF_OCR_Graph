@@ -1031,11 +1031,21 @@ MAX_NEIGHBOR_DISPLAY = 15
 MAX_DESC_IN_NEIGHBOR = 150
 MAX_DESC_IN_ENTITY   = 800
 MAX_SYNTAX_IN_ENTITY = 500
+# 全局索引里附带描述（graph_viewer / 检索用）；过长截断以控制索引体积
+MAX_DESC_IN_GLOBAL_INDEX = 8000
 
 def _truncate(text, max_len):
     if not text: return ""
     text = text.replace("\n"," ").strip()
     return text if len(text)<=max_len else text[:max_len]+"..."
+
+def entity_row_for_global_index(e: dict, out_name: str) -> dict:
+    """写入 global_entity_index 的单实体行（与 Go graph_viewer EntityInfo 对齐）。"""
+    row = {'id': e.get('id'), 'file': out_name, 'type': e.get('entity_type')}
+    desc = _truncate((e.get('description') or '').replace('\n', ' ').strip(), MAX_DESC_IN_GLOBAL_INDEX)
+    if desc:
+        row['description'] = desc
+    return row
 
 class KnowledgeGraph:
     def __init__(self):
@@ -1714,7 +1724,7 @@ async def phase_extract(args, llm_config=None):
                     json.dump(result, f, ensure_ascii=False, indent=2)
                 for e in el:
                     ename = e.get('name', '')
-                    all_entity_map[ename] = {'id': e.get('id'), 'file': out_name, 'type': e.get('entity_type')}
+                    all_entity_map[ename] = entity_row_for_global_index(e, out_name)
                 file_entity_lists[out_name] = el
                 total_entities += len(el)
                 continue
@@ -1729,7 +1739,7 @@ async def phase_extract(args, llm_config=None):
 
         for e in el:
             ename = e.get('name', '')
-            all_entity_map[ename] = {'id': e.get('id'), 'file': out_name, 'type': e.get('entity_type')}
+            all_entity_map[ename] = entity_row_for_global_index(e, out_name)
         file_entity_lists[out_name] = el
         total_entities += len(el)
 
@@ -1772,7 +1782,7 @@ async def phase_extract(args, llm_config=None):
                 # 更新实体映射
                 for e in el:
                     ename = e.get('name', '')
-                    all_entity_map[ename] = {'id': e.get('id'), 'file': out_name, 'type': e.get('entity_type')}
+                    all_entity_map[ename] = entity_row_for_global_index(e, out_name)
                 file_entity_lists[out_name] = el
 
     elif llm_compare_queue:
@@ -1956,10 +1966,15 @@ def save_refined_graph(graph, output_dir, exec_stats):
             json.dump({'_schema':SCHEMA_VERSION+'_refined','_generated_at':datetime.now(timezone.utc).isoformat(),
                        'entities':ents}, f, ensure_ascii=False, indent=2)
         saved += 1
-    # 全局索引
+    # 全局索引（含 description，供 graph_viewer 等使用）
     idx = {}
     for eid, ent in graph.entities.items():
-        idx[ent.get('name','')] = {'id':eid,'file':graph.source_files.get(eid,''),'type':normalize_entity_type(ent.get('entity_type',''))}
+        nm = ent.get('name', '')
+        row = {'id': eid, 'file': graph.source_files.get(eid, ''), 'type': normalize_entity_type(ent.get('entity_type', ''))}
+        desc = _truncate((ent.get('description') or '').replace('\n', ' ').strip(), MAX_DESC_IN_GLOBAL_INDEX)
+        if desc:
+            row['description'] = desc
+        idx[nm] = row
     with open(os.path.join(output_dir,'global_entity_index.json'),'w',encoding='utf-8') as f:
         json.dump({'_schema':'global_entity_index_v4.0_refined',
                    '_generated_at':datetime.now(timezone.utc).isoformat(),

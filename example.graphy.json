@@ -1,0 +1,94 @@
+{
+  "$schema": "graph-viewer/graphy-1.0",
+  "version": "1.0",
+  "description": "知识图谱节点与边的定义模板。任意知识图谱只要按此格式提供数据（或由后端转换为该格式），即可被 graph_viewer 加载与可视化。",
+
+  "graph_api": {
+    "description": "GET /api/graph 的响应格式，前端据此渲染节点与边。",
+    "nodes": {
+      "array_of": {
+        "key": "string，节点唯一 ID，必填",
+        "attributes": {
+          "type": "string，实体类型，如 function/structure/typedef，缺省为 unknown",
+          "degree": "number，度数（可选，后端可算）",
+          "file": "string，来源文件或模块（可选）",
+          "description": "string，描述（可选）",
+          "label": "string，展示名（可选，缺省用 key）"
+        }
+      }
+    },
+    "edges": {
+      "array_of": {
+        "source": "string，源节点 key，必填",
+        "target": "string，目标节点 key，必填",
+        "attributes": {
+          "type": "string，边类型，如 references/uses_type/belongs_to（可选）"
+        },
+        "_comment": "边类型也可放在顶层 type 字段，前端会读 attributes.type 或 type"
+      }
+    }
+  },
+
+  "file_format": {
+    "description": "从目录加载时的文件约定（与 graph_viewer -data 指向的目录一致）。",
+    "entity_index": {
+      "filename": "global_entity_index.json",
+      "structure": {
+        "entities": "object，键为实体名（即节点 key），值为实体属性对象",
+        "entity_value": {
+          "id": "string（可选）",
+          "name": "string（可选，缺省用键名）",
+          "type": "string，实体类型",
+          "file": "string，来源文件",
+          "description": "string（可选）"
+        }
+      }
+    },
+    "edges_file": {
+      "filename": "global_edges.json",
+      "structure": {
+        "edges": "array",
+        "edge_item": {
+          "source": "string",
+          "target": "string",
+          "type": "string"
+        }
+      }
+    }
+  },
+
+  "example": {
+    "nodes": [
+      {
+        "key": "CreateFileW",
+        "attributes": {
+          "type": "function",
+          "degree": 3,
+          "file": "file-api.json",
+          "description": "创建或打开文件"
+        }
+      },
+      {
+        "key": "HANDLE",
+        "attributes": {
+          "type": "typedef",
+          "degree": 2,
+          "file": "win32.json",
+          "description": "句柄类型"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "source": "CreateFileW",
+        "target": "HANDLE",
+        "attributes": { "type": "return_type" }
+      },
+      {
+        "source": "CreateFileW",
+        "target": "HANDLE",
+        "attributes": { "type": "parameter_type" }
+      }
+    ]
+  }
+}

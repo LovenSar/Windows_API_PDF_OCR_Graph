@@ -118,6 +118,38 @@ python scripts/export_graph.py --format all
 python scripts/assess_isolated_nodes.py
 ```
 
+### 7. 图谱查看器（graph_viewer）
+
+- **前端画布库（随仓库提供）**：`force-graph`、`three`、`3d-force-graph` 的 min 文件已放在 `graph_viewer/static/`，由本机 `go embed` 一并提供，**不再依赖 unpkg CDN**，避免国内网络下脚本加载失败导致一直转圈。若需升级版本，可覆盖对应 `.min.js` 后重新 `go run` / 编译。
+- 侧栏 **「树形根视图」**：开启后点击节点，将以该点为根做 BFS 分层树形排布（边集不变），节点沿**三次贝塞尔曲线**过渡到新位置；根节点仍用右侧浮窗详情，**1～3 层**邻居在画布上显示名称标签（2D 为画布文字，3D 为精灵标签，需加载 Three.js）。
+- 节点详情浮窗：**OCR 原始文本**区会显示 `_source_line` 行号、原文上下行摘录，并提供 `[OCR]_windows-*.p.txt` / `.txt` 整文件下载。默认 OCR 目录为数据目录上一级的 `OCR_raw/`；若不在该位置，请 `go run . --data ... --ocr /path/to/OCR_raw`。
+- 全局索引需含 `description` 字段，详情页才有摘要（见下节）。
+- **外观主题**：侧栏「外观主题」可选 **暗黑 / 明亮 / 跟随系统**（`prefers-color-scheme`），选择会写入浏览器 `localStorage`（`graph-viewer-theme`），首屏前有内联脚本减轻闪烁；画布背景在明亮模式下与 UI 一致（浅色底），暗色下仍使用当前视图方案的预设背景色。
+- **磁盘热更新（默认关闭）**：需要监测磁盘变更时加 `--auto-reload`（默认每 2 秒检查 `global_entity_index.json` / `global_edges.json`）；否则为「笨模式」——数据更新后请**重启 graph_viewer** 并刷新浏览器。开启时可调 `--reload-interval=3s`。网页「Save」后约 4 秒内会跳过自动重载。外部重载会清空本次会话的撤销/重做栈。
+- **页面定时拉取（默认关闭）**：前端不再每隔数秒请求 `/api/graph`；要看最新图请**手动刷新浏览器**（Undo/Redo、保存等仍会走接口更新）。
+
+### 8. MCP 服务器与 LLM 对话框
+
+- **MCP 服务器**：将图谱 API 暴露给大模型（如 Cursor），支持轮询节点、验证关系建立。需先启动 graph_viewer，再运行 MCP 服务：
+
+```bash
+./start_graph_viewer.sh   # 或 go run . --data json_output_v4
+cd graph_viewer && go run ./mcp_server --graph-url=http://localhost:10086
+```
+
+  在 Cursor 等支持 MCP 的客户端中配置该服务器后，可使用工具：`kg_get_graph`、`kg_get_node`、`kg_search`、`kg_get_node_context`、`kg_evaluate`。
+
+- **LLM 对话框**：点击节点后，左下角会浮现「AI 解读」面板，展示该节点的完整上下文（类型、边、邻居、OCR 原文），供大模型做解读或生成示例代码。该面板位于左下角，不遮挡右侧节点详情浮窗。
+
+### 9. 全局索引描述（graph_viewer）
+
+`global_entity_index.json` 需包含 `description` 字段，查看器节点详情才会显示文档摘要。新版本 pipeline 已自动写入；若你仍在使用旧索引，可一次性回填：
+
+```bash
+python scripts/enrich_index_descriptions.py --apply
+./start_graph_viewer.sh
+```
+
 ## 数据流水线
 
 ```
