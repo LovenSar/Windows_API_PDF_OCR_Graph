@@ -121,10 +121,18 @@ python scripts/assess_isolated_nodes.py
 ### 7. 图谱查看器（graph_viewer）
 
 - **前端画布库（随仓库提供）**：`force-graph`、`three`、`3d-force-graph` 的 min 文件已放在 `graph_viewer/static/`，由本机 `go embed` 一并提供，**不再依赖 unpkg CDN**，避免国内网络下脚本加载失败导致一直转圈。若需升级版本，可覆盖对应 `.min.js` 后重新 `go run` / 编译。
+- **2D/3D 视图切换**：右上角可切换 2D/3D 视图模式。2D 视图使用 Canvas 渲染，3D 视图使用 WebGL 渲染。
+- **边箭头显示**：
+  - 2D 和 3D 视图均支持有向边的箭头显示
+  - 箭头方向表示 caller → callee 的关系
+  - 侧栏提供「Arrow size」滑块（20% - 150%），默认 67%，可调整箭头大小
+  - 箭头在视觉上保持固定大小，不会随视图缩放而变化
+  - 某些边类型（如 `semantically_related`、`via:*`）不显示箭头
 - 侧栏 **「树形根视图」**：开启后点击节点，将以该点为根做 BFS 分层树形排布（边集不变），节点沿**三次贝塞尔曲线**过渡到新位置；根节点仍用右侧浮窗详情，**1～3 层**邻居在画布上显示名称标签（2D 为画布文字，3D 为精灵标签，需加载 Three.js）。
 - 节点详情浮窗：**OCR 原始文本**区会显示 `_source_line` 行号、原文上下行摘录，并提供 `[OCR]_windows-*.p.txt` / `.txt` 整文件下载。默认 OCR 目录为数据目录上一级的 `OCR_raw/`；若不在该位置，请 `go run . --data ... --ocr /path/to/OCR_raw`。
 - 全局索引需含 `description` 字段，详情页才有摘要（见下节）。
 - **外观主题**：侧栏「外观主题」可选 **暗黑 / 明亮 / 跟随系统**（`prefers-color-scheme`），选择会写入浏览器 `localStorage`（`graph-viewer-theme`），首屏前有内联脚本减轻闪烁；画布背景在明亮模式下与 UI 一致（浅色底），暗色下仍使用当前视图方案的预设背景色。
+- **缓存控制**：服务器已配置 `Cache-Control: no-cache` 头，确保浏览器始终加载最新的 JavaScript 代码，避免缓存导致的功能问题。
 - **磁盘热更新（默认关闭）**：需要监测磁盘变更时加 `--auto-reload`（默认每 2 秒检查 `global_entity_index.json` / `global_edges.json`）；否则为「笨模式」——数据更新后请**重启 graph_viewer** 并刷新浏览器。开启时可调 `--reload-interval=3s`。网页「Save」后约 4 秒内会跳过自动重载。外部重载会清空本次会话的撤销/重做栈。
 - **页面定时拉取（默认关闭）**：前端不再每隔数秒请求 `/api/graph`；要看最新图请**手动刷新浏览器**（Undo/Redo、保存等仍会走接口更新）。
 

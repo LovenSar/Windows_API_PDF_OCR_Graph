@@ -27,6 +27,8 @@ Windows_API_PDF_OCR_Graph/
 │
 ├── graph_viewer/              # 图谱可视化 + MCP 服务器
 │   ├── main.go                # HTTP 服务（端口 10086）
+│   ├── static/                # 前端静态资源（force-graph, three.js 等）
+│   │   └── index.html         # 主页面（2D/3D 视图、箭头渲染、控件等）
 │   └── mcp_server/            # MCP 服务器（stdio，供 Cursor 等接入）
 │
 ├── OCR_raw/                  # 输入：OCR 文本（.p.txt + .txt 双源）
@@ -136,6 +138,37 @@ python scripts/export_graph.py --format all
 # 评估
 python scripts/assess_isolated_nodes.py
 
+# 图谱查看器
+./start_graph_viewer.sh                    # 从项目根目录启动
+cd graph_viewer && go run . --data ../json_output_v4  # 手动启动
+
 # 测试
 python -m pytest tests/ -v
 ```
+
+## graph_viewer 功能说明
+
+### 视图模式
+- **2D 视图**：使用 Canvas 渲染，性能更好，适合大规模图谱
+- **3D 视图**：使用 WebGL 渲染，支持空间导航，视觉效果更丰富
+- 右上角可切换视图模式
+
+### 边箭头
+- **箭头显示**：2D 和 3D 视图均支持有向边箭头
+- **箭头方向**：caller → callee（调用者指向被调用者）
+- **箭头大小控制**：侧栏「Arrow size」滑块（20% - 150%），默认 67%
+- **固定视觉大小**：箭头在视觉上保持固定大小，不随视图缩放变化
+- **边类型过滤**：`semantically_related`、`via:*` 等弱语义边不显示箭头
+
+### 侧栏控件
+- **Min degree**：过滤低度数节点
+- **Edge opacity**：边透明度（5% - 100%）
+- **Node size**：节点大小（20% - 200%）
+- **Edge width**：边宽度（5% - 100%）
+- **Arrow size**：箭头大小（20% - 150%），默认 67%
+- **Mem limit**：内存限制（128MB - 2048MB）
+
+### 缓存与更新
+- 服务器已配置 `Cache-Control: no-cache`，确保加载最新代码
+- 开发时建议使用强制刷新（Ctrl+Shift+R / Cmd+Shift+R）
+- 数据更新后需重启 graph_viewer 或使用 `--auto-reload` 选项
