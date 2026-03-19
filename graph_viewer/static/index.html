@@ -409,6 +409,7 @@ a.ocr-dl:hover { background:var(--accent); color:#fff; }
       <div class="filter-row"><label>Edge opacity</label><input type="range" id="edge-opacity-slider" min="5" max="100" value="45" step="5"><span class="val-display" id="edge-opacity-val">45%</span></div>
       <div class="filter-row"><label>Node size</label><input type="range" id="node-size-slider" min="20" max="200" value="100" step="10"><span class="val-display" id="node-size-val">100%</span></div>
       <div class="filter-row"><label>Edge width</label><input type="range" id="edge-width-slider" min="5" max="100" value="35" step="5"><span class="val-display" id="edge-width-val">0.35</span></div>
+      <div class="filter-row"><label>Arrow size</label><input type="range" id="arrow-size-slider" min="20" max="150" value="67" step="5"><span class="val-display" id="arrow-size-val">67%</span></div>
       <div class="filter-row"><label>Mem limit</label><input type="range" id="mem-limit-slider" min="128" max="2048" value="512" step="64"><span class="val-display" id="mem-limit-val">512MB</span></div>
       <div id="mem-bar" style="padding:3px 12px;border-bottom:1px solid var(--border);font-size:10px;color:var(--text-muted);display:flex;align-items:center;gap:5px;">
         <span>RAM:</span>
@@ -578,6 +579,7 @@ var memLimitMB=512, autoThrottleActive=false, lastSystemMem=null;
 var currentPresetKey="balanced", currentPreset=PRESETS.balanced;
 var currentScheme=COLOR_SCHEMES[currentPreset.scheme];
 var edgeOpacity=currentPreset.edgeOp, nodeSizeMul=currentPreset.nodeMul, edgeWidth=currentPreset.edgeW;
+var arrowSizeMul=0.67;
 var progressiveTimer=null, isProgressing=false, simDone=false;
 var perfTestRunning=false, perfResultUntil=0;
 var autoRefreshBusy=false, AUTO_REFRESH_MS=0;
@@ -1458,7 +1460,8 @@ function linkDirectionalArrowLen(l){
   var et=String(l.edgeType||"").toLowerCase();
   if(et.indexOf("via:")===0)return 0;
   if(et==="semantically_related"||et==="related_to"||et==="associated_with"||et==="similar_to")return 0;
-  return is3D?4.5:6.0;
+  var baseLen=is3D?4.5:8.0;
+  return baseLen*arrowSizeMul;
 }
 /** 具名 accessor：勿用 myGraph.nodeColor(myGraph.nodeColor())，部分版本会返回链式对象导致卡死/异常 */
 function graphNodeColorAccessor(n){
@@ -1516,10 +1519,10 @@ function configureGraph(g,container){
     .nodeColor(graphNodeColorAccessor)
     .nodeLabel(function(n){return"<b style='color:"+n.color+"'>"+n.name+"</b><br>["+n.entityType+"] deg:"+n.degree;})
     .linkColor(graphLinkColorAccessor)
+    .linkWidth(graphLinkWidthAccessor)
     .linkDirectionalArrowLength(linkDirectionalArrowLen)
     .linkDirectionalArrowRelPos(0.95)
     .linkDirectionalArrowColor(graphLinkArrowColorAccessor)
-    .linkWidth(graphLinkWidthAccessor)
     .onNodeHover(function(n){container.style.cursor=n?"pointer":"default";}).onLinkHover(null)
     .onNodeClick(function(n){if(n)selectNode(n.id);})
     .onBackgroundClick(function(){if(floatDetailMaximized||llmDialogMaximized)return;deselectNode();hideFloatDetail();})
@@ -1587,7 +1590,54 @@ function createGraph(){
       if(!myGraph){console.error("Failed to create ForceGraph");return;}
       configureGraph(myGraph,container);
       if(typeof myGraph.enableZoomInteraction==="function")myGraph.enableZoomInteraction(false);
-      myGraph.nodeRelSize(tree2dNodeRelSize).linkDirectionalParticles(0).linkLabel(function(l){var s=l.source.id||l.source,t=l.target.id||l.target;return s+" \u2192 "+t+"<br>["+l.edgeType+"]";}).nodeCanvasObjectMode(function(){return"replace";}).nodeCanvasObject(function(node,ctx,globalScale){
+      myGraph.nodeRelSize(tree2dNodeRelSize).linkDirectionalParticles(0).linkLabel(function(l){var s=l.source.id||l.source,t=l.target.id||l.target;return s+" \u2192 "+t+"<br>["+l.edgeType+"]";});
+      if(typeof myGraph.linkDirectionalArrowLength==="function"){
+        myGraph.linkDirectionalArrowLength(linkDirectionalArrowLen);
+        console.log("2D: linkDirectionalArrowLength set to function, sample return:",linkDirectionalArrowLen({edgeType:"references"}));
+      }
+      if(typeof myGraph.linkDirectionalArrowRelPos==="function"){
+        myGraph.linkDirectionalArrowRelPos(0.95);
+        console.log("2D: linkDirectionalArrowRelPos set to 0.95");
+      }
+      if(typeof myGraph.linkDirectionalArrowColor==="function"){
+        myGraph.linkDirectionalArrowColor(graphLinkArrowColorAccessor);
+        console.log("2D: linkDirectionalArrowColor set to function");
+      }
+      var data=myGraph.graphData();
+      if(data&&data.links&&data.links.length>0){
+        console.log("2D: Graph has",data.links.length,"links, first link:",data.links[0]);
+        var sampleLink=data.links[0];
+        if(sampleLink){
+          var arrowLen=linkDirectionalArrowLen(sampleLink);
+          console.log("2D: Sample link arrow length:",arrowLen,"edgeType:",sampleLink.edgeType);
+        }
+      }
+      myGraph.linkCanvasObjectMode(function(){return"after";}).linkCanvasObject(function(link,ctx,globalScale){
+        var arrowLen=linkDirectionalArrowLen(link);
+        if(arrowLen<=0)return;
+        var s=typeof link.source==="object"?link.source:nodeIndex[link.source];
+        var t=typeof link.target==="object"?link.target:nodeIndex[link.target];
+        if(!s||!t||s.x===undefined||t.x===undefined)return;
+        var dx=t.x-s.x,dy=t.y-s.y;
+        var len=Math.sqrt(dx*dx+dy*dy);
+        if(len<0.1)return;
+        var relPos=0.95;
+        var px=s.x+dx*relPos,py=s.y+dy*relPos;
+        var angle=Math.atan2(dy,dx);
+        var arrowSize=arrowLen/globalScale;
+        ctx.save();
+        ctx.translate(px,py);
+        ctx.rotate(angle);
+        ctx.beginPath();
+        ctx.moveTo(0,0);
+        ctx.lineTo(-arrowSize,-arrowSize*0.5);
+        ctx.lineTo(-arrowSize,arrowSize*0.5);
+        ctx.closePath();
+        ctx.fillStyle=graphLinkArrowColorAccessor(link);
+        ctx.fill();
+        ctx.restore();
+      });
+      myGraph.nodeCanvasObjectMode(function(){return"replace";}).nodeCanvasObject(function(node,ctx,globalScale){
     var r=Math.sqrt(Math.max(0.01,node.val||1))*tree2dNodeRelSize(node);
     var isHighlighted=highlightNodeIds.has(node.id)||highlightNodes.has(node);
     var fillColor=(highlightNodeIds.size>0||highlightNodes.size>0)&&!isHighlighted?graphMutedNodeColor():node.color;
@@ -1820,7 +1870,10 @@ function refreshGraphStyle(){
   if(typeof myGraph.linkDirectionalArrowLength==="function")myGraph.linkDirectionalArrowLength(linkDirectionalArrowLen);
   if(typeof myGraph.linkDirectionalArrowRelPos==="function")myGraph.linkDirectionalArrowRelPos(0.95);
   if(typeof myGraph.linkDirectionalArrowColor==="function")myGraph.linkDirectionalArrowColor(graphLinkArrowColorAccessor);
-  if(!is3D&&typeof myGraph.nodeRelSize==="function")myGraph.nodeRelSize(tree2dNodeRelSize);
+  if(!is3D){
+    if(typeof myGraph.nodeRelSize==="function")myGraph.nodeRelSize(tree2dNodeRelSize);
+    if(typeof myGraph.linkDirectionalArrowLength==="function")myGraph.linkDirectionalArrowLength(linkDirectionalArrowLen);
+  }
   if(is3D&&typeof myGraph.nodeOpacity==="function"){
     var p=currentPreset||PRESETS.balanced;
     var isTreeAnim=treeAnimating&&treeLayoutRootId;
@@ -1993,6 +2046,7 @@ document.getElementById("degree-slider").addEventListener("input",function(e){va
 document.getElementById("edge-opacity-slider").addEventListener("input",function(e){edgeOpacity=parseInt(e.target.value)/100;document.getElementById("edge-opacity-val").textContent=parseInt(e.target.value)+"%";if(myGraph)refreshGraphStyle();});
 document.getElementById("node-size-slider").addEventListener("input",function(e){nodeSizeMul=parseInt(e.target.value)/100;document.getElementById("node-size-val").textContent=parseInt(e.target.value)+"%";recalcNodeVals();applyFilter();});
 document.getElementById("edge-width-slider").addEventListener("input",function(e){edgeWidth=parseInt(e.target.value)/100;document.getElementById("edge-width-val").textContent=edgeWidth.toFixed(2);if(myGraph)myGraph.linkWidth(myGraph.linkWidth());});
+document.getElementById("arrow-size-slider").addEventListener("input",function(e){arrowSizeMul=parseInt(e.target.value)/100;document.getElementById("arrow-size-val").textContent=parseInt(e.target.value)+"%";if(myGraph)refreshGraphStyle();});
 document.getElementById("mem-limit-slider").addEventListener("input",function(e){memLimitMB=parseInt(e.target.value);document.getElementById("mem-limit-val").textContent=memLimitMB+"MB";});
 initThemeUi();
 initLlmInsightUi();
