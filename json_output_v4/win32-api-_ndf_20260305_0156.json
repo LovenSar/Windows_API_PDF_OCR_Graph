@@ -13,7 +13,10 @@
       "cross_references": [],
       "confidence": 0.5,
       "_source_line": 1476,
-      "return_value": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+      }
     },
     {
       "id": "windows::ATTRIBUTE_TYPE",
@@ -196,7 +199,7 @@
     {
       "id": "windows::HelperAttributeInfo",
       "name": "HelperAttributeInfo",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构体包含帮助程序属性的名称及其类型。成员pwszName指向包含帮助程序属性名称的以null结尾的字符串，type指定帮助程序属性的类型。",
       "syntax": "typedef struct tagHelperAttributeInfo {\nLPWSTR         pwszName;   ATTRIBUTE_TYPE type;\n} HelperAttributeInfo, *PHelperAttributeInfo;\n成员 pwszName\n类型： [字符串] LPWSTR\n指向包含帮助程序属性名称的以 null 结尾的字符串的指针。 type\n类型： ATTRIBUTE_TYPE 帮助程序属性的类型。",
       "header": "ndhelper.h",
@@ -205,7 +208,8 @@
         "HypothesisResult"
       ],
       "confidence": 0.7,
-      "_source_line": 79
+      "_source_line": 79,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::LIFE_TIME",
@@ -233,7 +237,7 @@
     {
       "id": "windows::OCTET_STRING",
       "name": "OCTET_STRING",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "表示字节字符串的结构体。成员 dwLength 类型：DWORD 数据的长度。lpValue 类型：[size_is(dwLength)] BYTE* 指向包含数据的字节数组的指针。",
       "syntax": "typedef struct tagOCTET_STRING {\n    DWORD dwLength;\n    BYTE *lpValue;\n} OCTET_STRING, *POCTET_STRING;",
       "requirements": {
@@ -249,7 +253,8 @@
         "PHELPER_ATTRIBUTE"
       ],
       "confidence": 0.85,
-      "_source_line": 82
+      "_source_line": 82,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::RepairInfo",
@@ -270,7 +275,7 @@
     {
       "id": "windows::ShellCommandInfo",
       "name": "ShellCommandInfo",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含启动手动修复选项的其他应用程序所需的数据。",
       "syntax": "typedef struct tagShellCommandInfo {\nLPWSTR pwszOperation;   LPWSTR pwszFile;\nLPWSTR pwszParameters;   LPWSTR pwszDirectory;   ULONG  nShowCmd;\n} ShellCommandInfo, *PShellCommandInfo;\n成员 pwszOperation\n类型： [字符串] LPWSTR\n指向包含要执行的操作的以 null 结尾的字符串的指针。 指定操作的可用谓词集取决于特定的文件或文件夹。 通常，对象的快捷菜单中可用的操作是可用的谓词。 有关详细信\n息，请参见“备注”部分。 pwszFile\n类型： [字符串] LPWSTR\n指向以 null 结尾的字符串的指针，该字符串指定要对其执行指定谓词的文件或对象。 若要指定 Shell 命名空间对象，请传递完全限定分析名称。 请注意，并非所有对象都支持所\n有谓词。 例如，并非所有文档类型都支持“print”谓词。 pwszParameters\n类型： [字符串] LPWSTR\n指向以 null 结尾的字符串的指针，该字符串指定要传递给应用程序的参数（仅当 pwszFile 参数指定可执行文件时）。 此字符串的格式由要调用的谓词决定。 如果 pwszFile 指定文档文件， 则 pwszParameters 应为 NULL。\npwszDirectory\n类型： [字符串] LPWSTR\n指向以 null 结尾的字符串的指针，该字符串指定默认目录。 nShowCmd\n类型： ULONG\n指定应用程序在打开时如何显示应用程序的标志。 如果 pwszFile 指定文档文件，则标志\n将直接传递到关联的应用程序。 由应用程序决定如何处理它。",
       "remarks": "对于手动修复选项，调用方可以使用此结构调用 ShellExecute 函数，以启动可帮助用户修复问题的其他应用程序。以下谓词用于与 pwszOperation 相关联。",
@@ -285,7 +290,8 @@
         "UiInfo"
       ],
       "confidence": 0.6,
-      "_source_line": 87
+      "_source_line": 87,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::UiInfo",
@@ -600,7 +606,8 @@
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK。失败时返回其他 HRESULT 错误代码。"
+        "description": "成功时返回 S_OK。失败时返回其他 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "header": "ndfapi.h",
       "deprecated": false,
@@ -698,29 +705,37 @@
         {
           "name": "CloudName",
           "direction": "in, optional",
-          "description": "类型： LPCWSTR 创建组的云) PNRP (对等名称解析协议的名称。 如果 为 NULL，则会话不会尝试诊断与 PNRP 相关的问题。"
+          "description": "类型： LPCWSTR 创建组的云) PNRP (对等名称解析协议的名称。 如果 为 NULL，则会话不会尝试诊断与 PNRP 相关的问题。",
+          "type": "optional] LPCWSTR"
         },
         {
           "name": "GroupName",
           "direction": "in, optional",
-          "description": "类型： LPCWSTR 要诊断的组的名称。 如果 为 NULL，则会话不会尝试诊断与组可用性相关的问题。"
+          "description": "类型： LPCWSTR 要诊断的组的名称。 如果 为 NULL，则会话不会尝试诊断与组可用性相关的问题。",
+          "type": "optional] LPCWSTR"
         },
         {
           "name": "Identity",
           "direction": "in, optional",
-          "description": "类型： LPCWSTR 对等方用于访问组的标识。 如果 为 NULL，则会话不会尝试诊断与组在 PNRP 中注册的能力相关的问题。"
+          "description": "类型： LPCWSTR 对等方用于访问组的标识。 如果 为 NULL，则会话不会尝试诊断与组在 PNRP 中注册的能力相关的问题。",
+          "type": "optional] LPCWSTR"
         },
         {
           "name": "Invitation",
           "direction": "in, optional",
-          "description": "类型： LPCWSTR 由另一对等方授予的 XML 邀请。 邀请方调用 PeerGroupCreateInvitation 或"
+          "description": "类型： LPCWSTR 由另一对等方授予的 XML 邀请。 邀请方调用 PeerGroupCreateInvitation 或",
+          "type": "optional] LPCWSTR"
         }
       ],
       "header": "ndfapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 735
+      "_source_line": 735,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::PeerGroupIssueCredentials",
@@ -772,12 +787,14 @@
         {
           "name": "applicationID",
           "direction": "in, optional",
-          "description": "类型： LPCWSTR 接收入站流量的应用程序的完全限定路径。"
+          "description": "类型： LPCWSTR 接收入站流量的应用程序的完全限定路径。",
+          "type": "optional] LPCWSTR"
         },
         {
           "name": "serviceID",
           "direction": "in, optional",
-          "description": "类型： LPCWSTR 接收入站流量的 Windows 服务。 dll，-28502 (文件/打印共享) dll，-28752 (远程桌面) dll，-32752 (Network Discovery)"
+          "description": "类型： LPCWSTR 接收入站流量的 Windows 服务。 dll，-28502 (文件/打印共享) dll，-28752 (远程桌面) dll，-32752 (Network Discovery)",
+          "type": "optional] LPCWSTR"
         },
         {
           "name": "userID",
@@ -826,17 +843,20 @@
         {
           "name": "cloudname",
           "direction": "in",
-          "description": "类型： LPCWSTR 要诊断的云的名称。"
+          "description": "类型： LPCWSTR 要诊断的云的名称。",
+          "type": "LPCWSTR"
         },
         {
           "name": "peername",
           "direction": "in, optional",
-          "description": "类型： LPCWSTR PNRP 可以尝试解析的对等节点的可选名称。 结果将用于帮助诊断任何问题。"
+          "description": "类型： LPCWSTR PNRP 可以尝试解析的对等节点的可选名称。 结果将用于帮助诊断任何问题。",
+          "type": "optional] LPCWSTR"
         },
         {
           "name": "diagnosePublish",
           "direction": "in",
-          "description": "类型： BOOL 指定帮助程序类是否应验证节点是否可以发布 ID。 如果 为 FALSE，则会跳过此诊断步骤。"
+          "description": "类型： BOOL 指定帮助程序类是否应验证节点是否可以发布 ID。 如果 为 FALSE，则会跳过此诊断步骤。",
+          "type": "BOOL"
         },
         {
           "name": "appId",
@@ -922,7 +942,8 @@
         {
           "name": "useWinHTTP",
           "direction": "in",
-          "description": "类型： BOOL 如果将使用 WinHTTP API 执行诊断，则为 TRUE;如果使用 WinInet API，则为 FALSE。"
+          "description": "类型： BOOL 如果将使用 WinHTTP API 执行诊断，则为 TRUE;如果使用 WinInet API，则为 FALSE。",
+          "type": "BOOL"
         },
         {
           "name": "moduleName",
@@ -1066,11 +1087,13 @@
         {
           "name": "pcelt",
           "direction": "out",
-          "description": "指向HELPER_ATTRIBUTE数组中的元素计数 的 指针。[out] pprgAttributes 指向HELPER_ATTRIBUTE结构的数组 的 指针。"
+          "description": "指向HELPER_ATTRIBUTE数组中的元素计数 的 指针。[out] pprgAttributes 指向HELPER_ATTRIBUTE结构的数组 的 指针。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "返回代码 S_OK"
+        "description": "返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "ndhelper.h",
       "deprecated": false,
@@ -1088,11 +1111,13 @@
         {
           "name": "ppInfo",
           "direction": "out",
-          "description": "指向 DiagnosticsInfo 结构的指针的指针。"
+          "description": "指向 DiagnosticsInfo 结构的指针的指针。",
+          "type": "DiagnosticsInfo"
         }
       ],
       "return_value": {
-        "description": "返回代码 S_OK"
+        "description": "返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "ndhelper.h",
       "deprecated": false,
@@ -1110,11 +1135,13 @@
         {
           "name": "pcelt",
           "direction": "out",
-          "description": "指向 HYPOTHESIS 数组中元素计数的指针。[out] pprgHypotheses 指向 HYPOTHESIS 结构数组的指针。"
+          "description": "指向 HYPOTHESIS 数组中元素计数的指针。[out] pprgHypotheses 指向 HYPOTHESIS 结构数组的指针。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "返回代码 S_OK"
+        "description": "返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "ndhelper.h",
       "deprecated": false,
@@ -1132,11 +1159,13 @@
         {
           "name": "pLifeTime",
           "direction": "out",
-          "description": "指向 LIFE_TIME 结构的指针。"
+          "description": "指向 LIFE_TIME 结构的指针。",
+          "type": "LIFE_TIME"
         }
       ],
       "return_value": {
-        "description": "返回代码 S_OK"
+        "description": "返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "ndhelper.h",
       "deprecated": false,
@@ -1154,11 +1183,13 @@
         {
           "name": "pcelt",
           "direction": "out",
-          "description": "指向 HYPOTHESIS 数组中元素计数的指针。[out] pprgHypotheses 指向 HYPOTHESIS 数组的指针。"
+          "description": "指向 HYPOTHESIS 数组中元素计数的指针。[out] pprgHypotheses 指向 HYPOTHESIS 数组的指针。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK。失败时可能返回 E_INVALIDARG 或 E_OUTOFMEMORY。"
+        "description": "成功时返回 S_OK。失败时可能返回 E_INVALIDARG 或 E_OUTOFMEMORY。",
+        "type": "HRESULT"
       },
       "header": "ndhelper.h",
       "deprecated": false,
@@ -1176,10 +1207,14 @@
         {
           "name": "problem",
           "direction": "in",
-          "description": "一个PROBLEM_TYPE值，该值指定帮助程序类先前已诊断的问题类型。[out] pcelt 指向 RepairInfo 数组中元素计数的指针。[out] ppInfo 指向 RepairInfo 结构数组的指针。"
+          "description": "一个PROBLEM_TYPE值，该值指定帮助程序类先前已诊断的问题类型。[out] pcelt 指向 RepairInfo 数组中元素计数的指针。[out] ppInfo 指向 RepairInfo 结构数组的指针。",
+          "type": "PROBLEM_TYPE"
         }
       ],
-      "return_value": "{\"description\": \"成功时返回 S_OK，否则返回失败 HRESULT 代码。\"}",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "{\"description\": \"成功时返回 S_OK，否则返回失败 HRESULT 代码。\"}"
+      },
       "header": "ndhelper.h",
       "deprecated": false,
       "cross_references": [],
@@ -1196,11 +1231,13 @@
         {
           "name": "pcelt",
           "direction": "out",
-          "description": "指向 HYPOTHESIS 数组中元素计数的指针。[out] pprgHypotheses 指向 HYPOTHESIS 数组的指针。"
+          "description": "指向 HYPOTHESIS 数组中元素计数的指针。[out] pprgHypotheses 指向 HYPOTHESIS 数组的指针。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，失败时返回其他 HRESULT 错误代码。"
+        "description": "成功时返回 S_OK，失败时返回其他 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "header": "ndhelper.h",
       "deprecated": false,
@@ -1218,7 +1255,8 @@
         {
           "name": "riid",
           "direction": "in",
-          "description": "预留给系统使用。[out] ppvObject 预留给系统使用。 返回值此方法不返回值。"
+          "description": "预留给系统使用。[out] ppvObject 预留给系统使用。 返回值此方法不返回值。",
+          "type": "REFIID"
         }
       ],
       "remarks": "此函数保留供系统使用。返回 HRESULT 类型。",
@@ -1232,7 +1270,11 @@
         "Server"
       ],
       "confidence": 0.8,
-      "_source_line": 2270
+      "_source_line": 2270,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::PT_LOW_HEALTH",

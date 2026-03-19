@@ -358,7 +358,8 @@
         {
           "name": "FileHandle",
           "direction": "in",
-          "description": "要关闭的文件或目录句柄。"
+          "description": "要关闭的文件或目录句柄。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
@@ -397,11 +398,13 @@
         {
           "name": "ConnectionKey",
           "direction": "in",
-          "description": "从 CfConnectSyncRoot 返回的连接密钥，该密钥现在用于断开同步根的连接。"
+          "description": "从 CfConnectSyncRoot 返回的连接密钥，该密钥现在用于断开同步根的连接。",
+          "type": "CF_CONNECTION_KEY"
         }
       ],
       "return_value": {
-        "description": "如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "这会删除与以前使用 CfConnectSyncRoot 建立的平台的通信通道。同步提供程序仍然可以在 CfDisconnectSyncRoot 调用期间接收回调，并且提供程序可以自由选择调用是需要失败还是需要提供服务。任一选择都不会对同步提供程序造成中断。调用 CfDisconnectSyncRoot 返回后，同步提供程序将不再接收回调，并且平台将失败依赖于上述回调的任何操作。同步提供程序应具有 WRITE_DATA 或 WRITE_DAC 对要断开连接的同步根的访问权限，否则调用 CfDisconnectSyncRoot 将失败，并出现 HRESULT (ERROR_CLOUD_FILE_ACCESS_DENIED)。此外，如果之前尚未连接同步根，则调用将失败，参数无效。可以在正常关闭同步提供程序时调用此 API。但是，如果同步提供程序进程选择在不调用此 API 的情况下终止，或者意外崩溃，平台将检测到此情况并执行必要的清理。",
       "header": "cfapi.h",
@@ -432,11 +435,13 @@
         {
           "name": "PlatformVersion",
           "direction": "out",
-          "description": "平台版本信息。 有关详细信息 ，请参阅CF_PLATFORM_INFO 。"
+          "description": "平台版本信息。 有关详细信息 ，请参阅CF_PLATFORM_INFO 。",
+          "type": "CF_PLATFORM_INFO"
         }
       ],
       "return_value": {
-        "description": "如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "平台定义为筛选器和 API 库的组合，它们始终彼此保持同步。 此 API 主要用于在多个 Windows 版本上运行且需要根据平台功能做出决策的同步提供程序。 平台版本信息由三个部分组成：内部版本号、修订号和集成号。 当平台由Windows 更新提供服务时，内部版本号和修订号会更改。 集成编号本身就 API 协定和关键 bug 修复的可用性而言，都指示平台功能。 集成数单调递增。 平台永远不会因集成数的增量而失去功能。 云文件感知 应用程序可能还会发现此 API 很有用。",
       "requirements": {
@@ -459,7 +464,8 @@
         {
           "name": "FileHandle",
           "direction": "in",
-          "description": "要查询其信息的同步根下的文件的句柄。[in] InfoClass 同步根信息的类型。[out] InfoBuffer 指向将接收同步根信息的缓冲区的指针。[in] InfoBufferLength"
+          "description": "要查询其信息的同步根下的文件的句柄。[in] InfoClass 同步根信息的类型。[out] InfoBuffer 指向将接收同步根信息的缓冲区的指针。[in] InfoBufferLength",
+          "type": "HANDLE"
         }
       ],
       "header": "cfapi.h",
@@ -472,7 +478,11 @@
         "Win32"
       ],
       "confidence": 0.8,
-      "_source_line": 154
+      "_source_line": 154,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CfGetTransferKey",
@@ -484,11 +494,13 @@
         {
           "name": "FileHandle",
           "direction": "in",
-          "description": "占位符的文件句柄。[out] TransferKey 要提供服务的占位符的不透明句柄。"
+          "description": "占位符的文件句柄。[out] TransferKey 要提供服务的占位符的不透明句柄。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "此 API 适用于可能希望主动启动数据传输到占位符的同步提供程序，作为调用",
       "header": "cfapi.h",
@@ -696,7 +708,8 @@
         {
           "name": "FileHandle",
           "direction": "in",
-          "description": "要查询的占位符文件的句柄。[in] InfoClass 占位符数据范围的类型。[in] StartingOffset 数据范围的起始点偏移量。[in] Length 数据范围的长度。 提供程序可以指定 CF_EOFLength ，以指示请求信息的范围从"
+          "description": "要查询的占位符文件的句柄。[in] InfoClass 占位符数据范围的类型。[in] StartingOffset 数据范围的起始点偏移量。[in] Length 数据范围的长度。 提供程序可以指定 CF_EOFLength ，以指示请求信息的范围从",
+          "type": "HANDLE"
         }
       ],
       "header": "cfapi.h",
@@ -710,7 +723,11 @@
         "WIN32_FIND_DATA"
       ],
       "confidence": 0.8,
-      "_source_line": 275
+      "_source_line": 275,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CF_CALLBACK_RENAME_FLAGS",
@@ -1714,7 +1731,8 @@
         {
           "name": "FileHandle",
           "direction": "in",
-          "description": "要转换的文件或目录的句柄。[in, optional] FileIdentity 包含调用方提供的不透明文件或目录信息的用户模式缓冲区。 如果调用方未同时解除冻结文件，或者调用方正在转 换目录，则为可选。 FileIdentity 在所有回调中传递回同步提供程序。 大小不能超过 4KB。[in] FileIdentityLength"
+          "description": "要转换的文件或目录的句柄。[in, optional] FileIdentity 包含调用方提供的不透明文件或目录信息的用户模式缓冲区。 如果调用方未同时解除冻结文件，或者调用方正在转 换目录，则为可选。 FileIdentity 在所有回调中传递回同步提供程序。 大小不能超过 4KB。[in] FileIdentityLength",
+          "type": "HANDLE"
         }
       ],
       "header": "cfapi.h",
@@ -1724,7 +1742,11 @@
         "Server"
       ],
       "confidence": 0.8,
-      "_source_line": 1347
+      "_source_line": 1347,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CfRegisterSyncRoot",
@@ -1736,14 +1758,19 @@
         {
           "name": "SyncRootPath",
           "direction": "in",
-          "description": "要注册的同步根路径。[in] Registration 包含有关要注册的同步提供程序和同步根的信息。"
+          "description": "要注册的同步根路径。[in] Registration 包含有关要注册的同步提供程序和同步根的信息。",
+          "type": "LPCWSTR"
         }
       ],
       "header": "cfapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 1348
+      "_source_line": 1348,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CF_PLACEHOLDER_MANAGEMENT_POLICY_CONVERT_TO_UNRESTRICTED",
@@ -1821,7 +1848,8 @@
         {
           "name": "BaseDirectoryPath",
           "direction": "in",
-          "description": "在其中创建占位符的本地目录的路径。 指定路径时，请记住以下事项： 此路径必须包含在已注册的同步根树中。 它可以是同步根目录本身，也可以是任何后代目录。 否则，调用将失败并 出现"
+          "description": "在其中创建占位符的本地目录的路径。 指定路径时，请记住以下事项： 此路径必须包含在已注册的同步根树中。 它可以是同步根目录本身，也可以是任何后代目录。 否则，调用将失败并 出现",
+          "type": "LPCWSTR"
         }
       ],
       "header": "cfapi.h",
@@ -1832,7 +1860,11 @@
         "Server"
       ],
       "confidence": 0.8,
-      "_source_line": 1375
+      "_source_line": 1375,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CF_DEHYDRATE_FLAG_NONE",
@@ -2139,16 +2171,19 @@
         {
           "name": "FileHandle",
           "direction": "in",
-          "description": "占位符的句柄。 平台正确地将操作与其他活动请求同步。 属性或无访问句柄就足够了。 调用方必须具有 WRITE_DATA 或 WRITE_DAC 占位符的访问权限。[in] InSyncState 同步状态。 InSyncState 可以设置为以下值之一： 如果指定 了CF_IN_SYNC_STATE_NOT_IN_SYNC ，则当 API 调用成功返回时，平台会清除占位符的同步状态。 如果指定 了CF_IN_SYNC_STATE_IN_SYNC ，则平台会在 API 调用成功返回时设置占位符的同步状态。"
+          "description": "占位符的句柄。 平台正确地将操作与其他活动请求同步。 属性或无访问句柄就足够了。 调用方必须具有 WRITE_DATA 或 WRITE_DAC 占位符的访问权限。[in] InSyncState 同步状态。 InSyncState 可以设置为以下值之一： 如果指定 了CF_IN_SYNC_STATE_NOT_IN_SYNC ，则当 API 调用成功返回时，平台会清除占位符的同步状态。 如果指定 了CF_IN_SYNC_STATE_IN_SYNC ，则平台会在 API 调用成功返回时设置占位符的同步状态。",
+          "type": "HANDLE"
         },
         {
           "name": "InSyncFlags",
           "direction": "in",
-          "description": "同步状态标志。 有关详细信息 ，请参阅CF_SET_IN_SYNC_FLAGS 。[in, out, optional] InSyncUsn 指定时，在输入时， InSyncUsn 指示平台仅当文件仍具有与传入的相同 USN 值时执行同步设置。 这是为了结束同步提供程序刚刚同步的占位符更改到云的争用，但在调用"
+          "description": "同步状态标志。 有关详细信息 ，请参阅CF_SET_IN_SYNC_FLAGS 。[in, out, optional] InSyncUsn 指定时，在输入时， InSyncUsn 指示平台仅当文件仍具有与传入的相同 USN 值时执行同步设置。 这是为了结束同步提供程序刚刚同步的占位符更改到云的争用，但在调用",
+          "type": "CF_SET_IN_SYNC_FLAGS"
         }
       ],
       "return_value": {
-        "description": "如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "这可以在同步提供程序安装时、首次为单个用户设置时使用，或者当用户配置另一个同步根时使用。不允许两个同步根树重叠。",
       "header": "cfapi.h",
@@ -2879,12 +2914,14 @@
         {
           "name": "FileHandle",
           "direction": "in",
-          "description": "占位符文件的句柄。 平台将操作与其他活动请求正确同步。 属性或无访问句柄就足够了。 调用方必须具有 READ_DATA 或 WRITE_DAC 占位符的访问权限，否则操作将失败 并STATUS_CLOUD_FILE_ACCESS_DENIED。[in] PinState 占位符文件的固定状态。 有关有效 PinState 值的列表，请参阅 CF_PIN_STATE。[in] PinFlags 引脚状态标志。 PinFlags 可以设置为以下值： 如果指定 了CF_PIN_FLAG_RECURSE ，平台会将固定状态应用于 FileHandle ，并且仅当 FileHandle 是目录) 的句柄时，它下面的每个文件才 (相关。 如果指定 了CF_PIN_FLAG_RECURSE_ONLY ，平台以递归方式将固定状态应用于 FileHandle 下的每个文件，但不应用于 FileHandle 本身。 如果指定 了CF_PIN_FLAG_RECURSE_STOP_ERROR ，则平台将在遇到第一个错误时停止递归。 否则，平台将跳过错误并继续递归。"
+          "description": "占位符文件的句柄。 平台将操作与其他活动请求正确同步。 属性或无访问句柄就足够了。 调用方必须具有 READ_DATA 或 WRITE_DAC 占位符的访问权限，否则操作将失败 并STATUS_CLOUD_FILE_ACCESS_DENIED。[in] PinState 占位符文件的固定状态。 有关有效 PinState 值的列表，请参阅 CF_PIN_STATE。[in] PinFlags 引脚状态标志。 PinFlags 可以设置为以下值： 如果指定 了CF_PIN_FLAG_RECURSE ，平台会将固定状态应用于 FileHandle ，并且仅当 FileHandle 是目录) 的句柄时，它下面的每个文件才 (相关。 如果指定 了CF_PIN_FLAG_RECURSE_ONLY ，平台以递归方式将固定状态应用于 FileHandle 下的每个文件，但不应用于 FileHandle 本身。 如果指定 了CF_PIN_FLAG_RECURSE_STOP_ERROR ，则平台将在遇到第一个错误时停止递归。 否则，平台将跳过错误并继续递归。",
+          "type": "HANDLE"
         },
         {
           "name": "Overlapped",
           "direction": "in, out, optional",
-          "description": "允许异步执行调用。 有关更多详细信息，请参阅 “备注 ”部分。"
+          "description": "允许异步执行调用。 有关更多详细信息，请参阅 “备注 ”部分。",
+          "type": "optional] LPOVERLAPPED"
         },
         {
           "name": "SyncRootPath",
@@ -2893,7 +2930,8 @@
         }
       ],
       "return_value": {
-        "description": "如果此函数成功，则返回 S_OK。否则，它将返回 HRESULT 错误代码。"
+        "description": "如果此函数成功，则返回 S_OK。否则，它将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "当指定并与异步 FileHandle 结合使用时，Overlapped 允许平台异步执行调用。调用方必须已使用要等待的事件初始化重叠结构。如果返回 HRESULT_FROM_WIN32(ERROR_IO_PENDING)，则调用方可以使用 GetOverlappedResult 等待。如果未指定，平台将同步执行 API 调用，而不考虑句柄的创建方式。",
       "header": "cfapi.h",
@@ -3728,7 +3766,8 @@
         {
           "name": "FilePath",
           "direction": "in",
-          "description": "要查询其同步根信息的文件的完全限定路径。[in] InfoClass 同步根信息的类型。[out] InfoBuffer 指向将接收同步根信息的缓冲区的指针。[in] InfoBufferLength"
+          "description": "要查询其同步根信息的文件的完全限定路径。[in] InfoClass 同步根信息的类型。[out] InfoBuffer 指向将接收同步根信息的缓冲区的指针。[in] InfoBufferLength",
+          "type": "LPCWSTR"
         }
       ],
       "header": "cfapi.h",
@@ -3737,7 +3776,11 @@
         "Server"
       ],
       "confidence": 0.8,
-      "_source_line": 2948
+      "_source_line": 2948,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CF_SYNC_ROOT_INFO_BASIC",
@@ -4046,11 +4089,13 @@
         {
           "name": "OpInfo",
           "direction": "in",
-          "description": "有关占位符上的操作的信息。[in, out] OpParams 占位符上的操作的参数。"
+          "description": "有关占位符上的操作的信息。[in, out] OpParams 占位符上的操作的参数。",
+          "type": "const CF_OPERATION_INFO"
         }
       ],
       "return_value": {
-        "description": "如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "对 CfExecute 的有效调用将重置属于同一同步提供程序进程的所有挂起回调请求的计时器。",
       "header": "cfapi.h",
@@ -4069,7 +4114,8 @@
         {
           "name": "ConnectionKey",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "CF_CONNECTION_KEY"
         }
       ],
       "header": "cfapi.h",
@@ -4081,7 +4127,11 @@
         "TransferKey"
       ],
       "confidence": 0.8,
-      "_source_line": 3588
+      "_source_line": 3588,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::FSCTL_HSM_CONTROL",
@@ -4131,11 +4181,13 @@
         {
           "name": "FileHandle",
           "direction": "in",
-          "description": "要水合的占位符文件的句柄。 属性或无访问句柄就足够了。[in] StartingOffset 占位符文件数据的起始点偏移量。[in] Length 占位符文件的长度（以字节为单位），该占位符文件在 API 成功完成后，其数据必须在磁盘上本地可用。 定义为 -1) 的 CF_EOF (长度表示文件结束。 对于占位符中不存在的任 何子范围，平台将从同步提供程序提取数据并将其存储在占位符的磁盘上。[in] HydrateFlags 占位符水合标志。 水合物标志 必须设置为 CF_HYDRATE_FLAG_NONE。[in, out, optional] Overlapped 指定并结合异步 FileHandle 时， Overlapped 允许平台异步执行 CfHydratePlaceholder 调用。 有关更多详细信息，请参阅 备注 。 如果未指定，平台将同步执行 API 调用，而不考虑句柄的创建方式。"
+          "description": "要水合的占位符文件的句柄。 属性或无访问句柄就足够了。[in] StartingOffset 占位符文件数据的起始点偏移量。[in] Length 占位符文件的长度（以字节为单位），该占位符文件在 API 成功完成后，其数据必须在磁盘上本地可用。 定义为 -1) 的 CF_EOF (长度表示文件结束。 对于占位符中不存在的任 何子范围，平台将从同步提供程序提取数据并将其存储在占位符的磁盘上。[in] HydrateFlags 占位符水合标志。 水合物标志 必须设置为 CF_HYDRATE_FLAG_NONE。[in, out, optional] Overlapped 指定并结合异步 FileHandle 时， Overlapped 允许平台异步执行 CfHydratePlaceholder 调用。 有关更多详细信息，请参阅 备注 。 如果未指定，平台将同步执行 API 调用，而不考虑句柄的创建方式。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "调用方必须具有 READ_DATA 或 WRITE_DAC 访问要水合的占位符的访问权限。 如果 API 在异步使用 Overlapped 时返回HRESULT_FROM_WIN32 (ERROR_IO_PENDING) ，则调用方可以使用 GetOverlappedResult 等待。",
       "header": "cfapi.h",
@@ -4162,7 +4214,8 @@
         {
           "name": "FileHandle",
           "direction": "in",
-          "description": "占位符的文件句柄。[in] TransferKey 占位符的不透明句柄。"
+          "description": "占位符的文件句柄。[in] TransferKey 占位符的不透明句柄。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
@@ -4192,11 +4245,13 @@
         {
           "name": "ProtectedHandle",
           "direction": "in",
-          "description": "要转换的受保护句柄。"
+          "description": "要转换的受保护句柄。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "相应的 Win32 句柄。"
+        "description": "相应的 Win32 句柄。",
+        "type": "HANDLE"
       },
       "remarks": "调用方必须在调用之前使用 CfReferenceProtectedHandle 引用受保护的句柄，以确保跟踪 Win32 句柄的使用，并且使用 Win32 句柄的 Win32 API 调用与 oplock 中断通知确认同步。 调用方在使用 CfReleaseProtectedHandle 处理 Win32 句柄后，必须释放受保护句柄上的引用。 在任何情况下，调用方都不应关闭使用 CfCloseHandle 返回的 Win32 句柄。",
       "header": "cfapi.h",
@@ -4220,14 +4275,19 @@
         {
           "name": "FilePath",
           "direction": "in",
-          "description": "要打开的文件或目录的完全限定路径。[in] Flags 用于指定打开文件的权限的标志。 可以将标志设置为以下值的组合： 如果指定 了CF_OPEN_FILE_FLAG_EXCLUSIVE，API 将返回无共享句柄并请求 RH(OPLOCK_LEVEL_CACHE_READ|对文件OPLOCK_LEVEL_CACHE_HANDLE) oplock;否则，将打开一个全部共享句柄并请求 R (OPLOCK_LEVEL_CACHE_READ) 。 1. 如果指定 了CF_OPEN_FILE_FLAG_EXCLUSIVE ，则打开为“无共享”，并获取(OPLOCK_LEVEL_CACHE_READ |OPLOCK_LEVEL_CACHE_HANDLE) oplock。为任意FILE_EXECUTE打开的常规 CreateFile 调用 |FILE_READ_DATA |FILE_WRITE_DATA |FILE_APPEND_DATA |删除 (或GENERIC_READ的任一/两者 |由于共享冲突，GENERIC_WRITE) 将中断 oplock。 oplock 所有者将完成并确认。 2. 如果未指定 CF_OPEN_FILE_FLAG_EXCLUSIVE ，则打开为“全部共享”，并获取 OPLOCK_LEVEL_CACHE_READ oplock。 正常的 CreateFile 调用不会中断 oplock。 例如，如果常规 CreateFile 指定的共享模式与 Cf 句柄的访问 (冲突，则如果常规 CreateFile 未指定FILE_SHARE_READ) ，则常规 CreateFile 将失败并"
+          "description": "要打开的文件或目录的完全限定路径。[in] Flags 用于指定打开文件的权限的标志。 可以将标志设置为以下值的组合： 如果指定 了CF_OPEN_FILE_FLAG_EXCLUSIVE，API 将返回无共享句柄并请求 RH(OPLOCK_LEVEL_CACHE_READ|对文件OPLOCK_LEVEL_CACHE_HANDLE) oplock;否则，将打开一个全部共享句柄并请求 R (OPLOCK_LEVEL_CACHE_READ) 。 1. 如果指定 了CF_OPEN_FILE_FLAG_EXCLUSIVE ，则打开为“无共享”，并获取(OPLOCK_LEVEL_CACHE_READ |OPLOCK_LEVEL_CACHE_HANDLE) oplock。为任意FILE_EXECUTE打开的常规 CreateFile 调用 |FILE_READ_DATA |FILE_WRITE_DATA |FILE_APPEND_DATA |删除 (或GENERIC_READ的任一/两者 |由于共享冲突，GENERIC_WRITE) 将中断 oplock。 oplock 所有者将完成并确认。 2. 如果未指定 CF_OPEN_FILE_FLAG_EXCLUSIVE ，则打开为“全部共享”，并获取 OPLOCK_LEVEL_CACHE_READ oplock。 正常的 CreateFile 调用不会中断 oplock。 例如，如果常规 CreateFile 指定的共享模式与 Cf 句柄的访问 (冲突，则如果常规 CreateFile 未指定FILE_SHARE_READ) ，则常规 CreateFile 将失败并",
+          "type": "LPCWSTR"
         }
       ],
       "header": "cfapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 4016
+      "_source_line": 4016,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::ERROR_SHARING_VIOLATION",
@@ -4267,7 +4327,8 @@
         {
           "name": "ProtectedHandle",
           "direction": "in",
-          "description": "要释放的受保护句柄。"
+          "description": "要释放的受保护句柄。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
@@ -4336,7 +4397,8 @@
         {
           "name": "FileHandle",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "HANDLE"
         }
       ],
       "header": "cfapi.h",
@@ -4345,7 +4407,11 @@
         "CfCreatePlaceholders"
       ],
       "confidence": 0.8,
-      "_source_line": 4221
+      "_source_line": 4221,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CfReportProviderProgress",
@@ -4357,16 +4423,19 @@
         {
           "name": "ConnectionKey",
           "direction": "in",
-          "description": "表示具有同步筛选器的信道的连接键。[in] TransferKey 占位符的不透明句柄。"
+          "description": "表示具有同步筛选器的信道的连接键。[in] TransferKey 占位符的不透明句柄。",
+          "type": "CF_CONNECTION_KEY"
         },
         {
           "name": "ProviderProgressTotal",
           "direction": "in",
-          "description": "同步提供程序响应提取数据回调的总进度。[in] ProviderProgressCompleted 同步提供程序响应提取数据回调的已完成进度。"
+          "description": "同步提供程序响应提取数据回调的总进度。[in] ProviderProgressCompleted 同步提供程序响应提取数据回调的已完成进度。",
+          "type": "ULONGLONG"
         }
       ],
       "return_value": {
-        "description": "如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "如果 SyncStatus 参数中提供了非 null CF_SYNC_STATUS，则会在同步根上记住该信息，直到同步提供程序显式清除该信息或计算机重新启动为止。 平台将使用以下过程在云文件 占位符上执行任何失败的操作时查询此信息： 1. 平台将首先在文件级别搜索同步状态。 2. 如果未找到同步状态，平台将搜索在同步根级别注册的同步状态，这是通过此函数完成的。 3. 找到同步状态后，平台将使用提供的信息来向用户构造更有意义和可操作的消息。 使用同步状态调用时，CfReportSyncStatus 会清除以前保存的NULL 同步状态。 如果函数 调用失败，将不会对现有同步状态进行更改。",
       "header": "cfapi.h",
@@ -4390,7 +4459,11 @@
         "CfReportProviderProgress"
       ],
       "confidence": 0.7,
-      "_source_line": 4306
+      "_source_line": 4306,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CfUpdateSyncProviderStatus",
@@ -4402,11 +4475,13 @@
         {
           "name": "ConnectionKey",
           "direction": "in",
-          "description": "表示具有同步筛选器的信道的连接键。[in] ProviderStatus 同步提供程序的当前状态。 状态在同步根连接的生命周期内保持不变。 在调用 CfDisconnectSyncRoot 或终止同步提供程序进程时，同步根连接将断开连接。"
+          "description": "表示具有同步筛选器的信道的连接键。[in] ProviderStatus 同步提供程序的当前状态。 状态在同步根连接的生命周期内保持不变。 在调用 CfDisconnectSyncRoot 或终止同步提供程序进程时，同步根连接将断开连接。",
+          "type": "CF_CONNECTION_KEY"
         }
       ],
       "return_value": {
-        "description": "如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果此函数成功，则返回 S_OK 。 否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",

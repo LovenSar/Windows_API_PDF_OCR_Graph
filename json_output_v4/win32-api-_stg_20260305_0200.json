@@ -47,7 +47,10 @@
       "confidence": 0.6,
       "_source_line": 6762,
       "syntax": "BSTR SysAllocString(\n  [in, optional] const OLECHAR *psz\n);",
-      "return_value": "成功时返回新分配的 BSTR；如果 psz 为 NULL 且无法分配空 BSTR，或内存不足，则返回 NULL。",
+      "return_value": {
+        "type": "BSTR",
+        "description": "成功时返回新分配的 BSTR；如果 psz 为 NULL 且无法分配空 BSTR，或内存不足，则返回 NULL。"
+      },
       "remarks": "SysAllocString 用于分配 Automation 使用的 BSTR。BSTR 是带长度前缀、可包含嵌入式空字符的字符串类型，但传入的 psz 必须是以 null 结尾的字符串。调用方通常负责在不再需要时调用 SysFreeString 释放返回值。"
     },
     {
@@ -82,7 +85,10 @@
       ],
       "confidence": 0.6,
       "_source_line": 2020,
-      "return_value": "如果枚举序列已成功重置到开头，则返回 S_OK。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果枚举序列已成功重置到开头，则返回 S_OK。"
+      },
       "remarks": "此方法将当前枚举位置重置为枚举序列的开头。"
     },
     {
@@ -95,10 +101,14 @@
         {
           "name": "dlibMove",
           "direction": "in",
-          "description": "要添加到 dwOrigin 参数指示的位置的位移。 如果 dwOrigin是STREAM_SEEK_SET，则会将其解 释为无符号值，而不是有符号值。[in] dwOrigin dlibMove 中指定的位移的原点。 原点可以是文件 (STREAM_SEEK_SET ) 的开头、当前查找指针(STREAM_SEEK_CUR) ，也可以是文件 (STREAM_SEEK_END) 的末尾。 有关值的详细信息，请参 阅 STREAM_SEEK 枚举。[out] plibNewPosition 指向此方法从流开头写入新搜寻指针值的位置的指针的指针。 可以将此指针设置为 NULL。 在这种情况下，此方法不提供新的搜寻指针。"
+          "description": "要添加到 dwOrigin 参数指示的位置的位移。 如果 dwOrigin是STREAM_SEEK_SET，则会将其解 释为无符号值，而不是有符号值。[in] dwOrigin dlibMove 中指定的位移的原点。 原点可以是文件 (STREAM_SEEK_SET ) 的开头、当前查找指针(STREAM_SEEK_CUR) ，也可以是文件 (STREAM_SEEK_END) 的末尾。 有关值的详细信息，请参 阅 STREAM_SEEK 枚举。[out] plibNewPosition 指向此方法从流开头写入新搜寻指针值的位置的指针的指针。 可以将此指针设置为 NULL。 在这种情况下，此方法不提供新的搜寻指针。",
+          "type": "LARGE_INTEGER"
         }
       ],
-      "return_value": "该方法常见于 COM 流相关接口（如 IStream 或 ILockBytes）。在数据推送模型中不起作用。有关 dwOrigin 的取值，请参阅 STREAM_SEEK 枚举。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "该方法常见于 COM 流相关接口（如 IStream 或 ILockBytes）。在数据推送模型中不起作用。有关 dwOrigin 的取值，请参阅 STREAM_SEEK 枚举。"
+      },
       "header": "objidl.h",
       "deprecated": false,
       "cross_references": [],
@@ -340,11 +350,13 @@
         {
           "name": "cVariants",
           "direction": "in",
-          "description": "PROPVARIANT 数组中的元素计数 (rgvars) 。[in] rgvars 指向要为其释放任何可解除处理的元素的 PROPVARIANT 结构的初始化数组的指针。 退 出时，所有零都写入 PROPVARIANT 结构 (因此将它们标记为VT_EMPTY) 。"
+          "description": "PROPVARIANT 数组中的元素计数 (rgvars) 。[in] rgvars 指向要为其释放任何可解除处理的元素的 PROPVARIANT 结构的初始化数组的指针。 退 出时，所有零都写入 PROPVARIANT 结构 (因此将它们标记为VT_EMPTY) 。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "此函数返回 HRESULT。成功时返回 S_OK，若 PROPVARIANT 结构包含非法 VT 类型则返回 STG_E_INVALIDPARAMETER。"
+        "description": "此函数返回 HRESULT。成功时返回 S_OK，若 PROPVARIANT 结构包含非法 VT 类型则返回 STG_E_INVALIDPARAMETER。",
+        "type": "HRESULT"
       },
       "header": "combaseapi.h",
       "deprecated": false,
@@ -364,11 +376,13 @@
         {
           "name": "pstm",
           "direction": "in",
-          "description": "指向先前通过调用 CreateStreamOnHGlobal 函数创建的流对象的 IStream 指针。[out] phglobal 指向指定流对象使用的当前内存句柄的指针。"
+          "description": "指向先前通过调用 CreateStreamOnHGlobal 函数创建的流对象的 IStream 指针。[out] phglobal 指向指定流对象使用的当前内存句柄的指针。",
+          "type": "LPSTREAM"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回 S_OK。如果失败，返回错误代码。"
+        "description": "如果成功，返回 S_OK。如果失败，返回错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "由于干预 GlobalReAlloc 调用，GetHGlobalFromStream 返回的句柄可能与原始句柄不同。 只能从创建字节数组的同一进程中调用此函数。",
       "header": "combaseapi.h",
@@ -391,11 +405,13 @@
         {
           "name": "pvarDest",
           "direction": "in, out",
-          "description": "指向接收副本的未初始化 PROPVARIANT 结构的指针。[in] pvarSrc 指向要复制的 PROPVARIANT 结构的指针。"
+          "description": "指向接收副本的未初始化 PROPVARIANT 结构的指针。[in] pvarSrc 指向要复制的 PROPVARIANT 结构的指针。",
+          "type": "out] PROPVARIANT"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，失败时返回 HRESULT 错误代码。"
+        "description": "成功时返回 S_OK，失败时返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "按值复制 PROPVARIANT 结构，以便通过调用 PropVariantClear 独立释放原始 pvarSrc 和新的 pvarDest 参数。PropVariantCopy 不会像 VariantCopy 函数那样释放目标。对于需要子对象的非简单 PROPVARIANT 类型（如 VT_STREAM、VT_STORAGE 等），通过引用进行复制。复制指针，并在其中调用 IUnknown::AddRef。为 pvarDest 或 pvarSrc 传递 NULL 是非法的。",
       "header": "combaseapi.h",
@@ -455,11 +471,13 @@
         {
           "name": "rfmtid",
           "direction": "in",
-          "description": "要删除的属性集的 FMTID。"
+          "description": "要删除的属性集的 FMTID。",
+          "type": "REFFMTID"
         }
       ],
       "return_value": {
-        "description": "此方法支持 E_UNEXPECTED 的标准返回值。指定不存在的属性集将返回错误。打开的子存储和流进入还原状态。"
+        "description": "此方法支持 E_UNEXPECTED 的标准返回值。指定不存在的属性集将返回错误。打开的子存储和流进入还原状态。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -515,7 +533,11 @@
         "EndMonitor"
       ],
       "confidence": 0.7,
-      "_source_line": 19
+      "_source_line": 19,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::Commit",
@@ -527,10 +549,14 @@
         {
           "name": "grfCommitFlags",
           "direction": "in",
-          "description": "控制如何将更改提交到存储对象。 有关这些值的定义，请参阅 STGC 枚举。"
+          "description": "控制如何将更改提交到存储对象。 有关这些值的定义，请参阅 STGC 枚举。",
+          "type": "DWORD"
         }
       ],
-      "return_value": "Returns S_OK if successful, or an error code otherwise.",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "Returns S_OK if successful, or an error code otherwise."
+      },
       "header": "objidl.h",
       "deprecated": false,
       "cross_references": [
@@ -549,11 +575,13 @@
         {
           "name": "pwcsName",
           "direction": "in",
-          "description": "指向以 null 结尾的宽字符 Unicode 字符串的指针，该字符串包含新创建的存储对象的名称。 该名称稍后可用于重新打开存储对象。 名称的长度不得超过 31 个字符，不包括字符串终止符。保留 000 到 01f 字符，用作流/存储名称的第一个字符，供 OLE 使用。 这是复合文件限制，而 不是结构化存储限制。[in] grfMode 一个 值，该值指定打开新创建的存储对象时要使用的访问模式。 有关详细信息和可能值的说 明，请参阅 STGM 常量。[in] reserved1 留待将来使用；必须为零。[in] reserved2 留待将来使用；必须为零。[out] ppstg 成功时，指向指向新创建的存储对象的 IStorage 指针位置的指针。 如果发生错误，此参数将设置为 NULL 。"
+          "description": "指向以 null 结尾的宽字符 Unicode 字符串的指针，该字符串包含新创建的存储对象的名称。 该名称稍后可用于重新打开存储对象。 名称的长度不得超过 31 个字符，不包括字符串终止符。保留 000 到 01f 字符，用作流/存储名称的第一个字符，供 OLE 使用。 这是复合文件限制，而 不是结构化存储限制。[in] grfMode 一个 值，该值指定打开新创建的存储对象时要使用的访问模式。 有关详细信息和可能值的说 明，请参阅 STGM 常量。[in] reserved1 留待将来使用；必须为零。[in] reserved2 留待将来使用；必须为零。[out] ppstg 成功时，指向指向新创建的存储对象的 IStorage 指针位置的指针。 如果发生错误，此参数将设置为 NULL 。",
+          "type": "const OLECHAR"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，失败时返回其他 HRESULT 错误代码。"
+        "description": "成功时返回 S_OK，失败时返回其他 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "header": "objidl.h",
       "deprecated": false,
@@ -578,7 +606,8 @@
         }
       ],
       "return_value": {
-        "description": "返回HRESULT值，成功时返回S_OK，失败时返回错误代码"
+        "description": "返回HRESULT值，成功时返回S_OK，失败时返回错误代码",
+        "type": "HRESULT"
       },
       "header": "objidl.h",
       "deprecated": false,
@@ -616,7 +645,11 @@
         "LayoutScript"
       ],
       "confidence": 0.7,
-      "_source_line": 53
+      "_source_line": 53,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::Enum",
@@ -632,7 +665,8 @@
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，失败时返回错误代码。"
+        "description": "成功时返回 S_OK，失败时返回错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "IPropertySetStorage：：Enum 创建可用于循环访问 STATPROPSETSTG 结构的枚举器对象。 它们有时提供有关 由 IPropertySetStorage 管理的属性集的信息。 此方法在返回时提供指向此枚举 器对象上的 IEnumSTATPROPSETSTG 接口的指针。",
       "requirements": {
@@ -659,11 +693,13 @@
         {
           "name": "reserved1",
           "direction": "in",
-          "description": "留待将来使用；必须为零。[in] reserved2 保留供将来使用;必须为 NULL。[in] reserved3 留待将来使用；必须为零。[out] ppenum 指向 IEnumSTATSTG* 指针变量的指针，该变量接收指向新枚举器对象的接口指针。"
+          "description": "留待将来使用；必须为零。[in] reserved2 保留供将来使用;必须为 NULL。[in] reserved3 留待将来使用；必须为零。[out] ppenum 指向 IEnumSTATSTG* 指针变量的指针，该变量接收指向新枚举器对象的接口指针。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回其中一个值。 返回代码 S_OK"
+        "description": "此方法可以返回其中一个值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "objidl.h",
       "deprecated": false,
@@ -706,16 +742,19 @@
         {
           "name": "ulOffset",
           "direction": "in",
-          "description": "字节数组的第一个元素的偏移量（以字节数表示）。[in] pv 指向要写入 uIOffset 指定位置的数据的指针。[in] cb pv 的大小（以字节为单位）。"
+          "description": "字节数组的第一个元素的偏移量（以字节数表示）。[in] pv 指向要写入 uIOffset 指定位置的数据的指针。[in] cb pv 的大小（以字节为单位）。",
+          "type": "ULARGE_INTEGER"
         },
         {
           "name": "pcbWritten",
           "direction": "out",
-          "description": "成功写入的字节数。"
+          "description": "成功写入的字节数。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "返回 E_NOTIMPL，表示此方法当前未实现。"
+        "description": "返回 E_NOTIMPL，表示此方法当前未实现。",
+        "type": "HRESULT"
       },
       "remarks": "字节数组不支持 FillAt 方法。系统提供的 IFillLockBytes 实现未实现此方法。",
       "header": "objidl.h",
@@ -740,7 +779,11 @@
         "FreePropVariantArray"
       ],
       "confidence": 0.7,
-      "_source_line": 64
+      "_source_line": 64,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetConvertStg",
@@ -752,11 +795,13 @@
         {
           "name": "pStg",
           "direction": "in",
-          "description": "指向要从中检索转换位的存储对象的 IStorage 指针。"
+          "description": "指向要从中检索转换位的存储对象的 IStorage 指针。",
+          "type": "LPSTORAGE"
         }
       ],
       "return_value": {
-        "description": "如果转换位已设置，则返回 S_OK。如果转换位未设置，则返回 S_FALSE。如果发生错误，则返回其他 HRESULT 错误代码。"
+        "description": "如果转换位已设置，则返回 S_OK。如果转换位未设置，则返回 S_FALSE。如果发生错误，则返回其他 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "header": "coml2api.h",
       "deprecated": false,
@@ -776,16 +821,19 @@
         {
           "name": "plkbyt",
           "direction": "in",
-          "description": "指向之前通过调用 CreateILockBytesOnHGlobal 函数创建的字节数组对象上的 ILockBytes 接口的指针。"
+          "description": "指向之前通过调用 CreateILockBytesOnHGlobal 函数创建的字节数组对象上的 ILockBytes 接口的指针。",
+          "type": "LPLOCKBYTES"
         },
         {
           "name": "phglobal",
           "direction": "out",
-          "description": "指向指定字节数组对象使用的当前内存句柄的指针。"
+          "description": "指向指定字节数组对象使用的当前内存句柄的指针。",
+          "type": "HGLOBAL"
         }
       ],
       "return_value": {
-        "description": "此函数返回 HRESULT。"
+        "description": "此函数返回 HRESULT。",
+        "type": "HRESULT"
       },
       "remarks": "调用 CreateILockBytesOnHGlobal（在全局内存上创建字节数组对象）后，可调用此函数获取内存句柄。",
       "header": "coml2api.h",
@@ -810,7 +858,11 @@
         "ReleaseWriteAccess"
       ],
       "confidence": 0.7,
-      "_source_line": 73
+      "_source_line": 73,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::LayoutScript",
@@ -822,7 +874,8 @@
         {
           "name": "pStorageLayout",
           "direction": "in",
-          "description": "指向 StorageLayout 结构数组的指针。[in] nEntries"
+          "description": "指向 StorageLayout 结构数组的指针。[in] nEntries",
+          "type": "StorageLayout"
         }
       ],
       "header": "objidl.h",
@@ -831,7 +884,11 @@
         "ReLayoutDocfile"
       ],
       "confidence": 0.8,
-      "_source_line": 75
+      "_source_line": 75,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::LockRegion",
@@ -843,11 +900,13 @@
         {
           "name": "libOffset",
           "direction": "in",
-          "description": "指定范围开头的字节偏移量。[in] cb 指定要限制的范围的长度（以字节为单位）。[in] dwLockType 指定在访问范围时请求的限制类型。 此参数使用 LOCKTYPE 枚举中的值之一。"
+          "description": "指定范围开头的字节偏移量。[in] cb 指定要限制的范围的长度（以字节为单位）。[in] dwLockType 指定在访问范围时请求的限制类型。 此参数使用 LOCKTYPE 枚举中的值之一。",
+          "type": "ULARGE_INTEGER"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK。可能返回的错误包括 STG_E_INVALIDFUNCTION（不支持锁定类型）或 STG_E_INVALIDHANDLE（无效句柄）。"
+        "description": "成功时返回 S_OK。可能返回的错误包括 STG_E_INVALIDFUNCTION（不支持锁定类型）或 STG_E_INVALIDHANDLE（无效句柄）。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows"
@@ -868,16 +927,19 @@
         {
           "name": "pwcsName",
           "direction": "in",
-          "description": "指向以 null 结尾的宽字符 Unicode 字符串的指针，该字符串包含要移动或复制的此存储对象中 元素的名称。[in] pstgDest 指向目标存储对象的 IStorage 指针。[in] pwcsNewName 指向以 null 结尾的宽字符 unicode 字符串的指针，该字符串包含其新存储对象中元素的新名称。"
+          "description": "指向以 null 结尾的宽字符 Unicode 字符串的指针，该字符串包含要移动或复制的此存储对象中 元素的名称。[in] pstgDest 指向目标存储对象的 IStorage 指针。[in] pwcsNewName 指向以 null 结尾的宽字符 unicode 字符串的指针，该字符串包含其新存储对象中元素的新名称。",
+          "type": "const OLECHAR"
         },
         {
           "name": "grfFlags",
           "direction": "in",
-          "description": "指定操作是移动 (STGMOVE_MOVE) 还是复制 (STGMOVE_COPY) 。 请参阅 STGMOVE 枚举。"
+          "description": "指定操作是移动 (STGMOVE_MOVE) 还是复制 (STGMOVE_COPY) 。 请参阅 STGMOVE 枚举。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，可能返回 STG_E_INVALIDFLAG、STG_E_MOVEFAILED 等错误代码。"
+        "description": "成功时返回 S_OK，可能返回 STG_E_INVALIDFLAG、STG_E_MOVEFAILED 等错误代码。",
+        "type": "HRESULT"
       },
       "header": "objidl.h",
       "deprecated": false,
@@ -895,11 +957,13 @@
         {
           "name": "pstg",
           "direction": "in",
-          "description": "指向要转换为 OLE 1 存储的存储对象上的 IStorage 接口的指针。[out] lpolestream 指向使用 OLE 1 存储模型保存对象的持久表示形式的 OLE 1 流结构的指针。"
+          "description": "指向要转换为 OLE 1 存储的存储对象上的 IStorage 接口的指针。[out] lpolestream 指向使用 OLE 1 存储模型保存对象的持久表示形式的 OLE 1 流结构的指针。",
+          "type": "LPSTORAGE"
         }
       ],
       "return_value": {
-        "description": "This function supports standard return values including E_INVALIDARG. Converts OLE 2 storage objects to OLE 1 format. Requires OLESTREAM structure code implemented for OLE 1."
+        "description": "This function supports standard return values including E_INVALIDARG. Converts OLE 2 storage objects to OLE 1 format. Requires OLESTREAM structure code implemented for OLE 1.",
+        "type": "HRESULT"
       },
       "header": "ole2.h",
       "deprecated": false,
@@ -920,16 +984,19 @@
         {
           "name": "pstg",
           "direction": "in",
-          "description": "指向要转换为 OLE 1 存储的存储对象上的 IStorage 接口的指针。[in] cfFormat 演示文稿数据的格式。 可以为 NULL，在这种情况下， 将忽略 lWidth、 lHeight、 dwSize 和 pmedium 参数。[in] lWidth 对象表示数据的宽度（以 HIMETRIC 为单位）。[in] lHeight 对象表示数据的高度（以 HIMETRIC 单位为单位）。[in] dwSize 要转换的数据的大小（以字节为单位）。"
+          "description": "指向要转换为 OLE 1 存储的存储对象上的 IStorage 接口的指针。[in] cfFormat 演示文稿数据的格式。 可以为 NULL，在这种情况下， 将忽略 lWidth、 lHeight、 dwSize 和 pmedium 参数。[in] lWidth 对象表示数据的宽度（以 HIMETRIC 为单位）。[in] lHeight 对象表示数据的高度（以 HIMETRIC 单位为单位）。[in] dwSize 要转换的数据的大小（以字节为单位）。",
+          "type": "LPSTORAGE"
         },
         {
           "name": "pmedium",
           "direction": "in",
-          "description": "指向要转换的序列化数据的 STGMEDIUM 结构的指针。[out] polestm 指向使用 OLE 1 存储模型保存对象的持久表示形式的流的指针。"
+          "description": "指向要转换的序列化数据的 STGMEDIUM 结构的指针。[out] polestm 指向使用 OLE 1 存储模型保存对象的持久表示形式的流的指针。",
+          "type": "LPSTGMEDIUM"
         }
       ],
       "return_value": {
-        "description": "此函数支持标准返回值 E_INVALIDARG，此外还支持以下值：S_OK、E_FAIL、OLE_E_ADVISENOTSUPPORTED 等。"
+        "description": "此函数支持标准返回值 E_INVALIDARG，此外还支持以下值：S_OK、E_FAIL、OLE_E_ADVISENOTSUPPORTED 等。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -955,11 +1022,13 @@
         {
           "name": "lpolestream",
           "direction": "in",
-          "description": "指向流的指针，该流包含 OLE 1 存储格式中对象的持久表示形式。[out] pstg 指向 OLE 2 结构化存储对象上的 IStorage 接口的指针。[in] ptd 指向 DVTARGETDEVICE 结构的指针，该结构指定呈现 OLE 1 对象的目标设备。"
+          "description": "指向流的指针，该流包含 OLE 1 存储格式中对象的持久表示形式。[out] pstg 指向 OLE 2 结构化存储对象上的 IStorage 接口的指针。[in] ptd 指向 DVTARGETDEVICE 结构的指针，该结构指定呈现 OLE 1 对象的目标设备。",
+          "type": "LPOLESTREAM"
         }
       ],
       "return_value": {
-        "description": "此函数支持标准返回值 E_INVALIDARG。"
+        "description": "此函数支持标准返回值 E_INVALIDARG。",
+        "type": "HRESULT"
       },
       "header": "ole2.h",
       "deprecated": false,
@@ -979,11 +1048,13 @@
         {
           "name": "polestm",
           "direction": "in",
-          "description": "指向包含对象持久表示形式的 OLE 1 存储格式的流的指针。[out] pstg 指向 OLE 2 结构化存储对象的指针。[out] pcfFormat 指向返回演示文稿数据格式的位置的指针。 可能为 NULL，表示缺少演示数据。[out] plwWidth 指向在 HIMETRIC) 中返回演示文稿数据的宽度值 (的指针。[out] plHeight 指向返回演示文稿数据的 HIMETRIC) 高度值 (的指针。[out] pdwSize 指向返回转换数据的大小（以字节为单位）的位置的指针。[out] pmedium 指向返回转换的序列化数据的 STGMEDIUM 结构的指针。"
+          "description": "指向包含对象持久表示形式的 OLE 1 存储格式的流的指针。[out] pstg 指向 OLE 2 结构化存储对象的指针。[out] pcfFormat 指向返回演示文稿数据格式的位置的指针。 可能为 NULL，表示缺少演示数据。[out] plwWidth 指向在 HIMETRIC) 中返回演示文稿数据的宽度值 (的指针。[out] plHeight 指向返回演示文稿数据的 HIMETRIC) 高度值 (的指针。[out] pdwSize 指向返回转换数据的大小（以字节为单位）的位置的指针。[out] pmedium 指向返回转换的序列化数据的 STGMEDIUM 结构的指针。",
+          "type": "LPOLESTREAM"
         }
       ],
       "return_value": {
-        "description": "此函数返回 HRESULT。"
+        "description": "此函数返回 HRESULT。",
+        "type": "HRESULT"
       },
       "remarks": "此函数将 OLE 1 对象转换为 OLE 2 结构化存储对象。 当新版本的对象应用程序支持 OLE 2 时，可以使用此函数将 OLE 1 对象更新为 OLE 2 对象。 此函数与 OleConvertOLESTREAMToIStorage 函数的不同之处在于，从 OLESTREAM 结构读取的演示文稿数据会传递出去，并且新创建的 OLE 2 存储对象不包含演示文稿流。 由于此函数可以指定要转换的表示数据，因此，不使用 OLE 的默认缓存资源但使用转换资源的应用程序可以使用它。 STGMEDIUM 的 tymed 成员只能TYMED_NULL或TYMED_ISTREAM。 如果TYMED_NULL，则数据将通过 STGMEDIUM 的 hGlobal 成员在全局句柄中返回，否则数据将写入此结构的 pstm 成员。",
       "requirements": {
@@ -1013,11 +1084,13 @@
         {
           "name": "ulOffset",
           "direction": "in",
-          "description": "指定用于读取数据的字节数组开头的起点。[in] pv 指向读取字节数组的缓冲区的指针。 此缓冲区的大小包含在 cb 中。[in] cb 指定要尝试从字节数组读取的数据字节数。[out] pcbRead 指向 ULONG 的指针，此方法在其中写入从字节数组读取的实际字节数。 可以将此指针设置为 NULL ，以指示你对此值不感兴趣。 在这种情况下，此方法不提供已读取的实际字节数。"
+          "description": "指定用于读取数据的字节数组开头的起点。[in] pv 指向读取字节数组的缓冲区的指针。 此缓冲区的大小包含在 cb 中。[in] cb 指定要尝试从字节数组读取的数据字节数。[out] pcbRead 指向 ULONG 的指针，此方法在其中写入从字节数组读取的实际字节数。 可以将此指针设置为 NULL ，以指示你对此值不感兴趣。 在这种情况下，此方法不提供已读取的实际字节数。",
+          "type": "ULARGE_INTEGER"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，失败时返回其他 HRESULT 值。"
+        "description": "成功时返回 S_OK，失败时返回其他 HRESULT 值。",
+        "type": "HRESULT"
       },
       "header": "objidl.h",
       "deprecated": false,
@@ -1037,11 +1110,13 @@
         {
           "name": "pStg",
           "direction": "in",
-          "description": "指向包含要检索的 CLSID 的存储对象上的 IStorage 接口的指针。[out] pclsid 指向写入 CLSID 的位置的指针。 可返回CLSID_NULL。"
+          "description": "指向包含要检索的 CLSID 的存储对象上的 IStorage 接口的指针。[out] pclsid 指向写入 CLSID 的位置的指针。 可返回CLSID_NULL。",
+          "type": "LPSTORAGE"
         }
       ],
       "return_value": {
-        "description": "此函数支持标准返回值E_OUTOFMEMORY，此外还支持以下内容： 此函数还返回 IStorage：：Stat 方法返回的任何错误值。"
+        "description": "此函数支持标准返回值E_OUTOFMEMORY，此外还支持以下内容： 此函数还返回 IStorage：：Stat 方法返回的任何错误值。",
+        "type": "HRESULT"
       },
       "header": "coml2api.h",
       "deprecated": false,
@@ -1064,11 +1139,13 @@
         {
           "name": "pstg",
           "direction": "in",
-          "description": "指向要从中读取信息的存储对象上的 IStorage 接口的指针。[out] pcf 指向返回时要写入剪贴板格式的指针。 它可以是 NULL，表示格式对调用方不感兴趣。[out] lplpszUserType 接收指向以 null 结尾的 Unicode 用户类型字符串的指针的 LPWSTR 指针变量的地址。 调用方可以为此参数指定 NULL ，这表示用户类型不感兴趣。 此函数为字符串分配内存。 调用方负责使 用 CoTaskMemFree 释放内存。"
+          "description": "指向要从中读取信息的存储对象上的 IStorage 接口的指针。[out] pcf 指向返回时要写入剪贴板格式的指针。 它可以是 NULL，表示格式对调用方不感兴趣。[out] lplpszUserType 接收指向以 null 结尾的 Unicode 用户类型字符串的指针的 LPWSTR 指针变量的地址。 调用方可以为此参数指定 NULL ，这表示用户类型不感兴趣。 此函数为字符串分配内存。 调用方负责使 用 CoTaskMemFree 释放内存。",
+          "type": "LPSTORAGE"
         }
       ],
       "return_value": {
-        "description": "返回HRESULT值，包括S_OK、E_FAIL、E_INVALIDARG、E_OUTOFMEMORY以及ISequentialStream::Read方法返回的任何错误值。"
+        "description": "返回HRESULT值，包括S_OK、E_FAIL、E_INVALIDARG、E_OUTOFMEMORY以及ISequentialStream::Read方法返回的任何错误值。",
+        "type": "HRESULT"
       },
       "header": "ole2.h",
       "deprecated": false,
@@ -1086,11 +1163,13 @@
         {
           "name": "cpspec",
           "direction": "in",
-          "description": "在 rgpspec 数组中要指定的属性的数值计数。 此参数的值可以设置为零;但是，这违背了 方法的 用途，因为无论 rgpspec 中设置的值如何，都不读取任何属性。[in] rgpspec PROPSPEC 结构的数组指定要读取的属性。 可以通过属性 ID 或可选的字符串名称指定属性。不需要在数组中按任何特定顺序指定属性。 数组可以包含重复的属性，导致简单属性返回时出现重复的属性值。 尝试第二次打开非简单属性时，应返回拒绝的访问。 数组可以包含属性 ID 和字符串 ID 的组合。[out] rgpropvar 调用方分配的 PROPVARIANT 结构的数组，返回时包含 rgpspec 数组中相应元素指定的属性值。数组必须至少足够大，以便保存 PROPVARIANT 结构的 cpspec 参数的值。 cpspec 参数指定数组中设置的属性数。 调用方不需要以任何特定顺序初始化这些 PROPVARIANT 结构值。 但是，实现必须在返回时正确填充所有成员。 如果没有其他适当的值，则实现必须将每个 PROPVARIANT 结构的 vt 成员设置为VT_EMPTY。"
+          "description": "在 rgpspec 数组中要指定的属性的数值计数。 此参数的值可以设置为零;但是，这违背了 方法的 用途，因为无论 rgpspec 中设置的值如何，都不读取任何属性。[in] rgpspec PROPSPEC 结构的数组指定要读取的属性。 可以通过属性 ID 或可选的字符串名称指定属性。不需要在数组中按任何特定顺序指定属性。 数组可以包含重复的属性，导致简单属性返回时出现重复的属性值。 尝试第二次打开非简单属性时，应返回拒绝的访问。 数组可以包含属性 ID 和字符串 ID 的组合。[out] rgpropvar 调用方分配的 PROPVARIANT 结构的数组，返回时包含 rgpspec 数组中相应元素指定的属性值。数组必须至少足够大，以便保存 PROPVARIANT 结构的 cpspec 参数的值。 cpspec 参数指定数组中设置的属性数。 调用方不需要以任何特定顺序初始化这些 PROPVARIANT 结构值。 但是，实现必须在返回时正确填充所有成员。 如果没有其他适当的值，则实现必须将每个 PROPVARIANT 结构的 vt 成员设置为VT_EMPTY。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "此方法支持标准返回值 E_UNEXPECTED以及以下值： 此函数还可以返回包装在 HRESULT 数据类型中的任何文件系统错误或 Win32 错误。 有关详细信息，请参阅 错误处理策略。 有关详细信息，请参阅 属性存储注意事项。"
+        "description": "此方法支持标准返回值 E_UNEXPECTED以及以下值： 此函数还可以返回包装在 HRESULT 数据类型中的任何文件系统错误或 Win32 错误。 有关详细信息，请参阅 错误处理策略。 有关详细信息，请参阅 属性存储注意事项。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1117,11 +1196,13 @@
         {
           "name": "pwcsNewDfName",
           "direction": "in",
-          "description": "指向要重写的复合文件的名称的指针。 此名称必须是有效的文件名，不同于原始复合文件的名 称。 将优化原始复合文件并将其写入新的 pwcsNewDfName。"
+          "description": "指向要重写的复合文件的名称的指针。 此名称必须是有效的文件名，不同于原始复合文件的名 称。 将优化原始复合文件并将其写入新的 pwcsNewDfName。",
+          "type": "OLECHAR"
         }
       ],
       "return_value": {
-        "description": "此函数支持标准返回值E_OUTOFMEMORY、E_UNEXPECTED、E_INVALIDARG和E_FAIL，以及以下内容： 返回代码"
+        "description": "此函数支持标准返回值E_OUTOFMEMORY、E_UNEXPECTED、E_INVALIDARG和E_FAIL，以及以下内容： 返回代码",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1145,11 +1226,13 @@
         {
           "name": "pILockBytes",
           "direction": "in",
-          "description": "指向要重写复合文件的基础字节数组对象上的 ILockBytes 接口的指针。"
+          "description": "指向要重写复合文件的基础字节数组对象上的 ILockBytes 接口的指针。",
+          "type": "ILockBytes"
         }
       ],
       "return_value": {
-        "description": "此方法返回以下值：STG_E_UNIMPLEMENTEDFUNCTION（函数未实现）"
+        "description": "此方法返回以下值：STG_E_UNIMPLEMENTEDFUNCTION（函数未实现）",
+        "type": "HRESULT"
       },
       "header": "objidl.h",
       "deprecated": false,
@@ -1176,7 +1259,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 120,
-      "return_value": "S_OK - 成功释放写入锁",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "S_OK - 成功释放写入锁"
+      },
       "remarks": "调用者需先通过IDirectWriterLock::WaitForWriteAccess获取写入锁。释放后允许读取器重新访问存储对象，直到下次调用WaitForWriteAccess。"
     },
     {
@@ -1189,16 +1275,19 @@
         {
           "name": "pwcsOldName",
           "direction": "in",
-          "description": "指向以 null 结尾的宽字符 Unicode 字符串的指针，该字符串包含要更改的子存储或流的名称。注意在 CreateStorage 或 CreateStream 中创建的 pwcsName 的长度不得超过 31 个字符， 不包括字符串终止符。"
+          "description": "指向以 null 结尾的宽字符 Unicode 字符串的指针，该字符串包含要更改的子存储或流的名称。注意在 CreateStorage 或 CreateStream 中创建的 pwcsName 的长度不得超过 31 个字符， 不包括字符串终止符。",
+          "type": "const OLECHAR"
         },
         {
           "name": "pwcsNewName",
           "direction": "in",
-          "description": "指向以 null 结尾的宽字符 unicode 字符串的指针，该字符串包含指定子存储或流的新名称。注意在 CreateStorage 或 CreateStream 中创建的 pwcsName 的长度不得超过 31 个字符， 不包括字符串终止符。"
+          "description": "指向以 null 结尾的宽字符 unicode 字符串的指针，该字符串包含指定子存储或流的新名称。注意在 CreateStorage 或 CreateStream 中创建的 pwcsName 的长度不得超过 31 个字符， 不包括字符串终止符。",
+          "type": "const OLECHAR"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回其中一个值。 返回代码 S_OK"
+        "description": "此方法可以返回其中一个值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "objidl.h",
       "deprecated": false,
@@ -1228,7 +1317,11 @@
         "SetClass"
       ],
       "confidence": 0.7,
-      "_source_line": 127
+      "_source_line": 127,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetClass",
@@ -1240,10 +1333,14 @@
         {
           "name": "clsid",
           "direction": "in",
-          "description": "要与存储对象关联的 CLSID。"
+          "description": "要与存储对象关联的 CLSID。",
+          "type": "REFCLSID"
         }
       ],
-      "return_value": "此方法返回标准 HRESULT 值，成功时返回 S_OK。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "此方法返回标准 HRESULT 值，成功时返回 S_OK。"
+      },
       "header": "objidl.h",
       "deprecated": false,
       "cross_references": [
@@ -1275,11 +1372,13 @@
         {
           "name": "ulSize",
           "direction": "in",
-          "description": "在后续调用 IFillLockBytes：：FillAppend 时要填充的字节数组对象的大小（以字节为单位）。"
+          "description": "在后续调用 IFillLockBytes：：FillAppend 时要填充的字节数组对象的大小（以字节为单位）。",
+          "type": "ULARGE_INTEGER"
         }
       ],
       "return_value": {
-        "description": "此函数支持标准返回值E_OUTOFMEMORY、E_UNEXPECTED、E_INVALIDARG和E_FAIL。"
+        "description": "此函数支持标准返回值E_OUTOFMEMORY、E_UNEXPECTED、E_INVALIDARG和E_FAIL。",
+        "type": "HRESULT"
       },
       "remarks": "如果尚未调用 SetFillSize，则尝试访问尚未使用 IFillLockBytes：：FillAppend 或 IFillLockBytes：：FillAt 写入的数据的任何 ILockBytes：：ReadAt 调用都将返回新的错误消息， E_PENDING。 调用 SetFillSize 后，如果对 ReadAt 的任何调用尝试访问超过 SetFillSize 设置的 当前大小的数据，将返回E_FAIL而不是E_PENDING。",
       "requirements": {
@@ -1312,7 +1411,8 @@
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，否则返回错误代码（如 STG_E_INVALIDPOINTER）"
+        "description": "成功时返回 S_OK，否则返回错误代码（如 STG_E_INVALIDPOINTER）",
+        "type": "HRESULT"
       },
       "header": "objidl.h",
       "deprecated": false,
@@ -1332,11 +1432,13 @@
         {
           "name": "grfStateBits",
           "direction": "in",
-          "description": "指定要设置的位的新值。 没有为这些位定义任何法律值;它们全部保留供将来使用，不得由应用 程序使用。[in] grfMask 一个二进制掩码，指示 grfStateBits 中的哪些位在此调用中是重要的。"
+          "description": "指定要设置的位的新值。 没有为这些位定义任何法律值;它们全部保留供将来使用，不得由应用 程序使用。[in] grfMask 一个二进制掩码，指示 grfStateBits 中的哪些位在此调用中是重要的。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，失败时返回错误代码。"
+        "description": "成功时返回 S_OK，失败时返回错误代码。",
+        "type": "HRESULT"
       },
       "header": "objidl.h",
       "deprecated": false,
@@ -1386,10 +1488,14 @@
         {
           "name": "pstatstg",
           "direction": "out",
-          "description": "返回时，指向 STATSTG 结构的指针，此方法在其中放置有关打开的存储对象的信息。 如果发生 错误，此参数为 NULL 。[in] grfStatFlag 指定不返回 STATSTG 结构中的某些成员，从而节省内存分配操作。 值取自 STATFLAG 枚举。"
+          "description": "返回时，指向 STATSTG 结构的指针，此方法在其中放置有关打开的存储对象的信息。 如果发生 错误，此参数为 NULL 。[in] grfStatFlag 指定不返回 STATSTG 结构中的某些成员，从而节省内存分配操作。 值取自 STATFLAG 枚举。",
+          "type": "STATSTG"
         }
       ],
-      "return_value": "如果成功，则返回 S_OK。如果失败，则返回其他 HRESULT 错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果成功，则返回 S_OK。如果失败，则返回其他 HRESULT 错误代码。"
+      },
       "requirements": {
         "target_platform": "Windows",
         "header": "propidl.h",
@@ -1409,7 +1515,8 @@
       "description": "将 SERIALIZEDPROPERTYVALUE 数据类型转换为 PROPVARIANT 数据类型。",
       "syntax": "BOOLEAN StgConvertPropertyToVariant(\n  [in] const SERIALIZEDPROPERTYVALUE *pprop,\n  [in] USHORT CodePage,\n  [out] PROPVARIANT *pvar,\n  [in] PMemoryAllocator *pma\n);",
       "return_value": {
-        "description": "返回 TRUE：转换的属性是间接类型(VT_STREAM或VT_STREAMED_OBJECT)；否则返回FALSE。"
+        "description": "返回 TRUE：转换的属性是间接类型(VT_STREAM或VT_STREAMED_OBJECT)；否则返回FALSE。",
+        "type": "BOOLEAN"
       },
       "remarks": "此函数将属性转换为 PROPVARIANT 数据类型。 如果函数失败，它将引发表示 NT_STATUS （例如 STATUS_INVALID_PARAMETER）的异常。",
       "header": "propapi.h",
@@ -1437,11 +1544,13 @@
         {
           "name": "pprop",
           "direction": "in",
-          "description": "指向 SERIALIZEDPROPERTYVALUE 缓冲区的指针。[in] cbMax pprop 缓冲区的大小（以字节为单位）。[out] ppropvar 指向 PROPVARIANT 的指针。"
+          "description": "指向 SERIALIZEDPROPERTYVALUE 缓冲区的指针。[in] cbMax pprop 缓冲区的大小（以字节为单位）。[out] ppropvar 指向 PROPVARIANT 的指针。",
+          "type": "const SERIALIZEDPROPERTYVALUE"
         }
       ],
       "return_value": {
-        "description": "此函数可以返回 S_OK 表示成功，或返回其他 HRESULT 错误代码。"
+        "description": "此函数可以返回 S_OK 表示成功，或返回其他 HRESULT 错误代码。",
+        "type": "PSSTDAPI"
       },
       "remarks": "此函数反序列化 PROPVARIANT 数据类型。此函数类似于 StgConvertPropertyToVariant 函数。StgDeserializePropVariant 函数对代码页使用默认值 CP_WINUNICODE，并使用任务内存的系统提供的分配器。除非要指定要使用的代码页和内存分配器，否则请使用 StgDeserializePropVariant。",
       "header": "propvarutil.h",
@@ -1463,11 +1572,13 @@
         {
           "name": "pwcsName",
           "direction": "in",
-          "description": "指向为其创建包装对象的文件的以 null 结尾的 unicode 字符串名称的指针。[out] ppflb 指向 IFillLockBytes* 指针变量的指针，该变量接收指向新字节数组包装器对象的接口指针。"
+          "description": "指向为其创建包装对象的文件的以 null 结尾的 unicode 字符串名称的指针。[out] ppflb 指向 IFillLockBytes* 指针变量的指针，该变量接收指向新字节数组包装器对象的接口指针。",
+          "type": "OLECHAR const"
         }
       ],
       "return_value": {
-        "description": "此函数支持标准返回值 E_OUTOFMEMORY、E_UNEXPECTED、E_INVALIDARG 和 E_FAIL，此外还支持文件系统错误。"
+        "description": "此函数支持标准返回值 E_OUTOFMEMORY、E_UNEXPECTED、E_INVALIDARG 和 E_FAIL，此外还支持文件系统错误。",
+        "type": "HRESULT"
       },
       "remarks": "名字对象在创建管理数据异步下载所需的异步存储的过程中调用此函数。名字对象首先创建一个临时文件，然后调用此函数以在该文件上创建包装器对象。最后，名字对象调用 StgOpenAsyncDocfileOnIFillLockBytes 以打开要下载到临时文件中的复合文件的根存储。",
       "header": "objbase.h",
@@ -1490,7 +1601,8 @@
         {
           "name": "pwcsName",
           "direction": "in",
-          "description": "指向要检查的磁盘文件的以 null 结尾的 Unicode 字符串名称的指针。 pwcsName 参数未解释传 递到基础文件系统。"
+          "description": "指向要检查的磁盘文件的以 null 结尾的 Unicode 字符串名称的指针。 pwcsName 参数未解释传 递到基础文件系统。",
+          "type": "const WCHAR"
         }
       ],
       "requirements": {
@@ -1501,7 +1613,10 @@
       "cross_references": [],
       "confidence": 0.8,
       "_source_line": 178,
-      "return_value": "如果文件是存储对象，则返回 S_OK；否则返回 S_FALSE。函数还可以返回任何文件系统错误或包装在 HRESULT 中的系统错误。"
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果文件是存储对象，则返回 S_OK；否则返回 S_FALSE。函数还可以返回任何文件系统错误或包装在 HRESULT 中的系统错误。"
+      }
     },
     {
       "id": "windows::StgIsStorageILockBytes",
@@ -1535,7 +1650,8 @@
         {
           "name": "pflb",
           "direction": "in",
-          "description": "指向包含要打开的存储对象的字节数组包装器对象的 IFillLockBytes 指针。[in] grfMode 一个 值，该值指定要用于打开存储对象的访问模式。 从 STGM 常量获取的最常见访问模式是"
+          "description": "指向包含要打开的存储对象的字节数组包装器对象的 IFillLockBytes 指针。[in] grfMode 一个 值，该值指定要用于打开存储对象的访问模式。 从 STGM 常量获取的最常见访问模式是",
+          "type": "IFillLockBytes"
         }
       ],
       "header": "objbase.h",
@@ -1548,7 +1664,11 @@
         "StgOpenStorageOnILockBytes"
       ],
       "confidence": 0.8,
-      "_source_line": 181
+      "_source_line": 181,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::StgOpenStorageOnILockBytes",
@@ -1560,7 +1680,8 @@
         {
           "name": "plkbyt",
           "direction": "in",
-          "description": "指向基础字节数组对象的 ILockBytes 指针，该对象包含要打开的存储对象。[in] pstgPriority 指向应为 NULL 的 IStorage 接口的指针。 如果不是 NULL，则使用此参数，如以下备注部分所述。"
+          "description": "指向基础字节数组对象的 ILockBytes 指针，该对象包含要打开的存储对象。[in] pstgPriority 指向应为 NULL 的 IStorage 接口的指针。 如果不是 NULL，则使用此参数，如以下备注部分所述。",
+          "type": "ILockBytes"
         }
       ],
       "header": "coml2api.h",
@@ -1570,7 +1691,11 @@
         "StgOpenStorage"
       ],
       "confidence": 0.8,
-      "_source_line": 187
+      "_source_line": 187,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::StgPropertyLengthAsVariant",
@@ -1582,16 +1707,19 @@
         {
           "name": "pProp",
           "direction": "in",
-          "description": "指向 SERIALIZEDPROPERTYVALUE 的指针。[in] cbProp pProp 缓冲区的大小（以字节为单位）。"
+          "description": "指向 SERIALIZEDPROPERTYVALUE 的指针。[in] cbProp pProp 缓冲区的大小（以字节为单位）。",
+          "type": "const SERIALIZEDPROPERTYVALUE"
         },
         {
           "name": "CodePage",
           "direction": "in",
-          "description": "属性集代码页。[in] bReserved 保留。 必须为 0。"
+          "description": "属性集代码页。[in] bReserved 保留。 必须为 0。",
+          "type": "USHORT"
         }
       ],
       "return_value": {
-        "description": "返回属性将作为 PROPVARIANT 占用的内存量。"
+        "description": "返回属性将作为 PROPVARIANT 占用的内存量。",
+        "type": "ULONG"
       },
       "remarks": "使用此函数可确定是否在内存不足的情况下反序列化属性值。 大多数应用程序无需调用此函数。",
       "header": "propapi.h",
@@ -1612,11 +1740,13 @@
         {
           "name": "ppropvar",
           "direction": "in",
-          "description": "指向 PROPVARIANT 的指针。[out] ppProp 指向新分配的 SERIALIZEDPROPERTYVALUE 的指针。[out] pcb 指向新分配的 SERIALIZEDPROPERTYVALUE 大小的指针。"
+          "description": "指向 PROPVARIANT 的指针。[out] ppProp 指向新分配的 SERIALIZEDPROPERTYVALUE 的指针。[out] pcb 指向新分配的 SERIALIZEDPROPERTYVALUE 大小的指针。",
+          "type": "const PROPVARIANT"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回 S_OK。如果失败，返回失败 HRESULT 代码。"
+        "description": "如果成功，返回 S_OK。如果失败，返回失败 HRESULT 代码。",
+        "type": "PSSTDAPI"
       },
       "header": "propvarutil.h",
       "deprecated": false,
@@ -1634,7 +1764,8 @@
         {
           "name": "lpszName",
           "direction": "in",
-          "description": "指向要更改的文件名称的指针。[in] pctime 指向创建时的新值的指针。[in] patime 指向访问时间的新值的指针。[in] pmtime 指向修改时间的新值的指针。"
+          "description": "指向要更改的文件名称的指针。[in] pctime 指向创建时的新值的指针。[in] patime 指向访问时间的新值的指针。[in] pmtime 指向修改时间的新值的指针。",
+          "type": "const WCHAR"
         }
       ],
       "requirements": {
@@ -1647,7 +1778,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 192
+      "_source_line": 192,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::SwitchToFile",
@@ -1698,10 +1833,14 @@
         {
           "name": "dwTimeout",
           "direction": "in",
-          "description": "指定此方法在等待获取对存储对象的独占写入访问权限时阻止的时间（以毫秒为单位）。 如果 dwTimeout 为零，则 方法不会阻止等待写入的独占访问。 允许 对 dwTimeout 使用平台 SDK 中 定义的 INFINITE 超时。"
+          "description": "指定此方法在等待获取对存储对象的独占写入访问权限时阻止的时间（以毫秒为单位）。 如果 dwTimeout 为零，则 方法不会阻止等待写入的独占访问。 允许 对 dwTimeout 使用平台 SDK 中 定义的 INFINITE 超时。",
+          "type": "DWORD"
         }
       ],
-      "return_value": "此方法可以返回以下值：\n- S_OK: 成功获取写入访问权限\n- S_FALSE: 超时前未能获取写入访问权限",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "此方法可以返回以下值：\n- S_OK: 成功获取写入访问权限\n- S_FALSE: 超时前未能获取写入访问权限"
+      },
       "header": "objidl.h",
       "deprecated": false,
       "cross_references": [
@@ -1720,11 +1859,13 @@
         {
           "name": "ulOffset",
           "direction": "in",
-          "description": "指定要写入的数据的字节数组开头的起点。[in] pv 指向包含要写入的数据的缓冲区的指针。[in] cb 指定要尝试写入字节数组的数据字节数。[out] pcbWritten 指向此方法指定写入字节数组的实际字节数的位置的指针。 可以将此指针设置为 NULL ，以指 示你对此值不感兴趣。 在这种情况下，此方法不提供实际写入的字节数。"
+          "description": "指定要写入的数据的字节数组开头的起点。[in] pv 指向包含要写入的数据的缓冲区的指针。[in] cb 指定要尝试写入字节数组的数据字节数。[out] pcbWritten 指向此方法指定写入字节数组的实际字节数的位置的指针。 可以将此指针设置为 NULL ，以指 示你对此值不感兴趣。 在这种情况下，此方法不提供实际写入的字节数。",
+          "type": "ULARGE_INTEGER"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回 S_OK。如果失败，返回其他 HRESULT 错误代码，如 STG_E_ACCESSDENIED、STG_E_READFAULT、STG_E_MEDIUMFULL 等。"
+        "description": "如果成功，返回 S_OK。如果失败，返回其他 HRESULT 错误代码，如 STG_E_ACCESSDENIED、STG_E_READFAULT、STG_E_MEDIUMFULL 等。",
+        "type": "HRESULT"
       },
       "header": "objidl.h",
       "deprecated": false,
@@ -1744,11 +1885,13 @@
         {
           "name": "pStg",
           "direction": "in",
-          "description": "指向获取新 CLSID 的存储对象的 IStorage 指针。[in] rclsid 指向要与 对象一起存储的 CLSID 的指针。"
+          "description": "指向获取新 CLSID 的存储对象的 IStorage 指针。[in] rclsid 指向要与 对象一起存储的 CLSID 的指针。",
+          "type": "LPSTORAGE"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 S_OK。如果失败，则返回其他 HRESULT 值。"
+        "description": "如果成功，则返回 S_OK。如果失败，则返回其他 HRESULT 值。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows"
@@ -1771,11 +1914,13 @@
         {
           "name": "pStm",
           "direction": "in",
-          "description": "指向要向其写入 CLSID 的流的 IStream 指针。[in] rclsid 指定要写入流的 CLSID。"
+          "description": "指向要向其写入 CLSID 的流的 IStream 指针。[in] rclsid 指定要写入流的 CLSID。",
+          "type": "LPSTREAM"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 S_OK。如果失败，则返回其他 HRESULT 值。"
+        "description": "如果成功，则返回 S_OK。如果失败，则返回其他 HRESULT 值。",
+        "type": "HRESULT"
       },
       "remarks": "大多数应用程序不直接调用 WriteClassStm 函数。COM 在调用对象的 IPersistStream::Save 实现之前调用它。",
       "header": "coml2api.h",
@@ -1797,11 +1942,13 @@
         {
           "name": "pstg",
           "direction": "in",
-          "description": "指向要写入信息的存储对象的 IStorage 指针。[in] cf 指定描述存储对象的本机区域结构的剪贴板格式。 格式标记包括此存储对象中流和子存储名称 的策略，以及用于解释这些流中的数据的规则。[in] lpszUserType 指向以 null 结尾的 Unicode 字符串的指针，该字符串指定对象的当前用户类型。 用户类型值本身不能为 NULL。 这是 IOleObject：：GetUserType 方法返回的类型。 如果将此函数传输到对 象类不存在的远程计算机，则可以在对话框中向用户显示此持久存储的用户类型。"
+          "description": "指向要写入信息的存储对象的 IStorage 指针。[in] cf 指定描述存储对象的本机区域结构的剪贴板格式。 格式标记包括此存储对象中流和子存储名称 的策略，以及用于解释这些流中的数据的规则。[in] lpszUserType 指向以 null 结尾的 Unicode 字符串的指针，该字符串指定对象的当前用户类型。 用户类型值本身不能为 NULL。 这是 IOleObject：：GetUserType 方法返回的类型。 如果将此函数传输到对 象类不存在的远程计算机，则可以在对话框中向用户显示此持久存储的用户类型。",
+          "type": "LPSTORAGE"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT 值。成功时返回 S_OK，否则返回错误代码。"
+        "description": "返回 HRESULT 值。成功时返回 S_OK，否则返回错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "必须在对象的 IPersistStorage：：Save 方法实现中调用 WriteFmtUserTypeStg 函数。 它还必须 由文档级对象调用，这些对象使用结构化存储在其保存序列中持久表示形式。为了读取保存的信息，应用程序调用 ReadFmtUserTypeStg 函数。 要求",
       "header": "ole2.h",
@@ -1818,7 +1965,7 @@
     {
       "id": "windows::RemSNB",
       "name": "RemSNB",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构用于封送 SNB 数据类型。在 IStorage 接口 (Storag.idl) 中定义。",
       "syntax": "typedef struct tagRemSNB {\n  ULONG   ulCntStr;\n  ULONG   ulCntChar;\n  OLECHAR rgString[1];\n} RemSNB;\n\n成员:\nulCntStr - rgString 缓冲区中的字符串数。\nulCntChar - rgString 缓冲区的大小（以字节为单位）。\nrgString[1] - 指向包含 SNB 结构的流名称字符串的字节数组的指针。",
       "requirements": {
@@ -1833,7 +1980,8 @@
         "StorageLayout"
       ],
       "confidence": 0.7,
-      "_source_line": 249
+      "_source_line": 249,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::CreateStreamOnHGlobal",
@@ -1845,16 +1993,19 @@
         {
           "name": "hGlobal",
           "direction": "in",
-          "description": "由 GlobalAlloc 函数分配的内存句柄，如果为 NULL，则改为分配新句柄。 句柄必须分配为可移动和不可显示。"
+          "description": "由 GlobalAlloc 函数分配的内存句柄，如果为 NULL，则改为分配新句柄。 句柄必须分配为可移动和不可显示。",
+          "type": "HGLOBAL"
         },
         {
           "name": "fDeleteOnRelease",
           "direction": "in",
-          "description": "一个 值，该值指示释放流对象时是否应自动释放此流对象的基础句柄。 如果设置为 FALSE，则调用方必须在最终发布后释放 hGlobal 。 如果设置为 TRUE，最终版本将自动释放基础句柄。 有关 fDeleteOnRelease 为 FALSE 的情况的进一步讨论，请参阅备注。[out] ppstm 接收指向新流对象的接口指针的 IStream* 指针变量的地址。 其值不能为 NULL。"
+          "description": "一个 值，该值指示释放流对象时是否应自动释放此流对象的基础句柄。 如果设置为 FALSE，则调用方必须在最终发布后释放 hGlobal 。 如果设置为 TRUE，最终版本将自动释放基础句柄。 有关 fDeleteOnRelease 为 FALSE 的情况的进一步讨论，请参阅备注。[out] ppstm 接收指向新流对象的接口指针的 IStream* 指针变量的地址。 其值不能为 NULL。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
-        "description": "此函数支持标准返回值E_INVALIDARG和E_OUTOFMEMORY，以及以下内容。"
+        "description": "此函数支持标准返回值E_INVALIDARG和E_OUTOFMEMORY，以及以下内容。",
+        "type": "HRESULT"
       },
       "remarks": "如果 hGlobal 为 NULL，则该函数分配新的内存句柄，并且流最初为空。如果 hGlobal 不为 NULL，则流的初始内容是内存块的当前内容。",
       "header": "combaseapi.h",
@@ -1880,21 +2031,25 @@
         {
           "name": "hGlobal",
           "direction": "in",
-          "description": "由 GlobalAlloc 函数分配的内存句柄，如果为 NULL，则改为分配新句柄。 必须将句柄分配为可移动和不可存储。"
+          "description": "由 GlobalAlloc 函数分配的内存句柄，如果为 NULL，则改为分配新句柄。 必须将句柄分配为可移动和不可存储。",
+          "type": "HGLOBAL"
         },
         {
           "name": "fDeleteOnRelease",
           "direction": "in",
-          "description": "一个标志，指定释放对象时是否应自动释放此字节数组对象的基础句柄。 如果设置为 FALSE，则调用方必须在最终发布后释放 hGlobal 。 如果设置为 TRUE，则最终版本将自动释放 hGlobal 参数。"
+          "description": "一个标志，指定释放对象时是否应自动释放此字节数组对象的基础句柄。 如果设置为 FALSE，则调用方必须在最终发布后释放 hGlobal 。 如果设置为 TRUE，则最终版本将自动释放 hGlobal 参数。",
+          "type": "BOOL"
         },
         {
           "name": "pplkbyt",
           "direction": "out",
-          "description": "接收指向新字节数组对象的接口指针的 ILockBytes 指针变量的地址。"
+          "description": "接收指向新字节数组对象的接口指针的 ILockBytes 指针变量的地址。",
+          "type": "LPLOCKBYTES"
         }
       ],
       "return_value": {
-        "description": "此函数支持标准返回值 E_INVALIDARG 和 E_OUTOFMEMORY，以及以下值："
+        "description": "此函数支持标准返回值 E_INVALIDARG 和 E_OUTOFMEMORY，以及以下值：",
+        "type": "HRESULT"
       },
       "remarks": "如果 hGlobal 为 NULL， 则 CreateILockBytesOnHGlobal 会分配一个新的内存句柄，并且字节数组最初为空。 如果 hGlobal 不为 NULL，则字节数组对象的初始内容是内存块的当前内容。 因此，此函数可用于打开内存中的现有字节数组，例如重新加载以前由 StgCreateDocfileOnILockBytes 函数创建的存储对象。 内存句柄及其内容不受创建新字节数组对象的干扰。 字节数组的初始大小是 GlobalSize 函数返回的 hGlobal 大小。 这不一定与由于舍入而最初为句 柄分配的大小相同。 如果字节数组的逻辑大小很重要，请按照调用 CreateILockBytesOnHGlobal 并调用 ILockBytes：：SetSize。 使用 CreateStreamOnHGlobal 创建字节数组对象后， StgCreateDocfileOnILockBytes 可用于在内存中创建新的存储对象，或者 StgOpenStorageOnILockBytes 可用于重新打开内存块中已包含的以前存在的存储对象。 可以调用 GetHGlobalFromILockBytes 来检索与字节数组对象关联的内存句柄。 如果将内存句柄传递给 CreateILockBytesOnHGlobal ，或者调用 GetHGlobalFromILockBytes ，则调用方可以直接访问此函数的内存句柄，而字节数组对象仍在使用该函数。 在使用此功能及其影响时，应适当谨慎： 请勿在字节数组对象的生存期内释放 hGlobal 内存句柄。 在释放内存句柄之前，必须调用 ILockBytes：：Release。 请勿在字节数组对象的生存期内调用 GlobalReAlloc 来更改内存句柄的大小。 这可能会导致应用程序崩溃或内存损坏。 避免在同一内存句柄上创建多个字节数组对象，因为 ILockBytes：：WriteAt 和 ILockBytes：：SetSize 方法可能在内部调用 GlobalReAlloc。如果可能，请避免在字节数组对象的生存期内访问内存块，因为该对象可能在内部调用 GlobalReAlloc ，并且不会对其大小和位置做出假设。 如果必须访问内存块，则内存访问调用应围绕对 GlobalLock 和 GlobalUnLock 的调用。 避免在使用 GlobalLock 锁定内存句柄时调用 对象的 方法。 这可能会导致方法调用不可预测的失败。 如果调用方将 fDeleteOnRelease 参数设置为 FALSE，则调用方还必须在最终发布后释放 hGlobal。 如果调用方将 fDeleteOnRelease 参数设置为 TRUE，则最终版本将自动释放 hGlobal。 作为 hGlobal 参数传递的内存句柄必须分配为可移动和不可显示，如以下示例所示： C++ HGLOBAL hMem = ::GlobalAlloc(GMEM_MOVEABLE,iSize); if (!hMem)",
       "header": "coml2api.h",
@@ -1924,11 +2079,13 @@
         {
           "name": "pfmtid",
           "direction": "in",
-          "description": "指向属性集的 FMTID 的指针。[out] oszName 指向以 null 结尾的字符串的指针，该字符串接收 由 pfmtid 标识的属性集的存储或流名称。 为 此字符串分配的数组的长度必须至少CCH_MAX_PROPSTG_NAME (32) 个字符。"
+          "description": "指向属性集的 FMTID 的指针。[out] oszName 指向以 null 结尾的字符串的指针，该字符串接收 由 pfmtid 标识的属性集的存储或流名称。 为 此字符串分配的数组的长度必须至少CCH_MAX_PROPSTG_NAME (32) 个字符。",
+          "type": "const FMTID"
         }
       ],
       "return_value": {
-        "description": "此函数支持标准返回值E_INVALIDARG以及以下值："
+        "description": "此函数支持标准返回值E_INVALIDARG以及以下值：",
+        "type": "HRESULT"
       },
       "header": "coml2api.h",
       "deprecated": false,
@@ -1949,11 +2106,13 @@
         {
           "name": "oszName",
           "direction": "in",
-          "description": "指向以 null 结尾的 Unicode 字符串的指针，该字符串包含简单属性集的流名称或非简单属性集 的存储名称。[out] pfmtid 指向 FMTID 变量的指针，该变量接收 oszName 指定的属性集的格式标识符。"
+          "description": "指向以 null 结尾的 Unicode 字符串的指针，该字符串包含简单属性集的流名称或非简单属性集 的存储名称。[out] pfmtid 指向 FMTID 变量的指针，该变量接收 oszName 指定的属性集的格式标识符。",
+          "type": "const LPOLESTR"
         }
       ],
       "return_value": {
-        "description": "此函数支持标准返回值E_INVALIDARG以及以下值："
+        "description": "此函数支持标准返回值E_INVALIDARG以及以下值：",
+        "type": "HRESULT"
       },
       "header": "coml2api.h",
       "deprecated": false,
@@ -1994,7 +2153,11 @@
         "STGM_SIMPLE"
       ],
       "confidence": 0.8,
-      "_source_line": 666
+      "_source_line": 666,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::ReadClassStm",
@@ -2006,7 +2169,8 @@
         {
           "name": "pStm",
           "direction": "in",
-          "description": "指向包含要读取的 CLSID 的流对象上的 IStream 接口的指针。 此 CLSID 必须以前已使用"
+          "description": "指向包含要读取的 CLSID 的流对象上的 IStream 接口的指针。 此 CLSID 必须以前已使用",
+          "type": "LPSTREAM"
         }
       ],
       "header": "coml2api.h",
@@ -2015,7 +2179,11 @@
         "WriteClassStm"
       ],
       "confidence": 0.7,
-      "_source_line": 866
+      "_source_line": 866,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::StgCreateDocfile",
@@ -2027,7 +2195,8 @@
         {
           "name": "pwcsName",
           "direction": "in",
-          "description": "指向正在创建的复合文件的以 null 结尾的 Unicode 字符串名称的指针。 它未解释地传递到文件 系统。 这可以是相对名称或 NULL。 如果 为 NULL，则使用唯一名称分配临时复合文件。[in] grfMode 指定打开新存储对象时要使用的访问模式。 有关详细信息，请参阅 STGM 常量。 如果调用方将事务处理模式与STGM_CREATE或STGM_CONVERT一起指定，则当为根存储调用提交操作时，将发生覆盖或转换。 如果未为根存储对象调用 IStorage：：Commit ，则将还原文件以前的内容。 STGM_CREATE和STGM_CONVERT不能与 STGM_NOSNAPSHOT 标志结合使用，因为在事务处理 模式下覆盖或转换文件时，需要快照副本。[in] reserved 留待将来使用；必须为零。[out] ppstgOpen 指向新存储对象的 IStorage 指针位置的指针。"
+          "description": "指向正在创建的复合文件的以 null 结尾的 Unicode 字符串名称的指针。 它未解释地传递到文件 系统。 这可以是相对名称或 NULL。 如果 为 NULL，则使用唯一名称分配临时复合文件。[in] grfMode 指定打开新存储对象时要使用的访问模式。 有关详细信息，请参阅 STGM 常量。 如果调用方将事务处理模式与STGM_CREATE或STGM_CONVERT一起指定，则当为根存储调用提交操作时，将发生覆盖或转换。 如果未为根存储对象调用 IStorage：：Commit ，则将还原文件以前的内容。 STGM_CREATE和STGM_CONVERT不能与 STGM_NOSNAPSHOT 标志结合使用，因为在事务处理 模式下覆盖或转换文件时，需要快照副本。[in] reserved 留待将来使用；必须为零。[out] ppstgOpen 指向新存储对象的 IStorage 指针位置的指针。",
+          "type": "const WCHAR"
         }
       ],
       "requirements": {
@@ -2039,7 +2208,11 @@
         "Stat"
       ],
       "confidence": 0.8,
-      "_source_line": 887
+      "_source_line": 887,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::StgCreatePropSetStg",
@@ -2051,11 +2224,13 @@
         {
           "name": "pStorage",
           "direction": "in",
-          "description": "指向包含 或 将包含一个或多个属性集的存储对象的指针。 dwReserved 留待将来使用；必须为零。[out] ppPropSetStg 指向 IPropertySetStorage* 指针变量的指针，该变量接收指向属性集存储对象的接口指针。"
+          "description": "指向包含 或 将包含一个或多个属性集的存储对象的指针。 dwReserved 留待将来使用；必须为零。[out] ppPropSetStg 指向 IPropertySetStorage* 指针变量的指针，该变量接收指向属性集存储对象的接口指针。",
+          "type": "IStorage"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，失败时返回错误代码如 E_INVALIDARG、E_OUTOFMEMORY 等。"
+        "description": "成功时返回 S_OK，失败时返回错误代码如 E_INVALIDARG、E_OUTOFMEMORY 等。",
+        "type": "HRESULT"
       },
       "header": "coml2api.h",
       "deprecated": false,
@@ -2099,16 +2274,19 @@
         {
           "name": "pUnk",
           "direction": "in",
-          "description": "指向存储新属性集的存储或流对象上的 IUnknown 接口的指针。[in] fmtid 要创建的属性集的 FMTID。[in] pclsid 指向此属性集的初始 CLSID 的指针。 可以为 NULL，在这种情况下 ，pclsid 设置为所有零。[in] grfFlags PROPSETFLAG 常量中的值，用于确定属性集的创建和打开方式。"
+          "description": "指向存储新属性集的存储或流对象上的 IUnknown 接口的指针。[in] fmtid 要创建的属性集的 FMTID。[in] pclsid 指向此属性集的初始 CLSID 的指针。 可以为 NULL，在这种情况下 ，pclsid 设置为所有零。[in] grfFlags PROPSETFLAG 常量中的值，用于确定属性集的创建和打开方式。",
+          "type": "IUnknown"
         },
         {
           "name": "dwReserved",
           "direction": "in",
-          "description": "保留;必须为零。[out] ppPropStg 接收指向新属性集的接口指针的 IPropertyStorage* 指针变量的地址。"
+          "description": "保留;必须为零。[out] ppPropStg 接收指向新属性集的接口指针的 IPropertyStorage* 指针变量的地址。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "此函数支持 E_INVALIDARG 和 E_UNEXPECTED 的标准返回值，此外还支持以下值：S_OK - 成功；E_OUTOFMEMORY - 内存不足；E_FAIL - 其他错误。"
+        "description": "此函数支持 E_INVALIDARG 和 E_UNEXPECTED 的标准返回值，此外还支持以下值：S_OK - 成功；E_OUTOFMEMORY - 内存不足；E_FAIL - 其他错误。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows"
@@ -2131,7 +2309,8 @@
         {
           "name": "pwcsName",
           "direction": "in",
-          "description": "指向要创建的文件路径的指针。 它未解释到文件系统。 可以是相对名称，也可以 NULL。 如果 NULL，则会分配一个具有唯一名称的临时文件。 如果非NULL，则字符串大小不得超过 MAX_PATH个字符。 Windows 2000：与 CreateFile 函数不同，不能使用“\\？”前缀超过MAX_PATH限制。[in] grfMode 一个值，指定打开新存储对象时要使用的访问模式。 有关详细信息，请参阅 STGM 常量。 如果调用方指定事务处理模式以及STGM_CREATE或STGM_CONVERT，则为根存储调用提交操作时，将进行覆盖或转换。 如果未为根存储对象调用 IStorage：：Commit，则文件以前的内容将还原。 无法将STGM_CREATE和STGM_CONVERT与STGM_NOSNAPSHOT标志合并，因为在事务处 理模式下覆盖或转换文件时需要快照副本。[in] stgfmt 一个指定存储文件格式的值。 有关详细信息，请参阅 STGFMT 枚举。[in] grfAttrs 一个值，该值取决于 stgfmt 参数的值。 参数值"
+          "description": "指向要创建的文件路径的指针。 它未解释到文件系统。 可以是相对名称，也可以 NULL。 如果 NULL，则会分配一个具有唯一名称的临时文件。 如果非NULL，则字符串大小不得超过 MAX_PATH个字符。 Windows 2000：与 CreateFile 函数不同，不能使用“\\？”前缀超过MAX_PATH限制。[in] grfMode 一个值，指定打开新存储对象时要使用的访问模式。 有关详细信息，请参阅 STGM 常量。 如果调用方指定事务处理模式以及STGM_CREATE或STGM_CONVERT，则为根存储调用提交操作时，将进行覆盖或转换。 如果未为根存储对象调用 IStorage：：Commit，则文件以前的内容将还原。 无法将STGM_CREATE和STGM_CONVERT与STGM_NOSNAPSHOT标志合并，因为在事务处 理模式下覆盖或转换文件时需要快照副本。[in] stgfmt 一个指定存储文件格式的值。 有关详细信息，请参阅 STGFMT 枚举。[in] grfAttrs 一个值，该值取决于 stgfmt 参数的值。 参数值",
+          "type": "const WCHAR"
         }
       ],
       "header": "Objbase.h",
@@ -2143,7 +2322,8 @@
       "confidence": 0.8,
       "_source_line": 1053,
       "return_value": {
-        "description": "此函数还可以返回 HRESULT中包装的任何文件系统错误或系统错误。 有关详细信息，请参阅 错 误处理策略 和 处理未知错误。"
+        "description": "此函数还可以返回 HRESULT中包装的任何文件系统错误或系统错误。 有关详细信息，请参阅 错 误处理策略 和 处理未知错误。",
+        "type": "HRESULT"
       },
       "remarks": "当应用程序修改其文件时，它通常会创建原始文件的副本。 StgCreateStorageEx 函数是创建副 本的一种方法。 此函数间接使用加密文件系统 （EFS） 重复 API。 使用此函数时，需要在 STGOPTIONS 结构中设置文件存储的选项。"
     },
@@ -2157,11 +2337,13 @@
         {
           "name": "pUnk",
           "direction": "in",
-          "description": "包含所请求属性集对象的存储或流对象的 IUnknown 接口的接口指针。[in] fmtid 要打开的属性集的 FMTID。[in] grfFlags PROPSETFLAG 常量中的值。[in] dwReserved 留待将来使用；必须为零。[out] ppPropStg 指向 IPropertyStorage* 指针变量的指针，该变量接收指向所请求属性集的接口指针。"
+          "description": "包含所请求属性集对象的存储或流对象的 IUnknown 接口的接口指针。[in] fmtid 要打开的属性集的 FMTID。[in] grfFlags PROPSETFLAG 常量中的值。[in] dwReserved 留待将来使用；必须为零。[out] ppPropStg 指向 IPropertyStorage* 指针变量的指针，该变量接收指向所请求属性集的接口指针。",
+          "type": "IUnknown"
         }
       ],
       "return_value": {
-        "description": "此函数支持 E_INVALIDARG 和 E_UNEXPECTED 的标准返回值，此外还支持以下值：S_OK - 成功。E_FAIL - 操作失败。E_OUTOFMEMORY - 内存不足。E_INVALIDARG - 参数无效。"
+        "description": "此函数支持 E_INVALIDARG 和 E_UNEXPECTED 的标准返回值，此外还支持以下值：S_OK - 成功。E_FAIL - 操作失败。E_OUTOFMEMORY - 内存不足。E_INVALIDARG - 参数无效。",
+        "type": "HRESULT"
       },
       "header": "coml2api.h",
       "deprecated": false,
@@ -2181,7 +2363,8 @@
         {
           "name": "pwcsName",
           "direction": "in",
-          "description": "指向包含要打开的存储对象的 以 null 结尾的 Unicode 字符串文件的路径的指针。 如果 pstgPriority 参数不为 NULL，则忽略此参数。[in] pstgPriority 指向应为 NULL 的 IStorage 接口的指针。 如果不是 NULL，则使用此参数，如以下备注部分所述。"
+          "description": "指向包含要打开的存储对象的 以 null 结尾的 Unicode 字符串文件的路径的指针。 如果 pstgPriority 参数不为 NULL，则忽略此参数。[in] pstgPriority 指向应为 NULL 的 IStorage 接口的指针。 如果不是 NULL，则使用此参数，如以下备注部分所述。",
+          "type": "const WCHAR"
         }
       ],
       "header": "coml2api.h",
@@ -2189,7 +2372,10 @@
       "cross_references": [],
       "confidence": 0.8,
       "_source_line": 1208,
-      "return_value": "如果成功，则返回 S_OK。如果失败，则返回其他 HRESULT 值。"
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果成功，则返回 S_OK。如果失败，则返回其他 HRESULT 值。"
+      }
     },
     {
       "id": "windows::STGM_DIRECT_SWMR",
@@ -2228,7 +2414,8 @@
         {
           "name": "pwcsName",
           "direction": "in",
-          "description": "指向包含存储对象的以 null 结尾的 Unicode 字符串文件的路径的指针。 此字符串大小不能超过 MAX_PATH 个字符。 Windows Server 2003 和 Windows XP/2000： 与 CreateFile 函数不同，使用“\\？”前缀不能超 过 MAX_PATH 限制。[in] grfMode 一个 值，该值指定用于打开新存储对象的访问模式。 有关详细信息，请参阅 STGM 常量。 如果调用方指定事务处理模式以及 STGM_CREATE 或 STGM_CONVERT，则当为根存储调用提交操作时，将发生覆盖或转换。 如果未为根存储对象调用 IStorage：：Commit ，则将还原文件的先前 内容。 STGM_CREATE和STGM_CONVERT不能与 STGM_NOSNAPSHOT 标志结合使用，因为在事务处理模式下覆盖或转换文件时，需要快照副本。 如果存储对象以直接模式打开， (STGM_DIRECT) 访问 STGM_WRITE 或 STGM_READWRITE，则必须 STGM_SHARE_EXCLUSIVE 共享模式，除非指定 了STGM_DIRECT_SWMR 模式。 有关详细信息，请参见“备注”部分。 如果存储对象在直接模式下打开，并且可访问 STGM_READ，则共享模式必须是 STGM_SHARE_EXCLUSIVE 或 STGM_SHARE_DENY_WRITE，除非指定 了"
+          "description": "指向包含存储对象的以 null 结尾的 Unicode 字符串文件的路径的指针。 此字符串大小不能超过 MAX_PATH 个字符。 Windows Server 2003 和 Windows XP/2000： 与 CreateFile 函数不同，使用“\\？”前缀不能超 过 MAX_PATH 限制。[in] grfMode 一个 值，该值指定用于打开新存储对象的访问模式。 有关详细信息，请参阅 STGM 常量。 如果调用方指定事务处理模式以及 STGM_CREATE 或 STGM_CONVERT，则当为根存储调用提交操作时，将发生覆盖或转换。 如果未为根存储对象调用 IStorage：：Commit ，则将还原文件的先前 内容。 STGM_CREATE和STGM_CONVERT不能与 STGM_NOSNAPSHOT 标志结合使用，因为在事务处理模式下覆盖或转换文件时，需要快照副本。 如果存储对象以直接模式打开， (STGM_DIRECT) 访问 STGM_WRITE 或 STGM_READWRITE，则必须 STGM_SHARE_EXCLUSIVE 共享模式，除非指定 了STGM_DIRECT_SWMR 模式。 有关详细信息，请参见“备注”部分。 如果存储对象在直接模式下打开，并且可访问 STGM_READ，则共享模式必须是 STGM_SHARE_EXCLUSIVE 或 STGM_SHARE_DENY_WRITE，除非指定 了",
+          "type": "const WCHAR"
         }
       ],
       "header": "coml2api.h",
@@ -2238,7 +2425,11 @@
         "CreateStream"
       ],
       "confidence": 0.8,
-      "_source_line": 1283
+      "_source_line": 1283,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::STGM_PRIORITY",
@@ -2355,11 +2546,13 @@
         {
           "name": "pilb",
           "direction": "in",
-          "description": "指向现有字节数组对象的指针。[out] ppflb 指向 IFillLockBytes 指针变量的指针，该变量接收指向新字节数组包装器对象的接口指针。"
+          "description": "指向现有字节数组对象的指针。[out] ppflb 指向 IFillLockBytes 指针变量的指针，该变量接收指向新字节数组包装器对象的接口指针。",
+          "type": "ILockBytes"
         }
       ],
       "return_value": {
-        "description": "支持标准返回值E_UNEXPECTED和E_FAIL。此函数允许在自定义字节数组对象上创建异步存储包装器对象。"
+        "description": "支持标准返回值E_UNEXPECTED和E_FAIL。此函数允许在自定义字节数组对象上创建异步存储包装器对象。",
+        "type": "HRESULT"
       },
       "header": "objbase.h",
       "deprecated": true,
@@ -2377,16 +2570,19 @@
         {
           "name": "pwcsDfName",
           "direction": "in",
-          "description": "指向要打开的复合文件的以 null 结尾的 Unicode 字符串名称的指针。[in] grfMode 打开新创建的存储对象时要使用的访问模式。 值取自 STGM 常量。 请注意，不支持优先级模式和排除项。 最常见的访问模式可能是STGM_DIRECT |STGM_READ |STGM_SHARE_EXCLUSIVE。"
+          "description": "指向要打开的复合文件的以 null 结尾的 Unicode 字符串名称的指针。[in] grfMode 打开新创建的存储对象时要使用的访问模式。 值取自 STGM 常量。 请注意，不支持优先级模式和排除项。 最常见的访问模式可能是STGM_DIRECT |STGM_READ |STGM_SHARE_EXCLUSIVE。",
+          "type": "OLECHAR const"
         },
         {
           "name": "reserved",
           "direction": "in",
-          "description": "保留供将来使用。[out] ppstgOpen 指向 IStorage 指针变量的指针，该变量接收指向新创建的根存储对象的根对象的接口指针。"
+          "description": "保留供将来使用。[out] ppstgOpen 指向 IStorage 指针变量的指针，该变量接收指向新创建的根存储对象的根对象的接口指针。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "除了以下各项外，此函数还支持标准返回值E_OUTOFMEMORY、E_UNEXPECTED、 E_INVALIDARG和E_FAIL："
+        "description": "除了以下各项外，此函数还支持标准返回值E_OUTOFMEMORY、E_UNEXPECTED、 E_INVALIDARG和E_FAIL：",
+        "type": "HRESULT"
       },
       "remarks": "此函数创建的复合文件实现在其根存储上公开 ILayoutStorage 接口。 应用程序使用此接口来表达其复合文件的最佳布局，以便通过慢速链接更快地下载和呈现数据。 StgOpenLayoutDocfile 返回指向新创建的复合文件的根存储上的 IStorage 接口的指针。 使用此指针，应用程序调用 QueryInterface 以获取指向 ILayoutStorage 的指针。",
       "header": "objbase.h",
@@ -2412,7 +2608,8 @@
         }
       ],
       "return_value": {
-        "description": "成功时返回S_OK，否则返回HRESULT错误代码。"
+        "description": "成功时返回S_OK，否则返回HRESULT错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2497,13 +2694,14 @@
     {
       "id": "windows::BIND_OPTS",
       "name": "BIND_OPTS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含名字对象绑定操作期间使用的参数。",
       "header": "objidl.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.55,
-      "_source_line": 1784
+      "_source_line": 1784,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::BIND_OPTS2",
@@ -2587,7 +2785,7 @@
     {
       "id": "windows::SOLE_AUTHENTICATION_SERVICE",
       "name": "SOLE_AUTHENTICATION_SERVICE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Structure identifying authentication services a server is willing to use for communication with clients.",
       "header": "objidl.h",
       "deprecated": false,
@@ -2595,7 +2793,8 @@
         "StorageLayout"
       ],
       "confidence": 0.75,
-      "_source_line": 1799
+      "_source_line": 1799,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::CO_MARSHALING_CONTEXT_ATTRIBUTES",
@@ -2622,7 +2821,7 @@
     {
       "id": "windows::GLOBALOPT_UNMARSHALING_POLICY_VALUES",
       "name": "GLOBALOPT_UNMARSHALING_POLICY_VALUES",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "枚举 (objidl.h) 为 COM 取消组合策略全局选项提 供值。 LOCKTYPE LOCKTYPE 枚举值指示为指定的字节范围请求的锁定类型。 这些值用于 ILockBytes：：LockRegion 和 IStream：：LockRegion 方法。 MKRREDUCE 指定名字对象应减少的距离。 MKSYS 指示名字对象的类。 PENDINGMSG 指定 IMessageFilter：：MessagePending 方法的返回值。 PENDINGTYPE 指示 IMessageFilter：：MessagePending 方法中的嵌套级别。 SERVERCALL 指示服务器调用的状态。 STGTY STGTY 枚举值在 STATSTG 结构的类型成员中使用，以指示存储元素的类型。 存储元素是存储对 象、流对象或字节数组对象 (LOCKBYTES) 。",
       "header": "objidl.h",
       "deprecated": false,
@@ -2630,7 +2829,8 @@
         "LockRegion"
       ],
       "confidence": 0.75,
-      "_source_line": 1822
+      "_source_line": 1822,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::Skip",
@@ -2675,7 +2875,7 @@
     {
       "id": "windows::STG_E_INVALIDNAME",
       "name": "STG_E_INVALIDNAME",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "STG_E_INVALIDPOINTER",
       "requirements": {
         "target_platform": "Windows",
@@ -2689,7 +2889,8 @@
         "STG_E_INVALIDPOINTER"
       ],
       "confidence": 0.55,
-      "_source_line": 2310
+      "_source_line": 2310,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::STG_E_ACCESSDENIED",
@@ -2709,7 +2910,7 @@
     {
       "id": "windows::STG_E_MEDIUMFULL",
       "name": "STG_E_MEDIUMFULL",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "STG_E_ACCESSDENIED STG_E_INVALIDPOINTER STG_E_FILEALREADYEXISTS 说明 已成功复制文件。 由于存储设备上的空间不足，文件未复制。 未复制该文件，因为调用方无权访问存储设备。由于 pszFile 指针无效，因此未复制该文件。 未复制该文件，因为 pszFile) 的新文件名 (指向现有文件。",
       "syntax": "HRESULT Read(\n[out] void  *pv,   [in]  ULONG cb,\n[out] ULONG *pcbRead);",
       "parameters": [
@@ -2740,7 +2941,8 @@
         "WriteAt"
       ],
       "confidence": 1.0,
-      "_source_line": 2511
+      "_source_line": 2511,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::STGC_CONSOLIDATE",
@@ -2760,7 +2962,7 @@
     {
       "id": "windows::STG_S_CONSOLIDATIONFAILED",
       "name": "STG_S_CONSOLIDATIONFAILED",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "E_PENDING",
       "header": "objidl.h",
       "deprecated": false,
@@ -2768,7 +2970,8 @@
         "E_PENDING"
       ],
       "confidence": 0.55,
-      "_source_line": 2856
+      "_source_line": 2856,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::STG_E_TOOMANYOPENFILES",
@@ -2820,11 +3023,13 @@
         {
           "name": "pwcsName",
           "direction": "in",
-          "description": "指向以 null 结尾的宽字符 Unicode 字符串的指针，该字符串包含要删除的存储或流的名称。"
+          "description": "指向以 null 结尾的宽字符 Unicode 字符串的指针，该字符串包含要删除的存储或流的名称。",
+          "type": "const OLECHAR"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回其中一个值。 返回代码 S_OK"
+        "description": "此方法可以返回其中一个值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "objidl.h",
       "deprecated": false,
@@ -2845,11 +3050,13 @@
         {
           "name": "pwcsName",
           "direction": "in",
-          "description": "指向以 null 结尾的宽字符 Unicode 字符串的指针，该字符串包含要打开的存储对象的名称。 保留 000 到 01f 字符，用作流/存储名称的第一个字符，供 OLE 使用。 这是复合文件限制，而不 是结构化存储限制。 如果 pstgPriority 为非 NULL，则忽略它。[in] pstgPriority 必须为 NULL。 非 NULL 值将返回STG_E_INVALIDPARAMETER。[in] grfMode 指定打开存储对象时要使用的访问模式。 有关可能值的说明，请参阅 STGM 常量。 调用此方法 时，所选的其他模式至少必须指定STGM_SHARE_EXCLUSIVE。[in] snbExclude 必须为 NULL。 非 NULL 值将返回STG_E_INVALIDPARAMETER。[in] reserved 留待将来使用；必须为零。[out] ppstg 成功时，指向指向打开的存储对象的 IStorage 指针的位置的指针。 如果发生错误，此参数将设 置为 NULL 。"
+          "description": "指向以 null 结尾的宽字符 Unicode 字符串的指针，该字符串包含要打开的存储对象的名称。 保留 000 到 01f 字符，用作流/存储名称的第一个字符，供 OLE 使用。 这是复合文件限制，而不 是结构化存储限制。 如果 pstgPriority 为非 NULL，则忽略它。[in] pstgPriority 必须为 NULL。 非 NULL 值将返回STG_E_INVALIDPARAMETER。[in] grfMode 指定打开存储对象时要使用的访问模式。 有关可能值的说明，请参阅 STGM 常量。 调用此方法 时，所选的其他模式至少必须指定STGM_SHARE_EXCLUSIVE。[in] snbExclude 必须为 NULL。 非 NULL 值将返回STG_E_INVALIDPARAMETER。[in] reserved 留待将来使用；必须为零。[out] ppstg 成功时，指向指向打开的存储对象的 IStorage 指针的位置的指针。 如果发生错误，此参数将设 置为 NULL 。",
+          "type": "const OLECHAR"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回其中一个值。 返回代码 S_OK"
+        "description": "此方法可以返回其中一个值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "objidl.h",
       "deprecated": false,
@@ -2860,7 +3067,7 @@
     {
       "id": "windows::OpenStream",
       "name": "OpenStream",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "方法以指定的访问模式打开此存储对象中的现有流对象。",
       "syntax": "HRESULT OpenStream(\n[in]  const OLECHAR *pwcsName,   [in]  void          *reserved1,\n[in]  DWORD         grfMode,   [in]  DWORD         reserved2,   [out] IStream       **ppstm);",
       "parameters": [
@@ -2882,7 +3089,8 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 3237
+      "_source_line": 3237,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SetElementTimes",
@@ -2918,7 +3126,7 @@
     {
       "id": "windows::LOCK_EXCLUSIVE",
       "name": "LOCK_EXCLUSIVE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "= 2, LOCK_ONLYONCE = 4} LOCKTYPE;",
       "header": "objidl.h",
       "deprecated": false,
@@ -2926,7 +3134,8 @@
         "LOCK_ONLYONCE"
       ],
       "confidence": 0.65,
-      "_source_line": 3890
+      "_source_line": 3890,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::LOCK_WRITE",
@@ -3336,11 +3545,13 @@
         {
           "name": "cpspec",
           "direction": "in",
-          "description": "要删除的属性的数字计数。 此参数的值可以合法地设置为零，但这会破坏方法的用途，因为无 论 rgpspec 中设置的值如何，都不删除任何属性。[in] rgpspec 要删除的属性。 允许混合使用属性标识符和字符串命名属性。 可能存在重复项，并且不要求按 任何顺序指定属性。"
+          "description": "要删除的属性的数字计数。 此参数的值可以合法地设置为零，但这会破坏方法的用途，因为无 论 rgpspec 中设置的值如何，都不删除任何属性。[in] rgpspec 要删除的属性。 允许混合使用属性标识符和字符串命名属性。 可能存在重复项，并且不要求按 任何顺序指定属性。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "返回HRESULT值。支持标准返回值E_UNEXPECTED。删除操作成功后，相关的IStream或IStorage指针将被置为无效状态。"
+        "description": "返回HRESULT值。支持标准返回值E_UNEXPECTED。删除操作成功后，相关的IStream或IStorage指针将被置为无效状态。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3364,10 +3575,14 @@
         {
           "name": "cpropid",
           "direction": "in",
-          "description": "数组 rgpropid 的输入上的元素数。 此参数的值可以设置为零，但是，这会破坏此方法的用途， 因为不会因此读取任何属性名称。[in] rgpropid 要检索其名称的属性 ID 数组。[in, out] rglpwstrName 调用方分配的 LPWSTR 成员的大小 cpropid 数组。 返回时，实现将填充此数组。 给定条目包含属性 ID 的相应字符串名称，如果属性 ID 没有字符串名称，则可为空。 应使用 CoTaskMemFree 函数释放数组的每个 LPWSTR 成员。"
+          "description": "数组 rgpropid 的输入上的元素数。 此参数的值可以设置为零，但是，这会破坏此方法的用途， 因为不会因此读取任何属性名称。[in] rgpropid 要检索其名称的属性 ID 数组。[in, out] rglpwstrName 调用方分配的 LPWSTR 成员的大小 cpropid 数组。 返回时，实现将填充此数组。 给定条目包含属性 ID 的相应字符串名称，如果属性 ID 没有字符串名称，则可为空。 应使用 CoTaskMemFree 函数释放数组的每个 LPWSTR 成员。",
+          "type": "ULONG"
         }
       ],
-      "return_value": "{\"description\": \"此方法支持 E_UNEXPECTED 的标准返回值，此外还支持以下各项：S_OK - 成功。\"}",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "{\"description\": \"此方法支持 E_UNEXPECTED 的标准返回值，此外还支持以下各项：S_OK - 成功。\"}"
+      },
       "remarks": "对于 rgpropid 数组中提供的属性 ID 列表中的每个属性 ID，ReadPropertyNames 将检索相应的字符串名称（如果有）。可以通过在创建属性时在调用 IPropertyStorage::WriteMultiple 时指定名称，或通过调用 IPropertyStorage::WritePropertyNames 来创建字符串名称。在任一情况下，字符串名称都是可选的，但所有属性都必须具有属性 ID。映射到属性 ID 的字符串名称在集中必须是唯一的。",
       "requirements": {
         "target_platform": "Windows",
@@ -3397,21 +3612,25 @@
         {
           "name": "cpspec",
           "direction": "in",
-          "description": "设置的属性数。 此参数的值可以设置为零;但是，这违背了 方法的用途，因为随后不会写入任何属性。"
+          "description": "设置的属性数。 此参数的值可以设置为零;但是，这违背了 方法的用途，因为随后不会写入任何属性。",
+          "type": "ULONG"
         },
         {
           "name": "rgpspec",
           "direction": "in",
-          "description": "属性 ID (PROPSPEC) 属性设置为的数组。 这些属性不需要采用任何特定顺序，并且可能包含重 复项，但最后指定的属性 ID 是生效的属性 ID。 允许混合使用属性 ID 和字符串名称。[in] rgpropvar 包含要写入的属性值的 PROPVARIANT 结构的大小 () cpspec 的数组。 数组必须是 cpspec 指定的大小。"
+          "description": "属性 ID (PROPSPEC) 属性设置为的数组。 这些属性不需要采用任何特定顺序，并且可能包含重 复项，但最后指定的属性 ID 是生效的属性 ID。 允许混合使用属性 ID 和字符串名称。[in] rgpropvar 包含要写入的属性值的 PROPVARIANT 结构的大小 () cpspec 的数组。 数组必须是 cpspec 指定的大小。",
+          "type": "const PROPSPEC"
         },
         {
           "name": "propidNameFirst",
           "direction": "in",
-          "description": "如果 rgpspec 参数指定了当前不存在任何属性 ID 的字符串命名属性，则为方法必须分配的属性 ID 的最小值。 如果此集中已存在所有以字符串命名的属性，因此已具有属性 ID，则忽略此值。如果未忽略，此值必须大于或等于 2 且小于 0x80000000。 属性 ID 0 和 1 以及大于 0x80000000 保留供特殊使用。"
+          "description": "如果 rgpspec 参数指定了当前不存在任何属性 ID 的字符串命名属性，则为方法必须分配的属性 ID 的最小值。 如果此集中已存在所有以字符串命名的属性，因此已具有属性 ID，则忽略此值。如果未忽略，此值必须大于或等于 2 且小于 0x80000000。 属性 ID 0 和 1 以及大于 0x80000000 保留供特殊使用。",
+          "type": "PROPID"
         }
       ],
       "return_value": {
-        "description": "此方法支持E_UNEXPECTED的标准返回值，此外还支持以下各项：此函数还可以返回包装在HRESULT数据类型中的任何文件系统错误或Win32错误。有关详细信息，请参阅错误处理策略。"
+        "description": "此方法支持E_UNEXPECTED的标准返回值，此外还支持以下各项：此函数还可以返回包装在HRESULT数据类型中的任何文件系统错误或Win32错误。有关详细信息，请参阅错误处理策略。",
+        "type": "HRESULT"
       },
       "remarks": "如果指定的属性已存在，则其值将替换为 rgpspec 中指定的值，即使属性值的旧类型和新类型不 同也是如此。 如果指定的属性尚不存在，则会创建该属性。 在调用 IPropertyStorage：： Commit 之前，更改不会保存到基础存储中。 属性名称存储在属性集的特殊字典部分中，该字典部分将此类名称映射到属性 ID。 所有属性都有一个 ID，但名称是可选的。 通过在 PROPSPEC 结构的 ulKind 成员中指定PRSPEC_LPWSTR来提供字符串名称。 如果为属性提供了字符串名称，并且字典中尚不存在该名称，则该方法将分配属性 ID，并将属性 ID 和名称添加到字典中。 属性 ID 的分配方式是，它不会与属性集中的其他 ID 冲突。 属性 ID 的值也不小于 propidNameFirst 参数指定的值。 如果 rgpspec 参数指定当前不存在任何属性 ID 的字符串命名属性， 则 propidNameFirst 参数将指定 WriteMultiple 方法必须分配的属性 ID 的最小值。 创建新属性集时， (属性 ID 1 ) 的特殊代码页和区域设置 ID (属性 ID 0x80000000 ) 属性将自 动写入属性集。 随后可以使用 IPropertyStorage：：ReadMultiple 方法读取这些属性，方法是分别使用标头定义的PID_CODEPAGE和PID_LOCALE值指定属性 ID。 如果属性集为非空（除代码页和区域设置 ID 属性外还有一个或多个属性，或者在其字典中具有一个或多个名称），则无法通过调用 IPropertyStorage：：WriteMultiple 来修改特殊代码页和区域设置 ID 属性。 但是，如果属性集为空，则可以修改其中一个或两个特殊属性。 如果 rgspec 数组中的元素设置为PRSPEC_PROPID值为 0xffffffff (PID_ILLEGAL) ，则 IPropertyStorage：：WriteMultiple 将忽略 rgvar 数组中的相应值。 例如，如果在 cspec 参数设置为 3 的情况下调用此方法，但 rgpspec[1].prspec 设置为 PRSPEC_PROPID 并将 rgpspec[1].propid 设置为 PID_ILLEGAL，则只会写入两个属性。 以无提示方式忽略 rgpropvar[1] 元素。 使用 PropVariantInit 宏初始化 PROPVARIANT 结构。 对于 Windows NT 4.0 及更早版本，属性集（不包括非简单属性的数据）的大小限制为 256 KB。 对于 Windows 2000、Windows XP 和 Windows Server 2003，OLE 属性集限制为 1 MB。如果超出这些限制，操作将失败，调用方将收到错误消息。 不存在内存泄漏或溢出的可能性。有关详细信息，请参阅 管理属性集。 除非将PROPSETFLAG_CASE_SENSITIVE传递给 IPropertySetStorage：：Create，否则属性集名称不区分大小写。 在 IPropertyStorage：：WriteMultiple 中按名称指定属性将导致对属性集中的 名称进行不区分大小写的搜索。 若要比较不区分大小写的字符串，字符串的区域设置必须是已知的。 有关详细信息，请参阅 IPropertyStorage：：WritePropertyNames。 有关详细信息，请参阅 属性存储注意事项。",
       "header": "objidl.h",
@@ -3625,21 +3844,25 @@
         {
           "name": "pvar",
           "direction": "in",
-          "description": "指向 PROPVARIANT 的指针。"
+          "description": "指向 PROPVARIANT 的指针。",
+          "type": "const PROPVARIANT"
         },
         {
           "name": "CodePage",
           "direction": "in",
-          "description": "属性集代码页。"
+          "description": "属性集代码页。",
+          "type": "USHORT"
         },
         {
           "name": "pprop",
           "direction": "out, optional",
-          "description": "可选。 指向 SERIALIZEDPROPERTYVALUE 的指针。[in, out] pcb 指向剩余流长度的指针，在返回时更新为实际属性大小。[in] pid 如果间接) ，则使用 propid (。[in] fReserved 保留者。 该值必须为 FALSE。[in, out, optional] pcIndirect 可选。 指向间接属性计数的指针。"
+          "description": "可选。 指向 SERIALIZEDPROPERTYVALUE 的指针。[in, out] pcb 指向剩余流长度的指针，在返回时更新为实际属性大小。[in] pid 如果间接) ，则使用 propid (。[in] fReserved 保留者。 该值必须为 FALSE。[in, out, optional] pcIndirect 可选。 指向间接属性计数的指针。",
+          "type": "optional] SERIALIZEDPROPERTYVALUE"
         }
       ],
       "return_value": {
-        "description": "返回指向 SERIALIZEDPROPERTYVALUE 的指针。"
+        "description": "返回指向 SERIALIZEDPROPERTYVALUE 的指针。",
+        "type": "SERIALIZEDPROPERTYVALUE"
       },
       "remarks": "此函数将 PROPVARIANT 转换为属性。 如果函数失败，它将引发表示 STATUS_INVALID_PARAMETER NT_STATUS的异常。",
       "header": "propidl.h",
@@ -3707,7 +3930,10 @@
       "confidence": 0.5,
       "_source_line": 6942,
       "syntax": "HRESULT InitPropVariantFromFileTime(\n  [in]  FILETIME *pft,\n  [out] PROPVARIANT *pvar\n);",
-      "return_value": "如果成功，返回 S_OK。如果失败，返回错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果成功，返回 S_OK。如果失败，返回错误代码。"
+      },
       "remarks": "此函数将 FILETIME 值转换为 PROPVARIANT 类型 VT_FILETIME。调用后应使用 PropVariantClear 释放 PROPVARIANT 资源。"
     },
     {

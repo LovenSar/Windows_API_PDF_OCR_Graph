@@ -135,11 +135,13 @@
         {
           "name": "SubscriptionName",
           "direction": "in",
-          "description": "要删除的订阅。[in] Flags 保留，必须为 0。"
+          "description": "要删除的订阅。[in] Flags 保留，必须为 0。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，返回TRUE；否则返回FALSE。"
+        "description": "如果函数成功，返回TRUE；否则返回FALSE。",
+        "type": "BOOL"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -162,11 +164,13 @@
         {
           "name": "SubscriptionEnum",
           "direction": "in",
-          "description": "从 EcOpenSubscriptionEnum 函数返回的枚举器对象的句柄。[in] SubscriptionNameBufferSize 用户提供的缓冲区的大小 (字符) 存储订阅名称。[in] SubscriptionNameBuffer 用于存储订阅名称的用户提供的缓冲区。[out] SubscriptionNameBufferUsed 成功返回时函数使用的用户提供的缓冲区的大小，或函数失败并 出现 ERROR_INSUFFICIENT_BUFFER时存储订阅名称所需的大小。"
+          "description": "从 EcOpenSubscriptionEnum 函数返回的枚举器对象的句柄。[in] SubscriptionNameBufferSize 用户提供的缓冲区的大小 (字符) 存储订阅名称。[in] SubscriptionNameBuffer 用于存储订阅名称的用户提供的缓冲区。[out] SubscriptionNameBufferUsed 成功返回时函数使用的用户提供的缓冲区的大小，或函数失败并 出现 ERROR_INSUFFICIENT_BUFFER时存储订阅名称所需的大小。",
+          "type": "EC_HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，返回值为 TRUE。如果函数失败，返回值为 FALSE。"
+        "description": "如果函数成功，返回值为 TRUE。如果函数失败，返回值为 FALSE。",
+        "type": "BOOL"
       },
       "header": "evcoll.h",
       "deprecated": false,
@@ -184,7 +188,8 @@
         {
           "name": "ObjectArray",
           "direction": "in",
-          "description": "订阅的事件源的属性数组的句柄。 将 EcSubscriptionEventSources 值传递到 PropertyId 参数 时，由 EcGetSubscriptionProperty 方法返回的数组句柄。[in] PropertyId 数组中属性的属性标识符。 指定 EC_SUBSCRIPTION_PROPERTY_ID 枚举中的值。 通过指定 EcSubscriptionEventSourceAddress、EcSubscriptionEventSourceEnabled、"
+          "description": "订阅的事件源的属性数组的句柄。 将 EcSubscriptionEventSources 值传递到 PropertyId 参数 时，由 EcGetSubscriptionProperty 方法返回的数组句柄。[in] PropertyId 数组中属性的属性标识符。 指定 EC_SUBSCRIPTION_PROPERTY_ID 枚举中的值。 通过指定 EcSubscriptionEventSourceAddress、EcSubscriptionEventSourceEnabled、",
+          "type": "EC_OBJECT_ARRAY_PROPERTY_HANDLE"
         }
       ],
       "header": "evcoll.h",
@@ -193,7 +198,11 @@
         "EcGetObjectArraySize"
       ],
       "confidence": 0.8,
-      "_source_line": 25
+      "_source_line": 25,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::EcGetSubscriptionProperty",
@@ -205,16 +214,19 @@
         {
           "name": "Subscription",
           "direction": "in",
-          "description": "订阅对象的句柄。[in] PropertyId 指定要获取的订阅属性的标识符。 指定 EC_SUBSCRIPTION_PROPERTY_ID 枚举中的值。 如果指定 EcSubscriptionEventSources 值，则将返回数组 (EC_OBJECT_ARRAY_PROPERTY_HANDLE) 的句柄。 然后，可以使用 EcGetObjectArrayProperty 和 EcSetObjectArrayProperty 函数获取和设 置数组中的 Address、Enabled、UserName 和 Password 属性。[in] Flags 保留。 必须为 NULL。"
+          "description": "订阅对象的句柄。[in] PropertyId 指定要获取的订阅属性的标识符。 指定 EC_SUBSCRIPTION_PROPERTY_ID 枚举中的值。 如果指定 EcSubscriptionEventSources 值，则将返回数组 (EC_OBJECT_ARRAY_PROPERTY_HANDLE) 的句柄。 然后，可以使用 EcGetObjectArrayProperty 和 EcSetObjectArrayProperty 函数获取和设 置数组中的 Address、Enabled、UserName 和 Password 属性。[in] Flags 保留。 必须为 NULL。",
+          "type": "EC_HANDLE"
         },
         {
           "name": "PropertyValueBufferSize",
           "direction": "in",
-          "description": "用户提供的用于存储属性值的缓冲区的大小。[in] PropertyValueBuffer 用户提供的用于存储属性值的缓冲区。[out] PropertyValueBufferUsed 函数成功返回时使用的用户提供的缓冲区的大小，或函数失败并 出现 ERROR_INSUFFICIENT_BUFFER时存储属性值所需的大小。"
+          "description": "用户提供的用于存储属性值的缓冲区的大小。[in] PropertyValueBuffer 用户提供的用于存储属性值的缓冲区。[out] PropertyValueBufferUsed 函数成功返回时使用的用户提供的缓冲区的大小，或函数失败并 出现 ERROR_INSUFFICIENT_BUFFER时存储属性值所需的大小。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "成功时返回 TRUE，失败时返回 FALSE。若要获取扩展错误信息，请调用 GetLastError。"
+        "description": "成功时返回 TRUE，失败时返回 FALSE。若要获取扩展错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "数组从零开始，因此数组中第一项的索引为 0。示例 有关使用 EcRemoveObjectArrayElement 函数的示例代码，请参阅 从收集器发起的订阅中删除事件源。 要求",
       "header": "evcoll.h",
@@ -235,7 +247,8 @@
         {
           "name": "SubscriptionName",
           "direction": "in",
-          "description": "要从中获取运行时状态信息的订阅的名称。[in] StatusInfoId 指定要从订阅获取的运行时状态信息的标识符。 指定"
+          "description": "要从中获取运行时状态信息的订阅的名称。[in] StatusInfoId 指定要从订阅获取的运行时状态信息的标识符。 指定",
+          "type": "LPCWSTR"
         }
       ],
       "header": "evcoll.h",
@@ -248,7 +261,11 @@
         "EcRetrySubscription"
       ],
       "confidence": 0.8,
-      "_source_line": 28
+      "_source_line": 28,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::EcSaveSubscription",
@@ -260,10 +277,14 @@
         {
           "name": "Subscription",
           "direction": "in",
-          "description": "订阅对象的句柄。[in] Flags 保留。 必须为 NULL。"
+          "description": "订阅对象的句柄。[in] Flags 保留。 必须为 NULL。",
+          "type": "EC_HANDLE"
         }
       ],
-      "return_value": "若要重试订阅的所有事件源的订阅，请使用 EcSaveSubscription 函数，而不是单独在每个事件源上调用 EcRetrySubscription。仅当收集器服务正在运行时，订阅才会处于活动状态。服务必须设置为在计算机启动后自动启动和运行。示例：有关使用 EcSaveSubscription 函数的示例代码，请参阅创建收集器发起的订阅或创建源启动的订阅。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "若要重试订阅的所有事件源的订阅，请使用 EcSaveSubscription 函数，而不是单独在每个事件源上调用 EcRetrySubscription。仅当收集器服务正在运行时，订阅才会处于活动状态。服务必须设置为在计算机启动后自动启动和运行。示例：有关使用 EcSaveSubscription 函数的示例代码，请参阅创建收集器发起的订阅或创建源启动的订阅。"
+      },
       "remarks": "若要重试订阅的所有事件源的订阅，请使用 EcSaveSubscription 函数，而不是单独在每个事件源上调用 EcRetrySubscription。仅当收集器服务正在运行时，订阅才会处于活动状态。服务必须设置为在计算机启动后自动启动和运行。示例：有关使用 EcSaveSubscription 函数的示例代码，请参阅创建收集器发起的订阅或创建源启动的订阅。",
       "header": "evcoll.h",
       "deprecated": false,
@@ -284,7 +305,8 @@
         {
           "name": "ObjectArray",
           "direction": "in",
-          "description": "包含要设置的属性值的数组的句柄。 数组包含订阅的事件源的属性值。 将"
+          "description": "包含要设置的属性值的数组的句柄。 数组包含订阅的事件源的属性值。 将",
+          "type": "EC_OBJECT_ARRAY_PROPERTY_HANDLE"
         }
       ],
       "header": "evcoll.h",
@@ -293,7 +315,11 @@
         "EcSetSubscriptionProperty"
       ],
       "confidence": 0.8,
-      "_source_line": 38
+      "_source_line": 38,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::EC_VARIANT",
@@ -689,11 +715,13 @@
         {
           "name": "Object",
           "direction": "in",
-          "description": "从事件收集器管理 API 调用返回的有效打开句柄。"
+          "description": "从事件收集器管理 API 调用返回的有效打开句柄。",
+          "type": "EC_HANDLE"
         }
       ],
       "return_value": {
-        "description": "此函数返回 BOOL。"
+        "description": "此函数返回 BOOL。",
+        "type": "BOOL"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -748,14 +776,19 @@
         {
           "name": "ObjectArray",
           "direction": "in",
-          "description": "要从中获取大小的数组的句柄。 数组包含订阅的事件源的属性值。 将"
+          "description": "要从中获取大小的数组的句柄。 数组包含订阅的事件源的属性值。 将",
+          "type": "EC_OBJECT_ARRAY_PROPERTY_HANDLE"
         }
       ],
       "header": "evcoll.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 576
+      "_source_line": 576,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::EcSubscriptionRunTimeStatusEventSources",
@@ -780,11 +813,13 @@
         {
           "name": "ObjectArray",
           "direction": "in",
-          "description": "对象插入到的数组的句柄。 数组包含订阅的事件源的属性值。 将 EcSubscriptionEventSources 值传递到 Subscription 参数时，EcGetSubscriptionProperty 方法将返回数组句柄。[in] ArrayIndex 一个数组索引，指示插入对象的位置。"
+          "description": "对象插入到的数组的句柄。 数组包含订阅的事件源的属性值。 将 EcSubscriptionEventSources 值传递到 Subscription 参数时，EcGetSubscriptionProperty 方法将返回数组句柄。[in] ArrayIndex 一个数组索引，指示插入对象的位置。",
+          "type": "EC_OBJECT_ARRAY_PROPERTY_HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，返回值为 TRUE。如果函数失败，返回值为 FALSE。"
+        "description": "如果函数成功，返回值为 TRUE。如果函数失败，返回值为 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "数组从零开始，因此数组中第一项的索引为 0。 使用 EcSetObjectArrayProperty 设置插入到 ObjectArray 参数中指定的数组中的空对象的单个属 性。示例 有关使用 EcInsertObjectArrayElement 函数的示例代码，请参阅 将事件源添加到收集器发起的订阅。",
       "requirements": {
@@ -852,7 +887,8 @@
         {
           "name": "ObjectArray",
           "direction": "in",
-          "description": "要在其中删除元素的数组的句柄。 数组包含订阅的事件源的属性值。 将 EcSubscriptionEventSources 值传递到 Subscription 参数时，数组句柄由"
+          "description": "要在其中删除元素的数组的句柄。 数组包含订阅的事件源的属性值。 将 EcSubscriptionEventSources 值传递到 Subscription 参数时，数组句柄由",
+          "type": "EC_OBJECT_ARRAY_PROPERTY_HANDLE"
         }
       ],
       "header": "evcoll.h",
@@ -860,7 +896,10 @@
       "cross_references": [],
       "confidence": 0.7,
       "_source_line": 739,
-      "return_value": "如果函数成功，返回值为 TRUE。如果函数失败，返回值为 FALSE。"
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果函数成功，返回值为 TRUE。如果函数失败，返回值为 FALSE。"
+      }
     },
     {
       "id": "windows::EcSetSubscriptionProperty",
@@ -872,7 +911,8 @@
         {
           "name": "Subscription",
           "direction": "in",
-          "description": "订阅对象的句柄。[in] PropertyId"
+          "description": "订阅对象的句柄。[in] PropertyId",
+          "type": "EC_HANDLE"
         }
       ],
       "header": "evcoll.h",
@@ -881,7 +921,11 @@
         "EcSaveSubscription"
       ],
       "confidence": 0.8,
-      "_source_line": 847
+      "_source_line": 847,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     }
   ]
 }

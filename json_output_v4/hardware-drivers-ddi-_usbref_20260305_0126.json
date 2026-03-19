@@ -1679,7 +1679,8 @@
       "entity_type": "callback",
       "description": "USB 主机控制器扩展（UCX）客户端驱动程序实现的回调函数，用于检索当前 USB 帧号。该回调由 UCX 调用。",
       "return_value": {
-        "description": "如果操作成功，返回 STATUS_SUCCESS 或其他使 NT_SUCCESS(status) 为 TRUE 的状态值；否则返回使 NT_SUCCESS(status) 为 FALSE 的错误状态值。"
+        "description": "如果操作成功，返回 STATUS_SUCCESS 或其他使 NT_SUCCESS(status) 为 TRUE 的状态值；否则返回使 NT_SUCCESS(status) 为 FALSE 的错误状态值。",
+        "type": "EVT_UCX_CONTROLLER_GET_CURRENT_FRAMENUMBER EvtUcxControllerGetCurrentFramenumber; NTSTATUS"
       },
       "remarks": "UCX 客户端驱动程序在调用 UcxControllerCreate 时注册此回调函数实现。",
       "header": "ucxcontroller.h",
@@ -1717,7 +1718,8 @@
       "description": "UCX 客户端驱动程序实现的回调函数，用于返回主机控制器的传输特征。UCX 在需要获取控制器传输特征时调用此回调。",
       "syntax": "NTSTATUS EVT_UCX_CONTROLLER_GET_TRANSPORT_CHARACTERISTICS(\n  [in]  UCXCONTROLLER UcxController,\n  [out] PUCX_CONTROLLER_TRANSPORT_CHARACTERISTICS UcxControllerTransportCharacteristics\n);",
       "return_value": {
-        "description": "如果作成功，回调函数必须返回STATUS_SUCCESS，或NT_SUCCESS（status） 等于 TRUE 的另一个状态值。 否则，它必须返回NT_SUCCESS（status）等于 FALSE 的状态值。"
+        "description": "如果作成功，回调函数必须返回STATUS_SUCCESS，或NT_SUCCESS（status） 等于 TRUE 的另一个状态值。 否则，它必须返回NT_SUCCESS（status）等于 FALSE 的状态值。",
+        "type": "NTSTATUS"
       },
       "remarks": "UCX 客户端驱动程序通过调用 UcxControllerCreate 向 USB 主机控制器扩展 (UCX) 注册其实现。此回调是可选的。每当传输特征发生更改时，客户端驱动程序负责通过 UcxControllerNotifyTransportCharacteristicsChange 通知 UCX。",
       "header": "ucxcontroller.h",
@@ -1742,7 +1744,10 @@
       "confidence": 0.75,
       "_source_line": 349,
       "syntax": "NTSTATUS EVT_UCX_CONTROLLER_QUERY_USB_CAPABILITY(\n  [in] UCXCONTROLLER UcxController,\n  [in] PGUID CapabilityType,\n  [in] ULONG OutputBufferLength,\n  [out, optional] PVOID OutputBuffer,\n  [out] PULONG ResultLength\n);",
-      "return_value": "如果操作成功，返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果操作成功，返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "该回调由 UCX 调用，以便客户端驱动程序报告指定 USB capability 的相关信息。调用方通过 CapabilityType 指定能力类型，驱动程序将结果写入 OutputBuffer，并通过 ResultLength 返回所写入或所需的字节数。"
     },
     {
@@ -1774,7 +1779,10 @@
       "confidence": 0.75,
       "_source_line": 354,
       "syntax": "EVT_UCX_CONTROLLER_START_TRACKING_FOR_TIME_SYNC EvtUcxControllerStartTrackingForTimeSync;\n\nvoid EvtUcxControllerStartTrackingForTimeSync(\n  [in] UCXCONTROLLER UcxController,\n  [in] WDFREQUEST    WdfRequest,\n  [in] size_t        OutputBufferLength,\n  [in] size_t        InputBufferLength\n);",
-      "return_value": "无。",
+      "return_value": {
+        "type": "EVT_UCX_CONTROLLER_START_TRACKING_FOR_TIME_SYNC EvtUcxControllerStartTrackingForTimeSync; void",
+        "description": "无。"
+      },
       "remarks": "这是一个由 UCX 客户端驱动提供的回调函数类型。驱动在处理完该请求后通常需要完成 WdfRequest。具体缓冲区内容和完成语义应以 UCX 官方文档为准。"
     },
     {
@@ -1817,7 +1825,10 @@
       "name": "EVT_UCX_ENDPOINT_STATIC_STREAMS_ADD",
       "entity_type": "callback",
       "description": "指向客户端驱动程序实现的 EVT_UCX_ENDPOINT_STATIC_STREAMS_ADD 回调函数的指针。UCX 在为某个终结点添加静态流时调用此回调。驱动程序通常在该回调中调用 UcxStaticStreamsCreate 创建静态流对象，并为各个流设置相关信息。",
-      "return_value": "如果操作成功，回调函数必须返回 STATUS_SUCCESS，或返回使 NT_SUCCESS(status) 为 TRUE 的其他状态值。否则，必须返回使 NT_SUCCESS(status) 为 FALSE 的错误状态值。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果操作成功，回调函数必须返回 STATUS_SUCCESS，或返回使 NT_SUCCESS(status) 为 TRUE 的其他状态值。否则，必须返回使 NT_SUCCESS(status) 为 FALSE 的错误状态值。"
+      },
       "remarks": "客户端驱动程序通过调用 UcxEndpointCreate 注册此回调函数。该回调通常通过调用 UcxStaticStreamsCreate 创建 UCX 静态流对象。一个终结点只能关联一个 UCX 静态流对象。随后，驱动程序通常对每个流调用一次 UcxStaticStreamsSetStreamInfo 以设置流信息并为每个流创建队列。在 UCX 调用 EVT_UCX_ENDPOINT_STATIC_STREAMS_ENABLE 回调之前，静态流对象不会被启用。",
       "header": "ucxendpoint.h",
       "deprecated": false,
@@ -1915,7 +1926,10 @@
       "confidence": 0.75,
       "_source_line": 390,
       "syntax": "EVT_UDECX_USB_DEVICE_D0_EXIT EvtUdecxUsbDeviceD0Exit;\n\nNTSTATUS EvtUdecxUsbDeviceD0Exit(\n  [in] WDFDEVICE UdecxWdfDevice,\n  [in] UDECXUSBDEVICE UdecxUsbDevice,\n  [in] UDECX_USB_DEVICE_WAKE_SETTING WakeSetting\n);",
-      "return_value": "如果操作成功，返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "EVT_UDECX_USB_DEVICE_D0_EXIT EvtUdecxUsbDeviceD0Exit; NTSTATUS",
+        "description": "如果操作成功，返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "这是 UDE 客户端驱动程序实现的事件回调。驱动程序通常在创建设备模拟对象时提供此回调，用于处理设备离开 D0 工作电源状态的通知。"
     },
     {
@@ -1931,7 +1945,10 @@
       "confidence": 0.75,
       "_source_line": 393,
       "syntax": "EVT_UDECX_USB_DEVICE_DEFAULT_ENDPOINT_ADD EvtUdecxUsbDeviceDefaultEndpointAdd;\nNTSTATUS EvtUdecxUsbDeviceDefaultEndpointAdd(\n  [in] UDECXUSBDEVICE UdecxUsbDevice,\n  [in] PUDECXUSBENDPOINT_INIT UdecxEndpointInit\n);",
-      "return_value": "如果操作成功，返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "EVT_UDECX_USB_DEVICE_DEFAULT_ENDPOINT_ADD EvtUdecxUsbDeviceDefaultEndpointAdd; NTSTATUS",
+        "description": "如果操作成功，返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "这是一个 UDECX 事件回调函数类型，由客户端驱动程序实现并在设备初始化过程中提供给框架。"
     },
     {
@@ -1945,7 +1962,10 @@
       "confidence": 0.75,
       "_source_line": 395,
       "syntax": "NTSTATUS EVT_UDECX_USB_DEVICE_ENDPOINT_ADD(\n  [in] UDECXUSBDEVICE UdecxUsbDevice,\n  [in] PUDECX_USB_ENDPOINT_INIT_AND_METADATA EndpointToCreate\n);",
-      "return_value": "如果回调成功创建设备终结点，则返回 STATUS_SUCCESS；否则返回适当的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果回调成功创建设备终结点，则返回 STATUS_SUCCESS；否则返回适当的 NTSTATUS 错误代码。"
+      },
       "remarks": "这是一个回调函数类型定义，通常通过对应的函数指针类型 EvtUsbDeviceEndpointAdd 使用。当前描述中的截断文本和重复签名属于 OCR 噪声，已清理。"
     },
     {
@@ -2056,7 +2076,10 @@
       "confidence": 0.75,
       "_source_line": 424,
       "syntax": "NTSTATUS EVT_UFX_DEVICE_TESTHOOK(\n  [in]  UFXDEVICE UfxDevice,\n  [in]  PVOID TestHookBuffer,\n  [in]  size_t InputBufferLength,\n  [out] PVOID OutputBuffer,\n  [in]  size_t OutputBufferLength\n);",
-      "return_value": "Returns an NTSTATUS value indicating success or failure of the test-hook operation.",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "Returns an NTSTATUS value indicating success or failure of the test-hook operation."
+      },
       "remarks": "This is a callback function type definition used by UFX client drivers. The driver provides an implementation of this callback and registers it with UFX as part of device callback configuration."
     },
     {
@@ -2086,11 +2109,13 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中检索到的框架设备对象的句柄。[in] IoResourceRequirementsList 表示设备资源要求列表的框架资源要求列表对象的句柄。[in] HostRoleResources 控制器设备在主机模式下运行时的资源列表的句柄。[in] FunctionRoleResources 当控制器在功能模式下运行时，控制器的资源列表的句柄。"
+          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中检索到的框架设备对象的句柄。[in] IoResourceRequirementsList 表示设备资源要求列表的框架资源要求列表对象的句柄。[in] HostRoleResources 控制器设备在主机模式下运行时的资源列表的句柄。[in] FunctionRoleResources 当控制器在功能模式下运行时，控制器的资源列表的句柄。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "Return STATUS_SUCCESS or another status value for which NT_SUCCESS(status) is TRUE if the operation succeeds. Otherwise, return a status value for which NT_SUCCESS(status) is FALSE."
+        "description": "Return STATUS_SUCCESS or another status value for which NT_SUCCESS(status) is TRUE if the operation succeeds. Otherwise, return a status value for which NT_SUCCESS(status) is FALSE.",
+        "type": "NTSTATUS"
       },
       "remarks": "The client driver registers its implementation with the USB dual-role class extension by calling UrsDeviceInitialize after creating the framework device object with WdfDeviceCreate. The class extension calls this callback before EvtDevicePrepareHardware, from within its EvtDeviceFilterRemoveResourceRequirements implementation. A client driver must not implement and register its own EvtDeviceFilterRemoveResourceRequirements callback, because doing so would replace the class extension's implementation.\n\nEach role can have a set of hardware resources such as memory ranges and interrupts. The system maintains those resources in a resource requirements list. The class extension allocates the requirements list and the host-role and function-role resource lists, then passes their handles to this callback.\n\nIn the callback implementation, the client driver should enumerate the logical configurations in the requirements list, inspect each resource descriptor by calling WdfIoResourceListGetDescriptor, and append selected descriptors to the appropriate role-specific list by calling UrsIoResourceListAppendDescriptor. To remove a descriptor from the requirements list, call WdfIoResourceListRemove.",
       "header": "ursdevice.h",
@@ -2288,7 +2313,8 @@
         {
           "name": "Config",
           "direction": "out",
-          "description": "指向要初始化的调用方分配 UCM_CONNECTOR_CONFIG 结构的指针。[in] ConnectorId 要分配给连接器对象的标识符。 如果只有一个连接器，请传递 0。"
+          "description": "指向要初始化的调用方分配 UCM_CONNECTOR_CONFIG 结构的指针。[in] ConnectorId 要分配给连接器对象的标识符。 如果只有一个连接器，请传递 0。",
+          "type": "PUCM_CONNECTOR_CONFIG"
         }
       ],
       "return_value": {
@@ -2366,7 +2392,8 @@
         {
           "name": "WdfDevice",
           "direction": "in",
-          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中收到的框架设备对象的句柄。[in] Config 指向通过调用 UCM_CONNECTOR_CONFIG_INIT初始化的调用方提供的"
+          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中收到的框架设备对象的句柄。[in] Config 指向通过调用 UCM_CONNECTOR_CONFIG_INIT初始化的调用方提供的",
+          "type": "WDFDEVICE"
         }
       ],
       "header": "Ucmmanager.h (include Ucmcx.h)",
@@ -2376,7 +2403,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 461,
-      "return_value": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "在调用此函数之前，驱动程序应先初始化 UCM_CONNECTOR_CONFIG 结构。成功创建后，驱动程序使用返回的 UCMCONNECTOR 句柄与 UCM 交互并报告连接器状态变化。"
     },
     {
@@ -2389,11 +2419,13 @@
         {
           "name": "Connector",
           "direction": "in",
-          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。[in] Success 用于指示 UcmCx 使用 EVT_UCM_CONNECTOR_SET_DATA_ROLE启动的数据角色交换失败。 如果为 TRUE，则作成功。 FALSE，否则为 FALSE。[in] CurrentDataRole 指示新数据角色的 UCM_TYPEC_PARTNER 值。"
+          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。[in] Success 用于指示 UcmCx 使用 EVT_UCM_CONNECTOR_SET_DATA_ROLE启动的数据角色交换失败。 如果为 TRUE，则作成功。 FALSE，否则为 FALSE。[in] CurrentDataRole 指示新数据角色的 UCM_TYPEC_PARTNER 值。",
+          "type": "UCMCONNECTOR"
         }
       ],
       "return_value": {
-        "description": "如果调用成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+        "description": "如果调用成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "remarks": "如果调用成功且连接器已附加到伙伴设备，UcmCx 会根据 CurrentDataRole 更新伙伴的数据角色。此函数通常用于完成 EVT_UCM_CONNECTOR_SET_DATA_ROLE 请求后的状态通知。",
       "header": "ucmmanager.h",
@@ -2422,11 +2454,13 @@
         {
           "name": "WdfDevice",
           "direction": "in",
-          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中收到的框架设备对象的句柄。[in] Config 指向通过调用 UCM_MANAGER_CONFIG_INIT初始化的调用方提供的 UCM_MANAGER_CONFIG 结构的指针。"
+          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中收到的框架设备对象的句柄。[in] Config 指向通过调用 UCM_MANAGER_CONFIG_INIT初始化的调用方提供的 UCM_MANAGER_CONFIG 结构的指针。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。"
+        "description": "如果操作成功，返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "remarks": "此例程初始化 UcmCx，分配所需资源，注册即插即用(PnP)相关回调，并设置必要的 I/O 目标。客户端驱动程序必须在其 EVT_WDF_DRIVER_DEVICE_ADD 回调实现中调用此例程。",
       "header": "ucmmanager.h",
@@ -2492,15 +2526,20 @@
         {
           "name": "UsbDevice",
           "direction": "in",
-          "description": "包含终结点的 USB 设备对象的句柄。 客户端驱动程序在上一次调用 UcxUsbDeviceCreate 中检索了句柄。[out] EndpointInit 指向描述用于创建终结点对象的各种配置作的 UCXENDPOINT_INIT 结构的指针。 驱动 程序在此结构中指定指向其回调函数的函数指针。 此结构由 UCX 管理。[in, optional] Attributes 指向调用方分配 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构指定终结点对象的属性。"
+          "description": "包含终结点的 USB 设备对象的句柄。 客户端驱动程序在上一次调用 UcxUsbDeviceCreate 中检索了句柄。[out] EndpointInit 指向描述用于创建终结点对象的各种配置作的 UCXENDPOINT_INIT 结构的指针。 驱动 程序在此结构中指定指向其回调函数的函数指针。 此结构由 UCX 管理。[in, optional] Attributes 指向调用方分配 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构指定终结点对象的属性。",
+          "type": "UCXUSBDEVICE"
         },
         {
           "name": "Endpoint",
           "direction": "out",
-          "description": "指向接收新终结点对象的句柄的变量的指针。"
+          "description": "指向接收新终结点对象的句柄的变量的指针。",
+          "type": "UCXENDPOINT"
         }
       ],
-      "return_value": "客户端驱动程序通常在其 EVT_UCX_USBDEVICE_ENDPOINT_ADD 回调中调用此函数。新终结点对象的父对象是 USB 设备对象。此函数使用终结点类型、管道、传输特征和最大传输大小等信息初始化终结点对象。另请参阅 EVT_UCX_USBDEVICE_ENDPOINT_ADD。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "客户端驱动程序通常在其 EVT_UCX_USBDEVICE_ENDPOINT_ADD 回调中调用此函数。新终结点对象的父对象是 USB 设备对象。此函数使用终结点类型、管道、传输特征和最大传输大小等信息初始化终结点对象。另请参阅 EVT_UCX_USBDEVICE_ENDPOINT_ADD。"
+      },
       "remarks": "客户端驱动程序通常在其 EVT_UCX_USBDEVICE_ENDPOINT_ADD 回调中调用此函数。新终结点对象的父对象是 USB 设备对象。此函数使用终结点类型、管道、传输特征和最大传输大小等信息初始化终结点对象。另请参阅 EVT_UCX_USBDEVICE_ENDPOINT_ADD。",
       "requirements": {
         "target_platform": "Windows",
@@ -2542,15 +2581,20 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中检索到的框架设备对象的句柄。[in] Config 指向调用方分配的 UCX_CONTROLLER_CONFIG 结构的指针，客户端驱动程序通过调用 UCX_CONTROLLER_CONFIG_INIT进行初始化。 该结构包含创建对象所需的配置信息。"
+          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中检索到的框架设备对象的句柄。[in] Config 指向调用方分配的 UCX_CONTROLLER_CONFIG 结构的指针，客户端驱动程序通过调用 UCX_CONTROLLER_CONFIG_INIT进行初始化。 该结构包含创建对象所需的配置信息。",
+          "type": "WDFDEVICE"
         },
         {
           "name": "Attributes",
           "direction": "in, optional",
-          "description": "指向调用方分配 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构指定控制器对象的属性。[out] Controller 指向接收新控制器对象的句柄的变量的指针。"
+          "description": "指向调用方分配 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构指定控制器对象的属性。[out] Controller 指向接收新控制器对象的句柄的变量的指针。",
+          "type": "optional] PWDF_OBJECT_ATTRIBUTES"
         }
       ],
-      "return_value": "主机控制器客户端驱动程序必须在调用 WdfDeviceCreate 之后调用此函数。新创建的 UCX 控制器对象的父对象是框架设备对象。在此调用期间，UCX 会注册客户端驱动程序在 UCX_CONTROLLER_CONFIG 中提供的事件回调实现。如果控制器的父总线类型为 PCI，请使用相应的 UCX_CONTROLLER_CONFIG 初始化/设置宏填充 PCI 信息。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "主机控制器客户端驱动程序必须在调用 WdfDeviceCreate 之后调用此函数。新创建的 UCX 控制器对象的父对象是框架设备对象。在此调用期间，UCX 会注册客户端驱动程序在 UCX_CONTROLLER_CONFIG 中提供的事件回调实现。如果控制器的父总线类型为 PCI，请使用相应的 UCX_CONTROLLER_CONFIG 初始化/设置宏填充 PCI 信息。"
+      },
       "remarks": "主机控制器客户端驱动程序必须在调用 WdfDeviceCreate 之后调用此函数。新创建的 UCX 控制器对象的父对象是框架设备对象。在此调用期间，UCX 会注册客户端驱动程序在 UCX_CONTROLLER_CONFIG 中提供的事件回调实现。如果控制器的父总线类型为 PCI，请使用相应的 UCX_CONTROLLER_CONFIG 初始化/设置宏填充 PCI 信息。",
       "header": "ucxcontroller.h",
       "deprecated": false,
@@ -2600,7 +2644,8 @@
         {
           "name": "StaticStreams",
           "direction": "in",
-          "description": "刚刚创建静态流对象的句柄。[in] StreamInfo 指向包含静态流相关信息的 STREAM_INFO 结构的指针。"
+          "description": "刚刚创建静态流对象的句柄。[in] StreamInfo 指向包含静态流相关信息的 STREAM_INFO 结构的指针。",
+          "type": "UCXSSTREAMS"
         }
       ],
       "return_value": "客户端驱动程序必须在 EVT_UCX_ENDPOINT_STATIC_STREAMS_ADD 事件回调的实现中调用此函数。必须针对终结点上的每个流调用一次该函数。有关示例，请参阅 EVT_UCX_ENDPOINT_STATIC_STREAMS_ADD。",
@@ -2625,7 +2670,8 @@
         {
           "name": "UsbDevice",
           "direction": "in",
-          "description": "接收远程唤醒的 USB 设备对象的句柄。 客户端驱动程序在上一次调用"
+          "description": "接收远程唤醒的 USB 设备对象的句柄。 客户端驱动程序在上一次调用",
+          "type": "UCXUSBDEVICE"
         }
       ],
       "header": "ucxusbdevice.h",
@@ -2645,7 +2691,8 @@
         {
           "name": "Callbacks",
           "direction": "out",
-          "description": "指向要初始化的 UDECX_USB_DEVICE_STATE_CHANGE_CALLBACKS 结构的指针。"
+          "description": "指向要初始化的 UDECX_USB_DEVICE_STATE_CHANGE_CALLBACKS 结构的指针。",
+          "type": "PUDECX_USB_DEVICE_STATE_CHANGE_CALLBACKS"
         }
       ],
       "return_value": "此例程用于为 UDECX_USB_DEVICE_STATE_CHANGE_CALLBACKS 结构设置默认值，应在将该结构传递给 UdecxUsbDeviceCreate 之前调用。",
@@ -2683,10 +2730,14 @@
         {
           "name": "Request",
           "direction": "in",
-          "description": "表示包含安装数据包的请求的框架请求对象的句柄。[out] SetupPacket 接收描述 USB 控制传输的设置数据包的 WDF_USB_CONTROL_SETUP_PACKET 结构。"
+          "description": "表示包含安装数据包的请求的框架请求对象的句柄。[out] SetupPacket 接收描述 USB 控制传输的设置数据包的 WDF_USB_CONTROL_SETUP_PACKET 结构。",
+          "type": "WDFREQUEST"
         }
       ],
-      "return_value": "客户端驱动程序可检查返回的设置数据包内容，以确定发送到设备的标准控制请求。完成该请求时，驱动程序必须调用 UdecxUrbCompleteWithNtStatus 或其他适当的 URB 完成例程。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "客户端驱动程序可检查返回的设置数据包内容，以确定发送到设备的标准控制请求。完成该请求时，驱动程序必须调用 UdecxUrbCompleteWithNtStatus 或其他适当的 URB 完成例程。"
+      },
       "remarks": "客户端驱动程序可检查返回的设置数据包内容，以确定发送到设备的标准控制请求。完成该请求时，驱动程序必须调用 UdecxUrbCompleteWithNtStatus 或其他适当的 URB 完成例程。",
       "header": "udecxurb.h",
       "deprecated": false,
@@ -2709,7 +2760,8 @@
         {
           "name": "UdecxUsbDeviceInit",
           "direction": "in, out",
-          "description": "指向包含虚拟 USB 设备的初始化参数的 WDF 分配结构的指针。 客户端驱动程序在上一 次调用中检索到此指针，UdecxUsbDeviceInitAllocate。[in] Descriptor 调用方分配的缓冲区，其中包含要添加到设备的 USB 描述符。"
+          "description": "指向包含虚拟 USB 设备的初始化参数的 WDF 分配结构的指针。 客户端驱动程序在上一 次调用中检索到此指针，UdecxUsbDeviceInitAllocate。[in] Descriptor 调用方分配的缓冲区，其中包含要添加到设备的 USB 描述符。",
+          "type": "out] PUDECXUSBDEVICE_INIT"
         },
         {
           "name": "DescriptorLength",
@@ -2718,7 +2770,8 @@
         }
       ],
       "return_value": {
-        "description": "如果调用成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+        "description": "如果调用成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "header": "udecxusbdevice.h",
       "deprecated": false,
@@ -2743,7 +2796,8 @@
         {
           "name": "UdecxUsbDevice",
           "direction": "in",
-          "description": "UDE 设备对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbDeviceCreate中检索了此指针。[in] CompletionStatus 相应的 NTSTATUS 错误代码，指示异步作的成功或失败。"
+          "description": "UDE 设备对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbDeviceCreate中检索了此指针。[in] CompletionStatus 相应的 NTSTATUS 错误代码，指示异步作的成功或失败。",
+          "type": "UDECXUSBDEVICE"
         }
       ],
       "return_value": "当 UdeCx 请求客户端驱动程序将虚拟 USB 设备转换到较低功耗的链路电源状态时，UdeCx 会调用驱动程序实现的相应回调。驱动程序在完成进入该低功耗状态所需的操作后，必须调用此函数以通知 UdeCx 该异步电源请求已完成。",
@@ -2769,10 +2823,14 @@
         {
           "name": "UdecxUsbDevice",
           "direction": "in",
-          "description": "UDE 设备对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbDeviceCreate中检索了此指针。"
+          "description": "UDE 设备对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbDeviceCreate中检索了此指针。",
+          "type": "UDECXUSBDEVICE"
         }
       ],
-      "return_value": "如果需要在运行时删除 USB 设备，客户端驱动程序可以调用此函数来指示设备断开连接。调用完成后，客户端驱动程序不能再使用由 UdecxUsbDevice 指定的设备；如果需要新的设备，必须再次调用 UdecxUsbDeviceCreate 创建。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果需要在运行时删除 USB 设备，客户端驱动程序可以调用此函数来指示设备断开连接。调用完成后，客户端驱动程序不能再使用由 UdecxUsbDevice 指定的设备；如果需要新的设备，必须再次调用 UdecxUsbDeviceCreate 创建。"
+      },
       "remarks": "如果需要在运行时删除 USB 设备，客户端驱动程序可以调用此函数来指示设备断开连接。调用完成后，客户端驱动程序不能再使用由 UdecxUsbDevice 指定的设备；如果需要新的设备，必须再次调用 UdecxUsbDeviceCreate 创建。",
       "requirements": {
         "target_platform": "Windows",
@@ -2804,7 +2862,10 @@
       "entity_type": "function",
       "description": "创建一个 UDE USB 终结点对象。客户端驱动程序使用由 UdecxUsbSimpleEndpointInitAllocate 分配并通过相关初始化例程填充的终结点初始化结构来创建简单终结点。",
       "syntax": "NTSTATUS UdecxUsbEndpointCreate(\n  UDECXUSBDEVICE UdecxUsbDevice,\n  PUDECXUSBENDPOINT_INIT UdecxEndpointInit,\n  WDFOBJECT_ATTRIBUTES *ObjectAttributes,\n  UDECXUSBENDPOINT *UdecxUsbEndpoint\n);",
-      "return_value": "如果操作成功，则返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果操作成功，则返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "在调用此函数之前，客户端驱动程序通常先调用 UdecxUsbSimpleEndpointInitAllocate 分配初始化结构，并使用 UdecxUsbEndpointInitSetCallbacks、UdecxUsbEndpointInitSetEndpointAddress 等例程设置终结点初始化参数。创建完成后，应调用 UdecxUsbEndpointInitFree 释放初始化结构。成功创建后，可使用 UdecxUsbEndpointSetWdfIoQueue 将 WDF 队列与终结点关联。",
       "header": "udecxusbdevice.h",
       "deprecated": false,
@@ -2833,7 +2894,8 @@
         {
           "name": "Callbacks",
           "direction": "out",
-          "description": "指向 UFX_DEVICE_CALLBACKS 结构的指针。"
+          "description": "指向 UFX_DEVICE_CALLBACKS 结构的指针。",
+          "type": "PUFX_DEVICE_CALLBACKS"
         }
       ],
       "return_value": {
@@ -2951,7 +3013,8 @@
       "parameters": [
         {
           "name": "WdfDevice",
-          "description": "WDF 设备对象的句柄。[in] Callbacks"
+          "description": "WDF 设备对象的句柄。[in] Callbacks",
+          "type": "WDFDEVICE"
         }
       ],
       "header": "ufxbase.h",
@@ -2965,7 +3028,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 590,
-      "return_value": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "客户端驱动程序通常先初始化 UFX_DEVICE_CALLBACKS 和 UFX_DEVICE_CAPABILITIES 结构，再调用此函数创建 UFX 设备对象。成功创建后，可使用返回的 UFXDEVICE 句柄调用其他 UFX 设备管理例程。"
     },
     {
@@ -2977,7 +3043,8 @@
       "parameters": [
         {
           "name": "UfxDevice",
-          "description": "通过调用 UfxDeviceCreate创建的驱动程序的 UFX 设备对象的句柄。"
+          "description": "通过调用 UfxDeviceCreate创建的驱动程序的 UFX 设备对象的句柄。",
+          "type": "UFXDEVICE"
         }
       ],
       "return_value": {
@@ -3005,7 +3072,8 @@
         {
           "name": "UfxDevice",
           "direction": "in",
-          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。[in, optional] HardwareFailureContext 指向客户端驱动程序定义的 UFX_HARDWARE_FAILURE_CONTEXT 结构的可选指针，其中包含有关硬件故障的特定于控制器的信息。"
+          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。[in, optional] HardwareFailureContext 指向客户端驱动程序定义的 UFX_HARDWARE_FAILURE_CONTEXT 结构的可选指针，其中包含有关硬件故障的特定于控制器的信息。",
+          "type": "UFXDEVICE"
         }
       ],
       "return_value": {
@@ -3041,12 +3109,14 @@
         {
           "name": "UfxDevice",
           "direction": "in",
-          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。[in, out] EndpointInit UFX 在调用中传递给 EVT_UFX_DEVICE_ENDPOINT_ADD 或 EVT_UFX_DEVICE_DEFAULT_ENDPOINT_ADD的不透明结构。"
+          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。[in, out] EndpointInit UFX 在调用中传递给 EVT_UFX_DEVICE_ENDPOINT_ADD 或 EVT_UFX_DEVICE_DEFAULT_ENDPOINT_ADD的不透明结构。",
+          "type": "UFXDEVICE"
         },
         {
           "name": "Attributes",
           "direction": "in, optional",
-          "description": "指向调用方分配 WDF_OBJECT_ATTRIBUTES 结构的指针。 必须使用"
+          "description": "指向调用方分配 WDF_OBJECT_ATTRIBUTES 结构的指针。 必须使用",
+          "type": "optional] PWDF_OBJECT_ATTRIBUTES"
         }
       ],
       "header": "ufxbase.h",
@@ -3054,7 +3124,10 @@
       "cross_references": [],
       "confidence": 0.6,
       "_source_line": 608,
-      "return_value": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "驱动程序通常在 EVT_UFX_DEVICE_ENDPOINT_ADD 或 EVT_UFX_DEVICE_DEFAULT_ENDPOINT_ADD 回调中调用此函数来创建终结点对象。创建成功后，可使用 UfxEndpointGetTransferQueue 和 UfxEndpointGetCommandQueue 检索与该终结点关联的队列。"
     },
     {
@@ -3067,11 +3140,13 @@
         {
           "name": "UfxEndpoint",
           "direction": "in",
-          "description": "从上一次调用 UfxEndpointCreate返回的终结点对象的句柄。"
+          "description": "从上一次调用 UfxEndpointCreate返回的终结点对象的句柄。",
+          "type": "UFXENDPOINT"
         }
       ],
       "return_value": {
-        "description": "与指定终结点关联的命令队列的 WDFQUEUE 句柄。"
+        "description": "与指定终结点关联的命令队列的 WDFQUEUE 句柄。",
+        "type": "WDFQUEUE"
       },
       "remarks": "此函数返回与终结点关联的命令队列。有关如何创建终结点对象并初始化其上下文的示例，请参阅 UfxEndpointCreate 的“备注”部分。",
       "requirements": {
@@ -3097,12 +3172,14 @@
         {
           "name": "EndpointInit",
           "direction": "in, out",
-          "description": "UFX 在调用中传递给 EVT_UFX_DEVICE_ENDPOINT_ADD 或 EVT_UFX_DEVICE_DEFAULT_ENDPOINT_ADD的不透明结构。"
+          "description": "UFX 在调用中传递给 EVT_UFX_DEVICE_ENDPOINT_ADD 或 EVT_UFX_DEVICE_DEFAULT_ENDPOINT_ADD的不透明结构。",
+          "type": "out] PUFXENDPOINT_INIT"
         },
         {
           "name": "Callbacks",
           "direction": "in",
-          "description": "指向 UFX_ENDPOINT_CALLBACKS 结构的指针。"
+          "description": "指向 UFX_ENDPOINT_CALLBACKS 结构的指针。",
+          "type": "PUFX_ENDPOINT_CALLBACKS"
         }
       ],
       "return_value": {
@@ -3150,7 +3227,8 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中检索到的框架设备对象的句柄。[in] HardwareEvent 一个 URS_HARDWARE_EVENT类型值，该值指示发生的事件类型。"
+          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中检索到的框架设备对象的句柄。[in] HardwareEvent 一个 URS_HARDWARE_EVENT类型值，该值指示发生的事件类型。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
@@ -3222,12 +3300,14 @@
         {
           "name": "Urb",
           "direction": "in, out",
-          "description": "指向要为开放流请求（URB_FUNCTION_OPEN_STATIC_STREAMS）设置格式的 URB 结构的指 针。 调用方必须为此 URB分配非分页池。[in] PipeHandle 与包含要打开的流的终结点关联的管道的不透明句柄。 客户端驱动程序从以前的选择配置请求（URB_FUNCTION_SELECT_CONFIGURATION）或选择接 口请求（URB_FUNCTION_SELECT_INTERFACE）获取 PipeHandle。[in] NumberOfStreams 要打开的流数。 NumberOfStreams 值指示 Streams指向的数组中的元素数。 此值必须大于零 且小于或等于主机控制器硬件支持的最大流数。 若要获取支持的最大流数，请调用 USBD_QueryUsbCapability。 数字流还必须小于或等于 USB 设备支持的最大流数。 若要获取该数字，请检查终结点配套描述符。 在 NumberOfStreams 值中，指定主机控制器和 USB 设备支持的两个值中的较小值。"
+          "description": "指向要为开放流请求（URB_FUNCTION_OPEN_STATIC_STREAMS）设置格式的 URB 结构的指 针。 调用方必须为此 URB分配非分页池。[in] PipeHandle 与包含要打开的流的终结点关联的管道的不透明句柄。 客户端驱动程序从以前的选择配置请求（URB_FUNCTION_SELECT_CONFIGURATION）或选择接 口请求（URB_FUNCTION_SELECT_INTERFACE）获取 PipeHandle。[in] NumberOfStreams 要打开的流数。 NumberOfStreams 值指示 Streams指向的数组中的元素数。 此值必须大于零 且小于或等于主机控制器硬件支持的最大流数。 若要获取支持的最大流数，请调用 USBD_QueryUsbCapability。 数字流还必须小于或等于 USB 设备支持的最大流数。 若要获取该数字，请检查终结点配套描述符。 在 NumberOfStreams 值中，指定主机控制器和 USB 设备支持的两个值中的较小值。",
+          "type": "out] PURB"
         },
         {
           "name": "StreamInfoArray",
           "direction": "in",
-          "description": "指向调用方分配的初始化 USBD_STREAM_INFORMATION 结构的数组的指针。 数组的长度取决于要打开的流数，并且必须与 NumberOfStreams 值相同。"
+          "description": "指向调用方分配的初始化 USBD_STREAM_INFORMATION 结构的数组的指针。 数组的长度取决于要打开的流数，并且必须与 NumberOfStreams 值相同。",
+          "type": "PUSBD_STREAM_INFORMATION"
         },
         {
           "name": "USBDHandle",
@@ -3279,7 +3359,10 @@
       "confidence": 0.75,
       "_source_line": 630,
       "syntax": "typedef NTSTATUS (*USBC_START_DEVICE_CALLBACK)(\n  PUSB_DEVICE_DESCRIPTOR        DeviceDescriptor,\n  PUSB_CONFIGURATION_DESCRIPTOR ConfigurationDescriptor,\n  PUSBC_FUNCTION_DESCRIPTOR     *FunctionDescriptorBuffer,\n  PULONG                        FunctionDescriptorBufferLength,\n  PDEVICE_OBJECT                FdoDeviceObject,\n  PDEVICE_OBJECT                PdoDeviceObject\n);",
-      "return_value": "返回 NTSTATUS 状态代码。",
+      "return_value": {
+        "type": "typedef",
+        "description": "返回 NTSTATUS 状态代码。"
+      },
       "remarks": "这是一个函数指针类型定义，通常作为 USB 总线接口结构中的成员提供。当前 OCR 提取内容混入了参数说明，应与参数节点和类型节点区分。"
     },
     {
@@ -3292,7 +3375,8 @@
         {
           "name": "USBDHandle",
           "direction": "in",
-          "description": "在对 USBD_CreateHandle 例程的上一次调用中检索的 USBD 句柄。[in] CapabilityFlags 调用方分配的 COMPOSITE_DEVICE_CAPABILITIES 结构，该结构指示复合驱动程序支持的功能。例如，若要指示复合驱动程序支持函数挂起，请将 CapabilityFunctionSuspend 成员"
+          "description": "在对 USBD_CreateHandle 例程的上一次调用中检索的 USBD 句柄。[in] CapabilityFlags 调用方分配的 COMPOSITE_DEVICE_CAPABILITIES 结构，该结构指示复合驱动程序支持的功能。例如，若要指示复合驱动程序支持函数挂起，请将 CapabilityFunctionSuspend 成员",
+          "type": "USBD_HANDLE"
         }
       ],
       "header": "usbdlib.h",
@@ -3311,7 +3395,8 @@
         {
           "name": "USBDHandle",
           "direction": "in",
-          "description": "要关闭的 USBD 句柄。 客户端驱动程序在对 USBD_CreateHandle 例程的上一次调用中检 索句柄。返回值没有"
+          "description": "要关闭的 USBD 句柄。 客户端驱动程序在对 USBD_CreateHandle 例程的上一次调用中检 索句柄。返回值没有",
+          "type": "USBD_HANDLE"
         }
       ],
       "remarks": "客户端驱动程序应在处理 IRP_MN_REMOVE_DEVICE 的驱动程序例程中调用 USBD_CloseHandle。客户端驱动程序必须在将 IRP 发送到 USB 驱动程序堆栈之前调用此例程。",
@@ -3353,10 +3438,14 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "指向驱动程序定义的上下文的指针。[in] DeviceState 指示设备状态的 USBFN_DEVICE_STATE类型标志。[in] BusSpeed 指示总线速度的 USBFN_BUS_SPEED类型标志。"
+          "description": "指向驱动程序定义的上下文的指针。[in] DeviceState 指示设备状态的 USBFN_DEVICE_STATE类型标志。[in] BusSpeed 指示总线速度的 USBFN_BUS_SPEED类型标志。",
+          "type": "PVOID"
         }
       ],
-      "return_value": "若要支持附加和分离检测，USB 下层筛选器驱动程序必须声明其支持并在注册期间提供此回调实现。当设备状态更改需要影响充电配置时，驱动程序可以实现此回调。详见支持专有充电器的 USB 筛选器驱动程序相关文档。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "若要支持附加和分离检测，USB 下层筛选器驱动程序必须声明其支持并在注册期间提供此回调实现。当设备状态更改需要影响充电配置时，驱动程序可以实现此回调。详见支持专有充电器的 USB 筛选器驱动程序相关文档。"
+      },
       "remarks": "若要支持附加和分离检测，USB 下层筛选器驱动程序必须声明其支持并在注册期间提供此回调实现。当设备状态更改需要影响充电配置时，驱动程序可以实现此回调。详见支持专有充电器的 USB 筛选器驱动程序相关文档。",
       "header": "usbfnattach.h",
       "deprecated": false,
@@ -3957,7 +4046,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 805
+      "_source_line": 805,
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::UCMUCSI_DRIVER_GLOBALS",
@@ -4277,7 +4370,8 @@
         {
           "name": "Config",
           "direction": "out",
-          "description": "指向要初始化的 UDECX_WDF_DEVICE_CONFIG 结构的指针。[in] EvtUdecxWdfDeviceQueryUsbCapability 指向 EVT_UDECX_WDF_DEVICE_QUERY_USB_CAPABILITY 回调函数的指针。"
+          "description": "指向要初始化的 UDECX_WDF_DEVICE_CONFIG 结构的指针。[in] EvtUdecxWdfDeviceQueryUsbCapability 指向 EVT_UDECX_WDF_DEVICE_QUERY_USB_CAPABILITY 回调函数的指针。",
+          "type": "PUDECX_WDF_DEVICE_CONFIG"
         }
       ],
       "return_value": {
@@ -5837,11 +5931,13 @@
         {
           "name": "Connector",
           "direction": "in",
-          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。[in] Params 指向 UCM_CONNECTOR_PD_CONN_STATE_CHANGED_PARAMS 结构的指针包含连接器的驱动 程序提供的状态。"
+          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。[in] Params 指向 UCM_CONNECTOR_PD_CONN_STATE_CHANGED_PARAMS 结构的指针包含连接器的驱动 程序提供的状态。",
+          "type": "UCMCONNECTOR"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，则返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。"
+        "description": "如果操作成功，则返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -5912,11 +6008,13 @@
         {
           "name": "Connector",
           "direction": "in",
-          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。[in] Params 指向通过调用 UCM_CONNECTOR_TYPEC_ATTACH_PARAMS_INIT初始化的驱动程序分配 UCM_CONNECTOR_TYPEC_ATTACH_PARAMS 的指针。"
+          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。[in] Params 指向通过调用 UCM_CONNECTOR_TYPEC_ATTACH_PARAMS_INIT初始化的驱动程序分配 UCM_CONNECTOR_TYPEC_ATTACH_PARAMS 的指针。",
+          "type": "UCMCONNECTOR"
         }
       ],
       "return_value": {
-        "description": "如果作成功，UcmConnectorTypeCAttach 返回STATUS_SUCCESS。 否则，此方法可以返 回适当的 NTSTATUS 值。"
+        "description": "如果作成功，UcmConnectorTypeCAttach 返回STATUS_SUCCESS。 否则，此方法可以返 回适当的 NTSTATUS 值。",
+        "type": "NTSTATUS"
       },
       "remarks": "检测到与合作伙伴连接器的连接时，客户端驱动程序会调用此方法，以通知 UcmCx，其中包含有关合作伙伴连接器的信息。 该信息包括连接器角色、或面向上游的端口、当前连接器的绘制或交付量以及充电状态。 UcmCx 使用该信息来执行某些作。 例如，它可以确定附加的合作伙伴连接器的角色，并在主机或外围模式下配置 USB 控制器。 通常，每个 UcmConnectorTypeCAttach 调用都有后续的 UcmConnectorTypeCDetach 调用，以在分离合作伙伴连接器时通知 UcmCx。 但是，当未连接上游端口的供电电缆（由 Params->PortPartnerType 设置为 UcmTypeCPortStatePoweredCableNoUfp指示）。当检测到到电源电缆的上游端口的连接时，客户端驱动程序可以再次调用 UcmConnectorTypeCAttach。例子",
       "header": "ucmmanager.h",
@@ -5982,7 +6080,8 @@
         {
           "name": "Config",
           "direction": "out",
-          "description": "指向要初始化的调用方分配 UCM_CONNECTOR_TYPEC_CONFIG 结构的指针。[in] SupportedOperatingModes 指示连接器的作模式。 此值是 UCM_TYPEC_OPERATING_MODE类型标志的按位 OR。[in] SupportedPowerSourcingCapabilities 指示连接器的电源功能。 此值是 UCM_TYPEC_CURRENT类型标志的按位 OR。"
+          "description": "指向要初始化的调用方分配 UCM_CONNECTOR_TYPEC_CONFIG 结构的指针。[in] SupportedOperatingModes 指示连接器的作模式。 此值是 UCM_TYPEC_OPERATING_MODE类型标志的按位 OR。[in] SupportedPowerSourcingCapabilities 指示连接器的电源功能。 此值是 UCM_TYPEC_CURRENT类型标志的按位 OR。",
+          "type": "PUCM_CONNECTOR_TYPEC_CONFIG"
         }
       ],
       "return_value": {
@@ -6042,7 +6141,8 @@
         {
           "name": "Connector",
           "direction": "in",
-          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。[in] ChargingState 指示新充电状态的 UCM_CHARGING_STATE类型标志之一。"
+          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。[in] ChargingState 指示新充电状态的 UCM_CHARGING_STATE类型标志之一。",
+          "type": "UCMCONNECTOR"
         }
       ],
       "remarks": "如果客户端驱动程序确定充电状态不是最佳状态，则应向 UcmCx 报告慢速充电或异常充电情况。随后，操作系统可以将该状态通知给用户。",
@@ -6053,7 +6153,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 1542,
-      "return_value": "如果操作成功，则返回 STATUS_SUCCESS。否则返回适当的 NTSTATUS 值。"
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果操作成功，则返回 STATUS_SUCCESS。否则返回适当的 NTSTATUS 值。"
+      }
     },
     {
       "id": "windows::UCM_CONNECTOR_TYPE_C_CONFIG_INIT",
@@ -6096,11 +6199,13 @@
         {
           "name": "Connector",
           "direction": "in",
-          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。 Pdos 描述电源功能的 UCM_PD_POWER_DATA_OBJECT 结构的调用方分配的数组。[in] PdoCount 由 Pdos[]指定的数组中的元素数。"
+          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。 Pdos 描述电源功能的 UCM_PD_POWER_DATA_OBJECT 结构的调用方分配的数组。[in] PdoCount 由 Pdos[]指定的数组中的元素数。",
+          "type": "UCMCONNECTOR"
         }
       ],
       "return_value": {
-        "description": "成功时返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+        "description": "成功时返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "remarks": "当通过 USB Type-C 连接器使用 USB Power Delivery (PD) 进行充电时，本地连接器可能需要获知合作伙伴连接器的源能力。如果合作伙伴连接器是电源源端，本地连接器通常会在附加时缓存其初始通告；当源能力发生变化时，客户端驱动程序应调用此函数向 UcmCx 更新这些能力。如果合作伙伴连接器是电源接收端，则本地端口必须查询其最新能力。",
       "header": "ucmmanager.h",
@@ -6133,10 +6238,14 @@
         {
           "name": "Connector",
           "direction": "in",
-          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。 Pdos 描述电源功能的 UCM_PD_POWER_DATA_OBJECT 结构的调用方分配的数组。[in] PdoCount 由 Pdos[]指定的数组中的元素数。"
+          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。 Pdos 描述电源功能的 UCM_PD_POWER_DATA_OBJECT 结构的调用方分配的数组。[in] PdoCount 由 Pdos[]指定的数组中的元素数。",
+          "type": "UCMCONNECTOR"
         }
       ],
-      "return_value": "当本地连接器作为电源提供方（Source）时，客户端驱动程序可以使用此函数向 UcmCx 报告其 PD Source Capabilities。若要报告合作伙伴连接器的 Source Capabilities，请使用 UcmConnectorPdPartnerSourceCaps。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "当本地连接器作为电源提供方（Source）时，客户端驱动程序可以使用此函数向 UcmCx 报告其 PD Source Capabilities。若要报告合作伙伴连接器的 Source Capabilities，请使用 UcmConnectorPdPartnerSourceCaps。"
+      },
       "remarks": "当本地连接器作为电源提供方（Source）时，客户端驱动程序可以使用此函数向 UcmCx 报告其 PD Source Capabilities。若要报告合作伙伴连接器的 Source Capabilities，请使用 UcmConnectorPdPartnerSourceCaps。",
       "header": "ucmmanager.h",
       "deprecated": false,
@@ -6157,7 +6266,8 @@
         {
           "name": "Connector",
           "direction": "in",
-          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。[in] Success 用于指示 UcmCx 使用 EVT_UCM_CONNECTOR_SET_POWER_ROLE启动的电源角色交换失败。 如果为 TRUE，则作成功。 FALSE，否则为 FALSE。[in] CurrentPowerRole 指示新数据角色的 UCM_POWER_ROLE类型标志之一。"
+          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。[in] Success 用于指示 UcmCx 使用 EVT_UCM_CONNECTOR_SET_POWER_ROLE启动的电源角色交换失败。 如果为 TRUE，则作成功。 FALSE，否则为 FALSE。[in] CurrentPowerRole 指示新数据角色的 UCM_POWER_ROLE类型标志之一。",
+          "type": "UCMCONNECTOR"
         }
       ],
       "return_value": {
@@ -6196,7 +6306,8 @@
         {
           "name": "Connector",
           "direction": "in",
-          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。[in] CurrentAdvertisement 由 UCM_TYPEC_CURRENT类型标志之一指示的连接器的新当前播发。"
+          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。[in] CurrentAdvertisement 由 UCM_TYPEC_CURRENT类型标志之一指示的连接器的新当前播发。",
+          "type": "UCMCONNECTOR"
         }
       ],
       "remarks": "使用 Type-C 连接器进行充电时，对端连接器在连接建立时会发送电流播发。该初始播发通过调用 UcmConnectorTypeCAttach 报告给 UcmCx。在连接持续期间，Source 播发的电流水平可能发生变化。客户端驱动程序必须在发生此类变化时调用此函数通知 UcmCx。",
@@ -6207,7 +6318,11 @@
         "UcmCx"
       ],
       "confidence": 0.8,
-      "_source_line": 1864
+      "_source_line": 1864,
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::UcmConnectorTypeCDetach",
@@ -6219,11 +6334,13 @@
         {
           "name": "Connector",
           "direction": "in",
-          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。"
+          "description": "对客户端驱动程序在上一次调用中接收的连接器对象的句柄，UcmConnectorCreate。",
+          "type": "UCMCONNECTOR"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，则返回 STATUS_SUCCESS。否则，返回相应的 NTSTATUS 错误代码。"
+        "description": "如果操作成功，则返回 STATUS_SUCCESS。否则，返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -6314,7 +6431,11 @@
         "UcmTcpciCx"
       ],
       "confidence": 0.6,
-      "_source_line": 1977
+      "_source_line": 1977,
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::UcmTcpciDeviceInitInitialize",
@@ -6326,11 +6447,13 @@
         {
           "name": "DeviceInit",
           "direction": "in",
-          "description": "指向框架分配 WDFDEVICE_INIT 结构的指针。"
+          "description": "指向框架分配 WDFDEVICE_INIT 结构的指针。",
+          "type": "PWDFDEVICE_INIT"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，则返回 STATUS_SUCCESS。否则，返回相应的 NTSTATUS 错误代码。"
+        "description": "如果操作成功，则返回 STATUS_SUCCESS。否则，返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "remarks": "客户端驱动程序应在对 WDFDEVICE_INIT 结构执行完其自身初始化之后、调用 WdfDeviceCreate 之前调用此函数。",
       "requirements": {
@@ -6449,7 +6572,8 @@
         {
           "name": "PortControllerObject",
           "direction": "in",
-          "description": "处理客户端驱动程序在上一次调用中接收的端口控制器对象， UcmTcpciPortControllerCreate。 AlertData 指向 UCMTCPCI_PORT_CONTROLLER_ALERT_DATA 数组的指针，其中包含尚未发送到"
+          "description": "处理客户端驱动程序在上一次调用中接收的端口控制器对象， UcmTcpciPortControllerCreate。 AlertData 指向 UCMTCPCI_PORT_CONTROLLER_ALERT_DATA 数组的指针，其中包含尚未发送到",
+          "type": "UCMTCPCIPORTCONTROLLER"
         }
       ],
       "requirements": {
@@ -6465,7 +6589,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 2174,
-      "return_value": "如果成功，返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果成功，返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "客户端驱动程序必须按顺序报告警报。不要从多个线程并发调用此函数；应通过外部同步确保串行调用。通常应在中断服务例程 (ISR) 或由 ISR 排队的 DPC 中调用。调用期间，UcmTcpciCx 可能在函数返回前提交硬件请求，因此驱动程序必须避免在持有会被硬件请求处理路径再次获取的锁时调用此函数，以防发生死锁。"
     },
     {
@@ -6648,7 +6775,7 @@
     {
       "id": "windows::UCMTCPCI_PORT_CONTROLLER_STANDARD_INPUT_CAPABILITIES",
       "name": "UCMTCPCI_PORT_CONTROLLER_STANDARD_INPUT_CAPABILITIES",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "StandardInputCapabilities;",
       "header": "ucmtcpciportcontroller.h",
       "deprecated": false,
@@ -6656,7 +6783,8 @@
         "StandardInputCapabilities"
       ],
       "confidence": 0.65,
-      "_source_line": 2260
+      "_source_line": 2260,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::IsPowerDeliveryCapable",
@@ -6704,7 +6832,11 @@
         "Server"
       ],
       "confidence": 0.7,
-      "_source_line": 2305
+      "_source_line": 2305,
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::UCMTCPCI_PORT_CONTROLLER_CONFI",
@@ -6857,7 +6989,11 @@
       "cross_references": [],
       "confidence": 0.7,
       "_source_line": 2503,
-      "remarks": "应在为端口控制器完成必要初始化后调用此函数。该函数通常在设置硬件请求队列之后调用，并且每个端口控制器对象只应启动一次。"
+      "remarks": "应在为端口控制器完成必要初始化后调用此函数。该函数通常在设置硬件请求队列之后调用，并且每个端口控制器对象只应启动一次。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::STATUS_INVALID_HANDLE",
@@ -7772,7 +7908,8 @@
         {
           "name": "Pdo",
           "direction": "out",
-          "description": "指向 UCM_PD_POWER_DATA_OBJECT 结构的指针，其中 FixedSupplyPdo.FixedSupply 成员设置为 UcmPdPdoTypeFixedSupply。"
+          "description": "指向 UCM_PD_POWER_DATA_OBJECT 结构的指针，其中 FixedSupplyPdo.FixedSupply 成员设置为 UcmPdPdoTypeFixedSupply。",
+          "type": "PUCM_PD_POWER_DATA_OBJECT"
         }
       ],
       "return_value": "有关不同类型的 Power Data 对象，请参阅 USB Power Delivery 规范。此函数初始化该结构并将电源数据对象设置为固定电源类型。客户端驱动程序必须设置与该对象类型相关的其余成员。",
@@ -7818,7 +7955,8 @@
         {
           "name": "Pdo",
           "direction": "out",
-          "description": "指向 UCM_PD_POWER_DATA_OBJECT 结构的指针，其中 VariableSupplyNonBatteryPdo.VariableSupportNonBattery 成员设置为 UcmPdPdoTypeVariableSupplyNonBattery。"
+          "description": "指向 UCM_PD_POWER_DATA_OBJECT 结构的指针，其中 VariableSupplyNonBatteryPdo.VariableSupportNonBattery 成员设置为 UcmPdPdoTypeVariableSupplyNonBattery。",
+          "type": "PUCM_PD_POWER_DATA_OBJECT"
         }
       ],
       "return_value": {
@@ -8016,7 +8154,8 @@
       "parameters": [
         {
           "name": "Config",
-          "description": "指向要初始化 UCMUCSI_DEVICE_CONFIG 结构的指针。"
+          "description": "指向要初始化 UCMUCSI_DEVICE_CONFIG 结构的指针。",
+          "type": "PUCMUCSI_DEVICE_CONFIG"
         }
       ],
       "return_value": {
@@ -8106,11 +8245,13 @@
         {
           "name": "WdfDevice",
           "direction": "in",
-          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中收到的框架设备对象的句柄。[in] Attributes 指向调用方提供的 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构包含新连接器集合对 象的属性。 此参数是可选的，可以WDF_NO_OBJECT_ATTRIBUTES。[out] ConnectorCollection 指向接收新连接器集合对象的句柄的位置的指针。"
+          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中收到的框架设备对象的句柄。[in] Attributes 指向调用方提供的 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构包含新连接器集合对 象的属性。 此参数是可选的，可以WDF_NO_OBJECT_ATTRIBUTES。[out] ConnectorCollection 指向接收新连接器集合对象的句柄的位置的指针。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，则返回 STATUS_SUCCESS。否则返回适当的 NTSTATUS 错误代码。"
+        "description": "如果操作成功，则返回 STATUS_SUCCESS。否则返回适当的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "remarks": "创建平台策略管理器（PPM）对象需要连接器集合对象。客户端驱动程序通常先调用此函数创建集合对象，再调用 UcmUcsiConnectorCollectionAddConnector 将连接器添加到集合中。调用 UcmUcsiPpmCreate 创建 PPM 对象之后，不应再调用此函数，因为这不会影响现有的 PPM 对象。",
       "header": "ucmucsi.h",
@@ -8129,7 +8270,8 @@
         {
           "name": "WdfDevice",
           "direction": "in",
-          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中收到的框架设备对象的句柄。[in] Config 指向通过调用 UCMUCSI_PPM_CONFIG_INIT初始化的调用方提供的"
+          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中收到的框架设备对象的句柄。[in] Config 指向通过调用 UCMUCSI_PPM_CONFIG_INIT初始化的调用方提供的",
+          "type": "WDFDEVICE"
         }
       ],
       "header": "ucmucsipublic.h",
@@ -8139,7 +8281,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 4192,
-      "return_value": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "在创建 PPM 对象之前，应先创建并配置连接器集合，并在 UCMUCSI_PPM_CONFIG 中提供相应句柄。调用 UcmUcsiPpmCreate 之后，再调用 UcmUcsiConnectorCollectionCreate 不会影响现有 PPM 对象。"
     },
     {
@@ -8152,11 +8297,13 @@
         {
           "name": "PpmObject",
           "direction": "in",
-          "description": "客户端驱动程序在上一次调用 UcmUcsiPpmCreate中收到的平台策略管理器 （PPM） 对 象的句柄。"
+          "description": "客户端驱动程序在上一次调用 UcmUcsiPpmCreate中收到的平台策略管理器 （PPM） 对 象的句柄。",
+          "type": "UCMUCSIPPM"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，则返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。"
+        "description": "如果操作成功，则返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "Ucmucsippm.h",
@@ -8181,7 +8328,8 @@
         {
           "name": "PpmObject",
           "direction": "in",
-          "description": "客户端驱动程序在上一次调用 UcmUcsiPpmCreate中收到的平台策略管理器 （PPM） 对象的句柄。"
+          "description": "客户端驱动程序在上一次调用 UcmUcsiPpmCreate中收到的平台策略管理器 （PPM） 对象的句柄。",
+          "type": "UCMUCSIPPM"
         }
       ],
       "return_value": {
@@ -8207,12 +8355,14 @@
         {
           "name": "PpmObject",
           "direction": "in",
-          "description": "客户端驱动程序在上一次调用 UcmUcsiPpmCreate中收到的平台策略管理器 （PPM） 对象的句柄。"
+          "description": "客户端驱动程序在上一次调用 UcmUcsiPpmCreate中收到的平台策略管理器 （PPM） 对象的句柄。",
+          "type": "UCMUCSIPPM"
         },
         {
           "name": "DataBlock",
           "direction": "in",
-          "description": "指向包含 USCI 通知相关信息的 [UCSI_DATA_BLOCK] 结构的指针。"
+          "description": "指向包含 USCI 通知相关信息的 [UCSI_DATA_BLOCK] 结构的指针。",
+          "type": "PUCSI_DATA_BLOCK"
         }
       ],
       "return_value": "客户端驱动程序在发生 UCSI 通知时调用 UcmUcsiPpmNotification。驱动程序不得并发调用此函数的多个实例，以避免争用条件。客户端驱动程序应假定在此调用返回之前可能会收到请求。因此，如果在调用此函数时持有某个锁，而处理这些请求也需要同一个锁，则可能导致死锁。",
@@ -8370,7 +8520,7 @@
     {
       "id": "windows::UcmUcsiConnectorCollectionAddConne",
       "name": "UcmUcsiConnectorCollectionAddConne",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "将连接器添加到连接器集合对象。",
       "syntax": "NTSTATUS UcmUcsiConnectorCollectionAddConnector(\n[in] UCMUCSI_CONNECTOR_COLLECTION ConnectorCollectionObject,\n[in] PUCMUCSI_CONNECTOR_INFO      ConnectorInfo);",
       "parameters": [
@@ -8392,12 +8542,13 @@
         "UcmUcsiPpmCreate"
       ],
       "confidence": 0.65,
-      "_source_line": 4340
+      "_source_line": 4340,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::UcmUcsiPpmSetUcsiCommandRequestQue",
       "name": "UcmUcsiPpmSetUcsiCommandRequestQue",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "提供用于将 UCSI 命令调度到客户端驱动程序的框架队列对象。",
       "syntax": "void UcmUcsiPpmSetUcsiCommandRequestQueue(   [in] UCMUCSIPPM PpmObject,\n[in] WDFQUEUE   PpmRequestQueue);",
       "parameters": [
@@ -8427,7 +8578,8 @@
         "UcmUcsiPpmSetUcsiCommandRequestQueue"
       ],
       "confidence": 0.75,
-      "_source_line": 4468
+      "_source_line": 4468,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::IOCTL_UCMUCSI_PPM_GET_UCSI_DATA_BLOCK",
@@ -9791,10 +9943,14 @@
         {
           "name": "DeviceInit",
           "direction": "in, out",
-          "description": "指向框架分配 WDFDEVICE_INIT 结构的指针。"
+          "description": "指向框架分配 WDFDEVICE_INIT 结构的指针。",
+          "type": "out] PWDFDEVICE_INIT"
         }
       ],
-      "return_value": "主机控制器客户端驱动程序应在其 EvtDriverDeviceAdd 回调实现中调用此函数，并且必须在调用 WdfDeviceCreate 之前调用。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "主机控制器客户端驱动程序应在其 EvtDriverDeviceAdd 回调实现中调用此函数，并且必须在调用 WdfDeviceCreate 之前调用。"
+      },
       "remarks": "主机控制器客户端驱动程序应在其 EvtDriverDeviceAdd 回调实现中调用此函数，并且必须在调用 WdfDeviceCreate 之前调用。",
       "requirements": {
         "target_platform": "Windows",
@@ -9833,7 +9989,8 @@
         {
           "name": "Controller",
           "direction": "in",
-          "description": "要重置的控制器对象的句柄。 客户端驱动程序在上一次调用 UcxControllerCreate中检索了句柄。"
+          "description": "要重置的控制器对象的句柄。 客户端驱动程序在上一次调用 UcxControllerCreate中检索了句柄。",
+          "type": "UCXCONTROLLER"
         }
       ],
       "return_value": {
@@ -9971,7 +10128,10 @@
       "confidence": 0.6,
       "_source_line": 6219,
       "syntax": "EVT_UCX_CONTROLLER_QUERY_USB_CAPABILITY Controller_EvtControllerQueryUsbCapability;\n\nNTSTATUS Controller_EvtControllerQueryUsbCapability(\n  UCXCONTROLLER UcxController,\n  PGUID CapabilityType,\n  ULONG OutputBufferLength,\n  PVOID OutputBuffer,\n  PULONG ResultLength\n);",
-      "return_value": "返回 NTSTATUS。成功时返回 STATUS_SUCCESS；如果能力不受支持、缓冲区过小或请求无效，则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "EVT_UCX_CONTROLLER_QUERY_USB_CAPABILITY Controller_EvtControllerQueryUsbCapability; NTSTATUS",
+        "description": "返回 NTSTATUS。成功时返回 STATUS_SUCCESS；如果能力不受支持、缓冲区过小或请求无效，则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "这是一个 UCX 控制器驱动回调函数，实现 EVT_UCX_CONTROLLER_QUERY_USB_CAPABILITY 回调以响应 USB 能力查询请求。OutputBuffer 和 ResultLength 的使用方式取决于 CapabilityType 指定的能力。"
     },
     {
@@ -10069,7 +10229,10 @@
       "name": "EVT_UCX_CONTROLLER_USBDEVICE_ADD",
       "entity_type": "callback",
       "description": "指向客户端驱动程序实现的回调函数的指针。检测到新的 USB 设备时，UCX 调用此回调函数，以便客户端驱动程序创建并注册一个新的 USB 设备对象。",
-      "return_value": "如果成功，回调函数必须返回 STATUS_SUCCESS，或其他满足 NT_SUCCESS(status) == TRUE 的状态值。否则，必须返回使 NT_SUCCESS(status) == FALSE 的错误状态值。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果成功，回调函数必须返回 STATUS_SUCCESS，或其他满足 NT_SUCCESS(status) == TRUE 的状态值。否则，必须返回使 NT_SUCCESS(status) == FALSE 的错误状态值。"
+      },
       "remarks": "UCX 客户端驱动程序通过在调用 UcxControllerCreate 时提供此回调函数来向 USB 主机控制器扩展（UCX）注册其实现。该回调函数负责创建新的 USB 设备对象，并通常通过调用 UcxUsbDeviceCreate 注册该设备对象及其相关回调函数。驱动程序还可以在此过程中分配用于设备上下文的缓冲区。",
       "header": "ucxcontroller.h",
       "deprecated": false,
@@ -10091,7 +10254,11 @@
       "cross_references": [],
       "confidence": 0.6,
       "_source_line": 6451,
-      "syntax": "NTSTATUS UsbDevice_EvtControllerUsbDeviceAdd(\n  UCXCONTROLLER UcxController,\n  PUCXUSBDEVICE_INFO UsbDeviceInfo,\n  PUCXUSBDEVICE_INIT UsbDeviceInit\n);"
+      "syntax": "NTSTATUS UsbDevice_EvtControllerUsbDeviceAdd(\n  UCXCONTROLLER UcxController,\n  PUCXUSBDEVICE_INFO UsbDeviceInfo,\n  PUCXUSBDEVICE_INIT UsbDeviceInit\n);",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::PUCX_USB_DEVICE_CONTEXT",
@@ -10126,7 +10293,8 @@
         {
           "name": "UsbDeviceInit",
           "direction": "in, out",
-          "description": "指向 UCX 在调用客户端驱动程序 EVT_UCX_CONTROLLER_USBDEVICE_ADD 事件回调函 数时传递的 UCXUSBDEVICE_INIT 结构的指针。[in] EventCallbacks 指向 UCX_USBDEVICE_EVENT_CALLBACKS 结构的指针，该结构包含指向客户端驱动程序 的事件回调函数的函数指针。 客户端驱动程序通过调用 UCX_USBDEVICE_EVENT_CALLBACKS_INIT来初始化结构。"
+          "description": "指向 UCX 在调用客户端驱动程序 EVT_UCX_CONTROLLER_USBDEVICE_ADD 事件回调函 数时传递的 UCXUSBDEVICE_INIT 结构的指针。[in] EventCallbacks 指向 UCX_USBDEVICE_EVENT_CALLBACKS 结构的指针，该结构包含指向客户端驱动程序 的事件回调函数的函数指针。 客户端驱动程序通过调用 UCX_USBDEVICE_EVENT_CALLBACKS_INIT来初始化结构。",
+          "type": "out] PUCXUSBDEVICE_INIT"
         }
       ],
       "return_value": {
@@ -10476,12 +10644,14 @@
       "parameters": [
         {
           "name": "Controller",
-          "description": "客户端驱动程序在对 UcxControllerCreate 方法的上一次调用中收到的 UCX 控制器的句柄。"
+          "description": "客户端驱动程序在对 UcxControllerCreate 方法的上一次调用中收到的 UCX 控制器的句柄。",
+          "type": "UCXCONTROLLER"
         },
         {
           "name": "UcxControllerTransportCharacteristics",
           "direction": "out",
-          "description": "指向包含更新传输特征的 UCX_CONTROLLER_TRANSPORT_CHARACTERISTICS 结构的指针。"
+          "description": "指向包含更新传输特征的 UCX_CONTROLLER_TRANSPORT_CHARACTERISTICS 结构的指针。",
+          "type": "PUCX_CONTROLLER_TRANSPORT_CHARACTERISTICS"
         }
       ],
       "return_value": {
@@ -10549,7 +10719,8 @@
         {
           "name": "Controller",
           "direction": "in",
-          "description": "控制器对象的句柄。 客户端驱动程序在上一次调用 UcxControllerCreate中检索了句柄。"
+          "description": "控制器对象的句柄。 客户端驱动程序在上一次调用 UcxControllerCreate中检索了句柄。",
+          "type": "UCXCONTROLLER"
         }
       ],
       "return_value": {
@@ -10577,16 +10748,19 @@
       "parameters": [
         {
           "name": "Controller",
-          "description": "客户端驱动程序在对 UcxControllerCreate 方法的上一次调用中收到的 UCX 控制器的句柄。"
+          "description": "客户端驱动程序在对 UcxControllerCreate 方法的上一次调用中收到的 UCX 控制器的句柄。",
+          "type": "UCXCONTROLLER"
         },
         {
           "name": "ManufacturerNameString",
           "direction": "in",
-          "description": "包含控制器制造商名称的字符串。[in] ModelNameString 包含设备模型名称的字符串。[in] ModelNumberString 包含设备模型的修订号的字符串。"
+          "description": "包含控制器制造商名称的字符串。[in] ModelNameString 包含设备模型名称的字符串。[in] ModelNumberString 包含设备模型的修订号的字符串。",
+          "type": "PUNICODE_STRING"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，则返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。"
+        "description": "如果操作成功，则返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "header": "ucxcontroller.h",
       "deprecated": false,
@@ -10604,10 +10778,14 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中检索到的框架设备对象的句柄。[in] Request 表示用户模式 IOCTL 请求的框架请求对象的句柄。[in] OutputBufferLength 如果输出缓冲区可用，则请求的输出缓冲区的长度（以字节为单位）。[in] InputBufferLength 如果输入缓冲区可用，则请求的输入缓冲区的长度（以字节为单位）。[in] IoControlCode 与请求关联的驱动程序定义或系统定义的 IOCTL。"
+          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中检索到的框架设备对象的句柄。[in] Request 表示用户模式 IOCTL 请求的框架请求对象的句柄。[in] OutputBufferLength 如果输出缓冲区可用，则请求的输出缓冲区的长度（以字节为单位）。[in] InputBufferLength 如果输入缓冲区可用，则请求的输入缓冲区的长度（以字节为单位）。[in] IoControlCode 与请求关联的驱动程序定义或系统定义的 IOCTL。",
+          "type": "WDFDEVICE"
         }
       ],
-      "return_value": "客户端驱动程序可以调用此例程，以允许 UCX 处理特定的用户模式 USB IOCTL。已知相关 IOCTL 包括 IOCTL_USB_DIAGNOSTIC_MODE_OFF。现有备注内容被 OCR 截断，未能可靠恢复其余部分。",
+      "return_value": {
+        "type": "BOOLEAN",
+        "description": "客户端驱动程序可以调用此例程，以允许 UCX 处理特定的用户模式 USB IOCTL。已知相关 IOCTL 包括 IOCTL_USB_DIAGNOSTIC_MODE_OFF。现有备注内容被 OCR 截断，未能可靠恢复其余部分。"
+      },
       "remarks": "客户端驱动程序可以调用此例程，以允许 UCX 处理特定的用户模式 USB IOCTL。已知相关 IOCTL 包括 IOCTL_USB_DIAGNOSTIC_MODE_OFF。现有备注内容被 OCR 截断，未能可靠恢复其余部分。",
       "header": "ucxcontroller.h",
       "deprecated": false,
@@ -10712,7 +10890,8 @@
         {
           "name": "Endpoint",
           "direction": "in",
-          "description": "终结点对象的句柄。 客户端驱动程序在之前调用 UcxEndpointCreate中检索了句柄。"
+          "description": "终结点对象的句柄。 客户端驱动程序在之前调用 UcxEndpointCreate中检索了句柄。",
+          "type": "UCXENDPOINT"
         }
       ],
       "return_value": {
@@ -10866,7 +11045,8 @@
       "description": "客户端驱动程序实现的回调函数类型，UCX 在需要为 USB 设备配置或取消配置非默认终结点时调用该回调。",
       "syntax": "EVT_UCX_USBDEVICE_ENDPOINTS_CONFIGURE EvtUcxUsbdeviceEndpointsConfigure;\n\nVOID EvtUcxUsbdeviceEndpointsConfigure(\n  [in] UCXCONTROLLER UcxController,\n  [in] WDFREQUEST    Request\n);",
       "return_value": {
-        "description": "无。驱动程序必须完成 Request，并可选择异步完成。"
+        "description": "无。驱动程序必须完成 Request，并可选择异步完成。",
+        "type": "EVT_UCX_USBDEVICE_ENDPOINTS_CONFIGURE EvtUcxUsbdeviceEndpointsConfigure; VOID"
       },
       "remarks": "客户端驱动程序通过调用 UcxUsbDeviceCreate 注册此回调函数。在该回调中，驱动程序按照 ENDPOINTS_CONFIGURE 结构中的说明对终结点进行编程或取消编程。此回调不会启用或禁用默认终结点；默认终结点的状态与设备状态相关。驱动程序应在 EVT_UCX_USBDEVICE_DISABLE 和 EVT_UCX_USBDEVICE_ENABLE 回调中处理设备启用和禁用。驱动程序必须为 Request 返回完成状态，也可以异步完成该 WDFREQUEST。",
       "header": "ucxendpoint.h",
@@ -11003,7 +11183,10 @@
       "name": "EVT_UCX_ENDPOINT_GET_ISOCH_TRANSFER_PATH_DELAYS",
       "entity_type": "callback",
       "description": "UCX 客户端驱动程序实现的回调函数。UCX 调用此回调以获取异步传输（isochronous transfer）路径延迟信息。",
-      "return_value": "如果操作成功，返回 STATUS_SUCCESS 或其他满足 NT_SUCCESS(status) == TRUE 的状态值；否则返回满足 NT_SUCCESS(status) == FALSE 的错误状态值。",
+      "return_value": {
+        "type": "EVT_UCX_ENDPOINT_GET_ISOCH_TRANSFER_PATH_DELAYS EvtUcxEndpointGetIsochTransferPathDelays; NTSTATUS",
+        "description": "如果操作成功，返回 STATUS_SUCCESS 或其他满足 NT_SUCCESS(status) == TRUE 的状态值；否则返回满足 NT_SUCCESS(status) == FALSE 的错误状态值。"
+      },
       "remarks": "UCX 客户端驱动程序通过调用 UcxEndpointCreate 注册此回调函数。该回调函数在 IRQL <= DISPATCH_LEVEL 调用。",
       "header": "ucxendpoint.h",
       "deprecated": false,
@@ -11220,7 +11403,11 @@
       "cross_references": [],
       "confidence": 0.6,
       "_source_line": 7567,
-      "syntax": "EVT_UCX_ENDPOINT_STATIC_STREAMS_DISABLE Endpoint_EvtUcxEndpointStaticStreamsDisable;\n\nVOID Endpoint_EvtUcxEndpointStaticStreamsDisable(\n  UCXENDPOINT UcxEndpoint,\n  UCXSSTREAMS UcxStaticStreams,\n  WDFREQUEST Request\n);"
+      "syntax": "EVT_UCX_ENDPOINT_STATIC_STREAMS_DISABLE Endpoint_EvtUcxEndpointStaticStreamsDisable;\n\nVOID Endpoint_EvtUcxEndpointStaticStreamsDisable(\n  UCXENDPOINT UcxEndpoint,\n  UCXSSTREAMS UcxStaticStreams,\n  WDFREQUEST Request\n);",
+      "return_value": {
+        "type": "EVT_UCX_ENDPOINT_STATIC_STREAMS_DISABLE Endpoint_EvtUcxEndpointStaticStreamsDisable; VOID",
+        "description": ""
+      }
     },
     {
       "id": "windows::EVT_UCX_ENDPOINT_STATIC_STREAMS",
@@ -11597,7 +11784,10 @@
       "name": "EVT_UCX_USBDEVICE_DEFAULT_ENDPOINT_ADD",
       "entity_type": "callback",
       "description": "指向客户端驱动程序实现的回调函数的指针。UCX 调用此回调以为 USB 设备添加默认终结点。",
-      "return_value": "如果操作成功，回调函数必须返回 STATUS_SUCCESS 或其他使 NT_SUCCESS(status) 为 TRUE 的状态值。否则，必须返回使 NT_SUCCESS(status) 为 FALSE 的状态值。",
+      "return_value": {
+        "type": "EVT_UCX_USBDEVICE_DEFAULT_ENDPOINT_ADD EvtUcxUsbDeviceDefaultEndpointAdd; NTSTATUS",
+        "description": "如果操作成功，回调函数必须返回 STATUS_SUCCESS 或其他使 NT_SUCCESS(status) 为 TRUE 的状态值。否则，必须返回使 NT_SUCCESS(status) 为 FALSE 的状态值。"
+      },
       "remarks": "客户端驱动程序通过调用 UcxUsbDeviceCreate 将此回调函数注册到 USB 主机控制器扩展 (UCX)。在该回调中，驱动程序调用 UcxEndpointCreate 创建新的默认终结点对象，并注册该终结点对象的回调函数。随后，回调函数通常会创建与终结点对象关联的 WDF 队列。在类扩展启动之前，队列不会收到任何请求。",
       "header": "ucxendpoint.h",
       "deprecated": false,
@@ -11622,7 +11812,8 @@
         {
           "name": "Endpoint",
           "direction": "in",
-          "description": "终结点对象的句柄。 客户端驱动程序在之前调用 UcxEndpointCreate中检索了句柄。"
+          "description": "终结点对象的句柄。 客户端驱动程序在之前调用 UcxEndpointCreate中检索了句柄。",
+          "type": "UCXENDPOINT"
         }
       ],
       "return_value": {
@@ -11651,10 +11842,14 @@
         {
           "name": "Endpoint",
           "direction": "in",
-          "description": "请求静态流对象的终结点对象的句柄。 客户端驱动程序在之前调用 UcxEndpointCreate中检索了 句柄。[in] Tag 框架存储为对象引用的标识标记的驱动程序定义值。"
+          "description": "请求静态流对象的终结点对象的句柄。 客户端驱动程序在之前调用 UcxEndpointCreate中检索了 句柄。[in] Tag 框架存储为对象引用的标识标记的驱动程序定义值。",
+          "type": "UCXENDPOINT"
         }
       ],
-      "return_value": "客户端驱动程序可以使用此函数确定是否已为该终结点创建静态流对象。如果对象已创建，则函数返回 UCXSSTREAMS 句柄；如果对象尚未创建，则返回 NULL。由于该函数返回的是带引用的对象句柄，驱动程序在不再需要该对象时应释放相应引用。",
+      "return_value": {
+        "type": "UCXSSTREAMS",
+        "description": "客户端驱动程序可以使用此函数确定是否已为该终结点创建静态流对象。如果对象已创建，则函数返回 UCXSSTREAMS 句柄；如果对象尚未创建，则返回 NULL。由于该函数返回的是带引用的对象句柄，驱动程序在不再需要该对象时应释放相应引用。"
+      },
       "remarks": "客户端驱动程序可以使用此函数确定是否已为该终结点创建静态流对象。如果对象已创建，则函数返回 UCXSSTREAMS 句柄；如果对象尚未创建，则返回 NULL。由于该函数返回的是带引用的对象句柄，驱动程序在不再需要该对象时应释放相应引用。",
       "header": "ucxendpoint.h",
       "deprecated": false,
@@ -11672,7 +11867,8 @@
         {
           "name": "Endpoint",
           "direction": "in",
-          "description": "终结点对象的句柄。 客户端驱动程序在之前调用 UcxEndpointCreate中检索了句柄。"
+          "description": "终结点对象的句柄。 客户端驱动程序在之前调用 UcxEndpointCreate中检索了句柄。",
+          "type": "UCXENDPOINT"
         }
       ],
       "return_value": {
@@ -11703,7 +11899,8 @@
         {
           "name": "Endpoint",
           "direction": "in",
-          "description": "终结点对象的句柄。 客户端驱动程序在之前调用 UcxEndpointCreate中检索了句柄。"
+          "description": "终结点对象的句柄。 客户端驱动程序在之前调用 UcxEndpointCreate中检索了句柄。",
+          "type": "UCXENDPOINT"
         }
       ],
       "return_value": {
@@ -11732,7 +11929,8 @@
         {
           "name": "Endpoint",
           "direction": "in",
-          "description": "终结点对象的句柄。 客户端驱动程序在之前调用 UcxEndpointCreate中检索了句柄。[in] WdfQueue 要设置在终结点上的框架队列对象的句柄。"
+          "description": "终结点对象的句柄。 客户端驱动程序在之前调用 UcxEndpointCreate中检索了句柄。[in] WdfQueue 要设置在终结点上的框架队列对象的句柄。",
+          "type": "UCXENDPOINT"
         }
       ],
       "return_value": {
@@ -11798,13 +11996,14 @@
     {
       "id": "windows::UCX_ROOTHUB_CONFIG_INIT",
       "name": "UCX_ROOTHUB_CONFIG_INIT",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "(&ucxRootHubConfig, RootHub_EvtRootHubClearHubFeature, RootHub_EvtRootHubClearPortFeature, RootHub_EvtRootHubGetHubStatus, RootHub_EvtRootHubGetPortStatus, RootHub_EvtRootHubSetHubFeature, RootHub_EvtRootHubSetPortFeature, RootHub_EvtRootHubGetPortErrorCount, RootHub_EvtRootHubInterruptTx, RootHub_EvtRootHubGetInfo, RootHub_EvtRootHubGet20PortInfo, RootHub_EvtRootHubGet30PortInfo);",
       "header": "ucxroothub.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 8154
+      "_source_line": 8154,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::ControllerTypeXhci",
@@ -11822,7 +12021,7 @@
     {
       "id": "windows::CONTROLLER_USB_20_HARDWARE_LPM_FL",
       "name": "CONTROLLER_USB_20_HARDWARE_LPM_FL",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述链接电源管理（LPM）支持的协议功能，如 USB 2.0 规范所定义。",
       "syntax": "typedef union _CONTROLLER_USB_20_HARDWARE_LPM_FLAGS {\nUCHAR  AsUchar;   struct {\nUCHAR L1CapabilitySupported : 1;\nUCHAR BeslLpmCapabilitySupported : 1;\n} Flags;   struct {\nUCHAR L1CapabilitySupported : 1;\nUCHAR BeslLpmCapabilitySupported : 1;   };\n} CONTROLLER_USB_20_HARDWARE_LPM_FLAGS, *PCONTROLLER_USB_20_HARDWARE_LPM_FLAGS;",
       "members": [
@@ -11835,18 +12034,20 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.85,
-      "_source_line": 8178
+      "_source_line": 8178,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::BeslLpmCapabilitySupported",
       "name": "BeslLpmCapabilitySupported",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "指示最佳努力服务延迟（BESL）延迟支持。",
       "header": "ucxroothub.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.5,
-      "_source_line": 8195
+      "_source_line": 8195,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::RootHub_EvtRootHubClearHubFeature",
@@ -11895,7 +12096,7 @@
     {
       "id": "windows::EVT_UCX_ROOTHUB_GET_30PORT_INFO",
       "name": "EVT_UCX_ROOTHUB_GET_30PORT_INFO",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "EvtUcxRoothubGet30PortInfo; void EvtUcxRoothubGet30PortInfo( [in] UCXROOTHUB UcxRootHub, [in] WDFREQUEST Request) {...} 参数 [in] UcxRootHub 表示根中心的 UCX 对象的句柄。[in] Request _ROOTHUB_30PORT_INFO类型的结构。",
       "syntax": "typedef struct _ROOTHUB_30PORT_INFO {   USHORT   PortNumber;\nUCHAR    MinorRevision;\nUCHAR    HubDepth;   TRISTATE Removable;\nTRISTATE DebugCapable;\n} ROOTHUB_30PORT_INFO, *PROOTHUB_30PORT_INFO;",
       "return_value": {
@@ -11915,34 +12116,37 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 1.0,
-      "_source_line": 8318
+      "_source_line": 8318,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::RootHub_EvtRootHubGet30PortInfo",
       "name": "RootHub_EvtRootHubGet30PortInfo",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "UCXROOTHUB UcxRootHub, WDFREQUEST Request) /*++ For sample demonstration purposes, this function returns statically defined information for the single 3.0 port. --*/{",
       "header": "ucxroothub.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 8335
+      "_source_line": 8335,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::RootHub_EvtRootHubGetInfo",
       "name": "RootHub_EvtRootHubGetInfo",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "UCXROOTHUB UcxRootHub, WDFREQUEST Request) /*++ For sample demonstration purposes, this function returns statically defined information for the root hub. --*/{",
       "header": "ucxroothub.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 8395
+      "_source_line": 8395,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::EVT_UCX_ROOTHUB_INTERRUPT_TX",
       "name": "EVT_UCX_ROOTHUB_INTERRUPT_TX",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "EvtUcxRoothubInterruptTx; void EvtUcxRoothubInterruptTx( [in] UCXROOTHUB UcxRootHub, [in] WDFREQUEST Request) {...} 参数 [in] UcxRootHub 表示根中心的 UCX 对象的句柄。[in] Request 包含根中心中断传输请求 URB。",
       "return_value": {
         "description": "没有"
@@ -11952,12 +12156,13 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 8433
+      "_source_line": 8433,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PUSB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED",
       "name": "PUSB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "SublinkSpeedAttr; ULONG SublinkSpeedAttrCount;} HUB_INFO_FROM_PARENT, *PHUB_INFO_FROM_PARENT;",
       "members": [
         {
@@ -11972,18 +12177,20 @@
         "SublinkSpeedAttrCount"
       ],
       "confidence": 0.85,
-      "_source_line": 8475
+      "_source_line": 8475,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::ExitLatencyOfSlowestLinkForU1",
       "name": "ExitLatencyOfSlowestLinkForU1",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "U1 转换最慢的链接的退出延迟。 DepthOfSlowestLinkForU1 基于最慢链接延迟计算 U1 转换的中心深度。",
       "header": "ucxroothub.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 8482
+      "_source_line": 8482,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PARENT_HUB_FLAGS",
@@ -12083,13 +12290,14 @@
     {
       "id": "windows::ROOTHUB_30PORT_INFO",
       "name": "ROOTHUB_30PORT_INFO",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "数组的大小。 PortInfoArray 指向 ROOTHUB_30PORT_INFO 结构的数组的指针。",
       "header": "ucxroothub.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 8594
+      "_source_line": 8594,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::MaxSpeedsCount",
@@ -12125,7 +12333,7 @@
     {
       "id": "windows::TriStateUnknown",
       "name": "TriStateUnknown",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "状态未知。 TriStateFalse 状态为 false 布尔值。 TriStateTrue 状态是真正的布尔值。",
       "requirements": {
         "header": "ucxroothub.h"
@@ -12134,12 +12342,13 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 8692
+      "_source_line": 8692,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::UCX_ROOTHUB_CONFIG",
       "name": "UCX_ROOTHUB_CONFIG",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构体包含指向事件回调函数的指针，用于通过调用 UcxRootHubCreate 创建根集线器。通过调用 UCX_ROOTHUB_CONFIG_INIT 初始化函数（请参阅 Ucxclass.h）来初始化此结构。",
       "syntax": "typedef struct _UCX_ROOTHUB_CONFIG { ULONG Size; ULONG NumberOfPresentedControlUrbCallbacks; } UCX_ROOTHUB_CONFIG;",
       "header": "ucxroothub.h",
@@ -12148,7 +12357,8 @@
         "UCX_ROOTHUB_CONFIG_INIT"
       ],
       "confidence": 0.85,
-      "_source_line": 8701
+      "_source_line": 8701,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PFN_UCX_ROOTHUB_CONTROL_URB",
@@ -12175,7 +12385,7 @@
     {
       "id": "windows::NumberOfPresentedControlUrbCallbacks",
       "name": "NumberOfPresentedControlUrbCallbacks",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "UCX 根中心回调函数结构体。包含处理根中心控制 URB、中断传输、获取端口信息等操作的回调函数指针。",
       "requirements": {
         "header": "ucxroothub.h"
@@ -12190,7 +12400,8 @@
         "EVT_UCX_ROOTHUB_INTERRUPT_TX"
       ],
       "confidence": 0.6,
-      "_source_line": 8716
+      "_source_line": 8716,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::UcxRootHubPortChanged",
@@ -12202,7 +12413,8 @@
         {
           "name": "UcxRootHub",
           "direction": "in",
-          "description": "根中心对象的句柄。 客户端驱动程序在上一次调用 UcxRootHubCreate中检索了句柄。"
+          "description": "根中心对象的句柄。 客户端驱动程序在上一次调用 UcxRootHubCreate中检索了句柄。",
+          "type": "UCXROOTHUB"
         }
       ],
       "return_value": "This function does not return a value.",
@@ -12287,7 +12499,7 @@
     {
       "id": "windows::ADDRESS0_OWNERSHIP_ACQUIRE",
       "name": "ADDRESS0_OWNERSHIP_ACQUIRE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构用于获取设备所有权，包含USB设备管理头信息。",
       "syntax": "typedef struct _ADDRESS0_OWNERSHIP_ACQUIRE {   USBDEVICE_MGMT_HEADER Header;\n} ADDRESS0_OWNERSHIP_ACQUIRE, *PADDRESS0_OWNERSHIP_ACQUIRE;",
       "members": [
@@ -12303,7 +12515,8 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 8888
+      "_source_line": 8888,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::EVT_UCX_USBDEVICE_DISABLE",
@@ -12319,7 +12532,7 @@
     {
       "id": "windows::USBDEVICE_ENABLE",
       "name": "USBDEVICE_ENABLE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构 包含用于启用指定设备的请求的参数。 此结构由 UCX 在 EVT_UCX_USBDEVICE_ENABLE 回调函数的框架请求对象的请求参数（Parameters.Others.Arg1）中传递。",
       "syntax": "typedef struct _USBDEVICE_ENABLE {",
       "header": "ucxusbdevice.h",
@@ -12328,12 +12541,13 @@
         "EVT_UCX_USBDEVICE_ENABLE"
       ],
       "confidence": 0.85,
-      "_source_line": 8901
+      "_source_line": 8901,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USBDEVICE_ENABLE_FAILURE_FLAGS",
       "name": "USBDEVICE_ENABLE_FAILURE_FLAGS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "由客户端驱动程序在 EVT_UCX_USBDEVICE_ENABLE 回调函数中设置的标志，指示启用设备时可能发生的错误（如果有）。",
       "syntax": "typedef struct _USBDEVICE_ENABLE_FAILURE_FLAGS {\nULONG InsufficientHardwareResourcesForDefaultEndpoint : 1;\nULONG InsufficientHardwareResourcesForDevice : 1;   ULONG Reserved : 30;\n} USBDEVICE_ENABLE_FAILURE_FLAGS; 成员",
       "members": [
@@ -12351,7 +12565,8 @@
         "EVT_UCX_USBDEVICE_ENABLE"
       ],
       "confidence": 0.95,
-      "_source_line": 8904
+      "_source_line": 8904,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::EVT_UCX_USBDEVICE_RESET",
@@ -12417,7 +12632,7 @@
     {
       "id": "windows::Endpoint_EvtUcxUsbDeviceDefaultEndpointAdd",
       "name": "Endpoint_EvtUcxUsbDeviceDefaultEndpointAdd",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "UCXCONTROLLER UcxController, UCXUSBDEVICE UcxUsbDevice, ULONG MaxPacketSize, PUCXENDPOINT_INIT EndpointInit ){ NTSTATUS status =",
       "header": "ucxusbdevice.h",
       "deprecated": false,
@@ -12427,12 +12642,13 @@
         "PUCXENDPOINT_INIT"
       ],
       "confidence": 0.6,
-      "_source_line": 9012
+      "_source_line": 9012,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PUCX_ENDPOINT_CONTEXT",
       "name": "PUCX_ENDPOINT_CONTEXT",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "ucxEndpointContext; WDF_IO_QUEUE_CONFIG queueConfig; WDFQUEUE wdfQueue;",
       "header": "ucxusbdevice.h",
       "deprecated": false,
@@ -12440,7 +12656,8 @@
         "WDF_IO_QUEUE_CONFIG"
       ],
       "confidence": 0.75,
-      "_source_line": 9018
+      "_source_line": 9018,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USBDEVICE_DISABLE",
@@ -12502,7 +12719,7 @@
     {
       "id": "windows::EVT_UCX_USBDEVICE_ENDPOINT_ADD",
       "name": "EVT_UCX_USBDEVICE_ENDPOINT_ADD",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "EvtUcxUsbdeviceEndpointAdd; NTSTATUS EvtUcxUsbdeviceEndpointAdd( [in] UCXCONTROLLER UcxController, [in] UCXUSBDEVICE UcxUsbDevice, [in] PUSB_ENDPOINT_DESCRIPTOR UsbEndpointDescriptor, [in] ULONG UsbEndpointDescriptorBufferLength, [in, optional] PUSB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR SuperSpeedEndpointCompanionDescriptor, [in] PUCXENDPOINT_INIT UcxEndpointInit) {...} 参数 [in] UcxController 客户端驱动程序在对 UcxControllerCreate 方法的上一次调用中收到的 UCX 控制器的句柄。 [in] UcxUsbDevice 表示 USB 设备的 UCX 对象的句柄。[in] UsbEndpointDescriptor 指向包含所创建的终结点的 USB 描述符的位置的指针。 [in] UsbEndpointDescriptorBufferLength 描述符的长度（以字节为单位）。 [in, optional] SuperSpeedEndpointCompanionDescriptor 超速端口的其他描述符。 此参数是可选的，可以 NULL。[in] UcxEndpointInit 指向包含初始化信息的不透明结构的指针。 终结点对象的回调与此结构相关联。 此结构 由 UCX 管理。",
       "return_value": {
         "description": "如果作成功，回调函数必须返回STATUS_SUCCESS，或NT_SUCCESS（status） 等于 TRUE 的另一个状态值。 否则，它必须返回NT_SUCCESS（status）等于 FALSE 的状态值。"
@@ -12519,7 +12736,8 @@
         "UcxUsbDeviceCreate"
       ],
       "confidence": 0.8,
-      "_source_line": 9143
+      "_source_line": 9143,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::Endpoint_EvtUcxUsbDeviceEndpointAdd",
@@ -12747,14 +12965,15 @@
     {
       "id": "windows::UCX_USBDEVICE_CHARACTERISTIC_PATH",
       "name": "UCX_USBDEVICE_CHARACTERISTIC_PATH",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "存储USB设备特性路径的最大发送和完成路径延迟值（以毫秒为单位）。",
       "syntax": "typedef struct _UCX_USBDEVICE_CHARACTERISTIC_PATH_DELAY {   ULONG MaximumSendPathDelayInMilliSeconds;\nULONG MaximumCompletionPathDelayInMilliSeconds;\n} UCX_USBDEVICE_CHARACTERISTIC_PATH_DELAY, *PUCX_USBDEVICE_CHARACTERISTIC_PATH_DELAY;",
       "header": "ucxusbdevice.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 9490
+      "_source_line": 9490,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PFN_UCX_USBDEVICE_ENDPOINTS_CONFIGURE",
@@ -12772,7 +12991,7 @@
     {
       "id": "windows::PFN_UCX_USBDEVICE_ENABLE",
       "name": "PFN_UCX_USBDEVICE_ENABLE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "EvtUsbDeviceEnable; PFN_UCX_USBDEVICE_DISABLE EvtUsbDeviceDisable; PFN_UCX_USBDEVICE_RESET EvtUsbDeviceReset; PFN_UCX_USBDEVICE_ADDRESS EvtUsbDeviceAddress; PFN_UCX_USBDEVICE_UPDATE EvtUsbDeviceUpdate; PFN_UCX_USBDEVICE_HUB_INFO EvtUsbDeviceHubInfo;",
       "header": "ucxusbdevice.h",
       "deprecated": false,
@@ -12780,7 +12999,8 @@
         "EvtUsbDeviceReset"
       ],
       "confidence": 0.75,
-      "_source_line": 9538
+      "_source_line": 9538,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PFN_UCX_USBDEVICE_DEFAULT_ENDPOINT_ADD",
@@ -12893,7 +13113,7 @@
     {
       "id": "windows::UCXUSBDEVICE_INFO",
       "name": "UCXUSBDEVICE_INFO",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构 包含有关 USB 设备的信息。 此结构由 UCX 在 EVT_UCX_CONTROLLER_USBDEVICE_ADD 事件回调函数中传递。",
       "syntax": "typedef struct _UCXUSBDEVICE_INFO {   ULONG                Size;",
       "header": "ucxusbdevice.h",
@@ -12902,12 +13122,13 @@
         "EVT_UCX_CONTROLLER_USBDEVICE_ADD"
       ],
       "confidence": 0.85,
-      "_source_line": 9632
+      "_source_line": 9632,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::UcxUsbDeviceCreate",
       "name": "UcxUsbDeviceCreate",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "方法使用初始化 UCXUSBDEVICE_INIT 结构来创建 USB 设备并注册客户端驱动程序的事件回调函数。 有关代码示例，请参阅",
       "syntax": "NTSTATUS UcxUsbDeviceCreate(\n[in]           UCXCONTROLLER          Controller,\n[out]          PUCXUSBDEVICE_INIT     *UsbDeviceInit,\n[in, optional] PWDF_OBJECT_ATTRIBUTES Attributes,   [out]          UCXUSBDEVICE           *UsbDevice);",
       "parameters": [
@@ -12929,7 +13150,8 @@
         "WdfDeviceCreate"
       ],
       "confidence": 0.85,
-      "_source_line": 9657
+      "_source_line": 9657,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USBDEVICE_ADDRESS",
@@ -13033,7 +13255,7 @@
     {
       "id": "windows::M_PARAMETERS",
       "name": "M_PARAMETERS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含用于更新 USB 2.0 链路电源管理（LPM）的请求的参数。UCX 在 EVT_UCX_USBDEVICE_UPDATE 回调函数中传递此结构。",
       "syntax": "typedef struct _USBDEVICE_UPDATE_20_HARDWARE_LPM_PARAMETERS {\n    ULONG HardwareLpmEnable : 1;\n    ULONG RemoteWakeEnable : 1;\n    ULONG HostInitiatedResumeDurationMode : 1;\n    ULONG BestEffortServiceLatency : 4;\n    ULONG BestEffortServiceLatencyDeep : 4;\n    ULONG L1Timeout : 8;\n    ULONG Reserved : 13;\n} USBDEVICE_UPDATE_20_HARDWARE_LPM_PARAMETERS;",
       "header": "ucxusbdevice.h",
@@ -13042,23 +13264,25 @@
         "EVT_UCX_USBDEVICE_UPDATE"
       ],
       "confidence": 0.85,
-      "_source_line": 10016
+      "_source_line": 10016,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::HardwareLpmEnable",
       "name": "HardwareLpmEnable",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "如果已设置，则指示请求启用硬件 LPM。 RemoteWakeEnable 如果已设置，则指示请求启用远程唤醒信号。",
       "header": "ucxusbdevice.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 10025
+      "_source_line": 10025,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::BestEffortServiceLatency",
       "name": "BestEffortServiceLatency",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "请求的尽最大努力服务延迟。包含字段：L1Timeout（请求的L1超时）、Reserved（请勿使用）。",
       "requirements": {
         "header": "ucxusbdevice.h"
@@ -13067,7 +13291,8 @@
       "deprecated": true,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 10029
+      "_source_line": 10029,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::MaxExitLatencyTooLarge",
@@ -13109,7 +13334,8 @@
         {
           "name": "Request",
           "direction": "in",
-          "description": "包含传输 URB 的框架请求对象的句柄。[in] UsbdStatus 一个 USBD_STATUS类型的值，指示已完成 URB 请求的成功或失败。"
+          "description": "包含传输 URB 的框架请求对象的句柄。[in] UsbdStatus 一个 USBD_STATUS类型的值，指示已完成 URB 请求的成功或失败。",
+          "type": "WDFREQUEST"
         }
       ],
       "return_value": {
@@ -13142,7 +13368,8 @@
         {
           "name": "Request",
           "direction": "in",
-          "description": "包含传输 URB 的框架请求对象的句柄。[in] NtStatus NTSTATUS类型化值，指示已完成 URB 请求的成功或失败。"
+          "description": "包含传输 URB 的框架请求对象的句柄。[in] NtStatus NTSTATUS类型化值，指示已完成 URB 请求的成功或失败。",
+          "type": "WDFREQUEST"
         }
       ],
       "return_value": {
@@ -13171,10 +13398,14 @@
         {
           "name": "Request",
           "direction": "in",
-          "description": "包含传输 URB 的框架请求对象的句柄。[out] TransferBuffer 指向接收 URB传输缓冲区的缓冲区的指针。[out] Length 一个 ULONG 变量，该变量通过 TransferBuffer接收缓冲区指针的长度。"
+          "description": "包含传输 URB 的框架请求对象的句柄。[out] TransferBuffer 指向接收 URB传输缓冲区的缓冲区的指针。[out] Length 一个 ULONG 变量，该变量通过 TransferBuffer接收缓冲区指针的长度。",
+          "type": "WDFREQUEST"
         }
       ],
-      "return_value": "{\\\"description\\\":\\\"如果成功，该方法将返回 STATUS_SUCCESS。否则，此方法可能会返回相应的 NTSTATUS 错误代码。\\",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "{\\\"description\\\":\\\"如果成功，该方法将返回 STATUS_SUCCESS。否则，此方法可能会返回相应的 NTSTATUS 错误代码。\\"
+      },
       "header": "udecxurb.h",
       "deprecated": false,
       "cross_references": [],
@@ -13191,7 +13422,8 @@
         {
           "name": "Request",
           "direction": "in",
-          "description": "包含传输 URB 的框架请求对象的句柄。 BytesCompleted URB中设置的已传输字节数。 此值不能大于传输缓冲区长度。"
+          "description": "包含传输 URB 的框架请求对象的句柄。 BytesCompleted URB中设置的已传输字节数。 此值不能大于传输缓冲区长度。",
+          "type": "WDFREQUEST"
         }
       ],
       "return_value": {
@@ -13234,7 +13466,8 @@
         {
           "name": "UdecxUsbDeviceInit",
           "direction": "in, out",
-          "description": "指向包含虚拟 USB 设备的初始化参数的 WDF 分配结构的指针。 客户端驱动程序在上一次调用中检索到此指针，UdecxUsbDeviceInitAllocate。"
+          "description": "指向包含虚拟 USB 设备的初始化参数的 WDF 分配结构的指针。 客户端驱动程序在上一次调用中检索到此指针，UdecxUsbDeviceInitAllocate。",
+          "type": "out] PUDECXUSBDEVICE_INIT"
         }
       ],
       "return_value": {
@@ -13291,11 +13524,13 @@
       "parameters": [
         {
           "name": "WdfDevice",
-          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中检索到的框架设备对象的句柄。[in] Config 指向客户端驱动程序通过调用 UDECX_WDF_DEVICE_CONFIG_INIT初始化的 UDECX_WDF_DEVICE_CONFIG 结构的指针。"
+          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中检索到的框架设备对象的句柄。[in] Config 指向客户端驱动程序通过调用 UDECX_WDF_DEVICE_CONFIG_INIT初始化的 UDECX_WDF_DEVICE_CONFIG 结构的指针。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回 STATUS_SUCCESS。"
+        "description": "如果成功，返回 STATUS_SUCCESS。",
+        "type": "NTSTATUS"
       },
       "remarks": "此函数用于在 Udecx 框架中为 WDF 设备添加 USB 设备仿真功能。",
       "header": "udecxusbdevice.h",
@@ -13322,12 +13557,14 @@
         {
           "name": "UdecxUsbDevice",
           "direction": "in",
-          "description": "UDE 设备对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbDeviceCreate中检索了此指针。"
+          "description": "UDE 设备对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbDeviceCreate中检索了此指针。",
+          "type": "UDECXUSBDEVICE"
         },
         {
           "name": "CompletionStatus",
           "direction": "in",
-          "description": "相应的 NTSTATUS 错误代码，指示异步作的成功或失败。"
+          "description": "相应的 NTSTATUS 错误代码，指示异步作的成功或失败。",
+          "type": "NTSTATUS"
         }
       ],
       "return_value": {
@@ -13353,7 +13590,8 @@
         {
           "name": "UdecxUsbDevice",
           "direction": "in",
-          "description": "UDE 设备对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbDeviceCreate中检索了此指针。"
+          "description": "UDE 设备对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbDeviceCreate中检索了此指针。",
+          "type": "UDECXUSBDEVICE"
         }
       ],
       "return_value": {
@@ -13396,15 +13634,20 @@
         {
           "name": "UdecxUsbDeviceInit",
           "direction": "in, out",
-          "description": "指向包含虚拟 USB 设备的初始化参数的 WDF 分配结构的指针。 客户端驱动程序在上一 次调用中检索到此指针，UdecxUsbDeviceInitAllocate。[in, optional] Attributes 指向调用方分配 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构指定 USB 设备对象的属性。"
+          "description": "指向包含虚拟 USB 设备的初始化参数的 WDF 分配结构的指针。 客户端驱动程序在上一 次调用中检索到此指针，UdecxUsbDeviceInitAllocate。[in, optional] Attributes 指向调用方分配 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构指定 USB 设备对象的属性。",
+          "type": "out] PUDECXUSBDEVICE_INIT"
         },
         {
           "name": "UdecxUsbDevice",
           "direction": "out",
-          "description": "指向一个变量的指针，该变量接收表示虚拟 USB 设备的新 UDE 设备对象的句柄。"
+          "description": "指向一个变量的指针，该变量接收表示虚拟 USB 设备的新 UDE 设备对象的句柄。",
+          "type": "UDECXUSBDEVICE"
         }
       ],
-      "return_value": "返回 NTSTATUS 状态代码，指示操作是否成功。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "返回 NTSTATUS 状态代码，指示操作是否成功。"
+      },
       "remarks": "客户端驱动程序在上一次调用中注册了此回调函数， UdecxUsbDeviceInitSetStateChangeCallbacks，方法是提供指向其实现的函数指针。 在实现中，客户端驱动程序应通过使用 UDECX_USB_ENDPOINT_INIT_AND_METADATA 结构中类扩展传递的初始化参数（UDECXUSBENDPOINT_INIT）调用 UdecxUsbEndpointCreate 来创 建终结点。",
       "header": "udecxusbdevice.h",
       "deprecated": false,
@@ -13453,7 +13696,8 @@
         {
           "name": "UdecxUsbEndpoint",
           "direction": "in",
-          "description": "UDE 终结点对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbEndpointCreate中检索 了此指针。[in] WdfQueue 框架队列对象的句柄，用于处理发送到终结点的请求。 客户端驱动程序在上一次调用 WdfIoQueueCreate中检索了此指针。"
+          "description": "UDE 终结点对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbEndpointCreate中检索 了此指针。[in] WdfQueue 框架队列对象的句柄，用于处理发送到终结点的请求。 客户端驱动程序在上一次调用 WdfIoQueueCreate中检索了此指针。",
+          "type": "UDECXUSBENDPOINT"
         }
       ],
       "return_value": {
@@ -13531,7 +13775,8 @@
         {
           "name": "UdecxUsbDeviceInit",
           "direction": "in, out",
-          "description": "指向包含虚拟 USB 设备的初始化参数的 WDF 分配结构的指针。 客户端驱动程序在上一 次调用中检索到此指针，UdecxUsbDeviceInitAllocate。[in] UdecxEndpointType 指示 USB 终结点类型的 UDECX_ENDPOINT_TYPE类型值。"
+          "description": "指向包含虚拟 USB 设备的初始化参数的 WDF 分配结构的指针。 客户端驱动程序在上一 次调用中检索到此指针，UdecxUsbDeviceInitAllocate。[in] UdecxEndpointType 指示 USB 终结点类型的 UDECX_ENDPOINT_TYPE类型值。",
+          "type": "out] PUDECXUSBDEVICE_INIT"
         }
       ],
       "return_value": {
@@ -13657,19 +13902,25 @@
         {
           "name": "UdecxUsbDevice",
           "direction": "in",
-          "description": "UDE 设备对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbDeviceCreate中检索了此指针。"
+          "description": "UDE 设备对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbDeviceCreate中检索了此指针。",
+          "type": "UDECXUSBDEVICE"
         },
         {
           "name": "Options",
           "direction": "in",
-          "description": "一个 UDECX_USB_DEVICE_PLUG_IN_OPTIONS类型值，指示设备插入到的端口。 在"
+          "description": "一个 UDECX_USB_DEVICE_PLUG_IN_OPTIONS类型值，指示设备插入到的端口。 在",
+          "type": "PUDECX_USB_DEVICE_PLUG_IN_OPTIONS"
         }
       ],
       "header": "udecxusbdevice.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 10699
+      "_source_line": 10699,
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::_INIT",
@@ -13726,7 +13977,8 @@
         {
           "name": "UdecxUsbDeviceInit",
           "direction": "in, out",
-          "description": "指向包含虚拟 USB 设备的初始化参数的 WDF 分配结构的指针。 客户端驱动程序在上一 次调用中检索到此指针，UdecxUsbDeviceInitAllocate。[in] UsbDeviceSpeed 指示要设置的 USB 速度的 UDECX_USB_DEVICE_SPEED类型值。"
+          "description": "指向包含虚拟 USB 设备的初始化参数的 WDF 分配结构的指针。 客户端驱动程序在上一 次调用中检索到此指针，UdecxUsbDeviceInitAllocate。[in] UsbDeviceSpeed 指示要设置的 USB 速度的 UDECX_USB_DEVICE_SPEED类型值。",
+          "type": "out] PUDECXUSBDEVICE_INIT"
         }
       ],
       "return_value": {
@@ -14031,15 +14283,20 @@
         {
           "name": "UdecxUsbDeviceInit",
           "direction": "in, out",
-          "description": "指向包含虚拟 USB 设备的初始化参数的 WDF 分配结构的指针。 客户端驱动程序在上一 次调用中检索到此指针，UdecxUsbDeviceInitAllocate。[in] Descriptor 调用方分配的缓冲区，其中包含要添加到设备的 USB 描述符。"
+          "description": "指向包含虚拟 USB 设备的初始化参数的 WDF 分配结构的指针。 客户端驱动程序在上一 次调用中检索到此指针，UdecxUsbDeviceInitAllocate。[in] Descriptor 调用方分配的缓冲区，其中包含要添加到设备的 USB 描述符。",
+          "type": "out] PUDECXUSBDEVICE_INIT"
         },
         {
           "name": "DescriptorLength",
           "direction": "in",
-          "description": "描述符缓冲区的长度。"
+          "description": "描述符缓冲区的长度。",
+          "type": "USHORT"
         }
       ],
-      "return_value": "{\"description\": \"如果操作成功，该函数将返回 STATUS_SUCCESS。否则，该函数可能会返回相应的 NTSTATUS 错误代码。\"}",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "{\"description\": \"如果操作成功，该函数将返回 STATUS_SUCCESS。否则，该函数可能会返回相应的 NTSTATUS 错误代码。\"}"
+      },
       "header": "udecxusbdevice.h",
       "deprecated": false,
       "cross_references": [
@@ -14070,16 +14327,19 @@
         {
           "name": "UdecxUsbDeviceInit",
           "direction": "in, out",
-          "description": "指向包含虚拟 USB 设备的初始化参数的 WDF 分配结构的指针。 客户端驱动程序在上一 次调用中检索到此指针，UdecxUsbDeviceInitAllocate。[in] Descriptor 调用方分配的缓冲区，其中包含要添加到设备的 USB 描述符。"
+          "description": "指向包含虚拟 USB 设备的初始化参数的 WDF 分配结构的指针。 客户端驱动程序在上一 次调用中检索到此指针，UdecxUsbDeviceInitAllocate。[in] Descriptor 调用方分配的缓冲区，其中包含要添加到设备的 USB 描述符。",
+          "type": "out] PUDECXUSBDEVICE_INIT"
         },
         {
           "name": "DescriptorLength",
           "direction": "in",
-          "description": "描述符缓冲区的长度。[in] DescriptorIndex 描述符的索引。"
+          "description": "描述符缓冲区的长度。[in] DescriptorIndex 描述符的索引。",
+          "type": "USHORT"
         }
       ],
       "return_value": {
-        "description": "成功时返回STATUS_SUCCESS，否则返回相应NTSTATUS错误代码"
+        "description": "成功时返回STATUS_SUCCESS，否则返回相应NTSTATUS错误代码",
+        "type": "NTSTATUS"
       },
       "header": "udecxusbdevice.h",
       "deprecated": false,
@@ -14141,7 +14401,8 @@
         {
           "name": "UdecxUsbDeviceInit",
           "direction": "in, out",
-          "description": "指向包含虚拟 USB 设备的初始化参数的 WDF 分配结构的指针。 客户端驱动程序在上一 次调用中检索到此指针，UdecxUsbDeviceInitAllocate。[in] Callbacks 指向 UDECX_USB_DEVICE_STATE_CHANGE_CALLBACKS 结构的指针，该结构包含指向客户端驱动程序实现的回调函数的指针。"
+          "description": "指向包含虚拟 USB 设备的初始化参数的 WDF 分配结构的指针。 客户端驱动程序在上一 次调用中检索到此指针，UdecxUsbDeviceInitAllocate。[in] Callbacks 指向 UDECX_USB_DEVICE_STATE_CHANGE_CALLBACKS 结构的指针，该结构包含指向客户端驱动程序实现的回调函数的指针。",
+          "type": "out] PUDECXUSBDEVICE_INIT"
         }
       ],
       "return_value": {
@@ -14170,7 +14431,8 @@
         {
           "name": "UdecxUsbDevice",
           "direction": "in",
-          "description": "UDE 设备对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbDeviceCreate中检索了此指针。[in] CompletionStatus 相应的 NTSTATUS 错误代码，指示异步作的成功或失败。"
+          "description": "UDE 设备对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbDeviceCreate中检索了此指针。[in] CompletionStatus 相应的 NTSTATUS 错误代码，指示异步作的成功或失败。",
+          "type": "UDECXUSBDEVICE"
         }
       ],
       "return_value": {
@@ -14199,12 +14461,14 @@
         {
           "name": "UdecxUsbDevice",
           "direction": "in",
-          "description": "UDE 设备对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbDeviceCreate中检索了此指针。"
+          "description": "UDE 设备对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbDeviceCreate中检索了此指针。",
+          "type": "UDECXUSBDEVICE"
         },
         {
           "name": "Interface",
           "direction": "in",
-          "description": "此值是正在唤醒的接口的 bInterfaceNumber。"
+          "description": "此值是正在唤醒的接口的 bInterfaceNumber。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
@@ -14351,7 +14615,8 @@
         {
           "name": "Init",
           "direction": "in",
-          "description": "指向客户端驱动程序在上一次调用中检索到 UdecxUsbSimpleEndpointInitAllocate的 UDECXUSBENDPOINT_INIT 结构的指针。"
+          "description": "指向客户端驱动程序在上一次调用中检索到 UdecxUsbSimpleEndpointInitAllocate的 UDECXUSBENDPOINT_INIT 结构的指针。",
+          "type": "PUDECXUSBENDPOINT_INIT"
         }
       ],
       "return_value": {
@@ -14382,7 +14647,8 @@
         {
           "name": "Init",
           "direction": "in, out",
-          "description": "指向客户端驱动程序在上一次调用中检索到 UdecxUsbSimpleEndpointInitAllocate的"
+          "description": "指向客户端驱动程序在上一次调用中检索到 UdecxUsbSimpleEndpointInitAllocate的",
+          "type": "out] PUDECXUSBENDPOINT_INIT"
         }
       ],
       "header": "udecxusbendpoint.h",
@@ -14422,7 +14688,8 @@
         {
           "name": "UdecxUsbEndpoint",
           "direction": "in",
-          "description": "UDE 终结点对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbEndpointCreate中检索了此指针。"
+          "description": "UDE 终结点对象的句柄。 客户端驱动程序在上一次调用 UdecxUsbEndpointCreate中检索了此指针。",
+          "type": "UDECXUSBENDPOINT"
         }
       ],
       "return_value": "无返回值",
@@ -14577,7 +14844,8 @@
         {
           "name": "UdeWdfDevice",
           "direction": "In",
-          "description": "表示 USB 设备的框架设备对象的句柄。 客户端驱动程序在上一次调用"
+          "description": "表示 USB 设备的框架设备对象的句柄。 客户端驱动程序在上一次调用",
+          "type": "[In] WDFDEVICE"
         }
       ],
       "header": "udecxwdfdevice.h",
@@ -14586,7 +14854,11 @@
         "UdeCx"
       ],
       "confidence": 0.7,
-      "_source_line": 12094
+      "_source_line": 12094,
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::UdecxWdfDeviceResetComplete",
@@ -14597,7 +14869,8 @@
       "parameters": [
         {
           "name": "UdeWdfDevice",
-          "description": "表示已重置控制器的框架设备对象的句柄。 客户端驱动程序在上一次调用 UdecxWdfDeviceAddUsbDeviceEmulation中初始化了此对象。"
+          "description": "表示已重置控制器的框架设备对象的句柄。 客户端驱动程序在上一次调用 UdecxWdfDeviceAddUsbDeviceEmulation中初始化了此对象。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
@@ -14629,7 +14902,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 12155
+      "_source_line": 12155,
+      "return_value": {
+        "type": "BOOLEAN",
+        "description": ""
+      }
     },
     {
       "id": "windows::UdecxWdfDevice",
@@ -14728,7 +15005,8 @@
         {
           "name": "UfxDevice",
           "direction": "in",
-          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。[in] Status 正在完成的事件的状态。"
+          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。[in] Status 正在完成的事件的状态。",
+          "type": "UFXDEVICE"
         }
       ],
       "return_value": {
@@ -14760,7 +15038,8 @@
         {
           "name": "UfxDevice",
           "direction": "in",
-          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。"
+          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。",
+          "type": "UFXDEVICE"
         }
       ],
       "return_value": {
@@ -14786,7 +15065,8 @@
         {
           "name": "UfxDevice",
           "direction": "in",
-          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。"
+          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。",
+          "type": "UFXDEVICE"
         }
       ],
       "return_value": {
@@ -14812,7 +15092,8 @@
         {
           "name": "UfxDevice",
           "direction": "in",
-          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。"
+          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。",
+          "type": "UFXDEVICE"
         }
       ],
       "return_value": "此函数不返回任何值。",
@@ -14836,7 +15117,8 @@
         {
           "name": "UfxDevice",
           "direction": "in",
-          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。"
+          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。",
+          "type": "UFXDEVICE"
         }
       ],
       "return_value": {
@@ -14862,7 +15144,8 @@
         {
           "name": "UfxDevice",
           "direction": "in",
-          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。"
+          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。",
+          "type": "UFXDEVICE"
         }
       ],
       "return_value": {
@@ -14888,7 +15171,8 @@
         {
           "name": "UfxDevice",
           "direction": "in",
-          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。[in] PortType 包含类型为 USBFN_PORT_TYPE的枚举值。"
+          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。[in] PortType 包含类型为 USBFN_PORT_TYPE的枚举值。",
+          "type": "UFXDEVICE"
         }
       ],
       "return_value": {
@@ -14920,11 +15204,13 @@
         {
           "name": "UfxDevice",
           "direction": "in",
-          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。[in] Request 框架请求对象的句柄。[in] OutputBufferLength 如果输出缓冲区可用，则请求的输出缓冲区的长度（以字节为单位）。[in] InputBufferLength 如果输入缓冲区可用，则请求的输入缓冲区的长度（以字节为单位）。[in] IoControlCode 与请求关联的驱动程序定义或系统定义的 IOCTL。"
+          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。[in] Request 框架请求对象的句柄。[in] OutputBufferLength 如果输出缓冲区可用，则请求的输出缓冲区的长度（以字节为单位）。[in] InputBufferLength 如果输入缓冲区可用，则请求的输入缓冲区的长度（以字节为单位）。[in] IoControlCode 与请求关联的驱动程序定义或系统定义的 IOCTL。",
+          "type": "UFXDEVICE"
         }
       ],
       "return_value": {
-        "description": "一个布尔值，指示调用是否成功。"
+        "description": "一个布尔值，指示调用是否成功。",
+        "type": "BOOLEAN"
       },
       "remarks": "客户端驱动程序调用 UfxDeviceIoControl，将它在 EvtIoDeviceControl 回调函数中接收的非内部 IOCTL 转发到 UFX。",
       "header": "ufxbase.h",
@@ -14945,11 +15231,13 @@
         {
           "name": "UfxDevice",
           "direction": "in",
-          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。[in] Request 框架请求对象的句柄。[in] OutputBufferLength 如果输出缓冲区可用，则请求的输出缓冲区的长度（以字节为单位）。[in] InputBufferLength 如果输入缓冲区可用，则请求的输入缓冲区的长度（以字节为单位）。[in] IoControlCode 与请求关联的驱动程序定义或系统定义的 IOCTL。"
+          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。[in] Request 框架请求对象的句柄。[in] OutputBufferLength 如果输出缓冲区可用，则请求的输出缓冲区的长度（以字节为单位）。[in] InputBufferLength 如果输入缓冲区可用，则请求的输入缓冲区的长度（以字节为单位）。[in] IoControlCode 与请求关联的驱动程序定义或系统定义的 IOCTL。",
+          "type": "UFXDEVICE"
         }
       ],
       "return_value": {
-        "description": "一个布尔值，指示调用是否成功。"
+        "description": "一个布尔值，指示调用是否成功。",
+        "type": "BOOLEAN"
       },
       "remarks": "客户端驱动程序调用 UfxDeviceIoInternalControl，将它在其 EvtIoInternalDeviceControl 回调函数中接收的内部 IOCTL 转发到 UFX。 以下示例演示如何： C++ VOID",
       "header": "ufxbase.h",
@@ -14970,7 +15258,8 @@
         {
           "name": "UfxDevice",
           "direction": "in",
-          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。[in] PortType 包含类型为 USBFN_PORT_TYPE的枚举值。[in] Action 包含类型为 USBFN_ACTION的枚举值。"
+          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。[in] PortType 包含类型为 USBFN_PORT_TYPE的枚举值。[in] Action 包含类型为 USBFN_ACTION的枚举值。",
+          "type": "UFXDEVICE"
         }
       ],
       "return_value": {
@@ -15188,7 +15477,7 @@
     {
       "id": "windows::EpContext",
       "name": "EpContext",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "用于存储UFX端点上下文的结构体，包含设备上下文和回调函数等成员",
       "header": "ufxclient.h",
       "deprecated": false,
@@ -15198,7 +15487,8 @@
         "WdfDevice"
       ],
       "confidence": 0.6,
-      "_source_line": 12595
+      "_source_line": 12595,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::UfxEndpointGetTransferQueue",
@@ -15210,11 +15500,13 @@
         {
           "name": "UfxEndpoint",
           "direction": "in",
-          "description": "从上一次调用 UfxEndpointCreate返回的终结点对象的句柄。"
+          "description": "从上一次调用 UfxEndpointCreate返回的终结点对象的句柄。",
+          "type": "UFXENDPOINT"
         }
       ],
       "return_value": {
-        "description": "框架队列对象的句柄。"
+        "description": "框架队列对象的句柄。",
+        "type": "WDFQUEUE"
       },
       "remarks": "有关演示如何创建终结点对象并初始化其上下文的代码示例，请参阅 UfxEndpointCreate的“备 注”部分。",
       "requirements": {
@@ -15580,7 +15872,7 @@
     {
       "id": "windows::PFN_UFX_DEVICE_PORT_CHANGE",
       "name": "PFN_UFX_DEVICE_PORT_CHANGE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "EvtDevicePortChange; PFN_UFX_DEVICE_PORT_DETECT EvtDevicePortDetect;",
       "header": "ufxclient.h",
       "deprecated": false,
@@ -15588,7 +15880,8 @@
         "EvtDevicePortChange"
       ],
       "confidence": 0.75,
-      "_source_line": 13168
+      "_source_line": 13168,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PFN_UFX_DEVICE_CONTROLLER_RESET",
@@ -15758,7 +16051,7 @@
     {
       "id": "windows::CONTROLLER_EVENT",
       "name": "CONTROLLER_EVENT",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Defines a controller event structure.",
       "header": "ufxclient.h",
       "deprecated": false,
@@ -15767,7 +16060,8 @@
         "UNREFERENCED_PARAMETER"
       ],
       "confidence": 0.75,
-      "_source_line": 13548
+      "_source_line": 13548,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::InterruptContext",
@@ -15806,7 +16100,8 @@
         {
           "name": "UfxDevice",
           "direction": "in",
-          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。[in] DeviceSpeed 包含 USB_DEVICE_SPEED 类型的值，该值指示设备的速度。"
+          "description": "通过调用 UfxDeviceCreate 调用驱动程序创建的 UFX 设备对象的句柄。[in] DeviceSpeed 包含 USB_DEVICE_SPEED 类型的值，该值指示设备的速度。",
+          "type": "UFXDEVICE"
         }
       ],
       "return_value": "客户端驱动程序在收到总线重置事件时调用 UfxDeviceNotifyReset。应禁用所有非默认终结点，并重置默认终结点。设备将移动到默认状态。客户端驱动程序通常从其 EvtInterruptDpc 回调函数调用 UfxDeviceNotifyReset。",
@@ -15824,7 +16119,7 @@
     {
       "id": "windows::UfxDeviceProprietaryChargerDetectComple",
       "name": "UfxDeviceProprietaryChargerDetectComple",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "通知 UFX 检测到的专有端口/充电器类型。",
       "syntax": "void UfxDeviceProprietaryChargerDetectComplete(   [in] UFXDEVICE                UfxDevice,\n[in] PUFX_PROPRIETARY_CHARGER DetectedCharger);",
       "parameters": [
@@ -15846,7 +16141,8 @@
         "UfxDeviceProprietaryChargerDetectComplete"
       ],
       "confidence": 0.75,
-      "_source_line": 13953
+      "_source_line": 13953,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::IOCTL_INTERNAL_USBFN_TRANSFER_IN_APPEND_ZERO_PKT",
@@ -16087,15 +16383,20 @@
         {
           "name": "IoResourceList",
           "direction": "in",
-          "description": "将资源描述符追加到的角色的 I/O 资源列表对象。 此对象由框架分配，并在框架调用驱动程序的 EVT_URS_DEVICE_FILTER_RESOURCE_REQUIREMENTS 实现时传递给客户端驱动程序。"
+          "description": "将资源描述符追加到的角色的 I/O 资源列表对象。 此对象由框架分配，并在框架调用驱动程序的 EVT_URS_DEVICE_FILTER_RESOURCE_REQUIREMENTS 实现时传递给客户端驱动程序。",
+          "type": "URSIORESLIST"
         },
         {
           "name": "Descriptor",
           "direction": "in",
-          "description": "指向包含角色的资源描述符的IO_RESOURCE_DESCRIPTOR的指针。"
+          "description": "指向包含角色的资源描述符的IO_RESOURCE_DESCRIPTOR的指针。",
+          "type": "PIO_RESOURCE_DESCRIPTOR"
         }
       ],
-      "return_value": "如果成功，该方法将返回 STATUS_SUCCESS。否则，此方法可能会返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果成功，该方法将返回 STATUS_SUCCESS。否则，此方法可能会返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "客户端驱动程序调用 UrsDeviceInitialize 后，框架会为资源要求列表分配内存。当 USB 双角色类扩展调用客户端驱动程序的 EVT_URS_DEVICE_FILTER_RESOURCE_REQUIREMENTS 实现时，使用此函数添加资源描述符。",
       "header": "ursdevice.h",
       "deprecated": false,
@@ -16224,11 +16525,13 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中检索到的框架设备对象的句柄。[in] Config 指向客户端驱动程序通过调用 URS_CONFIG_INIT初始化的 URS_CONFIG 结构的指针。"
+          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中检索到的框架设备对象的句柄。[in] Config 指向客户端驱动程序通过调用 URS_CONFIG_INIT初始化的 URS_CONFIG 结构的指针。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，该方法将返回 STATUS_SUCCESS。否则，此方法可能会返回相应的 NTSTATUS 错误代码。"
+        "description": "如果操作成功，该方法将返回 STATUS_SUCCESS。否则，此方法可能会返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "remarks": "USB 双角色控制器的客户端驱动程序必须在 WdfDeviceCreate 调用后调用此方法。客户端驱动程序在其 EvtDriverDeviceAdd 实现中调用此方法。在此调用期间，客户端驱动程序提供的事件回调实现也通过设置 URS_CONFIG 的相应成员进行注册。该方法为主机和函数角色创建资源列表，以及处理发送到控制器的 IOCTL 请求所需的队列。在每个角色切换操作中，当前角色的子设备堆栈被销毁，并加载新角色的设备堆栈。",
       "header": "ursdevice.h",
@@ -16265,7 +16568,8 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中检索到的框架设备对象的句柄。[in] HardwareEventReportingSupported 一个布尔值，指示对报告硬件事件的支持。 TRUE 表示客户端驱动程序将通过调用 UrsReportHardwareEvent来报告硬件事件。 FALSE 表示客户端驱动程序未处理硬件事件报告。"
+          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中检索到的框架设备对象的句柄。[in] HardwareEventReportingSupported 一个布尔值，指示对报告硬件事件的支持。 TRUE 表示客户端驱动程序将通过调用 UrsReportHardwareEvent来报告硬件事件。 FALSE 表示客户端驱动程序未处理硬件事件报告。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
@@ -16305,7 +16609,8 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中检索到的框架设备对象的句柄。[in] PoHandle 表示使用 PoFx 注册设备的句柄。 客户端驱动程序从 EvtDeviceWdmPostPoFxRegisterDevice 和 EvtDeviceWdmPrePoFxUnregisterDevice 回调函数中的 WDF 接收此句柄。"
+          "description": "客户端驱动程序在上一次调用 WdfDeviceCreate中检索到的框架设备对象的句柄。[in] PoHandle 表示使用 PoFx 注册设备的句柄。 客户端驱动程序从 EvtDeviceWdmPostPoFxRegisterDevice 和 EvtDeviceWdmPrePoFxUnregisterDevice 回调函数中的 WDF 接收此句柄。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": "Client drivers for dual-role controllers must be power policy owners. To receive notifications from Power Management Framework (PoFx), drivers must register PoFx callback functions after calling UrsDeviceInitialize.",
@@ -17230,13 +17535,14 @@
     {
       "id": "windows::TransferSegmentLA",
       "name": "TransferSegmentLA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "传输段的物理地址。",
       "header": "usb.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.5,
-      "_source_line": 16271
+      "_source_line": 16271,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::ClientTransferRingSegmentPAIn",
@@ -17385,7 +17691,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 16649,
-      "return_value": "NTSTATUS code indicating success or failure"
+      "return_value": {
+        "type": "typedef",
+        "description": "NTSTATUS code indicating success or failure"
+      }
     },
     {
       "id": "windows::PUSB_BUSIFFN_GETUSBDI_VERSION",
@@ -17436,7 +17745,11 @@
         "QueryBusInformation"
       ],
       "confidence": 0.8,
-      "_source_line": 16889
+      "_source_line": 16889,
+      "return_value": {
+        "type": "typedef",
+        "description": ""
+      }
     },
     {
       "id": "windows::PUSB_BUSIFFN_QUERY_BUS_INFORMATION",
@@ -18050,7 +18363,8 @@
         {
           "name": "USBDHandle",
           "direction": "in",
-          "description": "客户端驱动程序在对 USBD_CreateHandle 例程的上一次调用中检索的 USBD 句柄。[in] USBDInterfaceVersion 一个 LONG 值，表示要检查 USB 驱动程序堆栈的 USBD 接口版本。 可能的值包括"
+          "description": "客户端驱动程序在对 USBD_CreateHandle 例程的上一次调用中检索的 USBD 句柄。[in] USBDInterfaceVersion 一个 LONG 值，表示要检查 USB 驱动程序堆栈的 USBD 接口版本。 可能的值包括",
+          "type": "USBD_HANDLE"
         }
       ],
       "remarks": "此结构由 USB 客户端与例程 USBD_CreateConfigurationRequestEx一起使用。 客户端分配这些结构的数组，其中一个用于配置每个接口。 客户端还必须在调用 USBD_CreateConfigurationRequestEx之前，在数组中分配 NULL 条目用作终止符。",
@@ -18061,7 +18375,11 @@
         "USB_INTERFACE_DESCRIPTOR"
       ],
       "confidence": 0.8,
-      "_source_line": 18454
+      "_source_line": 18454,
+      "return_value": {
+        "type": "BOOLEAN",
+        "description": ""
+      }
     },
     {
       "id": "windows::USBD_INTERFACE_VERSION_602",
@@ -18825,7 +19143,7 @@
     {
       "id": "windows::IOCTL_INTERNAL_USB_GET_ROOTHUB_PD",
       "name": "IOCTL_INTERNAL_USB_GET_ROOTHUB_PD",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "USB 中心驱动程序使用 IOCTL_INTERNAL_USB_GET_ROOTHUB_PDO IOCTL。 请勿使用。",
       "header": "usbioctl.h",
       "deprecated": true,
@@ -18833,7 +19151,8 @@
         "IOCTL_INTERNAL_USB_GET_ROOTHUB_PDO"
       ],
       "confidence": 0.75,
-      "_source_line": 20660
+      "_source_line": 20660,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::IOCTL_INTERNAL_USB_GET_TT_DEVICE",
@@ -18851,7 +19170,7 @@
     {
       "id": "windows::IOCTL_INTERNAL_USB_RECORD_FAILUR",
       "name": "IOCTL_INTERNAL_USB_RECORD_FAILUR",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "USB 中心驱动程序使用 IOCTL_INTERNAL_USB_RECORD_FAILURE IOCTL。 请勿使用。",
       "header": "usbioctl.h",
       "deprecated": true,
@@ -18859,7 +19178,8 @@
         "IOCTL_INTERNAL_USB_RECORD_FAILURE"
       ],
       "confidence": 0.75,
-      "_source_line": 20725
+      "_source_line": 20725,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USB_IDLE_CALLBACK_INFO",
@@ -18904,7 +19224,7 @@
     {
       "id": "windows::USB_DEVICE_CHARACTERISTICS",
       "name": "USB_DEVICE_CHARACTERISTICS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含 USB 设备特性信息的结构体。与 IOCTL_USB_GET_DEVICE_CHARACTERISTICS I/O 控制请求一起使用，以获取 USB 设备的特性信息。",
       "syntax": "typedef struct _USB_DEVICE_CHARACTERISTICS {   ULONG Version;\nULONG Reserved[2];\nULONG UsbDeviceCharacteristicsFlags;\nULONG MaximumSendPathDelayInMilliSeconds;\nULONG MaximumCompletionPathDelayInMilliSeconds;\n} USB_DEVICE_CHARACTERISTICS, *PUSB_DEVICE_CHARACTERISTICS;",
       "members": [
@@ -18923,18 +19243,20 @@
         "Media"
       ],
       "confidence": 0.95,
-      "_source_line": 21003
+      "_source_line": 21003,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::IOCTL_USB_GET_FRAME_NUMBER_AND",
       "name": "IOCTL_USB_GET_FRAME_NUMBER_AND",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "_ QPC_FOR_TIME_SYNC IOCTL 检索与帧和微帧同步的系统查询性能计数器 （QPC） 值。",
       "header": "usbioctl.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 21022
+      "_source_line": 21022,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USB_PORTATTR_NO_OVERCURRENT_UI",
@@ -19213,7 +19535,7 @@
     {
       "id": "windows::SupportedUsbProtocols",
       "name": "SupportedUsbProtocols",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "设置为 USB_PROTOCOLS 中定义的一个或多个标志的按位或。请求完成后，SupportedUsbProtocols 包含标志，这些标志指示端口实际支持的协议。",
       "header": "usbioctl.h",
       "deprecated": false,
@@ -19221,7 +19543,8 @@
         "Flags"
       ],
       "confidence": 0.6,
-      "_source_line": 22339
+      "_source_line": 22339,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::AcquireBusInfo",
@@ -19399,12 +19722,14 @@
         {
           "name": "ClientHandle",
           "direction": "In",
-          "description": "客户端驱动程序在上一次调用 UsbPm_Register中收到的句柄。[In] ConnectorHandle 策略管理器调用驱动程序实现 EVT_USBPM_EVENT_CALLBACK时提供的连接器句柄。 句柄在 EventData.ConnectorStateChange.ConnectorHandleParams 值的成员中设置。"
+          "description": "客户端驱动程序在上一次调用 UsbPm_Register中收到的句柄。[In] ConnectorHandle 策略管理器调用驱动程序实现 EVT_USBPM_EVENT_CALLBACK时提供的连接器句柄。 句柄在 EventData.ConnectorStateChange.ConnectorHandleParams 值的成员中设置。",
+          "type": "[In] USBPM_CLIENT"
         },
         {
           "name": "Params",
           "direction": "In",
-          "description": "指向驱动程序提供的 USBPM_ASSIGN_CONNECTOR_POWER_LEVEL_PARAMS 结构的指针，该结构包含要协商的电压/电流/电源值。 通过调用"
+          "description": "指向驱动程序提供的 USBPM_ASSIGN_CONNECTOR_POWER_LEVEL_PARAMS 结构的指针，该结构包含要协商的电压/电流/电源值。 通过调用",
+          "type": "[In] PUSBPM_ASSIGN_CONNECTOR_POWER_LEVEL_PARAMS"
         }
       ],
       "requirements": {
@@ -19416,7 +19741,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 23018
+      "_source_line": 23018,
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::USBPM_CLIENT_CONFIG_EXTRA_INFO",
@@ -19440,7 +19769,8 @@
         {
           "name": "ExtraInfo",
           "direction": "Out",
-          "description": "指向要初始化的 USBPM_CLIENT_CONFIG_EXTRA_INFO 结构的指针。[In] WdmDeviceObject 如果客户端是内核模式驱动程序，则应在调用 USBPM_CLIENT_CONFIG_INIT后将其设置为内核模式 WDM 设备对象。 在用户模式下，不使用它。"
+          "description": "指向要初始化的 USBPM_CLIENT_CONFIG_EXTRA_INFO 结构的指针。[In] WdmDeviceObject 如果客户端是内核模式驱动程序，则应在调用 USBPM_CLIENT_CONFIG_INIT后将其设置为内核模式 WDM 设备对象。 在用户模式下，不使用它。",
+          "type": "[Out] PUSBPM_CLIENT_CONFIG_EXTRA_INFO"
         }
       ],
       "return_value": {
@@ -19665,14 +19995,15 @@
     {
       "id": "windows::USB_DEVICE_CAPABILITY_FIRMWARE_ST",
       "name": "USB_DEVICE_CAPABILITY_FIRMWARE_ST",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构体描述USB设备的固件状态能力，用于查询固件更新支持和哈希支持等属性。",
       "syntax": "typedef struct _USB_DEVICE_CAPABILITY_FIRMWARE_STATUS_DESCRIPTOR {\n    UCHAR bLength;\n    UCHAR bDescriptorType;\n    UCHAR bDevCapabilityType;\n    UCHAR bcdDescriptorVersion;\n    union {\n        ULONG AsUlong;\n        struct {\n            ULONG GetFirmwareImageHashSupport : 1;\n            ULONG DisallowFirmwareUpdateSupport : 1;\n            ULONG Reserved : 30;\n        };\n    } bmAttributes;\n} USB_DEVICE_CAPABILITY_FIRMWARE_STATUS_DESCRIPTOR, *PUSB_DEVICE_CAPABILITY_FIRMWARE_STATUS_DESCRIPTOR;",
       "header": "usbspec.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 23755
+      "_source_line": 23755,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::UsbBuildGetDescriptorRequest",
@@ -19713,13 +20044,14 @@
     {
       "id": "windows::USB_ENDPOINT_TYPE_INTERRUPT",
       "name": "USB_ENDPOINT_TYPE_INTERRUPT",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "之一。 wMaxPacketSize 指定可从此终结点发送或发送到此终结点的最大数据包大小。 bInterval bInterval 值包含中断和时序终结点的轮询间隔。 对于其他类型的终结点，应忽略此值。 此值反映设备在固件中的配置。 驱动程序无法更改它。 轮询间隔以及设备的速度和主机控制器的类型确定驱动程序应启动中断或异时序传输的频率。 bInterval 中的值不表示固定的时间量。 它是一个相对值，实际轮询频率也将取决于设备和 USB 主机控制器是以低、完整还是高速运行。 如果主机控制器或设备以低速运行，中断传输（也称为轮询“句点”）之间的时间段以 1 毫秒帧为单位进行测量，并且时间段与 bInterval 中的值相关，如下表所示： bInterval 的值 0 到 15 16 到 35 36 到 255 > 255 轮询周期（1 毫秒帧） 8 16 32 USB 规范禁止 > 255 的轮询间隔。 中断 支持。支持。支持。 对于可以全速运行的设备和主机控制器，周期以 1 毫秒帧为单位进行测量，该时间段与 bInterval 中的值相关，如下表所示： bInterval 的值 1 2 到 3 4 到 7 8 到 15 16 到 31 32 到 255 > 255 轮询周期（1 毫秒帧） 1 2 4 8 16 32 USB 规范禁止 > 255 的轮询间隔。 中断支持。支持。支持。支持。支持。支持。 等时的支持。支持。支持。支持。 不支持。不支持。 对于可以高速运行的设备和主机控制器，周期以微帧为单位进行测量。 每 1 毫秒帧有 8 个微帧。 句点与公式 Period = 2 ** （bInterval - 1） bInterval 中的值相关，如下表所示： bInterval 的值 1 2 3 4 5 6 7 到 255 > 255 轮询周期 （微帧） 1 2 4 8 16 32 32 USB 规范禁止 > 255 的轮询间隔。 中断支持。支持。支持。支持。支持。支持。支持。 等时的支持。支持。支持。支持。 不支持。不支持。不支持。 在时段和轮询间隔之间的上述表中的映射在 Windows 2000 及更高版本的作系统中有效。",
       "header": "usbspec.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 23898
+      "_source_line": 23898,
+      "_type_raw": "struct"
     }
   ]
 }

@@ -115,16 +115,19 @@
         {
           "name": "ppEffectsIds",
           "direction": "out",
-          "description": "指向表示音频处理效果的 GUID 列表的指针。 调用方负责通过调用 CoTaskMemFree 来释放此内存。"
+          "description": "指向表示音频处理效果的 GUID 列表的指针。 调用方负责通过调用 CoTaskMemFree 来释放此内存。",
+          "type": "LPGUID"
         },
         {
           "name": "pcEffects",
           "direction": "out",
-          "description": "列表中的音频处理效果计数。[in] Event 如果列表更改，将发出信号的事件的 HANDLE。"
+          "description": "列表中的音频处理效果计数。[in] Event 如果列表更改，将发出信号的事件的 HANDLE。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果方法调用成功，则 GetEffectsList 方法返回 S_OK。如果列表中没有任何效果，则该函数仍然成功，ppEffectsIds 返回 NULL 指针，pcEffects 返回计数 0。"
+        "description": "如果方法调用成功，则 GetEffectsList 方法返回 S_OK。如果列表中没有任何效果，则该函数仍然成功，ppEffectsIds 返回 NULL 指针，pcEffects 返回计数 0。",
+        "type": "HRESULT"
       },
       "remarks": "当音频处理效果列表从 GetEffectsList 返回的列表中更改时，APO 向指定的事件发出信号。APO 使用此事件，直到再次调用 GetEffectsList 或销毁 APO 为止。传递的句柄可以为 NULL，在这种情况下，APO 停止使用任何以前的句柄，并且不发出事件信号。APO 实现此方法以允许 Windows 发现 APO 应用的当前效果。效果列表可能取决于 APO 初始化的处理模式以及任何最终用户配置。处理模式由 APOInitSystemEffects2 的 AudioProcessingMode 成员指示。APO 应使用 Windows 定义的 GUID（例如",
       "header": "audioenginebaseapo.h",
@@ -158,7 +161,8 @@
         {
           "name": "pcFormats",
           "direction": "out",
-          "description": "指定指向无符号整数的指针。 无符号整数表示 sAPO 支持的格式数。"
+          "description": "指定指向无符号整数的指针。 无符号整数表示 sAPO 支持的格式数。",
+          "type": "UINT"
         },
         {
           "name": "nFormat",
@@ -167,7 +171,8 @@
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，否则返回 E_POINTER 表示指针无效"
+        "description": "成功时返回 S_OK，否则返回 E_POINTER 表示指针无效",
+        "type": "HRESULT"
       },
       "remarks": "有关 sAPOS 的详细信息，请参阅 系统效果音频处理对象。",
       "requirements": {
@@ -193,11 +198,13 @@
         {
           "name": "pu32ChannelCount",
           "direction": "out",
-          "description": "输入通道计数。"
+          "description": "输入通道计数。",
+          "type": "UINT32"
         }
       ],
       "return_value": {
-        "description": "成功时返回S_OK，否则返回错误代码。"
+        "description": "成功时返回S_OK，否则返回错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "返回的输入通道计数是指 APO 的输入端。",
       "requirements": {
@@ -222,7 +229,8 @@
         {
           "name": "pTime",
           "direction": "out",
-          "description": "指向 MFTIME 结构的指针，该结构将接收此 APO 引入的延迟单位数。 每个延迟单位表示 100 纳秒。"
+          "description": "指向 MFTIME 结构的指针，该结构将接收此 APO 引入的延迟单位数。 每个延迟单位表示 100 纳秒。",
+          "type": "HNSTIME"
         }
       ],
       "remarks": "如果调用此 APO 的客户端知道采样率，则客户端可以计算帧数的延迟。 若要获取整个音频信号处理流的总延迟，客户端必须查询处理链中的每个 APO 并添加结果。 重要 此方法不符合实时要求，不得从实时处理线程调用。",
@@ -237,7 +245,11 @@
         "GetRegistrationProperties"
       ],
       "confidence": 0.8,
-      "_source_line": 56
+      "_source_line": 56,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetAudioDeviceModulesManager",
@@ -248,11 +260,13 @@
       "parameters": [
         {
           "name": "pAudioDeviceModulesManager",
-          "description": "表示 IAudioDeviceModulesManager 的 IUnknown 接口。"
+          "description": "表示 IAudioDeviceModulesManager 的 IUnknown 接口。",
+          "type": "IUnknown"
         }
       ],
       "return_value": {
-        "description": "HRESULT。"
+        "description": "HRESULT。",
+        "type": "HRESULT"
       },
       "remarks": "下面的代码示例演示 IAudioDeviceModulesClient 的实现。 C++ STDMETHODIMP CTestModuleAPO::SetAudioDeviceModulesManager(_In_ IUnknown* pAudioDeviceModulesManager) { HRESULT hr = S_OK; CComQIPtr<Windows::Media::Devices::IAudioDeviceModulesManager> spModuleManager = pAudioDeviceModulesManager; ComPtr<IVectorView<AudioDeviceModule *>> spModules; // Cache the audio modules manager for later use within the apo m_AudioModulesManager = pAudioDeviceModulesManager; // Search the audio modules for a known module hr = m_pAudioDeviceModulesMgr->FindAllById(KNOWN_MODULE_ID, &spModules); if (SUCCEEDED(hr)) { // do something with the module(s) returned or cache them for later usage m_KnownModules = spModules; } return hr;}",
       "requirements": {
@@ -403,7 +417,7 @@
     {
       "id": "windows::AUDIO_MICROPHONE_BOOST_NOTIFICATION",
       "name": "AUDIO_MICROPHONE_BOOST_NOTIFICATION",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "表示音频麦克风提升 APO 通知的结构体。AUDIO_SYSTEMEFFECT 是表示系统效果音频处理对象（sAPO）的接口。",
       "header": "audioengineextensionapo.h",
       "deprecated": false,
@@ -411,7 +425,8 @@
         "AUDIO_SYSTEMEFFECT"
       ],
       "confidence": 0.75,
-      "_source_line": 131
+      "_source_line": 131,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION",
@@ -438,7 +453,7 @@
     {
       "id": "windows::KSP_PINMODE",
       "name": "KSP_PINMODE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "指定引脚工厂的引脚属性和支持的音频处理模式。",
       "syntax": "typedef struct tagKSP_PINMODE {   KSP_PIN PinProperty;\nGUID    AudioProcessingMode;} KSP_PINMODE, *PKSP_PINMODE;",
       "members": [
@@ -451,7 +466,8 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.95,
-      "_source_line": 137
+      "_source_line": 137,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::APO_FLAG_SAMPLESPERFRAME_MUST_MATCH",
@@ -546,7 +562,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 466
+      "_source_line": 466,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::APOERR_FORMAT_NOT_SUPPORTED",
@@ -1009,7 +1029,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 2406
+      "_source_line": 2406,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetAudioSystemEffectState",
@@ -1032,11 +1056,13 @@
       "parameters": [
         {
           "name": "pUncompressedAudioFormat",
-          "description": "指定指向 UNCOMPRESSEDAUDIOFORMAT 结构的指针。 ppIAudioMediaType 指定指向 IAudioMediaType 接口的指针。"
+          "description": "指定指向 UNCOMPRESSEDAUDIOFORMAT 结构的指针。 ppIAudioMediaType 指定指向 IAudioMediaType 接口的指针。",
+          "type": "const UNCOMPRESSEDAUDIOFORMAT"
         }
       ],
       "return_value": {
-        "description": "如果对函数的调用成功，函数 CreateAudioMediaTypeFromUncompressedAudioFormat 将返回 S_OK。 否则，它将返回相应的 HRESULT 错误代码。"
+        "description": "如果对函数的调用成功，函数 CreateAudioMediaTypeFromUncompressedAudioFormat 将返回 S_OK。 否则，它将返回相应的 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "实现自定义音频系统效果时， CreateAudioMediaTypeFromUncompressedAudioFormat 函数与 IAudioSystemEffectsCustomFormats：：GetFormat 一起使用，表示自定义音频数据格式并提供有关自定义格式的信息。 要求",
       "header": "audiomediatype.h",
@@ -1058,10 +1084,14 @@
         {
           "name": "pUncompressedAudioFormat",
           "direction": "out",
-          "description": "指定指向 UNCOMPRESSEDAUDIOFORMAT 结构的指针。"
+          "description": "指定指向 UNCOMPRESSEDAUDIOFORMAT 结构的指针。",
+          "type": "UNCOMPRESSEDAUDIOFORMAT"
         }
       ],
-      "return_value": "如果成功，返回 S_OK。否则，返回错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果成功，返回 S_OK。否则，返回错误代码。"
+      },
       "remarks": "返回的信息对于未压缩的格式很有用。 但是，对于压缩格式，此方法调用也将成功。 对 压缩的音频数据格式调用此函数时，必须确定返回的信息是否适用于压缩格式。",
       "header": "audiomediatype.h",
       "deprecated": false,

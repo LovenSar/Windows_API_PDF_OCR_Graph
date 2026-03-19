@@ -71,7 +71,8 @@
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，失败时返回错误代码。"
+        "description": "成功时返回 S_OK，失败时返回错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "通道音量控制仅适用于源语音和子混合语音。主语音不支持每通道音量设置。",
       "requirements": {
@@ -96,7 +97,8 @@
         {
           "name": "pChannelmask",
           "direction": "out",
-          "description": "返回此语音的通道掩码。 这对应于 WAVEFORMATEXTENSIBLE 结构的 dwChannelMask 成员。 返回值此方法不返回值。"
+          "description": "返回此语音的通道掩码。 这对应于 WAVEFORMATEXTENSIBLE 结构的 dwChannelMask 成员。 返回值此方法不返回值。",
+          "type": "DWORD"
         }
       ],
       "remarks": "pChannelMask 参数是音频系统报告的扬声器几何图形中各种声道的位掩码。X3DAudioInitializeSpeakerChannelMask 参数需要此信息。X3DAUDIO.H 标头声明许多位置定义 SPEAKER_ 来解码这些通道掩码。示例包括：",
@@ -104,7 +106,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 2490
+      "_source_line": 2490,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::HrtfDirectivityType",
@@ -468,11 +474,13 @@
         {
           "name": "init",
           "direction": "in",
-          "description": "指向 HrtfApoInit 结构的指针。 指定 XAPO 接口初始化的参数。[out] xApo IXAPO 接口的新实例。"
+          "description": "指向 HrtfApoInit 结构的指针。 指定 XAPO 接口初始化的参数。[out] xApo IXAPO 接口的新实例。",
+          "type": "const HrtfApoInit"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回 S_OK。如果失败，可能返回 E_POINTER（参数无效）或 E_INVALIDARG（初始化参数无效）。"
+        "description": "如果成功，返回 S_OK。如果失败，可能返回 E_POINTER（参数无效）或 E_INVALIDARG（初始化参数无效）。",
+        "type": "HRESULT"
       },
       "header": "hrtfapoapi.h",
       "deprecated": false,
@@ -483,7 +491,7 @@
     {
       "id": "windows::HrtfApoInit",
       "name": "HrtfApoInit",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "指定用于初始化 HRTF 空间音频的参数。",
       "syntax": "typedef struct HrtfApoInit {\n    // 结构体成员定义\n} HrtfApoInit;",
       "header": "hrtfapoapi.h",
@@ -492,7 +500,8 @@
         "HrtfDirectivity"
       ],
       "confidence": 0.7,
-      "_source_line": 206
+      "_source_line": 206,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::HrtfDirectivity",
@@ -599,7 +608,8 @@
       "description": "Sets the position of a sound source relative to the listener.",
       "syntax": "HRESULT SetSourcePosition( [in] const HrtfPosition *position );",
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -617,7 +627,7 @@
     {
       "id": "windows::X3DAUDIO_CONE",
       "name": "X3DAUDIO_CONE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "通过根据发射器的方向缩放 DSP 行为，指定单通道非 LFE 发射器的方向性。",
       "syntax": "typedef struct X3DAUDIO_CONE {\nFLOAT32 InnerAngle;   FLOAT32 OuterAngle;   FLOAT32 InnerVolume;   FLOAT32 OuterVolume;\nFLOAT32 InnerLPF;   FLOAT32 OuterLPF;\nFLOAT32 InnerReverb;   FLOAT32 OuterReverb;\n} X3DAUDIO_CONE, *LPX3DAUDIO_CONE;",
       "remarks": "有关音锥的详细说明，请参阅 音锥。平台要求：Windows 10 (XAudio2.9)；Windows 8，Windows Phone 8 (XAudio 2.8)；DirectX SDK (XAudio 2.7)",
@@ -637,7 +647,8 @@
         "X3DAUDIO_DISTANCE_CURVE"
       ],
       "confidence": 0.95,
-      "_source_line": 535
+      "_source_line": 535,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::X3DAUDIO_DISTANCE_CURVE",
@@ -658,7 +669,7 @@
     {
       "id": "windows::X3DAUDIO_VECTOR",
       "name": "X3DAUDIO_VECTOR",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "X3DAUDIO_VECTOR 结构定义一个三维向量，包含 X、Y、Z 三个 FLOAT32 分量。用于表示 X3DAudio 中的位置、方向、速度等三维空间数据。",
       "remarks": "X3DAudio 使用左手笛卡尔坐标系，x 轴上的值从左到右递增，y 轴上从下到上，z 轴的值从近到远。 方位角是从给定引用方向顺时针测量的。 若要将 X3DAudio 与右手坐标一起使用，必须取消 OrientFront、 OrientTop、 Position 和 Velocity 的 .z 元素。",
       "members": [
@@ -680,7 +691,8 @@
         "Position"
       ],
       "confidence": 0.85,
-      "_source_line": 692
+      "_source_line": 692,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::X3DAUDIO_EMITTER",
@@ -930,11 +942,13 @@
       "parameters": [
         {
           "name": "pSupportedFormat",
-          "description": "已知受 XAPO 支持的音频格式。 pRequestedFormat 要检查的音频格式必须是指向 WAVEFORMATEXTENSIBLE 结构的指针（如果 fOverWrite 为 TRUE）。 fOverwrite 如果 TRUE 指示 pRequestedFormat 在不支持请求的格式不受支持时，应使用支持的最接近的音 频格式进行覆盖。 最接近的音频格式由位深度、帧速率和声道计数按重要性顺序确定。"
+          "description": "已知受 XAPO 支持的音频格式。 pRequestedFormat 要检查的音频格式必须是指向 WAVEFORMATEXTENSIBLE 结构的指针（如果 fOverWrite 为 TRUE）。 fOverwrite 如果 TRUE 指示 pRequestedFormat 在不支持请求的格式不受支持时，应使用支持的最接近的音 频格式进行覆盖。 最接近的音频格式由位深度、帧速率和声道计数按重要性顺序确定。",
+          "type": "WAVEFORMATEX*pFormat, BOOL fOverwrite); 参数 pFormat 要验证的音频格式。 fOverwrite 如果为 TRUE，则指示如果指定的格式不受支持，则应用最接近的音频格式覆盖 pFormat 。 最 接近的音频格式由位深度、帧速率和声道计数按重要性顺序确定。 HRESULT ValidateFormatPair( const WAVEFORMATEX"
         }
       ],
       "return_value": {
-        "description": "如果支持音频格式，则返回S_OK。 返回XAPO_E_FORMAT_UNSUPPORTED如果音频格式不受支持，则如果 fOverwrite 为 TRUE，将使用最接近的音频格式覆盖 pFormat。 如果音频格式无效，则返回E_INVALIDARG，在这种情况下 ，pFormat 将保持不变。"
+        "description": "如果支持音频格式，则返回S_OK。 返回XAPO_E_FORMAT_UNSUPPORTED如果音频格式不受支持，则如果 fOverwrite 为 TRUE，将使用最接近的音频格式覆盖 pFormat。 如果音频格式无效，则返回E_INVALIDARG，在这种情况下 ，pFormat 将保持不变。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "xapobase.h",
@@ -1015,13 +1029,14 @@
     {
       "id": "windows::FrequencyCenter0",
       "name": "FrequencyCenter0",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "中心频率0（以Hz为单位）。必须介于FXEQ_MIN_FREQUENCY_CENTER和FXEQ_MAX_FREQUENCY_CENTER之间",
       "header": "xapofx.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 1824
+      "_source_line": 1824,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::FXMASTERINGLIMITER_DEFAULT_RELEASE",
@@ -1271,7 +1286,11 @@
         "XAUDIO2_VOICE_STATE"
       ],
       "confidence": 0.7,
-      "_source_line": 2590
+      "_source_line": 2590,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetFrequencyRatio",
@@ -1283,7 +1302,8 @@
         {
           "name": "pRatio",
           "direction": "out",
-          "description": "如果成功，则返回当前频率调整比率。"
+          "description": "如果成功，则返回当前频率调整比率。",
+          "type": "float"
         }
       ],
       "return_value": {
@@ -1324,16 +1344,19 @@
         {
           "name": "Ratio",
           "direction": "in",
-          "description": "频率调整比。 此值必须介于 XAUDIO2_MIN_FREQ_RATIO 和创建语音时指定的 MaxFrequencyRatio 参数之间， (请参阅 IXAudio2：：CreateSourceVoice) 。 XAUDIO2_MIN_FREQ_RATIO当前为 0.0005，这允许音调降低至多 11 个八度程。"
+          "description": "频率调整比。 此值必须介于 XAUDIO2_MIN_FREQ_RATIO 和创建语音时指定的 MaxFrequencyRatio 参数之间， (请参阅 IXAudio2：：CreateSourceVoice) 。 XAUDIO2_MIN_FREQ_RATIO当前为 0.0005，这允许音调降低至多 11 个八度程。",
+          "type": "float"
         },
         {
           "name": "OperationSet",
           "direction": "in",
-          "description": "将此调用标识为延迟批处理的一部分。 有关详细信息，请参阅 XAudio2 操作集 概述。"
+          "description": "将此调用标识为延迟批处理的一部分。 有关详细信息，请参阅 XAudio2 操作集 概述。",
+          "type": "UINT32"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回S_OK，否则返回错误代码。 有关错误代码的说明，请参阅 XAudio2 错误代码。"
+        "description": "如果成功，则返回S_OK，否则返回错误代码。 有关错误代码的说明，请参阅 XAudio2 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "频率调整表示为 源频率 / 目标频率。更改频率比率会更改音频在语音上播放的速率。大于 1.0 的比率将导致音频播放速度更快，低于 1.0 的比率将导致音频播放速度变慢。此外，频率比会影响语音上音频的音调。例如，值 1.0 对音频没有影响，而值 2.0 将音调提高一个八度，0.5 将音调降低一个八度。如果调用 SetFrequencyRatio 并指定有效范围之外的 Ratio 值，该方法会将频率比率设置为最接近的有效值，并为调试版本生成警告。注意 IXAudio2SourceVoice::GetFrequencyRatio 始终返回语音的实际当前频率比，但这可能与最近 IXAudio2SourceVoice::SetFrequencyRatio 调用设置的比率不匹配：实际比率仅在音频引擎下次处理时或在相应的 IXAudio2::CommitChanges 调用之后才会更改（如果使用了延迟操作 ID）。平台要求：Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio2.8); DirectX SDK (XAudio2.7)",
       "requirements": {
@@ -1369,7 +1392,8 @@
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回S_OK，否则返回错误代码。 有关错误代码的说明，请参阅 XAudio2 错误代码。"
+        "description": "如果成功，则返回S_OK，否则返回错误代码。 有关错误代码的说明，请参阅 XAudio2 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "如果 XAudio2 引擎停止，语音将停止运行。 但是，它仍处于启动状态，以便在引擎启动后立即开始运行。 首次创建时，源语音处于停止状态。 子混合和主语音处于启动状态。 调用 Start 后，如果在调用 IXAudio2SourceVoice：：Stop 之前再次调用，则它不再有效。 此外，多次调用 “启动” ，而不匹配对 IXAudio2SourceVoice：：Stop 的调用将导致调试版本中出现警告消息。 平台要求 Windows 10 (XAudio2.9) ;Windows 8、Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)",
       "header": "xaudio2.h",
@@ -1407,11 +1431,13 @@
         {
           "name": "pBuffer",
           "direction": "in",
-          "description": "指向队列 XAUDIO2_BUFFER 结构的指针。[in] pBufferWMA 指向提交 WMA 数据时使用的其他 XAUDIO2_BUFFER_WMA 结构的指针。"
+          "description": "指向队列 XAUDIO2_BUFFER 结构的指针。[in] pBufferWMA 指向提交 WMA 数据时使用的其他 XAUDIO2_BUFFER_WMA 结构的指针。",
+          "type": "const XAUDIO2_BUFFER"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回S_OK，否则返回错误代码。 有关 XAudio2 特定错误代码 的说明，请参阅 XAudio2 错误代码。"
+        "description": "如果成功，则返回S_OK，否则返回错误代码。 有关 XAudio2 特定错误代码 的说明，请参阅 XAudio2 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "语音按提交顺序处理并播放队列中的缓冲区。",
       "header": "xaudio2.h",
@@ -1504,7 +1530,8 @@
         {
           "name": "pDestinationVoice",
           "direction": "in",
-          "description": "IXAudio2Voice 指针，指向将读取其筛选器参数的发送的目标语音。[out] pParameters 指向包含筛选器信息的 XAUDIO2_FILTER_PARAMETERS 结构的指针。 返回值此方法不返回值。"
+          "description": "IXAudio2Voice 指针，指向将读取其筛选器参数的发送的目标语音。[out] pParameters 指向包含筛选器信息的 XAUDIO2_FILTER_PARAMETERS 结构的指针。 返回值此方法不返回值。",
+          "type": "IXAudio2Voice"
         }
       ],
       "remarks": "如果未使用 XAUDIO2_SEND_USEFILTER 标志创建发送，则 GetOutputFilterParameters 将失败。此方法仅适用于属于源语音和子混合语音的发送，对主混合语音的发送没有影响。注意：IXAudio2Voice::GetOutputFilterParameters 始终返回此发送的实际当前筛选器参数。但是，这些参数可能与最新的 IXAudio2Voice::SetOutputFilterParameters 调用设置的参数不匹配：实际参数仅在音频引擎下次处理时生效。",
@@ -1515,7 +1542,11 @@
         "XAUDIO2_SEND_USEFILTER"
       ],
       "confidence": 0.7,
-      "_source_line": 2834
+      "_source_line": 2834,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetEffectParameters",
@@ -1531,7 +1562,8 @@
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回S_OK，否则返回错误代码。 有关错误代码的说明，请参阅 XAudio2 错误代码。"
+        "description": "如果成功，则返回S_OK，否则返回错误代码。 有关错误代码的说明，请参阅 XAudio2 错误代码。",
+        "type": "\\\\HRESULT"
       },
       "remarks": "如果未使用 XAUDIO2_VOICE_USEFILTER 标志创建语音，SetFilterParameters 将失败。此方法仅在源语音和子混合语音上可用，对主语音没有影响。 注意IXAudio2Voice：：GetFilterParameters 始终返回此语音的实际当前筛选器参数。 但是，这些参数可能与最新的 IXAudio2Voice：：SetFilterParameters 调用设置的参数不匹配：仅在音频引擎下次在 IXAudio2Voice：：SetFilterParameters 调用 (之后或在相应的 IXAudio2：：CommitChanges 调用之后，更改实际参数， 如果 调用 IXAudio2Voice：： SetFilterParameters 且) 延迟的操作 ID。 平台要求 Windows 10 (XAudio2.9) ;Windows 8，Windows Phone 8 (XAudio 2.8) ;DirectX SDK (XAudio 2.7)",
       "requirements": {
@@ -1561,7 +1593,8 @@
         {
           "name": "pDestinationVoice",
           "direction": "in",
-          "description": "指定要检索其输出矩阵的目标 IXAudio2Voice 的指针。 注意 如果语音发送到单个目标语音，则指定 NULL 将导致 GetOutputMatrix 针对该目标语 音进行操作。"
+          "description": "指定要检索其输出矩阵的目标 IXAudio2Voice 的指针。 注意 如果语音发送到单个目标语音，则指定 NULL 将导致 GetOutputMatrix 针对该目标语 音进行操作。",
+          "type": "IXAudio2Voice*"
         },
         {
           "name": "SourceChannels",
@@ -1585,7 +1618,8 @@
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回S_OK，否则返回错误代码。 有关 XAudio2 特定错误代码的说明，请参阅 XAudio2 错误代码。"
+        "description": "如果成功，则返回S_OK，否则返回错误代码。 有关 XAudio2 特定错误代码的说明，请参阅 XAudio2 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "如果未使用 XAUDIO2_SEND_USEFILTER 标志创建发送，则 SetOutputFilterParameters 将失败。此方法仅在属于源语音和子混合语音的发送上可用，对主语音的发送没有影响。",
       "requirements": {
@@ -1641,7 +1675,11 @@
         "XAUDIO2_VOICE_USEFILTER"
       ],
       "confidence": 0.8,
-      "_source_line": 3027
+      "_source_line": 3027,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetEffectChain",
@@ -1682,7 +1720,8 @@
       "parameters": [
         {
           "name": "pBufferContext",
-          "description": "提交缓冲区时分配给 XAUDIO2_BUFFER 结构的 pContext 成员的上下文指针。 pBufferContext 提交缓冲区时分配给 XAUDIO2_BUFFER 结构的 pContext 成员的上下文指针。"
+          "description": "提交缓冲区时分配给 XAUDIO2_BUFFER 结构的 pContext 成员的上下文指针。 pBufferContext 提交缓冲区时分配给 XAUDIO2_BUFFER 结构的 pContext 成员的上下文指针。",
+          "type": "void"
         }
       ],
       "return_value": {
@@ -1763,7 +1802,8 @@
       "parameters": [
         {
           "name": "BytesRequired",
-          "description": "必须立即提交以避免饥饿的字节数。 这允许实现实时流式处理方案;客户端可以始终将绝对最小数据保留在语音上排队，并在需要数据之前传递新数据。 此模型提供 XAudio2 可实现的最低延迟。 对于 xWMA 和 XMA，BytesRequired 将始终为零，因为 xWMA 或 XMA 数据帧的概念毫无意义。 注意 在源语音上始终有大量可用数据的情况下， BytesRequired 应始终报告零，因为它不 需要立即任何样本来避免故障。"
+          "description": "必须立即提交以避免饥饿的字节数。 这允许实现实时流式处理方案;客户端可以始终将绝对最小数据保留在语音上排队，并在需要数据之前传递新数据。 此模型提供 XAudio2 可实现的最低延迟。 对于 xWMA 和 XMA，BytesRequired 将始终为零，因为 xWMA 或 XMA 数据帧的概念毫无意义。 注意 在源语音上始终有大量可用数据的情况下， BytesRequired 应始终报告零，因为它不 需要立即任何样本来避免故障。",
+          "type": "UINT32"
         }
       ],
       "return_value": {
@@ -2059,7 +2099,8 @@
         {
           "name": "pI3DL2",
           "direction": "in",
-          "description": "指向包含要转换的 I3DL2 参数 的 XAUDIO2FX_REVERB_I3DL2_PARAMETERS 结构的指针。 为 XAUDIO2FX_REVERB_I3DL2_PARAMETERS 结构定义了许多预设值;有关详细信息，请参阅"
+          "description": "指向包含要转换的 I3DL2 参数 的 XAUDIO2FX_REVERB_I3DL2_PARAMETERS 结构的指针。 为 XAUDIO2FX_REVERB_I3DL2_PARAMETERS 结构定义了许多预设值;有关详细信息，请参阅",
+          "type": "const XAUDIO2FX_REVERB_I3DL2_PARAMETERS"
         }
       ],
       "header": "xaudio2fx.h",

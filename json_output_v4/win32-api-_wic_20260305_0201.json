@@ -147,7 +147,8 @@
         {
           "name": "puiChannelCount",
           "direction": "out",
-          "description": "类型： UINT* 接收通道计数的指针。"
+          "description": "类型： UINT* 接收通道计数的指针。",
+          "type": "UINT"
         }
       ],
       "return_value": {
@@ -255,17 +256,20 @@
         {
           "name": "ppropOptions",
           "direction": "in",
-          "description": "类型： PROPBAG2* 指向用于创建编码器属性包 的PROPBAG2 选项数组的指针。"
+          "description": "类型： PROPBAG2* 指向用于创建编码器属性包 的PROPBAG2 选项数组的指针。",
+          "type": "PROPBAG2"
         },
         {
           "name": "cCount",
           "direction": "in",
-          "description": "类型： UINT ppropOptions 数组中PROPBAG2结构的数目。"
+          "description": "类型： UINT ppropOptions 数组中PROPBAG2结构的数目。",
+          "type": "UINT"
         },
         {
           "name": "ppIPropertyBag",
           "direction": "out",
-          "description": "类型： IPropertyBag2** 接收指向编码器 IPropertyBag2 的指针的指针。"
+          "description": "类型： IPropertyBag2** 接收指向编码器 IPropertyBag2 的指针的指针。",
+          "type": "IPropertyBag2"
         },
         {
           "name": "guidMetadataFormat",
@@ -379,7 +383,8 @@
         {
           "name": "ppIEncoderOptions",
           "direction": "in, out",
-          "description": "类型： IPropertyBag2** 可选。 接收用于后续帧初始化的命名属性。 请参阅“备注”。"
+          "description": "类型： IPropertyBag2** 可选。 接收用于后续帧初始化的命名属性。 请参阅“备注”。",
+          "type": "out] IPropertyBag2"
         }
       ],
       "return_value": {
@@ -509,17 +514,20 @@
         {
           "name": "cchColorManagementVersion",
           "direction": "in",
-          "description": "类型： UINT 版本缓冲区的大小。 首次调用时使用 0 以确定所需的缓冲区大小。"
+          "description": "类型： UINT 版本缓冲区的大小。 首次调用时使用 0 以确定所需的缓冲区大小。",
+          "type": "UINT"
         },
         {
           "name": "wzColorManagementVersion",
           "direction": "in, out",
-          "description": "类型： WCHAR* 接收颜色管理版本号。 首次调用时使用 NULL 以确定所需的缓冲区大小。"
+          "description": "类型： WCHAR* 接收颜色管理版本号。 首次调用时使用 NULL 以确定所需的缓冲区大小。",
+          "type": "out] WCHAR"
         },
         {
           "name": "pcchActual",
           "direction": "in, out",
-          "description": "类型： UINT* 检索全彩管理版本号所需的实际缓冲区大小。"
+          "description": "类型： UINT* 检索全彩管理版本号所需的实际缓冲区大小。",
+          "type": "out] UINT"
         }
       ],
       "return_value": {
@@ -604,7 +612,10 @@
           "description": "类型： UINT* 一个指针，用于接收图像中的帧总数。"
         }
       ],
-      "return_value": "HRESULT GetDecoderInfo([out] IWICBitmapDecoderInfo **ppIDecoderInfo);",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "HRESULT GetDecoderInfo([out] IWICBitmapDecoderInfo **ppIDecoderInfo);"
+      },
       "requirements": {
         "target_platform": "Windows",
         "header": "wincodec.h",
@@ -721,7 +732,8 @@
         {
           "name": "pguidVendor",
           "direction": "out",
-          "description": "类型： GUID* 接收组件的供应商 GUID 的指针。"
+          "description": "类型： GUID* 接收组件的供应商 GUID 的指针。",
+          "type": "GUID"
         },
         {
           "name": "cchVersion",
@@ -768,7 +780,8 @@
         {
           "name": "wzFilename",
           "direction": "in",
-          "description": "类型： LPCWSTR 文件的名称。返回值类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+          "description": "类型： LPCWSTR 文件的名称。返回值类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。",
+          "type": "LPCWSTR"
         }
       ],
       "remarks": "初始化颜色上下文后无法重新初始化。此函数与InitializeFromIStream、InitializeFromIStreamRegion和InitializeFromMemory等函数属于同一系列。",
@@ -779,7 +792,11 @@
         "InitializeFromMemory"
       ],
       "confidence": 0.8,
-      "_source_line": 300
+      "_source_line": 300,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::InitializePredefined",
@@ -806,7 +823,11 @@
         "SetColorContexts"
       ],
       "confidence": 0.7,
-      "_source_line": 327
+      "_source_line": 327,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetDestinationColorContext",
@@ -895,7 +916,8 @@
         {
           "name": "WhitePointKelvin",
           "direction": "in",
-          "description": "类型： UINT 白点开尔文值。 可接受的开尔文值为 1,500 到 30,000。"
+          "description": "类型： UINT 白点开尔文值。 可接受的开尔文值为 1,500 到 30,000。",
+          "type": "UINT"
         },
         {
           "name": "Red",
@@ -982,17 +1004,20 @@
         {
           "name": "cchDeviceModels",
           "direction": "in",
-          "description": "类型： UINT wzDeviceModels 缓冲区的长度。"
+          "description": "类型： UINT wzDeviceModels 缓冲区的长度。",
+          "type": "UINT"
         },
         {
           "name": "wzDeviceModels",
           "direction": "in, out",
-          "description": "类型： WCHAR* 用于接收元数据处理程序支持的设备模型的指针。"
+          "description": "类型： WCHAR* 用于接收元数据处理程序支持的设备模型的指针。",
+          "type": "out] WCHAR"
         },
         {
           "name": "pcchActual",
           "direction": "out",
-          "description": "类型： UINT* 检索设备模型所需的实际长度。"
+          "description": "类型： UINT* 检索设备模型所需的实际长度。",
+          "type": "UINT"
         },
         {
           "name": "pguidMetadataFormat",
@@ -1034,17 +1059,20 @@
         {
           "name": "cchFileExtensions",
           "direction": "in",
-          "description": "类型： UINT 文件扩展名缓冲区的大小。 首次调用时使用 0 以确定所需的缓冲区大小。"
+          "description": "类型： UINT 文件扩展名缓冲区的大小。 首次调用时使用 0 以确定所需的缓冲区大小。",
+          "type": "UINT"
         },
         {
           "name": "wzFileExtensions",
           "direction": "in, out",
-          "description": "类型： WCHAR* 接收与编解码器关联的文件扩展名的逗号分隔列表。 首次调用时使用 NULL 以确定所需的缓冲区大小。"
+          "description": "类型： WCHAR* 接收与编解码器关联的文件扩展名的逗号分隔列表。 首次调用时使用 NULL 以确定所需的缓冲区大小。",
+          "type": "out] WCHAR"
         },
         {
           "name": "pcchActual",
           "direction": "in, out",
-          "description": "类型： UINT* 检索与编解码器关联的所有文件扩展名所需的实际缓冲区大小。"
+          "description": "类型： UINT* 检索与编解码器关联的所有文件扩展名所需的实际缓冲区大小。",
+          "type": "out] UINT"
         }
       ],
       "return_value": {
@@ -1075,17 +1103,20 @@
         {
           "name": "cchMimeTypes",
           "direction": "in",
-          "description": "类型： UINT mime 类型缓冲区的大小。 首次调用时使用 0 来确定所需的缓冲区大小。"
+          "description": "类型： UINT mime 类型缓冲区的大小。 首次调用时使用 0 来确定所需的缓冲区大小。",
+          "type": "UINT"
         },
         {
           "name": "wzMimeTypes",
           "direction": "out",
-          "description": "类型： WCHAR* 接收与编解码器关联的 mime 类型。 首次调用时使用 NULL 来确定所需的缓冲区大小。"
+          "description": "类型： WCHAR* 接收与编解码器关联的 mime 类型。 首次调用时使用 NULL 来确定所需的缓冲区大小。",
+          "type": "WCHAR"
         },
         {
           "name": "pcchActual",
           "direction": "out",
-          "description": "类型： UINT* 检索与编解码器关联的所有 mime 类型所需的实际缓冲区大小。"
+          "description": "类型： UINT* 检索与编解码器关联的所有 mime 类型所需的实际缓冲区大小。",
+          "type": "UINT"
         }
       ],
       "return_value": {
@@ -1117,17 +1148,20 @@
         {
           "name": "cFormats",
           "direction": "in",
-          "description": "类型： UINT pPixelFormatGUIDs 数组的大小。"
+          "description": "类型： UINT pPixelFormatGUIDs 数组的大小。",
+          "type": "UINT"
         },
         {
           "name": "pPixelFormatGUIDs",
           "direction": "in, out",
-          "description": "类型： WICPixelFormatGUID* 指向 GUID 数组的指针，该数组接收转换器支持的像素格式。"
+          "description": "类型： WICPixelFormatGUID* 指向 GUID 数组的指针，该数组接收转换器支持的像素格式。",
+          "type": "out] WICPixelFormatGUID"
         },
         {
           "name": "pcActual",
           "direction": "out",
-          "description": "类型： UINT* 检索转换器支持的所有像素格式所需的实际数组大小。"
+          "description": "类型： UINT* 检索转换器支持的所有像素格式所需的实际数组大小。",
+          "type": "UINT"
         },
         {
           "name": "pImage",
@@ -1167,12 +1201,14 @@
         {
           "name": "wzMimeType",
           "direction": "in",
-          "description": "类型： LPCWSTR 要比较的 mime 类型。"
+          "description": "类型： LPCWSTR 要比较的 mime 类型。",
+          "type": "LPCWSTR"
         },
         {
           "name": "pfMatches",
           "direction": "out",
-          "description": "类型： BOOL* 如果 mime 类型匹配，则接收 TRUE ;否则为 FALSE。"
+          "description": "类型： BOOL* 如果 mime 类型匹配，则接收 TRUE ;否则为 FALSE。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
@@ -1242,17 +1278,20 @@
         {
           "name": "cCount",
           "direction": "in",
-          "description": "类型： UINT 要检索的颜色上下文的数量。 此值的大小必须为或小于 ppIColorContexts 可用的大小。"
+          "description": "类型： UINT 要检索的颜色上下文的数量。 此值的大小必须为或小于 ppIColorContexts 可用的大小。",
+          "type": "UINT"
         },
         {
           "name": "ppIColorContexts",
           "direction": "in, out",
-          "description": "类型： IWICColorContext** 接收指向 IWICColorContext 对象的指针的指针。"
+          "description": "类型： IWICColorContext** 接收指向 IWICColorContext 对象的指针的指针。",
+          "type": "out] IWICColorContext"
         },
         {
           "name": "pcActualCount",
           "direction": "out",
-          "description": "类型： UINT* 接收图像帧中包含的颜色上下文数的指针。"
+          "description": "类型： UINT* 接收图像帧中包含的颜色上下文数的指针。",
+          "type": "UINT"
         },
         {
           "name": "ppIMetadataQueryReader",
@@ -1311,12 +1350,14 @@
         {
           "name": "pIStream",
           "direction": "in",
-          "description": "类型： IStream* 要从中检索解码器功能的流。"
+          "description": "类型： IStream* 要从中检索解码器功能的流。",
+          "type": "IStream"
         },
         {
           "name": "pdwCapability",
           "direction": "out",
-          "description": "类型： DWORD* 解码器的 WICBitmapDecoderCapabilities 。"
+          "description": "类型： DWORD* 解码器的 WICBitmapDecoderCapabilities 。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
@@ -1542,12 +1583,14 @@
         {
           "name": "puiWidth",
           "direction": "in, out",
-          "description": "类型： UINT* 所需的宽度。 接收最接近支持的宽度的指针。"
+          "description": "类型： UINT* 所需的宽度。 接收最接近支持的宽度的指针。",
+          "type": "out] UINT"
         },
         {
           "name": "puiHeight",
           "direction": "in, out",
-          "description": "类型： UINT* 所需的高度。 接收最接近支持高度的指针。"
+          "description": "类型： UINT* 所需的高度。 接收最接近支持高度的指针。",
+          "type": "out] UINT"
         }
       ],
       "return_value": {
@@ -1584,14 +1627,19 @@
         {
           "name": "pValue",
           "direction": "out",
-          "description": "类型： UINT* 接收 EXIF 颜色空间颜色上下文的指针。 值 1 2 3 到 65534 返回值类型： HRESULT 含义 sRGB 颜色空间。"
+          "description": "类型： UINT* 接收 EXIF 颜色空间颜色上下文的指针。 值 1 2 3 到 65534 返回值类型： HRESULT 含义 sRGB 颜色空间。",
+          "type": "UINT"
         }
       ],
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 3341
+      "_source_line": 3341,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::InitializeFromExifColorSpace",
@@ -1603,10 +1651,14 @@
         {
           "name": "value",
           "direction": "in",
-          "description": "类型： UINT EXIF 颜色空间的值。 值 1 2"
+          "description": "类型： UINT EXIF 颜色空间的值。 值 1 2",
+          "type": "UINT"
         }
       ],
-      "return_value": "{\\\"type\\\": \\",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "{\\\"type\\\": \\"
+      },
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
@@ -1629,7 +1681,8 @@
         {
           "name": "cbBufferSize",
           "direction": "in",
-          "description": "类型： UINT pbBuffer 缓冲区的大小。"
+          "description": "类型： UINT pbBuffer 缓冲区的大小。",
+          "type": "UINT"
         },
         {
           "name": "pIBitmapSource",
@@ -1667,17 +1720,20 @@
         {
           "name": "cchFriendlyName",
           "direction": "in",
-          "description": "类型： UINT wzFriendlyName 缓冲区的大小。"
+          "description": "类型： UINT wzFriendlyName 缓冲区的大小。",
+          "type": "UINT"
         },
         {
           "name": "wzFriendlyName",
           "direction": "in, out",
-          "description": "类型： WCHAR* 接收组件的友好名称的指针。 字符串的区域设置取决于编解码器在安装时写入注册表的值。 对于内置组件，这些字符串始终为英语。"
+          "description": "类型： WCHAR* 接收组件的友好名称的指针。 字符串的区域设置取决于编解码器在安装时写入注册表的值。 对于内置组件，这些字符串始终为英语。",
+          "type": "out] WCHAR"
         },
         {
           "name": "pcchActual",
           "direction": "out",
-          "description": "类型： UINT* 接收组件友好名称的实际长度的指针。"
+          "description": "类型： UINT* 接收组件友好名称的实际长度的指针。",
+          "type": "UINT"
         }
       ],
       "return_value": {
@@ -1741,12 +1797,14 @@
         {
           "name": "cchSpecVersion",
           "direction": "in",
-          "description": "类型： UINT wzSpecVersion 缓冲区的大小。"
+          "description": "类型： UINT wzSpecVersion 缓冲区的大小。",
+          "type": "UINT"
         },
         {
           "name": "wzSpecVersion",
           "direction": "in, out",
-          "description": "类型： WCHAR* 此方法返回时，包含组件的规范版本的区域性固定字符串。 版本形式为 NN.NN.NN.NN。[out] pcchActual 类型： UINT* 接收组件规范版本的实际长度的指针。 规范版本是可选的;如果组件未指定值，则返回的 长度为 0。返回值类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+          "description": "类型： WCHAR* 此方法返回时，包含组件的规范版本的区域性固定字符串。 版本形式为 NN.NN.NN.NN。[out] pcchActual 类型： UINT* 接收组件规范版本的实际长度的指针。 规范版本是可选的;如果组件未指定值，则返回的 长度为 0。返回值类型： HRESULT 如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。",
+          "type": "out] WCHAR"
         }
       ],
       "remarks": "所有内置组件都返回\"1.0.0.0\"，像素格式除外，没有规范版本。如果 cchSpecVersion 为 0 且 wzSpecVersion 为 NULL，则将在 pcchActual 中返回所需的缓冲区大小。",
@@ -1762,7 +1820,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 3818
+      "_source_line": 3818,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetFormatInfo",
@@ -1804,12 +1866,14 @@
         {
           "name": "pWidthInBlocks",
           "direction": "out",
-          "description": "类型： UINT* DDS 图像的宽度（以块为单位）。"
+          "description": "类型： UINT* DDS 图像的宽度（以块为单位）。",
+          "type": "UINT"
         },
         {
           "name": "pHeightInBlocks",
           "direction": "out",
-          "description": "类型： UINT* DDS 图像的高度（以块为单位）。"
+          "description": "类型： UINT* DDS 图像的高度（以块为单位）。",
+          "type": "UINT"
         },
         {
           "name": "pContrast",
@@ -1864,7 +1928,8 @@
         {
           "name": "ppCurrentParameterSet",
           "direction": "out",
-          "description": "类型： IPropertyBag2** 一个指针，用于接收指向当前参数集的指针。"
+          "description": "类型： IPropertyBag2** 一个指针，用于接收指向当前参数集的指针。",
+          "type": "IPropertyBag2"
         }
       ],
       "return_value": {
@@ -1894,12 +1959,14 @@
         {
           "name": "pMinKelvinTemp",
           "direction": "out",
-          "description": "类型： UINT* 接收最低开氏温度的指针。"
+          "description": "类型： UINT* 接收最低开氏温度的指针。",
+          "type": "UINT"
         },
         {
           "name": "pMaxKelvinTemp",
           "direction": "out",
-          "description": "类型： UINT* 接收最大开氏温度的指针。[out] pKelvinTempStepValue 类型： UINT* 一个接收开氏步长值的指针。"
+          "description": "类型： UINT* 接收最大开氏温度的指针。[out] pKelvinTempStepValue 类型： UINT* 一个接收开氏步长值的指针。",
+          "type": "UINT"
         }
       ],
       "return_value": {
@@ -1999,7 +2066,8 @@
         {
           "name": "NoiseReduction",
           "direction": "in",
-          "description": "类型： double 原始图像的降噪值。 默认值为“as-shot”设置（如果存在）或 0.0。 降噪的值范围为 0.0 到 1.0。 0.0 下限表示没有应用于图像的降噪，而 1.0 上限表示可以应用的最高降噪量。"
+          "description": "类型： double 原始图像的降噪值。 默认值为“as-shot”设置（如果存在）或 0.0。 降噪的值范围为 0.0 到 1.0。 0.0 下限表示没有应用于图像的降噪，而 1.0 上限表示可以应用的最高降噪量。",
+          "type": "double"
         }
       ],
       "return_value": {
@@ -2199,7 +2267,8 @@
         {
           "name": "cbBufferSize",
           "direction": "in",
-          "description": "类型： UINT pbBuffer 的大小。"
+          "description": "类型： UINT pbBuffer 的大小。",
+          "type": "UINT"
         },
         {
           "name": "pbBuffer",
@@ -2340,7 +2409,8 @@
         {
           "name": "ppIWICColorContext",
           "direction": "out",
-          "description": "类型： IWICColorContext** 接收指向新 IWICColorContext 的指针的指针。"
+          "description": "类型： IWICColorContext** 接收指向新 IWICColorContext 的指针的指针。",
+          "type": "IWICColorContext"
         }
       ],
       "return_value": {
@@ -2370,7 +2440,8 @@
         {
           "name": "ppIWICColorTransform",
           "direction": "out",
-          "description": "类型： IWICColorTransform** 接收指向新 IWICColorTransform 的指针的指针。"
+          "description": "类型： IWICColorTransform** 接收指向新 IWICColorTransform 的指针的指针。",
+          "type": "IWICColorTransform"
         }
       ],
       "return_value": {
@@ -2400,7 +2471,8 @@
         {
           "name": "componentTypes",
           "direction": "in",
-          "description": "类型：DWORD 要枚举的 WICComponentType 的类型 。"
+          "description": "类型：DWORD 要枚举的 WICComponentType 的类型 。",
+          "type": "DWORD"
         },
         {
           "name": "options",
@@ -2490,24 +2562,31 @@
         {
           "name": "wzFilename",
           "direction": "in",
-          "description": "类型： LPCWSTR 指向以 null 结尾的字符串的指针，该字符串指定要创建或打开的对象的名称。"
+          "description": "类型： LPCWSTR 指向以 null 结尾的字符串的指针，该字符串指定要创建或打开的对象的名称。",
+          "type": "LPCWSTR"
         },
         {
           "name": "pguidVendor",
           "direction": "in",
-          "description": "类型： const GUID* 首选解码器供应商的 GUID。 如果没有首选供应商，请使用 NULL 。"
+          "description": "类型： const GUID* 首选解码器供应商的 GUID。 如果没有首选供应商，请使用 NULL 。",
+          "type": "const GUID*"
         },
         {
           "name": "dwDesiredAccess",
           "direction": "in",
-          "description": "类型：DWORD 对 对象的访问，可以是读取和/或写入。 值 含义"
+          "description": "类型：DWORD 对 对象的访问，可以是读取和/或写入。 值 含义",
+          "type": "DWORD"
         }
       ],
       "header": "wincodec.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 6338
+      "_source_line": 6338,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CreateDecoderFromStream",
@@ -2519,7 +2598,8 @@
         {
           "name": "pIStream",
           "direction": "in",
-          "description": "类型： IStream* 要从中创建解码器的流。"
+          "description": "类型： IStream* 要从中创建解码器的流。",
+          "type": "IStream"
         },
         {
           "name": "pguidVendor",
@@ -2539,7 +2619,10 @@
           "description": "含义 BMP 容器格式 GUID。 PNG 容器格式 GUID。 ICO 容器格式 GUID。 JPEG 容器格式 GUID。 TIFF 容器格式 GUID。 GIF 容器格式 GUID。 HD 照片容器格式 GUID。 首选编码器供应商的 GUID。 值 Null GUID_VendorMicrosoft GUID_VendorMicrosoftBuiltIn[out, retval] ppIEncoder 类型： IWICBitmapEncoder** 含义 没有首选编解码器供应商。首选使用 Microsoft 编码器。 首选使用本机 Microsoft 编码器。 一个指针，用于接收指向新 IWICBitmapEncoder 的指针。"
         }
       ],
-      "return_value": "{\"type\":\"HRESULT\",\"description\":\"如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。\"}",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "{\"type\":\"HRESULT\",\"description\":\"如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。\"}"
+      },
       "remarks": "其他值可能同时适用于 guidContainerFormat 和 pguidVendor ，具体取决于已安装的已启 用 WIC 的编码器。 列出的值是操作系统本机支持的那些值。",
       "requirements": {
         "target_platform": "Windows",
@@ -2663,7 +2746,8 @@
         {
           "name": "guidMetadataFormat",
           "direction": "in",
-          "description": "类型： REFGUID 所需元数据格式的 GUID。"
+          "description": "类型： REFGUID 所需元数据格式的 GUID。",
+          "type": "REFGUID"
         },
         {
           "name": "pguidVendor",
@@ -2745,11 +2829,13 @@
         {
           "name": "pD2DDevice",
           "direction": "in",
-          "description": "创建相应图像编码器的 ID2D1Device 对象。[out] ppWICImageEncoder 指向变量的指针，该变量接收指向可用于编码 Direct2D 图像的编码器对象的 IWICImageEncoder 接口的指针。"
+          "description": "创建相应图像编码器的 ID2D1Device 对象。[out] ppWICImageEncoder 指向变量的指针，该变量接收指向可用于编码 Direct2D 图像的编码器对象的 IWICImageEncoder 接口的指针。",
+          "type": "ID2D1Device"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "必须在传递给此方法的同一 Direct2D 设备上创建图像以传递给图像编码器。你负责通过现有的 IWICBitmapEncoder API 设置位图编码器本身。IWICBitmapEncoder 或 IWICBitmapFrameEncode 对象将传递给每个 IWICImageEncoder 方法：WriteThumbnail、WriteFrame 和 WriteFrameThumbnail。",
       "requirements": {
@@ -2852,7 +2938,8 @@
       "description": "检索指定扫描和表的 DC Huffman 表的副本。",
       "syntax": "HRESULT GetDcHuffmanTable(\n  UINT scanIndex,\n  UINT tableIndex,\n  [out] DXGI_JPEG_DC_HUFFMAN_TABLE *pDcHuffmanTable\n);",
       "return_value": {
-        "description": "如果成功返回S_OK，否则返回错误代码"
+        "description": "如果成功返回S_OK，否则返回错误代码",
+        "type": "HRESULT"
       },
       "header": "wincodec.h",
       "deprecated": false,
@@ -2932,7 +3019,8 @@
         {
           "name": "pvarValue",
           "direction": "in, out",
-          "description": "类型： PROPVARIANT* 此方法返回时，包含所请求的元数据块或项。"
+          "description": "类型： PROPVARIANT* 此方法返回时，包含所请求的元数据块或项。",
+          "type": "out] PROPVARIANT"
         }
       ],
       "return_value": {
@@ -3065,7 +3153,8 @@
         {
           "name": "pFormat",
           "direction": "out",
-          "description": "类型： GUID* 接收像素格式 GUID 的指针。"
+          "description": "类型： GUID* 接收像素格式 GUID 的指针。",
+          "type": "GUID"
         }
       ],
       "return_value": {
@@ -3126,7 +3215,8 @@
         {
           "name": "pfSupportsTransparency",
           "direction": "out",
-          "description": "类型： BOOL* 如果像素格式支持透明度，则返回 TRUE ;否则为 FALSE。"
+          "description": "类型： BOOL* 如果像素格式支持透明度，则返回 TRUE ;否则为 FALSE。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
@@ -3494,17 +3584,20 @@
         {
           "name": "guidContainerFormat",
           "direction": "in",
-          "description": "类型： REFGUID 要基于读取器的容器格式 GUID。"
+          "description": "类型： REFGUID 要基于读取器的容器格式 GUID。",
+          "type": "REFGUID"
         },
         {
           "name": "pguidVendor",
           "direction": "in",
-          "description": "类型： const GUID* 指向元数据读取器的供应商 GUID 的指针。"
+          "description": "类型： const GUID* 指向元数据读取器的供应商 GUID 的指针。",
+          "type": "const GUID"
         },
         {
           "name": "dwOptions",
           "direction": "in",
-          "description": "类型：DWORD 创建元数据读取器时要使用的 WICPersistOptions 和 WICMetadataCreationOptions 选项。"
+          "description": "类型：DWORD 创建元数据读取器时要使用的 WICPersistOptions 和 WICMetadataCreationOptions 选项。",
+          "type": "DWORD"
         },
         {
           "name": "pIStream",
@@ -3520,7 +3613,8 @@
         {
           "name": "pguidVendor",
           "direction": "in",
-          "description": "类型： const GUID* 指向所需元数据读取器供应商的 GUID 的指针。"
+          "description": "类型： const GUID* 指向所需元数据读取器供应商的 GUID 的指针。",
+          "type": "const GUID"
         },
         {
           "name": "dwMetadataOptions",
@@ -3650,7 +3744,8 @@
         {
           "name": "nIndex",
           "direction": "in",
-          "description": "类型： UINT 要删除的元数据编写器的索引。"
+          "description": "类型： UINT 要删除的元数据编写器的索引。",
+          "type": "UINT nIndex, IWICMetadataWriter*ppIMetadataWriter); HRESULT InitializeFromBlockReader( IWICMetadataBlockReader*pIMDBlockReader); HRESULT RemoveWriterByIndex( UINT"
         }
       ],
       "return_value": {
@@ -3803,7 +3898,8 @@
         {
           "name": "nIndex",
           "direction": "in",
-          "description": "类型： UINT 要检索的元数据项的索引。"
+          "description": "类型： UINT 要检索的元数据项的索引。",
+          "type": "UINT"
         },
         {
           "name": "pvarSchema",
@@ -3852,12 +3948,14 @@
         {
           "name": "pcCount",
           "direction": "in, out",
-          "description": "类型： UINT* 接收元数据模式数的指针。"
+          "description": "类型： UINT* 接收元数据模式数的指针。",
+          "type": "out] UINT"
         },
         {
           "name": "pcbActual",
           "direction": "in, out",
-          "description": "类型： UINT* 接收获取元数据模式所需的大小（以字节为单位）的指针。"
+          "description": "类型： UINT* 接收获取元数据模式所需的大小（以字节为单位）的指针。",
+          "type": "out] UINT"
         }
       ],
       "return_value": {
@@ -3921,7 +4019,8 @@
         {
           "name": "pdwPersistOptions",
           "direction": "out",
-          "description": "类型： DWORD* 接收使用流初始化组件时使用的持久化选项的指针。 如果未提供，则返回 WICPersistOptionDefault 。"
+          "description": "类型： DWORD* 接收使用流初始化组件时使用的持久化选项的指针。 如果未提供，则返回 WICPersistOptionDefault 。",
+          "type": "DWORD"
         }
       ],
       "return_value": {

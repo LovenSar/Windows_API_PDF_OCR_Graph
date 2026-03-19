@@ -258,7 +258,10 @@
       "confidence": 0.75,
       "_source_line": 26,
       "syntax": "BOOLEAN EVT_SERCX2_PIO_RECEIVE_CANCEL_READY_NOTIFICATION(\n  [in] SERCX2PIORECEIVE PioReceive\n);",
-      "return_value": "Returns TRUE if the driver accepts the cancel request and the framework can proceed with cancellation; otherwise FALSE.",
+      "return_value": {
+        "type": "BOOLEAN",
+        "description": "Returns TRUE if the driver accepts the cancel request and the framework can proceed with cancellation; otherwise FALSE."
+      },
       "remarks": "Implement this callback if the serial controller driver supports cancel notification for PIO receive transactions. The framework calls this routine when a pending PIO receive operation is ready to be canceled."
     },
     {
@@ -304,7 +307,8 @@
       "entity_type": "callback",
       "description": "指向串行控制器驱动程序实现的 EvtSerCx2PioTransmitCancelDrainFifo 事件回调函数的指针。SerCx2 在需要取消挂起的 FIFO 清空请求时调用此回调。",
       "return_value": {
-        "description": "如果驱动程序成功取消挂起的清空请求，则返回 TRUE。在这种情况下，驱动程序可以保证不会调用 SerCx2PioTransmitDrainFifoComplete 来通知 SerCx2 FIFO 已清空。如果返回 FALSE，则表示驱动程序已经调用或即将调用 SerCx2PioTransmitDrainFifoComplete。"
+        "description": "如果驱动程序成功取消挂起的清空请求，则返回 TRUE。在这种情况下，驱动程序可以保证不会调用 SerCx2PioTransmitDrainFifoComplete 来通知 SerCx2 FIFO 已清空。如果返回 FALSE，则表示驱动程序已经调用或即将调用 SerCx2PioTransmitDrainFifoComplete。",
+        "type": "BOOLEAN"
       },
       "remarks": "串行控制器驱动程序可以按需实现此回调。如果实现，驱动程序在调用 SerCx2PioTransmitCreate 创建 PIO 传输对象时注册该回调。如果串行控制器具有用于保存传输数据的硬件 FIFO 或类似缓冲机制，则应实现此回调。实现此回调的驱动程序还必须实现 EvtSerCx2PioTransmitDrainFifo 和 EvtSerCx2PioTransmitPurgeFifo。",
       "header": "sercx.h",
@@ -681,7 +685,10 @@
       "confidence": 0.75,
       "_source_line": 56,
       "syntax": "EVT_SERCX2_SYSTEM_DMA_TRANSMIT_CONFIGURE_DMA_CHANNEL EvtSercx2SystemDmaTransmitConfigureDmaChannel;\n\nNTSTATUS EvtSercx2SystemDmaTransmitConfigureDmaChannel(\n  [in] SERCX2SYSTEMDMATRANSMIT SystemDmaTransmit,\n  [in] PMDL Mdl,\n  [in] ULONG Offset,\n  [in] ULONG Length\n);",
-      "return_value": "如果成功配置 DMA 通道，则返回 STATUS_SUCCESS；否则返回适当的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "EVT_SERCX2_SYSTEM_DMA_TRANSMIT_CONFIGURE_DMA_CHANNEL EvtSercx2SystemDmaTransmitConfigureDmaChannel; NTSTATUS",
+        "description": "如果成功配置 DMA 通道，则返回 STATUS_SUCCESS；否则返回适当的 NTSTATUS 错误代码。"
+      },
       "remarks": "这是 SerCx2 系统 DMA 传输路径中的事件回调。串行控制器驱动程序提供此回调实现，以便在开始传输前对 DMA 通道进行特定于硬件的配置。"
     },
     {
@@ -948,11 +955,13 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] ConnectionParameters 指向连接参数结构的指针。 此函数必须将此参数强制转换为适当的指针类型，分析数据结构以获取配置设置，并将这些设置应用于串行控制器硬件。 连接参数结构由硬件平台 供应商定义，对串行框架扩展（SerCx）和操作系统不透明。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] ConnectionParameters 指向连接参数结构的指针。 此函数必须将此参数强制转换为适当的指针类型，分析数据结构以获取配置设置，并将这些设置应用于串行控制器硬件。 连接参数结构由硬件平台 供应商定义，对串行框架扩展（SerCx）和操作系统不透明。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "如果成功应用配置，则返回 STATUS_SUCCESS；否则返回适当的 NTSTATUS 错误代码。"
+        "description": "如果成功应用配置，则返回 STATUS_SUCCESS；否则返回适当的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "header": "sercx.h",
       "deprecated": false,
@@ -974,11 +983,13 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] Request 表示 I/O 控件请求的框架请求对象的 WDFREQUEST 句柄。[in] OutputBufferLength 指定由 Request 参数指定的 I/O 控制请求的输出缓冲区的长度（以字节为单位）。[in] InputBufferLength 指定由 Request 参数指定的 I/O 控制请求的输入缓冲区的长度（以字节为单位）。[in] IoControlCode 从 Request 参数指定的 I/O 控件请求中指定 IOCTL。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] Request 表示 I/O 控件请求的框架请求对象的 WDFREQUEST 句柄。[in] OutputBufferLength 指定由 Request 参数指定的 I/O 控制请求的输出缓冲区的长度（以字节为单位）。[in] InputBufferLength 指定由 Request 参数指定的 I/O 控制请求的输入缓冲区的长度（以字节为单位）。[in] IoControlCode 从 Request 参数指定的 I/O 控件请求中指定 IOCTL。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS 状态代码。成功时返回 STATUS_SUCCESS；否则返回适当的错误状态码。如果驱动程序不支持某个请求，通常应返回 STATUS_NOT_IMPLEMENTED。"
+        "description": "返回 NTSTATUS 状态代码。成功时返回 STATUS_SUCCESS；否则返回适当的错误状态码。如果驱动程序不支持某个请求，通常应返回 STATUS_NOT_IMPLEMENTED。",
+        "type": "NTSTATUS"
       },
       "remarks": "串行控制器驱动程序实现此回调函数以处理 I/O 控制请求。SerCx 调用该函数将请求移交给控制器驱动程序处理。驱动程序在返回前通常应完成该请求，方法是执行所请求的操作或返回错误状态。对不支持的请求，应返回 STATUS_NOT_IMPLEMENTED。通常，在该函数修改串行控制器硬件寄存器设置之前，应与控制器驱动程序的 ISR 进行同步。",
       "header": "sercx.h",
@@ -1004,10 +1015,14 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] PurgeMask 描述要清除的硬件缓冲区的一组标志。 目前，没有为串行控制器执行的清除操作定义任 何标志。 有关详细信息，请参阅“备注”。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] PurgeMask 描述要清除的硬件缓冲区的一组标志。 目前，没有为串行控制器执行的清除操作定义任 何标志。 有关详细信息，请参阅“备注”。",
+          "type": "WDFDEVICE"
         }
       ],
-      "return_value": "串行控制器驱动程序实现此回调函数。当客户端（应用程序或外围设备驱动程序）发送请求以清除串行控制器管理的硬件缓冲区的 IOCTL_SERIAL_PURGE 控制请求时，SerCx 调用此函数。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "串行控制器驱动程序实现此回调函数。当客户端（应用程序或外围设备驱动程序）发送请求以清除串行控制器管理的硬件缓冲区的 IOCTL_SERIAL_PURGE 控制请求时，SerCx 调用此函数。"
+      },
       "remarks": "串行控制器驱动程序实现此回调函数。当客户端（应用程序或外围设备驱动程序）发送请求以清除串行控制器管理的硬件缓冲区的 IOCTL_SERIAL_PURGE 控制请求时，SerCx 调用此函数。",
       "header": "sercx.h",
       "deprecated": false,
@@ -1028,7 +1043,8 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": "此回调函数不返回值。",
@@ -1056,10 +1072,14 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。",
+          "type": "WDFDEVICE"
         }
       ],
-      "return_value": "该回调不返回值。",
+      "return_value": {
+        "type": "typedef VOID",
+        "description": "该回调不返回值。"
+      },
       "remarks": "SerCx 调用此回调以通知串行控制器驱动程序当前传输请求已被取消。如果驱动程序正在执行挂起的传输操作，则应取消该操作，并调用 SerCxProgressTransmit 报告取消结果。在对 SerCxProgressTransmit 的调用中，应将 BytesTransmitted 设置为取消前已传输的字节数，并将 TransmitStatus 设置为 SerCxStatusCancelled。驱动程序通过调用 SerCxInitialize 注册 EvtSerCxTransmitCancel 回调。该函数类型在 sercx.h 中声明。",
       "header": "sercx.h",
       "deprecated": false,
@@ -1848,10 +1868,14 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。",
+          "type": "WDFDEVICE"
         }
       ],
-      "return_value": "这是 SerCx 驱动程序定义的事件回调函数角色类型。驱动程序应提供与此原型匹配的实现函数，例如 MyEvtSerCxFileCleanup。该回调可用于释放此前为文件对象生命周期分配的系统资源。为满足静态驱动程序验证程序（SDV）和其他验证工具的要求，应使用此函数角色类型声明回调函数。",
+      "return_value": {
+        "type": "EVT_SERCX_FILECLEANUP EvtSerCxFileCleanup; VOID",
+        "description": "这是 SerCx 驱动程序定义的事件回调函数角色类型。驱动程序应提供与此原型匹配的实现函数，例如 MyEvtSerCxFileCleanup。该回调可用于释放此前为文件对象生命周期分配的系统资源。为满足静态驱动程序验证程序（SDV）和其他验证工具的要求，应使用此函数角色类型声明回调函数。"
+      },
       "remarks": "这是 SerCx 驱动程序定义的事件回调函数角色类型。驱动程序应提供与此原型匹配的实现函数，例如 MyEvtSerCxFileCleanup。该回调可用于释放此前为文件对象生命周期分配的系统资源。为满足静态驱动程序验证程序（SDV）和其他验证工具的要求，应使用此函数角色类型声明回调函数。",
       "header": "sercx.h",
       "deprecated": false,
@@ -1871,11 +1895,13 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "无。"
+        "description": "无。",
+        "type": "typedef VOID"
       },
       "remarks": "此回调应使串行控制器设备退出可接收和传输数据的状态；如果中断已启用，则应禁用中断。驱动程序应在此回调或 EvtSerCxFileCleanup 回调中释放为文件对象生命周期分配的任何内存。如果驱动程序实现了 EvtSerCxFileCleanup，则 SerCx 会先调用该回调；在此之后驱动程序不再接收新的 I/O 请求。只有在所有未完成的 I/O 请求都已完成或取消后，SerCx 才会在释放文件对象时调用 EvtSerCxFileClose。要注册此回调，驱动程序必须调用 SerCxInitialize。该函数类型在 sercx.h 中声明。",
       "header": "sercx.h",
@@ -1901,10 +1927,14 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。",
+          "type": "WDFDEVICE"
         }
       ],
-      "return_value": "返回 NTSTATUS。成功时返回 STATUS_SUCCESS；否则返回相应的错误状态代码。",
+      "return_value": {
+        "type": "typedef NTSTATUS",
+        "description": "返回 NTSTATUS。成功时返回 STATUS_SUCCESS；否则返回相应的错误状态代码。"
+      },
       "remarks": "SerCx 在需要为 I/O 操作准备串行控制器硬件时调用此回调。实现通常应将控制器配置为可接收和发送数据的状态，并在需要时启用中断。此外，驱动程序可以分配仅在文件对象生命周期内需要的资源。若要注册此回调，驱动程序应调用 SerCxInitialize。该回调函数类型在 sercx.h 中声明。",
       "header": "sercx.h",
       "deprecated": false,
@@ -1954,11 +1984,13 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "成功时返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+        "description": "成功时返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+        "type": "EVT_SERCX_WAITMASK EvtSerCxWaitmask; NTSTATUS"
       },
       "remarks": "串行控制器驱动程序实现此回调函数。SerCx 在等待掩码更改时调用它。该回调通常调用 SerCxGetWaitMask 以获取新的等待掩码，然后将串行控制器硬件配置为监视该掩码指定的事件。函数在完成硬件配置后应立即返回，而不应等待事件实际发生。先前等待掩码对应的监视应被停止。",
       "header": "sercx.h",
@@ -2024,7 +2056,8 @@
       "entity_type": "callback",
       "description": "串行控制器驱动程序实现的事件回调函数，用于初始化自定义传输事务的写缓冲区。SerCx2 在调用驱动程序的自定义传输例程之前调用此函数，以提供描述传输缓冲区的 MDL 以及起始偏移和传输长度。",
       "return_value": {
-        "description": "无。该回调不返回值。"
+        "description": "无。该回调不返回值。",
+        "type": "EVT_SERCX2_CUSTOM_TRANSMIT_TRANSACTION_INITIALIZE EvtSercx2CustomTransmitTransactionInitialize; void"
       },
       "remarks": "此回调由串行控制器驱动程序按需实现。驱动程序通常在调用 SerCx2CustomTransmitTransactionCreate 时注册该回调。Mdl 参数描述写缓冲区跨越的内存页，Offset 指定传输起始位置相对于该缓冲区起始处的字节偏移，Length 指定传输的字节数。SerCx2 可根据这些信息为 DMA 传输构造散布/聚集列表。",
       "header": "sercx.h",
@@ -2091,7 +2124,10 @@
       "confidence": 0.75,
       "_source_line": 203,
       "syntax": "ULONG EVT_SERCX2_PIO_RECEIVE_READ_BUFFER(\n  [in]  SERCX2PIORECEIVE PioReceive,\n  [out] PUCHAR           Buffer,\n  [in]  ULONG            Length\n);",
-      "return_value": "Returns the number of bytes copied into Buffer.",
+      "return_value": {
+        "type": "ULONG",
+        "description": "Returns the number of bytes copied into Buffer."
+      },
       "remarks": "This callback is implemented by the serial controller driver and is invoked by SerCx2 during a PIO receive transaction."
     },
     {
@@ -2131,7 +2167,10 @@
       "confidence": 0.75,
       "_source_line": 219,
       "syntax": "ULONG EVT_SERCX2_PIO_TRANSMIT_WRITE_BUFFER(\n  [in] SERCX2PIOTRANSMIT PioTransmit,\n  [in] PUCHAR Buffer,\n  [in] ULONG Length\n);",
-      "return_value": "返回驱动程序实际写入串行控制器发送硬件的字节数。",
+      "return_value": {
+        "type": "ULONG",
+        "description": "返回驱动程序实际写入串行控制器发送硬件的字节数。"
+      },
       "remarks": "这是 SERCX2 版本串行框架扩展的事件回调函数，由串行控制器驱动程序实现。框架在 PIO 发送过程中调用它，以便驱动程序将数据从提供的缓冲区写入硬件。返回值通常不应超过 Length。"
     },
     {
@@ -2181,7 +2220,10 @@
       "confidence": 0.75,
       "_source_line": 233,
       "syntax": "NTSTATUS EVT_SERCX2_SYSTEM_DMA_RECEIVE_CONFIGURE_DMA_CHANNEL(\n  [in] SERCX2SYSTEMDMARECEIVE SystemDmaReceive,\n  [in] PMDL Mdl,\n  [in] ULONG Offset,\n  [in] ULONG Length\n);",
-      "return_value": "如果成功配置 DMA 通道，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果成功配置 DMA 通道，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "这是一个由串行控制器驱动程序提供的事件回调函数，SERCX2 在开始系统 DMA 接收传输前调用它。实现应根据给定的 MDL、偏移量和长度对 DMA 通道进行编程。"
     },
     {
@@ -2310,7 +2352,8 @@
         {
           "name": "Config",
           "direction": "out",
-          "description": "指向要初始化 SERCX2_CONFIG 结构的指针。[in] EvtSerCx2ApplyConfig 要加载到 EvtSerCx2ApplyConfigSERCX2_CONFIG 结构成员的值。 有关详细信息，请参 阅 SERCX2_CONFIG中此成员的说明。[in] EvtSerCx2Control 要加载到 SERCX2_CONFIG 结构的 EvtSerCx2Control 成员的值。 有关详细信息，请参阅"
+          "description": "指向要初始化 SERCX2_CONFIG 结构的指针。[in] EvtSerCx2ApplyConfig 要加载到 EvtSerCx2ApplyConfigSERCX2_CONFIG 结构成员的值。 有关详细信息，请参 阅 SERCX2_CONFIG中此成员的说明。[in] EvtSerCx2Control 要加载到 SERCX2_CONFIG 结构的 EvtSerCx2Control 成员的值。 有关详细信息，请参阅",
+          "type": "SERCX2_CONFIG"
         }
       ],
       "header": "sercx.h",
@@ -2333,7 +2376,8 @@
         {
           "name": "Config",
           "direction": "out",
-          "description": "指向要初始化的 SERCX2_CUSTOM_RECEIVE_CONFIG 结构的指针。"
+          "description": "指向要初始化的 SERCX2_CUSTOM_RECEIVE_CONFIG 结构的指针。",
+          "type": "SERCX2_CUSTOM_RECEIVE_CONFIG"
         }
       ],
       "return_value": "此函数不返回值。",
@@ -2371,7 +2415,8 @@
         {
           "name": "Config",
           "direction": "out",
-          "description": "指向要初始化的 SERCX2_CUSTOM_TRANSMIT_CONFIG 结构的指针。"
+          "description": "指向要初始化的 SERCX2_CUSTOM_TRANSMIT_CONFIG 结构的指针。",
+          "type": "SERCX2_CUSTOM_TRANSMIT_CONFIG"
         }
       ],
       "return_value": "无返回值。",
@@ -2395,7 +2440,8 @@
         {
           "name": "Config",
           "direction": "out",
-          "description": "指向要初始化的 SERCX2_CUSTOM_TRANSMIT_TRANSACTION_CONFIG 结构的指针。[in] EvtSerCx2CustomTransmitTransactionStart 要加载到 SERCX2_CUSTOM_TRANSMIT_TRANSACTION_CONFIG 结构的"
+          "description": "指向要初始化的 SERCX2_CUSTOM_TRANSMIT_TRANSACTION_CONFIG 结构的指针。[in] EvtSerCx2CustomTransmitTransactionStart 要加载到 SERCX2_CUSTOM_TRANSMIT_TRANSACTION_CONFIG 结构的",
+          "type": "SERCX2_CUSTOM_TRANSMIT_TRANSACTION_CONFIG"
         }
       ],
       "header": "sercx.h",
@@ -2416,7 +2462,8 @@
         {
           "name": "PioReceiveConfig",
           "direction": "out",
-          "description": "指向要初始化的 SERCX2_PIO_RECEIVE_CONFIG 结构的指针。[in] EvtSerCx2PioReceiveReadBuffer 要加载到 SERCX2_PIO_RECEIVE_CONFIG 结构的 EvtSerCx2PioReceiveReadBuffer 成员的值。 有关详细信息，请参阅 SERCX2_PIO_RECEIVE_CONFIG中此成员的说明。[in] EvtSerCx2PioReceiveEnableReadyNotification 要加载到 EvtSerCx2PioReceiveEnableReadyNotificationSERCX2_PIO_RECEIVE_CONFIG 结构成 员的值。 有关详细信息，请参阅 SERCX2_PIO_RECEIVE_CONFIG中此成员的说明。[in] EvtSerCx2PioReceiveCancelReadyNotification 要加载到 EvtSerCx2PioReceiveCancelReadyNotificationSERCX2_PIO_RECEIVE_CONFIG 结构成 员的值。 有关详细信息，请参阅 SERCX2_PIO_RECEIVE_CONFIG中此成员的说明。"
+          "description": "指向要初始化的 SERCX2_PIO_RECEIVE_CONFIG 结构的指针。[in] EvtSerCx2PioReceiveReadBuffer 要加载到 SERCX2_PIO_RECEIVE_CONFIG 结构的 EvtSerCx2PioReceiveReadBuffer 成员的值。 有关详细信息，请参阅 SERCX2_PIO_RECEIVE_CONFIG中此成员的说明。[in] EvtSerCx2PioReceiveEnableReadyNotification 要加载到 EvtSerCx2PioReceiveEnableReadyNotificationSERCX2_PIO_RECEIVE_CONFIG 结构成 员的值。 有关详细信息，请参阅 SERCX2_PIO_RECEIVE_CONFIG中此成员的说明。[in] EvtSerCx2PioReceiveCancelReadyNotification 要加载到 EvtSerCx2PioReceiveCancelReadyNotificationSERCX2_PIO_RECEIVE_CONFIG 结构成 员的值。 有关详细信息，请参阅 SERCX2_PIO_RECEIVE_CONFIG中此成员的说明。",
+          "type": "SERCX2_PIO_RECEIVE_CONFIG"
         }
       ],
       "return_value": {
@@ -2442,12 +2489,14 @@
         {
           "name": "PioTransmitConfig",
           "direction": "out",
-          "description": "指向要初始化 SERCX2_PIO_TRANSMIT_CONFIG 结构的指针。[in] EvtSerCx2PioTransmitWriteBuffer 要加载到 EvtSerCx2PioTransmitWriteBufferSERCX2_PIO_TRANSMIT_CONFIG 结构成员的值。 有关详细信息，请参阅 SERCX2_PIO_TRANSMIT_CONFIG中此成员的说明。"
+          "description": "指向要初始化 SERCX2_PIO_TRANSMIT_CONFIG 结构的指针。[in] EvtSerCx2PioTransmitWriteBuffer 要加载到 EvtSerCx2PioTransmitWriteBufferSERCX2_PIO_TRANSMIT_CONFIG 结构成员的值。 有关详细信息，请参阅 SERCX2_PIO_TRANSMIT_CONFIG中此成员的说明。",
+          "type": "SERCX2_PIO_TRANSMIT_CONFIG"
         },
         {
           "name": "EvtSerCx2PioTransmitEnableReadyNotification",
           "direction": "in",
-          "description": "要加载到 SERCX2_PIO_TRANSMIT_CONFIG 结构的"
+          "description": "要加载到 SERCX2_PIO_TRANSMIT_CONFIG 结构的",
+          "type": "PFN_SERCX2_PIO_TRANSMIT_ENABLE_READY_NOTIFICATION"
         }
       ],
       "header": "sercx.h",
@@ -2472,12 +2521,14 @@
         {
           "name": "Config",
           "direction": "out",
-          "description": "指向要初始化 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG 结构的指针。[in] MaximumTransferLength 要加载到 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG 结构的 MaximumTransferLength 成员的值。 有关详细信息，请参阅 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG中此成员的说明。"
+          "description": "指向要初始化 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG 结构的指针。[in] MaximumTransferLength 要加载到 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG 结构的 MaximumTransferLength 成员的值。 有关详细信息，请参阅 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG中此成员的说明。",
+          "type": "SERCX2_SYSTEM_DMA_RECEIVE_CONFIG"
         },
         {
           "name": "Address",
           "direction": "in",
-          "description": "要加载到 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG 结构的 DeviceAddress 成员的值。 有关详细信息，请参阅 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG中此成员的说明。[in] DmaWidth 要加载到 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG 结构的 DmaWidth 成员的值。 有关 详细信息，请参阅 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG中此成员的说明。[in] DmaDescriptor 要加载到 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG 结构的 DmaDescriptor 成员的值。有关详细信息，请参阅 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG中此成员的说明。"
+          "description": "要加载到 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG 结构的 DeviceAddress 成员的值。 有关详细信息，请参阅 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG中此成员的说明。[in] DmaWidth 要加载到 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG 结构的 DmaWidth 成员的值。 有关 详细信息，请参阅 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG中此成员的说明。[in] DmaDescriptor 要加载到 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG 结构的 DmaDescriptor 成员的值。有关详细信息，请参阅 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG中此成员的说明。",
+          "type": "PHYSICAL_ADDRESS"
         }
       ],
       "return_value": {
@@ -2502,7 +2553,8 @@
         {
           "name": "Config",
           "direction": "out",
-          "description": "指向要初始化 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG 结构的指针。[in] MaximumTransferLength 要加载到 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG 结构的 MaximumTransferLength 成员的值。 有关详细信息，请参阅 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG中的"
+          "description": "指向要初始化 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG 结构的指针。[in] MaximumTransferLength 要加载到 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG 结构的 MaximumTransferLength 成员的值。 有关详细信息，请参阅 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG中的",
+          "type": "SERCX2_SYSTEM_DMA_RECEIVE_CONFIG"
         }
       ],
       "return_value": {
@@ -2529,12 +2581,14 @@
         {
           "name": "Config",
           "direction": "out",
-          "description": "指向要初始化的 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG 结构的指针。[in] MaximumTransferLength 要加载到 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG 结构的 MaximumTransferLength 成员的值。 有关详细信息，请参阅 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG中此成员的说明。"
+          "description": "指向要初始化的 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG 结构的指针。[in] MaximumTransferLength 要加载到 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG 结构的 MaximumTransferLength 成员的值。 有关详细信息，请参阅 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG中此成员的说明。",
+          "type": "SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG"
         },
         {
           "name": "Address",
           "direction": "in",
-          "description": "要加载到 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG 结构的 DeviceAddress 成员的值。 有关 详细信息，请参阅 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG中此成员的说明。[in] DmaWidth 要加载到 DmaWidthSERCX2_SYSTEM_DMA_TRANSMIT_CONFIG 结构成员的值。 有关详细信 息，请参阅 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG中此成员的说明。[in] DmaDescriptor 要加载到 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG 结构的 DmaDescriptor 成员的值。 有关详细信息，请参阅 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG中此成员的说明。"
+          "description": "要加载到 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG 结构的 DeviceAddress 成员的值。 有关 详细信息，请参阅 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG中此成员的说明。[in] DmaWidth 要加载到 DmaWidthSERCX2_SYSTEM_DMA_TRANSMIT_CONFIG 结构成员的值。 有关详细信 息，请参阅 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG中此成员的说明。[in] DmaDescriptor 要加载到 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG 结构的 DmaDescriptor 成员的值。 有关详细信息，请参阅 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG中此成员的说明。",
+          "type": "PHYSICAL_ADDRESS"
         }
       ],
       "return_value": {
@@ -2561,7 +2615,8 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。 串行控制器驱动程序在其"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。 串行控制器驱动程序在其",
+          "type": "WDFDEVICE"
         }
       ],
       "header": "sercx.h",
@@ -2585,16 +2640,19 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。 串行控制器驱动程序在其 EvtDriverDeviceAdd 回调函数中创建此对象。 有关详细信息，请参阅 SerCx2InitializeDevice。[in] CustomReceiveConfig 指向 SERCX2_CUSTOM_RECEIVE_CONFIG 结构的指针。 调用此方法之前，调用方必须调用 SERCX2_CUSTOM_RECEIVE_CONFIG_INIT 函数来初始化结构。 此结构包含指向由串行控制器驱动程序实现的一组事件回调例程的指针。 SerCx2 调用这些函数来执行自定义接收事务。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。 串行控制器驱动程序在其 EvtDriverDeviceAdd 回调函数中创建此对象。 有关详细信息，请参阅 SerCx2InitializeDevice。[in] CustomReceiveConfig 指向 SERCX2_CUSTOM_RECEIVE_CONFIG 结构的指针。 调用此方法之前，调用方必须调用 SERCX2_CUSTOM_RECEIVE_CONFIG_INIT 函数来初始化结构。 此结构包含指向由串行控制器驱动程序实现的一组事件回调例程的指针。 SerCx2 调用这些函数来执行自定义接收事务。",
+          "type": "WDFDEVICE"
         },
         {
           "name": "Attributes",
           "direction": "in",
-          "description": "指向 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构描述要分配给新的自定义接收对象的属性。 调用此方法之前，调用方必须调用 WDF_OBJECT_ATTRIBUTES_INIT 函数来初始化结构。 此参数是可选的，如果串行控制器驱动程序不需要向对象分配属性，则可以指 定为WDF_NO_OBJECT_ATTRIBUTES。 有关详细信息，请参阅“备注”。[out] CustomReceive 指向此方法将 SERCX2CUSTOMRECEIVE 句柄写入到新创建的自定义接收对象的位置的指 针。 SerCx2 和串行控制器驱动程序在后续调用中使用此句柄来引用此对象。"
+          "description": "指向 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构描述要分配给新的自定义接收对象的属性。 调用此方法之前，调用方必须调用 WDF_OBJECT_ATTRIBUTES_INIT 函数来初始化结构。 此参数是可选的，如果串行控制器驱动程序不需要向对象分配属性，则可以指 定为WDF_NO_OBJECT_ATTRIBUTES。 有关详细信息，请参阅“备注”。[out] CustomReceive 指向此方法将 SERCX2CUSTOMRECEIVE 句柄写入到新创建的自定义接收对象的位置的指 针。 SerCx2 和串行控制器驱动程序在后续调用中使用此句柄来引用此对象。",
+          "type": "PWDF_OBJECT_ATTRIBUTES"
         }
       ],
       "return_value": {
-        "description": "如果调用成功，则返回 STATUS_SUCCESS。可能的错误状态代码包括 STATUS_INFO_LENGTH_MISMATCH 和 STATUS_INSUFFICIENT_RESOURCES。"
+        "description": "如果调用成功，则返回 STATUS_SUCCESS。可能的错误状态代码包括 STATUS_INFO_LENGTH_MISMATCH 和 STATUS_INSUFFICIENT_RESOURCES。",
+        "type": "NTSTATUS"
       },
       "header": "sercx.h",
       "deprecated": false,
@@ -2617,7 +2675,8 @@
         {
           "name": "CustomReceiveTransaction",
           "direction": "in",
-          "description": "自定义接收对象的 SERCX2CUSTOMRECEIVETRANSACTION 句柄。 串行控制器驱动程序以前调用 SerCx2CustomReceiveTransactionCreate 方法来创建此对象。"
+          "description": "自定义接收对象的 SERCX2CUSTOMRECEIVETRANSACTION 句柄。 串行控制器驱动程序以前调用 SerCx2CustomReceiveTransactionCreate 方法来创建此对象。",
+          "type": "SERCX2CUSTOMRECEIVETRANSACTION"
         }
       ],
       "return_value": "当自定义接收事务结束后，如果驱动程序实现了 EvtSerCx2CustomReceiveTransactionCleanup，SerCx2 会调用该回调以便驱动程序清理串行控制器状态。驱动程序完成所需清理后，必须调用 SerCx2CustomReceiveTransactionCleanupComplete 通知 SerCx2 清理已完成。在收到此通知之前，SerCx2 不会启动下一个事务。该函数只能用于响应 EvtSerCx2CustomReceiveTransactionCleanup 的调用。",
@@ -2642,7 +2701,8 @@
         {
           "name": "CustomReceive",
           "direction": "in",
-          "description": "自定义接收对象的 SERCX2CUSTOMRECEIVE 句柄。 串行控制器驱动程序以前调用"
+          "description": "自定义接收对象的 SERCX2CUSTOMRECEIVE 句柄。 串行控制器驱动程序以前调用",
+          "type": "SERCX2CUSTOMRECEIVE"
         }
       ],
       "header": "sercx.h",
@@ -2653,7 +2713,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 273,
-      "return_value": "Returns STATUS_SUCCESS if the custom receive transaction object is created successfully. Otherwise, returns an appropriate NTSTATUS error code."
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "Returns STATUS_SUCCESS if the custom receive transaction object is created successfully. Otherwise, returns an appropriate NTSTATUS error code."
+      }
     },
     {
       "id": "windows::SerCx2CustomReceiveTransactionInitializeComplete",
@@ -2665,7 +2728,8 @@
         {
           "name": "CustomReceiveTransaction",
           "direction": "in",
-          "description": "自定义接收对象的 SERCX2CUSTOMRECEIVETRANSACTION 句柄。 串行控制器驱动程序以前调 用 SerCx2CustomReceiveTransactionCreate 方法来创建此对象。[in] InitSuccess 初始化是否成功。 如果 TRUE，则初始化成功。 如果 FALSE，则初始化失败。"
+          "description": "自定义接收对象的 SERCX2CUSTOMRECEIVETRANSACTION 句柄。 串行控制器驱动程序以前调 用 SerCx2CustomReceiveTransactionCreate 方法来创建此对象。[in] InitSuccess 初始化是否成功。 如果 TRUE，则初始化成功。 如果 FALSE，则初始化失败。",
+          "type": "SERCX2CUSTOMRECEIVETRANSACTION"
         }
       ],
       "return_value": "在 SerCx2 启动自定义接收事务之前，如果驱动程序实现了 EvtSerCx2CustomReceiveTransactionInitialize，SerCx2 会调用该回调以便驱动程序执行事务所需的初始化。驱动程序完成初始化后，必须调用 SerCx2CustomReceiveTransactionInitializeComplete，并通过 InitSuccess 参数报告初始化结果。",
@@ -2690,7 +2754,8 @@
         {
           "name": "CustomReceiveTransaction",
           "direction": "in",
-          "description": "自定义接收对象的 SERCX2CUSTOMRECEIVETRANSACTION 句柄。 串行控制器驱动程序以前调用 SerCx2CustomReceiveTransactionCreate 方法来创建此对象。"
+          "description": "自定义接收对象的 SERCX2CUSTOMRECEIVETRANSACTION 句柄。 串行控制器驱动程序以前调用 SerCx2CustomReceiveTransactionCreate 方法来创建此对象。",
+          "type": "SERCX2CUSTOMRECEIVETRANSACTION"
         }
       ],
       "return_value": {
@@ -2729,7 +2794,8 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。 串行控制器驱动程序在其"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。 串行控制器驱动程序在其",
+          "type": "WDFDEVICE"
         }
       ],
       "header": "sercx.h",
@@ -2742,7 +2808,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 281,
-      "return_value": "如果调用成功，则返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码，例如 STATUS_INSUFFICIENT_RESOURCES。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果调用成功，则返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码，例如 STATUS_INSUFFICIENT_RESOURCES。"
+      },
       "remarks": "驱动程序通常在设备初始化期间调用此函数以创建可在后续写事务中使用的自定义传输对象。创建前应正确初始化配置结构。"
     },
     {
@@ -2755,7 +2824,8 @@
         {
           "name": "CustomTransmitTransaction",
           "direction": "in",
-          "description": "自定义传输对象的 SERCX2CUSTOMTRANSMITTRANSACTION 句柄。 串行控制器驱动程序以前调用 SerCx2CustomTransmitTransactionCreate 方法来创建此对象。"
+          "description": "自定义传输对象的 SERCX2CUSTOMTRANSMITTRANSACTION 句柄。 串行控制器驱动程序以前调用 SerCx2CustomTransmitTransactionCreate 方法来创建此对象。",
+          "type": "SERCX2CUSTOMTRANSMITTRANSACTION"
         }
       ],
       "return_value": "无。",
@@ -2781,7 +2851,8 @@
         {
           "name": "CustomTransmit",
           "direction": "in",
-          "description": "自定义传输对象的 SERCX2CUSTOMTRANSMIT 句柄。 串行控制器驱动程序以前调用"
+          "description": "自定义传输对象的 SERCX2CUSTOMTRANSMIT 句柄。 串行控制器驱动程序以前调用",
+          "type": "SERCX2CUSTOMTRANSMIT"
         }
       ],
       "header": "sercx.h",
@@ -2795,7 +2866,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 285,
-      "return_value": "如果调用成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果调用成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "驱动程序在需要执行自定义发送事务时调用此函数。若在 SERCX2_CUSTOM_TRANSMIT_TRANSACTION_CONFIG 中提供了 EvtSerCx2CustomTransmitTransactionCleanup 回调，则当事务结束后 SerCx2 会调用该回调；驱动程序完成清理后必须调用 SerCx2CustomTransmitTransactionCleanupComplete。"
     },
     {
@@ -2824,10 +2898,14 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。 有关详细信息，请参阅“备注”。[in] Config 指向调用方分配的 SERCX2_CONFIG 结构的指针，该结构包含指向由串行控制器驱动程序实现的一组事件回调函数的指针。 串行框架控制器版本 2（SerCx2）调用这些函数来配置串行控制器，并执行独立于驱动程序支持的 I/O 事务类型（PIO、系统 DMA 或自定 义）的基本操作。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。 有关详细信息，请参阅“备注”。[in] Config 指向调用方分配的 SERCX2_CONFIG 结构的指针，该结构包含指向由串行控制器驱动程序实现的一组事件回调函数的指针。 串行框架控制器版本 2（SerCx2）调用这些函数来配置串行控制器，并执行独立于驱动程序支持的 I/O 事务类型（PIO、系统 DMA 或自定 义）的基本操作。",
+          "type": "WDFDEVICE"
         }
       ],
-      "return_value": "驱动程序通常从 EvtDriverDeviceAdd 回调中调用此函数。调用前，驱动程序应先初始化 SERCX2_CONFIG 结构。该函数用于将驱动程序的 SerCx2 回调与设备相关联，并完成 SerCx2 对框架设备对象的初始化。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "驱动程序通常从 EvtDriverDeviceAdd 回调中调用此函数。调用前，驱动程序应先初始化 SERCX2_CONFIG 结构。该函数用于将驱动程序的 SerCx2 回调与设备相关联，并完成 SerCx2 对框架设备对象的初始化。"
+      },
       "header": "sercx.h",
       "deprecated": false,
       "cross_references": [
@@ -2850,10 +2928,14 @@
         {
           "name": "DeviceInit",
           "direction": "in, out",
-          "description": "指向 WDFDEVICE_INIT 结构的指针，它是一种不透明结构，用于存储内核模式驱动程序框架（KMDF）用于创建框架设备对象的信息。 串行控制器驱动程序接收指向此结构的指 针作为驱动程序 EvtDriverDeviceAdd 回调函数的输入参数。"
+          "description": "指向 WDFDEVICE_INIT 结构的指针，它是一种不透明结构，用于存储内核模式驱动程序框架（KMDF）用于创建框架设备对象的信息。 串行控制器驱动程序接收指向此结构的指 针作为驱动程序 EvtDriverDeviceAdd 回调函数的输入参数。",
+          "type": "out] PWDFDEVICE_INIT"
         }
       ],
-      "return_value": "成功时返回 STATUS_SUCCESS。失败时返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "成功时返回 STATUS_SUCCESS。失败时返回相应的 NTSTATUS 错误代码。"
+      },
       "header": "sercx.h",
       "deprecated": false,
       "cross_references": [
@@ -2873,7 +2955,8 @@
         {
           "name": "PioReceive",
           "direction": "in",
-          "description": "PIO 接收对象的 SERCX2PIORECEIVE 句柄。 串行控制器驱动程序以前调用 SerCx2PioReceiveCreate 方法来创建此对象。"
+          "description": "PIO 接收对象的 SERCX2PIORECEIVE 句柄。 串行控制器驱动程序以前调用 SerCx2PioReceiveCreate 方法来创建此对象。",
+          "type": "SERCX2PIORECEIVE"
         }
       ],
       "return_value": {
@@ -2900,11 +2983,13 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。 串行控制器驱动程序在其"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。 串行控制器驱动程序在其",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "如果调用成功，则返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码，例如 STATUS_INSUFFICIENT_RESOURCES。"
+        "description": "如果调用成功，则返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码，例如 STATUS_INSUFFICIENT_RESOURCES。",
+        "type": "NTSTATUS"
       },
       "remarks": "SerCx2 使用此对象执行 PIO 接收事务，即通过编程 I/O (PIO) 从串行控制器接收数据。驱动程序通常从 EvtDriverDeviceAdd 回调调用此函数来创建该对象。创建对象前，调用方必须先初始化 SERCX2_PIO_RECEIVE_CONFIG 结构，并提供处理 PIO 接收事务所需的回调例程。",
       "header": "sercx.h",
@@ -2928,7 +3013,8 @@
         {
           "name": "PioReceive",
           "direction": "in",
-          "description": "PIO 接收对象的 SERCX2PIORECEIVE 句柄。 串行控制器驱动程序以前调用"
+          "description": "PIO 接收对象的 SERCX2PIORECEIVE 句柄。 串行控制器驱动程序以前调用",
+          "type": "SERCX2PIORECEIVE"
         }
       ],
       "header": "sercx.h",
@@ -2953,7 +3039,8 @@
         {
           "name": "PioReceive",
           "direction": "in",
-          "description": "PIO 接收对象的 SERCX2PIORECEIVE 句柄。 串行控制器驱动程序以前调用 SerCx2PioReceiveCreate 方法来创建此对象。"
+          "description": "PIO 接收对象的 SERCX2PIORECEIVE 句柄。 串行控制器驱动程序以前调用 SerCx2PioReceiveCreate 方法来创建此对象。",
+          "type": "SERCX2PIORECEIVE"
         }
       ],
       "return_value": {
@@ -2980,7 +3067,8 @@
         {
           "name": "PioTransmit",
           "direction": "in",
-          "description": "PIO 传输对象的 SERCX2PIOTRANSMIT 句柄。 串行控制器驱动程序以前调用 SerCx2PioTransmitCreate 方法来创建此对象。"
+          "description": "PIO 传输对象的 SERCX2PIOTRANSMIT 句柄。 串行控制器驱动程序以前调用 SerCx2PioTransmitCreate 方法来创建此对象。",
+          "type": "SERCX2PIOTRANSMIT"
         }
       ],
       "return_value": "此函数不返回值。",
@@ -3006,11 +3094,13 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。 串行控制器驱动程序在其"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。 串行控制器驱动程序在其",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "如果调用成功，则返回 STATUS_SUCCESS。否则返回适当的 NTSTATUS 错误代码。"
+        "description": "如果调用成功，则返回 STATUS_SUCCESS。否则返回适当的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "remarks": "串行控制器驱动程序通过此函数创建 PIO 传输对象，并在 SERCX2_PIO_TRANSMIT_CONFIG 结构中提供实现的事件回调。通常在 EvtDevicePrepareHardware 中调用。在调用此函数之前，驱动程序必须先调用 SerCx2InitializeDevice。若驱动程序实现 EvtSerCx2PioTransmitInitializeTransaction，则 SerCx2 会在启动新的 PIO 传输事务前调用该回调；驱动程序完成初始化后必须调用相应的完成例程通知 SerCx2。",
       "header": "sercx.h",
@@ -3036,7 +3126,8 @@
         {
           "name": "PioTransmit",
           "direction": "in",
-          "description": "PIO 传输对象的 SERCX2PIOTRANSMIT 句柄。 串行控制器驱动程序以前调用 SerCx2PioTransmitCreate 方法来创建此对象。"
+          "description": "PIO 传输对象的 SERCX2PIOTRANSMIT 句柄。 串行控制器驱动程序以前调用 SerCx2PioTransmitCreate 方法来创建此对象。",
+          "type": "SERCX2PIOTRANSMIT"
         }
       ],
       "return_value": "无。",
@@ -3061,7 +3152,8 @@
         {
           "name": "PioTransmit",
           "direction": "in",
-          "description": "PIO 传输对象的 SERCX2PIOTRANSMIT 句柄。 串行控制器驱动程序以前调用"
+          "description": "PIO 传输对象的 SERCX2PIOTRANSMIT 句柄。 串行控制器驱动程序以前调用",
+          "type": "SERCX2PIOTRANSMIT"
         }
       ],
       "header": "sercx.h",
@@ -3086,7 +3178,8 @@
         {
           "name": "PioTransmit",
           "direction": "in",
-          "description": "PIO 传输对象的 SERCX2PIOTRANSMIT 句柄。 串行控制器驱动程序以前调用"
+          "description": "PIO 传输对象的 SERCX2PIOTRANSMIT 句柄。 串行控制器驱动程序以前调用",
+          "type": "SERCX2PIOTRANSMIT"
         }
       ],
       "header": "sercx.h",
@@ -3112,7 +3205,8 @@
         {
           "name": "PioTransmit",
           "direction": "in",
-          "description": "PIO 传输对象的 SERCX2PIOTRANSMIT 句柄。 串行控制器驱动程序以前调用 SerCx2PioTransmitCreate 方法来创建此对象。"
+          "description": "PIO 传输对象的 SERCX2PIOTRANSMIT 句柄。 串行控制器驱动程序以前调用 SerCx2PioTransmitCreate 方法来创建此对象。",
+          "type": "SERCX2PIOTRANSMIT"
         }
       ],
       "return_value": "无返回值。",
@@ -3136,7 +3230,8 @@
         {
           "name": "PioReceive",
           "direction": "in",
-          "description": "PIO 接收对象的 SERCX2PIORECEIVE 句柄。 串行控制器驱动程序以前调用"
+          "description": "PIO 接收对象的 SERCX2PIORECEIVE 句柄。 串行控制器驱动程序以前调用",
+          "type": "SERCX2PIORECEIVE"
         }
       ],
       "header": "sercx.h",
@@ -3159,7 +3254,8 @@
         {
           "name": "SystemDmaReceive",
           "direction": "in",
-          "description": "系统 DMA 接收对象的 SERCX2SYSTEMDMARECEIVE 句柄。 串行控制器驱动程序以前调用 SerCx2SystemDmaReceiveCreate 方法来创建此对象。"
+          "description": "系统 DMA 接收对象的 SERCX2SYSTEMDMARECEIVE 句柄。 串行控制器驱动程序以前调用 SerCx2SystemDmaReceiveCreate 方法来创建此对象。",
+          "type": "SERCX2SYSTEMDMARECEIVE"
         }
       ],
       "return_value": {
@@ -3185,10 +3281,14 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。 串行控制器驱动程序在其"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。 串行控制器驱动程序在其",
+          "type": "WDFDEVICE"
         }
       ],
-      "return_value": "串行控制器驱动程序在初始化系统-DMA 接收支持时调用此函数。成功返回后，驱动程序将获得一个 SERCX2SYSTEMDMARECEIVE 句柄，可在后续系统-DMA 接收操作中使用。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "串行控制器驱动程序在初始化系统-DMA 接收支持时调用此函数。成功返回后，驱动程序将获得一个 SERCX2SYSTEMDMARECEIVE 句柄，可在后续系统-DMA 接收操作中使用。"
+      },
       "remarks": "串行控制器驱动程序在初始化系统-DMA 接收支持时调用此函数。成功返回后，驱动程序将获得一个 SERCX2SYSTEMDMARECEIVE 句柄，可在后续系统-DMA 接收操作中使用。",
       "header": "sercx.h",
       "deprecated": false,
@@ -3209,11 +3309,13 @@
         {
           "name": "SystemDmaReceive",
           "direction": "in",
-          "description": "系统 DMA 接收对象的 SERCX2SYSTEMDMARECEIVE 句柄。 串行控制器驱动程序以前调 用 SerCx2SystemDmaReceiveCreate 方法来创建此对象。"
+          "description": "系统 DMA 接收对象的 SERCX2SYSTEMDMARECEIVE 句柄。 串行控制器驱动程序以前调 用 SerCx2SystemDmaReceiveCreate 方法来创建此对象。",
+          "type": "SERCX2SYSTEMDMARECEIVE"
         }
       ],
       "return_value": {
-        "description": "此方法将 WDFDMAENABLER 句柄返回到框架 DMA 启用器对象，该对象表示用于系统 DMA 接收事务的系统 DMA 控制器。"
+        "description": "此方法将 WDFDMAENABLER 句柄返回到框架 DMA 启用器对象，该对象表示用于系统 DMA 接收事务的系统 DMA 控制器。",
+        "type": "WDFDMAENABLER"
       },
       "remarks": "如果需要，串行控制器驱动程序可以调用此方法来配置系统 DMA 控制器的特殊功能。驱动程序可以使用此方法返回的 DMA 启用器来指定未在此前传递给 SerCx2SystemDmaReceiveCreate 的 SERCX2_SYSTEM_DMA_RECEIVE_CONFIG 结构中提供的 DMA 设置，也可以修改此前在该结构中指定的 DMA 设置。有关 DMA 启用器对象的详细信息，请参阅“启用 DMA 事务”。有关 system-DMA-receive 事务的详细信息，请参阅 SerCx2 System-DMA-Receive 事务。",
       "header": "sercx.h",
@@ -3237,7 +3339,8 @@
         {
           "name": "SystemDmaReceive",
           "direction": "in",
-          "description": "系统 DMA 接收对象的 SERCX2SYSTEMDMARECEIVE 句柄。 串行控制器驱动程序以前调 用 SerCx2SystemDmaReceiveCreate 方法来创建此对象。[in] InitSuccess 初始化是否成功。 如果 TRUE，则初始化成功。 如果 FALSE，则初始化失败。"
+          "description": "系统 DMA 接收对象的 SERCX2SYSTEMDMARECEIVE 句柄。 串行控制器驱动程序以前调 用 SerCx2SystemDmaReceiveCreate 方法来创建此对象。[in] InitSuccess 初始化是否成功。 如果 TRUE，则初始化成功。 如果 FALSE，则初始化失败。",
+          "type": "SERCX2SYSTEMDMARECEIVE"
         }
       ],
       "return_value": "在 SerCx2 启动系统 DMA 接收事务之前，SerCx2 会调用驱动程序实现的 EvtSerCx2SystemDmaReceiveInitializeTransaction 回调。驱动程序完成初始化后，必须调用 SerCx2SystemDmaReceiveInitializeTransactionComplete 通知 SerCx2 初始化结果。",
@@ -3262,7 +3365,8 @@
         {
           "name": "SystemDmaReceive",
           "direction": "in",
-          "description": "系统 DMA 接收对象的 SERCX2SYSTEMDMARECEIVE 句柄。 串行控制器驱动程序以前调用 SerCx2SystemDmaReceiveCreate 方法来创建此对象。"
+          "description": "系统 DMA 接收对象的 SERCX2SYSTEMDMARECEIVE 句柄。 串行控制器驱动程序以前调用 SerCx2SystemDmaReceiveCreate 方法来创建此对象。",
+          "type": "SERCX2SYSTEMDMARECEIVE"
         }
       ],
       "return_value": {
@@ -3291,7 +3395,8 @@
         {
           "name": "SystemDmaTransmit",
           "direction": "in",
-          "description": "系统-DMA 传输对象的 SERCX2SYSTEMDMATRANSMIT 句柄。 串行控制器驱动程序以前调用 SerCx2SystemDmaTransmitCreate 方法来创建此对象。"
+          "description": "系统-DMA 传输对象的 SERCX2SYSTEMDMATRANSMIT 句柄。 串行控制器驱动程序以前调用 SerCx2SystemDmaTransmitCreate 方法来创建此对象。",
+          "type": "SERCX2SYSTEMDMATRANSMIT"
         }
       ],
       "return_value": {
@@ -3318,11 +3423,13 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。 串行控制器驱动程序在其"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。 串行控制器驱动程序在其",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "如果调用成功，则返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。"
+        "description": "如果调用成功，则返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "remarks": "驱动程序通常在设备初始化期间调用此函数以创建 system-DMA transmit 对象。调用前应先初始化 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG 结构（例如通过 SERCX2_SYSTEM_DMA_TRANSMIT_CONFIG_INIT）。如果驱动程序提供了 EvtSerCx2SystemDmaTransmitInitializeTransaction 回调，则该回调在事务开始前运行，且驱动程序必须在完成初始化后调用 SerCx2SystemDmaTransmitInitializeTransactionComplete。",
       "header": "sercx.h",
@@ -3364,10 +3471,14 @@
         {
           "name": "SystemDmaTransmit",
           "direction": "in",
-          "description": "系统-DMA 传输对象的 SERCX2SYSTEMDMATRANSMIT 句柄。 串行控制器驱动程序以前调用 SerCx2SystemDmaTransmitCreate 方法来创建此对象。"
+          "description": "系统-DMA 传输对象的 SERCX2SYSTEMDMATRANSMIT 句柄。 串行控制器驱动程序以前调用 SerCx2SystemDmaTransmitCreate 方法来创建此对象。",
+          "type": "SERCX2SYSTEMDMATRANSMIT"
         }
       ],
-      "return_value": "如有需要，串行控制器驱动程序可调用此方法以获取 DMA 启用器对象，并据此为系统 DMA 控制器配置特殊功能。",
+      "return_value": {
+        "type": "WDFDMAENABLER",
+        "description": "如有需要，串行控制器驱动程序可调用此方法以获取 DMA 启用器对象，并据此为系统 DMA 控制器配置特殊功能。"
+      },
       "remarks": "如有需要，串行控制器驱动程序可调用此方法以获取 DMA 启用器对象，并据此为系统 DMA 控制器配置特殊功能。",
       "header": "sercx.h",
       "deprecated": false,
@@ -3387,7 +3498,8 @@
         {
           "name": "SystemDmaTransmit",
           "direction": "in",
-          "description": "系统-DMA 传输对象的 SERCX2SYSTEMDMATRANSMIT 句柄。 串行控制器驱动程序以前 调用 SerCx2SystemDmaTransmitCreate 方法来创建此对象。[in] InitSuccess 初始化是否成功。 如果 TRUE，则初始化成功。 如果 FALSE，则初始化失败。"
+          "description": "系统-DMA 传输对象的 SERCX2SYSTEMDMATRANSMIT 句柄。 串行控制器驱动程序以前 调用 SerCx2SystemDmaTransmitCreate 方法来创建此对象。[in] InitSuccess 初始化是否成功。 如果 TRUE，则初始化成功。 如果 FALSE，则初始化失败。",
+          "type": "SERCX2SYSTEMDMATRANSMIT"
         }
       ],
       "return_value": "在 SerCx2 启动系统 DMA 传输事务之前，SerCx2 会调用驱动程序实现的 EvtSerCx2SystemDmaTransmitInitializeTransaction 回调，要求驱动程序初始化串行控制器硬件。驱动程序完成该初始化后，应调用此函数通知 SerCx2 初始化结果。",
@@ -3411,7 +3523,8 @@
         {
           "name": "SystemDmaTransmit",
           "direction": "in",
-          "description": "系统-DMA 传输对象的 SERCX2SYSTEMDMATRANSMIT 句柄。 串行控制器驱动程序以前调用"
+          "description": "系统-DMA 传输对象的 SERCX2SYSTEMDMATRANSMIT 句柄。 串行控制器驱动程序以前调用",
+          "type": "SERCX2SYSTEMDMATRANSMIT"
         }
       ],
       "header": "sercx.h",
@@ -3435,10 +3548,14 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] Event 结束当前等待操作的事件的类型。 此参数是等待掩码值。 每个事件类型对应于等待掩码中的特定位。 此位设置为指示发生了相应的事件。 有关可由等待掩码指定的事件类型的 详细信息，请参阅 SERIAL_EV_XXX。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] Event 结束当前等待操作的事件的类型。 此参数是等待掩码值。 每个事件类型对应于等待掩码中的特定位。 此位设置为指示发生了相应的事件。 有关可由等待掩码指定的事件类型的 详细信息，请参阅 SERIAL_EV_XXX。",
+          "type": "WDFDEVICE"
         }
       ],
-      "return_value": "此函数用于完成由等待掩码请求启动的等待操作。驱动程序通常在 ISR 安排的 DPC 或其他适当的执行上下文中，在检测到等待事件后调用它。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "此函数用于完成由等待掩码请求启动的等待操作。驱动程序通常在 ISR 安排的 DPC 或其他适当的执行上下文中，在检测到等待事件后调用它。"
+      },
       "header": "sercx.h",
       "deprecated": false,
       "cross_references": [
@@ -3460,7 +3577,8 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in, out] Activity 指向调用方分配 SERCX_ACTIVITY 结构的指针。 调用方必须先调用 SERCX_ACTIVITY_INIT 函数才能在初始使用之前初始化此结构。 此后，每个 SerCxGetActivity 调用更新此结构的内容，以跟踪可供控制器驱动程序处理的工作项。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in, out] Activity 指向调用方分配 SERCX_ACTIVITY 结构的指针。 调用方必须先调用 SERCX_ACTIVITY_INIT 函数才能在初始使用之前初始化此结构。 此后，每个 SerCxGetActivity 调用更新此结构的内容，以跟踪可供控制器驱动程序处理的工作项。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
@@ -3489,7 +3607,8 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[out] ConnectionParameters 指向方法将指针写入到连接参数的位置的指针的指针。 调用方必须将此指针强制转换为适当的指针类型，分析连接参数的数据结构，从此结构读取配置设置，并将这些设置应用于串行控制器硬件。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[out] ConnectionParameters 指向方法将指针写入到连接参数的位置的指针的指针。 调用方必须将此指针强制转换为适当的指针类型，分析连接参数的数据结构，从此结构读取配置设置，并将这些设置应用于串行控制器硬件。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": "SerCx 从平台固件中的 ACPI 资源描述符获取外设的连接参数。有关连接参数数据格式的详细信息，请参阅 EvtSerCxApplyConfig。",
@@ -3514,7 +3633,8 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。",
+          "type": "WDFDEVICE"
         }
       ],
       "remarks": "读取间隔超时值表示读取操作中两个连续接收字节之间允许的最大时间间隔（以毫秒为单位）。如果在该时间内未接收到下一个字节，则读取操作会因超时而完成。有关超时值的详细信息，请参阅 SERIAL_TIMEOUTS。读取（IRP_MJ_READ）请求在超时时完成，并返回 STATUS_TIMEOUT。",
@@ -3527,7 +3647,11 @@
         "SerCxGetRingBufferUtilization"
       ],
       "confidence": 0.7,
-      "_source_line": 338
+      "_source_line": 338,
+      "return_value": {
+        "type": "ULONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::SerCxGetRingBufferUtilization",
@@ -3539,7 +3663,8 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[out, optional] BytesUsed 当前包含在用于存储已接收数据的预键入环形缓冲区中的未读数据的字节数。[out, optional] BufferSize 用于存储已接收数据的预键入环缓冲区的大小（以字节为单位）。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[out, optional] BytesUsed 当前包含在用于存储已接收数据的预键入环形缓冲区中的未读数据的字节数。[out, optional] BufferSize 用于存储已接收数据的预键入环缓冲区的大小（以字节为单位）。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
@@ -3567,7 +3692,8 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。",
+          "type": "WDFDEVICE"
         }
       ],
       "remarks": "串行控制器驱动程序调用 SerCxGetWaitMask 以检索与当前挂起等待操作关联的等待掩码，通常在 EvtSerCxWaitmask 回调中调用。等待掩码中的每一位表示一种可能触发等待操作完成的串行事件；如果某事件被启用，则对应位被置位。有关这些位标志的含义，请参阅 SERIAL_EV_XXX 常量。",
@@ -3578,7 +3704,11 @@
         "SERIAL_EV_XXX"
       ],
       "confidence": 0.8,
-      "_source_line": 340
+      "_source_line": 340,
+      "return_value": {
+        "type": "ULONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::SerCxInitialize",
@@ -3590,7 +3720,8 @@
         {
           "name": "FxDevice",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] Config 指向调用方分配 SERCX_CONFIG 结构的指针，该结构包含 SerCx 的配置信息。 调用方以 前调用 SERCX_CONFIG_INIT 函数来初始化此结构。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] Config 指向调用方分配 SERCX_CONFIG 结构的指针，该结构包含 SerCx 的配置信息。 调用方以 前调用 SERCX_CONFIG_INIT 函数来初始化此结构。",
+          "type": "WDFDEVICE"
         }
       ],
       "header": "sercx.h",
@@ -3600,7 +3731,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 343,
-      "return_value": "如果调用成功，则返回 STATUS_SUCCESS；如果输入参数无效或初始化失败，则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果调用成功，则返回 STATUS_SUCCESS；如果输入参数无效或初始化失败，则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "控制器驱动程序通常在 EvtDriverDeviceAdd 回调中调用此函数。调用完成后，SerCx 会根据 SERCX_CONFIG 中提供的回调例程和配置信息创建并管理内部 I/O 队列。"
     },
     {
@@ -3613,7 +3747,8 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] BytesReceived 调用方加载到接收缓冲区的数据字节数，该接收缓冲区是通过对"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] BytesReceived 调用方加载到接收缓冲区的数据字节数，该接收缓冲区是通过对",
+          "type": "WDFDEVICE"
         }
       ],
       "header": "sercx.h",
@@ -3624,7 +3759,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 345,
-      "return_value": "如果操作成功，则返回 STATUS_SUCCESS；否则返回适当的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回适当的 NTSTATUS 错误代码。"
+      },
       "remarks": "此例程用于向 SerCx 报告接收进度。ReceiveStatus 参数为 SERCX_STATUS 枚举值。有关对应的发送进度报告例程，请参阅 SerCxProgressTransmit。"
     },
     {
@@ -3637,12 +3775,14 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] BytesTransmitted 调用方从传输缓冲区复制的数据字节数，该传输缓冲区是通过对 SerCxRetrieveTransmitBuffer 方法获取的。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] BytesTransmitted 调用方从传输缓冲区复制的数据字节数，该传输缓冲区是通过对 SerCxRetrieveTransmitBuffer 方法获取的。",
+          "type": "WDFDEVICE"
         },
         {
           "name": "TransmitStatus",
           "direction": "in",
-          "description": "传输操作的当前状态。 将此参数设置为以下值之一："
+          "description": "传输操作的当前状态。 将此参数设置为以下值之一：",
+          "type": "SERCX_STATUS"
         }
       ],
       "return_value": {
@@ -3668,7 +3808,8 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] Length 请求的缓冲区长度（以字节为单位）。 如果 SerCxRetrieveReceiveBuffer 调用成功，则调用方将收到一个输入缓冲区，该缓冲区包含最多 长度 字节的可用空间。 （缓冲区中的可用空间可能小于 长度 字节。SerCxRetrieveReceiveBuffer 将可用空间的实际字节数写 入 BufferDescriptor 参数指向的结构的 Length 成员。[in, out] BufferDescriptor 指向调用方分配 SERCX_BUFFER_DESCRIPTOR 结构的指针。 此结构描述用于接收操作的数据缓冲区。 调用方以前调用 SERCX_BUFFER_DESCRIPTOR_INIT 函数来初始化此结构。 SerCxRetrieveTransmitBuffer 写入 缓冲区，并 长度 此结构的成员。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] Length 请求的缓冲区长度（以字节为单位）。 如果 SerCxRetrieveReceiveBuffer 调用成功，则调用方将收到一个输入缓冲区，该缓冲区包含最多 长度 字节的可用空间。 （缓冲区中的可用空间可能小于 长度 字节。SerCxRetrieveReceiveBuffer 将可用空间的实际字节数写 入 BufferDescriptor 参数指向的结构的 Length 成员。[in, out] BufferDescriptor 指向调用方分配 SERCX_BUFFER_DESCRIPTOR 结构的指针。 此结构描述用于接收操作的数据缓冲区。 调用方以前调用 SERCX_BUFFER_DESCRIPTOR_INIT 函数来初始化此结构。 SerCxRetrieveTransmitBuffer 写入 缓冲区，并 长度 此结构的成员。",
+          "type": "WDFDEVICE"
         }
       ],
       "header": "sercx.h",
@@ -3678,7 +3819,11 @@
       ],
       "confidence": 0.8,
       "_source_line": 347,
-      "remarks": "IRQL <= DISPATCH_LEVEL。调用方应在调用前使用 SERCX_BUFFER_DESCRIPTOR_INIT 初始化 BufferDescriptor。原始文本中将本函数与 SerCxRetrieveTransmitBuffer 混淆，已清理。"
+      "remarks": "IRQL <= DISPATCH_LEVEL。调用方应在调用前使用 SERCX_BUFFER_DESCRIPTOR_INIT 初始化 BufferDescriptor。原始文本中将本函数与 SerCxRetrieveTransmitBuffer 混淆，已清理。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::SerCxRetrieveReceiveMdl",
@@ -3690,11 +3835,13 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[out] Mdl 指向方法将指针写入到 MDL 的位置的指针的指针。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[out] Mdl 指向方法将指针写入到 MDL 的位置的指针的指针。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "如果调用成功，返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+        "description": "如果调用成功，返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "header": "sercx.h",
       "deprecated": false,
@@ -3714,7 +3861,8 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] Length 请求的缓冲区长度（以字节为单位）。 如果 SerCxRetrieveTransmitBuffer 调用成功，则调用方将收到一个输出缓冲区，其中包含最多 长度 字节的可用数据。 （缓冲区中的可用数据可能小于 长度 字节。）SerCxRetrieveTransmitBuffer 将可用数据的实际字节数写入 由 BufferDescriptor 参数指向的结构的 Length 成员。[in, out] BufferDescriptor 指向调用方分配 SERCX_BUFFER_DESCRIPTOR 结构的指针。 此结构描述用于传输操作的数据缓冲区。 调用方以前调用 SERCX_BUFFER_DESCRIPTOR_INIT 函数来初始化此结构。 SerCxRetrieveTransmitBuffer 写入 缓冲区，并 长度 此结构的成员。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[in] Length 请求的缓冲区长度（以字节为单位）。 如果 SerCxRetrieveTransmitBuffer 调用成功，则调用方将收到一个输出缓冲区，其中包含最多 长度 字节的可用数据。 （缓冲区中的可用数据可能小于 长度 字节。）SerCxRetrieveTransmitBuffer 将可用数据的实际字节数写入 由 BufferDescriptor 参数指向的结构的 Length 成员。[in, out] BufferDescriptor 指向调用方分配 SERCX_BUFFER_DESCRIPTOR 结构的指针。 此结构描述用于传输操作的数据缓冲区。 调用方以前调用 SERCX_BUFFER_DESCRIPTOR_INIT 函数来初始化此结构。 SerCxRetrieveTransmitBuffer 写入 缓冲区，并 长度 此结构的成员。",
+          "type": "WDFDEVICE"
         }
       ],
       "header": "sercx.h",
@@ -3724,7 +3872,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 349,
-      "return_value": "如果操作成功，则返回 STATUS_SUCCESS 或其他成功的 NTSTATUS 代码；否则返回相应的错误状态代码。"
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果操作成功，则返回 STATUS_SUCCESS 或其他成功的 NTSTATUS 代码；否则返回相应的错误状态代码。"
+      }
     },
     {
       "id": "windows::SerCxRetrieveTransmitMdl",
@@ -3736,11 +3887,13 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[out] Mdl 指向方法将指针写入到 MDL 的位置的指针的指针。"
+          "description": "表示串行控制器的框架设备对象的 WDFDEVICE 句柄。[out] Mdl 指向方法将指针写入到 MDL 的位置的指针的指针。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。"
+        "description": "如果函数成功，返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "header": "sercx.h",
       "deprecated": false,
@@ -4749,7 +4902,10 @@
       "confidence": 0.45,
       "_source_line": 2378,
       "syntax": "NTSTATUS UartEvtApplyConfig(\n  _In_ WDFDEVICE Device,\n  _In_ PVOID ConnectionParameters\n);",
-      "return_value": "Returns STATUS_SUCCESS if the configuration is applied successfully; otherwise returns an appropriate NTSTATUS error code.",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "Returns STATUS_SUCCESS if the configuration is applied successfully; otherwise returns an appropriate NTSTATUS error code."
+      },
       "remarks": "This callback is implemented by the UART controller driver and is invoked by the SerCx framework to apply connection-specific configuration parameters."
     },
     {
@@ -5144,7 +5300,11 @@
       ],
       "confidence": 0.45,
       "_source_line": 3354,
-      "syntax": "SERCX2_CUSTOM_TRANSMIT_TRANSACTION MyCustomTransmitTransactionStart(WDFREQUEST Request, PMDL Mdl, ULONG Offset, ULONG Length);"
+      "syntax": "SERCX2_CUSTOM_TRANSMIT_TRANSACTION MyCustomTransmitTransactionStart(WDFREQUEST Request, PMDL Mdl, ULONG Offset, ULONG Length);",
+      "return_value": {
+        "type": "SERCX2_CUSTOM_TRANSMIT_TRANSACTION",
+        "description": ""
+      }
     },
     {
       "id": "windows::WdfRequestMarkCancelableEx",
@@ -6527,7 +6687,8 @@
         {
           "name": "CustomTransmitTransaction",
           "direction": "in",
-          "description": "自定义传输对象的 SERCX2CUSTOMTRANSMITTRANSACTION 句柄。 串行控制器驱动程序以前 调用 SerCx2CustomTransmitTransactionCreate 方法来创建此对象。[in] InitSuccess 初始化是否成功。 如果 TRUE，则初始化成功。 如果 FALSE，则初始化失败。"
+          "description": "自定义传输对象的 SERCX2CUSTOMTRANSMITTRANSACTION 句柄。 串行控制器驱动程序以前 调用 SerCx2CustomTransmitTransactionCreate 方法来创建此对象。[in] InitSuccess 初始化是否成功。 如果 TRUE，则初始化成功。 如果 FALSE，则初始化失败。",
+          "type": "SERCX2CUSTOMTRANSMITTRANSACTION"
         }
       ],
       "return_value": "在 SerCx2 启动自定义传输事务之前，SerCx2 会调用驱动程序提供的初始化回调。驱动程序在完成串行控制器和相关硬件的初始化后，必须调用此函数以通知 SerCx2 初始化结果。",
@@ -6637,11 +6798,13 @@
         {
           "name": "DeviceInit",
           "direction": "in, out",
-          "description": "指向要配置的 WDFDEVICE_INIT 结构的指针。"
+          "description": "指向要配置的 WDFDEVICE_INIT 结构的指针。",
+          "type": "out] PWDFDEVICE_INIT"
         }
       ],
       "return_value": {
-        "description": "成功时返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。"
+        "description": "成功时返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "header": "sercx.h",
       "deprecated": false,

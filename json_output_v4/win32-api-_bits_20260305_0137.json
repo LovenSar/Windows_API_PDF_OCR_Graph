@@ -12,11 +12,13 @@
         {
           "name": "dwFlags",
           "direction": "in",
-          "description": "指定要在枚举中包含其作业。 如果 dwFlags 设置为 0，则用户将收到他们在传输队列中拥有的所有作业。 下表列出了枚举选项。 选项"
+          "description": "指定要在枚举中包含其作业。 如果 dwFlags 设置为 0，则用户将收到他们在传输队列中拥有的所有作业。 下表列出了枚举选项。 选项",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "此方法在成功时返回 S_OK 或错误时返回标准 COM HRESULT 值之一。"
+        "description": "此方法在成功时返回 S_OK 或错误时返回标准 COM HRESULT 值之一。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -89,7 +91,8 @@
         {
           "name": "RemoteUrl",
           "direction": "in",
-          "description": "以 Null 结尾的字符串，其中包含服务器上文件的名称。 有关指定远程名称的信息，请参 阅BG_FILE_INFO结构的 RemoteName 成员和备注部分。从 BITS 3.0 开始，范围不支持 SMB 协议。 BITS 2.5 和 2.0： BITS 支持范围的 SMB 协议。[in] LocalName 以 Null 结尾的字符串，其中包含客户端上文件的名称。 有关指定本地名称的信息，请参 阅 BG_FILE_INFO 结构的 LocalName 成员和备注部分。[in] RangeCount"
+          "description": "以 Null 结尾的字符串，其中包含服务器上文件的名称。 有关指定远程名称的信息，请参 阅BG_FILE_INFO结构的 RemoteName 成员和备注部分。从 BITS 3.0 开始，范围不支持 SMB 协议。 BITS 2.5 和 2.0： BITS 支持范围的 SMB 协议。[in] LocalName 以 Null 结尾的字符串，其中包含客户端上文件的名称。 有关指定本地名称的信息，请参 阅 BG_FILE_INFO 结构的 LocalName 成员和备注部分。[in] RangeCount",
+          "type": "LPCWSTR"
         }
       ],
       "header": "bits2_0.h",
@@ -100,7 +103,11 @@
         "Clone"
       ],
       "confidence": 0.8,
-      "_source_line": 30
+      "_source_line": 30,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetErrorContextDescription",
@@ -112,7 +119,8 @@
         {
           "name": "LanguageId",
           "direction": "in",
-          "description": "标识用于生成说明的区域设置。 若要创建语言标识符，请使用 MAKELANGID 宏。 例 如，若要指定美国英语，请使用以下代码示例。 MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US) 若要检索系统的默认用户语言标识符，请使用以下调用。"
+          "description": "标识用于生成说明的区域设置。 若要创建语言标识符，请使用 MAKELANGID 宏。 例 如，若要指定美国英语，请使用以下代码示例。 MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US) 若要检索系统的默认用户语言标识符，请使用以下调用。",
+          "type": "DWORD"
         }
       ],
       "header": "bits.h",
@@ -146,7 +154,11 @@
         "GetProxySettings"
       ],
       "confidence": 0.8,
-      "_source_line": 91
+      "_source_line": 91,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetMaximumCacheSize",
@@ -158,7 +170,8 @@
         {
           "name": "Bytes",
           "direction": "in",
-          "description": "缓存的最大大小，以可用硬盘驱动器空间的百分比表示。"
+          "description": "缓存的最大大小，以可用硬盘驱动器空间的百分比表示。",
+          "type": "DWORD"
         },
         {
           "name": "Seconds",
@@ -167,7 +180,8 @@
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK。如果已成功保存配置首选项但不会使用该首选项（因为组策略设置将替代首选项），则返回 S_FALSE。"
+        "description": "成功时返回 S_OK。如果已成功保存配置首选项但不会使用该首选项（因为组策略设置将替代首选项），则返回 S_FALSE。",
+        "type": "HRESULT"
       },
       "remarks": "仅当未设置 MaxCacheSize 组策略时，才使用此值。如果达到最大缓存大小，则 BITS 会删除最近访问最少的文件，直到释放必要的磁盘空间。如果指定的值小于当前缓存大小，则 BITS 会从缓存中删除文件，直到满足请求的大小。默认情况下，最大缓存大小为磁盘大小的 1%。可以指定的最大值是磁盘大小的 80%。",
       "header": "bits3_0.h",
@@ -192,7 +206,8 @@
         {
           "name": "Flags",
           "direction": "in",
-          "description": "确定作业文件是否可以缓存并提供给对等方以及作业是否可以从对等方下载内容的标志。可以设置以下标志： 值"
+          "description": "确定作业文件是否可以缓存并提供给对等方以及作业是否可以从对等方下载内容的标志。可以设置以下标志： 值",
+          "type": "DWORD"
         }
       ],
       "header": "bits3_0.h",
@@ -204,7 +219,11 @@
         "SetReplyFileName"
       ],
       "confidence": 0.8,
-      "_source_line": 225
+      "_source_line": 225,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::BG_AUTH_CREDENTIALS",
@@ -739,11 +758,13 @@
         {
           "name": "pVal",
           "direction": "out",
-          "description": "以 Null 结尾的字符串，其中包含要传输的文件的远程名称。 该名称是完全限定的。 完成 后，调用 CoTaskMemFree 函数以释放 ppName 。"
+          "description": "以 Null 结尾的字符串，其中包含要传输的文件的远程名称。 该名称是完全限定的。 完成 后，调用 CoTaskMemFree 函数以释放 ppName 。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "此方法在成功时返回 S_OK 或错误时返回标准 COM HRESULT 值之一。"
+        "description": "此方法在成功时返回 S_OK 或错误时返回标准 COM HRESULT 值之一。",
+        "type": "HRESULT"
       },
       "remarks": "调用 IBackgroundCopyJob 接口的 AddFile 或 AddFileSet 方法时，将设置远程文件名。若要更改远程文件名，请调用 IBackgroundCopyFile2：：SetRemoteName 方法或 IBackgroundCopyJob3：：ReplaceRemotePrefix 方法。示例 请参阅 IBackgroundCopyFile：：GetLocalName 方法的示例代码。",
       "header": "bits.h",
@@ -843,11 +864,13 @@
         {
           "name": "Seconds",
           "direction": "in",
-          "description": "发生暂时性错误后，服务尝试传输文件的时间长度（以秒为单位）。"
+          "description": "发生暂时性错误后，服务尝试传输文件的时间长度（以秒为单位）。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK。"
+        "description": "成功时返回 S_OK。",
+        "type": "HRESULT"
       },
       "header": "bits.h",
       "deprecated": false,
@@ -876,11 +899,13 @@
         {
           "name": "pVal",
           "direction": "out",
-          "description": "指向 IBackgroundCopyCallback 接口实现的接口指针。 完成后，释放 ppNotifyInterface。"
+          "description": "指向 IBackgroundCopyCallback 接口实现的接口指针。 完成后，释放 ppNotifyInterface。",
+          "type": "IBackgroundCopyCallback"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，失败时返回其他 HRESULT 错误代码。"
+        "description": "成功时返回 S_OK，失败时返回其他 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "header": "bits.h",
       "deprecated": false,
@@ -898,14 +923,19 @@
         {
           "name": "pProxyUsage",
           "direction": "out",
-          "description": "指定作业用于传输文件的代理设置。 有关代理选项的列表，请参阅"
+          "description": "指定作业用于传输文件的代理设置。 有关代理选项的列表，请参阅",
+          "type": "BG_JOB_PROXY_USAGE"
         }
       ],
       "header": "bits.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 2044
+      "_source_line": 2044,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::BG_E_STRING_TOO_LONG",
@@ -930,11 +960,13 @@
         {
           "name": "Seconds",
           "direction": "in",
-          "description": "BITS 在尝试传输文件之前遇到暂时性错误后等待的最短时间长度（以秒为单位）。 默认重试延迟为 600 秒 (10 分钟) 。 可以指定的最小重试延迟为 5 秒。 如果指定的值小于 5 秒，则 BITS 会将该值更改为 5 秒。 如果该值超过从 GetNoProgressTimeout 方法检索到的 no-progress-timeout 值，则 BITS 不会重试传输并将作业移动到 BG_JOB_STATE_ERROR状态。"
+          "description": "BITS 在尝试传输文件之前遇到暂时性错误后等待的最短时间长度（以秒为单位）。 默认重试延迟为 600 秒 (10 分钟) 。 可以指定的最小重试延迟为 5 秒。 如果指定的值小于 5 秒，则 BITS 会将该值更改为 5 秒。 如果该值超过从 GetNoProgressTimeout 方法检索到的 no-progress-timeout 值，则 BITS 不会重试传输并将作业移动到 BG_JOB_STATE_ERROR状态。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "此方法返回以下 HRESULT 值以及其他值。 返回代码 S_OK"
+        "description": "此方法返回以下 HRESULT 值以及其他值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "bits.h",
       "deprecated": false,
@@ -952,11 +984,13 @@
         {
           "name": "Seconds",
           "direction": "in",
-          "description": "出现第一个暂时性错误后 BITS 尝试传输文件的时间长度（以秒为单位）。 默认重试时间为 1,209,600 秒， (14 天) 。 将重试期设置为 0 以防止重试，并强制作业进入所有错误的 BG_JOB_STATE_ERROR状态。 如果重试周期值超过 JobInactivityTimeout 组策略值 (90 天 默认) ，则 BITS 在超过策略值后取消作业。"
+          "description": "出现第一个暂时性错误后 BITS 尝试传输文件的时间长度（以秒为单位）。 默认重试时间为 1,209,600 秒， (14 天) 。 将重试期设置为 0 以防止重试，并强制作业进入所有错误的 BG_JOB_STATE_ERROR状态。 如果重试周期值超过 JobInactivityTimeout 组策略值 (90 天 默认) ，则 BITS 在超过策略值后取消作业。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "此方法返回以下 HRESULT 值以及其他值。 返回代码 S_OK"
+        "description": "此方法返回以下 HRESULT 值以及其他值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "bits.h",
       "deprecated": false,
@@ -995,11 +1029,13 @@
       "parameters": [
         {
           "name": "Val",
-          "description": "IBackgroundCopyCallback 接口指针。 若要删除当前回调接口指针，请将此参数设置为 NULL。"
+          "description": "IBackgroundCopyCallback 接口指针。 若要删除当前回调接口指针，请将此参数设置为 NULL。",
+          "type": "IUnknown"
         }
       ],
       "return_value": {
-        "description": "此方法返回以下 HRESULT 值以及其他值。 返回代码 S_OK"
+        "description": "此方法返回以下 HRESULT 值以及其他值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "bits.h",
       "deprecated": false,
@@ -1017,14 +1053,19 @@
         {
           "name": "ProxyUsage",
           "direction": "in",
-          "description": "指定是使用用户的代理设置，不使用代理，还是使用应用程序指定的代理设置。 默认使用用户的代理设置， BG_JOB_PROXY_USAGE_PRECONFIG。 有关代理选项的列表，请参 阅 BG_JOB_PROXY_USAGE 枚举。[in] ProxyList 以 Null 结尾的字符串，其中包含用于传输文件的代理。 列表以空格分隔。 有关指定代理的详细信息，请参阅备注。 如果 ProxyUsage 的值BG_JOB_PROXY_USAGE_PRECONFIG、"
+          "description": "指定是使用用户的代理设置，不使用代理，还是使用应用程序指定的代理设置。 默认使用用户的代理设置， BG_JOB_PROXY_USAGE_PRECONFIG。 有关代理选项的列表，请参 阅 BG_JOB_PROXY_USAGE 枚举。[in] ProxyList 以 Null 结尾的字符串，其中包含用于传输文件的代理。 列表以空格分隔。 有关指定代理的详细信息，请参阅备注。 如果 ProxyUsage 的值BG_JOB_PROXY_USAGE_PRECONFIG、",
+          "type": "BG_JOB_PROXY_USAGE"
         }
       ],
       "header": "bits.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 2518
+      "_source_line": 2518,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::LocalSystem",
@@ -1162,11 +1203,13 @@
         {
           "name": "pProgram",
           "direction": "out",
-          "description": "以 Null 结尾的字符串，其中包含在作业进入错误或已转移状态时要执行的程序。 完成 后，调用 CoTaskMemFree 函数以释放 pProgram 。[out] pParameters 以 Null 结尾的字符串，其中包含 pProgram 中程序的参数。 完成后，调用 CoTaskMemFree 函数以释放 pParameters 。"
+          "description": "以 Null 结尾的字符串，其中包含在作业进入错误或已转移状态时要执行的程序。 完成 后，调用 CoTaskMemFree 函数以释放 pProgram 。[out] pParameters 以 Null 结尾的字符串，其中包含 pProgram 中程序的参数。 完成后，调用 CoTaskMemFree 函数以释放 pParameters 。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "此方法在成功时返回 S_OK 或错误时返回标准 COM HRESULT 值之一。"
+        "description": "此方法在成功时返回 S_OK 或错误时返回标准 COM HRESULT 值之一。",
+        "type": "HRESULT"
       },
       "remarks": "如果尚未调用 IBackgroundCopyJob2::SetNotifyCmdLine 方法，GetNotifyCmdLine 方法会将 pProgram 和 pParameters 设置为空字符串。",
       "requirements": {
@@ -1223,11 +1266,13 @@
         {
           "name": "pReplyFileName",
           "direction": "out",
-          "description": "包含回复文件的完整路径的以 Null 结尾的字符串。 完成后，调用 CoTaskMemFree 函数 以释放 pReplyFileName 。"
+          "description": "包含回复文件的完整路径的以 Null 结尾的字符串。 完成后，调用 CoTaskMemFree 函数 以释放 pReplyFileName 。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "此方法返回以下 HRESULT 值以及其他值。 返回代码 S_OK"
+        "description": "此方法返回以下 HRESULT 值以及其他值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "bits1_5.h",
       "deprecated": false,
@@ -1245,7 +1290,8 @@
         {
           "name": "Target",
           "direction": "in",
-          "description": "标识是使用凭据进行代理身份验证还是服务器身份验证。[in] Scheme 标识身份验证方案以使用 (基本方案，或) 多个质询-响应方案之一。 有关详细信息，请参 阅 BG_AUTH_SCHEME 枚举。"
+          "description": "标识是使用凭据进行代理身份验证还是服务器身份验证。[in] Scheme 标识身份验证方案以使用 (基本方案，或) 多个质询-响应方案之一。 有关详细信息，请参 阅 BG_AUTH_SCHEME 枚举。",
+          "type": "BG_AUTH_TARGET"
         },
         {
           "name": "credentials",
@@ -1254,7 +1300,8 @@
         }
       ],
       "return_value": {
-        "description": "此方法返回以下返回值以及其他返回值。返回代码 S_OK 表示成功，S_FALSE 表示凭据不存在。"
+        "description": "此方法返回以下返回值以及其他返回值。返回代码 S_OK 表示成功，S_FALSE 表示凭据不存在。",
+        "type": "HRESULT"
       },
       "header": "bits1_5.h",
       "deprecated": false,
@@ -1304,11 +1351,13 @@
         {
           "name": "Program",
           "direction": "in",
-          "description": "包含要执行的程序的以 Null 结尾的字符串。 pProgram 参数仅限于MAX_PATH个字符，不包括 null 终止符。 应指定程序的完整路径;方法不会使用搜索路径来查找程序。 若要删除命令行通知，请将 pProgram 和 pParameters 设置为 NULL。 如果 pProgram 为 NULL 且 pParameters 为非 NULL，则该方法失败。[in] Parameters 以 Null 结尾的字符串，其中包含 pProgram 中的程序参数。 第一个参数必须是 pProgram 中的程序， (如果路径使用长文件名) ，则使用引号。 pParameters 参数限制为 4,000 个字符，不包括 null 终止符。 此参数可以为 NULL。"
+          "description": "包含要执行的程序的以 Null 结尾的字符串。 pProgram 参数仅限于MAX_PATH个字符，不包括 null 终止符。 应指定程序的完整路径;方法不会使用搜索路径来查找程序。 若要删除命令行通知，请将 pProgram 和 pParameters 设置为 NULL。 如果 pProgram 为 NULL 且 pParameters 为非 NULL，则该方法失败。[in] Parameters 以 Null 结尾的字符串，其中包含 pProgram 中的程序参数。 第一个参数必须是 pProgram 中的程序， (如果路径使用长文件名) ，则使用引号。 pParameters 参数限制为 4,000 个字符，不包括 null 终止符。 此参数可以为 NULL。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "Returns S_OK on success or error HRESULT on failure."
+        "description": "Returns S_OK on success or error HRESULT on failure.",
+        "type": "HRESULT"
       },
       "header": "bits1_5.h",
       "deprecated": false,
@@ -1329,11 +1378,13 @@
         {
           "name": "ReplyFileName",
           "direction": "in",
-          "description": "以 Null 结尾的字符串，其中包含回复文件的完整路径。 如果 ReplyFileNamePathSpec 为 NULL 或为空字符串，则 BITS 将生成文件名。 不能在路径或文件名中使用通配符，并且路径中的目录必须存在。 路径限制为MAX_PATH，不包括 null 终止符。 用户必须具有写入目录的权限。 BITS 不支持 NTFS 流。 不使用特定于会话的网络驱动器，而是使用 UNC 路径 (例如\\server\\share\\path\\file) 。 不包括 \\？ 路径中的前缀。"
+          "description": "以 Null 结尾的字符串，其中包含回复文件的完整路径。 如果 ReplyFileNamePathSpec 为 NULL 或为空字符串，则 BITS 将生成文件名。 不能在路径或文件名中使用通配符，并且路径中的目录必须存在。 路径限制为MAX_PATH，不包括 null 终止符。 用户必须具有写入目录的权限。 BITS 不支持 NTFS 流。 不使用特定于会话的网络驱动器，而是使用 UNC 路径 (例如\\server\\share\\path\\file) 。 不包括 \\？ 路径中的前缀。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "此方法返回以下 HRESULT 值以及其他值。 返回代码 S_OK"
+        "description": "此方法返回以下 HRESULT 值以及其他值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "bits1_5.h",
       "deprecated": false,
@@ -1370,7 +1421,8 @@
       "description": "当下载一个或多个文件范围时，BITS 会调用 FileRangesTransferred 方法的实现。使用 IBackgroundCopyFile6::RequestFileRanges 方法将文件范围添加到作业。",
       "syntax": "HRESULT FileRangesTransferred(\n  IBackgroundCopyJob* job,\n  IBackgroundCopyFile* file,\n  DWORD rangeCount,\n  const BG_FILE_RANGE[] ranges\n);",
       "return_value": {
-        "description": "此方法在成功时返回 S_OK ;否则，将返回错误代码。"
+        "description": "此方法在成功时返回 S_OK ;否则，将返回错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "此方法中返回的范围可能与所请求的范围不匹配。这是因为 BITS 不会下载同一字节范围两次，并且因为 BITS 可以在下载某个范围的一部分时进行报告。在最大资源负载条件下，实现可能不会收到所有修改事件。BITS 生成大量事件;请考虑创建计时器并轮询状态和进度信息，或限制使用此回调。如果使用此回调，请保持实现简短。",
       "header": "bits10_1.h",
@@ -1410,14 +1462,19 @@
         {
           "name": "rangeCount",
           "direction": "out",
-          "description": ""
+          "description": "",
+          "type": "DWORD"
         }
       ],
       "header": "bits10_1.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 3965
+      "_source_line": 3965,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::RequestFileRanges",
@@ -1429,11 +1486,13 @@
         {
           "name": "rangeCount",
           "direction": "in",
-          "description": "指定 Ranges 数组的大小。[in] ranges 要下载的文件范围的数组。 允许请求的范围与之前下载 (或挂起) 范围重叠。 范围会自动 拆分为非重叠范围。"
+          "description": "指定 Ranges 数组的大小。[in] ranges 要下载的文件范围的数组。 允许请求的范围与之前下载 (或挂起) 范围重叠。 范围会自动 拆分为非重叠范围。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 如果请求范围的任何部分超出实际文件大小，则返回BG_E_INVALID_RANGE;如果作业不是下载作业或服务 器失去支持下载范围的能力，则返回BG_E_RANDOM_ACCESS_NOT_SUPPORTED。"
+        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 如果请求范围的任何部分超出实际文件大小，则返回BG_E_INVALID_RANGE;如果作业不是下载作业或服务 器失去支持下载范围的能力，则返回BG_E_RANDOM_ACCESS_NOT_SUPPORTED。",
+        "type": "HRESULT"
       },
       "remarks": "可以为满足BITS_JOB_PROPERTY_ON_DEMAND_MODE作业要求的任何下载作业请求 RequestFileRanges。",
       "header": "bits10_1.h",
@@ -1452,11 +1511,13 @@
         {
           "name": "offset",
           "direction": "in",
-          "description": "指定从中优先下载缺失数据的新位置。"
+          "description": "指定从中优先下载缺失数据的新位置。",
+          "type": "UINT64"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 如果作业不符合 BITS_JOB_PROPERTY_ON_DEMAND_MODE 作业的要求，它将返回 BG_E_RANDOM_ACCESS_NOT_SUPPORTED 。"
+        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。 如果作业不符合 BITS_JOB_PROPERTY_ON_DEMAND_MODE 作业的要求，它将返回 BG_E_RANDOM_ACCESS_NOT_SUPPORTED 。",
+        "type": "HRESULT"
       },
       "remarks": "可以为满足BITS_JOB_PROPERTY_ON_DEMAND_MODE作业要求的任何下载作业请求 UpdateDownloadPosition。",
       "header": "bits10_1.h",
@@ -1568,7 +1629,10 @@
       "entity_type": "callback",
       "description": "要实现的回调方法，将调用该方法，以便验证在打开 HTTPS 连接时发送的服务器证书。",
       "syntax": "HRESULT ValidateServerCertificate(IBackgroundCopyJob *job, IBackgroundCopyFile *file, DWORD certLength, const BYTE *certData, DWORD certEncodingType, DWORD certStoreLength, const BYTE *certStoreData);",
-      "return_value": "返回 S_OK 以指示证书是可接受的。否则，返回任何 HRESULT 错误代码以指示证书不可接受。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "返回 S_OK 以指示证书是可接受的。否则，返回任何 HRESULT 错误代码以指示证书不可接受。"
+      },
       "remarks": "证书验证在两个阶段执行。第一阶段是操作系统（OS）阶段，操作系统对证书执行一组标准验证检查。之后，如果 OS 阶段通过证书，将调用回调以执行其他验证。如果要在服务器证书上执行自己的检查，请实现此验证方法。除了正常的 OS 证书验证检查之外，你自己的检查也进行。如果验证方法拒绝证书，则作业将转换为具有...",
       "header": "bits10_3.h",
       "deprecated": false,
@@ -1603,7 +1667,7 @@
     {
       "id": "windows::BG_FILE_RANGE",
       "name": "BG_FILE_RANGE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "指定缓存中文件范围的结构。",
       "syntax": "typedef struct _BG_FILE_RANGE { UINT64 InitialOffset; UINT64 Length; } BG_FILE_RANGE;",
       "parameters": [
@@ -1638,7 +1702,8 @@
         "CoTaskMemFree"
       ],
       "confidence": 1.0,
-      "_source_line": 4373
+      "_source_line": 4373,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SetRemoteName",
@@ -1650,11 +1715,13 @@
         {
           "name": "Val",
           "direction": "in",
-          "description": "包含服务器上文件名称的以 Null 结尾的字符串。 有关指定远程名称的信息，请参阅 BG_FILE_INFO结构的 RemoteName 成员和备注部分。"
+          "description": "包含服务器上文件名称的以 Null 结尾的字符串。 有关指定远程名称的信息，请参阅 BG_FILE_INFO结构的 RemoteName 成员和备注部分。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "此方法返回以下返回值以及其他返回值。 返回代码 S_OK"
+        "description": "此方法返回以下返回值以及其他返回值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "bits2_0.h",
       "deprecated": false,
@@ -1696,14 +1763,19 @@
         {
           "name": "Flags",
           "direction": "out",
-          "description": "标识使用 SMB 传输文件时要维护的所有者和 ACL 信息的标志。 标志 可以包含以下标志的任意组合。 如果未设置标志， 则标志 为零。 值"
+          "description": "标识使用 SMB 传输文件时要维护的所有者和 ACL 信息的标志。 标志 可以包含以下标志的任意组合。 如果未设置标志， 则标志 为零。 值",
+          "type": "DWORD"
         }
       ],
       "header": "bits2_0.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 4702
+      "_source_line": 4702,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::BG_COPY_FILE_OWNER",
@@ -1722,7 +1794,7 @@
     {
       "id": "windows::BG_COPY_FILE_SACL",
       "name": "BG_COPY_FILE_SACL",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "BG_COPY_FILE_ALL 含义 如果设置，则保留文件的所有者信息。 否则，作业的所有者将成为文件的所有者。 如果设置，则保留文件的组信息。 否则，BITS 使用作业所有者的主组将组信息分配给文件。 如果已设置，BITS 将从源文件复制显式 ACE，并从目标父文件夹复制可继承的 ACE。 否则，BITS 将从目标父文件夹复制可继承的 ACE。 如果父文件夹不包含可继承的 ACE，则 BITS 使用帐户的默认 DACL。 如果已设置，BITS 将从源文件复制显式 ACE，并从目标父文件夹复制可继承的 ACE。 否则，BITS 将从目标父文件夹复制可继承的 ACE。 如果已设置，BITS 将复制所有者和 ACL 信息。 这与单独设置所有标志相同。",
       "return_value": {
         "description": "此方法返回以下 HRESULT 值以及其他值。 返回代码 S_OK"
@@ -1737,7 +1809,8 @@
         "Vista"
       ],
       "confidence": 0.8,
-      "_source_line": 4712
+      "_source_line": 4712,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::ReplaceRemotePrefix",
@@ -1749,15 +1822,20 @@
         {
           "name": "OldPrefix",
           "direction": "in",
-          "description": "以 Null 结尾的字符串，用于标识远程名称中要替换的文本。 文本必须从远程名称的开头开始。"
+          "description": "以 Null 结尾的字符串，用于标识远程名称中要替换的文本。 文本必须从远程名称的开头开始。",
+          "type": "LPCWSTR"
         },
         {
           "name": "NewPrefix",
           "direction": "in",
-          "description": "包含替换文本的以 Null 结尾的字符串。"
+          "description": "包含替换文本的以 Null 结尾的字符串。",
+          "type": "LPCWSTR"
         }
       ],
-      "return_value": "此方法返回 HRESULT 值。S_OK 表示成功；S_FALSE 表示未找到匹配的远程名称。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "此方法返回 HRESULT 值。S_OK 表示成功；S_FALSE 表示未找到匹配的远程名称。"
+      },
       "header": "bits2_0.h",
       "deprecated": false,
       "cross_references": [
@@ -1918,14 +1996,19 @@
         {
           "name": "pFlags",
           "direction": "out",
-          "description": "HTTP 安全标志，指示连接到服务器时要忽略的错误。 可以设置以下一个或多个标志： 值"
+          "description": "HTTP 安全标志，指示连接到服务器时要忽略的错误。 可以设置以下一个或多个标志： 值",
+          "type": "ULONG"
         }
       ],
       "header": "bits2_5.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 5120
+      "_source_line": 5120,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::BG_HTTP_REDIRECT_POLICY_ALLOW_SILENT",
@@ -1989,14 +2072,19 @@
         {
           "name": "Flags",
           "direction": "in",
-          "description": "HTTP 安全标志，指示连接到服务器时要忽略的错误。 可以设置以下一个或多个标志： 值"
+          "description": "HTTP 安全标志，指示连接到服务器时要忽略的错误。 可以设置以下一个或多个标志： 值",
+          "type": "ULONG"
         }
       ],
       "header": "bits2_5.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 5426
+      "_source_line": 5426,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::ERROR_WINHTTP_SECURE_CERT_REV_FAILED",
@@ -2019,11 +2107,13 @@
         {
           "name": "state",
           "direction": "in",
-          "description": "如果文件内容有效，则设置为 TRUE ，否则为 FALSE。"
+          "description": "如果文件内容有效，则设置为 TRUE ，否则为 FALSE。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
-        "description": "如果成功则返回 S_OK，否则返回错误码"
+        "description": "如果成功则返回 S_OK，否则返回错误码",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2049,11 +2139,13 @@
         {
           "name": "pFilename",
           "direction": "out",
-          "description": "包含临时文件的完整路径的以 Null 结尾的字符串。 完成后，调用 CoTaskMemFree 函数 以释放 ppFileName 。"
+          "description": "包含临时文件的完整路径的以 Null 结尾的字符串。 完成后，调用 CoTaskMemFree 函数 以释放 ppFileName 。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "方法返回以下返回值。S_OK 表示成功。应用程序可以使用此方法在作业完成之前获取对数据的访问权限。打开文件以 FILE_SHARE_WRITE 共享写入访问权限。若要确定已传输并可供读取的字节数，请调用 IBackgroundCopyFile::GetProgress 方法。请注意，如果 URL 的时间戳发生更改，进度信息将重置为零。在 BITS 开始传输文件之前，不要打开文件进行读取，否则作业将进入暂时性错误状态。临时文件在应用程序调用 IBackgroundCopyJob::Complete 或 IBackgroundCopyJob::Cancel 方法或 JobInactivityTimeout 组策略过期之前可用。在调用 Complete 或 Cancel 方法之前，必须将句柄释放到临时文件。调用 Complete 时，临时文件的 ACL 与最终文件的 ACL 相同（ACL 继承自文件夹）。若要确定 BITS 是否已完成文件传输，可以：调用 IBackgroundCopyFile::GetProgress 方法并将 BytesTransferred 与 BytesTotal 进行比较，或实现 IBackgroundCopyCallback2::FileTransferred 回调。"
+        "description": "方法返回以下返回值。S_OK 表示成功。应用程序可以使用此方法在作业完成之前获取对数据的访问权限。打开文件以 FILE_SHARE_WRITE 共享写入访问权限。若要确定已传输并可供读取的字节数，请调用 IBackgroundCopyFile::GetProgress 方法。请注意，如果 URL 的时间戳发生更改，进度信息将重置为零。在 BITS 开始传输文件之前，不要打开文件进行读取，否则作业将进入暂时性错误状态。临时文件在应用程序调用 IBackgroundCopyJob::Complete 或 IBackgroundCopyJob::Cancel 方法或 JobInactivityTimeout 组策略过期之前可用。在调用 Complete 或 Cancel 方法之前，必须将句柄释放到临时文件。调用 Complete 时，临时文件的 ACL 与最终文件的 ACL 相同（ACL 继承自文件夹）。若要确定 BITS 是否已完成文件传输，可以：调用 IBackgroundCopyFile::GetProgress 方法并将 BytesTransferred 与 BytesTotal 进行比较，或实现 IBackgroundCopyCallback2::FileTransferred 回调。",
+        "type": "HRESULT"
       },
       "header": "bits3_0.h",
       "deprecated": false,
@@ -2076,11 +2168,13 @@
         {
           "name": "pState",
           "direction": "out",
-          "description": "如果文件的内容有效，则为 TRUE，否则为 FALSE。"
+          "description": "如果文件的内容有效，则为 TRUE，否则为 FALSE。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
-        "description": "返回 S_OK 表示成功。注意：FALSE 可能表示尚未调用 SetValidationState，而非文件无效。"
+        "description": "返回 S_OK 表示成功。注意：FALSE 可能表示尚未调用 SetValidationState，而非文件无效。",
+        "type": "HRESULT"
       },
       "header": "bits3_0.h",
       "deprecated": false,
@@ -2103,11 +2197,13 @@
         {
           "name": "pVal",
           "direction": "out",
-          "description": "如果文件的任何部分是从对等方下载的，则为 TRUE ;否则为 FALSE。"
+          "description": "如果文件的任何部分是从对等方下载的，则为 TRUE ;否则为 FALSE。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，失败时返回其他 HRESULT 错误代码。"
+        "description": "成功时返回 S_OK，失败时返回其他 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2159,10 +2255,14 @@
         {
           "name": "pTimeout",
           "direction": "out",
-          "description": "BITS 将花费在传输作业中的文件的最长时间（以秒为单位）。"
+          "description": "BITS 将花费在传输作业中的文件的最长时间（以秒为单位）。",
+          "type": "ULONG"
         }
       ],
-      "return_value": "返回 S_OK 表示成功。返回值是作业在'正在连接'或'正在传输'状态下可以花费的最长时间（以秒为单位）。QUEUED 或 TRANSIENT_ERROR 状态所花费的时间不计入超时值。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "返回 S_OK 表示成功。返回值是作业在'正在连接'或'正在传输'状态下可以花费的最长时间（以秒为单位）。QUEUED 或 TRANSIENT_ERROR 状态所花费的时间不计入超时值。"
+      },
       "header": "bits3_0.h",
       "deprecated": false,
       "cross_references": [
@@ -2184,11 +2284,13 @@
         {
           "name": "pElevated",
           "direction": "out",
-          "description": "如果所有者的令牌在创建或获取作业所有权时提升，则为 TRUE ;否则为 FALSE。"
+          "description": "如果所有者的令牌在创建或获取作业所有权时提升，则为 TRUE ;否则为 FALSE。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
-        "description": "方法返回以下返回值。S_OK 表示成功。有关提升的令牌的详细信息，请参阅用户帐户控制和 BITS。请注意，如果作业是使用提升的令牌创建的，则必须使用提升的令牌完成对作业的所有后续更新。"
+        "description": "方法返回以下返回值。S_OK 表示成功。有关提升的令牌的详细信息，请参阅用户帐户控制和 BITS。请注意，如果作业是使用提升的令牌创建的，则必须使用提升的令牌完成对作业的所有后续更新。",
+        "type": "HRESULT"
       },
       "header": "bits3_0.h",
       "deprecated": false,
@@ -2210,11 +2312,13 @@
         {
           "name": "pLevel",
           "direction": "out",
-          "description": "创建作业或拥有作业所有权的所有者令牌的完整性级别。"
+          "description": "创建作业或拥有作业所有权的所有者令牌的完整性级别。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "方法返回 HRESULT。S_OK 表示成功。有关用户令牌完整性级别对作业的影响，请参阅用户帐户控制和 BITS 文档。返回值基于 GetSidSubAuthority 函数结果，可能的完整性 RID 值请参阅安全文档中的已知 SID。"
+        "description": "方法返回 HRESULT。S_OK 表示成功。有关用户令牌完整性级别对作业的影响，请参阅用户帐户控制和 BITS 文档。返回值基于 GetSidSubAuthority 函数结果，可能的完整性 RID 值请参阅安全文档中的已知 SID。",
+        "type": "HRESULT"
       },
       "header": "bits3_0.h",
       "deprecated": false,
@@ -2236,14 +2340,19 @@
         {
           "name": "pFlags",
           "direction": "out",
-          "description": "确定作业文件是否可以缓存并提供给对等方以及 BITS 是否可以从对等方下载作业内容的标志。 可以设置以下标志： 值"
+          "description": "确定作业文件是否可以缓存并提供给对等方以及 BITS 是否可以从对等方下载作业内容的标志。 可以设置以下标志： 值",
+          "type": "DWORD"
         }
       ],
       "header": "bits3_0.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 5999
+      "_source_line": 5999,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::BG_JOB_ENABLE_PEERCACHING_CLIENT",
@@ -2288,10 +2397,14 @@
         {
           "name": "Timeout",
           "direction": "in",
-          "description": "BITS 将花费在传输作业中的文件的最长时间（以秒为单位）。 默认值为 7,776,000 秒 （90 天）。"
+          "description": "BITS 将花费在传输作业中的文件的最长时间（以秒为单位）。 默认值为 7,776,000 秒 （90 天）。",
+          "type": "ULONG"
         }
       ],
-      "return_value": "方法返回 HRESULT 值。成功返回 S_OK，表示已成功设置最大下载时间。该时间限制适用于作业处于'正在连接'或'正在传输'状态时。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "方法返回 HRESULT 值。成功返回 S_OK，表示已成功设置最大下载时间。该时间限制适用于作业处于'正在连接'或'正在传输'状态时。"
+      },
       "header": "bits3_0.h",
       "deprecated": false,
       "cross_references": [],
@@ -2328,7 +2441,10 @@
       ],
       "confidence": 0.5,
       "_source_line": 6303,
-      "return_value": "S_OK 表示成功。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "S_OK 表示成功。"
+      },
       "remarks": "不应调用此方法。当作业请求来自对等方的内容时，BITS 会自动发现新的对等方。还可以调用 IBitsPeerCacheAdministration::DiscoverPeers 方法来强制发现对等方。"
     },
     {
@@ -2345,7 +2461,8 @@
         }
       ],
       "return_value": {
-        "description": "方法返回 HRESULT 值。S_OK 表示成功。"
+        "description": "方法返回 HRESULT 值。S_OK 表示成功。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2371,11 +2488,13 @@
         {
           "name": "ppEnum",
           "direction": "out",
-          "description": "一个 IEnumBitsPeers 接口指针，用于枚举可为内容提供服务的对等方。 完成后释放 ppEnum 。"
+          "description": "一个 IEnumBitsPeers 接口指针，用于枚举可为内容提供服务的对等方。 完成后释放 ppEnum 。",
+          "type": "IEnumBitsPeers"
         }
       ],
       "return_value": {
-        "description": "此方法在成功时返回S_OK或错误时返回标准 COM HRESULT 值之一。"
+        "description": "此方法在成功时返回S_OK或错误时返回标准 COM HRESULT 值之一。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2402,11 +2521,13 @@
         {
           "name": "ppEnum",
           "direction": "out",
-          "description": "用于枚举缓存中的记录的 IEnumBitsPeerCacheRecords 接口指针。 完成后释放 ppEnum。"
+          "description": "用于枚举缓存中的记录的 IEnumBitsPeerCacheRecords 接口指针。 完成后释放 ppEnum。",
+          "type": "IEnumBitsPeerCacheRecords"
         }
       ],
       "return_value": {
-        "description": "此方法在成功时返回S_OK或错误时返回标准 COM HRESULT 值之一。"
+        "description": "此方法在成功时返回S_OK或错误时返回标准 COM HRESULT 值之一。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2434,14 +2555,19 @@
         {
           "name": "pFlags",
           "direction": "out",
-          "description": "确定计算机是否向对等方提供内容并可从对等方下载内容的标志。 可以设置以下标志： 值"
+          "description": "确定计算机是否向对等方提供内容并可从对等方下载内容的标志。 可以设置以下标志： 值",
+          "type": "DWORD"
         }
       ],
       "header": "bits3_0.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 6531
+      "_source_line": 6531,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetConfigurationFlags",
@@ -2453,14 +2579,19 @@
         {
           "name": "Flags",
           "direction": "in",
-          "description": "确定计算机是否可以向对等方提供内容以及从对等方下载内容的标志。 可以设置以下标志： 值"
+          "description": "确定计算机是否可以向对等方提供内容以及从对等方下载内容的标志。 可以设置以下标志： 值",
+          "type": "DWORD"
         }
       ],
       "header": "bits3_0.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 6672
+      "_source_line": 6672,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetPeerDownloadStats",
@@ -2472,11 +2603,13 @@
         {
           "name": "pFromOrigin",
           "direction": "out",
-          "description": "指定从原始服务器下载的文件数据量。[out] pFromPeers 指定从对等源下载的文件数据量。"
+          "description": "指定从原始服务器下载的文件数据量。[out] pFromPeers 指定从对等源下载的文件数据量。",
+          "type": "PUINT64"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "旧实现实际上要求 BITS 用户具有管理员权限才能使用此方法。从 Windows 10 版本 1607 开始，非管理员 BITS 用户可以使用此方法。",
       "requirements": {
@@ -2503,14 +2636,19 @@
         {
           "name": "pFlags",
           "direction": "out",
-          "description": "指定要返回的用法标志。 此参数必须设置为以下值之一： 值"
+          "description": "指定要返回的用法标志。 此参数必须设置为以下值之一： 值",
+          "type": "DWORD"
         }
       ],
       "header": "bits4_0.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 7542
+      "_source_line": 7542,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetCredentials",
@@ -2544,11 +2682,13 @@
         {
           "name": "pSid",
           "direction": "out",
-          "description": "返回从 GetTokenInformation 函数的 TokenInformation 参数检索的 SID。 如果未检索到 SID，则此参数设置为 NULL。"
+          "description": "返回从 GetTokenInformation 函数的 TokenInformation 参数检索的 SID。 如果未检索到 SID，则此参数设置为 NULL。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "旧实现实际上要求 BITS 用户具有管理员权限才能使用此方法获取帮助程序令牌 SID。从 Windows 10 版本 1607 开始，非管理员 BITS 用户可以使用此方法获取其拥有的 BITS 作业上的帮助程序令牌 SID。此更改使非管理员 BITS 用户（例如在 NetworkService 帐户下运行的后台下载器服务）能够有效地使用帮助程序令牌。具体来说，只要调用方线程令牌的 SID 与 IBackgroundCopyJob::QueryInterface 调用期间作业所有者用户帐户的 SID 相同，实现已更改，以允许没有管理员权限的用户获取帮助程序令牌 SID。",
       "requirements": {
@@ -2574,14 +2714,19 @@
       "parameters": [
         {
           "name": "UsageFlags",
-          "description": "指定用法标志。 此参数必须设置为以下值之一： 值"
+          "description": "指定用法标志。 此参数必须设置为以下值之一： 值",
+          "type": "DWORD"
         }
       ],
       "header": "bits4_0.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 7663
+      "_source_line": 7663,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::BITS_FILE_PROPERTY_VALUE",
@@ -2899,11 +3044,13 @@
         {
           "name": "riid",
           "direction": "in",
-          "description": "标识在 ppTask 中返回的任务计划程序接口。 有关标识符的列表，请参阅 ITaskScheduler：：Activate 方法。[out] ppUnk 指向 riid 指定的接口的指针。 使用 接口修改任务的属性。 完成后释放 ppTask 。"
+          "description": "标识在 ppTask 中返回的任务计划程序接口。 有关标识符的列表，请参阅 ITaskScheduler：：Activate 方法。[out] ppUnk 指向 riid 指定的接口的指针。 使用 接口修改任务的属性。 完成后释放 ppTask 。",
+          "type": "REFIID"
         }
       ],
       "return_value": {
-        "description": "此方法返回 S_OK 表示成功。如果尚未为虚拟目录创建任务，方法将返回 S_FALSE。"
+        "description": "此方法返回 S_OK 表示成功。如果尚未为虚拟目录创建任务，方法将返回 S_FALSE。",
+        "type": "HRESULT"
       },
       "remarks": "创建虚拟目录并为其启用 BITS 上传时，BITS 会在任务计划程序中添加一个工作项。工作项通过删除在超时期限内未修改的作业，每 12 小时清理一次虚拟目录。若要指定超时期限，请设置 BITSSessionTimeout IIS 扩展属性。若要更改清理计划，请参阅 BITSCleanupUseDefault BITS IIS 扩展属性。",
       "header": "bitscfg.h",
@@ -2922,11 +3069,13 @@
         {
           "name": "pTaskName",
           "direction": "out",
-          "description": "以 Null 结尾的字符串，包含与虚拟目录关联的清理任务的名称。 如果 为 NULL，则表示 BITS 尚未为虚拟目录创建清理任务。 完成后，调用 SysFreeString 函数以释放 pTaskName。"
+          "description": "以 Null 结尾的字符串，包含与虚拟目录关联的清理任务的名称。 如果 为 NULL，则表示 BITS 尚未为虚拟目录创建清理任务。 完成后，调用 SysFreeString 函数以释放 pTaskName。",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "此方法返回 成功S_OK 。 否则，如果尚未为虚拟目录指定任务名称，方法将返回 S_FALSE 。"
+        "description": "此方法返回 成功S_OK 。 否则，如果尚未为虚拟目录指定任务名称，方法将返回 S_FALSE 。",
+        "type": "HRESULT"
       },
       "remarks": "创建虚拟目录并为其启用BITS上传时，BITS会在任务计划程序中添加一个工作项。工作项通过删除在超时期限内未修改的作业，每12小时清理一次虚拟目录。使用pTaskName名称作为Schtasks.exe可执行文件的输入参数，可用于从脚本更改清理任务的属性。",
       "requirements": {
@@ -3182,7 +3331,8 @@
       "description": "使用 SwitchToForeground 方法在前台而不是后台下载组。",
       "syntax": "HRESULT SwitchToForeground();",
       "return_value": {
-        "description": "此方法返回 HRESULT 值。S_OK 表示成功。"
+        "description": "此方法返回 HRESULT 值。S_OK 表示成功。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",

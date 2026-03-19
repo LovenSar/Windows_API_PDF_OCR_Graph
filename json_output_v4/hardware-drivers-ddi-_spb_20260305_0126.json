@@ -245,7 +245,8 @@
         {
           "name": "Parameters",
           "direction": "out",
-          "description": "指向要初始化的 SPB_CONNECTION_PARAMETERS 结构的指针。"
+          "description": "指向要初始化的 SPB_CONNECTION_PARAMETERS 结构的指针。",
+          "type": "SPB_CONNECTION_PARAMETERS"
         }
       ],
       "return_value": {
@@ -275,7 +276,8 @@
         {
           "name": "Config",
           "direction": "out",
-          "description": "指向要初始化的 SPB_CONTROLLER_CONFIG 结构的指针。"
+          "description": "指向要初始化的 SPB_CONTROLLER_CONFIG 结构的指针。",
+          "type": "SPB_CONTROLLER_CONFIG"
         }
       ],
       "return_value": "此函数不返回值。",
@@ -344,7 +346,8 @@
         {
           "name": "Parameters",
           "direction": "out",
-          "description": "指向要初始化的 SPB_REQUEST_PARAMETERS 结构的指针。"
+          "description": "指向要初始化的 SPB_REQUEST_PARAMETERS 结构的指针。",
+          "type": "PSPB_REQUEST_PARAMETERS"
         }
       ],
       "return_value": {
@@ -375,7 +378,8 @@
         {
           "name": "Descriptor",
           "direction": "out",
-          "description": "指向要初始化的 SPB_TRANSFER_DESCRIPTOR 结构的指针。"
+          "description": "指向要初始化的 SPB_TRANSFER_DESCRIPTOR 结构的指针。",
+          "type": "SPB_TRANSFER_DESCRIPTOR"
         }
       ],
       "return_value": {
@@ -508,7 +512,8 @@
         {
           "name": "FxDevice",
           "direction": "in",
-          "description": "表示 SPB 控制器的设备对象的 WDFDEVICE 句柄。[in] EvtSpbControllerIoOther 指向 EvtSpbControllerIoOther 回调函数的指针。 SPB 控制器驱动程序实现此函数。 SPB 框架扩展 （SpbCx） 调用此函数，以将 I/O 控制请求传递给控制器驱动程序。 有关传递 给此函数的 I/O 请求类型的详细信息，请参阅以下“备注”部分。[in, optional] EvtIoInCallerContext 指向 EvtIoInCallerContext 的指针 回调函数，该函数在 I/O 控制请求首次到达控制器的 I/O 队列时调用，请求包含 SPB 框架扩展 （SpbCx） 无法识别的 IOCTL 代码。 此回调在请求发起方的进程上下文中运行，并且可以预处理稍后将由 EvtSpbControllerIoOther 回调处理的请求。 此参数是可选的，如果不需要此类预处理，则可以指定为 NULL。 有关详细信息，请参阅以下“备注”部分。"
+          "description": "表示 SPB 控制器的设备对象的 WDFDEVICE 句柄。[in] EvtSpbControllerIoOther 指向 EvtSpbControllerIoOther 回调函数的指针。 SPB 控制器驱动程序实现此函数。 SPB 框架扩展 （SpbCx） 调用此函数，以将 I/O 控制请求传递给控制器驱动程序。 有关传递 给此函数的 I/O 请求类型的详细信息，请参阅以下“备注”部分。[in, optional] EvtIoInCallerContext 指向 EvtIoInCallerContext 的指针 回调函数，该函数在 I/O 控制请求首次到达控制器的 I/O 队列时调用，请求包含 SPB 框架扩展 （SpbCx） 无法识别的 IOCTL 代码。 此回调在请求发起方的进程上下文中运行，并且可以预处理稍后将由 EvtSpbControllerIoOther 回调处理的请求。 此参数是可选的，如果不需要此类预处理，则可以指定为 NULL。 有关详细信息，请参阅以下“备注”部分。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": "此函数使 SPB 控制器驱动程序能够声明其支持特定于总线或特定于驱动程序的自定义 I/O 控制代码 (IOCTL)。如果驱动程序不调用此函数，SpbCx 会拒绝此类 I/O 控制请求，驱动程序将不会收到这些请求。该函数从 Windows 8 开始可用。",
@@ -531,7 +536,8 @@
         {
           "name": "FxDevice",
           "direction": "in",
-          "description": "表示 SPB 控制器的设备对象的 WDFDEVICE 句柄。[in] RequestAttributes 指向调用方分配的 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构包含 SPB 控制器的 SPBREQUEST 对象的属性。"
+          "description": "表示 SPB 控制器的设备对象的 WDFDEVICE 句柄。[in] RequestAttributes 指向调用方分配的 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构包含 SPB 控制器的 SPBREQUEST 对象的属性。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": "SPB 控制器驱动程序可在设备初始化期间调用此函数，为 SPBREQUEST 对象设置默认属性。之后，SpbCx 会将这些属性用于它向总线上的目标设备传递或转发的 I/O 请求。不能更改 ExecutionLevel、SynchronizationScope 和 ParentObject 的默认值。",
@@ -556,7 +562,8 @@
         {
           "name": "FxDevice",
           "direction": "in",
-          "description": "表示 SPB 控制器的设备对象的 WDFDEVICE 句柄。[in] ObjectAttributes 指向调用方分配的 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构包含控制器 SPBTARGET 对象的属性。"
+          "description": "表示 SPB 控制器的设备对象的 WDFDEVICE 句柄。[in] ObjectAttributes 指向调用方分配的 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构包含控制器 SPBTARGET 对象的属性。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": "SPB 控制器驱动程序调用此方法以设置 SPBTARGET 对象的默认属性。SpbCx 会将这些属性应用到控制器客户端（外围设备）在总线上打开的目标设备对象。ExecutionLevel、SynchronizationScope 和 ParentObject 成员的值不能被此方法更改，必须保持为 WDF_OBJECT_ATTRIBUTES_INIT 设置的默认值。",
@@ -581,7 +588,8 @@
         {
           "name": "DeviceInit",
           "direction": "in, out",
-          "description": "指向要配置的 WDFDEVICE_INIT 结构的指针。"
+          "description": "指向要配置的 WDFDEVICE_INIT 结构的指针。",
+          "type": "out] WDFDEVICE_INIT"
         }
       ],
       "header": "spbcx.h",
@@ -591,7 +599,11 @@
         "SpbDeviceInitialize"
       ],
       "confidence": 0.8,
-      "_source_line": 63
+      "_source_line": 63,
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::SpbDeviceInitialize",
@@ -603,7 +615,8 @@
         {
           "name": "FxDevice",
           "direction": "in",
-          "description": "表示 SPB 控制器的设备对象的 WDFDEVICE 句柄。[in] Config 指向包含 SPB 控制器驱动程序的设备配置信息的 SPB_CONTROLLER_CONFIG 结构的指 针。 此结构必须由 SPB_CONTROLLER_CONFIG_INIT 函数初始化。"
+          "description": "表示 SPB 控制器的设备对象的 WDFDEVICE 句柄。[in] Config 指向包含 SPB 控制器驱动程序的设备配置信息的 SPB_CONTROLLER_CONFIG 结构的指 针。 此结构必须由 SPB_CONTROLLER_CONFIG_INIT 函数初始化。",
+          "type": "WDFDEVICE"
         }
       ],
       "remarks": "SPB 控制器驱动程序调用此函数以向 SpbCx 注册事件回调函数，并指定控制器 I/O 队列使用的传输模式。SpbDeviceInitialize 会为控制器创建内部数据结构（包括 I/O 队列）。驱动程序必须先调用此函数，然后才能提交设备对象。如果 Config 指向的结构未正确填写，Driver Verifier 可能会报告错误。有关 Config 参数要求的详细信息，请参阅 SPB_CONTROLLER_CONFIG。",
@@ -614,7 +627,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 65,
-      "return_value": "如果调用成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果调用成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      }
     },
     {
       "id": "windows::SpbRequestCaptureIoOtherTransferList",
@@ -625,11 +641,13 @@
       "parameters": [
         {
           "name": "Request",
-          "description": "SPBREQUEST 自定义 IOCTL 请求的句柄。 SPB 控制器驱动程序以前通过其注册的 事件回 调函数之一接收此句柄。"
+          "description": "SPBREQUEST 自定义 IOCTL 请求的句柄。 SPB 控制器驱动程序以前通过其注册的 事件回 调函数之一接收此句柄。",
+          "type": "SPBREQUEST"
         }
       ],
       "return_value": {
-        "description": "成功时返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。"
+        "description": "成功时返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "header": "spbcx.h",
       "deprecated": false,
@@ -669,12 +687,14 @@
         {
           "name": "Request",
           "direction": "in",
-          "description": "SPBREQUEST I/O 请求的句柄来完成。 SPB 控制器驱动程序以前通过其注册的 事件回调函数之一接收此句柄。"
+          "description": "SPBREQUEST I/O 请求的句柄来完成。 SPB 控制器驱动程序以前通过其注册的 事件回调函数之一接收此句柄。",
+          "type": "SPBREQUEST"
         },
         {
           "name": "CompletionStatus",
           "direction": "in",
-          "description": "表示请求完成状态的 NTSTATUS 值。 有效状态值包括但不限于以下各项："
+          "description": "表示请求完成状态的 NTSTATUS 值。 有效状态值包括但不限于以下各项：",
+          "type": "NTSTATUS"
         }
       ],
       "header": "spbcx.h",
@@ -696,11 +716,13 @@
         {
           "name": "SpbRequest",
           "direction": "in",
-          "description": "SPBREQUEST 从中检索 WDFDEVICE 句柄的 I/O 请求的句柄。 SPB 控制器驱动程序以前通过其 注册的 事件回调函数之一接收此句柄。"
+          "description": "SPBREQUEST 从中检索 WDFDEVICE 句柄的 I/O 请求的句柄。 SPB 控制器驱动程序以前通过其 注册的 事件回调函数之一接收此句柄。",
+          "type": "SPBREQUEST"
         }
       ],
       "return_value": {
-        "description": "返回 I/O 请求所发送到的 SPB 控制器设备对象的 WDFDEVICE 句柄。"
+        "description": "返回 I/O 请求所发送到的 SPB 控制器设备对象的 WDFDEVICE 句柄。",
+        "type": "WDFDEVICE"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -724,12 +746,14 @@
         {
           "name": "SpbRequest",
           "direction": "in",
-          "description": "SPBREQUEST I/O 请求的句柄。 SPB 控制器驱动程序以前通过其注册的 事件回调函数之一接收此句柄。"
+          "description": "SPBREQUEST I/O 请求的句柄。 SPB 控制器驱动程序以前通过其注册的 事件回调函数之一接收此句柄。",
+          "type": "SPBREQUEST"
         },
         {
           "name": "Parameters",
           "direction": "out",
-          "description": "指向调用方分配 SPB_REQUEST_PARAMETERS 结构的指针，该方法从 I/O 请求写入 SPB 特定的参数值。 调用方以前必须通过调用 SPB_REQUEST_PARAMETERS_INIT 函数来初始化此结构。"
+          "description": "指向调用方分配 SPB_REQUEST_PARAMETERS 结构的指针，该方法从 I/O 请求写入 SPB 特定的参数值。 调用方以前必须通过调用 SPB_REQUEST_PARAMETERS_INIT 函数来初始化此结构。",
+          "type": "PSPB_REQUEST_PARAMETERS"
         }
       ],
       "return_value": {
@@ -755,7 +779,8 @@
         {
           "name": "SpbRequest",
           "direction": "in",
-          "description": "SPBREQUEST I/O 请求的句柄。 SPB 控制器驱动程序以前通过其注册的 事件回调函数之 一接收此句柄。"
+          "description": "SPBREQUEST I/O 请求的句柄。 SPB 控制器驱动程序以前通过其注册的 事件回调函数之 一接收此句柄。",
+          "type": "SPBREQUEST"
         }
       ],
       "remarks": "返回的 SPBTARGET 句柄保证在相应的 I/O 请求完成之前保持有效。",
@@ -769,7 +794,11 @@
         "SpbRequestGetTransferParameters"
       ],
       "confidence": 0.8,
-      "_source_line": 72
+      "_source_line": 72,
+      "return_value": {
+        "type": "SPBTARGET",
+        "description": ""
+      }
     },
     {
       "id": "windows::SpbRequestGetTransferParameters",
@@ -781,7 +810,8 @@
         {
           "name": "SpbRequest",
           "direction": "in",
-          "description": "SPBREQUEST 从中检索传输参数的 I/O 请求的句柄。 此参数必须是"
+          "description": "SPBREQUEST 从中检索传输参数的 I/O 请求的句柄。 此参数必须是",
+          "type": "SPBREQUEST"
         }
       ],
       "header": "spbcx.h",
@@ -805,7 +835,8 @@
         {
           "name": "Target",
           "direction": "in",
-          "description": "SPBTARGET 要为其检索连接参数的目标设备的句柄。[out] ConnectionParameters 指向调用方分配 SPB_CONNECTION_PARAMETERS 结构的指针，该方法将连接参数写入其中。 调用方之前必须调用 SPB_CONNECTION_PARAMETERS_INIT 函数来初始化此结构。"
+          "description": "SPBTARGET 要为其检索连接参数的目标设备的句柄。[out] ConnectionParameters 指向调用方分配 SPB_CONNECTION_PARAMETERS 结构的指针，该方法将连接参数写入其中。 调用方之前必须调用 SPB_CONNECTION_PARAMETERS_INIT 函数来初始化此结构。",
+          "type": "SPBTARGET"
         }
       ],
       "return_value": "此方法检索 SPB 控制器驱动程序在总线上访问指定目标设备所需的一组连接参数。有关这些参数的详细信息，请参阅 SPB_CONNECTION_PARAMETERS。成功打开与目标连接的客户端（外围驱动程序）对该目标具有独占使用权。SpbCx 会调用控制器驱动程序的 EvtSpbTargetConnect 和 EvtSpbTargetDisconnect 回调来打开和关闭连接。如果使用有效的 SPBTARGET 句柄调用此方法，则该方法不会失败。",
@@ -832,7 +863,8 @@
         {
           "name": "Target",
           "direction": "in",
-          "description": "SPBTARGET 总线上目标设备的句柄。"
+          "description": "SPBTARGET 总线上目标设备的句柄。",
+          "type": "SPBTARGET"
         }
       ],
       "remarks": "如果目标连接已关闭，则该方法可能返回 NULL。仅当 SPB 控制器驱动程序在关闭后仍持有对 SPBTARGET 对象的引用时，才能在关闭后的短时间内调用此方法；如果连接已关闭且驱动程序不再持有该对象引用，则 SPBTARGET 句柄无效，将无效句柄传递给此方法是未定义的。",
@@ -840,7 +872,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 77
+      "_source_line": 77,
+      "return_value": {
+        "type": "WDFFILEOBJECT",
+        "description": ""
+      }
     },
     {
       "id": "windows::SPB_CONNECTION_PARAMETERS",
@@ -1048,14 +1084,19 @@
         {
           "name": "PinPath",
           "direction": "in",
-          "description": "指向将路径固定为 Unicode 字符串的指针。[out, optional] PinNumber 指向接收引脚编号的变量的指针。"
+          "description": "指向将路径固定为 Unicode 字符串的指针。[out, optional] PinNumber 指向接收引脚编号的变量的指针。",
+          "type": "UNICODE_STRING"
         }
       ],
       "header": "pwmutil.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.55,
-      "_source_line": 115
+      "_source_line": 115,
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::STATUS_NO_SUCH_FILE",
@@ -1451,7 +1492,10 @@
       "confidence": 0.6,
       "_source_line": 981,
       "syntax": "EVT_SPB_CONTROLLER_LOCK MyEvtSpbControllerLock;\n\nVOID MyEvtSpbControllerLock(\n  WDFDEVICE Controller,\n  SPBTARGET Target,\n  SPBREQUEST LockRequest\n);",
-      "return_value": "None. This callback returns VOID.",
+      "return_value": {
+        "type": "EVT_SPB_CONTROLLER_LOCK MyEvtSpbControllerLock; VOID",
+        "description": "None. This callback returns VOID."
+      },
       "remarks": "This is a driver-implemented callback associated with the EVT_SPB_CONTROLLER_LOCK callback type defined by SpbCx. The function name MyEvtSpbControllerLock is a sample implementation name, not the callback type itself."
     },
     {
@@ -1560,7 +1604,8 @@
       "entity_type": "callback",
       "description": "SPB 控制器驱动程序实现的回调函数，在控制器上的锁被释放时由 SpbCx 调用。驱动程序在此回调中处理由 UnlockRequest 标识的解锁请求。",
       "return_value": {
-        "description": "无。驱动程序通过完成 UnlockRequest 参数标识的 I/O 请求来报告操作状态。"
+        "description": "无。驱动程序通过完成 UnlockRequest 参数标识的 I/O 请求来报告操作状态。",
+        "type": "EVT_SPB_CONTROLLER_UNLOCK EvtSpbControllerUnlock; void"
       },
       "header": "spbcx.h",
       "deprecated": false,
@@ -1603,7 +1648,10 @@
       "name": "EVT_SPB_CONTROLLER_WRITE",
       "entity_type": "callback",
       "description": "SPB 控制器驱动程序实现的回调函数类型。当框架收到针对目标设备的写请求时，SpbCx 调用驱动程序的 EvtSpbControllerWrite 回调。",
-      "return_value": "无。",
+      "return_value": {
+        "type": "EVT_SPB_CONTROLLER_WRITE EvtSpbControllerWrite; void",
+        "description": "无。"
+      },
       "header": "spbcx.h",
       "deprecated": false,
       "cross_references": [

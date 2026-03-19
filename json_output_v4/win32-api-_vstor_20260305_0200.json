@@ -12,7 +12,8 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "虚拟磁盘的句柄。[in] ParentPath 字符串的地址，其中包含要添加为父级的虚拟硬盘映像的有效路径。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+          "description": "虚拟磁盘的句柄。[in] ParentPath 字符串的地址，其中包含要添加为父级的虚拟硬盘映像的有效路径。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。",
+          "type": "HANDLE"
         }
       ],
       "remarks": "这会将指定的父虚拟硬盘添加到指定虚拟硬盘的差异链的头。 如果差异链扩展到父级之外，则 可以重复调用此函数以将其他父级添加到差异链。",
@@ -30,7 +31,11 @@
         "OPEN_VIRTUAL_DISK_FLAG_CUSTOM_DIFF_CHAIN"
       ],
       "confidence": 0.8,
-      "_source_line": 45
+      "_source_line": 45,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::DetachVirtualDisk",
@@ -42,14 +47,19 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开的虚拟磁盘的句柄，该句柄必须已使用 OpenVirtualDisk 函数的"
+          "description": "打开的虚拟磁盘的句柄，该句柄必须已使用 OpenVirtualDisk 函数的",
+          "type": "HANDLE"
         }
       ],
       "header": "virtdisk.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 117
+      "_source_line": 117,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::EnumerateVirtualDiskMetadata",
@@ -61,7 +71,8 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开的虚拟磁盘的句柄。[in, out] NumberOfItems ULONG 的地址。 输入时，该值指示 Items 参数指向的缓冲区中的元素数。 输出时，值包含检索到的项数。 如果缓冲区太小，API 将失败并返回 ERROR_INSUFFICIENT_BUFFER 并且 ULONG 将包含所需的缓冲区大小。[out] Items 要用表示元数据的 GUID填充的缓冲区的地址。 GetVirtualDiskMetadata 函数可用于检索每个 GUID 表示的数据。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果 Items 参数指向的缓冲区太小，则返回值 ERROR_INSUFFICIENT_BUFFER。如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。 要求"
+          "description": "打开的虚拟磁盘的句柄。[in, out] NumberOfItems ULONG 的地址。 输入时，该值指示 Items 参数指向的缓冲区中的元素数。 输出时，值包含检索到的项数。 如果缓冲区太小，API 将失败并返回 ERROR_INSUFFICIENT_BUFFER 并且 ULONG 将包含所需的缓冲区大小。[out] Items 要用表示元数据的 GUID填充的缓冲区的地址。 GetVirtualDiskMetadata 函数可用于检索每个 GUID 表示的数据。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果 Items 参数指向的缓冲区太小，则返回值 ERROR_INSUFFICIENT_BUFFER。如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。 要求",
+          "type": "HANDLE"
         }
       ],
       "header": "virtdisk.h",
@@ -71,7 +82,11 @@
         "GetStorageDependencyInformation"
       ],
       "confidence": 0.8,
-      "_source_line": 54
+      "_source_line": 54,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetVirtualDiskInformation",
@@ -83,12 +98,14 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开的 VHD 的句柄，该句柄必须已使用 OpenVirtualDisk 函数的 VirtualDiskAccessMask 参数中设置的 VIRTUAL_DISK_ACCESS_GET_INFO 标志打开。 有关如何打开 VHD 的信 息，请参阅 OpenVirtualDisk 函数。[in, out] VirtualDiskInfoSize 指向包含 VirtualDiskInfo 参数大小的 ULONG 的指针。[in, out] VirtualDiskInfo 指向有效 GET_VIRTUAL_DISK_INFO 结构的指针。 返回的数据的格式取决于调用方在 Version 成员中传递的值。"
+          "description": "打开的 VHD 的句柄，该句柄必须已使用 OpenVirtualDisk 函数的 VirtualDiskAccessMask 参数中设置的 VIRTUAL_DISK_ACCESS_GET_INFO 标志打开。 有关如何打开 VHD 的信 息，请参阅 OpenVirtualDisk 函数。[in, out] VirtualDiskInfoSize 指向包含 VirtualDiskInfo 参数大小的 ULONG 的指针。[in, out] VirtualDiskInfo 指向有效 GET_VIRTUAL_DISK_INFO 结构的指针。 返回的数据的格式取决于调用方在 Version 成员中传递的值。",
+          "type": "HANDLE"
         },
         {
           "name": "SizeUsed",
           "direction": "in, out, optional",
-          "description": "指向包含所用大小的 ULONG 的指针。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS 并且 VirtualDiskInfo 参数包含请求的信息。如果函数失败，则返回值为错误代码， 并且 VirtualDiskInfo 参数未定义。 有关详细信 息，请参阅 系统错误代码。"
+          "description": "指向包含所用大小的 ULONG 的指针。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS 并且 VirtualDiskInfo 参数包含请求的信息。如果函数失败，则返回值为错误代码， 并且 VirtualDiskInfo 参数未定义。 有关详细信 息，请参阅 系统错误代码。",
+          "type": "optional] PULONG"
         }
       ],
       "remarks": "只要使用 VIRTUAL_DISK_ACCESS_GET_INFO 标志打开句柄，就可以在任何有效的 VirtualDiskHandle 上调用 GetVirtualDiskInformation 函数。 VHD 不需要是附加磁盘。",
@@ -110,7 +127,11 @@
         "VirtualDiskHandle"
       ],
       "confidence": 0.8,
-      "_source_line": 58
+      "_source_line": 58,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::QueryChangesVirtualDisk",
@@ -122,17 +143,20 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开的 VHD 的句柄，该句柄必须已使用 OpenVirtualDisk 函数的 VirtualDiskAccessMask 参数中设置的 VIRTUAL_DISK_ACCESS_GET_INFO 标志打开。 有关如何打开 VHD 的信 息，请参阅 OpenVirtualDisk 函数。[in] ChangeTrackingId 指向字符串的指针，该字符串指定更改跟踪标识符，该更改标识要用作比较基础的虚拟磁 盘的状态，以确定 VHD 的指定区域是否已更改。[in] ByteOffset 一个无符号长整数，指定从 VHD 开始到要检查更改的 VHD 区域开头的距离（以字节为单位）。"
+          "description": "打开的 VHD 的句柄，该句柄必须已使用 OpenVirtualDisk 函数的 VirtualDiskAccessMask 参数中设置的 VIRTUAL_DISK_ACCESS_GET_INFO 标志打开。 有关如何打开 VHD 的信 息，请参阅 OpenVirtualDisk 函数。[in] ChangeTrackingId 指向字符串的指针，该字符串指定更改跟踪标识符，该更改标识要用作比较基础的虚拟磁 盘的状态，以确定 VHD 的指定区域是否已更改。[in] ByteOffset 一个无符号长整数，指定从 VHD 开始到要检查更改的 VHD 区域开头的距离（以字节为单位）。",
+          "type": "HANDLE"
         },
         {
           "name": "ByteLength",
           "direction": "in",
-          "description": "一个无符号长整数，指定要检查更改的 VHD 区域的长度（以字节为单位）。[in] Flags 保留。 设置为 QUERY_CHANGES_VIRTUAL_DISK_FLAG_NONE。[out] Ranges 一个QUERY_CHANGES_VIRTUAL_DISK_RANGE结构数组，指示自 ChangeTrackingId 参数指定的更改跟踪标识符密封以来，ByteOffset 和 ByteLength 参数指定的区域中已更改的虚拟磁盘区域。"
+          "description": "一个无符号长整数，指定要检查更改的 VHD 区域的长度（以字节为单位）。[in] Flags 保留。 设置为 QUERY_CHANGES_VIRTUAL_DISK_FLAG_NONE。[out] Ranges 一个QUERY_CHANGES_VIRTUAL_DISK_RANGE结构数组，指示自 ChangeTrackingId 参数指定的更改跟踪标识符密封以来，ByteOffset 和 ByteLength 参数指定的区域中已更改的虚拟磁盘区域。",
+          "type": "ULONG64"
         },
         {
           "name": "RangeCount",
           "direction": "in, out",
-          "description": "无符号长整数的地址。 输入时， 值指示 Ranges 参数指向的数组可以容纳的"
+          "description": "无符号长整数的地址。 输入时， 值指示 Ranges 参数指向的数组可以容纳的",
+          "type": "out] PULONG"
         }
       ],
       "header": "virtdisk.h",
@@ -146,7 +170,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 131,
-      "return_value": "如果函数成功，返回 ERROR_SUCCESS。如果函数失败，返回一个错误代码。"
+      "return_value": {
+        "type": "DWORD",
+        "description": "如果函数成功，返回 ERROR_SUCCESS。如果函数失败，返回一个错误代码。"
+      }
     },
     {
       "id": "windows::APPLY_SNAPSHOT_VHDSET_PARAMETERS",
@@ -176,19 +203,20 @@
     {
       "id": "windows::CREATE_VIRTUAL_DISK_PARAMETERS",
       "name": "CREATE_VIRTUAL_DISK_PARAMETERS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含虚拟硬盘 (VHD) 创建参数，提供对新创建的虚拟磁盘的控制和相关信息。",
       "syntax": "typedef struct _CREATE_VIRTUAL_DISK_PARAMETERS {",
       "header": "virtdisk.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.85,
-      "_source_line": 77
+      "_source_line": 77,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::EXPAND_VIRTUAL_DISK_PARAMETERS",
       "name": "EXPAND_VIRTUAL_DISK_PARAMETERS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Contains parameters for expanding a virtual disk. When Version member is EXPAND_VIRTUAL_DISK_VERSION_1 (1), Version1 structure is used. Version1.NewSize specifies the new size in bytes for the expand request.",
       "syntax": "typedef struct _EXPAND_VIRTUAL_DISK_PARAMETERS {\n  EXPAND_VIRTUAL_DISK_VERSION Version;\n  union {\n    struct {\n      ULONGLONG NewSize;\n    } Version1;\n  };\n} EXPAND_VIRTUAL_DISK_PARAMETERS;",
       "requirements": {
@@ -202,7 +230,8 @@
         "Version1"
       ],
       "confidence": 0.85,
-      "_source_line": 80
+      "_source_line": 80,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::GET_VIRTUAL_DISK_INFO",
@@ -221,7 +250,7 @@
     {
       "id": "windows::MERGE_VIRTUAL_DISK_PARAMETERS",
       "name": "MERGE_VIRTUAL_DISK_PARAMETERS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含虚拟硬盘 (VHD) 合并请求参数。",
       "syntax": "typedef struct _MERGE_VIRTUAL_DISK_PARAMETERS {",
       "header": "virtdisk.h",
@@ -230,7 +259,8 @@
         "MIRROR_VIRTUAL_DISK_PARAMETERS"
       ],
       "confidence": 0.85,
-      "_source_line": 82
+      "_source_line": 82,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::MODIFY_VHDSET_PARAMETERS",
@@ -259,7 +289,7 @@
     {
       "id": "windows::QUERY_CHANGES_VIRTUAL_DISK_RANGE",
       "name": "QUERY_CHANGES_VIRTUAL_DISK_RANGE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "标识虚拟硬盘 (VHD) 上已更改的区域，该区域已由可复原更改跟踪 (RCT) 跟踪。",
       "requirements": {
         "target_platform": "Windows",
@@ -287,7 +317,8 @@
           "name": "ByteOffset",
           "description": "从虚拟磁盘开始到已更改的虚拟磁盘区域开头的距离（以字节为单位）。 ByteLength 已更改的虚拟磁盘区域的长度（以字节为单位）。 Reserved 保留。"
         }
-      ]
+      ],
+      "_type_raw": "struct"
     },
     {
       "id": "windows::STORAGE_DEPENDENCY_INFO",
@@ -636,14 +667,19 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开的虚拟磁盘的句柄。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。[in] Parameters 指向包含快照数据的有效APPLY_SNAPSHOT_VHDSET_PARAMETERS结构的指针。[in] Flags"
+          "description": "打开的虚拟磁盘的句柄。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。[in] Parameters 指向包含快照数据的有效APPLY_SNAPSHOT_VHDSET_PARAMETERS结构的指针。[in] Flags",
+          "type": "HANDLE"
         }
       ],
       "header": "virtdisk.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 317
+      "_source_line": 317,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::ATTACH_VIRTUAL_DISK_FLAG_NONE",
@@ -788,7 +824,8 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开的镜像虚拟磁盘的句柄。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。 有关如何镜像虚拟磁盘的信息，请参阅 MirrorVirtualDisk 函数。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+          "description": "打开的镜像虚拟磁盘的句柄。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。 有关如何镜像虚拟磁盘的信息，请参阅 MirrorVirtualDisk 函数。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。",
+          "type": "HANDLE"
         }
       ],
       "requirements": {
@@ -805,7 +842,11 @@
         "OpenVirtualDisk"
       ],
       "confidence": 0.7,
-      "_source_line": 502
+      "_source_line": 502,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::COMPACT_VIRTUAL_DISK_FLAG_NONE",
@@ -889,14 +930,19 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开虚拟磁盘的句柄，该句柄必须已使用传递给 OpenVirtualDisk 的"
+          "description": "打开虚拟磁盘的句柄，该句柄必须已使用传递给 OpenVirtualDisk 的",
+          "type": "HANDLE"
         }
       ],
       "header": "virtdisk.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 616
+      "_source_line": 616,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::VirtualDiskAccessMask",
@@ -1126,7 +1172,8 @@
         {
           "name": "VirtualStorageType",
           "direction": "in",
-          "description": "指向包含所需磁盘类型和供应商信息的 VIRTUAL_STORAGE_TYPE 结构的指针。[in] Path 指向表示新虚拟磁盘映像文件路径的有效字符串的指针。[in] VirtualDiskAccessMask 打开新创建的虚拟磁盘文件时要使用的 VIRTUAL_DISK_ACCESS_MASK 值。 如果将 Parameters 参数的 Version 成员设置为 CREATE_VIRTUAL_DISK_VERSION_2则只能指定"
+          "description": "指向包含所需磁盘类型和供应商信息的 VIRTUAL_STORAGE_TYPE 结构的指针。[in] Path 指向表示新虚拟磁盘映像文件路径的有效字符串的指针。[in] VirtualDiskAccessMask 打开新创建的虚拟磁盘文件时要使用的 VIRTUAL_DISK_ACCESS_MASK 值。 如果将 Parameters 参数的 Version 成员设置为 CREATE_VIRTUAL_DISK_VERSION_2则只能指定",
+          "type": "PVIRTUAL_STORAGE_TYPE"
         }
       ],
       "header": "virtdisk.h",
@@ -1135,7 +1182,11 @@
         "CREATE_VIRTUAL_DISK_PARAMETERS"
       ],
       "confidence": 0.8,
-      "_source_line": 811
+      "_source_line": 811,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::CREATE_VIRTUAL_DISK_VERSION_UNSPECIFIED",
@@ -1193,7 +1244,8 @@
         {
           "name": "VirtualStorageType",
           "direction": "in",
-          "description": "指向有效 VIRTUAL_STORAGE_TYPE 结构的指针。[in] Path 指向要打开的虚拟磁盘映像的有效路径的指针。[in] VirtualDiskAccessMask"
+          "description": "指向有效 VIRTUAL_STORAGE_TYPE 结构的指针。[in] Path 指向要打开的虚拟磁盘映像的有效路径的指针。[in] VirtualDiskAccessMask",
+          "type": "PVIRTUAL_STORAGE_TYPE"
         }
       ],
       "header": "virtdisk.h",
@@ -1203,7 +1255,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 908,
-      "return_value": "如果函数成功，返回值为非零。如果函数失败，返回值为零。"
+      "return_value": {
+        "type": "HANDLE",
+        "description": "如果函数成功，返回值为非零。如果函数失败，返回值为零。"
+      }
     },
     {
       "id": "windows::DELETE_SNAPSHOT_VHDSET_FLAG_NONE",
@@ -1314,7 +1369,8 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开的虚拟磁盘的句柄。 这必须是 VHD 集文件。[in] Parameters 指向包含快照删除数据的有效DELETE_SNAPSHOT_VHDSET_PARAMETERS结构的指针。[in] Flags 快照删除标志，必须是 DELETE_SNAPSHOT_VHDSET_FLAG 枚举的有效组合。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+          "description": "打开的虚拟磁盘的句柄。 这必须是 VHD 集文件。[in] Parameters 指向包含快照删除数据的有效DELETE_SNAPSHOT_VHDSET_PARAMETERS结构的指针。[in] Flags 快照删除标志，必须是 DELETE_SNAPSHOT_VHDSET_FLAG 枚举的有效组合。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。",
+          "type": "HANDLE"
         }
       ],
       "requirements": {
@@ -1330,7 +1386,10 @@
       "cross_references": [],
       "confidence": 0.6,
       "_source_line": 992,
-      "return_value": "请求的状态。如果函数成功，则返回 ERROR_SUCCESS。如果函数失败，则返回值为错误代码。"
+      "return_value": {
+        "type": "DWORD",
+        "description": "请求的状态。如果函数成功，则返回 ERROR_SUCCESS。如果函数失败，则返回值为错误代码。"
+      }
     },
     {
       "id": "windows::DeleteVirtualDiskMetadata",
@@ -1342,7 +1401,8 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开的虚拟磁盘的句柄。[in] Item 要删除的项。返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+          "description": "打开的虚拟磁盘的句柄。[in] Item 要删除的项。返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。",
+          "type": "HANDLE"
         }
       ],
       "requirements": {
@@ -1355,7 +1415,10 @@
       "cross_references": [],
       "confidence": 0.6,
       "_source_line": 1021,
-      "return_value": "如果函数成功，则返回 ERROR_SUCCESS。如果函数失败，则返回错误代码。有关详细信息，请参阅 系统错误代码。"
+      "return_value": {
+        "type": "DWORD",
+        "description": "如果函数成功，则返回 ERROR_SUCCESS。如果函数失败，则返回错误代码。有关详细信息，请参阅 系统错误代码。"
+      }
     },
     {
       "id": "windows::DEPENDENT_DISK_FLAG",
@@ -1652,7 +1715,8 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开的虚拟磁盘的句柄，该句柄必须已使用 VIRTUAL_DISK_ACCESS_METAOPS 标志打 开。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。[in] Flags 必须是 EXPAND_VIRTUAL_DISK_FLAG 枚举的 EXPAND_VIRTUAL_DISK_FLAG_NONE 值。[in] Parameters 指向包含扩展参数数据的有效 EXPAND_VIRTUAL_DISK_PARAMETERS 结构的指针。[in, optional] Overlapped 如果需要异步操作，则为指向有效 OVERLAPPED 结构的可选指针。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+          "description": "打开的虚拟磁盘的句柄，该句柄必须已使用 VIRTUAL_DISK_ACCESS_METAOPS 标志打 开。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。[in] Flags 必须是 EXPAND_VIRTUAL_DISK_FLAG 枚举的 EXPAND_VIRTUAL_DISK_FLAG_NONE 值。[in] Parameters 指向包含扩展参数数据的有效 EXPAND_VIRTUAL_DISK_PARAMETERS 结构的指针。[in, optional] Overlapped 如果需要异步操作，则为指向有效 OVERLAPPED 结构的可选指针。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。",
+          "type": "HANDLE"
         }
       ],
       "header": "virtdisk.h",
@@ -1660,7 +1724,10 @@
       "cross_references": [],
       "confidence": 0.8,
       "_source_line": 1269,
-      "return_value": "DWORD 类型的返回值。如果函数成功，返回 ERROR_SUCCESS；如果失败，返回错误代码。有关详细信息，请参阅系统错误代码。"
+      "return_value": {
+        "type": "DWORD",
+        "description": "DWORD 类型的返回值。如果函数成功，返回 ERROR_SUCCESS；如果失败，返回错误代码。有关详细信息，请参阅系统错误代码。"
+      }
     },
     {
       "id": "windows::GET_STORAGE_DEPENDENCY_FLAG",
@@ -1723,14 +1790,19 @@
         {
           "name": "ObjectHandle",
           "direction": "in",
-          "description": "如果 Flags 参数未指定 GET_STORAGE_DEPENDENCY_FLAG_DISK_HANDLE 标志，则为卷或根目录的句柄。 有关如何打开卷或根目录的信息，请参阅 CreateFile 函数。 如果 Flags 参数指定 GET_STORAGE_DEPENDENCY_FLAG_DISK_HANDLE 标志，则此句 柄应是磁盘的句柄。[in] Flags"
+          "description": "如果 Flags 参数未指定 GET_STORAGE_DEPENDENCY_FLAG_DISK_HANDLE 标志，则为卷或根目录的句柄。 有关如何打开卷或根目录的信息，请参阅 CreateFile 函数。 如果 Flags 参数指定 GET_STORAGE_DEPENDENCY_FLAG_DISK_HANDLE 标志，则此句 柄应是磁盘的句柄。[in] Flags",
+          "type": "HANDLE"
         }
       ],
       "header": "virtdisk.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 1325
+      "_source_line": 1325,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::GET_VIRTUAL_DISK_INFO_VERSION",
@@ -2021,12 +2093,14 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开的虚拟磁盘的句柄。[in] Item 标识要检索的元数据的 GUID 的地址。[in, out] MetaDataSize ULONG 的地址。 输入时，该值指示 MetaData 参数指向的缓冲区的大小（以字节为单位）。输出时，该值包含检索到的元数据的大小（以字节为单位）。 如果缓冲区太小，API 将失败并返回 ERROR_INSUFFICIENT_BUFFER，将所需大小放在 ULONG 中，缓冲区将包含元数据的开头。"
+          "description": "打开的虚拟磁盘的句柄。[in] Item 标识要检索的元数据的 GUID 的地址。[in, out] MetaDataSize ULONG 的地址。 输入时，该值指示 MetaData 参数指向的缓冲区的大小（以字节为单位）。输出时，该值包含检索到的元数据的大小（以字节为单位）。 如果缓冲区太小，API 将失败并返回 ERROR_INSUFFICIENT_BUFFER，将所需大小放在 ULONG 中，缓冲区将包含元数据的开头。",
+          "type": "HANDLE"
         },
         {
           "name": "MetaData",
           "direction": "out",
-          "description": "要存储元数据的缓冲区的地址。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果 Items 参数指向的缓冲区太小，则返回值 ERROR_INSUFFICIENT_BUFFER。如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+          "description": "要存储元数据的缓冲区的地址。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果 Items 参数指向的缓冲区太小，则返回值 ERROR_INSUFFICIENT_BUFFER。如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。",
+          "type": "PVOID"
         }
       ],
       "header": "virtdisk.h",
@@ -2035,7 +2109,11 @@
         "Server"
       ],
       "confidence": 0.6,
-      "_source_line": 1591
+      "_source_line": 1591,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::VIRTUAL_DISK_PROGRESS",
@@ -2061,14 +2139,19 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开的虚拟磁盘的句柄，必须使用 VIRTUAL_DISK_ACCESS_GET_INFO 标志打开。 有关 如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。[in, out] DiskPathSizeInBytes"
+          "description": "打开的虚拟磁盘的句柄，必须使用 VIRTUAL_DISK_ACCESS_GET_INFO 标志打开。 有关 如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。[in, out] DiskPathSizeInBytes",
+          "type": "HANDLE"
         }
       ],
       "header": "virtdisk.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 1649
+      "_source_line": 1649,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::MERGE_VIRTUAL_DISK_FLAG",
@@ -2146,7 +2229,8 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开的虚拟磁盘的句柄，该句柄必须已使用 VIRTUAL_DISK_ACCESS_METAOPS 标志打 开。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。[in] Flags 必须是 MERGE_VIRTUAL_DISK_FLAG 枚举的 MERGE_VIRTUAL_DISK_FLAG_NONE 值。[in] Parameters 指向包含合并参数数据的有效 MERGE_VIRTUAL_DISK_PARAMETERS 结构的指针。[in, optional] Overlapped 如果需要异步操作，则为指向有效 OVERLAPPED 结构的可选指针。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+          "description": "打开的虚拟磁盘的句柄，该句柄必须已使用 VIRTUAL_DISK_ACCESS_METAOPS 标志打 开。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。[in] Flags 必须是 MERGE_VIRTUAL_DISK_FLAG 枚举的 MERGE_VIRTUAL_DISK_FLAG_NONE 值。[in] Parameters 指向包含合并参数数据的有效 MERGE_VIRTUAL_DISK_PARAMETERS 结构的指针。[in, optional] Overlapped 如果需要异步操作，则为指向有效 OVERLAPPED 结构的可选指针。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。",
+          "type": "HANDLE"
         }
       ],
       "remarks": "注意 本部分中出现的所有 术语磁盘 都指虚拟磁盘。 术语 后备存储 是指一个或多个 VHD 映像文件所在的物理磁盘存储。",
@@ -2162,7 +2246,11 @@
         "VirtualDiskHandle"
       ],
       "confidence": 0.8,
-      "_source_line": 1737
+      "_source_line": 1737,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::MERGE_VIRTUAL_DISK_VERSION_UNSPECIFIED",
@@ -2340,9 +2428,14 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "具有挂起异步操作的虚拟磁盘的有效句柄。[in] Overlapped 指向有效 OVERLAPPED 结构的指针。 此参数必须引用先前发送到正在检查进度的虚拟磁 盘操作的相同结构。[out] Progress 指向接收当前虚拟磁盘操作进度 的VIRTUAL_DISK_PROGRESS 结构的指针。 返回值请求的状态。 如果函数成功，则返回值为 ERROR_SUCCESS ， Progress 参数将使用当前虚拟磁盘操作进度填充。 如果函数失败，则返回值为错误代码， 并且 Progress 参数的值未定义。 有关详细信息，请参阅 系统错误代码。"
+          "description": "具有挂起异步操作的虚拟磁盘的有效句柄。[in] Overlapped 指向有效 OVERLAPPED 结构的指针。 此参数必须引用先前发送到正在检查进度的虚拟磁 盘操作的相同结构。[out] Progress 指向接收当前虚拟磁盘操作进度 的VIRTUAL_DISK_PROGRESS 结构的指针。 返回值请求的状态。 如果函数成功，则返回值为 ERROR_SUCCESS ， Progress 参数将使用当前虚拟磁盘操作进度填充。 如果函数失败，则返回值为错误代码， 并且 Progress 参数的值未定义。 有关详细信息，请参阅 系统错误代码。",
+          "type": "HANDLE"
         }
-      ]
+      ],
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::MODIFY_VHDSET_FLAG",
@@ -2745,7 +2838,8 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开的虚拟磁盘的句柄。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。此句柄也可以是远程共享虚拟磁盘的句柄。 有关如何打开远程共享虚拟磁盘的信息，请 参阅 远程共享虚拟磁盘协议 文档。[in] Parameters 指向包含快照删除数据的有效RAW_SCSI_VIRTUAL_DISK_PARAMETERS 结构的指针。[in] Flags SCSI 虚拟磁盘标志，必须是 RAW_SCSI_VIRTUAL_DISK_FLAG 枚举的有效组合。[out] Response 指向包含处理 SCSI 命令的结果 的 RAW_SCSI_VIRTUAL_DISK_RESPONSE 结构的指针。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 返回 ERROR_SUCCESS 仅表示虚拟磁盘已收到请求。 由于设备状态无效、SCSI 命令不受支持或其他错误，SCSI 命令本身可能已失败。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+          "description": "打开的虚拟磁盘的句柄。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。此句柄也可以是远程共享虚拟磁盘的句柄。 有关如何打开远程共享虚拟磁盘的信息，请 参阅 远程共享虚拟磁盘协议 文档。[in] Parameters 指向包含快照删除数据的有效RAW_SCSI_VIRTUAL_DISK_PARAMETERS 结构的指针。[in] Flags SCSI 虚拟磁盘标志，必须是 RAW_SCSI_VIRTUAL_DISK_FLAG 枚举的有效组合。[out] Response 指向包含处理 SCSI 命令的结果 的 RAW_SCSI_VIRTUAL_DISK_RESPONSE 结构的指针。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 返回 ERROR_SUCCESS 仅表示虚拟磁盘已收到请求。 由于设备状态无效、SCSI 命令不受支持或其他错误，SCSI 命令本身可能已失败。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。",
+          "type": "HANDLE"
         }
       ],
       "requirements": {
@@ -2761,7 +2855,10 @@
       "cross_references": [],
       "confidence": 0.7,
       "_source_line": 2448,
-      "return_value": "请求的状态。如果函数成功，则返回 ERROR_SUCCESS。返回 ERROR_SUCCESS 仅表示虚拟磁盘已收到请求。由于设备状态无效、SCSI 命令不受支持或其他错误，SCSI 命令本身可能已失败。如果函数失败，则返回值为错误代码。"
+      "return_value": {
+        "type": "DWORD",
+        "description": "请求的状态。如果函数成功，则返回 ERROR_SUCCESS。返回 ERROR_SUCCESS 仅表示虚拟磁盘已收到请求。由于设备状态无效、SCSI 命令不受支持或其他错误，SCSI 命令本身可能已失败。如果函数失败，则返回值为错误代码。"
+      }
     },
     {
       "id": "windows::RESIZE_VIRTUAL_DISK_FLAG",
@@ -2886,14 +2983,19 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开的虚拟磁盘的句柄。[in] Flags 从 RESIZE_VIRTUAL_DISK_FLAG 枚举中枚举的零个或多个标志。[in] Parameters 包含虚拟磁盘新大小的 RESIZE_VIRTUAL_DISK_PARAMETERS 结构的地址。[in, optional] Overlapped 如果这是异步操作，则为有效 OVERLAPPED 结构的地址。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+          "description": "打开的虚拟磁盘的句柄。[in] Flags 从 RESIZE_VIRTUAL_DISK_FLAG 枚举中枚举的零个或多个标志。[in] Parameters 包含虚拟磁盘新大小的 RESIZE_VIRTUAL_DISK_PARAMETERS 结构的地址。[in, optional] Overlapped 如果这是异步操作，则为有效 OVERLAPPED 结构的地址。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。",
+          "type": "HANDLE"
         }
       ],
       "header": "virtdisk.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 2562
+      "_source_line": 2562,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::SET_VIRTUAL_DISK_INFO",
@@ -3082,7 +3184,8 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开的虚拟磁盘的句柄，该句柄必须已使用 VIRTUAL_DISK_ACCESS_METAOPS 标志打 开。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。[in] VirtualDiskInfo 指向有效 SET_VIRTUAL_DISK_INFO 结构的指针。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+          "description": "打开的虚拟磁盘的句柄，该句柄必须已使用 VIRTUAL_DISK_ACCESS_METAOPS 标志打 开。 有关如何打开虚拟磁盘的信息，请参阅 OpenVirtualDisk 函数。[in] VirtualDiskInfo 指向有效 SET_VIRTUAL_DISK_INFO 结构的指针。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。",
+          "type": "HANDLE"
         }
       ],
       "remarks": "如果请求设置 ParentFilePath 成员，但系统无法解析提供的路径， SetVirtualDiskInformation 函数将失败。 设置父信息还会导致更新子级的父 GUID 和时间戳字段。 此操作正在进行时，无法附加虚拟磁盘。 调用方必须具有 READ|对虚拟磁盘的后备存储的写入访问权限。",
@@ -3093,7 +3196,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 2705,
-      "return_value": "请求的状态。如果函数成功，则返回 ERROR_SUCCESS。如果函数失败，则返回错误代码。有关详细信息，请参阅系统错误代码。"
+      "return_value": {
+        "type": "DWORD",
+        "description": "请求的状态。如果函数成功，则返回 ERROR_SUCCESS。如果函数失败，则返回错误代码。有关详细信息，请参阅系统错误代码。"
+      }
     },
     {
       "id": "windows::SetVirtualDiskMetadata",
@@ -3105,7 +3211,8 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开的虚拟磁盘的句柄。[in] Item 标识要设置的元数据的 GUID 的地址。 这不能是 NULL GUID () 所有零的 GUID。[in] MetaDataSize 包含 MetaData 参数指向的缓冲区的大小（以字节为单位）的 ULONG 的地址。 特定 VHD 文件类型具有每个元数据元素的最大大小。 特定 VHD 文件还具有最大数量的元数据条目总数和总元 数据大小。[in] MetaData 包含要存储的元数据的缓冲区的地址。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。 要求"
+          "description": "打开的虚拟磁盘的句柄。[in] Item 标识要设置的元数据的 GUID 的地址。 这不能是 NULL GUID () 所有零的 GUID。[in] MetaDataSize 包含 MetaData 参数指向的缓冲区的大小（以字节为单位）的 ULONG 的地址。 特定 VHD 文件类型具有每个元数据元素的最大大小。 特定 VHD 文件还具有最大数量的元数据条目总数和总元 数据大小。[in] MetaData 包含要存储的元数据的缓冲区的地址。 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。 要求",
+          "type": "HANDLE"
         }
       ],
       "header": "virtdisk.h",
@@ -3115,7 +3222,10 @@
       ],
       "confidence": 0.6,
       "_source_line": 2741,
-      "return_value": "If successful, returns ERROR_SUCCESS. Otherwise returns a system error code."
+      "return_value": {
+        "type": "DWORD",
+        "description": "If successful, returns ERROR_SUCCESS. Otherwise returns a system error code."
+      }
     },
     {
       "id": "windows::STORAGE_DEPENDENCY_INFO_TYPE_2",
@@ -3266,7 +3376,8 @@
         {
           "name": "VirtualDiskHandle",
           "direction": "in",
-          "description": "打开的虚拟磁盘的句柄。 这必须是 VHD 集文件。[in] Parameters 指向包含快照数据的有效TAKE_SNAPSHOT_VHDSET_PARAMETERS结构的指针。[in] Flags 快照标志，必须是 TAKE_SNAPSHOT_VHDSET_FLAG 枚举的有效组合 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。"
+          "description": "打开的虚拟磁盘的句柄。 这必须是 VHD 集文件。[in] Parameters 指向包含快照数据的有效TAKE_SNAPSHOT_VHDSET_PARAMETERS结构的指针。[in] Flags 快照标志，必须是 TAKE_SNAPSHOT_VHDSET_FLAG 枚举的有效组合 返回值请求的状态。 如果函数成功，则返回值 ERROR_SUCCESS。 如果函数失败，则返回值为错误代码。 有关详细信息，请参阅 系统错误代码。",
+          "type": "HANDLE"
         }
       ],
       "requirements": {
@@ -3282,7 +3393,10 @@
       "cross_references": [],
       "confidence": 0.7,
       "_source_line": 2956,
-      "return_value": "请求状态码，成功返回ERROR_SUCCESS，失败返回系统错误代码"
+      "return_value": {
+        "type": "DWORD",
+        "description": "请求状态码，成功返回ERROR_SUCCESS，失败返回系统错误代码"
+      }
     },
     {
       "id": "windows::OperationStatus",

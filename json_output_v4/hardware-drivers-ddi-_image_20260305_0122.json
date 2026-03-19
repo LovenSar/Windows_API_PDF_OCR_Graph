@@ -226,7 +226,8 @@
       "description": "IWiaDrvItem 的 AddItemToFolder 方法将一个项添加到驱动程序项树中的文件夹项。",
       "syntax": "HRESULT AddItemToFolder(\n  IWiaDrvItem *pIParent\n);",
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK。 如果方法失败，因为传递了无效的 pIParent 参数，则返 回 E_INVALIDARG。 如果方法因其他原因而失败，则返回标准 COM 错误代码。"
+        "description": "如果方法成功，则返回 S_OK。 如果方法失败，因为传递了无效的 pIParent 参数，则返 回 E_INVALIDARG。 如果方法因其他原因而失败，则返回标准 COM 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "微型驱动程序通常使用 AddItemToFolder 方法将项添加到驱动程序项树中的父文件夹项。pIParent 指向父文件夹项；该项必须是文件夹。",
       "requirements": {
@@ -256,7 +257,11 @@
         "DeviceReset"
       ],
       "confidence": 0.7,
-      "_source_line": 95
+      "_source_line": 95,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::EnableHwNotifications",
@@ -330,11 +335,13 @@
         {
           "name": "lFlags",
           "direction": "in",
-          "description": "表示标志位。 此参数未使用，应始终由调用方设置为零（0）。[in] bstrItemName 将执行数据传输的项的名称。 有关详细信息，请参阅 WIA_IPA_ITEM_NAME。[in] bstrFullItemName 将执行数据传输的项的完整名称。 有关详细信息，请参阅 WIA_IPA_FULL_ITEM_NAME。[out] ppIStream 指向 IStream 对象的指针。"
+          "description": "表示标志位。 此参数未使用，应始终由调用方设置为零（0）。[in] bstrItemName 将执行数据传输的项的名称。 有关详细信息，请参阅 WIA_IPA_ITEM_NAME。[in] bstrFullItemName 将执行数据传输的项的完整名称。 有关详细信息，请参阅 WIA_IPA_FULL_ITEM_NAME。[out] ppIStream 指向 IStream 对象的指针。",
+          "type": "LONG"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK。若请求跳过当前项，可返回 WIA_STATUS_SKIP_ITEM。若当前传输序列被取消，可返回 S_FALSE。失败时返回相应的 HRESULT 错误代码。"
+        "description": "成功时返回 S_OK。若请求跳过当前项，可返回 WIA_STATUS_SKIP_ITEM。若当前传输序列被取消，可返回 S_FALSE。失败时返回相应的 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "当客户端请求跳过数据传输时，GetNextStream 返回 WIA_STATUS_SKIP_ITEM。此时 WIA 微型驱动程序必须跳过当前映像传输，并在可能的情况下继续下一个映像传输。例如，对于下载传输，驱动程序应完成当前映像的扫描，但丢弃图像数据。取消当前传输序列后，GetNextStream 返回 S_FALSE。",
       "requirements": {
@@ -414,7 +421,8 @@
         {
           "name": "lReason",
           "direction": "in",
-          "description": "指定指定回调状态消息的常量值。 此值用于确定回调的目的，可以是以下值之一： 消息"
+          "description": "指定指定回调状态消息的常量值。 此值用于确定回调的目的，可以是以下值之一： 消息",
+          "type": "LONG"
         }
       ],
       "header": "Wiadef.h",
@@ -422,7 +430,10 @@
       "cross_references": [],
       "confidence": 0.8,
       "_source_line": 287,
-      "return_value": "如果回调成功，应返回 S_OK 或其他成功的 HRESULT；失败时返回相应的 HRESULT 错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果回调成功，应返回 S_OK 或其他成功的 HRESULT；失败时返回相应的 HRESULT 错误代码。"
+      },
       "remarks": "这是 WIA 数据传输机制中使用的微型驱动回调例程。调用方通过 lReason 指示回调目的，并通过 pTranCtx 提供与传输介质和上下文相关的信息。"
     },
     {
@@ -474,11 +485,13 @@
         {
           "name": "lFlags",
           "direction": "in",
-          "description": "指定诊断消息的类型。 此参数可以是WIALOG_TRACE、WIALOG_WARNING或"
+          "description": "指定诊断消息的类型。 此参数可以是WIALOG_TRACE、WIALOG_WARNING或",
+          "type": "LONG"
         }
       ],
       "return_value": {
-        "description": "如果成功处理该状态并已采取适当操作，则返回 S_OK。如果处理程序无法识别 hrStatus 的值，通常返回 S_FALSE。失败时返回标准 COM 错误代码。"
+        "description": "如果成功处理该状态并已采取适当操作，则返回 S_OK。如果处理程序无法识别 hrStatus 的值，通常返回 S_FALSE。失败时返回标准 COM 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "应用程序通常不会直接调用此方法；它由 WIA 服务在下载或预览传输过程中调用。实现此方法的图像处理筛选器可以根据 hrStatus 向用户显示错误或状态信息，并在适当时提供取消传输或从错误中恢复的机会。对于 FAILED(hrStatus) 为 TRUE 的情况，通常应显示模式对话框；对于非失败状态，通常显示无模式状态对话框，并在状态变化时将其关闭。",
       "requirements": {
@@ -575,11 +588,13 @@
         {
           "name": "pwszAppName",
           "direction": "in",
-          "description": "调用方提供的指向应用程序的“短名称”的指针。"
+          "description": "调用方提供的指向应用程序的“短名称”的指针。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK；否则返回 stierr.h 中定义的 STIERR_ 前缀错误代码之一。"
+        "description": "成功时返回 S_OK；否则返回 stierr.h 中定义的 STIERR_ 前缀错误代码之一。",
+        "type": "HRESULT"
       },
       "remarks": "在卸载支持推送模型的应用程序时，应调用此方法将其从已注册应用程序列表中移除。该方法可由应用程序自身调用，也可由卸载程序调用。在调用 IStillImage::UnregisterLaunchApplication 之前，客户端必须先调用 StiCreateInstance 获取 IStillImage 接口指针。",
       "header": "sti.h",
@@ -824,7 +839,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 697,
-      "return_value": "如果函数成功，返回非零值。否则返回零。要获取扩展错误信息，请调用 GetLastError。对于重叠 I/O，如果操作尚未完成，GetLastError 可能返回 ERROR_IO_PENDING。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果函数成功，返回非零值。否则返回零。要获取扩展错误信息，请调用 GetLastError。对于重叠 I/O，如果操作尚未完成，GetLastError 可能返回 ERROR_IO_PENDING。"
+      },
       "remarks": "DeviceIoControl 是用户模式与设备驱动程序之间进行设备控制通信的通用入口。具体的输入/输出缓冲区格式、缓冲区长度要求以及返回值语义由 dwIoControlCode 指定的 IOCTL 决定。调用方必须确保传入的缓冲区与对应 IOCTL 的文档要求一致。当前节点原描述和 syntax 混入了 usbscan.h 中与 IOCTL_CANCEL_IO、PIPE_TYPE、IO_BLOCK_EX 相关的特定文档内容，这些内容不属于 DeviceIoControl 本身。"
     },
     {
@@ -1564,16 +1582,19 @@
         {
           "name": "pwszDeviceName",
           "direction": "out",
-          "description": "调用方提供的指向缓冲区的指针（长度STI_MAX_INTERNAL_NAME_LENGTH字节），以 接收应用程序启动的静止映像设备的内部设备名称。[out, optional] pdwEventCode 保留以供将来使用。[out] pwszEventName 调用方提供的指向足以接收 GUID 字符串表示形式的缓冲区的调用方指针。 GUID 表示启 动应用程序的 静止图像设备事件。"
+          "description": "调用方提供的指向缓冲区的指针（长度STI_MAX_INTERNAL_NAME_LENGTH字节），以 接收应用程序启动的静止映像设备的内部设备名称。[out, optional] pdwEventCode 保留以供将来使用。[out] pwszEventName 调用方提供的指向足以接收 GUID 字符串表示形式的缓冲区的调用方指针。 GUID 表示启 动应用程序的 静止图像设备事件。",
+          "type": "LPWSTR"
         },
         {
           "name": "hinst",
           "direction": "in",
-          "description": "调用方提供的调用进程的实例句柄。 通过调用 GetModuleName（NULL）来获取此句柄。 dwVersion 调用方提供的 STI 版本号。 此值必须STI_VERSION，Sti.h中定义。"
+          "description": "调用方提供的调用进程的实例句柄。 通过调用 GetModuleName（NULL）来获取此句柄。 dwVersion 调用方提供的 STI 版本号。 此值必须STI_VERSION，Sti.h中定义。",
+          "type": "HINSTANCE"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回 S_OK；否则返回在 stierr.h 中定义的、以前缀 STIERR_ 命名的错误代码之一。如果应用程序不是由静止图像事件监视器启动的，通常返回 STIERR_GENERIC。"
+        "description": "如果成功，返回 S_OK；否则返回在 stierr.h 中定义的、以前缀 STIERR_ 命名的错误代码之一。如果应用程序不是由静止图像事件监视器启动的，通常返回 STIERR_GENERIC。",
+        "type": "HRESULT"
       },
       "remarks": "如果静止图像事件监视器启动了应用程序，则 pwszDeviceName 和 pwszEventName 对应于命令行中的 /StiDevice 和 /StiEvent 参数。调用此方法之前，客户端必须先通过 IStillImage::StiCreateInstance 获取 IStillImage 接口指针。该创建过程通常会完成初始化，因此通常不需要单独调用 IStillImage::Initialize。",
       "requirements": {
@@ -1625,14 +1646,19 @@
         {
           "name": "pwszDeviceName",
           "direction": "in",
-          "description": "调用方提供的指向表示内部设备名称的字符串的指针，通过调用 IStillImage：："
+          "description": "调用方提供的指向表示内部设备名称的字符串的指针，通过调用 IStillImage：：",
+          "type": "LPWSTR"
         }
       ],
       "header": "sti.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 1958
+      "_source_line": 1958,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::RegisterLaunchApplication",
@@ -1644,11 +1670,13 @@
         {
           "name": "pwszAppName",
           "direction": "in",
-          "description": "调用方提供的指向表示应用程序的“短名称”的字符串的指针，扫描仪和相机控制面板的属 性表将显示该字符串。[in] pwszCommandLine 调用方提供的指向字符串的指针，该字符串表示启动应用程序所需的命令行，包括应用程序可执行文件的完整路径。 可以通过调用 GetModuleFileName（Microsoft Windows SDK 文档中所述）来获取当前路径。 有关详细信息，请参阅以下 备注 部分。"
+          "description": "调用方提供的指向表示应用程序的“短名称”的字符串的指针，扫描仪和相机控制面板的属 性表将显示该字符串。[in] pwszCommandLine 调用方提供的指向字符串的指针，该字符串表示启动应用程序所需的命令行，包括应用程序可执行文件的完整路径。 可以通过调用 GetModuleFileName（Microsoft Windows SDK 文档中所述）来获取当前路径。 有关详细信息，请参阅以下 备注 部分。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果作成功，该方法将返回S_OK。 否则，它将返回在 stierr.h中定义的 STIERR 前缀错误 代码之一。"
+        "description": "如果作成功，该方法将返回S_OK。 否则，它将返回在 stierr.h中定义的 STIERR 前缀错误 代码之一。",
+        "type": "HRESULT"
       },
       "remarks": "应用程序（或应用程序的安装程序）必须调用 IStillImage：： RegisterLaunchApplication，以便静止图像事件监视器知道其存在。 用户通过使用控制面板的属性表界面将 静止图像设备事件 与已注册的应用程序相关联。 用户与应用程序关联设备事件后，事件监视器将在事件发生时启动应用程序。 该方法在注册表中写入应用程序的加载路径。 因此，每次运行应用程序时都应调用该方法，因为用户可能移动了该文件，GetModuleFileName 始终返回当前文件位置。 可以在应用程序的命令行中包含命令参数。 启动已注册的应用程序时，事件监视器会将以下两个参数追加到命令行： 命令行参数**/StiDevice： **InternalDeviceName**/StiEvent：**EventGUID 描述",
       "header": "sti.h",
@@ -1954,7 +1982,8 @@
       "description": "创建实现 IStillImage 接口的 COM 对象实例，并返回指向该接口的指针。",
       "syntax": "HRESULT StiCreateInstanceW(\n  HINSTANCE    hinst,\n  DWORD        dwVer,\n  IStillImageW **ppSti,\n  LPUNKNOWN    punkOuter\n);",
       "return_value": {
-        "description": "如果函数成功，则返回 S_OK。否则返回在 stierr.h 中定义的一个 STIERR_ 前缀错误代码。"
+        "description": "如果函数成功，则返回 S_OK。否则返回在 stierr.h 中定义的一个 STIERR_ 前缀错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "应用程序在使用 IStillImage 接口前，必须先调用 StiCreateInstance 函数获取接口指针。hinst 应为调用进程的实例句柄，通常通过 GetModuleHandle(NULL) 获取。dwVer 必须指定为 STI_VERSION。ppSti 接收返回的 IStillImage 接口指针。若要创建聚合 COM 对象，可在 punkOuter 中传入控制未知对象；大多数情况下应将其设为 NULL。",
       "requirements": {
@@ -2007,7 +2036,10 @@
       "entity_type": "method",
       "description": "IStiDeviceControl::GetMyDeviceOpenMode 方法允许静止图像微型驱动程序获取应用程序在创建静止图像设备实例时指定的打开/传输模式。",
       "syntax": "HRESULT GetMyDeviceOpenMode(\n  LPDWORD pdwOpenMode\n);",
-      "return_value": "成功时返回 S_OK。失败时返回在 stierr.h 中定义的、带有 STIERR_ 前缀的错误代码之一。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "成功时返回 S_OK。失败时返回在 stierr.h 中定义的、带有 STIERR_ 前缀的错误代码之一。"
+      },
       "remarks": "静止图像微型驱动程序通过其 IStiUSD::Initialize 方法接收一个 IStiDeviceControl 接口指针，并可使用该接口调用此方法。",
       "requirements": {
         "header": "stiusd.h"
@@ -2029,10 +2061,14 @@
       "parameters": [
         {
           "name": "lpszDevicePath",
-          "description": "调用方提供的指向缓冲区的指针，用于接收设备的端口名称。 cwDevicePathSize lpszDevicePath指向的缓冲区中调用方提供的字符数（类型为 TCHAR）。"
+          "description": "调用方提供的指向缓冲区的指针，用于接收设备的端口名称。 cwDevicePathSize lpszDevicePath指向的缓冲区中调用方提供的字符数（类型为 TCHAR）。",
+          "type": "LPWSTR"
         }
       ],
-      "return_value": "通过调用 IStiDeviceControl::GetMyDevicePortName 获取的端口名称可用作 CreateFile 的输入参数。静止图像微型驱动程序在其 IStiUSD::Initialize 方法中接收 IStiDeviceControl 接口指针作为输入参数。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "通过调用 IStiDeviceControl::GetMyDevicePortName 获取的端口名称可用作 CreateFile 的输入参数。静止图像微型驱动程序在其 IStiUSD::Initialize 方法中接收 IStiDeviceControl 接口指针作为输入参数。"
+      },
       "remarks": "通过调用 IStiDeviceControl::GetMyDevicePortName 获取的端口名称可用作 CreateFile 的输入参数。静止图像微型驱动程序在其 IStiUSD::Initialize 方法中接收 IStiDeviceControl 接口指针作为输入参数。",
       "header": "stiusd.h",
       "deprecated": false,
@@ -2063,7 +2099,8 @@
       "description": "定义用于 USD_CONTROL_CODE 和 STI_RAW_CONTROL_CODE 的回调函数原型。该函数由用户模式静止图像微型驱动程序实现，用于处理设备控制请求。参数包括输入缓冲区、输出缓冲区及实际返回字节数。",
       "syntax": "typedef HRESULT (*EscapeFunction)(LPVOID lpInData, DWORD cbInDataSize, LPVOID pOutData, DWORD dwOutDataSize, LPDWORD pdwActualData);",
       "return_value": {
-        "description": "返回 HRESULT。成功时返回 S_OK；失败时返回相应的错误代码。"
+        "description": "返回 HRESULT。成功时返回 S_OK；失败时返回相应的错误代码。",
+        "type": "typedef"
       },
       "remarks": "EscapeFunction 是 USD_CONTROL_CODE 和 STI_RAW_CONTROL_CODE 结构中使用的函数指针类型，用于将设备特定控制请求分派给微型驱动程序实现。当前实体原 remarks 混入了 IStiDeviceControl::Release 的内容，应予以移除。",
       "requirements": {
@@ -2325,7 +2362,10 @@
       "confidence": 0.6,
       "_source_line": 3628,
       "syntax": "HANDLE CreateEventA(\n  [in, optional] LPSECURITY_ATTRIBUTES lpEventAttributes,\n  [in]           BOOL                  bManualReset,\n  [in]           BOOL                  bInitialState,\n  [in, optional] LPCSTR                lpName\n);\n\nHANDLE CreateEventW(\n  [in, optional] LPSECURITY_ATTRIBUTES lpEventAttributes,\n  [in]           BOOL                  bManualReset,\n  [in]           BOOL                  bInitialState,\n  [in, optional] LPCWSTR               lpName\n);",
-      "return_value": "If the function succeeds, the return value is a handle to the event object. If the named event already exists, the function returns a handle to the existing object and GetLastError returns ERROR_ALREADY_EXISTS. If the function fails, the return value is NULL. To get extended error information, call GetLastError.",
+      "return_value": {
+        "type": "HANDLE",
+        "description": "If the function succeeds, the return value is a handle to the event object. If the named event already exists, the function returns a handle to the existing object and GetLastError returns ERROR_ALREADY_EXISTS. If the function fails, the return value is NULL. To get extended error information, call GetLastError."
+      },
       "remarks": "CreateEvent is implemented as CreateEventA or CreateEventW depending on the UNICODE preprocessor constant. Use CloseHandle to close the returned handle. Event objects can be used for thread synchronization. A manual-reset event remains signaled until it is explicitly reset; an auto-reset event is automatically reset after releasing a waiting thread."
     },
     {
@@ -2395,11 +2435,13 @@
         {
           "name": "lFlags",
           "direction": "in",
-          "description": "当前未使用。 应设置为零。[in] pWiaItem2 指向正在传输的 IWiaItem2 项的指针。[in] hrStatus 包含 WIA 传输方法接收的状态代码的 HRESULT 变量，例如 IWiaDataCallback：： BandedDataCallback。[out] pbstrDescription 指向 BSTR 的指针，该 BSTR 接收传输期间遇到的状态或错误的说明。 此参数不能 NULL。 驱动程序必须使用 SysAllocString 函数分配字符串，调用方必须使用 SysFreeString]（/windows/win32/api/oleauto/nf-oleauto-sysfreestring）函数释放字符串。"
+          "description": "当前未使用。 应设置为零。[in] pWiaItem2 指向正在传输的 IWiaItem2 项的指针。[in] hrStatus 包含 WIA 传输方法接收的状态代码的 HRESULT 变量，例如 IWiaDataCallback：： BandedDataCallback。[out] pbstrDescription 指向 BSTR 的指针，该 BSTR 接收传输期间遇到的状态或错误的说明。 此参数不能 NULL。 驱动程序必须使用 SysAllocString 函数分配字符串，调用方必须使用 SysFreeString]（/windows/win32/api/oleauto/nf-oleauto-sysfreestring）函数释放字符串。",
+          "type": "LONG"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；如果发生错误，则返回标准 COM 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；如果发生错误，则返回标准 COM 错误代码。",
+        "type": "HRESULT"
       },
       "header": "wia_lh.h",
       "deprecated": false,
@@ -2527,11 +2569,13 @@
         {
           "name": "lFlags",
           "direction": "in",
-          "description": "当前未使用。 应设置为零。[in] pWiaTransferParams 指定指向 WiaTransferParams 结构的指针。"
+          "description": "当前未使用。 应设置为零。[in] pWiaTransferParams 指定指向 WiaTransferParams 结构的指针。",
+          "type": "LONG"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回标准 COM 错误 HRESULT 值。"
+        "description": "如果方法成功，则返回 S_OK；否则返回标准 COM 错误 HRESULT 值。",
+        "type": "HRESULT"
       },
       "remarks": "当 WIA 微型驱动程序从客户端请求目标流，或者将进度消息发送回应用程序时，会调用图像处理筛选器的 IWiaTransferCallback::TransferCallback 方法。图像处理筛选器必须将该调用委托给应用程序回调的 IWiaTransferCallback::TransferCallback 方法。\n\n在很多情况下，图像处理筛选器还必须修改 WiaTransferParams 结构中的 ulBytesWrittenToCurrentStream，并且有时也需要修改 lPercentComplete。如果筛选器在调用写入方法之间缓冲图像数据，然后才将其写入应用程序提供的流，则必须更新 ulBytesWrittenToCurrentStream。例如，在执行 deskew 和/或 rotation 时通常需要这样做。如果不需要旋转或 deskew，筛选器最好按数据带直接处理数据。\n\nlPercentComplete 不一定需要修改，因为它表示整个传输过程完成的百分比，应用程序通常可用它更新进度条。筛选器不应修改结构中的 lMessage 成员，也不应吞掉接收到的任何消息；即使执行了缓冲，也应通过更新 ulBytesWrittenToCurrentStream 来反映处理结果。\n\n在 IWiaPreview::UpdatePreview 期间，预览组件不会调用此方法。",
       "requirements": {
@@ -2876,7 +2920,7 @@
     {
       "id": "windows::RemoveItemFromFolder",
       "name": "RemoveItemFromFolder",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "反馈 是 否 IWiaDrvItem：:D umpItemData 方法 IWiaDrvItem：:D umpItemData 方法将与 IWiaDrvItem 项关联的专用数据转储到分配的专用缓 冲区中。",
       "syntax": "HRESULT DumpItemData(\nBSTR *__MIDL__IWiaDrvItem0015);\nHRESULT FindChildItemByName(\nBSTR        __MIDL__IWiaDrvItem0010,   IWiaDrvItem **__MIDL__IWiaDrvItem0011);\nHRESULT FindItemByName(\nLONG        __MIDL__IWiaDrvItem0007,   BSTR        __MIDL__IWiaDrvItem0008,   IWiaDrvItem **__MIDL__IWiaDrvItem0009);\nHRESULT GetDeviceSpecContext(\nBYTE **__MIDL__IWiaDrvItem0001);\nHRESULT GetFirstChildItem(\nIWiaDrvItem **__MIDL__IWiaDrvItem0013);\nHRESULT GetFullItemName(\nBSTR *__MIDL__IWiaDrvItem0002);\nHRESULT GetItemFlags(\nLONG *__MIDL__IWiaDrvItem0000);\nHRESULT GetItemName(\nBSTR *__MIDL__IWiaDrvItem0003);\nHRESULT GetNextSiblingItem(\nIWiaDrvItem **__MIDL__IWiaDrvItem0014);\nHRESULT GetParentItem(\nIWiaDrvItem **__MIDL__IWiaDrvItem0012);\nHRESULT RemoveItemFromFolder(   LONG __MIDL__IWiaDrvItem0006);",
       "parameters": [
@@ -2902,7 +2946,8 @@
         "SysFreeString"
       ],
       "confidence": 0.85,
-      "_source_line": 7170
+      "_source_line": 7170,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::WIA_DPS_PAGES",

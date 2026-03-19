@@ -63,7 +63,8 @@
         {
           "name": "pdm",
           "direction": "in",
-          "description": "指向包含驱动程序数据的 DEVMODEW 结构的指针。 对于支持 Windows NT 4.0 的驱动程序，当 GDI 调用时， DrvEnablePDEV 应返回硬件的默认模式，并将以下 DEVMODEW 成员设置为零： dmBitsPerPel、 dmPelsWidth、 dmPelsHeight 和 dmDisplayFrequency。[in] pwszLogAddress 对于打印机驱动程序，指向逻辑地址字符串，该字符串是驱动程序正在写入的位置的用户名称。 示例包括“LPT1”或“我的打印机”。 显示驱动程序应忽略此参数。 cPat 对于打印机驱动程序，指定 phsurfPatterns 指向的缓冲区中的图面句柄数。 驱动程序无法访问超出缓冲区末尾的内存。 显示驱动程序应忽略此参数。[in, optional] phsurfPatterns 显示驱动程序应忽略此参数。 对于打印机驱动程序，指向驱动程序将使用表示标准填充图案的图面图柄填充的缓冲区。必须按顺序定义以下模式： 模式"
+          "description": "指向包含驱动程序数据的 DEVMODEW 结构的指针。 对于支持 Windows NT 4.0 的驱动程序，当 GDI 调用时， DrvEnablePDEV 应返回硬件的默认模式，并将以下 DEVMODEW 成员设置为零： dmBitsPerPel、 dmPelsWidth、 dmPelsHeight 和 dmDisplayFrequency。[in] pwszLogAddress 对于打印机驱动程序，指向逻辑地址字符串，该字符串是驱动程序正在写入的位置的用户名称。 示例包括“LPT1”或“我的打印机”。 显示驱动程序应忽略此参数。 cPat 对于打印机驱动程序，指定 phsurfPatterns 指向的缓冲区中的图面句柄数。 驱动程序无法访问超出缓冲区末尾的内存。 显示驱动程序应忽略此参数。[in, optional] phsurfPatterns 显示驱动程序应忽略此参数。 对于打印机驱动程序，指向驱动程序将使用表示标准填充图案的图面图柄填充的缓冲区。必须按顺序定义以下模式： 模式",
+          "type": "DEVMODEW"
         }
       ],
       "remarks": "DrvEnablePDEV 使驱动程序能够向 GDI 报告设备的物理特征，并为当前设备实例创建私有的 PDEV 结构。驱动程序通常在此处分配与设备实例相关的状态，但在 GDI 调用 DrvEnableSurface 之前不需要创建实际表面或分配大型位图资源。单个驱动程序可以同时管理多个 PDEV，这些实例可按硬件类型、逻辑地址或图面进行区分。",
@@ -74,7 +75,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 61,
-      "return_value": "如果成功，返回标识已启用物理设备的 DHPDEV 句柄；如果失败，返回 0。"
+      "return_value": {
+        "type": "DHPDEV",
+        "description": "如果成功，返回标识已启用物理设备的 DHPDEV 句柄；如果失败，返回 0。"
+      }
     },
     {
       "id": "windows::GCAPS_ARBRUSHOPAQUE",
@@ -100,31 +104,37 @@
         {
           "name": "psoTrg",
           "direction": "in, out",
-          "description": "指向描述要绘制的图面的 SURFOBJ 结构的指针。[in, optional] psoSrc 指向 SURFOBJ 结构的指针，该结构描述位块传输操作的源（如果 rop4 参数需要）。[in, optional] psoMask 指向 SURFOBJ 结构的指针，该结构描述要用作 rop4 参数掩码的图面。 掩码是每个像素 1 位的位图。 通常，掩码用于限制目标图面中要修改的区域。 通过将 rop4 参数设置为值 0xAACC来选择掩码。 如果蒙板0x0000，则目标图面不受影响。掩码的大小足以覆盖目标矩形。 如果此参数为 NULL 且 rop4 参数需要掩码，则使用画笔中的隐式掩码。"
+          "description": "指向描述要绘制的图面的 SURFOBJ 结构的指针。[in, optional] psoSrc 指向 SURFOBJ 结构的指针，该结构描述位块传输操作的源（如果 rop4 参数需要）。[in, optional] psoMask 指向 SURFOBJ 结构的指针，该结构描述要用作 rop4 参数掩码的图面。 掩码是每个像素 1 位的位图。 通常，掩码用于限制目标图面中要修改的区域。 通过将 rop4 参数设置为值 0xAACC来选择掩码。 如果蒙板0x0000，则目标图面不受影响。掩码的大小足以覆盖目标矩形。 如果此参数为 NULL 且 rop4 参数需要掩码，则使用画笔中的隐式掩码。",
+          "type": "out] SURFOBJ"
         },
         {
           "name": "pco",
           "direction": "in",
-          "description": "指向 CLIPOBJ 结构的指针，该结构限制要修改的区域。 GDI 服务 (CLIPOBJXxx) ，以一组矩形的形式枚举 剪辑区域 。 GDI 尽可能简化涉及的剪裁;例如，永远不会使用单个剪裁矩 形调用此函数。 GDI 在调用此函数之前剪裁目标矩形，因此不需要其他剪裁。[in, optional] pxlo 指向 XLATEOBJ 结构的指针，该结构指定如何在源图面和目标图面之间转换颜色索引。如果 pxlo 为 NULL，则无需转换。 如果源图面由调色板管理，则其颜色由索引表示为 RGB 值的查阅表中。 可以查询 XLATEOBJ 结构以查找转换向量，该向量允许设备驱动程序将任何源索引转换为目标的颜色索引。 例如，当源为 RGB，但目标由调色板管理时，情况会更加复杂。 在这种情况下，必须在 目标调色板中找到与每个源 RGB 值最接近的匹配项。 驱动程序可以调用 XLATEOBJ_iXlate 服务来执行此操作。 （可选）当目标调色板是默认设备调色板时，设备驱动程序可以匹配颜色。[in] prclTrg 指向 RECTL 结构的指针，该结构定义要修改的区域。 此结构使用目标图面的坐标系。 此矩形的下边缘和右边缘不是位块传输的一部分，这意味着该矩形的右下角是独占的。 永远不会使用空的目标矩形调用 DrvBitBlt。 定义矩形的两个点始终是有序的。 但是，在多监视器系统上，矩形可以定义一个大于目标图面的区域。 驱动程序应将此矩形与其图面相交。"
+          "description": "指向 CLIPOBJ 结构的指针，该结构限制要修改的区域。 GDI 服务 (CLIPOBJXxx) ，以一组矩形的形式枚举 剪辑区域 。 GDI 尽可能简化涉及的剪裁;例如，永远不会使用单个剪裁矩 形调用此函数。 GDI 在调用此函数之前剪裁目标矩形，因此不需要其他剪裁。[in, optional] pxlo 指向 XLATEOBJ 结构的指针，该结构指定如何在源图面和目标图面之间转换颜色索引。如果 pxlo 为 NULL，则无需转换。 如果源图面由调色板管理，则其颜色由索引表示为 RGB 值的查阅表中。 可以查询 XLATEOBJ 结构以查找转换向量，该向量允许设备驱动程序将任何源索引转换为目标的颜色索引。 例如，当源为 RGB，但目标由调色板管理时，情况会更加复杂。 在这种情况下，必须在 目标调色板中找到与每个源 RGB 值最接近的匹配项。 驱动程序可以调用 XLATEOBJ_iXlate 服务来执行此操作。 （可选）当目标调色板是默认设备调色板时，设备驱动程序可以匹配颜色。[in] prclTrg 指向 RECTL 结构的指针，该结构定义要修改的区域。 此结构使用目标图面的坐标系。 此矩形的下边缘和右边缘不是位块传输的一部分，这意味着该矩形的右下角是独占的。 永远不会使用空的目标矩形调用 DrvBitBlt。 定义矩形的两个点始终是有序的。 但是，在多监视器系统上，矩形可以定义一个大于目标图面的区域。 驱动程序应将此矩形与其图面相交。",
+          "type": "CLIPOBJ"
         },
         {
           "name": "pptlSrc",
           "direction": "in, optional",
-          "description": "指向 POINTL 结构的指针，该结构定义源矩形的左上角（如果源存在）。 如果没有源，则忽略此参数。"
+          "description": "指向 POINTL 结构的指针，该结构定义源矩形的左上角（如果源存在）。 如果没有源，则忽略此参数。",
+          "type": "optional] POINTL"
         },
         {
           "name": "pptlMask",
           "direction": "in, optional",
-          "description": "指向 POINTL 结构的指针，该结构定义掩码中的哪个像素对应于源矩形的左上角（如果源 存在）。 如果 psoMask 参数为 NULL，则忽略此参数。[in, optional] pbo 指向 BRUSHOBJ 结构的指针，该结构定义位块传输的模式。 GDI 的 BRUSHOBJ_pvGetRbrush 服务可用于检索设备的画笔实现。 如果 rop4 参数不需要模式，则忽略此参数。"
+          "description": "指向 POINTL 结构的指针，该结构定义掩码中的哪个像素对应于源矩形的左上角（如果源 存在）。 如果 psoMask 参数为 NULL，则忽略此参数。[in, optional] pbo 指向 BRUSHOBJ 结构的指针，该结构定义位块传输的模式。 GDI 的 BRUSHOBJ_pvGetRbrush 服务可用于检索设备的画笔实现。 如果 rop4 参数不需要模式，则忽略此参数。",
+          "type": "optional] POINTL"
         },
         {
           "name": "pptlBrush",
           "direction": "in, optional",
-          "description": "指向 POINTL 结构的指针，该结构定义目标图面中画笔的原点。 画笔的左上角像素在此 点对齐，画笔会根据其尺寸重复。 如果 rop4 参数不需要模式，则忽略此参数。[in] rop4 指定一个光栅操作，该操作定义如何将掩码、图案、源和目标像素组合在一起以写入目标图面。 这是一个四元光栅运算，它是三元 Rop3 运算的扩展。 Rop4 有 16 个相关位，类似于 Rop3 的 8 个定义位。 实现 Rop4 的最简单方法是单独考虑其 2 个字节：低字节指定在掩 码为 1 时应计算的 Rop3，高字节指定可在掩码为 0 时计算和应用的 Rop3。"
+          "description": "指向 POINTL 结构的指针，该结构定义目标图面中画笔的原点。 画笔的左上角像素在此 点对齐，画笔会根据其尺寸重复。 如果 rop4 参数不需要模式，则忽略此参数。[in] rop4 指定一个光栅操作，该操作定义如何将掩码、图案、源和目标像素组合在一起以写入目标图面。 这是一个四元光栅运算，它是三元 Rop3 运算的扩展。 Rop4 有 16 个相关位，类似于 Rop3 的 8 个定义位。 实现 Rop4 的最简单方法是单独考虑其 2 个字节：低字节指定在掩 码为 1 时应计算的 Rop3，高字节指定可在掩码为 0 时计算和应用的 Rop3。",
+          "type": "optional] POINTL"
         }
       ],
       "return_value": {
-        "description": "如果驱动程序成功处理该操作，则返回 TRUE；否则返回 FALSE。"
+        "description": "如果驱动程序成功处理该操作，则返回 TRUE；否则返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "如果驱动程序挂钩 DrvBitBlt，GDI 会在需要执行 BitBlt 操作且其中一个表面由设备管理时调用此函数。如果驱动程序无法处理指定调用，可以调用 EngBitBlt 回退到 DIB 引擎。除非相应的 ROP 明确需要某个参数，否则不要取消引用对应的参数指针。有关光栅操作的详细信息，请参阅 Windows SDK 文档。",
       "requirements": {
@@ -150,7 +160,8 @@
         {
           "name": "pso",
           "direction": "in",
-          "description": "调用方提供的指向 SURFOBJ 结构的指针。[in] fl 调用方提供的位标志集。 定义了以下标志： 标志"
+          "description": "调用方提供的指向 SURFOBJ 结构的指针。[in] fl 调用方提供的位标志集。 定义了以下标志： 标志",
+          "type": "SURFOBJ"
         }
       ],
       "header": "winddi.h",
@@ -159,7 +170,11 @@
         "DrvEscape"
       ],
       "confidence": 0.7,
-      "_source_line": 63
+      "_source_line": 63,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvFontManagement",
@@ -171,11 +186,13 @@
         {
           "name": "pso",
           "direction": "in",
-          "description": "指向 SURFOBJ 结构的指针。[in, optional] pfo 指向 FONTOBJ 结构的指针。[in] iMode 指定要执行的转义号。 这必须等于 wingdi.h) 中定义的 QUERYESCSUPPORT (，或0x100 到0x3FE的范围内。[in] cjIn 指定 pvIn 参数指向的缓冲区的大小（以字节为单位）。[in] pvIn 指向输入缓冲区的指针。 如果 iMode 参数为 QUERYESCSUPPORT， 则 pvIn 指向0x100到 0x3FE范围内的 ULONG 值。[in] cjOut 指定 pvOut 参数指向的输出缓冲区的大小（以字节为单位）。[out] pvOut 指向输出数据缓冲区的指针。"
+          "description": "指向 SURFOBJ 结构的指针。[in, optional] pfo 指向 FONTOBJ 结构的指针。[in] iMode 指定要执行的转义号。 这必须等于 wingdi.h) 中定义的 QUERYESCSUPPORT (，或0x100 到0x3FE的范围内。[in] cjIn 指定 pvIn 参数指向的缓冲区的大小（以字节为单位）。[in] pvIn 指向输入缓冲区的指针。 如果 iMode 参数为 QUERYESCSUPPORT， 则 pvIn 指向0x100到 0x3FE范围内的 ULONG 值。[in] cjOut 指定 pvOut 参数指向的输出缓冲区的大小（以字节为单位）。[out] pvOut 指向输出数据缓冲区的指针。",
+          "type": "SURFOBJ"
         }
       ],
       "return_value": {
-        "description": "返回值依赖于 iMode 指定的转义操作。对于 QUERYESCSUPPORT，请返回非零值表示支持指定的转义号，返回 0 表示不支持；对于其他转义号，返回值由驱动程序定义。"
+        "description": "返回值依赖于 iMode 指定的转义操作。对于 QUERYESCSUPPORT，请返回非零值表示支持指定的转义号，返回 0 表示不支持；对于其他转义号，返回值由驱动程序定义。",
+        "type": "ULONG"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -196,16 +213,19 @@
         {
           "name": "dhpdev",
           "direction": "in",
-          "description": "物理设备的 PDEV 的句柄。[in] pLogColorSpace 指向逻辑颜色空间结构的指针。 LOGCOLORSPACEW 结构在 Microsoft Windows SDK 文档中定义。 当 pvSourceProfile 为 NULL 时，驱动程序应从此结构获取源颜色空间信息。"
+          "description": "物理设备的 PDEV 的句柄。[in] pLogColorSpace 指向逻辑颜色空间结构的指针。 LOGCOLORSPACEW 结构在 Microsoft Windows SDK 文档中定义。 当 pvSourceProfile 为 NULL 时，驱动程序应从此结构获取源颜色空间信息。",
+          "type": "DHPDEV"
         },
         {
           "name": "pvSourceProfile",
           "direction": "in, optional",
-          "description": "指向源配置文件的内存映射的指针。 此参数可以为 NULL。[in] cjSourceProfile 指定源配置文件内存映射的大小（以字节为单位）。 如果 pvSourceProfile 为 NULL，则 此参数应设置为零。[in] pvDestProfile 指向目标配置文件的内存映射的指针。[in] cjDestProfile 指定目标配置文件内存映射的大小（以字节为单位）。[in, optional] pvTargetProfile 指向目标配置文件的内存映射的指针。 此参数可以为 NULL。[in] cjTargetProfile 指定目标配置文件内存映射的大小（以字节为单位）。 如果 pvTargetProfile 为 NULL，则 此参数应设置为零。[in] dwReserved 应设置为零的保留参数。"
+          "description": "指向源配置文件的内存映射的指针。 此参数可以为 NULL。[in] cjSourceProfile 指定源配置文件内存映射的大小（以字节为单位）。 如果 pvSourceProfile 为 NULL，则 此参数应设置为零。[in] pvDestProfile 指向目标配置文件的内存映射的指针。[in] cjDestProfile 指定目标配置文件内存映射的大小（以字节为单位）。[in, optional] pvTargetProfile 指向目标配置文件的内存映射的指针。 此参数可以为 NULL。[in] cjTargetProfile 指定目标配置文件内存映射的大小（以字节为单位）。 如果 pvTargetProfile 为 NULL，则 此参数应设置为零。[in] dwReserved 应设置为零的保留参数。",
+          "type": "PVOID"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回值是指向已分配内存的指针。 否则，它为 null，并记录错误代码。 如果函数成功，则返回值是指向已实现的画笔的指针。 如果无法实现画笔，则返回值为 null，并记录错误代码。"
+        "description": "如果函数成功，则返回值是指向已分配内存的指针。 否则，它为 null，并记录错误代码。 如果函数成功，则返回值是指向已实现的画笔的指针。 如果无法实现画笔，则返回值为 null，并记录错误代码。",
+        "type": "HANDLE"
       },
       "remarks": "驱动程序根据配置文件数据创建颜色转换，如下所示： 当 pvSourceProfile 不为 NULL 时，驱动程序应使用 pvSourceProfile 指向的源配置文件。 否则，驱动程序应使用 pLogColorSpace 指向的结构中的数据来获取源颜色空间信息。 当驱动程序收到目标配置文件但没有目标配置文件时，它应存储将颜色从指定源颜色空间转换为指定目标颜色空间所需的数据。 当驱动程序同时收到目标和目标配置文件时，它应存储将颜色从指定源颜色空间转换为指定目标颜色空间以及从目标颜色空间转换回目标颜色空间所需的数据。 在此方案中，驱动程序的设备是可以证明映像的目标设备。 然后，驱动程序必须能够将校对图像的颜色空间转换为目标设备的颜色空间。 无论是否指定了目标配置文件，驱动程序的设备始终是目标设备。 提供的配置文件遵循 ICC 配置文件格式的版本 2.10。 如果驱动程序不理解指定的格式，则应使调用失败。 驱动程序可以安全地访问每个配置文件的整个内存映射。 pvSourceProfile、pvDestProfile 和 pvTargetProfile 指针仅在调用 DrvIcmCreateTransform 的范围内有效。报告 ICM 支持的驱动程序应实现此函数。 驱动程序通过在 DEVINFO 结构的 flGraphicsCaps 成员中设置 GCAPS_ICM 标志来指示对 ICM 的支持。",
       "header": "winddi.h",
@@ -220,7 +240,10 @@
       "entity_type": "function",
       "description": "绘制一条设备管理的标称宽度线。与使用 DrvStrokePath 绘制简单线段相比，DrvLineTo 可作为显示或打印驱动程序的优化入口，用于在硬件中加速直线绘制。mix 参数指定前景和背景的 ROP2 混合模式。",
       "syntax": "BOOL DrvLineTo(\n  SURFOBJ  *pso,\n  CLIPOBJ  *pco,\n  BRUSHOBJ *pbo,\n  LONG     x1,\n  LONG     y1,\n  LONG     x2,\n  LONG     y2,\n  RECTL    *prclBounds,\n  MIX      mix\n);",
-      "return_value": "如果函数成功，则返回 TRUE；否则返回 FALSE。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果函数成功，则返回 TRUE；否则返回 FALSE。"
+      },
       "header": "winddi.h",
       "deprecated": false,
       "cross_references": [
@@ -242,7 +265,11 @@
         "DrvQueryDriverInfo"
       ],
       "confidence": 0.6,
-      "_source_line": 91
+      "_source_line": 91,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvQueryFontData",
@@ -255,7 +282,10 @@
       "cross_references": [],
       "confidence": 0.6,
       "_source_line": 96,
-      "return_value": "返回写入或所需的数据大小；失败时返回 GDI_ERROR。",
+      "return_value": {
+        "type": "LONG",
+        "description": "返回写入或所需的数据大小；失败时返回 GDI_ERROR。"
+      },
       "remarks": "该函数由字体驱动程序或支持设备特定字体的显示/打印驱动程序实现。iMode 决定 pv 和 pgd 返回的数据类型；某些模式下可返回设备字体度量信息，相关数据结构包括 FD_DEVICEMETRICS。"
     },
     {
@@ -268,11 +298,13 @@
         {
           "name": "pso",
           "direction": "in, out",
-          "description": "指向 SURFOBJ 结构的指针，该结构标识要绘制的图面。[in] ppo 指向 PATHOBJ 结构的指针。 提供 GDI PATHOBJ_Xxx 服务例程来枚举构成路径的线条、 贝塞尔曲线和其他数据。 这指示要绘制的内容。[in] pco 指向 CLIPOBJ 结构的指针。 GDI CLIPOBJ_Xxx 服务例程用于将 剪辑区域 枚举为一组矩形。 （可选）路径中的所有行都可以在 CLIPOBJ 结构中预先枚举。 这意味着驱动程序可 以让 GDI 执行所有行剪裁计算。[in, optional] pxo 指向 XFORMOBJ 结构的指针。 仅当绘制几何宽线时，才需要这样做。 它指定将世界坐标映射到设备坐标的转换。 这是必需的，因为路径是在设备坐标中提供的，但几何宽线实际上在世界坐标中加宽。 可以查询 XFORMOBJ 结构以查找转换。[in] pbo 指向 BRUSHOBJ 结构的指针，该结构指定绘制路径时要使用的画笔。[in] pptlBrushOrg 指向 POINTL 结构的指针，该结构指定用于对齐设备上的画笔图案的画笔原点。[in] plineattrs 指向 LINEATTRS 结构的指针。 请注意，如果线条已设置样式，则必须将此结构的 elStyleState 成员作为此函数的一部分进行更新。 另请注意，如果要绘制单像素宽度修饰 线，则必须更新 ptlLastPel 成员。[in] mix 定义要用于画笔的前景光栅操作和后台光栅操作的混合模式。 有关混合模式的详细信 息，请参阅备注。"
+          "description": "指向 SURFOBJ 结构的指针，该结构标识要绘制的图面。[in] ppo 指向 PATHOBJ 结构的指针。 提供 GDI PATHOBJ_Xxx 服务例程来枚举构成路径的线条、 贝塞尔曲线和其他数据。 这指示要绘制的内容。[in] pco 指向 CLIPOBJ 结构的指针。 GDI CLIPOBJ_Xxx 服务例程用于将 剪辑区域 枚举为一组矩形。 （可选）路径中的所有行都可以在 CLIPOBJ 结构中预先枚举。 这意味着驱动程序可 以让 GDI 执行所有行剪裁计算。[in, optional] pxo 指向 XFORMOBJ 结构的指针。 仅当绘制几何宽线时，才需要这样做。 它指定将世界坐标映射到设备坐标的转换。 这是必需的，因为路径是在设备坐标中提供的，但几何宽线实际上在世界坐标中加宽。 可以查询 XFORMOBJ 结构以查找转换。[in] pbo 指向 BRUSHOBJ 结构的指针，该结构指定绘制路径时要使用的画笔。[in] pptlBrushOrg 指向 POINTL 结构的指针，该结构指定用于对齐设备上的画笔图案的画笔原点。[in] plineattrs 指向 LINEATTRS 结构的指针。 请注意，如果线条已设置样式，则必须将此结构的 elStyleState 成员作为此函数的一部分进行更新。 另请注意，如果要绘制单像素宽度修饰 线，则必须更新 ptlLastPel 成员。[in] mix 定义要用于画笔的前景光栅操作和后台光栅操作的混合模式。 有关混合模式的详细信 息，请参阅备注。",
+          "type": "out] SURFOBJ"
         }
       ],
       "return_value": {
-        "description": "如果驱动程序成功对路径进行描边，则返回 TRUE。如果希望 GDI 改为处理该操作，则返回 FALSE，且不设置错误代码。如果发生错误，则返回 DDI_ERROR，并设置相应错误代码。"
+        "description": "如果驱动程序成功对路径进行描边，则返回 TRUE。如果希望 GDI 改为处理该操作，则返回 FALSE，且不设置错误代码。如果发生错误，则返回 DDI_ERROR，并设置相应错误代码。",
+        "type": "BOOL"
       },
       "remarks": "如果驱动程序挂钩了此函数，并且设置了相应的图形能力标志，GDI 会在需要绘制具有任意属性的线条或曲线时调用 DrvStrokePath。对于设备管理的表面，若驱动程序需要自行执行此类绘制，通常必须实现此函数。高级显示驱动程序还可以使用该入口点处理包含贝塞尔曲线和几何宽线的路径。若驱动程序支持此入口点，也应能处理任意裁剪条件下的整形宽线。mix 参数包含前景和背景 ROP2 混合模式。原始备注文本存在截断与 OCR 噪声，已清理。",
       "header": "winddi.h",
@@ -291,11 +323,13 @@
         {
           "name": "psoDst",
           "direction": "in, out",
-          "description": "指向 SURFOBJ 结构的指针，该结构标识要绘制的目标图面。[in] psoSrc 指向 SURFOBJ 结构的指针，该结构标识位块传输的源图面。[in] pco 指向 CLIPOBJ 结构的指针。 提供 CLIPOBJ_Xxx 服务例程以一组矩形的形式枚举 剪辑区域 。 此枚举限制修改的目标区域。 GDI 尽可能简化涉及的剪裁。[in, optional] pxlo 指向 XLATEOBJ 结构的指针，该结构指示应如何转换源颜色索引以写入目标图面。 如果 pxlo 为 NULL，则无需转换。[in] prclDst 指向 RECTL 结构的指针，该结构定义要修改的矩形区域。 此矩形在目标图面的坐标系中指定，由两个点定义：左上角和右下角。 矩形在右下角是独占的;也就是说，其下边缘和 右边缘不是位块传输的一部分。 定义矩形的两个点始终有序。"
+          "description": "指向 SURFOBJ 结构的指针，该结构标识要绘制的目标图面。[in] psoSrc 指向 SURFOBJ 结构的指针，该结构标识位块传输的源图面。[in] pco 指向 CLIPOBJ 结构的指针。 提供 CLIPOBJ_Xxx 服务例程以一组矩形的形式枚举 剪辑区域 。 此枚举限制修改的目标区域。 GDI 尽可能简化涉及的剪裁。[in, optional] pxlo 指向 XLATEOBJ 结构的指针，该结构指示应如何转换源颜色索引以写入目标图面。 如果 pxlo 为 NULL，则无需转换。[in] prclDst 指向 RECTL 结构的指针，该结构定义要修改的矩形区域。 此矩形在目标图面的坐标系中指定，由两个点定义：左上角和右下角。 矩形在右下角是独占的;也就是说，其下边缘和 右边缘不是位块传输的一部分。 定义矩形的两个点始终有序。",
+          "type": "out] SURFOBJ"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 TRUE；否则返回 FALSE。"
+        "description": "如果函数成功，则返回 TRUE；否则返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "DrvTransparentBlt 是可选实现的显示驱动程序函数。它用于执行带透明色键的位块传输；源图面中与 iTransColor 匹配的像素不会复制到目标图面。驱动程序不会在同一图面上以重叠的源矩形和目标矩形调用此函数。颜色键比较时应忽略像素格式中的未使用位。驱动程序通过在调用 EngAssociateSurface 时设置 HOOK_TRANSPARENTBLT 标志来挂钩此函数。如果驱动程序已挂钩该函数但不支持当前操作，应将调用转发给 EngTransparentBlt 由 GDI 处理。",
       "header": "winddi.h",
@@ -318,10 +352,14 @@
         {
           "name": "dhsurf",
           "direction": "in",
-          "description": "要由设备管理的表面的设备句柄。 当为输入或输出传递 SURFOBJ 结构时，此句柄将传递 给驱动程序。[in] sizl 指定包含要创建的图面的宽度和高度的 SIZEL 结构。 此结构的 cx 和 cy 成员分别包含图 面的宽度和高度（以像素为单位）。 SIZEL 结构与 SIZE 结构相同。 iFormatCompat 指定要创建的设备图面的兼容引擎格式。 如果需要临时缓冲区来模拟复杂的绘图调用， 则 GDI 会使用它。"
+          "description": "要由设备管理的表面的设备句柄。 当为输入或输出传递 SURFOBJ 结构时，此句柄将传递 给驱动程序。[in] sizl 指定包含要创建的图面的宽度和高度的 SIZEL 结构。 此结构的 cx 和 cy 成员分别包含图 面的宽度和高度（以像素为单位）。 SIZEL 结构与 SIZE 结构相同。 iFormatCompat 指定要创建的设备图面的兼容引擎格式。 如果需要临时缓冲区来模拟复杂的绘图调用， 则 GDI 会使用它。",
+          "type": "DHSURF"
         }
       ],
-      "return_value": "图面的存储可由驱动程序选择性提供。创建后，通常应调用 EngAssociateSurface 将该图面与设备关联；当不再需要该图面时，应调用 EngDeleteSurface 将其删除。",
+      "return_value": {
+        "type": "ENGAPI HSURF",
+        "description": "图面的存储可由驱动程序选择性提供。创建后，通常应调用 EngAssociateSurface 将该图面与设备关联；当不再需要该图面时，应调用 EngDeleteSurface 将其删除。"
+      },
       "remarks": "图面的存储可由驱动程序选择性提供。创建后，通常应调用 EngAssociateSurface 将该图面与设备关联；当不再需要该图面时，应调用 EngDeleteSurface 将其删除。",
       "header": "winddi.h",
       "deprecated": false,
@@ -345,7 +383,11 @@
       ],
       "confidence": 0.6,
       "_source_line": 90,
-      "remarks": "DrvQueryAdvanceWidths 返回指定字形集合的前移宽度。phg 指向要查询的字形句柄数组，pvWidths 指向输出缓冲区，cGlyphs 指定字形数目。iMode 指定返回宽度数据的格式。"
+      "remarks": "DrvQueryAdvanceWidths 返回指定字形集合的前移宽度。phg 指向要查询的字形句柄数组，pvWidths 指向输出缓冲区，cGlyphs 指定字形数目。iMode 指定返回宽度数据的格式。",
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::BMF_1BPP",
@@ -427,12 +469,14 @@
         {
           "name": "psoDest",
           "direction": "in, out",
-          "description": "指向 SURFOBJ 结构的指针，该结构标识要绘制的图面。[in] psoSrc 指向标识源图面的 SURFOBJ 结构的指针。[in] pco 指向 CLIPOBJ 结构的指针。 提供 CLIPOBJ_Xxx 服务例程以一组矩形的形式枚举 剪辑区域。 此枚举限制修改的目标区域。 GDI 尽可能简化涉及的剪裁。 但是，与 DrvBitBlt 不 同，可以使用单个矩形调用 DrvAlphaBlend ，以防止剪裁输出时出现舍入错误。[in, optional] pxlo 指向 XLATEOBJ 结构的指针，该结构指定如何在源图面和目标图面之间转换颜色索引。如果 pxlo 为 NULL，则无需转换。 如果源图面由调色板管理，则其颜色由索引表示为 RGB 颜色值的查阅表中。 在这种情况下，可以查询 XLATEOBJ 以获取转换向量，该向量允许设备驱动程序快速将任何源索引转换为目标的颜色索引。 例如，当源为 RGB，但目标由调色板管理时，情况会更加复杂。 在这种情况下，必须在目标调色板中找到与每个源 RGB 值最接近的匹配项。 驱动程序可以调用 XLATEOBJ_iXlate 服务例程来执行此匹配操作。[in] prclDest 指向 RECTL 结构的指针，该结构定义要修改的矩形区域。 此矩形在目标图面的坐标系中指定，由两个点定义：左上角和右下角。 定义矩形的两个点始终有序。 矩形在右下角是独占的;也就是说，其下边缘和右边缘不是混合的一部分。 在写入像素时，驱动程序应小心进行适当的剪裁，因为指定的矩形可能会悬停在目标图面上。 永远不会使用空的目标矩形调用 DrvAlphaBlend。[in] prclSrc 指向 RECTL 结构的指针，该结构定义要复制的区域。 此矩形在源图面的坐标系中指定，由两个点定义：左上角和右下角。 定义矩形的两个点始终有序。 矩形在右下角是独占的; 也就是说，其下边缘和右边缘不是混合的一部分。 源矩形永远不会超过源图面的边界，因此永远不会悬停源图面。从不使用空源矩形调用 DrvAlphaBlend。 映射由 prclSrc 和 prclDest 定义。 prclDest 和 prclSrc 中指定的点位于对应于像素中心的整 数坐标上。 由两个此类点定义的矩形被视为具有两个顶点的几何矩形，其坐标是给定点，但从每个坐标中减去 0.5。 (POINTL 结构是用于指定这些小数坐标顶点的简写表示法。)"
+          "description": "指向 SURFOBJ 结构的指针，该结构标识要绘制的图面。[in] psoSrc 指向标识源图面的 SURFOBJ 结构的指针。[in] pco 指向 CLIPOBJ 结构的指针。 提供 CLIPOBJ_Xxx 服务例程以一组矩形的形式枚举 剪辑区域。 此枚举限制修改的目标区域。 GDI 尽可能简化涉及的剪裁。 但是，与 DrvBitBlt 不 同，可以使用单个矩形调用 DrvAlphaBlend ，以防止剪裁输出时出现舍入错误。[in, optional] pxlo 指向 XLATEOBJ 结构的指针，该结构指定如何在源图面和目标图面之间转换颜色索引。如果 pxlo 为 NULL，则无需转换。 如果源图面由调色板管理，则其颜色由索引表示为 RGB 颜色值的查阅表中。 在这种情况下，可以查询 XLATEOBJ 以获取转换向量，该向量允许设备驱动程序快速将任何源索引转换为目标的颜色索引。 例如，当源为 RGB，但目标由调色板管理时，情况会更加复杂。 在这种情况下，必须在目标调色板中找到与每个源 RGB 值最接近的匹配项。 驱动程序可以调用 XLATEOBJ_iXlate 服务例程来执行此匹配操作。[in] prclDest 指向 RECTL 结构的指针，该结构定义要修改的矩形区域。 此矩形在目标图面的坐标系中指定，由两个点定义：左上角和右下角。 定义矩形的两个点始终有序。 矩形在右下角是独占的;也就是说，其下边缘和右边缘不是混合的一部分。 在写入像素时，驱动程序应小心进行适当的剪裁，因为指定的矩形可能会悬停在目标图面上。 永远不会使用空的目标矩形调用 DrvAlphaBlend。[in] prclSrc 指向 RECTL 结构的指针，该结构定义要复制的区域。 此矩形在源图面的坐标系中指定，由两个点定义：左上角和右下角。 定义矩形的两个点始终有序。 矩形在右下角是独占的; 也就是说，其下边缘和右边缘不是混合的一部分。 源矩形永远不会超过源图面的边界，因此永远不会悬停源图面。从不使用空源矩形调用 DrvAlphaBlend。 映射由 prclSrc 和 prclDest 定义。 prclDest 和 prclSrc 中指定的点位于对应于像素中心的整 数坐标上。 由两个此类点定义的矩形被视为具有两个顶点的几何矩形，其坐标是给定点，但从每个坐标中减去 0.5。 (POINTL 结构是用于指定这些小数坐标顶点的简写表示法。)",
+          "type": "out] SURFOBJ"
         },
         {
           "name": "pBlendObj",
           "direction": "in",
-          "description": "指向 BLENDOBJ 结构的指针，该结构描述在源图面和目标图面之间执行的混合操作。 此结构是 BLENDFUNCTION 结构的包装器，其中包括 XLATEOBJ 中不可用的必要源和目标格式信息。 BLENDFUNCTION 结构在Microsoft Windows SDK文档中定义。 其成员定义如下："
+          "description": "指向 BLENDOBJ 结构的指针，该结构描述在源图面和目标图面之间执行的混合操作。 此结构是 BLENDFUNCTION 结构的包装器，其中包括 XLATEOBJ 中不可用的必要源和目标格式信息。 BLENDFUNCTION 结构在Microsoft Windows SDK文档中定义。 其成员定义如下：",
+          "type": "BLENDOBJ"
         }
       ],
       "header": "winddi.h",
@@ -441,7 +485,11 @@
         "DrvAssertMode"
       ],
       "confidence": 0.7,
-      "_source_line": 38
+      "_source_line": 38,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvAssertMode",
@@ -453,11 +501,13 @@
         {
           "name": "dhpdev",
           "direction": "in",
-          "description": "描述 bEnable 为 TRUE 时应设置的硬件模式的 PDEV 的句柄。[in] bEnable 指定要设置硬件的模式。 如果此参数为 TRUE，驱动程序应将硬件设置为初始化的 PDEV 指定的原始模式。 否则，如果此参数为 FALSE，驱动程序应将硬件设置为其默认模式， 以便视频微型端口驱动程序可以承担控制权。"
+          "description": "描述 bEnable 为 TRUE 时应设置的硬件模式的 PDEV 的句柄。[in] bEnable 指定要设置硬件的模式。 如果此参数为 TRUE，驱动程序应将硬件设置为初始化的 PDEV 指定的原始模式。 否则，如果此参数为 FALSE，驱动程序应将硬件设置为其默认模式， 以便视频微型端口驱动程序可以承担控制权。",
+          "type": "DHPDEV"
         }
       ],
       "return_value": {
-        "description": "如果 DrvAssertMode 成功更改了显示模式，则返回 TRUE ;如果无法更改显示模式，则返回 FALSE 。 允许驱动程序在 bEnable 设置为 FALSE 的情况下从 DrvAssertMode 调用返回 FALSE。 驱动程序必须从 DrvAssertMode 调用返回 TRUE，并且 bEnable 设置为 TRUE;也就是说，驱动程序无法启用以前启用的模式。"
+        "description": "如果 DrvAssertMode 成功更改了显示模式，则返回 TRUE ;如果无法更改显示模式，则返回 FALSE 。 允许驱动程序在 bEnable 设置为 FALSE 的情况下从 DrvAssertMode 调用返回 FALSE。 驱动程序必须从 DrvAssertMode 调用返回 TRUE，并且 bEnable 设置为 TRUE;也就是说，驱动程序无法启用以前启用的模式。",
+        "type": "BOOL"
       },
       "remarks": "当需要在单个显示图面上的多个桌面之间切换时，GDI 调用 DrvAssertMode 。 若要从一个 PDEV 切换到另一个 PDEV，GDI 调用 DrvAssertMode ，其中一个 PDEV 的 bEnable 参数设置为 FALSE ，将另一个 PDEV 设置为 TRUE 。 若要还原原始 PDEV，请调用 DrvAssertMode，并将 bEnable 设置为 FALSE，然后再次调用 DrvAssertMode，将 bEnable 设置为 TRUE，将 dhpdev 设置为原始 PDEV。 如果物理设备由调色板管理，GDI 将调用 DrvSetPalette 来重置设备的调色板。 然后，驱动程序不需要跟踪当前指针状态，因为窗口管理器选择正确的指针形状并将其移动到当前位置。 控制台管理器确保正确重绘桌面。 DrvAssertMode 必须在显示驱动程序中实现。",
       "header": "winddi.h",
@@ -495,7 +545,8 @@
       "description": "驱动程序函数，用于在设备驱动中执行位块传输操作。当 GDI 需要从一个图面复制到另一个图面且至少一个图面由设备管理时，可调用此函数。",
       "syntax": "BOOL DrvCopyBits(\n  SURFOBJ *psoDest,\n  SURFOBJ *psoSrc,\n  CLIPOBJ *pco,\n  XLATEOBJ *pxlo,\n  RECTL *prclDest,\n  POINTL *pptlSrc\n);",
       "return_value": {
-        "description": "如果源图面已成功复制到目标图面，则返回值为 TRUE 。"
+        "description": "如果源图面已成功复制到目标图面，则返回值为 TRUE 。",
+        "type": "BOOL"
       },
       "remarks": "驱动程序可以选择挂钩 DrvCopyBits。 如果是这样，当 GDI 需要从一个图面复制到另一 个图面并且至少一个图面由设备管理时，将调用 DrvCopyBits 。",
       "header": "winddi.h",
@@ -551,7 +602,11 @@
         "DirectDraw"
       ],
       "confidence": 0.7,
-      "_source_line": 46
+      "_source_line": 46,
+      "return_value": {
+        "type": "HBITMAP",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvDescribePixelFormat",
@@ -559,7 +614,10 @@
       "entity_type": "function",
       "description": "获取指定设备的像素格式信息。设备可以接受 JPEG 压缩图像 (即在 SURFOBJ 结构中设置了 BMF_JPEG 的图像)。指示驱动程序支持鼠标跟踪 (一系列光标图像，这些图像显示鼠标在短时间内) 的位置。",
       "syntax": "LONG DrvDescribePixelFormat(\n  DHPDEV dhpdev,\n  LONG iPixelFormat,\n  ULONG cjpfd,\n  PIXELFORMATDESCRIPTOR *ppfd\n);",
-      "return_value": "如果函数成功，返回值是像素格式索引。否则返回 0，可通过 GetLastError 获取错误代码。",
+      "return_value": {
+        "type": "LONG",
+        "description": "如果函数成功，返回值是像素格式索引。否则返回 0，可通过 GetLastError 获取错误代码。"
+      },
       "remarks": "Display drivers supporting 3D graphics hardware can support windows with different pixel formats on a single display surface. Pixel formats must correspond to configurations supported by the graphics hardware. If ppfd is not NULL, DrvDescribePixelFormat fills the PIXELFORMATDESCRIPTOR structure it points to. Applications needing the maximum pixel format index can use the returned value. Pixel formats are identified by integer indices starting from 1. Pixel format functions are used with window object service functions to track and update pixel formats of windows on the display surface.",
       "requirements": {
         "header": "winddi.h"
@@ -597,14 +655,19 @@
         {
           "name": "dhpdev",
           "direction": "in",
-          "description": "描述物理设备的 PDEV 结构的句柄，其调色板应以指定颜色进行抖色。[in] iMode 确定要针对的调色板。 此参数可能是以下值之一： 值"
+          "description": "描述物理设备的 PDEV 结构的句柄，其调色板应以指定颜色进行抖色。[in] iMode 确定要针对的调色板。 此参数可能是以下值之一： 值",
+          "type": "DHPDEV"
         }
       ],
       "header": "winddi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 56
+      "_source_line": 56,
+      "return_value": {
+        "type": "ULONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvDrawEscape",
@@ -616,7 +679,8 @@
         {
           "name": "pso",
           "direction": "in",
-          "description": "指向 SURFOBJ 结构的指针，该结构标识调用定向到的图面。[in] iEsc 指定要执行的操作。 其余参数的含义取决于此参数。 此参数可以是以下值。 值"
+          "description": "指向 SURFOBJ 结构的指针，该结构标识调用定向到的图面。[in] iEsc 指定要执行的操作。 其余参数的含义取决于此参数。 此参数可以是以下值。 值",
+          "type": "SURFOBJ"
         }
       ],
       "header": "winddi.h",
@@ -625,7 +689,11 @@
         "DrvEnableDirectDraw"
       ],
       "confidence": 0.8,
-      "_source_line": 58
+      "_source_line": 58,
+      "return_value": {
+        "type": "ULONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvEnableDirectDraw",
@@ -639,7 +707,11 @@
         "DrvGetDirectDrawInfo"
       ],
       "confidence": 0.6,
-      "_source_line": 59
+      "_source_line": 59,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvEnableDriver",
@@ -650,16 +722,19 @@
       "parameters": [
         {
           "name": "iEngineVersion",
-          "description": "标识当前正在运行的 GDI 版本。 cj pded 所指向的结构的大小（以字节为单位）。 如果结构大于预期，应使额外的成员未修改。"
+          "description": "标识当前正在运行的 GDI 版本。 cj pded 所指向的结构的大小（以字节为单位）。 如果结构大于预期，应使额外的成员未修改。",
+          "type": "ULONG"
         },
         {
           "name": "pded",
           "direction": "in",
-          "description": "指向 DRVENABLEDATA 结构的指针。 GDI 在调用前对 cj 字节进行零初始化。 驱动程序将 填充其自己的数据。"
+          "description": "指向 DRVENABLEDATA 结构的指针。 GDI 在调用前对 cj 字节进行零初始化。 驱动程序将 填充其自己的数据。",
+          "type": "DRVENABLEDATA"
         }
       ],
       "return_value": {
-        "description": "如果启用了指定的驱动程序，则返回值为 TRUE 。 否则，它为 FALSE，并记录错误代码。"
+        "description": "如果启用了指定的驱动程序，则返回值为 TRUE 。 否则，它为 FALSE，并记录错误代码。",
+        "type": "BOOL"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -706,11 +781,13 @@
         {
           "name": "pso",
           "direction": "in",
-          "description": "指向 SURFOBJ 结构的指针，该结构描述调用定向到的图面。[in] iEsc 指定查询。 其他参数的含义取决于此值。 QUERYESCSUPPORT 是唯一预定义的值;它会查询驱动程序是否支持特定的转义函数。 在本例中， pvIn 指向转义函数编号; 将忽略 cjOut 和 pvOut 。 如果支持指定的函数，则返回值为非零值。[in] cjIn 指定 pvIn 指向的缓冲区的大小（以字节为单位）。[in] pvIn 指向调用的输入数据的指针。 输入数据的格式取决于 iEsc 参数指定的查询。[in] cjOut 指定 pvOut 指向的缓冲区的大小（以字节为单位）。[out] pvOut 指向输出缓冲区的指针。 输出数据的格式取决于 iEsc 参数指定的查询。"
+          "description": "指向 SURFOBJ 结构的指针，该结构描述调用定向到的图面。[in] iEsc 指定查询。 其他参数的含义取决于此值。 QUERYESCSUPPORT 是唯一预定义的值;它会查询驱动程序是否支持特定的转义函数。 在本例中， pvIn 指向转义函数编号; 将忽略 cjOut 和 pvOut 。 如果支持指定的函数，则返回值为非零值。[in] cjIn 指定 pvIn 指向的缓冲区的大小（以字节为单位）。[in] pvIn 指向调用的输入数据的指针。 输入数据的格式取决于 iEsc 参数指定的查询。[in] cjOut 指定 pvOut 指向的缓冲区的大小（以字节为单位）。[out] pvOut 指向输出缓冲区的指针。 输出数据的格式取决于 iEsc 参数指定的查询。",
+          "type": "SURFOBJ"
         }
       ],
       "return_value": {
-        "description": "返回值取决于 iEsc 参数指定的查询。 如果不支持查询中指定的函数，则返回值为零。"
+        "description": "返回值取决于 iEsc 参数指定的查询。 如果不支持查询中指定的函数，则返回值为零。",
+        "type": "ULONG"
       },
       "remarks": "此函数中不允许在设备上绘图。 DrvDrawEscape 用于专门的绘图支持。 GDI 将数据直接从 (可能恶意) 客户端应用程序传递到驱动程序，这意味着 DrvEscape 函数必须验证所有输入参数。 具体而言，此函数必须： 验证 iEsc 参数中收到的值是否表示有效的查询。 验证输入缓冲区的大小 (cjIn 参数中的值) 是否对指定的查询有效。验证 pvIn 参数指向的缓冲区的内容是否对指定的查询有效。 验证指定输出缓冲区的大小 (cjOut 参数) 中的值是否对指定的查询有效。 Microsoft 保留范围 0 以0X10000其转义代码。 第三方供应商可以自由选择转义码，供自己在此范围以上使用。 由于特定于驱动程序的转义代码可能与其他显示驱动程序中使用的转义代码冲突，因此显示驱动程序在处理转义之前验证转义参数非常重要。 执行此操作的一种方法是验证输入和输出块大小以及输入块参数。 为了提高安全性，驱动程序还应包含一个“magic”值，必须在每个输入块中正确设置该值，以确保输入块来自受信任的源。 DrvEscape 对于所有驱动程序都是可选的。",
       "header": "winddi.h",
@@ -731,21 +808,25 @@
         {
           "name": "pso",
           "direction": "in, out",
-          "description": "指向定义要绘制的图面的 SURFOBJ 结构的指针。[in] ppo 指向 PATHOBJ 结构的指针，该结构定义要填充的路径。 提供 PATHOBJ_Xxx 服务例程来 枚举构成路径的线条、贝塞尔曲线和其他数据。[in] pco 指向 CLIPOBJ 结构的指针。 提供 CLIPOBJ_Xxx 服务例程以一组矩形的形式枚举 剪辑区域。"
+          "description": "指向定义要绘制的图面的 SURFOBJ 结构的指针。[in] ppo 指向 PATHOBJ 结构的指针，该结构定义要填充的路径。 提供 PATHOBJ_Xxx 服务例程来 枚举构成路径的线条、贝塞尔曲线和其他数据。[in] pco 指向 CLIPOBJ 结构的指针。 提供 CLIPOBJ_Xxx 服务例程以一组矩形的形式枚举 剪辑区域。",
+          "type": "out] SURFOBJ"
         },
         {
           "name": "pbo",
           "direction": "in",
-          "description": "指向 BRUSHOBJ 结构的指针，该结构定义用于填充封闭路径的图案和颜色。 仅当 mix 中指定的填充操作需要使用画笔时，才应取消引用此参数。 例如，如果 mix 设置为 BLACKNESS，则不会定义 pbo ，并且不应取消引用。[in] pptlBrushOrg 指向 POINTL 结构的指针，该结构定义画笔原点，该原点用于对齐设备上的画笔图案。"
+          "description": "指向 BRUSHOBJ 结构的指针，该结构定义用于填充封闭路径的图案和颜色。 仅当 mix 中指定的填充操作需要使用画笔时，才应取消引用此参数。 例如，如果 mix 设置为 BLACKNESS，则不会定义 pbo ，并且不应取消引用。[in] pptlBrushOrg 指向 POINTL 结构的指针，该结构定义画笔原点，该原点用于对齐设备上的画笔图案。",
+          "type": "BRUSHOBJ"
         },
         {
           "name": "mix",
           "direction": "in",
-          "description": "定义要用于画笔的前景光栅操作和后台光栅操作的混合模式。 有关混合模式的详细信 息，请参阅备注。[in] flOptions 指定FP_WINDINGMODE（指示应执行缠绕模式填充）或FP_ALTERNATEMODE，指示应执行交替模式填充。 应忽略所有其他标志。 有关这些模式的详细信息，请参阅 路径填充模式。"
+          "description": "定义要用于画笔的前景光栅操作和后台光栅操作的混合模式。 有关混合模式的详细信 息，请参阅备注。[in] flOptions 指定FP_WINDINGMODE（指示应执行缠绕模式填充）或FP_ALTERNATEMODE，指示应执行交替模式填充。 应忽略所有其他标志。 有关这些模式的详细信息，请参阅 路径填充模式。",
+          "type": "MIX"
         }
       ],
       "return_value": {
-        "description": "如果驱动程序能够填充路径，则返回值为 TRUE 。 如果路径或剪辑过于复杂，无法由驱动程序处理，并且应由 GDI 处理，则返回值为 FALSE，并且不会记录错误代码。 如果驱动程序遇到意外错误（例如无法实现画笔），则会DDI_ERROR返回值，并记录错误代码。"
+        "description": "如果驱动程序能够填充路径，则返回值为 TRUE 。 如果路径或剪辑过于复杂，无法由驱动程序处理，并且应由 GDI 处理，则返回值为 FALSE，并且不会记录错误代码。 如果驱动程序遇到意外错误（例如无法实现画笔），则会DDI_ERROR返回值，并记录错误代码。",
+        "type": "BOOL"
       },
       "remarks": "GDI 可以调用 DrvFillPath 来填充 设备管理的图面上的路径。 在决定是否调用此函数时， GDI 会将填充要求与 DEVINFO 结构的 flGraphicsCaps 成员中的以下标志进行比较： GCAPS_BEZIERS、GCAPS_ALTERNATEFILL和GCAPS_WINDINGFILL。 混合模式定义传入模式应如何与设备图面上已有的数据混合。 MIX 数据类型包含两个二进制光栅操作， (ROP2) 值打包到单个 ULONG 中。 最低顺序字节定义前台光栅操作;下一个字节定义后台光栅操作。 有关光栅操作代码的详细信息，请参阅Microsoft Windows SDK文档。",
       "header": "winddi.h",
@@ -796,7 +877,11 @@
         "VidMemFree"
       ],
       "confidence": 0.8,
-      "_source_line": 70
+      "_source_line": 70,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvGetGlyphMode",
@@ -815,7 +900,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 71
+      "_source_line": 71,
+      "return_value": {
+        "type": "ULONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvGetModes",
@@ -827,11 +916,13 @@
         {
           "name": "hDriver",
           "direction": "in",
-          "description": "必须枚举其模式的驱动程序的句柄。 这是在 DrvEnablePDEV 函数的 hDriver 参数中传递 的句柄。 cjSize 指定 pdm 指向的缓冲区的大小（以字节为单位）。[out, optional] pdm 指向包含 DEVMODEW 结构的缓冲区的指针 (驱动程序要填充的) ，或 为 NULL。"
+          "description": "必须枚举其模式的驱动程序的句柄。 这是在 DrvEnablePDEV 函数的 hDriver 参数中传递 的句柄。 cjSize 指定 pdm 指向的缓冲区的大小（以字节为单位）。[out, optional] pdm 指向包含 DEVMODEW 结构的缓冲区的指针 (驱动程序要填充的) ，或 为 NULL。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果 pdm 不为 NULL，驱动程序应返回写入缓冲区的字节数。 如果 pdm 为 NULL，驱动 程序应返回保存所有模式数据所需的字节数。 如果发生错误，驱动程序应返回零。"
+        "description": "如果 pdm 不为 NULL，驱动程序应返回写入缓冲区的字节数。 如果 pdm 为 NULL，驱动 程序应返回保存所有模式数据所需的字节数。 如果发生错误，驱动程序应返回零。",
+        "type": "ULONG"
       },
       "remarks": "必须在所有显示驱动程序中实现此函数。 窗口管理器根据注册表) 中的 InstalledDisplayDrivers 键动态加载与微型端口驱动程序(关联的所有显示驱动程序。 调用每个显示驱动程序以检索加载的驱动程序组合支持的模 式列表。 例如，VGA64K 显示驱动程序仅返回从微型端口驱动程序获取的模式列表中返回的 64K 颜色模式。 可以在存在活动 PDEV 之前调用 DrvGetModes。 请参阅 Permedia 示例，了解 DrvGetModes 的工作实现。 注意 Microsoft Windows 驱动程序工具包 (WDK) 不包含 3Dlabs Permedia2(3dlabs.htm ) 和 3Dlabs Permedia3 (Perm3.htm) 示例显示驱动程序。 可以从 Windows Server 2003 SP1 驱动程序开发工具包 (DDK) 获取这些示例驱动程序，可以 从 WDHC 网站的 DDK - Windows 驱动程序开发工具包 页面下载。",
       "header": "winddi.h",
@@ -869,11 +960,13 @@
         {
           "name": "psoDest",
           "direction": "in, out",
-          "description": "指向 SURFOBJ 结构的指针，该结构标识要绘制的图面。[in] pco 指向 CLIPOBJ 结构的指针。 提供 CLIPOBJ_Xxx 服务例程以一组矩形的形式枚举 剪辑区域 。 此枚举限制修改的目标区域。 GDI 尽可能简化涉及的剪裁。[in, optional] pxlo 指向 XLATEOBJ 结构的指针。 驱动程序应忽略此参数。[in] pVertex 指向 TRIVERTEX 结构数组的指针，其中每个条目都包含位置和颜色信息。 MICROSOFT WINDOWS SDK文档中介绍了 TRIVERTEX 结构。[in] nVertex 指定 数组中 pVertex 指向的 TRIVERTEX 结构的数目。[in] pMesh 指向结构的数组的指针，这些结构定义 pVertex 指向的 TRIVERTEX 元素的连接。 绘制矩形时， pMesh 指向GRADIENT_RECT结构的数组，其中每个结构指定两个定义矩形的 TRIVERTEX 元素。 TRIVERTEX 元素可以表示任何对角相对的矩形顶点对。 矩形绘图在右下角是独占的。 TRIVERTEX 和 GRADIENT_RECT 均在 Windows SDK 文档中定义。 绘制三角形时， pMesh 指向GRADIENT_TRIANGLE结构的数组，其中每个结构指定定义三角形的三个 TRIVERTEX 元素。 三角形绘图在右下角是独占的。 GRADIENT_TRIANGLE在 Windows SDK 文档中定义。[in] nMesh 指定 数组中 pMesh 指向的元素数。[in] prclExtents 指向 RECTL 结构的指针，该结构定义渐变绘制所在的区域。 这些点在目标图面的坐标系 中指定。 此参数可用于估算绘图操作的大小。[in] pptlDitherOrg 指向 POINTL 结构的指针，该结构定义图面上的原点进行抖减。 抖变图案的左上角像素 与此点对齐。[in] ulMode 指定当前绘制模式以及如何解释 pMesh 指向的数组。 此参数可能是以下值之一： GRADIENT_FILL_RECT_H pMesh 参数指向GRADIENT_RECT结构的数组。 每个矩形都将从左到右进行着色。 具体而 言，左上角和左下角像素的颜色与右上角和右下角像素的颜色相同。 GRADIENT_FILL_RECT_V pMesh 参数指向GRADIENT_RECT结构的数组。 每个矩形都将从上到下进行着色。 具体而 言，左上角和右上方像素的颜色相同，左下角和右下角像素也相同。 GRADIENT_FILL_TRIANGLE pMesh 参数指向GRADIENT_TRIANGLE结构的数组。每个模式的 渐变填充 计算记录在“备注”部分中。"
+          "description": "指向 SURFOBJ 结构的指针，该结构标识要绘制的图面。[in] pco 指向 CLIPOBJ 结构的指针。 提供 CLIPOBJ_Xxx 服务例程以一组矩形的形式枚举 剪辑区域 。 此枚举限制修改的目标区域。 GDI 尽可能简化涉及的剪裁。[in, optional] pxlo 指向 XLATEOBJ 结构的指针。 驱动程序应忽略此参数。[in] pVertex 指向 TRIVERTEX 结构数组的指针，其中每个条目都包含位置和颜色信息。 MICROSOFT WINDOWS SDK文档中介绍了 TRIVERTEX 结构。[in] nVertex 指定 数组中 pVertex 指向的 TRIVERTEX 结构的数目。[in] pMesh 指向结构的数组的指针，这些结构定义 pVertex 指向的 TRIVERTEX 元素的连接。 绘制矩形时， pMesh 指向GRADIENT_RECT结构的数组，其中每个结构指定两个定义矩形的 TRIVERTEX 元素。 TRIVERTEX 元素可以表示任何对角相对的矩形顶点对。 矩形绘图在右下角是独占的。 TRIVERTEX 和 GRADIENT_RECT 均在 Windows SDK 文档中定义。 绘制三角形时， pMesh 指向GRADIENT_TRIANGLE结构的数组，其中每个结构指定定义三角形的三个 TRIVERTEX 元素。 三角形绘图在右下角是独占的。 GRADIENT_TRIANGLE在 Windows SDK 文档中定义。[in] nMesh 指定 数组中 pMesh 指向的元素数。[in] prclExtents 指向 RECTL 结构的指针，该结构定义渐变绘制所在的区域。 这些点在目标图面的坐标系 中指定。 此参数可用于估算绘图操作的大小。[in] pptlDitherOrg 指向 POINTL 结构的指针，该结构定义图面上的原点进行抖减。 抖变图案的左上角像素 与此点对齐。[in] ulMode 指定当前绘制模式以及如何解释 pMesh 指向的数组。 此参数可能是以下值之一： GRADIENT_FILL_RECT_H pMesh 参数指向GRADIENT_RECT结构的数组。 每个矩形都将从左到右进行着色。 具体而 言，左上角和左下角像素的颜色与右上角和右下角像素的颜色相同。 GRADIENT_FILL_RECT_V pMesh 参数指向GRADIENT_RECT结构的数组。 每个矩形都将从上到下进行着色。 具体而 言，左上角和右上方像素的颜色相同，左下角和右下角像素也相同。 GRADIENT_FILL_TRIANGLE pMesh 参数指向GRADIENT_TRIANGLE结构的数组。每个模式的 渐变填充 计算记录在“备注”部分中。",
+          "type": "out] SURFOBJ"
         }
       ],
       "return_value": {
-        "description": "成功后，DrvGradientFill 返回 TRUE 。 否则，它将返回 FALSE ，并通过调用 EngSetLastError 报告错误。"
+        "description": "成功后，DrvGradientFill 返回 TRUE 。 否则，它将返回 FALSE ，并通过调用 EngSetLastError 报告错误。",
+        "type": "BOOL"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -897,7 +990,11 @@
         "DrvIcmCreateColorTransform"
       ],
       "confidence": 0.7,
-      "_source_line": 75
+      "_source_line": 75,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvIcmDeleteColorTransform",
@@ -909,11 +1006,13 @@
         {
           "name": "dhpdev",
           "direction": "in",
-          "description": "物理设备的 PDEV 的句柄。[in] hcmXform 要删除的颜色转换的句柄。 此颜色转换是由驱动程序在调用 DrvIcmCreateColorTransform 时创建的。"
+          "description": "物理设备的 PDEV 的句柄。[in] hcmXform 要删除的颜色转换的句柄。 此颜色转换是由驱动程序在调用 DrvIcmCreateColorTransform 时创建的。",
+          "type": "DHPDEV"
         }
       ],
       "return_value": {
-        "description": "DrvIcmDeleteColorTransform 成功时返回 TRUE 。 否则，它将返回 FALSE。"
+        "description": "DrvIcmDeleteColorTransform 成功时返回 TRUE 。 否则，它将返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "报告 ICM 支持的驱动程序应实现此函数。 驱动程序通过在 DEVINFO 结构的 flGraphicsCaps 成员中设置 GCAPS_ICM 标志来指示对 ICM 的支持。",
       "header": "winddi.h",
@@ -942,7 +1041,11 @@
         "DrvQueryPerBandInfo"
       ],
       "confidence": 0.8,
-      "_source_line": 78
+      "_source_line": 78,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvLoadFontFile",
@@ -974,7 +1077,8 @@
         {
           "name": "pso",
           "direction": "in",
-          "description": "指向描述显示设备表面的 SURFOBJ 结构的指针。[in] x 指定显示器上的 x 坐标，驱动程序应在其中放置指针的热点。 负 x 值指示驱动程序应从显示器中删除指针，因为绘图即将出现在它当前所在的位置。 如果指针已从显示器中删除，并且 x 值为非否定，则驱动程序应还原指针。[in] y 指定显示器上的 y 坐标，驱动程序应在其中放置指针的热点。 当驱动程序在 DEVINFO 结构中设置了GCAPS_PANNING标志时，负 y 值指示 GDI 调用此函数只是为了通知驱动程序光标的当前位置。 当前位置可以计算为 (x、y+pso- sizlBitmap.cy) >。 未设置 GCAPS_PANNING 标志的驱动程序永远不会收到负 y 坐标。[in] prcl 指向 RECTL 结构的指针，该结构定义一个区域，该区域绑定受指针在显示器上影响的所有像素。 如果不首先从屏幕中删除指针，GDI 将不会在此矩形中绘制。 此参数可以为 NULL。"
+          "description": "指向描述显示设备表面的 SURFOBJ 结构的指针。[in] x 指定显示器上的 x 坐标，驱动程序应在其中放置指针的热点。 负 x 值指示驱动程序应从显示器中删除指针，因为绘图即将出现在它当前所在的位置。 如果指针已从显示器中删除，并且 x 值为非否定，则驱动程序应还原指针。[in] y 指定显示器上的 y 坐标，驱动程序应在其中放置指针的热点。 当驱动程序在 DEVINFO 结构中设置了GCAPS_PANNING标志时，负 y 值指示 GDI 调用此函数只是为了通知驱动程序光标的当前位置。 当前位置可以计算为 (x、y+pso- sizlBitmap.cy) >。 未设置 GCAPS_PANNING 标志的驱动程序永远不会收到负 y 坐标。[in] prcl 指向 RECTL 结构的指针，该结构定义一个区域，该区域绑定受指针在显示器上影响的所有像素。 如果不首先从屏幕中删除指针，GDI 将不会在此矩形中绘制。 此参数可以为 NULL。",
+          "type": "SURFOBJ"
         }
       ],
       "return_value": {
@@ -1000,11 +1104,13 @@
         {
           "name": "pso",
           "direction": "in",
-          "description": "调用方提供的指向用于标识条带图面的 SURFOBJ 结构的指针。[in] pptl 调用方提供的指向 POINTL 结构的指针，用于接收下一个波段的函数提供的来源。"
+          "description": "调用方提供的指向用于标识条带图面的 SURFOBJ 结构的指针。[in] pptl 调用方提供的指向 POINTL 结构的指针，用于接收下一个波段的函数提供的来源。",
+          "type": "SURFOBJ"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，函数应返回 TRUE。 否则，它应调用 Win32 SetLastError 函数来设置错 误代码，然后返回 FALSE。"
+        "description": "如果操作成功，函数应返回 TRUE。 否则，它应调用 Win32 SetLastError 函数来设置错 误代码，然后返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "如果打印机图形 DLL 使用 GDI 管理的表面，并且它支持表面镶边，则必须提供此函数。",
       "header": "winddi.h",
@@ -1042,16 +1148,19 @@
         {
           "name": "pso",
           "direction": "in",
-          "description": "[in] pco[in] pbo"
+          "description": "[in] pco[in] pbo",
+          "type": "SURFOBJ"
         },
         {
           "name": "pptlBrushOrg",
           "direction": "in",
-          "description": "[in] mix"
+          "description": "[in] mix",
+          "type": "POINTL"
         }
       ],
       "return_value": {
-        "description": "如果操作成功返回TRUE，否则返回FALSE"
+        "description": "如果操作成功返回TRUE，否则返回FALSE",
+        "type": "BOOL"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1078,11 +1187,13 @@
         {
           "name": "psoTrg",
           "direction": "in, out",
-          "description": "指向描述要绘制的图面的 SURFOBJ 结构的指针。[in, out] psoSrc 指向描述位块传输操作源的 SURFOBJ 结构的指针。[in, optional] psoMsk 指向表示源掩码的可选 SURFOBJ 结构的指针。 它由逻辑映射定义，该映射是位图，每像素一位。 此掩码限制复制的源区域。 掩码具有0xCCAA的隐式 rop4 ，这意味着无论掩码为 1，都应复制源，但无论掩码为零，目标应单独保留。 如果此参数为 NULL，则 rop4 将隐式0xCCCC，这意味着源应复制到源矩形中的任意位置。 掩码始终足够大，足以包含相关的源;不需要平铺。[in] pco 指向 CLIPOBJ 结构的指针，该结构限制要修改的目标区域。 GDI 函数将 剪辑区域 枚举为一组矩形。 GDI 尽可能简化涉及的剪裁。 与 DrvBitBlt 函数不同，可以使用单个剪裁矩形调用"
+          "description": "指向描述要绘制的图面的 SURFOBJ 结构的指针。[in, out] psoSrc 指向描述位块传输操作源的 SURFOBJ 结构的指针。[in, optional] psoMsk 指向表示源掩码的可选 SURFOBJ 结构的指针。 它由逻辑映射定义，该映射是位图，每像素一位。 此掩码限制复制的源区域。 掩码具有0xCCAA的隐式 rop4 ，这意味着无论掩码为 1，都应复制源，但无论掩码为零，目标应单独保留。 如果此参数为 NULL，则 rop4 将隐式0xCCCC，这意味着源应复制到源矩形中的任意位置。 掩码始终足够大，足以包含相关的源;不需要平铺。[in] pco 指向 CLIPOBJ 结构的指针，该结构限制要修改的目标区域。 GDI 函数将 剪辑区域 枚举为一组矩形。 GDI 尽可能简化涉及的剪裁。 与 DrvBitBlt 函数不同，可以使用单个剪裁矩形调用",
+          "type": "out] SURFOBJ"
         }
       ],
       "return_value": {
-        "description": "DrvPlgBlt 在成功后返回 TRUE 。 否则，它将报告错误并返回 FALSE。"
+        "description": "DrvPlgBlt 在成功后返回 TRUE 。 否则，它将报告错误并返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "与 DrvStretchBlt 类似， DrvPlgBlt 使设备驱动程序能够写入 GDI 位图，尤其是在驱动程序可以执行半调时。 为了转换位图，此函数执行从 prcl 定义的矩形到任何平行四边形的位块传输。 平行四边形由 pptfx 定义，它指向一个由三个点的数组。 prcl 处的源矩形被视为一个几何矩形，其角从给定整数坐标移出 (-0.5，-0.5) 。 这与 DrvStretchBlt 的源矩形完全匹配。 源矩形始终井然有序。 源矩形的左上角映射到第一个点 A。源矩形的右上角映射到第二个点 B。源矩形的左下角映射到第三个点 C。源矩形的右下角映射到平行四边形中的隐式点，该隐式点通过将三个给定点视为矢量并计算： D = B + C - A 请注意，拉伸 blt 可以完全表示为平行四边形 blt，但为目标给定的坐标的小数部分为 0.5。",
       "header": "winddi.h",
@@ -1100,7 +1211,8 @@
       "description": "Queries driver information. Returns TRUE if the driver executes in user mode; otherwise FALSE. The caller provides the size of the buffer pointed to by pBuffer (in bytes). [out] pcbNeeded receives the minimum buffer size required (in bytes) for the requested information.",
       "syntax": "BOOL DrvQueryDriverInfo(\n    DWORD dwMode,\n    [out] PVOID pBuffer,\n    DWORD cbBuf,\n    [out] PDWORD pcbNeeded\n);",
       "return_value": {
-        "description": "如果操作成功，函数应返回 TRUE;否则应返回 FALSE。"
+        "description": "如果操作成功，函数应返回 TRUE;否则应返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "在用户模式下执行的打印机图形 DLL 必须导出 DrvQueryDriverInfo 函数。 如果未导出 函数， 则本地打印提供程序 假定图形 DLL 在内核模式下执行。",
       "requirements": {
@@ -1118,7 +1230,10 @@
       "entity_type": "function",
       "description": "该函数查询字体驱动程序的功能。与 DrvQueryFontData 相关。",
       "syntax": "LONG DrvQueryFontCaps(\n  ULONG culCaps,\n  ULONG *pulCaps\n);",
-      "return_value": "如果函数成功，返回值是写入目标缓冲区的 ULONG 值的数目。否则返回 FD_ERROR。pulCaps 数组元素含义：\n- pulCaps[0]: 完整数组中 ULONG 值数的计数\n- pulCaps[1]: 标志位（QC_OUTLINES/QC_1BIT/QC_4BIT 等）",
+      "return_value": {
+        "type": "LONG",
+        "description": "如果函数成功，返回值是写入目标缓冲区的 ULONG 值的数目。否则返回 FD_ERROR。pulCaps 数组元素含义：\n- pulCaps[0]: 完整数组中 ULONG 值数的计数\n- pulCaps[1]: 标志位（QC_OUTLINES/QC_1BIT/QC_4BIT 等）"
+      },
       "remarks": "驱动程序可能会报告它支持多种字体格式。 例如，驱动程序原则上可以返回同时设置 QC_1BIT和QC_4BIT，指示它能够返回字体的单色和抗锯齿版本。 字体驱动程序生成的所有位图必须在 32 位边界上开始和结束。 如有必要，应“填充”位图的末尾以满足此要求。",
       "header": "winddi.h",
       "deprecated": false,
@@ -1140,7 +1255,11 @@
         "DrvQueryFontTree"
       ],
       "confidence": 0.6,
-      "_source_line": 98
+      "_source_line": 98,
+      "return_value": {
+        "type": "LONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvQueryFontTree",
@@ -1155,7 +1274,11 @@
         "DrvQueryTrueTypeOutline"
       ],
       "confidence": 0.7,
-      "_source_line": 99
+      "_source_line": 99,
+      "return_value": {
+        "type": "PVOID",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvQueryTrueTypeOutline",
@@ -1188,7 +1311,11 @@
         "TrueType"
       ],
       "confidence": 0.7,
-      "_source_line": 104
+      "_source_line": 104,
+      "return_value": {
+        "type": "LONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvResetDevice",
@@ -1202,7 +1329,11 @@
         "EngHangNotification"
       ],
       "confidence": 0.7,
-      "_source_line": 106
+      "_source_line": 106,
+      "return_value": {
+        "type": "ULONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvResetPDEV",
@@ -1211,7 +1342,8 @@
       "description": "函数允许图形驱动程序在 Win32 应用程序调用 ResetDC 时将驱动程序的状态从旧的 PDEV 结构传输到新的 PDEV 结构。",
       "syntax": "BOOL DrvResetPDEV(\n  DHPDEV dhpdevOld,\n  DHPDEV dhpdevNew\n);",
       "return_value": {
-        "description": "如果函数成功，则此返回值为 TRUE 。 否则为 FALSE，并记录错误代码。"
+        "description": "如果函数成功，则此返回值为 TRUE 。 否则为 FALSE，并记录错误代码。",
+        "type": "BOOL"
       },
       "remarks": "图形驱动程序的 DrvResetPDEV 函数应用于修改新 PDEV 结构的内容，基于当前使用的旧 PDEV 结构。需要了解模式更改的 OpenGL 显示驱动程序应实现 DrvResetPDEV。否则，所有其他显示驱动程序通常不需要实现此函数。\n\n注意：以下信息与打印机图形 DLL 相关。调用函数是应用程序调用 Win32 ResetDC 函数的结果，这反过来又会导致 GDI 调用驱动程序的 DrvEnablePDEV 以获取新的 PDEV 结构。由于驱动程序可以在呈现打印作业期间修改 PDEV 结构的内容，因此 DrvResetPDEV 函数允许驱动程序将这些修改从旧 PDEV 结构传输到新的 PDEV 结构。打印机图形 DLL 可能想要添加到新 PDEV 结构的信息类型示例包括指向缓存字体文件的指针，或指示在下次调用 DrvStartDoc 或 DrvStartPage 时，页面初始化是否应发生。如果在呈现打印文档期间调用 ResetDC，打印机图形 DLL 将接收以下调用序列：dhpdevNew = DrvEnablePDEV();",
       "header": "winddi.h",
@@ -1252,7 +1384,11 @@
         "EngDeletePalette"
       ],
       "confidence": 0.7,
-      "_source_line": 112
+      "_source_line": 112,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvSetPixelFormat",
@@ -1282,24 +1418,31 @@
         {
           "name": "pso",
           "direction": "in",
-          "description": "指向描述要绘制的图面的 SURFOBJ 结构的指针。[in] psoMask 指向定义 AND-XOR 掩码的 SURFOBJ 结构的指针。 (绘制单色指针中介绍了 AND-XOR 掩码。) 此位图的尺寸决定了指针的大小。 指针大小没有隐式约束，但最佳指针大小为 32 x 32、48 x 48 和 64 x 64 像素。 如果此参数为 NULL，则指针是透明的。[in] psoColor 指向定义颜色指针颜色的 SURFOBJ 结构的指针的指针。 如果此参数为 NULL，则指针为 单色。 指针位图的宽度与 psoMask 相同，高度为一半。[in] pxlo 指向定义 psoColor 中颜色的 XLATEOBJ 结构的指针。"
+          "description": "指向描述要绘制的图面的 SURFOBJ 结构的指针。[in] psoMask 指向定义 AND-XOR 掩码的 SURFOBJ 结构的指针。 (绘制单色指针中介绍了 AND-XOR 掩码。) 此位图的尺寸决定了指针的大小。 指针大小没有隐式约束，但最佳指针大小为 32 x 32、48 x 48 和 64 x 64 像素。 如果此参数为 NULL，则指针是透明的。[in] psoColor 指向定义颜色指针颜色的 SURFOBJ 结构的指针的指针。 如果此参数为 NULL，则指针为 单色。 指针位图的宽度与 psoMask 相同，高度为一半。[in] pxlo 指向定义 psoColor 中颜色的 XLATEOBJ 结构的指针。",
+          "type": "SURFOBJ"
         },
         {
           "name": "xHot",
           "direction": "in",
-          "description": "指定指针的热点相对于其左上角像素的 x 位置。 热点指示的像素应定位在新的指针位置。"
+          "description": "指定指针的热点相对于其左上角像素的 x 位置。 热点指示的像素应定位在新的指针位置。",
+          "type": "LONG"
         },
         {
           "name": "yHot",
           "direction": "in",
-          "description": "指定指针的热点相对于其左上角像素的 y 位置。 热点指示的像素应定位在新的指针位 置。[in] x 指定新指针位置的 x 坐标。[in] y 指定新指针位置的 y 坐标。[in] prcl 指定 RECTL 结构，该结构指示驱动程序应在其中写入矩形的位置，该矩形指定指针的可 见部分的紧密绑定。[in] fl 指定一组可扩展的标志。 如果设置了任何不理解的标志，驱动程序应拒绝调用。 此参数可以是以下一个或多个预定义值，以及一个或多个驱动程序定义的值： 标志"
+          "description": "指定指针的热点相对于其左上角像素的 y 位置。 热点指示的像素应定位在新的指针位 置。[in] x 指定新指针位置的 x 坐标。[in] y 指定新指针位置的 y 坐标。[in] prcl 指定 RECTL 结构，该结构指示驱动程序应在其中写入矩形的位置，该矩形指定指针的可 见部分的紧密绑定。[in] fl 指定一组可扩展的标志。 如果设置了任何不理解的标志，驱动程序应拒绝调用。 此参数可以是以下一个或多个预定义值，以及一个或多个驱动程序定义的值： 标志",
+          "type": "LONG"
         }
       ],
       "header": "winddi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 115
+      "_source_line": 115,
+      "return_value": {
+        "type": "ULONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvStartDoc",
@@ -1311,11 +1454,13 @@
         {
           "name": "pso",
           "direction": "in",
-          "description": "调用方提供的指向 SURFOBJ 结构的指针。"
+          "description": "调用方提供的指向 SURFOBJ 结构的指针。",
+          "type": "SURFOBJ"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，函数应返回 TRUE。 否则，它应调用 Win32 SetLastError 函数来设置错 误代码，然后返回 FALSE。"
+        "description": "如果操作成功，函数应返回 TRUE。 否则，它应调用 Win32 SetLastError 函数来设置错 误代码，然后返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "打印机图形 DLL 必须提供 DrvStartDoc 函数。在呈现打印作业的每个物理页面之前调用函数。物理页面可以包含一个或多个文档页面。通常，函数用于在打印页面之前，通过调用 GDI 的 EngWritePrinter 函数将控制序列发送到打印机硬件。函数还可以对打印机图形 DLL 执行特定于页面的内部初始化操作。",
       "header": "winddi.h",
@@ -1338,7 +1483,8 @@
         {
           "name": "psoDest",
           "direction": "in, out",
-          "description": "指向 SURFOBJ 结构的指针，该结构标识要绘制的图面。[in, out] psoSrc 指向 SURFOBJ 结构的指针，该结构定义位块传输操作的源。[in, optional] psoMask 指向 SURFOBJ 结构的可选指针，该结构定义为源提供掩码的图面。 掩码由逻辑映射定义，该映射是每个像素 1 位的位图。 掩码限制复制的源区域。 如果指定此参数，则它的隐式 rop4 为 0xCCAA，这意味着，无论掩码为 1，都应复制源，但无论掩码为零，目标应单独保留。 如果此参数为 NULL，则存在隐式 rop4 0xCCCC，这意味着应将源复制到源矩形中的任意位置。 掩码将始终足够大，足以包含相关的源;不需要平铺。[in] pco 指向 CLIPOBJ 结构的指针，该结构限制目标中要修改的区域。 GDI 服务用于将 剪辑区域枚举为一组矩形。 GDI 尽可能简化涉及的剪裁。 但是，与 DrvBitBlt 不同， DrvStretchBlt 可以使用单个剪 裁矩形调用。 这可以防止剪裁输出时出现舍入错误。[in, optional] pxlo 指向 XLATEOBJ 结构的指针，该结构指定如何在源图面和目标图面之间转换颜色索引。如果 pxlo 为 NULL，则无需转换。 还可以查询 XLATEOBJ 结构以查找任何源索引的 RGB 颜色。 在某些情况下，高质量拉伸 位块传输需要内插颜色。[in, optional] pca 指向 COLORADJUSTMENT 结构的指针，该结构定义在拉伸位之前要应用于源位图的颜色 调整值。 (请参阅Microsoft Windows SDK文档。)[in] pptlHTOrg 指向 POINTL 结构的指针，该结构指定半色调画笔的原点。 使用半色调画笔的设备驱动 程序应将画笔图案的左上角像素与设备图面上的此点对齐。[in] prclDest 指向 RECTL 结构的指针，该结构定义要在目标图面的坐标系中修改的区域。 此矩形由两个不一定井然有序的点定义，这意味着第二个点的坐标不一定大于第一个点的坐标。 它们描述的矩形不包括下边缘和右边缘。 永远不会使用空的目标矩形调用此函数。 当目标矩形排序不正常时，DrvStretchBlt 应交换两个 x 值和/或两个 y 值。[in] prclSrc 指向 RECTL 结构的指针，该结构定义将在源图面的坐标系中复制的区域。 矩形由两个点定义，并将映射到 由 prclDest 定义的矩形上。 源矩形的点顺序良好。 永远不会为此函数提供空的源矩形。 映射由 prclSrc 和 prclDest 定义。 prclDest 和 prclSrc 中指定的点位于对应于像素中心的整 数坐标上。 由两个此类点定义的矩形被视为具有两个顶点的几何矩形，其坐标是给定点，但从每个坐标中减去 0.5。 (POINTL 结构应被视为指定这些小数坐标顶点的简写表示法。) 任何矩形的边缘从不与像素相交，而是围绕一组像素。 矩形内的像素是“右下角异”矩形 的预期像素。 DrvStretchBlt 会将几何源矩形精确映射到几何目标矩形。[in, optional] pptlMask 指向 POINTL 结构的指针，该结构指定给定掩码中的哪个像素对应于源矩形中的左上角像 素。 如果未指定掩码，则忽略此参数。[in] iMode 指定如何组合源像素以获取输出像素。 HALFTONE 模式比其他模式慢，但会生成更高质量的图像。 值 BLACKONWHITE COLORONCOLOR 半 色调 WHITEONBLACK 返回值 含义 在收缩位块传输中，像素应与布尔 AND 操作组合在一起。 在拉伸位块传输中，应复制像素。 在收缩位块传输时，应忽略足够的像素，以便不需要合并像素。 在拉伸位块传输中，应复制像素。 驱动程序可以使用输出图面中的像素组来最接近输入的颜色或灰度。 在收缩位块传输中，像素应与布尔 OR 操作组合在一起。 在拉伸位块传输中，应复制像素。 如果函数成功，则返回值为 TRUE 。 否则为 FALSE，并记录错误代码。"
+          "description": "指向 SURFOBJ 结构的指针，该结构标识要绘制的图面。[in, out] psoSrc 指向 SURFOBJ 结构的指针，该结构定义位块传输操作的源。[in, optional] psoMask 指向 SURFOBJ 结构的可选指针，该结构定义为源提供掩码的图面。 掩码由逻辑映射定义，该映射是每个像素 1 位的位图。 掩码限制复制的源区域。 如果指定此参数，则它的隐式 rop4 为 0xCCAA，这意味着，无论掩码为 1，都应复制源，但无论掩码为零，目标应单独保留。 如果此参数为 NULL，则存在隐式 rop4 0xCCCC，这意味着应将源复制到源矩形中的任意位置。 掩码将始终足够大，足以包含相关的源;不需要平铺。[in] pco 指向 CLIPOBJ 结构的指针，该结构限制目标中要修改的区域。 GDI 服务用于将 剪辑区域枚举为一组矩形。 GDI 尽可能简化涉及的剪裁。 但是，与 DrvBitBlt 不同， DrvStretchBlt 可以使用单个剪 裁矩形调用。 这可以防止剪裁输出时出现舍入错误。[in, optional] pxlo 指向 XLATEOBJ 结构的指针，该结构指定如何在源图面和目标图面之间转换颜色索引。如果 pxlo 为 NULL，则无需转换。 还可以查询 XLATEOBJ 结构以查找任何源索引的 RGB 颜色。 在某些情况下，高质量拉伸 位块传输需要内插颜色。[in, optional] pca 指向 COLORADJUSTMENT 结构的指针，该结构定义在拉伸位之前要应用于源位图的颜色 调整值。 (请参阅Microsoft Windows SDK文档。)[in] pptlHTOrg 指向 POINTL 结构的指针，该结构指定半色调画笔的原点。 使用半色调画笔的设备驱动 程序应将画笔图案的左上角像素与设备图面上的此点对齐。[in] prclDest 指向 RECTL 结构的指针，该结构定义要在目标图面的坐标系中修改的区域。 此矩形由两个不一定井然有序的点定义，这意味着第二个点的坐标不一定大于第一个点的坐标。 它们描述的矩形不包括下边缘和右边缘。 永远不会使用空的目标矩形调用此函数。 当目标矩形排序不正常时，DrvStretchBlt 应交换两个 x 值和/或两个 y 值。[in] prclSrc 指向 RECTL 结构的指针，该结构定义将在源图面的坐标系中复制的区域。 矩形由两个点定义，并将映射到 由 prclDest 定义的矩形上。 源矩形的点顺序良好。 永远不会为此函数提供空的源矩形。 映射由 prclSrc 和 prclDest 定义。 prclDest 和 prclSrc 中指定的点位于对应于像素中心的整 数坐标上。 由两个此类点定义的矩形被视为具有两个顶点的几何矩形，其坐标是给定点，但从每个坐标中减去 0.5。 (POINTL 结构应被视为指定这些小数坐标顶点的简写表示法。) 任何矩形的边缘从不与像素相交，而是围绕一组像素。 矩形内的像素是“右下角异”矩形 的预期像素。 DrvStretchBlt 会将几何源矩形精确映射到几何目标矩形。[in, optional] pptlMask 指向 POINTL 结构的指针，该结构指定给定掩码中的哪个像素对应于源矩形中的左上角像 素。 如果未指定掩码，则忽略此参数。[in] iMode 指定如何组合源像素以获取输出像素。 HALFTONE 模式比其他模式慢，但会生成更高质量的图像。 值 BLACKONWHITE COLORONCOLOR 半 色调 WHITEONBLACK 返回值 含义 在收缩位块传输中，像素应与布尔 AND 操作组合在一起。 在拉伸位块传输中，应复制像素。 在收缩位块传输时，应忽略足够的像素，以便不需要合并像素。 在拉伸位块传输中，应复制像素。 驱动程序可以使用输出图面中的像素组来最接近输入的颜色或灰度。 在收缩位块传输中，像素应与布尔 OR 操作组合在一起。 在拉伸位块传输中，应复制像素。 如果函数成功，则返回值为 TRUE 。 否则为 FALSE，并记录错误代码。",
+          "type": "out] SURFOBJ"
         }
       ],
       "header": "winddi.h",
@@ -1348,7 +1494,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 121,
-      "return_value": "成功返回 TRUE，失败返回 FALSE 并记录错误代码"
+      "return_value": {
+        "type": "BOOL",
+        "description": "成功返回 TRUE，失败返回 FALSE 并记录错误代码"
+      }
     },
     {
       "id": "windows::DrvStretchBltROP",
@@ -1360,16 +1509,19 @@
         {
           "name": "psoDest",
           "direction": "in, out",
-          "description": "指向描述要绘制的图面的 SURFOBJ 结构的指针。[in, out] psoSrc 指向描述位块传输的源图面的 SURFOBJ 结构的指针。[in, optional] psoMask 指向为源定义掩码的 SURFOBJ 结构的指针。 掩码由逻辑映射定义，该映射是位图，每像素一位。 通常，掩码会限制目标图面中要修改的区域。 此掩码的大小始终与源图面相同。"
+          "description": "指向描述要绘制的图面的 SURFOBJ 结构的指针。[in, out] psoSrc 指向描述位块传输的源图面的 SURFOBJ 结构的指针。[in, optional] psoMask 指向为源定义掩码的 SURFOBJ 结构的指针。 掩码由逻辑映射定义，该映射是位图，每像素一位。 通常，掩码会限制目标图面中要修改的区域。 此掩码的大小始终与源图面相同。",
+          "type": "out] SURFOBJ"
         },
         {
           "name": "pco",
           "direction": "in",
-          "description": "指向 CLIPOBJ 结构的指针，该结构限制目标中要修改的区域。 提供 CLIPOBJ_Xxx 服务例程以一组矩形的形式枚举 剪辑区域 。 GDI 尽可能简化涉及的剪裁。 但是，与 DrvBitBlt 不同，可以使用单个剪裁矩形调用"
+          "description": "指向 CLIPOBJ 结构的指针，该结构限制目标中要修改的区域。 提供 CLIPOBJ_Xxx 服务例程以一组矩形的形式枚举 剪辑区域 。 GDI 尽可能简化涉及的剪裁。 但是，与 DrvBitBlt 不同，可以使用单个剪裁矩形调用",
+          "type": "CLIPOBJ"
         }
       ],
       "return_value": {
-        "description": "DrvStretchBltROP 成功后应返回 TRUE 。 否则，它应报告错误代码并返回 FALSE。"
+        "description": "DrvStretchBltROP 成功后应返回 TRUE 。 否则，它应报告错误代码并返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "映射由 prclSrc 和 prclDest 定义。 prclDest 和 prclSrc 中指定的点位于对应于像素中心的整 数坐标上。 由两个此类点定义的矩形被视为具有两个顶点的几何矩形，其坐标是给定点，但从每个坐标中减去 0.5。 (POINTL 结构是用于指定这些小数坐标顶点的简写表示法。) 驱动程序可以选择实现 DrvStretchBltROP。 如果驱动程序确实挂接此调用，它可以调用 EngStretchBltROP 来执行它不支持的那些拉伸 blit 操作。",
       "header": "winddi.h",
@@ -1390,16 +1542,19 @@
         {
           "name": "pso",
           "direction": "in, out",
-          "description": "指向描述要绘制的图面的 SURFOBJ 结构的指针。[in, out] ppo 指向描述要填充的路径的 PATHOBJ 结构的指针。 PATHOBJ_Xxx 服务例程用于枚举构成路 径的线条、贝塞尔曲线和其他数据。[in] pco 指向 CLIPOBJ 结构的指针。 CLIPOBJ_Xxx 服务例程用于将 剪辑区域 枚举为一组矩形。[in, optional] pxo 指向绘制几何宽线时所需的 XFORMOBJ 结构的指针。 它指定将世界坐标转换为设备坐标的转换。 这是必需的，因为路径以设备坐标提供，但几何宽线实际上在世界坐标中加 宽。 可以查询 XFORMOBJ 以了解转换是什么。[in] pboStroke 指向 BRUSHOBJ 结构的指针，该结构指定在抚摸路径时要使用的画笔。[in] plineattrs 指向 LINEATTRS 结构的指针，该结构描述要绘制的线条的属性。[in] pboFill 指向 BRUSHOBJ 结构的指针，该结构指定填充路径时要使用的画笔。[in] pptlBrushOrg 指向 POINTL 结构的指针，该结构指定两个画笔的画笔原点。[in] mixFill 定义要用于画笔的前景和背景光栅操作的混合模式。 有关混合模式的详细信息，请参阅备注。"
+          "description": "指向描述要绘制的图面的 SURFOBJ 结构的指针。[in, out] ppo 指向描述要填充的路径的 PATHOBJ 结构的指针。 PATHOBJ_Xxx 服务例程用于枚举构成路 径的线条、贝塞尔曲线和其他数据。[in] pco 指向 CLIPOBJ 结构的指针。 CLIPOBJ_Xxx 服务例程用于将 剪辑区域 枚举为一组矩形。[in, optional] pxo 指向绘制几何宽线时所需的 XFORMOBJ 结构的指针。 它指定将世界坐标转换为设备坐标的转换。 这是必需的，因为路径以设备坐标提供，但几何宽线实际上在世界坐标中加 宽。 可以查询 XFORMOBJ 以了解转换是什么。[in] pboStroke 指向 BRUSHOBJ 结构的指针，该结构指定在抚摸路径时要使用的画笔。[in] plineattrs 指向 LINEATTRS 结构的指针，该结构描述要绘制的线条的属性。[in] pboFill 指向 BRUSHOBJ 结构的指针，该结构指定填充路径时要使用的画笔。[in] pptlBrushOrg 指向 POINTL 结构的指针，该结构指定两个画笔的画笔原点。[in] mixFill 定义要用于画笔的前景和背景光栅操作的混合模式。 有关混合模式的详细信息，请参阅备注。",
+          "type": "out] SURFOBJ"
         },
         {
           "name": "flOptions",
           "direction": "in",
-          "description": "指定FP_WINDINGMODE（表示应执行绕组模式填充）或FP_ALTERNATEMODE，表示应执行交替模式填充。 应忽略所有其他标志。 有关这些模式的详细信息，请参阅 路径填充模式。"
+          "description": "指定FP_WINDINGMODE（表示应执行绕组模式填充）或FP_ALTERNATEMODE，表示应执行交替模式填充。 应忽略所有其他标志。 有关这些模式的详细信息，请参阅 路径填充模式。",
+          "type": "FLONG"
         }
       ],
       "return_value": {
-        "description": "如果驱动程序能够填充路径，则返回值为 TRUE 。 否则，如果 GDI 应改为填充路径，则 返回值为 FALSE。 如果发生错误，则返回值为DDI_ERROR，并记录错误代码。"
+        "description": "如果驱动程序能够填充路径，则返回值为 TRUE 。 否则，如果 GDI 应改为填充路径，则 返回值为 FALSE。 如果发生错误，则返回值为DDI_ERROR，并记录错误代码。",
+        "type": "BOOL"
       },
       "remarks": "使用宽线描边时需补偿填充区域。若路径复杂可返回 FALSE 由 GDI 简化处理。混合模式由 MIX 类型定义，包含两个 ROP2 值。",
       "header": "winddi.h",
@@ -1419,7 +1574,8 @@
       "description": "函数在指定图面上显示窗口的关联隐藏缓冲区的内容。",
       "syntax": "BOOL DrvSwapBuffers(SURFOBJ *pso, WNDOBJ *pwo);",
       "return_value": {
-        "description": "如果函数成功，则返回值为 TRUE ;失败时为 FALSE 。"
+        "description": "如果函数成功，则返回值为 TRUE ;失败时为 FALSE 。",
+        "type": "BOOL"
       },
       "remarks": "仅当 pwo 指定的窗口的像素格式为双缓冲时，DrvSwapBuffers 才会影响显示。 发生交换后，隐藏缓冲区的内容未定义。 如果驱动程序支持具有双重缓冲的像素格式，则此函数是必需的;也就是说，如果 PFD_DOUBLEBUFFER是在 PIXELFORMATDESCRIPTOR 结构的 dwFlags 成员中设置的。",
       "header": "winddi.h",
@@ -1501,7 +1657,11 @@
         "EngAcquireSemaphore"
       ],
       "confidence": 0.6,
-      "_source_line": 134
+      "_source_line": 134,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngAcquireSemaphore",
@@ -1513,11 +1673,13 @@
         {
           "name": "hsem",
           "direction": "in",
-          "description": "与要获取的资源关联的信号灯的句柄。"
+          "description": "与要获取的资源关联的信号灯的句柄。",
+          "type": "HSEMAPHORE"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1543,7 +1705,8 @@
         {
           "name": "flags",
           "direction": "in",
-          "description": "指定如何分配内存。 此参数可以是以下值的组合。 值"
+          "description": "指定如何分配内存。 此参数可以是以下值的组合。 值",
+          "type": "ULONG"
         }
       ],
       "header": "winddi.h",
@@ -1552,7 +1715,11 @@
         "EngAllocPrivateUserMem"
       ],
       "confidence": 0.7,
-      "_source_line": 136
+      "_source_line": 136,
+      "return_value": {
+        "type": "PVOID",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngAllocPrivateUserMem",
@@ -1564,11 +1731,13 @@
         {
           "name": "psl",
           "direction": "in",
-          "description": "指向 DD_SURFACE_LOCAL 结构的指针，该结构表示要与之关联的已分配内存的 Microsoft DirectDraw 图面。[in] cj 指定要分配的内存字节数。[in] tag 指定一个 4 字节 池标记 ，该标记唯一标识执行内存分配的驱动程序。 有关池标记的详细信息，请参阅 ExAllocatePoolWithTag。"
+          "description": "指向 DD_SURFACE_LOCAL 结构的指针，该结构表示要与之关联的已分配内存的 Microsoft DirectDraw 图面。[in] cj 指定要分配的内存字节数。[in] tag 指定一个 4 字节 池标记 ，该标记唯一标识执行内存分配的驱动程序。 有关池标记的详细信息，请参阅 ExAllocatePoolWithTag。",
+          "type": "IN DD_SURFACE_LOCAL"
         }
       ],
       "return_value": {
-        "description": "返回指向分配内存块的指针，如果失败则返回 NULL"
+        "description": "返回指向分配内存块的指针，如果失败则返回 NULL",
+        "type": "PVOID"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -1588,11 +1757,13 @@
         {
           "name": "cj",
           "direction": "in",
-          "description": "指定要分配的字节数。[in] tag 指定一个 4 字节 池标记 ，该标记唯一标识执行内存分配的驱动程序。 有关池标记的详细信息，请参阅 ExAllocatePoolWithTag。"
+          "description": "指定要分配的字节数。[in] tag 指定一个 4 字节 池标记 ，该标记唯一标识执行内存分配的驱动程序。 有关池标记的详细信息，请参阅 ExAllocatePoolWithTag。",
+          "type": "SIZE_T"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回指向分配的内存块的指针；如果失败，返回 NULL。"
+        "description": "如果成功，返回指向分配的内存块的指针；如果失败，返回 NULL。",
+        "type": "PVOID"
       },
       "remarks": "基于 NT 的操作系统中的进程具有 4 GB 的虚拟地址空间。 上限 2 GB 是系统内存，只能由内核模式线程访问;此空间在所有进程中都是相同的。 较低的 2 GB 是用户内存，可供用户模式线程和内核模式线程访问;此空间对其进程是唯一的。 EngAllocUserMem 分配的内存是从唯一的 2 GB 用户内存中分配的，因此仅当在分配内存的线程的上下文中调用图形驱动程序时，才可访问。 图形驱动程序始终在调用方上下文中执行;也就是说，图形驱动程序无法切换进程上下文。",
       "header": "winddi.h",
@@ -1616,7 +1787,11 @@
         "EngAssociateSurface"
       ],
       "confidence": 0.6,
-      "_source_line": 140
+      "_source_line": 140,
+      "return_value": {
+        "type": "ENGAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngAssociateSurface",
@@ -1639,7 +1814,10 @@
       "entity_type": "function",
       "description": "EngBitBlt 函数执行位块传输操作。psoTrg 指向 SURFOBJ 结构的指针，该结构标识要绘制的目标图面。psoSrc 如果 rop4 需要它，则指针指向定义位块传输操作源的 SURFOBJ 结构。psoMask 指向定义要用作掩码的图面的 SURFOBJ 结构的指针。掩码定义为每像素 1 位的位图，通常限制目标图面中要修改的区域。掩码由值 0xAACC 的 rop4 选择。当掩码为零时，目标图面不受影响。prclTrg 指向 RECTL 结构的指针，该结构定义要修改的矩形区域，在目标图面坐标系中指定。pptlSrc 指向 POINTL 结构的指针，指定源图面中的起始点。pptlMask 指向 POINTL 结构的指针，指定掩码图面中的起始点。pbo 指向 BRUSHOBJ 结构的指针，指定用于光栅操作的画笔。pptlBrush 指向 POINTL 结构的指针，指定画笔起始点。rop4 指定光栅操作代码。",
       "syntax": "ENGAPI BOOL EngBitBlt(\n  SURFOBJ  *psoTrg,\n  SURFOBJ  *psoSrc,\n  SURFOBJ  *psoMask,\n  CLIPOBJ  *pco,\n  XLATEOBJ *pxlo,\n  RECTL    *prclTrg,\n  POINTL   *pptlSrc,\n  POINTL   *pptlMask,\n  BRUSHOBJ *pbo,\n  POINTL   *pptlBrush,\n  ROP4     rop4\n);",
-      "return_value": "如果函数成功，则返回 TRUE。否则，返回 FALSE，并记录错误代码。",
+      "return_value": {
+        "type": "ENGAPI BOOL",
+        "description": "如果函数成功，则返回 TRUE。否则，返回 FALSE，并记录错误代码。"
+      },
       "remarks": "如果设备表面组织为标准格式位图，驱动程序可以通过调用 EngBitBlt 请求 GDI 执行位块传输。如果驱动程序具有用于快速处理简单传输的特殊硬件，但不想处理具有复杂传输的调用，则驱动程序可能会执行此操作。有关光栅操作的详细信息，请参阅 Microsoft Windows SDK 文档。",
       "header": "winddi.h",
       "deprecated": false,
@@ -1656,7 +1834,8 @@
       "description": "函数使打印机图形 DLL 能够确定是否应终止打印作业。",
       "syntax": "ENGAPI BOOL EngCheckAbort(SURFOBJ *pso);",
       "return_value": {
-        "description": "如果应终止打印作业，则函数返回 TRUE。 如果打印作业不应终止，或者 pso 未指向有效 的 SURFOBJ 结构，则函数返回 FALSE。"
+        "description": "如果应终止打印作业，则函数返回 TRUE。 如果打印作业不应终止，或者 pso 未指向有效 的 SURFOBJ 结构，则函数返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "打印机图形 DLL 应从执行时间超过 5 秒的任何图形 DDI 函数中调用 EngCheckAbort。如果应终止打印作业，打印机图形 DLL 应停止其当前操作并返回到 GDI，为调用 EngCheckAbort 的图形 DDI 函数指定返回值为 FALSE。",
       "requirements": {
@@ -1682,11 +1861,13 @@
         {
           "name": "pEvent",
           "direction": "in",
-          "description": "指向上一次调用 EngCreateEvent 或 EngMapEvent 返回的事件对象的指针。"
+          "description": "指向上一次调用 EngCreateEvent 或 EngMapEvent 返回的事件对象的指针。",
+          "type": "PEVENT"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -1706,11 +1887,13 @@
         {
           "name": "nCodePage",
           "direction": "in",
-          "description": "指定支持的代码页。[in] nFirstChar 指定第一个受支持的 ANSI 字符的字符代码。[in] cChars 指定支持的 ANSI 字符数。"
+          "description": "指定支持的代码页。[in] nFirstChar 指定第一个受支持的 ANSI 字符的字符代码。[in] cChars 指定支持的 ANSI 字符数。",
+          "type": "INT"
         }
       ],
       "return_value": {
-        "description": "如果成功计算字形集，函数将返回指向 FD_GLYPHSET 结构的指针。 如果发生错误，函数 将返回 NULL。"
+        "description": "如果成功计算字形集，函数将返回指向 FD_GLYPHSET 结构的指针。 如果发生错误，函数 将返回 NULL。",
+        "type": "ENGAPI FD_GLYPHSET"
       },
       "remarks": "驱动程序可以使用 EngComputeGlyphSet 来计算在 nCodePage 描述的代码页中仅包含字形的字体的字形集。使用 EngComputeGlyphSet 返回的 FD_GLYPHSET 结构完成时，驱动程序必须调用 EngFreeMem 来释放内存。",
       "header": "winddi.h",
@@ -1730,7 +1913,8 @@
       "description": "函数在指定的 WNDOBJ 区域中拉下或重绘子画面。",
       "syntax": "ENGAPI BOOL EngControlSprites(WNDOBJ *pwo, FLONG fl);",
       "return_value": {
-        "description": "成功完成请求的操作后，EngControlSprites 返回 TRUE;否则返回 FALSE。"
+        "description": "成功完成请求的操作后，EngControlSprites 返回 TRUE;否则返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -1747,7 +1931,8 @@
       "description": "函数在设备管理的光栅图面和 GDI 标准格式位图之间转换。",
       "syntax": "ENGAPI BOOL EngCopyBits(\n    SURFOBJ *psoDest,\n    SURFOBJ *psoSrc,\n    CLIPOBJ *pco,\n    XLATEOBJ *pxlo,\n    RECTL *prclDest,\n    POINTL *pptlSrc\n);",
       "return_value": {
-        "description": "如果函数成功，则返回值为 TRUE 。 如果失败，它将记录错误并返回 FALSE。"
+        "description": "如果函数成功，则返回值为 TRUE 。 如果失败，它将记录错误并返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "标准格式位图是单平面、打包像素格式。每条扫描线在4字节边界上对齐。这些位图具有1、4、8、16、24或32位/像素。GDI从其模拟中调用此函数。不应使用空目标矩形调用EngCopyBits，并且目标矩形的两个点必须井然有序；也就是第一个点应表示矩形的左上角顶点，第二个点应表示右下角顶点。",
       "header": "winddi.h",
@@ -1770,7 +1955,11 @@
         "EngCreateClip"
       ],
       "confidence": 0.6,
-      "_source_line": 153
+      "_source_line": 153,
+      "return_value": {
+        "type": "ENGAPI HBITMAP",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngCreateClip",
@@ -1785,7 +1974,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 154,
-      "return_value": "如果函数成功，则返回值是指向新创建的 CLIPOBJ 结构的指针。否则为 NULL。"
+      "return_value": {
+        "type": "ENGAPI CLIPOBJ",
+        "description": "如果函数成功，则返回值是指向新创建的 CLIPOBJ 结构的指针。否则为 NULL。"
+      }
     },
     {
       "id": "windows::EngCreateDeviceBitmap",
@@ -1797,11 +1989,13 @@
         {
           "name": "dhsurf",
           "direction": "in",
-          "description": "要创建的设备位图的设备句柄。[in] sizl 指定要创建的位图的宽度和高度的 SIZEL 结构。 此结构的 cx 和 cy 成员分别包含位图的 宽度和高度（以像素为单位）。 SIZEL 结构与 SIZE 结构相同。 iFormatCompat 指定所创建设备图面的兼容引擎格式。 如果需要临时缓冲区来模拟复杂的绘图调用，则 GDI 会使用此函数。 iFormatCompat 的允许值为 BMF_1BPP、BMF_4BPP、BMF_8BPP、 BMF_16BPP、BMF_24BPP 和 BMF_32BPP。"
+          "description": "要创建的设备位图的设备句柄。[in] sizl 指定要创建的位图的宽度和高度的 SIZEL 结构。 此结构的 cx 和 cy 成员分别包含位图的 宽度和高度（以像素为单位）。 SIZEL 结构与 SIZE 结构相同。 iFormatCompat 指定所创建设备图面的兼容引擎格式。 如果需要临时缓冲区来模拟复杂的绘图调用，则 GDI 会使用此函数。 iFormatCompat 的允许值为 BMF_1BPP、BMF_4BPP、BMF_8BPP、 BMF_16BPP、BMF_24BPP 和 BMF_32BPP。",
+          "type": "DHSURF"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回值是标识位图的句柄。 否则，它为零，并记录错误代码。"
+        "description": "如果函数成功，则返回值是标识位图的句柄。 否则，它为零，并记录错误代码。",
+        "type": "ENGAPI HBITMAP"
       },
       "remarks": "应使用 EngAssociateSurface 关联表面。当不再需要位图时，应通过调用 EngDeleteSurface 删除。",
       "header": "winddi.h",
@@ -1821,7 +2015,8 @@
       "description": "适用于 Windows 2000 及更高版本的 Windows 操作系统。声明于 winddi.h，链接 Win32k.lib。",
       "syntax": "HDRVOBJ EngCreateDriverObj(PVOID pvObj, FREEOBJPROC pFreeObjProc, HDEV hdev);",
       "return_value": {
-        "description": "如果函数成功，则返回值是标识新创建的 DRIVEROBJ 结构的句柄。 否则为零。"
+        "description": "如果函数成功，则返回值是标识新创建的 DRIVEROBJ 结构的句柄。 否则为零。",
+        "type": "HDRVOBJ"
       },
       "remarks": "此结构用于跟踪设备管理的资源，如果资源分配进程终止而不首先清理它，则必须释放该资源。 驱动程序可以通过调用 EngDeleteDriverObj 显式删除 DRIVEROBJ 结构。 否则，当创建 DRIVEROBJ 的进程终止时，引擎通过调用 pFreeObjProc 指向的函数来释放资源。",
       "header": "winddi.h",
@@ -1842,11 +2037,13 @@
         {
           "name": "ppEvent",
           "direction": "out",
-          "description": "指向返回有效事件对象的位置的指针。"
+          "description": "指向返回有效事件对象的位置的指针。",
+          "type": "PEVENT"
         }
       ],
       "return_value": {
-        "description": "如果 EngCreateEvent 成功创建事件对象，则返回 TRUE。 否则，它将返回 FALSE。"
+        "description": "如果 EngCreateEvent 成功创建事件对象，则返回 TRUE。 否则，它将返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "EngCreateEvent 创建同步事件对象，该对象初始化为非信号状态。",
       "requirements": {
@@ -1873,7 +2070,8 @@
         {
           "name": "iMode",
           "direction": "in",
-          "description": "指定如何定义调色板。 此参数可能是以下值之一： 值"
+          "description": "指定如何定义调色板。 此参数可能是以下值之一： 值",
+          "type": "ULONG"
         }
       ],
       "header": "winddi.h",
@@ -1882,7 +2080,11 @@
         "EngCreatePath"
       ],
       "confidence": 0.7,
-      "_source_line": 161
+      "_source_line": 161,
+      "return_value": {
+        "type": "ENGAPI HPALETTE",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngCreateSemaphore",
@@ -1903,7 +2105,11 @@
         "Server"
       ],
       "confidence": 0.6,
-      "_source_line": 163
+      "_source_line": 163,
+      "return_value": {
+        "type": "ENGAPI HSEMAPHORE",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngCreateWnd",
@@ -1912,7 +2118,8 @@
       "description": "Creates a window tracking object for multiple drivers, where each driver is identified by a unique WNDOBJCHANGEPROC function pointer. Allows drivers like video or OpenGL to track changes to their respective windows. GDI notifies the WNDOBJCHANGEPROC when creating new WNDOBJ or destroying windows.",
       "syntax": "ENGAPI BOOL WNDOBJ_bEnum(WNDOBJ *pwo, ULONG cj, ULONG *pul);",
       "return_value": {
-        "description": "如果有更多数据要枚举，并且驱动程序应重复调用，则返回值为 TRUE 。 如果枚举完成，则为 FALSE 。"
+        "description": "如果有更多数据要枚举，并且驱动程序应重复调用，则返回值为 TRUE 。 如果枚举完成，则为 FALSE 。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "枚举的顺序由对 WNDOBJ_cEnumStart 的调用决定。 以下可能用于调用此函数的循环结构。 do { bMore = WNDOBJ_bEnum(pwo, sizeof(buffer), &buffer.c); for (i = 0; i < buffer.c; i++) { // Process the data } } while (bMore); 只能 由 EngCreateWnd 函数提供给 GDI 的回调函数或给定 WNDOBJ 的图形 DDI 函数调 用WNDOBJ_bEnum。",
       "header": "winddi.h",
@@ -1931,7 +2138,8 @@
       "description": "函数会导致当前进程中出现断点。",
       "syntax": "__analysis_noreturn VOID EngDebugBreak(VOID);",
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "__analysis_noreturn VOID"
       },
       "remarks": "EngDebugBreak 可用于调试正在开发的驱动程序。",
       "header": "winddi.h",
@@ -1952,11 +2160,13 @@
         {
           "name": "StandardPrefix",
           "direction": "in",
-          "description": "指向在 DebugMessage 前面追加的字符串的指针。[in] DebugMessage 指向包含要打印的调试消息的字符串的指针。[in] ap 指定变量参数列表。"
+          "description": "指向在 DebugMessage 前面追加的字符串的指针。[in] DebugMessage 指向包含要打印的调试消息的字符串的指针。[in] ap 指定变量参数列表。",
+          "type": "PCHAR"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -1997,7 +2207,8 @@
       "description": "删除驱动程序对象。bLocked 指定在调用 EngDeleteDriverObj 之前，驱动程序是否通过调用 EngLockDriverObj 锁定了对象。如果为 TRUE，则对象已锁定；如果为 FALSE，则表示对象未锁定。",
       "syntax": "ENGAPI BOOL EngDeleteDriverObj(HDRVOBJ hdo, BOOL bCallBack, BOOL bLocked);",
       "return_value": {
-        "description": "如果函数成功且释放句柄，则返回值为 TRUE；如果尚未释放句柄，则为 FALSE。如果在 EngCreateDriverObj 中指定的 pFreeObjProc 驱动程序函数返回 FALSE，则函数将失败。"
+        "description": "如果函数成功且释放句柄，则返回值为 TRUE；如果尚未释放句柄，则为 FALSE。如果在 EngCreateDriverObj 中指定的 pFreeObjProc 驱动程序函数返回 FALSE，则函数将失败。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "释放句柄后，GDI 不再跟踪关联的驱动程序资源，并且 EngCreateDriverObj 的 pFreeObjProc 参数指向的函数在进程终止时不会被调用。 驱动程序负责确保释放资源。大多数驱动程序在终止时清理对象的方式应保持一致。 因此，他们将为 bCallback 传递 TRUE，向 GDI 指示它应调用驱动程序的清理函数来释放此驱动程序资源。 bCallBack 参数向 GDI 指示是否需要调用回调函数。 为 bCallBack 传递 TRUE 会告知 GDI 重新调用驱动程序的清理函数以释放此驱动程序资源。 传递 FALSE 会阻止 GDI 调用清理函数。 如果 pFreeObjProc 返回 FALSE， 则 EngDeleteDriverObj 将失败，并且不会释放句柄。 例如，如果 pFreeObjProc 需要锁定另一个 DRIVEROBJ 结构来释放当前 DRIVEROBJ 结构，并且由于另一个线程正在使用该结构而失败，则可能会发生这种情况。 pFreeObjProc 不应在清理时失败，因为除清理线程外，没有线程正在运行，因此其他对象的锁不会失败。 bLocked 参数向 GDI 指示对象已被驱动程序锁定一次。 通常，在删除对象之前，驱动程序可能已将其锁定以先使用。 这使驱动程序无需先解锁对象即可调用 GDI，从而消除了 另一个线程在释放句柄之前进入驱动程序并锁定它的可能性。",
       "header": "winddi.h",
@@ -2019,11 +2230,13 @@
         {
           "name": "pEvent",
           "direction": "in",
-          "description": "指向要删除的事件对象的指针。"
+          "description": "指向要删除的事件对象的指针。",
+          "type": "PEVENT"
         }
       ],
       "return_value": {
-        "description": "如果成功删除指定的事件对象，则 EngDeleteEvent 返回 TRUE。 如果调用方尝试删除映 射的用户事件，则返回 FALSE 。"
+        "description": "如果成功删除指定的事件对象，则 EngDeleteEvent 返回 TRUE。 如果调用方尝试删除映 射的用户事件，则返回 FALSE 。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "显示驱动程序只能使用 从 EngCreateEvent 函数返回的事件对象调用 EngDeleteEvent ，并且不得调用它来删除从 EngMapEvent 返回的事件对象。 在调用 EngDeleteEvent 之前，显示驱动程序必须通知指定事件对象的所有持有者它即将 变为无效。",
       "requirements": {
@@ -2050,11 +2263,13 @@
         {
           "name": "pwszFileName",
           "direction": "in",
-          "description": "指向以 null 结尾的字符串的指针，该字符串包含要删除的文件的完全限定名称。 完全限 定文件名字符串的一个示例是 L“\\？？\\c：\\test.dat”。"
+          "description": "指向以 null 结尾的字符串的指针，该字符串包含要删除的文件的完全限定名称。 完全限 定文件名字符串的一个示例是 L“\\？？\\c：\\test.dat”。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "成功后，EngDeleteFile 返回 TRUE 。 否则，它将返回 FALSE。"
+        "description": "成功后，EngDeleteFile 返回 TRUE 。 否则，它将返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2079,11 +2294,13 @@
         {
           "name": "hpal",
           "direction": "in",
-          "description": "要删除的调色板的句柄。 此句柄由 EngCreatePalette 提供。"
+          "description": "要删除的调色板的句柄。 此句柄由 EngCreatePalette 提供。",
+          "type": "HPALETTE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回值为 TRUE ;否则返回 FALSE。"
+        "description": "如果函数成功，则返回值为 TRUE ;否则返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2109,11 +2326,13 @@
         {
           "name": "pssem",
           "direction": "in, out",
-          "description": "指向 ENGSAFESEMAPHORE 结构的指针，该结构包含要从中删除引用的安全信号量。"
+          "description": "指向 ENGSAFESEMAPHORE 结构的指针，该结构包含要从中删除引用的安全信号量。",
+          "type": "out] ENGSAFESEMAPHORE"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -2133,11 +2352,13 @@
         {
           "name": "hsem",
           "direction": "in",
-          "description": "要删除的信号灯的句柄。 信号灯是在 EngCreateSemaphore 中创建的。"
+          "description": "要删除的信号灯的句柄。 信号灯是在 EngCreateSemaphore 中创建的。",
+          "type": "HSEMAPHORE"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -2157,11 +2378,13 @@
         {
           "name": "hsurf",
           "direction": "in",
-          "description": "要删除的图面的句柄。 此句柄可以是 HSURF 或 HBM。"
+          "description": "要删除的图面的句柄。 此句柄可以是 HSURF 或 HBM。",
+          "type": "HSURF"
         }
       ],
       "return_value": {
-        "description": "如果成功删除图面，则 EngDeleteSurface 返回 TRUE。 否则，它将返回 FALSE ，并记录 错误代码。"
+        "description": "如果成功删除图面，则 EngDeleteSurface 返回 TRUE。 否则，它将返回 FALSE ，并记录 错误代码。",
+        "type": "ENGAPI BOOL"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2184,7 +2407,8 @@
       "description": "函数删除 WNDOBJ 结构。",
       "syntax": "ENGAPI VOID EngDeleteWnd(WNDOBJ *pwo);",
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "remarks": "由于删除窗口对象涉及锁定窗口资源，因此应仅在 DrvEscape 中WNDOBJ_SETUP转义的上下文中或从 MCD 或 ICD 转义中调用 EngDeleteWnd。 驱动程序可以调用 EngDeleteWnd 来删除其与窗口关联的 WNDOBJ 结构，而不管该窗口 是否继续存在。 当系统动态卸载驱动程序，而关联的窗口仍然存在时，这非常有用。",
       "requirements": {
@@ -2210,21 +2434,25 @@
         {
           "name": "hDevice",
           "direction": "in",
-          "description": "要执行操作的设备句柄。[in] dwIoControlCode 指定操作的控制代码。 视频微型端口驱动程序 I/O 控制代码中列出了 I/O 控件并完整描述了这些控件。"
+          "description": "要执行操作的设备句柄。[in] dwIoControlCode 指定操作的控制代码。 视频微型端口驱动程序 I/O 控制代码中列出了 I/O 控件并完整描述了这些控件。",
+          "type": "HANDLE"
         },
         {
           "name": "lpInBuffer",
           "direction": "in, optional",
-          "description": "指向包含执行操作所需数据的缓冲区的指针。 如果控制代码指定的操作不需要输入数 据，则此参数可以为 NULL 。[in] nInBufferSize 指定 lpInBuffer 的大小（以字节为单位）。[out, optional] lpOutBuffer 指向返回操作输出数据的缓冲区的指针。 如果控制代码指定的操作不生成输出数据，则此参数可以为 NULL 。"
+          "description": "指向包含执行操作所需数据的缓冲区的指针。 如果控制代码指定的操作不需要输入数 据，则此参数可以为 NULL 。[in] nInBufferSize 指定 lpInBuffer 的大小（以字节为单位）。[out, optional] lpOutBuffer 指向返回操作输出数据的缓冲区的指针。 如果控制代码指定的操作不生成输出数据，则此参数可以为 NULL 。",
+          "type": "optional] LPVOID"
         },
         {
           "name": "nOutBufferSize",
           "direction": "in",
-          "description": "指定 lpOutBuffer 的大小（以字节为单位）。[out] lpBytesReturned 指向 DWORD 的指针，该 DWORD 指定 在 lpOutBuffer 中返回的数据的实际大小（以字 节为单位）。"
+          "description": "指定 lpOutBuffer 的大小（以字节为单位）。[out] lpBytesReturned 指向 DWORD 的指针，该 DWORD 指定 在 lpOutBuffer 中返回的数据的实际大小（以字 节为单位）。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "返回值为 32 位 Win32 API 定义的错误代码。"
+        "description": "返回值为 32 位 Win32 API 定义的错误代码。",
+        "type": "ENGAPI DWORD"
       },
       "remarks": "显示驱动程序使用 EngDeviceIoControl 将 I/O 请求传达给其相应的微型端口驱动程序。 此函数提供显示器和视频微型端口驱动程序之间的唯一信道。",
       "header": "ddrawint.h",
@@ -2245,7 +2473,11 @@
         "EngEnumForms"
       ],
       "confidence": 0.6,
-      "_source_line": 180
+      "_source_line": 180,
+      "return_value": {
+        "type": "ENGAPI ULONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngEnumForms",
@@ -2257,21 +2489,25 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "应为其枚举窗体的打印机的句柄。 这是作为 DrvEnablePDEV 的 hDriver 参数传递的 PDEV 句柄。[in] Level 指定 pForm 指向的结构的版本。 此值必须为 1，指示将在FORM_1_INFO结构中返回枚举窗体。"
+          "description": "应为其枚举窗体的打印机的句柄。 这是作为 DrvEnablePDEV 的 hDriver 参数传递的 PDEV 句柄。[in] Level 指定 pForm 指向的结构的版本。 此值必须为 1，指示将在FORM_1_INFO结构中返回枚举窗体。",
+          "type": "HANDLE"
         },
         {
           "name": "pForm",
           "direction": "out, optional",
-          "description": "指向字节数组的指针，其中写入了枚举FORM_INFO_1结构。[in] cbBuf 指定 lpbForms 的大小（以字节为单位）。[out] pcbNeeded 指向 DWORD 的指针，如果复制成功完成，该 DWORD 接收复制到 pForm 中的字节数。如果 pForm 太小，无法包含所有枚举表单的数据，则此 DWORD 将指定所需的字节数。"
+          "description": "指向字节数组的指针，其中写入了枚举FORM_INFO_1结构。[in] cbBuf 指定 lpbForms 的大小（以字节为单位）。[out] pcbNeeded 指向 DWORD 的指针，如果复制成功完成，该 DWORD 接收复制到 pForm 中的字节数。如果 pForm 太小，无法包含所有枚举表单的数据，则此 DWORD 将指定所需的字节数。",
+          "type": "optional] LPBYTE"
         },
         {
           "name": "pcReturned",
           "direction": "out",
-          "description": "指向 DWORD 的指针，该 DWORD 接收复制到 pForm 中的FORM_INFO_1结构的数量。"
+          "description": "指向 DWORD 的指针，该 DWORD 接收复制到 pForm 中的FORM_INFO_1结构的数量。",
+          "type": "LPDWORD"
         }
       ],
       "return_value": {
-        "description": "如果所有参数都有效，并且枚举的表单数据已成功复制到 pForm 中，则 EngEnumForms 将返回 TRUE。 否则，它将返回 FALSE ，并记录错误消息。 若要获取错误信息，请调用 EngGetLastError。"
+        "description": "如果所有参数都有效，并且枚举的表单数据已成功复制到 pForm 中，则 EngEnumForms 将返回 TRUE。 否则，它将返回 FALSE ，并记录错误消息。 若要获取错误信息，请调用 EngGetLastError。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "打印机驱动程序可以调用 EngEnumForms，让 GDI 获取特定打印机支持的表单列表。枚举信息作为 FORM_INFO_1 结构的数组返回，pForm 指向。如果 pForm 指向的数组不够大，无法容纳枚举数据，则会在 pcbNeeded 中返回所需的数组大小。",
       "header": "winddi.h",
@@ -2289,7 +2525,8 @@
       "description": "GDI function that erases a surface by filling the specified rectangle with a given color index.",
       "syntax": "ENGAPI BOOL EngEraseSurface(\n  SURFOBJ *pso,\n  RECTL *prcl,\n  ULONG iColor\n);",
       "return_value": {
-        "description": "Returns TRUE if successful, FALSE otherwise with error code reported."
+        "description": "Returns TRUE if successful, FALSE otherwise with error code reported.",
+        "type": "ENGAPI BOOL"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2311,7 +2548,10 @@
       "entity_type": "function",
       "description": "函数填充路径。",
       "syntax": "ENGAPI BOOL EngFillPath( SURFOBJ *pso, PATHOBJ *ppo, CLIPOBJ *pco, BRUSHOBJ *pbo, POINTL *pptlBrushOrg, MIX mix, FLONG flOptions);",
-      "return_value": "如果 GDI 能够填充路径，则返回值为 TRUE。否则，它为 FALSE，并且不会记录错误代码。如果遇到错误，则返回值为 FALSE，并记录错误代码。",
+      "return_value": {
+        "type": "ENGAPI BOOL",
+        "description": "如果 GDI 能够填充路径，则返回值为 TRUE。否则，它为 FALSE，并且不会记录错误代码。如果遇到错误，则返回值为 FALSE，并记录错误代码。"
+      },
       "remarks": "每当 GDI 填充 设备管理的图面上的路径时，它都可以调用此入口点，具体取决于填充要求和以下 GCAPS 位的比较：GCAPS_BEZIERS、GCAPS_ALTERNATEFILL和 GCAPS_WINDINGFILL。",
       "header": "winddi.h",
       "deprecated": false,
@@ -2328,7 +2568,10 @@
       "entity_type": "function",
       "description": "函数返回可执行模块中指定函数的地址。",
       "syntax": "FARPROC EngFindImageProcAddress(\n  HMODULE hModule,\n  LPCSTR lpProcName\n);",
-      "return_value": "返回函数的地址；如果失败则返回 NULL。",
+      "return_value": {
+        "type": "FARPROC",
+        "description": "返回函数的地址；如果失败则返回 NULL。"
+      },
       "remarks": "驱动程序之前必须通过调用 EngLoadImage 将映像加载到内核模式。由 lpProcName 标识的函数必须由加载的模块导出，这通过模块的 .DEF 文件中的 EXPORTS 键实现。在 Windows NT 4.0 SP3 之前的版本上，驱动程序无法将 hModule 设置为 NULL 调用此函数，需执行版本检查。",
       "header": "winddi.h",
       "deprecated": false,
@@ -2349,11 +2592,13 @@
         {
           "name": "h",
           "direction": "in",
-          "description": "包含资源的模块的句柄。 此句柄是从 EngLoadModule 获取的。[in] iName 表示要查找的资源的名称的整数标识符。[in] iType 表示要查找的资源类型的整数标识符。[out] pulSize 指向 ULONG 的指针，其中返回资源的大小（以字节为单位）。"
+          "description": "包含资源的模块的句柄。 此句柄是从 EngLoadModule 获取的。[in] iName 表示要查找的资源的名称的整数标识符。[in] iType 表示要查找的资源类型的整数标识符。[out] pulSize 指向 ULONG 的指针，其中返回资源的大小（以字节为单位）。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "返回值是指向指定资源地址的指针。 如果发生错误，函数将返回 NULL 。"
+        "description": "返回值是指向指定资源地址的指针。 如果发生错误，函数将返回 NULL 。",
+        "type": "ENGAPI PVOID"
       },
       "remarks": "成功定位的资源的大小以 pulSize 形式返回。",
       "header": "winddi.h",
@@ -2374,11 +2619,13 @@
         {
           "name": "FastCheckSum",
           "direction": "in",
-          "description": "指定字体的校验和。[in] ulSize 指定要分配的存储字节数。"
+          "description": "指定字体的校验和。[in] ulSize 指定要分配的存储字节数。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "成功后，此函数返回字体数据缓存的地址。 否则，它将返回 NULL。"
+        "description": "成功后，此函数返回字体数据缓存的地址。 否则，它将返回 NULL。",
+        "type": "ENGAPI PVOID"
       },
       "remarks": "当字体驱动程序调用此函数时，字体引擎会分配内存，字体驱动程序在其中存储字体数据。 首次加载字体文件时，字体引擎调用字体驱动程序的 DrvLoadFontFile 入口点。 正是在此调用中，字体驱动程序会收到 FastCheckSum 的值，随后在调用此函数时会使用该值。",
       "header": "winddi.h",
@@ -2400,7 +2647,8 @@
         {
           "name": "ulFastCheckSum",
           "direction": "in",
-          "description": "指定字体的校验和。[in] iFaultMode 指定发生的错误的类型。 此参数可能是以下值之一： 值"
+          "description": "指定字体的校验和。[in] iFaultMode 指定发生的错误的类型。 此参数可能是以下值之一： 值",
+          "type": "ULONG"
         }
       ],
       "header": "winddi.h",
@@ -2408,7 +2656,10 @@
       "cross_references": [],
       "confidence": 0.8,
       "_source_line": 189,
-      "return_value": "VOID"
+      "return_value": {
+        "type": "ENGAPI VOID",
+        "description": "VOID"
+      }
     },
     {
       "id": "windows::EngFntCacheLookUp",
@@ -2420,11 +2671,13 @@
         {
           "name": "FastCheckSum",
           "direction": "in",
-          "description": "指定字体的校验和。[out] pulSize 指向接收数据大小（以字节为单位）的内存位置的指针。"
+          "description": "指定字体的校验和。[out] pulSize 指向接收数据大小（以字节为单位）的内存位置的指针。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "成功后，此函数返回指向缓存数据的指针。 否则，它将返回 NULL。"
+        "description": "成功后，此函数返回指向缓存数据的指针。 否则，它将返回 NULL。",
+        "type": "ENGAPI PVOID"
       },
       "remarks": "首次加载字体文件时，字体引擎调用字体驱动程序的 DrvLoadFontFile 入口点。 正是在此调用中，字体驱动程序会收到 FastCheckSum 的值，随后在调用此函数时会使用该值。",
       "header": "winddi.h",
@@ -2446,7 +2699,8 @@
         {
           "name": "p",
           "direction": "in",
-          "description": "指向正在解除分配的内存块的指针。"
+          "description": "指向正在解除分配的内存块的指针。",
+          "type": "PVOID"
         }
       ],
       "return_value": {
@@ -2477,11 +2731,13 @@
         {
           "name": "h",
           "direction": "in",
-          "description": "要释放的内存映射文件的句柄。 此句柄是从 EngLoadModule 或 EngLoadModuleForWrite 获取的。"
+          "description": "要释放的内存映射文件的句柄。 此句柄是从 EngLoadModule 或 EngLoadModuleForWrite 获取的。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2506,7 +2762,8 @@
         {
           "name": "psl",
           "direction": "in",
-          "description": "指向 DD_SURFACE_LOCAL 结构的指针，该结构表示与内存关联的 DirectDraw 图面。[in] p 指向正在解除分配的用户内存块的指针。"
+          "description": "指向 DD_SURFACE_LOCAL 结构的指针，该结构表示与内存关联的 DirectDraw 图面。[in] p 指向正在解除分配的用户内存块的指针。",
+          "type": "PSL"
         }
       ],
       "return_value": {
@@ -2535,7 +2792,8 @@
         {
           "name": "p",
           "direction": "in",
-          "description": "指向正在解除分配的用户内存块的指针。"
+          "description": "指向正在解除分配的用户内存块的指针。",
+          "type": "PVOID"
         }
       ],
       "return_value": {
@@ -2568,11 +2826,13 @@
         {
           "name": "OemCodePage",
           "direction": "out",
-          "description": "指向接收系统默认 OEM 代码页的 USHORT 的指针。[out] AnsiCodePage 指向接收系统默认 ANSI 代码页的 USHORT 的指针。"
+          "description": "指向接收系统默认 OEM 代码页的 USHORT 的指针。[out] AnsiCodePage 指向接收系统默认 ANSI 代码页的 USHORT 的指针。",
+          "type": "PUSHORT"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2597,7 +2857,11 @@
         "EngGetCurrentThreadId"
       ],
       "confidence": 0.7,
-      "_source_line": 198
+      "_source_line": 198,
+      "return_value": {
+        "type": "ENGAPI HANDLE",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngGetCurrentThreadId",
@@ -2623,7 +2887,8 @@
         {
           "name": "hdev",
           "direction": "in",
-          "description": "设备的句柄。 这是驱动程序作为 DrvCompletePDEV的 hdev 参数接收的 GDI 句柄。"
+          "description": "设备的句柄。 这是驱动程序作为 DrvCompletePDEV的 hdev 参数接收的 GDI 句柄。",
+          "type": "HDEV"
         }
       ],
       "requirements": {
@@ -2637,7 +2902,11 @@
         "Win32"
       ],
       "confidence": 0.8,
-      "_source_line": 200
+      "_source_line": 200,
+      "return_value": {
+        "type": "ENGAPI LPWSTR",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngGetFileChangeTime",
@@ -2649,11 +2918,13 @@
         {
           "name": "h",
           "direction": "in",
-          "description": "要查询其更改时间的文件的句柄。[out] pChangeTime 指向返回更改时间的LARGE_INTEGER的指针。"
+          "description": "要查询其更改时间的文件的句柄。[out] pChangeTime 指向返回更改时间的LARGE_INTEGER的指针。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果成功，EngGetFileChangeTime 返回 TRUE；否则返回 FALSE。"
+        "description": "如果成功，EngGetFileChangeTime 返回 TRUE；否则返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "返回的时间以系统时间格式指定。 绝对系统时间是自 1601 年初以来的 100 纳秒间隔数。",
       "requirements": {
@@ -2680,11 +2951,13 @@
         {
           "name": "h",
           "direction": "in",
-          "description": "字体文件的句柄。[out] pDest 指向缓冲区的指针，该缓冲区将包含包含字体文件的目录的完全限定路径。 缓冲区最多可以包含MAX_PATH + 1 个字符，包括终止 null 字符。 常量MAX_PATH在 windef.h 中定义。"
+          "description": "字体文件的句柄。[out] pDest 指向缓冲区的指针，该缓冲区将包含包含字体文件的目录的完全限定路径。 缓冲区最多可以包含MAX_PATH + 1 个字符，包括终止 null 字符。 常量MAX_PATH在 windef.h 中定义。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果 EngGetFilePath 成功获取字体文件的文件路径，则返回 TRUE。 否则， EngGetFilePath 返回 FALSE。"
+        "description": "如果 EngGetFilePath 成功获取字体文件的文件路径，则返回 TRUE。 否则， EngGetFilePath 返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2706,16 +2979,19 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "要为其指定窗体的打印机的句柄。[in] pFormName 指向指定窗体名称的字符串的指针。[in] Level 指定 pForm 指向的窗体结构的版本。 此值必须为 1，表示表单信息将在FORM_INFO_1结构中返回。"
+          "description": "要为其指定窗体的打印机的句柄。[in] pFormName 指向指定窗体名称的字符串的指针。[in] Level 指定 pForm 指向的窗体结构的版本。 此值必须为 1，表示表单信息将在FORM_INFO_1结构中返回。",
+          "type": "HANDLE"
         },
         {
           "name": "pForm",
           "direction": "in, optional",
-          "description": "指向接收初始化FORM_INFO_1结构的字节数组的指针。[in] cbBuf 指定 pForm 的大小（以字节为单位）。[out] pcbNeeded 指向一个值的指针，该值指定在函数成功的情况下复制到 pForm 指向的缓冲区中的字节 数。 如果 cbBuf 太小，该值是执行复制所需的字节数。"
+          "description": "指向接收初始化FORM_INFO_1结构的字节数组的指针。[in] cbBuf 指定 pForm 的大小（以字节为单位）。[out] pcbNeeded 指向一个值的指针，该值指定在函数成功的情况下复制到 pForm 指向的缓冲区中的字节 数。 如果 cbBuf 太小，该值是执行复制所需的字节数。",
+          "type": "optional] LPBYTE"
         }
       ],
       "return_value": {
-        "description": "如果成功将窗体结构复制到 pForm 中，则 EngGetForm 返回 TRUE。 否则，它会记录错 误消息并返回 FALSE。 若要获取错误信息，请调用 EngGetLastError。"
+        "description": "如果成功将窗体结构复制到 pForm 中，则 EngGetForm 返回 TRUE。 否则，它会记录错 误消息并返回 FALSE。 若要获取错误信息，请调用 EngGetLastError。",
+        "type": "ENGAPI BOOL"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -2736,7 +3012,11 @@
         "EngGetPrinter"
       ],
       "confidence": 0.6,
-      "_source_line": 206
+      "_source_line": 206,
+      "return_value": {
+        "type": "ENGAPI ULONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngGetPrinter",
@@ -2748,12 +3028,14 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "应为其检索数据的打印机的句柄。 这是作为 DrvEnablePDEV 的 hDriver 参数传递的句柄。"
+          "description": "应为其检索数据的打印机的句柄。 这是作为 DrvEnablePDEV 的 hDriver 参数传递的句柄。",
+          "type": "HANDLE"
         },
         {
           "name": "dwLevel",
           "direction": "in",
-          "description": "指定 pPrinter 指向的结构的版本。 此参数可能具有以下任何值： 值 1 2 3 4 5 通过 pPrinter 返回的结构"
+          "description": "指定 pPrinter 指向的结构的版本。 此参数可能具有以下任何值： 值 1 2 3 4 5 通过 pPrinter 返回的结构",
+          "type": "DWORD"
         }
       ],
       "header": "winddi.h",
@@ -2762,7 +3044,11 @@
         "EngGetPrinterData"
       ],
       "confidence": 0.7,
-      "_source_line": 207
+      "_source_line": 207,
+      "return_value": {
+        "type": "ENGAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngGetPrinterData",
@@ -2774,16 +3060,19 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "应为其检索配置数据的打印机的句柄。 这是作为 DrvEnablePDEV 的 hDriver 参数传递的句柄。"
+          "description": "应为其检索配置数据的打印机的句柄。 这是作为 DrvEnablePDEV 的 hDriver 参数传递的句柄。",
+          "type": "HANDLE"
         },
         {
           "name": "pValueName",
           "direction": "in",
-          "description": "指向以 null 结尾的字符串的指针，该字符串标识要检索的数据。[out, optional] pType 指向接收 EngSetPrinterData 存储的数据类型的变量的指针。 此参数可以为 NULL。[out, optional] pData 指向写入配置数据的字节数组的指针。[in] nSize 指定 pData 的大小（以字节为单位）。[out] pcbNeeded 指向内存位置的指针，该位置接收复制到 lpbData （如果函数成功）的字节数。 如果 nSizef 太小，此参数将接收所需的字节数。"
+          "description": "指向以 null 结尾的字符串的指针，该字符串标识要检索的数据。[out, optional] pType 指向接收 EngSetPrinterData 存储的数据类型的变量的指针。 此参数可以为 NULL。[out, optional] pData 指向写入配置数据的字节数组的指针。[in] nSize 指定 pData 的大小（以字节为单位）。[out] pcbNeeded 指向内存位置的指针，该位置接收复制到 lpbData （如果函数成功）的字节数。 如果 nSizef 太小，此参数将接收所需的字节数。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，返回 ERROR_SUCCESS。如果函数失败，返回错误代码。"
+        "description": "如果函数成功，返回 ERROR_SUCCESS。如果函数失败，返回错误代码。",
+        "type": "ENGAPI DWORD"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -2803,7 +3092,8 @@
         {
           "name": "hdev",
           "direction": "in",
-          "description": "设备的句柄。 这是驱动程序作为 DrvCompletePDEV的 hdev 参数接收的 GDI 句柄。"
+          "description": "设备的句柄。 这是驱动程序作为 DrvCompletePDEV的 hdev 参数接收的 GDI 句柄。",
+          "type": "HDEV"
         }
       ],
       "requirements": {
@@ -2817,7 +3107,11 @@
         "Win32"
       ],
       "confidence": 0.8,
-      "_source_line": 209
+      "_source_line": 209,
+      "return_value": {
+        "type": "LPWSTR",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngGetPrinterDriver",
@@ -2829,16 +3123,19 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "应为其检索驱动程序数据的打印机的句柄。[in, optional] pEnvironment 指向以 null 结尾的字符串的指针，该字符串指定环境。 例如，“Windows NT x86”指定在 Intel 处理器上运行的基于 NT 的操作系统。 如果 pEnvironment 为 NULL，则使用调用驱 动程序和客户端计算机的当前环境。[in] dwLevel 指定 lpbDrvInfo 指向的结构的版本。 此参数必须是以下值之一： 值 1 2 3 含义 GDI 在 lpbDrvInfo 指向的缓冲区中写入DRIVER_INFO_1结构。 GDI 在 lpbDrvInfo 指向的缓冲区中写入DRIVER_INFO_2结构。 GDI 在 lpbDrvInfo 指向的缓冲区中写入DRIVER_INFO_3结构。"
+          "description": "应为其检索驱动程序数据的打印机的句柄。[in, optional] pEnvironment 指向以 null 结尾的字符串的指针，该字符串指定环境。 例如，“Windows NT x86”指定在 Intel 处理器上运行的基于 NT 的操作系统。 如果 pEnvironment 为 NULL，则使用调用驱 动程序和客户端计算机的当前环境。[in] dwLevel 指定 lpbDrvInfo 指向的结构的版本。 此参数必须是以下值之一： 值 1 2 3 含义 GDI 在 lpbDrvInfo 指向的缓冲区中写入DRIVER_INFO_1结构。 GDI 在 lpbDrvInfo 指向的缓冲区中写入DRIVER_INFO_2结构。 GDI 在 lpbDrvInfo 指向的缓冲区中写入DRIVER_INFO_3结构。",
+          "type": "HANDLE"
         },
         {
           "name": "lpbDrvInfo",
           "direction": "out, optional",
-          "description": "指向 GDI 在其中放置所请求的 DRIVER_INFO_X 结构的缓冲区的指针。[in] cbBuf 指定 lpbDrvInfo 指向的缓冲区的大小（以字节为单位）。[out] pcbNeeded 指向内存位置的指针，其中 GDI 将复制到 lpbDrvInfo 指向的缓冲区中的字节数（如果 cbBuf 太小）放置到该位置。"
+          "description": "指向 GDI 在其中放置所请求的 DRIVER_INFO_X 结构的缓冲区的指针。[in] cbBuf 指定 lpbDrvInfo 指向的缓冲区的大小（以字节为单位）。[out] pcbNeeded 指向内存位置的指针，其中 GDI 将复制到 lpbDrvInfo 指向的缓冲区中的字节数（如果 cbBuf 太小）放置到该位置。",
+          "type": "optional] BYTE"
         }
       ],
       "return_value": {
-        "description": "成功后，EngGetPrinterDriver 返回 TRUE ;否则，它将报告错误并返回 FALSE。"
+        "description": "成功后，EngGetPrinterDriver 返回 TRUE ;否则，它将报告错误并返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "打印机驱动程序 DLL 可以处理多个数据文件，以支持不同的打印机型号。 打印机驱动程序调用 EngGetPrinterDriver 来确定要使用的数据文件。 例如，Unidrv 呈现器调用此函数来确定 GPD 文件的名称，postscript 驱动程序调用此函数来确定 PPD 文件的名称。 DRIVER_INFO_2和DRIVER_INFO_3结构包含指定数据文件位置的完整路径和文件名。 然后，打印机驱动程序可以使用返回的路径和文件名加载数据文件，方法是使用路径和文件名作为单个参数调用 EngLoadModule 。 DRIVER_INFO_X 结构在 Microsoft Windows SDK 文档中介绍。",
       "header": "winddi.h",
@@ -2865,7 +3162,10 @@
       ],
       "confidence": 0.6,
       "_source_line": 211,
-      "return_value": "Windows 2000 及更高版本中始终返回 NULL。",
+      "return_value": {
+        "type": "ENGAPI HANDLE",
+        "description": "Windows 2000 及更高版本中始终返回 NULL。"
+      },
       "remarks": "该函数在 Windows 2000 及更高版本中已废弃，始终返回 NULL。"
     },
     {
@@ -2878,11 +3178,13 @@
         {
           "name": "hdev",
           "direction": "in",
-          "description": "设备的句柄。 这是驱动程序作为 DrvCompletePDEV的 hdev 参数接收的 GDI 句柄。[out, optional] pType1Buffer 指向存储 Type 1 字体列表的 TYPE1_FONT 结构的数组的指针。 此参数可以为 NULL。[in] cjType1Buffer 指定 pType1Buffer 的大小（以字节为单位）。[out] pulLocalFonts 指向接收本地系统上类型 1 字体数量的内存位置的指针。[out] pulRemoteFonts 指向接收远程系统上类型 1 字体数的内存位置的指针。[out] pLastModified 指向内存位置的指针，该位置接收对应于上次从本地系统添加或删除 Type 1 字体的时间对应的时间戳。"
+          "description": "设备的句柄。 这是驱动程序作为 DrvCompletePDEV的 hdev 参数接收的 GDI 句柄。[out, optional] pType1Buffer 指向存储 Type 1 字体列表的 TYPE1_FONT 结构的数组的指针。 此参数可以为 NULL。[in] cjType1Buffer 指定 pType1Buffer 的大小（以字节为单位）。[out] pulLocalFonts 指向接收本地系统上类型 1 字体数量的内存位置的指针。[out] pulRemoteFonts 指向接收远程系统上类型 1 字体数的内存位置的指针。[out] pLastModified 指向内存位置的指针，该位置接收对应于上次从本地系统添加或删除 Type 1 字体的时间对应的时间戳。",
+          "type": "HDEV"
         }
       ],
       "return_value": {
-        "description": "如果成功，EngGetType1FontList 返回 TRUE;否则，它将返回 FALSE。"
+        "description": "如果成功，EngGetType1FontList 返回 TRUE;否则，它将返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -2900,7 +3202,8 @@
       "description": "GDI 不会对 8bpp 目标图面调用 DrvGradientFill。用于计算基元每个像素的颜色值的公式取决于 ulMode。所有三个颜色通道累计的总误差不得超过 8。有关允许的错误的详细信息，请参阅显示驱动程序中的特殊效果。驱动程序应忽略顶点的 alpha 值，使支持 alpha 混合的图面的 alpha 通道保持不变。",
       "syntax": "ENGAPI BOOL EngGradientFill(\n  SURFOBJ   *psoDest,\n  CLIPOBJ   *pco,\n  XLATEOBJ  *pxlo,\n  TRIVERTEX *pVertex,\n  ULONG     nVertex,\n  PVOID     pMesh,\n  ULONG     nMesh,\n  RECTL     *prclExtents,\n  POINTL    *pptlDitherOrg,\n  ULONG     ulMode\n);",
       "return_value": {
-        "description": "成功后，EngGradientFill 返回 TRUE 。 否则，它将报告错误并返回 FALSE。"
+        "description": "成功后，EngGradientFill 返回 TRUE 。 否则，它将报告错误并返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "If driver has hooked DrvGradientFill but doesn't support certain operations, it should call EngGradientFill. Color calculation formula depends on ulMode. GDI ignores vertex alpha values to preserve alpha channels.",
       "header": "winddi.h",
@@ -2923,7 +3226,11 @@
         "EngInitializeSafeSemaphore"
       ],
       "confidence": 0.6,
-      "_source_line": 214
+      "_source_line": 214,
+      "return_value": {
+        "type": "ENGAPI ULONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngInitializeSafeSemaphore",
@@ -2935,11 +3242,13 @@
         {
           "name": "pssem",
           "direction": "out",
-          "description": "指向要初始化的驱动程序分配 的 ENGSAFESEMAPHORE 结构的指针。"
+          "description": "指向要初始化的驱动程序分配 的 ENGSAFESEMAPHORE 结构的指针。",
+          "type": "ENGSAFESEMAPHORE"
         }
       ],
       "return_value": {
-        "description": "EngInitializeSafeSemaphore 在成功后返回 TRUE 。 否则，它将返回 FALSE。"
+        "description": "EngInitializeSafeSemaphore 在成功后返回 TRUE 。 否则，它将返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "header": "Winddi.h",
       "deprecated": false,
@@ -2961,11 +3270,13 @@
         {
           "name": "hsem",
           "direction": "in",
-          "description": "信号灯的句柄。"
+          "description": "信号灯的句柄。",
+          "type": "HSEMAPHORE"
         }
       ],
       "return_value": {
-        "description": "如果任何线程持有指定的信号灯，则 EngIsSemaphoreOwned 返回 TRUE;如果没有任何 线程持有指定信号灯，则返回 FALSE。"
+        "description": "如果任何线程持有指定的信号灯，则 EngIsSemaphoreOwned 返回 TRUE;如果没有任何 线程持有指定信号灯，则返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2991,11 +3302,13 @@
         {
           "name": "hsem",
           "direction": "in",
-          "description": "信号灯的句柄。"
+          "description": "信号灯的句柄。",
+          "type": "HSEMAPHORE"
         }
       ],
       "return_value": {
-        "description": "如果当前正在执行的线程保留指定的信号灯，则 EngIsSemaphoreOwnedByCurrentThread 返回 TRUE;否则返回 FALSE。"
+        "description": "如果当前正在执行的线程保留指定的信号灯，则 EngIsSemaphoreOwnedByCurrentThread 返回 TRUE;否则返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3017,7 +3330,8 @@
       "description": "EngLineTo 函数在指定的图面上绘制一条线。此函数由驱动程序调用，用于在设备图面上绘制线条。",
       "syntax": "ENGAPI BOOL EngLineTo(\n  SURFOBJ *pso,\n  CLIPOBJ *pco,\n  BRUSHOBJ *pbo,\n  LONG x1,\n  LONG y1,\n  LONG x2,\n  LONG y2,\n  RECTL *prclBounds,\n  MIX mix\n);",
       "return_value": {
-        "description": "Returns TRUE if successful, FALSE otherwise."
+        "description": "Returns TRUE if successful, FALSE otherwise.",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "Drivers that have hooked DrvLineTo can call EngLineTo when the rendering surface is a device-independent bitmap (DIB).",
       "requirements": {
@@ -3069,11 +3383,13 @@
         {
           "name": "pwsz",
           "direction": "in",
-          "description": "指向以 null 结尾的字符串的指针，该字符串包含要加载的数据文件的名称。"
+          "description": "指向以 null 结尾的字符串的指针，该字符串包含要加载的数据文件的名称。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果 EngLoadModule 成功，则返回值是已加载的模块的句柄。 否则，返回值为 NULL。"
+        "description": "如果 EngLoadModule 成功，则返回值是已加载的模块的句柄。 否则，返回值为 NULL。",
+        "type": "ENGAPI HANDLE"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -3094,11 +3410,13 @@
         {
           "name": "pwsz",
           "direction": "in",
-          "description": "指向以 null 结尾的字符串的指针，该字符串包含要加载的文件的名称。[in] cjSizeOfModule 指定要加载的模块的大小（以字节为单位）。"
+          "description": "指向以 null 结尾的字符串的指针，该字符串包含要加载的文件的名称。[in] cjSizeOfModule 指定要加载的模块的大小（以字节为单位）。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果 EngLoadModuleForWrite 成功，则返回值是已加载模块的句柄。 否则，返回 NULL。"
+        "description": "如果 EngLoadModuleForWrite 成功，则返回值是已加载模块的句柄。 否则，返回 NULL。",
+        "type": "ENGAPI HANDLE"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -3119,7 +3437,8 @@
         {
           "name": "hSurface",
           "direction": "in",
-          "description": "要锁定的图面的句柄。"
+          "description": "要锁定的图面的句柄。",
+          "type": "HANDLE"
         }
       ],
       "header": "winddi.h",
@@ -3129,7 +3448,11 @@
         "DirectDraw"
       ],
       "confidence": 0.8,
-      "_source_line": 223
+      "_source_line": 223,
+      "return_value": {
+        "type": "ENGAPI PDD_SURFACE_LOCAL",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngLockDriverObj",
@@ -3138,7 +3461,8 @@
       "description": "函数在此对象上为调用线程创建独占锁。",
       "syntax": "ENGAPI DRIVEROBJ * EngLockDriverObj( HDRVOBJ hdo);",
       "return_value": {
-        "description": "如果函数成功，EngLockDriverObj 将返回 DRIVEROBJ 结构。 如果操作失败，则返回 NULL。"
+        "description": "如果函数成功，EngLockDriverObj 将返回 DRIVEROBJ 结构。 如果操作失败，则返回 NULL。",
+        "type": "ENGAPI DRIVEROBJ"
       },
       "remarks": "如果句柄无效、对象已被另一个线程锁定，或者如果调用进程不拥有句柄，则此函数将失败。",
       "requirements": {
@@ -3161,7 +3485,8 @@
       "description": "函数为给定图面创建用户对象。此函数允许驱动程序访问他们创建的图面。",
       "syntax": "ENGAPI SURFOBJ * EngLockSurface(HSURF hsurf);",
       "return_value": {
-        "description": "如果函数成功，EngLockSurface 将返回指向 SURFOBJ 结构的指针。 否则，此函数返回 NULL。"
+        "description": "如果函数成功，EngLockSurface 将返回指向 SURFOBJ 结构的指针。 否则，此函数返回 NULL。",
+        "type": "ENGAPI SURFOBJ"
       },
       "remarks": "此函数允许驱动程序访问他们创建的图面。 驱动程序负责在不再需要 Surface 时解锁图面。 图面应仅锁定非常短的时间。 使用 EngUnlockSurface 函数解锁图面。",
       "header": "winddi.h",
@@ -3191,7 +3516,11 @@
         "EngMapEvent"
       ],
       "confidence": 0.6,
-      "_source_line": 226
+      "_source_line": 226,
+      "return_value": {
+        "type": "ENGAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngMapEvent",
@@ -3203,7 +3532,8 @@
         {
           "name": "hDev",
           "direction": "in",
-          "description": "与事件关联的物理设备的句柄。 这是作为 hdev 参数传递给驱动程序的"
+          "description": "与事件关联的物理设备的句柄。 这是作为 hdev 参数传递给驱动程序的",
+          "type": "HDEV"
         }
       ],
       "remarks": "成功映射用户事件后，EngMapEvent 会自动将事件对象设置为信号状态，尝试满足尽可能多的等待，然后将事件对象重置为未信号状态。映射事件提供了一种机制，应用程序可以通过该机制等待内核模式图形操作完成。显示驱动程序或视频微型端口驱动程序在使用为其映射事件的资源时向应用程序发出信号，从而释放应用程序使用该资源。显示和微型端口驱动程序不能等待映射的事件，但可以设置或清除它们。驱动程序还可以通过在 EngMapEvent 返回的事件对象上调用 EngUnmapEvent 来执行自己的清理。",
@@ -3214,7 +3544,11 @@
         "EngUnmapEvent"
       ],
       "confidence": 0.7,
-      "_source_line": 227
+      "_source_line": 227,
+      "return_value": {
+        "type": "ENGAPI PEVENT",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngMapFile",
@@ -3226,11 +3560,13 @@
         {
           "name": "pwsz",
           "direction": "in",
-          "description": "指向以 null 结尾的字符串的指针，该字符串包含要映射的文件的完全限定名称。 完全限 定文件名字符串的一个示例是 L“\\？？\\c：\\test.dat”。[in] cjSize 指定要映射的文件的字节数。[out] piFile 指向接收映射文件的标识符的内存位置的指针，前提是映射成功。 如果映射不成功，内 存位置将收到值零。 当需要释放映射的文件时，此值应传递到 EngUnmapFile。"
+          "description": "指向以 null 结尾的字符串的指针，该字符串包含要映射的文件的完全限定名称。 完全限 定文件名字符串的一个示例是 L“\\？？\\c：\\test.dat”。[in] cjSize 指定要映射的文件的字节数。[out] piFile 指向接收映射文件的标识符的内存位置的指针，前提是映射成功。 如果映射不成功，内 存位置将收到值零。 当需要释放映射的文件时，此值应传递到 EngUnmapFile。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，EngMapFile 将返回指向文件的映射视图的指针。 否则，它将返回 NULL。"
+        "description": "如果成功，EngMapFile 将返回指向文件的映射视图的指针。 否则，它将返回 NULL。",
+        "type": "ENGAPI PVOID"
       },
       "remarks": "如果文件已存在，EngMapFile 将打开并映射它以供读/写。如果文件不存在，会创建并映射它以供读/写。",
       "header": "winddi.h",
@@ -3263,11 +3599,13 @@
         {
           "name": "h",
           "direction": "in",
-          "description": "要进行内存映射的文件的句柄。[in] pSize 指向接收内存映射文件的大小（以字节为单位）的内存位置的指针。"
+          "description": "要进行内存映射的文件的句柄。[in] pSize 指向接收内存映射文件的大小（以字节为单位）的内存位置的指针。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "Returns a pointer to the mapped view of the file identified by h. Returns NULL if the function fails."
+        "description": "Returns a pointer to the mapped view of the file identified by h. Returns NULL if the function fails.",
+        "type": "ENGAPI PVOID"
       },
       "remarks": "Driver writers should use EngLoadModule/EngMapModule to open and read files instead of direct file I/O operations.",
       "requirements": {
@@ -3293,7 +3631,8 @@
         {
           "name": "pso",
           "direction": "in",
-          "description": "调用方提供的指向 SURFOBJ 结构的指针。[in] pwszDocName 调用方提供的指向以 NULL 结尾的 Unicode 字符串的指针，该字符串指定要打印的文档的名称。"
+          "description": "调用方提供的指向 SURFOBJ 结构的指针。[in] pwszDocName 调用方提供的指向以 NULL 结尾的 Unicode 字符串的指针，该字符串指定要打印的文档的名称。",
+          "type": "SURFOBJ"
         },
         {
           "name": "dwJobId",
@@ -3302,7 +3641,8 @@
         }
       ],
       "return_value": {
-        "description": "如果操作成功，函数应返回 TRUE。否则，它应调用 Win32 SetLastError 函数来设置错误代码，然后返回 FALSE。"
+        "description": "如果操作成功，函数应返回 TRUE。否则，它应调用 Win32 SetLastError 函数来设置错误代码，然后返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "如果打印机图形 DLL 使用 GDI 托管图面，如果它无法通过调用足以容纳整个物理页面位图的 EngCreateBitmap) 创建表面 (，则必须调用 EngMarkBandingSurface。 应从打印机 图形 DLL 的 DrvEnableSurface 函数中调用 EngCreateBitmap 和 EngMarkBandingSurface。 为 hsurf 提供的句柄必须是 EngCreateBitmap 返回的位图句柄。 如果打印机图形 DLL 调用 EngMarkBandingSurface，则必须定义 DrvStartBanding 和 DrvNextBand 函数。",
       "header": "winddi.h",
@@ -3328,7 +3668,10 @@
       "cross_references": [],
       "confidence": 0.7,
       "_source_line": 236,
-      "return_value": "如果函数成功，返回值为 TRUE；否则返回 FALSE。"
+      "return_value": {
+        "type": "ENGAPI BOOL",
+        "description": "如果函数成功，返回值为 TRUE；否则返回 FALSE。"
+      }
     },
     {
       "id": "windows::EngMovePointer",
@@ -3340,11 +3683,13 @@
         {
           "name": "pso",
           "direction": "in",
-          "description": "指向 SURFOBJ 结构的指针，该结构描述要移动指针的显示设备图面。[in] x 在显示器上指定应放置指针的热点的 x 坐标。 负 x 值指示应从显示器中删除指针，因为绘图即将出现在其当前位置。 如果指针已从显 示中删除，并且 x 值为非否定值，则应还原指针。[in] y 指定显示器上的 y 坐标，指针的热点应位于该位置。[in] prcl 指向 RECTL 结构的指针，该结构定义一个区域，该区域绑定受指针在显示器上影响的所有像素。 驱动程序应传递其 DrvMovePointer 函数收到的 prcl 参数。 如果不首先从屏幕中删除指针，GDI 将不会在此矩形中绘制。 此参数可以为 NULL。"
+          "description": "指向 SURFOBJ 结构的指针，该结构描述要移动指针的显示设备图面。[in] x 在显示器上指定应放置指针的热点的 x 坐标。 负 x 值指示应从显示器中删除指针，因为绘图即将出现在其当前位置。 如果指针已从显 示中删除，并且 x 值为非否定值，则应还原指针。[in] y 指定显示器上的 y 坐标，指针的热点应位于该位置。[in] prcl 指向 RECTL 结构的指针，该结构定义一个区域，该区域绑定受指针在显示器上影响的所有像素。 驱动程序应传递其 DrvMovePointer 函数收到的 prcl 参数。 如果不首先从屏幕中删除指针，GDI 将不会在此矩形中绘制。 此参数可以为 NULL。",
+          "type": "SURFOBJ"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "remarks": "在显示驱动程序中绘制任何线程时，不得调用 EngMovePointer。",
       "header": "winddi.h",
@@ -3365,7 +3710,8 @@
         {
           "name": "a",
           "direction": "in",
-          "description": "指定 32 位带符号乘法。[in] b 指定 32 位带符号乘数。[in] c 指定 32 位有符号除数，b 的结果*将按该除数进行除法。"
+          "description": "指定 32 位带符号乘法。[in] b 指定 32 位带符号乘数。[in] c 指定 32 位有符号除数，b 的结果*将按该除数进行除法。",
+          "type": "int"
         }
       ],
       "remarks": "驱动程序不应将零除数传递给 EngMulDiv。",
@@ -3380,7 +3726,11 @@
         "EngMultiByteToUnicodeN"
       ],
       "confidence": 0.8,
-      "_source_line": 238
+      "_source_line": 238,
+      "return_value": {
+        "type": "int",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngMultiByteToUnicodeN",
@@ -3392,14 +3742,19 @@
         {
           "name": "UnicodeString",
           "direction": "out",
-          "description": "指向接收生成的 Unicode 字符串的缓冲区的指针。[in] MaxBytesInUnicodeString 提供要写入 UnicodeString 的最大字节数。如果此值太小，导致 UnicodeString 与"
+          "description": "指向接收生成的 Unicode 字符串的缓冲区的指针。[in] MaxBytesInUnicodeString 提供要写入 UnicodeString 的最大字节数。如果此值太小，导致 UnicodeString 与",
+          "type": "LPWSTR"
         }
       ],
       "header": "winddi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 239
+      "_source_line": 239,
+      "return_value": {
+        "type": "ENGAPI VOID",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngMultiByteToWideChar",
@@ -3411,11 +3766,13 @@
         {
           "name": "CodePage",
           "direction": "in",
-          "description": "指定用于执行转换的代码页。[out, optional] WideCharString 指向将转换的字符串复制到其中的缓冲区的指针。[in] BytesInWideCharString 指定 WideCharString 的大小（以字节为单位）。 如果 WideCharString 的大小不足以包 含转换， EngMultiByteToWideChar 将截断字符串，并且不会报告错误。[in, optional] MultiByteString 指向包含要转换的多字节字符串的缓冲区的指针。[in] BytesInMultiByteString 指定 MultiByteString 中的字节数。"
+          "description": "指定用于执行转换的代码页。[out, optional] WideCharString 指向将转换的字符串复制到其中的缓冲区的指针。[in] BytesInWideCharString 指定 WideCharString 的大小（以字节为单位）。 如果 WideCharString 的大小不足以包 含转换， EngMultiByteToWideChar 将截断字符串，并且不会报告错误。[in, optional] MultiByteString 指向包含要转换的多字节字符串的缓冲区的指针。[in] BytesInMultiByteString 指定 MultiByteString 中的字节数。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果成功， EngMultiByteToWideChar 函数将返回转换为宽字符形式的字节数。 否则， 函数将返回 -1。"
+        "description": "如果成功， EngMultiByteToWideChar 函数将返回转换为宽字符形式的字节数。 否则， 函数将返回 -1。",
+        "type": "ENGAPI INT"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -3430,7 +3787,8 @@
       "description": "函数会导致 GDI 绘制指定的区域。",
       "syntax": "ENGAPI BOOL EngPaint(\n    SURFOBJ *pso,\n    CLIPOBJ *pco,\n    BRUSHOBJ *pbo,\n    POINTL *pptlBrushOrg,\n    [in] MIX mix\n);",
       "return_value": {
-        "description": "如果函数成功，则返回值为 TRUE 。 否则，它为 FALSE，并记录错误代码。"
+        "description": "如果函数成功，则返回值为 TRUE 。 否则，它为 FALSE，并记录错误代码。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "矢量设备驱动程序可以在 EngCreatePath 和 PATHOBJ_Xxx 服务例程的帮助下实现此函数。混合模式定义传入模式应如何与设备图面上已有的数据混合。MIX 数据类型由打包到单个 ULONG 中的两个 ROP2 值组成。低序字节定义前台光栅操作；下一个字节定义背景光栅操作。有关光栅操作代码的详细信息，请参阅 Microsoft Windows SDK 文档。",
       "header": "winddi.h",
@@ -3449,7 +3807,8 @@
       "description": "执行从矩形到平行四边形的位块传输。平行四边形由指向三个点的数组定义。源矩形被视为几何矩形，其角点坐标为 (-0.5, -0.5)。源矩形左上角映射到第一个点 A，右上角映射到第二个点 B，左下角映射到第三个点 C。右下角通过向量计算 D = B + C - A 确定。拉伸位块传输可表示为平行四边形位块传输，但目标坐标需进行固定点转换。",
       "syntax": "ENGAPI BOOL EngPlgBlt(\n  SURFOBJ         *psoTrg,\n  SURFOBJ         *psoSrc,\n  SURFOBJ         *psoMsk,\n  CLIPOBJ         *pco,\n  XLATEOBJ        *pxlo,\n  COLORADJUSTMENT *pca,\n  POINTL          *pptlBrushOrg,\n  POINTFIX        *pptfx,\n  RECTL           *prcl,\n  POINTL          *pptl,\n  ULONG           iMode\n);",
       "return_value": {
-        "description": "成功时返回 TRUE，失败时返回 FALSE。调用 GetLastError 获取错误代码。"
+        "description": "成功时返回 TRUE，失败时返回 FALSE。调用 GetLastError 获取错误代码。",
+        "type": "ENGAPI BOOL"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -3469,7 +3828,8 @@
         {
           "name": "Address",
           "direction": "in",
-          "description": "指向要探测的结构的指针。[in] Length 指定要探测的结构的长度（以字节为单位）。[in] Alignment 指定结构所需的对齐方式，以基数据类型中的字节数表示。 例如，对齐方式为 1 表示 Address 在 BYTE 边界上对齐，2 指定 WORD 边界上的对齐方式，4 表示在 DWORD 边界 上对齐。返回值无"
+          "description": "指向要探测的结构的指针。[in] Length 指定要探测的结构的长度（以字节为单位）。[in] Alignment 指定结构所需的对齐方式，以基数据类型中的字节数表示。 例如，对齐方式为 1 表示 Address 在 BYTE 边界上对齐，2 指定 WORD 边界上的对齐方式，4 表示在 DWORD 边界 上对齐。返回值无",
+          "type": "PVOID"
         }
       ],
       "remarks": "如果Address指向的结构未正确对齐或不可读，EngProbeForRead会导致引发异常。",
@@ -3480,7 +3840,11 @@
         "EngProbeForReadAndWrite"
       ],
       "confidence": 0.7,
-      "_source_line": 244
+      "_source_line": 244,
+      "return_value": {
+        "type": "ENGAPI VOID",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngProbeForReadAndWrite",
@@ -3492,11 +3856,13 @@
         {
           "name": "Address",
           "direction": "in, out",
-          "description": "指向要探测的结构的指针。[in] Length 指定要探测的结构的长度（以字节为单位）。[in] Alignment 指定结构的所需对齐方式。 此参数表示为基数据类型中的字节数。 例如，对齐方式为 1 表示 地址 在 BYTE 边界上对齐，2 指定 WORD 边界上的对齐方式，4 指定 DWORD 边界上的对齐方式。"
+          "description": "指向要探测的结构的指针。[in] Length 指定要探测的结构的长度（以字节为单位）。[in] Alignment 指定结构的所需对齐方式。 此参数表示为基数据类型中的字节数。 例如，对齐方式为 1 表示 地址 在 BYTE 边界上对齐，2 指定 WORD 边界上的对齐方式，4 指定 DWORD 边界上的对齐方式。",
+          "type": "out] PVOID"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "remarks": "如果 Address 指向的结构未从对齐字节边界开始，或无法进行读取和写入访问，EngProbeForReadAndWrite 将引发异常。",
       "header": "winddi.h",
@@ -3518,7 +3884,8 @@
         {
           "name": "hdev",
           "direction": "in",
-          "description": "设备的句柄。 此参数是驱动程序的 DrvCompletePDEV 函数接收的 GDI 句柄。[in] devAttr 指定 GDI 应为其返回信息的属性。 此参数必须是QDA_ACCELERATION_LEVEL，用于查询 GDI 当前允许的驱动程序加速。[in] pvIn 预留给系统使用。 GDI 当前忽略此参数。[in] ulInSize 预留给系统使用。 GDI 当前忽略此参数。[out] pvOut 指向 ulOutSize 字节缓冲区的指针，GDI 在其中写入有关要查询的属性的信息。"
+          "description": "设备的句柄。 此参数是驱动程序的 DrvCompletePDEV 函数接收的 GDI 句柄。[in] devAttr 指定 GDI 应为其返回信息的属性。 此参数必须是QDA_ACCELERATION_LEVEL，用于查询 GDI 当前允许的驱动程序加速。[in] pvIn 预留给系统使用。 GDI 当前忽略此参数。[in] ulInSize 预留给系统使用。 GDI 当前忽略此参数。[out] pvOut 指向 ulOutSize 字节缓冲区的指针，GDI 在其中写入有关要查询的属性的信息。",
+          "type": "HDEV"
         }
       ],
       "header": "winddi.h",
@@ -3529,7 +3896,8 @@
       "confidence": 0.7,
       "_source_line": 246,
       "return_value": {
-        "description": "EngQueryDeviceAttribute 在成功时返回 TRUE ;否则，它将返回 FALSE。"
+        "description": "EngQueryDeviceAttribute 在成功时返回 TRUE ;否则，它将返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "可以通过 控制面板 中的显示程序动态设置视频卡的加速级别。 EngQueryDeviceAttribute 允许驱动程序确定当前设置的加速级别。"
     },
@@ -3543,7 +3911,8 @@
         {
           "name": "pwsz",
           "direction": "in",
-          "description": "指向以 null 结尾的字符串的指针，该字符串包含要查询的文件的名称。"
+          "description": "指向以 null 结尾的字符串的指针，该字符串包含要查询的文件的名称。",
+          "type": "LPWSTR"
         }
       ],
       "remarks": "返回的时间是协调世界时（UTC）时间，以系统时间格式指定。绝对系统时间是自 1601 年 1 月 1 日 00:00:00 UTC 以来的 100 纳秒间隔数。",
@@ -3558,7 +3927,10 @@
       "cross_references": [],
       "confidence": 0.7,
       "_source_line": 248,
-      "return_value": "成功时返回 LARGE_INTEGER 结构表示的文件时间戳（100纳秒间隔数，自1601年1月1日起），失败时返回 NULL。"
+      "return_value": {
+        "type": "ENGAPI LARGE_INTEGER",
+        "description": "成功时返回 LARGE_INTEGER 结构表示的文件时间戳（100纳秒间隔数，自1601年1月1日起），失败时返回 NULL。"
+      }
     },
     {
       "id": "windows::EngQueryLocalTime",
@@ -3574,7 +3946,8 @@
         }
       ],
       "return_value": {
-        "description": "成功时返回 TRUE，失败时返回 FALSE。"
+        "description": "成功时返回 TRUE，失败时返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "驱动程序负责分配ENG_TIME_FIELDS结构并将其指针传递给 EngQueryLocalTime。",
       "requirements": {
@@ -3598,7 +3971,8 @@
       "description": "适用于需要知道主显示器颜色格式的镜像驱动程序。镜像驱动程序通常在其 DrvEnablePDEV 例程中调用此函数。",
       "syntax": "ENGAPI ULONG EngQueryPalette(\n    HPALETTE hpal,\n    ULONG *piMode,\n    ULONG cColors,\n    ULONG *pulColors\n);",
       "return_value": {
-        "description": "当cColors为零时，返回所需的调色板条目数；当cColors为非零值时，返回实际写入的条目数。"
+        "description": "当cColors为零时，返回所需的调色板条目数；当cColors为非零值时，返回实际写入的条目数。",
+        "type": "ENGAPI ULONG"
       },
       "remarks": "如果调色板模式PAL_BITFIELDS、PAL_RGB或PAL_BGR，并且 pulColors 指向的缓冲区足够大，则 pulColors 指向表示调色板的红色、绿色和蓝色蒙板的三个 ULONG 掩码。如果调色板模式PAL_INDEXED并且 pulColors 指向的缓冲区足够大，则 pulColors 包含表示调色板颜色的所有 24 位 RGB 值。驱动程序必须测试是否存在GCAPS_PALMANAGED标志，以确定颜色是表示固定调色板还是可更改调色板。",
       "header": "winddi.h",
@@ -3619,11 +3993,13 @@
         {
           "name": "pPerformanceCount",
           "direction": "out",
-          "description": "指向接收性能计数器值的位置（以赫为单位）的指针。"
+          "description": "指向接收性能计数器值的位置（以赫为单位）的指针。",
+          "type": "LONGLONG"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3645,11 +4021,13 @@
         {
           "name": "pFrequency",
           "direction": "out",
-          "description": "指向接收性能计数器频率的位置的指针。"
+          "description": "指向接收性能计数器频率的位置的指针。",
+          "type": "LONGLONG"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "remarks": "计时器的分辨率为 1/x，其中 x 是在 pFrequency 指向的位置返回的值。例如，如果 pFrequency 中返回的值为 200 万，则每个刻度为 1/200 万秒。计数的每 1/x 百万分之一递增对应于一秒的已用时间。驱动程序应谨慎调用此例程。频繁调用 EngQueryPerformanceFrequency 可能会降低调用驱动程序和整个系统的 I/O 性能。",
       "header": "winddi.h",
@@ -3670,7 +4048,8 @@
         {
           "name": "CapNum",
           "direction": "in",
-          "description": "指定要查询的功能。 此参数可能是以下值之一： 值"
+          "description": "指定要查询的功能。 此参数可能是以下值之一： 值",
+          "type": "ENG_SYSTEM_ATTRIBUTE"
         }
       ],
       "header": "winddi.h",
@@ -3679,7 +4058,11 @@
         "EngReadStateEvent"
       ],
       "confidence": 0.7,
-      "_source_line": 254
+      "_source_line": 254,
+      "return_value": {
+        "type": "ENGAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngReadStateEvent",
@@ -3691,11 +4074,13 @@
         {
           "name": "pEvent",
           "direction": "in",
-          "description": "指向先前调用 EngCreateEvent 或 EngMapEvent 返回的事件对象的指针。"
+          "description": "指向先前调用 EngCreateEvent 或 EngMapEvent 返回的事件对象的指针。",
+          "type": "PEVENT"
         }
       ],
       "return_value": {
-        "description": "如果事件对象当前设置为信号状态，则返回非零值；如果设置为非信号状态，则返回零。"
+        "description": "如果事件对象当前设置为信号状态，则返回非零值；如果设置为非信号状态，则返回零。",
+        "type": "ENGAPI LONG"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -3715,11 +4100,13 @@
         {
           "name": "hsem",
           "direction": "in",
-          "description": "要释放的信号灯的句柄。"
+          "description": "要释放的信号灯的句柄。",
+          "type": "HSEMAPHORE"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "requirements": {
         "target_platform": "Windows"
@@ -3740,11 +4127,13 @@
         {
           "name": "pBuffer",
           "direction": "in",
-          "description": "指向由 EngSaveFloatingPointState 填充其内容的缓冲区的指针。"
+          "description": "指向由 EngSaveFloatingPointState 填充其内容的缓冲区的指针。",
+          "type": "void"
         }
       ],
       "return_value": {
-        "description": "如果成功，EngRestoreFloatingPointState 将返回 TRUE。 否则，它将返回 FALSE。"
+        "description": "如果成功，EngRestoreFloatingPointState 将返回 TRUE。 否则，它将返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "在使用浮点硬件指令之前，驱动程序必须保存当前的内核浮点状态。 在 Intel 体系结构系统上，如果处理器支持 MMX 指令，则允许使用这些指令。 在使用浮点或 MMX 硬件时未正确使用 EngSaveFloatingPointState 和 EngRestoreFloatingPointState 的驱动程序将导致调用应用程序中的随机浮点或 MMX 损坏。 每次调用驱动程序时，驱动程序都必须调用 EngSaveFloatingPointState 一次，以在使用浮点或 MMX 操作之前保留内核状态。 在完成所有浮点或 MMX 操作以重置内核状态后，它还必须调用 EngRestoreFloatingPointState 一次。 当转义为OPENGL_CMD、OPENGL_GETINFO或 MCDFUNCS 时，GDI 会自动保存对驱动程序的 DrvEscape 例程的任何调用的浮点状态。",
       "header": "winddi.h",
@@ -3762,7 +4151,10 @@
       "entity_type": "function",
       "description": "保存内核浮点状态，以便驱动程序可以使用浮点硬件指令。",
       "syntax": "ULONG EngSaveFloatingPointState(VOID *pBuffer, ULONG cjBufferSize);",
-      "return_value": "如果 pBuffer 为非 NULL，则如果成功保存状态，则 EngSaveFloatingPointState 返回 TRUE。如果指定的缓冲区太小或无法保存状态，则返回 FALSE。如果 pBuffer 为 NULL 或 cjBufferSize 为零，则 EngSaveFloatingPointState 返回保存浮点状态所需的缓冲区大小。如果返回值为零，则处理器没有硬件浮点功能。在这种情况下，驱动程序不得使用任何浮点指令。",
+      "return_value": {
+        "type": "ULONG",
+        "description": "如果 pBuffer 为非 NULL，则如果成功保存状态，则 EngSaveFloatingPointState 返回 TRUE。如果指定的缓冲区太小或无法保存状态，则返回 FALSE。如果 pBuffer 为 NULL 或 cjBufferSize 为零，则 EngSaveFloatingPointState 返回保存浮点状态所需的缓冲区大小。如果返回值为零，则处理器没有硬件浮点功能。在这种情况下，驱动程序不得使用任何浮点指令。"
+      },
       "remarks": "驱动程序必须先保存当前内核浮点状态，然后才能使用浮点硬件指令。在 Intel 体系结构系统上，如果处理器支持 MMX 指令，则允许使用它们。在使用浮点或 MMX 硬件时未正确使用 EngSaveFloatingPointState 和 EngRestoreFloatingPointState 的驱动程序将导致调用应用程序中的随机浮点或 MMX 损坏。每次调用驱动程序时，驱动程序都必须调用 EngSaveFloatingPointState 一次，以保留内核状态，然后再使用浮点或 MMX 操作。它还必须在所有浮点或 MMX 操作完成后调用 EngRestoreFloatingPointState 一次，以重置内核状态。当转义 OPENGL_CMD、OPENGL_GETINFO 或 MCDFUNCS 时，GDI 会自动保存对驱动程序 DrvEscape 例程的任何调用的浮点状态。",
       "header": "winddi.h",
       "deprecated": false,
@@ -3783,11 +4175,13 @@
         {
           "name": "Address",
           "direction": "in",
-          "description": "指向要保护的内存基址的指针。[in] Length 指定要保护的内存范围的大小。"
+          "description": "指向要保护的内存基址的指针。[in] Length 指定要保护的内存范围的大小。",
+          "type": "PVOID"
         }
       ],
       "return_value": {
-        "description": "成功完成后，EngSecureMem 返回安全地址范围的句柄;否则，它将返回 NULL。"
+        "description": "成功完成后，EngSecureMem 返回安全地址范围的句柄;否则，它将返回 NULL。",
+        "type": "ENGAPI HANDLE"
       },
       "remarks": "在 EngUnsecureMem 解锁之前，EngSecureMem 锁定的地址范围不会解除分配。",
       "requirements": {
@@ -3814,11 +4208,13 @@
         {
           "name": "pEvent",
           "direction": "in",
-          "description": "指向要设置为信号状态的事件对象的指针。 此事件对象是由之前对 EngCreateEvent 或 EngMapEvent 的调用返回的。"
+          "description": "指向要设置为信号状态的事件对象的指针。 此事件对象是由之前对 EngCreateEvent 或 EngMapEvent 的调用返回的。",
+          "type": "PEVENT"
         }
       ],
       "return_value": {
-        "description": "如果事件对象的先前状态已发出信号，则 EngSetEvent 将返回一个非零值。"
+        "description": "如果事件对象的先前状态已发出信号，则 EngSetEvent 将返回一个非零值。",
+        "type": "LONG"
       },
       "remarks": "每个事件对象都处于信号状态或非信号状态。调用 EngSetEvent 会导致事件对象设置为信号状态。",
       "requirements": {
@@ -3841,11 +4237,13 @@
         {
           "name": "unnamedParam1",
           "direction": "in",
-          "description": "指定要设置的 32 位错误代码。"
+          "description": "指定要设置的 32 位错误代码。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3869,29 +4267,37 @@
         {
           "name": "pso",
           "direction": "in",
-          "description": "指向描述要绘制的图面的 SURFOBJ 结构的指针。[in] psoMask 指向 SURFOBJ 结构的指针，该结构定义要应用于指针位图的 AND-XOR 掩码。 位图的上半部分指定单色 AND 掩码，下半部分指定单色 XOR 掩码。 指针的宽度相同，高度是 psoMask 指向的掩码的一半。 指针大小没有隐式约束，但最佳指针大小为 32 x 32、48 x 48 和 64 x 64 像素。 如果此参数为 NULL，则指针是透明的。[in] psoColor 指向定义颜色指针颜色的 SURFOBJ 结构的指针的指针。 此位图的宽度和 psoMask 指向的位图高度相同，颜色格式与 pso 指向的图相同。 如果此参数为 NULL，则指针为单色。"
+          "description": "指向描述要绘制的图面的 SURFOBJ 结构的指针。[in] psoMask 指向 SURFOBJ 结构的指针，该结构定义要应用于指针位图的 AND-XOR 掩码。 位图的上半部分指定单色 AND 掩码，下半部分指定单色 XOR 掩码。 指针的宽度相同，高度是 psoMask 指向的掩码的一半。 指针大小没有隐式约束，但最佳指针大小为 32 x 32、48 x 48 和 64 x 64 像素。 如果此参数为 NULL，则指针是透明的。[in] psoColor 指向定义颜色指针颜色的 SURFOBJ 结构的指针的指针。 此位图的宽度和 psoMask 指向的位图高度相同，颜色格式与 pso 指向的图相同。 如果此参数为 NULL，则指针为单色。",
+          "type": "SURFOBJ"
         },
         {
           "name": "pxlo",
           "direction": "in",
-          "description": "指向定义 psoColor 中颜色的 XLATEOBJ 结构的指针。"
+          "description": "指向定义 psoColor 中颜色的 XLATEOBJ 结构的指针。",
+          "type": "XLATEOBJ"
         },
         {
           "name": "xHot",
           "direction": "in",
-          "description": "指定指针的热点相对于其左上角像素的 x 坐标。 热点指示的像素应定位在新的指针位置。"
+          "description": "指定指针的热点相对于其左上角像素的 x 坐标。 热点指示的像素应定位在新的指针位置。",
+          "type": "LONG"
         },
         {
           "name": "yHot",
           "direction": "in",
-          "description": "指定指针的热点相对于其左上角像素的 y 坐标。 热点指示的像素应定位在新的指针位 置。[in] x 指定新指针位置的 x 坐标。[in] y 指定新指针位置的 y 坐标。[in] prcl 指向 RECTL 结构的指针。 如果不是 NULL，则驱动程序提供了一个矩形，用于绑定受显 示器上的指针影响的所有像素。 GDI 避免在此矩形上绘制，而无需先将指针移出。[in] fl 指定 GDI 应用于处理此调用的一组标志。 此参数可以是以下一个或多个预定义值： 标志"
+          "description": "指定指针的热点相对于其左上角像素的 y 坐标。 热点指示的像素应定位在新的指针位 置。[in] x 指定新指针位置的 x 坐标。[in] y 指定新指针位置的 y 坐标。[in] prcl 指向 RECTL 结构的指针。 如果不是 NULL，则驱动程序提供了一个矩形，用于绑定受显 示器上的指针影响的所有像素。 GDI 避免在此矩形上绘制，而无需先将指针移出。[in] fl 指定 GDI 应用于处理此调用的一组标志。 此参数可以是以下一个或多个预定义值： 标志",
+          "type": "LONG"
         }
       ],
       "header": "winddi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 265
+      "_source_line": 265,
+      "return_value": {
+        "type": "ENGAPI ULONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngSetPointerTag",
@@ -3903,11 +4309,13 @@
         {
           "name": "hdev",
           "direction": "in",
-          "description": "设备的句柄。 此句柄是驱动程序作为 DrvCompletePDEV 的 hdev 参数接收的 GDI 句柄。[in] psoMask 指向描述标记的单色组件的 1bpp SURFOBJ 结构的指针。 此位图的尺寸决定了标记的大小。 标记大小没有隐式约束，但最佳标记大小为 32 x 32、48 x 48 和 64 x 64 像素。 当 此值为 NULL 时，GDI 会删除当前标记。[in] psoColor 指向与调用驱动程序具有相同颜色格式的 SURFOBJ 结构的指针。 如果标记不包含颜色分 量，则此值可以为 NULL 。 颜色位图的宽度与 psoInputMask 相同，高度为一半。[in] pxlo 保留供系统使用;必须设置为 NULL。[in] fl 保留供系统使用;必须设置为零。"
+          "description": "设备的句柄。 此句柄是驱动程序作为 DrvCompletePDEV 的 hdev 参数接收的 GDI 句柄。[in] psoMask 指向描述标记的单色组件的 1bpp SURFOBJ 结构的指针。 此位图的尺寸决定了标记的大小。 标记大小没有隐式约束，但最佳标记大小为 32 x 32、48 x 48 和 64 x 64 像素。 当 此值为 NULL 时，GDI 会删除当前标记。[in] psoColor 指向与调用驱动程序具有相同颜色格式的 SURFOBJ 结构的指针。 如果标记不包含颜色分 量，则此值可以为 NULL 。 颜色位图的宽度与 psoInputMask 相同，高度为一半。[in] pxlo 保留供系统使用;必须设置为 NULL。[in] fl 保留供系统使用;必须设置为零。",
+          "type": "HDEV"
         }
       ],
       "return_value": {
-        "description": "成功应用标记后，EngSetPointerTag 将返回 TRUE。 否则，它将返回 FALSE。 对于 Windows 2000 及更高版本，此函数始终返回 FALSE。"
+        "description": "成功应用标记后，EngSetPointerTag 将返回 TRUE。 否则，它将返回 FALSE。 对于 Windows 2000 及更高版本，此函数始终返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "远程控制驱动程序可以调用 EngSetPointerTag 来标记指针形状以表示系统的控制权。远程控制驱动程序设置标记后，GDI 将自动使用系统生成的所有指针形状对其进行复合，直到驱动程序删除或更改标记。调用 EngSetPointerShape 的驱动程序永远不会通过 GDI 将自己的标记应用于其自己的 DrvSetPointerShape 调用；仅镜像系统中的其他驱动程序应用标记。如果 psoColor 为 NULL，则 psoMask 指向的单色表面，该图面的高度是宽度的两倍。上半部分包含单色 AND 掩码，下半部分包含单色 XOR 掩码。如果 psoColor 不为 NULL，则 psoMask 仅包含单色 AND 掩码，psoColor 包含颜色 XOR 图面。此颜色图面必须采用与驱动程序相同的颜色格式。GDI 通过定位每个位图的左上角来联接形状。GDI 会创建 psoMask 和 psoColor 的副本，因此在调用 EngSetPointerTag 后，可以立即删除驱动程序传入的图面。EngSetPointerTag 的结果在系统生成的下一个指针形状调用上生效。",
       "requirements": {
@@ -3935,14 +4343,19 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "应为其设置配置数据的打印机的句柄。 这是作为 DrvEnablePDEV 的 hDriver 参数传递的 句柄。 请参阅备注。[in] pType 指向以 null 结尾的字符串的指针，该字符串标识要设置的数据。[in] dwType 指定要设置的信息类型的标志。 此参数可能是以下值之一： 值"
+          "description": "应为其设置配置数据的打印机的句柄。 这是作为 DrvEnablePDEV 的 hDriver 参数传递的 句柄。 请参阅备注。[in] pType 指向以 null 结尾的字符串的指针，该字符串标识要设置的数据。[in] dwType 指定要设置的信息类型的标志。 此参数可能是以下值之一： 值",
+          "type": "HANDLE"
         }
       ],
       "header": "winddi.h",
       "deprecated": true,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 267
+      "_source_line": 267,
+      "return_value": {
+        "type": "ENGAPI DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngSort",
@@ -3954,11 +4367,13 @@
         {
           "name": "pjBuf",
           "direction": "in, out",
-          "description": "指向要排序的数据数组的指针。[in] c 指定 pjBuf 中每个元素的大小（以字节为单位）。[in] cjElem 指定要在 pjBuf 中排序的元素数。[in] pfnComp 指向实现要用于排序的元素比较的函数的指针。"
+          "description": "指向要排序的数据数组的指针。[in] c 指定 pjBuf 中每个元素的大小（以字节为单位）。[in] cjElem 指定要在 pjBuf 中排序的元素数。[in] pfnComp 指向实现要用于排序的元素比较的函数的指针。",
+          "type": "out] PBYTE"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3988,7 +4403,11 @@
         "DrvStretchBlt"
       ],
       "confidence": 0.7,
-      "_source_line": 270
+      "_source_line": 270,
+      "return_value": {
+        "type": "ENGAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngStretchBltROP",
@@ -3997,7 +4416,8 @@
       "description": "EngStretchBltROP适用于Windows 2000及更高版本的Windows操作系统。包含在winddi.h中，链接到Win32k.lib，位于Win32k.sys中。",
       "syntax": "ENGAPI BOOL EngStretchBltROP(\n  SURFOBJ *psoDest,\n  SURFOBJ *psoSrc,\n  SURFOBJ *psoMask,\n  CLIPOBJ *pco,\n  XLATEOBJ *pxlo,\n  COLORADJUSTMENT *pca,\n  POINTL *pptlHTOrg,\n  RECTL *prclDest,\n  RECTL *prclSrc,\n  POINTL *pptlMask,\n  ULONG iMode,\n  BRUSHOBJ *pbo,\n  DWORD rop4\n);",
       "return_value": {
-        "description": "成功后，EngStretchBltROP 返回 TRUE 。 否则，它将报告错误并返回 FALSE。"
+        "description": "成功后，EngStretchBltROP 返回 TRUE 。 否则，它将报告错误并返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "如果驱动程序已挂钩 DrvStretchBltROP ，但无法支持所有操作，则驱动程序应调用 EngStretchBltROP 。 映射由 prclSrc 和 prclDest 定义。 prclDest 和 prclSrc 中指定的点位于对应于像素中心的整数坐标上。 由两个此类点定义的矩形被视为具有两个顶点的几何矩形，其坐标是给定的点，但从每个坐标中减去 0.5。 (POINTL 结构是用于指定这些小数坐标顶点的速记表示 法。)",
       "header": "winddi.h",
@@ -4016,7 +4436,8 @@
       "description": "函数会导致 GDI 同时填充路径和笔划路径。",
       "syntax": "ENGAPI BOOL EngStrokeAndFillPath(\n  SURFOBJ   *pso,\n  PATHOBJ   *ppo,\n  CLIPOBJ   *pco,\n  XFORMOBJ  *pxo,\n  BRUSHOBJ  *pboStroke,\n  LINEATTRS *plineattrs,\n  BRUSHOBJ  *pboFill,\n  POINTL    *pptlBrushOrg,\n  MIX       mixFill,\n  FLONG     flOptions\n);",
       "return_value": {
-        "description": "如果GDI填充路径则返回TRUE；如果驱动程序应填充路径则返回FALSE；如果遇到意外错误则返回DDI_ERROR。"
+        "description": "如果GDI填充路径则返回TRUE；如果驱动程序应填充路径则返回FALSE；如果遇到意外错误则返回DDI_ERROR。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "混合模式定义传入模式应如何与设备图面上已有的数据混合。MIX 数据类型由打包到单个 ULONG 中的两个 ROP2 值组成。低序字节定义前台光栅操作；下一个字节定义背景光栅操作。有关光栅操作代码的详细信息，请参阅 Microsoft Windows SDK 文档。",
       "requirements": {
@@ -4037,7 +4458,8 @@
       "description": "函数请求 GDI 笔划指定路径。",
       "syntax": "ENGAPI BOOL EngStrokePath(\\n  SURFOBJ *pso,\\n  PATHOBJ *ppo,\\n  CLIPOBJ *pco,\\n  XFORMOBJ *pxo,\\n  BRUSHOBJ *pbo,\\n  POINTL *pptlBrushOrg,\\n  LINEATTRS *plineattrs,\\n  MIX mix\\n);",
       "return_value": {
-        "description": "如果 GDI 笔划路径，则返回值为 TRUE 。 如果驱动程序应笔划路径，则返回值为 FALSE，并且不会记录任何错误。 如果 GDI 遇到错误，则返回值为DDI_ERROR，并记录 错误代码。"
+        "description": "如果 GDI 笔划路径，则返回值为 TRUE 。 如果驱动程序应笔划路径，则返回值为 FALSE，并且不会记录任何错误。 如果 GDI 遇到错误，则返回值为DDI_ERROR，并记录 错误代码。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "混合模式定义传入模式应如何与设备图面上已有的数据混合。 MIX 数据类型由打包到单个 ULONG 中的两个 ROP2 值组成。 低序字节定义前台光栅操作;下一个字节定义背景光 栅操作。 有关光栅操作代码的详细信息，请参阅Microsoft Windows SDK文档。",
       "requirements": {
@@ -4060,7 +4482,8 @@
       "description": "该函数的输入参数定义两组像素：前台和不透明。驱动程序必须呈现图面，以便结果与使用不透明画笔首先呈现不透明像素，然后使用前景画笔呈现前台像素的过程相同。其中每个操作都受剪辑的限制。当此函数的 pptlOrg 参数设置为 0 时，某些打印机驱动程序在 Microsoft Windows Server 2003 中错误地打印彩色图像（日文版本）。将 pptlOrg 设置为 0（NULL 指针值）被解释为未定义画笔原点。若要防止此问题，请在调用 EngTextOut 时确保 pptlOrg 不为 NULL。",
       "syntax": "ENGAPI BOOL EngTextOut(\n    SURFOBJ *pso,\n    STROBJ *pstro,\n    FONTOBJ *pfo,\n    CLIPOBJ *pco,\n    RECTL *prclExtra,\n    RECTL *prclOpaque,\n    BRUSHOBJ *pboFore,\n    BRUSHOBJ *pboOpaque,\n    POINTL *pptlOrg,\n    MIX mix\n);",
       "return_value": {
-        "description": "如果函数成功，则返回值为 TRUE 。 否则，它为 FALSE，并记录错误代码。"
+        "description": "如果函数成功，则返回值为 TRUE 。 否则，它为 FALSE，并记录错误代码。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "驱动程序在已挂钩 DrvTextOut 且无法呈现字形时，应调用 EngTextOut 。 注意如果驱动程序已为设备托管图面挂钩 DrvTextOut，则驱动程序无法连接到 EngTextOut。",
       "header": "winddi.h",
@@ -4082,11 +4505,13 @@
         {
           "name": "psoDst",
           "direction": "in",
-          "description": "指向 SURFOBJ 结构的指针，该结构标识要绘制的目标图面。[in] psoSrc 指向 SURFOBJ 结构的指针，该结构标识位块传输的源图面。[in, optional] pco 指向 CLIPOBJ 结构的指针。 CLIPOBJ_Xxx 服务例程用于将剪辑区域枚举为一组矩形。 此 枚举限制已修改的目标区域。 只要可能，GDI 就可以简化所涉及的剪裁。[in, optional] pxlo 指向 XLATEOBJ 结构的指针，该结构指示应如何转换源颜色索引以写入目标图面。[in] prclDst 指向 RECTL 结构的指针，该结构定义要修改的矩形区域。 此矩形在目标图面的坐标系中指定，由两个点定义：左上角和右下角。 矩形右下角排他;也就是说，其下边缘和右边缘不是位块传输的一部分。 定义矩形的两个点始终按顺序排列。 驱动程序不得使用空目标矩形调用 EngTransparentBlt 。[in] prclSrc 指向 RECTL 结构的指针，该结构定义要复制的矩形区域。 此矩形在源图面的坐标系中指 定，由两个点定义：左上角和右下角。 定义矩形的两个点始终按顺序排列。源矩形永远不会超过源图面的边界，因此永远不会悬停在源图面上。 此矩形映射到 由 prclDst 定义的目标矩形。 驱动程序不得使用空源矩形调用"
+          "description": "指向 SURFOBJ 结构的指针，该结构标识要绘制的目标图面。[in] psoSrc 指向 SURFOBJ 结构的指针，该结构标识位块传输的源图面。[in, optional] pco 指向 CLIPOBJ 结构的指针。 CLIPOBJ_Xxx 服务例程用于将剪辑区域枚举为一组矩形。 此 枚举限制已修改的目标区域。 只要可能，GDI 就可以简化所涉及的剪裁。[in, optional] pxlo 指向 XLATEOBJ 结构的指针，该结构指示应如何转换源颜色索引以写入目标图面。[in] prclDst 指向 RECTL 结构的指针，该结构定义要修改的矩形区域。 此矩形在目标图面的坐标系中指定，由两个点定义：左上角和右下角。 矩形右下角排他;也就是说，其下边缘和右边缘不是位块传输的一部分。 定义矩形的两个点始终按顺序排列。 驱动程序不得使用空目标矩形调用 EngTransparentBlt 。[in] prclSrc 指向 RECTL 结构的指针，该结构定义要复制的矩形区域。 此矩形在源图面的坐标系中指 定，由两个点定义：左上角和右下角。 定义矩形的两个点始终按顺序排列。源矩形永远不会超过源图面的边界，因此永远不会悬停在源图面上。 此矩形映射到 由 prclDst 定义的目标矩形。 驱动程序不得使用空源矩形调用",
+          "type": "SURFOBJ"
         }
       ],
       "return_value": {
-        "description": "成功后，EngTransparentBlt 返回 TRUE 。 否则，它将返回 FALSE。"
+        "description": "成功后，EngTransparentBlt 返回 TRUE 。 否则，它将返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "驱动程序应调用 EngTransparentBlt，如果它已挂钩 DrvTransparentBlt，并且调用它来执行它不支持的事情。支持在两个设备管理的图面之间或设备管理的表面与 GDI 管理的标准格式位图之间传输具有透明度的位块传输。目前，GDI 仅支持 BMF_4BPP 和 BMF_8BPP 源图面。不会复制源图面上与 iTransparentColor 指定的透明颜色匹配的像素。有关透明布图的详细说明，请参阅复制位图。",
       "requirements": {
@@ -4110,14 +4535,19 @@
         {
           "name": "MultiByteString",
           "direction": "out",
-          "description": "指向接收生成的 ANSI 字符串的缓冲区的指针。[in] MaxBytesInMultiByteString 指定要写入 MultiByteString 的最大字节数。如果此值太小，导致 MultiByteString 成为"
+          "description": "指向接收生成的 ANSI 字符串的缓冲区的指针。[in] MaxBytesInMultiByteString 指定要写入 MultiByteString 的最大字节数。如果此值太小，导致 MultiByteString 成为",
+          "type": "PCHAR"
         }
       ],
       "header": "winddi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 276
+      "_source_line": 276,
+      "return_value": {
+        "type": "ENGAPI VOID",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngUnloadImage",
@@ -4129,7 +4559,8 @@
         {
           "name": "h",
           "direction": "in",
-          "description": "要从系统内存中卸载的映像的句柄。"
+          "description": "要从系统内存中卸载的映像的句柄。",
+          "type": "HENGINHIMAGE"
         }
       ],
       "return_value": {
@@ -4151,7 +4582,8 @@
         {
           "name": "pSurface",
           "direction": "in",
-          "description": "指向描述要解锁的图面的 DD_SURFACE_LOCAL 结构的指针。"
+          "description": "指向描述要解锁的图面的 DD_SURFACE_LOCAL 结构的指针。",
+          "type": "PDD_SURFACE_LOCAL"
         }
       ],
       "remarks": "图面之前必须已由 EngLockDirectDrawSurface 锁定。",
@@ -4166,7 +4598,11 @@
         "EngLockDirectDrawSurface"
       ],
       "confidence": 0.7,
-      "_source_line": 280
+      "_source_line": 280,
+      "return_value": {
+        "type": "ENGAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngUnlockDriverObj",
@@ -4175,7 +4611,8 @@
       "description": "函数会导致 GDI 解锁驱动程序对象。",
       "syntax": "ENGAPI BOOL EngUnlockDriverObj(HDRVOBJ hdo);",
       "return_value": {
-        "description": "如果函数成功，则返回值为 TRUE ;否则为 FALSE。"
+        "description": "如果函数成功，则返回值为 TRUE ;否则为 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "指定的驱动程序对象之前必须通过调用 EngLockDriverObj 锁定。 对象在锁定时无法由另 一个线程解锁。",
       "requirements": {
@@ -4202,11 +4639,13 @@
         {
           "name": "pso",
           "direction": "in",
-          "description": "指向描述要解锁的图面的 SURFOBJ 结构的指针。"
+          "description": "指向描述要解锁的图面的 SURFOBJ 结构的指针。",
+          "type": "SURFOBJ"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "remarks": "指定的图面之前必须已通过调用 EngLockSurface 锁定。 此调用后不得使用指向 SURFOBJ 结构的指针。",
       "requirements": {
@@ -4233,11 +4672,13 @@
         {
           "name": "pEvent",
           "direction": "in",
-          "description": "指向从上一次调用 EngMapEvent 返回的事件对象的指针。"
+          "description": "指向从上一次调用 EngMapEvent 返回的事件对象的指针。",
+          "type": "PEVENT"
         }
       ],
       "return_value": {
-        "description": "成功后，EngUnmapEvent 返回 TRUE 。 否则，它将返回 FALSE。"
+        "description": "成功后，EngUnmapEvent 返回 TRUE 。 否则，它将返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "remarks": "当通知创建用户模式事件的进程 (通常为 EngCreateDriverObj) 已终止时，显示驱动程序应调用 EngUnmapEvent。 显示驱动程序还可以调用 EngUnmapEvent 来执行其自己的 清理。 调用 EngUnmapEvent 后，显示器和微型端口驱动程序不应触摸事件对象。显示驱动程序只能为 EngMapEvent 返回的事件对象调用 EngUnmapEvent。 它不得为 EngCreateEvent 返回的事件对象调用此函数。",
       "requirements": {
@@ -4265,11 +4706,13 @@
         {
           "name": "iFile",
           "direction": "in",
-          "description": "指向映射文件的标识符的指针。 此标识符是在之前的 EngMapFile 调用中获取的。"
+          "description": "指向映射文件的标识符的指针。 此标识符是在之前的 EngMapFile 调用中获取的。",
+          "type": "ULONG_PTR"
         }
       ],
       "return_value": {
-        "description": "成功后，EngUnmapFile 返回 TRUE 。 否则，它将返回 FALSE。"
+        "description": "成功后，EngUnmapFile 返回 TRUE 。 否则，它将返回 FALSE。",
+        "type": "ENGAPI BOOL"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -4291,7 +4734,11 @@
         "EngUnmapFontFileFD"
       ],
       "confidence": 0.6,
-      "_source_line": 285
+      "_source_line": 285,
+      "return_value": {
+        "type": "ENGAPI VOID",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngUnmapFontFileFD",
@@ -4303,11 +4750,13 @@
         {
           "name": "iFile",
           "direction": "in",
-          "description": "指向驱动程序定义的值的指针，该值标识要取消映射的字体文件。 此指针是从 DrvLoadFontFile 获取的。"
+          "description": "指向驱动程序定义的值的指针，该值标识要取消映射的字体文件。 此指针是从 DrvLoadFontFile 获取的。",
+          "type": "ULONG_PTR"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "remarks": "字体驱动程序调用EngUnmapFontFileFD来取消映射以前由EngMapFontFileFD映射的字体文件。",
       "requirements": {
@@ -4332,11 +4781,13 @@
         {
           "name": "hSecure",
           "direction": "in",
-          "description": "锁定的地址范围的句柄。 此句柄由 EngSecureMem 返回。"
+          "description": "锁定的地址范围的句柄。 此句柄由 EngSecureMem 返回。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "ENGAPI VOID"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -4356,12 +4807,14 @@
         {
           "name": "pEvent",
           "direction": "in",
-          "description": "指向初始化的事件对象的指针。 此事件对象句柄是在之前对 EngCreateEvent 的调用中获取的。"
+          "description": "指向初始化的事件对象的指针。 此事件对象句柄是在之前对 EngCreateEvent 的调用中获取的。",
+          "type": "PEVENT"
         },
         {
           "name": "pTimeOut",
           "direction": "in",
-          "description": "(可选) 指向超时值的指针，该值指定要完成等待的绝对时间或相对时间。 负值指定相对于当前时间的间隔。 该值应以 100 纳秒为单位表示。 绝对过期时间跟踪系统时间中的任何更改;相对过期时间不受系统时间更改的影响。 如果 pTimeOut 为 NULL，则调用线程 将保持等待状态，直到事件对象收到信号。"
+          "description": "(可选) 指向超时值的指针，该值指定要完成等待的绝对时间或相对时间。 负值指定相对于当前时间的间隔。 该值应以 100 纳秒为单位表示。 绝对过期时间跟踪系统时间中的任何更改;相对过期时间不受系统时间更改的影响。 如果 pTimeOut 为 NULL，则调用线程 将保持等待状态，直到事件对象收到信号。",
+          "type": "PLARGE_INTEGER"
         }
       ],
       "header": "winddi.h",
@@ -4370,7 +4823,11 @@
         "EngSetEvent"
       ],
       "confidence": 0.8,
-      "_source_line": 288
+      "_source_line": 288,
+      "return_value": {
+        "type": "ENGAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::EngWideCharToMultiByte",
@@ -4382,11 +4839,13 @@
         {
           "name": "CodePage",
           "direction": "in",
-          "description": "指定用于执行转换的代码页。[in, optional] WideCharString 指向包含要转换的宽字符串的缓冲区的指针。[in] BytesInWideCharString 指定 WideCharString 的大小（以字节为单位）。[out, optional] MultiByteString 指向要将转换的字符串复制到其中的缓冲区的指针[in] BytesInMultiByteString 指定 MultiByteString 中的字节数。 如果 MultiByteString 的大小不足以包含转换， EngWideCharToMultiByte 将截断字符串，并且不会报告错误。"
+          "description": "指定用于执行转换的代码页。[in, optional] WideCharString 指向包含要转换的宽字符串的缓冲区的指针。[in] BytesInWideCharString 指定 WideCharString 的大小（以字节为单位）。[out, optional] MultiByteString 指向要将转换的字符串复制到其中的缓冲区的指针[in] BytesInMultiByteString 指定 MultiByteString 中的字节数。 如果 MultiByteString 的大小不足以包含转换， EngWideCharToMultiByte 将截断字符串，并且不会报告错误。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果成功，EngWideCharToMultiByte 将返回转换为多字节形式的字节数。 否则，返回-1。"
+        "description": "如果成功，EngWideCharToMultiByte 将返回转换为多字节形式的字节数。 否则，返回-1。",
+        "type": "ENGAPI INT"
       },
       "header": "winddi.h",
       "deprecated": false,
@@ -4438,7 +4897,8 @@
         {
           "name": "lpVidMem",
           "direction": "in",
-          "description": "指向 VIDEOMEMORY 结构的指针，该结构表示要从中分配图面的 DirectDraw 堆。[in] dwWidth 所请求图面的宽度（以字节为单位）。[in] dwHeight 所请求表面的扫描线条的高度。[in] lpAlignment 指向 SURFACEALIGNMENT 结构的指针，该结构描述图面的对齐限制。[out] lpNewPitch 写入生成的音调值的位置。 此信息仅与线性 (非矩形) 屏幕外堆相关。"
+          "description": "指向 VIDEOMEMORY 结构的指针，该结构表示要从中分配图面的 DirectDraw 堆。[in] dwWidth 所请求图面的宽度（以字节为单位）。[in] dwHeight 所请求表面的扫描线条的高度。[in] lpAlignment 指向 SURFACEALIGNMENT 结构的指针，该结构描述图面的对齐限制。[out] lpNewPitch 写入生成的音调值的位置。 此信息仅与线性 (非矩形) 屏幕外堆相关。",
+          "type": "LPVIDEOMEMORY"
         }
       ],
       "remarks": "驱动程序应使用其 DrvGetDirectDrawInfo 函数接收的 VIDEOMEMORY 结构的数组来确定用于调用 HeapVidMemAllocAligned 的 lpVidMem 的值。",
@@ -4452,7 +4912,11 @@
         "DrvGetDirectDrawInfo"
       ],
       "confidence": 0.8,
-      "_source_line": 336
+      "_source_line": 336,
+      "return_value": {
+        "type": "LPVOID",
+        "description": ""
+      }
     },
     {
       "id": "windows::LPDD_NOTIFYCALLBACK",
@@ -5082,7 +5546,11 @@
       "cross_references": [],
       "confidence": 0.75,
       "_source_line": 406,
-      "syntax": "DWORD PddSurfcbGetflipstatus(PDD_SURFCB_GETFLIPSTATUS_ARGS *pArgs)"
+      "syntax": "DWORD PddSurfcbGetflipstatus(PDD_SURFCB_GETFLIPSTATUS_ARGS *pArgs)",
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::DdGetFlipStatus",
@@ -5275,7 +5743,11 @@
       "cross_references": [],
       "confidence": 0.75,
       "_source_line": 416,
-      "syntax": "DWORD PddVportcbCreatevideoport();"
+      "syntax": "DWORD PddVportcbCreatevideoport();",
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::DdVideoPortCreate",
@@ -5726,7 +6198,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 443
+      "_source_line": 443,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::PDX_GETPREVIOUSAUTOFLIP",
@@ -5798,7 +6274,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 455
+      "_source_line": 455,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::VidMemFree",
@@ -5810,12 +6290,14 @@
         {
           "name": "pvmh",
           "direction": "in",
-          "description": "指向 VMEMHEAP 结构的指针，该结构表示从中分配图面的 DirectDraw 堆。 驱动程序从最初传递给 HeapVidMemAllocAligned 的 VIDEOMEMORY 结构的 lpHeap 成员获取此值。"
+          "description": "指向 VMEMHEAP 结构的指针，该结构表示从中分配图面的 DirectDraw 堆。 驱动程序从最初传递给 HeapVidMemAllocAligned 的 VIDEOMEMORY 结构的 lpHeap 成员获取此值。",
+          "type": "LPVMEMHEAP"
         },
         {
           "name": "ptr",
           "direction": "in",
-          "description": "指定已分配图面的 FLATPTR 偏移量。 此数据类型等效于ULONG_PTR。"
+          "description": "指定已分配图面的 FLATPTR 偏移量。 此数据类型等效于ULONG_PTR。",
+          "type": "FLATPTR"
         }
       ],
       "return_value": {
@@ -5836,19 +6318,20 @@
     {
       "id": "windows::DD_ADDATTACHEDSURFACEDATA",
       "name": "DD_ADDATTACHEDSURFACEDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含将一个表面连接到另一个表面所需的信息。",
       "syntax": "typedef struct _DD_ADDATTACHEDSURFACEDATA {\n    PDD_DIRECTDRAW_GLOBAL lpDD;\n    // 其他成员字段\n} DD_ADDATTACHEDSURFACEDATA;",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 493
+      "_source_line": 493,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_ATTACHLIST",
       "name": "DD_ATTACHLIST",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构维护 Microsoft DirectDraw 的附加表面列表。",
       "syntax": "typedef struct _DD_ATTACHLIST {\n    PDD_ATTACHLIST lpLink;\n    LPDIRECTDRAWSURFACE lpAttached;\n} DD_ATTACHLIST;",
       "header": "ddrawint.h",
@@ -5857,7 +6340,8 @@
         "DirectDraw"
       ],
       "confidence": 0.75,
-      "_source_line": 496
+      "_source_line": 496,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DDHAL_BEGINMOCOMPFRAMEDATA",
@@ -5900,7 +6384,7 @@
     {
       "id": "windows::DD_CANCREATEVPORTDATA",
       "name": "DD_CANCREATEVPORTDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构体用于lpCanCreateVideoPort回调，用于确定硬件是否支持指定类型的视频端口(VPE)对象。",
       "syntax": "typedef struct _DD_CANCREATEVPORTDATA {\n  PDD_DIRECTDRAW_LOCAL lpDD;\n  LPDDVIDEOPORTDESC lpDDVideoPortDesc;\n  HRESULT ddRVal;\n  VOID *CanCreateVideoPort;\n} *PDD_CANCREATEVPORTDATA, DD_CANCREATEVPORTDATA;",
       "requirements": {
@@ -5910,12 +6394,13 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.85,
-      "_source_line": 502
+      "_source_line": 502,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_CLIPPER_LOCAL",
       "name": "DD_CLIPPER_LOCAL",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含 DirectDrawClipper 对象的本地数据结构的定义。dwReserved1 成员保留供显示驱动程序内部使用。",
       "syntax": "typedef struct _DD_CLIPPER_LOCAL {\n    ULONG_PTR dwReserved1;\n} DD_CLIPPER_LOCAL, *PDD_CLIPPER_LOCAL;",
       "requirements": {
@@ -5925,7 +6410,8 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 504
+      "_source_line": 504,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_COLORCONTROLDATA",
@@ -5968,7 +6454,7 @@
     {
       "id": "windows::DD_CREATESURFACEDATA",
       "name": "DD_CREATESURFACEDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构体包含创建表面所需的信息。在 CreateD3DBuffer（命令或顶点缓冲区）的情况下使用。",
       "syntax": "typedef struct _DD_CREATESURFACEDATA {\n    PDD_DIRECTDRAW_GLOBAL lpDD;\n    // 其他成员省略\n} DD_CREATESURFACEDATA;",
       "header": "ddrawint.h",
@@ -5977,19 +6463,21 @@
         "CreateD3DBuffer"
       ],
       "confidence": 0.75,
-      "_source_line": 509
+      "_source_line": 509,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_CREATESURFACEEXDATA",
       "name": "DD_CREATESURFACEEXDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含驱动程序创建表面并将其关联的纹理句柄所需的信息。",
       "syntax": "typedef struct _DD_CREATESURFACEEXDATA { DWORD                dwFlags;   PDD_DIRECTDRAW_LOCAL lpDDLcl;   PDD_SURFACE_LOCAL    lpDDSLcl;   HRESULT              ddRVal; } *PDD_CREATESURFACEEXDATA, DD_CREATESURFACEEXDATA; 成员 dwFlags 为 DD_CreateSurfaceEx 函数指定一组当前未使用且始终为零的标志。 lpDDLcl 指定应用程序创建的 DirectDraw 对象的句柄。 这是 lpDDSLcl 句柄存在的范围。",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 512
+      "_source_line": 512,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_CREATEVPORTDATA",
@@ -6047,7 +6535,7 @@
     {
       "id": "windows::DD_DIRECTDRAW_LOCAL",
       "name": "DD_DIRECTDRAW_LOCAL",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "DD_DIRECTDRAW_LOCAL 结构是 DirectDraw 驱动程序内部使用的结构，包含指向 DD_DIRECTDRAW_GLOBAL 结构的指针。",
       "syntax": "typedef struct _DD_DIRECTDRAW_LOCAL {   PDD_DIRECTDRAW_GLOBAL lpGbl;\n} *PDD_DIRECTDRAW_LOCAL, DD_DIRECTDRAW_LOCAL;\n成员 lpGbl\n指向描述驱动程序设备的 DD_DIRECTDRAW_GLOBAL 结构。",
       "requirements": {
@@ -6060,19 +6548,21 @@
         "Direct3D"
       ],
       "confidence": 0.85,
-      "_source_line": 520
+      "_source_line": 520,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_ENDMOCOMPFRAMEDATA",
       "name": "DD_ENDMOCOMPFRAMEDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构体包含完成运动补偿解码帧所需的信息。",
       "syntax": "typedef struct _DD_ENDMOCOMPFRAMEDATA {\n    PDD_DIRECTDRAW_LOCAL lpDD;\n    LPVOID lpMoCompBuffers;\n    DWORD dwStatus;\n} DD_ENDMOCOMPFRAMEDATA;",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 521
+      "_source_line": 521,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_FLIPDATA",
@@ -6102,14 +6592,15 @@
     {
       "id": "windows::DD_FLIPVPORTDATA",
       "name": "DD_FLIPVPORTDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构包含驱动程序执行翻转所需的信息，其中lpSurfTarg成员指向目标图面。",
       "syntax": "typedef struct _DD_FLIPVPORTDATA {\n    PDD_DIRECTDRAW_LOCAL lpDD;\n    PDD_VIDEOPORT_LOCAL lpVideoPort;\n    LPDIRECTDRAWSURFACE lpSurfTarg;\n    LPDIRECTDRAWSURFACE lpSurfCurr;\n    DWORD dwFlags;\n} DD_FLIPVPORTDATA;",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 524
+      "_source_line": 524,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_FREEDRIVERMEMORYDATA",
@@ -6126,14 +6617,15 @@
     {
       "id": "windows::DD_GETAVAILDRIVERMEMORYDATA",
       "name": "DD_GETAVAILDRIVERMEMORYDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含驱动程序查询和返回可用内存量所需的信息的结构。用于 DirectDraw 内部通信。",
       "syntax": "typedef struct _DD_GETAVAILDRIVERMEMORYDATA {\n  PDD_DIRECTDRAW_GLOBAL lpDD;\n  DDSCAPS DDSCaps;\n  DWORD dwTotal;\n  DWORD dwFree;\n  HRESULT ddRVal;\n  VOID *GetAvailDriverMemory;\n} DD_GETAVAILDRIVERMEMORYDATA, *PDD_GETAVAILDRIVERMEMORYDATA;",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 528
+      "_source_line": 528,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_GETBLTSTATUSDATA",
@@ -6150,14 +6642,15 @@
     {
       "id": "windows::DD_GETDRIVERINFODATA",
       "name": "DD_GETDRIVERINFODATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构用于查询驱动程序是否支持特定的功能 GUID。当 guidInfo 成员设置为 GUID_DDStereoMode 时，lpvData 成员将指向 DD_STEREOMODE 结构。如果驱动程序支持该 GUID，则返回 DD_OK，并且 DD_STEREOMODE 的 bSupported 成员设置为 TRUE。",
       "syntax": "typedef struct _DD_GETDRIVERINFODATA {\n    VOID    *dhpdev;   // 驱动程序的 PDEV 句柄。仅限 Windows 2000 及更高版本。\n    DWORD   dwSize;    // 结构大小（字节）。\n    DWORD   dwFlags;   // 当前未使用，设为零。\n    GUID    guidInfo;  // 要查询的 GUID。\n    DWORD   dwExpectedSize; // 预期数据大小。\n    PVOID   lpvData;   // 指向返回数据的指针。\n    DWORD   dwActualSize;   // 实际返回的数据大小。\n    HRESULT ddRVal;    // 返回状态。\n} *PDD_GETDRIVERINFODATA, DD_GETDRIVERINFODATA;",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.85,
-      "_source_line": 530
+      "_source_line": 530,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_GETDRIVERSTATEDATA",
@@ -6174,26 +6667,28 @@
     {
       "id": "windows::DD_GETFLIPSTATUSDATA",
       "name": "DD_GETFLIPSTATUSDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "用于获取DirectDraw翻转状态的数据结构，定义在ddrawint.h中",
       "syntax": "typedef struct _DD_GETFLIPSTATUSDATA {\n    PDD_DIRECTDRAW_GLOBAL lpDD;\n    // 其他成员可能因OCR截断未显示\n} DD_GETFLIPSTATUSDATA;",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 532
+      "_source_line": 532,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_GETINTERNALMOCOMPDATA",
       "name": "DD_GETINTERNALMOCOMPDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含DirectDraw内部内存压缩(MoComp)的要求信息。",
       "syntax": "typedef struct _DD_GETINTERNALMOCOMPDATA {\n    PDD_DIRECTDRAW_LOCAL lpDD;\n    GUID *lpGuid;\n    DWORD dwWidth;\n    DWORD dwHeight;\n    DDPIXELFORMAT ddPixelFormat;\n    DWORD dwScratchMemAlloc;\n    HRESULT ddRVal;\n} DD_GETINTERNALMOCOMPDATA, *PDD_GETINTERNALMOCOMPDATA;",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 533
+      "_source_line": 533,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_GETMOCOMPCOMPBUFFDATA",
@@ -6210,14 +6705,15 @@
     {
       "id": "windows::DD_GETMOCOMPFORMATSDATA",
       "name": "DD_GETMOCOMPFORMATSDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含运动补偿(MoComp)未压缩格式信息的DirectDraw数据结构",
       "syntax": "typedef struct _DD_GETMOCOMPFORMATSDATA {\n  PDD_DIRECTDRAW_LOCAL lpDD;\n  GUID *lpGuid;\n  DWORD dwNumFormats;\n  LPDDPIXELFORMAT lpFormats;\n  HRESULT ddRVal;\n} DD_GETMOCOMPFORMATSDATA, *PDD_GETMOCOMPFORMATSDATA;",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 535
+      "_source_line": 535,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_GETMOCOMPGUIDSDATA",
@@ -6234,7 +6730,7 @@
     {
       "id": "windows::DD_GETSCANLINEDATA",
       "name": "DD_GETSCANLINEDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "DirectDraw 驱动程序用于返回当前扫描行编号的结构体。",
       "syntax": "typedef struct _DD_GETSCANLINEDATA {\n  PDD_DIRECTDRAW_GLOBAL lpDD;\n  DWORD                 dwScanLine;\n  HRESULT               ddRVal;\n  VOID                  *GetScanLine;\n} *PDD_GETSCANLINEDATA, DD_GETSCANLINEDATA;",
       "remarks": "dwScanLine 中返回的扫描行值必须大于或等于 0 且小于 N，其中 N 是可见扫描行数和垂直空白期间发生的扫描行数之和。例如，如果显示器以 640x480 的分辨率运行，在垂直空白期间有 12 个扫描行，则返回给 GetScanLine 的值的范围可能介于 0 到 491。",
@@ -6245,7 +6741,8 @@
         "DD_GETSCANLINEDATA"
       ],
       "confidence": 0.75,
-      "_source_line": 537
+      "_source_line": 537,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_GETVPORTBANDWIDTHDATA",
@@ -6304,14 +6801,15 @@
     {
       "id": "windows::DD_GETVPORTINPUTFORMATDATA",
       "name": "DD_GETVPORTINPUTFORMATDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构体包含驱动程序返回的视频端口扩展(VPE)对象可以接受的输入格式所需的信息。",
       "syntax": "typedef struct _DD_GETVPORTINPUTFORMATDATA {\n    PDD_DIRECTDRAW_LOCAL lpDD;\n    // Additional fields would be here\n} DD_GETVPORTINPUTFORMATDATA;",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 543
+      "_source_line": 543,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_GETVPORTLINEDATA",
@@ -6328,7 +6826,7 @@
     {
       "id": "windows::DD_GETVPORTOUTPUTFORMATDATA",
       "name": "DD_GETVPORTOUTPUTFORMATDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "在 dwNumFormats 成员中写入 VPE 对象支持的输出格式数。第一次调用时，DirectDraw 将分配此数量的 DDPIXELFORMAT 结构，以传入对 DdVideoPortGetOutputFormats 的第二次调用。第二次调用中，lpddpfOutputFormats 指向分配的 DDPIXELFORMAT 结构数组。驱动程序应在每个结构中填充 VPE 对象可以写入帧缓冲区的每个输出格式的说明。驱动程序应仅根据视频数据的输入格式返回它支持的那些输出格式，并在 dwNumFormats 中返回支持的输出格式数。请注意，驱动程序可以保证 lpddpfOutputFormats 指向的缓冲区足够大，足以保存所请求的格式信息。",
       "syntax": "typedef struct _DD_GETVPORTOUTPUTFORMATDATA {\n    PDD_DIRECTDRAW_LOCAL lpDD;\n    DWORD dwNumFormats;\n    LPDDPIXELFORMAT lpddpfOutputFormats;\n} DD_GETVPORTOUTPUTFORMATDATA;",
       "header": "ddrawint.h",
@@ -6338,7 +6836,8 @@
         "DirectDraw"
       ],
       "confidence": 0.85,
-      "_source_line": 546
+      "_source_line": 546,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_GETVPORTSIGNALDATA",
@@ -6355,7 +6854,7 @@
     {
       "id": "windows::DD_LOCKDATA",
       "name": "DD_LOCKDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Contains the memory pointer to the surface top in lpSurfData member. Drivers can rely on the pointer passed in fpProcess member as a per-process pointer to their DirectDraw accessible framebuffer's user-mode mapping if they need to compute their own surface address. Locks do not provide exclusive access; multiple threads can lock the same surface simultaneously. Applications must synchronize access to memory blocks. NT-based OS drivers should not return pointers to system memory from DdLock unless allocated with PLEASE_ALLOC_USERMEM flag in DdCreateSurface.",
       "syntax": "typedef struct _DD_LOCKDATA {\n    PDD_DIRECTDRAW_GLOBAL lpDD;\n    // ... other members\n} DD_LOCKDATA;",
       "header": "ddrawint.h",
@@ -6366,7 +6865,8 @@
         "DirectDraw"
       ],
       "confidence": 0.85,
-      "_source_line": 549
+      "_source_line": 549,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_MAPMEMORYDATA",
@@ -6383,14 +6883,15 @@
     {
       "id": "windows::DD_MORESURFACECAPS",
       "name": "DD_MORESURFACECAPS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构 除了 DDCORECAPS 中所述的功能外，DD_MORESURFACECAPS 结构还定义了更多驱动程序表面功能。",
       "syntax": "typedef struct _DD_MORESURFACECAPS {\\n    DWORD dwSize;\\n    DDSCAPSEX ddsCapsMore;\\n    struct {\\n        DDSCAPSEX ddsCapsEx;\\n        DDSCAPSEX ddsCapsExAlt;\\n    } tagNTExtendedHeapRestrictions;\\n    tagNTExtendedHeapRestrictions ddsExtendedHeapRestrictions[1];\\n} *PDD_MORESURFACECAPS, DD_MORESURFACECAPS;",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.85,
-      "_source_line": 551
+      "_source_line": 551,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_MOTIONCOMP_LOCAL",
@@ -6409,14 +6910,15 @@
     {
       "id": "windows::DD_PALETTE_LOCAL",
       "name": "DD_PALETTE_LOCAL",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含与DirectDraw调色板相关的数据，这些数据对于单个调色板对象是唯一的。保留字段供系统和显示驱动程序使用。",
       "syntax": "typedef struct _DD_PALETTE_LOCAL {\n    ULONG dwReserved0;\n    ULONG_PTR dwReserved1;\n} DD_PALETTE_LOCAL, *PDD_PALETTE_LOCAL;",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 557
+      "_source_line": 557,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_QUERYMOCOMPSTATUSDATA",
@@ -6469,14 +6971,15 @@
     {
       "id": "windows::DD_SETEXCLUSIVEMODEDATA",
       "name": "DD_SETEXCLUSIVEMODEDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含独占模式通知信息。成员lpDD指向描述驱动程序设备的DD_DIRECTDRAW_GLOBAL结构。dwEnterExcl指示当为TRUE时，Microsoft DirectDraw应用程序正在切换到独占模式；为FALSE时退出独占模式。dwReserved保留供系统使用，驱动程序应忽略。ddRVal指定驱动程序写入DdSetExclusiveMode回调的返回值的位置。返回代码如DD_OK表示成功。",
       "syntax": "typedef struct _DD_SETEXCLUSIVEMODEDATA {\n  PDD_DIRECTDRAW_GLOBAL lpDD;\n  DWORD                 dwEnterExcl;\n  DWORD                 dwReserved;\n  HRESULT               ddRVal;\n  VOID                  *SetExclusiveMode;\n} *PDD_SETEXCLUSIVEMODEDATA, DD_SETEXCLUSIVEMODEDATA;",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 562
+      "_source_line": 562,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_SETOVERLAYPOSITIONDATA",
@@ -6535,7 +7038,7 @@
     {
       "id": "windows::DD_SURFACE_INT",
       "name": "DD_SURFACE_INT",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "内部结构，包含DirectDrawSurface对象的本地信息。",
       "syntax": "typedef struct _DD_SURFACE_INT {\n    PDD_SURFACE_LOCAL lpLcl;\n} DD_SURFACE_INT, *PDD_SURFACE_INT;",
       "requirements": {
@@ -6545,7 +7048,8 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 568
+      "_source_line": 568,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_SURFACE_LOCAL",
@@ -6601,7 +7105,7 @@
     {
       "id": "windows::DD_UNLOCKDATA",
       "name": "DD_UNLOCKDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构包含执行DirectDraw解锁操作所需的信息。",
       "syntax": "typedef struct _DD_UNLOCKDATA {\n    PDD_DIRECTDRAW_GLOBAL lpDD;\n    ...\n} DD_UNLOCKDATA;",
       "header": "ddrawint.h",
@@ -6610,7 +7114,8 @@
         "DirectDraw"
       ],
       "confidence": 0.75,
-      "_source_line": 575
+      "_source_line": 575,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_UPDATENONLOCALHEAPDATA",
@@ -6651,31 +7156,33 @@
     {
       "id": "windows::DD_VIDEOPORT_LOCAL",
       "name": "DD_VIDEOPORT_LOCAL",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "DirectDraw 内部使用的视频端口本地数据结构，包含指向 DirectDraw 本地对象、视频端口描述、信息和表面的指针。",
       "syntax": "typedef struct _DD_VIDEOPORT_LOCAL {\\n    PDD_DIRECTDRAW_LOCAL lpDD;\\n    DDVIDEOPORTDESC      ddvpDesc;\\n    DDVIDEOPORTINFO      ddvpInfo;\\n    PDD_SURFACE_INT      lpSurface;\\n} DD_VIDEOPORT_LOCAL, *PDD_VIDEOPORT_LOCAL;",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.85,
-      "_source_line": 579
+      "_source_line": 579,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_VPORTCOLORDATA",
       "name": "DD_VPORTCOLORDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含视频端口扩展(VPE)对象颜色控制信息的DirectDraw结构",
       "syntax": "typedef struct _DD_VPORTCOLORDATA {\n    PDD_DIRECTDRAW_LOCAL lpDD;\n    // 其他成员变量\n} DD_VPORTCOLORDATA;",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 581
+      "_source_line": 581,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_WAITFORVERTICALBLANKDATA",
       "name": "DD_WAITFORVERTICALBLANKDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含获取监视器的垂直空白信息所需的信息。",
       "syntax": "typedef struct _DD_WAITFORVERTICALBLANKDATA {\n  PDD_DIRECTDRAW_GLOBAL lpDD;\n  DWORD dwFlags;\n  DWORD bIsInVB;\n  ULONG_PTR hEvent;\n  HRESULT ddRVal;\n  VOID *WaitForVerticalBlank;\n} *PDD_WAITFORVERTICALBLANKDATA, DD_WAITFORVERTICALBLANKDATA;",
       "header": "ddrawi.h",
@@ -6685,12 +7192,13 @@
         "DD_VIDEOPORT_LOCAL"
       ],
       "confidence": 0.85,
-      "_source_line": 582
+      "_source_line": 582,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_WAITFORVPORTSYNCDATA",
       "name": "DD_WAITFORVPORTSYNCDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "ddRVal 成员设置为 DDERR_VIDEONOTACTIVE 并返回 DDHAL_DRIVER_HANDLED。当 dwTimeOut 为零时，驱动程序必须指定其自己的超时条件。",
       "syntax": "typedef struct _DD_WAITFORVPORTSYNCDATA {\n    PDD_DIRECTDRAW_LOCAL lpDD;\n    DWORD dwFlags;\n    DWORD dwLine;\n    DWORD dwTimeOut;\n    HRESULT ddRVal;\n} DD_WAITFORVPORTSYNCDATA;",
       "requirements": {
@@ -6702,12 +7210,13 @@
         "DDHAL_DRIVER_HANDLED"
       ],
       "confidence": 0.85,
-      "_source_line": 584
+      "_source_line": 584,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DDHAL_DESTROYDDLOCALDATA",
       "name": "DDHAL_DESTROYDDLOCALDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含驱动程序销毁与给定本地DirectDraw对象关联的Direct3D图面所需的信息结构。dwFlags成员保留未使用，pDDLcl指向本地DirectDraw对象，ddRVal存储驱动程序返回值。",
       "syntax": "typedef struct _DDHAL_DESTROYDDLOCALDATA {\n    DWORD dwFlags;\n    LPDDRAWI_DIRECTDRAW_LCL pDDLcl;\n    HRESULT ddRVal;\n} DDHAL_DESTROYDDLOCALDATA, *LPDDHAL_DESTROYDDLOCALDATA;",
       "requirements": {
@@ -6719,12 +7228,13 @@
         "DirectDraw"
       ],
       "confidence": 0.75,
-      "_source_line": 584
+      "_source_line": 584,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_CALLBACKS",
       "name": "DD_CALLBACKS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含指向设备驱动程序支持的回调函数的函数指针。",
       "syntax": "typedef struct DD_CALLBACKS {\n    DWORD dwSize;\n    DWORD dwFlags;\n    LPDDENUMMODESCALLBACK EnumModesCallback;\n    LPDDCREATESURFACECALLBACK CreateSurfaceCallback;\n    LPDDCREATEPALETTECALLBACK CreatePaletteCallback;\n    LPDDCREATECLIPPERCALLBACK CreateClipperCallback;\n    LPDDWAITFORVERTICALBLANKCALLBACK WaitForVerticalBlankCallback;\n    LPDDCANCREATESURFACECALLBACK CanCreateSurfaceCallback;\n    LPDDCREATESURFACEEXCALLBACK CreateSurfaceExCallback;\n} DD_CALLBACKS;",
       "header": "ddrawint.h",
@@ -6738,7 +7248,8 @@
       ],
       "confidence": 0.75,
       "_source_line": 608,
-      "remarks": "显示驱动程序不使用的条目应设置为 NULL。 GDI 为此结构分配内存，并调用驱动程序的 DrvEnableDirectDraw 函数对其进行初始化。"
+      "remarks": "显示驱动程序不使用的条目应设置为 NULL。 GDI 为此结构分配内存，并调用驱动程序的 DrvEnableDirectDraw 函数对其进行初始化。",
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_COLORCONTROLCALLBACKS",
@@ -6776,7 +7287,7 @@
     {
       "id": "windows::DD_GETHEAPALIGNMENTDATA",
       "name": "DD_GETHEAPALIGNMENTDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "DirectDraw 驱动程序用于查询堆对齐数据的结构。该结构包含驱动程序实例、堆索引、返回值位置、获取堆对齐的函数指针以及对齐数据本身。",
       "syntax": "typedef struct _DD_GETHEAPALIGNMENTDATA {\\n  ULONG_PTR dwInstance;\\n  DWORD dwHeap;\\n  HRESULT ddRVal;\\n  VOID *GetHeapAlignment;\\n  HEAPALIGNMENT Alignment;\\n} DD_GETHEAPALIGNMENTDATA, *PDD_GETHEAPALIGNMENTDATA;",
       "remarks": "dwHeap 成员是为其请求对齐数据的堆的序号。",
@@ -6786,12 +7297,13 @@
         "DD_KERNELCALLBACKS"
       ],
       "confidence": 0.85,
-      "_source_line": 611
+      "_source_line": 611,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_HALINFO",
       "name": "DD_HALINFO",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含驱动程序支持的硬件功能信息的结构体。用于 DrvGetDirectDrawInfo 函数中传递硬件能力数据。",
       "syntax": "typedef struct _DD_HALINFO {\n  DWORD dwSize;\n  VIDEOMEMORYINFO vmiData;\n  DDNTCORECAPS ddCaps;\n  DWORD dwFlags;\n  LPDDGETDRIVERINFO GetDriverInfo;\n} DD_HALINFO;",
       "return_value": "",
@@ -6809,7 +7321,8 @@
         "DrvGetDirectDrawInfo"
       ],
       "confidence": 0.9,
-      "_source_line": 612
+      "_source_line": 612,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_KERNELCALLBACKS",
@@ -6858,14 +7371,15 @@
     {
       "id": "windows::DD_MOTIONCOMPCALLBACKS",
       "name": "DD_MOTIONCOMPCALLBACKS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构体指定运动补偿功能。如果驱动程序支持此功能，应初始化lpvData指向的缓冲区并返回DD_MOTIONCOMPCALLBACKS结构。查询驱动程序是否支持通过此结构。",
       "syntax": "typedef struct DD_MOTIONCOMPCALLBACKS {\n  DWORD dwSize;\n  DWORD dwFlags;\n};",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.85,
-      "_source_line": 616
+      "_source_line": 616,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_NONLOCALVIDMEMCAPS",
@@ -6913,7 +7427,7 @@
     {
       "id": "windows::DD_PALETTECALLBACKS",
       "name": "DD_PALETTECALLBACKS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "DD_PALETTECALLBACKS 结构包含 DirectDraw 调色板回调函数的指针。",
       "syntax": "",
       "remarks": "",
@@ -6928,12 +7442,13 @@
         "DdGetDriverInfo"
       ],
       "confidence": 0.85,
-      "_source_line": 624
+      "_source_line": 624,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_SURFACECALLBACKS",
       "name": "DD_SURFACECALLBACKS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "DD_SURFACECALLBACKS 结构包含指向设备驱动程序支持的 DirectDraw 图面回调函数的入口指针。",
       "syntax": "typedef struct DD_SURFACECALLBACKS {\n    DWORD dwSize;\n    DWORD dwFlags;\n    // 包含多个回调函数指针成员\n} DD_SURFACECALLBACKS, *PDD_SURFACECALLBACKS;",
       "return_value": "",
@@ -6948,7 +7463,8 @@
         "DrvEnablePDEV"
       ],
       "confidence": 0.9,
-      "_source_line": 626
+      "_source_line": 626,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DD_VIDEOPORTCALLBACKS",
@@ -6967,7 +7483,7 @@
     {
       "id": "windows::DisplayMode",
       "name": "DisplayMode",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述显示模式的结构。",
       "syntax": "typedef struct tagDisplayMode {\n    WCHAR DeviceName[32];\n    DEVMODEW devMode;\n} DisplayMode;",
       "members": [
@@ -6982,7 +7498,8 @@
         "DisplayModes"
       ],
       "confidence": 0.7,
-      "_source_line": 729
+      "_source_line": 729,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DisplayModes",
@@ -7005,7 +7522,7 @@
     {
       "id": "windows::FD_DEVICEMETRICS",
       "name": "FD_DEVICEMETRICS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "当 DrvQueryFontData 函数的 iMode 参数为 QFD_MAXEXTENTS 时，字体驱动程序使用此结构向 GDI 提供特定于设备的字体信息。",
       "header": "winddi.h",
       "deprecated": false,
@@ -7013,7 +7530,8 @@
         "DrvQueryFontData"
       ],
       "confidence": 0.75,
-      "_source_line": 742
+      "_source_line": 742,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::FD_GLYPHATTR",
@@ -7030,7 +7548,7 @@
     {
       "id": "windows::FD_GLYPHSET",
       "name": "FD_GLYPHSET",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "FONTOBJ_pfdg 函数返回指向与指定字体关联的 FD_GLYPHSET 结构的指针。参数 pfo 指向要查询的 FONTOBJ 结构。",
       "syntax": "",
       "return_value": "FONTOBJ_pfdg 返回指向 FD_GLYPHSET 结构的指针。成功时返回有效指针，否则为 NULL。",
@@ -7048,12 +7566,13 @@
         "OpenType"
       ],
       "confidence": 0.9,
-      "_source_line": 747
+      "_source_line": 747,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::FD_KERNINGPAIR",
       "name": "FD_KERNINGPAIR",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "定义字距调整对的结构体，包含两个字符的码位及其字距调整值。",
       "syntax": "typedef struct _FD_KERNINGPAIR { WCHAR wcFirst; WCHAR wcSecond; FWORD fwdKern; } FD_KERNINGPAIR; 成员 wcFirst 指定字距调整对中第一个字符的码位。wcSecond 指定字距调整对中第二个字符的码位。fwdKern 指定字距调整值（以字体名义单位表示）。正值表示字符分开，负值表示字符靠近。",
       "parameters": [
@@ -7070,12 +7589,13 @@
         "DrvQueryPerBandInfo"
       ],
       "confidence": 1.0,
-      "_source_line": 748
+      "_source_line": 748,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::FD_XFORM",
       "name": "FD_XFORM",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述二维字体转换的结构体。包含一个2x2的行主矩阵用于表示转换。",
       "syntax": "typedef struct _FD_XFORM { FLOATL eXX; FLOATL eXY; FLOATL eYX; FLOATL eYY; } FD_XFORM, *PFD_XFORM;",
       "parameters": [
@@ -7209,12 +7729,13 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.9,
-      "_source_line": 749
+      "_source_line": 749,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::FLOATOBJ_XFORM",
       "name": "FLOATOBJ_XFORM",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构描述任意线性二维转换，例如几何宽线。",
       "syntax": "typedef struct tagFLOATOBJ_XFORM {\n  FLOATOBJ eM11;\n  FLOATOBJ eM12;\n  FLOATOBJ eM21;\n  FLOATOBJ eM22;\n  FLOATOBJ eDx;\n  FLOATOBJ eDy;\n} FLOATOBJ_XFORM, *PFLOATOBJ_XFORM, *LPFLOATOBJ_XFORM;",
       "return_value": null,
@@ -7232,12 +7753,13 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 1.0,
-      "_source_line": 752
+      "_source_line": 752,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::TYPE1_FONT",
       "name": "TYPE1_FONT",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含 PostScript 驱动程序通过 GDI 访问 Type1 字体所需的信息。",
       "syntax": "typedef struct _TYPE1_FONT { HANDLE hPFM; HANDLE hPFB; ULONG ulIdentifier; } TYPE1_FONT;",
       "header": "winddi.h",
@@ -7246,7 +7768,8 @@
         "PostScript"
       ],
       "confidence": 0.85,
-      "_source_line": 788
+      "_source_line": 788,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DDIRQ_DISPLAY_VSYNC",
@@ -7268,14 +7791,15 @@
     {
       "id": "windows::ReleaseKernelHandle",
       "name": "ReleaseKernelHandle",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "IDirectDrawSurfaceKernel：：ReleaseKernelHandle 方法将内核模式句柄发布到",
       "syntax": "HRESULT ReleaseKernelHandle(); 返回值\n方法必须返回以下值之一：\n返回代码\nS_OK E_FAIL",
       "header": "ddkernel.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 1065
+      "_source_line": 1065,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::GetKernelHandle",
@@ -7334,7 +7858,7 @@
     {
       "id": "windows::DDSTATE_BOB",
       "name": "DDSTATE_BOB",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "DDSTATE_WEAVE dwStartField 意义 Bob 模式用于此图面。编织模式用于此图面。 指示应发生状态更改的字段。 值为 0 表示它应在下一个字段的开头发生，值为 1 表示以 下字段的开头，依此表示。",
       "header": "ddkmapi.h",
       "deprecated": false,
@@ -7342,7 +7866,8 @@
         "DDSTATE_WEAVE"
       ],
       "confidence": 0.75,
-      "_source_line": 1565
+      "_source_line": 1565,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DDSCAPS_BACKBUFFER",
@@ -7442,7 +7967,7 @@
     {
       "id": "windows::DD_DXAPI_OPENSURFACE",
       "name": "DD_DXAPI_OPENSURFACE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "DirectDraw API用于打开表面的结构体",
       "header": "ddkmapi.h",
       "deprecated": false,
@@ -7450,7 +7975,8 @@
         "DD_DXAPI_OPENVIDEOPORT"
       ],
       "confidence": 0.65,
-      "_source_line": 1835
+      "_source_line": 1835,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DDEVENT_DISPLAY_VSYNC",
@@ -7791,7 +8317,7 @@
     {
       "id": "windows::D3DDEVINFO_VCACHE",
       "name": "D3DDEVINFO_VCACHE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "指定顶点缓存信息结构，通过 lpdwStates 成员返回。仅限 DirectX 9.0 及以上版本。Direct3D 运行时使用 D3DDP2OP_CREATEQUERY 和 D3DDP2OP_ISSUEQUERY 命令，并在驱动程序的 D3dDrawPrimitives2 回调中处理。",
       "remarks": "应用程序可通过 IDirect3DDevice9::GetInfo 方法指定此结构。",
       "header": "d3d9.h",
@@ -7802,7 +8328,8 @@
         "DirectX"
       ],
       "confidence": 0.75,
-      "_source_line": 3650
+      "_source_line": 3650,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3DQUERYTYPE_VCACHE",
@@ -7959,7 +8486,7 @@
     {
       "id": "windows::DD_GETDRIVERINFO2DATA",
       "name": "DD_GETDRIVERINFO2DATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "DD_GETDRIVERINFODATA",
       "header": "ddrawint.h",
       "deprecated": false,
@@ -7967,7 +8494,8 @@
         "DD_GETDRIVERINFODATA"
       ],
       "confidence": 0.55,
-      "_source_line": 4564
+      "_source_line": 4564,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PDD_SURFACE_GLOBAL",
@@ -8117,7 +8645,7 @@
     {
       "id": "windows::DDRAWI_VPORTSTART",
       "name": "DDRAWI_VPORTSTART",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "用于通过 VPE 对象启动数据流的结构体。驱动程序应通过此结构体初始化 VPE 数据流。",
       "header": "ddrawint.h",
       "deprecated": false,
@@ -8125,7 +8653,8 @@
         "DDRAWI_VPORTSTOP"
       ],
       "confidence": 0.75,
-      "_source_line": 4963
+      "_source_line": 4963,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DDRAWI_VPORTGETCOLOR",
@@ -8190,13 +8719,14 @@
     {
       "id": "windows::DDHAL_KERNEL_SYNCSURFACEDATA",
       "name": "DDHAL_KERNEL_SYNCSURFACEDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "DirectDraw HAL 内核同步表面数据结构",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 5298
+      "_source_line": 5298,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DDHAL_MOCOMP32_CREATE",
@@ -8235,7 +8765,7 @@
     {
       "id": "windows::FreeDriverMemory",
       "name": "FreeDriverMemory",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "指向驱动程序提供的 DdFreeDriverMemory 回调。 SetExclusiveMode 指向驱动程序提供的 DdSetExclusiveMode 回调。 FlipToGDISurface 指向驱动程序提供的",
       "remarks": "显示驱动程序不使用的条目应设置为 NULL。 当使用 GUID_NTCallbacks GUID 调用其 DdGetDriverInfo 函数时，驱动程序应初始化此结构。",
       "header": "ddrawint.h",
@@ -8246,7 +8776,8 @@
         "DdSetExclusiveMode"
       ],
       "confidence": 0.6,
-      "_source_line": 5470
+      "_source_line": 5470,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DDHAL_PRIVATECAP_AUTOMICSURFACECREATION",
@@ -8315,13 +8846,14 @@
     {
       "id": "windows::DDHAL_VPORT32_GETBANDWIDTH",
       "name": "DDHAL_VPORT32_GETBANDWIDTH",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "DDHAL_VPORT32_GETINPUTFORMATS",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 5651
+      "_source_line": 5651,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DDHAL_VPORT32_GETOUTPUTFORMATS",
@@ -8337,13 +8869,14 @@
     {
       "id": "windows::DDHAL_VPORT32_GETFIELD",
       "name": "DDHAL_VPORT32_GETFIELD",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "DDHAL_VPORT32_GETLINE",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 5653
+      "_source_line": 5653,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PDD_CANCREATESURFACEDATA",
@@ -8517,7 +9050,7 @@
     {
       "id": "windows::PDD_FLIPTOGDISURFACE",
       "name": "PDD_FLIPTOGDISURFACE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "回调函数 当 DirectDraw 翻转到 GDI 图面或从 GDI 图面翻转时， DdFlipToGDISurface 回调函数会通知驱动程序。",
       "header": "ddrawint.h",
       "deprecated": false,
@@ -8526,7 +9059,8 @@
         "DirectDraw"
       ],
       "confidence": 0.75,
-      "_source_line": 6061
+      "_source_line": 6061,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PDD_FREEDRIVERMEMORYDATA",
@@ -8731,13 +9265,14 @@
     {
       "id": "windows::PDD_GETMOCOMPGUIDSDATA",
       "name": "PDD_GETMOCOMPGUIDSDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含用于获取MO组件GUID数据的结构体",
       "header": "ddrawint.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 6463
+      "_source_line": 6463,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PDD_QUERYMOCOMPSTATUSDATA",
@@ -8969,7 +9504,7 @@
     {
       "id": "windows::DDRAWI_VPORTSETCOLOR",
       "name": "DDRAWI_VPORTSETCOLOR",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "当 dwFlags 包含特定标志时，驱动程序应将 VPE 对象的颜色控制设置设置为 DD_VPORTCOLORDATA 结构中指定的值。驱动程序应检查 DD_VPORTCOLORDATA 的 dwFlags 成员，以确定哪些结构成员包含有效数据。",
       "header": "ddrawint.h",
       "deprecated": false,
@@ -8977,7 +9512,8 @@
         "DD_VPORTCOLORDATA"
       ],
       "confidence": 0.75,
-      "_source_line": 6991
+      "_source_line": 6991,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PDD_CREATEVPORTDATA",
@@ -9071,7 +9607,7 @@
     {
       "id": "windows::PDD_GETVPORTFLIPSTATUSDATA",
       "name": "PDD_GETVPORTFLIPSTATUSDATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含驱动程序确定表面翻转状态所需的信息。",
       "header": "ddrawint.h",
       "deprecated": false,
@@ -9079,7 +9615,8 @@
         "DD_GETVPORTFLIPSTATUSDATA"
       ],
       "confidence": 0.75,
-      "_source_line": 7148
+      "_source_line": 7148,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PDD_GETVPORTINPUTFORMATDATA",
@@ -9250,14 +9787,15 @@
     {
       "id": "windows::Offscreen",
       "name": "Offscreen",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Specifies SURFACEALIGNMENT structure containing heap alignment requirements for surfaces marked with DDSCAPS_OFFSCREENPLAIN. FlipTarget specifies SURFACEALIGNMENT structure containing heap alignment requirements for surfaces marked with DDSCAPS_FLIP.",
       "remarks": "驱动程序应验证 dwSize 成员的大小是否至少 与 ( HEAPALIGNMENT) 大小相同。",
       "header": "dmemmgr.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 7583
+      "_source_line": 7583,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DDVPD_ALIGN",
@@ -9323,14 +9861,15 @@
     {
       "id": "windows::DDVP_CROP",
       "name": "DDVP_CROP",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "当设置DDVP_PRESCALE标志时，此结构包含有效的矩形。dwPrescaleWidth 指定视频和 VBI 数据应预先缩放的宽度（以像素为单位）。例如，如果视频数据宽度为 720 像素且客户端请求将宽度减半，则指定 360。dwPrescaleHeight 指定视频和 VBI 数据应预先缩放的高度（以像素为单位）。例如，如果视频数据高度为 240 像素且客户端请求将高度减半，则指定 120。lpddpfInputFormat 指向 DDPIXELFORMAT 结构，指定写入视频端口扩展 (VPE) 对象的视频数据格式。lpddpfVBIInputFormat 指向 DDPIXELFORMAT 结构，指定垂直空白间隔内数据的输入格式。lpddpfVBIOutputFormat 指向 DDPIXELFORMAT 结构，指定垂直空白间隔内数据的输出格式。dwVBIHeight 指定垂直空白间隔内的数据行数。dwReserved1 和 dwReserved2 保留供系统使用，驱动程序应忽略。",
       "remarks": "此结构的所有成员均由客户端设置，驱动程序不应修改。客户端通常是覆盖混合器。",
       "header": "dvp.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 7985
+      "_source_line": 7985,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DDIRQ_VPORT5_LINE",
@@ -9351,14 +9890,15 @@
     {
       "id": "windows::DxGetCurrentAutoflip",
       "name": "DxGetCurrentAutoflip",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "函数在 GetCurrentAutoflipOutInfo 的 DDGETCURRENTAUTOFLIPOUTINFO 结构的 dwSurfaceIndex 成员中返回当前图面的自动 剪辑链中的当前索引。",
       "syntax": "typedef struct _DDGETIRQINFO {   DWORD dwFlags;\n} DDGETIRQINFO, *PDDGETIRQINFO;\n成员 dwFlags\n指定中断管理状态。",
       "header": "dxmini.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 8216
+      "_source_line": 8216,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DxSetState",
@@ -9379,13 +9919,14 @@
       "confidence": 0.7,
       "_source_line": 8388,
       "return_value": {
-        "description": "如果成功，DxSetState 将返回DX_OK;否则，它将返回以下错误值之一：注解 传递的图面数据包含新状态。 如果不支持新状态，视频微型端口驱动程序应使调用失败。 如果新状态要求设备还原从硬件自动剪辑到软件自动剪辑，则视频微型端口驱动程序应在 SetStateOutInfo 中设置 DDSETSTATEOUTINFO 结构的成员，如下所示： 等于 1 的 dwSoftwareAutoflip 成员。 dwSurfaceIndex 成员等于接收硬件视频端口数据的图面的自动翻转列表中的当前位置。"
+        "description": "如果成功，DxSetState 将返回DX_OK;否则，它将返回以下错误值之一：注解 传递的图面数据包含新状态。 如果不支持新状态，视频微型端口驱动程序应使调用失败。 如果新状态要求设备还原从硬件自动剪辑到软件自动剪辑，则视频微型端口驱动程序应在 SetStateOutInfo 中设置 DDSETSTATEOUTINFO 结构的成员，如下所示： 等于 1 的 dwSoftwareAutoflip 成员。 dwSurfaceIndex 成员等于接收硬件视频端口数据的图面的自动翻转列表中的当前位置。",
+        "type": "typedef void"
       }
     },
     {
       "id": "windows::DDSKIP_ENABLENEXT",
       "name": "DDSKIP_ENABLENEXT",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "DDSKIP_SKIPNEXT",
       "requirements": {
         "header": "dxmini.h"
@@ -9396,7 +9937,8 @@
         "DDSKIP_SKIPNEXT"
       ],
       "confidence": 0.55,
-      "_source_line": 8432
+      "_source_line": 8432,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PDX_GETIRQINFO",
@@ -10033,7 +10575,8 @@
         {
           "name": "BugCheckCode",
           "direction": "in",
-          "description": "指定一个值，该值指示 bug 检查的原因。[in] P1 指向提供其他信息的值的指针，例如发生内存损坏错误的地址和数据。 该值取决于"
+          "description": "指定一个值，该值指示 bug 检查的原因。[in] P1 指向提供其他信息的值的指针，例如发生内存损坏错误的地址和数据。 该值取决于",
+          "type": "ULONG"
         }
       ],
       "requirements": {
@@ -10048,7 +10591,11 @@
         "BugCheckCode"
       ],
       "confidence": 0.8,
-      "_source_line": 13416
+      "_source_line": 13416,
+      "return_value": {
+        "type": "ENGAPI VOID",
+        "description": ""
+      }
     },
     {
       "id": "windows::ECS_TEARDOWN",
@@ -10132,14 +10679,19 @@
         {
           "name": "iFile",
           "direction": "in",
-          "description": "调用方提供的指针指向标识要映射的字体文件的值。 此指针必须以前作为"
+          "description": "调用方提供的指针指向标识要映射的字体文件的值。 此指针必须以前作为",
+          "type": "ULONG_PTR"
         }
       ],
       "header": "winddi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 14489
+      "_source_line": 14489,
+      "return_value": {
+        "type": "ENGAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::ENG_FNT_CACHE_READ_FAULT",

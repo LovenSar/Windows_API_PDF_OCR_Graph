@@ -36,11 +36,13 @@
         {
           "name": "OutBuffer",
           "direction": "out",
-          "description": "指向 WppRecorderLogCreate 分配的缓冲区的指针。[out] OutBufferLength 指向 ULONG 的指针，其中包含 OutBuffer 指向的输出缓冲区的大小。[out] Guid 指向标识驱动程序数据的 WPP 控制器 GUID 的指针。"
+          "description": "指向 WppRecorderLogCreate 分配的缓冲区的指针。[out] OutBufferLength 指向 ULONG 的指针，其中包含 OutBuffer 指向的输出缓冲区的大小。[out] Guid 指向标识驱动程序数据的 WPP 控制器 GUID 的指针。",
+          "type": "PVOID"
         }
       ],
       "return_value": {
-        "description": "Returns STATUS_SUCCESS if the operation succeeds. Otherwise, returns an NTSTATUS error code."
+        "description": "Returns STATUS_SUCCESS if the operation succeeds. Otherwise, returns an NTSTATUS error code.",
+        "type": "NTSTATUS"
       },
       "remarks": "On success, this function returns STATUS_SUCCESS and provides the caller with a buffer containing live driver data, the size of that buffer, and the associated WPP control GUID.",
       "requirements": {
@@ -80,7 +82,8 @@
         {
           "name": "RecorderLog",
           "direction": "in",
-          "description": "要删除的记录器日志的句柄。"
+          "description": "要删除的记录器日志的句柄。",
+          "type": "WPP_RECORDER_LOG"
         }
       ],
       "return_value": "当某个线程进入此函数后，随后任何线程都无法再向该缓冲区写入日志。",
@@ -104,7 +107,8 @@
         {
           "name": "RecorderLog",
           "direction": "in",
-          "description": "上一次调用 WppRecorderLogCreate中返回的记录器日志句柄。[in] LogIdentifier 要设置的字符串标识符。"
+          "description": "上一次调用 WppRecorderLogCreate中返回的记录器日志句柄。[in] LogIdentifier 要设置的字符串标识符。",
+          "type": "WPP_RECORDER_LOG"
         }
       ],
       "return_value": "不要对 WppRecorderLogGetDefault 返回的默认日志句柄调用此函数。",
@@ -158,11 +162,13 @@
       "parameters": [
         {
           "name": "WppCb",
-          "description": ""
+          "description": "",
+          "type": "PWPP_RECORDER_CONTROL_BLOCK"
         }
       ],
       "return_value": {
-        "description": "Returns TRUE if the default log is available; otherwise FALSE."
+        "description": "Returns TRUE if the default log is available; otherwise FALSE.",
+        "type": "BOOLEAN"
       },
       "requirements": {
         "header": "wpprecorder.h"
@@ -500,7 +506,8 @@
         {
           "name": "ComponentId",
           "direction": "in",
-          "description": "指定调用此例程的组件。 这必须是 Dpfilter.h 头文件中定义的组件名称筛选器 ID 之一。为了避免将驱动程序的输出与 Windows 组件的输出混合，应仅对 ComponentId使用以下值："
+          "description": "指定调用此例程的组件。 这必须是 Dpfilter.h 头文件中定义的组件名称筛选器 ID 之一。为了避免将驱动程序的输出与 Windows 组件的输出混合，应仅对 ComponentId使用以下值：",
+          "type": "ULONG"
         }
       ],
       "header": "wdm.h",
@@ -510,7 +517,11 @@
         "Format"
       ],
       "confidence": 0.8,
-      "_source_line": 3300
+      "_source_line": 3300,
+      "return_value": {
+        "type": "ULONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::DPFLTR_IHVVIDEO_ID",
@@ -905,7 +916,10 @@
       ],
       "confidence": 0.6,
       "_source_line": 4140,
-      "return_value": "如果成功重新启用内核调试器，则返回 STATUS_SUCCESS。否则，可能返回 STATUS_ACCESS_DENIED。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果成功重新启用内核调试器，则返回 STATUS_SUCCESS。否则，可能返回 STATUS_ACCESS_DENIED。"
+      },
       "remarks": "该例程用于在先前调用 KdDisableDebugger 后重新启用内核调试器。"
     },
     {
@@ -1040,7 +1054,10 @@
       "confidence": 0.6,
       "_source_line": 4444,
       "syntax": "NTSTATUS KcsGeometricWaveCallback(\n  _In_ PCW_CALLBACK_TYPE Type,\n  _In_ PPCW_CALLBACK_INFORMATION Info,\n  _In_opt_ PVOID Context\n);",
-      "return_value": "Returns an NTSTATUS value."
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "Returns an NTSTATUS value."
+      }
     },
     {
       "id": "windows::KcsRegisterGeometricWave",

@@ -257,19 +257,22 @@
       "_source_line": 1151,
       "syntax": "BOOL GetNumaProcessorNode(   [in]  UCHAR  Processor,   [out] PUCHAR NodeNumber);",
       "return_value": {
-        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。"
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "若要检索系统上的处理器列表，请使用 GetProcessAffinityMask 函数。示例 有关示例，请参阅 从 NUMA 节点分配内存。 要求",
       "parameters": [
         {
           "name": "Processor",
           "direction": "in",
-          "description": "处理器编号。 在具有 64 个以上逻辑处理器的系统上，处理器编号相对于包含运行调用线程的处理器的处理器组 。"
+          "description": "处理器编号。 在具有 64 个以上逻辑处理器的系统上，处理器编号相对于包含运行调用线程的处理器的处理器组 。",
+          "type": "UCHAR"
         },
         {
           "name": "NodeNumber",
           "direction": "out",
-          "description": "节点编号。 如果处理器不存在，则0xFF此参数。"
+          "description": "节点编号。 如果处理器不存在，则0xFF此参数。",
+          "type": "PUCHAR"
         }
       ]
     },
@@ -497,19 +500,22 @@
       "_source_line": 819,
       "syntax": "LPVOID CreateFiber(\n[in]           SIZE_T                dwStackSize,\n[in]           LPFIBER_START_ROUTINE lpStartAddress,\n[in, optional] LPVOID                lpParameter);",
       "return_value": {
-        "description": "如果函数成功，则返回值为光纤的地址。 如果函数失败，则返回值为 NULL。 要获得更多的错误信息，请调用 GetLastError。"
+        "description": "如果函数成功，则返回值为光纤的地址。 如果函数失败，则返回值为 NULL。 要获得更多的错误信息，请调用 GetLastError。",
+        "type": "LPVOID"
       },
       "remarks": "进程可以创建的光纤数量受可用虚拟内存的限制。 例如，如果创建具有 1 MB 预留堆栈空间的每个光纤，则最多可以创建 2028 个光纤。 如果使用模块定义中的 STACKSIZE 语句 (.def) 文件或使用 CreateFiberEx 减小默认堆栈大小，则可以创建更多光纤。 但是，如果使用备用策略来处理请求，而不是创建如此大量的光纤，应用程序将具有更好的性能。 线程在使用 SwitchToFiber 函数计划光纤之前，它必须调用 ConvertThreadToFiber 函数，以便有一个与线程关联的光纤。 若要编译使用此函数的应用程序，请将_WIN32_WINNT定义为 0x0400 或更高版本。 有关详细 信息，请参阅 使用 Windows 标头。示例 有关示例，请参阅 使用光纤。",
       "parameters": [
         {
           "name": "dwStackSize",
           "direction": "in",
-          "description": "堆栈的初始提交大小（以字节为单位）。 如果此参数为零，则新光纤将使用可执行文件的默认 提交堆栈大小。 有关详细信息，请参阅 线程堆栈大小。[in] lpStartAddress 指向要由光纤执行的应用程序定义函数的指针，表示光纤的起始地址。 在另一个光纤使用此地址调用 SwitchToFiber 函数之前，新创建的光纤的执行不会开始。 有关光纤回调函数的详细信息，请参阅 FiberProc。"
+          "description": "堆栈的初始提交大小（以字节为单位）。 如果此参数为零，则新光纤将使用可执行文件的默认 提交堆栈大小。 有关详细信息，请参阅 线程堆栈大小。[in] lpStartAddress 指向要由光纤执行的应用程序定义函数的指针，表示光纤的起始地址。 在另一个光纤使用此地址调用 SwitchToFiber 函数之前，新创建的光纤的执行不会开始。 有关光纤回调函数的详细信息，请参阅 FiberProc。",
+          "type": "SIZE_T"
         },
         {
           "name": "lpParameter",
           "direction": "in, optional",
-          "description": "指向传递给光纤的变量的指针。 光纤可以使用 GetFiberData 宏检索此数据。"
+          "description": "指向传递给光纤的变量的指针。 光纤可以使用 GetFiberData 宏检索此数据。",
+          "type": "optional] LPVOID"
         }
       ]
     },
@@ -1853,7 +1859,11 @@
         "Server"
       ],
       "confidence": 0.7,
-      "_source_line": 10
+      "_source_line": 10,
+      "return_value": {
+        "type": "HWND",
+        "description": ""
+      }
     },
     {
       "id": "windows::AreDpiAwarenessContextsEqual",
@@ -1907,7 +1917,11 @@
         "BroadcastSystemMessageW"
       ],
       "confidence": 0.8,
-      "_source_line": 2222
+      "_source_line": 2222,
+      "return_value": {
+        "type": "long",
+        "description": ""
+      }
     },
     {
       "id": "windows::CalculatePopupWindowPosition",
@@ -1938,7 +1952,8 @@
         {
           "name": "nCode",
           "direction": "in",
-          "description": "类型：int 挂钩过程用于确定如何处理消息的应用程序定义代码。 代码必须与与"
+          "description": "类型：int 挂钩过程用于确定如何处理消息的应用程序定义代码。 代码必须与与",
+          "type": "int"
         }
       ],
       "header": "winuser.h",
@@ -1948,7 +1963,11 @@
         "WH_SYSMSGFILTER"
       ],
       "confidence": 0.8,
-      "_source_line": 46
+      "_source_line": 46,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::CallNextHookEx",
@@ -1966,7 +1985,8 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 传递给当前挂钩过程的 lParam 值。 此参数的含义取决于与当前挂钩链关联的挂钩类型。"
+          "description": "类型：LPARAM 传递给当前挂钩过程的 lParam 值。 此参数的含义取决于与当前挂钩链关联的挂钩类型。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -1990,7 +2010,8 @@
         {
           "name": "lpPrevWndFunc",
           "direction": "in",
-          "description": "类型：WNDPROC 上一个窗口过程。 如果通过使用设置为 GWL_WNDPROC 或 DWL_DLGPROC的 nIndex 参数调用 GetWindowLong 函数来获取此值，则它实际上是窗口或对话框过程的地址，或者仅"
+          "description": "类型：WNDPROC 上一个窗口过程。 如果通过使用设置为 GWL_WNDPROC 或 DWL_DLGPROC的 nIndex 参数调用 GetWindowLong 函数来获取此值，则它实际上是窗口或对话框过程的地址，或者仅",
+          "type": "WNDPROC"
         }
       ],
       "header": "winuser.h",
@@ -2001,7 +2022,11 @@
         "ChangeClipboardChain"
       ],
       "confidence": 0.8,
-      "_source_line": 52
+      "_source_line": 52,
+      "return_value": {
+        "type": "LRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::ChangeDisplaySettings",
@@ -2144,7 +2169,8 @@
         {
           "name": "flags",
           "direction": "in",
-          "description": "类型： UINT 要跳过的子窗口。 此参数可使用以下一个或多个值。 值"
+          "description": "类型： UINT 要跳过的子窗口。 此参数可使用以下一个或多个值。 值",
+          "type": "UINT"
         }
       ],
       "header": "winuser.h",
@@ -2156,7 +2182,11 @@
         "CreateWindowExA"
       ],
       "confidence": 0.8,
-      "_source_line": 67
+      "_source_line": 67,
+      "return_value": {
+        "type": "HWND",
+        "description": ""
+      }
     },
     {
       "id": "windows::ClientToScreen",
@@ -2270,37 +2300,44 @@
         {
           "name": "hInstance",
           "direction": "in, optional",
-          "description": "类型： HINSTANCE 创建图标的模块实例的句柄。"
+          "description": "类型： HINSTANCE 创建图标的模块实例的句柄。",
+          "type": "optional] HINSTANCE"
         },
         {
           "name": "nWidth",
           "direction": "in",
-          "description": "类型： int 图标的宽度（以像素为单位）。 请参阅备注。"
+          "description": "类型： int 图标的宽度（以像素为单位）。 请参阅备注。",
+          "type": "int"
         },
         {
           "name": "nHeight",
           "direction": "in",
-          "description": "类型： int 图标的高度（以像素为单位）。 请参阅备注。"
+          "description": "类型： int 图标的高度（以像素为单位）。 请参阅备注。",
+          "type": "int"
         },
         {
           "name": "cPlanes",
           "direction": "in",
-          "description": "类型： BYTE 图标的 XOR 位掩码中的平面数。 请参阅备注。"
+          "description": "类型： BYTE 图标的 XOR 位掩码中的平面数。 请参阅备注。",
+          "type": "BYTE"
         },
         {
           "name": "cBitsPixel",
           "direction": "in",
-          "description": "类型： BYTE 图标的 XOR 位掩码中的每像素位数。"
+          "description": "类型： BYTE 图标的 XOR 位掩码中的每像素位数。",
+          "type": "BYTE"
         },
         {
           "name": "lpbANDbits",
           "direction": "in",
-          "description": "类型： const BYTE* 包含图标 AND 位掩码的位值的字节数组。 此位掩码描述单色位图。 请参阅备注。"
+          "description": "类型： const BYTE* 包含图标 AND 位掩码的位值的字节数组。 此位掩码描述单色位图。 请参阅备注。",
+          "type": "const BYTE"
         },
         {
           "name": "lpbXORbits",
           "direction": "in",
-          "description": "类型： const BYTE* 包含图标的 XOR 位掩码的位值的字节数组。 此位掩码描述单色或彩色位图。 请参阅备注。"
+          "description": "类型： const BYTE* 包含图标的 XOR 位掩码的位值的字节数组。 此位掩码描述单色或彩色位图。 请参阅备注。",
+          "type": "const BYTE"
         }
       ]
     },
@@ -2328,52 +2365,62 @@
         {
           "name": "dwExStyle",
           "direction": "in",
-          "description": "类型：DWORD 正在创建的窗口的扩展窗口样式。 有关可能值的列表，请参阅 扩展窗口样式。"
+          "description": "类型：DWORD 正在创建的窗口的扩展窗口样式。 有关可能值的列表，请参阅 扩展窗口样式。",
+          "type": "DWORD"
         },
         {
           "name": "lpClassName",
           "direction": "in, optional",
-          "description": "类型：LPCTSTR null终止字符串或类原子。 如果 null-terminated 字符串，则指定窗口类名。 类名可以是注册到 RegisterClass 或 RegisterClassEx 函数的任何名称，前提是注册该类的模块也是创建窗口的模块。 类名也可以是任何预定义 系统类 名称。 如果先前调用 RegisterClass 或 RegisterClassEx创建的类 atom，则必须使用宏 MAKEINTATOM进行转换。 （原子必须位于 lpClassName的低序单词中;高阶单词必须为零。"
+          "description": "类型：LPCTSTR null终止字符串或类原子。 如果 null-terminated 字符串，则指定窗口类名。 类名可以是注册到 RegisterClass 或 RegisterClassEx 函数的任何名称，前提是注册该类的模块也是创建窗口的模块。 类名也可以是任何预定义 系统类 名称。 如果先前调用 RegisterClass 或 RegisterClassEx创建的类 atom，则必须使用宏 MAKEINTATOM进行转换。 （原子必须位于 lpClassName的低序单词中;高阶单词必须为零。",
+          "type": "optional] LPCWSTR"
         },
         {
           "name": "lpWindowName",
           "direction": "in, optional",
-          "description": "类型：LPCTSTR 窗口名称。 如果窗口样式指定标题栏，lpWindowName 指向的窗口标题将显示在标题栏 中。 使用 CreateWindow 创建控件（如按钮、复选框和静态控件）时，请使用 lpWindowName 指定控件的文本。 使用 SS_ICON 样式创建静态控件时，请使用 lpWindowName 指定图标名称或标识符。 若要指定标识符，请使用语法“#num”。"
+          "description": "类型：LPCTSTR 窗口名称。 如果窗口样式指定标题栏，lpWindowName 指向的窗口标题将显示在标题栏 中。 使用 CreateWindow 创建控件（如按钮、复选框和静态控件）时，请使用 lpWindowName 指定控件的文本。 使用 SS_ICON 样式创建静态控件时，请使用 lpWindowName 指定图标名称或标识符。 若要指定标识符，请使用语法“#num”。",
+          "type": "optional] LPCWSTR"
         },
         {
           "name": "dwStyle",
           "direction": "in",
-          "description": "类型：DWORD 正在创建的窗口的样式。 此参数可以是 窗口样式值的组合，以及“备注”部分中指示的控 件样式。[in] X 类型：int 窗口的初始水平位置。 对于重叠窗口或弹出窗口，x 参数是窗口左上角的初始 x 坐标，以屏幕坐标表示。 对于子窗口，x 是窗口左上角相对于父窗口工作区左上角的 x 坐标。如果 x 设置为 CW_USEDEFAULT，系统将选择窗口左上角的默认位置，并忽略 y 参数。 CW_USEDEFAULT 仅适用于重叠窗口;如果为弹出窗口或子窗口指定，则 x 和 y 参数设置 为零。[in] Y 类型：int 窗口的初始垂直位置。 对于重叠窗口或弹出窗口，y 参数是窗口左上角的初始 y 坐标，以屏幕坐标表示。 对于子窗口，y 是子窗口左上角相对于父窗口工作区左上角的初始 y 坐标。 对于列表框 y 是列表框工作区左上角相对于父窗口工作区左上角的初始 y 坐标。 如果使用 WS_VISIBLE 样式位设置创建重叠窗口，并将 x 参数设置为 CW_USEDEFAULT，则 y 参数将确定窗口的显示方式。 如果 y 参数 CW_USEDEFAULT，则窗口管理器会在创建窗口后使用 SW_SHOW 标志调用 ShowWindow。 如果 y 参数是一些其他值，则窗口管理器会调用 ShowWindow，该值作为 nCmdShow 参数。"
+          "description": "类型：DWORD 正在创建的窗口的样式。 此参数可以是 窗口样式值的组合，以及“备注”部分中指示的控 件样式。[in] X 类型：int 窗口的初始水平位置。 对于重叠窗口或弹出窗口，x 参数是窗口左上角的初始 x 坐标，以屏幕坐标表示。 对于子窗口，x 是窗口左上角相对于父窗口工作区左上角的 x 坐标。如果 x 设置为 CW_USEDEFAULT，系统将选择窗口左上角的默认位置，并忽略 y 参数。 CW_USEDEFAULT 仅适用于重叠窗口;如果为弹出窗口或子窗口指定，则 x 和 y 参数设置 为零。[in] Y 类型：int 窗口的初始垂直位置。 对于重叠窗口或弹出窗口，y 参数是窗口左上角的初始 y 坐标，以屏幕坐标表示。 对于子窗口，y 是子窗口左上角相对于父窗口工作区左上角的初始 y 坐标。 对于列表框 y 是列表框工作区左上角相对于父窗口工作区左上角的初始 y 坐标。 如果使用 WS_VISIBLE 样式位设置创建重叠窗口，并将 x 参数设置为 CW_USEDEFAULT，则 y 参数将确定窗口的显示方式。 如果 y 参数 CW_USEDEFAULT，则窗口管理器会在创建窗口后使用 SW_SHOW 标志调用 ShowWindow。 如果 y 参数是一些其他值，则窗口管理器会调用 ShowWindow，该值作为 nCmdShow 参数。",
+          "type": "DWORD"
         },
         {
           "name": "nWidth",
           "direction": "in",
-          "description": "类型：int 窗口的宽度（以设备单位为单位）。 对于重叠窗口，nWidth 是窗口的宽度、屏幕坐标或 CW_USEDEFAULT。 如果 nWidth 为 CW_USEDEFAULT，则系统会选择窗口的默认宽度和高度;默认宽度从初始 x 坐标扩展到屏幕右边缘;默认高度从初始 y 坐标扩展到图标区域的 顶部。 CW_USEDEFAULT 仅适用于重叠窗口;如果为弹出窗口或子窗口指定了 CW_USEDEFAULT，则 nWidth，nHeight 参数设置为零。"
+          "description": "类型：int 窗口的宽度（以设备单位为单位）。 对于重叠窗口，nWidth 是窗口的宽度、屏幕坐标或 CW_USEDEFAULT。 如果 nWidth 为 CW_USEDEFAULT，则系统会选择窗口的默认宽度和高度;默认宽度从初始 x 坐标扩展到屏幕右边缘;默认高度从初始 y 坐标扩展到图标区域的 顶部。 CW_USEDEFAULT 仅适用于重叠窗口;如果为弹出窗口或子窗口指定了 CW_USEDEFAULT，则 nWidth，nHeight 参数设置为零。",
+          "type": "int"
         },
         {
           "name": "nHeight",
           "direction": "in",
-          "description": "类型：int 窗口的高度（以设备单位为单位）。 对于重叠窗口，nHeight 是窗口的高度（以屏幕坐标为单位）。 如果 nWidth 参数设置为 CW_USEDEFAULT，则系统将忽略 nHeight 。"
+          "description": "类型：int 窗口的高度（以设备单位为单位）。 对于重叠窗口，nHeight 是窗口的高度（以屏幕坐标为单位）。 如果 nWidth 参数设置为 CW_USEDEFAULT，则系统将忽略 nHeight 。",
+          "type": "int"
         },
         {
           "name": "hWndParent",
           "direction": "in, optional",
-          "description": "类型：HWND 正在创建的窗口的父窗口或所有者窗口的句柄。 若要创建子窗口或拥有的窗口，请提供有效的窗口句柄。 对于弹出窗口，此参数是可选的。 若要创建 仅消息窗口，请向现有仅消息窗口提供 HWND_MESSAGE 或句柄。"
+          "description": "类型：HWND 正在创建的窗口的父窗口或所有者窗口的句柄。 若要创建子窗口或拥有的窗口，请提供有效的窗口句柄。 对于弹出窗口，此参数是可选的。 若要创建 仅消息窗口，请向现有仅消息窗口提供 HWND_MESSAGE 或句柄。",
+          "type": "optional] HWND"
         },
         {
           "name": "hMenu",
           "direction": "in, optional",
-          "description": "类型：HMENU 菜单的句柄，或指定子窗口标识符，具体取决于窗口样式。 对于重叠或弹出窗口， hMenu 标识要与窗口一起使用的菜单;如果要使用类菜单，它可以 NULL。 对于子窗口， hMenu 指定子窗口标识符，这是对话框控件用来通知其父级事件的整数值。 应用程序确定子窗口标识符;对于具有相同父窗口的所有子窗口，它必须是唯一的。"
+          "description": "类型：HMENU 菜单的句柄，或指定子窗口标识符，具体取决于窗口样式。 对于重叠或弹出窗口， hMenu 标识要与窗口一起使用的菜单;如果要使用类菜单，它可以 NULL。 对于子窗口， hMenu 指定子窗口标识符，这是对话框控件用来通知其父级事件的整数值。 应用程序确定子窗口标识符;对于具有相同父窗口的所有子窗口，它必须是唯一的。",
+          "type": "optional] HMENU"
         },
         {
           "name": "hInstance",
           "direction": "in, optional",
-          "description": "类型：HINSTANCE 要与窗口关联的模块实例的句柄。"
+          "description": "类型：HINSTANCE 要与窗口关联的模块实例的句柄。",
+          "type": "optional] HINSTANCE"
         },
         {
           "name": "lpParam",
           "direction": "in, optional",
-          "description": "类型：LPVOID 指向通过 CREATESTRUCT 结构（lpCreateParams 成员）指向的值的指针，该参数由"
+          "description": "类型：LPVOID 指向通过 CREATESTRUCT 结构（lpCreateParams 成员）指向的值的指针，该参数由",
+          "type": "optional] LPVOID"
         }
       ],
       "header": "winuser.h",
@@ -2383,7 +2430,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 81,
-      "return_value": "HWND 窗口句柄。若创建失败，返回 NULL。"
+      "return_value": {
+        "type": "HWND",
+        "description": "HWND 窗口句柄。若创建失败，返回 NULL。"
+      }
     },
     {
       "id": "windows::CreateWindowStationA",
@@ -2419,7 +2469,8 @@
         {
           "name": "hWinPosInfo",
           "direction": "in",
-          "description": "类型： HDWP 多窗口的句柄 - 包含一个或多个窗口的大小和位置信息的位置结构。 此结构由"
+          "description": "类型： HDWP 多窗口的句柄 - 包含一个或多个窗口的大小和位置信息的位置结构。 此结构由",
+          "type": "HDWP"
         }
       ],
       "header": "winuser.h",
@@ -2431,7 +2482,11 @@
         "DefMDIChildProcW"
       ],
       "confidence": 0.65,
-      "_source_line": 2342
+      "_source_line": 2342,
+      "return_value": {
+        "type": "HDWP",
+        "description": ""
+      }
     },
     {
       "id": "windows::DefWindowProcA",
@@ -2449,7 +2504,8 @@
         {
           "name": "Msg",
           "direction": "in",
-          "description": "类型：UINT 消息。"
+          "description": "类型：UINT 消息。",
+          "type": "UINT"
         },
         {
           "name": "wParam",
@@ -2460,7 +2516,8 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 其他消息信息。 此参数的内容取决于 Msg 参数的值。"
+          "description": "类型：LPARAM 其他消息信息。 此参数的内容取决于 Msg 参数的值。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -2834,7 +2891,8 @@
         {
           "name": "nIndex",
           "direction": "in",
-          "description": "类型： int 要检索的系统指标或配置设置。 此参数的取值可为下列值之一： 请注意，所有SM_CX* 值为宽度，所有SM_CY* 值为高度。 另请注意，设计为返回布尔数据的所有设置将 TRUE 表示为任何非零值， FALSE 表示零值。 值"
+          "description": "类型： int 要检索的系统指标或配置设置。 此参数的取值可为下列值之一： 请注意，所有SM_CX* 值为宽度，所有SM_CY* 值为高度。 另请注意，设计为返回布尔数据的所有设置将 TRUE 表示为任何非零值， FALSE 表示零值。 值",
+          "type": "int"
         }
       ],
       "header": "winuser.h",
@@ -2844,7 +2902,11 @@
         "SM_CMONITORS"
       ],
       "confidence": 0.65,
-      "_source_line": 2454
+      "_source_line": 2454,
+      "return_value": {
+        "type": "int",
+        "description": ""
+      }
     },
     {
       "id": "windows::EnumDisplaySettings",
@@ -2892,7 +2954,8 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 要传递给回调函数的应用程序定义值。"
+          "description": "类型：LPARAM 要传递给回调函数的应用程序定义值。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -2972,12 +3035,14 @@
         {
           "name": "lpClassName",
           "direction": "in, optional",
-          "description": "类型：LPCTSTR 上一次调用 RegisterClass 或 RegisterClassEx 函数创建的类名或类原子。 原子必须位于 lpClassName的低序单词中;高序单词必须为零。 如果 lpClassName 指向字符串，则指定窗口类名。 类名称可以是注册到 RegisterClass 或 RegisterClassEx的任何名称，也可以是预定义的控件类名称。 如果 lpClassNameNULL，它将查找游戏与 lpWindowName 参数匹配的任何窗口。"
+          "description": "类型：LPCTSTR 上一次调用 RegisterClass 或 RegisterClassEx 函数创建的类名或类原子。 原子必须位于 lpClassName的低序单词中;高序单词必须为零。 如果 lpClassName 指向字符串，则指定窗口类名。 类名称可以是注册到 RegisterClass 或 RegisterClassEx的任何名称，也可以是预定义的控件类名称。 如果 lpClassNameNULL，它将查找游戏与 lpWindowName 参数匹配的任何窗口。",
+          "type": "optional] LPCSTR"
         },
         {
           "name": "lpWindowName",
           "direction": "in, optional",
-          "description": "类型：LPCTSTR 窗口名称（窗口的标题）。 如果此参数 NULL，则所有窗口名称都匹配。"
+          "description": "类型：LPCTSTR 窗口名称（窗口的标题）。 如果此参数 NULL，则所有窗口名称都匹配。",
+          "type": "optional] LPCSTR"
         }
       ],
       "return_value": {
@@ -3098,7 +3163,8 @@
         {
           "name": "lpClassName",
           "direction": "out",
-          "description": "类型： LPTSTR 类名字符串。[in] nMaxCount 类型： int lpClassName 缓冲区的长度（以字符为单位）。 缓冲区必须足够大，才能包含终止 null 字符;否则，类名字符串将被截断为 nMaxCount-1 字符。"
+          "description": "类型： LPTSTR 类名字符串。[in] nMaxCount 类型： int lpClassName 缓冲区的长度（以字符为单位）。 缓冲区必须足够大，才能包含终止 null 字符;否则，类名字符串将被截断为 nMaxCount-1 字符。",
+          "type": "LPTSTR"
         }
       ],
       "return_value": {
@@ -3260,17 +3326,20 @@
         {
           "name": "hWnd",
           "direction": "in, optional",
-          "description": "类型：HWND 要检索其消息的窗口的句柄。 窗口必须属于当前线程。 如果 hWnd 为 NULL，GetMessage 将检索属于当前线程的任何窗口的消息，以及当前线程的消息队列中 hwnd 值为 NULL 的任何消息， () 看到 MSG 结构。 因此，如果 hWnd 为 NULL，则同时处理窗口消息和线程消息。 如果 hWnd 为 -1，则 GetMessage 仅检索当前线程的消息队列中 hwnd 值为 NULL 的消息，即当 hWnd 参数为 NULL) 或 PostThreadMessage 时，PostMessage (发布的线程消息。"
+          "description": "类型：HWND 要检索其消息的窗口的句柄。 窗口必须属于当前线程。 如果 hWnd 为 NULL，GetMessage 将检索属于当前线程的任何窗口的消息，以及当前线程的消息队列中 hwnd 值为 NULL 的任何消息， () 看到 MSG 结构。 因此，如果 hWnd 为 NULL，则同时处理窗口消息和线程消息。 如果 hWnd 为 -1，则 GetMessage 仅检索当前线程的消息队列中 hwnd 值为 NULL 的消息，即当 hWnd 参数为 NULL) 或 PostThreadMessage 时，PostMessage (发布的线程消息。",
+          "type": "optional] HWND"
         },
         {
           "name": "wMsgFilterMin",
           "direction": "in",
-          "description": "类型： UINT 要检索的最低消息值的整数值。 使用 WM_KEYFIRST (0x0100) 指定第一条键盘消息， 或使用 WM_MOUSEFIRST (0x0200) 指定第一条鼠标消息。 在此处和 wMsgFilterMax 中使用WM_INPUT仅指定WM_INPUT消息。 如果 wMsgFilterMin 和 wMsgFilterMax 均为零， 则 GetMessage 将返回所有可用消息 (即不) 执行范围筛选。"
+          "description": "类型： UINT 要检索的最低消息值的整数值。 使用 WM_KEYFIRST (0x0100) 指定第一条键盘消息， 或使用 WM_MOUSEFIRST (0x0200) 指定第一条鼠标消息。 在此处和 wMsgFilterMax 中使用WM_INPUT仅指定WM_INPUT消息。 如果 wMsgFilterMin 和 wMsgFilterMax 均为零， 则 GetMessage 将返回所有可用消息 (即不) 执行范围筛选。",
+          "type": "UINT"
         },
         {
           "name": "wMsgFilterMax",
           "direction": "in",
-          "description": "类型： UINT 要检索的最高消息值的整数值。 使用 WM_KEYLAST 指定最后一条键盘消息， WM_MOUSELAST 指定最后一条鼠标消息。 在此处和 wMsgFilterMin 中使用WM_INPUT，仅指定WM_INPUT消息。 如果 wMsgFilterMin 和 wMsgFilterMax 均为零， 则 GetMessage 将返回所有可用消息 (即不) 执 行范围筛选。返回值类型： BOOL 如果函数检索 WM_QUIT以外的消息，则返回值为非零值。如果函数检索 WM_QUIT 消息，则返回值为零。 如果出现错误，则返回值为 -1。 例如，如果 hWnd 是无效的窗口句柄或 lpMsg 是无效的指针， 则该函数将失败。 要获得更多的错误信息，请调用 GetLastError。由于返回值可以是非零、零或 -1，因此请避免使用如下所示的代码："
+          "description": "类型： UINT 要检索的最高消息值的整数值。 使用 WM_KEYLAST 指定最后一条键盘消息， WM_MOUSELAST 指定最后一条鼠标消息。 在此处和 wMsgFilterMin 中使用WM_INPUT，仅指定WM_INPUT消息。 如果 wMsgFilterMin 和 wMsgFilterMax 均为零， 则 GetMessage 将返回所有可用消息 (即不) 执 行范围筛选。返回值类型： BOOL 如果函数检索 WM_QUIT以外的消息，则返回值为非零值。如果函数检索 WM_QUIT 消息，则返回值为零。 如果出现错误，则返回值为 -1。 例如，如果 hWnd 是无效的窗口句柄或 lpMsg 是无效的指针， 则该函数将失败。 要获得更多的错误信息，请调用 GetLastError。由于返回值可以是非零、零或 -1，因此请避免使用如下所示的代码：",
+          "type": "UINT"
         }
       ],
       "header": "winbase.h",
@@ -3283,7 +3352,11 @@
         "SendNotifyMessage"
       ],
       "confidence": 0.8,
-      "_source_line": 513
+      "_source_line": 513,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetMessageExtraInfo",
@@ -3335,7 +3408,8 @@
         {
           "name": "lpMsg",
           "direction": "out",
-          "description": "类型：LPMSG 指向从线程的消息队列接收消息信息的 MSG 结构的指针。"
+          "description": "类型：LPMSG 指向从线程的消息队列接收消息信息的 MSG 结构的指针。",
+          "type": "LPMSG"
         },
         {
           "name": "hWnd",
@@ -3548,7 +3622,8 @@
         {
           "name": "nIndex",
           "direction": "in",
-          "description": "类型：int 要检索的值的从零开始的偏移量。 有效值在 0 到额外窗口内存的字节数中，减去 4;例如，如果指定了 12 个或更多字节的额外内存，则值 8 将是第三个 32 位整数的索引。 若要检索任何其他值，请指定以下值之一。 价值"
+          "description": "类型：int 要检索的值的从零开始的偏移量。 有效值在 0 到额外窗口内存的字节数中，减去 4;例如，如果指定了 12 个或更多字节的额外内存，则值 8 将是第三个 32 位整数的索引。 若要检索任何其他值，请指定以下值之一。 价值",
+          "type": "int"
         }
       ],
       "header": "winuser.h",
@@ -3564,7 +3639,11 @@
         "GetWindowRgn"
       ],
       "confidence": 0.8,
-      "_source_line": 2730
+      "_source_line": 2730,
+      "return_value": {
+        "type": "LONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetWindowRgn",
@@ -3607,7 +3686,10 @@
           "description": "窗口或控件的句柄。"
         }
       ],
-      "return_value": "如果函数成功，返回值为文本长度（字符数）。如果窗口无文本，返回零。函数失败时返回零且GetLastError返回非零值。",
+      "return_value": {
+        "type": "int",
+        "description": "如果函数成功，返回值为文本长度（字符数）。如果窗口无文本，返回零。函数失败时返回零且GetLastError返回非零值。"
+      },
       "remarks": "如果函数成功，则返回值为文本的长度（以字符为单位）。在某些情况下，此值可能大于文本的长度（请参阅“备注”）。如果窗口没有文本，则返回值为零。函数失败由零的返回值和 GetLastError 结果指示为非零。此函数未清除最新的错误信息。若要确定成功或失败，请通过调用 SetLastError(0) 清除最新的错误信息，然后调用 GetLastError。",
       "header": "winuser.h",
       "deprecated": false,
@@ -3669,7 +3751,8 @@
         {
           "name": "lpdwProcessId",
           "direction": "out, optional",
-          "description": "类型： LPDWORD 指向接收进程标识符的变量的指针。 如果此参数不为 NULL， 则 GetWindowThreadProcessId 会将进程的标识符复制到变量;否则，它不会。 如果函数失败，则变量的值保持不变。"
+          "description": "类型： LPDWORD 指向接收进程标识符的变量的指针。 如果此参数不为 NULL， 则 GetWindowThreadProcessId 会将进程的标识符复制到变量;否则，它不会。 如果函数失败，则变量的值保持不变。",
+          "type": "optional] LPDWORD"
         }
       ],
       "return_value": {
@@ -4073,7 +4156,8 @@
         {
           "name": "uLockCode",
           "direction": "in",
-          "description": "类型： UINT 指定是启用或禁用对 SetForegroundWindow 的调用。 此参数的取值可为下列值之一： 值"
+          "description": "类型： UINT 指定是启用或禁用对 SetForegroundWindow 的调用。 此参数的取值可为下列值之一： 值",
+          "type": "UINT"
         }
       ],
       "header": "winuser.h",
@@ -4082,7 +4166,11 @@
         "SetForegroundWindow"
       ],
       "confidence": 0.8,
-      "_source_line": 318
+      "_source_line": 318,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::LockWindowUpdate",
@@ -4280,17 +4368,20 @@
         {
           "name": "lpMsg",
           "direction": "out",
-          "description": "类型：LPMSG 指向接收消息信息的 MSG 结构的指针。"
+          "description": "类型：LPMSG 指向接收消息信息的 MSG 结构的指针。",
+          "type": "LPMSG"
         },
         {
           "name": "hWnd",
           "direction": "in, optional",
-          "description": "类型：HWND 要检索其消息的窗口的句柄。 窗口必须属于当前线程。 如果 hWndNULL，PeekMessage 检索属于当前线程的任何窗口的消息，并且当前线程的消息队列上 hwnd 值 NULL（请参阅 MSG 结构）。 因此，如果 hWnd NULL，则会处理窗口消息和线程消息。 如果 hWnd 为 -1，则 PeekMessage 仅检索当前线程的消息队列中的消息，其 hwnd 值 NULL，即 PostMessage 发布的线程消息（当 hWnd 参数 NULL时）或 PostThreadMessage。"
+          "description": "类型：HWND 要检索其消息的窗口的句柄。 窗口必须属于当前线程。 如果 hWndNULL，PeekMessage 检索属于当前线程的任何窗口的消息，并且当前线程的消息队列上 hwnd 值 NULL（请参阅 MSG 结构）。 因此，如果 hWnd NULL，则会处理窗口消息和线程消息。 如果 hWnd 为 -1，则 PeekMessage 仅检索当前线程的消息队列中的消息，其 hwnd 值 NULL，即 PostMessage 发布的线程消息（当 hWnd 参数 NULL时）或 PostThreadMessage。",
+          "type": "optional] HWND"
         },
         {
           "name": "wMsgFilterMin",
           "direction": "in",
-          "description": "类型：UINT 要检查的消息范围内的第一条消息的值。 使用 WM_KEYFIRST（0x0100）指定第一条键盘消息或 WM_MOUSEFIRST（0x0200）来指定第一条鼠标消息。 如果 wMsgFilterMin 和 wMsgFilterMax 均为零，PeekMessage 将返回所有可用消息（即，不执 行范围筛选）。[in] wMsgFilterMax 类型：UINT 要检查的消息范围中最后一条消息的值。 使用 WM_KEYLAST 指定最后一条键盘消息或 WM_MOUSELAST 指定最后一条鼠标消息。 如果 wMsgFilterMin 和 wMsgFilterMax 均为零，PeekMessage 将返回所有可用消息（即，不执 行范围筛选）。[in] wRemoveMsg 类型：UINT 指定如何处理消息。 此参数可以是以下一个或多个值。 价值"
+          "description": "类型：UINT 要检查的消息范围内的第一条消息的值。 使用 WM_KEYFIRST（0x0100）指定第一条键盘消息或 WM_MOUSEFIRST（0x0200）来指定第一条鼠标消息。 如果 wMsgFilterMin 和 wMsgFilterMax 均为零，PeekMessage 将返回所有可用消息（即，不执 行范围筛选）。[in] wMsgFilterMax 类型：UINT 要检查的消息范围中最后一条消息的值。 使用 WM_KEYLAST 指定最后一条键盘消息或 WM_MOUSELAST 指定最后一条鼠标消息。 如果 wMsgFilterMin 和 wMsgFilterMax 均为零，PeekMessage 将返回所有可用消息（即，不执 行范围筛选）。[in] wRemoveMsg 类型：UINT 指定如何处理消息。 此参数可以是以下一个或多个值。 价值",
+          "type": "UINT"
         }
       ],
       "header": "winuser.h",
@@ -4299,7 +4390,11 @@
         "PeekMessageW"
       ],
       "confidence": 0.8,
-      "_source_line": 2930
+      "_source_line": 2930,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::PhysicalToLogicalPoint",
@@ -4316,7 +4411,8 @@
         }
       ],
       "return_value": {
-        "description": "成功返回 TRUE，失败返回 FALSE。"
+        "description": "成功返回 TRUE，失败返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "Windows Vista 引入了物理坐标的概念。桌面窗口管理器 (DWM) 在显示器为高 DPI 时，感知窗口 DPI 缩放。屏幕上看到的窗口对应于物理坐标。应用程序继续在逻辑空间中工作。对于缩放窗口，逻辑坐标和物理坐标是不同的。函数使用由 hWnd 参数标识的窗口和 POINT 结构中给出的物理坐标来计算逻辑坐标。逻辑坐标是以编程方式向应用程序显示的未缩放坐标。传递给 API 的坐标必须在 hWnd 上。源坐标以设备单位为单位。在所有平台上，在宽度或高度为 0 的窗口上，PhysicalToLogicalPoint 将失败；应用程序必须首先通过调用 MoveWindow 等来建立非 0 宽度和高度。在某些版本的 Windows（包括 Windows 7）上，如果在调用 ShowWindow 并隐藏窗口后调用 MoveWindow，PhysicalToLogicalPoint 仍将失败。在 Windows 8 中，系统 DPI 感知应用程序使用 PhysicalToLogicalPoint 和 PhysicalToLogicalPointForPerMonitorDPI。",
       "header": "winuser.h",
@@ -4566,7 +4662,8 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 其他特定于消息的信息。"
+          "description": "类型：LPARAM 其他特定于消息的信息。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -4599,11 +4696,13 @@
       "parameters": [
         {
           "name": "topLevelWindow",
-          "description": "顶级窗口的句柄 (应用程序的 HWND) 。 processHandleCount processHandleArray 中的进程句柄数。 此函数一次最多可以调用 32 个句柄。 将此参数 设置为 0 ，同时将 processHandleArray 设置为 NULL 以清除先前的提升配置。 processHandleArray 要提升前台或取消提升的一组进程句柄。 将此参数设置为 NULL ，同时将 processHandleCount 设置为 0 以清除先前的提升配置。"
+          "description": "顶级窗口的句柄 (应用程序的 HWND) 。 processHandleCount processHandleArray 中的进程句柄数。 此函数一次最多可以调用 32 个句柄。 将此参数 设置为 0 ，同时将 processHandleArray 设置为 NULL 以清除先前的提升配置。 processHandleArray 要提升前台或取消提升的一组进程句柄。 将此参数设置为 NULL ，同时将 processHandleCount 设置为 0 以清除先前的提升配置。",
+          "type": "HWND"
         }
       ],
       "return_value": {
-        "description": "如果调用成功提升应用程序，则返回 TRUE ;否则返回 FALSE 。"
+        "description": "如果调用成功提升应用程序，则返回 TRUE ;否则返回 FALSE 。",
+        "type": "BOOL"
       },
       "remarks": "此函数采用一组进程句柄，当传入的顶级 HWND 分别移动到前台或后台时，所有进程句柄都会得到前台提升或取消提升。 每当传入的顶级 HWND 成为前台窗口时，前台提升也将应用于句柄数组中传递的进程。 当顶级 HWND 移动到后台时，会发生类似的解除提升。 传递给此函数的顶级 HWND 必须由调用进程拥有。 调用进程应该对 processHandleArray 中的进程句柄具有PROCESS_SET_INFORMATION访问权限 - 换句话说，你必须完全控制进程中的每个窗口。 如果某个外部组件注入了采用前景的窗口，或者如果出现对话框，则会失去提升。 如果有两个顶级窗口，则需要为每个窗口调用此函数。 如果在调用 SetAdditionalForegroundBoostProcesses 时，传入的顶级 HWND 已在前台，则 processHandleArray 中的所有进程都会立即提升。 仅当顶级 HWND 成为前台窗口时，其句柄位于 processHandleArray 中的进程才会获得前台提升。 仅当出现时，才应用其他前台提升： 1. 前台窗口更改，或者 2. 如果在窗口位于前台且新列表具有进程句柄时调用此函数，或者该列表在以前包含时不包含进程句柄。 当拥有顶级 HWND 的进程退出或终止时，额外的提升关系将中断，辅助进程不会收到任何其他前台提升。 主进程的顶级 HWND 将继续保留对辅助进程的引用，直到主进程的顶级 HWND 清除其 分组提升状态，或销毁 HWND。示例 在此简单方案中，应用程序在创建顶级窗口时设置其前台进程提升配置。 处理 WM_CREATE时，使用 lParam 中的句柄和 wParam 中的句柄计数调用函数。 当 m_AppWindow 移入和移出前台窗口时，这些进程将提升前台或后台优先级。 如果在调 用函数时 m_AppWindow 为前台窗口，则进程还将立即获得前台优先级提升。 C++ case WM_CREATE: // // Configure the passed in worker processes (handles) in lParam, to get foreground priority boost when m_AppWindow moves in and // out of the foreground. // HANDLE *pMyHandles = retinterpret_cast<HANDLE*>(lParam); DWORD cHandles = reinterpret_cast<DWORD>(wParam); If (!SetAdditionalForegroundBoostProcesses(m_AppWindow, cHandles, pMyHandles)) {",
       "header": "winuser.h",
@@ -4730,7 +4829,8 @@
         {
           "name": "bAlpha",
           "direction": "in",
-          "description": "类型： BYTE 用于描述分层窗口的不透明度的 Alpha 值。 类似于 BLENDFUNCTION 结构的"
+          "description": "类型： BYTE 用于描述分层窗口的不透明度的 Alpha 值。 类似于 BLENDFUNCTION 结构的",
+          "type": "BYTE"
         }
       ],
       "header": "winuser.h",
@@ -4748,7 +4848,11 @@
         "SetProcessDefaultLayout"
       ],
       "confidence": 0.65,
-      "_source_line": 3053
+      "_source_line": 3053,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetProcessDPIAware",
@@ -5255,7 +5359,11 @@
         "Server"
       ],
       "confidence": 0.55,
-      "_source_line": 3639
+      "_source_line": 3639,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SourceConstantAlpha",
@@ -5610,7 +5718,8 @@
         }
       ],
       "return_value": {
-        "description": "如果函数成功，返回值为消息值。如果函数失败，返回值为零。"
+        "description": "如果函数成功，返回值为消息值。如果函数失败，返回值为零。",
+        "type": "UINT"
       },
       "header": "winuser.h",
       "deprecated": false,
@@ -5723,7 +5832,8 @@
         {
           "name": "Msg",
           "direction": "in",
-          "description": "类型：UINT 消息。"
+          "description": "类型：UINT 消息。",
+          "type": "UINT"
         },
         {
           "name": "wParam",
@@ -5734,7 +5844,8 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 其他特定于消息的信息。 此参数的内容取决于 Msg 参数的值。"
+          "description": "类型：LPARAM 其他特定于消息的信息。 此参数的内容取决于 Msg 参数的值。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -5764,52 +5875,62 @@
         {
           "name": "lpClassName",
           "direction": "in, optional",
-          "description": "类型：LPCWSTR null-terminated 字符串或上一次调用 RegisterClass 或 RegisterClassEx 函数创建的类原子。 原子必须位于 lpClassName的低序单词中;高序单词必须为零。 如果 lpClassName 是字符串，则指定窗口类名。 类名可以是注册到 RegisterClass 或 RegisterClassEx的任何名称，前提是注册该类的模块也是创建窗口的模块。 类名也可以是任何预定义的系统类名。 有关系统类名的列表，请参阅“备注”部分。"
+          "description": "类型：LPCWSTR null-terminated 字符串或上一次调用 RegisterClass 或 RegisterClassEx 函数创建的类原子。 原子必须位于 lpClassName的低序单词中;高序单词必须为零。 如果 lpClassName 是字符串，则指定窗口类名。 类名可以是注册到 RegisterClass 或 RegisterClassEx的任何名称，前提是注册该类的模块也是创建窗口的模块。 类名也可以是任何预定义的系统类名。 有关系统类名的列表，请参阅“备注”部分。",
+          "type": "optional] LPCWSTR"
         },
         {
           "name": "lpWindowName",
           "direction": "in, optional",
-          "description": "类型：LPCWSTR 窗口名称。 如果窗口样式指定标题栏，lpWindowName 指向的窗口标题将显示在标题栏 中。 使用 CreateWindow 创建控件（如按钮、复选框和静态控件）时，请使用 lpWindowName 指定控件的文本。 使用 SS_ICON 样式创建静态控件时，请使用 lpWindowName 指定图标名称或标识符。 若要指定标识符，请使用语法“#num”。"
+          "description": "类型：LPCWSTR 窗口名称。 如果窗口样式指定标题栏，lpWindowName 指向的窗口标题将显示在标题栏 中。 使用 CreateWindow 创建控件（如按钮、复选框和静态控件）时，请使用 lpWindowName 指定控件的文本。 使用 SS_ICON 样式创建静态控件时，请使用 lpWindowName 指定图标名称或标识符。 若要指定标识符，请使用语法“#num”。",
+          "type": "optional] LPCWSTR"
         },
         {
           "name": "dwStyle",
           "direction": "in",
-          "description": "类型：DWORD 正在创建的窗口的样式。 此参数可以是 窗口样式值的组合，以及“备注”部分中指示的控 件样式。[in] x 类型：int 窗口的初始水平位置。 对于重叠窗口或弹出窗口，x 参数是窗口左上角的初始 x 坐标，以屏幕坐标表示。 对于子窗口，x 是窗口左上角相对于父窗口工作区左上角的 x 坐标。如果此参数设置为 CW_USEDEFAULT，系统将选择窗口左上角的默认位置，并忽略 y 参数。 CW_USEDEFAULT 仅适用于重叠窗口;如果为弹出窗口或子窗口指定，则 x 和 y 参数设置为零。"
+          "description": "类型：DWORD 正在创建的窗口的样式。 此参数可以是 窗口样式值的组合，以及“备注”部分中指示的控 件样式。[in] x 类型：int 窗口的初始水平位置。 对于重叠窗口或弹出窗口，x 参数是窗口左上角的初始 x 坐标，以屏幕坐标表示。 对于子窗口，x 是窗口左上角相对于父窗口工作区左上角的 x 坐标。如果此参数设置为 CW_USEDEFAULT，系统将选择窗口左上角的默认位置，并忽略 y 参数。 CW_USEDEFAULT 仅适用于重叠窗口;如果为弹出窗口或子窗口指定，则 x 和 y 参数设置为零。",
+          "type": "DWORD"
         },
         {
           "name": "y",
           "direction": "in",
-          "description": "类型：int 窗口的初始垂直位置。 对于重叠窗口或弹出窗口，y 参数是窗口左上角的初始 y 坐标，以屏幕坐标表示。 对于子窗口，y 是子窗口左上角相对于父窗口工作区左上角的初始 y 坐标。 对于列表框，y 是列表框工作区左上角相对于父窗口工作区左上角的初始 y 坐标。 如果使用 WS_VISIBLE 样式位设置创建重叠窗口，并将 x 参数设置为 CW_USEDEFAULT，则 y 参数将确定窗口的显示方式。 如果 y 参数 CW_USEDEFAULT，则窗口管理器会在创建窗口后使用 SW_SHOW 标志调用 ShowWindow。 如果 y 参数是一些其他值，则窗口管理器会调用 ShowWindow，该值作为 nCmdShow 参数。"
+          "description": "类型：int 窗口的初始垂直位置。 对于重叠窗口或弹出窗口，y 参数是窗口左上角的初始 y 坐标，以屏幕坐标表示。 对于子窗口，y 是子窗口左上角相对于父窗口工作区左上角的初始 y 坐标。 对于列表框，y 是列表框工作区左上角相对于父窗口工作区左上角的初始 y 坐标。 如果使用 WS_VISIBLE 样式位设置创建重叠窗口，并将 x 参数设置为 CW_USEDEFAULT，则 y 参数将确定窗口的显示方式。 如果 y 参数 CW_USEDEFAULT，则窗口管理器会在创建窗口后使用 SW_SHOW 标志调用 ShowWindow。 如果 y 参数是一些其他值，则窗口管理器会调用 ShowWindow，该值作为 nCmdShow 参数。",
+          "type": "int"
         },
         {
           "name": "nWidth",
           "direction": "in",
-          "description": "类型：int 窗口的宽度（以设备单位为单位）。 对于重叠窗口，nWidth 是窗口的宽度、屏幕坐标或 CW_USEDEFAULT。 如果 nWidth 为 CW_USEDEFAULT，则系统会选择窗口的默认宽度和高度;默认宽度从初始 x 坐标扩展到屏幕右边缘，默认高度从初始 y 坐标扩展到图标区域 的顶部。 CW_USEDEFAULT 仅适用于重叠窗口;如果为弹出窗口或子窗口指定了 CW_USEDEFAULT，nWidth，nHeight 设置为零。"
+          "description": "类型：int 窗口的宽度（以设备单位为单位）。 对于重叠窗口，nWidth 是窗口的宽度、屏幕坐标或 CW_USEDEFAULT。 如果 nWidth 为 CW_USEDEFAULT，则系统会选择窗口的默认宽度和高度;默认宽度从初始 x 坐标扩展到屏幕右边缘，默认高度从初始 y 坐标扩展到图标区域 的顶部。 CW_USEDEFAULT 仅适用于重叠窗口;如果为弹出窗口或子窗口指定了 CW_USEDEFAULT，nWidth，nHeight 设置为零。",
+          "type": "int"
         },
         {
           "name": "nHeight",
           "direction": "in",
-          "description": "类型：int 窗口的高度（以设备单位为单位）。 对于重叠窗口，nHeight 是窗口的高度（以屏幕坐标为单位）。 如果 nWidth 设置为 CW_USEDEFAULT，则系统将忽略 nHeight。"
+          "description": "类型：int 窗口的高度（以设备单位为单位）。 对于重叠窗口，nHeight 是窗口的高度（以屏幕坐标为单位）。 如果 nWidth 设置为 CW_USEDEFAULT，则系统将忽略 nHeight。",
+          "type": "int"
         },
         {
           "name": "hWndParent",
           "direction": "in, optional",
-          "description": "类型：HWND 正在创建的窗口的父窗口或所有者窗口的句柄。 若要创建子窗口或拥有的窗口，请提供有效的窗口句柄。 对于弹出窗口，此参数是可选的。 若要创建 仅消息窗口，请向现有仅消息窗口提供 HWND_MESSAGE 或句柄。"
+          "description": "类型：HWND 正在创建的窗口的父窗口或所有者窗口的句柄。 若要创建子窗口或拥有的窗口，请提供有效的窗口句柄。 对于弹出窗口，此参数是可选的。 若要创建 仅消息窗口，请向现有仅消息窗口提供 HWND_MESSAGE 或句柄。",
+          "type": "optional] HWND"
         },
         {
           "name": "hMenu",
           "direction": "in, optional",
-          "description": "类型：HMENU 菜单的句柄，或根据窗口样式指定子窗口标识符。 对于重叠或弹出窗口，hMenu 标识要与窗口一起使用的菜单;如果要使用类菜单，它可以 NULL。 对于子窗口，hMenu 指定子窗口标识符，这是对话框控件用来通知其父级事件的整数值。 应用程序确定子窗口标识符;对于具有相同父窗口的所有子窗口，它必须是唯一的。"
+          "description": "类型：HMENU 菜单的句柄，或根据窗口样式指定子窗口标识符。 对于重叠或弹出窗口，hMenu 标识要与窗口一起使用的菜单;如果要使用类菜单，它可以 NULL。 对于子窗口，hMenu 指定子窗口标识符，这是对话框控件用来通知其父级事件的整数值。 应用程序确定子窗口标识符;对于具有相同父窗口的所有子窗口，它必须是唯一的。",
+          "type": "optional] HMENU"
         },
         {
           "name": "hInstance",
           "direction": "in, optional",
-          "description": "类型：HINSTANCE 要与窗口关联的模块实例的句柄。"
+          "description": "类型：HINSTANCE 要与窗口关联的模块实例的句柄。",
+          "type": "optional] HINSTANCE"
         },
         {
           "name": "lpParam",
           "direction": "in, optional",
-          "description": "类型：LPVOID 指向通过 CREATESTRUCT 结构（lpCreateParams 成员）指向的值的指针，该值由"
+          "description": "类型：LPVOID 指向通过 CREATESTRUCT 结构（lpCreateParams 成员）指向的值的指针，该值由",
+          "type": "optional] LPVOID"
         }
       ],
       "header": "winuser.h",
@@ -5826,7 +5947,11 @@
         "Shell"
       ],
       "confidence": 0.8,
-      "_source_line": 84
+      "_source_line": 84,
+      "return_value": {
+        "type": "HWND",
+        "description": ""
+      }
     },
     {
       "id": "windows::DispatchMessageA",
@@ -5901,7 +6026,8 @@
         {
           "name": "hInstance",
           "direction": "in, optional",
-          "description": "类型： HINSTANCE 创建类的应用程序实例的句柄。 若要检索有关系统 (定义的类的信息，如) 按钮或列表框，请将此参数设置为 NULL。"
+          "description": "类型： HINSTANCE 创建类的应用程序实例的句柄。 若要检索有关系统 (定义的类的信息，如) 按钮或列表框，请将此参数设置为 NULL。",
+          "type": "optional] HINSTANCE"
         },
         {
           "name": "lpszClass",
@@ -5935,7 +6061,8 @@
         {
           "name": "hInstance",
           "direction": "in, optional",
-          "description": "类型：HINSTANCE 创建类的应用程序实例的句柄。 若要检索有关系统定义的类的信息（如按钮或列表框），请将此参数设置为 NULL。"
+          "description": "类型：HINSTANCE 创建类的应用程序实例的句柄。 若要检索有关系统定义的类的信息（如按钮或列表框），请将此参数设置为 NULL。",
+          "type": "optional] HINSTANCE"
         },
         {
           "name": "lpszClass",
@@ -5944,7 +6071,10 @@
           "description": "类型：LPCTSTR 类名。 该名称必须是预注册类或先前调用 RegisterClass 或 RegisterClassEx 函数注册的类。 或者，此参数可以是先前调用 RegisterClass 或 RegisterClassEx创建的类原子。 原 子必须位于 lpszClass的低序单词中;高序单词必须为零。[out] lpwcx 指向 WNDCLASSEX 结构的指针，该结构接收有关类的信息。"
         }
       ],
-      "return_value": "类原子是使用 RegisterClass 或 RegisterClassEx 函数创建的，而不是 GlobalAddAtom 函数。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "类原子是使用 RegisterClass 或 RegisterClassEx 函数创建的，而不是 GlobalAddAtom 函数。"
+      },
       "remarks": "类原子是使用 RegisterClass 或 RegisterClassEx 函数创建的，而不是 GlobalAddAtom 函数。",
       "header": "winuser.h",
       "deprecated": false,
@@ -6007,7 +6137,8 @@
         {
           "name": "hWnd",
           "direction": "in, optional",
-          "description": "类型：HWND 要检查其子窗口的父窗口的句柄。 如果此参数为 NULL，则该函数将返回 Z 顺序顶部窗口的句柄。"
+          "description": "类型：HWND 要检查其子窗口的父窗口的句柄。 如果此参数为 NULL，则该函数将返回 Z 顺序顶部窗口的句柄。",
+          "type": "optional] HWND"
         }
       ],
       "return_value": {
@@ -6051,12 +6182,14 @@
         {
           "name": "lpString",
           "direction": "out",
-          "description": "类型：LPTSTR 将接收文本的缓冲区。 如果字符串的长度或长于缓冲区，则字符串将被截断并以 null 字符终止。"
+          "description": "类型：LPTSTR 将接收文本的缓冲区。 如果字符串的长度或长于缓冲区，则字符串将被截断并以 null 字符终止。",
+          "type": "LPSTR"
         },
         {
           "name": "nMaxCount",
           "direction": "in",
-          "description": "类型：int 要复制到缓冲区的最大字符数，包括 null 字符。 如果文本超出此限制，则将被截断。"
+          "description": "类型：int 要复制到缓冲区的最大字符数，包括 null 字符。 如果文本超出此限制，则将被截断。",
+          "type": "int"
         }
       ],
       "return_value": {
@@ -6105,10 +6238,14 @@
         {
           "name": "lpPoint",
           "direction": "in, out",
-          "description": "类型： LPPOINT 指向 POINT 结构的指针，该结构指定要转换的逻辑坐标。 如果函数成功，则新的物理坐标将复制到此结构中。"
+          "description": "类型： LPPOINT 指向 POINT 结构的指针，该结构指定要转换的逻辑坐标。 如果函数成功，则新的物理坐标将复制到此结构中。",
+          "type": "LPPOINT"
         }
       ],
-      "return_value": "返回值：若成功，返回 TRUE；若失败，返回 FALSE。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "返回值：若成功，返回 TRUE；若失败，返回 FALSE。"
+      },
       "remarks": "Windows Vista 引入了物理坐标的概念。 桌面窗口管理器 (DWM) 当显示器为高 dpi 时，) 感知窗口 (dpi 缩放非点/英寸。 屏幕上看到的窗口对应于物理坐标。 应用程序继续在逻辑空间中工作。 因此，应用程序的窗口视图不同于屏幕上显示的视图。 对于缩放窗口，逻辑坐标和物理坐标是不同的。",
       "requirements": {
         "target_platform": "Windows",
@@ -6138,29 +6275,37 @@
         {
           "name": "lpMsg",
           "direction": "out",
-          "description": "类型：LPMSG 指向接收消息信息的 MSG 结构的指针。"
+          "description": "类型：LPMSG 指向接收消息信息的 MSG 结构的指针。",
+          "type": "LPMSG"
         },
         {
           "name": "hWnd",
           "direction": "in, optional",
-          "description": "类型：HWND 要检索其消息的窗口的句柄。 窗口必须属于当前线程。 如果 hWndNULL，PeekMessage 检索属于当前线程的任何窗口的消息，并且当前线程的消息队列上 hwnd 值 NULL（请参阅 MSG 结构）。 因此，如果 hWnd NULL，则会处理窗口消息和线程消息。 如果 hWnd 为 -1，则 PeekMessage 仅检索当前线程的消息队列中的消息，其 hwnd 值 NULL，即 PostMessage 发布的线程消息（当 hWnd 参数 NULL时）或 PostThreadMessage。[in] wMsgFilterMin 类型：UINT 要检查的消息范围内的第一条消息的值。 使用 WM_KEYFIRST（0x0100）指定第一条键盘消息或 WM_MOUSEFIRST（0x0200）来指定第一条鼠标消息。 如果 wMsgFilterMin 和 wMsgFilterMax 均为零，PeekMessage 将返回所有可用消息（即，不执行范围筛选）。"
+          "description": "类型：HWND 要检索其消息的窗口的句柄。 窗口必须属于当前线程。 如果 hWndNULL，PeekMessage 检索属于当前线程的任何窗口的消息，并且当前线程的消息队列上 hwnd 值 NULL（请参阅 MSG 结构）。 因此，如果 hWnd NULL，则会处理窗口消息和线程消息。 如果 hWnd 为 -1，则 PeekMessage 仅检索当前线程的消息队列中的消息，其 hwnd 值 NULL，即 PostMessage 发布的线程消息（当 hWnd 参数 NULL时）或 PostThreadMessage。[in] wMsgFilterMin 类型：UINT 要检查的消息范围内的第一条消息的值。 使用 WM_KEYFIRST（0x0100）指定第一条键盘消息或 WM_MOUSEFIRST（0x0200）来指定第一条鼠标消息。 如果 wMsgFilterMin 和 wMsgFilterMax 均为零，PeekMessage 将返回所有可用消息（即，不执行范围筛选）。",
+          "type": "optional] HWND"
         },
         {
           "name": "wMsgFilterMax",
           "direction": "in",
-          "description": "类型：UINT 要检查的消息范围中最后一条消息的值。 使用 WM_KEYLAST 指定最后一条键盘消息或 WM_MOUSELAST 指定最后一条鼠标消息。 如果 wMsgFilterMin 和 wMsgFilterMax 均为零，PeekMessage 将返回所有可用消息（即，不执行范围筛选）。"
+          "description": "类型：UINT 要检查的消息范围中最后一条消息的值。 使用 WM_KEYLAST 指定最后一条键盘消息或 WM_MOUSELAST 指定最后一条鼠标消息。 如果 wMsgFilterMin 和 wMsgFilterMax 均为零，PeekMessage 将返回所有可用消息（即，不执行范围筛选）。",
+          "type": "UINT"
         },
         {
           "name": "wRemoveMsg",
           "direction": "in",
-          "description": "类型：UINT 指定如何处理消息。 此参数可以是以下一个或多个值。 价值"
+          "description": "类型：UINT 指定如何处理消息。 此参数可以是以下一个或多个值。 价值",
+          "type": "UINT"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 338
+      "_source_line": 338,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::PostMessageW",
@@ -6183,7 +6328,8 @@
         {
           "name": "idThread",
           "direction": "in",
-          "description": "类型：DWORD 要向其发布消息的线程的标识符。 如果指定的线程没有消息队列，该函数将失败。 当线程首次调用某个用户或 GDI 函数时，系统会创建线程的消息队列。 有关详细信息，请参阅“备注”部分。 消息发布受 UIPI 的约束。 进程的线程只能将消息发布到较低或等于完整性级别的线程的已发布消息队列。 此线程必须具有 SE_TCB_NAME 特权，才能将消息发布到属于具有相同本地唯一标识符 （LUID）但位于其他桌面中的进程的线程。 否则，函数将失败并返回 ERROR_INVALID_THREAD_ID。 此线程必须与调用线程属于同一桌面，或者属于具有相同 LUID 的进程。 否则，函数将失败并返回 ERROR_INVALID_THREAD_ID。"
+          "description": "类型：DWORD 要向其发布消息的线程的标识符。 如果指定的线程没有消息队列，该函数将失败。 当线程首次调用某个用户或 GDI 函数时，系统会创建线程的消息队列。 有关详细信息，请参阅“备注”部分。 消息发布受 UIPI 的约束。 进程的线程只能将消息发布到较低或等于完整性级别的线程的已发布消息队列。 此线程必须具有 SE_TCB_NAME 特权，才能将消息发布到属于具有相同本地唯一标识符 （LUID）但位于其他桌面中的进程的线程。 否则，函数将失败并返回 ERROR_INVALID_THREAD_ID。 此线程必须与调用线程属于同一桌面，或者属于具有相同 LUID 的进程。 否则，函数将失败并返回 ERROR_INVALID_THREAD_ID。",
+          "type": "DWORD"
         },
         {
           "name": "Msg",
@@ -6194,7 +6340,8 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 其他特定于消息的信息。"
+          "description": "类型：LPARAM 其他特定于消息的信息。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -6281,12 +6428,14 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 任何其他特定于消息的信息。"
+          "description": "类型：LPARAM 任何其他特定于消息的信息。",
+          "type": "LPARAM"
         },
         {
           "name": "fuFlags",
           "direction": "in",
-          "description": "类型：UINT 此函数的行为。 此参数可以是以下一个或多个值。 价值"
+          "description": "类型：UINT 此函数的行为。 此参数可以是以下一个或多个值。 价值",
+          "type": "UINT"
         }
       ],
       "header": "winuser.h",
@@ -6299,7 +6448,11 @@
         "SetAdditionalForegroundBoostProcesses"
       ],
       "confidence": 0.8,
-      "_source_line": 411
+      "_source_line": 411,
+      "return_value": {
+        "type": "LRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetWindowLongPtrA",
@@ -6410,17 +6563,20 @@
         {
           "name": "pptDst",
           "direction": "in, optional",
-          "description": "类型： POINT* 指向结构的指针，该结构指定分层窗口的新屏幕位置。 如果当前位置未更改， 则 pptDst 可以为 NULL。"
+          "description": "类型： POINT* 指向结构的指针，该结构指定分层窗口的新屏幕位置。 如果当前位置未更改， 则 pptDst 可以为 NULL。",
+          "type": "optional] POINT"
         },
         {
           "name": "psize",
           "direction": "in, optional",
-          "description": "类型： SIZE* 指向结构的指针，该结构指定分层窗口的新大小。 如果窗口大小未更改， psize 可以为 NULL。如果 hdcSrc 为 NULL， 则 psize 必须为 NULL。"
+          "description": "类型： SIZE* 指向结构的指针，该结构指定分层窗口的新大小。 如果窗口大小未更改， psize 可以为 NULL。如果 hdcSrc 为 NULL， 则 psize 必须为 NULL。",
+          "type": "optional] SIZE"
         },
         {
           "name": "hdcSrc",
           "direction": "in, optional",
-          "description": "类型： HDC 定义分层窗口的图面 DC 的句柄。 可以通过调用 CreateCompatibleDC 函数来获取此句柄。 如果窗口的形状和视觉上下文未更改， 则 hdcSrc 可以为 NULL。"
+          "description": "类型： HDC 定义分层窗口的图面 DC 的句柄。 可以通过调用 CreateCompatibleDC 函数来获取此句柄。 如果窗口的形状和视觉上下文未更改， 则 hdcSrc 可以为 NULL。",
+          "type": "optional] HDC"
         },
         {
           "name": "pptSrc",
@@ -6431,7 +6587,8 @@
         {
           "name": "dwFlags",
           "direction": "in",
-          "description": "类型：DWORD 此参数的取值可为下列值之一： 值"
+          "description": "类型：DWORD 此参数的取值可为下列值之一： 值",
+          "type": "DWORD"
         }
       ],
       "header": "winuser.h",
@@ -6445,7 +6602,11 @@
         "WindowFromPoint"
       ],
       "confidence": 0.8,
-      "_source_line": 521
+      "_source_line": 521,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::CBT_CREATEWNDA",
@@ -6530,12 +6691,14 @@
         {
           "name": "lpCmdLine",
           "direction": "in",
-          "description": "类型：LPSTR 应用程序的命令行，不包括程序名称。 若要检索整个命令行，请使用 GetCommandLine 函数。"
+          "description": "类型：LPSTR 应用程序的命令行，不包括程序名称。 若要检索整个命令行，请使用 GetCommandLine 函数。",
+          "type": "LPSTR"
         },
         {
           "name": "nShowCmd",
           "direction": "in",
-          "description": "类型：int 控制窗口的显示方式。 此参数可以是 ShowWindow 函数的 nCmdShow 参数中指定的任何值。"
+          "description": "类型：int 控制窗口的显示方式。 此参数可以是 ShowWindow 函数的 nCmdShow 参数中指定的任何值。",
+          "type": "int"
         }
       ],
       "return_value": {
@@ -6590,22 +6753,26 @@
         {
           "name": "lpRect",
           "direction": "in, out",
-          "description": "类型： LPRECT 指向 RECT 结构的指针，该结构包含所需工作区的左上角和右下角的坐标。 当函数返回时，结构包含窗口左上角和右下角的坐标，以适应所需的工作区。"
+          "description": "类型： LPRECT 指向 RECT 结构的指针，该结构包含所需工作区的左上角和右下角的坐标。 当函数返回时，结构包含窗口左上角和右下角的坐标，以适应所需的工作区。",
+          "type": "out] LPRECT"
         },
         {
           "name": "dwStyle",
           "direction": "in",
-          "description": "类型：DWORD 要计算其所需大小的窗口 的窗口样式 。 请注意，不能指定 WS_OVERLAPPED 样式。"
+          "description": "类型：DWORD 要计算其所需大小的窗口 的窗口样式 。 请注意，不能指定 WS_OVERLAPPED 样式。",
+          "type": "DWORD"
         },
         {
           "name": "bMenu",
           "direction": "in",
-          "description": "类型： BOOL 指示窗口是否具有菜单。"
+          "description": "类型： BOOL 指示窗口是否具有菜单。",
+          "type": "BOOL"
         },
         {
           "name": "dwExStyle",
           "direction": "in",
-          "description": "类型：DWORD 要计算其所需大小的窗口的 扩展窗口样式 。"
+          "description": "类型：DWORD 要计算其所需大小的窗口的 扩展窗口样式 。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
@@ -6660,12 +6827,14 @@
         {
           "name": "dwTime",
           "direction": "in",
-          "description": "类型：DWORD 播放动画所需的时间（以毫秒为单位）。 通常，播放一个动画需要 200 毫秒。"
+          "description": "类型：DWORD 播放动画所需的时间（以毫秒为单位）。 通常，播放一个动画需要 200 毫秒。",
+          "type": "DWORD"
         },
         {
           "name": "dwFlags",
           "direction": "in",
-          "description": "类型：DWORD 动画的类型。 此参数可使用以下一个或多个值。 请注意，默认情况下，这些标志在显示窗口时生效。 若要在隐藏窗口时生效，请使用 AW_HIDE 和具有相应标志的逻辑 OR 运算符。 值"
+          "description": "类型：DWORD 动画的类型。 此参数可使用以下一个或多个值。 请注意，默认情况下，这些标志在显示窗口时生效。 若要在隐藏窗口时生效，请使用 AW_HIDE 和具有相应标志的逻辑 OR 运算符。 值",
+          "type": "DWORD"
         }
       ],
       "header": "winuser.h",
@@ -6673,7 +6842,10 @@
       "cross_references": [],
       "confidence": 0.65,
       "_source_line": 3588,
-      "return_value": "如果函数成功，返回值为 TRUE；否则为 FALSE。"
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果函数成功，返回值为 TRUE；否则为 FALSE。"
+      }
     },
     {
       "id": "windows::AW_ACTIVATE",
@@ -6819,7 +6991,8 @@
         {
           "name": "fShow",
           "direction": "in",
-          "description": "类型： BOOL 如果此参数为 TRUE，则显示所有隐藏的弹出窗口。 如果此参数为 FALSE，则隐藏所有可见弹出窗口。"
+          "description": "类型： BOOL 如果此参数为 TRUE，则显示所有隐藏的弹出窗口。 如果此参数为 FALSE，则隐藏所有可见弹出窗口。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
@@ -6916,7 +7089,8 @@
         {
           "name": "hWndInsertAfter",
           "direction": "in, optional",
-          "description": "类型：HWND 窗口的句柄，用于在 Z 顺序中定位的窗口之前。 此参数必须是窗口句柄或以下值之一。 值"
+          "description": "类型：HWND 窗口的句柄，用于在 Z 顺序中定位的窗口之前。 此参数必须是窗口句柄或以下值之一。 值",
+          "type": "HWND"
         }
       ],
       "remarks": "如果函数成功，返回值非零。如果函数失败，返回值为零。要获取扩展错误信息，可调用 GetLastError 函数。",
@@ -6932,7 +7106,11 @@
         "WM_WINDOWPOSCHANGING"
       ],
       "confidence": 0.65,
-      "_source_line": 3765
+      "_source_line": 3765,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::BSF_ALLOWSFW",
@@ -7086,7 +7264,11 @@
         "WM_APPCOMMAND"
       ],
       "confidence": 0.55,
-      "_source_line": 3872
+      "_source_line": 3872,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::BroadcastSystemMessageA",
@@ -7106,7 +7288,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 3875
+      "_source_line": 3875,
+      "return_value": {
+        "type": "LONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::BroadcastSystemMessageExA",
@@ -7126,7 +7312,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 3957
+      "_source_line": 3957,
+      "return_value": {
+        "type": "long",
+        "description": ""
+      }
     },
     {
       "id": "windows::BSF_NOHANG",
@@ -7170,7 +7360,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 4042
+      "_source_line": 4042,
+      "return_value": {
+        "type": "long",
+        "description": ""
+      }
     },
     {
       "id": "windows::BSF_QUERY",
@@ -7201,7 +7395,8 @@
         {
           "name": "nCode",
           "direction": "in",
-          "description": "类型：int 挂钩过程用于确定如何处理消息的应用程序定义代码。 代码必须与与 WH_SYSMSGFILTER 和 WH_MSGFILTER 挂钩关联的系统定义的挂钩代码（MSGF_和HC_）具有相同的值。"
+          "description": "类型：int 挂钩过程用于确定如何处理消息的应用程序定义代码。 代码必须与与 WH_SYSMSGFILTER 和 WH_MSGFILTER 挂钩关联的系统定义的挂钩代码（MSGF_和HC_）具有相同的值。",
+          "type": "int"
         }
       ],
       "return_value": {
@@ -7373,19 +7568,25 @@
         {
           "name": "hwndParent",
           "direction": "in, optional",
-          "description": "类型：HWND 父窗口的句柄。 如果此参数为 NULL，则假定为桌面窗口。"
+          "description": "类型：HWND 父窗口的句柄。 如果此参数为 NULL，则假定为桌面窗口。",
+          "type": "optional] HWND"
         },
         {
           "name": "wHow",
           "direction": "in",
-          "description": "类型： UINT 级联标志。 此参数可使用以下一个或多个值。 值"
+          "description": "类型： UINT 级联标志。 此参数可使用以下一个或多个值。 值",
+          "type": "UINT"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.45,
-      "_source_line": 4545
+      "_source_line": 4545,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::MDITILE_ZORDER",
@@ -7476,12 +7677,14 @@
         {
           "name": "message",
           "direction": "in",
-          "description": "类型： UINT 消息筛选器允许通过 或 阻止的消息。"
+          "description": "类型： UINT 消息筛选器允许通过 或 阻止的消息。",
+          "type": "UINT"
         },
         {
           "name": "action",
           "direction": "in",
-          "description": "类型：DWORD 要执行的操作，可以采用以下值之一： 值"
+          "description": "类型：DWORD 要执行的操作，可以采用以下值之一： 值",
+          "type": "DWORD"
         }
       ],
       "header": "winuser.h",
@@ -7490,7 +7693,11 @@
         "ChangeWindowMessageFilter"
       ],
       "confidence": 0.8,
-      "_source_line": 4717
+      "_source_line": 4717,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::MSGFLT_REMOVE",
@@ -7560,7 +7767,8 @@
         {
           "name": "hwndParent",
           "direction": "in",
-          "description": "类型：HWND 要检索其子级的窗口的句柄。[in] ptParentClientCoords 类型： POINT 定义要检查的点的客户端坐标的 POINT 结构。"
+          "description": "类型：HWND 要检索其子级的窗口的句柄。[in] ptParentClientCoords 类型： POINT 定义要检查的点的客户端坐标的 POINT 结构。",
+          "type": "HWND"
         }
       ],
       "return_value": {
@@ -7629,17 +7837,20 @@
         {
           "name": "lpClassName",
           "direction": "in",
-          "description": "类型：LPCTSTR MDI 子窗口的窗口类。 类名必须由对 RegisterClassEx 函数的调用进行注册。"
+          "description": "类型：LPCTSTR MDI 子窗口的窗口类。 类名必须由对 RegisterClassEx 函数的调用进行注册。",
+          "type": "LPCSTR"
         },
         {
           "name": "lpWindowName",
           "direction": "in",
-          "description": "类型：LPCTSTR 窗口名称。 系统在子窗口的标题栏中显示名称。"
+          "description": "类型：LPCTSTR 窗口名称。 系统在子窗口的标题栏中显示名称。",
+          "type": "LPCSTR"
         },
         {
           "name": "dwStyle",
           "direction": "in",
-          "description": "类型：DWORD MDI 子窗口的样式。 如果使用 MDIS_ALLCHILDSTYLES 窗口样式创建 MDI 客户端窗口，此参数可以是 窗口样式 页中列出的窗口样式的任意组合。 否则，此参数限制为以下一个或多个值。 价值"
+          "description": "类型：DWORD MDI 子窗口的样式。 如果使用 MDIS_ALLCHILDSTYLES 窗口样式创建 MDI 客户端窗口，此参数可以是 窗口样式 页中列出的窗口样式的任意组合。 否则，此参数限制为以下一个或多个值。 价值",
+          "type": "DWORD"
         }
       ],
       "header": "winuser.h",
@@ -7647,7 +7858,10 @@
       "cross_references": [],
       "confidence": 0.6,
       "_source_line": 4942,
-      "return_value": "HWND 新创建的 MDI 子窗口的句柄；如果函数失败，则为 NULL。"
+      "return_value": {
+        "type": "HWND",
+        "description": "HWND 新创建的 MDI 子窗口的句柄；如果函数失败，则为 NULL。"
+      }
     },
     {
       "id": "windows::WS_MINIMIZE",
@@ -7732,24 +7946,31 @@
         {
           "name": "lpClassName",
           "direction": "in",
-          "description": "类型：LPCTSTR MDI 子窗口的窗口类。 类名必须由对 RegisterClassEx 函数的调用进行注册。"
+          "description": "类型：LPCTSTR MDI 子窗口的窗口类。 类名必须由对 RegisterClassEx 函数的调用进行注册。",
+          "type": "LPCWSTR"
         },
         {
           "name": "lpWindowName",
           "direction": "in",
-          "description": "类型：LPCTSTR 窗口名称。 系统在子窗口的标题栏中显示名称。"
+          "description": "类型：LPCTSTR 窗口名称。 系统在子窗口的标题栏中显示名称。",
+          "type": "LPCWSTR"
         },
         {
           "name": "dwStyle",
           "direction": "in",
-          "description": "类型：DWORD MDI 子窗口的样式。 如果使用 MDIS_ALLCHILDSTYLES 窗口样式创建 MDI 客户端窗口，此参数可以是 窗口样式 页中列出的窗口样式的任意组合。 否则，此参数限制为以下一个 或多个值。价值"
+          "description": "类型：DWORD MDI 子窗口的样式。 如果使用 MDIS_ALLCHILDSTYLES 窗口样式创建 MDI 客户端窗口，此参数可以是 窗口样式 页中列出的窗口样式的任意组合。 否则，此参数限制为以下一个 或多个值。价值",
+          "type": "DWORD"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 5003
+      "_source_line": 5003,
+      "return_value": {
+        "type": "HWND",
+        "description": ""
+      }
     },
     {
       "id": "windows::CreateWindowA",
@@ -7761,12 +7982,14 @@
         {
           "name": "lpClassName",
           "direction": "in, optional",
-          "description": "类型：LPCSTR null-terminated 字符串或上一次调用 RegisterClass 或 RegisterClassEx 函数创建的类原子。 原子必须位于 lpClassName的低序单词中;高序单词必须为零。 如果 lpClassName 是字符串，则指定窗口类名。 类名可以是注册到 RegisterClass 或 RegisterClassEx的任何名称，前提是注册该类的模块也是创建窗口的模块。 类名也可以是任何预定义的系统类名。 有关系统类名的列表，请参阅“备注”部分。"
+          "description": "类型：LPCSTR null-terminated 字符串或上一次调用 RegisterClass 或 RegisterClassEx 函数创建的类原子。 原子必须位于 lpClassName的低序单词中;高序单词必须为零。 如果 lpClassName 是字符串，则指定窗口类名。 类名可以是注册到 RegisterClass 或 RegisterClassEx的任何名称，前提是注册该类的模块也是创建窗口的模块。 类名也可以是任何预定义的系统类名。 有关系统类名的列表，请参阅“备注”部分。",
+          "type": "optional] LPCSTR"
         },
         {
           "name": "lpWindowName",
           "direction": "in, optional",
-          "description": "类型：LPCSTR 窗口名称。 如果窗口样式指定标题栏，lpWindowName 指向的窗口标题将显示在标题栏中。 使用 CreateWindow 创建控件（如按钮、复选框和静态控件）时，请使用 lpWindowName 指定控 件的文本。 使用 SS_ICON 样式创建静态控件时，请使用 lpWindowName 指定图标名称或标识符。 若要指定标识符，请使用语法“#num”。"
+          "description": "类型：LPCSTR 窗口名称。 如果窗口样式指定标题栏，lpWindowName 指向的窗口标题将显示在标题栏中。 使用 CreateWindow 创建控件（如按钮、复选框和静态控件）时，请使用 lpWindowName 指定控 件的文本。 使用 SS_ICON 样式创建静态控件时，请使用 lpWindowName 指定图标名称或标识符。 若要指定标识符，请使用语法“#num”。",
+          "type": "optional] LPCSTR"
         },
         {
           "name": "dwStyle",
@@ -7779,7 +8002,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 5202
+      "_source_line": 5202,
+      "return_value": {
+        "type": "HWND",
+        "description": ""
+      }
     },
     {
       "id": "windows::SW_SHOW",
@@ -7821,12 +8048,14 @@
         {
           "name": "dwExStyle",
           "direction": "in",
-          "description": "类型：DWORD 正在创建的窗口的扩展窗口样式。 有关可能值的列表，请参阅 扩展窗口样式。"
+          "description": "类型：DWORD 正在创建的窗口的扩展窗口样式。 有关可能值的列表，请参阅 扩展窗口样式。",
+          "type": "DWORD"
         },
         {
           "name": "lpClassName",
           "direction": "in, optional",
-          "description": "类型：LPCTSTR null终止字符串或类原子。 如果 null-terminated 字符串，则指定窗口类名。 类名可以是注册到 RegisterClass 或"
+          "description": "类型：LPCTSTR null终止字符串或类原子。 如果 null-terminated 字符串，则指定窗口类名。 类名可以是注册到 RegisterClass 或",
+          "type": "optional] LPCSTR"
         }
       ],
       "header": "winuser.h",
@@ -7835,7 +8064,11 @@
         "CreateWindowW"
       ],
       "confidence": 0.8,
-      "_source_line": 5281
+      "_source_line": 5281,
+      "return_value": {
+        "type": "HWND",
+        "description": ""
+      }
     },
     {
       "id": "windows::RegisterClass",
@@ -7851,7 +8084,10 @@
       ],
       "confidence": 0.55,
       "_source_line": 5299,
-      "return_value": "如果函数成功，返回值是非零的类原子值。如果函数失败，返回值是零。",
+      "return_value": {
+        "type": "ATOM",
+        "description": "如果函数成功，返回值是非零的类原子值。如果函数失败，返回值是零。"
+      },
       "remarks": "RegisterClass 函数已被 RegisterClassEx 函数取代。但是，如果不需要设置类小图标，仍可以使用 RegisterClass。"
     },
     {
@@ -8142,7 +8378,8 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 其他特定于消息的信息。"
+          "description": "类型：LPARAM 其他特定于消息的信息。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -8196,7 +8433,8 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 其他特定于消息的信息。"
+          "description": "类型：LPARAM 其他特定于消息的信息。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -8262,7 +8500,8 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 其他特定于消息的信息。"
+          "description": "类型：LPARAM 其他特定于消息的信息。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -8293,7 +8532,8 @@
         {
           "name": "Msg",
           "direction": "in",
-          "description": "类型：UINT 消息。"
+          "description": "类型：UINT 消息。",
+          "type": "UINT"
         },
         {
           "name": "wParam",
@@ -8304,7 +8544,8 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 其他消息信息。 此参数的内容取决于 Msg 参数的值。"
+          "description": "类型：LPARAM 其他消息信息。 此参数的内容取决于 Msg 参数的值。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -8415,7 +8656,8 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 要传递给回调函数的应用程序定义值。"
+          "description": "类型：LPARAM 要传递给回调函数的应用程序定义值。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -8460,7 +8702,8 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 要传递给回调函数的应用程序定义数据。"
+          "description": "类型：LPARAM 要传递给回调函数的应用程序定义数据。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -8506,7 +8749,8 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 要传递给回调函数的应用程序定义数据。"
+          "description": "类型：LPARAM 要传递给回调函数的应用程序定义数据。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -8584,7 +8828,8 @@
         {
           "name": "uCmd",
           "direction": "in",
-          "description": "类型： UINT 指定窗口与要检索其句柄的窗口之间的关系。 此参数的取值可为下列值之一： 值"
+          "description": "类型： UINT 指定窗口与要检索其句柄的窗口之间的关系。 此参数的取值可为下列值之一： 值",
+          "type": "UINT"
         }
       ],
       "header": "winuser.h",
@@ -8596,7 +8841,10 @@
       ],
       "confidence": 0.65,
       "_source_line": 6606,
-      "return_value": "如果函数成功，返回值为指定窗口的句柄。如果函数失败，返回值为 NULL。"
+      "return_value": {
+        "type": "HWND",
+        "description": "如果函数成功，返回值为指定窗口的句柄。如果函数失败，返回值为 NULL。"
+      }
     },
     {
       "id": "windows::JournalPlaybackProc",
@@ -8632,24 +8880,31 @@
         {
           "name": "hWndParent",
           "direction": "in, optional",
-          "description": "类型：HWND 要搜索其子窗口的父窗口的句柄。 如果 hwndParent为 NULL，则该函数使用桌面窗口作为父窗口。 该函数在桌面的子窗口之间搜索。 如果 hwndParentHWND_MESSAGE，则函数将搜索所有 仅消息窗口。"
+          "description": "类型：HWND 要搜索其子窗口的父窗口的句柄。 如果 hwndParent为 NULL，则该函数使用桌面窗口作为父窗口。 该函数在桌面的子窗口之间搜索。 如果 hwndParentHWND_MESSAGE，则函数将搜索所有 仅消息窗口。",
+          "type": "optional] HWND"
         },
         {
           "name": "hWndChildAfter",
           "direction": "in, optional",
-          "description": "类型：HWND 子窗口的句柄。 搜索从 Z 顺序中的下一个子窗口开始。 子窗口必须是 hwndParent的直接子窗口，而不仅仅是子窗口。 如果 hwndChildAfterNULL，则搜索从 hwndParent的第一个子窗口开始。 请注意，如果 hwndParent 和 hwndChildAfter 都 NULL，则该函数将搜索所有顶级窗口和仅消息窗口。"
+          "description": "类型：HWND 子窗口的句柄。 搜索从 Z 顺序中的下一个子窗口开始。 子窗口必须是 hwndParent的直接子窗口，而不仅仅是子窗口。 如果 hwndChildAfterNULL，则搜索从 hwndParent的第一个子窗口开始。 请注意，如果 hwndParent 和 hwndChildAfter 都 NULL，则该函数将搜索所有顶级窗口和仅消息窗口。",
+          "type": "optional] HWND"
         },
         {
           "name": "lpszClass",
           "direction": "in, optional",
-          "description": "类型：LPCSTR 上一次调用 RegisterClass 或 RegisterClassEx 函数创建的类名或类原子。 原子必须置于 lpszClass的低序单词中;高序单词必须为零。 如果 lpszClass 是字符串，则指定窗口类名。 类名称可以是注册到 RegisterClass 或"
+          "description": "类型：LPCSTR 上一次调用 RegisterClass 或 RegisterClassEx 函数创建的类名或类原子。 原子必须置于 lpszClass的低序单词中;高序单词必须为零。 如果 lpszClass 是字符串，则指定窗口类名。 类名称可以是注册到 RegisterClass 或",
+          "type": "optional] LPCSTR"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 6687
+      "_source_line": 6687,
+      "return_value": {
+        "type": "HWND",
+        "description": ""
+      }
     },
     {
       "id": "windows::FindWindowExW",
@@ -8661,12 +8916,14 @@
         {
           "name": "hWndParent",
           "direction": "in, optional",
-          "description": "类型：HWND 要搜索其子窗口的父窗口的句柄。 如果 hwndParent为 NULL，则该函数使用桌面窗口作为父窗口。 该函数在桌面的子窗口之间搜索。 如果 hwndParentHWND_MESSAGE，则函数将搜索所有 仅消息窗口。"
+          "description": "类型：HWND 要搜索其子窗口的父窗口的句柄。 如果 hwndParent为 NULL，则该函数使用桌面窗口作为父窗口。 该函数在桌面的子窗口之间搜索。 如果 hwndParentHWND_MESSAGE，则函数将搜索所有 仅消息窗口。",
+          "type": "optional] HWND"
         },
         {
           "name": "hWndChildAfter",
           "direction": "in, optional",
-          "description": "类型：HWND 子窗口的句柄。 搜索从 Z 顺序中的下一个子窗口开始。 子窗口必须是 hwndParent的直接子窗口，而不仅仅是子窗口。 如果 hwndChildAfterNULL，则搜索从 hwndParent的第一个子窗口开始。 请注意，如果 hwndParent 和 hwndChildAfter 都 NULL，则该函数将搜索所有顶级窗口和仅消息窗口。"
+          "description": "类型：HWND 子窗口的句柄。 搜索从 Z 顺序中的下一个子窗口开始。 子窗口必须是 hwndParent的直接子窗口，而不仅仅是子窗口。 如果 hwndChildAfterNULL，则搜索从 hwndParent的第一个子窗口开始。 请注意，如果 hwndParent 和 hwndChildAfter 都 NULL，则该函数将搜索所有顶级窗口和仅消息窗口。",
+          "type": "optional] HWND"
         },
         {
           "name": "lpszClass",
@@ -8679,7 +8936,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 6734
+      "_source_line": 6734,
+      "return_value": {
+        "type": "HWND",
+        "description": ""
+      }
     },
     {
       "id": "windows::MAKEINTATOM",
@@ -8706,12 +8967,14 @@
         {
           "name": "lpClassName",
           "direction": "in, optional",
-          "description": "类型：LPCTSTR 上一次调用 RegisterClass 或 RegisterClassEx 函数创建的类名或类原子。 原子必须位于 lpClassName的低序单词中;高序单词必须为零。 如果 lpClassName 指向字符串，则指定窗口类名。 类名称可以是注册到 RegisterClass 或 RegisterClassEx的任何名称，也可以是预定义的控件类名称。 如果 lpClassNameNULL，它将查找游戏与 lpWindowName 参数匹配的任何窗口。"
+          "description": "类型：LPCTSTR 上一次调用 RegisterClass 或 RegisterClassEx 函数创建的类名或类原子。 原子必须位于 lpClassName的低序单词中;高序单词必须为零。 如果 lpClassName 指向字符串，则指定窗口类名。 类名称可以是注册到 RegisterClass 或 RegisterClassEx的任何名称，也可以是预定义的控件类名称。 如果 lpClassNameNULL，它将查找游戏与 lpWindowName 参数匹配的任何窗口。",
+          "type": "optional] LPCWSTR"
         },
         {
           "name": "lpWindowName",
           "direction": "in, optional",
-          "description": "类型：LPCTSTR 窗口名称（窗口的标题）。 如果此参数 NULL，则所有窗口名称都匹配。"
+          "description": "类型：LPCTSTR 窗口名称（窗口的标题）。 如果此参数 NULL，则所有窗口名称都匹配。",
+          "type": "optional] LPCWSTR"
         }
       ],
       "return_value": {
@@ -8738,7 +9001,8 @@
         {
           "name": "hwnd",
           "direction": "in, optional",
-          "description": "类型：HWND 要为其检索状态信息的窗口的句柄。 此窗口必须是应用程序切换窗口。"
+          "description": "类型：HWND 要为其检索状态信息的窗口的句柄。 此窗口必须是应用程序切换窗口。",
+          "type": "optional] HWND"
         },
         {
           "name": "iItem",
@@ -8749,12 +9013,14 @@
         {
           "name": "pszItemText",
           "direction": "out, optional",
-          "description": "类型：LPTSTR 项的名称。 如果此参数 NULL，则不会复制项的名称。"
+          "description": "类型：LPTSTR 项的名称。 如果此参数 NULL，则不会复制项的名称。",
+          "type": "optional] LPSTR"
         },
         {
           "name": "cchItemText",
           "direction": "in",
-          "description": "类型：UINT pszItemText 缓冲区的大小（以字符为单位）。"
+          "description": "类型：UINT pszItemText 缓冲区的大小（以字符为单位）。",
+          "type": "UINT"
         }
       ],
       "return_value": {
@@ -8778,7 +9044,8 @@
         {
           "name": "hwnd",
           "direction": "in, optional",
-          "description": "类型：HWND 要为其检索状态信息的窗口的句柄。 此窗口必须是应用程序切换窗口。"
+          "description": "类型：HWND 要为其检索状态信息的窗口的句柄。 此窗口必须是应用程序切换窗口。",
+          "type": "optional] HWND"
         },
         {
           "name": "iItem",
@@ -8789,12 +9056,14 @@
         {
           "name": "pszItemText",
           "direction": "out, optional",
-          "description": "类型：LPTSTR 项的名称。 如果此参数 NULL，则不会复制项的名称。"
+          "description": "类型：LPTSTR 项的名称。 如果此参数 NULL，则不会复制项的名称。",
+          "type": "optional] LPWSTR"
         },
         {
           "name": "cchItemText",
           "direction": "in",
-          "description": "类型：UINT pszItemText 缓冲区的大小（以字符为单位）。"
+          "description": "类型：UINT pszItemText 缓冲区的大小（以字符为单位）。",
+          "type": "UINT"
         }
       ],
       "return_value": {
@@ -8824,14 +9093,19 @@
         {
           "name": "gaFlags",
           "direction": "in",
-          "description": "类型： UINT 要检索的上级。 此参数的取值可为下列值之一： 值"
+          "description": "类型： UINT 要检索的上级。 此参数的取值可为下列值之一： 值",
+          "type": "UINT"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.45,
-      "_source_line": 6912
+      "_source_line": 6912,
+      "return_value": {
+        "type": "HWND",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetClassInfoA",
@@ -8843,7 +9117,8 @@
         {
           "name": "hInstance",
           "direction": "in, optional",
-          "description": "类型：HINSTANCE 创建类的应用程序实例的句柄。 若要检索有关系统定义的类的信息（如按钮或列表框），请将此参数设置为 NULL。"
+          "description": "类型：HINSTANCE 创建类的应用程序实例的句柄。 若要检索有关系统定义的类的信息（如按钮或列表框），请将此参数设置为 NULL。",
+          "type": "optional] HINSTANCE"
         },
         {
           "name": "lpClassName",
@@ -8900,19 +9175,25 @@
         {
           "name": "hInstance",
           "direction": "in, optional",
-          "description": "类型：HINSTANCE 创建类的应用程序实例的句柄。 若要检索有关系统定义的类的信息（如按钮或列表框），请将此参数设置为 NULL。"
+          "description": "类型：HINSTANCE 创建类的应用程序实例的句柄。 若要检索有关系统定义的类的信息（如按钮或列表框），请将此参数设置为 NULL。",
+          "type": "optional] HINSTANCE"
         },
         {
           "name": "lpClassName",
           "direction": "in",
-          "description": "类型：LPCTSTR 类名。 该名称必须是预注册类或先前调用 RegisterClass 或 RegisterClassEx 函数注册的类。 或者，此参数可以是原子。 如果是这样，它必须是先前调用 RegisterClass 或"
+          "description": "类型：LPCTSTR 类名。 该名称必须是预注册类或先前调用 RegisterClass 或 RegisterClassEx 函数注册的类。 或者，此参数可以是原子。 如果是这样，它必须是先前调用 RegisterClass 或",
+          "type": "LPCWSTR"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 7061
+      "_source_line": 7061,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetClassLongA",
@@ -8930,7 +9211,8 @@
         {
           "name": "nIndex",
           "direction": "in",
-          "description": "类型：int 要检索的值。 若要从额外的类内存中检索值，请指定要检索的值的正、从零开始的字节偏移量。 有效值在 0 到额外类内存的字节数（减四）范围内;例如，如果指定了 12 个或更多字节的额外类内存，则值 8 将是第三个整数的索引。 若要从 WNDCLASSEX 结构中检索任何其他值，请指定以下值之一。 价值"
+          "description": "类型：int 要检索的值。 若要从额外的类内存中检索值，请指定要检索的值的正、从零开始的字节偏移量。 有效值在 0 到额外类内存的字节数（减四）范围内;例如，如果指定了 12 个或更多字节的额外类内存，则值 8 将是第三个整数的索引。 若要从 WNDCLASSEX 结构中检索任何其他值，请指定以下值之一。 价值",
+          "type": "int"
         }
       ],
       "header": "winuser.h",
@@ -8939,7 +9221,11 @@
         "GetClassLongPtr"
       ],
       "confidence": 0.8,
-      "_source_line": 7105
+      "_source_line": 7105,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::GCW_ATOM",
@@ -9065,7 +9351,8 @@
         {
           "name": "nIndex",
           "direction": "in",
-          "description": "类型：int 要检索的值。 若要从额外的类内存中检索值，请指定要检索的值的正、从零开始的字节偏移量。 有效值在 0 到额外类内存的字节数（减四）范围内;例如，如果指定了 12 个或更多字节的额外类内存，则值 8 将是第三个整数的索引。 若要从 WNDCLASSEX 结构中检索任何其他值，请指定以下值之一。 价值"
+          "description": "类型：int 要检索的值。 若要从额外的类内存中检索值，请指定要检索的值的正、从零开始的字节偏移量。 有效值在 0 到额外类内存的字节数（减四）范围内;例如，如果指定了 12 个或更多字节的额外类内存，则值 8 将是第三个整数的索引。 若要从 WNDCLASSEX 结构中检索任何其他值，请指定以下值之一。 价值",
+          "type": "int"
         }
       ],
       "header": "winuser.h",
@@ -9074,7 +9361,11 @@
         "GetClassLongPtr"
       ],
       "confidence": 0.8,
-      "_source_line": 7287
+      "_source_line": 7287,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetClassNameA",
@@ -9132,7 +9423,8 @@
         {
           "name": "nIndex",
           "direction": "in",
-          "description": "类型： int 要检索的值的从零开始的字节偏移量。 有效值在零到类内存的字节数范围内，减去 2;例如，如果指定了 10 个或更多字节的额外类内存，则值 8 将是第五个 16 位整数的索引。 还有一个附加的有效值，如下表所示。 值"
+          "description": "类型： int 要检索的值的从零开始的字节偏移量。 有效值在零到类内存的字节数范围内，减去 2;例如，如果指定了 10 个或更多字节的额外类内存，则值 8 将是第五个 16 位整数的索引。 还有一个附加的有效值，如下表所示。 值",
+          "type": "int"
         }
       ],
       "header": "winuser.h",
@@ -9141,7 +9433,11 @@
         "GCW_ATOM"
       ],
       "confidence": 0.65,
-      "_source_line": 7452
+      "_source_line": 7452,
+      "return_value": {
+        "type": "WORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetWindowRect",
@@ -9224,12 +9520,14 @@
         {
           "name": "pcrKey",
           "direction": "out, optional",
-          "description": "类型： COLORREF* 指向 COLORREF 值的指针，该值接收在组合分层窗口时要使用的透明度颜色键。 窗口以这种颜色绘制的所有像素都是透明的。 如果不需要 参数，则可以为 NULL 。"
+          "description": "类型： COLORREF* 指向 COLORREF 值的指针，该值接收在组合分层窗口时要使用的透明度颜色键。 窗口以这种颜色绘制的所有像素都是透明的。 如果不需要 参数，则可以为 NULL 。",
+          "type": "optional] COLORREF"
         },
         {
           "name": "pbAlpha",
           "direction": "out, optional",
-          "description": "类型： BYTE* 用于描述分层窗口不透明度的 Alpha 值。 类似于 BLENDFUNCTION 结构的"
+          "description": "类型： BYTE* 用于描述分层窗口不透明度的 Alpha 值。 类似于 BLENDFUNCTION 结构的",
+          "type": "optional] BYTE"
         }
       ],
       "header": "winuser.h",
@@ -9237,7 +9535,10 @@
       "cross_references": [],
       "confidence": 0.55,
       "_source_line": 7657,
-      "return_value": "BOOL - 如果函数成功，返回非零值；如果函数失败，返回零"
+      "return_value": {
+        "type": "BOOL",
+        "description": "BOOL - 如果函数成功，返回非零值；如果函数失败，返回零"
+      }
     },
     {
       "id": "windows::LWA_ALPHA",
@@ -9288,7 +9589,11 @@
         "WM_USER"
       ],
       "confidence": 0.55,
-      "_source_line": 7760
+      "_source_line": 7760,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::WaitMessage",
@@ -9343,7 +9648,8 @@
         {
           "name": "lpMsg",
           "direction": "out",
-          "description": "类型：LPMSG 指向从线程的消息队列接收消息信息的 MSG 结构的指针。"
+          "description": "类型：LPMSG 指向从线程的消息队列接收消息信息的 MSG 结构的指针。",
+          "type": "LPMSG"
         },
         {
           "name": "hWnd",
@@ -9438,14 +9744,19 @@
         {
           "name": "wCmd",
           "direction": "in",
-          "description": "类型：UINT 指示函数是返回下一个窗口还是上一个窗口的句柄。 此参数可以是以下值之一。 价值"
+          "description": "类型：UINT 指示函数是返回下一个窗口还是上一个窗口的句柄。 此参数可以是以下值之一。 价值",
+          "type": "UINT"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 7988
+      "_source_line": 7988,
+      "return_value": {
+        "type": "HWND",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetParent",
@@ -9485,12 +9796,14 @@
         {
           "name": "hWndChild",
           "direction": "in",
-          "description": "类型：HWND 子窗口的句柄。"
+          "description": "类型：HWND 子窗口的句柄。",
+          "type": "HWND"
         },
         {
           "name": "hWndNewParent",
           "direction": "in, optional",
-          "description": "类型：HWND 新父窗口的句柄。 如果此参数为 NULL，桌面窗口将成为新的父窗口。 如果此参数 HWND_MESSAGE，则子窗口将成为 仅消息窗口。"
+          "description": "类型：HWND 新父窗口的句柄。 如果此参数为 NULL，桌面窗口将成为新的父窗口。 如果此参数 HWND_MESSAGE，则子窗口将成为 仅消息窗口。",
+          "type": "optional] HWND"
         }
       ],
       "return_value": {
@@ -9524,7 +9837,8 @@
         {
           "name": "pdwDefaultLayout",
           "direction": "out",
-          "description": "类型： DWORD* 当前默认进程布局。 有关值的列表，请参阅 SetProcessDefaultLayout。"
+          "description": "类型： DWORD* 当前默认进程布局。 有关值的列表，请参阅 SetProcessDefaultLayout。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
@@ -9563,7 +9877,8 @@
         {
           "name": "lpString",
           "direction": "in",
-          "description": "类型：LPCTSTR 标识字符串的原子。 如果此参数是 atom，则必须使用 GlobalAddAtom 函数创建此参数。 原子（一个 16 位值）必须放置在 lpString 参数的低序单词中;高序单词必须为零。"
+          "description": "类型：LPCTSTR 标识字符串的原子。 如果此参数是 atom，则必须使用 GlobalAddAtom 函数创建此参数。 原子（一个 16 位值）必须放置在 lpString 参数的低序单词中;高序单词必须为零。",
+          "type": "LPCSTR"
         }
       ],
       "return_value": {
@@ -9592,7 +9907,8 @@
         {
           "name": "lpString",
           "direction": "in",
-          "description": "类型：LPCTSTR 标识字符串的原子。 如果此参数是 atom，则必须使用 GlobalAddAtom 函数创建此参数。 原子（一个 16 位值）必须放置在 lpString 参数的低序单词中;高序单词必须为零。"
+          "description": "类型：LPCTSTR 标识字符串的原子。 如果此参数是 atom，则必须使用 GlobalAddAtom 函数创建此参数。 原子（一个 16 位值）必须放置在 lpString 参数的低序单词中;高序单词必须为零。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
@@ -10141,7 +10457,8 @@
         {
           "name": "pdwAffinity",
           "direction": "out",
-          "description": "类型： DWORD* 指向接收显示相关性设置的变量的指针。 有关相关性设置及其含义的列表，请参阅 SetWindowDisplayAffinity 。"
+          "description": "类型： DWORD* 指向接收显示相关性设置的变量的指针。 有关相关性设置及其含义的列表，请参阅 SetWindowDisplayAffinity 。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
@@ -10173,7 +10490,8 @@
         {
           "name": "dwAffinity",
           "direction": "in",
-          "description": "类型：DWORD 指定窗口内容的显示位置的显示相关性设置。此参数的取值可为下列值之一： 值"
+          "description": "类型：DWORD 指定窗口内容的显示位置的显示相关性设置。此参数的取值可为下列值之一： 值",
+          "type": "DWORD"
         }
       ],
       "return_value": {
@@ -10345,7 +10663,8 @@
         {
           "name": "nIndex",
           "direction": "in",
-          "description": "类型：int 要检索的值的从零开始的偏移量。 有效值在 0 到额外窗口内存的字节数中，减去 4;例如，如果指定了 12 个或更多字节的额外内存，则值 8 将是第三个 32 位整数的索引。 若要检索任何其他值，请指定以下值之一。 价值 意义"
+          "description": "类型：int 要检索的值的从零开始的偏移量。 有效值在 0 到额外窗口内存的字节数中，减去 4;例如，如果指定了 12 个或更多字节的额外内存，则值 8 将是第三个 32 位整数的索引。 若要检索任何其他值，请指定以下值之一。 价值 意义",
+          "type": "int"
         }
       ],
       "header": "winuser.h",
@@ -10354,7 +10673,11 @@
         "GetWindowLongPtr"
       ],
       "confidence": 0.8,
-      "_source_line": 9076
+      "_source_line": 9076,
+      "return_value": {
+        "type": "LONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetWindowModuleFileNameA",
@@ -10372,7 +10695,8 @@
         {
           "name": "cchFileNameMax",
           "direction": "in",
-          "description": "类型：UINT 可以复制到 lpszFileName 缓冲区的最大字符数。"
+          "description": "类型：UINT 可以复制到 lpszFileName 缓冲区的最大字符数。",
+          "type": "UINT"
         }
       ],
       "return_value": {
@@ -10401,7 +10725,8 @@
         {
           "name": "cchFileNameMax",
           "direction": "in",
-          "description": "类型：UINT 可以复制到 lpszFileName 缓冲区的最大字符数。"
+          "description": "类型：UINT 可以复制到 lpszFileName 缓冲区的最大字符数。",
+          "type": "UINT"
         }
       ],
       "return_value": {
@@ -10524,12 +10849,14 @@
         {
           "name": "lpString",
           "direction": "out",
-          "description": "类型：LPTSTR 将接收文本的缓冲区。 如果字符串的长度或长于缓冲区，则字符串将被截断并以 null 字符终止。"
+          "description": "类型：LPTSTR 将接收文本的缓冲区。 如果字符串的长度或长于缓冲区，则字符串将被截断并以 null 字符终止。",
+          "type": "LPWSTR"
         },
         {
           "name": "nMaxCount",
           "direction": "in",
-          "description": "类型：int 要复制到缓冲区的最大字符数，包括 null 字符。 如果文本超出此限制，则将被截断。"
+          "description": "类型：int 要复制到缓冲区的最大字符数，包括 null 字符。 如果文本超出此限制，则将被截断。",
+          "type": "int"
         }
       ],
       "return_value": {
@@ -10705,7 +11032,8 @@
         {
           "name": "hWnd",
           "direction": "in, optional",
-          "description": "类型：HWND 要测试的窗口的句柄。"
+          "description": "类型：HWND 要测试的窗口的句柄。",
+          "type": "HWND"
         }
       ],
       "return_value": {
@@ -11102,14 +11430,19 @@
         {
           "name": "hWnd",
           "direction": "in, optional",
-          "description": "类型：HWND 窗口过程的句柄是接收消息。 以下值具有特殊含义。 价值"
+          "description": "类型：HWND 窗口过程的句柄是接收消息。 以下值具有特殊含义。 价值",
+          "type": "optional] HWND"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 10942
+      "_source_line": 10942,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::WM_COMPLETE",
@@ -11134,7 +11467,8 @@
         {
           "name": "idThread",
           "direction": "in",
-          "description": "类型：DWORD 要向其发布消息的线程的标识符。 如果指定的线程没有消息队列，该函数将失败。 当线程首次调用某个用户或 GDI 函数时，系统会创建线程的消息队列。 有关详细信息，请参阅“备注”部分。 消息发布受 UIPI 的约束。 进程的线程只能将消息发布到较低或等于完整性级别的线程的已发布消息队列。 此线程必须具有 SE_TCB_NAME 特权，才能将消息发布到属于具有相同本地唯一标识符 （LUID）但位于其他桌面中的进程的线程。 否则，函数将失败并返回 ERROR_INVALID_THREAD_ID。 此线程必须与调用线程属于同一桌面，或者属于具有相同 LUID 的进程。 否则，函数将失败并返回 ERROR_INVALID_THREAD_ID。"
+          "description": "类型：DWORD 要向其发布消息的线程的标识符。 如果指定的线程没有消息队列，该函数将失败。 当线程首次调用某个用户或 GDI 函数时，系统会创建线程的消息队列。 有关详细信息，请参阅“备注”部分。 消息发布受 UIPI 的约束。 进程的线程只能将消息发布到较低或等于完整性级别的线程的已发布消息队列。 此线程必须具有 SE_TCB_NAME 特权，才能将消息发布到属于具有相同本地唯一标识符 （LUID）但位于其他桌面中的进程的线程。 否则，函数将失败并返回 ERROR_INVALID_THREAD_ID。 此线程必须与调用线程属于同一桌面，或者属于具有相同 LUID 的进程。 否则，函数将失败并返回 ERROR_INVALID_THREAD_ID。",
+          "type": "DWORD"
         },
         {
           "name": "Msg",
@@ -11145,7 +11479,8 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 其他特定于消息的信息。"
+          "description": "类型：LPARAM 其他特定于消息的信息。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -11192,7 +11527,11 @@
         "SetProp"
       ],
       "confidence": 0.55,
-      "_source_line": 11263
+      "_source_line": 11263,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::RealGetWindowClassW",
@@ -11210,12 +11549,14 @@
         {
           "name": "ptszClassName",
           "direction": "out",
-          "description": "类型： LPTSTR 指向接收窗口类型的字符串的指针。"
+          "description": "类型： LPTSTR 指向接收窗口类型的字符串的指针。",
+          "type": "LPWSTR"
         },
         {
           "name": "cchClassNameMax",
           "direction": "in",
-          "description": "类型： UINT pszType 参数指向的缓冲区的长度（以字符为单位）。"
+          "description": "类型： UINT pszType 参数指向的缓冲区的长度（以字符为单位）。",
+          "type": "UINT"
         }
       ],
       "return_value": {
@@ -11464,7 +11805,8 @@
         {
           "name": "lpString",
           "direction": "in",
-          "description": "类型：LPCTSTR 以 null 结尾的字符串或标识字符串的 atom。 如果此参数是 atom，则必须使用 GlobalAddAtom 函数创建此参数。 原子（一个 16 位值）必须置于 lpString的低序单词中;高序单词必须为零。"
+          "description": "类型：LPCTSTR 以 null 结尾的字符串或标识字符串的 atom。 如果此参数是 atom，则必须使用 GlobalAddAtom 函数创建此参数。 原子（一个 16 位值）必须置于 lpString的低序单词中;高序单词必须为零。",
+          "type": "LPCSTR"
         }
       ],
       "return_value": {
@@ -11524,7 +11866,8 @@
         {
           "name": "lpString",
           "direction": "in",
-          "description": "类型：LPCTSTR 以 null 结尾的字符串或标识字符串的 atom。 如果此参数是 atom，则必须使用"
+          "description": "类型：LPCTSTR 以 null 结尾的字符串或标识字符串的 atom。 如果此参数是 atom，则必须使用",
+          "type": "LPCWSTR"
         }
       ],
       "header": "winuser.h",
@@ -11532,7 +11875,10 @@
       "cross_references": [],
       "confidence": 0.7,
       "_source_line": 11796,
-      "return_value": "如果成功，返回属性值的句柄；如果失败，返回 NULL。"
+      "return_value": {
+        "type": "HANDLE",
+        "description": "如果成功，返回属性值的句柄；如果失败，返回 NULL。"
+      }
     },
     {
       "id": "windows::SendMessageTimeout",
@@ -11570,7 +11916,8 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 其他特定于消息的信息。"
+          "description": "类型：LPARAM 其他特定于消息的信息。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -11618,7 +11965,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 11992
+      "_source_line": 11992,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SendAsyncProc",
@@ -11666,14 +12017,19 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 其他特定于消息的信息。[in] lpResultCallBack 类型：SENDASYNCPROC 指向系统在窗口过程处理消息后调用的回调函数的指针。 有关详细信息，请参阅 SendAsyncProc。 如果 hWnd 为 HWND_BROADCAST （（HWND）0xffff），系统将为每个顶级窗口调用"
+          "description": "类型：LPARAM 其他特定于消息的信息。[in] lpResultCallBack 类型：SENDASYNCPROC 指向系统在窗口过程处理消息后调用的回调函数的指针。 有关详细信息，请参阅 SendAsyncProc。 如果 hWnd 为 HWND_BROADCAST （（HWND）0xffff），系统将为每个顶级窗口调用",
+          "type": "LPARAM"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 12039
+      "_source_line": 12039,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SendMessageTimeoutA",
@@ -11697,19 +12053,25 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 任何其他特定于消息的信息。"
+          "description": "类型：LPARAM 任何其他特定于消息的信息。",
+          "type": "LPARAM"
         },
         {
           "name": "fuFlags",
           "direction": "in",
-          "description": "类型：UINT 此函数的行为。 此参数可以是以下一个或多个值。 价值"
+          "description": "类型：UINT 此函数的行为。 此参数可以是以下一个或多个值。 价值",
+          "type": "UINT"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 12096
+      "_source_line": 12096,
+      "return_value": {
+        "type": "LRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::SMTO_ERRORONEXIT",
@@ -11765,7 +12127,8 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 其他特定于消息的信息。"
+          "description": "类型：LPARAM 其他特定于消息的信息。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -11808,7 +12171,8 @@
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 其他特定于消息的信息。"
+          "description": "类型：LPARAM 其他特定于消息的信息。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -11853,14 +12217,19 @@
         {
           "name": "nIndex",
           "direction": "in",
-          "description": "类型：int 要替换的值。 若要在额外的类内存中设置 32 位值，请指定要设置的值的正、从零开始的字节偏移量。 有效值在 0 到额外类内存的字节数（减四）范围内;例如，如果指定了 12 个或更多字节的额外类内存，则值 8 将是第三个 32 位整数的索引。 若要设置 WNDCLASSEX 结构的任何其他值，请指定以下值之一。 价值 意义"
+          "description": "类型：int 要替换的值。 若要在额外的类内存中设置 32 位值，请指定要设置的值的正、从零开始的字节偏移量。 有效值在 0 到额外类内存的字节数（减四）范围内;例如，如果指定了 12 个或更多字节的额外类内存，则值 8 将是第三个 32 位整数的索引。 若要设置 WNDCLASSEX 结构的任何其他值，请指定以下值之一。 价值 意义",
+          "type": "int"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 12618
+      "_source_line": 12618,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetCoalescableTimer",
@@ -12022,7 +12391,8 @@
         {
           "name": "lpString",
           "direction": "in",
-          "description": "类型：LPCTSTR 以 null 结尾的字符串或标识字符串的原子。 如果此参数是 atom，则它必须是先前对"
+          "description": "类型：LPCTSTR 以 null 结尾的字符串或标识字符串的原子。 如果此参数是 atom，则它必须是先前对",
+          "type": "LPCSTR"
         }
       ],
       "header": "winuser.h",
@@ -12030,7 +12400,10 @@
       "cross_references": [],
       "confidence": 0.8,
       "_source_line": 13033,
-      "return_value": "如果函数成功，则返回 TRUE。如果函数失败，则返回 FALSE。要获取扩展错误信息，请调用 GetLastError。"
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果函数成功，则返回 TRUE。如果函数失败，则返回 FALSE。要获取扩展错误信息，请调用 GetLastError。"
+      }
     },
     {
       "id": "windows::SetPropW",
@@ -12048,12 +12421,14 @@
         {
           "name": "lpString",
           "direction": "in",
-          "description": "类型： LPCTSTR 以 null 结尾的字符串或用于标识字符串的原子。 如果此参数是 atom，则它必须是先前调用 GlobalAddAtom 函数创建的全局原子。 原子必须放在 lpString 的低序字中;高序字必须为零。"
+          "description": "类型： LPCTSTR 以 null 结尾的字符串或用于标识字符串的原子。 如果此参数是 atom，则它必须是先前调用 GlobalAddAtom 函数创建的全局原子。 原子必须放在 lpString 的低序字中;高序字必须为零。",
+          "type": "LPCWSTR"
         },
         {
           "name": "hData",
           "direction": "in, optional",
-          "description": "类型： 句柄 要复制到属性列表的数据的句柄。 数据句柄可以标识对应用程序有用的任何值。"
+          "description": "类型： 句柄 要复制到属性列表的数据的句柄。 数据句柄可以标识对应用程序有用的任何值。",
+          "type": "optional] HANDLE"
         }
       ],
       "return_value": {
@@ -12137,14 +12512,19 @@
         {
           "name": "nIndex",
           "direction": "in",
-          "description": "类型：int 要设置的值的从零开始的偏移量。 有效值介于零到额外窗口内存的字节数之间，减去整数的大小。 若要设置任何其他值，请指定以下值之一。 价值"
+          "description": "类型：int 要设置的值的从零开始的偏移量。 有效值介于零到额外窗口内存的字节数之间，减去整数的大小。 若要设置任何其他值，请指定以下值之一。 价值",
+          "type": "int"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 13262
+      "_source_line": 13262,
+      "return_value": {
+        "type": "LONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetWindowLongPtrW",
@@ -12175,14 +12555,19 @@
         {
           "name": "nIndex",
           "direction": "in",
-          "description": "类型：int 要设置的值的从零开始的偏移量。 有效值介于零到额外窗口内存的字节数之间，减去整数的大小。 若要设置任何其他值，请指定以下值之一。 价值"
+          "description": "类型：int 要设置的值的从零开始的偏移量。 有效值介于零到额外窗口内存的字节数之间，减去整数的大小。 若要设置任何其他值，请指定以下值之一。 价值",
+          "type": "int"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 13500
+      "_source_line": 13500,
+      "return_value": {
+        "type": "LONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::HWND_TOP",
@@ -12216,14 +12601,19 @@
         {
           "name": "idHook",
           "direction": "in",
-          "description": "类型：int 要安装的挂钩过程的类型。 此参数可以是下列值之一。 价值"
+          "description": "类型：int 要安装的挂钩过程的类型。 此参数可以是下列值之一。 价值",
+          "type": "int"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 13716
+      "_source_line": 13716,
+      "return_value": {
+        "type": "HHOOK",
+        "description": ""
+      }
     },
     {
       "id": "windows::WH_CALLWNDPROCRET",
@@ -12355,14 +12745,19 @@
         {
           "name": "idHook",
           "direction": "in",
-          "description": "类型：int 要安装的挂钩过程的类型。 此参数可以是下列值之一。 价值"
+          "description": "类型：int 要安装的挂钩过程的类型。 此参数可以是下列值之一。 价值",
+          "type": "int"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 13832
+      "_source_line": 13832,
+      "return_value": {
+        "type": "HHOOK",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetWindowTextA",
@@ -12380,7 +12775,8 @@
         {
           "name": "lpString",
           "direction": "in, optional",
-          "description": "类型：LPCTSTR 新的标题或控件文本。"
+          "description": "类型：LPCTSTR 新的标题或控件文本。",
+          "type": "optional] LPCSTR"
         }
       ],
       "return_value": {
@@ -12413,7 +12809,8 @@
         {
           "name": "lpString",
           "direction": "in, optional",
-          "description": "类型：LPCWSTR 新的标题或控件文本。"
+          "description": "类型：LPCWSTR 新的标题或控件文本。",
+          "type": "optional] LPCWSTR"
         }
       ],
       "return_value": {
@@ -12525,7 +12922,8 @@
         }
       ],
       "return_value": {
-        "description": "如果函数成功，返回非零值；否则返回零。"
+        "description": "如果函数成功，返回非零值；否则返回零。",
+        "type": "BOOL"
       },
       "remarks": "通常调用此函数以维护窗口 z 顺序。 在具有 Service Pack 1 的 Windows XP (SP1) 和 Windows Server 2003 之前，此函数未包含在 SDK 标头和库中。 如果没有此函数的头文件和导入库，可以使用 LoadLibrary 和 GetProcAddress 调用该函数。",
       "header": "winuser.h",
@@ -12548,14 +12946,19 @@
         {
           "name": "uiAction",
           "direction": "in",
-          "description": "类型： UINT 要检索或设置的系统范围参数。 可能的值按以下相关参数表进行组织： 辅助功能参数 桌面参数图标参数输入参数菜单参数电源参数 屏幕保护程序参数 超时参数 UI 效果参数窗口参数 下面是辅助功能参数。 辅助功能参数"
+          "description": "类型： UINT 要检索或设置的系统范围参数。 可能的值按以下相关参数表进行组织： 辅助功能参数 桌面参数图标参数输入参数菜单参数电源参数 屏幕保护程序参数 超时参数 UI 效果参数窗口参数 下面是辅助功能参数。 辅助功能参数",
+          "type": "UINT"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 14236
+      "_source_line": 14236,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SPI_GETDISABLEOVERLAPPEDCONTENT",
@@ -13451,14 +13854,19 @@
         {
           "name": "uiAction",
           "direction": "in",
-          "description": "类型： UINT 要检索或设置的系统范围参数。 可能的值在相关参数的下表中组织： 辅助功能参数 桌面参数图标参数输入参数菜单参数电源参数 屏幕保护程序参数 超时参数 UI 效果参数 窗口参数 下面是辅助功能参数。辅助功能参数"
+          "description": "类型： UINT 要检索或设置的系统范围参数。 可能的值在相关参数的下表中组织： 辅助功能参数 桌面参数图标参数输入参数菜单参数电源参数 屏幕保护程序参数 超时参数 UI 效果参数 窗口参数 下面是辅助功能参数。辅助功能参数",
+          "type": "UINT"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 15021
+      "_source_line": 15021,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SCALE_140_PERCENT",
@@ -13542,19 +13950,25 @@
         {
           "name": "hwndParent",
           "direction": "in, optional",
-          "description": "类型：HWND 父窗口的句柄。 如果此参数为 NULL，则假定为桌面窗口。"
+          "description": "类型：HWND 父窗口的句柄。 如果此参数为 NULL，则假定为桌面窗口。",
+          "type": "HWND"
         },
         {
           "name": "wHow",
           "direction": "in",
-          "description": "类型： UINT 平铺标志。 此参数可以是以下值之一， 可以选择与 MDITILE_SKIPDISABLED 组合，以防止平铺已禁用的 MDI 子窗口。 值"
+          "description": "类型： UINT 平铺标志。 此参数可以是以下值之一， 可以选择与 MDITILE_SKIPDISABLED 组合，以防止平铺已禁用的 MDI 子窗口。 值",
+          "type": "UINT"
         }
       ],
       "header": "winuser.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.45,
-      "_source_line": 15825
+      "_source_line": 15825,
+      "return_value": {
+        "type": "WORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::MDITILE_VERTICAL",
@@ -13663,12 +14077,14 @@
         {
           "name": "lpClassName",
           "direction": "in",
-          "description": "类型：LPCTSTR 以 null 结尾的字符串或类原子。 如果 lpClassName 是字符串，则指定窗口类名。 此类名称必须由上一次对 RegisterClass 或 RegisterClassEx 函数的调用进行注册。 无法取消注册系统类（如对话框控件）。 如果此参数是 atom，则它必须是上一次调用 RegisterClass 或 RegisterClassEx 函数创建的类 atom。 原子必须位于 lpClassName的低序单词中;高序单词必须为零。"
+          "description": "类型：LPCTSTR 以 null 结尾的字符串或类原子。 如果 lpClassName 是字符串，则指定窗口类名。 此类名称必须由上一次对 RegisterClass 或 RegisterClassEx 函数的调用进行注册。 无法取消注册系统类（如对话框控件）。 如果此参数是 atom，则它必须是上一次调用 RegisterClass 或 RegisterClassEx 函数创建的类 atom。 原子必须位于 lpClassName的低序单词中;高序单词必须为零。",
+          "type": "LPCSTR"
         },
         {
           "name": "hInstance",
           "direction": "in, optional",
-          "description": "类型：HINSTANCE 创建类的模块实例的句柄。"
+          "description": "类型：HINSTANCE 创建类的模块实例的句柄。",
+          "type": "optional] HINSTANCE"
         }
       ],
       "return_value": {
@@ -13695,12 +14111,14 @@
         {
           "name": "lpClassName",
           "direction": "in",
-          "description": "类型：LPCTSTR 以 null 结尾的字符串或类原子。 如果 lpClassName 是字符串，则指定窗口类名。 此类名称必须由上一次对 RegisterClass 或 RegisterClassEx 函数的调用进行注册。 无法取消注册系统类（如对话框控件）。 如果此参数是 atom，则它必须是上一次调用 RegisterClass 或 RegisterClassEx 函数创建的类 atom。 原子必须位于 lpClassName的低序单词中;高序单词必须为零。"
+          "description": "类型：LPCTSTR 以 null 结尾的字符串或类原子。 如果 lpClassName 是字符串，则指定窗口类名。 此类名称必须由上一次对 RegisterClass 或 RegisterClassEx 函数的调用进行注册。 无法取消注册系统类（如对话框控件）。 如果此参数是 atom，则它必须是上一次调用 RegisterClass 或 RegisterClassEx 函数创建的类 atom。 原子必须位于 lpClassName的低序单词中;高序单词必须为零。",
+          "type": "LPCWSTR"
         },
         {
           "name": "hInstance",
           "direction": "in, optional",
-          "description": "类型：HINSTANCE 创建类的模块实例的句柄。"
+          "description": "类型：HINSTANCE 创建类的模块实例的句柄。",
+          "type": "optional] HINSTANCE"
         }
       ],
       "return_value": {

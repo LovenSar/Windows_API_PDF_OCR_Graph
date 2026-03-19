@@ -12,11 +12,13 @@
         {
           "name": "Id",
           "direction": "in",
-          "description": "指定现有属性的 ID。[out] pValue 指向包含属性值的 VARIANT 的指针。"
+          "description": "指定现有属性的 ID。[out] pValue 指向包含属性值的 VARIANT 的指针。",
+          "type": "LONG"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回相应的 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回相应的 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -199,11 +201,13 @@
         {
           "name": "Id",
           "direction": "in",
-          "description": "指定枚举类型 ATTRIBUTEID 中的值。 此值指定要创建的属性的类型。[out] ppAttributeObject 指向指向所创建属性对象的 IDispatch 接口指针的指针的指针。"
+          "description": "指定枚举类型 ATTRIBUTEID 中的值。 此值指定要创建的属性的类型。[out] ppAttributeObject 指向指向所创建属性对象的 IDispatch 接口指针的指针的指针。",
+          "type": "ATTRIBUTEID"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回值为 S_OK。如果方法失败，则返回值为以下错误代码之一。"
+        "description": "如果方法成功，则返回值为 S_OK。如果方法失败，则返回值为以下错误代码之一。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -228,11 +232,13 @@
         {
           "name": "Id",
           "direction": "in, out",
-          "description": "输入时，指向 VARIANT 的指针，指定要枚举的属性。 如果此 VARIANT 的类型由 V_VT ( ID) 提供，则 VT_EMPTY， 则 ISdoDictionaryOld：：EnumAttributes 枚举所有属性。 如果类型 为 VT_I4，则 VARIANT 的值是要枚举的属性的 ID。 输出时，指针指向包含枚举属性的 ID 的 SAFEARRAY 。[out] pValues 指向包含枚举属性值的 SAFEARRAY 的指针。"
+          "description": "输入时，指向 VARIANT 的指针，指定要枚举的属性。 如果此 VARIANT 的类型由 V_VT ( ID) 提供，则 VT_EMPTY， 则 ISdoDictionaryOld：：EnumAttributes 枚举所有属性。 如果类型 为 VT_I4，则 VARIANT 的值是要枚举的属性的 ID。 输出时，指针指向包含枚举属性的 ID 的 SAFEARRAY 。[out] pValues 指向包含枚举属性值的 SAFEARRAY 的指针。",
+          "type": "out] VARIANT"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回值为 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
+        "description": "如果方法成功，则返回值为 S_OK。 如果方法失败，则返回值为以下错误代码之一。",
+        "type": "HRESULT"
       },
       "remarks": "参数不得为 NULL。 如果 VT (ID) = VT_EMPTY则返回所有属性。 否则，应 VT_I4 VT (ID) ，并且仅检索设计的属性。 当方法返回时，Id 是返回的 ID 的 SAFEARRAY，pValues 是返回的值的 SAFEARRAY。",
       "header": "sdoias.h",
@@ -253,14 +259,19 @@
         {
           "name": "Id",
           "direction": "in",
-          "description": "指定特性的 ID。[out] pValueIds 成功返回时，指向可枚举属性的值 ID 的 SAFEARRAY 。 如果该属性不可枚举，则指向"
+          "description": "指定特性的 ID。[out] pValueIds 成功返回时，指向可枚举属性的值 ID 的 SAFEARRAY 。 如果该属性不可枚举，则指向",
+          "type": "ATTRIBUTEID"
         }
       ],
       "header": "sdoias.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 121
+      "_source_line": 121,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetAttachedComputer",
@@ -269,7 +280,8 @@
       "description": "方法检索当前作为 SDO 计算机附加的计算机的名称。ISdoMachine::GetDictionarySDO",
       "syntax": "HRESULT GetAttachedComputer([out] BSTR *bstrComputerName);",
       "return_value": {
-        "description": "如果方法成功，则返回值为 S_OK。 如果当前未附加任何计算机，则返回值 E_FAIL。 方法还可能返回以下错误代码之一。"
+        "description": "如果方法成功，则返回值为 S_OK。 如果当前未附加任何计算机，则返回值 E_FAIL。 方法还可能返回以下错误代码之一。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -295,11 +307,13 @@
         {
           "name": "bstrAttributeName",
           "direction": "in",
-          "description": "指定属性的名称。 此名称是轻型目录访问协议 (LDAP) 名称，或属性的显示名称。[out] pId 指向接收指定属性 ID 的 ATTRIBUTEID 的指针。"
+          "description": "指定属性的名称。 此名称是轻型目录访问协议 (LDAP) 名称，或属性的显示名称。[out] pId 指向接收指定属性 ID 的 ATTRIBUTEID 的指针。",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回值为 S_OK。如果方法找不到属性，则返回值为 DISP_E_MEMBERNOTFOUND。如果方法失败，则返回值为以下错误代码之一。"
+        "description": "如果方法成功，则返回值为 S_OK。如果方法找不到属性，则返回值为 DISP_E_MEMBERNOTFOUND。如果方法失败，则返回值为以下错误代码之一。",
+        "type": "HRESULT"
       },
       "header": "sdoias.h",
       "deprecated": false,
@@ -319,11 +333,13 @@
         {
           "name": "ppDictionarySDO",
           "direction": "out",
-          "description": "指向 ISdoDictionary 的指针。"
+          "description": "指向 ISdoDictionary 的指针。",
+          "type": "IUnknown"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回值为 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
+        "description": "如果方法成功，则返回值为 S_OK。 如果方法失败，则返回值为以下错误代码之一。",
+        "type": "HRESULT"
       },
       "remarks": "在调用此方法之前，请使用 ISdoMachine：：Attach 方法附加到 SDO 计算机。",
       "requirements": {
@@ -349,11 +365,13 @@
         {
           "name": "eDomainType",
           "direction": "out",
-          "description": "指向 IASDOMAINTYPE 变量的指针，该变量接收 SDO 计算机所在的域的类型。"
+          "description": "指向 IASDOMAINTYPE 变量的指针，该变量接收 SDO 计算机所在的域的类型。",
+          "type": "IASDOMAINTYPE"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回值 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
+        "description": "如果该方法成功，则返回值 S_OK。 如果方法失败，则返回值为以下错误代码之一。",
+        "type": "HRESULT"
       },
       "remarks": "在调用此方法之前，请使用 ISdoMachine::Attach 方法附加到 SDO 计算机。",
       "requirements": {
@@ -376,7 +394,8 @@
       "description": "检索 SDO 计算机上运行的操作系统的类型。",
       "syntax": "HRESULT GetOSType(\n  [out] IASOSTYPE *eOSType\n);",
       "return_value": {
-        "description": "如果方法成功，则返回值为 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
+        "description": "如果方法成功，则返回值为 S_OK。 如果方法失败，则返回值为以下错误代码之一。",
+        "type": "HRESULT"
       },
       "remarks": "在调用此方法之前，请使用 ISdoMachine：：Attach 方法附加到 SDO 计算机。",
       "requirements": {
@@ -404,11 +423,13 @@
         {
           "name": "Id",
           "direction": "in",
-          "description": "指定现有属性的 ID。[out] ppPropertyInfo 指向一个指针的指针，该指针接收指定属性的 ISdoPropertyInfo 接口的地址。"
+          "description": "指定现有属性的 ID。[out] ppPropertyInfo 指向一个指针的指针，该指针接收指定属性的 ISdoPropertyInfo 接口的地址。",
+          "type": "LONG"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回值为 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
+        "description": "如果方法成功，则返回值为 S_OK。 如果方法失败，则返回值为以下错误代码之一。",
+        "type": "HRESULT"
       },
       "remarks": "尽管服务器数据对象 (SDO) 公开此方法，但你不需要它即可使用 SDO。",
       "header": "sdoias.h",
@@ -424,7 +445,8 @@
       "description": "检索指定服务的服务器数据对象 (SDO)。",
       "syntax": "HRESULT GetServiceSDO([in] IASDATASTORE eDataStore, [in] BSTR bstrServiceName, [out] IUnknown **ppServiceSDO);",
       "return_value": {
-        "description": "如果该方法成功，则返回值 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
+        "description": "如果该方法成功，则返回值 S_OK。 如果方法失败，则返回值为以下错误代码之一。",
+        "type": "HRESULT"
       },
       "remarks": "在调用此方法之前，请使用 ISdoMachine：：Attach 方法附加到 SDO 计算机。 此方法的参数不能为 NULL。",
       "requirements": {
@@ -452,7 +474,8 @@
         {
           "name": "status",
           "direction": "out",
-          "description": "指向包含服务状态的 LONG 变量的指针。 状态为以下值之一。"
+          "description": "指向包含服务状态的 LONG 变量的指针。 状态为以下值之一。",
+          "type": "LONG"
         }
       ],
       "header": "sdoias.h",
@@ -461,7 +484,11 @@
         "ResetService"
       ],
       "confidence": 0.8,
-      "_source_line": 148
+      "_source_line": 148,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetUserSDO",
@@ -473,11 +500,13 @@
         {
           "name": "eDataStore",
           "direction": "in",
-          "description": "指定 IASDATASTORE 枚举类型中的值。[in] bstrUserName 指定包含用户名的 BSTR 。 名称可以采用轻型目录访问协议 (LDAP) 格式，也可以采用安全帐户 管理器 (SAM) 格式。[out] ppUserSDO 指向指向 IUnknown 接口指针的指针的指针。 使用此 IUnknown 接口的 QueryInterface 方法为 指定用户获取 ISdo 对象的 IDispatch 接口。"
+          "description": "指定 IASDATASTORE 枚举类型中的值。[in] bstrUserName 指定包含用户名的 BSTR 。 名称可以采用轻型目录访问协议 (LDAP) 格式，也可以采用安全帐户 管理器 (SAM) 格式。[out] ppUserSDO 指向指向 IUnknown 接口指针的指针的指针。 使用此 IUnknown 接口的 QueryInterface 方法为 指定用户获取 ISdo 对象的 IDispatch 接口。",
+          "type": "IASDATASTORE"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回值为 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
+        "description": "如果方法成功，则返回值为 S_OK。 如果方法失败，则返回值为以下错误代码之一。",
+        "type": "HRESULT"
       },
       "remarks": "在调用此方法之前，请使用 ISdoMachine：：Attach 方法附加到 SDO 计算机。 如果 SDO 计算机具有目录，则 ISdoMachine：：GetUserSDO 会自动使用 IASDATASTORE的 DATA_STORE_DIRECTORY值，而不是DATA_STORE_LOCAL。 任何参数都不能为 NULL。",
       "requirements": {
@@ -541,11 +570,13 @@
         {
           "name": "Id",
           "direction": "in",
-          "description": "指定现有属性的 ID。[in] pValue 指向包含该属性的值的 VARIANT 的指针。"
+          "description": "指定现有属性的 ID。[in] pValue 指向包含该属性的值的 VARIANT 的指针。",
+          "type": "LONG"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回值为 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
+        "description": "如果方法成功，则返回值为 S_OK。 如果方法失败，则返回值为以下错误代码之一。",
+        "type": "HRESULT"
       },
       "remarks": "使用ISdo::PutProperty设置值后，调用ISdo::Apply将更改写入永久性存储。如果属性READ_ONLY或值无效，则方法将失败。",
       "header": "sdoias.h",
@@ -566,11 +597,13 @@
       "parameters": [
         {
           "name": "Id",
-          "description": "指定现有属性的 ID。"
+          "description": "指定现有属性的 ID。",
+          "type": "LONG"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回值 S_OK。 如果方法失败，则返回值为以下错误代码之一。"
+        "description": "如果该方法成功，则返回值 S_OK。 如果方法失败，则返回值为以下错误代码之一。",
+        "type": "HRESULT"
       },
       "remarks": "很少有 IAS 属性具有默认值。 如果重置的属性没有默认值，则返回 E_INVALIDARG 。 在 Visual Basic 中，返回类似于以下内容的错误：“函数调用无效”。 注意 从 Windows Server 2008 开始， (IAS) 的 Internet 身份验证服务 (NPS) 重命名为网络 策略服务器。",
       "header": "sdoias.h",
@@ -597,7 +630,11 @@
         "StartService"
       ],
       "confidence": 0.7,
-      "_source_line": 190
+      "_source_line": 190,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::Restore",
@@ -632,7 +669,11 @@
         "StopService"
       ],
       "confidence": 0.6,
-      "_source_line": 194
+      "_source_line": 194,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::StopService",
@@ -645,7 +686,10 @@
       "cross_references": [],
       "confidence": 0.7,
       "_source_line": 196,
-      "return_value": "成功返回S_OK，失败返回错误代码"
+      "return_value": {
+        "type": "HRESULT",
+        "description": "成功返回S_OK，失败返回错误代码"
+      }
     },
     {
       "id": "windows::RADIUS_ATTRIBUTE",

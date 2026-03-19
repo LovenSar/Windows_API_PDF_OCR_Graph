@@ -177,7 +177,10 @@
       "confidence": 0.5,
       "_source_line": 444,
       "syntax": "NTSTATUS DriverEntry(\n  PDRIVER_OBJECT  DriverObject,\n  PUNICODE_STRING RegistryPath\n);",
-      "return_value": "如果驱动程序初始化成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果驱动程序初始化成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "DriverEntry 是驱动程序的初始化入口点。它通常负责初始化驱动程序范围的数据结构、注册回调、创建设备或框架驱动对象（如 WDF 驱动程序），并设置后续入口例程。该例程的函数类型由 DRIVER_INITIALIZE 定义。"
     },
     {
@@ -504,7 +507,10 @@
       "confidence": 0.5,
       "_source_line": 4938,
       "syntax": "NTSTATUS EvtDevicePrepareHardware(\n  [in] WDFDEVICE Device,\n  [in] WDFCMRESLIST ResourcesRaw,\n  [in] WDFCMRESLIST ResourcesTranslated\n);",
-      "return_value": "如果驱动程序成功准备硬件，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果驱动程序成功准备硬件，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "EvtDevicePrepareHardware 是驱动程序实现的回调例程，通常通过 WDF_PNPPOWER_EVENT_CALLBACKS 结构注册，其函数原型由 EVT_WDF_DEVICE_PREPARE_HARDWARE 定义。该回调通常与 EvtDeviceReleaseHardware 成对使用。"
     },
     {

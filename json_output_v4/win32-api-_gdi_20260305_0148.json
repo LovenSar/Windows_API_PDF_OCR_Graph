@@ -2781,7 +2781,8 @@
         {
           "name": "lpRect",
           "direction": "out",
-          "description": "类型： LPRECT 指向接收客户端坐标的 RECT 结构的指针。 左侧成员和顶部成员为零。 右侧和底部成员包含窗口的宽度和高度。"
+          "description": "类型： LPRECT 指向接收客户端坐标的 RECT 结构的指针。 左侧成员和顶部成员为零。 右侧和底部成员包含窗口的宽度和高度。",
+          "type": "LPRECT"
         }
       ]
     },
@@ -2808,7 +2809,8 @@
         {
           "name": "hdc",
           "direction": "in",
-          "description": "设备上下文的句柄。[in] align 使用以下列表中值的掩码的文本对齐方式。 只能从影响水平和垂直对齐的标志中选择一个标志。 此外，只能选择更改当前位置的两个标志中的一个。 值"
+          "description": "设备上下文的句柄。[in] align 使用以下列表中值的掩码的文本对齐方式。 只能从影响水平和垂直对齐的标志中选择一个标志。 此外，只能选择更改当前位置的两个标志中的一个。 值",
+          "type": "HDC"
         }
       ],
       "remarks": "应用程序可以通过调用 GetDeviceCaps 函数并指定 RASTERCAPS 常量来确定设备是否支持调色板操作。 当应用程序窗口移动到前台并设置SYSPAL_NOSTATIC值时，应用程序必须调用 GetSysColor 函数以保存当前系统颜色设置。 它还必须调用 SetSysColors 以仅使用黑色和白色设置合理的值。 当应用程序返回到背景或终止时，必须还原以前的系统颜色。 如果函数返回SYSPAL_ERROR，则指定的设备上下文无效或不支持调色板。仅当应用程序窗口最大化且具有输入焦点时，应用程序才必须调用此函数。 如果应用程序调用 SetSystemPaletteUse 且 uUsage 设置为 SYSPAL_NOSTATIC，则系统继续在系统调色板中分别保留两个纯白色和纯黑色条目。 在 uUsage 设置为 SYSPAL_NOSTATIC 的情况下调用此函数后，应用程序必须执行以下步骤： 1. 实现逻辑调色板。 2. 调用 GetSysColor 函数以保存当前系统颜色设置。 3. 调用 SetSysColors 函数，以使用黑色和白色将系统颜色设置为合理的值。 例如，相邻或重叠项 (，如窗口框架和边框) 应分别设置为黑色和白色。 4. 将 WM_SYSCOLORCHANGE 消息发送到其他顶级窗口，以允许使用新的系统颜色重新绘制它们。 当应用程序的窗口失去焦点或关闭时，应用程序必须执行以下步骤： 1. 调用 SetSystemPaletteUse ，并将 uUsage 参数设置为 SYSPAL_STATIC。 2. 实现逻辑调色板。 3. 将系统颜色还原为其以前的值。 4. 发送 WM_SYSCOLORCHANGE 消息。",
@@ -2827,7 +2829,11 @@
         "SetSystemPaletteUse"
       ],
       "confidence": 0.85,
-      "_source_line": 19318
+      "_source_line": 19318,
+      "return_value": {
+        "type": "UINT",
+        "description": ""
+      }
     },
     {
       "id": "windows::SYSPAL_STATIC",

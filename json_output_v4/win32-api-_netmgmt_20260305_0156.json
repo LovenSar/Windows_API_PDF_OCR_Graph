@@ -88,16 +88,19 @@
         {
           "name": "pwszServerName",
           "direction": "in",
-          "description": "一个以 NULL 结尾的宽字符串，表示正在检索其帐户信息的计算机的名称。[in] ccAccount 为 wszAccount 分配的字符数，包括 NULL 终止符。 此值允许的最大长度是最大域名长度加上最大用户名长度加 2，表示为 DNLEN + UNLEN + 2。 (最后两个字符是“”字符和 NULL 终止符。)"
+          "description": "一个以 NULL 结尾的宽字符串，表示正在检索其帐户信息的计算机的名称。[in] ccAccount 为 wszAccount 分配的字符数，包括 NULL 终止符。 此值允许的最大长度是最大域名长度加上最大用户名长度加 2，表示为 DNLEN + UNLEN + 2。 (最后两个字符是“”字符和 NULL 终止符。)",
+          "type": "LPCWSTR"
         },
         {
           "name": "wszAccount",
           "direction": "out",
-          "description": "接收帐户信息的宽字符数组，包括 NULL 终止符。"
+          "description": "接收帐户信息的宽字符数组，包括 NULL 终止符。",
+          "type": "WCHAR []"
         }
       ],
       "return_value": {
-        "description": "返回值为 HRESULT。 值 S_OK 指示函数成功，并在 wszAccount 中返回帐户信息。 值 S_FALSE 指示函数成功，并且该帐户是本地系统帐户， (wszAccount) 中不会返回任何信息。 任何其他返回值指示错误条件。"
+        "description": "返回值为 HRESULT。 值 S_OK 指示函数成功，并在 wszAccount 中返回帐户信息。 值 S_FALSE 指示函数成功，并且该帐户是本地系统帐户， (wszAccount) 中不会返回任何信息。 任何其他返回值指示错误条件。",
+        "type": "HRESULT"
       },
       "remarks": "若要成功调用 GetNetScheduleAccountInformation 函数，调用方应具有对任务文件夹的读取访问权限，该文件夹通常为 %windir%\\tasks 或，如以下注册表设置中定义： HKLM\\SOFTWARE\\Microsoft\\SchedulingAgent\\TasksFolder 要求",
       "header": "atacct.h",
@@ -330,7 +333,8 @@
         {
           "name": "pJoinInfo",
           "direction": "in, optional",
-          "description": "指向要为其释放内存 的DSREG_JOIN_INFO 结构的指针。 返回值此函数不返回值。"
+          "description": "指向要为其释放内存 的DSREG_JOIN_INFO 结构的指针。 返回值此函数不返回值。",
+          "type": "optional] PDSREG_JOIN_INFO"
         }
       ],
       "requirements": {
@@ -348,7 +352,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 57,
-      "return_value": "此函数不返回值。"
+      "return_value": {
+        "type": "VOID NET_API_FUNCTION",
+        "description": "此函数不返回值。"
+      }
     },
     {
       "id": "windows::NetGetAadJoinInformation",
@@ -360,7 +367,8 @@
         {
           "name": "pcszTenantId",
           "direction": "in, optional",
-          "description": "已加入帐户的租户标识符。 如果设备未加入 Azure Active Directory (Azure AD) ，并且当前登录到 Windows 的用户未添加指定租户的 Azure AD 工作帐户， 则 ppJoinInfo 参数指向的缓冲区设置为 NULL。 如果指定的租户 ID 为 NULL 或空，则 ppJoinInfo 设置为默认加入帐户信息;如果设备未加入"
+          "description": "已加入帐户的租户标识符。 如果设备未加入 Azure Active Directory (Azure AD) ，并且当前登录到 Windows 的用户未添加指定租户的 Azure AD 工作帐户， 则 ppJoinInfo 参数指向的缓冲区设置为 NULL。 如果指定的租户 ID 为 NULL 或空，则 ppJoinInfo 设置为默认加入帐户信息;如果设备未加入",
+          "type": "optional] LPCWSTR"
         }
       ],
       "header": "lmjoin.h",
@@ -370,7 +378,11 @@
         "Azure"
       ],
       "confidence": 0.8,
-      "_source_line": 59
+      "_source_line": 59,
+      "return_value": {
+        "type": "HRESULT NET_API_FUNCTION",
+        "description": ""
+      }
     },
     {
       "id": "windows::NetGetAnyDCName",
@@ -1374,7 +1386,11 @@
         "Domain"
       ],
       "confidence": 0.7,
-      "_source_line": 177
+      "_source_line": 177,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::NetValidatePasswordPolicyFree",
@@ -1479,16 +1495,19 @@
         {
           "name": "pwszServerName",
           "direction": "in",
-          "description": "一个以 NULL 结尾的宽字符串，表示正在设置其帐户信息的计算机的名称。[in] pwszAccount 指向帐户的以 NULL 结尾的宽字符串的指针。 若要指定本地系统帐户，请将此参数设置为 NULL。"
+          "description": "一个以 NULL 结尾的宽字符串，表示正在设置其帐户信息的计算机的名称。[in] pwszAccount 指向帐户的以 NULL 结尾的宽字符串的指针。 若要指定本地系统帐户，请将此参数设置为 NULL。",
+          "type": "LPCWSTR"
         },
         {
           "name": "pwszPassword",
           "direction": "in",
-          "description": "指向密码以 NULL 结尾的宽字符串的指针。 有关保护密码信息的信息，请参阅 处理密码。"
+          "description": "指向密码以 NULL 结尾的宽字符串的指针。 有关保护密码信息的信息，请参阅 处理密码。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "Returns HRESULT. S_OK indicates successful account name and password setting. Any other value indicates an error condition."
+        "description": "Returns HRESULT. S_OK indicates successful account name and password setting. Any other value indicates an error condition.",
+        "type": "HRESULT"
       },
       "header": "atacct.h",
       "deprecated": false,
@@ -1502,7 +1521,7 @@
     {
       "id": "windows::AT_ENUM",
       "name": "AT_ENUM",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构体包含有关提交的作业的信息。NetScheduleJobEnum函数使用此结构枚举并返回有关整个已提交作业队列的信息。",
       "syntax": "typedef struct _AT_ENUM {\nDWORD     JobId;   DWORD_PTR JobTime;\nDWORD     DaysOfMonth;   UCHAR     DaysOfWeek;\nUCHAR     Flags;   LPWSTR    Command;\n} AT_ENUM, *PAT_ENUM, *LPAT_ENUM;",
       "members": [
@@ -1518,12 +1537,13 @@
         "NetScheduleJobEnum"
       ],
       "confidence": 0.95,
-      "_source_line": 199
+      "_source_line": 199,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::AT_INFO",
       "name": "AT_INFO",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构包含有关计划作业的信息。NetScheduleJobAdd函数在计划作业时使用此结构指定信息，NetScheduleJobGetInfo函数使用此结构检索已提交作业的信息。",
       "syntax": "typedef struct _AT_INFO {   DWORD_PTR JobTime;\nDWORD     DaysOfMonth;   UCHAR     DaysOfWeek;\nUCHAR     Flags;   LPWSTR    Command;\n} AT_INFO, *PAT_INFO, *LPAT_INFO;",
       "members": [
@@ -1540,7 +1560,8 @@
         "NetScheduleJobGetInfo"
       ],
       "confidence": 0.95,
-      "_source_line": 201
+      "_source_line": 201,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DSREG_JOIN_INFO",
@@ -1561,7 +1582,7 @@
     {
       "id": "windows::DSREG_USER_INFO",
       "name": "DSREG_USER_INFO",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含用于将设备加入到Microsoft Azure Active Directory(AAD)的用户帐户信息。包含用户邮箱、Passport密钥ID和名称。",
       "syntax": "typedef struct _DSREG_USER_INFO {\nLPWSTR pszUserEmail;\nLPWSTR pszUserKeyId;\nLPWSTR pszUserKeyName;\n} DSREG_USER_INFO, *PDSREG_USER_INFO;\n成员 pszUserEmail\n用户的电子邮件地址。 pszUserKeyId\n为用户预配的 Microsoft Passport 密钥的标识符。 pszUserKeyName\n为用户预配的 Microsoft Passport 密钥的名称。",
       "requirements": {
@@ -1577,7 +1598,8 @@
         "Azure"
       ],
       "confidence": 0.85,
-      "_source_line": 204
+      "_source_line": 204,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::ERRLOG_OTHER_INFO",
@@ -1635,7 +1657,7 @@
     {
       "id": "windows::GROUP_INFO_1",
       "name": "GROUP_INFO_1",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含组信息的结构体，用于指定全局组名称和关联注释。",
       "syntax": "typedef struct _GROUP_INFO_1 {\n  LPWSTR grpi1_name;\n  LPWSTR grpi1_comment;\n} GROUP_INFO_1, *PGROUP_INFO_1, *LPGROUP_INFO_1;",
       "remarks": "用户帐户名称限制为20个字符，组名称限制为256个字符。帐户名称不能以句点结尾，不能包含逗号或以下字符：\"、/、\\、[、]、:、|、<、>、+、=、;、?、*。也不能包含ASCII 1-31范围内的不可打印字符。",
@@ -1643,7 +1665,8 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 210
+      "_source_line": 210,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::GROUP_INFO_1002",
@@ -1672,7 +1695,7 @@
     {
       "id": "windows::GROUP_INFO_2",
       "name": "GROUP_INFO_2",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Contains information about a global group. Note: On Windows XP and later, it's recommended to use GROUP_INFO_3 instead. The structure contains group name, comment, group ID, and attributes.",
       "syntax": "typedef struct _GROUP_INFO_2 {\n  LPWSTR grpi2_name;\n  LPWSTR grpi2_comment;\n  DWORD grpi2_group_id;\n  DWORD grpi2_attributes;\n} GROUP_INFO_2, *PGROUP_INFO_2;",
       "return_value": {
@@ -1684,7 +1707,8 @@
         "GROUP_INFO_3"
       ],
       "confidence": 0.9,
-      "_source_line": 212
+      "_source_line": 212,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::GROUP_INFO_3",
@@ -1728,14 +1752,15 @@
     {
       "id": "windows::GROUP_USERS_INFO_1",
       "name": "GROUP_USERS_INFO_1",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含全局组成员信息的结构体。",
       "syntax": "typedef struct _GROUP_USERS_INFO_1 {\n  LPWSTR grui1_name;\n  DWORD grui1_attributes;\n} GROUP_USERS_INFO_1, *PGROUP_USERS_INFO_1, *LPGROUP_USERS_INFO_1;",
       "header": "lmaccess.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 215
+      "_source_line": 215,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::LOCALGROUP_INFO_0",
@@ -1760,7 +1785,7 @@
     {
       "id": "windows::LOCALGROUP_INFO_1",
       "name": "LOCALGROUP_INFO_1",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含本地组名称和描述本地组的注释。",
       "syntax": "typedef struct _LOCALGROUP_INFO_1 {\n  LPWSTR lgrpi1_name;\n  LPWSTR lgrpi1_comment;\n} LOCALGROUP_INFO_1, *PLOCALGROUP_INFO_1, *LPLOCALGROUP_INFO_1;",
       "remarks": "组名限制为256个字符。名称不能以句点结尾，不能包含逗号或以下字符：/\\[\\]:|<>+=;?*。名称也不能包含范围1-31中的不可打印字符。",
@@ -1771,7 +1796,8 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 217
+      "_source_line": 217,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::LOCALGROUP_INFO_1002",
@@ -1830,7 +1856,7 @@
     {
       "id": "windows::LOCALGROUP_MEMBERS_INFO_3",
       "name": "LOCALGROUP_MEMBERS_INFO_3",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Structure containing member information for local groups. The format of this data depends on the level parameter value. For more information, see Network Management Function Buffers.",
       "syntax": "typedef struct _LOCALGROUP_MEMBERS_INFO_3 {   LPWSTR lgrmi3_domainandname;\n} LOCALGROUP_MEMBERS_INFO_3, *PLOCALGROUP_MEMBERS_INFO_3, *LPLOCALGROUP_MEMBERS_INFO_3;",
       "return_value": {
@@ -1849,7 +1875,8 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 1.0,
-      "_source_line": 225
+      "_source_line": 225,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::LOCALGROUP_USERS_INFO_0",
@@ -1881,19 +1908,20 @@
     {
       "id": "windows::MSG_INFO_1",
       "name": "MSG_INFO_1",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构指定消息别名。此结构仅用于兼容性，不支持消息转发。",
       "syntax": "typedef struct _MSG_INFO_1 {\n    LPWSTR msgi1_name;\n    DWORD  msgi1_forward_flag;\n} MSG_INFO_1, *PMSG_INFO_1, *LPMSG_INFO_1;\n\n成员说明：\n- msgi1_name：指向Unicode字符串的指针，指定消息别名。字符串最大长度由常量LEN_MSG_NAME定义。\n- msgi1_forward_flag：必须为0。",
       "header": "lmmsg.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 228
+      "_source_line": 228,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::NET_DISPLAY_GROUP",
       "name": "NET_DISPLAY_GROUP",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构体包含组的信息，用于NetQueryDisplayInformation函数返回的组显示信息。",
       "syntax": "typedef struct _NET_DISPLAY_GROUP {\n  LPWSTR grpi3_name;\n  LPWSTR grpi3_comment;\n  DWORD grpi3_group_id;\n  DWORD grpi3_attributes;\n  DWORD grpi3_next_index;\n} NET_DISPLAY_GROUP, *PNET_DISPLAY_GROUP;",
       "header": "lmaccess.h",
@@ -1903,36 +1931,39 @@
         "NET_DISPLAY_USER"
       ],
       "confidence": 0.75,
-      "_source_line": 229
+      "_source_line": 229,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::NET_DISPLAY_MACHINE",
       "name": "NET_DISPLAY_MACHINE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构包含客户端可以访问的信息，以确定有关计算机及其属性的信息。",
       "syntax": "typedef struct _NET_DISPLAY_MACHINE {\n  LPWSTR usri2_name;\n  LPWSTR usri2_comment;\n  DWORD  usri2_flags;\n  DWORD  usri2_user_id;\n  DWORD  usri2_next_index;\n} NET_DISPLAY_MACHINE, *PNET_DISPLAY_MACHINE;",
       "header": "lmaccess.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 230
+      "_source_line": 230,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::NET_DISPLAY_USER",
       "name": "NET_DISPLAY_USER",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含帐户管理员可以访问的信息，以确定有关用户帐户的信息。",
       "syntax": "typedef struct _NET_DISPLAY_USER {\n  LPWSTR usri1_name;\n  LPWSTR usri1_comment;\n  DWORD  usri1_flags;\n  LPWSTR usri1_full_name;\n  DWORD  usri1_user_id;\n  DWORD  usri1_next_index;\n} NET_DISPLAY_USER, *PNET_DISPLAY_USER;",
       "header": "lmaccess.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 231
+      "_source_line": 231,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::NET_VALIDATE_AUTHENTICATION_INPUT_ARG",
       "name": "NET_VALIDATE_AUTHENTICATION_INPUT_ARG",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "用于验证认证输入参数的结构体，包含持久化字段和密码匹配状态。与NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG相关。",
       "syntax": "typedef struct _NET_VALIDATE_AUTHENTICATION_INPUT_ARG {   NET_VALIDATE_PERSISTED_FIELDS InputPersistedFields;   BOOLEAN                       PasswordMatched;\n} NET_VALIDATE_AUTHENTICATION_INPUT_ARG, *PNET_VALIDATE_AUTHENTICATION_INPUT_ARG;",
       "header": "lmaccess.h",
@@ -1941,7 +1972,8 @@
         "NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG"
       ],
       "confidence": 0.75,
-      "_source_line": 232
+      "_source_line": 232,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::NET_VALIDATE_OUTPUT_ARG",
@@ -1972,7 +2004,7 @@
     {
       "id": "windows::NET_VALIDATE_PASSWORD_HASH",
       "name": "NET_VALIDATE_PASSWORD_HASH",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "NET_VALIDATE_PASSWORD_HASH 结构包含密码哈希信息，用于密码验证。",
       "syntax": "typedef struct _NET_VALIDATE_PASSWORD_HASH {\nULONG  Length;   LPBYTE Hash;\n} NET_VALIDATE_PASSWORD_HASH, *PNET_VALIDATE_PASSWORD_HASH;",
       "members": [
@@ -1987,7 +2019,8 @@
         "NET_VALIDATE_PERSISTED_FIELDS"
       ],
       "confidence": 0.85,
-      "_source_line": 240
+      "_source_line": 240,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::NET_VALIDATE_PASSWORD_RESET_INPUT_ARG",
@@ -2035,19 +2068,20 @@
     {
       "id": "windows::PRINT_OTHER_INFO",
       "name": "PRINT_OTHER_INFO",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "PRINT_OTHER_INFO结构用于打印作业信息。这些结构可以选择后跟可变长度数据。调用应用程序必须为警报消息缓冲区中的所有结构和可变长度数据分配内存。",
       "syntax": "typedef struct _PRINT_OTHER_INFO {\n  DWORD alrtpr_jobid;\n  DWORD alrtpr_status;\n  DWORD alrtpr_submitted;\n  DWORD alrtpr_size;\n} PRINT_OTHER_INFO, *PPRINT_OTHER_INFO, *LPPRINT_OTHER_INFO;",
       "header": "lmalert.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.85,
-      "_source_line": 246
+      "_source_line": 246,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SERVER_INFO_100",
       "name": "SERVER_INFO_100",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含有关服务器的信息，包括平台 ID 和服务器名称。支持 Windows 2000 及更高版本。头文件：lmserver.h（包含 Lm.h），库：Netapi32.lib，DLL：Netapi32.dll",
       "syntax": "typedef struct _SERVER_INFO_100 { DWORD sv100_platform_id; LMSTR sv100_name; } SERVER_INFO_100, *PSERVER_INFO_100, *LPSERVER_INFO_100;\n\n成员 sv100_platform_id 类型：DWORD 指定平台 ID，表示服务器运行的平台类型。可能值在 Lmcons.h 中定义。",
       "header": "lmserver.h",
@@ -2059,7 +2093,8 @@
         "Server"
       ],
       "confidence": 0.85,
-      "_source_line": 248
+      "_source_line": 248,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SERVER_INFO_1005",
@@ -2076,14 +2111,15 @@
     {
       "id": "windows::SERVER_INFO_101",
       "name": "SERVER_INFO_101",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含指定服务器的信息，包括平台 ID、名称、版本、类型和注释。",
       "syntax": "typedef struct _SERVER_INFO_101 {\n    DWORD sv101_platform_id;\n    LMSTR sv101_name;\n    DWORD sv101_version_major;\n    DWORD sv101_version_minor;\n    DWORD sv101_type;\n    LMSTR sv101_comment;\n} SERVER_INFO_101, *PSERVER_INFO_101, *LPSERVER_INFO_101;\n\n成员 sv101_platform_id 类型：DWORD 平台特定信息级别，可能值见 Lmcons.h 头文件。",
       "header": "lmserver.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 249
+      "_source_line": 249,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SERVER_INFO_1010",
@@ -2112,7 +2148,7 @@
     {
       "id": "windows::SERVER_INFO_1018",
       "name": "SERVER_INFO_1018",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "定义服务器公告速率增量值。用于 SERVER_INFO_102 和 SERVER_INFO_1017 结构体中，指定公告速率的随机变化范围（以毫秒为单位）。",
       "syntax": "typedef struct _SERVER_INFO_1018 {   DWORD sv1018_anndelta;\n} SERVER_INFO_1018, *PSERVER_INFO_1018, *LPSERVER_INFO_1018; 成员\nsv1018_anndelta\n指定报出速率的增量值（以毫秒为单位）。 此值指定报出率与 svX_announce 成员中指定的时间段的不同程度。\n增量值允许随机变化的报出率。 例如，如果 svX_announce 成员的值为 10，而\nsvX_anndelta 成员的值为 1，则报出速率可能从 9.999 秒到 10.001 秒不等。 有关详细信\n息，请参阅 SERVER_INFO_102 和 SERVER_INFO_1017。",
       "header": "lmserver.h",
@@ -2122,7 +2158,8 @@
         "Server"
       ],
       "confidence": 0.85,
-      "_source_line": 255
+      "_source_line": 255,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SERVER_INFO_102",
@@ -2187,14 +2224,15 @@
     {
       "id": "windows::SERVER_INFO_1506",
       "name": "SERVER_INFO_1506",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构包含有关指定服务器可以分配的最大工作项数的信息。",
       "syntax": "typedef struct _SERVER_INFO_1506 {   DWORD sv1506_maxworkitems; } SERVER_INFO_1506, *PSERVER_INFO_1506, *LPSERVER_INFO_1506; 成员 sv1506_maxworkitems 指定服务器可以分配的最大工作项数。 如果达到此限制，则传输协议必须启动流控制，但对性能有重大影响。",
       "header": "lmserver.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 261
+      "_source_line": 261,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SERVER_INFO_1509",
@@ -2229,14 +2267,15 @@
     {
       "id": "windows::SERVER_INFO_1511",
       "name": "SERVER_INFO_1511",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "指定用户可以使用单个虚拟线路建立的最大树连接数。",
       "syntax": "typedef struct _SERVER_INFO_1511 {\n  DWORD sv1511_sessconns;\n} SERVER_INFO_1511, *PSERVER_INFO_1511, *LPSERVER_INFO_1511;",
       "header": "lmserver.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 264
+      "_source_line": 264,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SERVER_INFO_1512",
@@ -2265,14 +2304,15 @@
     {
       "id": "windows::SERVER_INFO_1515",
       "name": "SERVER_INFO_1515",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构体指定服务器是否应在客户端登录时间过期后强制客户端断开连接，即使客户端仍有打开的文件。",
       "syntax": "typedef struct _SERVER_INFO_1515 {\n  BOOL sv1515_enableforcedlogoff;\n} SERVER_INFO_1515, *PSERVER_INFO_1515, *LPSERVER_INFO_1515;",
       "header": "lmserver.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 268
+      "_source_line": 268,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SERVER_INFO_1516",
@@ -2289,7 +2329,7 @@
     {
       "id": "windows::SERVER_INFO_1518",
       "name": "SERVER_INFO_1518",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构指定服务器是否对 LAN Manager 2.x 客户端可见。",
       "syntax": "typedef struct _SERVER_INFO_1518 { BOOL sv1518_lmannounce; } SERVER_INFO_1518, *PSERVER_INFO_1518, *LPSERVER_INFO_1518; 成员 sv1518_lmannounce 指定服务器是否对 LAN Manager 2.x 客户端可见。",
       "header": "lmserver.h",
@@ -2298,43 +2338,47 @@
         "Manager"
       ],
       "confidence": 0.75,
-      "_source_line": 270
+      "_source_line": 270,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SERVER_INFO_1523",
       "name": "SERVER_INFO_1523",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "指定服务器保留有关不完整搜索操作的信息的时间长度。包含一个DWORD类型成员sv1523_maxkeepsearch。",
       "syntax": "typedef struct _SERVER_INFO_1523 {\n  DWORD sv1523_maxkeepsearch;\n} SERVER_INFO_1523, *PSERVER_INFO_1523, *LPSERVER_INFO_1523;",
       "header": "lmserver.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 271
+      "_source_line": 271,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SERVER_INFO_1528",
       "name": "SERVER_INFO_1528",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "指定清除程序在唤醒服务请求之前保持空闲的时间段（以秒为单位）。较小的值可改善服务器响应但会增加CPU消耗。",
       "syntax": "typedef struct _SERVER_INFO_1528 {   DWORD sv1528_scavtimeout;\n} SERVER_INFO_1528, *PSERVER_INFO_1528, *LPSERVER_INFO_1528; 成员\nsv1528_scavtimeout\n指定清除器在唤醒服务请求之前保持空闲的时间段（以秒为单位）。 此成员的较小值可\n改善服务器对各种事件的响应，但会消耗 CPU 周期。",
       "header": "lmserver.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 272
+      "_source_line": 272,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SERVER_INFO_1529",
       "name": "SERVER_INFO_1529",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构指定服务器在开始分配更多项目之前所需的最小免费接收工作项数。",
       "syntax": "typedef struct _SERVER_INFO_1529 {   DWORD sv1529_minrcvqueue;\n} SERVER_INFO_1529, *PSERVER_INFO_1529, *LPSERVER_INFO_1529; 成员\nsv1529_minrcvqueue\n指定服务器在开始分配更多工作项之前所需的最小免费接收工作项数。 此成员的较大值\n有助于确保始终有可用的工作项，但值过大会效率低下。",
       "header": "lmserver.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 273
+      "_source_line": 273,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SERVER_INFO_1530",
@@ -2363,26 +2407,28 @@
     {
       "id": "windows::SERVER_INFO_1536",
       "name": "SERVER_INFO_1536",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构指定服务器是否允许客户端在文件上使用机会锁 (oplock) 。",
       "syntax": "typedef struct _SERVER_INFO_1536 {\n  BOOL sv1536_enableoplocks;\n} SERVER_INFO_1536, *PSERVER_INFO_1536, *LPSERVER_INFO_1536;\n\n成员:\nsv1536_enableoplocks - 指定服务器是否允许客户端对文件使用机会锁(oplock)",
       "header": "lmserver.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 276
+      "_source_line": 276,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SERVER_INFO_1539",
       "name": "SERVER_INFO_1539",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构指定服务器是否处理原始SMB消息块。",
       "syntax": "typedef struct _SERVER_INFO_1539 {\n    BOOL sv1539_enableraw;\n} SERVER_INFO_1539, *PSERVER_INFO_1539, *LPSERVER_INFO_1539;\n\n成员说明：sv1539_enableraw 指定服务器是否处理原始SMB。启用时允许每个事务传输更多数据并提高性能，但可能在某些网络上降低性能。服务器维护此成员的值。",
       "header": "lmserver.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 278
+      "_source_line": 278,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SERVER_INFO_1540",
@@ -2423,26 +2469,28 @@
     {
       "id": "windows::SERVER_INFO_1550",
       "name": "SERVER_INFO_1550",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构指定在发送警报消息之前剩余的可用磁盘空间的百分比。",
       "syntax": "typedef struct _SERVER_INFO_1550 {\n  DWORD sv1550_diskspacethreshold;\n} SERVER_INFO_1550, *PSERVER_INFO_1550, *LPSERVER_INFO_1550;",
       "header": "lmserver.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 287
+      "_source_line": 287,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SERVER_INFO_1552",
       "name": "SERVER_INFO_1552",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "用于指定服务器链接延迟的最大允许时间（以秒为单位）。",
       "syntax": "typedef struct _SERVER_INFO_1552 {\n  DWORD sv1552_maxlinkdelay;\n} SERVER_INFO_1552, *PSERVER_INFO_1552, *LPSERVER_INFO_1552;\n\n成员 sv1552_maxlinkdelay 指定链接延迟允许的最长时间（以秒为单位）。如果延迟超过此数目，服务器将为此连接禁用原始 I/O。",
       "header": "lmserver.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 288
+      "_source_line": 288,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SERVER_INFO_402",
@@ -2471,14 +2519,15 @@
     {
       "id": "windows::SERVER_INFO_502",
       "name": "SERVER_INFO_502",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "已过时的结构，包含有关指定服务器的信息。建议使用SERVER_INFO_503或更高版本替代。",
       "syntax": "typedef struct _SERVER_INFO_502 {\n  DWORD sv502_sessopens;\n  DWORD sv502_sessvcs;\n  DWORD sv502_opensearch;\n  DWORD sv502_sizreqbuf;\n  DWORD sv502_initworkitems;\n  DWORD sv502_maxworkitems;\n  DWORD sv502_rawworkitems;\n  DWORD sv502_irpstacksize;\n  DWORD sv502_maxrawbuflen;\n  DWORD sv502_sessusers;\n  DWORD sv502_sessconns;\n  DWORD sv502_maxpagedmemoryusage;\n  DWORD sv502_maxnonpagedmemoryusage;\n  BOOL sv502_enablesoftcompat;\n  BOOL sv502_enableforcedlogoff;\n  BOOL sv502_timesource;\n  BOOL sv502_acceptdownlevel;\n} SERVER_INFO_502, *PSERVER_INFO_502;",
       "header": "lmserver.h",
       "deprecated": true,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 291
+      "_source_line": 291,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SERVER_INFO_503",
@@ -2568,14 +2617,15 @@
     {
       "id": "windows::TIME_OF_DAY_INFO",
       "name": "TIME_OF_DAY_INFO",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含远程服务器中有关一天中的时间信息的结构体",
       "syntax": "typedef struct _TIME_OF_DAY_INFO {\n  DWORD tod_elapsedt;\n  DWORD tod_msecs;\n  DWORD tod_hours;\n  DWORD tod_mins;\n  DWORD tod_secs;\n  DWORD tod_hunds;\n  LONG tod_timezone;\n  DWORD tod_tinterval;\n  DWORD tod_day;\n  DWORD tod_month;\n  DWORD tod_year;\n  DWORD tod_weekday;\n} TIME_OF_DAY_INFO, *PTIME_OF_DAY_INFO, *LPTIME_OF_DAY_INFO;",
       "header": "lmremutl.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 303
+      "_source_line": 303,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USE_INFO_0",
@@ -2595,19 +2645,20 @@
     {
       "id": "windows::USE_INFO_1",
       "name": "USE_INFO_1",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含有关本地设备和共享资源之间的连接的信息。该信息包括连接状态和连接类型。",
       "syntax": "typedef struct _USE_INFO_1 {\n  LMSTR ui1_local;\n  LMSTR ui1_remote;\n  LMSTR ui1_password;\n  DWORD ui1_status;\n  DWORD ui1_asg_type;\n  DWORD ui1_refcount;\n  DWORD ui1_usecount;\n} USE_INFO_1, *PUSE_INFO_1, *LPUSE_INFO_1;",
       "header": "lmuse.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 305
+      "_source_line": 305,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USE_INFO_2",
       "name": "USE_INFO_2",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含本地计算机与共享资源之间连接信息的结构体，包括本地设备名称、远程资源、密码、连接状态等。成员ui2_local指向本地设备名称字符串（如驱动器E或LPT1），可为NULL。若定义_WIN32_WINNT或FORCE_UNICODE则为Unicode字符串。ui2_remote指向远程共享资源名称，格式为\\\\server\\share。",
       "syntax": "typedef struct _USE_INFO_2 {\n  LMSTR ui2_local;\n  LMSTR ui2_remote;\n  LMSTR ui2_password;\n  DWORD ui2_status;\n  DWORD ui2_asg_type;\n  DWORD ui2_refcount;\n  DWORD ui2_usecount;\n  LMSTR ui2_username;\n  LMSTR ui2_domainname;\n} USE_INFO_2, *PUSE_INFO_2, *LPUSE_INFO_2;",
       "header": "lmuse.h",
@@ -2616,19 +2667,21 @@
         "USE_INFO_3"
       ],
       "confidence": 0.85,
-      "_source_line": 307
+      "_source_line": 307,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USE_INFO_3",
       "name": "USE_INFO_3",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含有关本地计算机与共享资源之间的连接的信息，包括连接类型、连接状态、用户名、域名以及描述连接行为的特定标志。",
       "syntax": "typedef struct _USE_INFO_3 {",
       "header": "lmuse.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.85,
-      "_source_line": 309
+      "_source_line": 309,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USER_INFO_0",
@@ -2686,7 +2739,7 @@
     {
       "id": "windows::USER_INFO_1005",
       "name": "USER_INFO_1005",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构体用于指定在调用NetUserSetInfo函数时分配给用户的权限级别。",
       "syntax": "typedef struct _USER_INFO_1005 { DWORD usri1005_priv; } USER_INFO_1005, *PUSER_INFO_1005, *LPUSER_INFO_1005;\n\n成员 usri1005_priv 指定一个 DWORD 值，表示为 NetUserSetInfo 函数的 username 参数中指定的用户帐户分配的权限级别。有关用户和组帐户权限的详细信息，请参阅特权。",
       "header": "lmaccess.h",
@@ -2695,7 +2748,8 @@
         "NetUserSetInfo"
       ],
       "confidence": 0.85,
-      "_source_line": 317
+      "_source_line": 317,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USER_INFO_1006",
@@ -2714,7 +2768,7 @@
     {
       "id": "windows::USER_INFO_1007",
       "name": "USER_INFO_1007",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含与用户网络帐户关联的注释。仅当调用 NetUserSetInfo 函数时，此信息级别才有效。",
       "syntax": "typedef struct _USER_INFO_1007 {   LPWSTR usri1007_comment;\n} USER_INFO_1007, *PUSER_INFO_1007, *LPUSER_INFO_1007; 成员\nusri1007_comment\n指向 Unicode 字符串的指针，该字符串包含要与 NetUserSetInfo 函数的 username 参数中指定的用户帐户关联的注释。 此字符串可以是 null 字符串，也可以在终止 null 字符之\n前具有任意数量的字符。",
       "header": "lmaccess.h",
@@ -2723,7 +2777,8 @@
         "NetUserSetInfo"
       ],
       "confidence": 0.85,
-      "_source_line": 321
+      "_source_line": 321,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USER_INFO_1008",
@@ -2810,7 +2865,7 @@
     {
       "id": "windows::USER_INFO_1014",
       "name": "USER_INFO_1014",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含用户可以从中登录的工作站的名称。仅当调用NetUserSetInfo函数时此信息级别才有效。不应再使用usri1014_workstations成员，建议改用用户权限分配设置来控制登录访问。",
       "syntax": "typedef struct _USER_INFO_1014 {   LPWSTR usri1014_workstations; } USER_INFO_1014, *PUSER_INFO_1014, *LPUSER_INFO_1014; 成员 usri1014_workstations 重要 不应再使用 usri1014_workstations。相反，可以通过配置用户权限分配设置来控制对工作站的登录访问，(允许本地登录 和 拒绝本地登录，或 允许通过远程桌面服务登录 和 拒绝通过远程桌面服务 登录)。指向 Unicode 字符串的指针，该字符串包含用户可以从中登录的工作站的名称。在 NetUserSetInfo 函数的 username 参数中指定用户。可以指定多达 8 个工作站：名称必须用逗号分隔。null 字符串表示没有限制。",
       "requirements": {
@@ -2823,12 +2878,13 @@
         "NetUserSetInfo"
       ],
       "confidence": 0.85,
-      "_source_line": 334
+      "_source_line": 334,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USER_INFO_1017",
       "name": "USER_INFO_1017",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含网络用户帐户过期信息的结构体。仅当调用NetUserSetInfo函数时此信息级别有效。",
       "syntax": "typedef struct _USER_INFO_1017 {   DWORD usri1017_acct_expires; } USER_INFO_1017, *PUSER_INFO_1017, *LPUSER_INFO_1017; 成员 usri1017_acct_expires 指定一个 DWORD 值，该值指示用户帐户何时过期。 用户帐户在 NetUserSetInfo 函数的 username 参数中指定。 该值存储为自 1970 年 1 月 1 日 GMT 00：00：00 以来经过的秒数。 指定 TIME_FOREVER 以指示帐户永不过期。",
       "header": "lmaccess.h",
@@ -2837,7 +2893,8 @@
         "NetUserSetInfo"
       ],
       "confidence": 0.75,
-      "_source_line": 336
+      "_source_line": 336,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USER_INFO_1018",
@@ -2966,7 +3023,7 @@
     {
       "id": "windows::USER_INFO_2",
       "name": "USER_INFO_2",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含用户账户信息的结构体，用于NetUserAdd和NetUserSetInfo等函数。包含用户名、密码、权限级别、主目录等字段。",
       "syntax": "typedef struct _USER_INFO_2 {   LPWSTR usri2_name;\nLPWSTR usri2_password;\nDWORD  usri2_password_age;   DWORD  usri2_priv;\nLPWSTR usri2_home_dir;   LPWSTR usri2_comment;   DWORD  usri2_flags;\nLPWSTR usri2_script_path;   DWORD  usri2_auth_flags;   LPWSTR usri2_full_name;   LPWSTR usri2_usr_comment;   LPWSTR usri2_parms;\nLPWSTR usri2_workstations;   DWORD  usri2_last_logon;   DWORD  usri2_last_logoff;   DWORD  usri2_acct_expires;   DWORD  usri2_max_storage;\nDWORD  usri2_units_per_week;\nPBYTE  usri2_logon_hours;   DWORD  usri2_bad_pw_count;   DWORD  usri2_num_logons;   LPWSTR usri2_logon_server;   DWORD  usri2_country_code;   DWORD  usri2_code_page;\n} USER_INFO_2, *PUSER_INFO_2, *LPUSER_INFO_2;\n成员 usri2_name\n类型： LPWSTR\n指向 Unicode 字符串的指针，该字符串指定用户帐户的名称。 对 NetUserSetInfo 函数的调用将忽略此成员。 有关更多信息，请参见下面的“备注”部分。\nusri2_password 类型： LPWSTR\n指向 Unicode 字符串的指针，该字符串指定 由 usri2_name 成员标识的用户的密码。 长度不能超过 PWLEN 字节。 NetUserEnum 和 NetUserGetInfo 函数返回 NULL 指针以维护密码安全性。\n按照惯例，密码长度限制为LM20_PWLEN个字符。\nusri2_password_age 类型：DWORD\n自上次更改 usri2_password 成员以来经过的秒数。 NetUserAdd 和 NetUserSetInfo 函数\n将忽略此成员。 usri2_priv\n类型：DWORD\n分配给 usri2_name 成员的权限级别。 对于对 NetUserAdd 函数的调用，必须",
       "header": "lmaccess.h",
@@ -2976,12 +3033,13 @@
         "Directory"
       ],
       "confidence": 0.85,
-      "_source_line": 358
+      "_source_line": 358,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USER_INFO_21",
       "name": "USER_INFO_21",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含单向加密的 LAN Manager 2.x 兼容密码。",
       "syntax": "typedef struct _USER_INFO_21 { BYTE usri21_password[ENCRYPTED_PWLEN]; } USER_INFO_21, *PUSER_INFO_21, *LPUSER_INFO_21; 成员 usri21_password[ENCRYPTED_PWLEN] 指定单向加密的 LAN Manager 2.x 兼容密码。",
       "header": "lmaccess.h",
@@ -2990,12 +3048,13 @@
         "Manager"
       ],
       "confidence": 0.75,
-      "_source_line": 361
+      "_source_line": 361,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USER_INFO_22",
       "name": "USER_INFO_22",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含有关用户帐户的信息，包括帐户名称、权限级别、用户主目录的路径、单向加密LAN Manager 2.x兼容密码以及其他与用户相关的网络统计信息。",
       "syntax": "typedef struct _USER_INFO_22 {   LPWSTR usri22_name;\nBYTE   usri22_password[ENCRYPTED_PWLEN];\nDWORD  usri22_password_age;   DWORD  usri22_priv;\nLPWSTR usri22_home_dir;   LPWSTR usri22_comment;   DWORD  usri22_flags;\nLPWSTR usri22_script_path;   DWORD  usri22_auth_flags;   LPWSTR usri22_full_name;   LPWSTR usri22_usr_comment;   LPWSTR usri22_parms;\nLPWSTR usri22_workstations;   DWORD  usri22_last_logon;   DWORD  usri22_last_logoff;   DWORD  usri22_acct_expires;   DWORD  usri22_max_storage;\nDWORD  usri22_units_per_week;\nPBYTE  usri22_logon_hours;   DWORD  usri22_bad_pw_count;   DWORD  usri22_num_logons;   LPWSTR usri22_logon_server;   DWORD  usri22_country_code;   DWORD  usri22_code_page;\n} USER_INFO_22, *PUSER_INFO_22, *LPUSER_INFO_22;\n成员 usri22_name\n类型： LPWSTR\n指向 Unicode 字符串的指针，该字符串指定用户帐户的名称。 对 NetUserSetInfo 函数的调用将忽略此成员。 有关更多信息，请参见下面的“备注”部分。\nusri22_password[ENCRYPTED_PWLEN] 类型： BYTE[ENCRYPTED_PWLEN] 单向加密 LAN 管理器 2。x 兼容密码。\nusri22_password_age 类型：DWORD\n自上次更改 usri22_password 成员以来经过的秒数。 NetUserAdd 和 NetUserSetInfo 函数忽略此成员。\nusri22_priv 类型：DWORD\n分配给 usri22_name 成员的权限级别。 对 NetUserAdd 函数的 调用必须指定",
       "header": "lmaccess.h",
@@ -3005,7 +3064,8 @@
         "USER_INFO_23"
       ],
       "confidence": 0.85,
-      "_source_line": 362
+      "_source_line": 362,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USER_INFO_24",
@@ -3025,7 +3085,7 @@
     {
       "id": "windows::USER_INFO_3",
       "name": "USER_INFO_3",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构可与 NetUserAdd、NetUserEnum、NetUserSetInfo 和 NetUserGetInfo 函数一起使用。用户帐户名称限制为 20 个字符，组名限制为 256 个字符。此外，帐户名称不能以句点结尾，并且不能包含逗号或以下任何可打印字符：\"，/，[，]，：，|，<，>，+，=，;，？，*。名称也不能包含范围 1-31 中的字符，这些字符不可打印。请注意，USER_INFO_4 结构取代了 Windows XP 及更高版本上的 USER_INFO_3 结构。建议应用程序使用 USER_INFO_4 结构，而不是 USER_INFO_3 结构，以及 Windows XP 上的 NetUserAdd、",
       "syntax": "typedef struct _USER_INFO_3 { LPWSTR usri3_name; LPWSTR usri3_password; DWORD usri3_password_age; DWORD usri3_priv; LPWSTR usri3_home_dir; LPWSTR usri3_comment; DWORD usri3_flags; LPWSTR usri3_script_path; DWORD usri3_auth_flags; LPWSTR usri3_full_name; LPWSTR usri3_usr_comment; LPWSTR usri3_parms; LPWSTR usri3_workstations; DWORD usri3_last_logon; DWORD usri3_last_logoff; DWORD usri3_acct_expires; DWORD usri3_max_storage; DWORD usri3_units_per_week; PBYTE usri3...",
       "header": "lmaccess.h",
@@ -3038,12 +3098,13 @@
         "USER_INFO_4"
       ],
       "confidence": 0.85,
-      "_source_line": 369
+      "_source_line": 369,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USER_INFO_4",
       "name": "USER_INFO_4",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构可与 NetUserAdd、NetUserSetInfo 和 NetUserGetInfo 函数一起使用。用户帐户名称限制为 20 个字符，组名限制为 256 个字符。此外，帐户名称不能以句点结尾，并且不能包含逗号或以下任何可打印字符：\"，/，，，[，]，：，|，<，，，>+，=，;，？，*。名称也不能包含范围 1-31 中的字符，这些字符不可打印。请注意，USER_INFO_4 结构取代了 Windows XP 及更高版本上的 USER_INFO_3 结构。",
       "syntax": "typedef struct _USER_INFO_4 {\n  LPWSTR usri4_name;\n  LPWSTR usri4_password;\n  DWORD  usri4_password_age;\n  DWORD  usri4_priv;\n  LPWSTR usri4_home_dir;\n  LPWSTR usri4_comment;\n  DWORD  usri4_flags;\n  LPWSTR usri4_script_path;\n  DWORD  usri4_auth_flags;\n  LPWSTR usri4_full_name;\n  LPWSTR usri4_usr_comment;\n  LPWSTR usri4_parms;\n  LPWSTR usri4_workstations;\n  DWORD  usri4_last_logon;\n  DWORD  usri4_last_logoff;\n  DWORD  usri4_acct_expires;\n  DWORD  usri4_max_storage;\n  DWORD  usri4_units_per_week;\n  PBYTE  usri4_logon_hours;\n} USER_INFO_4, *PUSER_INFO_4;",
       "header": "lmaccess.h",
@@ -3054,7 +3115,8 @@
         "NetUserSetInfo"
       ],
       "confidence": 0.85,
-      "_source_line": 371
+      "_source_line": 371,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USER_MODALS_INFO_0",
@@ -3163,7 +3225,7 @@
     {
       "id": "windows::USER_MODALS_INFO_3",
       "name": "USER_MODALS_INFO_3",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含安全数据库中用户和全局组的锁定信息。安全数据库是安全账户管理器 (SAM) 数据库，如果是域控制器，则为 Active Directory。",
       "syntax": "typedef struct _USER_MODALS_INFO_3 {\\n  DWORD usrmod3_lockout_duration;\\n  DWORD usrmod3_lockout_observation_window;\\n  DWORD usrmod3_lockout_threshold;\\n} USER_MODALS_INFO_3, *PUSER_MODALS_INFO_3, *LPUSER_MODALS_INFO_3;",
       "requirements": {
@@ -3177,12 +3239,13 @@
         "Directory"
       ],
       "confidence": 0.85,
-      "_source_line": 389
+      "_source_line": 389,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USER_OTHER_INFO",
       "name": "USER_OTHER_INFO",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含警报消息中的其他数据。缓冲区必须包含所有必需的可变长度信息。调用应用程序负责内存分配和释放。",
       "syntax": "typedef struct _USER_OTHER_INFO {\n  DWORD alrtus_errcode;\n  DWORD alrtus_numstrings;\n} USER_OTHER_INFO, *PUSER_OTHER_INFO, *LPUSER_OTHER_INFO;",
       "return_value": {
@@ -3196,7 +3259,8 @@
         "NetAlertRaiseEx"
       ],
       "confidence": 0.9,
-      "_source_line": 393
+      "_source_line": 393,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::WKSTA_INFO_100",
@@ -4332,7 +4396,7 @@
     {
       "id": "windows::ALERT_PRINT_EVENT",
       "name": "ALERT_PRINT_EVENT",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "用于打印事件通知的结构体。当打印作业完成或发生打印错误时，通过 NetAlertRaise 或 NetAlertRaiseEx 函数向客户端发送中断消息。包含指向可变长度数据的指针，数据应包含 PRINT_OTHER_INFO 结构及后续信息。调用方需负责内存分配与释放。",
       "header": "lmalert.h",
       "deprecated": false,
@@ -4343,7 +4407,8 @@
         "VariableInfo"
       ],
       "confidence": 0.75,
-      "_source_line": 6593
+      "_source_line": 6593,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PADMIN_OTHER_INFO",
@@ -4848,13 +4913,14 @@
     {
       "id": "windows::SUPPORTS_REMOTE_ADMIN_PROTOCOL",
       "name": "SUPPORTS_REMOTE_ADMIN_PROTOCOL",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Indicates whether remote administration protocol is supported",
       "header": "lmremutl.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.55,
-      "_source_line": 9375
+      "_source_line": 9375,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::OptionsWanted",
@@ -5015,13 +5081,14 @@
     {
       "id": "windows::SV_TYPE_CLUSTER_NT",
       "name": "SV_TYPE_CLUSTER_NT",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "0x01000000",
       "header": "lmserver.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.55,
-      "_source_line": 9844
+      "_source_line": 9844,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::LPSERVER_INFO_101",
@@ -5242,14 +5309,15 @@
     {
       "id": "windows::WKSTA_INFO_102",
       "name": "WKSTA_INFO_102",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含有关工作站环境的信息，包括平台ID、计算机名、域/工作组名、操作系统版本信息等。",
       "syntax": "typedef struct _WKSTA_INFO_102 {\n  DWORD wki102_platform_id;\n  LMSTR wki102_computername;\n  LMSTR wki102_langroup;\n  DWORD wki102_ver_major;\n  DWORD wki102_ver_minor;\n  LMSTR wki102_lanroot;\n  DWORD wki102_logged_on_users;\n} WKSTA_INFO_102, *PWKSTA_INFO_102, *LPWKSTA_INFO_102;",
       "header": "lmwksta.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 13189
+      "_source_line": 13189,
+      "_type_raw": "struct"
     }
   ]
 }

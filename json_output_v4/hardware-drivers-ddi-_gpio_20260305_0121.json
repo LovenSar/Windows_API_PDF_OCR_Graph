@@ -123,10 +123,14 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "指向 GPIO 控制器驱动程序 设备上下文的指针。[in] ConnectParameters 指向 GPIO_CONNECT_IO_PINS_PARAMETERS 结构的指针，该结构描述与一组 GPIO 引脚 的连接，并指定是将这些引脚配置为数据输入还是输出。"
+          "description": "指向 GPIO 控制器驱动程序 设备上下文的指针。[in] ConnectParameters 指向 GPIO_CONNECT_IO_PINS_PARAMETERS 结构的指针，该结构描述与一组 GPIO 引脚 的连接，并指定是将这些引脚配置为数据输入还是输出。",
+          "type": "PVOID"
         }
       ],
-      "return_value": "此回调函数由 GPIO 控制器驱动程序实现，并由 GpioClx 调用，以建立与一组 GPIO I/O 引脚的连接。要连接的引脚及其输入/输出配置由 ConnectParameters 指向的 GPIO_CONNECT_IO_PINS_PARAMETERS 结构提供。函数定义通常应使用与头文件声明一致的注释和批注。",
+      "return_value": {
+        "type": "GPIO_CLIENT_CONNECT_IO_PINS GPIO_CLIENT_CONNECT_IO_PINS; NTSTATUS",
+        "description": "此回调函数由 GPIO 控制器驱动程序实现，并由 GpioClx 调用，以建立与一组 GPIO I/O 引脚的连接。要连接的引脚及其输入/输出配置由 ConnectParameters 指向的 GPIO_CONNECT_IO_PINS_PARAMETERS 结构提供。函数定义通常应使用与头文件声明一致的注释和批注。"
+      },
       "remarks": "此回调函数由 GPIO 控制器驱动程序实现，并由 GpioClx 调用，以建立与一组 GPIO I/O 引脚的连接。要连接的引脚及其输入/输出配置由 ConnectParameters 指向的 GPIO_CONNECT_IO_PINS_PARAMETERS 结构提供。函数定义通常应使用与头文件声明一致的注释和批注。",
       "header": "gpioclx.h",
       "deprecated": false,
@@ -146,10 +150,14 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "指向 GPIO 控制器驱动程序 设备上下文的指针。[in, out] Parameters 指向 GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION_PARAMETERS 结构的指针，该结构包含 控制器特定作的输入和输出缓冲区。"
+          "description": "指向 GPIO 控制器驱动程序 设备上下文的指针。[in, out] Parameters 指向 GPIO_CLIENT_CONTROLLER_SPECIFIC_FUNCTION_PARAMETERS 结构的指针，该结构包含 控制器特定作的输入和输出缓冲区。",
+          "type": "PVOID"
         }
       ],
-      "return_value": "这是 GPIO 控制器驱动程序提供给 GpioClx 的客户端支持回调之一。调用方通过 Parameters 参数传递控制器特定功能所需的数据。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "这是 GPIO 控制器驱动程序提供给 GpioClx 的客户端支持回调之一。调用方通过 Parameters 参数传递控制器特定功能所需的数据。"
+      },
       "header": "gpioclx.h",
       "deprecated": false,
       "cross_references": [
@@ -274,7 +282,10 @@
       "confidence": 0.75,
       "_source_line": 45,
       "syntax": "NTSTATUS GPIO_CLIENT_PRE_PROCESS_CONTROLLER_INTERRUPT(\n  [in] PVOID   Context,\n  [in] BANK_ID BankId,\n  [in] ULONG64 EnabledMask\n);",
-      "return_value": "如果回调成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果回调成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "该回调由 GPIO 框架扩展在进一步处理中断之前调用。驱动程序可在此阶段执行与控制器中断相关的预处理工作。"
     },
     {
@@ -286,11 +297,13 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "指向 GPIO 控制器驱动程序 设备上下文的指针。[in, out] QueryActiveParameters 指向 GPIO_QUERY_ACTIVE_INTERRUPTS_PARAMETERS 结构的指针，该结构在条目上描述要查 询的 GPIO 中断引脚，在退出时包含这些引脚的活动和已启用的中断状态。"
+          "description": "指向 GPIO 控制器驱动程序 设备上下文的指针。[in, out] QueryActiveParameters 指向 GPIO_QUERY_ACTIVE_INTERRUPTS_PARAMETERS 结构的指针，该结构在条目上描述要查 询的 GPIO 中断引脚，在退出时包含这些引脚的活动和已启用的中断状态。",
+          "type": "PVOID"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+        "description": "如果成功，返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "remarks": "此回调函数由 GPIO 控制器驱动程序实现，并由 GPIO 框架扩展 (GpioClx) 调用，以查询配置为中断请求输入的一组 GPIO 引脚。",
       "header": "gpioclx.h",
@@ -314,10 +327,14 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "指向 GPIO 控制器驱动程序 设备上下文的指针。[out] Information 指向调用方分配 CLIENT_CONTROLLER_BASIC_INFORMATION 结构的指针。 CLIENT_QueryControllerBasicInformation 函数将 GPIO 控制器硬件属性和配置信息写入此结构。"
+          "description": "指向 GPIO 控制器驱动程序 设备上下文的指针。[out] Information 指向调用方分配 CLIENT_CONTROLLER_BASIC_INFORMATION 结构的指针。 CLIENT_QueryControllerBasicInformation 函数将 GPIO 控制器硬件属性和配置信息写入此结构。",
+          "type": "PVOID"
         }
       ],
-      "return_value": "此回调函数由 GPIO 控制器驱动程序实现，供 GPIO 框架扩展 (GpioClx) 调用。驱动程序应填写 Information 指向的 CLIENT_CONTROLLER_BASIC_INFORMATION 结构。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "此回调函数由 GPIO 控制器驱动程序实现，供 GPIO 框架扩展 (GpioClx) 调用。驱动程序应填写 Information 指向的 CLIENT_CONTROLLER_BASIC_INFORMATION 结构。"
+      },
       "remarks": "此回调函数由 GPIO 控制器驱动程序实现，供 GPIO 框架扩展 (GpioClx) 调用。驱动程序应填写 Information 指向的 CLIENT_CONTROLLER_BASIC_INFORMATION 结构。",
       "header": "gpioclx.h",
       "deprecated": false,
@@ -413,7 +430,8 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "指向 GPIO 控制器驱动程序 设备上下文的指针。[in] Parameters 指向描述要还原的 GPIO 引脚库的"
+          "description": "指向 GPIO 控制器驱动程序 设备上下文的指针。[in] Parameters 指向描述要还原的 GPIO 引脚库的",
+          "type": "PVOID"
         }
       ],
       "header": "gpioclx.h",
@@ -425,7 +443,10 @@
       "confidence": 0.85,
       "_source_line": 64,
       "syntax": "GPIO_CLIENT_RESTORE_BANK_HARDWARE_CONTEXT GpioClientRestoreBankHardwareContext;\n\nVOID\nGpioClientRestoreBankHardwareContext(\n    _In_ PVOID Context,\n    _In_ PGPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS Parameters\n    );",
-      "return_value": "无。",
+      "return_value": {
+        "type": "GPIO_CLIENT_RESTORE_BANK_HARDWARE_CONTEXT GpioClientRestoreBankHardwareContext; VOID",
+        "description": "无。"
+      },
       "remarks": "这是一个由 GPIO 框架扩展（GpioClx）调用的客户端驱动回调。驱动程序应使用 Parameters 提供的信息恢复指定引脚库的硬件上下文。"
     },
     {
@@ -437,7 +458,8 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "指向 GPIO 控制器驱动程序 设备上下文的指针。[in] Parameters 指向描述要保存的 GPIO 引脚库的"
+          "description": "指向 GPIO 控制器驱动程序 设备上下文的指针。[in] Parameters 指向描述要保存的 GPIO 引脚库的",
+          "type": "PVOID"
         }
       ],
       "header": "gpioclx.h",
@@ -449,7 +471,10 @@
       "confidence": 0.85,
       "_source_line": 66,
       "syntax": "GPIO_CLIENT_SAVE_BANK_HARDWARE_CONTEXT GpioClientSaveBankHardwareContext;\nVOID GpioClientSaveBankHardwareContext(\n  [in] PVOID Context,\n  [in] PGPIO_SAVE_RESTORE_BANK_HARDWARE_CONTEXT_PARAMETERS Parameters\n);",
-      "return_value": "无。",
+      "return_value": {
+        "type": "GPIO_CLIENT_SAVE_BANK_HARDWARE_CONTEXT GpioClientSaveBankHardwareContext; VOID",
+        "description": "无。"
+      },
       "remarks": "这是 GPIO 控制器驱动程序提供给 GpioClx 的回调例程。该函数应保存指定 GPIO bank 的硬件上下文，以便后续恢复。"
     },
     {
@@ -461,11 +486,13 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "指向 GPIO 控制器驱动程序 设备上下文的指针。[in] RestoreContext 客户端驱动程序是否应将 GPIO 控制器还原到以前保存的硬件上下文。 如果为 TRUE，则应还原 硬件上下文。 如果为 FALSE，则不应还原硬件上下文。 有关详细信息，请参阅“备注”。[in] PreviousPowerState 以前的设备电源状态。 此参数是一个 WDF_POWER_DEVICE_STATE 枚举值，该值指定设备从中进入 D0 电源状态的低功率状态。 GPIO 控制器驱动程序可以使用此信息来确定如何配置控制器 设备，使其可供使用。"
+          "description": "指向 GPIO 控制器驱动程序 设备上下文的指针。[in] RestoreContext 客户端驱动程序是否应将 GPIO 控制器还原到以前保存的硬件上下文。 如果为 TRUE，则应还原 硬件上下文。 如果为 FALSE，则不应还原硬件上下文。 有关详细信息，请参阅“备注”。[in] PreviousPowerState 以前的设备电源状态。 此参数是一个 WDF_POWER_DEVICE_STATE 枚举值，该值指定设备从中进入 D0 电源状态的低功率状态。 GPIO 控制器驱动程序可以使用此信息来确定如何配置控制器 设备，使其可供使用。",
+          "type": "PVOID"
         }
       ],
       "return_value": {
-        "description": "如果调用成功，CLIENT_StartController 函数将返回STATUS_SUCCESS。 否则，它将返回适当的错误代码。"
+        "description": "如果调用成功，CLIENT_StartController 函数将返回STATUS_SUCCESS。 否则，它将返回适当的错误代码。",
+        "type": "GPIO_CLIENT_START_CONTROLLER GPIO_CLIENT_START_CONTROLLER; NTSTATUS"
       },
       "remarks": "此回调函数由 GPIO 控制器驱动程序实现。GpioClx 在系统启动期间初始化控制器，或在设备从低功耗状态转换到工作状态（D0）时调用此函数。该回调应执行控制器恢复到可用状态所需的操作，例如在需要时恢复先前保存的硬件上下文，并通常将 GPIO 引脚配置为其默认状态。\\n\\n驱动程序通过调用 GPIO_CLX_RegisterClient 注册此回调，并在 GPIO_CLIENT_REGISTRATION_PACKET 结构中提供函数指针。\\n\\n虽然该回调在 IRQL = PASSIVE_LEVEL 调用，但由于它位于设备上电恢复的关键路径中，因此不应将其实现放在可分页内存中，以避免页面错误带来的延迟。",
       "header": "gpioclx.h",
@@ -571,7 +598,10 @@
           "description": "指向 GPIO 控制器驱动程序 设备上下文的指针。 GPIO 框架扩展 （GpioClx） 将此指针值作为参 数传递给 GPIO 控制器驱动程序实现的回调函数。[in] BankId 此 GPIO 引脚库的标识符。 如果 N 是 GPIO 控制器中的银行数，BankId 是 0 到 N–1 范围内的整数。"
         }
       ],
-      "return_value": "GPIO 控制器驱动程序通常在其初始化期间调用此函数，以向 GpioClx 注册驱动程序提供的回调函数。RegistrationPacket 必须包含有效的 GPIO_CLIENT_REGISTRATION_PACKET 信息。当前描述、参数和备注中的大量内容来自其他 GPIO 回调或锁相关 API，应予以移除。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "GPIO 控制器驱动程序通常在其初始化期间调用此函数，以向 GpioClx 注册驱动程序提供的回调函数。RegistrationPacket 必须包含有效的 GPIO_CLIENT_REGISTRATION_PACKET 信息。当前描述、参数和备注中的大量内容来自其他 GPIO 回调或锁相关 API，应予以移除。"
+      },
       "remarks": "GPIO 控制器驱动程序通常在其初始化期间调用此函数，以向 GpioClx 注册驱动程序提供的回调函数。RegistrationPacket 必须包含有效的 GPIO_CLIENT_REGISTRATION_PACKET 信息。当前描述、参数和备注中的大量内容来自其他 GPIO 回调或锁相关 API，应予以移除。",
       "header": "gpioclx.h",
       "deprecated": false,
@@ -1246,7 +1276,10 @@
       "confidence": 0.4,
       "_source_line": 924,
       "syntax": "NTSTATUS MyEvtGpioDisconnectIoPins(\n  PVOID Context,\n  PGPIO_DISCONNECT_IO_PINS_PARAMETERS DisconnectParameters\n);",
-      "return_value": "Returns STATUS_SUCCESS if the operation succeeds, or an appropriate NTSTATUS error code otherwise.",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "Returns STATUS_SUCCESS if the operation succeeds, or an appropriate NTSTATUS error code otherwise."
+      },
       "remarks": "MyEvtGpioDisconnectIoPins is a placeholder/example implementation name for the EvtGpioDisconnectIoPins callback defined by GpioClx. Drivers typically register this callback in the CLIENT_GPIO_CONTROLLER configuration structure."
     },
     {
@@ -1398,7 +1431,11 @@
       "confidence": 0.6,
       "_source_line": 1118,
       "syntax": "NTSTATUS MyEvtGpioPrepareController(\n  WDFDEVICE Device,\n  PVOID Context,\n  WDFCMRESLIST ResourcesRaw,\n  WDFCMRESLIST ResourcesTranslated\n);",
-      "remarks": "MyEvtGpioPrepareController 看起来是文档中的示例回调实现名，而非标准 API 名称。它通常作为 CLIENT_PrepareController 类型回调的驱动程序实现函数出现。当前实体应保留为回调示例节点，或在图中与 CLIENT_PrepareController 建立关联。"
+      "remarks": "MyEvtGpioPrepareController 看起来是文档中的示例回调实现名，而非标准 API 名称。它通常作为 CLIENT_PrepareController 类型回调的驱动程序实现函数出现。当前实体应保留为回调示例节点，或在图中与 CLIENT_PrepareController 建立关联。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::ActiveMask",
@@ -1663,10 +1700,14 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "指向 GPIO 控制器驱动程序 的设备上下文的指针。[in] ReconfigureParameters 指向 GPIO_RECONFIGURE_INTERRUPTS_PARAMETERS 结构的指针，该结构指定如何重新 配置 GPIO 中断引脚。"
+          "description": "指向 GPIO 控制器驱动程序 的设备上下文的指针。[in] ReconfigureParameters 指向 GPIO_RECONFIGURE_INTERRUPTS_PARAMETERS 结构的指针，该结构指定如何重新 配置 GPIO 中断引脚。",
+          "type": "PVOID"
         }
       ],
-      "return_value": "GPIO 框架扩展 (GpioClx) 可调用此回调以更改作为中断输入的 GPIO 引脚的中断模式或中断极性。例如，如果 GPIO 控制器硬件不直接支持 active-both 中断，但支持 active-high 和 active-low 电平中断，则 GpioClx 可以通过交替配置这两种模式来模拟 active-both 中断。有关详细信息，请参阅 CONTROLLER_ATTRIBUTE_FLAGS 中的 EmulateActiveBoth 标志说明。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "GPIO 框架扩展 (GpioClx) 可调用此回调以更改作为中断输入的 GPIO 引脚的中断模式或中断极性。例如，如果 GPIO 控制器硬件不直接支持 active-both 中断，但支持 active-high 和 active-low 电平中断，则 GpioClx 可以通过交替配置这两种模式来模拟 active-both 中断。有关详细信息，请参阅 CONTROLLER_ATTRIBUTE_FLAGS 中的 EmulateActiveBoth 标志说明。"
+      },
       "remarks": "GPIO 框架扩展 (GpioClx) 可调用此回调以更改作为中断输入的 GPIO 引脚的中断模式或中断极性。例如，如果 GPIO 控制器硬件不直接支持 active-both 中断，但支持 active-high 和 active-low 电平中断，则 GpioClx 可以通过交替配置这两种模式来模拟 active-both 中断。有关详细信息，请参阅 CONTROLLER_ATTRIBUTE_FLAGS 中的 EmulateActiveBoth 标志说明。",
       "header": "gpioclx.h",
       "deprecated": false,

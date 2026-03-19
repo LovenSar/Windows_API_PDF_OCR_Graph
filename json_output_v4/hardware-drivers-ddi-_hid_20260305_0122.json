@@ -731,7 +731,10 @@
       "confidence": 0.5,
       "_source_line": 122,
       "syntax": "typedef VOID (*PHID_STATUS_CHANGE)(\n  PVOID Context,\n  DeviceObjectState State\n);",
-      "return_value": "无。",
+      "return_value": {
+        "type": "typedef",
+        "description": "无。"
+      },
       "remarks": "此回调类型保留供内部系统使用，不供常规应用程序或驱动程序直接使用。"
     },
     {
@@ -745,7 +748,10 @@
       "confidence": 0.35,
       "_source_line": 134,
       "syntax": "BOOLEAN HidD_GetConfiguration(\n  HANDLE              HidDeviceObject,\n  PHIDD_CONFIGURATION Configuration,\n  ULONG               ConfigurationLength\n);",
-      "return_value": "Returns TRUE if the routine succeeds; otherwise FALSE. Call GetLastError for extended error information.",
+      "return_value": {
+        "type": "BOOLEAN",
+        "description": "Returns TRUE if the routine succeeds; otherwise FALSE. Call GetLastError for extended error information."
+      },
       "remarks": "This routine is declared in Hidsdi.h. The previous description text contains OCR noise and unrelated content about HidD_GetMsGenreDescriptor, which should be removed."
     },
     {
@@ -762,7 +768,10 @@
       "confidence": 0.35,
       "_source_line": 142,
       "syntax": "BOOLEAN __stdcall HidD_GetMsGenreDescriptor(\n  HANDLE HidDeviceObject,\n  PVOID  Buffer,\n  ULONG  BufferLength\n);",
-      "return_value": "Returns TRUE if the operation succeeds; otherwise FALSE.",
+      "return_value": {
+        "type": "BOOLEAN",
+        "description": "Returns TRUE if the operation succeeds; otherwise FALSE."
+      },
       "remarks": "Declared in Hidsdi.h. This is a HID class support routine."
     },
     {
@@ -776,7 +785,10 @@
       "confidence": 0.35,
       "_source_line": 149,
       "syntax": "BOOLEAN HidD_SetConfiguration(\n  HANDLE              HidDeviceObject,\n  PHIDD_CONFIGURATION Configuration,\n  ULONG               ConfigurationLength\n);",
-      "return_value": "Returns TRUE if the operation succeeds; otherwise returns FALSE."
+      "return_value": {
+        "type": "BOOLEAN",
+        "description": "Returns TRUE if the operation succeeds; otherwise returns FALSE."
+      }
     },
     {
       "id": "windows::HIDP_COLLECTION_DESC",
@@ -944,7 +956,8 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "指向表示键盘或鼠标设备的函数设备对象的指针。[in] Value 指定要写入 i8042 端口的数据。"
+          "description": "指向表示键盘或鼠标设备的函数设备对象的指针。[in] Value 指定要写入 i8042 端口的数据。",
+          "type": "PVOID"
         }
       ],
       "return_value": {
@@ -967,7 +980,10 @@
       "name": "PI8042_KEYBOARD_INITIALIZATION_ROUTINE",
       "entity_type": "callback",
       "description": "键盘筛选器驱动程序可提供的回调例程类型。I8042prt 在初始化键盘时调用该回调，使上层键盘筛选器驱动程序能够执行特定于设备的初始化，并控制是否启用扫描码转换。",
-      "return_value": "高级键盘筛选器驱动程序可以提供此回调。如果提供，I8042prt 会在初始化键盘时调用它。默认键盘初始化通常包括复位键盘、设置键盘重复率和延迟，以及设置键盘 LED 指示灯。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "高级键盘筛选器驱动程序可以提供此回调。如果提供，I8042prt 会在初始化键盘时调用它。默认键盘初始化通常包括复位键盘、设置键盘重复率和延迟，以及设置键盘 LED 指示灯。"
+      },
       "remarks": "高级键盘筛选器驱动程序可以提供此回调。如果提供，I8042prt 会在初始化键盘时调用它。默认键盘初始化通常包括复位键盘、设置键盘重复率和延迟，以及设置键盘 LED 指示灯。",
       "header": "ntdd8042.h",
       "deprecated": false,
@@ -1361,7 +1377,8 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "指向 I8042prt 提供的上下文的指针。[in] Value 指定要写入 i8042 端口的 UCHAR 值。[in] WaitForACK 指定如果 TRUE，则例程会等待 i8042 端口确认写入。 否则，例程返回时不等待端口的确认。"
+          "description": "指向 I8042prt 提供的上下文的指针。[in] Value 指定要写入 i8042 端口的 UCHAR 值。[in] WaitForACK 指定如果 TRUE，则例程会等待 i8042 端口确认写入。 否则，例程返回时不等待端口的确认。",
+          "type": "PVOID"
         }
       ],
       "header": "ntdd8042.h",
@@ -1372,7 +1389,10 @@
       "confidence": 0.85,
       "_source_line": 509,
       "syntax": "NTSTATUS PI8042_SYNCH_WRITE_PORT(\n  [in] PVOID Context,\n  [in] UCHAR Value,\n  [in] BOOLEAN WaitForACK\n);",
-      "return_value": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      }
     },
     {
       "id": "windows::PSERVICE_CALLBACK_ROUTINE",
@@ -1380,7 +1400,8 @@
       "entity_type": "callback",
       "description": "指向服务回调例程的函数指针类型。该回调由键盘或鼠标类/筛选驱动在与端口驱动连接时提供，用于处理输入数据传递。定义于 kbdmou.h。",
       "return_value": {
-        "description": "无。该回调不返回值。"
+        "description": "无。该回调不返回值。",
+        "type": "typedef"
       },
       "header": "kbdmou.h",
       "deprecated": false,
@@ -2156,7 +2177,7 @@
     {
       "id": "windows::HIDP_UNKNOWN_TOKEN_HIDP_PREPARSED_DATA",
       "name": "HIDP_UNKNOWN_TOKEN_HIDP_PREPARSED_DATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "HidP_GetLinkCollectionNodes函数 HidP_GetLinkCollectionNodes 例程返回 顶级集合的链接集合数组。",
       "syntax": "NTSTATUS HidP_GetLinkCollectionNodes(\n[out]     PHIDP_LINK_COLLECTION_NODE LinkCollectionNodes,\n[in, out] PULONG                     LinkCollectionNodesLength,\n[in]      PHIDP_PREPARSED_DATA       PreparsedData);",
       "parameters": [
@@ -2173,7 +2194,8 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 1.0,
-      "_source_line": 2083
+      "_source_line": 2083,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::HIDP_STATUS_NULL",
@@ -2273,7 +2295,7 @@
     {
       "id": "windows::HIDP_STATUS_IS_VALUE_ARRAY",
       "name": "HIDP_STATUS_IS_VALUE_ARRAY",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "言论 描述 数组中的按钮未设置为 ON （1），因为所有数组字段都已用于为其他按钮编制索引。 DataList 成员指定设置按钮 OFF（零），但该按钮已设置为 OFF。 DataList 成员的数据索引无效。 按钮或使用情况值包含在报表中，但它不在指定的报表中。 数据索引指定 使用情况值数组。 除使用值数组外，用户模式应用程序或内核模式驱动程序可以使用 HidP_SetData 在报表 中设置按钮和使用情况值。 若要设置使用值数组，应用程序或驱动程序必须使用 HidP_SetUsageValueArray。 HidP_SetData 设置 dataLength 的输出值，如下所示： 有关详细信息，请参阅 HID 集合。",
       "syntax": "NTSTATUS HidP_SetScaledUsageValue(\n[in]      HIDP_REPORT_TYPE     ReportType,   [in]      USAGE                UsagePage,\n[in]      USHORT               LinkCollection,   [in]      USAGE                Usage,\n[in]      LONG                 UsageValue,\n[in]      PHIDP_PREPARSED_DATA PreparsedData,   [in, out] PCHAR                Report,\n[in]      ULONG                ReportLength);",
       "parameters": [
@@ -2303,7 +2325,8 @@
         "PASSIVE_LEVEL"
       ],
       "confidence": 1.0,
-      "_source_line": 2872
+      "_source_line": 2872,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::HIDP_STATUS_BAD_LOG_PHY_VALUES",
@@ -2485,10 +2508,14 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "从上一次调用 WdfDeviceCreate获取的客户端驱动程序的框架设备对象的句柄。[in] DeviceConfiguration 指向初始化 HIDSPICX_DEVICE_CONFIG 结构的指针，指定要用于类扩展和客户端驱动程 序之间通信的回调和队列的详细信息。"
+          "description": "从上一次调用 WdfDeviceCreate获取的客户端驱动程序的框架设备对象的句柄。[in] DeviceConfiguration 指向初始化 HIDSPICX_DEVICE_CONFIG 结构的指针，指定要用于类扩展和客户端驱动程 序之间通信的回调和队列的详细信息。",
+          "type": "WDFDEVICE"
         }
       ],
-      "return_value": "该函数初始化类扩展的内部状态。客户端驱动程序可以在调用此函数之前或之后创建默认队列，以处理类扩展未处理的 IOCTL。客户端驱动程序不应尝试获取电源策略所有权来配置电源策略设置；HidClass 和 HidSpiCx 负责管理设备电源策略。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "该函数初始化类扩展的内部状态。客户端驱动程序可以在调用此函数之前或之后创建默认队列，以处理类扩展未处理的 IOCTL。客户端驱动程序不应尝试获取电源策略所有权来配置电源策略设置；HidClass 和 HidSpiCx 负责管理设备电源策略。"
+      },
       "remarks": "该函数初始化类扩展的内部状态。客户端驱动程序可以在调用此函数之前或之后创建默认队列，以处理类扩展未处理的 IOCTL。客户端驱动程序不应尝试获取电源策略所有权来配置电源策略设置；HidClass 和 HidSpiCx 负责管理设备电源策略。",
       "header": "hidspicx.h",
       "deprecated": false,
@@ -2504,11 +2531,13 @@
       "parameters": [
         {
           "name": "Device",
-          "description": "从上一次调用 WdfDeviceCreate获取的客户端驱动程序的框架设备对象的句柄。"
+          "description": "从上一次调用 WdfDeviceCreate获取的客户端驱动程序的框架设备对象的句柄。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "NTSTATUS 值，该值指示重置是否成功。"
+        "description": "NTSTATUS 值，该值指示重置是否成功。",
+        "type": "NTSTATUS"
       },
       "remarks": "HIDSPICX 类扩展在硬件处于工作状态且运行于 PASSIVE_LEVEL 时调用此回调。客户端驱动程序应同步重置设备，并返回指示重置是否成功的 NTSTATUS 状态代码。",
       "requirements": {
@@ -2723,7 +2752,10 @@
       "confidence": 0.7,
       "_source_line": 6021,
       "syntax": "typedef VOID (*PEVT_VHF_ASYNC_OPERATION)(VHFHANDLE VhfHandle, PVOID VhfOperationHandle, PVOID VhfOperationContext);",
-      "return_value": "无。",
+      "return_value": {
+        "type": "typedef",
+        "description": "无。"
+      },
       "remarks": "这是一个函数指针类型，而不是结构。它通常被 VHF_CONFIG 结构中的多个成员引用，例如 EvtVhfAsyncOperationGetFeature、EvtVhfAsyncOperationSetFeature、EvtVhfAsyncOperationWriteReport 和 EvtVhfAsyncOperationGetInputReport。当前节点中的 members 内容实际上来自 VHF_CONFIG 的 OCR 串扰，不应属于该实体。"
     },
     {

@@ -16,7 +16,8 @@
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。 此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY和E_FAIL，以及以下值。 返回代码 S_OK"
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。 此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY和E_FAIL，以及以下值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "remarks": "创建共享属性时，其值将设置为默认值，即值为 0 的 VT_I4 VARIANT。如果使用 CreatePropertyByPosition 方法创建 SharedProperty 对象，则只能使用 get_PropertyByPosition 方法访问该属性。不能为同一属性分配字符串名称后再使用 get_Property 方法访问它。按位置访问属性通常比按字符串名称访问开销更小。同一个共享属性组可以同时包含按位置标识的 SharedProperty 对象和按名称标识的对象。",
       "header": "comsvcs.h",
@@ -40,11 +41,13 @@
         {
           "name": "pSID",
           "direction": "out",
-          "description": "对从中调用当前方法的进程的安全 ID 的引用。"
+          "description": "对从中调用当前方法的进程的安全 ID 的引用。",
+          "type": "PSID"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和E_FAIL，以及以下值。 返回代码 S_OK"
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和E_FAIL，以及以下值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -116,7 +119,8 @@
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。"
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。",
+        "type": "HRESULT"
       },
       "remarks": "此枚举的不同值可用于为通过 CServiceConfig 提供的各种服务建立默认配置。 CServiceConfig 的默认继承配置是CSC_Ignore。 调用 CoCreateActivity 时使用 CSC_Ignore 通常很有用，而CSC_Inherit在扩充现有上下文（例如调用 CoEnterServiceDomain 时）很有用。 调用 IServiceInheritanceConfig：：ContainingContextTreatment 会使用以下默认值覆盖 CServiceConfig 对象以前的任何配置设置。 对于CSC_InheritanceConfig设置为 CSC_Inherit",
       "requirements": {
@@ -144,11 +148,13 @@
         {
           "name": "synchConfig",
           "direction": "in",
-          "description": "CSC_SynchronizationConfig 枚举中的值。"
+          "description": "CSC_SynchronizationConfig 枚举中的值。",
+          "type": "CSC_SynchronizationConfig"
         }
       ],
       "return_value": {
-        "description": "此方法可返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_FAIL和S_OK。"
+        "description": "此方法可返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_FAIL和S_OK。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -166,12 +172,14 @@
         {
           "name": "bstrApplicationIDOrName",
           "direction": "in",
-          "description": "应用程序 ID 或应用程序的名称。[in] bstrServiceName 应用程序的服务名称。 此名称是服务控制管理器 (SCM) 使用的内部名称，而不是显示名称。[in] bstrStartType 何时启动服务。 有效参数是 CreateService 函数的 dwStartType 参数的选项。 参数必须括在引号 中。 以下是有效参数：SERVICE_BOOT_START、SERVICE_SYSTEM_START、 SERVICE_AUTO_START、SERVICE_DEMAND_START和SERVICE_DISABLED。"
+          "description": "应用程序 ID 或应用程序的名称。[in] bstrServiceName 应用程序的服务名称。 此名称是服务控制管理器 (SCM) 使用的内部名称，而不是显示名称。[in] bstrStartType 何时启动服务。 有效参数是 CreateService 函数的 dwStartType 参数的选项。 参数必须括在引号 中。 以下是有效参数：SERVICE_BOOT_START、SERVICE_SYSTEM_START、 SERVICE_AUTO_START、SERVICE_DEMAND_START和SERVICE_DISABLED。",
+          "type": "BSTR"
         },
         {
           "name": "bstrErrorControl",
           "direction": "in",
-          "description": "如果此服务在启动期间无法启动，则错误的严重性。 此错误确定启动程序在发生故障时采取的操作。 有效参数是 CreateService 函数的 dwErrorControl 参数的选项。 参数必须括在引号中。 以下是有效参数：SERVICE_ERROR_IGNORE、SERVICE_ERROR_NORMAL、"
+          "description": "如果此服务在启动期间无法启动，则错误的严重性。 此错误确定启动程序在发生故障时采取的操作。 有效参数是 CreateService 函数的 dwErrorControl 参数的选项。 参数必须括在引号中。 以下是有效参数：SERVICE_ERROR_IGNORE、SERVICE_ERROR_NORMAL、",
+          "type": "BSTR"
         }
       ],
       "header": "comadmin.h",
@@ -180,7 +188,11 @@
         "CreateManagedStub"
       ],
       "confidence": 0.8,
-      "_source_line": 121
+      "_source_line": 121,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetDispenserManager",
@@ -192,11 +204,13 @@
         {
           "name": "unnamedParam1",
           "direction": "out",
-          "description": "指向接收 IDispenserManager 接口指针的位置的指针。"
+          "description": "指向接收 IDispenserManager 接口指针的位置的指针。",
+          "type": "IDispenserManager"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK。否则，返回 E_FAIL。"
+        "description": "如果方法成功，则返回 S_OK。否则，返回 E_FAIL。",
+        "type": "HRESULT"
       },
       "header": "mtxdm.h",
       "deprecated": false,
@@ -220,7 +234,8 @@
         {
           "name": "TopLevelCollection",
           "direction": "out",
-          "description": "返回时，为跟踪器数据集合的 IUnknown 接口。"
+          "description": "返回时，为跟踪器数据集合的 IUnknown 接口。",
+          "type": "IUnknown"
         },
         {
           "name": "plCount",
@@ -239,7 +254,8 @@
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL 和 S_OK。"
+        "description": "此方法可以返回标准返回值 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL 和 S_OK。",
+        "type": "HRESULT"
       },
       "remarks": "此方法主要用于使订阅 IComTrackingInfoEvents 事件接口的应用程序能够添加对 IGetAppTrackerData 的支持，只需对其代码进行最少的更改。 此方法返回的对象与调用订阅者的 IComTrackingInfoEvent：：OnNewTrackingInfo 方法 时发送的对象相同，因此可以重复使用用于导航和分析此集合的代码。 应用程序不应期望此方法返回新更新的跟踪数据的频率高于服务器的建议轮询间隔， (请参阅 IGetAppTrackerData：：GetSuggestedPollingInterval) 。 请注意，此方法返回的集合对象不包含通过调用其他方法提供的所有跟踪数据。 具体而言，不提供回收详细信息和挂起监视配置。",
       "requirements": {
@@ -272,10 +288,14 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidLtx 标识事务的 GUID。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidLtx 标识事务的 GUID。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
-      "return_value": null,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      },
       "requirements": {
         "target_platform": "Windows",
         "min_client": "Windows XP [仅限桌面应用]",
@@ -297,11 +317,13 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidLtx 标识事务的 GUID。[in] fVote COM+ 投票支持准备请求。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidLtx 标识事务的 GUID。[in] fVote COM+ 投票支持准备请求。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT。成功时返回 S_OK，失败时返回错误代码。"
+        "description": "返回 HRESULT。成功时返回 S_OK，失败时返回错误代码。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -319,11 +341,13 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidObject 池中对象的 CLSID。[in] dwObjsCreated 池中的对象数。[in] oid 唯一的共用对象标识符。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidObject 池中对象的 CLSID。[in] dwObjsCreated 池中的对象数。[in] oid 唯一的共用对象标识符。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT 值。S_OK 表示成功，其他值表示错误。"
+        "description": "返回 HRESULT 值。S_OK 表示成功，其他值表示错误。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -343,11 +367,13 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidObject 池中对象的 CLSID。[in] dwObjsCreated 池中的对象数。[in] oid 唯一的共用对象标识符。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidObject 池中对象的 CLSID。[in] dwObjsCreated 池中的对象数。[in] oid 唯一的共用对象标识符。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，否则返回错误代码。"
+        "description": "成功时返回 S_OK，否则返回错误代码。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -371,11 +397,13 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidObject 池中对象的 CLSID。[in] nReason 此参数为保留参数。[in] dwAvailable 池中的对象数。[in] oid 此对象的唯一标识符。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidObject 池中对象的 CLSID。[in] nReason 此参数为保留参数。[in] dwAvailable 池中的对象数。[in] oid 此对象的唯一标识符。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，否则返回错误代码。"
+        "description": "成功时返回 S_OK，否则返回错误代码。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -400,16 +428,19 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] ObjectID 实时激活的对象。[in] hr 资源分配器的结果会销毁调用。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] ObjectID 实时激活的对象。[in] hr 资源分配器的结果会销毁调用。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "pszType",
           "direction": "in",
-          "description": "资源的说明。[in] resId 资源的唯一标识符。"
+          "description": "资源的说明。[in] resId 资源的唯一标识符。",
+          "type": "LPCOLESTR"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT 值，指示回调执行结果。"
+        "description": "返回 HRESULT 值，指示回调执行结果。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -429,15 +460,20 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "guidTx",
           "direction": "in",
-          "description": "事务标识符。"
+          "description": "事务标识符。",
+          "type": "REFGUID"
         }
       ],
-      "return_value": "如果成功，返回 S_OK；否则返回错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果成功，返回 S_OK；否则返回错误代码。"
+      },
       "requirements": {
         "target_platform": "Windows"
       },
@@ -464,7 +500,8 @@
         {
           "name": "lcMaxQueuedRequests",
           "direction": "in",
-          "description": "可同时排队的最大异步执行请求数。 零值表示队列可以无限制地增长。"
+          "description": "可同时排队的最大异步执行请求数。 零值表示队列可以无限制地增长。",
+          "type": "long"
         },
         {
           "name": "lcMaxThreads",
@@ -483,7 +520,8 @@
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL 和 S_OK。"
+        "description": "此方法可以返回标准返回值 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL 和 S_OK。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -508,7 +546,8 @@
         }
       ],
       "return_value": {
-        "description": "此方法可以返回以下值：S_OK - 成功；S_FALSE - 资源不支持事务；其他 HRESULT 错误代码"
+        "description": "此方法可以返回以下值：S_OK - 成功；S_FALSE - 资源不支持事务；其他 HRESULT 错误代码",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -566,7 +605,8 @@
         {
           "name": "pUnkStatus",
           "direction": "in",
-          "description": "如果想要知道调用完成的事务的状态，则必须是指向实现 ITransactionStatus 接口的 对象的 IUnknown 接口的指针。 如果封闭的代码未使用事务，或者如果不需要知道事务状态，则此参数应为 NULL。 如果此参数为非 NULL ，并且服务域中未使用任何事务，则忽略此参数。"
+          "description": "如果想要知道调用完成的事务的状态，则必须是指向实现 ITransactionStatus 接口的 对象的 IUnknown 接口的指针。 如果封闭的代码未使用事务，或者如果不需要知道事务状态，则此参数应为 NULL。 如果此参数为非 NULL ，并且服务域中未使用任何事务，则忽略此参数。",
+          "type": "IUnknown"
         }
       ],
       "return_value": {
@@ -652,16 +692,19 @@
         {
           "name": "bstrCollName",
           "direction": "in",
-          "description": "要检索的集合的名称。[in] ppsaVarQuery 对数组的引用，该数组由要检索的集合的所有父项的键属性值组成。"
+          "description": "要检索的集合的名称。[in] ppsaVarQuery 对数组的引用，该数组由要检索的集合的所有父项的键属性值组成。",
+          "type": "BSTR"
         },
         {
           "name": "ppCatalogCollection",
           "direction": "out, retval",
-          "description": "集合的 ICatalogCollection 接口。"
+          "description": "集合的 ICatalogCollection 接口。",
+          "type": "retval] IDispatch"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK的标准返 回值。"
+        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK的标准返 回值。",
+        "type": "HRESULT"
       },
       "remarks": "项的 ICatalogObject：：Key 属性值是用于在 COM+ 目录中唯一标识它的 GUID。",
       "header": "comadmin.h",
@@ -683,16 +726,19 @@
         {
           "name": "bstrIID",
           "direction": "in",
-          "description": "表示应找到其事件类的接口的 GUID。 如果此参数为 NULL，该方法将检索计算机上注册的所有事件类。"
+          "description": "表示应找到其事件类的接口的 GUID。 如果此参数为 NULL，该方法将检索计算机上注册的所有事件类。",
+          "type": "BSTR"
         },
         {
           "name": "ppsaVarCLSIDs",
           "direction": "out",
-          "description": "实现 bstrIID 中指定的接口的事件类的 CLSD 数组。[out] ppsaVarProgIDs 实现 bstrIID 中指定的接口的事件类的 ProgID 数组。[out] ppsaVarDescriptions 实现 bstrIID 中指定的接口的事件类的说明数组。"
+          "description": "实现 bstrIID 中指定的接口的事件类的 CLSD 数组。[out] ppsaVarProgIDs 实现 bstrIID 中指定的接口的事件类的 ProgID 数组。[out] ppsaVarDescriptions 实现 bstrIID 中指定的接口的事件类的说明数组。",
+          "type": "SAFEARRAY"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。"
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。",
+        "type": "HRESULT"
       },
       "header": "comadmin.h",
       "deprecated": false,
@@ -713,29 +759,37 @@
         {
           "name": "bstrApplIdOrName",
           "direction": "in",
-          "description": "表示应用程序的 GUID 或应用程序名称。[in] ppsaVarFileNames 包含组件的文件的名称数组。"
+          "description": "表示应用程序的 GUID 或应用程序名称。[in] ppsaVarFileNames 包含组件的文件的名称数组。",
+          "type": "BSTR"
         },
         {
           "name": "ppsaVarCLSIDs",
           "direction": "out",
-          "description": "组件 CLSID 的数组。"
+          "description": "组件 CLSID 的数组。",
+          "type": "SAFEARRAY"
         },
         {
           "name": "ppsaVarClassNames",
           "direction": "out",
-          "description": "组件类名的数组。"
+          "description": "组件类名的数组。",
+          "type": "SAFEARRAY"
         },
         {
           "name": "ppsaVarFileFlags",
           "direction": "out",
-          "description": "包含有关文件的信息的文件标志的数组。"
+          "description": "包含有关文件的信息的文件标志的数组。",
+          "type": "SAFEARRAY"
         }
       ],
       "header": "comadmin.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 1756
+      "_source_line": 1756,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::COMAdminFileFlagDLLRegsvrFailed",
@@ -758,11 +812,13 @@
         {
           "name": "bstrApplIdOrName",
           "direction": "in",
-          "description": "应用程序的 GUID 或名称。[in] bstrDLL 包含要安装的事件类的 DLL 的文件名。[in] bstrTLB 外部类型库文件的名称。 如果类型库文件嵌入到 DLL 中，请为此参数传入一个空字符串。[in] bstrPSDLL 代理存根 DLL 文件的名称。 如果没有与事件类关联的代理存根 DLL，请为此参数传入一个空字符串。"
+          "description": "应用程序的 GUID 或名称。[in] bstrDLL 包含要安装的事件类的 DLL 的文件名。[in] bstrTLB 外部类型库文件的名称。 如果类型库文件嵌入到 DLL 中，请为此参数传入一个空字符串。[in] bstrPSDLL 代理存根 DLL 文件的名称。 如果没有与事件类关联的代理存根 DLL，请为此参数传入一个空字符串。",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。"
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。",
+        "type": "HRESULT"
       },
       "remarks": "使用 InstallComponent 将组件安装到 COM+ 应用程序中。此方法将组件的完整注册信息添加到 COM+ 类注册数据库 (RegDB)，包括接口、方法、类型库和代理存根信息。建议使用 InstallComponent 而不是 ICOMAdminCatalog::ImportComponent 来安装组件。",
       "header": "comadmin.h",
@@ -793,7 +849,8 @@
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和E_FAIL，以及以下值。 返回代码 S_OK"
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和E_FAIL，以及以下值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "comadmin.h",
       "deprecated": false,
@@ -814,11 +871,13 @@
         {
           "name": "bstrApplIDOrName",
           "direction": "in",
-          "description": "应用程序的 GUID 或名称。[in] ppsaVarFileNames 包含要安装的组件的 DLL 文件的名称数组。[in] ppsaVarCLSIDs 要安装的组件的 CLSD 数组。"
+          "description": "应用程序的 GUID 或名称。[in] ppsaVarFileNames 包含要安装的组件的 DLL 文件的名称数组。[in] ppsaVarCLSIDs 要安装的组件的 CLSD 数组。",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK。可能返回 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED 或 E_FAIL 等标准错误代码。"
+        "description": "成功时返回 S_OK。可能返回 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED 或 E_FAIL 等标准错误代码。",
+        "type": "HRESULT"
       },
       "header": "comadmin.h",
       "deprecated": false,
@@ -836,11 +895,13 @@
         {
           "name": "bstrApplIdOrName",
           "direction": "in",
-          "description": "应用程序的 GUID 或名称。[in] ppsaVarFileNames 包含要安装的事件类的 DLL 文件的名称数组。[in] ppsaVarCLSIDS 要安装的事件类的 CLSID 数组。"
+          "description": "应用程序的 GUID 或名称。[in] ppsaVarFileNames 包含要安装的事件类的 DLL 文件的名称数组。[in] ppsaVarCLSIDS 要安装的事件类的 CLSID 数组。",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK的标准返 回值。"
+        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK的标准返 回值。",
+        "type": "HRESULT"
       },
       "remarks": "使用 InstallMultipleEventClasses 从包含事件类的虚拟实现的 DLL 安装事件类。要求是自注册 DLL、描述由事件类实现的接口的类型库，以及每个事件类具有 CLSID 和 ProgID。事件类公开的接口的虚拟实现实际上永远不会运行；它仅用于注册事件类。相反，当事件类由发布者创建时，事件系统将提供一个实现，用于将事件发送到订阅者。",
       "header": "comadmin.h",
@@ -862,21 +923,25 @@
         {
           "name": "bstrApplicationFile",
           "direction": "in",
-          "description": "要从中检索信息的应用程序文件。"
+          "description": "要从中检索信息的应用程序文件。",
+          "type": "BSTR"
         },
         {
           "name": "pbstrApplicationName",
           "direction": "out",
-          "description": "指定文件中的应用程序名称。"
+          "description": "指定文件中的应用程序名称。",
+          "type": "BSTR"
         },
         {
           "name": "pbstrApplicationDescription",
           "direction": "out",
-          "description": "应用程序说明。[out] pbHasUsers 指示应用程序是否具有与其角色关联的用户信息。[out] pbIsProxy 指示文件是否包含应用程序代理。[out] ppsaVarFileNames 应用程序中安装的组件的 DLL 文件的名称数组。"
+          "description": "应用程序说明。[out] pbHasUsers 指示应用程序是否具有与其角色关联的用户信息。[out] pbIsProxy 指示文件是否包含应用程序代理。[out] ppsaVarFileNames 应用程序中安装的组件的 DLL 文件的名称数组。",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL 和 S_OK 的标准返回值。"
+        "description": "此方法可以返回 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL 和 S_OK 的标准返回值。",
+        "type": "HRESULT"
       },
       "header": "comadmin.h",
       "deprecated": false,
@@ -901,7 +966,8 @@
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 S_OK。否则，返回 HRESULT 错误代码。"
+        "description": "如果成功，则返回 S_OK。否则，返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "使用加载项菜单“组件服务”子菜单中的“自动刷新”或“立即刷新所有组件”功能时，将从 Microsoft Visual Basic 6.0 开发环境中调用 RefreshComponents 方法。 为了查找不匹配项， RefreshComponents 比较 COM+ 类注册数据库 (RegDB) 和注册表之间的 CLSD 和 ProgID。 仅当 CLSD 之间不匹配和相应 ProgID 之间的匹配时，此方法才更新组件。 只有 CLSID 信息会更新到 RegDB。 不更新任何接口或方法信息。 无法在 COM+ 应用程序中的 接口或方法级别配置或保护使用 RefreshComponents 刷新的组件。",
       "requirements": {
@@ -941,16 +1007,19 @@
         {
           "name": "lProcessID",
           "direction": "in",
-          "description": "进程 ID。"
+          "description": "进程 ID。",
+          "type": "long"
         },
         {
           "name": "pbstrApplicationInstanceID",
           "direction": "out, retval",
-          "description": "相应的应用程序实例 ID。"
+          "description": "相应的应用程序实例 ID。",
+          "type": "retval] BSTR"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和E_FAIL，以及以下值。 返回代码 S_OK"
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和E_FAIL，以及以下值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -982,7 +1051,8 @@
         }
       ],
       "return_value": {
-        "description": "此方法返回 HRESULT 值，可能的返回值包括 S_OK、E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL。"
+        "description": "此方法返回 HRESULT 值，可能的返回值包括 S_OK、E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1009,21 +1079,25 @@
         {
           "name": "bstrCollectionName",
           "direction": "in",
-          "description": "要从目录中检索的集合的名称。 可以在 COM+ 管理集合的集合表中找到可能的集合名称。"
+          "description": "要从目录中检索的集合的名称。 可以在 COM+ 管理集合的集合表中找到可能的集合名称。",
+          "type": "BSTR"
         },
         {
           "name": "pVarQueryStrings",
           "direction": "in",
-          "description": "查询键。"
+          "description": "查询键。",
+          "type": "VARIANT"
         },
         {
           "name": "ppCatalogCollection",
           "direction": "out, retval",
-          "description": "指向包含查询结果的 ICatalogCollection 接口指针的指针。"
+          "description": "指向包含查询结果的 ICatalogCollection 接口指针的指针。",
+          "type": "retval] IDispatch"
         }
       ],
       "return_value": {
-        "description": "This method can return standard HRESULT values including E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK."
+        "description": "This method can return standard HRESULT values including E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.",
+        "type": "HRESULT"
       },
       "header": "comadmin.h",
       "deprecated": false,
@@ -1043,16 +1117,19 @@
         {
           "name": "bstrApplicationIDOrName",
           "direction": "in",
-          "description": "COM+ 应用程序的应用程序 ID 或名称。"
+          "description": "COM+ 应用程序的应用程序 ID 或名称。",
+          "type": "BSTR"
         },
         {
           "name": "pbstrPartitionName",
           "direction": "out, retval",
-          "description": "与指定应用程序关联的分区名称。"
+          "description": "与指定应用程序关联的分区名称。",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，失败时返回标准 COM 错误代码（如 E_INVALIDARG、E_OUTOFMEMORY 等）。"
+        "description": "成功时返回 S_OK，失败时返回标准 COM 错误代码（如 E_INVALIDARG、E_OUTOFMEMORY 等）。",
+        "type": "HRESULT"
       },
       "header": "comadmin.h",
       "deprecated": false,
@@ -1070,11 +1147,13 @@
         {
           "name": "bstrApplicationIDOrName",
           "direction": "in",
-          "description": "要在其中导入组件的应用程序 ID 或应用程序的名称。[in] pVarCLSIDOrProgID 要导入的组件。 Variant 的每个元素可以是包含类 ID 或程序 ID 的 String、单个目录对象或目录 集合 (，例如，GetCollectionByQuery2 方法) 返回。[in, optional] pVarComponentType 每个组件的位。 此参数的取值可为下列值之一： 如果省略此参数，则假定为计算机的本机位数。 值 COMAdmin32BitComponent 0x1 COMAdmin64BitComponent 含义 使用 32 位格式。使用 64 位格式。 0x2"
+          "description": "要在其中导入组件的应用程序 ID 或应用程序的名称。[in] pVarCLSIDOrProgID 要导入的组件。 Variant 的每个元素可以是包含类 ID 或程序 ID 的 String、单个目录对象或目录 集合 (，例如，GetCollectionByQuery2 方法) 返回。[in, optional] pVarComponentType 每个组件的位。 此参数的取值可为下列值之一： 如果省略此参数，则假定为计算机的本机位数。 值 COMAdmin32BitComponent 0x1 COMAdmin64BitComponent 含义 使用 32 位格式。使用 64 位格式。 0x2",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK的标准返 回值。"
+        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK的标准返 回值。",
+        "type": "HRESULT"
       },
       "header": "comadmin.h",
       "deprecated": false,
@@ -1095,7 +1174,8 @@
         {
           "name": "bstrApplicationIDOrName",
           "direction": "in",
-          "description": "要在其中导入组件的应用程序 ID 或应用程序的名称。[in] pVarCLSIDOrProgID 要导入的未配置组件。 Variant 的每个元素可以是包含类 ID 或程序 ID 的 String、单个目录对象 或目录集合 (，例如，GetCollectionByQuery2 方法) 返回。[in, optional] pVarComponentType 每个组件的 bitnes。 此参数的取值可为下列值之一： 如果省略此参数，则假定计算机的本机位数。 值 COMAdmin32BitComponent 0x1 COMAdmin64BitComponent 0x2 含义 使用 32 位格式。使用 64 位格式。"
+          "description": "要在其中导入组件的应用程序 ID 或应用程序的名称。[in] pVarCLSIDOrProgID 要导入的未配置组件。 Variant 的每个元素可以是包含类 ID 或程序 ID 的 String、单个目录对象 或目录集合 (，例如，GetCollectionByQuery2 方法) 返回。[in, optional] pVarComponentType 每个组件的 bitnes。 此参数的取值可为下列值之一： 如果省略此参数，则假定计算机的本机位数。 值 COMAdmin32BitComponent 0x1 COMAdmin64BitComponent 0x2 含义 使用 32 位格式。使用 64 位格式。",
+          "type": "BSTR"
         },
         {
           "name": "bstrFileName",
@@ -1119,7 +1199,8 @@
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL 和 S_OK。"
+        "description": "此方法可以返回标准返回值 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL 和 S_OK。",
+        "type": "HRESULT"
       },
       "header": "comadmin.h",
       "deprecated": false,
@@ -1139,16 +1220,19 @@
         {
           "name": "bstrApplicationFile",
           "direction": "in",
-          "description": "应用程序文件的完整路径。"
+          "description": "应用程序文件的完整路径。",
+          "type": "BSTR"
         },
         {
           "name": "ppFilesForImport",
           "direction": "out, retval",
-          "description": "指向 ICatalogCollection 接口指针的指针，该指针指定应用程序的 FilesForImport 集合。"
+          "description": "指向 ICatalogCollection 接口指针的指针，该指针指定应用程序的 FilesForImport 集合。",
+          "type": "retval] IDispatch"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK的标准返 回值。"
+        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK的标准返 回值。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1171,14 +1255,19 @@
         {
           "name": "pVarApplicationInstanceID",
           "direction": "in",
-          "description": "要回收的应用程序实例。 Variant 的每个元素可以是包含应用程序实例 GUID (的 String，例如， GetApplicationInstanceIDFromProcessID 方法) 返回、单个目录对象或目录集合 (，如"
+          "description": "要回收的应用程序实例。 Variant 的每个元素可以是包含应用程序实例 GUID (的 String，例如， GetApplicationInstanceIDFromProcessID 方法) 返回、单个目录对象或目录集合 (，如",
+          "type": "VARIANT"
         }
       ],
       "header": "comadmin.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 3069
+      "_source_line": 3069,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::ResumeApplicationInstances",
@@ -1190,11 +1279,13 @@
         {
           "name": "pVarApplicationInstanceID",
           "direction": "in",
-          "description": "要恢复的应用程序实例。 Variant 的每个元素可以是包含应用程序实例 GUID (的 String，例如， GetApplicationInstanceIDFromProcessID 方法) 返回、单个目录对象或目录集合 (，如 GetCollectionByQuery2 方法) 返回。"
+          "description": "要恢复的应用程序实例。 Variant 的每个元素可以是包含应用程序实例 GUID (的 String，例如， GetApplicationInstanceIDFromProcessID 方法) 返回、单个目录对象或目录集合 (，如 GetCollectionByQuery2 方法) 返回。",
+          "type": "VARIANT"
         }
       ],
       "return_value": {
-        "description": "此方法可返回标准 HRESULT 值（如 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED 和 E_FAIL）。成功时返回 S_OK。"
+        "description": "此方法可返回标准 HRESULT 值（如 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED 和 E_FAIL）。成功时返回 S_OK。",
+        "type": "HRESULT"
       },
       "header": "comadmin.h",
       "deprecated": false,
@@ -1212,11 +1303,13 @@
         {
           "name": "pVarApplicationInstanceID",
           "direction": "in",
-          "description": "要关闭的应用程序实例。 Variant 的每个元素可以是包含应用程序实例 GUID (的 String，例如， GetApplicationInstanceIDFromProcessID 方法) 返回、单个目录对象或目录集合 (，如 GetCollectionByQuery2 方法) 返回。"
+          "description": "要关闭的应用程序实例。 Variant 的每个元素可以是包含应用程序实例 GUID (的 String，例如， GetApplicationInstanceIDFromProcessID 方法) 返回、单个目录对象或目录集合 (，如 GetCollectionByQuery2 方法) 返回。",
+          "type": "VARIANT"
         }
       ],
       "return_value": {
-        "description": "This method can return standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following value. Return code S_OK"
+        "description": "This method can return standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following value. Return code S_OK",
+        "type": "HRESULT"
       },
       "header": "comadmin.h",
       "deprecated": false,
@@ -1236,14 +1329,19 @@
         {
           "name": "aptType",
           "direction": "in",
-          "description": "所请求的默认上下文的单元类型。 此参数的取值可为下列值之一： 值"
+          "description": "所请求的默认上下文的单元类型。 此参数的取值可为下列值之一： 值",
+          "type": "APTTYPE"
         }
       ],
       "header": "combaseapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 3380
+      "_source_line": 3380,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::APTTYPE_MAINSTA",
@@ -1266,11 +1364,13 @@
         {
           "name": "pIUnknown",
           "direction": "in",
-          "description": "指向 对象的 IUnknown 接口的指针，该接口是从 CServiceConfig 类创建的，其中包含在"
+          "description": "指向 对象的 IUnknown 接口的指针，该接口是从 CServiceConfig 类创建的，其中包含在",
+          "type": "IUnknown"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY和E_FAIL，以及以下值。 返回代码 S_OK"
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY和E_FAIL，以及以下值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "remarks": "在此方法中运行的批处理工作在通过调用 CoCreateActivity 创建的活动的上下文和线程单元中运行。 此方法中的批处理工作通过对 SynchronousCall 或 AsynchronousCall 的调用运行，使用从调用 CoCreateActivity 返回的 IServiceActivity 指针。 如果 CoCreateActivity 创建的活动对象不是使用同步上下文创建的，则必须确保此方法是线程安全的，因为在这种情况下，许多对 OnCall 的调用可以同时运行。 若要从系统获得最佳性能， CoCreateActivity 创建的活动的上下文配置应与 OnCall 方法执行的批处理工作相匹配。 例如，如果 OnCall 方法中的批处理工作使用可共用对象，则应将 CoCreateActivity 创建的活动配置为使用多线程单元 (MTA) 。",
       "requirements": {
@@ -1734,26 +1834,31 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidCurrent 与调用方关联的 GUID。[in] dwCallDepth 递归深度。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidCurrent 与调用方关联的 GUID。[in] dwCallDepth 递归深度。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidCurrent 与调用方关联的 GUID。[in] dwThread 活动线程的标识符。[in] dwCallDepth 递归深度。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidCurrent 与调用方关联的 GUID。[in] dwThread 活动线程的标识符。[in] dwCallDepth 递归深度。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidCurrent 与当前活动关联的 GUID。[in] guidEntered 调用方因果性标识符。[in] dwThread 执行调用的线程的标识符。[in] dwTimeout 超时期限。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidCurrent 与当前活动关联的 GUID。[in] guidEntered 调用方因果性标识符。[in] dwThread 执行调用的线程的标识符。[in] dwTimeout 超时期限。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidApp 应用程序的 GUID。[in] guidProcess 进程 ID。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidApp 应用程序的 GUID。[in] guidProcess 进程 ID。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 S_OK；否则返回错误代码。"
+        "description": "如果成功，则返回 S_OK；否则返回错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1790,11 +1895,13 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] CtxtID 对象的上下文标识符。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] CtxtID 对象的上下文标识符。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回 S_OK；否则返回错误代码。"
+        "description": "如果成功，返回 S_OK；否则返回错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows"
@@ -1815,11 +1922,13 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] oid 实时 (JIT) 激活对象。[in] guidCid 所调用对象的 CLSID。[in] guidRid 正在调用的方法的标识符。[in] dwThread 执行调用的线程的标识符。[in] iMeth 方法的 v 表索引。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] oid 实时 (JIT) 激活对象。[in] guidCid 所调用对象的 CLSID。[in] guidRid 正在调用的方法的标识符。[in] dwThread 执行调用的线程的标识符。[in] iMeth 方法的 v 表索引。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT 值。"
+        "description": "返回 HRESULT 值。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -1840,11 +1949,13 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] oid 实时 (JIT) 激活对象。[in] guidCid 所调用对象的 CLSID。[in] guidRid 正在调用的方法的标识符。[in] dwThread 执行调用的线程的标识符。[in] iMeth 方法的 v 表索引。[in] hresult 方法调用的结果。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] oid 实时 (JIT) 激活对象。[in] guidCid 所调用对象的 CLSID。[in] guidRid 正在调用的方法的标识符。[in] dwThread 执行调用的线程的标识符。[in] iMeth 方法的 v 表索引。[in] hresult 方法调用的结果。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT 值。返回 S_OK 以继续处理，或返回 S_FALSE 以停止处理。"
+        "description": "返回 HRESULT 值。返回 S_OK 以继续处理，或返回 S_FALSE 以停止处理。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -1865,47 +1976,56 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] oid 实时 (JIT) 激活对象。[in] guidCid 所调用对象的 CLSID。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] oid 实时 (JIT) 激活对象。[in] guidCid 所调用对象的 CLSID。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "guidRid",
           "direction": "in",
-          "description": "方法的标识符。[in] iMeth 方法的 v 表索引。"
+          "description": "方法的标识符。[in] iMeth 方法的 v 表索引。",
+          "type": "REFIID"
         },
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] oid 实时 (JIT) 激活对象。[in] guidCid 所调用对象的 CLSID。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] oid 实时 (JIT) 激活对象。[in] guidCid 所调用对象的 CLSID。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "guidRid",
           "direction": "in",
-          "description": "方法的标识符。[in] iMeth 方法的 v 表索引。[in] hresult 方法调用的结果。"
+          "description": "方法的标识符。[in] iMeth 方法的 v 表索引。[in] hresult 方法调用的结果。",
+          "type": "REFIID"
         },
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidObject 池中对象的 CLSID。[in] sConstructString 对象构造字符串。[in] oid 唯一构造的对象标识符。[in] guidPartition 为其创建此实例的分区标识符。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidObject 池中对象的 CLSID。[in] sConstructString 对象构造字符串。[in] oid 唯一构造的对象标识符。[in] guidPartition 为其创建此实例的分区标识符。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidObject 池中对象的 CLSID。[in] sConstructString 对象构造字符串。[in] oid 唯一构造的对象标识符。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidObject 池中对象的 CLSID。[in] sConstructString 对象构造字符串。[in] oid 唯一构造的对象标识符。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] CtxtID 当前上下文的 GUID。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] CtxtID 当前上下文的 GUID。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] CtxtID 当前上下文的 GUID。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] CtxtID 当前上下文的 GUID。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] CtxtID 当前上下文的 GUID。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] CtxtID 当前上下文的 GUID。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "ObjectID",
@@ -1915,7 +2035,8 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] CtxtID 当前上下文的 GUID。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] CtxtID 当前上下文的 GUID。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "ObjectID",
@@ -1925,11 +2046,13 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] CtxtID 当前上下文的 GUID。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] CtxtID 当前上下文的 GUID。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回 S_OK；否则返回错误代码。"
+        "description": "如果成功，返回 S_OK；否则返回错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows"
@@ -1959,11 +2082,13 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidActivity 为其创建对象的活动 ID。[in] guidObject 池中对象的 CLSID。[in] guidTx 表示事务标识符的 GUID。[in] objid 此对象的唯一标识符。[in] guidPartition 此实例的分区标识符。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidActivity 为其创建对象的活动 ID。[in] guidObject 池中对象的 CLSID。[in] guidTx 表示事务标识符的 GUID。[in] objid 此对象的唯一标识符。[in] guidPartition 此实例的分区标识符。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
       "return_value": {
-        "description": "返回 S_OK 以继续处理，或返回其他 HRESULT 值以停止处理。"
+        "description": "返回 S_OK 以继续处理，或返回其他 HRESULT 值以停止处理。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -1984,11 +2109,13 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidActivity 为其创建对象的活动 ID。[in] guidObject 池中对象的 CLSID。[in] dwAvailable 池中的对象数。[in] oid 此对象的唯一标识符。[in] guidPartition 此实例的分区标识符。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidActivity 为其创建对象的活动 ID。[in] guidObject 池中对象的 CLSID。[in] dwAvailable 池中的对象数。[in] oid 此对象的唯一标识符。[in] guidPartition 此实例的分区标识符。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT 值。如果成功，则返回 S_OK。"
+        "description": "返回 HRESULT 值。如果成功，则返回 S_OK。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -2009,16 +2136,19 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidActivity 为其创建对象的活动 ID。[in] guidObject 池中对象的 CLSID。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidActivity 为其创建对象的活动 ID。[in] guidObject 池中对象的 CLSID。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "guidTx",
           "direction": "in",
-          "description": "事务标识符。[in] objid 此对象的唯一标识符。"
+          "description": "事务标识符。[in] objid 此对象的唯一标识符。",
+          "type": "REFGUID"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 S_OK。如果失败，则返回其他 HRESULT 值。"
+        "description": "如果成功，则返回 S_OK。如果失败，则返回其他 HRESULT 值。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows"
@@ -2046,16 +2176,19 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidActivity 为其创建对象的活动 ID。[in] guidObject 池中对象的 CLSID。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidActivity 为其创建对象的活动 ID。[in] guidObject 池中对象的 CLSID。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "guidTx",
           "direction": "in",
-          "description": "事务标识符。[in] objid 此对象的唯一标识符。"
+          "description": "事务标识符。[in] objid 此对象的唯一标识符。",
+          "type": "REFGUID"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回 S_OK；否则返回错误代码。"
+        "description": "如果成功，返回 S_OK；否则返回错误代码。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -2076,11 +2209,13 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidActivity 为其创建对象的活动 ID。[in] guidObject 池中对象的 CLSID。[in] dwAvailable 池中的对象数。[in] oid 此对象的唯一标识符。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidActivity 为其创建对象的活动 ID。[in] guidObject 池中对象的 CLSID。[in] dwAvailable 池中的对象数。[in] oid 此对象的唯一标识符。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，失败时返回错误代码。"
+        "description": "成功时返回 S_OK，失败时返回错误代码。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -2101,11 +2236,13 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidObject 池中对象的 CLSID。[in] nReason 此参数始终为 0。[in] dwAvailable 池中的对象数。[in] oid 此对象的唯一标识符。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidObject 池中对象的 CLSID。[in] nReason 此参数始终为 0。[in] dwAvailable 池中的对象数。[in] oid 此对象的唯一标识符。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 S_OK。"
+        "description": "如果成功，则返回 S_OK。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -2126,11 +2263,13 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidActivity 为其创建对象的活动 ID。[in] guidObject 池中对象的 CLSID。[in] guidTx 表示事务标识符的 GUID。[in] objid 此对象的唯一标识符。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidActivity 为其创建对象的活动 ID。[in] guidObject 池中对象的 CLSID。[in] guidTx 表示事务标识符的 GUID。[in] objid 此对象的唯一标识符。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT 值。成功时返回 S_OK，失败时返回其他错误代码。"
+        "description": "返回 HRESULT 值。成功时返回 S_OK，失败时返回其他错误代码。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -2156,21 +2295,25 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "dwThreadsWaiting",
           "direction": "in",
-          "description": "等待对象的线程数。[in] dwAvail 池中的可用对象数。"
+          "description": "等待对象的线程数。[in] dwAvail 池中的可用对象数。",
+          "type": "DWORD"
         },
         {
           "name": "dwCreated",
           "direction": "in",
-          "description": "池中的对象总数。[in] dwMin 池的最小对象值。[in] dwMax 池的最大对象值。"
+          "description": "池中的对象总数。[in] dwMin 池的最小对象值。[in] dwMax 池的最大对象值。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "返回 S_OK 表示池应创建新对象，返回 S_FALSE 表示池应使用现有对象。"
+        "description": "返回 S_OK 表示池应创建新对象，返回 S_FALSE 表示池应使用现有对象。",
+        "type": "HRESULT"
       },
       "remarks": "为对象池配置组件时，池中将填充最高为指定最低级别的对象。 当客户端对组件的请求传入时，他们以先到先得的方式从池中得到满足。 如果没有可用的共用对象，并且池尚未达到其指 定的最大级别，则会为客户端创建并激活一个新对象。",
       "header": "comsvcs.h",
@@ -2192,10 +2335,14 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidObject 池中对象的 CLSID。[in] dwMin 池的最小对象值。[in] dwMax 池的最大对象值。[in] dwTimeout 池的超时值。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidObject 池中对象的 CLSID。[in] dwMin 池的最小对象值。[in] dwMax 池的最大对象值。[in] dwTimeout 池的超时值。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
-      "return_value": "返回HRESULT，指示操作是否成功。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "返回HRESULT，指示操作是否成功。"
+      },
       "header": "comsvcs.h",
       "deprecated": false,
       "cross_references": [
@@ -2215,15 +2362,20 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidObject 池中对象的 CLSID。[in] guidActivity 在其中创建对象的活动的标识符。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidObject 池中对象的 CLSID。[in] guidActivity 在其中创建对象的活动的标识符。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "dwTimeout",
           "direction": "in",
-          "description": "池的超时值。"
+          "description": "池的超时值。",
+          "type": "DWORD"
         }
       ],
-      "return_value": "S_OK 表示已处理超时事件，S_FALSE 表示未处理。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "S_OK 表示已处理超时事件，S_FALSE 表示未处理。"
+      },
       "header": "comsvcs.h",
       "deprecated": false,
       "cross_references": [
@@ -2245,11 +2397,13 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidMsgId 消息的唯一标识符。[in] guidWorkFlowId 此参数为保留参数。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidMsgId 消息的唯一标识符。[in] guidWorkFlowId 此参数为保留参数。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，返回S_OK；否则返回错误HRESULT值"
+        "description": "如果方法成功，返回S_OK；否则返回错误HRESULT值",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows"
@@ -2272,26 +2426,31 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] ObjectID 实时激活的对象。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] ObjectID 实时激活的对象。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "pszType",
           "direction": "in",
-          "description": "资源的说明。[in] resId 资源的唯一标识符。"
+          "description": "资源的说明。[in] resId 资源的唯一标识符。",
+          "type": "LPCOLESTR"
         },
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] ObjectID 实时激活的对象。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] ObjectID 实时激活的对象。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "pszType",
           "direction": "in",
-          "description": "资源的说明。[in] resId 资源的唯一标识符。[in] enlisted 指示资源是否已登记在事务中。"
+          "description": "资源的说明。[in] resId 资源的唯一标识符。[in] enlisted 指示资源是否已登记在事务中。",
+          "type": "LPCOLESTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 S_OK。"
+        "description": "如果成功，则返回 S_OK。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -2313,16 +2472,19 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidActivity 为其创建对象的活动标识符。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] guidActivity 为其创建对象的活动标识符。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "AptID",
           "direction": "in",
-          "description": "公寓标识符。"
+          "description": "公寓标识符。",
+          "type": "ULONG64"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT 值。成功时返回 S_OK，失败时返回错误代码。"
+        "description": "返回 HRESULT 值。成功时返回 S_OK，失败时返回错误代码。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -2343,25 +2505,32 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] ThreadID 唯一线程标识符。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] ThreadID 唯一线程标识符。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "AptID",
           "direction": "in",
-          "description": "公寓标识符。[in] dwActCnt 绑定到此公寓的活动数。[in] dwLowCnt 此参数为保留参数。"
+          "description": "公寓标识符。[in] dwActCnt 绑定到此公寓的活动数。[in] dwLowCnt 此参数为保留参数。",
+          "type": "ULONG64"
         },
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] ThreadID 唯一线程标识符。[in] dwThread Windows 线程标识符。[in] dwTheadCnt STA 线程池中的线程数。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] ThreadID 唯一线程标识符。[in] dwThread Windows 线程标识符。[in] dwTheadCnt STA 线程池中的线程数。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] ThreadID 唯一线程标识符。[in] dwThread Windows 线程标识符。[in] dwTheadCnt STA 线程池中的线程数。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] ThreadID 唯一线程标识符。[in] dwThread Windows 线程标识符。[in] dwTheadCnt STA 线程池中的线程数。",
+          "type": "COMSVCSEVENTINFO"
         }
       ],
-      "return_value": "成功时返回 S_OK，否则返回错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "成功时返回 S_OK，否则返回错误代码。"
+      },
       "header": "comsvcs.h",
       "deprecated": false,
       "cross_references": [
@@ -2381,22 +2550,26 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "AptID",
           "direction": "in",
-          "description": "公寓标识符。"
+          "description": "公寓标识符。",
+          "type": "ULONG64"
         },
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] ThreadID 唯一线程标识符。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。[in] ThreadID 唯一线程标识符。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "AptID",
           "direction": "in",
-          "description": "公寓标识符。[in] dwActCnt 单元线程上的当前活动数。"
+          "description": "公寓标识符。[in] dwActCnt 单元线程上的当前活动数。",
+          "type": "ULONG64"
         },
         {
           "name": "pCount",
@@ -2415,7 +2588,8 @@
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2443,7 +2617,8 @@
         {
           "name": "pToplevelCollection",
           "direction": "in",
-          "description": "指向跟踪信息已更改的集合的 IUnknown 接口的指针。"
+          "description": "指向跟踪信息已更改的集合的 IUnknown 接口的指针。",
+          "type": "IUnknown"
         },
         {
           "name": "szPropertyName",
@@ -2467,7 +2642,8 @@
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2499,15 +2675,20 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "guidTx",
           "direction": "in",
-          "description": "事务标识符。"
+          "description": "事务标识符。",
+          "type": "REFGUID"
         }
       ],
-      "return_value": "如果成功则返回S_OK，否则返回错误HRESULT。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果成功则返回S_OK，否则返回错误HRESULT。"
+      },
       "requirements": {
         "target_platform": "Windows"
       },
@@ -2527,15 +2708,20 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "guidTx",
           "direction": "in",
-          "description": "事务标识符。"
+          "description": "事务标识符。",
+          "type": "REFGUID"
         }
       ],
-      "return_value": "返回 HRESULT 值。如果成功，返回 S_OK。如果失败，返回错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "返回 HRESULT 值。如果成功，返回 S_OK。如果失败，返回错误代码。"
+      },
       "requirements": {
         "target_platform": "Windows"
       },
@@ -2555,16 +2741,19 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "guidTx",
           "direction": "in",
-          "description": "事务标识符。[in] fVoteYes 有关准备阶段结果的资源管理器结果。"
+          "description": "事务标识符。[in] fVoteYes 有关准备阶段结果的资源管理器结果。",
+          "type": "REFGUID"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT 值。成功时返回 S_OK，失败时返回其他错误代码。"
+        "description": "返回 HRESULT 值。成功时返回 S_OK，失败时返回其他错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows"
@@ -2587,16 +2776,19 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "guidTx",
           "direction": "in",
-          "description": "事务标识符。[in] tsid 与 对象关联的事务流标识符。[in] fRoot 指示事务是否为根事务。[in] nIsolationLevel 事务的隔离级别。"
+          "description": "事务标识符。[in] tsid 与 对象关联的事务流标识符。[in] fRoot 指示事务是否为根事务。[in] nIsolationLevel 事务的隔离级别。",
+          "type": "REFGUID"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT 值。成功时返回 S_OK，失败时返回错误代码。"
+        "description": "返回 HRESULT 值。成功时返回 S_OK，失败时返回错误代码。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -2621,16 +2813,19 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "guidTx",
           "direction": "in",
-          "description": "事务标识符。"
+          "description": "事务标识符。",
+          "type": "REFGUID"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT 值。成功时返回 S_OK，失败时返回其他错误代码。"
+        "description": "返回 HRESULT 值。成功时返回 S_OK，失败时返回其他错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows"
@@ -2651,16 +2846,19 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "guidTx",
           "direction": "in",
-          "description": "事务标识符。[in] fVoteYes 资源管理器的结果与准备阶段的结果有关。"
+          "description": "事务标识符。[in] fVoteYes 资源管理器的结果与准备阶段的结果有关。",
+          "type": "REFGUID"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT。S_OK 表示投票同意事务，S_FALSE 表示投票拒绝。"
+        "description": "返回 HRESULT。S_OK 表示投票同意事务，S_FALSE 表示投票拒绝。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows"
@@ -2683,17 +2881,20 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "guidTx",
           "direction": "in",
-          "description": "事务标识符。[in] tsid 事务流标识符;与对象关联的唯一标识符。[in] fRoot 指示此是否为根事务。"
+          "description": "事务标识符。[in] tsid 事务流标识符;与对象关联的唯一标识符。[in] fRoot 指示此是否为根事务。",
+          "type": "REFGUID"
         },
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 COMSVCSEVENTINFO 结构的指针。"
+          "description": "指向 COMSVCSEVENTINFO 结构的指针。",
+          "type": "COMSVCSEVENTINFO"
         },
         {
           "name": "pvarEvent",
@@ -2736,7 +2937,10 @@
           "description": "完成标志。"
         }
       ],
-      "return_value": "{\"description\": \"此方法可以返回标准返回值 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL 和 S_OK。\"}",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "{\"description\": \"此方法可以返回标准返回值 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL 和 S_OK。\"}"
+      },
       "remarks": "使用 EnumNames 方法获取对枚举器对象的引用。 返回的 IEnumNames 接口公开了几种方法，可用于循环访问表示上下文对象属性的 BSTR 值列表。 如果具有名称，则可以使用 GetProperty 方法获取对它所表示的上下文对象属性的引用。 与任何 COM 对象一样，在使用完枚举器对象 后，必须释放该对象。 若要检索 IIS 对象，请使用 IIS 对象接口返回的 VARIANT 的 VT_DISPATCH 成员调用 QueryInterface， (例如 Response 对象的 IResponse) 。",
       "requirements": {
         "target_platform": "Windows",
@@ -2765,7 +2969,8 @@
         {
           "name": "pTransaction",
           "direction": "in",
-          "description": "请求的对象参与的事务。[in] rclsid 要从中创建所请求对象的 类的 CLSID。[in] riid 对接口标识符的引用 (用于与请求对象通信的接口的 IID) 。[out, retval] pObject 接收使用 riid 指定的接口指针的指针变量的地址。"
+          "description": "请求的对象参与的事务。[in] rclsid 要从中创建所请求对象的 类的 CLSID。[in] riid 对接口标识符的引用 (用于与请求对象通信的接口的 IID) 。[out, retval] pObject 接收使用 riid 指定的接口指针的指针变量的地址。",
+          "type": "IUnknown"
         },
         {
           "name": "bstrTipUrl",
@@ -2775,7 +2980,8 @@
         {
           "name": "pTransaction",
           "direction": "in",
-          "description": "一个 ITransaction 接口指针，指示要在其中创建 COM+ 对象的事务。[in] rclsid 要实例化的对象类型的 CLSID。[in] riid 要由 ppvObj 参数返回的接口的 ID。[out] pObject 通过 riid 参数指定的接口，由 rclsid 参数指定的类型的新对象。"
+          "description": "一个 ITransaction 接口指针，指示要在其中创建 COM+ 对象的事务。[in] rclsid 要实例化的对象类型的 CLSID。[in] riid 要由 ppvObj 参数返回的接口的 ID。[out] pObject 通过 riid 参数指定的接口，由 rclsid 参数指定的类型的新对象。",
+          "type": "IUnknown"
         },
         {
           "name": "crmLogRec",
@@ -2814,7 +3020,8 @@
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和S_OK。 此方法可以返回以下值："
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和S_OK。 此方法可以返回以下值：",
+        "type": "HRESULT"
       },
       "remarks": "CRM 职员使用 ICrmLogControl：：RegisterCompensator 方法确定 CRM 补偿器的 CLSID。 接下来，它调用 CoCreateInstance，指定此 CRM 补偿器的 CLSID，然后为 ICrmCompensator 接 口和 ICrmCompensatorVariants 接口调用 QueryInterface。 日志记录按写入的相反顺序传送。 CRM 补偿器可以多次接收此方法，对写入的每个日志记录一次。 如果未写入日志记录，则接收 BeginAbort 和 EndAbort 方法，但没有 AbortRecord 方法调用。 CRM 补偿器可以选择忘记在此阶段传送给它的记录，方法是在此方法返回时设置忘记标志。 如果客户端决定启动中止，则可以在正常处理期间接收中止阶段，而无需准备阶段。 CRM 补偿器不应依赖于准备阶段和此阶段之间要维护的任何状态;如果需要，CRM 基础结构可以自由地在这两个阶段之间发布 CRM 补偿器。 但是，状态在 Begin-Record-End 调用之间保持， CRM 补偿器始终在传递任何事务结果方法之前获取 ICrmLogControl 接口。 在恢复期间，补偿器在没有准备阶段的情况下接收提交或中止阶段。 此外，如果客户端决定启动中止，则可以在正常处理期间接收中止阶段，而无需准备阶段。 CRM 补偿器不应依赖于准备和提交/中止阶段之间要维护的任何状态;如果需要，CRM 基础结构可以自由地在这两个阶段之间发布 CRM 补偿器。 但是，状态在 Begin-Record-End 调用之间保 持，CRM 补偿器始终在传递任何事务结果方法之前获取 ICrmLogControl 接口。 此方法可由 CRM 补偿器多次接收，针对写入的每个日志记录接收一次。 如果未写入日志记录，则接收 BeginCommit 和 EndCommit 方法，但不会调用 CommitRecord 方法。 CRM 补偿器可以选择忘记在此阶段传递的记录，方法是在从此方法返回时设置 forget 标志。 非结构化日志记录以 CrmLogRecordRead 结构的形式提供。 除了将用户数据 (作为单个 BLOB)，此结构还包含几个额外的字段，如果需要人工补偿，这些字段可用于调试或故障查找。 dwCrmFlags 成员是一个位字段，提供有关是否在某个时间点以及写入时是否忘记了此记录的进一步信息。 dwSequenceNumber 成员提供日志记录的序列号。 在大多数情况下，序列号是连续的，但由于内部日志记录未传递到 CRM 补偿器，因此不一定是连续的。 如果 CRM 辅助角色未写入任何日志记录，则接收 BeginPrepare 和 EndPrepare 方法，但没有 PrepareRecord 方法调用。 这是为了允许仅在准备时写入日志记录的 CRM 补偿器。 CRM 补偿器可以选择忘记在此阶段传送给它的记录，方法是在此方法返回时设置忘记标志。 CRM 补偿器错误会导致服务器进程的故障发生，除非已通过此特定 CRM 补偿器 CLSID 的注册 表标志) 专门重写此错误 (。 有关详细信息 ，请参阅 COM+ CRM 注册表设置 。 CRM clerk 使用 ICrmLogControl：：RegisterCompensator 方法确定 CRM 补偿器的 CLSID。 接下来，它调用 CoCreateInstance 来指定此 CRM 补偿器的 CLSID，然后为 ICrmCompensator 接 口和 ICrmCompensatorVariants 接口调用 QueryInterface。",
       "requirements": {
@@ -2858,11 +3065,13 @@
         {
           "name": "pLogRecord",
           "direction": "in",
-          "description": "日志记录 (为 variants) 数组。[out] pbForget 指示是否应忘记传递的记录。"
+          "description": "日志记录 (为 variants) 数组。[out] pbForget 指示是否应忘记传递的记录。",
+          "type": "VARIANT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "CRM 补偿器可能会多次接收此方法，针对写入的每个日志记录接收一次。 如果未写入日志记录，则接收 BeginAbortVariants 和 EndAbortVariants 方法，但没有 AbortRecordVariants 方法调用。 CRM 补偿器可以选择忘记在此阶段传送给它的记录，方法是在此方法返回时设置忘记标志。",
       "header": "comsvcs.h",
@@ -2886,11 +3095,13 @@
         {
           "name": "bRecovery",
           "direction": "in",
-          "description": "指示是否在恢复期间调用此方法。"
+          "description": "指示是否在恢复期间调用此方法。",
+          "type": "VARIANT_BOOL"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "CRM 补偿器不应依赖于准备阶段和中止阶段之间要维护的任何状态。如果需要，CRM 基础结构可以自由地在这两个阶段之间发布 CRM 补偿器。但是，状态在 Begin-Record-End 调用之间保持，CRM 补偿器始终在传递任何事务结果方法之前获取 ICrmLogControl 接口。",
       "requirements": {
@@ -2915,11 +3126,13 @@
         {
           "name": "bRecovery",
           "direction": "in",
-          "description": "指示是否在恢复期间调用此方法。"
+          "description": "指示是否在恢复期间调用此方法。",
+          "type": "VARIANT_BOOL"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "CRM 补偿器不应依赖于准备阶段和提交阶段之间要维护的任何状态。如果需要，CRM 基础结构可以自由地在这两个阶段之间发布 CRM 补偿器。但是，状态在 Begin-Commit-End 调用之间保持，CRM 补偿器始终在传递任何事务结果方法之前获取 ICrmLogControl 接口。",
       "requirements": {
@@ -2947,7 +3160,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 8945,
-      "return_value": "如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。"
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。"
+      }
     },
     {
       "id": "windows::CommitRecordVariants",
@@ -2959,11 +3175,13 @@
         {
           "name": "pLogRecord",
           "direction": "in",
-          "description": "日志记录 (为 variants) 数组。[out] pbForget 指示是否应忘记传递的记录。"
+          "description": "日志记录 (为 variants) 数组。[out] pbForget 指示是否应忘记传递的记录。",
+          "type": "VARIANT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "CRM 补偿器可以多次接收此方法，为每个写入的日志记录接收一次。 如果未写入日志记录，则接收 BeginCommitVariants 和 EndCommitVariants 方法，但没有 CommitRecordVariants 方法调用。 CRM 补偿器可以选择忘记在此方法期间传递给它的记录，方法是在此方法返回时设置忘记标志。",
       "header": "comsvcs.h",
@@ -3005,7 +3223,11 @@
         "Server"
       ],
       "confidence": 0.7,
-      "_source_line": 9002
+      "_source_line": 9002,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::EndPrepareVariants",
@@ -3017,7 +3239,8 @@
         {
           "name": "pbOkToPrepare",
           "direction": "out",
-          "description": "指示准备阶段是否成功，在这种情况下，可以提交此事务。"
+          "description": "指示准备阶段是否成功，在这种情况下，可以提交此事务。",
+          "type": "VARIANT_BOOL"
         },
         {
           "name": "pLogRecord",
@@ -3026,7 +3249,8 @@
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "CRM 补偿器可以多次接收此方法，为每个写入的日志记录接收一次。对于 ICrmCompensatorVariants 接口，日志记录的传递方式与写入方式相同。CRM 标志和序列号作为数组中的最后两个元素追加。",
       "header": "comsvcs.h",
@@ -3049,7 +3273,8 @@
         {
           "name": "pLogControl",
           "direction": "in",
-          "description": "指向 CRM 职员的 ICrmLogControl 接口的指针。"
+          "description": "指向 CRM 职员的 ICrmLogControl 接口的指针。",
+          "type": "ICrmLogControl"
         },
         {
           "name": "CrmLogRec",
@@ -3058,7 +3283,8 @@
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。否则，将返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "若要写入其他日志记录，请使用 ICrmLogControl 接口。",
       "requirements": {
@@ -3084,11 +3310,13 @@
         {
           "name": "plColumnCount",
           "direction": "out",
-          "description": "日志记录中) (列的字段数。"
+          "description": "日志记录中) (列的字段数。",
+          "type": "long"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回以下值。成功时返回 S_OK。"
+        "description": "此方法可以返回以下值。成功时返回 S_OK。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -3106,11 +3334,13 @@
         {
           "name": "pHeaders",
           "direction": "out",
-          "description": "一个 Variant 数组，其中包含作为 Variant 字符串的字段名称。"
+          "description": "一个 Variant 数组，其中包含作为 Variant 字符串的字段名称。",
+          "type": "LPVARIANT"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回以下值。返回代码 S_OK 表示成功。"
+        "description": "此方法可以返回以下值。返回代码 S_OK 表示成功。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -3128,11 +3358,13 @@
         {
           "name": "LogRecord",
           "direction": "in",
-          "description": "要设置格式的结构化日志记录。[out] pFormattedLogRecord 此日志记录中的字段作为 Variant 字符串的 Variant 数组。"
+          "description": "要设置格式的结构化日志记录。[out] pFormattedLogRecord 此日志记录中的字段作为 Variant 字符串的 Variant 数组。",
+          "type": "VARIANT"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK。"
+        "description": "成功时返回 S_OK。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -3163,10 +3395,14 @@
         {
           "name": "pLogRecord",
           "direction": "in",
-          "description": "指向 Variants 的 Variant 数组的指针。 这必须是下限为零的单维数组。"
+          "description": "指向 Variants 的 Variant 数组的指针。 这必须是下限为零的单维数组。",
+          "type": "VARIANT"
         }
       ],
-      "return_value": "HRESULT返回值，成功时返回S_OK",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "HRESULT返回值，成功时返回S_OK"
+      },
       "header": "comsvcs.h",
       "deprecated": false,
       "cross_references": [],
@@ -3211,7 +3447,8 @@
         }
       ],
       "return_value": {
-        "description": "此方法可以返回以下值。 返回代码 S_OK"
+        "description": "此方法可以返回以下值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -3232,14 +3469,19 @@
         {
           "name": "ApplicationInstanceId",
           "direction": "in",
-          "description": "唯一标识要选择的跟踪进程的应用程序实例 GUID;如果将改用 ProcessId 参数进行选择，则"
+          "description": "唯一标识要选择的跟踪进程的应用程序实例 GUID;如果将改用 ProcessId 参数进行选择，则",
+          "type": "REFGUID"
         }
       ],
       "header": "comsvcs.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 10329
+      "_source_line": 10329,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetApplicationProcesses",
@@ -3251,14 +3493,19 @@
         {
           "name": "PartitionId",
           "direction": "in",
-          "description": "用于筛选结果的分区 ID，或为所有分区GUID_NULL。[in] ApplicationId 用于筛选结果的应用程序 ID，或为所有应用程序GUID_NULL。[in] Flags 来自 GetAppTrackerDataFlags 枚举的标志的组合，用于筛选结果和选择返回的数据。 支持以下标志：GATD_INCLUDE_PROCESS_EXE_NAME、GATD_INCLUDE_LIBRARY_APPS、"
+          "description": "用于筛选结果的分区 ID，或为所有分区GUID_NULL。[in] ApplicationId 用于筛选结果的应用程序 ID，或为所有应用程序GUID_NULL。[in] Flags 来自 GetAppTrackerDataFlags 枚举的标志的组合，用于筛选结果和选择返回的数据。 支持以下标志：GATD_INCLUDE_PROCESS_EXE_NAME、GATD_INCLUDE_LIBRARY_APPS、",
+          "type": "REFGUID"
         }
       ],
       "header": "comsvcs.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 10375
+      "_source_line": 10375,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::AppZ",
@@ -3284,14 +3531,19 @@
         {
           "name": "ApplicationInstanceId",
           "direction": "in",
-          "description": "唯一标识要选择的跟踪进程的应用程序实例 GUID;如果将改用 ProcessId 参数进行选择，则"
+          "description": "唯一标识要选择的跟踪进程的应用程序实例 GUID;如果将改用 ProcessId 参数进行选择，则",
+          "type": "REFGUID"
         }
       ],
       "header": "comsvcs.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 10422
+      "_source_line": 10422,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetComponentDetails",
@@ -3303,14 +3555,19 @@
         {
           "name": "ApplicationInstanceId",
           "direction": "in",
-          "description": "唯一标识要选择的跟踪进程的应用程序实例 GUID;如果将改用 ProcessId 参数进行选择，则"
+          "description": "唯一标识要选择的跟踪进程的应用程序实例 GUID;如果将改用 ProcessId 参数进行选择，则",
+          "type": "REFGUID"
         }
       ],
       "header": "comsvcs.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 10463
+      "_source_line": 10463,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetComponentsInProcess",
@@ -3322,14 +3579,19 @@
         {
           "name": "ApplicationInstanceId",
           "direction": "in",
-          "description": "唯一标识要选择的跟踪进程的应用程序实例 GUID;如果将改用 ProcessId 参数进行选择，则"
+          "description": "唯一标识要选择的跟踪进程的应用程序实例 GUID;如果将改用 ProcessId 参数进行选择，则",
+          "type": "REFGUID"
         }
       ],
       "header": "comsvcs.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 10510
+      "_source_line": 10510,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetSuggestedPollingInterval",
@@ -3341,11 +3603,13 @@
         {
           "name": "PollingIntervalInSeconds",
           "direction": "out",
-          "description": "跟踪器服务器的建议轮询间隔（以秒为单位）。"
+          "description": "跟踪器服务器的建议轮询间隔（以秒为单位）。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回E_INVALIDARG和S_OK的标准返回值。"
+        "description": "此方法可以返回E_INVALIDARG和S_OK的标准返回值。",
+        "type": "HRESULT"
       },
       "remarks": "使用跟踪器数据的应用程序通常需要定期轮询跟踪器服务器，以确保此数据是最新的。例如，向用户显示跟踪数据的管理应用程序通常希望此数据尽可能接近实时。但是，轮询过于频繁可能会降低整体系统性能。另请注意，更新数据的 COM+ 应用程序不会立即将更新发送到跟踪器服务器，因此即使在最佳情况下，也会有一些延迟 (通常只有几秒)。轮询频率是一种全局策略，管理员可以根据需要对其进行调整，以在数据新鲜度和对所管理系统上使用的特定工具集的性能影响之间实现平衡。PollingIntervalInSeconds 中返回的值是应用程序在检索跟踪数据后应等待的最短时间，然后再进行另一次调用以检索相同数据。轮询跟踪器服务器的任何应用程序都应调用此方法并相应地调整其轮询行为。默认情况下，轮询间隔等于跟踪事件频率 (三秒)。可以通过编写以下 REG_DWORD 注册表值来调整此值：HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\COM3TrackingInfoPollingFrequency = 最小轮询间隔",
       "header": "comsvcs.h",
@@ -3378,11 +3642,13 @@
         {
           "name": "ppObject",
           "direction": "out",
-          "description": "对象上下文中对 ISecurityCallContext 的引用。"
+          "description": "对象上下文中对 ISecurityCallContext 的引用。",
+          "type": "ISecurityCallContext"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和E_FAIL，以及以下值。 返回代码 S_OK"
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和E_FAIL，以及以下值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -3431,16 +3697,19 @@
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 IManagedObjectInfo 的指针，用于描述托管对象的存根。[in] fDist 指示创建的存根是否为可分辨存根。 可分辨存根是控制当前 COM+ 上下文生存期的存根。"
+          "description": "指向 IManagedObjectInfo 的指针，用于描述托管对象的存根。[in] fDist 指示创建的存根是否为可分辨存根。 可分辨存根是控制当前 COM+ 上下文生存期的存根。",
+          "type": "IManagedObjectInfo"
         },
         {
           "name": "pInfo",
           "direction": "in",
-          "description": "指向 IManagedObjectInfo 的指针，用于描述托管对象的存根。"
+          "description": "指向 IManagedObjectInfo 的指针，用于描述托管对象的存根。",
+          "type": "IManagedObjectInfo"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL 和 S_OK。"
+        "description": "此方法可以返回标准返回值 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL 和 S_OK。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3465,11 +3734,13 @@
         {
           "name": "bStrong",
           "direction": "in",
-          "description": "指示托管对象是保留对 COM+ 上下文的强引用还是弱引用。 强引用使对象保持活动状态，并防 止它在垃圾回收期间被销毁。"
+          "description": "指示托管对象是保留对 COM+ 上下文的强引用还是弱引用。 强引用使对象保持活动状态，并防 止它在垃圾回收期间被销毁。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。"
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3503,11 +3774,13 @@
         {
           "name": "bstrRole",
           "direction": "in",
-          "description": "角色的名称。[out] pfInRole 如果用户处于指定角色，TRUE;如果不是，FALSE。 如果未为应用程序定义指定的角色，则返回 FALSE。 如果未启用基于角色的安全性，则此参数设置为 TRUE。"
+          "description": "角色的名称。[out] pfInRole 如果用户处于指定角色，TRUE;如果不是，FALSE。 如果未为应用程序定义指定的角色，则返回 FALSE。 如果未启用基于角色的安全性，则此参数设置为 TRUE。",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "Standard COM return values including S_OK, E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL."
+        "description": "Standard COM return values including S_OK, E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL.",
+        "type": "HRESULT"
       },
       "remarks": "可以使用此方法来确保需要事务的对象永远不会在没有事务的情况下运行。 例如，如果在组件服务管理工具中错误地配置了需要事务的组件，则可以使用此方法确定对象没有事务。 然后， 可以返回错误，向用户发出问题警报，或采取任何适当的操作。 在 COM+ 环境中，服务器和库应用程序可以使用基于角色的安全性。 IsSecurityEnabled 在应用程序使用基于角色的安全性时返回 TRUE，并为应用程序启用基于角色的安全性，并为调用该方法的特定组件启用基于角色的安全性。 MTS 2.0：MTS 2.0 中，当当前对象在库应用程序中运行时，此方法始终返回 FALSE，因为 MTS 库应用程序无法使用基于角色的安全性。 但是，在 COM+ 环境中，库应用程序可以选择使用基 于角色的安全性。",
       "requirements": {
@@ -3533,16 +3806,19 @@
         {
           "name": "pGuid",
           "direction": "out",
-          "description": "标识应用程序实例的 GUID。"
+          "description": "标识应用程序实例的 GUID。",
+          "type": "GUID"
         },
         {
           "name": "pGuid",
           "direction": "out",
-          "description": "标识 COM+ 分区的 GUID。"
+          "description": "标识 COM+ 分区的 GUID。",
+          "type": "GUID"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK。"
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3596,11 +3872,13 @@
         {
           "name": "pSID",
           "direction": "out",
-          "description": "对启动当前对象正在执行的活动的基本进程的安全 ID 的引用。"
+          "description": "对启动当前对象正在执行的活动的基本进程的安全 ID 的引用。",
+          "type": "PSID"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和E_FAIL，以及以下值。 返回代码 S_OK"
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和E_FAIL，以及以下值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -3618,12 +3896,14 @@
         {
           "name": "pIdentity",
           "direction": "in",
-          "description": "指向用于调用 方法的接口的指针。[in] riid 用于调用 方法的接口的 ID。"
+          "description": "指向用于调用 方法的接口的指针。[in] riid 用于调用 方法的接口的 ID。",
+          "type": "const void"
         },
         {
           "name": "dwMeth",
           "direction": "in",
-          "description": "调用 的方法。[in] hrCall 方法调用返回的结果。[in] hrServer DCOM 调用组件所在的服务器返回的结果。"
+          "description": "调用 的方法。[in] hrCall 方法调用返回的结果。[in] hrServer DCOM 调用组件所在的服务器返回的结果。",
+          "type": "DWORD"
         },
         {
           "name": "pIServiceCall",
@@ -3632,7 +3912,8 @@
         }
       ],
       "return_value": {
-        "description": "此方法可以返回 S_OK 或标准错误值如 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL。"
+        "description": "此方法可以返回 S_OK 或标准错误值如 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3660,7 +3941,8 @@
         {
           "name": "comtiIntrinsicsConfig",
           "direction": "in",
-          "description": "CSC_COMTIIntrinsicsConfig枚举中的值。"
+          "description": "CSC_COMTIIntrinsicsConfig枚举中的值。",
+          "type": "CSC_COMTIIntrinsicsConfig"
         },
         {
           "name": "iisIntrinsicsConfig",
@@ -3669,7 +3951,8 @@
         }
       ],
       "return_value": {
-        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_FAIL和S_OK的标准返回值。"
+        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_FAIL和S_OK的标准返回值。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -3692,11 +3975,13 @@
         {
           "name": "pTxProxy",
           "direction": "in",
-          "description": "将在其中运行封闭代码的现有事务的 ITransactionProxy 接口。"
+          "description": "将在其中运行封闭代码的现有事务的 ITransactionProxy 接口。",
+          "type": "ITransactionProxy"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_FAIL和S_OK的标准返回值。"
+        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_FAIL和S_OK的标准返回值。",
+        "type": "HRESULT"
       },
       "header": "comsvcs.h",
       "deprecated": false,
@@ -3737,11 +4022,13 @@
         {
           "name": "szTipURL",
           "direction": "in",
-          "description": "事务 Internet 协议 (TIP) 要在其中运行封闭代码的现有事务的 URL。"
+          "description": "事务 Internet 协议 (TIP) 要在其中运行封闭代码的现有事务的 URL。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_FAIL和S_OK的标准返回值。"
+        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_FAIL和S_OK的标准返回值。",
+        "type": "HRESULT"
       },
       "remarks": "当使用自带事务(BYOT)时，该事务的设置将覆盖IServiceTransactionConfigBase接口继承的方法中的设置。IServiceTransactionConfig::ConfigureBYOT和BringYourOwnTransaction方法在功能上是相同的，主要区别在于传递给每个方法的参数类型不同。",
       "requirements": {
@@ -3768,14 +4055,19 @@
         {
           "name": "Index",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "int"
         }
       ],
       "header": "comsvcs.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 14728
+      "_source_line": 14728,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::SharedPropertyGroup",
@@ -3798,7 +4090,8 @@
         {
           "name": "plcCurrentQueuedRequests",
           "direction": "out",
-          "description": "当前排队的异步执行请求数。"
+          "description": "当前排队的异步执行请求数。",
+          "type": "long"
         },
         {
           "name": "plcCurrentThreads",
@@ -3812,7 +4105,8 @@
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL 和 S_OK。"
+        "description": "此方法可以返回标准返回值 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL 和 S_OK。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3893,11 +4187,13 @@
         {
           "name": "pPool",
           "direction": "in",
-          "description": "事务资源池中每个对象的键。 它确定要从列表中检索的共用对象的类型。[out] ppUnk 对共用对象的 IUnknown 的引用。 检索到的对象必须与使用 PutResource 放置在列表上的对象具有相同的 IObjPool 指针。"
+          "description": "事务资源池中每个对象的键。 它确定要从列表中检索的共用对象的类型。[out] ppUnk 对共用对象的 IUnknown 的引用。 检索到的对象必须与使用 PutResource 放置在列表上的对象具有相同的 IObjPool 指针。",
+          "type": "ITransactionVoterNotifyAsync2*pTxAsync, ITransactionVoterBallotAsync2*ppBallot); HRESULT GetIdentifier( [out, retval] GUID*pbstrIdentifier); HRESULT GetIsolationLevel( [out, retval] ISOLEVEL*__MIDL__ITransactionProxy0000); HRESULT IsReusable( BOOL*pfIsReusable); HRESULT Promote( ITransaction*pTransaction); HRESULT GetResource( IObjPool"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和S_OK。 此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和S_OK。 此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和S_OK。 此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和S_OK。 此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和S_OK。 此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY和E_UNEXPECTED，以及以下值。 返回代码 S_OK"
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和S_OK。 此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和S_OK。 此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和S_OK。 此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和S_OK。 此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED和S_OK。 此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY和E_UNEXPECTED，以及以下值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "remarks": "将非 DTC 事务提升为 DTC 事务的原因包括导出事务和使用排队名字对象记录器。",
       "requirements": {
@@ -3954,7 +4250,8 @@
         {
           "name": "ppTxPool",
           "direction": "out",
-          "description": "对事务资源池的引用。"
+          "description": "对事务资源池的引用。",
+          "type": "ITransactionResourcePool"
         },
         {
           "name": "guid",
@@ -3963,7 +4260,8 @@
         }
       ],
       "return_value": {
-        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK的标准返 回值。 此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY和E_UNEXPECTED，以及以下值。 返回代码 S_OK"
+        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK的标准返 回值。 此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY和E_UNEXPECTED，以及以下值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "remarks": "调用 ITransactionProxy：：Abort 在返回 方法时结束事务，并自动停用所有参与对象。 事务中 登记的每个资源管理器都会回滚代表这些对象执行的操作。",
       "requirements": {
@@ -3991,11 +4289,13 @@
         {
           "name": "pPool",
           "direction": "in",
-          "description": "事务资源池中每个对象的键。 它确定要添加到列表的共用对象的类型。[in] pUnk 对共用对象的 IUnknown 的引用。"
+          "description": "事务资源池中每个对象的键。 它确定要添加到列表的共用对象的类型。[in] pUnk 对共用对象的 IUnknown 的引用。",
+          "type": "IObjPool"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK的标准返 回值。"
+        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK的标准返 回值。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -4021,16 +4321,19 @@
         {
           "name": "riid",
           "direction": "in",
-          "description": "ppObj 参数要返回的接口的 ID。 应始终IID_IMTSActivity此参数，以便返回指向 IMTSActivity 的指针。"
+          "description": "ppObj 参数要返回的接口的 ID。 应始终IID_IMTSActivity此参数，以便返回指向 IMTSActivity 的指针。",
+          "type": "HRESULT hrStatus); 参数 hrStatus 事务的状态。 HRESULT MTSCreateActivity( REFIID"
         },
         {
           "name": "ppobj",
           "direction": "out",
-          "description": "指向活动对象的接口的指针。 活动对象通过调用 MTSCreateActivity 自动创建。"
+          "description": "指向活动对象的接口的指针。 活动对象通过调用 MTSCreateActivity 自动创建。",
+          "type": "void"
         }
       ],
       "return_value": {
-        "description": "此方法可返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_FAIL和S_OK。 此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_FAIL和S_OK的标准返回值。"
+        "description": "此方法可返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_FAIL和S_OK。 此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_FAIL和S_OK的标准返回值。",
+        "type": "HRESULT"
       },
       "remarks": "MTSCreateActivity 创建一个活动对象，该对象用于将批处理工作提交到 COM+ 系统。 通过 MTSCreateActivity 提交的批处理工作可以是同步的，也可以是异步的，并在单线程单元中运行， (STA) 。 MTSCreateActivity 返回指向由调用 MTSCreateActivity 创建的 对象的 IMTSActivity 接口的指针。 通过使用 IMTSActivity 的方法，可以确定批处理工作是同步完成还是异步完成。 批处理工作本身通过 IMTSCall 接口实现。 要求",
       "header": "comsvcs.h",
@@ -4111,11 +4414,13 @@
         {
           "name": "bstrUserName",
           "direction": "out",
-          "description": "对与当前对象的即时 (进程外) 创建者关联的用户名的引用。"
+          "description": "对与当前对象的即时 (进程外) 创建者关联的用户名的引用。",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。"
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -4139,11 +4444,13 @@
         {
           "name": "bstrUserName",
           "direction": "out",
-          "description": "对与启动调用序列的基进程关联的用户名的引用，该调用从中发起对当前对象的调用。"
+          "description": "对与启动调用序列的基进程关联的用户名的引用，该调用从中发起对当前对象的调用。",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。"
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。",
+        "type": "HRESULT"
       },
       "remarks": "通常，对象的原始调用方是与其原始创建者相同的进程。原始调用方和原始创建者不同的唯一情况是，原始创建者将引用传递给另一个进程，而另一个进程启动调用序列。以下方案演示了此方法的功能：1. 基本进程 1，在服务器 A 上以用户 A 身份运行，在服务器 B 上创建对象 X，以用户 B 身份运行。2. 然后，基本进程 1 将其对对象 X 的引用传递给以用户 D 身份在服务器 D 上运行的基本进程 2。3. 基本进程 2 使用该引用来调用对象 X。4. 然后，对象 X 调用在服务器 C 上运行的对象 Y。如果对象 Y 然后调用 GetOriginalCallerName，则返回用户 D 的名称，而不是最初创建该对象的用户 A 的名称。如果链上的任何对象是通过 ObjectContext::CreateInstance 或 ITransactionContext::CreateInstance 以外的其他方法创建的，则原始调用方的路径将断开。例如，如果基本进程 1 使用 CoCreateInstance 创建对象 X，当对象 Y 调用 GetOriginalCallerName 时，它返回的名称将是用户 B 的名称，而不是用户 D 的名称。这是因为调用序列通过对象的上下文进行跟踪，并且 COM+ 只能为使用 ObjectContext::CreateInstance 或 ITransactionContext::CreateInstance 创建的对象创建上下文。",
       "header": "comsvcs.h",
@@ -4169,11 +4476,13 @@
         {
           "name": "bstrUserName",
           "direction": "out",
-          "description": "对与发起当前对象正在执行的活动的原始基本进程关联的用户名的引用。"
+          "description": "对与发起当前对象正在执行的活动的原始基本进程关联的用户名的引用。",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。"
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -4236,16 +4545,19 @@
         {
           "name": "bstrPropertyName",
           "direction": "in",
-          "description": "请求的属性的名称。"
+          "description": "请求的属性的名称。",
+          "type": "BSTR"
         },
         {
           "name": "propertyValue",
           "direction": "out, retval",
-          "description": "所请求属性的值。"
+          "description": "所请求属性的值。",
+          "type": "retval] VARIANT"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。"
+        "description": "此方法可以返回标准返回值E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK。",
+        "type": "HRESULT"
       },
       "remarks": "发布服务器筛选器应调用此方法以获取订阅生成器存储的筛选器属性。",
       "requirements": {
@@ -4268,11 +4580,13 @@
         {
           "name": "collection",
           "direction": "out, retval",
-          "description": "指向事件对象集合上 IEventObjectCollection 接口的指针的地址。 此参数不能为 NULL。"
+          "description": "指向事件对象集合上 IEventObjectCollection 接口的指针的地址。 此参数不能为 NULL。",
+          "type": "retval] IEventObjectCollection"
         }
       ],
       "return_value": {
-        "description": "此方法可返回E_INVALIDARG、E_POINTER、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK的标准返回值。"
+        "description": "此方法可返回E_INVALIDARG、E_POINTER、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和 S_OK的标准返回值。",
+        "type": "HRESULT"
       },
       "remarks": "属性包用于存储有关订阅者需要通知的事件的信息。例如，如果某个体育代码的订阅者仅获取棒球分数，则可以使用订阅对象中的属性包来指定此限制。",
       "requirements": {
@@ -4295,16 +4609,19 @@
         {
           "name": "bstrPropertyName",
           "direction": "in",
-          "description": "请求的属性的名称。"
+          "description": "请求的属性的名称。",
+          "type": "BSTR"
         },
         {
           "name": "propertyValue",
           "direction": "out, retval",
-          "description": "所请求属性的值。"
+          "description": "所请求属性的值。",
+          "type": "retval] VARIANT"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK的标准返 回值。"
+        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK的标准返 回值。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows"
@@ -4325,7 +4642,8 @@
         {
           "name": "collection",
           "direction": "out, retval",
-          "description": "指向事件对象集合上 IEventObjectCollection 接口的指针的地址。 此参数不能为 NULL。 bstrDescription 返回值无 bstrEventClassID 返回值无 bstrInterfaceID 返回值无 bstrMachineName 返回值无 bstrMethodName 返回值无 bstrPublisherID 返回值无 bstrSubscriberCLSID pSubscriberInterface bstrSubscriptionID bstrSubscriptionName"
+          "description": "指向事件对象集合上 IEventObjectCollection 接口的指针的地址。 此参数不能为 NULL。 bstrDescription 返回值无 bstrEventClassID 返回值无 bstrInterfaceID 返回值无 bstrMachineName 返回值无 bstrMethodName 返回值无 bstrPublisherID 返回值无 bstrSubscriberCLSID pSubscriberInterface bstrSubscriptionID bstrSubscriptionName",
+          "type": "retval] IEventObjectCollection"
         },
         {
           "name": "bstrPropertyName",
@@ -4339,7 +4657,8 @@
         }
       ],
       "return_value": {
-        "description": "此方法可返回标准返回值 E_INVALIDARG、E_POINTER、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL 和 S_OK。"
+        "description": "此方法可返回标准返回值 E_INVALIDARG、E_POINTER、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL 和 S_OK。",
+        "type": "HRESULT"
       },
       "remarks": "属性包用于存储有关订阅者需要通知的事件的信息。例如，如果某个运动代码的订阅者仅获取棒球分数，则它可以使用订阅对象中的属性包来指定此限制。如果未启用订阅，它仍显示在集合中并可以查询，但发布者触发的事件不会到达订阅者。仅当 SubscriberCLSID 属性不为空时，此信息才有意义。此属性对暂时性订阅没有影响。指定 PublisherID 属性并不能保证订阅服务器不会接收由其他发布者触发的事件。如果订阅不为空，则订阅是永久性的，并且 SubscriberInterface 属性必须为 NULL。此属性与持久订阅中的 MachineName 属性结合使用。如果不是 NULL，则订阅是暂时性的，SubscriberCLSID 属性必须为空。",
       "requirements": {
@@ -4366,11 +4685,13 @@
         {
           "name": "bstrPropertyName",
           "direction": "in",
-          "description": "要从属性包中删除其值的属性的名称。"
+          "description": "要从属性包中删除其值的属性的名称。",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK的标准返 回值。"
+        "description": "此方法可以返回E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL和S_OK的标准返 回值。",
+        "type": "HRESULT"
       },
       "remarks": "属性包用于存储有关订阅者需要通知的事件的信息。 例如，如果某个体育代码的订阅者仅获取 棒球分数，则它可以使用订阅对象中的 属性包来指定此限制。",
       "requirements": {
@@ -4392,7 +4713,8 @@
         {
           "name": "bstrPropertyName",
           "direction": "in",
-          "description": "要从属性包中删除其值的属性的名称。 pbstrEventClassID 返回值无"
+          "description": "要从属性包中删除其值的属性的名称。 pbstrEventClassID 返回值无",
+          "type": "BSTR"
         },
         {
           "name": "progID",
@@ -4406,7 +4728,8 @@
         }
       ],
       "return_value": {
-        "description": "可返回 S_OK 表示成功，或标准错误代码如 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL。"
+        "description": "可返回 S_OK 表示成功，或标准错误代码如 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED、E_FAIL。",
+        "type": "HRESULT"
       },
       "remarks": "订阅可以使用 EventObjectChangeEventClassID 属性获取指向事件类对象的指针，该对象在修改订阅服务器或事件时或在事件存储区中添加或删除它们时通知它们。 这些事件的订阅服务器 必须实现 IEventObjectChange 接口。",
       "requirements": {
@@ -4471,11 +4794,13 @@
         {
           "name": "classFilter",
           "direction": "in",
-          "description": "指向与指定方法关联的发布服务器筛选器上的 IMultiInterfacePublisherFilter 接口的指针。"
+          "description": "指向与指定方法关联的发布服务器筛选器上的 IMultiInterfacePublisherFilter 接口的指针。",
+          "type": "IMultiInterfacePublisherFilter"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK。可能返回的错误代码包括 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED 和 E_FAIL。"
+        "description": "成功时返回 S_OK。可能返回的错误代码包括 E_INVALIDARG、E_OUTOFMEMORY、E_UNEXPECTED 和 E_FAIL。",
+        "type": "HRESULT"
       },
       "header": "eventsys.h",
       "deprecated": false,

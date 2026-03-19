@@ -12,7 +12,7 @@ import glob
 from collections import defaultdict
 import networkx as nx
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "json_output_v4")
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "json_output_v4")
 
 def normalize_name(value):
     if value is None:

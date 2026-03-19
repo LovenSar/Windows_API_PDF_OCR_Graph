@@ -226,7 +226,10 @@
       "confidence": 0.35,
       "_source_line": 2052,
       "syntax": "PVOID ExAllocatePoolPriorityZero(\n  POOL_TYPE PoolType,\n  SIZE_T NumberOfBytes,\n  ULONG Tag,\n  EX_POOL_PRIORITY Priority\n);",
-      "return_value": "成功时返回指向已分配并清零的内存块的指针；失败时返回 NULL。",
+      "return_value": {
+        "type": "PVOID",
+        "description": "成功时返回指向已分配并清零的内存块的指针；失败时返回 NULL。"
+      },
       "remarks": "这是一个用于零初始化分配的包装例程。其实现通常基于 ExAllocatePoolWithTagPriority；在较低版本支持场景下，分配成功后可能调用 RtlZeroMemory 对缓冲区进行清零。有关实现细节可参见相应版本的 wdm.h。"
     },
     {
@@ -325,7 +328,10 @@
       "confidence": 0.35,
       "_source_line": 4675,
       "syntax": "NTSTATUS IoCallDriver(\n  PDEVICE_OBJECT DeviceObject,\n  PIRP Irp\n);",
-      "return_value": "Returns the status value returned by the next-lower driver. Drivers that mark the IRP pending should typically return STATUS_PENDING regardless of the immediate return value from IoCallDriver.",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "Returns the status value returned by the next-lower driver. Drivers that mark the IRP pending should typically return STATUS_PENDING regardless of the immediate return value from IoCallDriver."
+      },
       "remarks": "This routine passes an IRP to the next driver in the device stack. A dispatch routine commonly calls IoSkipCurrentIrpStackLocation or IoCopyCurrentIrpStackLocationToNext before calling IoCallDriver. If the driver sets a completion routine, it should do so before passing the IRP down. If the driver marks the IRP pending, it should return STATUS_PENDING."
     },
     {
@@ -389,7 +395,10 @@
       "confidence": 0.35,
       "_source_line": 3859,
       "syntax": "PIRP IoCsqRemoveIrp(\n  PIO_CSQ Csq,\n  PIO_CSQ_IRP_CONTEXT Context\n);",
-      "return_value": "如果找到并成功从队列中删除指定的 IRP，则返回该 IRP 的指针；如果未找到匹配的 IRP，则返回 NULL。",
+      "return_value": {
+        "type": "PIRP",
+        "description": "如果找到并成功从队列中删除指定的 IRP，则返回该 IRP 的指针；如果未找到匹配的 IRP，则返回 NULL。"
+      },
       "remarks": "此例程用于从取消安全 IRP 队列中移除特定 IRP。用于匹配目标 IRP 的上下文通常在 IRP 入队时建立。相关例程包括 IoCsqInsertIrp、IoCsqInsertIrpEx 和 IoCsqRemoveNextIrp。"
     },
     {
@@ -504,7 +513,10 @@
       "confidence": 0.5,
       "_source_line": 18926,
       "syntax": "BOOLEAN IoIs32bitProcess(\n  _In_opt_ PIRP Irp\n);",
-      "return_value": "Returns TRUE if the current I/O request was originated by a 32-bit user-mode process; otherwise FALSE.",
+      "return_value": {
+        "type": "BOOLEAN",
+        "description": "Returns TRUE if the current I/O request was originated by a 32-bit user-mode process; otherwise FALSE."
+      },
       "remarks": "This routine is used by drivers that need to handle request data differently for 32-bit and 64-bit callers, especially on 64-bit systems running 32-bit applications under WOW64. For fast I/O operations, pass NULL. The routine is meaningful only when determining the bitness of a user-mode request originator."
     },
     {
@@ -564,7 +576,10 @@
       "confidence": 0.5,
       "_source_line": 16103,
       "syntax": "NTSTATUS IoUnregisterPlugPlayNotification(\n  PVOID NotificationEntry\n);",
-      "return_value": "成功时返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "成功时返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "此例程用于删除先前注册的 PnP 通知回调。调用方应传入由 IoRegisterPlugPlayNotification 返回的注册句柄，并在适当时机注销通知以避免回调继续触发。某些 PnP 事件（例如目标设备删除完成）处理中通常会调用该例程来清理通知注册。"
     },
     {
@@ -744,7 +759,10 @@
       "confidence": 0.5,
       "_source_line": 14081,
       "syntax": "LONG KeReleaseSemaphore(\n  PRKSEMAPHORE Semaphore,\n  KPRIORITY Increment,\n  LONG Adjustment,\n  BOOLEAN Wait\n);",
-      "return_value": "Returns the previous count of the semaphore.",
+      "return_value": {
+        "type": "LONG",
+        "description": "Returns the previous count of the semaphore."
+      },
       "remarks": "The semaphore object must reside in resident storage. Drivers typically allocate it in device extension, controller extension, or nonpaged pool storage. The semaphore must be initialized with KeInitializeSemaphore before it is released or waited on. A release can make waiting threads eligible for execution depending on the resulting count. This is a kernel-mode routine."
     },
     {
@@ -804,7 +822,10 @@
       "confidence": 0.5,
       "_source_line": 4614,
       "syntax": "LONG KeSetEvent(\n  PRKEVENT Event,\n  KPRIORITY Increment,\n  BOOLEAN Wait\n);",
-      "return_value": "Returns the previous state of the event object.",
+      "return_value": {
+        "type": "LONG",
+        "description": "Returns the previous state of the event object."
+      },
       "remarks": "KeSetEvent is used in kernel-mode drivers to signal synchronization events. The event object must be properly initialized and reside in resident memory. This routine is commonly used in completion routines and other asynchronous I/O paths."
     },
     {
@@ -932,7 +953,10 @@
       "confidence": 0.35,
       "_source_line": 10903,
       "syntax": "NTSTATUS PoRequestPowerIrp(\n  PDEVICE_OBJECT          DeviceObject,\n  UCHAR                   MinorFunction,\n  POWER_STATE             PowerState,\n  PREQUEST_POWER_COMPLETE CompletionFunction,\n  PVOID                   Context,\n  PIRP                    *Irp\n);",
-      "return_value": "返回 NTSTATUS 状态代码。成功时返回成功状态；失败时返回相应错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "返回 NTSTATUS 状态代码。成功时返回成功状态；失败时返回相应错误代码。"
+      },
       "remarks": "该例程用于构造并发送电源 IRP。调用方应为传入的次功能代码提供合适的 POWER_STATE，并在需要异步完成通知时提供完成回调。Irp 参数是可选的。"
     },
     {
@@ -1989,7 +2013,7 @@
     {
       "id": "windows::FILE_FLOPPY_DISKETTE",
       "name": "FILE_FLOPPY_DISKETTE",
-      "entity_type": "Specifies that the device is a floppy diskette. This is one of the device characteristics flags that can be set for a device stack.",
+      "entity_type": "unknown",
       "description": "Specifies that the device is a floppy diskette. This is one of the device characteristics flags that can be set for a device stack.",
       "header": null,
       "deprecated": false,
@@ -2004,7 +2028,8 @@
         "SetupDiSetDeviceRegistryProperty"
       ],
       "confidence": 0.5,
-      "_source_line": 1780
+      "_source_line": 1780,
+      "_type_raw": "Specifies that the device is a floppy diskette. This is one of the device characteristics flags that can be set for a device stack."
     },
     {
       "id": "windows::SPDRP_DEVTYPE",
@@ -2681,7 +2706,10 @@
       "confidence": 0.35,
       "_source_line": 4664,
       "syntax": "NTSTATUS DispatchRoutine_4(IN PDEVICE_OBJECT DeviceObject, IN PIRP Irp)",
-      "return_value": "NTSTATUS状态码"
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "NTSTATUS状态码"
+      }
     },
     {
       "id": "windows::CompletionRoutine_41",

@@ -260,17 +260,20 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向包含缓存项的源名称的字符串变量的指针。 名称字符串必须是唯一的，并且不应包含任何转义字符。"
+          "description": "指向包含缓存项的源名称的字符串变量的指针。 名称字符串必须是唯一的，并且不应包含任何转义字符。",
+          "type": "LPCSTR"
         },
         {
           "name": "lpszLocalFileName",
           "direction": "in",
-          "description": "指向包含要缓存的本地文件名称的字符串变量的指针。 这应与 CreateUrlCacheEntryA返 回的名称相同。[in] ExpireTime FILETIME 结构，其中包含正在缓存的文件的过期日期和时间（以格林威治平均值时间为 单位）。 如果过期日期和时间未知，请将此参数设置为零。[in] LastModifiedTime FILETIME 结构，该结构包含缓存的 URL 的上次修改日期和时间（以格林威治平均时间为单位）。 如果上次修改的日期和时间未知，请将此参数设置为零。"
+          "description": "指向包含要缓存的本地文件名称的字符串变量的指针。 这应与 CreateUrlCacheEntryA返 回的名称相同。[in] ExpireTime FILETIME 结构，其中包含正在缓存的文件的过期日期和时间（以格林威治平均值时间为 单位）。 如果过期日期和时间未知，请将此参数设置为零。[in] LastModifiedTime FILETIME 结构，该结构包含缓存的 URL 的上次修改日期和时间（以格林威治平均时间为单位）。 如果上次修改的日期和时间未知，请将此参数设置为零。",
+          "type": "LPCSTR"
         },
         {
           "name": "CacheEntryType",
           "direction": "in",
-          "description": "指示缓存项的类型及其属性的位掩码。 缓存项类型包括：历史记录项 （URLHISTORY_CACHE_ENTRY）、Cookie 条目（COOKIE_CACHE_ENTRY）和普通缓存内容（NORMAL_CACHE_ENTRY）。 此参数可以是以下属性标志的零个或多个，以及下面列出的缓存类型标志。 价值"
+          "description": "指示缓存项的类型及其属性的位掩码。 缓存项类型包括：历史记录项 （URLHISTORY_CACHE_ENTRY）、Cookie 条目（COOKIE_CACHE_ENTRY）和普通缓存内容（NORMAL_CACHE_ENTRY）。 此参数可以是以下属性标志的零个或多个，以及下面列出的缓存类型标志。 价值",
+          "type": "DWORD"
         }
       ],
       "header": "wininet.h",
@@ -281,7 +284,11 @@
         "Passport"
       ],
       "confidence": 0.8,
-      "_source_line": 16
+      "_source_line": 16,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::CreateMD5SSOHash",
@@ -293,16 +300,19 @@
         {
           "name": "pszChallengeInfo",
           "direction": "in",
-          "description": "指向要用于 MD5 哈希的宽字符质询字符串的指针。[in] pwszRealm 指向一个字符串的指针，该字符串命名要为其获取密码的领域。 除非 pwszTarget 为 NULL，否则将忽略此参数。 如果 pwszTarget 和 pwszRealm 均为 NULL，则使用默认领域。"
+          "description": "指向要用于 MD5 哈希的宽字符质询字符串的指针。[in] pwszRealm 指向一个字符串的指针，该字符串命名要为其获取密码的领域。 除非 pwszTarget 为 NULL，否则将忽略此参数。 如果 pwszTarget 和 pwszRealm 均为 NULL，则使用默认领域。",
+          "type": "PWSTR"
         },
         {
           "name": "pwszTarget",
           "direction": "in",
-          "description": "指向一个字符串的指针，该字符串命名要获取其密码的帐户。 如果 pwszTarget 为 NULL，则使用 pwszRealm 指示的领域。[out] pbHexHash 指向以十六进制字符串格式返回 MD5 哈希的输出缓冲区的指针。 此缓冲区的长度必须至 少为 33 个字节。"
+          "description": "指向一个字符串的指针，该字符串命名要获取其密码的帐户。 如果 pwszTarget 为 NULL，则使用 pwszRealm 指示的领域。[out] pbHexHash 指向以十六进制字符串格式返回 MD5 哈希的输出缓冲区的指针。 此缓冲区的长度必须至 少为 33 个字节。",
+          "type": "PWSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE ，否则返回 FALSE 。"
+        "description": "如果成功，则返回 TRUE ，否则返回 FALSE 。",
+        "type": "BOOL"
       },
       "remarks": "一旦 CreateMD5SSOHash 函数成功获取指定帐户或领域的 Microsoft Passport 密码，它将质询字符串和密码从宽字符转换为多字节 (通常为 8 位) 字符，连接它们，并使用 RSA 库从生成的密钥生成 MD5 哈希。 然后，它将哈希转换为以 null 结尾的 8 位十六进制数字字符串， (使用小写字母) 放置在 pbHexHash 参数指向的缓冲区中。 因此， pbHexHash 指向的输出缓冲区必须足够长，以便为哈希的 16 个字节中的每个字节接受两个字节，外加一个终止 null 字符，总共为 33 个字节。 与 WinINet API 的所有其他方面一样，无法从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。 注意 WinINet 不支持服务器实现。 此外，不应从服务使用它。 对于服务器实现或服 务，请使用 Microsoft Windows HTTP Services (WinHTTP) 。",
       "requirements": {
@@ -332,21 +342,25 @@
         {
           "name": "Name",
           "direction": "in",
-          "description": "要提供给缓存的名称。[in] lpCachePrefix 要基于缓存的缓存前缀。"
+          "description": "要提供给缓存的名称。[in] lpCachePrefix 要基于缓存的缓存前缀。",
+          "type": "LPCWSTR"
         },
         {
           "name": "lpszCachePath",
           "direction": "in, optional",
-          "description": "要在其中创建缓存的缓存前缀。[in] KBCacheLimit 对于默认大小，缓存的大小限制（以整 KB 为单位）或 0。"
+          "description": "要在其中创建缓存的缓存前缀。[in] KBCacheLimit 对于默认大小，缓存的大小限制（以整 KB 为单位）或 0。",
+          "type": "optional] LPCWSTR"
         },
         {
           "name": "dwContainerType",
           "direction": "in",
-          "description": "要基于缓存的容器类型。[in] dwOptions 此参数是保留的，必须为 0。 pvBuffer 此参数是保留的，必须 NULL。[in, out] cbBuffer 此参数是保留的，必须 NULL。"
+          "description": "要基于缓存的容器类型。[in] dwOptions 此参数是保留的，必须为 0。 pvBuffer 此参数是保留的，必须 NULL。[in, out] cbBuffer 此参数是保留的，必须 NULL。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "header": "winineti.h",
       "deprecated": true,
@@ -364,16 +378,19 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向包含 URL 名称的字符串值的指针。 字符串必须包含值;空字符串将导致 createUrlCacheEntry 失败 。 此外，字符串不得包含任何转义字符。[in] dwExpectedFileSize 存储与源实体对应的数据所需的文件大小，TCHAR。 如果预期大小未知，请将此值设置为零。"
+          "description": "指向包含 URL 名称的字符串值的指针。 字符串必须包含值;空字符串将导致 createUrlCacheEntry 失败 。 此外，字符串不得包含任何转义字符。[in] dwExpectedFileSize 存储与源实体对应的数据所需的文件大小，TCHAR。 如果预期大小未知，请将此值设置为零。",
+          "type": "LPCSTR"
         },
         {
           "name": "lpszFileExtension",
           "direction": "in",
-          "description": "指向包含本地存储中文件的扩展名的字符串值的指针。[out] lpszFileName 指向接收文件名的缓冲区的指针。 缓冲区应足够大，足以存储所创建文件的路径（长度 至少MAX_PATH个字符）。[in] dwReserved 此参数是保留的，必须为 0。"
+          "description": "指向包含本地存储中文件的扩展名的字符串值的指针。[out] lpszFileName 指向接收文件名的缓冲区的指针。 缓冲区应足够大，足以存储所创建文件的路径（长度 至少MAX_PATH个字符）。[in] dwReserved 此参数是保留的，必须为 0。",
+          "type": "LPCSTR"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，该函数将返回 TRUE。如果该函数失败，则返回 FALSE。若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果函数成功，该函数将返回 TRUE。如果该函数失败，则返回 FALSE。若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -408,11 +425,13 @@
       "parameters": [
         {
           "name": "Name",
-          "description": "要删除的缓存容器的名称。 dwOptions 此参数是保留的，必须为 0。"
+          "description": "要删除的缓存容器的名称。 dwOptions 此参数是保留的，必须为 0。",
+          "type": "LPCSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "注意 WinINet 不支持服务器实现。此外，它不应从服务使用，也不应在模拟安全上下文时使用。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -438,11 +457,13 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向包含与缓存项对应的源名称的字符串的指针。"
+          "description": "指向包含与缓存项对应的源名称的字符串的指针。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。 可能的错误值包括以下内容。 返回代码"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。 可能的错误值包括以下内容。 返回代码",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -473,7 +494,8 @@
         {
           "name": "pszAutoProxyUrl",
           "direction": "in, out",
-          "description": "指向缓冲区的指针，用于接收可从中下载 WPAD autoproxy 脚本的 URL。[in] cchAutoProxyUrl lpszAutoProxyUrl 指向的缓冲区的大小（以字节为单位）。[in] dwDetectFlags 自动化检测类型。 此参数可以是以下一个或两个值。 值"
+          "description": "指向缓冲区的指针，用于接收可从中下载 WPAD autoproxy 脚本的 URL。[in] cchAutoProxyUrl lpszAutoProxyUrl 指向的缓冲区的大小（以字节为单位）。[in] dwDetectFlags 自动化检测类型。 此参数可以是以下一个或两个值。 值",
+          "type": "out] PSTR"
         }
       ],
       "header": "wininet.h",
@@ -491,7 +513,11 @@
         "FindNextUrlCacheEntryExW"
       ],
       "confidence": 0.8,
-      "_source_line": 56
+      "_source_line": 56,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::FindNextUrlCacheEntryW",
@@ -503,11 +529,13 @@
         {
           "name": "hEnumHandle",
           "direction": "in",
-          "description": "从上一次调用 FindFirstUrlCacheEntry获取的枚举句柄。[out] lpNextCacheEntryInfo 指向接收有关缓存项信息的 INTERNET_CACHE_ENTRY_INFO 结构的指针。[in, out] lpcbCacheEntryInfo 指向一个变量的指针，该变量指定 lpNextCacheEntryInfo 缓冲区的大小（以字节为单位）。 函数返回时，变量包含复制到缓冲区的字节数，或检索缓存项所需的缓冲区大小 （以字节为单位）。"
+          "description": "从上一次调用 FindFirstUrlCacheEntry获取的枚举句柄。[out] lpNextCacheEntryInfo 指向接收有关缓存项信息的 INTERNET_CACHE_ENTRY_INFO 结构的指针。[in, out] lpcbCacheEntryInfo 指向一个变量的指针，该变量指定 lpNextCacheEntryInfo 缓冲区的大小（以字节为单位）。 函数返回时，变量包含复制到缓冲区的字节数，或检索缓存项所需的缓冲区大小 （以字节为单位）。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE；否则返回 FALSE。若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE；否则返回 FALSE。若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -558,7 +586,8 @@
       "description": "释放URL缓存中的空间(ANSI版本)。",
       "syntax": "BOOL FreeUrlCacheSpaceA(LPCSTR lpszCachePath, DWORD dwSize, DWORD dwFilter);",
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "注意 WinINet 不支持服务器实现。 此外，它不应从服务使用，也不应在模拟安全上下文时使用。 对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务 （WinHTTP）。７ 备注",
       "header": "winineti.h",
@@ -589,7 +618,8 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "从 InternetConnect返回的 FTP 会话的句柄。[in] lpszSearchFile 指向 null-terminated 字符串的指针，该字符串指定 FTP 服务器的文件系统的有效目录路径或文件名。 字符串可以包含通配符，但不允许空格。 如果 lpszSearchFile 的值 NULL 或者它是空字符串，则该函数将查找服务器上的当前目录中的第一个文件。[out] lpFindFileData 指向接收有关找到的文件或目录信息的 WIN32_FIND_DATA 结构的指针。[in] dwFlags 控制此函数的行为。 此参数可以是以下值的组合。"
+          "description": "从 InternetConnect返回的 FTP 会话的句柄。[in] lpszSearchFile 指向 null-terminated 字符串的指针，该字符串指定 FTP 服务器的文件系统的有效目录路径或文件名。 字符串可以包含通配符，但不允许空格。 如果 lpszSearchFile 的值 NULL 或者它是空字符串，则该函数将查找服务器上的当前目录中的第一个文件。[out] lpFindFileData 指向接收有关找到的文件或目录信息的 WIN32_FIND_DATA 结构的指针。[in] dwFlags 控制此函数的行为。 此参数可以是以下值的组合。",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
@@ -598,7 +628,11 @@
         "WIN32_FIND_DATA"
       ],
       "confidence": 0.8,
-      "_source_line": 104
+      "_source_line": 104,
+      "return_value": {
+        "type": "HINTERNET",
+        "description": ""
+      }
     },
     {
       "id": "windows::FtpGetCurrentDirectoryA",
@@ -610,16 +644,19 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "FTP 会话的句柄。"
+          "description": "FTP 会话的句柄。",
+          "type": "HINTERNET"
         },
         {
           "name": "lpszCurrentDirectory",
           "direction": "out",
-          "description": "指向接收当前目录的绝对路径的以 null 结尾的字符串的指针。[in, out] lpdwCurrentDirectory 指向指定缓冲区长度的变量的指针，TCHAR。 缓冲区长度必须包含终止 null 字符的空间。 使用长度 MAX_PATH 足以满足所有路径。 函数返回时，变量将接收复制到缓冲区 中的字符数。"
+          "description": "指向接收当前目录的绝对路径的以 null 结尾的字符串的指针。[in, out] lpdwCurrentDirectory 指向指定缓冲区长度的变量的指针，TCHAR。 缓冲区长度必须包含终止 null 字符的空间。 使用长度 MAX_PATH 足以满足所有路径。 函数返回时，变量将接收复制到缓冲区 中的字符数。",
+          "type": "LPSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "如果 lpszCurrentDirectory 缓冲区不够大，lpdwCurrentDirectory 接收检索完整当前目录名称所需的字节数。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -650,11 +687,13 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "FTP 会话的句柄。[in] lpszExisting 指向包含要重命名的文件名称的以 null 结尾的字符串的指针。[in] lpszNew 指向包含远程文件新名称的以 null 结尾的字符串的指针。"
+          "description": "FTP 会话的句柄。[in] lpszExisting 指向包含要重命名的文件名称的以 null 结尾的字符串的指针。[in] lpszNew 指向包含远程文件新名称的以 null 结尾的字符串的指针。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "lpszExisting 和 lpszNew 参数可以是相对于当前目录的部分或完全限定的文件名。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -686,7 +725,8 @@
         {
           "name": "lpszUrl",
           "direction": "in",
-          "description": "指向包含缓存项名称的 null终止字符串的指针。 名称字符串不应包含任何转义字符。[in, out, optional] lpCacheEntryInfo 指向接收有关缓存项信息的 INTERNET_CACHE_ENTRY_INFO 结构的指针。 应为此参数分配缓冲区。 由于预先不知道缓冲区的所需大小，因此最好分配足以处理大多数"
+          "description": "指向包含缓存项名称的 null终止字符串的指针。 名称字符串不应包含任何转义字符。[in, out, optional] lpCacheEntryInfo 指向接收有关缓存项信息的 INTERNET_CACHE_ENTRY_INFO 结构的指针。 应为此参数分配缓冲区。 由于预先不知道缓冲区的所需大小，因此最好分配足以处理大多数",
+          "type": "LPCWSTR"
         }
       ],
       "header": "wininet.h",
@@ -702,7 +742,11 @@
         "HttpSendRequest"
       ],
       "confidence": 0.8,
-      "_source_line": 152
+      "_source_line": 152,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetUrlCacheGroupAttributeA",
@@ -714,7 +758,8 @@
         {
           "name": "gid",
           "direction": "in",
-          "description": "缓存组的标识符。[in] dwFlags 此参数是保留的，必须为 0。[in] dwAttributes 要检索的属性。 这可以是以下值之一。 价值"
+          "description": "缓存组的标识符。[in] dwFlags 此参数是保留的，必须为 0。[in] dwAttributes 要检索的属性。 这可以是以下值之一。 价值",
+          "type": "GROUPID"
         }
       ],
       "header": "wininet.h",
@@ -728,7 +773,11 @@
         "GopherFindFirstFileA"
       ],
       "confidence": 0.8,
-      "_source_line": 159
+      "_source_line": 159,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::GopherFindFirstFileW",
@@ -740,7 +789,8 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
@@ -754,7 +804,11 @@
         "GopherOpenFileA"
       ],
       "confidence": 0.8,
-      "_source_line": 172
+      "_source_line": 172,
+      "return_value": {
+        "type": "HINTERNET",
+        "description": ""
+      }
     },
     {
       "id": "windows::GopherOpenFileW",
@@ -766,7 +820,8 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
@@ -785,7 +840,11 @@
         "HttpSendRequestEx"
       ],
       "confidence": 0.8,
-      "_source_line": 187
+      "_source_line": 187,
+      "return_value": {
+        "type": "HINTERNET",
+        "description": ""
+      }
     },
     {
       "id": "windows::HttpSendRequestExA",
@@ -797,16 +856,19 @@
         {
           "name": "hRequest",
           "direction": "in",
-          "description": "调用 HttpOpenRequest 函数返回的句柄。[in] lpBuffersIn 自选。 指向 INTERNET_BUFFERS 结构的指针。"
+          "description": "调用 HttpOpenRequest 函数返回的句柄。[in] lpBuffersIn 自选。 指向 INTERNET_BUFFERS 结构的指针。",
+          "type": "HINTERNET"
         },
         {
           "name": "lpBuffersOut",
           "direction": "out",
-          "description": "保留。 必须为 NULL。[in] dwFlags 保留。 必须为零。[in] dwContext 如果已注册状态回调函数，则应用程序定义的上下文值。"
+          "description": "保留。 必须为 NULL。[in] dwFlags 保留。 必须为零。[in] dwContext 如果已注册状态回调函数，则应用程序定义的上下文值。",
+          "type": "LPINTERNET_BUFFERSA"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，该函数将返回 true。 如果该函数失败，则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果函数成功，该函数将返回 true。 如果该函数失败，则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -828,11 +890,13 @@
         {
           "name": "hRequest",
           "direction": "in",
-          "description": "调用 HttpOpenRequest 函数返回的句柄。[in] lpszHeaders 指向 null-terminated 字符串的指针，其中包含要追加到请求的其他标头。 如果没有附加 标头，则可以 NULL 此参数。[in] dwHeadersLength 其他标头的大小，TCHAR。 如果此参数 -1L，并且 lpszHeaders 不 NULL，则该函数假定 lpszHeaders 为零终止 （ASCIIZ），并计算长度。 请参阅“说明”了解具体内容。[in] lpOptional 指向缓冲区的指针，其中包含请求标头之后要立即发送的任何可选数据。 此参数通常用于 POST 和 PUT 操作。 可选数据可以是要发布到服务器的资源或信息。 如果没有要发送 的可选数据，则可以 NULL 此参数。[in] dwOptionalLength 可选数据的大小（以字节为单位）。 如果没有要发送的可选数据，此参数可以为零。"
+          "description": "调用 HttpOpenRequest 函数返回的句柄。[in] lpszHeaders 指向 null-terminated 字符串的指针，其中包含要追加到请求的其他标头。 如果没有附加 标头，则可以 NULL 此参数。[in] dwHeadersLength 其他标头的大小，TCHAR。 如果此参数 -1L，并且 lpszHeaders 不 NULL，则该函数假定 lpszHeaders 为零终止 （ASCIIZ），并计算长度。 请参阅“说明”了解具体内容。[in] lpOptional 指向缓冲区的指针，其中包含请求标头之后要立即发送的任何可选数据。 此参数通常用于 POST 和 PUT 操作。 可选数据可以是要发布到服务器的资源或信息。 如果没有要发送 的可选数据，则可以 NULL 此参数。[in] dwOptionalLength 可选数据的大小（以字节为单位）。 如果没有要发送的可选数据，此参数可以为零。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -852,7 +916,8 @@
         {
           "name": "dwFlags",
           "direction": "in",
-          "description": "控制此操作。 此参数的取值可为下列值之一： 值"
+          "description": "控制此操作。 此参数的取值可为下列值之一： 值",
+          "type": "DWORD"
         }
       ],
       "requirements": {
@@ -870,7 +935,11 @@
         "WinINet"
       ],
       "confidence": 0.8,
-      "_source_line": 220
+      "_source_line": 220,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetAutodialHangup",
@@ -882,11 +951,13 @@
         {
           "name": "dwReserved",
           "direction": "in",
-          "description": "此参数是保留的，必须为 0。"
+          "description": "此参数是保留的，必须为 0。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "如果该函数成功，则返回 TRUE。 如果函数失败，则返回 FALSE。 应用程序可以调用 GetLastError 来检索错误代码。"
+        "description": "如果该函数成功，则返回 TRUE。 如果函数失败，则返回 FALSE。 应用程序可以调用 GetLastError 来检索错误代码。",
+        "type": "BOOL"
       },
       "remarks": "如果未启用自动拨号，或者启用了自动拨号但没有在计算机上配置条目，InternetAutodialHangup 将返回 TRUE。与 WinINet API 的所有其他方面一样，无法从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP Services (WinHTTP)。",
       "header": "wininet.h",
@@ -924,7 +995,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 235,
-      "return_value": "如果清除所有决策，则返回 TRUE，否则返回 FALSE。"
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果清除所有决策，则返回 TRUE，否则返回 FALSE。"
+      }
     },
     {
       "id": "windows::InternetCloseHandle",
@@ -936,11 +1010,13 @@
         {
           "name": "hInternet",
           "direction": "in",
-          "description": "要关闭的句柄。"
+          "description": "要关闭的句柄。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功关闭句柄，则返回 TRUE ;否则返回 FALSE 。 要获得更多的错误信息，请调用 GetLastError。"
+        "description": "如果成功关闭句柄，则返回 TRUE ;否则返回 FALSE 。 要获得更多的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "函数终止对句柄的任何挂起操作，并放弃任何未完成的数据。 只要没有进行或将使用 句柄进行 API 调用，就可以安全地调用 InternetCloseHandle 。 API 返回ERROR_IO_PENDING后，可以安全地调用 InternetCloseHandle 来取消该 I/O，只要不会使用句柄发出后续 API 调用。 在回调中为要关闭的句柄调用 InternetCloseHandle 是安全的。 如果为正在关闭的句柄注册了状态回调，并且该句柄是使用非 NULL 上下文值创建的，则将进行",
       "header": "wininet.h",
@@ -962,7 +1038,8 @@
         {
           "name": "lpszBaseUrl",
           "direction": "in",
-          "description": "指向包含基 URL 的以 null 结尾的字符串的指针。[in] lpszRelativeUrl 指向包含相对 URL 的以 null 结尾的字符串的指针。[out] lpszBuffer 指向接收合并 URL 的缓冲区的指针。[in, out] lpdwBufferLength 指向包含 lpszBuffer 缓冲区大小的变量的指针，以字符为单位。 如果函数成功，此参数将接收组合 URL 的大小（以字符为单位，不包括 null 终止字符）。 如果函数失败，此参 数将接收所需缓冲区的大小（包括 null 终止字符）。[in] dwFlags 控制函数的操作。 此参数可以是下列值之一。 价值"
+          "description": "指向包含基 URL 的以 null 结尾的字符串的指针。[in] lpszRelativeUrl 指向包含相对 URL 的以 null 结尾的字符串的指针。[out] lpszBuffer 指向接收合并 URL 的缓冲区的指针。[in, out] lpdwBufferLength 指向包含 lpszBuffer 缓冲区大小的变量的指针，以字符为单位。 如果函数成功，此参数将接收组合 URL 的大小（以字符为单位，不包括 null 终止字符）。 如果函数失败，此参 数将接收所需缓冲区的大小（包括 null 终止字符）。[in] dwFlags 控制函数的操作。 此参数可以是下列值之一。 价值",
+          "type": "LPCWSTR"
         }
       ],
       "header": "wininet.h",
@@ -971,7 +1048,11 @@
         "InternetCanonicalizeUrl"
       ],
       "confidence": 0.8,
-      "_source_line": 242
+      "_source_line": 242,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetConfirmZoneCrossing",
@@ -983,16 +1064,19 @@
         {
           "name": "hWnd",
           "direction": "in",
-          "description": "任何所需对话框的父窗口的句柄。[in] szUrlPrev 指向以 null 结尾的字符串的指针，该字符串指定在发出当前请求之前查看的 URL。[in] szUrlNew 指向以 null 结尾的字符串的指针，该字符串指定用户请求查看的新 URL。"
+          "description": "任何所需对话框的父窗口的句柄。[in] szUrlPrev 指向以 null 结尾的字符串的指针，该字符串指定在发出当前请求之前查看的 URL。[in] szUrlNew 指向以 null 结尾的字符串的指针，该字符串指定用户请求查看的新 URL。",
+          "type": "HWND"
         },
         {
           "name": "bPost",
           "direction": "in",
-          "description": "未实现。"
+          "description": "未实现。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
-        "description": "如果用户确认区域跨越，则返回 ERROR_SUCCESS。如果用户取消，则返回 ERROR_CANCELLED。如果参数无效，则返回 ERROR_INVALID_PARAMETER。"
+        "description": "如果用户确认区域跨越，则返回 ERROR_SUCCESS。如果用户取消，则返回 ERROR_CANCELLED。如果参数无效，则返回 ERROR_INVALID_PARAMETER。",
+        "type": "DWORD"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -1013,16 +1097,19 @@
         {
           "name": "hWnd",
           "direction": "in",
-          "description": "任何所需对话框的父窗口的句柄。[in] szUrlPrev 指向以 null 结尾的字符串的指针，该字符串指定在发出当前请求之前查看的 URL。[in] szUrlNew 指向以 null 结尾的字符串的指针，该字符串指定用户请求查看的新 URL。"
+          "description": "任何所需对话框的父窗口的句柄。[in] szUrlPrev 指向以 null 结尾的字符串的指针，该字符串指定在发出当前请求之前查看的 URL。[in] szUrlNew 指向以 null 结尾的字符串的指针，该字符串指定用户请求查看的新 URL。",
+          "type": "HWND"
         },
         {
           "name": "bPost",
           "direction": "in",
-          "description": "未实现。"
+          "description": "未实现。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
-        "description": "Returns one of the following values: ERROR_SUCCESS, ERROR_CANCELLED, or ERROR_INTERNET_INCORRECT_PASSWORD."
+        "description": "Returns one of the following values: ERROR_SUCCESS, ERROR_CANCELLED, or ERROR_INTERNET_INCORRECT_PASSWORD.",
+        "type": "DWORD"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -1044,7 +1131,8 @@
         {
           "name": "hInternet",
           "direction": "in",
-          "description": "上一次调用 InternetOpen返回的句柄。[in] lpszServerName 指向指定 Internet 服务器的主机名的 null终止字符串的指针。 或者，字符串可以包含站 点的 IP 号，采用 ASCII 点十进制格式（例如 11.0.1.45）。[in] nServerPort 服务器上的传输控制协议/Internet 协议（TCP/IP）端口。 这些标志仅设置使用的端口。该服务由 dwService的值设置。 此参数可以是下列值之一。 价值"
+          "description": "上一次调用 InternetOpen返回的句柄。[in] lpszServerName 指向指定 Internet 服务器的主机名的 null终止字符串的指针。 或者，字符串可以包含站 点的 IP 号，采用 ASCII 点十进制格式（例如 11.0.1.45）。[in] nServerPort 服务器上的传输控制协议/Internet 协议（TCP/IP）端口。 这些标志仅设置使用的端口。该服务由 dwService的值设置。 此参数可以是下列值之一。 价值",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
@@ -1056,7 +1144,11 @@
         "InternetCreateUrlA"
       ],
       "confidence": 0.8,
-      "_source_line": 253
+      "_source_line": 253,
+      "return_value": {
+        "type": "HINTERNET",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetCreateUrlW",
@@ -1068,7 +1160,8 @@
         {
           "name": "lpUrlComponents",
           "direction": "in",
-          "description": "指向包含从中创建 URL 的组件的 URL_COMPONENTS 结构的指针。[in] dwFlags 控制此函数的操作。 此参数可以是以下一个或多个值。 价值"
+          "description": "指向包含从中创建 URL 的组件的 URL_COMPONENTS 结构的指针。[in] dwFlags 控制此函数的操作。 此参数可以是以下一个或多个值。 价值",
+          "type": "LPURL_COMPONENTSW"
         }
       ],
       "header": "wininet.h",
@@ -1078,7 +1171,11 @@
         "InternetDialA"
       ],
       "confidence": 0.8,
-      "_source_line": 265
+      "_source_line": 265,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetDialA",
@@ -1090,17 +1187,20 @@
         {
           "name": "hwndParent",
           "direction": "in",
-          "description": "父窗口的句柄。"
+          "description": "父窗口的句柄。",
+          "type": "HWND"
         },
         {
           "name": "lpszConnectoid",
           "direction": "in",
-          "description": "指向 null终止字符串的指针，该字符串指定要使用的拨号连接的名称。 如果此参数包含空字符串（“），则用户选择连接。 如果此参数 NULL，则该函数将连接到自动连接。"
+          "description": "指向 null终止字符串的指针，该字符串指定要使用的拨号连接的名称。 如果此参数包含空字符串（“），则用户选择连接。 如果此参数 NULL，则该函数将连接到自动连接。",
+          "type": "LPSTR"
         },
         {
           "name": "dwFlags",
           "direction": "in",
-          "description": "选项。 此参数可以是下列值之一。 价值"
+          "description": "选项。 此参数可以是下列值之一。 价值",
+          "type": "DWORD"
         }
       ],
       "header": "wininet.h",
@@ -1109,7 +1209,11 @@
         "InternetDialW"
       ],
       "confidence": 0.8,
-      "_source_line": 273
+      "_source_line": 273,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetDialW",
@@ -1121,17 +1225,20 @@
         {
           "name": "hwndParent",
           "direction": "in",
-          "description": "父窗口的句柄。"
+          "description": "父窗口的句柄。",
+          "type": "HWND"
         },
         {
           "name": "lpszConnectoid",
           "direction": "in",
-          "description": "指向 null终止字符串的指针，该字符串指定要使用的拨号连接的名称。 如果此参数包含空字符串（“），则用户选择连接。 如果此参数 NULL，则该函数将连接到自动连接。"
+          "description": "指向 null终止字符串的指针，该字符串指定要使用的拨号连接的名称。 如果此参数包含空字符串（“），则用户选择连接。 如果此参数 NULL，则该函数将连接到自动连接。",
+          "type": "LPWSTR"
         },
         {
           "name": "dwFlags",
           "direction": "in",
-          "description": "选项。 此参数可以是下列值之一。 价值"
+          "description": "选项。 此参数可以是下列值之一。 价值",
+          "type": "DWORD"
         }
       ],
       "header": "wininet.h",
@@ -1140,7 +1247,11 @@
         "InternetEnumPerSiteCookieDecisionA"
       ],
       "confidence": 0.8,
-      "_source_line": 277
+      "_source_line": 277,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetEnumPerSiteCookieDecisionA",
@@ -1152,7 +1263,8 @@
         {
           "name": "pszSiteName",
           "direction": "out",
-          "description": "接收指定网站域的字符串的 LPSTR。[in, out] pcSiteNameSize 指向未签名的长指针，指定调用 internetEnumPerSiteCookieDecision 函数时提供给 InternetEnumPerSiteCookieDecision 函数的 pcSiteNameSize 参数的大小。"
+          "description": "接收指定网站域的字符串的 LPSTR。[in, out] pcSiteNameSize 指向未签名的长指针，指定调用 internetEnumPerSiteCookieDecision 函数时提供给 InternetEnumPerSiteCookieDecision 函数的 pcSiteNameSize 参数的大小。",
+          "type": "LPSTR"
         }
       ],
       "header": "wininet.h",
@@ -1161,7 +1273,11 @@
         "Cookie"
       ],
       "confidence": 0.8,
-      "_source_line": 280
+      "_source_line": 280,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetEnumPerSiteCookieDecisionW",
@@ -1173,7 +1289,8 @@
         {
           "name": "pszSiteName",
           "direction": "out",
-          "description": "接收指定网站域的字符串的 LPSTR。[in, out] pcSiteNameSize 指向未签名的长指针，指定调用 internetEnumPerSiteCookieDecision 函数时提供给 InternetEnumPerSiteCookieDecision 函数的 pcSiteNameSize 参数的大小。"
+          "description": "接收指定网站域的字符串的 LPSTR。[in, out] pcSiteNameSize 指向未签名的长指针，指定调用 internetEnumPerSiteCookieDecision 函数时提供给 InternetEnumPerSiteCookieDecision 函数的 pcSiteNameSize 参数的大小。",
+          "type": "LPWSTR"
         }
       ],
       "header": "wininet.h",
@@ -1188,7 +1305,11 @@
         "Server"
       ],
       "confidence": 0.8,
-      "_source_line": 285
+      "_source_line": 285,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetErrorDlg",
@@ -1219,11 +1340,13 @@
         {
           "name": "lpdwFlags",
           "direction": "out",
-          "description": "指向接收连接说明的变量的指针。 即使函数返回 FALSE，此参数也可能返回有效标志。此参数可使用以下一个或多个值。 值"
+          "description": "指向接收连接说明的变量的指针。 即使函数返回 FALSE，此参数也可能返回有效标志。此参数可使用以下一个或多个值。 值",
+          "type": "LPDWORD"
         }
       ],
       "return_value": {
-        "description": "TRUE 表示调制解调器连接处于活动状态，或者 LAN 连接处于活动状态，并且为 LAN 正确配置了代理。返回值 FALSE 表示调制解调器和 LAN 均未连接。如果返回 FALSE，则 INTERNET_CONNECTION_CONFIGURED 标志可以设置为指示自动拨号配置为“始终拨号”，但当前不处于活动状态。如果未配置自动拨号，则函数返回 FALSE。与 WinINet API 的所有其他方面一样，无法从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP Services (WinHTTP)。"
+        "description": "TRUE 表示调制解调器连接处于活动状态，或者 LAN 连接处于活动状态，并且为 LAN 正确配置了代理。返回值 FALSE 表示调制解调器和 LAN 均未连接。如果返回 FALSE，则 INTERNET_CONNECTION_CONFIGURED 标志可以设置为指示自动拨号配置为“始终拨号”，但当前不处于活动状态。如果未配置自动拨号，则函数返回 FALSE。与 WinINet API 的所有其他方面一样，无法从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP Services (WinHTTP)。",
+        "type": "BOOL"
       },
       "remarks": "从 InternetGetConnectedState 返回值为 TRUE 表示至少有一个连接到 Internet 的连接可用。它不保证可以建立与特定主机的连接。应用程序应始终检查从连接到服务器的 API 调用返回的错误。可以调用 InternetCheckConnection 以确定是否可以建立与特定目标的连接。返回值为 TRUE 表示调制解调器连接处于活动状态，或者 LAN 连接处于活动状态，并且为 LAN 正确配置了代理。FALSE 的返回值指示调制解调器和 LAN 均未连接。如果返回 FALSE，则 INTERNET_CONNECTION_CONFIGURED 标志可以设置为指示自动拨号配置为“始终拨号”，但当前未处于活动状态。如果未配置自动拨号，函数将返回 FALSE。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -1246,14 +1369,19 @@
         {
           "name": "lpdwFlags",
           "direction": "out",
-          "description": "指向接收连接说明的变量的指针。 即使函数返回 FALSE，此参数也可能返回有效的标志。 此参数可以是以下值的组合。 值"
+          "description": "指向接收连接说明的变量的指针。 即使函数返回 FALSE，此参数也可能返回有效的标志。 此参数可以是以下值的组合。 值",
+          "type": "LPDWORD"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 306
+      "_source_line": 306,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetGetConnectedStateExA",
@@ -1265,7 +1393,8 @@
         {
           "name": "lpdwFlags",
           "direction": "out",
-          "description": "指向接收连接说明的变量的指针。 即使函数返回 FALSE，此参数也可能返回有效的标志。 此参数可以是以下值的组合。 价值"
+          "description": "指向接收连接说明的变量的指针。 即使函数返回 FALSE，此参数也可能返回有效的标志。 此参数可以是以下值的组合。 价值",
+          "type": "LPDWORD"
         }
       ],
       "header": "wininet.h",
@@ -1273,7 +1402,10 @@
       "cross_references": [],
       "confidence": 0.8,
       "_source_line": 310,
-      "return_value": "如果成功，返回 TRUE。如果失败，返回 FALSE。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果成功，返回 TRUE。如果失败，返回 FALSE。"
+      },
       "remarks": "此函数已弃用，建议使用 INetworkListManager::GetConnectivity 方法替代。"
     },
     {
@@ -1286,7 +1418,8 @@
         {
           "name": "lpdwFlags",
           "direction": "out",
-          "description": "指向接收连接说明的变量的指针。 即使函数返回 FALSE，此参数也可能返回有效的标志。 此参数可以是以下值的组合。 价值"
+          "description": "指向接收连接说明的变量的指针。 即使函数返回 FALSE，此参数也可能返回有效的标志。 此参数可以是以下值的组合。 价值",
+          "type": "LPDWORD"
         }
       ],
       "header": "wininet.h",
@@ -1295,7 +1428,11 @@
         "InternetGoOnline"
       ],
       "confidence": 0.8,
-      "_source_line": 311
+      "_source_line": 311,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetGetCookieA",
@@ -1307,21 +1444,25 @@
         {
           "name": "lpszUrl",
           "direction": "in",
-          "description": "指向 null-terminated 字符串的指针，该字符串指定要为其检索 cookie 的 URL。"
+          "description": "指向 null-terminated 字符串的指针，该字符串指定要为其检索 cookie 的 URL。",
+          "type": "LPCSTR"
         },
         {
           "name": "lpszCookieName",
           "direction": "in",
-          "description": "未实现。"
+          "description": "未实现。",
+          "type": "LPCSTR"
         },
         {
           "name": "lpszCookieData",
           "direction": "out",
-          "description": "指向接收 Cookie 数据的缓冲区的指针。 此参数可以 NULL。[in, out] lpdwSize 指向指定 TCHAR 中 lpszCookieData 参数缓冲区大小的变量的指针。 如果函数成功，缓冲区将接收复制到 lpszCookieData 缓冲区的数据量。 如果 lpszCookieDataNULL，此参数将接收一个值，该值指定复制所有 cookie 数据所需的缓冲区大小，以字节计数表示。"
+          "description": "指向接收 Cookie 数据的缓冲区的指针。 此参数可以 NULL。[in, out] lpdwSize 指向指定 TCHAR 中 lpszCookieData 参数缓冲区大小的变量的指针。 如果函数成功，缓冲区将接收复制到 lpszCookieData 缓冲区的数据量。 如果 lpszCookieDataNULL，此参数将接收一个值，该值指定复制所有 cookie 数据所需的缓冲区大小，以字节计数表示。",
+          "type": "LPSTR"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，该函数将返回 TRUE。如果该函数失败，则返回 FALSE。若要获取扩展的错误数据，请调用 GetLastError。"
+        "description": "如果函数成功，该函数将返回 TRUE。如果该函数失败，则返回 FALSE。若要获取扩展的错误数据，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -1347,11 +1488,13 @@
         {
           "name": "pchHostName",
           "direction": "in",
-          "description": "指向包含域的字符串的 LPCTSTR。[out] pResult 指向包含 InternetCookieState 枚举值的 无符号长 的指针。"
+          "description": "指向包含域的字符串的 LPCTSTR。[out] pResult 指向包含 InternetCookieState 枚举值的 无符号长 的指针。",
+          "type": "LPCSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功检索决策，则返回 TRUE；否则返回 FALSE。"
+        "description": "如果成功检索决策，则返回 TRUE；否则返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "FALSE 的返回值可能表示域 pchHostName 没有任何特定于站点的 Cookie 法规。",
       "header": "wininet.h",
@@ -1375,19 +1518,25 @@
         {
           "name": "lpszURL",
           "direction": "in",
-          "description": "指向以 null 结尾的字符串的指针，该字符串指定连接的网站的 URL。"
+          "description": "指向以 null 结尾的字符串的指针，该字符串指定连接的网站的 URL。",
+          "type": "LPCSTR"
         },
         {
           "name": "hwndParent",
           "direction": "in",
-          "description": "父窗口的句柄。[in] dwFlags 此参数可以是零或以下标志。 价值"
+          "description": "父窗口的句柄。[in] dwFlags 此参数可以是零或以下标志。 价值",
+          "type": "HWND"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 341
+      "_source_line": 341,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::internetGoOnlineA",
@@ -1412,12 +1561,14 @@
         {
           "name": "lpszURL",
           "direction": "in",
-          "description": "指向以 null 结尾的字符串的指针，该字符串指定连接的网站的 URL。"
+          "description": "指向以 null 结尾的字符串的指针，该字符串指定连接的网站的 URL。",
+          "type": "LPCWSTR"
         },
         {
           "name": "hwndParent",
           "direction": "in",
-          "description": "父窗口的句柄。[in] dwFlags 此参数可以是零或以下标志。 价值"
+          "description": "父窗口的句柄。[in] dwFlags 此参数可以是零或以下标志。 价值",
+          "type": "HWND"
         }
       ],
       "header": "wininet.h",
@@ -1428,7 +1579,11 @@
         "WinINet"
       ],
       "confidence": 0.8,
-      "_source_line": 347
+      "_source_line": 347,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetHangUp",
@@ -1440,11 +1595,13 @@
         {
           "name": "dwConnection",
           "direction": "in",
-          "description": "要断开连接的连接的连接号。[in] dwReserved 此参数是保留的，必须为 0。"
+          "description": "要断开连接的连接的连接号。[in] dwReserved 此参数是保留的，必须为 0。",
+          "type": "DWORD_PTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回ERROR_SUCCESS，否则返回错误值。"
+        "description": "如果成功，则返回ERROR_SUCCESS，否则返回错误值。",
+        "type": "DWORD"
       },
       "remarks": "注意 WinINet 不支持服务器实现。 此外，不应从服务使用它。 对于服务器实现或服 务，请使用 Microsoft Windows HTTP Services (WinHTTP) 。",
       "header": "wininet.h",
@@ -1467,11 +1624,13 @@
         {
           "name": "dwReserved",
           "direction": "in",
-          "description": "此参数是保留的，必须为 0。"
+          "description": "此参数是保留的，必须为 0。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE ，否则返回 FALSE 。 要获得更多的错误信息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE ，否则返回 FALSE 。 要获得更多的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "由于 InternetInitializeAutoProxyDll 函数需要一段时间才能完成其操作，因此不应从 UI 线程调用它。 与 WinINet API 的所有其他方面一样，无法从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。 注意 WinINet 不支持服务器实现。 此外，不应从服务使用它。 对于服务器实现或服务，请使用 Microsoft Windows HTTP Services (WinHTTP) 。",
       "header": "wininet.h",
@@ -1498,16 +1657,19 @@
         {
           "name": "hFile",
           "direction": "in",
-          "description": "InternetOpenUrl、FtpOpenFile、GopherOpenFile 或 HttpOpenRequest 函数返回的句柄。"
+          "description": "InternetOpenUrl、FtpOpenFile、GopherOpenFile 或 HttpOpenRequest 函数返回的句柄。",
+          "type": "HINTERNET"
         },
         {
           "name": "lpdwNumberOfBytesAvailable",
           "direction": "out",
-          "description": "指向接收可用字节数的变量的指针。 可能为 NULL。[in] dwFlags 此参数是保留的，必须为 0。[in] dwContext 此参数是保留的，必须为 0。"
+          "description": "指向接收可用字节数的变量的指针。 可能为 NULL。[in] dwFlags 此参数是保留的，必须为 0。[in] dwContext 此参数是保留的，必须为 0。",
+          "type": "LPDWORD"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 TRUE ;否则返回 FALSE 。 要获得更多的错误信息，请调用 GetLastError。 如果函数找不到匹配的文件， GetLastError 将返回 ERROR_NO_MORE_FILES。"
+        "description": "如果函数成功，则返回 TRUE ;否则返回 FALSE 。 要获得更多的错误信息，请调用 GetLastError。 如果函数找不到匹配的文件， GetLastError 将返回 ERROR_NO_MORE_FILES。",
+        "type": "BOOL"
       },
       "remarks": "此函数返回可供后续调用 InternetReadFile 立即读取的数据字节数。如果当前没有可用数据，并且文件末尾尚未到达，则请求将等待数据可用。在读取对等连接时，此函数可能返回 0。",
       "header": "wininet.h",
@@ -1535,17 +1697,20 @@
         {
           "name": "lpszUrl",
           "direction": "in",
-          "description": "指向 null-terminated 字符串的指针，其中包含应为其设置 Cookie 的 URL。 如果此指针 NULL，InternetSetCookieEx 失败，并出现 ERROR_INVALID_PARAMETER 错误。"
+          "description": "指向 null-terminated 字符串的指针，其中包含应为其设置 Cookie 的 URL。 如果此指针 NULL，InternetSetCookieEx 失败，并出现 ERROR_INVALID_PARAMETER 错误。",
+          "type": "LPCSTR"
         },
         {
           "name": "lpszCookieName",
           "direction": "in",
-          "description": "指向 null-terminated 字符串的指针，该字符串包含要与此 Cookie 关联的名称。 如果此 指针 NULL，则不会与 Cookie 关联任何名称。[in] lpszCookieData 指向 null-terminated 字符串的指针，其中包含要与新 Cookie 关联的数据。 如果此指针 NULL，InternetSetCookieEx 失败，并出现 ERROR_INVALID_PARAMETER 错误。"
+          "description": "指向 null-terminated 字符串的指针，该字符串包含要与此 Cookie 关联的名称。 如果此 指针 NULL，则不会与 Cookie 关联任何名称。[in] lpszCookieData 指向 null-terminated 字符串的指针，其中包含要与新 Cookie 关联的数据。 如果此指针 NULL，InternetSetCookieEx 失败，并出现 ERROR_INVALID_PARAMETER 错误。",
+          "type": "LPCSTR"
         },
         {
           "name": "dwFlags",
           "direction": "in",
-          "description": "用于控制函数如何检索 Cookie 数据的标志： 价值"
+          "description": "用于控制函数如何检索 Cookie 数据的标志： 价值",
+          "type": "DWORD"
         }
       ],
       "header": "wininet.h",
@@ -1557,7 +1722,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 387,
-      "return_value": "如果成功，返回 TRUE。如果失败，返回 FALSE。调用 GetLastError 获取扩展错误信息。"
+      "return_value": {
+        "type": "DWORD",
+        "description": "如果成功，返回 TRUE。如果失败，返回 FALSE。调用 GetLastError 获取扩展错误信息。"
+      }
     },
     {
       "id": "windows::InternetSetCookie",
@@ -1581,11 +1749,13 @@
       "parameters": [
         {
           "name": "lpszConnectoid",
-          "description": "未使用。 dwState 未使用。 dwReserved 未使用。"
+          "description": "未使用。 dwState 未使用。 dwReserved 未使用。",
+          "type": "LPCSTR"
         }
       ],
       "return_value": {
-        "description": "返回 BOOL 类型。成功时返回 TRUE，失败时返回 FALSE。"
+        "description": "返回 BOOL 类型。成功时返回 TRUE，失败时返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "注意：WinINet 不支持服务器实现。此外，不应从服务中使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP Services (WinHTTP)。所需头文件：wininet.h；库：Wininet.lib；DLL：Wininet.dll。",
       "header": "wininet.h",
@@ -1607,7 +1777,8 @@
       "parameters": [
         {
           "name": "lpszConnectoid",
-          "description": "闲置。 dwState 闲置。 dwReserved 闲置。 返回值此函数不返回值。"
+          "description": "闲置。 dwState 闲置。 dwReserved 闲置。 返回值此函数不返回值。",
+          "type": "LPCSTR"
         }
       ],
       "remarks": "注意：WinINet API 不支持服务器实现，也不应从服务中使用。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务(WinHTTP)。",
@@ -1626,7 +1797,11 @@
         "WinINet"
       ],
       "confidence": 0.8,
-      "_source_line": 403
+      "_source_line": 403,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetSetDialStateW",
@@ -1637,7 +1812,8 @@
       "parameters": [
         {
           "name": "lpszConnectoid",
-          "description": "闲置。 dwState 闲置。 dwReserved 闲置。 返回值此函数不返回值。"
+          "description": "闲置。 dwState 闲置。 dwReserved 闲置。 返回值此函数不返回值。",
+          "type": "LPCWSTR"
         }
       ],
       "remarks": "注意：WinINet 不支持服务器实现，不应从服务中使用。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
@@ -1655,7 +1831,11 @@
         "WinINet"
       ],
       "confidence": 0.8,
-      "_source_line": 407
+      "_source_line": 407,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetSetPerSiteCookieDecisionA",
@@ -1667,11 +1847,13 @@
         {
           "name": "pchHostName",
           "direction": "in",
-          "description": "指向包含域的字符串的 LPCTSTR。[in] dwDecision DWORD 类型的值，其中包含 InternetCookieState 枚举值之一。"
+          "description": "指向包含域的字符串的 LPCTSTR。[in] dwDecision DWORD 类型的值，其中包含 InternetCookieState 枚举值之一。",
+          "type": "LPCSTR"
         }
       ],
       "return_value": {
-        "description": "成功返回 TRUE，失败返回 FALSE。"
+        "description": "成功返回 TRUE，失败返回 FALSE。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -1695,11 +1877,13 @@
         {
           "name": "pchHostName",
           "direction": "in",
-          "description": "指向包含域的字符串的 LPCTSTR。[in] dwDecision DWORD 类型的值，其中包含 InternetCookieState 枚举值之一。"
+          "description": "指向包含域的字符串的 LPCTSTR。[in] dwDecision DWORD 类型的值，其中包含 InternetCookieState 枚举值之一。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE；否则返回 FALSE。"
+        "description": "如果成功，则返回 TRUE；否则返回 FALSE。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -1722,7 +1906,8 @@
         {
           "name": "pst",
           "direction": "in",
-          "description": "指向包含要设置格式的日期和时间的 SYSTEMTIME 结构的指针。[in] dwRFC 使用的 RFC 格式。 目前，唯一有效的格式是INTERNET_RFC1123_FORMAT。[out] lpszTime 指向接收格式化日期和时间的字符串缓冲区的指针。 缓冲区的大小应为"
+          "description": "指向包含要设置格式的日期和时间的 SYSTEMTIME 结构的指针。[in] dwRFC 使用的 RFC 格式。 目前，唯一有效的格式是INTERNET_RFC1123_FORMAT。[out] lpszTime 指向接收格式化日期和时间的字符串缓冲区的指针。 缓冲区的大小应为",
+          "type": "const SYSTEMTIME"
         }
       ],
       "header": "wininet.h",
@@ -1732,7 +1917,11 @@
         "InternetTimeFromSystemTimeW"
       ],
       "confidence": 0.8,
-      "_source_line": 429
+      "_source_line": 429,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetTimeFromSystemTimeW",
@@ -1744,14 +1933,19 @@
         {
           "name": "pst",
           "direction": "in",
-          "description": "指向 SYSTEMTIME 结构的指针，该结构包含要设置格式的日期和时间。[in] dwRFC 使用的 RFC 格式。 目前，唯一有效的格式是INTERNET_RFC1123_FORMAT。[out] lpszTime 指向接收格式化日期和时间的字符串缓冲区的指针。 缓冲区的大小应为"
+          "description": "指向 SYSTEMTIME 结构的指针，该结构包含要设置格式的日期和时间。[in] dwRFC 使用的 RFC 格式。 目前，唯一有效的格式是INTERNET_RFC1123_FORMAT。[out] lpszTime 指向接收格式化日期和时间的字符串缓冲区的指针。 缓冲区的大小应为",
+          "type": "const SYSTEMTIME"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 433
+      "_source_line": 433,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetTimeToSystemTime",
@@ -1777,11 +1971,13 @@
         {
           "name": "lpszTime",
           "direction": "in",
-          "description": "指向以 null 结尾的字符串的指针，该字符串指定要转换的日期/时间。[out] pst 指向接收转换时间的 SYSTEMTIME 结构的指针。[in] dwReserved 此参数是保留的，必须为 0。"
+          "description": "指向以 null 结尾的字符串的指针，该字符串指定要转换的日期/时间。[out] pst 指向接收转换时间的 SYSTEMTIME 结构的指针。[in] dwReserved 此参数是保留的，必须为 0。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果转换了字符串，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果转换了字符串，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -1803,11 +1999,13 @@
         {
           "name": "hLockRequestInfo",
           "direction": "in",
-          "description": "InternetLockRequestFile 返回的锁请求的句柄。"
+          "description": "InternetLockRequestFile 返回的锁请求的句柄。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE，否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE，否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "注意 WinINet 不支持服务器实现。 此外，不应从服务使用它。 对于服务器实现或服 务，请使用 Microsoft Windows HTTP Services (WinHTTP) 。",
       "header": "wininet.h",
@@ -1852,7 +2050,8 @@
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 0。 否则，返回 winerr.h 中定义的错误消息之一。"
+        "description": "如果成功，则返回 0。 否则，返回 winerr.h 中定义的错误消息之一。",
+        "type": "DWORD"
       },
       "remarks": "可在“Internet 选项”对话框的“隐私”选项卡上找到 Internet 区域的这些隐私设置。与 WinINet API 的所有其他方面一样，无法从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP Services (WinHTTP)。",
       "header": "wininet.h",
@@ -1875,11 +2074,13 @@
         {
           "name": "dwZone",
           "direction": "in",
-          "description": "类型为 DWORD 的值，该值指定要为其设置隐私设置的 URLZONE。[in] dwType DWORD 类型的值，该值指定要为其设置隐私设置的 PrivacyType。[in] dwTemplate 类型为 DWORD 的值，该值指定要用于设置隐私设置的隐私模板。[in, optional] pszPreference 如果 dwTemplate 设置为 PRIVACY_TEMPLATE_CUSTOM，则此参数是自定义首选项的字符串表示形式。 否则，应将其设置为 NULL。 此字符串表示形式的说明包含在“备注”部分中。"
+          "description": "类型为 DWORD 的值，该值指定要为其设置隐私设置的 URLZONE。[in] dwType DWORD 类型的值，该值指定要为其设置隐私设置的 PrivacyType。[in] dwTemplate 类型为 DWORD 的值，该值指定要用于设置隐私设置的隐私模板。[in, optional] pszPreference 如果 dwTemplate 设置为 PRIVACY_TEMPLATE_CUSTOM，则此参数是自定义首选项的字符串表示形式。 否则，应将其设置为 NULL。 此字符串表示形式的说明包含在“备注”部分中。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 0。 否则，返回 winerr.h 中定义的错误之一。"
+        "description": "如果成功，则返回 0。 否则，返回 winerr.h 中定义的错误之一。",
+        "type": "DWORD"
       },
       "remarks": "Internet 区域的这些隐私设置位于“Internet 选项”对话框的“隐私”选项卡上。 设置URLZONE_INTERNET的隐私选项涉及为这两个 PrivacyTypes 设置隐私模板。 仅当为这两个 PrivacyTypes 设置隐私时， “Internet 选项 ”中 “隐私”菜单上的滑块才会移动。 可以通过 pszPreference 参数设置给定 URLZONE 和 PrivacyType 的自定义隐私首选项。 pszPreference 参数可以包含一系列规则，这些规则由描述隐私首选项的空格分隔。 请务必注意，规则本身不能包含空格。 pszPreference 具有以下结构，其中可以有多个逻辑规则：<签名><逻辑规则><special-rule>。 目前，签名必须设置为 IE6-P3PSettings/V1：。 逻辑规则采用以下格式：/<expression>=<decision>/。 表达式是由压缩策略令牌组成的布尔语句，使用运算符 & (逻辑 AND) 和 ！ (逻辑非) 。压缩策略令牌区分大小写。 (有关平台隐私首选项 (P3P) 隐私策略和压缩策略令牌的详细 信息，请参阅 W3C：平台隐私首选项 (P3P) Project 规范。) 决策是一个小写字符，用 于定义要对其压缩策略包含指定令牌的 cookie 执行的操作 () 。 下表列出了有效的决策字符。 字符 a p r l d 定义 接受 Cookie。 提示用户接受或拒绝 Cookie。拒绝 Cookie。 将 cookie (仅在第一方上下文中发送) 。 将 Cookie（如果是永久性 Cookie）降级为会话 Cookie。 将按照逻辑规则的列出顺序计算逻辑规则。 要匹配的第一个逻辑规则（如果有）确定 Cookie 操作。 还允许使用空表达式。 如果表达式为空，则左侧的计算结果为 true。 这种形式的逻辑规则可以在一组规则的末尾使用，以捕获不属于其他类别的所有情况。 以下示例显示了有效的逻辑规则。 syntax /DEM=d/",
       "header": "wininet.h",
@@ -1903,11 +2104,13 @@
         {
           "name": "hRequest",
           "direction": "in",
-          "description": "用户界面对话框挂起的请求的句柄。[in] dwResultCode 从 InternetErrorDlg 返回的错误结果，如果调用其他对话，则返回零。"
+          "description": "用户界面对话框挂起的请求的句柄。[in] dwResultCode 从 InternetErrorDlg 返回的错误结果，如果调用其他对话，则返回零。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE ;否则 为 FALSE。 调用 GetLastError 获取扩展错误信息。"
+        "description": "如果成功，则返回 TRUE ;否则 为 FALSE。 调用 GetLastError 获取扩展错误信息。",
+        "type": "BOOL"
       },
       "remarks": "异步使用 WinINet 函数的应用程序可以调用 ResumeSuspendedDownload 来恢复用户界面对话框挂起的请求。 例如，在调用 InternetErrorDlg 后调用 ResumeSuspendedDownload;当 lpvStatusInformation 参数等于 INTERNET_STATUS_USER_INPUT_REQUIRED 时，在",
       "header": "wininet.h",
@@ -1937,7 +2140,8 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向 null终止字符串值的指针，该值指定缓存资源的 URL。[in] dwFlags 确定条目是添加到缓存组还是从缓存组中删除。 此参数可以是下列值之一。 价值"
+          "description": "指向 null终止字符串值的指针，该值指定缓存资源的 URL。[in] dwFlags 确定条目是添加到缓存组还是从缓存组中删除。 此参数可以是下列值之一。 价值",
+          "type": "LPCWSTR"
         }
       ],
       "header": "wininet.h",
@@ -1948,7 +2152,11 @@
         "SetUrlCacheGroupAttributeA"
       ],
       "confidence": 0.8,
-      "_source_line": 474
+      "_source_line": 474,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetUrlCacheEntryInfoA",
@@ -1960,12 +2168,14 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向指定缓存项名称的以 null 结尾的字符串的指针。 名称字符串不应包含任何转义字符。"
+          "description": "指向指定缓存项名称的以 null 结尾的字符串的指针。 名称字符串不应包含任何转义字符。",
+          "type": "LPCSTR"
         },
         {
           "name": "lpCacheEntryInfo",
           "direction": "in",
-          "description": "指向 INTERNET_CACHE_ENTRY_INFO 结构的指针，该结构包含要分配给由 lpszUrlName 指定的缓存项的值。[in] dwFieldControl 指示要设置的成员。 此参数可以是以下值的组合。 价值"
+          "description": "指向 INTERNET_CACHE_ENTRY_INFO 结构的指针，该结构包含要分配给由 lpszUrlName 指定的缓存项的值。[in] dwFieldControl 指示要设置的成员。 此参数可以是以下值的组合。 价值",
+          "type": "LPINTERNET_CACHE_ENTRY_INFOA"
         }
       ],
       "header": "wininet.h",
@@ -1979,7 +2189,11 @@
         "UnlockUrlCacheEntryFileW"
       ],
       "confidence": 0.8,
-      "_source_line": 476
+      "_source_line": 476,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::UnlockUrlCacheEntryFileW",
@@ -1991,11 +2205,13 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向 null-terminated 字符串的指针，该字符串指定正在解锁的缓存项的源名称。 名称字 符串不应包含任何转义字符。[in] dwReserved 此参数是保留的，必须为 0。"
+          "description": "指向 null-terminated 字符串的指针，该字符串指定正在解锁的缓存项的源名称。 名称字 符串不应包含任何转义字符。[in] dwReserved 此参数是保留的，必须为 0。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。 ERROR_FILE_NOT_FOUND指示在缓存存储中找不到由源名称指定的缓存项。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。 ERROR_FILE_NOT_FOUND指示在缓存存储中找不到由源名称指定的缓存项。",
+        "type": "BOOL"
       },
       "remarks": "调用此函数后，应用程序不应访问该文件。当此函数返回时，缓存管理器可以自由删除缓存项。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -2017,7 +2233,8 @@
         {
           "name": "hUrlCacheStream",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "HANDLE"
         }
       ],
       "header": "wininet.h",
@@ -2026,7 +2243,11 @@
         "RetrieveUrlCacheEntryStream"
       ],
       "confidence": 0.7,
-      "_source_line": 491
+      "_source_line": 491,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::AUTO_PROXY_SCRIPT_BUFFER",
@@ -2173,7 +2394,11 @@
         "InternetFreeCookies"
       ],
       "confidence": 0.5,
-      "_source_line": 549
+      "_source_line": 549,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::INTERNET_DIAGNOSTIC_SOCKET_INFO",
@@ -2331,17 +2556,20 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "FTP 会话的句柄。[in] lpszRemoteFile 指向包含要检索的文件名称的以 null 结尾的字符串的指针。[in] lpszNewFile 指向一个以 null 结尾的字符串的指针，该字符串包含要在本地系统上创建的文件的名称。"
+          "description": "FTP 会话的句柄。[in] lpszRemoteFile 指向包含要检索的文件名称的以 null 结尾的字符串的指针。[in] lpszNewFile 指向一个以 null 结尾的字符串的指针，该字符串包含要在本地系统上创建的文件的名称。",
+          "type": "HINTERNET"
         },
         {
           "name": "fFailIfExists",
           "direction": "in",
-          "description": "指示如果指定名称的本地文件已存在，函数是否应继续。 如果 fFailIfExists为 TRUE 且本 地文件存在，FtpGetFile 失败。[in] dwFlagsAndAttributes 新文件的文件属性。 此参数可以是 CreateFile 函数使用的 FILE_ATTRIBUTE_* 标志的任意组合。"
+          "description": "指示如果指定名称的本地文件已存在，函数是否应继续。 如果 fFailIfExists为 TRUE 且本 地文件存在，FtpGetFile 失败。[in] dwFlagsAndAttributes 新文件的文件属性。 此参数可以是 CreateFile 函数使用的 FILE_ATTRIBUTE_* 标志的任意组合。",
+          "type": "BOOL"
         },
         {
           "name": "dwFlags",
           "direction": "in",
-          "description": "控制函数如何处理文件下载。 第一组标志值表示发生传输的条件。 这些传输类型标志可与控制缓存的第二组标志结合使用。 应用程序可以选择其中一个传输类型值。 价值"
+          "description": "控制函数如何处理文件下载。 第一组标志值表示发生传输的条件。 这些传输类型标志可与控制缓存的第二组标志结合使用。 应用程序可以选择其中一个传输类型值。 价值",
+          "type": "DWORD"
         }
       ],
       "header": "wininet.h",
@@ -2356,7 +2584,11 @@
         "FtpRemoveDirectoryW"
       ],
       "confidence": 0.8,
-      "_source_line": 810
+      "_source_line": 810,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::FtpSetCurrentDirectoryW",
@@ -2368,11 +2600,13 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "FTP 会话的句柄。[in] lpszDirectory 指向包含要成为当前工作目录的目录名称的以 null 结尾的字符串的指针。 这可以是完全 限定的路径，也可以是相对于当前目录的名称。"
+          "description": "FTP 会话的句柄。[in] lpszDirectory 指向包含要成为当前工作目录的目录名称的以 null 结尾的字符串的指针。 这可以是完全 限定的路径，也可以是相对于当前目录的名称。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。 如果错误消息指示 FTP 服务器拒绝更改目录的请求，请使用 InternetGetLastResponseInfo 来确定原因。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。 如果错误消息指示 FTP 服务器拒绝更改目录的请求，请使用 InternetGetLastResponseInfo 来确定原因。",
+        "type": "BOOL"
       },
       "remarks": "应用程序应使用 FtpGetCurrentDirectory 来确定远程站点的当前工作目录，而不是假设远程系统使用目录的分层命名方案。lpszDirectory 参数可以是相对于当前目录的部分或完全限定的文件名。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -2397,7 +2631,8 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
@@ -2418,7 +2653,11 @@
         "HttpSendRequestEx"
       ],
       "confidence": 0.8,
-      "_source_line": 863
+      "_source_line": 863,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::HttpQueryInfoA",
@@ -2430,21 +2669,25 @@
         {
           "name": "hRequest",
           "direction": "in",
-          "description": "调用 HttpOpenRequest 或 InternetOpenUrl 函数返回的句柄。[in] dwInfoLevel 要检索的属性和修改请求的标志的组合。 有关可能的属性和修饰符值的列表，请参阅 查询信息标志。"
+          "description": "调用 HttpOpenRequest 或 InternetOpenUrl 函数返回的句柄。[in] dwInfoLevel 要检索的属性和修改请求的标志的组合。 有关可能的属性和修饰符值的列表，请参阅 查询信息标志。",
+          "type": "HINTERNET"
         },
         {
           "name": "lpBuffer",
           "direction": "in, out",
-          "description": "指向缓冲区的指针，用于接收请求的信息。 此参数不得 NULL。[in, out] lpdwBufferLength 指向一个变量的指针，其中包含 lpvBuffer指向的缓冲区的大小（以字节为单位）。 当函数成功返回时，此变量包含写入缓冲区的信息字节数。 对于字符串，字节计数不包 括字符串的终止 null 字符。函数何时 失败并显示 ERROR_INSUFFICIENT_BUFFER的扩展错误代码，lpdwBufferLength 所指向的变量包含的缓冲区的大小（以字节为单位）的大小，足以接收请求的信息。 然后，调用应用程序可以分配此大小的缓冲区或更大的缓冲区，然后再次调用该函数。"
+          "description": "指向缓冲区的指针，用于接收请求的信息。 此参数不得 NULL。[in, out] lpdwBufferLength 指向一个变量的指针，其中包含 lpvBuffer指向的缓冲区的大小（以字节为单位）。 当函数成功返回时，此变量包含写入缓冲区的信息字节数。 对于字符串，字节计数不包 括字符串的终止 null 字符。函数何时 失败并显示 ERROR_INSUFFICIENT_BUFFER的扩展错误代码，lpdwBufferLength 所指向的变量包含的缓冲区的大小（以字节为单位）的大小，足以接收请求的信息。 然后，调用应用程序可以分配此大小的缓冲区或更大的缓冲区，然后再次调用该函数。",
+          "type": "out] LPVOID"
         },
         {
           "name": "lpdwIndex",
           "direction": "in, out",
-          "description": "指向从零开始的标头索引的指针，用于枚举具有相同名称的多个标头。 调用函数时，此参数是要返回的指定标头的索引。 函数返回时，此参数是下一个标头的索引。 如果找不 到下一个索引，则返回 ERROR_HTTP_HEADER_NOT_FOUND。"
+          "description": "指向从零开始的标头索引的指针，用于枚举具有相同名称的多个标头。 调用函数时，此参数是要返回的指定标头的索引。 函数返回时，此参数是下一个标头的索引。 如果找不 到下一个索引，则返回 ERROR_HTTP_HEADER_NOT_FOUND。",
+          "type": "out] LPDWORD"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "可以从 HttpQueryInfo 检索以下类型的数据：字符串（默认值）、SYSTEMTIME（日期）、DWORD（对于 STATUS_CODE、CONTENT_LENGTH 等，如果使用 HTTP_QUERY_FLAG_NUMBER）。如果应用程序要求将数据作为字符串以外的数据类型返回，则必须将相应的修饰符包含在传递给 dwInfoLevel 的属性中。",
       "header": "wininet.h",
@@ -2467,11 +2710,13 @@
         {
           "name": "dwReserved",
           "direction": "in",
-          "description": "此参数是保留的，必须为 0。"
+          "description": "此参数是保留的，必须为 0。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回ERROR_SUCCESS，否则返回 系统错误代码 。"
+        "description": "如果成功，则返回ERROR_SUCCESS，否则返回 系统错误代码 。",
+        "type": "DWORD"
       },
       "remarks": "此函数允许应用程序在发出任何请求之前先尝试连接。客户端程序可以使用此来唤起拨号对话框。如果尝试失败，应用程序应进入脱机模式。与 WinINet API 的所有其他方面一样，无法从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP Services (WinHTTP)。",
       "requirements": {
@@ -2500,16 +2745,19 @@
         {
           "name": "lpszUrl",
           "direction": "in",
-          "description": "指向 null终止字符串的指针，该字符串指定要用于检查连接的 URL。 此值可以 NULL。[in] dwFlags 选项。 FLAG_ICC_FORCE_CONNECTION是当前唯一可用的标志。 如果设置了此标志，它将强制建立连接。 按以下顺序尝试套接字连接： 如果 lpszUrl 为非NULL，则会从中提取主机值，用于 ping 该特定主机。 如果 lpszUrlNULL，并且最近的服务器的内部服务器数据库中有一个条目，则会从该条目中提取主机值，用于 ping 该服务器。"
+          "description": "指向 null终止字符串的指针，该字符串指定要用于检查连接的 URL。 此值可以 NULL。[in] dwFlags 选项。 FLAG_ICC_FORCE_CONNECTION是当前唯一可用的标志。 如果设置了此标志，它将强制建立连接。 按以下顺序尝试套接字连接： 如果 lpszUrl 为非NULL，则会从中提取主机值，用于 ping 该特定主机。 如果 lpszUrlNULL，并且最近的服务器的内部服务器数据库中有一个条目，则会从该条目中提取主机值，用于 ping 该服务器。",
+          "type": "LPCWSTR"
         },
         {
           "name": "dwReserved",
           "direction": "in",
-          "description": "此参数是保留的，必须为 0。"
+          "description": "此参数是保留的，必须为 0。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "如果连接成功或 FALSE，则返回 TRUE。 使用 GetLastError 检索错误代码。 如果无法建立连接或套接字数据库无条件脱机，则 ERROR_NOT_CONNECTED getLastError 返回 ERROR_NOT_CONNECTED。"
+        "description": "如果连接成功或 FALSE，则返回 TRUE。 使用 GetLastError 检索错误代码。 如果无法建立连接或套接字数据库无条件脱机，则 ERROR_NOT_CONNECTED getLastError 返回 ERROR_NOT_CONNECTED。",
+        "type": "BOOL"
       },
       "remarks": "InternetCheckConnection is deprecated. It doesn't work in environments using web proxy servers to access the Internet. Use NetworkInformation.GetInternetConnectionProfile or NLM interfaces instead. Note: WinINet doesn't support server implementations and shouldn't be used from services. For server implementations or services, use Microsoft Windows HTTP Services (WinHTTP).",
       "header": "wininet.h",
@@ -2531,7 +2779,8 @@
         {
           "name": "lpszUrl",
           "direction": "in",
-          "description": "指向包含要破解的规范 URL 的字符串的指针。[in] dwUrlLength lpszUrl 字符串的大小（TCHAR），如果 lpszUrl 为 ASCIIZ 字符串，则为零。[in] dwFlags 控制操作。 此参数可以是下列值之一。 价值"
+          "description": "指向包含要破解的规范 URL 的字符串的指针。[in] dwUrlLength lpszUrl 字符串的大小（TCHAR），如果 lpszUrl 为 ASCIIZ 字符串，则为零。[in] dwFlags 控制操作。 此参数可以是下列值之一。 价值",
+          "type": "LPCWSTR"
         }
       ],
       "header": "wininet.h",
@@ -2542,7 +2791,11 @@
         "InternetDial"
       ],
       "confidence": 0.8,
-      "_source_line": 942
+      "_source_line": 942,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::internetDialA",
@@ -2603,16 +2856,19 @@
         {
           "name": "hInternet",
           "direction": "in",
-          "description": "FtpOpenFile、GopherOpenFile、HttpOpenRequest 或 InternetOpenUrl 函数返回的句柄。"
+          "description": "FtpOpenFile、GopherOpenFile、HttpOpenRequest 或 InternetOpenUrl 函数返回的句柄。",
+          "type": "HINTERNET"
         },
         {
           "name": "lphLockRequestInfo",
           "direction": "out",
-          "description": "指向接收锁请求句柄的句柄的指针。"
+          "description": "指向接收锁请求句柄的句柄的指针。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE ，否则返回 FALSE 。 若要获取特定错误消息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE ，否则返回 FALSE 。 若要获取特定错误消息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "如果传递给 hInternet 的 HINTERNET 句柄是使用 INTERNET_FLAG_NO_CACHE_WRITE 或 INTERNET_FLAG_DONT_CACHE 创建的，则函数会创建扩展名为 .tmp 的临时文件，除非 它是 HTTPS 资源。 如果句柄是使用 INTERNET_FLAG_NO_CACHE_WRITE 或 INTERNET_FLAG_DONT_CACHE 创建的，并且它正在访问 HTTPS 资源， 则 InternetLockRequestFile 会失败。 与 WinINet API 的所有其他方面一样，无法从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。 注意 WinINet 不支持服务器实现。 此外，不应从服务使用它。 对于服务器实现或服务，请使用 Microsoft Windows HTTP Services (WinHTTP) 。",
       "header": "wininet.h",
@@ -2665,7 +2921,8 @@
         {
           "name": "hUrlCacheStream",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "HANDLE"
         }
       ],
       "header": "wininet.h",
@@ -2674,7 +2931,11 @@
         "RetrieveUrlCacheEntryStream"
       ],
       "confidence": 0.8,
-      "_source_line": 1102
+      "_source_line": 1102,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetUrlCacheEntryGroup",
@@ -2707,7 +2968,8 @@
         {
           "name": "gid",
           "direction": "in",
-          "description": "缓存组的标识符。[in] dwFlags 此参数是保留的，必须为 0。[in] dwAttributes 要设置的属性。 此参数可以是下列值之一。 价值"
+          "description": "缓存组的标识符。[in] dwFlags 此参数是保留的，必须为 0。[in] dwAttributes 要设置的属性。 此参数可以是下列值之一。 价值",
+          "type": "GROUPID"
         }
       ],
       "header": "wininet.h",
@@ -2716,7 +2978,11 @@
         "UnlockUrlCacheEntryFile"
       ],
       "confidence": 0.7,
-      "_source_line": 1127
+      "_source_line": 1127,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::UnlockUrlCacheEntryFile",
@@ -2728,11 +2994,13 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向 以 null 结尾的字符串的指针，该字符串指定要解锁的缓存项的源名称。 名称字符串 不应包含任何转义字符。[in] dwReserved 此参数是保留的，必须为 0。"
+          "description": "指向 以 null 结尾的字符串的指针，该字符串指定要解锁的缓存项的源名称。 名称字符串 不应包含任何转义字符。[in] dwReserved 此参数是保留的，必须为 0。",
+          "type": "LPCSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE，否则返回 FALSE。要获取更多的错误信息，请调用 GetLastError。ERROR_FILE_NOT_FOUND 指示在缓存存储中找不到源名称指定的缓存条目。"
+        "description": "如果成功，则返回 TRUE，否则返回 FALSE。要获取更多的错误信息，请调用 GetLastError。ERROR_FILE_NOT_FOUND 指示在缓存存储中找不到源名称指定的缓存条目。",
+        "type": "BOOL"
       },
       "remarks": "调用此函数后，应用程序不应访问该文件。 当此函数返回时，缓存管理器可以随意删除缓存项。 与 WinINet API 的所有其他方面一样，无法从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。 注意 WinINet 不支持服务器实现。 此外，不应从服务使用它。 对于服务器实现或服务，请使用 Microsoft Windows HTTP Services (WinHTTP) 。",
       "header": "wininet.h",
@@ -2844,24 +3112,31 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向包含缓存项的源名称的字符串变量的指针。 名称字符串必须是唯一的，并且不应包含任何转义字符。"
+          "description": "指向包含缓存项的源名称的字符串变量的指针。 名称字符串必须是唯一的，并且不应包含任何转义字符。",
+          "type": "LPCWSTR"
         },
         {
           "name": "lpszLocalFileName",
           "direction": "in",
-          "description": "指向包含要缓存的本地文件名称的字符串变量的指针。 这应与 CreateUrlCacheEntryW返 回的名称相同。[in] ExpireTime FILETIME 结构，其中包含正在缓存的文件的过期日期和时间（以格林威治平均值时间为 单位）。 如果过期日期和时间未知，请将此参数设置为零。[in] LastModifiedTime FILETIME 结构，该结构包含缓存的 URL 的上次修改日期和时间（以格林威治平均时间为单位）。 如果上次修改的日期和时间未知，请将此参数设置为零。"
+          "description": "指向包含要缓存的本地文件名称的字符串变量的指针。 这应与 CreateUrlCacheEntryW返 回的名称相同。[in] ExpireTime FILETIME 结构，其中包含正在缓存的文件的过期日期和时间（以格林威治平均值时间为 单位）。 如果过期日期和时间未知，请将此参数设置为零。[in] LastModifiedTime FILETIME 结构，该结构包含缓存的 URL 的上次修改日期和时间（以格林威治平均时间为单位）。 如果上次修改的日期和时间未知，请将此参数设置为零。",
+          "type": "LPCWSTR"
         },
         {
           "name": "CacheEntryType",
           "direction": "in",
-          "description": "指示缓存项的类型及其属性的位掩码。 缓存项类型包括：历史记录项 （URLHISTORY_CACHE_ENTRY）、Cookie 条目（COOKIE_CACHE_ENTRY）和普通缓存内容（NORMAL_CACHE_ENTRY）。 此参数可以是以下属性标志的零个或多个，以及下面列出的缓存类型标志。 价值"
+          "description": "指示缓存项的类型及其属性的位掩码。 缓存项类型包括：历史记录项 （URLHISTORY_CACHE_ENTRY）、Cookie 条目（COOKIE_CACHE_ENTRY）和普通缓存内容（NORMAL_CACHE_ENTRY）。 此参数可以是以下属性标志的零个或多个，以及下面列出的缓存类型标志。 价值",
+          "type": "DWORD"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 1433
+      "_source_line": 1433,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::CreateUrlCacheEntry",
@@ -2900,16 +3175,19 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向包含 URL 名称的字符串值的指针。 字符串必须包含值;空字符串将导致 createUrlCacheEntry 失败 。 此外，字符串不得包含任何转义字符。[in] dwExpectedFileSize 存储与源实体对应的数据所需的文件大小，TCHAR。 如果预期大小未知，请将此值设置为零。"
+          "description": "指向包含 URL 名称的字符串值的指针。 字符串必须包含值;空字符串将导致 createUrlCacheEntry 失败 。 此外，字符串不得包含任何转义字符。[in] dwExpectedFileSize 存储与源实体对应的数据所需的文件大小，TCHAR。 如果预期大小未知，请将此值设置为零。",
+          "type": "LPCWSTR"
         },
         {
           "name": "lpszFileExtension",
           "direction": "in",
-          "description": "指向包含本地存储中文件的扩展名的字符串值的指针。[out] lpszFileName 指向接收文件名的缓冲区的指针。 缓冲区应足够大，足以存储所创建文件的路径（长度 至少MAX_PATH个字符）。[in] dwReserved 此参数是保留的，必须为 0。"
+          "description": "指向包含本地存储中文件的扩展名的字符串值的指针。[out] lpszFileName 指向接收文件名的缓冲区的指针。 缓冲区应足够大，足以存储所创建文件的路径（长度 至少MAX_PATH个字符）。[in] dwReserved 此参数是保留的，必须为 0。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，该函数将返回 true。 如果该函数失败，则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果函数成功，该函数将返回 true。 如果该函数失败，则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -2927,11 +3205,13 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向包含与缓存项对应的源名称的字符串的指针。"
+          "description": "指向包含与缓存项对应的源名称的字符串的指针。",
+          "type": "LPCSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。 可能的错误值包括以下内容。 返回代码"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。 可能的错误值包括以下内容。 返回代码",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -2986,11 +3266,13 @@
         {
           "name": "hEnumHandle",
           "direction": "in",
-          "description": "先前调用 FindFirstUrlCacheEntry 函数返回的句柄。"
+          "description": "先前调用 FindFirstUrlCacheEntry 函数返回的句柄。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE ，否则返回 FALSE 。 要获得更多的错误信息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE ，否则返回 FALSE 。 要获得更多的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP Services (WinHTTP)。",
       "requirements": {
@@ -3015,16 +3297,19 @@
         {
           "name": "lpszUrlSearchPattern",
           "direction": "in",
-          "description": "指向包含要搜索的源名称模式的字符串的指针。 此参数只能设置为“cookie：”、 “visited：”或 NULL。 将此参数设置为“cookie：”以枚举 Cookie 或“visited：”以枚举缓存中的 URL 历史记录条目。 如果此参数 NULL，FindFirstUrlCacheEntry 返回缓存中的所有内容条目。"
+          "description": "指向包含要搜索的源名称模式的字符串的指针。 此参数只能设置为“cookie：”、 “visited：”或 NULL。 将此参数设置为“cookie：”以枚举 Cookie 或“visited：”以枚举缓存中的 URL 历史记录条目。 如果此参数 NULL，FindFirstUrlCacheEntry 返回缓存中的所有内容条目。",
+          "type": "LPCSTR"
         },
         {
           "name": "lpFirstCacheEntryInfo",
           "direction": "out",
-          "description": "指向 INTERNET_CACHE_ENTRY_INFO 结构的指针。[in, out] lpcbCacheEntryInfo 指向一个变量的指针，该变量指定 lpFirstCacheEntryInfo 缓冲区的大小（以字节为单位）。 函数返回时，变量包含复制到缓冲区的字节数，或检索缓存项所需的大小（以字 节为单位）。"
+          "description": "指向 INTERNET_CACHE_ENTRY_INFO 结构的指针。[in, out] lpcbCacheEntryInfo 指向一个变量的指针，该变量指定 lpFirstCacheEntryInfo 缓冲区的大小（以字节为单位）。 函数返回时，变量包含复制到缓冲区的字节数，或检索缓存项所需的大小（以字 节为单位）。",
+          "type": "LPINTERNET_CACHE_ENTRY_INFOA"
         }
       ],
       "return_value": {
-        "description": "返回应用程序可以在 FindNextUrlCacheEntry 函数中使用的句柄来检索缓存中的后续条目。 如果函数失败，则返回值 NULL。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "返回应用程序可以在 FindNextUrlCacheEntry 函数中使用的句柄来检索缓存中的后续条目。 如果函数失败，则返回值 NULL。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "HANDLE"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -3053,14 +3338,19 @@
         {
           "name": "lpszUrlSearchPattern",
           "direction": "in",
-          "description": "指向包含要搜索的源名称模式的字符串的指针。 此参数只能设置为“cookie：”、 “visited：”或 NULL。 将此参数设置为“cookie：”以枚举 Cookie 或“visited：”以枚举缓存中的 URL 历史记录条目。 如果此参数为 NULL，FindFirstUrlCacheEntryEx 返回缓存中的 所有内容条目。[in] dwFlags 控制枚举。 当前未实现任何标志;此参数必须设置为零。[in] dwFilter 指示缓存项的类型及其属性的位掩码。 缓存项类型包括：历史记录项 （URLHISTORY_CACHE_ENTRY）、Cookie 条目（COOKIE_CACHE_ENTRY）和普通缓存内容（NORMAL_CACHE_ENTRY）。 此参数可以是以下属性标志的零个或多个，以及下面列出的缓存类型标志。 价值"
+          "description": "指向包含要搜索的源名称模式的字符串的指针。 此参数只能设置为“cookie：”、 “visited：”或 NULL。 将此参数设置为“cookie：”以枚举 Cookie 或“visited：”以枚举缓存中的 URL 历史记录条目。 如果此参数为 NULL，FindFirstUrlCacheEntryEx 返回缓存中的 所有内容条目。[in] dwFlags 控制枚举。 当前未实现任何标志;此参数必须设置为零。[in] dwFilter 指示缓存项的类型及其属性的位掩码。 缓存项类型包括：历史记录项 （URLHISTORY_CACHE_ENTRY）、Cookie 条目（COOKIE_CACHE_ENTRY）和普通缓存内容（NORMAL_CACHE_ENTRY）。 此参数可以是以下属性标志的零个或多个，以及下面列出的缓存类型标志。 价值",
+          "type": "LPCSTR"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 1929
+      "_source_line": 1929,
+      "return_value": {
+        "type": "HANDLE",
+        "description": ""
+      }
     },
     {
       "id": "windows::FindFirstUrlCacheEntryExW",
@@ -3072,14 +3362,19 @@
         {
           "name": "lpszUrlSearchPattern",
           "direction": "in",
-          "description": "指向包含要搜索的源名称模式的字符串的指针。 此参数只能设置为“cookie：”、 “visited：”或 NULL。 将此参数设置为“cookie：”以枚举 Cookie 或“visited：”以枚举缓存中的 URL 历史记录条目。 如果此参数为 NULL，FindFirstUrlCacheEntryEx 返回缓存中的 所有内容条目。[in] dwFlags 控制枚举。 当前未实现任何标志;此参数必须设置为零。[in] dwFilter 指示缓存项的类型及其属性的位掩码。 缓存项类型包括：历史记录项 （URLHISTORY_CACHE_ENTRY）、Cookie 条目（COOKIE_CACHE_ENTRY）和普通缓存内容（NORMAL_CACHE_ENTRY）。 此参数可以是以下属性标志的零个或多个，以及下面列出的缓存类型标志。 价值"
+          "description": "指向包含要搜索的源名称模式的字符串的指针。 此参数只能设置为“cookie：”、 “visited：”或 NULL。 将此参数设置为“cookie：”以枚举 Cookie 或“visited：”以枚举缓存中的 URL 历史记录条目。 如果此参数为 NULL，FindFirstUrlCacheEntryEx 返回缓存中的 所有内容条目。[in] dwFlags 控制枚举。 当前未实现任何标志;此参数必须设置为零。[in] dwFilter 指示缓存项的类型及其属性的位掩码。 缓存项类型包括：历史记录项 （URLHISTORY_CACHE_ENTRY）、Cookie 条目（COOKIE_CACHE_ENTRY）和普通缓存内容（NORMAL_CACHE_ENTRY）。 此参数可以是以下属性标志的零个或多个，以及下面列出的缓存类型标志。 价值",
+          "type": "LPCWSTR"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 1992
+      "_source_line": 1992,
+      "return_value": {
+        "type": "HANDLE",
+        "description": ""
+      }
     },
     {
       "id": "windows::FindFirstUrlCacheEntryW",
@@ -3091,16 +3386,19 @@
         {
           "name": "lpszUrlSearchPattern",
           "direction": "in",
-          "description": "指向包含要搜索的源名称模式的字符串的指针。 此参数只能设置为“cookie：”、 “visited：”或 NULL。 将此参数设置为“cookie：”以枚举 Cookie 或“visited：”以枚举缓存中的 URL 历史记录条目。 如果此参数 NULL，FindFirstUrlCacheEntry 返回缓存中的所有内容条目。"
+          "description": "指向包含要搜索的源名称模式的字符串的指针。 此参数只能设置为“cookie：”、 “visited：”或 NULL。 将此参数设置为“cookie：”以枚举 Cookie 或“visited：”以枚举缓存中的 URL 历史记录条目。 如果此参数 NULL，FindFirstUrlCacheEntry 返回缓存中的所有内容条目。",
+          "type": "LPCWSTR"
         },
         {
           "name": "lpFirstCacheEntryInfo",
           "direction": "out",
-          "description": "指向 INTERNET_CACHE_ENTRY_INFO 结构的指针。[in, out] lpcbCacheEntryInfo 指向一个变量的指针，该变量指定 lpFirstCacheEntryInfo 缓冲区的大小（以字节为单位）。 函数返回时，变量包含复制到缓冲区的字节数，或检索缓存项所需的大小（以字 节为单位）。"
+          "description": "指向 INTERNET_CACHE_ENTRY_INFO 结构的指针。[in, out] lpcbCacheEntryInfo 指向一个变量的指针，该变量指定 lpFirstCacheEntryInfo 缓冲区的大小（以字节为单位）。 函数返回时，变量包含复制到缓冲区的字节数，或检索缓存项所需的大小（以字 节为单位）。",
+          "type": "LPINTERNET_CACHE_ENTRY_INFOW"
         }
       ],
       "return_value": {
-        "description": "返回可在FindNextUrlCacheEntryW中使用的句柄以检索后续条目。失败时返回NULL，调用GetLastError获取错误信息。"
+        "description": "返回可在FindNextUrlCacheEntryW中使用的句柄以检索后续条目。失败时返回NULL，调用GetLastError获取错误信息。",
+        "type": "HANDLE"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -3118,10 +3416,14 @@
         {
           "name": "dwFlags",
           "direction": "in",
-          "description": "此参数是保留的，必须为 0。[in] dwFilter 要使用的筛选器。 此参数可以是零或以下值之一。 值"
+          "description": "此参数是保留的，必须为 0。[in] dwFilter 要使用的筛选器。 此参数可以是零或以下值之一。 值",
+          "type": "DWORD"
         }
       ],
-      "return_value": "如果成功，则返回缓存枚举句柄。如果失败，则返回 NULL。若要获取特定错误信息，请调用 GetLastError。",
+      "return_value": {
+        "type": "HANDLE",
+        "description": "如果成功，则返回缓存枚举句柄。如果失败，则返回 NULL。若要获取特定错误信息，请调用 GetLastError。"
+      },
       "remarks": "继续调用 FindNextUrlCacheGroup，直到返回缓存中的最后一项。与 WinINet API 的所有其他方面一样，无法从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP Services (WinHTTP)。",
       "header": "wininet.h",
       "deprecated": false,
@@ -3168,11 +3470,13 @@
         {
           "name": "hEnumHandle",
           "direction": "in",
-          "description": "从上一次调用 FindFirstUrlCacheEntry获取的枚举句柄。[out] lpNextCacheEntryInfo 指向接收有关缓存项信息的 INTERNET_CACHE_ENTRY_INFO 结构的指针。[in, out] lpcbCacheEntryInfo 指向一个变量的指针，该变量指定 lpNextCacheEntryInfo 缓冲区的大小（以字节为单位）。 函数返回时，变量包含复制到缓冲区的字节数，或检索缓存项所需的缓冲区大小 （以字节为单位）。"
+          "description": "从上一次调用 FindFirstUrlCacheEntry获取的枚举句柄。[out] lpNextCacheEntryInfo 指向接收有关缓存项信息的 INTERNET_CACHE_ENTRY_INFO 结构的指针。[in, out] lpcbCacheEntryInfo 指向一个变量的指针，该变量指定 lpNextCacheEntryInfo 缓冲区的大小（以字节为单位）。 函数返回时，变量包含复制到缓冲区的字节数，或检索缓存项所需的缓冲区大小 （以字节为单位）。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回TRUE；否则返回FALSE。若要获取扩展的错误信息，请调用GetLastError。"
+        "description": "如果成功，则返回TRUE；否则返回FALSE。若要获取扩展的错误信息，请调用GetLastError。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -3190,7 +3494,8 @@
         {
           "name": "hEnumHandle",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "HANDLE"
         }
       ],
       "header": "wininet.h",
@@ -3199,7 +3504,11 @@
         "FindFirstUrlCacheEntryEx"
       ],
       "confidence": 0.7,
-      "_source_line": 2191
+      "_source_line": 2191,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::FindFirstUrlCacheEntryEx",
@@ -3227,7 +3536,8 @@
         {
           "name": "hEnumHandle",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "HANDLE"
         }
       ],
       "header": "wininet.h",
@@ -3236,7 +3546,11 @@
         "FindFirstUrlCacheEntryEx"
       ],
       "confidence": 0.8,
-      "_source_line": 2235
+      "_source_line": 2235,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::FindNextUrlCacheGroup",
@@ -3248,7 +3562,8 @@
         {
           "name": "hFind",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "HANDLE"
         }
       ],
       "header": "wininet.h",
@@ -3257,7 +3572,11 @@
         "FindFirstUrlCacheGroup"
       ],
       "confidence": 0.55,
-      "_source_line": 2325
+      "_source_line": 2325,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::FtpCommand",
@@ -3269,14 +3588,19 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "从调用 InternetConnect返回的句柄。[in] fExpectResponse 一个布尔值，该值指示应用程序是否要求 FTP 服务器建立数据连接。 如果预期数据连 接，则必须将其设置为 TRUE，否则 FALSE。[in] dwFlags 可设置为以下值之一的参数。 价值"
+          "description": "从调用 InternetConnect返回的句柄。[in] fExpectResponse 一个布尔值，该值指示应用程序是否要求 FTP 服务器建立数据连接。 如果预期数据连 接，则必须将其设置为 TRUE，否则 FALSE。[in] dwFlags 可设置为以下值之一的参数。 价值",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.45,
-      "_source_line": 2358
+      "_source_line": 2358,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::FTP_TRANSFER_TYPE_ASCII",
@@ -3322,11 +3646,13 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "使用 INTERNET_SERVICE_FTP对 InternetConnect 调用返回的句柄。[in] lpszDirectory 指向包含要创建的目录名称的以 null 结尾的字符串的指针。 这可以是完全限定的路径， 也可以是相对于当前目录的名称。"
+          "description": "使用 INTERNET_SERVICE_FTP对 InternetConnect 调用返回的句柄。[in] lpszDirectory 指向包含要创建的目录名称的以 null 结尾的字符串的指针。 这可以是完全限定的路径， 也可以是相对于当前目录的名称。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。 如果错误消息指示 FTP 服务器拒绝了创建目录的请求，请使用 InternetGetLastResponseInfo 来确定原因。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。 如果错误消息指示 FTP 服务器拒绝了创建目录的请求，请使用 InternetGetLastResponseInfo 来确定原因。",
+        "type": "BOOL"
       },
       "remarks": "应用程序应使用 FtpGetCurrentDirectory 来确定远程站点的当前工作目录，而不是假设远程系统使用目录的分层命名方案。lpszDirectory 参数可以是相对于当前目录的部分或完全限定的文件名。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -3348,11 +3674,13 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "使用 INTERNET_SERVICE_FTP对 InternetConnect 调用返回的句柄。[in] lpszDirectory 指向包含要创建的目录名称的以 null 结尾的字符串的指针。 这可以是完全限定的路径， 也可以是相对于当前目录的名称。"
+          "description": "使用 INTERNET_SERVICE_FTP对 InternetConnect 调用返回的句柄。[in] lpszDirectory 指向包含要创建的目录名称的以 null 结尾的字符串的指针。 这可以是完全限定的路径， 也可以是相对于当前目录的名称。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。 如果错误消息指示 FTP 服务器拒绝了创建目录的请求，请使用 InternetGetLastResponseInfo 来确定原因。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。 如果错误消息指示 FTP 服务器拒绝了创建目录的请求，请使用 InternetGetLastResponseInfo 来确定原因。",
+        "type": "BOOL"
       },
       "remarks": "应用程序应使用 FtpGetCurrentDirectory 来确定远程站点的当前工作目录，而不是假设远程系统使用目录的分层命名方案。lpszDirectory 参数可以是相对于当前目录的部分或完全限定的文件名。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -3374,11 +3702,13 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "使用 INTERNET_SERVICE_FTP对 InternetConnect 调用返回的句柄。[in] lpszFileName 指向包含要删除的文件名称的以 null 结尾的字符串的指针。"
+          "description": "使用 INTERNET_SERVICE_FTP对 InternetConnect 调用返回的句柄。[in] lpszFileName 指向包含要删除的文件名称的以 null 结尾的字符串的指针。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "lpszFileName 参数可以是相对于当前目录的部分或完全限定的文件名。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -3400,11 +3730,13 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "使用 INTERNET_SERVICE_FTP对 InternetConnect 调用返回的句柄。[in] lpszFileName 指向包含要删除的文件名称的以 null 结尾的字符串的指针。"
+          "description": "使用 INTERNET_SERVICE_FTP对 InternetConnect 调用返回的句柄。[in] lpszFileName 指向包含要删除的文件名称的以 null 结尾的字符串的指针。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "lpszFileName 参数可以是相对于当前目录的部分或完全限定的文件名。 与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。 注意 WinINet 不支持服务器实现。 此外，不应从服务使用它。 对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -3426,7 +3758,8 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "从 InternetConnect返回的 FTP 会话的句柄。[in] lpszSearchFile 指向 null-terminated 字符串的指针，该字符串指定 FTP 服务器的文件系统的有效目录路径或文件名。 字符串可以包含通配符，但不允许空格。 如果 lpszSearchFile 的值 NULL 或者它是空字符串，则该函数将查找服务器上的当前目录中的第一个文件。[out] lpFindFileData 指向接收有关找到的文件或目录信息的 WIN32_FIND_DATA 结构的指针。[in] dwFlags 控制此函数的行为。 此参数可以是以下值的组合。"
+          "description": "从 InternetConnect返回的 FTP 会话的句柄。[in] lpszSearchFile 指向 null-terminated 字符串的指针，该字符串指定 FTP 服务器的文件系统的有效目录路径或文件名。 字符串可以包含通配符，但不允许空格。 如果 lpszSearchFile 的值 NULL 或者它是空字符串，则该函数将查找服务器上的当前目录中的第一个文件。[out] lpFindFileData 指向接收有关找到的文件或目录信息的 WIN32_FIND_DATA 结构的指针。[in] dwFlags 控制此函数的行为。 此参数可以是以下值的组合。",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
@@ -3435,7 +3768,11 @@
         "WIN32_FIND_DATA"
       ],
       "confidence": 0.8,
-      "_source_line": 2595
+      "_source_line": 2595,
+      "return_value": {
+        "type": "HINTERNET",
+        "description": ""
+      }
     },
     {
       "id": "windows::INTERNET_FLAG_HYPERLINK",
@@ -3538,16 +3875,19 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "FTP 会话的句柄。"
+          "description": "FTP 会话的句柄。",
+          "type": "HINTERNET"
         },
         {
           "name": "lpszCurrentDirectory",
           "direction": "out",
-          "description": "指向接收当前目录的绝对路径的以 null 结尾的字符串的指针。[in, out] lpdwCurrentDirectory 指向指定缓冲区长度的变量的指针，TCHAR。 缓冲区长度必须包含终止 null 字符的空间。 使用长度 MAX_PATH 足以满足所有路径。 函数返回时，变量将接收复制到缓冲区 中的字符数。"
+          "description": "指向接收当前目录的绝对路径的以 null 结尾的字符串的指针。[in, out] lpdwCurrentDirectory 指向指定缓冲区长度的变量的指针，TCHAR。 缓冲区长度必须包含终止 null 字符的空间。 使用长度 MAX_PATH 足以满足所有路径。 函数返回时，变量将接收复制到缓冲区 中的字符数。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "如果 lpszCurrentDirectory 缓冲区不够大，lpdwCurrentDirectory 接收检索完整当前目录名称所需的字节数。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -3583,24 +3923,31 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "FTP 会话的句柄。[in] lpszRemoteFile 指向包含要检索的文件名称的以 null 结尾的字符串的指针。[in] lpszNewFile 指向一个以 null 结尾的字符串的指针，该字符串包含要在本地系统上创建的文件的名称。"
+          "description": "FTP 会话的句柄。[in] lpszRemoteFile 指向包含要检索的文件名称的以 null 结尾的字符串的指针。[in] lpszNewFile 指向一个以 null 结尾的字符串的指针，该字符串包含要在本地系统上创建的文件的名称。",
+          "type": "HINTERNET"
         },
         {
           "name": "fFailIfExists",
           "direction": "in",
-          "description": "指示如果指定名称的本地文件已存在，函数是否应继续。 如果 fFailIfExists为 TRUE 且本 地文件存在，FtpGetFile 失败。[in] dwFlagsAndAttributes 新文件的文件属性。 此参数可以是 CreateFile 函数使用的 FILE_ATTRIBUTE_* 标志的任意组合。"
+          "description": "指示如果指定名称的本地文件已存在，函数是否应继续。 如果 fFailIfExists为 TRUE 且本 地文件存在，FtpGetFile 失败。[in] dwFlagsAndAttributes 新文件的文件属性。 此参数可以是 CreateFile 函数使用的 FILE_ATTRIBUTE_* 标志的任意组合。",
+          "type": "BOOL"
         },
         {
           "name": "dwFlags",
           "direction": "in",
-          "description": "控制函数如何处理文件下载。 第一组标志值表示发生传输的条件。 这些传输类型标志可与控制缓存的第二组标志结合使用。 应用程序可以选择其中一个传输类型值。 价值"
+          "description": "控制函数如何处理文件下载。 第一组标志值表示发生传输的条件。 这些传输类型标志可与控制缓存的第二组标志结合使用。 应用程序可以选择其中一个传输类型值。 价值",
+          "type": "DWORD"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 2865
+      "_source_line": 2865,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::FtpOpenFileA",
@@ -3612,14 +3959,19 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "FTP 会话的句柄。[in] lpszFileName 指向包含要访问的文件名称的以 null 结尾的字符串的指针。[in] dwAccess 文件访问。 此参数可以是 GENERIC_READ 或 GENERIC_WRITE，但不能同时"
+          "description": "FTP 会话的句柄。[in] lpszFileName 指向包含要访问的文件名称的以 null 结尾的字符串的指针。[in] dwAccess 文件访问。 此参数可以是 GENERIC_READ 或 GENERIC_WRITE，但不能同时",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 2936
+      "_source_line": 2936,
+      "return_value": {
+        "type": "HINTERNET",
+        "description": ""
+      }
     },
     {
       "id": "windows::FtpOpenFileW",
@@ -3631,14 +3983,19 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "FTP 会话的句柄。[in] lpszFileName 指向包含要访问的文件名称的以 null 结尾的字符串的指针。[in] dwAccess 文件访问。 此参数可以是 GENERIC_READ 或 GENERIC_WRITE，但不能同时"
+          "description": "FTP 会话的句柄。[in] lpszFileName 指向包含要访问的文件名称的以 null 结尾的字符串的指针。[in] dwAccess 文件访问。 此参数可以是 GENERIC_READ 或 GENERIC_WRITE，但不能同时",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 3003
+      "_source_line": 3003,
+      "return_value": {
+        "type": "HINTERNET",
+        "description": ""
+      }
     },
     {
       "id": "windows::FtpPutFileA",
@@ -3650,14 +4007,19 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "FTP 会话的句柄。[in] lpszLocalFile 指向包含要从本地系统发送的文件名称的以 null 结尾的字符串的指针。[in] lpszNewRemoteFile 指向一个以 null 结尾的字符串的指针，其中包含在远程系统上创建的文件的名称。[in] dwFlags 发生传输的条件。 应用程序应选择一种传输类型以及控制文件缓存方式的任何标志。传输类型可以是以下任一值。 价值"
+          "description": "FTP 会话的句柄。[in] lpszLocalFile 指向包含要从本地系统发送的文件名称的以 null 结尾的字符串的指针。[in] lpszNewRemoteFile 指向一个以 null 结尾的字符串的指针，其中包含在远程系统上创建的文件的名称。[in] dwFlags 发生传输的条件。 应用程序应选择一种传输类型以及控制文件缓存方式的任何标志。传输类型可以是以下任一值。 价值",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 3070
+      "_source_line": 3070,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::FtpPutFile",
@@ -3682,14 +4044,19 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "FTP 会话的句柄。[in] lpszLocalFile 指向包含要从本地系统发送的文件名称的以 null 结尾的字符串的指针。[in] lpszNewRemoteFile 指向一个以 null 结尾的字符串的指针，其中包含在远程系统上创建的文件的名称。[in] dwFlags 发生传输的条件。 应用程序应选择一种传输类型以及控制文件缓存方式的任何标志。传输类型可以是以下任一值。 价值"
+          "description": "FTP 会话的句柄。[in] lpszLocalFile 指向包含要从本地系统发送的文件名称的以 null 结尾的字符串的指针。[in] lpszNewRemoteFile 指向一个以 null 结尾的字符串的指针，其中包含在远程系统上创建的文件的名称。[in] dwFlags 发生传输的条件。 应用程序应选择一种传输类型以及控制文件缓存方式的任何标志。传输类型可以是以下任一值。 价值",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 3136
+      "_source_line": 3136,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::FtpRemoveDirectoryA",
@@ -3701,11 +4068,13 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "FTP 会话的句柄。[in] lpszDirectory 指向包含要删除的目录名称的以 null 结尾的字符串的指针。 这可以是完全限定的路径， 也可以是相对于当前目录的名称。"
+          "description": "FTP 会话的句柄。[in] lpszDirectory 指向包含要删除的目录名称的以 null 结尾的字符串的指针。 这可以是完全限定的路径， 也可以是相对于当前目录的名称。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。 如果错误消息指示 FTP 服务器拒绝了删除目录的请求，请使用 InternetGetLastResponseInfo 来确定原因。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。 如果错误消息指示 FTP 服务器拒绝了删除目录的请求，请使用 InternetGetLastResponseInfo 来确定原因。",
+        "type": "BOOL"
       },
       "remarks": "应用程序应使用 FtpGetCurrentDirectory 来确定远程站点的当前工作目录，而不是假设远程系统使用目录的分层命名方案。lpszDirectory 参数可以是相对于当前目录的部分或完全限定的文件名。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -3727,11 +4096,13 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "FTP 会话的句柄。[in] lpszDirectory 指向包含要删除的目录名称的以 null 结尾的字符串的指针。 这可以是完全限定的路径， 也可以是相对于当前目录的名称。"
+          "description": "FTP 会话的句柄。[in] lpszDirectory 指向包含要删除的目录名称的以 null 结尾的字符串的指针。 这可以是完全限定的路径， 也可以是相对于当前目录的名称。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。 如果错误消息指示 FTP 服务器拒绝了删除目录的请求，请使用 InternetGetLastResponseInfo 来确定原因。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。 如果错误消息指示 FTP 服务器拒绝了删除目录的请求，请使用 InternetGetLastResponseInfo 来确定原因。",
+        "type": "BOOL"
       },
       "remarks": "应用程序应使用 FtpGetCurrentDirectory 来确定远程站点的当前工作目录，而不是假设远程系统使用目录的分层命名方案。lpszDirectory 参数可以是相对于当前目录的部分或完全限定的文件名。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -3753,11 +4124,13 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "FTP 会话的句柄。[in] lpszExisting 指向包含要重命名的文件名称的以 null 结尾的字符串的指针。[in] lpszNew 指向包含远程文件新名称的以 null 结尾的字符串的指针。"
+          "description": "FTP 会话的句柄。[in] lpszExisting 指向包含要重命名的文件名称的以 null 结尾的字符串的指针。[in] lpszNew 指向包含远程文件新名称的以 null 结尾的字符串的指针。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "lpszExisting 和 lpszNew 参数可以是相对于当前目录的部分或完全限定的文件名。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -3779,11 +4152,13 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": "FTP 会话的句柄。[in] lpszDirectory 指向包含要成为当前工作目录的目录名称的以 null 结尾的字符串的指针。 这可以是完全 限定的路径，也可以是相对于当前目录的名称。"
+          "description": "FTP 会话的句柄。[in] lpszDirectory 指向包含要成为当前工作目录的目录名称的以 null 结尾的字符串的指针。 这可以是完全 限定的路径，也可以是相对于当前目录的名称。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。 如果错误消息指示 FTP 服务器拒绝更改目录的请求，请使用 InternetGetLastResponseInfo 来确定原因。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。 如果错误消息指示 FTP 服务器拒绝更改目录的请求，请使用 InternetGetLastResponseInfo 来确定原因。",
+        "type": "BOOL"
       },
       "remarks": "应用程序应使用 FtpGetCurrentDirectory 来确定远程站点的当前工作目录，而不是假设远程系统使用目录的分层命名方案。lpszDirectory 参数可以是相对于当前目录的部分或完全限定的文件名。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -3805,19 +4180,25 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向包含缓存项名称的以 null 结尾的字符串的指针。 名称字符串不应包含任何转义字符。"
+          "description": "指向包含缓存项名称的以 null 结尾的字符串的指针。 名称字符串不应包含任何转义字符。",
+          "type": "LPCSTR"
         },
         {
           "name": "lpCacheEntryInfo",
           "direction": "out",
-          "description": "指向接收有关缓存项信息的 INTERNET_CACHE_ENTRY_INFO 结构的指针。 应为此参数分配缓冲区。 由于预先不知道缓冲区的所需大小，因此最好分配足以处理大多数"
+          "description": "指向接收有关缓存项信息的 INTERNET_CACHE_ENTRY_INFO 结构的指针。 应为此参数分配缓冲区。 由于预先不知道缓冲区的所需大小，因此最好分配足以处理大多数",
+          "type": "LPINTERNET_CACHE_ENTRY_INFOA"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 3418
+      "_source_line": 3418,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetUrlCacheEntryInfo",
@@ -3844,7 +4225,8 @@
         {
           "name": "lpszUrl",
           "direction": "in",
-          "description": "指向包含缓存项名称的 null终止字符串的指针。 名称字符串不应包含任何转义字符。[in, out, optional] lpCacheEntryInfo 指向接收有关缓存项信息的 INTERNET_CACHE_ENTRY_INFO 结构的指针。 应为此参数分配缓冲区。 由于预先不知道缓冲区的所需大小，因此最好分配足以处理大多数"
+          "description": "指向包含缓存项名称的 null终止字符串的指针。 名称字符串不应包含任何转义字符。[in, out, optional] lpCacheEntryInfo 指向接收有关缓存项信息的 INTERNET_CACHE_ENTRY_INFO 结构的指针。 应为此参数分配缓冲区。 由于预先不知道缓冲区的所需大小，因此最好分配足以处理大多数",
+          "type": "LPCSTR"
         }
       ],
       "header": "wininet.h",
@@ -3853,7 +4235,11 @@
         "HttpSendRequest"
       ],
       "confidence": 0.8,
-      "_source_line": 3468
+      "_source_line": 3468,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetUrlCacheEntryInfoEx",
@@ -3879,19 +4265,25 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向包含缓存项名称的以 null 结尾的字符串的指针。 名称字符串不应包含任何转义字符。"
+          "description": "指向包含缓存项名称的以 null 结尾的字符串的指针。 名称字符串不应包含任何转义字符。",
+          "type": "LPCWSTR"
         },
         {
           "name": "lpCacheEntryInfo",
           "direction": "out",
-          "description": "指向接收有关缓存项信息的 INTERNET_CACHE_ENTRY_INFO 结构的指针。 应为此参数分配缓冲区。 由于预先不知道缓冲区的所需大小，因此最好分配足以处理大多数"
+          "description": "指向接收有关缓存项信息的 INTERNET_CACHE_ENTRY_INFO 结构的指针。 应为此参数分配缓冲区。 由于预先不知道缓冲区的所需大小，因此最好分配足以处理大多数",
+          "type": "LPINTERNET_CACHE_ENTRY_INFOW"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 3576
+      "_source_line": 3576,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::CACHEGROUP_ATTRIBUTE_BASIC",
@@ -3935,14 +4327,19 @@
         {
           "name": "gid",
           "direction": "in",
-          "description": "缓存组的标识符。[in] dwFlags 此参数是保留的，必须为 0。[in] dwAttributes 要检索的属性。 这可以是以下值之一。 价值"
+          "description": "缓存组的标识符。[in] dwFlags 此参数是保留的，必须为 0。[in] dwAttributes 要检索的属性。 这可以是以下值之一。 价值",
+          "type": "GROUPID"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 3680
+      "_source_line": 3680,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::LPGOPHER_ATTRIBUTE_TYPE",
@@ -4251,14 +4648,19 @@
         {
           "name": "lpszHost",
           "direction": "in",
-          "description": "指向包含主机名称的 以 null 结尾的字符串的指针，或者指向 (（如 198.105.232.1) ）的点 数十进制 IP 地址的指针。[in] nServerPort"
+          "description": "指向包含主机名称的 以 null 结尾的字符串的指针，或者指向 (（如 198.105.232.1) ）的点 数十进制 IP 地址的指针。[in] nServerPort",
+          "type": "LPCSTR"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 3991
+      "_source_line": 3991,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::GopherCreateLocatorW",
@@ -4270,21 +4672,25 @@
         {
           "name": "lpszHost",
           "direction": "in",
-          "description": "指向 null-terminated 字符串的指针，该字符串包含主机的名称或点小数 IP 地址（如 198.105.232.1）。[in] nServerPort lpszHost Gopher 服务器的端口号，按主机字节顺序运行。 如果 nServerPortINTERNET_INVALID_PORT_NUMBER，则使用默认 Gopher 端口。[in] lpszDisplayString 指向 null终止字符串的指针，其中包含要显示的 Gopher 文档或目录。 如果此参数 NULL，则该函数将返回 Gopher 服务器的默认目录。[in] lpszSelectorString 指向要发送到 Gopher 服务器的选择器字符串的指针，以便检索信息。 此参数可以 NULL。"
+          "description": "指向 null-terminated 字符串的指针，该字符串包含主机的名称或点小数 IP 地址（如 198.105.232.1）。[in] nServerPort lpszHost Gopher 服务器的端口号，按主机字节顺序运行。 如果 nServerPortINTERNET_INVALID_PORT_NUMBER，则使用默认 Gopher 端口。[in] lpszDisplayString 指向 null终止字符串的指针，其中包含要显示的 Gopher 文档或目录。 如果此参数 NULL，则该函数将返回 Gopher 服务器的默认目录。[in] lpszSelectorString 指向要发送到 Gopher 服务器的选择器字符串的指针，以便检索信息。 此参数可以 NULL。",
+          "type": "LPCWSTR"
         },
         {
           "name": "dwGopherType",
           "direction": "in",
-          "description": "确定 lpszSelectorString 是否引用目录或文档，以及请求是 Gopher+ 还是 Gopher。 如果 dwGopherType 的值为零，则使用默认值GOPHER_TYPE_DIRECTORY。 这可以是gopher 类型值之一。"
+          "description": "确定 lpszSelectorString 是否引用目录或文档，以及请求是 Gopher+ 还是 Gopher。 如果 dwGopherType 的值为零，则使用默认值GOPHER_TYPE_DIRECTORY。 这可以是gopher 类型值之一。",
+          "type": "DWORD"
         },
         {
           "name": "lpszLocator",
           "direction": "out",
-          "description": "指向接收定位符字符串的缓冲区的指针。 如果 lpszLocatorNULL，则 lpdwBufferLength 接 收必要的缓冲区长度，但该函数不会执行其他处理。[in, out] lpdwBufferLength 指向包含 lpszLocator 缓冲区长度的变量的指针（以字符为单位）。 函数返回时，此参数接收写入缓冲区的字符数。 如果 GetLastError 返回 ERROR_INSUFFICIENT_BUFFER，此 参数将接收所需的字符数。"
+          "description": "指向接收定位符字符串的缓冲区的指针。 如果 lpszLocatorNULL，则 lpdwBufferLength 接 收必要的缓冲区长度，但该函数不会执行其他处理。[in, out] lpdwBufferLength 指向包含 lpszLocator 缓冲区长度的变量的指针（以字符为单位）。 函数返回时，此参数接收写入缓冲区的字符数。 如果 GetLastError 返回 ERROR_INSUFFICIENT_BUFFER，此 参数将接收所需的字符数。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError 或 InternetGetLastResponseInfo。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError 或 InternetGetLastResponseInfo。",
+        "type": "BOOL"
       },
       "remarks": "若要从 Gopher 服务器检索信息，应用程序必须首先从 Gopher 服务器获取 Gopher 定位符。应用程序应将其视为不透明令牌，通常用于调用 GopherFindFirstFile 函数以检索特定信息片段。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -4308,7 +4714,8 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
@@ -4318,7 +4725,11 @@
         "GopherFindFirstFile"
       ],
       "confidence": 0.8,
-      "_source_line": 4089
+      "_source_line": 4089,
+      "return_value": {
+        "type": "HINTERNET",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetConnect",
@@ -4363,7 +4774,8 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
@@ -4372,7 +4784,11 @@
         "GopherGetAttribute"
       ],
       "confidence": 0.8,
-      "_source_line": 4255
+      "_source_line": 4255,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::GopherGetLocatorTypeA",
@@ -4384,11 +4800,13 @@
         {
           "name": "lpszLocator",
           "direction": "in",
-          "description": "指向以 null 结尾的字符串的指针，该字符串指定要分析的 Gopher 定位符。[out] lpdwGopherType 指向接收定位符类型的变量的指针。 该类型是位掩码，它由 gopher 类型值的组合组成。"
+          "description": "指向以 null 结尾的字符串的指针，该字符串指定要分析的 Gopher 定位符。[out] lpdwGopherType 指向接收定位符类型的变量的指针。 该类型是位掩码，它由 gopher 类型值的组合组成。",
+          "type": "LPCSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -4424,11 +4842,13 @@
         {
           "name": "lpszLocator",
           "direction": "in",
-          "description": "指向以 null 结尾的字符串的指针，该字符串指定要分析的 Gopher 定位符。[out] lpdwGopherType 指向接收定位符类型的变量的指针。 该类型是位掩码，它由 gopher 类型值的组合组成。"
+          "description": "指向以 null 结尾的字符串的指针，该字符串指定要分析的 Gopher 定位符。[out] lpdwGopherType 指向接收定位符类型的变量的指针。 该类型是位掩码，它由 gopher 类型值的组合组成。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -4448,7 +4868,8 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
@@ -4458,7 +4879,11 @@
         "GopherOpenFile"
       ],
       "confidence": 0.8,
-      "_source_line": 4379
+      "_source_line": 4379,
+      "return_value": {
+        "type": "HINTERNET",
+        "description": ""
+      }
     },
     {
       "id": "windows::GopherOpenFile",
@@ -4488,14 +4913,19 @@
         {
           "name": "hRequest",
           "direction": "in",
-          "description": "调用 HttpOpenRequest 函数返回的句柄。[in] lpszHeaders 指向包含要追加到请求的标头的字符串变量的指针。 每个标头都必须由 CR/LF（回车符/ 换行符）对终止。[in] dwHeadersLength TCHA中 lpszHeaders的大小。 如果此参数为 -1L，则函数假定 lpszHeaders 为零终止 （ASCIIZ），并计算长度。[in] dwModifiers 一组控制此函数语义的修饰符。 此参数可以是以下值的组合。 价值 意义"
+          "description": "调用 HttpOpenRequest 函数返回的句柄。[in] lpszHeaders 指向包含要追加到请求的标头的字符串变量的指针。 每个标头都必须由 CR/LF（回车符/ 换行符）对终止。[in] dwHeadersLength TCHA中 lpszHeaders的大小。 如果此参数为 -1L，则函数假定 lpszHeaders 为零终止 （ASCIIZ），并计算长度。[in] dwModifiers 一组控制此函数语义的修饰符。 此参数可以是以下值的组合。 价值 意义",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 4513
+      "_source_line": 4513,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::HTTP_ADDREQ_FLAG_ADD",
@@ -4569,16 +4999,19 @@
         {
           "name": "hRequest",
           "direction": "in",
-          "description": "由 HttpOpenRequest 返回的句柄，并由 HttpSendRequestEx发送。"
+          "description": "由 HttpOpenRequest 返回的句柄，并由 HttpSendRequestEx发送。",
+          "type": "HINTERNET"
         },
         {
           "name": "lpBuffersOut",
           "direction": "out, optional",
-          "description": "此参数是保留的，必须 NULL。[in] dwFlags 此参数是保留的，必须设置为 0。[in, optional] dwContext 此参数是保留的，必须设置为 0。"
+          "description": "此参数是保留的，必须 NULL。[in] dwFlags 此参数是保留的，必须设置为 0。[in, optional] dwContext 此参数是保留的，必须设置为 0。",
+          "type": "optional] LPINTERNET_BUFFERSA"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，该函数将返回 true。 如果该函数失败，则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果函数成功，该函数将返回 true。 如果该函数失败，则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "如果 lpBuffersOut 未设置为 NULL，HttpEndRequest 将返回 ERROR_INVALID_PARAMETER。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -4601,16 +5034,19 @@
         {
           "name": "hRequest",
           "direction": "in",
-          "description": "由 HttpOpenRequest 返回的句柄，并由 HttpSendRequestEx发送。"
+          "description": "由 HttpOpenRequest 返回的句柄，并由 HttpSendRequestEx发送。",
+          "type": "HINTERNET"
         },
         {
           "name": "lpBuffersOut",
           "direction": "out, optional",
-          "description": "此参数是保留的，必须 NULL。[in] dwFlags 此参数是保留的，必须设置为 0。[in, optional] dwContext 此参数是保留的，必须设置为 0。"
+          "description": "此参数是保留的，必须 NULL。[in] dwFlags 此参数是保留的，必须设置为 0。[in, optional] dwContext 此参数是保留的，必须设置为 0。",
+          "type": "optional] LPINTERNET_BUFFERSW"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，该函数将返回 true。 如果该函数失败，则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果函数成功，该函数将返回 true。 如果该函数失败，则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "如果 lpBuffersOut 未设置为 NULL，HttpEndRequest 将返回 ERROR_INVALID_PARAMETER。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -4633,14 +5069,19 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 4699
+      "_source_line": 4699,
+      "return_value": {
+        "type": "HINTERNET",
+        "description": ""
+      }
     },
     {
       "id": "windows::INTERNET_FLAG_CACHE_IF_NET_FAIL",
@@ -4827,14 +5268,19 @@
         {
           "name": "hConnect",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 4798
+      "_source_line": 4798,
+      "return_value": {
+        "type": "HINTERNET",
+        "description": ""
+      }
     },
     {
       "id": "windows::HttpQueryInfo",
@@ -4862,21 +5308,25 @@
         {
           "name": "hRequest",
           "direction": "in",
-          "description": "调用 HttpOpenRequest 或 InternetOpenUrl 函数返回的句柄。[in] dwInfoLevel 要检索的属性和修改请求的标志的组合。 有关可能的属性和修饰符值的列表，请参阅 查询信息标志。"
+          "description": "调用 HttpOpenRequest 或 InternetOpenUrl 函数返回的句柄。[in] dwInfoLevel 要检索的属性和修改请求的标志的组合。 有关可能的属性和修饰符值的列表，请参阅 查询信息标志。",
+          "type": "HINTERNET"
         },
         {
           "name": "lpBuffer",
           "direction": "in, out",
-          "description": "指向缓冲区的指针，用于接收请求的信息。 此参数不得 NULL。[in, out] lpdwBufferLength 指向一个变量的指针，其中包含 lpvBuffer指向的缓冲区的大小（以字节为单位）。 当函数成功返回时，此变量包含写入缓冲区的信息字节数。 对于字符串，字节计数不包 括字符串的终止 null 字符。函数何时 失败并显示 ERROR_INSUFFICIENT_BUFFER的扩展错误代码，lpdwBufferLength 所指向的变量包含的缓冲区的大小（以字节为单位）的大小，足以接收请求的信息。 然后，调用应用程序可以分配此大小的缓冲区或更大的缓冲区，然后再次调用该函数。"
+          "description": "指向缓冲区的指针，用于接收请求的信息。 此参数不得 NULL。[in, out] lpdwBufferLength 指向一个变量的指针，其中包含 lpvBuffer指向的缓冲区的大小（以字节为单位）。 当函数成功返回时，此变量包含写入缓冲区的信息字节数。 对于字符串，字节计数不包 括字符串的终止 null 字符。函数何时 失败并显示 ERROR_INSUFFICIENT_BUFFER的扩展错误代码，lpdwBufferLength 所指向的变量包含的缓冲区的大小（以字节为单位）的大小，足以接收请求的信息。 然后，调用应用程序可以分配此大小的缓冲区或更大的缓冲区，然后再次调用该函数。",
+          "type": "out] LPVOID"
         },
         {
           "name": "lpdwIndex",
           "direction": "in, out",
-          "description": "指向从零开始的标头索引的指针，用于枚举具有相同名称的多个标头。 调用函数时，此参数是要返回的指定标头的索引。 函数返回时，此参数是下一个标头的索引。 如果找不 到下一个索引，则返回 ERROR_HTTP_HEADER_NOT_FOUND。"
+          "description": "指向从零开始的标头索引的指针，用于枚举具有相同名称的多个标头。 调用函数时，此参数是要返回的指定标头的索引。 函数返回时，此参数是下一个标头的索引。 如果找不 到下一个索引，则返回 ERROR_HTTP_HEADER_NOT_FOUND。",
+          "type": "out] LPDWORD"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "可以从 HttpQueryInfo检索以下类型的数据： 字符串 （默认值） SYSTEMTIME（日期） DWORD（对于 STATUS_CODE、CONTENT_LENGTH等，如果使用 HTTP_QUERY_FLAG_NUMBER） 如果应用程序要求将数据作为字符串以外的数据类型返回，则必须将相应的修饰符包含在传递给 dwInfoLevel的属性。",
       "header": "wininet.h",
@@ -4895,11 +5345,13 @@
         {
           "name": "hRequest",
           "direction": "in",
-          "description": "调用 HttpOpenRequest 函数返回的句柄。[in] lpszHeaders 指向 null-terminated 字符串的指针，其中包含要追加到请求的其他标头。 如果没有附加 标头，则可以 NULL 此参数。[in] dwHeadersLength 其他标头的大小，TCHAR。 如果此参数 -1L，并且 lpszHeaders 不 NULL，则该函数假定 lpszHeaders 为零终止 （ASCIIZ），并计算长度。 请参阅“说明”了解具体内容。[in] lpOptional 指向缓冲区的指针，其中包含请求标头之后要立即发送的任何可选数据。 此参数通常用于 POST 和 PUT 操作。 可选数据可以是要发布到服务器的资源或信息。 如果没有要发送 的可选数据，则可以 NULL 此参数。[in] dwOptionalLength 可选数据的大小（以字节为单位）。 如果没有要发送的可选数据，此参数可以为零。"
+          "description": "调用 HttpOpenRequest 函数返回的句柄。[in] lpszHeaders 指向 null-terminated 字符串的指针，其中包含要追加到请求的其他标头。 如果没有附加 标头，则可以 NULL 此参数。[in] dwHeadersLength 其他标头的大小，TCHAR。 如果此参数 -1L，并且 lpszHeaders 不 NULL，则该函数假定 lpszHeaders 为零终止 （ASCIIZ），并计算长度。 请参阅“说明”了解具体内容。[in] lpOptional 指向缓冲区的指针，其中包含请求标头之后要立即发送的任何可选数据。 此参数通常用于 POST 和 PUT 操作。 可选数据可以是要发布到服务器的资源或信息。 如果没有要发送 的可选数据，则可以 NULL 此参数。[in] dwOptionalLength 可选数据的大小（以字节为单位）。 如果没有要发送的可选数据，此参数可以为零。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -4949,16 +5401,19 @@
         {
           "name": "hRequest",
           "direction": "in",
-          "description": "调用 HttpOpenRequest 函数返回的句柄。[in] lpBuffersIn 自选。 指向 INTERNET_BUFFERS 结构的指针。"
+          "description": "调用 HttpOpenRequest 函数返回的句柄。[in] lpBuffersIn 自选。 指向 INTERNET_BUFFERS 结构的指针。",
+          "type": "HINTERNET"
         },
         {
           "name": "lpBuffersOut",
           "direction": "out",
-          "description": "保留。 必须为 NULL。[in] dwFlags 保留。 必须为零。[in] dwContext 如果已注册状态回调函数，则应用程序定义的上下文值。"
+          "description": "保留。 必须为 NULL。[in] dwFlags 保留。 必须为零。[in] dwContext 如果已注册状态回调函数，则应用程序定义的上下文值。",
+          "type": "LPINTERNET_BUFFERSW"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，返回 TRUE。如果失败，返回 FALSE。调用 GetLastError 获取扩展错误信息。"
+        "description": "如果函数成功，返回 TRUE。如果失败，返回 FALSE。调用 GetLastError 获取扩展错误信息。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -5778,19 +6233,25 @@
         {
           "name": "lpszUrl",
           "direction": "in",
-          "description": "指向包含规范化的 URL 的字符串的指针。[out] lpszBuffer 指向接收生成的规范化 URL 的缓冲区的指针。[in, out] lpdwBufferLength 指向包含 lpszBuffer 缓冲区大小（以字符为单位）的变量的指针。 如果函数成功，此参数将接收实际复制到 lpszBuffer 缓冲区的字符数，该缓冲区不包括终止 null 字符。 如果函数失败，此参数将接收缓冲区所需的大小（以字符为单位），其中包括终止 null 字符。"
+          "description": "指向包含规范化的 URL 的字符串的指针。[out] lpszBuffer 指向接收生成的规范化 URL 的缓冲区的指针。[in, out] lpdwBufferLength 指向包含 lpszBuffer 缓冲区大小（以字符为单位）的变量的指针。 如果函数成功，此参数将接收实际复制到 lpszBuffer 缓冲区的字符数，该缓冲区不包括终止 null 字符。 如果函数失败，此参数将接收缓冲区所需的大小（以字符为单位），其中包括终止 null 字符。",
+          "type": "LPCSTR"
         },
         {
           "name": "dwFlags",
           "direction": "in",
-          "description": "控制规范化。 如果未指定任何标志，该函数会将所有不安全字符和元序列（如 .，\\ ..和...）转换为转义序列。 此参数可以是下列值之一。 价值"
+          "description": "控制规范化。 如果未指定任何标志，该函数会将所有不安全字符和元序列（如 .，\\ ..和...）转换为转义序列。 此参数可以是下列值之一。 价值",
+          "type": "DWORD"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 6312
+      "_source_line": 6312,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::ICU_BROWSER_MODE",
@@ -5840,19 +6301,25 @@
         {
           "name": "lpszUrl",
           "direction": "in",
-          "description": "指向包含规范化的 URL 的字符串的指针。[out] lpszBuffer 指向接收生成的规范化 URL 的缓冲区的指针。[in, out] lpdwBufferLength 指向包含 lpszBuffer 缓冲区大小（以字符为单位）的变量的指针。 如果函数成功，此参数将接收实际复制到 lpszBuffer 缓冲区的字符数，该缓冲区不包括终止 null 字符。 如果函数失败，此参数将接收缓冲区所需的大小（以字符为单位），其中包括终止 null 字符。"
+          "description": "指向包含规范化的 URL 的字符串的指针。[out] lpszBuffer 指向接收生成的规范化 URL 的缓冲区的指针。[in, out] lpdwBufferLength 指向包含 lpszBuffer 缓冲区大小（以字符为单位）的变量的指针。 如果函数成功，此参数将接收实际复制到 lpszBuffer 缓冲区的字符数，该缓冲区不包括终止 null 字符。 如果函数失败，此参数将接收缓冲区所需的大小（以字符为单位），其中包括终止 null 字符。",
+          "type": "LPCWSTR"
         },
         {
           "name": "dwFlags",
           "direction": "in",
-          "description": "控制规范化。 如果未指定任何标志，该函数会将所有不安全字符和元序列（如 .，\\ ..和...）转换为转义序列。 此参数可以是下列值之一。 价值"
+          "description": "控制规范化。 如果未指定任何标志，该函数会将所有不安全字符和元序列（如 .，\\ ..和...）转换为转义序列。 此参数可以是下列值之一。 价值",
+          "type": "DWORD"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 6386
+      "_source_line": 6386,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetCheckConnectionA",
@@ -5864,16 +6331,19 @@
         {
           "name": "lpszUrl",
           "direction": "in",
-          "description": "指向 null终止字符串的指针，该字符串指定要用于检查连接的 URL。 此值可以 NULL。[in] dwFlags 选项。 FLAG_ICC_FORCE_CONNECTION是当前唯一可用的标志。 如果设置了此标志，它将强制建立连接。 按以下顺序尝试套接字连接： 如果 lpszUrl 为非NULL，则会从中提取主机值，用于 ping 该特定主机。 如果 lpszUrlNULL，并且最近的服务器的内部服务器数据库中有一个条目，则会从该条目中提取主机值，用于 ping 该服务器。"
+          "description": "指向 null终止字符串的指针，该字符串指定要用于检查连接的 URL。 此值可以 NULL。[in] dwFlags 选项。 FLAG_ICC_FORCE_CONNECTION是当前唯一可用的标志。 如果设置了此标志，它将强制建立连接。 按以下顺序尝试套接字连接： 如果 lpszUrl 为非NULL，则会从中提取主机值，用于 ping 该特定主机。 如果 lpszUrlNULL，并且最近的服务器的内部服务器数据库中有一个条目，则会从该条目中提取主机值，用于 ping 该服务器。",
+          "type": "LPCSTR"
         },
         {
           "name": "dwReserved",
           "direction": "in",
-          "description": "此参数是保留的，必须为 0。"
+          "description": "此参数是保留的，必须为 0。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "如果连接成功或 FALSE，则返回 TRUE。 使用 GetLastError 检索错误代码。 如果无法建立连接或套接字数据库无条件脱机，则 ERROR_NOT_CONNECTED getLastError 返回 ERROR_NOT_CONNECTED。"
+        "description": "如果连接成功或 FALSE，则返回 TRUE。 使用 GetLastError 检索错误代码。 如果无法建立连接或套接字数据库无条件脱机，则 ERROR_NOT_CONNECTED getLastError 返回 ERROR_NOT_CONNECTED。",
+        "type": "BOOL"
       },
       "remarks": "已弃用InternetCheckConnection。在使用Web代理服务器访问Internet的环境中不起作用。建议改用NetworkInformation.GetInternetConnectionProfile或NLM接口检查Internet访问。注意：WinINet不支持服务器实现，也不应从服务使用它。对于服务器实现或服务，请使用Microsoft Windows HTTP服务(WinHTTP)。",
       "header": "wininet.h",
@@ -5928,7 +6398,8 @@
         {
           "name": "lpszBaseUrl",
           "direction": "in",
-          "description": "指向包含基 URL 的以 null 结尾的字符串的指针。[in] lpszRelativeUrl 指向包含相对 URL 的以 null 结尾的字符串的指针。[out] lpszBuffer 指向接收合并 URL 的缓冲区的指针。[in, out] lpdwBufferLength 指向包含 lpszBuffer 缓冲区大小的变量的指针，以字符为单位。 如果函数成功，此参数将接收组合 URL 的大小（以字符为单位，不包括 null 终止字符）。 如果函数失败，此参 数将接收所需缓冲区的大小（包括 null 终止字符）。[in] dwFlags 控制函数的操作。 此参数可以是下列值之一。 价值"
+          "description": "指向包含基 URL 的以 null 结尾的字符串的指针。[in] lpszRelativeUrl 指向包含相对 URL 的以 null 结尾的字符串的指针。[out] lpszBuffer 指向接收合并 URL 的缓冲区的指针。[in, out] lpdwBufferLength 指向包含 lpszBuffer 缓冲区大小的变量的指针，以字符为单位。 如果函数成功，此参数将接收组合 URL 的大小（以字符为单位，不包括 null 终止字符）。 如果函数失败，此参 数将接收所需缓冲区的大小（包括 null 终止字符）。[in] dwFlags 控制函数的操作。 此参数可以是下列值之一。 价值",
+          "type": "LPCSTR"
         }
       ],
       "header": "wininet.h",
@@ -5936,7 +6407,10 @@
       "cross_references": [],
       "confidence": 0.7,
       "_source_line": 6593,
-      "return_value": "如果函数成功，返回值为 TRUE。如果函数失败，返回值为 FALSE。"
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果函数成功，返回值为 TRUE。如果函数失败，返回值为 FALSE。"
+      }
     },
     {
       "id": "windows::InternetConfirmZoneCrossingA",
@@ -5948,16 +6422,19 @@
         {
           "name": "hWnd",
           "direction": "in",
-          "description": "任何所需对话框的父窗口的句柄。[in] szUrlPrev 指向以 null 结尾的字符串的指针，该字符串指定在发出当前请求之前查看的 URL。[in] szUrlNew 指向以 null 结尾的字符串的指针，该字符串指定用户请求查看的新 URL。"
+          "description": "任何所需对话框的父窗口的句柄。[in] szUrlPrev 指向以 null 结尾的字符串的指针，该字符串指定在发出当前请求之前查看的 URL。[in] szUrlNew 指向以 null 结尾的字符串的指针，该字符串指定用户请求查看的新 URL。",
+          "type": "HWND"
         },
         {
           "name": "bPost",
           "direction": "in",
-          "description": "未实现。"
+          "description": "未实现。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
-        "description": "返回以下值之一：ERROR_SUCCESS（确认）、ERROR_CANCELLED（取消）、ERROR_INTERNET_SECURITY_CHANNEL_CHANGED（安全通道更改）"
+        "description": "返回以下值之一：ERROR_SUCCESS（确认）、ERROR_CANCELLED（取消）、ERROR_INTERNET_SECURITY_CHANNEL_CHANGED（安全通道更改）",
+        "type": "DWORD"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -6023,14 +6500,19 @@
         {
           "name": "hInternet",
           "direction": "in",
-          "description": "上一次调用 InternetOpen返回的句柄。[in] lpszServerName 指向指定 Internet 服务器的主机名的 null终止字符串的指针。 或者，字符串可以包含站 点的 IP 号，采用 ASCII 点十进制格式（例如 11.0.1.45）。[in] nServerPort 服务器上的传输控制协议/Internet 协议（TCP/IP）端口。 这些标志仅设置使用的端口。该服务由 dwService的值设置。 此参数可以是下列值之一。 价值"
+          "description": "上一次调用 InternetOpen返回的句柄。[in] lpszServerName 指向指定 Internet 服务器的主机名的 null终止字符串的指针。 或者，字符串可以包含站 点的 IP 号，采用 ASCII 点十进制格式（例如 11.0.1.45）。[in] nServerPort 服务器上的传输控制协议/Internet 协议（TCP/IP）端口。 这些标志仅设置使用的端口。该服务由 dwService的值设置。 此参数可以是下列值之一。 价值",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 6956
+      "_source_line": 6956,
+      "return_value": {
+        "type": "HINTERNET",
+        "description": ""
+      }
     },
     {
       "id": "windows::COOKIE_STATE_UNKNOWN",
@@ -6113,14 +6595,19 @@
         {
           "name": "lpszUrl",
           "direction": "in",
-          "description": "指向包含要破解的规范 URL 的字符串的指针。[in] dwUrlLength lpszUrl 字符串的大小（TCHAR），如果 lpszUrl 为 ASCIIZ 字符串，则为零。[in] dwFlags 控制操作。 此参数可以是下列值之一。 价值"
+          "description": "指向包含要破解的规范 URL 的字符串的指针。[in] dwUrlLength lpszUrl 字符串的大小（TCHAR），如果 lpszUrl 为 ASCIIZ 字符串，则为零。[in] dwFlags 控制操作。 此参数可以是下列值之一。 价值",
+          "type": "LPCSTR"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 7120
+      "_source_line": 7120,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::ICU_DECODE",
@@ -6145,14 +6632,19 @@
         {
           "name": "lpUrlComponents",
           "direction": "in",
-          "description": "指向包含从中创建 URL 的组件的 URL_COMPONENTS 结构的指针。[in] dwFlags 控制此函数的操作。 此参数可以是以下一个或多个值。 价值"
+          "description": "指向包含从中创建 URL 的组件的 URL_COMPONENTS 结构的指针。[in] dwFlags 控制此函数的操作。 此参数可以是以下一个或多个值。 价值",
+          "type": "LPURL_COMPONENTSA"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 7222
+      "_source_line": 7222,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetCreateUrl",
@@ -6186,17 +6678,20 @@
         {
           "name": "hwndParent",
           "direction": "in",
-          "description": "父窗口的句柄。"
+          "description": "父窗口的句柄。",
+          "type": "HWND"
         },
         {
           "name": "lpszConnectoid",
           "direction": "in",
-          "description": "指向 以 null 结尾的字符串的指针，该字符串指定要使用的拨号连接的名称。 如果此参数包含空字符串 (“”) ，则用户选择连接。 如果此参数为 NULL，则该函数将连接到自动ial 连接。"
+          "description": "指向 以 null 结尾的字符串的指针，该字符串指定要使用的拨号连接的名称。 如果此参数包含空字符串 (“”) ，则用户选择连接。 如果此参数为 NULL，则该函数将连接到自动ial 连接。",
+          "type": "LPSTR"
         },
         {
           "name": "dwFlags",
           "direction": "in",
-          "description": "选项。 此参数的取值可为下列值之一： 值"
+          "description": "选项。 此参数的取值可为下列值之一： 值",
+          "type": "DWORD"
         }
       ],
       "header": "wininet.h",
@@ -6208,7 +6703,11 @@
         "WinINet"
       ],
       "confidence": 0.65,
-      "_source_line": 7326
+      "_source_line": 7326,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::INTERNET_DIAL_FORCE_PROMPT",
@@ -6417,16 +6916,19 @@
         {
           "name": "hFind",
           "direction": "in",
-          "description": "从 ftpFindFirstFile 返回的句柄 InternetOpenUrl（仅目录）。 Windows XP 和 Windows Server 2003 R2 及更早版本：还 GopherFindFirstFile返回的句柄。"
+          "description": "从 ftpFindFirstFile 返回的句柄 InternetOpenUrl（仅目录）。 Windows XP 和 Windows Server 2003 R2 及更早版本：还 GopherFindFirstFile返回的句柄。",
+          "type": "HINTERNET"
         },
         {
           "name": "lpvFindData",
           "direction": "out",
-          "description": "指向接收有关文件或目录信息的缓冲区的指针。 放置在缓冲区中的信息的格式取决于正在使用的协议。 FTP 协议返回 WIN32_FIND_DATA 结构。 Windows XP 和 Windows Server 2003 R2 及更早版本：Gopher 协议返回 GOPHER_FIND_DATA 结构。"
+          "description": "指向接收有关文件或目录信息的缓冲区的指针。 放置在缓冲区中的信息的格式取决于正在使用的协议。 FTP 协议返回 WIN32_FIND_DATA 结构。 Windows XP 和 Windows Server 2003 R2 及更早版本：Gopher 协议返回 GOPHER_FIND_DATA 结构。",
+          "type": "LPVOID"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。 如果函数找不到匹配的文件，GetLastError 返回 ERROR_NO_MORE_FILES。"
+        "description": "如果函数成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。 如果函数找不到匹配的文件，GetLastError 返回 ERROR_NO_MORE_FILES。",
+        "type": "BOOL"
       },
       "remarks": "注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -6450,16 +6952,19 @@
         {
           "name": "hFind",
           "direction": "in",
-          "description": "从 ftpFindFirstFile 返回的句柄 InternetOpenUrl（仅目录）。 Windows XP 和 Windows Server 2003 R2 及更早版本：还 GopherFindFirstFile返回的句柄。"
+          "description": "从 ftpFindFirstFile 返回的句柄 InternetOpenUrl（仅目录）。 Windows XP 和 Windows Server 2003 R2 及更早版本：还 GopherFindFirstFile返回的句柄。",
+          "type": "HINTERNET"
         },
         {
           "name": "lpvFindData",
           "direction": "out",
-          "description": "指向接收有关文件或目录信息的缓冲区的指针。 放置在缓冲区中的信息的格式取决于正在使用的协议。 FTP 协议返回 WIN32_FIND_DATA 结构。 Windows XP 和 Windows Server 2003 R2 及更早版本：Gopher 协议返回 GOPHER_FIND_DATA 结构。"
+          "description": "指向接收有关文件或目录信息的缓冲区的指针。 放置在缓冲区中的信息的格式取决于正在使用的协议。 FTP 协议返回 WIN32_FIND_DATA 结构。 Windows XP 和 Windows Server 2003 R2 及更早版本：Gopher 协议返回 GOPHER_FIND_DATA 结构。",
+          "type": "LPVOID"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。 如果函数找不到匹配的文件，GetLastError 返回 ERROR_NO_MORE_FILES。"
+        "description": "如果函数成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。 如果函数找不到匹配的文件，GetLastError 返回 ERROR_NO_MORE_FILES。",
+        "type": "BOOL"
       },
       "remarks": "注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -6531,12 +7036,14 @@
         {
           "name": "lpszUrl",
           "direction": "in",
-          "description": "指向 null-terminated 字符串的指针，其中包含要检索的 Cookie 的 URL。 此参数不能 NULL 或 internetGetCookieEx 失败并返回 ERROR_INVALID_PARAMETER 错误。[in] lpszCookieName 指向 null-terminated 字符串的指针，其中包含要检索的 Cookie 的名称。 此名称区分大小写。"
+          "description": "指向 null-terminated 字符串的指针，其中包含要检索的 Cookie 的 URL。 此参数不能 NULL 或 internetGetCookieEx 失败并返回 ERROR_INVALID_PARAMETER 错误。[in] lpszCookieName 指向 null-terminated 字符串的指针，其中包含要检索的 Cookie 的名称。 此名称区分大小写。",
+          "type": "LPCSTR"
         },
         {
           "name": "lpszCookieData",
           "direction": "in, out, optional",
-          "description": "指向用于接收 Cookie 数据的缓冲区的指针。[in, out] lpdwSize 指向 DWORD 变量的指针。 在条目中，变量必须包含由 pchCookieData 参数指向的缓冲区的大小（以 TCHAR 为单位）。 退出时，如果函数成功，此变量将包含复制到缓冲区中的 Cookie 数据的 TCHAR 数。 如果 NULL 作为 lpszCookieData 参数传递，或者函数失败并出现"
+          "description": "指向用于接收 Cookie 数据的缓冲区的指针。[in, out] lpdwSize 指向 DWORD 变量的指针。 在条目中，变量必须包含由 pchCookieData 参数指向的缓冲区的大小（以 TCHAR 为单位）。 退出时，如果函数成功，此变量将包含复制到缓冲区中的 Cookie 数据的 TCHAR 数。 如果 NULL 作为 lpszCookieData 参数传递，或者函数失败并出现",
+          "type": "optional] LPSTR"
         }
       ],
       "header": "wininet.h",
@@ -6546,7 +7053,11 @@
         "InternetOpen"
       ],
       "confidence": 0.65,
-      "_source_line": 8053
+      "_source_line": 8053,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetGetCookieEx",
@@ -6623,21 +7134,25 @@
         {
           "name": "lpszUrl",
           "direction": "in",
-          "description": "指向 null-terminated 字符串的指针，该字符串指定要为其检索 cookie 的 URL。"
+          "description": "指向 null-terminated 字符串的指针，该字符串指定要为其检索 cookie 的 URL。",
+          "type": "LPCWSTR"
         },
         {
           "name": "lpszCookieName",
           "direction": "in",
-          "description": "未实现。"
+          "description": "未实现。",
+          "type": "LPCWSTR"
         },
         {
           "name": "lpszCookieData",
           "direction": "out",
-          "description": "指向接收 Cookie 数据的缓冲区的指针。 此参数可以 NULL。[in, out] lpdwSize 指向指定 TCHAR 中 lpszCookieData 参数缓冲区大小的变量的指针。 如果函数成功，缓冲区将接收复制到 lpszCookieData 缓冲区的数据量。 如果 lpszCookieDataNULL，此参数将接收一个值，该值指定复制所有 cookie 数据所需的缓冲区大小，以字节计数表示。"
+          "description": "指向接收 Cookie 数据的缓冲区的指针。 此参数可以 NULL。[in, out] lpdwSize 指向指定 TCHAR 中 lpszCookieData 参数缓冲区大小的变量的指针。 如果函数成功，缓冲区将接收复制到 lpszCookieData 缓冲区的数据量。 如果 lpszCookieDataNULL，此参数将接收一个值，该值指定复制所有 cookie 数据所需的缓冲区大小，以字节计数表示。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功则返回 TRUE，失败则返回 FALSE。调用 GetLastError 可获取扩展错误信息。"
+        "description": "如果成功则返回 TRUE，失败则返回 FALSE。调用 GetLastError 可获取扩展错误信息。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -6657,11 +7172,13 @@
         {
           "name": "lpdwError",
           "direction": "out",
-          "description": "指向接收与失败操作相关的错误消息的变量的指针。[out] lpszBuffer 指向接收错误文本的缓冲区的指针。[in, out] lpdwBufferLength 指向 TCHAr中包含 lpszBuffer 缓冲区大小的变量的指针。 函数返回时，此参数包含写入 缓冲区的字符串的大小，不包括终止零。"
+          "description": "指向接收与失败操作相关的错误消息的变量的指针。[out] lpszBuffer 指向接收错误文本的缓冲区的指针。[in, out] lpdwBufferLength 指向 TCHAr中包含 lpszBuffer 缓冲区大小的变量的指针。 函数返回时，此参数包含写入 缓冲区的字符串的大小，不包括终止零。",
+          "type": "LPDWORD"
         }
       ],
       "return_value": {
-        "description": "成功时返回 TRUE，失败时返回 FALSE。若缓冲区不足，GetLastError 返回 ERROR_INSUFFICIENT_BUFFER。"
+        "description": "成功时返回 TRUE，失败时返回 FALSE。若缓冲区不足，GetLastError 返回 ERROR_INSUFFICIENT_BUFFER。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -6706,11 +7223,13 @@
         {
           "name": "lpdwError",
           "direction": "out",
-          "description": "指向接收与失败操作相关的错误消息的变量的指针。[out] lpszBuffer 指向接收错误文本的缓冲区的指针。[in, out] lpdwBufferLength 指向 TCHAr中包含 lpszBuffer 缓冲区大小的变量的指针。 函数返回时，此参数包含写入 缓冲区的字符串的大小，不包括终止零。"
+          "description": "指向接收与失败操作相关的错误消息的变量的指针。[out] lpszBuffer 指向接收错误文本的缓冲区的指针。[in, out] lpdwBufferLength 指向 TCHAr中包含 lpszBuffer 缓冲区大小的变量的指针。 函数返回时，此参数包含写入 缓冲区的字符串的大小，不包括终止零。",
+          "type": "LPDWORD"
         }
       ],
       "return_value": {
-        "description": "如果错误文本成功写入缓冲区，则返回 TRUE；否则返回 FALSE。若要获取扩展的错误信息，请调用 GetLastError。如果缓冲区太小而无法保存所有错误文本，GetLastError 返回 ERROR_INSUFFICIENT_BUFFER。"
+        "description": "如果错误文本成功写入缓冲区，则返回 TRUE；否则返回 FALSE。若要获取扩展的错误信息，请调用 GetLastError。如果缓冲区太小而无法保存所有错误文本，GetLastError 返回 ERROR_INSUFFICIENT_BUFFER。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -6728,11 +7247,13 @@
         {
           "name": "pchHostName",
           "direction": "in",
-          "description": "指向包含域的字符串的 LPCTSTR。[out] pResult 指向包含 InternetCookieState 枚举值的 无符号长 的指针。"
+          "description": "指向包含域的字符串的 LPCTSTR。[out] pResult 指向包含 InternetCookieState 枚举值的 无符号长 的指针。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功检索决策则返回 TRUE，否则返回 FALSE。"
+        "description": "如果成功检索决策则返回 TRUE，否则返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "FALSE 的返回值可能表示域 pchHostName 没有任何特定于站点的 Cookie 规则。",
       "header": "wininet.h",
@@ -6753,7 +7274,8 @@
         {
           "name": "lpszAgent",
           "direction": "in",
-          "description": "指向 null终止字符串的指针，该字符串指定调用 WinINet 函数的应用程序或实体的名 称。 此名称用作 HTTP 协议中的用户代理。[in] dwAccessType 所需的访问类型。 此参数可以是下列值之一。 价值"
+          "description": "指向 null终止字符串的指针，该字符串指定调用 WinINet 函数的应用程序或实体的名 称。 此名称用作 HTTP 协议中的用户代理。[in] dwAccessType 所需的访问类型。 此参数可以是下列值之一。 价值",
+          "type": "LPCSTR"
         }
       ],
       "header": "wininet.h",
@@ -6762,7 +7284,11 @@
         "WinINet"
       ],
       "confidence": 0.7,
-      "_source_line": 8710
+      "_source_line": 8710,
+      "return_value": {
+        "type": "HINTERNET",
+        "description": ""
+      }
     },
     {
       "id": "windows::INTERNET_OPEN_TYPE_PRECONFIG_WITH_NO_AUTOPROXY",
@@ -6833,14 +7359,19 @@
         {
           "name": "hInternet",
           "direction": "in",
-          "description": "当前 Internet 会话的句柄。 该句柄必须由上一次调用 InternetOpen返回。[in] lpszUrl 指向 null终止字符串变量的指针，该变量指定要开始读取的 URL。 仅支持以 ftp：、 http：或 https 开头的 URL。[in] lpszHeaders 指向 null终止字符串的指针，该字符串指定要发送到 HTTP 服务器的标头。 有关详细信 息，请参阅 HttpSendRequest 函数中 lpszHeaders 参数的说明。[in] dwHeadersLength 其他标头的大小，TCHAR。 如果此参数 -1L，并且 lpszHeaders 未 NULL，则假定 lpszHeaders 为零终止 （ASCIIZ），并计算长度。[in] dwFlags 此参数可以是下列值之一。 价值"
+          "description": "当前 Internet 会话的句柄。 该句柄必须由上一次调用 InternetOpen返回。[in] lpszUrl 指向 null终止字符串变量的指针，该变量指定要开始读取的 URL。 仅支持以 ftp：、 http：或 https 开头的 URL。[in] lpszHeaders 指向 null终止字符串的指针，该字符串指定要发送到 HTTP 服务器的标头。 有关详细信 息，请参阅 HttpSendRequest 函数中 lpszHeaders 参数的说明。[in] dwHeadersLength 其他标头的大小，TCHAR。 如果此参数 -1L，并且 lpszHeaders 未 NULL，则假定 lpszHeaders 为零终止 （ASCIIZ），并计算长度。[in] dwFlags 此参数可以是下列值之一。 价值",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 8784
+      "_source_line": 8784,
+      "return_value": {
+        "type": "HINTERNET",
+        "description": ""
+      }
     },
     {
       "id": "windows::INTERNET_FLAG_EXISTING_CONNECT",
@@ -6925,14 +7456,19 @@
         {
           "name": "hInternet",
           "direction": "in",
-          "description": "当前 Internet 会话的句柄。 该句柄必须由上一次调用 InternetOpen返回。[in] lpszUrl 指向 null终止字符串变量的指针，该变量指定要开始读取的 URL。 仅支持以 ftp：、 http：或 https 开头的 URL。[in] lpszHeaders 指向 null终止字符串的指针，该字符串指定要发送到 HTTP 服务器的标头。 有关详细信 息，请参阅 HttpSendRequest 函数中 lpszHeaders 参数的说明。[in] dwHeadersLength 其他标头的大小，TCHAR。 如果此参数 -1L，并且 lpszHeaders 未 NULL，则假定 lpszHeaders 为零终止 （ASCIIZ），并计算长度。[in] dwFlags 此参数可以是下列值之一。 价值"
+          "description": "当前 Internet 会话的句柄。 该句柄必须由上一次调用 InternetOpen返回。[in] lpszUrl 指向 null终止字符串变量的指针，该变量指定要开始读取的 URL。 仅支持以 ftp：、 http：或 https 开头的 URL。[in] lpszHeaders 指向 null终止字符串的指针，该字符串指定要发送到 HTTP 服务器的标头。 有关详细信 息，请参阅 HttpSendRequest 函数中 lpszHeaders 参数的说明。[in] dwHeadersLength 其他标头的大小，TCHAR。 如果此参数 -1L，并且 lpszHeaders 未 NULL，则假定 lpszHeaders 为零终止 （ASCIIZ），并计算长度。[in] dwFlags 此参数可以是下列值之一。 价值",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 8873
+      "_source_line": 8873,
+      "return_value": {
+        "type": "HINTERNET",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetOpenW",
@@ -6944,7 +7480,8 @@
         {
           "name": "lpszAgent",
           "direction": "in",
-          "description": "指向 null终止字符串的指针，该字符串指定调用 WinINet 函数的应用程序或实体的名 称。 此名称用作 HTTP 协议中的用户代理。[in] dwAccessType 所需的访问类型。 此参数可以是下列值之一。 价值"
+          "description": "指向 null终止字符串的指针，该字符串指定调用 WinINet 函数的应用程序或实体的名 称。 此名称用作 HTTP 协议中的用户代理。[in] dwAccessType 所需的访问类型。 此参数可以是下列值之一。 价值",
+          "type": "LPCWSTR"
         }
       ],
       "header": "wininet.h",
@@ -6953,7 +7490,11 @@
         "WinINet"
       ],
       "confidence": 0.7,
-      "_source_line": 8962
+      "_source_line": 8962,
+      "return_value": {
+        "type": "HINTERNET",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetQueryOptionA",
@@ -6965,11 +7506,13 @@
         {
           "name": "hInternet",
           "direction": "in",
-          "description": "处理要查询信息的信息。[in] dwOption 要查询的 Internet 选项。 这可以是 选项标志 值之一。[out] lpBuffer 指向接收选项设置的缓冲区的指针。 InternetQueryOption 返回的字符串是全局分配 的，因此调用应用程序在使用完它们后必须释放它们。[in, out] lpdwBufferLength 指向包含 lpBuffer大小的变量的指针，以字节为单位。 InternetQueryOption 返回时， lpdwBufferLength 指定放入 lpBuffer中的数据的大小。 如果 GetLastError 返回 ERROR_INSUFFICIENT_BUFFER，则此参数指向保存请求的信息所需的字节数。"
+          "description": "处理要查询信息的信息。[in] dwOption 要查询的 Internet 选项。 这可以是 选项标志 值之一。[out] lpBuffer 指向接收选项设置的缓冲区的指针。 InternetQueryOption 返回的字符串是全局分配 的，因此调用应用程序在使用完它们后必须释放它们。[in, out] lpdwBufferLength 指向包含 lpBuffer大小的变量的指针，以字节为单位。 InternetQueryOption 返回时， lpdwBufferLength 指定放入 lpBuffer中的数据的大小。 如果 GetLastError 返回 ERROR_INSUFFICIENT_BUFFER，则此参数指向保存请求的信息所需的字节数。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "如果句柄无效或选项标志无效，GetLastError 将返回 ERROR_INVALID_HANDLE 或 ERROR_INVALID_PARAMETER。",
       "header": "wininet.h",
@@ -6988,11 +7531,13 @@
         {
           "name": "hInternet",
           "direction": "in",
-          "description": "处理要查询信息的信息。[in] dwOption 要查询的 Internet 选项。 这可以是 选项标志 值之一。[out] lpBuffer 指向接收选项设置的缓冲区的指针。 InternetQueryOption 返回的字符串是全局分配 的，因此调用应用程序在使用完它们后必须释放它们。[in, out] lpdwBufferLength 指向包含 lpBuffer大小的变量的指针，以字节为单位。 InternetQueryOption 返回时， lpdwBufferLength 指定放入 lpBuffer中的数据的大小。 如果 GetLastError 返回 ERROR_INSUFFICIENT_BUFFER，则此参数指向保存请求的信息所需的字节数。"
+          "description": "处理要查询信息的信息。[in] dwOption 要查询的 Internet 选项。 这可以是 选项标志 值之一。[out] lpBuffer 指向接收选项设置的缓冲区的指针。 InternetQueryOption 返回的字符串是全局分配 的，因此调用应用程序在使用完它们后必须释放它们。[in, out] lpdwBufferLength 指向包含 lpBuffer大小的变量的指针，以字节为单位。 InternetQueryOption 返回时， lpdwBufferLength 指定放入 lpBuffer中的数据的大小。 如果 GetLastError 返回 ERROR_INSUFFICIENT_BUFFER，则此参数指向保存请求的信息所需的字节数。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "如果指定的句柄类型无效或选项标志不正确，GetLastError 将返回 ERROR_INVALID_HANDLE 或 ERROR_INVALID_PARAMETER。",
       "header": "wininet.h",
@@ -7011,21 +7556,25 @@
         {
           "name": "hFile",
           "direction": "in",
-          "description": "从以前调用 InternetOpenUrl、 FtpOpenFile 或 HttpOpenRequest 返回的句柄。[out] lpBuffer 指向接收数据的缓冲区的指针。"
+          "description": "从以前调用 InternetOpenUrl、 FtpOpenFile 或 HttpOpenRequest 返回的句柄。[out] lpBuffer 指向接收数据的缓冲区的指针。",
+          "type": "HINTERNET"
         },
         {
           "name": "dwNumberOfBytesToRead",
           "direction": "in",
-          "description": "要读取的字节数。"
+          "description": "要读取的字节数。",
+          "type": "DWORD"
         },
         {
           "name": "lpdwNumberOfBytesRead",
           "direction": "out",
-          "description": "指向接收读取字节数的变量的指针。 InternetReadFile 在执行任何工作或错误检查之前将 此值设置为零。"
+          "description": "指向接收读取字节数的变量的指针。 InternetReadFile 在执行任何工作或错误检查之前将 此值设置为零。",
+          "type": "LPDWORD"
         }
       ],
       "return_value": {
-        "description": "成功返回TRUE，失败返回FALSE。可调用GetLastError获取错误信息，或使用InternetGetLastResponseInfo获取更多详细信息"
+        "description": "成功返回TRUE，失败返回FALSE。可调用GetLastError获取错误信息，或使用InternetGetLastResponseInfo获取更多详细信息",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -7043,7 +7592,8 @@
         {
           "name": "hFile",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
@@ -7053,7 +7603,11 @@
         "InternetOpenUrl"
       ],
       "confidence": 0.7,
-      "_source_line": 9212
+      "_source_line": 9212,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::IRF_ASYNC",
@@ -7094,7 +7648,8 @@
         {
           "name": "hFile",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
@@ -7104,7 +7659,11 @@
         "InternetOpenUrl"
       ],
       "confidence": 0.7,
-      "_source_line": 9258
+      "_source_line": 9258,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetSetCookieA",
@@ -7116,11 +7675,13 @@
         {
           "name": "lpszUrl",
           "direction": "in",
-          "description": "指向 null-terminated 字符串的指针，该字符串指定应为其设置 Cookie 的 URL。[in] lpszCookieName 指向 null-terminated 字符串的指针，该字符串指定要与 Cookie 数据关联的名称。 如果 此参数 NULL，则不与 Cookie 关联任何名称。[in] lpszCookieData 指向要与 URL 关联的实际数据的指针。"
+          "description": "指向 null-terminated 字符串的指针，该字符串指定应为其设置 Cookie 的 URL。[in] lpszCookieName 指向 null-terminated 字符串的指针，该字符串指定要与 Cookie 数据关联的名称。 如果 此参数 NULL，则不与 Cookie 关联任何名称。[in] lpszCookieData 指向要与 URL 关联的实际数据的指针。",
+          "type": "LPCSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -7166,11 +7727,13 @@
         {
           "name": "lpszUrl",
           "direction": "in",
-          "description": "指向 null-terminated 字符串的指针，该字符串指定应为其设置 Cookie 的 URL。[in] lpszCookieName 指向 null-terminated 字符串的指针，该字符串指定要与 Cookie 数据关联的名称。 如果 此参数 NULL，则不与 Cookie 关联任何名称。[in] lpszCookieData 指向要与 URL 关联的实际数据的指针。"
+          "description": "指向 null-terminated 字符串的指针，该字符串指定应为其设置 Cookie 的 URL。[in] lpszCookieName 指向 null-terminated 字符串的指针，该字符串指定要与 Cookie 数据关联的名称。 如果 此参数 NULL，则不与 Cookie 关联任何名称。[in] lpszCookieData 指向要与 URL 关联的实际数据的指针。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -7188,14 +7751,19 @@
         {
           "name": "hFile",
           "direction": "in",
-          "description": "使用 GET 或 HEAD HTTP 谓词对 Http 或 HTTPS URL) (InternetOpenUrl ( ( 调用"
+          "description": "使用 GET 或 HEAD HTTP 谓词对 Http 或 HTTPS URL) (InternetOpenUrl ( ( 调用",
+          "type": "HINTERNET"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 9635
+      "_source_line": 9635,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::FILE_BEGIN",
@@ -7219,11 +7787,13 @@
         {
           "name": "hInternet",
           "direction": "in",
-          "description": "处理要设置的信息。[in] dwOption 要设置的 Internet 选项。 这可以是 选项标志 值之一。[in] lpBuffer 指向包含选项设置的缓冲区的指针。[in] dwBufferLength lpBuffer 缓冲区的大小。 如果 lpBuffer 包含字符串，则大小 TCHAR。 如果 lpBuffer 包含 字符串以外的任何内容，则大小以字节为单位。"
+          "description": "处理要设置的信息。[in] dwOption 要设置的 Internet 选项。 这可以是 选项标志 值之一。[in] lpBuffer 指向包含选项设置的缓冲区的指针。[in] dwBufferLength lpBuffer 缓冲区的大小。 如果 lpBuffer 包含字符串，则大小 TCHAR。 如果 lpBuffer 包含 字符串以外的任何内容，则大小以字节为单位。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "如果指定了无法设置的选项标志，GetLastError 将返回错误 ERROR_INVALID_PARAMETER。有关详细信息，请参阅设置和检索 Internet 选项。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -7252,7 +7822,11 @@
         "WinINet"
       ],
       "confidence": 0.7,
-      "_source_line": 9732
+      "_source_line": 9732,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetSetOptionExW",
@@ -7269,7 +7843,11 @@
         "WinINet"
       ],
       "confidence": 0.7,
-      "_source_line": 9766
+      "_source_line": 9766,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetSetOptionW",
@@ -7281,11 +7859,13 @@
         {
           "name": "hInternet",
           "direction": "in",
-          "description": "处理要设置的信息。[in] dwOption 要设置的 Internet 选项。 这可以是 选项标志 值之一。[in] lpBuffer 指向包含选项设置的缓冲区的指针。[in] dwBufferLength lpBuffer 缓冲区的大小。 如果 lpBuffer 包含字符串，则大小 TCHAR。 如果 lpBuffer 包含 字符串以外的任何内容，则大小以字节为单位。"
+          "description": "处理要设置的信息。[in] dwOption 要设置的 Internet 选项。 这可以是 选项标志 值之一。[in] lpBuffer 指向包含选项设置的缓冲区的指针。[in] dwBufferLength lpBuffer 缓冲区的大小。 如果 lpBuffer 包含字符串，则大小 TCHAR。 如果 lpBuffer 包含 字符串以外的任何内容，则大小以字节为单位。",
+          "type": "HINTERNET"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取特定错误消息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "如果指定了无法设置的选项标志，GetLastError 将返回错误 ERROR_INVALID_PARAMETER。有关详细信息，请参阅设置和检索 Internet 选项。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -7322,7 +7902,8 @@
         {
           "name": "hInternet",
           "direction": "in",
-          "description": "为其设置回调的句柄。"
+          "description": "为其设置回调的句柄。",
+          "type": "HINTERNET"
         },
         {
           "name": "lpfnInternetCallback",
@@ -7358,14 +7939,19 @@
         {
           "name": "pst",
           "direction": "in",
-          "description": "指向 SYSTEMTIME 结构的指针，该结构包含要设置格式的日期和时间。[in] dwRFC 使用的 RFC 格式。 目前，唯一有效的格式是INTERNET_RFC1123_FORMAT。[out] lpszTime 指向接收格式化日期和时间的字符串缓冲区的指针。 缓冲区的大小应为"
+          "description": "指向 SYSTEMTIME 结构的指针，该结构包含要设置格式的日期和时间。[in] dwRFC 使用的 RFC 格式。 目前，唯一有效的格式是INTERNET_RFC1123_FORMAT。[out] lpszTime 指向接收格式化日期和时间的字符串缓冲区的指针。 缓冲区的大小应为",
+          "type": "const SYSTEMTIME"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 9991
+      "_source_line": 9991,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InternetTimeToSystemTimeA",
@@ -7377,11 +7963,13 @@
         {
           "name": "lpszTime",
           "direction": "in",
-          "description": "指向以 null 结尾的字符串的指针，该字符串指定要转换的日期/时间。[out] pst 指向接收转换时间的 SYSTEMTIME 结构的指针。[in] dwReserved 此参数是保留的，必须为 0。"
+          "description": "指向以 null 结尾的字符串的指针，该字符串指定要转换的日期/时间。[out] pst 指向接收转换时间的 SYSTEMTIME 结构的指针。[in] dwReserved 此参数是保留的，必须为 0。",
+          "type": "LPCSTR"
         }
       ],
       "return_value": {
-        "description": "如果转换了字符串，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果转换了字符串，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -7403,21 +7991,25 @@
         {
           "name": "hFile",
           "direction": "in",
-          "description": "上一次调用 FtpOpenFile 或 HttpSendRequestEx 发送的 HINTERNET 句柄返回的句柄。[in] lpBuffer 指向包含要写入文件的数据的缓冲区的指针。"
+          "description": "上一次调用 FtpOpenFile 或 HttpSendRequestEx 发送的 HINTERNET 句柄返回的句柄。[in] lpBuffer 指向包含要写入文件的数据的缓冲区的指针。",
+          "type": "HINTERNET"
         },
         {
           "name": "dwNumberOfBytesToWrite",
           "direction": "in",
-          "description": "要写入文件的字节数。"
+          "description": "要写入文件的字节数。",
+          "type": "DWORD"
         },
         {
           "name": "lpdwNumberOfBytesWritten",
           "direction": "out",
-          "description": "指向接收写入文件的字节数的变量的指针。 InternetWriteFile 在执行任何工作或错误检 查之前将此值设置为零。"
+          "description": "指向接收写入文件的字节数的变量的指针。 InternetWriteFile 在执行任何工作或错误检 查之前将此值设置为零。",
+          "type": "LPDWORD"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 TRUE，否则返回 FALSE。 要获得更多的错误信息，请调用 GetLastError。 应用程序还可以在必要时使用 InternetGetLastResponseInfo 。"
+        "description": "如果函数成功，则返回 TRUE，否则返回 FALSE。 要获得更多的错误信息，请调用 GetLastError。 应用程序还可以在必要时使用 InternetGetLastResponseInfo 。",
+        "type": "BOOL"
       },
       "remarks": "应用程序发送数据时，必须调用 InternetCloseHandle 以结束数据传输。与 WinINet API 的所有其他方面一样，无法从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP Services (WinHTTP)。",
       "header": "wininet.h",
@@ -7440,14 +8032,19 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向包含与缓存项关联的资源的 URL 的字符串的指针。 这必须是唯一的名称。 名称字符 串不应包含任何转义字符。[out] lpCacheEntryInfo 指向缓存条目信息缓冲区的指针。 如果缓冲区不够，此函数将返回"
+          "description": "指向包含与缓存项关联的资源的 URL 的字符串的指针。 这必须是唯一的名称。 名称字符 串不应包含任何转义字符。[out] lpCacheEntryInfo 指向缓存条目信息缓冲区的指针。 如果缓冲区不够，此函数将返回",
+          "type": "LPCSTR"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 10423
+      "_source_line": 10423,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::RetrieveUrlCacheEntryFile",
@@ -7470,14 +8067,19 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向包含与缓存项关联的资源的 URL 的字符串的指针。 这必须是唯一的名称。 名称字符 串不应包含任何转义字符。[out] lpCacheEntryInfo 指向缓存条目信息缓冲区的指针。 如果缓冲区不够，此函数将返回"
+          "description": "指向包含与缓存项关联的资源的 URL 的字符串的指针。 这必须是唯一的名称。 名称字符 串不应包含任何转义字符。[out] lpCacheEntryInfo 指向缓存条目信息缓冲区的指针。 如果缓冲区不够，此函数将返回",
+          "type": "LPCWSTR"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 10475
+      "_source_line": 10475,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::RetrieveUrlCacheEntryStreamA",
@@ -7489,10 +8091,14 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向包含缓存项的源名称的以 null 结尾的字符串的指针。 这必须是唯一的名称。 名称字 符串不应包含任何转义字符。[out] lpCacheEntryInfo 指向接收有关缓存项信息的 INTERNET_CACHE_ENTRY_INFO 结构的指针。[in, out] lpcbCacheEntryInfo 指向一个变量的指针，该变量指定 lpCacheEntryInfo 缓冲区的大小（以字节为单位）。当函数返回时，变量将接收复制到缓冲区的字节数或缓冲区所需的大小（以字节为单位）。 请注意，此缓冲区大小必须同时容纳 INTERNET_CACHE_ENTRY_INFO 结构和紧随 其后的关联字符串。[in] fRandomRead 流是否为随机访问打开。 将标志设置为 TRUE 打开流进行随机访问。[in] dwReserved 此参数是保留的，必须为 0。"
+          "description": "指向包含缓存项的源名称的以 null 结尾的字符串的指针。 这必须是唯一的名称。 名称字 符串不应包含任何转义字符。[out] lpCacheEntryInfo 指向接收有关缓存项信息的 INTERNET_CACHE_ENTRY_INFO 结构的指针。[in, out] lpcbCacheEntryInfo 指向一个变量的指针，该变量指定 lpCacheEntryInfo 缓冲区的大小（以字节为单位）。当函数返回时，变量将接收复制到缓冲区的字节数或缓冲区所需的大小（以字节为单位）。 请注意，此缓冲区大小必须同时容纳 INTERNET_CACHE_ENTRY_INFO 结构和紧随 其后的关联字符串。[in] fRandomRead 流是否为随机访问打开。 将标志设置为 TRUE 打开流进行随机访问。[in] dwReserved 此参数是保留的，必须为 0。",
+          "type": "LPCSTR"
         }
       ],
-      "return_value": "成功时返回用于ReadUrlCacheEntryStream和UnlockUrlCacheEntryStream的有效句柄，失败返回NULL。可调用GetLastError获取扩展错误信息。",
+      "return_value": {
+        "type": "HANDLE",
+        "description": "成功时返回用于ReadUrlCacheEntryStream和UnlockUrlCacheEntryStream的有效句柄，失败返回NULL。可调用GetLastError获取扩展错误信息。"
+      },
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
@@ -7509,11 +8115,13 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向包含缓存项的源名称的以 null 结尾的字符串的指针。 这必须是唯一的名称。 名称字 符串不应包含任何转义字符。[out] lpCacheEntryInfo 指向接收有关缓存项信息的 INTERNET_CACHE_ENTRY_INFO 结构的指针。[in, out] lpcbCacheEntryInfo 指向一个变量的指针，该变量指定 lpCacheEntryInfo 缓冲区的大小（以字节为单位）。当函数返回时，变量将接收复制到缓冲区的字节数或缓冲区所需的大小（以字节为单位）。 请注意，此缓冲区大小必须同时容纳 INTERNET_CACHE_ENTRY_INFO 结构和紧随 其后的关联字符串。[in] fRandomRead 流是否为随机访问打开。 将标志设置为 TRUE 打开流进行随机访问。[in] dwReserved 此参数是保留的，必须为 0。"
+          "description": "指向包含缓存项的源名称的以 null 结尾的字符串的指针。 这必须是唯一的名称。 名称字 符串不应包含任何转义字符。[out] lpCacheEntryInfo 指向接收有关缓存项信息的 INTERNET_CACHE_ENTRY_INFO 结构的指针。[in, out] lpcbCacheEntryInfo 指向一个变量的指针，该变量指定 lpCacheEntryInfo 缓冲区的大小（以字节为单位）。当函数返回时，变量将接收复制到缓冲区的字节数或缓冲区所需的大小（以字节为单位）。 请注意，此缓冲区大小必须同时容纳 INTERNET_CACHE_ENTRY_INFO 结构和紧随 其后的关联字符串。[in] fRandomRead 流是否为随机访问打开。 将标志设置为 TRUE 打开流进行随机访问。[in] dwReserved 此参数是保留的，必须为 0。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，该函数将返回一个有效的句柄，以便在 ReadUrlCacheEntryStream 和 UnlockUrlCacheEntryStream 函数中使用。 如果函数失败，它将返回 NULL 。 若要获取扩展的错误信息，请调用 GetLastError。可能的错误值包括以下内容。 返回代码"
+        "description": "如果函数成功，该函数将返回一个有效的句柄，以便在 ReadUrlCacheEntryStream 和 UnlockUrlCacheEntryStream 函数中使用。 如果函数失败，它将返回 NULL 。 若要获取扩展的错误信息，请调用 GetLastError。可能的错误值包括以下内容。 返回代码",
+        "type": "HANDLE"
       },
       "header": "wininet.h",
       "deprecated": false,
@@ -7549,14 +8157,19 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向 null终止字符串值的指针，该值指定缓存资源的 URL。[in] dwFlags 确定条目是添加到缓存组还是从缓存组中删除。 此参数可以是下列值之一。 价值"
+          "description": "指向 null终止字符串值的指针，该值指定缓存资源的 URL。[in] dwFlags 确定条目是添加到缓存组还是从缓存组中删除。 此参数可以是下列值之一。 价值",
+          "type": "LPCSTR"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 10678
+      "_source_line": 10678,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::CACHE_ENTRY_ACCTIME_FC",
@@ -7590,12 +8203,14 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向指定缓存项名称的以 null 结尾的字符串的指针。 名称字符串不应包含任何转义字符。"
+          "description": "指向指定缓存项名称的以 null 结尾的字符串的指针。 名称字符串不应包含任何转义字符。",
+          "type": "LPCWSTR"
         },
         {
           "name": "lpCacheEntryInfo",
           "direction": "in",
-          "description": "指向 INTERNET_CACHE_ENTRY_INFO 结构的指针，该结构包含要分配给由 lpszUrlName 指定的缓存项的值。[in] dwFieldControl 指示要设置的成员。 此参数可以是以下值的组合。 价值"
+          "description": "指向 INTERNET_CACHE_ENTRY_INFO 结构的指针，该结构包含要分配给由 lpszUrlName 指定的缓存项的值。[in] dwFieldControl 指示要设置的成员。 此参数可以是以下值的组合。 价值",
+          "type": "LPINTERNET_CACHE_ENTRY_INFOW"
         }
       ],
       "header": "wininet.h",
@@ -7604,7 +8219,11 @@
         "INTERNET_CACHE_ENTRY_INFO"
       ],
       "confidence": 0.7,
-      "_source_line": 10834
+      "_source_line": 10834,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetUrlCacheGroupAttributeA",
@@ -7616,14 +8235,19 @@
         {
           "name": "gid",
           "direction": "in",
-          "description": "缓存组的标识符。[in] dwFlags 此参数是保留的，必须为 0。[in] dwAttributes 要设置的属性。 此参数可以是下列值之一。 价值"
+          "description": "缓存组的标识符。[in] dwFlags 此参数是保留的，必须为 0。[in] dwAttributes 要设置的属性。 此参数可以是下列值之一。 价值",
+          "type": "GROUPID"
         }
       ],
       "header": "wininet.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 10890
+      "_source_line": 10890,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::CACHEGROUP_ATTRIBUTE_TYPE",
@@ -7651,11 +8275,13 @@
         {
           "name": "lpszUrlName",
           "direction": "in",
-          "description": "指向 null-terminated 字符串的指针，该字符串指定正在解锁的缓存项的源名称。 名称字 符串不应包含任何转义字符。[in] dwReserved 此参数是保留的，必须为 0。"
+          "description": "指向 null-terminated 字符串的指针，该字符串指定正在解锁的缓存项的源名称。 名称字 符串不应包含任何转义字符。[in] dwReserved 此参数是保留的，必须为 0。",
+          "type": "LPCSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE；否则返回 FALSE。若要获取扩展的错误信息，请调用 GetLastError。ERROR_FILE_NOT_FOUND 指示在缓存存储中找不到由源名称指定的缓存项。"
+        "description": "如果成功，则返回 TRUE；否则返回 FALSE。若要获取扩展的错误信息，请调用 GetLastError。ERROR_FILE_NOT_FOUND 指示在缓存存储中找不到由源名称指定的缓存项。",
+        "type": "BOOL"
       },
       "remarks": "调用此函数后，应用程序不应访问该文件。当此函数返回时，缓存管理器可以自由删除缓存项。与 WinINet API 的其他所有方面一样，不能从 DllMain 或全局对象的构造函数和析构函数中安全地调用此函数。注意 WinINet 不支持服务器实现。此外，不应从服务使用它。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -7692,7 +8318,8 @@
         {
           "name": "lpCacheConfigInfo",
           "direction": "in, out",
-          "description": "指向接收有关缓存配置的信息的 INTERNET_CACHE_CONFIG_INFO 结构的指针。 结构 dwStructSize 字段应初始化为 INTERNET_CACHE_CONFIG_INFO的大小。 lpcbCacheConfigInfo 此参数是保留的，必须 NULL。[in] dwFieldControl 确定函数的行为，作为以下值之一。 价值"
+          "description": "指向接收有关缓存配置的信息的 INTERNET_CACHE_CONFIG_INFO 结构的指针。 结构 dwStructSize 字段应初始化为 INTERNET_CACHE_CONFIG_INFO的大小。 lpcbCacheConfigInfo 此参数是保留的，必须 NULL。[in] dwFieldControl 确定函数的行为，作为以下值之一。 价值",
+          "type": "out] LPINTERNET_CACHE_CONFIG_INFOA"
         }
       ],
       "header": "wininet.h",
@@ -7701,7 +8328,11 @@
         "GetUrlCacheConfigInfoW"
       ],
       "confidence": 0.8,
-      "_source_line": 11261
+      "_source_line": 11261,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::CreateUrlCacheContainerA",
@@ -7713,21 +8344,25 @@
         {
           "name": "Name",
           "direction": "in",
-          "description": "要提供给缓存的名称。[in] lpCachePrefix 要基于缓存的缓存前缀。"
+          "description": "要提供给缓存的名称。[in] lpCachePrefix 要基于缓存的缓存前缀。",
+          "type": "LPCSTR"
         },
         {
           "name": "lpszCachePath",
           "direction": "in, optional",
-          "description": "要在其中创建缓存的缓存前缀。[in] KBCacheLimit 对于默认大小，缓存的大小限制（以整 KB 为单位）或 0。"
+          "description": "要在其中创建缓存的缓存前缀。[in] KBCacheLimit 对于默认大小，缓存的大小限制（以整 KB 为单位）或 0。",
+          "type": "optional] LPCSTR"
         },
         {
           "name": "dwContainerType",
           "direction": "in",
-          "description": "要基于缓存的容器类型。[in] dwOptions 此参数是保留的，必须为 0。 pvBuffer 此参数是保留的，必须 NULL。[in, out] cbBuffer 此参数是保留的，必须 NULL。"
+          "description": "要基于缓存的容器类型。[in] dwOptions 此参数是保留的，必须为 0。 pvBuffer 此参数是保留的，必须 NULL。[in, out] cbBuffer 此参数是保留的，必须 NULL。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "header": "wininet.h",
       "deprecated": true,
@@ -7759,11 +8394,13 @@
       "parameters": [
         {
           "name": "Name",
-          "description": "要删除的缓存容器的名称。 dwOptions 此参数是保留的，必须为 0。"
+          "description": "要删除的缓存容器的名称。 dwOptions 此参数是保留的，必须为 0。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果成功，则返回 TRUE;否则返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "注意 WinINet 不支持服务器实现。此外，它不应从服务使用，也不应在模拟安全上下文时使用。对于服务器实现或服务，请使用 Microsoft Windows HTTP 服务（WinHTTP）。",
       "header": "wininet.h",
@@ -7908,14 +8545,19 @@
         {
           "name": "lpCacheConfigInfo",
           "direction": "in, out",
-          "description": "指向接收有关缓存配置的信息的 INTERNET_CACHE_CONFIG_INFO 结构的指针。 结构 dwStructSize 字段应初始化为 INTERNET_CACHE_CONFIG_INFO的大小。 lpcbCacheConfigInfo 此参数是保留的，必须 NULL。[in] dwFieldControl 确定函数的行为，作为以下值之一。 价值"
+          "description": "指向接收有关缓存配置的信息的 INTERNET_CACHE_CONFIG_INFO 结构的指针。 结构 dwStructSize 字段应初始化为 INTERNET_CACHE_CONFIG_INFO的大小。 lpcbCacheConfigInfo 此参数是保留的，必须 NULL。[in] dwFieldControl 确定函数的行为，作为以下值之一。 价值",
+          "type": "LPINTERNET_CACHE_CONFIG_INFOW"
         }
       ],
       "header": "winineti.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 11665
+      "_source_line": 11665,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::INTERNET_CACHE_CONFIG_PATH_ENTRYA",

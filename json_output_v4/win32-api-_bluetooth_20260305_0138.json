@@ -166,11 +166,13 @@
         {
           "name": "authenticationRequirement",
           "direction": "in",
-          "description": "一个BLUETOOTH_AUTHENTICATION_REQUIREMENTS值，该值指定身份验证所需的保护。"
+          "description": "一个BLUETOOTH_AUTHENTICATION_REQUIREMENTS值，该值指定身份验证所需的保护。",
+          "type": "BLUETOOTH_AUTHENTICATION_REQUIREMENTS"
         }
       ],
       "return_value": {
-        "description": "成功完成后返回 ERROR_SUCCESS 。下表列出了常见错误。 返回代码"
+        "description": "成功完成后返回 ERROR_SUCCESS 。下表列出了常见错误。 返回代码",
+        "type": "DWORD"
       },
       "header": "bluetoothapis.h",
       "deprecated": false,
@@ -218,7 +220,8 @@
       "description": "函数修改本地蓝牙无线电是否接受传入连接。",
       "syntax": "BOOL BluetoothEnableIncomingConnections( HANDLE hRadio, BOOL fEnabled );",
       "return_value": {
-        "description": "如果已成功更改传入连接状态，则返回 TRUE 。 如果 hRadio 为 NULL，则返回值为 TRUE 表示至少一个本地无线电状态已成功更改。 如果未更改传入连接状态，则返回 FALSE ;如果 hRadio 为 NULL，则没有无线电接受状态更改。"
+        "description": "如果已成功更改传入连接状态，则返回 TRUE 。 如果 hRadio 为 NULL，则返回值为 TRUE 表示至少一个本地无线电状态已成功更改。 如果未更改传入连接状态，则返回 FALSE ;如果 hRadio 为 NULL，则没有无线电接受状态更改。",
+        "type": "BOOL"
       },
       "remarks": "不可连接的无线电不可发现。在使无线电不可连接之前，必须使无线电不可发现。未能在使无线电不可连接之前使无线电不可发现，将导致函数调用失败。",
       "header": "bluetoothapis.h",
@@ -300,7 +303,10 @@
       "entity_type": "function",
       "description": "Retrieves information about the next Bluetooth device in the enumeration started by BluetoothFindFirstDevice.",
       "syntax": "BOOL BluetoothFindNextDevice(_In_ HBLUETOOTH_DEVICE_FIND hFind, _Out_ BLUETOOTH_DEVICE_INFO *pbtdi);",
-      "return_value": "Returns TRUE if successful and pbtdi parameter points to information about the device. Returns FALSE on failure. For extended error information, call GetLastError.",
+      "return_value": {
+        "type": "BOOL",
+        "description": "Returns TRUE if successful and pbtdi parameter points to information about the device. Returns FALSE on failure. For extended error information, call GetLastError."
+      },
       "header": "bluetoothapis.h",
       "deprecated": false,
       "cross_references": [
@@ -320,7 +326,8 @@
         {
           "name": "hFind",
           "direction": "in",
-          "description": "上一次调用 BluetoothFindFirstRadio 函数返回的句柄。 不再需要时，请使用"
+          "description": "上一次调用 BluetoothFindFirstRadio 函数返回的句柄。 不再需要时，请使用",
+          "type": "HBLUETOOTH_RADIO_FIND"
         }
       ],
       "header": "bluetoothapis.h",
@@ -330,7 +337,11 @@
         "GetLastError"
       ],
       "confidence": 0.8,
-      "_source_line": 29
+      "_source_line": 29,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::BluetoothFindRadioClose",
@@ -339,7 +350,8 @@
       "description": "关闭与查找蓝牙无线电关联的枚举句柄。",
       "syntax": "BOOL BluetoothFindRadioClose(HBLUETOOTH_RADIO_FIND hFind);",
       "return_value": {
-        "description": "成功时返回 TRUE，失败时返回 FALSE。有关错误的详细信息，请调用 GetLastError 函数。"
+        "description": "成功时返回 TRUE，失败时返回 FALSE。有关错误的详细信息，请调用 GetLastError 函数。",
+        "type": "BOOL"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -368,7 +380,11 @@
         "BluetoothIsConnectable"
       ],
       "confidence": 0.6,
-      "_source_line": 33
+      "_source_line": 33,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::BluetoothIsConnectable",
@@ -425,16 +441,19 @@
         {
           "name": "MajorVersion",
           "direction": "in",
-          "description": "主版本号。"
+          "description": "主版本号。",
+          "type": "UCHAR"
         },
         {
           "name": "MinorVersion",
           "direction": "in",
-          "description": "次版本号。"
+          "description": "次版本号。",
+          "type": "UCHAR"
         }
       ],
       "return_value": {
-        "description": "如果安装的蓝牙二进制文件支持指定的 MajorVersion 和 MinorVersion，则为 TRUE;否则为 FALSE。"
+        "description": "如果安装的蓝牙二进制文件支持指定的 MajorVersion 和 MinorVersion，则为 TRUE;否则为 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "此功能仅在适用于 Windows 版本 2.1 及更高版本的蓝牙中导出。",
       "requirements": {
@@ -464,7 +483,11 @@
         "BluetoothUnregisterAuthentication"
       ],
       "confidence": 0.7,
-      "_source_line": 38
+      "_source_line": 38,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::BluetoothRegisterForAuthenticationEx",
@@ -476,16 +499,19 @@
         {
           "name": "pbtdiIn",
           "direction": "in, optional",
-          "description": "指向 BLUETOOTH_DEVICE_INFO 结构的指针，该结构指定要用于比较的蓝牙地址。[out] phRegHandleOut 指向与已注册的应用程序关联的 HBLUETOOTH_AUTHENTICATION_REGISTRATION 句柄的指 针。 调用 BluetoothUnregisterAuthentication 以关闭句柄。[in, optional] pfnCallbackIn 身份验证事件发生时将调用的函数。 此函数应与 PFN_AUTHENTICATION_CALLBACK_EX 的原型匹配。"
+          "description": "指向 BLUETOOTH_DEVICE_INFO 结构的指针，该结构指定要用于比较的蓝牙地址。[out] phRegHandleOut 指向与已注册的应用程序关联的 HBLUETOOTH_AUTHENTICATION_REGISTRATION 句柄的指 针。 调用 BluetoothUnregisterAuthentication 以关闭句柄。[in, optional] pfnCallbackIn 身份验证事件发生时将调用的函数。 此函数应与 PFN_AUTHENTICATION_CALLBACK_EX 的原型匹配。",
+          "type": "optional] const BLUETOOTH_DEVICE_INFO"
         },
         {
           "name": "pvParam",
           "direction": "in, optional",
-          "description": "要传递到 pfnCallbackIn 指定的回调函数的可选参数。 此参数可以是应用程序需要定义的任何内容。"
+          "description": "要传递到 pfnCallbackIn 指定的回调函数的可选参数。 此参数可以是应用程序需要定义的任何内容。",
+          "type": "optional] PVOID"
         }
       ],
       "return_value": {
-        "description": "Returns ERROR_SUCCESS on success, or an error code on failure."
+        "description": "Returns ERROR_SUCCESS on success, or an error code on failure.",
+        "type": "DWORD"
       },
       "header": "bluetoothapis.h",
       "deprecated": false,
@@ -503,7 +529,8 @@
       "description": "函数通过 SDP 记录流枚举，并为记录中的每个属性调用回调函数。",
       "syntax": "BOOL BluetoothSdpEnumAttributes(\n  LPBYTE pSDPStream,\n  ULONG cbStreamSize,\n  PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK pfnCallback,\n  LPVOID pvParam\n);",
       "return_value": {
-        "description": "如果发生枚举，则返回 TRUE。失败时返回 FALSE。有关详细信息，请调用 GetLastError 函数。常见错误代码包括 ERROR_INVALID_DATA。"
+        "description": "如果发生枚举，则返回 TRUE。失败时返回 FALSE。有关详细信息，请调用 GetLastError 函数。常见错误代码包括 ERROR_INVALID_DATA。",
+        "type": "BOOL"
       },
       "header": "bluetoothapis.h",
       "deprecated": false,
@@ -523,11 +550,13 @@
         {
           "name": "pRecordStream",
           "direction": "in",
-          "description": "指向格式化为单个 SDP 记录的有效记录流的指针。[in] cbRecordLength pRecordStream 的长度（以字节为单位）。[in] usAttributeId 要搜索的属性标识符。 请参阅“备注”。[out] pAttributeData 指向 SDP_ELEMENT_DATA 结构的指针，该结构将特性的标识符值放置到其中。"
+          "description": "指向格式化为单个 SDP 记录的有效记录流的指针。[in] cbRecordLength pRecordStream 的长度（以字节为单位）。[in] usAttributeId 要搜索的属性标识符。 请参阅“备注”。[out] pAttributeData 指向 SDP_ELEMENT_DATA 结构的指针，该结构将特性的标识符值放置到其中。",
+          "type": "LPBYTE"
         }
       ],
       "return_value": {
-        "description": "成功时返回 ERROR_SUCCESS，pAttributeData 参数包含属性值。其他返回值指示错误。"
+        "description": "成功时返回 ERROR_SUCCESS，pAttributeData 参数包含属性值。其他返回值指示错误。",
+        "type": "DWORD"
       },
       "header": "bluetoothapis.h",
       "deprecated": false,
@@ -554,7 +583,11 @@
         "BluetoothSendAuthenticationResponseEx"
       ],
       "confidence": 0.7,
-      "_source_line": 48
+      "_source_line": 48,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::BluetoothSendAuthenticationResponseEx",
@@ -570,7 +603,8 @@
         }
       ],
       "return_value": {
-        "description": "当设备接受密钥响应时返回 ERROR_SUCCESS；设备已经过身份验证。任何其他返回值表示失败。"
+        "description": "当设备接受密钥响应时返回 ERROR_SUCCESS；设备已经过身份验证。任何其他返回值表示失败。",
+        "type": "DWORD"
       },
       "header": "bluetoothapis.h",
       "deprecated": false,
@@ -889,7 +923,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 143
+      "_source_line": 143,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::PFN_AUTHENTICATION_CALLBACK",
@@ -966,7 +1004,10 @@
       "entity_type": "function",
       "description": "更新本地计算机缓存中有关蓝牙设备的信息。",
       "syntax": "DWORD BluetoothUpdateDeviceRecord(const BLUETOOTH_DEVICE_INFO *pbtdi);",
-      "return_value": "成功后返回 ERROR_SUCCESS。下表列出了常见错误代码。",
+      "return_value": {
+        "type": "DWORD",
+        "description": "成功后返回 ERROR_SUCCESS。下表列出了常见错误代码。"
+      },
       "header": "bluetoothapis.h",
       "deprecated": false,
       "cross_references": [
@@ -1150,7 +1191,10 @@
       "entity_type": "function",
       "description": "检索有关远程蓝牙设备的信息。蓝牙设备以前必须通过成功的设备查询函数调用进行标识。",
       "syntax": "DWORD BluetoothGetDeviceInfo(HANDLE hRadio, BLUETOOTH_DEVICE_INFO *pbtdi);",
-      "return_value": "成功后返回 ERROR_SUCCESS，指示检索有关远程蓝牙设备的数据。失败时返回错误代码。",
+      "return_value": {
+        "type": "DWORD",
+        "description": "成功后返回 ERROR_SUCCESS，指示检索有关远程蓝牙设备的数据。失败时返回错误代码。"
+      },
       "header": "bluetoothapis.h",
       "deprecated": false,
       "cross_references": [],
@@ -1186,11 +1230,13 @@
         {
           "name": "pContainerStream",
           "direction": "in",
-          "description": "指向有效 SDP 流的指针。 流中的第一个元素必须是序列或替代元素。[in] cbContainerLength pContainerStream 参数的大小（以字节为单位）。[in, out] pElement 用于跟踪流中的位置的值。 首次为容器调用 BluetoothSdpGetContainerElementData 函数时， *pElement 应为 NULL。 对于后续调用，该值应未修改。[out] pData 指向用 pContainerStream 的当前 SDP 元素中的数据填充的缓冲区的指针。"
+          "description": "指向有效 SDP 流的指针。 流中的第一个元素必须是序列或替代元素。[in] cbContainerLength pContainerStream 参数的大小（以字节为单位）。[in, out] pElement 用于跟踪流中的位置的值。 首次为容器调用 BluetoothSdpGetContainerElementData 函数时， *pElement 应为 NULL。 对于后续调用，该值应未修改。[out] pData 指向用 pContainerStream 的当前 SDP 元素中的数据填充的缓冲区的指针。",
+          "type": "LPBYTE"
         }
       ],
       "return_value": {
-        "description": "成功后返回 ERROR_SUCCESS ，指示 pData 参数包含数据。 失败时返回错误代码。 下表描述了与 BluetoothSdpGetContainerElementData 函数关联的常见错误代码： 返回代码"
+        "description": "成功后返回 ERROR_SUCCESS ，指示 pData 参数包含数据。 失败时返回错误代码。 下表描述了与 BluetoothSdpGetContainerElementData 函数关联的常见错误代码： 返回代码",
+        "type": "DWORD"
       },
       "header": "bluetoothapis.h",
       "deprecated": false,
@@ -1208,11 +1254,13 @@
         {
           "name": "pSdpStream",
           "direction": "in",
-          "description": "指向有效 SDP 流的指针。[in] cbSdpStreamLength pSdpStream 的长度（以字节为单位）。[out] pData 指向要用 pSdpStream SDP 流开头找到的 SDP 元素数据填充的缓冲区的指针。"
+          "description": "指向有效 SDP 流的指针。[in] cbSdpStreamLength pSdpStream 的长度（以字节为单位）。[out] pData 指向要用 pSdpStream SDP 流开头找到的 SDP 元素数据填充的缓冲区的指针。",
+          "type": "LPBYTE"
         }
       ],
       "return_value": {
-        "description": "正确分析 SDP 元素时返回 ERROR_SUCCESS 。 如果所需的参数之一为 NULL，或者 pSdpStream 指向的 SDP 流无效，则返回ERROR_INVALID_PARAMETER。"
+        "description": "正确分析 SDP 元素时返回 ERROR_SUCCESS 。 如果所需的参数之一为 NULL，或者 pSdpStream 指向的 SDP 流无效，则返回ERROR_INVALID_PARAMETER。",
+        "type": "DWORD"
       },
       "header": "bluetoothapis.h",
       "deprecated": false,
@@ -1232,12 +1280,14 @@
         {
           "name": "pRecordStream",
           "direction": "in",
-          "description": "指向格式化为单个 SDP 记录的有效记录流的指针。[in] cbRecordLength pRecordStream 的长度（以字节为单位）。[in] pStringData 设置为 NULL 时，调用线程区域设置用于在 SDP 记录中搜索匹配的字符串。 如果不是 NULL，则使用 SDP_STRING_TYPE_DATA 结构的 mibeNum 和 attributeId 成员来查找要转换的字符串。"
+          "description": "指向格式化为单个 SDP 记录的有效记录流的指针。[in] cbRecordLength pRecordStream 的长度（以字节为单位）。[in] pStringData 设置为 NULL 时，调用线程区域设置用于在 SDP 记录中搜索匹配的字符串。 如果不是 NULL，则使用 SDP_STRING_TYPE_DATA 结构的 mibeNum 和 attributeId 成员来查找要转换的字符串。",
+          "type": "LPBYTE"
         },
         {
           "name": "usStringOffset",
           "direction": "in",
-          "description": "要转换的 SDP 字符串类型偏移量。 usStringOffset 将添加到字符串的基属性标识符。 SDP 规范定义的偏移量为：STRING_NAME_OFFSET、STRING_DESCRIPTION_OFFSET和"
+          "description": "要转换的 SDP 字符串类型偏移量。 usStringOffset 将添加到字符串的基属性标识符。 SDP 规范定义的偏移量为：STRING_NAME_OFFSET、STRING_DESCRIPTION_OFFSET和",
+          "type": "USHORT"
         }
       ],
       "header": "bluetoothapis.h",
@@ -1248,7 +1298,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 1581,
-      "return_value": "返回ERROR_SUCCESS表示成功，其他错误代码表示失败。"
+      "return_value": {
+        "type": "DWORD",
+        "description": "返回ERROR_SUCCESS表示成功，其他错误代码表示失败。"
+      }
     },
     {
       "id": "windows::BluetoothSetServiceState",
@@ -1412,7 +1465,7 @@
     {
       "id": "windows::BTH_QUERY_DEVICE",
       "name": "BTH_QUERY_DEVICE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "BTH_QUERY_DEVICE结构用于查询蓝牙设备是否存在，包含查询参数。",
       "syntax": "typedef struct _BTH_QUERY_DEVICE {\n  ULONG LAP;\n  UCHAR length;\n} BTH_QUERY_DEVICE, *PBTH_QUERY_DEVICE;",
       "remarks": "LAP字段保留且必须设置为零。length字段指定请求的查询持续时间（以秒为单位）。",
@@ -1431,29 +1484,32 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.85,
-      "_source_line": 2352
+      "_source_line": 2352,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SDP_SERVICE_SEARCH_REQUEST",
       "name": "SDP_SERVICE_SEARCH_REQUEST",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Defines a structure used to search for Bluetooth services using the Service Discovery Protocol (SDP). The description field currently references SDP_SERVICE_ATTRIBUTE_REQUEST which is incorrect and needs verification.",
       "header": "ws2bth.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 2397
+      "_source_line": 2397,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SDP_SERVICE_SEARCH_ATTRIBUTE_REQUEST",
       "name": "SDP_SERVICE_SEARCH_ATTRIBUTE_REQUEST",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "用于指定 SDP 服务搜索属性请求的结构。serviceHandle 是要查询属性的服务句柄。uuids 数组包含必须匹配的 UUID，最多 MAX_UUIDS_IN_QUERY 个。当查询的 UUID 数量少于 MAX_UUIDS_IN_QUERY 时，最后一个有效 UUID 后的元素应设置为 NULL。",
       "header": "ws2bth.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 2398
+      "_source_line": 2398,
+      "_type_raw": "struct"
     }
   ]
 }

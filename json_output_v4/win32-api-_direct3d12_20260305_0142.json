@@ -45,7 +45,10 @@
       "confidence": 0.6,
       "_source_line": 15088,
       "syntax": "LONG InterlockedExchange(\n  [in, out] LONG volatile *Target,\n  [in]      LONG Value\n);",
-      "return_value": "Returns the initial value of the variable pointed to by Target.",
+      "return_value": {
+        "type": "LONG",
+        "description": "Returns the initial value of the variable pointed to by Target."
+      },
       "remarks": "This function performs an atomic operation on a 32-bit value. To operate on other widths or pointer values, use related functions such as InterlockedExchange8, InterlockedExchange16, InterlockedExchange64, or InterlockedExchangePointer. The function is typically declared in winnt.h and made available through Windows.h."
     },
     {
@@ -139,7 +142,10 @@
       "cross_references": [],
       "confidence": 0.5,
       "_source_line": 31182,
-      "return_value": "指向 ID3D12ShaderReflectionType 接口的指针，描述着色器变量的类型信息。"
+      "return_value": {
+        "type": "ID3D12ShaderReflectionType",
+        "description": "指向 ID3D12ShaderReflectionType 接口的指针，描述着色器变量的类型信息。"
+      }
     },
     {
       "id": "windows::D3D_ROOT_SIGNATURE_VERSION",
@@ -1504,7 +1510,8 @@
         {
           "name": "DestAccelerationStructureData",
           "direction": "in",
-          "description": "目标内存。 如果需要指定模式，可以通过事先调用"
+          "description": "目标内存。 如果需要指定模式，可以通过事先调用",
+          "type": "D3D12_GPU_VIRTUAL_ADDRESS"
         }
       ],
       "header": "d3d12.h",
@@ -1604,7 +1611,8 @@
         {
           "name": "ppCommandList",
           "direction": "out",
-          "description": "类型： void** 指向内存块的指针，该内存块接收指向命令列表的 ID3D12CommandList 或 ID3D12GraphicsCommandList 接口的指针。"
+          "description": "类型： void** 指向内存块的指针，该内存块接收指向命令列表的 ID3D12CommandList 或 ID3D12GraphicsCommandList 接口的指针。",
+          "type": "void"
         }
       ],
       "return_value": {
@@ -1652,7 +1660,8 @@
       "description": "Creates a Direct3D 12 back buffer resource with hardware protection. Applications should check the descriptor of the returned texture in ppCreatedTexture2DResource and properly handle any discrepancies with specified content.",
       "syntax": "HRESULT CreateDirect3D12BackBufferResource(ID3D12Device *pDevice, /* other parameters */);",
       "return_value": {
-        "description": "S_OK 如果成功，则返回 一个 HRESULT 错误代码，指示失败原因。"
+        "description": "S_OK 如果成功，则返回 一个 HRESULT 错误代码，指示失败原因。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1716,7 +1725,8 @@
         {
           "name": "CommandId",
           "direction": "in",
-          "description": "类型： REFIID 对要实例化的元命令的全局唯一标识符 (GUID) 的引用。"
+          "description": "类型： REFIID 对要实例化的元命令的全局唯一标识符 (GUID) 的引用。",
+          "type": "REFGUID"
         },
         {
           "name": "NodeMask",
@@ -1727,7 +1737,8 @@
         {
           "name": "ppMetaCommand",
           "direction": "out",
-          "description": "类型： void** 指向内存块的指针，该内存块接收指向元命令的指针。 这是指向 ID3D12MetaCommand 的指针的地址，表示创建的元命令。"
+          "description": "类型： void** 指向内存块的指针，该内存块接收指向元命令的指针。 这是指向 ID3D12MetaCommand 的指针的地址，表示创建的元命令。",
+          "type": "void"
         }
       ],
       "return_value": {
@@ -1773,7 +1784,8 @@
         {
           "name": "ppSession",
           "direction": "out",
-          "description": "类型： void** 指向内存块的指针，该内存块接收指向创建的会话对象的 ID3D12ProtectedResourceSession 接口指针。"
+          "description": "类型： void** 指向内存块的指针，该内存块接收指向创建的会话对象的 ID3D12ProtectedResourceSession 接口指针。",
+          "type": "void"
         }
       ],
       "requirements": {
@@ -1792,7 +1804,11 @@
         "CreateReservedResource2"
       ],
       "confidence": 0.8,
-      "_source_line": 525
+      "_source_line": 525,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CreateSamplerFeedbackUnorderedAccessView",
@@ -1893,7 +1909,11 @@
         "Evict"
       ],
       "confidence": 0.8,
-      "_source_line": 612
+      "_source_line": 612,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::ExecuteCommandLists",
@@ -1905,7 +1925,8 @@
         {
           "name": "NumCommandLists",
           "direction": "in",
-          "description": "要执行的命令列表数。[in] ppCommandLists 要执行的 ID3D12CommandList 命令列表的数组。"
+          "description": "要执行的命令列表数。[in] ppCommandLists 要执行的 ID3D12CommandList 命令列表的数组。",
+          "type": "UINT"
         }
       ],
       "return_value": {
@@ -1941,7 +1962,11 @@
         "GetConstantBufferByName"
       ],
       "confidence": 0.7,
-      "_source_line": 659
+      "_source_line": 659,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetConstantBufferByName",
@@ -2082,7 +2107,10 @@
       "entity_type": "method",
       "description": "查询生成光线跟踪加速结构所需的资源要求。此方法返回预构建信息，包括结果数据、临时数据和更新临时数据的大小。",
       "syntax": "HRESULT GetRaytracingAccelerationStructurePrebuildInfo(D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE Type, const D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO* pPrebuildInfo, UINT Flags, D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO* pPrebuildInfo);",
-      "return_value": "HRESULT",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "HRESULT"
+      },
       "remarks": "此方法用于在构建加速结构之前查询所需的内存大小。",
       "header": "d3d12.h",
       "deprecated": false,
@@ -2158,7 +2186,8 @@
         {
           "name": "ppPipelineState",
           "direction": "out",
-          "description": "类型： void** 指定将引用返回的 PSO 的指针。"
+          "description": "类型： void** 指定将引用返回的 PSO 的指针。",
+          "type": "void*"
         }
       ],
       "return_value": {
@@ -2243,7 +2272,8 @@
         {
           "name": "NumSync",
           "direction": "in",
-          "description": "类型：UINT pSignalValues 和 ppFences指向的数组中的元素数。"
+          "description": "类型：UINT pSignalValues 和 ppFences指向的数组中的元素数。",
+          "type": "UINT"
         },
         {
           "name": "pSignalValues",
@@ -2293,7 +2323,11 @@
         "SetBreakOnCategory"
       ],
       "confidence": 0.8,
-      "_source_line": 986
+      "_source_line": 986,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetComputeRoot32BitConstant",
@@ -2678,7 +2712,8 @@
       "description": "方法将 Direct3D 12 缓冲区资源的控制权放弃给平台。可以取消获取已获取但未提交的资源，以将缓冲区的控制权返回给平台。以后可以重新获取已取消获取的资源。",
       "syntax": "HRESULT UnacquireDirect3D12BufferResource(\nID3D12Resource *pResourceToUnacquire);",
       "return_value": {
-        "description": "如果 成功，S_OK，否则返回指示失败原因的 HRESULT 错误代码。"
+        "description": "如果 成功，S_OK，否则返回指示失败原因的 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2706,7 +2741,11 @@
         "HolographicCamera"
       ],
       "confidence": 0.7,
-      "_source_line": 1147
+      "_source_line": 1147,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::HolographicCameraRenderingParameters",
@@ -2816,7 +2855,8 @@
         {
           "name": "pDesc",
           "direction": "in",
-          "description": "要生成的加速结构的说明。[in] NumPostbuildInfoDescs pPostbuildInfoDescs 数组的大小。 如果不需要生成后信息，则设置为 0。[in] pPostbuildInfoDescs 生成后信息的说明的可选数组，用于生成已生成的加速结构的描述属性。"
+          "description": "要生成的加速结构的说明。[in] NumPostbuildInfoDescs pPostbuildInfoDescs 数组的大小。 如果不需要生成后信息，则设置为 0。[in] pPostbuildInfoDescs 生成后信息的说明的可选数组，用于生成已生成的加速结构的描述属性。",
+          "type": "const D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC"
         }
       ],
       "return_value": {
@@ -2967,7 +3007,7 @@
     {
       "id": "windows::D3D12_DEPTH_STENCIL_VALUE",
       "name": "D3D12_DEPTH_STENCIL_VALUE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "用于指定深度和模板清除值的结构体。",
       "syntax": "typedef struct D3D12_DEPTH_STENCIL_VALUE {\nFLOAT Depth;   UINT8 Stencil;\n} D3D12_DEPTH_STENCIL_VALUE;",
       "remarks": "此结构体作为 D3D12_CLEAR_VALUE 结构体的 DepthStencil 成员使用，用于清除深度和模板资源。",
@@ -2983,12 +3023,13 @@
         "D3D12_CLEAR_VALUE"
       ],
       "confidence": 0.85,
-      "_source_line": 1402
+      "_source_line": 1402,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_DEPTH_STENCIL_VIEW_DESC",
       "name": "D3D12_DEPTH_STENCIL_VIEW_DESC",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述可从深度模具视图访问的纹理的子资源。",
       "syntax": "typedef struct D3D12_DEPTH_STENCIL_VIEW_DESC {\n  DXGI_FORMAT Format;\n  D3D12_DSV_DIMENSION ViewDimension;\n  UINT Flags;\n  union {\n    D3D12_TEX1D_DSV Texture1D;\n    D3D12_TEX1D_ARRAY_DSV Texture1DArray;\n    D3D12_TEX2D_DSV Texture2D;\n    D3D12_TEX2D_ARRAY_DSV Texture2DArray;\n    D3D12_TEX2DMS_DSview Texture2DMS;\n    D3D12_TEX2DMS_ARRAY_DSV Texture2DMSArray;\n  };\n};",
       "header": "d3d12.h",
@@ -2997,7 +3038,8 @@
         "D3D12_DEPTH_STENCILOP_DESC"
       ],
       "confidence": 0.85,
-      "_source_line": 1405
+      "_source_line": 1405,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_DESCRIPTOR_HEAP_DESC",
@@ -3076,7 +3118,7 @@
     {
       "id": "windows::D3D12_DRAW_INDEXED_ARGUMENTS",
       "name": "D3D12_DRAW_INDEXED_ARGUMENTS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述用于绘制索引实例的参数。",
       "syntax": "typedef struct D3D12_DRAW_INDEXED_ARGUMENTS {\nUINT IndexCountPerInstance;   UINT InstanceCount;\nUINT StartIndexLocation;   INT  BaseVertexLocation;\nUINT StartInstanceLocation;} D3D12_DRAW_INDEXED_ARGUMENTS;",
       "header": "d3d12.h",
@@ -3085,7 +3127,8 @@
         "D3D12_DRED_ALLOCATION_NODE"
       ],
       "confidence": 0.85,
-      "_source_line": 1428
+      "_source_line": 1428,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_DRED_ALLOCATION_NODE",
@@ -3124,7 +3167,7 @@
     {
       "id": "windows::D3D12_EXISTING_COLLECTION_DESC",
       "name": "D3D12_EXISTING_COLLECTION_DESC",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述可包含在状态对象中的现有集合的结构体。",
       "syntax": "typedef struct D3D12_EXISTING_COLLECTION_DESC {   ID3D12StateObject *pExistingCollection;\nUINT              NumExports;   D3D12_EXPORT_DESC *pExports;\n} D3D12_EXISTING_COLLECTION_DESC; 成员\npExistingCollection\n要包含在状态对象中的集合。 封闭状态对象保存对现有集合的引用。 NumExports\npExports 数组的大小。 如果为 0，则导出集合的所有导出。 pExports\n可选导出数组。 有关详细信息，请参阅 D3D12_EXPORT_DESC。\npExports 要求\n标头\nd3d12.h",
       "header": "d3d12.h",
@@ -3135,7 +3178,8 @@
         "D3D12_FEATURE_DATA_ARCHITECTURE1"
       ],
       "confidence": 0.85,
-      "_source_line": 1442
+      "_source_line": 1442,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY",
@@ -3228,30 +3272,32 @@
     {
       "id": "windows::D3D12_FEATURE_DATA_D3D12_OPTIONS9",
       "name": "D3D12_FEATURE_DATA_D3D12_OPTIONS9",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "指示是否支持网格着色器、8 或更大的 SV_RenderTargetArrayIndex 值、类型化资源 64 位整数原子、派生和派生依赖纹理样本操作，以及 WaveMMA (wave_matrix) 运算的支持级别。",
       "header": "d3d12.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 1485
+      "_source_line": 1485,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_FEATURE_DATA_DISPLAYABLE",
       "name": "D3D12_FEATURE_DATA_DISPLAYABLE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "此结构体用于查询设备是否支持可显示纹理。此功能目前以预览版提供。",
       "syntax": "typedef struct D3D12_FEATURE_DATA_DISPLAYABLE {\\n    BOOL DisplayableTexture;\\n} D3D12_FEATURE_DATA_DISPLAYABLE;",
       "header": "d3d12.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 1488
+      "_source_line": 1488,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_FEATURE_DATA_EXISTING_HEAPS",
       "name": "D3D12_FEATURE_DATA_EXISTING_HEAPS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "提供有关适配器是否支持从现有系统内存创建堆的详细信息。",
       "header": "d3d12.h",
       "deprecated": false,
@@ -3259,12 +3305,13 @@
         "D3D12_FEATURE_DATA_FEATURE_LEVELS"
       ],
       "confidence": 0.75,
-      "_source_line": 1490
+      "_source_line": 1490,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_FEATURE_DATA_FORMAT_INFO",
       "name": "D3D12_FEATURE_DATA_FORMAT_INFO",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含 DXGI 格式信息的结构体，用于 D3D12_FEATURE_FORMAT_INFO 功能查询。",
       "syntax": "typedef struct D3D12_FEATURE_DATA_FORMAT_INFO {\n    DXGI_FORMAT Format;\n    UINT8 PlaneCount;\n} D3D12_FEATURE_DATA_FORMAT_INFO;",
       "parameters": [
@@ -3309,19 +3356,21 @@
         "Format"
       ],
       "confidence": 0.95,
-      "_source_line": 1495
+      "_source_line": 1495,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_FEATURE_DATA_FORMAT_SUPPORT",
       "name": "D3D12_FEATURE_DATA_FORMAT_SUPPORT",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述给定格式的当前图形驱动程序支持哪些资源。",
       "header": "d3d12.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
       "_source_line": 1497,
-      "syntax": "typedef struct D3D12_FEATURE_DATA_FORMAT_SUPPORT {"
+      "syntax": "typedef struct D3D12_FEATURE_DATA_FORMAT_SUPPORT {",
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_FEATURE_DATA_MULTISAMPLE_QUALITY_LEVELS",
@@ -3349,13 +3398,14 @@
     {
       "id": "windows::D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPE_COUNT",
       "name": "D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPE_COUNT",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含受保护资源会话类型数量的数据结构，用于查询D3D12设备支持的受保护资源会话类型数量。",
       "header": "d3d12.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.55,
-      "_source_line": 1506
+      "_source_line": 1506,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPES",
@@ -3743,7 +3793,7 @@
     {
       "id": "windows::D3D12_RANGE_UINT64",
       "name": "D3D12_RANGE_UINT64",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述64位地址空间中的内存范围。",
       "syntax": "typedef struct D3D12_RANGE_UINT64 {\nUINT64 Begin;   UINT64 End;\n} D3D12_RANGE_UINT64;",
       "remarks": "End 是一个过去一端。 当 Begin 等于 End 时，范围为空。 范围的大小 (结束 - 开始) 。 此结构由 D3D12_SUBRESOURCE_RANGE_UINT64 结构使用。",
@@ -3762,7 +3812,8 @@
         "D3D12_SUBRESOURCE_RANGE_UINT64"
       ],
       "confidence": 0.95,
-      "_source_line": 1601
+      "_source_line": 1601,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_COMPACTED_SIZE_DESC",
@@ -3889,7 +3940,7 @@
     {
       "id": "windows::D3D12_RAYTRACING_PIPELINE_CONFIG",
       "name": "D3D12_RAYTRACING_PIPELINE_CONFIG",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "表示光线跟踪管道配置的状态子对象。该结构体用于配置光线跟踪管道的最大递归深度。",
       "syntax": "typedef struct D3D12_RAYTRACING_PIPELINE_CONFIG { UINT MaxTraceRecursionDepth; } D3D12_RAYTRACING_PIPELINE_CONFIG;",
       "header": "d3d12.h",
@@ -3898,24 +3949,26 @@
         "D3D12_RAYTRACING_PIPELINE_CONFIG1"
       ],
       "confidence": 0.85,
-      "_source_line": 1634
+      "_source_line": 1634,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_RAYTRACING_SHADER_CONFIG",
       "name": "D3D12_RAYTRACING_SHADER_CONFIG",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "定义用于配置光线追踪着色器的最大有效负载和属性大小的结构体。",
       "syntax": "typedef struct D3D12_RAYTRACING_SHADER_CONFIG {\n    UINT MaxPayloadSizeInBytes;\n    UINT MaxAttributeSizeInBytes;\n} D3D12_RAYTRACING_SHADER_CONFIG;",
       "header": "d3d12.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 1638
+      "_source_line": 1638,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_RENDER_PASS_BEGINNING_ACCESS",
       "name": "D3D12_RENDER_PASS_BEGINNING_ACCESS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Specifies the depth and stencil access at the beginning of a render pass. Contains DepthBeginningAccess and StencilBeginningAccess members.",
       "header": "d3d12.h",
       "deprecated": false,
@@ -3924,12 +3977,13 @@
         "StencilBeginningAccess"
       ],
       "confidence": 0.75,
-      "_source_line": 1640
+      "_source_line": 1640,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS",
       "name": "D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Specifies the clear value for a resource at the beginning of a render pass.",
       "members": [
         {
@@ -3944,7 +3998,8 @@
         "D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS"
       ],
       "confidence": 0.85,
-      "_source_line": 1643
+      "_source_line": 1643,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_RENDER_PASS_ENDING_ACCESS",
@@ -3964,7 +4019,7 @@
     {
       "id": "windows::D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS",
       "name": "D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述在渲染通道结束时解析所涉及的子资源参数，包含源和目标子资源的索引及资源视图信息。",
       "header": "d3d12.h",
       "deprecated": false,
@@ -3974,7 +4029,8 @@
         "D3D12_RESOURCE_ALIASING_BARRIER"
       ],
       "confidence": 0.75,
-      "_source_line": 1653
+      "_source_line": 1653,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_RESOURCE_ALLOCATION_INFO",
@@ -4024,7 +4080,7 @@
     {
       "id": "windows::D3D12_RESOURCE_TRANSITION_BARRIER",
       "name": "D3D12_RESOURCE_TRANSITION_BARRIER",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述子资源在不同用法之间的转换。",
       "header": "d3d12.h",
       "deprecated": false,
@@ -4039,7 +4095,8 @@
       "confidence": 0.75,
       "_source_line": 1675,
       "syntax": "typedef struct D3D12_RESOURCE_TRANSITION_BARRIER {\nID3D12Resource        *pResource;   UINT                  Subresource;   D3D12_RESOURCE_STATES StateBefore;   D3D12_RESOURCE_STATES StateAfter;} D3D12_RESOURCE_TRANSITION_BARRIER;\n成员 pResource\n指向 ID3D12Resource 对象的指针，该对象表示转换中使用的资源。 Subresource\n转换的子资源的索引。 使用 D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES 标志 (\n0xffffffff ) 同时转换资源中的所有子资源。 StateBefore\n子资源的“before”用法，作为 D3D12_RESOURCE_STATES 枚举常量的按位 OR 组合。 StateAfter\n子资源的“after”用法，作为 D3D12_RESOURCE_STATES 枚举常量的按位 OR 组合。",
-      "remarks": "此结构由D3D12_RESOURCE_BARRIER结构的 Transition 成员使用。 要求要求 Header"
+      "remarks": "此结构由D3D12_RESOURCE_BARRIER结构的 Transition 成员使用。 要求要求 Header",
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_ROOT_PARAMETER",
@@ -4080,7 +4137,7 @@
     {
       "id": "windows::D3D12_ROOT_SIGNATURE_DESC1",
       "name": "D3D12_ROOT_SIGNATURE_DESC1",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述根签名版本1.1的布局。包含参数数量、参数指针、静态采样器数量和静态采样器指针。",
       "syntax": "typedef struct D3D12_ROOT_SIGNATURE_DESC1 {\nUINT                            NumParameters;   const D3D12_ROOT_PARAMETER1     *pParameters;\nUINT                            NumStaticSamplers;   const D3D12_STATIC_SAMPLER_DESC *pStaticSamplers;",
       "header": "d3d12.h",
@@ -4091,12 +4148,13 @@
         "D3D12_SAMPLE_POSITION"
       ],
       "confidence": 0.85,
-      "_source_line": 1695
+      "_source_line": 1695,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_SAMPLE_POSITION",
       "name": "D3D12_SAMPLE_POSITION",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述用于可编程样本位置的子像素样本位置。",
       "syntax": "typedef struct D3D12_SAMPLE_POSITION {\nINT8 X;   INT8 Y;\n} D3D12_SAMPLE_POSITION;",
       "remarks": "样本位置的原点在像素中心 (0, 0)。每个 X 和 Y 坐标都是带符号值，范围在 -8 (上/左) 到 7 (下/右)。此范围之外的值无效。这些整数值的每个增量表示像素的 1/16。例如，X 和 Y 值分别为 -8 和 4，对应于浮点值 -0.5 和 0.25，一个点位于像素最左侧的边缘，位于其中心线和下边缘之间的一半。因此，无法通过采样来访问像素的最下边缘和最右边缘（这些位置作为相邻像素的上边缘和最左边缘）。",
@@ -4112,7 +4170,8 @@
         "D3D12_SAMPLER_DESC"
       ],
       "confidence": 0.95,
-      "_source_line": 1700
+      "_source_line": 1700,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER",
@@ -4191,7 +4250,7 @@
     {
       "id": "windows::D3D12_STREAM_OUTPUT_DESC",
       "name": "D3D12_STREAM_OUTPUT_DESC",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Describes the stream output buffer state for the output-merger stage in Direct3D 12.",
       "syntax": "typedef struct D3D12_STREAM_OUTPUT_DESC {\nconst D3D12_SO_DECLARATION_ENTRY *pSODeclaration;   UINT                             NumEntries;\nconst UINT                       *pBufferStrides;   UINT                             NumStrides;\nUINT                             RasterizedStream;} D3D12_STREAM_OUTPUT_DESC;",
       "members": [
@@ -4206,12 +4265,13 @@
         "D3D12_BLEND_DESC"
       ],
       "confidence": 0.95,
-      "_source_line": 1742
+      "_source_line": 1742,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION",
       "name": "D3D12_SUBOBJECT_TO_EXPORTS_ASSOCIATION",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "将直接在状态对象中定义的子对象与着色器导出相关联。",
       "header": "d3d12.h",
       "deprecated": false,
@@ -4221,12 +4281,13 @@
         "D3D12_SUBRESOURCE_INFO"
       ],
       "confidence": 0.75,
-      "_source_line": 1744
+      "_source_line": 1744,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_SUBRESOURCE_RANGE_UINT64",
       "name": "D3D12_SUBRESOURCE_RANGE_UINT64",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述子资源内存范围的结构体，包含子资源索引和内存范围信息。",
       "syntax": "typedef struct D3D12_SUBRESOURCE_RANGE_UINT64 {\nUINT               Subresource;   D3D12_RANGE_UINT64 Range;\n} D3D12_SUBRESOURCE_RANGE_UINT64;",
       "remarks": "此结构由 AtomicCopyBufferUINT 和 AtomicCopyBufferUINT64 方法使用。",
@@ -4245,12 +4306,13 @@
         "AtomicCopyBufferUINT64"
       ],
       "confidence": 0.75,
-      "_source_line": 1754
+      "_source_line": 1754,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_SUBRESOURCE_TILING",
       "name": "D3D12_SUBRESOURCE_TILING",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述平铺的子资源布局。",
       "syntax": "typedef struct D3D12_SUBRESOURCE_TILING {\nUINT   WidthInTiles;   UINT16 HeightInTiles;   UINT16 DepthInTiles;\nUINT   StartTileIndexInOverallResource;} D3D12_SUBRESOURCE_TILING;",
       "members": [
@@ -4274,12 +4336,13 @@
         "D3D12_TEX2D_ARRAY_RTV"
       ],
       "confidence": 0.95,
-      "_source_line": 1756
+      "_source_line": 1756,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_TEX2D_ARRAY_SRV",
       "name": "D3D12_TEX2D_ARRAY_SRV",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述要用于着色器资源视图的 2D 纹理数组中的子资源。",
       "syntax": "typedef struct D3D12_TEX2D_ARRAY_SRV {\nUINT  MostDetailedMip;   UINT  MipLevels;\nUINT  FirstArraySlice;\nUINT  ArraySize;   UINT  PlaneSlice;\nFLOAT ResourceMinLODClamp;} D3D12_TEX2D_ARRAY_SRV;",
       "header": "d3d12.h",
@@ -4298,7 +4361,8 @@
         "D3D12_TEX2D_UAV"
       ],
       "confidence": 0.85,
-      "_source_line": 1780
+      "_source_line": 1780,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_TEX3D_RTV",
@@ -4361,7 +4425,7 @@
     {
       "id": "windows::D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA",
       "name": "D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "表示版本控制的设备已删除扩展数据 (DRED) 结构体，用于存储设备移除时的扩展信息。",
       "header": "d3d12.h",
       "deprecated": false,
@@ -4369,7 +4433,8 @@
         "D3D12_VERSIONED_ROOT_SIGNATURE_DESC"
       ],
       "confidence": 0.75,
-      "_source_line": 1830
+      "_source_line": 1830,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_VERSIONED_ROOT_SIGNATURE_DESC",
@@ -4636,7 +4701,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 2175
+      "_source_line": 2175,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::ReleaseWrappedResources",
@@ -4713,7 +4782,11 @@
       "cross_references": [],
       "confidence": 0.75,
       "_source_line": 2525,
-      "syntax": "typedef HRESULT (CALLBACK* PFN_D3D12_CREATE_ROOT_SIGNATURE_DESERIALIZER)(LPCVOID pSrcData, SIZE_T SrcDataSize, REFIID riid, void** ppRootSignatureDeserializer);"
+      "syntax": "typedef HRESULT (CALLBACK* PFN_D3D12_CREATE_ROOT_SIGNATURE_DESERIALIZER)(LPCVOID pSrcData, SIZE_T SrcDataSize, REFIID riid, void** ppRootSignatureDeserializer);",
+      "return_value": {
+        "type": "typedef",
+        "description": ""
+      }
     },
     {
       "id": "windows::PFN_D3D12_CREATE_VERSIONED_ROOT_SIGNATURE_DESERIALIZER",
@@ -4725,7 +4798,11 @@
       "cross_references": [],
       "confidence": 0.75,
       "_source_line": 2527,
-      "syntax": "typedef HRESULT (WINAPI *PFN_D3D12_CREATE_VERSIONED_ROOT_SIGNATURE_DESERIALIZER)(LPCVOID pSrcData, SIZE_T SrcDataSize, ID3D12VersionedRootSignatureDeserializer** ppRootSignatureDeserializer);"
+      "syntax": "typedef HRESULT (WINAPI *PFN_D3D12_CREATE_VERSIONED_ROOT_SIGNATURE_DESERIALIZER)(LPCVOID pSrcData, SIZE_T SrcDataSize, ID3D12VersionedRootSignatureDeserializer** ppRootSignatureDeserializer);",
+      "return_value": {
+        "type": "typedef",
+        "description": ""
+      }
     },
     {
       "id": "windows::PFN_D3D12_GET_DEBUG_INTERFACE",
@@ -4801,7 +4878,7 @@
     {
       "id": "windows::D3D12_DISCARD_REGION",
       "name": "D3D12_DISCARD_REGION",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述放弃资源操作的详细信息。",
       "syntax": "typedef struct D3D12_DISCARD_REGION { UINT NumRects; const D3D12_RECT *pRects; UINT FirstSubresource; UINT NumSubresources; } D3D12_DISCARD_REGION;",
       "remarks": "此结构由 ID3D12GraphicsCommandList::DiscardResource 方法使用。如果此结构中提供了矩形，则资源必须具有具有相同维度的所有指定子资源的 2D 子资源。",
@@ -4817,7 +4894,8 @@
         "D3D12_DISPATCH_ARGUMENTS"
       ],
       "confidence": 0.95,
-      "_source_line": 2573
+      "_source_line": 2573,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_DISPATCH_RAYS_DESC",
@@ -4872,7 +4950,7 @@
     {
       "id": "windows::D3D12_DRED_PAGE_FAULT_OUTPUT1",
       "name": "D3D12_DRED_PAGE_FAULT_OUTPUT1",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含 GPU 页面错误输出数据的结构体，用于 D3D12 设备移除扩展数据。",
       "syntax": "typedef struct D3D12_DRED_PAGE_FAULT_OUTPUT1 {   D3D12_GPU_VIRTUAL_ADDRESS         PageFaultVA;\nconst D3D12_DRED_ALLOCATION_NODE1 *pHeadExistingAllocationNode;\nconst D3D12_DRED_ALLOCATION_NODE1 *pHeadRecentFreedAllocationNode;} D3D12_DRED_PAGE_FAULT_OUTPUT1;",
       "members": [
@@ -4892,12 +4970,13 @@
         "PageFaultOutput"
       ],
       "confidence": 0.95,
-      "_source_line": 2586
+      "_source_line": 2586,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_DXIL_LIBRARY_DESC",
       "name": "D3D12_DXIL_LIBRARY_DESC",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述包含在状态对象中的 DXIL 库状态子对象。",
       "syntax": "typedef struct D3D12_DXIL_LIBRARY_DESC {   D3D12_SHADER_BYTECODE   DXILLibrary;   UINT                    NumExports;   const D3D12_EXPORT_DESC *pExports;} D3D12_DXIL_LIBRARY_DESC;",
       "members": [
@@ -4916,12 +4995,13 @@
         "D3D12_FEATURE_DATA_ARCHITECTURE1"
       ],
       "confidence": 0.95,
-      "_source_line": 2588
+      "_source_line": 2588,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_FEATURE_DATA_CROSS_NODE",
       "name": "D3D12_FEATURE_DATA_CROSS_NODE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "指示对不同适配器之间资源共享的支持级别，例如多个GPU。",
       "syntax": "typedef struct D3D12_FEATURE_DATA_CROSS_NODE {   D3D12_CROSS_NODE_SHARING_TIER SharingTier;\nBOOL                          AtomicShaderInstructions;} D3D12_FEATURE_DATA_CROSS_NODE;",
       "members": [
@@ -4937,7 +5017,8 @@
         "D3D12_FEATURE_DATA_D3D12_OPTIONS"
       ],
       "confidence": 0.95,
-      "_source_line": 2595
+      "_source_line": 2595,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_FEATURE_DATA_FEATURE_LEVELS",
@@ -5027,7 +5108,7 @@
     {
       "id": "windows::D3D12_RENDER_TARGET_BLEND_DESC",
       "name": "D3D12_RENDER_TARGET_BLEND_DESC",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述呈现器目标的混合状态。",
       "syntax": "typedef struct D3D12_RENDER_TARGET_BLEND_DESC {\nBOOL           BlendEnable;   BOOL           LogicOpEnable;",
       "header": "d3d12.h",
@@ -5037,7 +5118,8 @@
         "D3D12_RESOURCE_ALIASING_BARRIER"
       ],
       "confidence": 0.85,
-      "_source_line": 2708
+      "_source_line": 2708,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_RESOURCE_BARRIER",
@@ -5084,7 +5166,7 @@
     {
       "id": "windows::D3D12_ROOT_DESCRIPTOR1",
       "name": "D3D12_ROOT_DESCRIPTOR1",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Defines descriptor data for D3D12_ROOT_PARAMETER1 structure members. Used when D3D12_ROOT_PARAMETER1.ParameterType is set to D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR.",
       "syntax": "typedef struct D3D12_ROOT_DESCRIPTOR1 {\n    UINT ShaderRegister;\n    UINT RegisterSpace;\n} D3D12_ROOT_DESCRIPTOR1;",
       "header": "d3d12.h",
@@ -5093,7 +5175,8 @@
         "D3D12_ROOT_PARAMETER1"
       ],
       "confidence": 0.85,
-      "_source_line": 2725
+      "_source_line": 2725,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_SHADER_CACHE_SESSION_DESC",
@@ -5133,7 +5216,7 @@
     {
       "id": "windows::D3D12_TEX1D_ARRAY_UAV",
       "name": "D3D12_TEX1D_ARRAY_UAV",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述无序访问一维纹理资源的数组。",
       "syntax": "typedef struct D3D12_TEX1D_ARRAY_UAV {   UINT MipSlice;\nUINT FirstArraySlice;   UINT ArraySize;\n} D3D12_TEX1D_ARRAY_UAV;",
       "remarks": "将此结构与 D3D12_UNORDERED_ACCESS_VIEW_DESC 结构一起使用，将资源视为一维 纹理数组。",
@@ -5166,7 +5249,8 @@
         "D3D12_TEX2D_UAV"
       ],
       "confidence": 0.95,
-      "_source_line": 2761
+      "_source_line": 2761,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::D3D12_BARRIER_ACCESS",
@@ -6753,7 +6837,11 @@
         "CreateCommandQueue"
       ],
       "confidence": 0.7,
-      "_source_line": 4087
+      "_source_line": 4087,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::D3D12_COMMAND_QUEUE_FLAG_DISABLE_GPU_TIMEOUT",
@@ -7567,7 +7655,8 @@
         {
           "name": "NumDescriptors",
           "direction": "in",
-          "description": "类型： UINT 要复制的描述符数。"
+          "description": "类型： UINT 要复制的描述符数。",
+          "type": "UINT"
         },
         {
           "name": "DestDescriptorRangeStart",
@@ -7592,7 +7681,8 @@
         {
           "name": "DescriptorHeapType",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "D3D12_DESCRIPTOR_HEAP_TYPE"
         }
       ],
       "requirements": {
@@ -7602,7 +7692,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 4970
+      "_source_line": 4970,
+      "return_value": {
+        "type": "UINT",
+        "description": ""
+      }
     },
     {
       "id": "windows::D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND",
@@ -17886,12 +17980,14 @@
         {
           "name": "pGpuTimestamp",
           "direction": "out",
-          "description": "类型： UINT64* GPU 时间戳计数器的值。"
+          "description": "类型： UINT64* GPU 时间戳计数器的值。",
+          "type": "UINT64"
         },
         {
           "name": "pCpuTimestamp",
           "direction": "out",
-          "description": "类型： UINT64* CPU 时间戳计数器的值。"
+          "description": "类型： UINT64* CPU 时间戳计数器的值。",
+          "type": "UINT64"
         }
       ],
       "return_value": {
@@ -17917,7 +18013,8 @@
         {
           "name": "pFrequency",
           "direction": "out",
-          "description": "类型： UINT64* GPU 时间戳计数器频率 (刻度/秒) 。 Metadata 类型： UINT 内部。"
+          "description": "类型： UINT64* GPU 时间戳计数器频率 (刻度/秒) 。 Metadata 类型： UINT 内部。",
+          "type": "UINT64"
         },
         {
           "name": "pData",
@@ -17984,27 +18081,32 @@
         {
           "name": "MaxCommandCount",
           "direction": "in",
-          "description": "类型： UINT 可通过两种方式指定命令计数： 如果 pCountBuffer 不为 NULL，则 MaxCommandCount 指定将执行的最大操作数。要执行的实际操作数由此值的最小值定义， pCountBuffer 中包含的 32 位无符号整数 (CountBufferOffset) 指定的字节偏移量。 如果 pCountBuffer 为 NULL， 则 MaxCommandCount 指定将执行的确切操作数。"
+          "description": "类型： UINT 可通过两种方式指定命令计数： 如果 pCountBuffer 不为 NULL，则 MaxCommandCount 指定将执行的最大操作数。要执行的实际操作数由此值的最小值定义， pCountBuffer 中包含的 32 位无符号整数 (CountBufferOffset) 指定的字节偏移量。 如果 pCountBuffer 为 NULL， 则 MaxCommandCount 指定将执行的确切操作数。",
+          "type": "UINT"
         },
         {
           "name": "pArgumentBuffer",
           "direction": "in",
-          "description": "类型： ID3D12Resource* 指定一个或多个 ID3D12Resource 对象，其中包含命令参数。"
+          "description": "类型： ID3D12Resource* 指定一个或多个 ID3D12Resource 对象，其中包含命令参数。",
+          "type": "ID3D12Resource"
         },
         {
           "name": "ArgumentBufferOffset",
           "direction": "in",
-          "description": "类型： UINT64 指定 pArgumentBuffer 中的偏移量，以标识第一个命令参数。"
+          "description": "类型： UINT64 指定 pArgumentBuffer 中的偏移量，以标识第一个命令参数。",
+          "type": "UINT64"
         },
         {
           "name": "pCountBuffer",
           "direction": "in, optional",
-          "description": "类型： ID3D12Resource* 指定指向 ID3D12Resource 的指针。"
+          "description": "类型： ID3D12Resource* 指定指向 ID3D12Resource 的指针。",
+          "type": "optional] ID3D12Resource"
         },
         {
           "name": "CountBufferOffset",
           "direction": "in",
-          "description": "类型： UINT64 指定一个 UINT64，该 UINT64 是 pCountBuffer 的偏移量，用于标识参数计数。"
+          "description": "类型： UINT64 指定一个 UINT64，该 UINT64 是 pCountBuffer 的偏移量，用于标识参数计数。",
+          "type": "UINT64"
         }
       ],
       "return_value": {
@@ -18049,7 +18151,8 @@
         {
           "name": "ppvCommandSignature",
           "direction": "out, optional",
-          "description": "类型： void** 指定一个指针，该方法成功完成后将指向创建的命令签名 (ID3D12CommandSignature)。"
+          "description": "类型： void** 指定一个指针，该方法成功完成后将指向创建的命令签名 (ID3D12CommandSignature)。",
+          "type": "optional] void"
         }
       ],
       "return_value": {
@@ -18078,7 +18181,8 @@
         {
           "name": "pOptimizedClearValue",
           "direction": "in, optional",
-          "description": "类型： const D3D12_CLEAR_VALUE* 指定描述透明颜色默认值 的D3D12_CLEAR_VALUE 结构。 pOptimizedClearValue 指定清除操作最适合的值。 当创建的资源是具有 D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET 或"
+          "description": "类型： const D3D12_CLEAR_VALUE* 指定描述透明颜色默认值 的D3D12_CLEAR_VALUE 结构。 pOptimizedClearValue 指定清除操作最适合的值。 当创建的资源是具有 D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET 或",
+          "type": "optional] const D3D12_CLEAR_VALUE"
         }
       ],
       "header": "d3d12.h",
@@ -18089,7 +18193,11 @@
         "UpdateTileMappings"
       ],
       "confidence": 0.8,
-      "_source_line": 16339
+      "_source_line": 16339,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CreateComputePipelineState",
@@ -18107,7 +18215,8 @@
         {
           "name": "ppPipelineState",
           "direction": "out",
-          "description": "类型： void** 指向内存块的指针，该内存块接收指向管道状态对象的 ID3D12PipelineState 接口的指针。 管道状态对象是不可变的状态对象。 它不包含任何方法。"
+          "description": "类型： void** 指向内存块的指针，该内存块接收指向管道状态对象的 ID3D12PipelineState 接口的指针。 管道状态对象是不可变的状态对象。 它不包含任何方法。",
+          "type": "void"
         }
       ],
       "return_value": {
@@ -18227,7 +18336,10 @@
           "description": "类型： ID3D12Resource* 指向表示着色器资源的 ID3D12Resource 对象的指针。 必须至少提供 一个 pResource 或 pDesc 。 null pResource 用于初始化 null 描述符，该描述符保证 (读取 0 (类似于 D3D11 的 null 绑定行为，写入) 被丢弃，但必须具有有效的 pDesc 才能确定描述符类型。[in, optional] pDesc 指向描述着色器资源视图 的D3D12_SHADER_RESOURCE_VIEW_DESC 结构的指针。 如果可能，使用 null pDesc 初始化默认描述符。 此行为与 D3D11 null 描述符行为相同，其中将填充默认值。 此行为继承资源格式和维度 (（如果不是无类型) ;对于缓冲区，SRV 以完整缓冲区为目标，类型化 (非原始或结构化) ，对于纹理 SRV，则以完整纹理、所有 mips 和所有数组切片为目标。 并非所有资源都支持 null 描述符初始化。[in] DestDescriptor 类型： D3D12_CPU_DESCRIPTOR_HANDLE 描述表示着色器资源视图的 CPU 描述符句柄。 可以在着色器可见或不可着色器可见的描述符堆中创建此句柄。"
         }
       ],
-      "return_value": "成功时返回 S_OK，失败时返回 HRESULT 错误代码",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "成功时返回 S_OK，失败时返回 HRESULT 错误代码"
+      },
       "remarks": "处理 YUV 4:2:0 视频格式时，需将亮度 (Y) 平面与色度 (UV) 平面分开映射。针对同一纹理调用两次 CreateShaderResourceView，分别使用 1 通道和 2 通道格式。传入与 Y 平面兼容的 1 通道格式仅映射 Y 平面，传入与 UV 平面兼容的 2 通道格式仅映射 U 和 V 平面。",
       "header": "d3d12.h",
       "deprecated": false,
@@ -18260,7 +18372,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.5,
-      "_source_line": 16988
+      "_source_line": 16988,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetDeviceRemovedReason",
@@ -18366,7 +18482,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 17495
+      "_source_line": 17495,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CreatePlacedResource2",
@@ -18380,7 +18500,11 @@
         "Direct3D"
       ],
       "confidence": 0.7,
-      "_source_line": 17640
+      "_source_line": 17640,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::NumCastableFormats",
@@ -18431,7 +18555,8 @@
         {
           "name": "ppvHeap",
           "direction": "out",
-          "description": "类型： void** SAL： COM_Outptr 指向内存块的指针。 成功后，D3D12 运行时会将指向新打开的堆的指针写入内存块。 指针的类型取决于提供的 riid 参数。"
+          "description": "类型： void** SAL： COM_Outptr 指向内存块的指针。 成功后，D3D12 运行时会将指向新打开的堆的指针写入内存块。 指针的类型取决于提供的 riid 参数。",
+          "type": "void"
         }
       ],
       "return_value": {
@@ -18473,7 +18598,8 @@
         {
           "name": "pOptimizedClearValue",
           "direction": "in, optional",
-          "description": "类型： const D3D12_CLEAR_VALUE* 指定描述明色默认值 的D3D12_CLEAR_VALUE 结构。 pOptimizedClearValue 指定清除操作最适合的值。 当创建的资源是具有 D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET 或"
+          "description": "类型： const D3D12_CLEAR_VALUE* 指定描述明色默认值 的D3D12_CLEAR_VALUE 结构。 pOptimizedClearValue 指定清除操作最适合的值。 当创建的资源是具有 D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET 或",
+          "type": "optional] const D3D12_CLEAR_VALUE"
         }
       ],
       "header": "d3d12.h",
@@ -18483,7 +18609,11 @@
         "CreatePlacedResource"
       ],
       "confidence": 0.8,
-      "_source_line": 18022
+      "_source_line": 18022,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CreateReservedResource1",
@@ -18528,7 +18658,8 @@
         {
           "name": "ppvTracker",
           "direction": "out",
-          "description": "类型： void** 指向内存块的指针，该内存块接收所创建对象的请求接口指针。"
+          "description": "类型： void** 指向内存块的指针，该内存块接收所创建对象的请求接口指针。",
+          "type": "void"
         }
       ],
       "requirements": {
@@ -18540,7 +18671,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 18288
+      "_source_line": 18288,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetRaytracingAccelerationStructurePreb",
@@ -18552,7 +18687,8 @@
         {
           "name": "pDesc",
           "direction": "in",
-          "description": "加速结构生成的说明。 此结构与 BuildRaytracingAccelerationStructure共享。 有关详细信息，请参阅 D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS。 允许实现查看此结构中的所有 CPU 参数和嵌套结构。 它可能不检查/取消引用任何 GPU 虚拟地址，而不是检查指针是否为 NULL（例如"
+          "description": "加速结构生成的说明。 此结构与 BuildRaytracingAccelerationStructure共享。 有关详细信息，请参阅 D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS。 允许实现查看此结构中的所有 CPU 参数和嵌套结构。 它可能不检查/取消引用任何 GPU 虚拟地址，而不是检查指针是否为 NULL（例如",
+          "type": "const D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS"
         }
       ],
       "header": "d3d12.h",
@@ -18582,7 +18718,8 @@
       "parameters": [
         {
           "name": "Enablement",
-          "description": ""
+          "description": "",
+          "type": "D3D12_DRED_ENABLEMENT"
         }
       ],
       "header": "d3d12.h",
@@ -18659,7 +18796,8 @@
         {
           "name": "Index",
           "direction": "in",
-          "description": "类型： UINT 指定查询堆中查询的索引。"
+          "description": "类型： UINT 指定查询堆中查询的索引。",
+          "type": "UINT"
         }
       ],
       "return_value": {
@@ -18907,14 +19045,19 @@
         {
           "name": "pDstData",
           "direction": "out",
-          "description": "类型： void* 指向内存中目标数据的指针。"
+          "description": "类型： void* 指向内存中目标数据的指针。",
+          "type": "void"
         }
       ],
       "header": "d3d12.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 24485
+      "_source_line": 24485,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::DstRowPitch",
@@ -18975,7 +19118,10 @@
       "entity_type": "method",
       "description": "从状态对象描述创建状态对象。",
       "syntax": "HRESULT CreateStateObject(\n  [in]  const D3D12_STATE_OBJECT_DESC* pStateObjectDesc,\n  [in]  REFIID                       riid,\n  [out] void**                      ppStateObject\n);",
-      "return_value": "HRESULT 返回值。成功时返回 S_OK，失败时返回其他 HRESULT 错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "HRESULT 返回值。成功时返回 S_OK，失败时返回其他 HRESULT 错误代码。"
+      },
       "remarks": "状态对象包含着色器、根签名和/或光线跟踪加速结构。",
       "requirements": {
         "header": "d3d12.h",
@@ -23875,7 +24021,8 @@
         {
           "name": "bEnable",
           "direction": "in",
-          "description": "类型： BOOL 打开或关闭此中断条件 (为 true for on，false for off) 。"
+          "description": "类型： BOOL 打开或关闭此中断条件 (为 true for on，false for off) 。",
+          "type": "BOOL"
         },
         {
           "name": "ID",
@@ -23886,7 +24033,8 @@
         {
           "name": "bEnable",
           "direction": "in",
-          "description": "类型： BOOL 打开或关闭此中断条件 (为 true for on，false for off) 。"
+          "description": "类型： BOOL 打开或关闭此中断条件 (为 true for on，false for off) 。",
+          "type": "BOOL"
         },
         {
           "name": "Severity",
@@ -23897,7 +24045,8 @@
         {
           "name": "bEnable",
           "direction": "in",
-          "description": "类型： BOOL 打开或关闭此中断性条件 (为 true for on，false 为 off) 。"
+          "description": "类型： BOOL 打开或关闭此中断性条件 (为 true for on，false 为 off) 。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
@@ -23924,7 +24073,8 @@
         {
           "name": "MessageCountLimit",
           "direction": "in",
-          "description": "类型： UINT64 可以添加到消息队列的最大消息数。 -1 表示没有限制。 当消息队列中的消息数达到最大限制时，传入的新消息将推送出旧消息。"
+          "description": "类型： UINT64 可以添加到消息队列的最大消息数。 -1 表示没有限制。 当消息队列中的消息数达到最大限制时，传入的新消息将推送出旧消息。",
+          "type": "UINT64"
         }
       ],
       "return_value": {
@@ -23951,7 +24101,8 @@
         {
           "name": "bMute",
           "direction": "in",
-          "description": "类型： BOOL 禁用/启用调试输出 (true 以禁用或将输出设为静音，如果为 false，则启用输出) 。"
+          "description": "类型： BOOL 禁用/启用调试输出 (true 以禁用或将输出设为静音，如果为 false，则启用输出) 。",
+          "type": "BOOL"
         },
         {
           "name": "pResource",

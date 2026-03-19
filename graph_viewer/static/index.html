@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Windows API Knowledge Graph Viewer</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --text-muted: #8b949e; --accent: #58a6ff;
+  --danger: #f85149; --success: #3fb950; --warn: #d29922; --radius: 6px;
+  --glass: rgba(22,27,34,.88);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; background:var(--bg); color:var(--text); overflow:hidden; height:100vh; }
+#app { position:relative; height:100vh; width:100vw; }
+
+/* ══ Graph (full-screen base layer) ══ */
+#graph-container { position:absolute; inset:0; background:var(--bg); }
+#graph-3d { width:100%; height:100%; }
+#progress-bar { position:absolute; top:0; left:0; right:0; height:3px; z-index:20; pointer-events:none; }
+#progress-fill { height:100%; background:var(--accent); width:0%; transition:width .3s; border-radius:0 2px 2px 0; }
+#controls-hint { position:absolute; top:56px; right:10px; background:var(--glass); border:1px solid var(--border); border-radius:var(--radius); padding:6px 10px; font-size:10px; color:var(--text-muted); z-index:10; line-height:1.5; pointer-events:none; }
+#stats-bar { position:absolute; bottom:10px; left:10px; background:var(--glass); border:1px solid var(--border); border-radius:var(--radius); padding:5px 10px; font-size:10px; color:var(--text-muted); display:flex; gap:12px; z-index:10; flex-wrap:wrap; }
+#loading { position:absolute; inset:0; display:flex; justify-content:center; align-items:center; background:var(--bg); z-index:300; flex-direction:column; gap:16px; }
+#loading .spinner { width:48px; height:48px; border:3px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin .8s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+#loading .load-text { color:var(--text-muted); font-size:14px; }
+
+/* ══ Floating sidebar (glass overlay, left) ══ */
+#sidebar { position:absolute; top:0; left:0; bottom:0; width:320px; background:var(--glass); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-right:1px solid var(--border); display:flex; flex-direction:column; z-index:40; transition:transform .25s ease, opacity .25s ease; overflow:hidden; }
+#sidebar.collapsed { transform:translateX(-100%); opacity:0; pointer-events:none; }
+#sidebar-toggle { position:absolute; top:12px; left:12px; z-index:45; width:28px; height:28px; background:var(--glass); backdrop-filter:blur(8px); border:1px solid var(--border); border-radius:var(--radius); color:var(--text-muted); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:12px; transition:background .2s,color .2s; }
+#sidebar-toggle:hover { background:var(--surface); color:var(--accent); }
+#sidebar-header { padding:8px 10px; border-bottom:1px solid var(--border); }
+#sidebar-header-top { display:flex; align-items:center; gap:6px; }
+#sidebar-header h1 { font-size:13px; font-weight:600; flex:1; white-space:nowrap; }
+.mode-badge { font-size:10px; padding:2px 7px; border-radius:10px; font-weight:600; cursor:pointer; user-select:none; transition:all .2s; }
+.mode-badge.is3d { background:#1f6feb; color:#fff; }
+.mode-badge.is2d { background:#238636; color:#fff; }
+.header-actions { display:flex; align-items:center; gap:4px; margin-top:5px; flex-wrap:wrap; }
+.header-actions button { padding:3px 8px; font-size:11px; background:rgba(13,17,23,.6); border:1px solid var(--border); color:var(--text); border-radius:var(--radius); cursor:pointer; white-space:nowrap; transition:border-color .15s,color .15s; }
+.header-actions button:hover { border-color:var(--accent); color:var(--accent); }
+
+/* View tabs */
+.view-tabs { display:flex; border-bottom:1px solid var(--border); }
+.view-tab { flex:1; padding:6px 4px; text-align:center; font-size:11px; font-weight:500; cursor:pointer; border-bottom:2px solid transparent; color:var(--text-muted); transition:all .15s; white-space:nowrap; }
+.view-tab:hover { color:var(--text); background:rgba(255,255,255,.03); }
+.view-tab.active { color:var(--accent); border-bottom-color:var(--accent); }
+.view-tab .tab-icon { font-size:13px; display:block; margin-bottom:1px; }
+
+/* Sidebar controls */
+#sidebar-controls { flex:1; overflow-y:auto; }
+.filter-row { padding:5px 12px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:6px; font-size:11px; }
+.filter-row label { color:var(--text-muted); white-space:nowrap; min-width:70px; }
+.filter-row input[type=range] { flex:1; accent-color:var(--accent); cursor:pointer; }
+.filter-row select { flex:1; padding:3px 6px; background:rgba(13,17,23,.6); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:11px; cursor:pointer; }
+.filter-row select:focus { border-color:var(--accent); outline:none; }
+.filter-row .val-display { min-width:32px; text-align:right; color:var(--accent); font-weight:600; font-size:10px; }
+.preset-preview { padding:3px 12px 6px; border-bottom:1px solid var(--border); font-size:10px; color:var(--text-muted); line-height:1.4; }
+.preset-preview .tag { display:inline-block; padding:0 5px; border-radius:3px; font-size:9px; margin:1px 1px; }
+
+/* ══ Graph top-right actions ══ */
+#graph-actions { position:absolute; top:10px; right:10px; z-index:30; display:flex; align-items:center; gap:8px; background:var(--glass); backdrop-filter:blur(8px); border:1px solid var(--border); border-radius:var(--radius); padding:6px 8px; }
+#graph-actions .group { display:flex; align-items:center; gap:4px; }
+#graph-actions .divider { width:1px; height:16px; background:var(--border); }
+.graph-actions button { padding:3px 8px; font-size:11px; background:rgba(13,17,23,.5); border:1px solid var(--border); color:var(--text); border-radius:var(--radius); cursor:pointer; white-space:nowrap; transition:border-color .15s,color .15s; }
+.graph-actions button:hover { border-color:var(--accent); color:var(--accent); }
+.graph-actions button:disabled { opacity:.4; cursor:default; }
+.graph-actions button.btn-analysis { border-color:#9e6a03; color:#d29922; }
+.graph-actions button.btn-analysis:hover { background:#9e6a03; color:#fff; }
+.graph-actions button.btn-create { border-color:#238636; color:#3fb950; }
+.graph-actions button.btn-create:hover { background:#238636; color:#fff; }
+
+/* ══ Graph bottom-right file actions ══ */
+#file-actions { position:absolute; bottom:10px; right:10px; z-index:30; display:flex; align-items:center; gap:4px; background:var(--glass); backdrop-filter:blur(8px); border:1px solid var(--border); border-radius:var(--radius); padding:5px 8px; }
+#file-actions button { padding:3px 8px; font-size:11px; background:rgba(13,17,23,.5); border:1px solid var(--border); color:var(--text); border-radius:var(--radius); cursor:pointer; white-space:nowrap; transition:border-color .15s,color .15s; }
+#file-actions button:hover { border-color:var(--accent); color:var(--accent); }
+#file-actions button.btn-persist { border-color:#1f6feb; color:#58a6ff; }
+#file-actions button.btn-persist:hover { background:#1f6feb; color:#fff; }
+
+/* ══ Floating search (top-center) ══ */
+#search-overlay { position:absolute; top:0; left:0; right:0; bottom:0; z-index:100; background:rgba(0,0,0,.4); display:none; justify-content:center; padding-top:12vh; }
+#search-overlay.show { display:flex; }
+#search-panel { width:520px; max-height:60vh; background:var(--surface); border:1px solid var(--border); border-radius:10px; box-shadow:0 16px 48px rgba(0,0,0,.6); display:flex; flex-direction:column; overflow:hidden; }
+#search-bar { display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--border); }
+#search-bar input { flex:1; padding:8px 12px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:14px; outline:none; }
+#search-bar input:focus { border-color:var(--accent); }
+#search-bar .hint { font-size:10px; color:var(--text-muted); white-space:nowrap; }
+#search-filters { display:flex; gap:6px; padding:8px 16px; border-bottom:1px solid var(--border); flex-wrap:wrap; align-items:center; }
+#search-filters label { font-size:10px; color:var(--text-muted); }
+#search-filters select,#search-filters input { padding:3px 6px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:11px; }
+#search-filters input[type=number] { width:60px; }
+#search-results { flex:1; overflow-y:auto; max-height:40vh; }
+.search-item { padding:8px 16px; cursor:pointer; font-size:12px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); }
+.search-item:hover { background:var(--bg); }
+.search-item .type-badge { color:var(--text-muted); font-size:10px; }
+#search-trigger { position:absolute; top:12px; left:50%; transform:translateX(-50%); z-index:35; padding:6px 20px; background:var(--glass); backdrop-filter:blur(8px); border:1px solid var(--border); border-radius:20px; color:var(--text-muted); font-size:12px; cursor:pointer; display:flex; align-items:center; gap:8px; transition:border-color .2s,color .2s; }
+#search-trigger:hover { border-color:var(--accent); color:var(--text); }
+#search-trigger kbd { font-size:10px; padding:1px 5px; background:var(--bg); border:1px solid var(--border); border-radius:3px; font-family:inherit; }
+
+/* ══ Floating Detail Panel ══ */
+#float-detail { position:absolute; bottom:50px; right:12px; width:360px; max-height:60vh; background:var(--glass); backdrop-filter:blur(12px); border:1px solid var(--border); border-radius:8px; z-index:50; display:none; flex-direction:column; box-shadow:0 8px 32px rgba(0,0,0,.5); }
+#float-detail.show { display:flex; }
+#float-header { display:flex; align-items:center; justify-content:space-between; padding:8px 12px; border-bottom:1px solid var(--border); }
+#float-header h3 { font-size:13px; color:var(--accent); margin:0; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+#float-close { background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:16px; padding:2px 6px; border-radius:4px; }
+#float-close:hover { background:var(--bg); color:var(--danger); }
+#float-content { overflow-y:auto; padding:10px 12px; font-size:12px; flex:1; }
+#float-content .detail-row { display:flex; gap:6px; padding:2px 0; border-bottom:1px solid var(--border); }
+#float-content .detail-row .label { color:var(--text-muted); min-width:60px; font-size:11px; }
+#float-content .detail-row .value { word-break:break-all; font-size:11px; }
+#float-content .attr-section { margin-top:8px; }
+#float-content .attr-section h4 { font-size:11px; color:var(--text-muted); margin-bottom:4px; text-transform:uppercase; letter-spacing:.3px; }
+#float-content .attr-item { font-size:11px; padding:2px 0; border-bottom:1px solid rgba(48,54,61,.5); cursor:pointer; display:flex; justify-content:space-between; }
+#float-content .attr-item:hover { color:var(--accent); }
+#float-content .attr-item .atype { color:var(--text-muted); font-size:10px; }
+.edge-list { max-height:200px; overflow-y:auto; }
+.edge-item { display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px solid var(--border); font-size:11px; cursor:pointer; }
+.edge-item:hover { color:var(--accent); }
+.detail-section { margin-bottom:10px; }
+.detail-section h4 { font-size:12px; margin-bottom:4px; color:var(--accent); }
+.float-actions { display:flex; gap:4px; margin-top:6px; }
+.float-actions button { font-size:10px; padding:2px 6px; background:var(--bg); border:1px solid var(--border); color:var(--text); border-radius:var(--radius); cursor:pointer; }
+.float-actions button:hover { border-color:var(--accent); color:var(--accent); }
+.float-actions button.danger:hover { border-color:var(--danger); color:var(--danger); }
+
+/* ══ Modals ══ */
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:200; justify-content:center; align-items:center; }
+.modal-overlay.show { display:flex; }
+.modal { background:var(--surface); border:1px solid var(--border); border-radius:8px; width:500px; max-height:80vh; overflow-y:auto; padding:20px; }
+.modal h2 { font-size:16px; margin-bottom:16px; }
+.modal .form-group { margin-bottom:12px; }
+.modal label { display:block; font-size:12px; color:var(--text-muted); margin-bottom:4px; }
+.modal input,.modal select,.modal textarea { width:100%; padding:6px 10px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); font-size:13px; }
+.modal textarea { min-height:60px; resize:vertical; }
+.modal .btn-row { display:flex; gap:8px; justify-content:flex-end; margin-top:16px; }
+.modal .btn-row button { padding:6px 16px; border-radius:var(--radius); border:1px solid var(--border); cursor:pointer; font-size:13px; }
+.btn-primary { background:var(--accent)!important; color:#fff!important; border-color:var(--accent)!important; }
+.btn-cancel { background:var(--bg)!important; color:var(--text)!important; }
+.eval-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.eval-card { background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:10px; }
+.eval-card .metric-name { font-size:11px; color:var(--text-muted); }
+.eval-card .metric-value { font-size:20px; font-weight:700; margin-top:4px; }
+.eval-card .metric-value.good { color:var(--success); }
+.eval-card .metric-value.warn { color:var(--warn); }
+.eval-card .metric-value.bad { color:var(--danger); }
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+</style>
+</head>
+<body>
+<div id="app">
+  <!-- Graph: full-screen base layer -->
+  <div id="graph-container">
+    <div id="progress-bar"><div id="progress-fill"></div></div>
+    <div id="graph-3d"></div>
+    <div id="controls-hint"></div>
+    <div id="stats-bar">
+      <span id="stat-nodes">Nodes: -</span>
+      <span id="stat-edges">Edges: -</span>
+      <span id="stat-visible">Visible: -</span>
+      <span id="stat-fps" style="color:var(--success)">FPS: -</span>
+      <span id="stat-mem" style="color:var(--success)">Mem: -</span>
+    </div>
+    <div id="loading"><div class="spinner"></div><div class="load-text" id="load-text">Loading knowledge graph...</div></div>
+  </div>
+
+  <!-- Top-left: sidebar toggle -->
+  <button id="sidebar-toggle" title="Toggle panel (`)">&#x2630;</button>
+
+  <!-- Top-center: search trigger -->
+  <button id="search-trigger">&#x1F50D; Search entities... <kbd>Ctrl K</kbd></button>
+
+  <!-- Top-right: graph edit actions -->
+  <div id="graph-actions" class="graph-actions">
+    <div class="group"><button id="btn-eval" class="btn-analysis">&#x1F4CA; Eval</button></div>
+    <div class="divider"></div>
+    <div class="group">
+      <button id="btn-undo" disabled>&#x21A9; Undo</button>
+      <button id="btn-redo" disabled>&#x21AA; Redo</button>
+    </div>
+    <div class="divider"></div>
+    <div class="group">
+      <button id="btn-add-node" class="btn-create">+ Node</button>
+      <button id="btn-add-edge" class="btn-create">+ Edge</button>
+    </div>
+  </div>
+
+  <!-- Bottom-right: file/version actions -->
+  <div id="file-actions">
+    <button id="btn-save" class="btn-persist">&#x1F4BE; Save</button>
+    <button id="btn-branch" class="btn-persist">&#x2442; Branch</button>
+  </div>
+
+  <!-- Floating sidebar (glass overlay) -->
+  <div id="sidebar">
+    <div id="sidebar-header">
+      <div id="sidebar-header-top">
+        <h1>WinAPI KG</h1>
+        <span id="mode-badge" class="mode-badge is2d" title="Click to toggle 2D/3D">2D</span>
+      </div>
+      <div class="header-actions">
+        <button id="btn-fit">&#x26F6; Reset</button>
+        <button id="btn-perf" style="border-color:#8b5cf6;color:#a78bfa">&#x23F1; Perf</button>
+      </div>
+    </div>
+    <div class="view-tabs" id="view-tabs">
+      <div class="view-tab active" data-mode="function"><span class="tab-icon">&#x0192;</span>Function</div>
+      <div class="view-tab" data-mode="structure"><span class="tab-icon">&#x2756;</span>Structure</div>
+      <div class="view-tab" data-mode="macro"><span class="tab-icon">#</span>Macro</div>
+      <div class="view-tab" data-mode="raw"><span class="tab-icon">&#x2726;</span>Raw</div>
+    </div>
+    <div id="sidebar-controls">
+      <div class="filter-row">
+        <label>视图方案</label>
+        <select id="preset-select">
+          <option value="balanced">均衡 Balanced</option>
+          <option value="edgeFocus">边聚焦 Edge Focus</option>
+          <option value="nodeFocus">节点聚焦 Node Focus</option>
+          <option value="highContrast">高对比 High Contrast</option>
+          <option value="minimal">极简 Minimal</option>
+          <option value="neon">霓虹 Neon</option>
+          <option value="dense">密集总览 Dense</option>
+        </select>
+      </div>
+      <div class="preset-preview" id="preset-desc"></div>
+      <div class="filter-row"><label>Min degree</label><input type="range" id="degree-slider" min="0" max="50" value="0" step="1"><span class="val-display" id="degree-val">0</span></div>
+      <div class="filter-row"><label>Edge opacity</label><input type="range" id="edge-opacity-slider" min="5" max="100" value="45" step="5"><span class="val-display" id="edge-opacity-val">45%</span></div>
+      <div class="filter-row"><label>Node size</label><input type="range" id="node-size-slider" min="20" max="200" value="100" step="10"><span class="val-display" id="node-size-val">100%</span></div>
+      <div class="filter-row"><label>Edge width</label><input type="range" id="edge-width-slider" min="5" max="100" value="35" step="5"><span class="val-display" id="edge-width-val">0.35</span></div>
+      <div class="filter-row"><label>Mem limit</label><input type="range" id="mem-limit-slider" min="128" max="2048" value="512" step="64"><span class="val-display" id="mem-limit-val">512MB</span></div>
+      <div id="mem-bar" style="padding:3px 12px;border-bottom:1px solid var(--border);font-size:10px;color:var(--text-muted);display:flex;align-items:center;gap:5px;">
+        <span>RAM:</span>
+        <div style="flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden;">
+          <div id="mem-fill" style="height:100%;background:var(--success);border-radius:3px;width:0%;transition:width .5s,background .5s;"></div>
+        </div>
+        <span id="mem-text">-</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating search overlay -->
+  <div id="search-overlay">
+    <div id="search-panel">
+      <div id="search-bar">
+        <input type="text" id="search-input" placeholder="Search entities by name..." autofocus>
+        <span class="hint">ESC to close</span>
+      </div>
+      <div id="search-filters">
+        <label>Type:</label>
+        <select id="filter-type">
+          <option value="">All</option>
+          <option value="function">function</option>
+          <option value="structure">structure</option>
+          <option value="enum">enum</option>
+          <option value="macro">macro</option>
+          <option value="callback">callback</option>
+          <option value="constant">constant</option>
+          <option value="typedef">typedef</option>
+          <option value="union">union</option>
+          <option value="ioctl">ioctl</option>
+          <option value="unknown">unknown</option>
+        </select>
+        <label>Min deg:</label>
+        <input type="number" id="filter-min-deg" value="0" min="0">
+        <label>Sort:</label>
+        <select id="filter-sort">
+          <option value="relevance">Relevance</option>
+          <option value="degree-desc">Degree ↓</option>
+          <option value="degree-asc">Degree ↑</option>
+          <option value="name">Name A-Z</option>
+        </select>
+      </div>
+      <div id="search-results"></div>
+    </div>
+  </div>
+
+  <!-- Floating Detail Panel -->
+  <div id="float-detail">
+    <div id="float-header">
+      <h3 id="float-title">Details</h3>
+      <button id="float-close">&#x2715;</button>
+    </div>
+    <div id="float-content"></div>
+  </div>
+</div>
+
+<!-- Modals -->
+<div class="modal-overlay" id="modal-add-node"><div class="modal">
+  <h2>Create Node</h2>
+  <div class="form-group"><label>Name</label><input id="new-node-name"></div>
+  <div class="form-group"><label>Type</label><input id="new-node-type" placeholder="function, structure..."></div>
+  <div class="form-group"><label>Description</label><textarea id="new-node-desc"></textarea></div>
+  <div class="btn-row"><button class="btn-cancel" onclick="closeModal('modal-add-node')">Cancel</button><button class="btn-primary" id="btn-confirm-add-node">Create</button></div>
+</div></div>
+<div class="modal-overlay" id="modal-add-edge"><div class="modal">
+  <h2>Create Edge</h2>
+  <div class="form-group"><label>Source</label><input id="new-edge-source"></div>
+  <div class="form-group"><label>Target</label><input id="new-edge-target"></div>
+  <div class="form-group"><label>Type</label><input id="new-edge-type" placeholder="references, uses_type..."></div>
+  <div class="btn-row"><button class="btn-cancel" onclick="closeModal('modal-add-edge')">Cancel</button><button class="btn-primary" id="btn-confirm-add-edge">Create</button></div>
+</div></div>
+<div class="modal-overlay" id="modal-edit-node"><div class="modal">
+  <h2>Edit Node</h2>
+  <div class="form-group"><label>Name (readonly)</label><input id="edit-node-name" readonly></div>
+  <div class="form-group"><label>Type</label><input id="edit-node-type"></div>
+  <div class="form-group"><label>Description</label><textarea id="edit-node-desc"></textarea></div>
+  <div class="btn-row"><button class="btn-cancel" onclick="closeModal('modal-edit-node')">Cancel</button><button class="btn-primary" id="btn-confirm-edit-node">Save</button></div>
+</div></div>
+<div class="modal-overlay" id="modal-branch"><div class="modal">
+  <h2>Branch Management</h2>
+  <div class="form-group"><label>Save new branch</label><input id="branch-name" placeholder="branch name"></div>
+  <button class="btn-primary" id="btn-confirm-save-branch" style="margin-bottom:16px">Save Branch</button>
+  <h3 style="margin-bottom:8px">Existing Branches</h3>
+  <div id="branch-list" style="max-height:200px;overflow-y:auto"></div>
+  <div class="btn-row"><button class="btn-cancel" onclick="closeModal('modal-branch')">Close</button></div>
+</div></div>
+<div class="modal-overlay" id="modal-eval"><div class="modal" style="width:600px">
+  <h2>Graph Evaluation Report</h2>
+  <div id="eval-content"><div style="text-align:center;padding:20px;color:var(--text-muted)">Computing...</div></div>
+  <div class="btn-row">
+    <button id="btn-eval-refresh" class="btn-primary">Re-evaluate</button>
+    <button class="btn-cancel" onclick="closeModal('modal-eval')">Close</button>
+  </div>
+</div></div>
+
+<script src="https://unpkg.com/force-graph@1.46.0/dist/force-graph.min.js"></script>
+<script src="https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.min.js"></script>
+<script>
+(function(){
+"use strict";
+
+var BUDGET_3D=500, BUDGET_2D=1500;
+var FPS_TARGET=30, FPS_EXPAND=34, FPS_SHRINK=24;
+var PROGRESSIVE_INTERVAL=1200, PROGRESSIVE_STEP=1;
+
+var VIEW_MODES={
+  function:{label:"Function",primary:new Set(["function","callback"]),desc:"函数为主节点"},
+  structure:{label:"Structure",primary:new Set(["structure","enum","union","typedef"]),desc:"数据结构为主节点"},
+  macro:{label:"Macro",primary:new Set(["macro","constant"]),desc:"宏/常量为主节点"},
+  raw:{label:"Raw",primary:null,desc:"原始全量数据"}
+};
+var currentViewMode="function";
+
+var COLOR_SCHEMES={
+  github:{function:"#58a6ff",structure:"#3fb950",enum:"#d29922",callback:"#bc8cff",macro:"#f78166",constant:"#8b949e",typedef:"#79c0ff",method:"#d2a8ff",ioctl:"#ff7b72",property:"#7ee787",union:"#ffa657",interface:"#a5d6ff",unknown:"#484f58"},
+  muted:{function:"#4a80a8",structure:"#3a8555",enum:"#a88020",callback:"#8a6ab0",macro:"#b56a55",constant:"#6a7585",typedef:"#5a92b5",method:"#9a7db5",ioctl:"#c06565",property:"#60a575",union:"#b58555",interface:"#7aa5c5",unknown:"#454d58"},
+  vivid:{function:"#4dabf7",structure:"#51cf66",enum:"#fcc419",callback:"#cc5de8",macro:"#ff6b6b",constant:"#ced4da",typedef:"#74c0fc",method:"#e599f7",ioctl:"#ff8787",property:"#69db7c",union:"#ffa94d",interface:"#a5d8ff",unknown:"#868e96"},
+  bright:{function:"#00bfff",structure:"#00ff7f",enum:"#ffd700",callback:"#da70d6",macro:"#ff4500",constant:"#e0e0e0",typedef:"#87ceeb",method:"#ee82ee",ioctl:"#ff6347",property:"#7fff00",union:"#ff8c00",interface:"#b0e0e6",unknown:"#a9a9a9"},
+  pastel:{function:"#a8d8ea",structure:"#c6f1d6",enum:"#ffeaa7",callback:"#dda0dd",macro:"#ffb7b2",constant:"#d5d5d5",typedef:"#b4d7ff",method:"#e8c8f0",ioctl:"#ffb3b3",property:"#b5e8b5",union:"#ffcc99",interface:"#c4e0f9",unknown:"#b0b0b0"},
+  neon:{function:"#00ffff",structure:"#00ff41",enum:"#ffe600",callback:"#ff00ff",macro:"#ff3300",constant:"#cccccc",typedef:"#00aaff",method:"#ff66ff",ioctl:"#ff4444",property:"#39ff14",union:"#ff9900",interface:"#66ccff",unknown:"#555555"},
+  mono:{function:"#90b0d0",structure:"#a0c0b0",enum:"#c0b090",callback:"#b0a0c0",macro:"#c0a090",constant:"#909090",typedef:"#80a0c0",method:"#a090b0",ioctl:"#c09090",property:"#90c0a0",union:"#c0a080",interface:"#80b0c0",unknown:"#707070"}
+};
+
+var PRESETS={
+  balanced:{label:"均衡",desc:"默认方案",scheme:"github",nodeMul:1.0,nodeOp:0.85,edgeOp:0.45,edgeW:0.35,edgeHW:2.0,edgeBase:"#8899aa",hlColor:"#58a6ff",linkDist:25,charge:-10,bg:"#0d1117"},
+  edgeFocus:{label:"边聚焦",desc:"加粗边，缩小节点",scheme:"muted",nodeMul:0.55,nodeOp:0.6,edgeOp:0.75,edgeW:0.8,edgeHW:3.0,edgeBase:"#6699cc",hlColor:"#ffdd57",linkDist:30,charge:-15,bg:"#0a0e14"},
+  nodeFocus:{label:"节点聚焦",desc:"放大节点，弱化边",scheme:"vivid",nodeMul:1.6,nodeOp:0.95,edgeOp:0.12,edgeW:0.1,edgeHW:1.5,edgeBase:"#445566",hlColor:"#58a6ff",linkDist:35,charge:-20,bg:"#0d1117"},
+  highContrast:{label:"高对比",desc:"纯黑背景+高亮色",scheme:"bright",nodeMul:1.1,nodeOp:1.0,edgeOp:0.8,edgeW:0.55,edgeHW:2.5,edgeBase:"#aabbcc",hlColor:"#ff4444",linkDist:25,charge:-12,bg:"#000000"},
+  minimal:{label:"极简",desc:"柔和色调+留白",scheme:"pastel",nodeMul:0.5,nodeOp:0.5,edgeOp:0.15,edgeW:0.08,edgeHW:1.0,edgeBase:"#334455",hlColor:"#88bbff",linkDist:50,charge:-35,bg:"#0a0e14"},
+  neon:{label:"霓虹",desc:"赛博朋克",scheme:"neon",nodeMul:0.85,nodeOp:1.0,edgeOp:0.55,edgeW:0.45,edgeHW:2.5,edgeBase:"#6633ff",hlColor:"#ff00ff",linkDist:28,charge:-12,bg:"#050510"},
+  dense:{label:"密集",desc:"极小节点+紧密",scheme:"mono",nodeMul:0.3,nodeOp:0.7,edgeOp:0.2,edgeW:0.08,edgeHW:1.0,edgeBase:"#556677",hlColor:"#58a6ff",linkDist:10,charge:-3,bg:"#0d1117"}
+};
+
+var myGraph=null, allNodes=[], allLinks=[], nodeIndex={};
+var selectedNode=null, highlightNodes=new Set(), highlightLinks=new Set();
+var minDegree=0, userMinDegree=0, is3D=false;
+var memLimitMB=512, autoThrottleActive=false, lastSystemMem=null;
+var currentPresetKey="balanced", currentPreset=PRESETS.balanced;
+var currentScheme=COLOR_SCHEMES[currentPreset.scheme];
+var edgeOpacity=currentPreset.edgeOp, nodeSizeMul=currentPreset.nodeMul, edgeWidth=currentPreset.edgeW;
+var progressiveTimer=null, isProgressing=false, simDone=false;
+var perfTestRunning=false, perfResultUntil=0;
+var autoRefreshBusy=false, AUTO_REFRESH_MS=10000;
+
+function getColor(t){return currentScheme[t]||currentScheme.unknown||"#484f58";}
+function getBudget(){return is3D?BUDGET_3D:BUDGET_2D;}
+
+/* ══ FPS ══ */
+var fpsFrames=0,fpsLast=performance.now(),fpsVal=60,fpsHistory=[],FPS_HIST_LEN=6;
+function getAvgFPS(){if(fpsHistory.length===0)return 60;var s=0;for(var i=0;i<fpsHistory.length;i++)s+=fpsHistory[i];return s/fpsHistory.length;}
+function tickFPS(){
+  fpsFrames++;var now=performance.now();
+  if(now-fpsLast>=500){
+    fpsVal=Math.round(fpsFrames*1000/(now-fpsLast));fpsFrames=0;fpsLast=now;
+    var el=document.getElementById("stat-fps");
+    if(perfResultUntil>now){}
+    else if(perfTestRunning){el.textContent="FPS: "+fpsVal;el.style.color=fpsVal>=FPS_TARGET?"var(--success)":fpsVal>=FPS_SHRINK?"var(--warn)":"var(--danger)";}
+    else if(!isUserActive()){el.textContent="FPS: idle";el.style.color="var(--text-muted)";}
+    else{fpsHistory.push(fpsVal);if(fpsHistory.length>FPS_HIST_LEN)fpsHistory.shift();el.textContent="FPS: "+fpsVal;el.style.color=fpsVal>=FPS_TARGET?"var(--success)":fpsVal>=FPS_SHRINK?"var(--warn)":"var(--danger)";adaptiveQuality();}
+  }
+  requestAnimationFrame(tickFPS);
+}
+requestAnimationFrame(tickFPS);
+
+var calibrationDone=false,lastInteraction=0,graphReadyAt=0;
+document.addEventListener("mousemove",function(){lastInteraction=performance.now();});
+document.addEventListener("wheel",function(){lastInteraction=performance.now();});
+function isUserActive(){if(document.hidden)return false;if(performance.now()-graphReadyAt<8000)return false;return performance.now()-lastInteraction<5000||!simDone;}
+
+function adaptiveQuality(){
+  if(!myGraph||isProgressing||perfTestRunning||!isUserActive()||!simDone)return;
+  if(fpsHistory.length<3)return;var avg=getAvgFPS();if(avg<3)return;
+  if(avg<FPS_SHRINK){var step=avg<8?10:avg<15?5:avg<20?3:2;var next=Math.min(minDegree+step,50);if(next!==minDegree){minDegree=next;userMinDegree=next;document.getElementById("degree-slider").value=next;document.getElementById("degree-val").textContent=next;applyFilter();}}
+  else if(!calibrationDone&&simDone&&avg>=FPS_TARGET){calibrationDone=true;if(minDegree>0)startProgressiveReveal(0);}
+}
+
+/* ══ Helpers ══ */
+function updateHint(){document.getElementById("controls-hint").innerHTML=is3D?"Left-drag: Rotate | Right-drag: Pan | Scroll: Zoom":"Drag: Pan | Scroll: Zoom | Click: Select";}
+function updateBadge(){var b=document.getElementById("mode-badge");b.textContent=is3D?"3D":"2D";b.className="mode-badge "+(is3D?"is3d":"is2d");}
+function api(path,opts){opts=opts||{};return fetch(path,{headers:{"Content-Type":"application/json"},method:opts.method||"GET",body:opts.body}).then(function(r){if(!r.ok)return r.text().then(function(t){throw new Error(t);});return r.json();});}
+function setProgress(pct){document.getElementById("progress-fill").style.width=Math.min(100,pct)+"%";}
+function renderPresetDesc(){
+  var p=currentPreset,scheme=COLOR_SCHEMES[p.scheme],tags="";
+  ["function","structure","enum","callback","macro"].forEach(function(k){tags+="<span class='tag' style='background:"+scheme[k]+";color:#000;font-weight:600'>"+k+"</span>";});
+  document.getElementById("preset-desc").innerHTML="<div style='margin-bottom:2px'>"+p.desc+"</div><div>"+tags+"</div>";
+}
+
+/* ══ View data ══ */
+function buildViewData(){
+  var vm=VIEW_MODES[currentViewMode];if(!vm.primary)return buildFilteredData();
+  var primary=vm.primary;var nodes=allNodes.filter(function(n){return primary.has(n.entityType)&&n.degree>=minDegree;});
+  var budget=getBudget();if(nodes.length>budget){nodes.sort(function(a,b){return b.degree-a.degree;});nodes=nodes.slice(0,budget);}
+  var visSet=new Set(nodes.map(function(n){return n.id;}));
+  var directLinks=allLinks.filter(function(l){var s=typeof l.source==="object"?l.source.id:l.source;var t=typeof l.target==="object"?l.target.id:l.target;return visSet.has(s)&&visSet.has(t);});
+  var indirectLinks=computeIndirectEdges(visSet,primary);
+  return{nodes:nodes,links:directLinks.concat(indirectLinks)};
+}
+function computeIndirectEdges(visSet,primaryTypes){
+  var im={};allLinks.forEach(function(l){var s=typeof l.source==="object"?l.source.id:l.source;var t=typeof l.target==="object"?l.target.id:l.target;var sP=visSet.has(s),tP=visSet.has(t);
+  if(sP&&!tP){var tn=nodeIndex[t];if(tn&&!primaryTypes.has(tn.entityType)){if(!im[t])im[t]=[];im[t].push({node:s,et:l.edgeType});}}
+  if(!sP&&tP){var sn=nodeIndex[s];if(sn&&!primaryTypes.has(sn.entityType)){if(!im[s])im[s]=[];im[s].push({node:t,et:l.edgeType});}}});
+  var synth=[],es=new Set(),MAX=3000,keys=Object.keys(im);
+  for(var ki=0;ki<keys.length&&synth.length<MAX;ki++){var mid=keys[ki],c=im[mid];if(c.length<2||c.length>8)continue;var mn=nodeIndex[mid];var ml=mn?mn.entityType+":"+mn.name:mid;
+  for(var i=0;i<c.length&&synth.length<MAX;i++)for(var j=i+1;j<c.length&&synth.length<MAX;j++){var a=c[i].node,b=c[j].node;var key=a<b?a+"|"+b:b+"|"+a;if(!es.has(key)){es.add(key);synth.push({source:a,target:b,edgeType:"via:"+ml,_synthetic:true});}}}
+  return synth;
+}
+function calcInitialMinDegree(){var vm=VIEW_MODES[currentViewMode];var pool=vm.primary?allNodes.filter(function(n){return vm.primary.has(n.entityType);}):allNodes;var budget=getBudget();if(pool.length<=budget)return 0;var sorted=pool.slice().sort(function(a,b){return b.degree-a.degree;});return Math.max(1,sorted[Math.min(budget,sorted.length-1)].degree);}
+function buildFilteredData(){var nodes=allNodes.filter(function(n){return n.degree>=minDegree;});var visSet=new Set(nodes.map(function(n){return n.id;}));var links=allLinks.filter(function(l){var s=typeof l.source==="object"?l.source.id:l.source;var t=typeof l.target==="object"?l.target.id:l.target;return visSet.has(s)&&visSet.has(t);});return{nodes:nodes,links:links};}
+function applyFilter(){if(!myGraph)return;var d=currentViewMode==="raw"?buildFilteredData():buildViewData();myGraph.graphData(d);updateVisibleStats(d);}
+function updateVisibleStats(d){document.getElementById("stat-visible").textContent="Visible: "+d.nodes.length.toLocaleString();}
+function recalcNodeVals(){allNodes.forEach(function(n){n.color=getColor(n.entityType);n.val=Math.max(0.3,Math.log2(n.degree+1)*0.4)*nodeSizeMul;});}
+
+/* ══ Progressive reveal ══ */
+function startProgressiveReveal(td){stopProgressiveReveal();if(minDegree<=td)return;isProgressing=true;var total=minDegree-td;progressiveTimer=setInterval(function(){if(minDegree<=td){stopProgressiveReveal();return;}var avg=getAvgFPS();if(avg<FPS_SHRINK){userMinDegree=minDegree;stopProgressiveReveal();return;}if(avg<FPS_EXPAND)return;minDegree=Math.max(td,minDegree-PROGRESSIVE_STEP);document.getElementById("degree-slider").value=minDegree;document.getElementById("degree-val").textContent=minDegree;setProgress(Math.round((total-(minDegree-td))/total*100));applyFilter();},PROGRESSIVE_INTERVAL);}
+function stopProgressiveReveal(){if(progressiveTimer){clearInterval(progressiveTimer);progressiveTimer=null;}isProgressing=false;setProgress(100);setTimeout(function(){setProgress(0);},800);}
+
+/* ══ Graph creation ══ */
+function configureGraph(g,container){
+  var p=currentPreset;simDone=false;var initData=currentViewMode==="raw"?buildFilteredData():buildViewData();
+  g.graphData(initData).backgroundColor(p.bg).nodeVal("val")
+    .nodeColor(function(n){if(highlightNodes.size>0)return highlightNodes.has(n)?n.color:"#21262d";return n.color;})
+    .nodeLabel(function(n){return"<b style='color:"+n.color+"'>"+n.name+"</b><br>["+n.entityType+"] deg:"+n.degree;})
+    .linkColor(function(l){if(highlightLinks.has(l))return p.hlColor;if(l._synthetic){var hex=Math.round(edgeOpacity*0.5*255).toString(16).padStart(2,"0");return"#667788"+hex;}var hex2=Math.round(edgeOpacity*255).toString(16).padStart(2,"0");return p.edgeBase+hex2;})
+    .linkWidth(function(l){return highlightLinks.has(l)?p.edgeHW:l._synthetic?edgeWidth*0.5:edgeWidth;})
+    .onNodeHover(function(n){container.style.cursor=n?"pointer":"default";}).onLinkHover(null)
+    .onNodeClick(function(n){if(n)selectNode(n.id);})
+    .onBackgroundClick(function(){deselectNode();hideFloatDetail();})
+    .warmupTicks(0).cooldownTicks(60).d3AlphaDecay(0.08).d3VelocityDecay(0.4)
+    .onEngineStop(function(){simDone=true;fpsHistory=[];});
+  g.d3Force("charge").strength(p.charge).distanceMax(120);g.d3Force("link").distance(p.linkDist);return g;
+}
+function createGraph(){
+  var container=document.getElementById("graph-3d");container.innerHTML="";var p=currentPreset;fpsHistory=[];
+  if(is3D){myGraph=ForceGraph3D()(container);configureGraph(myGraph,container);myGraph.nodeOpacity(p.nodeOp).nodeResolution(4).linkOpacity(1.0).enableNavigationControls(true).linkHoverPrecision(0).linkDirectionalParticles(0);}
+  else{myGraph=ForceGraph()(container);configureGraph(myGraph,container);myGraph.nodeRelSize(4).linkDirectionalParticles(0).linkLabel(function(l){var s=l.source.id||l.source,t=l.target.id||l.target;return s+" \u2192 "+t+"<br>["+l.edgeType+"]";}).nodeCanvasObjectMode(function(){return"after";}).nodeCanvasObject(function(node,ctx,globalScale){if(globalScale>4&&node.degree>=15){var r=Math.sqrt(node.val||1)*2+2;ctx.font=Math.max(2.5,10/globalScale)+"px sans-serif";ctx.fillStyle="rgba(230,237,243,0.7)";ctx.textAlign="center";ctx.fillText(node.name,node.x,node.y+r+8/globalScale);}});}
+  updateHint();updateBadge();updateVisibleStats(currentViewMode==="raw"?buildFilteredData():buildViewData());
+}
+function destroyGraph(){if(myGraph){if(myGraph._destructor)myGraph._destructor();else document.getElementById("graph-3d").innerHTML="";myGraph=null;}}
+function switchMode(){stopProgressiveReveal();var cur=myGraph?myGraph.graphData():null;if(cur){cur.nodes.forEach(function(n){if(nodeIndex[n.id]){nodeIndex[n.id].x=n.x;nodeIndex[n.id].y=n.y;nodeIndex[n.id].z=n.z||0;}});}destroyGraph();is3D=!is3D;var nd=calcInitialMinDegree();minDegree=nd;userMinDegree=0;document.getElementById("degree-slider").value=minDegree;document.getElementById("degree-val").textContent=minDegree;calibrationDone=false;fpsHistory=[];createGraph();}
+function switchViewMode(mode){if(mode===currentViewMode)return;currentViewMode=mode;document.querySelectorAll(".view-tab").forEach(function(t){t.classList.toggle("active",t.dataset.mode===mode);});stopProgressiveReveal();hideFloatDetail();deselectNode();var nd=calcInitialMinDegree();minDegree=nd;userMinDegree=0;document.getElementById("degree-slider").value=minDegree;document.getElementById("degree-val").textContent=minDegree;calibrationDone=false;fpsHistory=[];graphReadyAt=performance.now();if(myGraph){var cur=myGraph.graphData();if(cur){cur.nodes.forEach(function(n){if(nodeIndex[n.id]){nodeIndex[n.id].x=n.x;nodeIndex[n.id].y=n.y;nodeIndex[n.id].z=n.z||0;}});}destroyGraph();createGraph();}var vm=VIEW_MODES[mode];document.getElementById("stat-nodes").textContent="Nodes: "+(vm.primary?allNodes.filter(function(n){return vm.primary.has(n.entityType);}).length:allNodes.length).toLocaleString();}
+function applyPreset(key){var p=PRESETS[key];if(!p)return;currentPresetKey=key;currentPreset=p;currentScheme=COLOR_SCHEMES[p.scheme];edgeOpacity=p.edgeOp;nodeSizeMul=p.nodeMul;edgeWidth=p.edgeW;document.getElementById("edge-opacity-slider").value=Math.round(p.edgeOp*100);document.getElementById("edge-opacity-val").textContent=Math.round(p.edgeOp*100)+"%";document.getElementById("node-size-slider").value=Math.round(p.nodeMul*100);document.getElementById("node-size-val").textContent=Math.round(p.nodeMul*100)+"%";document.getElementById("edge-width-slider").value=Math.round(p.edgeW*100);document.getElementById("edge-width-val").textContent=p.edgeW.toFixed(2);recalcNodeVals();renderPresetDesc();if(myGraph){var cur=myGraph.graphData();if(cur){cur.nodes.forEach(function(n){if(nodeIndex[n.id]){nodeIndex[n.id].x=n.x;nodeIndex[n.id].y=n.y;nodeIndex[n.id].z=n.z||0;}});}destroyGraph();createGraph();}}
+
+/* ══ Load ══ */
+function loadGraph(){
+  document.getElementById("load-text").textContent="Fetching graph data...";
+  return api("/api/graph").then(function(raw){
+    document.getElementById("load-text").textContent="Processing "+raw.nodes.length+" nodes...";
+    allNodes=raw.nodes.map(function(n){var deg=n.attributes.degree||0,t=n.attributes.type||"unknown";return{id:n.key,name:n.key,entityType:t,degree:deg,file:n.attributes.file||"",description:n.attributes.description||"",color:getColor(t),val:Math.max(0.3,Math.log2(deg+1)*0.4)*nodeSizeMul};});
+    allLinks=raw.edges.map(function(e){return{source:e.source,target:e.target,edgeType:(e.attributes||{}).type||"unknown"};});
+    nodeIndex={};allNodes.forEach(function(n){nodeIndex[n.id]=n;});
+    var initDeg=calcInitialMinDegree();minDegree=initDeg;userMinDegree=0;document.getElementById("degree-slider").value=minDegree;document.getElementById("degree-val").textContent=minDegree;renderPresetDesc();
+    setTimeout(function(){calibrationDone=false;graphReadyAt=performance.now();createGraph();document.getElementById("loading").style.display="none";var vm=VIEW_MODES[currentViewMode];document.getElementById("stat-nodes").textContent="Nodes: "+(vm.primary?allNodes.filter(function(n){return vm.primary.has(n.entityType);}).length:allNodes.length).toLocaleString();document.getElementById("stat-edges").textContent="Edges: "+allLinks.length.toLocaleString();},60);
+  });
+}
+
+/* ══ Float detail ══ */
+function showFloatDetail(){document.getElementById("float-detail").classList.add("show");}
+function hideFloatDetail(){document.getElementById("float-detail").classList.remove("show");}
+function selectNode(name){selectedNode=name;var node=nodeIndex[name];if(!node)return;highlightNodes.clear();highlightLinks.clear();highlightNodes.add(node);var cur=myGraph.graphData();cur.links.forEach(function(l){var sId=l.source.id||l.source,tId=l.target.id||l.target;if(sId===name||tId===name){highlightLinks.add(l);var oId=sId===name?tId:sId;if(nodeIndex[oId])highlightNodes.add(nodeIndex[oId]);}});refreshGraphStyle();if(node.x!==undefined){if(is3D){var d=80;myGraph.cameraPosition({x:node.x+d,y:node.y+d*0.5,z:node.z+d},{x:node.x,y:node.y,z:node.z},1000);}else{myGraph.centerAt(node.x,node.y,800);myGraph.zoom(6,800);}}api("/api/node?name="+encodeURIComponent(name)).then(function(d){renderFloatDetail(d);showFloatDetail();}).catch(function(e){document.getElementById("float-content").innerHTML="<div style='color:var(--danger)'>"+e.message+"</div>";showFloatDetail();});}
+function deselectNode(){selectedNode=null;highlightNodes.clear();highlightLinks.clear();refreshGraphStyle();}
+function refreshGraphStyle(){if(!myGraph)return;myGraph.nodeColor(myGraph.nodeColor());myGraph.linkColor(myGraph.linkColor());myGraph.linkWidth(myGraph.linkWidth());myGraph.linkDirectionalParticles(myGraph.linkDirectionalParticles());}
+function renderFloatDetail(d){
+  var info=d.info||{},vm=VIEW_MODES[currentViewMode];document.getElementById("float-title").textContent=d.name;
+  var h="<div class='detail-row'><span class='label'>Type</span><span class='value'>"+(info.type||"unknown")+"</span></div>";
+  h+="<div class='detail-row'><span class='label'>Degree</span><span class='value'>"+d.degree+"</span></div>";
+  h+="<div class='detail-row'><span class='label'>File</span><span class='value'>"+(info.file||"-")+"</span></div>";
+  if(info.description&&info.description!=="-")h+="<div class='detail-row'><span class='label'>Desc</span><span class='value'>"+info.description+"</span></div>";
+  h+="<div class='float-actions'><button onclick=\"openEditNode('"+d.name.replace(/'/g,"\\'")+"')\">Edit</button><button class='danger' onclick=\"deleteNode('"+d.name.replace(/'/g,"\\'")+"')\">Delete</button></div>";
+  if(currentViewMode!=="raw"&&vm.primary){var attrs={},rels=[];(d.edges_out||[]).forEach(function(e){var tn=nodeIndex[e.target];if(tn&&!vm.primary.has(tn.entityType)){var cat=e.type||"related";if(!attrs[cat])attrs[cat]=[];attrs[cat].push({name:e.target,type:tn.entityType});}else{rels.push({dir:"out",name:e.target,type:e.type});}});(d.edges_in||[]).forEach(function(e){var sn=nodeIndex[e.source];if(sn&&!vm.primary.has(sn.entityType)){var cat=e.type||"related";if(!attrs[cat])attrs[cat]=[];attrs[cat].push({name:e.source,type:sn.entityType});}else{rels.push({dir:"in",name:e.source,type:e.type});}});var attrKeys=Object.keys(attrs);if(attrKeys.length){h+="<div class='attr-section'><h4>Attributes</h4>";attrKeys.forEach(function(k){h+="<div style='color:var(--text-muted);font-size:10px;margin-top:4px;text-transform:uppercase'>"+k+"</div>";attrs[k].slice(0,20).forEach(function(a){h+="<div class='attr-item' onclick=\"focusNode('"+a.name.replace(/'/g,"\\'")+"')\"><span>"+a.name+"</span><span class='atype'>"+a.type+"</span></div>";});if(attrs[k].length>20)h+="<div style='color:var(--text-muted);font-size:10px'>...+"+(attrs[k].length-20)+" more</div>";});h+="</div>";}if(rels.length){h+="<div class='attr-section'><h4>Relations ("+rels.length+")</h4><div class='edge-list'>";rels.slice(0,40).forEach(function(r){h+="<div class='edge-item' onclick=\"focusNode('"+r.name.replace(/'/g,"\\'")+"')\"><span>"+(r.dir==="out"?"\u2192":"\u2190")+" "+r.name+"</span><span class='atype'>"+r.type+"</span></div>";});if(rels.length>40)h+="<div style='color:var(--text-muted);font-size:10px'>...+"+(rels.length-40)+" more</div>";h+="</div></div>";}
+  }else{if(d.edges_out&&d.edges_out.length){h+="<div class='detail-section'><h4>Out ("+d.edges_out.length+")</h4><div class='edge-list'>";d.edges_out.slice(0,60).forEach(function(e){h+="<div class='edge-item' onclick=\"focusNode('"+e.target.replace(/'/g,"\\'")+"')\"><span>\u2192 "+e.target+"</span><span class='atype'>"+e.type+"</span></div>";});if(d.edges_out.length>60)h+="<div style='color:var(--text-muted);font-size:10px'>..."+(d.edges_out.length-60)+" more</div>";h+="</div></div>";}if(d.edges_in&&d.edges_in.length){h+="<div class='detail-section'><h4>In ("+d.edges_in.length+")</h4><div class='edge-list'>";d.edges_in.slice(0,60).forEach(function(e){h+="<div class='edge-item' onclick=\"focusNode('"+e.source.replace(/'/g,"\\'")+"')\"><span>\u2190 "+e.source+"</span><span class='atype'>"+e.type+"</span></div>";});if(d.edges_in.length>60)h+="<div style='color:var(--text-muted);font-size:10px'>..."+(d.edges_in.length-60)+" more</div>";h+="</div></div>";}}
+  document.getElementById("float-content").innerHTML=h;
+}
+
+/* ══ Search ══ */
+function openSearch(){document.getElementById("search-overlay").classList.add("show");document.getElementById("search-input").focus();}
+function closeSearch(){document.getElementById("search-overlay").classList.remove("show");document.getElementById("search-input").value="";document.getElementById("search-results").innerHTML="";}
+var searchTimer;
+function doSearch(){
+  clearTimeout(searchTimer);var q=document.getElementById("search-input").value.trim();
+  if(!q){document.getElementById("search-results").innerHTML="";return;}
+  searchTimer=setTimeout(function(){
+    api("/api/search?q="+encodeURIComponent(q)).then(function(res){
+      var el=document.getElementById("search-results");
+      if(!res||!res.length){el.innerHTML="<div style='padding:12px 16px;color:var(--text-muted);font-size:12px'>No results</div>";return;}
+      var ft=document.getElementById("filter-type").value;
+      var fmd=parseInt(document.getElementById("filter-min-deg").value)||0;
+      var fs=document.getElementById("filter-sort").value;
+      var filtered=res.filter(function(r){return(!ft||r.type===ft)&&r.degree>=fmd;});
+      if(fs==="degree-desc")filtered.sort(function(a,b){return b.degree-a.degree;});
+      else if(fs==="degree-asc")filtered.sort(function(a,b){return a.degree-b.degree;});
+      else if(fs==="name")filtered.sort(function(a,b){return a.name.localeCompare(b.name);});
+      if(!filtered.length){el.innerHTML="<div style='padding:12px 16px;color:var(--text-muted);font-size:12px'>No matches with current filters</div>";return;}
+      el.innerHTML=filtered.slice(0,50).map(function(r){return"<div class='search-item' onclick=\"focusNode('"+r.name.replace(/'/g,"\\'")+"')\"><span>"+r.name+"</span><span class='type-badge'>"+r.type+" ("+r.degree+")</span></div>";}).join("");
+    }).catch(function(){});
+  },200);
+}
+document.getElementById("search-input").addEventListener("input",doSearch);
+document.getElementById("filter-type").addEventListener("change",doSearch);
+document.getElementById("filter-min-deg").addEventListener("input",doSearch);
+document.getElementById("filter-sort").addEventListener("change",doSearch);
+document.getElementById("search-trigger").addEventListener("click",openSearch);
+document.getElementById("search-overlay").addEventListener("click",function(e){if(e.target===this)closeSearch();});
+window.focusNode=function(name){closeSearch();selectNode(name);};
+window.switchViewMode=switchViewMode;
+
+/* ══ View mode tabs ══ */
+document.querySelectorAll(".view-tab").forEach(function(tab){tab.addEventListener("click",function(){switchViewMode(this.dataset.mode);});});
+
+/* ══ Sidebar toggle ══ */
+document.getElementById("sidebar-toggle").addEventListener("click",function(ev){
+  ev.stopPropagation();var sb=document.getElementById("sidebar");var isCollapsed=sb.classList.contains("collapsed");
+  if(isCollapsed){sb.classList.remove("collapsed");this.innerHTML="&#x2715;";}
+  else{sb.classList.add("collapsed");this.innerHTML="&#x2630;";}
+});
+
+/* ══ Float detail close ══ */
+document.getElementById("float-close").addEventListener("click",function(){hideFloatDetail();deselectNode();});
+
+/* ══ Sliders ══ */
+document.getElementById("degree-slider").addEventListener("input",function(e){var v=parseInt(e.target.value);userMinDegree=v;minDegree=v;document.getElementById("degree-val").textContent=v;stopProgressiveReveal();applyFilter();});
+document.getElementById("edge-opacity-slider").addEventListener("input",function(e){edgeOpacity=parseInt(e.target.value)/100;document.getElementById("edge-opacity-val").textContent=parseInt(e.target.value)+"%";if(myGraph)myGraph.linkColor(myGraph.linkColor());});
+document.getElementById("node-size-slider").addEventListener("input",function(e){nodeSizeMul=parseInt(e.target.value)/100;document.getElementById("node-size-val").textContent=parseInt(e.target.value)+"%";recalcNodeVals();applyFilter();});
+document.getElementById("edge-width-slider").addEventListener("input",function(e){edgeWidth=parseInt(e.target.value)/100;document.getElementById("edge-width-val").textContent=edgeWidth.toFixed(2);if(myGraph)myGraph.linkWidth(myGraph.linkWidth());});
+document.getElementById("mem-limit-slider").addEventListener("input",function(e){memLimitMB=parseInt(e.target.value);document.getElementById("mem-limit-val").textContent=memLimitMB+"MB";});
+document.getElementById("preset-select").addEventListener("change",function(e){applyPreset(e.target.value);});
+
+/* ══ Toolbar ══ */
+document.getElementById("btn-undo").onclick=function(){api("/api/undo",{method:"POST"}).then(function(){return reloadGraphData();}).catch(function(e){alert(e.message);});};
+document.getElementById("btn-redo").onclick=function(){api("/api/redo",{method:"POST"}).then(function(){return reloadGraphData();}).catch(function(e){alert(e.message);});};
+document.getElementById("btn-add-node").onclick=function(){openModal("modal-add-node");};
+document.getElementById("btn-add-edge").onclick=function(){if(selectedNode)document.getElementById("new-edge-source").value=selectedNode;openModal("modal-add-edge");};
+document.getElementById("btn-save").onclick=function(){api("/api/save",{method:"POST"}).then(function(){alert("Saved!");}).catch(function(e){alert(e.message);});};
+document.getElementById("btn-branch").onclick=function(){openModal("modal-branch");loadBranches();};
+function refreshEvalContent(){
+  return api("/api/evaluate").then(renderEval).catch(function(e){
+    document.getElementById("eval-content").innerHTML="<div style='color:var(--danger)'>"+e.message+"</div>";
+  });
+}
+document.getElementById("btn-eval").onclick=function(){
+  openModal("modal-eval");
+  refreshEvalContent();
+};
+document.getElementById("btn-eval-refresh").onclick=function(){
+  this.disabled=true;
+  this.textContent="Re-evaluating...";
+  refreshEvalContent().finally(function(){
+    document.getElementById("btn-eval-refresh").disabled=false;
+    document.getElementById("btn-eval-refresh").textContent="Re-evaluate";
+  });
+};
+document.getElementById("btn-fit").onclick=function(){if(is3D)myGraph.cameraPosition({x:0,y:0,z:600},{x:0,y:0,z:0},800);else{myGraph.centerAt(0,0,800);myGraph.zoom(1,800);}deselectNode();hideFloatDetail();};
+document.getElementById("mode-badge").onclick=function(){switchMode();};
+document.getElementById("btn-perf").onclick=function(){runPerfTest();};
+
+/* ══ Perf Test ══ */
+function runPerfTest(){if(!myGraph)return;var btn=document.getElementById("btn-perf");btn.disabled=true;if(!simDone){btn.textContent="Wait...";var w=setInterval(function(){if(simDone){clearInterval(w);startPerfAnimation(btn);}},200);setTimeout(function(){clearInterval(w);if(!simDone)startPerfAnimation(btn);},5000);}else startPerfAnimation(btn);}
+function startPerfAnimation(btn){btn.textContent="Testing...";perfTestRunning=true;var dur=3000,start=performance.now(),frames=0,minFps=Infinity,sf=0,ss=start;var d=currentViewMode==="raw"?buildFilteredData():buildViewData();function tick(){var now=performance.now(),elapsed=now-start;frames++;sf++;if(now-ss>=500){var cur=Math.round(sf*1000/(now-ss));if(cur<minFps)minFps=cur;sf=0;ss=now;var el=document.getElementById("stat-fps");el.textContent="FPS: "+cur;el.style.color=cur>=FPS_TARGET?"var(--success)":cur>=FPS_SHRINK?"var(--warn)":"var(--danger)";}if(elapsed>=dur){perfTestRunning=false;var avg=Math.round(frames*1000/elapsed);btn.disabled=false;btn.textContent="\u23F1 Perf";var mf=minFps===Infinity?avg:minFps;var pass=mf>=30;var msg=(is3D?"3D":"2D")+" "+currentViewMode+" | "+d.nodes.length+"n | Avg:"+avg+" Min:"+mf+" | "+(pass?"\u2705":"\u274C");document.getElementById("stat-fps").textContent=msg;document.getElementById("stat-fps").style.color=pass?"var(--success)":"var(--danger)";perfResultUntil=performance.now()+10000;console.log("=== Perf ===",msg);return;}var t=elapsed/dur;if(is3D){var angle=t*Math.PI*2;var r=300+Math.sin(t*Math.PI*6)*100;myGraph.cameraPosition({x:r*Math.cos(angle),y:r*Math.sin(angle)*0.4,z:r*Math.sin(angle)});}else{myGraph.centerAt(Math.sin(t*Math.PI*4)*200,Math.sin(t*Math.PI*4)*100);myGraph.zoom(Math.max(0.5,2+Math.sin(t*Math.PI*6)*1.5));}requestAnimationFrame(tick);}requestAnimationFrame(tick);}
+
+/* ══ CRUD ══ */
+document.getElementById("btn-confirm-add-node").onclick=function(){var name=document.getElementById("new-node-name").value.trim(),type=document.getElementById("new-node-type").value.trim()||"unknown",desc=document.getElementById("new-node-desc").value.trim();if(!name)return alert("Name required");api("/api/node/create",{method:"POST",body:JSON.stringify({name:name,type:type,description:desc})}).then(function(){closeModal("modal-add-node");return reloadGraphData();}).catch(function(e){alert(e.message);});};
+document.getElementById("btn-confirm-add-edge").onclick=function(){var source=document.getElementById("new-edge-source").value.trim(),target=document.getElementById("new-edge-target").value.trim(),type=document.getElementById("new-edge-type").value.trim()||"related_to";if(!source||!target)return alert("Source and target required");api("/api/edge/create",{method:"POST",body:JSON.stringify({source:source,target:target,type:type})}).then(function(){closeModal("modal-add-edge");return reloadGraphData();}).catch(function(e){alert(e.message);});};
+window.openEditNode=function(name){var n=nodeIndex[name];document.getElementById("edit-node-name").value=name;document.getElementById("edit-node-type").value=n?n.entityType:"";document.getElementById("edit-node-desc").value=n?n.description:"";openModal("modal-edit-node");};
+document.getElementById("btn-confirm-edit-node").onclick=function(){var name=document.getElementById("edit-node-name").value,type=document.getElementById("edit-node-type").value.trim(),desc=document.getElementById("edit-node-desc").value.trim();api("/api/node/update",{method:"POST",body:JSON.stringify({name:name,type:type,description:desc})}).then(function(){closeModal("modal-edit-node");return reloadGraphData();}).then(function(){if(selectedNode===name)selectNode(name);}).catch(function(e){alert(e.message);});};
+window.deleteNode=function(name){if(!confirm("Delete \""+name+"\"?"))return;api("/api/node/delete",{method:"POST",body:JSON.stringify({name:name})}).then(function(){deselectNode();hideFloatDetail();return reloadGraphData();}).catch(function(e){alert(e.message);});};
+
+/* ══ Branches ══ */
+document.getElementById("btn-confirm-save-branch").onclick=function(){var name=document.getElementById("branch-name").value.trim();if(!name)return alert("Name required");api("/api/branch/save",{method:"POST",body:JSON.stringify({name:name})}).then(function(){document.getElementById("branch-name").value="";return loadBranches();}).catch(function(e){alert(e.message);});};
+function loadBranches(){return api("/api/branches").then(function(bs){var el=document.getElementById("branch-list");if(!bs||!bs.length){el.innerHTML="<div style='color:var(--text-muted);font-size:12px'>No branches</div>";return;}el.innerHTML=bs.map(function(b){return"<div style='display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);font-size:12px'><span>"+b.name+"</span><div><span style='color:var(--text-muted);margin-right:8px'>"+b.created_at.slice(0,19)+"</span><button onclick=\"loadBranch('"+b.name+"')\" style='font-size:11px;padding:1px 6px;background:var(--accent);color:#fff;border:none;border-radius:3px;cursor:pointer'>Load</button></div></div>";}).join("");}).catch(function(){});}
+window.loadBranch=function(name){if(!confirm("Load branch \""+name+"\"?"))return;api("/api/branch/load",{method:"POST",body:JSON.stringify({name:name})}).then(function(){closeModal("modal-branch");return reloadGraphData();}).catch(function(e){alert(e.message);});};
+
+/* ══ Eval ══ */
+function renderEval(r){var rc=function(v,g,w){return v<=g?"good":v<=w?"warn":"bad";};var pct=function(v){return(v*100).toFixed(1)+"%";};document.getElementById("eval-content").innerHTML="<div style='margin-bottom:12px;font-size:12px;color:var(--text-muted)'>"+r.timestamp+"</div><div class='eval-grid'><div class='eval-card'><div class='metric-name'>Total Entities</div><div class='metric-value'>"+r.total_entities.toLocaleString()+"</div></div><div class='eval-card'><div class='metric-name'>Total Edges</div><div class='metric-value'>"+r.total_edges.toLocaleString()+"</div></div><div class='eval-card'><div class='metric-name'>Isolated (all)</div><div class='metric-value "+rc(r.isolated_rate,.05,.15)+"'>"+pct(r.isolated_rate)+"</div></div><div class='eval-card'><div class='metric-name'>Isolated (semantic)</div><div class='metric-value "+rc(r.weak_isolated_rate,.1,.25)+"'>"+pct(r.weak_isolated_rate)+"</div></div><div class='eval-card'><div class='metric-name'>Largest Component</div><div class='metric-value'>"+pct(r.largest_component_ratio)+"</div></div><div class='eval-card'><div class='metric-name'>Avg Degree</div><div class='metric-value'>"+r.avg_degree.toFixed(2)+"</div></div><div class='eval-card'><div class='metric-name'>Median Degree</div><div class='metric-value'>"+r.median_degree+"</div></div><div class='eval-card'><div class='metric-name'>Edge Density</div><div class='metric-value'>"+r.edge_info_density.toFixed(2)+"</div></div><div class='eval-card'><div class='metric-name'>Components</div><div class='metric-value'>"+r.component_count.toLocaleString()+"</div></div><div class='eval-card'><div class='metric-name'>Singletons</div><div class='metric-value "+rc(r.singleton_count/r.total_entities,.1,.25)+"'>"+r.singleton_count.toLocaleString()+"</div></div></div><h3 style='margin-top:16px;margin-bottom:8px;font-size:13px'>Entity Types</h3><div style='max-height:160px;overflow-y:auto'>"+(r.entity_type_distribution||[]).map(function(t){return"<div style='display:flex;justify-content:space-between;font-size:12px;padding:2px 0;border-bottom:1px solid var(--border)'><span style='color:"+getColor(t.type)+"'>"+t.type+"</span><span>"+t.count.toLocaleString()+"</span></div>";}).join("")+"</div><h3 style='margin-top:16px;margin-bottom:8px;font-size:13px'>Top Connected</h3><div style='max-height:200px;overflow-y:auto'>"+(r.top_connected_nodes||[]).map(function(n){return"<div style='display:flex;justify-content:space-between;font-size:12px;padding:2px 0;border-bottom:1px solid var(--border);cursor:pointer' onclick=\"focusNode('"+n.name.replace(/'/g,"\\'")+"')\"><span>"+n.name+"</span><span style='color:var(--text-muted)'>["+n.type+"] "+n.degree+"</span></div>";}).join("")+"</div>";}
+
+/* ══ Reload ══ */
+function reloadGraphData(){return api("/api/graph").then(function(raw){allNodes=raw.nodes.map(function(n){var deg=n.attributes.degree||0,t=n.attributes.type||"unknown";var old=nodeIndex[n.key];return{id:n.key,name:n.key,entityType:t,degree:deg,file:n.attributes.file||"",description:n.attributes.description||"",color:getColor(t),val:Math.max(0.3,Math.log2(deg+1)*0.4)*nodeSizeMul,x:old?old.x:undefined,y:old?old.y:undefined,z:old?old.z:undefined};});allLinks=raw.edges.map(function(e){return{source:e.source,target:e.target,edgeType:(e.attributes||{}).type||"unknown"};});nodeIndex={};allNodes.forEach(function(n){nodeIndex[n.id]=n;});applyFilter();document.getElementById("stat-nodes").textContent="Nodes: "+allNodes.length.toLocaleString();document.getElementById("stat-edges").textContent="Edges: "+allLinks.length.toLocaleString();updateHistoryButtons();});}
+function updateHistoryButtons(){api("/api/history").then(function(h){document.getElementById("btn-undo").disabled=h.undo===0;document.getElementById("btn-redo").disabled=h.redo===0;}).catch(function(){});}
+function autoRefreshPageData(){
+  if(autoRefreshBusy||perfTestRunning)return;
+  var anyModalOpen=document.querySelector(".modal-overlay.show");
+  var evalOpen=document.getElementById("modal-eval").classList.contains("show");
+  if(anyModalOpen&&!evalOpen)return;
+  autoRefreshBusy=true;
+  reloadGraphData().then(function(){
+    if(evalOpen)return refreshEvalContent();
+  }).catch(function(){}).finally(function(){
+    autoRefreshBusy=false;
+  });
+}
+
+window.openModal=function(id){document.getElementById(id).classList.add("show");};
+window.closeModal=function(id){document.getElementById(id).classList.remove("show");};
+
+document.addEventListener("keydown",function(e){
+  if((e.ctrlKey||e.metaKey)&&e.key==="k"){e.preventDefault();var so=document.getElementById("search-overlay");if(so.classList.contains("show"))closeSearch();else openSearch();return;}
+  if(e.ctrlKey&&e.key==="z"){e.preventDefault();document.getElementById("btn-undo").click();}
+  if(e.ctrlKey&&e.key==="y"){e.preventDefault();document.getElementById("btn-redo").click();}
+  if(e.key==="`"&&!e.ctrlKey&&!e.altKey){e.preventDefault();document.getElementById("sidebar-toggle").click();}
+  if(e.key==="Escape"){var so=document.getElementById("search-overlay");if(so.classList.contains("show")){closeSearch();return;}document.querySelectorAll(".modal-overlay.show").forEach(function(m){m.classList.remove("show");});hideFloatDetail();if(myGraph)deselectNode();}
+});
+
+/* ══ Memory ══ */
+function getJSHeapMB(){if(window.performance&&performance.memory)return Math.round(performance.memory.usedJSHeapSize/(1024*1024));return null;}
+function pollMemory(){api("/api/system/memory").then(function(sysMem){lastSystemMem=sysMem;var jsHeap=getJSHeapMB(),goMB=sysMem.go_alloc_mb||0,totalUsedMB=goMB+(jsHeap||0);var pct=Math.min(100,Math.round(totalUsedMB/memLimitMB*100));var fill=document.getElementById("mem-fill");fill.style.width=pct+"%";fill.style.background=pct<60?"var(--success)":pct<85?"var(--warn)":"var(--danger)";document.getElementById("mem-text").textContent=totalUsedMB+"MB / "+memLimitMB+"MB";var sysUsedPct=sysMem.system_used_pct||0;var statEl=document.getElementById("stat-mem");statEl.textContent="Go:"+goMB+"MB"+(jsHeap!==null?" JS:"+jsHeap+"MB":"")+" Sys:"+sysUsedPct+"%";statEl.style.color=(sysUsedPct>90||pct>85)?"var(--danger)":(sysUsedPct>75||pct>60)?"var(--warn)":"var(--success)";if(totalUsedMB>memLimitMB*0.9||(sysMem.system_avail_mb||9999)<500){if(!autoThrottleActive){autoThrottleActive=true;autoReduceNodes();}}else if(totalUsedMB<memLimitMB*0.6&&autoThrottleActive){autoThrottleActive=false;}}).catch(function(){});}
+function autoReduceNodes(){stopProgressiveReveal();var next=Math.min(minDegree+2,50);minDegree=next;userMinDegree=next;document.getElementById("degree-slider").value=next;document.getElementById("degree-val").textContent=next;applyFilter();setTimeout(function(){if(autoThrottleActive){var jsHeap=getJSHeapMB()||0,goMB=lastSystemMem?lastSystemMem.go_alloc_mb:0;if(jsHeap+goMB>memLimitMB*0.85)autoReduceNodes();}},3000);}
+
+/* ══ Init ══ */
+loadGraph().catch(function(e){document.getElementById("loading").innerHTML="<div style='color:var(--danger);font-size:16px'>Failed to load</div><div style='color:var(--text-muted)'>"+e.message+"</div>";});
+setInterval(updateHistoryButtons,5000);
+setInterval(pollMemory,3000);
+setInterval(autoRefreshPageData,AUTO_REFRESH_MS);
+setTimeout(pollMemory,2000);
+})();
+</script>
+</body>
+</html>

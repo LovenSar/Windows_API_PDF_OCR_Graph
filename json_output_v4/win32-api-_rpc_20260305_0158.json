@@ -390,7 +390,8 @@
         {
           "name": "pStubMsg",
           "direction": "in",
-          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 结构仅供内部使 用，不应修改。[in] pFormat 指向格式字符串说明的指针。[in, out] ArgAddr 指向要释放的 out 参数的指针。"
+          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 结构仅供内部使 用，不应修改。[in] pFormat 指向格式字符串说明的指针。[in, out] ArgAddr 指向要释放的 out 参数的指针。",
+          "type": "PMIDL_STUB_MESSAGE"
         }
       ],
       "return_value": {
@@ -470,7 +471,8 @@
       "description": "函数取消对一个一致性数组的封送处理。",
       "syntax": "unsigned char * NdrConformantArrayUnmarshall(\n  [in]  PMIDL_STUB_MESSAGE pStubMsg,\n  [out] unsigned char **ppMemory,\n  [in]  PFORMAT_STRING pFormat,\n  [in]  unsigned char fMustAlloc\n);",
       "return_value": {
-        "description": "成功后返回 NULL。如果发生错误，函数将引发异常代码。"
+        "description": "成功后返回 NULL。如果发生错误，函数将引发异常代码。",
+        "type": "unsigned char"
       },
       "header": "rpcndr.h",
       "deprecated": false,
@@ -522,15 +524,20 @@
         {
           "name": "pStubMsg",
           "direction": "in, out",
-          "description": "指向保持 RPC 存根当前状态 的MIDL_STUB_MESSAGE 结构的指针。 此结构仅供内部使用，不应修改。"
+          "description": "指向保持 RPC 存根当前状态 的MIDL_STUB_MESSAGE 结构的指针。 此结构仅供内部使用，不应修改。",
+          "type": "out] PMIDL_STUB_MESSAGE"
         },
         {
           "name": "ppMemory",
           "direction": "out",
-          "description": "指向未封送的一致性字符串的指针的地址。 如果设置为 null，或者 fMustAlloc 设置为 TRUE，则 存根将分配内存。[in] pFormat 指向格式字符串说明的指针。[in] fMustAlloc 指定存根是否必须分配一致性字符串封送的内存的标志。 如果 RPC 必须分配 ppMemory，则指 定 TRUE。"
+          "description": "指向未封送的一致性字符串的指针的地址。 如果设置为 null，或者 fMustAlloc 设置为 TRUE，则 存根将分配内存。[in] pFormat 指向格式字符串说明的指针。[in] fMustAlloc 指定存根是否必须分配一致性字符串封送的内存的标志。 如果 RPC 必须分配 ppMemory，则指 定 TRUE。",
+          "type": "unsigned char"
         }
       ],
-      "return_value": "成功后返回指向解组数据的指针。如果发生错误，函数将抛出RPC异常。",
+      "return_value": {
+        "type": "unsigned char",
+        "description": "成功后返回指向解组数据的指针。如果发生错误，函数将抛出RPC异常。"
+      },
       "header": "rpcndr.h",
       "deprecated": false,
       "cross_references": [],
@@ -610,11 +617,13 @@
         {
           "name": "pPSFactoryBuffer",
           "direction": "in",
-          "description": "指向 CStdPSFactoryBuffer 对象的指针。 指针包含在 RpcProxy.h 中定义的全局变量 gPFactory 中。"
+          "description": "指向 CStdPSFactoryBuffer 对象的指针。 指针包含在 RpcProxy.h 中定义的全局变量 gPFactory 中。",
+          "type": "CStdPSFactoryBuffer"
         }
       ],
       "return_value": {
-        "description": "如果 DLL 可以卸载，则返回S_OK。 否则，如果无法卸载 DLL，它将返回S_FALSE。"
+        "description": "如果 DLL 可以卸载，则返回S_OK。 否则，如果无法卸载 DLL，它将返回S_FALSE。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -637,7 +646,8 @@
       "description": "函数检索代理或存根的类对象。",
       "syntax": "HRESULT NdrDllGetClassObject(\n  [in]  REFCLSID            rclsid,\n  [in]  REFIID              riid,\n  [out] void                **ppv,\n  [in]  const ProxyFileInfo **pProxyFileList,\n  [in]  const CLSID         *pclsid,\n  [in]  CStdPSFactoryBuffer *pPSFactoryBuffer\n);",
       "return_value": {
-        "description": "如果成功则返回S_OK，失败则返回错误HRESULT"
+        "description": "如果成功则返回S_OK，失败则返回错误HRESULT",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -663,11 +673,13 @@
         {
           "name": "hDll",
           "direction": "in",
-          "description": "代理 DLL 的句柄。[in] pProxyFileList 指向 MIDL 生成的 ProxyFileInfo 结构的指针。[in] pclsid 指向正在注册的代理的类标识符的指针。"
+          "description": "代理 DLL 的句柄。[in] pProxyFileList 指向 MIDL 生成的 ProxyFileInfo 结构的指针。[in] pclsid 指向正在注册的代理的类标识符的指针。",
+          "type": "HMODULE"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 S_OK。如果失败，则返回错误代码。"
+        "description": "如果成功，则返回 S_OK。如果失败，则返回错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -693,11 +705,13 @@
         {
           "name": "hDll",
           "direction": "in",
-          "description": "代理 DLL 的句柄。[in] pProxyFileList 指向 MIDL 生成的 ProxyFileInfo 结构的指针。[in] pclsid 指向正在注销的代理的类标识符的指针。"
+          "description": "代理 DLL 的句柄。[in] pProxyFileList 指向 MIDL 生成的 ProxyFileInfo 结构的指针。[in] pclsid 指向正在注销的代理的类标识符的指针。",
+          "type": "HMODULE"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 S_OK。"
+        "description": "如果成功，则返回 S_OK。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -734,7 +748,8 @@
         {
           "name": "pStubMsg",
           "direction": "in, out",
-          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 BufferLength 成 员包含缓冲区的大小。 此结构仅供内部使用，不应修改。[in] pMemory 指向要计算的接口指针的指针。[in] pFormat 指向格式字符串说明的指针。"
+          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 BufferLength 成 员包含缓冲区的大小。 此结构仅供内部使用，不应修改。[in] pMemory 指向要计算的接口指针的指针。[in] pFormat 指向格式字符串说明的指针。",
+          "type": "out] PMIDL_STUB_MESSAGE"
         }
       ],
       "return_value": {
@@ -772,11 +787,13 @@
         {
           "name": "pStubMsg",
           "direction": "in, out",
-          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 此结构仅供内部使 用，不应修改。[in] pMemory 指向要封送的接口指针的指针。[in] pFormat 指向格式字符串说明的指针。"
+          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 此结构仅供内部使 用，不应修改。[in] pMemory 指向要封送的接口指针的指针。[in] pFormat 指向格式字符串说明的指针。",
+          "type": "out] PMIDL_STUB_MESSAGE"
         }
       ],
       "return_value": {
-        "description": "返回指向已封送数据的指针。如果发生错误，函数将引发异常代码。"
+        "description": "返回指向已封送数据的指针。如果发生错误，函数将引发异常代码。",
+        "type": "unsigned char"
       },
       "header": "rpcndr.h",
       "deprecated": false,
@@ -796,10 +813,14 @@
         {
           "name": "pStubMsg",
           "direction": "in, out",
-          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 结构仅供内部使 用;请勿修改。[out] ppMemory 指向指向未封送接口指针的指针的指针的指针。[in] pFormat 指向格式字符串说明的指针。[in] fMustAlloc 未使用。"
+          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 结构仅供内部使 用;请勿修改。[out] ppMemory 指向指向未封送接口指针的指针的指针的指针。[in] pFormat 指向格式字符串说明的指针。[in] fMustAlloc 未使用。",
+          "type": "out] PMIDL_STUB_MESSAGE"
         }
       ],
-      "return_value": "{\"description\": \"成功后返回 NULL。如果发生错误，该函数将引发异常代码。此外，函数可能会从 CoUnmarshalInterface 引发异常代码。\"}",
+      "return_value": {
+        "type": "unsigned char",
+        "description": "{\"description\": \"成功后返回 NULL。如果发生错误，该函数将引发异常代码。此外，函数可能会从 CoUnmarshalInterface 引发异常代码。\"}"
+      },
       "header": "rpcndr.h",
       "deprecated": false,
       "cross_references": [
@@ -853,7 +874,8 @@
         {
           "name": "pStubMsg",
           "direction": "in, out",
-          "description": "指向保持 RPC 存根当前状态 的MIDL_STUB_MESSAGE 结构的指针。 BufferLength 成员包含缓 冲区的大小。 此结构仅供内部使用，不应修改。[in] pMemory 指向正在调整大小的数据的指针。[in] pFormat 指向格式字符串说明的指针。"
+          "description": "指向保持 RPC 存根当前状态 的MIDL_STUB_MESSAGE 结构的指针。 BufferLength 成员包含缓 冲区的大小。 此结构仅供内部使用，不应修改。[in] pMemory 指向正在调整大小的数据的指针。[in] pFormat 指向格式字符串说明的指针。",
+          "type": "out] PMIDL_STUB_MESSAGE"
         }
       ],
       "return_value": {
@@ -877,7 +899,8 @@
         {
           "name": "pStubMsg",
           "direction": "in, out",
-          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 此结构仅供内部使 用，不应修改。[in] pMemory 指向要释放的内存的指针。[in] pFormat 指向格式字符串说明的指针。"
+          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 此结构仅供内部使 用，不应修改。[in] pMemory 指向要释放的内存的指针。[in] pFormat 指向格式字符串说明的指针。",
+          "type": "out] PMIDL_STUB_MESSAGE"
         }
       ],
       "return_value": {
@@ -907,11 +930,13 @@
         {
           "name": "pStubMsg",
           "direction": "in, out",
-          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 结构仅供内部使 用;请勿修改。[in] pMemory 指向要封送的指针的指针。[in] pFormat 指向格式字符串说明的指针。"
+          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 结构仅供内部使 用;请勿修改。[in] pMemory 指向要封送的指针的指针。[in] pFormat 指向格式字符串说明的指针。",
+          "type": "out] PMIDL_STUB_MESSAGE"
         }
       ],
       "return_value": {
-        "description": "返回指向封送后内存的指针。如果发生错误，该函数将引发异常。"
+        "description": "返回指向封送后内存的指针。如果发生错误，该函数将引发异常。",
+        "type": "unsigned char"
       },
       "header": "rpcndr.h",
       "deprecated": false,
@@ -931,16 +956,19 @@
         {
           "name": "pStubMsg",
           "direction": "in, out",
-          "description": "指向保持 RPC 存根当前状态 的MIDL_STUB_MESSAGE 结构的指针。 结构仅供内部使用;请勿修改。"
+          "description": "指向保持 RPC 存根当前状态 的MIDL_STUB_MESSAGE 结构的指针。 结构仅供内部使用;请勿修改。",
+          "type": "out] PMIDL_STUB_MESSAGE"
         },
         {
           "name": "ppMemory",
           "direction": "in",
-          "description": "指向指针将取消封存的内存的指针。 有关 RPC 中的缓冲区溢出保护的信息，请参阅 MCCP 缓冲 区保护： http://msdn.microsoft.com/en-us/library/ff621497(VS.85).aspx[in] pFormat 指向格式字符串说明的指针。[in] fMustAlloc 未使用。"
+          "description": "指向指针将取消封存的内存的指针。 有关 RPC 中的缓冲区溢出保护的信息，请参阅 MCCP 缓冲 区保护： http://msdn.microsoft.com/en-us/library/ff621497(VS.85).aspx[in] pFormat 指向格式字符串说明的指针。[in] fMustAlloc 未使用。",
+          "type": "unsigned char"
         }
       ],
       "return_value": {
-        "description": "成功后返回 NULL。如果发生错误，函数将引发异常代码。"
+        "description": "成功后返回 NULL。如果发生错误，函数将引发异常代码。",
+        "type": "unsigned char"
       },
       "header": "rpcndr.h",
       "deprecated": false,
@@ -957,7 +985,8 @@
       "description": "函数使用 RPC 设施代码将异常映射到 HRESULT。",
       "syntax": "HRESULT NdrProxyErrorHandler(\n  [in] DWORD dwExceptionCode\n);",
       "return_value": {
-        "description": "返回 HRESULT 错误代码。"
+        "description": "返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1101,7 +1130,8 @@
         {
           "name": "This",
           "direction": "in",
-          "description": "指向接口代理的指针。[in, out] pStubMsg 指向保持 RPC 存根当前状态 的MIDL_STUB_MESSAGE 结构的指针。 pRpcMsg 成员指向其 Buffer 成员指向新分配的缓冲区的结构。 结构仅供内部使用;请勿修改。"
+          "description": "指向接口代理的指针。[in, out] pStubMsg 指向保持 RPC 存根当前状态 的MIDL_STUB_MESSAGE 结构的指针。 pRpcMsg 成员指向其 Buffer 成员指向新分配的缓冲区的结构。 结构仅供内部使用;请勿修改。",
+          "type": "void"
         }
       ],
       "return_value": {
@@ -1131,12 +1161,14 @@
         {
           "name": "This",
           "direction": "in",
-          "description": "指向接口代理的指针。[in] pRpcMsg 指向包含 RPC 请求相关信息 的RPC_MESSAGE 结构的指针。[in, out] pStubMsg 指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 结构仅供内部使用;请勿修改。"
+          "description": "指向接口代理的指针。[in] pRpcMsg 指向包含 RPC 请求相关信息 的RPC_MESSAGE 结构的指针。[in, out] pStubMsg 指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 结构仅供内部使用;请勿修改。",
+          "type": "void"
         },
         {
           "name": "pStubDescriptor",
           "direction": "in",
-          "description": "指向包含 RPC 存根描述符 的 MIDL_STUB_DESC 结构的指针。 结构仅供内部使用;请勿修改。[in] ProcNum 对象方法的过程编号。"
+          "description": "指向包含 RPC 存根描述符 的 MIDL_STUB_DESC 结构的指针。 结构仅供内部使用;请勿修改。[in] ProcNum 对象方法的过程编号。",
+          "type": "PMIDL_STUB_DESC"
         }
       ],
       "return_value": {
@@ -1160,7 +1192,8 @@
         {
           "name": "This",
           "direction": "in",
-          "description": "指向接口代理的指针。[in, out] pStubMsg 指向保持 RPC 存根当前状态 的MIDL_STUB_MESSAGE 结构的指针。 结构仅供内部使用;请勿修改。"
+          "description": "指向接口代理的指针。[in, out] pStubMsg 指向保持 RPC 存根当前状态 的MIDL_STUB_MESSAGE 结构的指针。 结构仅供内部使用;请勿修改。",
+          "type": "void"
         }
       ],
       "return_value": {
@@ -1254,7 +1287,8 @@
         {
           "name": "pStubMsg",
           "direction": "in, out",
-          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 结构仅供内部使 用;请勿修改。[in] pMemory 指向指向 unmarshall 的内存的指针。[in] FormatChar 简单类型的格式字符串。"
+          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 结构仅供内部使 用;请勿修改。[in] pMemory 指向指向 unmarshall 的内存的指针。[in] FormatChar 简单类型的格式字符串。",
+          "type": "out] PMIDL_STUB_MESSAGE"
         }
       ],
       "return_value": {
@@ -1278,16 +1312,19 @@
         {
           "name": "pThis",
           "direction": "in",
-          "description": "指向 CStdStubBuffer 对象的实例的指针，该对象实现 DCOM 接口的 IRpcStubBuffer。 对于非对 象 RPC 接口，设置为 NULL 。[in] pChannel 指向 DCOM 接口的 IRpcChannelBuffer 的 指针，通常由 OLE 提供。 对于非对象接口，设置为 NULL 。"
+          "description": "指向 CStdStubBuffer 对象的实例的指针，该对象实现 DCOM 接口的 IRpcStubBuffer。 对于非对 象 RPC 接口，设置为 NULL 。[in] pChannel 指向 DCOM 接口的 IRpcChannelBuffer 的 指针，通常由 OLE 提供。 对于非对象接口，设置为 NULL 。",
+          "type": "void"
         },
         {
           "name": "pRpcMsg",
           "direction": "in, out",
-          "description": "指向包含 RPC 请求相关信息 的RPC_MESSAGE 结构的指针。 在非对象接口中， pRpcMsg 还包 含有关远程处理方法的信息。[out] pdwStubPhase 指向跟踪当前解释器调用活动的标志的指针。"
+          "description": "指向包含 RPC 请求相关信息 的RPC_MESSAGE 结构的指针。 在非对象接口中， pRpcMsg 还包 含有关远程处理方法的信息。[out] pdwStubPhase 指向跟踪当前解释器调用活动的标志的指针。",
+          "type": "out] PRPC_MESSAGE"
         }
       ],
       "return_value": {
-        "description": "成功后返回S_OK。 出错时引发异常。"
+        "description": "成功后返回S_OK。 出错时引发异常。",
+        "type": "long"
       },
       "remarks": "RPC 运行时或 OLE 运行时调用 NdrStubCall2 来调用服务器管理器例程。参数已封送并返回到 RPC 运行时或 OLE 运行时以发送回客户端。对象接口使用 pdwStubPhase 参数来确定异常处理行为。下表描述了 pdwStubPhase 参数的可能值。",
       "header": "rpcndr.h",
@@ -1318,7 +1355,11 @@
         "NdrStubForwardingFunction"
       ],
       "confidence": 0.6,
-      "_source_line": 297
+      "_source_line": 297,
+      "return_value": {
+        "type": "long",
+        "description": ""
+      }
     },
     {
       "id": "windows::NdrStubForwardingFunction",
@@ -1330,7 +1371,8 @@
         {
           "name": "This",
           "direction": "in",
-          "description": "指向 CStdStubBuffer 对象的实例的指针，该对象实现 DCOM 接口的 IRpcStubBuffer。[in] pChannel 指向 DCOM 接口的 IRpcChannelBuffer 的 指针，通常由 OLE 提供。[in, out] pmsg 指向包含 RPC 请求相关信息 的RPC_MESSAGE 结构的指针。[out] pdwStubPhase 指向跟踪当前解释器调用活动的标志的指针。"
+          "description": "指向 CStdStubBuffer 对象的实例的指针，该对象实现 DCOM 接口的 IRpcStubBuffer。[in] pChannel 指向 DCOM 接口的 IRpcChannelBuffer 的 指针，通常由 OLE 提供。[in, out] pmsg 指向包含 RPC 请求相关信息 的RPC_MESSAGE 结构的指针。[out] pdwStubPhase 指向跟踪当前解释器调用活动的标志的指针。",
+          "type": "IRpcStubBuffer"
         }
       ],
       "return_value": {
@@ -1355,12 +1397,14 @@
         {
           "name": "This",
           "direction": "in",
-          "description": "指向存根的指针。"
+          "description": "指向存根的指针。",
+          "type": "IRpcStubBuffer"
         },
         {
           "name": "pRpcChannelBuffer",
           "direction": "in",
-          "description": "指向 RPC 通道的指针。[in, out] pStubMsg 指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 pRpcMsg 成员指向结构，其 Buffer 成员指向新分配的缓冲区。 结构仅供内部使用;请勿修改。"
+          "description": "指向 RPC 通道的指针。[in, out] pStubMsg 指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 pRpcMsg 成员指向结构，其 Buffer 成员指向新分配的缓冲区。 结构仅供内部使用;请勿修改。",
+          "type": "IRpcChannelBuffer"
         }
       ],
       "return_value": {
@@ -1411,7 +1455,8 @@
         {
           "name": "pStubMsg",
           "direction": "in, out",
-          "description": "指向保持 RPC 存根当前状态 的MIDL_STUB_MESSAGE 结构的指针。 BufferLength 成员包含缓 冲区的大小。 结构仅供内部使用;请勿修改。[in] pMemory 指向要计算的用户封送对象的指针。[in] pFormat 指向格式字符串说明的指针。"
+          "description": "指向保持 RPC 存根当前状态 的MIDL_STUB_MESSAGE 结构的指针。 BufferLength 成员包含缓 冲区的大小。 结构仅供内部使用;请勿修改。[in] pMemory 指向要计算的用户封送对象的指针。[in] pFormat 指向格式字符串说明的指针。",
+          "type": "out] PMIDL_STUB_MESSAGE"
         }
       ],
       "return_value": {
@@ -1441,7 +1486,8 @@
         {
           "name": "pStubMsg",
           "direction": "in, out",
-          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 结构仅供内部使 用;请勿修改。[in] pMemory 要释放的指针。[in] pFormat 指针的格式字符串说明。"
+          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 结构仅供内部使 用;请勿修改。[in] pMemory 要释放的指针。[in] pFormat 指针的格式字符串说明。",
+          "type": "out] PMIDL_STUB_MESSAGE"
         }
       ],
       "return_value": {
@@ -1472,11 +1518,13 @@
         {
           "name": "pStubMsg",
           "direction": "in, out",
-          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 结构仅供内部使 用;请勿修改。[in] pMemory 指向要封送的用户数据对象的指针。[in] pFormat 指针的格式字符串说明。"
+          "description": "指向 MIDL_STUB_MESSAGE 结构的指针，该结构维护 RPC 存根的当前状态。 结构仅供内部使 用;请勿修改。[in] pMemory 指向要封送的用户数据对象的指针。[in] pFormat 指针的格式字符串说明。",
+          "type": "out] PMIDL_STUB_MESSAGE"
         }
       ],
       "return_value": {
-        "description": "成功时返回指向封送数据的指针。如果发生错误，该函数将引发异常代码。"
+        "description": "成功时返回指向封送数据的指针。如果发生错误，该函数将引发异常代码。",
+        "type": "unsigned char"
       },
       "header": "rpcndr.h",
       "deprecated": false,
@@ -2645,7 +2693,11 @@
         "Server"
       ],
       "confidence": 0.7,
-      "_source_line": 613
+      "_source_line": 613,
+      "return_value": {
+        "type": "RPC_STATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::rpcNetworkInqProtseqsW",
@@ -4082,7 +4134,8 @@
       "parameters": [
         {
           "name": "ContextHandle",
-          "description": "要销毁的上下文句柄。 在 RpcSsDestroyClientContext 返回之前，句柄设置为 NULL。"
+          "description": "要销毁的上下文句柄。 在 RpcSsDestroyClientContext 返回之前，句柄设置为 NULL。",
+          "type": "void"
         }
       ],
       "remarks": "客户端应用程序使用 RpcSsDestroyClientContext 来回收用于在客户端上维护上下文句柄的内存 资源。 当 ContextHandle 不再有效时，例如发生通信故障且服务器不再可用时，将使用此函数。 上下文句柄设置为 NULL。 RpcSsDestroyClientContext 函数提供与",
@@ -4156,7 +4209,8 @@
       "parameters": [
         {
           "name": "NodeToFree",
-          "description": "指向 RpcSsAllocate 或 RpcSmAllocate 分配的内存的指针。"
+          "description": "指向 RpcSsAllocate 或 RpcSmAllocate 分配的内存的指针。",
+          "type": "void"
         }
       ],
       "return_value": {
@@ -4207,7 +4261,8 @@
       "parameters": [
         {
           "name": "Id",
-          "description": "调用 RpcSsGetThreadHandle 返回的线程句柄。"
+          "description": "调用 RpcSsGetThreadHandle 返回的线程句柄。",
+          "type": "RPC_SS_THREAD_HANDLE"
         }
       ],
       "return_value": {
@@ -4237,7 +4292,10 @@
       "cross_references": [],
       "confidence": 0.7,
       "_source_line": 983,
-      "return_value": "RPC_STATUS - 如果成功，返回 RPC_S_OK；否则返回错误代码。"
+      "return_value": {
+        "type": "RPC_STATUS",
+        "description": "RPC_STATUS - 如果成功，返回 RPC_S_OK；否则返回错误代码。"
+      }
     },
     {
       "id": "windows::RpcStringBindingCompose",
@@ -6760,7 +6818,8 @@
         {
           "name": "ExceptionCode",
           "direction": "in",
-          "description": "异常的值。 以下任何异常值都将返回 EXCEPTION_CONTINUE_SEARCH："
+          "description": "异常的值。 以下任何异常值都将返回 EXCEPTION_CONTINUE_SEARCH：",
+          "type": "unsigned long"
         }
       ],
       "header": "rpcdce.h",
@@ -6768,7 +6827,10 @@
       "cross_references": [],
       "confidence": 0.65,
       "_source_line": 8524,
-      "return_value": "返回 EXCEPTION_CONTINUE_SEARCH 或 EXCEPTION_EXECUTE_HANDLER，指示异常处理方式"
+      "return_value": {
+        "type": "int",
+        "description": "返回 EXCEPTION_CONTINUE_SEARCH 或 EXCEPTION_EXECUTE_HANDLER，指示异常处理方式"
+      }
     },
     {
       "id": "windows::RpcImpersonateClient",
@@ -7483,7 +7545,8 @@
       "description": "比较两个 UUID 并确定它们的顺序。返回值指示顺序。",
       "syntax": "signed int UuidCompare(\n  UUID       *Uuid1,\n  UUID       *Uuid2,\n  RPC_STATUS *Status\n);",
       "return_value": {
-        "description": "-1: Uuid1 小于 Uuid2；0: Uuid1 等于 Uuid2；1: Uuid1 大于 Uuid2"
+        "description": "-1: Uuid1 小于 Uuid2；0: Uuid1 等于 Uuid2；1: Uuid1 大于 Uuid2",
+        "type": "signed int"
       },
       "header": "rpcdce.h",
       "deprecated": false,
@@ -7541,11 +7604,13 @@
       "parameters": [
         {
           "name": "Uuid1",
-          "description": "指向 UUID 的指针。 此 UUID 与 Uuid2 参数中指定的 UUID 进行比较。 Uuid2 指向 UUID 的指针。 此 UUID 与 Uuid1 参数中指定的 UUID 进行比较。 Status 返回RPC_S_OK。"
+          "description": "指向 UUID 的指针。 此 UUID 与 Uuid2 参数中指定的 UUID 进行比较。 Uuid2 指向 UUID 的指针。 此 UUID 与 Uuid1 参数中指定的 UUID 进行比较。 Status 返回RPC_S_OK。",
+          "type": "UUID"
         }
       ],
       "return_value": {
-        "description": "返回 TRUE 表示两个 UUID 相等，FALSE 表示不相等。"
+        "description": "返回 TRUE 表示两个 UUID 相等，FALSE 表示不相等。",
+        "type": "BOOL"
       },
       "header": "rpcdce.h",
       "deprecated": false,
@@ -7562,11 +7627,13 @@
       "parameters": [
         {
           "name": "Uuid",
-          "description": "用于测试 nil 值的 UUID。 Status 返回RPC_S_OK。"
+          "description": "用于测试 nil 值的 UUID。 Status 返回RPC_S_OK。",
+          "type": "UUID"
         }
       ],
       "return_value": {
-        "description": "TRUE 表示 UUID 是 nil 值，FALSE 表示不是 nil 值"
+        "description": "TRUE 表示 UUID 是 nil 值，FALSE 表示不是 nil 值",
+        "type": "BOOL"
       },
       "remarks": "此函数通过比较 UUID 与 nil 值 UUID 来判断是否为 nil，等效于调用 UuidCreateNil 后使用 UuidEqual 进行比较。",
       "header": "rpcdce.h",
@@ -7933,13 +8000,14 @@
     {
       "id": "windows::ReuseBuffer",
       "name": "ReuseBuffer",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构体包含保留字段，用于内部 RPC 处理。",
       "header": "rpcndr.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 14253
+      "_source_line": 14253,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::InformationLevel",
@@ -7977,7 +8045,7 @@
     {
       "id": "windows::RPC_BAD_STUB_DATA",
       "name": "RPC_BAD_STUB_DATA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "RPC_X_INVALID_BOUND RPC_S_OUT_OF_MEMORY",
       "header": "rpcndr.h",
       "deprecated": false,
@@ -7985,7 +8053,8 @@
         "RPC_S_OUT_OF_MEMORY"
       ],
       "confidence": 0.65,
-      "_source_line": 14607
+      "_source_line": 14607,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PMIDL_STUB_MESSAGE",
@@ -8023,7 +8092,8 @@
         {
           "name": "Size",
           "direction": "in",
-          "description": "要分配的内存（以字节为单位）。"
+          "description": "要分配的内存（以字节为单位）。",
+          "type": "size_t"
         }
       ],
       "return_value": {

@@ -19,7 +19,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 143,
-      "return_value": "如果应继续光栅化，则返回 S_OK。否则返回错误代码以中止光栅化；可能的返回值包括 HRESULT_FROM_WIN32(ERROR_PRINT_CANCELLED)。"
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果应继续光栅化，则返回 S_OK。否则返回错误代码以中止光栅化；可能的返回值包括 HRESULT_FROM_WIN32(ERROR_PRINT_CANCELLED)。"
+      }
     },
     {
       "id": "windows::METHOD_BUFFERED",
@@ -385,11 +388,13 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "打开的打印机的句柄。 这应该是 AddPrinter 返回的 HANDLE，或者 OpenPrinter 后台处 理程序函数返回。[out] phDeviceObject 成功创建设备对象的 HANDLE。"
+          "description": "打开的打印机的句柄。 这应该是 AddPrinter 返回的 HANDLE，或者 OpenPrinter 后台处 理程序函数返回。[out] phDeviceObject 成功创建设备对象的 HANDLE。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果成功创建设备对象，则 AddPrintDeviceObject 函数返回S_OK。 否则，它将返回错误。"
+        "description": "如果成功创建设备对象，则 AddPrintDeviceObject 函数返回S_OK。 否则，它将返回错误。",
+        "type": "HRESULT"
       },
       "remarks": "应在以下情况下调用此函数：\\n1. 用户安装打印机后，打印提供程序应调用此函数；此时必须模拟正在安装打印机的用户上下文。\\n2. 后台处理程序服务启动后进行初始化时，打印提供程序应为其拥有的每个先前安装的打印机调用此函数；此时不要求在调用 AddPrintDeviceObject 时模拟用户。\\n\\n通过 AddPrintDeviceObject 添加的设备对象会一直保留，直到调用 RemovePrintDeviceObject 将其删除，或直到后台处理程序服务重新启动为止。后台处理程序服务停止时，所有设备对象都会被自动删除。",
       "header": "winsplp.h",
@@ -413,11 +418,13 @@
         {
           "name": "pszName",
           "direction": "in",
-          "description": "要添加到属性包的属性的名称。 应唯一标识此属性，以便它不会与其他人发生冲突。 例 如，使用 MyCompanyName-MySetting等名称。[in] pVar 要添加到属性包的 VARIANT 值。"
+          "description": "要添加到属性包的属性的名称。 应唯一标识此属性，以便它不会与其他人发生冲突。 例 如，使用 MyCompanyName-MySetting等名称。[in] pVar 要添加到属性包的 VARIANT 值。",
+          "type": "const wchar_t"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT 值。"
+        "description": "返回 HRESULT 值。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -440,11 +447,13 @@
         {
           "name": "pRequest",
           "direction": "in",
-          "description": "指向 IBidiRequest 接口的指针。"
+          "description": "指向 IBidiRequest 接口的指针。",
+          "type": "IBidiRequest"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK。否则返回相应的 COM 错误代码。"
+        "description": "如果方法成功，则返回 S_OK。否则返回相应的 COM 错误代码。",
+        "type": "HRESULT"
       },
       "header": "bidispl.h",
       "deprecated": false,
@@ -468,7 +477,8 @@
         {
           "name": "pszDeviceName",
           "direction": "in",
-          "description": "指向包含打印机或打印服务器名称的以 null 结尾的字符串的指针。 如果 NULL，则表示 本地打印机服务器。[in] dwAccess 打印机的访问特权。 此参数可以是下列值之一。 价值"
+          "description": "指向包含打印机或打印服务器名称的以 null 结尾的字符串的指针。 如果 NULL，则表示 本地打印机服务器。[in] dwAccess 打印机的访问特权。 此参数可以是下列值之一。 价值",
+          "type": "LPCWSTR"
         }
       ],
       "header": "bidispl.h",
@@ -478,7 +488,11 @@
         "OpenPrinter"
       ],
       "confidence": 0.8,
-      "_source_line": 106
+      "_source_line": 106,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CloseSender",
@@ -487,7 +501,8 @@
       "description": "关闭发送端并通知筛选器管道管理器该筛选器已完成发送 XPS 部件的方法。",
       "syntax": "HRESULT CloseSender();",
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "筛选器在完成向管道发送 XPS 部件后必须调用此方法，以通知管道管理器不再发送更多部件。",
       "requirements": {
@@ -516,7 +531,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 132,
-      "return_value": "返回值类型为 LONG。函数的最终返回状态可通过 pResult 接收。",
+      "return_value": {
+        "type": "LONG",
+        "description": "返回值类型为 LONG。函数的最终返回状态可通过 pResult 接收。"
+      },
       "remarks": "CommonPropertySheetUIA 是 ANSI 版本。文档中通常还存在与之对应的通用名称 CommonPropertySheetUI，它会根据 UNICODE 宏映射到 ANSI 或 Unicode 版本。"
     },
     {
@@ -525,7 +543,10 @@
       "entity_type": "function",
       "description": "显示一个公共属性表页，并允许调用方通过回调过程添加或修改属性表页内容。该函数通常由打印机驱动程序或相关 UI 组件使用。",
       "syntax": "LONG CommonPropertySheetUIW(\n  HWND           hWndOwner,\n  PFNPROPSHEETUI pfnPropSheetUI,\n  LPARAM         lParam,\n  LPDWORD        pResult\n);",
-      "return_value": "返回值由属性表 UI 操作结果决定。成功或失败的具体返回代码取决于 Common Property Sheet User Interface 框架及回调过程的处理结果。pResult（如果非 NULL）接收 pfnPropSheetUI 的最终返回状态。",
+      "return_value": {
+        "type": "LONG",
+        "description": "返回值由属性表 UI 操作结果决定。成功或失败的具体返回代码取决于 Common Property Sheet User Interface 框架及回调过程的处理结果。pResult（如果非 NULL）接收 pfnPropSheetUI 的最终返回状态。"
+      },
       "header": "compstui.h",
       "deprecated": false,
       "cross_references": [
@@ -547,11 +568,13 @@
         {
           "name": "cbDevmode",
           "direction": "in",
-          "description": "输入 DEVMODEW 结构的大小（以字节为单位）。 该大小包括此结构的公共部分和专用部分。[in] pDevmode 指向输入 DEVMODEW 结构的指针，包括其公共部分和专用部分。[in] pPrintTicket 指向部分完成的打印票证的指针。 当 IPrintTicketProvider：：ConvertDevModeToPrintTicket 返回时，打印票证中的所有条目都应填写。"
+          "description": "输入 DEVMODEW 结构的大小（以字节为单位）。 该大小包括此结构的公共部分和专用部分。[in] pDevmode 指向输入 DEVMODEW 结构的指针，包括其公共部分和专用部分。[in] pPrintTicket 指向部分完成的打印票证的指针。 当 IPrintTicketProvider：：ConvertDevModeToPrintTicket 返回时，打印票证中的所有条目都应填写。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回 S_OK；否则返回标准 COM 错误代码。"
+        "description": "如果成功，返回 S_OK；否则返回标准 COM 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "当打印系统将 DEVMODEW 转换为 PrintTicket 时，会处理所有公共 DEVMODEW 字段，但插件声明为禁用的字段除外。对于这些未由系统转换的字段，插件提供程序负责在 PrintTicket 中填充相应的值。如果在调用 IPrintTicketProvider2::BindPrinter 期间禁用了 DEVMODEW 快照，则转换表示必须保留足够的信息，以便之后可从 PrintTicket 重新构造原始 DEVMODEW，而不会丢失信息。",
       "requirements": {
@@ -576,16 +599,19 @@
         {
           "name": "pPrintTicket",
           "direction": "in",
-          "description": "指向输入打印票证的指针。 IPrintTicketProvider：：ConvertPrintTicketToDevMode 将 输入打印票证中的设置转换为 DEVMODEW 结构中的字段。[in] cbDevmodeIn 输入 DEVMODEW 结构的大小（以字节为单位）。 此大小包括 DEVMODEW 结构的公用 和专用部分。[in] pDevmodeIn 指向包含默认设置的输入 DEVMODEW 结构的指针。 DEVMODEW 结构可以是打印队列默认 DEVMODEW 结构，也可以是用户默认 DEVMODEW 结构。 由于此参数可以表示用 户默认 DEVMODEW 结构，OEM 插件提供程序必须验证该结构中的数据。 用户默认 DEVMODEW 结构可能对特定驱动程序无效，例如，当打印队列的驱动程序更改或升级时。"
+          "description": "指向输入打印票证的指针。 IPrintTicketProvider：：ConvertPrintTicketToDevMode 将 输入打印票证中的设置转换为 DEVMODEW 结构中的字段。[in] cbDevmodeIn 输入 DEVMODEW 结构的大小（以字节为单位）。 此大小包括 DEVMODEW 结构的公用 和专用部分。[in] pDevmodeIn 指向包含默认设置的输入 DEVMODEW 结构的指针。 DEVMODEW 结构可以是打印队列默认 DEVMODEW 结构，也可以是用户默认 DEVMODEW 结构。 由于此参数可以表示用 户默认 DEVMODEW 结构，OEM 插件提供程序必须验证该结构中的数据。 用户默认 DEVMODEW 结构可能对特定驱动程序无效，例如，当打印队列的驱动程序更改或升级时。",
+          "type": "IXMLDOMDocument2"
         },
         {
           "name": "pcbDevmodeOut",
           "direction": "out",
-          "description": "指向一个变量的指针，该变量包含输出 DEVMODEW 结构的大小（以字节为单位）。[out] ppDevmodeOut 指向包含输出 DEVMODEW 结构的地址的变量的指针。 IPrintTicketProvider：："
+          "description": "指向一个变量的指针，该变量包含输出 DEVMODEW 结构的大小（以字节为单位）。[out] ppDevmodeOut 指向包含输出 DEVMODEW 结构的地址的变量的指针。 IPrintTicketProvider：：",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "IPrintOemPrintTicketProvider：：ConvertPrintTicketToDevMode 如果作成功，应返回 S_OK。 否则，此方法应返回标准 COM 错误代码。"
+        "description": "IPrintOemPrintTicketProvider：：ConvertPrintTicketToDevMode 如果作成功，应返回 S_OK。 否则，此方法应返回标准 COM 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "核心驱动程序先调用 IPrintTicketProvider：：ConvertPrintTicketToDevMode 方法，然后再执行打印票证转换为 DEVMODEW 结构的一部分。 在调用此方法时，核心驱动程序传递一个完全填充的输入打印票证，以及设置为默认值的 DEVMODEW 结构。 在转换中，插件必须在之前从 DEVMODEW 结构转换为打印票证的过程中撤消对打印票证所做的任何更改。 如果在此之前转换期间，插件将功能从专用命名空间移动到公共命名空间，则插件必须以适合核心驱动程序的格式将该功能还原到专用命名空间，即核心驱动程序以前将该功能放置在提供给 IPrintOemPrintTicketProvider 中的插件的打印票证中： ConvertDevModeToPrintTicket 方法。 此还原是必需的，以便核心驱动程序可以识别打印票证中的功能，并在核心驱动程序的 DEVMODEW 结构的私有部分中反映其设置，而核心驱动程序执行其部分打印票证到DEVMODEW 转换。 在系统将打印票证转换回 DEVMODEW 结构之前，它会首先加载默认 DEVMODEW。 然后，系统会调用提供程序的 IPrintTicketProvider：：BindPrinter 方法。 然后，此方法应读取打印票证支持的所有设置，并将这些设置置于 DEVMODEW 结构中。 请注意，并非所有功能都必须表示，而且通常存在的 Option 实例可能不包含提供程序通常会填充的所有评分属性实例。 如果提供程序在从打印票证转换到 DEVMODEW期间对系统填充的设置进行任何更改，则提供程序应在此方法中执行该更改的反向作。 提供程序返回后，系 统将覆盖在打印票证中表示但提供程序未显式禁用的任何公共 DEVMODEW 设置。 应使用输入打印票证来确定和描述输出打印功能文档中设置的约束。 输出打印功能文档中介绍的功能、选项和参数不应因输入打印票证的内容而更改。 只有功能、选项和参数的约束状态才会更改。 要求要求标头 价值 prdrvcom.h （包括 Prdrvcom.h） 是 否 IPrintTicketProvider：： GetSupportedVersions 方法 （prdrvcom.h）项目2025/02/07 IPrintTicketProvider：：GetSupportedVersions 方法检索插件提供程序支持的打印架构的主要 版本号。 IPrintTicketProvider：：GetSupportedVersions 返回提供程序接口支持的打印架构的主要版本号。 当前唯一定义的版本号为 1。 提供程序可以省略中间版本。 插件负责分配由 ppVersions 参数指向的数组内存。 插件应通过使用 Microsoft Windows SDK 文档中所述的 CoTaskMemAlloc 函数来分配此内存，但插件不负责释放此内存。 由于在调用 IPrintTicketProvider：：BindPrinter 方法之前可以调用 IPrintTicketProvider：： GetSupportedVersions，因此 OEM 插件提供程序必须根据 hPrinter 参数中传递的句柄检查版本 支持。 因此，OEM 插件提供程序不应关闭与 hPrinter关联的打印机句柄。",
       "requirements": {
@@ -616,11 +642,13 @@
         {
           "name": "rclsid",
           "direction": "in",
-          "description": "与将用于创建对象的数据和代码关联的 CLSID。[in] pUnkOuter 指向聚合对象的 IUnknown 接口（控制 IUnknown）的指针。 此参数必须 NULL，这意味着该 对象不是作为聚合的一部分创建的。[in] dwClsContext 管理新创建对象的代码将在其中运行的上下文。 唯一的有效值是 NULL 和"
+          "description": "与将用于创建对象的数据和代码关联的 CLSID。[in] pUnkOuter 指向聚合对象的 IUnknown 接口（控制 IUnknown）的指针。 此参数必须 NULL，这意味着该 对象不是作为聚合的一部分创建的。[in] dwClsContext 管理新创建对象的代码将在其中运行的上下文。 唯一的有效值是 NULL 和",
+          "type": "REFCLSID"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK。失败时返回相应的 HRESULT，例如类未注册时返回 REGDB_E_CLASSNOTREG。"
+        "description": "成功时返回 S_OK。失败时返回相应的 HRESULT，例如类未注册时返回 REGDB_E_CLASSNOTREG。",
+        "type": "HRESULT"
       },
       "header": "prcomoem.h",
       "deprecated": false,
@@ -643,7 +671,11 @@
         "CreateRasterizer"
       ],
       "confidence": 0.7,
-      "_source_line": 163
+      "_source_line": 163,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CreateRasterizer",
@@ -655,7 +687,8 @@
         {
           "name": "xpsPage",
           "direction": "in, optional",
-          "description": "指向 IXpsOMPage 对象的指针，该对象表示要呈现的 XPS 固定页。 此对象封装 XPS 文档中的"
+          "description": "指向 IXpsOMPage 对象的指针，该对象表示要呈现的 XPS 固定页。 此对象封装 XPS 文档中的",
+          "type": "optional] IXpsOMPage*"
         }
       ],
       "requirements": {
@@ -671,7 +704,11 @@
         "DeleteProperty"
       ],
       "confidence": 0.8,
-      "_source_line": 168
+      "_source_line": 168,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::DeleteProperty",
@@ -683,11 +720,13 @@
         {
           "name": "pszName",
           "direction": "in",
-          "description": "要从属性包中删除的属性的名称。"
+          "description": "要从属性包中删除的属性的名称。",
+          "type": "const wchar_t"
         }
       ],
       "return_value": {
-        "description": "如果成功从属性包中删除属性，则返回 TRUE；否则返回 FALSE。"
+        "description": "如果成功从属性包中删除属性，则返回 TRUE；否则返回 FALSE。",
+        "type": "BOOL"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -710,11 +749,13 @@
         {
           "name": "uri",
           "direction": "in",
-          "description": "应从页面取消关联的资源的 URI。"
+          "description": "应从页面取消关联的资源的 URI。",
+          "type": "const wchar_t"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "成功时返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -744,7 +785,11 @@
       "confidence": 0.6,
       "_source_line": 181,
       "syntax": "HRESULT DevMode(\n  DWORD  dwMode,\n  POEMDMPARAM pOemDMParam\n);",
-      "remarks": "DevMode 是 OEM 打印插件接口中的方法，而不是独立导出函数。不同接口（IPrintOemPS、IPrintOemUI、IPrintOemUni）均定义了同名方法。dwMode 指定操作类型，常见值包括 OEMDM_SIZE、OEMDM_DEFAULT、OEMDM_CONVERT 和 OEMDM_MERGE。原描述中混入了 DevQueryPrint 和 DevQueryPrintEx 的内容，应与本方法区分。"
+      "remarks": "DevMode 是 OEM 打印插件接口中的方法，而不是独立导出函数。不同接口（IPrintOemPS、IPrintOemUI、IPrintOemUni）均定义了同名方法。dwMode 指定操作类型，常见值包括 OEMDM_SIZE、OEMDM_DEFAULT、OEMDM_CONVERT 和 OEMDM_MERGE。原描述中混入了 DevQueryPrint 和 DevQueryPrintEx 的内容，应与本方法区分。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::DisableDriver",
@@ -844,7 +889,10 @@
       "entity_type": "function",
       "description": "打印机接口 DLL 的 DrvDeviceCapabilities 函数返回有关打印机功能的信息。该函数由打印后台处理程序调用，用于查询指定打印机支持的设备能力。",
       "syntax": "DWORD DrvDeviceCapabilities(\n  HANDLE   hPrinter,\n  PWSTR    pDeviceName,\n  WORD     iDevCap,\n  PVOID    pvOutput,\n  PDEVMODE pDevMode\n);",
-      "return_value": "返回值取决于 iDevCap 指定的能力项。通常返回所请求信息的计数、大小或状态值；如果请求不受支持，则通常返回 0 或负值（具体语义取决于能力代码）。",
+      "return_value": {
+        "type": "DWORD",
+        "description": "返回值取决于 iDevCap 指定的能力项。通常返回所请求信息的计数、大小或状态值；如果请求不受支持，则通常返回 0 或负值（具体语义取决于能力代码）。"
+      },
       "header": "prcomoem.h",
       "deprecated": false,
       "cross_references": [
@@ -875,7 +923,11 @@
         "DrvUpdateUISetting"
       ],
       "confidence": 0.7,
-      "_source_line": 230
+      "_source_line": 230,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvQueryColorProfile",
@@ -883,7 +935,10 @@
       "entity_type": "function",
       "description": "打印机驱动程序可调用此函数以查询与当前打印设置关联的颜色配置文件信息。该函数根据查询模式返回 ICC 配置文件名或配置文件数据。若安装了 OEM 用户界面插件，驱动程序可进一步调用 IPrintOemUI::QueryColorProfile 以允许插件参与处理。",
       "syntax": "BOOL DrvQueryColorProfile(\n  HANDLE   hPrinter,\n  PDEVMODEW pdevmode,\n  ULONG    ulQueryMode,\n  VOID     *pvProfileData,\n  ULONG    *pcbProfileData,\n  FLONG    *pflProfileData\n);",
-      "return_value": "如果成功，返回 TRUE；否则返回 FALSE。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果成功，返回 TRUE；否则返回 FALSE。"
+      },
       "requirements": {
         "header": "prcomoem.h"
       },
@@ -904,11 +959,13 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "调用方提供的打印机句柄。[in] pDevMode 调用方提供的指向 DEVMODEW 结构的指针。[in] dwLevel 调用方提供的值，指示由 lpAttributeInfo指向的结构类型，如下表所示。 dwLevel 值 1 2 3 4 lpAttributeInfo 指向的 ColumStructure"
+          "description": "调用方提供的打印机句柄。[in] pDevMode 调用方提供的指向 DEVMODEW 结构的指针。[in] dwLevel 调用方提供的值，指示由 lpAttributeInfo指向的结构类型，如下表所示。 dwLevel 值 1 2 3 4 lpAttributeInfo 指向的 ColumStructure",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回 TRUE；如果失败，返回 FALSE。"
+        "description": "如果成功，返回 TRUE；如果失败，返回 FALSE。",
+        "type": "BOOL"
       },
       "requirements": {
         "header": "prcomoem.h",
@@ -992,7 +1049,10 @@
       "entity_type": "function",
       "description": "DrvSplEndPage 函数通知打印后台处理程序，当前页的数据传输已完成。该函数由打印机接口 DLL 使用，通常与 DrvSplStartDoc、DrvSplStartPage、DrvSplWritePrinter 和 DrvSplEndDoc 配合完成打印作业输出。",
       "syntax": "BOOL DrvSplEndPage(\n  HANDLE hDriver\n);",
-      "return_value": "如果成功，返回 TRUE；否则返回 FALSE。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果成功，返回 TRUE；否则返回 FALSE。"
+      },
       "requirements": {
         "header": "winddiui.h"
       },
@@ -1018,7 +1078,8 @@
       "description": "DrvUpgradeRegistrySetting 由 Windows XP 的 Pscript5 驱动程序提供，供 Pscript5 用户界面插件更新存储在注册表中的设备设置。该函数指针原型定义在 printoem.h 中。相关 COM 接口方法包括 IPrintCoreUI2::DrvUpgradeRegistrySetting 和 IPrintOemDriverUI::DrvUpdateRegistrySetting。",
       "syntax": "BOOL DrvUpgradeRegistrySetting(\n  HANDLE hPrinter,\n  PCSTR  pFeature,\n  PCSTR  pOption\n);",
       "return_value": {
-        "description": "如果成功更新注册表中的设备设置，则返回 TRUE；否则返回 FALSE。"
+        "description": "如果成功更新注册表中的设备设置，则返回 TRUE；否则返回 FALSE。",
+        "type": "BOOL"
       },
       "header": "printoem.h",
       "deprecated": false,
@@ -1046,10 +1107,14 @@
         {
           "name": "printerDriverId",
           "direction": "in",
-          "description": "表示要为其启用事件的指定驱动程序的 GUID。 此 GUID 在 INF 文件中指定，并且也由清 单文件指令“PrinterDriverID”指定。"
+          "description": "表示要为其启用事件的指定驱动程序的 GUID。 此 GUID 在 INF 文件中指定，并且也由清 单文件指令“PrinterDriverID”指定。",
+          "type": "GUID"
         }
       ],
-      "return_value": "description: 返回 HRESULT。成功时返回 S_OK；否则返回相应的错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "description: 返回 HRESULT。成功时返回 S_OK；否则返回相应的错误代码。"
+      },
       "remarks": "应用程序应在需要接收驱动程序事件（例如打印首选项或打印机通知）时调用此方法。如果应用在大约 5 秒内未调用 EnableEvents，打印系统会认为 UI 没有响应，并改为显示标准 UI。",
       "requirements": {
         "target_platform": "Windows",
@@ -1076,11 +1141,13 @@
         {
           "name": "pDevmode",
           "direction": "in, optional",
-          "description": "指向 DEVMODEW 结构的指针。 如果提供了此指针，IPrintCoreHelper：："
+          "description": "指向 DEVMODEW 结构的指针。 如果提供了此指针，IPrintCoreHelper：：",
+          "type": "optional] const DEVMODE"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK；失败时返回失败的 HRESULT（例如 E_FAIL）。"
+        "description": "成功时返回 S_OK；失败时返回失败的 HRESULT（例如 E_FAIL）。",
+        "type": "HRESULT"
       },
       "header": "prcomoem.h",
       "deprecated": false,
@@ -1117,12 +1184,14 @@
         {
           "name": "hWnd",
           "direction": "in, optional",
-          "description": "打印机配置属性表的父窗口的句柄。[in, optional] hInst 未使用。 设备驱动程序的模块实例的句柄。[in, out] pDevModeOutput 指向 DEVMODE 结构的指针，该结构接收 pDevModeInput 参数指向的缓冲区中提供的打印机配置数据。"
+          "description": "打印机配置属性表的父窗口的句柄。[in, optional] hInst 未使用。 设备驱动程序的模块实例的句柄。[in, out] pDevModeOutput 指向 DEVMODE 结构的指针，该结构接收 pDevModeInput 参数指向的缓冲区中提供的打印机配置数据。",
+          "type": "HWND"
         },
         {
           "name": "pDeviceName",
           "direction": "in, optional",
-          "description": "指向 NULL 终止的字符串的指针，该字符串包含显示打印机配置属性表的设备的名称。[in, optional] pPort 指向 NULL 终止的字符串的指针，该字符串包含设备连接到的端口的名称，例如 LPT1。[in, optional] pDevModeInput 指向作系统用于初始化属性表字段的 DEVMODE 结构的指针。 仅当在 fMode 参数中设置DM_IN_BUFFER标志时，才使用此参数。 如果未设置"
+          "description": "指向 NULL 终止的字符串的指针，该字符串包含显示打印机配置属性表的设备的名称。[in, optional] pPort 指向 NULL 终止的字符串的指针，该字符串包含设备连接到的端口的名称，例如 LPT1。[in, optional] pDevModeInput 指向作系统用于初始化属性表字段的 DEVMODE 结构的指针。 仅当在 fMode 参数中设置DM_IN_BUFFER标志时，才使用此参数。 如果未设置",
+          "type": "LPSTR"
         }
       ],
       "requirements": {
@@ -1134,7 +1203,11 @@
       "cross_references": [],
       "confidence": 0.8,
       "_source_line": 312,
-      "remarks": "这是旧版打印机驱动程序接口，主要用于 Windows 3.x/9x 兼容场景。在现代 Windows 打印体系中，通常应使用 DocumentProperties。返回值和支持的 fMode 标志由具体打印机驱动实现决定。"
+      "remarks": "这是旧版打印机驱动程序接口，主要用于 Windows 3.x/9x 兼容场景。在现代 Windows 打印体系中，通常应使用 DocumentProperties。返回值和支持的 fMode 标志由具体打印机驱动实现决定。",
+      "return_value": {
+        "type": "LONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::FilterFinished",
@@ -1154,7 +1227,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 313,
-      "return_value": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+      }
     },
     {
       "id": "windows::FindFirstPrinterChangeNotification",
@@ -1175,7 +1251,11 @@
         "PrinterMessageBoxW"
       ],
       "confidence": 0.7,
-      "_source_line": 315
+      "_source_line": 315,
+      "return_value": {
+        "type": "HANDLE",
+        "description": ""
+      }
     },
     {
       "id": "windows::FlushData",
@@ -1199,7 +1279,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 320,
-      "return_value": "如果方法成功，则返回 S_OK 或其他成功的 HRESULT；否则返回失败的 HRESULT 错误代码。"
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果方法成功，则返回 S_OK 或其他成功的 HRESULT；否则返回失败的 HRESULT 错误代码。"
+      }
     },
     {
       "id": "windows::GdiDeleteSpoolFileHandle",
@@ -1215,7 +1298,11 @@
         "Window"
       ],
       "confidence": 0.7,
-      "_source_line": 324
+      "_source_line": 324,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::GdiEndDocEMF",
@@ -1231,7 +1318,11 @@
         "Window"
       ],
       "confidence": 0.7,
-      "_source_line": 325
+      "_source_line": 325,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::GdiEndPageEMF",
@@ -1265,7 +1356,11 @@
         "Win32"
       ],
       "confidence": 0.7,
-      "_source_line": 327
+      "_source_line": 327,
+      "return_value": {
+        "type": "HDC",
+        "description": ""
+      }
     },
     {
       "id": "windows::GdiGetDevmodeForPage",
@@ -1287,7 +1382,11 @@
       ],
       "confidence": 0.7,
       "_source_line": 328,
-      "remarks": "该函数供打印处理器在处理 EMF 打印数据时使用。可通过比较 pCurrDM 和 pLastDM 返回的 DEVMODEW 来判断页间设备模式是否发生变化。如果发生变化，通常应先调用 GdiEndPageEMF，再调用 GdiResetDCEMF，并在必要时继续调用 GdiPlayPageEMF 处理页面内容。"
+      "remarks": "该函数供打印处理器在处理 EMF 打印数据时使用。可通过比较 pCurrDM 和 pLastDM 返回的 DEVMODEW 来判断页间设备模式是否发生变化。如果发生变化，通常应先调用 GdiEndPageEMF，再调用 GdiResetDCEMF，并在必要时继续调用 GdiPlayPageEMF 处理页面内容。",
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::GdiGetPageCount",
@@ -1306,7 +1405,11 @@
         "PrintDocumentOnPrintProcessor"
       ],
       "confidence": 0.7,
-      "_source_line": 329
+      "_source_line": 329,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::GdiGetPageHandle",
@@ -1327,7 +1430,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 331,
-      "return_value": "如果成功，返回指定页面的句柄。 如果 Page 超出可用页面范围，则返回错误 ERROR_NO_MORE_ITEMS。 失败时返回无效句柄或 NULL，具体错误信息可通过相关错误机制获取。",
+      "return_value": {
+        "type": "HANDLE",
+        "description": "如果成功，返回指定页面的句柄。 如果 Page 超出可用页面范围，则返回错误 ERROR_NO_MORE_ITEMS。 失败时返回无效句柄或 NULL，具体错误信息可通过相关错误机制获取。"
+      },
       "remarks": "此函数主要供打印处理器在 PrintDocumentOnPrintProcessor 中使用。获取页面句柄后，可将其传递给 GdiPlayPageEMF 以回放并绘制该页的 EMF 数据。"
     },
     {
@@ -1339,11 +1445,13 @@
       "parameters": [
         {
           "name": "pwszPrinterName",
-          "description": "调用方提供的指向表示目标打印机名称的字符串的指针。 请参阅以下“备注”部分。 pDevmode 调用方提供的指向 DEVMODEW 结构的指针。 请参阅以下“备注”部分。 pwszDocName 调用方提供的指向打印作业的文档名称的指针。 请参阅以下“备注”部分。"
+          "description": "调用方提供的指向表示目标打印机名称的字符串的指针。 请参阅以下“备注”部分。 pDevmode 调用方提供的指向 DEVMODEW 结构的指针。 请参阅以下“备注”部分。 pwszDocName 调用方提供的指向打印作业的文档名称的指针。 请参阅以下“备注”部分。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回后台处理程序文件句柄；否则返回 NULL。"
+        "description": "如果成功，返回后台处理程序文件句柄；否则返回 NULL。",
+        "type": "HANDLE"
       },
       "header": "winppi.h",
       "deprecated": false,
@@ -1370,7 +1478,8 @@
       "_source_line": 334,
       "remarks": "调用前，打印处理器通常先通过 GdiGetPageHandle 获取页面句柄（hemf）。如果 GdiGetDevmodeForPage 返回的 DEVMODE 与上一页不同，通常需要先调用 GdiEndPageEMF，并在必要时重置设备上下文，再继续回放当前页。颜色优化可能导致彩色水印在黑白文档上以黑白方式输出。",
       "return_value": {
-        "description": "如果作成功，该函数将返回 true 。 否则，该函数返回 FALSE。"
+        "description": "如果作成功，该函数将返回 true 。 否则，该函数返回 FALSE。",
+        "type": "BOOL"
       }
     },
     {
@@ -1387,7 +1496,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 335,
-      "return_value": "如果函数成功，返回非零值；如果失败，返回零。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果函数成功，返回非零值；如果失败，返回零。"
+      },
       "remarks": "该函数用于在基于 EMF 的打印处理中重置打印机设备上下文。通常在检测到新页的 DEVMODE 设置与上一页不同时调用。该函数由打印处理器使用，而不是普通应用程序直接调用。"
     },
     {
@@ -1407,7 +1519,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 336,
-      "return_value": "如果函数成功，则返回非零值；如果函数失败，则返回零。"
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果函数成功，则返回非零值；如果函数失败，则返回零。"
+      }
     },
     {
       "id": "windows::GdiStartPageEMF",
@@ -1422,7 +1537,11 @@
       ],
       "confidence": 0.7,
       "_source_line": 337,
-      "remarks": "该函数用于在打印处理器生成 EMF 打印输出时标记一个新的物理页开始。通常在 PrintDocumentOnPrintProcessor 的实现中调用。每创建一个新的物理页，都应先调用此函数。"
+      "remarks": "该函数用于在打印处理器生成 EMF 打印输出时标记一个新的物理页开始。通常在 PrintDocumentOnPrintProcessor 的实现中调用。每创建一个新的物理页，都应先调用此函数。",
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::DataType",
@@ -1437,7 +1556,11 @@
       ],
       "confidence": 0.7,
       "_source_line": 350,
-      "remarks": "这是一个 COM 属性 getter。调用方通过 pDataType 接收 PrintSchemaParameterDataType 枚举值。"
+      "remarks": "这是一个 COM 属性 getter。调用方通过 pDataType 接收 PrintSchemaParameterDataType 枚举值。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GET_PSCRIPT5_PRIVATE_DEVMODE_SIZE",
@@ -1471,7 +1594,8 @@
       "description": "获取允许的数据范围的最大值。",
       "syntax": "HRESULT get_RangeMax(\\n  INT *pRangeMax\\n);",
       "return_value": {
-        "description": "返回 HRESULT 值。 如果属性调用未成功，它将返回相应的 HRESULT 错误代码。"
+        "description": "返回 HRESULT 值。 如果属性调用未成功，它将返回相应的 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "对于 PrintSchemaParameterDataType_Integer 数据类型，RangeMax 返回的值映射到 Print Schema 参数定义中的 psf:MaxValue 属性值，表示驱动程序支持的最大整数值。对于 PrintSchemaParameterDataType_NumericString 和 PrintSchemaParameterDataType_String 数据类型，该值映射到 Print Schema 参数定义中的 psf:MaxLength 属性值，表示驱动程序支持的字符串最大长度。",
       "header": "printerextension.h",
@@ -1486,7 +1610,10 @@
       "entity_type": "method",
       "description": "获取允许的数据范围的最小值。",
       "syntax": "HRESULT get_RangeMin(\n  INT *pRangeMin\n);",
-      "return_value": "如果该方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+      },
       "remarks": "对于 PrintSchemaParameterDataType_Integer 数据类型，RangeMin 返回的值映射到 Print Schema 参数定义中的 psf:MinValue 属性值，表示驱动程序支持的最小整数值。对于 PrintSchemaParameterDataType_NumericString 和 PrintSchemaParameterDataType_String 数据类型，该值映射到 Print Schema 参数定义中的 psf:MinLength 属性值，表示驱动程序支持的字符串最小长度。",
       "header": "printerextension.h",
       "deprecated": false,
@@ -1524,7 +1651,10 @@
       "entity_type": "method",
       "description": "获取单位类型（UnitType）属性。",
       "syntax": "HRESULT get_UnitType(\\n  BSTR *pbstrUnitType\\n);",
-      "return_value": "这是一个 COM 属性 getter。pbstrUnitType 为输出参数，用于接收单位类型字符串。调用方通常需要负责释放返回的 BSTR。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "这是一个 COM 属性 getter。pbstrUnitType 为输出参数，用于接收单位类型字符串。调用方通常需要负责释放返回的 BSTR。"
+      },
       "requirements": {
         "target_platform": "Windows",
         "header": "printerextension.h",
@@ -1544,7 +1674,10 @@
       "entity_type": "method",
       "description": "获取一个布尔值，指示打印架构参数是否要求用户输入值。该成员通常表示为 IPrintSchemaParameterDefinition 或相关接口上的属性访问器方法 get_UserInputRequired。",
       "syntax": "HRESULT get_UserInputRequired(\n  BOOL *pbIsRequired\n);",
-      "return_value": "如果该方法成功，则返回 S_OK。否则返回 HRESULT 错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。否则返回 HRESULT 错误代码。"
+      },
       "remarks": "打印对话框可使用此属性来确定是否必须要求用户为该参数提供有效值后才能继续打印。输出参数 pbIsRequired 在成功返回时接收一个布尔值；非零表示需要用户输入，零表示不需要。",
       "requirements": {
         "target_platform": "Windows",
@@ -1569,7 +1702,8 @@
       "description": "获取通知通道的类型。该方法由 IBidiAsyncNotifyChannel 接口定义。",
       "syntax": "HRESULT GetChannelNotificationType(\n  BIDI_NOTIFY_TYPE *pNotificationType\n);",
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "header": "prnasntp.h",
       "deprecated": false,
@@ -1603,11 +1737,13 @@
         {
           "name": "uriSentinelPage",
           "direction": "out",
-          "description": "不再需要处理已标识资源的第一个固定页的 URI。[out] uriPartToDiscard 使用者可以放弃的资源的 URI。"
+          "description": "不再需要处理已标识资源的第一个固定页的 URI。[out] uriPartToDiscard 使用者可以放弃的资源的 URI。",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -1630,11 +1766,13 @@
         {
           "name": "pdwTotal",
           "direction": "out",
-          "description": "指向接收输出结果数的变量的指针。"
+          "description": "指向接收输出结果数的变量的指针。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK；否则返回相应的 COM 错误代码。"
+        "description": "成功时返回 S_OK；否则返回相应的 COM 错误代码。",
+        "type": "HRESULT"
       },
       "header": "bidispl.h",
       "deprecated": false,
@@ -1655,11 +1793,13 @@
         {
           "name": "ppenum",
           "direction": "out",
-          "description": "指向接收指向 IEnumUnknown 接口的指针的变量的指针，该接口枚举容器中的 bidi 请求。"
+          "description": "指向接收指向 IEnumUnknown 接口的指针的变量的指针，该接口枚举容器中的 bidi 请求。",
+          "type": "IEnumUnknown"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。有关 COM 错误代码的详细信息，请参阅 COM Error Codes。"
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。有关 COM 错误代码的详细信息，请参阅 COM Error Codes。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1687,15 +1827,20 @@
         {
           "name": "pContentType",
           "direction": "out",
-          "description": "指向字体内容类型的指针。"
+          "description": "指向字体内容类型的指针。",
+          "type": "BSTR"
         },
         {
           "name": "pFontOptions",
           "direction": "out",
-          "description": "指向字体选项的指针。"
+          "description": "指向字体选项的指针。",
+          "type": "EXpsFontOptions"
         }
       ],
-      "return_value": "这是一个 COM 接口方法。调用方通常需要负责释放返回的 BSTR。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "这是一个 COM 接口方法。调用方通常需要负责释放返回的 BSTR。"
+      },
       "requirements": {
         "header": "filterpipeline.h"
       },
@@ -1719,11 +1864,13 @@
         {
           "name": "pszTrueTypeFontName",
           "direction": "in",
-          "description": "指向以 null 结尾的 Unicode 字符串的指针，该字符串包含 TrueType 字体的名称。[out] ppszDevFontName 指向接收以 null 结尾的 Unicode 字符串地址的变量的指针。 此字符串包含用于代替 pszFontName 参数中指定的 TrueType 字体的设备字体的名称。 如果没有可用作指定 TrueType 字体替代的设备字体，则此参数设置为 NULL。"
+          "description": "指向以 null 结尾的 Unicode 字符串的指针，该字符串包含 TrueType 字体的名称。[out] ppszDevFontName 指向接收以 null 结尾的 Unicode 字符串地址的变量的指针。 此字符串包含用于代替 pszFontName 参数中指定的 TrueType 字体的设备字体的名称。 如果没有可用作指定 TrueType 字体替代的设备字体，则此参数设置为 NULL。",
+          "type": "PCWSTR"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK；失败时返回 E_FAIL。例如，请求的字体不存在，或该字体不是 TrueType 字体。"
+        "description": "成功时返回 S_OK；失败时返回 E_FAIL。例如，请求的字体不存在，或该字体不是 TrueType 字体。",
+        "type": "HRESULT"
       },
       "header": "prcomoem.h",
       "deprecated": false,
@@ -1756,11 +1903,13 @@
         {
           "name": "pContentType",
           "direction": "out",
-          "description": "图像的内容类型。"
+          "description": "图像的内容类型。",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -1797,17 +1946,20 @@
         {
           "name": "pDevmode",
           "direction": "in",
-          "description": "指向 DEVMODE 结构的指针。[in] cbSize pDevmode 中的字节数，而不是写入的字节数。[in] pszCommandName 命令名称。 此参数接受 GPD 中的标准命令名称，但需要 *Order 属性的命令名称除外。可通过以下特殊命令名称访问有序命令序列的这六个部分： L“SectionJobSetup” L“SectionDocSetup” L“SectionPageSetup” L“SectionPageFinish” L“SectionDocFinish” L“SectionJobFinish”"
+          "description": "指向 DEVMODE 结构的指针。[in] cbSize pDevmode 中的字节数，而不是写入的字节数。[in] pszCommandName 命令名称。 此参数接受 GPD 中的标准命令名称，但需要 *Order 属性的命令名称除外。可通过以下特殊命令名称访问有序命令序列的这六个部分： L“SectionJobSetup” L“SectionDocSetup” L“SectionPageSetup” L“SectionPageFinish” L“SectionDocFinish” L“SectionJobFinish”",
+          "type": "PDEVMODE"
         },
         {
           "name": "ppCommandBytes",
           "direction": "out",
-          "description": "输出缓冲区。 调用方不需要释放此缓冲区。"
+          "description": "输出缓冲区。 调用方不需要释放此缓冲区。",
+          "type": "PBYTE"
         },
         {
           "name": "pcbCommandSize",
           "direction": "out",
-          "description": "输出缓冲区的大小。"
+          "description": "输出缓冲区的大小。",
+          "type": "DWORD"
         },
         {
           "name": "pdevobj",
@@ -1816,7 +1968,8 @@
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT。成功时返回 S_OK；失败时返回失败代码，例如 E_FAIL。"
+        "description": "返回 HRESULT。成功时返回 S_OK；失败时返回失败代码，例如 E_FAIL。",
+        "type": "HRESULT"
       },
       "remarks": "该方法不会返回包含对标准变量引用的命令。",
       "requirements": {
@@ -1841,20 +1994,26 @@
         {
           "name": "uri",
           "direction": "in",
-          "description": "要创建的新部件的 URI。[in] riid 以下接口之一的引用标识符（REFIID）： IFixedDocument IFixedPage IPartImage IPartThumbnail IPartFont IPartPrintTicket IPartColorProfile"
+          "description": "要创建的新部件的 URI。[in] riid 以下接口之一的引用标识符（REFIID）： IFixedDocument IFixedPage IPartImage IPartThumbnail IPartFont IPartPrintTicket IPartColorProfile",
+          "type": "const wchar_t*"
         },
         {
           "name": "ppNewObject",
           "direction": "out",
-          "description": "指向要创建的新对象的指针。"
+          "description": "指向要创建的新对象的指针。",
+          "type": "void*"
         },
         {
           "name": "ppWriteStream",
           "direction": "out",
-          "description": "将写入部件的数据流对象。 每个部分都与数据流对象相关联。"
+          "description": "将写入部件的数据流对象。 每个部分都与数据流对象相关联。",
+          "type": "IPrintWriteStream*"
         }
       ],
-      "return_value": "筛选器可以使用此方法创建新的 XPS 部件。通常情况下，筛选器从筛选管线对象接收 XPS 部件；当需要生成新部件时，可调用此方法并通过返回的写入流写入部件内容。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "筛选器可以使用此方法创建新的 XPS 部件。通常情况下，筛选器从筛选管线对象接收 XPS 部件；当需要生成新部件时，可调用此方法并通过返回的写入流写入部件内容。"
+      },
       "remarks": "筛选器可以使用此方法创建新的 XPS 部件。通常情况下，筛选器从筛选管线对象接收 XPS 部件；当需要生成新部件时，可调用此方法并通过返回的写入流写入部件内容。",
       "header": "filterpipeline.h",
       "deprecated": false,
@@ -1898,7 +2057,8 @@
         {
           "name": "dwIndex",
           "direction": "in",
-          "description": "请求的输出数据的从零开始的索引。 有关详细信息，请参阅“备注”。[out] ppszSchema 指向接收架构字符串的 NULL 终止字符串的指针。 调用方必须调用 CoTaskMemFree 函数 才能释放此指针。[out] pdwType 指向接收输出数据类型的变量的指针。 此参数可以是下列值之一。 价值"
+          "description": "请求的输出数据的从零开始的索引。 有关详细信息，请参阅“备注”。[out] ppszSchema 指向接收架构字符串的 NULL 终止字符串的指针。 调用方必须调用 CoTaskMemFree 函数 才能释放此指针。[out] pdwType 指向接收输出数据类型的变量的指针。 此参数可以是下列值之一。 价值",
+          "type": "const DWORD"
         }
       ],
       "header": "bidispl.h",
@@ -1908,7 +2068,11 @@
       ],
       "confidence": 0.7,
       "_source_line": 476,
-      "remarks": "此方法按索引返回一个输出项的架构、类型和数据。通常先调用 GetEnumCount 确定输出项总数，再对每个索引调用 GetOutputData。"
+      "remarks": "此方法按索引返回一个输出项的架构、类型和数据。通常先调用 GetEnumCount 确定输出项总数，再对每个索引调用 GetOutputData。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetPagePart",
@@ -1920,11 +2084,13 @@
         {
           "name": "uri",
           "direction": "in",
-          "description": "部件的 URI。 例如，筛选器可能会分析页面标记并查找引用的字体。 筛选器可以使用调 用中的字体 URI GetPagePart。 然后，筛选器可以检索与页面关联的字体对象。[out] ppUnk 要查询的对象。"
+          "description": "部件的 URI。 例如，筛选器可能会分析页面标记并查找引用的字体。 筛选器可以使用调 用中的字体 URI GetPagePart。 然后，筛选器可以检索与页面关联的字体对象。[out] ppUnk 要查询的对象。",
+          "type": "const wchar_t"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 S_OK 或其他成功的 HRESULT；如果失败，则返回错误 HRESULT。"
+        "description": "如果成功，则返回 S_OK 或其他成功的 HRESULT；如果失败，则返回错误 HRESULT。",
+        "type": "HRESULT"
       },
       "remarks": "返回的对象类型取决于 URI 所标识的页面部件。调用方通常需要对返回的 IUnknown 指针调用 QueryInterface，以获取所需的具体接口。",
       "requirements": {
@@ -1949,20 +2115,26 @@
         {
           "name": "bstrName",
           "direction": "in",
-          "description": "关键字名称"
+          "description": "关键字名称",
+          "type": "BSTR"
         },
         {
           "name": "bstrNamespaceUri",
           "direction": "in",
-          "description": "关键字命名空间 URI"
+          "description": "关键字命名空间 URI",
+          "type": "BSTR"
         },
         {
           "name": "ppParameterDefinition",
           "direction": "out, retval",
-          "description": "IPrintSchemaParameterDefinition 对象返回值"
+          "description": "IPrintSchemaParameterDefinition 对象返回值",
+          "type": "IPrintSchemaParameterDefinition"
         }
       ],
-      "return_value": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。对于使用 QNameParamType 或 DecimalParamType 数据类型的 psf:ParameterDef 元素，该方法返回 HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED)。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。对于使用 QNameParamType 或 DecimalParamType 数据类型的 psf:ParameterDef 元素，该方法返回 HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED)。"
+      },
       "remarks": "为与 IPrintSchemaCapabilities::GetFeature 保持一致，GetParameterDefinition 方法适用于公共关键字命名空间中定义的任何 psf:ParameterDef 元素。它也适用于 IHV 定义的专用关键字命名空间中使用 StringParamType 或 IntegerParamType 数据类型的参数定义。对于使用 QNameParamType 或 DecimalParamType 数据类型的 psf:ParameterDef 元素，GetParameterDefinition 返回 HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED)。有关可与 psf:ParameterDef 元素一起使用的数据类型的详细信息，请参阅打印架构规范第 2.1.3.1 节。",
       "requirements": {
         "target_platform": "Windows",
@@ -1990,24 +2162,31 @@
         {
           "name": "bstrName",
           "direction": "in",
-          "description": "关键字名称。"
+          "description": "关键字名称。",
+          "type": "BSTR"
         },
         {
           "name": "bstrNamespaceUri",
           "direction": "in",
-          "description": "关键字命名空间 URI。"
+          "description": "关键字命名空间 URI。",
+          "type": "BSTR"
         },
         {
           "name": "ppParameterInitializer",
           "direction": "out, retval",
-          "description": "IPrintSchemaParameterInitializer 对象。"
+          "description": "IPrintSchemaParameterInitializer 对象。",
+          "type": "retval] IPrintSchemaParameterInitializer"
         }
       ],
       "header": "printerextension.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 480
+      "_source_line": 480,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetPartCompression",
@@ -2019,11 +2198,13 @@
         {
           "name": "pCompression",
           "direction": "out",
-          "description": "指向部件的压缩选项数据的指针。"
+          "description": "指向部件的压缩选项数据的指针。",
+          "type": "EXpsCompressionOptions"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -2058,11 +2239,13 @@
         {
           "name": "pszPrinterName",
           "direction": "in",
-          "description": "打印机名称。[in] riid 要创建的接口的 IID。 筛选器应使用IID_IPrintAsyncNotify来创建通知通道。[out] ppNewObject 此方法创建的新对象。"
+          "description": "打印机名称。[in] riid 要创建的接口的 IID。 筛选器应使用IID_IPrintAsyncNotify来创建通知通道。[out] ppNewObject 此方法创建的新对象。",
+          "type": "const wchar_t"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回 S_OK 或其他成功的 HRESULT；如果失败，返回相应的 HRESULT 错误代码。"
+        "description": "如果成功，返回 S_OK 或其他成功的 HRESULT；如果失败，返回相应的 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -2090,7 +2273,8 @@
         {
           "name": "ppPrintTicket",
           "direction": "out",
-          "description": "固定文档的打印票证对象。"
+          "description": "固定文档的打印票证对象。",
+          "type": "IPartPrintTicket"
         }
       ],
       "remarks": "调用此方法可获取固定文档序列级别的 PrintTicket。打印驱动程序筛选器可以将该 PrintTicket 与文档级和页面级 PrintTicket 合并，以获得固定页面的有效 PrintTicket。相关方法包括 IFixedDocument::GetPrintTicket 和 IFixedPage::GetPrintTicket。",
@@ -2104,7 +2288,11 @@
         "SetPrintTicket"
       ],
       "confidence": 0.8,
-      "_source_line": 498
+      "_source_line": 498,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetRequestCount",
@@ -2116,11 +2304,13 @@
         {
           "name": "puCount",
           "direction": "out",
-          "description": "指向接收请求数的变量的指针。"
+          "description": "指向接收请求数的变量的指针。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。否则返回 COM 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。否则返回 COM 错误代码。",
+        "type": "HRESULT"
       },
       "header": "bidispl.h",
       "deprecated": false,
@@ -2140,11 +2330,13 @@
         {
           "name": "phr",
           "direction": "out",
-          "description": "指向指定 bidi 请求状态的变量的指针。"
+          "description": "指向指定 bidi 请求状态的变量的指针。",
+          "type": "HRESULT"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK。有关 COM 错误代码的详细信息，请参阅 COM 错误代码。"
+        "description": "如果方法成功，则返回 S_OK。有关 COM 错误代码的详细信息，请参阅 COM 错误代码。",
+        "type": "HRESULT"
       },
       "header": "bidispl.h",
       "deprecated": false,
@@ -2165,7 +2357,8 @@
         {
           "name": "ppThumbnail",
           "direction": "out",
-          "description": "文档中的缩略图对象。"
+          "description": "文档中的缩略图对象。",
+          "type": "IPartThumbnail"
         }
       ],
       "requirements": {
@@ -2178,7 +2371,11 @@
       ],
       "confidence": 0.8,
       "_source_line": 523,
-      "remarks": "这是一个 COM 方法。调用方负责在不再需要返回的接口指针时释放它。该方法与 SetThumbnail 对应，后者用于设置或替换文档缩略图。"
+      "remarks": "这是一个 COM 方法。调用方负责在不再需要返回的接口指针时释放它。该方法与 SetThumbnail 对应，后者用于设置或替换文档缩略图。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetThumbnailProperties",
@@ -2190,11 +2387,13 @@
         {
           "name": "pContentType",
           "direction": "out",
-          "description": "指向缩略图内容类型的指针。"
+          "description": "指向缩略图内容类型的指针。",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -2218,11 +2417,13 @@
         {
           "name": "uri",
           "direction": "out",
-          "description": "固定文档的 URI。"
+          "description": "固定文档的 URI。",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -2289,7 +2490,8 @@
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "此方法返回一个可写流，可用于修改页面标记或相关内容。原始文本中混入了 SetBool、SetBytes、SetInt32、SetString、Read、Write 等其他方法的说明，已移除。",
       "requirements": {
@@ -2317,11 +2519,13 @@
         {
           "name": "ppIXpsPart",
           "direction": "out",
-          "description": "XPS 部件。 此部分是 XPS 部件的对象 IUnknown 接口。 如果 ppIXpsPart 为 NULL，则不再使用 XPS 部件，并且筛选器已准备好完成处理。"
+          "description": "XPS 部件。 此部分是 XPS 部件的对象 IUnknown 接口。 如果 ppIXpsPart 为 NULL，则不再使用 XPS 部件，并且筛选器已准备好完成处理。",
+          "type": "IUnknown"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回相应的 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回相应的 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "对通过 GetXpsPart 返回的 IUnknown 对象调用 QueryInterface，以确定检索到的 XPS 对象的具体类型。",
       "requirements": {
@@ -2346,10 +2550,14 @@
         {
           "name": "pXpsPartIt",
           "direction": "out",
-          "description": "一个迭代器，可用于枚举与页面关联的所有部件。"
+          "description": "一个迭代器，可用于枚举与页面关联的所有部件。",
+          "type": "IXpsPartIterator"
         }
       ],
-      "return_value": "使用此方法获取的迭代器枚举与页面关联的 XPS 部件。在使用该迭代器期间，筛选器不应添加或删除部件，否则迭代结果可能无效。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "使用此方法获取的迭代器枚举与页面关联的 XPS 部件。在使用该迭代器期间，筛选器不应添加或删除部件，否则迭代结果可能无效。"
+      },
       "remarks": "使用此方法获取的迭代器枚举与页面关联的 XPS 部件。在使用该迭代器期间，筛选器不应添加或删除部件，否则迭代结果可能无效。",
       "requirements": {
         "header": "filterpipeline.h"
@@ -2374,10 +2582,14 @@
         {
           "name": "hToken",
           "direction": "in",
-          "description": "向线程提供调用方句柄。 此参数以前必须通过调用 RevertToPrinterSelf返回。"
+          "description": "向线程提供调用方句柄。 此参数以前必须通过调用 RevertToPrinterSelf返回。",
+          "type": "HANDLE"
         }
       ],
-      "return_value": "在成功调用 RevertToPrinterSelf 之后，应调用此函数以恢复客户端模拟。该函数还会关闭由 RevertToPrinterSelf 返回的线程令牌句柄。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "在成功调用 RevertToPrinterSelf 之后，应调用此函数以恢复客户端模拟。该函数还会关闭由 RevertToPrinterSelf 返回的线程令牌句柄。"
+      },
       "remarks": "在成功调用 RevertToPrinterSelf 之后，应调用此函数以恢复客户端模拟。该函数还会关闭由 RevertToPrinterSelf 返回的线程令牌句柄。",
       "header": "winsplp.h",
       "deprecated": false,
@@ -2399,7 +2611,8 @@
         {
           "name": "pINegotiation",
           "direction": "in",
-          "description": "指向 IInterFilterCommunicator 接口的指针。[in] pIPropertyBag 指向 IPrintPipelinePropertyBag 接口的指针。[in] pIPipelineControl 指向 IPrintPipelineManagerControl 接口的指针。"
+          "description": "指向 IInterFilterCommunicator 接口的指针。[in] pIPropertyBag 指向 IPrintPipelinePropertyBag 接口的指针。[in] pIPipelineControl 指向 IPrintPipelineManagerControl 接口的指针。",
+          "type": "IInterFilterCommunicator"
         }
       ],
       "remarks": "调用 InitializeFilter 时，筛选器通常应完成以下初始化工作：从属性包中获取、添加或删除属性；通过 IInterFilterCommunicator 获取读取器和写入器接口；设置内部状态以便在作业取消或发生错误时能够正确响应。若作业已取消或发生错误，管线管理器可能调用 ShutdownOperation。筛选器完成处理后，必须通过 IPrintPipelineManagerControl::FilterFinished 通知管线管理器。",
@@ -2414,7 +2627,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 540,
-      "return_value": "如果方法成功，则返回 S_OK 或其他成功的 HRESULT；如果失败，则返回相应的 HRESULT 错误代码。"
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果方法成功，则返回 S_OK 或其他成功的 HRESULT；如果失败，则返回相应的 HRESULT 错误代码。"
+      }
     },
     {
       "id": "windows::InitializePrintMonitor",
@@ -2426,10 +2642,14 @@
         {
           "name": "pRegistryRoot",
           "direction": "in",
-          "description": "调用方提供的指向字符串的指针，标识打印监视器可用于存储特定于监视器的值的注册表路径。"
+          "description": "调用方提供的指向字符串的指针，标识打印监视器可用于存储特定于监视器的值的注册表路径。",
+          "type": "LPWSTR"
         }
       ],
-      "return_value": "成功时，返回指向 MONITOREX 结构的指针。失败时，调用 SetLastError 设置错误代码并返回 NULL。",
+      "return_value": {
+        "type": "LPMONITOREX",
+        "description": "成功时，返回指向 MONITOREX 结构的指针。失败时，调用 SetLastError 设置错误代码并返回 NULL。"
+      },
       "header": "winsplp.h",
       "deprecated": true,
       "cross_references": [
@@ -2455,7 +2675,8 @@
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK。返回值指示迭代器是否已完成；调用方通常应先调用 IsDone，再调用 Current 以获取当前部分。"
+        "description": "如果方法成功，则返回 S_OK。返回值指示迭代器是否已完成；调用方通常应先调用 IsDone，再调用 Current 以获取当前部分。",
+        "type": "HRESULT"
       },
       "remarks": "筛选器应在调用 IXpsPartIterator::Current 之前调用 IXpsPartIterator::IsDone。",
       "requirements": {
@@ -2481,7 +2702,8 @@
         {
           "name": "pszAction",
           "direction": "in",
-          "description": "指向 NULL 终止的字符串的指针，指定此 bidi 请求的作。 它可以是下列常量之一。 不断"
+          "description": "指向 NULL 终止的字符串的指针，指定此 bidi 请求的作。 它可以是下列常量之一。 不断",
+          "type": "LPCWSTR"
         }
       ],
       "header": "bidispl.h",
@@ -2490,7 +2712,11 @@
         "MxdcGetPDEVAdjustment"
       ],
       "confidence": 0.7,
-      "_source_line": 555
+      "_source_line": 555,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::MxdcGetPDEVAdjustment",
@@ -2502,7 +2728,8 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "当前实例化的打印机的句柄。[in] cbDevMode DEVMODE 结构的大小（以字节为单位）包括驱动程序的专用 DEVMODE 数据。[in] pDevMode MXDC 收到的 DEVMODE 结构的副本。 打印机接口 DLL 使用此结构中的信息返回请求的数据。[in] cbIn 一个输入参数，指定 pvIn 参数的大小（以字节为单位）。 此参数当前未使用，其值为零。[in, optional] pvIn 一个参数，其中包含从 MXDC 发送到打印机接口 DLL 的数据。 此参数当前未使用，其值 NULL。[in] cbPrintPropertiesCollection"
+          "description": "当前实例化的打印机的句柄。[in] cbDevMode DEVMODE 结构的大小（以字节为单位）包括驱动程序的专用 DEVMODE 数据。[in] pDevMode MXDC 收到的 DEVMODE 结构的副本。 打印机接口 DLL 使用此结构中的信息返回请求的数据。[in] cbIn 一个输入参数，指定 pvIn 参数的大小（以字节为单位）。 此参数当前未使用，其值为零。[in, optional] pvIn 一个参数，其中包含从 MXDC 发送到打印机接口 DLL 的数据。 此参数当前未使用，其值 NULL。[in] cbPrintPropertiesCollection",
+          "type": "HANDLE"
         }
       ],
       "header": "mxdc.h",
@@ -2512,7 +2739,11 @@
         "PostScript"
       ],
       "confidence": 0.8,
-      "_source_line": 556
+      "_source_line": 556,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::OnBidiResponseReceived",
@@ -2524,7 +2755,8 @@
         {
           "name": "bstrResponse",
           "direction": "in",
-          "description": "收到的响应。[in] hrStatus HRESULT 值。"
+          "description": "收到的响应。[in] hrStatus HRESULT 值。",
+          "type": "BSTR"
         },
         {
           "name": "ulViewOffset",
@@ -2567,7 +2799,10 @@
           "description": "读取的值。"
         }
       ],
-      "return_value": "bstrResponse 参数的格式遵循 Bidi 请求和响应架构。打印系统可能先返回缓存的响应，然后在异步设备通信完成后再次触发该事件并提供更新后的响应。因此，调用方可能会针对同一查询收到多个响应。缓存刷新和更新行为取决于底层端口监视器及设备类型（如 WSD、TCP 或 USB）。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "bstrResponse 参数的格式遵循 Bidi 请求和响应架构。打印系统可能先返回缓存的响应，然后在异步设备通信完成后再次触发该事件并提供更新后的响应。因此，调用方可能会针对同一查询收到多个响应。缓存刷新和更新行为取决于底层端口监视器及设备类型（如 WSD、TCP 或 USB）。"
+      },
       "remarks": "bstrResponse 参数的格式遵循 Bidi 请求和响应架构。打印系统可能先返回缓存的响应，然后在异步设备通信完成后再次触发该事件并提供更新后的响应。因此，调用方可能会针对同一查询收到多个响应。缓存刷新和更新行为取决于底层端口监视器及设备类型（如 WSD、TCP 或 USB）。",
       "requirements": {
         "target_platform": "Windows",
@@ -2588,7 +2823,8 @@
       "description": "已过时的 Unidrv 文本输出函数原型。Windows 2000 及更高版本的打印机驱动程序应改用 IPrintOemDriverUni::DrvUniTextOut。该函数指针原型在 DRVPROCS 结构中定义。",
       "syntax": "BOOL DrvUnidriverTextOut(\n  SURFOBJ  *pso,\n  STROBJ   *pstro,\n  FONTOBJ  *pfo,\n  CLIPOBJ  *pco,\n  RECTL    *prclExtra,\n  RECTL    *prclOpaque,\n  BRUSHOBJ *pboFore,\n  BRUSHOBJ *pboOpaque,\n  POINTL   *pptlBrushOrg,\n  MIX       mix\n);",
       "return_value": {
-        "description": "如果成功，返回 TRUE；否则返回 FALSE。"
+        "description": "如果成功，返回 TRUE；否则返回 FALSE。",
+        "type": "BOOL"
       },
       "requirements": {
         "header": "printoem.h"
@@ -2606,7 +2842,8 @@
       "description": "已弃用的打印机 OEM UI 插件回调函数。Windows 2000 及更高版本中，UI 插件应改用 IPrintOemDriverUI::DrvUpdateUISetting 或 IPrintCoreUI2::DrvUpdateUISetting。该函数指针原型在 OEMUIPROCS 结构中定义。",
       "syntax": "BOOL DrvUpdateUISetting(\n  PVOID pdriverobj,\n  PVOID pOptItem,\n  DWORD dwPreviousSelection,\n  DWORD dwMode\n);",
       "return_value": {
-        "description": "如果函数成功处理该 UI 设置更新，则返回 TRUE；否则返回 FALSE。"
+        "description": "如果函数成功处理该 UI 设置更新，则返回 TRUE；否则返回 FALSE。",
+        "type": "BOOL"
       },
       "header": "printoem.h",
       "deprecated": true,
@@ -2621,7 +2858,8 @@
       "description": "已过时的 Unidrv OEM 渲染插件函数指针原型，对应 DRVPROCS 结构中的 DrvWriteAbortBuf 成员。Windows 2000 及更高版本应改用 IPrintOemDriverUni::DrvWriteAbortBuf。该回调用于将数据写入打印机的中止缓冲区。",
       "syntax": "DWORD DrvWriteAbortBuf(\n  PDEVOBJ pdevobj,\n  PVOID   pBuffer,\n  DWORD   cbSize,\n  DWORD   dwWait\n);",
       "return_value": {
-        "description": "返回写入中止缓冲区的字节数，类型为 DWORD。"
+        "description": "返回写入中止缓冲区的字节数，类型为 DWORD。",
+        "type": "DWORD"
       },
       "header": "printoem.h",
       "deprecated": true,
@@ -2638,7 +2876,8 @@
       "description": "已过时的 Unidrv OEM 回调函数。对于 Windows 2000 及更高版本，Unidrv 插件应改用 IPrintOemDriverUni::DrvXMoveTo。该函数原型由 DRVPROCS 结构中的 PFN_DrvXMoveTo 成员定义。",
       "syntax": "INT DrvXMoveTo(\n  PDEVOBJ pdevobj,\n  INT x,\n  DWORD dwFlags\n);",
       "return_value": {
-        "description": "返回一个 INT 值。"
+        "description": "返回一个 INT 值。",
+        "type": "INT"
       },
       "header": "printoem.h",
       "deprecated": true,
@@ -2655,7 +2894,8 @@
       "description": "已过时的 Unidrv 呈现插件回调函数。由 Unidrv 提供，供 OEM 渲染插件移动当前输出位置到指定的 Y 坐标。该函数在 printoem.h 中声明。",
       "syntax": "INT DrvYMoveTo(\n  PDEVOBJ pdevobj,\n  INT y,\n  DWORD dwFlags\n);",
       "return_value": {
-        "description": "返回一个 INT 值。"
+        "description": "返回一个 INT 值。",
+        "type": "INT"
       },
       "requirements": {
         "header": "printoem.h"
@@ -2676,7 +2916,8 @@
       "description": "ComPropSheet 是由公共属性表用户界面 (CPSUI) 提供的函数，供 CPSUI 应用程序（包括打印机接口 DLL）调用，以创建、修改、查询或删除属性表页及其相关信息。其具体行为由传入的函数代码决定。",
       "syntax": "LONG ComPropSheet(\n  HANDLE hComPropSheet,\n  UINT   Function,\n  LPARAM lParam1,\n  LPARAM lParam2\n);",
       "return_value": {
-        "description": "返回值取决于 Function 参数指定的 ComPropSheet 函数代码。不同函数代码的返回语义不同，应参见相应的 CPSFUNC_* 说明。"
+        "description": "返回值取决于 Function 参数指定的 ComPropSheet 函数代码。不同函数代码的返回语义不同，应参见相应的 CPSFUNC_* 说明。",
+        "type": "LONG"
       },
       "remarks": "ComPropSheet 的行为由 Function 参数指定的 CPSFUNC_* 函数代码决定。调用方通常在其 PFNPROPSHEETUI 回调过程中使用此函数来添加、删除、查询或更新属性表页。不同操作对 hComPropSheet、lParam1 和 lParam2 的解释不同。",
       "requirements": {
@@ -2722,7 +2963,8 @@
         {
           "name": "pDefaultNamespace",
           "direction": "out",
-          "description": "指向接收命名空间 URI 的 BSTR 的指针。 驱动程序将命名空间 URI 放置在 pDefaultNamespace 指向的缓冲区中。 IPrintTicketProvider：：QueryDeviceNamespace 负责通过调用 SysAllocString（Microsoft Windows SDK 文档中所述）分配字符串，但调用方负责释放字符串。"
+          "description": "指向接收命名空间 URI 的 BSTR 的指针。 驱动程序将命名空间 URI 放置在 pDefaultNamespace 指向的缓冲区中。 IPrintTicketProvider：：QueryDeviceNamespace 负责通过调用 SysAllocString（Microsoft Windows SDK 文档中所述）分配字符串，但调用方负责释放字符串。",
+          "type": "BSTR"
         },
         {
           "name": "pBaseTicket",
@@ -2740,7 +2982,10 @@
           "description": "指向接收以下枚举值的变量的指针："
         }
       ],
-      "return_value": "此方法返回设备默认命名空间 URI，供打印票证相关处理使用。输出字符串由提供程序分配，调用方负责释放。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "此方法返回设备默认命名空间 URI，供打印票证相关处理使用。输出字符串由提供程序分配，调用方负责释放。"
+      },
       "remarks": "此方法返回设备默认命名空间 URI，供打印票证相关处理使用。输出字符串由提供程序分配，调用方负责释放。",
       "requirements": {
         "header": "prdrvcom.h"
@@ -2775,11 +3020,13 @@
         {
           "name": "x",
           "direction": "in",
-          "description": "输出位图左边缘的 x 坐标（以像素为单位）。[in] y 输出位图上边缘的 y 坐标（以像素为单位）。[in] width 输出位图的宽度（以像素为单位）。[in] height 输出位图的高度（以像素为单位）。[in, optional] notificationCallback 指向调用方实现的通知对象的 IXpsRasterizerNotificationCallback 接口的指针。 此参数是 可选的，如果调用方不需要通知回调，则可以 NULL。[out, optional] bitmap 指向方法将指针写入到新创建的位图对象的 IWICBitmap 接口的位置。 如果方法失败， 它将 NULL 写入此位置并返回错误代码。"
+          "description": "输出位图左边缘的 x 坐标（以像素为单位）。[in] y 输出位图上边缘的 y 坐标（以像素为单位）。[in] width 输出位图的宽度（以像素为单位）。[in] height 输出位图的高度（以像素为单位）。[in, optional] notificationCallback 指向调用方实现的通知对象的 IXpsRasterizerNotificationCallback 接口的指针。 此参数是 可选的，如果调用方不需要通知回调，则可以 NULL。[out, optional] bitmap 指向方法将指针写入到新创建的位图对象的 IWICBitmap 接口的位置。 如果方法失败， 它将 NULL 写入此位置并返回错误代码。",
+          "type": "INT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK；否则返回 HRESULT 错误代码，例如 E_POINTER 或 E_INVALIDARG。"
+        "description": "如果该方法成功，则返回 S_OK；否则返回 HRESULT 错误代码，例如 E_POINTER 或 E_INVALIDARG。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "xpsrassvc.h"
@@ -2802,16 +3049,19 @@
         {
           "name": "pvBuffer",
           "direction": "out",
-          "description": "指向将读取字节的缓冲区的指针。"
+          "description": "指向将读取字节的缓冲区的指针。",
+          "type": "void"
         },
         {
           "name": "cbRequested",
           "direction": "in",
-          "description": "请求读取的字节数。[out] pcbRead 指向实际读取的字节数的指针。[out] pbEndOfFile 指向 BOOL 的指针 值，该值指示是否读取文件结尾（EOF）。"
+          "description": "请求读取的字节数。[out] pcbRead 指向实际读取的字节数的指针。[out] pbEndOfFile 指向 BOOL 的指针 值，该值指示是否读取文件结尾（EOF）。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT。成功时返回 S_OK；失败时返回相应的错误代码。"
+        "description": "返回 HRESULT。成功时返回 S_OK；失败时返回相应的错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -2835,10 +3085,14 @@
         {
           "name": "hDeviceObject",
           "direction": "in",
-          "description": "要删除的设备对象的 HANDLE。 这应该是使用 AddPrintDeviceObject创建的设备对象。"
+          "description": "要删除的设备对象的 HANDLE。 这应该是使用 AddPrintDeviceObject创建的设备对象。",
+          "type": "HANDLE"
         }
       ],
-      "return_value": "使用此函数删除已删除打印机对应的设备对象。后台处理程序服务停止时会自动删除所有设备对象，因此通常不需要为每个打印机设备对象都显式调用 RemovePrintDeviceObject。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "使用此函数删除已删除打印机对应的设备对象。后台处理程序服务停止时会自动删除所有设备对象，因此通常不需要为每个打印机设备对象都显式调用 RemovePrintDeviceObject。"
+      },
       "remarks": "使用此函数删除已删除打印机对应的设备对象。后台处理程序服务停止时会自动删除所有设备对象，因此通常不需要为每个打印机设备对象都显式调用 RemovePrintDeviceObject。",
       "header": "winsplp.h",
       "deprecated": false,
@@ -2860,11 +3114,13 @@
         {
           "name": "update",
           "direction": "in",
-          "description": "描述管道管理器进度的 EXpsJobConsumption类型化值。"
+          "description": "描述管道管理器进度的 EXpsJobConsumption类型化值。",
+          "type": "EXpsJobConsumption"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK 或其他 HRESULT 成功代码；否则返回错误代码。"
+        "description": "如果方法成功，则返回 S_OK 或其他 HRESULT 成功代码；否则返回错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -2888,10 +3144,14 @@
         {
           "name": "ppIReader",
           "direction": "out",
-          "description": "RequestReader 检索时接收读取器接口对象的变量。"
+          "description": "RequestReader 检索时接收读取器接口对象的变量。",
+          "type": "void"
         }
       ],
-      "return_value": "IInterFilterCommunicator 对象会传递给每个筛选器的 IPrintPipelineFilter::InitializeFilter 方法。筛选器使用 RequestReader 方法获取该对象的读取器接口。对象的通用唯一标识符 (UUID) 在筛选器管道配置文件中声明。筛选器使用该接口接收输入数据。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "IInterFilterCommunicator 对象会传递给每个筛选器的 IPrintPipelineFilter::InitializeFilter 方法。筛选器使用 RequestReader 方法获取该对象的读取器接口。对象的通用唯一标识符 (UUID) 在筛选器管道配置文件中声明。筛选器使用该接口接收输入数据。"
+      },
       "remarks": "IInterFilterCommunicator 对象会传递给每个筛选器的 IPrintPipelineFilter::InitializeFilter 方法。筛选器使用 RequestReader 方法获取该对象的读取器接口。对象的通用唯一标识符 (UUID) 在筛选器管道配置文件中声明。筛选器使用该接口接收输入数据。",
       "requirements": {
         "header": "filterpipeline.h"
@@ -2915,10 +3175,14 @@
         {
           "name": "hrReason",
           "direction": "in",
-          "description": "HRESULT 值，指示内存不足的原因。[in] pReason 未使用。 设置为 NULL。"
+          "description": "HRESULT 值，指示内存不足的原因。[in] pReason 未使用。 设置为 NULL。",
+          "type": "HRESULT"
         }
       ],
-      "return_value": "使用 IXpsDocumentConsumer 接口的筛选器在关闭管道之前，必须先调用 IPrintPipelineManagerControl::RequestShutdown，然后再调用 IXpsDocumentConsumer::CloseSender。若先调用 IXpsDocumentConsumer::CloseSender，可能会生成无效的 XPS 文档并导致错误。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "使用 IXpsDocumentConsumer 接口的筛选器在关闭管道之前，必须先调用 IPrintPipelineManagerControl::RequestShutdown，然后再调用 IXpsDocumentConsumer::CloseSender。若先调用 IXpsDocumentConsumer::CloseSender，可能会生成无效的 XPS 文档并导致错误。"
+      },
       "remarks": "使用 IXpsDocumentConsumer 接口的筛选器在关闭管道之前，必须先调用 IPrintPipelineManagerControl::RequestShutdown，然后再调用 IXpsDocumentConsumer::CloseSender。若先调用 IXpsDocumentConsumer::CloseSender，可能会生成无效的 XPS 文档并导致错误。",
       "requirements": {
         "header": "filterpipeline.h"
@@ -2941,10 +3205,14 @@
         {
           "name": "ppIWriter",
           "direction": "out",
-          "description": "接收 RequestWriter 检索的编写器接口对象的变量。"
+          "description": "接收 RequestWriter 检索的编写器接口对象的变量。",
+          "type": "void"
         }
       ],
-      "return_value": "IInterFilterCommunicator 对象会传递给每个筛选器的 IPrintPipelineFilter::InitializeFilter 方法。筛选器可调用 RequestWriter 获取该对象的写入器接口。相关对象的 UUID 在筛选器管道配置文件中声明。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "IInterFilterCommunicator 对象会传递给每个筛选器的 IPrintPipelineFilter::InitializeFilter 方法。筛选器可调用 RequestWriter 获取该对象的写入器接口。相关对象的 UUID 在筛选器管道配置文件中声明。"
+      },
       "remarks": "IInterFilterCommunicator 对象会传递给每个筛选器的 IPrintPipelineFilter::InitializeFilter 方法。筛选器可调用 RequestWriter 获取该对象的写入器接口。相关对象的 UUID 在筛选器管道配置文件中声明。",
       "requirements": {
         "header": "filterpipeline.h"
@@ -2967,7 +3235,8 @@
         {
           "name": "NumBytes",
           "direction": "in",
-          "description": "指定要分配的内存块的大小（以字节为单位）。"
+          "description": "指定要分配的内存块的大小（以字节为单位）。",
+          "type": "size_t"
         }
       ],
       "remarks": "使用完由此函数分配的内存后，应调用 RouterFreeBidiMem 释放。",
@@ -2981,7 +3250,11 @@
         "GetLastError"
       ],
       "confidence": 0.8,
-      "_source_line": 715
+      "_source_line": 715,
+      "return_value": {
+        "type": "PVOID",
+        "description": ""
+      }
     },
     {
       "id": "windows::RouterAllocBidiResponseContainer",
@@ -3026,12 +3299,14 @@
         {
           "name": "pName",
           "direction": "in",
-          "description": "指向以 null 结尾的字符串的指针，指定打印机或打印服务器的名称。[in] pNotificationType 指向 GUID 的指针，表示通过此通道发送的通知的类型。 eNotifyFilter 接收通知的会话或用户的筛选器。"
+          "description": "指向以 null 结尾的字符串的指针，指定打印机或打印服务器的名称。[in] pNotificationType 指向 GUID 的指针，表示通过此通道发送的通知的类型。 eNotifyFilter 接收通知的会话或用户的筛选器。",
+          "type": "PCWSTR"
         },
         {
           "name": "eConversationStyle",
           "direction": "in",
-          "description": "通信类型：单向或双向。[in] pCallback 指向在双向通信生效时调用以传递响应通知的回调函数的指针。 当单向通信生效时，将忽略此参数。 ppIAsynchNotification 指向接收表示通知通道的接口对象的地址的变量的指针。"
+          "description": "通信类型：单向或双向。[in] pCallback 指向在双向通信生效时调用以传递响应通知的回调函数的指针。 当单向通信生效时，将忽略此参数。 ppIAsynchNotification 指向接收表示通知通道的接口对象的地址的变量的指针。",
+          "type": "PrintAsyncNotifyConversationStyle"
         }
       ],
       "remarks": "创建的通知通道在不再需要时应通过对返回的 IPrintAsyncNotifyChannel 接口调用 Release 方法进行释放。有关释放时机，请参阅通知通道的相关文档。",
@@ -3047,7 +3322,11 @@
         "RouterFreeBidiMem"
       ],
       "confidence": 0.7,
-      "_source_line": 720
+      "_source_line": 720,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::RouterFreeBidiMem",
@@ -3059,7 +3338,8 @@
         {
           "name": "pMemPointer",
           "direction": "in",
-          "description": "指向要释放的内存的指针。"
+          "description": "指向要释放的内存的指针。",
+          "type": "PVOID"
         }
       ],
       "return_value": {
@@ -3084,7 +3364,8 @@
         {
           "name": "pData",
           "direction": "in",
-          "description": "指向要释放BIDI_RESPONSE_CONTAINER结构的指针。"
+          "description": "指向要释放BIDI_RESPONSE_CONTAINER结构的指针。",
+          "type": "PBIDI_RESPONSE_CONTAINER"
         }
       ],
       "requirements": {
@@ -3099,7 +3380,11 @@
         "BIDI_RESPONSE_CONTAINER"
       ],
       "confidence": 0.8,
-      "_source_line": 723
+      "_source_line": 723,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::BIDI_RESPONSE_CONTAINER",
@@ -3126,11 +3411,13 @@
         {
           "name": "pPrinter",
           "direction": "in",
-          "description": "指向包含打印机或打印服务器名称的以 null 结尾的字符串的指针。[in] riid 请求的 COM 接口的标识符。[out] ppv 指向一个变量的指针，该变量提供 iid 参数中请求的 COM 接口的地址。"
+          "description": "指向包含打印机或打印服务器名称的以 null 结尾的字符串的指针。[in] riid 请求的 COM 接口的标识符。[out] ppv 指向一个变量的指针，该变量提供 iid 参数中请求的 COM 接口的地址。",
+          "type": "PCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 S_OK；否则返回标准 COM 错误代码。"
+        "description": "如果成功，则返回 S_OK；否则返回标准 COM 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "prnasntp.h",
@@ -3153,16 +3440,19 @@
         {
           "name": "pName",
           "direction": "in",
-          "description": "指向以 null 结尾的字符串的指针，指定打印机或打印服务器的名称。[in] pNotificationType 指向 GUID 的指针，表示对调用方感兴趣的通知的类型。[in] eNotifyFilter 接收通知时会话或用户感兴趣的会话或用户的筛选器。"
+          "description": "指向以 null 结尾的字符串的指针，指定打印机或打印服务器的名称。[in] pNotificationType 指向 GUID 的指针，表示对调用方感兴趣的通知的类型。[in] eNotifyFilter 接收通知时会话或用户感兴趣的会话或用户的筛选器。",
+          "type": "PCWSTR"
         },
         {
           "name": "eConversationStyle",
           "direction": "in",
-          "description": "通信类型：单向或双向。[in] pCallback 指向用于传递通知的回调的指针。[out] phNotify 指向不透明句柄的指针。 调用方可以使用此句柄来停止接收通知。"
+          "description": "通信类型：单向或双向。[in] pCallback 指向用于传递通知的回调的指针。[out] phNotify 指向不透明句柄的指针。 调用方可以使用此句柄来停止接收通知。",
+          "type": "PrintAsyncNotifyConversationStyle"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK；失败时返回 HRESULT 错误代码。"
+        "description": "成功时返回 S_OK；失败时返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "header": "prnasntp.h",
       "deprecated": false,
@@ -3182,11 +3472,13 @@
         {
           "name": "hNotify",
           "direction": "in",
-          "description": "RouterRegisterForPrintAsyncNotifications 函数返回的注册句柄。"
+          "description": "RouterRegisterForPrintAsyncNotifications 函数返回的注册句柄。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 S_OK；否则返回标准 COM 错误代码。"
+        "description": "如果函数成功，则返回 S_OK；否则返回标准 COM 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "prnasntp.h"
@@ -3208,11 +3500,13 @@
         {
           "name": "pIFixedDocument",
           "direction": "in",
-          "description": "指向 XPS 固定文档对象的指针。"
+          "description": "指向 XPS 固定文档对象的指针。",
+          "type": "IFixedDocument"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT。成功时返回 S_OK；失败时返回相应的 COM 错误代码。"
+        "description": "返回 HRESULT。成功时返回 S_OK；失败时返回相应的 COM 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -3235,11 +3529,13 @@
         {
           "name": "pIFixedDocumentSequence",
           "direction": "in",
-          "description": "指向 XPS 固定文档序列对象的指针。"
+          "description": "指向 XPS 固定文档序列对象的指针。",
+          "type": "IFixedDocumentSequence"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "只能发送一个 IFixedDocumentSequence 接口。如果筛选器为同一打印作业提交多个此类接口，则该方法将失败。",
       "requirements": {
@@ -3263,10 +3559,14 @@
         {
           "name": "pIFixedPage",
           "direction": "in",
-          "description": "指向 XPS 固定页对象的指针。"
+          "description": "指向 XPS 固定页对象的指针。",
+          "type": "IFixedPage"
         }
       ],
-      "return_value": "此方法用于将 IFixedPage 表示的 XPS 固定页发送到筛选器管道。另请参阅 SendFixedDocumentSequence、SendXpsDocument 和 SendXpsUnknown。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "此方法用于将 IFixedPage 表示的 XPS 固定页发送到筛选器管道。另请参阅 SendFixedDocumentSequence、SendXpsDocument 和 SendXpsUnknown。"
+      },
       "requirements": {
         "header": "filterpipeline.h"
       },
@@ -3287,7 +3587,8 @@
       "description": "IBidiAsyncNotifyChannel 接口的 SendNotification 方法，用于在异步通知通道上发送通知数据。",
       "syntax": "HRESULT SendNotification(\n  IPrintAsyncNotifyDataObject *pData\n);",
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "prnasntp.h"
@@ -3310,7 +3611,8 @@
         {
           "name": "pszAction",
           "direction": "in",
-          "description": "指向 NULL 终止的字符串的指针，指定此 bidi 请求的作。 它可以是下列常量之一。 不断"
+          "description": "指向 NULL 终止的字符串的指针，指定此 bidi 请求的作。 它可以是下列常量之一。 不断",
+          "type": "LPCWSTR"
         }
       ],
       "requirements": {
@@ -3326,7 +3628,11 @@
       ],
       "confidence": 0.8,
       "_source_line": 745,
-      "remarks": "这是 IBidiSpl 接口的方法。原描述中混入了 UnbindDevice 的内容，应移除。"
+      "remarks": "这是 IBidiSpl 接口的方法。原描述中混入了 UnbindDevice 的内容，应移除。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::SendRecvXMLStream",
@@ -3338,11 +3644,13 @@
         {
           "name": "pSRequest",
           "direction": "in",
-          "description": "指向 bidi 通信请求的指针，该流符合 双向通信架构之一。[out] ppSResponse 指向打印机响应的指针，该流符合 双向通信架构之一。"
+          "description": "指向 bidi 通信请求的指针，该流符合 双向通信架构之一。[out] ppSResponse 指向打印机响应的指针，该流符合 双向通信架构之一。",
+          "type": "IStream"
         }
       ],
       "return_value": {
-        "description": "返回标准 HRESULT 值。成功时返回 S_OK。"
+        "description": "返回标准 HRESULT 值。成功时返回 S_OK。",
+        "type": "HRESULT"
       },
       "header": "bidispl.h",
       "deprecated": false,
@@ -3362,11 +3670,13 @@
         {
           "name": "bstrRequest",
           "direction": "in",
-          "description": "bidi 通信请求作为 Unicode 字符串，符合 双向通信架构之一。[out] pbstrResponse 指向打印机响应的指针，该字符串符合 双向通信架构之一。"
+          "description": "bidi 通信请求作为 Unicode 字符串，符合 双向通信架构之一。[out] pbstrResponse 指向打印机响应的指针，该字符串符合 双向通信架构之一。",
+          "type": "BSTR"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3392,10 +3702,14 @@
         {
           "name": "pIXpsDocument",
           "direction": "in",
-          "description": "指向要发送的 XPS 文档对象的指针。"
+          "description": "指向要发送的 XPS 文档对象的指针。",
+          "type": "IXpsDocument"
         }
       ],
-      "return_value": "IXpsDocument 接口是 XPS 文档树视图的根。该树包含一个固定文档序列以及任意数量的固定文档和固定页。每个打印作业只能发送一个 IXpsDocument 接口；如果筛选器为同一打印作业提交多个 IXpsDocument 接口，则 SendXpsDocument 方法将失败。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "IXpsDocument 接口是 XPS 文档树视图的根。该树包含一个固定文档序列以及任意数量的固定文档和固定页。每个打印作业只能发送一个 IXpsDocument 接口；如果筛选器为同一打印作业提交多个 IXpsDocument 接口，则 SendXpsDocument 方法将失败。"
+      },
       "remarks": "IXpsDocument 接口是 XPS 文档树视图的根。该树包含一个固定文档序列以及任意数量的固定文档和固定页。每个打印作业只能发送一个 IXpsDocument 接口；如果筛选器为同一打印作业提交多个 IXpsDocument 接口，则 SendXpsDocument 方法将失败。",
       "header": "filterpipeline.h",
       "deprecated": false,
@@ -3415,11 +3729,13 @@
         {
           "name": "pUnknown",
           "direction": "in",
-          "description": "指向无法识别的文档部件接口的指针。"
+          "description": "指向无法识别的文档部件接口的指针。",
+          "type": "IUnknown"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT。成功时返回 S_OK；失败时返回相应的 HRESULT 错误代码。"
+        "description": "返回 HRESULT。成功时返回 S_OK；失败时返回相应的 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "如果 IXpsDocumentProvider::GetXpsPart 方法返回筛选器无法识别的对象，则筛选器应调用 SendXpsUnknown，将该对象转发到筛选器管道中的下一个筛选器。将无法识别的对象继续传递有助于筛选器与未来版本的文档格式保持兼容。",
       "requirements": {
@@ -3458,11 +3774,13 @@
         {
           "name": "pContentType",
           "direction": "in",
-          "description": "要设置字体的内容的类型。"
+          "description": "要设置字体的内容的类型。",
+          "type": "const wchar_t"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -3485,7 +3803,8 @@
         {
           "name": "options",
           "direction": "in",
-          "description": "描述字体选项的 ExpsFontOptions类型值。"
+          "description": "描述字体选项的 ExpsFontOptions类型值。",
+          "type": "EXpsFontOptions"
         },
         {
           "name": "pRestriction",
@@ -3494,7 +3813,8 @@
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "如果该方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -3519,11 +3839,13 @@
         {
           "name": "pContentType",
           "direction": "in",
-          "description": "图像的内容类型。"
+          "description": "图像的内容类型。",
+          "type": "const wchar_t*"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK 或其他成功的 HRESULT；否则返回失败的 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK 或其他成功的 HRESULT；否则返回失败的 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -3546,7 +3868,8 @@
         {
           "name": "dwType",
           "direction": "in",
-          "description": "要发送的数据的类型。 此参数可以是下列值之一。 价值"
+          "description": "要发送的数据的类型。 此参数可以是下列值之一。 价值",
+          "type": "const DWORD"
         }
       ],
       "requirements": {
@@ -3562,7 +3885,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 768,
-      "return_value": "如果方法成功，则返回 S_OK 或其他成功的 HRESULT；否则返回失败的 HRESULT 值。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果方法成功，则返回 S_OK 或其他成功的 HRESULT；否则返回失败的 HRESULT 值。"
+      },
       "remarks": "此方法用于为打印机双向请求设置输入数据。"
     },
     {
@@ -3575,11 +3901,13 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "介绍 hPrinter HANDLE 参数。[in] JobId 介绍 jobId DWORD 参数。[in] pProperty 介绍 PrintNamedProperty 参数 pProperty。"
+          "description": "介绍 hPrinter HANDLE 参数。[in] JobId 介绍 jobId DWORD 参数。[in] pProperty 介绍 PrintNamedProperty 参数 pProperty。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 ERROR_SUCCESS；否则返回系统错误代码。"
+        "description": "如果函数成功，则返回 ERROR_SUCCESS；否则返回系统错误代码。",
+        "type": "DWORD"
       },
       "requirements": {
         "header": "winspool.h"
@@ -3602,10 +3930,14 @@
         {
           "name": "width",
           "direction": "in",
-          "description": "设备能够呈现的线条的最小粗细（以像素为单位）。 该值应大于 1。"
+          "description": "设备能够呈现的线条的最小粗细（以像素为单位）。 该值应大于 1。",
+          "type": "INT"
         }
       ],
-      "return_value": "此方法从 Windows 7 开始受支持。Windows 7 之前的 Windows 版本不支持。通常作为 IXpsRasterizer 接口的方法使用。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "此方法从 Windows 7 开始受支持。Windows 7 之前的 Windows 版本不支持。通常作为 IXpsRasterizer 接口的方法使用。"
+      },
       "remarks": "此方法从 Windows 7 开始受支持。Windows 7 之前的 Windows 版本不支持。通常作为 IXpsRasterizer 接口的方法使用。",
       "requirements": {
         "header": "xpsrassvc.h"
@@ -3628,11 +3960,13 @@
         {
           "name": "pUnk",
           "direction": "in",
-          "description": "指向新部件的指针。"
+          "description": "指向新部件的指针。",
+          "type": "IUnknown"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK 或其他成功的 HRESULT；否则返回错误代码。"
+        "description": "如果方法成功，则返回 S_OK 或其他成功的 HRESULT；否则返回错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -3656,11 +3990,13 @@
         {
           "name": "compression",
           "direction": "in",
-          "description": "描述部件压缩选项的 ExpsCompressionOptions类型化值。"
+          "description": "描述部件压缩选项的 ExpsCompressionOptions类型化值。",
+          "type": "EpsCompressionOptions"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK 或其他成功的 HRESULT；否则返回错误代码。"
+        "description": "如果方法成功，则返回 S_OK 或其他成功的 HRESULT；否则返回错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -3683,11 +4019,13 @@
         {
           "name": "pPrintTicket",
           "direction": "in",
-          "description": "指向要插入的打印票证的指针。"
+          "description": "指向要插入的打印票证的指针。",
+          "type": "IPartPrintTicket"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -3708,11 +4046,13 @@
         {
           "name": "pszSchema",
           "direction": "in",
-          "description": "指向架构字符串的指针。"
+          "description": "指向架构字符串的指针。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK。否则返回 HRESULT 错误代码。有关 COM 错误代码的详细信息，请参阅 COM Error Codes。"
+        "description": "如果方法成功，则返回 S_OK。否则返回 HRESULT 错误代码。有关 COM 错误代码的详细信息，请参阅 COM Error Codes。",
+        "type": "HRESULT"
       },
       "header": "bidispl.h",
       "deprecated": false,
@@ -3733,11 +4073,13 @@
         {
           "name": "pThumbnail",
           "direction": "in",
-          "description": "指向新缩略图的指针。"
+          "description": "指向新缩略图的指针。",
+          "type": "IPartThumbnail"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT。"
+        "description": "返回 HRESULT。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -3761,11 +4103,13 @@
         {
           "name": "pContentType",
           "direction": "in",
-          "description": "缩略图的内容类型。"
+          "description": "缩略图的内容类型。",
+          "type": "const wchar_t"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK 或其他成功的 HRESULT；否则返回失败的 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK 或其他成功的 HRESULT；否则返回失败的 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -3791,15 +4135,20 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "打印机的句柄。 JobId 指定打印作业。"
+          "description": "打印机的句柄。 JobId 指定打印作业。",
+          "type": "HANDLE"
         },
         {
           "name": "pIsSessionZero",
           "direction": "out",
-          "description": "指向如果会话的 SessionID 为零，则指向设置为 TRUE 的内存位置的指针;否则，此值设置 为 FALSE。"
+          "description": "指向如果会话的 SessionID 为零，则指向设置为 TRUE 的内存位置的指针;否则，此值设置 为 FALSE。",
+          "type": "BOOL"
         }
       ],
-      "return_value": "需要显示自定义用户界面元素的打印驱动程序可以调用此函数，以确定当前作业是否由会话 0 发出。驱动程序可根据该信息决定在用户会话中而不是会话 0 中显示用户界面。相关函数 SplPromptUIInUsersSession 可用于在用户会话中显示标准 Windows 消息框。",
+      "return_value": {
+        "type": "DWORD",
+        "description": "需要显示自定义用户界面元素的打印驱动程序可以调用此函数，以确定当前作业是否由会话 0 发出。驱动程序可根据该信息决定在用户会话中而不是会话 0 中显示用户界面。相关函数 SplPromptUIInUsersSession 可用于在用户会话中显示标准 Windows 消息框。"
+      },
       "remarks": "需要显示自定义用户界面元素的打印驱动程序可以调用此函数，以确定当前作业是否由会话 0 发出。驱动程序可根据该信息决定在用户会话中而不是会话 0 中显示用户界面。相关函数 SplPromptUIInUsersSession 可用于在用户会话中显示标准 Windows 消息框。",
       "header": "winsplp.h",
       "deprecated": false,
@@ -3819,10 +4168,14 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "打印机的句柄。[in] JobId 指定打印作业。[in] pUIParams 指向 SHOWUIPARAMS 结构的指针，该结构包含确定消息框的外观和行为的值。[out] pResponse 指向包含用户响应或 IDASYNC 常量内存位置的指针。 有关详细信息，请参阅“备注”部分。"
+          "description": "打印机的句柄。[in] JobId 指定打印作业。[in] pUIParams 指向 SHOWUIPARAMS 结构的指针，该结构包含确定消息框的外观和行为的值。[out] pResponse 指向包含用户响应或 IDASYNC 常量内存位置的指针。 有关详细信息，请参阅“备注”部分。",
+          "type": "HANDLE"
         }
       ],
-      "return_value": "如果 pUIParams->bWait 为 FALSE，则该函数会在不等待用户响应的情况下立即返回，并将 *pResponse 设置为 IDASYNC。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果 pUIParams->bWait 为 FALSE，则该函数会在不等待用户响应的情况下立即返回，并将 *pResponse 设置为 IDASYNC。"
+      },
       "remarks": "如果 pUIParams->bWait 为 FALSE，则该函数会在不等待用户响应的情况下立即返回，并将 *pResponse 设置为 IDASYNC。",
       "header": "winsplp.h",
       "deprecated": true,
@@ -3851,7 +4204,10 @@
       "cross_references": [],
       "confidence": 0.7,
       "_source_line": 807,
-      "return_value": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+      }
     },
     {
       "id": "windows::UnbindDevice",
@@ -3864,7 +4220,10 @@
       "cross_references": [],
       "confidence": 0.6,
       "_source_line": 813,
-      "return_value": "如果方法成功，则返回 S_OK；否则返回 COM 错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果方法成功，则返回 S_OK；否则返回 COM 错误代码。"
+      },
       "remarks": "该方法用于结束当前双向打印机通信请求与打印机之间的绑定。有关 COM 错误代码的详细信息，请参阅 COM 错误代码文档。"
     },
     {
@@ -3891,16 +4250,19 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "打开的打印机的 HANDLE。 这应该是 AddPrinter 返回的句柄，或者 OpenPrinter 后台处理程序函数返回。"
+          "description": "打开的打印机的 HANDLE。 这应该是 AddPrinter 返回的句柄，或者 OpenPrinter 后台处理程序函数返回。",
+          "type": "HANDLE"
         },
         {
           "name": "hDeviceObject",
           "direction": "in",
-          "description": "要更新的设备对象的 HANDLE。 这应该是使用 AddPrintDeviceObject创建的设备对象。"
+          "description": "要更新的设备对象的 HANDLE。 这应该是使用 AddPrintDeviceObject创建的设备对象。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK。失败时返回 HRESULT 错误代码；例如，如果句柄无效，或在调用前设备对象已被删除，则可返回 HRESULT_FROM_WIN32(ERROR_INVALID_HANDLE)。"
+        "description": "成功时返回 S_OK。失败时返回 HRESULT 错误代码；例如，如果句柄无效，或在调用前设备对象已被删除，则可返回 HRESULT_FROM_WIN32(ERROR_INVALID_HANDLE)。",
+        "type": "HRESULT"
       },
       "remarks": "PRINTER_INFO_2 结构是 UpdatePrintDeviceObject 可更新的属性类型的一个示例。",
       "header": "winsplp.h",
@@ -3919,7 +4281,10 @@
       "name": "WhyConstrained",
       "entity_type": "method",
       "description": "IPrintCoreHelper::WhyConstrained 方法用于确定某个功能选项为何受到约束，并返回导致该约束的一组功能/选项对。调用方可指定要检查的功能关键字和选项关键字；方法会分析当前 DEVMODEW 或调用方提供的 DEVMODEW 中的设置，并输出相关的约束信息。",
-      "return_value": "成功时返回 S_OK。若指定的功能/选项未受约束，也可返回 S_OK，但输出的约束数组为空。失败时返回 HRESULT 错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "成功时返回 S_OK。若指定的功能/选项未受约束，也可返回 S_OK，但输出的约束数组为空。失败时返回 HRESULT 错误代码。"
+      },
       "header": "prcomoem.h",
       "deprecated": false,
       "cross_references": [
@@ -3941,11 +4306,13 @@
         {
           "name": "pvBuffer",
           "direction": "in",
-          "description": "指向要从中写入字节的缓冲区的指针。[in] cbBuffer 要从中读取的缓冲区的大小。[out] pcbWritten 指向实际写入的字节数的指针。"
+          "description": "指向要从中写入字节的缓冲区的指针。[in] cbBuffer 要从中读取的缓冲区的大小。[out] pcbWritten 指向实际写入的字节数的指针。",
+          "type": "const void"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT 值。"
+        "description": "返回 HRESULT 值。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "filterpipeline.h"
@@ -3970,11 +4337,13 @@
         {
           "name": "hXcv",
           "direction": "in",
-          "description": "通过调用 OpenPrinter（Microsoft Windows SDK 文档中所述）获取的调用方提供的打印 机句柄。 此句柄由 XcvOpenPort创建和返回。"
+          "description": "通过调用 OpenPrinter（Microsoft Windows SDK 文档中所述）获取的调用方提供的打印 机句柄。 此句柄由 XcvOpenPort创建和返回。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果成功关闭端口并使句柄失效，则返回 TRUE；否则返回 FALSE。"
+        "description": "如果成功关闭端口并使句柄失效，则返回 TRUE；否则返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "端口监视器服务器 DLL 必须实现 XcvClosePort，并将其函数地址填入 MONITOR2 结构。当前面对名称中包含 \"XcvPort\" 或 \"XcvMonitor\" 的打印机调用 ClosePrinter 时，后台处理程序会调用此函数。该函数应关闭 hXcv 指定的端口，并使该句柄无效。另请参阅 AddPortUI、OpenPrinter 和 XcvOpenPort。",
       "header": "winsplp.h",
@@ -4292,7 +4661,11 @@
         "PORT_DATA_1"
       ],
       "confidence": 0.8,
-      "_source_line": 1016
+      "_source_line": 1016,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::DEVQUERYPRINT_INFO",
@@ -5176,13 +5549,14 @@
     {
       "id": "windows::CPSUI_CANCEL",
       "name": "CPSUI_CANCEL",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "CPSUI_OK",
       "header": "compstui.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.55,
-      "_source_line": 1963
+      "_source_line": 1963,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::CPSUI_RESTARTWINDOWS",
@@ -5245,7 +5619,8 @@
         {
           "name": "pPSUIInfo",
           "direction": "in, optional",
-          "description": "调用方提供的指向 PROPSHEETUI_INFO 结构的指针。 可以为 NULL （请参阅以下“备注”部 分）。 lParam 调用方提供的整数值取决于PROPSHEETUI_INFO结构 原因 成员的内容，如下表所示。 原因值"
+          "description": "调用方提供的指向 PROPSHEETUI_INFO 结构的指针。 可以为 NULL （请参阅以下“备注”部 分）。 lParam 调用方提供的整数值取决于PROPSHEETUI_INFO结构 原因 成员的内容，如下表所示。 原因值",
+          "type": "PPROPSHEETUI_INFO"
         }
       ],
       "requirements": {
@@ -5256,7 +5631,10 @@
       "cross_references": [],
       "confidence": 0.8,
       "_source_line": 2064,
-      "return_value": "返回值取决于请求原因以及属性表页处理结果。通常应返回一个表示成功、失败或 CPSUI 处理状态的值；具体含义取决于 PROPSHEETUI_INFO 结构中的 Reason 成员和相关 CPSUI 文档。",
+      "return_value": {
+        "type": "LONG",
+        "description": "返回值取决于请求原因以及属性表页处理结果。通常应返回一个表示成功、失败或 CPSUI 处理状态的值；具体含义取决于 PROPSHEETUI_INFO 结构中的 Reason 成员和相关 CPSUI 文档。"
+      },
       "remarks": "DrvDocumentPropertySheets 由打印机接口 DLL 实现，用于响应文档属性表相关请求。函数通过 PROPSHEETUI_INFO 和 CPSUI 回调创建、修改或删除属性表页。它通常与 PROPSHEETUI_REASON_INIT、PROPSHEETUI_REASON_SET_RESULT 等原因代码，以及 CPSUI_PDLGPAGE_ADVDOCPROP 等页面类型常量一起使用。当前节点原始内容混入了 QueryJobAttributes 与 DEVMODE 大小说明，属于 OCR 串页噪声，已清理。"
     },
     {
@@ -5281,10 +5659,14 @@
         {
           "name": "pPSUIInfo",
           "direction": "in, optional",
-          "description": "调用方提供的指向 PROPSHEETUI_INFO 结构的指针。 lParam 调用方提供的整数值取决于PROPSHEETUI_INFO结构 原因 成员的内容，如下表所示。 原因值"
+          "description": "调用方提供的指向 PROPSHEETUI_INFO 结构的指针。 lParam 调用方提供的整数值取决于PROPSHEETUI_INFO结构 原因 成员的内容，如下表所示。 原因值",
+          "type": "PPCOMPROPSHEETUI"
         }
       ],
-      "return_value": "这是打印机接口 DLL 中与设备属性表相关的入口点，对应于打印机属性而不是文档属性。函数通常在 CPSUI 请求驱动提供或处理属性页时被调用。当前节点原始描述混入了结构字段和无关 OCR 内容，已清理。",
+      "return_value": {
+        "type": "LONG",
+        "description": "这是打印机接口 DLL 中与设备属性表相关的入口点，对应于打印机属性而不是文档属性。函数通常在 CPSUI 请求驱动提供或处理属性页时被调用。当前节点原始描述混入了结构字段和无关 OCR 内容，已清理。"
+      },
       "requirements": {
         "header": "compstui.h"
       },
@@ -6241,7 +6623,11 @@
         "GetCPSUIUserData"
       ],
       "confidence": 0.7,
-      "_source_line": 3174
+      "_source_line": 3174,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::DOT4_DC_CREATE_DATA",
@@ -6445,16 +6831,19 @@
         {
           "name": "pszTrueTypeFontName",
           "direction": "in",
-          "description": "指向包含有效 TrueType 字体名称的以 null 结尾的 Unicode 字符串的指针。 此参数不得 NULL。"
+          "description": "指向包含有效 TrueType 字体名称的以 null 结尾的 Unicode 字符串的指针。 此参数不得 NULL。",
+          "type": "PCWSTR"
         },
         {
           "name": "pszDevFontName",
           "direction": "in",
-          "description": "指向包含设备字体名称的以 null 结尾的 Unicode 字符串的指针。"
+          "description": "指向包含设备字体名称的以 null 结尾的 Unicode 字符串的指针。",
+          "type": "PCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；如果请求的字体不存在或不是 TrueType 字体，则返回 E_FAIL。"
+        "description": "如果方法成功，则返回 S_OK；如果请求的字体不存在或不是 TrueType 字体，则返回 E_FAIL。",
+        "type": "HRESULT"
       },
       "header": "prcomoem.h",
       "deprecated": false,
@@ -6524,11 +6913,13 @@
         {
           "name": "dwFlags",
           "direction": "in",
-          "description": "此参数是保留的，必须设置为零。[out] ppSnapshotStream 指向提供 GDL 快照的 XML 版本的流的指针。"
+          "description": "此参数是保留的，必须设置为零。[out] ppSnapshotStream 指向提供 GDL 快照的 XML 版本的流的指针。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回标准 COM 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回标准 COM 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "prcomoem.h"
@@ -6551,11 +6942,13 @@
         {
           "name": "pDevmode",
           "direction": "in",
-          "description": "指向 DEVMODEW 结构的指针。 如果提供了此指针，IPrintCoreHelperUni::CreateGDLSnapshot 应使用由 pDevmode 而不是默认或当前 DEVMODEW 结构指向的 DEVMODEW 结构。 如果从插 件提供程序调用此方法，则没有默认 DEVMODEW 结构，并且需要 pDevmode 参数。[in] cbSize pDevmode 参数指向的 DEVMODEW 结构的大小（以字节为单位）。[in] dwFlags 保留供系统使用。 此参数必须设置为零。[out] ppSnapshotStream 指向提供 GDL 快照的 XML 版本的流的指针。"
+          "description": "指向 DEVMODEW 结构的指针。 如果提供了此指针，IPrintCoreHelperUni::CreateGDLSnapshot 应使用由 pDevmode 而不是默认或当前 DEVMODEW 结构指向的 DEVMODEW 结构。 如果从插 件提供程序调用此方法，则没有默认 DEVMODEW 结构，并且需要 pDevmode 参数。[in] cbSize pDevmode 参数指向的 DEVMODEW 结构的大小（以字节为单位）。[in] dwFlags 保留供系统使用。 此参数必须设置为零。[out] ppSnapshotStream 指向提供 GDL 快照的 XML 版本的流的指针。",
+          "type": "PDEVMODE"
         }
       ],
       "return_value": {
-        "description": "如果成功，则返回 S_OK；否则返回标准 COM 错误代码。"
+        "description": "如果成功，则返回 S_OK；否则返回标准 COM 错误代码。",
+        "type": "HRESULT"
       },
       "header": "prcomoem.h",
       "deprecated": false,
@@ -6779,11 +7172,13 @@
         {
           "name": "pPrintTicket",
           "direction": "in, out",
-          "description": "指向打印票证的指针。"
+          "description": "指向打印票证的指针。",
+          "type": "out] IXMLDOMDocument2"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，或者插件不支持意向功能，则返回 S_OK；否则返回标准 COM 错误代码。"
+        "description": "如果操作成功，或者插件不支持意向功能，则返回 S_OK；否则返回标准 COM 错误代码。",
+        "type": "HRESULT"
       },
       "header": "prcomoem.h",
       "deprecated": false,
@@ -6845,7 +7240,11 @@
       ],
       "confidence": 0.7,
       "_source_line": 9030,
-      "remarks": "该方法由 Unidrv 渲染插件实现，用于初始化插件并填充 DRVENABLEDATA 结构，以便核心驱动程序了解插件导出的 DDI 挂钩和相关入口点。该实体当前内容混入了 DisablePDEV、DownloadCharGlyph、DownloadFontHeader、DriverDMS、EnablePDEV、FilterGraphics 和 GetImplementedMethod 等其他方法的 OCR 文本，应予以清理。"
+      "remarks": "该方法由 Unidrv 渲染插件实现，用于初始化插件并填充 DRVENABLEDATA 结构，以便核心驱动程序了解插件导出的 DDI 挂钩和相关入口点。该实体当前内容混入了 DisablePDEV、DownloadCharGlyph、DownloadFontHeader、DriverDMS、EnablePDEV、FilterGraphics 和 GetImplementedMethod 等其他方法的 OCR 文本，应予以清理。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::PSINJECT_COMMENTS",
@@ -6890,7 +7289,10 @@
       "entity_type": "method",
       "description": "IPrintOemPS::Command 方法供 Microsoft PostScript 打印机驱动程序的呈现插件使用，用于在打印作业数据流中的特定注入点插入 PostScript 命令。插件通常通过调用 IPrintOemDriverPS::DrvWriteSpoolBuf 将 PostScript 数据写入后台处理程序。对于由多个呈现插件导出的 Command 方法，驱动程序会按插件安装顺序在每个注入点调用这些方法。",
       "syntax": "HRESULT Command(\n  DWORD dwIndex,\n  PVOID pData,\n  DWORD cbSize,\n  PDWORD pdwResult\n);",
-      "return_value": "如果方法成功，应返回 S_OK；否则返回 E_FAIL 或其他 HRESULT 错误代码。对于替换型注入点，插件还通过 pdwResult 返回 ERROR_SUCCESS 或 ERROR_NOT_SUPPORTED 等结果。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果方法成功，应返回 S_OK；否则返回 E_FAIL 或其他 HRESULT 错误代码。对于替换型注入点，插件还通过 pdwResult 返回 ERROR_SUCCESS 或 ERROR_NOT_SUPPORTED 等结果。"
+      },
       "requirements": {
         "header": "prcomoem.h"
       },
@@ -7009,7 +7411,10 @@
       "entity_type": "method",
       "description": "IPrintOemPS 接口的方法，在打印机驱动重置 PDEV 时调用，使呈现插件能够更新其私有 PDEV 数据。该方法不会通过 DRVENABLEDATA 结构导出。",
       "syntax": "HRESULT ResetPDEV(\\n  PDEVOBJ pdevobjOld,\\n  PDEVOBJ pdevobjNew,\\n  PDEVOEM pDevOem\\n);",
-      "return_value": "ResetPDEV 是 IPrintOemPS 呈现插件生命周期中的一个方法，用于在驱动重置 PDEV 时迁移或更新插件相关状态。它是接口方法，不应作为通过 DRVENABLEDATA 提供的 DDI 钩子函数处理。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "ResetPDEV 是 IPrintOemPS 呈现插件生命周期中的一个方法，用于在驱动重置 PDEV 时迁移或更新插件相关状态。它是接口方法，不应作为通过 DRVENABLEDATA 提供的 DDI 钩子函数处理。"
+      },
       "requirements": {
         "header": "prcomoem.h"
       },
@@ -7327,7 +7732,8 @@
       "description": "IPrintOemUIMXDC::AdjustImageCompression 方法允许 XPS 筛选器管道驱动程序通过 UnidrvUI.dll 或 PS5UI.dll 配置 JPEG 或 PNG 图像的压缩级别。",
       "syntax": "HRESULT AdjustImageCompression(\n  HANDLE         hPrinter,\n  DWORD          cbDevMode,\n  const PDEVMODE pDevMode,\n  DWORD          cbOEMDM,\n  const PVOID    pOEMDM,\n  PLONG          pCompressionMode\n);",
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK。如果插件不支持此方法，则应返回 E_NOTIMPL。如果插件无法完成操作，则返回适当的 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK。如果插件不支持此方法，则应返回 E_NOTIMPL。如果插件无法完成操作，则返回适当的 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "此方法会影响由 Microsoft XPS Document Converter (MXDC) 生成的 JPEG 和 PNG 图像。它不会影响应用程序通过 GDI JPEG/PNG 图像直通机制（BMF_JPEG、BMF_PNG）直接发送到 GDI 的 JPEG 和 PNG 图像。核心驱动程序（UnidrvUI.dll 和 PS5UI.dll）不会修改图像压缩设置，但插件可以更改最初由 GDI 打印路径提供给 MXDC 的值。pCompressionMode 参数使用 Mxdc.h 中定义的压缩模式枚举值。",
       "header": "prcomoem.h",
@@ -7581,11 +7987,13 @@
         {
           "name": "pPrintTicket",
           "direction": "in",
-          "description": "pPrintTicket定义 IXMLDOMDocument2 参数。[out] ppDeviceCapabilities ppDeviceCapabilities定义 IXMLDOMDocument2 参数。"
+          "description": "pPrintTicket定义 IXMLDOMDocument2 参数。[out] ppDeviceCapabilities ppDeviceCapabilities定义 IXMLDOMDocument2 参数。",
+          "type": "IXMLDOMDocument2"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK 或其他成功的 HRESULT；否则返回失败的 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK 或其他成功的 HRESULT；否则返回失败的 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "prdrvcom.h"
@@ -7606,7 +8014,8 @@
         {
           "name": "pszLocaleName",
           "direction": "in",
-          "description": "pszLocaleName定义 LPCWSTR 参数。[in] pPrintTicket pPrintTicket定义 IXMLDOMDocument2 参数。[out] ppDeviceResources ppDeviceResources定义 IXMLDOMDocument2 参数。"
+          "description": "pszLocaleName定义 LPCWSTR 参数。[in] pPrintTicket pPrintTicket定义 IXMLDOMDocument2 参数。[out] ppDeviceResources ppDeviceResources定义 IXMLDOMDocument2 参数。",
+          "type": "LPCWSTR"
         },
         {
           "name": "hPrinter",
@@ -7615,7 +8024,8 @@
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT 值。成功时返回 S_OK；失败时返回相应的 COM 错误代码。"
+        "description": "返回 HRESULT 值。成功时返回 S_OK；失败时返回相应的 COM 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "此实体当前内容混入了 IPrintTicketProvider2::GetSupportedVersions 的说明。应仅保留与 GetPrintDeviceResources 相关的信息。",
       "header": "prdrvcom.h",
@@ -7638,10 +8048,14 @@
         {
           "name": "pBaseTicket",
           "direction": "in, out",
-          "description": "指向输入打印票证的指针。 IPrintTicketProvider2：：ValidatePrintTicket 成功返回时， pBaseTicket 指向已验证的打印票证。"
+          "description": "指向输入打印票证的指针。 IPrintTicketProvider2：：ValidatePrintTicket 成功返回时， pBaseTicket 指向已验证的打印票证。",
+          "type": "out] IXMLDOMDocument2"
         }
       ],
-      "return_value": "该方法应检查 PrintTicket 的公共部分和 Unidrv 专有部分中的设置，并在必要时执行冲突解决，以确保生成的 PrintTicket 有效且所有约束均已解决。如果原始 PrintTicket 缺少必需节点，方法可以在返回的 PrintTicket 中添加这些节点。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "该方法应检查 PrintTicket 的公共部分和 Unidrv 专有部分中的设置，并在必要时执行冲突解决，以确保生成的 PrintTicket 有效且所有约束均已解决。如果原始 PrintTicket 缺少必需节点，方法可以在返回的 PrintTicket 中添加这些节点。"
+      },
       "remarks": "该方法应检查 PrintTicket 的公共部分和 Unidrv 专有部分中的设置，并在必要时执行冲突解决，以确保生成的 PrintTicket 有效且所有约束均已解决。如果原始 PrintTicket 缺少必需节点，方法可以在返回的 PrintTicket 中添加这些节点。",
       "requirements": {
         "header": "prdrvcom.h"
@@ -7714,15 +8128,20 @@
         {
           "name": "bstrBidiRequest",
           "direction": "in",
-          "description": "用于传输 Set 请求数据的 XML 字符串。[in] pCallback Bidi Set 请求的回调对象。"
+          "description": "用于传输 Set 请求数据的 XML 字符串。[in] pCallback Bidi Set 请求的回调对象。",
+          "type": "BSTR"
         },
         {
           "name": "ppAsyncOperation",
           "direction": "out, retval",
-          "description": "与异步 Bidi Set 请求关联的上下文对象（作）。"
+          "description": "与异步 Bidi Set 请求关联的上下文对象（作）。",
+          "type": "retval] IPrinterExtensionAsyncOperation"
         }
       ],
-      "return_value": "这是打印机扩展接口中的一个异步方法，用于发送 Bidi Set 请求。调用方提供请求 XML 和回调对象，并接收一个表示该异步请求的操作对象。当前备注中的 IPrinterQueueEvent、IConnectionPoint、IDispatch::Invoke 等内容与此方法无关，应予删除。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "这是打印机扩展接口中的一个异步方法，用于发送 Bidi Set 请求。调用方提供请求 XML 和回调对象，并接收一个表示该异步请求的操作对象。当前备注中的 IPrinterQueueEvent、IConnectionPoint、IDispatch::Invoke 等内容与此方法无关，应予删除。"
+      },
       "remarks": "这是打印机扩展接口中的一个异步方法，用于发送 Bidi Set 请求。调用方提供请求 XML 和回调对象，并接收一个表示该异步请求的操作对象。当前备注中的 IPrinterQueueEvent、IConnectionPoint、IDispatch::Invoke 等内容与此方法无关，应予删除。",
       "requirements": {
         "target_platform": "Windows",
@@ -7750,11 +8169,13 @@
         {
           "name": "ulIndex",
           "direction": "in",
-          "description": "集合中 IPrinterExtensionContext 对象的索引。[out, retval] ppContext 指向 IPrinterExtensionContext 接口的指针。"
+          "description": "集合中 IPrinterExtensionContext 对象的索引。[out, retval] ppContext 指向 IPrinterExtensionContext 接口的指针。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -7781,11 +8202,13 @@
         {
           "name": "pEventArgs",
           "direction": "in",
-          "description": "事件参数。"
+          "description": "事件参数。",
+          "type": "IPrinterExtensionEventArgs"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT。成功时返回 S_OK；否则返回相应的错误代码。"
+        "description": "返回 HRESULT。成功时返回 S_OK；否则返回相应的错误代码。",
+        "type": "HRESULT"
       },
       "header": "printerextension.h",
       "deprecated": false,
@@ -7803,10 +8226,14 @@
         {
           "name": "pContextCollection",
           "direction": "in",
-          "description": "指向 IPrinterExtensionContextCollection 对象的指针。 pbstrBidiNotification 定义 BSTR 参数 pbstrBidiNotification。 pDetailedReasonId pDetailedReasonId定义 GUID 参数。"
+          "description": "指向 IPrinterExtensionContextCollection 对象的指针。 pbstrBidiNotification 定义 BSTR 参数 pbstrBidiNotification。 pDetailedReasonId pDetailedReasonId定义 GUID 参数。",
+          "type": "IPrinterExtensionContextCollection"
         }
       ],
-      "return_value": "每次更新与打印机扩展关联的打印队列集合时，都会调用此方法。因此，打印机扩展应能够安全地处理对此方法的多次调用。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "每次更新与打印机扩展关联的打印队列集合时，都会调用此方法。因此，打印机扩展应能够安全地处理对此方法的多次调用。"
+      },
       "remarks": "每次更新与打印机扩展关联的打印队列集合时，都会调用此方法。因此，打印机扩展应能够安全地处理对此方法的多次调用。",
       "requirements": {
         "target_platform": "Windows",
@@ -7930,11 +8357,13 @@
         {
           "name": "ulViewOffset",
           "direction": "in",
-          "description": "指示要监视的作业范围的开始。[in] ulViewSize 指示要监视的作业的大小或范围。[out, retval] ppJobView 显示要监视的作业范围的 IPrinterQueueView 对象。"
+          "description": "指示要监视的作业范围的开始。[in] ulViewSize 指示要监视的作业的大小或范围。[out, retval] ppJobView 显示要监视的作业范围的 IPrinterQueueView 对象。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回 S_OK。否则返回 HRESULT 错误代码。"
+        "description": "如果成功，返回 S_OK。否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "header": "printerextension.h",
       "deprecated": false,
@@ -7952,15 +8381,20 @@
         {
           "name": "bstrName",
           "direction": "in",
-          "description": "要读取的属性。"
+          "description": "要读取的属性。",
+          "type": "BSTR"
         },
         {
           "name": "ppStream",
           "direction": "out, retval",
-          "description": "返回的流。"
+          "description": "返回的流。",
+          "type": "retval] IPrinterScriptableStream"
         }
       ],
-      "return_value": "此方法不适用于非流属性。如果找不到指定属性，调用 GetReadStream 会引发异常。建议调用方使用 try-catch 语句，以便应用程序能够正常处理故障。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "此方法不适用于非流属性。如果找不到指定属性，调用 GetReadStream 会引发异常。建议调用方使用 try-catch 语句，以便应用程序能够正常处理故障。"
+      },
       "remarks": "此方法不适用于非流属性。如果找不到指定属性，调用 GetReadStream 会引发异常。建议调用方使用 try-catch 语句，以便应用程序能够正常处理故障。",
       "header": "printerextension.h",
       "deprecated": false,
@@ -8082,15 +8516,20 @@
         {
           "name": "pFeature",
           "direction": "in",
-          "description": "指定的功能。"
+          "description": "指定的功能。",
+          "type": "IPrintSchemaFeature"
         },
         {
           "name": "ppOption",
           "direction": "out, retval",
-          "description": "返回的选项。"
+          "description": "返回的选项。",
+          "type": "retval] IPrintSchemaOption"
         }
       ],
-      "return_value": "如果未找到请求的功能、选项或属性，此方法返回 S_FALSE，并将相应输出对象设置为 NULL。因此，如果 IPrintSchemaTicket 对象不包含指定功能，应用程序应获取 IPrintSchemaCapabilities 对象，并调用 IPrintSchemaCapabilities::GetFeatureByKeyName 或 IPrintSchemaCapabilities::GetFeature 进行查询。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果未找到请求的功能、选项或属性，此方法返回 S_FALSE，并将相应输出对象设置为 NULL。因此，如果 IPrintSchemaTicket 对象不包含指定功能，应用程序应获取 IPrintSchemaCapabilities 对象，并调用 IPrintSchemaCapabilities::GetFeatureByKeyName 或 IPrintSchemaCapabilities::GetFeature 进行查询。"
+      },
       "remarks": "如果未找到请求的功能、选项或属性，此方法返回 S_FALSE，并将相应输出对象设置为 NULL。因此，如果 IPrintSchemaTicket 对象不包含指定功能，应用程序应获取 IPrintSchemaCapabilities 对象，并调用 IPrintSchemaCapabilities::GetFeatureByKeyName 或 IPrintSchemaCapabilities::GetFeature 进行查询。",
       "header": "printerextension.h",
       "deprecated": false,
@@ -8143,12 +8582,14 @@
         {
           "name": "bstrKeyName",
           "direction": "in",
-          "description": "功能的键名称。"
+          "description": "功能的键名称。",
+          "type": "BSTR"
         },
         {
           "name": "ppFeature",
           "direction": "out, retval",
-          "description": "返回的功能。 ulJobCopiesAllDocuments ulJobCopiesAllDocuments定义 ULONG 参数。"
+          "description": "返回的功能。 ulJobCopiesAllDocuments ulJobCopiesAllDocuments定义 ULONG 参数。",
+          "type": "retval] IPrintSchemaFeature"
         },
         {
           "name": "ppAsyncOperation",
@@ -8157,7 +8598,8 @@
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT。成功时返回 S_OK；如果未找到请求的功能，则返回 S_FALSE，并将 ppFeature 设为 NULL；失败时返回相应的 HRESULT 错误代码。"
+        "description": "返回 HRESULT。成功时返回 S_OK；如果未找到请求的功能，则返回 S_FALSE，并将 ppFeature 设为 NULL；失败时返回相应的 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "有关可识别的功能键名称、其对应的公共 Print Schema 功能名称以及受支持的专用选项类型，请参阅 IPrintSchemaCapabilities::GetFeatureByKeyName。如果未找到请求的功能、选项或属性，此方法返回 S_FALSE，并将相应输出对象指针设置为 NULL。如果客户端通过 IPrintSchemaElement::XmlNode 获取 PrintTicket 的 XML DOM 并直接修改 XML，则必须调用 IPrintSchemaTicket::NotifyXmlChanged 以通知系统内容已更改。",
       "header": "printerextension.h",
@@ -8725,7 +9167,8 @@
       "description": "IBidiAsyncNotifyChannel 接口的方法，用于异步关闭通知通道。",
       "syntax": "HRESULT AsyncCloseChannel(\n  IPrintAsyncNotifyDataObject *pData,\n  IPrintAsyncCookie *pCookie\n);",
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "header": "prnasntp.h",
       "deprecated": false,
@@ -8741,7 +9184,8 @@
       "description": "IBidiAsyncNotifyChannel 接口的方法，用于异步获取通知发送操作的响应。",
       "syntax": "HRESULT AsyncGetNotificationSendResponse(\n  IPrintAsyncNotifyDataObject *pData,\n  IAsyncGetSendNotificationCookie **ppCookie\n);",
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "如果方法成功，则返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "prnasntp.h"
@@ -8759,7 +9203,8 @@
       "description": "定义 IBidiAsyncNotifyChannel::CloseChannel 方法，用于关闭双向异步通知通道。",
       "syntax": "HRESULT CloseChannel(\n  IPrintAsyncNotifyDataObject *pData\n);",
       "return_value": {
-        "description": "成功时返回 S_OK；否则返回 HRESULT 错误代码。某些实现还可能返回与通道状态相关的错误码。"
+        "description": "成功时返回 S_OK；否则返回 HRESULT 错误代码。某些实现还可能返回与通道状态相关的错误码。",
+        "type": "HRESULT"
       },
       "header": "prnasntp.h",
       "deprecated": false,
@@ -8774,7 +9219,8 @@
       "description": "IBidiAsyncNotifyChannel 接口的方法，获取与异步通知通道关联的打印名称。",
       "syntax": "HRESULT GetPrintName(\n  BSTR *pPrintName\n);",
       "return_value": {
-        "description": "成功时返回 S_OK；否则返回 HRESULT 错误代码。"
+        "description": "成功时返回 S_OK；否则返回 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "header": "prnasntp.h",
       "deprecated": false,
@@ -9056,11 +9502,13 @@
         {
           "name": "pDQPInfo",
           "direction": "in, out",
-          "description": "调用方提供的指向 DEVQUERYPRINT_INFO 结构的指针。"
+          "description": "调用方提供的指向 DEVQUERYPRINT_INFO 结构的指针。",
+          "type": "out] PDEVQUERYPRINT_INFO"
         }
       ],
       "return_value": {
-        "description": "如果打印作业可以打印，函数应返回 true ;否则，它应返回 FALSE。"
+        "description": "如果打印作业可以打印，函数应返回 true ;否则，它应返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "打印机接口 DLL 必须导出 DevQueryPrintEx 函数。当在打印机属性表的“高级”页上启用保存不匹配文档的相关选项时，打印后台处理程序会调用此函数。\\n\\n该函数接收一个 DEVQUERYPRINT_INFO 结构，其中包含一个指向 DEVMODEW 结构的指针，用于描述打印作业所需的打印机特征。实现通常应先验证接收到的 DEVMODEW 结构的大小和版本是否与驱动程序兼容，然后判断其内容是否与当前打印机配置兼容。\\n\\n如果作业可以打印，函数只需返回 TRUE。如果作业当前不能打印但应被保留以等待打印机重新配置，则函数应在 DEVQUERYPRINT_INFO 的 pszErrorStr 指向的缓冲区中提供一段可显示的错误文本，然后返回 FALSE。该文本通常应定义为资源文件中的字符串资源。",
       "header": "winddiui.h",
@@ -9084,7 +9532,11 @@
       ],
       "confidence": 0.7,
       "_source_line": 21488,
-      "remarks": "dwDriverEvent 指定发生的驱动程序事件类型。dwLevel 和 pDriverInfo 一起描述与事件相关的数据结构级别及其内容；pDriverInfo 可选。该函数由打印后台处理程序调用，通常用于驱动程序安装、升级或配置相关事件的处理。不要与处理打印机特定事件的 DrvPrinterEvent 混淆。"
+      "remarks": "dwDriverEvent 指定发生的驱动程序事件类型。dwLevel 和 pDriverInfo 一起描述与事件相关的数据结构级别及其内容；pDriverInfo 可选。该函数由打印后台处理程序调用，通常用于驱动程序安装、升级或配置相关事件的处理。不要与处理打印机特定事件的 DrvPrinterEvent 混淆。",
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::PRINTPROCESSOR_CAPS_1",
@@ -9520,7 +9972,11 @@
       "cross_references": [],
       "confidence": 0.6,
       "_source_line": 22732,
-      "remarks": "Capability 参数指定要查询的设备能力标志，相关 DC_XXX 常量定义于 wingdi.h。该函数不要求支持所有 DC_XXX 标志，但必须支持文档规定的必需标志。pOutput 可为 NULL，此时函数通常仅返回所需缓冲区大小或结果计数，具体取决于 Capability。"
+      "remarks": "Capability 参数指定要查询的设备能力标志，相关 DC_XXX 常量定义于 wingdi.h。该函数不要求支持所有 DC_XXX 标志，但必须支持文档规定的必需标志。pOutput 可为 NULL，此时函数通常仅返回所需缓冲区大小或结果计数，具体取决于 Capability。",
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::DC_MEDIAREADY",
@@ -9546,7 +10002,8 @@
       "description": "启动打印文档处理的打印后台处理程序接口函数。",
       "syntax": "HANDLE DrvSplStartDoc(\n  HANDLE hPrinter,\n  DWORD JobId\n);",
       "return_value": {
-        "description": "如果成功，返回打印驱动程序句柄；如果失败，返回无效句柄或 NULL（原文未提供更详细错误信息）。"
+        "description": "如果成功，返回打印驱动程序句柄；如果失败，返回无效句柄或 NULL（原文未提供更详细错误信息）。",
+        "type": "HANDLE"
       },
       "requirements": {
         "header": "winddiui.h"
@@ -9564,7 +10021,10 @@
       "entity_type": "function",
       "description": "DrvSplStartPage 函数通知后台打印程序开始新的一页。",
       "syntax": "BOOL DrvSplStartPage(\\n  HANDLE hDriver\\n);",
-      "return_value": "该函数属于打印驱动程序与后台打印程序交互的一部分。原始文本中存在 OCR 噪声，已清理。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "该函数属于打印驱动程序与后台打印程序交互的一部分。原始文本中存在 OCR 噪声，已清理。"
+      },
       "requirements": {
         "header": "winddiui.h"
       },
@@ -9616,11 +10076,13 @@
         {
           "name": "pszServer",
           "direction": "in, optional",
-          "description": "调用方提供的指向表示服务器名称的字符串的指针;如果打印机是本地打印机，则 NULL。[in] hWnd 应用作对话框的父窗口的调用方提供的句柄。 如果 NULL，则不应显示任何对话框。 pszMonitorNameIn 调用方提供的指向表示监视器名称的字符串的指针。 可以为 NULL 。[out, optional] ppszPortNameOut 调用方提供的指向接收端口名称字符串的位置的指针。 可以 NULL，在这种情况下不返回名称。"
+          "description": "调用方提供的指向表示服务器名称的字符串的指针;如果打印机是本地打印机，则 NULL。[in] hWnd 应用作对话框的父窗口的调用方提供的句柄。 如果 NULL，则不应显示任何对话框。 pszMonitorNameIn 调用方提供的指向表示监视器名称的字符串的指针。 可以为 NULL 。[out, optional] ppszPortNameOut 调用方提供的指向接收端口名称字符串的位置的指针。 可以 NULL，在这种情况下不返回名称。",
+          "type": "optional] PCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果作成功，函数应返回 true 。 否则应调用 SetLastError 以指定错误代码，函数应返回 FALSE。 如果用户取消作或不受支持，则该函数应调用 SetLastError（ERROR_CANCELLED）， 然后返回 FALSE。"
+        "description": "如果作成功，函数应返回 true 。 否则应调用 SetLastError 以指定错误代码，函数应返回 FALSE。 如果用户取消作或不受支持，则该函数应调用 SetLastError（ERROR_CANCELLED）， 然后返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "需要端口监视器 UI DLL 才能定义 AddPortUI 函数，并将函数的地址包含在 MONITORUI 结构中。 后台处理程序从其 AddPort 函数中调用 AddPortUI。 AddPortUI 接收的前三个参数是 AddPort 接收的参数。 （Microsoft Windows SDK 文档中介绍了 AddPort 函数。该函数应执行以下作： 1. 调用 OpenPrinter，指定采用以下格式的打印机名称：\\\\ ServerName\\，XcvMonitorMonitorName 其中，ServerName 和 MonitorName 是 作为 addPortUI 函数参数接收的服务器和监视器名称。 调用 OpenPrinter 需要一个PRINTER_DEFAULTS结构，该结构在 Windows SDK 文档中介 绍。 必须将结构的 DesiredAccess 成员设置为SERVER_ACCESS_ADMINISTER。 其 pDatatype 和 pDevMode 成员可以 NULL。 此调用会导致打印监视器服务器 DLL 的 XcvOpenPort 函数被调用。 2. 通过显示对话框从用户获取端口名称。 3. 调用 XcvData，并指定以下输入参数： 从 OpenPrinter 接收的句柄从用户接收的端口名称 自定义数据名称字符串，例如“PortExists” 此调用会导致调用服务器 DLL 的 XcvDataPort 函数。 XcvDataPort 函数应返回一个值，该值指示是否已使用指定的端口名称。 如果有，UI DLL 应从用户请求另一个名称，并再次调用 XcvData。 4. 收到有效的新端口名称后，再次调用 XcvData，这次指定以下输入参数 从 OpenPrinter 接收的句柄从用户接收的已验证端口名称“AddPort”的数据名称字符串 此调用会导致服务器 DLL 的 XcvDataPort 函数再次调用。 5. 通过显示对话框从用户获取端口配置参数。 6. 调用 XcvData 一次或多次，指定自定义的数据名称字符串，以将每个配置参数发送到服务器 DLL。 每个 XcvData 调用都会调用服务器的 XcvDataPort 函数。 7. 调用 ClosePrinter，指定从 OpenPrinter 接收的句柄。 这会导致调用服务器 DLL 的 XcvClosePort 函数。",
       "header": "winsplp.h",
@@ -9648,7 +10110,8 @@
         {
           "name": "hPrintProcessor",
           "direction": "in",
-          "description": "调用方提供的打印处理器句柄。 这是上一次调用 OpenPrintProcessor返回的句柄。[in] Command 调用方提供的命令，指示要执行的作的类型。 以下命令有效： 命令"
+          "description": "调用方提供的打印处理器句柄。 这是上一次调用 OpenPrintProcessor返回的句柄。[in] Command 调用方提供的命令，指示要执行的作的类型。 以下命令有效： 命令",
+          "type": "HANDLE"
         }
       ],
       "header": "winsplp.h",
@@ -9662,7 +10125,11 @@
       ],
       "confidence": 0.8,
       "_source_line": 23344,
-      "remarks": "此函数由打印处理器用于控制正在处理的打印作业。hPrintProcessor 参数必须是先前调用 OpenPrintProcessor 返回的有效句柄。"
+      "remarks": "此函数由打印处理器用于控制正在处理的打印作业。hPrintProcessor 参数必须是先前调用 OpenPrintProcessor 返回的有效句柄。",
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetPrintProcessorCapabilities",
@@ -9674,15 +10141,20 @@
         {
           "name": "pValueName",
           "direction": "in",
-          "description": "调用方提供的指针指向表示打印处理器支持的数据类型的字符串。 字符串指针的类型必 须为 LPWSTR。[in] dwAttributes 调用方提供的属性标志。 请参阅 PRINTER_INFO_x 结构 成员 属性。[out] pData 调用方提供的指向 PRINTPROCESSOR_CAPS_1 或 PRINTPROCESSOR_CAPS_2 结构的指针。"
+          "description": "调用方提供的指针指向表示打印处理器支持的数据类型的字符串。 字符串指针的类型必 须为 LPWSTR。[in] dwAttributes 调用方提供的属性标志。 请参阅 PRINTER_INFO_x 结构 成员 属性。[out] pData 调用方提供的指向 PRINTPROCESSOR_CAPS_1 或 PRINTPROCESSOR_CAPS_2 结构的指针。",
+          "type": "LPTSTR"
         },
         {
           "name": "nSize",
           "direction": "in",
-          "description": "调用方提供的值，表示由 pData指向的缓冲区的大小。 如果值小于 sizeof（PRINTPROCESSOR_CAPS_1），则此函数应提供等于 sizeof （PRINTPROCESSOR_CAPS_1） 或 sizeof（PRINTPROCESSOR_CAPS_2）的值，具体取决于打印处理器支持的结构。 如果该值小于 sizeof（PRINTPROCESSOR_CAPS_1），则 winprint 打印处理器将提供 sizeof 值（PRINTPROCESSOR_CAPS_2）。[out] pcbNeeded 调用方提供的指向位置的指针，用于接收由 pData指向的缓冲区所需的最小大小。"
+          "description": "调用方提供的值，表示由 pData指向的缓冲区的大小。 如果值小于 sizeof（PRINTPROCESSOR_CAPS_1），则此函数应提供等于 sizeof （PRINTPROCESSOR_CAPS_1） 或 sizeof（PRINTPROCESSOR_CAPS_2）的值，具体取决于打印处理器支持的结构。 如果该值小于 sizeof（PRINTPROCESSOR_CAPS_1），则 winprint 打印处理器将提供 sizeof 值（PRINTPROCESSOR_CAPS_2）。[out] pcbNeeded 调用方提供的指向位置的指针，用于接收由 pData指向的缓冲区所需的最小大小。",
+          "type": "DWORD"
         }
       ],
-      "return_value": "打印处理器可以选择导出此函数。其用途是针对打印处理器支持的每种输入数据类型返回 PRINTPROCESSOR_CAPS_1 或 PRINTPROCESSOR_CAPS_2 结构中的能力信息。当应用程序调用 GetPrinterData 查询相关值时，后台处理程序会调用打印处理器的 GetPrintProcessorCapabilities 函数。",
+      "return_value": {
+        "type": "DWORD",
+        "description": "打印处理器可以选择导出此函数。其用途是针对打印处理器支持的每种输入数据类型返回 PRINTPROCESSOR_CAPS_1 或 PRINTPROCESSOR_CAPS_2 结构中的能力信息。当应用程序调用 GetPrinterData 查询相关值时，后台处理程序会调用打印处理器的 GetPrintProcessorCapabilities 函数。"
+      },
       "remarks": "打印处理器可以选择导出此函数。其用途是针对打印处理器支持的每种输入数据类型返回 PRINTPROCESSOR_CAPS_1 或 PRINTPROCESSOR_CAPS_2 结构中的能力信息。当应用程序调用 GetPrinterData 查询相关值时，后台处理程序会调用打印处理器的 GetPrintProcessorCapabilities 函数。",
       "requirements": {
         "header": "winsplp.h"
@@ -9705,7 +10177,8 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "指定 CSR 打印机的句柄。[in] pJobDataContainer 指定指向 BranchOfficeJobData 结构的数组的指针，其中包含要记录的事件。 返回值指示成功或失败。"
+          "description": "指定 CSR 打印机的句柄。[in] pJobDataContainer 指定指向 BranchOfficeJobData 结构的数组的指针，其中包含要记录的事件。 返回值指示成功或失败。",
+          "type": "HANDLE"
         }
       ],
       "requirements": {
@@ -9722,7 +10195,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 23365,
-      "return_value": "如果函数成功，则返回 ERROR_SUCCESS；否则返回 Win32 错误代码。",
+      "return_value": {
+        "type": "DWORD",
+        "description": "如果函数成功，则返回 ERROR_SUCCESS；否则返回 Win32 错误代码。"
+      },
       "remarks": "该函数供打印后台处理/打印基础结构组件使用，用于将分支机构打印作业相关事件记录到宿主打印服务器。"
     },
     {
@@ -9795,16 +10271,19 @@
         {
           "name": "hXcv",
           "direction": "in",
-          "description": "调用方提供的打印机句柄，通过调用 openPrinter (获取，如Microsoft Windows SDK文档) 中所 述。 此句柄由 XcvOpenPort 函数创建并返回。[in] pszDataName 调用方提供的指向表示所请求数据名称的字符串的指针。 有关更多信息，请参见下面的“备注” 部分。"
+          "description": "调用方提供的打印机句柄，通过调用 openPrinter (获取，如Microsoft Windows SDK文档) 中所 述。 此句柄由 XcvOpenPort 函数创建并返回。[in] pszDataName 调用方提供的指向表示所请求数据名称的字符串的指针。 有关更多信息，请参见下面的“备注” 部分。",
+          "type": "HANDLE"
         },
         {
           "name": "pInputData",
           "direction": "in",
-          "description": "调用方提供的指向包含输入数据的缓冲区的指针。 cbInputData pInputData 指向的缓冲区的调用方提供的大小（以字节为单位）。[out] pOutputData 调用方提供的指向用于接收输出数据的缓冲区的指针。 cbOutputData pOutputData 指向的缓冲区的调用方提供的大小（以字节为单位）。[out] pcbOutputNeeded 调用方提供的指针，指向接收 pOutputData 指向的缓冲区所需的最小大小（以字节为单位）的位置。"
+          "description": "调用方提供的指向包含输入数据的缓冲区的指针。 cbInputData pInputData 指向的缓冲区的调用方提供的大小（以字节为单位）。[out] pOutputData 调用方提供的指向用于接收输出数据的缓冲区的指针。 cbOutputData pOutputData 指向的缓冲区的调用方提供的大小（以字节为单位）。[out] pcbOutputNeeded 调用方提供的指针，指向接收 pOutputData 指向的缓冲区所需的最小大小（以字节为单位）的位置。",
+          "type": "reads_bytes_(cbInputData) PBYTE"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，返回 ERROR_SUCCESS。否则，返回 Win32 错误代码（通常为 ERROR_ 前缀常量）。对于通过 XcvData 发起的调用，该状态值会返回给调用方。"
+        "description": "如果操作成功，返回 ERROR_SUCCESS。否则，返回 Win32 错误代码（通常为 ERROR_ 前缀常量）。对于通过 XcvData 发起的调用，该状态值会返回给调用方。",
+        "type": "DWORD"
       },
       "remarks": "端口监视器服务器 DLL 必须实现 XcvDataPort，以便与端口监视器 UI DLL 交换配置信息。该函数指针必须在 MONITOR2 结构中提供。通常，UI DLL 会通过 XcvData 将自定义命令字符串发送给该函数；服务器 DLL 可根据这些字符串返回当前配置或应用新配置。",
       "header": "winsplp.h",
@@ -9830,10 +10309,14 @@
         {
           "name": "pInfoDest",
           "direction": "in",
-          "description": "调用方提供的指向 PRINTER_NOTIFY_INFO 结构的指针。 pDataSrc 调用方提供的指向 PRINTER_NOTIFY_INFO_DATA 结构的指针。 fdwFlags 调用方提供的标志。 定义了以下标志。 PRINTER_NOTIFY_INFO_DATA_COMPACT 如果设置，该函数将检查提供的 PRINTER_NOTIFY_INFO_DATA 结构的 类型、字段和 ID 成员。如果它们都与 PRINTER_NOTIFY_INFO_DATA 结构数组的现有元素匹配，则现有元素将被提供的 元素覆盖。 如果未找到匹配项，该函数会将指定的结构添加到数组的末尾。"
+          "description": "调用方提供的指向 PRINTER_NOTIFY_INFO 结构的指针。 pDataSrc 调用方提供的指向 PRINTER_NOTIFY_INFO_DATA 结构的指针。 fdwFlags 调用方提供的标志。 定义了以下标志。 PRINTER_NOTIFY_INFO_DATA_COMPACT 如果设置，该函数将检查提供的 PRINTER_NOTIFY_INFO_DATA 结构的 类型、字段和 ID 成员。如果它们都与 PRINTER_NOTIFY_INFO_DATA 结构数组的现有元素匹配，则现有元素将被提供的 元素覆盖。 如果未找到匹配项，该函数会将指定的结构添加到数组的末尾。",
+          "type": "PPRINTER_NOTIFY_INFO"
         }
       ],
-      "return_value": "打印提供程序的 RefreshPrinterChangeNotification 函数应尽可能频繁地调用此函数，以将更改通知数据填充到 PRINTER_NOTIFY_INFO 结构中。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "打印提供程序的 RefreshPrinterChangeNotification 函数应尽可能频繁地调用此函数，以将更改通知数据填充到 PRINTER_NOTIFY_INFO 结构中。"
+      },
       "remarks": "打印提供程序的 RefreshPrinterChangeNotification 函数应尽可能频繁地调用此函数，以将更改通知数据填充到 PRINTER_NOTIFY_INFO 结构中。",
       "header": "winsplp.h",
       "deprecated": false,
@@ -9937,10 +10420,14 @@
         {
           "name": "hPort",
           "direction": "in",
-          "description": "调用方提供的指向端口句柄的指针。"
+          "description": "调用方提供的指向端口句柄的指针。",
+          "type": "HANDLE"
         }
       ],
-      "return_value": "语言监视器和端口监视器服务器 DLL 必须定义 ClosePort 函数，并在 MONITOR2 结构中提供该函数的地址。hPort 参数是监视器的 OpenPort 或 OpenPortEx 函数返回的端口句柄。调用此函数后，该句柄不再有效。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "语言监视器和端口监视器服务器 DLL 必须定义 ClosePort 函数，并在 MONITOR2 结构中提供该函数的地址。hPort 参数是监视器的 OpenPort 或 OpenPortEx 函数返回的端口句柄。调用此函数后，该句柄不再有效。"
+      },
       "remarks": "语言监视器和端口监视器服务器 DLL 必须定义 ClosePort 函数，并在 MONITOR2 结构中提供该函数的地址。hPort 参数是监视器的 OpenPort 或 OpenPortEx 函数返回的端口句柄。调用此函数后，该句柄不再有效。",
       "header": "winsplp.h",
       "deprecated": false,
@@ -9961,10 +10448,14 @@
         {
           "name": "hPrintProcessor",
           "direction": "in, out",
-          "description": "调用方提供的打印处理器句柄。 这是上一次调用 OpenPrintProcessor返回的句柄。"
+          "description": "调用方提供的打印处理器句柄。 这是上一次调用 OpenPrintProcessor返回的句柄。",
+          "type": "HANDLE"
         }
       ],
-      "return_value": "打印处理器必须导出 ClosePrintProcessor 函数。该函数通常在完成与 OpenPrintProcessor 返回的句柄相关的处理后调用。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "打印处理器必须导出 ClosePrintProcessor 函数。该函数通常在完成与 OpenPrintProcessor 返回的句柄相关的处理后调用。"
+      },
       "remarks": "打印处理器必须导出 ClosePrintProcessor 函数。该函数通常在完成与 OpenPrintProcessor 返回的句柄相关的处理后调用。",
       "header": "winsplp.h",
       "deprecated": false,
@@ -9982,10 +10473,14 @@
         {
           "name": "hPrintProcessor",
           "direction": "in",
-          "description": "调用方提供的打印处理器句柄。 这是上一次调用 OpenPrintProcessor返回的句柄。[in] pDocumentName 调用方提供的指向文档名称的指针。"
+          "description": "调用方提供的打印处理器句柄。 这是上一次调用 OpenPrintProcessor返回的句柄。[in] pDocumentName 调用方提供的指向文档名称的指针。",
+          "type": "HANDLE"
         }
       ],
-      "return_value": "后台处理程序调用此函数以开始处理文档。对于 EMF 打印作业，函数执行期间可能会异步收到对 ControlPrintProcessor 的调用，因此实现应使用事件对象或其他同步技术来暂停和恢复作业处理。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "后台处理程序调用此函数以开始处理文档。对于 EMF 打印作业，函数执行期间可能会异步收到对 ControlPrintProcessor 的调用，因此实现应使用事件对象或其他同步技术来暂停和恢复作业处理。"
+      },
       "remarks": "后台处理程序调用此函数以开始处理文档。对于 EMF 打印作业，函数执行期间可能会异步收到对 ControlPrintProcessor 的调用，因此实现应使用事件对象或其他同步技术来暂停和恢复作业处理。",
       "requirements": {
         "header": "winsplp.h"
@@ -10009,11 +10504,13 @@
         {
           "name": "pszServer",
           "direction": "in, optional",
-          "description": "调用方提供的指向表示服务器名称的字符串的指针;如果打印机是本地打印机，则 NULL。 （端口监视器可以忽略此参数。[in] hWnd 应用作对话框的父窗口的调用方提供的句柄。 如果 NULL，则不应显示任何对话框。[in] pszPortName 调用方提供的指向表示要配置的端口名称的字符串的指针。"
+          "description": "调用方提供的指向表示服务器名称的字符串的指针;如果打印机是本地打印机，则 NULL。 （端口监视器可以忽略此参数。[in] hWnd 应用作对话框的父窗口的调用方提供的句柄。 如果 NULL，则不应显示任何对话框。[in] pszPortName 调用方提供的指向表示要配置的端口名称的字符串的指针。",
+          "type": "opt_ PCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果作成功，函数应返回 true 。 否则，它应返回 FALSE。 如果作不受支持，或者由用户取消（选择 CANCEL 或选择 OK 而不更改配置参数），则该函数应调用 SetLastError （ERROR_CANCELLED），然后返回 FALSE。"
+        "description": "如果作成功，函数应返回 true 。 否则，它应返回 FALSE。 如果作不受支持，或者由用户取消（选择 CANCEL 或选择 OK 而不更改配置参数），则该函数应调用 SetLastError （ERROR_CANCELLED），然后返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "需要端口监视器 UI DLL 才能定义 ConfigurePortUI 函数，并将函数的地址包含在 MONITORUI 结构中。 客户端的后台处理程序从 ConfigurePort 函数（Microsoft Windows SDK 文档中所述）调用 ConfigurePortUI。 ConfigurePortUI 接收的参数是由 ConfigurePort接收的参数。 该函数应执行以下作： 1. 调用 OpenPrinter，指定采用以下格式的打印机名称：\\\\ ServerName\\，XcvPortPortName 其中，ServerName 和 PortName 是作为 ConfigurePortUI 函数参数接收的服务器和端口名称。 调用 OpenPrinter 需要一个PRINTER_DEFAULTS结构，该结构在 Windows SDK 文档中介绍。 必须将结构的 DesiredAccess 成员设置为SERVER_ACCESS_ADMINISTER。其 pDatatype 和 pDevMode 成员可以 NULL。 此调用会导致打印监视器服务器 DLL 的 XcvOpenPort 函数被调用。 2. 通过显示对话框从用户获取端口配置参数。 3. 调用 XcvData 一次或多次，指定自定义的数据名称字符串，以将每个配置参数发送到服务器 DLL。 每个 XcvData 调用都会调用服务器的 XcvDataPort 函数。 4. 调用 ClosePrinter，指定从 OpenPrinter 接收的句柄。 这会导致调用服务器 DLL 的 XcvClosePort 函数。",
       "header": "winsplp.h",
@@ -10057,11 +10554,13 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "hPrinter定义 HANDLE 参数。[in, optional] pDevMode pDevMode定义 LPDEVMODEW 参数。"
+          "description": "hPrinter定义 HANDLE 参数。[in, optional] pDevMode pDevMode定义 LPDEVMODEW 参数。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回表示打印机信息上下文的句柄；如果函数失败，则返回 NULL。"
+        "description": "如果函数成功，则返回表示打印机信息上下文的句柄；如果函数失败，则返回 NULL。",
+        "type": "HANDLE"
       },
       "requirements": {
         "header": "winsplp.h"
@@ -10082,11 +10581,13 @@
         {
           "name": "pszServer",
           "direction": "in, optional",
-          "description": "调用方提供的指向表示服务器名称的字符串的指针;如果打印机是本地打印机，则 NULL。 （端 口监视器可以忽略此参数。[in] hWnd 应用作对话框的父窗口的调用方提供的句柄。 如果 NULL，则不应显示任何对话框。[in] pszPortName 调用方提供的指向表示要删除的端口名称的字符串的指针。"
+          "description": "调用方提供的指向表示服务器名称的字符串的指针;如果打印机是本地打印机，则 NULL。 （端 口监视器可以忽略此参数。[in] hWnd 应用作对话框的父窗口的调用方提供的句柄。 如果 NULL，则不应显示任何对话框。[in] pszPortName 调用方提供的指向表示要删除的端口名称的字符串的指针。",
+          "type": "optional] PCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果作成功，函数应返回 true 。 否则，它应返回 FALSE。 如果用户取消作或不受支持，则该函 数应调用 SetLastError（ERROR_CANCELLED），然后返回 FALSE。"
+        "description": "如果作成功，函数应返回 true 。 否则，它应返回 FALSE。 如果用户取消作或不受支持，则该函 数应调用 SetLastError（ERROR_CANCELLED），然后返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "需要端口监视器 UI DLL 才能定义 DeletePortUI 函数，并将函数的地址包含在 MONITORUI 结构中。 后台处理程序从其 DeletePort 函数中调用 DeletePortUI。 DeletePortUI 接收的参数是由 DeletePort接收的参数。 （Microsoft Windows SDK 文档中介绍了 DeletePort 函数。 该函数应执行以下作： 1. 调用 OpenPrinter，指定采用以下格式的打印机名称：\\\\ ServerName\\，XcvPortPortName 其中，ServerName 和 PortName 是作为 DeletePortUI 函数参数接收的服务器和端口名称。 调用 OpenPrinter 需要一个PRINTER_DEFAULTS结构，该结构在 Windows SDK 文档中介 绍。 必须将结构的 DesiredAccess 成员设置为SERVER_ACCESS_ADMINISTER。 其 pDatatype 和 pDevMode 成员可以 NULL。 此调用会导致打印监视器服务器 DLL 的 XcvOpenPort 函数被调用。 2. 调用 XcvData，并指定以下输入参数： 从 OpenPrinter 接收的句柄作为函数参数接收的端口名称“DeletePort”的数据名称字符串 此调用会导致调用服务器 DLL 的 XcvClosePort 函数。 3. 如果需要用户交互，请通过显示对话框从用户获取信息，然后调用 XcvData（指定自定义 的数据名称字符串）将信息发送到服务器 DLL。 XcvData 调用会导致调用服务器的 XcvDataPort 函数。 4. 调用 closePrinter ，指定从 OpenPrinter接收的句柄。 这会导致调用服务器 DLL 的 XcvClosePort 函数。",
       "header": "winsplp.h",
@@ -10112,7 +10613,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 24137
+      "_source_line": 24137,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::DeletePrinterIC",
@@ -10124,11 +10629,13 @@
         {
           "name": "hPrinterIC",
           "direction": "in",
-          "description": "hPrinterIC定义 HANDLE 参数。"
+          "description": "hPrinterIC定义 HANDLE 参数。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，返回非零值；如果失败，返回 0。"
+        "description": "如果函数成功，返回非零值；如果失败，返回 0。",
+        "type": "BOOL"
       },
       "requirements": {
         "header": "winsplp.h"
@@ -10149,11 +10656,13 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "hPrinter定义 HANDLE 参数。[in] pDevMode pDevMode定义 LPDEVMODE 参数。[out] pResID pResID定义 DWORD 参数。"
+          "description": "hPrinter定义 HANDLE 参数。[in] pDevMode pDevMode定义 LPDEVMODE 参数。[out] pResID pResID定义 DWORD 参数。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果指定的 DEVMODE 有效，则返回 TRUE；否则返回 FALSE。"
+        "description": "如果指定的 DEVMODE 有效，则返回 TRUE；否则返回 FALSE。",
+        "type": "BOOL"
       },
       "requirements": {
         "header": "winsplp.h"
@@ -10193,11 +10702,13 @@
         {
           "name": "pPrinterName",
           "direction": "in",
-          "description": "调用方提供的指针指向包含打印机名称的以 NULL 结尾的 Unicode 字符串。[in] pDevmode 调用方提供的指向传递给打印处理器或打印机驱动程序的 DEVMODEW 结构的指针。[out] pAttributeInfo 调用方提供的指向接收打印作业信息的 ATTRIBUTE_INFO_3 结构的指针。"
+          "description": "调用方提供的指针指向包含打印机名称的以 NULL 结尾的 Unicode 字符串。[in] pDevmode 调用方提供的指向传递给打印处理器或打印机驱动程序的 DEVMODEW 结构的指针。[out] pAttributeInfo 调用方提供的指向接收打印作业信息的 ATTRIBUTE_INFO_3 结构的指针。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功获取打印作业属性，则返回 TRUE；否则返回 FALSE。"
+        "description": "如果成功获取打印作业属性，则返回 TRUE；否则返回 FALSE。",
+        "type": "BOOL"
       },
       "header": "winsplp.h",
       "deprecated": true,
@@ -10218,19 +10729,25 @@
         {
           "name": "pPrinterName",
           "direction": "in",
-          "description": "调用方提供的指针指向包含打印机名称的以 NULL 结尾的 Unicode 字符串。[in] pDevmode 调用方提供的指向传递给打印处理器或打印机驱动程序的 DEVMODEW 结构的指针。[in] dwLevel 调用方提供的值，指示 pAttributeInfo 指向的结构类型，如下表所示。 有关详细信息，请参阅下面的 “备注 ”部分。 dwLevel 值 1 2 3 4"
+          "description": "调用方提供的指针指向包含打印机名称的以 NULL 结尾的 Unicode 字符串。[in] pDevmode 调用方提供的指向传递给打印处理器或打印机驱动程序的 DEVMODEW 结构的指针。[in] dwLevel 调用方提供的值，指示 pAttributeInfo 指向的结构类型，如下表所示。 有关详细信息，请参阅下面的 “备注 ”部分。 dwLevel 值 1 2 3 4",
+          "type": "LPWSTR"
         },
         {
           "name": "pAttributeInfo",
           "direction": "out",
-          "description": "pAttributeInfo 指向的结构"
+          "description": "pAttributeInfo 指向的结构",
+          "type": "LPBYTE"
         }
       ],
       "header": "winsplp.h",
       "deprecated": true,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 24290
+      "_source_line": 24290,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::InitializeMonitor",
@@ -10242,11 +10759,13 @@
         {
           "name": "pRegistryRoot",
           "direction": "in",
-          "description": "pRegistryRoot定义 LPWSTR 参数。"
+          "description": "pRegistryRoot定义 LPWSTR 参数。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 TRUE；否则返回 FALSE。"
+        "description": "如果函数成功，则返回 TRUE；否则返回 FALSE。",
+        "type": "BOOL"
       },
       "requirements": {
         "header": "winsplp.h"
@@ -10267,11 +10786,13 @@
         {
           "name": "pRegistryRoot",
           "direction": "in",
-          "description": "pRegistryRoot定义 LPWSTR 参数。[out] pMonitor pMonitor定义 LPMONITOR 参数。"
+          "description": "pRegistryRoot定义 LPWSTR 参数。[out] pMonitor pMonitor定义 LPMONITOR 参数。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回非零值；如果失败，则返回零。"
+        "description": "如果函数成功，则返回非零值；如果失败，则返回零。",
+        "type": "BOOL"
       },
       "requirements": {
         "header": "winsplp.h"
@@ -10306,7 +10827,10 @@
       "cross_references": [],
       "confidence": 0.7,
       "_source_line": 24471,
-      "return_value": "如果成功，返回指向已初始化 MONITORUI 结构的指针。"
+      "return_value": {
+        "type": "PMONITORUI",
+        "description": "如果成功，返回指向已初始化 MONITORUI 结构的指针。"
+      }
     },
     {
       "id": "windows::InitializePrintMonitor2",
@@ -10318,11 +10842,13 @@
         {
           "name": "pMonitorInit",
           "direction": "in",
-          "description": "调用方提供的指向 MONITORINIT 结构的指针。[out] phMonitor 函数返回监视器句柄的调用方提供的位置。"
+          "description": "调用方提供的指向 MONITORINIT 结构的指针。[out] phMonitor 函数返回监视器句柄的调用方提供的位置。",
+          "type": "PMONITORINIT"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回指向 MONITOREX 结构的指针。返回的 MONITOREX 结构包含其大小以及一个 MONITOR 或 MONITOR2 结构。失败时返回 NULL，并应调用 SetLastError 设置错误代码。"
+        "description": "如果成功，返回指向 MONITOREX 结构的指针。返回的 MONITOREX 结构包含其大小以及一个 MONITOR 或 MONITOR2 结构。失败时返回 NULL，并应调用 SetLastError 设置错误代码。",
+        "type": "LPMONITOREX"
       },
       "remarks": "打印监视器负责分配并填写返回的 MONITOREX 结构以及其中包含的 MONITOR 或 MONITOR2 结构。对于支持较新打印监视器接口的实现，通常返回 MONITOR2。应注意不同 Windows 版本上结构大小的兼容性要求。",
       "header": "winsplp.h",
@@ -10400,7 +10926,8 @@
       "entity_type": "function",
       "description": "端口监视器函数。在打印后台处理程序完成向端口发送一个打印作业后调用，用于结束文档并释放由 StartDocPort 为该作业分配的资源。",
       "return_value": {
-        "description": "如果函数成功，则返回 TRUE；否则返回 FALSE。"
+        "description": "如果函数成功，则返回 TRUE；否则返回 FALSE。",
+        "type": "BOOL"
       },
       "header": "winsplp.h",
       "deprecated": false,
@@ -10472,7 +10999,10 @@
       "confidence": 0.6,
       "_source_line": 24804,
       "syntax": "BOOL EnumPorts(\\n  _In_    LPWSTR  pName,\\n  _In_    DWORD   Level,\\n  _Out_   LPBYTE  pPorts,\\n  _In_    DWORD   cbBuf,\\n  _Out_   LPDWORD pcbNeeded,\\n  _Out_   LPDWORD pcReturned\\n);",
-      "return_value": "成功时返回 TRUE。失败时返回 FALSE；如果缓冲区过小，应调用 SetLastError(ERROR_INSUFFICIENT_BUFFER)；如果 Level 无效，应调用 SetLastError(ERROR_INVALID_LEVEL)。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "成功时返回 TRUE。失败时返回 FALSE；如果缓冲区过小，应调用 SetLastError(ERROR_INSUFFICIENT_BUFFER)；如果 Level 无效，应调用 SetLastError(ERROR_INVALID_LEVEL)。"
+      },
       "remarks": "该函数是端口监视器接口的一部分，通常由监视器 DLL 实现。返回的数据格式为 PORT_INFO_1 或 PORT_INFO_2 数组，后跟这些结构成员所指向的字符串。某些监视器可能只支持级别 1。"
     },
     {
@@ -10525,7 +11055,8 @@
       "description": "打开指定的打印机端口并返回端口句柄。调用方可在后续调用端口监视器的 StartDocPort、WritePort、ReadPort、EndDocPort 和 GetPrinterDataFromPort 函数时使用该句柄。OpenPort 还可执行读取或写入前所需的端口初始化，例如设置可配置的超时值。对 OpenPort 的调用不是特定于某个打印作业；在一次 OpenPort 与 ClosePort 调用之间，可以处理多个打印作业。",
       "syntax": "BOOL OpenPort(\n  LPWSTR  pName,\n  PHANDLE pHandle\n);",
       "return_value": {
-        "description": "如果成功打开端口，返回 TRUE；否则返回 FALSE。"
+        "description": "如果成功打开端口，返回 TRUE；否则返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "端口监视器服务器 DLL 必须实现 OpenPort，并在 MONITOR2 结构中提供该函数的地址。当打印队列连接到该端口时，语言监视器或打印后台处理程序会调用此函数。OpenPort 返回的句柄随后应传递给 StartDocPort、WritePort、ReadPort、EndDocPort、GetPrinterDataFromPort 以及 ClosePort。",
       "header": "winsplp.h",
@@ -10550,11 +11081,13 @@
         {
           "name": "hPort",
           "direction": "in",
-          "description": "调用方提供的端口句柄。[in] pBuffer 调用方提供的指向包含要写入到端口的数据的缓冲区的指针。 cbBuf 调用方提供的大小（以字节为单位）pBuffer。[out] pcbWritten 调用方提供的指针指向接收成功写入端口的字节数的位置。"
+          "description": "调用方提供的端口句柄。[in] pBuffer 调用方提供的指向包含要写入到端口的数据的缓冲区的指针。 cbBuf 调用方提供的大小（以字节为单位）pBuffer。[out] pcbWritten 调用方提供的指针指向接收成功写入端口的字节数的位置。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果写入操作成功，返回 TRUE；否则返回 FALSE。"
+        "description": "如果写入操作成功，返回 TRUE；否则返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "语言监视器和端口监视器服务器 DLL 必须定义 WritePort 函数，并将其地址包含在 MONITOR2 结构中。hPort 参数是监视器提供的 OpenPort 或 OpenPortEx 函数返回的端口句柄。\n\n通常，语言监视器的 WritePort 函数会向 pBuffer 指向的数据流添加特定于语言的命令，然后将修改后的数据流传递给端口监视器的 WritePort 函数。端口监视器服务器 DLL 的 WritePort 函数通常调用 WriteFile 将数据流发送到内核模式端口驱动程序。\n\n典型的打印作业会多次调用 WritePort，并且每次调用的 cbBuf 值可能不同。函数应通过 pcbWritten 返回成功写入的字节数。对于语言监视器，该值不得包含其附加到数据流中的额外特定于语言的字节数。\n\n后台处理程序通过检查 WritePort 的返回值而不是返回的字节数来判断写入是否成功。因此，除非函数返回 FALSE，否则 pcbWritten 为零并不表示写入失败。\n\n系统或监视器实现应提供超时机制，确保 WritePort 在合理时间内返回，以避免阻塞后台处理程序。语言监视器可以在 StartDocPort/EndDocPort 调用对之外调用端口监视器的 WritePort 例程，但某些端口监视器可能会使此类调用失败，因此语言监视器必须能够处理该情况。",
       "header": "winsplp.h",
@@ -10579,11 +11112,13 @@
         {
           "name": "pPrinterName",
           "direction": "in",
-          "description": "调用方提供的指针指向正在打开打印处理器的打印机的名称。[in] pPrintProcessorOpenData 调用方提供的指向 PRINTPROCESSOROPENDATA 结构的指针。"
+          "description": "调用方提供的指针指向正在打开打印处理器的打印机的名称。[in] pPrintProcessorOpenData 调用方提供的指向 PRINTPROCESSOROPENDATA 结构的指针。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "成功时返回一个句柄，后续将其传递给 PrintDocumentOnPrintProcessor、ControlPrintProcessor 和 ClosePrintProcessor。失败时返回 NULL，并应调用 SetLastError 设置错误代码。"
+        "description": "成功时返回一个句柄，后续将其传递给 PrintDocumentOnPrintProcessor、ControlPrintProcessor 和 ClosePrintProcessor。失败时返回 NULL，并应调用 SetLastError 设置错误代码。",
+        "type": "HANDLE"
       },
       "remarks": "打印处理器必须导出此函数。后台处理程序在有打印作业需要由该打印处理器处理时调用它。实现通常会分配并初始化一个内部上下文结构，并将其作为返回句柄。该上下文通常保存从 PRINTPROCESSOROPENDATA 中获得的信息，例如打印机名称和 DEVMODEW 指针。返回的句柄必须可供后续的 PrintDocumentOnPrintProcessor、ControlPrintProcessor 和 ClosePrintProcessor 使用。",
       "header": "winsplp.h",
@@ -10600,7 +11135,10 @@
       "entity_type": "function",
       "description": "打印后台处理程序的 PartialReplyPrinterChangeNotification 函数允许打印提供程序为与通知句柄关联的更改通知补充一项或多项 PRINTER_NOTIFY_INFO_DATA 数据。与 ReplyPrinterChangeNotification 不同，此函数只更新后台处理程序保存的通知信息，不会立即通知客户端发生了更改。",
       "syntax": "BOOL PartialReplyPrinterChangeNotification(\n  HANDLE                    hPrinter,\n  PPRINTER_NOTIFY_INFO_DATA pDataSrc\n);",
-      "return_value": "成功时返回 TRUE；失败时返回 FALSE。可调用 GetLastError 获取扩展错误信息。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "成功时返回 TRUE；失败时返回 FALSE。可调用 GetLastError 获取扩展错误信息。"
+      },
       "remarks": "对于指定的通知句柄，此函数会将 pDataSrc 指定的 PRINTER_NOTIFY_INFO_DATA 内容添加到后台处理程序为该通知维护的 PRINTER_NOTIFY_INFO 结构数组中。调用 PartialReplyPrinterChangeNotification 不会导致后台处理程序向应用程序发出更改通知；它仅补充通知数据。通常它与 ReplyPrinterChangeNotification 配合使用，以便在真正通知客户端之前逐步构造通知内容。如果打印提供程序请求轮询（例如设置 PRINTER_NOTIFY_STATUS_POLL），则不应调用 ReplyPrinterChangeNotification；此时后台处理程序会定期向应用程序发出信号。",
       "requirements": {
         "header": "winspool.h",
@@ -10638,11 +11176,13 @@
         {
           "name": "hPrinterIC",
           "direction": "in",
-          "description": "hPrinterIC定义 HANDLE 参数。[in] pIn pIn定义 LPBYTE 参数。[in] cIn 定义 cIn DWORD 参数。[out] pOut pOut 定义 LPBYTE 参数[in] cOut cOut 定义 DWORD 参数[in] ul 定义 ul DWORD 参数。"
+          "description": "hPrinterIC定义 HANDLE 参数。[in] pIn pIn定义 LPBYTE 参数。[in] cIn 定义 cIn DWORD 参数。[out] pOut pOut 定义 LPBYTE 参数[in] cOut cOut 定义 DWORD 参数[in] ul 定义 ul DWORD 参数。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回非零值；否则返回零。"
+        "description": "如果函数成功，则返回非零值；否则返回零。",
+        "type": "BOOL"
       },
       "header": "winsplp.h",
       "deprecated": false,
@@ -10690,11 +11230,13 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "hPrinter定义 HANDLE 参数。"
+          "description": "hPrinter定义 HANDLE 参数。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "返回 BOOL 值。"
+        "description": "返回 BOOL 值。",
+        "type": "BOOL"
       },
       "requirements": {
         "header": "winsplp.h"
@@ -10717,16 +11259,19 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "hPrinter定义 HANDLE 参数。 fdwFlags fdwFlags定义 DWORD 参数。 fdwOptions fdwOptions定义 DWORD 参数。[in] hNotify hNotify定义 HANDLE 参数。"
+          "description": "hPrinter定义 HANDLE 参数。 fdwFlags fdwFlags定义 DWORD 参数。 fdwOptions fdwOptions定义 DWORD 参数。[in] hNotify hNotify定义 HANDLE 参数。",
+          "type": "HANDLE"
         },
         {
           "name": "pPrinterNotifyOptions",
           "direction": "in, optional",
-          "description": "pPrinterNotifyOptions定义 PVOID 参数。[out, optional] pvReserved1 pvReserved1定义 PVOID 参数。"
+          "description": "pPrinterNotifyOptions定义 PVOID 参数。[out, optional] pvReserved1 pvReserved1定义 PVOID 参数。",
+          "type": "opt_ PVOID"
         }
       ],
       "return_value": {
-        "description": "If the function succeeds, the return value is nonzero. If the function fails, the return value is zero."
+        "description": "If the function succeeds, the return value is nonzero. If the function fails, the return value is zero.",
+        "type": "BOOL"
       },
       "header": "winsplp.h",
       "deprecated": false,
@@ -10744,11 +11289,13 @@
         {
           "name": "hPort",
           "direction": "in",
-          "description": "调用方提供的端口句柄。[out] pBuffer 调用方提供的指向缓冲区的指针，用于接收从端口读取的数据。 cbBuffer 调用方提供的大小（以字节为单位）pBuffer。[out] pcbRead 调用方提供的指向位置的指针，用于接收从端口成功读取的字节数。"
+          "description": "调用方提供的端口句柄。[out] pBuffer 调用方提供的指向缓冲区的指针，用于接收从端口读取的数据。 cbBuffer 调用方提供的大小（以字节为单位）pBuffer。[out] pcbRead 调用方提供的指向位置的指针，用于接收从端口成功读取的字节数。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果作成功，函数应返回 true 。 否则，它应返回 FALSE。"
+        "description": "如果作成功，函数应返回 true 。 否则，它应返回 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "语言监视器 和端口监视器服务器 DLL 需要定义 ReadPort 函数，并将函数的地址包含在 MONITOR2 结构中。 作为函数的 hPort 参数接收的句柄是监视器提供的 OpenPort 或 OpenPortEx 函数提供的端口句柄。 通常，语言监视器的 ReadPort 函数调用关联的端口监视器的 ReadPort 函数，并将获取的缓冲区内容返回到调用方。 此外，语言监视器可能会创建一个单独的线程，该线程调用端口监视器的 ReadPort 函数 来检查未经请求的状态信息。 如果此类读取作成功，则状态信息应通过调用 SetPort（Microsoft Windows SDK 文档中所述）返回到后台处理程序。 通常，端口监视器服务器 DLL 的 ReadPort 函数调用 ReadFile（Windows SDK 文档中所述）从内核模式端口驱动程序获取数据。 该函数只向调用方返回数据。 尽管语言监视器和端口监视器都必须定义 ReadPort 函数并将其地址放置在MONITOR2结构中，但语言监视器的 ReadPort 函数实际上从未由后台处理程序或应用程序调用。 该函数仅用于语言监视器本身的内部使用。 例如，pjlmon.dll（示例语言监视器）创建一个单独的线程，该线程调用自己的 ReadPort 来监视未经请求的打印机状态信息，ReadPort 函数调用端口监视器的 ReadPort 函数。当端口监视器将数据返回到语言监视器时，语言监视器将分析收到的数据和调用 SetPort（Windows SDK 文档中所述）以将状态信息发送到后台处理程序。 函数应通过将数字放置在 指向的位置来返回成功读取的字节数。 调用方通过检查 ReadPort's 返回值而不是返回的字节计数来确定写入作的成功或失败。 因此，返回的字节计数为零并不表示失败的读取，除非函数返回 FALSE。 某种系统实现或监视器实现的超时机制必须确保 ReadPort 函数在合理的时间内返回，以避免停止后台处理程序。 语言监视器可以在 StartDocPort/EndDocPort 对之外调用端口监视器的 ReadPort 例程。（此类调用可能由线程检查是否有未经请求的状态生成。但是，某些端口监视器可能会失 败这样的调用，因此必须编写语言监视器来处理此故障。",
       "header": "winsplp.h",
@@ -10768,7 +11315,10 @@
       "entity_type": "function",
       "description": "打印后台处理程序的 ReplyPrinterChangeNotification 函数允许打印提供程序更新与通知句柄关联的打印队列事件信息，并通知客户端打印队列事件已发生。",
       "syntax": "BOOL ReplyPrinterChangeNotification(\n  HANDLE hPrinter,\n  DWORD  fdwChangeFlags,\n  PDWORD pdwResult,\n  PVOID  pPrinterNotifyInfo\n);",
-      "return_value": "如果函数成功，返回 TRUE；否则返回 FALSE。要获取扩展错误信息，请调用 GetLastError。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果函数成功，返回 TRUE；否则返回 FALSE。要获取扩展错误信息，请调用 GetLastError。"
+      },
       "remarks": "不支持轮询的打印提供程序（请参阅 FindFirstPrinterChangeNotification）必须在发生由其 FindFirstPrinterChangeNotification 调用中请求的 PRINTER_CHANGE_* 事件时通知后台处理程序。发生事件时，打印提供程序可以调用 ReplyPrinterChangeNotification，将事件通知给后台处理程序，并提供与事件关联的信息。后台处理程序会按通知句柄跟踪这些事件信息，并在应用程序调用 FindNextPrinterChangeNotification 时将其传递给应用程序。相关结果标志和通知数据应与打印通知机制中定义的 PRINTER_NOTIFY_INFO / PRINTER_NOTIFY_INFO_DATA 结构及 PRINTER_NOTIFY_INFO_* 标志一致。",
       "header": "winsplp.h",
       "deprecated": false,
@@ -10804,11 +11354,13 @@
         {
           "name": "hNotify",
           "direction": "in",
-          "description": "hNotify定义 HANDLE 参数。 dwColor dwColor定义 DWORD 参数。 fdwFlags fdwFlags定义 DWORD 参数。[out] pdwResult pdwResult定义 PDWORD 参数。[in] pPrinterNotifyInfo pPrinterNotifyInfo定义 PVOID 参数。"
+          "description": "hNotify定义 HANDLE 参数。 dwColor dwColor定义 DWORD 参数。 fdwFlags fdwFlags定义 DWORD 参数。[out] pdwResult pdwResult定义 PDWORD 参数。[in] pPrinterNotifyInfo pPrinterNotifyInfo定义 PVOID 参数。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回非零值；如果函数失败，则返回零。有关扩展错误信息，请调用 GetLastError。"
+        "description": "如果函数成功，则返回非零值；如果函数失败，则返回零。有关扩展错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "header": "winsplp.h",
       "deprecated": false,
@@ -10830,7 +11382,10 @@
       ],
       "confidence": 0.6,
       "_source_line": 25751,
-      "return_value": "如果调用成功，返回一个表示先前模拟状态的句柄，可将其传递给 ImpersonatePrinterClient 以恢复模拟。如果当前线程未处于模拟状态，则返回 NULL。"
+      "return_value": {
+        "type": "HANDLE",
+        "description": "如果调用成功，返回一个表示先前模拟状态的句柄，可将其传递给 ImpersonatePrinterClient 以恢复模拟。如果当前线程未处于模拟状态，则返回 NULL。"
+      }
     },
     {
       "id": "windows::SendRecvBidiDataFromPort",
@@ -10899,10 +11454,14 @@
         {
           "name": "pInfo",
           "direction": "in, optional",
-          "description": "调用方提供的指向PRINTER_NOTIFY_INFO结构的指针（在 Windows SDK 文档中介绍）。"
+          "description": "调用方提供的指向PRINTER_NOTIFY_INFO结构的指针（在 Windows SDK 文档中介绍）。",
+          "type": "optional] PPRINTER_NOTIFY_INFO"
         }
       ],
-      "return_value": "打印提供程序的 RefreshPrinterChangeNotification 函数在需要释放由 RouterAllocPrinterNotifyInfo 分配的通知信息结构时，应调用 RouterFreePrinterNotifyInfo；但如果 RefreshPrinterChangeNotification 成功，则通常应假定客户端应用程序将释放该结构。除释放指定的 PRINTER_NOTIFY_INFO 结构及其关联的 PRINTER_NOTIFY_INFO_DATA 数组外，该函数还会释放与该通知信息相关联的缓冲区。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "打印提供程序的 RefreshPrinterChangeNotification 函数在需要释放由 RouterAllocPrinterNotifyInfo 分配的通知信息结构时，应调用 RouterFreePrinterNotifyInfo；但如果 RefreshPrinterChangeNotification 成功，则通常应假定客户端应用程序将释放该结构。除释放指定的 PRINTER_NOTIFY_INFO 结构及其关联的 PRINTER_NOTIFY_INFO_DATA 数组外，该函数还会释放与该通知信息相关联的缓冲区。"
+      },
       "remarks": "打印提供程序的 RefreshPrinterChangeNotification 函数在需要释放由 RouterAllocPrinterNotifyInfo 分配的通知信息结构时，应调用 RouterFreePrinterNotifyInfo；但如果 RefreshPrinterChangeNotification 成功，则通常应假定客户端应用程序将释放该结构。除释放指定的 PRINTER_NOTIFY_INFO 结构及其关联的 PRINTER_NOTIFY_INFO_DATA 数组外，该函数还会释放与该通知信息相关联的缓冲区。",
       "header": "winsplp.h",
       "deprecated": false,
@@ -10952,11 +11511,13 @@
         {
           "name": "pName",
           "direction": "in",
-          "description": "pName定义 PCWSTR 参数。[in] bDeletePort bDeletePort定义 BOOL 参数。"
+          "description": "pName定义 PCWSTR 参数。[in] bDeletePort bDeletePort定义 BOOL 参数。",
+          "type": "PCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，返回非零值；否则返回零值。"
+        "description": "如果函数成功，返回非零值；否则返回零值。",
+        "type": "BOOL"
       },
       "requirements": {
         "header": "winsplp.h"
@@ -10977,11 +11538,13 @@
         {
           "name": "pPortName",
           "direction": "in",
-          "description": "pPortName定义 PCWSTR 参数。"
+          "description": "pPortName定义 PCWSTR 参数。",
+          "type": "PCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，则返回非零值；否则返回零。"
+        "description": "如果操作成功，则返回非零值；否则返回零。",
+        "type": "BOOL"
       },
       "requirements": {
         "header": "winsplp.h"
@@ -11015,7 +11578,8 @@
         {
           "name": "pszPrinterName",
           "direction": "in",
-          "description": "调用方提供的指向表示打印机名称的字符串的指针。[in] pszKey 调用方提供的指向字符串的指针，该字符串表示打印机 CopyFiles 注册表项下的子项。 此子项标识点和打印 DLL 所属的组件。[in] dwCopyFileEvent 调用方提供的标识所报告事件的标志。 下表中包含有效的标志值。 旗"
+          "description": "调用方提供的指向表示打印机名称的字符串的指针。[in] pszKey 调用方提供的指向字符串的指针，该字符串表示打印机 CopyFiles 注册表项下的子项。 此子项标识点和打印 DLL 所属的组件。[in] dwCopyFileEvent 调用方提供的标识所报告事件的标志。 下表中包含有效的标志值。 旗",
+          "type": "LPWSTR"
         }
       ],
       "header": "winsplp.h",
@@ -11023,7 +11587,10 @@
       "cross_references": [],
       "confidence": 0.8,
       "_source_line": 26218,
-      "return_value": "如果函数成功处理事件，或该事件不需要处理，则返回 TRUE；否则返回 FALSE。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果函数成功处理事件，或该事件不需要处理，则返回 TRUE；否则返回 FALSE。"
+      },
       "remarks": "所有点和打印 DLL 都必须导出此函数，以便由打印后台处理程序在相关复制文件事件发生时调用。该函数既可能在服务器端执行，也可能在客户端执行，具体可由 dwCopyFileEvent 中的标志判断。"
     },
     {
@@ -11059,11 +11626,13 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "hPrinter定义 HANDLE 参数。"
+          "description": "hPrinter定义 HANDLE 参数。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "返回 BOOL 值。"
+        "description": "返回 BOOL 值。",
+        "type": "BOOL"
       },
       "requirements": {
         "header": "winsplp.h"
@@ -11086,21 +11655,25 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "hPrinter定义 HANDLE 参数。 fdwFilterFlags 定义 DWORD 参数 fdwFilterFlags。 fdwOptions fdwOptions定义 DWORD 参数。[in] pPrinterNotifyOptions pPrinterNotifyOptions定义 PVOID 参数。"
+          "description": "hPrinter定义 HANDLE 参数。 fdwFilterFlags 定义 DWORD 参数 fdwFilterFlags。 fdwOptions fdwOptions定义 DWORD 参数。[in] pPrinterNotifyOptions pPrinterNotifyOptions定义 PVOID 参数。",
+          "type": "HANDLE"
         },
         {
           "name": "pvReserved",
           "direction": "in, optional",
-          "description": "pvReserved定义 PVOID 参数。"
+          "description": "pvReserved定义 PVOID 参数。",
+          "type": "PVOID"
         },
         {
           "name": "pNotificationConfig",
           "direction": "in",
-          "description": "pNotificationConfig定义 PVOID 参数。[out, optional] phNotify phNotify定义 PHANDLE 参数。[out, optional] phEvent 定义 phEvent PHANDLE 参数。"
+          "description": "pNotificationConfig定义 PVOID 参数。[out, optional] phNotify phNotify定义 PHANDLE 参数。[out, optional] phEvent 定义 phEvent PHANDLE 参数。",
+          "type": "PVOID"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回非零值；如果失败，则返回零。"
+        "description": "如果函数成功，则返回非零值；如果失败，则返回零。",
+        "type": "BOOL"
       },
       "header": "winsplp.h",
       "deprecated": false,
@@ -11118,11 +11691,13 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "hPrinter定义 HANDLE 参数。[out] pfdwChange pfdwChange定义 LPDWORD 参数。[in, optional] pPrinterNotifyOptions pPrinterNotifyOptions定义 LPVOID 参数。[in, out, optional] ppPrinterNotifyInfo ppPrinterNotifyInfo定义 LPVOID 参数。"
+          "description": "hPrinter定义 HANDLE 参数。[out] pfdwChange pfdwChange定义 LPDWORD 参数。[in, optional] pPrinterNotifyOptions pPrinterNotifyOptions定义 LPVOID 参数。[in, out, optional] ppPrinterNotifyInfo ppPrinterNotifyInfo定义 LPVOID 参数。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，返回非零值；如果失败，返回零。"
+        "description": "如果函数成功，返回非零值；如果失败，返回零。",
+        "type": "BOOL"
       },
       "requirements": {
         "header": "winsplp.h"
@@ -11143,11 +11718,13 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "hPrinter定义 HANDLE 参数。[in] dwColor dwColor定义 DWORD 参数。[in] pOptions 定义 pOptions PPRINTER_NOTIFY_OPTIONS 参数。[in, out, optional] ppInfo 定义 ppInfo PPRINTER_NOTIFY_INFO 参数。"
+          "description": "hPrinter定义 HANDLE 参数。[in] dwColor dwColor定义 DWORD 参数。[in] pOptions 定义 pOptions PPRINTER_NOTIFY_OPTIONS 参数。[in, out, optional] ppInfo 定义 ppInfo PPRINTER_NOTIFY_INFO 参数。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，返回非零值；否则返回零值。"
+        "description": "如果函数成功，返回非零值；否则返回零值。",
+        "type": "BOOL"
       },
       "requirements": {
         "header": "winsplp.h"
@@ -11179,16 +11756,19 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "感兴趣的打印机对象的句柄。 使用 OpenPrinter、OpenPrinter2或 AddPrinter 函数检索打印机句柄。"
+          "description": "感兴趣的打印机对象的句柄。 使用 OpenPrinter、OpenPrinter2或 AddPrinter 函数检索打印机句柄。",
+          "type": "HANDLE"
         },
         {
           "name": "JobId",
           "direction": "in",
-          "description": "指定打印作业的标识符。 可以通过调用 AddJob 函数或 StartDoc 函数来获取打印作业标识符。[in] pszName 将删除的属性的名称。"
+          "description": "指定打印作业的标识符。 可以通过调用 AddJob 函数或 StartDoc 函数来获取打印作业标识符。[in] pszName 将删除的属性的名称。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 ERROR_SUCCESS；否则返回系统错误代码。"
+        "description": "如果函数成功，则返回 ERROR_SUCCESS；否则返回系统错误代码。",
+        "type": "DWORD"
       },
       "requirements": {
         "header": "winspool.h",
@@ -11456,14 +12036,19 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "hPrinter定义 HANDLE 参数。[in] JobId"
+          "description": "hPrinter定义 HANDLE 参数。[in] JobId",
+          "type": "HANDLE"
         }
       ],
       "header": "winspool.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 27060
+      "_source_line": 27060,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::EnumPrintProcessorDatatypesA",
@@ -11475,16 +12060,19 @@
         {
           "name": "pName",
           "direction": "in, optional",
-          "description": "调用方提供的指针指向一个字符串，表示安装打印处理器的服务器的名称。 如果 NULL，则服务器是本地系统。"
+          "description": "调用方提供的指针指向一个字符串，表示安装打印处理器的服务器的名称。 如果 NULL，则服务器是本地系统。",
+          "type": "optional] LPSTR"
         },
         {
           "name": "pPrintProcessorName",
           "direction": "in",
-          "description": "调用方提供的指向表示打印处理器名称的字符串的指针。 Level 调用方提供的值，指示 pDatatypes指向的缓冲区中要返回的结构的类型。 此值必须为 1，表示 结构DATATYPES_INFO_1。[out, optional] pDatatypes 调用方提供的指向缓冲区的指针，用于接收DATATYPES_INFO_1结构的数组，后跟一组表示数据类型名称的字符串。 Microsoft Windows SDK 文档中介绍了DATATYPES_INFO_1结构。 pName 的结构成员 必须为 LPWSTR 类型。 cbBuf 调用方提供的值，表示 pDatatypes指向的缓冲区的大小（以字节为单位）。[out] pcbNeeded 调用方提供的指针指向一个位置，用于接收 pDatatypes指向的缓冲区所需的最小大小。[out] pcReturned 调用方提供的指向位置的指针，用于接收 pDatatypes指向的缓冲区中返回的DATATYPES_INFO_1 结构数。"
+          "description": "调用方提供的指向表示打印处理器名称的字符串的指针。 Level 调用方提供的值，指示 pDatatypes指向的缓冲区中要返回的结构的类型。 此值必须为 1，表示 结构DATATYPES_INFO_1。[out, optional] pDatatypes 调用方提供的指向缓冲区的指针，用于接收DATATYPES_INFO_1结构的数组，后跟一组表示数据类型名称的字符串。 Microsoft Windows SDK 文档中介绍了DATATYPES_INFO_1结构。 pName 的结构成员 必须为 LPWSTR 类型。 cbBuf 调用方提供的值，表示 pDatatypes指向的缓冲区的大小（以字节为单位）。[out] pcbNeeded 调用方提供的指针指向一个位置，用于接收 pDatatypes指向的缓冲区所需的最小大小。[out] pcReturned 调用方提供的指向位置的指针，用于接收 pDatatypes指向的缓冲区中返回的DATATYPES_INFO_1 结构数。",
+          "type": "LPSTR"
         }
       ],
       "return_value": {
-        "description": "如果成功，返回非零值；如果失败，返回 FALSE。可调用 GetLastError 获取错误信息；当缓冲区过小时，通常返回 ERROR_INSUFFICIENT_BUFFER。"
+        "description": "如果成功，返回非零值；如果失败，返回 FALSE。可调用 GetLastError 获取错误信息；当缓冲区过小时，通常返回 ERROR_INSUFFICIENT_BUFFER。",
+        "type": "BOOL"
       },
       "remarks": "打印处理器必须导出 EnumPrintProcessorDatatypes 函数。本地打印提供程序在初始化期间会调用此函数；当应用程序调用后台处理程序版本的同名函数时，也会调用该函数。该函数必须返回 DATATYPES_INFO_1 结构数组，每个结构引用一个表示数据类型名称的字符串；实际字符串内容也必须包含在返回缓冲区中。如果提供的缓冲区过小，函数应通过 pcbNeeded 返回所需大小，将最后错误设置为 ERROR_INSUFFICIENT_BUFFER，并返回 FALSE。",
       "requirements": {
@@ -11506,7 +12094,8 @@
         {
           "name": "pValue",
           "direction": "in, out",
-          "description": "指向 从 getJobNamedPropertyValue返回的 PrintPropertyValue 结构的指针。"
+          "description": "指向 从 getJobNamedPropertyValue返回的 PrintPropertyValue 结构的指针。",
+          "type": "out] PrintPropertyValue"
         }
       ],
       "return_value": {
@@ -11535,15 +12124,20 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "感兴趣的打印机对象的句柄。 使用 OpenPrinter、OpenPrinter2或 AddPrinter 函数检索 打印机句柄。[in] JobId 指定打印作业的标识符。 可以通过调用 AddJob 函数或 StartDoc 函数来获取打印作业标识符。"
+          "description": "感兴趣的打印机对象的句柄。 使用 OpenPrinter、OpenPrinter2或 AddPrinter 函数检索 打印机句柄。[in] JobId 指定打印作业的标识符。 可以通过调用 AddJob 函数或 StartDoc 函数来获取打印作业标识符。",
+          "type": "HANDLE"
         },
         {
           "name": "pszName",
           "direction": "in",
-          "description": "将检索其值的属性的名称。[out] pValue 命名属性的值。 调用方需要使用 FreePrintPropertyValue 函数来释放此功能。"
+          "description": "将检索其值的属性的名称。[out] pValue 命名属性的值。 调用方需要使用 FreePrintPropertyValue 函数来释放此功能。",
+          "type": "PCWSTR"
         }
       ],
-      "return_value": "此函数属于打印后台处理程序相关 API。输出的属性值由调用方负责释放，应调用 FreePrintPropertyValue。",
+      "return_value": {
+        "type": "DWORD",
+        "description": "此函数属于打印后台处理程序相关 API。输出的属性值由调用方负责释放，应调用 FreePrintPropertyValue。"
+      },
       "header": "Winspool.h",
       "deprecated": false,
       "cross_references": [],
@@ -11561,11 +12155,13 @@
         {
           "name": "pDevmode",
           "direction": "in, optional",
-          "description": "指向要验证的 DEVMODE 结构的指针。 DevmodeSize pDevmode指向的缓冲区的大小（以字节为单位）。"
+          "description": "指向要验证的 DEVMODE 结构的指针。 DevmodeSize pDevmode指向的缓冲区的大小（以字节为单位）。",
+          "type": "optional] PDEVMODEA"
         }
       ],
       "return_value": {
-        "description": "如果 DEVMODE 结构有效，或者函数成功修复结构以使其有效，则函数返回 TRUE。 否 则，该函数返回 FALSE。 调用方可以通过调用 GetLastError来获取错误代码。"
+        "description": "如果 DEVMODE 结构有效，或者函数成功修复结构以使其有效，则函数返回 TRUE。 否 则，该函数返回 FALSE。 调用方可以通过调用 GetLastError来获取错误代码。",
+        "type": "BOOL"
       },
       "remarks": "在使用来自可能不可信来源的 DEVMODE 结构之前，打印机驱动程序可调用此函数验证其有效性。该函数仅验证 DEVMODE 结构的公共成员，不检查私有成员。DEVMODE 的 dmSize 成员指定结构本身的大小，不包括附加的驱动程序私有数据；dmDriverExtra 指定附加私有数据的大小（如果有）。只有当调用方能够保证输入缓冲区至少具有 dmSize + dmDriverExtra 字节时，才应将 DevmodeSize 设置为该值。此函数不要求调用方具有提升的权限。",
       "header": "winspool.h",
@@ -11584,11 +12180,13 @@
         {
           "name": "pDevmode",
           "direction": "in, optional",
-          "description": "指向要验证的 DEVMODE 结构的指针。 DevmodeSize pDevmode指向的缓冲区的大小（以字节为单位）。"
+          "description": "指向要验证的 DEVMODE 结构的指针。 DevmodeSize pDevmode指向的缓冲区的大小（以字节为单位）。",
+          "type": "optional] PDEVMODEW"
         }
       ],
       "return_value": {
-        "description": "如果 DEVMODE 结构有效，或者函数成功修复该结构以使其有效，则返回 TRUE；否则返回 FALSE。调用方可以通过调用 GetLastError 获取扩展错误信息。"
+        "description": "如果 DEVMODE 结构有效，或者函数成功修复该结构以使其有效，则返回 TRUE；否则返回 FALSE。调用方可以通过调用 GetLastError 获取扩展错误信息。",
+        "type": "BOOL"
       },
       "remarks": "打印机驱动程序在使用来自可能不受信任源的 DEVMODE 结构之前，可以调用此函数验证其有效性。该函数仅验证 DEVMODE 结构的公共成员，不检查私有成员。DEVMODE 结构的 dmSize 成员指定结构本身的大小，不包括附加的驱动程序专用数据；dmDriverExtra 成员指定附加专用数据的大小（如果有）。只有在调用方能够保证输入缓冲区至少具有 dmSize + dmDriverExtra 字节时，才应将 DevmodeSize 设置为该值。此函数不要求调用方具有提升的权限。",
       "header": "winspool.h",
@@ -11660,11 +12258,13 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "hPrinter定义 HANDLE 参数。 Error 定义 DWORD 参数 错误。[in] hWnd hWnd定义 HWND 参数。[in] pText 定义 pText LPSTR 参数。[in] pCaption pCaption定义 LPSTR 参数。 dwType dwType定义 DWORD 参数。"
+          "description": "hPrinter定义 HANDLE 参数。 Error 定义 DWORD 参数 错误。[in] hWnd hWnd定义 HWND 参数。[in] pText 定义 pText LPSTR 参数。[in] pCaption pCaption定义 LPSTR 参数。 dwType dwType定义 DWORD 参数。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，返回值指示用户按下的消息框按钮；如果函数失败，则返回 0。"
+        "description": "如果函数成功，返回值指示用户按下的消息框按钮；如果函数失败，则返回 0。",
+        "type": "DWORD"
       },
       "requirements": {
         "header": "winspool.h"
@@ -11686,11 +12286,13 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "hPrinter定义 HANDLE 参数。 Error 定义 DWORD 参数 错误。[in] hWnd hWnd定义 HWND 参数。[in] pText pText定义 LPWSTR 参数。[in] pCaption pCaption定义 LPWSTR 参数。 dwType dwType定义 DWORD 参数。"
+          "description": "hPrinter定义 HANDLE 参数。 Error 定义 DWORD 参数 错误。[in] hWnd hWnd定义 HWND 参数。[in] pText pText定义 LPWSTR 参数。[in] pCaption pCaption定义 LPWSTR 参数。 dwType dwType定义 DWORD 参数。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回指示用户所选按钮的值；否则返回 0。返回值语义与 MessageBox 类似。"
+        "description": "如果函数成功，则返回指示用户所选按钮的值；否则返回 0。返回值语义与 MessageBox 类似。",
+        "type": "DWORD"
       },
       "header": "winspool.h",
       "deprecated": false,
@@ -11738,11 +12340,13 @@
         {
           "name": "hPrinter",
           "direction": "in",
-          "description": "hPrinter定义 HANDLE 参数。 Flags 定义 DWORD 参数 标志。"
+          "description": "hPrinter定义 HANDLE 参数。 Flags 定义 DWORD 参数 标志。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，返回值是指示发生了哪些打印机更改的位掩码。出错时返回 0xFFFFFFFF。要获取扩展错误信息，请调用 GetLastError。"
+        "description": "如果函数成功，返回值是指示发生了哪些打印机更改的位掩码。出错时返回 0xFFFFFFFF。要获取扩展错误信息，请调用 GetLastError。",
+        "type": "DWORD"
       },
       "requirements": {
         "header": "winspool.h"

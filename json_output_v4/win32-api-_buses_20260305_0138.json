@@ -458,7 +458,7 @@
     {
       "id": "windows::USB_UNICODE_NAME",
       "name": "USB_UNICODE_NAME",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Contains a Unicode string with a variable length.",
       "syntax": "typedef struct _USB_UNICODE_NAME {   ULONG Length;\nWCHAR String[1];\n} USB_UNICODE_NAME, *PUSB_UNICODE_NAME;",
       "members": [
@@ -473,7 +473,8 @@
         "USBUSER_CONTROLLER_UNICODE_NAME"
       ],
       "confidence": 0.95,
-      "_source_line": 111
+      "_source_line": 111,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USBUSER_BANDWIDTH_INFO_REQUEST",
@@ -553,7 +554,7 @@
     {
       "id": "windows::USBUSER_POWER_INFO_REQUEST",
       "name": "USBUSER_POWER_INFO_REQUEST",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构与 IOCTL_USB_USER_REQUEST I/O 控制请求结合使用，以检索有关特定系统状态与主机控制器和根集线器电源状态的关系的电源策略信息。",
       "syntax": "typedef struct _USBUSER_POWER_INFO_REQUEST {   USBUSER_REQUEST_HEADER Header;",
       "header": "usbuser.h",
@@ -562,12 +563,13 @@
         "IOCTL_USB_USER_REQUEST"
       ],
       "confidence": 0.85,
-      "_source_line": 122
+      "_source_line": 122,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::USBUSER_REQUEST_HEADER",
       "name": "USBUSER_REQUEST_HEADER",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构用于USB用户请求的头部。参数结构紧跟在Irp->AssociatedIrp.SystemBuffer中的USBUSER_REQUEST_HEADER结构之后。对于某些用户请求，当请求完成时，参数结构将包含输出数据。输出缓冲区长度由参数结构的长度指定。",
       "syntax": "typedef struct _USBUSER_REQUEST_HEADER {\n    ULONG UsbUserRequest;\n    ULONG RequestBufferLength;\n    ULONG ActualBufferLength;\n} USBUSER_REQUEST_HEADER, *PUSBUSER_REQUEST_HEADER;",
       "members": [
@@ -580,7 +582,8 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.95,
-      "_source_line": 124
+      "_source_line": 124,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::WINUSB_PIPE_INFORMATION",
@@ -612,7 +615,7 @@
     {
       "id": "windows::WINUSB_SETUP_PACKET",
       "name": "WINUSB_SETUP_PACKET",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "8 字节的 USB 设置数据包结构，用于 WinUsb_ControlTransfer 函数中指定控制传输请求。",
       "syntax": "typedef struct _WINUSB_SETUP_PACKET {\n  UCHAR  RequestType;\n  UCHAR  Request;\n  USHORT Value;\n  USHORT Index;\n  USHORT Length;\n} WINUSB_SETUP_PACKET, *PWINUSB_SETUP_PACKET;",
       "parameters": [
@@ -644,7 +647,8 @@
         "Overlapped"
       ],
       "confidence": 1.0,
-      "_source_line": 128
+      "_source_line": 128,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::IOCTL_GENERICUSBFN_ACTIVATE_USB_B",
@@ -1363,7 +1367,7 @@
     {
       "id": "windows::ALLOW_PARTIAL_READS",
       "name": "ALLOW_PARTIAL_READS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "，则 WinUSB 会将剩余数据添加到下一次传输的开头。 如果未设置ALLOW_PARTIAL_READS，读取请求将失败。 有关策略类型的详细信息，请参阅 用于管道策略修改的 WinUSB 函数。 如果应用程序将重叠参数 (同步操作) 传递 NULL，则应用程序必须确保 LengthTransferred 不是 NULL，即使读取操作不生成输出数据也是如此。 如果 重叠 不是 NULL (异步操作) ，则可以将 LengthTransferred 设置为 NULL。 对于重叠操作 (如果 LengthTransferred 是非 NULL 值) ，则在WinUsb_ReadPipe返回后在",
       "header": "winusb.h",
       "deprecated": false,
@@ -1372,7 +1376,8 @@
         "WinUSB"
       ],
       "confidence": 0.75,
-      "_source_line": 2191
+      "_source_line": 2191,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::MaximumBytesPerInterval",

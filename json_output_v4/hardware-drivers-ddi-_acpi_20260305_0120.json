@@ -288,11 +288,13 @@
         {
           "name": "DeviceObject",
           "direction": "in",
-          "description": "指向物理设备对象（PDO）的指针，该对象表示定义作区域的 ACPI 设备。[in] OperationRegionObject 指定作区域处理程序 RegisterOpRegionHandler 返回的作区域对象。"
+          "description": "指向物理设备对象（PDO）的指针，该对象表示定义作区域的 ACPI 设备。[in] OperationRegionObject 指定作区域处理程序 RegisterOpRegionHandler 返回的作区域对象。",
+          "type": "PDEVICE_OBJECT"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS 状态代码。调用成功时返回成功状态；否则返回相应的错误状态。"
+        "description": "返回 NTSTATUS 状态代码。调用成功时返回成功状态；否则返回相应的错误状态。",
+        "type": "NTSTATUS"
       },
       "header": "oprghdlr.h",
       "deprecated": false,
@@ -359,7 +361,8 @@
         {
           "name": "DeviceObject",
           "direction": "in",
-          "description": "指向 物理设备对象（PDO） 的指针，该对象表示定义作区域的 ACPI 设备。[in] AccessType 指定ACPI_OPREGION_ACCESS_AS_COOKED。[in] RegionSpace 指定以下类型的区域空间之一。 区域空间标识符"
+          "description": "指向 物理设备对象（PDO） 的指针，该对象表示定义作区域的 ACPI 设备。[in] AccessType 指定ACPI_OPREGION_ACCESS_AS_COOKED。[in] RegionSpace 指定以下类型的区域空间之一。 区域空间标识符",
+          "type": "PDEVICE_OBJECT"
         }
       ],
       "header": "oprghdlr.h",
@@ -367,7 +370,11 @@
       "cross_references": [],
       "confidence": 0.7,
       "_source_line": 67,
-      "remarks": "调用成功后，OperationRegionObject 参数返回一个操作区域对象，可在后续调用 DeRegisterOpRegionHandler 时使用。当前文档内容存在 OCR 噪声，部分参数详细取值未在此处展开。"
+      "remarks": "调用成功后，OperationRegionObject 参数返回一个操作区域对象，可在后续调用 DeRegisterOpRegionHandler 时使用。当前文档内容存在 OCR 噪声，部分参数详细取值未在此处展开。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::ACPI_DEVICE_INFORMATION_OUTPUT_BUFFER",
@@ -2271,7 +2278,10 @@
           "description": ""
         }
       ],
-      "return_value": "返回 NTSTATUS 值。成功时返回成功状态代码；失败时返回相应的错误状态代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "返回 NTSTATUS 值。成功时返回成功状态代码；失败时返回相应的错误状态代码。"
+      },
       "remarks": "这是一个回调函数类型，由设备函数驱动程序实现并注册，供 ACPI 驱动程序在访问设备操作区域时调用。"
     },
     {

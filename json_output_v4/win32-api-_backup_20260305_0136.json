@@ -25,21 +25,25 @@
         {
           "name": "Destination",
           "direction": "in, out",
-          "description": "指向目标值的指针。"
+          "description": "指向目标值的指针。",
+          "type": "LONG volatile"
         },
         {
           "name": "ExChange",
           "direction": "in",
-          "description": "交换值。"
+          "description": "交换值。",
+          "type": "LONG"
         },
         {
           "name": "Comperand",
           "direction": "in",
-          "description": "要与 Destination 进行比较的值。"
+          "description": "要与 Destination 进行比较的值。",
+          "type": "LONG"
         }
       ],
       "return_value": {
-        "description": "函数返回 Destination 参数的初始值。"
+        "description": "函数返回 Destination 参数的初始值。",
+        "type": "LONG"
       },
       "remarks": "函数将 *Destination 与 Comperand 进行比较。如果 *Destination 等于 Comperand，则将 ExChange 存储到 Destination 指向的位置；否则不执行交换。函数返回交换前的原始值。该操作是原子的。参数必须按 32 位边界正确对齐；否则，在多处理器 x86 系统和任何非 x86 系统上的行为都不可预知。",
       "header": "winbase.h",
@@ -62,11 +66,13 @@
         {
           "name": "Addend",
           "direction": "in, out",
-          "description": "指向变量的指针。 此变量的值将替换为操作的结果。[in] Value 要添加到由 Addend 参数指向的变量的值。"
+          "description": "指向变量的指针。 此变量的值将替换为操作的结果。[in] Value 要添加到由 Addend 参数指向的变量的值。",
+          "type": "out] LONG volatile"
         }
       ],
       "return_value": {
-        "description": "该函数返回 Addend 参数的初始值。"
+        "description": "该函数返回 Addend 参数的初始值。",
+        "type": "LONG"
       },
       "remarks": "该函数以原子方式将 Value 加到 Addend 指向的 32 位整数上，并将结果存储回 Addend 指向的位置。返回值是操作前的原始值。\\n\\n该变量必须按 32 位边界对齐；否则，在多处理器 x86 系统和所有非 x86 系统上的行为是不可预知的。\\n\\nInterlocked 函数可用于同步多个线程对共享变量的访问。此函数会生成完整内存屏障（full memory barrier），以确保内存操作按顺序完成。\\n\\n在基于 Itanium 的系统上，对于性能关键型应用程序，可考虑使用 InterlockedExchangeAddAcquire。",
       "requirements": {
@@ -97,10 +103,14 @@
         {
           "name": "Target",
           "direction": "in, out",
-          "description": "指向要交换的地址的指针。 该函数将 Target 参数（*Target ）指向的地址设置为 Value 参数的 值，并返回 Target 参数的先前值。[in] Value 要与 目标 参数（*Target ）指向的地址交换的地址。"
+          "description": "指向要交换的地址的指针。 该函数将 Target 参数（*Target ）指向的地址设置为 Value 参数的 值，并返回 Target 参数的先前值。[in] Value 要与 目标 参数（*Target ）指向的地址交换的地址。",
+          "type": "out] PVOID volatile"
         }
       ],
-      "return_value": "该函数以原子方式将 Value 写入 *Target，并返回原始值。在 64 位系统上，Target 必须按 64 位边界对齐；在 32 位系统上，Target 必须按 32 位边界对齐，否则行为不可预知。互锁函数为多个线程共享变量的同步访问提供了简单机制。此函数对其他互锁函数调用而言是原子的。该函数会生成完整的内存屏障，以确保内存操作按顺序完成。对于基于 Itanium 的系统，性能关键型应用程序可考虑使用 InterlockedExchangePointerAcquire。Windows RT 系统也支持此函数。",
+      "return_value": {
+        "type": "PVOID",
+        "description": "该函数以原子方式将 Value 写入 *Target，并返回原始值。在 64 位系统上，Target 必须按 64 位边界对齐；在 32 位系统上，Target 必须按 32 位边界对齐，否则行为不可预知。互锁函数为多个线程共享变量的同步访问提供了简单机制。此函数对其他互锁函数调用而言是原子的。该函数会生成完整的内存屏障，以确保内存操作按顺序完成。对于基于 Itanium 的系统，性能关键型应用程序可考虑使用 InterlockedExchangePointerAcquire。Windows RT 系统也支持此函数。"
+      },
       "remarks": "该函数以原子方式将 Value 写入 *Target，并返回原始值。在 64 位系统上，Target 必须按 64 位边界对齐；在 32 位系统上，Target 必须按 32 位边界对齐，否则行为不可预知。互锁函数为多个线程共享变量的同步访问提供了简单机制。此函数对其他互锁函数调用而言是原子的。该函数会生成完整的内存屏障，以确保内存操作按顺序完成。对于基于 Itanium 的系统，性能关键型应用程序可考虑使用 InterlockedExchangePointerAcquire。Windows RT 系统也支持此函数。",
       "header": "winnt.h",
       "deprecated": false,
@@ -120,10 +130,14 @@
         {
           "name": "Destination",
           "direction": "in, out",
-          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。"
+          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。",
+          "type": "out] LONG volatile"
         }
       ],
-      "return_value": "互锁函数提供了一种简单机制，用于同步对多个线程共享变量的访问。此函数相对于其他互锁函数调用是原子的。对于基于 Intel Itanium 的系统和 x64 体系结构，此函数使用编译器内部函数实现。对于 x86 体系结构，请直接使用 _InterlockedXor 编译器内部函数。此函数（或屏障）会生成完整的内存屏障，以确保内存操作按顺序完成。对于基于 Itanium 的系统，性能关键型应用程序可改用 InterlockedXorAcquire 或 InterlockedXorRelease。Windows RT 也支持此函数。",
+      "return_value": {
+        "type": "LONG",
+        "description": "互锁函数提供了一种简单机制，用于同步对多个线程共享变量的访问。此函数相对于其他互锁函数调用是原子的。对于基于 Intel Itanium 的系统和 x64 体系结构，此函数使用编译器内部函数实现。对于 x86 体系结构，请直接使用 _InterlockedXor 编译器内部函数。此函数（或屏障）会生成完整的内存屏障，以确保内存操作按顺序完成。对于基于 Itanium 的系统，性能关键型应用程序可改用 InterlockedXorAcquire 或 InterlockedXorRelease。Windows RT 也支持此函数。"
+      },
       "remarks": "互锁函数提供了一种简单机制，用于同步对多个线程共享变量的访问。此函数相对于其他互锁函数调用是原子的。对于基于 Intel Itanium 的系统和 x64 体系结构，此函数使用编译器内部函数实现。对于 x86 体系结构，请直接使用 _InterlockedXor 编译器内部函数。此函数（或屏障）会生成完整的内存屏障，以确保内存操作按顺序完成。对于基于 Itanium 的系统，性能关键型应用程序可改用 InterlockedXorAcquire 或 InterlockedXorRelease。Windows RT 也支持此函数。",
       "header": "winnt.h",
       "deprecated": false,
@@ -136,7 +150,7 @@
     {
       "id": "windows::GROUP_AFFINITY",
       "name": "GROUP_AFFINITY",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Specifies a group number and processor affinity within the group.",
       "syntax": "typedef struct _GROUP_AFFINITY {\nKAFFINITY Mask;   WORD      Group;\nWORD      Reserved[3];\n} GROUP_AFFINITY, *PGROUP_AFFINITY;",
       "members": [
@@ -162,7 +176,8 @@
         "NUMA_NODE_RELATIONSHIP"
       ],
       "confidence": 0.95,
-      "_source_line": 5626
+      "_source_line": 5626,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::_InlineInterlockedAdd64",
@@ -174,11 +189,13 @@
         {
           "name": "Addend",
           "direction": "in, out",
-          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。"
+          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。",
+          "type": "out] LONG64 volatile"
         }
       ],
       "return_value": {
-        "description": "函数返回操作的结果。"
+        "description": "函数返回操作的结果。",
+        "type": "LONG64"
       },
       "remarks": "互锁函数提供了一种简单的机制，用于同步对多个线程共享的变量的访问。此函数是原子函数。如果可能，此函数是使用编译器内部函数实现的。有关详细信息，请参阅 WinBase.h 头文件和_InterlockedAdd64。此函数生成完整的内存屏障，以确保按顺序完成内存操作。注意：基于 Windows RT 的系统支持此函数。",
       "header": "winnt.h",
@@ -232,7 +249,8 @@
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回非零值。如果函数失败，则返回值为零。要获取错误信息，请调用 GetLastError。"
+        "description": "如果函数成功，则返回非零值。如果函数失败，则返回值为零。要获取错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "如果当前运行的光纤调用DeleteFiber，则其线程将调用ExitThread并终止。如果另一个光纤删除当前正在运行的光纤，则运行已删除光纤的线程可能会异常终止，因为已释放光纤堆栈。",
       "requirements": {
@@ -295,7 +313,8 @@
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回值为非零。如果函数失败，则返回值为零。要获取错误信息，请调用 GetLastError。"
+        "description": "如果函数成功，则返回值为非零。如果函数失败，则返回值为零。要获取错误信息，请调用 GetLastError。",
+        "type": "DWORD"
       },
       "remarks": "邻近域标识符是 NUMA 系统上 NUMA 节点的索引。 邻近域标识符可在 ACPI 系统资源相关性表(SRAT) 中找到，其中它们用于将处理器和内存区域与特定的 NUMA 节点相关联。 邻近域标识符也位于 ACPI 命名空间中，其中它们用于将设备与特定 NUMA 节点相关联。 邻近域标识符通常仅由系统制造商提供的管理应用程序使用。 Windows 不使用邻近域标识符来标识 NUMA 节点; 相反，它会为系统中的每个 NUMA 节点分配一个唯一编号。 系统上节点之间的相对距离存储在 ACPI 系统位置距离信息表中， (SLIT) ，它不会由任何 Windows 函数公开。 有关 ACPI 表的详细信息，请参阅 ACPI 规范 。 要求",
       "header": "winbase.h",
@@ -325,11 +344,13 @@
         {
           "name": "Destination",
           "direction": "in, out",
-          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。"
+          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。",
+          "type": "out] SHORT volatile"
         }
       ],
       "return_value": {
-        "description": "函数返回 Destination 参数的原始值。"
+        "description": "函数返回 Destination 参数的原始值。",
+        "type": "SHORT"
       },
       "remarks": "互锁函数提供了一种简单的机制，用于同步对多个线程共享的变量的访问。 对于对其他互锁函数的调用，此函数是原子函数。 对于基于 Intel Itanium 的系统和 x64 体系结构，此函数是使用编译器内部函数实现的。 对于 x86 体系结构，请直接使用 _InterlockedAnd16 编译器内部函数。此函数 (或围栏) 生成完整的内存屏障，以确保按顺序完成内存操作。 基于 Itanium 的系统： 对于性能关键型应用程序，请改用 InterlockedAnd16Acquire 或 InterlockedAnd16Release 。 注意 基于 Windows RT 的系统支持此函数。",
       "header": "winnt.h",
@@ -352,11 +373,13 @@
         {
           "name": "Destination",
           "direction": "in, out",
-          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。"
+          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。",
+          "type": "out] SHORT volatile"
         }
       ],
       "return_value": {
-        "description": "函数返回 Destination 参数的原始值。"
+        "description": "函数返回 Destination 参数的原始值。",
+        "type": "SHORT"
       },
       "remarks": "互锁函数提供了一种简单机制，用于同步对由多个线程共享的变量的访问。 对于对其他互锁函数的调用，此函数是原子的。 对于基于 Intel Itanium 的系统和 x64 体系结构，此函数是使用编译器内部函数实现的。 对于 x86 体系结构，请直接使用 _InterlockedOr16 编译器内部函数。 此函数生成完整的内存屏障 (或围栏) ，以确保按顺序完成内存操作。 基于 Itanium 的系统： 对于性能关键型应用程序，请改用 InterlockedOr16Acquire 或 InterlockedOr16Release 。 注意基于 Windows RT 的系统支持此函数。",
       "header": "winnt.h",
@@ -387,11 +410,13 @@
         {
           "name": "ListHead",
           "direction": "in",
-          "description": "指向 SLIST_HEADER 结构的指针，该结构表示单独链接列表的标题。[in] ListEntry 指向 SLIST_ENTRY 结构的指针，该结构表示单独链接列表中的项。"
+          "description": "指向 SLIST_HEADER 结构的指针，该结构表示单独链接列表的标题。[in] ListEntry 指向 SLIST_ENTRY 结构的指针，该结构表示单独链接列表中的项。",
+          "type": "PSLIST_HEADER"
         }
       ],
       "return_value": {
-        "description": "返回值是列表中的上一个项。 如果列表以前为空，则返回值为 NULL。"
+        "description": "返回值是列表中的上一个项。 如果列表以前为空，则返回值为 NULL。",
+        "type": "PSLIST_ENTRY"
       },
       "remarks": "对 InterlockedPushEntrySList 函数的调用将转发到 RtlInterlockedPushEntrySList 函数。 应用程 序应调用 InterlockedPushEntrySList ，而不是直接调用此函数。",
       "requirements": {
@@ -424,12 +449,14 @@
         {
           "name": "pcbe",
           "direction": "in, out",
-          "description": "定义回调环境的 TP_CALLBACK_ENVIRON 结构。 InitializeThreadpoolEnvironment 函数返回此结构。"
+          "description": "定义回调环境的 TP_CALLBACK_ENVIRON 结构。 InitializeThreadpoolEnvironment 函数返回此结构。",
+          "type": "out] PTP_CALLBACK_ENVIRON"
         },
         {
           "name": "pcbe",
           "direction": "in, out",
-          "description": "定义回调环境的 TP_CALLBACK_ENVIRON 结构。 InitializeThreadpoolEnvironment 函数返回此 结构。[in] ptpp 定义线程池 的TP_POOL 结构。 CreateThreadpool 函数返回此结构。"
+          "description": "定义回调环境的 TP_CALLBACK_ENVIRON 结构。 InitializeThreadpoolEnvironment 函数返回此 结构。[in] ptpp 定义线程池 的TP_POOL 结构。 CreateThreadpool 函数返回此结构。",
+          "type": "out] PTP_CALLBACK_ENVIRON"
         }
       ],
       "return_value": {
@@ -531,7 +558,7 @@
     {
       "id": "windows::JobObjectLimitViolationInformationInformation",
       "name": "JobObjectLimitViolationInformationInformation",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "信息类的 QueryInformationJobObject 函数一起使用。",
       "header": null,
       "deprecated": false,
@@ -539,7 +566,8 @@
         "QueryInformationJobObject"
       ],
       "confidence": 0.4,
-      "_source_line": 368
+      "_source_line": 368,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::JobObjectLimitViolationInformationInformation2",
@@ -586,7 +614,7 @@
     {
       "id": "windows::PROCESS_MITIGATION_ASLR_POLICY",
       "name": "PROCESS_MITIGATION_ASLR_POLICY",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含地址空间随机化布局 (ASLR) 的进程缓解策略设置。",
       "syntax": "typedef struct _PROCESS_MITIGATION_ASLR_POLICY {\n  union {\n    DWORD Flags;\n    struct {\n      DWORD EnableBottomUpRandomization : 1;\n      DWORD EnableForceRelocateImages : 1;\n      DWORD EnableHighEntropy : 1;\n      DWORD DisallowStrippedImages : 1;\n      DWORD ReservedFlags : 28;\n    } DUMMYSTRUCTNAME;\n  } DUMMYUNIONNAME;\n} PROCESS_MITIGATION_ASLR_POLICY, *PPROCESS_MITIGATION_ASLR_POLICY;",
       "requirements": {
@@ -601,7 +629,8 @@
         "PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY"
       ],
       "confidence": 0.85,
-      "_source_line": 388
+      "_source_line": 388,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SYSTEM_CPU_SET_INFORMATION",
@@ -652,7 +681,7 @@
     {
       "id": "windows::TAPE_SET_MEDIA_PARAMETERS",
       "name": "TAPE_SET_MEDIA_PARAMETERS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "描述磁带驱动器中的磁带参数。它由 SetTapeParameters 函数使用。",
       "syntax": "typedef struct _TAPE_SET_MEDIA_PARAMETERS {   DWORD BlockSize;\n} TAPE_SET_MEDIA_PARAMETERS, *PTAPE_SET_MEDIA_PARAMETERS;",
       "members": [
@@ -665,7 +694,8 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.85,
-      "_source_line": 454
+      "_source_line": 454,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::TAPE_SET_POSITION",
@@ -958,14 +988,19 @@
         {
           "name": "lpUsername",
           "direction": "in",
-          "description": "用户的名称。 这是要登录的用户帐户的名称。 如果使用 UPN 格式、 用户@DNS_domain_name， 则 lpDomain 参数必须为 NULL。 用户帐户必须具有本地计算机上的“本地登录”权限。 此权限授予工作站和服务器上的所有用 户，但仅授予域控制器上的管理员。[in, optional] lpDomain 其帐户数据库包含 lpUsername 帐户的域或服务器的名称。 如果此参数为 NULL，则必须以 UPN 格式指定用户名。[in] lpPassword lpUsername 帐户的明文密码。[in] dwLogonFlags 登录选项。 此参数可以为 0 (零) 或以下值之一。 值"
+          "description": "用户的名称。 这是要登录的用户帐户的名称。 如果使用 UPN 格式、 用户@DNS_domain_name， 则 lpDomain 参数必须为 NULL。 用户帐户必须具有本地计算机上的“本地登录”权限。 此权限授予工作站和服务器上的所有用 户，但仅授予域控制器上的管理员。[in, optional] lpDomain 其帐户数据库包含 lpUsername 帐户的域或服务器的名称。 如果此参数为 NULL，则必须以 UPN 格式指定用户名。[in] lpPassword lpUsername 帐户的明文密码。[in] dwLogonFlags 登录选项。 此参数可以为 0 (零) 或以下值之一。 值",
+          "type": "LPCWSTR"
         }
       ],
       "header": "processthreadsapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 614
+      "_source_line": 614,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::PROCESS_LEAP_SECOND_INFO",
@@ -1076,11 +1111,13 @@
         {
           "name": "hFile",
           "direction": "in",
-          "description": "要备份的文件或目录的句柄。 若要获取句柄，请调用 CreateFile 函数。 除非文件句柄是使用 ACCESS_SYSTEM_SECURITY 访问权限创建的，否则不会读取 SCL。 有关详细信息，请参阅 文件安全性和访问权限。 句柄必须是同步的， (非重叠) 。 这意味着在调用 CreateFile 时，不得设置"
+          "description": "要备份的文件或目录的句柄。 若要获取句柄，请调用 CreateFile 函数。 除非文件句柄是使用 ACCESS_SYSTEM_SECURITY 访问权限创建的，否则不会读取 SCL。 有关详细信息，请参阅 文件安全性和访问权限。 句柄必须是同步的， (非重叠) 。 这意味着在调用 CreateFile 时，不得设置",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零，表示发生了 I/O 错误。 要获得更多的错误信息，请调用 GetLastError。"
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零，表示发生了 I/O 错误。 要获得更多的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "此函数不适用于备份在加密文件系统下加密的文件。 为此，请使用 ReadEncryptedFileRaw 。如果在 BackupRead 读取数据时出错，调用过程可以通过调用 BackupSeek 函数跳过错误数据。应使用 BackupWrite 函数还原文件或目录。",
       "header": "winbase.h",
@@ -1124,11 +1161,13 @@
         {
           "name": "hFile",
           "direction": "in",
-          "description": "文件或目录的句柄。 此句柄是使用 CreateFile 函数创建的。 句柄必须是同步 (非重叠) 。 这意味着在调用 CreateFile 时，不得设置FILE_FLAG_OVERLAPPED 标志。 此函数不会验证它收到的句柄是否同步，因此它不会返回同步句柄的错误代码，但使用 异步 (重叠) 句柄调用它可能会导致非常难以调试的细微错误。[in] dwLowBytesToSeek 要查找的字节数的低序部分。[in] dwHighBytesToSeek 要查找的字节数的高序部分。[out] lpdwLowByteSeeked 指向变量的指针，该变量接收函数实际查找的字节数的低序位。[out] lpdwHighByteSeeked 指向变量的指针，该变量接收函数实际查找的字节数的高阶位。[in] lpContext 指向函数使用的内部数据结构的指针。 此结构必须与 BackupRead 或 BackupWrite 函数初始化 的结构相同。 应用程序不得接触此结构的内容。"
+          "description": "文件或目录的句柄。 此句柄是使用 CreateFile 函数创建的。 句柄必须是同步 (非重叠) 。 这意味着在调用 CreateFile 时，不得设置FILE_FLAG_OVERLAPPED 标志。 此函数不会验证它收到的句柄是否同步，因此它不会返回同步句柄的错误代码，但使用 异步 (重叠) 句柄调用它可能会导致非常难以调试的细微错误。[in] dwLowBytesToSeek 要查找的字节数的低序部分。[in] dwHighBytesToSeek 要查找的字节数的高序部分。[out] lpdwLowByteSeeked 指向变量的指针，该变量接收函数实际查找的字节数的低序位。[out] lpdwHighByteSeeked 指向变量的指针，该变量接收函数实际查找的字节数的高阶位。[in] lpContext 指向函数使用的内部数据结构的指针。 此结构必须与 BackupRead 或 BackupWrite 函数初始化 的结构相同。 应用程序不得接触此结构的内容。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数可以查找请求的量，则函数将返回非零值。 如果函数无法查找请求的量，则函数返回零。 要获得更多的错误信息，请调用 GetLastError。"
+        "description": "如果函数可以查找请求的量，则函数将返回非零值。 如果函数无法查找请求的量，则函数返回零。 要获得更多的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "应用程序使用 BackupSeek 函数跳过导致错误的数据流部分。 此函数不会跨流标头查找。 例如，此函数不能用于跳过流名称。 如果应用程序尝试在子流的末尾进行查找，则函数将失败， lpdwLowByteSeeked 和 lpdwHighByteSeeked 参数指示函数查找的实际字节数，并且文件位置将 放置在下一个流标头的开头。",
       "header": "winbase.h",
@@ -1150,7 +1189,8 @@
         {
           "name": "hFile",
           "direction": "in",
-          "description": "要还原的文件或目录的句柄。 若要获取句柄，请调用 CreateFile 函数。 除非使用"
+          "description": "要还原的文件或目录的句柄。 若要获取句柄，请调用 CreateFile 函数。 除非使用",
+          "type": "HANDLE"
         }
       ],
       "header": "winbase.h",
@@ -1159,7 +1199,11 @@
         "BackupRead"
       ],
       "confidence": 0.8,
-      "_source_line": 1951
+      "_source_line": 1951,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::ACCESS_SYSTEM_SECURITY",
@@ -1216,14 +1260,19 @@
         {
           "name": "Name",
           "direction": "in",
-          "description": "边界描述符的名称。[in] Flags 使用以下标志的组合，这些标志通过使用按位 OR 操作进行组合。 标志"
+          "description": "边界描述符的名称。[in] Flags 使用以下标志的组合，这些标志通过使用按位 OR 操作进行组合。 标志",
+          "type": "LPCSTR"
         }
       ],
       "header": "winbase.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 2107
+      "_source_line": 2107,
+      "return_value": {
+        "type": "HANDLE",
+        "description": ""
+      }
     },
     {
       "id": "windows::CREATE_BOUNDARY_DESCRIPTOR_ADD_APPCONTAINER_SID",
@@ -1248,11 +1297,13 @@
         {
           "name": "lpJobAttributes",
           "direction": "in, optional",
-          "description": "指向 SECURITY_ATTRIBUTES 结构的指针，该结构指定作业对象的安全描述符，并确定子进程是否可以继承返回的句柄。 如果 lpJobAttributesNULL，则作业对象将获取默认的安全描述符，并 且无法继承句柄。 作业对象的默认安全描述符中的 ACL 来自创建者的主要或模拟令牌。[in, optional] lpName 作业的名称。 名称限制为 MAX_PATH 个字符。 名称比较区分大小写。如果 lpNameNULL，则创建作业时不带名称。 如果 lpName 与现有事件、信号灯、互斥体、可等待计时器或文件映射对象的名称匹配，则函数将失败，GetLastError 函数返回 ERROR_INVALID_HANDLE。 之所以发生这种情况，是因为这些对象共享相同的命名空间。 可以在专用命名空间中创建对象。 有关详细信息，请参阅 对象命名空间。 终端服务：名称可以具有“全局”或“本地”前缀，以在全局或会话命名空间中显式创建对象。 名称的其余部分可以包含除反斜杠字符（\\）以外的任何字符。 有关详细信息，请参阅 内核对象命名空间。"
+          "description": "指向 SECURITY_ATTRIBUTES 结构的指针，该结构指定作业对象的安全描述符，并确定子进程是否可以继承返回的句柄。 如果 lpJobAttributesNULL，则作业对象将获取默认的安全描述符，并 且无法继承句柄。 作业对象的默认安全描述符中的 ACL 来自创建者的主要或模拟令牌。[in, optional] lpName 作业的名称。 名称限制为 MAX_PATH 个字符。 名称比较区分大小写。如果 lpNameNULL，则创建作业时不带名称。 如果 lpName 与现有事件、信号灯、互斥体、可等待计时器或文件映射对象的名称匹配，则函数将失败，GetLastError 函数返回 ERROR_INVALID_HANDLE。 之所以发生这种情况，是因为这些对象共享相同的命名空间。 可以在专用命名空间中创建对象。 有关详细信息，请参阅 对象命名空间。 终端服务：名称可以具有“全局”或“本地”前缀，以在全局或会话命名空间中显式创建对象。 名称的其余部分可以包含除反斜杠字符（\\）以外的任何字符。 有关详细信息，请参阅 内核对象命名空间。",
+          "type": "optional] LPSECURITY_ATTRIBUTES"
         }
       ],
       "return_value": {
-        "description": "If the function succeeds, the return value is a handle to the job object. The handle has the JOB_OBJECT_ALL_ACCESS access right."
+        "description": "If the function succeeds, the return value is a handle to the job object. The handle has the JOB_OBJECT_ALL_ACCESS access right.",
+        "type": "HANDLE"
       },
       "header": "winbase.h",
       "deprecated": false,
@@ -1334,7 +1385,8 @@
         {
           "name": "hToken",
           "direction": "in",
-          "description": "表示用户的主令牌的句柄。 句柄必须具有TOKEN_QUERY、TOKEN_DUPLICATE和"
+          "description": "表示用户的主令牌的句柄。 句柄必须具有TOKEN_QUERY、TOKEN_DUPLICATE和",
+          "type": "optional] HANDLE"
         }
       ],
       "header": "winbase.h",
@@ -1343,7 +1395,11 @@
         "CreateProcessWithLogonW"
       ],
       "confidence": 0.8,
-      "_source_line": 2417
+      "_source_line": 2417,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::TOKEN_ASSIGN_PRIMARY",
@@ -1368,16 +1424,19 @@
         {
           "name": "lpSemaphoreAttributes",
           "direction": "in, optional",
-          "description": "指向 SECURITY_ATTRIBUTES 结构的指针。 如果此参数 NULL，则子进程无法继承句柄。 lpSecurityDescriptor 结构成员为新的信号灯指定安全描述符。 如果此参数 NULL，信号灯将获 取默认的安全描述符。 信号灯的默认安全描述符中的 ACL 来自创建者的主要或模拟令牌。[in] lInitialCount 信号灯对象的初始计数。 此值必须大于或等于零，并且小于或等于 lMaximumCount。 信号灯的计数大于零时，信号灯的状态为零，当信号灯为零时表示为非对齐状态。 每当等待函数释放等待信号灯的线程时，计数将减少一个。 通过调用 ReleaseSemaphore 函数来增加指定数量。"
+          "description": "指向 SECURITY_ATTRIBUTES 结构的指针。 如果此参数 NULL，则子进程无法继承句柄。 lpSecurityDescriptor 结构成员为新的信号灯指定安全描述符。 如果此参数 NULL，信号灯将获 取默认的安全描述符。 信号灯的默认安全描述符中的 ACL 来自创建者的主要或模拟令牌。[in] lInitialCount 信号灯对象的初始计数。 此值必须大于或等于零，并且小于或等于 lMaximumCount。 信号灯的计数大于零时，信号灯的状态为零，当信号灯为零时表示为非对齐状态。 每当等待函数释放等待信号灯的线程时，计数将减少一个。 通过调用 ReleaseSemaphore 函数来增加指定数量。",
+          "type": "optional] LPSECURITY_ATTRIBUTES"
         },
         {
           "name": "lMaximumCount",
           "direction": "in",
-          "description": "信号灯对象的最大计数。 此值必须大于零。[in, optional] lpName 信号灯对象的名称。 名称限制为 MAX_PATH 个字符。 名称比较区分大小写。 如果 lpName 与现有命名信号灯对象的名称匹配，此函数将请求 SEMAPHORE_ALL_ACCESS 访问权限。 在这种情况下，lInitialCount 和 lMaximumCount 参数将被忽略，因为它们已被创建过 程设置。 如果 lpSemaphoreAttributes 参数未 NULL，则确定是否可以继承句柄，但忽略其安全描述符成员。 如果 lpNameNULL，则创建信号灯对象时不带名称。 如果 lpName 与现有事件、互斥体、可等待计时器、作业或文件映射对象的名称匹配，则函数将失败，GetLastError 函数返回 ERROR_INVALID_HANDLE。 之所以发生这种情况，是因为这些对象共享相同的命名空间。 该名称可以具有“全局”或“本地”前缀，以在全局或会话命名空间中显式创建对象。 名称的其余部分可以包含除反斜杠字符（\\）以外的任何字符。 有关详细信息，请参阅 内核对象命名空间。快速用户切换是使用终端服务会话实现的。 内核对象名称必须遵循终端服务概述的准则，以便应用程序能够支持多个用户。 可以在专用命名空间中创建对象。 有关详细信息，请参阅 对象命名空间。"
+          "description": "信号灯对象的最大计数。 此值必须大于零。[in, optional] lpName 信号灯对象的名称。 名称限制为 MAX_PATH 个字符。 名称比较区分大小写。 如果 lpName 与现有命名信号灯对象的名称匹配，此函数将请求 SEMAPHORE_ALL_ACCESS 访问权限。 在这种情况下，lInitialCount 和 lMaximumCount 参数将被忽略，因为它们已被创建过 程设置。 如果 lpSemaphoreAttributes 参数未 NULL，则确定是否可以继承句柄，但忽略其安全描述符成员。 如果 lpNameNULL，则创建信号灯对象时不带名称。 如果 lpName 与现有事件、互斥体、可等待计时器、作业或文件映射对象的名称匹配，则函数将失败，GetLastError 函数返回 ERROR_INVALID_HANDLE。 之所以发生这种情况，是因为这些对象共享相同的命名空间。 该名称可以具有“全局”或“本地”前缀，以在全局或会话命名空间中显式创建对象。 名称的其余部分可以包含除反斜杠字符（\\）以外的任何字符。 有关详细信息，请参阅 内核对象命名空间。快速用户切换是使用终端服务会话实现的。 内核对象名称必须遵循终端服务概述的准则，以便应用程序能够支持多个用户。 可以在专用命名空间中创建对象。 有关详细信息，请参阅 对象命名空间。",
+          "type": "LONG"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回值是信号灯对象的句柄。 如果在函数调用之前存在命名信号灯对象，该函数将返回现有对象的句柄，GetLastError 返回 ERROR_ALREADY_EXISTS。 如果函数失败，则返回值 NULL。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果函数成功，则返回值是信号灯对象的句柄。 如果在函数调用之前存在命名信号灯对象，该函数将返回现有对象的句柄，GetLastError 返回 ERROR_ALREADY_EXISTS。 如果函数失败，则返回值 NULL。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "HANDLE"
       },
       "header": "winbase.h",
       "deprecated": false,
@@ -1397,16 +1456,19 @@
         {
           "name": "lpSemaphoreAttributes",
           "direction": "in, optional",
-          "description": "指向 SECURITY_ATTRIBUTES 结构的指针。 如果此参数 NULL，则子进程无法继承信号灯句柄。 lpSecurityDescriptor 结构成员为新的信号灯指定安全描述符。 如果此参数 NULL，信号灯将获 取默认的安全描述符。 信号灯的默认安全描述符中的 ACL 来自创建者的主要或模拟令牌。[in] lInitialCount 信号灯对象的初始计数。 此值必须大于或等于零，并且小于或等于 lMaximumCount。 信号灯的计数大于零时，信号灯的状态为零，当信号灯为零时表示为非对齐状态。 每当等待函数释放等待信号灯的线程时，计数将减少一个。 通过调用 ReleaseSemaphore 函数来增加指定数量。"
+          "description": "指向 SECURITY_ATTRIBUTES 结构的指针。 如果此参数 NULL，则子进程无法继承信号灯句柄。 lpSecurityDescriptor 结构成员为新的信号灯指定安全描述符。 如果此参数 NULL，信号灯将获 取默认的安全描述符。 信号灯的默认安全描述符中的 ACL 来自创建者的主要或模拟令牌。[in] lInitialCount 信号灯对象的初始计数。 此值必须大于或等于零，并且小于或等于 lMaximumCount。 信号灯的计数大于零时，信号灯的状态为零，当信号灯为零时表示为非对齐状态。 每当等待函数释放等待信号灯的线程时，计数将减少一个。 通过调用 ReleaseSemaphore 函数来增加指定数量。",
+          "type": "optional] LPSECURITY_ATTRIBUTES"
         },
         {
           "name": "lMaximumCount",
           "direction": "in",
-          "description": "信号灯对象的最大计数。 此值必须大于零。[in, optional] lpName 指向指定信号灯对象名称的以 null 结尾的字符串的指针。 名称限制为 MAX_PATH 个字符。 名称比较区分大小写。 如果 lpName 与现有命名信号灯对象的名称匹配，则 lInitialCount 和 lMaximumCount 参数将被忽略，因为它们已被创建过程设置。 如果 lpSemaphoreAttributes 参数未 NULL，则确定是否可 以继承句柄。 如果 lpNameNULL，则创建信号灯对象时不带名称。 如果 lpName 与现有事件、互斥体、可等待计时器、作业或文件映射对象的名称匹配，则函数将失败，GetLastError 函数返回 ERROR_INVALID_HANDLE。 之所以发生这种情况，是因为这些对象共享相同的命名空间。 该名称可以具有“全局”或“本地”前缀，以在全局或会话命名空间中显式创建对象。 名称的其余部分可以包含除反斜杠字符（\\）以外的任何字符。 有关详细信息，请参阅 内核对象命名空间。快速用户切换是使用终端服务会话实现的。 内核对象名称必须遵循终端服务概述的准则，以便应用程序能够支持多个用户。 可以在专用命名空间中创建对象。 有关详细信息，请参阅 对象命名空间。 dwFlags 此参数是保留的，必须为 0。[in] dwDesiredAccess 信号灯对象的访问掩码。 有关访问权限列表，请参阅 同步对象安全和访问权限。"
+          "description": "信号灯对象的最大计数。 此值必须大于零。[in, optional] lpName 指向指定信号灯对象名称的以 null 结尾的字符串的指针。 名称限制为 MAX_PATH 个字符。 名称比较区分大小写。 如果 lpName 与现有命名信号灯对象的名称匹配，则 lInitialCount 和 lMaximumCount 参数将被忽略，因为它们已被创建过程设置。 如果 lpSemaphoreAttributes 参数未 NULL，则确定是否可 以继承句柄。 如果 lpNameNULL，则创建信号灯对象时不带名称。 如果 lpName 与现有事件、互斥体、可等待计时器、作业或文件映射对象的名称匹配，则函数将失败，GetLastError 函数返回 ERROR_INVALID_HANDLE。 之所以发生这种情况，是因为这些对象共享相同的命名空间。 该名称可以具有“全局”或“本地”前缀，以在全局或会话命名空间中显式创建对象。 名称的其余部分可以包含除反斜杠字符（\\）以外的任何字符。 有关详细信息，请参阅 内核对象命名空间。快速用户切换是使用终端服务会话实现的。 内核对象名称必须遵循终端服务概述的准则，以便应用程序能够支持多个用户。 可以在专用命名空间中创建对象。 有关详细信息，请参阅 对象命名空间。 dwFlags 此参数是保留的，必须为 0。[in] dwDesiredAccess 信号灯对象的访问掩码。 有关访问权限列表，请参阅 同步对象安全和访问权限。",
+          "type": "LONG"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回值是信号灯对象的句柄。 如果在函数调用之前存在命名信号灯对象，该函数将返回现有对象的句柄，GetLastError 返回 ERROR_ALREADY_EXISTS。 如果函数失败，则返回值 NULL。 若要获取扩展的错误信息，请调用 GetLastError。"
+        "description": "如果函数成功，则返回值是信号灯对象的句柄。 如果在函数调用之前存在命名信号灯对象，该函数将返回现有对象的句柄，GetLastError 返回 ERROR_ALREADY_EXISTS。 如果函数失败，则返回值 NULL。 若要获取扩展的错误信息，请调用 GetLastError。",
+        "type": "HANDLE"
       },
       "remarks": "信号灯对象的计数大于零时发出信号，当信号灯对象的计数等于零时不对齐。 lInitialCount 参数指定初始计数。 计数永远不能小于零或大于 lMaximumCount 参数中指定的值。 调用过程的任何线程都可以在调用其中一个 等待函数中指定信号灯对象句柄。 当发出指定对象的状态发出信号时，单对象等待函数将返回。 可以指示多对象等待函数在发出任何一个或发出所有指定对象的信号时返回。 当等待函数返回时，等待线程将释放以继续执行。 每次线程完成 等待信号灯对象时，信号灯对象的计数都会递减一个。 线程完成后，它将调用 ReleaseSemaphore 函数，该函数递增信号灯对象的计数。 多个进程可以具有同一信号灯对象的句柄，从而允许使用该对象进行进程间同步。 可以使用以下对象共享机制： 如果 lpSemaphoreAttributesCreateSemaphoreEx 启用继承，则 CreateProcess 函数创建的子进程可以继承信号灯对象的句柄。 进程可以在调用 DuplicateHandle 函数时指定信号灯对象句柄，以创建可由另一个进程使用的重复句柄。 进程可以在调用 [OpenSemaphore]（.） 时指定信号灯对象的名称。/synchapi/nf-synchapi-signalobjectandwait.md） 或 CreateSemaphoreEx 函数。 使用 CloseHandle 函数关闭句柄。 系统在进程终止时自动关闭句柄。 信号灯对象在最后一个句 柄关闭时被销毁。",
       "header": "winbase.h",
@@ -1506,11 +1568,13 @@
         {
           "name": "hDevice",
           "direction": "in",
-          "description": "要获取其相关信息的设备的句柄。 此句柄是使用 CreateFile 函数创建的。[in] dwOperation 请求的信息类型。 此参数须为下列值之一。 值"
+          "description": "要获取其相关信息的设备的句柄。 此句柄是使用 CreateFile 函数创建的。[in] dwOperation 请求的信息类型。 此参数须为下列值之一。 值",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。"
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。",
+        "type": "DWORD"
       },
       "remarks": "GetTapeParameters 函数用于检索磁带或磁带驱动器的参数。使用此函数时，需要指定 dwOperation 参数来请求特定类型的信息。",
       "header": "winbase.h",
@@ -1540,7 +1604,8 @@
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回非零值。 如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。 可能的错误值包括以下内容。 返回代码"
+        "description": "如果函数成功，则返回非零值。 如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。 可能的错误值包括以下内容。 返回代码",
+        "type": "BOOL"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1569,7 +1634,8 @@
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回非零值。如果函数失败，则返回值为零。要获取更多的错误信息，请调用 GetLastError。"
+        "description": "如果函数成功，则返回非零值。如果函数失败，则返回值为零。要获取更多的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "应用程序的 UMS 调度程序为每个将用于运行 UMS 线程的处理器创建一个 UMS 调度程序线程。调度程序通常为单个处理器设置调度程序线程的相关性，从而有效地保留处理器以供使用该调度程序线程。有关线程相关性的详细信息，请参阅多个处理器。",
       "header": "winbase.h",
@@ -1610,11 +1676,13 @@
         {
           "name": "UmsThread",
           "direction": "in",
-          "description": "指向要删除的 UMS 线程上下文的指针。 CreateUmsThreadContext 函数提供此指针。"
+          "description": "指向要删除的 UMS 线程上下文的指针。 CreateUmsThreadContext 函数提供此指针。",
+          "type": "PUMS_CONTEXT"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回非零值。 如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。"
+        "description": "如果函数成功，则返回非零值。 如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "在关联的线程终止之前，无法删除 UMS 线程上下文。例如，当 UMS 工作线程完成运行（通过从其线程入口点函数返回），系统将终止线程，在线程的 UMS 线程上下文中设置终止状态，并将 UMS 线程上下文排队到关联的完成列表。执行 UMS 线程的任何尝试都将失败，因为线程已终止。若要检查线程的终止状态，应用程序的计划程序应使用 UmsIsThreadTerminated 信息类调用 QueryUmsThreadInformation。",
       "header": "winbase.h",
@@ -1635,7 +1703,8 @@
         {
           "name": "pcbe",
           "direction": "in, out",
-          "description": "定义回调环境的 TP_CALLBACK_ENVIRON 结构。 InitializeThreadpoolEnvironment 函数返回此结构。"
+          "description": "定义回调环境的 TP_CALLBACK_ENVIRON 结构。 InitializeThreadpoolEnvironment 函数返回此结构。",
+          "type": "out] PTP_CALLBACK_ENVIRON"
         }
       ],
       "return_value": {
@@ -1685,7 +1754,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 2915,
-      "return_value": "如果函数成功，返回值为 TRUE。如果函数失败，返回值为 FALSE。"
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果函数成功，返回值为 TRUE。如果函数失败，返回值为 FALSE。"
+      }
     },
     {
       "id": "windows::UMS_SCHEDULER_STARTUP_INFO",
@@ -1723,11 +1795,13 @@
         {
           "name": "UmsThread",
           "direction": "in, out",
-          "description": "指向要运行的工作线程的 UMS 线程上下文的指针。"
+          "description": "指向要运行的工作线程的 UMS 线程上下文的指针。",
+          "type": "out] PUMS_CONTEXT"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则不会返回值。 如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。 可能的错误代码包括以下内容。 返回代码"
+        "description": "如果函数成功，则不会返回值。 如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。 可能的错误代码包括以下内容。 返回代码",
+        "type": "BOOL"
       },
       "header": "winbase.h",
       "deprecated": false,
@@ -1775,16 +1849,19 @@
         {
           "name": "Node",
           "direction": "in",
-          "description": "节点的编号。"
+          "description": "节点的编号。",
+          "type": "USHORT"
         },
         {
           "name": "AvailableBytes",
           "direction": "out",
-          "description": "节点的可用内存量（以字节为单位）。"
+          "description": "节点的可用内存量（以字节为单位）。",
+          "type": "PULONGLONG"
         }
       ],
       "return_value": {
-        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。"
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "header": "winbase.h",
       "deprecated": false,
@@ -1804,11 +1881,13 @@
         {
           "name": "hFile",
           "direction": "in",
-          "description": "文件或 I/O 设备的句柄。 I/O 设备的示例包括文件、文件流、卷、物理磁盘和套接字。 有关详 细信息，请参阅 CreateFile 函数。[out] NodeNumber 指向变量的指针，用于接收与指定文件句柄关联的 NUMA 节点的数目。"
+          "description": "文件或 I/O 设备的句柄。 I/O 设备的示例包括文件、文件流、卷、物理磁盘和套接字。 有关详 细信息，请参阅 CreateFile 函数。[out] NodeNumber 指向变量的指针，用于接收与指定文件句柄关联的 NUMA 节点的数目。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 若要获取扩展错误信息，请使用 GetLastError。"
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 若要获取扩展错误信息，请使用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "如果指定的句柄没有与之关联的节点，则函数返回 FALSE。 NodeNumber 参数的值未确定，不应使用。 若要编译使用此函数的应用程序，请将 _WIN32_WINNT >= 0x0601。 有关详细信息，请参阅 使用 Windows 标头。 要求",
       "header": "winbase.h",
@@ -1852,7 +1931,8 @@
         {
           "name": "hProcess",
           "direction": "in",
-          "description": "进程的句柄。 句柄必须具有 PROCESS_QUERY_INFORMATION 或"
+          "description": "进程的句柄。 句柄必须具有 PROCESS_QUERY_INFORMATION 或",
+          "type": "HANDLE"
         }
       ],
       "header": "winbase.h",
@@ -1860,7 +1940,10 @@
       "cross_references": [],
       "confidence": 0.7,
       "_source_line": 3463,
-      "return_value": "成功则返回 TRUE，失败则返回 FALSE。调用 GetLastError 获取错误代码。"
+      "return_value": {
+        "type": "BOOL",
+        "description": "成功则返回 TRUE，失败则返回 FALSE。调用 GetLastError 获取错误代码。"
+      }
     },
     {
       "id": "windows::SetTapeParameters",
@@ -1872,14 +1955,19 @@
         {
           "name": "hDevice",
           "direction": "in",
-          "description": "要为其设置配置信息的设备的句柄。 此句柄是使用 CreateFile 函数创建的。[in] dwOperation 要设置的信息类型。 此参数须为下列值之一。 值"
+          "description": "要为其设置配置信息的设备的句柄。 此句柄是使用 CreateFile 函数创建的。[in] dwOperation 要设置的信息类型。 此参数须为下列值之一。 值",
+          "type": "HANDLE"
         }
       ],
       "header": "winbase.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 3547
+      "_source_line": 3547,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::TAPE_GET_MEDIA_PARAMETERS",
@@ -1903,14 +1991,19 @@
         {
           "name": "hDevice",
           "direction": "in",
-          "description": "要获取磁带位置的设备句柄。 此句柄是使用 CreateFile 创建的。[in] dwPositionType 要获取的地址类型。 此参数的取值可为下列值之一： 值"
+          "description": "要获取磁带位置的设备句柄。 此句柄是使用 CreateFile 创建的。[in] dwPositionType 要获取的地址类型。 此参数的取值可为下列值之一： 值",
+          "type": "HANDLE"
         }
       ],
       "header": "winbase.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 3557
+      "_source_line": 3557,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetTapeStatus",
@@ -1922,11 +2015,13 @@
         {
           "name": "hDevice",
           "direction": "in",
-          "description": "要获取其设备状态的设备句柄。 此句柄是使用 CreateFile 函数创建的。"
+          "description": "要获取其设备状态的设备句柄。 此句柄是使用 CreateFile 函数创建的。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果磁带设备已准备好接受相应的磁带访问命令而不返回错误，则返回值NO_ERROR。如果函数失败，它可以返回以下错误代码之一。 错误代码"
+        "description": "如果磁带设备已准备好接受相应的磁带访问命令而不返回错误，则返回值NO_ERROR。如果函数失败，它可以返回以下错误代码之一。 错误代码",
+        "type": "DWORD"
       },
       "header": "winbase.h",
       "deprecated": false,
@@ -1944,11 +2039,13 @@
         {
           "name": "UmsCompletionList",
           "direction": "in",
-          "description": "指向 UMS 完成列表的指针。 CreateUmsCompletionList 函数提供此指针。[in, out] UmsCompletionEvent 指向 HANDLE 变量的指针。 输出时， UmsCompletionEvent 参数设置为与指定完成列表关联的 事件的句柄。"
+          "description": "指向 UMS 完成列表的指针。 CreateUmsCompletionList 函数提供此指针。[in, out] UmsCompletionEvent 指向 HANDLE 变量的指针。 输出时， UmsCompletionEvent 参数设置为与指定完成列表关联的 事件的句柄。",
+          "type": "PUMS_COMPLETION_LIST"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回非零值。 如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。"
+        "description": "如果函数成功，则返回非零值。 如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "当系统将项目排队到空完成列表时，系统会发出 UMS 完成列表事件的信号。 完成列表事件句柄 可以与采用事件句柄的任何 等待函数 一起使用。 发出事件信号时，应用程序通常会调用 DequeueUmsCompletionListItems 来检索完成列表的内容。 事件句柄在删除其完成列表之前保持有效。 请勿使用事件句柄等待已删除或正在删除的完成列表。 如果不再需要句柄，请使用 CloseHandle 函数关闭句柄。",
       "header": "winbase.h",
@@ -2000,11 +2097,13 @@
         {
           "name": "dwDesiredAccess",
           "direction": "in",
-          "description": "对作业对象的访问。 此参数可以是 一个或多个作业对象访问权限。 针对对象的任何安全描述符 检查此访问权限。[in] bInheritHandle 如果此值为 TRUE，则此进程创建的进程将继承句柄。 否则，进程不会继承此句柄。[in] lpName 要打开的作业的名称。 名称比较区分大小写。 此函数可以在专用命名空间中打开对象。 有关详细信息，请参阅 对象命名空间。 终端服务： 名称可以具有“Global”或“Local”前缀，以显式打开全局命名空间或会话命名空间中的对象。 名称的其余部分可以包含除反斜杠字符 (\\) 以外的任何字符。 有关详细信息，请参阅 内 核对象命名空间。"
+          "description": "对作业对象的访问。 此参数可以是 一个或多个作业对象访问权限。 针对对象的任何安全描述符 检查此访问权限。[in] bInheritHandle 如果此值为 TRUE，则此进程创建的进程将继承句柄。 否则，进程不会继承此句柄。[in] lpName 要打开的作业的名称。 名称比较区分大小写。 此函数可以在专用命名空间中打开对象。 有关详细信息，请参阅 对象命名空间。 终端服务： 名称可以具有“Global”或“Local”前缀，以显式打开全局命名空间或会话命名空间中的对象。 名称的其余部分可以包含除反斜杠字符 (\\) 以外的任何字符。 有关详细信息，请参阅 内 核对象命名空间。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回值是作业的句柄。 句柄提供对作业的请求访问权限。 如果函数失败，则返回值为 NULL。 要获得更多的错误信息，请调用 GetLastError。 ERROR_FILE_NOT_FOUND 错误指示 lpName 中指定的作业不存在。"
+        "description": "如果函数成功，则返回值是作业的句柄。 句柄提供对作业的请求访问权限。 如果函数失败，则返回值为 NULL。 要获得更多的错误信息，请调用 GetLastError。 ERROR_FILE_NOT_FOUND 错误指示 lpName 中指定的作业不存在。",
+        "type": "HANDLE"
       },
       "remarks": "若要将进程与作业相关联，请使用 AssignProcessToJobObject 函数。 若要编译使用此函数的应用程序， 请将_WIN32_WINNT 定义为 0x0500 或更高版本。 有关详细 信息，请参阅 使用 Windows 标头。",
       "header": "winbase.h",
@@ -2055,14 +2154,19 @@
         {
           "name": "hDevice",
           "direction": "in",
-          "description": "准备磁带的设备句柄。 此句柄是使用 CreateFile 函数创建的。[in] dwOperation 磁带设备准备。 此参数的取值可为下列值之一： 值"
+          "description": "准备磁带的设备句柄。 此句柄是使用 CreateFile 函数创建的。[in] dwOperation 磁带设备准备。 此参数的取值可为下列值之一： 值",
+          "type": "HANDLE"
         }
       ],
       "header": "winbase.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 3875
+      "_source_line": 3875,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::TAPE_UNLOCK",
@@ -2100,14 +2204,19 @@
         {
           "name": "hProcess",
           "direction": "in",
-          "description": "进程的句柄。 必须使用PROCESS_QUERY_INFORMATION或"
+          "description": "进程的句柄。 必须使用PROCESS_QUERY_INFORMATION或",
+          "type": "HANDLE"
         }
       ],
       "header": "winbase.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 4017
+      "_source_line": 4017,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::QueryUmsThreadInformation",
@@ -2119,12 +2228,14 @@
         {
           "name": "UmsThread",
           "direction": "in",
-          "description": "指向 UMS 线程上下文的指针。[in] UmsThreadInfoClass 一个 UMS_THREAD_INFO_CLASS 值，该值指定要检索的信息类型。[out] UmsThreadInformation 指向用于接收指定信息的缓冲区的指针。 此缓冲区的所需大小取决于指定的信息类。 如果信息类是 UmsThreadContext 或 UmsThreadTeb，则缓冲区必须为 sizeof(PVOID) 。如果信息类是 UmsThreadIsSuspended 或 UmsThreadIsTerminated，则缓冲区必须为 sizeof(BOOLEAN) 。"
+          "description": "指向 UMS 线程上下文的指针。[in] UmsThreadInfoClass 一个 UMS_THREAD_INFO_CLASS 值，该值指定要检索的信息类型。[out] UmsThreadInformation 指向用于接收指定信息的缓冲区的指针。 此缓冲区的所需大小取决于指定的信息类。 如果信息类是 UmsThreadContext 或 UmsThreadTeb，则缓冲区必须为 sizeof(PVOID) 。如果信息类是 UmsThreadIsSuspended 或 UmsThreadIsTerminated，则缓冲区必须为 sizeof(BOOLEAN) 。",
+          "type": "PUMS_CONTEXT"
         },
         {
           "name": "UmsThreadInformationLength",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "ULONG"
         }
       ],
       "requirements": {
@@ -2139,7 +2250,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.65,
-      "_source_line": 4063
+      "_source_line": 4063,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::UmsThreadInformation",
@@ -2373,14 +2488,19 @@
         {
           "name": "hDevice",
           "direction": "in",
-          "description": "要设置磁带位置的设备的句柄。 此句柄是使用 CreateFile 函数创建的。[in] dwPositionMethod 要执行的定位类型。 此参数须为下列值之一。 值"
+          "description": "要设置磁带位置的设备的句柄。 此句柄是使用 CreateFile 函数创建的。[in] dwPositionMethod 要执行的定位类型。 此参数须为下列值之一。 值",
+          "type": "HANDLE"
         }
       ],
       "header": "winbase.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.45,
-      "_source_line": 4319
+      "_source_line": 4319,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::TAPE_SPACE_FILEMARKS",
@@ -2592,10 +2712,14 @@
         {
           "name": "lpCmdLine",
           "direction": "in",
-          "description": "命令行 (文件名以及要执行的应用程序) 可选参数。 如果 lpCmdLine 参数中的可执行文件的名称不包含目录路径，则系统会按以下顺序搜索可执行文件： 1. 从中加载应用程序的目录。 2. 当前目录。 3. Windows 系统目录。 GetSystemDirectory 函数检索此目录的路径。 4. Windows 目录。 GetWindowsDirectory 函数检索此目录的路径。 5. PATH 环境变量中列出的目录。[in] uCmdShow 显示选项。 有关可接受的值的列表，请参阅 ShowWindow 函数的 nCmdShow 参数的说明。"
+          "description": "命令行 (文件名以及要执行的应用程序) 可选参数。 如果 lpCmdLine 参数中的可执行文件的名称不包含目录路径，则系统会按以下顺序搜索可执行文件： 1. 从中加载应用程序的目录。 2. 当前目录。 3. Windows 系统目录。 GetSystemDirectory 函数检索此目录的路径。 4. Windows 目录。 GetWindowsDirectory 函数检索此目录的路径。 5. PATH 环境变量中列出的目录。[in] uCmdShow 显示选项。 有关可接受的值的列表，请参阅 ShowWindow 函数的 nCmdShow 参数的说明。",
+          "type": "LPCSTR"
         }
       ],
-      "return_value": "If the function succeeds, the return value is greater than 31. If the function fails, the return value is an error value.",
+      "return_value": {
+        "type": "UINT",
+        "description": "If the function succeeds, the return value is greater than 31. If the function fails, the return value is an error value."
+      },
       "header": "winbase.h",
       "deprecated": false,
       "cross_references": [
@@ -2632,7 +2756,8 @@
         {
           "name": "Base",
           "direction": "in",
-          "description": "指向变量的指针。[in] Offset 要测试的位位置。返回值指定位的值。"
+          "description": "指向变量的指针。[in] Offset 要测试的位位置。返回值指定位的值。",
+          "type": "LONG volatile"
         }
       ],
       "remarks": "互锁函数提供原子操作机制，用于同步多线程共享变量访问。此函数生成完整内存屏障确保操作顺序。基于Windows RT的系统支持此函数。头文件：winnt.h",
@@ -2640,12 +2765,16 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 5496
+      "_source_line": 5496,
+      "return_value": {
+        "type": "LONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::InterlockedBitTestAndSetAcquire",
       "name": "InterlockedBitTestAndSetAcquire",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "InterlockedBitTestAndSetRelease 同步函数 winnt.h) (CACHE_DESCRIPTOR 结构",
       "syntax": "typedef struct _CACHE_DESCRIPTOR {   BYTE                 Level;\nBYTE                 Associativity;   WORD                 LineSize;\nDWORD                Size;   PROCESSOR_CACHE_TYPE Type;\n} CACHE_DESCRIPTOR, *PCACHE_DESCRIPTOR;",
       "members": [
@@ -2660,7 +2789,8 @@
         "CACHE_DESCRIPTOR"
       ],
       "confidence": 0.8,
-      "_source_line": 5517
+      "_source_line": 5517,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::_interlockedbittestandreset64",
@@ -2672,7 +2802,8 @@
         {
           "name": "Base",
           "direction": "in",
-          "description": "指向变量的指针。[in] Offset 要测试的位位置。返回值指定位的值。"
+          "description": "指向变量的指针。[in] Offset 要测试的位位置。返回值指定位的值。",
+          "type": "LONG64 volatile"
         }
       ],
       "remarks": "互锁函数提供了一种简单的机制，用于同步对多个线程共享的变量的访问。此函数是原子函数。如果可能，此函数是使用编译器内部函数实现的。此函数生成完整的内存屏障，以确保按顺序完成内存操作。",
@@ -2680,7 +2811,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 5520
+      "_source_line": 5520,
+      "return_value": {
+        "type": "BOOLEAN",
+        "description": ""
+      }
     },
     {
       "id": "windows::_interlockedbittestandset64",
@@ -2692,11 +2827,13 @@
         {
           "name": "Base",
           "direction": "in",
-          "description": "指向变量的指针。[in] Offset 要测试的位位置。"
+          "description": "指向变量的指针。[in] Offset 要测试的位位置。",
+          "type": "LONG64 volatile"
         }
       ],
       "return_value": {
-        "description": "指定位在设置前的值（0 或 1）"
+        "description": "指定位在设置前的值（0 或 1）",
+        "type": "LONG64"
       },
       "remarks": "互锁函数提供了一种简单机制，用于同步对由多个线程共享的变量的访问。 对于对其他互锁函数的调用，此函数是原子的。 此函数是尽可能使用编译器内部函数实现的。 有关详细信息，请参阅 WinBase.h 头文件和_interlockedbittestandset64。 此函数生成完整的内存屏障 (或围栏) ，以确保按顺序完成内存操作。",
       "header": "winnt.h",
@@ -2729,11 +2866,13 @@
         {
           "name": "Destination",
           "direction": "in, out",
-          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。"
+          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。",
+          "type": "out] LONG64 volatile"
         }
       ],
       "return_value": {
-        "description": "函数返回 Destination 参数的原始值。"
+        "description": "函数返回 Destination 参数的原始值。",
+        "type": "LONG64"
       },
       "remarks": "互锁函数提供了一种简单机制，用于同步对由多个线程共享的变量的访问。 对于对其他互锁函数的调用，此函数是原子的。 此函数是尽可能使用编译器内部函数实现的。 有关详细信息，请参阅 WinBase.h 头文件和_InterlockedAnd64。 此函数生成完整的内存屏障 (或围栏) ，以确保按顺序完成内存操作。 基于 Itanium 的系统： 对于性能关键型应用程序，请改用 InterlockedAnd64Acquire 或 InterlockedAnd64Release 。 注意 基于 Windows RT 的系统支持此函数。",
       "header": "winnt.h",
@@ -2754,11 +2893,13 @@
         {
           "name": "Destination",
           "direction": "in, out",
-          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。"
+          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。",
+          "type": "out] char volatile"
         }
       ],
       "return_value": {
-        "description": "函数返回 Destination 参数的原始值。"
+        "description": "函数返回 Destination 参数的原始值。",
+        "type": "char"
       },
       "remarks": "互锁函数提供了一种简单的机制，用于同步对多个线程共享的变量的访问。 对于对其他互锁函数的调用，此函数是原子函数。 对于基于 Intel Itanium 的系统和 x64 体系结构，此函数是使用编译器内部函数实现的。 对于 x86 体系结构，请直接使用 _InterlockedAnd8 编译器内部函数。 此函数 (或围栏) 生成完整的内存屏障，以确保按顺序完成内存操作。 基于 Itanium 的系统： 对于性能关键型应用程序，请改用 InterlockedAnd8Acquire 或 InterlockedAnd8Release 。 注意 基于 Windows RT 的系统支持此函数。",
       "header": "winnt.h",
@@ -2772,7 +2913,7 @@
     {
       "id": "windows::Compareand",
       "name": "Compareand",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "值， 则 Exchange 值将存储在 Destination 指定的地址中。 否则，不会执行任何操作。 此函数的参数必须在 32 位边界上对齐;否则，函数在多处理器 x86 系统和任何非 x86 系统上的行为将不可预知。 malloc、 calloc、 HeapAlloc 和 HeapReAlloc 提供足够对齐的内存。 互锁函数提供了一种简单的机制，用于同步对多个线程共享的变量的访问。 对于对其他互锁函数的调用，此函数是原子函数。 如果可能，此函数是使用编译器内部函数实现的。 有关详细信息，请参阅 WinBase.h 头文件和 _InterlockedCompareExchange。 此函数 (或围栏) 生成完整的内存屏障，以确保按顺序完成内存操作。基于 Itanium 的系统： 对于性能关键型应用程序，请改用",
       "header": "winnt.h",
       "deprecated": false,
@@ -2781,7 +2922,8 @@
         "HeapAlloc"
       ],
       "confidence": 0.6,
-      "_source_line": 5910
+      "_source_line": 5910,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::InterlockedCompareExchangeRelease",
@@ -2793,12 +2935,14 @@
         {
           "name": "Destination",
           "direction": "in, out",
-          "description": "指向目标值的指针。"
+          "description": "指向目标值的指针。",
+          "type": "out] LONG64 volatile"
         },
         {
           "name": "ExChange",
           "direction": "in",
-          "description": "交换值。"
+          "description": "交换值。",
+          "type": "LONG64"
         },
         {
           "name": "Comperand",
@@ -2807,7 +2951,8 @@
         }
       ],
       "return_value": {
-        "description": "函数返回 Destination 参数的初始值。"
+        "description": "函数返回 Destination 参数的初始值。",
+        "type": "LONG64"
       },
       "remarks": "函数将 Destination 值与 Comparand 值进行比较。如果相等，则 Exchange 值存储在 Destination 地址中。此函数生成完整的内存屏障以确保内存操作顺序。变量必须在 64 位边界上对齐。",
       "header": "winnt.h",
@@ -2851,13 +2996,15 @@
       "_source_line": 6115,
       "syntax": "SHORT InterlockedDecrement16(\n[in, out] SHORT volatile *Addend);",
       "return_value": {
-        "description": "函数返回生成的递减值。"
+        "description": "函数返回生成的递减值。",
+        "type": "SHORT"
       },
       "parameters": [
         {
           "name": "Addend",
           "direction": "in, out",
-          "description": "指向要递减的变量的指针。"
+          "description": "指向要递减的变量的指针。",
+          "type": "out] SHORT volatile"
         }
       ]
     },
@@ -2885,11 +3032,13 @@
         {
           "name": "Addend",
           "direction": "in, out",
-          "description": "指向要递减的变量的指针。"
+          "description": "指向要递减的变量的指针。",
+          "type": "out] LONG64 volatile"
         }
       ],
       "return_value": {
-        "description": "函数返回生成的递减值。"
+        "description": "函数返回生成的递减值。",
+        "type": "LONG64"
       },
       "header": "winnt.h",
       "deprecated": false,
@@ -2907,11 +3056,13 @@
         {
           "name": "Target",
           "direction": "in, out",
-          "description": "指向要交换的值的指针。 该函数将此变量设置为 Value，并返回其以前的值。[in] Value 要与 目标所指向的值交换的值。"
+          "description": "指向要交换的值的指针。 该函数将此变量设置为 Value，并返回其以前的值。[in] Value 要与 目标所指向的值交换的值。",
+          "type": "out] LONG64 volatile"
         }
       ],
       "return_value": {
-        "description": "该函数返回 Target 参数的初始值。"
+        "description": "该函数返回 Target 参数的初始值。",
+        "type": "LONG64"
       },
       "remarks": "联锁函数提供了一种简单的机制，用于同步对多个线程共享的变量的访问。 对于对其他互锁函数的调用，此函数是原子的。 此函数尽可能使用编译器内部函数实现。 有关详细信息，请参阅 WinBase.h 头文件和_InterlockedExchange64。 此函数生成完整的内存屏障（或围栏），以确保按顺序完成内存操作。 基于 Itanium 的系统：对于性能关键型应用程序，请改用 InterlockedExchangeAcquire64。 注意 基于 Windows RT 的系统支持此函数。",
       "header": "winnt.h",
@@ -2944,11 +3095,13 @@
         {
           "name": "Destination",
           "direction": "in, out",
-          "description": "指向要交换的值的指针。 该函数将此变量设置为 ExChange，并返回其以前的值。[in] ExChange 要与目标指向的值交换的值。"
+          "description": "指向要交换的值的指针。 该函数将此变量设置为 ExChange，并返回其以前的值。[in] ExChange 要与目标指向的值交换的值。",
+          "type": "SHORT volatile"
         }
       ],
       "return_value": {
-        "description": "该函数返回 Destination 参数的初始值。"
+        "description": "该函数返回 Destination 参数的初始值。",
+        "type": "SHORT"
       },
       "remarks": "联锁函数提供了一种简单的机制，用于同步对多个线程共享的变量的访问。此函数是原子的。此函数尽可能使用编译器内部函数实现。有关详细信息，请参阅 WinBase.h 头文件和_InterlockedExchange16。此函数生成完整的内存屏障（或围栏），以确保按顺序完成内存操作。基于 Itanium 的系统：对于性能关键型应用程序，请改用 InterlockedExchangeAcquire64。注意：基于 Windows RT 的系统支持此函数。",
       "header": "winnt.h",
@@ -2970,11 +3123,13 @@
         {
           "name": "Target",
           "direction": "in, out",
-          "description": "指向要交换的值的指针。 该函数将此变量设置为 Value，并返回其以前的值。[in] Value 要与 目标所指向的值交换的值。"
+          "description": "指向要交换的值的指针。 该函数将此变量设置为 Value，并返回其以前的值。[in] Value 要与 目标所指向的值交换的值。",
+          "type": "out] CHAR volatile"
         }
       ],
       "return_value": {
-        "description": "该函数返回 Target 参数的初始值。"
+        "description": "该函数返回 Target 参数的初始值。",
+        "type": "CHAR"
       },
       "remarks": "联锁函数提供了一种简单的机制，用于同步对多个线程共享的变量的访问。 对于对其他互锁函数的调用，此函数是原子的。 此函数尽可能使用编译器内部函数实现。 有关详细信息，请参阅 WinBase.h 头文件和_InterlockedExchange8。 此函数生成完整的内存屏障（或围栏），以确保按顺序完成内存操作。 注意 基于 Windows RT 的系统支持此函数。",
       "header": "winnt.h",
@@ -2996,11 +3151,13 @@
         {
           "name": "Addend",
           "direction": "in, out",
-          "description": "指向变量的指针。 此变量的值将替换为操作的结果。[in] Value 要添加到由 Addend 参数指向的变量的值。"
+          "description": "指向变量的指针。 此变量的值将替换为操作的结果。[in] Value 要添加到由 Addend 参数指向的变量的值。",
+          "type": "out] LONG64 volatile"
         }
       ],
       "return_value": {
-        "description": "该函数返回 Addend 参数的初始值。"
+        "description": "该函数返回 Addend 参数的初始值。",
+        "type": "LONG64"
       },
       "remarks": "该函数对 Addend 所指向的值执行 Value 的原子加法。结果存储在 Addend 指定的地址中。该函数返回 Addend 指向的变量的初始值。此函数的变量必须在 64 位边界上对齐；否则，此函数在多处理器 x86 系统和任何非 x86 系统上的行为不可预知。请参阅 _aligned_malloc。互锁函数提供了一种简单的机制，用于同步对多个线程共享的变量的访问。对于对其他互锁函数的调用，此函数是原子的。此函数尽可能使用编译器内部函数实现。有关详细信息，请参阅 WinBase.h 头文件和_InterlockedExchangeAdd64。此函数生成完整的内存屏障（或围栏），以确保按顺序完成内存操作。基于 Itanium 的系统：对于性能关键型应用程序，请改用 InterlockedExchangeAddAcquire64。注意：基于 Windows RT 的系统支持此函数。",
       "header": "winnt.h",
@@ -3035,11 +3192,13 @@
         {
           "name": "Addend",
           "direction": "in, out",
-          "description": "指向要递增的变量的指针。"
+          "description": "指向要递增的变量的指针。",
+          "type": "out] SHORT volatile"
         }
       ],
       "return_value": {
-        "description": "函数返回生成的递增值。"
+        "description": "函数返回生成的递增值。",
+        "type": "SHORT"
       },
       "header": "winnt.h",
       "deprecated": false,
@@ -3060,11 +3219,13 @@
         {
           "name": "Addend",
           "direction": "in, out",
-          "description": "指向要递增的变量的指针。"
+          "description": "指向要递增的变量的指针。",
+          "type": "out] LONG64 volatile"
         }
       ],
       "return_value": {
-        "description": "函数返回生成的递增值。"
+        "description": "函数返回生成的递增值。",
+        "type": "LONG64"
       },
       "header": "winnt.h",
       "deprecated": false,
@@ -3075,7 +3236,7 @@
     {
       "id": "windows::InterlockedIncrement16NoFence",
       "name": "InterlockedIncrement16NoFence",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "InterlockedIncrement16Release InterlockedIncrementAcquire InterlockedIncrementAcquire64 InterlockedIncrementNoFence InterlockedIncrementNoFence64 InterlockedIncrementRelease InterlockedIncrementRelease64 同步函数 对指定的 LONG 值执行原子 OR 操作。 函数阻止多个线程同时使用同一变量。",
       "syntax": "LONG InterlockedOr(\n[in, out] LONG volatile *Destination,\n[in]      LONG          Value);",
       "parameters": [
@@ -3097,7 +3258,8 @@
         "InterlockedOrRelease"
       ],
       "confidence": 0.85,
-      "_source_line": 6566
+      "_source_line": 6566,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::InterlockedOr8",
@@ -3109,11 +3271,13 @@
         {
           "name": "Destination",
           "direction": "in, out",
-          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。"
+          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。",
+          "type": "out] char volatile"
         }
       ],
       "return_value": {
-        "description": "函数返回 Destination 参数的原始值。"
+        "description": "函数返回 Destination 参数的原始值。",
+        "type": "char"
       },
       "remarks": "互锁函数提供了一种简单的机制，用于同步对多个线程共享的变量的访问。 对于对其他互锁函数的调用，此函数是原子函数。 对于基于 Intel Itanium 的系统和 x64 体系结构，此函数是使用编译器内部函数实现的。 对于 x86 体系结构，请直接使用 _InterlockedOr8 编译器内部函数。 此函数 (或围栏) 生成完整的内存屏障，以确保按顺序完成内存操作。 基于 Itanium 的系统： 对于性能关键型应用程序，请改用 InterlockedOr8Acquire 或 InterlockedOr8Release 。 注意 基于 Windows RT 的系统支持此函数。",
       "header": "winnt.h",
@@ -3147,11 +3311,13 @@
         {
           "name": "Destination",
           "direction": "in, out",
-          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。"
+          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。",
+          "type": "out] SHORT volatile"
         }
       ],
       "return_value": {
-        "description": "函数返回 Destination 参数的原始值。"
+        "description": "函数返回 Destination 参数的原始值。",
+        "type": "SHORT"
       },
       "remarks": "互锁函数提供了一种简单的机制，用于同步对多个线程共享的变量的访问。此函数是原子函数。对于基于 Intel Itanium 的系统和 x64 体系结构，此函数是使用编译器内部函数实现的。对于 x86 体系结构，请直接使用 _InterlockedXor16 编译器内部函数。此函数生成完整的内存屏障，以确保按顺序完成内存操作。基于 Itanium 的系统：对于性能关键型应用程序，请改用 InterlockedXor16Acquire 或 InterlockedXor16Release。注意：基于 Windows RT 的系统支持此函数。",
       "header": "winnt.h",
@@ -3172,11 +3338,13 @@
         {
           "name": "Destination",
           "direction": "in, out",
-          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。"
+          "description": "指向第一个操作数的指针。 此值将替换为操作的结果。[in] Value 第二个操作数。",
+          "type": "out] LONG64 volatile"
         }
       ],
       "return_value": {
-        "description": "函数返回 Destination 参数的原始值。"
+        "description": "函数返回 Destination 参数的原始值。",
+        "type": "LONG64"
       },
       "remarks": "互锁函数提供了一种简单机制，用于同步对由多个线程共享的变量的访问。 对于对其他互锁函数的调用，此函数是原子的。 此函数是尽可能使用编译器内部函数实现的。 有关详细信息，请参阅 WinBase.h 头文件和_InterlockedXor64。 此函数生成完整的内存屏障 (或围栏) ，以确保按顺序完成内存操作。 基于 Itanium 的系统： 对于性能关键型应用程序，请改用 InterlockedXor64Acquire 或 InterlockedXor64Release 。 注意 基于 Windows RT 的系统支持此函数。",
       "header": "winnt.h",
@@ -3190,13 +3358,14 @@
     {
       "id": "windows::ReadOperationCount",
       "name": "ReadOperationCount",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "执行的读取操作数。 WriteOperationCount 执行的写入操作数。 OtherOperationCount 执行的 I/O 操作数，读取和写入操作数。",
       "header": "winnt.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 6821
+      "_source_line": 6821,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::JOB_OBJECT_NET_RATE_CONTROL_DSCP_TAG",
@@ -4760,11 +4929,13 @@
         {
           "name": "ListHead",
           "direction": "in",
-          "description": "指向 SLIST_HEADER 结构的指针，该结构表示单独链接列表的标题。 此结构仅供系统使用。 之前必须使用 InitializeSListHead 函数初始化列表。"
+          "description": "指向 SLIST_HEADER 结构的指针，该结构表示单独链接列表的标题。 此结构仅供系统使用。 之前必须使用 InitializeSListHead 函数初始化列表。",
+          "type": "const SLIST_HEADER"
         }
       ],
       "return_value": {
-        "description": "返回值是指向列表中第一个条目的指针。 如果列表为空，则返回值为 NULL。"
+        "description": "返回值是指向列表中第一个条目的指针。 如果列表为空，则返回值为 NULL。",
+        "type": "PSLIST_ENTRY"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -4790,7 +4961,8 @@
         {
           "name": "ListHead",
           "direction": "in",
-          "description": "指向 SLIST_HEADER 结构的指针，该结构表示单独链接列表的标题。 此结构仅供系统使用。 返回值此函数不返回值。"
+          "description": "指向 SLIST_HEADER 结构的指针，该结构表示单独链接列表的标题。 此结构仅供系统使用。 返回值此函数不返回值。",
+          "type": "PSLIST_HEADER"
         }
       ],
       "remarks": "对 InitializeSListHead 函数的调用将转发到 RtlInitializeSListHead 函数。 应用程序应调用 InitializeSListHead ，而不是直接调用此函数。",
@@ -4820,11 +4992,13 @@
         {
           "name": "ListHead",
           "direction": "in",
-          "description": "指向 SLIST_HEADER 结构的指针，该结构表示单独链接列表的标题。 此结构仅供系统使用。"
+          "description": "指向 SLIST_HEADER 结构的指针，该结构表示单独链接列表的标题。 此结构仅供系统使用。",
+          "type": "PSLIST_HEADER"
         }
       ],
       "return_value": {
-        "description": "返回值是指向从列表中删除的项的指针。 如果列表为空，则返回值为 NULL。"
+        "description": "返回值是指向从列表中删除的项的指针。 如果列表为空，则返回值为 NULL。",
+        "type": "PSLIST_ENTRY"
       },
       "remarks": "对 InterlockedFlushSList 函数的调用将转发到 RtlInterlockedFlushSList 函数。 应用程序应调用 InterlockedFlushSList ，而不是直接调用此函数。",
       "requirements": {
@@ -4853,11 +5027,13 @@
         {
           "name": "ListHead",
           "direction": "in",
-          "description": "指向 SLIST_HEADER 结构的指针，该结构表示单独链接列表的标题。"
+          "description": "指向 SLIST_HEADER 结构的指针，该结构表示单独链接列表的标题。",
+          "type": "PSLIST_HEADER"
         }
       ],
       "return_value": {
-        "description": "返回值是指向从列表中删除的项的指针。 如果列表为空，则返回值为 NULL。"
+        "description": "返回值是指向从列表中删除的项的指针。 如果列表为空，则返回值为 NULL。",
+        "type": "PSLIST_ENTRY"
       },
       "remarks": "对 InterlockedPopEntrySList 函数的调用将转发到 RtlInterlockedPopEntrySList 函数。 应用程序 应调用 InterlockedPopEntrySList ，而不是直接调用此函数。",
       "requirements": {
@@ -5489,7 +5665,8 @@
         {
           "name": "CallbackEnviron",
           "direction": "in, out",
-          "description": "定义回调环境的 TP_CALLBACK_ENVIRON 结构。 TpInitializeCallbackEnviron 函数返回此结构。[in] FinalizationCallback 指向 TP_SIMPLE_CALLBACK 结构的指针，指示在回调环境完成时要调用的函数。"
+          "description": "定义回调环境的 TP_CALLBACK_ENVIRON 结构。 TpInitializeCallbackEnviron 函数返回此结构。[in] FinalizationCallback 指向 TP_SIMPLE_CALLBACK 结构的指针，指示在回调环境完成时要调用的函数。",
+          "type": "out] PTP_CALLBACK_ENVIRON"
         }
       ],
       "return_value": {
@@ -5517,7 +5694,8 @@
         {
           "name": "CallbackEnviron",
           "direction": "in, out",
-          "description": "定义回调环境的 TP_CALLBACK_ENVIRON 结构。 TpInitializeCallbackEnviron 函数返回此结构。"
+          "description": "定义回调环境的 TP_CALLBACK_ENVIRON 结构。 TpInitializeCallbackEnviron 函数返回此结构。",
+          "type": "out] PTP_CALLBACK_ENVIRON"
         }
       ],
       "return_value": {
@@ -5543,12 +5721,14 @@
         {
           "name": "CallbackEnviron",
           "direction": "in, out",
-          "description": "定义回调环境的 TP_CALLBACK_ENVIRON 结构。 TpInitializeCallbackEnviron 函数返回此结构。[in] CleanupGroup 定义清理组 的TP_CLEANUP_GROUP 结构。 CreateThreadpoolCleanupGroup 函数返回此结构。"
+          "description": "定义回调环境的 TP_CALLBACK_ENVIRON 结构。 TpInitializeCallbackEnviron 函数返回此结构。[in] CleanupGroup 定义清理组 的TP_CLEANUP_GROUP 结构。 CreateThreadpoolCleanupGroup 函数返回此结构。",
+          "type": "out] PTP_CALLBACK_ENVIRON"
         },
         {
           "name": "CleanupGroupCancelCallback",
           "direction": "in, optional",
-          "description": "如果在释放关联的对象之前取消清理组，则要调用的清理回调。 调用 CloseThreadpoolCleanupGroupMembers 时调用函数。"
+          "description": "如果在释放关联的对象之前取消清理组，则要调用的清理回调。 调用 CloseThreadpoolCleanupGroupMembers 时调用函数。",
+          "type": "optional] PTP_CLEANUP_GROUP_CANCEL_CALLBACK"
         }
       ],
       "return_value": {
@@ -5571,7 +5751,8 @@
         {
           "name": "CallbackEnviron",
           "direction": "in, out",
-          "description": "定义回调环境的 TP_CALLBACK_ENVIRON 结构。 TpInitializeCallbackEnviron 函数返回此结构。"
+          "description": "定义回调环境的 TP_CALLBACK_ENVIRON 结构。 TpInitializeCallbackEnviron 函数返回此结构。",
+          "type": "out] PTP_CALLBACK_ENVIRON"
         }
       ],
       "return_value": {
@@ -5594,7 +5775,8 @@
         {
           "name": "CallbackEnviron",
           "direction": "in, out",
-          "description": "定义回调环境的 TP_CALLBACK_ENVIRON 结构。 TpInitializeCallbackEnviron 函数返回此结构。[in] Priority 回调相对于同一线程池中其他回调的优先级。 此参数可以是以下 TP_CALLBACK_PRIORITY 枚举值之一： 值"
+          "description": "定义回调环境的 TP_CALLBACK_ENVIRON 结构。 TpInitializeCallbackEnviron 函数返回此结构。[in] Priority 回调相对于同一线程池中其他回调的优先级。 此参数可以是以下 TP_CALLBACK_PRIORITY 枚举值之一： 值",
+          "type": "PTP_CALLBACK_ENVIRON"
         }
       ],
       "header": "winbase.h",

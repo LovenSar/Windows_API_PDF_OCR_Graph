@@ -1545,7 +1545,10 @@
       "confidence": 0.6,
       "_source_line": 300,
       "syntax": "USHORT KeQueryMaximumGroupCount();",
-      "return_value": "返回系统支持的最大处理器组数。",
+      "return_value": {
+        "type": "USHORT",
+        "description": "返回系统支持的最大处理器组数。"
+      },
       "remarks": "该例程用于查询系统中的处理器组上限，可与 KeQueryMaximumProcessorCount 和 KeQueryMaximumProcessorCountEx 对照使用。原描述中混入了相邻条目的内容，已清理。"
     },
     {
@@ -2086,7 +2089,11 @@
       "confidence": 0.6,
       "_source_line": 386,
       "remarks": "该例程由 Windows 平台特定硬件错误驱动程序（PSHED）相关代码使用，用于在访问或操作错误源时与硬件错误处理路径进行同步。原描述中混入了无关的 Ps* 例程条目，属于 OCR 提取噪声。",
-      "syntax": "BOOLEAN PshedSynchronizeExecution(\n  PVOID ErrorSource,\n  PKSYNCHRONIZE_ROUTINE SynchronizeRoutine,\n  PVOID SynchronizeContext\n);"
+      "syntax": "BOOLEAN PshedSynchronizeExecution(\n  PVOID ErrorSource,\n  PKSYNCHRONIZE_ROUTINE SynchronizeRoutine,\n  PVOID SynchronizeContext\n);",
+      "return_value": {
+        "type": "BOOLEAN",
+        "description": ""
+      }
     },
     {
       "id": "windows::PsRemoveCreateThreadNotifyRoutine",
@@ -2847,7 +2854,10 @@
       "confidence": 0.5,
       "_source_line": 494,
       "syntax": "NTSYSAPI NTSTATUS RtlUpcaseUnicodeString(\n  PUNICODE_STRING DestinationString,\n  PCUNICODE_STRING SourceString,\n  BOOLEAN AllocateDestinationString\n);",
-      "return_value": "成功时返回 STATUS_SUCCESS。若分配失败或目标缓冲区不足，则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "成功时返回 STATUS_SUCCESS。若分配失败或目标缓冲区不足，则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "该例程执行 Unicode 字符串的大写转换。若 AllocateDestinationString 为 TRUE，则通常应在使用完成后调用 RtlFreeUnicodeString 释放为目标字符串分配的缓冲区。"
     },
     {
@@ -3048,7 +3058,10 @@
       "confidence": 0.6,
       "_source_line": 546,
       "syntax": "NTSYSAPI NTSTATUS ZwAllocateLocallyUniqueId(\n  PLUID LocallyUniqueId\n);",
-      "return_value": "返回 NTSTATUS。成功时返回 STATUS_SUCCESS；失败时返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "返回 NTSTATUS。成功时返回 STATUS_SUCCESS；失败时返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "该例程用于生成在本地系统上唯一的 LUID。用户模式对应名称通常为 NtAllocateLocallyUniqueId。"
     },
     {
@@ -5314,7 +5327,10 @@
       "confidence": 0.5,
       "_source_line": 2518,
       "syntax": "BOOLEAN _BitTestAndSet64(\n  LONG64 volatile *Base,\n  LONG Bit\n);",
-      "return_value": "如果指定位在调用前为 1，则返回非零值；如果在调用前为 0，则返回 0。",
+      "return_value": {
+        "type": "BOOLEAN",
+        "description": "如果指定位在调用前为 1，则返回非零值；如果在调用前为 0，则返回 0。"
+      },
       "remarks": "当前 description 明显混入了与 _ReadWriteBarrier、ADDRESS_AND_SIZE_TO_SPAN_PAGES、AppendTailList 相关的 OCR 噪声，应予以清理。该名称对应 MSVC/Windows 环境中的位测试并设置操作。"
     },
     {
@@ -6324,7 +6340,10 @@
       "confidence": 0.45,
       "_source_line": 2667,
       "syntax": "PVOID ExAllocatePoolQuotaUninitialized(\n  __drv_strictTypeMatch(__drv_typeExpr) POOL_TYPE PoolType,\n  SIZE_T NumberOfBytes,\n  ULONG Tag\n);",
-      "return_value": "成功时返回指向已分配池内存块的指针；失败时引发异常而不是返回 NULL。返回的内存内容未初始化。",
+      "return_value": {
+        "type": "PVOID",
+        "description": "成功时返回指向已分配池内存块的指针；失败时引发异常而不是返回 NULL。返回的内存内容未初始化。"
+      },
       "remarks": "此例程会向当前进程收取配额。返回的缓冲区未被置零，调用方在使用前应自行初始化。ExAllocatePoolWithQuota 已过时，仅为兼容旧驱动而保留；应优先使用 ExAllocatePoolWithQuotaTag。另请参阅 ExAllocatePoolQuotaZero（分配并将内存清零）和 ExAllocatePoolWithTag。"
     },
     {
@@ -7506,7 +7525,10 @@
       "confidence": 0.35,
       "_source_line": 2850,
       "syntax": "PIRP IoBuildDeviceIoControlRequest(\n  [in]  ULONG           IoControlCode,\n  [in]  PDEVICE_OBJECT  DeviceObject,\n  [in]  PVOID           InputBuffer,\n  [in]  ULONG           InputBufferLength,\n  [out] PVOID           OutputBuffer,\n  [in]  ULONG           OutputBufferLength,\n  [in]  BOOLEAN         InternalDeviceIoControl,\n  [in]  PKEVENT         Event,\n  [in]  PIO_STATUS_BLOCK IoStatusBlock\n);",
-      "return_value": "成功时返回已分配并初始化的 IRP 指针；失败时返回 NULL。该例程本身不返回 NTSTATUS。请求完成后的状态通过 IoStatusBlock 获取。",
+      "return_value": {
+        "type": "PIRP",
+        "description": "成功时返回已分配并初始化的 IRP 指针；失败时返回 NULL。该例程本身不返回 NTSTATUS。请求完成后的状态通过 IoStatusBlock 获取。"
+      },
       "remarks": "该例程构造的是同步请求，通常与事件对象和 IO_STATUS_BLOCK 配合使用。调用方通常在调用 IoCallDriver 后等待事件，再检查 IoStatusBlock 中的完成状态。缓冲区的处理方式取决于 IOCTL 定义中的传输方法，例如 METHOD_BUFFERED、METHOD_IN_DIRECT、METHOD_OUT_DIRECT 或 METHOD_NEITHER。调用方必须确保在请求完成前相关缓冲区和事件对象保持有效。"
     },
     {
@@ -8001,7 +8023,10 @@
       "confidence": 0.45,
       "_source_line": 2934,
       "syntax": "PIO_STACK_LOCATION IoGetNextIrpStackLocation(\n  _In_ PIRP Irp\n);",
-      "return_value": "返回指向 IRP 中下一个 I/O 堆栈位置的 PIO_STACK_LOCATION 指针。",
+      "return_value": {
+        "type": "PIO_STACK_LOCATION",
+        "description": "返回指向 IRP 中下一个 I/O 堆栈位置的 PIO_STACK_LOCATION 指针。"
+      },
       "remarks": "调用方通常在将 IRP 传递给下层驱动程序之前调用此例程，以获取并设置下一个堆栈位置中的参数。该例程不会推进当前堆栈位置，只返回下一个较低层驱动程序可见的堆栈位置。"
     },
     {
@@ -8781,7 +8806,10 @@
       "confidence": 0.45,
       "_source_line": 3053,
       "syntax": "NTSTATUS IoWMIRegistrationControl(\n  [in] PDEVICE_OBJECT DeviceObject,\n  [in] ULONG Action\n);",
-      "return_value": "成功时返回 STATUS_SUCCESS。失败时返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "成功时返回 STATUS_SUCCESS。失败时返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "IoWMIRegistrationControl 用于控制驱动程序作为 WMI 数据提供程序的注册状态。驱动程序通常在创建设备对象后注册，在删除设备对象前注销。若驱动程序需要接收 WMI 事件通知，通常还会结合 IoWMISetNotificationCallback 使用。"
     },
     {
@@ -8847,7 +8875,10 @@
       "confidence": 0.45,
       "_source_line": 3060,
       "syntax": "NTSTATUS IoWMIWriteEvent(\n  _In_ PVOID WnodeEventItem\n);",
-      "return_value": "返回 NTSTATUS 状态代码。成功时返回 STATUS_SUCCESS；否则返回相应的错误状态。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "返回 NTSTATUS 状态代码。成功时返回 STATUS_SUCCESS；否则返回相应的错误状态。"
+      },
       "remarks": "此例程由 WMI 数据提供程序驱动程序调用，用于向 WMI 提交事件通知。传入的事件通常使用 WNODE_EVENT_ITEM 格式，并根据需要设置相应的 WNODE 标志。成功后系统接管该事件缓冲区。"
     },
     {
@@ -9375,7 +9406,10 @@
       "confidence": 0.45,
       "_source_line": 3172,
       "syntax": "USHORT KeQueryNodeActiveAffinity2(\n  USHORT NodeNumber,\n  PGROUP_AFFINITY GroupAffinities,\n  USHORT GroupAffinitiesCount\n);",
-      "return_value": "返回写入 GroupAffinities 数组的 GROUP_AFFINITY 结构数量。",
+      "return_value": {
+        "type": "USHORT",
+        "description": "返回写入 GroupAffinities 数组的 GROUP_AFFINITY 结构数量。"
+      },
       "remarks": "该例程返回指定 NUMA 节点在一个或多个处理器组中的活动处理器关联性。调用方应提供足够大的 GROUP_AFFINITY 数组以接收结果。相关例程包括用于查询活动处理器数的 KeQueryNodeActiveProcessorCount，以及用于查询节点最大处理器数的 KeQueryNodeMaximumProcessorCount。"
     },
     {
@@ -9701,7 +9735,10 @@
       "confidence": 0.35,
       "_source_line": 3224,
       "syntax": "BOOLEAN KeRemoveQueueDpc(\n  [in, out] PRKDPC Dpc\n);",
-      "return_value": "如果该 DPC 对象已在队列中并已成功移除，则返回 TRUE；如果该 DPC 对象当前不在队列中，则返回 FALSE。",
+      "return_value": {
+        "type": "BOOLEAN",
+        "description": "如果该 DPC 对象已在队列中并已成功移除，则返回 TRUE；如果该 DPC 对象当前不在队列中，则返回 FALSE。"
+      },
       "remarks": "调用方可在任意 IRQL 调用此例程。该例程用于取消尚未执行的已排队 DPC。如果 DPC 已开始执行或未排队，则无法通过此例程将其移除。"
     },
     {
@@ -10190,7 +10227,10 @@
       "confidence": 0.5,
       "_source_line": 3316,
       "syntax": "PVOID MmMapIoSpaceEx(\n  PHYSICAL_ADDRESS PhysicalAddress,\n  SIZE_T NumberOfBytes,\n  ULONG Protect\n);",
-      "return_value": "如果成功，返回映射到非分页系统空间的虚拟地址；如果失败，返回 NULL。",
+      "return_value": {
+        "type": "PVOID",
+        "description": "如果成功，返回映射到非分页系统空间的虚拟地址；如果失败，返回 NULL。"
+      },
       "remarks": "该例程由驱动程序用于访问设备内存或其他物理地址范围。返回的映射位于非分页系统空间。完成访问后，应调用 MmUnmapIoSpace 解除映射。仅应映射驱动程序有权访问的物理地址范围。"
     },
     {
@@ -11618,7 +11658,10 @@
       "confidence": 0.35,
       "_source_line": 3549,
       "syntax": "NTSYSAPI NTSTATUS RtlAppendUnicodeStringToString(\n  [in, out] PUNICODE_STRING Destination,\n  [in]      PCUNICODE_STRING Source\n);",
-      "return_value": "如果操作成功则返回 STATUS_SUCCESS；如果目标缓冲区空间不足则返回错误状态码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果操作成功则返回 STATUS_SUCCESS；如果目标缓冲区空间不足则返回错误状态码。"
+      },
       "remarks": "该例程不会为目标字符串分配缓冲区；调用方必须确保 Destination->Buffer 指向的缓冲区足够大。该函数与 RtlAppendUnicodeToString 类似，但后者追加的是以 null 结尾的 Unicode 字符串。"
     },
     {
@@ -13312,7 +13355,10 @@
       "confidence": 0.45,
       "_source_line": 3786,
       "syntax": "NTSYSAPI NTSTATUS ZwCreateKeyTransacted(\n  [out]          PHANDLE            KeyHandle,\n  [in]           ACCESS_MASK        DesiredAccess,\n  [in]           POBJECT_ATTRIBUTES ObjectAttributes,\n  [in]           ULONG              TitleIndex,\n  [in, optional] PUNICODE_STRING    Class,\n  [in]           ULONG              CreateOptions,\n  [in]           HANDLE             TransactionHandle,\n  [out, optional] PULONG            Disposition\n);",
-      "return_value": "成功时返回 STATUS_SUCCESS；失败时返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "成功时返回 STATUS_SUCCESS；失败时返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "ZwCreateKeyTransacted 与 ZwCreateKey 类似，但会将注册表键操作绑定到指定事务。驱动程序在不再使用 KeyHandle 后必须调用 ZwClose 关闭句柄。该例程由 wdm.h 声明。"
     },
     {
@@ -13631,7 +13677,10 @@
       "confidence": 0.45,
       "_source_line": 3852,
       "syntax": "NTSYSAPI NTSTATUS ZwSetValueKey(\n  [in] HANDLE          KeyHandle,\n  [in] PUNICODE_STRING ValueName,\n  [in, optional] ULONG TitleIndex,\n  [in] ULONG           Type,\n  [in, optional] PVOID Data,\n  [in] ULONG           DataSize\n);",
-      "return_value": "返回 NTSTATUS。成功时返回 STATUS_SUCCESS；失败时返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "返回 NTSTATUS。成功时返回 STATUS_SUCCESS；失败时返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "ZwSetValueKey 是 Native System Services 例程，用于在指定注册表项下创建或更新值项。调用方通常在内核模式下使用该例程操作注册表。"
     },
     {
@@ -13919,7 +13968,10 @@
       "confidence": 0.25,
       "_source_line": 3916,
       "syntax": "NTSTATUS IoCompletion(\n  _In_ PDEVICE_OBJECT DeviceObject,\n  _In_ PIRP Irp,\n  _In_opt_ PVOID Context\n);",
-      "return_value": "返回 NTSTATUS。通常返回 STATUS_CONTINUE_COMPLETION（或等效行为）以继续完成处理；如果驱动程序已接管 IRP 的后续处理，则返回 STATUS_MORE_PROCESSING_REQUIRED。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "返回 NTSTATUS。通常返回 STATUS_CONTINUE_COMPLETION（或等效行为）以继续完成处理；如果驱动程序已接管 IRP 的后续处理，则返回 STATUS_MORE_PROCESSING_REQUIRED。"
+      },
       "remarks": "完成例程可检查较低层驱动程序设置的 Irp->IoStatus 信息，并决定是否继续完成该 IRP。完成例程通常用于清理资源、发出后续请求、同步异步操作或释放驱动程序创建的 IRP。该例程必须按照 IoSetCompletionRoutine/IoSetCompletionRoutineEx 的使用约定实现。"
     },
     {
@@ -14378,7 +14430,10 @@
       "confidence": 0.25,
       "_source_line": 3987,
       "syntax": "IO_ALLOCATION_ACTION AdapterControl(\n  _In_ PDEVICE_OBJECT DeviceObject,\n  _In_ PIRP Irp,\n  _In_ PVOID MapRegisterBase,\n  _In_ PVOID Context\n);",
-      "return_value": "返回 IO_ALLOCATION_ACTION 枚举值之一，以指示系统在 AdapterControl 返回后应执行的操作。",
+      "return_value": {
+        "type": "IO_ALLOCATION_ACTION",
+        "description": "返回 IO_ALLOCATION_ACTION 枚举值之一，以指示系统在 AdapterControl 返回后应执行的操作。"
+      },
       "remarks": "AdapterControl 例程在分配到 DMA 适配器通道时由系统调用，通常在 DISPATCH_LEVEL 运行。该例程用于设置或启动 DMA 传输，并决定是继续传输、保留资源还是释放适配器/映射寄存器等资源。"
     },
     {
@@ -18983,7 +19038,10 @@
       "name": "SET_VIRTUAL_DEVICE_DATA",
       "entity_type": "callback",
       "description": "SetVirtualFunctionData 例程将数据写入支持单根 I/O 虚拟化（SR-IOV）的设备上某个虚拟功能（VF）的 PCI Express（PCIe）配置空间。该例程通过 PCI_VIRTUALIZATION_INTERFACE 接口提供。当前节点名称疑似 OCR/抽取错误，内容实际对应 SetVirtualFunctionData。",
-      "return_value": "返回成功写入的 PCIe 配置数据长度（以字节为单位）。如果写入操作失败，则返回 0。",
+      "return_value": {
+        "type": "ULONG",
+        "description": "返回成功写入的 PCIe 配置数据长度（以字节为单位）。如果写入操作失败，则返回 0。"
+      },
       "remarks": "该例程类似于 SetBusData，但它将 PCIe 配置数据写入虚拟功能（VF），而不是设备的物理功能（PF）。该例程由 GUID_PCI_VIRTUALIZATION_INTERFACE/PCI_VIRTUALIZATION_INTERFACE 接口提供；SetBusData 由 GUID_BUS_INTERFACE_STANDARD 接口提供。当来宾操作系统中的驱动程序调用 SetBusData 时，虚拟化堆栈会调用此例程。",
       "header": "wdm.h",
       "deprecated": false,
@@ -19119,7 +19177,11 @@
       ],
       "confidence": 0.75,
       "_source_line": 4898,
-      "syntax": "NTSTATUS NpemControlSetStandardControl(\n  PVOID Context\n);"
+      "syntax": "NTSTATUS NpemControlSetStandardControl(\n  PVOID Context\n);",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::NPEM_CONTROL_STANDARD_CONTROL_BI",

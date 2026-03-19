@@ -20,17 +20,24 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 OUT_DIR = os.path.join(THIS_DIR, "json_output_v4")
 
 ALLOWED_ENTITY_TYPES = {
-    "function", "structure", "struct", "enum", "callback", "macro",
+    "function", "structure", "enum", "callback", "macro",
     "constant", "typedef", "union", "interface", "ioctl", "event",
     "method", "property", "notification", "oid", "enum_value",
     "error_code", "parameter", "application", "enum_member",
     "function_pointer", "flags", "structure_member", "field", "message",
-    "technology", "attribute", "unknown",
+    "technology", "attribute", "class", "unknown",
+}
+_TYPE_SYNONYMS = {
+    "struct":      "structure",
+    "structur":    "structure",
+    "structures":  "structure",
+    "flag":        "flags",
+    "enumvalue":   "enum_value",
 }
 
 # 视为“类型节点”的 entity_type，用于 function → type 建边
 TYPE_NODE_KINDS = {
-    "structure", "struct", "enum", "enum_value", "union",
+    "structure", "enum", "enum_value", "union",
     "typedef", "constant", "macro", "flags", "error_code",
 }
 
@@ -62,15 +69,15 @@ def normalize_entity_type(et: str) -> str:
     """将 entity_type 归一到合法集合；异常值标记为 unknown。"""
     if not et:
         return "unknown"
-    et = str(et).strip()
-    lower = et.lower()
-    if lower in ("struct", "structure"):
-        return "structure"
-    if lower in ("enumvalue", "enum_value"):
-        return "enum_value"
-    if lower not in ALLOWED_ENTITY_TYPES:
+    et = str(et).strip().lower()
+    if len(et) > 40:
         return "unknown"
-    return lower
+    syn = _TYPE_SYNONYMS.get(et)
+    if syn:
+        return syn
+    if et not in ALLOWED_ENTITY_TYPES:
+        return "unknown"
+    return et
 
 
 def clean_entity_types_for_doc(doc: dict) -> dict:

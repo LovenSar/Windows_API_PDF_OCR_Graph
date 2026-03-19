@@ -16,7 +16,8 @@
         }
       ],
       "return_value": {
-        "description": "如果成功，返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+        "description": "如果成功，返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "remarks": "大多数驱动程序使用 IoCreateDevice 创建设备对象；如果需要为命名设备对象设置安全描述符，应使用 IoCreateDeviceSecure。成功后调用方通常需要初始化设备扩展、设置设备对象标志，并在驱动卸载或设备移除时调用 IoDeleteDevice 删除设备对象。DeviceCharacteristics 参数指定设备特征，而不是设备类型。",
       "header": "wdm.h",
@@ -87,7 +88,8 @@
         {
           "name": "hwndParent",
           "direction": "in, optional",
-          "description": ""
+          "description": "",
+          "type": "optional] HWND"
         }
       ],
       "header": "newdev.h",
@@ -101,7 +103,8 @@
       "confidence": 0.8,
       "_source_line": 318,
       "return_value": {
-        "description": "如果函数在指定的设备上成功安装了指定的驱动程序，则 DiInstallDevice 返回 TRUE。 否则，"
+        "description": "如果函数在指定的设备上成功安装了指定的驱动程序，则 DiInstallDevice 返回 TRUE。 否则，",
+        "type": "BOOL"
       }
     },
     {
@@ -114,11 +117,13 @@
         {
           "name": "hwndParent",
           "direction": "in, optional",
-          "description": ""
+          "description": "",
+          "type": "optional] HWND"
         }
       ],
       "return_value": {
-        "description": "如果函数在驱动程序存储中成功预安装了指定的驱动程序包，则 DiInstallDriver 将返回 TRUE。如果函数在系统中的一个或多个设备上成功安装了驱动程序，DiInstallDriver 也会返回 TRUE。如果未在驱动程序存储中成功安装驱动程序包， DiInstallDriver 将返回 FALSE ，并且可以通过调用 GetLastError 来检索记录的错误。 GetLastError 可能返回的一些更常见的错误值如下所示： 返回代码"
+        "description": "如果函数在驱动程序存储中成功预安装了指定的驱动程序包，则 DiInstallDriver 将返回 TRUE。如果函数在系统中的一个或多个设备上成功安装了驱动程序，DiInstallDriver 也会返回 TRUE。如果未在驱动程序存储中成功安装驱动程序包， DiInstallDriver 将返回 FALSE ，并且可以通过调用 GetLastError 来检索记录的错误。 GetLastError 可能返回的一些更常见的错误值如下所示： 返回代码",
+        "type": "BOOL"
       },
       "header": "newdev.h",
       "deprecated": false,
@@ -138,11 +143,13 @@
         {
           "name": "hwndParent",
           "direction": "in, optional",
-          "description": ""
+          "description": "",
+          "type": "optional] HWND"
         }
       ],
       "return_value": {
-        "description": "如果硬件更新向导成功更新指定设备的驱动程序，DiShowUpdateDevice 将返回 TRUE。 否则， DiShowUpdateDevice 返回 FALSE ，可以通过调用 GetLastError 来检索记录的错误。 GetLastError 可能返回的一些更常见的错误值如下所示： 返回代码"
+        "description": "如果硬件更新向导成功更新指定设备的驱动程序，DiShowUpdateDevice 将返回 TRUE。 否则， DiShowUpdateDevice 返回 FALSE ，可以通过调用 GetLastError 来检索记录的错误。 GetLastError 可能返回的一些更常见的错误值如下所示： 返回代码",
+        "type": "BOOL"
       },
       "header": "newdev.h",
       "deprecated": false,
@@ -187,16 +194,19 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "为本地计算机 设置的设备信息的 句柄。 此集包含一个设备信息元素，该元素表示正在安装的设备。"
+          "description": "为本地计算机 设置的设备信息的 句柄。 此集包含一个设备信息元素，该元素表示正在安装的设备。",
+          "type": "HDEVINFO"
         },
         {
           "name": "DeviceInfoData",
           "direction": "in, optional",
-          "description": "指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。 此参数是可选的，可以为 NULL。 如果指定此参数， SetupDiAskForOEMDisk 会将驱动程序与正在安装的设备相关联。 如果此参数为 NULL， 则 SetupDiAskForOEMDisk 会将驱动程序与 DeviceInfoSet 的全局类驱动程序列表相关联。"
+          "description": "指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。 此参数是可选的，可以为 NULL。 如果指定此参数， SetupDiAskForOEMDisk 会将驱动程序与正在安装的设备相关联。 如果此参数为 NULL， 则 SetupDiAskForOEMDisk 会将驱动程序与 DeviceInfoSet 的全局类驱动程序列表相关联。",
+          "type": "optional] PSP_DEVINFO_DATA"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则函数返回 TRUE ，并且更新SP_DEVINSTALLPARAMS结构的 DriverPath 字段以反映新路径。 如果用户取消对话框，则函数返回 FALSE ，对 GetLastError 的调用将返回 ERROR_CANCELLED。"
+        "description": "如果函数成功，则函数返回 TRUE ，并且更新SP_DEVINSTALLPARAMS结构的 DriverPath 字段以反映新路径。 如果用户取消对话框，则函数返回 FALSE ，对 GetLastError 的调用将返回 ERROR_CANCELLED。",
+        "type": "WINSETUPAPI BOOL"
       },
       "header": "setupapi.h",
       "deprecated": false,
@@ -216,7 +226,8 @@
         {
           "name": "Flags",
           "direction": "in",
-          "description": "用于控制列表中类的排除的标志。 如果未指定标志，则所有安装类都包含在列表中。 可以是以下值的组合："
+          "description": "用于控制列表中类的排除的标志。 如果未指定标志，则所有安装类都包含在列表中。 可以是以下值的组合：",
+          "type": "DWORD"
         }
       ],
       "header": "setupapi.h",
@@ -230,7 +241,8 @@
       "confidence": 0.8,
       "_source_line": 333,
       "return_value": {
-        "description": "如果成功，该函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来 检索记录的错误。"
+        "description": "如果成功，该函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来 检索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "若要检索本地计算机上安装的类数，请调用 SetupDiBuildClassInfoList，其中 ClassGuidList 设置为 NULL，ClassGuidSize 设置为零。 为了响应此类调用，函数返回 RequiredSize 中的*类数。 如果类的注册表项中存在 NoUseClass 值项，SetupDiBuildClassInfoList 不会返回类的类 GUID。 若要检索安装在远程系统上的安装程序类 GUID 的列表，请使用 SetupDiBuildClassInfoListEx。"
     },
@@ -244,14 +256,19 @@
         {
           "name": "Flags",
           "direction": "in",
-          "description": "用于控制列表中类排除的标志。 如果未指定任何标志，则列表中包括所有安装类。 可以是以下值的组合："
+          "description": "用于控制列表中类排除的标志。 如果未指定任何标志，则列表中包括所有安装类。 可以是以下值的组合：",
+          "type": "DWORD"
         }
       ],
       "header": "setupapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 335
+      "_source_line": 335,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiBuildDriverInfoList",
@@ -263,19 +280,25 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息设置为包含驱动程序列表的设备信息的句柄，可以是全局所有设备信息元素，也可以是 专用于单个设备信息元素。 设备信息集不得包含远程设备信息元素。[in, out] DeviceInfoData 指向 DeviceInfoSet 中设备信息元素的SP_DEVINFO_DATA结构的指针，该元素表示要为其生成驱动程序列表的设备。 此参数是可选的，可以为 NULL。 如果指定此参数，则列表与指定的设备 相关联。 如果此参数为 NULL，则列表与 DeviceInfoSet 的全局类驱动程序列表相关联。如果由于生成兼容的驱动程序列表而更新此设备的类，则 DeviceInfoData。返回时将更新 ClassGuid。"
+          "description": "设备信息设置为包含驱动程序列表的设备信息的句柄，可以是全局所有设备信息元素，也可以是 专用于单个设备信息元素。 设备信息集不得包含远程设备信息元素。[in, out] DeviceInfoData 指向 DeviceInfoSet 中设备信息元素的SP_DEVINFO_DATA结构的指针，该元素表示要为其生成驱动程序列表的设备。 此参数是可选的，可以为 NULL。 如果指定此参数，则列表与指定的设备 相关联。 如果此参数为 NULL，则列表与 DeviceInfoSet 的全局类驱动程序列表相关联。如果由于生成兼容的驱动程序列表而更新此设备的类，则 DeviceInfoData。返回时将更新 ClassGuid。",
+          "type": "HDEVINFO"
         },
         {
           "name": "DriverType",
           "direction": "in",
-          "description": "要生成的驱动程序列表的类型。 必须是以下值之一： 值"
+          "description": "要生成的驱动程序列表的类型。 必须是以下值之一： 值",
+          "type": "DWORD"
         }
       ],
       "header": "setupapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 339
+      "_source_line": 339,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiCallClassInstaller",
@@ -287,20 +310,26 @@
         {
           "name": "InstallFunction",
           "direction": "in",
-          "description": "设备安装请求 (DIF 请求) 传递给辅助安装程序和类安装程序。 DIF 代码的格式 为 DIF_XXX ，并在 Setupapi.h 中定义。 有关详细信息 ，请参阅设备安装功能代码 。 注意 对于某些 DIF 请求，调用方必须是 Administrators 组的成员。 对于此类 DIF 请求，此 要求在关联的默认处理程序的参考页上列出。"
+          "description": "设备安装请求 (DIF 请求) 传递给辅助安装程序和类安装程序。 DIF 代码的格式 为 DIF_XXX ，并在 Setupapi.h 中定义。 有关详细信息 ，请参阅设备安装功能代码 。 注意 对于某些 DIF 请求，调用方必须是 Administrators 组的成员。 对于此类 DIF 请求，此 要求在关联的默认处理程序的参考页上列出。",
+          "type": "DWORD"
         },
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "为本地计算机 设置的设备信息的 句柄。 此集包含一个设备安装元素，该元素表示要为其执行指定安装功能的设备。"
+          "description": "为本地计算机 设置的设备信息的 句柄。 此集包含一个设备安装元素，该元素表示要为其执行指定安装功能的设备。",
+          "type": "HDEVINFO"
         },
         {
           "name": "DeviceInfoData",
           "direction": "in, optional",
-          "description": "指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素，该元素表示要为其执行指定安装功能的设备。 此参数是可选的，可以设置为 NULL。 如果指定此参数， SetupDiCallClassInstaller 对 DeviceInfoData 元素执行指定的功能。 如果 DeviceInfoData 为 NULL， 则 SetupDiCallClassInstaller 为与 DeviceInfoSet 关联的安装程序类调用安装程序。"
+          "description": "指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素，该元素表示要为其执行指定安装功能的设备。 此参数是可选的，可以设置为 NULL。 如果指定此参数， SetupDiCallClassInstaller 对 DeviceInfoData 元素执行指定的功能。 如果 DeviceInfoData 为 NULL， 则 SetupDiCallClassInstaller 为与 DeviceInfoSet 关联的安装程序类调用安装程序。",
+          "type": "PSP_DEVINFO_DATA"
         }
       ],
-      "return_value": "如果函数成功，返回值为 TRUE。如果函数失败，返回值为 FALSE。调用 GetLastError 获取扩展错误信息。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果函数成功，返回值为 TRUE。如果函数失败，返回值为 FALSE。调用 GetLastError 获取扩展错误信息。"
+      },
       "remarks": "此函数调用类安装程序来处理指定的设备安装请求。对于某些 DIF 请求，调用方必须是 Administrators 组的成员。",
       "requirements": {
         "header": "cfgmgr32.h",
@@ -331,11 +360,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "正在为其生成驱动程序列表 的设备信息集 的句柄。"
+          "description": "正在为其生成驱动程序列表 的设备信息集 的句柄。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果在调用此函数时正在对指定的设备信息集进行驱动程序列表搜索，则搜索将终止。 确认终止后，SetupDiCancelDriverInfoSearch 返回 TRUE。 否则，它将返回 FALSE ，对 GetLastError 的调用返回ERROR_INVALID_HANDLE。"
+        "description": "如果在调用此函数时正在对指定的设备信息集进行驱动程序列表搜索，则搜索将终止。 确认终止后，SetupDiCancelDriverInfoSearch 返回 TRUE。 否则，它将返回 FALSE ，对 GetLastError 的调用返回ERROR_INVALID_HANDLE。",
+        "type": "WINSETUPAPI BOOL"
       },
       "requirements": {
         "target_platform": "Windows"
@@ -359,16 +390,19 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "为本地计算机 设置的设备信息的 句柄。 此集包含一个设备信息元素，该元素表示要更改其状态的设备。"
+          "description": "为本地计算机 设置的设备信息的 句柄。 此集包含一个设备信息元素，该元素表示要更改其状态的设备。",
+          "type": "HDEVINFO"
         },
         {
           "name": "DeviceInfoData",
           "direction": "in, out",
-          "description": "指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。 这是 IN- OUT 参数，因为 DeviceInfoData。返回时，DevInst 可能会使用新的句柄值进行更新。"
+          "description": "指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。 这是 IN- OUT 参数，因为 DeviceInfoData。返回时，DevInst 可能会使用新的句柄值进行更新。",
+          "type": "out] PSP_DEVINFO_DATA"
         }
       ],
       "return_value": {
-        "description": "如果成功，该函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来 检索记录的错误。"
+        "description": "如果成功，该函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来 检索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "header": "setupapi.h",
       "deprecated": false,
@@ -386,7 +420,8 @@
         {
           "name": "ClassName",
           "direction": "in",
-          "description": "要为其检索类 GUID 的类的名称。[out] ClassGuidList 指向数组的指针，用于接收与指定类名关联的 GUID 列表。[in] ClassGuidListSize"
+          "description": "要为其检索类 GUID 的类的名称。[out] ClassGuidList 指向数组的指针，用于接收与指定类名关联的 GUID 列表。[in] ClassGuidListSize",
+          "type": "PCSTR"
         }
       ],
       "header": "setupapi.h",
@@ -396,7 +431,11 @@
         "SetupDiGetClassDescription"
       ],
       "confidence": 0.8,
-      "_source_line": 346
+      "_source_line": 346,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiClassGuidsFromNameEx",
@@ -408,14 +447,19 @@
         {
           "name": "ClassName",
           "direction": "in",
-          "description": "要为其检索类 GUID 的类的名称。[out] ClassGuidList 指向数组的指针，用于接收与指定类名关联的 GUID 列表。[in] ClassGuidListSize"
+          "description": "要为其检索类 GUID 的类的名称。[out] ClassGuidList 指向数组的指针，用于接收与指定类名关联的 GUID 列表。[in] ClassGuidListSize",
+          "type": "PCSTR"
         }
       ],
       "header": "setupapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 348
+      "_source_line": 348,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiClassNameFromGuid",
@@ -427,7 +471,8 @@
         {
           "name": "ClassGuid",
           "direction": "in",
-          "description": "指向要检索的类名称的类 GUID 的指针。[out] ClassName 指向缓冲区的指针，该缓冲区接收以 NULL 结尾的字符串，该字符串包含由 ClassGuid 参数中的 指针指定的类的名称。[in] ClassNameSize"
+          "description": "指向要检索的类名称的类 GUID 的指针。[out] ClassName 指向缓冲区的指针，该缓冲区接收以 NULL 结尾的字符串，该字符串包含由 ClassGuid 参数中的 指针指定的类的名称。[in] ClassNameSize",
+          "type": "const GUID"
         }
       ],
       "header": "setupapi.h",
@@ -436,7 +481,11 @@
         "MAX_CLASS_NAME_LEN"
       ],
       "confidence": 0.8,
-      "_source_line": 354
+      "_source_line": 354,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiClassNameFromGuidEx",
@@ -448,7 +497,8 @@
         {
           "name": "ClassGuid",
           "direction": "in",
-          "description": "要检索的类名的类 GUID。[out] ClassName 指向接收指定 GUID 类的 NULL 终止名称的字符串缓冲区的指针。[in] ClassNameSize"
+          "description": "要检索的类名的类 GUID。[out] ClassName 指向接收指定 GUID 类的 NULL 终止名称的字符串缓冲区的指针。[in] ClassNameSize",
+          "type": "const GUID"
         }
       ],
       "header": "setupapi.h",
@@ -456,7 +506,10 @@
       "cross_references": [],
       "confidence": 0.7,
       "_source_line": 355,
-      "return_value": "如果函数成功，返回值为 TRUE。如果函数失败，返回值为 FALSE。"
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果函数成功，返回值为 TRUE。如果函数失败，返回值为 FALSE。"
+      }
     },
     {
       "id": "windows::SetupDiCreateDeviceInfo",
@@ -468,26 +521,31 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "为本地计算机设置 设备信息的句柄。[in] DeviceName 指向 NULL 终止的字符串的指针，该字符串提供完整的 设备实例 ID（例如， “Root*PNP0500\\0000”）或根枚举 设备 ID（例如，“*PNP0500”）。 仅当在 CreationFlags 参数中指定了DICD_GENERATE_ID标志时，才能使用根枚举的设备标识符。[in] ClassGuid 指向设备的 设备设置类 GUID 的指针。 如果设备设置类未知，请将 *ClassGuid 设置为 GUID_NULL结构。"
+          "description": "为本地计算机设置 设备信息的句柄。[in] DeviceName 指向 NULL 终止的字符串的指针，该字符串提供完整的 设备实例 ID（例如， “Root*PNP0500\\0000”）或根枚举 设备 ID（例如，“*PNP0500”）。 仅当在 CreationFlags 参数中指定了DICD_GENERATE_ID标志时，才能使用根枚举的设备标识符。[in] ClassGuid 指向设备的 设备设置类 GUID 的指针。 如果设备设置类未知，请将 *ClassGuid 设置为 GUID_NULL结构。",
+          "type": "HDEVINFO"
         },
         {
           "name": "DeviceDescription",
           "direction": "in, optional",
-          "description": "指向提供设备文本说明的 NULL 终止字符串的指针。 此指针是可选的，可以 NULL。"
+          "description": "指向提供设备文本说明的 NULL 终止字符串的指针。 此指针是可选的，可以 NULL。",
+          "type": "optional] PCSTR"
         },
         {
           "name": "hwndParent",
           "direction": "in, optional",
-          "description": "用于与安装设备相关的任何用户界面的顶级窗口的句柄。 此句柄是可选的，可以 NULL。[in] CreationFlags DWORD 类型的变量，用于控制设备信息元素的创建方式。 可以是以下值的组合： DICD_GENERATE_ID 如果指定了此标志，DeviceName 仅包含根枚举 设备 ID，并且系统使用该 ID 为新设备信息元素生成完整的 设备实例 ID。 调用 SetupDiGetDeviceInstanceId 以检索为此设备信息元素生成的设备实例 ID。 DICD_INHERIT_CLASSDRVS 如果指定了此标志，生成的设备信息元素将继承与设备信息集关联的类驱动程序列表（如果有）。 此外，如果为设备信息集选择了一个驱动程序，则为新设备信息元素选择了同一驱动程序。"
+          "description": "用于与安装设备相关的任何用户界面的顶级窗口的句柄。 此句柄是可选的，可以 NULL。[in] CreationFlags DWORD 类型的变量，用于控制设备信息元素的创建方式。 可以是以下值的组合： DICD_GENERATE_ID 如果指定了此标志，DeviceName 仅包含根枚举 设备 ID，并且系统使用该 ID 为新设备信息元素生成完整的 设备实例 ID。 调用 SetupDiGetDeviceInstanceId 以检索为此设备信息元素生成的设备实例 ID。 DICD_INHERIT_CLASSDRVS 如果指定了此标志，生成的设备信息元素将继承与设备信息集关联的类驱动程序列表（如果有）。 此外，如果为设备信息集选择了一个驱动程序，则为新设备信息元素选择了同一驱动程序。",
+          "type": "optional] HWND"
         },
         {
           "name": "DeviceInfoData",
           "direction": "out, optional",
-          "description": "指向接收新设备信息元素的 SP_DEVINFO_DATA 结构的指针。 此指针是可选的，可以 NULL。 如果提供结构，调用方必须在调用函数之前将此结构的 cbSize 成员设置为 sizeof（SP_DEVINFO_DATA）。 有关详细信息，请参阅以下 备注 部分。"
+          "description": "指向接收新设备信息元素的 SP_DEVINFO_DATA 结构的指针。 此指针是可选的，可以 NULL。 如果提供结构，调用方必须在调用函数之前将此结构的 cbSize 成员设置为 sizeof（SP_DEVINFO_DATA）。 有关详细信息，请参阅以下 备注 部分。",
+          "type": "optional] PSP_DEVINFO_DATA"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 TRUE。否则，它返回 FALSE，可以通过调用 GetLastError 来检索记录的错误。"
+        "description": "如果函数成功，则返回 TRUE。否则，它返回 FALSE，可以通过调用 GetLastError 来检索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "此函数的调用方必须是 Administrators 组的成员。 如果将此设备实例添加到具有关联类的集，则设备类必须相同或调用失败。 在这种情况下，对 getLastError 调用将返回ERROR_CLASS_MISMATCH。 如果指定的设备实例与注册表中的现有设备实例密钥相同，则调用将失败。 在这种情况下，调用 getLastError 将返回ERROR_DEVINST_ALREADY_EXISTS 。 仅当未设置DICD_GENERATE_ID标志时，才会发生这种情况。 如果新设备信息元素已成功创建，但调用方提供的 DeviceInfoData 缓冲区无效，该函数将返回 FALSE。 在这种情况下，调用 getLastError 将返回ERROR_INVALID_USER_BUFFER。 但是，设备 信息元素已添加为集的新成员。",
       "header": "setupapi.h",
@@ -508,16 +566,19 @@
         {
           "name": "ClassGuid",
           "direction": "in, optional",
-          "description": "指向要与新创建的设备信息集关联的设备设置类 的 GUID 的指针。 如果指定此参数，则此设备信息集中只能包含此类设备。 如果此参数设置为 NULL，则设备信息集不会与特定的设备设置类相关联。"
+          "description": "指向要与新创建的设备信息集关联的设备设置类 的 GUID 的指针。 如果指定此参数，则此设备信息集中只能包含此类设备。 如果此参数设置为 NULL，则设备信息集不会与特定的设备设置类相关联。",
+          "type": "optional] const GUID"
         },
         {
           "name": "hwndParent",
           "direction": "in, optional",
-          "description": "顶级窗口的句柄，用于与非设备特定操作相关的任何用户界面 (，例如使用全局类驱动程序列表) 的选择设备对话框。 此句柄是可选的，可以为 NULL。 如果不需要特定的顶级窗口，请将 hwndParent 设置为 NULL。"
+          "description": "顶级窗口的句柄，用于与非设备特定操作相关的任何用户界面 (，例如使用全局类驱动程序列表) 的选择设备对话框。 此句柄是可选的，可以为 NULL。 如果不需要特定的顶级窗口，请将 hwndParent 设置为 NULL。",
+          "type": "optional] HWND"
         }
       ],
       "return_value": {
-        "description": "如果成功，该函数将返回空设备信息集的句柄。 否则，它将返回 INVALID_HANDLE_VALUE。 要获得更多的错误信息，请调用 GetLastError。"
+        "description": "如果成功，该函数将返回空设备信息集的句柄。 否则，它将返回 INVALID_HANDLE_VALUE。 要获得更多的错误信息，请调用 GetLastError。",
+        "type": "HDEVINFO"
       },
       "remarks": "此函数的调用方必须通过调用 SetupDiDestroyDeviceInfoList 来删除返回的设备信息集。如果设备信息集适用于远程计算机上的设备（MachineName 非 NULL），则对此集或其任何元素的所有后续操作都必须使用支持具有远程元素的设备信息集的例程。未提供此支持的 SetupDiXxx 例程（如 SetupDiCallClassInstaller）在其引用页中具有该效果的语句。",
       "header": "setupapi.h",
@@ -542,21 +603,25 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息的句柄。 此集包含一个设备信息元素，该元素表示要为其注册接口的设备。 此句柄通 常由 SetupDiGetClassDevs返回。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。[in] InterfaceClassGuid 指向指定新接口的接口类的类 GUID 的指针。[in, optional] ReferenceString 指向提供引用字符串的 NULL 终止字符串的指针。 此指针是可选的，可以 NULL。 引用字符串仅由少数总线驱动程序使用，这些驱动程序将设备接口用作按需创建的软件设备的占位符。"
+          "description": "设备信息的句柄。 此集包含一个设备信息元素，该元素表示要为其注册接口的设备。 此句柄通 常由 SetupDiGetClassDevs返回。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。[in] InterfaceClassGuid 指向指定新接口的接口类的类 GUID 的指针。[in, optional] ReferenceString 指向提供引用字符串的 NULL 终止字符串的指针。 此指针是可选的，可以 NULL。 引用字符串仅由少数总线驱动程序使用，这些驱动程序将设备接口用作按需创建的软件设备的占位符。",
+          "type": "HDEVINFO"
         },
         {
           "name": "CreationFlags",
           "direction": "in",
-          "description": "保留。 必须为零。"
+          "description": "保留。 必须为零。",
+          "type": "DWORD"
         },
         {
           "name": "DeviceInterfaceData",
           "direction": "out, optional",
-          "description": "指向调用方初始化 SP_DEVICE_INTERFACE_DATA 结构的指针，用于接收有关新设备接口的信息。 此指针是可选的，可以 NULL。 如果提供结构，调用方必须在调用此函数之前将此结构的 cbSize 成员设置为 sizeof（SP_DEVICE_INTERFACE_DATA）。 有关详细信息，请参阅以下 备注部分。"
+          "description": "指向调用方初始化 SP_DEVICE_INTERFACE_DATA 结构的指针，用于接收有关新设备接口的信息。 此指针是可选的，可以 NULL。 如果提供结构，调用方必须在调用此函数之前将此结构的 cbSize 成员设置为 sizeof（SP_DEVICE_INTERFACE_DATA）。 有关详细信息，请参阅以下 备注部分。",
+          "type": "optional] PSP_DEVICE_INTERFACE_DATA"
         }
       ],
       "return_value": {
-        "description": "如果 SetupDiCreateDeviceInterfaceRegKey 成功，该函数将返回请求的注册表项的句柄，在该注册表项中可以存储和检索接口信息。 如果 SetupDiCreateDeviceInterfaceRegKey 失败，该函 数将返回INVALID_HANDLE_VALUE。 调用 GetLastError 以获取扩展的错误信息。"
+        "description": "如果 SetupDiCreateDeviceInterfaceRegKey 成功，该函数将返回请求的注册表项的句柄，在该注册表项中可以存储和检索接口信息。 如果 SetupDiCreateDeviceInterfaceRegKey 失败，该函 数将返回INVALID_HANDLE_VALUE。 调用 GetLastError 以获取扩展的错误信息。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "此函数的调用方必须是 Administrators 组的成员。 如果设备接口的请求密钥已存在，SetupDiCreateDeviceInterfaceRegKey 返回该密钥的句柄;否则，SetupDiCreateDeviceInterfaceRegKey 为指定的设备接口创建新的非易失性注册表项。 此函数的调用方可以在此密钥中存储设备接口的专用配置数据。 设备的驱动程序可以使用 IoXxx 例程访问此密钥。 通过调用 RegCloseKey关闭从此函数返回的句柄。 对于使用布局文件（LayoutFile 条目在 INF 版本部分中指定的安装），在调用 setupDiCreateDeviceInterfaceRegKey 之前，必须通过调用 SetupOpenAppendInfFile（在 Windows SDK 文档中所述）打开布局文件。",
       "header": "setupapi.h",
@@ -579,16 +644,19 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息的句柄集，其中包含要为其创建注册表项的接口。 设备信息集不得包含远程元素。"
+          "description": "设备信息的句柄集，其中包含要为其创建注册表项的接口。 设备信息集不得包含远程元素。",
+          "type": "HDEVINFO"
         },
         {
           "name": "DeviceInterfaceData",
           "direction": "in",
-          "description": "指向 SP_DEVICE_INTERFACE_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备接 口。 SetupDiCreateDeviceInterface可能返回此指针。 Reserved 保留。 必须为零。[in] samDesired 调用方请求要创建的密钥的注册表安全访问。 有关 REGSAM 类型的注册表安全访问值的 信息，请参阅 Microsoft Windows SDK 文档。[in, optional] InfHandle 打开的 INF 文件的句柄，该文件包含要为新创建的密钥执行的 DDInstall 节。 此参数是可 选的，可以 NULL。 如果未 NULL，则还必须指定 InfSectionName。[in, optional] InfSectionName 指向 INF 文件中 INF DDInstall 节的名称的指针，该文件由 InfHandle指定。 为新创建的密钥执行此部分。 此参数是可选的，可以 NULL。 如果指定此参数，还必须指定 InfHandle。"
+          "description": "指向 SP_DEVICE_INTERFACE_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备接 口。 SetupDiCreateDeviceInterface可能返回此指针。 Reserved 保留。 必须为零。[in] samDesired 调用方请求要创建的密钥的注册表安全访问。 有关 REGSAM 类型的注册表安全访问值的 信息，请参阅 Microsoft Windows SDK 文档。[in, optional] InfHandle 打开的 INF 文件的句柄，该文件包含要为新创建的密钥执行的 DDInstall 节。 此参数是可 选的，可以 NULL。 如果未 NULL，则还必须指定 InfSectionName。[in, optional] InfSectionName 指向 INF 文件中 INF DDInstall 节的名称的指针，该文件由 InfHandle指定。 为新创建的密钥执行此部分。 此参数是可选的，可以 NULL。 如果指定此参数，还必须指定 InfHandle。",
+          "type": "PSP_DEVICE_INTERFACE_DATA"
         }
       ],
       "return_value": {
-        "description": "如果 SetupDiCreateDeviceInterfaceRegKey 成功，该函数将返回请求的注册表项的句柄，在该注册表项中可以存储和检索接口信息。如果失败，返回 INVALID_HANDLE_VALUE。"
+        "description": "如果 SetupDiCreateDeviceInterfaceRegKey 成功，该函数将返回请求的注册表项的句柄，在该注册表项中可以存储和检索接口信息。如果失败，返回 INVALID_HANDLE_VALUE。",
+        "type": "WINSETUPAPI HKEY"
       },
       "remarks": "此函数的调用方必须是 Administrators 组的成员。如果设备接口的请求密钥已存在，SetupDiCreateDeviceInterfaceRegKey 返回该密钥的句柄；否则，SetupDiCreateDeviceInterfaceRegKey 为指定的设备接口创建新的非易失性注册表项。此函数的调用方可以在此密钥中存储设备接口的专用配置数据。设备的驱动程序可以使用 IoXxx 例程访问此密钥。通过调用 RegCloseKey 关闭从此函数返回的句柄。对于使用布局文件（LayoutFile 条目在 INF 版本部分中指定的安装），在调用 SetupDiCreateDeviceInterfaceRegKey 之前，必须通过调用 SetupOpenAppendInfFile（在 Windows SDK 文档中所述）打开布局文件。",
       "header": "setupapi.h",
@@ -610,7 +678,8 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息的句柄集，其中包含表示要为其创建注册表项的设备的设备信息元素。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。[in] Scope 要创建的注册表项的范围。 范围确定信息的存储位置。 创建的密钥可以是全局密钥，也可以特 定于硬件配置文件。 可以是以下值之一： DICS_FLAG_GLOBAL 创建用于存储全局配置信息的密钥。 此信息不特定于特定硬件配置文件。 在基于 NT 的操作系统上，这将创建一个根植于 HKEY_LOCAL_MACHINE的密钥。 打开的确切键取决于 KeyType 参数的值。"
+          "description": "设备信息的句柄集，其中包含表示要为其创建注册表项的设备的设备信息元素。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。[in] Scope 要创建的注册表项的范围。 范围确定信息的存储位置。 创建的密钥可以是全局密钥，也可以特 定于硬件配置文件。 可以是以下值之一： DICS_FLAG_GLOBAL 创建用于存储全局配置信息的密钥。 此信息不特定于特定硬件配置文件。 在基于 NT 的操作系统上，这将创建一个根植于 HKEY_LOCAL_MACHINE的密钥。 打开的确切键取决于 KeyType 参数的值。",
+          "type": "HDEVINFO"
         }
       ],
       "header": "setupapi.h",
@@ -620,7 +689,11 @@
         "SetupDiRegisterDeviceInfo"
       ],
       "confidence": 0.8,
-      "_source_line": 379
+      "_source_line": 379,
+      "return_value": {
+        "type": "WINSETUPAPI HKEY",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiDeleteDeviceInfo",
@@ -632,11 +705,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "包含要删除 的设备信息 元素的设备信息集的句柄。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构表示 要删除的 DeviceInfoSet 中的设备信息元素。"
+          "description": "包含要删除 的设备信息 元素的设备信息集的句柄。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构表示 要删除的 DeviceInfoSet 中的设备信息元素。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果成功，该函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来 检索记录的错误。"
+        "description": "如果成功，该函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来 检索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "如果指定的设备信息元素正在使用（例如被向导页引用），则函数将失败。",
       "header": "setupapi.h",
@@ -658,11 +733,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "指向包含要删除的接口 的设备信息集 的指针。 此句柄通常由 SetupDiGetClassDevs 返回。[in] DeviceInterfaceData 指向 SP_DEVICE_INTERFACE_DATA 结构的指针，该结构指定要删除 的 DeviceInfoSet 中的接口。 此结构通常由 SetupDiEnumDeviceInterfaces 返回。"
+          "description": "指向包含要删除的接口 的设备信息集 的指针。 此句柄通常由 SetupDiGetClassDevs 返回。[in] DeviceInterfaceData 指向 SP_DEVICE_INTERFACE_DATA 结构的指针，该结构指定要删除 的 DeviceInfoSet 中的接口。 此结构通常由 SetupDiEnumDeviceInterfaces 返回。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果函数完成且未出错，SetupDiDeleteDeviceInterfaceData 将返回 TRUE。 如果函数完成但出 现错误，则返回 FALSE ，并且可以通过调用 GetLastError 来检索失败的错误代码。"
+        "description": "如果函数完成且未出错，SetupDiDeleteDeviceInterfaceData 将返回 TRUE。 如果函数完成但出 现错误，则返回 FALSE ，并且可以通过调用 GetLastError 来检索失败的错误代码。",
+        "type": "WINSETUPAPI BOOL"
       },
       "header": "setupapi.h",
       "deprecated": false,
@@ -682,16 +759,19 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "指向 设备信息集 的指针，该信息集包含要删除注册表中特定于接口的信息的接口。 设备信息集不得包含远程元素。"
+          "description": "指向 设备信息集 的指针，该信息集包含要删除注册表中特定于接口的信息的接口。 设备信息集不得包含远程元素。",
+          "type": "HDEVINFO"
         },
         {
           "name": "DeviceInterfaceData",
           "direction": "in",
-          "description": "指向 SP_DEVICE_INTERFACE_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备接口。 此指 针可能由 SetupDiCreateDeviceInterface 或 SetupDiEnumDeviceInterfaces 返回。 Reserved 保留。 必须为零。"
+          "description": "指向 SP_DEVICE_INTERFACE_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备接口。 此指 针可能由 SetupDiCreateDeviceInterface 或 SetupDiEnumDeviceInterfaces 返回。 Reserved 保留。 必须为零。",
+          "type": "PSP_DEVICE_INTERFACE_DATA"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，该函数返回 TRUE。否则，它返回 FALSE。要获取扩展错误信息，请调用 GetLastError。"
+        "description": "如果操作成功，该函数返回 TRUE。否则，它返回 FALSE。要获取扩展错误信息，请调用 GetLastError。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "此函数的调用方必须是 Administrators 组的成员。",
       "requirements": {
@@ -716,12 +796,14 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息集的句柄，其中包含表示要删除其注册表项的设备的设备信息元素。 设备信息集不得包含远程元素。"
+          "description": "设备信息集的句柄，其中包含表示要删除其注册表项的设备的设备信息元素。 设备信息集不得包含远程元素。",
+          "type": "HDEVINFO"
         },
         {
           "name": "DeviceInfoData",
           "direction": "in",
-          "description": "指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。[in] Scope 要删除的注册表项的范围。 范围指示信息所在的位置。 密钥可以是全局或特定于硬件配置文件 的。 可以是以下其中一个值： DICS_FLAG_GLOBAL 删除存储全局配置信息的密钥。"
+          "description": "指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。[in] Scope 要删除的注册表项的范围。 范围指示信息所在的位置。 密钥可以是全局或特定于硬件配置文件 的。 可以是以下其中一个值： DICS_FLAG_GLOBAL 删除存储全局配置信息的密钥。",
+          "type": "PSP_DEVINFO_DATA"
         }
       ],
       "header": "setupapi.h",
@@ -730,7 +812,11 @@
         "SetupDiDestroyClassImageList"
       ],
       "confidence": 0.8,
-      "_source_line": 386
+      "_source_line": 386,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiDestroyClassImageList",
@@ -742,11 +828,13 @@
         {
           "name": "ClassImageListData",
           "direction": "in",
-          "description": "指向包含要销毁的类图像列表的 SP_CLASSIMAGELIST_DATA 结构的指针。"
+          "description": "指向包含要销毁的类图像列表的 SP_CLASSIMAGELIST_DATA 结构的指针。",
+          "type": "PSP_CLASSIMAGELIST_DATA"
         }
       ],
       "return_value": {
-        "description": "如果成功，函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来检 索记录的错误。"
+        "description": "如果成功，函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来检 索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -773,10 +861,14 @@
         {
           "name": "ClassImageListData",
           "direction": "out",
-          "description": "指向 SP_CLASSIMAGELIST_DATA 结构的指针，用于接收有关类图像列表的信息，包括图像列表的句柄。 此结构的 cbSize 字段必须在调用此函数之前使用结构的大小（以字节为单位）进行初 始化，否则该字段将失败。[in, optional] MachineName 指向 NULL 终止的字符串的指针，该字符串提供远程系统的名称，其类"
+          "description": "指向 SP_CLASSIMAGELIST_DATA 结构的指针，用于接收有关类图像列表的信息，包括图像列表的句柄。 此结构的 cbSize 字段必须在调用此函数之前使用结构的大小（以字节为单位）进行初 始化，否则该字段将失败。[in, optional] MachineName 指向 NULL 终止的字符串的指针，该字符串提供远程系统的名称，其类",
+          "type": "PSP_CLASSIMAGELIST_DATA"
         }
       ],
-      "return_value": "如果函数成功，则返回 TRUE。否则，它将返回 FALSE，可以通过调用 GetLastError 来检索记录的错误。",
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": "如果函数成功，则返回 TRUE。否则，它将返回 FALSE，可以通过调用 GetLastError 来检索记录的错误。"
+      },
       "remarks": "通过调用 SetupDiDestroyClassImageList，应销毁此函数生成的映像列表。远程计算机上的特定于类的图标只能显示，前提是该类也存在于本地计算机上。因此，如果远程计算机具有类 X，但类 X 未在本地安装，则返回泛型（未知）图标。",
       "header": "setupapi.h",
       "deprecated": false,
@@ -796,11 +888,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设置为删除的设备信息的句柄。"
+          "description": "设置为删除的设备信息的句柄。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果成功，该函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来 检索记录的错误。"
+        "description": "如果成功，该函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来 检索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -827,7 +921,8 @@
         {
           "name": "hdc",
           "direction": "in",
-          "description": "将绘制微型图标的设备上下文的句柄。[in] rc 在指定设备上下文句柄中绘制微型图标的矩形。[in] MiniIconIndex 从 SetupDiLoadClassIcon 或 SetupDiGetClassBitmapIndex 检索到的微型图标的索引。 可以使用设备的以下预定义索引："
+          "description": "将绘制微型图标的设备上下文的句柄。[in] rc 在指定设备上下文句柄中绘制微型图标的矩形。[in] MiniIconIndex 从 SetupDiLoadClassIcon 或 SetupDiGetClassBitmapIndex 检索到的微型图标的索引。 可以使用设备的以下预定义索引：",
+          "type": "HDC"
         }
       ],
       "header": "setupapi.h",
@@ -838,7 +933,8 @@
       "confidence": 0.7,
       "_source_line": 392,
       "return_value": {
-        "description": "此函数返回字符串应从其中开始的 rc 左侧的偏移量。 如果绘制操作失败，函数返回零。"
+        "description": "此函数返回字符串应从其中开始的 rc 左侧的偏移量。 如果绘制操作失败，函数返回零。",
+        "type": "WINSETUPAPI INT"
       },
       "remarks": "默认情况下，图标垂直居中，并强制在指定矩形的左侧。"
     },
@@ -852,11 +948,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息集的句柄，为其返回表示设备信息元素的SP_DEVINFO_DATA结构。[in] MemberIndex 要检索的设备信息元素的从零开始的索引。[out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，用于接收有关枚举设备信息元素的信息。 调用方必须设 置 DeviceInfoData。cbSize 为 sizeof(SP_DEVINFO_DATA) 。"
+          "description": "设备信息集的句柄，为其返回表示设备信息元素的SP_DEVINFO_DATA结构。[in] MemberIndex 要检索的设备信息元素的从零开始的索引。[out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，用于接收有关枚举设备信息元素的信息。 调用方必须设 置 DeviceInfoData。cbSize 为 sizeof(SP_DEVINFO_DATA) 。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果成功，该函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来 检索记录的错误。"
+        "description": "如果成功，该函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来 检索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "对此函数的重复调用返回不同设备的设备信息元素。 可以重复调用此函数以获取有关设备信息集中所有设备的信息。 若要枚举设备信息元素，安装程序最初应调用 MemberIndex 参数设置为 0 的 SetupDiEnumDeviceInfo。 然后，安装程序应递增 MemberIndex 并调用",
       "header": "newdev.h",
@@ -883,7 +981,8 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "指向包含要为其返回信息的设备接口的设备信息 集 的指针。 此句柄通常由"
+          "description": "指向包含要为其返回信息的设备接口的设备信息 集 的指针。 此句柄通常由",
+          "type": "HDEVINFO"
         }
       ],
       "header": "setupapi.h",
@@ -893,7 +992,11 @@
         "SP_DEVICE_INTERFACE_DATA"
       ],
       "confidence": 0.8,
-      "_source_line": 395
+      "_source_line": 395,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiEnumDriverInfo",
@@ -905,16 +1008,19 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息的句柄，其中包含要枚举的驱动程序列表。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。 此参数是可选的，可以 NULL。 如果指定此参数，SetupDiEnumDriverInfo 枚举指定设备的驱动程序列表。 如果此参数 NULL，SetupDiEnumDriverInfo 枚举与 DeviceInfoSet 关联的全局类驱动程序 列表（此列表的类型为 SPDIT_CLASSDRIVER）。[in] DriverType 要枚举的驱动程序列表的类型，必须是以下值之一： SPDIT_CLASSDRIVER 枚举类驱动程序列表。 如果未指定 deviceInfoData，则必须指定此驱动程序列表类型。 SPDIT_COMPATDRIVER 枚举指定设备的兼容驱动程序列表。 仅当还指定 DeviceInfoData 时，才能指定此驱动程序列表类型。"
+          "description": "设备信息的句柄，其中包含要枚举的驱动程序列表。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。 此参数是可选的，可以 NULL。 如果指定此参数，SetupDiEnumDriverInfo 枚举指定设备的驱动程序列表。 如果此参数 NULL，SetupDiEnumDriverInfo 枚举与 DeviceInfoSet 关联的全局类驱动程序 列表（此列表的类型为 SPDIT_CLASSDRIVER）。[in] DriverType 要枚举的驱动程序列表的类型，必须是以下值之一： SPDIT_CLASSDRIVER 枚举类驱动程序列表。 如果未指定 deviceInfoData，则必须指定此驱动程序列表类型。 SPDIT_COMPATDRIVER 枚举指定设备的兼容驱动程序列表。 仅当还指定 DeviceInfoData 时，才能指定此驱动程序列表类型。",
+          "type": "HDEVINFO"
         },
         {
           "name": "MemberIndex",
           "direction": "in",
-          "description": "要检索的驱动程序信息成员的从零开始的索引。[out] DriverInfoData 指向调用方初始化 SP_DRVINFO_DATA 结构的指针，该结构接收有关枚举驱动程序的信息。 调用方必须设置 driverInfoData 。在 调用 setupDiEnumDriverInfo之前，cbSizesizeof （SP_DRVINFO_DATA）。 如果未正确设置 cbSize 成员，SetupDiEnumDriverInfo 将返回 FALSE。"
+          "description": "要检索的驱动程序信息成员的从零开始的索引。[out] DriverInfoData 指向调用方初始化 SP_DRVINFO_DATA 结构的指针，该结构接收有关枚举驱动程序的信息。 调用方必须设置 driverInfoData 。在 调用 setupDiEnumDriverInfo之前，cbSizesizeof （SP_DRVINFO_DATA）。 如果未正确设置 cbSize 成员，SetupDiEnumDriverInfo 将返回 FALSE。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "成功返回 TRUE，失败返回 FALSE。可通过 GetLastError 获取错误代码。"
+        "description": "成功返回 TRUE，失败返回 FALSE。可通过 GetLastError 获取错误代码。",
+        "type": "BOOL"
       },
       "remarks": "枚举前需调用 SetupDiBuildDriverInfoList 生成列表。若 cbSize 未正确设置，函数返回 FALSE 并记录 ERROR_INVALID_USER_BUFFER。无更多项时返回 ERROR_NO_MORE_ITEMS。",
       "header": "setupapi.h",
@@ -935,29 +1041,37 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "指向 INF 文件上下文的指针，该上下文指定 INF 文件 INF 制造商节 中的 制造商标识符 条目。制造商标识符 项指定 INF Models 节名称，并选择性地为 Models 节名称指定 TargetOSVersion 修饰。 有关 INF 文件和 INF 文件上下文的信息，请参阅有关使用 INF 文件 和 INFCONTEXT 结构的平台 SDK 主题。"
+          "description": "指向 INF 文件上下文的指针，该上下文指定 INF 文件 INF 制造商节 中的 制造商标识符 条目。制造商标识符 项指定 INF Models 节名称，并选择性地为 Models 节名称指定 TargetOSVersion 修饰。 有关 INF 文件和 INF 文件上下文的信息，请参阅有关使用 INF 文件 和 INFCONTEXT 结构的平台 SDK 主题。",
+          "type": "PINFCONTEXT"
         },
         {
           "name": "AlternatePlatformInfo",
           "direction": "in, optional",
-          "description": "指向 SP_ALTPLATFORM_INFO 结构的指针，该结构提供有关 Windows 版本和处理器体系结构的信息。 此结构的 cbSize 成员必须设置为 sizeof（SP_ALTPLATFORM_INFO_V2）。 此参数是可选的，可以设置为 NULL。"
+          "description": "指向 SP_ALTPLATFORM_INFO 结构的指针，该结构提供有关 Windows 版本和处理器体系结构的信息。 此结构的 cbSize 成员必须设置为 sizeof（SP_ALTPLATFORM_INFO_V2）。 此参数是可选的，可以设置为 NULL。",
+          "type": "optional] PSP_ALTPLATFORM_INFO"
         },
         {
           "name": "InfSectionWithExt",
           "direction": "out, optional",
-          "description": "指向接收包含修饰的 INF Models 节名称和 NULL 终止符的字符串的缓冲区的指针。 如果未提供 alternatePlatformInfo ，则修饰的 INF 模型 节名称适用于当前平台;否则，该名称适用于指定的备用平台。 此参数是可选的，可以设置为 NULL。 如果此参数 NULL，则该函数将返回 TRUE，并将 RequiredSize 设置为返回修饰的 Models 节名称和终止 NULL 字符所需的大小。"
+          "description": "指向接收包含修饰的 INF Models 节名称和 NULL 终止符的字符串的缓冲区的指针。 如果未提供 alternatePlatformInfo ，则修饰的 INF 模型 节名称适用于当前平台;否则，该名称适用于指定的备用平台。 此参数是可选的，可以设置为 NULL。 如果此参数 NULL，则该函数将返回 TRUE，并将 RequiredSize 设置为返回修饰的 Models 节名称和终止 NULL 字符所需的大小。",
+          "type": "optional] PSTR"
         },
         {
           "name": "InfSectionWithExtSize",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "DWORD"
         }
       ],
       "header": "setupapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 399
+      "_source_line": 399,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetActualSectionToInstall",
@@ -969,12 +1083,14 @@
         {
           "name": "InfHandle",
           "direction": "in",
-          "description": "包含 DDInstall 节的 INF 文件的句柄。[in] InfSectionName 指向 INF 模型部分) 中指定的 DDInstall 节名称的指针 (。 节名称的最大长度（以字符为单位）为 254。"
+          "description": "包含 DDInstall 节的 INF 文件的句柄。[in] InfSectionName 指向 INF 模型部分) 中指定的 DDInstall 节名称的指针 (。 节名称的最大长度（以字符为单位）为 254。",
+          "type": "HINF"
         },
         {
           "name": "InfSectionWithExt",
           "direction": "out, optional",
-          "description": "指向字符缓冲区的指针，用于接收 DDInstall 节名称、其平台扩展和 NULL 终止符。 这是应用于安装的修饰节名称。 如果此参数为 NULL， 则 InfSectionWithExtSize 必须为零。 如果此参数为 NULL，则函数返回 TRUE 并将 RequiredSize 设置为返回 DDInstall 节名称、其平台扩展和终止 NULL 字符所需的大小（以字符为单位）。[in] InfSectionWithExtSize"
+          "description": "指向字符缓冲区的指针，用于接收 DDInstall 节名称、其平台扩展和 NULL 终止符。 这是应用于安装的修饰节名称。 如果此参数为 NULL， 则 InfSectionWithExtSize 必须为零。 如果此参数为 NULL，则函数返回 TRUE 并将 RequiredSize 设置为返回 DDInstall 节名称、其平台扩展和终止 NULL 字符所需的大小（以字符为单位）。[in] InfSectionWithExtSize",
+          "type": "optional] PSTR"
         }
       ],
       "header": "setupapi.h",
@@ -983,7 +1099,11 @@
         "InfSection"
       ],
       "confidence": 0.8,
-      "_source_line": 403
+      "_source_line": 403,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetActualSectionToInstallEx",
@@ -995,19 +1115,25 @@
         {
           "name": "InfHandle",
           "direction": "in",
-          "description": "包含 DDInstall 节的 INF 文件的句柄。[in] InfSectionName 指向 DDInstall 节名称的指针（如 INF Models 节中指定的）。 节名称的最大长度（以字符为单位）为 254。"
+          "description": "包含 DDInstall 节的 INF 文件的句柄。[in] InfSectionName 指向 DDInstall 节名称的指针（如 INF Models 节中指定的）。 节名称的最大长度（以字符为单位）为 254。",
+          "type": "HINF"
         },
         {
           "name": "AlternatePlatformInfo",
           "direction": "in, optional",
-          "description": "指向 SP_ALTPLATFORM_INFO 结构的指针（如果非NULL）。 此结构用于指定与本地计算机上的操作系统和处理器体系结构不同的操作系统和处理器体系结构。 若要返回本地计算机的 DDInstall 节名称，请将此参数设置为 NULL。 否则，请提供SP_ALTPLATFORM结构并按如下所 示设置其成员： cbSize 设置为SP_ALTPLATFORM_INFO结构的大小（以字节为单位）。 平台 设置为 Windows XP 和更高版本的 Windows VER_PLATFORM_WIN32_NT。"
+          "description": "指向 SP_ALTPLATFORM_INFO 结构的指针（如果非NULL）。 此结构用于指定与本地计算机上的操作系统和处理器体系结构不同的操作系统和处理器体系结构。 若要返回本地计算机的 DDInstall 节名称，请将此参数设置为 NULL。 否则，请提供SP_ALTPLATFORM结构并按如下所 示设置其成员： cbSize 设置为SP_ALTPLATFORM_INFO结构的大小（以字节为单位）。 平台 设置为 Windows XP 和更高版本的 Windows VER_PLATFORM_WIN32_NT。",
+          "type": "optional] PSP_ALTPLATFORM_INFO"
         }
       ],
       "header": "setupapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 405
+      "_source_line": 405,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetClassBitmapIndex",
@@ -1019,7 +1145,8 @@
         {
           "name": "ClassGuid",
           "direction": "in, optional",
-          "description": "指向要为其检索微型图标 的设备安装类 的 GUID 的指针。 此指针是可选的，可以为 NULL。[out] MiniIconIndex 指向 INT 类型的变量的指针，该变量接收指定设备安装程序类的微型图标的索引。 如果"
+          "description": "指向要为其检索微型图标 的设备安装类 的 GUID 的指针。 此指针是可选的，可以为 NULL。[out] MiniIconIndex 指向 INT 类型的变量的指针，该变量接收指定设备安装程序类的微型图标的索引。 如果",
+          "type": "optional] const GUID"
         }
       ],
       "header": "setupapi.h",
@@ -1028,7 +1155,11 @@
         "SetupDiGetClassDescriptionA"
       ],
       "confidence": 0.7,
-      "_source_line": 411
+      "_source_line": 411,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetClassDescription",
@@ -1040,7 +1171,8 @@
         {
           "name": "ClassGuid",
           "direction": "in",
-          "description": "要检索其说明的安装程序类的 GUID。[out] ClassDescription 指向接收类说明的字符缓冲区的指针。[in] ClassDescriptionSize"
+          "description": "要检索其说明的安装程序类的 GUID。[out] ClassDescription 指向接收类说明的字符缓冲区的指针。[in] ClassDescriptionSize",
+          "type": "const GUID"
         }
       ],
       "header": "setupapi.h",
@@ -1049,7 +1181,11 @@
         "SetupDiGetClassDevPropertySheetsA"
       ],
       "confidence": 0.8,
-      "_source_line": 412
+      "_source_line": 412,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetClassDescriptionEx",
@@ -1061,14 +1197,19 @@
         {
           "name": "ClassGuid",
           "direction": "in",
-          "description": "指向要检索其说明的设置类的 GUID 的指针。[out] ClassDescription 指向接收类说明的字符缓冲区的指针。[in] ClassDescriptionSize"
+          "description": "指向要检索其说明的设置类的 GUID 的指针。[out] ClassDescription 指向接收类说明的字符缓冲区的指针。[in] ClassDescriptionSize",
+          "type": "const GUID"
         }
       ],
       "header": "setupapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 415
+      "_source_line": 415,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetClassDevPropertySheets",
@@ -1080,7 +1221,8 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息的句柄集 返回属性表句柄。 如果 DeviceInfoData 未在设备信息集中指定设备信息元 素，则设备信息集必须具有关联的设备设置类。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。 此参数是可选的，可以 NULL。 如果指定此参数，SetupDiGetClassDevPropertySheets 检索与指定设备关联的属性表句柄。 如果此参数 NULL，SetupDiGetClassDevPropertySheets 检索与"
+          "description": "设备信息的句柄集 返回属性表句柄。 如果 DeviceInfoData 未在设备信息集中指定设备信息元 素，则设备信息集必须具有关联的设备设置类。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。 此参数是可选的，可以 NULL。 如果指定此参数，SetupDiGetClassDevPropertySheets 检索与指定设备关联的属性表句柄。 如果此参数 NULL，SetupDiGetClassDevPropertySheets 检索与",
+          "type": "HDEVINFO"
         }
       ],
       "header": "setupapi.h",
@@ -1089,7 +1231,11 @@
         "PropertySheetHeaderPageListSize"
       ],
       "confidence": 0.8,
-      "_source_line": 419
+      "_source_line": 419,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetClassDevsEx",
@@ -1101,21 +1247,25 @@
         {
           "name": "ClassGuid",
           "direction": "in, optional",
-          "description": "指向 设备设置类的 GUID 的指针 或 设备接口类。 此指针是可选的，可以 NULL。 如果未使用 GUID 值来选择设备，请将 ClassGuid 设置为 NULL。 有关如何使用 ClassGuid的详细信息，请参阅以下 备注 部分。"
+          "description": "指向 设备设置类的 GUID 的指针 或 设备接口类。 此指针是可选的，可以 NULL。 如果未使用 GUID 值来选择设备，请将 ClassGuid 设置为 NULL。 有关如何使用 ClassGuid的详细信息，请参阅以下 备注 部分。",
+          "type": "optional] const GUID"
         },
         {
           "name": "Enumerator",
           "direction": "in, optional",
-          "description": "指向 NULL 终止字符串的指针，该字符串指定： 即插即用（PnP）的标识符（ID）枚举器。 此 ID 可以是枚举器的全局唯一标识符 （GUID）或符号名称。 例如，“PCI”可用于指定 PCI PnP 枚举器。 PnP 枚举器符号名称的其他示例包括“USB”、“PCMCIA”和“SCSI”。 PnP 设备实例 ID。 指定 PnP 设备实例 ID 时，必须在 Flags 参数中设置 DIGCF_DEVICEINTERFACE。 此指针是可选的，可以 NULL。 如果未使用 枚举器 值来选择设备，请将 枚举器 设置为 NULL 有关如何设置 枚举器 值的详细信息，请参阅以下 备注 部分。"
+          "description": "指向 NULL 终止字符串的指针，该字符串指定： 即插即用（PnP）的标识符（ID）枚举器。 此 ID 可以是枚举器的全局唯一标识符 （GUID）或符号名称。 例如，“PCI”可用于指定 PCI PnP 枚举器。 PnP 枚举器符号名称的其他示例包括“USB”、“PCMCIA”和“SCSI”。 PnP 设备实例 ID。 指定 PnP 设备实例 ID 时，必须在 Flags 参数中设置 DIGCF_DEVICEINTERFACE。 此指针是可选的，可以 NULL。 如果未使用 枚举器 值来选择设备，请将 枚举器 设置为 NULL 有关如何设置 枚举器 值的详细信息，请参阅以下 备注 部分。",
+          "type": "optional] PCSTR"
         },
         {
           "name": "hwndParent",
           "direction": "in, optional",
-          "description": "要用于在设备信息集中安装设备实例的用户界面的顶级窗口的句柄。 此句柄是可选的，可以 NULL。[in] Flags 类型为 DWORD 的变量，指定用于筛选添加到设备信息集的设备信息元素的控制选项。 此参数可以是以下一个或多个标志的按位 OR。 有关合并这些控件选项的详细信息，请参阅以下 备注部分。"
+          "description": "要用于在设备信息集中安装设备实例的用户界面的顶级窗口的句柄。 此句柄是可选的，可以 NULL。[in] Flags 类型为 DWORD 的变量，指定用于筛选添加到设备信息集的设备信息元素的控制选项。 此参数可以是以下一个或多个标志的按位 OR。 有关合并这些控件选项的详细信息，请参阅以下 备注部分。",
+          "type": "optional] HWND"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，SetupDiGetClassDevsEx 将句柄返回到 设备信息集，其中包含与提供的参数匹配的所有已安装设备。 如果操作失败，该函数将返回INVALID_HANDLE_VALUE。 若要获取扩展 的错误信息，请调用 GetLastError。"
+        "description": "如果操作成功，SetupDiGetClassDevsEx 将句柄返回到 设备信息集，其中包含与提供的参数匹配的所有已安装设备。 如果操作失败，该函数将返回INVALID_HANDLE_VALUE。 若要获取扩展 的错误信息，请调用 GetLastError。",
+        "type": "WINSETUPAPI HDEVINFO"
       },
       "header": "setupapi.h",
       "deprecated": false,
@@ -1136,10 +1286,14 @@
         {
           "name": "ClassGuid",
           "direction": "in, optional",
-          "description": "指向 设备设置类的 GUID 的指针 或 设备接口类。 此指针是可选的，可以 NULL。 有关如何设置"
+          "description": "指向 设备设置类的 GUID 的指针 或 设备接口类。 此指针是可选的，可以 NULL。 有关如何设置",
+          "type": "optional] const GUID"
         }
       ],
-      "return_value": "如果函数成功，返回包含设备信息元素的新设备信息集的句柄。如果函数失败，返回 INVALID_HANDLE_VALUE。可以通过调用 GetLastError 检索错误代码。",
+      "return_value": {
+        "type": "WINSETUPAPI HDEVINFO",
+        "description": "如果函数成功，返回包含设备信息元素的新设备信息集的句柄。如果函数失败，返回 INVALID_HANDLE_VALUE。可以通过调用 GetLastError 检索错误代码。"
+      },
       "header": "setupapi.h",
       "deprecated": false,
       "cross_references": [
@@ -1159,11 +1313,13 @@
         {
           "name": "ClassImageListData",
           "direction": "in",
-          "description": "指向 SP_CLASSIMAGELIST_DATA 结构的指针，该结构描述类映像列表，该列表包含由 ClassGuid 参数指定的设备安装类的图像。[in] ClassGuid 指向设备安装程序类的 GUID 的指针，要检索指定类映像列表中类图像的索引。[out] ImageIndex 指向 INT 类型变量的指针，该变量接收类图像列表中指定类图像的索引。"
+          "description": "指向 SP_CLASSIMAGELIST_DATA 结构的指针，该结构描述类映像列表，该列表包含由 ClassGuid 参数指定的设备安装类的图像。[in] ClassGuid 指向设备安装程序类的 GUID 的指针，要检索指定类映像列表中类图像的索引。[out] ImageIndex 指向 INT 类型变量的指针，该变量接收类图像列表中指定类图像的索引。",
+          "type": "PSP_CLASSIMAGELIST_DATA"
         }
       ],
       "return_value": {
-        "description": "如果成功，函数返回 TRUE。否则返回 FALSE，可通过 GetLastError 检索错误。"
+        "description": "如果成功，函数返回 TRUE。否则返回 FALSE，可通过 GetLastError 检索错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "If the specified device setup class is not contained in the specified class image list, SetupDiGetClassImageIndex returns the image index for the Unknown device setup class in the ImageIndex parameter.",
       "header": "setupapi.h",
@@ -1184,11 +1340,13 @@
         {
           "name": "ClassImageListData",
           "direction": "out",
-          "description": "指向 SP_CLASSIMAGELIST_DATA 结构的指针，用于接收有关类图像列表的信息，包括图像列表的句柄。 在调用此函数之前，必须使用结构的大小（以字节为单位）初始化此结构的 cbSize 字 段，否则它将失败。"
+          "description": "指向 SP_CLASSIMAGELIST_DATA 结构的指针，用于接收有关类图像列表的信息，包括图像列表的句柄。 在调用此函数之前，必须使用结构的大小（以字节为单位）初始化此结构的 cbSize 字 段，否则它将失败。",
+          "type": "PSP_CLASSIMAGELIST_DATA"
         }
       ],
       "return_value": {
-        "description": "如果成功，函数将返回 TRUE。否则，它将返回 FALSE，并且可以通过调用 GetLastError 来检索记录的错误。"
+        "description": "如果成功，函数将返回 TRUE。否则，它将返回 FALSE，并且可以通过调用 GetLastError 来检索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "此函数生成的映像列表应通过调用 SetupDiDestroyClassImageList 来销毁。调用 SetupDiGetClassImageListEx 以检索远程计算机上安装的类的图像列表。",
       "requirements": {
@@ -1213,12 +1371,14 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息的句柄集，其中包含要检索的类安装参数。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构在 DeviceInfoSet中指定了设备信息元素。 此参数是可选的，可以 NULL。 如果指定此参数，SetupDiGetClassInstallParams 检索指定设备的类安装参数。 如果此参数 NULL，SetupDiGetClassInstallParams 检索与 deviceInfoSet 关联的全局类驱动程序列表的类安装参数。"
+          "description": "设备信息的句柄集，其中包含要检索的类安装参数。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构在 DeviceInfoSet中指定了设备信息元素。 此参数是可选的，可以 NULL。 如果指定此参数，SetupDiGetClassInstallParams 检索指定设备的类安装参数。 如果此参数 NULL，SetupDiGetClassInstallParams 检索与 deviceInfoSet 关联的全局类驱动程序列表的类安装参数。",
+          "type": "HDEVINFO"
         },
         {
           "name": "ClassInstallParams",
           "direction": "out, optional",
-          "description": "指向包含 SP_CLASSINSTALL_HEADER 结构的缓冲区的指针。 此结构必须使其 cbSize 成员设置为输入或缓冲区无效 sizeof（SP_CLASSINSTALL_HEADER）。 输出时，InstallFunction 成员填充了检索的类安装参数 设备安装函数代码。 如果缓冲区足够大，它还会收到特定于函数代码的 类安装参数结构。 如果未指定 ClassInstallParams，ClassInstallParamsSize 必须为 0。[in] ClassInstallParamsSize"
+          "description": "指向包含 SP_CLASSINSTALL_HEADER 结构的缓冲区的指针。 此结构必须使其 cbSize 成员设置为输入或缓冲区无效 sizeof（SP_CLASSINSTALL_HEADER）。 输出时，InstallFunction 成员填充了检索的类安装参数 设备安装函数代码。 如果缓冲区足够大，它还会收到特定于函数代码的 类安装参数结构。 如果未指定 ClassInstallParams，ClassInstallParamsSize 必须为 0。[in] ClassInstallParamsSize",
+          "type": "optional] PSP_CLASSINSTALL_HEADER"
         }
       ],
       "header": "setupapi.h",
@@ -1227,7 +1387,11 @@
         "SetupDiGetClassInstallParamsW"
       ],
       "confidence": 0.8,
-      "_source_line": 437
+      "_source_line": 437,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetClassPropertyEx",
@@ -1239,12 +1403,14 @@
         {
           "name": "ClassGuid",
           "direction": "in",
-          "description": "指向 GUID 的指针，该 GUID 标识要为其检索设备类的设备属性的设备设置类或设备接口类。 有关指定类类型的信息，请参阅 Flags 参数。[in] PropertyKey 指向 DEVPROPKEY 结构的指针，该结构表示所请求的设备类属性的设备属性键。[out] PropertyType 指向 DEVPROPTYPE 类型变量的指针，该变量接收所请求的设备类属性的属性数据类型标识符，其中 property-data-type 标识符是基数据类型标识符与属性数据类型修饰符之间的按位 OR。"
+          "description": "指向 GUID 的指针，该 GUID 标识要为其检索设备类的设备属性的设备设置类或设备接口类。 有关指定类类型的信息，请参阅 Flags 参数。[in] PropertyKey 指向 DEVPROPKEY 结构的指针，该结构表示所请求的设备类属性的设备属性键。[out] PropertyType 指向 DEVPROPTYPE 类型变量的指针，该变量接收所请求的设备类属性的属性数据类型标识符，其中 property-data-type 标识符是基数据类型标识符与属性数据类型修饰符之间的按位 OR。",
+          "type": "const GUID"
         },
         {
           "name": "PropertyBuffer",
           "direction": "out, optional",
-          "description": "指向接收请求的设备类属性的缓冲区的指针。 仅当缓冲区足够大以容纳所有属性值数据时， SetupDiGetClassPropertyEx 才检索请求的属性值。 指针可以为 NULL。 如果指针设置为 NULL 并提供 RequiredSize ， 则 SetupDiGetClassPropertyEx 返回设备类属性的大小（以字节为单 位），以 *RequiredSize 为单位。[in] PropertyBufferSize"
+          "description": "指向接收请求的设备类属性的缓冲区的指针。 仅当缓冲区足够大以容纳所有属性值数据时， SetupDiGetClassPropertyEx 才检索请求的属性值。 指针可以为 NULL。 如果指针设置为 NULL 并提供 RequiredSize ， 则 SetupDiGetClassPropertyEx 返回设备类属性的大小（以字节为单 位），以 *RequiredSize 为单位。[in] PropertyBufferSize",
+          "type": "optional] PBYTE"
         }
       ],
       "header": "setupapi.h",
@@ -1255,7 +1421,11 @@
         "SetupDiSetClassProperty"
       ],
       "confidence": 0.8,
-      "_source_line": 440
+      "_source_line": 440,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetClassPropertyKeys",
@@ -1282,7 +1452,11 @@
         "SetupDiGetClassProperty"
       ],
       "confidence": 0.8,
-      "_source_line": 441
+      "_source_line": 441,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetClassProperty",
@@ -1294,12 +1468,14 @@
         {
           "name": "ClassGuid",
           "direction": "in",
-          "description": "指向 GUID 的指针，该 GUID 标识要为其检索为设备类设置的设备属性的设备设置类或设备接口 类。 有关指定类类型的信息，请参阅 Flags 参数。[in] PropertyKey 指向 DEVPROPKEY 结构的指针，该结构表示所请求设备类属性的设备属性键。[out] PropertyType 指向 DEVPROPTYPE 类型变量的指针，该变量接收请求的设备类属性的 property-data-type 标识符，其中 property-data-type 标识符是基数据类型标识符与属性数据类型修饰符之间的按位 OR。"
+          "description": "指向 GUID 的指针，该 GUID 标识要为其检索为设备类设置的设备属性的设备设置类或设备接口 类。 有关指定类类型的信息，请参阅 Flags 参数。[in] PropertyKey 指向 DEVPROPKEY 结构的指针，该结构表示所请求设备类属性的设备属性键。[out] PropertyType 指向 DEVPROPTYPE 类型变量的指针，该变量接收请求的设备类属性的 property-data-type 标识符，其中 property-data-type 标识符是基数据类型标识符与属性数据类型修饰符之间的按位 OR。",
+          "type": "const GUID"
         },
         {
           "name": "PropertyBuffer",
           "direction": "out",
-          "description": "指向接收请求的设备类属性的缓冲区的指针。 仅当缓冲区大到足以保存所有属性值数据时，"
+          "description": "指向接收请求的设备类属性的缓冲区的指针。 仅当缓冲区大到足以保存所有属性值数据时，",
+          "type": "PBYTE"
         }
       ],
       "header": "cfgmgr32.h",
@@ -1310,7 +1486,11 @@
         "SetupDiSetClassProperty"
       ],
       "confidence": 0.8,
-      "_source_line": 445
+      "_source_line": 445,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetClassRegistryProperty",
@@ -1322,7 +1502,8 @@
         {
           "name": "ClassGuid",
           "direction": "in",
-          "description": "指向表示要为其检索属性的设备设置类的 GUID 的指针。[in] Property 一个值，该值标识要检索的属性。 这必须是以下值之一： SPCRP_CHARACTERISTICS 该函数返回指示类的设备特征的标志。 有关特征标志的列表，请参阅 DeviceCharacteristics 参 数，IoCreateDevice。 SPCRP_DEVTYPE 该函数返回一个 DWORD 值，该值表示类的设备类型。 有关详细信息，请参阅 指定设备类型。 SPCRP_EXCLUSIVE 该函数返回一个 DWORD 值，该值指示用户是否可以获取对此类设备的独占访问权限。 如果允 许独占访问，则返回的值为 1;否则为零。 SPCRP_LOWERFILTERS （Windows Vista 及更高版本）该函数返回为设备安装类安装的较低筛选器驱动程序的服务名称"
+          "description": "指向表示要为其检索属性的设备设置类的 GUID 的指针。[in] Property 一个值，该值标识要检索的属性。 这必须是以下值之一： SPCRP_CHARACTERISTICS 该函数返回指示类的设备特征的标志。 有关特征标志的列表，请参阅 DeviceCharacteristics 参 数，IoCreateDevice。 SPCRP_DEVTYPE 该函数返回一个 DWORD 值，该值表示类的设备类型。 有关详细信息，请参阅 指定设备类型。 SPCRP_EXCLUSIVE 该函数返回一个 DWORD 值，该值指示用户是否可以获取对此类设备的独占访问权限。 如果允 许独占访问，则返回的值为 1;否则为零。 SPCRP_LOWERFILTERS （Windows Vista 及更高版本）该函数返回为设备安装类安装的较低筛选器驱动程序的服务名称",
+          "type": "const GUID"
         }
       ],
       "header": "setupapi.h",
@@ -1332,7 +1513,11 @@
         "SetupDiSetDeviceRegistryProperty"
       ],
       "confidence": 0.8,
-      "_source_line": 446
+      "_source_line": 446,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetCustomDeviceProperty",
@@ -1344,16 +1529,19 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息的句柄集，其中包含表示要为其检索自定义设备属性的设备的设备信息元素。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。[in] CustomPropertyName 表示自定义属性的注册表值名称。[in] Flags 一个标志值，指示应如何返回请求的信息。 该标志可以是零个或下列标志之一： DICUSTOMDEVPROP_MERGE_MULTISZ 如果设置，该函数将检索设备实例特定的属性值和特定于硬件 ID 的属性值，并作为 REG_MULTI_SZ类型字符串连接。 （有关详细信息，请参阅本参考页上 备注 部分。"
+          "description": "设备信息的句柄集，其中包含表示要为其检索自定义设备属性的设备的设备信息元素。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。[in] CustomPropertyName 表示自定义属性的注册表值名称。[in] Flags 一个标志值，指示应如何返回请求的信息。 该标志可以是零个或下列标志之一： DICUSTOMDEVPROP_MERGE_MULTISZ 如果设置，该函数将检索设备实例特定的属性值和特定于硬件 ID 的属性值，并作为 REG_MULTI_SZ类型字符串连接。 （有关详细信息，请参阅本参考页上 备注 部分。",
+          "type": "HDEVINFO"
         },
         {
           "name": "PropertyRegDataType",
           "direction": "out, optional",
-          "description": "指向 DWORD 类型的变量的指针，该变量接收检索到的属性的数据类型。 数据类型指定为表示 注册表数据类型的REG_前缀常量之一。 此参数是可选的，可以 NULL。[out] PropertyBuffer 指向接收请求的属性信息的缓冲区的指针。[in] PropertyBufferSize"
+          "description": "指向 DWORD 类型的变量的指针，该变量接收检索到的属性的数据类型。 数据类型指定为表示 注册表数据类型的REG_前缀常量之一。 此参数是可选的，可以 NULL。[out] PropertyBuffer 指向接收请求的属性信息的缓冲区的指针。[in] PropertyBufferSize",
+          "type": "optional] PDWORD"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，SetupDiGetCustomDeviceProperty 返回 true。 否则，函数返回 FALSE，可以通过调用 getLastError来检索记录的错误。 如果 PropertyBuffer 缓冲区不够大，无法接收请求的信息，SetupDiGetCustomDeviceProperty 返回 FALSE，并且后续调用 getLastError 将返回ERROR_INSUFFICIENT_BUFFER。"
+        "description": "如果操作成功，SetupDiGetCustomDeviceProperty 返回 true。 否则，函数返回 FALSE，可以通过调用 getLastError来检索记录的错误。 如果 PropertyBuffer 缓冲区不够大，无法接收请求的信息，SetupDiGetCustomDeviceProperty 返回 FALSE，并且后续调用 getLastError 将返回ERROR_INSUFFICIENT_BUFFER。",
+        "type": "WINSETUPAPI BOOL"
       },
       "header": "setupapi.h",
       "deprecated": false,
@@ -1371,11 +1559,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息的句柄， 为其检索信息。[out] DeviceInfoSetDetailData 指向调用方初始化 SP_DEVINFO_LIST_DETAIL_DATA 结构的指针，该结构接收设备信息集信息。 有关此结构的详细信息，请参阅以下 备注 部分。"
+          "description": "设备信息的句柄， 为其检索信息。[out] DeviceInfoSetDetailData 指向调用方初始化 SP_DEVINFO_LIST_DETAIL_DATA 结构的指针，该结构接收设备信息集信息。 有关此结构的详细信息，请参阅以下 备注 部分。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 TRUE。 否则，它返回 FALSE，可以通过调用 getLastError来检索记录的 错误。"
+        "description": "如果函数成功，则返回 TRUE。 否则，它返回 FALSE，可以通过调用 getLastError来检索记录的 错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "如果参数有效，SetupDiGetDeviceInfoListDetail 在 DeviceInfoSetDetailData 结构（cbSize 字段除外）中设置值，并返回状态NO_ERROR。",
       "requirements": {
@@ -1403,16 +1593,19 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息的句柄集，其中包含要检索的设备安装参数。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。 此参数是可选的，可以 NULL。 如果指定此参数，SetupDiGetDeviceInstallParams 检索指定设备的安装参数。 如果此参数 NULL，则该函数将检索与 DeviceInfoSet关联的全局设备安装参数。"
+          "description": "设备信息的句柄集，其中包含要检索的设备安装参数。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。 此参数是可选的，可以 NULL。 如果指定此参数，SetupDiGetDeviceInstallParams 检索指定设备的安装参数。 如果此参数 NULL，则该函数将检索与 DeviceInfoSet关联的全局设备安装参数。",
+          "type": "HDEVINFO"
         },
         {
           "name": "DeviceInstallParams",
           "direction": "out",
-          "description": "指向接收设备安装参数的 SP_DEVINSTALL_PARAMS 结构的指针。 DeviceInstallParams。 在调用此函数之前，cbSize 必须设置为结构的大小（以字节为单位）。"
+          "description": "指向接收设备安装参数的 SP_DEVINSTALL_PARAMS 结构的指针。 DeviceInstallParams。 在调用此函数之前，cbSize 必须设置为结构的大小（以字节为单位）。",
+          "type": "PSP_DEVINSTALL_PARAMS_A"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 TRUE。 否则，它返回 FALSE，可以通过调用 getLastError来检索记录的 错误。"
+        "description": "如果函数成功，则返回 TRUE。 否则，它返回 FALSE，可以通过调用 getLastError来检索记录的 错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "",
       "header": "setupapi.h",
@@ -1433,7 +1626,8 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息的句柄集，其中包含表示要为其检索设备实例 ID 的设备的设备信息元素。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。[out, optional] DeviceInstanceId 指向字符缓冲区的指针，该缓冲区将接收指定设备信息元素的 NULL 终止设备实例 ID。 有关设 备实例 ID 的信息，请参阅 设备标识字符串。[in] DeviceInstanceIdSize"
+          "description": "设备信息的句柄集，其中包含表示要为其检索设备实例 ID 的设备的设备信息元素。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。[out, optional] DeviceInstanceId 指向字符缓冲区的指针，该缓冲区将接收指定设备信息元素的 NULL 终止设备实例 ID。 有关设 备实例 ID 的信息，请参阅 设备标识字符串。[in] DeviceInstanceIdSize",
+          "type": "HDEVINFO"
         }
       ],
       "header": "setupapi.h",
@@ -1442,7 +1636,11 @@
         "Vista"
       ],
       "confidence": 0.8,
-      "_source_line": 461
+      "_source_line": 461,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetDeviceInterfaceAlias",
@@ -1454,7 +1652,8 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "指向 设备信息集 的指针，该信息集包含要为其检索别名的设备接口。 此句柄通常由"
+          "description": "指向 设备信息集 的指针，该信息集包含要为其检索别名的设备接口。 此句柄通常由",
+          "type": "HDEVINFO"
         }
       ],
       "requirements": {
@@ -1470,7 +1669,11 @@
         "SetupDiGetClassDevs"
       ],
       "confidence": 0.8,
-      "_source_line": 463
+      "_source_line": 463,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetDeviceInterfaceDetail",
@@ -1482,7 +1685,8 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "指向 设备信息集 的指针，其中包含要检索详细信息的接口。 此句柄通常由"
+          "description": "指向 设备信息集 的指针，其中包含要检索详细信息的接口。 此句柄通常由",
+          "type": "HDEVINFO"
         }
       ],
       "remarks": "使用此函数获取有关接口的详细信息通常是一个双重过程：1. 获取所需的缓冲区大小。使用 NULL DeviceInterfaceDetailData 指针、DeviceInterfaceDetailDataSize、有效的 RequiredSize 变量调用 SetupDiGetDeviceInterfaceDetail。为了响应此类调用，此函数返回所需的缓冲区大小，RequiredSize 失败，GetLastError 返回 ERROR_INSUFFICIENT_BUFFER。2. 分配适当大小的缓冲区，并再次调用函数以获取接口详细信息。此函数返回的接口详细信息包含可传递给 Win32 函数的设备路径，例如 CreateFile。请勿尝试分析设备路径符号名称。可以在系统启动时重复使用设备路径。",
@@ -1495,7 +1699,11 @@
         "Win32"
       ],
       "confidence": 0.8,
-      "_source_line": 464
+      "_source_line": 464,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetDeviceInterfacePropertyKeys",
@@ -1507,17 +1715,20 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息集的句柄。 此设备信息集包含一个设备接口，可检索设备属性键数组，这些键表示为 设备接口设置的设备属性。[in] DeviceInterfaceData 指向 SP_DEVICE_INTERFACE_DATA 结构的指针，该结构表示要为其检索所请求的设备属性键数组的设备接口。"
+          "description": "设备信息集的句柄。 此设备信息集包含一个设备接口，可检索设备属性键数组，这些键表示为 设备接口设置的设备属性。[in] DeviceInterfaceData 指向 SP_DEVICE_INTERFACE_DATA 结构的指针，该结构表示要为其检索所请求的设备属性键数组的设备接口。",
+          "type": "HDEVINFO"
         },
         {
           "name": "PropertyKeyArray",
           "direction": "out, optional",
-          "description": "指向接收 DEVPROPKEY 类型值数组的缓冲区的指针，其中每个值都是为设备接口设置的设备属性的设备属性键。 指针是可选的，可以为 NULL。 有关详细信息，请参阅本主题后面的 “备注 ” 部分。"
+          "description": "指向接收 DEVPROPKEY 类型值数组的缓冲区的指针，其中每个值都是为设备接口设置的设备属性的设备属性键。 指针是可选的，可以为 NULL。 有关详细信息，请参阅本主题后面的 “备注 ” 部分。",
+          "type": "optional] DEVPROPKEY"
         },
         {
           "name": "PropertyKeyCount",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "DWORD"
         }
       ],
       "header": "cfgmgr32.h",
@@ -1527,7 +1738,11 @@
         "SetupDiGetDeviceInterfaceProperty"
       ],
       "confidence": 0.8,
-      "_source_line": 467
+      "_source_line": 467,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetDeviceInterfaceProperty",
@@ -1539,12 +1754,14 @@
         {
           "name": "dnDevInst",
           "direction": "in",
-          "description": "绑定到本地计算机的设备实例句柄。[in] PropertyKey 指向 DEVPROPKEY 结构的指针，该结构表示所请求的设备实例属性的设备属性键。[out] PropertyType 指向 DEVPROPTYPE 类型变量的指针，该变量接收请求的设备实例属性的 property-data-type 标识符，其中 property-data-type 标识符是基数据类型标识符与 base-data 类型修饰符（如果修 改基数据类型）之间的按位 OR。[out] PropertyBuffer 指向接收请求的设备实例属性的缓冲区的指针。 仅 当缓冲区大到足以保存所有属性值数据时， CM_Get_DevNode_Property_ExW才检索请求的属性。 指针可以为 NULL。"
+          "description": "绑定到本地计算机的设备实例句柄。[in] PropertyKey 指向 DEVPROPKEY 结构的指针，该结构表示所请求的设备实例属性的设备属性键。[out] PropertyType 指向 DEVPROPTYPE 类型变量的指针，该变量接收请求的设备实例属性的 property-data-type 标识符，其中 property-data-type 标识符是基数据类型标识符与 base-data 类型修饰符（如果修 改基数据类型）之间的按位 OR。[out] PropertyBuffer 指向接收请求的设备实例属性的缓冲区的指针。 仅 当缓冲区大到足以保存所有属性值数据时， CM_Get_DevNode_Property_ExW才检索请求的属性。 指针可以为 NULL。",
+          "type": "DEVINST dnDevInst, PCSTR pszCustomPropertyName, PULONG pulRegDataType, PVOID Buffer, PULONG pulLength, ULONG ulFlags, HMACHINE hMachine); 参数 dnDevInst pszCustomPropertyName pulRegDataType Buffer pulLength ulFlags hMachine 要求 CMAPI CONFIGRET CM_Get_DevNode_Custom_Property_ExW( DEVINST dnDevInst, PCWSTR pszCustomPropertyName, PULONG pulRegDataType, PVOID Buffer, PULONG pulLength, ULONG ulFlags, HMACHINE hMachine ); 参数 dnDevInst pszCustomPropertyName pulRegDataType Buffer pulLength ulFlags hMachine 要求 标头 cfgmgr32.h CM_Get_DevNode_Custom_PropertyA 函数 (cfgmgr32.h) 项目2024/02/23 此函数保留供系统使用。 CMAPI CONFIGRET CM_Get_DevNode_Custom_PropertyA( DEVINST dnDevInst, PCSTR pszCustomPropertyName, PULONG pulRegDataType, PVOID Buffer, PULONG pulLength, ULONG ulFlags); 参数 dnDevInst pszCustomPropertyName pulRegDataType Buffer pulLength ulFlags 要求 CMAPI CONFIGRET CM_Get_DevNode_Custom_PropertyW( DEVINST dnDevInst, PCWSTR pszCustomPropertyName, PULONG pulRegDataType, PVOID Buffer, PULONG pulLength, ULONG ulFlags); 参数 dnDevInst pszCustomPropertyName pulRegDataType Buffer pulLength ulFlags 要求 CMAPI CONFIGRET CM_Get_DevNode_Property_ExW( DEVINST"
         },
         {
           "name": "PropertyBufferSize",
           "direction": "in, out",
-          "description": ""
+          "description": "",
+          "type": "out] PULONG"
         }
       ],
       "requirements": {
@@ -1559,7 +1776,11 @@
         "Server"
       ],
       "confidence": 0.8,
-      "_source_line": 469
+      "_source_line": 469,
+      "return_value": {
+        "type": "CMAPI CONFIGRET",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetDevicePropertyKeys",
@@ -1571,17 +1792,20 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息集的句柄。 此设备信息集包含此函数检索设备属性键数组的设备实例。 属性键表示为 设备实例设置的设备属性。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构表示要为其检索所请求的设备属性键数组的设备实例。"
+          "description": "设备信息集的句柄。 此设备信息集包含此函数检索设备属性键数组的设备实例。 属性键表示为 设备实例设置的设备属性。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构表示要为其检索所请求的设备属性键数组的设备实例。",
+          "type": "HDEVINFO"
         },
         {
           "name": "PropertyKeyArray",
           "direction": "out, optional",
-          "description": "指向接收 DEVPROPKEY 类型值数组的缓冲区的指针，其中每个值都是表示为设备实例设置的设备属性的设备属性键。 指针是可选的，可以为 NULL。 有关详细信息，请参阅本主题后面的 “备注 ”部分。"
+          "description": "指向接收 DEVPROPKEY 类型值数组的缓冲区的指针，其中每个值都是表示为设备实例设置的设备属性的设备属性键。 指针是可选的，可以为 NULL。 有关详细信息，请参阅本主题后面的 “备注 ”部分。",
+          "type": "optional] DEVPROPKEY"
         },
         {
           "name": "PropertyKeyCount",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "DWORD"
         }
       ],
       "header": "cfgmgr32.h",
@@ -1591,7 +1815,11 @@
         "SetupDiGetDeviceProperty"
       ],
       "confidence": 0.8,
-      "_source_line": 470
+      "_source_line": 470,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetDeviceRegistryProperty",
@@ -1603,7 +1831,8 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息集的句柄，其中包含设备信息元素，该元素表示要检索其即插即用属性的设备。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。[in] Property 指定要检索的属性的下列值之一："
+          "description": "设备信息集的句柄，其中包含设备信息元素，该元素表示要检索其即插即用属性的设备。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。[in] Property 指定要检索的属性的下列值之一：",
+          "type": "HDEVINFO"
         }
       ],
       "header": "setupapi.h",
@@ -1613,7 +1842,11 @@
         "SetupDiSetDeviceRegistryProperty"
       ],
       "confidence": 0.8,
-      "_source_line": 472
+      "_source_line": 472,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetDriverInfoDetail",
@@ -1625,12 +1858,14 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息的句柄集，其中包含要为其检索驱动程序信息的驱动程序信息元素。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定要检索驱动程序信息的设备的设备信息元素。此参数是可选的，可以 NULL。 如果指定此参数，SetupDiGetDriverInfoDetail 检索有关指定设备的驱动程序列表中驱动程序的信息。 如果此参数 NULL，SetupDiGetDriverInfoDetail 检索作 为 DeviceInfoSet全局类驱动程序列表成员的驱动程序的信息。[in] DriverInfoData 指向 SP_DRVINFO_DATA 结构的指针，该结构指定要检索详细信息的驱动程序信息元素。 如果指定 DeviceInfoData，驱动程序必须是由 DeviceInfoData指定的设备的驱动程序列表的成员。 否则，驱动程序必须是 DeviceInfoSet的全局类驱动程序列表的成员。[in, out] DriverInfoDetailData 指向 SP_DRVINFO_DETAIL_DATA 结构的指针，该结构接收有关指定驱动程序的详细信息。 如果未指定此参数，DriverInfoDetailDataSize 必须为零。 如果指定此参数，DriverInfoDetailData。 在 调用 setupDiGetDriverInfoDetail之前，cbSize 必须设置为 sizeof（SP_DRVINFO_DETAIL_DATA） 的值。 NoteDriverInfoDetailData.cbSize 不得设置为 DriverInfoDetailDataSize 参数的值。"
+          "description": "设备信息的句柄集，其中包含要为其检索驱动程序信息的驱动程序信息元素。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定要检索驱动程序信息的设备的设备信息元素。此参数是可选的，可以 NULL。 如果指定此参数，SetupDiGetDriverInfoDetail 检索有关指定设备的驱动程序列表中驱动程序的信息。 如果此参数 NULL，SetupDiGetDriverInfoDetail 检索作 为 DeviceInfoSet全局类驱动程序列表成员的驱动程序的信息。[in] DriverInfoData 指向 SP_DRVINFO_DATA 结构的指针，该结构指定要检索详细信息的驱动程序信息元素。 如果指定 DeviceInfoData，驱动程序必须是由 DeviceInfoData指定的设备的驱动程序列表的成员。 否则，驱动程序必须是 DeviceInfoSet的全局类驱动程序列表的成员。[in, out] DriverInfoDetailData 指向 SP_DRVINFO_DETAIL_DATA 结构的指针，该结构接收有关指定驱动程序的详细信息。 如果未指定此参数，DriverInfoDetailDataSize 必须为零。 如果指定此参数，DriverInfoDetailData。 在 调用 setupDiGetDriverInfoDetail之前，cbSize 必须设置为 sizeof（SP_DRVINFO_DETAIL_DATA） 的值。 NoteDriverInfoDetailData.cbSize 不得设置为 DriverInfoDetailDataSize 参数的值。",
+          "type": "HDEVINFO"
         },
         {
           "name": "DriverInfoDetailDataSize",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "DWORD"
         }
       ],
       "header": "setupapi.h",
@@ -1642,7 +1877,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 474,
-      "return_value": "如果函数成功，返回值为 TRUE。如果函数失败，返回值为 FALSE。"
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": "如果函数成功，返回值为 TRUE。如果函数失败，返回值为 FALSE。"
+      }
     },
     {
       "id": "windows::SetupDiGetDriverInstallParams",
@@ -1654,16 +1892,19 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息的句柄集，其中包含一个驱动程序信息元素，该元素表示要为其检索安装参数的驱动程序。"
+          "description": "设备信息的句柄集，其中包含一个驱动程序信息元素，该元素表示要为其检索安装参数的驱动程序。",
+          "type": "HDEVINFO"
         },
         {
           "name": "DeviceInfoData",
           "direction": "in, optional",
-          "description": "指向 SP_DEVINFO_DATA 结构的指针，该结构包含一个设备信息元素，该元素表示要为其检索安装参数的设备。 此参数是可选的，可以 NULL。 如果指定此参数，"
+          "description": "指向 SP_DEVINFO_DATA 结构的指针，该结构包含一个设备信息元素，该元素表示要为其检索安装参数的设备。 此参数是可选的，可以 NULL。 如果指定此参数，",
+          "type": "optional] PSP_DEVINFO_DATA"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 TRUE。 否则，它将返回 FALSE，可以通过调用 getLastError来检索记录 的错误。"
+        "description": "如果函数成功，则返回 TRUE。 否则，它将返回 FALSE，可以通过调用 getLastError来检索记录 的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "header": "setupapi.h",
       "deprecated": false,
@@ -1683,12 +1924,14 @@
         {
           "name": "HwProfile",
           "direction": "in",
-          "description": "与要检索的友好名称关联的硬件配置文件 ID。 如果此参数为 0，则检索当前硬件配置文件的友好名称。"
+          "description": "与要检索的友好名称关联的硬件配置文件 ID。 如果此参数为 0，则检索当前硬件配置文件的友好名称。",
+          "type": "DWORD"
         },
         {
           "name": "FriendlyName",
           "direction": "out",
-          "description": "指向字符串缓冲区的指针，用于接收友好名称。[in] FriendlyNameSize"
+          "description": "指向字符串缓冲区的指针，用于接收友好名称。[in] FriendlyNameSize",
+          "type": "PSTR"
         }
       ],
       "header": "cfgmgr32.h",
@@ -1698,7 +1941,11 @@
         "SetupDiGetHwProfileList"
       ],
       "confidence": 0.8,
-      "_source_line": 482
+      "_source_line": 482,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetHwProfileFriendlyNameEx",
@@ -1724,7 +1971,11 @@
         "SetupDiGetHwProfileListEx"
       ],
       "confidence": 0.8,
-      "_source_line": 484
+      "_source_line": 484,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetHwProfileList",
@@ -1758,7 +2009,8 @@
         {
           "name": "InfName",
           "direction": "in",
-          "description": "指向以 NULL 结尾的字符串的指针，该字符串提供设备 INF 文件的名称。 此名称可以包含路径。 但是，如果仅指定了文件名，则会在注册表的 HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion 子项下的 DevicePath 条目中列出的每个目录中搜索该文件。 以 NULL 结尾的 INF 文件名的最大长度（包括 NULL 终止符）是"
+          "description": "指向以 NULL 结尾的字符串的指针，该字符串提供设备 INF 文件的名称。 此名称可以包含路径。 但是，如果仅指定了文件名，则会在注册表的 HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion 子项下的 DevicePath 条目中列出的每个目录中搜索该文件。 以 NULL 结尾的 INF 文件名的最大长度（包括 NULL 终止符）是",
+          "type": "PCSTR"
         }
       ],
       "header": "setupapi.h",
@@ -1767,7 +2019,11 @@
         "SetupDiGetSelectedDevice"
       ],
       "confidence": 0.8,
-      "_source_line": 494
+      "_source_line": 494,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiGetSelectedDevice",
@@ -1779,11 +2035,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "要检索所选 设备信息元素的设备信息集 的句柄。[out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构接收有关 DeviceInfoSet 的所选设备信息元素的信息。 调用方必须设置 DeviceInfoData。cbSize 为 sizeof (SP_DEVINFO_DATA) 。 如果当前未选择 设备，该函数将失败，并且对 GetLastError 的调用将返回ERROR_NO_DEVICE_SELECTED。"
+          "description": "要检索所选 设备信息元素的设备信息集 的句柄。[out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构接收有关 DeviceInfoSet 的所选设备信息元素的信息。 调用方必须设置 DeviceInfoData。cbSize 为 sizeof (SP_DEVINFO_DATA) 。 如果当前未选择 设备，该函数将失败，并且对 GetLastError 的调用将返回ERROR_NO_DEVICE_SELECTED。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果成功，函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来检 索记录的错误。"
+        "description": "如果成功，函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来检 索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "SetupDiGetSelectedDevice 通常由安装向导使用。",
       "header": "setupapi.h",
@@ -1804,11 +2062,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息的句柄， 为其检索所选驱动程序。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定要检索所选驱动程序 DeviceInfoSet 中的设备信息元素。 此参数是可选的，可以 NULL。 如果指定此参数，SetupDiGetSelectedDriver 检索指定设备的所选驱动程序。 如果此参数 NULL，SetupDiGetSelectedDriver 检索与 deviceInfoSet 关联的全局类驱动程序列表中的所选类驱动程序。[out] DriverInfoData 指向 SP_DRVINFO_DATA 结构的指针，该结构接收有关所选驱动程序的信息。"
+          "description": "设备信息的句柄， 为其检索所选驱动程序。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定要检索所选驱动程序 DeviceInfoSet 中的设备信息元素。 此参数是可选的，可以 NULL。 如果指定此参数，SetupDiGetSelectedDriver 检索指定设备的所选驱动程序。 如果此参数 NULL，SetupDiGetSelectedDriver 检索与 deviceInfoSet 关联的全局类驱动程序列表中的所选类驱动程序。[out] DriverInfoData 指向 SP_DRVINFO_DATA 结构的指针，该结构接收有关所选驱动程序的信息。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 TRUE。否则，它会返回 FALSE，可以通过调用 GetLastError 来检索记录的错误。如果未为指定的设备实例选择驱动程序，则记录的错误为 ERROR_NO_DRIVER_SELECTED。"
+        "description": "如果函数成功，则返回 TRUE。否则，它会返回 FALSE，可以通过调用 GetLastError 来检索记录的错误。如果未为指定的设备实例选择驱动程序，则记录的错误为 ERROR_NO_DRIVER_SELECTED。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "",
       "header": "setupapi.h",
@@ -1827,12 +2087,14 @@
         {
           "name": "hwndParent",
           "direction": "in, optional",
-          "description": "用于安装此类的任何用户界面的父窗口的句柄。 此参数是可选的，可以 NULL。[in] InfFileName 指向以 NULL 结尾的字符串的指针，该字符串包含 INF 文件的名称，其中包含 INF ClassInstall32 节。"
+          "description": "用于安装此类的任何用户界面的父窗口的句柄。 此参数是可选的，可以 NULL。[in] InfFileName 指向以 NULL 结尾的字符串的指针，该字符串包含 INF 文件的名称，其中包含 INF ClassInstall32 节。",
+          "type": "optional] HWND"
         },
         {
           "name": "Flags",
           "direction": "in",
-          "description": "这些标志控制安装过程。 可以是以下各项的组合： DI_NOVCP 如果提供了 fileQueue ，请设置此标志。 DI_NOVCP指示 SetupInstallFromInfSection 函数 （Microsoft Windows SDK 文档中所述）不要创建自己的队列并使用调用方提供的队列。 如果 设置了此标志，则不会仅对文件进行排队复制。 DI_NOBROWSE 如果复制操作找不到指定文件，请设置此标志以禁用浏览。 如果调用方提供文件队列，则忽略此标志。"
+          "description": "这些标志控制安装过程。 可以是以下各项的组合： DI_NOVCP 如果提供了 fileQueue ，请设置此标志。 DI_NOVCP指示 SetupInstallFromInfSection 函数 （Microsoft Windows SDK 文档中所述）不要创建自己的队列并使用调用方提供的队列。 如果 设置了此标志，则不会仅对文件进行排队复制。 DI_NOBROWSE 如果复制操作找不到指定文件，请设置此标志以禁用浏览。 如果调用方提供文件队列，则忽略此标志。",
+          "type": "DWORD"
         }
       ],
       "header": "setupapi.h",
@@ -1842,7 +2104,11 @@
         "SetupDiInstallDevice"
       ],
       "confidence": 0.8,
-      "_source_line": 501
+      "_source_line": 501,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiInstallClassEx",
@@ -1854,7 +2120,8 @@
         {
           "name": "hwndParent",
           "direction": "in, optional",
-          "description": "用于安装此类的任何用户界面的父窗口的句柄。 此参数是可选的，可以 NULL。[in, optional] InfFileName 指向包含 INF 文件名称的 NULL 终止字符串的指针。 此参数是可选的，可以 NULL。 如果此函数用于安装类安装程序，则 INF 文件包含 INF ClassInstall32 节，此参数不得 NULL。 如果此函数用于安装接口类，INF 文件包含 INF InterfaceInstall32 节。[in] Flags 控制安装过程的 DWORD 类型的值。 标志 可以是零或按位或以下值的 OR： DI_NOVCP 如果提供了 fileQueue ，请设置此标志。"
+          "description": "用于安装此类的任何用户界面的父窗口的句柄。 此参数是可选的，可以 NULL。[in, optional] InfFileName 指向包含 INF 文件名称的 NULL 终止字符串的指针。 此参数是可选的，可以 NULL。 如果此函数用于安装类安装程序，则 INF 文件包含 INF ClassInstall32 节，此参数不得 NULL。 如果此函数用于安装接口类，INF 文件包含 INF InterfaceInstall32 节。[in] Flags 控制安装过程的 DWORD 类型的值。 标志 可以是零或按位或以下值的 OR： DI_NOVCP 如果提供了 fileQueue ，请设置此标志。",
+          "type": "optional] HWND"
         }
       ],
       "remarks": "此函数的调用方必须是 Administrators 组的成员。",
@@ -1864,7 +2131,11 @@
         "SetupDiInstallDeviceInterfaces"
       ],
       "confidence": 0.8,
-      "_source_line": 502
+      "_source_line": 502,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiInstallDevice",
@@ -1876,11 +2147,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "本地系统 的设备信息集 的句柄，其中包含表示要安装的设备的设备信息元素。[in, out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。 这是 IN- OUT 参数，因为 DeviceInfoData。返回时，DevInst 可能会使用新的句柄值进行更新。"
+          "description": "本地系统 的设备信息集 的句柄，其中包含表示要安装的设备的设备信息元素。[in, out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。 这是 IN- OUT 参数，因为 DeviceInfoData。返回时，DevInst 可能会使用新的句柄值进行更新。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果成功，函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来检 索记录的错误。"
+        "description": "如果成功，函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来检 索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "header": "setupapi.h",
       "deprecated": false,
@@ -1903,11 +2176,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "指向 设备信息集 的指针，其中包含表示要为其安装接口的设备的设备信息元素。 设备信息集必 须仅包含本地系统的元素。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。"
+          "description": "指向 设备信息集 的指针，其中包含表示要为其安装接口的设备的设备信息元素。 设备信息集必 须仅包含本地系统的元素。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果函数完成且未出错，SetupDiInstallDeviceInterfaces 将返回 TRUE。 如果函数完成但出现 错误，则返回 FALSE ，并且可以通过调用 GetLastError 来检索失败的错误代码。"
+        "description": "如果函数完成且未出错，SetupDiInstallDeviceInterfaces 将返回 TRUE。 如果函数完成但出现 错误，则返回 FALSE ，并且可以通过调用 GetLastError 来检索失败的错误代码。",
+        "type": "WINSETUPAPI BOOL"
       },
       "header": "setupapi.h",
       "deprecated": false,
@@ -1925,16 +2200,19 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息集的句柄，其中包含表示要为其安装文件的设备的设备信息元素。 设备信息集不得包含远程元素。"
+          "description": "设备信息集的句柄，其中包含表示要为其安装文件的设备的设备信息元素。 设备信息集不得包含远程元素。",
+          "type": "HDEVINFO"
         },
         {
           "name": "DeviceInfoData",
           "direction": "in",
-          "description": "指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。"
+          "description": "指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。",
+          "type": "PSP_DEVINFO_DATA"
         }
       ],
       "return_value": {
-        "description": "如果成功，函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来检 索记录的错误。"
+        "description": "如果成功，函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来检 索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "使用此函数安装文件时，调用方必须是 Administrators 组成员。若仅构建文件队列则无需管理员权限。注意：仅类安装程序应调用此函数，且仅在类安装程序必须执行文件安装时使用。",
       "header": "setupapi.h",
@@ -1955,11 +2233,13 @@
         {
           "name": "ClassGuid",
           "direction": "in",
-          "description": "指向类的 GUID 的指针，应为其加载图标 () 。[out, optional] LargeIcon 指向图标句柄的指针，该句柄接收指定类的已加载大图标的句柄值。 此指针是可选的，可以为 NULL。 如果指针为 NULL，则不会加载大图标。[out, optional] MiniIconIndex 指向 INT 类型变量的指针，该变量接收指定类的微型图标的索引。 微型图标存储在设备安装程 序的微型图标缓存中。 指针是可选的，可以为 NULL。"
+          "description": "指向类的 GUID 的指针，应为其加载图标 () 。[out, optional] LargeIcon 指向图标句柄的指针，该句柄接收指定类的已加载大图标的句柄值。 此指针是可选的，可以为 NULL。 如果指针为 NULL，则不会加载大图标。[out, optional] MiniIconIndex 指向 INT 类型变量的指针，该变量接收指定类的微型图标的索引。 微型图标存储在设备安装程 序的微型图标缓存中。 指针是可选的，可以为 NULL。",
+          "type": "const GUID"
         }
       ],
       "return_value": {
-        "description": "如果成功，函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来检 索记录的错误。"
+        "description": "如果成功，函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来检 索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "类的图标要么预定义，要么从设备安装程序的内部缓存中加载，要么直接从类安装程序的可执行文件加载。 此函数查询指定类的 节中的注册表值 ICON 。 如果指定了 ICON 值，则指示要加载的微型图标。 如果 ICON 值为负值，则绝对值表示类注册表中的预定义图标。 有关预定义的微型图标的列表，请参阅 SetupDiDrawMiniIcon 。 如果 ICON 值为正，则表示将提取的类安装程序可执行映像中的图标。 保留值 1。 此函数还使用 INSTALLER32 注册表值，然后使用 ENUMPROPPAGES32 注册表值来确定要从中提取图标的可执行映像。 有关这些注册表值的详细信息，请参阅 INF ClassInstall32 部分。 当调用方使用完图标后，调用方必须调用 DestroyIcon (如Microsoft Windows SDK文档) 中所述。 如果指定 了 LargeIcon 参数，但 ClassGuid 参数未提供有效的类 GUID 或类的 Icon 注册表值无效， 则 SetupDiLoadClassIcon 将加载默认的大图标，返回大图标的句柄，如果指定 了 MiniIconIndex 参数，则返回默认微型图标的索引。",
       "header": "setupapi.h",
@@ -1987,14 +2267,19 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息集的句柄，其中包含表示要为其检索图标的设备的设备信息元素。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。[in] cxIcon 要检索的图标的宽度（以像素为单位）。 使用系统指标索引SM_CXICON指定默认大小的图标，或使用系统指标索引SM_CXSMICON指定一个小图标。 系统指标索引在 Winuser.h 中定义，可以通过调用 GetSystemMetrics 函数来检索其关联的值。 (getSystemMetrics 函数记录在 Microsoft Windows SDK.)[in] cyIcon 要检索的图标的高度（以像素为单位）。 使用 SM_CXICON 指定默认大小的图标，或使用"
+          "description": "设备信息集的句柄，其中包含表示要为其检索图标的设备的设备信息元素。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。[in] cxIcon 要检索的图标的宽度（以像素为单位）。 使用系统指标索引SM_CXICON指定默认大小的图标，或使用系统指标索引SM_CXSMICON指定一个小图标。 系统指标索引在 Winuser.h 中定义，可以通过调用 GetSystemMetrics 函数来检索其关联的值。 (getSystemMetrics 函数记录在 Microsoft Windows SDK.)[in] cyIcon 要检索的图标的高度（以像素为单位）。 使用 SM_CXICON 指定默认大小的图标，或使用",
+          "type": "HDEVINFO"
         }
       ],
       "header": "setupapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 509
+      "_source_line": 509,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiOpenClassRegKey",
@@ -2006,16 +2291,19 @@
         {
           "name": "ClassGuid",
           "direction": "in, optional",
-          "description": "指向要打开其密钥的设置类的 GUID 的指针。 此参数是可选的，可以为 NULL。 如果此参数为 NULL，则打开安装程序类树 (HKLM\\SYSTEM\\CurrentControlSet\\Control\\Class) 的根目录。"
+          "description": "指向要打开其密钥的设置类的 GUID 的指针。 此参数是可选的，可以为 NULL。 如果此参数为 NULL，则打开安装程序类树 (HKLM\\SYSTEM\\CurrentControlSet\\Control\\Class) 的根目录。",
+          "type": "optional] const GUID"
         },
         {
           "name": "samDesired",
           "direction": "in",
-          "description": "要打开的密钥的注册表安全访问。 有关 REGSAM 类型的注册表安全访问值的信息，请参阅 Microsoft Windows SDK文档。"
+          "description": "要打开的密钥的注册表安全访问。 有关 REGSAM 类型的注册表安全访问值的信息，请参阅 Microsoft Windows SDK文档。",
+          "type": "REGSAM"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，它将返回打开的注册表项的句柄，可在其中存储/检索有关此设置类的信息。如果该函数失败，它将返回INVALID_HANDLE_VALUE。 要获得更多的错误信息，请调用 GetLastError。"
+        "description": "如果函数成功，它将返回打开的注册表项的句柄，可在其中存储/检索有关此设置类的信息。如果该函数失败，它将返回INVALID_HANDLE_VALUE。 要获得更多的错误信息，请调用 GetLastError。",
+        "type": "WINSETUPAPI HKEY"
       },
       "remarks": "根据 samDesired 参数中传递的值，此函数的调用方可能需要成为 Administrators 组的成员。 如果注册表项尚不存在，则此函数不会创建该注册表项。必须通过调用 RegCloseKey 关闭从此函数返回的句柄。 若要打开接口类注册表项或特定接口类子项，请调用 SetupDiOpenClassRegKeyEx。 要求",
       "header": "setupapi.h",
@@ -2037,7 +2325,8 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息集 句柄，SetupDiOpenDeviceInfo 为 DeviceInstanceId指定的设备实例添加设备信息元 素（如果尚不存在）。[in] DeviceInstanceId 指向提供设备设备实例标识符（例如“Root*PNP0500\\0000”）的 NULL 终止字符串的指针。 如果 DeviceInstanceIdNULL 或引用零长度字符串，SetupDiOpenDeviceInfo 为设备树中根设备添 加设备信息元素（如果尚不存在）。[in, optional] hwndParent 用于安装设备的任何用户界面的顶级窗口的句柄。[in] OpenFlags DWORD 类型的变量，用于控制设备信息元素的打开方式。 此参数的值可以是以下一个或多个："
+          "description": "设备信息集 句柄，SetupDiOpenDeviceInfo 为 DeviceInstanceId指定的设备实例添加设备信息元 素（如果尚不存在）。[in] DeviceInstanceId 指向提供设备设备实例标识符（例如“Root*PNP0500\\0000”）的 NULL 终止字符串的指针。 如果 DeviceInstanceIdNULL 或引用零长度字符串，SetupDiOpenDeviceInfo 为设备树中根设备添 加设备信息元素（如果尚不存在）。[in, optional] hwndParent 用于安装设备的任何用户界面的顶级窗口的句柄。[in] OpenFlags DWORD 类型的变量，用于控制设备信息元素的打开方式。 此参数的值可以是以下一个或多个：",
+          "type": "HDEVINFO"
         }
       ],
       "remarks": "如果将此设备实例添加到具有关联类的集，则设备类必须相同，否则调用将失败。在这种情况下，对 GetLastError 调用将返回 ERROR_CLASS_MISMATCH。如果新设备信息元素已成功打开，但调用方提供的 DeviceInfoData 缓冲区无效，则此函数返回 FALSE。在这种情况下，调用 GetLastError 将返回 ERROR_INVALID_USER_BUFFER。但是，无论如何，设备信息元素将添加为集的新成员。",
@@ -2055,7 +2344,11 @@
         "SP_DEVINFO_DATA"
       ],
       "confidence": 0.8,
-      "_source_line": 516
+      "_source_line": 516,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiOpenDeviceInterface",
@@ -2067,17 +2360,20 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "指向 设备信息集的指针，该信息集 包含或将包含一个表示支持打开接口的设备的设备信息元素。"
+          "description": "指向 设备信息集的指针，该信息集 包含或将包含一个表示支持打开接口的设备的设备信息元素。",
+          "type": "HDEVINFO"
         },
         {
           "name": "DevicePath",
           "direction": "in",
-          "description": "指向 NULL 终止的字符串的指针，该字符串提供要打开的设备接口的名称。 此名称是 Win32 设备路径，通常在 PnP 通知结构中接收，或通过先前调用 SetupDiEnumDeviceInterfaces 及其相关功能获取。"
+          "description": "指向 NULL 终止的字符串的指针，该字符串提供要打开的设备接口的名称。 此名称是 Win32 设备路径，通常在 PnP 通知结构中接收，或通过先前调用 SetupDiEnumDeviceInterfaces 及其相关功能获取。",
+          "type": "PCSTR"
         },
         {
           "name": "OpenFlags",
           "direction": "in",
-          "description": "确定如何打开设备接口元素的标志。 唯一有效的标志如下所示： DIODI_NO_ADD 指定如果指定的 设备信息集中中尚不存在该元素，则不会创建基础设备的设备信息元素。 有关 详细信息，请参阅以下 备注 部分。[out, optional] DeviceInterfaceData 指向调用方初始化的 SP_DEVICE_INTERFACE_DATA 结构的指针，该结构接收请求的接口数据。 此指针是可选的，可以 NULL。 如果提供了缓冲区，调用方必须在调用 SetupDiOpenDeviceInterface之前，将结构的 cbSize 成员设置为 sizeof （SP_DEVICE_INTERFACE_DATA）。 有关详细信息，请参阅以下 备注 部分。"
+          "description": "确定如何打开设备接口元素的标志。 唯一有效的标志如下所示： DIODI_NO_ADD 指定如果指定的 设备信息集中中尚不存在该元素，则不会创建基础设备的设备信息元素。 有关 详细信息，请参阅以下 备注 部分。[out, optional] DeviceInterfaceData 指向调用方初始化的 SP_DEVICE_INTERFACE_DATA 结构的指针，该结构接收请求的接口数据。 此指针是可选的，可以 NULL。 如果提供了缓冲区，调用方必须在调用 SetupDiOpenDeviceInterface之前，将结构的 cbSize 成员设置为 sizeof （SP_DEVICE_INTERFACE_DATA）。 有关详细信息，请参阅以下 备注 部分。",
+          "type": "DWORD"
         }
       ],
       "remarks": "如果 DeviceInfoSet 中已存在接口的设备接口元素，SetupDiOpenDeviceInterface 更新标志。因此，此函数可用于更新设备接口的标志。例如，首次打开接口时可能处于非活动状态，但随后会变为活动状态。如果基础设备的设备信息元素尚未存在于 DeviceInfoSet 中，此函数将创建一个元素并将其添加到 deviceInfoSet。如果函数成功打开新设备接口，但调用方未在 DeviceInterfaceData 参数中提供有效结构，该函数将返回 FALSE，后续调用 GetLastError 将返回 ERROR_INVALID_USER_BUFFER。但是，在这种情况下，SetupDiOpenDeviceInterface 会向设备信息集添加请求的接口。如果新设备接口已成功打开，但调用方提供的 DeviceInterfaceData 缓冲区无效，则此函数返回 FALSE，GetLastError 返回 ERROR_INVALID_USER_BUFFER。调用方的缓冲区错误不会阻止打开接口。如果为 OpenFlags 参数指定了 DIODI_NO_ADD 标志，并且基础设备的设备信息元素尚未存在于指定的设备信息集中，则此函数将返回 FALSE，GetLastError 返回 ERROR_NO_SUCH_DEVICE_INTERFACE。应用程序使用 SetupDiOpenDeviceInterface 检索到的信息后，应用程序必须调用 SetupDiDeleteDeviceInterfaceData。",
@@ -2090,7 +2386,11 @@
         "SetupDiOpenDeviceInterfaceRegKey"
       ],
       "confidence": 0.8,
-      "_source_line": 520
+      "_source_line": 520,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiOpenDeviceInterfaceRegKey",
@@ -2110,7 +2410,10 @@
           "description": "指向 HKEY 的指针，该 HKEY 将在成功后接收打开的密钥。[in] ulFlags 保留。 必须设置为零。"
         }
       ],
-      "return_value": "如果函数成功，返回值是打开的注册表项的句柄。如果函数失败，返回值是 INVALID_HANDLE_VALUE。",
+      "return_value": {
+        "type": "HKEY",
+        "description": "如果函数成功，返回值是打开的注册表项的句柄。如果函数失败，返回值是 INVALID_HANDLE_VALUE。"
+      },
       "remarks": "根据 samDesired 参数中传递的值，此函数的调用方可能需要成为 Administrators 组的成员。 通过调用 RegCloseKey 关闭由 函数返回的句柄。",
       "header": "setupapi.h",
       "deprecated": true,
@@ -2130,7 +2433,8 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息集的句柄，其中包含表示要为其打开注册表项的设备的设备信息元素。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。[in] Scope 要打开的注册表项的范围。 范围确定信息的存储位置。 范围可以是全局的，也可以特定于硬件 配置文件。 范围由以下值之一指定： DICS_FLAG_GLOBAL 打开密钥以存储全局配置信息。 此信息并非特定于特定硬件配置文件。 这会打开根位于"
+          "description": "设备信息集的句柄，其中包含表示要为其打开注册表项的设备的设备信息元素。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。[in] Scope 要打开的注册表项的范围。 范围确定信息的存储位置。 范围可以是全局的，也可以特定于硬件 配置文件。 范围由以下值之一指定： DICS_FLAG_GLOBAL 打开密钥以存储全局配置信息。 此信息并非特定于特定硬件配置文件。 这会打开根位于",
+          "type": "HDEVINFO"
         }
       ],
       "header": "setupapi.h",
@@ -2139,7 +2443,11 @@
         "SetupDiRegisterCoDeviceInstallers"
       ],
       "confidence": 0.8,
-      "_source_line": 526
+      "_source_line": 526,
+      "return_value": {
+        "type": "WINSETUPAPI HKEY",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiRegisterCoDeviceInstallers",
@@ -2151,11 +2459,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息集的句柄，其中包含表示要为其注册共同安装程序的设备的设备信息元素。 设备信息 集不得包含任何远程元素。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。"
+          "description": "设备信息集的句柄，其中包含表示要为其注册共同安装程序的设备的设备信息元素。 设备信息 集不得包含任何远程元素。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，SetupDiRegisterCoDeviceInstallers 将返回 TRUE。 如果函数返回 FALSE，请调 用 GetLastError 以获取扩展错误信息。"
+        "description": "如果函数成功，SetupDiRegisterCoDeviceInstallers 将返回 TRUE。 如果函数返回 FALSE，请调 用 GetLastError 以获取扩展错误信息。",
+        "type": "WINSETUPAPI BOOL"
       },
       "header": "setupapi.h",
       "deprecated": false,
@@ -2175,22 +2485,26 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息集的句柄，其中包含表示要注册的设备的设备信息元素。 设备信息集不得包含任何远程元素。"
+          "description": "设备信息集的句柄，其中包含表示要注册的设备的设备信息元素。 设备信息集不得包含任何远程元素。",
+          "type": "HDEVINFO"
         },
         {
           "name": "DeviceInfoData",
           "direction": "in, out",
-          "description": "指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。 这是 IN- OUT 参数，因为 DeviceInfoData。返回时，DevInst 可能会使用新的句柄值进行更新。[in] Flags 控制设备注册方式的标志值，可以是零或以下值： SPRDI_FIND_DUPS 搜索与 DeviceInfoData 表示的设备相对应的以前存在的设备实例。 如果未指定此标志，则无论设备实例是否已存在，都会注册设备实例。 如果调用方提供 CompareProc，则调用方还必须设置此标志。[in, optional] CompareProc 指向要用于重复检测的比较回调函数的指针。 此参数是可选的，可以为 NULL。 如果指定此参数，则会对与所注册的设备实例具有相同类的每个设备实例调用回调函数。 回调函数的原型如下所示： typedef DWORD (CALLBACK* PSP_DETSIG_CMPPROC) ( IN HDEVINFO DeviceInfoSet, IN PSP_DEVINFO_DATA NewDeviceData, IN PSP_DEVINFO_DATA ExistingDeviceData, IN PVOID CompareContextOPTIONAL ); 如果 compare 函数发现两个设备是重复的，则必须返回ERROR_DUPLICATE_FOUND。 否则，它应返回NO_ERROR。 如果遇到其他错误，回调函数应返回相应的ERROR_* 代码以指示失败。 如果未指定 CompareProc 并请求重复检测，则使用默认比较行为。 默认设置是将新设备的检测签名与 类中所有其他设备的检测签名进行比较。 检测签名包含在设备启动日志配置的特定于类的资源描述符中。"
+          "description": "指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。 这是 IN- OUT 参数，因为 DeviceInfoData。返回时，DevInst 可能会使用新的句柄值进行更新。[in] Flags 控制设备注册方式的标志值，可以是零或以下值： SPRDI_FIND_DUPS 搜索与 DeviceInfoData 表示的设备相对应的以前存在的设备实例。 如果未指定此标志，则无论设备实例是否已存在，都会注册设备实例。 如果调用方提供 CompareProc，则调用方还必须设置此标志。[in, optional] CompareProc 指向要用于重复检测的比较回调函数的指针。 此参数是可选的，可以为 NULL。 如果指定此参数，则会对与所注册的设备实例具有相同类的每个设备实例调用回调函数。 回调函数的原型如下所示： typedef DWORD (CALLBACK* PSP_DETSIG_CMPPROC) ( IN HDEVINFO DeviceInfoSet, IN PSP_DEVINFO_DATA NewDeviceData, IN PSP_DEVINFO_DATA ExistingDeviceData, IN PVOID CompareContextOPTIONAL ); 如果 compare 函数发现两个设备是重复的，则必须返回ERROR_DUPLICATE_FOUND。 否则，它应返回NO_ERROR。 如果遇到其他错误，回调函数应返回相应的ERROR_* 代码以指示失败。 如果未指定 CompareProc 并请求重复检测，则使用默认比较行为。 默认设置是将新设备的检测签名与 类中所有其他设备的检测签名进行比较。 检测签名包含在设备启动日志配置的特定于类的资源描述符中。",
+          "type": "out] PSP_DEVINFO_DATA"
         },
         {
           "name": "CompareContext",
           "direction": "in, optional",
-          "description": "指向传入回调函数的调用方提供的上下文缓冲区的指针。 如果未指定 CompareProc ，则忽略此参数。"
+          "description": "指向传入回调函数的调用方提供的上下文缓冲区的指针。 如果未指定 CompareProc ，则忽略此参数。",
+          "type": "optional] PVOID"
         },
         {
           "name": "DupDeviceInfoData",
           "direction": "out, optional",
-          "description": "指向 SP_DEVINFO_DATA 结构的指针，用于接收因尝试注册此设备而发现的重复设备实例（如果 有）的相关信息。 此参数是可选的，可以为 NULL。 如果指定此参数，则调用方必须设置 DupDeviceInfoData。cbSize 为 sizeof (SP_DEVINFO_DATA) 。 如果函数返回 FALSE，并且"
+          "description": "指向 SP_DEVINFO_DATA 结构的指针，用于接收因尝试注册此设备而发现的重复设备实例（如果 有）的相关信息。 此参数是可选的，可以为 NULL。 如果指定此参数，则调用方必须设置 DupDeviceInfoData。cbSize 为 sizeof (SP_DEVINFO_DATA) 。 如果函数返回 FALSE，并且",
+          "type": "optional] PSP_DEVINFO_DATA"
         }
       ],
       "header": "setupapi.h",
@@ -2199,7 +2513,11 @@
         "DevInst"
       ],
       "confidence": 0.8,
-      "_source_line": 528
+      "_source_line": 528,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiRemoveDevice",
@@ -2211,11 +2529,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "本地系统 的设备信息集 的句柄，其中包含表示要删除的设备的设备信息元素。[in, out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。 这是一个 IN-OUT 参数，因为 DeviceInfoSet。返回时，DevInst 可能会使用新的句柄值进行更新。 如果这是全局删除或最后一个特定于硬件配置文件的删除，则会从注册表中删除设备实例的所有跟踪， 并且句柄将为 NULL。"
+          "description": "本地系统 的设备信息集 的句柄，其中包含表示要删除的设备的设备信息元素。[in, out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。 这是一个 IN-OUT 参数，因为 DeviceInfoSet。返回时，DevInst 可能会使用新的句柄值进行更新。 如果这是全局删除或最后一个特定于硬件配置文件的删除，则会从注册表中删除设备实例的所有跟踪， 并且句柄将为 NULL。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果成功，函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来检 索记录的错误。"
+        "description": "如果成功，函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来检 索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "header": "setupapi.h",
       "deprecated": false,
@@ -2235,16 +2555,19 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "指向包含要删除 的设备接口的设备信息集 的指针。 此句柄通常由 SetupDiGetClassDevs 返回。"
+          "description": "指向包含要删除 的设备接口的设备信息集 的指针。 此句柄通常由 SetupDiGetClassDevs 返回。",
+          "type": "HDEVINFO"
         },
         {
           "name": "DeviceInterfaceData",
           "direction": "in, out",
-          "description": "指向 SP_DEVICE_INTERFACE_DATA 结构的指针，该结构指定要删除 的 DeviceInfoSet 中的设备接口。 此指针通常由 SetupDiEnumDeviceInterfaces 返回。 删除接口后，此函数在 DeviceInterfaceData 中设置SPINT_REMOVED标志。标志。 它还会清除 SPINT_ACTIVE标志，但请注意，在调用此函数之前，应该已经清除了此标志。"
+          "description": "指向 SP_DEVICE_INTERFACE_DATA 结构的指针，该结构指定要删除 的 DeviceInfoSet 中的设备接口。 此指针通常由 SetupDiEnumDeviceInterfaces 返回。 删除接口后，此函数在 DeviceInterfaceData 中设置SPINT_REMOVED标志。标志。 它还会清除 SPINT_ACTIVE标志，但请注意，在调用此函数之前，应该已经清除了此标志。",
+          "type": "out] PSP_DEVICE_INTERFACE_DATA"
         }
       ],
       "return_value": {
-        "description": "如果函数完成且未出错，SetupDiRemoveDeviceInterface 将返回 TRUE。 如果函数完成时出现 错误，它将返回 FALSE ，并且可以通过调用 GetLastError 来检索失败的错误代码。"
+        "description": "如果函数完成且未出错，SetupDiRemoveDeviceInterface 将返回 TRUE。 如果函数完成时出现 错误，它将返回 FALSE ，并且可以通过调用 GetLastError 来检索失败的错误代码。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "此函数的调用方必须是管理员组的成员。",
       "header": "setupapi.h",
@@ -2265,11 +2588,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息集的句柄，其中包含表示要重启的设备的设备信息元素。[in, out] DeviceInfoData 指向表示要重启的设备的设备信息成员 的SP_DEVINFO_DATA 结构的指针。 此参数也是输出参数，因为 SetupDiRestartDevices 更新此设备信息成员的设备安装参数以及相应设备实例的状态 和问题代码。 有关这些更新的详细信息，请参阅以下 “备注 ”部分。"
+          "description": "设备信息集的句柄，其中包含表示要重启的设备的设备信息元素。[in, out] DeviceInfoData 指向表示要重启的设备的设备信息成员 的SP_DEVINFO_DATA 结构的指针。 此参数也是输出参数，因为 SetupDiRestartDevices 更新此设备信息成员的设备安装参数以及相应设备实例的状态 和问题代码。 有关这些更新的详细信息，请参阅以下 “备注 ”部分。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果操作成功， SetupDiRestartDevices 返回 TRUE;否则，函数返回 FALSE ，并且可以通过调用 GetLastError 来检索记录的错误。"
+        "description": "如果操作成功， SetupDiRestartDevices 返回 TRUE;否则，函数返回 FALSE ，并且可以通过调用 GetLastError 来检索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "仅当类安装程序处理DIF_INSTALLDEVICE请求时，并且仅在类安装程序必须在所有默认安装操作（启动设备除外）完成后执行操作的极少数情况下，类安装程序才应调用 SetupDiRestartDevices。 有关在这些情况下调用 SetupDiRestartDevices 的详细信息，请参阅 DIF_INSTALLDEVICE。 如果可以执行重启，SetupDiRestartDevices 仅重启指定的设备，而不会影响由运行该设备的相同功能驱动程序或筛选器驱动程序操作的其他设备的安装。 具体而言，如果重启指定设备不会 复制新文件或修改以前为设备安装的任何文件， 则 SetupDiRestartDevices 仅重启指定的设备。 否则，函数将重启由同一函数操作的所有设备，并筛选运行指定设备的驱动程序。",
       "header": "setupapi.h",
@@ -2291,11 +2616,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息集的句柄，其中包含表示要为其选择最佳兼容驱动程序的设备的设备信息元素。[in, out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。"
+          "description": "设备信息集的句柄，其中包含表示要为其选择最佳兼容驱动程序的设备的设备信息元素。[in, out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果操作成功， SetupDiSelectBestCompatDrv 返回 TRUE。 否则，该函数返回 FALSE ，并且 可以通过调用 GetLastError 来检索记录的错误。"
+        "description": "如果操作成功， SetupDiSelectBestCompatDrv 返回 TRUE。 否则，该函数返回 FALSE ，并且 可以通过调用 GetLastError 来检索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "如果 SetupDiSelectBestCompatDrv 的调用方是 Administrators 组的成员，并且设备的类与所选驱动程序的类不同， 则 SetupDiSelectBestCompatDrv 会将设备的类设置为驱动程序的类。 如果不需要此行为，请在较低特权级别调用此函数。 注意 只有类安装程序应调用 SetupDiSelectBestCompatDrv ，并且仅在类安装程序必须在 SetupDiSelectBestCompatDrv 完成默认驱动程序选择操作后执行驱动程序选择操作的情况下调用。 在这种情况下，当安装程序处理DIF_SELECTBESTCOMPATDRV请求时，类安装程序必须直接调用 SetupDiSelectBestCompatDrv 。 有关调用默认处理程序的详细信息，请参阅 调用默认 DIF 代码处理程序。",
       "header": "setupapi.h",
@@ -2316,11 +2643,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息集的句柄，其中包含表示要为其选择驱动程序的设备的设备信息元素。[in, out] DeviceInfoData 指向指定设备信息元素 的SP_DEVINFO_DATA 结构的指针。 此参数是可选的，可以为 NULL。如果指定此参数， SetupDiSelectDevice 将选择指定设备的驱动程序并设置 DeviceInfoData。 ClassGuid 为所选驱动程序 的设备安装类 的 GUID。 如果此参数为 NULL， 则 SetupDiSelectDevice 在 DeviceInfoSet 的全局类驱动程序列表中设置所选驱动程序。"
+          "description": "设备信息集的句柄，其中包含表示要为其选择驱动程序的设备的设备信息元素。[in, out] DeviceInfoData 指向指定设备信息元素 的SP_DEVINFO_DATA 结构的指针。 此参数是可选的，可以为 NULL。如果指定此参数， SetupDiSelectDevice 将选择指定设备的驱动程序并设置 DeviceInfoData。 ClassGuid 为所选驱动程序 的设备安装类 的 GUID。 如果此参数为 NULL， 则 SetupDiSelectDevice 在 DeviceInfoSet 的全局类驱动程序列表中设置所选驱动程序。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果成功，该函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来 检索记录的错误。"
+        "description": "如果成功，该函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来 检索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "header": "setupapi.h",
       "deprecated": false,
@@ -2338,11 +2667,13 @@
         {
           "name": "hwndParent",
           "direction": "in, optional",
-          "description": "窗口句柄，它将是处理此函数期间创建的任何对话框的父级。 此参数可用于替代指定设备信息 集或元素的安装参数块中的 hwndParent 字段。[in] DeviceInfoSet 要为其选择驱动程序 的设备信息集 的句柄。[in, out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。 此参数是可选的，可以为 NULL。 如果指定此参数， SetupDiSelectOEMDrv 会将所选驱动程序与指定的设备相关联。 如果此参数为 NULL， SetupDiSelectOEMDrv 会将所选驱动程序与 DeviceInfoSet 的全局类驱动程序列表相关联。"
+          "description": "窗口句柄，它将是处理此函数期间创建的任何对话框的父级。 此参数可用于替代指定设备信息 集或元素的安装参数块中的 hwndParent 字段。[in] DeviceInfoSet 要为其选择驱动程序 的设备信息集 的句柄。[in, out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。 此参数是可选的，可以为 NULL。 如果指定此参数， SetupDiSelectOEMDrv 会将所选驱动程序与指定的设备相关联。 如果此参数为 NULL， SetupDiSelectOEMDrv 会将所选驱动程序与 DeviceInfoSet 的全局类驱动程序列表相关联。",
+          "type": "optional] HWND"
         }
       ],
       "return_value": {
-        "description": "如果成功，函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来检 索记录的错误。"
+        "description": "如果成功，函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来检 索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "header": "setupapi.h",
       "deprecated": false,
@@ -2360,17 +2691,20 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息的句柄 设置类安装参数。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构表示要为其设置类安装参数的设备。 此参数是可选的，可以 NULL。 如果指定此参数，SetupDiSetClassInstallParams 设置指定设备的类安装参数。 如果此参数 NULL，SetupDiSetClassInstallParams 设置与 deviceInfoSet 关联的类安装参数。"
+          "description": "设备信息的句柄 设置类安装参数。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构表示要为其设置类安装参数的设备。 此参数是可选的，可以 NULL。 如果指定此参数，SetupDiSetClassInstallParams 设置指定设备的类安装参数。 如果此参数 NULL，SetupDiSetClassInstallParams 设置与 deviceInfoSet 关联的类安装参数。",
+          "type": "HDEVINFO"
         },
         {
           "name": "ClassInstallParams",
           "direction": "in, optional",
-          "description": "指向包含要使用的新类安装参数的缓冲区的指针。 此缓冲区开头的 SP_CLASSINSTALL_HEADER 结构必须将其 cbSize 字段设置为 sizeof（SP_CLASSINSTALL_HEADER），并且 InstallFunction 字段必须设置为反映缓冲区其余部分中包含的参数类型的DI_FUNCTION代码。 如果未指定 classInstallParams，则为指定的设备信息集或元素清除当前类安装参数（如果有）。"
+          "description": "指向包含要使用的新类安装参数的缓冲区的指针。 此缓冲区开头的 SP_CLASSINSTALL_HEADER 结构必须将其 cbSize 字段设置为 sizeof（SP_CLASSINSTALL_HEADER），并且 InstallFunction 字段必须设置为反映缓冲区其余部分中包含的参数类型的DI_FUNCTION代码。 如果未指定 classInstallParams，则为指定的设备信息集或元素清除当前类安装参数（如果有）。",
+          "type": "optional] PSP_CLASSINSTALL_HEADER"
         },
         {
           "name": "ClassInstallParamsSize",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "DWORD"
         }
       ],
       "header": "setupapi.h",
@@ -2379,7 +2713,11 @@
         "SetupDiSetClassInstallParamsW"
       ],
       "confidence": 0.8,
-      "_source_line": 538
+      "_source_line": 538,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiSetClassPropertyEx",
@@ -2391,12 +2729,14 @@
         {
           "name": "ClassGuid",
           "direction": "in",
-          "description": "指向 GUID 的指针，该 GUID 标识要为其设置设备属性的设备设置类或设备接口类。 有关如何 指定类类型的信息，请参阅 Flags 参数。[in] PropertyKey 指向 DEVPROPKEY 结构的指针，该结构表示要设置的设备类属性的设备属性键。[in] PropertyType 一个 DEVPROPTYPE 类型的值，表示类属性的属性数据类型标识符。 有关 property-data-type 标识符的详细信息，请参阅本主题后面的 “备注 ”部分。[in, optional] PropertyBuffer 指向包含类属性值的缓冲区的指针。 如果删除属性或属性值，则必须将此指针设置为 NULL，并且 PropertyBufferSize 必须设置为零。 有关属性值要求的详细信息，请参阅本主题后面的 “备注”部分。"
+          "description": "指向 GUID 的指针，该 GUID 标识要为其设置设备属性的设备设置类或设备接口类。 有关如何 指定类类型的信息，请参阅 Flags 参数。[in] PropertyKey 指向 DEVPROPKEY 结构的指针，该结构表示要设置的设备类属性的设备属性键。[in] PropertyType 一个 DEVPROPTYPE 类型的值，表示类属性的属性数据类型标识符。 有关 property-data-type 标识符的详细信息，请参阅本主题后面的 “备注 ”部分。[in, optional] PropertyBuffer 指向包含类属性值的缓冲区的指针。 如果删除属性或属性值，则必须将此指针设置为 NULL，并且 PropertyBufferSize 必须设置为零。 有关属性值要求的详细信息，请参阅本主题后面的 “备注”部分。",
+          "type": "const GUID"
         },
         {
           "name": "PropertyBufferSize",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "DWORD"
         }
       ],
       "header": "setupapi.h",
@@ -2406,7 +2746,11 @@
         "SetupDiGetClassPropertyKeysEx"
       ],
       "confidence": 0.8,
-      "_source_line": 542
+      "_source_line": 542,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiSetClassRegistryProperty",
@@ -2418,7 +2762,8 @@
         {
           "name": "ClassGuid",
           "direction": "in",
-          "description": "指向标识要为其设置属性的设备类的 GUID 的指针。[in] Property 一个值，该值标识要设置的属性，该值必须是下列属性之一： SPCRP_CHARACTERISTICS 调用方提供用于指定类的设备特征的标志。 有关特征标志的列表，请参阅 IoCreateDevice的 DeviceCharacteristics 参数。 在安装设备类时，应设置设备特征，并且不应在安装设备类后更改设备特征。"
+          "description": "指向标识要为其设置属性的设备类的 GUID 的指针。[in] Property 一个值，该值标识要设置的属性，该值必须是下列属性之一： SPCRP_CHARACTERISTICS 调用方提供用于指定类的设备特征的标志。 有关特征标志的列表，请参阅 IoCreateDevice的 DeviceCharacteristics 参数。 在安装设备类时，应设置设备特征，并且不应在安装设备类后更改设备特征。",
+          "type": "const GUID"
         }
       ],
       "header": "setupapi.h",
@@ -2427,7 +2772,11 @@
         "SetupDiSetDeviceInstallParamsA"
       ],
       "confidence": 0.8,
-      "_source_line": 544
+      "_source_line": 544,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiSetDeviceInstallParams",
@@ -2439,11 +2788,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息的句柄 设置设备安装参数。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。 此参数是可选的，可以设置为 NULL。 如果指定此参数，SetupDiSetDeviceInstallParams 设置指定设备的安装参数。 如果此参数 NULL，SetupDiSetDeviceInstallParams 设置与 DeviceInfoSet的全局 类驱动程序列表关联的安装参数。[in] DeviceInstallParams 指向包含参数新值的 SP_DEVINSTALL_PARAMS 结构的指针。 DeviceInstallParams。cbSize 必须 设置为调用此函数之前结构的大小（以字节为单位）。"
+          "description": "设备信息的句柄 设置设备安装参数。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。 此参数是可选的，可以设置为 NULL。 如果指定此参数，SetupDiSetDeviceInstallParams 设置指定设备的安装参数。 如果此参数 NULL，SetupDiSetDeviceInstallParams 设置与 DeviceInfoSet的全局 类驱动程序列表关联的安装参数。[in] DeviceInstallParams 指向包含参数新值的 SP_DEVINSTALL_PARAMS 结构的指针。 DeviceInstallParams。cbSize 必须 设置为调用此函数之前结构的大小（以字节为单位）。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "成功返回 TRUE，失败返回 FALSE。调用 GetLastError 获取错误代码"
+        "description": "成功返回 TRUE，失败返回 FALSE。调用 GetLastError 获取错误代码",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "所有参数在修改前会被验证。FALSE 返回值表示未修改任何参数",
       "header": "setupapi.h",
@@ -2464,11 +2815,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息集的句柄，其中包含要设置为设备接口类的默认设备接口的设备接口。[in, out] DeviceInterfaceData 指向 SP_DEVICE_INTERFACE_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备接口。[in] Flags 未使用，必须为零。 Reserved 保留以供将来使用，必须为 NULL。"
+          "description": "设备信息集的句柄，其中包含要设置为设备接口类的默认设备接口的设备接口。[in, out] DeviceInterfaceData 指向 SP_DEVICE_INTERFACE_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备接口。[in] Flags 未使用，必须为零。 Reserved 保留以供将来使用，必须为 NULL。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果成功，该函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来 检索记录的错误。"
+        "description": "如果成功，该函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来 检索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "调用方必须具有管理员权限才能设置设备接口类的默认接口。 但是，如果请求的默认接口与当前设置的默认接口相同，则无论调用方是否具有管理员权限，函数都会返回 TRUE 。 如果函数成功将指定的设备接口设置为设备类的默认接口，则会更新提供的 SP_DEVICE_INTERFACE_DATA 结构的 Flags 成员。 调用 SetupDiGetClassDevs 以获取设备信息集的 DevInfoSet 句柄，该设备信息集包含要设置为设备接口类的默认接口的设备接口。 若要获取指向设备接口元素的 DeviceInterfaceData 指针，请调用 SetupDiEnumDeviceInterfaces 以枚举设备信息集中的接口。 若要检索有关枚举接口的 信息，请调用 SetupDiGetDeviceInterfaceDetail。",
       "header": "setupapi.h",
@@ -2496,7 +2849,8 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息的句柄集，其中包含表示要为其设置即插即用设备属性的设备的设备信息元素。[in, out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。 如果设置 了 ClassGuid 属性，DeviceInfoData。ClassGuid 返回设备的新类时设置。[in] Property 以下值之一，用于标识要设置的属性。 有关这些值的说明，请参阅 SetupDiGetDeviceRegistryProperty。"
+          "description": "设备信息的句柄集，其中包含表示要为其设置即插即用设备属性的设备的设备信息元素。[in, out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。 如果设置 了 ClassGuid 属性，DeviceInfoData。ClassGuid 返回设备的新类时设置。[in] Property 以下值之一，用于标识要设置的属性。 有关这些值的说明，请参阅 SetupDiGetDeviceRegistryProperty。",
+          "type": "HDEVINFO"
         }
       ],
       "header": "setupapi.h",
@@ -2505,7 +2859,11 @@
         "SetupDiSetDeviceRegistryPropertyW"
       ],
       "confidence": 0.8,
-      "_source_line": 554
+      "_source_line": 554,
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiSetDriverInstallParams",
@@ -2517,16 +2875,19 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息的句柄集，其中包含表示要为其设置安装参数的驱动程序的驱动程序信息元素。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。 此参数是可选的，可以设置为 NULL。 如果指定此参数，SetupDiSetDriverInstallParams 设置指定设备的驱动程序安装参数。 如果此参数 NULL，SetupDiSetDriverInstallParams 为 DeviceInfoSet设 置驱动程序安装参数。[in] DriverInfoData 指向 SP_DRVINFO_DATA 结构的指针，该结构指定为其设置了安装参数的驱动程序。 如果指定 DeviceInfoData，此驱动程序必须是与 deviceInfoData关联的驱动程序列表的成员。 如果 DeviceInfoDataNULL，则此驱动程序必须是 DeviceInfoSet的全局类驱动程序列表的成员。"
+          "description": "设备信息的句柄集，其中包含表示要为其设置安装参数的驱动程序的驱动程序信息元素。[in, optional] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。 此参数是可选的，可以设置为 NULL。 如果指定此参数，SetupDiSetDriverInstallParams 设置指定设备的驱动程序安装参数。 如果此参数 NULL，SetupDiSetDriverInstallParams 为 DeviceInfoSet设 置驱动程序安装参数。[in] DriverInfoData 指向 SP_DRVINFO_DATA 结构的指针，该结构指定为其设置了安装参数的驱动程序。 如果指定 DeviceInfoData，此驱动程序必须是与 deviceInfoData关联的驱动程序列表的成员。 如果 DeviceInfoDataNULL，则此驱动程序必须是 DeviceInfoSet的全局类驱动程序列表的成员。",
+          "type": "HDEVINFO"
         },
         {
           "name": "DriverInstallParams",
           "direction": "in",
-          "description": "指向指定新驱动程序安装参数的 SP_DRVINSTALL_PARAMS 结构的指针。"
+          "description": "指向指定新驱动程序安装参数的 SP_DRVINSTALL_PARAMS 结构的指针。",
+          "type": "PSP_DRVINSTALL_PARAMS"
         }
       ],
       "return_value": {
-        "description": "成功返回 TRUE，失败返回 FALSE。可通过 GetLastError 获取错误代码"
+        "description": "成功返回 TRUE，失败返回 FALSE。可通过 GetLastError 获取错误代码",
+        "type": "WINSETUPAPI BOOL"
       },
       "header": "setupapi.h",
       "deprecated": false,
@@ -2546,11 +2907,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息集的句柄，其中包含要设置为设备信息集选定成员的设备信息元素。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定要设置为 DeviceInfoSet 所选成员的 DeviceInfoSet 中的 设备信息元素。"
+          "description": "设备信息集的句柄，其中包含要设置为设备信息集选定成员的设备信息元素。[in] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定要设置为 DeviceInfoSet 所选成员的 DeviceInfoSet 中的 设备信息元素。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "If the function succeeds, the return value is TRUE. If the function fails, the return value is FALSE. To get extended error information, call GetLastError."
+        "description": "If the function succeeds, the return value is TRUE. If the function fails, the return value is FALSE. To get extended error information, call GetLastError.",
+        "type": "WINSETUPAPI BOOL"
       },
       "requirements": {
         "target_platform": "Windows"
@@ -2571,19 +2934,25 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设备信息集的句柄 包含驱动程序列表，从列表中选择设备信息元素的驱动程序或设备信息集。[in, out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。 此参数是可选的，可以 NULL。 如果指定此参数，SetupDiSetSelectedDriver 设置或重置指定设备的所选驱动程序。 如果此参数 NULL，SetupDiSetSelectedDriver 集或重置，则 DeviceInfoSet的所选类驱动程序。"
+          "description": "设备信息集的句柄 包含驱动程序列表，从列表中选择设备信息元素的驱动程序或设备信息集。[in, out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet中的设备信息元素。 此参数是可选的，可以 NULL。 如果指定此参数，SetupDiSetSelectedDriver 设置或重置指定设备的所选驱动程序。 如果此参数 NULL，SetupDiSetSelectedDriver 集或重置，则 DeviceInfoSet的所选类驱动程序。",
+          "type": "HDEVINFO"
         },
         {
           "name": "DriverInfoData",
           "direction": "in, out",
-          "description": "指向 SP_DRVINFO_DATA 结构的指针，该结构指定要选择的驱动程序。 此参数是可选的，可以 NULL。 如果提供了此参数和 DeviceInfoData，则指定的驱动程序必须是与 deviceInfoData关联的驱动程序列表的成员。 如果指定此参数并且 DeviceInfoDataNULL，则驱动程序必须是"
+          "description": "指向 SP_DRVINFO_DATA 结构的指针，该结构指定要选择的驱动程序。 此参数是可选的，可以 NULL。 如果提供了此参数和 DeviceInfoData，则指定的驱动程序必须是与 deviceInfoData关联的驱动程序列表的成员。 如果指定此参数并且 DeviceInfoDataNULL，则驱动程序必须是",
+          "type": "optional] PSP_DRVINFO_DATA_A"
         }
       ],
       "header": "setupapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 560
+      "_source_line": 560,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::SetupDiUnremoveDevice",
@@ -2595,11 +2964,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "本地系统 的设备信息集 的句柄，其中包含表示要还原和重启的设备的设备信息元素。[in, out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。 这是 IN- OUT 参数，因为 DeviceInfoData。DevInst 可能会在返回时使用新的句柄值进行更新。"
+          "description": "本地系统 的设备信息集 的句柄，其中包含表示要还原和重启的设备的设备信息元素。[in, out] DeviceInfoData 指向 SP_DEVINFO_DATA 结构的指针，该结构指定 DeviceInfoSet 中的设备信息元素。 这是 IN- OUT 参数，因为 DeviceInfoData。DevInst 可能会在返回时使用新的句柄值进行更新。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果成功，函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来检 索记录的错误。"
+        "description": "如果成功，函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来检 索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "header": "setupapi.h",
       "deprecated": false,
@@ -2619,26 +2990,31 @@
         {
           "name": "FileName",
           "direction": "in",
-          "description": "指向以 NULL 结尾的字符串的指针，该字符串包含系统 INF 文件目录中 INF 文件的名称和（可选）的完整目录路径。 或者，此参数是指向以 NULL 结尾的字符串的指针，该字符串包含驱动 程序存储中 INF 文件的完全限定文件名 (目录路径和文件名) 。有关如何指定 INF 文件的详细信息，请参阅以下 “备注” 部分。"
+          "description": "指向以 NULL 结尾的字符串的指针，该字符串包含系统 INF 文件目录中 INF 文件的名称和（可选）的完整目录路径。 或者，此参数是指向以 NULL 结尾的字符串的指针，该字符串包含驱动 程序存储中 INF 文件的完全限定文件名 (目录路径和文件名) 。有关如何指定 INF 文件的详细信息，请参阅以下 “备注” 部分。",
+          "type": "PCSTR"
         },
         {
           "name": "AlternatePlatformInfo",
           "direction": "in, optional",
-          "description": "预留给系统使用。"
+          "description": "预留给系统使用。",
+          "type": "optional] PSP_ALTPLATFORM_INFO"
         },
         {
           "name": "LocaleName",
           "direction": "in, optional",
-          "description": "预留给系统使用。[out] ReturnBuffer 指向缓冲区的指针，在该缓冲区中，函数返回一个以 NULL 结尾的字符串，该字符串包含指定 INF 文件的完全限定文件名。 此参数可以设置为 NULL。 支持的最大路径大小为MAX_PATH。有关如何确定所需缓冲区大小的信息，请参阅以下 “备注 ”部分。"
+          "description": "预留给系统使用。[out] ReturnBuffer 指向缓冲区的指针，在该缓冲区中，函数返回一个以 NULL 结尾的字符串，该字符串包含指定 INF 文件的完全限定文件名。 此参数可以设置为 NULL。 支持的最大路径大小为MAX_PATH。有关如何确定所需缓冲区大小的信息，请参阅以下 “备注 ”部分。",
+          "type": "optional] PCSTR"
         },
         {
           "name": "ReturnBufferSize",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "如果 SetupGetInfDriverStoreLocation 成功，则函数返回 true ;否则，该函数返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。 如果请求的 INF 文件（包括 null 终止符）的完全限定文件名的大小大于 returnBufferSize，则该函数将失败，并且调用 getLastError 将返回 ERROR_INSUFFICIENT_BUFFER。"
+        "description": "如果 SetupGetInfDriverStoreLocation 成功，则函数返回 true ;否则，该函数返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。 如果请求的 INF 文件（包括 null 终止符）的完全限定文件名的大小大于 returnBufferSize，则该函数将失败，并且调用 getLastError 将返回 ERROR_INSUFFICIENT_BUFFER。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "若要确定在驱动程序存储中包含指定 INF 文件的完全限定文件名所需的返回缓冲区的大小，请调用 setupGetInfDriverStoreLocation，并将 returnBuffer 设置为 NULL，",
       "header": "setupapi.h",
@@ -2659,16 +3035,19 @@
         {
           "name": "DriverStoreLocation",
           "direction": "in",
-          "description": "指向以 NULL 结尾的字符串的指针，该字符串包含驱动程序存储中 INF 文件的完全限定文件名（目录路径和文件名）。 或者，此参数是指向包含系统 INF 文件目录中 INF 文件的名称和完整目录路径的 NULL 终止字符串的指针。 有关如何指定 INF 文件的详细信息，请参阅以下 备注 部分。"
+          "description": "指向以 NULL 结尾的字符串的指针，该字符串包含驱动程序存储中 INF 文件的完全限定文件名（目录路径和文件名）。 或者，此参数是指向包含系统 INF 文件目录中 INF 文件的名称和完整目录路径的 NULL 终止字符串的指针。 有关如何指定 INF 文件的详细信息，请参阅以下 备注 部分。",
+          "type": "PCSTR"
         },
         {
           "name": "ReturnBuffer",
           "direction": "out",
-          "description": "指向缓冲区的指针，SetupGetInfPublishedName 返回 NULL 终止的字符串，其中包含系统 INF 目录中指定 INF 文件的完全限定文件名。 最大路径大小为MAX_PATH。 此指针可以设置为 NULL。 有关如何确定返回缓冲区所需的大小的信息，请参阅以下 备注 部分。[in] ReturnBufferSize returnBuffer 提供的缓冲区的大小（以字符为单位）。[out, optional] RequiredSize 指向接收 ReturnBuffer 缓冲区的大小（以字符为单位）的 DWORD 类型的变量的指针。 此参数是可选的，可以设置为 NULL。"
+          "description": "指向缓冲区的指针，SetupGetInfPublishedName 返回 NULL 终止的字符串，其中包含系统 INF 目录中指定 INF 文件的完全限定文件名。 最大路径大小为MAX_PATH。 此指针可以设置为 NULL。 有关如何确定返回缓冲区所需的大小的信息，请参阅以下 备注 部分。[in] ReturnBufferSize returnBuffer 提供的缓冲区的大小（以字符为单位）。[out, optional] RequiredSize 指向接收 ReturnBuffer 缓冲区的大小（以字符为单位）的 DWORD 类型的变量的指针。 此参数是可选的，可以设置为 NULL。",
+          "type": "PSTR"
         }
       ],
       "return_value": {
-        "description": "如果 SetupGetInfPublishedName 成功，则函数返回 true ;否则，该函数返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。 如果请求的 INF 文件（包括 null 终止符）的完全限定文件名的大小大于 returnBufferSize，则该 函数将失败，并且调用 getLastError 将返回ERROR_INSUFFICIENT_BUFFER。"
+        "description": "如果 SetupGetInfPublishedName 成功，则函数返回 true ;否则，该函数返回 FALSE。 若要获取扩展的错误信息，请调用 GetLastError。 如果请求的 INF 文件（包括 null 终止符）的完全限定文件名的大小大于 returnBufferSize，则该 函数将失败，并且调用 getLastError 将返回ERROR_INSUFFICIENT_BUFFER。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "若要确定在系统 INF 目录中包含指定 INF 文件的完全限定文件名所需的返回缓冲区的大小，请调用 setupGetInfPublishedName 并将 ReturnBuffer 设置为 NULL，ReturnBufferSize 为零，并提供 RequiredSize。 SetupGetInfPublishedName 将在 requiredSize中返回所需的缓冲区大小。 当设备安装预安装在驱动程序存储中 驱动程序包 时，它将创建驱动程序包 INF 文件的两个副本。 设备安装将一个副本添加到系统 INF 目录，并为 INF 文件分配唯一 已发布的文件名， OEMnnn.inf。 设备安装会将 INF 文件的第二个副本添加到驱动程序存储，并分配复制原始 INF 文件名。",
       "header": "setupapi.h",
@@ -2701,7 +3080,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 574,
-      "return_value": "如果调用方的进程无法显示交互式用户界面元素，则返回 TRUE；否则返回 FALSE。"
+      "return_value": {
+        "type": "WINSETUPAPI BOOL",
+        "description": "如果调用方的进程无法显示交互式用户界面元素，则返回 TRUE；否则返回 FALSE。"
+      }
     },
     {
       "id": "windows::SetupGetThreadLogToken",
@@ -2719,7 +3101,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 577,
-      "return_value": "SP_LOG_TOKEN 类型的日志令牌，用于标识当前线程的日志上下文。"
+      "return_value": {
+        "type": "SP_LOG_TOKEN",
+        "description": "SP_LOG_TOKEN 类型的日志令牌，用于标识当前线程的日志上下文。"
+      }
     },
     {
       "id": "windows::SetupSetNonInteractiveMode",
@@ -2731,11 +3116,13 @@
         {
           "name": "NonInteractiveFlag",
           "direction": "in",
-          "description": "非交互式标志的布尔值。 如果 NonInteractive 设置为 TRUE，则 SetupAPI 在非交互式用户模式 下运行;如果 NonInteractive 设置为 FALSE，则 SetupAPI 在交互式用户模式下运行。"
+          "description": "非交互式标志的布尔值。 如果 NonInteractive 设置为 TRUE，则 SetupAPI 在非交互式用户模式 下运行;如果 NonInteractive 设置为 FALSE，则 SetupAPI 在交互式用户模式下运行。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
-        "description": "SetupSetNonInteractiveMode 返回非交互式标志的上一设置。"
+        "description": "SetupSetNonInteractiveMode 返回非交互式标志的上一设置。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "安装应用程序和 共同安装程序 可以使用此函数来控制 SetupAPI 是否可以在调用方上下文中显示交互式用户界面元素（如对话框）。 安装应用程序或安装程序可以调用 SetupGetNonInteractiveMode 来检索非交互式标志的当前值。",
       "header": "setupapi.h",
@@ -2756,11 +3143,13 @@
         {
           "name": "LogToken",
           "direction": "in",
-          "description": "作为系统定义的 日志令牌 或由 SetupGetThreadLogToken 返回的日志令牌。"
+          "description": "作为系统定义的 日志令牌 或由 SetupGetThreadLogToken 返回的日志令牌。",
+          "type": "SP_LOG_TOKEN"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "WINSETUPAPI VOID"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2786,21 +3175,25 @@
         {
           "name": "LogToken",
           "direction": "in",
-          "description": "作为系统定义的 日志令牌 或由 SetupGetThreadLogToken 返回的日志令牌。[in] Category 一个 DWORD 类型的值，指示日志条目的事件类别。 可为日志条目指定的事件类别与可为文本日志启用的事件类别相同。 有关事件类别的列表，请参阅 为 SetupAPI 文本日志启用事件类别。"
+          "description": "作为系统定义的 日志令牌 或由 SetupGetThreadLogToken 返回的日志令牌。[in] Category 一个 DWORD 类型的值，指示日志条目的事件类别。 可为日志条目指定的事件类别与可为文本日志启用的事件类别相同。 有关事件类别的列表，请参阅 为 SetupAPI 文本日志启用事件类别。",
+          "type": "SP_LOG_TOKEN"
         },
         {
           "name": "Flags",
           "direction": "in",
-          "description": "一个 DWORD 类型的值，它是标志值的按位 OR，指定以下内容： 日志条目的事件级别。 可为日志条目指定的事件级别与可为文本日志启用的事件级别相 同。 有关事件级别标志的列表，请参阅 设置 SetupAPI 文本日志的事件级别。是否在日志条目中包含时间戳。 时间戳标志值TXTLOG_TIMESTAMP。 更改部分和当前日志条目的缩进深度（如果有）。 有关如何使用缩进标志的信息，请参阅编写缩进日志条目。"
+          "description": "一个 DWORD 类型的值，它是标志值的按位 OR，指定以下内容： 日志条目的事件级别。 可为日志条目指定的事件级别与可为文本日志启用的事件级别相 同。 有关事件级别标志的列表，请参阅 设置 SetupAPI 文本日志的事件级别。是否在日志条目中包含时间戳。 时间戳标志值TXTLOG_TIMESTAMP。 更改部分和当前日志条目的缩进深度（如果有）。 有关如何使用缩进标志的信息，请参阅编写缩进日志条目。",
+          "type": "DWORD"
         },
         {
           "name": "MessageStr",
           "direction": "in",
-          "description": "指向以 NULL 结尾的常量字符串的指针，该字符串包含 与 printf 兼容的格式字符串，该字符串指定要包含在日志条目中的格式化消息。 MessageStr 后面的逗号分隔参数列表必须与格式字符串中的格式说明符匹配。 ... 一个逗号分隔的参数列表，它与 MessageStr 提供的格式字符串中的格式说明符相匹配。"
+          "description": "指向以 NULL 结尾的常量字符串的指针，该字符串包含 与 printf 兼容的格式字符串，该字符串指定要包含在日志条目中的格式化消息。 MessageStr 后面的逗号分隔参数列表必须与格式字符串中的格式说明符匹配。 ... 一个逗号分隔的参数列表，它与 MessageStr 提供的格式字符串中的格式说明符相匹配。",
+          "type": "PCSTR"
         }
       ],
       "return_value": {
-        "description": "此函数不返回值。"
+        "description": "此函数不返回值。",
+        "type": "WINSETUPAPI VOID"
       },
       "remarks": "如果 LogToken 通过 SetupGetThreadLogToken 获取且找到对应日志节，则写入该节；否则写入日志但不包含在节中。系统定义令牌包括 LOGTOKEN_NOLOG 等，详见相关表格。",
       "header": "setupapi.h",
@@ -2822,26 +3215,31 @@
         {
           "name": "LogToken",
           "direction": "in",
-          "description": "作为系统定义的 日志令牌 或由 SetupGetThreadLogToken 返回的日志令牌。[in] Category 类型为 DWORD 的值，指示日志条目的事件类别。 可为日志条目指定的事件类别与可为文本日志启用的事件类别相同。 有关事件类别的列表，请参阅 为 SetupAPI 文本日志启用事件类别。"
+          "description": "作为系统定义的 日志令牌 或由 SetupGetThreadLogToken 返回的日志令牌。[in] Category 类型为 DWORD 的值，指示日志条目的事件类别。 可为日志条目指定的事件类别与可为文本日志启用的事件类别相同。 有关事件类别的列表，请参阅 为 SetupAPI 文本日志启用事件类别。",
+          "type": "SP_LOG_TOKEN"
         },
         {
           "name": "LogFlags",
           "direction": "in",
-          "description": "类型为 DWORD 的值，该值是标志值的按位 OR，可指定以下内容： 日志条目的事件级别。 可为日志条目指定的事件级别与可为文本日志启用的事件级别相 同。 有关事件级别标志的列表，请参阅 设置文本日志的事件级别。是否在日志条目中包含时间戳。 时间戳标志值TXTLOG_TIMESTAMP。 更改部分和当前日志条目的缩进深度（如果有）。 有关如何使用缩进标志的信息，请参阅编写缩进日志条目。"
+          "description": "类型为 DWORD 的值，该值是标志值的按位 OR，可指定以下内容： 日志条目的事件级别。 可为日志条目指定的事件级别与可为文本日志启用的事件级别相 同。 有关事件级别标志的列表，请参阅 设置文本日志的事件级别。是否在日志条目中包含时间戳。 时间戳标志值TXTLOG_TIMESTAMP。 更改部分和当前日志条目的缩进深度（如果有）。 有关如何使用缩进标志的信息，请参阅编写缩进日志条目。",
+          "type": "DWORD"
         },
         {
           "name": "Error",
           "direction": "in",
-          "description": "特定于安装程序API 的错误代码或 Win32 错误代码。 Setupapi.h 中列出了特定于 SetupAPI 的错误代码。 Win32 错误代码列在 Winerror.h 中。"
+          "description": "特定于安装程序API 的错误代码或 Win32 错误代码。 Setupapi.h 中列出了特定于 SetupAPI 的错误代码。 Win32 错误代码列在 Winerror.h 中。",
+          "type": "DWORD"
         },
         {
           "name": "MessageStr",
           "direction": "in",
-          "description": "指向以 NULL 结尾的常量字符串的指针，该字符串包含 与 printf 兼容的格式字符串，该字符串 指定要包含在日志条目中的格式化消息。... 一个逗号分隔的参数列表，它与 MessageStr 提供的格式字符串中的格式说明符相匹配。"
+          "description": "指向以 NULL 结尾的常量字符串的指针，该字符串包含 与 printf 兼容的格式字符串，该字符串 指定要包含在日志条目中的格式化消息。... 一个逗号分隔的参数列表，它与 MessageStr 提供的格式字符串中的格式说明符相匹配。",
+          "type": "PCSTR"
         }
       ],
       "return_value": {
-        "description": "无"
+        "description": "无",
+        "type": "WINSETUPAPI VOID"
       },
       "remarks": "如果安装应用程序具有特定于 SetupAPI 的错误代码或与安装错误关联的 Win32 错误代码，则应用程序可以调用 SetupWriteTextLogError 而不是 SetupWriteTextLog ，以将两个条目写入文本日志。 第一个条目将与 SetupWriteTextLog 编写的条目相同，第二个条目将记录错误代码和错误的用户友好说明。 调用方提供的日志令牌、事件类别和标志影响 SetupWriteTextLogError 操作的方式与 SetupWriteTextLog 中所述的方式相同。",
       "header": "setupapi.h",
@@ -2864,12 +3262,14 @@
         {
           "name": "LogToken",
           "direction": "in",
-          "description": "作为系统定义的 日志令牌 或由 SetupGetThreadLogToken 返回的日志令牌。[in] Flags 类型为 DWORD 的值，该值是标志值的按位 OR，可指定以下内容： 日志条目的事件级别。 可为日志条目指定的事件级别与可为文本日志启用的事件级别相 同。 有关事件级别标志的列表，请参阅 设置 SetupAPI 文本日志的事件级别。是否在日志条目中包含时间戳。 时间戳标志值TXTLOG_TIMESTAMP。 更改部分和当前日志条目的缩进深度（如果有）。 有关如何使用缩进标志的信息，请参阅编写缩进日志条目。"
+          "description": "作为系统定义的 日志令牌 或由 SetupGetThreadLogToken 返回的日志令牌。[in] Flags 类型为 DWORD 的值，该值是标志值的按位 OR，可指定以下内容： 日志条目的事件级别。 可为日志条目指定的事件级别与可为文本日志启用的事件级别相 同。 有关事件级别标志的列表，请参阅 设置 SetupAPI 文本日志的事件级别。是否在日志条目中包含时间戳。 时间戳标志值TXTLOG_TIMESTAMP。 更改部分和当前日志条目的缩进深度（如果有）。 有关如何使用缩进标志的信息，请参阅编写缩进日志条目。",
+          "type": "SP_LOG_TOKEN"
         },
         {
           "name": "InfHandle",
           "direction": "in",
-          "description": "INF 文件的句柄，其中包含要写入文本日志的文本行。 通过调用 Platform SDK 中记录的"
+          "description": "INF 文件的句柄，其中包含要写入文本日志的文本行。 通过调用 Platform SDK 中记录的",
+          "type": "HINF"
         }
       ],
       "requirements": {
@@ -2887,7 +3287,11 @@
         "Vista"
       ],
       "confidence": 0.8,
-      "_source_line": 583
+      "_source_line": 583,
+      "return_value": {
+        "type": "WINSETUPAPI VOID",
+        "description": ""
+      }
     },
     {
       "id": "windows::UpdateDriverForPlugAndPlayDevicesA",
@@ -2899,12 +3303,14 @@
         {
           "name": "hwndParent",
           "direction": "in, optional",
-          "description": "顶级窗口的句柄，用于与安装设备相关的任何 UI。[in] HardwareId 指向以 NULL 结尾的字符串的指针，该字符串提供硬件标识符以匹配计算机上的现有设备。 以 NULL 结尾的硬件标识符的最大长度MAX_DEVICE_ID_LEN。 有关硬件标识符的详细信息，请参 阅 设备标识字符串。[in] FullInfPath 指向以 NULL 结尾的字符串的指针，该字符串提供 INF 文件的完整路径文件名。 这些文件应位于分发媒体上或供应商创建的目录中，而不是在系统位置（如 %SystemRoot%\\inf）中。 如果安装成功，UpdateDriverForPlugAndPlayDevices 会将驱动程序文件复制到相应的系统位置。"
+          "description": "顶级窗口的句柄，用于与安装设备相关的任何 UI。[in] HardwareId 指向以 NULL 结尾的字符串的指针，该字符串提供硬件标识符以匹配计算机上的现有设备。 以 NULL 结尾的硬件标识符的最大长度MAX_DEVICE_ID_LEN。 有关硬件标识符的详细信息，请参 阅 设备标识字符串。[in] FullInfPath 指向以 NULL 结尾的字符串的指针，该字符串提供 INF 文件的完整路径文件名。 这些文件应位于分发媒体上或供应商创建的目录中，而不是在系统位置（如 %SystemRoot%\\inf）中。 如果安装成功，UpdateDriverForPlugAndPlayDevices 会将驱动程序文件复制到相应的系统位置。",
+          "type": "optional] HWND"
         },
         {
           "name": "InstallFlags",
           "direction": "in",
-          "description": "通过使用 OR 合并以下零个或多个位标志而创建的调用方提供的值： INSTALLFLAG_FORCE 如果设置了此标志，并且函数找到与 HardwareId 值匹配的设备，则无论计算机上是否已存在更好的驱动程序，该函数都为设备安装新的驱动程序。 重要 请谨慎使用此标志。 如果用户在更新的驱动程序可用后运行供应商的应用程序，设置 此标志可能会导致较旧的驱动程序安装在较新的驱动程序上。"
+          "description": "通过使用 OR 合并以下零个或多个位标志而创建的调用方提供的值： INSTALLFLAG_FORCE 如果设置了此标志，并且函数找到与 HardwareId 值匹配的设备，则无论计算机上是否已存在更好的驱动程序，该函数都为设备安装新的驱动程序。 重要 请谨慎使用此标志。 如果用户在更新的驱动程序可用后运行供应商的应用程序，设置 此标志可能会导致较旧的驱动程序安装在较新的驱动程序上。",
+          "type": "DWORD"
         }
       ],
       "header": "newdev.h",
@@ -2913,7 +3319,11 @@
         "UpdateDriverForPlugAndPlayDevices"
       ],
       "confidence": 0.8,
-      "_source_line": 586
+      "_source_line": 586,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::UpdateDriverForPlugAndPlayDevicesW",
@@ -2925,7 +3335,8 @@
         {
           "name": "hwndParent",
           "direction": "in, optional",
-          "description": "顶级窗口的句柄，用于与安装设备相关的任何 UI。[in] HardwareId 指向以 NULL 结尾的字符串的指针，该字符串提供硬件标识符以匹配计算机上的现有设备。 以 NULL 结尾的硬件标识符的最大长度MAX_DEVICE_ID_LEN。 有关硬件标识符的详 细信息，请参阅 设备标识字符串。[in] FullInfPath 指向以 NULL 结尾的字符串的指针，该字符串提供 INF 文件的完整路径文件名。 这些文件应位于分发媒体上或供应商创建的目录中，而不是在系统位置（如 %SystemRoot%\\inf）中。 如果安装成功，UpdateDriverForPlugAndPlayDevices 会将驱 动程序文件复制到相应的系统位置。[in] InstallFlags 通过使用 OR 合并以下零个或多个位标志而创建的调用方提供的值："
+          "description": "顶级窗口的句柄，用于与安装设备相关的任何 UI。[in] HardwareId 指向以 NULL 结尾的字符串的指针，该字符串提供硬件标识符以匹配计算机上的现有设备。 以 NULL 结尾的硬件标识符的最大长度MAX_DEVICE_ID_LEN。 有关硬件标识符的详 细信息，请参阅 设备标识字符串。[in] FullInfPath 指向以 NULL 结尾的字符串的指针，该字符串提供 INF 文件的完整路径文件名。 这些文件应位于分发媒体上或供应商创建的目录中，而不是在系统位置（如 %SystemRoot%\\inf）中。 如果安装成功，UpdateDriverForPlugAndPlayDevices 会将驱 动程序文件复制到相应的系统位置。[in] InstallFlags 通过使用 OR 合并以下零个或多个位标志而创建的调用方提供的值：",
+          "type": "optional] HWND"
         }
       ],
       "header": "newdev.h",
@@ -2934,7 +3345,11 @@
         "UpdateDriverForPlugAndPlayDevices"
       ],
       "confidence": 0.8,
-      "_source_line": 588
+      "_source_line": 588,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::BUSNUMBER_DES",
@@ -3618,11 +4033,13 @@
         {
           "name": "dwTimeout",
           "direction": "in",
-          "description": "指定超时间隔（以毫秒为单位）。 如果 dwTimeout 设置为零，则函数将测试是否存在挂起的安装事件并立即返回 。 如果 dwTimeout 设置为 Winbase.h) 中定义的 INFINITE (，则函数的超时间隔永远不会经过。 对于所有其他 dwTimeout 值，函数在指定的间隔过后返回，即使仍有挂起的安装事件也是如此。"
+          "description": "指定超时间隔（以毫秒为单位）。 如果 dwTimeout 设置为零，则函数将测试是否存在挂起的安装事件并立即返回 。 如果 dwTimeout 设置为 Winbase.h) 中定义的 INFINITE (，则函数的超时间隔永远不会经过。 对于所有其他 dwTimeout 值，函数在指定的间隔过后返回，即使仍有挂起的安装事件也是如此。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "函数返回 cfgmgr32.h 中定义的以下值之一：配置管理器返回码（例如 CR_SUCCESS、CR_NO_SUCH_DEVNODE 等）"
+        "description": "函数返回 cfgmgr32.h 中定义的以下值之一：配置管理器返回码（例如 CR_SUCCESS、CR_NO_SUCH_DEVNODE 等）",
+        "type": "DWORD"
       },
       "header": "cfgmgr32.h",
       "deprecated": false,
@@ -3709,16 +4126,19 @@
         {
           "name": "dnDevInst",
           "direction": "in",
-          "description": "调用方提供的设备实例句柄，绑定到 由 提供的计算机句柄 hMachine."
+          "description": "调用方提供的设备实例句柄，绑定到 由 提供的计算机句柄 hMachine.",
+          "type": "DEVINST"
         },
         {
           "name": "pszID",
           "direction": "in",
-          "description": "调用方提供的指向以 NULL 结尾的设备 ID 字符串的指针。[in] ulFlags 调用方提供的标志常量，该常量指定所提供的设备 ID 应追加到的列表。 以下标志常量有效。 标记常量"
+          "description": "调用方提供的指向以 NULL 结尾的设备 ID 字符串的指针。[in] ulFlags 调用方提供的标志常量，该常量指定所提供的设备 ID 应追加到的列表。 以下标志常量有效。 标记常量",
+          "type": "PCTSTR"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，函数将返回CR_SUCCESS。 否则，它将返回 Cfgmgr32.h 中定义的CR_前 缀错误代码之一。"
+        "description": "如果操作成功，函数将返回CR_SUCCESS。 否则，它将返回 Cfgmgr32.h 中定义的CR_前 缀错误代码之一。",
+        "type": "CMAPI CONFIGRET"
       },
       "remarks": "每个追加的设备 ID 被认为与指定列表中已存在的 ID 不兼容。此函数的调用方必须具有 SeLoadDriverPrivilege 特权。从 Windows 8 和 Windows Server 2012 开始，不支持使用此函数访问远程计算机。",
       "requirements": {
@@ -4201,11 +4621,13 @@
         {
           "name": "pdnDevInst",
           "direction": "out",
-          "description": "指向此函数检索的设备实例句柄的指针。 检索到的句柄绑定到 hMachine 指定的计算机句柄。[in, optional] pDeviceID 指向表示 设备实例 ID 的以 NULL 结尾的字符串的指针。 如果此值为 NULL，或者如果它指向长 度为零的字符串，则该函数会向设备树根处的设备提供 设备实例句柄。[in] ulFlags ULONG 类型的变量，提供以下标志值之一，如果调用方提供设备实例标识符，则应用这些值： CM_LOCATE_DEVNODE_NORMAL 仅当设备当前在设备树中配置设备时，函数才检索指定设备的设备实例句柄。 CM_LOCATE_DEVNODE_PHANTOM 如果设备当前在设备树中配置，或者设备是当前未在设备树中配置的 非代表设备 ，则函数将检索指定设备的设备实例句柄。"
+          "description": "指向此函数检索的设备实例句柄的指针。 检索到的句柄绑定到 hMachine 指定的计算机句柄。[in, optional] pDeviceID 指向表示 设备实例 ID 的以 NULL 结尾的字符串的指针。 如果此值为 NULL，或者如果它指向长 度为零的字符串，则该函数会向设备树根处的设备提供 设备实例句柄。[in] ulFlags ULONG 类型的变量，提供以下标志值之一，如果调用方提供设备实例标识符，则应用这些值： CM_LOCATE_DEVNODE_NORMAL 仅当设备当前在设备树中配置设备时，函数才检索指定设备的设备实例句柄。 CM_LOCATE_DEVNODE_PHANTOM 如果设备当前在设备树中配置，或者设备是当前未在设备树中配置的 非代表设备 ，则函数将检索指定设备的设备实例句柄。",
+          "type": "PDEVINST"
         }
       ],
       "return_value": {
-        "description": "如果操作成功， CM_Locate_DevNode 返回CR_SUCCESS。 否则，函数将返回 Cfgmgr32.h 中定义的CR_前缀错误代码之一。"
+        "description": "如果操作成功， CM_Locate_DevNode 返回CR_SUCCESS。 否则，函数将返回 Cfgmgr32.h 中定义的CR_前缀错误代码之一。",
+        "type": "CMAPI CONFIGRET"
       },
       "remarks": "有关使用绑定到本地或远程计算机的设备实例句柄的信息，请参阅 CM_Get_Child_Ex。 Windows 8 和 Windows Server 2012 及更高版本的操作系统中删除了访问远程计算机的 功能，因此在这些版本的 Windows 上运行时，无法访问远程计算机。",
       "requirements": {
@@ -6241,11 +6663,13 @@
         {
           "name": "DeviceInfoSet",
           "direction": "in",
-          "description": "设置为查询的设备信息的句柄。[out] ClassGuid 指向 GUID 类型的变量的指针，该变量接收关联类的 GUID。"
+          "description": "设置为查询的设备信息的句柄。[out] ClassGuid 指向 GUID 类型的变量的指针，该变量接收关联类的 GUID。",
+          "type": "HDEVINFO"
         }
       ],
       "return_value": {
-        "description": "如果成功，该函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来 检索记录的错误。"
+        "description": "如果成功，该函数将返回 TRUE 。 否则，它将返回 FALSE ，并且可以通过调用 GetLastError 来 检索记录的错误。",
+        "type": "WINSETUPAPI BOOL"
       },
       "remarks": "如果指定的设备信息集没有关联的类，因为使用 SetupDiCreateDeviceInfoList 创建该集时未指定类 GUID，则函数将失败。在这种情况下，对 GetLastError 的调用将返回 ERROR_NO_ASSOCIATED_CLASS。如果设备信息集适用于远程计算机，请使用 SetupDiGetDeviceInfoListDetail 获取关联的远程计算机句柄和计算机名称。",
       "header": "setupapi.h",

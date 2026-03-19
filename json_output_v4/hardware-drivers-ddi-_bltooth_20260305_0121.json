@@ -11,11 +11,13 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "对于传入远程连接请求指示，这是配置文件驱动程序在 IndicationCallbackContext 成员中指定的上下文配置文件驱动程序注册回调函数时 _BRB_L2CA_REGISTER_SERVER 结构。对于对现有 L2CAP 连接的更改，这是生成并发送 _BRB_L2CA_OPEN_CHANNEL BRB 时由 配置文件驱动程序指定的 CallbackContext 成员。[in] Indication 指示 L2CAP 事件的类型的 INDICATION_CODE 值。[in] Parameters 包含特定于事件的参数的 INDICATION_PARAMETERS 结构。"
+          "description": "对于传入远程连接请求指示，这是配置文件驱动程序在 IndicationCallbackContext 成员中指定的上下文配置文件驱动程序注册回调函数时 _BRB_L2CA_REGISTER_SERVER 结构。对于对现有 L2CAP 连接的更改，这是生成并发送 _BRB_L2CA_OPEN_CHANNEL BRB 时由 配置文件驱动程序指定的 CallbackContext 成员。[in] Indication 指示 L2CAP 事件的类型的 INDICATION_CODE 值。[in] Parameters 包含特定于事件的参数的 INDICATION_PARAMETERS 结构。",
+          "type": "*PFNBTHPORT_INDICATION_CALLBACK)( PVOID"
         }
       ],
       "return_value": {
-        "description": "无返回值。"
+        "description": "无返回值。",
+        "type": "typedef"
       },
       "remarks": "配置文件驱动程序通常在以下情况下注册此 L2CAP 回调函数：当驱动程序充当服务器时，通过 _BRB_L2CA_REGISTER_SERVER 结构的 IndicationCallback 成员注册，以接收远程设备发起的连接请求通知；当驱动程序充当客户端并使用 _BRB_L2CA_OPEN_CHANNEL 打开连接时，通过 Callback 成员注册，以接收该连接的状态更改通知。",
       "members": [
@@ -45,7 +47,8 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "对于对现有 L2CAP 连接的更改，这是生成并发送 _BRB_L2CA_OPEN_ENHANCED_CHANNEL 结 构时由配置文件驱动程序指定的 CallbackContext 成员。[in] Indication 指示 L2CAP 事件的类型的 INDICATION_CODE 值。[in] Parameters 包含特定于事件的参数的 INDICATION_PARAMETERS_ENHANCED 结构。"
+          "description": "对于对现有 L2CAP 连接的更改，这是生成并发送 _BRB_L2CA_OPEN_ENHANCED_CHANNEL 结 构时由配置文件驱动程序指定的 CallbackContext 成员。[in] Indication 指示 L2CAP 事件的类型的 INDICATION_CODE 值。[in] Parameters 包含特定于事件的参数的 INDICATION_PARAMETERS_ENHANCED 结构。",
+          "type": "*PFNBTHPORT_INDICATION_CALLBACK_ENHANCED)( PVOID"
         }
       ],
       "return_value": {
@@ -146,7 +149,8 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "对于传入远程连接请求指示，这是配置文件驱动程序在配置文件驱动程序注册回调函数时 _BRB_SCO_REGISTER_SERVER 结构 IndicationCallbackContext 成员指定的上下文。 对于现有 SCO 连接的更改，这是生成并发送 BRB_SCO_OPEN_CHANNEL BRB 时由配置文件驱动程序指定 的 CallbackContext 成员。[in] Indication 指示 SCO 事件的类型的 SCO_INDICATION_CODE 值。[in] Parameters 一个 SCO_INDICATION_PARAMETERS 结构，该结构包含基于传递给 指示 参数的值的参数信息。"
+          "description": "对于传入远程连接请求指示，这是配置文件驱动程序在配置文件驱动程序注册回调函数时 _BRB_SCO_REGISTER_SERVER 结构 IndicationCallbackContext 成员指定的上下文。 对于现有 SCO 连接的更改，这是生成并发送 BRB_SCO_OPEN_CHANNEL BRB 时由配置文件驱动程序指定 的 CallbackContext 成员。[in] Indication 指示 SCO 事件的类型的 SCO_INDICATION_CODE 值。[in] Parameters 一个 SCO_INDICATION_PARAMETERS 结构，该结构包含基于传递给 指示 参数的值的参数信息。",
+          "type": "PVOID"
         }
       ],
       "return_value": {
@@ -813,7 +817,10 @@
       "_source_line": 140,
       "remarks": "该函数用于创建表示 16 位无符号整数的 SDP 节点。返回的节点与 SDP_NODE、SDP_NODE_HEADER 和 SDP_NODE_DATA 相关联，其内部链表头会被初始化为自引用状态。",
       "syntax": "PSDP_NODE SdpCreateNodeUInt16(USHORT value);",
-      "return_value": "成功时返回指向新分配并初始化的 SDP_NODE 的指针；失败时返回 NULL。"
+      "return_value": {
+        "type": "PSDP_NODE",
+        "description": "成功时返回指向新分配并初始化的 SDP_NODE 的指针；失败时返回 NULL。"
+      }
     },
     {
       "id": "windows::SdpCreateNodeUInt32",
@@ -831,7 +838,10 @@
       "_source_line": 143,
       "remarks": "该函数用于创建携带 UInt32 值的 SDP 节点。返回的节点通常是 SDP 树中的单个已初始化节点，可进一步插入到更大的 SDP 记录树中。调用方应按照 SDP 库的内存管理约定释放返回的节点。",
       "syntax": "PSDP_NODE SdpCreateNodeUInt32(ULONG value);",
-      "return_value": "如果成功，返回指向新分配并初始化的 SDP_NODE 的指针；如果分配失败，则返回 NULL。"
+      "return_value": {
+        "type": "PSDP_NODE",
+        "description": "如果成功，返回指向新分配并初始化的 SDP_NODE 的指针；如果分配失败，则返回 NULL。"
+      }
     },
     {
       "id": "windows::SdpCreateNodeUInt64",
@@ -864,7 +874,10 @@
       "_source_line": 147,
       "remarks": "该函数返回新分配并初始化的 SDP_NODE。调用方通常需要在不再使用该节点时释放相关资源。",
       "syntax": "PSDP_NODE SdpCreateNodeUInt8(UCHAR value);",
-      "return_value": "成功时返回指向新分配的 SDP_NODE 的指针；失败时返回 NULL。"
+      "return_value": {
+        "type": "PSDP_NODE",
+        "description": "成功时返回指向新分配的 SDP_NODE 的指针；失败时返回 NULL。"
+      }
     },
     {
       "id": "windows::SdpCreateNodeUrl",
@@ -1963,7 +1976,7 @@
     {
       "id": "windows::BRB_L2CA_REGISTER_SERVER",
       "name": "BRB_L2CA_REGISTER_SERVER",
-      "entity_type": "structur",
+      "entity_type": "structure",
       "description": "请求。 Psm 在前面指定的协议/服务多路复用器（PSM） BRB_L2CA_REGISTER_SERVER 请求。",
       "remarks": "若要将自身注销为 L2CAP 服务器，配置文件驱动程序应 生成并发送 BRB_L2CA_UNREGISTER_SERVER 请求。 要求",
       "header": "bthddi.h",
@@ -1972,7 +1985,8 @@
         "BRB_L2CA_UNREGISTER_SERVER"
       ],
       "confidence": 0.75,
-      "_source_line": 901
+      "_source_line": 901,
+      "_type_raw": "structur"
     },
     {
       "id": "windows::BRB_L2CA_OPEN_ENHANCED_CHANNEL",
@@ -3531,7 +3545,10 @@
       "confidence": 0.6,
       "_source_line": 3609,
       "syntax": "BOOL LookupPrivilegeValueA(\n  LPCSTR lpSystemName,\n  LPCSTR lpName,\n  PLUID  lpLuid\n);\n\nBOOL LookupPrivilegeValueW(\n  LPCWSTR lpSystemName,\n  LPCWSTR lpName,\n  PLUID   lpLuid\n);",
-      "return_value": "If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call GetLastError.",
+      "return_value": {
+        "type": "BOOL",
+        "description": "If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call GetLastError."
+      },
       "remarks": "The LUID returned for a privilege is specific to the system on which it was retrieved. Use this function before adjusting token privileges with APIs such as AdjustTokenPrivileges."
     },
     {
@@ -3582,7 +3599,10 @@
       "entity_type": "function",
       "description": "Bluetooth SdpAddAttributeToTree 函数用于将一个 SDP 属性节点添加到 SDP 记录树的顶层。",
       "syntax": "NTSTATUS SdpAddAttributeToTree(\\n  _Inout_ PSDP_TREE_ROOT_NODE TreeRoot,\\n  _In_    USHORT AttributeId,\\n  _In_    PSDP_NODE Node\\n);",
-      "return_value": "蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_NODE_INTERFACE 获取指向此函数的指针。此函数用于向 SDP 记录树添加顶级属性；若要将节点追加到序列或备用容器节点，请使用 SdpAppendNodeToContainerNode。有关树结构的详细信息，请参阅将 SDP 记录转换为树结构。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_NODE_INTERFACE 获取指向此函数的指针。此函数用于向 SDP 记录树添加顶级属性；若要将节点追加到序列或备用容器节点，请使用 SdpAppendNodeToContainerNode。有关树结构的详细信息，请参阅将 SDP 记录转换为树结构。"
+      },
       "remarks": "蓝牙配置文件驱动程序可以通过 BTHDDI_SDP_NODE_INTERFACE 获取指向此函数的指针。此函数用于向 SDP 记录树添加顶级属性；若要将节点追加到序列或备用容器节点，请使用 SdpAppendNodeToContainerNode。有关树结构的详细信息，请参阅将 SDP 记录转换为树结构。",
       "header": "bthsdpddi.h",
       "deprecated": false,
@@ -3612,11 +3632,13 @@
         {
           "name": "Parent",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "PSDP_NODE"
         }
       ],
       "return_value": {
-        "description": "成功时返回 STATUS_SUCCESS。失败时返回相应的 NTSTATUS 错误代码。不要使用此函数将属性节点附加到 SDP 记录的顶层；应调用 SdpAddAttributeToTree。"
+        "description": "成功时返回 STATUS_SUCCESS。失败时返回相应的 NTSTATUS 错误代码。不要使用此函数将属性节点附加到 SDP 记录的顶层；应调用 SdpAddAttributeToTree。",
+        "type": "NTSTATUS"
       },
       "header": "bthsdpddi.h",
       "deprecated": false,
@@ -3718,11 +3740,13 @@
       "parameters": [
         {
           "name": "Stream",
-          "description": "指向要循环访问的 SDP 记录流的指针。 StreamSize 指示 SDP 流大小的无符号长整数。 CurrentElement 指向 SDP 流中当前所选条目的指针。 此参数可以采用 NULL 值。 NextElement 指向未签名字符变量的指针，该变量接收 SDP 容器流中下一项的地址。 NextElementSize 指向接收 SDP 容器流中下一项大小的无符号长整数变量的指针。"
+          "description": "指向要循环访问的 SDP 记录流的指针。 StreamSize 指示 SDP 流大小的无符号长整数。 CurrentElement 指向 SDP 流中当前所选条目的指针。 此参数可以采用 NULL 值。 NextElement 指向未签名字符变量的指针，该变量接收 SDP 容器流中下一项的地址。 NextElementSize 指向接收 SDP 容器流中下一项大小的无符号长整数变量的指针。",
+          "type": "reads_bytes_(StreamSize) PUCHAR"
         }
       ],
       "return_value": {
-        "description": "成功时返回 STATUS_SUCCESS。参数无效时可返回 STATUS_INVALID_PARAMETER，其他失败情况返回相应的 NTSTATUS 错误代码。"
+        "description": "成功时返回 STATUS_SUCCESS。参数无效时可返回 STATUS_INVALID_PARAMETER，其他失败情况返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "header": "bthsdpddi.h",
       "deprecated": false,
@@ -3756,7 +3780,11 @@
         "Stream"
       ],
       "confidence": 0.7,
-      "_source_line": 4205
+      "_source_line": 4205,
+      "return_value": {
+        "type": "ULONGLONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::PSDP_ULARGE_INTEGER_16",
@@ -3784,7 +3812,10 @@
       "confidence": 0.6,
       "_source_line": 4251,
       "syntax": "ULONGLONG SdpByteSwapUint64(\n  _In_ ULONGLONG Value\n);",
-      "return_value": "返回字节顺序已反转后的 64 位无符号整数值。",
+      "return_value": {
+        "type": "ULONGLONG",
+        "description": "返回字节顺序已反转后的 64 位无符号整数值。"
+      },
       "remarks": "此函数始终反转输入值的字节顺序。可用于蓝牙 SDP 相关数据在不同字节序表示之间的转换。该函数可在 PASSIVE_LEVEL 调用。"
     },
     {
@@ -4139,13 +4170,17 @@
       ],
       "confidence": 0.6,
       "_source_line": 5455,
-      "return_value": "成功时返回指向新分配并初始化的 SDP_NODE 的指针；失败时返回 NULL。",
+      "return_value": {
+        "type": "PSDP_NODE",
+        "description": "成功时返回指向新分配并初始化的 SDP_NODE 的指针；失败时返回 NULL。"
+      },
       "remarks": "返回的节点表示一个 128 位 UUID 值。函数会复制 uuid 参数指向的 GUID 内容到新建节点中。该函数属于 Bluetooth SDP 库接口。",
       "parameters": [
         {
           "name": "tag",
           "direction": "in",
-          "description": "要与节点关联的配置文件驱动程序定义标记。"
+          "description": "要与节点关联的配置文件驱动程序定义标记。",
+          "type": "ULONG"
         }
       ],
       "syntax": "PSDP_NODE SdpCreateNodeUUID128(\n  const GUID *uuid,\n  ULONG tag\n);"
@@ -4160,11 +4195,13 @@
         {
           "name": "Tree",
           "direction": "in",
-          "description": "要搜索的 SDP 记录的基于树的表示形式的根节点。[in] AttribId 要查找的属性节点的标识符。 Attribute 指向接收定位属性节点地址的变量的指针。"
+          "description": "要搜索的 SDP 记录的基于树的表示形式的根节点。[in] AttribId 要查找的属性节点的标识符。 Attribute 指向接收定位属性节点地址的变量的指针。",
+          "type": "PSDP_TREE_ROOT_NODE"
         }
       ],
       "return_value": {
-        "description": "成功时返回 STATUS_SUCCESS。如果未找到指定属性，通常返回 STATUS_NOT_FOUND；其他 NTSTATUS 值表示参数无效或解析/遍历失败。"
+        "description": "成功时返回 STATUS_SUCCESS。如果未找到指定属性，通常返回 STATUS_NOT_FOUND；其他 NTSTATUS 值表示参数无效或解析/遍历失败。",
+        "type": "NTSTATUS"
       },
       "header": "sdplib.h",
       "deprecated": false,

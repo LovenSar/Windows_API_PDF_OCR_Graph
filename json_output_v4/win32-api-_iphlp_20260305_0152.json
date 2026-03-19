@@ -1471,7 +1471,7 @@
     {
       "id": "windows::IP_OPTION_INFORMATION",
       "name": "IP_OPTION_INFORMATION",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构用于描述要包含在 IP 数据包标头中的选项。在 64 位平台上，应使用 IP_OPTION_INFORMATION32 结构。TTL、TOS 和 Flags 成员中的值在 IP 标头中的特定字段中携带。OptionsData 成员中的字节包含在标准 IP 标头后面的选项区域中。除了 IPv4 的源路由选项之外，选项数据必须采用 RFC 791 中指定的要在网络上传输的格式。IPv4 源路由选项应包含路由数据中的完整路由（第一个跃点到最终目标）。从数据中提取第一个跃点，并相应地重新设置选项格式。否则，路由选项的格式应为 RFC 791 中指定的格式。若要与 IPv6 一起使用，选项数据的格式必须符合 RFC 2460 中指定的在网络上传输的格式。",
       "syntax": "typedef struct ip_option_information {\nUCHAR  Ttl;   UCHAR  Tos;   UCHAR  Flags;\nUCHAR  OptionsSize;   PUCHAR OptionsData;\n} IP_OPTION_INFORMATION, *PIP_OPTION_INFORMATION;",
       "members": [
@@ -1488,7 +1488,8 @@
         "IP_OPTION_INFORMATION32"
       ],
       "confidence": 0.95,
-      "_source_line": 564
+      "_source_line": 564,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::IP_PER_ADAPTER_INFO",
@@ -2161,11 +2162,13 @@
         {
           "name": "Addr",
           "direction": "in",
-          "description": "采用二进制格式的以太网地址。 以太网地址按网络顺序排列（按从左到右排序的字节 数）。[out] S 指向缓冲区的指针，用于存储以太网地址的 NULL终止字符串表示形式。 此缓冲区应足够 大，可以容纳至少 18 个字符。"
+          "description": "采用二进制格式的以太网地址。 以太网地址按网络顺序排列（按从左到右排序的字节 数）。[out] S 指向缓冲区的指针，用于存储以太网地址的 NULL终止字符串表示形式。 此缓冲区应足够 大，可以容纳至少 18 个字符。",
+          "type": "const DL_EUI48"
         }
       ],
       "return_value": {
-        "description": "指向在以太网 MAC 地址的字符串表示形式末尾插入的 NULL 字符的指针。 调用方可以使 用此功能轻松将更多信息追加到字符串。"
+        "description": "指向在以太网 MAC 地址的字符串表示形式末尾插入的 NULL 字符的指针。 调用方可以使 用此功能轻松将更多信息追加到字符串。",
+        "type": "PWSTR"
       },
       "header": "ip2string.h",
       "deprecated": false,
@@ -2183,11 +2186,13 @@
         {
           "name": "S",
           "direction": "in",
-          "description": "指向缓冲区的指针，其中包含以太网 MAC 地址的 NULL终止字符串表示形式。[out] Terminator 一个参数，该参数接收指向终止转换字符串的字符的指针。 调用方可以使用此方法从字 符串中提取更多信息。[out] Addr 一个指针，其中存储以太网 MAC 地址的二进制表示形式。"
+          "description": "指向缓冲区的指针，其中包含以太网 MAC 地址的 NULL终止字符串表示形式。[out] Terminator 一个参数，该参数接收指向终止转换字符串的字符的指针。 调用方可以使用此方法从字 符串中提取更多信息。[out] Addr 一个指针，其中存储以太网 MAC 地址的二进制表示形式。",
+          "type": "PCSTR"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回值 STATUS_SUCCESS。如果函数失败，则返回值为以下错误代码之一。"
+        "description": "如果函数成功，则返回值 STATUS_SUCCESS。如果函数失败，则返回值为以下错误代码之一。",
+        "type": "NTSTATUS"
       },
       "header": "ntdef.h",
       "deprecated": false,
@@ -2205,11 +2210,13 @@
         {
           "name": "Addr",
           "direction": "in",
-          "description": "按网络字节顺序排列的 IPv4 地址。[out] S 指向缓冲区的指针，用于存储 IPv4 地址的 NULL终止字符串表示形式。 此缓冲区应足够 大，可以容纳至少 16 个字符。"
+          "description": "按网络字节顺序排列的 IPv4 地址。[out] S 指向缓冲区的指针，用于存储 IPv4 地址的 NULL终止字符串表示形式。 此缓冲区应足够 大，可以容纳至少 16 个字符。",
+          "type": "const in_addr"
         }
       ],
       "return_value": {
-        "description": "指向在 IPv4 地址的字符串表示形式末尾插入的 NULL 字符的指针。 调用方可以使用此功 能轻松将更多信息追加到字符串。"
+        "description": "指向在 IPv4 地址的字符串表示形式末尾插入的 NULL 字符的指针。 调用方可以使用此功 能轻松将更多信息追加到字符串。",
+        "type": "PWSTR"
       },
       "header": "ip2string.h",
       "deprecated": false,
@@ -2263,16 +2270,19 @@
         {
           "name": "Address",
           "direction": "in",
-          "description": "按网络字节顺序排列的 IPv4 地址。[in] Port 采用网络字节顺序格式的端口号。 此参数是可选的。[out] AddressString 指向缓冲区的指针，用于接收 IPv4 地址和端口的 以 NULL 结尾的字符串表示形式。 此缓 冲区应足够大，至少可以容纳INET_ADDRSTRLEN个字符。 INET_ADDRSTRLEN值在 Ws2ipdef.h 头文件中定义。"
+          "description": "按网络字节顺序排列的 IPv4 地址。[in] Port 采用网络字节顺序格式的端口号。 此参数是可选的。[out] AddressString 指向缓冲区的指针，用于接收 IPv4 地址和端口的 以 NULL 结尾的字符串表示形式。 此缓 冲区应足够大，至少可以容纳INET_ADDRSTRLEN个字符。 INET_ADDRSTRLEN值在 Ws2ipdef.h 头文件中定义。",
+          "type": "const in_addr"
         },
         {
           "name": "AddressStringLength",
           "direction": "in, out",
-          "description": "输入时， AddressString 参数指向的缓冲区中适合的字符数，包括 NULL 终止符。 输出时，此参数包含 实际写入 AddressString 参数指向的缓冲区的字符数。"
+          "description": "输入时， AddressString 参数指向的缓冲区中适合的字符数，包括 NULL 终止符。 输出时，此参数包含 实际写入 AddressString 参数指向的缓冲区的字符数。",
+          "type": "out] PULONG"
         }
       ],
       "return_value": {
-        "description": "Returns STATUS_SUCCESS on success, or an error code such as ERROR_INVALID_PARAMETER on failure."
+        "description": "Returns STATUS_SUCCESS on success, or an error code such as ERROR_INVALID_PARAMETER on failure.",
+        "type": "NTSTATUS"
       },
       "header": "ip2string.h",
       "deprecated": false,
@@ -2323,11 +2333,13 @@
         {
           "name": "S",
           "direction": "in",
-          "description": "指向包含 IPv4 地址的 NULL终止字符串表示形式的缓冲区的指针。[in] Strict 一个值，该值指示字符串是否必须是以严格四部分点十进制表示法表示的 IPv4 地址。 如果此参数 TRUE，则必须用四个部分对字符串进行点符号十进制。 如果此参数 FALSE，则允许使用十进制、八进制或十六进制表示法的四种可能形式中的任何一种。 有关详细信 息，请参阅“备注”部分。[out] Terminator 一个参数，该参数接收指向终止转换字符串的字符的指针。 调用方可以使用此方法从字 符串中提取更多信息。[out] Addr 一个指针，其中存储 IPv4 地址的二进制表示形式。"
+          "description": "指向包含 IPv4 地址的 NULL终止字符串表示形式的缓冲区的指针。[in] Strict 一个值，该值指示字符串是否必须是以严格四部分点十进制表示法表示的 IPv4 地址。 如果此参数 TRUE，则必须用四个部分对字符串进行点符号十进制。 如果此参数 FALSE，则允许使用十进制、八进制或十六进制表示法的四种可能形式中的任何一种。 有关详细信 息，请参阅“备注”部分。[out] Terminator 一个参数，该参数接收指向终止转换字符串的字符的指针。 调用方可以使用此方法从字 符串中提取更多信息。[out] Addr 一个指针，其中存储 IPv4 地址的二进制表示形式。",
+          "type": "PCSTR"
         }
       ],
       "return_value": {
-        "description": "Returns STATUS_SUCCESS if the function succeeds. If the function fails, it returns one of the following error codes."
+        "description": "Returns STATUS_SUCCESS if the function succeeds. If the function fails, it returns one of the following error codes.",
+        "type": "NTSTATUS"
       },
       "header": "ip2string.h",
       "deprecated": false,
@@ -2345,11 +2357,13 @@
         {
           "name": "AddressString",
           "direction": "in",
-          "description": "指向缓冲区的指针，该缓冲区包含以 NULL 结尾的 IPv4 地址字符串表示形式，后跟端口 号的可选冒号和字符串表示形式。[in] Strict 一个 值，该值指示字符串是否必须是以严格的四部分点十进制表示法表示的 IPv4 地址。如果此参数为 TRUE，则字符串必须带有四个部分的点-小数。 如果此参数为 FALSE，则 Ipv4 地址的字符串表示形式允许有四种形式中的任何一种，使用十进制、八进制或十六 进制表示法。 有关详细信息，请参见“备注”部分。[out] Address 要存储 IPv4 地址的二进制表示形式的指针。 IPv4 地址按网络字节顺序存储。[out] Port 要存储端口号的二进制表示形式的指针。 端口号按网络字节顺序返回。 如果在 AddressString 参数指向的字符串中未指定端口，则 Port 参数设置为零。"
+          "description": "指向缓冲区的指针，该缓冲区包含以 NULL 结尾的 IPv4 地址字符串表示形式，后跟端口 号的可选冒号和字符串表示形式。[in] Strict 一个 值，该值指示字符串是否必须是以严格的四部分点十进制表示法表示的 IPv4 地址。如果此参数为 TRUE，则字符串必须带有四个部分的点-小数。 如果此参数为 FALSE，则 Ipv4 地址的字符串表示形式允许有四种形式中的任何一种，使用十进制、八进制或十六 进制表示法。 有关详细信息，请参见“备注”部分。[out] Address 要存储 IPv4 地址的二进制表示形式的指针。 IPv4 地址按网络字节顺序存储。[out] Port 要存储端口号的二进制表示形式的指针。 端口号按网络字节顺序返回。 如果在 AddressString 参数指向的字符串中未指定端口，则 Port 参数设置为零。",
+          "type": "PCSTR"
         }
       ],
       "return_value": {
-        "description": "成功返回STATUS_SUCCESS，失败返回NTSTATUS错误码"
+        "description": "成功返回STATUS_SUCCESS，失败返回NTSTATUS错误码",
+        "type": "NTSTATUS"
       },
       "header": "winnt.h",
       "deprecated": false,
@@ -2382,11 +2396,13 @@
         {
           "name": "AddressString",
           "direction": "in",
-          "description": "指向缓冲区的指针，该缓冲区包含以 NULL 结尾的 IPv6 地址、范围 ID 和端口号的字符串 表示形式。[out] Address 要存储 IPv6 地址的二进制表示形式的指针。[out] ScopeId 指向存储 IPv6 地址的范围 ID 的指针。 如果 AddressString 参数不包含范围 ID 的字符串 表示形式，则此参数中返回零。[out] Port 存储端口号的指针。 端口号采用网络字节顺序格式。 如果 AddressString 参数不包含端口 号的字符串表示形式，则此参数中返回零。"
+          "description": "指向缓冲区的指针，该缓冲区包含以 NULL 结尾的 IPv6 地址、范围 ID 和端口号的字符串 表示形式。[out] Address 要存储 IPv6 地址的二进制表示形式的指针。[out] ScopeId 指向存储 IPv6 地址的范围 ID 的指针。 如果 AddressString 参数不包含范围 ID 的字符串 表示形式，则此参数中返回零。[out] Port 存储端口号的指针。 端口号采用网络字节顺序格式。 如果 AddressString 参数不包含端口 号的字符串表示形式，则此参数中返回零。",
+          "type": "PCSTR"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 STATUS_SUCCESS。如果函数失败，则返回以下错误代码之一：STATUS_INVALID_PARAMETER、STATUS_BUFFER_OVERFLOW 等。"
+        "description": "如果函数成功，则返回 STATUS_SUCCESS。如果函数失败，则返回以下错误代码之一：STATUS_INVALID_PARAMETER、STATUS_BUFFER_OVERFLOW 等。",
+        "type": "NTSTATUS"
       },
       "header": "ntdll.h",
       "deprecated": false,
@@ -2404,11 +2420,13 @@
         {
           "name": "Addr",
           "direction": "in",
-          "description": "按网络字节顺序排列的 IPv6 地址。[out] S 指向缓冲区的指针，用于存储 IPv6 地址的 NULL终止字符串表示形式。 此缓冲区应足够 大，可以容纳至少 46 个字符。"
+          "description": "按网络字节顺序排列的 IPv6 地址。[out] S 指向缓冲区的指针，用于存储 IPv6 地址的 NULL终止字符串表示形式。 此缓冲区应足够 大，可以容纳至少 46 个字符。",
+          "type": "const in6_addr"
         }
       ],
       "return_value": {
-        "description": "指向在 IPv6 地址的字符串表示形式末尾插入的 NULL 字符的指针。 调用方可以使用此功 能轻松将更多信息追加到字符串。"
+        "description": "指向在 IPv6 地址的字符串表示形式末尾插入的 NULL 字符的指针。 调用方可以使用此功 能轻松将更多信息追加到字符串。",
+        "type": "PWSTR"
       },
       "header": "ip2string.h",
       "deprecated": false,
@@ -2440,11 +2458,13 @@
         {
           "name": "Address",
           "direction": "in",
-          "description": "按网络字节顺序排列的 IPv6 地址。[in] ScopeId 按网络字节顺序排列的 IPv6 地址的范围 ID。 此参数是可选的。[in] Port 网络字节顺序格式的端口号。 此参数是可选的。[out] AddressString 指向缓冲区的指针，用于接收 IP 地址、范围 ID 和端口的 以 NULL 结尾的字符串表示形式。 此缓冲区应足够大，以容纳至少INET6_ADDRSTRLEN个字符。 INET6_ADDRSTRLEN 值在 Ws2ipdef.h 头文件中定义。[in, out] AddressStringLength 输入时， AddressString 参数指向的缓冲区中适合的字符数，包括 NULL 终止符。 在输出时，此参数包含实际写入 到 AddressString 参数指向的缓冲区的字符数。"
+          "description": "按网络字节顺序排列的 IPv6 地址。[in] ScopeId 按网络字节顺序排列的 IPv6 地址的范围 ID。 此参数是可选的。[in] Port 网络字节顺序格式的端口号。 此参数是可选的。[out] AddressString 指向缓冲区的指针，用于接收 IP 地址、范围 ID 和端口的 以 NULL 结尾的字符串表示形式。 此缓冲区应足够大，以容纳至少INET6_ADDRSTRLEN个字符。 INET6_ADDRSTRLEN 值在 Ws2ipdef.h 头文件中定义。[in, out] AddressStringLength 输入时， AddressString 参数指向的缓冲区中适合的字符数，包括 NULL 终止符。 在输出时，此参数包含实际写入 到 AddressString 参数指向的缓冲区的字符数。",
+          "type": "const in6_addr"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 STATUS_SUCCESS。如果函数失败，则返回其他 NTSTATUS 错误代码。"
+        "description": "如果函数成功，则返回 STATUS_SUCCESS。如果函数失败，则返回其他 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "header": "ntdll.h",
       "deprecated": false,
@@ -2462,11 +2482,13 @@
         {
           "name": "S",
           "direction": "in",
-          "description": "指向包含 IPv6 地址的 NULL终止字符串表示形式的缓冲区的指针。[out] Terminator 一个参数，该参数接收指向终止转换字符串的字符的指针。 调用方可以使用此方法从字 符串中提取更多信息。[out] Addr 一个指针，其中存储 IPv6 地址的二进制表示形式。"
+          "description": "指向包含 IPv6 地址的 NULL终止字符串表示形式的缓冲区的指针。[out] Terminator 一个参数，该参数接收指向终止转换字符串的字符的指针。 调用方可以使用此方法从字 符串中提取更多信息。[out] Addr 一个指针，其中存储 IPv6 地址的二进制表示形式。",
+          "type": "PCSTR"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 STATUS_SUCCESS。如果函数失败，则返回以下错误代码之一。"
+        "description": "如果函数成功，则返回 STATUS_SUCCESS。如果函数失败，则返回以下错误代码之一。",
+        "type": "NTSTATUS"
       },
       "header": "ip2string.h",
       "deprecated": false,
@@ -2499,7 +2521,7 @@
     {
       "id": "windows::RoundTripTime",
       "name": "RoundTripTime",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Structure representing round trip time information. Members: Type (ULONG) - round trip time in milliseconds; DataSize (USHORT) - reply data size in bytes; Reserved (USHORT) - reserved for system use; Data (PVOID) - pointer to reply data; Options (ip_option_information) - IP options from reply header.",
       "remarks": "Used by icmpParseReplies function to return responses to IPv4 echo requests on 64-bit platforms. This structure is only defined when _WIN64 is defined.",
       "header": "ipexport.h",
@@ -2508,7 +2530,8 @@
         "ICMP_ECHO_REPLY32"
       ],
       "confidence": 0.6,
-      "_source_line": 2738
+      "_source_line": 2738,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::ICMP_ECHO_REPLY32",
@@ -2656,7 +2679,8 @@
         {
           "name": "ppTcpTable",
           "direction": "out",
-          "description": "指向函数返回后包含 TCP 连接表的不透明数据的地址的指针。[in] bOrder 如果为 true，则 对 ppTcpTable 中返回的表中的 TCP 连接条目进行排序;如果为 false，则 不为 。[in] hHeap 要从中分配用于存储表的内存的堆的句柄。[in] dwFlags 指示特定堆分配控制行为的一个或多个标志。[in] dwFamily 表中 TCP 地址的系列。值"
+          "description": "指向函数返回后包含 TCP 连接表的不透明数据的地址的指针。[in] bOrder 如果为 true，则 对 ppTcpTable 中返回的表中的 TCP 连接条目进行排序;如果为 false，则 不为 。[in] hHeap 要从中分配用于存储表的内存的堆的句柄。[in] dwFlags 指示特定堆分配控制行为的一个或多个标志。[in] dwFamily 表中 TCP 地址的系列。值",
+          "type": "PVOID"
         }
       ],
       "header": "iphlpapi.h",
@@ -2667,7 +2691,11 @@
         "Vista"
       ],
       "confidence": 0.8,
-      "_source_line": 3526
+      "_source_line": 3526,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::AllocateAndGetUdpExTableFromStack",
@@ -2683,7 +2711,11 @@
         "Vista"
       ],
       "confidence": 0.7,
-      "_source_line": 3560
+      "_source_line": 3560,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetExtendedTcpTable",
@@ -4549,29 +4581,31 @@
     {
       "id": "windows::EnableRouting",
       "name": "EnableRouting",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "类型： UINT 一个布尔值，指定是否在本地计算机上启用路由。",
       "header": "iptypes.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.5,
-      "_source_line": 10382
+      "_source_line": 10382,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::EnableProxy",
       "name": "EnableProxy",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "类型： UINT 一个布尔值，指定本地计算机是否充当 ARP 代理。",
       "header": "iptypes.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.5,
-      "_source_line": 10384
+      "_source_line": 10384,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PIP_ADAPTER_DNS_SUFFIX",
       "name": "PIP_ADAPTER_DNS_SUFFIX",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "FirstDnsSuffix;} IP_ADAPTER_ADDRESSES_LH, *PIP_ADAPTER_ADDRESSES_LH;",
       "members": [
         {
@@ -4587,7 +4621,8 @@
         "IP_ADAPTER_ADDRESSES_LH"
       ],
       "confidence": 0.85,
-      "_source_line": 10491
+      "_source_line": 10491,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::AdapterName",
@@ -4646,7 +4681,7 @@
     {
       "id": "windows::IP_ADAPTER_WINS_SERVER_ADDRESS",
       "name": "IP_ADAPTER_WINS_SERVER_ADDRESS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "存储单个Windows Internet名称服务(WINS)服务器地址的结构，用于特定适配器的WINS服务器地址链接列表。",
       "syntax": "typedef struct _IP_ADAPTER_WINS_SERVER_ADDRESS_LH {   union {\nULONGLONG Alignment;     struct {\nULONG Length;       DWORD Reserved;\n};   };\nstruct _IP_ADAPTER_WINS_SERVER_ADDRESS_LH *Next;   SOCKET_ADDRESS                            Address;\n} IP_ADAPTER_WINS_SERVER_ADDRESS_LH, *PIP_ADAPTER_WINS_SERVER_ADDRESS_LH;",
       "members": [
@@ -4659,7 +4694,8 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.95,
-      "_source_line": 10639
+      "_source_line": 10639,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::Luid",
@@ -4702,7 +4738,7 @@
     {
       "id": "windows::TunnelType",
       "name": "TunnelType",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "类型： TUNNEL_TYPE 如果适配器地址为隧道，则为隧道使用的封装方法。 注意 此结构成员仅适用于 Windows Vista 及更高版本。 隧道类型由 Internet 域名分配机构 (IANA) 定义。 有关详细信息，请参阅 http://www.iana.org/assignments/ianaiftype-mib 的 TUNNEL_TYPE 枚举类型的值之一。 值",
       "header": "iptypes.h",
       "deprecated": false,
@@ -4711,7 +4747,8 @@
         "Vista"
       ],
       "confidence": 0.6,
-      "_source_line": 10687
+      "_source_line": 10687,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::Dhcpv6Server",
@@ -4732,7 +4769,7 @@
     {
       "id": "windows::IP_ADAPTER_ANYCAST_ADDRESS",
       "name": "IP_ADAPTER_ANYCAST_ADDRESS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Represents an anycast IP address associated with an adapter. The order of structures pointed to by FirstMulticastAddress and FirstUnicastAddress members does not reflect the order in which IP addresses were added to the adapter and may vary across Windows versions.",
       "syntax": "typedef struct _IP_ADAPTER_ANYCAST_ADDRESS_XP {\n  union {\n    ULONGLONG Alignment;\n    struct {\n      ULONG Length;\n      DWORD Flags;\n    };\n  };\n  struct _IP_ADAPTER_ANYCAST_ADDRESS_XP *Next;\n  SOCKET_ADDRESS Address;\n} IP_ADAPTER_ANYCAST_ADDRESS_XP, *PIP_ADAPTER_ANYCAST_ADDRESS_XP;",
       "members": [
@@ -4748,7 +4785,8 @@
         "FirstMulticastAddress"
       ],
       "confidence": 0.95,
-      "_source_line": 10744
+      "_source_line": 10744,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::IP_ADAPTER_GATEWAY_ADDRESS",
@@ -4795,7 +4833,7 @@
     {
       "id": "windows::IpAddressList",
       "name": "IpAddressList",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "表示与此适配器关联的 IPv4 地址列表的 IP_ADDR_STRING 结构链接列表。适配器可分配多个 IPv4 地址。GatewayList 成员表示此适配器网关的 IPv4 地址列表，通常包含默认网关的单个条目。",
       "header": "iphlpapi.h",
       "deprecated": false,
@@ -4803,12 +4841,13 @@
         "IP_ADDR_STRING"
       ],
       "confidence": 0.6,
-      "_source_line": 11364
+      "_source_line": 11364,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DhcpServer",
       "name": "DhcpServer",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "类型： IP_ADDR_STRING 此适配器的 DHCP 服务器的 IPv4 地址表示为 IP_ADDR_STRING 结构的链接列表。 此列表包含此适配器 DHCP 服务器的 IPv4 地址的单个条目。 值为 255.255.255.255 表示无法 访问 DHCP 服务器，或者正在达到 DHCP 服务器。仅当 DhcpEnabled 成员为非零时，此成员才有效。 HaveWins 类型： BOOL 一个选项值，指定此适配器是否使用 Windows Internet 名称服务 (WINS) 。 PrimaryWinsServer 类型： IP_ADDR_STRING 主 WINS 服务器的 IPv4 地址表示为 IP_ADDR_STRING 结构的链接列表。 此列表包含此 适配器的主 WINS 服务器 IPv4 地址的单个条目。仅当 HaveWins 成员为 TRUE 时，此成员才有效。 SecondaryWinsServer 类型： IP_ADDR_STRING 辅助 WINS 服务器的 IPv4 地址表示为 IP_ADDR_STRING 结构的链接列表。 适配器可以分配多个辅助 WINS 服务器地址。 仅当 HaveWins 成员为 TRUE 时，此成员才有效。",
       "header": "iptypes.h",
       "deprecated": false,
@@ -4817,7 +4856,8 @@
         "IP_ADDR_STRING"
       ],
       "confidence": 0.6,
-      "_source_line": 11370
+      "_source_line": 11370,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::LeaseExpires",
@@ -4848,7 +4888,7 @@
     {
       "id": "windows::IP_MASK_STRING",
       "name": "IP_MASK_STRING",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "IpMask; DWORD Context;} IP_ADDR_STRING, *PIP_ADDR_STRING;",
       "members": [
         {
@@ -4870,7 +4910,8 @@
         "PIP_ADDR_STRING"
       ],
       "confidence": 0.85,
-      "_source_line": 11760
+      "_source_line": 11760,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::AccessType",
@@ -7304,7 +7345,7 @@
     {
       "id": "windows::ADDRINFO_DNS_SERVER",
       "name": "ADDRINFO_DNS_SERVER",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "表示在 Winsock API 中使用的自定义域名系统 (DNS) 服务器结构体，用于指定 DNS 服务器地址。",
       "header": "ws2def.h",
       "deprecated": false,
@@ -7312,7 +7353,8 @@
         "GetAddrInfoEx"
       ],
       "confidence": 0.75,
-      "_source_line": 18158
+      "_source_line": 18158,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::GetAddrInfoEx",
@@ -7328,13 +7370,14 @@
     {
       "id": "windows::CSADDR_INFO",
       "name": "CSADDR_INFO",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "(ws2def.h) 结构包含套接字、网络服务或命名空间提供程序的Windows套接字地址信息。SOCKADDR结构是指定传输地址的泛型结构。",
       "header": "ws2def.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 18172
+      "_source_line": 18172,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SOCKET_ADDRESS_LIST",
@@ -7442,13 +7485,14 @@
     {
       "id": "windows::INTERFACE_INFO_EX",
       "name": "INTERFACE_INFO_EX",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构与 SIO_GET_INTERFACE_LIST IOCTL 命令结合使用，以获取有关接口 IP 地址的信息。",
       "header": "ws2ipdef.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 18258
+      "_source_line": 18258,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SOCKADDR_IN6_W2KSP1",

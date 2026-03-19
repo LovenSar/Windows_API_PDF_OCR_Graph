@@ -12,11 +12,13 @@
         {
           "name": "ShareMode",
           "direction": "in",
-          "description": "流格式的共享模式。 通过此参数，客户端指示是要在独占模式还是共享模式下使用指定的格式。 客户端应将此参数设置为以下 AUDCLNT_SHAREMODE 枚举值之一："
+          "description": "流格式的共享模式。 通过此参数，客户端指示是要在独占模式还是共享模式下使用指定的格式。 客户端应将此参数设置为以下 AUDCLNT_SHAREMODE 枚举值之一：",
+          "type": "AUDCLNT_SHAREMODE"
         }
       ],
       "return_value": {
-        "description": "如果指定格式受支持，则返回 S_OK。如果格式不受支持但在共享模式下找到了最接近的匹配格式，则返回 S_FALSE，并通过 ppClosestMatch 返回该格式。如果格式不受支持且没有可用匹配格式，则返回 AUDCLNT_E_UNSUPPORTED_FORMAT。还可能返回 E_POINTER、E_INVALIDARG、E_OUTOFMEMORY 等错误代码。"
+        "description": "如果指定格式受支持，则返回 S_OK。如果格式不受支持但在共享模式下找到了最接近的匹配格式，则返回 S_FALSE，并通过 ppClosestMatch 返回该格式。如果格式不受支持且没有可用匹配格式，则返回 AUDCLNT_E_UNSUPPORTED_FORMAT。还可能返回 E_POINTER、E_INVALIDARG、E_OUTOFMEMORY 等错误代码。",
+        "type": "HRESULT"
       },
       "header": "audioclient.h",
       "deprecated": false,
@@ -42,11 +44,13 @@
         {
           "name": "pvValue",
           "direction": "in",
-          "description": "指向特定于设备的属性的新值的指针。[in] cbValue 设备特定属性值的大小（以字节为单位）。[in] pguidEventContext IControlChangeNotify：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 SetValue 调用更改控件的状态，则已注册 IControlChangeNotify 的所有客户端都会收到该控件的通知。 在 OnNotify 方法的实现中，客户端可以检查事件上下文 GUID，以发现它还是另一个客户端是 control-change 事件的源。 如果调用方为此参数提供 NULL 指针，则客户端的通知方 法将收到 NULL 上下文指针。"
+          "description": "指向特定于设备的属性的新值的指针。[in] cbValue 设备特定属性值的大小（以字节为单位）。[in] pguidEventContext IControlChangeNotify：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 SetValue 调用更改控件的状态，则已注册 IControlChangeNotify 的所有客户端都会收到该控件的通知。 在 OnNotify 方法的实现中，客户端可以检查事件上下文 GUID，以发现它还是另一个客户端是 control-change 事件的源。 如果调用方为此参数提供 NULL 指针，则客户端的通知方 法将收到 NULL 上下文指针。",
+          "type": "void"
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK。如果失败，则返回 HRESULT 错误代码，例如 E_POINTER。"
+        "description": "如果方法成功，则返回 S_OK。如果失败，则返回 HRESULT 错误代码，例如 E_POINTER。",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -114,7 +118,8 @@
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "audioclient.h",
       "deprecated": false,
@@ -145,11 +150,13 @@
         {
           "name": "pRetVal",
           "direction": "out",
-          "description": "指向指针变量的指针，方法将包含显示名称的以 null 结尾的宽字符字符串的地址写入其中。 方法为字符串分配存储。 调用方负责通过调用 CoTaskMemFree 函数，在不再需要存储时释放存 储。 有关 CoTaskMemFree 的信息，请参阅 Windows SDK 文档。"
+          "description": "指向指针变量的指针，方法将包含显示名称的以 null 结尾的宽字符字符串的地址写入其中。 方法为字符串分配存储。 调用方负责通过调用 CoTaskMemFree 函数，在不再需要存储时释放存 储。 有关 CoTaskMemFree 的信息，请参阅 Windows SDK 文档。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER",
+        "type": "HRESULT"
       },
       "header": "audiopolicy.h",
       "deprecated": false,
@@ -169,11 +176,13 @@
         {
           "name": "SessionCount",
           "direction": "out",
-          "description": "接收音频会话的总数。"
+          "description": "接收音频会话的总数。",
+          "type": "int"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。"
+        "description": "如果该方法成功，则它会返回 S_OK。",
+        "type": "HRESULT"
       },
       "remarks": "如果应用程序希望在创建新会话时收到通知，则必须向会话管理器注册其 IAudioSessionNotification 的实现。 成功注册后，会话管理器以回调的形式向应用程序发送创建会话通知。 这些通知包含对新创建的会话的 IAudioSessionControl 指针的引用。 会话枚举器通过保存对每个会话的 IAudioSessionControl 指针的引用来维护当前会话的列表。但是，会话枚举器可能不知道通过 IAudioSessionNotification 报告的新会话。 在这种情况下，应用程序只能访问部分会话列表。 如果在初始化会话枚举器之前释放回调) 中的 IAudioSessionControl 指针 (，则可能会出现这种情况。 因此，如果应用程序需要音频终结点的完整会话集，则应用程序应保留自己的列表。 应用程序必须执行以下步骤才能接收会话通知并管理当前会话的列表。 1. 通过在非 UI 线程中调用 CoInitializeEx(NULL, COINIT_MULTITHREADED) ，使用多线程单元(MTA) 模型初始化 COM。 如果未初始化 MTA，则应用程序不会从会话管理器接收会话通知。 注意 运行应用程序用户界面的线程应使用单元线程模型进行初始化。 2. 从音频终结点设备激活 IAudioSessionManager2 接口。 调用 IMMDevice：：Activate ，参数 iid 设置为 IID_IAudioSessionManager2。 此调用在 ppInterface 参数中接收对会话管理器的 IAudioSessionManager2 接口的引用。 3. 实现 IAudioSessionNotification 接口以提供回调行为。 4. 调用 IAudioSessionManager2：：RegisterSessionNotification 以注册 应用程序的 IAudioSessionNotification 实现。 5. 通过调用 IAudioSessionManager2：：GetSessionEnumerator 创建并初始化会话枚举器对 象。 此方法生成可用于终结点的当前会话列表，并为列表中的每个会话添加 IAudioSessionControl 指针（如果它们尚不存在）。 6. 使用上一步中返回的 IAudioSessionEnumerator 接口检索和枚举会话列表。 可以通过调用 IAudioSessionEnumerator：：GetSession 来检索每个会话的会话控件。 请确保为每个会话控件调用 AddRef 以维护引用计数。 7. 当应用程序收到创建会话通知时，将 IAudioSessionNotification：：OnSessionCreated) 接收的新会话 (IAudioSessionControl 指针添加到现有会话列表中。 由于应用程序维护此会话列表并根据应用程序的要求管理会话的生存期，因此音频系统不会对会话控制对象强制执行过期机制。 只要应用程序具有对列表中的会话控件的引用，会话控件就有效。示例 以下示例代码演示如何创建会话枚举器对象，然后枚举会话。 C++ HRESULT EnumSessions(IAudioSessionManager2* pSessionManager){ if (!pSessionManager) { return E_INVALIDARG; } HRESULT hr = S_OK; int cbSessionCount = 0; LPWSTR pswSession = NULL; IAudioSessionEnumerator* pSessionList = NULL; IAudioSessionControl* pSessionControl = NULL; // Get the current list of sessions.",
       "requirements": {
@@ -452,7 +461,8 @@
         {
           "name": "overflowMode",
           "direction": "in",
-          "description": "一个 值，该值指定在尝试将元数据项写入 ISpatialAudioMetadataItems 时的行为，超过调用"
+          "description": "一个 值，该值指定在尝试将元数据项写入 ISpatialAudioMetadataItems 时的行为，超过调用",
+          "type": "SpatialAudioMetadataWriterOverflowMode"
         }
       ],
       "header": "spatialaudiometadata.h",
@@ -464,7 +474,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 90,
-      "return_value": "HRESULT 返回值。成功时返回 S_OK，失败时返回错误代码。"
+      "return_value": {
+        "type": "HRESULT",
+        "description": "HRESULT 返回值。成功时返回 S_OK，失败时返回错误代码。"
+      }
     },
     {
       "id": "windows::AudioStateMonitorCallback",
@@ -476,11 +489,13 @@
         {
           "name": "audioStateMonitor",
           "direction": "out",
-          "description": "接收指向创建的 IAudioStateMonitor 的指针。"
+          "description": "接收指向创建的 IAudioStateMonitor 的指针。",
+          "type": "*AudioStateMonitorCallback)( IAudioStateMonitor*"
         }
       ],
       "return_value": {
-        "description": "返回 HRESULT 状态码"
+        "description": "返回 HRESULT 状态码",
+        "type": "typedef"
       },
       "remarks": "Windows 动态静音或降低音频流的级别，以响应系统事件。 例如，当警报响铃时，播客应用的音频呈现流的音量可能会降低。 或者，当应用移动到后台时，音频录制应用可能会将其捕获流静音。 通过调用 IAudioStateMonitor：：RegisterCallback 注册此回调的实 现，以便在流的声音级别更改时接收通知，然后调用 IAudioStateMonitor：： GetSoundLevel 属性来确定新的当前音频级别。 要求",
       "requirements": {
@@ -508,11 +523,13 @@
         {
           "name": "pConnectTo",
           "direction": "in",
-          "description": "另一个连接器。 此参数指向表示其他设备拓扑中的连接器的连接器对象的 IConnector 接口。 调用方负责在不再需要 IConnector 接口时释放其计数引用。 ConnectTo 方法获取自己对此接口的引用。"
+          "description": "另一个连接器。 此参数指向表示其他设备拓扑中的连接器的连接器对象的 IConnector 接口。 调用方负责在不再需要 IConnector 接口时释放其计数引用。 ConnectTo 方法获取自己对此接口的引用。",
+          "type": "IConnector"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。失败时可能返回 E_POINTER 等错误代码。"
+        "description": "如果该方法成功，则返回 S_OK。失败时可能返回 E_POINTER 等错误代码。",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -548,11 +565,13 @@
         {
           "name": "ppParts",
           "direction": "out",
-          "description": "指向指针变量的指针，方法在其中写入 IPartsList 接口的地址，该接口封装从此部件立即上游部件列表。 通过此方法，调用方获取对 接口的计数引用。 调用方负责在不再需要接口时通过调用接口的 Release 方法释放接口。 如果 EnumPartsIncoming 调用失败， 则 *ppParts 为 NULL。"
+          "description": "指向指针变量的指针，方法在其中写入 IPartsList 接口的地址，该接口封装从此部件立即上游部件列表。 通过此方法，调用方获取对 接口的计数引用。 调用方负责在不再需要接口时通过调用接口的 Release 方法释放接口。 如果 EnumPartsIncoming 调用失败， 则 *ppParts 为 NULL。",
+          "type": "IPartsList"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER 和 E_NOTFOUND。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER 和 E_NOTFOUND。",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -572,10 +591,14 @@
         {
           "name": "ppParts",
           "direction": "out",
-          "description": "指向指针变量的指针，方法将 IPartsList 接口的地址写入其中，该接口封装了紧随此部件下游的部件列表。 通过此方法，调用方获取对 接口的计数引用。 调用方负责通过调用接口的 Release 方法，在不再需要接口时释放接口。 如果 EnumPartsOutgoing 调用失败， 则 *ppParts 为 NULL。"
+          "description": "指向指针变量的指针，方法将 IPartsList 接口的地址写入其中，该接口封装了紧随此部件下游的部件列表。 通过此方法，调用方获取对 接口的计数引用。 调用方负责通过调用接口的 Release 方法，在不再需要接口时释放接口。 如果 EnumPartsOutgoing 调用失败， 则 *ppParts 为 NULL。",
+          "type": "IPartsList"
         }
       ],
-      "return_value": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于：E_POINTER、E_NOTFOUND。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于：E_POINTER、E_NOTFOUND。"
+      },
       "header": "devicetopology.h",
       "deprecated": false,
       "cross_references": [
@@ -594,11 +617,13 @@
         {
           "name": "plMin",
           "direction": "out",
-          "description": "指向方法向其写入最小属性值的 LONG 变量的指针。[out] plMax 指向方法向其写入最大属性值的 LONG 变量的指针。[out] plStepping 指向 LONG 变量的指针，该方法在该变量中写入 *plMin 到 *plMax 范围内的连续属性值之间的单步执行值。 如果最大值和最小属性值之间的差值为 d，并且范围分为 n 个步骤 (大小均匀的间 隔) ，则该属性可以采用 n + 1 个离散值，并且连续值之间的步长大小为 d/ n。"
+          "description": "指向方法向其写入最小属性值的 LONG 变量的指针。[out] plMax 指向方法向其写入最大属性值的 LONG 变量的指针。[out] plStepping 指向 LONG 变量的指针，该方法在该变量中写入 *plMin 到 *plMax 范围内的连续属性值之间的单步执行值。 如果最大值和最小属性值之间的差值为 d，并且范围分为 n 个步骤 (大小均匀的间 隔) ，则该属性可以采用 n + 1 个离散值，并且连续值之间的步长大小为 d/ n。",
+          "type": "LONG"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER 说明 指针 plMin、 plMax 或 plStepping 为 NULL。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER 说明 指针 plMin、 plMax 或 plStepping 为 NULL。",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -619,11 +644,13 @@
         {
           "name": "dwCount",
           "direction": "in",
-          "description": "pfVolumes 数组中的元素数。 dwCount 参数必须等于流格式中的通道数。 若要获取通道数，请 调用 IAudioStreamVolume：：GetChannelCount 方法。[out] pfVolumes 指向音频流中声道音量级别的数组的指针。 此参数指向调用方分配的 float 数组，该方法在其中 写入单个通道的音量级别。 音量级别范围为 0.0 到 1.0。"
+          "description": "pfVolumes 数组中的元素数。 dwCount 参数必须等于流格式中的通道数。 若要获取通道数，请 调用 IAudioStreamVolume：：GetChannelCount 方法。[out] pfVolumes 指向音频流中声道音量级别的数组的指针。 此参数指向调用方分配的 float 数组，该方法在其中 写入单个通道的音量级别。 音量级别范围为 0.0 到 1.0。",
+          "type": "UINT32"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，失败时返回错误代码。"
+        "description": "成功时返回 S_OK，失败时返回错误代码。",
+        "type": "HRESULT"
       },
       "header": "audioclient.h",
       "deprecated": false,
@@ -644,11 +671,13 @@
         {
           "name": "AudioSessionGuid",
           "direction": "in",
-          "description": "指向会话 GUID 的指针。 如果 GUID 未标识以前打开的会话，则调用将打开一个新的但为空的会话。 Sndvol 程序不显示会话的音量级控件，除非它包含一个或多个活动流。 如果此参数为 NULL 或指向值GUID_NULL，则该方法会将流分配给默认会话。[in] StreamFlags 指定音频流的标志的状态。[out] SessionControl 指向指针变量的指针，该方法在其中写入指向音频会话控件对象的 IAudioSessionControl 接口的指针。 调用方负责通过调用接口的 Release 方法，在不再需要接口时释放接口。 如果调用失 败， *SessionControl 为 NULL。"
+          "description": "指向会话 GUID 的指针。 如果 GUID 未标识以前打开的会话，则调用将打开一个新的但为空的会话。 Sndvol 程序不显示会话的音量级控件，除非它包含一个或多个活动流。 如果此参数为 NULL 或指向值GUID_NULL，则该方法会将流分配给默认会话。[in] StreamFlags 指定音频流的标志的状态。[out] SessionControl 指向指针变量的指针，该方法在其中写入指向音频会话控件对象的 IAudioSessionControl 接口的指针。 调用方负责通过调用接口的 Release 方法，在不再需要接口时释放接口。 如果调用失 败， *SessionControl 为 NULL。",
+          "type": "LPCGUID"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。",
+        "type": "HRESULT"
       },
       "header": "audiopolicy.h",
       "deprecated": false,
@@ -668,12 +697,14 @@
         {
           "name": "_pwstrDeviceId",
           "direction": "in",
-          "description": "指向硬件音频引擎设备的设备 ID 的指针。[in] _uConnectorId 终结点连接器的标识符。"
+          "description": "指向硬件音频引擎设备的设备 ID 的指针。[in] _uConnectorId 终结点连接器的标识符。",
+          "type": "LPWSTR"
         },
         {
           "name": "_pAvailableConnectorInstanceCount",
           "direction": "out",
-          "description": "指向可处理卸载音频流的可用终结点连接器数量的指针。"
+          "description": "指向可处理卸载音频流的可用终结点连接器数量的指针。",
+          "type": "UINT32"
         }
       ],
       "header": "audioengineendpoint.h",
@@ -682,7 +713,11 @@
         "GetEngineFormat"
       ],
       "confidence": 0.8,
-      "_source_line": 177
+      "_source_line": 177,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetBufferSize",
@@ -694,11 +729,13 @@
         {
           "name": "pNumBufferFrames",
           "direction": "out",
-          "description": "指向 UINT32 变量的指针，该方法将缓冲区可以容纳的音频帧数写入其中。"
+          "description": "指向 UINT32 变量的指针，该方法将缓冲区可以容纳的音频帧数写入其中。",
+          "type": "UINT32"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "audioclient.h",
       "deprecated": false,
@@ -718,7 +755,8 @@
         {
           "name": "pFormat",
           "direction": "in",
-          "description": "指向要查询缓冲区大小限制的目标格式的指针。[in] bEventDriven 指示流是否可以为事件驱动的布尔值。[out] phnsMinBufferDuration 返回指向以 100 纳秒为单位 (最小缓冲区大小的指针，) 基础硬件音频引擎以 pFormat 参数中指 定的格式运行所需的最小缓冲区大小，而不会频繁出现音频故障。[out] phnsMaxBufferDuration 返回指向最大缓冲区大小 (的指针（以 100 纳秒为单位），) 基础硬件音频引擎可以支持 pFormat 参数中指定的格式。"
+          "description": "指向要查询缓冲区大小限制的目标格式的指针。[in] bEventDriven 指示流是否可以为事件驱动的布尔值。[out] phnsMinBufferDuration 返回指向以 100 纳秒为单位 (最小缓冲区大小的指针，) 基础硬件音频引擎以 pFormat 参数中指 定的格式运行所需的最小缓冲区大小，而不会频繁出现音频故障。[out] phnsMaxBufferDuration 返回指向最大缓冲区大小 (的指针（以 100 纳秒为单位），) 基础硬件音频引擎可以支持 pFormat 参数中指定的格式。",
+          "type": "const WAVEFORMATEX"
         }
       ],
       "header": "audioclient.h",
@@ -727,7 +765,11 @@
         "IsOffloadCapable"
       ],
       "confidence": 0.8,
-      "_source_line": 190
+      "_source_line": 190,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetChannelConfig",
@@ -739,10 +781,14 @@
         {
           "name": "pdwConfig",
           "direction": "out",
-          "description": "指向方法在其中写入当前通道配置掩码值的 DWORD 变量的指针。"
+          "description": "指向方法在其中写入当前通道配置掩码值的 DWORD 变量的指针。",
+          "type": "DWORD"
         }
       ],
-      "return_value": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。如果指针 pdwConfig 为 NULL，则返回 E_POINTER。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。如果指针 pdwConfig 为 NULL，则返回 E_POINTER。"
+      },
       "remarks": "如果指针 pdwConfig 为 NULL，则返回 E_POINTER。有关通道配置掩码的信息，请参阅 Windows DDK 文档中 KSPROPERTY_AUDIO_CHANNEL_CONFIG 属性的讨论。",
       "header": "devicetopology.h",
       "deprecated": false,
@@ -763,11 +809,13 @@
         {
           "name": "u32ChannelCount",
           "direction": "in",
-          "description": "通道计数。 此参数还指定 afPeakValues 数组中的元素数。 如果指定的计数与流中的通道数不匹 配，该方法将返回错误代码E_INVALIDARG。[out] afPeakValues 指向峰值样本值数组的指针。 方法将通道的峰值写入数组。 数组包含流中每个通道的一个元 素。 峰值是规范化范围为 0.0 到 1.0 的数字。"
+          "description": "通道计数。 此参数还指定 afPeakValues 数组中的元素数。 如果指定的计数与流中的通道数不匹 配，该方法将返回错误代码E_INVALIDARG。[out] afPeakValues 指向峰值样本值数组的指针。 方法将通道的峰值写入数组。 数组包含流中每个通道的一个元 素。 峰值是规范化范围为 0.0 到 1.0 的数字。",
+          "type": "UINT32"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "endpointvolume.h",
       "deprecated": false,
@@ -787,11 +835,13 @@
         {
           "name": "dwIndex",
           "direction": "in",
-          "description": "通道号。 如果流格式具有 N 个通道，则通道的编号从 0 到 N – 1。 若要获取通道数，请调用 IAudioStreamVolume：：GetChannelCount 方法。[out] pfLevel 指向 浮点 变量的指针，该方法在其中写入指定通道的音量级别。 音量级别在 0.0 到 1.0 范围内。"
+          "description": "通道号。 如果流格式具有 N 个通道，则通道的编号从 0 到 N – 1。 若要获取通道数，请调用 IAudioStreamVolume：：GetChannelCount 方法。[out] pfLevel 指向 浮点 变量的指针，该方法在其中写入指定通道的音量级别。 音量级别在 0.0 到 1.0 范围内。",
+          "type": "UINT32"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 S_FALSE 等。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 S_FALSE 等。",
+        "type": "HRESULT"
       },
       "header": "audioclient.h",
       "deprecated": false,
@@ -811,11 +861,13 @@
         {
           "name": "nChannel",
           "direction": "in",
-          "description": "通道号。 如果音频流具有 n 个通道，则通道的编号从 0 到 n – 1。 若要获取流中的通道数，请 调用 IAudioEndpointVolume：：GetChannelCount 方法。[out] pfLevelDB 指向 浮点 变量的指针，该方法在其中以分贝为单位写入音量级别。 若要获取从此方法获取的卷 级别范围，请调用 IAudioEndpointVolume：：GetVolumeRange 方法。"
+          "description": "通道号。 如果音频流具有 n 个通道，则通道的编号从 0 到 n – 1。 若要获取流中的通道数，请 调用 IAudioEndpointVolume：：GetChannelCount 方法。[out] pfLevelDB 指向 浮点 变量的指针，该方法在其中以分贝为单位写入音量级别。 若要获取从此方法获取的卷 级别范围，请调用 IAudioEndpointVolume：：GetVolumeRange 方法。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_INVALIDARG 等。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_INVALIDARG 等。",
+        "type": "HRESULT"
       },
       "header": "endpointvolume.h",
       "deprecated": false,
@@ -835,11 +887,13 @@
         {
           "name": "nChannel",
           "direction": "in",
-          "description": "通道号。 如果音频流包含 n 个通道，则通道的编号从 0 到 n – 1。 若要获取通道数，请调用 IAudioEndpointVolume：：GetChannelCount 方法。[out] pfLevel 指向方法在其中写入卷级别的 浮点 变量的指针。 级别表示为 0.0 到 1.0 范围内的规范化值。"
+          "description": "通道号。 如果音频流包含 n 个通道，则通道的编号从 0 到 n – 1。 若要获取通道数，请调用 IAudioEndpointVolume：：GetChannelCount 方法。[out] pfLevel 指向方法在其中写入卷级别的 浮点 变量的指针。 级别表示为 0.0 到 1.0 范围内的规范化值。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。",
+        "type": "HRESULT"
       },
       "header": "endpointvolume.h",
       "deprecated": false,
@@ -859,11 +913,13 @@
         {
           "name": "pdwCharacteristics",
           "direction": "out",
-          "description": "指向 DWORD 变量的指针，方法在其中写入指示音频时钟特征的值。"
+          "description": "指向 DWORD 变量的指针，方法在其中写入指示音频时钟特征的值。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER",
+        "type": "HRESULT"
       },
       "header": "audioclient.h",
       "deprecated": false,
@@ -883,11 +939,13 @@
         {
           "name": "ppConTo",
           "direction": "out",
-          "description": "指向指针变量的指针，方法在其中写入另一个连接器对象的 IConnector 接口的地址。 通过此方法，调用方获取对 接口的计数引用。 调用方负责在不再需要接口时通过调用接口的 Release 方 法释放接口。 如果 GetConnectedTo 调用失败， 则 *ppConTo 为 NULL。"
+          "description": "指向指针变量的指针，方法在其中写入另一个连接器对象的 IConnector 接口的地址。 通过此方法，调用方获取对 接口的计数引用。 调用方负责在不再需要接口时通过调用接口的 Release 方 法释放接口。 如果 GetConnectedTo 调用失败， 则 *ppConTo 为 NULL。",
+          "type": "IConnector"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER 和 E_NOTFOUND。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER 和 E_NOTFOUND。",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -907,11 +965,13 @@
         {
           "name": "nIndex",
           "direction": "in",
-          "description": "连接器编号。 如果设备拓扑包含 n 个连接器，则连接器的编号为 0 到 n – 1。 若要获取设备拓 扑中的连接器数，请调用 IDeviceTopology：：GetConnectorCount 方法。[out] ppConnector 指向指针变量的指针，方法在其中写入连接器对象的 IConnector 接口的地址。 通过此方法，调用方获取对 接口的计数引用。 调用方负责在不再需要接口时通过调用接口的 Release 方法释放 接口。 如果 GetConnector 调用失败， 则 *ppConnector 为 NULL。"
+          "description": "连接器编号。 如果设备拓扑包含 n 个连接器，则连接器的编号为 0 到 n – 1。 若要获取设备拓 扑中的连接器数，请调用 IDeviceTopology：：GetConnectorCount 方法。[out] ppConnector 指向指针变量的指针，方法在其中写入连接器对象的 IConnector 接口的地址。 通过此方法，调用方获取对 接口的计数引用。 调用方负责在不再需要接口时通过调用接口的 Release 方法释放 接口。 如果 GetConnector 调用失败， 则 *ppConnector 为 NULL。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -931,11 +991,13 @@
         {
           "name": "pCount",
           "direction": "out",
-          "description": "指向 UINT 指针变量的指针，方法将连接器计数写入其中， (设备拓扑) 中的连接器数。"
+          "description": "指向 UINT 指针变量的指针，方法将连接器计数写入其中， (设备拓扑) 中的连接器数。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -960,11 +1022,13 @@
         {
           "name": "ppwstrConnectorId",
           "direction": "out",
-          "description": "指向字符串指针的指针，方法在其中写入包含另一连接器全局 ID 的以 null 结尾的宽字符字符串的地址。 方法为字符串分配存储。 当不再需要存储时，调用方负责通过调用 CoTaskMemFree 函数来释放存储。 如果 GetConnectorIdConnectedTo 调用失败， 则 *ppwstrConnectorId 为 NULL。 有关 CoTaskMemFree 的信息，请参阅 Windows SDK 文档。"
+          "description": "指向字符串指针的指针，方法在其中写入包含另一连接器全局 ID 的以 null 结尾的宽字符字符串的地址。 方法为字符串分配存储。 当不再需要存储时，调用方负责通过调用 CoTaskMemFree 函数来释放存储。 如果 GetConnectorIdConnectedTo 调用失败， 则 *ppwstrConnectorId 为 NULL。 有关 CoTaskMemFree 的信息，请参阅 Windows SDK 文档。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -984,11 +1048,13 @@
         {
           "name": "pCount",
           "direction": "out",
-          "description": "指向 UINT 变量的指针，方法在其中写入此部件上的控件接口数。"
+          "description": "指向 UINT 变量的指针，方法在其中写入此部件上的控件接口数。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（如果 pCount 为 NULL）。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（如果 pCount 为 NULL）。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1013,11 +1079,13 @@
         {
           "name": "pNumPaddingFrames",
           "direction": "out",
-          "description": "指向 UINT32 变量的指针，该方法将帧计数 (缓冲区) 中填充的音频帧数写入其中。"
+          "description": "指向 UINT32 变量的指针，该方法将帧计数 (缓冲区) 中填充的音频帧数写入其中。",
+          "type": "UINT32"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "audioclient.h",
       "deprecated": false,
@@ -1041,7 +1109,8 @@
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（如果 pDataFlow 为 NULL）。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（如果 pDataFlow 为 NULL）。",
+        "type": "HRESULT"
       },
       "remarks": "有关调用此方法的代码示例，请参阅设备拓扑中 SelectCaptureDevice 函数的实现。",
       "header": "devicetopology.h",
@@ -1063,11 +1132,13 @@
         {
           "name": "pwstrId",
           "direction": "in",
-          "description": "指向包含终结点 ID 的字符串的指针。 调用方通常从 IMMDevice：：GetId 方法或 IMMNotificationClient 接口中的方法之一获取此字符串。[out] ppDevice 指向指针变量的指针，方法在其中写入指定设备的 IMMDevice 接口的地址。 通过此方法，调用方获取对 接口的计数引用。 调用方负责在不再需要接口时通过调用接口的 Release 方法释放接 口。 如果 GetDevice 调用失败， 则 *ppDevice 为 NULL。"
+          "description": "指向包含终结点 ID 的字符串的指针。 调用方通常从 IMMDevice：：GetId 方法或 IMMNotificationClient 接口中的方法之一获取此字符串。[out] ppDevice 指向指针变量的指针，方法在其中写入指定设备的 IMMDevice 接口的地址。 通过此方法，调用方获取对 接口的计数引用。 调用方负责在不再需要接口时通过调用接口的 Release 方法释放接 口。 如果 GetDevice 调用失败， 则 *ppDevice 为 NULL。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER E_NOTFOUND"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER E_NOTFOUND",
+        "type": "HRESULT"
       },
       "header": "mmdeviceapi.h",
       "deprecated": false,
@@ -1087,11 +1158,13 @@
         {
           "name": "ppwstrDeviceId",
           "direction": "out",
-          "description": "指向指针变量的指针，方法将包含设备标识符的以 null 结尾的宽字符字符串的地址写入其中。方法为字符串分配存储。 调用方负责通过调用 CoTaskMemFree 函数，在不再需要存储时释放存储。 如果 GetDeviceId 调用失败， 则 *ppwstrDeviceId 为 NULL。 有关 CoTaskMemFree 的 信息，请参阅 Windows SDK 文档。"
+          "description": "指向指针变量的指针，方法将包含设备标识符的以 null 结尾的宽字符字符串的地址写入其中。方法为字符串分配存储。 调用方负责通过调用 CoTaskMemFree 函数，在不再需要存储时释放存储。 如果 GetDeviceId 调用失败， 则 *ppwstrDeviceId 为 NULL。 有关 CoTaskMemFree 的 信息，请参阅 Windows SDK 文档。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 D_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 D_POINTER",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -1111,11 +1184,13 @@
         {
           "name": "ppwstrDeviceId",
           "direction": "out",
-          "description": "指向字符串指针的指针，方法在其中写入以 null 结尾的宽字符字符串的地址，该字符串包含已连接设备的设备标识符。 方法为字符串分配存储。 调用方负责通过调用 CoTaskMemFree 函数，在不再需要存储时释放存储。 如果 GetDeviceIdConnectedTo 调用失败， 则 *ppwstrDeviceId 为 NULL。 有关 CoTaskMemFree 的信息，请参阅 Windows SDK 文档。"
+          "description": "指向字符串指针的指针，方法在其中写入以 null 结尾的宽字符字符串的地址，该字符串包含已连接设备的设备标识符。 方法为字符串分配存储。 调用方负责通过调用 CoTaskMemFree 函数，在不再需要存储时释放存储。 如果 GetDeviceIdConnectedTo 调用失败， 则 *ppwstrDeviceId 为 NULL。 有关 CoTaskMemFree 的信息，请参阅 Windows SDK 文档。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。"
+        "description": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -1135,16 +1210,19 @@
         {
           "name": "phnsDefaultDevicePeriod",
           "direction": "out",
-          "description": "指向 REFERENCE_TIME 变量的指针，方法在其中写入时间值，指定音频引擎定期处理传递之间的默认间隔。 时间以 100 纳秒为单位表示。 有关 REFERENCE_TIME的信息，请参阅 Windows SDK 文档。"
+          "description": "指向 REFERENCE_TIME 变量的指针，方法在其中写入时间值，指定音频引擎定期处理传递之间的默认间隔。 时间以 100 纳秒为单位表示。 有关 REFERENCE_TIME的信息，请参阅 Windows SDK 文档。",
+          "type": "REFERENCE_TIME"
         },
         {
           "name": "phnsMinimumDevicePeriod",
           "direction": "out",
-          "description": "指向 REFERENCE_TIME 变量的指针，方法在其中写入一个时间值，指定音频终结点设备定期处 理通过之间的最小间隔。 时间以 100 纳秒为单位表示。"
+          "description": "指向 REFERENCE_TIME 变量的指针，方法在其中写入一个时间值，指定音频终结点设备定期处 理通过之间的最小间隔。 时间以 100 纳秒为单位表示。",
+          "type": "REFERENCE_TIME"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。"
+        "description": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。",
+        "type": "HRESULT"
       },
       "header": "audioclient.h",
       "deprecated": false,
@@ -1164,11 +1242,13 @@
         {
           "name": "DevicePosition",
           "direction": "out",
-          "description": "接收设备位置（以帧为单位）。 接收的位置是方法直接从硬件获取的未处理值。 有关详细信 息，请参阅“备注”。[out] QPCPosition 在音频终结点设备读取在 DevicePosition 参数中检索到的设备位置以响应 GetDevicePosition 调用时接收性能计数器的值。"
+          "description": "接收设备位置（以帧为单位）。 接收的位置是方法直接从硬件获取的未处理值。 有关详细信 息，请参阅“备注”。[out] QPCPosition 在音频终结点设备读取在 DevicePosition 参数中检索到的设备位置以响应 GetDevicePosition 调用时接收性能计数器的值。",
+          "type": "UINT64"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果参数无效，则返回 E_POINTER。"
+        "description": "如果该方法成功，则返回 S_OK。如果参数无效，则返回 E_POINTER。",
+        "type": "HRESULT"
       },
       "header": "audioclient.h",
       "deprecated": false,
@@ -1186,11 +1266,13 @@
         {
           "name": "ppKsFormat",
           "direction": "out",
-          "description": "指向指针变量的指针，方法在其中写入缓冲区的地址，该缓冲区包含首选格式的格式说明符。说明符以 KSDATAFORMAT 结构开头，后跟其他格式信息。 方法为格式说明符分配存储。 当不再需要存储时，调用方负责通过调用 CoTaskMemFree 函数来释放存储。 如果方法失败， *ppKsFormat 为 NULL。 有关 KSDATAFORMAT、格式说明符和 CoTaskMemFree 的详细信息， 请参阅 Windows DDK 文档。"
+          "description": "指向指针变量的指针，方法在其中写入缓冲区的地址，该缓冲区包含首选格式的格式说明符。说明符以 KSDATAFORMAT 结构开头，后跟其他格式信息。 方法为格式说明符分配存储。 当不再需要存储时，调用方负责通过调用 CoTaskMemFree 函数来释放存储。 如果方法失败， *ppKsFormat 为 NULL。 有关 KSDATAFORMAT、格式说明符和 CoTaskMemFree 的详细信息， 请参阅 Windows DDK 文档。",
+          "type": "PKSDATAFORMAT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1216,11 +1298,13 @@
         {
           "name": "pbEnabled",
           "direction": "out",
-          "description": "指向 BOOL 变量的指针，方法在其中写入当前 AGC 状态。 如果状态为 TRUE，则启用 AGC。 如果 为 FALSE，则禁用 AGC。"
+          "description": "指向 BOOL 变量的指针，方法在其中写入当前 AGC 状态。 如果状态为 TRUE，则启用 AGC。 如果 为 FALSE，则禁用 AGC。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER",
+        "type": "HRESULT"
       },
       "remarks": "指针 pbEnabled 不能为 NULL。禁用的 AGC 在直通模式下运行。在此模式下，音频流无需修改即可通过 AGC。",
       "requirements": {
@@ -1260,10 +1344,14 @@
         {
           "name": "pu64Frequency",
           "direction": "out",
-          "description": "指向 UINT64 变量的指针，方法在其中写入设备频率。 有关详细信息，请参阅“备注”。"
+          "description": "指向 UINT64 变量的指针，方法在其中写入设备频率。 有关详细信息，请参阅“备注”。",
+          "type": "UINT64"
         }
       ],
-      "return_value": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER。"
+      },
       "requirements": {
         "target_platform": "Windows",
         "header": "audioclient.h",
@@ -1288,11 +1376,13 @@
         {
           "name": "pDevice",
           "direction": "in",
-          "description": "指向 IMMDevice 接口的指针。[out] _pbEnable 指向布尔变量的指针。"
+          "description": "指向 IMMDevice 接口的指针。[out] _pbEnable 指向布尔变量的指针。",
+          "type": "IMMDevice"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，否则返回相应的错误代码。"
+        "description": "成功时返回 S_OK，否则返回相应的错误代码。",
+        "type": "HRESULT"
       },
       "header": "audioengineendpoint.h",
       "deprecated": false,
@@ -1312,10 +1402,14 @@
         {
           "name": "ppwstrGlobalId",
           "direction": "out",
-          "description": "指向指针变量的指针变量，该方法在其中写入包含全局 ID 的以 null 结尾的宽字符字符串的地址。 方法为字符串分配存储。 调用方负责通过调用 CoTaskMemFree 函数，在不再需要存储时释放存储。 如果 GetGlobalId 调用失败， 则 *ppwstrGlobalId 为 NULL。 有关 CoTaskMemFree 的信息，请参阅 Windows SDK 文档。"
+          "description": "指向指针变量的指针变量，该方法在其中写入包含全局 ID 的以 null 结尾的宽字符字符串的地址。 方法为字符串分配存储。 调用方负责通过调用 CoTaskMemFree 函数，在不再需要存储时释放存储。 如果 GetGlobalId 调用失败， 则 *ppwstrGlobalId 为 NULL。 有关 CoTaskMemFree 的信息，请参阅 Windows SDK 文档。",
+          "type": "LPWSTR"
         }
       ],
-      "return_value": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER。"
+      },
       "header": "devicetopology.h",
       "deprecated": false,
       "cross_references": [
@@ -1334,11 +1428,13 @@
         {
           "name": "pRetVal",
           "direction": "out",
-          "description": "分组参数 GUID 的输出指针。 此参数必须是指向调用方分配的 GUID 变量的有效非 NULL 指 针。 方法将分组参数写入此变量。"
+          "description": "分组参数 GUID 的输出指针。 此参数必须是指向调用方分配的 GUID 变量的有效非 NULL 指 针。 方法将分组参数写入此变量。",
+          "type": "GUID"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER",
+        "type": "HRESULT"
       },
       "header": "audiopolicy.h",
       "deprecated": false,
@@ -1358,11 +1454,13 @@
         {
           "name": "pRetVal",
           "direction": "out",
-          "description": "指向指针变量的指针，方法在其中写入以 null 结尾的宽字符字符串的地址，该字符串指定包含图标的.ico、.dll 或 .exe 文件的完全限定路径。 方法为字符串分配存储。 当不再需要存储时，调用方负责通过调用 CoTaskMemFree 函数来释放存储。 有关图标路径和 CoTaskMemFree 的信 息，请参阅Windows SDK文档。"
+          "description": "指向指针变量的指针，方法在其中写入以 null 结尾的宽字符字符串的地址，该字符串指定包含图标的.ico、.dll 或 .exe 文件的完全限定路径。 方法为字符串分配存储。 当不再需要存储时，调用方负责通过调用 CoTaskMemFree 函数来释放存储。 有关图标路径和 CoTaskMemFree 的信 息，请参阅Windows SDK文档。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER",
+        "type": "HRESULT"
       },
       "header": "audiopolicy.h",
       "deprecated": false,
@@ -1379,7 +1477,8 @@
       "description": "检索标识音频终结点设备的终结点 ID 字符串。",
       "syntax": "HRESULT GetId([out] LPWSTR *ppstrId);",
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "mmdeviceapi.h",
       "deprecated": false,
@@ -1399,10 +1498,14 @@
         {
           "name": "pIID",
           "direction": "out",
-          "description": "指向 GUID 变量的指针，方法在该变量中写入部件的特定于函数的控件接口的接口 ID。 有关详 细信息，请参阅“备注”。"
+          "description": "指向 GUID 变量的指针，方法在该变量中写入部件的特定于函数的控件接口的接口 ID。 有关详 细信息，请参阅“备注”。",
+          "type": "GUID"
         }
       ],
-      "return_value": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（指针 pIID 为 NULL）。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（指针 pIID 为 NULL）。"
+      },
       "remarks": "指针 pIID 为 NULL。表示部件 (连接器或子单元) 的对象有两个控制接口。第一个是泛型控件接口 IControlInterface，它具有所有类型的控件通用的方法。第二个是特定于函数的控件接口，该接口具有应用于特定类型的控件的方法。GetIID 方法获取第二个控件接口的接口 ID。客户端可以将此接口 ID 提供给 IPart::Activate 方法，以创建部件的特定于函数的接口的实例。方法获取下表所示的特定于函数的接口 ID 之一。若要获取接口的接口 ID，请使用 __uuidof 运算符。例如，IAudioAutoGainControl 接口的接口 ID 定义如下：const IID IID_IAudioAutoGainControl = __uuidof(IAudioAutoGainControl)。有关 __uuidof 运算符的详细信息，请参阅 Windows SDK 文档。",
       "requirements": {
         "target_platform": "Windows",
@@ -1429,10 +1532,14 @@
         {
           "name": "pcJacks",
           "direction": "out",
-          "description": "指向 UINT 变量的指针，方法在其中写入与连接器关联的插孔数。"
+          "description": "指向 UINT 变量的指针，方法在其中写入与连接器关联的插孔数。",
+          "type": "UINT"
         }
       ],
-      "return_value": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER。"
+      },
       "remarks": "如果音频终结点设备支持 IKsJackDescription 接口，则 Windows 多媒体控制面板 （Mmsys.cpl）将显示插孔信息。 若要查看插孔信息，请执行以下步骤： 1. 若要运行 Mmsys.cpl，请打开命令提示符窗口并输入以下命令： 控制 mmsys.cpl 或者，可以通过右键单击位于任务栏右侧的通知区域中的扬声器图标并选择 “播放设备 ”或“ 录制设备”来运行 Mmsys.cpl。 2. 打开 Mmsys.cpl 窗口后，从播放设备列表或录制设备列表中选择设备，然后单击“属性”。 3. 属性窗口打开后，单击“ 常规”。 如果所选属性页显示设备的插孔信息，则设备支持 IKsJackDescription 接口。 如果属性页显示文本“没有可用的插孔信息”，则设备不支持 接口。 下面的代码示例演示如何获取音频终结点设备的 IKsJackDescription 接口： C++ //----------------------------------------------------------- // Get the IKsJackDescription interface that describes the// audio jack or jacks that the endpoint device plugs into. //-----------------------------------------------------------#define EXIT_ON_ERROR(hres) \\ if (FAILED(hres)) { goto Exit; }#define SAFE_RELEASE(punk) \\ if ((punk) != NULL) \\ { (punk)->Release(); (punk) = NULL; } HRESULT GetJackInfo(IMMDevice *pDevice, IKsJackDescription **ppJackDesc){ HRESULT hr = S_OK; IDeviceTopology *pDeviceTopology = NULL; IConnector *pConnFrom = NULL; IConnector *pConnTo = NULL; IPart *pPart = NULL; IKsJackDescription *pJackDesc = NULL; if (NULL != ppJackDesc) { *ppJackDesc = NULL; } if (NULL == pDevice || NULL == ppJackDesc) { return E_POINTER; } // Get the endpoint device's IDeviceTopology interface. hr = pDevice->Activate(__uuidof(IDeviceTopology), CLSCTX_ALL, NULL, (void**)&pDeviceTopology); EXIT_ON_ERROR(hr) // The device topology for an endpoint device always // contains just one connector (connector number 0). hr = pDeviceTopology->GetConnector(0, &pConnFrom); EXIT_ON_ERROR(hr) // Step across the connection to the jack on the adapter. hr = pConnFrom->GetConnectedTo(&pConnTo); if (HRESULT_FROM_WIN32(ERROR_PATH_NOT_FOUND) == hr) { // The adapter device is not currently active. hr = E_NOINTERFACE; }",
       "requirements": {
         "target_platform": "Windows",
@@ -1468,11 +1575,13 @@
         {
           "name": "nJack",
           "direction": "in",
-          "description": "要获取其说明的插孔的索引。 如果连接由 n 个插孔组成，则插孔的编号从 0 到 n – 1。 若要获 取插孔数，请调用 IKsJackDescription：：GetJackCount 方法。[out] pDescription2 指向调用方分配的缓冲区的指针，方法在其中写入包含有关插孔信息的 KSJACK_DESCRIPTION2 类型的结构。 缓冲区大小必须至少 sizeof(KSJACK_DESCRIPTION2) 为 。"
+          "description": "要获取其说明的插孔的索引。 如果连接由 n 个插孔组成，则插孔的编号从 0 到 n – 1。 若要获 取插孔数，请调用 IKsJackDescription：：GetJackCount 方法。[out] pDescription2 指向调用方分配的缓冲区的指针，方法在其中写入包含有关插孔信息的 KSJACK_DESCRIPTION2 类型的结构。 缓冲区大小必须至少 sizeof(KSJACK_DESCRIPTION2) 为 。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -1492,11 +1601,13 @@
         {
           "name": "pJackSinkInformation",
           "direction": "out",
-          "description": "指向调用方分配的缓冲区的指针，该缓冲区接收 KSJACK_SINK_INFORMATION 结构中插孔的接 收器信息。 缓冲区大小必须至少 sizeof(KSJACK_SINK_INFORMATION) 为 。"
+          "description": "指向调用方分配的缓冲区的指针，该缓冲区接收 KSJACK_SINK_INFORMATION 结构中插孔的接 收器信息。 缓冲区大小必须至少 sizeof(KSJACK_SINK_INFORMATION) 为 。",
+          "type": "KSJACK_SINK_INFORMATION"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -1516,11 +1627,13 @@
         {
           "name": "nChannel",
           "direction": "in",
-          "description": "通道号。 如果音频流具有 N 个通道，则通道的编号从 0 到 N – 1。 若要获取流中的通道数，请 调用 IAudioPeakMeter：：GetChannelCount 方法。[out] pfLevel 指向 浮点 变量的指针，该方法在其中以分贝为单位写入峰值计量级别。"
+          "description": "通道号。 如果音频流具有 N 个通道，则通道的编号从 0 到 N – 1。 若要获取流中的通道数，请 调用 IAudioPeakMeter：：GetChannelCount 方法。[out] pfLevel 指向 浮点 变量的指针，该方法在其中以分贝为单位写入峰值计量级别。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于表中显示的值。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于表中显示的值。",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -1540,10 +1653,14 @@
         {
           "name": "nChannel",
           "direction": "in",
-          "description": "所选通道的编号。 如果音频流具有 n 个通道，则通道的编号从 0 到 n – 1。 若要获取流中的通 道数，请调用 IPerChannelDbLevel：：GetChannelCount 方法。[out] pfMinLevelDB 指向 浮点 变量的指针，该方法在其中以分贝为单位写入最小音量。[out] pfMaxLevelDB 指向 浮点 变量的指针，方法在其中以分贝为单位写入最大音量级别。[out] pfStepping 指向 浮点 变量的指针，方法在其中将范围 *pfMinLevelDB 中的连续卷级别之间的步进值写入 到*pfMaxLevelDB。 如果最大和最小音量级别的差为 d 分贝，并且范围分为 n 个步骤 (大小统一的 间隔) ，则卷可以有 n + 1 个离散级别，并且连续级别之间的步长大小为 d / n 分贝。"
+          "description": "所选通道的编号。 如果音频流具有 n 个通道，则通道的编号从 0 到 n – 1。 若要获取流中的通 道数，请调用 IPerChannelDbLevel：：GetChannelCount 方法。[out] pfMinLevelDB 指向 浮点 变量的指针，该方法在其中以分贝为单位写入最小音量。[out] pfMaxLevelDB 指向 浮点 变量的指针，方法在其中以分贝为单位写入最大音量级别。[out] pfStepping 指向 浮点 变量的指针，方法在其中将范围 *pfMinLevelDB 中的连续卷级别之间的步进值写入 到*pfMaxLevelDB。 如果最大和最小音量级别的差为 d 分贝，并且范围分为 n 个步骤 (大小统一的 间隔) ，则卷可以有 n + 1 个离散级别，并且连续级别之间的步长大小为 d / n 分贝。",
+          "type": "UINT"
         }
       ],
-      "return_value": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于表中显示的值。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于表中显示的值。"
+      },
       "header": "devicetopology.h",
       "deprecated": false,
       "cross_references": [
@@ -1562,11 +1679,13 @@
         {
           "name": "pbEnabled",
           "direction": "out",
-          "description": "指向布尔变量的指针，指示已应用于卸载音频流的本地效果的状态。 值为 TRUE 表示本地效果 已启用并应用于流。 值为 FALSE 表示已禁用本地效果。"
+          "description": "指向布尔变量的指针，指示已应用于卸载音频流的本地效果的状态。 值为 TRUE 表示本地效果 已启用并应用于流。 值为 FALSE 表示已禁用本地效果。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
-        "description": "GetLocalEffectsState 方法返回S_OK以指示它已成功完成。 否则，它将返回相应的错误代码。"
+        "description": "GetLocalEffectsState 方法返回S_OK以指示它已成功完成。 否则，它将返回相应的错误代码。",
+        "type": "HRESULT"
       },
       "header": "audioengineendpoint.h",
       "deprecated": false,
@@ -1586,10 +1705,14 @@
         {
           "name": "pnId",
           "direction": "out",
-          "description": "指向 UINT 变量的指针，方法在此变量中写入此部件的本地 ID。"
+          "description": "指向 UINT 变量的指针，方法在此变量中写入此部件的本地 ID。",
+          "type": "UINT"
         }
       ],
-      "return_value": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。"
+      },
       "remarks": "如果指针 pnId 为 NULL，则返回 E_POINTER。如果具有指向部件对象的指针，则可以调用此方法以获取部件的本地 ID。本地 ID 是一个数字，用于唯一标识设备拓扑中所有部件中的部件。IAudioInputSelector::GetSelection 和 IAudioOutputSelector::GetSelection 方法检索连接的部件的本地 ID。IAudioInputSelector::SetSelection 和 IAudioOutputSelector::SetSelection 方法设置连接的部件的本地 ID。",
       "header": "devicetopology.h",
       "deprecated": false,
@@ -1611,10 +1734,14 @@
         {
           "name": "pfLevel",
           "direction": "out",
-          "description": "指向方法将客户端卷级别写入其中的 float 变量的指针。 音量级别是介于 0.0 到 1.0 范围内的值。"
+          "description": "指向方法将客户端卷级别写入其中的 float 变量的指针。 音量级别是介于 0.0 到 1.0 范围内的值。",
+          "type": "float"
         }
       ],
-      "return_value": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（如果 pfLevel 为 NULL）。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（如果 pfLevel 为 NULL）。"
+      },
       "header": "audioclient.h",
       "deprecated": false,
       "cross_references": [
@@ -1633,11 +1760,13 @@
         {
           "name": "pfLevelDB",
           "direction": "out",
-          "description": "指向主卷级别的指针。 此参数指向一个 浮点 变量，方法在其中以分贝为单位写入卷级别。 若要获取从此方法获取的卷级别范围，请调用 IAudioEndpointVolume：：GetVolumeRange 方法。"
+          "description": "指向主卷级别的指针。 此参数指向一个 浮点 变量，方法在其中以分贝为单位写入卷级别。 若要获取从此方法获取的卷级别范围，请调用 IAudioEndpointVolume：：GetVolumeRange 方法。",
+          "type": "float"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1668,11 +1797,13 @@
         {
           "name": "pfLevel",
           "direction": "out",
-          "description": "指向主卷级别的指针。 此参数指向一个 浮点 变量，方法在其中写入卷级别。 级别表示为 0.0 到 1.0 范围内的规范化值。"
+          "description": "指向主卷级别的指针。 此参数指向一个 浮点 变量，方法在其中写入卷级别。 级别表示为 0.0 到 1.0 范围内的规范化值。",
+          "type": "float"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER",
+        "type": "HRESULT"
       },
       "remarks": "说明 参数 pfLevel 为 NULL。音量级别规范化为 0.0 到 1.0 的范围，其中 0.0 是最小音量级别，1.0 是最大音量级别。在此范围内，规范化音量级别与信号振幅衰减的关系由非线性音频锥形曲线描述。请注意，曲线的形状 可能会在 Windows 的未来版本中更改。有关音频锥形曲线的详细信息，请参阅 音频锥形音量控制。此方法检索的规范化音量级别适用于表示音量控件在应用程序窗口和屏幕显示中的位置。有关调用 GetMasterVolumeLevelScalar 的代码示例，请参阅 端点音量控件。",
       "header": "endpointvolume.h",
@@ -1693,7 +1824,8 @@
         {
           "name": "category",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "AUDIO_STREAM_CATEGORY"
         }
       ],
       "header": "spatialaudioclient.h",
@@ -1703,7 +1835,11 @@
         "GetMeterChannelCount"
       ],
       "confidence": 0.8,
-      "_source_line": 335
+      "_source_line": 335,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetMeteringChannelCount",
@@ -1715,11 +1851,13 @@
         {
           "name": "pnChannelCount",
           "direction": "out",
-          "description": "指向方法写入通道数的 UINT 变量的指针。"
+          "description": "指向方法写入通道数的 UINT 变量的指针。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（如果 pnChannelCount 为 NULL）。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（如果 pnChannelCount 为 NULL）。",
+        "type": "HRESULT"
       },
       "header": "endpointvolume.h",
       "deprecated": false,
@@ -1739,11 +1877,13 @@
         {
           "name": "u32ChannelCount",
           "direction": "in",
-          "description": "指示卸载的音频流中的可用音频通道数。[out] pf32PeakValues 指向卸载的音频流中音频声道峰值的指针。"
+          "description": "指示卸载的音频流中的可用音频通道数。[out] pf32PeakValues 指向卸载的音频流中音频声道峰值的指针。",
+          "type": "UINT32"
         }
       ],
       "return_value": {
-        "description": "成功返回S_OK，失败返回相应的错误代码"
+        "description": "成功返回S_OK，失败返回相应的错误代码",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1769,11 +1909,13 @@
         {
           "name": "ppDeviceFormat",
           "direction": "out",
-          "description": "指向指针变量的指针，方法在其中写入混合格式的地址。 此参数必须是指向指针变量的有效非 NULL 指针。 方法将 WAVEFORMATEX (或 WAVEFORMATEXTENSIBLE) 结构的地址写入此变量。 方法为 结构分配存储。 调用方负责通过调用 CoTaskMemFree 函数，在不再需要存储时释放存储。 如果 GetMixFormat 调用失败， 则 *ppDeviceFormat 为 NULL。 有关 WAVEFORMATEX、 WAVEFORMATEXTENSIBLE 和 CoTaskMemFree 的信息，请参阅 Windows SDK 文档。"
+          "description": "指向指针变量的指针，方法在其中写入混合格式的地址。 此参数必须是指向指针变量的有效非 NULL 指针。 方法将 WAVEFORMATEX (或 WAVEFORMATEXTENSIBLE) 结构的地址写入此变量。 方法为 结构分配存储。 调用方负责通过调用 CoTaskMemFree 函数，在不再需要存储时释放存储。 如果 GetMixFormat 调用失败， 则 *ppDeviceFormat 为 NULL。 有关 WAVEFORMATEX、 WAVEFORMATEXTENSIBLE 和 CoTaskMemFree 的信息，请参阅 Windows SDK 文档。",
+          "type": "WAVEFORMATEX"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "audioclient.h",
       "deprecated": false,
@@ -1797,7 +1939,8 @@
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（如果 pbMuted 为 NULL）。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（如果 pbMuted 为 NULL）。",
+        "type": "HRESULT"
       },
       "remarks": "如果 pbMuted 为 NULL，则返回 E_POINTER。有关调用 GetMute 的代码示例，请参阅终结点卷控件。",
       "requirements": {
@@ -1824,11 +1967,13 @@
         {
           "name": "ppwstrName",
           "direction": "out",
-          "description": "指向字符串指针的指针，方法在其中写入包含友好名称的以 null 结尾的宽字符字符串的地址。方法为字符串分配存储。 当不再需要存储时，调用方负责通过调用 CoTaskMemFree 函数来释放存储。 如果 GetName 调用失败， *ppwstrName 为 NULL。 有关 CoTaskMemFree 的信息， 请参阅 Windows SDK 文档。"
+          "description": "指向字符串指针的指针，方法在其中写入包含友好名称的以 null 结尾的宽字符字符串的地址。方法为字符串分配存储。 当不再需要存储时，调用方负责通过调用 CoTaskMemFree 函数来释放存储。 如果 GetName 调用失败， *ppwstrName 为 NULL。 有关 CoTaskMemFree 的信息， 请参阅 Windows SDK 文档。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。返回代码 E_POINTER 表示 ppwstrName 参数无效。"
+        "description": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。返回代码 E_POINTER 表示 ppwstrName 参数无效。",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -1853,7 +1998,8 @@
         }
       ],
       "return_value": {
-        "description": "如果成功，返回 S_OK。如果失败，返回错误代码。"
+        "description": "如果成功，返回 S_OK。如果失败，返回错误代码。",
+        "type": "HRESULT"
       },
       "header": "audioclient.h",
       "deprecated": false,
@@ -1876,11 +2022,13 @@
         {
           "name": "nIndex",
           "direction": "in",
-          "description": "要检索的部件的部件号。 如果部件列表包含 n 个 部件，则部件的编号为 0 到 n – 1。 调用 IPartsList：：GetCount 方法以获取列表中的部件数。[out] ppPart 指向指针变量的指针，方法将部件对象的 IPart 接口的地址写入其中。 通过此方法，调用方获取对 IPart 接口的计数引用。 调用方负责通过调用接口的 Release 方法，在不再需要接口时释放接 口。 如果 GetPart 调用失败， 则 *ppPart 为 NULL。"
+          "description": "要检索的部件的部件号。 如果部件列表包含 n 个 部件，则部件的编号为 0 到 n – 1。 调用 IPartsList：：GetCount 方法以获取列表中的部件数。[out] ppPart 指向指针变量的指针，方法将部件对象的 IPart 接口的地址写入其中。 通过此方法，调用方获取对 IPart 接口的计数引用。 调用方负责通过调用接口的 Release 方法，在不再需要接口时释放接 口。 如果 GetPart 调用失败， 则 *ppPart 为 NULL。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -1898,10 +2046,14 @@
         {
           "name": "nId",
           "direction": "in",
-          "description": "要获取的部分。 此参数是部件的本地 ID。 有关详细信息，请参阅“备注”。[out] ppPart 指向指针变量的指针，方法在其中写入由 nId 标识的部件对象的 IPart 接口的地址。 通过此方法，调用方获取对 接口的计数引用。 调用方负责在不再需要接口时通过调用接口的 Release 方 法释放接口。 如果 GetPartById 调用失败， 则 *ppPart 为 NULL。"
+          "description": "要获取的部分。 此参数是部件的本地 ID。 有关详细信息，请参阅“备注”。[out] ppPart 指向指针变量的指针，方法在其中写入由 nId 标识的部件对象的 IPart 接口的地址。 通过此方法，调用方获取对 接口的计数引用。 调用方负责在不再需要接口时通过调用接口的 Release 方 法释放接口。 如果 GetPartById 调用失败， 则 *ppPart 为 NULL。",
+          "type": "UINT"
         }
       ],
-      "return_value": "{\"description\":\"如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（ppPart 为 NULL）、E_INVALIDARG（nId 无效）等。\"}",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "{\"description\":\"如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（ppPart 为 NULL）、E_INVALIDARG（nId 无效）等。\"}"
+      },
       "header": "devicetopology.h",
       "deprecated": false,
       "cross_references": [
@@ -1921,11 +2073,13 @@
         {
           "name": "pPartType",
           "direction": "out",
-          "description": "指向方法将部件类型写入其中的 PartType 变量的指针。 部件类型是下列 PartType 枚举值之一，该值指示部件是连接器还是子单元： 连接器亚基"
+          "description": "指向方法将部件类型写入其中的 PartType 变量的指针。 部件类型是下列 PartType 枚举值之一，该值指示部件是连接器还是子单元： 连接器亚基",
+          "type": "PartType"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER",
+        "type": "HRESULT"
       },
       "remarks": "说明 指针 pPartType 为 NULL。 有关使用此方法的代码示例，请参阅 设备拓扑中 SelectCaptureDevice 函数的实现。",
       "header": "devicetopology.h",
@@ -1947,11 +2101,13 @@
         {
           "name": "pfPeak",
           "direction": "out",
-          "description": "指向 浮点 变量的指针，方法在该变量中写入音频流的峰值样本值。 峰值是规范化范围从 0.0 到 1.0 的数字。"
+          "description": "指向 浮点 变量的指针，方法在该变量中写入音频流的峰值样本值。 峰值是规范化范围从 0.0 到 1.0 的数字。",
+          "type": "float"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER",
+        "type": "HRESULT"
       },
       "remarks": "说明 参数 pfPeak 为 NULL。 此方法检索流中所有通道中记录的峰值样本值。 每个通道的峰值记录在一个设备周期内，并在后续设备期间可用。 因此，此方法始终检索在上一个设备期间记录的峰值。 若要获取设备周期，请调用 IAudioClient：：GetDevicePeriod 方法。 有关使用 GetPeakValue 方法的代码示例，请参阅 峰值计量。",
       "requirements": {
@@ -1979,11 +2135,13 @@
         {
           "name": "pu64Position",
           "direction": "out",
-          "description": "指向方法将设备位置写入其中的 UINT64 变量的指针。 设备位置是从流开始到流中当前位置的偏移量。 但是，表示此偏移量的单位未定义 - 设备位置值仅与 IAudioClock：：GetFrequency 方法报告的频率相关。 有关详细信息，请参阅“备注”。[out] pu64QPCPosition 指向 UINT64 变量的指针，当音频终结点设备 (*pu64Position) 响应 GetPosition 调用时，方法将性能计数器的值写入其中。 方法将计数器值转换为 100 纳秒时间单位，然后再将其写入 *pu64QPCPosition。 如果客户端不需要性能计数器值，此参数可以为 NULL 。"
+          "description": "指向方法将设备位置写入其中的 UINT64 变量的指针。 设备位置是从流开始到流中当前位置的偏移量。 但是，表示此偏移量的单位未定义 - 设备位置值仅与 IAudioClock：：GetFrequency 方法报告的频率相关。 有关详细信息，请参阅“备注”。[out] pu64QPCPosition 指向 UINT64 变量的指针，当音频终结点设备 (*pu64Position) 响应 GetPosition 调用时，方法将性能计数器的值写入其中。 方法将计数器值转换为 100 纳秒时间单位，然后再将其写入 *pu64QPCPosition。 如果客户端不需要性能计数器值，此参数可以为 NULL 。",
+          "type": "UINT64"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功并获取位置的准确读数，则返回S_OK。 如果方法成功，但调用的持续时间足够长，足以降低位置读取的准确性，则该方法返回S_FALSE。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER 说明 参数 pu64Position 为 NULL。"
+        "description": "如果该方法成功并获取位置的准确读数，则返回S_OK。 如果方法成功，但调用的持续时间足够长，足以降低位置读取的准确性，则该方法返回S_FALSE。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER 说明 参数 pu64Position 为 NULL。",
+        "type": "HRESULT"
       },
       "header": "audioclient.h",
       "deprecated": false,
@@ -2003,11 +2161,13 @@
         {
           "name": "pRetVal",
           "direction": "out",
-          "description": "指向接收音频会话的进程标识符的 DWORD 变量的指针。"
+          "description": "指向接收音频会话的进程标识符的 DWORD 变量的指针。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。",
+        "type": "HRESULT"
       },
       "header": "audiopolicy.h",
       "deprecated": false,
@@ -2028,11 +2188,13 @@
         {
           "name": "pnIdSelected",
           "direction": "out",
-          "description": "指向 UINT 变量的指针，该方法将直接链接到当前所选选择器输入的部件的本地 ID 写入其中。"
+          "description": "指向 UINT 变量的指针，该方法将直接链接到当前所选选择器输入的部件的本地 ID 写入其中。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（如果 pnIdSelected 为 NULL）。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（如果 pnIdSelected 为 NULL）。",
+        "type": "HRESULT"
       },
       "remarks": "指针 pnIdSelected 不能为 NULL。本地 ID 是一个数字，用于唯一标识设备拓扑中所有部件中的某个部件。若要从部件的本地 ID 获取指向部件 IPart 接口的指针，请调用 IDeviceTopology::GetPartById 方法。",
       "requirements": {
@@ -2060,11 +2222,13 @@
         {
           "name": "riid",
           "direction": "in",
-          "description": "请求的服务的接口 ID。 客户端应将此参数设置为以下 REFIID 值之一： IID_IAudioCaptureClient IID_IAudioClientDuckingControl IID_IAudioClock IID_IAudioRenderClient IID_IAudioSessionControl IID_IAudioStreamVolume IID_IChannelAudioVolume IID_IMFTrustedOutput IID_ISimpleAudioVolume 有关详细信息，请参阅“备注”。[out] ppv 指向指针变量的指针，方法在该变量中写入所请求接口实例的地址。 通过此方法，调用方获取对 接口的计数引用。 调用方负责通过调用接口的 Release 方法，在不再需要接口时释放接口。 如果 GetService 调用失败， 则 *ppv 为 NULL。"
+          "description": "请求的服务的接口 ID。 客户端应将此参数设置为以下 REFIID 值之一： IID_IAudioCaptureClient IID_IAudioClientDuckingControl IID_IAudioClock IID_IAudioRenderClient IID_IAudioSessionControl IID_IAudioStreamVolume IID_IChannelAudioVolume IID_IMFTrustedOutput IID_ISimpleAudioVolume 有关详细信息，请参阅“备注”。[out] ppv 指向指针变量的指针，方法在该变量中写入所请求接口实例的地址。 通过此方法，调用方获取对 接口的计数引用。 调用方负责通过调用接口的 Release 方法，在不再需要接口时释放接口。 如果 GetService 调用失败， 则 *ppv 为 NULL。",
+          "type": "REFIID"
         }
       ],
       "return_value": {
-        "description": "Returns S_OK if successful. Possible error codes include E_POINTER and other values not listed here."
+        "description": "Returns S_OK if successful. Possible error codes include E_POINTER and other values not listed here.",
+        "type": "HRESULT"
       },
       "header": "audioclient.h",
       "deprecated": false,
@@ -2082,11 +2246,13 @@
         {
           "name": "SessionEnum",
           "direction": "out",
-          "description": "接收指向会话枚举器对象的 IAudioSessionEnumerator 接口的指针，客户端可以使用该接口枚举音频设备上的音频会话。 通过此方法，调用方获取对 接口的计数引用。 调用方负责通过调用接 口的 Release 方法，在不再需要接口时释放接口。"
+          "description": "接收指向会话枚举器对象的 IAudioSessionEnumerator 接口的指针，客户端可以使用该接口枚举音频设备上的音频会话。 通过此方法，调用方获取对 接口的计数引用。 调用方负责通过调用接 口的 Release 方法，在不再需要接口时释放接口。",
+          "type": "IAudioSessionEnumerator"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。"
+        "description": "如果该方法成功，则它会返回 S_OK。",
+        "type": "HRESULT"
       },
       "remarks": "会话管理器通过查询音频引擎来维护音频设备上处于活动状态的音频会话集合。",
       "header": "audiopolicy.h",
@@ -2107,11 +2273,13 @@
         {
           "name": "pRetVal",
           "direction": "out",
-          "description": "指向接收音频会话标识符的以 null 结尾的宽字符字符串的地址的指针。 字符串由此方法分配，必须由调用方通过调用 CoTaskMemFree 释放。 有关 CoTaskMemFree 的信息，请参阅 Windows SDK 文档。"
+          "description": "指向接收音频会话标识符的以 null 结尾的宽字符字符串的地址的指针。 字符串由此方法分配，必须由调用方通过调用 CoTaskMemFree 释放。 有关 CoTaskMemFree 的信息，请参阅 Windows SDK 文档。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。",
+        "type": "HRESULT"
       },
       "header": "audiopolicy.h",
       "deprecated": false,
@@ -2129,11 +2297,13 @@
         {
           "name": "pRetVal",
           "direction": "out",
-          "description": "指向以 null 结尾的宽字符字符串的地址的指针，该字符串接收音频会话的特定实例的标识符。字符串由此方法分配，必须由调用方通过调用 CoTaskMemFree 释放。 有关 CoTaskMemFree 的信息，请参阅 Windows SDK 文档。"
+          "description": "指向以 null 结尾的宽字符字符串的地址的指针，该字符串接收音频会话的特定实例的标识符。字符串由此方法分配，必须由调用方通过调用 CoTaskMemFree 释放。 有关 CoTaskMemFree 的信息，请参阅 Windows SDK 文档。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。",
+        "type": "HRESULT"
       },
       "header": "audiopolicy.h",
       "deprecated": false,
@@ -2151,10 +2321,14 @@
         {
           "name": "pIPartFrom",
           "direction": "in",
-          "description": "指向“from”部分的指针。 此参数是指向信号路径开头部分的 IPart 接口的指针。[in] pIPartTo 指向“to”部分的指针。 此参数是指向信号路径末尾部分的 IPart 接口的指针。[in] bRejectMixedPaths 指定是否拒绝包含混合数据的路径。 如果 bRejectMixedPaths (非零) 为 TRUE ，则该方法将忽略包含混音器 (即) 两个或多个输入信号相加的处理节点的任何数据路径。 如果 为 FALSE，该方法 将尝试查找连接“from”和“to”部分的路径，而不考虑路径是否包含混音器。[out] ppParts 指向指针变量的指针，方法将 IPartsList 接口实例的地址写入其中。 此接口封装信号路径中将“from”部分连接到“to”部分的部件列表。 通过此方法，调用方获取对 接口的计数引用。 调用方负责通过调用接口的 Release 方法，在不再需要接口时释放接口。 如果 GetSignalPath 调用失 败， 则 *ppParts 为 NULL。"
+          "description": "指向“from”部分的指针。 此参数是指向信号路径开头部分的 IPart 接口的指针。[in] pIPartTo 指向“to”部分的指针。 此参数是指向信号路径末尾部分的 IPart 接口的指针。[in] bRejectMixedPaths 指定是否拒绝包含混合数据的路径。 如果 bRejectMixedPaths (非零) 为 TRUE ，则该方法将忽略包含混音器 (即) 两个或多个输入信号相加的处理节点的任何数据路径。 如果 为 FALSE，该方法 将尝试查找连接“from”和“to”部分的路径，而不考虑路径是否包含混音器。[out] ppParts 指向指针变量的指针，方法将 IPartsList 接口实例的地址写入其中。 此接口封装信号路径中将“from”部分连接到“to”部分的部件列表。 通过此方法，调用方获取对 接口的计数引用。 调用方负责通过调用接口的 Release 方法，在不再需要接口时释放接口。 如果 GetSignalPath 调用失 败， 则 *ppParts 为 NULL。",
+          "type": "IPart"
         }
       ],
-      "return_value": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER。"
+      },
       "header": "devicetopology.h",
       "deprecated": false,
       "cross_references": [
@@ -2173,11 +2347,13 @@
         {
           "name": "AudioSessionGuid",
           "direction": "in",
-          "description": "指向会话 GUID 的指针。 如果 GUID 未标识以前打开的会话，则调用将打开一个新的但为空的会话。 Sndvol 程序不显示会话的音量级控件，除非它包含一个或多个活动流。 如果此参数为 NULL 或指向值GUID_NULL，则该方法会将流分配给默认会话。[in] StreamFlags 指定请求是否用于跨进程会话。 如果会话是跨进程，则设置为 TRUE 。 如果会话不是跨进程， 则设置为 FALSE 。[out] AudioVolume 指向指针变量的指针，该方法在其中写入指向音频音量控制对象的 ISimpleAudioVolume 接口的指针。 此接口表示当前进程的简单音频音量控制。 调用方负责通过调用接口的 Release 方法， 在不再需要接口时释放接口。 如果 Activate 调用失败， 则 *AudioVolume 为 NULL。"
+          "description": "指向会话 GUID 的指针。 如果 GUID 未标识以前打开的会话，则调用将打开一个新的但为空的会话。 Sndvol 程序不显示会话的音量级控件，除非它包含一个或多个活动流。 如果此参数为 NULL 或指向值GUID_NULL，则该方法会将流分配给默认会话。[in] StreamFlags 指定请求是否用于跨进程会话。 如果会话是跨进程，则设置为 TRUE 。 如果会话不是跨进程， 则设置为 FALSE 。[out] AudioVolume 指向指针变量的指针，该方法在其中写入指向音频音量控制对象的 ISimpleAudioVolume 接口的指针。 此接口表示当前进程的简单音频音量控制。 调用方负责通过调用接口的 Release 方法， 在不再需要接口时释放接口。 如果 Activate 调用失败， 则 *AudioVolume 为 NULL。",
+          "type": "LPCGUID"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "audiopolicy.h",
       "deprecated": false,
@@ -2198,11 +2374,13 @@
         {
           "name": "phnsLatency",
           "direction": "out",
-          "description": "指向 REFERENCE_TIME 变量的指针，方法在该变量中写入表示延迟的时间值。 时间以 100 纳秒 为单位表示。 有关 REFERENCE_TIME的详细信息，请参阅 Windows SDK 文档。"
+          "description": "指向 REFERENCE_TIME 变量的指针，方法在该变量中写入表示延迟的时间值。 时间以 100 纳秒 为单位表示。 有关 REFERENCE_TIME的详细信息，请参阅 Windows SDK 文档。",
+          "type": "REFERENCE_TIME"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "audioclient.h",
       "deprecated": false,
@@ -2222,11 +2400,13 @@
         {
           "name": "pSubType",
           "direction": "out",
-          "description": "指向 GUID 变量的指针，方法在此变量中写入此部件的子类型 GUID。"
+          "description": "指向 GUID 变量的指针，方法在此变量中写入此部件的子类型 GUID。",
+          "type": "GUID"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER",
+        "type": "HRESULT"
       },
       "remarks": "说明 指针 pSubType 为 NULL。 此方法通常从头文件 Ksmedia.h 检索 KSNODETYPE_Xxx GUID 值之一，尽管某些自定义驱动程序可能提供其他 GUID 值。 有关 KSNODETYPE_Xxx GUID 的详细信息，请参阅 Windows DDK 文档。 如 IPart Interface 中所述，部件可以是连接器或子单元。 对于作为连接器的部件，此方法检索驱动程序已分配给连接器的引脚类别 GUID。 下面是引脚类别 GUID 的示例： 如果连接器是模拟设备（如麦克风或扬声器）的数据路径的一部分，则 KSNODETYPE_ANALOG_CONNECTOR。 如果连接器是 S/PDIF 端口的数据路径的一部分，则KSNODETYPE_SPDIF_INTERFACE。 有关详细信息，请参阅 Windows DDK 文档中的固定类别属性KSPROPERTY_PIN_CATEGORY的讨论。 对于作为子单元的部件，此方法检索指示子单元执行的流处理函数的子类型 GUID。 例如，对于卷控制子单元，方法检索 GUID 值KSNODETYPE_VOLUME。 下表列出了一些子类型 GUID，这些 GUID 可由子单元的 GetSubType 方法检索。 子类型 GUID",
       "header": "devicetopology.h",
@@ -2277,11 +2457,13 @@
         {
           "name": "pCount",
           "direction": "out",
-          "description": "指向 UINT 变量的指针，方法将子单位计数写入其中， (设备拓扑) 的子单元数。"
+          "description": "指向 UINT 变量的指针，方法将子单位计数写入其中， (设备拓扑) 的子单元数。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -2301,11 +2483,13 @@
         {
           "name": "ppTopology",
           "direction": "out",
-          "description": "指向指针变量的指针，方法在其中写入 device-topology 对象的 IDeviceTopology 接口的地址。调用方从此方法获取对 接口的计数引用。 通过此方法，调用方获取对 接口的计数引用。 调用方负责通过调用接口的 Release 方法，在不再需要接口时释放接口。 如果 GetTopologyObject 调用失败， 则 *ppTopology 为 NULL。"
+          "description": "指向指针变量的指针，方法在其中写入 device-topology 对象的 IDeviceTopology 接口的地址。调用方从此方法获取对 接口的计数引用。 通过此方法，调用方获取对 接口的计数引用。 调用方负责通过调用接口的 Release 方法，在不再需要接口时释放接口。 如果 GetTopologyObject 调用失败， 则 *ppTopology 为 NULL。",
+          "type": "IDeviceTopology"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER",
+        "type": "HRESULT"
       },
       "remarks": "有关使用此方法的代码示例，请参阅以下主题：设备拓扑、使用 IKsControl 接口访问音频属性。",
       "header": "devicetopology.h",
@@ -2326,7 +2510,8 @@
         {
           "name": "pvValue",
           "direction": "out",
-          "description": "指向调用方分配的缓冲区的指针，方法在其中写入属性值。 pcbValue"
+          "description": "指向调用方分配的缓冲区的指针，方法在其中写入属性值。 pcbValue",
+          "type": "void"
         },
         {
           "name": "指向",
@@ -2335,7 +2520,8 @@
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK。失败时返回错误代码，包括但不限于 E_POINTER。"
+        "description": "成功时返回 S_OK。失败时返回错误代码，包括但不限于 E_POINTER。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2361,7 +2547,8 @@
         {
           "name": "pu32ChannelCount",
           "direction": "out",
-          "description": "指向卸载流中可用音频通道数的指针。"
+          "description": "指向卸载流中可用音频通道数的指针。",
+          "type": "UINT32"
         }
       ],
       "requirements": {
@@ -2374,7 +2561,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 441
+      "_source_line": 441,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetVolumeRange",
@@ -2386,10 +2577,14 @@
         {
           "name": "pflVolumeMindB",
           "direction": "out",
-          "description": "指向最小音量级别的指针。 此参数指向一个 浮点 变量，方法在其中以分贝为单位写入最小音量 级别。 此值在 IAudioEndpointVolume 接口实例的生存期内保持不变。[out] pflVolumeMaxdB 指向最大卷级别的指针。 此参数指向一个 浮点 变量，方法在其中以分贝为单位写入最大音量级 别。 此值在 IAudioEndpointVolume 接口实例的生存期内保持不变。[out] pflVolumeIncrementdB 指向卷增量的指针。 此参数指向一个 浮点 变量，方法在其中以分贝为单位写入卷增量。 此增 量在 IAudioEndpointVolume 接口实例的生存期内保持不变。"
+          "description": "指向最小音量级别的指针。 此参数指向一个 浮点 变量，方法在其中以分贝为单位写入最小音量 级别。 此值在 IAudioEndpointVolume 接口实例的生存期内保持不变。[out] pflVolumeMaxdB 指向最大卷级别的指针。 此参数指向一个 浮点 变量，方法在其中以分贝为单位写入最大音量级 别。 此值在 IAudioEndpointVolume 接口实例的生存期内保持不变。[out] pflVolumeIncrementdB 指向卷增量的指针。 此参数指向一个 浮点 变量，方法在其中以分贝为单位写入卷增量。 此增 量在 IAudioEndpointVolume 接口实例的生存期内保持不变。",
+          "type": "float"
         }
       ],
-      "return_value": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。返回代码 E_POINTER",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。返回代码 E_POINTER"
+      },
       "remarks": "参数 pflVolumeMindB、pflVolumeMaxdB 或 pflVolumeIncrementdB 为 NULL。从 vmin = *pflVolumeMindB 到 vmax = *pflVolumeMaxdB 的音量范围划分为大小 vinc = *pflVolumeIncrementdB 的 n 个统一间隔，其中 n = (vmax – vmin) / vinc。vmin、vmax 和 vinc 的值以分贝为单位。客户端可以将音量级别设置为从 vmin 到 vmax 范围内的 n + 1 个离散值之一。",
       "header": "endpointvolume.h",
       "deprecated": false,
@@ -2410,11 +2605,13 @@
         {
           "name": "iChannel",
           "direction": "in",
-          "description": "要获取其音量范围的通道号。 如果音频流具有 n 个通道，则通道的编号从 0 到 n – 1。 若要获 取流中的通道数，请调用 IAudioEndpointVolume：：GetChannelCount 方法。[out] pflVolumeMindB 接收通道的最小音量级别（以分贝为单位）。[out] pflVolumeMaxdB 接收通道的最大音量级别（以分贝为单位）。[out] pflVolumeIncrementdB 接收通道的音量增量（以分贝为单位）。"
+          "description": "要获取其音量范围的通道号。 如果音频流具有 n 个通道，则通道的编号从 0 到 n – 1。 若要获 取流中的通道数，请调用 IAudioEndpointVolume：：GetChannelCount 方法。[out] pflVolumeMindB 接收通道的最小音量级别（以分贝为单位）。[out] pflVolumeMaxdB 接收通道的最大音量级别（以分贝为单位）。[out] pflVolumeIncrementdB 接收通道的音量增量（以分贝为单位）。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2440,11 +2637,13 @@
         {
           "name": "pnStep",
           "direction": "out",
-          "description": "指向方法将当前步骤索引写入其中的 UINT 变量的指针。 此索引是介于 0 到 *pStepCount– 1 范 围内的值，其中 0 表示最小音量级别， *pStepCount – 1 表示最大音量。[out] pnStepCount 指向 UINT 变量的指针，该方法在其中写入音量范围中的步数。 此数字在 IAudioEndpointVolume 接口实例的生存期内保持不变。"
+          "description": "指向方法将当前步骤索引写入其中的 UINT 变量的指针。 此索引是介于 0 到 *pStepCount– 1 范 围内的值，其中 0 表示最小音量级别， *pStepCount – 1 表示最大音量。[out] pnStepCount 指向 UINT 变量的指针，该方法在其中写入音量范围中的步数。 此数字在 IAudioEndpointVolume 接口实例的生存期内保持不变。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER 说明 参数 pnStep 和 pnStepCount 均为 NULL。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER 说明 参数 pnStep 和 pnStepCount 均为 NULL。",
+        "type": "HRESULT"
       },
       "remarks": "此方法表示进入或离开音频终结点设备的音频流的音量级别，作为一系列离散音量中的索引或“单步”。 输出值 *pnStepCount 是范围中的步骤数。 输出值 *pnStep 是当前卷级别的步长索引。如果步骤数为 n = *pnStepCount，则步骤索引 *pnStep 可以假定值介于 0 (最小卷) 到 n – 1 (最大卷) 。 在 0 到 n – 1 的范围内，相邻步骤之间的连续间隔不一定表示线性信号振幅或分贝的均匀体积增量。 在 Windows Vista 中， GetVolumeStepInfo 定义索引与音量级别的关系， (信号振幅) 为音频带曲线。 请注意，曲线的形状在 Windows 的未来版本中可能会更改。 有关音频带曲线的详细信息，请参阅 音频带带音量控制。 音频应用程序可以调用 IAudioEndpointVolume：：VolumeStepUp 和 IAudioEndpointVolume：：VolumeStepDown 方法，以增加或减少一个间隔的音量级别。 这两种方法都首先计算与音频带曲线上的下一点相对应的理想化音量级别。 接下来， 方法选择与理想化级别最接近的终结点卷设置。 若要获取终结点卷设置的范围和粒度，请调用 IEndpointVolume：：GetVolumeRange 方法。 如果音频终结点设备实现硬件音量控制，",
       "header": "endpointvolume.h",
@@ -2469,7 +2668,8 @@
         {
           "name": "StreamFlags",
           "direction": "in",
-          "description": "类型：DWORD 用于控制流的创建的标志。 客户端应将此参数设置为 0，或者将一个或多个受支持的"
+          "description": "类型：DWORD 用于控制流的创建的标志。 客户端应将此参数设置为 0，或者将一个或多个受支持的",
+          "type": "DWORD"
         }
       ],
       "remarks": "",
@@ -2486,7 +2686,11 @@
         "IsConnected"
       ],
       "confidence": 0.8,
-      "_source_line": 451
+      "_source_line": 451,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::IsConnected",
@@ -2536,11 +2740,13 @@
         {
           "name": "Category",
           "direction": "in",
-          "description": "指定音频流的类别的枚举。[out] pbOffloadCapable 指向布尔值的指针。 TRUE 表示终结点支持卸载。 FALSE 表示终结点不支持卸载。"
+          "description": "指定音频流的类别的枚举。[out] pbOffloadCapable 指向布尔值的指针。 TRUE 表示终结点支持卸载。 FALSE 表示终结点不支持卸载。",
+          "type": "AUDIO_STREAM_CATEGORY"
         }
       ],
       "return_value": {
-        "description": "返回 S_OK 表示成功，否则返回相应的错误代码。"
+        "description": "返回 S_OK 表示成功，否则返回相应的错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2581,12 +2787,14 @@
         {
           "name": "ChannelCount",
           "direction": "in",
-          "description": "通道计数。 此参数指定会话子混合中的音频通道数。[in] NewChannelVolumeArray 指向卷级别的数组的指针。 每个元素都是 float 类型的值，用于指定特定通道的音量级别。 每个音量级别是 0.0 到 1.0 范围内的值，其中 0.0 表示静音，1.0 表示完整音量 (无衰减) 。 数组中的元素数由 ChannelCount 参数指定。 如果音频流包含 n 个通道，则通道的编号从 0 到 n – 1。其索引与通道编号匹配的数组元素包含该通道的音量级别。 假设数组仅在调用期间保持有效。"
+          "description": "通道计数。 此参数指定会话子混合中的音频通道数。[in] NewChannelVolumeArray 指向卷级别的数组的指针。 每个元素都是 float 类型的值，用于指定特定通道的音量级别。 每个音量级别是 0.0 到 1.0 范围内的值，其中 0.0 表示静音，1.0 表示完整音量 (无衰减) 。 数组中的元素数由 ChannelCount 参数指定。 如果音频流包含 n 个通道，则通道的编号从 0 到 n – 1。其索引与通道编号匹配的数组元素包含该通道的音量级别。 假设数组仅在调用期间保持有效。",
+          "type": "DWORD"
         },
         {
           "name": "ChangedChannel",
           "direction": "in",
-          "description": "音量级别更改的通道数。 将此值用作 NewChannelVolumeArray 数组中的索引。 如果会话子混合包含 n 个通道，则通道的编号从 0 到 n – 1。 例如，如果由于调用 IChannelAudioVolume：："
+          "description": "音量级别更改的通道数。 将此值用作 NewChannelVolumeArray 数组中的索引。 如果会话子混合包含 n 个通道，则通道的编号从 0 到 n – 1。 例如，如果由于调用 IChannelAudioVolume：：",
+          "type": "DWORD"
         }
       ],
       "header": "audiopolicy.h",
@@ -2595,7 +2803,11 @@
         "OnDisplayNameChanged"
       ],
       "confidence": 0.8,
-      "_source_line": 483
+      "_source_line": 483,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::OnDefaultDeviceChanged",
@@ -2604,7 +2816,8 @@
       "description": "方法通知客户端特定设备角色的默认音频终结点设备已更改。",
       "syntax": "HRESULT OnDefaultDeviceChanged([in] EDataFlow flow, [in] ERole role, [in] LPCWSTR pwstrDefaultDeviceId);",
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果该方法失败，则会返回错误代码。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果该方法失败，则会返回错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "这三个输入参数指定新的默认音频终结点设备的数据流方向、设备角色和终结点 ID 字符串。在 Windows Vista 中，MMDevice API 支持设备角色，但系统提供的用户界面程序不支持。 Windows Vista 中的用户界面使用户能够选择用于呈现的默认音频设备和用于捕获的默认音频设备。 当用户更改默认呈现或捕获设备时，系统将所有三个设备角色 (eConsole、eMultimedia 和 eCommunications) 分配给新设备。 因此，当用户更改默认呈现或捕获设备时，系统将调用客户端的 OnDefaultDeviceChanged 方法三次，三次针对这三个设备角色中的每一个调用一次。 在将来的 Windows 版本中，用户界面可能使用户能够将各个角色分配给不同的设备。 在这种情况下，如果用户仅将一个或两个设备角色的分配更改为新的呈现或捕获设备，则系统将仅调用客 户端的 OnDefaultDeviceChanged 方法一次或两次 (即，每个更改的角色) 调用一次。 根据 OnDefaultDeviceChanged 方法对角色更改的响应方式，开发用于在 Windows Vista 中运行的音频应用程序的行为在将来版本的 Windows 中运行时可能会更改。 有关详细信息，请参阅 Windows Vista 中的设备角色。 有关实现 OnDefaultDeviceChanged 方法的 代码示例，请参阅 设备事件。",
       "requirements": {
@@ -2632,11 +2845,13 @@
         {
           "name": "pwstrDeviceId",
           "direction": "in",
-          "description": "指向标识音频 终结点设备的终结点 ID 字符串 的指针。 此参数指向包含终结点 ID 的以 null 结 尾的宽字符字符串。 字符串在调用期间保持有效。"
+          "description": "指向标识音频 终结点设备的终结点 ID 字符串 的指针。 此参数指向包含终结点 ID 的以 null 结 尾的宽字符字符串。 字符串在调用期间保持有效。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果该方法失败，则会返回错误代码。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果该方法失败，则会返回错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "有关实现 OnDeviceAdded 方法的 代码示例，请参阅 设备事件。",
       "requirements": {
@@ -2693,7 +2908,11 @@
         "OnPropertyValueChanged"
       ],
       "confidence": 0.7,
-      "_source_line": 491
+      "_source_line": 491,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::OnDisplayNameChanged",
@@ -2705,11 +2924,13 @@
         {
           "name": "NewDisplayName",
           "direction": "in",
-          "description": "会话的新显示名称。 此参数指向包含新显示名称的以 null 结尾的宽字符字符串。 字符串在调用 期间保持有效。[in] EventContext 事件上下文值。 此值与调用方在更改会话的显示名称的调用中传递给 IAudioSessionControl：：SetDisplayName 的值相同。 有关详细信息，请参阅“备注”。"
+          "description": "会话的新显示名称。 此参数指向包含新显示名称的以 null 结尾的宽字符字符串。 字符串在调用 期间保持有效。[in] EventContext 事件上下文值。 此值与调用方在更改会话的显示名称的调用中传递给 IAudioSessionControl：：SetDisplayName 的值相同。 有关详细信息，请参阅“备注”。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果该方法失败，则会返回错误代码。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果该方法失败，则会返回错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "每次调用 IAudioSessionControl：：SetDisplayName 方法更改会话的显示名称时，会话管理器都会调用此方法。 Sndvol 程序使用会话的显示名称来标记会话的卷滑块。",
       "header": "audiopolicy.h",
@@ -2732,11 +2953,13 @@
         {
           "name": "NewGroupingParam",
           "direction": "in",
-          "description": "会话的新分组参数。 此参数指向分组参数 GUID。[in] EventContext 事件上下文值。 此值与调用方在更改会话分组参数的调用中传递给 IAudioSessionControl：： SetGroupingParam 的值相同。 有关详细信息，请参阅“备注”。"
+          "description": "会话的新分组参数。 此参数指向分组参数 GUID。[in] EventContext 事件上下文值。 此值与调用方在更改会话分组参数的调用中传递给 IAudioSessionControl：： SetGroupingParam 的值相同。 有关详细信息，请参阅“备注”。",
+          "type": "LPCGUID"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果该方法失败，则会返回错误代码。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果该方法失败，则会返回错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "每次调用 IAudioSessionControl：：SetGroupingParam 方法更改会话的分组参数时，会话管理器都会调用此方法。",
       "header": "audiopolicy.h",
@@ -2758,16 +2981,19 @@
         {
           "name": "NewIconPath",
           "direction": "in",
-          "description": "会话的新显示图标的路径。 此参数指向包含新图标路径的字符串。 字符串指针仅在调用期间保持有效。"
+          "description": "会话的新显示图标的路径。 此参数指向包含新图标路径的字符串。 字符串指针仅在调用期间保持有效。",
+          "type": "LPCWSTR"
         },
         {
           "name": "EventContext",
           "direction": "in",
-          "description": "事件上下文值。 此值与调用方在更改会话的显示图标的调用中传递给 IAudioSessionControl：：SetIconPath 的值相同。 有关详细信息，请参阅“备注”。"
+          "description": "事件上下文值。 此值与调用方在更改会话的显示图标的调用中传递给 IAudioSessionControl：：SetIconPath 的值相同。 有关详细信息，请参阅“备注”。",
+          "type": "LPCGUID"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果该方法失败，则会返回错误代码。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果该方法失败，则会返回错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "每次调用 IAudioSessionControl：：SetIconPath 方法更改会话的显示图标时，会话管理器都会调用此方法。 Sndvol 程序使用会话的显示图标来标记会话的音量滑块。",
       "header": "audiopolicy.h",
@@ -2790,11 +3016,13 @@
         {
           "name": "pNotify",
           "direction": "in",
-          "description": "指向卷通知数据的指针。 此参数指向 AUDIO_VOLUME_NOTIFICATION_DATA 类型的结构。"
+          "description": "指向卷通知数据的指针。 此参数指向 AUDIO_VOLUME_NOTIFICATION_DATA 类型的结构。",
+          "type": "PAUDIO_VOLUME_NOTIFICATION_DATA"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果该方法失败，则会返回错误代码。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果该方法失败，则会返回错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "pNotify 参数指向一个结构，该结构描述发起 OnNotify 调用的卷更改事件。 此结构包含事件上下文 GUID。 此 GUID 使客户端能够区分卷 (或静音) 它发起的更改和其他客户端发起的更改。当调用更改流的卷级别的 IAudioEndpointVolume 方法时，客户端会将指针传递到其 OnNotify 方法的实现可以识别的事件上下文 GUID。 pNotify 指向的结构包含此上下文 GUID。 如果更改卷级别的客户端为指向事件上下文 GUID 的指针提供 NULL 指针值，则 pNotify 指向的结构中的事件上下文 GUID 的值GUID_NULL。 Windows 7（系统的卷用户界面）在更改系统中的卷时未指定GUID_NULL。 第三方 OSD 应用程序可以区分系统卷用户界面导致的主卷控制更改和其他卷更改（例如内置卷控制处理程序的更改）。 有关实现 OnNotify 方法的代码示例，请参阅 Endpoint Volume Controls。 要求",
       "requirements": {
@@ -2821,11 +3049,13 @@
         {
           "name": "pwstrDeviceId",
           "direction": "in",
-          "description": "指向标识音频 终结点设备的终结点 ID 字符串 的指针。 此参数指向包含终结点 ID 的以 null 结 尾的宽字符字符串。 字符串在调用期间保持有效。[in] key 一个指定属性的 PROPERTYKEY 结构。 结构包含属性集 GUID 和标识集中属性的索引。 结构按值传递。 它在调用期间仍然有效。 有关 PROPERTYKEY 的详细信息，请参阅Windows SDK文档。"
+          "description": "指向标识音频 终结点设备的终结点 ID 字符串 的指针。 此参数指向包含终结点 ID 的以 null 结 尾的宽字符字符串。 字符串在调用期间保持有效。[in] key 一个指定属性的 PROPERTYKEY 结构。 结构包含属性集 GUID 和标识集中属性的索引。 结构按值传递。 它在调用期间仍然有效。 有关 PROPERTYKEY 的详细信息，请参阅Windows SDK文档。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果该方法失败，则会返回错误代码。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果该方法失败，则会返回错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "调用成功更改音频终结点设备的属性值的 IPropertyStore::SetValue 方法会生成对此方法的调用。",
       "header": "mmdeviceapi.h",
@@ -2846,11 +3076,13 @@
         {
           "name": "NewSession",
           "direction": "in",
-          "description": "指向已创建的音频会话的 IAudioSessionControl 接口的指针。"
+          "description": "指向已创建的音频会话的 IAudioSessionControl 接口的指针。",
+          "type": "IAudioSessionControl"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。"
+        "description": "如果该方法成功，则它会返回 S_OK。",
+        "type": "HRESULT"
       },
       "remarks": "注册其 IAudioSessionNotification 接口后，应用程序通过接口的方法以回调的形式接收事件通知。 在设备终结点上激活新会话时，音频引擎将调用 OnSessionCreated 。 此方法从会话管理器线程调用。 如果此方法想要在此调用完成后保留引用，则此方法必须对 NewSession 参数中的会话 进行引用。",
       "header": "audiopolicy.h",
@@ -2871,7 +3103,8 @@
         {
           "name": "DisconnectReason",
           "direction": "in",
-          "description": "音频会话断开连接的原因。 调用方将此参数设置为下表中显示的 AudioSessionDisconnectReason 枚举值之一。 值"
+          "description": "音频会话断开连接的原因。 调用方将此参数设置为下表中显示的 AudioSessionDisconnectReason 枚举值之一。 值",
+          "type": "AudioSessionDisconnectReason"
         }
       ],
       "header": "audiopolicy.h",
@@ -2880,7 +3113,11 @@
         "OnSimpleVolumeChanged"
       ],
       "confidence": 0.8,
-      "_source_line": 509
+      "_source_line": 509,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::OnSimpleVolumeChanged",
@@ -2892,11 +3129,13 @@
         {
           "name": "NewVolume",
           "direction": "in",
-          "description": "音频会话的新音量级别。 此参数是 0.0 到 1.0 范围内的值，其中 0.0 表示静音，1.0 表示完整音 量 (无衰减) 。[in] NewMute 新的静音状态。 如果 为 TRUE，则启用静音。 如果 为 FALSE，则禁用静音。[in] EventContext 事件上下文值。 此值与调用方在更改会话的音量级别或静音状态的调用中传递给 ISimpleAudioVolume：：SetMasterVolume 或 ISimpleAudioVolume：：SetMute 的值相同。 有关详细信息，请参阅“备注”。"
+          "description": "音频会话的新音量级别。 此参数是 0.0 到 1.0 范围内的值，其中 0.0 表示静音，1.0 表示完整音 量 (无衰减) 。[in] NewMute 新的静音状态。 如果 为 TRUE，则启用静音。 如果 为 FALSE，则禁用静音。[in] EventContext 事件上下文值。 此值与调用方在更改会话的音量级别或静音状态的调用中传递给 ISimpleAudioVolume：：SetMasterVolume 或 ISimpleAudioVolume：：SetMute 的值相同。 有关详细信息，请参阅“备注”。",
+          "type": "float"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果该方法失败，则会返回错误代码。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果该方法失败，则会返回错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "每次调用 ISimpleAudioVolume：：SetMasterVolume 或 ISimpleAudioVolume：：SetMute 方法更改会话的音量级别或静音状态时，会话管理器都会调用此方法。",
       "requirements": {
@@ -2925,7 +3164,8 @@
         {
           "name": "NewState",
           "direction": "in",
-          "description": "新的会话状态。 此参数的值是以下 AudioSessionState 枚举值之一："
+          "description": "新的会话状态。 此参数的值是以下 AudioSessionState 枚举值之一：",
+          "type": "AudioSessionState"
         }
       ],
       "header": "audiopolicy.h",
@@ -2934,7 +3174,11 @@
         "OnVolumeDuckNotification"
       ],
       "confidence": 0.7,
-      "_source_line": 513
+      "_source_line": 513,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::OnVolumeDuckNotification",
@@ -2946,11 +3190,13 @@
         {
           "name": "sessionID",
           "direction": "in",
-          "description": "一个字符串，其中包含引发自动躲避事件的通信会话的会话实例标识符。 若要获取会话实例标 识符，请调用 IAudioSessionControl2：：GetSessionInstanceIdentifier。[in] countCommunicationSessions 活动通信会话数。 如果有 n 个会话，则会话的编号从 0 到 –1。"
+          "description": "一个字符串，其中包含引发自动躲避事件的通信会话的会话实例标识符。 若要获取会话实例标 识符，请调用 IAudioSessionControl2：：GetSessionInstanceIdentifier。[in] countCommunicationSessions 活动通信会话数。 如果有 n 个会话，则会话的编号从 0 到 –1。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。"
+        "description": "如果该方法成功，则它会返回 S_OK。",
+        "type": "HRESULT"
       },
       "remarks": "如果应用程序需要选择退出系统提供的系统衰减体验，则必须调用 IAudioSessionControl2::SetDuckingPreference 并指定该首选项。与 WASAPI 系统组件实现的其他 WASAPI 接口不同，IAudioVolumeDuckNotification 接口由应用程序实现，以提供自定义流衰减行为。为了接收事件通知，应用程序向 IAudioSessionManager2::RegisterDuckNotification 方法传递指向应用程序实现 IAudioVolumeDuckNotification 的指针。应用程序注册其 IAudioVolumeDuckNotification 接口后，会话管理器在需要发送躲避通知时调用 IAudioVolumeDuckNotification 实现。应用程序通过接口的方法以回调的形式接收事件通知。当应用程序不再需要接收通知时，它会调用 IAudioSessionManager2::UnregisterDuckNotification。",
       "header": "audiopolicy.h",
@@ -2973,11 +3219,13 @@
         {
           "name": "sessionID",
           "direction": "in",
-          "description": "一个字符串，包含启动躲避的终止通信会话的会话实例标识符。 若要获取会话实例标识符，请 调用 IAudioSessionControl2：：GetSessionInstanceIdentifier。"
+          "description": "一个字符串，包含启动躲避的终止通信会话的会话实例标识符。 若要获取会话实例标识符，请 调用 IAudioSessionControl2：：GetSessionInstanceIdentifier。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。"
+        "description": "如果该方法成功，则它会返回 S_OK。",
+        "type": "HRESULT"
       },
       "remarks": "应用程序通过调用 IAudioSessionManager2：：RegisterDuckNotification 注册其 IAudioVolumeDuckNotification 接口的实现后，会话管理器在想要发送有关躲避结束时间的通知 时调用 OnVolumeUnduckNotification。 应用程序以回调的形式接收事件通知。",
       "header": "audiopolicy.h",
@@ -3001,7 +3249,11 @@
         "QueryHardwareSupport"
       ],
       "confidence": 0.6,
-      "_source_line": 525
+      "_source_line": 525,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::QueryHardwareSupport",
@@ -3013,11 +3265,13 @@
         {
           "name": "pdwHardwareSupportMask",
           "direction": "out",
-          "description": "指向 DWORD 变量的指针，方法在其中写入硬件支持掩码，该掩码指示音频终结点设备的硬件功能。 方法可将掩码设置为 0 或一个或多个 ENDPOINT_HARDWARE_SUPPORT_XXX 常量按位 OR 组合。"
+          "description": "指向 DWORD 变量的指针，方法在其中写入硬件支持掩码，该掩码指示音频终结点设备的硬件功能。 方法可将掩码设置为 0 或一个或多个 ENDPOINT_HARDWARE_SUPPORT_XXX 常量按位 OR 组合。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER",
+        "type": "HRESULT"
       },
       "remarks": "说明 参数 pdwHardwareSupportMask 为 NULL。 此方法指示音频终结点设备是否在硬件中实现以下功能： 音量控制 将控件设为静音峰值计量 系统会自动将软件实现替换为上述列表中终结点设备未在硬件中实现的任何功能。",
       "header": "endpointvolume.h",
@@ -3038,11 +3292,13 @@
         {
           "name": "NewNotifications",
           "direction": "in",
-          "description": "指向客户端实现的 IAudioSessionEvents 接口的 指针。 如果方法成功，它会在客户端的 IAudioSessionEvents 接口上调用 AddRef 方法。"
+          "description": "指向客户端实现的 IAudioSessionEvents 接口的 指针。 如果方法成功，它会在客户端的 IAudioSessionEvents 接口上调用 AddRef 方法。",
+          "type": "IAudioSessionEvents"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER。",
+        "type": "HRESULT"
       },
       "header": "audiopolicy.h",
       "deprecated": false,
@@ -3062,11 +3318,13 @@
         {
           "name": "riid",
           "direction": "in",
-          "description": "要监视控件更改的特定于函数的控件接口。 有关详细信息，请参阅“备注”。[in] pNotify 指向客户端的 IControlChangeNotify 接口的 指针。 如果该方法成功，它将在客户端的 IControlChangeNotify 接口上调用 AddRef 方法。"
+          "description": "要监视控件更改的特定于函数的控件接口。 有关详细信息，请参阅“备注”。[in] pNotify 指向客户端的 IControlChangeNotify 接口的 指针。 如果该方法成功，它将在客户端的 IControlChangeNotify 接口上调用 AddRef 方法。",
+          "type": "REFGUID"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -3088,11 +3346,13 @@
         {
           "name": "pNotify",
           "direction": "in",
-          "description": "指向客户端正在注册通知回调的 IAudioEndpointVolumeCallback 接口的指针。 如果"
+          "description": "指向客户端正在注册通知回调的 IAudioEndpointVolumeCallback 接口的指针。 如果",
+          "type": "IAudioEndpointVolumeCallback"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（参数 pNotify 为 NULL）。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER（参数 pNotify 为 NULL）。",
+        "type": "HRESULT"
       },
       "remarks": "调用方实现 IAudioEndpointVolumeCallback 接口。不再需要通知时，客户端可以调用 IAudioEndpointVolume::UnregisterControlChangeNotify 方法来终止通知。在客户端释放对 IAudioEndpointVolumeCallback 接口的最终引用之前，它应调用 UnregisterControlChangeNotify 以取消注册接口。否则，应用程序会泄漏 IAudioEndpointVolumeCallback 和 IAudioEndpointVolume 对象持有的资源。",
       "header": "endpointvolume.h",
@@ -3112,7 +3372,8 @@
       "description": "向会话管理器注册应用程序以接收流衰减（躲避）通知。",
       "syntax": "HRESULT RegisterDuckNotification(\n  LPCWSTR sessionID,\n  IAudioVolumeDuckNotification *duckNotification\n);",
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。",
+        "type": "HRESULT"
       },
       "header": "audiopolicy.h",
       "deprecated": false,
@@ -3132,11 +3393,13 @@
         {
           "name": "pClient",
           "direction": "in",
-          "description": "指向客户端正在注册通知回调的 IMMNotificationClient 接口的指针。"
+          "description": "指向客户端正在注册通知回调的 IMMNotificationClient 接口的指针。",
+          "type": "IMMNotificationClient"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER",
+        "type": "HRESULT"
       },
       "header": "mmdeviceapi.h",
       "deprecated": false,
@@ -3159,7 +3422,11 @@
         "UnregisterSessionNotification"
       ],
       "confidence": 0.7,
-      "_source_line": 553
+      "_source_line": 553,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::ReleaseBuffer",
@@ -3171,10 +3438,14 @@
         {
           "name": "NumFramesRead",
           "direction": "in",
-          "description": "客户端从捕获缓冲区读取的音频帧数。 此参数必须等于以前获取的数据包中的帧数或 0。"
+          "description": "客户端从捕获缓冲区读取的音频帧数。 此参数必须等于以前获取的数据包中的帧数或 0。",
+          "type": "UINT32"
         }
       ],
-      "return_value": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 AUDCLNT_E_OUT_OF_ORDER、AUDCLNT_E_BUFFER_ERROR、AUDCLNT_E_DEVICE_INVALIDATED 等。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 AUDCLNT_E_OUT_OF_ORDER、AUDCLNT_E_BUFFER_ERROR、AUDCLNT_E_DEVICE_INVALIDATED 等。"
+      },
       "header": "audioclient.h",
       "deprecated": false,
       "cross_references": [
@@ -3195,11 +3466,13 @@
         {
           "name": "dwCount",
           "direction": "in",
-          "description": "pfVolumes 数组中的元素数。 此参数必须等于流格式中的通道数。 若要获取通道数，请调用 IAudioStreamVolume：：GetChannelCount 方法。[in] pfVolumes 指向音频流中通道音量级别的数组的指针。 pfVolumes 数组中的元素数由 dwCount 参数指定。调用方将每个通道的音量级别写入其索引与通道号匹配的数组元素。 如果流格式具有 N 个通 道，则通道的编号从 0 到 N – 1。 有效卷级别介于 0.0 到 1.0 范围内。"
+          "description": "pfVolumes 数组中的元素数。 此参数必须等于流格式中的通道数。 若要获取通道数，请调用 IAudioStreamVolume：：GetChannelCount 方法。[in] pfVolumes 指向音频流中通道音量级别的数组的指针。 pfVolumes 数组中的元素数由 dwCount 参数指定。调用方将每个通道的音量级别写入其索引与通道号匹配的数组元素。 如果流格式具有 N 个通 道，则通道的编号从 0 到 N – 1。 有效卷级别介于 0.0 到 1.0 范围内。",
+          "type": "UINT32"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK。失败时返回错误代码。"
+        "description": "成功时返回 S_OK。失败时返回错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "每次调用 SetChannelVolume 或 SetAllVolumes 方法时，都会触发音量更改事件。",
       "requirements": {
@@ -3227,11 +3500,13 @@
         {
           "name": "dwIndex",
           "direction": "in",
-          "description": "通道号。 如果流格式具有 N 个通道，则通道的编号从 0 到 N – 1。 若要获取通道数，请调用 IAudioStreamVolume：：GetChannelCount 方法。[in] fLevel 通道的音量级别。 有效卷级别介于 0.0 到 1.0 范围内。"
+          "description": "通道号。 如果流格式具有 N 个通道，则通道的编号从 0 到 N – 1。 若要获取通道数，请调用 IAudioStreamVolume：：GetChannelCount 方法。[in] fLevel 通道的音量级别。 有效卷级别介于 0.0 到 1.0 范围内。",
+          "type": "UINT32"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "audioclient.h",
       "deprecated": false,
@@ -3251,10 +3526,14 @@
         {
           "name": "nChannel",
           "direction": "in",
-          "description": "通道号。 如果音频流包含 n 个通道，则通道的编号从 0 到 n – 1。 若要获取通道数，请调用 IAudioEndpointVolume：：GetChannelCount 方法。[in] fLevelDB 以分贝为单位的新音量级别。 若要获取可通过此方法设置的卷级别的范围和粒度，请调用 IAudioEndpointVolume：：GetVolumeRange 方法。[in] pguidEventContext IAudioEndpointVolumeCallback：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 SetChannelVolumeLevel 调用更改终结点的卷级别，则已注册具有该终结点 的 IAudioEndpointVolumeCallback 接口的所有客户端都将收到通知。 在 OnNotify 方法的实现 中，客户端可以检查事件上下文 GUID，以发现它是还是另一个客户端是卷更改事件的源。 如果 调用方为此参数提供 NULL 指针，则通知例程将接收上下文 GUID 值GUID_NULL。"
+          "description": "通道号。 如果音频流包含 n 个通道，则通道的编号从 0 到 n – 1。 若要获取通道数，请调用 IAudioEndpointVolume：：GetChannelCount 方法。[in] fLevelDB 以分贝为单位的新音量级别。 若要获取可通过此方法设置的卷级别的范围和粒度，请调用 IAudioEndpointVolume：：GetVolumeRange 方法。[in] pguidEventContext IAudioEndpointVolumeCallback：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 SetChannelVolumeLevel 调用更改终结点的卷级别，则已注册具有该终结点 的 IAudioEndpointVolumeCallback 接口的所有客户端都将收到通知。 在 OnNotify 方法的实现 中，客户端可以检查事件上下文 GUID，以发现它是还是另一个客户端是卷更改事件的源。 如果 调用方为此参数提供 NULL 指针，则通知例程将接收上下文 GUID 值GUID_NULL。",
+          "type": "UINT"
         }
       ],
-      "return_value": "如果该方法成功，则返回 S_OK。如果方法失败，可能的返回代码包括但不限于下表中显示的值。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。如果方法失败，可能的返回代码包括但不限于下表中显示的值。"
+      },
       "header": "endpointvolume.h",
       "deprecated": false,
       "cross_references": [
@@ -3273,11 +3552,13 @@
         {
           "name": "nChannel",
           "direction": "in",
-          "description": "通道号。 如果音频流包含 n 个通道，则通道的编号从 0 到 n – 1。 若要获取通道数，请调用 IAudioEndpointVolume：：GetChannelCount 方法。[in] fLevel 卷级别。 音量级别表示为 0.0 到 1.0 范围内的规范化值。[in] pguidEventContext IAudioEndpointVolumeCallback：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 SetChannelVolumeLevelScalar 调用更改了终结点的卷级别，则已注册具有该终结点 的 IAudioEndpointVolumeCallback 接口的所有客户端都将收到通知。 在 OnNotify 方法的实现中，客户端可以检查事件上下文 GUID，以发现它还是另一个客户端是卷更改事件的源。 如果 调用方为此参数提供 NULL 指针，则通知例程将接收上下文 GUID 值GUID_NULL。"
+          "description": "通道号。 如果音频流包含 n 个通道，则通道的编号从 0 到 n – 1。 若要获取通道数，请调用 IAudioEndpointVolume：：GetChannelCount 方法。[in] fLevel 卷级别。 音量级别表示为 0.0 到 1.0 范围内的规范化值。[in] pguidEventContext IAudioEndpointVolumeCallback：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 SetChannelVolumeLevelScalar 调用更改了终结点的卷级别，则已注册具有该终结点 的 IAudioEndpointVolumeCallback 接口的所有客户端都将收到通知。 在 OnNotify 方法的实现中，客户端可以检查事件上下文 GUID，以发现它还是另一个客户端是卷更改事件的源。 如果 调用方为此参数提供 NULL 指针，则通知例程将接收上下文 GUID 值GUID_NULL。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果方法失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果方法失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "endpointvolume.h",
       "deprecated": false,
@@ -3297,11 +3578,13 @@
         {
           "name": "Value",
           "direction": "in",
-          "description": "指向以 null 结尾的宽字符字符串的指针，该字符串包含会话的显示名称。[in] EventContext 指向事件上下文 GUID 的指针。 如果对此方法的调用生成名称更改事件，会话管理器会将通知发送到已注册与会话管理器的 IAudioSessionEvents 接口的所有客户端。 会话管理器包含每个通知的 EventContext 指针值。 收到通知后，客户端可以通过检查 EventContext 值来确定它还是另一个客户端是事件的源。 此方案取决于客户端为此参数选择的值，该值在会话中的所有客户端中都是唯一的。 如果调用方为此参数提供 NULL 指针，则客户端的通知方法将收到 NULL 上下 文指针。"
+          "description": "指向以 null 结尾的宽字符字符串的指针，该字符串包含会话的显示名称。[in] EventContext 指向事件上下文 GUID 的指针。 如果对此方法的调用生成名称更改事件，会话管理器会将通知发送到已注册与会话管理器的 IAudioSessionEvents 接口的所有客户端。 会话管理器包含每个通知的 EventContext 指针值。 收到通知后，客户端可以通过检查 EventContext 值来确定它还是另一个客户端是事件的源。 此方案取决于客户端为此参数选择的值，该值在会话中的所有客户端中都是唯一的。 如果调用方为此参数提供 NULL 指针，则客户端的通知方法将收到 NULL 上下 文指针。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER 说明 参数 值为NULL。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER 说明 参数 值为NULL。",
+        "type": "HRESULT"
       },
       "header": "audiopolicy.h",
       "deprecated": false,
@@ -3323,11 +3606,13 @@
         {
           "name": "optOut",
           "direction": "in",
-          "description": "一个 BOOL 变量，用于启用或禁用系统自动躲避。"
+          "description": "一个 BOOL 变量，用于启用或禁用系统自动躲避。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。",
+        "type": "HRESULT"
       },
       "header": "audiopolicy.h",
       "deprecated": false,
@@ -3348,16 +3633,19 @@
         {
           "name": "bEnable",
           "direction": "in",
-          "description": "新的 AGC 状态。 如果此参数为 TRUE (非零) ，该方法将启用 AGC。 如果 为 FALSE，则禁用 AGC。"
+          "description": "新的 AGC 状态。 如果此参数为 TRUE (非零) ，该方法将启用 AGC。 如果 为 FALSE，则禁用 AGC。",
+          "type": "BOOL"
         },
         {
           "name": "pguidEventContext",
           "direction": "in",
-          "description": "IControlChangeNotify：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果"
+          "description": "IControlChangeNotify：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果",
+          "type": "LPCGUID"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -3377,11 +3665,13 @@
         {
           "name": "frameCount",
           "direction": "in",
-          "description": "音频缓冲区中应包含在最终处理阶段的音频帧数。 此数字可能小于或等于 iSpatialAudioObjectRenderStream：：BeginUpdatingAudioObjects 的 frameCountPerBuffer 参 数中返回的值。"
+          "description": "音频缓冲区中应包含在最终处理阶段的音频帧数。 此数字可能小于或等于 iSpatialAudioObjectRenderStream：：BeginUpdatingAudioObjects 的 frameCountPerBuffer 参 数中返回的值。",
+          "type": "UINT32"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。"
+        "description": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。",
+        "type": "HRESULT"
       },
       "header": "spatialaudioclient.h",
       "deprecated": false,
@@ -3399,11 +3689,13 @@
         {
           "name": "pDevice",
           "direction": "in",
-          "description": "指向 IMMDevice 接口的指针。[in] _pwfxFormat 指向 WAVEFORMATEX 结构的指针，该结构提供有关硬件音频引擎的信息。"
+          "description": "指向 IMMDevice 接口的指针。[in] _pwfxFormat 指向 WAVEFORMATEX 结构的指针，该结构提供有关硬件音频引擎的信息。",
+          "type": "IMMDevice"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，否则返回相应的错误代码。"
+        "description": "成功时返回 S_OK，否则返回相应的错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3430,10 +3722,14 @@
         {
           "name": "eventHandle",
           "direction": "in",
-          "description": "事件句柄。"
+          "description": "事件句柄。",
+          "type": "HANDLE"
         }
       ],
-      "return_value": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 AUDCLNT_E_EVENTHANDLE_NOT_SET 等。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 AUDCLNT_E_EVENTHANDLE_NOT_SET 等。"
+      },
       "remarks": "注意 在 Windows 8 中，首次使用 IAudioClient 访问音频设备应位于 STA 线程上。 来自 MTA 线程的调用可能会导致未定义的行为。 要求",
       "header": "audioclient.h",
       "deprecated": false,
@@ -3451,16 +3747,19 @@
         {
           "name": "Override",
           "direction": "in",
-          "description": "新的分组参数。 此参数必须是指向分组参数 GUID 的有效非 NULL 指针。 有关详细信息，请参阅“备注”。"
+          "description": "新的分组参数。 此参数必须是指向分组参数 GUID 的有效非 NULL 指针。 有关详细信息，请参阅“备注”。",
+          "type": "LPCGUID"
         },
         {
           "name": "EventContext",
           "direction": "in",
-          "description": "指向事件上下文 GUID 的指针。 如果对此方法的调用生成分组更改事件，会话管理器会将通知发送到已注册与会话管理器的 IAudioSessionEvents 接口的所有客户端。 会话管理器包含每个通知的 EventContext 指针值。 收到通知后，客户端可以通过检查 EventContext 值来确定它还是另一个客户端是事件的源。 此方案取决于客户端为此参数选择的值，该值在会话中的所有客户端中都是唯一的。 如果调用方为此参数提供 NULL 指针，则客户端的通知方法将收到 NULL 上下 文指针。"
+          "description": "指向事件上下文 GUID 的指针。 如果对此方法的调用生成分组更改事件，会话管理器会将通知发送到已注册与会话管理器的 IAudioSessionEvents 接口的所有客户端。 会话管理器包含每个通知的 EventContext 指针值。 收到通知后，客户端可以通过检查 EventContext 值来确定它还是另一个客户端是事件的源。 此方案取决于客户端为此参数选择的值，该值在会话中的所有客户端中都是唯一的。 如果调用方为此参数提供 NULL 指针，则客户端的通知方法将收到 NULL 上下 文指针。",
+          "type": "LPCGUID"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER 说明 参数 分组 为 NULL。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER 说明 参数 分组 为 NULL。",
+        "type": "HRESULT"
       },
       "header": "audiopolicy.h",
       "deprecated": false,
@@ -3480,11 +3779,13 @@
         {
           "name": "Value",
           "direction": "in",
-          "description": "指向以 null 结尾的宽字符字符串的指针，该字符串指定包含图标的 .ico、.dll 或 .exe 文件的路径 和文件名。 有关图标路径的信息，请参阅 Windows SDK 文档。[in] EventContext 指向事件上下文 GUID 的指针。 如果对此方法的调用生成图标更改事件，则会话管理器将向已注册 IAudioSessionEvents 接口的所有客户端发送通知。会话管理器。 会话管理器包含每个通知的 EventContext 指针值。 收到通知后，客户端可以通过检查 EventContext 值来确定它还是另一个客户端是事件的源。 此方案取决于客户端为此参数选择一个在会话中的所有客户端中唯一的值。 如果调用方为此参数提供 NULL 指针，则客户端的通知方法将收到 NULL 上下文指针。"
+          "description": "指向以 null 结尾的宽字符字符串的指针，该字符串指定包含图标的 .ico、.dll 或 .exe 文件的路径 和文件名。 有关图标路径的信息，请参阅 Windows SDK 文档。[in] EventContext 指向事件上下文 GUID 的指针。 如果对此方法的调用生成图标更改事件，则会话管理器将向已注册 IAudioSessionEvents 接口的所有客户端发送通知。会话管理器。 会话管理器包含每个通知的 EventContext 指针值。 收到通知后，客户端可以通过检查 EventContext 值来确定它还是另一个客户端是事件的源。 此方案取决于客户端为此参数选择一个在会话中的所有客户端中唯一的值。 如果调用方为此参数提供 NULL 指针，则客户端的通知方法将收到 NULL 上下文指针。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER 说明 参数 值为NULL。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER 说明 参数 值为NULL。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3510,11 +3811,13 @@
         {
           "name": "nChannel",
           "direction": "in",
-          "description": "所选通道的编号。 如果音频流具有 N 个通道，则通道的编号从 0 到 N – 1。 若要获取流中的通 道数，请调用 IPerChannelDbLevel：：GetChannelCount 方法。[in] fLevelDB 以分贝为单位的新音量级别。 正值表示增益，负值表示衰减。[in] pguidEventContext IControlChangeNotify：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 SetLevel 调用更改级别控件的状态，则已注册具有该控件的 IControlChangeNotify 接口的所有客户端都会收到通知。 在 OnNotify 方法的实现中，客户端可以检查事件上下文 GUID，以发现它是还是另一个客户端是 control-change 事件的源。 如果调用方为此参数提供 NULL 指针，则 客户端的通知方法将收到 NULL 上下文指针。"
+          "description": "所选通道的编号。 如果音频流具有 N 个通道，则通道的编号从 0 到 N – 1。 若要获取流中的通 道数，请调用 IPerChannelDbLevel：：GetChannelCount 方法。[in] fLevelDB 以分贝为单位的新音量级别。 正值表示增益，负值表示衰减。[in] pguidEventContext IControlChangeNotify：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 SetLevel 调用更改级别控件的状态，则已注册具有该控件的 IControlChangeNotify 接口的所有客户端都会收到通知。 在 OnNotify 方法的实现中，客户端可以检查事件上下文 GUID，以发现它是还是另一个客户端是 control-change 事件的源。 如果调用方为此参数提供 NULL 指针，则 客户端的通知方法将收到 NULL 上下文指针。",
+          "type": "UINT"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -3534,11 +3837,13 @@
         {
           "name": "aLevelsDB",
           "direction": "in",
-          "description": "指向卷级别数组的指针。 此参数指向调用方分配的 浮点 数组，该方法将所有通道的新音量级别（以分贝为单位）写入其中。 方法将特定通道的级别写入其索引与通道号匹配的数组元素中。如果音频流包含 n 个通道，则通道编号为 0 到 n – 1。 若要获取流中的通道数，请调用 IPerChannelDbLevel：：GetChannelCount 方法。[in] cChannels aLevelsDB 数组中的元素数。 如果此参数与音频流中的声道数不匹配，则方法在未修改 aLevelsDB 数组的情况下失败。[in] pguidEventContext IControlChangeNotify：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 SetLevelAllChannels 调用更改了级别控件的状态，则已注册具有该控件的 IControlChangeNotify 接口的所有客户端都会收到通知。 在 OnNotify 方法的实现中，客户端可以检查事件上下文 GUID，以发现它是还是另一个客户端是 control-change 事件的源。 如果调 用方为此参数提供 NULL 指针，则客户端的通知方法将收到 NULL 上下文指针。"
+          "description": "指向卷级别数组的指针。 此参数指向调用方分配的 浮点 数组，该方法将所有通道的新音量级别（以分贝为单位）写入其中。 方法将特定通道的级别写入其索引与通道号匹配的数组元素中。如果音频流包含 n 个通道，则通道编号为 0 到 n – 1。 若要获取流中的通道数，请调用 IPerChannelDbLevel：：GetChannelCount 方法。[in] cChannels aLevelsDB 数组中的元素数。 如果此参数与音频流中的声道数不匹配，则方法在未修改 aLevelsDB 数组的情况下失败。[in] pguidEventContext IControlChangeNotify：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 SetLevelAllChannels 调用更改了级别控件的状态，则已注册具有该控件的 IControlChangeNotify 接口的所有客户端都会收到通知。 在 OnNotify 方法的实现中，客户端可以检查事件上下文 GUID，以发现它是还是另一个客户端是 control-change 事件的源。 如果调 用方为此参数提供 NULL 指针，则客户端的通知方法将收到 NULL 上下文指针。",
+          "type": "float []"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 S_FALSE、E_POINTER、E_INVALIDARG 等。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 S_FALSE、E_POINTER、E_INVALIDARG 等。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3564,11 +3869,13 @@
         {
           "name": "fLevelDB",
           "direction": "in",
-          "description": "新的统一级别（以分贝为单位）。[in] pguidEventContext IControlChangeNotify：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果"
+          "description": "新的统一级别（以分贝为单位）。[in] pguidEventContext IControlChangeNotify：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果",
+          "type": "float"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 S_FALSE 等。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 S_FALSE 等。",
+        "type": "HRESULT"
       },
       "header": "devicetopology.h",
       "deprecated": false,
@@ -3588,11 +3895,13 @@
         {
           "name": "bEnabled",
           "direction": "in",
-          "description": "指示要应用于卸载的音频流的本地效果状态。 值为 TRUE 可启用本地效果，音频图中的本地效果将应用于流。 值为 FALSE 会禁用本地效果，以便音频图中的本地效果不会应用于音频流。"
+          "description": "指示要应用于卸载的音频流的本地效果状态。 值为 TRUE 可启用本地效果，音频图中的本地效果将应用于流。 值为 FALSE 会禁用本地效果，以便音频图中的本地效果不会应用于音频流。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
-        "description": "SetLocalEffectsState 方法返回 S_OK 指示它已成功完成。否则，它将返回相应的错误代码。"
+        "description": "SetLocalEffectsState 方法返回 S_OK 指示它已成功完成。否则，它将返回相应的错误代码。",
+        "type": "HRESULT"
       },
       "header": "audioengineendpoint.h",
       "deprecated": false,
@@ -3610,11 +3919,13 @@
         {
           "name": "fLevel",
           "direction": "in",
-          "description": "新的主卷级别。 有效卷级别介于 0.0 到 1.0 范围内。[in] EventContext 指向事件上下文 GUID 的指针。 如果对此方法的调用生成卷更改事件，会话管理器会将通知发送到已注册 IAudioSessionEvents 接口的所有客户端与会话管理器。 会话管理器包含每个通知的 EventContext 指针值。 收到通知后，客户端可以通过检查 EventContext 值来确定它还是另一个客户端是事件的源。 此方案取决于客户端为此参数选择一个在会话中的所有客户端中唯一的值。 如果调用方为此参数提供 NULL 指针，则客户端的通知方法将收到 NULL 上下文指针。"
+          "description": "新的主卷级别。 有效卷级别介于 0.0 到 1.0 范围内。[in] EventContext 指向事件上下文 GUID 的指针。 如果对此方法的调用生成卷更改事件，会话管理器会将通知发送到已注册 IAudioSessionEvents 接口的所有客户端与会话管理器。 会话管理器包含每个通知的 EventContext 指针值。 收到通知后，客户端可以通过检查 EventContext 值来确定它还是另一个客户端是事件的源。 此方案取决于客户端为此参数选择一个在会话中的所有客户端中唯一的值。 如果调用方为此参数提供 NULL 指针，则客户端的通知方法将收到 NULL 上下文指针。",
+          "type": "float"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于：E_POINTER（参数无效）、E_FAIL（操作失败）等。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于：E_POINTER（参数无效）、E_FAIL（操作失败）等。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3640,10 +3951,14 @@
         {
           "name": "fLevelDB",
           "direction": "in",
-          "description": "新的主卷级别（以分贝为单位）。 若要获取可通过此方法设置的卷级别的范围和粒度，请调用 IAudioEndpointVolume：：GetVolumeRange 方法。[in] pguidEventContext IAudioEndpointVolumeCallback：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 SetMasterVolumeLevel 调用更改终结点的卷级别，则已注册具有该终结点 的 IAudioEndpointVolumeCallback 接口的所有客户端都将收到通知。 在 OnNotify 方法的实现 中，客户端可以检查事件上下文 GUID，以发现它还是另一个客户端是卷更改事件的源。 如果调 用方为此参数提供 NULL 指针，则通知例程将接收上下文 GUID 值GUID_NULL。"
+          "description": "新的主卷级别（以分贝为单位）。 若要获取可通过此方法设置的卷级别的范围和粒度，请调用 IAudioEndpointVolume：：GetVolumeRange 方法。[in] pguidEventContext IAudioEndpointVolumeCallback：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 SetMasterVolumeLevel 调用更改终结点的卷级别，则已注册具有该终结点 的 IAudioEndpointVolumeCallback 接口的所有客户端都将收到通知。 在 OnNotify 方法的实现 中，客户端可以检查事件上下文 GUID，以发现它还是另一个客户端是卷更改事件的源。 如果调 用方为此参数提供 NULL 指针，则通知例程将接收上下文 GUID 值GUID_NULL。",
+          "type": "float"
         }
       ],
-      "return_value": "{\"description\": \"如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_INVALIDARG（音量级别超出范围）等。\"}",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "{\"description\": \"如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_INVALIDARG（音量级别超出范围）等。\"}"
+      },
       "header": "endpointvolume.h",
       "deprecated": false,
       "cross_references": [
@@ -3662,10 +3977,14 @@
         {
           "name": "fLevel",
           "direction": "in",
-          "description": "新的主卷级别。 级别表示为 0.0 到 1.0 范围内的规范化值。[in] pguidEventContext IAudioEndpointVolumeCallback：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 SetMasterVolumeLevelScalar 调用更改了终结点的卷级别，则已注册具有该终结点 的 IAudioEndpointVolumeCallback 接口的所有客户端都将收到通知。 在 OnNotify 方法的实现中，客户端可以检查事件上下文 GUID，以发现它还是另一个客户端是卷更改事件的源。 如果 调用方为此参数提供 NULL 指针，则通知例程将接收上下文 GUID 值GUID_NULL。"
+          "description": "新的主卷级别。 级别表示为 0.0 到 1.0 范围内的规范化值。[in] pguidEventContext IAudioEndpointVolumeCallback：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 SetMasterVolumeLevelScalar 调用更改了终结点的卷级别，则已注册具有该终结点 的 IAudioEndpointVolumeCallback 接口的所有客户端都将收到通知。 在 OnNotify 方法的实现中，客户端可以检查事件上下文 GUID，以发现它还是另一个客户端是卷更改事件的源。 如果 调用方为此参数提供 NULL 指针，则通知例程将接收上下文 GUID 值GUID_NULL。",
+          "type": "float"
         }
       ],
-      "return_value": "{\"description\": \"如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于：E_POINTER、AUDCLNT_E_ENDPOINT_NOT_FOUND、AUDCLNT_E_ENDPOINT_INVALID 等。\"}",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "{\"description\": \"如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于：E_POINTER、AUDCLNT_E_ENDPOINT_NOT_FOUND、AUDCLNT_E_ENDPOINT_INVALID 等。\"}"
+      },
       "header": "endpointvolume.h",
       "deprecated": false,
       "cross_references": [
@@ -3684,11 +4003,13 @@
         {
           "name": "flSampleRate",
           "direction": "in",
-          "description": "新的采样率（以帧/秒为单位）。"
+          "description": "新的采样率（以帧/秒为单位）。",
+          "type": "float"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。"
+        "description": "如果该方法成功，则它会返回 S_OK。",
+        "type": "HRESULT"
       },
       "header": "audioclient.h",
       "deprecated": false,
@@ -3706,16 +4027,19 @@
         {
           "name": "nIdSelect",
           "direction": "in",
-          "description": "新的选择器输入。 调用方应将此参数设置为具有指向选择器输入之一的直接链接的部件的本地 ID。"
+          "description": "新的选择器输入。 调用方应将此参数设置为具有指向选择器输入之一的直接链接的部件的本地 ID。",
+          "type": "UINT"
         },
         {
           "name": "pguidEventContext",
           "direction": "in",
-          "description": "IControlChangeNotify：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 SetSelection 调用更改了输入选择器控件的状态，则已注册 IControlChangeNotify 的所有客户端都使用该控件接口接收通知。 在 OnNotify 方法的实现中，客户端可以检查事件上下文 GUID，以发现它还是另一个客户端是 control-change 事件的源。 如果调用方为此参数提供 NULL 指针，则客户端的通知方法将收到 NULL 上下文指针。"
+          "description": "IControlChangeNotify：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 SetSelection 调用更改了输入选择器控件的状态，则已注册 IControlChangeNotify 的所有客户端都使用该控件接口接收通知。 在 OnNotify 方法的实现中，客户端可以检查事件上下文 GUID，以发现它还是另一个客户端是 control-change 事件的源。 如果调用方为此参数提供 NULL 指针，则客户端的通知方法将收到 NULL 上下文指针。",
+          "type": "LPCGUID"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3752,7 +4076,11 @@
         "Release"
       ],
       "confidence": 0.8,
-      "_source_line": 684
+      "_source_line": 684,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::UnregisterControlChangeCallback",
@@ -3781,11 +4109,13 @@
         {
           "name": "pNotify",
           "direction": "in",
-          "description": "指向客户端的 IAudioEndpointVolumeCallback 接口的指针。 在上一次调用 IAudioEndpointVolume：：RegisterControlChangeNotify 方法时，客户端将此相同的接口指针传递给终结点卷对象。 如果 UnregisterControlChangeNotify 方法成功，它将在客户端的 IAudioEndpointVolumeCallback 接口上调用 Release 方法。"
+          "description": "指向客户端的 IAudioEndpointVolumeCallback 接口的指针。 在上一次调用 IAudioEndpointVolume：：RegisterControlChangeNotify 方法时，客户端将此相同的接口指针传递给终结点卷对象。 如果 UnregisterControlChangeNotify 方法成功，它将在客户端的 IAudioEndpointVolumeCallback 接口上调用 Release 方法。",
+          "type": "IAudioEndpointVolumeCallback"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码 E_POINTER",
+        "type": "HRESULT"
       },
       "remarks": "参数 pNotify 不能为 NULL。客户端应在释放对 IAudioEndpointVolumeCallback 接口的最终引用前调用此方法，否则会导致资源泄漏。注意：RegisterControlChangeNotify 会调用 AddRef，而此方法会调用 Release。",
       "requirements": {
@@ -3813,11 +4143,13 @@
       "parameters": [
         {
           "name": "duckNotification",
-          "description": "指向应用程序实现的 IAudioVolumeDuckNotification 接口的指针。 将之前调用 IAudioSessionManager2：：RegisterDuckNotification 方法中指定的接口指针传递给会话管理器。 如果 UnregisterDuckNotification 方法成功，它将在应用程序的 IAudioVolumeDuckNotification 接口上调用 Release 方法。"
+          "description": "指向应用程序实现的 IAudioVolumeDuckNotification 接口的指针。 将之前调用 IAudioSessionManager2：：RegisterDuckNotification 方法中指定的接口指针传递给会话管理器。 如果 UnregisterDuckNotification 方法成功，它将在应用程序的 IAudioVolumeDuckNotification 接口上调用 Release 方法。",
+          "type": "IAudioVolumeDuckNotification"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。",
+        "type": "HRESULT"
       },
       "remarks": "应用程序可以使用此接口执行以下任务：注册以接收躲避通知。注册以在创建会话时接收通知。枚举用于获取接口指针的音频设备上的会话。此接口支持流衰减或躲避的自定义实现，这是 Windows 7 中的一项新功能。在默认通信设备上打开新的通信流时，播放媒体流的应用程序可能会使其行为不同。例如，在打开新通信流时，可以暂停原始媒体流。管理媒体流并希望提供自定义躲避实现的应用程序必须注册才能在发生会话事件时接收通知。对于流衰减，在默认通信设备上打开或关闭通信流时，系统会引发会话事件。",
       "header": "audiopolicy.h",
@@ -3840,11 +4172,13 @@
         {
           "name": "pClient",
           "direction": "in",
-          "description": "指向客户端的 IMMNotificationClient 接口的指针。 在上一次调用 IMMDeviceEnumerator：： RegisterEndpointNotificationCallback 方法时，客户端将此相同的接口指针传递给设备枚举器。 有关详细信息，请参阅“备注”。"
+          "description": "指向客户端的 IMMNotificationClient 接口的指针。 在上一次调用 IMMDeviceEnumerator：： RegisterEndpointNotificationCallback 方法时，客户端将此相同的接口指针传递给设备枚举器。 有关详细信息，请参阅“备注”。",
+          "type": "IMMNotificationClient"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER 等。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 E_POINTER 等。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3871,11 +4205,13 @@
         {
           "name": "pguidEventContext",
           "direction": "in",
-          "description": "IAudioEndpointVolumeCallback：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 VolumeStepDown 调用更改了终结点的卷级别，则已注册具有该终结点 的 IAudioEndpointVolumeCallback 接口的所有客户端都将收到通知。 在 OnNotify 方法的实现 中，客户端可以检查事件上下文 GUID，以发现它还是另一个客户端是卷更改事件的源。 如果调 用方为此参数提供 NULL 指针，则客户端的通知方法将收到 NULL 上下文指针。"
+          "description": "IAudioEndpointVolumeCallback：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 VolumeStepDown 调用更改了终结点的卷级别，则已注册具有该终结点 的 IAudioEndpointVolumeCallback 接口的所有客户端都将收到通知。 在 OnNotify 方法的实现 中，客户端可以检查事件上下文 GUID，以发现它还是另一个客户端是卷更改事件的源。 如果调 用方为此参数提供 NULL 指针，则客户端的通知方法将收到 NULL 上下文指针。",
+          "type": "LPCGUID"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -3901,11 +4237,13 @@
         {
           "name": "pguidEventContext",
           "direction": "in",
-          "description": "IAudioEndpointVolumeCallback：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 VolumeStepUp 调用更改终结点的卷级别，所有已注册具有该终结点 的 IAudioEndpointVolumeCallback 接口的客户端都将收到通知。 在 OnNotify 方法的实现中，客户端可以检查事件上下文 GUID，以发现它还是另一个客户端是卷更改事件的源。 如果调用方为 此参数提供 NULL 指针，则客户端的通知方法将收到 NULL 上下文指针。"
+          "description": "IAudioEndpointVolumeCallback：：OnNotify 方法的上下文值。 此参数指向事件上下文 GUID。 如果 VolumeStepUp 调用更改终结点的卷级别，所有已注册具有该终结点 的 IAudioEndpointVolumeCallback 接口的客户端都将收到通知。 在 OnNotify 方法的实现中，客户端可以检查事件上下文 GUID，以发现它还是另一个客户端是卷更改事件的源。 如果调用方为 此参数提供 NULL 指针，则客户端的通知方法将收到 NULL 上下文指针。",
+          "type": "LPCGUID"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "endpointvolume.h",
       "deprecated": false,
@@ -4082,7 +4420,7 @@
     {
       "id": "windows::SpatialAudioHrtfDirectivityCardioid",
       "name": "SpatialAudioHrtfDirectivityCardioid",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "表示 ISpatialAudioObjectForHrtf 的心形指向性模型。",
       "syntax": "typedef struct SpatialAudioHrtfDirectivityCardioid {\n    SpatialAudioHrtfDirectivity directivity;\n    float Order;\n} SpatialAudioHrtfDirectivityCardioid;",
       "return_value": null,
@@ -4099,7 +4437,8 @@
         "SpatialAudioObjectRenderStreamActivationParams"
       ],
       "confidence": 0.75,
-      "_source_line": 953
+      "_source_line": 953,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::SpatialAudioObjectRenderStreamActivationParams2",
@@ -4299,7 +4638,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 1207
+      "_source_line": 1207,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::AUDCLNT_S_BUFFER_EMPTY",
@@ -4542,7 +4885,8 @@
         {
           "name": "pCurrentPeriodInFrames",
           "direction": "out",
-          "description": "类型： UINT32* 音频引擎的当前时段（以音频帧为单位）。"
+          "description": "类型： UINT32* 音频引擎的当前时段（以音频帧为单位）。",
+          "type": "UINT32"
         }
       ],
       "return_value": {
@@ -4575,7 +4919,8 @@
         {
           "name": "pFundamentalPeriodInFrames",
           "direction": "out",
-          "description": "类型： UINT32* 引擎将唤醒客户端以传输音频样本的基本时间段。 设置音频引擎周期时，必须使用此值的整数倍数。"
+          "description": "类型： UINT32* 引擎将唤醒客户端以传输音频样本的基本时间段。 设置音频引擎周期时，必须使用此值的整数倍数。",
+          "type": "UINT32"
         },
         {
           "name": "pMinPeriodInFrames",
@@ -4586,7 +4931,8 @@
         {
           "name": "pMaxPeriodInFrames",
           "direction": "out",
-          "description": "类型： UINT32* 音频帧中最长的时间段，音频引擎将唤醒客户端以传输音频样本。"
+          "description": "类型： UINT32* 音频帧中最长的时间段，音频引擎将唤醒客户端以传输音频样本。",
+          "type": "UINT32"
         }
       ],
       "return_value": {
@@ -4694,7 +5040,10 @@
       "entity_type": "function",
       "description": "获取关联音频流的音频效果的当前列表。",
       "syntax": "HRESULT GetAudioEffects(\n  AUDIO_EFFECT **effects,\n  UINT32       *numEffects\n);",
-      "return_value": "返回 HRESULT 值。成功时返回 S_OK，失败时可能返回 AUDCLNT_E_EFFECT_NOT_AVAILABLE 等错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "返回 HRESULT 值。成功时返回 S_OK，失败时可能返回 AUDCLNT_E_EFFECT_NOT_AVAILABLE 等错误代码。"
+      },
       "header": "audioclient.h",
       "deprecated": false,
       "cross_references": [],
@@ -4707,7 +5056,10 @@
       "entity_type": "function",
       "description": "注册 IAudioEffectsChangedNotificationClient 接口。此回调接口允许应用程序在音频效果列表更改或启用效果更改所需的资源时接收通知，即当关联 AUDIO_EFFECT 的 canSetState 字段的值发生更改时。",
       "syntax": "HRESULT RegisterAudioEffectsChangedNotification( IAudioEffectsChangedNotificationClient *client );",
-      "return_value": "S_OK 表示成功，其他 HRESULT 错误代码表示失败。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "S_OK 表示成功，其他 HRESULT 错误代码表示失败。"
+      },
       "header": "audioclient.h",
       "deprecated": false,
       "cross_references": [],
@@ -4724,7 +5076,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.5,
-      "_source_line": 3157
+      "_source_line": 3157,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::AUDCLNT_E_EFFECT_NOT_AVAILABLE",
@@ -4750,7 +5106,8 @@
       "description": "取消注册 IAudioEffectsChangedNotificationClient 接口。",
       "syntax": "HRESULT UnregisterAudioEffectsChangedNotificationCallback( IAudioEffectsChangedNotificationClient *client );",
       "return_value": {
-        "description": "成功返回 S_OK"
+        "description": "成功返回 S_OK",
+        "type": "HRESULT"
       },
       "header": "audioclient.h",
       "deprecated": false,
@@ -4808,16 +5165,19 @@
         {
           "name": "deviceInterfacePath",
           "direction": "in",
-          "description": "音频设备的设备接口 ID。 这通常是从 DeviceInformation 对象或 MediaDevice 类的方法之一检索的。 GUID DEVINTERFACE_AUDIO_CAPTURE 和 DEVINTERFACE_AUDIO_RENDER 分别表示默认音频 捕获和呈现设备。 调用 StringFromIID 将其中任一 GUID 转换为用于此参数的 LPCWSTR 。指定 VIRTUAL_AUDIO_DEVICE_PROCESS_LOOPBACK 以激活进程环回捕获的音频接口。 有关 演示进程环回捕获方案的示例代码，请参阅 应用程序环回 API 捕获示例[in] riid WASAPI 系列中 COM 接口的 IID，例如 IAudioClient。[in] activationParams 。 特定于接口的激活参数。 有关详细信息，请参阅 IMMDevice：：Activate 中的 pActivationParams 参数。 从 Windows 10 内部版本 20438 开始，可以指定 AUDIOCLIENT_ACTIVATION_PARAMS 来激活接口，以包含或排除与指定进程 ID 关联的音频流。"
+          "description": "音频设备的设备接口 ID。 这通常是从 DeviceInformation 对象或 MediaDevice 类的方法之一检索的。 GUID DEVINTERFACE_AUDIO_CAPTURE 和 DEVINTERFACE_AUDIO_RENDER 分别表示默认音频 捕获和呈现设备。 调用 StringFromIID 将其中任一 GUID 转换为用于此参数的 LPCWSTR 。指定 VIRTUAL_AUDIO_DEVICE_PROCESS_LOOPBACK 以激活进程环回捕获的音频接口。 有关 演示进程环回捕获方案的示例代码，请参阅 应用程序环回 API 捕获示例[in] riid WASAPI 系列中 COM 接口的 IID，例如 IAudioClient。[in] activationParams 。 特定于接口的激活参数。 有关详细信息，请参阅 IMMDevice：：Activate 中的 pActivationParams 参数。 从 Windows 10 内部版本 20438 开始，可以指定 AUDIOCLIENT_ACTIVATION_PARAMS 来激活接口，以包含或排除与指定进程 ID 关联的音频流。",
+          "type": "LPCWSTR"
         },
         {
           "name": "completionHandler",
           "direction": "in",
-          "description": "调用方实现的接口，当激活过程的结果可用时，由 Windows 调用。 activationOperation 返回一个 IActivateAudioInterfaceAsyncOperation 接口，该接口表示激活请求 的 WASAPI 接口 的异步作。"
+          "description": "调用方实现的接口，当激活过程的结果可用时，由 Windows 调用。 activationOperation 返回一个 IActivateAudioInterfaceAsyncOperation 接口，该接口表示激活请求 的 WASAPI 接口 的异步作。",
+          "type": "IActivateAudioInterfaceCompletionHandler"
         }
       ],
       "return_value": {
-        "description": "该函数返回 HRESULT。 可能的值包括但不限于下表中的值。 返回代码 S_OK"
+        "description": "该函数返回 HRESULT。 可能的值包括但不限于下表中的值。 返回代码 S_OK",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -4895,14 +5255,19 @@
         {
           "name": "ResetFlags",
           "direction": "in",
-          "description": "允许应用程序指定要重置的格式。 如果未设置标志，则此方法将重新评估终结点的设备格式和混合格式，并将其设置为默认值。"
+          "description": "允许应用程序指定要重置的格式。 如果未设置标志，则此方法将重新评估终结点的设备格式和混合格式，并将其设置为默认值。",
+          "type": "DWORD"
         }
       ],
       "header": "audioendpoints.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 4200
+      "_source_line": 4200,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::ENDPOINT_FORMAT_RESET_MIX_ONLY",
@@ -5077,14 +5442,19 @@
         {
           "name": "category",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "AUDIO_STREAM_CATEGORY"
         }
       ],
       "header": "audiostatemonitorapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 6542
+      "_source_line": 6542,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CreateRenderAudioStateMonitor",
@@ -5096,11 +5466,13 @@
         {
           "name": "audioStateMonitor",
           "direction": "out",
-          "description": "接收指向创建的 IAudioStateMonitor 的指针。"
+          "description": "接收指向创建的 IAudioStateMonitor 的指针。",
+          "type": "IAudioStateMonitor"
         }
       ],
       "return_value": {
-        "description": "返回包含以下值的 HRESULT。 值 S_OK"
+        "description": "返回包含以下值的 HRESULT。 值 S_OK",
+        "type": "HRESULT"
       },
       "header": "audiostatemonitorapi.h",
       "deprecated": false,
@@ -5118,14 +5490,19 @@
         {
           "name": "category",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "AUDIO_STREAM_CATEGORY"
         }
       ],
       "header": "audiostatemonitorapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 6651
+      "_source_line": 6651,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CreateCaptureAudioStateMonitorForCategoryAndDeviceId",
@@ -5523,11 +5900,13 @@
         {
           "name": "value",
           "direction": "out",
-          "description": "获取此客户端的最大动态对象计数。"
+          "description": "获取此客户端的最大动态对象计数。",
+          "type": "UINT32"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。"
+        "description": "如果该方法成功，则它会返回 S_OK。",
+        "type": "HRESULT"
       },
       "remarks": "动态 ISpatialAudioObject 是通过将 type 参数设置为 AudioObjectType_Dynamic 在 ActivateSpatialAudioObject 方法中激活。客户端对一次可激活的动态空间音频对象的最大数目有限制。当音频呈现管道的容量发生更改时，系统将动态调整并发动态空间音频对象的最大数量。",
       "header": "spatialaudioclient.h",
@@ -5548,14 +5927,19 @@
         {
           "name": "mask",
           "direction": "out",
-          "description": ""
+          "description": "",
+          "type": "AudioObjectType"
         }
       ],
       "header": "spatialaudioclient.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 12335
+      "_source_line": 12335,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetStaticObjectPosition",
@@ -5567,11 +5951,13 @@
         {
           "name": "type",
           "direction": "in",
-          "description": "一个 值，该值指示要查询其位置的静态空间音频通道。 如果值不表示静态通道 （包括 AudioObjectType_Dynamic 和AudioObjectType_None），则此方法将返回 E_INVALIDARG。[out] x 相对于侦听器的静态音频通道的 x 坐标（以米为单位）。 正值位于侦听器右侧，负值位于左 侧。[out] y 相对于侦听器的静态音频通道的 y 坐标（以米为单位）。 正值高于侦听器，负值低于侦听器。[out] z 相对于侦听器的静态音频通道的 z 坐标（以米为单位）。 正值位于侦听器后面，负值位于前面。"
+          "description": "一个 值，该值指示要查询其位置的静态空间音频通道。 如果值不表示静态通道 （包括 AudioObjectType_Dynamic 和AudioObjectType_None），则此方法将返回 E_INVALIDARG。[out] x 相对于侦听器的静态音频通道的 x 坐标（以米为单位）。 正值位于侦听器右侧，负值位于左 侧。[out] y 相对于侦听器的静态音频通道的 y 坐标（以米为单位）。 正值高于侦听器，负值低于侦听器。[out] z 相对于侦听器的静态音频通道的 z 坐标（以米为单位）。 正值位于侦听器后面，负值位于前面。",
+          "type": "AudioObjectType"
         }
       ],
       "return_value": {
-        "description": "如果成功则返回 S_OK。失败时可能返回 E_INVALIDARG 等错误代码。"
+        "description": "如果成功则返回 S_OK。失败时可能返回 E_INVALIDARG 等错误代码。",
+        "type": "HRESULT"
       },
       "header": "spatialaudioclient.h",
       "deprecated": false,
@@ -5589,11 +5975,13 @@
         {
           "name": "enumerator",
           "direction": "out",
-          "description": "指向接收 IAudioFormatEnumerator 接口的指针的指针。"
+          "description": "指向接收 IAudioFormatEnumerator 接口的指针的指针。",
+          "type": "IAudioFormatEnumerator"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。"
+        "description": "如果该方法成功，则它会返回 S_OK。",
+        "type": "HRESULT"
       },
       "header": "spatialaudioclient.h",
       "deprecated": false,
@@ -5611,11 +5999,13 @@
         {
           "name": "objectFormat",
           "direction": "in",
-          "description": "要查询其支持的格式。"
+          "description": "要查询其支持的格式。",
+          "type": "const WAVEFORMATEX"
         }
       ],
       "return_value": {
-        "description": "如果支持指定的格式，则返回S_OK。 如果不支持指定的格式，此方法将返回 AUDCLNT_E_UNSUPPORTED_FORMAT。"
+        "description": "如果支持指定的格式，则返回S_OK。 如果不支持指定的格式，此方法将返回 AUDCLNT_E_UNSUPPORTED_FORMAT。",
+        "type": "HRESULT"
       },
       "header": "spatialaudioclient.h",
       "deprecated": false,
@@ -5633,10 +6023,14 @@
         {
           "name": "streamUuid",
           "direction": "in",
-          "description": "查询其可用性的接口的接口 ID。[in, optional] auxiliaryInfo 包含查询支持时要使用的其他信息的结构。 有关详细信息，请参阅“备注”。"
+          "description": "查询其可用性的接口的接口 ID。[in, optional] auxiliaryInfo 包含查询支持时要使用的其他信息的结构。 有关详细信息，请参阅“备注”。",
+          "type": "REFIID"
         }
       ],
-      "return_value": "{\"description\": \"如果方法成功，返回 S_OK。如果失败，返回错误代码。\"}",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "{\"description\": \"如果方法成功，返回 S_OK。如果失败，返回错误代码。\"}"
+      },
       "header": "spatialaudioclient.h",
       "deprecated": false,
       "cross_references": [],
@@ -5801,11 +6195,13 @@
         {
           "name": "distanceDecay",
           "direction": "in",
-          "description": "衰减模型。"
+          "description": "衰减模型。",
+          "type": "SpatialAudioHrtfDistanceDecay"
         }
       ],
       "return_value": {
-        "description": "成功时返回S_OK。失败时可能返回E_INVALIDARG等错误代码。"
+        "description": "成功时返回S_OK。失败时可能返回E_INVALIDARG等错误代码。",
+        "type": "HRESULT"
       },
       "header": "spatialaudiohrtf.h",
       "deprecated": false,
@@ -5823,11 +6219,13 @@
         {
           "name": "environment",
           "direction": "in",
-          "description": "一个 值，该值指定在为 ISpatialAudioObjectForHrtf 处理音频时模拟的声学环境类型。"
+          "description": "一个 值，该值指定在为 ISpatialAudioObjectForHrtf 处理音频时模拟的声学环境类型。",
+          "type": "SpatialAudioHrtfEnvironmentType"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。"
+        "description": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。",
+        "type": "HRESULT"
       },
       "header": "spatialaudiohrtf.h",
       "deprecated": false,
@@ -5845,11 +6243,13 @@
         {
           "name": "orientation",
           "direction": "in",
-          "description": "定义行主 3x3 旋转矩阵的浮点数组。"
+          "description": "定义行主 3x3 旋转矩阵的浮点数组。",
+          "type": "const SpatialAudioHrtfOrientation"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "spatialaudiohrtf.h",
       "deprecated": false,
@@ -5993,11 +6393,13 @@
         {
           "name": "metadataCopier",
           "direction": "out",
-          "description": "接收指向 ISpatialAudioMetadataWriter 实例的指针。"
+          "description": "接收指向 ISpatialAudioMetadataWriter 实例的指针。",
+          "type": "ISpatialAudioMetadataCopier"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。",
+        "type": "HRESULT"
       },
       "header": "spatialaudiometadata.h",
       "deprecated": false,
@@ -6015,10 +6417,14 @@
         {
           "name": "maxItemCount",
           "direction": "in",
-          "description": "可存储在返回的 ISpatialAudioMetadataItems 中的元数据项的最大数目。[in] frameCount 存储在返回的 ISpatialAudioMetadataItems 中的元数据项的有效帧偏移位置范围。[out, optional] metadataItemsBuffer 如果提供了指针，则 返回 ISpatialAudioMetadataItemsBuffer 接口，该接口提供附加调用方提供的内存以存储元数据项的方法。 如果此参数为 NULL，则对象将为项分配内部存储。 无法通过"
+          "description": "可存储在返回的 ISpatialAudioMetadataItems 中的元数据项的最大数目。[in] frameCount 存储在返回的 ISpatialAudioMetadataItems 中的元数据项的有效帧偏移位置范围。[out, optional] metadataItemsBuffer 如果提供了指针，则 返回 ISpatialAudioMetadataItemsBuffer 接口，该接口提供附加调用方提供的内存以存储元数据项的方法。 如果此参数为 NULL，则对象将为项分配内部存储。 无法通过",
+          "type": "UINT16"
         }
       ],
-      "return_value": "{\"description\": \"如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 SPTLAUD_MD_CLNT_E_FRAMEOFFSET_OUT_OF_RANGE 等。\"}",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "{\"description\": \"如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于 SPTLAUD_MD_CLNT_E_FRAMEOFFSET_OUT_OF_RANGE 等。\"}"
+      },
       "header": "spatialaudiometadata.h",
       "deprecated": false,
       "cross_references": [
@@ -6038,11 +6444,13 @@
         {
           "name": "metadataReader",
           "direction": "out",
-          "description": "接收指向 ISpatialAudioMetadataReader 实例的指针。"
+          "description": "接收指向 ISpatialAudioMetadataReader 实例的指针。",
+          "type": "ISpatialAudioMetadataReader"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "spatialaudiometadata.h",
       "deprecated": false,
@@ -6060,11 +6468,13 @@
         {
           "name": "maxItemCount",
           "direction": "in",
-          "description": "要存储在 ISpatialAudioMetadataItems 对象中的元数据项的最大数目。[out] bufferLength 存储 maxItemCount 参数中指定的空间音频元数据项数所需的缓冲区长度。"
+          "description": "要存储在 ISpatialAudioMetadataItems 对象中的元数据项的最大数目。[out] bufferLength 存储 maxItemCount 参数中指定的空间音频元数据项数所需的缓冲区长度。",
+          "type": "UINT16"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于表中显示的值。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于表中显示的值。",
+        "type": "HRESULT"
       },
       "header": "spatialaudiometadata.h",
       "deprecated": false,
@@ -6082,7 +6492,8 @@
         {
           "name": "maxItemCount",
           "direction": "out",
-          "description": "允许的最大项目数。"
+          "description": "允许的最大项目数。",
+          "type": "UINT16"
         },
         {
           "name": "maxValueBufferLength",
@@ -6096,7 +6507,8 @@
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。"
+        "description": "如果该方法成功，则返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -6151,7 +6563,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 14396
+      "_source_line": 14396,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::ReadNextItem",
@@ -6163,21 +6579,25 @@
         {
           "name": "commandID",
           "direction": "out",
-          "description": "接收当前命令的命令 ID。[in] valueBuffer 指向缓冲区的指针，该缓冲区接收特定于元数据格式定义所指定的命令的数据。 缓冲区必须至少 为 maxValueBufferLength ，以确保可以成功检索所有命令。"
+          "description": "接收当前命令的命令 ID。[in] valueBuffer 指向缓冲区的指针，该缓冲区接收特定于元数据格式定义所指定的命令的数据。 缓冲区必须至少 为 maxValueBufferLength ，以确保可以成功检索所有命令。",
+          "type": "BYTE"
         },
         {
           "name": "maxValueBufferLength",
           "direction": "in",
-          "description": "命令值的最大大小。"
+          "description": "命令值的最大大小。",
+          "type": "UINT32"
         },
         {
           "name": "valueBufferLength",
           "direction": "out",
-          "description": "写入 valueBuffer 参数的数据的大小（以字节为单位）。"
+          "description": "写入 valueBuffer 参数的数据的大小（以字节为单位）。",
+          "type": "UINT32"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "spatialaudiometadata.h",
       "deprecated": false,
@@ -6195,10 +6615,14 @@
         {
           "name": "frameOffset",
           "direction": "in",
-          "description": "使用 ActivateSpatialAudioMetadataItems 的 frameCount 参数指定的范围内的项的帧偏移量。"
+          "description": "使用 ActivateSpatialAudioMetadataItems 的 frameCount 参数指定的范围内的项的帧偏移量。",
+          "type": "UINT16"
         }
       ],
-      "return_value": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则它会返回 S_OK。如果失败，可能的返回代码包括但不限于下表中显示的值。"
+      },
       "header": "spatialaudiometadata.h",
       "deprecated": false,
       "cross_references": [],
@@ -6245,16 +6669,19 @@
         {
           "name": "type",
           "direction": "in",
-          "description": "要激活的音频对象的类型。 对于动态音频对象，此值必须 AudioObjectType_Dynamic。 对于静态音频对象，请指定枚举中的一个静态音频通道值。 指定 AudioObjectType_None 将生成未空间化的音频对象。"
+          "description": "要激活的音频对象的类型。 对于动态音频对象，此值必须 AudioObjectType_Dynamic。 对于静态音频对象，请指定枚举中的一个静态音频通道值。 指定 AudioObjectType_None 将生成未空间化的音频对象。",
+          "type": "AudioObjectType"
         },
         {
           "name": "audioObject",
           "direction": "out",
-          "description": "接收指向已激活接口的指针。"
+          "description": "接收指向已激活接口的指针。",
+          "type": "ISpatialAudioObjectForMetadataCommands"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "spatialaudiometadata.h",
       "deprecated": false,
@@ -6300,16 +6727,19 @@
         {
           "name": "type",
           "direction": "in",
-          "description": "要激活的音频对象的类型。 对于动态音频对象，此值必须 AudioObjectType_Dynamic。 对于静态音频对象，请指定枚举中的一个静态音频通道值。 指定 AudioObjectType_None 将生成未空间化的音频对象。"
+          "description": "要激活的音频对象的类型。 对于动态音频对象，此值必须 AudioObjectType_Dynamic。 对于静态音频对象，请指定枚举中的一个静态音频通道值。 指定 AudioObjectType_None 将生成未空间化的音频对象。",
+          "type": "AudioObjectType"
         },
         {
           "name": "audioObject",
           "direction": "out",
-          "description": "接收指向已激活接口的指针。"
+          "description": "接收指向已激活接口的指针。",
+          "type": "ISpatialAudioObjectForMetadataItems"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码"
+        "description": "如果该方法成功，则它会返回 S_OK。 如果失败，可能的返回代码包括但不限于下表中显示的值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "spatialaudiometadata.h",
       "deprecated": false,

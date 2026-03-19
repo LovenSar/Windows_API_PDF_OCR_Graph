@@ -41,37 +41,50 @@ import aiohttp
 from tqdm import tqdm
 
 # ════════════════════════════════════════════════════════════════
-#  全局配置
+#  全局配置（canonical 定义在 pipeline_lib/config.py）
 # ════════════════════════════════════════════════════════════════
-WORKSPACE       = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_DIR      = os.path.join(WORKSPACE, "json_output_v4")
-CHECKPOINT_FILE = os.path.join(OUTPUT_DIR, "_checkpoint.json")
-LLM_CKPT_FILE  = os.path.join(OUTPUT_DIR, "_llm_checkpoint.json")
-OPS_LOG_FILE    = os.path.join(OUTPUT_DIR, "_llm_operations.jsonl")
-LLM_CONFIG_FILE = os.path.join(WORKSPACE, "llm_config.json")
-MIN_DESC_LENGTH = 8
-SCHEMA_VERSION  = "windows_api_kg_v4.0"
-
-# KG v4.1 增强（并入主流水线）
-ALLOWED_ENTITY_TYPES = {
-    "function", "structure", "struct", "enum", "callback", "macro",
-    "constant", "typedef", "union", "interface", "ioctl", "event",
-    "method", "property", "notification", "oid", "enum_value",
-    "error_code", "parameter", "application", "enum_member",
-    "function_pointer", "flags", "structure_member", "field", "message",
-    "technology", "attribute", "unknown",
-}
-TYPE_NODE_KINDS = {
-    "structure", "enum", "enum_value", "union",
-    "typedef", "constant", "macro", "flags", "error_code",
-}
-C_IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
-C_KEYWORDS = {
-    "const", "volatile", "signed", "unsigned", "struct", "enum",
-    "union", "class", "typedef", "static", "extern", "inline",
-    "__in", "__out", "__inout", "_in_", "_out_", "_inout_",
-}
-POINTER_TRIM_RE = re.compile(r"[\s\*]+")
+try:
+    from pipeline_lib.config import (
+        WORKSPACE, OUTPUT_DIR, CHECKPOINT_FILE, LLM_CKPT_FILE,
+        OPS_LOG_FILE, LLM_CONFIG_FILE, MIN_DESC_LENGTH, SCHEMA_VERSION,
+        ALLOWED_ENTITY_TYPES, _TYPE_SYNONYMS, TYPE_NODE_KINDS,
+        C_IDENTIFIER_RE, C_KEYWORDS, POINTER_TRIM_RE,
+        normalize_entity_type,
+    )
+    _CONFIG_FROM_LIB = True
+except ImportError:
+    _CONFIG_FROM_LIB = False
+    WORKSPACE       = os.path.dirname(os.path.abspath(__file__))
+    OUTPUT_DIR      = os.path.join(WORKSPACE, "json_output_v4")
+    CHECKPOINT_FILE = os.path.join(OUTPUT_DIR, "_checkpoint.json")
+    LLM_CKPT_FILE  = os.path.join(OUTPUT_DIR, "_llm_checkpoint.json")
+    OPS_LOG_FILE    = os.path.join(OUTPUT_DIR, "_llm_operations.jsonl")
+    LLM_CONFIG_FILE = os.path.join(WORKSPACE, "llm_config.json")
+    MIN_DESC_LENGTH = 8
+    SCHEMA_VERSION  = "windows_api_kg_v4.0"
+    ALLOWED_ENTITY_TYPES = {
+        "function", "structure", "enum", "callback", "macro",
+        "constant", "typedef", "union", "interface", "ioctl", "event",
+        "method", "property", "notification", "oid", "enum_value",
+        "error_code", "parameter", "application", "enum_member",
+        "function_pointer", "flags", "structure_member", "field", "message",
+        "technology", "attribute", "class", "unknown",
+    }
+    _TYPE_SYNONYMS = {
+        "struct": "structure", "structur": "structure", "structures": "structure",
+        "flag": "flags", "enumvalue": "enum_value",
+    }
+    TYPE_NODE_KINDS = {
+        "structure", "enum", "enum_value", "union",
+        "typedef", "constant", "macro", "flags", "error_code",
+    }
+    C_IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
+    C_KEYWORDS = {
+        "const", "volatile", "signed", "unsigned", "struct", "enum",
+        "union", "class", "typedef", "static", "extern", "inline",
+        "__in", "__out", "__inout", "_in_", "_out_", "_inout_",
+    }
+    POINTER_TRIM_RE = re.compile(r"[\s\*]+")
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s", datefmt="%H:%M:%S")
 log = logging.getLogger("pipeline")
@@ -264,17 +277,19 @@ def infer_entity_type(name, current_type):
         if pat.search(name): return inferred
     return current_type
 
-def normalize_entity_type(et: str) -> str:
-    if not et:
-        return "unknown"
-    et = str(et).strip().lower()
-    if et in ("struct", "structure"):
-        return "structure"
-    if et in ("enumvalue", "enum_value"):
-        return "enum_value"
-    if et not in ALLOWED_ENTITY_TYPES:
-        return "unknown"
-    return et
+if not _CONFIG_FROM_LIB:
+    def normalize_entity_type(et: str) -> str:
+        if not et:
+            return "unknown"
+        et = str(et).strip().lower()
+        if len(et) > 40:
+            return "unknown"
+        syn = _TYPE_SYNONYMS.get(et)
+        if syn:
+            return syn
+        if et not in ALLOWED_ENTITY_TYPES:
+            return "unknown"
+        return et
 
 def tokenize_type_string(type_text: str) -> List[str]:
     if not type_text:
@@ -1463,6 +1478,8 @@ class OperationExecutor:
         if not fn or eid not in self.graph.entities: self.stats['skipped']+=1; return
         if fn not in ('description','entity_type','syntax','return_value','remarks','header','deprecated'):
             self.stats['skipped']+=1; return
+        if fn == 'entity_type':
+            v = normalize_entity_type(v)
         self.graph.entities[eid][fn]=v; self.stats['update_field']+=1
     def _ae(self, eid, op):
         tn=op.get('target',''); et=op.get('edge_type','references')
@@ -1483,7 +1500,7 @@ class OperationExecutor:
         if not nm: self.stats['skipped']+=1; return
         nid=f"windows::{nm}"
         if nid in self.graph.entities: self.stats['skipped']+=1; return
-        self.graph.entities[nid]={'id':nid,'name':nm,'entity_type':op.get('entity_type','unknown'),
+        self.graph.entities[nid]={'id':nid,'name':nm,'entity_type':normalize_entity_type(op.get('entity_type','')),
                                    'description':op.get('description',''),'confidence':0.7,'_source':'llm'}
         self.graph.entity_names[nm]=nid; self.graph.source_files[nid]='llm_added'
         self.stats['add_node']+=1
@@ -1942,7 +1959,7 @@ def save_refined_graph(graph, output_dir, exec_stats):
     # 全局索引
     idx = {}
     for eid, ent in graph.entities.items():
-        idx[ent.get('name','')] = {'id':eid,'file':graph.source_files.get(eid,''),'type':ent.get('entity_type','unknown')}
+        idx[ent.get('name','')] = {'id':eid,'file':graph.source_files.get(eid,''),'type':normalize_entity_type(ent.get('entity_type',''))}
     with open(os.path.join(output_dir,'global_entity_index.json'),'w',encoding='utf-8') as f:
         json.dump({'_schema':'global_entity_index_v4.0_refined',
                    '_generated_at':datetime.now(timezone.utc).isoformat(),

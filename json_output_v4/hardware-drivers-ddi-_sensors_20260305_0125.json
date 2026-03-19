@@ -183,16 +183,19 @@
         {
           "name": "SourceCollection",
           "direction": "in",
-          "description": "指向集合列表的指针。"
+          "description": "指向集合列表的指针。",
+          "type": "const PSENSOR_COLLECTION_LIST"
         },
         {
           "name": "pTargetBufferSizeInBytes",
           "direction": "out",
-          "description": "分配的缓冲区大小（以字节为单位）。[out] pTargetBuffer 指向分配的缓冲区的指针，用于保存序列化的数据。"
+          "description": "分配的缓冲区大小（以字节为单位）。[out] pTargetBuffer 指向分配的缓冲区的指针，用于保存序列化的数据。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS 状态代码。调用成功时返回成功状态；否则返回相应的错误状态。"
+        "description": "返回 NTSTATUS 状态代码。调用成功时返回成功状态；否则返回相应的错误状态。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -220,10 +223,14 @@
         {
           "name": "Target",
           "direction": "in",
-          "description": "指向集合列表的指针。"
+          "description": "指向集合列表的指针。",
+          "type": "PSENSOR_COLLECTION_LIST"
         }
       ],
-      "return_value": "成功时返回 STATUS_SUCCESS。如果集合列表不足以容纳封送/平展后的数据，则返回 STATUS_BUFFER_TOO_SMALL。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "成功时返回 STATUS_SUCCESS。如果集合列表不足以容纳封送/平展后的数据，则返回 STATUS_BUFFER_TOO_SMALL。"
+      },
       "requirements": {
         "header": "sensorsutils.h"
       },
@@ -248,10 +255,14 @@
         {
           "name": "Collection",
           "direction": "in/out",
-          "description": "指向传感器集合列表的指针。"
+          "description": "指向传感器集合列表的指针。",
+          "type": "out] PSENSOR_COLLECTION_LIST"
         }
       ],
-      "return_value": "此函数用于在传感器集合列表被封送或反序列化后，修正其中嵌入的指针。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "此函数用于在传感器集合列表被封送或反序列化后，修正其中嵌入的指针。"
+      },
       "header": "sensorsutils.h",
       "deprecated": false,
       "cross_references": [
@@ -269,11 +280,13 @@
       "parameters": [
         {
           "name": "Sensor",
-          "description": "对传感器对象的引用。 pBytesWritten 指向写入的字节的指针。"
+          "description": "对传感器对象的引用。 pBytesWritten 指向写入的字节的指针。",
+          "type": "SENSOROBJECT"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，则返回 STATUS_SUCCESS 或其他 NTSTATUS 成功代码；否则返回相应的 NTSTATUS 错误代码。"
+        "description": "如果操作成功，则返回 STATUS_SUCCESS 或其他 NTSTATUS 成功代码；否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorscx.h"
@@ -317,11 +330,13 @@
       "parameters": [
         {
           "name": "Sensor",
-          "description": "对传感器对象的引用。"
+          "description": "对传感器对象的引用。",
+          "type": "SENSOROBJECT"
         }
       ],
       "return_value": {
-        "description": "成功完成后，此函数将返回STATUS_SUCCESS。 注释 类扩展（CX）仅使用NT_SUCCESS宏来确定对驱动程序 Evt 函数的调用是否成 功，但如果函数失败或未返回STATUS_SUCCESS，则不采取任何作。"
+        "description": "成功完成后，此函数将返回STATUS_SUCCESS。 注释 类扩展（CX）仅使用NT_SUCCESS宏来确定对驱动程序 Evt 函数的调用是否成 功，但如果函数失败或未返回STATUS_SUCCESS，则不采取任何作。",
+        "type": "NTSTATUS"
       },
       "remarks": "This DDSI callback is optional because some sensor drivers do not need to handle disabling wake on a sensor. If the driver does not implement this callback, the request is ignored and STATUS_SUCCESS is returned. This behavior supports backward compatibility for wake-capable sensors such as accelerometers and proximity sensors.",
       "header": "sensorscx.h",
@@ -340,11 +355,13 @@
         {
           "name": "Sensor",
           "direction": "in",
-          "description": "对传感器对象的引用。"
+          "description": "对传感器对象的引用。",
+          "type": "SENSOROBJECT"
         }
       ],
       "return_value": {
-        "description": "成功时返回 STATUS_SUCCESS。类扩展（CX）使用 NT_SUCCESS 宏判断调用是否成功；如果函数失败或未返回 STATUS_SUCCESS，则不会执行额外操作。"
+        "description": "成功时返回 STATUS_SUCCESS。类扩展（CX）使用 NT_SUCCESS 宏判断调用是否成功；如果函数失败或未返回 STATUS_SUCCESS，则不会执行额外操作。",
+        "type": "NTSTATUS"
       },
       "remarks": "此 DDSI 回调不是驱动程序必须实现的，因为某些传感器驱动程序并不关心启用传感器唤醒。如果驱动程序未实现此启用唤醒回调，则该请求会被忽略并返回 STATUS_SUCCESS。这样设计主要是为了与使用 PKEY_Sensor_WakeCapable 的传感器（例如加速度计和接近传感器）保持向后兼容，因此实现此 DDSI 是可选的。",
       "header": "sensorscx.h",
@@ -363,11 +380,13 @@
         {
           "name": "Sensor",
           "direction": "in",
-          "description": "对传感器对象的引用。[in] pDataField 对数据字段的引用。 有关详细信息，请参阅 传感器数据字段。[in, out, optional] pProperties 指定 传感器的属性及其值的列表。 有关详细信息，请参阅 SENSOR_COLLECTION_LIST[out] pSize pDataField的大小。"
+          "description": "对传感器对象的引用。[in] pDataField 对数据字段的引用。 有关详细信息，请参阅 传感器数据字段。[in, out, optional] pProperties 指定 传感器的属性及其值的列表。 有关详细信息，请参阅 SENSOR_COLLECTION_LIST[out] pSize pDataField的大小。",
+          "type": "SENSOROBJECT"
         }
       ],
       "return_value": {
-        "description": "Returns STATUS_SUCCESS if the callback succeeds. Otherwise, returns an appropriate NTSTATUS error code."
+        "description": "Returns STATUS_SUCCESS if the callback succeeds. Otherwise, returns an appropriate NTSTATUS error code.",
+        "type": "NTSTATUS"
       },
       "remarks": "This callback must be implemented by the driver and is called by the Sensor Class Extension. The class extension uses the NT_SUCCESS macro to determine whether the callback succeeded; it does not require the callback to return STATUS_SUCCESS specifically.",
       "header": "sensorscx.h",
@@ -388,11 +407,13 @@
         {
           "name": "Sensor",
           "direction": "in",
-          "description": "对传感器对象的引用。[out] pDataRateMs 指定的 传感器的数据间隔。"
+          "description": "对传感器对象的引用。[out] pDataRateMs 指定的 传感器的数据间隔。",
+          "type": "SENSOROBJECT"
         }
       ],
       "return_value": {
-        "description": "Returns STATUS_SUCCESS if the operation succeeds. Otherwise, returns an appropriate NTSTATUS error code. The class extension (CX) uses the NT_SUCCESS macro to determine whether the call succeeded; if the function fails or does not return STATUS_SUCCESS, no additional action is taken."
+        "description": "Returns STATUS_SUCCESS if the operation succeeds. Otherwise, returns an appropriate NTSTATUS error code. The class extension (CX) uses the NT_SUCCESS macro to determine whether the call succeeded; if the function fails or does not return STATUS_SUCCESS, no additional action is taken.",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorscx.h"
@@ -413,7 +434,8 @@
         {
           "name": "Sensor",
           "direction": "in",
-          "description": "对传感器对象的引用。[out] pThresholds 与 传感器关联的阈值属性及其值的列表。 有关详细信息，请参阅"
+          "description": "对传感器对象的引用。[out] pThresholds 与 传感器关联的阈值属性及其值的列表。 有关详细信息，请参阅",
+          "type": "SENSOROBJECT"
         }
       ],
       "header": "sensorscx.h",
@@ -424,7 +446,10 @@
       "confidence": 0.85,
       "_source_line": 64,
       "syntax": "NTSTATUS EVT_SENSOR_DRIVER_GET_DATA_THRESHOLDS(\n  [in]  SENSOROBJECT             Sensor,\n  [out] PSENSOR_COLLECTION_LIST  pThresholds,\n  [out] PULONG                   pSize\n);",
-      "return_value": "Returns STATUS_SUCCESS if the operation succeeds, or an appropriate NTSTATUS error code otherwise.",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "Returns STATUS_SUCCESS if the operation succeeds, or an appropriate NTSTATUS error code otherwise."
+      },
       "remarks": "This callback is invoked by SensorsCx to obtain the current data thresholds for the sensor."
     },
     {
@@ -436,15 +461,20 @@
         {
           "name": "Sensor",
           "direction": "in",
-          "description": "对传感器对象的引用。"
+          "description": "对传感器对象的引用。",
+          "type": "SENSOROBJECT"
         },
         {
           "name": "pDataFields",
           "direction": "in, out, optional",
-          "description": "给定 传感器支持的数据字段列表。 有关详细信息，请参阅 SENSOR_PROPERTY_LIST。[out] pSize pDataFields的大小。"
+          "description": "给定 传感器支持的数据字段列表。 有关详细信息，请参阅 SENSOR_PROPERTY_LIST。[out] pSize pDataFields的大小。",
+          "type": "optional] PSENSOR_PROPERTY_LIST"
         }
       ],
-      "return_value": "驱动程序必须实现此回调，由传感器类扩展调用以获取传感器支持的数据字段列表。通常可先调用一次并将 pDataFields 设为 NULL 以获取所需缓冲区大小，然后再次调用以检索完整列表。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "驱动程序必须实现此回调，由传感器类扩展调用以获取传感器支持的数据字段列表。通常可先调用一次并将 pDataFields 设为 NULL 以获取所需缓冲区大小，然后再次调用以检索完整列表。"
+      },
       "remarks": "驱动程序必须实现此回调，由传感器类扩展调用以获取传感器支持的数据字段列表。通常可先调用一次并将 pDataFields 设为 NULL 以获取所需缓冲区大小，然后再次调用以检索完整列表。",
       "header": "sensorscx.h",
       "deprecated": false,
@@ -462,11 +492,13 @@
         {
           "name": "Sensor",
           "direction": "in",
-          "description": "对传感器对象的引用。[in] BatchLatencyMs 批处理延迟（以毫秒为单位）。"
+          "description": "对传感器对象的引用。[in] BatchLatencyMs 批处理延迟（以毫秒为单位）。",
+          "type": "SENSOROBJECT"
         }
       ],
       "return_value": {
-        "description": "成功完成后，此函数将返回STATUS_SUCCESS。 注释 类扩展（CX）仅使用NT_SUCCESS宏来确定对驱动程序 Evt 函数的调用是否成功， 但如果函数失败或未返回STATUS_SUCCESS，则不采取任何作。"
+        "description": "成功完成后，此函数将返回STATUS_SUCCESS。 注释 类扩展（CX）仅使用NT_SUCCESS宏来确定对驱动程序 Evt 函数的调用是否成功， 但如果函数失败或未返回STATUS_SUCCESS，则不采取任何作。",
+        "type": "NTSTATUS"
       },
       "remarks": "驱动程序可以将批处理延迟设置为小于或等于 BatchLatencyMs 的值，具体取决于缓冲区可用性。有关支持数据批处理的传感器驱动程序必须报告的属性，请参阅相关传感器属性文档。数据批处理不会隐式更改传感器的数据传输方法或事件模型。当批处理延迟到期时，驱动程序应重复调用 SensorsCxSensorDataReady，一次传递一个已缓冲的数据样本。每个样本都应包含 PKEY_SensorData_Timestamp 数据字段中的时间戳信息；该时间戳的数据类型为 VT_FILETIME，表示样本采集时间。",
       "header": "sensorscx.h",
@@ -487,11 +519,13 @@
         {
           "name": "Sensor",
           "direction": "in",
-          "description": "对传感器对象的引用。[in] pThresholds 为 传感器设置的阈值及其值的列表。 有关详细信息，请参阅 SENSOR_COLLECTION_LIST。"
+          "description": "对传感器对象的引用。[in] pThresholds 为 传感器设置的阈值及其值的列表。 有关详细信息，请参阅 SENSOR_COLLECTION_LIST。",
+          "type": "SENSOROBJECT"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。类扩展通常使用 NT_SUCCESS 宏判断调用是否成功。"
+        "description": "如果函数成功，则返回 STATUS_SUCCESS。否则返回相应的 NTSTATUS 错误代码。类扩展通常使用 NT_SUCCESS 宏判断调用是否成功。",
+        "type": "NTSTATUS"
       },
       "remarks": "此回调函数必须由驱动程序实现，并由 Sensors Class Extension 调用以设置传感器的数据阈值。",
       "header": "sensorscx.h",
@@ -538,11 +572,13 @@
       "parameters": [
         {
           "name": "Sensor",
-          "description": "对传感器对象的引用。"
+          "description": "对传感器对象的引用。",
+          "type": "SENSOROBJECT"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS。成功时应返回 STATUS_SUCCESS。类扩展（CX）使用 NT_SUCCESS 宏判断调用是否成功；即使返回的成功状态不是 STATUS_SUCCESS，也通常不会执行额外操作。"
+        "description": "返回 NTSTATUS。成功时应返回 STATUS_SUCCESS。类扩展（CX）使用 NT_SUCCESS 宏判断调用是否成功；即使返回的成功状态不是 STATUS_SUCCESS，也通常不会执行额外操作。",
+        "type": "NTSTATUS"
       },
       "remarks": "此回调必须由驱动程序实现。在传感器启动时由类扩展调用。",
       "requirements": {
@@ -564,11 +600,13 @@
         {
           "name": "Sensor",
           "direction": "in",
-          "description": "对传感器对象的引用。"
+          "description": "对传感器对象的引用。",
+          "type": "SENSOROBJECT"
         }
       ],
       "return_value": {
-        "description": "Returns an NTSTATUS value indicating success or failure of the operation."
+        "description": "Returns an NTSTATUS value indicating success or failure of the operation.",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorscx.h"
@@ -594,7 +632,8 @@
         }
       ],
       "return_value": {
-        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorscx.h"
@@ -614,10 +653,14 @@
       "parameters": [
         {
           "name": "Sensor",
-          "description": "对传感器对象的引用。"
+          "description": "对传感器对象的引用。",
+          "type": "SENSOROBJECT"
         }
       ],
-      "return_value": "驱动程序必须实现此回调函数，由 Sensors Class Extension 调用以停止指定传感器。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "驱动程序必须实现此回调函数，由 Sensors Class Extension 调用以停止指定传感器。"
+      },
       "remarks": "驱动程序必须实现此回调函数，由 Sensors Class Extension 调用以停止指定传感器。",
       "requirements": {
         "header": "sensorscx.h"
@@ -637,11 +680,13 @@
       "parameters": [
         {
           "name": "Sensor",
-          "description": "对传感器对象的引用。"
+          "description": "对传感器对象的引用。",
+          "type": "SENSOROBJECT"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回适当的 NTSTATUS 错误代码。"
+        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回适当的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorscx.h"
@@ -666,7 +711,8 @@
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 STATUS_SUCCESS；否则返回适当的 NTSTATUS 错误代码。"
+        "description": "如果函数成功，则返回 STATUS_SUCCESS；否则返回适当的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorscx.h"
@@ -685,7 +731,8 @@
       "description": "测试两个浮点数在给定容差范围内是否可视为相等。如果两个数之差的绝对值小于 FLOAT_TOLERANCE，则认为 x 等于 y。",
       "syntax": "bool FloatEq(float x, float y);",
       "return_value": {
-        "description": "如果两个浮点数之差的绝对值小于 FLOAT_TOLERANCE，则返回 true；否则返回 false。"
+        "description": "如果两个浮点数之差的绝对值小于 FLOAT_TOLERANCE，则返回 true；否则返回 false。",
+        "type": "bool"
       },
       "requirements": {
         "header": "math3dhelper.h"
@@ -707,11 +754,13 @@
       "parameters": [
         {
           "name": "Device",
-          "description": "提供 WDF 设备对象。 MethodName 提供要读取的方法名称。 MethodNameLength 提供方法名称长度（以字节为单位）。 MethodArgument 提供写入方法参数的地址。 MethodArgumentLength 提供用于保存 MethodArgument 的缓冲区的长度（以字节为单位）。"
+          "description": "提供 WDF 设备对象。 MethodName 提供要读取的方法名称。 MethodNameLength 提供方法名称长度（以字节为单位）。 MethodArgument 提供写入方法参数的地址。 MethodArgumentLength 提供用于保存 MethodArgument 的缓冲区的长度（以字节为单位）。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS 状态代码。"
+        "description": "返回 NTSTATUS 状态代码。",
+        "type": "NTSTATUS"
       },
       "header": "sensorsdriversutils.h",
       "deprecated": false,
@@ -731,10 +780,14 @@
       "parameters": [
         {
           "name": "Device",
-          "description": "提供 WDF 设备对象。 MethodName 提供要读取的方法名称。 MethodNameLength 提供方法名称长度（以字节为单位）。 RotationMatrix 提供读取旋转矩阵的 VEC3D 缓冲区。 RotationMatrixEntries 提供 RotationMatrix 可以保留的元素数。"
+          "description": "提供 WDF 设备对象。 MethodName 提供要读取的方法名称。 MethodNameLength 提供方法名称长度（以字节为单位）。 RotationMatrix 提供读取旋转矩阵的 VEC3D 缓冲区。 RotationMatrixEntries 提供 RotationMatrix 可以保留的元素数。",
+          "type": "WDFDEVICE"
         }
       ],
-      "return_value": "调用此函数之前，调用方负责保存并在之后还原浮点上下文。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "调用此函数之前，调用方负责保存并在之后还原浮点上下文。"
+      },
       "remarks": "调用此函数之前，调用方负责保存并在之后还原浮点上下文。",
       "requirements": {
         "header": "sensorsdriversutils.h"
@@ -771,11 +824,13 @@
       "parameters": [
         {
           "name": "Device",
-          "description": "提供 WDF 设备对象。 RotationMatrix 提供读取旋转矩阵的 VEC3D 缓冲区。 RotationMatrixEntryCount 提供 RotationMatrix 可以保留的元素数。"
+          "description": "提供 WDF 设备对象。 RotationMatrix 提供读取旋转矩阵的 VEC3D 缓冲区。 RotationMatrixEntryCount 提供 RotationMatrix 可以保留的元素数。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS 状态代码。"
+        "description": "返回 NTSTATUS 状态代码。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsdriversutils.h"
@@ -801,7 +856,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.5,
-      "_source_line": 96
+      "_source_line": 96,
+      "return_value": {
+        "type": "BOOLEAN",
+        "description": ""
+      }
     },
     {
       "id": "windows::MILLISECONDS_FROM_100NANOSECONDS",
@@ -833,7 +892,10 @@
       "entity_type": "method",
       "description": "ISensorDriver::OnClientUnsubscribeFromEvents 方法通知传感器驱动程序，客户端应用程序不再请求事件通知。",
       "syntax": "HRESULT OnClientUnsubscribeFromEvents(\n  IWDFFile *pClientFile,\n  LPWSTR   pwszSensorID\n);",
-      "return_value": "如果该方法成功，则返回 S_OK。否则，返回 Winerror.h 中定义的 HRESULT 错误代码之一。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果该方法成功，则返回 S_OK。否则，返回 Winerror.h 中定义的 HRESULT 错误代码之一。"
+      },
       "remarks": "传感器类扩展会在以下情况下调用此方法：应用程序取消订阅事件；应用程序正常关闭；用户撤销应用程序对包含指定传感器的设备的访问权限；传感器类扩展正在关闭；从 ISensorClassExtension::CleanupFile 调用以完成清理工作。驱动程序可使用此调用作为信号，以更新请求指定传感器事件的应用程序的引用计数。",
       "header": "Sensorsclassextension.h",
       "deprecated": false,
@@ -869,11 +931,13 @@
         {
           "name": "RotationEntry",
           "direction": "in",
-          "description": "一个表示三个浮点的字符串。[in] Length 字符串的长度。[out] Data 浮点数的输出缓冲区。"
+          "description": "一个表示三个浮点的字符串。[in] Length 字符串的长度。[out] Data 浮点数的输出缓冲区。",
+          "type": "PUCHAR"
         }
       ],
       "return_value": {
-        "description": "Returns an NTSTATUS value indicating success or failure of the parsing operation."
+        "description": "Returns an NTSTATUS value indicating success or failure of the parsing operation.",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsdriversutils.h"
@@ -1029,11 +1093,13 @@
         {
           "name": "pList",
           "direction": "in",
-          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向输出缓冲区的指针。"
+          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向输出缓冲区的指针。",
+          "type": "const SENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS 代码。若 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若找不到由 pKey 标识的元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。"
+        "description": "返回 NTSTATUS 代码。若 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若找不到由 pKey 标识的元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -1123,11 +1189,13 @@
         {
           "name": "pFxDeviceInit",
           "direction": "in, out",
-          "description": "对WDFDEVICE_INIT的引用。[in, out] pFdoAttributes 对WDF_OBJECT_ATTRIBUTES的引用。[in] Flags 传感器驱动程序的标志。 保留设置为 0。"
+          "description": "对WDFDEVICE_INIT的引用。[in, out] pFdoAttributes 对WDF_OBJECT_ATTRIBUTES的引用。[in] Flags 传感器驱动程序的标志。 保留设置为 0。",
+          "type": "out] PWDFDEVICE_INIT"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 STATUS_SUCCESS。如果提供了无效参数，则返回 STATUS_INVALID_PARAMETER。此函数还可能返回其他 NTSTATUS 值。"
+        "description": "如果函数成功，则返回 STATUS_SUCCESS。如果提供了无效参数，则返回 STATUS_INVALID_PARAMETER。此函数还可能返回其他 NTSTATUS 值。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorscx.h"
@@ -1153,10 +1221,14 @@
         {
           "name": "FxDevice",
           "direction": "in",
-          "description": "表示传感器的框架设备对象的 WDFDEVICE 句柄。[in] pSensorAttributes 对 WDF_OBJECT_ATTRIBUTES的引用。[out] pSensor 对类扩展中使用的传感器对象的引用。"
+          "description": "表示传感器的框架设备对象的 WDFDEVICE 句柄。[in] pSensorAttributes 对 WDF_OBJECT_ATTRIBUTES的引用。[out] pSensor 对类扩展中使用的传感器对象的引用。",
+          "type": "WDFDEVICE"
         }
       ],
-      "return_value": "驱动程序通常为每个传感器调用一次此函数以创建设备对应的传感器对象。创建完成后，类扩展会为该传感器写入相关属性。另请参阅属性枚举相关文档。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "驱动程序通常为每个传感器调用一次此函数以创建设备对应的传感器对象。创建完成后，类扩展会为该传感器写入相关属性。另请参阅属性枚举相关文档。"
+      },
       "header": "sensorscx.h",
       "deprecated": false,
       "cross_references": [],
@@ -1173,7 +1245,8 @@
       "parameters": [
         {
           "name": "Sensor",
-          "description": "对传感器对象的引用。 BytesWritten 字节数。 InStatus 传感器对象的状态。"
+          "description": "对传感器对象的引用。 BytesWritten 字节数。 InStatus 传感器对象的状态。",
+          "type": "SENSOROBJECT"
         }
       ],
       "return_value": {
@@ -1201,7 +1274,8 @@
         {
           "name": "Sensor",
           "direction": "in",
-          "description": "保存有关由驱动程序管理的传感器的信息。[in] State 保存有关传感器状态的信息。"
+          "description": "保存有关由驱动程序管理的传感器的信息。[in] State 保存有关传感器状态的信息。",
+          "type": "SENSOROBJECT"
         }
       ],
       "return_value": {
@@ -1308,7 +1382,8 @@
       "description": "计算 x 对 y 的实数取模值。",
       "syntax": "float RealModulo(float x, float y);",
       "return_value": {
-        "description": "返回 x 对 y 的实数取模结果。"
+        "description": "返回 x 对 y 的实数取模结果。",
+        "type": "float"
       },
       "requirements": {
         "header": "math3dhelper.h"
@@ -1343,7 +1418,10 @@
       "entity_type": "method",
       "description": "ISensorDriver::OnClientSubscribeToEvents 方法通知传感器驱动程序，某个已获授权的客户端应用程序请求接收事件通知。",
       "syntax": "HRESULT OnClientSubscribeToEvents(\n  IWDFFile *pClientFile,\n  LPWSTR pwszSensorID\n);",
-      "return_value": "如果方法成功，则返回 S_OK。否则，返回 Winerror.h 中定义的某个错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果方法成功，则返回 S_OK。否则，返回 Winerror.h 中定义的某个错误代码。"
+      },
       "remarks": "当客户端应用程序请求事件通知时，驱动程序会将指定传感器对象 ID 的所有事件引发到传感器类扩展。类扩展随后通过传感器 API 将这些事件转发为应用程序的事件通知。驱动程序可以维护每个传感器的已连接应用程序引用计数，以避免在不需要时执行事件回调。平台定义的事件在 Sensors.h 中定义。有关如何使用此方法的详细信息，请参阅相关传感器驱动程序文档。",
       "header": "Sensorsclassextension.h",
       "deprecated": false,
@@ -1358,7 +1436,8 @@
       "description": "ISensorDriver::OnGetSupportedDataFields 方法检索指定传感器支持的数据字段列表。",
       "syntax": "HRESULT OnGetSupportedDataFields(\n  LPWSTR pwszSensorID,\n  IPortableDeviceKeyCollection **ppSupportedDataFields\n);",
       "return_value": {
-        "description": "成功时返回 S_OK；否则返回 Winerror.h 中定义的 HRESULT 错误代码。"
+        "description": "成功时返回 S_OK；否则返回 Winerror.h 中定义的 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "数据字段是传感器生成的数据，不包括描述传感器设备的属性。平台定义的数据字段在 Sensors.h 中定义。所有传感器驱动程序都必须支持 SENSOR_DATA_TYPE_TIMESTAMP。IPortableDeviceKeyCollection 类型记录在 Windows Portable Devices 文档中。",
       "header": "Sensors.h",
@@ -1375,7 +1454,10 @@
       "entity_type": "method",
       "description": "ISensorDriver::OnGetSupportedProperties 方法检索指定传感器支持的属性列表。",
       "syntax": "HRESULT OnGetSupportedProperties(\n  LPWSTR pwszSensorID,\n  IPortableDeviceKeyCollection **ppSupportedProperties\n);",
-      "return_value": "如果方法成功，则返回 S_OK。否则，返回 Winerror.h 中定义的错误代码之一。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果方法成功，则返回 S_OK。否则，返回 Winerror.h 中定义的错误代码之一。"
+      },
       "remarks": "属性描述的是传感器设备本身，而不是传感器生成的数据字段。平台定义的属性在 Sensors.h 中定义。返回的 IPortableDeviceKeyCollection 对象必须包含必需属性对应的 PROPERTYKEY，详见“Sensor Properties”参考主题。IPortableDeviceKeyCollection 接口记录在 Windows Portable Devices 文档中。",
       "header": "Sensors.h",
       "deprecated": false,
@@ -1392,11 +1474,13 @@
       "parameters": [
         {
           "name": "ppSensorObjectCollection",
-          "description": "接收传感器列表的 IPortableDeviceValuesCollection 指针的地址。"
+          "description": "接收传感器列表的 IPortableDeviceValuesCollection 指针的地址。",
+          "type": "IPortableDeviceValuesCollection"
         }
       ],
       "return_value": {
-        "description": "如果该方法成功，则返回 S_OK；否则返回 Winerror.h 中定义的错误代码之一。"
+        "description": "如果该方法成功，则返回 S_OK；否则返回 Winerror.h 中定义的错误代码之一。",
+        "type": "HRESULT"
       },
       "header": "Sensors.h",
       "deprecated": false,
@@ -1413,7 +1497,8 @@
       "parameters": [
         {
           "name": "pUnkPortableDeviceValuesParams",
-          "description": "指向支持 IPortableDeviceValues 接口的 IUnknown 接口的指针。 与此 IUnknown 接口关 联的对象包含 WPD 命令的参数。 有关详细信息，请参阅 Windows 可移植设备中的 IPortableDeviceValues。 pUnkPortableDeviceValuesResults 指向支持 IPortableDeviceValues 接口的 IUnknown 接口的指针。 与此 IUnknown 接口关 联的对象存储 WPD 命令的结果。"
+          "description": "指向支持 IPortableDeviceValues 接口的 IUnknown 接口的指针。 与此 IUnknown 接口关 联的对象包含 WPD 命令的参数。 有关详细信息，请参阅 Windows 可移植设备中的 IPortableDeviceValues。 pUnkPortableDeviceValuesResults 指向支持 IPortableDeviceValues 接口的 IUnknown 接口的指针。 与此 IUnknown 接口关 联的对象存储 WPD 命令的结果。",
+          "type": "IUnknown"
         },
         {
           "name": "pClientFile",
@@ -1422,7 +1507,8 @@
         }
       ],
       "return_value": {
-        "description": "如果方法成功，则返回 S_OK；否则返回 Winerror.h 中定义的 HRESULT 错误代码之一。"
+        "description": "如果方法成功，则返回 S_OK；否则返回 Winerror.h 中定义的 HRESULT 错误代码之一。",
+        "type": "HRESULT"
       },
       "remarks": "此方法允许驱动程序以设备特定方式扩展 WPD 命令和接口。有关 IPortableDeviceValues 的详细信息，请参阅 Windows Portable Devices 文档。",
       "header": "",
@@ -1624,7 +1710,8 @@
         {
           "name": "pConfig",
           "direction": "out",
-          "description": "指向新 SENSOR_CONFIG 结构的指针。"
+          "description": "指向新 SENSOR_CONFIG 结构的指针。",
+          "type": "PSENSOR_CONFIG"
         }
       ],
       "return_value": {
@@ -1699,7 +1786,8 @@
       "parameters": [
         {
           "name": "Sensor",
-          "description": "对传感器对象的引用。 Request I/O 请求。"
+          "description": "对传感器对象的引用。 Request I/O 请求。",
+          "type": "SENSOROBJECT"
         }
       ],
       "header": "sensorscx.h",
@@ -1712,7 +1800,10 @@
       "confidence": 0.85,
       "_source_line": 1244,
       "syntax": "NTSTATUS EVT_SENSOR_DRIVER_DEVICE_IO_CONTROL(\n  SENSOROBJECT Sensor,\n  WDFREQUEST Request,\n  size_t OutputBufferLength,\n  size_t InputBufferLength,\n  ULONG IoControlCode\n);",
-      "return_value": "Returns STATUS_SUCCESS if the request is completed successfully. Otherwise, returns an appropriate NTSTATUS error code.",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "Returns STATUS_SUCCESS if the request is completed successfully. Otherwise, returns an appropriate NTSTATUS error code."
+      },
       "remarks": "This callback is implemented by the sensor driver and invoked by SensorsCx to process IOCTL requests for a sensor."
     },
     {
@@ -1779,16 +1870,19 @@
         {
           "name": "Sensor",
           "direction": "in",
-          "description": "对传感器对象的引用。"
+          "description": "对传感器对象的引用。",
+          "type": "SENSOROBJECT"
         },
         {
           "name": "pProperties",
           "direction": "in, out, optional",
-          "description": "指定 传感器的属性及其值的列表。 有关详细信息，请参阅 SENSOR_COLLECTION_LIST。[out] pSize pProperties 的大小。"
+          "description": "指定 传感器的属性及其值的列表。 有关详细信息，请参阅 SENSOR_COLLECTION_LIST。[out] pSize pProperties 的大小。",
+          "type": "optional] PSENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "Returns STATUS_SUCCESS if the operation succeeds. Otherwise, returns an appropriate NTSTATUS error code. SensorsCx uses the NT_SUCCESS macro to determine whether the callback succeeded."
+        "description": "Returns STATUS_SUCCESS if the operation succeeds. Otherwise, returns an appropriate NTSTATUS error code. SensorsCx uses the NT_SUCCESS macro to determine whether the callback succeeded.",
+        "type": "NTSTATUS"
       },
       "remarks": "This callback must be implemented by the driver and is called by SensorsCx.",
       "requirements": {
@@ -1860,11 +1954,13 @@
         {
           "name": "Sensor",
           "direction": "in",
-          "description": "对传感器对象的引用。[in] DataRateMs 要为 传感器设置的数据间隔。"
+          "description": "对传感器对象的引用。[in] DataRateMs 要为 传感器设置的数据间隔。",
+          "type": "SENSOROBJECT"
         }
       ],
       "return_value": {
-        "description": "Returns STATUS_SUCCESS if the function succeeds. Sensor CX uses the NT_SUCCESS macro to determine whether the callback succeeded; if the function fails or does not return STATUS_SUCCESS, no additional action is taken."
+        "description": "Returns STATUS_SUCCESS if the function succeeds. Sensor CX uses the NT_SUCCESS macro to determine whether the callback succeeded; if the function fails or does not return STATUS_SUCCESS, no additional action is taken.",
+        "type": "NTSTATUS"
       },
       "remarks": "This callback must be implemented by the driver and is called by Sensor CX.",
       "header": "sensorscx.h",
@@ -2268,7 +2364,8 @@
         {
           "name": "pConfig",
           "direction": "out",
-          "description": "指向新 SENSOR_CONTROLLER_CONFIG 结构的指针。"
+          "description": "指向新 SENSOR_CONTROLLER_CONFIG 结构的指针。",
+          "type": "PSENSOR_CONTROLLER_CONFIG"
         }
       ],
       "return_value": {
@@ -2292,16 +2389,19 @@
         {
           "name": "FxDevice",
           "direction": "in",
-          "description": "表示传感器的框架设备对象的 WDFDEVICE 句柄。"
+          "description": "表示传感器的框架设备对象的 WDFDEVICE 句柄。",
+          "type": "WDFDEVICE"
         },
         {
           "name": "pSensorList",
           "direction": "out",
-          "description": "传感器实例的列表。[in, out] pListCount pSensorInstanceList 中的 SENSOROBJECTS 数。"
+          "description": "传感器实例的列表。[in, out] pListCount pSensorInstanceList 中的 SENSOROBJECTS 数。",
+          "type": "SENSOROBJECT"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS。成功时返回 STATUS_SUCCESS；如果任何必需参数为 NULL，则返回 STATUS_INVALID_PARAMETER；如果无法从 FxDevice 获取传感器控制器，则返回 STATUS_NOT_FOUND。"
+        "description": "返回 NTSTATUS。成功时返回 STATUS_SUCCESS；如果任何必需参数为 NULL，则返回 STATUS_INVALID_PARAMETER；如果无法从 FxDevice 获取传感器控制器，则返回 STATUS_NOT_FOUND。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorscx.h"
@@ -2322,11 +2422,13 @@
         {
           "name": "FxDevice",
           "direction": "in",
-          "description": "表示传感器的框架设备对象的 WDFDEVICE 句柄。[in] pSensorConfig 驱动程序实现的函数列表。 有关详细信息，请参阅 SENSOR_CONTROLLER_CONFIG。"
+          "description": "表示传感器的框架设备对象的 WDFDEVICE 句柄。[in] pSensorConfig 驱动程序实现的函数列表。 有关详细信息，请参阅 SENSOR_CONTROLLER_CONFIG。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 STATUS_SUCCESS。若提供了无效参数，则返回 STATUS_INVALID_PARAMETER。该函数还可能返回其他 NTSTATUS 错误代码。"
+        "description": "如果函数成功，则返回 STATUS_SUCCESS。若提供了无效参数，则返回 STATUS_INVALID_PARAMETER。该函数还可能返回其他 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorscx.h"
@@ -2347,7 +2449,8 @@
         {
           "name": "Sensor",
           "direction": "in",
-          "description": "对传感器对象的引用。[in] pSensorData 传感器属性的列表。 有关详细信息，请参阅 SENSOR_COLLECTION_LIST。"
+          "description": "对传感器对象的引用。[in] pSensorData 传感器属性的列表。 有关详细信息，请参阅 SENSOR_COLLECTION_LIST。",
+          "type": "SENSOROBJECT"
         }
       ],
       "return_value": "此函数由 Sensors Class Extension 实现，传感器驱动程序在检索到数据后必须调用它以将数据传递给类扩展。对于支持数据批处理的传感器驱动程序，当批处理延迟到期时，可能需要重复调用此函数，直到所有批处理的数据样本都已传递给客户端。另请参阅 EvtSensorSetBatchLatency。",
@@ -2383,11 +2486,13 @@
         {
           "name": "Sensor",
           "direction": "in",
-          "description": "对传感器对象的引用。[in] pSensorConfig 枚举属性的列表。 有关详细信息，请参阅 SENSOR_CONFIG。"
+          "description": "对传感器对象的引用。[in] pSensorConfig 枚举属性的列表。 有关详细信息，请参阅 SENSOR_CONFIG。",
+          "type": "SENSOROBJECT"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS。可能的返回值包括：STATUS_SUCCESS（函数成功完成）；STATUS_INVALID_PARAMETER（任一输入参数为 NULL，或 pSensorConfig->pEnumerationList->Count 为 0 或过大）；STATUS_BUFFER_TOO_SMALL（pSensorConfig 缓冲区小于 SENSOR_CONFIG 结构大小）；STATUS_NOT_FOUND（无法从 Sensor 对象构造控制器对象上下文）。"
+        "description": "返回 NTSTATUS。可能的返回值包括：STATUS_SUCCESS（函数成功完成）；STATUS_INVALID_PARAMETER（任一输入参数为 NULL，或 pSensorConfig->pEnumerationList->Count 为 0 或过大）；STATUS_BUFFER_TOO_SMALL（pSensorConfig 缓冲区小于 SENSOR_CONFIG 结构大小）；STATUS_NOT_FOUND（无法从 Sensor 对象构造控制器对象上下文）。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorscx.h"
@@ -2687,16 +2792,19 @@
         {
           "name": "SourceCollection",
           "direction": "in",
-          "description": "指向集合列表的指针。"
+          "description": "指向集合列表的指针。",
+          "type": "const PSENSOR_COLLECTION_LIST"
         },
         {
           "name": "TargetBufferSizeInBytes",
           "direction": "in",
-          "description": "调用方分配的缓冲区大小（以字节为单位）。[out] TargetBuffer 调用方分配的缓冲区用于保存序列化的数据。"
+          "description": "调用方分配的缓冲区大小（以字节为单位）。[out] TargetBuffer 调用方分配的缓冲区用于保存序列化的数据。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS 状态代码。"
+        "description": "返回 NTSTATUS 状态代码。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -2728,11 +2836,13 @@
         {
           "name": "pList",
           "direction": "in",
-          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针[in] Occurrence 在返回值之前，必须找到 PROPERTYKEY 的从零开始的匹配次数。[out] pRetValue 指向输出缓冲区的指针。"
+          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针[in] Occurrence 在返回值之前，必须找到 PROPERTYKEY 的从零开始的匹配次数。[out] pRetValue 指向输出缓冲区的指针。",
+          "type": "const SENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS。若 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若找不到指定出现序号的匹配项，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。"
+        "description": "返回 NTSTATUS。若 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若找不到指定出现序号的匹配项，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -2763,11 +2873,13 @@
         {
           "name": "Target",
           "direction": "in",
-          "description": "指向集合列表的指针。[out] Source 指向集合列表的指针。"
+          "description": "指向集合列表的指针。[out] Source 指向集合列表的指针。",
+          "type": "PSENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS 状态代码。成功时返回成功状态值；失败时返回相应的错误代码。"
+        "description": "返回 NTSTATUS 状态代码。成功时返回成功状态值；失败时返回相应的错误代码。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -2788,11 +2900,13 @@
         {
           "name": "SourceBufferSizeInBytes",
           "direction": "in",
-          "description": "输入缓冲区大小（以字节为单位）。[in] SourceBuffer 包含序列化集合列表数据的缓冲区。[in/out] TargetCollection 已将 AllocatedSizeInBytes 设置为分配大小的调用方分配集合列表。"
+          "description": "输入缓冲区大小（以字节为单位）。[in] SourceBuffer 包含序列化集合列表数据的缓冲区。[in/out] TargetCollection 已将 AllocatedSizeInBytes 设置为分配大小的调用方分配集合列表。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS 状态代码。成功时返回成功状态；失败时返回相应的错误状态代码。"
+        "description": "返回 NTSTATUS 状态代码。成功时返回成功状态；失败时返回相应的错误状态代码。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -2813,7 +2927,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 3082
+      "_source_line": 3082,
+      "return_value": {
+        "type": "ULONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::CollectionsListGetMarshalledSize",
@@ -2825,11 +2943,13 @@
         {
           "name": "Collection",
           "direction": "in",
-          "description": "指向传感器集合列表的指针。"
+          "description": "指向传感器集合列表的指针。",
+          "type": "const PSENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "返回序列化并封送该集合列表所需缓冲区的大小（以字节为单位）。"
+        "description": "返回序列化并封送该集合列表所需缓冲区的大小（以字节为单位）。",
+        "type": "ULONG"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -2851,11 +2971,13 @@
         {
           "name": "Collection",
           "direction": "in",
-          "description": "指向传感器集合列表的指针。"
+          "description": "指向传感器集合列表的指针。",
+          "type": "const PSENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "返回集合列表序列化后所需大小（以字节为单位）的 ULONG 值。"
+        "description": "返回集合列表序列化后所需大小（以字节为单位）的 ULONG 值。",
+        "type": "ULONG"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -2876,11 +2998,13 @@
         {
           "name": "Collection",
           "direction": "in",
-          "description": "指向集合列表的指针。"
+          "description": "指向集合列表的指针。",
+          "type": "const PSENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "返回序列化集合列表所需缓冲区大小（字节数）的 ULONG 值。该值为体系结构无关大小与 RPC 序列化大小两者中的较大者。"
+        "description": "返回序列化集合列表所需缓冲区大小（字节数）的 ULONG 值。该值为体系结构无关大小与 RPC 序列化大小两者中的较大者。",
+        "type": "ULONG"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -2901,11 +3025,13 @@
         {
           "name": "thresholds",
           "direction": "in",
-          "description": "指向包含活动检测阈值的传感器集合列表的指针。[in] pCollection 指向传感器集合列表的指针。"
+          "description": "指向包含活动检测阈值的传感器集合列表的指针。[in] pCollection 指向传感器集合列表的指针。",
+          "type": "PSENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "Returns STATUS_SUCCESS on success. Returns STATUS_INVALID_PARAMETER if pCollection is NULL, if a state is invalid, if confidence is 0 or greater than 100, or if multiple entries specify the same state."
+        "description": "Returns STATUS_SUCCESS on success. Returns STATUS_INVALID_PARAMETER if pCollection is NULL, if a state is invalid, if confidence is 0 or greater than 100, or if multiple entries specify the same state.",
+        "type": "NTSTATUS"
       },
       "header": "sensorsutils.h",
       "deprecated": false,
@@ -2934,11 +3060,13 @@
         {
           "name": "newSample",
           "direction": "in",
-          "description": "作为传感器集合列表的传入活动数据。[in] oldSample 上次报告的活动数据，作为传感器集合列表。[in] thresholds 活动检测阈值，作为传感器集合列表。"
+          "description": "作为传感器集合列表的传入活动数据。[in] oldSample 上次报告的活动数据，作为传感器集合列表。[in] thresholds 活动检测阈值，作为传感器集合列表。",
+          "type": "PSENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "Returns TRUE if the activity thresholds are satisfied; otherwise, returns FALSE."
+        "description": "Returns TRUE if the activity thresholds are satisfied; otherwise, returns FALSE.",
+        "type": "BOOLEAN"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -2959,11 +3087,13 @@
         {
           "name": "TimeMs",
           "direction": "out",
-          "description": "时间（以毫秒为单位）。"
+          "description": "时间（以毫秒为单位）。",
+          "type": "PULONG"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS 状态代码。成功时返回 STATUS_SUCCESS；失败时返回相应的错误状态。"
+        "description": "返回 NTSTATUS 状态代码。成功时返回 STATUS_SUCCESS；失败时返回相应的错误状态。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -2984,11 +3114,13 @@
         {
           "name": "members",
           "direction": "in",
-          "description": "用于初始化 PROPVARIANT 值的 GUID 数组。[in] size 要传入的 GUID 数组的大小。[out] ppropvar 指向 PROPVARIANT 的指针。"
+          "description": "用于初始化 PROPVARIANT 值的 GUID 数组。[in] size 要传入的 GUID 数组的大小。[out] ppropvar 指向 PROPVARIANT 的指针。",
+          "type": "const CLSID"
         }
       ],
       "return_value": {
-        "description": "如果成功初始化 PROPVARIANT，则返回 S_OK。如果因内存不足而无法为 CLSID 数组分配内存，则返回 E_OUTOFMEMORY。也可能返回其他 HRESULT 错误代码。"
+        "description": "如果成功初始化 PROPVARIANT，则返回 S_OK。如果因内存不足而无法为 CLSID 数组分配内存，则返回 E_OUTOFMEMORY。也可能返回其他 HRESULT 错误代码。",
+        "type": "HRESULT"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3011,10 +3143,14 @@
         {
           "name": "fltVal",
           "direction": "in",
-          "description": "要初始化到的 Float 值。[out] ppropvar 指向要初始化的 PROPVARIANT 的指针。"
+          "description": "要初始化到的 Float 值。[out] ppropvar 指向要初始化的 PROPVARIANT 的指针。",
+          "type": "FLOAT"
         }
       ],
-      "return_value": "这是用于初始化 PROPVARIANT 的辅助函数。成功返回后，PROPVARIANT 的类型设置为 VT_R4。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "这是用于初始化 PROPVARIANT 的辅助函数。成功返回后，PROPVARIANT 的类型设置为 VT_R4。"
+      },
       "requirements": {
         "header": "sensorsutils.h"
       },
@@ -3035,11 +3171,13 @@
         {
           "name": "ListA",
           "direction": "in",
-          "description": "指向集合列表的指针。[in] ListB 指向要与第一个集合列表进行比较的第二个集合列表的指针。"
+          "description": "指向集合列表的指针。[in] ListB 指向要与第一个集合列表进行比较的第二个集合列表的指针。",
+          "type": "const PSENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "如果两个集合列表相同，则返回 TRUE；否则返回 FALSE。"
+        "description": "如果两个集合列表相同，则返回 TRUE；否则返回 FALSE。",
+        "type": "BOOLEAN"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3060,11 +3198,13 @@
         {
           "name": "guidArray",
           "direction": "in",
-          "description": "要在其中搜索的 GUID 数组。[in] arrayLength 要在其中搜索的 GUID 数组的长度。[in] guidElem 要搜索的 GUID 元素。"
+          "description": "要在其中搜索的 GUID 数组。[in] arrayLength 要在其中搜索的 GUID 数组的长度。[in] guidElem 要搜索的 GUID 元素。",
+          "type": "const GUID"
         }
       ],
       "return_value": {
-        "description": "如果 guidElem 存在于 guidArray 中，则返回 TRUE；否则返回 FALSE。"
+        "description": "如果 guidElem 存在于 guidArray 中，则返回 TRUE；否则返回 FALSE。",
+        "type": "BOOLEAN"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3085,11 +3225,13 @@
         {
           "name": "pList",
           "direction": "in",
-          "description": "指向集合列表的指针。[in] pKey 指向 PROPERTYKEY 的指针。"
+          "description": "指向集合列表的指针。[in] pKey 指向 PROPERTYKEY 的指针。",
+          "type": "PSENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "如果集合列表中存在指定键，则返回 TRUE；否则返回 FALSE。"
+        "description": "如果集合列表中存在指定键，则返回 TRUE；否则返回 FALSE。",
+        "type": "BOOLEAN"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3110,11 +3252,13 @@
         {
           "name": "pList",
           "direction": "in",
-          "description": "指向 PROPERTYKEYs 列表的指针[in] pKey 指向 PROPERTYKEY 的指针。"
+          "description": "指向 PROPERTYKEYs 列表的指针[in] pKey 指向 PROPERTYKEY 的指针。",
+          "type": "PSENSOR_PROPERTY_LIST"
         }
       ],
       "return_value": {
-        "description": "如果指定键存在于属性列表中，则返回 TRUE；否则返回 FALSE。"
+        "description": "如果指定键存在于属性列表中，则返回 TRUE；否则返回 FALSE。",
+        "type": "BOOLEAN"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3165,7 +3309,8 @@
         {
           "name": "Target",
           "direction": "in",
-          "description": "指向要复制到的集合列表的指针。[in] Source 指向要复制的集合列表的指针。 返回值此函数返回： 如果目标或源为 nullptr，则STATUS_INVALID_PARAMETER。如果目标集合列表不够大，无法包含源集合列表的内容，则 STATUS_BUFFER_TOO_SMALL。 如果复制成功，STATUS_SUCCESS。"
+          "description": "指向要复制到的集合列表的指针。[in] Source 指向要复制的集合列表的指针。 返回值此函数返回： 如果目标或源为 nullptr，则STATUS_INVALID_PARAMETER。如果目标集合列表不够大，无法包含源集合列表的内容，则 STATUS_BUFFER_TOO_SMALL。 如果复制成功，STATUS_SUCCESS。",
+          "type": "PSENSOR_PROPERTY_LIST"
         }
       ],
       "requirements": {
@@ -3176,7 +3321,10 @@
       "cross_references": [],
       "confidence": 0.6,
       "_source_line": 3450,
-      "return_value": "如果 Target 或 Source 为 NULL，则返回 STATUS_INVALID_PARAMETER。如果目标属性列表空间不足以容纳源属性列表的内容，则返回 STATUS_BUFFER_TOO_SMALL。复制成功则返回 STATUS_SUCCESS。"
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果 Target 或 Source 为 NULL，则返回 STATUS_INVALID_PARAMETER。如果目标属性列表空间不足以容纳源属性列表的内容，则返回 STATUS_BUFFER_TOO_SMALL。复制成功则返回 STATUS_SUCCESS。"
+      }
     },
     {
       "id": "windows::PropertiesListGetFillableCount",
@@ -3188,7 +3336,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 3472
+      "_source_line": 3472,
+      "return_value": {
+        "type": "ULONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::PropKeyFindKeyGetBool",
@@ -3200,7 +3352,8 @@
         {
           "name": "pList",
           "direction": "in",
-          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向输出缓冲区的指针。 返回值此函数返回： 如果 pList、pKey 或 pRetValue 为 nullptr，则为 STATUS_INVALID_PARAMETER。 如果找不到 pKey 标识的元素，则STATUS_NOT_FOUND。如果函数成功，STATUS_SUCCESS。"
+          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向输出缓冲区的指针。 返回值此函数返回： 如果 pList、pKey 或 pRetValue 为 nullptr，则为 STATUS_INVALID_PARAMETER。 如果找不到 pKey 标识的元素，则STATUS_NOT_FOUND。如果函数成功，STATUS_SUCCESS。",
+          "type": "const SENSOR_COLLECTION_LIST"
         }
       ],
       "requirements": {
@@ -3211,7 +3364,10 @@
       "cross_references": [],
       "confidence": 0.8,
       "_source_line": 3487,
-      "return_value": "如果 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；如果找不到由 pKey 标识的元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；如果找不到由 pKey 标识的元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。"
+      },
       "remarks": "此例程按 PROPERTYKEY 在集合列表中定位对应的 PROPVARIANT，并将其转换/提取为 BOOL 值。"
     },
     {
@@ -3224,11 +3380,13 @@
         {
           "name": "pList",
           "direction": "in",
-          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。"
+          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。",
+          "type": "const SENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS。若 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若找不到由 pKey 指定的元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。"
+        "description": "返回 NTSTATUS。若 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若找不到由 pKey 指定的元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3249,11 +3407,13 @@
         {
           "name": "pList",
           "direction": "in",
-          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向输出缓冲区的指针。"
+          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向输出缓冲区的指针。",
+          "type": "const SENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS 状态代码。如果 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；如果未找到由 pKey 标识的元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。"
+        "description": "返回 NTSTATUS 状态代码。如果 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；如果未找到由 pKey 标识的元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3274,11 +3434,13 @@
         {
           "name": "pList",
           "direction": "in",
-          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向输出缓冲区的指针。"
+          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向输出缓冲区的指针。",
+          "type": "const SENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS。调用成功时返回成功状态码；否则返回相应的错误状态码。"
+        "description": "返回 NTSTATUS。调用成功时返回成功状态码；否则返回相应的错误状态码。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3299,11 +3461,13 @@
         {
           "name": "pList",
           "direction": "in",
-          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向输出缓冲区的指针。"
+          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向输出缓冲区的指针。",
+          "type": "const SENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS。若 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若找不到由 pKey 标识的元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。"
+        "description": "返回 NTSTATUS。若 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若找不到由 pKey 标识的元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3324,11 +3488,13 @@
         {
           "name": "pList",
           "direction": "in",
-          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向输出缓冲区的指针。"
+          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向输出缓冲区的指针。",
+          "type": "const SENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "此函数返回以下 NTSTATUS 代码之一： 如果 pList、pKey 或 pRetValue 为 nullptr，则STATUS_INVALID_PARAMETER。 如果找不到由 pKey 标识的元素，则STATUS_NOT_FOUND。 STATUS_SUCCESS成功。"
+        "description": "此函数返回以下 NTSTATUS 代码之一： 如果 pList、pKey 或 pRetValue 为 nullptr，则STATUS_INVALID_PARAMETER。 如果找不到由 pKey 标识的元素，则STATUS_NOT_FOUND。 STATUS_SUCCESS成功。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3350,11 +3516,13 @@
         {
           "name": "pList",
           "direction": "in",
-          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[in] Occurrence 在返回值之前，必须找到 PROPERTYKEY 的从零开始的匹配次数。[out] pRetValue 指向输出缓冲区的指针。"
+          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[in] Occurrence 在返回值之前，必须找到 PROPERTYKEY 的从零开始的匹配次数。[out] pRetValue 指向输出缓冲区的指针。",
+          "type": "const SENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS。若 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若未找到指定序号的匹配元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。"
+        "description": "返回 NTSTATUS。若 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若未找到指定序号的匹配元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。",
+        "type": "NTSTATUS"
       },
       "header": "sensorsutils.h",
       "deprecated": false,
@@ -3372,11 +3540,13 @@
         {
           "name": "pList",
           "direction": "in",
-          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[in] Occurrence 在返回值之前，必须找到 PROPERTYKEY 的从零开始的匹配次数。[out] pRetValue 指向输出缓冲区的指针。"
+          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[in] Occurrence 在返回值之前，必须找到 PROPERTYKEY 的从零开始的匹配次数。[out] pRetValue 指向输出缓冲区的指针。",
+          "type": "const SENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS。若 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若未找到指定序号的匹配项，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。"
+        "description": "返回 NTSTATUS。若 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若未找到指定序号的匹配项，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3397,11 +3567,13 @@
         {
           "name": "pList",
           "direction": "in",
-          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[in] TypeCheck 如果为 TRUE，则函数验证 pValue 类型是否与 pList中找到的值类型之一匹配。[in/out] pValue 指向目标 PROPVARIANT 的指针。"
+          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[in] TypeCheck 如果为 TRUE，则函数验证 pValue 类型是否与 pList中找到的值类型之一匹配。[in/out] pValue 指向目标 PROPVARIANT 的指针。",
+          "type": "const SENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS 代码。若 pList、pKey 或 pValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若未找到与 pKey 关联的元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。"
+        "description": "返回 NTSTATUS 代码。若 pList、pKey 或 pValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若未找到与 pKey 关联的元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3422,11 +3594,13 @@
         {
           "name": "pList",
           "direction": "in",
-          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向输出缓冲区的指针。"
+          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向输出缓冲区的指针。",
+          "type": "const SENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS。若 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若找不到由 pKey 标识的元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。"
+        "description": "返回 NTSTATUS。若 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若找不到由 pKey 标识的元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3447,11 +3621,13 @@
         {
           "name": "pList",
           "direction": "in",
-          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向输出缓冲区的指针。"
+          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[out] pRetValue 指向输出缓冲区的指针。",
+          "type": "const SENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS 状态代码。如果 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；如果找不到由 pKey 标识的元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。"
+        "description": "返回 NTSTATUS 状态代码。如果 pList、pKey 或 pRetValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；如果找不到由 pKey 标识的元素，则返回 STATUS_NOT_FOUND；成功时返回 STATUS_SUCCESS。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3472,11 +3648,13 @@
         {
           "name": "pList",
           "direction": "in",
-          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[in] TypeCheck 如果为 TRUE，则函数验证 pValue 类型是否与 pList中找到的值类型之一匹配。[in] pValue 指向目标 PROPVARIANT 的指针。"
+          "description": "指向 PROPVARIANT 集合列表的指针。[in] pKey 指向目标 PROPVARIANT 的 PROPERTYKEY 的指针。[in] TypeCheck 如果为 TRUE，则函数验证 pValue 类型是否与 pList中找到的值类型之一匹配。[in] pValue 指向目标 PROPVARIANT 的指针。",
+          "type": "SENSOR_COLLECTION_LIST"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS。若 pList、pKey 或 pValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若找不到与 pKey 关联的元素，则返回 STATUS_NOT_FOUND。"
+        "description": "返回 NTSTATUS。若 pList、pKey 或 pValue 为 NULL，则返回 STATUS_INVALID_PARAMETER；若找不到与 pKey 关联的元素，则返回 STATUS_NOT_FOUND。",
+        "type": "NTSTATUS"
       },
       "header": "sensorsutils.h",
       "deprecated": false,
@@ -3494,26 +3672,31 @@
         {
           "name": "PropVariantValue",
           "direction": "in",
-          "description": "指向 PROPVARIANT 的指针。[out] PropVariantOffset PROPVARIANT 中位置指针的偏移量。"
+          "description": "指向 PROPVARIANT 的指针。[out] PropVariantOffset PROPVARIANT 中位置指针的偏移量。",
+          "type": "const PROPVARIANT"
         },
         {
           "name": "PropVariantSize",
           "direction": "out",
-          "description": "数据的大小。"
+          "description": "数据的大小。",
+          "type": "ULONG"
         },
         {
           "name": "PropVariantPointer",
           "direction": "out",
-          "description": "C 数据的位置。"
+          "description": "C 数据的位置。",
+          "type": "PVOID"
         },
         {
           "name": "RemappedType",
           "direction": "out",
-          "description": "DEVPROPTYPE。"
+          "description": "DEVPROPTYPE。",
+          "type": "DEVPROPTYPE"
         }
       ],
       "return_value": {
-        "description": "如果 PROPVARIANT 类型受支持，则返回 STATUS_SUCCESS；如果类型不受支持，则返回 STATUS_NOT_SUPPORTED。"
+        "description": "如果 PROPVARIANT 类型受支持，则返回 STATUS_SUCCESS；如果类型不受支持，则返回 STATUS_NOT_SUPPORTED。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3535,16 +3718,19 @@
         {
           "name": "Index",
           "direction": "in",
-          "description": "pSensorsList 中元素的从零开始的索引。[in] pSensorsList 指向传感器集合列表的指针。"
+          "description": "pSensorsList 中元素的从零开始的索引。[in] pSensorsList 指向传感器集合列表的指针。",
+          "type": "UINT32"
         },
         {
           "name": "pKey",
           "direction": "out",
-          "description": "数据的大小。[out] pValue 数据的位置。"
+          "description": "数据的大小。[out] pValue 数据的位置。",
+          "type": "PROPERTYKEY"
         }
       ],
       "return_value": {
-        "description": "成功时返回 STATUS_SUCCESS；如果指定索引处的元素未找到，则返回 STATUS_NOT_FOUND。"
+        "description": "成功时返回 STATUS_SUCCESS；如果指定索引处的元素未找到，则返回 STATUS_NOT_FOUND。",
+        "type": "NTSTATUS"
       },
       "header": "sensorsutils.h",
       "deprecated": false,
@@ -3562,11 +3748,13 @@
         {
           "name": "SizeInBytes",
           "direction": "in",
-          "description": "要分配的缓冲区的大小（以字节为单位）。[in/out] pBuffer 指向要分配的缓冲区的指针。"
+          "description": "要分配的缓冲区的大小（以字节为单位）。[in/out] pBuffer 指向要分配的缓冲区的指针。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "返回 NTSTATUS 代码。成功时返回 STATUS_SUCCESS；如果内存不足，则返回 STATUS_NO_MEMORY。"
+        "description": "返回 NTSTATUS 代码。成功时返回 STATUS_SUCCESS；如果内存不足，则返回 STATUS_NO_MEMORY。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "header": "sensorsutils.h"
@@ -3587,7 +3775,8 @@
         {
           "name": "Buffer",
           "direction": "in",
-          "description": "要释放的缓冲区。返回值没有"
+          "description": "要释放的缓冲区。返回值没有",
+          "type": "BYTE"
         }
       ],
       "requirements": {

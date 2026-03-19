@@ -67,7 +67,10 @@
       "confidence": 0.5,
       "_source_line": 11127,
       "syntax": "HRESULT GetSupportedVersions(\n  INT **ppVersions,\n  INT *pcVersions\n);",
-      "return_value": "成功时返回 S_OK；如果内存分配失败则返回 E_OUTOFMEMORY。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "成功时返回 S_OK；如果内存分配失败则返回 E_OUTOFMEMORY。"
+      },
       "remarks": "此方法用于告知调用方该打印票证提供程序支持哪些打印架构版本。返回的版本数组应使用 CoTaskMemAlloc 分配。常见示例中仅返回版本 1。"
     },
     {
@@ -363,7 +366,10 @@
       "confidence": 0.6,
       "_source_line": 24918,
       "syntax": "HRESULT CreatePrintAsyncNotifyChannel(\n  LPCWSTR pszName,\n  PrintAsyncNotificationType *pNotificationType,\n  PrintAsyncNotifyUserFilter eUserFilter,\n  PrintAsyncNotifyConversationStyle eConversationStyle,\n  IPrintAsyncNotifyCallback *pCallback,\n  IPrintAsyncNotifyChannel **ppChannel\n);",
-      "return_value": "成功时返回 S_OK 或其他成功 HRESULT；失败时返回相应的 HRESULT 错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "成功时返回 S_OK 或其他成功 HRESULT；失败时返回相应的 HRESULT 错误代码。"
+      },
       "remarks": "该函数仅适用于由打印后台处理程序服务加载的组件。应用程序内部直接调用通常会失败。调用方可指定打印机或服务器名称、通知类型、用户筛选器以及单向或双向会话样式。"
     },
     {
@@ -382,7 +388,10 @@
       "confidence": 0.35,
       "_source_line": 3948,
       "syntax": "INT DrvDocumentEvent(\n  HANDLE hPrinter,\n  HDC    hdc,\n  int    iEsc,\n  ULONG  cbIn,\n  PVOID  pvIn,\n  ULONG  cbOut,\n  PVOID  pvOut\n);",
-      "return_value": "返回值取决于 iEsc 指定的文档事件。不同的 DOCUMENTEVENT_* 代码对返回值有不同定义。",
+      "return_value": {
+        "type": "INT",
+        "description": "返回值取决于 iEsc 指定的文档事件。不同的 DOCUMENTEVENT_* 代码对返回值有不同定义。"
+      },
       "remarks": "系统会使用 iEsc 参数中的 DOCUMENTEVENT_* 常量指示具体事件。对于 XPS 和 GDI 文档，某些事件值可能相同；驱动程序在 XPSDrv 场景下可结合 hdc 的值进行区分。DOCUMENTEVENT_QUERYFILTER 通常先于其他与 XPS 文档相关的事件发送，用于查询驱动程序希望接收的事件列表。"
     },
     {
@@ -397,7 +406,10 @@
       "_source_line": 25430,
       "remarks": "Called by the print spooler during a printer driver upgrade. The function uses the structure indicated by Level and pDriverUpgradeInfo, such as DRIVER_UPGRADE_INFO_1 or DRIVER_UPGRADE_INFO_2, to access upgrade context and migrate printer data as needed.",
       "syntax": "BOOL DrvUpgradePrinter(\n  DWORD  Level,\n  LPBYTE pDriverUpgradeInfo\n);",
-      "return_value": "Returns TRUE if the printer upgrade succeeds; otherwise returns FALSE."
+      "return_value": {
+        "type": "BOOL",
+        "description": "Returns TRUE if the printer upgrade succeeds; otherwise returns FALSE."
+      }
     },
     {
       "id": "windows::DC_ORIENTATION",
@@ -611,7 +623,10 @@
           "description": "对象，制造商的 JavaScript 代码可以使用该对象返回任何 Bidi 架构值更改或更新。"
         }
       ],
-      "return_value": "0 - 成功。通过 writePrintDataProgress 返回从打印数据流 (printData) 处理的字节数。\n1 - 失败。向打印后台处理程序返回错误代码。\n2 - 重试。在 printerBidiSchemaResponses 中处理任何 Bidi 架构更新（包括 Bidi 事件），然后再次调用 JavaScript 函数。\n3 - DeviceBusy。设备通信通道此时不接受数据。USBMon 通知打印后台处理程序设备正忙，然后稍后再次调用该函数。\n4 - AbortTheJob。设备无法继续处理作业，或者用户已使用打印设备的前面板取消作业。",
+      "return_value": {
+        "type": "JavaScript function",
+        "description": "0 - 成功。通过 writePrintDataProgress 返回从打印数据流 (printData) 处理的字节数。\n1 - 失败。向打印后台处理程序返回错误代码。\n2 - 重试。在 printerBidiSchemaResponses 中处理任何 Bidi 架构更新（包括 Bidi 事件），然后再次调用 JavaScript 函数。\n3 - DeviceBusy。设备通信通道此时不接受数据。USBMon 通知打印后台处理程序设备正忙，然后稍后再次调用该函数。\n4 - AbortTheJob。设备无法继续处理作业，或者用户已使用打印设备的前面板取消作业。"
+      },
       "header": null,
       "deprecated": false,
       "cross_references": [

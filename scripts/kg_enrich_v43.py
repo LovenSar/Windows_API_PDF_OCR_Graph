@@ -240,89 +240,108 @@ class CallbackInterfaceLinker:
 
 
 # ============================================================================
-# 第4部分: 参数类型深度解析
+# 第4部分: 参数/返回值类型深度解析（含类型别名展开）
 # ============================================================================
+
+_C_NOISE = {
+    "const", "volatile", "unsigned", "signed", "struct", "enum",
+    "union", "typedef", "static", "extern", "inline", "void",
+    "int", "long", "short", "char", "float", "double", "bool",
+    "__in", "__out", "__inout", "_in_", "_out_", "_inout_",
+    "in", "out", "optional", "far", "near", "pascal", "winapi",
+    "callback", "apientry", "stdcall", "cdecl", "ptr",
+}
+
+# 指针前缀展开：LP/P 前缀映射回裸名
+_POINTER_PREFIX_RE = re.compile(r"^(?:LP|PC|PPC|PP|P)([A-Z][A-Za-z0-9_]+)$")
+
 
 class ComplexTypeParser:
     """深度解析复杂参数类型"""
-    
+
     @staticmethod
     def extract_all_types(type_str):
-        """从复杂类型声明中提取所有可能的类型"""
         if not type_str:
             return []
-        
         types = set()
-        
-        # 去除指针、const、volatile等
-        cleaned = re.sub(r"[\*\&\[\]]+", " ", str(type_str))
-        cleaned = re.sub(r"\b(const|volatile|unsigned|signed|struct|enum|union|typedef)\b", " ", cleaned)
-        
-        # 提取所有identifier
+        cleaned = re.sub(r"[\*\&\[\]\(\)]+", " ", str(type_str))
         for token in re.findall(r"[A-Za-z_][A-Za-z0-9_]*", cleaned):
-            if len(token) > 2:  # 避免太短的单词
+            if len(token) > 2 and token.lower() not in _C_NOISE:
                 types.add(token)
-        
+                m = _POINTER_PREFIX_RE.match(token)
+                if m:
+                    types.add(m.group(1))
         return list(types)
-    
+
+    @staticmethod
+    def build_type_entity_index(name_to_info):
+        """构建大小写不敏感的类型实体查找索引"""
+        type_kinds = {"structure", "enum", "typedef", "union", "callback",
+                      "interface", "enum_value", "flags", "class"}
+        lower_to_names = defaultdict(set)
+        for name, infos in name_to_info.items():
+            for info in infos:
+                if info["entity_type"] in type_kinds:
+                    lower_to_names[name.lower()].add(name)
+                    break
+        return lower_to_names
+
     @staticmethod
     def improve_function_parameter_linking(name_to_info, edges, existing_edges, dry_run=False):
-        """增强函数参数与类型的连接"""
         new_edges = []
+        type_index = ComplexTypeParser.build_type_entity_index(name_to_info)
+
         files = sorted(
             f for f in glob.glob(os.path.join(OUT_DIR, "*.json"))
             if not os.path.basename(f).startswith("_")
             and not os.path.basename(f).startswith("global")
         )
-        
+
         for fp in files:
             try:
-                data = json.load(open(fp, 'r', encoding='utf-8'))
-            except:
+                with open(fp, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+            except Exception:
                 continue
-            
+
             source_file = os.path.basename(fp)
-            
+
             for ent in data.get("entities", []):
                 et = str(ent.get("entity_type", "")).strip().lower()
-                if et != "function":
+                if et not in ("function", "callback", "method"):
                     continue
-                
+
                 func_name = ent.get("name", "").strip()
                 if not func_name:
                     continue
-                
-                # 深度解析参数
+
+                type_tokens = set()
                 for param in ent.get("parameters", []) or []:
-                    param_type = param.get("type", "")
-                    
-                    # 提取所有可能的类型
-                    extracted_types = ComplexTypeParser.extract_all_types(param_type)
-                    
-                    for type_candidate in extracted_types:
-                        # 规范化
-                        normalized = TypeAliasNormalizer.normalize_type_string(type_candidate)
-                        
-                        # 查找匹配的实体
-                        for target_name, target_infos in name_to_info.items():
-                            if target_name.lower() != normalized.lower() if normalized else False:
-                                continue
-                            
-                            for target_info in target_infos:
-                                if target_info["entity_type"] in ("struct", "structure", "enum", "typedef"):
-                                    edge_key = (func_name, target_name, "uses_type_deep")
-                                    if edge_key not in existing_edges:
-                                        edges.append({
-                                            "source": func_name,
-                                            "target": target_name,
-                                            "type": "uses_type_deep",
-                                            "source_file": source_file,
-                                            "_v43_strategy": "complex_type_parsing",
-                                            "detail": f"param: {param_type}"
-                                        })
-                                        existing_edges.add(edge_key)
-                                        new_edges.append(edges[-1])
-        
+                    type_tokens.update(ComplexTypeParser.extract_all_types(param.get("type", "")))
+
+                rv = ent.get("return_value")
+                if isinstance(rv, dict):
+                    type_tokens.update(ComplexTypeParser.extract_all_types(rv.get("type", "")))
+                elif isinstance(rv, str):
+                    type_tokens.update(ComplexTypeParser.extract_all_types(rv))
+
+                for token in type_tokens:
+                    matches = type_index.get(token.lower(), set())
+                    for target_name in matches:
+                        if target_name == func_name:
+                            continue
+                        edge_key = (func_name, target_name, "uses_type")
+                        if edge_key not in existing_edges:
+                            edges.append({
+                                "source": func_name,
+                                "target": target_name,
+                                "type": "uses_type",
+                                "source_file": source_file,
+                                "_v43_strategy": "param_return_type_linking",
+                            })
+                            existing_edges.add(edge_key)
+                            new_edges.append(edges[-1])
+
         return new_edges
 
 
@@ -451,10 +470,31 @@ def main():
         print(f"       新增实体: {len(new_ents)}, 新增边: {count}")
         total_new += count
     
-    # 策略2: 类型别名（这个主要用于后续匹配）
+    # 策略2: 类型别名展开（LP/P 前缀 → 裸名实体建边）
     if args.strategy in ("all", "type-aliases"):
-        print("\n[v4.3] 策略2: 类型别名规范化 ...")
-        print("       类型别名映射已加载 (用于参数匹配)")
+        print("\n[v4.3] 策略2: 类型别名展开建边 ...")
+        type_index = ComplexTypeParser.build_type_entity_index(name_to_info)
+        alias_edges = []
+        for name, infos in name_to_info.items():
+            m = _POINTER_PREFIX_RE.match(name)
+            if not m:
+                continue
+            bare = m.group(1)
+            matches = type_index.get(bare.lower(), set())
+            for target in matches:
+                if target == name:
+                    continue
+                edge_key = (name, target, "type_alias_of")
+                if edge_key not in existing_edges:
+                    edges.append({
+                        "source": name, "target": target,
+                        "type": "type_alias_of",
+                        "_v43_strategy": "pointer_prefix_alias",
+                    })
+                    existing_edges.add(edge_key)
+                    alias_edges.append(edges[-1])
+        print(f"       新增别名边: {len(alias_edges)}")
+        total_new += len(alias_edges)
     
     # 策略3: Callback/Interface
     if args.strategy in ("all", "callback-interface"):
@@ -502,7 +542,14 @@ def main():
         out_path = os.path.join(OUT_DIR, "global_edges_v43.json")
         with open(out_path, 'w', encoding='utf-8') as f:
             json.dump({"edges": edges}, f, ensure_ascii=False, indent=2)
-        print(f"\n[v4.3] 已写入: {out_path}")
+        print(f"\n[v4.3] 已写入副本: {out_path}")
+
+        main_path = os.path.join(OUT_DIR, "global_edges.json")
+        with open(main_path, 'w', encoding='utf-8') as f:
+            json.dump({"_schema": "api_edges_v4.3_enriched",
+                       "total_edges": len(edges),
+                       "edges": edges}, f, ensure_ascii=False, indent=2)
+        print(f"[v4.3] 已更新主文件: {main_path}")
 
 
 if __name__ == "__main__":

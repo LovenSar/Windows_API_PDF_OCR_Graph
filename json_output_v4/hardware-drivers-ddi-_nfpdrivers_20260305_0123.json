@@ -513,7 +513,8 @@
         {
           "name": "Config",
           "direction": "out",
-          "description": "指向函数将初始化的 NFC_CX_LLCP_CONFIG 结构的指针。"
+          "description": "指向函数将初始化的 NFC_CX_LLCP_CONFIG 结构的指针。",
+          "type": "PNFC_CX_LLCP_CONFIG"
         }
       ],
       "return_value": {
@@ -543,7 +544,8 @@
         {
           "name": "Config",
           "direction": "out",
-          "description": "指向函数初始化的NFC_CX_RF_DISCOVERY_CONFIG结构的指针。"
+          "description": "指向函数初始化的NFC_CX_RF_DISCOVERY_CONFIG结构的指针。",
+          "type": "PNFC_CX_RF_DISCOVERY_CONFIG"
         }
       ],
       "return_value": {
@@ -573,10 +575,14 @@
       "parameters": [
         {
           "name": "Device",
-          "description": "框架设备对象的句柄。"
+          "description": "框架设备对象的句柄。",
+          "type": "WDFDEVICE"
         }
       ],
-      "return_value": "此函数用于清理由 NfcCxDeviceInitialize 设置的设备状态，通常在设备移除或驱动卸载路径中调用。该函数处理的是在 AddDevice 期间创建的 WDF 设备对象。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "此函数用于清理由 NfcCxDeviceInitialize 设置的设备状态，通常在设备移除或驱动卸载路径中调用。该函数处理的是在 AddDevice 期间创建的 WDF 设备对象。"
+      },
       "header": "nfccx.h",
       "deprecated": false,
       "cross_references": [
@@ -598,10 +604,14 @@
       "parameters": [
         {
           "name": "Device",
-          "description": "框架设备对象的句柄。"
+          "description": "框架设备对象的句柄。",
+          "type": "WDFDEVICE"
         }
       ],
-      "return_value": "此函数用于初始化在 AddDevice 例程中创建的 WDF 设备。原始描述中混入了其他 NFC CX API（如 NfcCxHardwareEvent、NfcCxNciReadNotification、NfcCxRegisterSequenceHandler、NfcCxSetLlcpConfig、NfcCxSetRfDiscoveryConfig、NfcCxUnregisterSequenceHandler）的说明，这些内容不属于本函数定义。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "此函数用于初始化在 AddDevice 例程中创建的 WDF 设备。原始描述中混入了其他 NFC CX API（如 NfcCxHardwareEvent、NfcCxNciReadNotification、NfcCxRegisterSequenceHandler、NfcCxSetLlcpConfig、NfcCxSetRfDiscoveryConfig、NfcCxUnregisterSequenceHandler）的说明，这些内容不属于本函数定义。"
+      },
       "header": "nfccx.h",
       "deprecated": false,
       "cross_references": [
@@ -907,11 +917,13 @@
       "parameters": [
         {
           "name": "Device",
-          "description": "框架设备对象的句柄。 Memory 框架内存对象的句柄。"
+          "description": "框架设备对象的句柄。 Memory 框架内存对象的句柄。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "成功时返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+        "description": "成功时返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1459,7 +1471,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 936
+      "_source_line": 936,
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::PFN_NFC_CX_SEQUENCE_HANDLER",
@@ -1487,11 +1503,13 @@
       "parameters": [
         {
           "name": "Device",
-          "description": "框架设备对象的句柄。 Config 指向 NFC_CX_LLCP_CONFIG 结构的指针。"
+          "description": "框架设备对象的句柄。 Config 指向 NFC_CX_LLCP_CONFIG 结构的指针。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1514,11 +1532,13 @@
       "parameters": [
         {
           "name": "Device",
-          "description": "框架设备对象的句柄。 Config 指向 NFC_CX_RF_DISCOVERY_CONFIG 结构的指针。"
+          "description": "框架设备对象的句柄。 Config 指向 NFC_CX_RF_DISCOVERY_CONFIG 结构的指针。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，该函数将返回STATUS_SUCCESS。"
+        "description": "如果操作成功，该函数将返回STATUS_SUCCESS。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1539,11 +1559,13 @@
       "parameters": [
         {
           "name": "Device",
-          "description": "框架设备对象的句柄。 Sequence NFC_CX_SEQUENCE类型化枚举器。"
+          "description": "框架设备对象的句柄。 Sequence NFC_CX_SEQUENCE类型化枚举器。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -1691,13 +1713,14 @@
     {
       "id": "windows::Transaction",
       "name": "Transaction",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "当在安全元素中作的应用程序通知控制器发生某种形式的作时，将触发此事件。 此事件发送 BER- TLV 字段中编码的参数列表。 此事件映射到EVT_TRANSACTION。 HceActivated 当侦听模式接口激活到设备主机时，将触发此事件。 此事件发送当前连接 ID、激活的 RF 协议和技 术。",
       "header": "nfcsedev.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 1711
+      "_source_line": 1711,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::HceDeactivated",

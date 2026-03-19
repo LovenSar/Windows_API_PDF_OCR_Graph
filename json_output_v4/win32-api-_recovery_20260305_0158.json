@@ -12,7 +12,8 @@
         {
           "name": "bSuccess",
           "direction": "in",
-          "description": "指定 TRUE 以指示数据已成功恢复;否则为 FALSE。"
+          "description": "指定 TRUE 以指示数据已成功恢复;否则为 FALSE。",
+          "type": "BOOL"
         }
       ],
       "return_value": {
@@ -48,21 +49,25 @@
         {
           "name": "hProcess",
           "direction": "in",
-          "description": "进程的句柄。 此句柄必须具有PROCESS_VM_READ访问权限。[out] pRecoveryCallback 指向恢复回调函数的指针。 有关详细信息，请参阅 ApplicationRecoveryCallback。"
+          "description": "进程的句柄。 此句柄必须具有PROCESS_VM_READ访问权限。[out] pRecoveryCallback 指向恢复回调函数的指针。 有关详细信息，请参阅 ApplicationRecoveryCallback。",
+          "type": "HANDLE"
         },
         {
           "name": "ppvParameter",
           "direction": "out",
-          "description": "指向回调参数的指针。[out] pdwPingInterval 恢复 ping 间隔，以 100 纳秒间隔为单位。"
+          "description": "指向回调参数的指针。[out] pdwPingInterval 恢复 ping 间隔，以 100 纳秒间隔为单位。",
+          "type": "PVOID"
         },
         {
           "name": "pdwFlags",
           "direction": "out",
-          "description": "保留供将来使用。"
+          "description": "保留供将来使用。",
+          "type": "PDWORD"
         }
       ],
       "return_value": {
-        "description": "此函数返回 成功时S_OK 或以下错误代码之一。 返回代码 S_FALSE"
+        "description": "此函数返回 成功时S_OK 或以下错误代码之一。 返回代码 S_FALSE",
+        "type": "HRESULT"
       },
       "header": "winbase.h",
       "deprecated": false,
@@ -80,7 +85,8 @@
         {
           "name": "pwzCommandline",
           "direction": "in, optional",
-          "description": "指向 Unicode 字符串的指针，该字符串指定应用程序重启时应用程序的命令行参数。 可以指定的命令行的最大大小为 RESTART_MAX_CMD_LINE 个字符。 不要在命令行中包含可执行文件的名称;此函数会为你添加它。 如果此参数为 NULL 或空字符串，则会删除以前注册的命令行。 如果参数包含空格，请在 参数 周围使用引号。[in] dwFlags 此参数可以是 0 或以下一个或多个值。 值"
+          "description": "指向 Unicode 字符串的指针，该字符串指定应用程序重启时应用程序的命令行参数。 可以指定的命令行的最大大小为 RESTART_MAX_CMD_LINE 个字符。 不要在命令行中包含可执行文件的名称;此函数会为你添加它。 如果此参数为 NULL 或空字符串，则会删除以前注册的命令行。 如果参数包含空格，请在 参数 周围使用引号。[in] dwFlags 此参数可以是 0 或以下一个或多个值。 值",
+          "type": "optional] PCWSTR"
         }
       ],
       "header": "winbase.h",
@@ -90,7 +96,11 @@
         "Vista"
       ],
       "confidence": 0.8,
-      "_source_line": 1380
+      "_source_line": 1380,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::RESTART_NO_REBOOT",

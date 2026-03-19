@@ -26,11 +26,13 @@
         {
           "name": "CompressorHandle",
           "direction": "in",
-          "description": "要关闭的压缩器的句柄。 这是 CreateCompressor 返回的压缩器的句柄。"
+          "description": "要关闭的压缩器的句柄。 这是 CreateCompressor 返回的压缩器的句柄。",
+          "type": "COMPRESSOR_HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。"
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "如果压缩算法由于某种内部原因而失败，则可以ERROR_FUNCTION_FAILED来自 GetLastError 的错误。 如果系统找不到压缩算法句柄，则可以 ERROR_INVALID_HANDLE错误。",
       "requirements": {
@@ -90,11 +92,13 @@
         {
           "name": "DecompressorHandle",
           "direction": "in",
-          "description": "要关闭的解压缩器的句柄。 这是 CreateDecompressor 返回的压缩器的句柄。"
+          "description": "要关闭的解压缩器的句柄。 这是 CreateDecompressor 返回的压缩器的句柄。",
+          "type": "DECOMPRESSOR_HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果该函数成功，则返回值为非零值。如果函数失败，则返回值为零。要获得更多的错误信息，请调用 GetLastError。"
+        "description": "如果该函数成功，则返回值为非零值。如果函数失败，则返回值为零。要获得更多的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "如果压缩算法由于某种内部原因而失败，则可以从 GetLastError 获取 ERROR_FUNCTION_FAILED 错误。如果系统找不到压缩算法句柄，则返回 ERROR_INVALID_HANDLE 错误。",
       "requirements": {
@@ -123,7 +127,8 @@
         {
           "name": "CompressorHandle",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "COMPRESSOR_HANDLE"
         }
       ],
       "header": "compressapi.h",
@@ -131,7 +136,10 @@
       "cross_references": [],
       "confidence": 0.6,
       "_source_line": 111,
-      "return_value": "BOOL"
+      "return_value": {
+        "type": "BOOL",
+        "description": "BOOL"
+      }
     },
     {
       "id": "windows::CreateCompressor",
@@ -143,10 +151,14 @@
         {
           "name": "Algorithm",
           "direction": "in",
-          "description": "此压缩器要使用的压缩算法和模式的类型。 此参数可以选择将下列值之一与 COMPRESS_RAW 标志结合使用。 使用“按位 OR”运算符包括 COMPRESS_RAW 并创建块模式压缩器。 如果 不包括COMPRESS_RAW ，压缩 API 将创建缓冲区模式压缩器。 有关选择压缩算法和模式的详细信息，请参阅 使用压缩 API。 值"
+          "description": "此压缩器要使用的压缩算法和模式的类型。 此参数可以选择将下列值之一与 COMPRESS_RAW 标志结合使用。 使用“按位 OR”运算符包括 COMPRESS_RAW 并创建块模式压缩器。 如果 不包括COMPRESS_RAW ，压缩 API 将创建缓冲区模式压缩器。 有关选择压缩算法和模式的详细信息，请参阅 使用压缩 API。 值",
+          "type": "DWORD"
         }
       ],
-      "return_value": "{\"description\": \"如果函数成功，返回 TRUE。如果函数失败，返回 FALSE。要获取错误信息，请调用 GetLastError。\"}",
+      "return_value": {
+        "type": "BOOL",
+        "description": "{\"description\": \"如果函数成功，返回 TRUE。如果函数失败，返回 FALSE。要获取错误信息，请调用 GetLastError。\"}"
+      },
       "remarks": "如果压缩算法由于内部原因失败，GetLastError 可能返回 ERROR_FUNCTION_FAILED。如果系统找不到压缩算法句柄，可能返回 ERROR_INVALID_HANDLE。如果输出缓冲区太小，可能返回 ERROR_INSUFFICIENT_BUFFER。",
       "header": "compressapi.h",
       "deprecated": false,
@@ -215,14 +227,19 @@
         {
           "name": "DecompressorHandle",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "DECOMPRESSOR_HANDLE"
         }
       ],
       "header": "compressapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 276
+      "_source_line": 276,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::ERROR_BAD_COMPRESSION_BUFFER",
@@ -278,14 +295,19 @@
         {
           "name": "CompressorHandle",
           "direction": "in",
-          "description": "要查询信息的压缩器的句柄。[in] CompressInformationClass 标识信息类型的 COMPRESS_INFORMATION_CLASS 枚举的值。[out] CompressInformation 写入为字节的压缩算法的信息。 此信息的最大大小（以字节为单位）由"
+          "description": "要查询信息的压缩器的句柄。[in] CompressInformationClass 标识信息类型的 COMPRESS_INFORMATION_CLASS 枚举的值。[out] CompressInformation 写入为字节的压缩算法的信息。 此信息的最大大小（以字节为单位）由",
+          "type": "COMPRESSOR_HANDLE"
         }
       ],
       "header": "compressapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 319
+      "_source_line": 319,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::CompressInformationSize",
@@ -322,7 +344,8 @@
         {
           "name": "DecompressorHandle",
           "direction": "in",
-          "description": "正在查询信息的解压缩器的句柄。[in] CompressInformationClass 标识信息类型的 COMPRESS_INFORMATION_CLASS 枚举的值。[out] CompressInformation 写入为字节的压缩算法的信息。 此信息的最大大小（以字节为单位）由"
+          "description": "正在查询信息的解压缩器的句柄。[in] CompressInformationClass 标识信息类型的 COMPRESS_INFORMATION_CLASS 枚举的值。[out] CompressInformation 写入为字节的压缩算法的信息。 此信息的最大大小（以字节为单位）由",
+          "type": "DECOMPRESSOR_HANDLE"
         }
       ],
       "header": "compressapi.h",
@@ -330,7 +353,10 @@
       "cross_references": [],
       "confidence": 0.7,
       "_source_line": 349,
-      "return_value": "BOOL"
+      "return_value": {
+        "type": "BOOL",
+        "description": "BOOL"
+      }
     },
     {
       "id": "windows::ResetCompressor",
@@ -342,11 +368,13 @@
         {
           "name": "CompressorHandle",
           "direction": "in",
-          "description": "CreateCompressor 返回的压缩器的句柄。"
+          "description": "CreateCompressor 返回的压缩器的句柄。",
+          "type": "COMPRESSOR_HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。"
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "如果压缩算法由于某种内部原因而失败，则可以ERROR_FUNCTION_FAILED来自 GetLastError 的错误。 如果系统找不到压缩算法句柄，则可以 ERROR_INVALID_HANDLE错误。",
       "requirements": {
@@ -376,11 +404,13 @@
         {
           "name": "DecompressorHandle",
           "direction": "in",
-          "description": "CreateDecompressor 返回的解压缩器的句柄。"
+          "description": "CreateDecompressor 返回的解压缩器的句柄。",
+          "type": "DECOMPRESSOR_HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果该函数成功，则返回值为非零值。如果函数失败，则返回值为零。要获得更多的错误信息，请调用 GetLastError。"
+        "description": "如果该函数成功，则返回值为非零值。如果函数失败，则返回值为零。要获得更多的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "如果压缩算法由于某种内部原因而失败，则可以从 GetLastError 获取 ERROR_FUNCTION_FAILED 错误。如果系统找不到压缩算法句柄，则返回 ERROR_INVALID_HANDLE 错误。",
       "requirements": {
@@ -409,16 +439,19 @@
         {
           "name": "CompressorHandle",
           "direction": "in",
-          "description": "压缩器的句柄。"
+          "description": "压缩器的句柄。",
+          "type": "COMPRESSOR_HANDLE"
         },
         {
           "name": "CompressInformationClass",
           "direction": "in",
-          "description": "一个标识信息类型的值。 标识信息类型的枚举的 。[in] CompressInformation 正在设置为字节读取的信息。 最大大小（以字节为单位）由 CompressInformationSize 提供。[in] CompressInformationSize 信息的最大大小（以字节为单位）。"
+          "description": "一个标识信息类型的值。 标识信息类型的枚举的 。[in] CompressInformation 正在设置为字节读取的信息。 最大大小（以字节为单位）由 CompressInformationSize 提供。[in] CompressInformationSize 信息的最大大小（以字节为单位）。",
+          "type": "COMPRESS_INFORMATION_CLASS"
         }
       ],
       "return_value": {
-        "description": "如果该函数成功，则返回值为非零值。如果函数失败，则返回值为零。要获得更多的错误信息，请调用 GetLastError。"
+        "description": "如果该函数成功，则返回值为非零值。如果函数失败，则返回值为零。要获得更多的错误信息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "如果压缩算法由于某种内部原因而失败，则 GetLastError 返回 ERROR_FUNCTION_FAILED。如果系统找不到压缩算法句柄，则返回 ERROR_INVALID_HANDLE。如果压缩算法不允许更改此信息类的值，则返回 ERROR_NOT_SUPPORTED。如果压缩算法不允许信息类，则返回 ERROR_UNSUPPORTED_TYPE。",
       "requirements": {
@@ -445,16 +478,19 @@
         {
           "name": "DecompressorHandle",
           "direction": "in",
-          "description": "解压缩器的句柄。"
+          "description": "解压缩器的句柄。",
+          "type": "DECOMPRESSOR_HANDLE"
         },
         {
           "name": "CompressInformationClass",
           "direction": "in",
-          "description": "一个标识信息类型的 值。 用于标识信息类型的枚举。[in] CompressInformation 正在设置为字节的信息。 CompressInformationSize 提供的最大大小（以字节为单位）。[in] CompressInformationSize 信息的最大大小（以字节为单位）。"
+          "description": "一个标识信息类型的 值。 用于标识信息类型的枚举。[in] CompressInformation 正在设置为字节的信息。 CompressInformationSize 提供的最大大小（以字节为单位）。[in] CompressInformationSize 信息的最大大小（以字节为单位）。",
+          "type": "COMPRESS_INFORMATION_CLASS"
         }
       ],
       "return_value": {
-        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。"
+        "description": "如果该函数成功，则返回值为非零值。 如果函数失败，则返回值为零。 要获得更多的错误信 息，请调用 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "如果压缩算法由于某种内部原因而失败，则可以从 GetLastError 获取 ERROR_FUNCTION_FAILED 错误。如果系统找不到压缩算法句柄，则返回 ERROR_INVALID_HANDLE 错误。如果压缩算法不允许更改此信息类的值，则返回 ERROR_NOT_SUPPORTED 错误。如果压缩算法不允许信息类，则返回 ERROR_UNSUPPORTED_TYPE 错误。",
       "requirements": {

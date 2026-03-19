@@ -118,11 +118,13 @@
         {
           "name": "szApplication",
           "direction": "in",
-          "description": "应用程序的可执行文件的名称，包括文件扩展名。 名称不能包含路径信息。"
+          "description": "应用程序的可执行文件的名称，包括文件扩展名。 名称不能包含路径信息。",
+          "type": "LPCSTR"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回值为非零。 如果函数失败，则返回值为零。 若要获取扩展的错误信息，请参阅 GetLastError。"
+        "description": "如果函数成功，则返回值为非零。 如果函数失败，则返回值为零。 若要获取扩展的错误信息，请参阅 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "此函数将排除的应用程序列表存储在 HKEY_LOCAL_MACHINE 配置单元下。调用进程必须有权写入此注册表配置单元。",
       "header": "errorrep.h",
@@ -301,11 +303,13 @@
       "parameters": [
         {
           "name": "wszApplication",
-          "description": "应用程序的可执行文件的名称，包括文件扩展名。 名称不能包含路径信息。"
+          "description": "应用程序的可执行文件的名称，包括文件扩展名。 名称不能包含路径信息。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回值为非零。 如果函数失败，则返回值为零。 若要获取扩展的错误信息，请参阅 GetLastError。"
+        "description": "如果函数成功，则返回值为非零。 如果函数失败，则返回值为零。 若要获取扩展的错误信息，请参阅 GetLastError。",
+        "type": "BOOL"
       },
       "remarks": "此函数将排除的应用程序列表存储在 HKEY_LOCAL_MACHINE 配置单元下。调用进程必须有权写入此注册表配置单元。",
       "header": "errorrep.h",
@@ -328,11 +332,13 @@
         {
           "name": "pep",
           "direction": "in",
-          "description": "一个指向 EXCEPTION_POINTERS 结构的指针。[in] dwOpt 此参数保留供系统使用，应设置为零。"
+          "description": "一个指向 EXCEPTION_POINTERS 结构的指针。[in] dwOpt 此参数保留供系统使用，应设置为零。",
+          "type": "LPEXCEPTION_POINTERS"
         }
       ],
       "return_value": {
-        "description": "此函数返回以下值之一：frrvErr - 函数失败，但错误报告客户端已启动；frrvErrNoDW - 报告客户端无法启动的错误；frrvErrTimeout - 函数超时；frrvLaunchDebugger - 函数成功，并且用户启动了调试器；frrvOk - 函数成功；frrvOkHeadless - 函数成功，错误报告客户端在无提示报告模式下启动；frrvOkManifest - 函数成功，错误报告客户端在清单报告模式下启动；frrvOkQueued - 函数成功，故障报告已排队等待后续报告。"
+        "description": "此函数返回以下值之一：frrvErr - 函数失败，但错误报告客户端已启动；frrvErrNoDW - 报告客户端无法启动的错误；frrvErrTimeout - 函数超时；frrvLaunchDebugger - 函数成功，并且用户启动了调试器；frrvOk - 函数成功；frrvOkHeadless - 函数成功，错误报告客户端在无提示报告模式下启动；frrvOkManifest - 函数成功，错误报告客户端在清单报告模式下启动；frrvOkQueued - 函数成功，故障报告已排队等待后续报告。",
+        "type": "EFaultRepRetVal"
       },
       "remarks": "调用此函数的确切结果取决于用户或系统管理员配置错误报告系统的方式。",
       "header": "errorrep.h",
@@ -364,15 +370,20 @@
         {
           "name": "hwndHungApp",
           "direction": "in",
-          "description": "未响应窗口的句柄。"
+          "description": "未响应窗口的句柄。",
+          "type": "HWND"
         },
         {
           "name": "pwzHungApplicationName",
           "direction": "in, optional",
-          "description": "挂起报告 UI 中显示的无响应应用程序的名称。 名称限制为 128 个字符，包括 NULL 终止符。如果 为 NULL，则 WER 会尝试从目标映像资源获取名称。 如果无法从映像中获取名称，将使用 映像名称。"
+          "description": "挂起报告 UI 中显示的无响应应用程序的名称。 名称限制为 128 个字符，包括 NULL 终止符。如果 为 NULL，则 WER 会尝试从目标映像资源获取名称。 如果无法从映像中获取名称，将使用 映像名称。",
+          "type": "optional] PCWSTR"
         }
       ],
-      "return_value": "如果函数能够启动报告则返回 S_OK。请注意，S_OK 并不一定意味着“无响应”报告已成功完成，只是表示它已启动。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果函数能够启动报告则返回 S_OK。请注意，S_OK 并不一定意味着“无响应”报告已成功完成，只是表示它已启动。"
+      },
       "remarks": "应用程序不应使用此 API 来报告来自顶级窗口的响应；默认情况下，无响应检测和报告适用于 Windows XP 及更高版本上的所有顶级窗口。应仅使用此函数来报告子窗口的响应。通常，仅当顶级窗口及其子窗口由不同的进程拥有，并且子窗口中检测到非响应时，才使用此函数。此函数将启动无响应报告，然后终止创建窗口的进程。调用方负责确定子窗口何时不响应，并且应在报告非响应之前提示用户同意。检测未响应的窗口的典型方法是检查及时答复窗口消息。可以使用 SendMessageTimeout 函数检测此情况。此函数是异步的；它不会等待无响应报告完成。启动无响应报告后，无法取消报告。如果使用此函数，请务必遵守以下要求：确保子窗口由单独的进程创建。完成无响应报告后，它将终止创建窗口的进程。在子窗口中提供无响应的视觉线索；无响应报告不会变暗子窗口，只会显示报告对话框。在调用此函数之前，确认用户想要终止未响应的子窗口。",
       "header": "errorrep.h",
       "deprecated": false,
@@ -392,11 +403,13 @@
         {
           "name": "pwzExeName",
           "direction": "in",
-          "description": "指向 Unicode 字符串的指针，该字符串指定应用程序的可执行文件的名称，包括文件扩展名。 此路径的最大长度为 MAX_PATH 个字符。[in] bAllUsers 如果此参数为 TRUE，则应用程序名称将添加到所有用户的已排除应用程序列表中。 否则，只会 将其添加到当前用户的已排除应用程序列表中。"
+          "description": "指向 Unicode 字符串的指针，该字符串指定应用程序的可执行文件的名称，包括文件扩展名。 此路径的最大长度为 MAX_PATH 个字符。[in] bAllUsers 如果此参数为 TRUE，则应用程序名称将添加到所有用户的已排除应用程序列表中。 否则，只会 将其添加到当前用户的已排除应用程序列表中。",
+          "type": "PCWSTR"
         }
       ],
       "return_value": {
-        "description": "此函数在成功时返回 S_OK 或失败时返回错误代码。"
+        "description": "此函数在成功时返回 S_OK 或失败时返回错误代码。",
+        "type": "HRESULT"
       },
       "header": "werapi.h",
       "deprecated": false,
@@ -413,7 +426,8 @@
       "description": "获取对报表存储中第一个Windows错误报告(WER)报表的引用。",
       "syntax": "HRESULT WerStoreGetFirstReportKey(\n  HREPORTSTORE hReportStore,\n  PCWSTR *ppszReportKey\n);",
       "return_value": {
-        "description": "此函数在成功时返回S_OK，失败时返回错误代码。"
+        "description": "此函数在成功时返回S_OK，失败时返回错误代码。",
+        "type": "HRESULT"
       },
       "header": "werapi.h",
       "deprecated": false,
@@ -460,7 +474,7 @@
     {
       "id": "windows::WER_RUNTIME_EXCEPTION_INFORMATION",
       "name": "WER_RUNTIME_EXCEPTION_INFORMATION",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含Windows 错误报告 (WER) 异常信息，这些信息用于确定是否要声明崩溃。",
       "header": "werapi.h",
       "deprecated": false,
@@ -470,7 +484,8 @@
         "WER_RUNTIME_EXCEPTION_INFORMATION"
       ],
       "confidence": 0.65,
-      "_source_line": 317
+      "_source_line": 317,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PFN_WER_RUNTIME_EXCEPTION_EVENT",
@@ -644,14 +659,19 @@
         {
           "name": "hReportHandle",
           "direction": "in",
-          "description": "报表的句柄。 此句柄由 WerReportCreate 函数返回。[in] consent 同意状态。 此参数可以是 WER_CONSENT 枚举类型中的以下值之一。 值"
+          "description": "报表的句柄。 此句柄由 WerReportCreate 函数返回。[in] consent 同意状态。 此参数可以是 WER_CONSENT 枚举类型中的以下值之一。 值",
+          "type": "HREPORT"
         }
       ],
       "header": "werapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 497
+      "_source_line": 497,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WER_DUMP_MASK_THREADFLAGS",
@@ -1091,7 +1111,8 @@
       "description": "注册要包含在Windows错误报告(WER)报表中的进程以及主应用程序进程。可选指定要从中获取其他数据的已注册进程内的线程。",
       "syntax": "HRESULT WerRegisterAdditionalProcess(\n  DWORD processId,\n  [optional] DWORD captureExtraInfoForThreadId\n);",
       "return_value": {
-        "description": "成功时返回S_OK，失败时返回错误代码。"
+        "description": "成功时返回S_OK，失败时返回错误代码。",
+        "type": "HRESULT"
       },
       "header": "werapi.h",
       "deprecated": false,
@@ -1140,11 +1161,13 @@
         {
           "name": "localAppDataRelativePath",
           "direction": "in",
-          "description": "相对于调用应用程序的本地应用商店的路径。 这是保存当应用程序的某个进程停止响应时 WER 收集的诊断内存转储的副本的位置。 此相对路径的最大长度（以字符为单位 ）为 WER_MAX_LOCAL_DUMP_SUBPATH_LENGTH，其值为 64。 此最大长度包括 null 终止字符。"
+          "description": "相对于调用应用程序的本地应用商店的路径。 这是保存当应用程序的某个进程停止响应时 WER 收集的诊断内存转储的副本的位置。 此相对路径的最大长度（以字符为单位 ）为 WER_MAX_LOCAL_DUMP_SUBPATH_LENGTH，其值为 64。 此最大长度包括 null 终止字符。",
+          "type": "PCWSTR"
         }
       ],
       "return_value": {
-        "description": "此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。 返回代码"
+        "description": "此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。 返回代码",
+        "type": "HRESULT"
       },
       "header": "werapi.h",
       "deprecated": false,
@@ -1220,11 +1243,13 @@
         {
           "name": "pwzExeName",
           "direction": "in",
-          "description": "指向 Unicode 字符串的指针，该字符串指定应用程序的可执行文件的名称，包括文件扩展名。此路径的最大长度为 MAX_PATH 个字符。 必须使用 WerAddExcludedApplication 函数排除此文件，否则"
+          "description": "指向 Unicode 字符串的指针，该字符串指定应用程序的可执行文件的名称，包括文件扩展名。此路径的最大长度为 MAX_PATH 个字符。 必须使用 WerAddExcludedApplication 函数排除此文件，否则",
+          "type": "PCWSTR"
         }
       ],
       "return_value": {
-        "description": "此函数在成功时返回 S_OK 或失败时返回错误代码。"
+        "description": "此函数在成功时返回 S_OK 或失败时返回错误代码。",
+        "type": "HRESULT"
       },
       "header": "werapi.h",
       "deprecated": false,
@@ -1312,7 +1337,8 @@
         {
           "name": "hReportHandle",
           "direction": "in",
-          "description": "报表的句柄。 此句柄由 WerReportCreate 函数返回。[in] dwparamID 要设置的参数的标识符。 此参数的取值可为下列值之一："
+          "description": "报表的句柄。 此句柄由 WerReportCreate 函数返回。[in] dwparamID 要设置的参数的标识符。 此参数的取值可为下列值之一：",
+          "type": "HREPORT"
         }
       ],
       "requirements": {
@@ -1327,7 +1353,11 @@
         "WerReportSubmit"
       ],
       "confidence": 0.8,
-      "_source_line": 1797
+      "_source_line": 1797,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WER_E_LENGTH_EXCEEDED",
@@ -1500,7 +1530,8 @@
       "description": "删除以前标记为已排除的内存块，该内存块将再次包含在 Windows 错误报告 (WER) 错误报告中。",
       "syntax": "HRESULT WerUnregisterExcludedMemoryBlock( const void *address );",
       "return_value": {
-        "description": "此函数在成功时返回 S_OK，失败时返回错误代码。"
+        "description": "此函数在成功时返回 S_OK，失败时返回错误代码。",
+        "type": "HRESULT"
       },
       "header": "werapi.h",
       "deprecated": false,
@@ -1518,11 +1549,13 @@
         {
           "name": "pvAddress",
           "direction": "in",
-          "description": "内存块的起始地址。 此内存块必须已使用 WerRegisterMemoryBlock 函数注册。"
+          "description": "内存块的起始地址。 此内存块必须已使用 WerRegisterMemoryBlock 函数注册。",
+          "type": "PVOID"
         }
       ],
       "return_value": {
-        "description": "此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。 返回代码"
+        "description": "此函数在成功时返回 S_OK 或失败时返回错误代码，包括以下错误代码。 返回代码",
+        "type": "HRESULT"
       },
       "header": "werapi.h",
       "deprecated": false,
@@ -1540,11 +1573,13 @@
         {
           "name": "pwszOutOfProcessCallbackDll",
           "direction": "in",
-          "description": "要删除其注册的异常处理程序 DLL 的名称。[in, optional] pContext 指向传递给回调的任意上下文信息的指针。"
+          "description": "要删除其注册的异常处理程序 DLL 的名称。[in, optional] pContext 指向传递给回调的任意上下文信息的指针。",
+          "type": "PCWSTR"
         }
       ],
       "return_value": {
-        "description": "成功时返回 S_OK，失败时返回错误代码。"
+        "description": "成功时返回 S_OK，失败时返回错误代码。",
+        "type": "HRESULT"
       },
       "header": "werapi.h",
       "deprecated": false,

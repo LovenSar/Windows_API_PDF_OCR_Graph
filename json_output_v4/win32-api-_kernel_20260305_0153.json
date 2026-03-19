@@ -124,7 +124,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 390,
-      "return_value": "如果移除该条目后链表为空，则返回 TRUE；否则返回 FALSE。",
+      "return_value": {
+        "type": "BOOLEAN",
+        "description": "如果移除该条目后链表为空，则返回 TRUE；否则返回 FALSE。"
+      },
       "remarks": "RemoveEntryList 操作的是由 LIST_ENTRY 结构组织的双向链表。调用方必须确保传入的 Entry 当前已链接到有效链表中。该例程通常与 InitializeListHead、InsertHeadList、InsertTailList、RemoveHeadList 和 RemoveTailList 等链表管理例程配合使用。"
     },
     {
@@ -220,7 +223,10 @@
       "confidence": 0.6,
       "_source_line": 331,
       "syntax": "NTSYSAPI NTSTATUS ZwMakeTemporaryObject(\n  HANDLE Handle\n);",
-      "return_value": "返回 NTSTATUS 状态代码。成功时返回 STATUS_SUCCESS；失败时返回相应的 NTSTATUS 错误码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "返回 NTSTATUS 状态代码。成功时返回 STATUS_SUCCESS；失败时返回相应的 NTSTATUS 错误码。"
+      },
       "remarks": "ZwMakeTemporaryObject 用于移除对象的永久属性。对象变为临时对象后，当最后一个句柄关闭时即可删除。该例程适用于对象管理器命名空间中的永久对象。当前描述中混入了 OBJECT_ATTRIBUTES 和 OBJ_* 标志的说明，应予以移除。"
     },
     {
@@ -1183,11 +1189,13 @@
       "parameters": [
         {
           "name": "CodePointer",
-          "description": "ULONG64表示指向要查询的代码的指针。"
+          "description": "ULONG64表示指向要查询的代码的指针。",
+          "type": "DWORD64"
         }
       ],
       "return_value": {
-        "description": "如果代码与 ARM 仿真兼容，则为 TRUE;否则为 FALSE。"
+        "description": "如果代码与 ARM 仿真兼容，则为 TRUE;否则为 FALSE。",
+        "type": "BOOLEAN"
       },
       "requirements": {
         "header": "winnt.h",

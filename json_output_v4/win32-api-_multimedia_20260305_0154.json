@@ -8,7 +8,10 @@
       "entity_type": "method",
       "description": "打开文件中的指定流并返回该流接口的指针。该方法由应用程序调用 AVIFileGetStream 函数时触发，对应 IAVIFile 接口的方法。",
       "syntax": "HRESULT GetStream(\n  PAVISTREAM *ppStream,\n  DWORD      fccType,\n  LONG       lParam\n);",
-      "return_value": "返回 OLE 定义的 HRESULT。成功时返回 S_OK；失败时返回相应的错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "返回 OLE 定义的 HRESULT。成功时返回 S_OK；失败时返回相应的错误代码。"
+      },
       "remarks": "通常可以在 IAVIFile::Open 方法中预先创建所有流对象，从而更容易实现此方法。随后，此方法只需返回指定流的接口即可。返回流接口时，应确保其引用计数已递增（例如调用 AddRef）。",
       "header": "vfw.h",
       "deprecated": false,
@@ -76,7 +79,10 @@
       "entity_type": "method",
       "description": "方法写入文件标头。当应用程序使用 AVIFileWriteData 函数时调用。",
       "syntax": "HRESULT WriteData(\n  DWORD fcc,\n  LPVOID lp,\n  LONG cb\n);",
-      "return_value": "返回由 OLE 定义的 HRESULT。成功时返回 S_OK，失败时返回错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "返回由 OLE 定义的 HRESULT。成功时返回 S_OK，失败时返回错误代码。"
+      },
       "remarks": "对于用 C++ 编写的处理程序，WriteData 具有以下语法：HRESULT WriteData(DWORD fcc, LPVOID lpBuffer, LONG cbBuffer);",
       "header": "vfw.h",
       "deprecated": false,
@@ -278,7 +284,8 @@
       "description": "将流或其部分复制到临时流。当应用程序使用 EditStreamCopy 函数时调用。",
       "syntax": "HRESULT Copy(LONG *plStart, LONG *plLength, PAVISTREAM *ppResult);",
       "return_value": {
-        "description": "返回由 OLE 定义的 HRESULT。"
+        "description": "返回由 OLE 定义的 HRESULT。",
+        "type": "HRESULT"
       },
       "remarks": "对于用 C++ 编写的处理程序，Copy 具有以下语法。",
       "header": "vfw.h",
@@ -317,7 +324,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.5,
-      "_source_line": 374
+      "_source_line": 374,
+      "return_value": {
+        "type": "BOOL VFWAPI",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrawDibClose",
@@ -326,7 +337,8 @@
       "description": "Closes a DrawDib device context and releases allocated DrawDib resources.",
       "syntax": "BOOL VFWAPI DrawDibClose(HDRAWDIB hdd);",
       "return_value": {
-        "description": "如果成功，则返回 TRUE ，否则返回 FALSE 。"
+        "description": "如果成功，则返回 TRUE ，否则返回 FALSE 。",
+        "type": "BOOL VFWAPI"
       },
       "header": "vfw.h",
       "deprecated": false,
@@ -351,7 +363,10 @@
       ],
       "confidence": 0.7,
       "_source_line": 376,
-      "return_value": "成功时返回 TRUE，失败时返回 FALSE。"
+      "return_value": {
+        "type": "BOOL VFWAPI",
+        "description": "成功时返回 TRUE，失败时返回 FALSE。"
+      }
     },
     {
       "id": "windows::DrawDibEnd",
@@ -359,7 +374,10 @@
       "entity_type": "function",
       "description": "释放由 DrawDibBegin 或 DrawDibDraw 函数创建的 DrawDib 设备上下文（DC）资源。",
       "syntax": "BOOL VFWAPI DrawDibEnd(HDRAWDIB hdd);",
-      "return_value": "成功时返回 TRUE，失败时返回 FALSE。调用 GetLastError 获取详细错误信息。",
+      "return_value": {
+        "type": "BOOL VFWAPI",
+        "description": "成功时返回 TRUE，失败时返回 FALSE。调用 GetLastError 获取详细错误信息。"
+      },
       "requirements": {
         "target_platform": "Windows",
         "header": "vfw.h",
@@ -388,7 +406,11 @@
         "DrawDibGetPalette"
       ],
       "confidence": 0.6,
-      "_source_line": 378
+      "_source_line": 378,
+      "return_value": {
+        "type": "LPVOID VFWAPI",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrawDibGetPalette",
@@ -429,7 +451,11 @@
         "DrawDibProfileDisplay"
       ],
       "confidence": 0.7,
-      "_source_line": 382
+      "_source_line": 382,
+      "return_value": {
+        "type": "HDRAWDIB VFWAPI",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrawDibProfileDisplay",
@@ -460,7 +486,11 @@
         "DrawDibSetPalette"
       ],
       "confidence": 0.7,
-      "_source_line": 384
+      "_source_line": 384,
+      "return_value": {
+        "type": "UINT VFWAPI",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrawDibSetPalette",
@@ -474,7 +504,11 @@
         "DrawDibStart"
       ],
       "confidence": 0.6,
-      "_source_line": 385
+      "_source_line": 385,
+      "return_value": {
+        "type": "BOOL VFWAPI",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrawDibStart",
@@ -489,7 +523,11 @@
         "DrawDibStop"
       ],
       "confidence": 0.6,
-      "_source_line": 386
+      "_source_line": 386,
+      "return_value": {
+        "type": "BOOL VFWAPI",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrawDibStop",
@@ -519,7 +557,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.6,
-      "_source_line": 388
+      "_source_line": 388,
+      "return_value": {
+        "type": "BOOL VFWAPI",
+        "description": ""
+      }
     },
     {
       "id": "windows::DrvGetModuleHandle",
@@ -541,7 +583,8 @@
       "description": "函数创建重复的可编辑流。",
       "syntax": "HRESULT EditStreamClone(PAVISTREAM pavi, PAVISTREAM *ppResult);",
       "return_value": {
-        "description": "如果成功，则返回 S_OK，否则返回错误代码。"
+        "description": "如果成功，则返回 S_OK，否则返回错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "正在克隆的可编辑流必须由 CreateEditableStream 函数或其中一个流编辑函数创建。 可以将新流视为任何其他 AVI 流。",
       "requirements": {
@@ -562,7 +605,10 @@
       "entity_type": "function",
       "description": "函数将可编辑流 (或其部分) 复制到临时流中。",
       "syntax": "HRESULT EditStreamCopy(\n  PAVISTREAM pavi,\n  LONG       *plStart,\n  LONG       *plLength,\n  PAVISTREAM *ppResult\n);",
-      "return_value": "如果成功，则返回 S_OK。如果失败，则返回错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果成功，则返回 S_OK。如果失败，则返回错误代码。"
+      },
       "remarks": "复制的流必须由 CreateEditableStream 函数或其中一个流编辑函数创建。可以将临时流视为任何其他 AVI 流。",
       "header": "vfw.h",
       "deprecated": false,
@@ -599,7 +645,8 @@
       "description": "函数从一个流复制流（或其部分），并将其粘贴到指定位置的另一个流中。",
       "syntax": "HRESULT EditStreamPaste(PAVISTREAM pavi, LONG *plPos, LONG *plLength, PAVISTREAM pstream, LONG lStart, LONG lEnd);",
       "return_value": {
-        "description": "如果成功，则返回 S_OK，否则返回错误代码。"
+        "description": "如果成功，则返回 S_OK，否则返回错误代码。",
+        "type": "HRESULT"
       },
       "remarks": "pavi 引用的流必须由 CreateEditableStream 函数或其中一个流编辑函数创建。 此函数将数据作为连续数据块插入指定的流中。 它会在插入点处打开指定的数据流，将指定的 流段粘贴到插入点处，并将跟踪插入点的流段追加到粘贴段的末尾。",
       "header": "vfw.h",
@@ -617,7 +664,10 @@
       "entity_type": "function",
       "description": "函数更改可编辑流的特征。ANSI 版本。",
       "syntax": "HRESULT EditStreamSetInfoA(\n  PAVISTREAM       pavi,\n  LPAVISTREAMINFOA lpInfo,\n  LONG             cbInfo\n);",
-      "return_value": "如果成功，返回 S_OK。如果失败，返回错误代码。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果成功，返回 S_OK。如果失败，返回错误代码。"
+      },
       "remarks": "必须提供整个 AVISTREAMINFO 结构的信息，包括不会使用的成员。可以使用 AVIStreamInfo 函数初始化结构，然后使用数据更新所选成员。此函数不会更改以下成员：dwCaps、dwEditCount、dwFlags、dwInitialFrames、dwLength、dwSampleSize、dwSuggestedBufferSize、fccHandler、fccType。该函数更改以下成员：dwRate、dwQuality、dwScale、dwStart、rcFrame、szName、wLanguage、wPriority。",
       "header": "vfw.h",
       "deprecated": false,
@@ -662,7 +712,11 @@
         "GetStream"
       ],
       "confidence": 0.7,
-      "_source_line": 407
+      "_source_line": 407,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::FindSample",
@@ -676,7 +730,11 @@
         "Info"
       ],
       "confidence": 0.7,
-      "_source_line": 409
+      "_source_line": 409,
+      "return_value": {
+        "type": "LONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetDriverModuleHandle",
@@ -698,7 +756,8 @@
       "description": "从流中检索帧的解压缩副本。当应用程序使用 AVIStreamGetFrame 函数时调用。",
       "syntax": "LPVOID GetFrame(LONG lPos);",
       "return_value": {
-        "description": "返回解压缩帧数据的地址。"
+        "description": "返回解压缩帧数据的地址。",
+        "type": "LPVOID"
       },
       "remarks": "IGetFrame 接口的方法。SetFormat 方法设置要提取的帧的解压缩图像格式，并选择性地为解压缩操作提供缓冲区。",
       "requirements": {
@@ -857,7 +916,8 @@
       "description": "MCIWNDM_GETVOLUME消息用于获取MCI设备的当前音量值。可以使用此消息或显式发送WM_MCIWNDM_GETVOLUME消息。",
       "syntax": "LRESULT MCIWNDM_GETVOLUME(HWND hwnd);",
       "return_value": {
-        "description": "返回当前音量值，范围从0到1000"
+        "description": "返回当前音量值，范围从0到1000",
+        "type": "LRESULT"
       },
       "header": "vfw.h",
       "deprecated": false,
@@ -1040,7 +1100,8 @@
       "description": "方法将流或其一部分复制到另一个流中。在应用程序使用 EditStreamPaste 函数时调用。",
       "syntax": "HRESULT Paste(LONG *plPos, LONG *plLength, PAVISTREAM pstream, LONG lStart, LONG lEnd);",
       "return_value": {
-        "description": "返回由 OLE 定义的 HRESULT。"
+        "description": "返回由 OLE 定义的 HRESULT。",
+        "type": "HRESULT"
       },
       "remarks": "对于用 C++ 编写的处理程序，Paste 具有以下语法：HRESULT Paste(LONG *plPos, LONG *plLength, PAVISTREAM pstream, LONG lStart, LONG lEnd);",
       "header": "vfw.h",
@@ -1314,7 +1375,7 @@
     {
       "id": "windows::MCI_DGV_RECORD_PARMS",
       "name": "MCI_DGV_RECORD_PARMS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含数字视频设备MCI_RECORD命令参数的结构体",
       "syntax": "typedef struct MCI_DGV_RECORD_PARMS {\n  DWORD dwCallback;\n  DWORD dwFrom;\n  DWORD dwTo;\n  DWORD dwFrame;\n} MCI_DGV_RECORD_PARMS;",
       "header": "digitalv.h",
@@ -1323,19 +1384,21 @@
         "MCI_RECORD"
       ],
       "confidence": 0.75,
-      "_source_line": 991
+      "_source_line": 991,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::MCI_DGV_RECT_PARMS",
       "name": "MCI_DGV_RECT_PARMS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含数字视频设备的MCI_FREEZE、MCI_PUT、MCI_UNFREEZE和MCI_UPDATE命令的矩形参数",
       "syntax": "typedef struct {",
       "header": "digitalv.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.75,
-      "_source_line": 992
+      "_source_line": 992,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::MCI_DGV_RESERVE_PARMSA",
@@ -1442,7 +1505,7 @@
     {
       "id": "windows::MCI_DGV_SETVIDEO_PARMSA",
       "name": "MCI_DGV_SETVIDEO_PARMSA",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "(ANSI) 结构包含数字视频设备的 MCI_SETVIDEO 命令的参数。",
       "header": "digitalv.h",
       "deprecated": false,
@@ -1450,7 +1513,8 @@
         "MCI_SETVIDEO"
       ],
       "confidence": 0.65,
-      "_source_line": 1010
+      "_source_line": 1010,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::MCI_DGV_SETVIDEO_PARMSW",
@@ -1491,7 +1555,7 @@
     {
       "id": "windows::MCI_DGV_STEP_PARMS",
       "name": "MCI_DGV_STEP_PARMS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构体包含数字视频设备的 MCI_STEP 命令的参数。",
       "syntax": "typedef struct {\n    DWORD dwCallback;\n    DWORD dwFrames;\n    DWORD dwMode;\n} MCI_DGV_STEP_PARMS;",
       "header": "digitalv.h",
@@ -1500,7 +1564,8 @@
         "MCI_STEP"
       ],
       "confidence": 0.75,
-      "_source_line": 1016
+      "_source_line": 1016,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::MCI_DGV_UPDATE_PARMS",
@@ -1530,7 +1595,7 @@
     {
       "id": "windows::MCI_DGV_WINDOW_PARMSW",
       "name": "MCI_DGV_WINDOW_PARMSW",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含数字视频设备的 MCI_WINDOW 命令的参数。",
       "header": "digitalv.h",
       "deprecated": false,
@@ -1538,12 +1603,13 @@
         "MCI_WINDOW"
       ],
       "confidence": 0.75,
-      "_source_line": 1019
+      "_source_line": 1019,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::MIXERCONTROLDETAILS_BOOLEAN",
       "name": "MIXERCONTROLDETAILS_BOOLEAN",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "用于表示单个项或通道的布尔值。对于 FALSE 状态（例如 off 或 disabled）假定此值为零，对于 TRUE 状态（例如 on 或 enabled），此值为非零值。",
       "syntax": "typedef struct tMIXERCONTROLDETAILS_BOOLEAN {   LONG fValue;\n} MIXERCONTROLDETAILS_BOOLEAN, *PMIXERCONTROLDETAILS_BOOLEAN, *LPMIXERCONTROLDETAILS_BOOLEAN;\n成员 fValue\n单个项或通道的布尔值。 对于 FALSE 状态 (（例如 off 或 disabled) ）假定此值为零，对\n于 TRUE 状态 (（例如 on 或 enabled) ），此值为非零值。",
       "remarks": "以下标准控件类型使用此结构来检索和设置属性。计量控件：",
@@ -1553,12 +1619,13 @@
         "MIXERCONTROLDETAILS_LISTTEXT"
       ],
       "confidence": 0.75,
-      "_source_line": 1041
+      "_source_line": 1041,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::MIXERCONTROLDETAILS_LISTTEXT",
       "name": "MIXERCONTROLDETAILS_LISTTEXT",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "用于检索列表控件的项文本、标签文本和范围信息。在调用mixerGetControlDetails函数时，需指定MIXER_GETCONTROLDETAILSF_LISTTEXT标志。",
       "syntax": "typedef struct tagMIXERCONTROLDETAILS_LISTTEXTA {\n  DWORD dwParam1;\n  DWORD dwParam2;\n  CHAR  szName[MIXER_LONG_NAME_CHARS];\n} MIXERCONTROLDETAILS_LISTTEXTA, *PMIXERCONTROLDETAILS_LISTTEXTA, *LPMIXERCONTROLDETAILS_LISTTEXTA;\n\n成员说明：\ndwParam1 - 控件类特定的参数值（如均衡器、MUX等控件类型对应不同值）\ndwParam2 - 与dwParam1配合使用的参数\nszName - 描述多项控件中单个项的名称（可用作标签或项文本）",
       "remarks": "以下标准控件类型使用此结构检索项文本：淡出器控件、均衡器控件、MUX控件、多项选择控件等。具体控件类型对应的dwParam1值请参考MIXERCONTROLTYPE文档。",
@@ -1566,7 +1633,8 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.85,
-      "_source_line": 1042
+      "_source_line": 1042,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::MIXERCONTROLDETAILS_LISTTEXTA",
@@ -3456,7 +3524,7 @@
     {
       "id": "windows::DRV_QUERYCONFIGURE",
       "name": "DRV_QUERYCONFIGURE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "DRV_CONFIGURE",
       "header": "mmiscapi.h",
       "deprecated": false,
@@ -3468,7 +3536,8 @@
       "syntax": "LONG sndOpenSound(   LPCWSTR EventName,   LPCWSTR AppName,   INT32   Flags,\nPHANDLE FileHandle);\nparameters EventName\n声音事件的名称。 AppName\n与声音事件关联的应用程序。 Flags\n用于播放声音的标志。 定义了以下值。 FileHandle\n接收声音的句柄。",
       "return_value": {
         "description": "如果成功，则返回非零值，否则返回零。 如果此函数成功，则返回 S_OK。 否则，将返回 HRESULT 错误代码。"
-      }
+      },
+      "_type_raw": "struct"
     },
     {
       "id": "windows::DRV_REMOVE",
@@ -3557,7 +3626,7 @@
     {
       "id": "windows::MMIO_REMOVEPROC",
       "name": "MMIO_REMOVEPROC",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "返回值 删除指定的 I/O 过程。 返回已安装、删除或定位的 I/O 过程的地址。 如果出现错误，则返回 NULL 。",
       "syntax": "LPMMIOPROC mmioInstallIOProcA(\nFOURCC     fccIOProc,   LPMMIOPROC pIOProc,   DWORD      dwFlags);\n参数 fccIOProc\n标识要安装、删除或查找的 I/O 过程的四个字符代码。 此代码中的所有字符都应大写。 pIOProc\n指向要安装的 I/O 过程的指针。 若要删除或查找 I/O 过程，请将此参数设置为 NULL。\n有关 I/O 过程的详细信息，请参阅 MMIOProc。 dwFlags\n指示是要安装、删除还是定位 I/O 过程的标志。 定义了以下值。\n价值",
       "requirements": {
@@ -3570,7 +3639,8 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.85,
-      "_source_line": 11015
+      "_source_line": 11015,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::MMIO_ALLOCBUF",
@@ -3729,14 +3799,19 @@
         {
           "name": "hDriver",
           "direction": "in",
-          "description": "可安装驱动程序实例的句柄。 以前必须使用 OpenDriver 函数创建句柄。[in] message 驱动程序消息值。 它可以是自定义消息值，也可以是其中一个标准消息值。 值"
+          "description": "可安装驱动程序实例的句柄。 以前必须使用 OpenDriver 函数创建句柄。[in] message 驱动程序消息值。 它可以是自定义消息值，也可以是其中一个标准消息值。 值",
+          "type": "HDRVR"
         }
       ],
       "header": "mmiscapi.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.45,
-      "_source_line": 11801
+      "_source_line": 11801,
+      "return_value": {
+        "type": "LRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::KSDATAFORMAT_SUBTYPE_IEEE_FLOAT",
@@ -4204,7 +4279,8 @@
       "description": "acmFormatChoose 函数创建 ACM 定义的对话框，使用户能够选择波形音频格式。",
       "syntax": "MMRESULT ACMAPI acmFormatChooseA( LPACMFORMATCHOOSEA pafmtc );",
       "return_value": {
-        "description": "如果成功，则返回 MMSYSERR_NOERROR。可能的返回值包括以下错误代码。"
+        "description": "如果成功，则返回 MMSYSERR_NOERROR。可能的返回值包括以下错误代码。",
+        "type": "MMRESULT ACMAPI"
       },
       "header": "msacm.h",
       "deprecated": false,
@@ -5601,7 +5677,7 @@
     {
       "id": "windows::MCIWNDM_GETDEVICEID",
       "name": "MCIWNDM_GETDEVICEID",
-      "entity_type": "MCIWNDM_GETDEVICEID宏用于检索MCI设备的ID。",
+      "entity_type": "unknown",
       "description": "MCIWNDM_GETDEVICEID宏用于检索MCI设备的ID。",
       "syntax": "UINT MCIWNDM_GETDEVICEID(HWND hwnd);",
       "return_value": {
@@ -5617,7 +5693,8 @@
         "Server"
       ],
       "confidence": 0.75,
-      "_source_line": 24860
+      "_source_line": 24860,
+      "_type_raw": "MCIWNDM_GETDEVICEID宏用于检索MCI设备的ID。"
     },
     {
       "id": "windows::MCIWNDM_GETINACTIVETIMER",

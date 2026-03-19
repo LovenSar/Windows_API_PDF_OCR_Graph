@@ -12,7 +12,8 @@
         {
           "name": "lpString",
           "direction": "in",
-          "description": "类型：LPCTSTR 要添加的以 null 结尾的字符串。 字符串的最大大小可以为 255 字节。 仅当被视为相同的情况下，字符串才有所不同。 添加的第一个字符串的事例由 GetAtomName 函数保留并返回。 或者，可以使用已使用 MAKEINTATOM 宏转换的整数原子。 有关详细信息，请参阅“备注”。"
+          "description": "类型：LPCTSTR 要添加的以 null 结尾的字符串。 字符串的最大大小可以为 255 字节。 仅当被视为相同的情况下，字符串才有所不同。 添加的第一个字符串的事例由 GetAtomName 函数保留并返回。 或者，可以使用已使用 MAKEINTATOM 宏转换的整数原子。 有关详细信息，请参阅“备注”。",
+          "type": "LPCSTR"
         }
       ],
       "return_value": {
@@ -96,7 +97,8 @@
         {
           "name": "wCmd",
           "direction": "in",
-          "description": "类型： UINT 函数代码。 此参数的取值可为下列值之一： 值"
+          "description": "类型： UINT 函数代码。 此参数的取值可为下列值之一： 值",
+          "type": "UINT"
         }
       ],
       "header": "ddeml.h",
@@ -108,7 +110,11 @@
         "DdeGetLastError"
       ],
       "confidence": 0.8,
-      "_source_line": 37
+      "_source_line": 37,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::DdeQueryConvInfo",
@@ -126,12 +132,14 @@
         {
           "name": "idTransaction",
           "direction": "in",
-          "description": "类型：DWORD 事务。 对于异步事务，此参数应该是 DdeClientTransaction 函数返回的事务标识符。 对于同步事务，应QID_SYNC此参数。"
+          "description": "类型：DWORD 事务。 对于异步事务，此参数应该是 DdeClientTransaction 函数返回的事务标识符。 对于同步事务，应QID_SYNC此参数。",
+          "type": "DWORD"
         },
         {
           "name": "pConvInfo",
           "direction": "in, out",
-          "description": "类型： PCONVINFO 指向 CONVINFO 结构的指针，该结构接收有关事务和会话的信息。 CONVINFO 结构的 cb 成员必须指定为结构分配的缓冲区的长度。"
+          "description": "类型： PCONVINFO 指向 CONVINFO 结构的指针，该结构接收有关事务和会话的信息。 CONVINFO 结构的 cb 成员必须指定为结构分配的缓冲区的长度。",
+          "type": "out] PCONVINFO"
         }
       ],
       "return_value": {
@@ -159,7 +167,8 @@
         {
           "name": "hwndClient",
           "direction": "in",
-          "description": "类型：HWND DDE 客户端窗口的句柄，指定客户端将发送用于启动 DDE 对话 的WM_DDE_INITIATE 消息的源。"
+          "description": "类型：HWND DDE 客户端窗口的句柄，指定客户端将发送用于启动 DDE 对话 的WM_DDE_INITIATE 消息的源。",
+          "type": "HWND"
         },
         {
           "name": "pqosNew",
@@ -211,7 +220,8 @@
         {
           "name": "hWndClient",
           "direction": "in",
-          "description": "类型：HWND 要模拟的 DDE 客户端窗口的句柄。 客户端窗口必须已使用 hWndServer 参数标识的服务器窗口 建立了 DDE 会话。[in] hWndServer 类型：HWND DDE 服务器窗口的句柄。 应用程序必须在调用此函数之前创建服务器窗口。"
+          "description": "类型：HWND 要模拟的 DDE 客户端窗口的句柄。 客户端窗口必须已使用 hWndServer 参数标识的服务器窗口 建立了 DDE 会话。[in] hWndServer 类型：HWND DDE 服务器窗口的句柄。 应用程序必须在调用此函数之前创建服务器窗口。",
+          "type": "HWND"
         }
       ],
       "return_value": {
@@ -248,7 +258,8 @@
         {
           "name": "hWndNewViewer",
           "direction": "in",
-          "description": "类型：HWND 要添加到剪贴板链的窗口的句柄。"
+          "description": "类型：HWND 要添加到剪贴板链的窗口的句柄。",
+          "type": "HWND"
         }
       ],
       "return_value": {
@@ -343,12 +354,14 @@
         {
           "name": "msg",
           "direction": "in",
-          "description": "类型： UINT 已发布的 DDE 消息。"
+          "description": "类型： UINT 已发布的 DDE 消息。",
+          "type": "UINT"
         },
         {
           "name": "lParam",
           "direction": "in",
-          "description": "类型：LPARAM 已发布的 DDE 消息的 lParam 参数。"
+          "description": "类型：LPARAM 已发布的 DDE 消息的 lParam 参数。",
+          "type": "LPARAM"
         }
       ],
       "return_value": {
@@ -405,7 +418,8 @@
         {
           "name": "msgIn",
           "direction": "in",
-          "description": "类型： UINT 收到的 DDE 消息的标识符。"
+          "description": "类型： UINT 收到的 DDE 消息的标识符。",
+          "type": "UINT"
         },
         {
           "name": "msgOut",
@@ -488,7 +502,8 @@
         {
           "name": "msg",
           "direction": "in",
-          "description": "类型： UINT 已发布的 DDE 消息。"
+          "description": "类型： UINT 已发布的 DDE 消息。",
+          "type": "UINT"
         },
         {
           "name": "lParam",
@@ -526,7 +541,8 @@
         {
           "name": "idTransaction",
           "direction": "in",
-          "description": "类型：DWORD 要放弃的事务的标识符。 如果此参数为 0L，则放弃指定会话中的所有活动事务。"
+          "description": "类型：DWORD 要放弃的事务的标识符。 如果此参数为 0L，则放弃指定会话中的所有活动事务。",
+          "type": "DWORD"
         }
       ],
       "return_value": {
@@ -661,17 +677,20 @@
         {
           "name": "hszItem",
           "direction": "in, optional",
-          "description": "类型： HSZ 字符串的句柄，指定与 DDE 对象对应的数据项。 此句柄必须由之前对 DdeCreateStringHandle 函数的调用创建。 如果要在 XTYP_EXECUTE 事务中使用数据句柄，则此参数必须为 0L。"
+          "description": "类型： HSZ 字符串的句柄，指定与 DDE 对象对应的数据项。 此句柄必须由之前对 DdeCreateStringHandle 函数的调用创建。 如果要在 XTYP_EXECUTE 事务中使用数据句柄，则此参数必须为 0L。",
+          "type": "optional] HSZ"
         },
         {
           "name": "wFmt",
           "direction": "in",
-          "description": "类型： UINT 数据的标准剪贴板格式。"
+          "description": "类型： UINT 数据的标准剪贴板格式。",
+          "type": "UINT"
         },
         {
           "name": "afCmd",
           "direction": "in",
-          "description": "类型： UINT 创建标志。 此参数可以 HDATA_APPOWNED，它指定调用 DdeCreateDataHandle 函数的服务器应用程序拥有此函数创建的数据句柄。 此标志使应用程序能够与其他 DDEML 应用程序共享数据句柄，而不是创建单独的句柄以传递给每个应用程序。 如果指定了此标志，则应用程序必须最终使用 DdeFreeDataHandle 函数释放与句柄关联的共享内存对象。 如果未指定此标志，在数据句柄由应用程序的 DDE 回调函数返回数据句柄或用作另一个 DDEML 函数中的参数后，该 句柄在创建句柄的应用程序中变为无效。"
+          "description": "类型： UINT 创建标志。 此参数可以 HDATA_APPOWNED，它指定调用 DdeCreateDataHandle 函数的服务器应用程序拥有此函数创建的数据句柄。 此标志使应用程序能够与其他 DDEML 应用程序共享数据句柄，而不是创建单独的句柄以传递给每个应用程序。 如果指定了此标志，则应用程序必须最终使用 DdeFreeDataHandle 函数释放与句柄关联的共享内存对象。 如果未指定此标志，在数据句柄由应用程序的 DDE 回调函数返回数据句柄或用作另一个 DDEML 函数中的参数后，该 句柄在创建句柄的应用程序中变为无效。",
+          "type": "UINT"
         }
       ],
       "return_value": {
@@ -745,12 +764,14 @@
         {
           "name": "hsz1",
           "direction": "in",
-          "description": "类型： HSZ 第一个字符串的句柄。"
+          "description": "类型： HSZ 第一个字符串的句柄。",
+          "type": "HSZ"
         },
         {
           "name": "hsz2",
           "direction": "in",
-          "description": "类型： HSZ 第二个字符串的句柄。"
+          "description": "类型： HSZ 第二个字符串的句柄。",
+          "type": "HSZ"
         }
       ],
       "return_value": {
@@ -784,12 +805,14 @@
         {
           "name": "hszService",
           "direction": "in",
-          "description": "类型： HSZ 字符串的句柄，指定要与之建立会话的服务器应用程序的服务名称。 如果此参数为 0L，系统会尝试与支持指定主题名称的所有可用服务器建立会话。"
+          "description": "类型： HSZ 字符串的句柄，指定要与之建立会话的服务器应用程序的服务名称。 如果此参数为 0L，系统会尝试与支持指定主题名称的所有可用服务器建立会话。",
+          "type": "HSZ"
         },
         {
           "name": "hszTopic",
           "direction": "in",
-          "description": "类型： HSZ 字符串的句柄，指定要建立会话的主题的名称。 此句柄必须由之前对 DdeCreateStringHandle 函数的调用创建。 如果此参数为 0L，系统会尝试在所选服务器 (或) 服务器支持的所有主题上建立对话。"
+          "description": "类型： HSZ 字符串的句柄，指定要建立会话的主题的名称。 此句柄必须由之前对 DdeCreateStringHandle 函数的调用创建。 如果此参数为 0L，系统会尝试在所选服务器 (或) 服务器支持的所有主题上建立对话。",
+          "type": "HSZ"
         },
         {
           "name": "hConvList",
@@ -829,7 +852,8 @@
         {
           "name": "hConvPrev",
           "direction": "in",
-          "description": "类型： HCONV 此函数先前返回的会话句柄的句柄。 如果此参数为 0L，则函数返回列表中的第一个会话句柄。"
+          "description": "类型： HCONV 此函数先前返回的会话句柄的句柄。 如果此参数为 0L，则函数返回列表中的第一个会话句柄。",
+          "type": "HCONV"
         }
       ],
       "return_value": {
@@ -895,7 +919,8 @@
         {
           "name": "iCodePage",
           "direction": "in",
-          "description": "类型：int 用于呈现字符串的代码页。 此值应为 CP_WINANSI（默认代码页）或CP_WINUNICODE，具体取决于客户端应用程序是否调用了 DdeInitialize 的 ANSI 或 Unicode 版本。"
+          "description": "类型：int 用于呈现字符串的代码页。 此值应为 CP_WINANSI（默认代码页）或CP_WINUNICODE，具体取决于客户端应用程序是否调用了 DdeInitialize 的 ANSI 或 Unicode 版本。",
+          "type": "int"
         }
       ],
       "return_value": {
@@ -924,7 +949,8 @@
         {
           "name": "hsz",
           "direction": "in",
-          "description": "类型： HSZ 要保存的字符串句柄的句柄。"
+          "description": "类型： HSZ 要保存的字符串句柄的句柄。",
+          "type": "HSZ"
         }
       ],
       "return_value": {
@@ -956,7 +982,8 @@
         {
           "name": "iCodePage",
           "direction": "in",
-          "description": "类型：int 用于呈现字符串的代码页。 此值应为 CP_WINANSI（默认代码页）或"
+          "description": "类型：int 用于呈现字符串的代码页。 此值应为 CP_WINANSI（默认代码页）或",
+          "type": "int"
         }
       ],
       "header": "ddeml.h",
@@ -964,7 +991,10 @@
       "cross_references": [],
       "confidence": 0.8,
       "_source_line": 1128,
-      "return_value": "如果函数成功，返回新字符串的句柄。如果函数失败，返回 NULL。"
+      "return_value": {
+        "type": "HSZ",
+        "description": "如果函数成功，返回新字符串的句柄。如果函数失败，返回 NULL。"
+      }
     },
     {
       "id": "windows::CP_WINUNICODE",
@@ -1072,7 +1102,8 @@
         {
           "name": "hsz",
           "direction": "in",
-          "description": "类型： HSZ 要释放的字符串句柄的句柄。 此句柄必须由之前对 DdeCreateStringHandle 函数的调用创建。"
+          "description": "类型： HSZ 要释放的字符串句柄的句柄。 此句柄必须由之前对 DdeCreateStringHandle 函数的调用创建。",
+          "type": "HSZ"
         }
       ],
       "return_value": {
@@ -1159,7 +1190,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 1467
+      "_source_line": 1467,
+      "return_value": {
+        "type": "UINT",
+        "description": ""
+      }
     },
     {
       "id": "windows::APPCLASS_MONITOR",
@@ -1409,7 +1444,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 1566
+      "_source_line": 1566,
+      "return_value": {
+        "type": "UINT",
+        "description": ""
+      }
     },
     {
       "id": "windows::DdeNameService",
@@ -1427,12 +1466,14 @@
         {
           "name": "hsz1",
           "direction": "in, optional",
-          "description": "类型： HSZ 字符串的句柄，指定服务器正在注册或注销的服务名称。 取消注册其所有服务名称的应用程序 应将此参数设置为 0L。[in, optional] hsz2 类型： HSZ 保留;应设置为 0L。"
+          "description": "类型： HSZ 字符串的句柄，指定服务器正在注册或注销的服务名称。 取消注册其所有服务名称的应用程序 应将此参数设置为 0L。[in, optional] hsz2 类型： HSZ 保留;应设置为 0L。",
+          "type": "optional] HSZ"
         },
         {
           "name": "afCmd",
           "direction": "in",
-          "description": "类型： UINT 服务名称选项。 此参数的取值可为下列值之一： 值"
+          "description": "类型： UINT 服务名称选项。 此参数的取值可为下列值之一： 值",
+          "type": "UINT"
         }
       ],
       "header": "ddeml.h",
@@ -1441,7 +1482,11 @@
         "DdeInitialize"
       ],
       "confidence": 0.65,
-      "_source_line": 1600
+      "_source_line": 1600,
+      "return_value": {
+        "type": "HDDEDATA",
+        "description": ""
+      }
     },
     {
       "id": "windows::DdePostAdvise",
@@ -1459,12 +1504,14 @@
         {
           "name": "hszTopic",
           "direction": "in",
-          "description": "类型： HSZ 指定主题名称的字符串的句柄。 若要发送具有活动建议循环的所有主题的通知，应用程序可以将此参数设置为 0L。"
+          "description": "类型： HSZ 指定主题名称的字符串的句柄。 若要发送具有活动建议循环的所有主题的通知，应用程序可以将此参数设置为 0L。",
+          "type": "HSZ"
         },
         {
           "name": "hszItem",
           "direction": "in",
-          "description": "类型： HSZ 指定项名称的字符串的句柄。 若要发送具有活动建议循环的所有项的通知，应用程序可以将此参数设置为 0L。"
+          "description": "类型： HSZ 指定项名称的字符串的句柄。 若要发送具有活动建议循环的所有项的通知，应用程序可以将此参数设置为 0L。",
+          "type": "HSZ"
         }
       ],
       "return_value": {
@@ -1495,22 +1542,26 @@
         {
           "name": "hsz",
           "direction": "in",
-          "description": "类型：HSZ 要复制的字符串的句柄。 此句柄必须由之前对 DdeCreateStringHandle 函数的调用创建。"
+          "description": "类型：HSZ 要复制的字符串的句柄。 此句柄必须由之前对 DdeCreateStringHandle 函数的调用创建。",
+          "type": "HSZ"
         },
         {
           "name": "psz",
           "direction": "out, optional",
-          "description": "类型：LPTSTR 指向接收字符串的缓冲区的指针。 若要获取字符串的长度，此参数应设置为 NULL。"
+          "description": "类型：LPTSTR 指向接收字符串的缓冲区的指针。 若要获取字符串的长度，此参数应设置为 NULL。",
+          "type": "optional] LPSTR"
         },
         {
           "name": "cchMax",
           "direction": "in",
-          "description": "类型：DWORD psz 参数指向的缓冲区的长度（以字符为单位）。 对于函数的 ANSI 版本，这是字节数;对于 Unicode 版本，这是字符数。 如果字符串的长度超过 （cchMax– 1），则将被截断。 如果 psz 参数设置为 NULL，则忽略此参数。"
+          "description": "类型：DWORD psz 参数指向的缓冲区的长度（以字符为单位）。 对于函数的 ANSI 版本，这是字节数;对于 Unicode 版本，这是字符数。 如果字符串的长度超过 （cchMax– 1），则将被截断。 如果 psz 参数设置为 NULL，则忽略此参数。",
+          "type": "DWORD"
         },
         {
           "name": "iCodePage",
           "direction": "in",
-          "description": "类型：int 用于呈现字符串的代码页。 此值应为 CP_WINANSI 或 CP_WINUNICODE。"
+          "description": "类型：int 用于呈现字符串的代码页。 此值应为 CP_WINANSI 或 CP_WINUNICODE。",
+          "type": "int"
         }
       ],
       "return_value": {
@@ -1542,22 +1593,26 @@
         {
           "name": "hsz",
           "direction": "in",
-          "description": "类型：HSZ 要复制的字符串的句柄。 此句柄必须由之前对 DdeCreateStringHandle 函数的调用创建。"
+          "description": "类型：HSZ 要复制的字符串的句柄。 此句柄必须由之前对 DdeCreateStringHandle 函数的调用创建。",
+          "type": "HSZ"
         },
         {
           "name": "psz",
           "direction": "out, optional",
-          "description": "类型：LPTSTR 指向接收字符串的缓冲区的指针。 若要获取字符串的长度，此参数应设置为 NULL。"
+          "description": "类型：LPTSTR 指向接收字符串的缓冲区的指针。 若要获取字符串的长度，此参数应设置为 NULL。",
+          "type": "optional] LPWSTR"
         },
         {
           "name": "cchMax",
           "direction": "in",
-          "description": "类型：DWORD psz 参数指向的缓冲区的长度（以字符为单位）。 对于函数的 ANSI 版本，这是字节数;对于 Unicode 版本，这是字符数。 如果字符串的长度超过 （cchMax– 1），则将被截断。 如果 psz 参数设置为 NULL，则忽略此参数。"
+          "description": "类型：DWORD psz 参数指向的缓冲区的长度（以字符为单位）。 对于函数的 ANSI 版本，这是字节数;对于 Unicode 版本，这是字符数。 如果字符串的长度超过 （cchMax– 1），则将被截断。 如果 psz 参数设置为 NULL，则忽略此参数。",
+          "type": "DWORD"
         },
         {
           "name": "iCodePage",
           "direction": "in",
-          "description": "类型：int 用于呈现字符串的代码页。 此值应为 CP_WINANSI 或 CP_WINUNICODE。"
+          "description": "类型：int 用于呈现字符串的代码页。 此值应为 CP_WINANSI 或 CP_WINUNICODE。",
+          "type": "int"
         }
       ],
       "return_value": {
@@ -1719,7 +1774,8 @@
         {
           "name": "nAtom",
           "direction": "in",
-          "description": "类型： ATOM 要删除的原子。"
+          "description": "类型： ATOM 要删除的原子。",
+          "type": "ATOM"
         }
       ],
       "return_value": {
@@ -1752,7 +1808,8 @@
         {
           "name": "lpString",
           "direction": "in",
-          "description": "类型：LPCTSTR 要添加的以 null 结尾的字符串。 字符串的最大大小可以为 255 字节。 仅当被视为相同的情况下，字符串才有所不同。 添加的第一个字符串的事例由 GetAtomName 函数保留并返回。 或者，可以使用已使用 MAKEINTATOM 宏转换的整数原子。 有关详细信息，请参阅“备注”。"
+          "description": "类型：LPCTSTR 要添加的以 null 结尾的字符串。 字符串的最大大小可以为 255 字节。 仅当被视为相同的情况下，字符串才有所不同。 添加的第一个字符串的事例由 GetAtomName 函数保留并返回。 或者，可以使用已使用 MAKEINTATOM 宏转换的整数原子。 有关详细信息，请参阅“备注”。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
@@ -1811,12 +1868,14 @@
         {
           "name": "nAtom",
           "direction": "in",
-          "description": "类型：ATOM 标识要检索的字符串的本地原子。"
+          "description": "类型：ATOM 标识要检索的字符串的本地原子。",
+          "type": "ATOM"
         },
         {
           "name": "lpBuffer",
           "direction": "out",
-          "description": "类型：LPTSTR 字符串。[in] nSize 类型：int 缓冲区的大小（以字符为单位）。"
+          "description": "类型：LPTSTR 字符串。[in] nSize 类型：int 缓冲区的大小（以字符为单位）。",
+          "type": "LPSTR"
         }
       ],
       "return_value": {
@@ -1840,7 +1899,8 @@
         {
           "name": "nAtom",
           "direction": "in",
-          "description": "类型： ATOM 要删除的 atom 和字符串。"
+          "description": "类型： ATOM 要删除的 atom 和字符串。",
+          "type": "ATOM"
         }
       ],
       "return_value": {
@@ -1866,12 +1926,14 @@
         {
           "name": "nAtom",
           "direction": "in",
-          "description": "类型：ATOM 标识要检索的字符串的本地原子。"
+          "description": "类型：ATOM 标识要检索的字符串的本地原子。",
+          "type": "ATOM"
         },
         {
           "name": "lpBuffer",
           "direction": "out",
-          "description": "类型：LPTSTR 字符串。[in] nSize 类型：int 缓冲区的大小（以字符为单位）。"
+          "description": "类型：LPTSTR 字符串。[in] nSize 类型：int 缓冲区的大小（以字符为单位）。",
+          "type": "LPWSTR"
         }
       ],
       "return_value": {
@@ -1895,7 +1957,8 @@
         {
           "name": "lpString",
           "direction": "in",
-          "description": "类型：LPCTSTR 要添加的以 null 结尾的字符串。 字符串的最大大小可以为 255 字节。 仅区分大小写的字符串被视为相同。 此名称添加到表的第一个字符串的事例由 GlobalGetAtomName 函数保留并返回。 或者，可以使用已使用 MAKEINTATOM 宏转换的整数原子。 有关详细信息，请参阅“备注”。"
+          "description": "类型：LPCTSTR 要添加的以 null 结尾的字符串。 字符串的最大大小可以为 255 字节。 仅区分大小写的字符串被视为相同。 此名称添加到表的第一个字符串的事例由 GlobalGetAtomName 函数保留并返回。 或者，可以使用已使用 MAKEINTATOM 宏转换的整数原子。 有关详细信息，请参阅“备注”。",
+          "type": "LPCSTR"
         }
       ],
       "return_value": {
@@ -1937,12 +2000,14 @@
         {
           "name": "lpString",
           "direction": "in, optional",
-          "description": "要添加的以 null 结尾的字符串。 字符串的最大大小可以为 255 字节。 仅区分大小写的字符串被视为相同。 此名称添加到表的第一个字符串的事例由 GlobalGetAtomName 函数保留并返回。 或者，可以使用已使用 MAKEINTATOM 宏转换的整数原子。 有关详细信息，请参阅“备注”。"
+          "description": "要添加的以 null 结尾的字符串。 字符串的最大大小可以为 255 字节。 仅区分大小写的字符串被视为相同。 此名称添加到表的第一个字符串的事例由 GlobalGetAtomName 函数保留并返回。 或者，可以使用已使用 MAKEINTATOM 宏转换的整数原子。 有关详细信息，请参阅“备注”。",
+          "type": "optional] LPCSTR"
         },
         {
           "name": "Flags",
           "direction": "in",
-          "description": "返回值 如果函数成功，则返回值为新创建的 atom。 如果函数失败，则返回值为零。 若要获取扩展的错误信息，请调用 GetLastError。 言论７ 备注"
+          "description": "返回值 如果函数成功，则返回值为新创建的 atom。 如果函数失败，则返回值为零。 若要获取扩展的错误信息，请调用 GetLastError。 言论７ 备注",
+          "type": "DWORD"
         }
       ],
       "header": "winbase.h",
@@ -1950,7 +2015,10 @@
       "cross_references": [],
       "confidence": 0.7,
       "_source_line": 3915,
-      "return_value": "成功时返回新创建的原子值，失败时返回零。调用 GetLastError 获取扩展错误信息。"
+      "return_value": {
+        "type": "ATOM",
+        "description": "成功时返回新创建的原子值，失败时返回零。调用 GetLastError 获取扩展错误信息。"
+      }
     },
     {
       "id": "windows::GlobalAddAtomExW",
@@ -1962,19 +2030,25 @@
         {
           "name": "lpString",
           "direction": "in, optional",
-          "description": "要添加的以 null 结尾的字符串。 字符串的最大大小可以为 255 字节。 仅区分大小写的字符串被视为相同。 此名称添加到表的第一个字符串的事例由 GlobalGetAtomName 函数保留并返回。 或者，可以使用已使用 MAKEINTATOM 宏转换的整数原子。 有关详细信息，请参阅“备注”。"
+          "description": "要添加的以 null 结尾的字符串。 字符串的最大大小可以为 255 字节。 仅区分大小写的字符串被视为相同。 此名称添加到表的第一个字符串的事例由 GlobalGetAtomName 函数保留并返回。 或者，可以使用已使用 MAKEINTATOM 宏转换的整数原子。 有关详细信息，请参阅“备注”。",
+          "type": "optional] LPCWSTR"
         },
         {
           "name": "Flags",
           "direction": "in",
-          "description": "返回值 如果函数成功，则返回值为新创建的 atom。 如果函数失败，则返回值为零。 若要获取扩展的错误信息，请调用 GetLastError。 言论７ 备注"
+          "description": "返回值 如果函数成功，则返回值为新创建的 atom。 如果函数失败，则返回值为零。 若要获取扩展的错误信息，请调用 GetLastError。 言论７ 备注",
+          "type": "DWORD"
         }
       ],
       "header": "winbase.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 3937
+      "_source_line": 3937,
+      "return_value": {
+        "type": "ATOM",
+        "description": ""
+      }
     },
     {
       "id": "windows::GlobalAddAtomW",
@@ -1986,7 +2060,8 @@
         {
           "name": "lpString",
           "direction": "in",
-          "description": "类型：LPCTSTR 要添加的以 null 结尾的字符串。 字符串的最大大小可以为 255 字节。 仅区分大小写的字符串被视为相同。 此名称添加到表的第一个字符串的事例由 GlobalGetAtomName 函数保留并返回。 或者，可以使用已使用 MAKEINTATOM 宏转换的整数原子。 有关详细信息，请参阅“备注”。"
+          "description": "类型：LPCTSTR 要添加的以 null 结尾的字符串。 字符串的最大大小可以为 255 字节。 仅区分大小写的字符串被视为相同。 此名称添加到表的第一个字符串的事例由 GlobalGetAtomName 函数保留并返回。 或者，可以使用已使用 MAKEINTATOM 宏转换的整数原子。 有关详细信息，请参阅“备注”。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
@@ -2013,7 +2088,8 @@
         {
           "name": "lpString",
           "direction": "in",
-          "description": "类型：LPCTSTR 要搜索的以 null 结尾的字符串。 或者，可以使用已使用 MAKEINTATOM 宏转换的整数原子。 有关详细信息，请参阅“备注”。"
+          "description": "类型：LPCTSTR 要搜索的以 null 结尾的字符串。 或者，可以使用已使用 MAKEINTATOM 宏转换的整数原子。 有关详细信息，请参阅“备注”。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {
@@ -2037,17 +2113,20 @@
         {
           "name": "nAtom",
           "direction": "in",
-          "description": "类型：ATOM 与要检索的字符串关联的全局原子。"
+          "description": "类型：ATOM 与要检索的字符串关联的全局原子。",
+          "type": "ATOM"
         },
         {
           "name": "lpBuffer",
           "direction": "out",
-          "description": "类型：LPTSTR 字符串的缓冲区。"
+          "description": "类型：LPTSTR 字符串的缓冲区。",
+          "type": "LPSTR"
         },
         {
           "name": "nSize",
           "direction": "in",
-          "description": "类型：int 缓冲区的大小（以字符为单位）。"
+          "description": "类型：int 缓冲区的大小（以字符为单位）。",
+          "type": "int"
         }
       ],
       "return_value": {
@@ -2071,17 +2150,20 @@
         {
           "name": "nAtom",
           "direction": "in",
-          "description": "类型：ATOM 与要检索的字符串关联的全局原子。"
+          "description": "类型：ATOM 与要检索的字符串关联的全局原子。",
+          "type": "ATOM"
         },
         {
           "name": "lpBuffer",
           "direction": "out",
-          "description": "类型：LPTSTR 字符串的缓冲区。"
+          "description": "类型：LPTSTR 字符串的缓冲区。",
+          "type": "LPWSTR"
         },
         {
           "name": "nSize",
           "direction": "in",
-          "description": "类型：int 缓冲区的大小（以字符为单位）。"
+          "description": "类型：int 缓冲区的大小（以字符为单位）。",
+          "type": "int"
         }
       ],
       "return_value": {
@@ -2130,12 +2212,14 @@
         {
           "name": "uFormat",
           "direction": "in",
-          "description": "类型： UINT 剪贴板格式。 此参数可以是注册格式或任何标准剪贴板格式。 有关详细信息，请参阅 标准剪贴板格式 和 已注册的剪贴板格式。"
+          "description": "类型： UINT 剪贴板格式。 此参数可以是注册格式或任何标准剪贴板格式。 有关详细信息，请参阅 标准剪贴板格式 和 已注册的剪贴板格式。",
+          "type": "UINT"
         },
         {
           "name": "hMem",
           "direction": "in, optional",
-          "description": "类型： HANDLE 指定格式的数据的句柄。 此参数可以为 NULL，表示窗口以指定的剪贴板格式提供数据， (请求 时呈现格式) ;这称为 延迟呈现。 如果窗口延迟呈现，则必须处理 WM_RENDERFORMAT 并 WM_RENDERALLFORMATS 消息。 如果 SetClipboardData 成功，则系统拥有 由 hMem 参数标识的对象。 将所有权转让给系统后，应用程序可能不会写入或释放数据，但在调用 CloseClipboard 函数之前，应用程序可以锁定数据并从中读取数据。 (必须在关闭剪贴板之前解锁内存。) 如果 hMem 参数标识内存对象，则必须使用带有 GMEM_MOVEABLE 标志的 函数分配对象。"
+          "description": "类型： HANDLE 指定格式的数据的句柄。 此参数可以为 NULL，表示窗口以指定的剪贴板格式提供数据， (请求 时呈现格式) ;这称为 延迟呈现。 如果窗口延迟呈现，则必须处理 WM_RENDERFORMAT 并 WM_RENDERALLFORMATS 消息。 如果 SetClipboardData 成功，则系统拥有 由 hMem 参数标识的对象。 将所有权转让给系统后，应用程序可能不会写入或释放数据，但在调用 CloseClipboard 函数之前，应用程序可以锁定数据并从中读取数据。 (必须在关闭剪贴板之前解锁内存。) 如果 hMem 参数标识内存对象，则必须使用带有 GMEM_MOVEABLE 标志的 函数分配对象。",
+          "type": "optional] HANDLE"
         }
       ],
       "return_value": {
@@ -2206,12 +2290,14 @@
         {
           "name": "hWndRemove",
           "direction": "in",
-          "description": "类型：HWND 要从链中删除的窗口的句柄。 句柄必须已传递到 SetClipboardViewer 函数。"
+          "description": "类型：HWND 要从链中删除的窗口的句柄。 句柄必须已传递到 SetClipboardViewer 函数。",
+          "type": "HWND"
         },
         {
           "name": "hWndNewNext",
           "direction": "in",
-          "description": "类型：HWND 剪贴板查看器链中 hWndRemove 窗口后面的窗口的句柄。 (这是 SetClipboardViewer 返回的句柄，除非序列已更改以响应 WM_CHANGECBCHAIN 消息。)"
+          "description": "类型：HWND 剪贴板查看器链中 hWndRemove 窗口后面的窗口的句柄。 (这是 SetClipboardViewer 返回的句柄，除非序列已更改以响应 WM_CHANGECBCHAIN 消息。)",
+          "type": "HWND"
         }
       ]
     },
@@ -2225,7 +2311,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.55,
-      "_source_line": 6449
+      "_source_line": 6449,
+      "return_value": {
+        "type": "BOOL",
+        "description": ""
+      }
     },
     {
       "id": "windows::WM_DESTROYCLIPBOARD",
@@ -2262,17 +2352,20 @@
         {
           "name": "format",
           "direction": "in",
-          "description": "类型：UINT 要检索的格式的类型。 此参数不得指定任何预定义剪贴板格式。"
+          "description": "类型：UINT 要检索的格式的类型。 此参数不得指定任何预定义剪贴板格式。",
+          "type": "UINT"
         },
         {
           "name": "lpszFormatName",
           "direction": "out",
-          "description": "类型：LPTSTR 要接收格式名称的缓冲区。"
+          "description": "类型：LPTSTR 要接收格式名称的缓冲区。",
+          "type": "LPSTR"
         },
         {
           "name": "cchMaxCount",
           "direction": "in",
-          "description": "类型：int 要复制到缓冲区的字符串的最大长度（以字符为单位）。 如果名称超出此限制，则会将其截断。"
+          "description": "类型：int 要复制到缓冲区的字符串的最大长度（以字符为单位）。 如果名称超出此限制，则会将其截断。",
+          "type": "int"
         }
       ],
       "return_value": {
@@ -2296,17 +2389,20 @@
         {
           "name": "format",
           "direction": "in",
-          "description": "类型： UINT 要检索的格式的类型。 此参数不得指定任何预定义剪贴板格式。"
+          "description": "类型： UINT 要检索的格式的类型。 此参数不得指定任何预定义剪贴板格式。",
+          "type": "UINT"
         },
         {
           "name": "lpszFormatName",
           "direction": "out",
-          "description": "类型： LPTSTR 要接收格式名称的缓冲区。"
+          "description": "类型： LPTSTR 要接收格式名称的缓冲区。",
+          "type": "LPWSTR"
         },
         {
           "name": "cchMaxCount",
           "direction": "in",
-          "description": "类型： int 要复制到缓冲区的字符串的最大长度（以字符为单位）。 如果名称超出此限制，则会将 其截断。返回值类型： int 如果函数成功，则返回值是复制到缓冲区的字符串的长度（以字符为单位）。 如果函数失败，则返回值为零，表示请求的格式不存在或已预定义。 要获得更多的错误 信息，请调用 GetLastError。"
+          "description": "类型： int 要复制到缓冲区的字符串的最大长度（以字符为单位）。 如果名称超出此限制，则会将 其截断。返回值类型： int 如果函数成功，则返回值是复制到缓冲区的字符串的长度（以字符为单位）。 如果函数失败，则返回值为零，表示请求的格式不存在或已预定义。 要获得更多的错误 信息，请调用 GetLastError。",
+          "type": "int"
         }
       ],
       "remarks": "安全注意事项：错误使用此函数可能会危及程序的安全性。例如，错误计算lpszFormatName缓冲区的正确大小（特别是在ANSI和Unicode版本中使用应用程序时）可能导致缓冲区溢出。注意如果字符串长于cchMaxCount参数，字符串将被截断，可能导致信息丢失。",
@@ -2314,7 +2410,11 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 6638
+      "_source_line": 6638,
+      "return_value": {
+        "type": "int",
+        "description": ""
+      }
     },
     {
       "id": "windows::GetClipboardViewer",
@@ -2363,12 +2463,14 @@
         {
           "name": "paFormatPriorityList",
           "direction": "in",
-          "description": "类型： UINT* 剪贴板格式（按优先级顺序排列）。 有关标准剪贴板格式的说明，请参阅 标准剪贴板格式 。"
+          "description": "类型： UINT* 剪贴板格式（按优先级顺序排列）。 有关标准剪贴板格式的说明，请参阅 标准剪贴板格式 。",
+          "type": "UINT"
         },
         {
           "name": "cFormats",
           "direction": "in",
-          "description": "类型： int paFormatPriorityList 数组中的条目数。 此值不得大于列表中的条目数。"
+          "description": "类型： int paFormatPriorityList 数组中的条目数。 此值不得大于列表中的条目数。",
+          "type": "int"
         }
       ],
       "return_value": {
@@ -2394,7 +2496,8 @@
         {
           "name": "format",
           "direction": "in",
-          "description": "类型： UINT 标准或已注册的剪贴板格式。 有关标准剪贴板格式的说明，请参阅 标准剪贴板格式 。"
+          "description": "类型： UINT 标准或已注册的剪贴板格式。 有关标准剪贴板格式的说明，请参阅 标准剪贴板格式 。",
+          "type": "UINT"
         }
       ],
       "return_value": {
@@ -2421,7 +2524,8 @@
         {
           "name": "lpszFormat",
           "direction": "in",
-          "description": "类型：LPCTSTR 新格式的名称。"
+          "description": "类型：LPCTSTR 新格式的名称。",
+          "type": "LPCSTR"
         }
       ],
       "return_value": {
@@ -2445,7 +2549,8 @@
         {
           "name": "lpszFormat",
           "direction": "in",
-          "description": "类型：LPCTSTR 新格式的名称。"
+          "description": "类型：LPCTSTR 新格式的名称。",
+          "type": "LPCWSTR"
         }
       ],
       "return_value": {

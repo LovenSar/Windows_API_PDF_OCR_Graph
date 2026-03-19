@@ -121,7 +121,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 944,
-      "return_value": "如果函数成功，则返回非零值。如果函数失败，则返回零。要获取扩展错误信息，请调用 GetLastError。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果函数成功，则返回非零值。如果函数失败，则返回零。要获取扩展错误信息，请调用 GetLastError。"
+      },
       "remarks": "在应用程序完成对对象句柄的使用后，应调用此函数。通常，关闭句柄的最后一个引用后，相关对象会被系统释放或销毁，具体取决于对象类型。请勿对无效句柄或伪句柄调用此函数；某些对象类型需要使用专用关闭函数。进程终止时，系统会自动关闭其打开的句柄。"
     },
     {
@@ -1169,7 +1172,7 @@
     {
       "id": "windows::PIBIO_STORAGE_PIPELINE_CLEANUP_FN",
       "name": "PIBIO_STORAGE_PIPELINE_CLEANUP_FN",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "为存储适配器提供执行任何清理的机会，以准备关闭模板数据库。",
       "return_value": {
         "description": "如果函数成功，则返回 S_OK。如果函数失败，则返回 HRESULT 错误代码。"
@@ -1183,7 +1186,8 @@
         "PIBIO_STORAGE_QUERY_BY_SUBJECT_FN"
       ],
       "confidence": 0.8,
-      "_source_line": 121
+      "_source_line": 121,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PIBIO_STORAGE_QUERY_EXTENDED_INFO_FN",
@@ -1269,7 +1273,8 @@
         {
           "name": "FrameworkHandle",
           "direction": "in",
-          "description": "通过调用 WinBioAsyncOpenFramework 打开的框架会话的句柄。[in] Factor"
+          "description": "通过调用 WinBioAsyncOpenFramework 打开的框架会话的句柄。[in] Factor",
+          "type": "WINBIO_FRAMEWORK_HANDLE"
         }
       ],
       "header": "winbio.h",
@@ -1280,7 +1285,11 @@
         "WinBioAsyncOpenFramework"
       ],
       "confidence": 0.8,
-      "_source_line": 142
+      "_source_line": 142,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WinBioAsyncMonitorFrameworkChanges",
@@ -1292,7 +1301,8 @@
         {
           "name": "FrameworkHandle",
           "direction": "in",
-          "description": "通过调用 WinBioAsyncOpenFramework 打开的框架会话的句柄。[in] ChangeTypes 类型的位掩码 WINBIO_FRAMEWORK_CHANGE_TYPE 标志，指示应生成异步通知的事件类型。从 Windows 8 开始，可以使用以下标志： 值"
+          "description": "通过调用 WinBioAsyncOpenFramework 打开的框架会话的句柄。[in] ChangeTypes 类型的位掩码 WINBIO_FRAMEWORK_CHANGE_TYPE 标志，指示应生成异步通知的事件类型。从 Windows 8 开始，可以使用以下标志： 值",
+          "type": "WINBIO_FRAMEWORK_HANDLE"
         }
       ],
       "header": "winbio.h",
@@ -1303,7 +1313,11 @@
         "WinBioCancel"
       ],
       "confidence": 0.8,
-      "_source_line": 146
+      "_source_line": 146,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WinBioAsyncOpenFramework",
@@ -1315,7 +1329,8 @@
         {
           "name": "NotificationMethod",
           "direction": "in",
-          "description": "指定如何将此框架会话中异步操作的完成通知传递到客户端应用程序。 这必须是以下值之一。 值"
+          "description": "指定如何将此框架会话中异步操作的完成通知传递到客户端应用程序。 这必须是以下值之一。 值",
+          "type": "WINBIO_ASYNC_NOTIFICATION_METHOD"
         }
       ],
       "header": "winbio.h",
@@ -1325,7 +1340,11 @@
         "WinBioCancel"
       ],
       "confidence": 0.8,
-      "_source_line": 148
+      "_source_line": 148,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WinBioCaptureSample",
@@ -1353,7 +1372,8 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[in] UnitId 标识生物识别单元 的WINBIO_UNIT_ID 值。 此值必须与之前在 WinBioLockUnit 函数中使用的 单元 ID 相对应。[in] Component 一个 WINBIO_COMPONENT值，该值指定生物识别单元中应执行该操作的组件。 这可以是以下值之一。 值"
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[in] UnitId 标识生物识别单元 的WINBIO_UNIT_ID 值。 此值必须与之前在 WinBioLockUnit 函数中使用的 单元 ID 相对应。[in] Component 一个 WINBIO_COMPONENT值，该值指定生物识别单元中应执行该操作的组件。 这可以是以下值之一。 值",
+          "type": "WINBIO_SESSION_HANDLE"
         }
       ],
       "header": "winbio.h",
@@ -1362,7 +1382,11 @@
         "WinBioEnrollBegin"
       ],
       "confidence": 0.8,
-      "_source_line": 160
+      "_source_line": 160,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WinBioEnrollCapture",
@@ -1383,9 +1407,14 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[out, optional] RejectDetail 指向 ULONG 值的指针，该值包含捕获生物识别样本失败的其他信息。 如果捕获成功，此参数将设置为零。 为指纹捕获定义了以下值："
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[out, optional] RejectDetail 指向 ULONG 值的指针，该值包含捕获生物识别样本失败的其他信息。 如果捕获成功，此参数将设置为零。 为指纹捕获定义了以下值：",
+          "type": "WINBIO_SESSION_HANDLE"
         }
-      ]
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WinBioEnrollSelect",
@@ -1406,9 +1435,14 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。 若要注册面部识别，请使用 WinBioAsyncOpenSession ，并将 PoolType 参数设置为"
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。 若要注册面部识别，请使用 WinBioAsyncOpenSession ，并将 PoolType 参数设置为",
+          "type": "WINBIO_SESSION_HANDLE"
         }
-      ]
+      ],
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WinBioEnumServiceProviders",
@@ -1420,7 +1454,8 @@
         {
           "name": "Factor",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "WINBIO_BIOMETRIC_TYPE"
         }
       ],
       "header": "winbio.h",
@@ -1429,7 +1464,11 @@
         "Server"
       ],
       "confidence": 0.8,
-      "_source_line": 178
+      "_source_line": 178,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WinBioFree",
@@ -1445,7 +1484,8 @@
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回S_OK。 如果函数失败，它将返回一个 指示错误的 HRESULT 值。 可能的值包括（但并不限于）下表中的项。 有关常见错误代码的列表，请参阅 通用 HRESULT 值。 返回代码"
+        "description": "如果函数成功，则返回S_OK。 如果函数失败，它将返回一个 指示错误的 HRESULT 值。 可能的值包括（但并不限于）下表中的项。 有关常见错误代码的列表，请参阅 通用 HRESULT 值。 返回代码",
+        "type": "HRESULT"
       },
       "remarks": "调用 WinBioFree 释放由 WinBio 分配的内存可防止内存泄漏。仅释放通过 WinBio 函数分配的内存，不要释放其他内存。",
       "requirements": {
@@ -1490,16 +1530,19 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。[in] IdentifyCallback 标识成功或失败时由 WinBioIdentifyWithCallback 函数调用的回调函数的地址。 必须创建回调。"
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。[in] IdentifyCallback 标识成功或失败时由 WinBioIdentifyWithCallback 函数调用的回调函数的地址。 必须创建回调。",
+          "type": "WINBIO_SESSION_HANDLE"
         },
         {
           "name": "IdentifyCallbackContext",
           "direction": "in, optional",
-          "description": "指向应用程序定义的数据结构的指针，该结构传递给其 IdentifyCallbackContext 参数中的回调函 数。 此结构可以包含自定义回调函数旨在处理的任何数据。"
+          "description": "指向应用程序定义的数据结构的指针，该结构传递给其 IdentifyCallbackContext 参数中的回调函 数。 此结构可以包含自定义回调函数旨在处理的任何数据。",
+          "type": "optional] PVOID"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 S_OK。 如果函数失败，它将返回指示错误的 HRESULT 值。 可能的值包括（但并不限于）下表中的项。 有关常见错误代码的列表，请参阅 常见 HRESULT 值。 返回代码 E_HANDLE E_POINTER"
+        "description": "如果函数成功，则返回 S_OK。 如果函数失败，它将返回指示错误的 HRESULT 值。 可能的值包括（但并不限于）下表中的项。 有关常见错误代码的列表，请参阅 常见 HRESULT 值。 返回代码 E_HANDLE E_POINTER",
+        "type": "HRESULT"
       },
       "remarks": "回调函数签名：VOID CALLBACK IdentifyCallback(PVOID IdentifyCallbackContext, HRESULT OperationStatus, WINBIO_UNIT_ID UnitId, WINBIO_IDENTITY Identity)",
       "header": "winbio.h",
@@ -1525,11 +1568,13 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "一个 WINBIO_SESSION_HANDLE 值，该值标识最近成功执行了识别操作的生物识别会话。 通 过调用 WinBioOpenSession 打开会话句柄。"
+          "description": "一个 WINBIO_SESSION_HANDLE 值，该值标识最近成功执行了识别操作的生物识别会话。 通 过调用 WinBioOpenSession 打开会话句柄。",
+          "type": "WINBIO_SESSION_HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 S_OK。 如果函数失败，它将返回指示错误的 HRESULT 值。 可能的值包括（但并不限于）下表中的项。 有关常见错误代码的列表，请参阅 常见 HRESULT 值。 返回代码"
+        "description": "如果函数成功，则返回 S_OK。 如果函数失败，它将返回指示错误的 HRESULT 值。 可能的值包括（但并不限于）下表中的项。 有关常见错误代码的列表，请参阅 常见 HRESULT 值。 返回代码",
+        "type": "HRESULT"
       },
       "header": "winbio.h",
       "deprecated": false,
@@ -1560,7 +1605,8 @@
         {
           "name": "Factor",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "WINBIO_BIOMETRIC_TYPE"
         }
       ],
       "header": "winbio.h",
@@ -1569,7 +1615,11 @@
         "WinBioRegisterEventMonitor"
       ],
       "confidence": 0.8,
-      "_source_line": 202
+      "_source_line": 202,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WinBioReleaseFocus",
@@ -1607,7 +1657,8 @@
         {
           "name": "Identity",
           "direction": "in",
-          "description": "一个WINBIO_IDENTITY结构，其中包含将删除登录凭据的用户帐户的 SID。[in] Type 指定凭据类型的 WINBIO_CREDENTIAL_TYPE 值。 这可以是以下值之一： 值"
+          "description": "一个WINBIO_IDENTITY结构，其中包含将删除登录凭据的用户帐户的 SID。[in] Type 指定凭据类型的 WINBIO_CREDENTIAL_TYPE 值。 这可以是以下值之一： 值",
+          "type": "WINBIO_IDENTITY"
         }
       ],
       "header": "winbio.h",
@@ -1620,7 +1671,11 @@
         "WinBioVerify"
       ],
       "confidence": 0.8,
-      "_source_line": 209
+      "_source_line": 209,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WinBioVerifyWithCallback",
@@ -1632,16 +1687,19 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。[in] Identity 指向 WINBIO_IDENTITY 结构的指针，该结构包含提供生物识别示例的用户的 GUID 或 SID。"
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。[in] Identity 指向 WINBIO_IDENTITY 结构的指针，该结构包含提供生物识别示例的用户的 GUID 或 SID。",
+          "type": "WINBIO_SESSION_HANDLE"
         },
         {
           "name": "SubFactor",
           "direction": "in",
-          "description": "一个 WINBIO_BIOMETRIC_SUBTYPE 值，该值指定与生物识别样本关联的子因子。 有关更多详 细信息，请参阅“备注”部分。[in] VerifyCallback 验证成功或失败时由 WinBioVerifyWithCallback 函数调用的回调函数的地址。 必须创建回调。[in, optional] VerifyCallbackContext 在回调函数的 VerifyCallbackContext 参数中返回的可选应用程序定义结构。 此结构可以包含自 定义回调函数旨在处理的任何数据。"
+          "description": "一个 WINBIO_BIOMETRIC_SUBTYPE 值，该值指定与生物识别样本关联的子因子。 有关更多详 细信息，请参阅“备注”部分。[in] VerifyCallback 验证成功或失败时由 WinBioVerifyWithCallback 函数调用的回调函数的地址。 必须创建回调。[in, optional] VerifyCallbackContext 在回调函数的 VerifyCallbackContext 参数中返回的可选应用程序定义结构。 此结构可以包含自 定义回调函数旨在处理的任何数据。",
+          "type": "WINBIO_BIOMETRIC_SUBTYPE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 S_OK。如果函数失败，它将返回指示错误的 HRESULT 值。"
+        "description": "如果函数成功，则返回 S_OK。如果函数失败，它将返回指示错误的 HRESULT 值。",
+        "type": "HRESULT"
       },
       "header": "winbio.h",
       "deprecated": false,
@@ -1703,7 +1761,7 @@
     {
       "id": "windows::WINBIO_PIPELINE",
       "name": "WINBIO_PIPELINE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "The SensorContext field of this structure cannot be NULL. To prevent memory leaks, the implementation of SensorAdapterDetach function must release the private WINBIO_SENSOR_CONTEXT structure pointed to by the SensorContext member of the pipeline, as well as any other resources attached to the sensor context. If the SensorContext field in the pipeline object is NULL when this function is called, it indicates the pipeline was not properly initialized and must return WINBIO_E_INVALID_DEVICE_STATE to notify the Windows Biometric Framework. Before returning S_OK, this function must set the SensorContext field of WINBIO_PIPELINE structure to NULL. Since this function is called after removing storage and engine adapters from the pipeline, its implementation must not call any functions referenced by WINBIO_ENGINE_INTERFACE or WINBIO_STORAGE_INTERFACE structures pointed to by EngineInterface and StorageInterface members. The SensorHandle member of WINBIO_PIPELINE structure remains valid after SensorAdapterDetach call and can be used to access sensor device if needed. This function should not close the sensor handle - Windows Biometric Framework will do this after SensorAdapterDetach returns.",
       "syntax": "typedef struct _WINBIO_PIPELINE {\n    HANDLE SensorHandle;\n    HANDLE EngineHandle;\n    HANDLE StorageHandle;\n    PVOID SensorContext;\n    PWINBIO_SENSOR_INTERFACE SensorInterface;\n    PWINBIO_ENGINE_INTERFACE EngineInterface;\n    PWINBIO_STORAGE_INTERFACE StorageInterface;\n} WINBIO_PIPELINE;",
       "header": "winbio_adapter.h",
@@ -1721,7 +1779,8 @@
           "name": "SensorHandle",
           "description": "与生物识别单元关联的传感器设备的文件句柄。 适配器应将其视为只读字段。 EngineHandle 专用硬件匹配引擎的文件句柄（如果存在）。 这仅由引擎适配器修改。 它由 Windows 生物识别框架读取。 StorageHandle 模板存储数据库的文件句柄。 这由 Windows 生物识别框架读取，但仅由存储适配器修改。"
         }
-      ]
+      ],
+      "_type_raw": "struct"
     },
     {
       "id": "windows::WinBioEnrollDiscard",
@@ -1733,11 +1792,13 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。"
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。",
+          "type": "WINBIO_SESSION_HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回S_OK。如果函数失败，它将返回一个指示错误的HRESULT值。可能的值包括（但并不限于）下表中的项。有关常见错误代码的列表，请参阅通用HRESULT值。"
+        "description": "如果函数成功，则返回S_OK。如果函数失败，它将返回一个指示错误的HRESULT值。可能的值包括（但并不限于）下表中的项。有关常见错误代码的列表，请参阅通用HRESULT值。",
+        "type": "HRESULT"
       },
       "header": "winbio.h",
       "deprecated": false,
@@ -1769,7 +1830,8 @@
         {
           "name": "Factor",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "WINBIO_BIOMETRIC_TYPE"
         }
       ],
       "header": "winbio.h",
@@ -1779,7 +1841,11 @@
         "WinBioCloseSession"
       ],
       "confidence": 0.8,
-      "_source_line": 355
+      "_source_line": 355,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::CaptureCallbackContext",
@@ -1870,11 +1936,13 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。"
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。",
+          "type": "WINBIO_SESSION_HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回S_OK。 如果函数失败，它将返回一个 指示错误的 HRESULT 值。 可能的值包括（但并不限于）下表中的项。 有关常见错误代码的列表，请参阅 通用 HRESULT 值。 返回代码 E_HANDLE"
+        "description": "如果函数成功，则返回S_OK。 如果函数失败，它将返回一个 指示错误的 HRESULT 值。 可能的值包括（但并不限于）下表中的项。 有关常见错误代码的列表，请参阅 通用 HRESULT 值。 返回代码 E_HANDLE",
+        "type": "HRESULT"
       },
       "remarks": "若要同步使用 WinBioCloseSession，请使用通过 WinBioOpenSession 创建的会话句柄。函数将阻塞直到操作完成或遇到错误。若要异步使用，请使用 WinBioAsyncOpenSession 创建的句柄。框架分配 WINBIO_ASYNC_RESULT 结构返回操作结果。若使用回调通知，需实现 PWINBIO_ASYNC_COMPLETION_CALLBACK 并将 NotificationMethod 设为 WINBIO_ASYNC_NOTIFY_CALLBACK；若使用消息队列，则设为 WINBIO_ASYNC_NOTIFY_MESSAGE。",
       "header": "winbio.h",
@@ -1901,7 +1969,8 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。[in] Purpose 指定示例的预期用途 的WINBIO_BIR_PURPOSE 位掩码。 这可以是以下值的按位 OR ："
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。[in] Purpose 指定示例的预期用途 的WINBIO_BIR_PURPOSE 位掩码。 这可以是以下值的按位 OR ：",
+          "type": "WINBIO_SESSION_HANDLE"
         }
       ],
       "header": "winbio.h",
@@ -1913,7 +1982,11 @@
         "WinBioAsyncOpenSession"
       ],
       "confidence": 0.8,
-      "_source_line": 465
+      "_source_line": 465,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::PWINBIO_ENROLL_CAPTURE_CALLBACK",
@@ -1945,16 +2018,19 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。[in] EnrollCallback 捕获操作成功或失败时由 WinBioEnrollCaptureWithCallback 函数调用的回调函数的地址。 必须创建回调。"
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。[in] EnrollCallback 捕获操作成功或失败时由 WinBioEnrollCaptureWithCallback 函数调用的回调函数的地址。 必须创建回调。",
+          "type": "WINBIO_SESSION_HANDLE"
         },
         {
           "name": "EnrollCallbackContext",
           "direction": "in, optional",
-          "description": "指向传递给回调函数的 EnrollCallbackContext 参数的可选应用程序定义结构的指针。 此结构可 以包含自定义回调函数旨在处理的任何数据。"
+          "description": "指向传递给回调函数的 EnrollCallbackContext 参数的可选应用程序定义结构的指针。 此结构可 以包含自定义回调函数旨在处理的任何数据。",
+          "type": "optional] PVOID"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 S_OK。 如果函数失败，它将返回一个 指示错误的 HRESULT 值。 可能的值包括（但并不限于）下表中的项。 有关常见错误代码的列表，请参阅 通用 HRESULT 值。 返回代码"
+        "description": "如果函数成功，则返回 S_OK。 如果函数失败，它将返回一个 指示错误的 HRESULT 值。 可能的值包括（但并不限于）下表中的项。 有关常见错误代码的列表，请参阅 通用 HRESULT 值。 返回代码",
+        "type": "HRESULT"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -2235,11 +2311,13 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。"
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。",
+          "type": "WINBIO_SESSION_HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回S_OK。 如果函数失败，它将返回一个 指示错误的 HRESULT 值。 可能的值包括（但并不限于）下表中的项。 有关常见错误代码的列表，请参阅 通用 HRESULT 值。 返回代码 E_HANDLE"
+        "description": "如果函数成功，则返回S_OK。 如果函数失败，它将返回一个 指示错误的 HRESULT 值。 可能的值包括（但并不限于）下表中的项。 有关常见错误代码的列表，请参阅 通用 HRESULT 值。 返回代码 E_HANDLE",
+        "type": "HRESULT"
       },
       "remarks": "说明 会话句柄无效。 若要同步使用 WinBioCancel ，请使用通过调用 WinBioOpenSession 创建的会话句柄调用函数。 使用同步会话句柄调用函数时： 如果没有挂起的操作，该函数将返回S_OK，并且不执行其他操作。挂起的异步操作会收到一个回调通知， 其 OperationStatus 参数设置为 WINBIO_E_CANCELED。 进程中的其他线程启动的阻止异步操作返回 WINBIO_E_CANCELED。 若要异步使用 WinBioCancel ，请使用通过调用 WinBioAsyncOpenSession 创建的会话句柄调用函数。 使用异步会话句柄调用函数时： 函数验证输入参数，并立即返回S_OK或错误代码。 挂起的异步操作会收到完成通知，该通知将各自WINBIO_ASYNC_RESULT结构的 ApiStatus 成员设置为WINBIO_E_CANCELED。 框架还为 WinBioCancel 分配WINBIO_ASYNC_RESULT结构，并使用它返回有关取消成功或失败的信息。 WINBIO_ASYNC_RESULT结构将返回到应用程序回调或应用程序消息队列，具体取决于在 WinBioAsyncOpenSession 函数的 NotificationMethod 参数中设置的值： 如果选择使用回调接收完成通知，则必须实现 PWINBIO_ASYNC_COMPLETION_CALLBACK 函数并将 NotificationMethod 参数设置为 WINBIO_ASYNC_NOTIFY_CALLBACK。 如果选择使用应用程序消息队列接收完成通知，则必须将 NotificationMethod 参数设置为",
       "header": "winbio.h",
@@ -2265,14 +2343,19 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[in] SubFactor 一个WINBIO_BIOMETRIC_SUBTYPE值，用于提供有关注册的其他信息。 这必须是以下值之一："
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[in] SubFactor 一个WINBIO_BIOMETRIC_SUBTYPE值，用于提供有关注册的其他信息。 这必须是以下值之一：",
+          "type": "WINBIO_SESSION_HANDLE"
         }
       ],
       "header": "winbio.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 1166
+      "_source_line": 1166,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WinBioEnumEnrollments",
@@ -2301,7 +2384,8 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[in] PropertyType 一个WINBIO_PROPERTY_TYPE值，该值指定属性信息的源。 目前必须"
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[in] PropertyType 一个WINBIO_PROPERTY_TYPE值，该值指定属性信息的源。 目前必须",
+          "type": "WINBIO_SESSION_HANDLE"
         }
       ],
       "header": "winbio.h",
@@ -2310,7 +2394,11 @@
         "Server"
       ],
       "confidence": 0.8,
-      "_source_line": 1168
+      "_source_line": 1168,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WinBioUnregisterEventMonitor",
@@ -2322,11 +2410,13 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开会话句柄。"
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开会话句柄。",
+          "type": "WINBIO_SESSION_HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 S_OK。如果函数失败，它将返回指示错误的 HRESULT 值。可能的值包括（但并不限于）下表中的项。有关常见错误代码的列表，请参阅常见 HRESULT 值。"
+        "description": "如果函数成功，则返回 S_OK。如果函数失败，它将返回指示错误的 HRESULT 值。可能的值包括（但并不限于）下表中的项。有关常见错误代码的列表，请参阅常见 HRESULT 值。",
+        "type": "HRESULT"
       },
       "remarks": "说明：会话句柄无效。调用 WinBioRegisterEventMonitor 函数以开始接收事件通知。如果应用程序注册 WinBio 事件监视器并在睡眠/唤醒周期期间使该监视器保持活动状态，则实施生物识别预启动身份验证 (PBA) /单一登录功能的系统可能无法始终正常工作。问题是，在系统的生物识别凭据提供程序有机会执行其第一个 WinBioIdentify 操作之前，事件监视器截获了 PBA 生物识别调用。使用 WinBio 事件监视功能的应用应在系统睡眠前注销其监视器，并在系统唤醒后重新注册它们。有关在电源状态更改期间处理事件的详细信息，请参阅关于电源管理。",
       "header": "winbio.h",
@@ -2348,14 +2438,19 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[in] PropertyType"
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[in] PropertyType",
+          "type": "WINBIO_SESSION_HANDLE"
         }
       ],
       "header": "winbio.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 1173
+      "_source_line": 1173,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WinBioAsyncEnumDatabases",
@@ -2367,7 +2462,8 @@
         {
           "name": "FrameworkHandle",
           "direction": "in",
-          "description": "通过调用 WinBioAsyncOpenFramework 打开的框架会话的句柄。[in] Factor"
+          "description": "通过调用 WinBioAsyncOpenFramework 打开的框架会话的句柄。[in] Factor",
+          "type": "WINBIO_FRAMEWORK_HANDLE"
         }
       ],
       "header": "winbio.h",
@@ -2378,7 +2474,11 @@
         "WinBioAsyncOpenFramework"
       ],
       "confidence": 0.8,
-      "_source_line": 1177
+      "_source_line": 1177,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WinBioAsyncEnumServiceProviders",
@@ -2390,7 +2490,8 @@
         {
           "name": "FrameworkHandle",
           "direction": "in",
-          "description": "通过调用 WinBioAsyncOpenFramework 打开的框架会话的句柄。[in] Factor"
+          "description": "通过调用 WinBioAsyncOpenFramework 打开的框架会话的句柄。[in] Factor",
+          "type": "WINBIO_FRAMEWORK_HANDLE"
         }
       ],
       "header": "winbio.h",
@@ -2401,7 +2502,11 @@
         "WinBioAsyncOpenFramework"
       ],
       "confidence": 0.8,
-      "_source_line": 1178
+      "_source_line": 1178,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WINBIO_ANSI_381_POS_LH_INDEX_FINGER",
@@ -2547,11 +2652,13 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[in] UnitId 一个WINBIO_UNIT_ID值，该值指定要解锁的生物识别单元。"
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[in] UnitId 一个WINBIO_UNIT_ID值，该值指定要解锁的生物识别单元。",
+          "type": "WINBIO_SESSION_HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回S_OK。 如果函数失败，它将返回指示错误的 HRESULT 值。 可能的值包括（但并不限于）下表中的项。 有关常见错误代码的列表，请参阅 常见 HRESULT 值。 返回代码 E_HANDLE"
+        "description": "如果函数成功，则返回S_OK。 如果函数失败，它将返回指示错误的 HRESULT 值。 可能的值包括（但并不限于）下表中的项。 有关常见错误代码的列表，请参阅 常见 HRESULT 值。 返回代码 E_HANDLE",
+        "type": "HRESULT"
       },
       "header": "winbio.h",
       "deprecated": false,
@@ -2725,11 +2832,13 @@
         {
           "name": "FrameworkHandle",
           "direction": "in",
-          "description": "将关闭的框架会话的句柄。"
+          "description": "将关闭的框架会话的句柄。",
+          "type": "WINBIO_FRAMEWORK_HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 S_OK。 如果函数失败，它将返回一个 指示错误的 HRESULT 值。"
+        "description": "如果函数成功，则返回 S_OK。 如果函数失败，它将返回一个 指示错误的 HRESULT 值。",
+        "type": "HRESULT"
       },
       "remarks": "此函数永远不会阻塞。",
       "requirements": {
@@ -2758,14 +2867,19 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[in] UnitId 标识生物识别单元 的WINBIO_UNIT_ID 值。 此值必须与之前在 WinBioLockUnit 函数中使用的 单位 ID 相对应。[in] Component 一个WINBIO_COMPONENT值，该值指定生物识别单元中应执行操作的组件。 这可以是以下值之一。 值 含义"
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[in] UnitId 标识生物识别单元 的WINBIO_UNIT_ID 值。 此值必须与之前在 WinBioLockUnit 函数中使用的 单位 ID 相对应。[in] Component 一个WINBIO_COMPONENT值，该值指定生物识别单元中应执行操作的组件。 这可以是以下值之一。 值 含义",
+          "type": "WINBIO_SESSION_HANDLE"
         }
       ],
       "header": "winbio.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 2106
+      "_source_line": 2106,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WINBIO_COMPONENT_SENSOR",
@@ -2953,14 +3067,19 @@
         {
           "name": "Factor",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "WINBIO_BIOMETRIC_TYPE"
         }
       ],
       "header": "winbio.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.7,
-      "_source_line": 3066
+      "_source_line": 3066,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WinBioEnumDatabases",
@@ -2972,7 +3091,8 @@
         {
           "name": "Factor",
           "direction": "in",
-          "description": ""
+          "description": "",
+          "type": "WINBIO_BIOMETRIC_TYPE"
         }
       ],
       "header": "winbio.h",
@@ -2982,7 +3102,11 @@
         "WinBioEnumEnrollments"
       ],
       "confidence": 0.8,
-      "_source_line": 3135
+      "_source_line": 3135,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WINBIO_E_UNKNOWN_ID",
@@ -3010,7 +3134,8 @@
         {
           "name": "Identity",
           "direction": "in",
-          "description": "一个WINBIO_IDENTITY结构，其中包含要查询凭据的用户帐户的 SID。[in] Type 指定凭据类型的 WINBIO_CREDENTIAL_TYPE 值。 这可以是以下值之一： 值"
+          "description": "一个WINBIO_IDENTITY结构，其中包含要查询凭据的用户帐户的 SID。[in] Type 指定凭据类型的 WINBIO_CREDENTIAL_TYPE 值。 这可以是以下值之一： 值",
+          "type": "WINBIO_IDENTITY"
         }
       ],
       "header": "winbio.h",
@@ -3019,7 +3144,11 @@
         "WinBioSetCredential"
       ],
       "confidence": 0.8,
-      "_source_line": 3497
+      "_source_line": 3497,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WINBIO_CREDENTIAL_STATE",
@@ -3125,7 +3254,8 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[out, optional] UnitId 指向 ULONG 值的指针，该值指定用于执行标识的生物识别单元。[out, optional] Identity 指向 WINBIO_IDENTITY 结构的指针，该结构接收提供生物识别示例的用户的 GUID 或 SID。[out, optional] SubFactor 指向接收与生物识别样本关联的子因子的 WINBIO_BIOMETRIC_SUBTYPE 值的指针。 有关更多 详细信息，请参阅“备注”部分。[out, optional] RejectDetail 指向 ULONG 值的指针，该值包含有关捕获生物识别样本的失败（如果有）的其他信息。 如果捕获成功，此参数将设置为零。 为指纹捕获定义了以下值："
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[out, optional] UnitId 指向 ULONG 值的指针，该值指定用于执行标识的生物识别单元。[out, optional] Identity 指向 WINBIO_IDENTITY 结构的指针，该结构接收提供生物识别示例的用户的 GUID 或 SID。[out, optional] SubFactor 指向接收与生物识别样本关联的子因子的 WINBIO_BIOMETRIC_SUBTYPE 值的指针。 有关更多 详细信息，请参阅“备注”部分。[out, optional] RejectDetail 指向 ULONG 值的指针，该值包含有关捕获生物识别样本的失败（如果有）的其他信息。 如果捕获成功，此参数将设置为零。 为指纹捕获定义了以下值：",
+          "type": "WINBIO_SESSION_HANDLE"
         }
       ],
       "header": "winbio.h",
@@ -3134,7 +3264,11 @@
         "WINBIO_IDENTITY"
       ],
       "confidence": 0.8,
-      "_source_line": 3834
+      "_source_line": 3834,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WinBioLocateSensorWithCallback",
@@ -3146,16 +3280,19 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。[in] LocateCallback 当传感器位置成功或失败时， WinBioLocateSensorWithCallback 函数将调用的回调函数的地址。 必须创建回调。"
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。[in] LocateCallback 当传感器位置成功或失败时， WinBioLocateSensorWithCallback 函数将调用的回调函数的地址。 必须创建回调。",
+          "type": "WINBIO_SESSION_HANDLE"
         },
         {
           "name": "LocateCallbackContext",
           "direction": "in, optional",
-          "description": "传递给 其 LocateCallbackContext 参数中的回调函数的应用程序定义数据结构的地址。 此结构可 以包含自定义回调函数旨在处理的任何数据。"
+          "description": "传递给 其 LocateCallbackContext 参数中的回调函数的应用程序定义数据结构的地址。 此结构可 以包含自定义回调函数旨在处理的任何数据。",
+          "type": "optional] PVOID"
         }
       ],
       "return_value": {
-        "description": "Returns S_OK if successful. Returns an HRESULT error code if it fails, including but not limited to: E_HANDLE (invalid session handle), E_POINTER (LocateCallback parameter cannot be NULL)."
+        "description": "Returns S_OK if successful. Returns an HRESULT error code if it fails, including but not limited to: E_HANDLE (invalid session handle), E_POINTER (LocateCallback parameter cannot be NULL).",
+        "type": "HRESULT"
       },
       "remarks": "说明 会话句柄无效。 由 LocateCallback 参数指定的地址不能为 NULL。 可以在具有多个传感器的系统上使用此函数来确定用户首选注册的传感器。 此函数不返回任何标识信息。 提供它只是为了指示用户传感器的选择。 如果 SessionHandle 参数引用系统传感器池，则在应用程序获取窗口焦点并且用户提供生物识别示例之前，不会调用回调函数。 获取焦点的方式取决于正在编写的应用程序类型。 例如，如果要创建 GUI 应用程序，则可以实现捕获WM_ACTIVATE、WM_SETFOCUS或其他相应消息的消息处理程序。 如果要编写 CUI 应用程序，请调用 GetConsoleWindow 检索控制台窗口的句柄，并将该句柄传递给 SetForegroundWindow 函数，以强制控制台窗口进入前台并为其分配焦点。 如果应用程序在分离进程中运行，并且没有窗口或是 Windows 服务，请使用 WinBioAcquireFocus 和 WinBioReleaseFocus 手动控制焦点。 回调例程必须具有以下签名： C++ VOID CALLBACK LocateCallback( __in_opt PVOID LocateCallbackContext,__in HRESULT OperationStatus, __in WINBIO_UNIT_ID UnitId); 示例 以下函数调用 WinBioLocateSensorWithCallback 来查找生物识别传感器。",
       "header": "winbio.h",
@@ -3189,11 +3326,13 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[in] UnitId 一个WINBIO_UNIT_ID值，该值指定要锁定的生物识别单元。"
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。[in] UnitId 一个WINBIO_UNIT_ID值，该值指定要锁定的生物识别单元。",
+          "type": "WINBIO_SESSION_HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回S_OK。如果函数失败，它将返回指示错误的HRESULT值。可能的值包括但不限于常见HRESULT值。返回代码E_HANDLE表示无效的句柄。"
+        "description": "如果函数成功，则返回S_OK。如果函数失败，它将返回指示错误的HRESULT值。可能的值包括但不限于常见HRESULT值。返回代码E_HANDLE表示无效的句柄。",
+        "type": "HRESULT"
       },
       "header": "winbio.h",
       "deprecated": false,
@@ -3211,7 +3350,8 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开会话句柄。[in] EventMask 一个 值，该值指定要监视的事件类型。 目前仅支持指纹提供程序。 必须指定以下标志之一。"
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开会话句柄。[in] EventMask 一个 值，该值指定要监视的事件类型。 目前仅支持指纹提供程序。 必须指定以下标志之一。",
+          "type": "WINBIO_SESSION_HANDLE"
         }
       ],
       "header": "winbio.h",
@@ -3220,7 +3360,11 @@
         "Server"
       ],
       "confidence": 0.8,
-      "_source_line": 4575
+      "_source_line": 4575,
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::WINBIO_EVENT_FP_UNCLAIMED",
@@ -3310,11 +3454,13 @@
         {
           "name": "SessionHandle",
           "direction": "in",
-          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。"
+          "description": "标识打开的生物识别会话 的WINBIO_SESSION_HANDLE 值。 通过调用 WinBioOpenSession 打 开同步会话句柄。 通过调用 WinBioAsyncOpenSession 打开异步会话句柄。",
+          "type": "WINBIO_SESSION_HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 S_OK。如果函数失败，它将返回一个指示错误的 HRESULT 值。可能的值包括（但并不限于）下表中的项。有关常见错误代码的列表，请参阅通用 HRESULT 值。"
+        "description": "如果函数成功，则返回 S_OK。如果函数失败，它将返回一个指示错误的 HRESULT 值。可能的值包括（但并不限于）下表中的项。有关常见错误代码的列表，请参阅通用 HRESULT 值。",
+        "type": "HRESULT"
       },
       "remarks": "说明：会话句柄无效。无论将同步会话句柄还是异步会话句柄传递到 SessionHandle 参数，WinBioWait 都会阻止调用方线程。与可以使用异步会话句柄调用的所有其他函数不同，框架不会为 WinBioWait 函数创建 WINBIO_ASYNC_RESULT 结构。请勿从回调例程的上下文或可从回调例程间接调用的任何函数调用 WinBioWait。这样做将导致永久死锁。不要从窗口过程中调用 WinBioWait。这样做会导致用户界面冻结，直到事件通知到达。如果从生成窗口消息的异步会话调用 WinBioWait，则无法保证窗口消息和等待唤醒消息的到达顺序。建议不要编写任何依赖于这些事件顺序的代码。",
       "header": "winbio.h",
@@ -3335,11 +3481,13 @@
         {
           "name": "EngineInterface",
           "direction": "out",
-          "description": "接收指向 WINBIO_ENGINE_INTERFACE 结构的指针的变量的地址。"
+          "description": "接收指向 WINBIO_ENGINE_INTERFACE 结构的指针的变量的地址。",
+          "type": "PWINBIO_ENGINE_INTERFACE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 S_OK。如果函数失败，它必须返回以下 HRESULT 值之一来指示错误：E_POINTER - EngineInterface 参数为 NULL。"
+        "description": "如果函数成功，则返回 S_OK。如果函数失败，它必须返回以下 HRESULT 值之一来指示错误：E_POINTER - EngineInterface 参数为 NULL。",
+        "type": "HRESULT"
       },
       "remarks": "",
       "requirements": {
@@ -3735,7 +3883,7 @@
     {
       "id": "windows::PIBIO_SENSOR_PIPELINE_CLEANUP_FN",
       "name": "PIBIO_SENSOR_PIPELINE_CLEANUP_FN",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "PibioSensorPipelineCleanupFn; HRESULT PibioSensorPipelineCleanupFn( [in, out] PWINBIO_PIPELINE Pipeline) {...} 参数 [in, out] Pipeline 指向与执行操作的生物识别单元关联的",
       "return_value": {
         "description": "如果函数成功，则返回 S_OK。 如果函数失败，它必须返回以下 HRESULT 值之一来指示错误。 返回代码 E_POINTER"
@@ -3747,7 +3895,8 @@
         "Pipeline"
       ],
       "confidence": 0.8,
-      "_source_line": 6015
+      "_source_line": 6015,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PIBIO_SENSOR_ASYNC_IMPORT_SECURE_BUFFER_FN",
@@ -3825,10 +3974,14 @@
         {
           "name": "SensorInterface",
           "direction": "out",
-          "description": "接收指向 WINBIO_SENSOR_INTERFACE 结构的指针的变量的地址。"
+          "description": "接收指向 WINBIO_SENSOR_INTERFACE 结构的指针的变量的地址。",
+          "type": "PWINBIO_SENSOR_INTERFACE"
         }
       ],
-      "return_value": "如果函数成功，则返回 S_OK。如果函数失败，它必须返回以下 HRESULT 值之一来指示错误：E_POINTER - SensorInterface 参数为 NULL。",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果函数成功，则返回 S_OK。如果函数失败，它必须返回以下 HRESULT 值之一来指示错误：E_POINTER - SensorInterface 参数为 NULL。"
+      },
       "remarks": "每个传感器适配器 DLL 都必须实现并导出 WbioQuerySensorInterface 函数。函数名称区分大小写，其拼写和签名必须与语法部分中提供的说明完全匹配。参数不能为 NULL。",
       "requirements": {
         "target_platform": "Windows",
@@ -3882,7 +4035,7 @@
     {
       "id": "windows::WINBIO_STORAGE_INTERFACE_VERSION_1",
       "name": "WINBIO_STORAGE_INTERFACE_VERSION_1",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "。 Type 适配器的类型。 这必须 WINBIO_ADAPTER_TYPE_STORAGE。 Size 此结构的大小（以字节为单位）。 将此值设置为 WINBIO_STORAGE_INTERFACE 结构的 大小。 AdapterId 唯一标识存储适配器的 GUID。 必须生成此值。 Attach 指向 StorageAdapterAttach 函数实现的指针。 Detach 指向 StorageAdapterDetach 函数实现的指针。 ClearContext 指向 StorageAdapterClearContext 函数实现的指针。 CreateDatabase 指向 StorageAdapterCreateDatabase 函数实现的指针。 EraseDatabase 指向 StorageAdapterEraseDatabase 函数实现的指针。",
       "header": "winbio_adapter.h",
       "deprecated": false,
@@ -3896,7 +4049,8 @@
         "WINBIO_STORAGE_INTERFACE"
       ],
       "confidence": 0.75,
-      "_source_line": 6105
+      "_source_line": 6105,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::ControlUnit",
@@ -3922,10 +4076,14 @@
         {
           "name": "StorageInterface",
           "direction": "out",
-          "description": "接收指向 WINBIO_STORAGE_INTERFACE 结构的指针的变量的地址。"
+          "description": "接收指向 WINBIO_STORAGE_INTERFACE 结构的指针的变量的地址。",
+          "type": "PWINBIO_STORAGE_INTERFACE"
         }
       ],
-      "return_value": "如果函数成功，则返回 S_OK。如果函数失败，它必须返回以下 HRESULT 值之一来指示错误：E_POINTER（StorageInterface 参数无效）",
+      "return_value": {
+        "type": "HRESULT",
+        "description": "如果函数成功，则返回 S_OK。如果函数失败，它必须返回以下 HRESULT 值之一来指示错误：E_POINTER（StorageInterface 参数无效）"
+      },
       "remarks": "",
       "requirements": {
         "target_platform": "Windows",
@@ -3989,7 +4147,11 @@
       ],
       "confidence": 0.6,
       "_source_line": 6259,
-      "syntax": "HRESULT EngineAdapterExportEngineData(__inout PWINBIO_PIPELINE Pipeline, __in WINBIO_BIR_DATA_FLAGS Flags, __out PWINBIO_BIR *SampleBuffer, __out PSIZE_T SampleSize);"
+      "syntax": "HRESULT EngineAdapterExportEngineData(__inout PWINBIO_PIPELINE Pipeline, __in WINBIO_BIR_DATA_FLAGS Flags, __out PWINBIO_BIR *SampleBuffer, __out PSIZE_T SampleSize);",
+      "return_value": {
+        "type": "HRESULT",
+        "description": ""
+      }
     },
     {
       "id": "windows::Pipeline",
@@ -4109,7 +4271,7 @@
     {
       "id": "windows::WINBIO_E_DUPLICATE_ENROLLMENT",
       "name": "WINBIO_E_DUPLICATE_ENROLLMENT",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "WINBIO_E_INVALID_DEVICE_STATE",
       "remarks": "说明 强制指针参数为 NULL。",
       "header": "winbio_adapter.h",
@@ -4118,7 +4280,8 @@
         "WINBIO_E_INVALID_DEVICE_STATE"
       ],
       "confidence": 0.65,
-      "_source_line": 6617
+      "_source_line": 6617,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PIBIO_ENGINE_CONTROL_UNIT_FN",
@@ -4351,7 +4514,7 @@
     {
       "id": "windows::PBT_APMRESUMEAUTOMATIC",
       "name": "PBT_APMRESUMEAUTOMATIC",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "PBT_APMPOWERSTATUSCHANGE",
       "return_value": {
         "description": "含义 系统进入低功耗状态 系统正在从低功耗状态返回。 系统电源的状态 (发生变化，例如，系统已从电池切换到线路电源，或者电池) 变低。 如果函数成功，则返回 S_OK。 如果函数失败，它将返回指示错误的 HRESULT 值。 可能的值包括（但并不限于）下表中的项。 有关常见错误代码的列表，请参阅 常见 HRESULT 值。 返回代码 E_POINTER"
@@ -4362,7 +4525,8 @@
         "PBT_APMPOWERSTATUSCHANGE"
       ],
       "confidence": 0.7,
-      "_source_line": 7725
+      "_source_line": 7725,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PBT_APMPOWERSTATUSCHANGE",
@@ -4599,7 +4763,7 @@
     {
       "id": "windows::WINBIO_ACCOUNT_POLICY",
       "name": "WINBIO_ACCOUNT_POLICY",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "定义生物识别账户策略的结构体，包含策略项数组和计数。",
       "return_value": {},
       "header": "winbio_adapter.h",
@@ -4608,7 +4772,8 @@
         "PolicyItemArray"
       ],
       "confidence": 0.8,
-      "_source_line": 8242
+      "_source_line": 8242,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PolicyItemArray",
@@ -4736,7 +4901,7 @@
     {
       "id": "windows::WINBIO_E_CAPTURE_CANCELED",
       "name": "WINBIO_E_CAPTURE_CANCELED",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "WINBIO_E_DEVICE_FAILURE",
       "header": "winbio_adapter.h",
       "deprecated": false,
@@ -4744,7 +4909,8 @@
         "WINBIO_E_DEVICE_FAILURE"
       ],
       "confidence": 0.65,
-      "_source_line": 9337
+      "_source_line": 9337,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::WINBIO_SENSOR_STATUS",
@@ -5017,7 +5183,7 @@
     {
       "id": "windows::StorageAdapterFirstRecord",
       "name": "StorageAdapterFirstRecord",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "适用于Windows 7及更高版本（仅限桌面应用）和Windows Server 2008 R2及更高版本（仅限桌面应用）。头文件：winbio_adapter.h",
       "header": "winbio_adapter.h",
       "deprecated": false,
@@ -5025,7 +5191,8 @@
         "Server"
       ],
       "confidence": 0.6,
-      "_source_line": 11341
+      "_source_line": 11341,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PIBIO_STORAGE_NEXT_RECORD_FN",
@@ -5068,7 +5235,7 @@
     {
       "id": "windows::WINBIO_E_DATABASE_CANT_OPEN",
       "name": "WINBIO_E_DATABASE_CANT_OPEN",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "WINBIO_E_INVALID_DEVICE_STATE",
       "header": "winbio_adapter.h",
       "deprecated": false,
@@ -5076,7 +5243,8 @@
         "WINBIO_E_INVALID_DEVICE_STATE"
       ],
       "confidence": 0.65,
-      "_source_line": 11664
+      "_source_line": 11664,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PIBIO_STORAGE_PIPELINE_INIT_FN",
@@ -5121,7 +5289,7 @@
     {
       "id": "windows::WINBIO_E_DATABASE_READ_ERROR",
       "name": "WINBIO_E_DATABASE_READ_ERROR",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "WINBIO_E_INVALID_DEVICE_STATE",
       "remarks": "说明",
       "header": "winbio_adapter.h",
@@ -5130,7 +5298,8 @@
         "WINBIO_E_INVALID_DEVICE_STATE"
       ],
       "confidence": 0.65,
-      "_source_line": 11760
+      "_source_line": 11760,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PIBIO_STORAGE_QUERY_BY_SUBJECT_FN",
@@ -5276,7 +5445,7 @@
     {
       "id": "windows::IndexVector",
       "name": "IndexVector",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含一个ULONG数组，用于存储索引向量，以及数组的大小。",
       "header": "winbio_adapter.h",
       "deprecated": false,
@@ -5284,7 +5453,8 @@
         "TemplateBlob"
       ],
       "confidence": 0.6,
-      "_source_line": 12240
+      "_source_line": 12240,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::TemplateBlob",

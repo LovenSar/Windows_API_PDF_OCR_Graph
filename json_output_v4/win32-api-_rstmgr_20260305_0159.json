@@ -62,7 +62,7 @@
     {
       "id": "windows::RM_FILTER_INFO",
       "name": "RM_FILTER_INFO",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含有关对重启或关闭操作的修改的信息。 使用 RmAddFilter、RmRemoveFilter 和 RmGetFilterList 函数向重启管理器会话注册的指定应用程序和服务添加、删除和列出修改。",
       "syntax": "typedef struct _RM_FILTER_INFO {   RM_FILTER_ACTION  FilterAction;   RM_FILTER_TRIGGER FilterTrigger;   DWORD             cbNextOffset;   union {\nLPWSTR            strFilename;     RM_UNIQUE_PROCESS Process;\nLPWSTR            strServiceShortName;   };\n} RM_FILTER_INFO, *PRM_FILTER_INFO;",
       "members": [
@@ -82,7 +82,8 @@
         "RmRemoveFilter"
       ],
       "confidence": 0.95,
-      "_source_line": 34
+      "_source_line": 34,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::RmAddFilter",
@@ -383,21 +384,25 @@
         {
           "name": "dwSessionHandle",
           "direction": "in",
-          "description": "现有重启管理器会话的句柄。[out] pnProcInfoNeeded 指向接收 RM_PROCESS_INFO 结构所需的数组大小的指针，该结构返回所有受影响的应用程序和服务的信息。"
+          "description": "现有重启管理器会话的句柄。[out] pnProcInfoNeeded 指向接收 RM_PROCESS_INFO 结构所需的数组大小的指针，该结构返回所有受影响的应用程序和服务的信息。",
+          "type": "DWORD"
         },
         {
           "name": "pnProcInfo",
           "direction": "in, out",
-          "description": "指向数组中 RM_PROCESS_INFO 结构的总数和填充结构数的指针。[in, out, optional] rgAffectedApps 一个由 RM_PROCESS_INFO 结构构成的数组，这些结构使用已注册到会话的资源列出应用程序和服务。"
+          "description": "指向数组中 RM_PROCESS_INFO 结构的总数和填充结构数的指针。[in, out, optional] rgAffectedApps 一个由 RM_PROCESS_INFO 结构构成的数组，这些结构使用已注册到会话的资源列出应用程序和服务。",
+          "type": "out] UINT"
         },
         {
           "name": "lpdwRebootReasons",
           "direction": "out",
-          "description": "指向接收 RM_REBOOT_REASON 枚举值的位置的指针，该枚举描述需要系统重启的原因。"
+          "description": "指向接收 RM_REBOOT_REASON 枚举值的位置的指针，该枚举描述需要系统重启的原因。",
+          "type": "LPDWORD"
         }
       ],
       "return_value": {
-        "description": "返回系统错误代码，指示函数执行结果。可能的值包括 ERROR_SUCCESS 或其他 Winerror.h 中定义的错误代码。"
+        "description": "返回系统错误代码，指示函数执行结果。可能的值包括 ERROR_SUCCESS 或其他 Winerror.h 中定义的错误代码。",
+        "type": "DWORD"
       },
       "header": "restartmanager.h",
       "deprecated": false,

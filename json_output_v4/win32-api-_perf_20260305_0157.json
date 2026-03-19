@@ -238,16 +238,19 @@
         {
           "name": "Provider",
           "direction": "in",
-          "description": "提供程序的句柄。 使用 CTRPP 工具为你生成的句柄变量。 有关变量的名称，请参阅 provider 元素的 symbol 属性。 Windows Vista： PerfStartProvider 函数返回句柄。[in] Instance 包含计数器集实例 的PERF_COUNTERSET_INSTANCE 结构。 PerfCreateInstance 函数返回此指针。"
+          "description": "提供程序的句柄。 使用 CTRPP 工具为你生成的句柄变量。 有关变量的名称，请参阅 provider 元素的 symbol 属性。 Windows Vista： PerfStartProvider 函数返回句柄。[in] Instance 包含计数器集实例 的PERF_COUNTERSET_INSTANCE 结构。 PerfCreateInstance 函数返回此指针。",
+          "type": "HANDLE"
         },
         {
           "name": "CounterId",
           "direction": "in",
-          "description": "唯一标识要在实例块中更新的计数器的标识符。 标识符在计数器元素的 id 属性中定义，并且必须与实例块中PERF_COUNTER_INFO结构之一的 CounterId 成员匹配。 使用 CTRPP 工具为你生成的计数器 ID 常量。 有关常量的名称，请参阅计数器元素的 symbol 属性。 Windows Vista： 计数器 ID 常量不可用。[in] Value 计数器递减所依据的值。"
+          "description": "唯一标识要在实例块中更新的计数器的标识符。 标识符在计数器元素的 id 属性中定义，并且必须与实例块中PERF_COUNTER_INFO结构之一的 CounterId 成员匹配。 使用 CTRPP 工具为你生成的计数器 ID 常量。 有关常量的名称，请参阅计数器元素的 symbol 属性。 Windows Vista： 计数器 ID 常量不可用。[in] Value 计数器递减所依据的值。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。"
+        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。",
+        "type": "ULONG"
       },
       "remarks": "这是一个用于递减原始计数器数据的便捷函数。 若要自行递减原始计数器数据，请使用",
       "header": "perflib.h",
@@ -272,7 +275,8 @@
         {
           "name": "szMachine",
           "direction": "in, optional",
-          "description": "要获取 pCounterSet 参数指定的计数器集的活动实例相关信息的计算机的名称。 如果为 NULL， 则函数检索有关本地计算机指定计数器集的活动实例的信息。[in] pCounterSetId 要获取活动实例相关信息的计数器集的计数器集标识符。[out, optional] pInstances 指向缓冲区的指针，该缓冲区足够大，可以接收 cbInstances 参数指定的数据量。 可能 如果 cbInstances 为 0，则为 NULL。 cbInstances pInstances 参数指定的缓冲区的大小（以字节为单位）。[out] pcbInstancesActual 获取有关活动实例的信息所需的缓冲区大小。 含义取决于函数的值 返回。 函数返回值"
+          "description": "要获取 pCounterSet 参数指定的计数器集的活动实例相关信息的计算机的名称。 如果为 NULL， 则函数检索有关本地计算机指定计数器集的活动实例的信息。[in] pCounterSetId 要获取活动实例相关信息的计数器集的计数器集标识符。[out, optional] pInstances 指向缓冲区的指针，该缓冲区足够大，可以接收 cbInstances 参数指定的数据量。 可能 如果 cbInstances 为 0，则为 NULL。 cbInstances pInstances 参数指定的缓冲区的大小（以字节为单位）。[out] pcbInstancesActual 获取有关活动实例的信息所需的缓冲区大小。 含义取决于函数的值 返回。 函数返回值",
+          "type": "optional] LPCWSTR"
         }
       ],
       "header": "perflib.h",
@@ -285,7 +289,11 @@
         "PerfQueryCounterInfo"
       ],
       "confidence": 0.8,
-      "_source_line": 169
+      "_source_line": 169,
+      "return_value": {
+        "type": "ULONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::PerfOpenQueryHandle",
@@ -297,11 +305,13 @@
         {
           "name": "szMachine",
           "direction": "in, optional",
-          "description": "要获取其查询句柄的计算机的名称。[out] phQuery 查询的句柄。 调用 PerfCloseQueryHandle 以在不再需要句柄时关闭它。"
+          "description": "要获取其查询句柄的计算机的名称。[out] phQuery 查询的句柄。 调用 PerfCloseQueryHandle 以在不再需要句柄时关闭它。",
+          "type": "optional] LPCWSTR"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。"
+        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。",
+        "type": "ULONG"
       },
       "remarks": "使用 PerfAddCounters 和 PerfDeleteCounters 在列表中添加或删除计数器规范。",
       "header": "perflib.h",
@@ -327,12 +337,16 @@
         "Server"
       ],
       "confidence": 0.7,
-      "_source_line": 195
+      "_source_line": 195,
+      "return_value": {
+        "type": "DWORD",
+        "description": ""
+      }
     },
     {
       "id": "windows::PDH_BROWSE_DLG_CONFIG_HW",
       "name": "PDH_BROWSE_DLG_CONFIG_HW",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "pdhBrowseCountersH 函数使用 PDH_BROWSE_DLG_CONFIG_H 结构来配置“浏览性能计数器”对话框。 (Unicode)",
       "header": "pdh.h",
       "deprecated": false,
@@ -340,7 +354,8 @@
         "PDH_BROWSE_DLG_CONFIG_H"
       ],
       "confidence": 0.75,
-      "_source_line": 199
+      "_source_line": 199,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PDH_BROWSE_DLG_CONFIG_W",
@@ -359,7 +374,7 @@
     {
       "id": "windows::PDH_COUNTER_INFO",
       "name": "PDH_COUNTER_INFO",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含描述计数器属性的信息。此信息还包括计数器路径。",
       "syntax": "typedef struct _PDH_COUNTER_INFO_A {\n  DWORD dwLength;\n  DWORD dwType;\n  DWORD CVersion;\n  DWORD CStatus;\n  LONG lScale;\n  LONG lDefaultScale;\n  DWORD_PTR dwUserData;\n} PDH_COUNTER_INFO_A;",
       "return_value": {
@@ -371,12 +386,13 @@
         "PDH_COUNTER_PATH_ELEMENTS_A"
       ],
       "confidence": 0.9,
-      "_source_line": 204
+      "_source_line": 204,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PDH_COUNTER_PATH_ELEMENTS",
       "name": "PDH_COUNTER_PATH_ELEMENTS",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构体。szMachineName 以 Null 结尾的字符串，包含计数器路径中指定的计算机名称。如果路径未指定计算机，则为 NULL。字符串在内存中紧随此结构。szObjectName 以 Null 结尾的字符串，包含性能对象名称。szInstanceName 以 Null 结尾的字符串，包含对象实例名称。如果路径未指定实例，则为 NULL。szParentInstance 以 Null 结尾的字符串，包含父实例名称。如果路径未指定父实例，则为 NULL。dwInstanceIndex 实例索引，未指定时为 0。szCounterName 包含计数器名称的字符串。szExplainText 描述计数器的帮助文本，日志文件源时为 NULL。DataBuffer[1] 字符串数据起始位置。",
       "syntax": "typedef struct _PDH_COUNTER_PATH_ELEMENTS_W { LPWSTR szMachineName; LPWSTR szObjectName; LPWSTR szInstanceName; LPWSTR szParentInstance; DWORD dwInstanceIndex; LPWSTR szCounterName; } PDH_COUNTER_PATH_ELEMENTS_W, *PPDH_COUNTER_PATH_ELEMENTS_W;",
       "return_value": null,
@@ -393,7 +409,8 @@
         "Null"
       ],
       "confidence": 0.9,
-      "_source_line": 206
+      "_source_line": 206,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PDH_DATA_ITEM_PATH_ELEMENTS",
@@ -412,7 +429,7 @@
     {
       "id": "windows::PDH_FMT_COUNTERVALUE",
       "name": "PDH_FMT_COUNTERVALUE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "该结构体用于存储格式化后的性能计数器值，包含状态信息和不同数据类型的值。CStatus 成员指示计数器值的有效性，union 成员根据数据类型存储 LONG、DOUBLE、LONGLONG 或字符串值。",
       "syntax": "typedef struct _PDH_FMT_COUNTERVALUE {\nDWORD CStatus;   union {\nLONG     longValue;     double   doubleValue;     LONGLONG largeValue;\nLPCSTR   AnsiStringValue;     LPCWSTR  WideStringValue;   };\n} PDH_FMT_COUNTERVALUE, *PPDH_FMT_COUNTERVALUE;",
       "remarks": "Call PdhGetFormattedCounterValue or PdhCalculateCounterFromRawValue to calculate the counter value, where you can specify the data type of the calculated counter value.",
@@ -430,12 +447,13 @@
         "Server"
       ],
       "confidence": 0.95,
-      "_source_line": 210
+      "_source_line": 210,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PDH_FMT_COUNTERVALUE_ITEM",
       "name": "PDH_FMT_COUNTERVALUE_ITEM",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "包含性能计数器实例名称和格式化值的结构体",
       "syntax": "typedef struct _PDH_FMT_COUNTERVALUE_ITEM_A { LPSTR szName; PDH_FMT_COUNTERVALUE FmtValue; } PDH_FMT_COUNTERVALUE_ITEM_A, *PPDH_FMT_COUNTERVALUE_ITEM_A;",
       "header": "pdh.h",
@@ -444,7 +462,8 @@
         "Array"
       ],
       "confidence": 0.85,
-      "_source_line": 211
+      "_source_line": 211,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PDH_RAW_COUNTER",
@@ -481,7 +500,7 @@
     {
       "id": "windows::PDH_RAW_LOG_RECORD",
       "name": "PDH_RAW_LOG_RECORD",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "定义原始性能数据日志记录的结构体，用于存储PdhCollectQueryData函数返回的原始数据。",
       "syntax": "typedef struct _PDH_RAW_LOG_RECORD {\n  DWORD dwStructureSize;\n  DWORD dwRecordType;\n  DWORD dwItems;\n  UCHAR RawBytes[1];\n} PDH_RAW_LOG_RECORD, *PPDH_RAW_LOG_RECORD;\n\n成员说明：\ndwStructureSize：结构体大小（字节），包含RawBytes数组。\ndwRecordType：记录类型标识符。\ndwItems：数据项数量。\nRawBytes：原始数据缓冲区。",
       "header": "pdh.h",
@@ -491,7 +510,8 @@
         "Server"
       ],
       "confidence": 0.85,
-      "_source_line": 218
+      "_source_line": 218,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PDH_STATISTICS",
@@ -508,7 +528,7 @@
     {
       "id": "windows::PDH_TIME_INFO",
       "name": "PDH_TIME_INFO",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "结构包含有关应用于性能数据采样的时间间隔的信息。",
       "syntax": "typedef struct _PDH_TIME_INFO {\nLONGLONG StartTime;   LONGLONG EndTime;\nDWORD    SampleCount;\n} PDH_TIME_INFO, *PPDH_TIME_INFO;",
       "members": [
@@ -527,7 +547,8 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.85,
-      "_source_line": 219
+      "_source_line": 219,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PERF_COUNTER_BLOCK",
@@ -558,7 +579,7 @@
     {
       "id": "windows::PERF_COUNTER_DEFINITION",
       "name": "PERF_COUNTER_DEFINITION",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "定义性能计数器数据的结构。CounterNameTitleIndex 是标题数据库中计数器名称的索引。有关使用索引检索计数器名称的详细信息，请参阅检索计数器名称和帮助文本。提供程序在其初始化文件中指定索引值。",
       "syntax": "typedef struct _PERF_COUNTER_DEFINITION {\n  DWORD  ByteLength;\n  DWORD  CounterNameTitleIndex;\n  DWORD  CounterHelpTitleIndex;\n  LONG   DefaultScale;\n  DWORD  DetailLevel;\n  DWORD  CounterType;\n  DWORD  CounterSize;\n  DWORD  CounterOffset;\n} PERF_COUNTER_DEFINITION, *PPERF_COUNTER_DEFINITION;",
       "members": [
@@ -571,12 +592,13 @@
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.95,
-      "_source_line": 223
+      "_source_line": 223,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PERF_COUNTER_REG_INFO",
       "name": "PERF_COUNTER_REG_INFO",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "提供有关性能计数器的注册信息。 PERF_COUNTERSET_INFO 定义有关提供程序使用的计数器集的信息。 CTRPP 工具会根据指定的架构自动生成此结构。",
       "syntax": "typedef struct _PERF_COUNTER_REG_INFO {   ULONG     CounterId;\nULONG     Type;   ULONGLONG Attrib;\nULONG     DetailLevel;   LONG      DefaultScale;   ULONG     BaseCounterId;\nULONG     PerfTimeId;   ULONG     PerfFreqId;   ULONG     MultiId;\nULONG     AggregateFunc;   ULONG     Reserved;\n} PERF_COUNTER_REG_INFO, *PPERF_COUNTER_REG_INFO;",
       "members": [
@@ -591,12 +613,13 @@
         "PERF_COUNTERSET_INFO"
       ],
       "confidence": 0.95,
-      "_source_line": 230
+      "_source_line": 230,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PERF_COUNTERSET_INSTANCE",
       "name": "PERF_COUNTERSET_INSTANCE",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Represents an instance of a performance counter set. Contains information about one or more counter structures. Use PerfSetULongLongCounterValue function to initially set counter values. Note that counter values will overflow when incremented beyond the maximum size of an 8-byte unsigned integer.",
       "syntax": "typedef struct _PERF_COUNTERSET_INSTANCE {\n  GUID CounterSetGuid;\n  ULONG dwSize;\n  ULONG InstanceId;\n  ULONG InstanceNameOffset;\n  ULONG InstanceNameSize;\n} PERF_COUNTERSET_INSTANCE, *PPERF_COUNTERSET_INSTANCE;",
       "header": "perflib.h",
@@ -616,7 +639,8 @@
           "direction": "in",
           "description": "提供程序的句柄。 使用 CTRPP 工具为你生成的句柄变量。 有关变量的名称，请参阅提供程序元素的 symbol 属性。 Windows Vista： PerfStartProvider 函数返回句柄。[in] CounterSetGuid 唯一标识要创建其实例的计数器集的 GUID。 这与 counterSet 元素的 guid 属性中指定的 GUID 相同。 使用 CTRPP 工具为你生成的 GUID 变量。 有关变量的名称，请参阅 counterSet 元素的 symbol 属性。 Windows Vista： GUID 变量不可用。[in] Name 以 Null 结尾的 Unicode 字符串，其中包含此实例的唯一名称。[in] Id 计数器集的此实例的唯一标识符。 标识符可以是为每个新实例递增的序列号。"
         }
-      ]
+      ],
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PERF_COUNTERSET_REG_INFO",
@@ -656,7 +680,7 @@
     {
       "id": "windows::PERF_PROVIDER_CONTEXT",
       "name": "PERF_PROVIDER_CONTEXT",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "Defines the context for a performance counter provider. Minimum supported client: Windows Vista [desktop apps only]. Minimum supported server: Windows Server 2008 [desktop apps only]. Header: perflib.h",
       "syntax": "typedef struct _PROVIDER_CONTEXT {\nDWORD          ContextSize;   DWORD          Reserved;\nPERFLIBREQUEST ControlCallback;   PERF_MEM_ALLOC MemAllocRoutine;   PERF_MEM_FREE  MemFreeRoutine;   LPVOID         pMemContext;\n} PERF_PROVIDER_CONTEXT, *PPERF_PROVIDER_CONTEXT;",
       "members": [
@@ -672,7 +696,8 @@
         "Vista"
       ],
       "confidence": 0.95,
-      "_source_line": 244
+      "_source_line": 244,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PERF_STRING_BUFFER_HEADER",
@@ -844,11 +869,13 @@
         {
           "name": "hQuery",
           "direction": "in",
-          "description": "查询的句柄。 PdhOpenQuery 函数返回此句柄。"
+          "description": "查询的句柄。 PdhOpenQuery 函数返回此句柄。",
+          "type": "PDH_HQUERY"
         }
       ],
       "return_value": {
-        "description": "如果查询是实时查询，则返回值为 TRUE。如果查询不是实时查询，则返回值为 FALSE。"
+        "description": "如果查询是实时查询，则返回值为 TRUE。如果查询不是实时查询，则返回值为 FALSE。",
+        "type": "BOOL"
       },
       "remarks": "此函数的说明中使用的术语 实时 并不意味着术语 实时的标准含义。 相反，它描述从提供当前 信息的源收集性能数据 (例如注册表或 WMI 提供程序) 而不是从日志文件。",
       "requirements": {
@@ -2417,7 +2444,8 @@
       "description": "将性能计数器规范添加到指定的查询中。",
       "syntax": "ULONG PerfAddCounters(\n  [in]      HANDLE                   hQuery,\n  [in, out] PPERF_COUNTER_IDENTIFIER pCounters,\n  [in]      DWORD                    cbCounters\n);",
       "return_value": {
-        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。"
+        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。",
+        "type": "ULONG"
       },
       "remarks": "pCounters 参数应指向 PERF_COUNTER_IDENTIFIER 块的序列。每个块指定一个要添加到查询的计数器。",
       "requirements": {
@@ -2448,11 +2476,13 @@
         {
           "name": "ProviderGuid",
           "direction": "in",
-          "description": "唯一标识提供程序的 GUID。 provider 元素的 providerGuid 属性指定 GUID。[in, optional] ProviderContext 包含指向控件回调、内存管理例程和上下文信息的指针 的PERF_PROVIDER_CONTEXT 结构。[out] Provider 提供程序的句柄。 必须调用 PerfStopProvider 才能释放与句柄关联的资源。"
+          "description": "唯一标识提供程序的 GUID。 provider 元素的 providerGuid 属性指定 GUID。[in, optional] ProviderContext 包含指向控件回调、内存管理例程和上下文信息的指针 的PERF_PROVIDER_CONTEXT 结构。[out] Provider 提供程序的句柄。 必须调用 PerfStopProvider 才能释放与句柄关联的资源。",
+          "type": "LPGUID"
         }
       ],
       "return_value": {
-        "description": "ERROR_SUCCESS if successful, otherwise a system error code."
+        "description": "ERROR_SUCCESS if successful, otherwise a system error code.",
+        "type": "ULONG"
       },
       "header": "perflib.h",
       "deprecated": false,
@@ -2992,7 +3022,8 @@
         {
           "name": "hQuery",
           "direction": "in",
-          "description": "要关闭的查询的句柄返回值 如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。"
+          "description": "要关闭的查询的句柄返回值 如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。",
+          "type": "HANDLE"
         }
       ],
       "requirements": {
@@ -3016,7 +3047,10 @@
       ],
       "confidence": 0.8,
       "_source_line": 6853,
-      "return_value": "如果函数成功，则返回 ERROR_SUCCESS。如果函数失败，则返回值为系统错误代码。"
+      "return_value": {
+        "type": "ULONG",
+        "description": "如果函数成功，则返回 ERROR_SUCCESS。如果函数失败，则返回值为系统错误代码。"
+      }
     },
     {
       "id": "windows::PERF_SINGLE_COUNTER",
@@ -3050,11 +3084,13 @@
         {
           "name": "Provider",
           "direction": "in",
-          "description": "提供程序的句柄。 使用 CTRPP 工具为你生成的句柄变量。 有关变量的名称，请参阅 provider 元素的 symbol 属性。 Windows Vista： PerfStartProvider 函数返回句柄。[in] InstanceBlock 一个PERF_COUNTERSET_INSTANCE结构，其中包含要删除的计数器集的实例。"
+          "description": "提供程序的句柄。 使用 CTRPP 工具为你生成的句柄变量。 有关变量的名称，请参阅 provider 元素的 symbol 属性。 Windows Vista： PerfStartProvider 函数返回句柄。[in] InstanceBlock 一个PERF_COUNTERSET_INSTANCE结构，其中包含要删除的计数器集的实例。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。"
+        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。",
+        "type": "ULONG"
       },
       "remarks": "如果提供程序进程异常终止，则将释放所有分配的实例。提供程序确定何时删除实例。如果计数器数据更静态，提供程序可以在清理时删除实例。例如，计算机上的处理器数将被视为静态，因此为处理器提供计数器数据的提供程序可以在清理时删除计算机上每个处理器的实例。对于更动态的计数器（例如磁盘或进程计数器），提供程序会删除实例，以响应正在删除的 USB 设备或进程终止。",
       "header": "perflib.h",
@@ -3075,16 +3111,19 @@
         {
           "name": "Provider",
           "direction": "in",
-          "description": "提供程序的句柄。 使用 CTRPP 工具为你生成的句柄变量。 有关变量的名称，请参阅 provider 元素的 symbol 属性。 Windows Vista： PerfStartProvider 函数返回句柄。[in] Instance 包含计数器集实例 的PERF_COUNTERSET_INSTANCE 结构。 PerfCreateInstance 函数返回此指针。"
+          "description": "提供程序的句柄。 使用 CTRPP 工具为你生成的句柄变量。 有关变量的名称，请参阅 provider 元素的 symbol 属性。 Windows Vista： PerfStartProvider 函数返回句柄。[in] Instance 包含计数器集实例 的PERF_COUNTERSET_INSTANCE 结构。 PerfCreateInstance 函数返回此指针。",
+          "type": "HANDLE"
         },
         {
           "name": "CounterId",
           "direction": "in",
-          "description": "唯一标识要在实例块中更新的计数器的标识符。 标识符在计数器元素的 id 属性中定义，并且必须与实例块中PERF_COUNTER_INFO结构之一的 CounterId 成员匹配。 使用 CTRPP 工具为你生成的计数器 ID 常量。 有关常量的名称，请参阅计数器元素的 symbol 属性。 Windows Vista： 计数器 ID 常量不可用。[in] Value 计数器递减所依据的值。"
+          "description": "唯一标识要在实例块中更新的计数器的标识符。 标识符在计数器元素的 id 属性中定义，并且必须与实例块中PERF_COUNTER_INFO结构之一的 CounterId 成员匹配。 使用 CTRPP 工具为你生成的计数器 ID 常量。 有关常量的名称，请参阅计数器元素的 symbol 属性。 Windows Vista： 计数器 ID 常量不可用。[in] Value 计数器递减所依据的值。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。"
+        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。",
+        "type": "ULONG"
       },
       "remarks": "这是一个用于递减原始计数器数据的便捷函数。 若要自行递减原始计数器数据，请使用 PERF_COUNTER_INFO 结构的 Offset 成员访问特定计数器的原始计数器数据。",
       "header": "perflib.h",
@@ -3106,16 +3145,19 @@
         {
           "name": "Provider",
           "direction": "in",
-          "description": "提供程序的句柄。 使用 CTRPP 工具为你生成的句柄变量。 有关变量的名称，请参阅提供程序元素的 symbol 属性。 Windows Vista： PerfStartProvider 函数返回句柄。[in] Instance 包含计数器集实例 的PERF_COUNTERSET_INSTANCE 结构。 PerfCreateInstance 函数返回此指针。"
+          "description": "提供程序的句柄。 使用 CTRPP 工具为你生成的句柄变量。 有关变量的名称，请参阅提供程序元素的 symbol 属性。 Windows Vista： PerfStartProvider 函数返回句柄。[in] Instance 包含计数器集实例 的PERF_COUNTERSET_INSTANCE 结构。 PerfCreateInstance 函数返回此指针。",
+          "type": "HANDLE"
         },
         {
           "name": "CounterId",
           "direction": "in",
-          "description": "唯一标识要在实例块中更新的计数器的标识符。 标识符在 counter 元素的 id 属性中定义，必须与实例块中PERF_COUNTER_INFO结构之一的 CounterId 成员匹配。 使用 CTRPP 工具为你生成的计数器 ID 常量。 有关常量的名称，请参阅 counter 元素的 symbol 属性。 Windows Vista： 计数器 ID 常量不可用。[in] Value 计数器递增依据的值。"
+          "description": "唯一标识要在实例块中更新的计数器的标识符。 标识符在 counter 元素的 id 属性中定义，必须与实例块中PERF_COUNTER_INFO结构之一的 CounterId 成员匹配。 使用 CTRPP 工具为你生成的计数器 ID 常量。 有关常量的名称，请参阅 counter 元素的 symbol 属性。 Windows Vista： 计数器 ID 常量不可用。[in] Value 计数器递增依据的值。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。"
+        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。",
+        "type": "ULONG"
       },
       "remarks": "这是一个用于递增原始计数器数据的便捷函数。 若要自行递增原始计数器数据，请使用 PERF_COUNTER_INFO 结构的 Offset 成员访问特定计数器的原始计数器数据。",
       "header": "perflib.h",
@@ -3138,16 +3180,19 @@
         {
           "name": "Provider",
           "direction": "in",
-          "description": "提供程序的句柄。 使用 CTRPP 工具为你生成的句柄变量。 有关变量的名称，请参阅 provider 元素的 symbol 属性。 Windows Vista： PerfStartProvider 函数返回句柄。[in] Instance 包含计数器集实例 的PERF_COUNTERSET_INSTANCE 结构。 PerfCreateInstance 函数返回此指针。"
+          "description": "提供程序的句柄。 使用 CTRPP 工具为你生成的句柄变量。 有关变量的名称，请参阅 provider 元素的 symbol 属性。 Windows Vista： PerfStartProvider 函数返回句柄。[in] Instance 包含计数器集实例 的PERF_COUNTERSET_INSTANCE 结构。 PerfCreateInstance 函数返回此指针。",
+          "type": "HANDLE"
         },
         {
           "name": "CounterId",
           "direction": "in",
-          "description": "唯一标识要在实例块中更新的计数器的标识符。 标识符在计数器元素的 id 属性中定义，并且必须与实例块中PERF_COUNTER_INFO结构之一的 CounterId 成员匹配。 使用 CTRPP 工具为你生成的计数器 ID 常量。 有关常量的名称，请参阅计数器元素的 symbol 属性。 Windows Vista： 计数器 ID 常量不可用。[in] Value 递增计数器所依据的值。"
+          "description": "唯一标识要在实例块中更新的计数器的标识符。 标识符在计数器元素的 id 属性中定义，并且必须与实例块中PERF_COUNTER_INFO结构之一的 CounterId 成员匹配。 使用 CTRPP 工具为你生成的计数器 ID 常量。 有关常量的名称，请参阅计数器元素的 symbol 属性。 Windows Vista： 计数器 ID 常量不可用。[in] Value 递增计数器所依据的值。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。"
+        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。",
+        "type": "ULONG"
       },
       "remarks": "这是一个用于递增原始计数器数据的便捷函数。 若要自行递增原始计数器数据，请使用 PERF_COUNTER_INFO 结构的 Offset 成员访问特定计数器的原始计数器数据。",
       "header": "perflib.h",
@@ -3166,7 +3211,8 @@
       "description": "从性能查询中删除指定的计数器规范，并更新每个计数器标识符的状态。",
       "syntax": "ULONG PerfDeleteCounters(\n  [in]      HANDLE                   hQuery,\n  [in, out] PPERF_COUNTER_IDENTIFIER pCounters,\n  [in]      DWORD                    cbCounters\n);",
       "return_value": {
-        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。"
+        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。",
+        "type": "ULONG"
       },
       "remarks": "pCounters 参数应指向PERF_COUNTER_IDENTIFIER块序列。 每个 PERF_COUNTER_IDENTIFIER 块都由 一个PERF_COUNTER_IDENTIFIER 结构组成，后跟一个以 null 结尾的 UTF-16LE 实例名称字符串，后跟使块大小为 8 个字节的倍数的填充。 按照 PerfAddCounters 的备注中所述的相同方式配置每个PERF_COUNTER_IDENTIFIER块。",
       "header": "perflib.h",
@@ -3188,19 +3234,25 @@
         {
           "name": "szMachine",
           "direction": "in, optional",
-          "description": "要为其获取计数器集标识符的计算机的名称。 如果为 NULL，则函数检索本地计算机的计数器集标识符。"
+          "description": "要为其获取计数器集标识符的计算机的名称。 如果为 NULL，则函数检索本地计算机的计数器集标识符。",
+          "type": "optional] LPCWSTR"
         },
         {
           "name": "pCounterSetIds",
           "direction": "out, optional",
-          "description": "指向缓冲区的指针，该缓冲区具有足够的空间来接收 cCounterSetIds 参数指定的 GUID 数。 如果 cCounterSetIds 为 0。 cCounterSetIds pCounterSetIds 参数指定的缓冲区大小，以 GUID 为单位。[out] pcCounterSetIdsActual 获取计数器集标识符实际所需的缓冲区大小。 含义取决于函数的值返回。 函数返回值"
+          "description": "指向缓冲区的指针，该缓冲区具有足够的空间来接收 cCounterSetIds 参数指定的 GUID 数。 如果 cCounterSetIds 为 0。 cCounterSetIds pCounterSetIds 参数指定的缓冲区大小，以 GUID 为单位。[out] pcCounterSetIdsActual 获取计数器集标识符实际所需的缓冲区大小。 含义取决于函数的值返回。 函数返回值",
+          "type": "optional] LPGUID"
         }
       ],
       "header": "perflib.h",
       "deprecated": false,
       "cross_references": [],
       "confidence": 0.8,
-      "_source_line": 7057
+      "_source_line": 7057,
+      "return_value": {
+        "type": "ULONG",
+        "description": ""
+      }
     },
     {
       "id": "windows::PERF_REMOVE_COUNTER",
@@ -3308,16 +3360,19 @@
         {
           "name": "Provider",
           "direction": "in",
-          "description": "提供程序的句柄。 使用 CTRPP 工具为你生成的句柄变量。 有关变量的名称，请参阅 provider 元素的 symbol 属性。 Windows Vista： PerfStartProvider 函数返回句柄。[in] Instance 包含计数器集实例 的PERF_COUNTERSET_INSTANCE 结构。 PerfCreateInstance 函数返回此指针。"
+          "description": "提供程序的句柄。 使用 CTRPP 工具为你生成的句柄变量。 有关变量的名称，请参阅 provider 元素的 symbol 属性。 Windows Vista： PerfStartProvider 函数返回句柄。[in] Instance 包含计数器集实例 的PERF_COUNTERSET_INSTANCE 结构。 PerfCreateInstance 函数返回此指针。",
+          "type": "HANDLE"
         },
         {
           "name": "CounterId",
           "direction": "in",
-          "description": "唯一标识要在实例块中更新的计数器的标识符。 标识符在计数器元素的 id 属性中定义，并且必须与实例块中PERF_COUNTER_INFO结构之一的 CounterId 成员匹配。 使用 CTRPP 工具为你生成的计数器 ID 常量。 有关常量的名称，请参阅计数器元素的 symbol 属性。 Windows Vista： 计数器 ID 常量不可用。[in] Value 新的 4 字节计数器值。"
+          "description": "唯一标识要在实例块中更新的计数器的标识符。 标识符在计数器元素的 id 属性中定义，并且必须与实例块中PERF_COUNTER_INFO结构之一的 CounterId 成员匹配。 使用 CTRPP 工具为你生成的计数器 ID 常量。 有关常量的名称，请参阅计数器元素的 symbol 属性。 Windows Vista： 计数器 ID 常量不可用。[in] Value 新的 4 字节计数器值。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。"
+        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。",
+        "type": "ULONG"
       },
       "remarks": "这是一个用于设置原始计数器数据的便捷函数。若要自行更新原始计数器数据，请使用底层 API。",
       "header": "perflib.h",
@@ -3338,16 +3393,19 @@
         {
           "name": "Provider",
           "direction": "in",
-          "description": "提供程序的句柄。 使用 CTRPP 工具为你生成的句柄变量。 有关变量的名称，请参阅提供程序元素的 symbol 属性。 Windows Vista： PerfStartProvider 函数返回句柄。[in] Instance 包含计数器集实例 的PERF_COUNTERSET_INSTANCE 结构。 PerfCreateInstance 函数返回此指针。"
+          "description": "提供程序的句柄。 使用 CTRPP 工具为你生成的句柄变量。 有关变量的名称，请参阅提供程序元素的 symbol 属性。 Windows Vista： PerfStartProvider 函数返回句柄。[in] Instance 包含计数器集实例 的PERF_COUNTERSET_INSTANCE 结构。 PerfCreateInstance 函数返回此指针。",
+          "type": "HANDLE"
         },
         {
           "name": "CounterId",
           "direction": "in",
-          "description": "唯一标识要在实例块中更新的计数器的标识符。 标识符在 counter 元素的 id 属性中定义，必须与实例块中PERF_COUNTER_INFO结构之一的 CounterId 成员匹配。 使用 CTRPP 工具为你生成的计数器 ID 常量。 有关常量的名称，请参阅 counter 元素的 symbol 属性。 Windows Vista： 计数器 ID 常量不可用。[in] Value 新的 8 字节计数器值。"
+          "description": "唯一标识要在实例块中更新的计数器的标识符。 标识符在 counter 元素的 id 属性中定义，必须与实例块中PERF_COUNTER_INFO结构之一的 CounterId 成员匹配。 使用 CTRPP 工具为你生成的计数器 ID 常量。 有关常量的名称，请参阅 counter 元素的 symbol 属性。 Windows Vista： 计数器 ID 常量不可用。[in] Value 新的 8 字节计数器值。",
+          "type": "ULONG"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。"
+        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。",
+        "type": "ULONG"
       },
       "remarks": "这是用于设置原始计数器数据的便捷函数。若要自行更新原始计数器数据，请使用其他相关 API。",
       "header": "perflib.h",
@@ -3369,11 +3427,13 @@
         {
           "name": "ProviderHandle",
           "direction": "in",
-          "description": "提供程序的句柄。 使用 CTRPP 工具为你生成的句柄变量。 有关变量的名称，请参阅 provider 元素的 symbol 属性。 Windows Vista： PerfStartProvider 函数返回句柄。[in] Template 包含计数器集信息的缓冲区。 有关详细信息，请参阅 PERF_COUNTERSET_INFO。[in] TemplateSize pTemplate 缓冲区的大小（以字节为单位）。"
+          "description": "提供程序的句柄。 使用 CTRPP 工具为你生成的句柄变量。 有关变量的名称，请参阅 provider 元素的 symbol 属性。 Windows Vista： PerfStartProvider 函数返回句柄。[in] Template 包含计数器集信息的缓冲区。 有关详细信息，请参阅 PERF_COUNTERSET_INFO。[in] TemplateSize pTemplate 缓冲区的大小（以字节为单位）。",
+          "type": "HANDLE"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。"
+        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。",
+        "type": "ULONG"
       },
       "header": "perflib.h",
       "deprecated": false,
@@ -3391,11 +3451,13 @@
         {
           "name": "ProviderGuid",
           "direction": "in",
-          "description": "唯一标识提供程序的 GUID。 provider 元素的 providerGuid 属性指定 GUID。[in, optional] ControlCallback PERFLIB 调用的 ControlCallback 函数，用于通知使用者请求，例如在查询中添加或删除计数器 的请求。 如果 counters 元素的回调属性为“custom”，则设置此参数;否则为 NULL。[out] phProvider 提供程序的句柄。 必须调用 PerfStopProvider 才能释放与句柄关联的资源。"
+          "description": "唯一标识提供程序的 GUID。 provider 元素的 providerGuid 属性指定 GUID。[in, optional] ControlCallback PERFLIB 调用的 ControlCallback 函数，用于通知使用者请求，例如在查询中添加或删除计数器 的请求。 如果 counters 元素的回调属性为“custom”，则设置此参数;否则为 NULL。[out] phProvider 提供程序的句柄。 必须调用 PerfStopProvider 才能释放与句柄关联的资源。",
+          "type": "LPGUID"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。"
+        "description": "如果函数成功，则返回ERROR_SUCCESS。如果函数失败，则返回值为 系统错误代码。",
+        "type": "ULONG"
       },
       "header": "perflib.h",
       "deprecated": false,
@@ -3537,7 +3599,7 @@
     {
       "id": "windows::CollectPerformanceData",
       "name": "CollectPerformanceData",
-      "entity_type": "struct",
+      "entity_type": "structure",
       "description": "OpenPerformanceData",
       "header": "winperf.h",
       "deprecated": false,
@@ -3545,7 +3607,8 @@
         "OpenPerformanceData"
       ],
       "confidence": 0.4,
-      "_source_line": 8034
+      "_source_line": 8034,
+      "_type_raw": "struct"
     },
     {
       "id": "windows::PM_COLLECT_PROC",

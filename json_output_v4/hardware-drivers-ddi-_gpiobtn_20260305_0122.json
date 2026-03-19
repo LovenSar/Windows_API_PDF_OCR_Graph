@@ -23,7 +23,8 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "指向客户端驱动程序上下文信息的指针。 此内存空间可供客户端驱动程序使用。 它通过 WdfDeviceCreate分配为框架对象上下文空间的一部分。 有关详细信息，请参阅"
+          "description": "指向客户端驱动程序上下文信息的指针。 此内存空间可供客户端驱动程序使用。 它通过 WdfDeviceCreate分配为框架对象上下文空间的一部分。 有关详细信息，请参阅",
+          "type": "PVOID"
         }
       ],
       "header": "hwnclx.h",
@@ -39,7 +40,10 @@
       "confidence": 0.85,
       "_source_line": 12,
       "syntax": "NTSTATUS HWN_CLIENT_GET_STATE(\n  [in] PVOID Context,\n  [out] PVOID Buffer,\n  [in] ULONG BufferLength,\n  [out] PULONG BytesWritten\n);",
-      "return_value": "如果操作成功，返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果操作成功，返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "此回调用于响应用户对硬件通知组件状态信息的查询。原描述中混入了 HWN_CLIENT_INITIALIZE_DEVICE、HWN_CLIENT_QUERY_DEVICE_INFORMATION、HWN_CLIENT_SET_STATE、HWN_CLIENT_START_DEVICE、HWN_CLIENT_STOP_DEVICE 和 HWN_CLIENT_UNINITIALIZE_DEVICE 的说明，已清理。"
     },
     {
@@ -63,11 +67,13 @@
         {
           "name": "Driver",
           "direction": "in",
-          "description": "客户端驱动程序框架驱动程序对象的句柄。[in] DeviceInit 指向框架分配 WDFDEVICE_INIT 结构的指针。[out] FdoAttributes 指向 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构描述创建客户端驱动程序的设备对象的属性。"
+          "description": "客户端驱动程序框架驱动程序对象的句柄。[in] DeviceInit 指向框架分配 WDFDEVICE_INIT 结构的指针。[out] FdoAttributes 指向 WDF_OBJECT_ATTRIBUTES 结构的指针，该结构描述创建客户端驱动程序的设备对象的属性。",
+          "type": "WDFDRIVER"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 STATUS_SUCCESS。如果找不到相应的客户端驱动程序，则返回 STATUS_INVALID_PARAMETER。否则，返回 Ntstatus.h 中定义的其他错误状态值之一。"
+        "description": "如果函数成功，则返回 STATUS_SUCCESS。如果找不到相应的客户端驱动程序，则返回 STATUS_INVALID_PARAMETER。否则，返回 Ntstatus.h 中定义的其他错误状态值之一。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -95,10 +101,14 @@
         {
           "name": "Driver",
           "direction": "in",
-          "description": "客户端驱动程序框架驱动程序对象的句柄。[in, out] RegistrationPacket 指向 HWN_CLIENT_REGISTRATION_PACKET 结构的指针，该结构包含指向客户端驱动程 序实现中定义的回调函数以及类扩展所需的回调函数。[in] RegistryPath 指向包含客户端驱动程序注册表项路径的 UNICODE_STRING 结构的指针。"
+          "description": "客户端驱动程序框架驱动程序对象的句柄。[in, out] RegistrationPacket 指向 HWN_CLIENT_REGISTRATION_PACKET 结构的指针，该结构包含指向客户端驱动程 序实现中定义的回调函数以及类扩展所需的回调函数。[in] RegistryPath 指向包含客户端驱动程序注册表项路径的 UNICODE_STRING 结构的指针。",
+          "type": "WDFDRIVER"
         }
       ],
-      "return_value": "此函数用于将客户端驱动程序与硬件通知类扩展关联。驱动程序卸载时，应调用 HwNUnregisterClient 以注销客户端及其回调函数。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "此函数用于将客户端驱动程序与硬件通知类扩展关联。驱动程序卸载时，应调用 HwNUnregisterClient 以注销客户端及其回调函数。"
+      },
       "requirements": {
         "target_platform": "Windows",
         "header": "hwnclx.h",
@@ -218,7 +228,8 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "指向客户端驱动程序上下文信息的指针。 此内存空间可供客户端驱动程序使用。 它通过 WdfDeviceCreate分配为框架对象上下文空间的一部分。 有关详细信息，请参阅"
+          "description": "指向客户端驱动程序上下文信息的指针。 此内存空间可供客户端驱动程序使用。 它通过 WdfDeviceCreate分配为框架对象上下文空间的一部分。 有关详细信息，请参阅",
+          "type": "PVOID"
         }
       ],
       "header": "hwnclx.h",
@@ -229,7 +240,10 @@
       "confidence": 0.85,
       "_source_line": 181,
       "syntax": "NTSTATUS HwnClientQueryDeviceInformation(\n  [in]  PVOID Context,\n  [out] PCLIENT_DEVICE_INFORMATION Information\n);",
-      "return_value": "如果成功查询并填充设备信息，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": "如果成功查询并填充设备信息，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+      },
       "remarks": "该实体对应的名称模式和描述表明它是回调函数 HwnClientQueryDeviceInformation，而不是枚举类型。原描述中的前缀“HWN_CLIENT_QUERY_DEVICE_INFORMATION;”应视为 OCR 或提取格式噪声。"
     },
     {
@@ -300,7 +314,8 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "指向客户端驱动程序上下文信息的指针。 此内存空间可供客户端驱动程序使用。 它通过 WdfDeviceCreate分配为框架对象上下文空间的一部分。 有关详细信息，请参阅"
+          "description": "指向客户端驱动程序上下文信息的指针。 此内存空间可供客户端驱动程序使用。 它通过 WdfDeviceCreate分配为框架对象上下文空间的一部分。 有关详细信息，请参阅",
+          "type": "PVOID"
         }
       ],
       "header": "hwnclx.h",
@@ -313,7 +328,11 @@
       ],
       "confidence": 0.85,
       "_source_line": 239,
-      "syntax": "NTSTATUS HWN_CLIENT_SET_STATE(\n  [in]  PVOID  Context,\n  [in]  PVOID  Buffer,\n  [in]  ULONG  BufferLength,\n  [out] PULONG BytesWritten\n);"
+      "syntax": "NTSTATUS HWN_CLIENT_SET_STATE(\n  [in]  PVOID  Context,\n  [in]  PVOID  Buffer,\n  [in]  ULONG  BufferLength,\n  [out] PULONG BytesWritten\n);",
+      "return_value": {
+        "type": "NTSTATUS",
+        "description": ""
+      }
     },
     {
       "id": "windows::HWN_CLIENT_START_DEVICE",
@@ -324,11 +343,13 @@
         {
           "name": "Context",
           "direction": "in",
-          "description": "指向客户端驱动程序上下文信息的指针。 此内存空间可供客户端驱动程序使用。 它通过 WdfDeviceCreate分配为框架对象上下文空间的一部分。 有关详细信息，请参阅 HWN_CLIENT_REGISTRATION_PACKET 和 框架对象上下文空间。"
+          "description": "指向客户端驱动程序上下文信息的指针。 此内存空间可供客户端驱动程序使用。 它通过 WdfDeviceCreate分配为框架对象上下文空间的一部分。 有关详细信息，请参阅 HWN_CLIENT_REGISTRATION_PACKET 和 框架对象上下文空间。",
+          "type": "PVOID"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "remarks": "客户端驱动程序通过设置 HWN_CLIENT_REGISTRATION_PACKET 结构中的相应成员并调用 HwNRegisterClient 来注册此回调函数。",
       "requirements": {
@@ -386,11 +407,13 @@
         {
           "name": "Device",
           "direction": "in",
-          "description": "客户端驱动程序框架设备对象的句柄。[in] Context 指向客户端驱动程序上下文信息的指针。 此内存空间可供客户端驱动程序使用。 它通过 WdfDeviceCreate分配为框架对象上下文空间的一部分。 有关详细信息，请参阅 HWN_CLIENT_REGISTRATION_PACKET 和 框架对象上下文空间。"
+          "description": "客户端驱动程序框架设备对象的句柄。[in] Context 指向客户端驱动程序上下文信息的指针。 此内存空间可供客户端驱动程序使用。 它通过 WdfDeviceCreate分配为框架对象上下文空间的一部分。 有关详细信息，请参阅 HWN_CLIENT_REGISTRATION_PACKET 和 框架对象上下文空间。",
+          "type": "WDFDEVICE"
         }
       ],
       "return_value": {
-        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。"
+        "description": "如果操作成功，则返回 STATUS_SUCCESS；否则返回相应的 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "remarks": "通过设置 HWN_CLIENT_REGISTRATION_PACKET 的相应成员并调用 HwNRegisterClient 来注册此回调函数的实现。",
       "header": "hwnclx.h",
@@ -434,11 +457,13 @@
         {
           "name": "Driver",
           "direction": "in",
-          "description": "客户端驱动程序框架驱动程序对象的句柄。[in] Device 框架设备对象的句柄。[in] DeviceGuid 指向客户端驱动程序的 GUID 的指针。 有效值在 Hwn.h 中定义，该 Hwn.h 随 Window SDK 一起提供。"
+          "description": "客户端驱动程序框架驱动程序对象的句柄。[in] Device 框架设备对象的句柄。[in] DeviceGuid 指向客户端驱动程序的 GUID 的指针。 有效值在 Hwn.h 中定义，该 Hwn.h 随 Window SDK 一起提供。",
+          "type": "WDFDRIVER"
         }
       ],
       "return_value": {
-        "description": "如果函数成功，则返回 STATUS_SUCCESS。如果找不到相应的客户端驱动程序，则返回 STATUS_INVALID_PARAMETER。否则，返回 Ntstatus.h 中定义的其他错误状态值之一。"
+        "description": "如果函数成功，则返回 STATUS_SUCCESS。如果找不到相应的客户端驱动程序，则返回 STATUS_INVALID_PARAMETER。否则，返回 Ntstatus.h 中定义的其他错误状态值之一。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "target_platform": "Windows",
@@ -465,11 +490,13 @@
         {
           "name": "Driver",
           "direction": "in",
-          "description": "客户端驱动程序框架驱动程序对象的句柄。"
+          "description": "客户端驱动程序框架驱动程序对象的句柄。",
+          "type": "WDFDRIVER"
         }
       ],
       "return_value": {
-        "description": "成功时返回 STATUS_SUCCESS；如果找不到对应的客户端驱动程序，则返回 STATUS_INVALID_PARAMETER；否则返回 Ntstatus.h 中定义的其他 NTSTATUS 错误代码。"
+        "description": "成功时返回 STATUS_SUCCESS；如果找不到对应的客户端驱动程序，则返回 STATUS_INVALID_PARAMETER；否则返回 Ntstatus.h 中定义的其他 NTSTATUS 错误代码。",
+        "type": "NTSTATUS"
       },
       "requirements": {
         "target_platform": "Windows",

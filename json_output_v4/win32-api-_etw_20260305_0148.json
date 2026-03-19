@@ -2568,7 +2568,8 @@
       "parameters": [
         {
           "name": "TraceHandle",
-          "description": "此 缓冲区 来自的处理会话。 Buffer 要引用的缓冲区。 必须通过调用 PETW_BUFFER_CALLBACK 回调来获取此缓冲区。"
+          "description": "此 缓冲区 来自的处理会话。 Buffer 要引用的缓冲区。 必须通过调用 PETW_BUFFER_CALLBACK 回调来获取此缓冲区。",
+          "type": "PROCESSTRACE_HANDLE"
         },
         {
           "name": "PropertyArray",
@@ -2582,7 +2583,8 @@
         }
       ],
       "return_value": {
-        "description": "Win32 错误代码。 可能的代码可能包括ERROR_INVALID_PARAMETER和 ERROR_OUTOFMEMORY。 如果函数成功，则返回值为 ERROR_SUCCESS。 如果函数失败，则返回值为 系统错误代码之一。 下面是一些常见错误及其原因。"
+        "description": "Win32 错误代码。 可能的代码可能包括ERROR_INVALID_PARAMETER和 ERROR_OUTOFMEMORY。 如果函数成功，则返回值为 ERROR_SUCCESS。 如果函数失败，则返回值为 系统错误代码之一。 下面是一些常见错误及其原因。",
+        "type": "ULONG"
       },
       "remarks": "如果在 PETW_BUFFER_CALLBACK 期间未在缓冲区上调用 processTraceBufferIncrementReference，则在 PETW_BUFFER_CALLBACK 返回后，将无法再访问内存。 调用方负责在缓冲区上调用 ProcessTraceBufferDecrementReference，一旦用完缓冲区。 ProcessTrace 在对递增的每个缓冲区执行此操作之前不会返回。 OpenTraceFromBufferStream打开的处理会话提供的缓冲区不支持 ProcessTraceBufferIncrementReference。",
       "requirements": {
@@ -2880,7 +2882,10 @@
       "entity_type": "function",
       "description": "设置文件或目录对象的安全性。",
       "syntax": "BOOL SetFileSecurityW(\n  [in] LPCWSTR lpFileName,\n  [in] SECURITY_INFORMATION SecurityInfo,\n  [in] PSECURITY_DESCRIPTOR pSecurityDescriptor\n);",
-      "return_value": "如果成功，则返回 TRUE。如果失败，则返回 FALSE。",
+      "return_value": {
+        "type": "BOOL",
+        "description": "如果成功，则返回 TRUE。如果失败，则返回 FALSE。"
+      },
       "header": "securitybaseapi.h",
       "deprecated": false,
       "cross_references": [
