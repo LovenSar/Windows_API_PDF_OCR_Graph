@@ -12,6 +12,7 @@ if [[ ! -f "$DATA_DIR/global_entity_index.json" ]]; then
 fi
 
 echo "启动图谱查看器，数据目录: $DATA_DIR"
+echo "提示: 请保持本终端运行，浏览器访问 http://localhost:10086"
 if [[ -n "$OCR_DIR" ]]; then
   echo "OCR 目录: $OCR_DIR"
   cd graph_viewer && go run . --data "../$DATA_DIR" --ocr "../$OCR_DIR"

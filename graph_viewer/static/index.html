@@ -573,6 +573,7 @@ var PRESETS={
 var myGraph=null, allNodes=[], allLinks=[], nodeIndex={};
 var selectedNode=null, highlightNodes=new Set(), highlightLinks=new Set(), highlightNodeIds=new Set(), highlightLinkKeys=new Set();
 var minDegree=0, userMinDegree=0, is3D=false;
+var isDestroying=false;
 var memLimitMB=512, autoThrottleActive=false, lastSystemMem=null;
 var currentPresetKey="balanced", currentPreset=PRESETS.balanced;
 var currentScheme=COLOR_SCHEMES[currentPreset.scheme];
@@ -1484,24 +1485,34 @@ function tree2dNodeRelSize(n){
   return b;
 }
 function applySimulationForces(g){
-  var p=currentPreset;
-  var linkDist=p.linkDist*(is3D?1.32:1);
-  var charge=p.charge*(is3D?1.12:1);
-  var distMax=is3D?340:240;
-  var ch=g.d3Force("charge");
-  if(ch&&typeof ch.strength==="function"){
-    ch.strength(charge);
-    if(typeof ch.distanceMax==="function")ch.distanceMax(distMax);
-  }
-  var lk=g.d3Force("link");
-  if(lk&&typeof lk.distance==="function")lk.distance(linkDist);
-  if(typeof d3!=="undefined"&&typeof d3.forceCollide==="function"){
-    g.d3Force("collide",d3.forceCollide(nodeCollisionRadius).strength(is3D?0.72:0.9).iterations(is3D?1:2));
+  if(!g)return;
+  try{
+    var p=currentPreset;
+    var linkDist=p.linkDist*(is3D?1.32:1);
+    var charge=p.charge*(is3D?1.12:1);
+    var distMax=is3D?340:240;
+    var ch=g.d3Force("charge");
+    if(ch&&typeof ch.strength==="function"){
+      ch.strength(charge);
+      if(typeof ch.distanceMax==="function")ch.distanceMax(distMax);
+    }
+    var lk=g.d3Force("link");
+    if(lk&&typeof lk.distance==="function")lk.distance(linkDist);
+    if(typeof d3!=="undefined"&&typeof d3.forceCollide==="function"){
+      g.d3Force("collide",d3.forceCollide(nodeCollisionRadius).strength(is3D?0.72:0.9).iterations(is3D?1:2));
+    }
+  }catch(e){
+    console.warn("applySimulationForces error:",e);
   }
 }
 function configureGraph(g,container){
-  var p=currentPreset;simDone=false;var initData=currentViewMode==="raw"?buildFilteredData():buildViewData();
-  g.graphData(initData).backgroundColor(getGraphDepthClearColor()).nodeVal("val")
+  try{
+    var p=currentPreset;simDone=false;var initData=currentViewMode==="raw"?buildFilteredData():buildViewData();
+    if(!initData||!initData.nodes||initData.nodes.length===0){
+      initData={nodes:[{id:"_empty_hint",name:"无可见节点",val:0.5,degree:0,entityType:"unknown",color:"#8b949e",file:"",description:"请切换视图模式(Structure/Raw)或降低 Min degree"}],links:[]};
+    }
+    if(!initData.links)initData.links=[];
+    g.graphData(initData).backgroundColor(getGraphDepthClearColor()).nodeVal("val")
     .nodeColor(graphNodeColorAccessor)
     .nodeLabel(function(n){return"<b style='color:"+n.color+"'>"+n.name+"</b><br>["+n.entityType+"] deg:"+n.degree;})
     .linkColor(graphLinkColorAccessor)
@@ -1514,7 +1525,12 @@ function configureGraph(g,container){
     .onBackgroundClick(function(){if(floatDetailMaximized||llmDialogMaximized)return;deselectNode();hideFloatDetail();})
     .warmupTicks(0).cooldownTicks(100).d3AlphaDecay(0.065).d3VelocityDecay(0.38)
     .onEngineStop(function(){simDone=true;fpsHistory=[];updateNodeLoadFooter();scheduleGraphDepthParallaxUpdate();});
-  applySimulationForces(g);return g;
+    setTimeout(function(){if(g&&g===myGraph)applySimulationForces(g);},10);
+    return g;
+  }catch(e){
+    console.error("configureGraph error:",e);
+    return g;
+  }
 }
 function resizeGraph(){
   if(!myGraph)return;
@@ -1529,12 +1545,49 @@ function resizeGraph(){
   scheduleGraphDepthParallaxUpdate();
 }
 function createGraph(){
-  var container=document.getElementById("graph-3d");container.innerHTML="";var p=currentPreset;fpsHistory=[];
-  if(is3D&&(typeof ForceGraph3D==="undefined"||typeof THREE==="undefined")){is3D=false;updateBadge();updateHint();}
-  if(treeAnimFrame){cancelAnimationFrame(treeAnimFrame);treeAnimFrame=0;}
-  treeAnimating=false;
-  if(is3D){myGraph=ForceGraph3D()(container);resizeGraph();configureGraph(myGraph,container);var nodeOpVal=p.nodeOp||0.85;if(nodeOpVal<=0||nodeOpVal>1)nodeOpVal=0.85;myGraph.nodeOpacity(nodeOpVal).nodeResolution(4).linkOpacity(1.0).enableNavigationControls(true).linkHoverPrecision(0).linkDirectionalParticles(0);if(typeof myGraph.nodeRelSize==="function"){myGraph.nodeRelSize(function(n){return Math.sqrt(Math.max(0.01,n.val||1))*5.2;});}var _ctr=myGraph.controls();if(_ctr&&_ctr.zoomSpeed!==undefined)_ctr.zoomSpeed=0;if(typeof myGraph.nodeThreeObjectExtend==="function"&&treeRootViewEnabled&&treeLayoutRootId){myGraph.nodeThreeObjectExtend(function(node){return makeTreeLabelSprite(node);});}}
-  else{myGraph=ForceGraph()(container);configureGraph(myGraph,container);if(typeof myGraph.enableZoomInteraction==="function")myGraph.enableZoomInteraction(false);myGraph.nodeRelSize(tree2dNodeRelSize).linkDirectionalParticles(0).linkLabel(function(l){var s=l.source.id||l.source,t=l.target.id||l.target;return s+" \u2192 "+t+"<br>["+l.edgeType+"]";}).nodeCanvasObjectMode(function(){return"replace";}).nodeCanvasObject(function(node,ctx,globalScale){
+  if(isDestroying){
+    setTimeout(function(){createGraph();},50);
+    return;
+  }
+  try{
+    var container=document.getElementById("graph-3d");
+    if(!container)return;
+    container.innerHTML="";
+    var p=currentPreset;fpsHistory=[];
+    if(is3D&&(typeof ForceGraph3D==="undefined"||typeof THREE==="undefined")){is3D=false;updateBadge();updateHint();}
+    if(treeAnimFrame){cancelAnimationFrame(treeAnimFrame);treeAnimFrame=0;}
+    treeAnimating=false;
+    if(is3D){
+      myGraph=ForceGraph3D()(container);
+      if(!myGraph){console.error("Failed to create ForceGraph3D");return;}
+      resizeGraph();
+      configureGraph(myGraph,container);
+      setTimeout(function(){
+        var g=myGraph;
+        if(g){
+          try{
+            var ch=g.d3Force("charge");
+            var lk=g.d3Force("link");
+            if(!ch||!lk){
+              console.warn("Force simulation not initialized, reinitializing...");
+              applySimulationForces(g);
+            }
+          }catch(e){console.warn("Force simulation check:",e);}
+        }
+      },50);
+      var nodeOpVal=p.nodeOp||0.85;
+      if(nodeOpVal<=0||nodeOpVal>1)nodeOpVal=0.85;
+      myGraph.nodeOpacity(nodeOpVal).nodeResolution(4).linkOpacity(1.0).enableNavigationControls(true).linkHoverPrecision(0).linkDirectionalParticles(0);
+      if(typeof myGraph.nodeRelSize==="function"){myGraph.nodeRelSize(5.2);}
+      var _ctr=myGraph.controls();
+      if(_ctr&&_ctr.zoomSpeed!==undefined)_ctr.zoomSpeed=0;
+      if(typeof myGraph.nodeThreeObjectExtend==="function"&&treeRootViewEnabled&&treeLayoutRootId){myGraph.nodeThreeObjectExtend(function(node){return makeTreeLabelSprite(node);});}
+    }else{
+      myGraph=ForceGraph()(container);
+      if(!myGraph){console.error("Failed to create ForceGraph");return;}
+      configureGraph(myGraph,container);
+      if(typeof myGraph.enableZoomInteraction==="function")myGraph.enableZoomInteraction(false);
+      myGraph.nodeRelSize(tree2dNodeRelSize).linkDirectionalParticles(0).linkLabel(function(l){var s=l.source.id||l.source,t=l.target.id||l.target;return s+" \u2192 "+t+"<br>["+l.edgeType+"]";}).nodeCanvasObjectMode(function(){return"replace";}).nodeCanvasObject(function(node,ctx,globalScale){
     var r=Math.sqrt(Math.max(0.01,node.val||1))*tree2dNodeRelSize(node);
     var isHighlighted=highlightNodeIds.has(node.id)||highlightNodes.has(node);
     var fillColor=(highlightNodeIds.size>0||highlightNodes.size>0)&&!isHighlighted?graphMutedNodeColor():node.color;
@@ -1572,13 +1625,68 @@ function createGraph(){
     }
     if(!treeRootViewEnabled&&globalScale>4&&node.degree>=15){var r2=Math.sqrt(node.val||1)*2+2;ctx.font=Math.max(2.5,10/globalScale)+"px sans-serif";ctx.fillStyle=effectiveThemeIsLight()?"rgba(31,35,40,0.72)":"rgba(230,237,243,0.7)";ctx.textAlign="center";ctx.fillText(node.name,node.x,node.y+r2+8/globalScale);}
   }).nodePointerAreaPaint(function(node,color,ctx){var r=Math.sqrt(Math.max(0.01,node.val||1))*tree2dNodeRelSize(node);ctx.fillStyle=color;ctx.beginPath();ctx.arc(node.x,node.y,r,0,2*Math.PI);ctx.fill();});}
-  requestAnimationFrame(function(){resizeGraph();});
-  setTimeout(function(){resizeGraph();if(is3D&&myGraph&&myGraph.refresh)myGraph.refresh();refreshGraphStyle();},100);
-  ensureGraphWheelListener();
-  updateHint();updateBadge();updateVisibleStats(currentViewMode==="raw"?buildFilteredData():buildViewData());updateNodeLoadFooter();
+    requestAnimationFrame(function(){resizeGraph();});
+    setTimeout(function(){resizeGraph();if(is3D&&myGraph&&myGraph.refresh)myGraph.refresh();refreshGraphStyle();},100);
+    ensureGraphWheelListener();
+    updateHint();updateBadge();updateVisibleStats(currentViewMode==="raw"?buildFilteredData():buildViewData());updateNodeLoadFooter();
+  }catch(e){
+    console.error("createGraph error:",e);
+    var container=document.getElementById("graph-3d");
+    if(container)container.innerHTML="<div style='padding:40px;text-align:center;color:var(--danger)'><h3>图形初始化失败</h3><p>"+String(e.message||e)+"</p><p style='font-size:12px;color:var(--text-muted);margin-top:12px'>请尝试刷新页面或切换到 2D 模式</p></div>";
+  }
 }
-function destroyGraph(){cancelSmoothWheelZoom();cancelGraphCamAnim();if(treeAnimFrame){cancelAnimationFrame(treeAnimFrame);treeAnimFrame=0;}treeAnimating=false;if(myGraph){if(myGraph._destructor)myGraph._destructor();else document.getElementById("graph-3d").innerHTML="";myGraph=null;}}
-function switchMode(){stopProgressiveReveal();releaseTreeGeometryOnly();var cur=myGraph?myGraph.graphData():null;if(cur){cur.nodes.forEach(function(n){if(nodeIndex[n.id]){nodeIndex[n.id].x=n.x;nodeIndex[n.id].y=n.y;nodeIndex[n.id].z=n.z||0;}});}destroyGraph();is3D=!is3D;var nd=calcInitialMinDegree();minDegree=nd;userMinDegree=0;document.getElementById("degree-slider").value=minDegree;document.getElementById("degree-val").textContent=minDegree;calibrationDone=false;fpsHistory=[];createGraph();}
+function destroyGraph(){
+  if(isDestroying)return;
+  isDestroying=true;
+  cancelSmoothWheelZoom();
+  cancelGraphCamAnim();
+  if(treeAnimFrame){cancelAnimationFrame(treeAnimFrame);treeAnimFrame=0;}
+  treeAnimating=false;
+  if(myGraph){
+    try{
+      var g=myGraph;
+      if(typeof g.pauseAnimation==="function")g.pauseAnimation();
+      if(typeof g.stopAnimation==="function")g.stopAnimation();
+      if(typeof g.d3Force==="function"){
+        try{
+          var sim=g.d3Force("charge");
+          if(sim&&typeof sim.stop==="function")sim.stop();
+        }catch(e){}
+      }
+      if(typeof g.graphData==="function"){
+        try{
+          g.graphData({nodes:[],links:[]});
+          g.d3AlphaDecay(1);
+          g.d3VelocityDecay(1);
+        }catch(e){}
+      }
+      if(g._destructor){
+        try{g._destructor();}catch(e){}
+      }
+    }catch(e){console.warn("destroyGraph cleanup:",e);}
+    var container=document.getElementById("graph-3d");
+    if(container){
+      try{container.innerHTML="";}catch(e){}
+    }
+    myGraph=null;
+  }
+  setTimeout(function(){isDestroying=false;},150);
+}
+function switchMode(){
+  stopProgressiveReveal();
+  releaseTreeGeometryOnly();
+  var cur=myGraph?myGraph.graphData():null;
+  if(cur){cur.nodes.forEach(function(n){if(nodeIndex[n.id]){nodeIndex[n.id].x=n.x;nodeIndex[n.id].y=n.y;nodeIndex[n.id].z=n.z||0;}});}
+  destroyGraph();
+  is3D=!is3D;
+  var nd=calcInitialMinDegree();
+  minDegree=nd;userMinDegree=0;
+  document.getElementById("degree-slider").value=minDegree;
+  document.getElementById("degree-val").textContent=minDegree;
+  calibrationDone=false;
+  fpsHistory=[];
+  setTimeout(function(){createGraph();},200);
+}
 function switchViewMode(mode){if(mode===currentViewMode)return;currentViewMode=mode;document.querySelectorAll(".view-tab").forEach(function(t){t.classList.toggle("active",t.dataset.mode===mode);});stopProgressiveReveal();releaseTreeGeometryOnly();hideFloatDetail();deselectNode();var nd=calcInitialMinDegree();minDegree=nd;userMinDegree=0;document.getElementById("degree-slider").value=minDegree;document.getElementById("degree-val").textContent=minDegree;calibrationDone=false;fpsHistory=[];graphReadyAt=performance.now();if(myGraph){var cur=myGraph.graphData();if(cur){cur.nodes.forEach(function(n){if(nodeIndex[n.id]){nodeIndex[n.id].x=n.x;nodeIndex[n.id].y=n.y;nodeIndex[n.id].z=n.z||0;}});}destroyGraph();createGraph();}var vm=VIEW_MODES[mode];var dvis=currentViewMode==="raw"?buildFilteredData():buildViewData();var poolN=vm.primary?allNodes.filter(function(n){return vm.primary.has(n.entityType);}).length:allNodes.length;updateStatsBarNumbers(poolN,allLinks.length,dvis.nodes.length,420);if(document.getElementById("modal-eval").classList.contains("show")&&lastEvalReport)renderEval(lastEvalReport);}
 function applyPreset(key){var p=PRESETS[key];if(!p)return;currentPresetKey=key;currentPreset=p;currentScheme=COLOR_SCHEMES[p.scheme];edgeOpacity=p.edgeOp;nodeSizeMul=p.nodeMul;edgeWidth=p.edgeW;document.getElementById("edge-opacity-slider").value=Math.round(p.edgeOp*100);document.getElementById("edge-opacity-val").textContent=Math.round(p.edgeOp*100)+"%";document.getElementById("node-size-slider").value=Math.round(p.nodeMul*100);document.getElementById("node-size-val").textContent=Math.round(p.nodeMul*100)+"%";document.getElementById("edge-width-slider").value=Math.round(p.edgeW*100);document.getElementById("edge-width-val").textContent=p.edgeW.toFixed(2);recalcNodeVals();renderPresetDesc();if(myGraph){releaseTreeGeometryOnly();var cur=myGraph.graphData();if(cur){cur.nodes.forEach(function(n){if(nodeIndex[n.id]){nodeIndex[n.id].x=n.x;nodeIndex[n.id].y=n.y;nodeIndex[n.id].z=n.z||0;}});}destroyGraph();createGraph();}}
 
@@ -1612,6 +1720,33 @@ function loadGraph(){
     },60);
   }).catch(function(e){isFetchingGraph=false;updateNodeLoadFooter();throw e;});
 }
+
+window.addEventListener("error",function(e){
+  if(e.message&&e.message.indexOf("tick")!==-1&&e.filename&&e.filename.indexOf("3d-force-graph")!==-1){
+    console.warn("Caught 3d-force-graph tick error, attempting recovery...");
+    e.preventDefault();
+    if(myGraph&&!isDestroying){
+      setTimeout(function(){
+        try{
+          if(myGraph){
+            var g=myGraph;
+            if(typeof g.pauseAnimation==="function")g.pauseAnimation();
+            if(typeof g.graphData==="function"){
+              var data=g.graphData();
+              if(data&&data.nodes&&data.nodes.length>0){
+                g.graphData({nodes:[],links:[]});
+                setTimeout(function(){
+                  if(g===myGraph&&g.graphData)g.graphData(data);
+                },100);
+              }
+            }
+          }
+        }catch(err){console.warn("Recovery attempt failed:",err);}
+      },50);
+    }
+    return true;
+  }
+},true);
 
 loadGraph().catch(function(e){
   isFetchingGraph=false;
