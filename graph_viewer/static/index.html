@@ -541,6 +541,15 @@ if(typeof THREE==="undefined"||typeof ForceGraph3D==="undefined"){
 var BUDGET_3D=500, BUDGET_2D=1500;
 var FPS_TARGET=30, FPS_EXPAND=34, FPS_SHRINK=24;
 var PROGRESSIVE_INTERVAL=1200, PROGRESSIVE_STEP=1;
+/** 超过此节点数则分批挂到画布，避免一次性力导向过于剧烈 */
+var DYNAMIC_LOAD_MIN_NODES=160;
+var DYNAMIC_BATCH_2D=90, DYNAMIC_BATCH_3D=48, DYNAMIC_BATCH_DELAY_MS=110;
+/** 2D：更长的力导向冷却，略慢于 3D 的 alpha 衰减，减轻边交叉（无法保证任意图无交叉） */
+var SIM_WARMUP_2D=32, SIM_COOLDOWN_2D=240, SIM_COOLDOWN_3D=64;
+var SIM_ALPHA_DECAY_2D=0.036, SIM_ALPHA_DECAY_3D=0.1;
+var SIM_VELOCITY_DECAY_2D=0.5, SIM_VELOCITY_DECAY_3D=0.56;
+var progressiveGraphTimer=null, isProgressiveGraphLoading=false, progressiveGraphState=null;
+var entranceFadeRaf=0;
 
 var VIEW_MODES={
   function:{label:"Function",primary:new Set(["function","callback"]),desc:"函数为主节点"},
@@ -562,13 +571,13 @@ var COLOR_SCHEMES={
 };
 
 var PRESETS={
-  balanced:{label:"均衡",desc:"默认方案",scheme:"github",nodeMul:1.0,nodeOp:0.85,edgeOp:0.45,edgeW:0.35,edgeHW:2.0,edgeBase:"#8899aa",hlColor:"#58a6ff",linkDist:42,charge:-38,bg:"#0d1117"},
-  edgeFocus:{label:"边聚焦",desc:"加粗边，缩小节点",scheme:"muted",nodeMul:0.55,nodeOp:0.6,edgeOp:0.75,edgeW:0.8,edgeHW:3.0,edgeBase:"#6699cc",hlColor:"#ffdd57",linkDist:38,charge:-42,bg:"#0a0e14"},
-  nodeFocus:{label:"节点聚焦",desc:"放大节点，弱化边",scheme:"vivid",nodeMul:1.6,nodeOp:0.95,edgeOp:0.12,edgeW:0.1,edgeHW:1.5,edgeBase:"#445566",hlColor:"#58a6ff",linkDist:48,charge:-52,bg:"#0d1117"},
-  highContrast:{label:"高对比",desc:"纯黑背景+高亮色",scheme:"bright",nodeMul:1.1,nodeOp:1.0,edgeOp:0.8,edgeW:0.55,edgeHW:2.5,edgeBase:"#aabbcc",hlColor:"#ff4444",linkDist:40,charge:-36,bg:"#000000"},
-  minimal:{label:"极简",desc:"柔和色调+留白",scheme:"pastel",nodeMul:0.5,nodeOp:0.5,edgeOp:0.15,edgeW:0.08,edgeHW:1.0,edgeBase:"#334455",hlColor:"#88bbff",linkDist:58,charge:-48,bg:"#0a0e14"},
-  neon:{label:"霓虹",desc:"赛博朋克",scheme:"neon",nodeMul:0.85,nodeOp:1.0,edgeOp:0.55,edgeW:0.45,edgeHW:2.5,edgeBase:"#6633ff",hlColor:"#ff00ff",linkDist:40,charge:-34,bg:"#050510"},
-  dense:{label:"密集",desc:"极小节点+紧密",scheme:"mono",nodeMul:0.3,nodeOp:0.7,edgeOp:0.2,edgeW:0.08,edgeHW:1.0,edgeBase:"#556677",hlColor:"#58a6ff",linkDist:16,charge:-12,bg:"#0d1117"}
+  balanced:{label:"均衡",desc:"默认方案",scheme:"github",nodeMul:1.0,nodeOp:0.85,edgeOp:0.45,edgeW:0.35,edgeHW:2.0,edgeBase:"#8899aa",hlColor:"#58a6ff",hlOut:"#58a6ff",hlIn:"#f78166",linkDist:42,charge:-38,bg:"#0d1117"},
+  edgeFocus:{label:"边聚焦",desc:"加粗边，缩小节点",scheme:"muted",nodeMul:0.55,nodeOp:0.6,edgeOp:0.75,edgeW:0.8,edgeHW:3.0,edgeBase:"#6699cc",hlColor:"#ffdd57",hlOut:"#ffdd57",hlIn:"#56d364",linkDist:38,charge:-42,bg:"#0a0e14"},
+  nodeFocus:{label:"节点聚焦",desc:"放大节点，弱化边",scheme:"vivid",nodeMul:1.6,nodeOp:0.95,edgeOp:0.12,edgeW:0.1,edgeHW:1.5,edgeBase:"#445566",hlColor:"#58a6ff",hlOut:"#4dabf7",hlIn:"#ffa657",linkDist:48,charge:-52,bg:"#0d1117"},
+  highContrast:{label:"高对比",desc:"纯黑背景+高亮色",scheme:"bright",nodeMul:1.1,nodeOp:1.0,edgeOp:0.8,edgeW:0.55,edgeHW:2.5,edgeBase:"#aabbcc",hlColor:"#ff4444",hlOut:"#ff4444",hlIn:"#00ff7f",linkDist:40,charge:-36,bg:"#000000"},
+  minimal:{label:"极简",desc:"柔和色调+留白",scheme:"pastel",nodeMul:0.5,nodeOp:0.5,edgeOp:0.15,edgeW:0.08,edgeHW:1.0,edgeBase:"#334455",hlColor:"#88bbff",hlOut:"#88bbff",hlIn:"#d29922",linkDist:58,charge:-48,bg:"#0a0e14"},
+  neon:{label:"霓虹",desc:"赛博朋克",scheme:"neon",nodeMul:0.85,nodeOp:1.0,edgeOp:0.55,edgeW:0.45,edgeHW:2.5,edgeBase:"#6633ff",hlColor:"#ff00ff",hlOut:"#ff00ff",hlIn:"#00ffff",linkDist:40,charge:-34,bg:"#050510"},
+  dense:{label:"密集",desc:"极小节点+紧密",scheme:"mono",nodeMul:0.3,nodeOp:0.7,edgeOp:0.2,edgeW:0.08,edgeHW:1.0,edgeBase:"#556677",hlColor:"#58a6ff",hlOut:"#58a6ff",hlIn:"#f78166",linkDist:16,charge:-12,bg:"#0d1117"}
 };
 
 var myGraph=null, allNodes=[], allLinks=[], nodeIndex={};
@@ -771,7 +780,7 @@ document.addEventListener("wheel",function(){lastInteraction=performance.now();}
 function isUserActive(){if(document.hidden)return false;if(performance.now()-graphReadyAt<8000)return false;return performance.now()-lastInteraction<5000||!simDone;}
 
 function adaptiveQuality(){
-  if(!myGraph||isProgressing||perfTestRunning||treeAnimating||treeLayoutRootId||!isUserActive()||!simDone)return;
+  if(!myGraph||isProgressing||isProgressiveGraphLoading||perfTestRunning||treeAnimating||treeLayoutRootId||!isUserActive()||!simDone)return;
   if(fpsHistory.length<3)return;var avg=getAvgFPS();if(avg<3)return;
   if(avg<FPS_SHRINK){var step=avg<8?10:avg<15?5:avg<20?3:2;var next=Math.min(minDegree+step,50);if(next!==minDegree){var dv=document.getElementById("degree-val");animateNumberSpan(parseInt(dv.textContent,10)||0,next,dv,320,"deg-ui");minDegree=next;userMinDegree=next;document.getElementById("degree-slider").value=next;applyFilter();}}
   else if(!calibrationDone&&simDone&&avg>=FPS_TARGET){calibrationDone=true;if(minDegree>0)startProgressiveReveal(0);}
@@ -856,8 +865,14 @@ function pollStatsFromServer(){
   api("/api/stats",{timeoutMs:8000}).then(function(r){
     var nodesN=typeof r.total_entities==="number"?r.total_entities:lastStatNodes>=0?lastStatNodes:0;
     var edgesN=typeof r.total_edges==="number"?r.total_edges:lastStatEdges>=0?lastStatEdges:0;
-    var d=currentViewMode==="raw"?buildFilteredData():buildViewData();
-    var visN=d.nodes.length;
+    var visN;
+    if(isProgressiveGraphLoading&&myGraph){
+      var gd=myGraph.graphData();
+      visN=gd&&gd.nodes?gd.nodes.length:0;
+    }else{
+      var d=currentViewMode==="raw"?buildFilteredData():buildViewData();
+      visN=d.nodes.length;
+    }
     updateStatsBarNumbers(nodesN,edgesN,visN,380);
   }).catch(function(){});
 }
@@ -952,15 +967,136 @@ function getViewDatasetAtMinDegree(md){
   finally{minDegree=prev;}
 }
 function parseLocaleInt(s){return parseInt(String(s||"").replace(/,/g,""),10)||0;}
+function cloneLinksForProgressive(links){
+  var out=[];
+  if(!links)return out;
+  for(var i=0;i<links.length;i++){
+    var l=links[i];
+    var s=typeof l.source==="object"&&l.source?l.source.id:l.source;
+    var t=typeof l.target==="object"&&l.target?l.target.id:l.target;
+    out.push({source:s,target:t,edgeType:l.edgeType,_synthetic:!!l._synthetic});
+  }
+  return out;
+}
+function filterLinksForNodeSet(links,idSet){
+  var out=[];
+  if(!links)return out;
+  for(var i=0;i<links.length;i++){
+    var l=links[i];
+    var s=typeof l.source==="object"&&l.source?l.source.id:l.source;
+    var t=typeof l.target==="object"&&l.target?l.target.id:l.target;
+    if(idSet.has(s)&&idSet.has(t))out.push(l);
+  }
+  return out;
+}
+function stopProgressiveGraphLoad(){
+  if(progressiveGraphTimer){clearTimeout(progressiveGraphTimer);progressiveGraphTimer=null;}
+  isProgressiveGraphLoading=false;
+  progressiveGraphState=null;
+}
+function markNodesEntranceFade(nodesArr){
+  if(!nodesArr)return;
+  for(var i=0;i<nodesArr.length;i++){
+    var n=nodesArr[i];
+    if(n&&n.id!=="_empty_hint")n._entranceFade=0.04;
+  }
+  scheduleEntranceFadeTick();
+}
+function scheduleEntranceFadeTick(){
+  if(entranceFadeRaf)return;
+  function tick(){
+    if(!myGraph){entranceFadeRaf=0;return;}
+    var d=myGraph.graphData();
+    var nodes=d&&d.nodes?d.nodes:[];
+    var any=false,allOne=true;
+    for(var i=0;i<nodes.length;i++){
+      var n=nodes[i];
+      if(typeof n._entranceFade==="number"&&n._entranceFade<0.999){
+        any=true;
+        allOne=false;
+        n._entranceFade=Math.min(1,n._entranceFade+(1-n._entranceFade)*0.14+0.02);
+      }
+    }
+    if(typeof myGraph.refresh==="function")myGraph.refresh();
+    if(any){entranceFadeRaf=requestAnimationFrame(tick);}
+    else{
+      entranceFadeRaf=0;
+      for(var j=0;j<nodes.length;j++){if(nodes[j]._entranceFade!==undefined)delete nodes[j]._entranceFade;}
+      refreshGraphStyle();
+    }
+  }
+  entranceFadeRaf=requestAnimationFrame(tick);
+}
+function softReheatGraph(g){
+  if(!g)return;
+  try{
+    if(typeof g.d3ReheatSimulation==="function")g.d3ReheatSimulation();
+    var sim=g.d3ForceSimulation&&g.d3ForceSimulation();
+    if(sim&&typeof sim.alpha==="function"&&typeof sim.alphaMin==="function"){
+      sim.alpha(Math.min(0.45,sim.alpha()));
+      sim.alphaMin(0.001);
+    }
+  }catch(e){}
+}
+function scheduleNextGraphBatch(){
+  if(!progressiveGraphState||!myGraph)return;
+  progressiveGraphTimer=setTimeout(function(){
+    progressiveGraphTimer=null;
+    if(!myGraph||!progressiveGraphState)return;
+    var st=progressiveGraphState;
+    var fullNodes=st.full.nodes;
+    if(st.nextIndex>=fullNodes.length){
+      isProgressiveGraphLoading=false;
+      progressiveGraphState=null;
+      var vm=VIEW_MODES[currentViewMode];
+      var poolN=vm.primary?allNodes.filter(function(n){return vm.primary.has(n.entityType);}).length:allNodes.length;
+      var dfin=currentViewMode==="raw"?buildFilteredData():buildViewData();
+      updateStatsBarNumbers(poolN,allLinks.length,dfin.nodes.length,480);
+      updateNodeLoadFooter();
+      return;
+    }
+    var end=Math.min(st.nextIndex+st.batchSize,fullNodes.length);
+    var cur=myGraph.graphData();
+    var curNodes=cur.nodes?cur.nodes.slice():[];
+    var curSet=new Set();
+    for(var a=0;a<curNodes.length;a++)curSet.add(curNodes[a].id);
+    var batch=[];
+    for(var b=st.nextIndex;b<end;b++){
+      var nn=fullNodes[b];
+      if(nn&&nn.id!=="_empty_hint"){curNodes.push(nn);curSet.add(nn.id);batch.push(nn);}
+    }
+    markNodesEntranceFade(batch);
+    var newLinks=filterLinksForNodeSet(st.full.links,curSet);
+    st.nextIndex=end;
+    myGraph.graphData({nodes:curNodes,links:newLinks});
+    softReheatGraph(myGraph);
+    refreshGraphStyle();
+    var vm=VIEW_MODES[currentViewMode];
+    var poolN=vm.primary?allNodes.filter(function(n){return vm.primary.has(n.entityType);}).length:allNodes.length;
+    updateStatsBarNumbers(poolN,allLinks.length,curNodes.length,0);
+    updateNodeLoadFooter();
+    scheduleNextGraphBatch();
+  },DYNAMIC_BATCH_DELAY_MS);
+}
 function updateNodeLoadFooter(){
   var sub=document.getElementById("nlf-sub");
+  var foot=document.getElementById("node-load-footer");
   if(!sub)return;
   if(allNodes.length===0){
     sub.textContent=isFetchingGraph?"正在从服务器加载图谱数据…":"暂无数据";
+    if(foot)foot.style.display=isFetchingGraph?"block":"none";
     return;
   }
-  if(myGraph&&!simDone){sub.textContent="力导向布局模拟中，节点位置仍在收敛…";}
-  else{sub.textContent="";}
+  if(isProgressiveGraphLoading&&progressiveGraphState&&myGraph){
+    var gd=myGraph.graphData();
+    var n=gd&&gd.nodes?gd.nodes.length:0;
+    var tot=progressiveGraphState.full.nodes.length;
+    sub.textContent="分批载入中 "+n.toLocaleString()+" / "+tot.toLocaleString()+" 节点（力导向继续收敛）";
+    if(foot)foot.style.display="block";
+    return;
+  }
+  if(myGraph&&!simDone){sub.textContent="力导向布局模拟中，节点位置仍在收敛…";if(foot)foot.style.display="block";}
+  else{sub.textContent="";if(foot)foot.style.display="none";}
 }
 function renderPresetDesc(){
   var p=currentPreset,scheme=COLOR_SCHEMES[p.scheme],tags="";
@@ -1046,6 +1182,7 @@ function scheduleEvalRerenderIfOpen(){
 }
 function applyFilter(){
   if(!myGraph)return;
+  stopProgressiveGraphLoad();
   if(treeLayoutRootId)releaseTreeGeometryOnly();
   var d=currentViewMode==="raw"?buildFilteredData():buildViewData();
   if(selectedNode&&!d.nodes.some(function(n){return n.id===selectedNode;}))deselectNode();
@@ -1340,7 +1477,7 @@ function runTreeLayoutFromRoot(rootId){
 }
 
 /* ══ Progressive reveal ══ */
-function startProgressiveReveal(td){stopProgressiveReveal();if(minDegree<=td)return;isProgressing=true;updateNodeLoadFooter();progressiveTimer=setInterval(function(){if(minDegree<=td){stopProgressiveReveal();return;}var avg=getAvgFPS();if(avg<FPS_SHRINK){userMinDegree=minDegree;stopProgressiveReveal();return;}if(avg<FPS_EXPAND)return;var prevD=minDegree;minDegree=Math.max(td,minDegree-PROGRESSIVE_STEP);var dv=document.getElementById("degree-val");animateNumberSpan(prevD,minDegree,dv,360,"deg-ui");document.getElementById("degree-slider").value=minDegree;applyFilter();updateNodeLoadFooter();},PROGRESSIVE_INTERVAL);}
+function startProgressiveReveal(td){stopProgressiveReveal();if(minDegree<=td)return;if(isProgressiveGraphLoading)return;isProgressing=true;updateNodeLoadFooter();progressiveTimer=setInterval(function(){if(minDegree<=td){stopProgressiveReveal();return;}if(isProgressiveGraphLoading)return;var avg=getAvgFPS();if(avg<FPS_SHRINK){userMinDegree=minDegree;stopProgressiveReveal();return;}if(avg<FPS_EXPAND)return;var prevD=minDegree;minDegree=Math.max(td,minDegree-PROGRESSIVE_STEP);var dv=document.getElementById("degree-val");animateNumberSpan(prevD,minDegree,dv,360,"deg-ui");document.getElementById("degree-slider").value=minDegree;applyFilter();updateNodeLoadFooter();},PROGRESSIVE_INTERVAL);}
 function stopProgressiveReveal(){if(progressiveTimer){clearInterval(progressiveTimer);progressiveTimer=null;}isProgressing=false;updateNodeLoadFooter();}
 
 /* ══ 滚轮缩放（时间轴 cubicBezierUI），2D/3D ══ */
@@ -1449,8 +1586,28 @@ function ensureGraphWheelListener(){
 
 /* ══ Graph creation ══ */
 function linkKey(l){var s=l.source.id||l.source,t=l.target.id||l.target;return s+"|"+t+"|"+(l.edgeType||"");}
+/** 2D：稳定微弯折，分离共线/重边，降低「糊成一团」的交叉感（直线仍可能几何交叉） */
+function graphLinkCurvatureAccessor(l){
+  if(l._synthetic)return 0;
+  var s=linkKey(l),h=5381;
+  for(var i=0;i<s.length;i++)h=((h<<5)+h)+s.charCodeAt(i)|0;
+  var u=(Math.abs(h)%1001)/1000;
+  return u*0.22-0.11;
+}
+/** 选中节点时：出边 source→… 与 入边 …→target 用不同高亮色 */
+function linkDirectionHlColor(l,p){
+  var sel=selectedNode;
+  if(!sel)return p.hlColor;
+  var sId=l.source.id||l.source,tId=l.target.id||l.target;
+  var outCol=p.hlOut!=null?p.hlOut:p.hlColor;
+  var inCol=p.hlIn!=null?p.hlIn:p.hlColor;
+  if(sId===sel&&tId===sel)return outCol;
+  if(sId===sel)return outCol;
+  if(tId===sel)return inCol;
+  return p.hlColor;
+}
 function linkStrokeColor(l,p){
-  if(highlightLinks.has(l)||highlightLinkKeys.has(linkKey(l)))return p.hlColor;
+  if(highlightLinks.has(l)||highlightLinkKeys.has(linkKey(l)))return linkDirectionHlColor(l,p);
   var lm=(typeof treeAnimLinkMul==="number"&&treeAnimLinkMul<0.999)?Math.max(0,Math.min(1,treeAnimLinkMul)):1;
   if(l._synthetic){var hex=Math.round(edgeOpacity*0.5*255*lm).toString(16).padStart(2,"0");return"#667788"+hex;}
   var hex2=Math.round(edgeOpacity*255*lm).toString(16).padStart(2,"0");return p.edgeBase+hex2;
@@ -1475,15 +1632,17 @@ function graphLinkWidthAccessor(l){
   var p=currentPreset;
   return highlightLinks.has(l)||highlightLinkKeys.has(linkKey(l))?p.edgeHW:l._synthetic?edgeWidth*0.5:edgeWidth;
 }
+/** 2D 节点基准半径：与 tree2dNodeRelSize 一致；传给 ForceGraph 的 nodeRelSize 须为数值（内置箭头用 *t.nodeRelSize，传函数会得到 NaN） */
+var FORCE_GRAPH_2D_NODE_REL_SIZE=4;
 /** 与 nodeRelSize / 3D 球半径一致，并加 padding，供 d3.forceCollide 使用 */
 function nodeCollisionRadius(n){
-  var rel=is3D?5.2:4;
+  var rel=is3D?5.2:FORCE_GRAPH_2D_NODE_REL_SIZE;
   if(treeAnimating&&typeof n._treeFade==="number")rel*=Math.max(0.15,Math.min(1,n._treeFade));
   var pad=is3D?10:7;
   return Math.sqrt(Math.max(0.01,n.val||1))*rel+pad;
 }
 function tree2dNodeRelSize(n){
-  var b=4;
+  var b=FORCE_GRAPH_2D_NODE_REL_SIZE;
   if(treeAnimating&&typeof n._treeFade==="number")return Math.max(0.04,b*n._treeFade);
   return b;
 }
@@ -1491,18 +1650,19 @@ function applySimulationForces(g){
   if(!g)return;
   try{
     var p=currentPreset;
-    var linkDist=p.linkDist*(is3D?1.32:1);
+    var linkDist=p.linkDist*(is3D?1.32:1.08);
     var charge=p.charge*(is3D?1.12:1);
-    var distMax=is3D?340:240;
+    var distMax=is3D?340:280;
     var ch=g.d3Force("charge");
     if(ch&&typeof ch.strength==="function"){
-      ch.strength(charge);
+      ch.strength(charge*(is3D?0.86:0.93));
       if(typeof ch.distanceMax==="function")ch.distanceMax(distMax);
     }
     var lk=g.d3Force("link");
     if(lk&&typeof lk.distance==="function")lk.distance(linkDist);
+    if(lk&&typeof lk.iterations==="function")lk.iterations(is3D?1:2);
     if(typeof d3!=="undefined"&&typeof d3.forceCollide==="function"){
-      g.d3Force("collide",d3.forceCollide(nodeCollisionRadius).strength(is3D?0.72:0.9).iterations(is3D?1:2));
+      g.d3Force("collide",d3.forceCollide(nodeCollisionRadius).strength(is3D?0.62:0.78).iterations(is3D?1:2));
     }
   }catch(e){
     console.warn("applySimulationForces error:",e);
@@ -1510,9 +1670,24 @@ function applySimulationForces(g){
 }
 function configureGraph(g,container){
   try{
-    var p=currentPreset;simDone=false;var initData=currentViewMode==="raw"?buildFilteredData():buildViewData();
-    if(!initData||!initData.nodes||initData.nodes.length===0){
+    var p=currentPreset;simDone=false;
+    stopProgressiveGraphLoad();
+    var fullTarget=currentViewMode==="raw"?buildFilteredData():buildViewData();
+    var initData;
+    var useProg=fullTarget&&fullTarget.nodes&&fullTarget.nodes.length>=DYNAMIC_LOAD_MIN_NODES;
+    if(!fullTarget||!fullTarget.nodes||fullTarget.nodes.length===0){
       initData={nodes:[{id:"_empty_hint",name:"无可见节点",val:0.5,degree:0,entityType:"unknown",color:"#8b949e",file:"",description:"请切换视图模式(Structure/Raw)或降低 Min degree"}],links:[]};
+    }else if(useProg){
+      isProgressiveGraphLoading=true;
+      var bs=is3D?DYNAMIC_BATCH_3D:DYNAMIC_BATCH_2D;
+      var first=fullTarget.nodes.slice(0,bs);
+      markNodesEntranceFade(first);
+      var idSet=new Set();
+      for(var fi=0;fi<first.length;fi++)idSet.add(first[fi].id);
+      initData={nodes:first,links:filterLinksForNodeSet(cloneLinksForProgressive(fullTarget.links),idSet)};
+      progressiveGraphState={full:{nodes:fullTarget.nodes,links:cloneLinksForProgressive(fullTarget.links)},nextIndex:first.length,batchSize:bs};
+    }else{
+      initData=fullTarget;
     }
     if(!initData.links)initData.links=[];
     g.graphData(initData).backgroundColor(getGraphDepthClearColor()).nodeVal("val")
@@ -1526,8 +1701,9 @@ function configureGraph(g,container){
     .onNodeHover(function(n){container.style.cursor=n?"pointer":"default";}).onLinkHover(null)
     .onNodeClick(function(n){if(n)selectNode(n.id);})
     .onBackgroundClick(function(){if(floatDetailMaximized||llmDialogMaximized)return;deselectNode();hideFloatDetail();})
-    .warmupTicks(0).cooldownTicks(100).d3AlphaDecay(0.065).d3VelocityDecay(0.38)
+    .warmupTicks(is3D?0:SIM_WARMUP_2D).cooldownTicks(is3D?SIM_COOLDOWN_3D:SIM_COOLDOWN_2D).d3AlphaDecay(is3D?SIM_ALPHA_DECAY_3D:SIM_ALPHA_DECAY_2D).d3VelocityDecay(is3D?SIM_VELOCITY_DECAY_3D:SIM_VELOCITY_DECAY_2D)
     .onEngineStop(function(){simDone=true;fpsHistory=[];updateNodeLoadFooter();scheduleGraphDepthParallaxUpdate();});
+    if(!is3D&&typeof g.linkCurvature==="function")g.linkCurvature(graphLinkCurvatureAccessor);
     setTimeout(function(){if(g&&g===myGraph)applySimulationForces(g);},10);
     return g;
   }catch(e){
@@ -1578,10 +1754,9 @@ function createGraph(){
           }catch(e){console.warn("Force simulation check:",e);}
         }
       },50);
-      var nodeOpVal=p.nodeOp||0.85;
-      if(nodeOpVal<=0||nodeOpVal>1)nodeOpVal=0.85;
-      myGraph.nodeOpacity(nodeOpVal).nodeResolution(4).linkOpacity(1.0).enableNavigationControls(true).linkHoverPrecision(0).linkDirectionalParticles(0);
+      myGraph.nodeResolution(4).linkOpacity(1.0).enableNavigationControls(true).linkHoverPrecision(0).linkDirectionalParticles(0);
       if(typeof myGraph.nodeRelSize==="function"){myGraph.nodeRelSize(5.2);}
+      refreshGraphStyle();
       var _ctr=myGraph.controls();
       if(_ctr&&_ctr.zoomSpeed!==undefined)_ctr.zoomSpeed=0;
       if(typeof myGraph.nodeThreeObjectExtend==="function"&&treeRootViewEnabled&&treeLayoutRootId){myGraph.nodeThreeObjectExtend(function(node){return makeTreeLabelSprite(node);});}
@@ -1590,54 +1765,14 @@ function createGraph(){
       if(!myGraph){console.error("Failed to create ForceGraph");return;}
       configureGraph(myGraph,container);
       if(typeof myGraph.enableZoomInteraction==="function")myGraph.enableZoomInteraction(false);
-      myGraph.nodeRelSize(tree2dNodeRelSize).linkDirectionalParticles(0).linkLabel(function(l){var s=l.source.id||l.source,t=l.target.id||l.target;return s+" \u2192 "+t+"<br>["+l.edgeType+"]";});
-      if(typeof myGraph.linkDirectionalArrowLength==="function"){
-        myGraph.linkDirectionalArrowLength(linkDirectionalArrowLen);
-        console.log("2D: linkDirectionalArrowLength set to function, sample return:",linkDirectionalArrowLen({edgeType:"references"}));
-      }
-      if(typeof myGraph.linkDirectionalArrowRelPos==="function"){
-        myGraph.linkDirectionalArrowRelPos(0.95);
-        console.log("2D: linkDirectionalArrowRelPos set to 0.95");
-      }
-      if(typeof myGraph.linkDirectionalArrowColor==="function"){
-        myGraph.linkDirectionalArrowColor(graphLinkArrowColorAccessor);
-        console.log("2D: linkDirectionalArrowColor set to function");
-      }
-      var data=myGraph.graphData();
-      if(data&&data.links&&data.links.length>0){
-        console.log("2D: Graph has",data.links.length,"links, first link:",data.links[0]);
-        var sampleLink=data.links[0];
-        if(sampleLink){
-          var arrowLen=linkDirectionalArrowLen(sampleLink);
-          console.log("2D: Sample link arrow length:",arrowLen,"edgeType:",sampleLink.edgeType);
-        }
-      }
-      myGraph.linkCanvasObjectMode(function(){return"after";}).linkCanvasObject(function(link,ctx,globalScale){
-        var arrowLen=linkDirectionalArrowLen(link);
-        if(arrowLen<=0)return;
-        var s=typeof link.source==="object"?link.source:nodeIndex[link.source];
-        var t=typeof link.target==="object"?link.target:nodeIndex[link.target];
-        if(!s||!t||s.x===undefined||t.x===undefined)return;
-        var dx=t.x-s.x,dy=t.y-s.y;
-        var len=Math.sqrt(dx*dx+dy*dy);
-        if(len<0.1)return;
-        var relPos=0.95;
-        var px=s.x+dx*relPos,py=s.y+dy*relPos;
-        var angle=Math.atan2(dy,dx);
-        var arrowSize=arrowLen/globalScale;
-        ctx.save();
-        ctx.translate(px,py);
-        ctx.rotate(angle);
-        ctx.beginPath();
-        ctx.moveTo(0,0);
-        ctx.lineTo(-arrowSize,-arrowSize*0.5);
-        ctx.lineTo(-arrowSize,arrowSize*0.5);
-        ctx.closePath();
-        ctx.fillStyle=graphLinkArrowColorAccessor(link);
-        ctx.fill();
-        ctx.restore();
-      });
+      myGraph.nodeRelSize(FORCE_GRAPH_2D_NODE_REL_SIZE).linkDirectionalParticles(0).linkLabel(function(l){var s=l.source.id||l.source,t=l.target.id||l.target;return s+" \u2192 "+t+"<br>["+l.edgeType+"]";});
+      if(typeof myGraph.linkDirectionalArrowLength==="function")myGraph.linkDirectionalArrowLength(linkDirectionalArrowLen);
+      if(typeof myGraph.linkDirectionalArrowRelPos==="function")myGraph.linkDirectionalArrowRelPos(0.95);
+      if(typeof myGraph.linkDirectionalArrowColor==="function")myGraph.linkDirectionalArrowColor(graphLinkArrowColorAccessor);
       myGraph.nodeCanvasObjectMode(function(){return"replace";}).nodeCanvasObject(function(node,ctx,globalScale){
+    var ef=typeof node._entranceFade==="number"?Math.min(1,node._entranceFade):1;
+    if(ef<1)ctx.save();
+    if(ef<1)ctx.globalAlpha=ef;
     var r=Math.sqrt(Math.max(0.01,node.val||1))*tree2dNodeRelSize(node);
     var isHighlighted=highlightNodeIds.has(node.id)||highlightNodes.has(node);
     var fillColor=(highlightNodeIds.size>0||highlightNodes.size>0)&&!isHighlighted?graphMutedNodeColor():node.color;
@@ -1674,11 +1809,25 @@ function createGraph(){
       ctx.fillText(txt,px,py-2/globalScale);
     }
     if(!treeRootViewEnabled&&globalScale>4&&node.degree>=15){var r2=Math.sqrt(node.val||1)*2+2;ctx.font=Math.max(2.5,10/globalScale)+"px sans-serif";ctx.fillStyle=effectiveThemeIsLight()?"rgba(31,35,40,0.72)":"rgba(230,237,243,0.7)";ctx.textAlign="center";ctx.fillText(node.name,node.x,node.y+r2+8/globalScale);}
+    if(ef<1)ctx.restore();
   }).nodePointerAreaPaint(function(node,color,ctx){var r=Math.sqrt(Math.max(0.01,node.val||1))*tree2dNodeRelSize(node);ctx.fillStyle=color;ctx.beginPath();ctx.arc(node.x,node.y,r,0,2*Math.PI);ctx.fill();});}
     requestAnimationFrame(function(){resizeGraph();});
     setTimeout(function(){resizeGraph();if(is3D&&myGraph&&myGraph.refresh)myGraph.refresh();refreshGraphStyle();},100);
     ensureGraphWheelListener();
-    updateHint();updateBadge();updateVisibleStats(currentViewMode==="raw"?buildFilteredData():buildViewData());updateNodeLoadFooter();
+    updateHint();updateBadge();
+    var vm0=VIEW_MODES[currentViewMode];
+    var poolN0=vm0.primary?allNodes.filter(function(n){return vm0.primary.has(n.entityType);}).length:allNodes.length;
+    if(isProgressiveGraphLoading&&progressiveGraphState&&myGraph){
+      var cur0=myGraph.graphData();
+      var vn0=cur0&&cur0.nodes?cur0.nodes.length:0;
+      updateStatsBarNumbers(poolN0,allLinks.length,vn0,0);
+      updateNodeLoadFooter();
+      scheduleNextGraphBatch();
+    }else{
+      var dvis0=currentViewMode==="raw"?buildFilteredData():buildViewData();
+      updateStatsBarNumbers(poolN0,allLinks.length,dvis0.nodes.length,520);
+      updateNodeLoadFooter();
+    }
   }catch(e){
     console.error("createGraph error:",e);
     var container=document.getElementById("graph-3d");
@@ -1688,6 +1837,8 @@ function createGraph(){
 function destroyGraph(){
   if(isDestroying)return;
   isDestroying=true;
+  stopProgressiveGraphLoad();
+  if(entranceFadeRaf){cancelAnimationFrame(entranceFadeRaf);entranceFadeRaf=0;}
   cancelSmoothWheelZoom();
   cancelGraphCamAnim();
   if(treeAnimFrame){cancelAnimationFrame(treeAnimFrame);treeAnimFrame=0;}
@@ -1759,7 +1910,6 @@ function loadGraph(){
         if(treeAnimFrame){cancelAnimationFrame(treeAnimFrame);treeAnimFrame=0;}
         treeAnimating=false;treeLayoutRootId=null;treeDepthMap={};calibrationDone=false;graphReadyAt=performance.now();
         createGraph();
-        var vm=VIEW_MODES[currentViewMode];var dvis=currentViewMode==="raw"?buildFilteredData():buildViewData();var poolN=vm.primary?allNodes.filter(function(n){return vm.primary.has(n.entityType);}).length:allNodes.length;updateStatsBarNumbers(poolN,allLinks.length,dvis.nodes.length,520);updateNodeLoadFooter();
         var okLd=document.getElementById("loading");
         if(okLd)okLd.style.display="none";
       }catch(err){
@@ -1870,23 +2020,26 @@ function refreshGraphStyle(){
   if(typeof myGraph.linkDirectionalArrowLength==="function")myGraph.linkDirectionalArrowLength(linkDirectionalArrowLen);
   if(typeof myGraph.linkDirectionalArrowRelPos==="function")myGraph.linkDirectionalArrowRelPos(0.95);
   if(typeof myGraph.linkDirectionalArrowColor==="function")myGraph.linkDirectionalArrowColor(graphLinkArrowColorAccessor);
-  if(!is3D){
-    if(typeof myGraph.nodeRelSize==="function")myGraph.nodeRelSize(tree2dNodeRelSize);
-    if(typeof myGraph.linkDirectionalArrowLength==="function")myGraph.linkDirectionalArrowLength(linkDirectionalArrowLen);
-  }
+  if(!is3D&&typeof myGraph.linkCurvature==="function")myGraph.linkCurvature(graphLinkCurvatureAccessor);
+  if(!is3D&&typeof myGraph.nodeRelSize==="function")myGraph.nodeRelSize(FORCE_GRAPH_2D_NODE_REL_SIZE);
   if(is3D&&typeof myGraph.nodeOpacity==="function"){
     var p=currentPreset||PRESETS.balanced;
     var isTreeAnim=treeAnimating&&treeLayoutRootId;
-    if(!isTreeAnim){
-      var d=myGraph.graphData();
-      if(d&&d.nodes){
-        d.nodes.forEach(function(n){if(n._treeFade!==undefined)delete n._treeFade;});
-      }
-      var nodeOpVal=p.nodeOp||0.85;
-      if(nodeOpVal<=0||nodeOpVal>1)nodeOpVal=0.85;
-      myGraph.nodeOpacity(nodeOpVal);
+    var nodeOpVal=p.nodeOp||0.85;
+    if(nodeOpVal<=0||nodeOpVal>1)nodeOpVal=0.85;
+    if(isTreeAnim){
+      myGraph.nodeOpacity(function(n){var b=nodeOpVal;if(typeof n._treeFade==="number")return Math.max(0.02,b*n._treeFade);return b;});
     }else{
-      myGraph.nodeOpacity(function(n){var b=p.nodeOp||0.85;if(typeof n._treeFade==="number")return Math.max(0.02,b*n._treeFade);return b;});
+      var dn=myGraph.graphData();
+      if(dn&&dn.nodes){
+        dn.nodes.forEach(function(n){if(n._treeFade!==undefined)delete n._treeFade;});
+      }
+      var needEnt=dn&&dn.nodes&&dn.nodes.some(function(n){return typeof n._entranceFade==="number"&&n._entranceFade<0.999;});
+      if(needEnt){
+        myGraph.nodeOpacity(function(n){var ef=typeof n._entranceFade==="number"?n._entranceFade:1;return Math.max(0.02,nodeOpVal*ef);});
+      }else{
+        myGraph.nodeOpacity(nodeOpVal);
+      }
     }
   }
   scheduleGraphDepthParallaxUpdate();
