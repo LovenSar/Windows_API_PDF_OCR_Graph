@@ -1,174 +1,85 @@
-# AGENTS.md — 项目约定与架构指南
+# AGENTS.md — Windows API document knowledge graph
 
-## 项目定位
+## 组件事实
 
-将 Windows API 文档（OCR 文本）自动转换为**结构化知识图谱**，
-用于 API 检索/问答、语义关联分析、代码生成上下文。
+| 字段 | 值 |
+|------|-----|
+| schema_version | 1 |
+| component_id | winapi_graph |
+| internal_version | 0.1.0 |
+| updated | 2026-09-02 |
+| owner | P4 |
+| role | Windows API OCR 文档图谱：实体/边文件供 Detection Surface 导入，不进入 start_all |
+| core_files | AGENTS.md, example.graphy.json, pipeline.py, docs/DEVELOPMENT_RULES.md, tools/agents_doccheck/check.py |
+| public_entry | example.graphy.json |
+| upstream | - |
+| downstream | ttps_knowledge, llm_aav |
+| config_entry | example.graphy.json |
+| outputs | json_output_v4/ |
+
+## 公开接口
+
+| 接口 | 类型 | 稳定性 | owner 路径 |
+|------|------|--------|------------|
+| graph file_format | schema | public | example.graphy.json |
+| evaluate_graph_metrics | cli | public | scripts/evaluate_graph_metrics.py |
+
+> 所属方向: P4 — 知识图谱卫星仓
+
+> 本仓文档依赖传播协议见 [docs/DEVELOPMENT_RULES.md](docs/DEVELOPMENT_RULES.md)，不要在此复制。
+> 文档治理失败等同于实现失败。不得以代码已通过测试为由跳过文档、版本、接口或传播检查。
+
+任意功能修改必须首先确定该功能的唯一所属组件。修改完成后更新该组件当前状态，并沿目录层级向本仓根做影响检查。没有影响就不更新上层正文，但必须完成影响检查。叶子版本不传播到 Hub。Hub 通过 `GRAPH_ROOT` 指向本仓根；本仓不接入 `start_all`。`json_output_v4/` 继续 gitignore，不是提交集。产品导入只消费 `example.graphy.json` 的 `file_format`（`global_entity_index.json` + `global_edges.json`）。`graph_viewer` 仍是本仓独立工具，不嵌入产品 UI。
+
+## 目录索引
+
+| component_id | 路径 | 职责 | 导航 |
+|--------------|------|------|------|
+| docs | `docs/` | 本仓文档依赖传播协议 | [AGENTS.md](docs/AGENTS.md) |
+| tools | `tools/` | 本仓 agents_doccheck | [AGENTS.md](tools/AGENTS.md) |
 
 ## 目录结构
 
 ```
 Windows_API_PDF_OCR_Graph/
-│
-├── pipeline.py               # 主入口 — 提取 + LLM 精炼（~2000 行）
-├── pipeline_lib/             # 共享配置包
-│   ├── __init__.py
-│   └── config.py             # 常量、类型白名单、normalize_entity_type()
-│
-├── scripts/                  # 增强/维护脚本（按版本编号）
-│   ├── kg_enrich_v41.py      # v4.1: 类型清洗 + 签名自动建边
-│   ├── kg_enrich_v43.py      # v4.3: enum 值/类型别名/callback/深度类型
-│   ├── kg_connect_isolated_v42.py  # v4.2: 孤立节点启发式连接
-│   ├── enrich_from_syntax.py # 从 syntax 回填参数类型 + header/domain 边
-│   ├── embed_link_isolated.py# Embedding 语义兜底
-│   ├── fix_entity_types.py   # 一次性 entity_type 清洗
-│   ├── export_graph.py       # Neo4j / GraphML / GEXF 导出
-│   └── assess_isolated_nodes.py  # 孤立节点快速评估
-│
-├── graph_viewer/              # 图谱可视化 + MCP 服务器
-│   ├── main.go                # HTTP 服务（端口 10086）
-│   ├── static/                # 前端静态资源（force-graph, three.js 等）
-│   │   └── index.html         # 主页面（2D/3D 视图、箭头渲染、控件等）
-│   └── mcp_server/            # MCP 服务器（stdio，供 Cursor 等接入）
-│
-├── OCR_raw/                  # 输入：OCR 文本（.p.txt + .txt 双源）
-├── json_output_v4/           # 输出：实体 JSON + 全局索引 + 边 + 报告
-├── exports/                  # 导出：Neo4j CSV / GraphML / GEXF
-├── tests/                    # pytest 单元测试
-├── gt_templates/             # Ground Truth 评估模板
-│
-├── requirements.txt          # Python 依赖
-├── llm_config_example.json   # LLM 配置模板（不含密钥）
-├── entity_aliases.json       # 实体别名表
-├── example.graphy.json       # 图谱节点/边格式模板（任意 KG 可依此接入 viewer）
-└── README.md                 # 完整文档
+├── pipeline.py               # extract + LLM refine
+├── pipeline_lib/config.py    # type whitelist, normalize_entity_type()
+├── scripts/                  # enrich / export / evaluate_graph_metrics.py
+├── graph_viewer/             # standalone viewer + MCP (not product UI)
+├── OCR_raw/                  # OCR text inputs
+├── json_output_v4/           # gitignored entity index, edges, reports
+├── exports/                  # gitignored Neo4j / GraphML / GEXF
+├── tests/                    # pytest
+├── example.graphy.json       # node/edge file_format contract
+└── tools/agents_doccheck/    # satellite document checker
 ```
 
-### 图谱可视化数据模板（example.graphy.json）
+## 构建与测试
 
-根目录的 `example.graphy.json` 定义了本系统对「节点 + 边」的数据约定，便于任意知识图谱接入：
-
-- **graph_api**：`GET /api/graph` 的响应形状（节点需 `key` + `attributes.type/degree/file/description`，边需 `source`/`target` + `attributes.type` 或 `type`）。
-- **file_format**：从目录加载时需 `global_entity_index.json`（entities 字典）+ `global_edges.json`（edges 数组）。
-- **example**：最小可运行示例，可供其他项目复制后改写。
-
-只要数据符合该模板（或由后端转换为该格式），即可用 `graph_viewer` 加载与展示。
-
-## 核心数据流
-
-```
-OCR_raw/*.txt  ──→  pipeline.py (extract)  ──→  json_output_v4/*.json
-                                                     │
-                    pipeline.py (refine)   ←─────────┘
-                         │
-                         ▼
-                  json_output_v4/global_*.json  ──→  scripts/enrich_*.py
-                                                          │
-                                                          ▼
-                                                   exports/*  (Neo4j/GraphML)
+```bash
+python tools/agents_doccheck/check.py
+python -m unittest discover -s tools/agents_doccheck -p '*_test.py'
+python -m pytest tests/ -v
 ```
 
 ## 关键约定
 
-### entity_type 归一化
+All `entity_type` writes go through `pipeline_lib.config.normalize_entity_type()`. Do not bypass that helper in LLM executors or exporters.
 
-所有 entity_type 必须通过 `pipeline_lib.config.normalize_entity_type()` 归一化。
-规则：
-- `struct` / `structur` → `structure`
-- `flag` → `flags`
-- `enumvalue` → `enum_value`
-- 长度 > 40 字符 → `unknown`
-- 不在 `ALLOWED_ENTITY_TYPES` 白名单中 → `unknown`
+Normalization: `struct`/`structur` → `structure`; `flag` → `flags`; `enumvalue` → `enum_value`; length > 40 or not in `ALLOWED_ENTITY_TYPES` → `unknown`.
 
-**严禁**在 LLM 操作执行器、导出脚本中绕过归一化直接写入 entity_type。
+Edge layers: strong (`references`, `uses_type`, `parameter_type`, `return_type`); structural (`belongs_to`, `member_of`, `contains`); header/domain (`belongs_to_header`, `belongs_to_domain`); weak (`semantically_related`). Isolated-node rates must keep those layers distinct.
 
-### 边类型分层
+`json_output_v4/` naming: `_p_*.json` Pass-1 from `.p.txt`; `_t_*.json` Pass-1 from `.txt`; unprefixed domain JSON after refine; `global_*.json` index and edges. Checkpoints: `_checkpoint.json`, `_llm_checkpoint.json`, `_llm_operations.jsonl`. Resume with `python pipeline.py --phase refine --resume`. `json_output_v4/` and `exports/` stay untracked.
 
-| 层级 | 边类型 | 来源 |
-|------|--------|------|
-| 强语义 | `references`, `uses_type`, `parameter_type`, `return_type` | 提取/签名推断 |
-| 结构层 | `belongs_to`, `member_of`, `contains` | LLM 精炼 |
-| 层次归属 | `belongs_to_header`, `belongs_to_domain` | enrich_from_syntax |
-| 弱语义 | `semantically_related` | embedding 兜底 |
-
-评估孤立率时应区分"含层次边"和"纯语义边"两种口径。
-
-### 文件命名
-
-- `json_output_v4/_p_*.json` — Pass-1 提取结果（.p.txt 源）
-- `json_output_v4/_t_*.json` — Pass-1 提取结果（.txt 源）
-- `json_output_v4/<domain>.json` — 精炼后最终实体（无前缀）
-- `json_output_v4/_*.json` — 报告、断点、日志
-- `json_output_v4/global_*.json` — 全局索引和边
-
-### 断点与恢复
-
-- 提取断点：`_checkpoint.json`
-- 精炼断点：`_llm_checkpoint.json`
-- 操作日志：`_llm_operations.jsonl`（可回放）
-- 恢复命令：`python pipeline.py --phase refine --resume`
-
-## 开发规范
-
-- **语言**: Python 3.10+
-- **测试**: `python -m pytest tests/ -v`
-- **类型归一化**: 任何写入 entity_type 的代码路径必须调用 `normalize_entity_type()`
-- **配置**: 从 `pipeline_lib.config` 导入，不要在各脚本中维护副本
-- **密钥**: `llm_config.json` 已在 `.gitignore`，只提交 `llm_config_example.json`
-- **提交**: 不要提交 `json_output_v4/`（大文件）和 `exports/`
-
-## 常用命令速查
+## 常用命令
 
 ```bash
-# 完整流水线
 python pipeline.py
-
-# 仅提取 / 仅精炼
 python pipeline.py --phase extract
 python pipeline.py --phase refine --resume
-
-# 增强脚本（在 scripts/ 下）
-python scripts/enrich_from_syntax.py --apply
-python scripts/kg_enrich_v43.py --strategy all --apply
-python scripts/embed_link_isolated.py --apply
-
-# 导出
-python scripts/export_graph.py --format all
-
-# 评估
-python scripts/assess_isolated_nodes.py
-
-# 图谱查看器
-./start_graph_viewer.sh                    # 从项目根目录启动
-cd graph_viewer && go run . --data ../json_output_v4  # 手动启动
-
-# 测试
+python scripts/evaluate_graph_metrics.py
 python -m pytest tests/ -v
 ```
 
-## graph_viewer 功能说明
-
-### 视图模式
-- **2D 视图**：使用 Canvas 渲染，性能更好，适合大规模图谱
-- **3D 视图**：使用 WebGL 渲染，支持空间导航，视觉效果更丰富
-- 右上角可切换视图模式
-
-### 边箭头
-- **箭头显示**：2D 和 3D 视图均支持有向边箭头
-- **箭头方向**：caller → callee（调用者指向被调用者）
-- **箭头大小控制**：侧栏「Arrow size」滑块（20% - 150%），默认 67%
-- **固定视觉大小**：箭头在视觉上保持固定大小，不随视图缩放变化
-- **边类型过滤**：`semantically_related`、`via:*` 等弱语义边不显示箭头
-
-### 侧栏控件
-- **Min degree**：过滤低度数节点
-- **Edge opacity**：边透明度（5% - 100%）
-- **Node size**：节点大小（20% - 200%）
-- **Edge width**：边宽度（5% - 100%）
-- **Arrow size**：箭头大小（20% - 150%），默认 67%
-- **Mem limit**：内存限制（128MB - 2048MB）
-
-### 缓存与更新
-- 服务器已配置 `Cache-Control: no-cache`，确保加载最新代码
-- 开发时建议使用强制刷新（Ctrl+Shift+R / Cmd+Shift+R）
-- 数据更新后需重启 graph_viewer 或使用 `--auto-reload` 选项
+`graph_viewer` stays a standalone tool (`./start_graph_viewer.sh` or `cd graph_viewer && go run . --data ../json_output_v4`). Do not embed it in the product UI.

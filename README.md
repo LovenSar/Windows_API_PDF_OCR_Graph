@@ -1,6 +1,23 @@
 # Windows API Knowledge Graph Pipeline
 
-> 将 Windows API 文档（OCR 文本）自动转换为结构化知识图谱
+**Windows_API_PDF_OCR_Graph v0.1.0 (2026-09-02)**
+
+This repository is a SecOrchestrate satellite. Clone it through the LLM_AAV Hub
+(`--recurse-submodules`) for the supported product composition, or use it
+standalone for the graph files owned here.
+
+Hub sets `GRAPH_ROOT` to this repository root. This satellite is not on the
+`start_all` launch path. `json_output_v4/` stays gitignored.
+
+The product line is independent of component internal versions. Root component
+`winapi_graph` is not in the matrix.
+
+| component_id | path | internal_version |
+|---|---|---|
+| docs | docs/ | 0.1.0 |
+| tools | tools/ | 0.1.0 |
+
+Document check: `python tools/agents_doccheck/check.py`
 
 ## 项目概览
 
