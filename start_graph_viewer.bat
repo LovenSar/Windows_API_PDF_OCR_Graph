@@ -5,7 +5,7 @@ REM Graph viewer launcher for Windows (equivalent to start_graph_viewer.sh)
 cd /d "%~dp0"
 
 set "DATA_DIR=%~1"
-if "%DATA_DIR%"=="" set "DATA_DIR=json_output_v4"
+if "%DATA_DIR%"=="" set "DATA_DIR=json_output_v5"
 
 set "OCR_DIR=%~2"
 set "PORT=10086"

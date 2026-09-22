@@ -2143,7 +2143,9 @@ def save_report(report, output_path):
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Knowledge Graph Comprehensive Metrics Evaluator")
-    parser.add_argument("--json-pattern", default="json_output_v4/_p_*.json", help="Input json glob pattern")
+    parser.add_argument("--json-pattern", default="json_output_v5/pertopic/_v5_*.json",
+                        help="Input json glob pattern（默认读 v5 自产的分主题文件；"
+                             "原来指向的 json_output_v4/_p_*.json 是 OCR 原始中间产物，已清理）")
     parser.add_argument("--workspace-dir", default=".", help="Workspace root directory")
     parser.add_argument("--gt-layout", default="", help="Optional ground-truth layout json")
     parser.add_argument("--gt-nodes", default="", help="Optional ground-truth nodes json")
@@ -2166,7 +2168,7 @@ def parse_args():
     )
     parser.add_argument("--embedding-dim", type=int, default=128, help="Embedding dimension for local hashed embedding")
     parser.add_argument("--semantic-lexical-weight", type=float, default=0.45, help="Lexical weight in hybrid semantic mode")
-    parser.add_argument("--output", default="json_output_v4/_kg_quality_eval_report.json", help="Output report json")
+    parser.add_argument("--output", default="json_output_v5/_kg_quality_eval_report.json", help="Output report json")
     parser.add_argument("--init-gt-templates", action="store_true", help="Create GT adapter templates and exit")
     parser.add_argument("--gt-template-dir", default="gt_templates", help="Directory for GT adapter templates")
     return parser.parse_args()

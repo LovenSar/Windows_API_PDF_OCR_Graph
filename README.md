@@ -1,13 +1,14 @@
 # Windows API Knowledge Graph Pipeline
 
-**Windows_API_PDF_OCR_Graph v0.1.0 (2026-09-02)**
+**Windows_API_PDF_OCR_Graph v0.2.0 (2026-09-21)**
 
 This repository is a SecOrchestrate satellite. Clone it through the LLM_AAV Hub
 (`--recurse-submodules`) for the supported product composition, or use it
 standalone for the graph files owned here.
 
 Hub sets `GRAPH_ROOT` to this repository root. This satellite is not on the
-`start_all` launch path. `json_output_v4/` stays gitignored.
+`start_all` launch path. `json_output_v4/`、`json_output_v4_v020_markdown/`、
+`json_output_v5/` stay gitignored.
 
 The product line is independent of component internal versions. Root component
 `winapi_graph` is not in the matrix.
@@ -17,22 +18,118 @@ The product line is independent of component internal versions. Root component
 | docs | docs/ | 0.1.0 |
 | tools | tools/ | 0.1.0 |
 
+> 注：本轮变更 (v0.2.0 并集库 v5) 全部落在 root 组件 `winapi_graph`，未触及 docs/ 或 tools/ 组件；它们维持 0.1.0。
+
 Document check: `python tools/agents_doccheck/check.py`
 
 ## 项目概览
 
-本项目从 OCR 扫描的 Windows API 文档出发，经过**规则提取 → 双源择优 → LLM 精炼 → 多轮增强**，
-最终输出一个高密度、可查询的知识图谱，支持 Neo4j / Gephi / NetworkX 等工具消费。
+本项目从三个来源抽取 Windows API 与 Driver DDI 实体，归一化后输出知识图谱，
+供 Neo4j / Gephi / NetworkX 等工具消费：
 
-### 当前规模（2026-03-19 基线）
+1. **MicrosoftDocs/sdk-api** — `sdk-api-src/content/`（Win32 桌面 API 权威源）
+2. **MicrosoftDocs/win32 + windows-driver-docs-ddi** — `desktop-src/` + `wdk-ddi-src/content/`（以 Driver DDI 为主）
+3. **OCR/PDF 源** — `OCR_raw/`（70 个 topic 的 PDF OCR 文本）
+
+**v0.2.0 起输出为并集库 `json_output_v5/`。** 来源之间覆盖的其实是不同批次的 API：
+冻结的 v020 产物 90% 是 Driver DDI，本地 desktop-src 又几乎没有 Win32 桌面 API 参考页
+（只有 124 个 `nf-` 文件），所以 v5 补拉了 sdk-api 作为 Win32 侧的权威源。
+
+### 当前规模（2026-09-21 基线，v0.2.0 并集库 v5）
 
 | 指标 | 数值 |
 |------|------|
-| 文档对 | 70 |
-| 实体总数 | ~19,000 |
-| 边总数 | ~84,000+ |
-| 实体类型 | function, structure, enum, callback, macro, typedef, ... |
-| 边类型 | references, uses_type, parameter_type, return_type, belongs_to_header, ... |
+| 实体总数 | **104,846**（API 实体 100,210 + 占位节点 4,636） |
+| 来源 provenance | `markdown` 76,613 + `markdown+ocr` 8,317 + `ocr` 11,003 + `ocr_pass1` 4,277 + `placeholder` 4,636 |
+| entity_type distinct 数 | **27**（API 实体，另加 3 类占位命名空间） |
+| 类型分布 | method 30,156 / function 23,550 / structure 16,892 / enum 6,929 / constant 6,599 / interface 5,614 / callback 4,827 / macro 1,925 / ioctl 991 / flags 740 / message 358 / typedef 323 / class 265 / property 139 / error_code 118 / unknown 116 / union 84 / 其余 10 类共 30 |
+| 边总数 | **197,364**（悬空 0） |
+| 边类型 distinct 数 | **9**：belongs_to_header 87,530 / references 40,992 / belongs_to 19,300 / belongs_to_domain 18,554 / parameter_type 16,160 / return_type 9,916 / uses_type 4,464 / contains 229 / member_of 219 |
+| 占位节点命名空间 | `type::` / `header::` / `domain::`（不混进 `windows::`） |
+| 分主题文件 | `pertopic/` 62 个文件 / 14,698 实体（viewer 取 `_source_line`、指标工具取输入都靠它） |
+| 中文描述 | `description_zh`（OCR 侧 LLM 摘要，英文原文 `description` 为权威） |
+
+### v0.2.0 做了什么
+
+`python scripts/build_v5.py` 单命令重建，`python scripts/verify_v5.py` 34 条断言校验。
+
+**补 Win32 桌面 API 缺口。** 本地 desktop-src 是解压快照而非完整 checkout，
+Win32 桌面 API 参考页基本没有，补拉 `MicrosoftDocs/sdk-api`
+（稀疏检出 `sdk-api-src/content`，65,908 个 .md）。抽取器有两处 bug 必须先修：
+
+- **名字塌陷**：COM 方法页的 `api_name` 常只写接口名，按 `id` 去重时各接口下的
+  同名方法（`Delete` / `Copy` / `GetCount`）会全塌成一个实体。改用 `UID`
+  （`NF:propidl.IPropertySetStorage.Delete`）取限定名。sdk-api 59,420 个 API 页里
+  29,484 个属这种情况。**35,802 → 64,629 个实体**。
+- **参数与返回类型全漏**：sdk-api 页没有 `## Syntax`，签名在 `### -param x [in]`
+  与 `## -returns` 的 `Type: <b>XXX</b>` 行；原正则要求 `### -param <name>`
+  行尾即结束，`[in]` 标注导致匹配失败。**parameter_type 边 5 → 12,509，
+  return_type 边 2 → 6,800**。
+
+**修类型塌陷。** `markdown_to_entities.py` 把 `entity_type` 默认写死成 `"function"`，
+而源 front matter 里基本没有可用的 `topic_type`/`api_type`。改为按文件名前缀
+（`nf`/`ns`/`nc`/`ne`/`ni`/`nn`/`nl`/`wm`/`mm`/`nt`，**不含** `ip-`/`rc-`/`cd-`
+这类假前缀）+ 源文件 `title` 重定。
+
+**回收 OCR 侧被丢弃的富字段。** 汇总索引每个实体只有 5 个字段，而 70 个分文档 JSON
+里有 `header`（18,166/18,927）、`confidence`、`syntax`、`parameters`、`return_value`、
+`cross_references`、`_source_line`。全部回收到 v5，其中 `cross_references`
+补出 24,615 条 references 边。
+
+**解析 528 个裸方法名的归属接口**，457 个成功（87%）：`header` 匹配 408、
+全局唯一 27、`_source_line` 窗口定位 13、其余 9。另 23 个查明根本不是方法
+（属性/常量/结构体）已重定类型；剩 48 个真歧义保持裸名并打标。
+
+**边治理**：丢弃 `semantically_related` / `related` 兜底边、自环、重复边、
+目标落空的 `references`，最终悬空 0。
+
+#### 已知局限
+
+- 48 个 OCR 裸方法名归属接口定不了（`GetName` 这类在几十个接口上都存在），
+  跨接口可能撞名，已打 `name_qualified: false`，未猜归属。
+- 2 个名字确认被截断、52 个 HRESULT 风格名字打了低精度 `name_suspect` 标记，均未猜原名。
+- OCR 侧部分实体的描述是分片错误带过来的（如 `DISPATCH_LEVEL` 的描述在讲自旋锁），
+  无自动判据可修。
+- `graph_viewer/main.go:34` 读 json 标签 `type`，而 v020 只写 `entity_type`，
+  所以 0.1.2 的产物在查看器里类型全是空的。v5 两个字段同值双写。
+
+#### 历史数据源说明（v0.1.2）
+
+v0.1.2 把输出切到了 Markdown 源，但那份 Markdown 覆盖的是 Driver DDI：本地
+`desktop-src` 只有 124 个 `nf-` 文件，几乎没有 Win32 桌面 API 参考页
+（`AbortDoc` / `ActivateKeyboardLayout` / `ACCESS_ALLOWED_ACE` 逐个验证过，都不存在）。
+v5 把 0.1.2 丢掉的这部分覆盖面从 OCR 侧找回来了。
+
+#### 上游中间产物的清理（2026-09-21）
+
+v5 建成后清掉了约 650MB 已被取代的中间产物：
+
+| 清理项 | 大小 | 为什么可以删 |
+|--------|------|--------------|
+| `json_output_v4/_p_*.json` + `_t_*.json` | 56MB | 见下方「Pass-1 的去留」 |
+| `json_output_v4/*.bak.*` | 57MB | 旧全局文件备份，当前文件已取代 |
+| `json_output_v4/_llm_operations.jsonl` + `_llm_checkpoint.json` | 30MB | OCR 精炼日志，那条路径已被 markdown 源取代 |
+| `json_output_v4/global_*_v41.json`、`llm_added` | 8MB | v4.1 中间产物 |
+| `json_output_v4_v020_markdown/*.bak.*`、`pertopic/` | 80MB | 备份 + 已被合并进 global 索引的分主题文件 |
+| `json_output_v4.bak.20260305/` | 127MB | v0.1.0 OCR 全量快照 |
+| `MS_Docs_Win32/win32-docs.zip` | 237MB | 已解压成 `win32-docs/` |
+| `MS_Docs_Win32/v020_*.json`、`test_devnotes*.json` | 55MB | v0.1.2 中间产物与调试残留 |
+
+**Pass-1 的去留**（这批不能直接删）：70 个「择优」分档文件是 Pass-1 的**真子集**——
+择优那步只选了一路（`.p.txt` 或 `.txt`），另一路的实体整个没进后续流程。实测
+Pass-1 独有 4,679 个实体名，其中 3,894 个连 sdk-api / DDI 都没有（多为 Win32 常量、
+标志位、枚举值 —— sdk-api 不给这些建独立页面，如 `AF_INET`、`ACM_DRIVERADDF_*`、
+`AD_CLOCKWISE`）。所以先把这 5,063 个实体并入 v5（`provenance: ocr_pass1`），
+再由 v5 自己产出同形状的 `pertopic/` 文件，才清理原始 Pass-1。
+
+**重建的代价**：`build_v5.py` 的 `--pass1-dir` 现在读不到东西，重跑会得到
+**100,677 实体**而非 104,846（少掉 Pass-1 那批）。要完整重建需先跑
+`python pipeline.py --phase extract` 重新生成 Pass-1。
+
+#### 历史遗留（不影响 v0.2.0）
+
+- `tests/test_export.py` / `tests/test_extraction.py` 模块路径错误（仓库历史遗留，与本次改动无关）
+- `json_output_v4/` 与 `json_output_v4_v020_markdown/` 是 v5 的上游输入，只读保留
 
 ## 目录结构
 
@@ -57,7 +154,9 @@ Windows_API_PDF_OCR_Graph/
 │   └── RESOURCE_INDEX.py     # 资源索引生成
 │
 ├── OCR_raw/                  # 输入：OCR 文本（.p.txt + .txt 双源）
-├── json_output_v4/           # 输出：实体 JSON + 全局索引/边 + 报告
+├── json_output_v5/           # 当前产物：并集库（global_entity_index + global_edges + 构建报告）
+├── json_output_v4/           # 上游输入：OCR 源（分文档 JSON 含 header/syntax/confidence 等富字段）
+├── json_output_v4_v020_markdown/  # 上游输入：Markdown 源实体 JSON（只读）
 ├── exports/                  # 导出：Neo4j CSV / GraphML / GEXF
 ├── tests/                    # pytest 单元测试
 │   ├── test_config.py        # 类型归一化测试
@@ -158,7 +257,7 @@ python scripts/assess_isolated_nodes.py
 - **MCP 服务器**：将图谱 API 暴露给大模型（如 Cursor），支持轮询节点、验证关系建立。需先启动 graph_viewer，再运行 MCP 服务：
 
 ```bash
-./start_graph_viewer.sh   # 或 go run . --data json_output_v4
+./start_graph_viewer.sh   # 或 go run . --data json_output_v5
 cd graph_viewer && go run ./mcp_server --graph-url=http://localhost:10086
 ```
 

@@ -12,7 +12,13 @@ import glob
 from collections import defaultdict
 import networkx as nx
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "json_output_v4")
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# 读 v5 的产物。原来指向 json_output_v4 的 Pass-1 产物（_p_*.json），
+# 那批原始中间文件已清理，v5 自产的 json_output_v5/pertopic/ 是同形状的替代。
+# OUT_DIR 保持 v5 根目录 —— 下面还要读 <OUT_DIR>/global_edges.json 补边，
+# 指到 pertopic/ 子目录会让那个文件读不到，孤立率虚高。
+OUT_DIR = os.path.join(_ROOT, "json_output_v5")
+PERTOPIC_DIR = os.path.join(OUT_DIR, "pertopic")
 
 def normalize_name(value):
     if value is None:
@@ -30,7 +36,7 @@ def load_json(path):
 def parse_entities_and_edges_fast():
     """快速解析实体和边"""
     files = sorted(
-        f for f in glob.glob(os.path.join(OUT_DIR, "_p_*.json"))
+        f for f in glob.glob(os.path.join(PERTOPIC_DIR, "_v5_*.json"))
     )
     
     entities = {}

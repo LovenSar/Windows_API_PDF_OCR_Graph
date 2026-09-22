@@ -2,7 +2,7 @@
 # 图谱可视化页面入口 — 从项目根目录启动 graph_viewer
 
 cd "$(dirname "$0")"
-DATA_DIR="${1:-json_output_v4}"
+DATA_DIR="${1:-json_output_v5}"
 OCR_DIR="${2:-}"
 PORT=10086
 
